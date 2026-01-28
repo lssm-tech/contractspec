@@ -39,6 +39,13 @@ const guides = [
     time: '20 min',
   },
   {
+    title: 'Docs pipeline',
+    description:
+      'Wire generated docs into a reference site with a chunked index.',
+    href: '/docs/guides/docs-generation-pipeline',
+    time: '20 min',
+  },
+  {
     title: 'CI gating with deterministic diffs',
     description:
       'Add ContractSpec CI checks to gate breaking changes and drift.',
