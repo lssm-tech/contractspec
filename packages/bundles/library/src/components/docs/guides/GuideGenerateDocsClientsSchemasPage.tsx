@@ -92,10 +92,10 @@ contractspec openapi export --registry ./src/contracts/registry.ts --out ./gener
 
       <div className="flex items-center gap-4 pt-4">
         <Link
-          href="/docs/guides/ci-contract-diff-gating"
+          href="/docs/guides/docs-generation-pipeline"
           className="btn-primary"
         >
-          Next: CI gating <ChevronRight size={16} />
+          Next: Docs pipeline <ChevronRight size={16} />
         </Link>
         <Link href="/docs/guides" className="btn-ghost">
           Back to guides
