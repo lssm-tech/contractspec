@@ -1,0 +1,178 @@
+[
+  {
+    "id": "files/attachment.attach",
+    "title": "attachment.attach",
+    "summary": "Attach a file to an entity. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.files - **Tags**: files, attachment, attach - **File**: `packages/libs/files/src/contracts/index.ts`",
+    "route": "/docs/reference/files/attachment.attach",
+    "source": "generated",
+    "contentPath": "files/attachment.attach.md"
+  },
+  {
+    "id": "files/attachment.attached",
+    "title": "attachment.attached",
+    "summary": "A file has been attached to an entity. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.files - **Tags**: files, attachment, attach - **File**: `packages/libs/files/src/events.ts`",
+    "route": "/docs/reference/files/attachment.attached",
+    "source": "generated",
+    "contentPath": "files/attachment.attached.md"
+  },
+  {
+    "id": "files/attachment.detach",
+    "title": "attachment.detach",
+    "summary": "Detach a file from an entity. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.files - **Tags**: files, attachment, detach - **File**: `packages/libs/files/src/contracts/index.ts`",
+    "route": "/docs/reference/files/attachment.detach",
+    "source": "generated",
+    "contentPath": "files/attachment.detach.md"
+  },
+  {
+    "id": "files/attachment.detached",
+    "title": "attachment.detached",
+    "summary": "A file has been detached from an entity. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.files - **Tags**: files, attachment, detach - **File**: `packages/libs/files/src/events.ts`",
+    "route": "/docs/reference/files/attachment.detached",
+    "source": "generated",
+    "contentPath": "files/attachment.detached.md"
+  },
+  {
+    "id": "files/attachment.list",
+    "title": "attachment.list",
+    "summary": "List attachments for an entity. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.files - **Tags**: files, attachment, list - **File**: `packages/libs/files/src/contracts/index.ts`",
+    "route": "/docs/reference/files/attachment.list",
+    "source": "generated",
+    "contentPath": "files/attachment.list.md"
+  },
+  {
+    "id": "files/attachments",
+    "title": "attachments",
+    "summary": "File attachments for entities - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: @platform.core - **Tags**: attachments, files - **File**: `packages/libs/files/src/files.capability.ts`",
+    "route": "/docs/reference/files/attachments",
+    "source": "generated",
+    "contentPath": "files/attachments.md"
+  },
+  {
+    "id": "files/file.delete",
+    "title": "file.delete",
+    "summary": "Delete a file. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.files - **Tags**: files, delete - **File**: `packages/libs/files/src/contracts/index.ts`",
+    "route": "/docs/reference/files/file.delete",
+    "source": "generated",
+    "contentPath": "files/file.delete.md"
+  },
+  {
+    "id": "files/file.deleted",
+    "title": "file.deleted",
+    "summary": "A file has been deleted. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.files - **Tags**: files, delete - **File**: `packages/libs/files/src/events.ts` ```typescript",
+    "route": "/docs/reference/files/file.deleted",
+    "source": "generated",
+    "contentPath": "files/file.deleted.md"
+  },
+  {
+    "id": "files/file.downloadUrl",
+    "title": "file.downloadUrl",
+    "summary": "Get a presigned download URL. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.files - **Tags**: files, download - **File**: `packages/libs/files/src/contracts/index.ts`",
+    "route": "/docs/reference/files/file.downloadUrl",
+    "source": "generated",
+    "contentPath": "files/file.downloadUrl.md"
+  },
+  {
+    "id": "files/file.get",
+    "title": "file.get",
+    "summary": "Get a file by ID. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.files - **Tags**: files, get - **File**: `packages/libs/files/src/contracts/index.ts`",
+    "route": "/docs/reference/files/file.get",
+    "source": "generated",
+    "contentPath": "files/file.get.md"
+  },
+  {
+    "id": "files/file.list",
+    "title": "file.list",
+    "summary": "List files with filtering. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.files - **Tags**: files, list - **File**: `packages/libs/files/src/contracts/index.ts`",
+    "route": "/docs/reference/files/file.list",
+    "source": "generated",
+    "contentPath": "files/file.list.md"
+  },
+  {
+    "id": "files/file.presignedUrl.create",
+    "title": "file.presignedUrl.create",
+    "summary": "Create a presigned URL for direct upload. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.files - **Tags**: files, presigned, upload - **File**: `packages/libs/files/src/contracts/index.ts`",
+    "route": "/docs/reference/files/file.presignedUrl.create",
+    "source": "generated",
+    "contentPath": "files/file.presignedUrl.create.md"
+  },
+  {
+    "id": "files/file.update",
+    "title": "file.update",
+    "summary": "Update file metadata. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.files - **Tags**: files, update - **File**: `packages/libs/files/src/contracts/index.ts`",
+    "route": "/docs/reference/files/file.update",
+    "source": "generated",
+    "contentPath": "files/file.update.md"
+  },
+  {
+    "id": "files/file.updated",
+    "title": "file.updated",
+    "summary": "A file has been updated. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.files - **Tags**: files, update - **File**: `packages/libs/files/src/events.ts` ```typescript",
+    "route": "/docs/reference/files/file.updated",
+    "source": "generated",
+    "contentPath": "files/file.updated.md"
+  },
+  {
+    "id": "files/file.upload",
+    "title": "file.upload",
+    "summary": "Upload a new file. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.files - **Tags**: files, upload - **File**: `packages/libs/files/src/contracts/index.ts`",
+    "route": "/docs/reference/files/file.upload",
+    "source": "generated",
+    "contentPath": "files/file.upload.md"
+  },
+  {
+    "id": "files/file.uploaded",
+    "title": "file.uploaded",
+    "summary": "A file has been uploaded. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.files - **Tags**: files, upload - **File**: `packages/libs/files/src/events.ts` ```typescript",
+    "route": "/docs/reference/files/file.uploaded",
+    "source": "generated",
+    "contentPath": "files/file.uploaded.md"
+  },
+  {
+    "id": "files/file.version_created",
+    "title": "file.version_created",
+    "summary": "A new file version has been created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.files - **Tags**: files, version, create - **File**: `packages/libs/files/src/events.ts`",
+    "route": "/docs/reference/files/file.version_created",
+    "source": "generated",
+    "contentPath": "files/file.version_created.md"
+  },
+  {
+    "id": "files/file.version.create",
+    "title": "file.version.create",
+    "summary": "Create a new version of a file. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.files - **Tags**: files, version, create - **File**: `packages/libs/files/src/contracts/index.ts`",
+    "route": "/docs/reference/files/file.version.create",
+    "source": "generated",
+    "contentPath": "files/file.version.create.md"
+  },
+  {
+    "id": "files/file.version.list",
+    "title": "file.version.list",
+    "summary": "Get file version history. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.files - **Tags**: files, version, list - **File**: `packages/libs/files/src/contracts/index.ts`",
+    "route": "/docs/reference/files/file.version.list",
+    "source": "generated",
+    "contentPath": "files/file.version.list.md"
+  },
+  {
+    "id": "files/files",
+    "title": "files",
+    "summary": "File storage, attachments, and media processing with presigned URLs - **Type**: feature - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.files - **Tags**: files, upload, attachments, storage",
+    "route": "/docs/reference/files/files",
+    "source": "generated",
+    "contentPath": "files/files.md"
+  },
+  {
+    "id": "files/upload.session_completed",
+    "title": "upload.session_completed",
+    "summary": "An upload session has completed. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.files - **Tags**: files, upload, session, complete - **File**: `packages/libs/files/src/events.ts`",
+    "route": "/docs/reference/files/upload.session_completed",
+    "source": "generated",
+    "contentPath": "files/upload.session_completed.md"
+  },
+  {
+    "id": "files/upload.session_started",
+    "title": "upload.session_started",
+    "summary": "An upload session has started. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.files - **Tags**: files, upload, session, start - **File**: `packages/libs/files/src/events.ts`",
+    "route": "/docs/reference/files/upload.session_started",
+    "source": "generated",
+    "contentPath": "files/upload.session_started.md"
+  }
+]

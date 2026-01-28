@@ -1,0 +1,58 @@
+[
+  {
+    "id": "platform.knowledge/knowledge",
+    "title": "knowledge",
+    "summary": "Knowledge base and content management capability - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: @platform.content - **Tags**: knowledge, content, data - **File**: `packages/libs/contracts/src/knowledge/knowledge.capability.ts`",
+    "route": "/docs/reference/platform.knowledge/knowledge",
+    "source": "generated",
+    "contentPath": "platform.knowledge/knowledge.md"
+  },
+  {
+    "id": "platform.knowledge/knowledge.source.create",
+    "title": "knowledge.source.create",
+    "summary": "Create a knowledge source binding for a tenant. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @platform.knowledge - **Tags**: knowledge, sources - **File**: `packages/libs/contracts/src/knowledge/operations.ts`",
+    "route": "/docs/reference/platform.knowledge/knowledge.source.create",
+    "source": "generated",
+    "contentPath": "platform.knowledge/knowledge.source.create.md"
+  },
+  {
+    "id": "platform.knowledge/knowledge.source.delete",
+    "title": "knowledge.source.delete",
+    "summary": "Delete a knowledge source binding for a tenant. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @platform.knowledge - **Tags**: knowledge, sources - **File**: `packages/libs/contracts/src/knowledge/operations.ts`",
+    "route": "/docs/reference/platform.knowledge/knowledge.source.delete",
+    "source": "generated",
+    "contentPath": "platform.knowledge/knowledge.source.delete.md"
+  },
+  {
+    "id": "platform.knowledge/knowledge.source.list",
+    "title": "knowledge.source.list",
+    "summary": "List knowledge sources configured for a tenant. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @platform.knowledge - **Tags**: knowledge, sources - **File**: `packages/libs/contracts/src/knowledge/operations.ts`",
+    "route": "/docs/reference/platform.knowledge/knowledge.source.list",
+    "source": "generated",
+    "contentPath": "platform.knowledge/knowledge.source.list.md"
+  },
+  {
+    "id": "platform.knowledge/knowledge.source.triggerSync",
+    "title": "knowledge.source.triggerSync",
+    "summary": "Trigger an immediate sync for a knowledge source. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @platform.knowledge - **Tags**: knowledge, sources - **File**: `packages/libs/contracts/src/knowledge/operations.ts`",
+    "route": "/docs/reference/platform.knowledge/knowledge.source.triggerSync",
+    "source": "generated",
+    "contentPath": "platform.knowledge/knowledge.source.triggerSync.md"
+  },
+  {
+    "id": "platform.knowledge/knowledge.source.update",
+    "title": "knowledge.source.update",
+    "summary": "Update metadata or configuration for a knowledge source. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @platform.knowledge - **Tags**: knowledge, sources",
+    "route": "/docs/reference/platform.knowledge/knowledge.source.update",
+    "source": "generated",
+    "contentPath": "platform.knowledge/knowledge.source.update.md"
+  },
+  {
+    "id": "platform.knowledge/platform.knowledge",
+    "title": "platform.knowledge",
+    "summary": "Manage knowledge source bindings for ingestion (e.g., Notion, uploads) - **Type**: feature - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @platform.knowledge - **Tags**: knowledge, sources, platform, ingestion",
+    "route": "/docs/reference/platform.knowledge/platform.knowledge",
+    "source": "generated",
+    "contentPath": "platform.knowledge/platform.knowledge.md"
+  }
+]

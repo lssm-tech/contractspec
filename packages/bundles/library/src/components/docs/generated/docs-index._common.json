@@ -1,0 +1,577 @@
+[
+  {
+    "id": "_common/base.onboarding.complete",
+    "title": "base.onboarding.complete",
+    "summary": "Complete onboarding and finalize user/organization setup - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: onboarding - **File**: `packages/libs/contracts/src/onboarding-base.ts` Transition from draft to active profile",
+    "route": "/docs/reference/_common/base.onboarding.complete",
+    "source": "generated",
+    "contentPath": "_common/base.onboarding.complete.md"
+  },
+  {
+    "id": "_common/base.onboarding.deleteDraft",
+    "title": "base.onboarding.deleteDraft",
+    "summary": "Delete onboarding draft for active organization - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: onboarding, draft - **File**: `packages/libs/contracts/src/onboarding-base.ts` Clear draft after completion or if user wants to restart",
+    "route": "/docs/reference/_common/base.onboarding.deleteDraft",
+    "source": "generated",
+    "contentPath": "_common/base.onboarding.deleteDraft.md"
+  },
+  {
+    "id": "_common/base.onboarding.getDraft",
+    "title": "base.onboarding.getDraft",
+    "summary": "Get onboarding draft for active organization - **Type**: operation (query) - **Version**: 1.0.0 - **Tags**: onboarding, draft - **File**: `packages/libs/contracts/src/onboarding-base.ts` Retrieve saved onboarding progress",
+    "route": "/docs/reference/_common/base.onboarding.getDraft",
+    "source": "generated",
+    "contentPath": "_common/base.onboarding.getDraft.md"
+  },
+  {
+    "id": "_common/base.onboarding.saveDraft",
+    "title": "base.onboarding.saveDraft",
+    "summary": "Save or update onboarding draft for active organization - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: onboarding, draft - **File**: `packages/libs/contracts/src/onboarding-base.ts` Persist onboarding progress incrementally for resumption and safety",
+    "route": "/docs/reference/_common/base.onboarding.saveDraft",
+    "source": "generated",
+    "contentPath": "_common/base.onboarding.saveDraft.md"
+  },
+  {
+    "id": "_common/CreateUser",
+    "title": "CreateUser",
+    "summary": "- **Type**: operation (command) - **Version**: 1.0.0 - **File**: `packages/examples/minimal/src/contracts/user.ts` ```typescript export const CreateUser = defineCommand({ meta: { name: 'user.create', version: '1.0.0',",
+    "route": "/docs/reference/_common/CreateUser",
+    "source": "generated",
+    "contentPath": "_common/CreateUser.md"
+  },
+  {
+    "id": "_common/docs.contract.reference",
+    "title": "docs.contract.reference",
+    "summary": "Resolve a contract into a documentation-ready reference. - **Type**: operation (query) - **Version**: 1.0.0 - **Tags**: reference - **File**: `packages/libs/contracts/src/docs/queries/contractReference.query.ts`",
+    "route": "/docs/reference/_common/docs.contract.reference",
+    "source": "generated",
+    "contentPath": "_common/docs.contract.reference.md"
+  },
+  {
+    "id": "_common/docs.generate",
+    "title": "docs.generate",
+    "summary": "Generate documentation artifacts from ContractSpecs. - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: generation - **File**: `packages/libs/contracts/src/docs/commands/docsGenerate.command.ts`",
+    "route": "/docs/reference/_common/docs.generate",
+    "source": "generated",
+    "contentPath": "_common/docs.generate.md"
+  },
+  {
+    "id": "_common/docs.generated",
+    "title": "docs.generated",
+    "summary": "Emitted when documentation artifacts are generated. - **Type**: event (event) - **Version**: 1.0.0 - **Tags**: generation - **File**: `packages/libs/contracts/src/docs/events/docsGenerated.event.ts` ```typescript",
+    "route": "/docs/reference/_common/docs.generated",
+    "source": "generated",
+    "contentPath": "_common/docs.generated.md"
+  },
+  {
+    "id": "_common/docs.publish",
+    "title": "docs.publish",
+    "summary": "Publish generated documentation artifacts. - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: publish - **File**: `packages/libs/contracts/src/docs/commands/docsPublish.command.ts` Deploy docs to the public docs surface with consistent versioning.",
+    "route": "/docs/reference/_common/docs.publish",
+    "source": "generated",
+    "contentPath": "_common/docs.publish.md"
+  },
+  {
+    "id": "_common/docs.published",
+    "title": "docs.published",
+    "summary": "Emitted when documentation is published. - **Type**: event (event) - **Version**: 1.0.0 - **Tags**: publish - **File**: `packages/libs/contracts/src/docs/events/docsPublished.event.ts` ```typescript export const DocsPublishedEvent = defineEvent({",
+    "route": "/docs/reference/_common/docs.published",
+    "source": "generated",
+    "contentPath": "_common/docs.published.md"
+  },
+  {
+    "id": "_common/docs.search",
+    "title": "docs.search",
+    "summary": "Search and filter DocBlocks by query, tag, or visibility. - **Type**: operation (query) - **Version**: 1.0.0 - **Tags**: search, index - **File**: `packages/libs/contracts/src/docs/queries/docsIndex.query.ts`",
+    "route": "/docs/reference/_common/docs.search",
+    "source": "generated",
+    "contentPath": "_common/docs.search.md"
+  },
+  {
+    "id": "_common/DocsLayoutPresentation",
+    "title": "DocsLayoutPresentation",
+    "summary": "Shared layout shell for documentation pages. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Tags**: layout - **File**: `packages/libs/contracts/src/docs/presentations/docsLayout.presentation.ts`",
+    "route": "/docs/reference/_common/DocsLayoutPresentation",
+    "source": "generated",
+    "contentPath": "_common/DocsLayoutPresentation.md"
+  },
+  {
+    "id": "_common/DocsReferencePagePresentation",
+    "title": "DocsReferencePagePresentation",
+    "summary": "Reference page layout for contract documentation. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Tags**: reference - **File**: `packages/libs/contracts/src/docs/presentations/docsReferencePage.presentation.ts`",
+    "route": "/docs/reference/_common/DocsReferencePagePresentation",
+    "source": "generated",
+    "contentPath": "_common/DocsReferencePagePresentation.md"
+  },
+  {
+    "id": "_common/init",
+    "title": "init",
+    "summary": "Sets up ContractSpec in a project (config, VSCode settings, etc.) - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @lssm/core - **Tags**: cli, setup - **File**: `packages/bundles/workspace/src/contracts/operations/init.operation.ts`",
+    "route": "/docs/reference/_common/init",
+    "source": "generated",
+    "contentPath": "_common/init.md"
+  },
+  {
+    "id": "_common/opencode.example.echo",
+    "title": "opencode.example.echo",
+    "summary": "Echo a prompt for the OpenCode CLI example. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @contractspec/examples - **Tags**: opencode, example, echo - **File**: `packages/examples/opencode-cli/src/contracts/opencode.contracts.ts`",
+    "route": "/docs/reference/_common/opencode.example.echo",
+    "source": "generated",
+    "contentPath": "_common/opencode.example.echo.md"
+  },
+  {
+    "id": "_common/template.messaging.core",
+    "title": "template.messaging.core",
+    "summary": "Real-time messaging primitives for template applications, including conversations, participants, and delivery events. - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.contractspec-studio",
+    "route": "/docs/reference/_common/template.messaging.core",
+    "source": "generated",
+    "contentPath": "_common/template.messaging.core.md"
+  },
+  {
+    "id": "_common/template.recipes.browse",
+    "title": "template.recipes.browse",
+    "summary": "Internationalized recipe browsing, search, and detail operations for template applications. - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.contractspec-studio - **Tags**: templates, recipes, i18n, content",
+    "route": "/docs/reference/_common/template.recipes.browse",
+    "source": "generated",
+    "contentPath": "_common/template.recipes.browse.md"
+  },
+  {
+    "id": "_common/template.todos.crud",
+    "title": "template.todos.crud",
+    "summary": "Create, read, update, delete, and toggle template tasks with categories and priorities. - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.contractspec-studio - **Tags**: templates, todos, productivity",
+    "route": "/docs/reference/_common/template.todos.crud",
+    "source": "generated",
+    "contentPath": "_common/template.todos.crud.md"
+  },
+  {
+    "id": "_common/test",
+    "title": "test",
+    "summary": "Run tests defined in contract specs - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @lssm/core - **Tags**: cli, test - **File**: `packages/bundles/workspace/src/contracts/operations/test.operation.ts`",
+    "route": "/docs/reference/_common/test",
+    "source": "generated",
+    "contentPath": "_common/test.md"
+  },
+  {
+    "id": "_common/validate",
+    "title": "validate",
+    "summary": "Validate a contract spec file structure and optionally its implementation - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @lssm/core - **Tags**: cli, validation",
+    "route": "/docs/reference/_common/validate",
+    "source": "generated",
+    "contentPath": "_common/validate.md"
+  },
+  {
+    "id": "docs.accessibility_wcag_compliance_specs",
+    "title": "Accessibility & WCAG Compliance — **specs.md**",
+    "summary": "> **Goal:** Ship interfaces that are usable by everyone, by default. This spec sets non‑negotiable rules, checklists, and CI gates to meet **WCAG 2.2 AA** (aim for AAA where low‑cost), align with **EN 301 549** (EU), and keep parity on **web (Next.js)** and **mobile (Expo/React Native)**.",
+    "route": "/docs/accessibility_wcag_compliance_specs",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/accessibility_wcag_compliance_specs.md",
+    "tags": ["accessibility_wcag_compliance_specs"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.meta.docblocks-process",
+    "title": "DocBlocks process",
+    "summary": "How to author goal/how/usage DocBlocks close to code.",
+    "route": "/docs/meta/docblocks-process",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/meta/docblocks-process.md",
+    "tags": ["docs", "process"],
+    "kind": "reference",
+    "visibility": "mixed"
+  },
+  {
+    "id": "docs.tech.auth.better-auth-nextjs",
+    "title": "Better Auth + Next.js integration (ContractSpec)",
+    "summary": "How ContractSpec wires Better Auth into Next.js (server config, client singleton, and proxy cookie-only redirects).",
+    "route": "/docs/tech/auth/better-auth-nextjs",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/auth/better-auth-nextjs.md",
+    "tags": ["auth", "better-auth", "nextjs", "cookies", "proxy", "hmr"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.cli.contractspec",
+    "title": "ContractSpec CLI",
+    "summary": "The command-line interface for creating, building, and validating contract specifications.",
+    "route": "/docs/tech/cli/contractspec",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/cli/contractspec.md",
+    "tags": ["cli", "tooling", "reference"],
+    "kind": "reference",
+    "visibility": "public",
+    "owners": ["@contractspec/app.cli-contractspec"]
+  },
+  {
+    "id": "docs.tech.contracts.openapi-export",
+    "title": "OpenAPI export (OpenAPI 3.1) from OperationSpecRegistry",
+    "summary": "Generate a deterministic OpenAPI document from a OperationSpecRegistry using jsonSchemaForSpec + REST transport metadata.",
+    "route": "/docs/tech/contracts/openapi-export",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/contracts/openapi-export.md",
+    "tags": ["contracts", "openapi", "rest"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.contracts.openapi-import",
+    "title": "OpenAPI Import (OpenAPI 3.1) to ContractSpec",
+    "summary": "Import OpenAPI specifications into ContractSpec models, or generate pure Zod/JSON-Schema/GraphQL representations.",
+    "route": "/docs/tech/contracts/openapi-import",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/contracts/openapi-import.md",
+    "tags": ["contracts", "openapi", "import", "codegen"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.contracts.presentations",
+    "title": "Presentations — Unified Descriptor & Transform Engine",
+    "summary": "How PresentationSpec and TransformEngine keep docs/renderers consistent.",
+    "route": "/docs/tech/contracts/presentations",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/contracts/presentations.md",
+    "tags": ["presentations", "docs", "mcp"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.contracts.README",
+    "title": "Contracts: Specs, Registry, Handlers, Adapters",
+    "summary": "- `packages/lssm/libs/contracts` defines the contracts core (OperationSpecRegistry, OperationSpec, PresentationSpec, install helpers, REST/MCP adapters, ...).",
+    "route": "/docs/tech/contracts/README",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/contracts/README.md",
+    "tags": ["tech", "contracts", "README"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.contracts.workspace-config",
+    "title": "Workspace Configuration (.contractsrc)",
+    "summary": "Configuration-as-code conventions for ContractSpec workspaces (`.contractsrc.json`).",
+    "route": "/docs/tech/contracts/workspace-config",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/contracts/workspace-config.md",
+    "tags": ["tech", "contracts", "config"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.docs-examples",
+    "title": "Examples catalog",
+    "summary": "Document and surface example projects with sandbox support.",
+    "route": "/docs/tech/docs/examples",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/docs-examples.md",
+    "tags": ["docs", "examples"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.docs-generator",
+    "title": "Docs generator",
+    "summary": "Generate reference docs and metadata from ContractSpecs.",
+    "route": "/docs/tech/docs/generator",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/docs-generator.md",
+    "tags": ["docs", "generator", "cli"],
+    "kind": "how",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.docs-publish",
+    "title": "Docs publish",
+    "summary": "Publish generated artifacts to the docs host.",
+    "route": "/docs/tech/docs/publish",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/docs-publish.md",
+    "tags": ["docs", "publish"],
+    "kind": "how",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.docs-reference",
+    "title": "Contract reference pages",
+    "summary": "Resolve any spec into a docs-ready reference payload.",
+    "route": "/docs/tech/docs/reference",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/docs-reference.md",
+    "tags": ["docs", "reference"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.docs-search",
+    "title": "Docs index and search",
+    "summary": "Search DocBlocks by query, tag, kind, or visibility.",
+    "route": "/docs/tech/docs/search",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/docs-search.md",
+    "tags": ["docs", "search"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.docs-system",
+    "title": "Docs system overview",
+    "summary": "How ContractSpec generates, indexes, and presents documentation.",
+    "route": "/docs/tech/docs/system",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/docs-system.md",
+    "tags": ["docs", "system", "contracts"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.lifecycle-stage-system",
+    "title": "ContractSpec Lifecycle Stage System – Technical Design",
+    "summary": "This document describes how ContractSpec implements lifecycle detection and guidance. It covers architecture, module boundaries, scoring heuristics, and integration points so libraries, modules, bundles, and Studio surfaces stay synchronized.",
+    "route": "/docs/tech/lifecycle-stage-system",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/lifecycle-stage-system.md",
+    "tags": ["tech", "lifecycle-stage-system"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.llm.agent-adapters",
+    "title": "Agent Adapters",
+    "summary": "Adapters for different AI coding agents (Claude, Cursor, MCP).",
+    "route": "/docs/tech/llm/agent-adapters",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/llm/agent-adapters.md",
+    "tags": ["llm", "agents", "claude", "cursor", "mcp"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.llm.export-formats",
+    "title": "LLM Export Formats",
+    "summary": "Detailed explanation of the three export formats for LLM consumption.",
+    "route": "/docs/tech/llm/export-formats",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/llm/export-formats.md",
+    "tags": ["llm", "export", "markdown"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.llm.overview",
+    "title": "LLM Integration Overview",
+    "summary": "Export specs to LLM-friendly formats, generate implementation guides, and verify implementations.",
+    "route": "/docs/tech/llm/overview",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/llm/overview.md",
+    "tags": ["llm", "ai", "export", "guide", "verify"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.llm.verification",
+    "title": "Implementation Verification",
+    "summary": "Tiered verification of implementations against specifications.",
+    "route": "/docs/tech/llm/verification",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/llm/verification.md",
+    "tags": ["llm", "verify", "validation", "testing"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.mcp.endpoints",
+    "title": "ContractSpec MCP endpoints",
+    "summary": "Dedicated MCP servers for docs, CLI usage, and internal development.",
+    "route": "/docs/tech/mcp/endpoints",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/mcp/endpoints.md",
+    "tags": ["mcp", "docs", "cli", "internal"],
+    "kind": "reference",
+    "visibility": "mixed"
+  },
+  {
+    "id": "docs.tech.presentation-runtime",
+    "title": "Presentation Runtime",
+    "summary": "Cross-platform runtime for list pages and presentation flows.",
+    "route": "/docs/tech/presentation-runtime",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/presentation-runtime.md",
+    "tags": ["tech", "presentation-runtime"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.schema.README",
+    "title": "Multi‑File Prisma Schema Conventions (per database)",
+    "summary": "We adopt Prisma multi‑file schema (GA ≥ v6.7) to organize each database’s models by domain and to import core LSSM module schemas locally.",
+    "route": "/docs/tech/schema/README",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/schema/README.md",
+    "tags": ["tech", "schema", "README"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.studio.learning-events",
+    "title": "Studio Learning Events",
+    "summary": "Studio persists learning/activity events to the database; Sandbox keeps learning local-first and unlogged.",
+    "route": "/docs/tech/studio/learning-events",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/studio/learning-events.md",
+    "tags": ["studio", "learning", "events", "analytics", "sandbox"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.studio.learning-journeys",
+    "title": "Studio learning journeys (onboarding + coach)",
+    "summary": "DB-backed learning journeys tracked per organization: seeded tracks/steps, event-driven progress, XP/streaks, and a Studio coach surface.",
+    "route": "/docs/tech/studio/learning-journeys",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/studio/learning-journeys.md",
+    "tags": [
+      "studio",
+      "learning",
+      "onboarding",
+      "journey",
+      "graphql",
+      "database"
+    ],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.studio.platform-admin-panel",
+    "title": "Studio Platform Admin Panel",
+    "summary": "How PLATFORM_ADMIN organizations manage tenant orgs and integration connections without session switching.",
+    "route": "/docs/tech/studio/platform-admin-panel",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/studio/platform-admin-panel.md",
+    "tags": ["studio", "admin", "multi-tenancy", "integrations", "better-auth"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.studio.project-access-teams",
+    "title": "Studio Project Access via Teams",
+    "summary": "Projects live under organizations; team sharing refines access with an admin/owner override.",
+    "route": "/docs/tech/studio/project-access-teams",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/studio/project-access-teams.md",
+    "tags": ["studio", "projects", "teams", "rbac", "access-control"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.studio.project-routing",
+    "title": "Studio Project Routing",
+    "summary": "Studio uses slugged, project-first routes: /studio/{projectSlug}/* with canonical slug redirects and soft-deleted projects hidden.",
+    "route": "/docs/tech/studio/project-routing",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/studio/project-routing.md",
+    "tags": ["studio", "routing", "projects", "slug", "redirects"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.studio.sandbox.unlogged",
+    "title": "Sandbox (unlogged) vs Studio (authenticated)",
+    "summary": "The sandbox is a lightweight, unlogged surface that mirrors Studio navigation without auth or analytics.",
+    "route": "/docs/tech/studio/sandbox-unlogged",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/studio/sandbox/unlogged.md",
+    "tags": ["studio", "sandbox", "privacy", "analytics"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.studio.team-invitations",
+    "title": "Studio Teams & Invitations",
+    "summary": "Admin-only team management and email invitation flow to join an organization and optionally a team.",
+    "route": "/docs/tech/studio/team-invitations",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/studio/team-invitations.md",
+    "tags": ["studio", "teams", "invitations", "access-control", "onboarding"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.studio.workspace_ops",
+    "title": "Workspace ops (repo-linked): list / validate / deps / diff",
+    "summary": "Read-only repo operations used by Studio to inspect and validate a linked ContractSpec workspace.",
+    "route": "/docs/tech/studio/workspace-ops",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/studio/workspace_ops.md",
+    "tags": ["studio", "repo", "workspace", "validate", "diff"],
+    "kind": "reference",
+    "visibility": "mixed"
+  },
+  {
+    "id": "docs.tech.studio.workspaces",
+    "title": "Studio projects, teams, environments",
+    "summary": "Organization-first Studio: projects live under an organization; teams refine access; projects deploy to multiple environments.",
+    "route": "/docs/tech/studio/workspaces",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/studio/workspaces.md",
+    "tags": ["studio", "projects", "teams", "rbac", "environments"],
+    "kind": "reference",
+    "visibility": "mixed"
+  },
+  {
+    "id": "docs.tech.telemetry.hybrid",
+    "title": "Hybrid Telemetry Model",
+    "summary": "How ContractSpec clients choose between direct PostHog and API-routed telemetry.",
+    "route": "/docs/tech/telemetry/hybrid",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/telemetry/hybrid.md",
+    "tags": ["telemetry", "architecture", "posthog"],
+    "kind": "usage",
+    "visibility": "internal"
+  },
+  {
+    "id": "docs.tech.telemetry.ingest",
+    "title": "Telemetry Ingest Endpoint",
+    "summary": "Server-side telemetry ingestion for ContractSpec clients (VS Code extension, CLI, etc.).",
+    "route": "/docs/tech/telemetry/ingest",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/telemetry/ingest.md",
+    "tags": ["telemetry", "api", "posthog", "analytics"],
+    "kind": "reference",
+    "visibility": "internal"
+  },
+  {
+    "id": "docs.tech.vscode.extension",
+    "title": "ContractSpec VS Code Extension",
+    "summary": "VS Code extension for spec-first development with validation, scaffolding, and MCP integration.",
+    "route": "/docs/tech/vscode/extension",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/vscode/extension.md",
+    "tags": ["vscode", "extension", "tooling", "dx"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.vscode.snippets",
+    "title": "ContractSpec Snippets",
+    "summary": "Code snippets for common ContractSpec patterns in VS Code.",
+    "route": "/docs/tech/vscode/snippets",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/vscode/snippets.md",
+    "tags": ["vscode", "snippets", "dx"],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.workflows.overview",
+    "title": "WorkflowSpec Overview",
+    "summary": "WorkflowSpec provides a declarative, versioned format for long-running flows that mix automation and human review. Specs stay inside `@contractspec/lib.contracts` (`src/workflow/spec.ts`) so the same definition powers runtime execution, documentation, and future generation.",
+    "route": "/docs/tech/workflows/overview",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/workflows/overview.md",
+    "tags": ["tech", "workflows", "overview"],
+    "kind": "reference",
+    "visibility": "public"
+  }
+]

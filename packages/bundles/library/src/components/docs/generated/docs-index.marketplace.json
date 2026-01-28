@@ -1,0 +1,322 @@
+[
+  {
+    "id": "marketplace/ecommerce",
+    "title": "ecommerce",
+    "summary": "E-commerce operations and product catalog - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.marketplace - **Tags**: ecommerce, products - **File**: `packages/examples/marketplace/src/marketplace.capability.ts`",
+    "route": "/docs/reference/marketplace/ecommerce",
+    "source": "generated",
+    "contentPath": "marketplace/ecommerce.md"
+  },
+  {
+    "id": "marketplace/marketplace",
+    "title": "marketplace",
+    "summary": "Full-featured marketplace with stores, products, orders, payouts, and reviews - **Type**: feature - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, ecommerce, multi-vendor, payments",
+    "route": "/docs/reference/marketplace/marketplace",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.md"
+  },
+  {
+    "id": "marketplace/marketplace.checkout",
+    "title": "marketplace.checkout",
+    "summary": "Checkout flow with cart and payment - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, checkout, cart - **File**: `packages/examples/marketplace/src/order/order.presentation.ts`",
+    "route": "/docs/reference/marketplace/marketplace.checkout",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.checkout.md"
+  },
+  {
+    "id": "marketplace/marketplace.inventory.updated",
+    "title": "marketplace.inventory.updated",
+    "summary": "Product inventory has been updated. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, product, inventory - **File**: `packages/examples/marketplace/src/product/product.event.ts`",
+    "route": "/docs/reference/marketplace/marketplace.inventory.updated",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.inventory.updated.md"
+  },
+  {
+    "id": "marketplace/marketplace.order.completed",
+    "title": "marketplace.order.completed",
+    "summary": "An order has been completed. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, order - **File**: `packages/examples/marketplace/src/order/order.event.ts`",
+    "route": "/docs/reference/marketplace/marketplace.order.completed",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.order.completed.md"
+  },
+  {
+    "id": "marketplace/marketplace.order.create",
+    "title": "marketplace.order.create",
+    "summary": "Create a new order. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.marketplace - **Tags**: marketplace, order, create - **File**: `packages/examples/marketplace/src/order/order.operations.ts`",
+    "route": "/docs/reference/marketplace/marketplace.order.create",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.order.create.md"
+  },
+  {
+    "id": "marketplace/marketplace.order.create.test",
+    "title": "marketplace.order.create.test",
+    "summary": "Test for creating order - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.marketplace - **Tags**: test - **File**: `packages/examples/marketplace/src/tests/operations.test-spec.ts`",
+    "route": "/docs/reference/marketplace/marketplace.order.create.test",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.order.create.test.md"
+  },
+  {
+    "id": "marketplace/marketplace.order.created",
+    "title": "marketplace.order.created",
+    "summary": "A new order has been created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, order - **File**: `packages/examples/marketplace/src/order/order.event.ts`",
+    "route": "/docs/reference/marketplace/marketplace.order.created",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.order.created.md"
+  },
+  {
+    "id": "marketplace/marketplace.order.detail",
+    "title": "marketplace.order.detail",
+    "summary": "Order detail with items and shipping info - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, order, detail - **File**: `packages/examples/marketplace/src/order/order.presentation.ts`",
+    "route": "/docs/reference/marketplace/marketplace.order.detail",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.order.detail.md"
+  },
+  {
+    "id": "marketplace/marketplace.order.list",
+    "title": "marketplace.order.list",
+    "summary": "List of orders with status and tracking - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, order, list - **File**: `packages/examples/marketplace/src/order/order.presentation.ts`",
+    "route": "/docs/reference/marketplace/marketplace.order.list",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.order.list.md"
+  },
+  {
+    "id": "marketplace/marketplace.order.paid",
+    "title": "marketplace.order.paid",
+    "summary": "An order has been paid. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, order - **File**: `packages/examples/marketplace/src/order/order.event.ts`",
+    "route": "/docs/reference/marketplace/marketplace.order.paid",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.order.paid.md"
+  },
+  {
+    "id": "marketplace/marketplace.order.shipped",
+    "title": "marketplace.order.shipped",
+    "summary": "An order has been shipped. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, order - **File**: `packages/examples/marketplace/src/order/order.event.ts`",
+    "route": "/docs/reference/marketplace/marketplace.order.shipped",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.order.shipped.md"
+  },
+  {
+    "id": "marketplace/marketplace.order.statusUpdated",
+    "title": "marketplace.order.statusUpdated",
+    "summary": "An order status has been updated. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, order - **File**: `packages/examples/marketplace/src/order/order.event.ts`",
+    "route": "/docs/reference/marketplace/marketplace.order.statusUpdated",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.order.statusUpdated.md"
+  },
+  {
+    "id": "marketplace/marketplace.order.updateStatus",
+    "title": "marketplace.order.updateStatus",
+    "summary": "Update order status. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.marketplace - **Tags**: marketplace, order, status - **File**: `packages/examples/marketplace/src/order/order.operations.ts`",
+    "route": "/docs/reference/marketplace/marketplace.order.updateStatus",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.order.updateStatus.md"
+  },
+  {
+    "id": "marketplace/marketplace.payout.created",
+    "title": "marketplace.payout.created",
+    "summary": "A payout has been created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, payout - **File**: `packages/examples/marketplace/src/payout/payout.event.ts`",
+    "route": "/docs/reference/marketplace/marketplace.payout.created",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.payout.created.md"
+  },
+  {
+    "id": "marketplace/marketplace.payout.detail",
+    "title": "marketplace.payout.detail",
+    "summary": "Payout detail with breakdown - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, payout, detail - **File**: `packages/examples/marketplace/src/payout/payout.presentation.ts`",
+    "route": "/docs/reference/marketplace/marketplace.payout.detail",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.payout.detail.md"
+  },
+  {
+    "id": "marketplace/marketplace.payout.list",
+    "title": "marketplace.payout.list",
+    "summary": "List of payouts for sellers - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, payout, list - **File**: `packages/examples/marketplace/src/payout/payout.presentation.ts`",
+    "route": "/docs/reference/marketplace/marketplace.payout.list",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.payout.list.md"
+  },
+  {
+    "id": "marketplace/marketplace.payout.list.test",
+    "title": "marketplace.payout.list.test",
+    "summary": "Test for listing payouts - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.marketplace - **Tags**: test - **File**: `packages/examples/marketplace/src/tests/operations.test-spec.ts`",
+    "route": "/docs/reference/marketplace/marketplace.payout.list.test",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.payout.list.test.md"
+  },
+  {
+    "id": "marketplace/marketplace.payout.paid",
+    "title": "marketplace.payout.paid",
+    "summary": "A payout has been sent. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, payout - **File**: `packages/examples/marketplace/src/payout/payout.event.ts`",
+    "route": "/docs/reference/marketplace/marketplace.payout.paid",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.payout.paid.md"
+  },
+  {
+    "id": "marketplace/marketplace.product.catalog",
+    "title": "marketplace.product.catalog",
+    "summary": "Product catalog with search and filters - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, product, catalog - **File**: `packages/examples/marketplace/src/product/product.presentation.ts`",
+    "route": "/docs/reference/marketplace/marketplace.product.catalog",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.product.catalog.md"
+  },
+  {
+    "id": "marketplace/marketplace.product.create",
+    "title": "marketplace.product.create",
+    "summary": "Create a new product listing. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.marketplace - **Tags**: marketplace, product, create - **File**: `packages/examples/marketplace/src/product/product.operations.ts`",
+    "route": "/docs/reference/marketplace/marketplace.product.create",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.product.create.md"
+  },
+  {
+    "id": "marketplace/marketplace.product.created",
+    "title": "marketplace.product.created",
+    "summary": "A new product has been created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, product - **File**: `packages/examples/marketplace/src/product/product.event.ts`",
+    "route": "/docs/reference/marketplace/marketplace.product.created",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.product.created.md"
+  },
+  {
+    "id": "marketplace/marketplace.product.detail",
+    "title": "marketplace.product.detail",
+    "summary": "Product detail page with images and reviews - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, product, detail - **File**: `packages/examples/marketplace/src/product/product.presentation.ts`",
+    "route": "/docs/reference/marketplace/marketplace.product.detail",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.product.detail.md"
+  },
+  {
+    "id": "marketplace/marketplace.product.editor",
+    "title": "marketplace.product.editor",
+    "summary": "Product editor for sellers - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, product, editor - **File**: `packages/examples/marketplace/src/product/product.presentation.ts`",
+    "route": "/docs/reference/marketplace/marketplace.product.editor",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.product.editor.md"
+  },
+  {
+    "id": "marketplace/marketplace.product.list",
+    "title": "marketplace.product.list",
+    "summary": "List products with filters. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.marketplace - **Tags**: marketplace, product, list - **File**: `packages/examples/marketplace/src/product/product.operations.ts`",
+    "route": "/docs/reference/marketplace/marketplace.product.list",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.product.list.md"
+  },
+  {
+    "id": "marketplace/marketplace.product.list.test",
+    "title": "marketplace.product.list.test",
+    "summary": "Test for listing products - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.marketplace - **Tags**: test - **File**: `packages/examples/marketplace/src/tests/operations.test-spec.ts`",
+    "route": "/docs/reference/marketplace/marketplace.product.list.test",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.product.list.test.md"
+  },
+  {
+    "id": "marketplace/marketplace.product.published",
+    "title": "marketplace.product.published",
+    "summary": "A product has been published. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, product - **File**: `packages/examples/marketplace/src/product/product.event.ts`",
+    "route": "/docs/reference/marketplace/marketplace.product.published",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.product.published.md"
+  },
+  {
+    "id": "marketplace/marketplace.review.create",
+    "title": "marketplace.review.create",
+    "summary": "Create a product/store review. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.marketplace - **Tags**: marketplace, review, create - **File**: `packages/examples/marketplace/src/review/review.operations.ts`",
+    "route": "/docs/reference/marketplace/marketplace.review.create",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.review.create.md"
+  },
+  {
+    "id": "marketplace/marketplace.review.create.test",
+    "title": "marketplace.review.create.test",
+    "summary": "Test for creating review - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.marketplace - **Tags**: test - **File**: `packages/examples/marketplace/src/tests/operations.test-spec.ts`",
+    "route": "/docs/reference/marketplace/marketplace.review.create.test",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.review.create.test.md"
+  },
+  {
+    "id": "marketplace/marketplace.review.created",
+    "title": "marketplace.review.created",
+    "summary": "A review has been created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, review - **File**: `packages/examples/marketplace/src/review/review.event.ts`",
+    "route": "/docs/reference/marketplace/marketplace.review.created",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.review.created.md"
+  },
+  {
+    "id": "marketplace/marketplace.review.form",
+    "title": "marketplace.review.form",
+    "summary": "Form for submitting product reviews - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, review, form - **File**: `packages/examples/marketplace/src/review/review.presentation.ts`",
+    "route": "/docs/reference/marketplace/marketplace.review.form",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.review.form.md"
+  },
+  {
+    "id": "marketplace/marketplace.review.list",
+    "title": "marketplace.review.list",
+    "summary": "List of product reviews - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, review, list - **File**: `packages/examples/marketplace/src/review/review.presentation.ts`",
+    "route": "/docs/reference/marketplace/marketplace.review.list",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.review.list.md"
+  },
+  {
+    "id": "marketplace/marketplace.review.list.test",
+    "title": "marketplace.review.list.test",
+    "summary": "Test for listing reviews - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.marketplace - **Tags**: test - **File**: `packages/examples/marketplace/src/tests/operations.test-spec.ts`",
+    "route": "/docs/reference/marketplace/marketplace.review.list.test",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.review.list.test.md"
+  },
+  {
+    "id": "marketplace/marketplace.review.responded",
+    "title": "marketplace.review.responded",
+    "summary": "A seller has responded to a review. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, review - **File**: `packages/examples/marketplace/src/review/review.event.ts`",
+    "route": "/docs/reference/marketplace/marketplace.review.responded",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.review.responded.md"
+  },
+  {
+    "id": "marketplace/marketplace.seller.dashboard",
+    "title": "marketplace.seller.dashboard",
+    "summary": "Seller dashboard with sales and analytics - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, seller, dashboard - **File**: `packages/examples/marketplace/src/store/store.presentation.ts`",
+    "route": "/docs/reference/marketplace/marketplace.seller.dashboard",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.seller.dashboard.md"
+  },
+  {
+    "id": "marketplace/marketplace.store.create",
+    "title": "marketplace.store.create",
+    "summary": "Create a new seller store. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.marketplace - **Tags**: marketplace, store, create - **File**: `packages/examples/marketplace/src/store/store.operations.ts`",
+    "route": "/docs/reference/marketplace/marketplace.store.create",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.store.create.md"
+  },
+  {
+    "id": "marketplace/marketplace.store.created",
+    "title": "marketplace.store.created",
+    "summary": "A new seller store has been created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, store - **File**: `packages/examples/marketplace/src/store/store.event.ts`",
+    "route": "/docs/reference/marketplace/marketplace.store.created",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.store.created.md"
+  },
+  {
+    "id": "marketplace/marketplace.store.profile",
+    "title": "marketplace.store.profile",
+    "summary": "Public store profile page - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, store, profile - **File**: `packages/examples/marketplace/src/store/store.presentation.ts`",
+    "route": "/docs/reference/marketplace/marketplace.store.profile",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.store.profile.md"
+  },
+  {
+    "id": "marketplace/marketplace.store.statusChanged",
+    "title": "marketplace.store.statusChanged",
+    "summary": "A store status has changed. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, store - **File**: `packages/examples/marketplace/src/store/store.event.ts`",
+    "route": "/docs/reference/marketplace/marketplace.store.statusChanged",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.store.statusChanged.md"
+  },
+  {
+    "id": "marketplace/payments",
+    "title": "payments",
+    "summary": "Payment processing and payouts - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.finance - **Tags**: payments, finance - **File**: `packages/examples/marketplace/src/marketplace.capability.ts`",
+    "route": "/docs/reference/marketplace/payments",
+    "source": "generated",
+    "contentPath": "marketplace/payments.md"
+  }
+]

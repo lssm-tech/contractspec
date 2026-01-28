@@ -1,0 +1,186 @@
+[
+  {
+    "id": "team-hub/announcements",
+    "title": "announcements",
+    "summary": "Team announcements and communications - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.messaging - **Tags**: announcements, messaging - **File**: `packages/examples/team-hub/src/team-hub.capability.ts`",
+    "route": "/docs/reference/team-hub/announcements",
+    "source": "generated",
+    "contentPath": "team-hub/announcements.md"
+  },
+  {
+    "id": "team-hub/rituals",
+    "title": "rituals",
+    "summary": "Team rituals like standups and retrospectives - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.core - **Tags**: rituals, team, meetings - **File**: `packages/examples/team-hub/src/team-hub.capability.ts`",
+    "route": "/docs/reference/team-hub/rituals",
+    "source": "generated",
+    "contentPath": "team-hub/rituals.md"
+  },
+  {
+    "id": "team-hub/tasks",
+    "title": "tasks",
+    "summary": "Task management for teams - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.core - **Tags**: tasks, collaboration - **File**: `packages/examples/team-hub/src/team-hub.capability.ts`",
+    "route": "/docs/reference/team-hub/tasks",
+    "source": "generated",
+    "contentPath": "team-hub/tasks.md"
+  },
+  {
+    "id": "team-hub/team-hub",
+    "title": "team-hub",
+    "summary": "Tasks, rituals, and announcements for internal teams with ceremonies. - **Type**: feature - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @team-hub - **Tags**: tasks, rituals, announcements",
+    "route": "/docs/reference/team-hub/team-hub",
+    "source": "generated",
+    "contentPath": "team-hub/team-hub.md"
+  },
+  {
+    "id": "team-hub/team-hub.announcement.feed",
+    "title": "team-hub.announcement.feed",
+    "summary": "Feed of team announcements. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @team-hub - **Tags**: announcement, feed - **File**: `packages/examples/team-hub/src/presentations/team-hub.presentation.ts`",
+    "route": "/docs/reference/team-hub/team-hub.announcement.feed",
+    "source": "generated",
+    "contentPath": "team-hub/team-hub.announcement.feed.md"
+  },
+  {
+    "id": "team-hub/team-hub.dashboard",
+    "title": "team-hub.dashboard",
+    "summary": "Main team hub dashboard. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @team-hub - **Tags**: dashboard, team - **File**: `packages/examples/team-hub/src/presentations/team-hub.presentation.ts`",
+    "route": "/docs/reference/team-hub/team-hub.dashboard",
+    "source": "generated",
+    "contentPath": "team-hub/team-hub.dashboard.md"
+  },
+  {
+    "id": "team-hub/team-hub.ritual.calendar",
+    "title": "team-hub.ritual.calendar",
+    "summary": "Calendar of team rituals and events. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @team-hub - **Tags**: ritual, calendar - **File**: `packages/examples/team-hub/src/presentations/team-hub.presentation.ts`",
+    "route": "/docs/reference/team-hub/team-hub.ritual.calendar",
+    "source": "generated",
+    "contentPath": "team-hub/team-hub.ritual.calendar.md"
+  },
+  {
+    "id": "team-hub/team-hub.space.list",
+    "title": "team-hub.space.list",
+    "summary": "List of team spaces. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @team-hub - **Tags**: space, list - **File**: `packages/examples/team-hub/src/presentations/team-hub.presentation.ts`",
+    "route": "/docs/reference/team-hub/team-hub.space.list",
+    "source": "generated",
+    "contentPath": "team-hub/team-hub.space.list.md"
+  },
+  {
+    "id": "team-hub/team-hub.task.board",
+    "title": "team-hub.task.board",
+    "summary": "Kanban board for team tasks. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @team-hub - **Tags**: task, board - **File**: `packages/examples/team-hub/src/presentations/team-hub.presentation.ts`",
+    "route": "/docs/reference/team-hub/team-hub.task.board",
+    "source": "generated",
+    "contentPath": "team-hub/team-hub.task.board.md"
+  },
+  {
+    "id": "team-hub/team-hub.task.detail",
+    "title": "team-hub.task.detail",
+    "summary": "Detailed view of a task. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @team-hub - **Tags**: task, detail - **File**: `packages/examples/team-hub/src/presentations/team-hub.presentation.ts`",
+    "route": "/docs/reference/team-hub/team-hub.task.detail",
+    "source": "generated",
+    "contentPath": "team-hub/team-hub.task.detail.md"
+  },
+  {
+    "id": "team-hub/team.announcement.post",
+    "title": "team.announcement.post",
+    "summary": "Post an announcement. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @examples.team-hub - **Tags**: team-hub, announcement, post - **File**: `packages/examples/team-hub/src/announcement/announcement.operations.ts`",
+    "route": "/docs/reference/team-hub/team.announcement.post",
+    "source": "generated",
+    "contentPath": "team-hub/team.announcement.post.md"
+  },
+  {
+    "id": "team-hub/team.announcement.posted",
+    "title": "team.announcement.posted",
+    "summary": "An announcement was posted. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @team-hub - **Tags**: team, announcement, posted - **File**: `packages/examples/team-hub/src/events.ts`",
+    "route": "/docs/reference/team-hub/team.announcement.posted",
+    "source": "generated",
+    "contentPath": "team-hub/team.announcement.posted.md"
+  },
+  {
+    "id": "team-hub/team.ritual.logOccurrence",
+    "title": "team.ritual.logOccurrence",
+    "summary": "Log a ritual occurrence. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @examples.team-hub - **Tags**: team-hub, ritual, log - **File**: `packages/examples/team-hub/src/ritual/ritual.operations.ts`",
+    "route": "/docs/reference/team-hub/team.ritual.logOccurrence",
+    "source": "generated",
+    "contentPath": "team-hub/team.ritual.logOccurrence.md"
+  },
+  {
+    "id": "team-hub/team.ritual.occurred",
+    "title": "team.ritual.occurred",
+    "summary": "A ritual occurrence was logged. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @team-hub - **Tags**: team, ritual, occurred - **File**: `packages/examples/team-hub/src/events.ts`",
+    "route": "/docs/reference/team-hub/team.ritual.occurred",
+    "source": "generated",
+    "contentPath": "team-hub/team.ritual.occurred.md"
+  },
+  {
+    "id": "team-hub/team.ritual.schedule",
+    "title": "team.ritual.schedule",
+    "summary": "Schedule a recurring ritual. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @examples.team-hub - **Tags**: team-hub, ritual, schedule - **File**: `packages/examples/team-hub/src/ritual/ritual.operations.ts`",
+    "route": "/docs/reference/team-hub/team.ritual.schedule",
+    "source": "generated",
+    "contentPath": "team-hub/team.ritual.schedule.md"
+  },
+  {
+    "id": "team-hub/team.ritual.scheduled",
+    "title": "team.ritual.scheduled",
+    "summary": "A ritual was scheduled. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @team-hub - **Tags**: team, ritual, scheduled - **File**: `packages/examples/team-hub/src/events.ts`",
+    "route": "/docs/reference/team-hub/team.ritual.scheduled",
+    "source": "generated",
+    "contentPath": "team-hub/team.ritual.scheduled.md"
+  },
+  {
+    "id": "team-hub/team.space.create",
+    "title": "team.space.create",
+    "summary": "Create a new team space. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @examples.team-hub - **Tags**: team-hub, space, create - **File**: `packages/examples/team-hub/src/space/space.operations.ts`",
+    "route": "/docs/reference/team-hub/team.space.create",
+    "source": "generated",
+    "contentPath": "team-hub/team.space.create.md"
+  },
+  {
+    "id": "team-hub/team.space.created",
+    "title": "team.space.created",
+    "summary": "A space was created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @team-hub - **Tags**: team, space, created - **File**: `packages/examples/team-hub/src/events.ts`",
+    "route": "/docs/reference/team-hub/team.space.created",
+    "source": "generated",
+    "contentPath": "team-hub/team.space.created.md"
+  },
+  {
+    "id": "team-hub/team.task.create",
+    "title": "team.task.create",
+    "summary": "Create a task. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @examples.team-hub - **Tags**: team-hub, task, create - **File**: `packages/examples/team-hub/src/task/task.operations.ts`",
+    "route": "/docs/reference/team-hub/team.task.create",
+    "source": "generated",
+    "contentPath": "team-hub/team.task.create.md"
+  },
+  {
+    "id": "team-hub/team.task.created",
+    "title": "team.task.created",
+    "summary": "A task was created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @team-hub - **Tags**: team, task, created - **File**: `packages/examples/team-hub/src/events.ts`",
+    "route": "/docs/reference/team-hub/team.task.created",
+    "source": "generated",
+    "contentPath": "team-hub/team.task.created.md"
+  },
+  {
+    "id": "team-hub/team.task.list",
+    "title": "team.task.list",
+    "summary": "List all tasks with filtering - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @examples.team-hub - **Tags**: team-hub, task, list, query - **File**: `packages/examples/team-hub/src/task/task.operations.ts`",
+    "route": "/docs/reference/team-hub/team.task.list",
+    "source": "generated",
+    "contentPath": "team-hub/team.task.list.md"
+  },
+  {
+    "id": "team-hub/team.task.status_changed",
+    "title": "team.task.status_changed",
+    "summary": "A task status changed. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @team-hub - **Tags**: team, task, status_changed - **File**: `packages/examples/team-hub/src/events.ts`",
+    "route": "/docs/reference/team-hub/team.task.status_changed",
+    "source": "generated",
+    "contentPath": "team-hub/team.task.status_changed.md"
+  },
+  {
+    "id": "team-hub/team.task.updateStatus",
+    "title": "team.task.updateStatus",
+    "summary": "Update task status. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @examples.team-hub - **Tags**: team-hub, task, status - **File**: `packages/examples/team-hub/src/task/task.operations.ts`",
+    "route": "/docs/reference/team-hub/team.task.updateStatus",
+    "source": "generated",
+    "contentPath": "team-hub/team.task.updateStatus.md"
+  }
+]

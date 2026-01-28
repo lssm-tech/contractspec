@@ -1,0 +1,162 @@
+[
+  {
+    "id": "analytics-dashboard/analytics-dashboard",
+    "title": "analytics-dashboard",
+    "summary": "Analytics dashboards with customizable widgets and queries - **Type**: feature - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @analytics-dashboard - **Tags**: analytics, dashboards, widgets, queries",
+    "route": "/docs/reference/analytics-dashboard/analytics-dashboard",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics-dashboard.md"
+  },
+  {
+    "id": "analytics-dashboard/analytics.dashboard.create",
+    "title": "analytics.dashboard.create",
+    "summary": "Create a new analytics dashboard. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.analytics-dashboard - **Tags**: analytics, dashboard, create - **File**: `packages/examples/analytics-dashboard/src/dashboard/dashboard.operation.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.dashboard.create",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.dashboard.create.md"
+  },
+  {
+    "id": "analytics-dashboard/analytics.dashboard.create.test",
+    "title": "analytics.dashboard.create.test",
+    "summary": "Verifies dashboard creation flow - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.analytics-dashboard - **Tags**: analytics, dashboard, test - **File**: `packages/examples/analytics-dashboard/src/dashboard/dashboard.test-spec.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.dashboard.create.test",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.dashboard.create.test.md"
+  },
+  {
+    "id": "analytics-dashboard/analytics.dashboard.created",
+    "title": "analytics.dashboard.created",
+    "summary": "A dashboard was created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @analytics-team - **Tags**: dashboard - **File**: `packages/examples/analytics-dashboard/src/events.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.dashboard.created",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.dashboard.created.md"
+  },
+  {
+    "id": "analytics-dashboard/analytics.dashboard.editor",
+    "title": "analytics.dashboard.editor",
+    "summary": "Edit dashboard configuration and widgets - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @analytics-dashboard - **Tags**: analytics, dashboard, editor - **File**: `packages/examples/analytics-dashboard/src/dashboard/dashboard.presentation.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.dashboard.editor",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.dashboard.editor.md"
+  },
+  {
+    "id": "analytics-dashboard/analytics.dashboard.get",
+    "title": "analytics.dashboard.get",
+    "summary": "Get a dashboard with widgets. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.analytics-dashboard - **Tags**: analytics, dashboard, get - **File**: `packages/examples/analytics-dashboard/src/dashboard/dashboard.operation.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.dashboard.get",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.dashboard.get.md"
+  },
+  {
+    "id": "analytics-dashboard/analytics.dashboard.get.test",
+    "title": "analytics.dashboard.get.test",
+    "summary": "Verifies dashboard retrieval - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.analytics-dashboard - **Tags**: analytics, dashboard, test - **File**: `packages/examples/analytics-dashboard/src/dashboard/dashboard.test-spec.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.dashboard.get.test",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.dashboard.get.test.md"
+  },
+  {
+    "id": "analytics-dashboard/analytics.dashboard.list",
+    "title": "analytics.dashboard.list",
+    "summary": "List of analytics dashboards - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @analytics-dashboard - **Tags**: analytics, dashboards, list - **File**: `packages/examples/analytics-dashboard/src/dashboard/dashboard.presentation.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.dashboard.list",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.dashboard.list.md"
+  },
+  {
+    "id": "analytics-dashboard/analytics.dashboard.list.test",
+    "title": "analytics.dashboard.list.test",
+    "summary": "Verifies dashboard listing - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.analytics-dashboard - **Tags**: analytics, dashboard, test - **File**: `packages/examples/analytics-dashboard/src/dashboard/dashboard.test-spec.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.dashboard.list.test",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.dashboard.list.test.md"
+  },
+  {
+    "id": "analytics-dashboard/analytics.dashboard.view",
+    "title": "analytics.dashboard.view",
+    "summary": "View a single dashboard with widgets - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @analytics-dashboard - **Tags**: analytics, dashboard, view - **File**: `packages/examples/analytics-dashboard/src/dashboard/dashboard.presentation.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.dashboard.view",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.dashboard.view.md"
+  },
+  {
+    "id": "analytics-dashboard/analytics.query.builder",
+    "title": "analytics.query.builder",
+    "summary": "Visual query builder interface - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @analytics-dashboard - **Tags**: analytics, query, builder - **File**: `packages/examples/analytics-dashboard/src/query/query.presentation.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.query.builder",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.query.builder.md"
+  },
+  {
+    "id": "analytics-dashboard/analytics.query.create",
+    "title": "analytics.query.create",
+    "summary": "Create a data query. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.analytics-dashboard - **Tags**: analytics, query, create - **File**: `packages/examples/analytics-dashboard/src/query/query.operation.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.query.create",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.query.create.md"
+  },
+  {
+    "id": "analytics-dashboard/analytics.query.create.test",
+    "title": "analytics.query.create.test",
+    "summary": "Verifies query creation flow - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.analytics-dashboard - **Tags**: analytics, query, test - **File**: `packages/examples/analytics-dashboard/src/query/query.test-spec.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.query.create.test",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.query.create.test.md"
+  },
+  {
+    "id": "analytics-dashboard/analytics.query.created",
+    "title": "analytics.query.created",
+    "summary": "A query was created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @analytics-team - **Tags**: dashboard - **File**: `packages/examples/analytics-dashboard/src/events.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.query.created",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.query.created.md"
+  },
+  {
+    "id": "analytics-dashboard/analytics.query.execute",
+    "title": "analytics.query.execute",
+    "summary": "Execute a data query. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.analytics-dashboard - **Tags**: analytics, query, execute - **File**: `packages/examples/analytics-dashboard/src/query/query.operation.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.query.execute",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.query.execute.md"
+  },
+  {
+    "id": "analytics-dashboard/analytics.query.execute.test",
+    "title": "analytics.query.execute.test",
+    "summary": "Verifies query execution - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.analytics-dashboard - **Tags**: analytics, query, test - **File**: `packages/examples/analytics-dashboard/src/query/query.test-spec.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.query.execute.test",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.query.execute.test.md"
+  },
+  {
+    "id": "analytics-dashboard/analytics.query.list",
+    "title": "analytics.query.list",
+    "summary": "List of saved queries - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @analytics-dashboard - **Tags**: analytics, queries, list - **File**: `packages/examples/analytics-dashboard/src/query/query.presentation.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.query.list",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.query.list.md"
+  },
+  {
+    "id": "analytics-dashboard/analytics.widget.add",
+    "title": "analytics.widget.add",
+    "summary": "Add a widget to a dashboard. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.analytics-dashboard - **Tags**: analytics, widget, add - **File**: `packages/examples/analytics-dashboard/src/dashboard/dashboard.operation.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.widget.add",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.widget.add.md"
+  },
+  {
+    "id": "analytics-dashboard/analytics.widget.add.test",
+    "title": "analytics.widget.add.test",
+    "summary": "Verifies adding widget to dashboard - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.analytics-dashboard - **Tags**: analytics, widget, test - **File**: `packages/examples/analytics-dashboard/src/dashboard/dashboard.test-spec.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.widget.add.test",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.widget.add.test.md"
+  },
+  {
+    "id": "analytics-dashboard/analytics.widget.added",
+    "title": "analytics.widget.added",
+    "summary": "A widget was added to a dashboard. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @analytics-team - **Tags**: dashboard - **File**: `packages/examples/analytics-dashboard/src/events.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.widget.added",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.widget.added.md"
+  }
+]

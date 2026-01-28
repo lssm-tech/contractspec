@@ -25,7 +25,7 @@ bun docs:generate
 
 ## Output
 
-The generator writes a typed index plus markdown content.
+The generator writes a typed index manifest plus markdown content.
 
 Content is stored under `--content-root` (defaults to `--source`). If
 `--version` is provided, both the index and content are nested under that
@@ -35,6 +35,8 @@ If `--version` is provided:
 
 ```
 <outDir>/<version>/docs-index.generated.ts
+<outDir>/<version>/docs-index.manifest.json
+<outDir>/<version>/docs-index.*.json
 <contentRoot>/<version>/**/*.md
 ```
 
@@ -42,29 +44,37 @@ Without `--version`:
 
 ```
 <outDir>/docs-index.generated.ts
+<outDir>/docs-index.manifest.json
+<outDir>/docs-index.*.json
 <contentRoot>/**/*.md
 ```
 
 The index contains `docsIndex` entries and `docsIndexMeta`:
 
 ```ts
-export const docsIndex = [
-  {
-    id: "commands/create-order",
-    title: "Create Order",
-    summary: "...",
-    route: "/docs/reference/commands/create-order",
-    source: "generated",
-    contentPath: "commands/create-order.md",
-  },
-];
-
-export const docsIndexMeta = {
-  generatedAt: "...",
-  total: 1,
-  version: "v1.0.0",
-  contentRoot: "../../../../generated/docs",
+export type DocsIndexEntry = {
+  id: string;
+  title: string;
+  summary?: string;
+  route?: string;
+  source: "generated" | "docblock";
+  contentPath?: string;
+  tags?: string[];
+  kind?: string;
+  visibility?: string;
+  version?: string;
+  owners?: string[];
 };
+
+export type DocsIndexManifest = {
+  generatedAt: string;
+  total: number;
+  version: string | null;
+  contentRoot: string | null;
+  chunks: { key: string; file: string; total: number }[];
+};
+
+export const DOCS_INDEX_MANIFEST = "docs-index.manifest.json";
 ```
 
 ## Examples
