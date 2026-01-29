@@ -1,0 +1,18 @@
+{
+  "whatChanged": {
+    "summary": "Drift check completed."
+  },
+  "risk": {
+    "status": "unknown",
+    "breaking": 0,
+    "nonBreaking": 0
+  },
+  "validation": {
+    "status": "skipped"
+  },
+  "drift": {
+    "status": "pass"
+  },
+  "nextSteps": [],
+  "contracts": []
+}

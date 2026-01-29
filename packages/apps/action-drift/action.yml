@@ -117,24 +117,58 @@ runs:
         mkdir -p .contractspec-ci
         git status --porcelain > .contractspec-ci/drift-status.txt
         python - <<'PY'
-        import fnmatch
+        import json
         import os
         from pathlib import Path
 
-        allowlist_raw = os.environ.get("DRIFT_ALLOWLIST") or ""
-        allowlist = [item.strip() for item in allowlist_raw.replace("\n", ",").split(",") if item.strip()]
+        contracts_data = []
+        contracts_path = Path(".contractspec-ci/contracts.json")
+        report_data = {}
 
-        status_lines = Path(".contractspec-ci/drift-status.txt").read_text().splitlines()
-        files = [line[3:] for line in status_lines if line.strip()]
+        # Load contracts data if available
+        if contracts_path.exists():
+          try:
+            contracts_result = json.loads(contracts_path.read_text())
+            contracts_data = contracts_result.get("contracts", [])
+          except json.JSONDecodeError:
+            pass
 
-        def is_ignored(path: str) -> bool:
-          return path == ".contractspec-ci" or path.startswith(".contractspec-ci/")
+        # Load existing report if exists
+        report_data_path = Path(".contractspec-ci/report-data.json")
+        if report_data_path.exists():
+          try:
+            report_data = json.loads(report_data_path.read_text())
+          except json.JSONDecodeError:
+            pass
 
-        filtered = [path for path in files if path and not is_ignored(path)]
-        if allowlist:
-          filtered = [path for path in filtered if any(fnmatch.fnmatch(path, pattern) for pattern in allowlist)]
+        # Update report data with contracts
+        report_data["contracts"] = contracts_data
 
-        Path(".contractspec-ci/drift-files.txt").write_text("\n".join(filtered))
+        report_data["whatChanged"] = {
+          "summary": "Drift check completed.",
+          "detailsPath": "",
+        }
+        report_data["risk"] = {
+          "status": "unknown",
+          "breaking": 0,
+          "nonBreaking": 0,
+        }
+        report_data["validation"] = {
+          "status": "skipped",
+          "outputPath": "",
+        }
+        report_data["drift"] = {
+          "status": os.environ.get("DRIFT_STATUS", "skipped"),
+          "files": Path(".contractspec-ci/drift-files.txt").read_text().splitlines()
+          if Path(".contractspec-ci/drift-files.txt").exists()
+          else [],
+        }
+        report_data["nextSteps"] = []
+
+        if report_data["drift"]["status"] == "fail":
+          report_data["nextSteps"].append("Run the generate command locally and commit drift fixes.")
+
+        Path(".contractspec-ci/report-data.json").write_text(json.dumps(report_data, indent=2))
         PY
 
         if [ -s ".contractspec-ci/drift-files.txt" ]; then
@@ -149,10 +183,21 @@ runs:
       shell: bash
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
-        python - <<'PY'
-        import json
-        import os
-        from pathlib import Path
+        # Collect contract verification status
+        echo "Collecting contract verification status..."
+        node "${{ github.action_path }}/operation-executor.js" "report.getContractVerificationStatus" "1.0.0" '{"projectPath": "'"$(pwd)"'"}' > .contractspec-ci/contracts.json || echo "[]" > .contractspec-ci/contracts.json
+
+        # Load contracts data and existing report data
+
+        # Load contracts data if available
+        contracts_data = []
+        contracts_path = Path(".contractspec-ci/contracts.json")
+        if contracts_path.exists():
+          try:
+            contracts_result = json.loads(contracts_path.read_text())
+            contracts_data = contracts_result.get("contracts", [])
+          except json.JSONDecodeError:
+            pass
 
         report = {
           "whatChanged": {
@@ -174,6 +219,7 @@ runs:
             if Path(".contractspec-ci/drift-files.txt").exists()
             else [],
           },
+          "contracts": contracts_data,
           "nextSteps": [],
         }
 

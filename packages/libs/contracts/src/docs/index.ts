@@ -37,3 +37,4 @@ import './tech/studio/team-invitations.docblock';
 import './tech/llm/llm-integration.docblock';
 import './tech/cli.docblock';
 import './tech/docs-system.docblock';
+import './tech/report-verification-table.docblock';

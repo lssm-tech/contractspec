@@ -18,7 +18,7 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
+    "build": "bun build:types && bun build:bundle && tsc --project tsconfig.cjs.json && cp src/registry.ts dist/registry.cjs",
     "build:bundle": "tsdown",
     "build:types": "tsc --noEmit",
     "dev": "bun build:bundle --watch",

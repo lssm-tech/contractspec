@@ -17,6 +17,31 @@ var __toESM = (mod, isNodeMode, target) => {
 
 // src/report.ts
 var import_node_fs = __toESM(require("node:fs"));
+
+// src/format-age.ts
+function formatAge(isoDate, now = Date.now()) {
+  if (!isoDate)
+    return "Never";
+  const then = new Date(isoDate).getTime();
+  if (Number.isNaN(then))
+    return "Never";
+  const diffMs = now - then;
+  if (diffMs < 0)
+    return "just now";
+  const seconds = Math.floor(diffMs / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  if (days > 0)
+    return `${days} day${days === 1 ? "" : "s"}`;
+  if (hours > 0)
+    return `${hours} hour${hours === 1 ? "" : "s"}`;
+  if (minutes > 0)
+    return `${minutes} minute${minutes === 1 ? "" : "s"}`;
+  return "just now";
+}
+
+// src/report.ts
 var MAX_DETAIL_CHARS = 60000;
 var MAX_LIST_ITEMS = 20;
 var args = process.argv.slice(2);
@@ -66,6 +91,19 @@ var driftFiles = data.drift?.files ?? [];
 var lines = [];
 lines.push("## ContractSpec Report");
 lines.push("");
+if (data.contracts && data.contracts.length > 0) {
+  lines.push("### Overall verification status");
+  lines.push("");
+  lines.push("| Contract / Endpoint / Event | Last verified commit | Time since verified | Surfaces covered | Drift debt |");
+  lines.push("| --- | --- | --- | --- | --- |");
+  for (const c of data.contracts) {
+    const sha = c.lastVerifiedSha ?? "—";
+    const time = formatAge(c.lastVerifiedDate);
+    const surfaces = c.surfaces.join(", ");
+    lines.push(`| ${c.name} | ${sha} | ${time} | ${surfaces} | ${c.driftMismatches} |`);
+  }
+  lines.push("");
+}
 lines.push("### 1) What changed");
 if (data.whatChanged?.summary) {
   lines.push(data.whatChanged.summary);
