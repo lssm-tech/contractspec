@@ -1,7 +1,7 @@
-import { OperationSpecRegistry, installOp } from '@contractspec/lib.contracts';
-import { registerReportContracts } from '@contractspec/lib.contracts';
-import { GetContractVerificationStatusQuery } from '@contractspec/lib.contracts';
-import { getContractVerificationStatusHandler } from './handlers/report/getContractVerificationStatus';
+import {
+  OperationSpecRegistry,
+  registerReportContracts,
+} from '@contractspec/lib.contracts';
 
 /**
  * Create workspace operation registry with all required specs and handlers bound.
@@ -11,13 +11,6 @@ export function createWorkspaceRegistry(): OperationSpecRegistry {
 
   // Register report-related contracts
   registerReportContracts(registry);
-
-  // Bind workspace-specific handlers
-  installOp(
-    registry,
-    GetContractVerificationStatusQuery,
-    getContractVerificationStatusHandler
-  );
 
   return registry;
 }

@@ -1,6 +1,11 @@
-import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import {
+  ScalarTypeEnum,
+  SchemaModel,
+  ZodSchemaType,
+} from '@contractspec/lib.schema';
 import { defineQuery } from '../operation';
 import { StabilityEnum } from '../../ownership';
+import * as z from 'zod';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Domain constants
@@ -50,16 +55,22 @@ export const GetContractVerificationStatusInput = new SchemaModel({
   },
 });
 
-export const GetContractVerificationStatusOutput = new SchemaModel({
-  name: 'GetContractVerificationStatusOutput',
-  fields: {
-    contracts: {
-      type: ContractVerificationStatusModel,
-      isOptional: false,
-      isArray: true,
-    },
-  },
-});
+export const GetContractVerificationStatusOutput = new ZodSchemaType(
+  z.object({
+    contracts: z
+      .object({
+        name: z.string(),
+        lastVerifiedSha: z.string().optional(),
+        lastVerifiedDate: z.string().optional(),
+        surfaces: z.string().array(),
+        driftMismatches: z.int(),
+      })
+      .array(),
+  }),
+  {
+    name: 'GetContractVerificationStatusOutput',
+  }
+);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Contract
