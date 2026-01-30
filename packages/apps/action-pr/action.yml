@@ -278,6 +278,11 @@ runs:
       shell: bash
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
+        # Collect contract verification status
+        echo "Collecting contract verification status..."
+        node "${{ github.action_path }}/operation-executor.js" "report.getContractVerificationStatus" "1.0.0" '{"projectPath": "'"$(pwd)"'"}' > .contractspec-ci/contracts.json || echo "[]" > .contractspec-ci/contracts.json
+
+        # Load existing report data and merge contracts
         python - <<'PY'
         import json
         import os
@@ -321,41 +326,62 @@ runs:
         }
         Path(".contractspec-ci/impact-derived.json").write_text(json.dumps(derived, indent=2))
 
-        report = {
-          "whatChanged": {
-            "summary": summary,
-            "detailsPath": ".contractspec-ci/product-view.md",
-          },
-          "risk": {
-            "status": impact_status,
-            "breaking": breaking_count,
-            "nonBreaking": non_breaking_count,
-          },
-          "validation": {
-            "status": os.environ.get("VALIDATION_STATUS", "skipped"),
-            "outputPath": ".contractspec-ci/validation.txt",
-          },
-          "drift": {
-            "status": os.environ.get("DRIFT_STATUS", "skipped"),
-            "files": Path(".contractspec-ci/drift-files.txt").read_text().splitlines()
-            if Path(".contractspec-ci/drift-files.txt").exists()
-            else [],
-          },
-          "nextSteps": [],
-        }
+        # Load contracts data and existing report data
+        contracts_data = []
+        contracts_path = Path(".contractspec-ci/contracts.json")
+        report_data = {}
+        report_data_path = Path(".contractspec-ci/report-data.json")
 
-        if report["validation"]["status"] == "fail":
-          report["nextSteps"].append("Fix validation errors and rerun the workflow.")
-        if report["risk"]["status"] == "breaking":
-          report["nextSteps"].append("Review breaking changes and plan a migration.")
-        if report["risk"]["status"] == "unknown":
-          report["nextSteps"].append("Re-run impact detection or check contractspec impact output.")
-        if report["drift"]["status"] == "fail":
-          report["nextSteps"].append("Run the generate command locally and commit drift fixes.")
+        # Load existing report if exists
+        if report_data_path.exists():
+          try:
+            report_data = json.loads(report_data_path.read_text())
+          except json.JSONDecodeError:
+            pass
+
+        if contracts_path.exists():
+          try:
+            contracts_result = json.loads(contracts_path.read_text())
+            contracts_data = contracts_result.get("contracts", [])
+          except json.JSONDecodeError:
+            pass
+
+        # Update report data with contracts
+        report_data["contracts"] = contracts_data
+
+        report_data["whatChanged"] = report_data.get("whatChanged", {
+          "summary": summary,
+          "detailsPath": ".contractspec-ci/product-view.md",
+        })
+        report_data["risk"] = report_data.get("risk", {
+          "status": impact_status,
+          "breaking": breaking_count,
+          "nonBreaking": non_breaking_count,
+        })
+        report_data["validation"] = report_data.get("validation", {
+          "status": os.environ.get("VALIDATION_STATUS", "skipped"),
+          "outputPath": ".contractspec-ci/validation.txt",
+        })
+        report_data["drift"] = report_data.get("drift", {
+          "status": os.environ.get("DRIFT_STATUS", "skipped"),
+          "files": Path(".contractspec-ci/drift-files.txt").read_text().splitlines()
+          if Path(".contractspec-ci/drift-files.txt").exists()
+          else [],
+        })
+        report_data["nextSteps"] = []
+
+        if report_data["validation"]["status"] == "fail":
+          report_data["nextSteps"].append("Fix validation errors and rerun the workflow.")
+        if report_data["risk"]["status"] == "breaking":
+          report_data["nextSteps"].append("Review breaking changes and plan a migration.")
+        if report_data["risk"]["status"] == "unknown":
+          report_data["nextSteps"].append("Re-run impact detection or check contractspec impact output.")
+        if report_data["drift"]["status"] == "fail":
+          report_data["nextSteps"].append("Run the generate command locally and commit drift fixes.")
 
         fail_on = os.environ.get("FAIL_ON", "any")
-        validation_failed = report["validation"]["status"] == "fail"
-        drift_failed = report["drift"]["status"] == "fail"
+        validation_failed = report_data["validation"]["status"] == "fail"
+        drift_failed = report_data["drift"]["status"] == "fail"
         impact_unknown = impact_status == "unknown"
         breaking_detected = bool(derived.get("breaking"))
 
@@ -390,7 +416,7 @@ runs:
 
         if should_fail:
           reason_list = ", ".join(reasons)
-          report["nextSteps"].insert(0, f"CI failed: {reason_list} (fail_on={fail_on}).")
+          report_data["nextSteps"].insert(0, f"CI failed: {reason_list} (fail_on={fail_on}).")
 
         Path(".contractspec-ci/fail-status.json").write_text(
           json.dumps(
@@ -403,7 +429,7 @@ runs:
           )
         )
 
-        Path(".contractspec-ci/report-data.json").write_text(json.dumps(report, indent=2))
+        Path(".contractspec-ci/report-data.json").write_text(json.dumps(report_data, indent=2))
         PY
 
     - name: Generate report

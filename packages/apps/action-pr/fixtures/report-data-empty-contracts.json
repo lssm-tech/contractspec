@@ -1,0 +1,18 @@
+{
+  "whatChanged": {
+    "summary": "No changes."
+  },
+  "risk": {
+    "status": "non-breaking",
+    "breaking": 0,
+    "nonBreaking": 0
+  },
+  "validation": {
+    "status": "pass"
+  },
+  "drift": {
+    "status": "pass"
+  },
+  "nextSteps": [],
+  "contracts": []
+}

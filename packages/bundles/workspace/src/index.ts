@@ -20,6 +20,9 @@ export type { Config, AiProvider, AgentMode } from './types/config';
 export * from './services/index';
 export type { FixStrategyType, FixableIssue } from './services/fix/types';
 
+// Operation registry
+export * from './registry';
+
 // Formatters (CI output formats)
 export * as formatters from './formatters/index';
 

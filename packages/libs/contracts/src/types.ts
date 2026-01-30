@@ -28,7 +28,7 @@ export type Actor = 'anonymous' | 'user' | 'admin';
  * - `job`: Background job/scheduled task
  * - `agent`: AI agent or automated system
  */
-export type Channel = 'web' | 'mobile' | 'job' | 'agent';
+export type Channel = 'web' | 'mobile' | 'job' | 'agent' | 'ci';
 
 import type {
   ConsentDefinition,

@@ -120,6 +120,14 @@
     "contentPath": "_common/opencode.example.echo.md"
   },
   {
+    "id": "_common/report.getContractVerificationStatus",
+    "title": "report.getContractVerificationStatus",
+    "summary": "Retrieves per-contract verification status for the impact report. - **Type**: operation (query) - **Version**: 1.0.0 - **File**: `packages/libs/contracts/src/operations/report/getContractVerificationStatus.ts`",
+    "route": "/docs/reference/_common/report.getContractVerificationStatus",
+    "source": "generated",
+    "contentPath": "_common/report.getContractVerificationStatus.md"
+  },
+  {
     "id": "_common/template.messaging.core",
     "title": "template.messaging.core",
     "summary": "Real-time messaging primitives for template applications, including conversations, participants, and delivery events. - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.contractspec-studio",
@@ -492,6 +500,25 @@
     ],
     "kind": "reference",
     "visibility": "public"
+  },
+  {
+    "id": "docs.tech.report-verification-table",
+    "title": "Contract Verification Table",
+    "summary": "How the impact report renders per-contract verification status.",
+    "route": "/docs/tech/report/verification-table",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/report-verification-table.md",
+    "tags": [
+      "report",
+      "drift",
+      "verification",
+      "impact"
+    ],
+    "kind": "how",
+    "visibility": "public",
+    "owners": [
+      "platform.core"
+    ]
   },
   {
     "id": "docs.tech.schema.README",

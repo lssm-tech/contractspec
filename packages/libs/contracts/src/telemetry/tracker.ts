@@ -6,14 +6,15 @@ import type {
   TelemetrySamplingConfig,
   TelemetrySpec,
 } from './spec';
+import type { Actor, Channel } from '../types';
 
 export interface TelemetryEventContext {
   tenantId?: string;
   organizationId?: string | null;
   userId?: string | null;
   sessionId?: string | null;
-  actor?: 'anonymous' | 'user' | 'admin';
-  channel?: 'web' | 'mobile' | 'job' | 'agent';
+  actor?: Actor;
+  channel?: Channel;
   metadata?: Record<string, unknown>;
 }
 

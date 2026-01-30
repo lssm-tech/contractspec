@@ -1,0 +1,32 @@
+{
+  "whatChanged": {
+    "summary": "Drift check completed."
+  },
+  "risk": {
+    "status": "unknown",
+    "breaking": 0,
+    "nonBreaking": 0
+  },
+  "validation": {
+    "status": "skipped"
+  },
+  "drift": {
+    "status": "fail",
+    "files": ["generated/docs/example.md"]
+  },
+  "nextSteps": ["Run the generate command locally and commit drift fixes."],
+  "contracts": [
+    {
+      "name": "user.create",
+      "lastVerifiedSha": "abc1234",
+      "lastVerifiedDate": "2025-06-10T12:00:00Z",
+      "surfaces": ["API", "runtime validation", "permissions"],
+      "driftMismatches": 0
+    },
+    {
+      "name": "order.updated",
+      "surfaces": ["API", "docs/examples"],
+      "driftMismatches": 3
+    }
+  ]
+}

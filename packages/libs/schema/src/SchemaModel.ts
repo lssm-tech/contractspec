@@ -44,9 +44,7 @@ export class SchemaModel<
   getZod(): TopLevelZodFromModel<Fields> {
     const shape = Object.entries(this.config.fields).reduce(
       (acc, [key, def]) => {
-        const base: z.ZodType = (
-          def.type as unknown as { getZod: () => z.ZodType }
-        ).getZod();
+        const base: z.ZodType = def.type.getZod();
         const withArray = def.isArray ? z.array(base) : base;
         (acc as Record<string, z.ZodType>)[key] = def.isOptional
           ? withArray.optional()

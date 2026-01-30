@@ -22,6 +22,10 @@
   ],
   "author": "LSSM",
   "license": "MIT",
+  "dependencies": {
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/bundle.workspace": "workspace:*"
+  },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
     "@types/bun": "^1.3.6",

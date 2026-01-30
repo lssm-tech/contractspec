@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { formatAge } from './format-age';
 
 const MAX_DETAIL_CHARS = 60000;
 const MAX_LIST_ITEMS = 20;
@@ -24,12 +25,21 @@ interface DriftData {
   files?: string[];
 }
 
+interface ContractVerificationStatus {
+  name: string;
+  lastVerifiedSha?: string;
+  lastVerifiedDate?: string;
+  surfaces: string[];
+  driftMismatches: number;
+}
+
 interface ReportData {
   whatChanged?: WhatChangedData;
   risk?: RiskData;
   validation?: ValidationData;
   drift?: DriftData;
   nextSteps?: string[];
+  contracts?: ContractVerificationStatus[];
 }
 
 const args = process.argv.slice(2);
@@ -92,6 +102,25 @@ const lines: string[] = [];
 
 lines.push('## ContractSpec Report');
 lines.push('');
+
+if (data.contracts && data.contracts.length > 0) {
+  lines.push('### Overall verification status');
+  lines.push('');
+  lines.push(
+    '| Contract / Endpoint / Event | Last verified commit | Time since verified | Surfaces covered | Drift debt |'
+  );
+  lines.push('| --- | --- | --- | --- | --- |');
+  for (const c of data.contracts) {
+    const sha = c.lastVerifiedSha ?? '\u2014';
+    const time = formatAge(c.lastVerifiedDate);
+    const surfaces = c.surfaces.join(', ');
+    lines.push(
+      `| ${c.name} | ${sha} | ${time} | ${surfaces} | ${c.driftMismatches} |`
+    );
+  }
+  lines.push('');
+}
+
 lines.push('### 1) What changed');
 if (data.whatChanged?.summary) {
   lines.push(data.whatChanged.summary);
