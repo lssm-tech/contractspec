@@ -8,16 +8,19 @@ import { CursorAgent } from './cursor-agent';
 import { ClaudeCodeAgent } from './claude-code-agent';
 import { OpenAICodexAgent } from './openai-codex-agent';
 import { UnifiedAgentAdapter } from './unified-adapter';
-import type { Config } from '../../types/config';
-import type { AgentMode, AgentProvider, AgentResult, AgentTask } from './types';
+import type { AgentProvider, AgentResult, AgentTask } from './types';
 import chalk from 'chalk';
 import ora from 'ora';
+import type {
+  AgentMode,
+  ResolvedContractsrcConfig,
+} from '@contractspec/lib.contracts';
 
 export class AgentOrchestrator {
-  private agents: Map<AgentMode, AgentProvider>;
+  private readonly agents: Map<AgentMode, AgentProvider>;
   private defaultAgent: AgentProvider;
 
-  constructor(private config: Config) {
+  constructor(private config: ResolvedContractsrcConfig) {
     // Initialize all available agents
     this.agents = new Map();
 
@@ -206,10 +209,12 @@ export class AgentOrchestrator {
   private getFallbackMode(mode: AgentMode): AgentMode {
     const fallbacks: Record<AgentMode, AgentMode> = {
       cursor: 'claude-code',
+      'claude-agent-sdk': 'claude-code',
       'claude-code': 'openai-codex',
       'openai-codex': 'simple',
-      simple: 'simple',
+      opencode: 'opencode-sdk',
       'opencode-sdk': 'claude-code',
+      simple: 'simple',
     };
 
     return fallbacks[mode];

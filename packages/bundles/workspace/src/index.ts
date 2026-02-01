@@ -13,9 +13,6 @@ export * from './ports/index';
 // Adapters (Node.js implementations)
 export * from './adapters/index';
 
-// Types
-export type { Config, AiProvider, AgentMode } from './types/config';
-
 // Services (use-cases)
 export * from './services/index';
 export type { FixStrategyType, FixableIssue } from './services/fix/types';

@@ -235,7 +235,7 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
           if (this._showImplStatus && spec.specType === 'operation') {
             try {
               const implResult = await resolveImplementations(
-                spec.filePath,
+                spec,
                 adapters,
                 wsConfig,
                 { computeHashes: false }

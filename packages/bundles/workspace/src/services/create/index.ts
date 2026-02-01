@@ -6,13 +6,13 @@
 
 import { AIGenerator } from './ai-generator';
 import * as templates from './templates';
-import type { WorkspaceConfig } from '@contractspec/module.workspace';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
 
 export class SpecCreatorService {
   public readonly ai: AIGenerator;
   public readonly templates = templates;
 
-  constructor(config: WorkspaceConfig) {
+  constructor(config: ResolvedContractsrcConfig) {
     this.ai = new AIGenerator(config);
   }
 }
@@ -20,6 +20,8 @@ export class SpecCreatorService {
 export * from './ai-generator';
 export * from './templates';
 
-export function createSpecCreator(config: WorkspaceConfig): SpecCreatorService {
+export function createSpecCreator(
+  config: ResolvedContractsrcConfig
+): SpecCreatorService {
   return new SpecCreatorService(config);
 }

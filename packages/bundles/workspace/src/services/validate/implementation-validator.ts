@@ -5,9 +5,9 @@
  * This does NOT execute spec modules.
  */
 
-import type { WorkspaceConfig } from '@contractspec/module.workspace';
-import { scanSpecSource } from '@contractspec/module.workspace';
+import type { SpecScanResult } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../../ports/fs';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
 
 export interface ValidateImplementationOptions {
   checkHandlers?: boolean;
@@ -48,34 +48,23 @@ function toPascalCase(value: string): string {
 }
 
 export async function validateImplementationFiles(
-  specFile: string,
+  specFile: SpecScanResult,
   adapters: { fs: FsAdapter },
-  config: WorkspaceConfig,
+  config: ResolvedContractsrcConfig,
   options: ValidateImplementationOptions = {}
 ): Promise<ValidateImplementationResult> {
   const { fs } = adapters;
   const errors: string[] = [];
   const warnings: string[] = [];
 
-  const exists = await fs.exists(specFile);
-  if (!exists) {
-    return {
-      valid: false,
-      errors: [`Spec file not found: ${specFile}`],
-      warnings: [],
-      expected: {},
-    };
-  }
-
-  const code = await fs.readFile(specFile);
-  const scan = scanSpecSource(code, specFile);
-  const specName = scan.key ?? fs.basename(specFile).replace(/\.[jt]s$/, '');
+  const specName =
+    specFile.key ?? fs.basename(specFile.filePath).replace(/\.[jt]s$/, '');
   const outRoot = options.outputDir ?? config.outputDir ?? './src';
   const kebab = toKebabCase(specName);
 
   const expected: ValidateImplementationResult['expected'] = {};
 
-  if (scan.specType === 'operation') {
+  if (specFile.specType === 'operation') {
     expected.handlerPath = fs.join(outRoot, 'handlers', `${kebab}.handler.ts`);
     expected.handlerTestPath = fs.join(
       outRoot,
@@ -83,7 +72,7 @@ export async function validateImplementationFiles(
       `${kebab}.handler.test.ts`
     );
   }
-  if (scan.specType === 'presentation') {
+  if (specFile.specType === 'presentation') {
     expected.componentPath = fs.join(outRoot, 'components', `${kebab}.tsx`);
     expected.componentTestPath = fs.join(
       outRoot,
@@ -91,7 +80,7 @@ export async function validateImplementationFiles(
       `${kebab}.test.tsx`
     );
   }
-  if (scan.specType === 'form') {
+  if (specFile.specType === 'form') {
     expected.formPath = fs.join(outRoot, 'forms', `${kebab}.form.tsx`);
     expected.formTestPath = fs.join(outRoot, 'forms', `${kebab}.form.test.tsx`);
   }

@@ -2,13 +2,16 @@
  * Factory for creating workspace adapters.
  */
 
-import type { WorkspaceConfig } from '@contractspec/module.workspace';
 import type { WorkspaceAdapters } from '../ports/logger';
-import { createNodeFsAdapter } from './fs';
+import { createNodeFsAdapter } from './fs.node';
 import { createNodeGitAdapter } from './git';
 import { createNodeWatcherAdapter } from './watcher';
 import { createNodeAiAdapter } from './ai';
 import { createConsoleLoggerAdapter, createNoopLoggerAdapter } from './logger';
+import {
+  DEFAULT_CONTRACTSRC,
+  type ResolvedContractsrcConfig,
+} from '@contractspec/lib.contracts';
 
 /**
  * Options for creating adapters.
@@ -22,7 +25,7 @@ export interface CreateAdaptersOptions {
   /**
    * Workspace configuration for AI.
    */
-  config?: WorkspaceConfig;
+  config?: ResolvedContractsrcConfig;
 
   /**
    * Use no-op logger (for testing).
@@ -39,19 +42,7 @@ export function createNodeAdapters(
   const { cwd, config, silent } = options;
 
   // Use default config if not provided
-  const workspaceConfig: WorkspaceConfig = config ?? {
-    aiProvider: 'claude',
-    agentMode: 'simple',
-    outputDir: './src',
-    conventions: {
-      operations: 'interactions/commands|queries',
-      events: 'events',
-      presentations: 'presentations',
-      forms: 'forms',
-    },
-    defaultOwners: [],
-    defaultTags: [],
-  };
+  const workspaceConfig = config ?? DEFAULT_CONTRACTSRC;
 
   return {
     fs: createNodeFsAdapter(cwd),

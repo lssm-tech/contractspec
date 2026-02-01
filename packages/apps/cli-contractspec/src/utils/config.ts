@@ -10,12 +10,12 @@ import {
   type RepositoryType,
 } from '@contractspec/bundle.workspace';
 import {
-  type ResolvedContractsrcConfig,
   ContractsrcSchema,
   DEFAULT_CONTRACTSRC,
   type FolderConventions,
   type OpenApiConfig,
   type OpenApiSourceConfig,
+  type ResolvedContractsrcConfig as ResolvedContractsrcConfig,
 } from '@contractspec/lib.contracts';
 
 // Re-export types for convenience

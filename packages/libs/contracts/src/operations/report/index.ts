@@ -40,6 +40,7 @@ export const getContractVerificationStatusHandler: HandlerForOperationSpec<
 ) => {
   try {
     // Call CLI command to get implementation status
+    // contractspec impl status --format json --all
     const cmdProcess = Bun.spawn(
       ['contractspec', 'impl', 'status', '--format', 'json', '--all'],
       {

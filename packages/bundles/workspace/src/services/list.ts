@@ -7,9 +7,10 @@ import {
   type SpecScanResult,
 } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../ports/fs';
-import type { ContractsrcConfig } from '@contractspec/lib.contracts/workspace-config';
 import micromatch from 'micromatch';
 import { isTestFile } from '../utils';
+import type { MaybeArray } from '@contractspec/lib.utils-typescript';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
 
 /**
  * Options for listing specs.
@@ -23,12 +24,12 @@ export interface ListSpecsOptions {
   /**
    * Filter by spec type.
    */
-  type?: string;
+  type?: MaybeArray<string>;
 
   /**
    * Workspace configuration
    */
-  config?: ContractsrcConfig;
+  config?: ResolvedContractsrcConfig;
 }
 
 /**
@@ -45,6 +46,9 @@ export async function listSpecs(
   const pattern = options.pattern;
   const files = await fs.glob({ pattern });
   const results: SpecScanResult[] = [];
+  const specTypesToSearch = Array.isArray(options.type)
+    ? options.type
+    : [options.type];
 
   for (const file of files) {
     // Skip node_modules and dist
@@ -75,7 +79,7 @@ export async function listSpecs(
         continue;
       }
 
-      if (options.type && result.specType !== options.type) {
+      if (options.type && !specTypesToSearch.includes(result.specType)) {
         continue;
       }
 

@@ -375,16 +375,3 @@ export interface KnowledgeSpaceSpecData extends BaseSpecData {
   chunkSize?: number;
   vectorDbIntegration?: string;
 }
-
-export interface AIGenerationOptions {
-  provider: 'claude' | 'openai' | 'ollama' | 'custom';
-  model?: string;
-  endpoint?: string;
-  stream?: boolean;
-}
-
-export interface GenerationResult {
-  code: string;
-  filePath: string;
-  specType: SpecType;
-}

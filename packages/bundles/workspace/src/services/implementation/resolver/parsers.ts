@@ -127,34 +127,3 @@ export function parseExplicitImplementations(
 
   return implementations;
 }
-
-/**
- * Get common variants of a spec key for discovery.
- */
-export function getSpecKeyVariants(specKey: string): string[] {
-  const variants: string[] = [];
-
-  // Remove common suffixes
-  const base = specKey
-    .replace(/Spec$/, '')
-    .replace(/Contract$/, '')
-    .replace(/Command$/, '')
-    .replace(/Query$/, '');
-
-  if (base !== specKey) {
-    variants.push(base);
-    variants.push(`${base}Spec`);
-    variants.push(`${base}Contract`);
-  }
-
-  // Add PascalCase variant
-  const parts = specKey.split('.');
-  if (parts.length > 1) {
-    const pascalName = parts
-      .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
-      .join('');
-    variants.push(pascalName);
-  }
-
-  return variants;
-}

@@ -5,7 +5,6 @@
 
 import { generateText } from 'ai';
 import { getAIProvider } from '../providers';
-import type { Config } from '../../types/config';
 import type { AgentProvider, AgentResult, AgentTask } from './types';
 import {
   buildComponentPrompt,
@@ -14,11 +13,12 @@ import {
   buildTestPrompt,
   getCodeGenSystemPrompt,
 } from '../prompts/code-generation';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
 
 export class SimpleAgent implements AgentProvider {
   name = 'simple' as const;
 
-  constructor(private config: Config) {}
+  constructor(private config: ResolvedContractsrcConfig) {}
 
   canHandle(_task: AgentTask): boolean {
     // Simple agent can handle all tasks as a fallback

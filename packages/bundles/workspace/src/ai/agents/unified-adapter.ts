@@ -2,12 +2,13 @@
  * Adapter for UnifiedAgent to work with Workspace AgentOrchestrator.
  */
 
-import type { AgentProvider, AgentResult, AgentTask, AgentMode } from './types';
+import type { AgentProvider, AgentResult, AgentTask } from './types';
+import type { AgentMode } from '@contractspec/lib.contracts';
 import {
-  UnifiedAgent,
-  createUnifiedAgent,
-  type UnifiedAgentConfig,
   type AgentSpec,
+  createUnifiedAgent,
+  UnifiedAgent,
+  type UnifiedAgentConfig,
 } from '@contractspec/lib.ai-agent';
 
 export class UnifiedAgentAdapter implements AgentProvider {

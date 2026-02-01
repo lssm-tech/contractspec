@@ -7,13 +7,14 @@ import type { LoggerAdapter } from '../../../ports/logger';
 import { loadWorkspaceConfig } from '../../config';
 import { validateImplementationFiles } from '../../validate/implementation-validator';
 import type { CIIssue } from '../types';
+import type { SpecScanResult } from '@contractspec/module.workspace';
 
 /**
  * Run handler implementation checks.
  */
 export async function runHandlerChecks(
   adapters: { fs: FsAdapter; logger: LoggerAdapter },
-  specFiles: string[]
+  specFiles: SpecScanResult[]
 ): Promise<CIIssue[]> {
   const { fs } = adapters;
   const issues: CIIssue[] = [];
@@ -22,7 +23,7 @@ export async function runHandlerChecks(
 
   for (const specFile of specFiles) {
     // Only check operation specs
-    if (!specFile.includes('.operation.')) continue;
+    if (specFile.specType !== 'operation') continue;
 
     const result = await validateImplementationFiles(specFile, { fs }, config, {
       checkHandlers: true,
@@ -35,7 +36,7 @@ export async function runHandlerChecks(
         severity: 'warning', // Handler missing is a warning, not error
         message: error,
         category: 'handlers',
-        file: specFile,
+        file: specFile.filePath,
       });
     }
 
@@ -45,7 +46,7 @@ export async function runHandlerChecks(
         severity: 'warning',
         message: warning,
         category: 'handlers',
-        file: specFile,
+        file: specFile.filePath,
       });
     }
   }

@@ -12,18 +12,14 @@ import type {
   PresentationKind,
   PresentationSpecData,
 } from '../../types';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
 
 // Cache service instance? Or create per call?
 // Per call is fine or we can pass it if we refactor deeper.
 // For now, create per call using config.
 
-function getService(config: Config): SpecCreatorService {
-  // Config needs to match WorkspaceConfig
-  // Assuming Config has necessary fields
-
-  return createSpecCreator(
-    config as unknown as import('@contractspec/module.workspace').WorkspaceConfig
-  );
+function getService(config: ResolvedContractsrcConfig): SpecCreatorService {
+  return createSpecCreator(config);
 }
 
 /**

@@ -8,6 +8,7 @@ import {
 } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../../ports/fs';
 import type { LoggerAdapter } from '../../ports/logger';
+import { listSpecs } from '../list';
 
 /**
  * Options for spec validation.
@@ -34,32 +35,37 @@ export interface ValidateSpecResult {
  * Validate a spec file.
  */
 export async function validateSpec(
-  specFile: string,
+  specFilePath: string,
   adapters: { fs: FsAdapter; logger: LoggerAdapter },
   options: ValidateSpecOptions = {}
 ): Promise<ValidateSpecResult> {
   const { fs } = adapters;
 
-  const exists = await fs.exists(specFile);
+  const exists = await fs.exists(specFilePath);
   if (!exists) {
     return {
       valid: false,
-      errors: [`Spec file not found: ${specFile}`],
+      errors: [`Spec file not found: ${specFilePath}`],
       warnings: [],
       code: undefined,
     };
   }
 
-  const specCode = await fs.readFile(specFile);
+  const specCode = await fs.readFile(specFilePath);
 
   const allErrors: string[] = [];
   const allWarnings: string[] = [];
   let structureResult: ValidationResult | undefined;
 
   if (!options.skipStructure) {
-    structureResult = validateSpecStructure(specCode, specFile);
-    allErrors.push(...structureResult.errors);
-    allWarnings.push(...structureResult.warnings);
+    const specFiles = await listSpecs(adapters, {
+      pattern: specFilePath,
+    });
+    for (const specFile of specFiles) {
+      structureResult = validateSpecStructure(specFile);
+      allErrors.push(...structureResult.errors);
+      allWarnings.push(...structureResult.warnings);
+    }
   }
 
   return {

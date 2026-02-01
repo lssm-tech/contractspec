@@ -8,17 +8,18 @@
 
 import * as vscode from 'vscode';
 import {
+  inferSpecTypeFromCodeBlock,
+  inferSpecTypeFromFilePath,
   isFeatureFile,
   scanFeatureSource,
   scanSpecSource,
   validateSpecStructure,
-  inferSpecTypeFromFilePath,
 } from '@contractspec/module.workspace';
-import { features } from '@contractspec/bundle.workspace';
 import type {
   IntegrityAnalysisResult,
   SpecImplementationResult,
 } from '@contractspec/bundle.workspace';
+import { features } from '@contractspec/bundle.workspace';
 
 const DIAGNOSTIC_SOURCE = 'ContractSpec';
 const INTEGRITY_SOURCE = 'ContractSpec Integrity';
@@ -91,10 +92,13 @@ function validateDocument(
 
   const diagnostics: vscode.Diagnostic[] = [];
   const code = document.getText();
-  const fileName = getFileName(filePath);
 
   try {
-    const result = validateSpecStructure(code, fileName);
+    const result = validateSpecStructure({
+      specType: inferSpecTypeFromCodeBlock(code).specType,
+      filePath,
+      sourceBlock: code,
+    });
 
     // Convert errors to diagnostics
     for (const error of result.errors) {
@@ -192,13 +196,6 @@ function findRelevantRange(
  */
 function isSpecFile(filePath: string): boolean {
   return inferSpecTypeFromFilePath(filePath) !== 'unknown';
-}
-
-/**
- * Get just the file name from a path.
- */
-function getFileName(filePath: string): string {
-  return filePath.split(/[/\\]/).pop() ?? filePath;
 }
 
 /**

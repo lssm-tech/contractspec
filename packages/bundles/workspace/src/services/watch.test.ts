@@ -1,9 +1,12 @@
 import { describe, expect, it, mock } from 'bun:test';
 import { watchSpecs } from './watch';
 import type { FsAdapter } from '../ports/fs';
-import type { WorkspaceConfig } from '@contractspec/module.workspace';
 import type { LoggerAdapter } from '../ports/logger';
 import type { WatcherAdapter } from '../ports/watcher';
+import {
+  DEFAULT_CONTRACTSRC,
+  type ResolvedContractsrcConfig,
+} from '@contractspec/lib.contracts';
 
 describe('Watch Service', () => {
   const mockWatcher = {
@@ -16,7 +19,7 @@ describe('Watch Service', () => {
     close: mock(),
   };
 
-  const mockLogger = {
+  const mockLogger: LoggerAdapter = {
     info: mock(),
     warn: mock(),
     error: mock(),
@@ -31,19 +34,17 @@ describe('Watch Service', () => {
     })),
   };
 
-  const config = {
-    version: '1',
+  const config: ResolvedContractsrcConfig = {
+    ...DEFAULT_CONTRACTSRC,
     outputDir: 'src',
-    contracts: {},
-    ignore: [],
-  } as unknown as WorkspaceConfig;
+  };
 
   it('should register watcher', () => {
     watchSpecs(
       {
         watcher: mockWatcher as unknown as WatcherAdapter,
         fs: {} as unknown as FsAdapter,
-        logger: mockLogger as unknown as LoggerAdapter,
+        logger: mockLogger,
       },
       config,
       { pattern: '**/*.ts' }
@@ -61,7 +62,7 @@ describe('Watch Service', () => {
       {
         watcher: mockWatcher as unknown as WatcherAdapter,
         fs: {} as unknown as FsAdapter,
-        logger: mockLogger as unknown as LoggerAdapter,
+        logger: mockLogger,
       },
       config,
       { pattern: '**/*.ts', runValidate: true, runBuild: true },
@@ -88,7 +89,7 @@ describe('Watch Service', () => {
       {
         watcher: mockWatcher as unknown as WatcherAdapter,
         fs: {} as unknown as FsAdapter,
-        logger: mockLogger as unknown as LoggerAdapter,
+        logger: mockLogger,
       },
       config,
       { pattern: '**/*.ts', runBuild: true, dryRun: true },

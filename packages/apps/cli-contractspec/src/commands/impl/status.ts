@@ -11,12 +11,13 @@ import {
   createConsoleLoggerAdapter,
   createNodeFsAdapter,
   getImplementationSummary,
+  listSpecs,
   loadWorkspaceConfig,
   resolveAllImplementations,
-  resolveImplementations,
   type SpecImplementationResult,
 } from '@contractspec/bundle.workspace';
 import type { ImplStatusOptions } from './types';
+import { createBunFsAdapter } from '@contractspec/bundles/workspace/src/adapters/fs.bun';
 
 /**
  * Format status icon
@@ -124,31 +125,29 @@ function outputTable(results: SpecImplementationResult[]): void {
  * Run status command
  */
 async function runStatus(options: ImplStatusOptions): Promise<void> {
+  console.log('process.versions.bun', process.versions.bun);
   const spinner = ora('Checking implementation status...').start();
 
   try {
-    const fs = createNodeFsAdapter();
+    const fs = process.versions.bun
+      ? createBunFsAdapter()
+      : createNodeFsAdapter();
     const logger = createConsoleLoggerAdapter();
     const config = await loadWorkspaceConfig(fs);
     const adapters = { fs, logger };
 
-    let results: SpecImplementationResult[];
-
-    if (options.spec) {
-      // Single spec
-      const result = await resolveImplementations(
-        options.spec,
-        adapters,
-        config
-      );
-      results = [result];
-    } else {
-      // All specs
-      //   const pattern = options.pattern ?? config.pattern ?? '**/*.contracts.ts';
-      const pattern = options.pattern ?? '**/*.contracts.ts';
-      const specFiles = await fs.glob({ pattern });
-      results = await resolveAllImplementations(specFiles, adapters, config);
-    }
+    spinner.text = 'Listing specs...';
+    const specFiles = await listSpecs(adapters, {
+      pattern: options.spec || (options.pattern as string | undefined),
+    });
+    spinner.text = 'Resolving implementation...';
+    const results: SpecImplementationResult[] = await resolveAllImplementations(
+      specFiles,
+      adapters,
+      config,
+      undefined,
+      spinner
+    );
 
     spinner.stop();
 

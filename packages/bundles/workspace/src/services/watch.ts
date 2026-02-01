@@ -4,12 +4,12 @@
  * Provides a reusable watcher that can trigger validate/build on spec changes.
  */
 
-import type { WorkspaceConfig } from '@contractspec/module.workspace';
 import type { LoggerAdapter } from '../ports/logger';
 import type { Watcher, WatcherAdapter, WatchOptions } from '../ports/watcher';
 import type { FsAdapter } from '../ports/fs';
 import { buildSpec } from './build';
 import { validateSpec } from './validate';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
 
 export interface WatchSpecsOptions extends WatchOptions {
   runValidate?: boolean;
@@ -22,7 +22,7 @@ export type WatchValidateFn = (specPath: string) => Promise<void>;
 
 export function watchSpecs(
   adapters: { watcher: WatcherAdapter; fs: FsAdapter; logger: LoggerAdapter },
-  config: WorkspaceConfig,
+  config: ResolvedContractsrcConfig,
   options: WatchSpecsOptions,
   overrides?: {
     validate?: WatchValidateFn;

@@ -81,7 +81,7 @@ runs:
       if: env.PACKAGE_MANAGER == 'bun'
       uses: oven-sh/setup-bun@v2
       with:
-        bun-version: '1.3.6'
+        bun-version: '1.3.8'
 
     - name: Setup Node
       if: env.PACKAGE_MANAGER != 'bun'
@@ -280,7 +280,7 @@ runs:
       run: |
         # Collect contract verification status
         echo "Collecting contract verification status..."
-        node "${{ github.action_path }}/operation-executor.js" "report.getContractVerificationStatus" "1.0.0" '{"projectPath": "'"$(pwd)"'"}' > .contractspec-ci/contracts.json || echo "[]" > .contractspec-ci/contracts.json
+        bun "${{ github.action_path }}/operation-executor.ts" "report.getContractVerificationStatus" "1.0.0" '{"projectPath": "'"$(pwd)"'"}' > .contractspec-ci/contracts.json || echo "[]" > .contractspec-ci/contracts.json
 
         # Load existing report data and merge contracts
         python - <<'PY'

@@ -7,7 +7,6 @@ import { openai } from '@ai-sdk/openai';
 import { ollama } from 'ollama-ai-provider';
 import type { LanguageModel } from 'ai';
 import { generateObject, generateText, streamText } from 'ai';
-import type { WorkspaceConfig } from '@contractspec/module.workspace';
 import type {
   AiAdapter,
   AiGenerateOptions,
@@ -15,14 +14,17 @@ import type {
   AiGenerateStructuredOptions,
   AiValidationResult,
 } from '../ports/ai';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
 
 /**
  * Create a Node.js AI adapter using Vercel AI SDK.
  */
-export function createNodeAiAdapter(config: WorkspaceConfig): AiAdapter {
+export function createNodeAiAdapter(
+  config: ResolvedContractsrcConfig
+): AiAdapter {
   return {
     async validateProvider(
-      providerConfig: WorkspaceConfig
+      providerConfig: ResolvedContractsrcConfig
     ): Promise<AiValidationResult> {
       try {
         const { aiProvider } = providerConfig;
@@ -115,7 +117,7 @@ export function createNodeAiAdapter(config: WorkspaceConfig): AiAdapter {
 /**
  * Get AI provider based on configuration.
  */
-function getAIProvider(config: WorkspaceConfig): LanguageModel {
+function getAIProvider(config: ResolvedContractsrcConfig): LanguageModel {
   const { aiProvider, aiModel, customEndpoint } = config;
 
   switch (aiProvider) {

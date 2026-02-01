@@ -29,18 +29,10 @@ export async function extractContracts(
   // Override config if needed or pass as options to import service
   // importFromOpenApiService takes (contractsrcConfig, importOptions, adapters)
   // We need to merge outputDir override if present.
-  const conventions = {
-    models: 'models',
-    groupByFeature: false,
-    ...config.conventions,
-  };
 
   const runConfig = {
     ...config,
     outputDir: outputDir, // CLI/Option override
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    schemaFormat: (config as any).schemaFormat ?? 'zod',
-    conventions,
   };
 
   logger.info(`Extracting contracts from ${sourcePath} to ${outputDir}`);

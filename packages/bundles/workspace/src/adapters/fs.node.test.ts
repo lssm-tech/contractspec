@@ -1,5 +1,5 @@
-import { describe, it, expect, mock, beforeEach } from 'bun:test';
-import { createNodeFsAdapter } from './fs';
+import { beforeEach, describe, expect, it, mock } from 'bun:test';
+import { createNodeFsAdapter } from './fs.node';
 
 // Node fs mocks
 const mockAccess = mock(() => Promise.resolve());

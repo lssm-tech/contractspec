@@ -2,6 +2,7 @@
  * Implementation verification checks.
  */
 
+import type { SpecScanResult } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../../../ports/fs';
 import type { LoggerAdapter } from '../../../ports/logger';
 import { loadWorkspaceConfig } from '../../config';
@@ -13,7 +14,7 @@ import type { CICheckOptions, CIIssue } from '../types';
  */
 export async function runImplementationChecks(
   adapters: { fs: FsAdapter; logger: LoggerAdapter },
-  specFiles: string[],
+  specFiles: SpecScanResult[],
   options: CICheckOptions
 ): Promise<CIIssue[]> {
   const { fs } = adapters;
@@ -23,7 +24,7 @@ export async function runImplementationChecks(
   const implOptions = options.implementation ?? {};
 
   // Only check operation specs by default
-  const operationSpecs = specFiles.filter((f) => f.includes('.operation.'));
+  const operationSpecs = specFiles.filter((f) => f.specType === 'operation');
 
   // Resolve implementations for all specs
   const results = await resolveAllImplementations(

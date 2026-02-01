@@ -8,22 +8,25 @@
  */
 
 import { createHash } from 'crypto';
-import path from 'path';
 
-import type { WorkspaceConfig } from '@contractspec/module.workspace';
-import { scanSpecSource } from '@contractspec/module.workspace';
-import type { ImplementationType } from '@contractspec/lib.contracts';
+import type { SpecScanResult } from '@contractspec/module.workspace';
+import type {
+  ImplementationType,
+  ResolvedContractsrcConfig,
+} from '@contractspec/lib.contracts';
 import type { FsAdapter } from '../../../ports/fs';
 import type {
-  ResolverOptions,
   ResolvedImplementation,
+  ResolverOptions,
   SpecImplementationResult,
 } from '../types';
 import { discoverImplementationsForSpec } from '../discovery';
 
 import { getConventionPaths } from './conventions';
-import { getSpecKeyVariants, parseExplicitImplementations } from './parsers';
+import { parseExplicitImplementations } from './parsers';
 import { determineStatus } from './status';
+import path from 'path';
+import type { Ora } from 'ora';
 
 export * from './parsers';
 export * from './conventions';
@@ -47,27 +50,22 @@ function computeHash(content: string): string {
  * Resolve all implementations for a spec file.
  */
 export async function resolveImplementations(
-  specFile: string,
+  specFile: SpecScanResult,
   adapters: { fs: FsAdapter },
-  config: WorkspaceConfig,
-  options: ResolverOptions = {}
+  config: ResolvedContractsrcConfig,
+  options: ResolverOptions = {},
+  spinner?: Ora
 ): Promise<SpecImplementationResult> {
   const opts = { ...DEFAULT_OPTIONS, ...options };
+  const specHash = opts.computeHashes
+    ? computeHash(specFile.sourceBlock || '')
+    : undefined;
+
+  const specKey =
+    specFile.key ?? path.basename(specFile.filePath).replace(/\.[jt]s$/, '');
+  const specVersion = specFile.version ?? '1.0.0';
+
   const { fs } = adapters;
-
-  // Read and parse spec file
-  const specExists = await fs.exists(specFile);
-  if (!specExists) {
-    throw new Error(`Spec file not found: ${specFile}`);
-  }
-
-  const specContent = await fs.readFile(specFile);
-  const specHash = opts.computeHashes ? computeHash(specContent) : undefined;
-  const scan = scanSpecSource(specContent, specFile);
-
-  const specKey = scan.key ?? path.basename(specFile).replace(/\.[jt]s$/, '');
-  const specVersion = scan.version ?? '1.0.0';
-  const specType = scan.specType ?? 'operation';
 
   const implementations: ResolvedImplementation[] = [];
   const seenPaths = new Set<string>();
@@ -83,12 +81,13 @@ export async function resolveImplementations(
     seenPaths.add(path);
 
     const exists = await fs.exists(path);
-    let contentHash: string | undefined;
+    let implementationSourceContent: string | undefined = undefined;
+    let implementationSourceHash: string | undefined = undefined;
 
     if (exists && opts.computeHashes) {
       try {
-        const content = await fs.readFile(path);
-        contentHash = computeHash(content);
+        implementationSourceContent = await fs.readFile(path);
+        implementationSourceHash = computeHash(implementationSourceContent);
       } catch {
         // Ignore hash computation errors
       }
@@ -99,15 +98,18 @@ export async function resolveImplementations(
       type,
       source,
       exists,
-      contentHash,
+      implementationSourceContent,
+      implementationSourceHash,
       description,
     });
   };
 
   // 1. Add explicit implementations from spec
-  if (opts.includeExplicit) {
+  if (opts.includeExplicit && specFile.sourceBlock) {
+    if (spinner) spinner.suffixText = `Discover explicit implementations`;
+
     // Parse explicit implementations from spec source
-    const explicitImpls = parseExplicitImplementations(specContent);
+    const explicitImpls = parseExplicitImplementations(specFile.sourceBlock);
     for (const impl of explicitImpls) {
       await addImpl(impl.path, impl.type, 'explicit', impl.description);
     }
@@ -115,26 +117,17 @@ export async function resolveImplementations(
 
   // 2. Add auto-discovered implementations
   if (opts.includeDiscovered) {
+    if (spinner) spinner.suffixText = `Discover implementations`;
+
     const discovered = await discoverImplementationsForSpec(
       specKey,
       adapters,
       opts
     );
 
-    // Also search for spec key variants
-    const specKeyVariants = getSpecKeyVariants(specKey);
-    for (const variant of specKeyVariants) {
-      const variantDiscovered = await discoverImplementationsForSpec(
-        variant,
-        adapters,
-        opts
-      );
-      discovered.push(...variantDiscovered);
-    }
-
     for (const ref of discovered) {
       // Skip the spec file itself
-      if (ref.filePath === specFile) continue;
+      if (ref.filePath === specFile.filePath) continue;
 
       await addImpl(ref.filePath, ref.inferredType, 'discovered');
     }
@@ -142,22 +135,30 @@ export async function resolveImplementations(
 
   // 3. Add convention-based implementations
   if (opts.includeConvention) {
+    if (spinner)
+      spinner.suffixText = `Discover implementations based on conventions`;
+
     const outputDir = opts.outputDir ?? config.outputDir ?? './src';
-    const conventionPaths = getConventionPaths(specType, specKey, outputDir);
+    const conventionPaths = getConventionPaths(
+      specFile.specType,
+      specKey,
+      outputDir
+    );
 
     for (const { path, type } of conventionPaths) {
       await addImpl(path, type, 'convention');
     }
   }
 
+  if (spinner) spinner.suffixText = `Determine implementation status`;
   // Determine overall status
   const status = determineStatus(implementations);
 
   return {
     specKey,
     specVersion,
-    specPath: specFile,
-    specType,
+    specPath: specFile.filePath,
+    specType: specFile.specType,
     implementations,
     status,
     specHash,
@@ -168,20 +169,25 @@ export async function resolveImplementations(
  * Resolve implementations for multiple spec files.
  */
 export async function resolveAllImplementations(
-  specFiles: string[],
+  specFiles: SpecScanResult[],
   adapters: { fs: FsAdapter },
-  config: WorkspaceConfig,
-  options: ResolverOptions = {}
+  config: ResolvedContractsrcConfig,
+  options: ResolverOptions = {},
+  spinner?: Ora
 ): Promise<SpecImplementationResult[]> {
   const results: SpecImplementationResult[] = [];
 
   for (const specFile of specFiles) {
+    if (spinner)
+      spinner.text = `Resolving implementation... (${results.length}/${specFiles.length})`;
+
     try {
       const result = await resolveImplementations(
         specFile,
         adapters,
         config,
-        options
+        options,
+        spinner
       );
       results.push(result);
     } catch (error) {
