@@ -185,7 +185,7 @@ runs:
       run: |
         # Collect contract verification status
         echo "Collecting contract verification status..."
-        node "${{ github.action_path }}/operation-executor.js" "report.getContractVerificationStatus" "1.0.0" '{"projectPath": "'"$(pwd)"'"}' > .contractspec-ci/contracts.json || echo "[]" > .contractspec-ci/contracts.json
+        bun "${{ github.action_path }}/operation-executor.ts" "report.getContractVerificationStatus" "1.0.0" '{"projectPath": "'"$(pwd)"'"}' > .contractspec-ci/contracts.json || echo "[]" > .contractspec-ci/contracts.json
 
         # Load contracts data and existing report data
 

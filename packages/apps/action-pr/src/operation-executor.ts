@@ -2,7 +2,7 @@
 
 /**
  * Execute ContractSpec operation and return JSON result.
- * Usage: node operation-executor.js <operationKey> <operationVersion> <inputJson>
+ * Usage: bun operation-executor.ts <operationKey> <operationVersion> <inputJson>
  */
 
 import { operationRegistry } from '@contractspec/bundle.workspace';
@@ -55,7 +55,7 @@ const [operationKey, version, inputJson] = process.argv.slice(2);
 
 if (!operationKey || !version || !inputJson) {
   console.error(
-    'Usage: node operation-executor.js <operationKey> <operationVersion> <inputJson>'
+    'Usage: bun operation-executor.ts <operationKey> <operationVersion> <inputJson>'
   );
   process.exit(1);
 }
