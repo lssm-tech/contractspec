@@ -15,7 +15,7 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "validate": "contractspec validate"
+    "validate": "contractspec validate \"src/**/*\""
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",

@@ -281,6 +281,11 @@ const validateCmd = program
   .description(
     'Validate a contract specification and optionally its implementation'
   )
+  .argument(
+    '<spec-files>',
+    'Path to spec files (defaults to workspace scan)',
+    undefined
+  )
   .option(
     '--blueprint <path>',
     'Path to AppBlueprintSpec module for validation'
@@ -316,11 +321,12 @@ const validateCmd = program
   .option('--check-handlers', 'Verify handler implementations exist')
   .option('--check-tests', 'Verify test coverage')
   .option('-i, --interactive', 'Interactive mode - prompt for what to validate')
-  .action(async (options) => {
+  .action(async (specFile: string, options) => {
     try {
       const config = await loadConfig();
       const mergedConfig = mergeConfig(config, options);
-      await validateCommand(undefined, options, mergedConfig);
+      // specFiles is string[] from variadic arg
+      await validateCommand(specFile, options, mergedConfig);
     } catch (error) {
       console.error(
         chalk.red('\n❌ Error:'),
