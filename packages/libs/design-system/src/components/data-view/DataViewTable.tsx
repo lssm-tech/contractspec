@@ -2,12 +2,12 @@
 
 import * as React from 'react';
 import type {
+  DataViewField,
   DataViewSpec,
   DataViewTableConfig,
-  DataViewField,
 } from '@contractspec/lib.contracts/data-views';
 import { cn } from '../../lib/utils';
-import { getAtPath, formatValue } from './utils';
+import { DataViewFormattedValue, getAtPath } from './utils';
 
 export interface DataViewTableProps {
   spec: DataViewSpec;
@@ -114,7 +114,11 @@ export function DataViewTable({
                       alignmentClass(column.align)
                     )}
                   >
-                    {displayValue(item, fields, column.field)}
+                    <DisplayValue
+                      item={item}
+                      fields={fields}
+                      fieldKey={column.field}
+                    />
                   </td>
                 ))}
               </tr>
@@ -135,15 +139,19 @@ function fieldByKey(fields: DataViewField[], key: string) {
   return fields.find((field) => field.key === key);
 }
 
-function displayValue(
-  item: Record<string, unknown>,
-  fields: DataViewField[],
-  key: string
-) {
-  const field = fieldByKey(fields, key);
+export function DisplayValue({
+  item,
+  fields,
+  fieldKey,
+}: {
+  item: Record<string, unknown>;
+  fields: DataViewField[];
+  fieldKey: string;
+}) {
+  const field = fieldByKey(fields, fieldKey);
   if (!field) return '';
   const value = getAtPath(item, field.dataPath);
-  return formatValue(value, field.format);
+  return <DataViewFormattedValue value={value} format={field.format} />;
 }
 
 function alignmentClass(

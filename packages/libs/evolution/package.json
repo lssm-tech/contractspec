@@ -38,7 +38,7 @@
     "@contractspec/lib.schema": "workspace:*"
   },
   "peerDependencies": {
-    "@prisma/client": "7.2.0"
+    "@prisma/client": "7.3.0"
   },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",

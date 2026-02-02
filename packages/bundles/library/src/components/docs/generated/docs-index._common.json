@@ -2,7 +2,7 @@
   {
     "id": "_common/docs.contract.reference",
     "title": "docs.contract.reference",
-    "summary": "Resolve a contract into a documentation-ready reference. - **Type**: operation (query) - **Version**: 1.0.0 - **Tags**: reference - **File**: `packages/libs/contracts/src/docs/queries/contractReference.query.ts`",
+    "summary": "Resolve a contract into a documentation-ready reference. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Tags**: reference \n - **File**: `packages/libs/contracts/src/docs/queries/contractReference.query.ts`",
     "route": "/docs/reference/_common/docs.contract.reference",
     "source": "generated",
     "contentPath": "_common/docs.contract.reference.md"
@@ -10,7 +10,7 @@
   {
     "id": "_common/docs.generate",
     "title": "docs.generate",
-    "summary": "Generate documentation artifacts from ContractSpecs. - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: generation - **File**: `packages/libs/contracts/src/docs/commands/docsGenerate.command.ts`",
+    "summary": "Generate documentation artifacts from ContractSpecs. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Tags**: generation \n - **File**: `packages/libs/contracts/src/docs/commands/docsGenerate.command.ts`",
     "route": "/docs/reference/_common/docs.generate",
     "source": "generated",
     "contentPath": "_common/docs.generate.md"
@@ -18,7 +18,7 @@
   {
     "id": "_common/docs.generated",
     "title": "docs.generated",
-    "summary": "Emitted when documentation artifacts are generated. - **Type**: event (event) - **Version**: 1.0.0 - **Tags**: generation - **File**: `packages/libs/contracts/src/docs/events/docsGenerated.event.ts` ```typescript",
+    "summary": "Emitted when documentation artifacts are generated. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Tags**: generation \n - **File**: `packages/libs/contracts/src/docs/events/docsGenerated.event.ts`",
     "route": "/docs/reference/_common/docs.generated",
     "source": "generated",
     "contentPath": "_common/docs.generated.md"
@@ -26,7 +26,7 @@
   {
     "id": "_common/docs.layout",
     "title": "docs.layout",
-    "summary": "Shared layout shell for documentation pages. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Tags**: layout - **File**: `packages/libs/contracts/src/docs/presentations/docsLayout.presentation.ts`",
+    "summary": "Shared layout shell for documentation pages. \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Tags**: layout \n - **File**: `packages/libs/contracts/src/docs/presentations/docsLayout.presentation.ts`",
     "route": "/docs/reference/_common/docs.layout",
     "source": "generated",
     "contentPath": "_common/docs.layout.md"
@@ -34,7 +34,7 @@
   {
     "id": "_common/docs.publish",
     "title": "docs.publish",
-    "summary": "Publish generated documentation artifacts. - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: publish - **File**: `packages/libs/contracts/src/docs/commands/docsPublish.command.ts` Deploy docs to the public docs surface with consistent versioning.",
+    "summary": "Publish generated documentation artifacts. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Tags**: publish \n - **File**: `packages/libs/contracts/src/docs/commands/docsPublish.command.ts`",
     "route": "/docs/reference/_common/docs.publish",
     "source": "generated",
     "contentPath": "_common/docs.publish.md"
@@ -42,7 +42,7 @@
   {
     "id": "_common/docs.published",
     "title": "docs.published",
-    "summary": "Emitted when documentation is published. - **Type**: event (event) - **Version**: 1.0.0 - **Tags**: publish - **File**: `packages/libs/contracts/src/docs/events/docsPublished.event.ts` ```typescript export const DocsPublishedEvent = defineEvent({",
+    "summary": "Emitted when documentation is published. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Tags**: publish \n - **File**: `packages/libs/contracts/src/docs/events/docsPublished.event.ts` \n ```typescript",
     "route": "/docs/reference/_common/docs.published",
     "source": "generated",
     "contentPath": "_common/docs.published.md"
@@ -50,7 +50,7 @@
   {
     "id": "_common/docs.reference.page",
     "title": "docs.reference.page",
-    "summary": "Reference page layout for contract documentation. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Tags**: reference - **File**: `packages/libs/contracts/src/docs/presentations/docsReferencePage.presentation.ts`",
+    "summary": "Reference page layout for contract documentation. \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Tags**: reference \n - **File**: `packages/libs/contracts/src/docs/presentations/docsReferencePage.presentation.ts`",
     "route": "/docs/reference/_common/docs.reference.page",
     "source": "generated",
     "contentPath": "_common/docs.reference.page.md"
@@ -58,7 +58,7 @@
   {
     "id": "_common/docs.search",
     "title": "docs.search",
-    "summary": "Search and filter DocBlocks by query, tag, or visibility. - **Type**: operation (query) - **Version**: 1.0.0 - **Tags**: search, index - **File**: `packages/libs/contracts/src/docs/queries/docsIndex.query.ts`",
+    "summary": "Search and filter DocBlocks by query, tag, or visibility. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Tags**: search, index \n - **File**: `packages/libs/contracts/src/docs/queries/docsIndex.query.ts`",
     "route": "/docs/reference/_common/docs.search",
     "source": "generated",
     "contentPath": "_common/docs.search.md"
@@ -66,7 +66,7 @@
   {
     "id": "_common/docs.system",
     "title": "docs.system",
-    "summary": "End-to-end docs generation, indexing, and presentation. - **Type**: capability (capability) - **Version**: 1.0.0 - **Tags**: system - **File**: `packages/libs/contracts/src/docs/capabilities/documentationSystem.capability.ts`",
+    "summary": "End-to-end docs generation, indexing, and presentation. \n - **Type**: capability (capability) \n - **Version**: 1.0.0 \n - **Tags**: system \n - **File**: `packages/libs/contracts/src/docs/capabilities/documentationSystem.capability.ts`",
     "route": "/docs/reference/_common/docs.system",
     "source": "generated",
     "contentPath": "_common/docs.system.md"
@@ -74,7 +74,7 @@
   {
     "id": "_common/init",
     "title": "init",
-    "summary": "Sets up ContractSpec in a project (config, VSCode settings, etc.) - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @lssm/core - **Tags**: cli, setup - **File**: `packages/bundles/workspace/src/contracts/operations/init.operation.ts`",
+    "summary": "Sets up ContractSpec in a project (config, VSCode settings, etc.) \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @lssm/core \n - **Tags**: cli, setup",
     "route": "/docs/reference/_common/init",
     "source": "generated",
     "contentPath": "_common/init.md"
@@ -82,7 +82,7 @@
   {
     "id": "_common/opencode.example.echo",
     "title": "opencode.example.echo",
-    "summary": "Echo a prompt for the OpenCode CLI example. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @contractspec/examples - **Tags**: opencode, example, echo - **File**: `packages/examples/opencode-cli/src/contracts/opencode.contracts.ts`",
+    "summary": "Echo a prompt for the OpenCode CLI example. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @contractspec/examples \n - **Tags**: opencode, example, echo",
     "route": "/docs/reference/_common/opencode.example.echo",
     "source": "generated",
     "contentPath": "_common/opencode.example.echo.md"
@@ -90,7 +90,7 @@
   {
     "id": "_common/report.getContractVerificationStatus",
     "title": "report.getContractVerificationStatus",
-    "summary": "Retrieves per-contract verification status for the impact report. - **Type**: operation (query) - **Version**: 1.0.0 - **File**: `packages/libs/contracts/src/operations/report/getContractVerificationStatus.ts`",
+    "summary": "Retrieves per-contract verification status for the impact report. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **File**: `packages/libs/contracts/src/operations/report/getContractVerificationStatus.ts`",
     "route": "/docs/reference/_common/report.getContractVerificationStatus",
     "source": "generated",
     "contentPath": "_common/report.getContractVerificationStatus.md"
@@ -98,7 +98,7 @@
   {
     "id": "_common/template.messaging.core",
     "title": "template.messaging.core",
-    "summary": "Real-time messaging primitives for template applications, including conversations, participants, and delivery events. - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.contractspec-studio",
+    "summary": "Real-time messaging primitives for template applications, including conversations, participants, and delivery events. \n - **Type**: capability (capability) \n - **Version**: 1.0.0 \n - **Owners**: platform.contractspec-studio",
     "route": "/docs/reference/_common/template.messaging.core",
     "source": "generated",
     "contentPath": "_common/template.messaging.core.md"
@@ -106,7 +106,7 @@
   {
     "id": "_common/template.recipes.browse",
     "title": "template.recipes.browse",
-    "summary": "Internationalized recipe browsing, search, and detail operations for template applications. - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.contractspec-studio - **Tags**: templates, recipes, i18n, content",
+    "summary": "Internationalized recipe browsing, search, and detail operations for template applications. \n - **Type**: capability (capability) \n - **Version**: 1.0.0 \n - **Owners**: platform.contractspec-studio \n - **Tags**: templates, recipes, i18n, content",
     "route": "/docs/reference/_common/template.recipes.browse",
     "source": "generated",
     "contentPath": "_common/template.recipes.browse.md"
@@ -114,7 +114,7 @@
   {
     "id": "_common/template.todos.crud",
     "title": "template.todos.crud",
-    "summary": "Create, read, update, delete, and toggle template tasks with categories and priorities. - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.contractspec-studio - **Tags**: templates, todos, productivity",
+    "summary": "Create, read, update, delete, and toggle template tasks with categories and priorities. \n - **Type**: capability (capability) \n - **Version**: 1.0.0 \n - **Owners**: platform.contractspec-studio \n - **Tags**: templates, todos, productivity",
     "route": "/docs/reference/_common/template.todos.crud",
     "source": "generated",
     "contentPath": "_common/template.todos.crud.md"
@@ -122,7 +122,7 @@
   {
     "id": "_common/test",
     "title": "test",
-    "summary": "Run tests defined in contract specs - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @lssm/core - **Tags**: cli, test - **File**: `packages/bundles/workspace/src/contracts/operations/test.operation.ts`",
+    "summary": "Run tests defined in contract specs \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @lssm/core \n - **Tags**: cli, test \n - **File**: `packages/bundles/workspace/src/contracts/operations/test.operation.ts`",
     "route": "/docs/reference/_common/test",
     "source": "generated",
     "contentPath": "_common/test.md"
@@ -130,7 +130,7 @@
   {
     "id": "_common/user.create",
     "title": "user.create",
-    "summary": "Create a new user account with the provided email - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @team - **Tags**: user - **File**: `packages/examples/minimal/src/contracts/user.ts`",
+    "summary": "Create a new user account with the provided email \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @team \n - **Tags**: user \n - **File**: `packages/examples/minimal/src/contracts/user.ts`",
     "route": "/docs/reference/_common/user.create",
     "source": "generated",
     "contentPath": "_common/user.create.md"
@@ -138,7 +138,7 @@
   {
     "id": "_common/validate",
     "title": "validate",
-    "summary": "Validate a contract spec file structure and optionally its implementation - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @lssm/core - **Tags**: cli, validation",
+    "summary": "Validate a contract spec file structure and optionally its implementation \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @lssm/core \n - **Tags**: cli, validation",
     "route": "/docs/reference/_common/validate",
     "source": "generated",
     "contentPath": "_common/validate.md"

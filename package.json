@@ -16,9 +16,9 @@
       "packages/apps-registry/*"
     ],
     "catalog": {
-      "react": "19.2.3",
-      "react-dom": "19.2.3",
-      "next": "16.1.1",
+      "react": "19.2.4",
+      "react-dom": "19.2.4",
+      "next": "16.1.6",
       "zod": "^4.3.5",
       "typescript": "^5.9.3"
     },
@@ -39,13 +39,13 @@
         "storybook": "^10.1.11"
       },
       "ai": {
-        "ai": "6.0.29",
-        "@ai-sdk/mcp": "1.0.5",
-        "@ai-sdk/anthropic": "3.0.11",
-        "@ai-sdk/google": "3.0.6",
-        "@ai-sdk/mistral": "3.0.5",
-        "@ai-sdk/openai": "3.0.8",
-        "@ai-sdk/react": "3.0.31",
+        "ai": "6.0.67",
+        "@ai-sdk/mcp": "1.0.18",
+        "@ai-sdk/anthropic": "3.0.35",
+        "@ai-sdk/google": "3.0.20",
+        "@ai-sdk/mistral": "3.0.18",
+        "@ai-sdk/openai": "3.0.25",
+        "@ai-sdk/react": "3.0.69",
         "ollama-ai-provider": "^1.2.0"
       }
     }
@@ -100,10 +100,10 @@
     "next": "catalog:",
     "patch-package": "^8.0.1",
     "postinstall-postinstall": "^2.1.0",
-    "prettier": "3.7.4",
+    "prettier": "3.8.1",
     "prettier-plugin-prisma": "^5.0.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "rulesync": "^5.9.1",
+    "rulesync": "^6.2.0",
     "turbo-ignore": "^2.8.1",
     "typescript-eslint": "^8.54.0"
   },

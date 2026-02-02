@@ -2,7 +2,7 @@
   {
     "id": "saas-boilerplate/billing.limit.reached",
     "title": "billing.limit.reached",
-    "summary": "Usage limit has been reached for a feature. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @saas-team - **Tags**: billing, limit, reached - **File**: `packages/examples/saas-boilerplate/src/billing/billing.event.ts`",
+    "summary": "Usage limit has been reached for a feature. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @saas-team \n - **Tags**: billing, limit, reached \n - **File**: `packages/examples/saas-boilerplate/src/billing/billing.event.ts`",
     "route": "/docs/reference/saas-boilerplate/billing.limit.reached",
     "source": "generated",
     "contentPath": "saas-boilerplate/billing.limit.reached.md"
@@ -10,7 +10,7 @@
   {
     "id": "saas-boilerplate/billing.subscription.changed",
     "title": "billing.subscription.changed",
-    "summary": "Subscription status has changed. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @saas-team - **Tags**: billing, subscription, changed - **File**: `packages/examples/saas-boilerplate/src/billing/billing.event.ts`",
+    "summary": "Subscription status has changed. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @saas-team \n - **Tags**: billing, subscription, changed \n - **File**: `packages/examples/saas-boilerplate/src/billing/billing.event.ts`",
     "route": "/docs/reference/saas-boilerplate/billing.subscription.changed",
     "source": "generated",
     "contentPath": "saas-boilerplate/billing.subscription.changed.md"
@@ -18,7 +18,7 @@
   {
     "id": "saas-boilerplate/billing.usage.recorded",
     "title": "billing.usage.recorded",
-    "summary": "Feature usage has been recorded. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @saas-team - **Tags**: billing, usage, recorded - **File**: `packages/examples/saas-boilerplate/src/billing/billing.event.ts`",
+    "summary": "Feature usage has been recorded. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @saas-team \n - **Tags**: billing, usage, recorded \n - **File**: `packages/examples/saas-boilerplate/src/billing/billing.event.ts`",
     "route": "/docs/reference/saas-boilerplate/billing.usage.recorded",
     "source": "generated",
     "contentPath": "saas-boilerplate/billing.usage.recorded.md"
@@ -26,7 +26,7 @@
   {
     "id": "saas-boilerplate/project.archived",
     "title": "project.archived",
-    "summary": "A project has been archived. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @saas-team - **Tags**: project, archived - **File**: `packages/examples/saas-boilerplate/src/project/project.event.ts`",
+    "summary": "A project has been archived. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @saas-team \n - **Tags**: project, archived \n - **File**: `packages/examples/saas-boilerplate/src/project/project.event.ts`",
     "route": "/docs/reference/saas-boilerplate/project.archived",
     "source": "generated",
     "contentPath": "saas-boilerplate/project.archived.md"
@@ -34,7 +34,7 @@
   {
     "id": "saas-boilerplate/project.created",
     "title": "project.created",
-    "summary": "A new project has been created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @saas-team - **Tags**: project, created - **File**: `packages/examples/saas-boilerplate/src/project/project.event.ts`",
+    "summary": "A new project has been created. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @saas-team \n - **Tags**: project, created \n - **File**: `packages/examples/saas-boilerplate/src/project/project.event.ts`",
     "route": "/docs/reference/saas-boilerplate/project.created",
     "source": "generated",
     "contentPath": "saas-boilerplate/project.created.md"
@@ -42,7 +42,7 @@
   {
     "id": "saas-boilerplate/project.deleted",
     "title": "project.deleted",
-    "summary": "A project has been deleted. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @saas-team - **Tags**: project, deleted - **File**: `packages/examples/saas-boilerplate/src/project/project.event.ts`",
+    "summary": "A project has been deleted. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @saas-team \n - **Tags**: project, deleted \n - **File**: `packages/examples/saas-boilerplate/src/project/project.event.ts`",
     "route": "/docs/reference/saas-boilerplate/project.deleted",
     "source": "generated",
     "contentPath": "saas-boilerplate/project.deleted.md"
@@ -50,7 +50,7 @@
   {
     "id": "saas-boilerplate/project.updated",
     "title": "project.updated",
-    "summary": "A project has been updated. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @saas-team - **Tags**: project, updated - **File**: `packages/examples/saas-boilerplate/src/project/project.event.ts`",
+    "summary": "A project has been updated. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @saas-team \n - **Tags**: project, updated \n - **File**: `packages/examples/saas-boilerplate/src/project/project.event.ts`",
     "route": "/docs/reference/saas-boilerplate/project.updated",
     "source": "generated",
     "contentPath": "saas-boilerplate/project.updated.md"
@@ -58,7 +58,7 @@
   {
     "id": "saas-boilerplate/saas-boilerplate",
     "title": "saas-boilerplate",
-    "summary": "SaaS application foundation with projects, billing, and settings - **Type**: feature - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @saas-team - **Tags**: saas, projects, billing - **File**: `packages/examples/saas-boilerplate/src/saas-boilerplate.feature.ts`",
+    "summary": "SaaS application foundation with projects, billing, and settings \n - **Type**: feature \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @saas-team \n - **Tags**: saas, projects, billing",
     "route": "/docs/reference/saas-boilerplate/saas-boilerplate",
     "source": "generated",
     "contentPath": "saas-boilerplate/saas-boilerplate.md"
@@ -66,7 +66,7 @@
   {
     "id": "saas-boilerplate/saas.billing.feature.check",
     "title": "saas.billing.feature.check",
-    "summary": "Check if organization has access to a feature. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.saas-boilerplate - **Tags**: saas, billing, feature - **File**: `packages/examples/saas-boilerplate/src/billing/billing.operations.ts`",
+    "summary": "Check if organization has access to a feature. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @example.saas-boilerplate \n - **Tags**: saas, billing, feature",
     "route": "/docs/reference/saas-boilerplate/saas.billing.feature.check",
     "source": "generated",
     "contentPath": "saas-boilerplate/saas.billing.feature.check.md"
@@ -74,7 +74,7 @@
   {
     "id": "saas-boilerplate/saas.billing.subscription",
     "title": "saas.billing.subscription",
-    "summary": "Subscription status with plan info, limits, and current usage - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @saas-team - **Tags**: billing, subscription - **File**: `packages/examples/saas-boilerplate/src/billing/billing.presentation.ts`",
+    "summary": "Subscription status with plan info, limits, and current usage \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @saas-team \n - **Tags**: billing, subscription \n - **File**: `packages/examples/saas-boilerplate/src/billing/billing.presentation.ts`",
     "route": "/docs/reference/saas-boilerplate/saas.billing.subscription",
     "source": "generated",
     "contentPath": "saas-boilerplate/saas.billing.subscription.md"
@@ -82,7 +82,7 @@
   {
     "id": "saas-boilerplate/saas.billing.subscription.get",
     "title": "saas.billing.subscription.get",
-    "summary": "Get organization subscription status. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.saas-boilerplate - **Tags**: saas, billing, subscription - **File**: `packages/examples/saas-boilerplate/src/billing/billing.operations.ts`",
+    "summary": "Get organization subscription status. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @example.saas-boilerplate \n - **Tags**: saas, billing, subscription",
     "route": "/docs/reference/saas-boilerplate/saas.billing.subscription.get",
     "source": "generated",
     "contentPath": "saas-boilerplate/saas.billing.subscription.get.md"
@@ -90,7 +90,7 @@
   {
     "id": "saas-boilerplate/saas.billing.subscription.get.test",
     "title": "saas.billing.subscription.get.test",
-    "summary": "Test for getting subscription - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.saas-boilerplate - **Tags**: test - **File**: `packages/examples/saas-boilerplate/src/tests/operations.test-spec.ts`",
+    "summary": "Test for getting subscription \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @example.saas-boilerplate \n - **Tags**: test \n - **File**: `packages/examples/saas-boilerplate/src/tests/operations.test-spec.ts`",
     "route": "/docs/reference/saas-boilerplate/saas.billing.subscription.get.test",
     "source": "generated",
     "contentPath": "saas-boilerplate/saas.billing.subscription.get.test.md"
@@ -98,7 +98,7 @@
   {
     "id": "saas-boilerplate/saas.billing.usage",
     "title": "saas.billing.usage",
-    "summary": "Usage metrics and breakdown by resource type - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @saas-team - **Tags**: billing, usage, metrics - **File**: `packages/examples/saas-boilerplate/src/billing/billing.presentation.ts`",
+    "summary": "Usage metrics and breakdown by resource type \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @saas-team \n - **Tags**: billing, usage, metrics \n - **File**: `packages/examples/saas-boilerplate/src/billing/billing.presentation.ts`",
     "route": "/docs/reference/saas-boilerplate/saas.billing.usage",
     "source": "generated",
     "contentPath": "saas-boilerplate/saas.billing.usage.md"
@@ -106,7 +106,7 @@
   {
     "id": "saas-boilerplate/saas.billing.usage.record",
     "title": "saas.billing.usage.record",
-    "summary": "Record usage of a metered feature. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.saas-boilerplate - **Tags**: saas, billing, usage - **File**: `packages/examples/saas-boilerplate/src/billing/billing.operations.ts`",
+    "summary": "Record usage of a metered feature. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @example.saas-boilerplate \n - **Tags**: saas, billing, usage \n - **File**: `packages/examples/saas-boilerplate/src/billing/billing.operations.ts`",
     "route": "/docs/reference/saas-boilerplate/saas.billing.usage.record",
     "source": "generated",
     "contentPath": "saas-boilerplate/saas.billing.usage.record.md"
@@ -114,7 +114,7 @@
   {
     "id": "saas-boilerplate/saas.billing.usage.summary",
     "title": "saas.billing.usage.summary",
-    "summary": "Get usage summary for the current billing period. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.saas-boilerplate - **Tags**: saas, billing, usage - **File**: `packages/examples/saas-boilerplate/src/billing/billing.operations.ts`",
+    "summary": "Get usage summary for the current billing period. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @example.saas-boilerplate \n - **Tags**: saas, billing, usage",
     "route": "/docs/reference/saas-boilerplate/saas.billing.usage.summary",
     "source": "generated",
     "contentPath": "saas-boilerplate/saas.billing.usage.summary.md"
@@ -122,7 +122,7 @@
   {
     "id": "saas-boilerplate/saas.billing.usage.summary.test",
     "title": "saas.billing.usage.summary.test",
-    "summary": "Test for getting usage summary - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.saas-boilerplate - **Tags**: test - **File**: `packages/examples/saas-boilerplate/src/tests/operations.test-spec.ts`",
+    "summary": "Test for getting usage summary \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @example.saas-boilerplate \n - **Tags**: test \n - **File**: `packages/examples/saas-boilerplate/src/tests/operations.test-spec.ts`",
     "route": "/docs/reference/saas-boilerplate/saas.billing.usage.summary.test",
     "source": "generated",
     "contentPath": "saas-boilerplate/saas.billing.usage.summary.test.md"
@@ -130,7 +130,7 @@
   {
     "id": "saas-boilerplate/saas.dashboard",
     "title": "saas.dashboard",
-    "summary": "Main SaaS dashboard with project overview, usage stats, and quick actions - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @saas-team - **Tags**: dashboard, overview - **File**: `packages/examples/saas-boilerplate/src/dashboard/dashboard.presentation.ts`",
+    "summary": "Main SaaS dashboard with project overview, usage stats, and quick actions \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @saas-team \n - **Tags**: dashboard, overview",
     "route": "/docs/reference/saas-boilerplate/saas.dashboard",
     "source": "generated",
     "contentPath": "saas-boilerplate/saas.dashboard.md"
@@ -138,7 +138,7 @@
   {
     "id": "saas-boilerplate/saas.project.create",
     "title": "saas.project.create",
-    "summary": "Create a new project in the organization. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: example.saas-boilerplate - **Tags**: saas, project, create - **File**: `packages/examples/saas-boilerplate/src/project/project.operations.ts`",
+    "summary": "Create a new project in the organization. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: example.saas-boilerplate \n - **Tags**: saas, project, create",
     "route": "/docs/reference/saas-boilerplate/saas.project.create",
     "source": "generated",
     "contentPath": "saas-boilerplate/saas.project.create.md"
@@ -146,7 +146,7 @@
   {
     "id": "saas-boilerplate/saas.project.delete",
     "title": "saas.project.delete",
-    "summary": "Delete a project (soft delete). - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: example.saas-boilerplate - **Tags**: saas, project, delete - **File**: `packages/examples/saas-boilerplate/src/project/project.operations.ts`",
+    "summary": "Delete a project (soft delete). \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: example.saas-boilerplate \n - **Tags**: saas, project, delete \n - **File**: `packages/examples/saas-boilerplate/src/project/project.operations.ts`",
     "route": "/docs/reference/saas-boilerplate/saas.project.delete",
     "source": "generated",
     "contentPath": "saas-boilerplate/saas.project.delete.md"
@@ -154,7 +154,7 @@
   {
     "id": "saas-boilerplate/saas.project.detail",
     "title": "saas.project.detail",
-    "summary": "Detailed view of a project with settings and activity - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @saas-team - **Tags**: project, detail - **File**: `packages/examples/saas-boilerplate/src/project/project.presentation.ts`",
+    "summary": "Detailed view of a project with settings and activity \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @saas-team \n - **Tags**: project, detail \n - **File**: `packages/examples/saas-boilerplate/src/project/project.presentation.ts`",
     "route": "/docs/reference/saas-boilerplate/saas.project.detail",
     "source": "generated",
     "contentPath": "saas-boilerplate/saas.project.detail.md"
@@ -162,7 +162,7 @@
   {
     "id": "saas-boilerplate/saas.project.get",
     "title": "saas.project.get",
-    "summary": "Get a project by ID. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: example.saas-boilerplate - **Tags**: saas, project, get - **File**: `packages/examples/saas-boilerplate/src/project/project.operations.ts`",
+    "summary": "Get a project by ID. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: example.saas-boilerplate \n - **Tags**: saas, project, get \n - **File**: `packages/examples/saas-boilerplate/src/project/project.operations.ts`",
     "route": "/docs/reference/saas-boilerplate/saas.project.get",
     "source": "generated",
     "contentPath": "saas-boilerplate/saas.project.get.md"
@@ -170,7 +170,7 @@
   {
     "id": "saas-boilerplate/saas.project.get.test",
     "title": "saas.project.get.test",
-    "summary": "Test for getting project - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.saas-boilerplate - **Tags**: test - **File**: `packages/examples/saas-boilerplate/src/tests/operations.test-spec.ts`",
+    "summary": "Test for getting project \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @example.saas-boilerplate \n - **Tags**: test \n - **File**: `packages/examples/saas-boilerplate/src/tests/operations.test-spec.ts`",
     "route": "/docs/reference/saas-boilerplate/saas.project.get.test",
     "source": "generated",
     "contentPath": "saas-boilerplate/saas.project.get.test.md"
@@ -178,7 +178,7 @@
   {
     "id": "saas-boilerplate/saas.project.list",
     "title": "saas.project.list",
-    "summary": "List view of projects with status, tags, and last updated info - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @saas-team - **Tags**: project, list, dashboard - **File**: `packages/examples/saas-boilerplate/src/project/project.presentation.ts`",
+    "summary": "List view of projects with status, tags, and last updated info \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @saas-team \n - **Tags**: project, list, dashboard \n - **File**: `packages/examples/saas-boilerplate/src/project/project.presentation.ts`",
     "route": "/docs/reference/saas-boilerplate/saas.project.list",
     "source": "generated",
     "contentPath": "saas-boilerplate/saas.project.list.md"
@@ -186,7 +186,7 @@
   {
     "id": "saas-boilerplate/saas.project.list.test",
     "title": "saas.project.list.test",
-    "summary": "Test for listing projects - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.saas-boilerplate - **Tags**: test - **File**: `packages/examples/saas-boilerplate/src/tests/operations.test-spec.ts`",
+    "summary": "Test for listing projects \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @example.saas-boilerplate \n - **Tags**: test \n - **File**: `packages/examples/saas-boilerplate/src/tests/operations.test-spec.ts`",
     "route": "/docs/reference/saas-boilerplate/saas.project.list.test",
     "source": "generated",
     "contentPath": "saas-boilerplate/saas.project.list.test.md"
@@ -194,7 +194,7 @@
   {
     "id": "saas-boilerplate/saas.project.update",
     "title": "saas.project.update",
-    "summary": "Update project details. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: example.saas-boilerplate - **Tags**: saas, project, update - **File**: `packages/examples/saas-boilerplate/src/project/project.operations.ts`",
+    "summary": "Update project details. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: example.saas-boilerplate \n - **Tags**: saas, project, update \n - **File**: `packages/examples/saas-boilerplate/src/project/project.operations.ts`",
     "route": "/docs/reference/saas-boilerplate/saas.project.update",
     "source": "generated",
     "contentPath": "saas-boilerplate/saas.project.update.md"
@@ -202,7 +202,7 @@
   {
     "id": "saas-boilerplate/saas.settings",
     "title": "saas.settings",
-    "summary": "Organization and user settings panel - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @saas-team - **Tags**: settings, config - **File**: `packages/examples/saas-boilerplate/src/dashboard/dashboard.presentation.ts`",
+    "summary": "Organization and user settings panel \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @saas-team \n - **Tags**: settings, config \n - **File**: `packages/examples/saas-boilerplate/src/dashboard/dashboard.presentation.ts`",
     "route": "/docs/reference/saas-boilerplate/saas.settings",
     "source": "generated",
     "contentPath": "saas-boilerplate/saas.settings.md"

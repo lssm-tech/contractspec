@@ -2,7 +2,7 @@
   {
     "id": "learning-journey-crm-onboarding/learning-journey-crm-onboarding",
     "title": "learning-journey-crm-onboarding",
-    "summary": "CRM first-win onboarding journey with step-by-step guidance for new CRM users - **Type**: feature - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples.learning-journey.crm-onboarding",
+    "summary": "CRM first-win onboarding journey with step-by-step guidance for new CRM users \n - **Type**: feature \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @examples.learning-journey.crm-onboarding",
     "route": "/docs/reference/learning-journey-crm-onboarding/learning-journey-crm-onboarding",
     "source": "generated",
     "contentPath": "learning-journey-crm-onboarding/learning-journey-crm-onboarding.md"
@@ -10,7 +10,7 @@
   {
     "id": "learning-journey-crm-onboarding/learning.journey.crm.track",
     "title": "learning.journey.crm.track",
-    "summary": "CRM first win track detail - **Type**: presentation (presentation) - **Version**: 1.0.0 - **File**: `packages/examples/learning-journey-crm-onboarding/src/presentations/index.ts` ```typescript export const CrmOnboardingTrackPresentation = definePresentation({",
+    "summary": "CRM first win track detail \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **File**: `packages/examples/learning-journey-crm-onboarding/src/presentations/index.ts` \n ```typescript",
     "route": "/docs/reference/learning-journey-crm-onboarding/learning.journey.crm.track",
     "source": "generated",
     "contentPath": "learning-journey-crm-onboarding/learning.journey.crm.track.md"
@@ -18,7 +18,7 @@
   {
     "id": "learning-journey-crm-onboarding/learning.journey.crm.widget",
     "title": "learning.journey.crm.widget",
-    "summary": "Compact widget for CRM onboarding progress - **Type**: presentation (presentation) - **Version**: 1.0.0 - **File**: `packages/examples/learning-journey-crm-onboarding/src/presentations/index.ts` ```typescript",
+    "summary": "Compact widget for CRM onboarding progress \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **File**: `packages/examples/learning-journey-crm-onboarding/src/presentations/index.ts`",
     "route": "/docs/reference/learning-journey-crm-onboarding/learning.journey.crm.widget",
     "source": "generated",
     "contentPath": "learning-journey-crm-onboarding/learning.journey.crm.widget.md"
@@ -26,7 +26,7 @@
   {
     "id": "learning-journey-crm-onboarding/learningJourney.crmOnboarding.getTrack",
     "title": "learningJourney.crmOnboarding.getTrack",
-    "summary": "Fetch CRM first win track definition. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: examples.learning-journey.crm-onboarding - **Tags**: learning, crm, onboarding",
+    "summary": "Fetch CRM first win track definition. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: examples.learning-journey.crm-onboarding \n - **Tags**: learning, crm, onboarding",
     "route": "/docs/reference/learning-journey-crm-onboarding/learningJourney.crmOnboarding.getTrack",
     "source": "generated",
     "contentPath": "learning-journey-crm-onboarding/learningJourney.crmOnboarding.getTrack.md"
@@ -34,7 +34,7 @@
   {
     "id": "learning-journey-crm-onboarding/learningJourney.crmOnboarding.getTrack.test",
     "title": "learningJourney.crmOnboarding.getTrack.test",
-    "summary": "Test for getting CRM onboarding track - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.learning-journey-crm-onboarding - **Tags**: test - **File**: `packages/examples/learning-journey-crm-onboarding/src/tests/operations.test-spec.ts`",
+    "summary": "Test for getting CRM onboarding track \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @example.learning-journey-crm-onboarding \n - **Tags**: test",
     "route": "/docs/reference/learning-journey-crm-onboarding/learningJourney.crmOnboarding.getTrack.test",
     "source": "generated",
     "contentPath": "learning-journey-crm-onboarding/learningJourney.crmOnboarding.getTrack.test.md"
@@ -42,7 +42,7 @@
   {
     "id": "learning-journey-crm-onboarding/learningJourney.crmOnboarding.recordEvent",
     "title": "learningJourney.crmOnboarding.recordEvent",
-    "summary": "Record an event to advance CRM onboarding progress. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: examples.learning-journey.crm-onboarding - **Tags**: learning, crm, onboarding",
+    "summary": "Record an event to advance CRM onboarding progress. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: examples.learning-journey.crm-onboarding \n - **Tags**: learning, crm, onboarding",
     "route": "/docs/reference/learning-journey-crm-onboarding/learningJourney.crmOnboarding.recordEvent",
     "source": "generated",
     "contentPath": "learning-journey-crm-onboarding/learningJourney.crmOnboarding.recordEvent.md"
