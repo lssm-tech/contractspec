@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-02-02T02:13:03.994Z",
-  "total": 666,
+  "generatedAt": "2026-02-02T02:20:10.728Z",
+  "total": 668,
   "version": null,
   "contentRoot": "../../../../../../../generated/docs",
   "chunks": [
     {
       "key": "_common",
       "file": "docs-index._common.json",
-      "total": 61
+      "total": 63
     },
     {
       "key": "agent-console",

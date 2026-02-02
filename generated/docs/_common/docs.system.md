@@ -65,13 +65,13 @@ export const DocumentationSystemCapability = defineCapability({
     },
     {
       surface: 'presentation',
-      key: DOCS_LAYOUT_PRESENTATION_KEY,
+      key: 'docs.layout',
       version: '1.0.0',
       description: 'Docs layout presentation.',
     },
     {
       surface: 'presentation',
-      key: DOCS_REFERENCE_PRESENTATION_KEY,
+      key: 'docs.reference.page',
       version: '1.0.0',
       description: 'Docs reference page presentation.',
     },

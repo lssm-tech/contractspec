@@ -64,6 +64,14 @@
     "contentPath": "_common/docs.generated.md"
   },
   {
+    "id": "_common/docs.layout",
+    "title": "docs.layout",
+    "summary": "Shared layout shell for documentation pages. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Tags**: layout - **File**: `packages/libs/contracts/src/docs/presentations/docsLayout.presentation.ts`",
+    "route": "/docs/reference/_common/docs.layout",
+    "source": "generated",
+    "contentPath": "_common/docs.layout.md"
+  },
+  {
     "id": "_common/docs.publish",
     "title": "docs.publish",
     "summary": "Publish generated documentation artifacts. - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: publish - **File**: `packages/libs/contracts/src/docs/commands/docsPublish.command.ts` Deploy docs to the public docs surface with consistent versioning.",
@@ -78,6 +86,14 @@
     "route": "/docs/reference/_common/docs.published",
     "source": "generated",
     "contentPath": "_common/docs.published.md"
+  },
+  {
+    "id": "_common/docs.reference.page",
+    "title": "docs.reference.page",
+    "summary": "Reference page layout for contract documentation. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Tags**: reference - **File**: `packages/libs/contracts/src/docs/presentations/docsReferencePage.presentation.ts`",
+    "route": "/docs/reference/_common/docs.reference.page",
+    "source": "generated",
+    "contentPath": "_common/docs.reference.page.md"
   },
   {
     "id": "_common/docs.search",
