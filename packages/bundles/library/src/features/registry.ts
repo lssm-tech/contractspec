@@ -1,4 +1,5 @@
 import { FeatureRegistry } from '@contractspec/lib.contracts/features';
+import { AppConfigFeature } from '@contractspec/lib.contracts/app-config';
 import { DocsFeature } from './docs.feature';
 import { MCPFeature } from './mcp.feature';
 import { PresentationsFeature } from './presentations.feature';
@@ -16,7 +17,7 @@ export function createContractSpecFeatureRegistry(): FeatureRegistry {
   features.register(PresentationsFeature);
 
   // Register lib.contracts features
-  // features.register(AppConfigFeature);
+  features.register(AppConfigFeature);
 
   return features;
 }
