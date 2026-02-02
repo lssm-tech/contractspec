@@ -22,6 +22,7 @@ export * from './integrity-diagram';
 export * from './layer-discovery';
 export * from './setup/index';
 export * from './doctor/index';
+export * from './action-pr';
 export * from './ci-check/index';
 export * from './agent-guide/index';
 export * from './llm/index';

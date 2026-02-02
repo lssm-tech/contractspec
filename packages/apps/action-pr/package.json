@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "GitHub Action for ContractSpec PR checks",
   "scripts": {
-    "build": "bun build src/report.ts --outdir dist --target node --format cjs",
+    "build": "bun build src/index.ts --outdir dist --target bun",
     "lint": "bun run lint:fix",
-    "lint:fix": "eslint src/report.ts src/report.test.ts --fix",
-    "lint:check": "eslint src/report.ts src/report.test.ts",
+    "lint:fix": "eslint src/index.ts --fix",
+    "lint:check": "eslint src/index.ts",
     "test": "bun test"
   },
   "repository": {
