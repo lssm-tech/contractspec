@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.ai-agent",
-  "version": "1.52.0",
+  "version": "1.53.0",
   "description": "AI agent orchestration with MCP and tool support",
   "keywords": [
     "contractspec",

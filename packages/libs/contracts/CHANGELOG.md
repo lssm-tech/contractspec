@@ -1,5 +1,19 @@
 # @contractspec/lib.contracts
 
+## 1.53.0
+
+### Minor Changes
+
+- f4180d4: fix: performance improvement
+- 64d84e1: Add contract-level verification table to impact reports. Defines query and data view contracts for per-contract drift status, surfaces covered, and last verified commit. Reports render the table when contracts data is present; backward compatible when absent.
+
+### Patch Changes
+
+- 5b371b1: Expose OpenCode agent mode in the CLI and workspace validation with updated docs and examples.
+- Updated dependencies [f4180d4]
+  - @contractspec/lib.schema@1.53.0
+  - @contractspec/lib.logger@1.53.0
+
 ## 1.52.0
 
 ### Minor Changes

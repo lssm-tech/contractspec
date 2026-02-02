@@ -1,5 +1,16 @@
 # @contractspec/lib.email
 
+## 1.7.0
+
+### Minor Changes
+
+- f4180d4: fix: performance improvement
+
+### Patch Changes
+
+- Updated dependencies [f4180d4]
+  - @contractspec/lib.logger@1.53.0
+
 ## 1.6.0
 
 ### Minor Changes

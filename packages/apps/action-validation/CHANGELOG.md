@@ -1,5 +1,15 @@
 # @contractspec/action.validation
 
+## 1.53.0
+
+### Minor Changes
+
+- f4180d4: fix: performance improvement
+
+### Patch Changes
+
+- 1484fa6: Add reusable ContractSpec workflows with shared reporting and document the new automation guidance.
+
 ## 1.52.0
 
 ### Minor Changes

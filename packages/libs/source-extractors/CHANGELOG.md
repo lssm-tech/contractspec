@@ -1,5 +1,19 @@
 # @contractspec/lib.source-extractors
 
+## 0.7.0
+
+### Minor Changes
+
+- f4180d4: fix: performance improvement
+
+### Patch Changes
+
+- Updated dependencies [5b371b1]
+- Updated dependencies [f4180d4]
+- Updated dependencies [64d84e1]
+  - @contractspec/lib.contracts@1.53.0
+  - @contractspec/lib.schema@1.53.0
+
 ## 0.6.0
 
 ### Minor Changes

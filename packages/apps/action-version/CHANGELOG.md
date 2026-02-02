@@ -1,5 +1,15 @@
 # @contractspec/action.version
 
+## 0.9.0
+
+### Minor Changes
+
+- f4180d4: fix: performance improvement
+
+### Patch Changes
+
+- 1484fa6: Add reusable ContractSpec workflows with shared reporting and document the new automation guidance.
+
 ## 0.8.0
 
 ### Minor Changes

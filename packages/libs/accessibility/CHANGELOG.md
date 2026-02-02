@@ -1,5 +1,19 @@
 # @contractspec/lib.accessibility
 
+## 1.53.0
+
+### Minor Changes
+
+- f4180d4: fix: performance improvement
+
+### Patch Changes
+
+- Updated dependencies [eefeb1b]
+- Updated dependencies [f4180d4]
+  - @contractspec/lib.design-system@1.53.0
+  - @contractspec/lib.ui-kit@1.53.0
+  - @contractspec/lib.ui-kit-web@1.53.0
+
 ## 1.52.0
 
 ### Minor Changes
