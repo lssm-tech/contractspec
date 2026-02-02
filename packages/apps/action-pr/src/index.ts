@@ -1,15 +1,27 @@
 #!/usr/bin/env bun
-import { PrActionService } from '@contractspec/bundle.workspace';
 import type {
-  ReportInputs,
   ContractVerificationStatus,
   ReportData,
+  ReportInputs,
+} from '@contractspec/bundle.workspace';
+import {
+  operationRegistry,
+  PrActionService,
 } from '@contractspec/bundle.workspace';
 import fs from 'node:fs';
-import { join } from 'node:path';
 
 const service = new PrActionService();
-const action = process.argv[2];
+const KNOWN_ACTIONS = [
+  'collect-changes',
+  'check-drift',
+  'build-report-data',
+  'generate-report',
+  'finalize',
+  'get-contract-status', // New action to replace operation-executor
+];
+
+const action = process.argv.find((arg) => KNOWN_ACTIONS.includes(arg));
+console.log(`DEBUG: argv=${JSON.stringify(process.argv)}`, 'action=', action);
 
 function fail(message: string) {
   console.error(`::error::${message}`);
@@ -93,6 +105,24 @@ async function run() {
           fs.appendFileSync(envFile, `DRIFT_STATUS=pass\n`);
           fs.appendFileSync(envFile, `DRIFT_DETECTED=false\n`);
         }
+      }
+      break;
+    }
+
+    case 'get-contract-status': {
+      const output = '.contractspec-ci/contracts.json';
+      try {
+        console.log('Collecting contract verification status...');
+        const result = await operationRegistry.execute(
+          'report.getContractVerificationStatus',
+          '1.0.0',
+          { projectPath: process.cwd() },
+          {}
+        );
+        fs.writeFileSync(output, JSON.stringify(result, null, 2));
+      } catch (err) {
+        console.error('Failed to get contract verification status:', err);
+        fs.writeFileSync(output, JSON.stringify({ contracts: [] }));
       }
       break;
     }

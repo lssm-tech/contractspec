@@ -242,7 +242,7 @@ runs:
       run: |
         # Collect contract verification status
         echo "Collecting contract verification status..."
-        bun "${{ github.action_path }}/operation-executor.ts" "report.getContractVerificationStatus" "1.0.0" '{"projectPath": "'"$(pwd)"'"}' > .contractspec-ci/contracts.json || echo "[]" > .contractspec-ci/contracts.json
+        bun "${{ github.action_path }}/src/index.ts" get-contract-status
 
         # Build report data
         bun "${{ github.action_path }}/src/index.ts" build-report-data
