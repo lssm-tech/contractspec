@@ -190,9 +190,7 @@
     "route": "/docs/accessibility_wcag_compliance_specs",
     "source": "docblock",
     "contentPath": "docblocks/docs/accessibility_wcag_compliance_specs.md",
-    "tags": [
-      "accessibility_wcag_compliance_specs"
-    ],
+    "tags": ["accessibility_wcag_compliance_specs"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -203,10 +201,7 @@
     "route": "/docs/meta/docblocks-process",
     "source": "docblock",
     "contentPath": "docblocks/docs/meta/docblocks-process.md",
-    "tags": [
-      "docs",
-      "process"
-    ],
+    "tags": ["docs", "process"],
     "kind": "reference",
     "visibility": "mixed"
   },
@@ -217,14 +212,7 @@
     "route": "/docs/tech/auth/better-auth-nextjs",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/auth/better-auth-nextjs.md",
-    "tags": [
-      "auth",
-      "better-auth",
-      "nextjs",
-      "cookies",
-      "proxy",
-      "hmr"
-    ],
+    "tags": ["auth", "better-auth", "nextjs", "cookies", "proxy", "hmr"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -235,16 +223,10 @@
     "route": "/docs/tech/cli/contractspec",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/cli/contractspec.md",
-    "tags": [
-      "cli",
-      "tooling",
-      "reference"
-    ],
+    "tags": ["cli", "tooling", "reference"],
     "kind": "reference",
     "visibility": "public",
-    "owners": [
-      "@contractspec/app.cli-contractspec"
-    ]
+    "owners": ["@contractspec/app.cli-contractspec"]
   },
   {
     "id": "docs.tech.contracts.openapi-export",
@@ -253,11 +235,7 @@
     "route": "/docs/tech/contracts/openapi-export",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/contracts/openapi-export.md",
-    "tags": [
-      "contracts",
-      "openapi",
-      "rest"
-    ],
+    "tags": ["contracts", "openapi", "rest"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -268,12 +246,7 @@
     "route": "/docs/tech/contracts/openapi-import",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/contracts/openapi-import.md",
-    "tags": [
-      "contracts",
-      "openapi",
-      "import",
-      "codegen"
-    ],
+    "tags": ["contracts", "openapi", "import", "codegen"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -284,11 +257,7 @@
     "route": "/docs/tech/contracts/presentations",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/contracts/presentations.md",
-    "tags": [
-      "presentations",
-      "docs",
-      "mcp"
-    ],
+    "tags": ["presentations", "docs", "mcp"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -299,11 +268,7 @@
     "route": "/docs/tech/contracts/README",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/contracts/README.md",
-    "tags": [
-      "tech",
-      "contracts",
-      "README"
-    ],
+    "tags": ["tech", "contracts", "README"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -314,11 +279,7 @@
     "route": "/docs/tech/contracts/workspace-config",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/contracts/workspace-config.md",
-    "tags": [
-      "tech",
-      "contracts",
-      "config"
-    ],
+    "tags": ["tech", "contracts", "config"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -329,10 +290,7 @@
     "route": "/docs/tech/docs/examples",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/docs-examples.md",
-    "tags": [
-      "docs",
-      "examples"
-    ],
+    "tags": ["docs", "examples"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -343,11 +301,7 @@
     "route": "/docs/tech/docs/generator",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/docs-generator.md",
-    "tags": [
-      "docs",
-      "generator",
-      "cli"
-    ],
+    "tags": ["docs", "generator", "cli"],
     "kind": "how",
     "visibility": "public"
   },
@@ -358,10 +312,7 @@
     "route": "/docs/tech/docs/publish",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/docs-publish.md",
-    "tags": [
-      "docs",
-      "publish"
-    ],
+    "tags": ["docs", "publish"],
     "kind": "how",
     "visibility": "public"
   },
@@ -372,10 +323,7 @@
     "route": "/docs/tech/docs/reference",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/docs-reference.md",
-    "tags": [
-      "docs",
-      "reference"
-    ],
+    "tags": ["docs", "reference"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -386,10 +334,7 @@
     "route": "/docs/tech/docs/search",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/docs-search.md",
-    "tags": [
-      "docs",
-      "search"
-    ],
+    "tags": ["docs", "search"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -400,11 +345,7 @@
     "route": "/docs/tech/docs/system",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/docs-system.md",
-    "tags": [
-      "docs",
-      "system",
-      "contracts"
-    ],
+    "tags": ["docs", "system", "contracts"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -415,10 +356,7 @@
     "route": "/docs/tech/lifecycle-stage-system",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/lifecycle-stage-system.md",
-    "tags": [
-      "tech",
-      "lifecycle-stage-system"
-    ],
+    "tags": ["tech", "lifecycle-stage-system"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -429,13 +367,7 @@
     "route": "/docs/tech/llm/agent-adapters",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/llm/agent-adapters.md",
-    "tags": [
-      "llm",
-      "agents",
-      "claude",
-      "cursor",
-      "mcp"
-    ],
+    "tags": ["llm", "agents", "claude", "cursor", "mcp"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -446,11 +378,7 @@
     "route": "/docs/tech/llm/export-formats",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/llm/export-formats.md",
-    "tags": [
-      "llm",
-      "export",
-      "markdown"
-    ],
+    "tags": ["llm", "export", "markdown"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -461,13 +389,7 @@
     "route": "/docs/tech/llm/overview",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/llm/overview.md",
-    "tags": [
-      "llm",
-      "ai",
-      "export",
-      "guide",
-      "verify"
-    ],
+    "tags": ["llm", "ai", "export", "guide", "verify"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -478,12 +400,7 @@
     "route": "/docs/tech/llm/verification",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/llm/verification.md",
-    "tags": [
-      "llm",
-      "verify",
-      "validation",
-      "testing"
-    ],
+    "tags": ["llm", "verify", "validation", "testing"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -494,12 +411,7 @@
     "route": "/docs/tech/mcp/endpoints",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/mcp/endpoints.md",
-    "tags": [
-      "mcp",
-      "docs",
-      "cli",
-      "internal"
-    ],
+    "tags": ["mcp", "docs", "cli", "internal"],
     "kind": "reference",
     "visibility": "mixed"
   },
@@ -510,10 +422,7 @@
     "route": "/docs/tech/presentation-runtime",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/presentation-runtime.md",
-    "tags": [
-      "tech",
-      "presentation-runtime"
-    ],
+    "tags": ["tech", "presentation-runtime"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -524,17 +433,10 @@
     "route": "/docs/tech/report/verification-table",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/report-verification-table.md",
-    "tags": [
-      "report",
-      "drift",
-      "verification",
-      "impact"
-    ],
+    "tags": ["report", "drift", "verification", "impact"],
     "kind": "how",
     "visibility": "public",
-    "owners": [
-      "platform.core"
-    ]
+    "owners": ["platform.core"]
   },
   {
     "id": "docs.tech.schema.README",
@@ -543,11 +445,7 @@
     "route": "/docs/tech/schema/README",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/schema/README.md",
-    "tags": [
-      "tech",
-      "schema",
-      "README"
-    ],
+    "tags": ["tech", "schema", "README"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -558,13 +456,7 @@
     "route": "/docs/tech/studio/learning-events",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/studio/learning-events.md",
-    "tags": [
-      "studio",
-      "learning",
-      "events",
-      "analytics",
-      "sandbox"
-    ],
+    "tags": ["studio", "learning", "events", "analytics", "sandbox"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -593,13 +485,7 @@
     "route": "/docs/tech/studio/platform-admin-panel",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/studio/platform-admin-panel.md",
-    "tags": [
-      "studio",
-      "admin",
-      "multi-tenancy",
-      "integrations",
-      "better-auth"
-    ],
+    "tags": ["studio", "admin", "multi-tenancy", "integrations", "better-auth"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -610,13 +496,7 @@
     "route": "/docs/tech/studio/project-access-teams",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/studio/project-access-teams.md",
-    "tags": [
-      "studio",
-      "projects",
-      "teams",
-      "rbac",
-      "access-control"
-    ],
+    "tags": ["studio", "projects", "teams", "rbac", "access-control"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -627,13 +507,7 @@
     "route": "/docs/tech/studio/project-routing",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/studio/project-routing.md",
-    "tags": [
-      "studio",
-      "routing",
-      "projects",
-      "slug",
-      "redirects"
-    ],
+    "tags": ["studio", "routing", "projects", "slug", "redirects"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -644,12 +518,7 @@
     "route": "/docs/tech/studio/sandbox-unlogged",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/studio/sandbox/unlogged.md",
-    "tags": [
-      "studio",
-      "sandbox",
-      "privacy",
-      "analytics"
-    ],
+    "tags": ["studio", "sandbox", "privacy", "analytics"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -660,13 +529,7 @@
     "route": "/docs/tech/studio/team-invitations",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/studio/team-invitations.md",
-    "tags": [
-      "studio",
-      "teams",
-      "invitations",
-      "access-control",
-      "onboarding"
-    ],
+    "tags": ["studio", "teams", "invitations", "access-control", "onboarding"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -677,13 +540,7 @@
     "route": "/docs/tech/studio/workspace-ops",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/studio/workspace_ops.md",
-    "tags": [
-      "studio",
-      "repo",
-      "workspace",
-      "validate",
-      "diff"
-    ],
+    "tags": ["studio", "repo", "workspace", "validate", "diff"],
     "kind": "reference",
     "visibility": "mixed"
   },
@@ -694,13 +551,7 @@
     "route": "/docs/tech/studio/workspaces",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/studio/workspaces.md",
-    "tags": [
-      "studio",
-      "projects",
-      "teams",
-      "rbac",
-      "environments"
-    ],
+    "tags": ["studio", "projects", "teams", "rbac", "environments"],
     "kind": "reference",
     "visibility": "mixed"
   },
@@ -711,11 +562,7 @@
     "route": "/docs/tech/telemetry/hybrid",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/telemetry/hybrid.md",
-    "tags": [
-      "telemetry",
-      "architecture",
-      "posthog"
-    ],
+    "tags": ["telemetry", "architecture", "posthog"],
     "kind": "usage",
     "visibility": "internal"
   },
@@ -726,12 +573,7 @@
     "route": "/docs/tech/telemetry/ingest",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/telemetry/ingest.md",
-    "tags": [
-      "telemetry",
-      "api",
-      "posthog",
-      "analytics"
-    ],
+    "tags": ["telemetry", "api", "posthog", "analytics"],
     "kind": "reference",
     "visibility": "internal"
   },
@@ -742,12 +584,7 @@
     "route": "/docs/tech/vscode/extension",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/vscode/extension.md",
-    "tags": [
-      "vscode",
-      "extension",
-      "tooling",
-      "dx"
-    ],
+    "tags": ["vscode", "extension", "tooling", "dx"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -758,11 +595,7 @@
     "route": "/docs/tech/vscode/snippets",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/vscode/snippets.md",
-    "tags": [
-      "vscode",
-      "snippets",
-      "dx"
-    ],
+    "tags": ["vscode", "snippets", "dx"],
     "kind": "reference",
     "visibility": "public"
   },
@@ -773,11 +606,7 @@
     "route": "/docs/tech/workflows/overview",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/workflows/overview.md",
-    "tags": [
-      "tech",
-      "workflows",
-      "overview"
-    ],
+    "tags": ["tech", "workflows", "overview"],
     "kind": "reference",
     "visibility": "public"
   }
