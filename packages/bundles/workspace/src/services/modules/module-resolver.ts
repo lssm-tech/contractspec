@@ -37,14 +37,6 @@ export class ModuleResolver {
         // Store absolute directory path for the module
         // We assume spec.filePath is absolute (as per scan logic)
         const dirPath = dirname(spec.filePath);
-        if (spec.key === 'defineAppConfig') {
-          console.warn(
-            `Found defineAppConfig defineAppConfig`,
-            spec.key,
-            spec.filePath,
-            spec
-          );
-        }
         this.modules.push({
           type,
           key: spec.key,
