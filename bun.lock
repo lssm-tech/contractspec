@@ -386,6 +386,7 @@
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.contracts-transformers": "workspace:*",
         "@contractspec/lib.source-extractors": "workspace:*",
+        "@contractspec/lib.utils-typescript": "workspace:*",
         "@contractspec/module.workspace": "workspace:*",
         "ai": "catalog:ai",
         "chalk": "^5.6.2",

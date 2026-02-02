@@ -1,9 +1,0 @@
-{
-  "extends": "@contractspec/tool.typescript/base.json",
-  "compilerOptions": {
-    "noEmit": true,
-    "declaration": false,
-    "emitDeclarationOnly": false,
-    "types": ["node", "bun"]
-  }
-}

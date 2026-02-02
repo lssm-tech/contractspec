@@ -2,13 +2,6 @@
   "name": "@contractspec/action.pr",
   "version": "0.1.0",
   "description": "GitHub Action for ContractSpec PR checks",
-  "scripts": {
-    "build": "bun build src/index.ts --outdir dist --target bun",
-    "lint": "bun run lint:fix",
-    "lint:fix": "eslint src/index.ts --fix",
-    "lint:check": "eslint src/index.ts",
-    "test": "bun test"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",

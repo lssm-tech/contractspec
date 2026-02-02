@@ -76,6 +76,10 @@ runs:
         echo "COMMENT_TOKEN=${{ inputs.token }}" >> $GITHUB_ENV
         echo "TURBO_TELEMETRY_DISABLED=1" >> $GITHUB_ENV
         echo "DO_NOT_TRACK=1" >> $GITHUB_ENV
+        # Pass through Turbo env vars if present in the calling workflow environment
+        if [ -n "$TURBO_TOKEN" ]; then echo "TURBO_TOKEN=$TURBO_TOKEN" >> $GITHUB_ENV; fi
+        if [ -n "$TURBO_TEAM" ]; then echo "TURBO_TEAM=$TURBO_TEAM" >> $GITHUB_ENV; fi
+
 
     - name: Setup Bun
       uses: oven-sh/setup-bun@v2
@@ -147,6 +151,9 @@ runs:
         if [ -f "packages/apps/cli-contractspec/package.json" ]; then
           bun run build --filter=@contractspec/app.cli-contractspec
         fi
+      env:
+        TURBO_TOKEN: ${{ env.TURBO_TOKEN }}
+        TURBO_TEAM: ${{ env.TURBO_TEAM }}
 
     - name: Collect contract changes
       id: changes
@@ -163,7 +170,7 @@ runs:
         fi
         echo "BASELINE=$BASELINE" >> $GITHUB_ENV
         git diff --name-only "$BASELINE"...HEAD > .contractspec-ci/changed-files.txt
-        bun "${{ github.action_path }}/src/index.ts" collect-changes
+        $CONTRACTSPEC_CMD action-pr collect-changes
 
     - name: Generate contract view
       shell: bash
@@ -227,7 +234,7 @@ runs:
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
         git status --porcelain > .contractspec-ci/drift-status.txt
-        bun "${{ github.action_path }}/src/index.ts" check-drift
+        $CONTRACTSPEC_CMD action-pr check-drift
 
     - name: Mark drift as skipped
       if: env.ENABLE_DRIFT != 'true'
@@ -242,16 +249,16 @@ runs:
       run: |
         # Collect contract verification status
         echo "Collecting contract verification status..."
-        bun "${{ github.action_path }}/src/index.ts" get-contract-status
+        $CONTRACTSPEC_CMD action-pr get-contract-status
 
         # Build report data
-        bun "${{ github.action_path }}/src/index.ts" build-report-data
+        $CONTRACTSPEC_CMD action-pr build-report-data
 
     - name: Generate report
       shell: bash
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
-        bun "${{ github.action_path }}/src/index.ts" generate-report
+        $CONTRACTSPEC_CMD action-pr generate-report
 
     - name: Comment on PR
       if: ${{ github.event.pull_request && (inputs.report-mode == 'comment' || inputs.report-mode == 'both') && !github.event.pull_request.head.repo.fork }}
@@ -278,4 +285,4 @@ runs:
       id: result
       shell: bash
       run: |
-        bun "${{ github.action_path }}/src/index.ts" finalize
+        $CONTRACTSPEC_CMD action-pr finalize

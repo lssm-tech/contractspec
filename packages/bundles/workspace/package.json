@@ -37,6 +37,7 @@
     "@contractspec/lib.contracts-transformers": "workspace:*",
     "@contractspec/lib.source-extractors": "workspace:*",
     "@contractspec/module.workspace": "workspace:*",
+    "@contractspec/lib.utils-typescript": "workspace:*",
     "ai": "catalog:ai",
     "chalk": "^5.6.2",
     "chokidar": "^5.0.0",

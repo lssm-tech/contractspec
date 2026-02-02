@@ -42,6 +42,7 @@ import { fixCommand } from './commands/fix/index';
 import { vibeCommand } from './commands/vibe/index';
 import { importCommand } from './commands/import/index';
 import { pluginsCommand } from './commands/plugins/index';
+import { actionPrCommand } from './commands/action-pr/index';
 
 // Define categories
 const CATEGORY_ESSENTIALS = 'Essentials';
@@ -194,6 +195,7 @@ program.addCommand(withCategory(createImpactCommand(), CATEGORY_OPERATIONS));
 program.addCommand(withCategory(cicdCommand, CATEGORY_OPERATIONS));
 program.addCommand(withCategory(createVersionCommand(), CATEGORY_OPERATIONS));
 program.addCommand(withCategory(createChangelogCommand(), CATEGORY_OPERATIONS));
+program.addCommand(withCategory(actionPrCommand, CATEGORY_OPERATIONS));
 
 // Register Hook command (special case as it's a function)
 registerHookCommand(program);
