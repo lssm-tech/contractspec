@@ -321,7 +321,7 @@
     "drizzle-orm": "^0.45.1",
     "elysia-mcp": "^0.1.0",
     "framer-motion": "^12.26.1",
-    "lucide-react": "^0.562.0",
+    "lucide-react": "^0.563.0",
     "posthog-js": "^1.319.0",
     "posthog-node": "^5.20.0",
     "posthog-react-native": "^4.17.3",

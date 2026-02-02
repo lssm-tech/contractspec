@@ -11,9 +11,8 @@ import { Card } from '@contractspec/lib.ui-kit-web/ui/card';
 import { Box, HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import type { FeatureOperationDetailTemplateProps } from './types';
-import { BookOpen, Code, Database, Zap } from 'lucide-react';
+import { Code, Database, Zap } from 'lucide-react';
 import { useRelatedDocs } from '../../hooks/useRelatedDocs';
-import Link from 'next/link';
 
 export function FeatureOperationDetailTemplate({
   feature,
@@ -26,7 +25,7 @@ export function FeatureOperationDetailTemplate({
   const opRef =
     operation ?? feature.operations?.find((op) => op.key === operationKey);
 
-  const relatedDocs = useRelatedDocs(opRef?.key || '', spec?.meta?.tags);
+  const _relatedDocs = useRelatedDocs(opRef?.key || '', spec?.meta?.tags);
 
   if (!opRef) {
     return (
@@ -74,7 +73,7 @@ export function FeatureOperationDetailTemplate({
               },
               {
                 label: 'Operations',
-                href: `/features/${feature.meta.key}#operations`,
+                href: `/features/${feature.meta.key}/operations`,
               },
               { label: opRef.key },
             ]}
@@ -121,6 +120,7 @@ export function FeatureOperationDetailTemplate({
                       Input Schema
                     </span>
                     <CodeBlock
+                      className="w-full"
                       code={JSON.stringify(spec.io.input, null, 2)}
                       language="json"
                     />
@@ -131,6 +131,7 @@ export function FeatureOperationDetailTemplate({
                       Output Schema
                     </span>
                     <CodeBlock
+                      className="w-full"
                       code={JSON.stringify(spec.io.output, null, 2)}
                       language="json"
                     />
@@ -211,40 +212,40 @@ export function FeatureOperationDetailTemplate({
         </div>
 
         {/* Related Docs */}
-        {relatedDocs?.length ? (
-          <div className="lg:col-span-3">
-            <Card className="p-6">
-              <VStack gap="md">
-                <HStack className="items-center gap-2 border-b pb-2">
-                  <BookOpen className="text-muted-foreground h-5 w-5" />
-                  <h3 className="text-lg font-semibold">
-                    Related Documentation
-                  </h3>
-                </HStack>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  {relatedDocs.map((doc) => (
-                    <Link
-                      key={doc.id}
-                      href={doc.route || `/docs/${doc.id}`}
-                      className="group block"
-                    >
-                      <div className="hover:border-primary h-full rounded-lg border p-4 transition-colors">
-                        <h4 className="group-hover:text-primary mb-1 font-semibold">
-                          {doc.title}
-                        </h4>
-                        {doc.summary && (
-                          <p className="text-muted-foreground line-clamp-2 text-sm">
-                            {doc.summary}
-                          </p>
-                        )}
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </VStack>
-            </Card>
-          </div>
-        ) : null}
+        {/*{relatedDocs?.length ? (*/}
+        {/*  <div className="lg:col-span-3">*/}
+        {/*    <Card className="p-6">*/}
+        {/*      <VStack gap="md">*/}
+        {/*        <HStack className="items-center gap-2 border-b pb-2">*/}
+        {/*          <BookOpen className="text-muted-foreground h-5 w-5" />*/}
+        {/*          <h3 className="text-lg font-semibold">*/}
+        {/*            Related Documentation*/}
+        {/*          </h3>*/}
+        {/*        </HStack>*/}
+        {/*        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">*/}
+        {/*          {relatedDocs.map((doc) => (*/}
+        {/*            <Link*/}
+        {/*              key={doc.id}*/}
+        {/*              href={doc.route || `/docs/${doc.id}`}*/}
+        {/*              className="group block"*/}
+        {/*            >*/}
+        {/*              <div className="hover:border-primary h-full rounded-lg border p-4 transition-colors">*/}
+        {/*                <h4 className="group-hover:text-primary mb-1 font-semibold">*/}
+        {/*                  {doc.title}*/}
+        {/*                </h4>*/}
+        {/*                {doc.summary && (*/}
+        {/*                  <p className="text-muted-foreground line-clamp-2 text-sm">*/}
+        {/*                    {doc.summary}*/}
+        {/*                  </p>*/}
+        {/*                )}*/}
+        {/*              </div>*/}
+        {/*            </Link>*/}
+        {/*          ))}*/}
+        {/*        </div>*/}
+        {/*      </VStack>*/}
+        {/*    </Card>*/}
+        {/*  </div>*/}
+        {/*) : null}*/}
       </div>
     </VStack>
   );

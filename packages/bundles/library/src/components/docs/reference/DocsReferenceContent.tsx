@@ -20,7 +20,8 @@ function cleanSummary(summary?: string) {
   if (!summary) return undefined;
   return summary
     .replace(/<!--.*?-->/g, '')
-    .replace(/\s+/g, ' ')
+    .replace(/[ \t]+/g, ' ')
+    .replace(/\n{3,}/g, '\n\n')
     .trim();
 }
 

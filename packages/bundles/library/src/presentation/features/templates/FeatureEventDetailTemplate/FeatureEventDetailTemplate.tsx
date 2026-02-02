@@ -43,7 +43,10 @@ export function FeatureEventDetailTemplate({
                   label: feature.meta.title || feature.meta.key,
                   href: `/features/${feature.meta.key}`,
                 },
-                { label: 'Events' },
+                {
+                  label: 'Events',
+                  href: `/features/${feature.meta.key}/events`,
+                },
               ]}
             />
           }

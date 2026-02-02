@@ -2,7 +2,7 @@
   {
     "id": "workspace-cli/workspace-cli",
     "title": "workspace-cli",
-    "summary": "Core CLI operations for managing ContractSpec workspaces - **Type**: feature - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @lssm/core - **Tags**: cli, core - **File**: `packages/bundles/workspace/src/contracts/features/cli.feature.ts`",
+    "summary": "Core CLI operations for managing ContractSpec workspaces \n - **Type**: feature \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @lssm/core \n - **Tags**: cli, core \n - **File**: `packages/bundles/workspace/src/contracts/features/cli.feature.ts`",
     "route": "/docs/reference/workspace-cli/workspace-cli",
     "source": "generated",
     "contentPath": "workspace-cli/workspace-cli.md"

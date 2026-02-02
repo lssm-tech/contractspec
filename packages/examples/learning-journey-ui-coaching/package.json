@@ -52,7 +52,7 @@
     "typescript": "catalog:"
   },
   "peerDependencies": {
-    "react": "^19.2.3"
+    "react": "^19.2.4"
   },
   "publishConfig": {
     "exports": {

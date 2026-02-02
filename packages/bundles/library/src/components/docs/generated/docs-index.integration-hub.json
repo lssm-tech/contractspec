@@ -2,7 +2,7 @@
   {
     "id": "integration-hub/etl",
     "title": "etl",
-    "summary": "Extract, transform, load data pipelines - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.core - **Tags**: etl, data, pipeline - **File**: `packages/examples/integration-hub/src/integration-hub.capability.ts`",
+    "summary": "Extract, transform, load data pipelines \n - **Type**: capability (capability) \n - **Version**: 1.0.0 \n - **Owners**: platform.core \n - **Tags**: etl, data, pipeline \n - **File**: `packages/examples/integration-hub/src/integration-hub.capability.ts`",
     "route": "/docs/reference/integration-hub/etl",
     "source": "generated",
     "contentPath": "integration-hub/etl.md"
@@ -10,7 +10,7 @@
   {
     "id": "integration-hub/integration",
     "title": "integration",
-    "summary": "Third-party integration connections - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.core - **Tags**: integration, connections - **File**: `packages/examples/integration-hub/src/integration-hub.capability.ts`",
+    "summary": "Third-party integration connections \n - **Type**: capability (capability) \n - **Version**: 1.0.0 \n - **Owners**: platform.core \n - **Tags**: integration, connections \n - **File**: `packages/examples/integration-hub/src/integration-hub.capability.ts`",
     "route": "/docs/reference/integration-hub/integration",
     "source": "generated",
     "contentPath": "integration-hub/integration.md"
@@ -18,7 +18,7 @@
   {
     "id": "integration-hub/integration-hub",
     "title": "integration-hub",
-    "summary": "Connect and sync data with external systems through configurable integrations - **Type**: feature - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @integration-team - **Tags**: integration, sync, etl, connectors",
+    "summary": "Connect and sync data with external systems through configurable integrations \n - **Type**: feature \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @integration-team \n - **Tags**: integration, sync, etl, connectors",
     "route": "/docs/reference/integration-hub/integration-hub",
     "source": "generated",
     "contentPath": "integration-hub/integration-hub.md"
@@ -26,7 +26,7 @@
   {
     "id": "integration-hub/integration.connection.create",
     "title": "integration.connection.create",
-    "summary": "Create a connection to an external system. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.integration-hub - **Tags**: integration, connection, create",
+    "summary": "Create a connection to an external system. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @example.integration-hub \n - **Tags**: integration, connection, create",
     "route": "/docs/reference/integration-hub/integration.connection.create",
     "source": "generated",
     "contentPath": "integration-hub/integration.connection.create.md"
@@ -34,7 +34,7 @@
   {
     "id": "integration-hub/integration.connection.created",
     "title": "integration.connection.created",
-    "summary": "Fired when a new connection is established - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @integration-team - **Tags**: integration, connection - **File**: `packages/examples/integration-hub/src/events.ts`",
+    "summary": "Fired when a new connection is established \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @integration-team \n - **Tags**: integration, connection \n - **File**: `packages/examples/integration-hub/src/events.ts`",
     "route": "/docs/reference/integration-hub/integration.connection.created",
     "source": "generated",
     "contentPath": "integration-hub/integration.connection.created.md"
@@ -42,7 +42,7 @@
   {
     "id": "integration-hub/integration.connection.list",
     "title": "integration.connection.list",
-    "summary": "List of integration connections - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @integration-team - **Tags**: integration, connection, list - **File**: `packages/examples/integration-hub/src/connection/connection.presentation.ts`",
+    "summary": "List of integration connections \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @integration-team \n - **Tags**: integration, connection, list \n - **File**: `packages/examples/integration-hub/src/connection/connection.presentation.ts`",
     "route": "/docs/reference/integration-hub/integration.connection.list",
     "source": "generated",
     "contentPath": "integration-hub/integration.connection.list.md"
@@ -50,7 +50,7 @@
   {
     "id": "integration-hub/integration.connection.setup",
     "title": "integration.connection.setup",
-    "summary": "Setup wizard for creating integration connections - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @integration-team - **Tags**: integration, connection, setup - **File**: `packages/examples/integration-hub/src/connection/connection.presentation.ts`",
+    "summary": "Setup wizard for creating integration connections \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @integration-team \n - **Tags**: integration, connection, setup \n - **File**: `packages/examples/integration-hub/src/connection/connection.presentation.ts`",
     "route": "/docs/reference/integration-hub/integration.connection.setup",
     "source": "generated",
     "contentPath": "integration-hub/integration.connection.setup.md"
@@ -58,7 +58,7 @@
   {
     "id": "integration-hub/integration.connection.statusChanged",
     "title": "integration.connection.statusChanged",
-    "summary": "Fired when a connection status changes - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @integration-team - **Tags**: integration, connection - **File**: `packages/examples/integration-hub/src/events.ts`",
+    "summary": "Fired when a connection status changes \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @integration-team \n - **Tags**: integration, connection \n - **File**: `packages/examples/integration-hub/src/events.ts`",
     "route": "/docs/reference/integration-hub/integration.connection.statusChanged",
     "source": "generated",
     "contentPath": "integration-hub/integration.connection.statusChanged.md"
@@ -66,7 +66,7 @@
   {
     "id": "integration-hub/integration.create",
     "title": "integration.create",
-    "summary": "Create a new integration. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.integration-hub - **Tags**: integration, create - **File**: `packages/examples/integration-hub/src/integration/integration.operations.ts`",
+    "summary": "Create a new integration. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @example.integration-hub \n - **Tags**: integration, create \n - **File**: `packages/examples/integration-hub/src/integration/integration.operations.ts`",
     "route": "/docs/reference/integration-hub/integration.create",
     "source": "generated",
     "contentPath": "integration-hub/integration.create.md"
@@ -74,7 +74,7 @@
   {
     "id": "integration-hub/integration.created",
     "title": "integration.created",
-    "summary": "Fired when a new integration is created - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @integration-team - **Tags**: integration - **File**: `packages/examples/integration-hub/src/events.ts`",
+    "summary": "Fired when a new integration is created \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @integration-team \n - **Tags**: integration \n - **File**: `packages/examples/integration-hub/src/events.ts`",
     "route": "/docs/reference/integration-hub/integration.created",
     "source": "generated",
     "contentPath": "integration-hub/integration.created.md"
@@ -82,7 +82,7 @@
   {
     "id": "integration-hub/integration.detail",
     "title": "integration.detail",
-    "summary": "Detailed view of an integration - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @integration-team - **Tags**: integration, detail - **File**: `packages/examples/integration-hub/src/integration/integration.presentation.ts`",
+    "summary": "Detailed view of an integration \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @integration-team \n - **Tags**: integration, detail \n - **File**: `packages/examples/integration-hub/src/integration/integration.presentation.ts`",
     "route": "/docs/reference/integration-hub/integration.detail",
     "source": "generated",
     "contentPath": "integration-hub/integration.detail.md"
@@ -90,7 +90,7 @@
   {
     "id": "integration-hub/integration.fieldMapping.add",
     "title": "integration.fieldMapping.add",
-    "summary": "Add a field mapping to a sync config. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.integration-hub - **Tags**: integration, mapping, field - **File**: `packages/examples/integration-hub/src/sync/sync.operations.ts`",
+    "summary": "Add a field mapping to a sync config. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @example.integration-hub \n - **Tags**: integration, mapping, field",
     "route": "/docs/reference/integration-hub/integration.fieldMapping.add",
     "source": "generated",
     "contentPath": "integration-hub/integration.fieldMapping.add.md"
@@ -98,7 +98,7 @@
   {
     "id": "integration-hub/integration.fieldMapping.add.test",
     "title": "integration.fieldMapping.add.test",
-    "summary": "Test for adding field mapping - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.integration-hub - **Tags**: test - **File**: `packages/examples/integration-hub/src/tests/operations.test-spec.ts`",
+    "summary": "Test for adding field mapping \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @example.integration-hub \n - **Tags**: test \n - **File**: `packages/examples/integration-hub/src/tests/operations.test-spec.ts`",
     "route": "/docs/reference/integration-hub/integration.fieldMapping.add.test",
     "source": "generated",
     "contentPath": "integration-hub/integration.fieldMapping.add.test.md"
@@ -106,7 +106,7 @@
   {
     "id": "integration-hub/integration.fieldMapping.added",
     "title": "integration.fieldMapping.added",
-    "summary": "Fired when a field mapping is added to a sync config - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @integration-team - **Tags**: integration, sync - **File**: `packages/examples/integration-hub/src/events.ts`",
+    "summary": "Fired when a field mapping is added to a sync config \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @integration-team \n - **Tags**: integration, sync",
     "route": "/docs/reference/integration-hub/integration.fieldMapping.added",
     "source": "generated",
     "contentPath": "integration-hub/integration.fieldMapping.added.md"
@@ -114,7 +114,7 @@
   {
     "id": "integration-hub/integration.fieldMapping.editor",
     "title": "integration.fieldMapping.editor",
-    "summary": "Visual field mapping editor - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @integration-team - **Tags**: integration, field-mapping, editor - **File**: `packages/examples/integration-hub/src/sync/sync.presentation.ts`",
+    "summary": "Visual field mapping editor \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @integration-team \n - **Tags**: integration, field-mapping, editor \n - **File**: `packages/examples/integration-hub/src/sync/sync.presentation.ts`",
     "route": "/docs/reference/integration-hub/integration.fieldMapping.editor",
     "source": "generated",
     "contentPath": "integration-hub/integration.fieldMapping.editor.md"
@@ -122,7 +122,7 @@
   {
     "id": "integration-hub/integration.health",
     "title": "integration.health",
-    "summary": "Integration health monitoring dashboard - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @integration-team - **Tags**: integration, health, monitoring - **File**: `packages/examples/integration-hub/src/integration/integration.presentation.ts`",
+    "summary": "Integration health monitoring dashboard \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @integration-team \n - **Tags**: integration, health, monitoring \n - **File**: `packages/examples/integration-hub/src/integration/integration.presentation.ts`",
     "route": "/docs/reference/integration-hub/integration.health",
     "source": "generated",
     "contentPath": "integration-hub/integration.health.md"
@@ -130,7 +130,7 @@
   {
     "id": "integration-hub/integration.list",
     "title": "integration.list",
-    "summary": "List of available integrations - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @integration-team - **Tags**: integration, list - **File**: `packages/examples/integration-hub/src/integration/integration.presentation.ts`",
+    "summary": "List of available integrations \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @integration-team \n - **Tags**: integration, list \n - **File**: `packages/examples/integration-hub/src/integration/integration.presentation.ts`",
     "route": "/docs/reference/integration-hub/integration.list",
     "source": "generated",
     "contentPath": "integration-hub/integration.list.md"
@@ -138,7 +138,7 @@
   {
     "id": "integration-hub/integration.record.synced",
     "title": "integration.record.synced",
-    "summary": "Fired when a single record is synced - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @integration-team - **Tags**: integration, sync - **File**: `packages/examples/integration-hub/src/events.ts`",
+    "summary": "Fired when a single record is synced \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @integration-team \n - **Tags**: integration, sync \n - **File**: `packages/examples/integration-hub/src/events.ts`",
     "route": "/docs/reference/integration-hub/integration.record.synced",
     "source": "generated",
     "contentPath": "integration-hub/integration.record.synced.md"
@@ -146,7 +146,7 @@
   {
     "id": "integration-hub/integration.sync.activity",
     "title": "integration.sync.activity",
-    "summary": "Real-time sync activity monitor - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @integration-team - **Tags**: integration, sync, activity, realtime - **File**: `packages/examples/integration-hub/src/sync/sync.presentation.ts`",
+    "summary": "Real-time sync activity monitor \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @integration-team \n - **Tags**: integration, sync, activity, realtime \n - **File**: `packages/examples/integration-hub/src/sync/sync.presentation.ts`",
     "route": "/docs/reference/integration-hub/integration.sync.activity",
     "source": "generated",
     "contentPath": "integration-hub/integration.sync.activity.md"
@@ -154,7 +154,7 @@
   {
     "id": "integration-hub/integration.sync.completed",
     "title": "integration.sync.completed",
-    "summary": "Fired when a sync run completes successfully - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @integration-team - **Tags**: integration, sync - **File**: `packages/examples/integration-hub/src/events.ts`",
+    "summary": "Fired when a sync run completes successfully \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @integration-team \n - **Tags**: integration, sync \n - **File**: `packages/examples/integration-hub/src/events.ts`",
     "route": "/docs/reference/integration-hub/integration.sync.completed",
     "source": "generated",
     "contentPath": "integration-hub/integration.sync.completed.md"
@@ -162,7 +162,7 @@
   {
     "id": "integration-hub/integration.sync.failed",
     "title": "integration.sync.failed",
-    "summary": "Fired when a sync run fails - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @integration-team - **Tags**: integration, sync - **File**: `packages/examples/integration-hub/src/events.ts`",
+    "summary": "Fired when a sync run fails \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @integration-team \n - **Tags**: integration, sync \n - **File**: `packages/examples/integration-hub/src/events.ts`",
     "route": "/docs/reference/integration-hub/integration.sync.failed",
     "source": "generated",
     "contentPath": "integration-hub/integration.sync.failed.md"
@@ -170,7 +170,7 @@
   {
     "id": "integration-hub/integration.sync.started",
     "title": "integration.sync.started",
-    "summary": "Fired when a sync run starts - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @integration-team - **Tags**: integration, sync - **File**: `packages/examples/integration-hub/src/events.ts`",
+    "summary": "Fired when a sync run starts \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @integration-team \n - **Tags**: integration, sync \n - **File**: `packages/examples/integration-hub/src/events.ts`",
     "route": "/docs/reference/integration-hub/integration.sync.started",
     "source": "generated",
     "contentPath": "integration-hub/integration.sync.started.md"
@@ -178,7 +178,7 @@
   {
     "id": "integration-hub/integration.sync.trigger",
     "title": "integration.sync.trigger",
-    "summary": "Trigger a manual sync. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.integration-hub - **Tags**: integration, sync, trigger - **File**: `packages/examples/integration-hub/src/sync/sync.operations.ts`",
+    "summary": "Trigger a manual sync. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @example.integration-hub \n - **Tags**: integration, sync, trigger \n - **File**: `packages/examples/integration-hub/src/sync/sync.operations.ts`",
     "route": "/docs/reference/integration-hub/integration.sync.trigger",
     "source": "generated",
     "contentPath": "integration-hub/integration.sync.trigger.md"
@@ -186,7 +186,7 @@
   {
     "id": "integration-hub/integration.syncConfig.create",
     "title": "integration.syncConfig.create",
-    "summary": "Create a sync configuration. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.integration-hub - **Tags**: integration, sync, config, create - **File**: `packages/examples/integration-hub/src/sync/sync.operations.ts`",
+    "summary": "Create a sync configuration. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @example.integration-hub \n - **Tags**: integration, sync, config, create",
     "route": "/docs/reference/integration-hub/integration.syncConfig.create",
     "source": "generated",
     "contentPath": "integration-hub/integration.syncConfig.create.md"
@@ -194,7 +194,7 @@
   {
     "id": "integration-hub/integration.syncConfig.create.test",
     "title": "integration.syncConfig.create.test",
-    "summary": "Test for creating sync config - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.integration-hub - **Tags**: test - **File**: `packages/examples/integration-hub/src/tests/operations.test-spec.ts`",
+    "summary": "Test for creating sync config \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @example.integration-hub \n - **Tags**: test \n - **File**: `packages/examples/integration-hub/src/tests/operations.test-spec.ts`",
     "route": "/docs/reference/integration-hub/integration.syncConfig.create.test",
     "source": "generated",
     "contentPath": "integration-hub/integration.syncConfig.create.test.md"
@@ -202,7 +202,7 @@
   {
     "id": "integration-hub/integration.syncConfig.created",
     "title": "integration.syncConfig.created",
-    "summary": "Fired when a sync configuration is created - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @integration-team - **Tags**: integration, sync - **File**: `packages/examples/integration-hub/src/events.ts`",
+    "summary": "Fired when a sync configuration is created \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @integration-team \n - **Tags**: integration, sync \n - **File**: `packages/examples/integration-hub/src/events.ts`",
     "route": "/docs/reference/integration-hub/integration.syncConfig.created",
     "source": "generated",
     "contentPath": "integration-hub/integration.syncConfig.created.md"
@@ -210,7 +210,7 @@
   {
     "id": "integration-hub/integration.syncConfig.editor",
     "title": "integration.syncConfig.editor",
-    "summary": "Editor for sync configuration settings - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @integration-team - **Tags**: integration, sync, config, editor - **File**: `packages/examples/integration-hub/src/sync/sync.presentation.ts`",
+    "summary": "Editor for sync configuration settings \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @integration-team \n - **Tags**: integration, sync, config, editor \n - **File**: `packages/examples/integration-hub/src/sync/sync.presentation.ts`",
     "route": "/docs/reference/integration-hub/integration.syncConfig.editor",
     "source": "generated",
     "contentPath": "integration-hub/integration.syncConfig.editor.md"
@@ -218,7 +218,7 @@
   {
     "id": "integration-hub/integration.syncConfig.list",
     "title": "integration.syncConfig.list",
-    "summary": "List of sync configurations - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @integration-team - **Tags**: integration, sync, config, list - **File**: `packages/examples/integration-hub/src/sync/sync.presentation.ts`",
+    "summary": "List of sync configurations \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @integration-team \n - **Tags**: integration, sync, config, list \n - **File**: `packages/examples/integration-hub/src/sync/sync.presentation.ts`",
     "route": "/docs/reference/integration-hub/integration.syncConfig.list",
     "source": "generated",
     "contentPath": "integration-hub/integration.syncConfig.list.md"
@@ -226,7 +226,7 @@
   {
     "id": "integration-hub/integration.syncRun.detail",
     "title": "integration.syncRun.detail",
-    "summary": "Detailed view of a sync run with logs - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @integration-team - **Tags**: integration, sync, run, detail - **File**: `packages/examples/integration-hub/src/sync/sync.presentation.ts`",
+    "summary": "Detailed view of a sync run with logs \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @integration-team \n - **Tags**: integration, sync, run, detail \n - **File**: `packages/examples/integration-hub/src/sync/sync.presentation.ts`",
     "route": "/docs/reference/integration-hub/integration.syncRun.detail",
     "source": "generated",
     "contentPath": "integration-hub/integration.syncRun.detail.md"
@@ -234,7 +234,7 @@
   {
     "id": "integration-hub/integration.syncRun.list",
     "title": "integration.syncRun.list",
-    "summary": "List sync run history. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.integration-hub - **Tags**: integration, sync, run, list - **File**: `packages/examples/integration-hub/src/sync/sync.operations.ts`",
+    "summary": "List sync run history. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @example.integration-hub \n - **Tags**: integration, sync, run, list \n - **File**: `packages/examples/integration-hub/src/sync/sync.operations.ts`",
     "route": "/docs/reference/integration-hub/integration.syncRun.list",
     "source": "generated",
     "contentPath": "integration-hub/integration.syncRun.list.md"
@@ -242,7 +242,7 @@
   {
     "id": "integration-hub/integration.syncRun.list.test",
     "title": "integration.syncRun.list.test",
-    "summary": "Test for listing sync runs - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.integration-hub - **Tags**: test - **File**: `packages/examples/integration-hub/src/tests/operations.test-spec.ts`",
+    "summary": "Test for listing sync runs \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @example.integration-hub \n - **Tags**: test \n - **File**: `packages/examples/integration-hub/src/tests/operations.test-spec.ts`",
     "route": "/docs/reference/integration-hub/integration.syncRun.list.test",
     "source": "generated",
     "contentPath": "integration-hub/integration.syncRun.list.test.md"
@@ -250,7 +250,7 @@
   {
     "id": "integration-hub/integration.syncRun.viewList",
     "title": "integration.syncRun.viewList",
-    "summary": "History of sync runs - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @integration-team - **Tags**: integration, sync, runs, history - **File**: `packages/examples/integration-hub/src/sync/sync.presentation.ts`",
+    "summary": "History of sync runs \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @integration-team \n - **Tags**: integration, sync, runs, history \n - **File**: `packages/examples/integration-hub/src/sync/sync.presentation.ts`",
     "route": "/docs/reference/integration-hub/integration.syncRun.viewList",
     "source": "generated",
     "contentPath": "integration-hub/integration.syncRun.viewList.md"
@@ -258,7 +258,7 @@
   {
     "id": "integration-hub/sync",
     "title": "sync",
-    "summary": "Data synchronization between systems - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.core - **Tags**: sync, data - **File**: `packages/examples/integration-hub/src/integration-hub.capability.ts`",
+    "summary": "Data synchronization between systems \n - **Type**: capability (capability) \n - **Version**: 1.0.0 \n - **Owners**: platform.core \n - **Tags**: sync, data \n - **File**: `packages/examples/integration-hub/src/integration-hub.capability.ts`",
     "route": "/docs/reference/integration-hub/sync",
     "source": "generated",
     "contentPath": "integration-hub/sync.md"

@@ -24,6 +24,11 @@ export function parseDocsMarkdown(content: string): DocsMarkdownBlock[] {
   let i = 0;
   while (i < lines.length) {
     const line = lines[i] ?? '';
+    if (line.startsWith('<!-- @generated')) {
+      i += 1;
+      continue;
+    }
+
     const trimmed = line.trim();
     if (!trimmed) {
       i += 1;

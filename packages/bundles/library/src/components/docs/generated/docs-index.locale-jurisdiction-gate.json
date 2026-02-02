@@ -2,7 +2,7 @@
   {
     "id": "locale-jurisdiction-gate/assistant.answer",
     "title": "assistant.answer",
-    "summary": "Answer a user question using a KB snapshot with strict locale/jurisdiction gating. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: assistant, policy, locale, jurisdiction, knowledge",
+    "summary": "Answer a user question using a KB snapshot with strict locale/jurisdiction gating. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @examples \n - **Tags**: assistant, policy, locale, jurisdiction, knowledge",
     "route": "/docs/reference/locale-jurisdiction-gate/assistant.answer",
     "source": "generated",
     "contentPath": "locale-jurisdiction-gate/assistant.answer.md"
@@ -10,7 +10,7 @@
   {
     "id": "locale-jurisdiction-gate/assistant.answer.blocked",
     "title": "assistant.answer.blocked",
-    "summary": "Assistant answer blocked (fail-closed). - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: assistant, policy, blocked - **File**: `packages/examples/locale-jurisdiction-gate/src/events.ts`",
+    "summary": "Assistant answer blocked (fail-closed). \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @examples \n - **Tags**: assistant, policy, blocked \n - **File**: `packages/examples/locale-jurisdiction-gate/src/events.ts`",
     "route": "/docs/reference/locale-jurisdiction-gate/assistant.answer.blocked",
     "source": "generated",
     "contentPath": "locale-jurisdiction-gate/assistant.answer.blocked.md"
@@ -18,7 +18,7 @@
   {
     "id": "locale-jurisdiction-gate/assistant.answer.delivered",
     "title": "assistant.answer.delivered",
-    "summary": "Assistant answer delivered (must include KB snapshot citations). - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: assistant, policy, delivered",
+    "summary": "Assistant answer delivered (must include KB snapshot citations). \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @examples \n - **Tags**: assistant, policy, delivered",
     "route": "/docs/reference/locale-jurisdiction-gate/assistant.answer.delivered",
     "source": "generated",
     "contentPath": "locale-jurisdiction-gate/assistant.answer.delivered.md"
@@ -26,7 +26,7 @@
   {
     "id": "locale-jurisdiction-gate/assistant.answer.requested",
     "title": "assistant.answer.requested",
-    "summary": "Assistant answer requested (policy gate will run). - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: assistant, policy - **File**: `packages/examples/locale-jurisdiction-gate/src/events.ts`",
+    "summary": "Assistant answer requested (policy gate will run). \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @examples \n - **Tags**: assistant, policy \n - **File**: `packages/examples/locale-jurisdiction-gate/src/events.ts`",
     "route": "/docs/reference/locale-jurisdiction-gate/assistant.answer.requested",
     "source": "generated",
     "contentPath": "locale-jurisdiction-gate/assistant.answer.requested.md"
@@ -34,7 +34,7 @@
   {
     "id": "locale-jurisdiction-gate/assistant.explainConcept",
     "title": "assistant.explainConcept",
-    "summary": "Explain a concept using a KB snapshot with strict locale/jurisdiction gating. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: assistant, policy, knowledge, concepts",
+    "summary": "Explain a concept using a KB snapshot with strict locale/jurisdiction gating. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @examples \n - **Tags**: assistant, policy, knowledge, concepts",
     "route": "/docs/reference/locale-jurisdiction-gate/assistant.explainConcept",
     "source": "generated",
     "contentPath": "locale-jurisdiction-gate/assistant.explainConcept.md"
@@ -42,7 +42,7 @@
   {
     "id": "locale-jurisdiction-gate/locale-jurisdiction-gate",
     "title": "locale-jurisdiction-gate",
-    "summary": "Fail-closed gating for assistant calls requiring locale/jurisdiction/snapshot/scope and citations. - **Type**: feature - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: assistant, policy, locale, jurisdiction, knowledge",
+    "summary": "Fail-closed gating for assistant calls requiring locale/jurisdiction/snapshot/scope and citations. \n - **Type**: feature \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @examples",
     "route": "/docs/reference/locale-jurisdiction-gate/locale-jurisdiction-gate",
     "source": "generated",
     "contentPath": "locale-jurisdiction-gate/locale-jurisdiction-gate.md"

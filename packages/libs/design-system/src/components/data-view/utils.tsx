@@ -1,5 +1,8 @@
 'use client';
 
+import { MarkdownRenderer } from '@contractspec/lib.example-shared-ui';
+import type { DataViewFieldFormat } from '@contractspec/lib.contracts';
+
 export function getAtPath(
   source: Record<string, unknown> | undefined,
   path: string
@@ -23,7 +26,13 @@ export function getAtPath(
   return current;
 }
 
-export function formatValue(value: unknown, format?: string): string {
+export function DataViewFormattedValue({
+  value,
+  format,
+}: {
+  value: unknown;
+  format?: DataViewFieldFormat;
+}) {
   if (value == null) return '';
   switch (format) {
     case 'boolean':
@@ -48,7 +57,10 @@ export function formatValue(value: unknown, format?: string): string {
         dateStyle: 'medium',
         timeStyle: 'short',
       });
+    case 'markdown':
+      return <MarkdownRenderer content={value as string} />;
     default:
+      console.log('format value', value, format);
       return String(value);
   }
 }

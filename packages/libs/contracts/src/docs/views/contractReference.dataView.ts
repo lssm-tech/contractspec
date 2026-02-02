@@ -55,6 +55,7 @@ export const ContractReferenceDataView = defineDataView({
         key: 'description',
         label: 'Description',
         dataPath: 'reference.description',
+        format: 'markdown',
       },
       {
         key: 'tags',
