@@ -35,7 +35,6 @@
 '@contractspec/bundle.lifecycle-managed': minor
 '@contractspec/example.ai-support-bot': minor
 '@contractspec/example.content-generation': minor
-'@contractspec/example.in-app-docs': minor
 '@contractspec/example.integration-stripe': minor
 '@contractspec/example.kb-update-pipeline': minor
 '@contractspec/example.knowledge-canon': minor
