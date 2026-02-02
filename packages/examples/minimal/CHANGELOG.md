@@ -1,5 +1,11 @@
 # contractspec-example-minimal
 
+## 0.7.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
 ## 0.6.0
 
 ### Minor Changes

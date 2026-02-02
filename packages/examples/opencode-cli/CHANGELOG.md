@@ -1,5 +1,11 @@
 # contractspec-example-opencode-cli
 
+## 0.3.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
 ## 0.2.0
 
 ### Minor Changes

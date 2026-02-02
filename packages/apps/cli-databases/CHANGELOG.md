@@ -1,5 +1,11 @@
 # @contractspec/app.cli-databases
 
+## 1.54.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
 ## 1.53.0
 
 ### Minor Changes

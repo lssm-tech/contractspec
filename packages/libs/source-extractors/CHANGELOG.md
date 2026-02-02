@@ -1,5 +1,17 @@
 # @contractspec/lib.source-extractors
 
+## 0.8.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [ec5e95c]
+  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/lib.schema@1.54.0
+
 ## 0.7.0
 
 ### Minor Changes

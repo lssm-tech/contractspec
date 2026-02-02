@@ -1,5 +1,21 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 1.54.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [ec5e95c]
+  - @contractspec/lib.ai-agent@1.54.0
+  - @contractspec/lib.analytics@1.54.0
+  - @contractspec/lib.lifecycle@1.54.0
+  - @contractspec/lib.observability@1.54.0
+  - @contractspec/module.lifecycle-advisor@1.54.0
+  - @contractspec/module.lifecycle-core@1.54.0
+
 ## 1.53.0
 
 ### Minor Changes

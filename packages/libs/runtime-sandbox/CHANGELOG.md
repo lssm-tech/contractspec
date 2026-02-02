@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 0.9.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
 ## 0.8.0
 
 ### Minor Changes

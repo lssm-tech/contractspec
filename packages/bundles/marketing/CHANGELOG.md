@@ -1,5 +1,33 @@
 # @contractspec/bundle.marketing
 
+## 1.9.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [ec5e95c]
+  - @contractspec/lib.example-shared-ui@1.8.0
+  - @contractspec/lib.design-system@1.54.0
+  - @contractspec/bundle.library@1.9.0
+  - @contractspec/lib.ui-kit-web@1.54.0
+  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/example.agent-console@1.54.0
+  - @contractspec/example.analytics-dashboard@1.54.0
+  - @contractspec/example.crm-pipeline@1.54.0
+  - @contractspec/example.integration-hub@1.54.0
+  - @contractspec/example.marketplace@1.54.0
+  - @contractspec/example.saas-boilerplate@1.54.0
+  - @contractspec/example.workflow-system@1.54.0
+  - @contractspec/lib.email@1.8.0
+  - @contractspec/lib.logger@1.54.0
+  - @contractspec/lib.runtime-sandbox@0.9.0
+  - @contractspec/lib.ui-kit-core@1.54.0
+  - @contractspec/lib.ui-link@1.54.0
+  - @contractspec/module.examples@1.54.0
+
 ## 1.8.0
 
 ### Minor Changes

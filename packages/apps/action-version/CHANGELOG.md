@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 0.10.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
 ## 0.9.0
 
 ### Minor Changes

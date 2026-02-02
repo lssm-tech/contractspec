@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 8.0.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [ec5e95c]
+  - @contractspec/lib.ui-kit@1.54.0
+  - @contractspec/lib.presentation-runtime-core@1.54.0
+
 ## 7.0.0
 
 ### Minor Changes

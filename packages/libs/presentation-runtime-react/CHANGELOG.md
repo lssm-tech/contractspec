@@ -1,5 +1,19 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 8.0.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [ec5e95c]
+  - @contractspec/lib.design-system@1.54.0
+  - @contractspec/lib.ui-kit-web@1.54.0
+  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/lib.presentation-runtime-core@1.54.0
+
 ## 7.0.0
 
 ### Minor Changes
