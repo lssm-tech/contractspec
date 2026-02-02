@@ -92,7 +92,8 @@ export async function generateDocsFromSpecs(
         let targetDir = options.outputDir;
 
         if (moduleDef) {
-          console.warn(`Here`, moduleDef.key, parsed.filePath);
+          if (moduleDef.key === 'defineAppConfig')
+            console.warn(`Here`, moduleDef.key, parsed.filePath);
           targetDir = path.join(options.outputDir, moduleDef.key);
         } else {
           targetDir = path.join(options.outputDir, '_common'); // Fallback for root-level specs
