@@ -1,45 +1,5 @@
 [
   {
-    "id": "_common/base.onboarding.complete",
-    "title": "base.onboarding.complete",
-    "summary": "Complete onboarding and finalize user/organization setup - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: onboarding - **File**: `packages/libs/contracts/src/onboarding-base.ts` Transition from draft to active profile",
-    "route": "/docs/reference/_common/base.onboarding.complete",
-    "source": "generated",
-    "contentPath": "_common/base.onboarding.complete.md"
-  },
-  {
-    "id": "_common/base.onboarding.deleteDraft",
-    "title": "base.onboarding.deleteDraft",
-    "summary": "Delete onboarding draft for active organization - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: onboarding, draft - **File**: `packages/libs/contracts/src/onboarding-base.ts` Clear draft after completion or if user wants to restart",
-    "route": "/docs/reference/_common/base.onboarding.deleteDraft",
-    "source": "generated",
-    "contentPath": "_common/base.onboarding.deleteDraft.md"
-  },
-  {
-    "id": "_common/base.onboarding.getDraft",
-    "title": "base.onboarding.getDraft",
-    "summary": "Get onboarding draft for active organization - **Type**: operation (query) - **Version**: 1.0.0 - **Tags**: onboarding, draft - **File**: `packages/libs/contracts/src/onboarding-base.ts` Retrieve saved onboarding progress",
-    "route": "/docs/reference/_common/base.onboarding.getDraft",
-    "source": "generated",
-    "contentPath": "_common/base.onboarding.getDraft.md"
-  },
-  {
-    "id": "_common/base.onboarding.saveDraft",
-    "title": "base.onboarding.saveDraft",
-    "summary": "Save or update onboarding draft for active organization - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: onboarding, draft - **File**: `packages/libs/contracts/src/onboarding-base.ts` Persist onboarding progress incrementally for resumption and safety",
-    "route": "/docs/reference/_common/base.onboarding.saveDraft",
-    "source": "generated",
-    "contentPath": "_common/base.onboarding.saveDraft.md"
-  },
-  {
-    "id": "_common/CreateUser",
-    "title": "CreateUser",
-    "summary": "- **Type**: operation (command) - **Version**: 1.0.0 - **File**: `packages/examples/minimal/src/contracts/user.ts` ```typescript export const CreateUser = defineCommand({ meta: { name: 'user.create', version: '1.0.0',",
-    "route": "/docs/reference/_common/CreateUser",
-    "source": "generated",
-    "contentPath": "_common/CreateUser.md"
-  },
-  {
     "id": "_common/docs.contract.reference",
     "title": "docs.contract.reference",
     "summary": "Resolve a contract into a documentation-ready reference. - **Type**: operation (query) - **Version**: 1.0.0 - **Tags**: reference - **File**: `packages/libs/contracts/src/docs/queries/contractReference.query.ts`",
@@ -110,22 +70,6 @@
     "route": "/docs/reference/_common/docs.system",
     "source": "generated",
     "contentPath": "_common/docs.system.md"
-  },
-  {
-    "id": "_common/DocsLayoutPresentation",
-    "title": "DocsLayoutPresentation",
-    "summary": "Shared layout shell for documentation pages. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Tags**: layout - **File**: `packages/libs/contracts/src/docs/presentations/docsLayout.presentation.ts`",
-    "route": "/docs/reference/_common/DocsLayoutPresentation",
-    "source": "generated",
-    "contentPath": "_common/DocsLayoutPresentation.md"
-  },
-  {
-    "id": "_common/DocsReferencePagePresentation",
-    "title": "DocsReferencePagePresentation",
-    "summary": "Reference page layout for contract documentation. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Tags**: reference - **File**: `packages/libs/contracts/src/docs/presentations/docsReferencePage.presentation.ts`",
-    "route": "/docs/reference/_common/DocsReferencePagePresentation",
-    "source": "generated",
-    "contentPath": "_common/DocsReferencePagePresentation.md"
   },
   {
     "id": "_common/init",
