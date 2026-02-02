@@ -48,12 +48,31 @@ export async function generateDocsFromSpecs(
   for (const file of specFiles) {
     try {
       const content = await fs.readFile(file);
+      if (file.endsWith('packages/libs/contracts/src/app-config/spec.ts')) {
+        console.log('coupable', file);
+      }
       const results = scanAllSpecsFromSource(content, file);
       if (results.length > 0) {
+        if (
+          results.some((r) =>
+            r.filePath.endsWith(
+              'packages/libs/contracts/src/app-config/spec.ts'
+            )
+          )
+        ) {
+          console.log('coupable 2', file, results);
+        }
         scanResults.push(...results);
       } else {
         // Fallback if no multi-specs found, try single scan logic
         const single = scanSpecSource(content, file);
+        if (
+          single.filePath.endsWith(
+            'packages/libs/contracts/src/app-config/spec.ts'
+          )
+        ) {
+          console.log('coupable 3', file, single);
+        }
         if (single.specType !== 'unknown') {
           scanResults.push(single);
         }
@@ -93,7 +112,7 @@ export async function generateDocsFromSpecs(
 
         if (moduleDef) {
           if (moduleDef.key === 'defineAppConfig')
-            console.warn(`Here`, moduleDef.key, parsed.filePath);
+            console.warn(`Here`, moduleDef, parsed.filePath);
           targetDir = path.join(options.outputDir, moduleDef.key);
         } else {
           targetDir = path.join(options.outputDir, '_common'); // Fallback for root-level specs
