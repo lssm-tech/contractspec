@@ -55,11 +55,6 @@ export const getContractVerificationStatusHandler: HandlerForOperationSpec<
       return { contracts: [] };
     }
 
-    console.log(`CLI output:
----
-${output}
----
-    `);
     const cliOutput = JSON.parse(output) as CLIResult;
     const contracts: ContractVerificationStatus[] = [];
 

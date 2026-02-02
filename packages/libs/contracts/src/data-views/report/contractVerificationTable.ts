@@ -33,15 +33,16 @@ export const ContractVerificationTableDataView = defineDataView({
         dataPath: 'name',
       },
       {
-        key: 'lastVerifiedSha',
-        label: 'Last verified commit',
-        dataPath: 'lastVerifiedSha',
-        width: 'sm',
-      },
-      {
         key: 'timeSinceVerified',
         label: 'Time since verified',
         dataPath: 'lastVerifiedDate',
+      },
+      {
+        key: 'driftMismatches',
+        label: 'Drift debt',
+        dataPath: 'driftMismatches',
+        format: 'number',
+        sortable: true,
       },
       {
         key: 'surfaces',
@@ -50,11 +51,10 @@ export const ContractVerificationTableDataView = defineDataView({
         format: 'badge',
       },
       {
-        key: 'driftMismatches',
-        label: 'Drift debt',
-        dataPath: 'driftMismatches',
-        format: 'number',
-        sortable: true,
+        key: 'lastVerifiedSha',
+        label: 'Last verified commit',
+        dataPath: 'lastVerifiedSha',
+        width: 'sm',
       },
     ],
     primaryField: 'name',

@@ -249,7 +249,7 @@ export class PrActionService {
       lines.push('### Overall verification status');
       lines.push('');
       lines.push(
-        '| Contract / Endpoint / Event | Last verified commit | Time since verified | Surfaces covered | Drift debt |'
+        '| Contract / Endpoint / Event | Time since verified | Drift debt | Surfaces covered | Last verified commit |'
       );
       lines.push('| --- | --- | --- | --- | --- |');
       for (const c of data.contracts) {
@@ -257,7 +257,7 @@ export class PrActionService {
         const time = formatAge(c.lastVerifiedDate);
         const surfaces = c.surfaces.join(', ');
         lines.push(
-          `| ${c.name} | ${sha} | ${time} | ${surfaces} | ${c.driftMismatches} |`
+          `| ${c.name} | ${time} | ${c.driftMismatches} | ${surfaces} | ${sha} |`
         );
       }
       lines.push('');

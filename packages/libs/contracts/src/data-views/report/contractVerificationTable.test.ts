@@ -55,22 +55,22 @@ describe('ContractVerificationTableDataView', () => {
     it('should have correct field keys and labels', () => {
       expect(fields[0]?.key).toBe('name');
       expect(fields[0]?.label).toBe('Contract / Endpoint / Event');
-      expect(fields[1]?.key).toBe('lastVerifiedSha');
-      expect(fields[1]?.label).toBe('Last verified commit');
-      expect(fields[2]?.key).toBe('timeSinceVerified');
-      expect(fields[2]?.label).toBe('Time since verified');
+      expect(fields[1]?.key).toBe('timeSinceVerified');
+      expect(fields[1]?.label).toBe('Time since verified');
+      expect(fields[2]?.key).toBe('driftMismatches');
+      expect(fields[2]?.label).toBe('Drift debt');
       expect(fields[3]?.key).toBe('surfaces');
       expect(fields[3]?.label).toBe('Surfaces covered');
-      expect(fields[4]?.key).toBe('driftMismatches');
-      expect(fields[4]?.label).toBe('Drift debt');
+      expect(fields[4]?.key).toBe('lastVerifiedSha');
+      expect(fields[4]?.label).toBe('Last verified commit');
     });
 
     it('should have correct dataPaths', () => {
       expect(fields[0]?.dataPath).toBe('name');
-      expect(fields[1]?.dataPath).toBe('lastVerifiedSha');
-      expect(fields[2]?.dataPath).toBe('lastVerifiedDate');
+      expect(fields[1]?.dataPath).toBe('lastVerifiedDate');
+      expect(fields[2]?.dataPath).toBe('driftMismatches');
       expect(fields[3]?.dataPath).toBe('surfaces');
-      expect(fields[4]?.dataPath).toBe('driftMismatches');
+      expect(fields[4]?.dataPath).toBe('lastVerifiedSha');
     });
 
     it('should make driftMismatches sortable', () => {

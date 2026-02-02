@@ -107,7 +107,7 @@ meta:
 1. In `packages/apps/action-pr/src/report.ts`:
    - Read `contracts` from `ReportData`
    - If present and non-empty, render Markdown table after heading, before "What changed"
-   - Columns: Contract name | Last verified commit | Time since verified | Surfaces covered | Drift debt
+   - Columns: Contract name | Time since verified | Drift debt | Surfaces covered | Last verified commit
 2. In `packages/apps/action-drift/src/report.ts`:
    - Same table rendering logic (extract shared renderer if both exceed size limits)
 3. Backward compatibility: skip table when `contracts` is undefined/empty

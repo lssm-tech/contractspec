@@ -7,10 +7,10 @@ The impact report includes an optional per-contract verification table that summ
 | Column | Description |
 |--------|-------------|
 | Contract / Endpoint / Event | Fully qualified contract name (e.g. `user.create`) |
-| Last verified commit | Short SHA of the last drift-free commit |
 | Time since verified | Human-friendly elapsed time (e.g. "23 days") or "Never" |
-| Surfaces covered | Comma-separated list (API, runtime validation, UI form, docs/examples, permissions) |
 | Drift debt | Number of mismatches currently detected |
+| Surfaces covered | Comma-separated list (API, runtime validation, UI form, docs/examples, permissions) |
+| Last verified commit | Short SHA of the last drift-free commit |
 
 ## Data flow
 
