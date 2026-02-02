@@ -53,17 +53,17 @@ export function Textarea({
     React.ChangeEventHandler<HTMLTextAreaElement>
   >((e) => onChange?.(e), [onChange]);
 
-  const handleKeyDown = React.useCallback<
-    React.KeyboardEventHandler<HTMLTextAreaElement>
-  >(
-    (e) => {
-      if (e.key === 'Enter' && webKeyboard.type !== 'search') {
-        // For textarea, Enter inserts newline; onSubmit could be used with modifier
-        if (e.metaKey || e.ctrlKey) onSubmit?.(e);
-      }
-    },
-    [onSubmit, webKeyboard.type]
-  );
+  // const handleKeyDown = React.useCallback<
+  //   React.KeyboardEventHandler<HTMLTextAreaElement>
+  // >(
+  //   (e) => {
+  //     if (e.key === 'Enter' && webKeyboard.type !== 'search') {
+  //       // For textarea, Enter inserts newline; onSubmit could be used with modifier
+  //       if (e.metaKey || e.ctrlKey) onSubmit?.(e);
+  //     }
+  //   },
+  //   [onSubmit, webKeyboard.type]
+  // );
 
   return (
     <WebTextarea
@@ -75,7 +75,7 @@ export function Textarea({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       defaultValue={defaultValue as any}
       onChange={handleChange}
-      onKeyDown={handleKeyDown}
+      // onKeyDown={handleKeyDown}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onFocus={onFocus as any}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
