@@ -50,7 +50,7 @@
   {
     "id": "_common/docs.generate",
     "title": "docs.generate",
-    "summary": "End-to-end docs generation, indexing, and presentation. - **Type**: capability (capability) - **Version**: 1.0.0 - **Tags**: system - **File**: `packages/libs/contracts/src/docs/capabilities/documentationSystem.capability.ts`",
+    "summary": "Generate documentation artifacts from ContractSpecs. - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: generation - **File**: `packages/libs/contracts/src/docs/commands/docsGenerate.command.ts`",
     "route": "/docs/reference/_common/docs.generate",
     "source": "generated",
     "contentPath": "_common/docs.generate.md"
