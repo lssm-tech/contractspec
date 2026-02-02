@@ -1,5 +1,14 @@
 # @contractspec/lib.source-extractors
 
+## 0.10.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.schema@1.56.1
+
 ## 0.10.0
 
 ### Minor Changes

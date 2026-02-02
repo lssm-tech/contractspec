@@ -1,5 +1,11 @@
 # @contractspec/lib.presentation-runtime-core
 
+## 1.56.1
+
+### Patch Changes
+
+- fix: improve publish config
+
 ## 1.56.0
 
 ### Minor Changes

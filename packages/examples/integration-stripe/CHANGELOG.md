@@ -1,5 +1,14 @@
 # @contractspec/example.integration-stripe
 
+## 1.56.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.schema@1.56.1
+
 ## 1.56.0
 
 ### Minor Changes

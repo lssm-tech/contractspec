@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/integration.example-generator",
-  "version": "9.0.0",
+  "version": "9.0.1",
   "description": "Example plugin: Markdown documentation generator for ContractSpec specs",
   "keywords": [
     "contractspec",
@@ -54,8 +54,8 @@
     "rimraf": "^6.0.1"
   },
   "peerDependencies": {
-    "@contractspec/lib.contracts": "^1.56.0",
-    "@contractspec/lib.schema": "^1.56.0"
+    "@contractspec/lib.contracts": "^1.56.1",
+    "@contractspec/lib.schema": "^1.56.1"
   },
   "publishConfig": {
     "access": "public",

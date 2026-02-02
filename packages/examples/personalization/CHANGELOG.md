@@ -1,5 +1,17 @@
 # @contractspec/example.personalization
 
+## 1.56.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/lib.workflow-composer@1.56.1
+  - @contractspec/lib.personalization@1.56.1
+  - @contractspec/lib.overlay-engine@1.56.1
+  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.logger@1.56.1
+
 ## 1.56.0
 
 ### Minor Changes

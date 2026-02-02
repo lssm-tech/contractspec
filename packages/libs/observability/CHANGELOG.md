@@ -1,5 +1,13 @@
 # @contractspec/lib.observability
 
+## 1.56.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/lib.lifecycle@1.56.1
+
 ## 1.56.0
 
 ### Minor Changes

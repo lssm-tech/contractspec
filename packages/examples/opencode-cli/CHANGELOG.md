@@ -1,5 +1,11 @@
 # contractspec-example-opencode-cli
 
+## 0.5.1
+
+### Patch Changes
+
+- fix: improve publish config
+
 ## 0.5.0
 
 ### Minor Changes

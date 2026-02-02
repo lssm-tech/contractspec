@@ -1,5 +1,21 @@
 # @contractspec/example.crm-pipeline
 
+## 1.56.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/lib.example-shared-ui@1.10.1
+  - @contractspec/module.notifications@1.56.1
+  - @contractspec/lib.runtime-sandbox@0.11.1
+  - @contractspec/module.audit-trail@1.56.1
+  - @contractspec/lib.design-system@1.56.1
+  - @contractspec/lib.identity-rbac@1.56.1
+  - @contractspec/lib.ui-kit-web@1.56.1
+  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.schema@1.56.1
+
 ## 1.56.0
 
 ### Minor Changes

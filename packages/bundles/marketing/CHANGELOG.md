@@ -1,5 +1,30 @@
 # @contractspec/bundle.marketing
 
+## 1.11.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/example.analytics-dashboard@1.56.1
+  - @contractspec/example.saas-boilerplate@1.56.1
+  - @contractspec/example.integration-hub@1.56.1
+  - @contractspec/example.workflow-system@1.56.1
+  - @contractspec/example.agent-console@1.56.1
+  - @contractspec/lib.example-shared-ui@1.10.1
+  - @contractspec/example.crm-pipeline@1.56.1
+  - @contractspec/example.marketplace@1.56.1
+  - @contractspec/lib.runtime-sandbox@0.11.1
+  - @contractspec/lib.design-system@1.56.1
+  - @contractspec/lib.ui-kit-core@1.56.1
+  - @contractspec/module.examples@1.56.1
+  - @contractspec/bundle.library@1.11.1
+  - @contractspec/lib.ui-kit-web@1.56.1
+  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.ui-link@1.56.1
+  - @contractspec/lib.logger@1.56.1
+  - @contractspec/lib.email@1.10.1
+
 ## 1.11.0
 
 ### Minor Changes

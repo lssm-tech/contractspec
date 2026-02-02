@@ -1,5 +1,22 @@
 # @contractspec/bundle.library
 
+## 1.11.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/lib.contracts-library@1.56.1
+  - @contractspec/lib.example-shared-ui@1.10.1
+  - @contractspec/lib.runtime-sandbox@0.11.1
+  - @contractspec/lib.design-system@1.56.1
+  - @contractspec/module.examples@1.56.1
+  - @contractspec/lib.ui-kit-web@1.56.1
+  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.ui-link@1.56.1
+  - @contractspec/lib.logger@1.56.1
+  - @contractspec/lib.schema@1.56.1
+
 ## 1.11.0
 
 ### Minor Changes

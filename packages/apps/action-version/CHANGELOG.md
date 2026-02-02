@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 0.12.1
+
+### Patch Changes
+
+- fix: improve publish config
+
 ## 0.12.0
 
 ### Minor Changes

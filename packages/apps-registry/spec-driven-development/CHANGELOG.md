@@ -1,5 +1,13 @@
 # spec-driven-development
 
+## 1.56.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/app.cli-contractspec@1.56.1
+
 ## 1.56.0
 
 ### Minor Changes

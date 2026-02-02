@@ -1,5 +1,20 @@
 # @contractspec/example.learning-journey-ui-onboarding
 
+## 1.56.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/example.learning-journey-studio-onboarding@1.56.1
+  - @contractspec/example.learning-journey-platform-tour@1.56.1
+  - @contractspec/example.learning-journey-ui-shared@1.56.1
+  - @contractspec/module.learning-journey@1.56.1
+  - @contractspec/lib.design-system@1.56.1
+  - @contractspec/lib.ui-kit-core@1.56.1
+  - @contractspec/lib.ui-kit-web@1.56.1
+  - @contractspec/lib.contracts@1.56.1
+
 ## 1.56.0
 
 ### Minor Changes

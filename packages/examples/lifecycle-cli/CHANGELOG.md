@@ -1,5 +1,16 @@
 # @contractspec/example.lifecycle-cli
 
+## 1.56.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/bundle.lifecycle-managed@1.56.1
+  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.lifecycle@1.56.1
+  - @contractspec/lib.logger@1.56.1
+
 ## 1.56.0
 
 ### Minor Changes

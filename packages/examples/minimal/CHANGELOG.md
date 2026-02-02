@@ -1,5 +1,11 @@
 # contractspec-example-minimal
 
+## 0.9.1
+
+### Patch Changes
+
+- fix: improve publish config
+
 ## 0.9.0
 
 ### Minor Changes

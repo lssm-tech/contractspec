@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 0.11.1
+
+### Patch Changes
+
+- fix: improve publish config
+
 ## 0.11.0
 
 ### Minor Changes

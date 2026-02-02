@@ -1,5 +1,17 @@
 # @contractspec/lib.personalization
 
+## 1.56.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/lib.overlay-engine@1.56.1
+  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.knowledge@1.56.1
+  - @contractspec/lib.schema@1.56.1
+  - @contractspec/lib.bus@1.56.1
+
 ## 1.56.0
 
 ### Minor Changes

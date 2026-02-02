@@ -1,5 +1,15 @@
 # @contractspec/lib.accessibility
 
+## 1.56.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/lib.design-system@1.56.1
+  - @contractspec/lib.ui-kit-web@1.56.1
+  - @contractspec/lib.ui-kit@1.56.1
+
 ## 1.56.0
 
 ### Minor Changes

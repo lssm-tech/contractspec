@@ -1,5 +1,14 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 10.0.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@1.56.1
+  - @contractspec/lib.ui-kit@1.56.1
+
 ## 10.0.0
 
 ### Minor Changes

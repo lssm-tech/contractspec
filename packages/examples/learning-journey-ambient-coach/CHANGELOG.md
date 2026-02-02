@@ -1,5 +1,14 @@
 # @contractspec/example.learning-journey-ambient-coach
 
+## 1.56.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/module.learning-journey@1.56.1
+  - @contractspec/lib.contracts@1.56.1
+
 ## 1.56.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @contractspec/lib.email
 
+## 1.10.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/lib.logger@1.56.1
+
 ## 1.10.0
 
 ### Minor Changes

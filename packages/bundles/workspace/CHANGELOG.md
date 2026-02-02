@@ -1,5 +1,19 @@
 # @contractspec/bundle.workspace
 
+## 1.56.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/lib.contracts-transformers@1.56.1
+  - @contractspec/lib.source-extractors@0.10.1
+  - @contractspec/lib.utils-typescript@1.56.1
+  - @contractspec/lib.ai-providers@1.56.1
+  - @contractspec/module.workspace@1.56.1
+  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.ai-agent@1.56.1
+
 ## 1.56.0
 
 ### Minor Changes

@@ -1,5 +1,18 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 1.56.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/module.lifecycle-advisor@1.56.1
+  - @contractspec/module.lifecycle-core@1.56.1
+  - @contractspec/lib.observability@1.56.1
+  - @contractspec/lib.analytics@1.56.1
+  - @contractspec/lib.lifecycle@1.56.1
+  - @contractspec/lib.ai-agent@1.56.1
+
 ## 1.56.0
 
 ### Minor Changes
