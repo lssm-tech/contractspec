@@ -1,6 +1,6 @@
-# contractspec-example-opencode-cli
+# @contractspec/tool.docs-generator
 
-## 0.2.0
+## 1.53.0
 
 ### Minor Changes
 
@@ -9,9 +9,7 @@
 ### Patch Changes
 
 - eefeb1b: Split the generated docs index into a manifest and chunked JSON files to reduce bundle size and load reference data lazily, updating reference pages and generator outputs accordingly.
-
-## 0.1.0
-
-### Minor Changes
-
-- Initial OpenCode CLI example.
+- Updated dependencies [5b371b1]
+- Updated dependencies [f4180d4]
+- Updated dependencies [64d84e1]
+  - @contractspec/lib.contracts@1.53.0

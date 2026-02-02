@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 0.8.0
+
+### Minor Changes
+
+- f4180d4: fix: performance improvement
+
 ## 0.7.0
 
 ### Minor Changes

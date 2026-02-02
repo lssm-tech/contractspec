@@ -1,5 +1,11 @@
 # contractspec-example-minimal
 
+## 0.6.0
+
+### Minor Changes
+
+- f4180d4: fix: performance improvement
+
 ## 0.5.0
 
 ### Minor Changes

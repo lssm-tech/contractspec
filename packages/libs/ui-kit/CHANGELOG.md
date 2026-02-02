@@ -1,5 +1,16 @@
 # @contractspec/lib.ui-kit
 
+## 1.53.0
+
+### Minor Changes
+
+- f4180d4: fix: performance improvement
+
+### Patch Changes
+
+- Updated dependencies [f4180d4]
+  - @contractspec/lib.ui-kit-core@1.53.0
+
 ## 1.52.0
 
 ### Minor Changes
