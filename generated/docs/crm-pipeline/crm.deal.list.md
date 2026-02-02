@@ -2,62 +2,49 @@
 
 # crm.deal.list
 
-List deals with filters.
+List view of deals with value, status, and owner info
 
 ## Metadata
 
-- **Type**: operation (query)
+- **Type**: presentation (presentation)
 - **Version**: 1.0.0
-- **Stability**: stable
-- **Owners**: @example.crm-pipeline
-- **Tags**: crm, deal, list
-- **File**: `packages/examples/crm-pipeline/src/deal/deal.operation.ts`
+- **Owners**: @crm-team
+- **Tags**: deal, list
+- **File**: `packages/examples/crm-pipeline/src/presentations/pipeline.presentation.ts`
 
 ## Goal
 
-Show pipeline, deal lists, dashboards.
+Search, filter, and review deal lists.
 
 ## Context
 
-Pipeline view, deal list.
+Standard view for deal management and bulk actions.
 
 ## Source Definition
 
 ```typescript
-export const ListDealsContract = defineQuery({
+export const DealListPresentation = definePresentation({
   meta: {
     key: 'crm.deal.list',
     version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.crm-pipeline'],
-    tags: ['crm', 'deal', 'list'],
-    description: 'List deals with filters.',
-    goal: 'Show pipeline, deal lists, dashboards.',
-    context: 'Pipeline view, deal list.',
+    title: 'Deal List',
+    description: 'List view of deals with value, status, and owner info',
+    domain: 'crm-pipeline',
+    owners: ['@crm-team'],
+    tags: ['deal', 'list'],
+    stability: StabilityEnum.Experimental,
+    goal: 'Search, filter, and review deal lists.',
+    context: 'Standard view for deal management and bulk actions.',
   },
-  io: {
-    input: ListDealsInputModel,
-    output: ListDealsOutputModel,
+  source: {
+    type: 'component',
+    framework: 'react',
+    componentKey: 'DealListView',
+    props: DealModel,
   },
+  targets: ['react', 'markdown', 'application/json'],
   policy: {
-    auth: 'user',
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'list-deals-happy-path',
-        given: ['User has access to deals'],
-        when: ['User lists deals'],
-        then: ['List of deals is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'list-filter-stage',
-        input: { stageId: 'stage-lead', limit: 20 },
-        output: { items: [], total: 5, hasMore: false },
-      },
-    ],
+    flags: ['crm.deals.enabled'],
   },
 });
 ```
