@@ -34,7 +34,7 @@ CRM and sales pipeline management with deals, contacts, and companies
 
 - `crm.dashboard` (v1.0.0)
 - `crm.pipeline.kanban` (v1.0.0)
-- `crm.deal.list` (v1.0.0)
+- `crm.deal.viewList` (v1.0.0)
 - `crm.deal.detail` (v1.0.0)
 - `crm.deal.card` (v1.0.0)
 - `crm.pipeline.metrics` (v1.0.0)
@@ -95,7 +95,7 @@ export const CrmPipelineFeature = defineFeature({
   presentations: [
     { key: 'crm.dashboard', version: '1.0.0' },
     { key: 'crm.pipeline.kanban', version: '1.0.0' },
-    { key: 'crm.deal.list', version: '1.0.0' },
+    { key: 'crm.deal.viewList', version: '1.0.0' },
     { key: 'crm.deal.detail', version: '1.0.0' },
     { key: 'crm.deal.card', version: '1.0.0' },
     { key: 'crm.pipeline.metrics', version: '1.0.0' },

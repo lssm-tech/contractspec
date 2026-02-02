@@ -57,7 +57,7 @@ State machine-based workflow engine with role-based approvals, delegation, and e
 ## Presentations (11)
 
 - `workflow.designer` (v1.0.0)
-- `workflow.definition.list` (v1.0.0)
+- `workflow.definition.viewList` (v1.0.0)
 - `workflow.definition.detail` (v1.0.0)
 - `workflow.instance.list` (v1.0.0)
 - `workflow.instance.detail` (v1.0.0)
@@ -152,7 +152,7 @@ export const WorkflowSystemFeature = defineFeature({
   presentations: [
     // Definition
     { key: 'workflow.designer', version: '1.0.0' },
-    { key: 'workflow.definition.list', version: '1.0.0' },
+    { key: 'workflow.definition.viewList', version: '1.0.0' },
     { key: 'workflow.definition.detail', version: '1.0.0' },
 
     // Instance

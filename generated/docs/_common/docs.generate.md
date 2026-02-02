@@ -2,64 +2,79 @@
 
 # docs.generate
 
-Generate documentation artifacts from ContractSpecs.
+End-to-end docs generation, indexing, and presentation.
 
 ## Metadata
 
-- **Type**: operation (command)
+- **Type**: capability (capability)
 - **Version**: 1.0.0
-- **Tags**: generation
-- **File**: `packages/libs/contracts/src/docs/commands/docsGenerate.command.ts`
-
-## Goal
-
-Produce up-to-date reference docs and guides from specs and DocBlocks.
-
-## Context
-
-Used by CLI and CI to keep docs in sync with contract definitions.
+- **Tags**: system
+- **File**: `packages/libs/contracts/src/docs/capabilities/documentationSystem.capability.ts`
 
 ## Source Definition
 
 ```typescript
-export const DocsGenerateCommand = defineCommand({
+export const DocumentationSystemCapability = defineCapability({
   meta: {
-    key: 'docs.generate',
-    title: 'Generate Documentation',
-    version: '1.0.0',
-    description: 'Generate documentation artifacts from ContractSpecs.',
-    goal: 'Produce up-to-date reference docs and guides from specs and DocBlocks.',
-    context:
-      'Used by CLI and CI to keep docs in sync with contract definitions.',
+    key: DOCS_CAPABILITY_KEY,
+    version: DOCS_CAPABILITY_VERSION,
+    kind: 'ui',
+    title: 'Documentation System',
+    description: 'End-to-end docs generation, indexing, and presentation.',
     domain: DOCS_DOMAIN,
     owners: DOCS_OWNERS,
-    tags: [...DOCS_TAGS, 'generation'],
+    tags: [...DOCS_TAGS, 'system'],
     stability: DOCS_STABILITY,
-    docId: [docId('docs.tech.docs-generator')],
   },
-  capability: DOCS_CAPABILITY_REF,
-  io: {
-    input: DocsGenerateInput,
-    output: DocsGenerateOutput,
-    errors: {
-      OUTPUT_WRITE_FAILED: {
-        description: 'Failed to write generated docs output.',
-        http: 500,
-        when: 'The generator cannot persist artifacts to the output path.',
-      },
+  provides: [
+    {
+      surface: 'operation',
+      key: 'docs.generate',
+      version: '1.0.0',
+      description: 'Generate documentation artifacts.',
     },
-  },
-  policy: {
-    auth: 'admin',
-    pii: [],
-  },
-  sideEffects: {
-    emits: [
-      {
-        ref: DocsGeneratedEvent.meta,
-        when: 'Docs generation completes successfully.',
-      },
-    ],
-  },
+    {
+      surface: 'operation',
+      key: 'docs.publish',
+      version: '1.0.0',
+      description: 'Publish documentation artifacts.',
+    },
+    {
+      surface: 'operation',
+      key: 'docs.search',
+      version: '1.0.0',
+      description: 'Index and search DocBlocks.',
+    },
+    {
+      surface: 'operation',
+      key: 'docs.contract.reference',
+      version: '1.0.0',
+      description: 'Resolve contract references for docs.',
+    },
+    {
+      surface: 'event',
+      key: 'docs.generated',
+      version: '1.0.0',
+      description: 'Docs generation completed.',
+    },
+    {
+      surface: 'event',
+      key: 'docs.published',
+      version: '1.0.0',
+      description: 'Docs publish completed.',
+    },
+    {
+      surface: 'presentation',
+      key: DOCS_LAYOUT_PRESENTATION_KEY,
+      version: '1.0.0',
+      description: 'Docs layout presentation.',
+    },
+    {
+      surface: 'presentation',
+      key: DOCS_REFERENCE_PRESENTATION_KEY,
+      version: '1.0.0',
+      description: 'Docs reference page presentation.',
+    },
+  ],
 });
 ```
