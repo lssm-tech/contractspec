@@ -1,5 +1,19 @@
 # @contractspec/app.api-library
 
+## 1.9.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/bundle.marketing@1.10.0
+  - @contractspec/bundle.workspace@1.55.0
+  - @contractspec/bundle.library@1.10.0
+  - @contractspec/lib.contracts@1.55.0
+
 ## 1.8.0
 
 ### Minor Changes

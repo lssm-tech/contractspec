@@ -1,5 +1,19 @@
 # @contractspec/example.learning-journey-ui-shared
 
+## 1.55.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/module.learning-journey@1.55.0
+  - @contractspec/lib.design-system@1.55.0
+  - @contractspec/lib.ui-kit-web@1.55.0
+  - @contractspec/lib.contracts@1.55.0
+
 ## 1.54.0
 
 ### Minor Changes

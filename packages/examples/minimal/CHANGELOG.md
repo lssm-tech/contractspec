@@ -1,5 +1,11 @@
 # contractspec-example-minimal
 
+## 0.8.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
 ## 0.7.0
 
 ### Minor Changes

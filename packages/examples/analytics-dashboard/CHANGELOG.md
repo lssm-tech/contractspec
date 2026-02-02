@@ -1,5 +1,20 @@
 # @contractspec/example.analytics-dashboard
 
+## 1.55.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.example-shared-ui@1.9.0
+  - @contractspec/lib.runtime-sandbox@0.10.0
+  - @contractspec/lib.design-system@1.55.0
+  - @contractspec/lib.contracts@1.55.0
+  - @contractspec/lib.schema@1.55.0
+
 ## 1.54.0
 
 ### Minor Changes

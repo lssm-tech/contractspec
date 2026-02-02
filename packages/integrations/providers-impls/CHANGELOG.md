@@ -1,5 +1,17 @@
 # @contractspec/integration.providers-impls
 
+## 1.55.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/integration.runtime@1.55.0
+  - @contractspec/lib.contracts@1.55.0
+
 ## 1.54.0
 
 ### Minor Changes

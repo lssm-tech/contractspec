@@ -1,5 +1,16 @@
 # @contractspec/lib.analytics
 
+## 1.55.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.lifecycle@1.55.0
+
 ## 1.54.0
 
 ### Minor Changes

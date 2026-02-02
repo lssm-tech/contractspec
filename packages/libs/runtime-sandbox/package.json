@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.runtime-sandbox",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "type": "module",
   "scripts": {
     "clean": "rm -rf dist",
@@ -51,6 +51,7 @@
   ],
   "publishConfig": {
     "access": "public",
+    "registry": "https://registry.npmjs.org/",
     "exports": {
       ".": "./dist/index.mjs",
       "./ports": "./dist/ports/index.mjs",

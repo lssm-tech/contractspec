@@ -1,5 +1,22 @@
 # @contractspec/bundle.workspace
 
+## 1.55.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-transformers@1.55.0
+  - @contractspec/lib.source-extractors@0.9.0
+  - @contractspec/lib.utils-typescript@1.55.0
+  - @contractspec/lib.ai-providers@1.55.0
+  - @contractspec/module.workspace@1.55.0
+  - @contractspec/lib.contracts@1.55.0
+  - @contractspec/lib.ai-agent@1.55.0
+
 ## 1.54.0
 
 ### Minor Changes

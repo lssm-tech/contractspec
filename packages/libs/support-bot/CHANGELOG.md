@@ -1,5 +1,19 @@
 # @contractspec/lib.support-bot
 
+## 1.55.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts@1.55.0
+  - @contractspec/lib.knowledge@1.55.0
+  - @contractspec/lib.ai-agent@1.55.0
+  - @contractspec/lib.schema@1.55.0
+
 ## 1.54.0
 
 ### Minor Changes

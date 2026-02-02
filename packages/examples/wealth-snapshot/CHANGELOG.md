@@ -1,5 +1,20 @@
 # @contractspec/example.wealth-snapshot
 
+## 1.55.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/module.notifications@1.55.0
+  - @contractspec/module.audit-trail@1.55.0
+  - @contractspec/lib.identity-rbac@1.55.0
+  - @contractspec/lib.contracts@1.55.0
+  - @contractspec/lib.schema@1.55.0
+
 ## 1.54.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 0.10.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
 ## 0.9.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @contractspec/lib.utils-typescript
 
+## 1.55.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
 ## 1.54.0
 
 ### Minor Changes

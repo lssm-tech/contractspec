@@ -1,5 +1,52 @@
 # @contractspec/module.examples
 
+## 1.55.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/example.learning-journey-studio-onboarding@1.55.0
+  - @contractspec/example.learning-journey-quest-challenges@1.55.0
+  - @contractspec/example.learning-journey-crm-onboarding@1.55.0
+  - @contractspec/example.policy-safe-knowledge-assistant@1.55.0
+  - @contractspec/example.learning-journey-ambient-coach@1.55.0
+  - @contractspec/example.learning-journey-platform-tour@1.55.0
+  - @contractspec/example.learning-journey-ui-onboarding@1.55.0
+  - @contractspec/example.learning-journey-ui-coaching@1.55.0
+  - @contractspec/example.learning-journey-ui-gamified@1.55.0
+  - @contractspec/example.learning-journey-duo-drills@1.55.0
+  - @contractspec/example.learning-journey-ui-shared@1.55.0
+  - @contractspec/example.learning-journey-registry@1.55.0
+  - @contractspec/example.locale-jurisdiction-gate@1.55.0
+  - @contractspec/example.versioned-knowledge-base@1.55.0
+  - @contractspec/example.analytics-dashboard@1.55.0
+  - @contractspec/example.lifecycle-dashboard@1.55.0
+  - @contractspec/example.service-business-os@1.55.0
+  - @contractspec/example.content-generation@1.55.0
+  - @contractspec/example.integration-stripe@1.55.0
+  - @contractspec/example.kb-update-pipeline@1.55.0
+  - @contractspec/example.openbanking-powens@1.55.0
+  - @contractspec/example.learning-patterns@1.55.0
+  - @contractspec/example.saas-boilerplate@1.55.0
+  - @contractspec/example.integration-hub@1.55.0
+  - @contractspec/example.knowledge-canon@1.55.0
+  - @contractspec/example.personalization@1.55.0
+  - @contractspec/example.wealth-snapshot@1.55.0
+  - @contractspec/example.workflow-system@1.55.0
+  - @contractspec/example.ai-support-bot@1.55.0
+  - @contractspec/example.agent-console@1.55.0
+  - @contractspec/example.lifecycle-cli@1.55.0
+  - @contractspec/lib.example-shared-ui@1.9.0
+  - @contractspec/example.crm-pipeline@1.55.0
+  - @contractspec/example.marketplace@1.55.0
+  - @contractspec/lib.runtime-sandbox@0.10.0
+  - @contractspec/example.team-hub@1.55.0
+  - @contractspec/lib.contracts@1.55.0
+
 ## 1.54.0
 
 ### Minor Changes

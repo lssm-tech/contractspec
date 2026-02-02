@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.55.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-transformers@1.55.0
+  - @contractspec/bundle.workspace@1.55.0
+  - @contractspec/module.workspace@1.55.0
+  - @contractspec/module.examples@1.55.0
+  - @contractspec/module.ai-chat@1.55.0
+  - @contractspec/lib.contracts@1.55.0
+  - @contractspec/lib.ai-agent@1.55.0
+
 ## 1.54.0
 
 ### Minor Changes

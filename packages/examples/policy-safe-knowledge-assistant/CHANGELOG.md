@@ -1,5 +1,25 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 1.55.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/example.locale-jurisdiction-gate@1.55.0
+  - @contractspec/example.versioned-knowledge-base@1.55.0
+  - @contractspec/example.kb-update-pipeline@1.55.0
+  - @contractspec/example.learning-patterns@1.55.0
+  - @contractspec/module.learning-journey@1.55.0
+  - @contractspec/lib.example-shared-ui@1.9.0
+  - @contractspec/lib.runtime-sandbox@0.10.0
+  - @contractspec/lib.design-system@1.55.0
+  - @contractspec/lib.ui-kit-web@1.55.0
+  - @contractspec/lib.contracts@1.55.0
+
 ## 1.54.0
 
 ### Minor Changes

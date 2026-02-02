@@ -1,5 +1,21 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 1.55.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/module.lifecycle-advisor@1.55.0
+  - @contractspec/module.lifecycle-core@1.55.0
+  - @contractspec/lib.observability@1.55.0
+  - @contractspec/lib.analytics@1.55.0
+  - @contractspec/lib.lifecycle@1.55.0
+  - @contractspec/lib.ai-agent@1.55.0
+
 ## 1.54.0
 
 ### Minor Changes

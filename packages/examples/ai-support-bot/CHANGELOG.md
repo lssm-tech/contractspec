@@ -1,5 +1,19 @@
 # @contractspec/example.ai-support-bot
 
+## 1.55.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.support-bot@1.55.0
+  - @contractspec/lib.contracts@1.55.0
+  - @contractspec/lib.knowledge@1.55.0
+  - @contractspec/lib.logger@1.55.0
+
 ## 1.54.0
 
 ### Minor Changes

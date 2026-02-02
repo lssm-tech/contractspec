@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 0.11.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
 ## 0.10.0
 
 ### Minor Changes

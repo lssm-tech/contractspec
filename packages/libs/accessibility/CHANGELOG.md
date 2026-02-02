@@ -1,5 +1,18 @@
 # @contractspec/lib.accessibility
 
+## 1.55.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.design-system@1.55.0
+  - @contractspec/lib.ui-kit-web@1.55.0
+  - @contractspec/lib.ui-kit@1.55.0
+
 ## 1.54.0
 
 ### Minor Changes

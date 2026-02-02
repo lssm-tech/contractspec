@@ -1,5 +1,16 @@
 # @contractspec/lib.progressive-delivery
 
+## 9.0.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.observability@1.55.0
+
 ## 8.0.0
 
 ### Minor Changes

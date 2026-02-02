@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.ui-kit-web",
-  "version": "1.54.0",
+  "version": "1.55.0",
   "description": "Web UI components with Radix primitives",
   "keywords": [
     "contractspec",

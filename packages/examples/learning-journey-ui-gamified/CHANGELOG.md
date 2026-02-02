@@ -1,5 +1,22 @@
 # @contractspec/example.learning-journey-ui-gamified
 
+## 1.55.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/example.learning-journey-quest-challenges@1.55.0
+  - @contractspec/example.learning-journey-duo-drills@1.55.0
+  - @contractspec/example.learning-journey-ui-shared@1.55.0
+  - @contractspec/module.learning-journey@1.55.0
+  - @contractspec/lib.design-system@1.55.0
+  - @contractspec/lib.ui-kit-web@1.55.0
+  - @contractspec/lib.contracts@1.55.0
+
 ## 1.54.0
 
 ### Minor Changes

@@ -1,5 +1,19 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 9.0.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@1.55.0
+  - @contractspec/lib.design-system@1.55.0
+  - @contractspec/lib.ui-kit-web@1.55.0
+  - @contractspec/lib.contracts@1.55.0
+
 ## 8.0.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.4.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/bundle.workspace@1.55.0
+  - @contractspec/lib.contracts@1.55.0
+
 ## 0.3.0
 
 ### Minor Changes
