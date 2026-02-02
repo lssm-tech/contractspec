@@ -125,7 +125,6 @@ function outputTable(results: SpecImplementationResult[]): void {
  * Run status command
  */
 async function runStatus(options: ImplStatusOptions): Promise<void> {
-  console.log('process.versions.bun', process.versions.bun);
   const spinner = ora('Checking implementation status...').start();
 
   try {
