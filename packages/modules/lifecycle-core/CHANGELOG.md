@@ -1,5 +1,16 @@
 # @contractspec/module.lifecycle-core
 
+## 1.54.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [ec5e95c]
+  - @contractspec/lib.lifecycle@1.54.0
+
 ## 1.53.0
 
 ### Minor Changes

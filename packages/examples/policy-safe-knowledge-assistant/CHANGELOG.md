@@ -1,5 +1,25 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 1.54.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [ec5e95c]
+  - @contractspec/lib.example-shared-ui@1.8.0
+  - @contractspec/lib.design-system@1.54.0
+  - @contractspec/lib.ui-kit-web@1.54.0
+  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/example.kb-update-pipeline@1.54.0
+  - @contractspec/example.learning-patterns@1.54.0
+  - @contractspec/example.locale-jurisdiction-gate@1.54.0
+  - @contractspec/example.versioned-knowledge-base@1.54.0
+  - @contractspec/lib.runtime-sandbox@0.9.0
+  - @contractspec/module.learning-journey@1.54.0
+
 ## 1.53.0
 
 ### Minor Changes

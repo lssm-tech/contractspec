@@ -1,5 +1,23 @@
 # @contractspec/module.ai-chat
 
+## 1.54.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [ec5e95c]
+  - @contractspec/lib.design-system@1.54.0
+  - @contractspec/lib.ui-kit-web@1.54.0
+  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/lib.ai-agent@1.54.0
+  - @contractspec/lib.ai-providers@1.54.0
+  - @contractspec/lib.cost-tracking@1.54.0
+  - @contractspec/lib.metering@1.54.0
+  - @contractspec/lib.schema@1.54.0
+
 ## 1.53.0
 
 ### Minor Changes

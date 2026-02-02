@@ -1,5 +1,17 @@
 # @contractspec/example.openbanking-powens
 
+## 1.54.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [ec5e95c]
+  - @contractspec/integration.providers-impls@1.54.0
+  - @contractspec/lib.contracts@1.54.0
+
 ## 1.53.0
 
 ### Minor Changes

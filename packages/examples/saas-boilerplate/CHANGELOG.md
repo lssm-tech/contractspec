@@ -1,5 +1,24 @@
 # @contractspec/example.saas-boilerplate
 
+## 1.54.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [ec5e95c]
+  - @contractspec/lib.example-shared-ui@1.8.0
+  - @contractspec/lib.design-system@1.54.0
+  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/lib.identity-rbac@1.54.0
+  - @contractspec/lib.jobs@1.54.0
+  - @contractspec/lib.runtime-sandbox@0.9.0
+  - @contractspec/lib.schema@1.54.0
+  - @contractspec/module.audit-trail@1.54.0
+  - @contractspec/module.notifications@1.54.0
+
 ## 1.53.0
 
 ### Minor Changes

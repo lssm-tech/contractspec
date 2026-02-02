@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/tool.create-contractspec-plugin",
-  "version": "1.53.0",
+  "version": "1.54.0",
   "type": "module",
   "description": "CLI tool for creating ContractSpec plugins from templates",
   "keywords": [

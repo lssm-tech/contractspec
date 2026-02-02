@@ -1,5 +1,19 @@
 # @contractspec/example.learning-journey-crm-onboarding
 
+## 1.54.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [ec5e95c]
+  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/example.crm-pipeline@1.54.0
+  - @contractspec/lib.schema@1.54.0
+  - @contractspec/module.learning-journey@1.54.0
+
 ## 1.53.0
 
 ### Minor Changes

@@ -1,5 +1,19 @@
 # @contractspec/app.api-library
 
+## 1.8.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [ec5e95c]
+  - @contractspec/bundle.marketing@1.9.0
+  - @contractspec/bundle.library@1.9.0
+  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/bundle.workspace@1.54.0
+
 ## 1.7.0
 
 ### Minor Changes

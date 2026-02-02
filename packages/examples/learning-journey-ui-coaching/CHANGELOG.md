@@ -1,5 +1,22 @@
 # @contractspec/example.learning-journey-ui-coaching
 
+## 1.54.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [ec5e95c]
+  - @contractspec/example.learning-journey-ui-shared@1.54.0
+  - @contractspec/lib.design-system@1.54.0
+  - @contractspec/lib.ui-kit-web@1.54.0
+  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/example.learning-journey-ambient-coach@1.54.0
+  - @contractspec/example.learning-journey-crm-onboarding@1.54.0
+  - @contractspec/module.learning-journey@1.54.0
+
 ## 1.53.0
 
 ### Minor Changes
