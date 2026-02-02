@@ -1,8 +1,8 @@
 import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 import {
+  FieldMappingModel,
   SyncConfigModel,
   SyncRunModel,
-  FieldMappingModel,
 } from './sync.schema';
 
 export const SyncConfigListPresentation = definePresentation({
@@ -82,7 +82,7 @@ export const FieldMappingEditorPresentation = definePresentation({
 
 export const SyncRunListPresentation = definePresentation({
   meta: {
-    key: 'integration.syncRun.list',
+    key: 'integration.syncRun.viewList',
     version: '1.0.0',
     title: 'Sync Run History',
     description: 'History of sync runs',

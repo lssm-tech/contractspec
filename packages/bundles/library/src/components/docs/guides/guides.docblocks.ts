@@ -48,7 +48,53 @@ Define command/query specs that enforce validation and generate types without re
     tags: ['guides', 'docs', 'openapi'],
     body: `# Generate docs and client schemas
 
-Use ContractSpec to generate documentation and OpenAPI exports for client SDKs.`,
+Use ContractSpec to generate documentation and OpenAPI exports for client SDKs.
+
+## Generate reference docs
+
+1. Regenerate contract artifacts:
+
+\`\`\`bash
+bun contractspec generate
+\`\`\`
+
+2. Build docs output (index + markdown):
+
+\`\`\`bash
+bun docs:generate
+# or versioned output
+bun docs:generate -- --version v1.0.0
+\`\`\``,
+  },
+  {
+    id: 'docs.guides.docs-generation-pipeline',
+    title: 'Docs generation pipeline',
+    summary: 'Wire generated docs into a reference site with chunked indexes.',
+    kind: 'usage',
+    visibility: 'public',
+    route: '/docs/guides/docs-generation-pipeline',
+    tags: ['guides', 'docs', 'pipeline'],
+    body: `# Build the docs pipeline
+
+Use ContractSpec to generate reference markdown, build a chunked index, and wire it into your docs routes.
+
+## Generate contract docs
+
+\`\`\`bash
+contractspec generate
+\`\`\`
+
+## Build the docs index
+
+\`\`\`bash
+bun docs:generate
+# versioned output
+bun docs:generate -- --version v1.0.0
+\`\`\`
+
+## Reference wiring
+
+Use the generated manifest and chunks under \`docs-index.manifest.json\` and \`docs-index.*.json\` to load the index at runtime.`,
   },
   {
     id: 'docs.guides.ci-contract-diff-gating',

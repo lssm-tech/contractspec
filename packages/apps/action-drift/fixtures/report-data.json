@@ -1,0 +1,20 @@
+{
+  "whatChanged": {
+    "summary": "Drift check completed.",
+    "detailsPath": ""
+  },
+  "risk": {
+    "status": "unknown",
+    "breaking": 0,
+    "nonBreaking": 0
+  },
+  "validation": {
+    "status": "skipped",
+    "outputPath": ""
+  },
+  "drift": {
+    "status": "fail",
+    "files": ["generated/docs/example.md"]
+  },
+  "nextSteps": ["Run the generate command locally and commit drift fixes."]
+}

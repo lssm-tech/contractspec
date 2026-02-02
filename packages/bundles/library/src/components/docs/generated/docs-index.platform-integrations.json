@@ -1,0 +1,138 @@
+[
+  {
+    "id": "platform.integrations/ai-llm.mistral",
+    "title": "ai-llm.mistral",
+    "summary": "Mistral integration providing chat completions and embedding generation. - **Type**: integration (integration) - **Version**: 1.0.0 - **Owners**: platform.ai - **Tags**: ai, llm, embeddings - **File**: `packages/libs/contracts/src/integrations/providers/mistral.ts`",
+    "route": "/docs/reference/platform.integrations/ai-llm.mistral",
+    "source": "generated",
+    "contentPath": "platform.integrations/ai-llm.mistral.md"
+  },
+  {
+    "id": "platform.integrations/ai-voice.elevenlabs",
+    "title": "ai-voice.elevenlabs",
+    "summary": "ElevenLabs integration for neural voice synthesis and voice catalog access. - **Type**: integration (integration) - **Version**: 1.0.0 - **Owners**: platform.ai - **Tags**: voice, tts - **File**: `packages/libs/contracts/src/integrations/providers/elevenlabs.ts`",
+    "route": "/docs/reference/platform.integrations/ai-voice.elevenlabs",
+    "source": "generated",
+    "contentPath": "platform.integrations/ai-voice.elevenlabs.md"
+  },
+  {
+    "id": "platform.integrations/calendar.google",
+    "title": "calendar.google",
+    "summary": "Google Calendar integration for event creation, updates, and scheduling automations. - **Type**: integration (integration) - **Version**: 1.0.0 - **Owners**: platform.messaging - **Tags**: calendar, google",
+    "route": "/docs/reference/platform.integrations/calendar.google",
+    "source": "generated",
+    "contentPath": "platform.integrations/calendar.google.md"
+  },
+  {
+    "id": "platform.integrations/email.gmail",
+    "title": "email.gmail",
+    "summary": "Gmail integration supporting inbound thread ingestion and outbound transactional email. - **Type**: integration (integration) - **Version**: 1.0.0 - **Owners**: platform.messaging - **Tags**: email, gmail",
+    "route": "/docs/reference/platform.integrations/email.gmail",
+    "source": "generated",
+    "contentPath": "platform.integrations/email.gmail.md"
+  },
+  {
+    "id": "platform.integrations/email.postmark",
+    "title": "email.postmark",
+    "summary": "Postmark integration for transactional email delivery. - **Type**: integration (integration) - **Version**: 1.0.0 - **Owners**: platform.messaging - **Tags**: email, transactional - **File**: `packages/libs/contracts/src/integrations/providers/postmark.ts`",
+    "route": "/docs/reference/platform.integrations/email.postmark",
+    "source": "generated",
+    "contentPath": "platform.integrations/email.postmark.md"
+  },
+  {
+    "id": "platform.integrations/integrations",
+    "title": "integrations",
+    "summary": "Core integrations capability for third-party connections - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: @platform.core - **Tags**: integrations, platform - **File**: `packages/libs/contracts/src/integrations/integrations.capability.ts`",
+    "route": "/docs/reference/platform.integrations/integrations",
+    "source": "generated",
+    "contentPath": "platform.integrations/integrations.md"
+  },
+  {
+    "id": "platform.integrations/integrations.connection.create",
+    "title": "integrations.connection.create",
+    "summary": "Create a new integration connection for a tenant. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @platform.integrations - **Tags**: integration, connections",
+    "route": "/docs/reference/platform.integrations/integrations.connection.create",
+    "source": "generated",
+    "contentPath": "platform.integrations/integrations.connection.create.md"
+  },
+  {
+    "id": "platform.integrations/integrations.connection.delete",
+    "title": "integrations.connection.delete",
+    "summary": "Delete an integration connection for a tenant. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @platform.integrations - **Tags**: integration, connections",
+    "route": "/docs/reference/platform.integrations/integrations.connection.delete",
+    "source": "generated",
+    "contentPath": "platform.integrations/integrations.connection.delete.md"
+  },
+  {
+    "id": "platform.integrations/integrations.connection.list",
+    "title": "integrations.connection.list",
+    "summary": "List integration connections for a tenant. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @platform.integrations - **Tags**: integration, connections - **File**: `packages/libs/contracts/src/integrations/operations.ts`",
+    "route": "/docs/reference/platform.integrations/integrations.connection.list",
+    "source": "generated",
+    "contentPath": "platform.integrations/integrations.connection.list.md"
+  },
+  {
+    "id": "platform.integrations/integrations.connection.test",
+    "title": "integrations.connection.test",
+    "summary": "Run a health check against a configured integration connection. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @platform.integrations - **Tags**: integration, connections",
+    "route": "/docs/reference/platform.integrations/integrations.connection.test",
+    "source": "generated",
+    "contentPath": "platform.integrations/integrations.connection.test.md"
+  },
+  {
+    "id": "platform.integrations/integrations.connection.update",
+    "title": "integrations.connection.update",
+    "summary": "Update metadata or credentials for an integration connection. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @platform.integrations - **Tags**: integration, connections",
+    "route": "/docs/reference/platform.integrations/integrations.connection.update",
+    "source": "generated",
+    "contentPath": "platform.integrations/integrations.connection.update.md"
+  },
+  {
+    "id": "platform.integrations/openbanking.powens",
+    "title": "openbanking.powens",
+    "summary": "Read-only Open Banking integration powered by Powens, exposing accounts, transactions, and balances. - **Type**: integration (integration) - **Version**: 1.0.0 - **Owners**: platform.finance - **Tags**: open-banking, powens, finance",
+    "route": "/docs/reference/platform.integrations/openbanking.powens",
+    "source": "generated",
+    "contentPath": "platform.integrations/openbanking.powens.md"
+  },
+  {
+    "id": "platform.integrations/payments.stripe",
+    "title": "payments.stripe",
+    "summary": "Stripe integration for payment processing, charges, and payouts. - **Type**: integration (integration) - **Version**: 1.0.0 - **Owners**: platform.payments - **Tags**: payments, psp - **File**: `packages/libs/contracts/src/integrations/providers/stripe.ts`",
+    "route": "/docs/reference/platform.integrations/payments.stripe",
+    "source": "generated",
+    "contentPath": "platform.integrations/payments.stripe.md"
+  },
+  {
+    "id": "platform.integrations/platform.integrations",
+    "title": "platform.integrations",
+    "summary": "Manage integration connections to external providers (e.g., Stripe, Qdrant) - **Type**: feature - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @platform.integrations - **Tags**: integrations, connections, platform",
+    "route": "/docs/reference/platform.integrations/platform.integrations",
+    "source": "generated",
+    "contentPath": "platform.integrations/platform.integrations.md"
+  },
+  {
+    "id": "platform.integrations/sms.twilio",
+    "title": "sms.twilio",
+    "summary": "Twilio SMS integration for transactional and notification messaging. - **Type**: integration (integration) - **Version**: 1.0.0 - **Owners**: platform.messaging - **Tags**: sms, messaging - **File**: `packages/libs/contracts/src/integrations/providers/twilio-sms.ts`",
+    "route": "/docs/reference/platform.integrations/sms.twilio",
+    "source": "generated",
+    "contentPath": "platform.integrations/sms.twilio.md"
+  },
+  {
+    "id": "platform.integrations/storage.gcs",
+    "title": "storage.gcs",
+    "summary": "Google Cloud Storage integration for object storage and retrieval. - **Type**: integration (integration) - **Version**: 1.0.0 - **Owners**: platform.infrastructure - **Tags**: storage, gcs, google-cloud",
+    "route": "/docs/reference/platform.integrations/storage.gcs",
+    "source": "generated",
+    "contentPath": "platform.integrations/storage.gcs.md"
+  },
+  {
+    "id": "platform.integrations/vectordb.qdrant",
+    "title": "vectordb.qdrant",
+    "summary": "Qdrant integration for vector search and embeddings storage. - **Type**: integration (integration) - **Version**: 1.0.0 - **Owners**: platform.ai - **Tags**: vector-db, search - **File**: `packages/libs/contracts/src/integrations/providers/qdrant.ts`",
+    "route": "/docs/reference/platform.integrations/vectordb.qdrant",
+    "source": "generated",
+    "contentPath": "platform.integrations/vectordb.qdrant.md"
+  }
+]

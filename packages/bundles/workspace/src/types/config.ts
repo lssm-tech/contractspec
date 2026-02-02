@@ -2,15 +2,8 @@
  * Configuration types for ContractSpec workspace.
  */
 
-/**
- * AI provider types.
- */
-export type AiProvider = 'claude' | 'openai' | 'ollama' | 'custom';
-
-/**
- * Agent mode types.
- */
-export type AgentMode = 'simple' | 'cursor' | 'claude-code' | 'openai-codex';
+import type { AgentMode } from '@contractspec/lib.contracts';
+import type { AiProvider } from '../ports';
 
 /**
  * Configuration for ContractSpec CLI and services.

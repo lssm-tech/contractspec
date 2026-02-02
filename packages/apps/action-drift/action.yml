@@ -1,0 +1,199 @@
+name: 'ContractSpec Drift'
+description: 'Detect ContractSpec drift on main or scheduled runs'
+author: 'LSSM'
+branding:
+  icon: 'alert-triangle'
+  color: 'blue'
+
+inputs:
+  package-manager:
+    description: 'Package manager to use (bun|npm|pnpm|yarn)'
+    required: false
+    default: 'bun'
+  working-directory:
+    description: 'Working directory for running commands'
+    required: false
+    default: '.'
+  generate-command:
+    description: 'Command to regenerate artifacts'
+    required: true
+  on-drift:
+    description: 'Behavior when drift is detected (fail|issue|pr)'
+    required: false
+    default: 'fail'
+  drift-paths-allowlist:
+    description: 'Comma-separated glob patterns to check for drift'
+    required: false
+    default: ''
+  token:
+    description: 'GitHub token for issues/PRs'
+    required: false
+    default: '${{ github.token }}'
+
+outputs:
+  drift-detected:
+    description: 'Whether drift was detected'
+    value: ${{ steps.result.outputs.drift_detected }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set action defaults
+      shell: bash
+      run: |
+        echo "PACKAGE_MANAGER=${{ inputs.package-manager }}" >> $GITHUB_ENV
+        echo "WORKING_DIRECTORY=${{ inputs.working-directory }}" >> $GITHUB_ENV
+        echo "GENERATE_COMMAND=${{ inputs.generate-command }}" >> $GITHUB_ENV
+        echo "ON_DRIFT=${{ inputs.on-drift }}" >> $GITHUB_ENV
+        echo "DRIFT_ALLOWLIST=${{ inputs.drift-paths-allowlist }}" >> $GITHUB_ENV
+        echo "COMMENT_TOKEN=${{ inputs.token }}" >> $GITHUB_ENV
+        echo "TURBO_TELEMETRY_DISABLED=1" >> $GITHUB_ENV
+        echo "DO_NOT_TRACK=1" >> $GITHUB_ENV
+
+        echo "TURBO_TOKEN=${{ env.TURBO_TOKEN }}" >> $GITHUB_ENV
+        echo "TURBO_TEAM=${{ env.TURBO_TEAM }}" >> $GITHUB_ENV
+
+    - name: Setup Bun
+      if: env.PACKAGE_MANAGER == 'bun'
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: 'latest'
+
+    - name: Setup Node
+      if: env.PACKAGE_MANAGER != 'bun'
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      shell: bash
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        case "$PACKAGE_MANAGER" in
+          bun)
+            if [ -f "bun.lock" ] || [ -f "bun.lockb" ]; then
+              bun install --frozen-lockfile
+            else
+              bun install
+            fi
+            ;;
+          npm)
+            if [ -f "package-lock.json" ]; then
+              npm ci
+            else
+              npm install
+            fi
+            ;;
+          pnpm)
+            corepack enable
+            pnpm install --frozen-lockfile
+            ;;
+          yarn)
+            corepack enable
+            yarn install --frozen-lockfile
+            ;;
+        esac
+
+    - name: Build local ContractSpec CLI (if present)
+      if: env.PACKAGE_MANAGER == 'bun'
+      shell: bash
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        if [ -f "packages/apps/cli-contractspec/package.json" ]; then
+          bun run build --filter=@contractspec/app.cli-contractspec
+        fi
+
+    - name: Run generate command
+      shell: bash
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        if [ -z "$GENERATE_COMMAND" ]; then
+          echo "::error::generate-command is required for drift checks"
+          exit 1
+        fi
+        bash -lc "$GENERATE_COMMAND"
+
+    - name: Check drift
+      shell: bash
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        mkdir -p .contractspec-ci
+        git status --porcelain > .contractspec-ci/drift-status.txt
+        $CONTRACTSPEC_CMD action-drift check-drift
+
+    - name: Build report data
+      shell: bash
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        # Collect contract verification status
+        echo "Collecting contract verification status..."
+        $CONTRACTSPEC_CMD action-pr get-contract-status
+
+        # Build report data
+        $CONTRACTSPEC_CMD action-drift build-report-data
+
+    - name: Generate report
+      shell: bash
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        $CONTRACTSPEC_CMD action-pr generate-report
+
+    - name: Create issue
+      if: env.DRIFT_DETECTED == 'true' && env.ON_DRIFT == 'issue'
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ env.COMMENT_TOKEN }}
+        script: |
+          const fs = require("fs");
+          const body = fs.readFileSync(
+            `${process.env.WORKING_DIRECTORY}/.contractspec-ci/report.md`,
+            "utf8",
+          );
+          const title = "ContractSpec drift detected";
+
+          const { data: issues } = await github.rest.issues.listForRepo({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            state: "open",
+          });
+
+          const existing = issues.find((issue) => issue.title === title);
+          if (existing) {
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: existing.number,
+              body,
+            });
+          } else {
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+            });
+          }
+
+    - name: Create drift PR
+      if: env.DRIFT_DETECTED == 'true' && env.ON_DRIFT == 'pr'
+      shell: bash
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      env:
+        GH_TOKEN: ${{ env.COMMENT_TOKEN }}
+      run: |
+        BRANCH="contractspec/drift-$(date +%Y%m%d%H%M%S)"
+        git checkout -b "$BRANCH"
+        git add -A
+        git commit -m "chore(contractspec): fix drift"
+        git push origin "$BRANCH"
+        gh pr create \
+          --title "chore(contractspec): fix drift" \
+          --body-file .contractspec-ci/report.md \
+          --base "${{ github.event.repository.default_branch }}" \
+          --head "$BRANCH"
+
+    - name: Finalize results
+      id: result
+      shell: bash
+      run: |
+        $CONTRACTSPEC_CMD action-drift finalize

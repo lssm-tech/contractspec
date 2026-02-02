@@ -13,7 +13,7 @@ import type {
   CheckRunConfig,
   CiConfig,
   ClaudeAgentSDKConfig,
-  ContractsrcConfig,
+  ContractsrcFileConfig,
   ExternalAgentsConfig,
   ExternalWorkspace,
   FolderConventions,
@@ -30,17 +30,17 @@ import type {
   OpenApiSourceConfig,
   OpenCodeSDKConfig,
   PrCommentConfig,
+  ResolvedContractsrcConfig,
+  RulesConfig,
   RuleSeverity,
   RuleSyncConfig,
   RuleSyncTarget,
-  RulesConfig,
   SchemaFormat,
   SpecKind,
   TestingConfig,
   TestLinkingConfig,
   TestLinkingStrategy,
   VersioningConfig,
-  ResolvedContractsrcConfig,
 } from './contractsrc-types';
 
 export * from './contractsrc-types';
@@ -480,7 +480,7 @@ export const LintRulesSchema: z.ZodType<LintRules> = z.object({
   'require-owners-format': RuleSeveritySchema.optional(),
   /** Require event names to use past tense */
   'event-past-tense': RuleSeveritySchema.optional(),
-  /** Warn on TODO comments */
+  /** Warn on placeholder comments */
   'no-todo': RuleSeveritySchema.optional(),
   /** Require workflow transitions */
   'workflow-transitions': RuleSeveritySchema.optional(),
@@ -572,7 +572,7 @@ export const HooksConfigSchema: z.ZodType<HooksConfig> = z.record(
 /**
  * Full ContractSpec configuration schema (.contractsrc.json).
  */
-export const ContractsrcSchema: z.ZodType<ContractsrcConfig> = z.object({
+export const ContractsrcSchema: z.ZodType<ContractsrcFileConfig> = z.object({
   aiProvider: z
     .enum(['claude', 'openai', 'ollama', 'custom'])
     .default('claude')
@@ -585,6 +585,7 @@ export const ContractsrcSchema: z.ZodType<ContractsrcConfig> = z.object({
       'claude-code',
       'openai-codex',
       'claude-agent-sdk',
+      'opencode',
       'opencode-sdk',
     ])
     .default('simple')

@@ -17,8 +17,8 @@ Get ContractSpec running quickly and generate your first contract-backed code.
 ## 1. Install the CLI
 
 \`\`\`bash
-pnpm add -D contractspec
-pnpm add @contractspec/lib.contracts @contractspec/lib.schema
+bun add -D contractspec
+bun add @contractspec/lib.contracts @contractspec/lib.schema
 \`\`\`
 
 ## 2. Initialize your project
@@ -112,16 +112,18 @@ ContractSpec supports modern TypeScript stacks with spec-first workflows.
 
 ## Package managers
 
-- pnpm (recommended)
+- bun (recommended)
 - npm
-- bun
+- yarn
+- pnpm
 
 ## AI agent modes
 
-- simple (direct LLM)
 - claude-code
 - openai-codex
 - cursor
+- opencode
+- simple (direct LLM)
 
 ## Datastores
 

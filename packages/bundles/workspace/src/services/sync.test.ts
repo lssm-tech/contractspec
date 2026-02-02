@@ -1,8 +1,11 @@
-import { describe, expect, it, mock, beforeEach } from 'bun:test';
+import { beforeEach, describe, expect, it, mock } from 'bun:test';
 import { syncSpecs } from './sync';
 import type { FsAdapter } from '../ports/fs';
-import type { WorkspaceConfig } from '@contractspec/module.workspace';
 import type { LoggerAdapter } from '../ports/logger';
+import {
+  DEFAULT_CONTRACTSRC,
+  type ResolvedContractsrcConfig,
+} from '@contractspec/lib.contracts';
 
 describe('Sync Service', () => {
   const mockFs = {
@@ -24,12 +27,10 @@ describe('Sync Service', () => {
     })),
   };
 
-  const config = {
-    version: '1',
+  const config: ResolvedContractsrcConfig = {
+    ...DEFAULT_CONTRACTSRC,
     outputDir: 'src',
-    contracts: {},
-    ignore: [],
-  } as unknown as WorkspaceConfig;
+  };
 
   beforeEach(() => {
     mockFs.glob.mockClear();

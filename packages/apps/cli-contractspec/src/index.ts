@@ -42,6 +42,8 @@ import { fixCommand } from './commands/fix/index';
 import { vibeCommand } from './commands/vibe/index';
 import { importCommand } from './commands/import/index';
 import { pluginsCommand } from './commands/plugins/index';
+import { actionPrCommand } from './commands/action-pr/index';
+import { actionDriftCommand } from './commands/action-drift/index';
 
 // Define categories
 const CATEGORY_ESSENTIALS = 'Essentials';
@@ -194,6 +196,8 @@ program.addCommand(withCategory(createImpactCommand(), CATEGORY_OPERATIONS));
 program.addCommand(withCategory(cicdCommand, CATEGORY_OPERATIONS));
 program.addCommand(withCategory(createVersionCommand(), CATEGORY_OPERATIONS));
 program.addCommand(withCategory(createChangelogCommand(), CATEGORY_OPERATIONS));
+program.addCommand(withCategory(actionPrCommand, CATEGORY_OPERATIONS));
+program.addCommand(withCategory(actionDriftCommand, CATEGORY_OPERATIONS));
 
 // Register Hook command (special case as it's a function)
 registerHookCommand(program);
@@ -256,7 +260,7 @@ const buildCmd = program
   .option('--model <model>', 'AI model to use')
   .option(
     '--agent-mode <mode>',
-    'Agent mode: simple, cursor, claude-code, openai-codex'
+    'Agent mode: simple, cursor, claude-code, openai-codex, opencode'
   )
   .option('--no-tests', 'Skip test generation')
   .option('--no-agent', 'Disable AI agent (use basic templates)')
@@ -282,8 +286,9 @@ const validateCmd = program
     'Validate a contract specification and optionally its implementation'
   )
   .argument(
-    '[spec-files...]',
-    'Path to spec files (defaults to workspace scan)'
+    '[spec-files]',
+    'Path to spec files (defaults to workspace scan)',
+    undefined
   )
   .option(
     '--blueprint <path>',
@@ -315,17 +320,17 @@ const validateCmd = program
   )
   .option(
     '--agent-mode <mode>',
-    'Agent mode for validation: simple, claude-code, openai-codex'
+    'Agent mode for validation: simple, claude-code, openai-codex, opencode'
   )
   .option('--check-handlers', 'Verify handler implementations exist')
   .option('--check-tests', 'Verify test coverage')
   .option('-i, --interactive', 'Interactive mode - prompt for what to validate')
-  .action(async (specFiles, options) => {
+  .action(async (specFile: string, options) => {
     try {
       const config = await loadConfig();
       const mergedConfig = mergeConfig(config, options);
       // specFiles is string[] from variadic arg
-      await validateCommand(specFiles, options, mergedConfig);
+      await validateCommand(specFile, options, mergedConfig);
     } catch (error) {
       console.error(
         chalk.red('\n❌ Error:'),

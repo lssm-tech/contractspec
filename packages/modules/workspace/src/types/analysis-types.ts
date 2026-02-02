@@ -3,32 +3,13 @@
  */
 
 import type { Stability } from './spec-types';
+import type { ContractSpecType } from '@contractspec/lib.contracts';
 
 /**
  * Spec type detected from file analysis.
  * Covers all contract types from @contractspec/lib.contracts.
  */
-export type AnalyzedSpecType =
-  | 'operation'
-  | 'event'
-  | 'presentation'
-  | 'feature'
-  | 'capability'
-  | 'data-view'
-  | 'form'
-  | 'migration'
-  | 'workflow'
-  | 'experiment'
-  | 'integration'
-  | 'knowledge'
-  | 'knowledge'
-  | 'telemetry'
-  | 'example'
-  | 'app-config'
-  | 'policy'
-  | 'test-spec'
-  | 'type'
-  | 'unknown';
+export type AnalyzedSpecType = ContractSpecType | 'unknown';
 
 /**
  * Types that can be referenced by features.
@@ -58,6 +39,8 @@ export type AnalyzedOperationKind =
   | 'app-config'
   | 'integration'
   | 'workflow'
+  | 'feature'
+  | 'test-spec'
   | 'unknown';
 
 /**

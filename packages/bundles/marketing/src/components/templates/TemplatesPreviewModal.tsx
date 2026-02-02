@@ -18,20 +18,26 @@ const TemplateShell = dynamic(
 );
 
 const TodosTaskList = dynamic(
-  () => import('@contractspec/bundle.library').then((mod) => mod.TaskList),
+  () =>
+    import('@contractspec/bundle.library/components/templates/todos/TaskList').then(
+      (mod) => mod.TaskList
+    ),
   { ssr: false, loading: () => <LoadingSpinner /> }
 );
 
 const MessagingWorkspace = dynamic(
   () =>
-    import('@contractspec/bundle.library').then(
+    import('@contractspec/bundle.library/components/templates/messaging/MessagingWorkspace').then(
       (mod) => mod.MessagingWorkspace
     ),
   { ssr: false, loading: () => <LoadingSpinner /> }
 );
 
 const RecipesExperience = dynamic(
-  () => import('@contractspec/bundle.library').then((mod) => mod.RecipeList),
+  () =>
+    import('@contractspec/bundle.library/components/templates/recipes/RecipeList').then(
+      (mod) => mod.RecipeList
+    ),
   { ssr: false, loading: () => <LoadingSpinner /> }
 );
 

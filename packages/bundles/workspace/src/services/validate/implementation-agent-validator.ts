@@ -1,7 +1,7 @@
 import type { FsAdapter } from '../../ports/fs';
-import { dirname, basename, join } from 'path';
+import { basename, dirname, join } from 'path';
 import { AgentOrchestrator } from '../../ai/agents/orchestrator';
-import type { Config } from '../../types/config';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
 
 export interface ImplementationValidatorOptions {
   implementationPath?: string;
@@ -18,7 +18,7 @@ export interface ImplementationValidationResult {
 export async function validateImplementationWithAgent(
   specFile: string,
   specCode: string,
-  config: Config,
+  config: ResolvedContractsrcConfig,
   options: ImplementationValidatorOptions,
   adapters: { fs: FsAdapter }
 ): Promise<ImplementationValidationResult> {

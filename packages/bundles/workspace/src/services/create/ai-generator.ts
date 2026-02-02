@@ -12,28 +12,28 @@ import {
   type ProviderName,
 } from '@contractspec/lib.ai-providers';
 import {
-  type WorkspaceConfig,
-  type PresentationKind,
-} from '@contractspec/module.workspace';
-import type { OpKind } from '@contractspec/lib.contracts';
-import {
-  buildOperationSpecPrompt,
-  buildEventSpecPrompt,
-  buildPresentationSpecPrompt,
-  getSystemPrompt,
-  buildHandlerPrompt,
   buildComponentPrompt,
+  buildEventSpecPrompt,
   buildFormPrompt,
+  buildHandlerPrompt,
+  buildOperationSpecPrompt,
+  buildPresentationSpecPrompt,
   buildTestPrompt,
   getCodeGenSystemPrompt,
+  getSystemPrompt,
+  type PresentationKind,
 } from '@contractspec/module.workspace';
+import type {
+  OpKind,
+  ResolvedContractsrcConfig,
+} from '@contractspec/lib.contracts';
 import { getApiKey } from '../config';
 
 /**
  * AI Generator Service
  */
 export class AIGenerator {
-  constructor(private config: WorkspaceConfig) {}
+  constructor(private config: ResolvedContractsrcConfig) {}
 
   private getModel() {
     const providerName = this.config.aiProvider as ProviderName;

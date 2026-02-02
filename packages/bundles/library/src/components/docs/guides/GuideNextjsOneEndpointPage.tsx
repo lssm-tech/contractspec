@@ -29,8 +29,8 @@ export function GuideNextjsOneEndpointPage() {
           <CodeBlock
             language="bash"
             filename="nextjs-install"
-            code={`pnpm add -D contractspec
-pnpm add @contractspec/lib.contracts @contractspec/lib.schema`}
+            code={`bun add -D contractspec
+bun add @contractspec/lib.contracts @contractspec/lib.schema`}
           />
           <p className="text-muted-foreground text-sm">
             Expected output: <code>added 3 packages</code> and a lockfile

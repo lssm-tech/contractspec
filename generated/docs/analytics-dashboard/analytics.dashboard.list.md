@@ -2,49 +2,57 @@
 
 # analytics.dashboard.list
 
-List of analytics dashboards
+List dashboards.
 
 ## Metadata
 
-- **Type**: presentation (presentation)
+- **Type**: operation (query)
 - **Version**: 1.0.0
-- **Owners**: @analytics-dashboard
-- **Tags**: analytics, dashboards, list
-- **File**: `packages/examples/analytics-dashboard/src/dashboard/dashboard.presentation.ts`
+- **Stability**: stable
+- **Owners**: @example.analytics-dashboard
+- **Tags**: analytics, dashboard, list
+- **File**: `packages/examples/analytics-dashboard/src/dashboard/dashboard.operation.ts`
 
 ## Goal
 
-Show users available analytics dashboards.
+Browse available dashboards.
 
 ## Context
 
-The main dashboard management view.
+Dashboard listing.
 
 ## Source Definition
 
 ```typescript
-export const DashboardsListPresentation = definePresentation({
+export const ListDashboardsContract = defineQuery({
   meta: {
     key: 'analytics.dashboard.list',
     version: '1.0.0',
-    title: 'Dashboards List',
-    description: 'List of analytics dashboards',
-    domain: 'analytics',
-    owners: ['@analytics-dashboard'],
-    tags: ['analytics', 'dashboards', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Show users available analytics dashboards.',
-    context: 'The main dashboard management view.',
+    stability: 'stable',
+    owners: ['@example.analytics-dashboard'],
+    tags: ['analytics', 'dashboard', 'list'],
+    description: 'List dashboards.',
+    goal: 'Browse available dashboards.',
+    context: 'Dashboard listing.',
   },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'DashboardsList',
-    props: DashboardModel,
-  },
-  targets: ['react', 'markdown', 'application/json'],
-  policy: {
-    flags: ['analytics.dashboards.enabled'],
+  io: { input: ListDashboardsInputModel, output: ListDashboardsOutputModel },
+  policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-dashboards-happy-path',
+        given: ['User has dashboards'],
+        when: ['User lists dashboards'],
+        then: ['Paginated list of dashboards is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-basic',
+        input: { limit: 10, offset: 0 },
+        output: { items: [], total: 0, hasMore: false },
+      },
+    ],
   },
 });
 ```

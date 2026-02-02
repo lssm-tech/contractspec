@@ -1,0 +1,13 @@
+{
+  "name": "contractspec-example-opencode-cli",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "contractspec build src/contracts/opencode.contracts.ts --agent-mode opencode",
+    "validate": "contractspec validate src/contracts/opencode.contracts.ts --check-implementation --agent-mode opencode"
+  },
+  "devDependencies": {
+    "contractspec": "workspace:*",
+    "typescript": "^5.0.0"
+  }
+}

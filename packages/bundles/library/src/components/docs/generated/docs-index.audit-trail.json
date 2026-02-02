@@ -1,0 +1,50 @@
+[
+  {
+    "id": "audit-trail/audit-trail",
+    "title": "audit-trail",
+    "summary": "Audit logging and compliance tracking - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: @platform.core - **Tags**: audit, logging, compliance - **File**: `packages/modules/audit-trail/src/audit-trail.capability.ts`",
+    "route": "/docs/reference/audit-trail/audit-trail",
+    "source": "generated",
+    "contentPath": "audit-trail/audit-trail.md"
+  },
+  {
+    "id": "audit-trail/audit.logs.export",
+    "title": "audit.logs.export",
+    "summary": "Export audit logs for compliance reporting. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.audit-trail - **Tags**: audit, logs, export - **File**: `packages/modules/audit-trail/src/contracts/index.ts`",
+    "route": "/docs/reference/audit-trail/audit.logs.export",
+    "source": "generated",
+    "contentPath": "audit-trail/audit.logs.export.md"
+  },
+  {
+    "id": "audit-trail/audit.logs.get",
+    "title": "audit.logs.get",
+    "summary": "Get a specific audit log by ID. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.audit-trail - **Tags**: audit, logs, get - **File**: `packages/modules/audit-trail/src/contracts/index.ts`",
+    "route": "/docs/reference/audit-trail/audit.logs.get",
+    "source": "generated",
+    "contentPath": "audit-trail/audit.logs.get.md"
+  },
+  {
+    "id": "audit-trail/audit.logs.query",
+    "title": "audit.logs.query",
+    "summary": "Query audit logs with filters. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.audit-trail - **Tags**: audit, logs, query - **File**: `packages/modules/audit-trail/src/contracts/index.ts`",
+    "route": "/docs/reference/audit-trail/audit.logs.query",
+    "source": "generated",
+    "contentPath": "audit-trail/audit.logs.query.md"
+  },
+  {
+    "id": "audit-trail/audit.stats",
+    "title": "audit.stats",
+    "summary": "Get audit log statistics. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.audit-trail - **Tags**: audit, stats - **File**: `packages/modules/audit-trail/src/contracts/index.ts`",
+    "route": "/docs/reference/audit-trail/audit.stats",
+    "source": "generated",
+    "contentPath": "audit-trail/audit.stats.md"
+  },
+  {
+    "id": "audit-trail/audit.trace.get",
+    "title": "audit.trace.get",
+    "summary": "Get all audit logs for a trace. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.audit-trail - **Tags**: audit, trace, get - **File**: `packages/modules/audit-trail/src/contracts/index.ts`",
+    "route": "/docs/reference/audit-trail/audit.trace.get",
+    "source": "generated",
+    "contentPath": "audit-trail/audit.trace.get.md"
+  }
+]

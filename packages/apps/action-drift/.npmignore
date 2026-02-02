@@ -1,0 +1,4 @@
+src/
+fixtures/
+tsconfig.json
+dist/*.map

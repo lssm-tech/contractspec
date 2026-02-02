@@ -6,7 +6,11 @@
  */
 
 import { Connection } from 'vscode-languageserver/node';
-import { InitializeParams, InitializeResult, TextDocumentChangeEvent, } from 'vscode-languageserver-protocol';
+import {
+  InitializeParams,
+  InitializeResult,
+  TextDocumentChangeEvent,
+} from 'vscode-languageserver-protocol';
 
 import {
   addFromRegistry,
@@ -38,13 +42,13 @@ import {
   verifyImplementation,
   watchSpecs,
   type WorkspaceAdapters,
-  type WorkspaceConfig,
 } from '@contractspec/bundle.workspace';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
 
 export class BridgeServer {
   private connection: Connection;
   private workspaceAdapters: WorkspaceAdapters | null = null;
-  private workspaceConfig: WorkspaceConfig | null = null;
+  private workspaceConfig: ResolvedContractsrcConfig | null = null;
 
   constructor(connection: Connection) {
     this.connection = connection;

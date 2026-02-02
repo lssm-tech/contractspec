@@ -1,0 +1,34 @@
+[
+  {
+    "id": "learning-journey-registry/learning-journey-registry",
+    "title": "learning-journey-registry",
+    "summary": "Shared registry and presentations for learning journey tracks - **Type**: feature - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @learning-team - **Tags**: learning, journey, onboarding, registry",
+    "route": "/docs/reference/learning-journey-registry/learning-journey-registry",
+    "source": "generated",
+    "contentPath": "learning-journey-registry/learning-journey-registry.md"
+  },
+  {
+    "id": "learning-journey-registry/learning.journey.progress_widget",
+    "title": "learning.journey.progress_widget",
+    "summary": "Compact widget showing progress for active track. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **File**: `packages/examples/learning-journey-registry/src/presentations/index.ts` ```typescript",
+    "route": "/docs/reference/learning-journey-registry/learning.journey.progress_widget",
+    "source": "generated",
+    "contentPath": "learning-journey-registry/learning.journey.progress_widget.md"
+  },
+  {
+    "id": "learning-journey-registry/learning.journey.track_detail",
+    "title": "learning.journey.track_detail",
+    "summary": "Track detail with steps and progress state. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **File**: `packages/examples/learning-journey-registry/src/presentations/index.ts` ```typescript",
+    "route": "/docs/reference/learning-journey-registry/learning.journey.track_detail",
+    "source": "generated",
+    "contentPath": "learning-journey-registry/learning.journey.track_detail.md"
+  },
+  {
+    "id": "learning-journey-registry/learning.journey.track_list",
+    "title": "learning.journey.track_list",
+    "summary": "List of learning journeys available to the learner. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **File**: `packages/examples/learning-journey-registry/src/presentations/index.ts` ```typescript",
+    "route": "/docs/reference/learning-journey-registry/learning.journey.track_list",
+    "source": "generated",
+    "contentPath": "learning-journey-registry/learning.journey.track_list.md"
+  }
+]

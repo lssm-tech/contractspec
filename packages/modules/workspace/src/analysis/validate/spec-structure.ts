@@ -4,15 +4,18 @@
  */
 
 import {
-  Project,
-  Node,
-  SyntaxKind,
-  SourceFile,
-  ObjectLiteralExpression,
   InitializerExpressionGetableNode,
+  Node,
+  ObjectLiteralExpression,
+  Project,
   PropertyAssignment,
+  SourceFile,
+  SyntaxKind,
 } from 'ts-morph';
-import type { ValidationResult } from '../../types/analysis-types';
+import type {
+  SpecScanResult,
+  ValidationResult,
+} from '../../types/analysis-types';
 
 export type { ValidationResult };
 
@@ -58,15 +61,17 @@ const DEFAULT_RULES_CONFIG: RulesConfig = {
  * Validate spec structure based on source code and filename.
  */
 export function validateSpecStructure(
-  code: string,
-  fileName: string,
+  specFile: Pick<SpecScanResult, 'filePath' | 'sourceBlock' | 'specType'>,
   rulesConfig: RulesConfig = DEFAULT_RULES_CONFIG
 ): ValidationResult {
   const errors: string[] = [];
   const warnings: string[] = [];
 
   const project = new Project({ useInMemoryFileSystem: true });
-  const sourceFile = project.createSourceFile(fileName, code);
+  const sourceFile = project.createSourceFile(
+    specFile.filePath,
+    specFile.sourceBlock
+  );
 
   // Check for required exports (any export is sufficient for validity check)
   const hasExport =
@@ -80,52 +85,44 @@ export function validateSpecStructure(
     errors.push('No exported spec found');
   }
 
-  // Validate operation specs
-  if (
-    fileName.includes('.contracts.') ||
-    fileName.includes('.contract.') ||
-    fileName.includes('.operations.') ||
-    fileName.includes('.operation.')
-  ) {
-    validateOperationSpec(sourceFile, errors, warnings, rulesConfig);
-  }
-
-  // Validate event specs
-  if (fileName.includes('.event.')) {
-    validateEventSpec(sourceFile, errors, warnings, rulesConfig);
-  }
-
-  // Validate presentation specs
-  if (fileName.includes('.presentation.')) {
-    validatePresentationSpec(sourceFile, errors, warnings);
-  }
-
-  if (fileName.includes('.workflow.')) {
-    validateWorkflowSpec(sourceFile, errors, warnings, rulesConfig);
-  }
-
-  if (fileName.includes('.data-view.')) {
-    validateDataViewSpec(sourceFile, errors, warnings, rulesConfig);
-  }
-
-  if (fileName.includes('.migration.')) {
-    validateMigrationSpec(sourceFile, errors, warnings, rulesConfig);
-  }
-
-  if (fileName.includes('.telemetry.')) {
-    validateTelemetrySpec(sourceFile, errors, warnings, rulesConfig);
-  }
-
-  if (fileName.includes('.experiment.')) {
-    validateExperimentSpec(sourceFile, errors, warnings, rulesConfig);
-  }
-
-  if (fileName.includes('.app-config.')) {
-    validateAppConfigSpec(sourceFile, errors, warnings, rulesConfig);
+  switch (specFile.specType) {
+    case 'operation':
+      validateOperationSpec(sourceFile, errors, warnings, rulesConfig);
+      break;
+    case 'event':
+      validateEventSpec(sourceFile, errors, warnings, rulesConfig);
+      break;
+    case 'presentation':
+      validatePresentationSpec(sourceFile, errors, warnings);
+      break;
+    case 'workflow':
+      validateWorkflowSpec(sourceFile, errors, warnings, rulesConfig);
+      break;
+    case 'data-view':
+      validateDataViewSpec(sourceFile, errors, warnings, rulesConfig);
+      break;
+    case 'migration':
+      validateMigrationSpec(sourceFile, errors, warnings, rulesConfig);
+      break;
+    case 'telemetry':
+      validateTelemetrySpec(sourceFile, errors, warnings, rulesConfig);
+      break;
+    case 'app-config':
+      validateAppConfigSpec(sourceFile, errors, warnings, rulesConfig);
+      break;
+    case 'experiment':
+      validateExperimentSpec(sourceFile, errors, warnings, rulesConfig);
+      break;
   }
 
   // Common validations
-  validateCommonFields(sourceFile, fileName, errors, warnings, rulesConfig);
+  validateCommonFields(
+    sourceFile,
+    specFile.filePath,
+    errors,
+    warnings,
+    rulesConfig
+  );
 
   return {
     valid: errors.length === 0,

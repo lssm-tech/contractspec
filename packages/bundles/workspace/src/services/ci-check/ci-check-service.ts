@@ -5,7 +5,6 @@
  * Returns structured results suitable for multiple output formats.
  */
 
-import { isFeatureFile } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../../ports/fs';
 import type { LoggerAdapter } from '../../ports/logger';
 
@@ -17,21 +16,21 @@ import type {
 } from './types';
 
 import {
-  runStructureChecks,
-  runIntegrityChecks,
+  runCoverageChecks,
   runDepsChecks,
   runDoctorChecks,
+  runDriftChecks,
   runHandlerChecks,
+  runImplementationChecks,
+  runIntegrityChecks,
+  runLayerChecks,
+  runStructureChecks,
   runTestChecks,
   runTestRefsChecks,
-  runCoverageChecks,
-  runImplementationChecks,
-  runLayerChecks,
-  runDriftChecks,
 } from './checks';
 
 import { createCategorySummary, getChecksToRun, getGitInfo } from './utils';
-import { isTestFile } from '../../utils';
+import { listSpecs } from '../list';
 
 /**
  * Run all CI checks and return structured results.
@@ -52,15 +51,15 @@ export async function runCIChecks(
   logger.info('Starting CI checks...', { checks: checksToRun });
 
   // Discover spec files
-  const files = await fs.glob({ pattern: options.pattern });
-  const specFiles = files.filter(
-    (f) => !isFeatureFile(f) && !isTestFile(f, options.config)
-  );
+  const specFiles = await listSpecs(adapters, {
+    pattern: options.pattern as string | undefined,
+    type: ['feature', 'test-spec'],
+  });
 
   // Run spec structure validation
   if (checksToRun.includes('structure')) {
     const categoryStart = Date.now();
-    const structureIssues = await runStructureChecks(adapters, specFiles);
+    const structureIssues = await runStructureChecks(specFiles);
     issues.push(...structureIssues);
     categorySummaries.push(
       createCategorySummary(
@@ -132,7 +131,7 @@ export async function runCIChecks(
   // Run test-refs checks (validate OperationSpec.tests references)
   if (checksToRun.includes('test-refs')) {
     const categoryStart = Date.now();
-    const testRefIssues = await runTestRefsChecks(adapters, specFiles);
+    const testRefIssues = await runTestRefsChecks(specFiles);
     issues.push(...testRefIssues);
     categorySummaries.push(
       createCategorySummary(

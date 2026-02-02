@@ -11,7 +11,7 @@ import { defineFeature } from '@contractspec/lib.contracts';
  */
 export const MeteringFeature = defineFeature({
   meta: {
-    key: 'metering',
+    key: 'metrics',
     version: '1.0.0',
     title: 'Usage Metering',
     description: 'Usage metering, metric definitions, and threshold alerting',

@@ -3,7 +3,7 @@ import { DashboardModel } from './dashboard.schema';
 
 export const DashboardsListPresentation = definePresentation({
   meta: {
-    key: 'analytics.dashboard.list',
+    key: 'analytics.dashboard.viewList',
     version: '1.0.0',
     title: 'Dashboards List',
     description: 'List of analytics dashboards',

@@ -73,6 +73,17 @@ export type TestLinkingStrategy =
   | 'convention-only' // Only use {specKey}.test naming convention
   | 'both'; // Accept both (default)
 
+export type AgentProvider = 'claude' | 'openai' | 'ollama' | 'custom';
+
+export type AgentMode =
+  | 'simple'
+  | 'cursor'
+  | 'claude-code'
+  | 'openai-codex'
+  | 'claude-agent-sdk'
+  | 'opencode'
+  | 'opencode-sdk';
+
 // ============================================================================
 // Internal Config Objects
 // ============================================================================
@@ -317,7 +328,7 @@ export interface LintRules {
   'require-owners-format'?: RuleSeverity;
   /** Require event names to use past tense */
   'event-past-tense'?: RuleSeverity;
-  /** Warn on TODO comments */
+  /** Warn on placeholder comments */
   'no-todo'?: RuleSeverity;
   /** Require workflow transitions */
   'workflow-transitions'?: RuleSeverity;
@@ -373,21 +384,12 @@ export type HooksConfig = Record<string, string[]>;
 
 /**
  * Full ContractSpec configuration (.contractsrc.json).
- */
-/**
- * Full ContractSpec configuration (.contractsrc.json).
  * All fields are optional as they come from user configuration.
  */
 export interface ContractsrcFileConfig {
-  aiProvider?: 'claude' | 'openai' | 'ollama' | 'custom';
+  aiProvider?: AgentProvider;
   aiModel?: string;
-  agentMode?:
-    | 'simple'
-    | 'cursor'
-    | 'claude-code'
-    | 'openai-codex'
-    | 'claude-agent-sdk'
-    | 'opencode-sdk';
+  agentMode?: AgentMode;
   customEndpoint?: string | null;
   customApiKey?: string | null;
   outputDir?: string;
@@ -434,6 +436,7 @@ export interface ResolvedContractsrcConfig extends ContractsrcFileConfig {
     | 'claude-code'
     | 'openai-codex'
     | 'claude-agent-sdk'
+    | 'opencode'
     | 'opencode-sdk';
   outputDir: string;
   conventions: {

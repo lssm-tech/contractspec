@@ -2,7 +2,7 @@
  * AI adapter port.
  */
 
-import type { WorkspaceConfig } from '@contractspec/module.workspace';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
 
 /**
  * AI provider type.
@@ -49,7 +49,9 @@ export interface AiAdapter {
   /**
    * Validate provider configuration.
    */
-  validateProvider(config: WorkspaceConfig): Promise<AiValidationResult>;
+  validateProvider(
+    config: ResolvedContractsrcConfig
+  ): Promise<AiValidationResult>;
 
   /**
    * Generate text from prompt.

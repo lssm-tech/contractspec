@@ -26,8 +26,10 @@ export interface ResolvedImplementation {
   source: ImplementationSource;
   /** Whether the file exists on disk */
   exists: boolean;
+  /** Content */
+  implementationSourceContent?: string;
   /** Content hash for cache invalidation (SHA256) */
-  contentHash?: string;
+  implementationSourceHash?: string;
   /** Optional description */
   description?: string;
 }

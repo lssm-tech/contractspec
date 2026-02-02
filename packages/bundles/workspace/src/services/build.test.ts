@@ -1,11 +1,12 @@
-import { describe, expect, it, mock, beforeEach, afterEach } from 'bun:test';
+import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
 import { buildSpec } from './build';
-import type {
-  SpecScanResult,
-  WorkspaceConfig,
-} from '@contractspec/module.workspace';
+import type { SpecScanResult } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../ports/fs';
 import type { LoggerAdapter } from '../ports/logger';
+import {
+  DEFAULT_CONTRACTSRC,
+  type ResolvedContractsrcConfig,
+} from '@contractspec/lib.contracts';
 
 // Mock module.workspace
 const mockScanSpecSource = mock();
@@ -63,12 +64,10 @@ describe('Build Service', () => {
     mock.restore();
   });
 
-  const config = {
-    version: '1',
+  const config: ResolvedContractsrcConfig = {
+    ...DEFAULT_CONTRACTSRC,
     outputDir: 'src',
-    contracts: {},
-    ignore: [],
-  } as unknown;
+  };
 
   it('should build handler for operation spec', async () => {
     mockInferSpecType.mockReturnValue('operation');
@@ -85,7 +84,7 @@ describe('Build Service', () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         workspace: mockWorkspace as unknown as any,
       },
-      config as unknown as WorkspaceConfig
+      config
     );
 
     // buildSpec returns BuildSpecResult which doesn't have success property directly
@@ -111,7 +110,7 @@ describe('Build Service', () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         workspace: mockWorkspace as unknown as any,
       },
-      config as unknown as WorkspaceConfig
+      config
     );
 
     expect(result.results).toHaveLength(1);
@@ -135,7 +134,7 @@ describe('Build Service', () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         workspace: mockWorkspace as unknown as any,
       },
-      config as unknown as WorkspaceConfig
+      config
     );
 
     expect(result.results[0]?.skipped).toBe(true);
@@ -157,7 +156,7 @@ describe('Build Service', () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         workspace: mockWorkspace as unknown as any,
       },
-      config as unknown as WorkspaceConfig,
+      config,
       { targets: ['handler', 'test'] }
     );
 
@@ -181,7 +180,7 @@ describe('Build Service', () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         workspace: mockWorkspace as unknown as any,
       },
-      config as unknown as WorkspaceConfig
+      config
     );
 
     expect(result.results[0]?.skipped).toBe(true);
@@ -204,7 +203,7 @@ describe('Build Service', () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         workspace: mockWorkspace as unknown as any,
       },
-      config as unknown as WorkspaceConfig,
+      config,
       { overwrite: true }
     );
 
@@ -230,7 +229,7 @@ describe('Build Service', () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         workspace: mockWorkspace as unknown as any,
       },
-      config as unknown as WorkspaceConfig,
+      config,
       { dryRun: true }
     );
 
@@ -254,7 +253,7 @@ describe('Build Service', () => {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           workspace: mockWorkspace as unknown as any,
         },
-        config as unknown as WorkspaceConfig
+        config
       )
     ).rejects.toThrow('Scan failed');
   });
@@ -275,7 +274,7 @@ describe('Build Service', () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         workspace: mockWorkspace as unknown as any,
       },
-      config as unknown as WorkspaceConfig,
+      config,
       { targets: ['handler'] }
     );
 

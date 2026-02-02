@@ -5,6 +5,7 @@ The contracts-cli supports multiple AI agent modes for code generation and valid
 ## Available Agent Modes
 
 ### 1. Simple Mode (Default)
+
 - **Mode**: `simple`
 - **Description**: Direct LLM API calls for code generation
 - **Best For**: Quick prototyping, basic implementations
@@ -13,11 +14,13 @@ The contracts-cli supports multiple AI agent modes for code generation and valid
 - **Quality**: Good baseline quality
 
 **Example:**
+
 ```bash
 contractspec build spec.contracts.ts --agent-mode simple
 ```
 
 ### 2. Cursor Agent Mode
+
 - **Mode**: `cursor`
 - **Description**: Leverages Windsurf/Cursor's agentic capabilities
 - **Best For**: Complex implementations, iterative development
@@ -26,6 +29,7 @@ contractspec build spec.contracts.ts --agent-mode simple
 - **Quality**: High quality with context awareness
 
 **Example:**
+
 ```bash
 contractspec build spec.contracts.ts --agent-mode cursor
 ```
@@ -33,6 +37,7 @@ contractspec build spec.contracts.ts --agent-mode cursor
 **Note**: This mode requires Windsurf/Cursor CLI access. If not available, falls back to simple mode.
 
 ### 3. Claude Code Mode
+
 - **Mode**: `claude-code`
 - **Description**: Uses Anthropic's Claude with extended thinking for code generation
 - **Best For**: Production-quality code, complex logic, thorough validation
@@ -41,18 +46,21 @@ contractspec build spec.contracts.ts --agent-mode cursor
 - **Quality**: Very high quality, excellent for validation
 
 **Features:**
+
 - Extended context understanding
 - Detailed code review capabilities
 - Comprehensive validation reports
 - Best for critical implementations
 
 **Example:**
+
 ```bash
 export ANTHROPIC_API_KEY=your_key
 contractspec build spec.contracts.ts --agent-mode claude-code
 ```
 
 ### 4. OpenAI Codex Mode
+
 - **Mode**: `openai-codex`
 - **Description**: Uses OpenAI's GPT-4o and o1 models for code generation
 - **Best For**: Complex algorithms, optimization tasks
@@ -61,14 +69,31 @@ contractspec build spec.contracts.ts --agent-mode claude-code
 - **Quality**: High quality, excellent for algorithmic problems
 
 **Features:**
+
 - Automatically selects o1 for complex tasks
 - Uses GPT-4o for standard generation
 - Strong at optimization and algorithms
 
 **Example:**
+
 ```bash
 export OPENAI_API_KEY=your_key
 contractspec build spec.contracts.ts --agent-mode openai-codex
+```
+
+### 5. OpenCode SDK Mode
+
+- **Mode**: `opencode` (alias for `opencode-sdk`)
+- **Description**: Uses the OpenCode SDK for self-hosted AI backends
+- **Best For**: Teams running open, self-hosted agent infrastructure
+- **Requirements**: `@opencode-ai/sdk` and a running OpenCode server
+- **Speed**: Moderate
+- **Quality**: High quality with self-hosted control
+
+**Example:**
+
+```bash
+contractspec build spec.contracts.ts --agent-mode opencode
 ```
 
 ## Configuring Agent Modes
@@ -101,22 +126,23 @@ contractspec build spec.ts --agent-mode claude-code --provider claude
 
 ## Agent Mode Comparison
 
-| Feature | Simple | Cursor | Claude Code | OpenAI Codex |
-|---------|--------|--------|-------------|--------------|
-| Speed | ⚡⚡⚡ | ⚡⚡ | ⚡⚡ | ⚡⚡⚡ |
-| Quality | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
-| Validation | Basic | Good | Excellent | Good |
-| Setup | Easy | Moderate | Easy | Easy |
-| Cost | Low | N/A | Moderate | Low-Moderate |
+| Feature    | Simple | Cursor   | Claude Code | OpenAI Codex | OpenCode       |
+| ---------- | ------ | -------- | ----------- | ------------ | -------------- |
+| Speed      | ⚡⚡⚡ | ⚡⚡     | ⚡⚡        | ⚡⚡⚡       | ⚡⚡           |
+| Quality    | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐  | ⭐⭐⭐⭐     | ⭐⭐⭐⭐       |
+| Validation | Basic  | Good     | Excellent   | Good         | Good           |
+| Setup      | Easy   | Moderate | Easy        | Easy         | Moderate       |
+| Cost       | Low    | N/A      | Moderate    | Low-Moderate | Infrastructure |
 
 ## Fallback Behavior
 
 The CLI automatically falls back to simpler modes if the primary mode fails:
 
-1. **cursor** → **claude-code** → **openai-codex** → **simple**
-2. **claude-code** → **openai-codex** → **simple**
-3. **openai-codex** → **simple**
-4. **simple** → Basic templates (no AI)
+1. **opencode** → **claude-code** → **openai-codex** → **simple**
+2. **cursor** → **claude-code** → **openai-codex** → **simple**
+3. **claude-code** → **openai-codex** → **simple**
+4. **openai-codex** → **simple**
+5. **simple** → Basic templates (no AI)
 
 ## Usage Examples
 
@@ -128,6 +154,9 @@ contractspec build user.contracts.ts --agent-mode claude-code
 
 # Use OpenAI for algorithmic code
 contractspec build optimizer.contracts.ts --agent-mode openai-codex
+
+# Use OpenCode for self-hosted backends
+contractspec build spec.contracts.ts --agent-mode opencode
 
 # Disable AI entirely
 contractspec build simple.contracts.ts --no-agent
@@ -142,6 +171,9 @@ contractspec validate user.contracts.ts --check-implementation --agent-mode clau
 # Interactive validation
 contractspec validate user.contracts.ts -i --agent-mode claude-code
 
+# Validate with OpenCode
+contractspec validate user.contracts.ts --check-implementation --agent-mode opencode
+
 # Specify implementation path
 contractspec validate user.contracts.ts \
   --check-implementation \
@@ -152,19 +184,27 @@ contractspec validate user.contracts.ts \
 ## Best Practices
 
 ### For Development
+
 - Use **simple** mode for rapid iteration
 - Use **cursor** mode if working in Windsurf/Cursor
 
 ### For Production
+
 - Use **claude-code** for critical implementations
 - Always validate with `--check-implementation`
 - Review AI-generated code before committing
 
 ### For Complex Logic
+
 - Use **openai-codex** for algorithmic problems
 - Use **claude-code** for comprehensive validation
 
+### For Self-Hosted Backends
+
+- Use **opencode** when running an OpenCode server
+
 ### For CI/CD
+
 - Use **simple** mode for speed
 - Configure via environment variables
 - Set up validation in pre-commit hooks
@@ -174,6 +214,7 @@ contractspec validate user.contracts.ts \
 ### Agent Mode Not Working
 
 Check:
+
 1. API keys are set correctly
 2. Network connectivity to AI providers
 3. Provider quotas and rate limits
@@ -181,6 +222,7 @@ Check:
 ### Fallback to Simple Mode
 
 This happens when:
+
 - API key is missing
 - Provider is unavailable
 - Agent cannot handle the task
@@ -190,6 +232,7 @@ The CLI will show warnings explaining why.
 ### Poor Quality Output
 
 Try:
+
 1. Using a more powerful agent mode
 2. Adding more context to your spec
 3. Reviewing and refining the spec structure
@@ -201,7 +244,7 @@ Try:
 CONTRACTSPEC_AI_PROVIDER=claude|openai|ollama|custom
 
 # Agent mode
-CONTRACTSPEC_AGENT_MODE=simple|cursor|claude-code|openai-codex
+CONTRACTSPEC_AGENT_MODE=simple|cursor|claude-code|openai-codex|opencode
 
 # Model selection
 CONTRACTSPEC_AI_MODEL=claude-3-7-sonnet-20250219

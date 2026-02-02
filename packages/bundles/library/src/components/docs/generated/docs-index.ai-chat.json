@@ -1,0 +1,106 @@
+[
+  {
+    "id": "ai-chat/ai-chat",
+    "title": "ai-chat",
+    "summary": "AI-powered chat interface - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: @platform.core - **Tags**: ai, chat, ui - **File**: `packages/modules/ai-chat/src/ai-chat.capability.ts`",
+    "route": "/docs/reference/ai-chat/ai-chat",
+    "source": "generated",
+    "contentPath": "ai-chat/ai-chat.md"
+  },
+  {
+    "id": "ai-chat/ai-chat.context.scan",
+    "title": "ai-chat.context.scan",
+    "summary": "Scan workspace context. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @ai-team - **Tags**: chat, context - **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
+    "route": "/docs/reference/ai-chat/ai-chat.context.scan",
+    "source": "generated",
+    "contentPath": "ai-chat/ai-chat.context.scan.md"
+  },
+  {
+    "id": "ai-chat/ai-chat.conversation.created",
+    "title": "ai-chat.conversation.created",
+    "summary": "New conversation created - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @ai-chat - **Tags**: ai-chat, conversation, created - **File**: `packages/modules/ai-chat/src/events.ts`",
+    "route": "/docs/reference/ai-chat/ai-chat.conversation.created",
+    "source": "generated",
+    "contentPath": "ai-chat/ai-chat.conversation.created.md"
+  },
+  {
+    "id": "ai-chat/ai-chat.conversation.deleted",
+    "title": "ai-chat.conversation.deleted",
+    "summary": "Conversation deleted - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @ai-chat - **Tags**: ai-chat, conversation, deleted - **File**: `packages/modules/ai-chat/src/events.ts`",
+    "route": "/docs/reference/ai-chat/ai-chat.conversation.deleted",
+    "source": "generated",
+    "contentPath": "ai-chat/ai-chat.conversation.deleted.md"
+  },
+  {
+    "id": "ai-chat/ai-chat.conversations.delete",
+    "title": "ai-chat.conversations.delete",
+    "summary": "Delete a conversation. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @ai-team - **Tags**: chat, delete - **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
+    "route": "/docs/reference/ai-chat/ai-chat.conversations.delete",
+    "source": "generated",
+    "contentPath": "ai-chat/ai-chat.conversations.delete.md"
+  },
+  {
+    "id": "ai-chat/ai-chat.conversations.get",
+    "title": "ai-chat.conversations.get",
+    "summary": "Get a specific conversation. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @ai-team - **Tags**: chat, get - **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
+    "route": "/docs/reference/ai-chat/ai-chat.conversations.get",
+    "source": "generated",
+    "contentPath": "ai-chat/ai-chat.conversations.get.md"
+  },
+  {
+    "id": "ai-chat/ai-chat.conversations.list",
+    "title": "ai-chat.conversations.list",
+    "summary": "List user conversations. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @ai-team - **Tags**: chat, list - **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
+    "route": "/docs/reference/ai-chat/ai-chat.conversations.list",
+    "source": "generated",
+    "contentPath": "ai-chat/ai-chat.conversations.list.md"
+  },
+  {
+    "id": "ai-chat/ai-chat.error",
+    "title": "ai-chat.error",
+    "summary": "Chat error occurred - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @ai-chat - **Tags**: ai-chat, error - **File**: `packages/modules/ai-chat/src/events.ts` ```typescript",
+    "route": "/docs/reference/ai-chat/ai-chat.error",
+    "source": "generated",
+    "contentPath": "ai-chat/ai-chat.error.md"
+  },
+  {
+    "id": "ai-chat/ai-chat.message.received",
+    "title": "ai-chat.message.received",
+    "summary": "Message received from AI - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @ai-chat - **Tags**: ai-chat, message, received - **File**: `packages/modules/ai-chat/src/events.ts`",
+    "route": "/docs/reference/ai-chat/ai-chat.message.received",
+    "source": "generated",
+    "contentPath": "ai-chat/ai-chat.message.received.md"
+  },
+  {
+    "id": "ai-chat/ai-chat.message.sent",
+    "title": "ai-chat.message.sent",
+    "summary": "Message sent by user - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @ai-chat - **Tags**: ai-chat, message, sent - **File**: `packages/modules/ai-chat/src/events.ts`",
+    "route": "/docs/reference/ai-chat/ai-chat.message.sent",
+    "source": "generated",
+    "contentPath": "ai-chat/ai-chat.message.sent.md"
+  },
+  {
+    "id": "ai-chat/ai-chat.providers.list",
+    "title": "ai-chat.providers.list",
+    "summary": "List available AI providers. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @ai-team - **Tags**: chat, providers - **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
+    "route": "/docs/reference/ai-chat/ai-chat.providers.list",
+    "source": "generated",
+    "contentPath": "ai-chat/ai-chat.providers.list.md"
+  },
+  {
+    "id": "ai-chat/ai-chat.send",
+    "title": "ai-chat.send",
+    "summary": "Send a message to the AI chat. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @ai-team - **Tags**: chat, send - **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
+    "route": "/docs/reference/ai-chat/ai-chat.send",
+    "source": "generated",
+    "contentPath": "ai-chat/ai-chat.send.md"
+  },
+  {
+    "id": "ai-chat/ai-chat.stream",
+    "title": "ai-chat.stream",
+    "summary": "Stream a message response from the AI chat. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @ai-team - **Tags**: chat, stream - **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
+    "route": "/docs/reference/ai-chat/ai-chat.stream",
+    "source": "generated",
+    "contentPath": "ai-chat/ai-chat.stream.md"
+  }
+]

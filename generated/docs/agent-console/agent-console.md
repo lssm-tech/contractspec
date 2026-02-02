@@ -54,7 +54,7 @@ AI agent orchestration with tools, runs, and logs management
 ## Presentations (7)
 
 - `agent-console.dashboard` (v1.0.0)
-- `agent-console.agent.list` (v1.0.0)
+- `agent-console.agent.viewList` (v1.0.0)
 - `agent-console.agent.detail` (v1.0.0)
 - `agent-console.run.list` (v1.0.0)
 - `agent-console.run.detail` (v1.0.0)
@@ -141,7 +141,7 @@ export const AgentConsoleFeature: FeatureModuleSpec = defineFeature({
   // Presentations associated with this feature
   presentations: [
     { key: 'agent-console.dashboard', version: '1.0.0' },
-    { key: 'agent-console.agent.list', version: '1.0.0' },
+    { key: 'agent-console.agent.viewList', version: '1.0.0' },
     { key: 'agent-console.agent.detail', version: '1.0.0' },
     { key: 'agent-console.run.list', version: '1.0.0' },
     { key: 'agent-console.run.detail', version: '1.0.0' },
@@ -153,7 +153,7 @@ export const AgentConsoleFeature: FeatureModuleSpec = defineFeature({
   opToPresentation: [
     {
       op: { key: 'agent-console.agent.list', version: '1.0.0' },
-      pres: { key: 'agent-console.agent.list', version: '1.0.0' },
+      pres: { key: 'agent-console.agent.viewList', version: '1.0.0' },
     },
     {
       op: { key: 'agent-console.agent.get', version: '1.0.0' },
@@ -185,7 +185,7 @@ export const AgentConsoleFeature: FeatureModuleSpec = defineFeature({
       targets: ['react', 'markdown'],
     },
     {
-      key: 'agent-console.agent.list',
+      key: 'agent-console.agent.viewList',
       version: '1.0.0',
       targets: ['react', 'markdown', 'application/json'],
     },

@@ -7,23 +7,21 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
-import {
-  loadWorkspaceConfig,
-  type Config,
-  getAIProvider,
-} from '@contractspec/bundle.workspace';
+import type {
+  ModelInfo,
+  Provider,
+  ProviderMode,
+  ProviderName,
+} from '@contractspec/lib.ai-providers';
+import { getAIProvider } from '@contractspec/lib.ai-providers';
 import {
   ChatService,
   InMemoryConversationStore,
 } from '@contractspec/module.ai-chat/core';
 import { getWorkspaceAdapters } from '../workspace/adapters';
-import type {
-  Provider,
-  ProviderName,
-  ProviderMode,
-  ModelInfo,
-} from '@contractspec/lib.ai-providers';
 import type { LanguageModel } from 'ai';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
+import { loadWorkspaceConfig } from '@contractspec/bundle.workspace';
 
 class WrappedProvider implements Provider {
   constructor(
@@ -75,7 +73,7 @@ export async function openChatPanel(
   const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
 
   // Load config to check for AI provider
-  let config: Config;
+  let config: ResolvedContractsrcConfig;
   try {
     config = await loadWorkspaceConfig(adapters.fs, workspaceRoot);
   } catch (error) {
@@ -115,7 +113,10 @@ export async function openChatPanel(
   );
 
   // Initialize Chat Service
-  const provider = getAIProvider(config);
+  const provider = getAIProvider({
+    ...config,
+    customEndpoint: config.customEndpoint || undefined,
+  });
 
   // Build system prompt with workspace context
   const systemPrompt = buildSystemPrompt(workspaceRoot);
@@ -298,7 +299,7 @@ Guidelines:
 function getChatPanelHtml(
   _webview: vscode.Webview,
   _extensionUri: vscode.Uri,
-  config: Config,
+  config: ResolvedContractsrcConfig,
   contextInfo: string
 ): string {
   const providerName = config.aiProvider || 'configured';

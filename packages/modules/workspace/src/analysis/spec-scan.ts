@@ -4,7 +4,11 @@
  * Scans source code to extract spec definitions and metadata without execution.
  */
 
-import type { SpecScanResult } from '../types/analysis-types';
+import type {
+  AnalyzedOperationKind,
+  AnalyzedSpecType,
+  SpecScanResult,
+} from '../types/analysis-types';
 import {
   extractArrayConstants,
   resolveVariablesInBlock,
@@ -19,11 +23,11 @@ import {
 } from './utils/matchers';
 
 import {
-  parsePolicy,
   extractRefList,
-  extractTestRefs,
   extractTestCoverage,
+  extractTestRefs,
   extractTestTarget,
+  parsePolicy,
 } from './spec-parsing-utils';
 
 export { extractTestTarget, extractTestCoverage } from './spec-parsing-utils';
@@ -85,6 +89,93 @@ export function scanAllSpecsFromSource(
   return results;
 }
 
+export function inferSpecTypeFromCodeBlock(fileSourceCode: string): {
+  specType: AnalyzedSpecType;
+  kind: AnalyzedOperationKind;
+} {
+  if (fileSourceCode.includes('defineCommand')) {
+    return {
+      specType: 'operation',
+      kind: 'command',
+    };
+  }
+  if (fileSourceCode.includes('defineQuery')) {
+    return {
+      specType: 'operation',
+      kind: 'query',
+    };
+  }
+  if (fileSourceCode.includes('defineEvent')) {
+    return {
+      specType: 'event',
+      kind: 'event',
+    };
+  }
+  if (fileSourceCode.includes('definePresentation')) {
+    return {
+      specType: 'presentation',
+      kind: 'presentation',
+    };
+  }
+  if (fileSourceCode.includes('definePolicy')) {
+    return {
+      specType: 'policy',
+      kind: 'policy',
+    };
+  }
+  if (fileSourceCode.includes('defineCapability')) {
+    return {
+      specType: 'capability',
+      kind: 'capability',
+    };
+  }
+  if (fileSourceCode.includes('defineExample')) {
+    return {
+      specType: 'example',
+      kind: 'example',
+    };
+  }
+  if (
+    fileSourceCode.includes('defineAppConfig') &&
+    !fileSourceCode.includes('export const defineAppConfig')
+  ) {
+    return {
+      specType: 'app-config',
+      kind: 'app-config',
+    };
+  }
+  if (fileSourceCode.includes('defineIntegration')) {
+    return {
+      specType: 'integration',
+      kind: 'integration',
+    };
+  }
+  if (fileSourceCode.includes('defineWorkflow')) {
+    return {
+      specType: 'workflow',
+      kind: 'workflow',
+    };
+  }
+  if (fileSourceCode.includes('defineTestSpec')) {
+    return {
+      specType: 'test-spec',
+      kind: 'test-spec',
+    };
+  }
+
+  if (fileSourceCode.includes('defineFeature')) {
+    return {
+      specType: 'feature',
+      kind: 'feature',
+    };
+  }
+
+  return {
+    specType: 'unknown',
+    kind: 'unknown',
+  };
+}
+
 /**
  * Scan a single spec source string.
  */
@@ -104,46 +195,7 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
   const tags = matchStringArrayField(code, 'tags');
 
   // Determine type
-  let specType: SpecScanResult['specType'] = 'unknown';
-  let kind: string | undefined;
-
-  if (code.includes('defineCommand')) {
-    specType = 'operation';
-    kind = 'command';
-  } else if (code.includes('defineQuery')) {
-    specType = 'operation';
-    kind = 'query';
-  } else if (code.includes('defineEvent')) {
-    specType = 'event';
-    kind = 'event';
-  } else if (code.includes('definePresentation')) {
-    specType = 'presentation';
-    kind = 'presentation';
-  } else if (code.includes('definePolicy')) {
-    specType = 'policy';
-    kind = 'policy';
-  } else if (code.includes('defineCapability')) {
-    specType = 'capability';
-    kind = 'capability';
-  } else if (code.includes('defineExample')) {
-    specType = 'example';
-    kind = 'example';
-  } else if (code.includes('defineAppConfig')) {
-    specType = 'app-config';
-    kind = 'app-config';
-  } else if (code.includes('defineIntegration')) {
-    specType = 'integration';
-    kind = 'integration';
-  } else if (code.includes('defineWorkflow')) {
-    specType = 'workflow';
-    kind = 'workflow';
-  } else if (code.includes('defineTestSpec')) {
-    specType = 'test-spec';
-    kind = 'test-spec';
-  } else if (code.includes('defineFeature')) {
-    specType = 'feature';
-    kind = 'feature';
-  }
+  const inferredSpecType = inferSpecTypeFromCodeBlock(code);
 
   // Check feature flags/sections
   const hasMeta = /meta\s*:\s*\{/.test(code);
@@ -164,8 +216,8 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
     filePath,
     key,
     version,
-    specType,
-    kind: kind as SpecScanResult['kind'],
+    specType: inferredSpecType.specType,
+    kind: inferredSpecType.kind,
     description,
     goal,
     context,

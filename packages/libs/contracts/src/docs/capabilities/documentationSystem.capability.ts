@@ -1,0 +1,71 @@
+import { defineCapability } from '../../capabilities';
+import {
+  DOCS_DOMAIN,
+  DOCS_OWNERS,
+  DOCS_STABILITY,
+  DOCS_TAGS,
+} from '../constants';
+
+export const DocumentationSystemCapability = defineCapability({
+  meta: {
+    key: 'docs.system',
+    version: '1.0.0',
+    kind: 'ui',
+    title: 'Documentation System',
+    description: 'End-to-end docs generation, indexing, and presentation.',
+    domain: DOCS_DOMAIN,
+    owners: DOCS_OWNERS,
+    tags: [...DOCS_TAGS, 'system'],
+    stability: DOCS_STABILITY,
+  },
+  provides: [
+    {
+      surface: 'operation',
+      key: 'docs.generate',
+      version: '1.0.0',
+      description: 'Generate documentation artifacts.',
+    },
+    {
+      surface: 'operation',
+      key: 'docs.publish',
+      version: '1.0.0',
+      description: 'Publish documentation artifacts.',
+    },
+    {
+      surface: 'operation',
+      key: 'docs.search',
+      version: '1.0.0',
+      description: 'Index and search DocBlocks.',
+    },
+    {
+      surface: 'operation',
+      key: 'docs.contract.reference',
+      version: '1.0.0',
+      description: 'Resolve contract references for docs.',
+    },
+    {
+      surface: 'event',
+      key: 'docs.generated',
+      version: '1.0.0',
+      description: 'Docs generation completed.',
+    },
+    {
+      surface: 'event',
+      key: 'docs.published',
+      version: '1.0.0',
+      description: 'Docs publish completed.',
+    },
+    {
+      surface: 'presentation',
+      key: 'docs.layout',
+      version: '1.0.0',
+      description: 'Docs layout presentation.',
+    },
+    {
+      surface: 'presentation',
+      key: 'docs.reference.page',
+      version: '1.0.0',
+      description: 'Docs reference page presentation.',
+    },
+  ],
+});

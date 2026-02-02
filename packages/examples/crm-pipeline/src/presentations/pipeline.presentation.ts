@@ -37,7 +37,7 @@ export const PipelineKanbanPresentation = definePresentation({
  */
 export const DealListPresentation = definePresentation({
   meta: {
-    key: 'crm.deal.list',
+    key: 'crm.deal.viewList',
     version: '1.0.0',
     title: 'Deal List',
     description: 'List view of deals with value, status, and owner info',

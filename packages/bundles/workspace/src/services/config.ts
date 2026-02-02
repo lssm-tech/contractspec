@@ -2,31 +2,12 @@
  * Workspace configuration service.
  */
 
-import * as z from 'zod';
-import type { WorkspaceConfig } from '@contractspec/module.workspace';
-import { DEFAULT_WORKSPACE_CONFIG } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../ports/fs';
-
-const ConfigSchema = z.object({
-  aiProvider: z
-    .enum(['claude', 'openai', 'ollama', 'custom'])
-    .default('claude'),
-  aiModel: z.string().optional(),
-  agentMode: z
-    .enum(['simple', 'cursor', 'claude-code', 'openai-codex'])
-    .default('simple'),
-  customEndpoint: z.url().nullable().optional(),
-  customApiKey: z.string().nullable().optional(),
-  outputDir: z.string().default('./src'),
-  conventions: z.object({
-    operations: z.string().default('interactions/commands|queries'),
-    events: z.string().default('events'),
-    presentations: z.string().default('presentations'),
-    forms: z.string().default('forms'),
-  }),
-  defaultOwners: z.array(z.string()).default([]),
-  defaultTags: z.array(z.string()).default([]),
-});
+import {
+  ContractsrcSchema,
+  DEFAULT_CONTRACTSRC,
+  type ResolvedContractsrcConfig,
+} from '@contractspec/lib.contracts';
 
 /**
  * Load workspace configuration from .contractsrc.json.
@@ -34,20 +15,29 @@ const ConfigSchema = z.object({
 export async function loadWorkspaceConfig(
   fs: FsAdapter,
   cwd?: string
-): Promise<WorkspaceConfig> {
+): Promise<ResolvedContractsrcConfig> {
   const configPath = fs.join(cwd ?? '.', '.contractsrc.json');
 
   const exists = await fs.exists(configPath);
   if (!exists) {
-    return DEFAULT_WORKSPACE_CONFIG;
+    return DEFAULT_CONTRACTSRC;
   }
 
   try {
     const content = await fs.readFile(configPath);
     const parsed = JSON.parse(content);
-    return ConfigSchema.parse(parsed) as WorkspaceConfig;
+    const resolved = ContractsrcSchema.safeParse(parsed);
+
+    return {
+      ...DEFAULT_CONTRACTSRC,
+      ...resolved.data,
+      conventions: {
+        ...DEFAULT_CONTRACTSRC.conventions,
+        ...(resolved.data?.conventions || {}),
+      },
+    };
   } catch {
-    return DEFAULT_WORKSPACE_CONFIG;
+    return DEFAULT_CONTRACTSRC;
   }
 }
 
@@ -55,7 +45,7 @@ export async function loadWorkspaceConfig(
  * Get API key for the configured provider.
  */
 export function getApiKey(
-  provider: WorkspaceConfig['aiProvider']
+  provider: ResolvedContractsrcConfig['aiProvider']
 ): string | undefined {
   switch (provider) {
     case 'claude':

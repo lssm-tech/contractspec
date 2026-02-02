@@ -1,0 +1,23 @@
+name: ContractSpec Drift Workflow
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  contractspec:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: ContractSpec drift check
+        uses: ./packages/apps/action-drift
+        with:
+          package-manager: bun
+          working-directory: '.'
+          generate-command: 'bun contractspec generate'
+          on-drift: fail
+          token: ${{ github.token }}

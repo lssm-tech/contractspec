@@ -5,9 +5,7 @@
  * Missing references are reported as ERRORS (blocking CI) to enforce contract integrity.
  */
 
-import { scanAllSpecsFromSource } from '@contractspec/module.workspace';
-import type { FsAdapter } from '../../../ports/fs';
-import type { LoggerAdapter } from '../../../ports/logger';
+import { type SpecScanResult } from '@contractspec/module.workspace';
 import type { SpecLocation } from '../../integrity';
 import { validateTestRefs } from '../../test-link';
 import type { CIIssue } from '../types';
@@ -16,10 +14,8 @@ import type { CIIssue } from '../types';
  * Run test reference validation checks.
  */
 export async function runTestRefsChecks(
-  adapters: { fs: FsAdapter; logger: LoggerAdapter },
-  specFiles: string[]
+  specFiles: SpecScanResult[]
 ): Promise<CIIssue[]> {
-  const { fs } = adapters;
   const issues: CIIssue[] = [];
 
   // Build inventory of test specs
@@ -35,34 +31,29 @@ export async function runTestRefsChecks(
 
   // Scan all spec files to build inventory
   for (const specFile of specFiles) {
-    const content = await fs.readFile(specFile);
-    const scans = scanAllSpecsFromSource(content, specFile);
+    if (!specFile.key || !specFile.version) continue;
 
-    for (const scan of scans) {
-      if (!scan.key || !scan.version) continue;
+    // Build test spec index
+    if (specFile.specType === 'test-spec') {
+      const testKey = `${specFile.key}.v${specFile.version}`;
+      testSpecIndex.set(testKey, {
+        key: specFile.key,
+        version: specFile.version,
+        file: specFile.filePath,
+        type: 'test-spec',
+      });
+    }
 
-      // Build test spec index
-      if (scan.specType === 'test-spec') {
-        const testKey = `${scan.key}.v${scan.version}`;
-        testSpecIndex.set(testKey, {
-          key: scan.key,
-          version: scan.version,
-          file: specFile,
-          type: 'test-spec',
-        });
+    // Track specs with test refs for validation
+    if (specFile.testRefs && specFile.testRefs.length > 0) {
+      if (!specsByFile.has(specFile.filePath)) {
+        specsByFile.set(specFile.filePath, []);
       }
-
-      // Track specs with test refs for validation
-      if (scan.testRefs && scan.testRefs.length > 0) {
-        if (!specsByFile.has(specFile)) {
-          specsByFile.set(specFile, []);
-        }
-        specsByFile.get(specFile)?.push({
-          key: scan.key,
-          version: scan.version,
-          testRefs: scan.testRefs,
-        });
-      }
+      specsByFile.get(specFile.filePath)?.push({
+        key: specFile.key,
+        version: specFile.version,
+        testRefs: specFile.testRefs,
+      });
     }
   }
 

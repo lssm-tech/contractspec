@@ -28,7 +28,7 @@ export type Actor = 'anonymous' | 'user' | 'admin';
  * - `job`: Background job/scheduled task
  * - `agent`: AI agent or automated system
  */
-export type Channel = 'web' | 'mobile' | 'job' | 'agent';
+export type Channel = 'web' | 'mobile' | 'job' | 'agent' | 'ci';
 
 import type {
   ConsentDefinition,
@@ -58,21 +58,26 @@ import type { EventRegistry } from './events';
  * Used to identify the kind of spec in registries and runtime operations.
  */
 export type ContractSpecType =
-  | 'app-config'
-  | 'agent'
   | 'operation'
-  | 'example'
   | 'event'
   | 'presentation'
-  | 'capability'
-  | 'integration'
-  | 'data-view'
   | 'feature'
+  | 'capability'
+  | 'data-view'
+  | 'form'
+  | 'agent'
+  | 'migration'
   | 'workflow'
-  | 'policy'
-  | 'theme'
-  | 'telemetry'
   | 'experiment'
+  | 'integration'
+  | 'theme'
+  | 'knowledge'
+  | 'telemetry'
+  | 'example'
+  | 'app-config'
+  | 'policy'
+  | 'test-spec'
+  | 'type'
   | 'knowledge-space';
 
 // ─────────────────────────────────────────────────────────────────────────────

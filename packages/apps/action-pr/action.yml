@@ -1,0 +1,288 @@
+name: 'ContractSpec PR'
+description: 'Run ContractSpec PR checks (view, impact, validation, drift)'
+author: 'LSSM'
+branding:
+  icon: 'check-circle'
+  color: 'blue'
+
+inputs:
+  package-manager:
+    description: 'Package manager to use (bun|npm|pnpm|yarn)'
+    required: false
+    default: 'bun'
+  working-directory:
+    description: 'Working directory for running commands'
+    required: false
+    default: '.'
+  report-mode:
+    description: 'Report output mode (summary|comment|both|off)'
+    required: false
+    default: 'summary'
+  enable-drift:
+    description: 'Run drift detection after generate'
+    required: false
+    default: 'true'
+  fail-on:
+    description: 'Fail on breaking, drift, any, or never'
+    required: false
+    default: 'any'
+  generate-command:
+    description: 'Command to regenerate artifacts (required when enable-drift=true)'
+    required: false
+    default: ''
+  validate-command:
+    description: 'Override validation command'
+    required: false
+    default: ''
+  contracts-dir:
+    description: 'Directory containing contract specs'
+    required: false
+    default: ''
+  contracts-glob:
+    description: 'Glob pattern for contract specs'
+    required: false
+    default: ''
+  token:
+    description: 'GitHub token for PR comments'
+    required: false
+    default: '${{ github.token }}'
+
+outputs:
+  drift-detected:
+    description: 'Whether drift was detected'
+    value: ${{ steps.result.outputs.drift_detected }}
+  breaking-change-detected:
+    description: 'Whether breaking changes were detected'
+    value: ${{ steps.result.outputs.breaking_change_detected }}
+  validation-failed:
+    description: 'Whether validation failed'
+    value: ${{ steps.result.outputs.validation_failed }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set action defaults
+      shell: bash
+      run: |
+        echo "PACKAGE_MANAGER=${{ inputs.package-manager }}" >> $GITHUB_ENV
+        echo "WORKING_DIRECTORY=${{ inputs.working-directory }}" >> $GITHUB_ENV
+        echo "REPORT_MODE=${{ inputs.report-mode }}" >> $GITHUB_ENV
+        echo "ENABLE_DRIFT=${{ inputs.enable-drift }}" >> $GITHUB_ENV
+        echo "FAIL_ON=${{ inputs.fail-on }}" >> $GITHUB_ENV
+        echo "GENERATE_COMMAND=${{ inputs.generate-command }}" >> $GITHUB_ENV
+        echo "VALIDATE_COMMAND=${{ inputs.validate-command }}" >> $GITHUB_ENV
+        echo "CONTRACTS_DIR=${{ inputs.contracts-dir }}" >> $GITHUB_ENV
+        echo "CONTRACTS_GLOB=${{ inputs.contracts-glob }}" >> $GITHUB_ENV
+        echo "COMMENT_TOKEN=${{ inputs.token }}" >> $GITHUB_ENV
+        echo "TURBO_TELEMETRY_DISABLED=1" >> $GITHUB_ENV
+        echo "DO_NOT_TRACK=1" >> $GITHUB_ENV
+        # Pass through Turbo env vars if present in the calling workflow environment
+        if [ -n "$TURBO_TOKEN" ]; then echo "TURBO_TOKEN=$TURBO_TOKEN" >> $GITHUB_ENV; fi
+        if [ -n "$TURBO_TEAM" ]; then echo "TURBO_TEAM=$TURBO_TEAM" >> $GITHUB_ENV; fi
+
+
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: '1.3.8'
+
+    - name: Setup Node
+      if: env.PACKAGE_MANAGER != 'bun'
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Configure ContractSpec command
+      shell: bash
+      run: |
+        case "$PACKAGE_MANAGER" in
+          bun)
+            echo "CONTRACTSPEC_CMD=bunx contractspec" >> $GITHUB_ENV
+            ;;
+          npm)
+            echo "CONTRACTSPEC_CMD=npx contractspec" >> $GITHUB_ENV
+            ;;
+          pnpm)
+            echo "CONTRACTSPEC_CMD=pnpm dlx contractspec" >> $GITHUB_ENV
+            ;;
+          yarn)
+            echo "CONTRACTSPEC_CMD=yarn dlx contractspec" >> $GITHUB_ENV
+            ;;
+          *)
+            echo "::error::Unsupported package-manager: $PACKAGE_MANAGER"
+            exit 1
+            ;;
+        esac
+
+    - name: Install dependencies
+      shell: bash
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        case "$PACKAGE_MANAGER" in
+          bun)
+            if [ -f "bun.lock" ] || [ -f "bun.lockb" ]; then
+              bun install --frozen-lockfile
+            else
+              bun install
+            fi
+            ;;
+          npm)
+            if [ -f "package-lock.json" ]; then
+              npm ci
+            else
+              npm install
+            fi
+            ;;
+          pnpm)
+            corepack enable
+            pnpm install --frozen-lockfile
+            ;;
+          yarn)
+            corepack enable
+            yarn install --frozen-lockfile
+            ;;
+        esac
+
+    - name: Build local ContractSpec CLI (if present)
+      if: env.PACKAGE_MANAGER == 'bun'
+      shell: bash
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        if [ -f "packages/apps/cli-contractspec/package.json" ]; then
+          bun run build --filter=@contractspec/app.cli-contractspec
+        fi
+      env:
+        TURBO_TOKEN: ${{ env.TURBO_TOKEN }}
+        TURBO_TEAM: ${{ env.TURBO_TEAM }}
+
+    - name: Collect contract changes
+      id: changes
+      shell: bash
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        mkdir -p .contractspec-ci
+        BASELINE="${{ github.base_ref }}"
+        if [ -n "$BASELINE" ]; then
+          git fetch origin "$BASELINE" --depth=1 || true
+          BASELINE="origin/$BASELINE"
+        else
+          BASELINE="HEAD~1"
+        fi
+        echo "BASELINE=$BASELINE" >> $GITHUB_ENV
+        git diff --name-only "$BASELINE"...HEAD > .contractspec-ci/changed-files.txt
+        $CONTRACTSPEC_CMD action-pr collect-changes
+
+    - name: Generate contract view
+      shell: bash
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        set +e
+        $CONTRACTSPEC_CMD view --audience product --baseline "$BASELINE" > .contractspec-ci/product-view.md
+        VIEW_EXIT=$?
+        set -e
+        if [ $VIEW_EXIT -ne 0 ]; then
+          echo "Contract view failed (exit $VIEW_EXIT)." > .contractspec-ci/product-view.md
+        fi
+
+    - name: Run impact analysis
+      shell: bash
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        set +e
+        $CONTRACTSPEC_CMD impact --baseline "$BASELINE" --format json > .contractspec-ci/impact.json
+        IMPACT_EXIT=$?
+        set -e
+        if [ $IMPACT_EXIT -ne 0 ]; then
+          echo "{}" > .contractspec-ci/impact.json
+        fi
+
+    - name: Validate contracts
+      id: validate
+      shell: bash
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        set +e
+        if [ -n "$VALIDATE_COMMAND" ]; then
+          bash -lc "$VALIDATE_COMMAND" 2>&1 | tee .contractspec-ci/validation.txt
+        else
+          $CONTRACTSPEC_CMD validate 2>&1 | tee .contractspec-ci/validation.txt
+        fi
+        VALIDATION_EXIT=${PIPESTATUS[0]}
+        set -e
+        if [ $VALIDATION_EXIT -eq 0 ]; then
+          echo "VALIDATION_STATUS=pass" >> $GITHUB_ENV
+          echo "VALIDATION_FAILED=false" >> $GITHUB_ENV
+        else
+          echo "VALIDATION_STATUS=fail" >> $GITHUB_ENV
+          echo "VALIDATION_FAILED=true" >> $GITHUB_ENV
+        fi
+
+    - name: Run generate command
+      if: env.ENABLE_DRIFT == 'true'
+      shell: bash
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        if [ -z "$GENERATE_COMMAND" ]; then
+          echo "::error::generate-command is required when enable-drift=true"
+          exit 1
+        fi
+        bash -lc "$GENERATE_COMMAND"
+
+    - name: Check drift
+      if: env.ENABLE_DRIFT == 'true'
+      shell: bash
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        git status --porcelain > .contractspec-ci/drift-status.txt
+        $CONTRACTSPEC_CMD action-pr check-drift
+
+    - name: Mark drift as skipped
+      if: env.ENABLE_DRIFT != 'true'
+      shell: bash
+      run: |
+        echo "DRIFT_STATUS=skipped" >> $GITHUB_ENV
+        echo "DRIFT_DETECTED=false" >> $GITHUB_ENV
+
+    - name: Build report data
+      shell: bash
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        # Collect contract verification status
+        echo "Collecting contract verification status..."
+        $CONTRACTSPEC_CMD action-pr get-contract-status
+
+        # Build report data
+        $CONTRACTSPEC_CMD action-pr build-report-data
+
+    - name: Generate report
+      shell: bash
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        $CONTRACTSPEC_CMD action-pr generate-report
+
+    - name: Comment on PR
+      if: ${{ github.event.pull_request && (inputs.report-mode == 'comment' || inputs.report-mode == 'both') && !github.event.pull_request.head.repo.fork }}
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ env.COMMENT_TOKEN }}
+        script: |
+          const fs = require("fs");
+          const path = `${process.env.WORKING_DIRECTORY}/.contractspec-ci/report.md`;
+          const report = fs.readFileSync(path, "utf8");
+          const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+          const header = `## ContractSpec Report (run ${context.runId})`;
+          const body = `${header}\n${runUrl}\n\n${report}`;
+
+          await github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            body,
+          });
+      continue-on-error: true
+
+    - name: Finalize results
+      id: result
+      shell: bash
+      run: |
+        $CONTRACTSPEC_CMD action-pr finalize

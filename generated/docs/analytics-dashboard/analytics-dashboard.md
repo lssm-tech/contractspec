@@ -30,7 +30,7 @@ Analytics dashboards with customizable widgets and queries
 
 ## Presentations (5)
 
-- `analytics.dashboard.list` (v1.0.0)
+- `analytics.dashboard.viewList` (v1.0.0)
 - `analytics.dashboard.view` (v1.0.0)
 - `analytics.dashboard.editor` (v1.0.0)
 - `analytics.query.list` (v1.0.0)
@@ -98,7 +98,7 @@ export const AnalyticsDashboardFeature = defineFeature({
   // Presentations associated with this feature (PresentationRef[])
   presentations: [
     // Dashboard presentations
-    { key: 'analytics.dashboard.list', version: '1.0.0' },
+    { key: 'analytics.dashboard.viewList', version: '1.0.0' },
     { key: 'analytics.dashboard.view', version: '1.0.0' },
     { key: 'analytics.dashboard.editor', version: '1.0.0' },
 
@@ -112,7 +112,7 @@ export const AnalyticsDashboardFeature = defineFeature({
   opToPresentation: [
     {
       op: { key: 'analytics.dashboard.list', version: '1.0.0' },
-      pres: { key: 'analytics.dashboard.list', version: '1.0.0' },
+      pres: { key: 'analytics.dashboard.viewList', version: '1.0.0' },
     },
     {
       op: { key: 'analytics.dashboard.get', version: '1.0.0' },
@@ -132,7 +132,7 @@ export const AnalyticsDashboardFeature = defineFeature({
   // Target requirements for multi-surface rendering
   presentationsTargets: [
     {
-      key: 'analytics.dashboard.list',
+      key: 'analytics.dashboard.viewList',
       version: '1.0.0',
       targets: ['react', 'markdown', 'application/json'],
     },

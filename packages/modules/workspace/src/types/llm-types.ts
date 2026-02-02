@@ -5,6 +5,7 @@
  */
 
 import type { Stability } from './spec-types';
+import type { AnalyzedOperationKind, AnalyzedSpecType } from './analysis-types';
 
 /**
  * LLM export format options.
@@ -62,21 +63,9 @@ export interface ParsedSpec {
   /** Spec metadata */
   meta: ParsedSpecMeta;
   /** Type of spec (operation, event, feature, etc.) */
-  specType: string;
+  specType: AnalyzedSpecType;
   /** For operations: command or query */
-  kind?:
-    | 'command'
-    | 'query'
-    | 'event'
-    | 'presentation'
-    | 'capability'
-    | 'policy'
-    | 'type'
-    | 'example'
-    | 'app-config'
-    | 'integration'
-    | 'workflow'
-    | 'unknown';
+  kind?: AnalyzedOperationKind;
   /** Whether the spec defines input/output schemas */
   hasIo?: boolean;
   /** Whether the spec defines policy rules */

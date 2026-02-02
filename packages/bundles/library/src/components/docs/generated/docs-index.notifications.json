@@ -1,0 +1,66 @@
+[
+  {
+    "id": "notifications/notifications",
+    "title": "notifications",
+    "summary": "User notifications and alerts - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: @platform.messaging - **Tags**: notifications, messaging, alerts - **File**: `packages/modules/notifications/src/notifications.capability.ts`",
+    "route": "/docs/reference/notifications/notifications",
+    "source": "generated",
+    "contentPath": "notifications/notifications.md"
+  },
+  {
+    "id": "notifications/notifications.delete",
+    "title": "notifications.delete",
+    "summary": "Delete a notification. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.notifications - **Tags**: notifications, delete - **File**: `packages/modules/notifications/src/contracts/index.ts`",
+    "route": "/docs/reference/notifications/notifications.delete",
+    "source": "generated",
+    "contentPath": "notifications/notifications.delete.md"
+  },
+  {
+    "id": "notifications/notifications.list",
+    "title": "notifications.list",
+    "summary": "List notifications for the current user. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.notifications - **Tags**: notifications, list - **File**: `packages/modules/notifications/src/contracts/index.ts`",
+    "route": "/docs/reference/notifications/notifications.list",
+    "source": "generated",
+    "contentPath": "notifications/notifications.list.md"
+  },
+  {
+    "id": "notifications/notifications.markAllRead",
+    "title": "notifications.markAllRead",
+    "summary": "Mark all notifications as read. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.notifications - **Tags**: notifications, read - **File**: `packages/modules/notifications/src/contracts/index.ts`",
+    "route": "/docs/reference/notifications/notifications.markAllRead",
+    "source": "generated",
+    "contentPath": "notifications/notifications.markAllRead.md"
+  },
+  {
+    "id": "notifications/notifications.markRead",
+    "title": "notifications.markRead",
+    "summary": "Mark a notification as read. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.notifications - **Tags**: notifications, read - **File**: `packages/modules/notifications/src/contracts/index.ts`",
+    "route": "/docs/reference/notifications/notifications.markRead",
+    "source": "generated",
+    "contentPath": "notifications/notifications.markRead.md"
+  },
+  {
+    "id": "notifications/notifications.preferences.get",
+    "title": "notifications.preferences.get",
+    "summary": "Get notification preferences for current user. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.notifications - **Tags**: notifications, preferences, get",
+    "route": "/docs/reference/notifications/notifications.preferences.get",
+    "source": "generated",
+    "contentPath": "notifications/notifications.preferences.get.md"
+  },
+  {
+    "id": "notifications/notifications.preferences.update",
+    "title": "notifications.preferences.update",
+    "summary": "Update notification preferences. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.notifications - **Tags**: notifications, preferences, update - **File**: `packages/modules/notifications/src/contracts/index.ts`",
+    "route": "/docs/reference/notifications/notifications.preferences.update",
+    "source": "generated",
+    "contentPath": "notifications/notifications.preferences.update.md"
+  },
+  {
+    "id": "notifications/notifications.send",
+    "title": "notifications.send",
+    "summary": "Send a notification to a user. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.notifications - **Tags**: notifications, send - **File**: `packages/modules/notifications/src/contracts/index.ts`",
+    "route": "/docs/reference/notifications/notifications.send",
+    "source": "generated",
+    "contentPath": "notifications/notifications.send.md"
+  }
+]

@@ -31,19 +31,20 @@ export function CompatibilityPage() {
         <div className="card-subtle space-y-3 p-6">
           <h2 className="text-2xl font-bold">Package managers</h2>
           <ul className="text-muted-foreground space-y-2">
-            <li>pnpm (recommended)</li>
+            <li>bun (recommended)</li>
             <li>npm</li>
-            <li>bun</li>
+            <li>pnpm</li>
           </ul>
         </div>
 
         <div className="card-subtle space-y-3 p-6">
           <h2 className="text-2xl font-bold">AI agent modes</h2>
           <ul className="text-muted-foreground space-y-2">
-            <li>simple (direct LLM)</li>
             <li>claude-code</li>
             <li>openai-codex</li>
             <li>cursor</li>
+            <li>opencode</li>
+            <li>simple (direct LLM)</li>
           </ul>
         </div>
 

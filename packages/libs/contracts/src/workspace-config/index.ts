@@ -1,6 +1,8 @@
 /**
  * Configuration module exports.
  */
+export type { AgentMode, AgentProvider } from './contractsrc-types';
+
 export {
   OpenApiSourceConfigSchema,
   OpenApiExportConfigSchema,
