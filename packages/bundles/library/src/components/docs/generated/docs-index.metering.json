@@ -2,7 +2,7 @@
   {
     "id": "metering/metering",
     "title": "metering",
-    "summary": "Usage metering, metric definitions, and threshold alerting - **Type**: feature - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.metering - **Tags**: metering, usage, billing, thresholds",
+    "summary": "Usage metering and tracking - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: @platform.finance - **Tags**: metering, usage, billing - **File**: `packages/libs/metering/src/metering.capability.ts`",
     "route": "/docs/reference/metering/metering",
     "source": "generated",
     "contentPath": "metering/metering.md"

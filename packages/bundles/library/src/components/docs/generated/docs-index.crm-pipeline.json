@@ -50,7 +50,7 @@
   {
     "id": "crm-pipeline/crm.deal.list",
     "title": "crm.deal.list",
-    "summary": "List view of deals with value, status, and owner info - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @crm-team - **Tags**: deal, list - **File**: `packages/examples/crm-pipeline/src/presentations/pipeline.presentation.ts`",
+    "summary": "List deals with filters. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.crm-pipeline - **Tags**: crm, deal, list - **File**: `packages/examples/crm-pipeline/src/deal/deal.operation.ts`",
     "route": "/docs/reference/crm-pipeline/crm.deal.list",
     "source": "generated",
     "contentPath": "crm-pipeline/crm.deal.list.md"

@@ -160,6 +160,14 @@
     "contentPath": "_common/test.md"
   },
   {
+    "id": "_common/user.create",
+    "title": "user.create",
+    "summary": "Create a new user account with the provided email - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @team - **Tags**: user - **File**: `packages/examples/minimal/src/contracts/user.ts`",
+    "route": "/docs/reference/_common/user.create",
+    "source": "generated",
+    "contentPath": "_common/user.create.md"
+  },
+  {
     "id": "_common/validate",
     "title": "validate",
     "summary": "Validate a contract spec file structure and optionally its implementation - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @lssm/core - **Tags**: cli, validation",

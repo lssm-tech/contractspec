@@ -74,7 +74,7 @@
   {
     "id": "feature-flags/feature-flags",
     "title": "feature-flags",
-    "summary": "Feature flag management with targeting rules and A/B experiments - **Type**: feature - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.feature-flags - **Tags**: feature-flags, experiments, targeting",
+    "summary": "Feature flag management and evaluation - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: @platform.featureflags - **Tags**: feature-flags, configuration - **File**: `packages/libs/feature-flags/src/feature-flags.capability.ts`",
     "route": "/docs/reference/feature-flags/feature-flags",
     "source": "generated",
     "contentPath": "feature-flags/feature-flags.md"

@@ -2,7 +2,7 @@
   {
     "id": "openbanking/openbanking",
     "title": "openbanking",
-    "summary": "Open banking account sync, balance refresh, and transaction synchronization - **Type**: feature - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @platform.finance - **Tags**: open-banking, powens, finance, banking",
+    "summary": "Open Banking integrations capability - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: @platform.finance - **Tags**: openbanking, finance, integrations - **File**: `packages/libs/contracts/src/integrations/openbanking/openbanking.capability.ts`",
     "route": "/docs/reference/openbanking/openbanking",
     "source": "generated",
     "contentPath": "openbanking/openbanking.md"

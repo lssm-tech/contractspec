@@ -2,7 +2,7 @@
   {
     "id": "ai-chat/ai-chat",
     "title": "ai-chat",
-    "summary": "AI-powered conversational coding assistant with full workspace context - **Type**: feature - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @platform.ai - **Tags**: ai, chat, llm, vibe-coding, assistant",
+    "summary": "AI-powered chat interface - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: @platform.core - **Tags**: ai, chat, ui - **File**: `packages/modules/ai-chat/src/ai-chat.capability.ts`",
     "route": "/docs/reference/ai-chat/ai-chat",
     "source": "generated",
     "contentPath": "ai-chat/ai-chat.md"

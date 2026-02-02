@@ -34,7 +34,7 @@
   {
     "id": "app-config/app-config",
     "title": "app-config",
-    "summary": "Tenant app configuration lifecycle management with draft, preview, and publish stages - **Type**: feature - **Version**: 1.0.0 - **Stability**: beta - **Owners**: @platform.sigil - **Tags**: app-config, lifecycle, configuration, tenant",
+    "summary": "Provides tenant app configuration lifecycle management. - **Type**: capability (capability) - **Version**: 1.0.0 - **File**: `packages/libs/contracts/src/app-config/app-config.capability.ts` ```typescript",
     "route": "/docs/reference/app-config/app-config",
     "source": "generated",
     "contentPath": "app-config/app-config.md"

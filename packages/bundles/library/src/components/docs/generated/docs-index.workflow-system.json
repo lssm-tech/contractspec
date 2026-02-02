@@ -290,7 +290,7 @@
   {
     "id": "workflow-system/workflow.instance.list",
     "title": "workflow.instance.list",
-    "summary": "List of workflow instances with status and progress - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @workflow-team - **Tags**: workflow, instance, list - **File**: `packages/examples/workflow-system/src/presentations/index.ts`",
+    "summary": "List workflow instances with filtering. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.workflow-system - **Tags**: workflow, instance, list - **File**: `packages/examples/workflow-system/src/instance/instance.operations.ts`",
     "route": "/docs/reference/workflow-system/workflow.instance.list",
     "source": "generated",
     "contentPath": "workflow-system/workflow.instance.list.md"

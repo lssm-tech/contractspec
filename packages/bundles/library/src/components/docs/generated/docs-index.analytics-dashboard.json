@@ -58,7 +58,7 @@
   {
     "id": "analytics-dashboard/analytics.dashboard.list",
     "title": "analytics.dashboard.list",
-    "summary": "List of analytics dashboards - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @analytics-dashboard - **Tags**: analytics, dashboards, list - **File**: `packages/examples/analytics-dashboard/src/dashboard/dashboard.presentation.ts`",
+    "summary": "List dashboards. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.analytics-dashboard - **Tags**: analytics, dashboard, list - **File**: `packages/examples/analytics-dashboard/src/dashboard/dashboard.operation.ts`",
     "route": "/docs/reference/analytics-dashboard/analytics.dashboard.list",
     "source": "generated",
     "contentPath": "analytics-dashboard/analytics.dashboard.list.md"
