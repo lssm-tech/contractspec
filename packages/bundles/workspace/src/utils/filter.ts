@@ -36,10 +36,10 @@ export function isTestFile(
  */
 export function isLibraryDefinitionFile(filePath: string): boolean {
   const allowedPatterns = [
-    '**/libs/contracts/src/app-config/contracts.ts',
-    '**/libs/contracts/src/app-config/lifecycle-contracts.ts',
-    '**/libs/contracts/src/app-config/app-config.feature.ts',
     '**/libs/contracts/src/app-config/app-config.capability.ts',
+    '**/libs/contracts/src/app-config/app-config.contracts.ts',
+    '**/libs/contracts/src/app-config/app-config.feature.ts',
+    '**/libs/contracts/src/app-config/lifecycle-contracts.ts',
     '**/libs/contracts/src/app-config/events.ts',
   ];
   if (micromatch.isMatch(filePath, allowedPatterns)) {
