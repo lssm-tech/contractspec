@@ -105,7 +105,7 @@ export const WorkflowSystemFeature = defineFeature({
     },
     {
       op: { key: 'workflow.instance.list', version: '1.0.0' },
-      pres: { key: 'workflow.instance.list', version: '1.0.0' },
+      pres: { key: 'workflow.instance.viewList', version: '1.0.0' },
     },
     {
       op: { key: 'workflow.approval.list.mine', version: '1.0.0' },
@@ -121,7 +121,7 @@ export const WorkflowSystemFeature = defineFeature({
   presentationsTargets: [
     { key: 'workflow.designer', version: '1.0.0', targets: ['react'] },
     {
-      key: 'workflow.definition.list',
+      key: 'workflow.definition.viewList',
       version: '1.0.0',
       targets: ['react', 'markdown'],
     },
@@ -131,7 +131,7 @@ export const WorkflowSystemFeature = defineFeature({
       targets: ['react', 'markdown'],
     },
     {
-      key: 'workflow.instance.list',
+      key: 'workflow.instance.viewList',
       version: '1.0.0',
       targets: ['react', 'markdown'],
     },
