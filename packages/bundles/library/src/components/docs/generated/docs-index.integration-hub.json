@@ -234,7 +234,7 @@
   {
     "id": "integration-hub/integration.syncRun.list",
     "title": "integration.syncRun.list",
-    "summary": "History of sync runs - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @integration-team - **Tags**: integration, sync, runs, history - **File**: `packages/examples/integration-hub/src/sync/sync.presentation.ts`",
+    "summary": "List sync run history. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.integration-hub - **Tags**: integration, sync, run, list - **File**: `packages/examples/integration-hub/src/sync/sync.operations.ts`",
     "route": "/docs/reference/integration-hub/integration.syncRun.list",
     "source": "generated",
     "contentPath": "integration-hub/integration.syncRun.list.md"
@@ -246,6 +246,14 @@
     "route": "/docs/reference/integration-hub/integration.syncRun.list.test",
     "source": "generated",
     "contentPath": "integration-hub/integration.syncRun.list.test.md"
+  },
+  {
+    "id": "integration-hub/integration.syncRun.viewList",
+    "title": "integration.syncRun.viewList",
+    "summary": "History of sync runs - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @integration-team - **Tags**: integration, sync, runs, history - **File**: `packages/examples/integration-hub/src/sync/sync.presentation.ts`",
+    "route": "/docs/reference/integration-hub/integration.syncRun.viewList",
+    "source": "generated",
+    "contentPath": "integration-hub/integration.syncRun.viewList.md"
   },
   {
     "id": "integration-hub/sync",

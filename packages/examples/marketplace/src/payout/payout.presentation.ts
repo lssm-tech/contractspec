@@ -3,7 +3,7 @@ import { PayoutModel } from './payout.schema';
 
 export const PayoutListPresentation = definePresentation({
   meta: {
-    key: 'marketplace.payout.list',
+    key: 'marketplace.payout.viewList',
     version: '1.0.0',
     title: 'Payout List',
     description: 'List of payouts for sellers',

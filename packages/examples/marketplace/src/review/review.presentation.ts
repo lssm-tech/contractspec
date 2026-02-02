@@ -3,7 +3,7 @@ import { ReviewModel } from './review.schema';
 
 export const ReviewListPresentation = definePresentation({
   meta: {
-    key: 'marketplace.review.list',
+    key: 'marketplace.review.viewList',
     version: '1.0.0',
     title: 'Review List',
     description: 'List of product reviews',

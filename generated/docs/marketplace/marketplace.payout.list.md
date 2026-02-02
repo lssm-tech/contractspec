@@ -2,49 +2,57 @@
 
 # marketplace.payout.list
 
-List of payouts for sellers
+List payouts for a store.
 
 ## Metadata
 
-- **Type**: presentation (presentation)
+- **Type**: operation (query)
 - **Version**: 1.0.0
-- **Owners**: @marketplace-team
+- **Stability**: stable
+- **Owners**: @example.marketplace
 - **Tags**: marketplace, payout, list
-- **File**: `packages/examples/marketplace/src/payout/payout.presentation.ts`
+- **File**: `packages/examples/marketplace/src/payout/payout.operations.ts`
 
 ## Goal
 
-Show sellers their historical and pending payouts.
+View payout history.
 
 ## Context
 
-Financial dashboard for sellers.
+Seller dashboard.
 
 ## Source Definition
 
 ```typescript
-export const PayoutListPresentation = definePresentation({
+export const ListPayoutsContract = defineQuery({
   meta: {
     key: 'marketplace.payout.list',
     version: '1.0.0',
-    title: 'Payout List',
-    description: 'List of payouts for sellers',
-    domain: 'marketplace',
-    owners: ['@marketplace-team'],
+    stability: 'stable',
+    owners: ['@example.marketplace'],
     tags: ['marketplace', 'payout', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Show sellers their historical and pending payouts.',
-    context: 'Financial dashboard for sellers.',
+    description: 'List payouts for a store.',
+    goal: 'View payout history.',
+    context: 'Seller dashboard.',
   },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'PayoutList',
-    props: PayoutModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['marketplace.payouts.enabled'],
+  io: { input: ListPayoutsInputModel, output: ListPayoutsOutputModel },
+  policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-payouts-happy-path',
+        given: ['Store has payout history'],
+        when: ['Seller lists payouts'],
+        then: ['List of payouts is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-recent',
+        input: { limit: 10, offset: 0 },
+        output: { items: [], total: 5, hasMore: false },
+      },
+    ],
   },
 });
 ```

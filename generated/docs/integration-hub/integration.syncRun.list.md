@@ -2,49 +2,57 @@
 
 # integration.syncRun.list
 
-History of sync runs
+List sync run history.
 
 ## Metadata
 
-- **Type**: presentation (presentation)
+- **Type**: operation (query)
 - **Version**: 1.0.0
-- **Owners**: @integration-team
-- **Tags**: integration, sync, runs, history
-- **File**: `packages/examples/integration-hub/src/sync/sync.presentation.ts`
+- **Stability**: stable
+- **Owners**: @example.integration-hub
+- **Tags**: integration, sync, run, list
+- **File**: `packages/examples/integration-hub/src/sync/sync.operations.ts`
 
 ## Goal
 
-Provide a historical log of all sync attempts and their results.
+View sync history and status.
 
 ## Context
 
-Audit and troubleshooting view for sync jobs.
+Sync monitoring.
 
 ## Source Definition
 
 ```typescript
-export const SyncRunListPresentation = definePresentation({
+export const ListSyncRunsContract = defineQuery({
   meta: {
     key: 'integration.syncRun.list',
     version: '1.0.0',
-    title: 'Sync Run History',
-    description: 'History of sync runs',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['integration', 'sync', 'runs', 'history'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Provide a historical log of all sync attempts and their results.',
-    context: 'Audit and troubleshooting view for sync jobs.',
+    stability: 'stable',
+    owners: ['@example.integration-hub'],
+    tags: ['integration', 'sync', 'run', 'list'],
+    description: 'List sync run history.',
+    goal: 'View sync history and status.',
+    context: 'Sync monitoring.',
   },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'SyncRunList',
-    props: SyncRunModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['integration.sync.enabled'],
+  io: { input: ListSyncRunsInputModel, output: ListSyncRunsOutputModel },
+  policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-runs-happy-path',
+        given: ['User has access to syncs'],
+        when: ['User lists sync runs'],
+        then: ['List of runs is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-recent',
+        input: { limit: 10 },
+        output: { items: [], total: 50 },
+      },
+    ],
   },
 });
 ```

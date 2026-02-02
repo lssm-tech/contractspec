@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-02-02T02:28:32.598Z",
-  "total": 661,
+  "generatedAt": "2026-02-02T02:36:16.137Z",
+  "total": 666,
   "version": null,
   "contentRoot": "../../../../../../../generated/docs",
   "chunks": [
@@ -12,7 +12,7 @@
     {
       "key": "agent-console",
       "file": "docs-index.agent-console.json",
-      "total": 46
+      "total": 47
     },
     {
       "key": "ai-chat",
@@ -22,7 +22,7 @@
     {
       "key": "analytics-dashboard",
       "file": "docs-index.analytics-dashboard.json",
-      "total": 20
+      "total": 21
     },
     {
       "key": "app-config",
@@ -57,7 +57,7 @@
     {
       "key": "integration-hub",
       "file": "docs-index.integration-hub.json",
-      "total": 32
+      "total": 33
     },
     {
       "key": "jobs",
@@ -102,7 +102,7 @@
     {
       "key": "marketplace",
       "file": "docs-index.marketplace.json",
-      "total": 40
+      "total": 42
     },
     {
       "key": "metering",

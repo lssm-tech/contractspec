@@ -45,7 +45,7 @@ export const IntegrationHubFeature = defineFeature({
     { key: 'integration.syncConfig.list', version: '1.0.0' },
     { key: 'integration.syncConfig.editor', version: '1.0.0' },
     { key: 'integration.fieldMapping.editor', version: '1.0.0' },
-    { key: 'integration.syncRun.list', version: '1.0.0' },
+    { key: 'integration.syncRun.viewList', version: '1.0.0' },
     { key: 'integration.syncRun.detail', version: '1.0.0' },
     { key: 'integration.health', version: '1.0.0' },
     { key: 'integration.sync.activity', version: '1.0.0' },
@@ -62,7 +62,7 @@ export const IntegrationHubFeature = defineFeature({
     },
     {
       op: { key: 'integration.syncRun.list', version: '1.0.0' },
-      pres: { key: 'integration.syncRun.list', version: '1.0.0' },
+      pres: { key: 'integration.syncRun.viewList', version: '1.0.0' },
     },
   ],
 
@@ -93,7 +93,7 @@ export const IntegrationHubFeature = defineFeature({
       targets: ['react'],
     },
     {
-      key: 'integration.syncRun.list',
+      key: 'integration.syncRun.viewList',
       version: '1.0.0',
       targets: ['react', 'markdown'],
     },

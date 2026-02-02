@@ -1,4 +1,4 @@
-import { StabilityEnum, definePresentation } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 import { AgentSummaryModel } from './agent.schema';
 
 /**
@@ -6,7 +6,7 @@ import { AgentSummaryModel } from './agent.schema';
  */
 export const AgentListPresentation = definePresentation({
   meta: {
-    key: 'agent-console.agent.list',
+    key: 'agent-console.agent.viewList',
     version: '1.0.0',
     title: 'Agent List',
     description:

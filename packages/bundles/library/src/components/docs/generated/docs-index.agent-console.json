@@ -58,7 +58,7 @@
   {
     "id": "agent-console/agent-console.agent.list",
     "title": "agent-console.agent.list",
-    "summary": "List view of AI agents with status, model provider, and version info - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @agent-console-team - **Tags**: agent, list, dashboard - **File**: `packages/examples/agent-console/src/agent/agent.presentation.ts`",
+    "summary": "Lists agents for an organization with optional filtering. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @agent-console-team - **Tags**: agent, list - **File**: `packages/examples/agent-console/src/agent/agent.operation.ts`",
     "route": "/docs/reference/agent-console/agent-console.agent.list",
     "source": "generated",
     "contentPath": "agent-console/agent-console.agent.list.md"
@@ -102,6 +102,14 @@
     "route": "/docs/reference/agent-console/agent-console.agent.updated",
     "source": "generated",
     "contentPath": "agent-console/agent-console.agent.updated.md"
+  },
+  {
+    "id": "agent-console/agent-console.agent.viewList",
+    "title": "agent-console.agent.viewList",
+    "summary": "List view of AI agents with status, model provider, and version info - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @agent-console-team - **Tags**: agent, list, dashboard - **File**: `packages/examples/agent-console/src/agent/agent.presentation.ts`",
+    "route": "/docs/reference/agent-console/agent-console.agent.viewList",
+    "source": "generated",
+    "contentPath": "agent-console/agent-console.agent.viewList.md"
   },
   {
     "id": "agent-console/agent-console.dashboard",

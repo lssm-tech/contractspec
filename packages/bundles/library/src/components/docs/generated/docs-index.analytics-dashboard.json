@@ -80,6 +80,14 @@
     "contentPath": "analytics-dashboard/analytics.dashboard.view.md"
   },
   {
+    "id": "analytics-dashboard/analytics.dashboard.viewList",
+    "title": "analytics.dashboard.viewList",
+    "summary": "List of analytics dashboards - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @analytics-dashboard - **Tags**: analytics, dashboards, list - **File**: `packages/examples/analytics-dashboard/src/dashboard/dashboard.presentation.ts`",
+    "route": "/docs/reference/analytics-dashboard/analytics.dashboard.viewList",
+    "source": "generated",
+    "contentPath": "analytics-dashboard/analytics.dashboard.viewList.md"
+  },
+  {
     "id": "analytics-dashboard/analytics.query.builder",
     "title": "analytics.query.builder",
     "summary": "Visual query builder interface - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @analytics-dashboard - **Tags**: analytics, query, builder - **File**: `packages/examples/analytics-dashboard/src/query/query.presentation.ts`",

@@ -82,11 +82,11 @@ export const MarketplaceFeature = defineFeature({
     { key: 'marketplace.checkout', version: '1.0.0' },
 
     // Payout
-    { key: 'marketplace.payout.list', version: '1.0.0' },
+    { key: 'marketplace.payout.viewList', version: '1.0.0' },
     { key: 'marketplace.payout.detail', version: '1.0.0' },
 
     // Review
-    { key: 'marketplace.review.list', version: '1.0.0' },
+    { key: 'marketplace.review.viewList', version: '1.0.0' },
     { key: 'marketplace.review.form', version: '1.0.0' },
   ],
 
@@ -101,11 +101,11 @@ export const MarketplaceFeature = defineFeature({
     },
     {
       op: { key: 'marketplace.payout.list', version: '1.0.0' },
-      pres: { key: 'marketplace.payout.list', version: '1.0.0' },
+      pres: { key: 'marketplace.payout.viewList', version: '1.0.0' },
     },
     {
       op: { key: 'marketplace.review.list', version: '1.0.0' },
-      pres: { key: 'marketplace.review.list', version: '1.0.0' },
+      pres: { key: 'marketplace.review.viewList', version: '1.0.0' },
     },
     {
       op: { key: 'marketplace.review.create', version: '1.0.0' },
@@ -147,12 +147,12 @@ export const MarketplaceFeature = defineFeature({
     },
     { key: 'marketplace.checkout', version: '1.0.0', targets: ['react'] },
     {
-      key: 'marketplace.payout.list',
+      key: 'marketplace.payout.viewList',
       version: '1.0.0',
       targets: ['react', 'markdown'],
     },
     {
-      key: 'marketplace.review.list',
+      key: 'marketplace.review.viewList',
       version: '1.0.0',
       targets: ['react', 'markdown'],
     },
