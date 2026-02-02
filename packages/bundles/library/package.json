@@ -10,7 +10,9 @@
     "lint:check": "eslint src",
     "build": "bun build:types && bun build:bundle",
     "build:bundle": "tsdown",
-    "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist"
+    "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist",
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary"
   },
   "exports": {
     ".": "./src/index.ts",
