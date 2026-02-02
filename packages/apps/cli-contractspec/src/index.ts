@@ -286,7 +286,7 @@ const validateCmd = program
     'Validate a contract specification and optionally its implementation'
   )
   .argument(
-    '<spec-files>',
+    '[spec-files]',
     'Path to spec files (defaults to workspace scan)',
     undefined
   )
