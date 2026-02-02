@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-02-02T01:09:08.406Z",
-  "total": 662,
+  "generatedAt": "2026-02-02T01:22:05.320Z",
+  "total": 665,
   "version": null,
   "contentRoot": "../../../../../../../generated/docs",
   "chunks": [
@@ -37,7 +37,7 @@
     {
       "key": "crm-pipeline",
       "file": "docs-index.crm-pipeline.json",
-      "total": 19
+      "total": 20
     },
     {
       "key": "feature-flags",
@@ -167,7 +167,7 @@
     {
       "key": "workflow-system",
       "file": "docs-index.workflow-system.json",
-      "total": 52
+      "total": 54
     },
     {
       "key": "workspace-cli",

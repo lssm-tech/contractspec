@@ -72,6 +72,14 @@
     "contentPath": "crm-pipeline/crm.deal.move.md"
   },
   {
+    "id": "crm-pipeline/crm.deal.viewList",
+    "title": "crm.deal.viewList",
+    "summary": "List view of deals with value, status, and owner info - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @crm-team - **Tags**: deal, list - **File**: `packages/examples/crm-pipeline/src/presentations/pipeline.presentation.ts`",
+    "route": "/docs/reference/crm-pipeline/crm.deal.viewList",
+    "source": "generated",
+    "contentPath": "crm-pipeline/crm.deal.viewList.md"
+  },
+  {
     "id": "crm-pipeline/crm.deal.win",
     "title": "crm.deal.win",
     "summary": "Mark a deal as won. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.crm-pipeline - **Tags**: crm, deal, won - **File**: `packages/examples/crm-pipeline/src/deal/deal.operation.ts`",
