@@ -74,9 +74,6 @@ export async function generateDocsFromSpecs(
         continue;
       }
 
-      if (file.includes('app-config')) {
-        console.log('parsedList pre', parsedList.length, file);
-      }
       for (const parsed of parsedList) {
         const block = convertSpecToDocBlock(parsed, {
           rootPath: options.rootPath,
@@ -95,6 +92,7 @@ export async function generateDocsFromSpecs(
         let targetDir = options.outputDir;
 
         if (moduleDef) {
+          console.warn(`Here`, moduleDef.key, parsed.filePath);
           targetDir = path.join(options.outputDir, moduleDef.key);
         } else {
           targetDir = path.join(options.outputDir, '_common'); // Fallback for root-level specs
