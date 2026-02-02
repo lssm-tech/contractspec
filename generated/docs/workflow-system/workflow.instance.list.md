@@ -2,49 +2,101 @@
 
 # workflow.instance.list
 
-List of workflow instances with status and progress
+List workflow instances with filtering.
 
 ## Metadata
 
-- **Type**: presentation (presentation)
+- **Type**: operation (query)
 - **Version**: 1.0.0
-- **Owners**: @workflow-team
+- **Stability**: stable
+- **Owners**: @example.workflow-system
 - **Tags**: workflow, instance, list
-- **File**: `packages/examples/workflow-system/src/presentations/index.ts`
+- **File**: `packages/examples/workflow-system/src/instance/instance.operations.ts`
 
 ## Goal
 
-Monitoring active and past workflow executions
+Browse and search running workflows.
 
 ## Context
 
-Operations monitoring
+Dashboard, monitoring.
 
 ## Source Definition
 
 ```typescript
-export const InstanceListPresentation = definePresentation({
+export const ListInstancesContract = defineQuery({
   meta: {
     key: 'workflow.instance.list',
     version: '1.0.0',
-    title: 'Instance List',
-    description: 'List of workflow instances with status and progress',
-    domain: 'workflow-system',
-    owners: ['@workflow-team'],
+    stability: 'stable',
+    owners: ['@example.workflow-system'],
     tags: ['workflow', 'instance', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Monitoring active and past workflow executions',
-    context: 'Operations monitoring',
+    description: 'List workflow instances with filtering.',
+    goal: 'Browse and search running workflows.',
+    context: 'Dashboard, monitoring.',
   },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'WorkflowInstanceList',
-    props: WorkflowInstanceModel,
+  io: {
+    input: defineSchemaModel({
+      name: 'ListInstancesInput',
+      fields: {
+        workflowKey: {
+          type: ScalarTypeEnum.String_unsecure(),
+          isOptional: true,
+        },
+        status: { type: InstanceStatusEnum, isOptional: true },
+        referenceType: {
+          type: ScalarTypeEnum.String_unsecure(),
+          isOptional: true,
+        },
+        referenceId: {
+          type: ScalarTypeEnum.String_unsecure(),
+          isOptional: true,
+        },
+        triggeredBy: {
+          type: ScalarTypeEnum.String_unsecure(),
+          isOptional: true,
+        },
+        limit: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+          defaultValue: 20,
+        },
+        offset: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+          defaultValue: 0,
+        },
+      },
+    }),
+    output: defineSchemaModel({
+      name: 'ListInstancesOutput',
+      fields: {
+        instances: {
+          type: WorkflowInstanceModel,
+          isArray: true,
+          isOptional: false,
+        },
+        total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+      },
+    }),
   },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['workflow.enabled'],
+  policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-instances-happy-path',
+        given: ['Workflow instances exist'],
+        when: ['User lists instances'],
+        then: ['List of instances is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-running',
+        input: { status: 'running', limit: 10 },
+        output: { instances: [], total: 5 },
+      },
+    ],
   },
 });
 ```

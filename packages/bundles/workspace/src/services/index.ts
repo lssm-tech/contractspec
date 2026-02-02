@@ -34,6 +34,7 @@ export * from './quickstart/index';
 export * from './docs/index';
 export * as impact from './impact/index';
 export * from './formatter';
+export * as actionDrift from './action-drift/index';
 export * as versioning from './versioning/index';
 export type { SpecVersionAnalysis } from './versioning/types';
 export * as upgrade from './upgrade/index';
