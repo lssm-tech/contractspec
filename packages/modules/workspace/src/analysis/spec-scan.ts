@@ -135,7 +135,10 @@ export function inferSpecTypeFromCodeBlock(fileSourceCode: string): {
       kind: 'example',
     };
   }
-  if (fileSourceCode.includes('defineAppConfig')) {
+  if (
+    fileSourceCode.includes('defineAppConfig') &&
+    !fileSourceCode.includes('export const defineAppConfig')
+  ) {
     return {
       specType: 'app-config',
       kind: 'app-config',
