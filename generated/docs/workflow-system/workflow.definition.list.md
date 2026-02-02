@@ -2,86 +2,49 @@
 
 # workflow.definition.list
 
-List workflow definitions with filtering.
+List of workflow definitions with status and actions
 
 ## Metadata
 
-- **Type**: operation (query)
+- **Type**: presentation (presentation)
 - **Version**: 1.0.0
-- **Stability**: stable
-- **Owners**: @example.workflow-system
-- **Tags**: workflow, definition, list
-- **File**: `packages/examples/workflow-system/src/workflow/workflow.operations.ts`
+- **Owners**: @workflow-team
+- **Tags**: workflow, list, admin
+- **File**: `packages/examples/workflow-system/src/presentations/index.ts`
 
 ## Goal
 
-Browse and search available workflows.
+Overview of all defined workflows
 
 ## Context
 
-Workflow list, search.
+Workflow management dashboard
 
 ## Source Definition
 
 ```typescript
-export const ListWorkflowsContract = defineQuery({
+export const WorkflowListPresentation = definePresentation({
   meta: {
     key: 'workflow.definition.list',
     version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.workflow-system'],
-    tags: ['workflow', 'definition', 'list'],
-    description: 'List workflow definitions with filtering.',
-    goal: 'Browse and search available workflows.',
-    context: 'Workflow list, search.',
+    title: 'Workflow List',
+    description: 'List of workflow definitions with status and actions',
+    domain: 'workflow-system',
+    owners: ['@workflow-team'],
+    tags: ['workflow', 'list', 'admin'],
+    stability: StabilityEnum.Experimental,
+    goal: 'Overview of all defined workflows',
+    context: 'Workflow management dashboard',
   },
-  io: {
-    input: defineSchemaModel({
-      name: 'ListWorkflowsInput',
-      fields: {
-        status: { type: WorkflowStatusEnum, isOptional: true },
-        search: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-        limit: {
-          type: ScalarTypeEnum.Int_unsecure(),
-          isOptional: true,
-          defaultValue: 20,
-        },
-        offset: {
-          type: ScalarTypeEnum.Int_unsecure(),
-          isOptional: true,
-          defaultValue: 0,
-        },
-      },
-    }),
-    output: defineSchemaModel({
-      name: 'ListWorkflowsOutput',
-      fields: {
-        workflows: {
-          type: WorkflowDefinitionModel,
-          isArray: true,
-          isOptional: false,
-        },
-        total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-      },
-    }),
+  source: {
+    type: 'component',
+    framework: 'react',
+    componentKey: 'WorkflowDefinitionList',
+    props: WorkflowDefinitionModel,
   },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'list-workflows-happy-path',
-        given: ['Workflow definitions exist'],
-        when: ['User lists workflows'],
-        then: ['List of workflows is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'list-all',
-        input: { limit: 10 },
-        output: { workflows: [], total: 5 },
-      },
-    ],
+  targets: ['react', 'markdown'],
+  policy: {
+    flags: ['workflow.enabled'],
   },
 });
 ```

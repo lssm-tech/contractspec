@@ -50,11 +50,14 @@ runs:
         echo "TURBO_TELEMETRY_DISABLED=1" >> $GITHUB_ENV
         echo "DO_NOT_TRACK=1" >> $GITHUB_ENV
 
+        echo "TURBO_TOKEN=${{ env.TURBO_TOKEN }}" >> $GITHUB_ENV
+        echo "TURBO_TEAM=${{ env.TURBO_TEAM }}" >> $GITHUB_ENV
+
     - name: Setup Bun
       if: env.PACKAGE_MANAGER == 'bun'
       uses: oven-sh/setup-bun@v2
       with:
-        bun-version: '1.3.8'
+        bun-version: 'latest'
 
     - name: Setup Node
       if: env.PACKAGE_MANAGER != 'bun'
@@ -116,68 +119,7 @@ runs:
       run: |
         mkdir -p .contractspec-ci
         git status --porcelain > .contractspec-ci/drift-status.txt
-        python - <<'PY'
-        import json
-        import os
-        from pathlib import Path
-
-        contracts_data = []
-        contracts_path = Path(".contractspec-ci/contracts.json")
-        report_data = {}
-
-        # Load contracts data if available
-        if contracts_path.exists():
-          try:
-            contracts_result = json.loads(contracts_path.read_text())
-            contracts_data = contracts_result.get("contracts", [])
-          except json.JSONDecodeError:
-            pass
-
-        # Load existing report if exists
-        report_data_path = Path(".contractspec-ci/report-data.json")
-        if report_data_path.exists():
-          try:
-            report_data = json.loads(report_data_path.read_text())
-          except json.JSONDecodeError:
-            pass
-
-        # Update report data with contracts
-        report_data["contracts"] = contracts_data
-
-        report_data["whatChanged"] = {
-          "summary": "Drift check completed.",
-          "detailsPath": "",
-        }
-        report_data["risk"] = {
-          "status": "unknown",
-          "breaking": 0,
-          "nonBreaking": 0,
-        }
-        report_data["validation"] = {
-          "status": "skipped",
-          "outputPath": "",
-        }
-        report_data["drift"] = {
-          "status": os.environ.get("DRIFT_STATUS", "skipped"),
-          "files": Path(".contractspec-ci/drift-files.txt").read_text().splitlines()
-          if Path(".contractspec-ci/drift-files.txt").exists()
-          else [],
-        }
-        report_data["nextSteps"] = []
-
-        if report_data["drift"]["status"] == "fail":
-          report_data["nextSteps"].append("Run the generate command locally and commit drift fixes.")
-
-        Path(".contractspec-ci/report-data.json").write_text(json.dumps(report_data, indent=2))
-        PY
-
-        if [ -s ".contractspec-ci/drift-files.txt" ]; then
-          echo "DRIFT_STATUS=fail" >> $GITHUB_ENV
-          echo "DRIFT_DETECTED=true" >> $GITHUB_ENV
-        else
-          echo "DRIFT_STATUS=pass" >> $GITHUB_ENV
-          echo "DRIFT_DETECTED=false" >> $GITHUB_ENV
-        fi
+        $CONTRACTSPEC_CMD action-drift check-drift
 
     - name: Build report data
       shell: bash
@@ -185,55 +127,16 @@ runs:
       run: |
         # Collect contract verification status
         echo "Collecting contract verification status..."
-        bun "${{ github.action_path }}/operation-executor.ts" "report.getContractVerificationStatus" "1.0.0" '{"projectPath": "'"$(pwd)"'"}' > .contractspec-ci/contracts.json || echo "[]" > .contractspec-ci/contracts.json
+        $CONTRACTSPEC_CMD action-pr get-contract-status
 
-        # Load contracts data and existing report data
-
-        # Load contracts data if available
-        contracts_data = []
-        contracts_path = Path(".contractspec-ci/contracts.json")
-        if contracts_path.exists():
-          try:
-            contracts_result = json.loads(contracts_path.read_text())
-            contracts_data = contracts_result.get("contracts", [])
-          except json.JSONDecodeError:
-            pass
-
-        report = {
-          "whatChanged": {
-            "summary": "Drift check completed.",
-            "detailsPath": "",
-          },
-          "risk": {
-            "status": "unknown",
-            "breaking": 0,
-            "nonBreaking": 0,
-          },
-          "validation": {
-            "status": "skipped",
-            "outputPath": "",
-          },
-          "drift": {
-            "status": os.environ.get("DRIFT_STATUS", "skipped"),
-            "files": Path(".contractspec-ci/drift-files.txt").read_text().splitlines()
-            if Path(".contractspec-ci/drift-files.txt").exists()
-            else [],
-          },
-          "contracts": contracts_data,
-          "nextSteps": [],
-        }
-
-        if report["drift"]["status"] == "fail":
-          report["nextSteps"].append("Run the generate command locally and commit drift fixes.")
-
-        Path(".contractspec-ci/report-data.json").write_text(json.dumps(report, indent=2))
-        PY
+        # Build report data
+        $CONTRACTSPEC_CMD action-drift build-report-data
 
     - name: Generate report
       shell: bash
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
-        node "${{ github.action_path }}/dist/report.js" --data .contractspec-ci/report-data.json --output .contractspec-ci/report.md
+        $CONTRACTSPEC_CMD action-pr generate-report
 
     - name: Create issue
       if: env.DRIFT_DETECTED == 'true' && env.ON_DRIFT == 'issue'
@@ -293,10 +196,4 @@ runs:
       id: result
       shell: bash
       run: |
-        DRIFT_DETECTED="${DRIFT_DETECTED:-false}"
-        echo "drift_detected=$DRIFT_DETECTED" >> $GITHUB_OUTPUT
-
-        if [ "$DRIFT_DETECTED" = "true" ] && [ "$ON_DRIFT" = "fail" ]; then
-          echo "::error::ContractSpec drift detected."
-          exit 1
-        fi
+        $CONTRACTSPEC_CMD action-drift finalize

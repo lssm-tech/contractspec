@@ -2,13 +2,6 @@
   "name": "@contractspec/action.drift",
   "version": "0.1.0",
   "description": "GitHub Action for ContractSpec drift detection",
-  "scripts": {
-    "build": "bun build src/report.ts --outdir dist --target node --format cjs",
-    "lint": "bun run lint:fix",
-    "lint:fix": "eslint src/report.ts src/report.test.ts --fix",
-    "lint:check": "eslint src/report.ts src/report.test.ts",
-    "test": "bun test"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",

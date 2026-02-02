@@ -1,5 +1,4 @@
-import { describe, it, expect } from 'bun:test';
-import { OpenCodeEchoInput } from '../handlers/open-code-echo-input';
+import { describe, expect, it } from 'bun:test';
 
 describe('OpenCodeEchoInput', () => {
   it('should handle valid input', async () => {
