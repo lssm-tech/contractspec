@@ -1,20 +1,29 @@
 import { defineCommand } from '@contractspec/lib.contracts';
-import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 
 const UserInput = new SchemaModel({
   name: 'UserInput',
   fields: {
-    email: { type: ScalarTypeEnum.Email(), isOptional: false },
+    email: { type: ScalarTypeEnum.EmailAddress(), isOptional: false },
   },
 });
 
 export const CreateUser = defineCommand({
   meta: {
-    name: 'user.create',
+    key: 'user.create',
     version: '1.0.0',
+    goal: 'Create a new user account',
+    description: 'Create a new user account with the provided email',
+    owners: ['@team'],
+    tags: ['user'],
+    stability: 'stable',
+    context: 'User account management',
   },
   io: {
     input: UserInput,
     output: UserInput,
+  },
+  policy: {
+    auth: 'anonymous',
   },
 });

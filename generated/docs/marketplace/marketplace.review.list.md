@@ -2,49 +2,57 @@
 
 # marketplace.review.list
 
-List of product reviews
+List reviews with filters.
 
 ## Metadata
 
-- **Type**: presentation (presentation)
+- **Type**: operation (query)
 - **Version**: 1.0.0
-- **Owners**: @marketplace-team
+- **Stability**: stable
+- **Owners**: @example.marketplace
 - **Tags**: marketplace, review, list
-- **File**: `packages/examples/marketplace/src/review/review.presentation.ts`
+- **File**: `packages/examples/marketplace/src/review/review.operations.ts`
 
 ## Goal
 
-Show users reviews and ratings for a product.
+Display product/store reviews.
 
 ## Context
 
-Displayed on the product detail page.
+Product page, store page.
 
 ## Source Definition
 
 ```typescript
-export const ReviewListPresentation = definePresentation({
+export const ListReviewsContract = defineQuery({
   meta: {
     key: 'marketplace.review.list',
     version: '1.0.0',
-    title: 'Review List',
-    description: 'List of product reviews',
-    domain: 'marketplace',
-    owners: ['@marketplace-team'],
+    stability: 'stable',
+    owners: ['@example.marketplace'],
     tags: ['marketplace', 'review', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Show users reviews and ratings for a product.',
-    context: 'Displayed on the product detail page.',
+    description: 'List reviews with filters.',
+    goal: 'Display product/store reviews.',
+    context: 'Product page, store page.',
   },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'ReviewList',
-    props: ReviewModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['marketplace.reviews.enabled'],
+  io: { input: ListReviewsInputModel, output: ListReviewsOutputModel },
+  policy: { auth: 'anonymous' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-reviews-happy-path',
+        given: ['Product has reviews'],
+        when: ['User views reviews'],
+        then: ['List of reviews is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-product-reviews',
+        input: { productId: 'prod-456', limit: 10 },
+        output: { items: [], total: 10, hasMore: false },
+      },
+    ],
   },
 });
 ```

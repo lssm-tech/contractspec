@@ -2,9 +2,7 @@ import { definePresentation } from '../../presentations';
 import '../ensure-docblocks';
 import { docId } from '../registry';
 import {
-  DOCS_CAPABILITY_REF,
   DOCS_DOMAIN,
-  DOCS_LAYOUT_PRESENTATION_KEY,
   DOCS_OWNERS,
   DOCS_STABILITY,
   DOCS_TAGS,
@@ -12,7 +10,7 @@ import {
 
 export const DocsLayoutPresentation = definePresentation({
   meta: {
-    key: DOCS_LAYOUT_PRESENTATION_KEY,
+    key: 'docs.layout',
     title: 'Docs Layout',
     version: '1.0.0',
     description: 'Shared layout shell for documentation pages.',
@@ -24,11 +22,14 @@ export const DocsLayoutPresentation = definePresentation({
     stability: DOCS_STABILITY,
     docId: [docId('docs.tech.docs-system')],
   },
-  capability: DOCS_CAPABILITY_REF,
+  capability: {
+    key: 'docs.system',
+    version: '1.0.0',
+  },
   source: {
     type: 'component',
     framework: 'react',
-    componentKey: DOCS_LAYOUT_PRESENTATION_KEY,
+    componentKey: 'docsLayout',
   },
   targets: ['react'],
 });

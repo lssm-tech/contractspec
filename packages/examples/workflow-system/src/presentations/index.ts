@@ -41,7 +41,7 @@ export const WorkflowDesignerPresentation = definePresentation({
  */
 export const WorkflowListPresentation = definePresentation({
   meta: {
-    key: 'workflow.definition.list',
+    key: 'workflow.definition.viewList',
     version: '1.0.0',
     title: 'Workflow List',
     description: 'List of workflow definitions with status and actions',
@@ -99,7 +99,7 @@ export const WorkflowDetailPresentation = definePresentation({
  */
 export const InstanceListPresentation = definePresentation({
   meta: {
-    key: 'workflow.instance.list',
+    key: 'workflow.instance.viewList',
     version: '1.0.0',
     title: 'Instance List',
     description: 'List of workflow instances with status and progress',

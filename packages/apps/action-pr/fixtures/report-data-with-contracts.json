@@ -1,0 +1,31 @@
+{
+  "whatChanged": {
+    "summary": "2 contract file(s) changed."
+  },
+  "risk": {
+    "status": "non-breaking",
+    "breaking": 0,
+    "nonBreaking": 2
+  },
+  "validation": {
+    "status": "pass"
+  },
+  "drift": {
+    "status": "pass"
+  },
+  "nextSteps": [],
+  "contracts": [
+    {
+      "name": "user.create",
+      "lastVerifiedSha": "abc1234",
+      "lastVerifiedDate": "2025-06-10T12:00:00Z",
+      "surfaces": ["API", "runtime validation", "permissions"],
+      "driftMismatches": 0
+    },
+    {
+      "name": "order.updated",
+      "surfaces": ["API", "docs/examples"],
+      "driftMismatches": 3
+    }
+  ]
+}

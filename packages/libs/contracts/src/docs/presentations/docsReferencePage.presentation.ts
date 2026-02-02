@@ -2,17 +2,15 @@ import { definePresentation } from '../../presentations';
 import '../ensure-docblocks';
 import { docId } from '../registry';
 import {
-  DOCS_CAPABILITY_REF,
   DOCS_DOMAIN,
   DOCS_OWNERS,
-  DOCS_REFERENCE_PRESENTATION_KEY,
   DOCS_STABILITY,
   DOCS_TAGS,
 } from '../constants';
 
 export const DocsReferencePagePresentation = definePresentation({
   meta: {
-    key: DOCS_REFERENCE_PRESENTATION_KEY,
+    key: 'docs.reference.page',
     title: 'Docs Reference Page',
     version: '1.0.0',
     description: 'Reference page layout for contract documentation.',
@@ -25,11 +23,14 @@ export const DocsReferencePagePresentation = definePresentation({
     stability: DOCS_STABILITY,
     docId: [docId('docs.tech.docs-reference')],
   },
-  capability: DOCS_CAPABILITY_REF,
+  capability: {
+    key: 'docs.system',
+    version: '1.0.0',
+  },
   source: {
     type: 'component',
     framework: 'react',
-    componentKey: DOCS_REFERENCE_PRESENTATION_KEY,
+    componentKey: 'docsReferencePage',
   },
   targets: ['react', 'markdown'],
 });

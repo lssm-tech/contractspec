@@ -5,11 +5,11 @@
  * multiple output buckets (./generated/<bucket>/ or any output dir).
  */
 
-import type { WorkspaceConfig } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../ports/fs';
 import type { LoggerAdapter } from '../ports/logger';
 import { buildSpec, type BuildSpecOptions } from './build';
 import { validateSpec, type ValidateSpecResult } from './validate';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
 
 export interface SyncSpecsOptions {
   pattern?: string;
@@ -44,7 +44,7 @@ export type SyncValidateFn = (specPath: string) => Promise<ValidateSpecResult>;
 
 export async function syncSpecs(
   adapters: { fs: FsAdapter; logger: LoggerAdapter },
-  config: WorkspaceConfig,
+  config: ResolvedContractsrcConfig,
   options: SyncSpecsOptions = {},
   overrides?: {
     build?: SyncBuildFn<unknown>;

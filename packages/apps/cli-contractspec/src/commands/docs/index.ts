@@ -1,8 +1,10 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import { resolve } from 'path';
-import { generateDocsFromSpecs } from '@contractspec/bundle.workspace';
-import { createNodeAdapters } from '@contractspec/bundle.workspace';
+import {
+  createNodeAdapters,
+  generateDocsFromSpecs,
+} from '@contractspec/bundle.workspace';
 
 export function createDocsCommand(): Command {
   return new Command('docs')
@@ -21,12 +23,12 @@ export function createDocsCommand(): Command {
         // Default to all known spec files if none provided
         if (!files || files.length === 0) {
           files = [
-            'src/**/*.spec.ts',
-            'src/**/*.feature.ts',
-            'src/**/*.contract.ts',
-            'src/**/*.operation.ts',
-            'src/**/*.event.ts',
-            'src/**/*.presentation.ts',
+            '**/*.spec.ts',
+            '**/*.feature.ts',
+            '**/*.contract.ts',
+            '**/*.operation.ts',
+            '**/*.event.ts',
+            '**/*.presentation.ts',
           ];
         }
 

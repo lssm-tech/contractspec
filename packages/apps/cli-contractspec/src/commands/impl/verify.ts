@@ -6,7 +6,7 @@
 
 import { Command } from 'commander';
 import chalk from 'chalk';
-import ora from 'ora';
+import ora, { type Ora } from 'ora';
 import type {
   VerificationReport,
   VerificationTier,
@@ -17,10 +17,16 @@ import {
   createNodeFsAdapter,
   createVerificationCacheService,
   createVerifyService,
+  listSpecs,
   loadWorkspaceConfig,
-  resolveImplementations,
+  resolveAllImplementations,
+  type ResolvedImplementation,
+  type SpecImplementationResult,
+  VerificationCacheService,
 } from '@contractspec/bundle.workspace';
 import type { ImplVerifyOptions } from './types';
+import type { SpecScanResult } from '@contractspec/module.workspace';
+import type { Log, Result } from 'sarif';
 
 /**
  * Map tier option to verification tiers
@@ -59,81 +65,148 @@ function severityIcon(severity: string): string {
 /**
  * Output verification result as text
  */
-function outputText(
-  specName: string,
-  reports: Map<VerificationTier, VerificationReport>,
-  cached: boolean
+function outputSingleImplementationText(
+  implementationReportResult: SpecImplementationReportResult
 ): void {
-  console.log(`\n${chalk.bold(specName)}`);
-  if (cached) {
-    console.log(chalk.gray('  (cached result)'));
+  console.log(
+    `\n  ${chalk.bold(implementationReportResult.implementationPath)}`
+  );
+  if (implementationReportResult.isImplementationCached) {
+    console.log(chalk.gray('    (cached result)'));
   }
 
-  for (const [tier, report] of reports) {
+  implementationReportResult.reports.entries().forEach(([tier, report]) => {
     const statusIcon = report.passed ? chalk.green('✓') : chalk.red('✗');
     const tierName = tier
       .replace('_', ' ')
       .replace(/\b\w/g, (c) => c.toUpperCase());
-    console.log(`\n  ${statusIcon} ${chalk.bold(tierName)} (${report.score}%)`);
+    console.log(
+      `\n    ${statusIcon} ${chalk.bold(tierName)} (${report.score}%)`
+    );
 
     if (report.issues.length > 0) {
       for (const issue of report.issues) {
-        console.log(`    ${severityIcon(issue.severity)} ${issue.message}`);
+        console.log(`      ${severityIcon(issue.severity)} ${issue.message}`);
         if (issue.suggestion) {
           console.log(
-            `      ${chalk.gray('→')} ${chalk.gray(issue.suggestion)}`
+            `        ${chalk.gray('→')} ${chalk.gray(issue.suggestion)}`
           );
         }
       }
     }
-  }
+  });
 
   // Overall result
-  const allPassed = Array.from(reports.values()).every((r) => r.passed);
+  const allPassed = Array.from(
+    implementationReportResult.reports.values()
+  ).every((r) => r.passed);
   const avgScore = Math.round(
-    Array.from(reports.values()).reduce((sum, r) => sum + r.score, 0) /
-      reports.size
+    Array.from(implementationReportResult.reports.values()).reduce(
+      (sum, r) => sum + r.score,
+      0
+    ) / implementationReportResult.reports.size
   );
 
-  console.log();
   if (allPassed) {
-    console.log(chalk.green(`  ✓ All checks passed (${avgScore}%)`));
+    console.log(chalk.green(`    ✓ All checks passed (${avgScore}%)`));
   } else {
-    console.log(chalk.red(`  ✗ Some checks failed (${avgScore}%)`));
+    console.log(chalk.red(`    ✗ Some checks failed (${avgScore}%)`));
   }
+}
+
+function outputText(results: SpecsImplementationReportsResult): void {
+  console.log(`\n${chalk.bold('Specs implementation result')}`);
+  if (results.areSpecAllCached) {
+    console.log(chalk.gray('  (cached result)'));
+  }
+
+  results.reports.forEach((specReport) => {
+    console.log(`\n${chalk.bold(specReport.specPath)}`);
+    if (specReport.isSpecCached) {
+      console.log(chalk.gray('  (cached result)'));
+    }
+
+    specReport.reports.forEach((implementationReport) => {
+      outputSingleImplementationText(implementationReport);
+    });
+
+    if (specReport.hasSucceed) {
+      console.log(chalk.green(`  ✓ All checks passed`));
+    } else {
+      console.log(chalk.red(`  ✗ Some checks failed`));
+      // console.log(chalk.red(`  ✗ Some checks failed (${avgScore}%)`));
+    }
+  });
 }
 
 /**
  * Output verification result as JSON
  */
-function outputJson(
-  specName: string,
-  reports: Map<VerificationTier, VerificationReport>,
-  cached: boolean
-): void {
-  const result = {
-    specName,
-    cached,
-    reports: Object.fromEntries(reports),
-    passed: Array.from(reports.values()).every((r) => r.passed),
+function formatOutputSingleImplementationJson(
+  reportResult: SpecImplementationReportResult
+) {
+  return {
+    implementationPath: reportResult.implementationPath,
+    isImplementationCached: reportResult.isImplementationCached,
+    reports: Object.fromEntries(reportResult.reports),
+    passed: Array.from(reportResult.reports.values()).every((r) => r.passed),
     score: Math.round(
-      Array.from(reports.values()).reduce((sum, r) => sum + r.score, 0) /
-        reports.size
+      Array.from(reportResult.reports.values()).reduce(
+        (sum, r) => sum + r.score,
+        0
+      ) / reportResult.reports.size
     ),
   };
+}
+function outputJson(results: SpecsImplementationReportsResult): void {
+  const result = results.reports.values().map((resultReport) => ({
+    specPath: resultReport.specPath,
+    isSpecCached: resultReport.isSpecCached,
+    reports: resultReport.reports.map(formatOutputSingleImplementationJson),
+  }));
   console.log(JSON.stringify(result, null, 2));
 }
 
 /**
  * Output verification result as SARIF
  */
-function outputSarif(
-  specPath: string,
-  reports: Map<VerificationTier, VerificationReport>
-): void {
-  const allIssues = Array.from(reports.values()).flatMap((r) => r.issues);
+function outputSarif(results: SpecsImplementationReportsResult): void {
+  const errorResults = results.reports.flatMap<Result>((specReport) => {
+    return specReport.reports.flatMap<Result>((implementationReport) => {
+      return [...implementationReport.reports.values()].flatMap<Result>(
+        (report) => {
+          return report.issues.map<Result>(
+            (reportIssue): Result => ({
+              ruleId: 'impl-verify',
+              level:
+                reportIssue.severity === 'error'
+                  ? 'error'
+                  : reportIssue.severity === 'warning'
+                    ? 'warning'
+                    : 'note',
+              message: { text: reportIssue.message },
+              locations: [
+                {
+                  physicalLocation: {
+                    artifactLocation: {
+                      uri:
+                        reportIssue.location?.file ??
+                        implementationReport.implementationPath,
+                    },
+                    region: reportIssue.location?.line
+                      ? { startLine: reportIssue.location?.line }
+                      : undefined,
+                  },
+                },
+              ],
+            })
+          );
+        }
+      );
+    });
+  });
 
-  const sarif = {
+  const sarif: Log = {
     $schema:
       'https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json',
     version: '2.1.0',
@@ -151,34 +224,164 @@ function outputSarif(
             ],
           },
         },
-        results: allIssues.map((issue) => ({
-          ruleId: 'impl-verify',
-          level:
-            issue.severity === 'error'
-              ? 'error'
-              : issue.severity === 'warning'
-                ? 'warning'
-                : 'note',
-          message: { text: issue.message },
-          locations: issue.location
-            ? [
-                {
-                  physicalLocation: {
-                    artifactLocation: { uri: issue.location.file ?? specPath },
-                    region: issue.location.line
-                      ? { startLine: issue.location.line }
-                      : undefined,
-                  },
-                },
-              ]
-            : [],
-        })),
+        results: errorResults,
       },
     ],
   };
 
   console.log(JSON.stringify(sarif, null, 2));
 }
+
+type SpecImplementationReport = Map<VerificationTier, VerificationReport>;
+interface SpecImplementationReportResult {
+  implementationPath: string;
+  isImplementationCached: boolean;
+  hasSucceed: boolean;
+  reports: SpecImplementationReport;
+}
+interface SpecImplementationReportsResult {
+  isSpecCached: boolean;
+  specPath: string;
+  hasSucceed: boolean;
+  reports: SpecImplementationReportResult[];
+}
+
+interface SpecsImplementationReportsResult {
+  areSpecAllCached: boolean;
+  hasSucceed: boolean;
+  reports: SpecImplementationReportsResult[];
+}
+
+export const verifySpecImplementation = async (
+  options: ImplVerifyOptions,
+  spinner: Ora,
+  verificationCacheService: VerificationCacheService,
+  spec: SpecScanResult,
+  specImplementation: ResolvedImplementation
+): Promise<SpecImplementationReportResult> => {
+  // Check cache
+  const tiers = getTiers(options.tier);
+  let isImplementationCached = true;
+  const reports: SpecImplementationReport = new Map<
+    VerificationTier,
+    VerificationReport
+  >();
+
+  if (!options.noCache) {
+    // Check cache for each tier
+    for (const tier of tiers) {
+      const cacheKey = verificationCacheService.createKey(
+        spec.sourceBlock || '',
+        specImplementation.implementationSourceContent || '',
+        tier
+      );
+      const cacheResult = await verificationCacheService.lookup(cacheKey);
+      if (cacheResult.hit) {
+        reports.set(tier, cacheResult.entry.result);
+      } else {
+        isImplementationCached = false;
+      }
+    }
+  }
+
+  // Run verification for uncached tiers
+  const uncachedTiers = tiers.filter((t) => !reports.has(t));
+  if (uncachedTiers.length === 0) {
+    return {
+      hasSucceed: reports
+        .values()
+        .reduce((acc: boolean, r) => acc && r.passed, true),
+      isImplementationCached,
+      reports,
+      implementationPath: specImplementation.path,
+    };
+  }
+
+  spinner.text = 'Running verification checks...';
+
+  // Create verify service
+  const verifyService = createVerifyService({
+    aiApiKey: process.env.CONTRACTSPEC_AI_API_KEY,
+    aiProvider:
+      (process.env.CONTRACTSPEC_AI_PROVIDER as 'anthropic' | 'openai') ??
+      'anthropic',
+  });
+
+  // We need to load the spec to verify
+  // For now, use a simplified verification approach
+  const result = await verifyService.verify(
+    {
+      meta: {
+        name: spec.key,
+        version: spec.version,
+        kind: 'command',
+      },
+    } as never,
+    specImplementation.implementationSourceContent || '',
+    { tiers: uncachedTiers, failFast: options.failFast }
+  );
+
+  // Store results
+  let hasSucceed = true;
+  for (const [tier, report] of result.reports) {
+    reports.set(tier, report);
+
+    if (!report.passed) {
+      hasSucceed = false;
+    }
+
+    // Cache the result
+    if (!options.noCache) {
+      const cacheKey = verificationCacheService.createKey(
+        spec.sourceBlock || '',
+        specImplementation.implementationSourceContent || '',
+        tier
+      );
+      await verificationCacheService.store(cacheKey, report, {
+        specName: spec.key,
+        implPath: specImplementation.path,
+      });
+    }
+  }
+  return {
+    isImplementationCached,
+    reports,
+    hasSucceed,
+    implementationPath: specImplementation.path,
+  };
+};
+
+export const verifySpecImplementations = async (
+  options: ImplVerifyOptions,
+  spinner: Ora,
+  verificationCacheService: VerificationCacheService,
+  spec: SpecScanResult,
+  specImplementations: SpecImplementationResult
+): Promise<SpecImplementationReportsResult> => {
+  const reports: SpecImplementationReportResult[] =
+    new Array<SpecImplementationReportResult>();
+  let isSpecCached = true;
+  let hasSucceed = true;
+
+  for (const specImplementation of specImplementations.implementations) {
+    const implementationValidationResult = await verifySpecImplementation(
+      options,
+      spinner,
+      verificationCacheService,
+      spec,
+      specImplementation
+    );
+    if (!implementationValidationResult.hasSucceed) {
+      hasSucceed = false;
+    }
+    if (!implementationValidationResult.isImplementationCached) {
+      isSpecCached = false;
+    }
+    reports.push(implementationValidationResult);
+  }
+
+  return { isSpecCached, hasSucceed, reports, specPath: spec.filePath };
+};
 
 /**
  * Run verify command
@@ -195,11 +398,29 @@ async function runVerify(
     const config = await loadWorkspaceConfig(fs);
     const adapters = { fs, logger };
 
-    // Resolve implementations
-    const resolved = await resolveImplementations(specPath, adapters, config);
+    const specs = await listSpecs(adapters, {
+      pattern: specPath || options.spec,
+    });
+    const resolvedSpecs = await resolveAllImplementations(
+      specs,
+      adapters,
+      config
+    );
 
-    if (resolved.implementations.length === 0) {
-      spinner.fail('No implementations found');
+    const specsWithImplementation = resolvedSpecs.reduce<
+      SpecImplementationResult[]
+    >((acc, spec) => {
+      const haveImplementation = spec.implementations.some(
+        (implementation) =>
+          implementation.exists && implementation.type !== 'test'
+      );
+      if (haveImplementation) {
+        acc.push(spec);
+      }
+      return acc;
+    }, []);
+    if (!specsWithImplementation.length) {
+      spinner.fail('No implementations found (test implementations excluded)');
       console.log(
         chalk.yellow(
           'Run "contractspec impl list" to see expected implementations.'
@@ -209,86 +430,40 @@ async function runVerify(
       return;
     }
 
-    // Find a valid implementation to verify
-    const implToVerify = resolved.implementations.find(
-      (i) => i.exists && i.type !== 'test'
-    );
-
-    if (!implToVerify) {
-      spinner.fail('No existing implementation files found');
-      process.exitCode = 1;
-      return;
-    }
-
     // Set up cache
     const cacheStorage = createFileSystemCacheStorage();
     const cacheService = createVerificationCacheService(cacheStorage);
 
-    // Read spec and implementation content
-    const specContent = await fs.readFile(specPath);
-    const implContent = await fs.readFile(implToVerify.path);
-
-    // Check cache
-    const tiers = getTiers(options.tier);
-    let cached = false;
-    const reports = new Map<VerificationTier, VerificationReport>();
-
-    if (!options.noCache) {
-      // Check cache for each tier
-      for (const tier of tiers) {
-        const cacheKey = cacheService.createKey(specContent, implContent, tier);
-        const cacheResult = await cacheService.lookup(cacheKey);
-        if (cacheResult.hit) {
-          reports.set(tier, cacheResult.entry.result);
-          cached = true;
-        }
-      }
-    }
-
-    // Run verification for uncached tiers
-    const uncachedTiers = tiers.filter((t) => !reports.has(t));
-
-    if (uncachedTiers.length > 0) {
-      spinner.text = 'Running verification checks...';
-
-      // Create verify service
-      const verifyService = createVerifyService({
-        aiApiKey: process.env.CONTRACTSPEC_AI_API_KEY,
-        aiProvider:
-          (process.env.CONTRACTSPEC_AI_PROVIDER as 'anthropic' | 'openai') ??
-          'anthropic',
-      });
-
-      // We need to load the spec to verify
-      // For now, use a simplified verification approach
-      const result = await verifyService.verify(
-        {
-          meta: {
-            name: resolved.specKey,
-            version: resolved.specVersion,
-            kind: 'command',
-          },
-        } as never,
-        implContent,
-        { tiers: uncachedTiers, failFast: options.failFast }
+    const results: SpecsImplementationReportsResult = {
+      areSpecAllCached: true,
+      hasSucceed: true,
+      reports: new Array<SpecImplementationReportsResult>(),
+    };
+    for (const specWithImplementation of specsWithImplementation) {
+      const spec = specs.find(
+        (spec) =>
+          spec.key === specWithImplementation.specKey &&
+          spec.version === specWithImplementation.specVersion
       );
+      if (!spec) {
+        throw new Error(
+          `Should not happen: spec ${specWithImplementation.specKey} not found.`
+        );
+      }
 
-      // Store results
-      for (const [tier, report] of result.reports) {
-        reports.set(tier, report);
-
-        // Cache the result
-        if (!options.noCache) {
-          const cacheKey = cacheService.createKey(
-            specContent,
-            implContent,
-            tier
-          );
-          await cacheService.store(cacheKey, report, {
-            specName: resolved.specKey,
-            implPath: implToVerify.path,
-          });
-        }
+      const specReports = await verifySpecImplementations(
+        options,
+        spinner,
+        cacheService,
+        spec,
+        specWithImplementation
+      );
+      results.reports.push(specReports);
+      if (!specReports.hasSucceed) {
+        results.hasSucceed = false;
+      }
+      if (!specReports.isSpecCached) {
+        results.areSpecAllCached = false;
       }
     }
 
@@ -297,18 +472,17 @@ async function runVerify(
     // Output results
     switch (options.format) {
       case 'json':
-        outputJson(resolved.specKey, reports, cached);
+        outputJson(results);
         break;
       case 'sarif':
-        outputSarif(specPath, reports);
+        outputSarif(results);
         break;
       default:
-        outputText(resolved.specKey, reports, cached);
+        outputText(results);
     }
 
     // Exit with error if verification failed
-    const allPassed = Array.from(reports.values()).every((r) => r.passed);
-    if (!allPassed) {
+    if (!results.hasSucceed) {
       process.exitCode = 1;
     }
   } catch (error) {

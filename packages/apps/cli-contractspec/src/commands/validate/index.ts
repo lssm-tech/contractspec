@@ -1,21 +1,20 @@
-import { existsSync } from 'fs';
 import chalk from 'chalk';
 import { resolve } from 'path';
 import { select } from '@inquirer/prompts';
+import type { FsAdapter, LoggerAdapter } from '@contractspec/bundle.workspace';
 import {
   createNodeAdapters,
-  loadWorkspaceConfig,
-  validateImplementationFiles,
-  validateSpec,
-  validateBlueprint,
-  validateTenantConfig,
-  validateImplementationWithAgent,
   listSpecs,
+  validateBlueprint,
+  validateImplementationFiles,
+  validateImplementationWithAgent,
+  validateSpec,
+  validateTenantConfig,
 } from '@contractspec/bundle.workspace';
-import type { FsAdapter, LoggerAdapter } from '@contractspec/bundle.workspace';
 import type { AppBlueprintSpec } from '@contractspec/lib.contracts/app-config';
-import type { ContractsrcConfig } from '@contractspec/lib.contracts/workspace-config';
 import type { Config } from '../../utils/config';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts/workspace-config/contractsrc-types';
+import type { SpecScanResult } from '@contractspec/module.workspace';
 
 interface ValidateOptions {
   blueprint?: string;
@@ -35,7 +34,7 @@ interface ValidateOptions {
  * Main validate command implementation
  */
 export async function validateCommand(
-  specFiles: string | string[] | undefined,
+  specFilePath: string | undefined,
   options: ValidateOptions,
   config: Config
 ) {
@@ -91,29 +90,20 @@ export async function validateCommand(
     }
   }
 
-  // Resolve files to validate
-  let filesToValidate: string[] = [];
-  if (Array.isArray(specFiles) && specFiles.length > 0) {
-    filesToValidate = specFiles;
-  } else if (typeof specFiles === 'string' && specFiles) {
-    filesToValidate = [specFiles];
-  } else {
-    // Scan workspace
-    console.log(chalk.cyan('Scanning workspace for contracts...'));
-    const specs = await listSpecs(
-      { fs: adapters.fs },
-      { config: config as ContractsrcConfig }
-    );
-    filesToValidate = specs.map((s) => s.filePath);
-    console.log(
-      chalk.gray(`Found ${filesToValidate.length} contracts to validate.`)
-    );
-  }
+  console.log(chalk.cyan('Scanning workspace for contracts...'));
+  const scannedSpecs = await listSpecs(adapters, {
+    config,
+    pattern: specFilePath,
+  });
 
-  if (filesToValidate.length === 0) {
+  if (scannedSpecs.length === 0) {
     console.log(chalk.yellow('No specs found to validate.'));
     return;
   }
+
+  console.log(
+    chalk.gray(`Found ${scannedSpecs.length} contracts files to validate.`)
+  );
 
   // Interactive Prompt for Implementation check
   const shouldPrompt = typeof options.checkImplementation !== 'boolean';
@@ -135,14 +125,14 @@ export async function validateCommand(
 
   let hasErrors = !blueprintValid || !tenantValid;
 
-  for (const specFile of filesToValidate) {
+  for (const specFile of scannedSpecs) {
     const result = await validateSingleSpec(
       specFile,
       validateImplementation,
       options,
       config,
       adapters,
-      filesToValidate.length > 1
+      scannedSpecs.length > 1
     );
     if (!result) hasErrors = true;
   }
@@ -158,23 +148,17 @@ export async function validateCommand(
 }
 
 async function validateSingleSpec(
-  specFile: string,
+  specFile: SpecScanResult,
   validateImplementation: boolean,
   options: ValidateOptions,
-  config: Config,
+  workspaceConfig: ResolvedContractsrcConfig,
   adapters: { fs: FsAdapter; logger: LoggerAdapter },
   isBatch: boolean
 ): Promise<boolean> {
-  // Validate spec file exists
-  if (!existsSync(specFile)) {
-    console.error(chalk.red(`❌ Spec file not found: ${specFile}`));
-    return false;
-  }
-
   if (isBatch) {
-    console.log(chalk.bold(`\n📄 ${specFile}`));
+    console.log(chalk.bold(`\n📄 ${specFile.filePath}`));
   } else {
-    console.log(chalk.gray(`Validating: ${specFile}\n`));
+    console.log(chalk.gray(`Validating: ${specFile.filePath}\n`));
   }
 
   let isValid = true;
@@ -185,9 +169,9 @@ async function validateSingleSpec(
   const skipSpecStructure =
     options.blueprint &&
     resolve(process.cwd(), options.blueprint) ===
-      resolve(process.cwd(), specFile);
+      resolve(process.cwd(), specFile.filePath);
 
-  const specResult = await validateSpec(specFile, adapters, {
+  const specResult = await validateSpec(specFile.filePath, adapters, {
     skipStructure: !!skipSpecStructure,
   });
 
@@ -216,14 +200,10 @@ async function validateSingleSpec(
   if (validateImplementation && specResult.code) {
     console.log(chalk.cyan('\n🤖 Validating implementation with AI...'));
 
-    // Config casting might be needed if types mismatch
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const bundleConfig = config as any;
-
     const implResult = await validateImplementationWithAgent(
-      specFile,
+      specFile.filePath,
       specResult.code,
-      bundleConfig,
+      workspaceConfig,
       options,
       adapters
     );
@@ -266,7 +246,6 @@ async function validateSingleSpec(
   // 3. Handler validation (if requested)
   if (options.checkHandlers) {
     console.log(chalk.cyan('\n🔧 Checking handler implementation...'));
-    const workspaceConfig = await loadWorkspaceConfig(adapters.fs);
     const result = await validateImplementationFiles(
       specFile,
       { fs: adapters.fs },
@@ -286,7 +265,6 @@ async function validateSingleSpec(
   // 4. Test validation (if requested)
   if (options.checkTests) {
     console.log(chalk.cyan('\n🧪 Checking test coverage...'));
-    const workspaceConfig = await loadWorkspaceConfig(adapters.fs);
     const result = await validateImplementationFiles(
       specFile,
       { fs: adapters.fs },

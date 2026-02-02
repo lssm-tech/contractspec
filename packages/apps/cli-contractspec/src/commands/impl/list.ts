@@ -10,12 +10,14 @@ import ora from 'ora';
 import {
   createConsoleLoggerAdapter,
   createNodeFsAdapter,
+  listSpecs,
   loadWorkspaceConfig,
   type ResolvedImplementation,
   resolveImplementations,
   type SpecImplementationResult,
 } from '@contractspec/bundle.workspace';
 import type { ImplListOptions } from './types';
+import type { MaybeArray } from '@contractspec/libs/utils-typescript';
 
 /**
  * Format source badge
@@ -75,8 +77,8 @@ function outputText(result: SpecImplementationResult): void {
     const existsIcon = impl.exists ? chalk.green('✓') : chalk.red('✗');
     const typeStr = typeBadge(impl.type);
     const sourceStr = sourceBadge(impl.source);
-    const hashStr = impl.contentHash
-      ? chalk.gray(`(${impl.contentHash.substring(0, 8)})`)
+    const hashStr = impl.implementationSourceHash
+      ? chalk.gray(`(${impl.implementationSourceHash.substring(0, 8)})`)
       : '';
 
     console.log(`    ${existsIcon} ${impl.path}`);
@@ -90,7 +92,7 @@ function outputText(result: SpecImplementationResult): void {
 /**
  * Output as JSON
  */
-function outputJson(result: SpecImplementationResult): void {
+function outputJson(result: MaybeArray<SpecImplementationResult>): void {
   console.log(JSON.stringify(result, null, 2));
 }
 
@@ -121,7 +123,7 @@ function outputTable(result: SpecImplementationResult): void {
  * Run list command
  */
 async function runList(
-  specPath: string,
+  specPath: string | null,
   options: ImplListOptions
 ): Promise<void> {
   const spinner = ora('Loading implementation mappings...').start();
@@ -132,25 +134,39 @@ async function runList(
     const config = await loadWorkspaceConfig(fs);
     const adapters = { fs, logger };
 
-    const result = await resolveImplementations(specPath, adapters, config, {
-      includeExplicit: true,
-      includeDiscovered: options.includeDiscovered ?? true,
-      includeConvention: options.includeConvention ?? true,
-      computeHashes: true,
+    const specs = await listSpecs(adapters, {
+      pattern: specPath || undefined,
     });
+
+    const specImplementations: SpecImplementationResult[] = [];
+
+    for (const spec of specs) {
+      const result = await resolveImplementations(spec, adapters, config, {
+        includeExplicit: true,
+        includeDiscovered: options.includeDiscovered ?? true,
+        includeConvention: options.includeConvention ?? true,
+        computeHashes: true,
+      });
+
+      specImplementations.push(result);
+    }
 
     spinner.stop();
 
     // Output result
     switch (options.format) {
       case 'json':
-        outputJson(result);
+        outputJson(specImplementations);
         break;
       case 'table':
-        outputTable(result);
+        specImplementations.forEach((specImplementation) => {
+          outputTable(specImplementation);
+        });
         break;
       default:
-        outputText(result);
+        specImplementations.forEach((specImplementation) => {
+          outputText(specImplementation);
+        });
     }
   } catch (error) {
     spinner.fail('Failed to list implementations');
@@ -179,7 +195,7 @@ export function createListCommand(): Command {
       true
     )
     .option('-f, --format <format>', 'Output format: text, json, table', 'text')
-    .action(async (spec: string, options: ImplListOptions) => {
+    .action(async (spec: string | null, options: ImplListOptions) => {
       await runList(spec, options);
     });
 }

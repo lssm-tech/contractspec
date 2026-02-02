@@ -2,49 +2,62 @@
 
 # crm.deal.list
 
-List view of deals with value, status, and owner info
+List deals with filters.
 
 ## Metadata
 
-- **Type**: presentation (presentation)
+- **Type**: operation (query)
 - **Version**: 1.0.0
-- **Owners**: @crm-team
-- **Tags**: deal, list
-- **File**: `packages/examples/crm-pipeline/src/presentations/pipeline.presentation.ts`
+- **Stability**: stable
+- **Owners**: @example.crm-pipeline
+- **Tags**: crm, deal, list
+- **File**: `packages/examples/crm-pipeline/src/deal/deal.operation.ts`
 
 ## Goal
 
-Search, filter, and review deal lists.
+Show pipeline, deal lists, dashboards.
 
 ## Context
 
-Standard view for deal management and bulk actions.
+Pipeline view, deal list.
 
 ## Source Definition
 
 ```typescript
-export const DealListPresentation = definePresentation({
+export const ListDealsContract = defineQuery({
   meta: {
     key: 'crm.deal.list',
     version: '1.0.0',
-    title: 'Deal List',
-    description: 'List view of deals with value, status, and owner info',
-    domain: 'crm-pipeline',
-    owners: ['@crm-team'],
-    tags: ['deal', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Search, filter, and review deal lists.',
-    context: 'Standard view for deal management and bulk actions.',
+    stability: 'stable',
+    owners: ['@example.crm-pipeline'],
+    tags: ['crm', 'deal', 'list'],
+    description: 'List deals with filters.',
+    goal: 'Show pipeline, deal lists, dashboards.',
+    context: 'Pipeline view, deal list.',
   },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'DealListView',
-    props: DealModel,
+  io: {
+    input: ListDealsInputModel,
+    output: ListDealsOutputModel,
   },
-  targets: ['react', 'markdown', 'application/json'],
   policy: {
-    flags: ['crm.deals.enabled'],
+    auth: 'user',
+  },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-deals-happy-path',
+        given: ['User has access to deals'],
+        when: ['User lists deals'],
+        then: ['List of deals is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-filter-stage',
+        input: { stageId: 'stage-lead', limit: 20 },
+        output: { items: [], total: 5, hasMore: false },
+      },
+    ],
   },
 });
 ```

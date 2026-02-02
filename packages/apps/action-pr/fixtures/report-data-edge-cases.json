@@ -1,0 +1,31 @@
+{
+  "whatChanged": {
+    "summary": "Edge case contracts."
+  },
+  "risk": {
+    "status": "non-breaking",
+    "breaking": 0,
+    "nonBreaking": 0
+  },
+  "validation": {
+    "status": "pass"
+  },
+  "drift": {
+    "status": "pass"
+  },
+  "nextSteps": [],
+  "contracts": [
+    {
+      "name": "org.team:member/create",
+      "lastVerifiedSha": "aaa1111",
+      "lastVerifiedDate": "2025-06-10T12:00:00Z",
+      "surfaces": [],
+      "driftMismatches": 0
+    },
+    {
+      "name": "billing.invoice.v2",
+      "surfaces": ["API", "runtime validation", "UI form", "docs/examples", "permissions"],
+      "driftMismatches": 999
+    }
+  ]
+}

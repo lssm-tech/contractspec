@@ -43,7 +43,7 @@ Connect and sync data with external systems through configurable integrations
 - `integration.syncConfig.list` (v1.0.0)
 - `integration.syncConfig.editor` (v1.0.0)
 - `integration.fieldMapping.editor` (v1.0.0)
-- `integration.syncRun.list` (v1.0.0)
+- `integration.syncRun.viewList` (v1.0.0)
 - `integration.syncRun.detail` (v1.0.0)
 - `integration.health` (v1.0.0)
 - `integration.sync.activity` (v1.0.0)
@@ -98,7 +98,7 @@ export const IntegrationHubFeature = defineFeature({
     { key: 'integration.syncConfig.list', version: '1.0.0' },
     { key: 'integration.syncConfig.editor', version: '1.0.0' },
     { key: 'integration.fieldMapping.editor', version: '1.0.0' },
-    { key: 'integration.syncRun.list', version: '1.0.0' },
+    { key: 'integration.syncRun.viewList', version: '1.0.0' },
     { key: 'integration.syncRun.detail', version: '1.0.0' },
     { key: 'integration.health', version: '1.0.0' },
     { key: 'integration.sync.activity', version: '1.0.0' },
@@ -115,7 +115,7 @@ export const IntegrationHubFeature = defineFeature({
     },
     {
       op: { key: 'integration.syncRun.list', version: '1.0.0' },
-      pres: { key: 'integration.syncRun.list', version: '1.0.0' },
+      pres: { key: 'integration.syncRun.viewList', version: '1.0.0' },
     },
   ],
 
@@ -146,7 +146,7 @@ export const IntegrationHubFeature = defineFeature({
       targets: ['react'],
     },
     {
-      key: 'integration.syncRun.list',
+      key: 'integration.syncRun.viewList',
       version: '1.0.0',
       targets: ['react', 'markdown'],
     },

@@ -8,7 +8,7 @@ Registers or updates translation entries for a blueprint.
 
 - **Type**: operation (command)
 - **Version**: 1.0.0
-- **File**: `packages/libs/contracts/src/app-config/contracts.ts`
+- **File**: `packages/libs/contracts/src/app-config/app-config.contracts.ts`
 
 ## Goal
 

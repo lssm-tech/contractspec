@@ -12,10 +12,10 @@ import {
   inferSpecTypeFromFilePath,
   scanSpecSource,
   type SpecScanResult,
-  type WorkspaceConfig,
 } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../ports/fs';
 import type { LoggerAdapter } from '../ports/logger';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
 
 /**
  * Build target types.
@@ -77,7 +77,7 @@ export async function buildSpec(
     logger: LoggerAdapter;
     workspace?: typeof import('@contractspec/module.workspace');
   },
-  config: WorkspaceConfig,
+  config: ResolvedContractsrcConfig,
   options: BuildSpecOptions = {}
 ): Promise<BuildSpecResult> {
   const { fs, logger, workspace } = adapters;

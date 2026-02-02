@@ -8,6 +8,7 @@
 import type { FsAdapter } from '../../ports/fs';
 import type { ImplementationType } from '@contractspec/lib.contracts';
 import type { DiscoveryOptions, SpecReferenceMatch } from './types';
+import { DEFAULT_FS_IGNORES, DEFAULT_SPEC_PATTERNS } from '../../adapters';
 
 /**
  * Patterns for detecting spec references in source code.
@@ -159,19 +160,7 @@ export function extractSpecReferences(
 /**
  * Default glob patterns for implementation files.
  */
-const DEFAULT_INCLUDE_PATTERNS = ['**/*.ts', '**/*.tsx'];
-
-const DEFAULT_EXCLUDE_PATTERNS = [
-  '**/node_modules/**',
-  '**/dist/**',
-  '**/.git/**',
-  '**/*.d.ts',
-  '**/*.operation.ts', // Skip spec files themselves
-  '**/*.spec.ts', // Skip test spec files
-  '**/*.feature.ts', // Skip feature files
-  '**/*.event.ts', // Skip event spec files
-  '**/*.presentation.ts', // Skip presentation files
-];
+const DEFAULT_INCLUDE_PATTERNS = ['**/*.ts(x)'];
 
 /**
  * Discover implementations that reference a specific spec.
@@ -183,7 +172,9 @@ export async function discoverImplementationsForSpec(
 ): Promise<SpecReferenceMatch[]> {
   const { fs } = adapters;
   const includePatterns = options.includePatterns ?? DEFAULT_INCLUDE_PATTERNS;
-  const excludePatterns = options.excludePatterns ?? DEFAULT_EXCLUDE_PATTERNS;
+  const excludePatterns = options.excludePatterns ?? [
+    ...new Set([...DEFAULT_FS_IGNORES, ...DEFAULT_SPEC_PATTERNS]),
+  ];
 
   const allMatches: SpecReferenceMatch[] = [];
 
@@ -220,7 +211,9 @@ export async function discoverAllImplementations(
 ): Promise<Map<string, SpecReferenceMatch[]>> {
   const { fs } = adapters;
   const includePatterns = options.includePatterns ?? DEFAULT_INCLUDE_PATTERNS;
-  const excludePatterns = options.excludePatterns ?? DEFAULT_EXCLUDE_PATTERNS;
+  const excludePatterns = options.excludePatterns ?? [
+    ...new Set([...DEFAULT_FS_IGNORES, ...DEFAULT_SPEC_PATTERNS]),
+  ];
 
   const specToImplementations = new Map<string, SpecReferenceMatch[]>();
 

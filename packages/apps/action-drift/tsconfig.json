@@ -1,6 +1,5 @@
 {
   "extends": "@contractspec/tool.typescript/base.json",
-  "include": ["src/report.ts", "src/report.test.ts"],
   "compilerOptions": {
     "noEmit": true,
     "declaration": false,

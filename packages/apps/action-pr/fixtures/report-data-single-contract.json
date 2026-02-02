@@ -1,0 +1,26 @@
+{
+  "whatChanged": {
+    "summary": "1 contract changed."
+  },
+  "risk": {
+    "status": "non-breaking",
+    "breaking": 0,
+    "nonBreaking": 1
+  },
+  "validation": {
+    "status": "pass"
+  },
+  "drift": {
+    "status": "pass"
+  },
+  "nextSteps": [],
+  "contracts": [
+    {
+      "name": "payment.process",
+      "lastVerifiedSha": "def5678",
+      "lastVerifiedDate": "2025-06-14T10:00:00Z",
+      "surfaces": ["API", "runtime validation"],
+      "driftMismatches": 1
+    }
+  ]
+}

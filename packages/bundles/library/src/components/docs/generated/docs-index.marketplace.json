@@ -130,7 +130,7 @@
   {
     "id": "marketplace/marketplace.payout.list",
     "title": "marketplace.payout.list",
-    "summary": "List of payouts for sellers - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, payout, list - **File**: `packages/examples/marketplace/src/payout/payout.presentation.ts`",
+    "summary": "List payouts for a store. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.marketplace - **Tags**: marketplace, payout, list - **File**: `packages/examples/marketplace/src/payout/payout.operations.ts`",
     "route": "/docs/reference/marketplace/marketplace.payout.list",
     "source": "generated",
     "contentPath": "marketplace/marketplace.payout.list.md"
@@ -150,6 +150,14 @@
     "route": "/docs/reference/marketplace/marketplace.payout.paid",
     "source": "generated",
     "contentPath": "marketplace/marketplace.payout.paid.md"
+  },
+  {
+    "id": "marketplace/marketplace.payout.viewList",
+    "title": "marketplace.payout.viewList",
+    "summary": "List of payouts for sellers - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, payout, list - **File**: `packages/examples/marketplace/src/payout/payout.presentation.ts`",
+    "route": "/docs/reference/marketplace/marketplace.payout.viewList",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.payout.viewList.md"
   },
   {
     "id": "marketplace/marketplace.product.catalog",
@@ -250,7 +258,7 @@
   {
     "id": "marketplace/marketplace.review.list",
     "title": "marketplace.review.list",
-    "summary": "List of product reviews - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, review, list - **File**: `packages/examples/marketplace/src/review/review.presentation.ts`",
+    "summary": "List reviews with filters. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.marketplace - **Tags**: marketplace, review, list - **File**: `packages/examples/marketplace/src/review/review.operations.ts`",
     "route": "/docs/reference/marketplace/marketplace.review.list",
     "source": "generated",
     "contentPath": "marketplace/marketplace.review.list.md"
@@ -270,6 +278,14 @@
     "route": "/docs/reference/marketplace/marketplace.review.responded",
     "source": "generated",
     "contentPath": "marketplace/marketplace.review.responded.md"
+  },
+  {
+    "id": "marketplace/marketplace.review.viewList",
+    "title": "marketplace.review.viewList",
+    "summary": "List of product reviews - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, review, list - **File**: `packages/examples/marketplace/src/review/review.presentation.ts`",
+    "route": "/docs/reference/marketplace/marketplace.review.viewList",
+    "source": "generated",
+    "contentPath": "marketplace/marketplace.review.viewList.md"
   },
   {
     "id": "marketplace/marketplace.seller.dashboard",

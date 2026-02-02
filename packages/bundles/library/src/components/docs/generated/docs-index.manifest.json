@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-01-28T18:45:41.970Z",
-  "total": 659,
+  "generatedAt": "2026-02-02T03:48:03.109Z",
+  "total": 668,
   "version": null,
   "contentRoot": "../../../../../../../generated/docs",
   "chunks": [
     {
       "key": "_common",
       "file": "docs-index._common.json",
-      "total": 57
+      "total": 56
     },
     {
       "key": "agent-console",
       "file": "docs-index.agent-console.json",
-      "total": 46
+      "total": 47
     },
     {
       "key": "ai-chat",
@@ -22,7 +22,7 @@
     {
       "key": "analytics-dashboard",
       "file": "docs-index.analytics-dashboard.json",
-      "total": 20
+      "total": 21
     },
     {
       "key": "app-config",
@@ -37,12 +37,12 @@
     {
       "key": "crm-pipeline",
       "file": "docs-index.crm-pipeline.json",
-      "total": 19
+      "total": 20
     },
     {
       "key": "feature-flags",
       "file": "docs-index.feature-flags.json",
-      "total": 26
+      "total": 27
     },
     {
       "key": "files",
@@ -57,7 +57,7 @@
     {
       "key": "integration-hub",
       "file": "docs-index.integration-hub.json",
-      "total": 32
+      "total": 33
     },
     {
       "key": "jobs",
@@ -102,12 +102,12 @@
     {
       "key": "marketplace",
       "file": "docs-index.marketplace.json",
-      "total": 40
+      "total": 42
     },
     {
-      "key": "metering",
-      "file": "docs-index.metering.json",
-      "total": 23
+      "key": "metrics",
+      "file": "docs-index.metrics.json",
+      "total": 24
     },
     {
       "key": "notifications",
@@ -167,7 +167,7 @@
     {
       "key": "workflow-system",
       "file": "docs-index.workflow-system.json",
-      "total": 52
+      "total": 54
     },
     {
       "key": "workspace-cli",

@@ -2,48 +2,94 @@
 
 # agent-console.agent.list
 
-List view of AI agents with status, model provider, and version info
+Lists agents for an organization with optional filtering.
 
 ## Metadata
 
-- **Type**: presentation (presentation)
+- **Type**: operation (query)
 - **Version**: 1.0.0
+- **Stability**: stable
 - **Owners**: @agent-console-team
-- **Tags**: agent, list, dashboard
-- **File**: `packages/examples/agent-console/src/agent/agent.presentation.ts`
+- **Tags**: agent, list
+- **File**: `packages/examples/agent-console/src/agent/agent.operation.ts`
 
 ## Goal
 
-Provide an overview of all agents in an organization.
+Browse and search available agents.
 
 ## Context
 
-Main landing page for agent management.
+Agent list/dashboard view.
 
 ## Source Definition
 
 ```typescript
-export const AgentListPresentation = definePresentation({
+export const ListAgentsQuery = defineQuery({
   meta: {
     key: 'agent-console.agent.list',
     version: '1.0.0',
-    title: 'Agent List',
-    description:
-      'List view of AI agents with status, model provider, and version info',
-    goal: 'Provide an overview of all agents in an organization.',
-    context: 'Main landing page for agent management.',
-    domain: 'agent-console',
+    stability: 'stable',
     owners: ['@agent-console-team'],
-    tags: ['agent', 'list', 'dashboard'],
-    stability: StabilityEnum.Experimental,
+    tags: ['agent', 'list'],
+    description: 'Lists agents for an organization with optional filtering.',
+    goal: 'Browse and search available agents.',
+    context: 'Agent list/dashboard view.',
   },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'AgentListView',
-    props: AgentSummaryModel,
+  io: {
+    input: defineSchemaModel({
+      name: 'ListAgentsInput',
+      fields: {
+        organizationId: {
+          type: ScalarTypeEnum.String_unsecure(),
+          isOptional: false,
+        },
+        status: { type: AgentStatusEnum, isOptional: true },
+        modelProvider: { type: ModelProviderEnum, isOptional: true },
+        search: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+        limit: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+          defaultValue: 20,
+        },
+        offset: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+          defaultValue: 0,
+        },
+      },
+    }),
+    output: defineSchemaModel({
+      name: 'ListAgentsOutput',
+      fields: {
+        items: { type: AgentSummaryModel, isArray: true, isOptional: false },
+        total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+        hasMore: { type: ScalarTypeEnum.Boolean(), isOptional: false },
+      },
+    }),
   },
-  targets: ['react', 'markdown', 'application/json'],
-  policy: { flags: ['agent-console.enabled'] },
+  policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-agents-happy-path',
+        given: ['Organization has agents'],
+        when: ['User lists agents'],
+        then: ['Paginated list of agents is returned'],
+      },
+      {
+        key: 'list-agents-filter-by-status',
+        given: ['Organization has agents with mixed statuses'],
+        when: ['User filters by status=active'],
+        then: ['Only active agents are returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-basic',
+        input: { organizationId: 'org-123', limit: 10, offset: 0 },
+        output: { items: [], total: 0, hasMore: false },
+      },
+    ],
+  },
 });
 ```

@@ -120,7 +120,7 @@ export const FeatureFlagsFeature = defineFeature({
   // Capability definitions
   capabilities: {
     provides: [
-      { key: 'feature-flags', version: '1.0.0' },
+      { key: 'feature-flag', version: '1.0.0' },
       { key: 'experiments', version: '1.0.0' },
     ],
     requires: [{ key: 'identity', version: '1.0.0' }],

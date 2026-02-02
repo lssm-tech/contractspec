@@ -2,24 +2,22 @@
  * Structure validation checks.
  */
 
-import { validateSpecStructure } from '@contractspec/module.workspace';
-import type { FsAdapter } from '../../../ports/fs';
-import type { LoggerAdapter } from '../../../ports/logger';
+import {
+  type SpecScanResult,
+  validateSpecStructure,
+} from '@contractspec/module.workspace';
 import type { CIIssue } from '../types';
 
 /**
  * Run spec structure validation checks.
  */
 export async function runStructureChecks(
-  adapters: { fs: FsAdapter; logger: LoggerAdapter },
-  specFiles: string[]
+  specFiles: SpecScanResult[]
 ): Promise<CIIssue[]> {
-  const { fs } = adapters;
   const issues: CIIssue[] = [];
 
-  for (const file of specFiles) {
-    const content = await fs.readFile(file);
-    const result = validateSpecStructure(content, file);
+  for (const specFile of specFiles) {
+    const result = validateSpecStructure(specFile);
 
     for (const error of result.errors) {
       issues.push({
@@ -27,7 +25,7 @@ export async function runStructureChecks(
         severity: 'error',
         message: error,
         category: 'structure',
-        file,
+        file: specFile.filePath,
       });
     }
 
@@ -37,7 +35,7 @@ export async function runStructureChecks(
         severity: 'warning',
         message: warning,
         category: 'structure',
-        file,
+        file: specFile.filePath,
       });
     }
   }

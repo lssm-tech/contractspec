@@ -13,7 +13,7 @@ import type {
   CheckRunConfig,
   CiConfig,
   ClaudeAgentSDKConfig,
-  ContractsrcConfig,
+  ContractsrcFileConfig,
   ExternalAgentsConfig,
   ExternalWorkspace,
   FolderConventions,
@@ -572,7 +572,7 @@ export const HooksConfigSchema: z.ZodType<HooksConfig> = z.record(
 /**
  * Full ContractSpec configuration schema (.contractsrc.json).
  */
-export const ContractsrcSchema: z.ZodType<ContractsrcConfig> = z.object({
+export const ContractsrcSchema: z.ZodType<ContractsrcFileConfig> = z.object({
   aiProvider: z
     .enum(['claude', 'openai', 'ollama', 'custom'])
     .default('claude')

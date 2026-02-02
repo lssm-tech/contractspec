@@ -73,6 +73,17 @@ export type TestLinkingStrategy =
   | 'convention-only' // Only use {specKey}.test naming convention
   | 'both'; // Accept both (default)
 
+export type AgentProvider = 'claude' | 'openai' | 'ollama' | 'custom';
+
+export type AgentMode =
+  | 'simple'
+  | 'cursor'
+  | 'claude-code'
+  | 'openai-codex'
+  | 'claude-agent-sdk'
+  | 'opencode'
+  | 'opencode-sdk';
+
 // ============================================================================
 // Internal Config Objects
 // ============================================================================
@@ -373,22 +384,12 @@ export type HooksConfig = Record<string, string[]>;
 
 /**
  * Full ContractSpec configuration (.contractsrc.json).
- */
-/**
- * Full ContractSpec configuration (.contractsrc.json).
  * All fields are optional as they come from user configuration.
  */
 export interface ContractsrcFileConfig {
-  aiProvider?: 'claude' | 'openai' | 'ollama' | 'custom';
+  aiProvider?: AgentProvider;
   aiModel?: string;
-  agentMode?:
-    | 'simple'
-    | 'cursor'
-    | 'claude-code'
-    | 'openai-codex'
-    | 'claude-agent-sdk'
-    | 'opencode'
-    | 'opencode-sdk';
+  agentMode?: AgentMode;
   customEndpoint?: string | null;
   customApiKey?: string | null;
   outputDir?: string;
