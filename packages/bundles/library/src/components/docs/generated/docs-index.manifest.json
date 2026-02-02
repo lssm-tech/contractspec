@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-02-02T02:38:52.071Z",
-  "total": 666,
+  "generatedAt": "2026-02-02T02:47:42.985Z",
+  "total": 668,
   "version": null,
   "contentRoot": "../../../../../../../generated/docs",
   "chunks": [
@@ -42,7 +42,7 @@
     {
       "key": "feature-flags",
       "file": "docs-index.feature-flags.json",
-      "total": 26
+      "total": 27
     },
     {
       "key": "files",
@@ -105,9 +105,9 @@
       "total": 42
     },
     {
-      "key": "metering",
-      "file": "docs-index.metering.json",
-      "total": 23
+      "key": "metrics",
+      "file": "docs-index.metrics.json",
+      "total": 24
     },
     {
       "key": "notifications",

@@ -2,7 +2,7 @@ import { defineCapability, StabilityEnum } from '@contractspec/lib.contracts';
 
 export const FeatureFlagsCapability = defineCapability({
   meta: {
-    key: 'feature-flags',
+    key: 'feature-flag',
     version: '1.0.0',
     kind: 'api',
     stability: StabilityEnum.Experimental,
