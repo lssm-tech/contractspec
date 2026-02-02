@@ -8,7 +8,7 @@ import {
 } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../ports/fs';
 import micromatch from 'micromatch';
-import { isTestFile } from '../utils';
+import { isTestFile, isLibraryDefinitionFile } from '../utils';
 import type { MaybeArray } from '@contractspec/lib.utils-typescript';
 import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
 
@@ -68,6 +68,11 @@ export async function listSpecs(
 
     // Exclude test files
     if (isTestFile(file, options.config)) {
+      continue;
+    }
+
+    // Exclude library definition files (files that define spec functions)
+    if (isLibraryDefinitionFile(file)) {
       continue;
     }
 
