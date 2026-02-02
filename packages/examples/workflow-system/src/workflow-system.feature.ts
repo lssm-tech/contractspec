@@ -79,7 +79,7 @@ export const WorkflowSystemFeature = defineFeature({
   presentations: [
     // Definition
     { key: 'workflow.designer', version: '1.0.0' },
-    { key: 'workflow.definition.list', version: '1.0.0' },
+    { key: 'workflow.definition.viewList', version: '1.0.0' },
     { key: 'workflow.definition.detail', version: '1.0.0' },
 
     // Instance

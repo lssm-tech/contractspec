@@ -51,7 +51,7 @@ export const CrmPipelineFeature = defineFeature({
   presentations: [
     { key: 'crm.dashboard', version: '1.0.0' },
     { key: 'crm.pipeline.kanban', version: '1.0.0' },
-    { key: 'crm.deal.list', version: '1.0.0' },
+    { key: 'crm.deal.viewList', version: '1.0.0' },
     { key: 'crm.deal.detail', version: '1.0.0' },
     { key: 'crm.deal.card', version: '1.0.0' },
     { key: 'crm.pipeline.metrics', version: '1.0.0' },
