@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/eslint-plugin-design-system",
-  "version": "1.55.0",
+  "version": "1.56.0",
   "type": "module",
   "main": "src/index.js",
   "exports": {

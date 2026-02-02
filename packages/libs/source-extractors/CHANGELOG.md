@@ -1,5 +1,17 @@
 # @contractspec/lib.source-extractors
 
+## 0.10.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts@1.56.0
+  - @contractspec/lib.schema@1.56.0
+
 ## 0.9.0
 
 ### Minor Changes

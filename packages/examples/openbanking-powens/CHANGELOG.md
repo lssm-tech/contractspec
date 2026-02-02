@@ -1,5 +1,17 @@
 # @contractspec/example.openbanking-powens
 
+## 1.56.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/integration.providers-impls@1.56.0
+  - @contractspec/lib.contracts@1.56.0
+
 ## 1.55.0
 
 ### Minor Changes

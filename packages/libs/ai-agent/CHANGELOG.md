@@ -1,5 +1,17 @@
 # @contractspec/lib.ai-agent
 
+## 1.56.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts@1.56.0
+  - @contractspec/lib.knowledge@1.56.0
+
 ## 1.55.0
 
 ### Minor Changes

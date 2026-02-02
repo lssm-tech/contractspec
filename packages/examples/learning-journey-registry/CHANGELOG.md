@@ -1,5 +1,27 @@
 # @contractspec/example.learning-journey-registry
 
+## 1.56.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/example.learning-journey-studio-onboarding@1.56.0
+  - @contractspec/example.learning-journey-quest-challenges@1.56.0
+  - @contractspec/example.learning-journey-crm-onboarding@1.56.0
+  - @contractspec/example.learning-journey-ambient-coach@1.56.0
+  - @contractspec/example.learning-journey-platform-tour@1.56.0
+  - @contractspec/example.learning-journey-ui-onboarding@1.56.0
+  - @contractspec/example.learning-journey-ui-coaching@1.56.0
+  - @contractspec/example.learning-journey-ui-gamified@1.56.0
+  - @contractspec/example.learning-journey-duo-drills@1.56.0
+  - @contractspec/example.learning-journey-ui-shared@1.56.0
+  - @contractspec/module.learning-journey@1.56.0
+  - @contractspec/lib.contracts@1.56.0
+
 ## 1.55.0
 
 ### Minor Changes

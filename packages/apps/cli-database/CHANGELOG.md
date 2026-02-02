@@ -1,5 +1,16 @@
 # @contractspec/app.cli-database
 
+## 1.56.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.schema@1.56.0
+
 ## 1.55.0
 
 ### Minor Changes

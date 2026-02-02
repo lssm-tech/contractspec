@@ -1,5 +1,17 @@
 # @contractspec/integration.example-generator
 
+## 9.0.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts@1.56.0
+  - @contractspec/lib.schema@1.56.0
+
 ## 8.0.0
 
 ### Minor Changes

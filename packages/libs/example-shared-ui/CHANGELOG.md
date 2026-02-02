@@ -1,5 +1,18 @@
 # @contractspec/lib.example-shared-ui
 
+## 1.10.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.design-system@1.56.0
+  - @contractspec/lib.ui-kit-web@1.56.0
+  - @contractspec/lib.contracts@1.56.0
+
 ## 1.9.0
 
 ### Minor Changes

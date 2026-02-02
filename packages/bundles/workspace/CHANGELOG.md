@@ -1,5 +1,22 @@
 # @contractspec/bundle.workspace
 
+## 1.56.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-transformers@1.56.0
+  - @contractspec/lib.source-extractors@0.10.0
+  - @contractspec/lib.utils-typescript@1.56.0
+  - @contractspec/lib.ai-providers@1.56.0
+  - @contractspec/module.workspace@1.56.0
+  - @contractspec/lib.contracts@1.56.0
+  - @contractspec/lib.ai-agent@1.56.0
+
 ## 1.55.0
 
 ### Minor Changes

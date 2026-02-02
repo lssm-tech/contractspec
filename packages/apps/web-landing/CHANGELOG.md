@@ -1,5 +1,34 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 1.56.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/example.policy-safe-knowledge-assistant@1.56.0
+  - @contractspec/example.analytics-dashboard@1.56.0
+  - @contractspec/example.saas-boilerplate@1.56.0
+  - @contractspec/lib.progressive-delivery@10.0.0
+  - @contractspec/example.integration-hub@1.56.0
+  - @contractspec/example.workflow-system@1.56.0
+  - @contractspec/example.agent-console@1.56.0
+  - @contractspec/lib.example-shared-ui@1.10.0
+  - @contractspec/example.crm-pipeline@1.56.0
+  - @contractspec/example.in-app-docs@1.3.0
+  - @contractspec/example.marketplace@1.56.0
+  - @contractspec/lib.design-system@1.56.0
+  - @contractspec/bundle.marketing@1.11.0
+  - @contractspec/lib.ui-kit-core@1.56.0
+  - @contractspec/module.examples@1.56.0
+  - @contractspec/bundle.library@1.11.0
+  - @contractspec/lib.ui-kit-web@1.56.0
+  - @contractspec/lib.ui-link@1.56.0
+  - @contractspec/lib.ui-kit@1.56.0
+
 ## 1.55.0
 
 ### Minor Changes

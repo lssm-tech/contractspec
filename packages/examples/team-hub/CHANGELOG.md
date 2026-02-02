@@ -1,5 +1,17 @@
 # @contractspec/example.team-hub
 
+## 1.56.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts@1.56.0
+  - @contractspec/lib.schema@1.56.0
+
 ## 1.55.0
 
 ### Minor Changes

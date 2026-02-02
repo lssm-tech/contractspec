@@ -1,5 +1,11 @@
 # @contractspec/tool.typescript
 
+## 1.56.0
+
+### Minor Changes
+
+- fix: release
+
 ## 1.55.0
 
 ### Minor Changes

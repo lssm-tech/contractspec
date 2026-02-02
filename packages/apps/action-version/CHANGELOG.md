@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 0.12.0
+
+### Minor Changes
+
+- fix: release
+
 ## 0.11.0
 
 ### Minor Changes

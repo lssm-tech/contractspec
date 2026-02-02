@@ -1,5 +1,11 @@
 # contractspec-example-opencode-cli
 
+## 0.5.0
+
+### Minor Changes
+
+- fix: release
+
 ## 0.4.0
 
 ### Minor Changes

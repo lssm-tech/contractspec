@@ -1,5 +1,16 @@
 # @contractspec/lib.email
 
+## 1.10.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.logger@1.56.0
+
 ## 1.9.0
 
 ### Minor Changes

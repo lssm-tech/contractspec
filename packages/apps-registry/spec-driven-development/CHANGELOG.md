@@ -1,5 +1,16 @@
 # spec-driven-development
 
+## 1.56.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/app.cli-contractspec@1.56.0
+
 ## 1.55.0
 
 ### Minor Changes

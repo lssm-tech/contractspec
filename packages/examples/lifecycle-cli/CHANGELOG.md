@@ -1,5 +1,19 @@
 # @contractspec/example.lifecycle-cli
 
+## 1.56.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/bundle.lifecycle-managed@1.56.0
+  - @contractspec/lib.contracts@1.56.0
+  - @contractspec/lib.lifecycle@1.56.0
+  - @contractspec/lib.logger@1.56.0
+
 ## 1.55.0
 
 ### Minor Changes

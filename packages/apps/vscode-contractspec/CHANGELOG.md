@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.56.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-transformers@1.56.0
+  - @contractspec/bundle.workspace@1.56.0
+  - @contractspec/module.workspace@1.56.0
+  - @contractspec/module.examples@1.56.0
+  - @contractspec/module.ai-chat@1.56.0
+  - @contractspec/lib.contracts@1.56.0
+  - @contractspec/lib.ai-agent@1.56.0
+
 ## 1.55.0
 
 ### Minor Changes

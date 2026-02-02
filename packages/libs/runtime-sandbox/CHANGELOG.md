@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 0.11.0
+
+### Minor Changes
+
+- fix: release
+
 ## 0.10.0
 
 ### Minor Changes

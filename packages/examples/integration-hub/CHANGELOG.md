@@ -1,5 +1,20 @@
 # @contractspec/example.integration-hub
 
+## 1.56.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.example-shared-ui@1.10.0
+  - @contractspec/lib.runtime-sandbox@0.11.0
+  - @contractspec/lib.design-system@1.56.0
+  - @contractspec/lib.contracts@1.56.0
+  - @contractspec/lib.schema@1.56.0
+
 ## 1.55.0
 
 ### Minor Changes

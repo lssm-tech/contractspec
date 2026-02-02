@@ -1,5 +1,18 @@
 # @contractspec/lib.accessibility
 
+## 1.56.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.design-system@1.56.0
+  - @contractspec/lib.ui-kit-web@1.56.0
+  - @contractspec/lib.ui-kit@1.56.0
+
 ## 1.55.0
 
 ### Minor Changes
