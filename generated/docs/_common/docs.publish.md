@@ -37,7 +37,10 @@ export const DocsPublishCommand = defineCommand({
     stability: DOCS_STABILITY,
     docId: [docId('docs.tech.docs-publish')],
   },
-  capability: DOCS_CAPABILITY_REF,
+  capability: {
+    key: 'docs.system',
+    version: '1.0.0',
+  },
   io: {
     input: DocsPublishInput,
     output: DocsPublishOutput,

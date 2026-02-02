@@ -37,7 +37,10 @@ export const DocsIndexQuery = defineQuery({
     stability: DOCS_STABILITY,
     docId: [docId('docs.tech.docs-search')],
   },
-  capability: DOCS_CAPABILITY_REF,
+  capability: {
+    key: 'docs.system',
+    version: '1.0.0',
+  },
   io: {
     input: DocsIndexInput,
     output: DocsIndexOutput,

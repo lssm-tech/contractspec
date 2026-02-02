@@ -37,7 +37,10 @@ export const ContractReferenceQuery = defineQuery({
     stability: DOCS_STABILITY,
     docId: [docId('docs.tech.docs-reference')],
   },
-  capability: DOCS_CAPABILITY_REF,
+  capability: {
+    key: 'docs.system',
+    version: '1.0.0',
+  },
   io: {
     input: ContractReferenceInput,
     output: ContractReferenceOutput,

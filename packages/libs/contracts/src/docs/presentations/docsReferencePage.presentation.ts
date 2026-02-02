@@ -2,7 +2,6 @@ import { definePresentation } from '../../presentations';
 import '../ensure-docblocks';
 import { docId } from '../registry';
 import {
-  DOCS_CAPABILITY_REF,
   DOCS_DOMAIN,
   DOCS_OWNERS,
   DOCS_REFERENCE_PRESENTATION_KEY,
@@ -25,7 +24,10 @@ export const DocsReferencePagePresentation = definePresentation({
     stability: DOCS_STABILITY,
     docId: [docId('docs.tech.docs-reference')],
   },
-  capability: DOCS_CAPABILITY_REF,
+  capability: {
+    key: 'docs.system',
+    version: '1.0.0',
+  },
   source: {
     type: 'component',
     framework: 'react',

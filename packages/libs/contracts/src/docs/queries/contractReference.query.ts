@@ -1,9 +1,8 @@
-import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import { defineQuery } from '../../operations';
 import '../ensure-docblocks';
 import { docId } from '../registry';
 import {
-  DOCS_CAPABILITY_REF,
   DOCS_DOMAIN,
   DOCS_OWNERS,
   DOCS_STABILITY,
@@ -69,7 +68,10 @@ export const ContractReferenceQuery = defineQuery({
     stability: DOCS_STABILITY,
     docId: [docId('docs.tech.docs-reference')],
   },
-  capability: DOCS_CAPABILITY_REF,
+  capability: {
+    key: 'docs.system',
+    version: '1.0.0',
+  },
   io: {
     input: ContractReferenceInput,
     output: ContractReferenceOutput,
