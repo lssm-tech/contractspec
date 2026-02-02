@@ -8,7 +8,7 @@ import {
 } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../ports/fs';
 import micromatch from 'micromatch';
-import { isTestFile, isLibraryDefinitionFile } from '../utils';
+import { isLibraryDefinitionFile, isTestFile } from '../utils';
 import type { MaybeArray } from '@contractspec/lib.utils-typescript';
 import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
 

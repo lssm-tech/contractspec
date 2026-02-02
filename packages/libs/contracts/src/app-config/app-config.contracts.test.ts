@@ -9,7 +9,7 @@ import {
   UpdateTenantBrandingCommand,
   UpdateTenantTranslationOverridesCommand,
   VerifyCustomDomainCommand,
-} from './contracts';
+} from './app-config.contracts';
 
 describe('app-config contracts', () => {
   it('registers branding and translation management contracts', () => {

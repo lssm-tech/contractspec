@@ -42,7 +42,7 @@
   {
     "id": "app-config/appConfig.getResolvedBranding",
     "title": "appConfig.getResolvedBranding",
-    "summary": "Returns the resolved branding for a tenant/app/environment. - **Type**: operation (query) - **Version**: 1.0.0 - **Tags**: branding - **File**: `packages/libs/contracts/src/app-config/contracts.ts` Expose hydrated branding assets for rendering UI/email experiences.",
+    "summary": "Returns the resolved branding for a tenant/app/environment. - **Type**: operation (query) - **Version**: 1.0.0 - **Tags**: branding - **File**: `packages/libs/contracts/src/app-config/app-config.contracts.ts`",
     "route": "/docs/reference/app-config/appConfig.getResolvedBranding",
     "source": "generated",
     "contentPath": "app-config/appConfig.getResolvedBranding.md"
@@ -98,7 +98,7 @@
   {
     "id": "app-config/appConfig.resolveMessage",
     "title": "appConfig.resolveMessage",
-    "summary": "Resolves a translation key for a tenant in the requested locale. - **Type**: operation (query) - **Version**: 1.0.0 - **File**: `packages/libs/contracts/src/app-config/contracts.ts` Expose a server-side API for resolving message keys on demand.",
+    "summary": "Resolves a translation key for a tenant in the requested locale. - **Type**: operation (query) - **Version**: 1.0.0 - **File**: `packages/libs/contracts/src/app-config/app-config.contracts.ts` Expose a server-side API for resolving message keys on demand.",
     "route": "/docs/reference/app-config/appConfig.resolveMessage",
     "source": "generated",
     "contentPath": "app-config/appConfig.resolveMessage.md"
@@ -106,7 +106,7 @@
   {
     "id": "app-config/appConfig.updateBlueprintTranslationCatalog",
     "title": "appConfig.updateBlueprintTranslationCatalog",
-    "summary": "Registers or updates translation entries for a blueprint. - **Type**: operation (command) - **Version**: 1.0.0 - **File**: `packages/libs/contracts/src/app-config/contracts.ts` Keep blueprint translation catalogs in sync with shipped copy.",
+    "summary": "Registers or updates translation entries for a blueprint. - **Type**: operation (command) - **Version**: 1.0.0 - **File**: `packages/libs/contracts/src/app-config/app-config.contracts.ts` Keep blueprint translation catalogs in sync with shipped copy.",
     "route": "/docs/reference/app-config/appConfig.updateBlueprintTranslationCatalog",
     "source": "generated",
     "contentPath": "app-config/appConfig.updateBlueprintTranslationCatalog.md"
@@ -114,7 +114,7 @@
   {
     "id": "app-config/appConfig.updateTenantBranding",
     "title": "appConfig.updateTenantBranding",
-    "summary": "Applies tenant branding overrides (names, assets, domains). - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: branding - **File**: `packages/libs/contracts/src/app-config/contracts.ts` Maintain tenant-specific branding assets and domains.",
+    "summary": "Applies tenant branding overrides (names, assets, domains). - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: branding - **File**: `packages/libs/contracts/src/app-config/app-config.contracts.ts`",
     "route": "/docs/reference/app-config/appConfig.updateTenantBranding",
     "source": "generated",
     "contentPath": "app-config/appConfig.updateTenantBranding.md"
@@ -122,7 +122,7 @@
   {
     "id": "app-config/appConfig.updateTenantTranslations",
     "title": "appConfig.updateTenantTranslations",
-    "summary": "Applies tenant-specific translation entries. - **Type**: operation (command) - **Version**: 1.0.0 - **File**: `packages/libs/contracts/src/app-config/contracts.ts` Allow tenants to override selected message keys.",
+    "summary": "Applies tenant-specific translation entries. - **Type**: operation (command) - **Version**: 1.0.0 - **File**: `packages/libs/contracts/src/app-config/app-config.contracts.ts` Allow tenants to override selected message keys.",
     "route": "/docs/reference/app-config/appConfig.updateTenantTranslations",
     "source": "generated",
     "contentPath": "app-config/appConfig.updateTenantTranslations.md"
@@ -130,7 +130,7 @@
   {
     "id": "app-config/appConfig.verifyCustomDomain",
     "title": "appConfig.verifyCustomDomain",
-    "summary": "Validates DNS ownership for tenant custom domains. - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: branding - **File**: `packages/libs/contracts/src/app-config/contracts.ts` Confirm tenant-provided domains before activation.",
+    "summary": "Validates DNS ownership for tenant custom domains. - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: branding - **File**: `packages/libs/contracts/src/app-config/app-config.contracts.ts`",
     "route": "/docs/reference/app-config/appConfig.verifyCustomDomain",
     "source": "generated",
     "contentPath": "app-config/appConfig.verifyCustomDomain.md"
