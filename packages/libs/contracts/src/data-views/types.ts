@@ -43,6 +43,7 @@ export type DataViewFieldFormat =
   | 'date'
   | 'dateTime'
   | 'boolean'
+  | 'markdown'
   | 'badge';
 
 /**

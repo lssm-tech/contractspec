@@ -8,8 +8,10 @@ import {
 } from '@contractspec/lib.design-system';
 import { Card } from '@contractspec/lib.ui-kit-web/ui/card';
 import { Badge } from '@contractspec/lib.ui-kit-web/ui/badge';
-import type { PresentationTarget } from '@contractspec/lib.contracts';
-import type { TransformEngine } from '@contractspec/lib.contracts';
+import type {
+  PresentationTarget,
+  TransformEngine,
+} from '@contractspec/lib.contracts';
 import type { TemplateId } from './lib/types';
 
 import { useTemplateRuntime } from './lib/runtime-context';
@@ -195,7 +197,7 @@ export function MarkdownView({
  * Simple markdown renderer using pre-formatted display
  * For production, consider using react-markdown or similar
  */
-function MarkdownRenderer({ content }: { content: string }) {
+export function MarkdownRenderer({ content }: { content: string }) {
   const lines = content.split('\n');
   const rendered: React.ReactNode[] = [];
   let i = 0;

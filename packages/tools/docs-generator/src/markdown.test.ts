@@ -22,7 +22,7 @@ describe('docs-generator markdown', () => {
     ].join('\n');
 
     expect(extractSummary(content)).toBe(
-      'First line summary. Second line summary.'
+      'First line summary.\nSecond line summary.'
     );
   });
 });

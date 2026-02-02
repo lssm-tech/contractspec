@@ -2,12 +2,13 @@
 
 import * as React from 'react';
 import type {
-  DataViewSpec,
   DataViewDetailConfig,
   DataViewField,
+  DataViewSpec,
 } from '@contractspec/lib.contracts/data-views';
 import { cn } from '../../lib/utils';
-import { getAtPath, formatValue } from './utils';
+import { DataViewFormattedValue, getAtPath } from './utils';
+import { MarkdownRenderer } from '@contractspec/lib.example-shared-ui';
 
 export interface DataViewDetailProps {
   spec: DataViewSpec;
@@ -63,9 +64,9 @@ export function DataViewDetail({
           <h3 className="text-foreground text-xl font-semibold">
             {spec.meta.title}
           </h3>
-          <p className="text-muted-foreground text-sm">
-            {spec.meta.description}
-          </p>
+          <div className="text-muted-foreground text-sm">
+            <MarkdownRenderer content={spec.meta.description ?? ''} />
+          </div>
         </div>
         {headerActions}
       </div>
@@ -81,9 +82,9 @@ export function DataViewDetail({
               </h4>
             ) : null}
             {section.description ? (
-              <p className="text-muted-foreground mb-4 text-sm">
-                {section.description}
-              </p>
+              <div className="text-muted-foreground mb-4 text-sm">
+                <MarkdownRenderer content={section.description} />
+              </div>
             ) : null}
             <dl className="grid gap-4 md:grid-cols-2">
               {section.fields.map((fieldKey) => {
@@ -96,7 +97,10 @@ export function DataViewDetail({
                       {field.label}
                     </dt>
                     <dd className="text-foreground text-sm">
-                      {formatValue(value, field.format)}
+                      <DataViewFormattedValue
+                        value={value}
+                        format={field.format}
+                      />
                     </dd>
                   </div>
                 );

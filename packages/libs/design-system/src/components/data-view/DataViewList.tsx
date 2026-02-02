@@ -2,12 +2,12 @@
 
 import * as React from 'react';
 import type {
-  DataViewSpec,
-  DataViewListConfig,
   DataViewField,
+  DataViewListConfig,
+  DataViewSpec,
 } from '@contractspec/lib.contracts/data-views';
 import { cn } from '../../lib/utils';
-import { getAtPath, formatValue } from './utils';
+import { DisplayValue } from './DataViewTable';
 
 export interface DataViewListProps<TItem = Record<string, unknown>> {
   spec: DataViewSpec;
@@ -68,7 +68,11 @@ export function DataViewList<TItem = Record<string, unknown>>({
             <div className="flex flex-1 flex-col gap-1">
               {primaryField ? (
                 <span className="text-foreground text-base font-medium">
-                  {displayValue(record, fields, primaryField)}
+                  <DisplayValue
+                    item={record}
+                    fields={fields}
+                    fieldKey={primaryField}
+                  />
                 </span>
               ) : null}
               <div className="text-muted-foreground flex flex-wrap gap-x-4 gap-y-1 text-sm">
@@ -77,7 +81,13 @@ export function DataViewList<TItem = Record<string, unknown>>({
                     <span className="text-foreground/80 font-medium">
                       {fieldLabel(fields, fieldKey)}
                     </span>
-                    <span>{displayValue(record, fields, fieldKey)}</span>
+                    <span>
+                      <DisplayValue
+                        item={record}
+                        fields={fields}
+                        fieldKey={fieldKey}
+                      />
+                    </span>
                   </span>
                 ))}
               </div>
@@ -103,21 +113,6 @@ function toRecord(value: unknown): Record<string, unknown> {
 
 function fieldLabel(fields: DataViewField[], key: string) {
   return fields.find((field) => field.key === key)?.label ?? key;
-}
-
-function fieldByKey(fields: DataViewField[], key?: string) {
-  return fields.find((field) => field.key === key);
-}
-
-function displayValue(
-  item: Record<string, unknown>,
-  fields: DataViewField[],
-  key: string
-) {
-  const field = fieldByKey(fields, key);
-  if (!field) return '';
-  const value = getAtPath(item, field.dataPath);
-  return formatValue(value, field.format);
 }
 
 function secondaryFieldKeys(view: DataViewListConfig, primaryField?: string) {

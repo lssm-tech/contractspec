@@ -2,7 +2,7 @@
   {
     "id": "marketplace/ecommerce",
     "title": "ecommerce",
-    "summary": "E-commerce operations and product catalog - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.marketplace - **Tags**: ecommerce, products - **File**: `packages/examples/marketplace/src/marketplace.capability.ts`",
+    "summary": "E-commerce operations and product catalog \n - **Type**: capability (capability) \n - **Version**: 1.0.0 \n - **Owners**: platform.marketplace \n - **Tags**: ecommerce, products \n - **File**: `packages/examples/marketplace/src/marketplace.capability.ts`",
     "route": "/docs/reference/marketplace/ecommerce",
     "source": "generated",
     "contentPath": "marketplace/ecommerce.md"
@@ -10,7 +10,7 @@
   {
     "id": "marketplace/marketplace",
     "title": "marketplace",
-    "summary": "Full-featured marketplace with stores, products, orders, payouts, and reviews - **Type**: feature - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, ecommerce, multi-vendor, payments",
+    "summary": "Full-featured marketplace with stores, products, orders, payouts, and reviews \n - **Type**: feature \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, ecommerce, multi-vendor, payments",
     "route": "/docs/reference/marketplace/marketplace",
     "source": "generated",
     "contentPath": "marketplace/marketplace.md"
@@ -18,7 +18,7 @@
   {
     "id": "marketplace/marketplace.checkout",
     "title": "marketplace.checkout",
-    "summary": "Checkout flow with cart and payment - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, checkout, cart - **File**: `packages/examples/marketplace/src/order/order.presentation.ts`",
+    "summary": "Checkout flow with cart and payment \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, checkout, cart \n - **File**: `packages/examples/marketplace/src/order/order.presentation.ts`",
     "route": "/docs/reference/marketplace/marketplace.checkout",
     "source": "generated",
     "contentPath": "marketplace/marketplace.checkout.md"
@@ -26,7 +26,7 @@
   {
     "id": "marketplace/marketplace.inventory.updated",
     "title": "marketplace.inventory.updated",
-    "summary": "Product inventory has been updated. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, product, inventory - **File**: `packages/examples/marketplace/src/product/product.event.ts`",
+    "summary": "Product inventory has been updated. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, product, inventory \n - **File**: `packages/examples/marketplace/src/product/product.event.ts`",
     "route": "/docs/reference/marketplace/marketplace.inventory.updated",
     "source": "generated",
     "contentPath": "marketplace/marketplace.inventory.updated.md"
@@ -34,7 +34,7 @@
   {
     "id": "marketplace/marketplace.order.completed",
     "title": "marketplace.order.completed",
-    "summary": "An order has been completed. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, order - **File**: `packages/examples/marketplace/src/order/order.event.ts`",
+    "summary": "An order has been completed. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, order \n - **File**: `packages/examples/marketplace/src/order/order.event.ts`",
     "route": "/docs/reference/marketplace/marketplace.order.completed",
     "source": "generated",
     "contentPath": "marketplace/marketplace.order.completed.md"
@@ -42,7 +42,7 @@
   {
     "id": "marketplace/marketplace.order.create",
     "title": "marketplace.order.create",
-    "summary": "Create a new order. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.marketplace - **Tags**: marketplace, order, create - **File**: `packages/examples/marketplace/src/order/order.operations.ts`",
+    "summary": "Create a new order. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @example.marketplace \n - **Tags**: marketplace, order, create \n - **File**: `packages/examples/marketplace/src/order/order.operations.ts`",
     "route": "/docs/reference/marketplace/marketplace.order.create",
     "source": "generated",
     "contentPath": "marketplace/marketplace.order.create.md"
@@ -50,7 +50,7 @@
   {
     "id": "marketplace/marketplace.order.create.test",
     "title": "marketplace.order.create.test",
-    "summary": "Test for creating order - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.marketplace - **Tags**: test - **File**: `packages/examples/marketplace/src/tests/operations.test-spec.ts`",
+    "summary": "Test for creating order \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @example.marketplace \n - **Tags**: test \n - **File**: `packages/examples/marketplace/src/tests/operations.test-spec.ts`",
     "route": "/docs/reference/marketplace/marketplace.order.create.test",
     "source": "generated",
     "contentPath": "marketplace/marketplace.order.create.test.md"
@@ -58,7 +58,7 @@
   {
     "id": "marketplace/marketplace.order.created",
     "title": "marketplace.order.created",
-    "summary": "A new order has been created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, order - **File**: `packages/examples/marketplace/src/order/order.event.ts`",
+    "summary": "A new order has been created. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, order \n - **File**: `packages/examples/marketplace/src/order/order.event.ts`",
     "route": "/docs/reference/marketplace/marketplace.order.created",
     "source": "generated",
     "contentPath": "marketplace/marketplace.order.created.md"
@@ -66,7 +66,7 @@
   {
     "id": "marketplace/marketplace.order.detail",
     "title": "marketplace.order.detail",
-    "summary": "Order detail with items and shipping info - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, order, detail - **File**: `packages/examples/marketplace/src/order/order.presentation.ts`",
+    "summary": "Order detail with items and shipping info \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, order, detail \n - **File**: `packages/examples/marketplace/src/order/order.presentation.ts`",
     "route": "/docs/reference/marketplace/marketplace.order.detail",
     "source": "generated",
     "contentPath": "marketplace/marketplace.order.detail.md"
@@ -74,7 +74,7 @@
   {
     "id": "marketplace/marketplace.order.list",
     "title": "marketplace.order.list",
-    "summary": "List of orders with status and tracking - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, order, list - **File**: `packages/examples/marketplace/src/order/order.presentation.ts`",
+    "summary": "List of orders with status and tracking \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, order, list \n - **File**: `packages/examples/marketplace/src/order/order.presentation.ts`",
     "route": "/docs/reference/marketplace/marketplace.order.list",
     "source": "generated",
     "contentPath": "marketplace/marketplace.order.list.md"
@@ -82,7 +82,7 @@
   {
     "id": "marketplace/marketplace.order.paid",
     "title": "marketplace.order.paid",
-    "summary": "An order has been paid. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, order - **File**: `packages/examples/marketplace/src/order/order.event.ts`",
+    "summary": "An order has been paid. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, order \n - **File**: `packages/examples/marketplace/src/order/order.event.ts`",
     "route": "/docs/reference/marketplace/marketplace.order.paid",
     "source": "generated",
     "contentPath": "marketplace/marketplace.order.paid.md"
@@ -90,7 +90,7 @@
   {
     "id": "marketplace/marketplace.order.shipped",
     "title": "marketplace.order.shipped",
-    "summary": "An order has been shipped. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, order - **File**: `packages/examples/marketplace/src/order/order.event.ts`",
+    "summary": "An order has been shipped. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, order \n - **File**: `packages/examples/marketplace/src/order/order.event.ts`",
     "route": "/docs/reference/marketplace/marketplace.order.shipped",
     "source": "generated",
     "contentPath": "marketplace/marketplace.order.shipped.md"
@@ -98,7 +98,7 @@
   {
     "id": "marketplace/marketplace.order.statusUpdated",
     "title": "marketplace.order.statusUpdated",
-    "summary": "An order status has been updated. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, order - **File**: `packages/examples/marketplace/src/order/order.event.ts`",
+    "summary": "An order status has been updated. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, order \n - **File**: `packages/examples/marketplace/src/order/order.event.ts`",
     "route": "/docs/reference/marketplace/marketplace.order.statusUpdated",
     "source": "generated",
     "contentPath": "marketplace/marketplace.order.statusUpdated.md"
@@ -106,7 +106,7 @@
   {
     "id": "marketplace/marketplace.order.updateStatus",
     "title": "marketplace.order.updateStatus",
-    "summary": "Update order status. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.marketplace - **Tags**: marketplace, order, status - **File**: `packages/examples/marketplace/src/order/order.operations.ts`",
+    "summary": "Update order status. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @example.marketplace \n - **Tags**: marketplace, order, status \n - **File**: `packages/examples/marketplace/src/order/order.operations.ts`",
     "route": "/docs/reference/marketplace/marketplace.order.updateStatus",
     "source": "generated",
     "contentPath": "marketplace/marketplace.order.updateStatus.md"
@@ -114,7 +114,7 @@
   {
     "id": "marketplace/marketplace.payout.created",
     "title": "marketplace.payout.created",
-    "summary": "A payout has been created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, payout - **File**: `packages/examples/marketplace/src/payout/payout.event.ts`",
+    "summary": "A payout has been created. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, payout \n - **File**: `packages/examples/marketplace/src/payout/payout.event.ts`",
     "route": "/docs/reference/marketplace/marketplace.payout.created",
     "source": "generated",
     "contentPath": "marketplace/marketplace.payout.created.md"
@@ -122,7 +122,7 @@
   {
     "id": "marketplace/marketplace.payout.detail",
     "title": "marketplace.payout.detail",
-    "summary": "Payout detail with breakdown - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, payout, detail - **File**: `packages/examples/marketplace/src/payout/payout.presentation.ts`",
+    "summary": "Payout detail with breakdown \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, payout, detail \n - **File**: `packages/examples/marketplace/src/payout/payout.presentation.ts`",
     "route": "/docs/reference/marketplace/marketplace.payout.detail",
     "source": "generated",
     "contentPath": "marketplace/marketplace.payout.detail.md"
@@ -130,7 +130,7 @@
   {
     "id": "marketplace/marketplace.payout.list",
     "title": "marketplace.payout.list",
-    "summary": "List payouts for a store. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.marketplace - **Tags**: marketplace, payout, list - **File**: `packages/examples/marketplace/src/payout/payout.operations.ts`",
+    "summary": "List payouts for a store. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @example.marketplace \n - **Tags**: marketplace, payout, list \n - **File**: `packages/examples/marketplace/src/payout/payout.operations.ts`",
     "route": "/docs/reference/marketplace/marketplace.payout.list",
     "source": "generated",
     "contentPath": "marketplace/marketplace.payout.list.md"
@@ -138,7 +138,7 @@
   {
     "id": "marketplace/marketplace.payout.list.test",
     "title": "marketplace.payout.list.test",
-    "summary": "Test for listing payouts - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.marketplace - **Tags**: test - **File**: `packages/examples/marketplace/src/tests/operations.test-spec.ts`",
+    "summary": "Test for listing payouts \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @example.marketplace \n - **Tags**: test \n - **File**: `packages/examples/marketplace/src/tests/operations.test-spec.ts`",
     "route": "/docs/reference/marketplace/marketplace.payout.list.test",
     "source": "generated",
     "contentPath": "marketplace/marketplace.payout.list.test.md"
@@ -146,7 +146,7 @@
   {
     "id": "marketplace/marketplace.payout.paid",
     "title": "marketplace.payout.paid",
-    "summary": "A payout has been sent. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, payout - **File**: `packages/examples/marketplace/src/payout/payout.event.ts`",
+    "summary": "A payout has been sent. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, payout \n - **File**: `packages/examples/marketplace/src/payout/payout.event.ts`",
     "route": "/docs/reference/marketplace/marketplace.payout.paid",
     "source": "generated",
     "contentPath": "marketplace/marketplace.payout.paid.md"
@@ -154,7 +154,7 @@
   {
     "id": "marketplace/marketplace.payout.viewList",
     "title": "marketplace.payout.viewList",
-    "summary": "List of payouts for sellers - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, payout, list - **File**: `packages/examples/marketplace/src/payout/payout.presentation.ts`",
+    "summary": "List of payouts for sellers \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, payout, list \n - **File**: `packages/examples/marketplace/src/payout/payout.presentation.ts`",
     "route": "/docs/reference/marketplace/marketplace.payout.viewList",
     "source": "generated",
     "contentPath": "marketplace/marketplace.payout.viewList.md"
@@ -162,7 +162,7 @@
   {
     "id": "marketplace/marketplace.product.catalog",
     "title": "marketplace.product.catalog",
-    "summary": "Product catalog with search and filters - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, product, catalog - **File**: `packages/examples/marketplace/src/product/product.presentation.ts`",
+    "summary": "Product catalog with search and filters \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, product, catalog \n - **File**: `packages/examples/marketplace/src/product/product.presentation.ts`",
     "route": "/docs/reference/marketplace/marketplace.product.catalog",
     "source": "generated",
     "contentPath": "marketplace/marketplace.product.catalog.md"
@@ -170,7 +170,7 @@
   {
     "id": "marketplace/marketplace.product.create",
     "title": "marketplace.product.create",
-    "summary": "Create a new product listing. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.marketplace - **Tags**: marketplace, product, create - **File**: `packages/examples/marketplace/src/product/product.operations.ts`",
+    "summary": "Create a new product listing. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @example.marketplace \n - **Tags**: marketplace, product, create \n - **File**: `packages/examples/marketplace/src/product/product.operations.ts`",
     "route": "/docs/reference/marketplace/marketplace.product.create",
     "source": "generated",
     "contentPath": "marketplace/marketplace.product.create.md"
@@ -178,7 +178,7 @@
   {
     "id": "marketplace/marketplace.product.created",
     "title": "marketplace.product.created",
-    "summary": "A new product has been created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, product - **File**: `packages/examples/marketplace/src/product/product.event.ts`",
+    "summary": "A new product has been created. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, product \n - **File**: `packages/examples/marketplace/src/product/product.event.ts`",
     "route": "/docs/reference/marketplace/marketplace.product.created",
     "source": "generated",
     "contentPath": "marketplace/marketplace.product.created.md"
@@ -186,7 +186,7 @@
   {
     "id": "marketplace/marketplace.product.detail",
     "title": "marketplace.product.detail",
-    "summary": "Product detail page with images and reviews - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, product, detail - **File**: `packages/examples/marketplace/src/product/product.presentation.ts`",
+    "summary": "Product detail page with images and reviews \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, product, detail \n - **File**: `packages/examples/marketplace/src/product/product.presentation.ts`",
     "route": "/docs/reference/marketplace/marketplace.product.detail",
     "source": "generated",
     "contentPath": "marketplace/marketplace.product.detail.md"
@@ -194,7 +194,7 @@
   {
     "id": "marketplace/marketplace.product.editor",
     "title": "marketplace.product.editor",
-    "summary": "Product editor for sellers - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, product, editor - **File**: `packages/examples/marketplace/src/product/product.presentation.ts`",
+    "summary": "Product editor for sellers \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, product, editor \n - **File**: `packages/examples/marketplace/src/product/product.presentation.ts`",
     "route": "/docs/reference/marketplace/marketplace.product.editor",
     "source": "generated",
     "contentPath": "marketplace/marketplace.product.editor.md"
@@ -202,7 +202,7 @@
   {
     "id": "marketplace/marketplace.product.list",
     "title": "marketplace.product.list",
-    "summary": "List products with filters. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.marketplace - **Tags**: marketplace, product, list - **File**: `packages/examples/marketplace/src/product/product.operations.ts`",
+    "summary": "List products with filters. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @example.marketplace \n - **Tags**: marketplace, product, list \n - **File**: `packages/examples/marketplace/src/product/product.operations.ts`",
     "route": "/docs/reference/marketplace/marketplace.product.list",
     "source": "generated",
     "contentPath": "marketplace/marketplace.product.list.md"
@@ -210,7 +210,7 @@
   {
     "id": "marketplace/marketplace.product.list.test",
     "title": "marketplace.product.list.test",
-    "summary": "Test for listing products - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.marketplace - **Tags**: test - **File**: `packages/examples/marketplace/src/tests/operations.test-spec.ts`",
+    "summary": "Test for listing products \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @example.marketplace \n - **Tags**: test \n - **File**: `packages/examples/marketplace/src/tests/operations.test-spec.ts`",
     "route": "/docs/reference/marketplace/marketplace.product.list.test",
     "source": "generated",
     "contentPath": "marketplace/marketplace.product.list.test.md"
@@ -218,7 +218,7 @@
   {
     "id": "marketplace/marketplace.product.published",
     "title": "marketplace.product.published",
-    "summary": "A product has been published. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, product - **File**: `packages/examples/marketplace/src/product/product.event.ts`",
+    "summary": "A product has been published. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, product \n - **File**: `packages/examples/marketplace/src/product/product.event.ts`",
     "route": "/docs/reference/marketplace/marketplace.product.published",
     "source": "generated",
     "contentPath": "marketplace/marketplace.product.published.md"
@@ -226,7 +226,7 @@
   {
     "id": "marketplace/marketplace.review.create",
     "title": "marketplace.review.create",
-    "summary": "Create a product/store review. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.marketplace - **Tags**: marketplace, review, create - **File**: `packages/examples/marketplace/src/review/review.operations.ts`",
+    "summary": "Create a product/store review. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @example.marketplace \n - **Tags**: marketplace, review, create \n - **File**: `packages/examples/marketplace/src/review/review.operations.ts`",
     "route": "/docs/reference/marketplace/marketplace.review.create",
     "source": "generated",
     "contentPath": "marketplace/marketplace.review.create.md"
@@ -234,7 +234,7 @@
   {
     "id": "marketplace/marketplace.review.create.test",
     "title": "marketplace.review.create.test",
-    "summary": "Test for creating review - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.marketplace - **Tags**: test - **File**: `packages/examples/marketplace/src/tests/operations.test-spec.ts`",
+    "summary": "Test for creating review \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @example.marketplace \n - **Tags**: test \n - **File**: `packages/examples/marketplace/src/tests/operations.test-spec.ts`",
     "route": "/docs/reference/marketplace/marketplace.review.create.test",
     "source": "generated",
     "contentPath": "marketplace/marketplace.review.create.test.md"
@@ -242,7 +242,7 @@
   {
     "id": "marketplace/marketplace.review.created",
     "title": "marketplace.review.created",
-    "summary": "A review has been created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, review - **File**: `packages/examples/marketplace/src/review/review.event.ts`",
+    "summary": "A review has been created. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, review \n - **File**: `packages/examples/marketplace/src/review/review.event.ts`",
     "route": "/docs/reference/marketplace/marketplace.review.created",
     "source": "generated",
     "contentPath": "marketplace/marketplace.review.created.md"
@@ -250,7 +250,7 @@
   {
     "id": "marketplace/marketplace.review.form",
     "title": "marketplace.review.form",
-    "summary": "Form for submitting product reviews - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, review, form - **File**: `packages/examples/marketplace/src/review/review.presentation.ts`",
+    "summary": "Form for submitting product reviews \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, review, form \n - **File**: `packages/examples/marketplace/src/review/review.presentation.ts`",
     "route": "/docs/reference/marketplace/marketplace.review.form",
     "source": "generated",
     "contentPath": "marketplace/marketplace.review.form.md"
@@ -258,7 +258,7 @@
   {
     "id": "marketplace/marketplace.review.list",
     "title": "marketplace.review.list",
-    "summary": "List reviews with filters. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.marketplace - **Tags**: marketplace, review, list - **File**: `packages/examples/marketplace/src/review/review.operations.ts`",
+    "summary": "List reviews with filters. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @example.marketplace \n - **Tags**: marketplace, review, list \n - **File**: `packages/examples/marketplace/src/review/review.operations.ts`",
     "route": "/docs/reference/marketplace/marketplace.review.list",
     "source": "generated",
     "contentPath": "marketplace/marketplace.review.list.md"
@@ -266,7 +266,7 @@
   {
     "id": "marketplace/marketplace.review.list.test",
     "title": "marketplace.review.list.test",
-    "summary": "Test for listing reviews - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.marketplace - **Tags**: test - **File**: `packages/examples/marketplace/src/tests/operations.test-spec.ts`",
+    "summary": "Test for listing reviews \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @example.marketplace \n - **Tags**: test \n - **File**: `packages/examples/marketplace/src/tests/operations.test-spec.ts`",
     "route": "/docs/reference/marketplace/marketplace.review.list.test",
     "source": "generated",
     "contentPath": "marketplace/marketplace.review.list.test.md"
@@ -274,7 +274,7 @@
   {
     "id": "marketplace/marketplace.review.responded",
     "title": "marketplace.review.responded",
-    "summary": "A seller has responded to a review. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, review - **File**: `packages/examples/marketplace/src/review/review.event.ts`",
+    "summary": "A seller has responded to a review. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, review \n - **File**: `packages/examples/marketplace/src/review/review.event.ts`",
     "route": "/docs/reference/marketplace/marketplace.review.responded",
     "source": "generated",
     "contentPath": "marketplace/marketplace.review.responded.md"
@@ -282,7 +282,7 @@
   {
     "id": "marketplace/marketplace.review.viewList",
     "title": "marketplace.review.viewList",
-    "summary": "List of product reviews - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, review, list - **File**: `packages/examples/marketplace/src/review/review.presentation.ts`",
+    "summary": "List of product reviews \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, review, list \n - **File**: `packages/examples/marketplace/src/review/review.presentation.ts`",
     "route": "/docs/reference/marketplace/marketplace.review.viewList",
     "source": "generated",
     "contentPath": "marketplace/marketplace.review.viewList.md"
@@ -290,7 +290,7 @@
   {
     "id": "marketplace/marketplace.seller.dashboard",
     "title": "marketplace.seller.dashboard",
-    "summary": "Seller dashboard with sales and analytics - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, seller, dashboard - **File**: `packages/examples/marketplace/src/store/store.presentation.ts`",
+    "summary": "Seller dashboard with sales and analytics \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, seller, dashboard \n - **File**: `packages/examples/marketplace/src/store/store.presentation.ts`",
     "route": "/docs/reference/marketplace/marketplace.seller.dashboard",
     "source": "generated",
     "contentPath": "marketplace/marketplace.seller.dashboard.md"
@@ -298,7 +298,7 @@
   {
     "id": "marketplace/marketplace.store.create",
     "title": "marketplace.store.create",
-    "summary": "Create a new seller store. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.marketplace - **Tags**: marketplace, store, create - **File**: `packages/examples/marketplace/src/store/store.operations.ts`",
+    "summary": "Create a new seller store. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @example.marketplace \n - **Tags**: marketplace, store, create \n - **File**: `packages/examples/marketplace/src/store/store.operations.ts`",
     "route": "/docs/reference/marketplace/marketplace.store.create",
     "source": "generated",
     "contentPath": "marketplace/marketplace.store.create.md"
@@ -306,7 +306,7 @@
   {
     "id": "marketplace/marketplace.store.created",
     "title": "marketplace.store.created",
-    "summary": "A new seller store has been created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, store - **File**: `packages/examples/marketplace/src/store/store.event.ts`",
+    "summary": "A new seller store has been created. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, store \n - **File**: `packages/examples/marketplace/src/store/store.event.ts`",
     "route": "/docs/reference/marketplace/marketplace.store.created",
     "source": "generated",
     "contentPath": "marketplace/marketplace.store.created.md"
@@ -314,7 +314,7 @@
   {
     "id": "marketplace/marketplace.store.profile",
     "title": "marketplace.store.profile",
-    "summary": "Public store profile page - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @marketplace-team - **Tags**: marketplace, store, profile - **File**: `packages/examples/marketplace/src/store/store.presentation.ts`",
+    "summary": "Public store profile page \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, store, profile \n - **File**: `packages/examples/marketplace/src/store/store.presentation.ts`",
     "route": "/docs/reference/marketplace/marketplace.store.profile",
     "source": "generated",
     "contentPath": "marketplace/marketplace.store.profile.md"
@@ -322,7 +322,7 @@
   {
     "id": "marketplace/marketplace.store.statusChanged",
     "title": "marketplace.store.statusChanged",
-    "summary": "A store status has changed. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @marketplace-team - **Tags**: marketplace, store - **File**: `packages/examples/marketplace/src/store/store.event.ts`",
+    "summary": "A store status has changed. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @marketplace-team \n - **Tags**: marketplace, store \n - **File**: `packages/examples/marketplace/src/store/store.event.ts`",
     "route": "/docs/reference/marketplace/marketplace.store.statusChanged",
     "source": "generated",
     "contentPath": "marketplace/marketplace.store.statusChanged.md"
@@ -330,7 +330,7 @@
   {
     "id": "marketplace/payments",
     "title": "payments",
-    "summary": "Payment processing and payouts - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.finance - **Tags**: payments, finance - **File**: `packages/examples/marketplace/src/marketplace.capability.ts`",
+    "summary": "Payment processing and payouts \n - **Type**: capability (capability) \n - **Version**: 1.0.0 \n - **Owners**: platform.finance \n - **Tags**: payments, finance \n - **File**: `packages/examples/marketplace/src/marketplace.capability.ts`",
     "route": "/docs/reference/marketplace/payments",
     "source": "generated",
     "contentPath": "marketplace/payments.md"

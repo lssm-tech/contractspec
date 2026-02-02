@@ -29,6 +29,7 @@
     "@contractspec/example.workflow-system": "workspace:*",
     "@contractspec/example.marketplace": "workspace:*",
     "@contractspec/example.integration-hub": "workspace:*",
+    "@contractspec/example.in-app-docs": "workspace:*",
     "@contractspec/example.analytics-dashboard": "workspace:*",
     "@contractspec/example.policy-safe-knowledge-assistant": "workspace:*",
     "@hookform/resolvers": "^5.2.2",

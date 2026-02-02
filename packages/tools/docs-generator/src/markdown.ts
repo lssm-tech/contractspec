@@ -15,12 +15,14 @@ export function extractSummary(content: string): string | undefined {
   if (!filtered.length) return undefined;
 
   const summaryLines: string[] = [];
+  let totalLength = 0;
+
   for (const line of filtered) {
-    if (summaryLines.length && line.length === 0) break;
+    if (totalLength > 200) break;
     summaryLines.push(line);
-    if (summaryLines.join(' ').length > 200) break;
+    totalLength += line.length;
   }
 
-  const summary = summaryLines.join(' ').trim();
+  const summary = summaryLines.join('\n').trim();
   return summary.length ? summary : undefined;
 }

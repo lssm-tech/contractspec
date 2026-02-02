@@ -45,7 +45,10 @@ export function FeaturePresentationDetailTemplate({
                   label: feature.meta.title || feature.meta.key,
                   href: `/features/${feature.meta.key}`,
                 },
-                { label: 'Presentations' },
+                {
+                  label: 'Presentations',
+                  href: `/features/${feature.meta.key}/presentation`,
+                },
               ]}
             />
           }
