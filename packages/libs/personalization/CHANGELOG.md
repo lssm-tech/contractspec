@@ -1,5 +1,62 @@
 # @contractspec/lib.personalization
 
+## 1.56.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/lib.overlay-engine@1.56.1
+  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.knowledge@1.56.1
+  - @contractspec/lib.schema@1.56.1
+  - @contractspec/lib.bus@1.56.1
+
+## 1.56.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.overlay-engine@1.56.0
+  - @contractspec/lib.contracts@1.56.0
+  - @contractspec/lib.knowledge@1.56.0
+  - @contractspec/lib.schema@1.56.0
+  - @contractspec/lib.bus@1.56.0
+
+## 1.55.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.overlay-engine@1.55.0
+  - @contractspec/lib.contracts@1.55.0
+  - @contractspec/lib.knowledge@1.55.0
+  - @contractspec/lib.schema@1.55.0
+  - @contractspec/lib.bus@1.55.0
+
+## 1.54.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [ec5e95c]
+  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/lib.bus@1.54.0
+  - @contractspec/lib.knowledge@1.54.0
+  - @contractspec/lib.overlay-engine@1.54.0
+  - @contractspec/lib.schema@1.54.0
+
 ## 1.53.0
 
 ### Minor Changes

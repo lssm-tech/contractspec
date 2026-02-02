@@ -1,5 +1,46 @@
 # @contractspec/lib.progressive-delivery
 
+## 10.0.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/lib.observability@1.56.1
+
+## 10.0.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.observability@1.56.0
+
+## 9.0.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.observability@1.55.0
+
+## 8.0.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [ec5e95c]
+  - @contractspec/lib.observability@1.54.0
+
 ## 7.0.0
 
 ### Minor Changes

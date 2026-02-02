@@ -1,5 +1,62 @@
 # @contractspec/example.workflow-system
 
+## 1.56.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/lib.example-shared-ui@1.10.1
+  - @contractspec/lib.runtime-sandbox@0.11.1
+  - @contractspec/lib.design-system@1.56.1
+  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.schema@1.56.1
+
+## 1.56.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.example-shared-ui@1.10.0
+  - @contractspec/lib.runtime-sandbox@0.11.0
+  - @contractspec/lib.design-system@1.56.0
+  - @contractspec/lib.contracts@1.56.0
+  - @contractspec/lib.schema@1.56.0
+
+## 1.55.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.example-shared-ui@1.9.0
+  - @contractspec/lib.runtime-sandbox@0.10.0
+  - @contractspec/lib.design-system@1.55.0
+  - @contractspec/lib.contracts@1.55.0
+  - @contractspec/lib.schema@1.55.0
+
+## 1.54.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [ec5e95c]
+  - @contractspec/lib.example-shared-ui@1.8.0
+  - @contractspec/lib.design-system@1.54.0
+  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/lib.runtime-sandbox@0.9.0
+  - @contractspec/lib.schema@1.54.0
+
 ## 1.53.0
 
 ### Minor Changes

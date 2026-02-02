@@ -1,5 +1,29 @@
 # contractspec-example-opencode-cli
 
+## 0.5.1
+
+### Patch Changes
+
+- fix: improve publish config
+
+## 0.5.0
+
+### Minor Changes
+
+- fix: release
+
+## 0.4.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+## 0.3.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
 ## 0.2.0
 
 ### Minor Changes

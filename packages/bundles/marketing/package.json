@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/bundle.marketing",
-  "version": "1.8.0",
+  "version": "1.11.1",
   "type": "module",
   "scripts": {
     "clean": "rm -rf dist",
@@ -97,6 +97,8 @@
     "typescript": "catalog:"
   },
   "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
     "exports": {
       ".": "./dist/index.js",
       "./components/marketing": "./dist/components/marketing/index.js",

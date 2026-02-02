@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.graphql-federation",
-  "version": "1.53.0",
+  "version": "1.56.1",
   "description": "Pothos federation helpers and subgraph schema export utilities",
   "keywords": [
     "contractspec",

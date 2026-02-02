@@ -1,5 +1,29 @@
 # @contractspec/lib.runtime-sandbox
 
+## 0.11.1
+
+### Patch Changes
+
+- fix: improve publish config
+
+## 0.11.0
+
+### Minor Changes
+
+- fix: release
+
+## 0.10.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+## 0.9.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
 ## 0.8.0
 
 ### Minor Changes

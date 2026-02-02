@@ -1,5 +1,29 @@
 # @contractspec/lib.ai-providers
 
+## 1.56.1
+
+### Patch Changes
+
+- fix: improve publish config
+
+## 1.56.0
+
+### Minor Changes
+
+- fix: release
+
+## 1.55.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+## 1.54.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
 ## 1.53.0
 
 ### Minor Changes

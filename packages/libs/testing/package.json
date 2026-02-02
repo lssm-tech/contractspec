@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.testing",
-  "version": "1.53.0",
+  "version": "1.56.1",
   "description": "Contract-aware testing utilities and runners",
   "keywords": [
     "contractspec",

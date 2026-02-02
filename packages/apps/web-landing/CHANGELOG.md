@@ -1,5 +1,118 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 1.56.1
+
+### Patch Changes
+
+- fix: improve publish config
+- Updated dependencies
+  - @contractspec/example.policy-safe-knowledge-assistant@1.56.1
+  - @contractspec/example.analytics-dashboard@1.56.1
+  - @contractspec/example.saas-boilerplate@1.56.1
+  - @contractspec/lib.progressive-delivery@10.0.1
+  - @contractspec/example.integration-hub@1.56.1
+  - @contractspec/example.workflow-system@1.56.1
+  - @contractspec/example.agent-console@1.56.1
+  - @contractspec/lib.example-shared-ui@1.10.1
+  - @contractspec/example.crm-pipeline@1.56.1
+  - @contractspec/example.in-app-docs@1.3.1
+  - @contractspec/example.marketplace@1.56.1
+  - @contractspec/lib.design-system@1.56.1
+  - @contractspec/bundle.marketing@1.11.1
+  - @contractspec/lib.ui-kit-core@1.56.1
+  - @contractspec/module.examples@1.56.1
+  - @contractspec/bundle.library@1.11.1
+  - @contractspec/lib.ui-kit-web@1.56.1
+  - @contractspec/lib.ui-link@1.56.1
+  - @contractspec/lib.ui-kit@1.56.1
+
+## 1.56.0
+
+### Minor Changes
+
+- fix: release
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/example.policy-safe-knowledge-assistant@1.56.0
+  - @contractspec/example.analytics-dashboard@1.56.0
+  - @contractspec/example.saas-boilerplate@1.56.0
+  - @contractspec/lib.progressive-delivery@10.0.0
+  - @contractspec/example.integration-hub@1.56.0
+  - @contractspec/example.workflow-system@1.56.0
+  - @contractspec/example.agent-console@1.56.0
+  - @contractspec/lib.example-shared-ui@1.10.0
+  - @contractspec/example.crm-pipeline@1.56.0
+  - @contractspec/example.in-app-docs@1.3.0
+  - @contractspec/example.marketplace@1.56.0
+  - @contractspec/lib.design-system@1.56.0
+  - @contractspec/bundle.marketing@1.11.0
+  - @contractspec/lib.ui-kit-core@1.56.0
+  - @contractspec/module.examples@1.56.0
+  - @contractspec/bundle.library@1.11.0
+  - @contractspec/lib.ui-kit-web@1.56.0
+  - @contractspec/lib.ui-link@1.56.0
+  - @contractspec/lib.ui-kit@1.56.0
+
+## 1.55.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/example.policy-safe-knowledge-assistant@1.55.0
+  - @contractspec/example.analytics-dashboard@1.55.0
+  - @contractspec/example.saas-boilerplate@1.55.0
+  - @contractspec/lib.progressive-delivery@9.0.0
+  - @contractspec/example.integration-hub@1.55.0
+  - @contractspec/example.workflow-system@1.55.0
+  - @contractspec/example.agent-console@1.55.0
+  - @contractspec/lib.example-shared-ui@1.9.0
+  - @contractspec/example.crm-pipeline@1.55.0
+  - @contractspec/example.in-app-docs@1.2.0
+  - @contractspec/example.marketplace@1.55.0
+  - @contractspec/lib.design-system@1.55.0
+  - @contractspec/bundle.marketing@1.10.0
+  - @contractspec/lib.ui-kit-core@1.55.0
+  - @contractspec/module.examples@1.55.0
+  - @contractspec/bundle.library@1.10.0
+  - @contractspec/lib.ui-kit-web@1.55.0
+  - @contractspec/lib.ui-link@1.55.0
+  - @contractspec/lib.ui-kit@1.55.0
+
+## 1.54.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [ec5e95c]
+  - @contractspec/lib.example-shared-ui@1.8.0
+  - @contractspec/example.in-app-docs@1.1.0
+  - @contractspec/lib.design-system@1.54.0
+  - @contractspec/bundle.marketing@1.9.0
+  - @contractspec/bundle.library@1.9.0
+  - @contractspec/lib.ui-kit-web@1.54.0
+  - @contractspec/lib.ui-kit@1.54.0
+  - @contractspec/example.agent-console@1.54.0
+  - @contractspec/example.analytics-dashboard@1.54.0
+  - @contractspec/example.crm-pipeline@1.54.0
+  - @contractspec/example.integration-hub@1.54.0
+  - @contractspec/example.marketplace@1.54.0
+  - @contractspec/example.policy-safe-knowledge-assistant@1.54.0
+  - @contractspec/example.saas-boilerplate@1.54.0
+  - @contractspec/example.workflow-system@1.54.0
+  - @contractspec/lib.progressive-delivery@8.0.0
+  - @contractspec/lib.ui-kit-core@1.54.0
+  - @contractspec/lib.ui-link@1.54.0
+  - @contractspec/module.examples@1.54.0
+
 ## 1.53.0
 
 ### Minor Changes

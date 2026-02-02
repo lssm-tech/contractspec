@@ -1,5 +1,29 @@
 # contractspec-example-minimal
 
+## 0.9.1
+
+### Patch Changes
+
+- fix: improve publish config
+
+## 0.9.0
+
+### Minor Changes
+
+- fix: release
+
+## 0.8.0
+
+### Minor Changes
+
+- fix: unpublished packages
+
+## 0.7.0
+
+### Minor Changes
+
+- ec5e95c: chore: upgrade dependencies
+
 ## 0.6.0
 
 ### Minor Changes
