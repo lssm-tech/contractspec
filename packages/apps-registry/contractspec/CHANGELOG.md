@@ -1,5 +1,20 @@
 # contractspec
 
+## 1.53.0
+
+### Minor Changes
+
+- f4180d4: fix: performance improvement
+
+### Patch Changes
+
+- cd7f418: Move ContractSpec automation into reusable actions and ship typed report generators.
+- 1484fa6: Add reusable ContractSpec workflows with shared reporting and document the new automation guidance.
+- 5b371b1: Expose OpenCode agent mode in the CLI and workspace validation with updated docs and examples.
+- Updated dependencies [5b371b1]
+- Updated dependencies [f4180d4]
+  - @contractspec/app.cli-contractspec@1.53.0
+
 ## 1.52.0
 
 ### Minor Changes

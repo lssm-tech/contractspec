@@ -1,5 +1,11 @@
 # @contractspec/lib.utils-typescript
 
+## 1.53.0
+
+### Minor Changes
+
+- f4180d4: fix: performance improvement
+
 ## 1.52.0
 
 ### Minor Changes

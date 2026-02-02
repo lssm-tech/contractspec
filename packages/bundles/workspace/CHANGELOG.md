@@ -1,5 +1,25 @@
 # @contractspec/bundle.workspace
 
+## 1.53.0
+
+### Minor Changes
+
+- f4180d4: fix: performance improvement
+
+### Patch Changes
+
+- 5b371b1: Expose OpenCode agent mode in the CLI and workspace validation with updated docs and examples.
+- Updated dependencies [5b371b1]
+- Updated dependencies [f4180d4]
+- Updated dependencies [64d84e1]
+  - @contractspec/lib.contracts@1.53.0
+  - @contractspec/module.workspace@1.53.0
+  - @contractspec/lib.ai-agent@1.53.0
+  - @contractspec/lib.ai-providers@1.53.0
+  - @contractspec/lib.contracts-transformers@1.53.0
+  - @contractspec/lib.source-extractors@0.7.0
+  - @contractspec/lib.utils-typescript@1.53.0
+
 ## 1.52.0
 
 ### Minor Changes

@@ -1,5 +1,31 @@
 # @contractspec/bundle.library
 
+## 1.8.0
+
+### Minor Changes
+
+- f4180d4: fix: performance improvement
+
+### Patch Changes
+
+- e9edc0d: Refine docs search contract description for workflow validation.
+- eefeb1b: Split the generated docs index into a manifest and chunked JSON files to reduce bundle size and load reference data lazily, updating reference pages and generator outputs accordingly.
+- fafe5e6: Add a docs pipeline guide and navigation entry for wiring generated reference docs into the web landing site.
+- Updated dependencies [eefeb1b]
+- Updated dependencies [5b371b1]
+- Updated dependencies [f4180d4]
+- Updated dependencies [64d84e1]
+  - @contractspec/lib.design-system@1.53.0
+  - @contractspec/lib.contracts@1.53.0
+  - @contractspec/module.examples@1.53.0
+  - @contractspec/lib.schema@1.53.0
+  - @contractspec/lib.contracts-library@1.53.0
+  - @contractspec/lib.example-shared-ui@1.7.0
+  - @contractspec/lib.logger@1.53.0
+  - @contractspec/lib.runtime-sandbox@0.8.0
+  - @contractspec/lib.ui-kit-web@1.53.0
+  - @contractspec/lib.ui-link@1.53.0
+
 ## 1.7.0
 
 ### Minor Changes

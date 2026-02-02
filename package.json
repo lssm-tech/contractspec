@@ -94,7 +94,7 @@
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-react": "^7.37.5",
-    "globals": "^17.1.0",
+    "globals": "^17.3.0",
     "knip": "^5.82.1",
     "memoirist": "^0.4.0",
     "next": "catalog:",
@@ -104,13 +104,13 @@
     "prettier-plugin-prisma": "^5.0.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "rulesync": "^5.9.1",
-    "turbo-ignore": "^2.7.6",
-    "typescript-eslint": "^8.53.1"
+    "turbo-ignore": "^2.8.1",
+    "typescript-eslint": "^8.54.0"
   },
   "dependencies": {
     "react": "catalog:",
     "react-dom": "catalog:",
-    "turbo": "^2.7.6"
+    "turbo": "^2.8.1"
   },
   "config": {
     "commitizen": {

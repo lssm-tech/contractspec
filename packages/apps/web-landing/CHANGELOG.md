@@ -1,5 +1,38 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 1.53.0
+
+### Minor Changes
+
+- f4180d4: fix: performance improvement
+
+### Patch Changes
+
+- eefeb1b: Split the generated docs index into a manifest and chunked JSON files to reduce bundle size and load reference data lazily, updating reference pages and generator outputs accordingly.
+- fafe5e6: Add a docs pipeline guide and navigation entry for wiring generated reference docs into the web landing site.
+- Updated dependencies [e9edc0d]
+- Updated dependencies [eefeb1b]
+- Updated dependencies [fafe5e6]
+- Updated dependencies [f4180d4]
+  - @contractspec/bundle.library@1.8.0
+  - @contractspec/lib.design-system@1.53.0
+  - @contractspec/example.analytics-dashboard@1.53.0
+  - @contractspec/example.integration-hub@1.53.0
+  - @contractspec/example.workflow-system@1.53.0
+  - @contractspec/example.agent-console@1.53.0
+  - @contractspec/example.crm-pipeline@1.53.0
+  - @contractspec/example.marketplace@1.53.0
+  - @contractspec/bundle.marketing@1.8.0
+  - @contractspec/module.examples@1.53.0
+  - @contractspec/example.policy-safe-knowledge-assistant@1.53.0
+  - @contractspec/example.saas-boilerplate@1.53.0
+  - @contractspec/lib.example-shared-ui@1.7.0
+  - @contractspec/lib.progressive-delivery@7.0.0
+  - @contractspec/lib.ui-kit@1.53.0
+  - @contractspec/lib.ui-kit-core@1.53.0
+  - @contractspec/lib.ui-kit-web@1.53.0
+  - @contractspec/lib.ui-link@1.53.0
+
 ## 1.52.0
 
 ### Minor Changes

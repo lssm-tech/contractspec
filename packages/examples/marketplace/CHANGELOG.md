@@ -1,5 +1,23 @@
 # @contractspec/example.marketplace
 
+## 1.53.0
+
+### Minor Changes
+
+- f4180d4: fix: performance improvement
+
+### Patch Changes
+
+- Updated dependencies [eefeb1b]
+- Updated dependencies [5b371b1]
+- Updated dependencies [f4180d4]
+- Updated dependencies [64d84e1]
+  - @contractspec/lib.design-system@1.53.0
+  - @contractspec/lib.contracts@1.53.0
+  - @contractspec/lib.schema@1.53.0
+  - @contractspec/lib.example-shared-ui@1.7.0
+  - @contractspec/lib.runtime-sandbox@0.8.0
+
 ## 1.52.0
 
 ### Minor Changes
