@@ -140,14 +140,14 @@ runs:
             ;;
         esac
 
-    - name: Build local ContractSpec CLI (if present)
-      if: env.PACKAGE_MANAGER == 'bun'
-      shell: bash
-      working-directory: ${{ env.WORKING_DIRECTORY }}
-      run: |
-        if [ -f "packages/apps/cli-contractspec/package.json" ]; then
-          bun run build --filter=@contractspec/app.cli-contractspec
-        fi
+#    - name: Build local ContractSpec CLI (if present)
+#      if: env.PACKAGE_MANAGER == 'bun'
+#      shell: bash
+#      working-directory: ${{ env.WORKING_DIRECTORY }}
+#      run: |
+#        if [ -f "packages/apps/cli-contractspec/package.json" ]; then
+#          bun run build --filter=@contractspec/app.cli-contractspec
+#        fi
 
     - name: Collect contract changes
       id: changes
