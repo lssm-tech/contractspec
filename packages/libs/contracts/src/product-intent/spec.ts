@@ -1,19 +1,50 @@
+import { ZodSchemaType } from '@contractspec/lib.schema';
+import * as z from 'zod';
 import type {
-  OpportunityBrief,
   ContractPatchIntent,
-  ImpactReport,
-  TaskPack,
   ContractSpecPatch,
-} from "./types";
+  ImpactReport,
+  InsightExtraction,
+  OpportunityBrief,
+  TaskPack,
+} from './types';
+import {
+  ContractPatchIntentModel,
+  ContractSpecPatchModel,
+  ImpactReportModel,
+  InsightExtractionModel,
+  OpportunityBriefModel,
+  TaskPackModel,
+} from './types';
+
+const ProductIntentSpecSchema = z.object({
+  id: z.string().min(1),
+  question: z.string().min(1),
+  meta: z.unknown().optional(),
+  insights: InsightExtractionModel.getZod().optional(),
+  brief: OpportunityBriefModel.getZod().optional(),
+  patchIntent: ContractPatchIntentModel.getZod().optional(),
+  patch: ContractSpecPatchModel.getZod().optional(),
+  impact: ImpactReportModel.getZod().optional(),
+  tasks: TaskPackModel.getZod().optional(),
+});
+
+export const ProductIntentSpecModel = new ZodSchemaType(
+  ProductIntentSpecSchema,
+  {
+    name: 'ProductIntentSpec',
+  }
+);
+
+export type ProductIntentSpecData = z.infer<typeof ProductIntentSpecSchema>;
 
 /**
  * A ProductIntentSpec describes the contract for a single product
- * opportunity. It ties together the question being asked,
- * the resulting brief, the proposed patch intent, the concrete patch,
- * the impact report and the tasks required to implement it. This
- * interface is intentionally flexible so that different
- * implementations (e.g. hackathon prototypes, production systems)
- * can fill in the pieces as they become available.
+ * opportunity. It ties together the question being asked, the
+ * resulting brief, the proposed patch intent, the concrete patch, the
+ * impact report and the tasks required to implement it. This interface
+ * is intentionally flexible so that different implementations can fill
+ * in the pieces as they become available.
  */
 export interface ProductIntentSpec<Meta = unknown> {
   /**
@@ -30,12 +61,17 @@ export interface ProductIntentSpec<Meta = unknown> {
 
   /**
    * Optional metadata defined by the caller. Use this to store
-   * application‑specific context such as feature flags or user info.
+   * application-specific context such as feature flags or user info.
    */
   meta?: Meta;
 
   /**
-   * The synthesised opportunity brief explaining what to build and why.
+   * The extracted insights grounded in evidence.
+   */
+  insights?: InsightExtraction;
+
+  /**
+   * The synthesized opportunity brief explaining what to build and why.
    */
   brief?: OpportunityBrief;
 
@@ -63,10 +99,10 @@ export interface ProductIntentSpec<Meta = unknown> {
 }
 
 /**
- * Helper to define a ProductIntentSpec with proper type inference. This
- * function simply returns the input spec but forces the generic
- * parameter Meta to be inferred correctly in downstream code.
+ * Helper to define a ProductIntentSpec with proper type inference.
  */
-export function defineProductIntentSpec<Meta = unknown>(spec: ProductIntentSpec<Meta>): ProductIntentSpec<Meta> {
+export function defineProductIntentSpec<Meta = unknown>(
+  spec: ProductIntentSpec<Meta>
+): ProductIntentSpec<Meta> {
   return spec;
 }

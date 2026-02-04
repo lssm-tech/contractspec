@@ -2,34 +2,25 @@ import { defineExample } from '@contractspec/lib.contracts';
 
 const example = defineExample({
   meta: {
-    key: 'policy-safe-knowledge-assistant',
+    key: 'product-intent',
     version: '1.0.0',
-    title: 'Policy-safe Knowledge Assistant',
+    title: 'Product Intent Discovery',
     description:
-      'All-in-one template: locale/jurisdiction gating + versioned KB snapshots + HITL update pipeline + learning hub.',
-    kind: 'template',
+      'Evidence ingestion and product-intent workflow for PM discovery.',
+    kind: 'script',
     visibility: 'public',
     stability: 'experimental',
     owners: ['@platform.core'],
-    tags: ['assistant', 'knowledge', 'policy', 'hitl', 'learning'],
-  },
-  docs: {
-    goalDocId: 'docs.examples.policy-safe-knowledge-assistant.goal',
-    usageDocId: 'docs.examples.policy-safe-knowledge-assistant.usage',
+    tags: ['product-intent', 'discovery', 'pm', 'evidence', 'llm'],
   },
   entrypoints: {
-    packageName: '@contractspec/example.policy-safe-knowledge-assistant',
-    feature: './policy-safe-knowledge-assistant.feature',
-    docs: './docs',
+    packageName: '@contractspec/example.product-intent',
   },
   surfaces: {
-    templates: true,
-    sandbox: {
-      enabled: true,
-      modes: ['playground', 'specs', 'builder', 'markdown', 'evolution'],
-    },
-    studio: { enabled: true, installable: true },
-    mcp: { enabled: true },
+    templates: false,
+    sandbox: { enabled: false, modes: [] },
+    studio: { enabled: false, installable: false },
+    mcp: { enabled: false },
   },
 });
 

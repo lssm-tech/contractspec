@@ -1,12 +1,21 @@
 {
   "name": "@contractspec/example.product-intent",
   "version": "1.56.1",
-  "description": "TODO",
+  "description": "Product intent example: evidence ingestion and prompt-ready outputs.",
+  "keywords": [
+    "contractspec",
+    "product-intent",
+    "pm",
+    "discovery",
+    "example"
+  ],
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
     "./example": "./dist/example.js",
+    "./load-evidence": "./dist/load-evidence.js",
+    "./script": "./dist/script.js",
     "./*": "./*"
   },
   "scripts": {
@@ -24,30 +33,21 @@
   },
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/lib.product-intent-utils": "workspace:*",
-    "@contractspec/lib.runtime-sandbox": "workspace:*",
-    "react": "catalog:",
-    "react-dom": "catalog:"
+    "@contractspec/lib.product-intent-utils": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
-    "typescript": "catalog:",
-    "@types/react": "^19.2.11",
-    "@types/react-dom": "^19.2.2"
+    "typescript": "catalog:"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
       ".": "./dist/index.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/policy-safe-knowledge-assistant.docblock": "./dist/docs/policy-safe-knowledge-assistant.docblock.js",
       "./example": "./dist/example.js",
-      "./policy-safe-knowledge-assistant.feature": "./dist/policy-safe-knowledge-assistant.feature.js",
-      "./orchestrator/buildAnswer": "./dist/orchestrator/buildAnswer.js",
-      "./seed": "./dist/seed/index.js",
-      "./seed/fixtures": "./dist/seed/fixtures.js",
+      "./load-evidence": "./dist/load-evidence.js",
+      "./script": "./dist/script.js",
       "./*": "./*"
     },
     "registry": "https://registry.npmjs.org/"
@@ -56,7 +56,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/examples/policy-safe-knowledge-assistant"
+    "directory": "packages/examples/product-intent"
   },
   "homepage": "https://contractspec.io"
 }

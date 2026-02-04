@@ -1,38 +1,30 @@
-// Import EvidenceChunk from the product-intent types. We avoid relying on
-// TypeScript path aliases here by using a relative path to the
-// contracts package. This ensures the utils library can be consumed
-// directly without custom module resolution.
 import type { EvidenceChunk } from '@contractspec/lib.contracts/product-intent/types';
 
 /**
  * Prompt construction helpers for the product intent workflow.
- *
- * Each function returns a string to be used as the system/user
- * messages in a language model call. All prompts enforce JSON-only
- * output and, where appropriate, strict citation requirements.
  */
 
 /**
- * Format evidence chunks as a JSON string suitable for embedding in
- * prompts. Long texts are truncated to a configurable maximum number
- * of characters. Metadata is included to aid the model in
- * reasoning about segment, persona and other attributes.
+ * Format evidence chunks as JSON suitable for embedding in prompts.
+ * Long texts are truncated to a configurable maximum number of characters.
  */
 export function formatEvidenceForModel(
   chunks: EvidenceChunk[],
   maxChars = 900
 ): string {
-  const safe = chunks.map((c) => ({
-    chunk_id: c.chunkId,
-    text: c.text.length > maxChars ? `${c.text.slice(0, maxChars)}…` : c.text,
-    meta: c.meta ?? {},
+  const safe = chunks.map((chunk) => ({
+    chunkId: chunk.chunkId,
+    text:
+      chunk.text.length > maxChars
+        ? `${chunk.text.slice(0, maxChars)}...`
+        : chunk.text,
+    meta: chunk.meta ?? {},
   }));
-  return JSON.stringify({ evidence_chunks: safe }, null, 2);
+  return JSON.stringify({ evidenceChunks: safe }, null, 2);
 }
 
 /**
- * Rules that instruct the model to output only JSON. Used across
- * multiple prompts to ensure consistent output format.
+ * Rules that instruct the model to output only JSON.
  */
 export const JSON_ONLY_RULES = `
 You MUST output valid JSON ONLY.
@@ -43,15 +35,13 @@ You MUST output valid JSON ONLY.
 `;
 
 /**
- * Citation rules used in prompts that require citations. Remind the
- * model that it may only cite from provided evidence chunks and must
- * provide exact quotes.
+ * Citation rules used in prompts that require citations.
  */
 export const CITATION_RULES = `
 CITATION RULES (strict):
-- You may ONLY cite from the provided evidence_chunks.
+- You may ONLY cite from the provided evidenceChunks.
 - Each citation must include:
-  - "chunk_id": exactly one of the provided chunk_id values
+  - "chunkId": exactly one of the provided chunkId values
   - "quote": an exact substring copied from that chunk's text
 - Do NOT invent quotes.
 - Keep quotes short (<= 240 chars).
@@ -59,8 +49,7 @@ CITATION RULES (strict):
 `;
 
 /**
- * Construct a prompt for extracting atomic, evidence‑grounded insights
- * from a set of retrieved evidence chunks.
+ * Prompt for extracting atomic, evidence-grounded insights.
  */
 export function promptExtractInsights(params: {
   question: string;
@@ -80,12 +69,12 @@ Return JSON with:
 {
   "insights": [
     {
-      "insight_id": "ins_001",
+      "insightId": "ins_001",
       "claim": "...",
       "tags": ["..."],
       "segment": "...",
-      "confidence": 0.0-1.0,
-      "citations": [{ "chunk_id": "...", "quote": "..." }]
+      "confidence": 0.0,
+      "citations": [{ "chunkId": "...", "quote": "..." }]
     }
   ]
 }
@@ -101,9 +90,7 @@ ${JSON_ONLY_RULES}
 }
 
 /**
- * Construct a prompt for synthesising an opportunity brief from
- * extracted insights. Requires the model to reference allowed
- * chunk IDs for citations.
+ * Prompt for synthesizing an opportunity brief from extracted insights.
  */
 export function promptSynthesizeBrief(params: {
   question: string;
@@ -111,7 +98,7 @@ export function promptSynthesizeBrief(params: {
   allowedChunkIds: string[];
 }): string {
   const allowed = JSON.stringify(
-    { allowed_chunk_ids: params.allowedChunkIds },
+    { allowedChunkIds: params.allowedChunkIds },
     null,
     2
   );
@@ -129,36 +116,28 @@ ${allowed}
 
 Return JSON with exactly this shape:
 {
-  "opportunity_id": "opp_001",
+  "opportunityId": "opp_001",
   "title": "short title",
-  "problem": { "text": "...", "citations": [ { "chunk_id": "...", "quote": "..." } ] },
+  "problem": { "text": "...", "citations": [ { "chunkId": "...", "quote": "..." } ] },
   "who": { "text": "...", "citations": [ ... ] },
-  "proposed_change": { "text": "...", "citations": [ ... ] },
-  "expected_impact": { "metric": "activation_rate", "direction": "up", "magnitude_hint": "...", "timeframe_hint": "..." },
+  "proposedChange": { "text": "...", "citations": [ ... ] },
+  "expectedImpact": { "metric": "activation_rate", "direction": "up", "magnitudeHint": "...", "timeframeHint": "..." },
   "confidence": "low|medium|high",
-  "risks": [ { "text": "...", "citations": [ ... ] } ],
-  "contract_patch_intent": {
-    "feature_key": "snake_case_key",
-    "changes": [
-      { "type": "add_event|update_form|update_operation|add_field|...", "target": "string", "detail": "string" }
-    ],
-    "acceptance_criteria": ["..."]
-  }
+  "risks": [ { "text": "...", "citations": [ ... ] } ]
 }
 
 Rules:
-- The fields problem/who/proposed_change MUST each have >=1 citation.
-- All citations must use allowed_chunk_ids and include exact quotes.
-- Contract changes must be minimal and coherent (no “rewrite the whole app” nonsense).
-- Acceptance criteria must be testable/verifiable.
+- The fields problem/who/proposedChange MUST each have >=1 citation.
+- All citations must use allowedChunkIds and include exact quotes.
+- Keep the brief concise and specific.
 ${CITATION_RULES}
 ${JSON_ONLY_RULES}
 `.trim();
 }
 
 /**
- * Prompt for a sceptic pass. The model should audit a brief and return
- * any unsupported claims or misuse of citations.
+ * Prompt for a skeptic pass. The model should audit a brief and return
+ * unsupported claims or citation misuse.
  */
 export function promptSkepticCheck(params: {
   briefJSON: string;
@@ -177,7 +156,7 @@ Return JSON:
 {
   "issues": [
     {
-      "path": "problem|who|proposed_change|risks[i]|contract_patch_intent.changes[j]|...",
+      "path": "problem|who|proposedChange|risks[i]|...",
       "reason": "unsupported|quote_not_exact|wrong_chunk|too_vague|overreach",
       "fix": "what to change"
     }
@@ -192,46 +171,37 @@ ${JSON_ONLY_RULES}
 }
 
 /**
- * Prompt to generate a PatchIntent from an OpportunityBrief. The
- * model must output JSON matching the PatchIntent interface defined
- * in the product-intent types.
+ * Prompt to generate a ContractPatchIntent from an OpportunityBrief.
  */
 export function promptGeneratePatchIntent(params: {
   briefJSON: string;
 }): string {
   return `
-You are generating a PatchIntent from an OpportunityBrief.
+You are generating a ContractPatchIntent from an OpportunityBrief.
 
 OpportunityBrief:
 ${params.briefJSON}
 
 Return JSON:
 {
-  "patch_id": "patch_001",
-  "based_on_opportunity_id": "opp_001",
-  "summary": "1 sentence",
+  "featureKey": "activation_onboarding",
   "changes": [
-    { "type": "add_event|update_form|add_field|...", "target": "...", "spec_path_hint": "...", "payload": { } }
+    { "type": "add_event|update_form|update_operation|add_field|...", "target": "string", "detail": "string" }
   ],
-  "telemetry": {
-    "events": [ { "name": "...", "props": ["..."] } ],
-    "success_metric": { "name": "...", "definition": "..." }
-  }
+  "acceptanceCriteria": ["..."]
 }
 
 Rules:
 - Keep changes <= 12.
-- payload should be minimal and explicit.
-- Include telemetry events if useful for measuring success.
+- Detail should be minimal and explicit.
+- Acceptance criteria must be testable and verifiable.
 ${JSON_ONLY_RULES}
 `.trim();
 }
 
 /**
- * Prompt to generate a generic spec overlay from a PatchIntent and
- * base spec snippet. This overlay representation is independent of
- * ContractSpec's internal format and can later be translated into
- * a proper patch.
+ * Prompt to generate a generic spec overlay from a patch intent and
+ * base spec snippet.
  */
 export function promptGenerateGenericSpecOverlay(params: {
   baseSpecSnippet: string;
@@ -265,8 +235,7 @@ ${JSON_ONLY_RULES}
 
 /**
  * Prompt to generate an impact report given a patch intent, overlay and
- * optional compiler output. The model should output JSON matching
- * ImpactReport.
+ * optional compiler output.
  */
 export function promptGenerateImpactReport(params: {
   patchIntentJSON: string;
@@ -287,11 +256,11 @@ ${params.compilerOutputText ?? '(none)'}
 
 Return JSON:
 {
-  "report_id": "impact_001",
-  "patch_id": "patch_001",
+  "reportId": "impact_001",
+  "patchId": "patch_001",
   "summary": "...",
   "breaks": ["..."],
-  "must_change": ["..."],
+  "mustChange": ["..."],
   "risky": ["..."],
   "surfaces": {
     "api": ["..."],
@@ -313,8 +282,7 @@ ${JSON_ONLY_RULES}
 }
 
 /**
- * Prompt to generate an agent‑ready task pack. The model must list
- * 6–12 discrete tasks with acceptance criteria and agent prompts.
+ * Prompt to generate an agent-ready task pack.
  */
 export function promptGenerateTaskPack(params: {
   briefJSON: string;
@@ -339,18 +307,18 @@ ${params.impactJSON}
 
 Return JSON:
 {
-  "pack_id": "tasks_001",
-  "patch_id": "patch_001",
+  "packId": "tasks_001",
+  "patchId": "patch_001",
   "overview": "...",
   "tasks": [
     {
       "id": "t1",
       "title": "...",
-      "surface": ["api","db","ui","tests"],
+      "surface": ["api", "db", "ui", "tests"],
       "why": "...",
       "acceptance": ["..."],
-      "agent_prompt": "...",
-      "depends_on": []
+      "agentPrompt": "...",
+      "dependsOn": []
     }
   ]
 }
@@ -365,11 +333,7 @@ ${JSON_ONLY_RULES}
 }
 
 /**
- * Prompt for generating a wireframe image using a generative API. The
- * model should output a concise description instructing the image
- * generator to create a grayscale wireframe. This function returns
- * plain text (not JSON) because image generation APIs often take
- * freeform prompts.
+ * Prompt for generating a wireframe image using a generative API.
  */
 export function promptWireframeImage(params: {
   screenName: string;
@@ -398,9 +362,7 @@ Output: a single wireframe image that clearly shows the updated layout.
 
 /**
  * Prompt for generating a fallback UI layout when image generation is
- * unavailable. The model must output JSON describing a list of
- * elements with types and labels. See UiWireframeLayoutSchema for the
- * expected shape.
+ * unavailable.
  */
 export function promptWireframeLayoutJSON(params: {
   screenName: string;
@@ -434,8 +396,7 @@ ${JSON_ONLY_RULES}
 
 /**
  * Prompt to generate synthetic interview transcripts for testing or
- * demonstration. Returns JSON with a list of interview items. Each
- * transcript includes speaker labels and at least six quotable lines.
+ * demonstration.
  */
 export function promptGenerateSyntheticInterviews(params: {
   productContext: string;

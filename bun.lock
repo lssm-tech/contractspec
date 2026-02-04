@@ -994,15 +994,10 @@
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.product-intent-utils": "workspace:*",
-        "@contractspec/lib.runtime-sandbox": "workspace:*",
-        "react": "catalog:",
-        "react-dom": "catalog:",
       },
       "devDependencies": {
         "@contractspec/tool.tsdown": "workspace:*",
         "@contractspec/tool.typescript": "workspace:*",
-        "@types/react": "^19.2.11",
-        "@types/react-dom": "^19.2.2",
         "tsdown": "catalog:build",
         "typescript": "catalog:",
       },

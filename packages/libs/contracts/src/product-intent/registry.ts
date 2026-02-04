@@ -1,38 +1,69 @@
-import type { ProductIntentSpec } from "./spec";
+import type { ProductIntentSpec } from './spec';
 
 /**
- * A registry to store and retrieve ProductIntentSpecs. Registries
- * centralise definitions and allow runtime systems to enumerate
- * available intents. This pattern mirrors the existing registries in
- * ContractSpec (e.g. for operations and events) but is simplified for
- * the product intent use case. Consumers may extend this class to
- * implement persistence or additional lookup behaviour.
+ * In-memory registry for ProductIntentSpec documents keyed by id.
  */
 export class ProductIntentRegistry {
-  /** Internal map keyed by intent identifier. */
-  private intents = new Map<string, ProductIntentSpec<any>>();
+  private intents = new Map<string, ProductIntentSpec<unknown>>();
 
   /**
-   * Register a new product intent spec. If a spec with the same id
-   * already exists it will be overwritten.
+   * Register a new product intent spec. Throws if the id already exists.
    */
-  register<Meta = unknown>(spec: ProductIntentSpec<Meta>): void {
-    this.intents.set(spec.id, spec);
+  register<Meta = unknown>(spec: ProductIntentSpec<Meta>): this {
+    if (this.intents.has(spec.id)) {
+      throw new Error(`Duplicate product intent spec: ${spec.id}`);
+    }
+    this.intents.set(spec.id, spec as ProductIntentSpec<unknown>);
+    return this;
   }
 
   /**
-   * Retrieve a product intent spec by id. Returns undefined if the
-   * spec is not registered.
+   * Add or replace a spec by id.
+   */
+  set<Meta = unknown>(spec: ProductIntentSpec<Meta>): this {
+    this.intents.set(spec.id, spec as ProductIntentSpec<unknown>);
+    return this;
+  }
+
+  /**
+   * Retrieve a product intent spec by id.
    */
   get<Meta = unknown>(id: string): ProductIntentSpec<Meta> | undefined {
     return this.intents.get(id) as ProductIntentSpec<Meta> | undefined;
   }
 
   /**
-   * List all registered product intent specs. Useful for introspection
-   * and debugging.
+   * Check whether a spec exists for an id.
    */
-  list(): ProductIntentSpec<any>[] {
-    return Array.from(this.intents.values());
+  has(id: string): boolean {
+    return this.intents.has(id);
+  }
+
+  /**
+   * List all registered product intent specs.
+   */
+  list(): ProductIntentSpec<unknown>[] {
+    return [...this.intents.values()];
+  }
+
+  /**
+   * Count registered specs.
+   */
+  count(): number {
+    return this.intents.size;
+  }
+
+  /**
+   * Remove a spec from the registry.
+   */
+  delete(id: string): boolean {
+    return this.intents.delete(id);
+  }
+
+  /**
+   * Clear all registered specs.
+   */
+  clear(): void {
+    this.intents.clear();
   }
 }

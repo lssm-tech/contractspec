@@ -1,24 +1,41 @@
-# Product Intent Utilities
+# @contractspec/lib.product-intent-utils
 
-This package contains utility functions, prompt builders and
-validators used by the **Cursor for Product Managers** workflow. It
-builds on top of the `product-intent` layer defined in the
-`@lssm/contractspec` contracts library.
+Website: https://contractspec.io/
 
-## Structure
+Utilities for the product-intent workflow: prompt builders, evidence formatting, and strict JSON validators aligned with ContractSpec's product-intent contracts.
 
-* `prompts.ts` – Helper functions to construct prompts for the
-  language model. The prompts are designed to force the model to
-  produce JSON‑only responses, enforce citation requirements and
-  generate structured outputs (insights, briefs, patch intents,
-  overlays, impact reports and task packs).
+## What it provides
 
-* `validators.ts` – Functions for validating JSON returned by the
-  language model. They leverage the Zod schemas defined in
-  `product-intent/types.ts` to ensure that responses adhere to the
-  expected shapes and that citations refer to actual evidence
-  chunks.
+- Evidence normalization helpers for LLM prompts.
+- Prompt builders for insights, opportunity briefs, patch intents, impacts, and task packs.
+- Validators that enforce structure, citation correctness, and bounds on model output.
 
-To use these utilities, import the functions you need and pass in
-evidence chunks and raw model output. See the example application in
-`packages/example/product-intent-example` for a minimal integration.
+## Installation
+
+```bash
+bun add @contractspec/lib.product-intent-utils
+```
+
+## Usage
+
+```ts
+import {
+  formatEvidenceForModel,
+  promptExtractInsights,
+  validateInsightExtraction,
+} from "@contractspec/lib.product-intent-utils";
+import type { EvidenceChunk } from "@contractspec/lib.contracts/product-intent/types";
+
+const chunks: EvidenceChunk[] = [
+  { chunkId: "INT-001#c_00", text: "...", meta: { persona: "admin" } },
+];
+
+const evidenceJSON = formatEvidenceForModel(chunks);
+const prompt = promptExtractInsights({
+  question: "How do we improve activation?",
+  evidenceJSON,
+});
+
+// modelOutput is the raw JSON string returned by the LLM
+const insights = validateInsightExtraction(modelOutput, chunks);
+```
