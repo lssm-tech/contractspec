@@ -17,6 +17,7 @@ inputs:
   generate-command:
     description: 'Command to regenerate artifacts'
     required: true
+    default: 'bun contractspec generate'
   on-drift:
     description: 'Behavior when drift is detected (fail|issue|pr)'
     required: false

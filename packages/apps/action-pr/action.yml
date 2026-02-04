@@ -29,7 +29,7 @@ inputs:
   generate-command:
     description: 'Command to regenerate artifacts (required when enable-drift=true)'
     required: false
-    default: ''
+    default: 'bun contractspec generate'
   validate-command:
     description: 'Override validation command'
     required: false
