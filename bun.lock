@@ -1007,6 +1007,7 @@
       "name": "@contractspec/example.product-intent",
       "version": "1.56.1",
       "dependencies": {
+        "@contractspec/lib.ai-agent": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.product-intent-utils": "workspace:*",
       },
@@ -1208,6 +1209,7 @@
         "@ai-sdk/mcp": "catalog:ai",
         "@ai-sdk/mistral": "catalog:ai",
         "@ai-sdk/openai": "catalog:ai",
+        "@contractspec/lib.ai-providers": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.knowledge": "workspace:*",
         "@modelcontextprotocol/sdk": "^1.25.2",

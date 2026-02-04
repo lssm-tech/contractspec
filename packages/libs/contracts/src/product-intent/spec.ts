@@ -5,18 +5,24 @@ import { StabilityEnum } from '../ownership';
 import type {
   ContractPatchIntent,
   ContractSpecPatch,
+  EvidenceFindingExtraction,
   ImpactReport,
   InsightExtraction,
   OpportunityBrief,
+  ProblemGrouping,
   TaskPack,
+  TicketCollection,
 } from './types';
 import {
   ContractPatchIntentModel,
   ContractSpecPatchModel,
+  EvidenceFindingExtractionModel,
   ImpactReportModel,
   InsightExtractionModel,
   OpportunityBriefModel,
+  ProblemGroupingModel,
   TaskPackModel,
+  TicketCollectionModel,
 } from './types';
 
 const ProductIntentMetaSchema = z.object({
@@ -38,8 +44,11 @@ const ProductIntentSpecSchema = z.object({
   meta: ProductIntentMetaSchema,
   question: z.string().min(1),
   runtimeContext: z.unknown().optional(),
+  findings: EvidenceFindingExtractionModel.getZod().optional(),
   insights: InsightExtractionModel.getZod().optional(),
+  problems: ProblemGroupingModel.getZod().optional(),
   brief: OpportunityBriefModel.getZod().optional(),
+  tickets: TicketCollectionModel.getZod().optional(),
   patchIntent: ContractPatchIntentModel.getZod().optional(),
   patch: ContractSpecPatchModel.getZod().optional(),
   impact: ImpactReportModel.getZod().optional(),
@@ -97,9 +106,24 @@ export interface ProductIntentSpec<Context = unknown> {
   insights?: InsightExtraction;
 
   /**
+   * The evidence findings extracted from transcripts.
+   */
+  findings?: EvidenceFindingExtraction;
+
+  /**
+   * Grouped problem statements linked to evidence findings.
+   */
+  problems?: ProblemGrouping;
+
+  /**
    * The synthesized opportunity brief explaining what to build and why.
    */
   brief?: OpportunityBrief;
+
+  /**
+   * Tickets derived from the problems and evidence findings.
+   */
+  tickets?: TicketCollection;
 
   /**
    * The intermediate patch intent derived from the brief. This is

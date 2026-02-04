@@ -1,17 +1,17 @@
 import type { SchemaModelType } from '@contractspec/lib.schema';
 import {
   CitationModel,
-  ContractPatchIntentModel,
-  ImpactReportModel,
-  InsightExtractionModel,
-  OpportunityBriefModel,
-  TaskPackModel,
   type ContractPatchIntent,
+  ContractPatchIntentModel,
   type EvidenceChunk,
   type ImpactReport,
+  ImpactReportModel,
   type InsightExtraction,
+  InsightExtractionModel,
   type OpportunityBrief,
+  OpportunityBriefModel,
   type TaskPack,
+  TaskPackModel,
 } from '@contractspec/lib.contracts/product-intent/types';
 
 interface LengthBounds {
@@ -365,5 +365,27 @@ export function buildRepairPrompt(error: string): string {
     'Fix the output and return JSON ONLY (no markdown, no commentary).',
     'Validation error:',
     error,
+  ].join('\n');
+}
+
+function truncateText(value: string, maxChars: number): string {
+  if (value.length <= maxChars) return value;
+  return `${value.slice(0, maxChars)}\n...(truncated)`;
+}
+
+export function buildRepairPromptWithOutput(
+  error: string,
+  previousOutput: string,
+  maxOutputChars = 4000
+): string {
+  return [
+    'Your previous output failed validation.',
+    'Fix the output and return JSON ONLY (no markdown, no commentary).',
+    'Do not change the JSON shape or rename fields.',
+    'If a citation quote is invalid, replace it with an exact substring from the referenced chunk.',
+    'Validation error:',
+    error,
+    'Previous output:',
+    truncateText(previousOutput, maxOutputChars),
   ].join('\n');
 }

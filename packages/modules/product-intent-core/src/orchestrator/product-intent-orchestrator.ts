@@ -12,14 +12,13 @@ import type { ProductIntentSpec } from '@contractspec/lib.contracts/product-inte
 import { ProductIntentRegistry } from '@contractspec/lib.contracts/product-intent/registry';
 import {
   formatEvidenceForModel,
+  impactEngine,
   parseStrictJSON,
   promptExtractInsights,
   promptGenerateGenericSpecOverlay,
-  promptGenerateImpactReport,
   promptGeneratePatchIntent,
   promptGenerateTaskPack,
   promptSynthesizeBrief,
-  validateImpactReport,
   validateInsightExtraction,
   validateOpportunityBrief,
   validatePatchIntent,
@@ -173,18 +172,10 @@ export class ProductIntentOrchestrator<Context = unknown> {
 
   protected async generateImpactReport(
     intent: ContractPatchIntent,
-    patch: ContractSpecPatch,
-    compilerOutputText?: string
+    _patch: ContractSpecPatch,
+    _compilerOutputText?: string
   ): Promise<ImpactReport> {
-    const patchIntentJSON = JSON.stringify(intent, null, 2);
-    const overlayJSON = JSON.stringify(patch, null, 2);
-    const prompt = promptGenerateImpactReport({
-      patchIntentJSON,
-      overlayJSON,
-      compilerOutputText,
-    });
-    const raw = await this.runModel(prompt);
-    return validateImpactReport(raw);
+    return impactEngine(intent);
   }
 
   protected async generateTasks(

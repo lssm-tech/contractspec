@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.ai-agent": "workspace:*",
     "@contractspec/lib.product-intent-utils": "workspace:*"
   },
   "devDependencies": {
