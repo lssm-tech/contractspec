@@ -7,7 +7,7 @@ import type {
   OpportunityBrief,
   TaskPack,
 } from './types';
-import type { ProductIntentSpec } from './spec';
+import type { ProductIntentMeta, ProductIntentSpec } from './spec';
 import { ProductIntentRegistry } from './registry';
 
 export interface ProductIntentRuntimeOptions<Context = unknown> {
@@ -67,6 +67,7 @@ export interface ProductIntentRuntimeOptions<Context = unknown> {
 
 export interface ProductIntentDiscoveryParams<Context = unknown> {
   id: string;
+  meta: ProductIntentMeta;
   question: string;
   context?: Context;
   maxEvidenceChunks?: number;
@@ -104,14 +105,15 @@ export class ProductIntentRuntime<Context = unknown> {
   async runDiscovery(
     params: ProductIntentDiscoveryParams<Context>
   ): Promise<ProductIntentSpec<Context>> {
-    const { id, question, context } = params;
+    const { id, meta, question, context } = params;
     const maxEvidenceChunks =
       params.maxEvidenceChunks ?? this.opts.maxEvidenceChunks ?? 20;
 
     const spec: ProductIntentSpec<Context> = {
       id,
+      meta,
       question,
-      meta: context,
+      runtimeContext: context,
     };
 
     // 1. Retrieve evidence
@@ -164,7 +166,7 @@ export class ProductIntentRuntime<Context = unknown> {
     }
 
     // Register the completed spec for later retrieval
-    this.registry.register(spec);
+    this.registry.set(spec);
     return spec;
   }
 

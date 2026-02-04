@@ -1,69 +1,58 @@
+import { keyOfSpecContract, SpecContractRegistry } from '../registry';
 import type { ProductIntentSpec } from './spec';
 
 /**
- * In-memory registry for ProductIntentSpec documents keyed by id.
+ * Registry for ProductIntentSpec contracts.
  */
-export class ProductIntentRegistry {
-  private intents = new Map<string, ProductIntentSpec<unknown>>();
+export class ProductIntentRegistry extends SpecContractRegistry<
+  'product-intent',
+  ProductIntentSpec
+> {
+  constructor(items?: ProductIntentSpec[]) {
+    super('product-intent', items);
+  }
 
   /**
-   * Register a new product intent spec. Throws if the id already exists.
+   * Add or replace a spec by meta key and version.
    */
-  register<Meta = unknown>(spec: ProductIntentSpec<Meta>): this {
-    if (this.intents.has(spec.id)) {
-      throw new Error(`Duplicate product intent spec: ${spec.id}`);
-    }
-    this.intents.set(spec.id, spec as ProductIntentSpec<unknown>);
+  set(spec: ProductIntentSpec): this {
+    const key = keyOfSpecContract(spec);
+    this.items.set(key, spec);
     return this;
   }
 
   /**
-   * Add or replace a spec by id.
+   * Retrieve a product intent spec by runtime id.
    */
-  set<Meta = unknown>(spec: ProductIntentSpec<Meta>): this {
-    this.intents.set(spec.id, spec as ProductIntentSpec<unknown>);
-    return this;
+  getById<Context = unknown>(
+    id: string
+  ): ProductIntentSpec<Context> | undefined {
+    return this.list().find((spec) => spec.id === id) as
+      | ProductIntentSpec<Context>
+      | undefined;
   }
 
   /**
-   * Retrieve a product intent spec by id.
-   */
-  get<Meta = unknown>(id: string): ProductIntentSpec<Meta> | undefined {
-    return this.intents.get(id) as ProductIntentSpec<Meta> | undefined;
-  }
-
-  /**
-   * Check whether a spec exists for an id.
-   */
-  has(id: string): boolean {
-    return this.intents.has(id);
-  }
-
-  /**
-   * List all registered product intent specs.
-   */
-  list(): ProductIntentSpec<unknown>[] {
-    return [...this.intents.values()];
-  }
-
-  /**
-   * Count registered specs.
-   */
-  count(): number {
-    return this.intents.size;
-  }
-
-  /**
-   * Remove a spec from the registry.
+   * Delete a spec by runtime id.
    */
   delete(id: string): boolean {
-    return this.intents.delete(id);
+    const target = this.list().find((spec) => spec.id === id);
+    if (!target) return false;
+    const key = keyOfSpecContract(target);
+    return this.items.delete(key);
+  }
+
+  /**
+   * Delete a spec by contract key and version.
+   */
+  deleteByKey(key: string, version: string): boolean {
+    return this.items.delete(`${key}.v${version}`);
   }
 
   /**
    * Clear all registered specs.
    */
   clear(): void {
-    this.intents.clear();
+    this.items.clear();
   }
 }

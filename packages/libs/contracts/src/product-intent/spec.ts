@@ -1,5 +1,7 @@
 import { ZodSchemaType } from '@contractspec/lib.schema';
 import * as z from 'zod';
+import type { OwnerShipMeta } from '../ownership';
+import { StabilityEnum } from '../ownership';
 import type {
   ContractPatchIntent,
   ContractSpecPatch,
@@ -17,10 +19,25 @@ import {
   TaskPackModel,
 } from './types';
 
+const ProductIntentMetaSchema = z.object({
+  key: z.string().min(1),
+  version: z.string().min(1),
+  description: z.string().min(1),
+  stability: z.nativeEnum(StabilityEnum),
+  owners: z.array(z.string().min(1)),
+  tags: z.array(z.string().min(1)),
+  title: z.string().min(1).optional(),
+  domain: z.string().min(1).optional(),
+  docId: z.array(z.string().min(1)).optional(),
+  goal: z.string().min(1).optional(),
+  context: z.string().min(1).optional(),
+});
+
 const ProductIntentSpecSchema = z.object({
   id: z.string().min(1),
+  meta: ProductIntentMetaSchema,
   question: z.string().min(1),
-  meta: z.unknown().optional(),
+  runtimeContext: z.unknown().optional(),
   insights: InsightExtractionModel.getZod().optional(),
   brief: OpportunityBriefModel.getZod().optional(),
   patchIntent: ContractPatchIntentModel.getZod().optional(),
@@ -46,12 +63,22 @@ export type ProductIntentSpecData = z.infer<typeof ProductIntentSpecSchema>;
  * is intentionally flexible so that different implementations can fill
  * in the pieces as they become available.
  */
-export interface ProductIntentSpec<Meta = unknown> {
+export interface ProductIntentMeta extends OwnerShipMeta {
+  goal?: string;
+  context?: string;
+}
+
+export interface ProductIntentSpec<Context = unknown> {
   /**
    * A unique identifier for this product intent. This is used when
    * storing and retrieving specs from a registry or database.
    */
   id: string;
+
+  /**
+   * Contract metadata for registry and ownership tracking.
+   */
+  meta: ProductIntentMeta;
 
   /**
    * The question or goal that triggered the discovery process. For
@@ -60,10 +87,9 @@ export interface ProductIntentSpec<Meta = unknown> {
   question: string;
 
   /**
-   * Optional metadata defined by the caller. Use this to store
-   * application-specific context such as feature flags or user info.
+   * Optional runtime context defined by the caller.
    */
-  meta?: Meta;
+  runtimeContext?: Context;
 
   /**
    * The extracted insights grounded in evidence.
@@ -101,8 +127,8 @@ export interface ProductIntentSpec<Meta = unknown> {
 /**
  * Helper to define a ProductIntentSpec with proper type inference.
  */
-export function defineProductIntentSpec<Meta = unknown>(
-  spec: ProductIntentSpec<Meta>
-): ProductIntentSpec<Meta> {
+export function defineProductIntentSpec<Context = unknown>(
+  spec: ProductIntentSpec<Context>
+): ProductIntentSpec<Context> {
   return spec;
 }

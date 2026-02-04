@@ -404,6 +404,21 @@
         "typescript": "catalog:",
       },
     },
+    "packages/bundles/product-intent": {
+      "name": "@contractspec/bundle.product-intent",
+      "version": "1.56.1",
+      "dependencies": {
+        "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/module.product-intent-core": "workspace:*",
+        "ai": "catalog:ai",
+      },
+      "devDependencies": {
+        "@contractspec/tool.tsdown": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "tsdown": "catalog:build",
+        "typescript": "catalog:",
+      },
+    },
     "packages/bundles/workspace": {
       "name": "@contractspec/bundle.workspace",
       "version": "1.56.1",
@@ -2296,6 +2311,20 @@
         "typescript": "catalog:",
       },
     },
+    "packages/modules/product-intent-core": {
+      "name": "@contractspec/module.product-intent-core",
+      "version": "1.56.1",
+      "dependencies": {
+        "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.product-intent-utils": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.tsdown": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "tsdown": "catalog:build",
+        "typescript": "catalog:",
+      },
+    },
     "packages/modules/workspace": {
       "name": "@contractspec/module.workspace",
       "version": "1.56.1",
@@ -2832,6 +2861,8 @@
 
     "@contractspec/bundle.marketing": ["@contractspec/bundle.marketing@workspace:packages/bundles/marketing"],
 
+    "@contractspec/bundle.product-intent": ["@contractspec/bundle.product-intent@workspace:packages/bundles/product-intent"],
+
     "@contractspec/bundle.workspace": ["@contractspec/bundle.workspace@workspace:packages/bundles/workspace"],
 
     "@contractspec/eslint-plugin-design-system": ["@contractspec/eslint-plugin-design-system@workspace:packages/tools/eslint-plugin-design-system"],
@@ -3025,6 +3056,8 @@
     "@contractspec/module.lifecycle-core": ["@contractspec/module.lifecycle-core@workspace:packages/modules/lifecycle-core"],
 
     "@contractspec/module.notifications": ["@contractspec/module.notifications@workspace:packages/modules/notifications"],
+
+    "@contractspec/module.product-intent-core": ["@contractspec/module.product-intent-core@workspace:packages/modules/product-intent-core"],
 
     "@contractspec/module.workspace": ["@contractspec/module.workspace@workspace:packages/modules/workspace"],
 

@@ -75,6 +75,7 @@ export type ContractSpecType =
   | 'telemetry'
   | 'example'
   | 'app-config'
+  | 'product-intent'
   | 'policy'
   | 'test-spec'
   | 'type'
