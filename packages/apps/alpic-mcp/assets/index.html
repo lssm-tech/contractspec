@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ContractSpec Alpic MCP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <span class="hero__badge">Alpic MCP + ChatGPT App</span>
+        <h1>Ship MCP tools with a polished UI on Alpic.</h1>
+        <p>
+          This starter ships a minimal MCP surface and a static UI bundle.
+          Deploy it on Alpic and you get MCP endpoints at <span>/</span> and
+          <span>/mcp</span>, plus static assets served from
+          <span>/assets</span>.
+        </p>
+        <div class="hero__actions">
+          <button class="primary" id="copy-config">Copy MCP config</button>
+          <a class="ghost" href="#assets">See assets</a>
+        </div>
+        <div class="hero__meta">
+          <div class="meta-card">
+            <span>Base URL</span>
+            <code data-origin>https://your-app.alpic.live</code>
+          </div>
+          <div class="meta-card">
+            <span>Assets</span>
+            <code>/assets</code>
+          </div>
+        </div>
+      </header>
+
+      <section class="grid">
+        <article class="card">
+          <h2>MCP endpoints</h2>
+          <ul>
+            <li><strong>/</strong> - SSE + Streamable HTTP</li>
+            <li><strong>/mcp</strong> - Streamable HTTP</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>UI resource</h2>
+          <p>
+            The MCP resource <strong>app://ui</strong> points to the UI entry at
+            <strong>/assets/index.html</strong>.
+          </p>
+        </article>
+        <article class="card">
+          <h2>Copy-ready config</h2>
+          <pre id="config-json" class="code"></pre>
+        </article>
+      </section>
+
+      <section id="assets" class="assets">
+        <div class="assets__header">
+          <h2>Assets bundle</h2>
+          <p>Drop any static files in <code>assets/</code> before deploying.</p>
+        </div>
+        <div class="assets__list">
+          <div class="asset-item">
+            <span>index.html</span>
+            <small>UI shell</small>
+          </div>
+          <div class="asset-item">
+            <span>style.css</span>
+            <small>Design system</small>
+          </div>
+          <div class="asset-item">
+            <span>app.js</span>
+            <small>Client boot</small>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div><strong>ContractSpec</strong> + Alpic MCP starter</div>
+        <div class="footer__links">
+          <a href="https://docs.alpic.ai" target="_blank" rel="noreferrer">
+            Alpic docs
+          </a>
+          <a
+            href="https://docs.alpic.ai/guides/hosting-chatgpt-app-assets"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Hosting assets
+          </a>
+        </div>
+      </footer>
+    </main>
+    <script type="module" src="/assets/app.js"></script>
+  </body>
+</html>

@@ -41,7 +41,7 @@ const InAppDocsViewer: React.FC = () => {
         {activeDoc && (
           <>
             <h1>{activeDoc.title}</h1>
-            <MarkdownRenderer content={activeDoc.body} />;
+            <MarkdownRenderer content={activeDoc.body} />
           </>
         )}
       </main>

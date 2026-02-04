@@ -1,5 +1,10 @@
 {
   "mcpServers": {
+    "Alpic Documentation": {
+      "name": "Alpic Documentation",
+      "url": "https://docs.alpic.ai/mcp",
+      "headers": {}
+    },
     "contractspec-internal": {
       "description": "ContractSpec internal API for project management, specs, and deployments",
       "url": "https://api.contractspec.io/api/mcp/internal"
@@ -34,10 +39,7 @@
       "description": "Context7 for library documentation lookup and up-to-date API references",
       "type": "stdio",
       "command": "npx",
-      "args": [
-        "-y",
-        "@upstash/context7-mcp"
-      ],
+      "args": ["-y", "@upstash/context7-mcp"],
       "env": {}
     }
   }

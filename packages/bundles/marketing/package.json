@@ -90,7 +90,7 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@types/react": "~19.2.8",
+    "@types/react": "~19.2.11",
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
