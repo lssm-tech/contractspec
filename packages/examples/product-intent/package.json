@@ -1,0 +1,62 @@
+{
+  "name": "@contractspec/example.product-intent",
+  "version": "1.56.1",
+  "description": "TODO",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./example": "./dist/example.js",
+    "./*": "./*"
+  },
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.product-intent-utils": "workspace:*",
+    "@contractspec/lib.runtime-sandbox": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "tsdown": "catalog:build",
+    "typescript": "catalog:",
+    "@types/react": "^19.2.11",
+    "@types/react-dom": "^19.2.2"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/policy-safe-knowledge-assistant.docblock": "./dist/docs/policy-safe-knowledge-assistant.docblock.js",
+      "./example": "./dist/example.js",
+      "./policy-safe-knowledge-assistant.feature": "./dist/policy-safe-knowledge-assistant.feature.js",
+      "./orchestrator/buildAnswer": "./dist/orchestrator/buildAnswer.js",
+      "./seed": "./dist/seed/index.js",
+      "./seed/fixtures": "./dist/seed/fixtures.js",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/policy-safe-knowledge-assistant"
+  },
+  "homepage": "https://contractspec.io"
+}

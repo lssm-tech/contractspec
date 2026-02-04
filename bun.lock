@@ -988,6 +988,25 @@
         "typescript": "catalog:",
       },
     },
+    "packages/examples/product-intent": {
+      "name": "@contractspec/example.product-intent",
+      "version": "1.56.1",
+      "dependencies": {
+        "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.product-intent-utils": "workspace:*",
+        "@contractspec/lib.runtime-sandbox": "workspace:*",
+        "react": "catalog:",
+        "react-dom": "catalog:",
+      },
+      "devDependencies": {
+        "@contractspec/tool.tsdown": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@types/react": "^19.2.11",
+        "@types/react-dom": "^19.2.2",
+        "tsdown": "catalog:build",
+        "typescript": "catalog:",
+      },
+    },
     "packages/examples/saas-boilerplate": {
       "name": "@contractspec/example.saas-boilerplate",
       "version": "1.56.1",
@@ -1783,6 +1802,19 @@
         "react-hook-form": "^7.70.0",
         "react-native": "*",
         "zod": "^4.3.5",
+      },
+    },
+    "packages/libs/product-intent-utils": {
+      "name": "@contractspec/lib.product-intent-utils",
+      "version": "1.56.1",
+      "dependencies": {
+        "@contractspec/lib.contracts": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.tsdown": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "tsdown": "catalog:build",
+        "typescript": "catalog:",
       },
     },
     "packages/libs/progressive-delivery": {
@@ -2869,6 +2901,8 @@
 
     "@contractspec/example.policy-safe-knowledge-assistant": ["@contractspec/example.policy-safe-knowledge-assistant@workspace:packages/examples/policy-safe-knowledge-assistant"],
 
+    "@contractspec/example.product-intent": ["@contractspec/example.product-intent@workspace:packages/examples/product-intent"],
+
     "@contractspec/example.saas-boilerplate": ["@contractspec/example.saas-boilerplate@workspace:packages/examples/saas-boilerplate"],
 
     "@contractspec/example.service-business-os": ["@contractspec/example.service-business-os@workspace:packages/examples/service-business-os"],
@@ -2954,6 +2988,8 @@
     "@contractspec/lib.presentation-runtime-react": ["@contractspec/lib.presentation-runtime-react@workspace:packages/libs/presentation-runtime-react"],
 
     "@contractspec/lib.presentation-runtime-react-native": ["@contractspec/lib.presentation-runtime-react-native@workspace:packages/libs/presentation-runtime-react-native"],
+
+    "@contractspec/lib.product-intent-utils": ["@contractspec/lib.product-intent-utils@workspace:packages/libs/product-intent-utils"],
 
     "@contractspec/lib.progressive-delivery": ["@contractspec/lib.progressive-delivery@workspace:packages/libs/progressive-delivery"],
 
