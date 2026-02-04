@@ -324,14 +324,14 @@
     "elysia-mcp": "^0.1.0",
     "framer-motion": "^12.26.1",
     "lucide-react": "^0.563.0",
-    "posthog-js": "^1.319.0",
-    "posthog-node": "^5.20.0",
+    "posthog-js": "^1.339.1",
+    "posthog-node": "^5.24.9",
     "posthog-react-native": "^4.17.3",
     "react-hook-form": "^7.70.0",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@types/react": "~19.2.8",
+    "@types/react": "~19.2.11",
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",

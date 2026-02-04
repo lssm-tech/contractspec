@@ -1,5 +1,10 @@
 {
   "mcpServers": {
+    "Alpic Documentation": {
+      "name": "Alpic Documentation",
+      "url": "https://docs.alpic.ai/mcp",
+      "headers": {}
+    },
     "contractspec-internal": {
       "description": "ContractSpec internal API for project management, specs, and deployments",
       "url": "https://api.contractspec.io/api/mcp/internal"
