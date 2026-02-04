@@ -96,6 +96,21 @@
       "name": "@contractspec/action.version",
       "version": "0.12.1",
     },
+    "packages/apps/alpic-mcp": {
+      "name": "@contractspec/app.alpic-mcp",
+      "version": "1.56.1",
+      "dependencies": {
+        "@contractspec/bundle.alpic": "workspace:*",
+        "@contractspec/lib.logger": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.tsdown": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@types/node": "^24.4.0",
+        "tsdown": "catalog:build",
+        "typescript": "catalog:",
+      },
+    },
     "packages/apps/api-library": {
       "name": "@contractspec/app.api-library",
       "version": "1.10.1",
@@ -270,6 +285,19 @@
         "string-replace-loader": "^3.3.0",
         "tailwindcss": "catalog:build",
         "tw-animate-css": "1.4.0",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/bundles/alpic": {
+      "name": "@contractspec/bundle.alpic",
+      "version": "1.56.1",
+      "dependencies": {
+        "@contractspec/module.alpic": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.tsdown": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "tsdown": "catalog:build",
         "typescript": "catalog:",
       },
     },
@@ -2103,6 +2131,23 @@
         "react": ">=19.2.4",
       },
     },
+    "packages/modules/alpic": {
+      "name": "@contractspec/module.alpic",
+      "version": "1.56.1",
+      "dependencies": {
+        "@contractspec/lib.logger": "workspace:*",
+        "@modelcontextprotocol/sdk": "^1.25.2",
+        "elysia": "^1.4.21",
+        "elysia-mcp": "^0.1.0",
+        "zod": "catalog:",
+      },
+      "devDependencies": {
+        "@contractspec/tool.tsdown": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "tsdown": "catalog:build",
+        "typescript": "catalog:",
+      },
+    },
     "packages/modules/audit-trail": {
       "name": "@contractspec/module.audit-trail",
       "version": "1.56.1",
@@ -2738,6 +2783,8 @@
 
     "@contractspec/action.version": ["@contractspec/action.version@workspace:packages/apps/action-version"],
 
+    "@contractspec/app.alpic-mcp": ["@contractspec/app.alpic-mcp@workspace:packages/apps/alpic-mcp"],
+
     "@contractspec/app.api-library": ["@contractspec/app.api-library@workspace:packages/apps/api-library"],
 
     "@contractspec/app.cli-contractspec": ["@contractspec/app.cli-contractspec@workspace:packages/apps/cli-contractspec"],
@@ -2749,6 +2796,8 @@
     "@contractspec/app.registry-server": ["@contractspec/app.registry-server@workspace:packages/apps/registry-server"],
 
     "@contractspec/app.web-landing": ["@contractspec/app.web-landing@workspace:packages/apps/web-landing"],
+
+    "@contractspec/bundle.alpic": ["@contractspec/bundle.alpic@workspace:packages/bundles/alpic"],
 
     "@contractspec/bundle.library": ["@contractspec/bundle.library@workspace:packages/bundles/library"],
 
@@ -2931,6 +2980,8 @@
     "@contractspec/lib.workflow-composer": ["@contractspec/lib.workflow-composer@workspace:packages/libs/workflow-composer"],
 
     "@contractspec/module.ai-chat": ["@contractspec/module.ai-chat@workspace:packages/modules/ai-chat"],
+
+    "@contractspec/module.alpic": ["@contractspec/module.alpic@workspace:packages/modules/alpic"],
 
     "@contractspec/module.audit-trail": ["@contractspec/module.audit-trail@workspace:packages/modules/audit-trail"],
 
@@ -7461,6 +7512,8 @@
     "@chevrotain/gast/lodash": ["lodash@4.17.21", "", {}, "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="],
 
     "@commitlint/config-validator/ajv": ["ajv@8.17.1", "", { "dependencies": { "fast-deep-equal": "^3.1.3", "fast-uri": "^3.0.1", "json-schema-traverse": "^1.0.0", "require-from-string": "^2.0.2" } }, "sha512-B/gBuNg5SiMTrPkC+A2+cW0RszwxYmn6VYxB/inlBStS5nx6xHIt/ehKRhIMhqusl7a8LjQoZnjCs5vhwxOQ1g=="],
+
+    "@contractspec/app.alpic-mcp/@types/node": ["@types/node@24.10.10", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-+0/4J266CBGPUq/ELg7QUHhN25WYjE0wYTPSQJn1xeu8DOlIOPxXxrNGiLmfAWl7HMMgWFWXpt9IDjMWrF5Iow=="],
 
     "@contractspec/integration.example-generator/@types/node": ["@types/node@22.19.7", "", { "dependencies": { "undici-types": "~6.21.0" } }, "sha512-MciR4AKGHWl7xwxkBa6xUGxQJ4VBOmPTF7sL+iGzuahOFaO0jHCsuEfS80pan1ef4gWId1oWOweIhrDEYLuaOw=="],
 
