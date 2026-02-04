@@ -107,10 +107,10 @@ describe('alpic MCP registration', () => {
     registerAlpicTools(server as unknown as McpServer);
 
     expect(server.tools).toHaveLength(1);
-    expect(server.tools[0].name).toBe('alpic.ping');
+    expect(server.tools[0]?.name).toBe('alpic.ping');
 
-    const result = await server.tools[0].handler({ message: 'hello' });
-    const payload = JSON.parse(result.content[0].text) as {
+    const result = await server.tools[0]?.handler({ message: 'hello' });
+    const payload = JSON.parse(result?.content[0]?.text || '') as {
       ok: boolean;
       message: string;
       assetsBase: string;
@@ -127,10 +127,10 @@ describe('alpic MCP registration', () => {
     registerAlpicResources(server as unknown as McpServer);
 
     expect(server.resources).toHaveLength(1);
-    expect(server.resources[0].uri).toBe('app://ui');
+    expect(server.resources[0]?.uri).toBe('app://ui');
 
-    const result = await server.resources[0].handler();
-    const payload = JSON.parse(result.contents[0].text ?? '') as {
+    const result = await server.resources[0]?.handler();
+    const payload = JSON.parse(result?.contents[0]?.text ?? '') as {
       path: string;
       url: string;
     };
