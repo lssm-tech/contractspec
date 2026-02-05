@@ -13,6 +13,10 @@ import { ElevenLabsVoiceProvider } from './elevenlabs-voice';
 import { LinearProjectManagementProvider } from './linear';
 import { JiraProjectManagementProvider } from './jira';
 import { NotionProjectManagementProvider } from './notion';
+import { GranolaMeetingRecorderProvider } from './granola-meeting-recorder';
+import { TldvMeetingRecorderProvider } from './tldv-meeting-recorder';
+import { FirefliesMeetingRecorderProvider } from './fireflies-meeting-recorder';
+import { FathomMeetingRecorderProvider } from './fathom-meeting-recorder';
 import type { PaymentsProvider } from '../payments';
 import type { EmailOutboundProvider } from '../email';
 import type { SmsProvider } from '../sms';
@@ -23,6 +27,7 @@ import type { LLMProvider } from '../llm';
 import type { EmbeddingProvider } from '../embedding';
 import type { OpenBankingProvider } from '../openbanking';
 import type { ProjectManagementProvider } from '../project-management';
+import type { MeetingRecorderProvider } from '../meeting-recorder';
 import { PowensOpenBankingProvider } from './powens-openbanking';
 import type { PowensEnvironment } from './powens-client';
 
@@ -253,6 +258,77 @@ export class IntegrationProviderFactory {
       default:
         throw new Error(
           `Unsupported project management integration: ${context.spec.meta.key}`
+        );
+    }
+  }
+
+  async createMeetingRecorderProvider(
+    context: IntegrationContext
+  ): Promise<MeetingRecorderProvider> {
+    const secrets = await this.loadSecrets(context);
+    const config = context.config as {
+      baseUrl?: string;
+      pageSize?: number;
+      transcriptsPageSize?: number;
+      includeTranscript?: boolean;
+      includeSummary?: boolean;
+      includeActionItems?: boolean;
+      includeCrmMatches?: boolean;
+      triggeredFor?: string[];
+      maxPages?: number;
+    };
+
+    switch (context.spec.meta.key) {
+      case 'meeting-recorder.granola':
+        return new GranolaMeetingRecorderProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'Granola API key is required'
+          ),
+          baseUrl: config?.baseUrl,
+          pageSize: config?.pageSize,
+        });
+      case 'meeting-recorder.tldv':
+        return new TldvMeetingRecorderProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'tl;dv API key is required'
+          ),
+          baseUrl: config?.baseUrl,
+          pageSize: config?.pageSize,
+        });
+      case 'meeting-recorder.fireflies':
+        return new FirefliesMeetingRecorderProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'Fireflies API key is required'
+          ),
+          baseUrl: config?.baseUrl,
+          pageSize: config?.transcriptsPageSize ?? config?.pageSize,
+          webhookSecret: secrets.webhookSecret as string | undefined,
+        });
+      case 'meeting-recorder.fathom':
+        return new FathomMeetingRecorderProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'Fathom API key is required'
+          ),
+          baseUrl: config?.baseUrl,
+          includeTranscript: config?.includeTranscript,
+          includeSummary: config?.includeSummary,
+          includeActionItems: config?.includeActionItems,
+          includeCrmMatches: config?.includeCrmMatches,
+          triggeredFor: config?.triggeredFor,
+          maxPages: config?.maxPages,
+          webhookSecret: secrets.webhookSecret as string | undefined,
+        });
+      default:
+        throw new Error(
+          `Unsupported meeting recorder integration: ${context.spec.meta.key}`
         );
     }
   }

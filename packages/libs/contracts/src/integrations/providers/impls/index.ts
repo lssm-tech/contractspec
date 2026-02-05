@@ -14,4 +14,8 @@ export * from './powens-openbanking';
 export * from './linear';
 export * from './jira';
 export * from './notion';
+export * from './granola-meeting-recorder';
+export * from './tldv-meeting-recorder';
+export * from './fireflies-meeting-recorder';
+export * from './fathom-meeting-recorder';
 export * from './provider-factory';

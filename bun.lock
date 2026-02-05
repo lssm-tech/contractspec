@@ -1153,6 +1153,7 @@
         "@mistralai/mistralai": "^1.11.0",
         "@notionhq/client": "^2.2.14",
         "@qdrant/js-client-rest": "^1.16.2",
+        "fathom-typescript": "^0.0.37",
         "googleapis": "^170.0.0",
         "postmark": "^4.0.4",
         "stripe": "^20.1.2",
@@ -1325,6 +1326,7 @@
         "@pothos/plugin-tracing": "^1.1.2",
         "@qdrant/js-client-rest": "^1.16.2",
         "compare-versions": "^6.1.1",
+        "fathom-typescript": "^0.0.37",
         "google-gax": "^5.0.6",
         "googleapis": "^170.0.0",
         "mcp-handler": "^1.0.7",
@@ -5447,6 +5449,8 @@
     "fastmcp": ["fastmcp@3.30.1", "", { "dependencies": { "@modelcontextprotocol/sdk": "^1.24.3", "@standard-schema/spec": "^1.0.0", "execa": "^9.6.1", "file-type": "^21.1.1", "fuse.js": "^7.1.0", "mcp-proxy": "^6.4.0", "strict-event-emitter-types": "^2.0.0", "undici": "^7.16.0", "uri-templates": "^0.2.0", "xsschema": "0.4.0-beta.5", "yargs": "^18.0.0", "zod": "^4.1.13", "zod-to-json-schema": "^3.25.0" }, "peerDependencies": { "jose": "^5.0.0" }, "optionalPeers": ["jose"], "bin": { "fastmcp": "dist/bin/fastmcp.js" } }, "sha512-5NP3hE9RF2dah+gQ19KFfB/rEbveAd1kByK48yrfoT+cZJmHXeoPHPGkonxSOvziTy9/LdRZJnMhFxSh6TLx5Q=="],
 
     "fastq": ["fastq@1.20.1", "", { "dependencies": { "reusify": "^1.0.4" } }, "sha512-GGToxJ/w1x32s/D2EKND7kTil4n8OVk/9mycTc4VDza13lOvpUZTGX3mFSCtV9ksdGBVzvsyAVLM6mHFThxXxw=="],
+
+    "fathom-typescript": ["fathom-typescript@0.0.37", "", { "dependencies": { "svix": "^1.65.0", "zod": "^3.25.0 || ^4.0.0" } }, "sha512-H7SHcHACTftBQFDlv/D9UISFvqTo0L+dmcSULn2PNJU58H3LtUmT0dY4WhuO+Li6jGpb51GFptH+f8yxm+A2vQ=="],
 
     "fb-watchman": ["fb-watchman@2.0.2", "", { "dependencies": { "bser": "2.1.1" } }, "sha512-p5161BqbuCaSnB8jIbzQHOlpgsPmK5rJVDfDKO91Axs5NC1uu3HRQm6wt9cd9/+GtQQIO53JdGXXoyDpTAsgYA=="],
 

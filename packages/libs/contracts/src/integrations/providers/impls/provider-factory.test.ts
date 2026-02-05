@@ -17,6 +17,10 @@ import { PowensOpenBankingProvider } from './powens-openbanking';
 import { LinearProjectManagementProvider } from './linear';
 import { JiraProjectManagementProvider } from './jira';
 import { NotionProjectManagementProvider } from './notion';
+import { GranolaMeetingRecorderProvider } from './granola-meeting-recorder';
+import { TldvMeetingRecorderProvider } from './tldv-meeting-recorder';
+import { FirefliesMeetingRecorderProvider } from './fireflies-meeting-recorder';
+import { FathomMeetingRecorderProvider } from './fathom-meeting-recorder';
 
 describe('IntegrationProviderFactory', () => {
   const factory = new IntegrationProviderFactory();
@@ -137,6 +141,50 @@ describe('IntegrationProviderFactory', () => {
       })
     );
     expect(provider).toBeInstanceOf(NotionProjectManagementProvider);
+  });
+
+  it('creates Granola meeting recorder provider', async () => {
+    const provider = await factory.createMeetingRecorderProvider(
+      buildContext({
+        key: 'meeting-recorder.granola',
+        config: { pageSize: 10 },
+        secret: { apiKey: 'granola-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(GranolaMeetingRecorderProvider);
+  });
+
+  it('creates tl;dv meeting recorder provider', async () => {
+    const provider = await factory.createMeetingRecorderProvider(
+      buildContext({
+        key: 'meeting-recorder.tldv',
+        config: { pageSize: 25 },
+        secret: { apiKey: 'tldv-key', webhookSecret: 'tldv-secret' },
+      })
+    );
+    expect(provider).toBeInstanceOf(TldvMeetingRecorderProvider);
+  });
+
+  it('creates Fireflies meeting recorder provider', async () => {
+    const provider = await factory.createMeetingRecorderProvider(
+      buildContext({
+        key: 'meeting-recorder.fireflies',
+        config: { transcriptsPageSize: 15 },
+        secret: { apiKey: 'fireflies-key', webhookSecret: 'ff-secret' },
+      })
+    );
+    expect(provider).toBeInstanceOf(FirefliesMeetingRecorderProvider);
+  });
+
+  it('creates Fathom meeting recorder provider', async () => {
+    const provider = await factory.createMeetingRecorderProvider(
+      buildContext({
+        key: 'meeting-recorder.fathom',
+        config: { includeTranscript: true },
+        secret: { apiKey: 'fathom-key', webhookSecret: 'fathom-secret' },
+      })
+    );
+    expect(provider).toBeInstanceOf(FathomMeetingRecorderProvider);
   });
 });
 

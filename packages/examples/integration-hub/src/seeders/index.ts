@@ -25,4 +25,18 @@ export async function seedIntegrationHub(params: {
       'ACTIVE',
     ]
   );
+
+  await db.execute(
+    `INSERT INTO integration (id, "projectId", "organizationId", name, description, type, status)
+     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+    [
+      'int_2',
+      projectId,
+      'org_demo',
+      'Meeting Recorder',
+      'Meeting recorder transcripts and metadata',
+      'DATA',
+      'ACTIVE',
+    ]
+  );
 }

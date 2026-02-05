@@ -17,6 +17,7 @@ export type IntegrationCategory =
   | 'helpdesk'
   | 'project-management'
   | 'open-banking'
+  | 'meeting-recorder'
   | 'custom';
 
 export type IntegrationOwnershipMode = 'managed' | 'byok';

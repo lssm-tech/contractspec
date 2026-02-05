@@ -25,7 +25,7 @@ This document describes the integration architecture that powers ContractSpec-ba
 
 ## Registered Providers
 
-The contracts library ships thirteen priority providers in \`packages/libs/contracts/src/integrations/providers\`:
+The contracts library ships seventeen priority providers in \`packages/libs/contracts/src/integrations/providers\`:
 
 | Category      | Provider         | Key                         | Notes                                             |
 | ------------- | ---------------- | --------------------------- | ------------------------------------------------- |
@@ -42,6 +42,10 @@ The contracts library ships thirteen priority providers in \`packages/libs/contr
 | project-management | Linear       | \`project-management.linear\` | Issues, project tracking, and team tasks          |
 | project-management | Jira Cloud   | \`project-management.jira\`   | Work item sync for Jira Cloud                     |
 | project-management | Notion       | \`project-management.notion\` | Shared summaries and task databases               |
+| meeting-recorder | Granola       | \`meeting-recorder.granola\`  | Enterprise meeting notes + transcripts            |
+| meeting-recorder | tl;dv         | \`meeting-recorder.tldv\`     | Meeting recordings, transcripts, and webhooks     |
+| meeting-recorder | Fireflies     | \`meeting-recorder.fireflies\` | GraphQL transcripts + webhook events              |
+| meeting-recorder | Fathom        | \`meeting-recorder.fathom\`   | External API meetings + webhook registration      |
 
 Each provider ships with:
 
