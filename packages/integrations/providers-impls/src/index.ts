@@ -12,3 +12,4 @@ export * from './calendar';
 export * from './sms';
 export * from './payments';
 export * from './voice';
+export * from './project-management';

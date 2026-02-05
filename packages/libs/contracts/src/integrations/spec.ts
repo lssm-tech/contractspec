@@ -15,6 +15,7 @@ export type IntegrationCategory =
   | 'accounting'
   | 'crm'
   | 'helpdesk'
+  | 'project-management'
   | 'open-banking'
   | 'custom';
 

@@ -26,4 +26,7 @@ export * from './postmark-email';
 export * from './twilio-sms';
 export * from './powens-client';
 export * from './powens-openbanking';
+export * from './linear';
+export * from './jira';
+export * from './notion';
 export * from './provider-factory';

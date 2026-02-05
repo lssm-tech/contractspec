@@ -16,6 +16,7 @@
     "./example": "./dist/example.js",
     "./load-evidence": "./dist/load-evidence.js",
     "./script": "./dist/script.js",
+    "./sync-actions": "./dist/sync-actions.js",
     "./*": "./*"
   },
   "scripts": {
@@ -34,7 +35,8 @@
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.ai-agent": "workspace:*",
-    "@contractspec/lib.product-intent-utils": "workspace:*"
+    "@contractspec/lib.product-intent-utils": "workspace:*",
+    "@contractspec/integration.providers-impls": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",

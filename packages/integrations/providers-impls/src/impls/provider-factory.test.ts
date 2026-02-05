@@ -17,6 +17,9 @@ import { ElevenLabsVoiceProvider } from './elevenlabs-voice';
 import { MistralLLMProvider } from './mistral-llm';
 import { MistralEmbeddingProvider } from './mistral-embedding';
 import { PowensOpenBankingProvider } from './powens-openbanking';
+import { LinearProjectManagementProvider } from './linear';
+import { JiraProjectManagementProvider } from './jira';
+import { NotionProjectManagementProvider } from './notion';
 
 describe('IntegrationProviderFactory', () => {
   const factory = new IntegrationProviderFactory();
@@ -104,6 +107,39 @@ describe('IntegrationProviderFactory', () => {
       })
     );
     expect(provider).toBeInstanceOf(PowensOpenBankingProvider);
+  });
+
+  it('creates Linear project management provider', async () => {
+    const provider = await factory.createProjectManagementProvider(
+      buildContext({
+        key: 'project-management.linear',
+        config: { teamId: 'team-1' },
+        secret: { apiKey: 'linear-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(LinearProjectManagementProvider);
+  });
+
+  it('creates Jira project management provider', async () => {
+    const provider = await factory.createProjectManagementProvider(
+      buildContext({
+        key: 'project-management.jira',
+        config: { siteUrl: 'https://acme.atlassian.net', projectKey: 'PM' },
+        secret: { email: 'user@acme.com', apiToken: 'token' },
+      })
+    );
+    expect(provider).toBeInstanceOf(JiraProjectManagementProvider);
+  });
+
+  it('creates Notion project management provider', async () => {
+    const provider = await factory.createProjectManagementProvider(
+      buildContext({
+        key: 'project-management.notion',
+        config: { databaseId: 'db-1' },
+        secret: { apiKey: 'notion-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(NotionProjectManagementProvider);
   });
 });
 

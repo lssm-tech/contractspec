@@ -25,7 +25,7 @@ This document describes the integration architecture that powers ContractSpec-ba
 
 ## Registered Providers
 
-The contracts library ships ten priority providers in \`packages/libs/contracts/src/integrations/providers\`:
+The contracts library ships thirteen priority providers in \`packages/libs/contracts/src/integrations/providers\`:
 
 | Category      | Provider         | Key                         | Notes                                             |
 | ------------- | ---------------- | --------------------------- | ------------------------------------------------- |
@@ -39,6 +39,9 @@ The contracts library ships ten priority providers in \`packages/libs/contracts/
 | ai-voice      | ElevenLabs       | \`ai-voice.elevenlabs\`      | Text-to-speech synthesis                          |
 | sms           | Twilio SMS       | \`sms.twilio\`               | Urgent and fallback reminders                     |
 | open-banking  | Powens           | \`openbanking.powens\`       | Read-only account, transaction, and balance sync  |
+| project-management | Linear       | \`project-management.linear\` | Issues, project tracking, and team tasks          |
+| project-management | Jira Cloud   | \`project-management.jira\`   | Work item sync for Jira Cloud                     |
+| project-management | Notion       | \`project-management.notion\` | Shared summaries and task databases               |
 
 Each provider ships with:
 

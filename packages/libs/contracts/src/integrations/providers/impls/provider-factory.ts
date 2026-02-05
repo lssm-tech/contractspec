@@ -10,6 +10,9 @@ import { StripePaymentsProvider } from './stripe-payments';
 import { PostmarkEmailProvider } from './postmark-email';
 import { TwilioSmsProvider } from './twilio-sms';
 import { ElevenLabsVoiceProvider } from './elevenlabs-voice';
+import { LinearProjectManagementProvider } from './linear';
+import { JiraProjectManagementProvider } from './jira';
+import { NotionProjectManagementProvider } from './notion';
 import type { PaymentsProvider } from '../payments';
 import type { EmailOutboundProvider } from '../email';
 import type { SmsProvider } from '../sms';
@@ -19,6 +22,7 @@ import type { VoiceProvider } from '../voice';
 import type { LLMProvider } from '../llm';
 import type { EmbeddingProvider } from '../embedding';
 import type { OpenBankingProvider } from '../openbanking';
+import type { ProjectManagementProvider } from '../project-management';
 import { PowensOpenBankingProvider } from './powens-openbanking';
 import type { PowensEnvironment } from './powens-client';
 
@@ -159,6 +163,96 @@ export class IntegrationProviderFactory {
       default:
         throw new Error(
           `Unsupported voice integration: ${context.spec.meta.key}`
+        );
+    }
+  }
+
+  async createProjectManagementProvider(
+    context: IntegrationContext
+  ): Promise<ProjectManagementProvider> {
+    const secrets = await this.loadSecrets(context);
+    const config = context.config as {
+      teamId?: string;
+      projectId?: string;
+      assigneeId?: string;
+      stateId?: string;
+      labelIds?: string[];
+      tagLabelMap?: Record<string, string>;
+      siteUrl?: string;
+      projectKey?: string;
+      issueType?: string;
+      defaultLabels?: string[];
+      issueTypeMap?: Record<string, string>;
+      databaseId?: string;
+      summaryParentPageId?: string;
+      titleProperty?: string;
+      statusProperty?: string;
+      priorityProperty?: string;
+      tagsProperty?: string;
+      dueDateProperty?: string;
+      descriptionProperty?: string;
+    };
+
+    switch (context.spec.meta.key) {
+      case 'project-management.linear':
+        return new LinearProjectManagementProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'Linear API key is required'
+          ),
+          teamId: requireConfig<string>(
+            context,
+            'teamId',
+            'Linear teamId is required'
+          ),
+          projectId: config?.projectId,
+          assigneeId: config?.assigneeId,
+          stateId: config?.stateId,
+          labelIds: config?.labelIds,
+          tagLabelMap: config?.tagLabelMap,
+        });
+      case 'project-management.jira':
+        return new JiraProjectManagementProvider({
+          siteUrl: requireConfig<string>(
+            context,
+            'siteUrl',
+            'Jira siteUrl is required'
+          ),
+          email: requireSecret<string>(
+            secrets,
+            'email',
+            'Jira email is required'
+          ),
+          apiToken: requireSecret<string>(
+            secrets,
+            'apiToken',
+            'Jira API token is required'
+          ),
+          projectKey: config?.projectKey,
+          issueType: config?.issueType,
+          defaultLabels: config?.defaultLabels,
+          issueTypeMap: config?.issueTypeMap,
+        });
+      case 'project-management.notion':
+        return new NotionProjectManagementProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'Notion API key is required'
+          ),
+          databaseId: config?.databaseId,
+          summaryParentPageId: config?.summaryParentPageId,
+          titleProperty: config?.titleProperty,
+          statusProperty: config?.statusProperty,
+          priorityProperty: config?.priorityProperty,
+          tagsProperty: config?.tagsProperty,
+          dueDateProperty: config?.dueDateProperty,
+          descriptionProperty: config?.descriptionProperty,
+        });
+      default:
+        throw new Error(
+          `Unsupported project management integration: ${context.spec.meta.key}`
         );
     }
   }

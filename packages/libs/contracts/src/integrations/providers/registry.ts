@@ -10,6 +10,9 @@ import { registerGoogleCalendarIntegration } from './google-calendar';
 import { registerTwilioSmsIntegration } from './twilio-sms';
 import { registerGcsStorageIntegration } from './gcs-storage';
 import { registerPowensIntegration } from './powens';
+import { registerLinearIntegration } from './linear';
+import { registerJiraIntegration } from './jira';
+import { registerNotionIntegration } from './notion';
 
 /**
  * Creates a registry containing all IntegrationSpec providers shipped by
@@ -28,6 +31,9 @@ export function createDefaultIntegrationSpecRegistry(): IntegrationSpecRegistry 
   registerTwilioSmsIntegration(registry);
   registerGcsStorageIntegration(registry);
   registerPowensIntegration(registry);
+  registerLinearIntegration(registry);
+  registerJiraIntegration(registry);
+  registerNotionIntegration(registry);
 
   return registry;
 }
