@@ -2,7 +2,7 @@
   {
     "id": "learning-journey-registry/learning-journey-registry",
     "title": "learning-journey-registry",
-    "summary": "Shared registry and presentations for learning journey tracks \n - **Type**: feature \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @learning-team \n - **Tags**: learning, journey, onboarding, registry",
+    "summary": "Shared registry and presentations for learning journey tracks\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @learning-team\n- **Tags**: learning, journey, onboarding, registry",
     "route": "/docs/reference/learning-journey-registry/learning-journey-registry",
     "source": "generated",
     "contentPath": "learning-journey-registry/learning-journey-registry.md"
@@ -10,7 +10,7 @@
   {
     "id": "learning-journey-registry/learning.journey.progress_widget",
     "title": "learning.journey.progress_widget",
-    "summary": "Compact widget showing progress for active track. \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **File**: `packages/examples/learning-journey-registry/src/presentations/index.ts`",
+    "summary": "Compact widget showing progress for active track.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **File**: `packages/examples/learning-journey-registry/src/presentations/index.ts`\n```typescript",
     "route": "/docs/reference/learning-journey-registry/learning.journey.progress_widget",
     "source": "generated",
     "contentPath": "learning-journey-registry/learning.journey.progress_widget.md"
@@ -18,7 +18,7 @@
   {
     "id": "learning-journey-registry/learning.journey.track_detail",
     "title": "learning.journey.track_detail",
-    "summary": "Track detail with steps and progress state. \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **File**: `packages/examples/learning-journey-registry/src/presentations/index.ts` \n ```typescript",
+    "summary": "Track detail with steps and progress state.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **File**: `packages/examples/learning-journey-registry/src/presentations/index.ts`\n```typescript\nexport const LearningTrackDetailPresentation = definePresentation({",
     "route": "/docs/reference/learning-journey-registry/learning.journey.track_detail",
     "source": "generated",
     "contentPath": "learning-journey-registry/learning.journey.track_detail.md"
@@ -26,7 +26,7 @@
   {
     "id": "learning-journey-registry/learning.journey.track_list",
     "title": "learning.journey.track_list",
-    "summary": "List of learning journeys available to the learner. \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **File**: `packages/examples/learning-journey-registry/src/presentations/index.ts`",
+    "summary": "List of learning journeys available to the learner.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **File**: `packages/examples/learning-journey-registry/src/presentations/index.ts`\n```typescript",
     "route": "/docs/reference/learning-journey-registry/learning.journey.track_list",
     "source": "generated",
     "contentPath": "learning-journey-registry/learning.journey.track_list.md"

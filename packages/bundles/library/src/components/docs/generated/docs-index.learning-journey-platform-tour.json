@@ -2,7 +2,7 @@
   {
     "id": "learning-journey-platform-tour/learning-journey-platform-tour",
     "title": "learning-journey-platform-tour",
-    "summary": "Platform primitives tour journey for exploring ContractSpec core features \n - **Type**: feature \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @examples.learning-journey.platform-tour",
+    "summary": "Platform primitives tour journey for exploring ContractSpec core features\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples.learning-journey.platform-tour\n- **Tags**: learning, platform, tour, journey",
     "route": "/docs/reference/learning-journey-platform-tour/learning-journey-platform-tour",
     "source": "generated",
     "contentPath": "learning-journey-platform-tour/learning-journey-platform-tour.md"
@@ -10,7 +10,7 @@
   {
     "id": "learning-journey-platform-tour/learning.journey.platform.track",
     "title": "learning.journey.platform.track",
-    "summary": "Platform primitives tour track detail \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **File**: `packages/examples/learning-journey-platform-tour/src/presentations/index.ts` \n ```typescript",
+    "summary": "Platform primitives tour track detail\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **File**: `packages/examples/learning-journey-platform-tour/src/presentations/index.ts`\n```typescript\nexport const PlatformTourTrackPresentation = definePresentation({",
     "route": "/docs/reference/learning-journey-platform-tour/learning.journey.platform.track",
     "source": "generated",
     "contentPath": "learning-journey-platform-tour/learning.journey.platform.track.md"
@@ -18,7 +18,7 @@
   {
     "id": "learning-journey-platform-tour/learning.journey.platform.widget",
     "title": "learning.journey.platform.widget",
-    "summary": "Compact widget for platform tour progress \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **File**: `packages/examples/learning-journey-platform-tour/src/presentations/index.ts` \n ```typescript",
+    "summary": "Compact widget for platform tour progress\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **File**: `packages/examples/learning-journey-platform-tour/src/presentations/index.ts`\n```typescript",
     "route": "/docs/reference/learning-journey-platform-tour/learning.journey.platform.widget",
     "source": "generated",
     "contentPath": "learning-journey-platform-tour/learning.journey.platform.widget.md"
@@ -26,7 +26,7 @@
   {
     "id": "learning-journey-platform-tour/learningJourney.platformTour.getTrack",
     "title": "learningJourney.platformTour.getTrack",
-    "summary": "Fetch platform primitives tour track definition. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: examples.learning-journey.platform-tour \n - **Tags**: learning, platform, tour",
+    "summary": "Fetch platform primitives tour track definition.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: examples.learning-journey.platform-tour\n- **Tags**: learning, platform, tour",
     "route": "/docs/reference/learning-journey-platform-tour/learningJourney.platformTour.getTrack",
     "source": "generated",
     "contentPath": "learning-journey-platform-tour/learningJourney.platformTour.getTrack.md"
@@ -34,7 +34,7 @@
   {
     "id": "learning-journey-platform-tour/learningJourney.platformTour.getTrack.test",
     "title": "learningJourney.platformTour.getTrack.test",
-    "summary": "Test for getting platform tour track \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @example.learning-journey-platform-tour \n - **Tags**: test",
+    "summary": "Test for getting platform tour track\n- **Type**: test-spec (test-spec)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @example.learning-journey-platform-tour\n- **Tags**: test\n- **File**: `packages/examples/learning-journey-platform-tour/src/tests/operations.test-spec.ts`",
     "route": "/docs/reference/learning-journey-platform-tour/learningJourney.platformTour.getTrack.test",
     "source": "generated",
     "contentPath": "learning-journey-platform-tour/learningJourney.platformTour.getTrack.test.md"
@@ -42,7 +42,7 @@
   {
     "id": "learning-journey-platform-tour/learningJourney.platformTour.recordEvent",
     "title": "learningJourney.platformTour.recordEvent",
-    "summary": "Record an event to advance platform tour progress. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: examples.learning-journey.platform-tour \n - **Tags**: learning, platform, tour",
+    "summary": "Record an event to advance platform tour progress.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: examples.learning-journey.platform-tour\n- **Tags**: learning, platform, tour",
     "route": "/docs/reference/learning-journey-platform-tour/learningJourney.platformTour.recordEvent",
     "source": "generated",
     "contentPath": "learning-journey-platform-tour/learningJourney.platformTour.recordEvent.md"

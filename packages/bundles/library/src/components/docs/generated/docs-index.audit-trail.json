@@ -2,7 +2,7 @@
   {
     "id": "audit-trail/audit-trail",
     "title": "audit-trail",
-    "summary": "Audit logging and compliance tracking \n - **Type**: capability (capability) \n - **Version**: 1.0.0 \n - **Owners**: @platform.core \n - **Tags**: audit, logging, compliance \n - **File**: `packages/modules/audit-trail/src/audit-trail.capability.ts`",
+    "summary": "Audit logging and compliance tracking\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.core\n- **Tags**: audit, logging, compliance\n- **File**: `packages/modules/audit-trail/src/audit-trail.capability.ts`",
     "route": "/docs/reference/audit-trail/audit-trail",
     "source": "generated",
     "contentPath": "audit-trail/audit-trail.md"
@@ -10,7 +10,7 @@
   {
     "id": "audit-trail/audit.logs.export",
     "title": "audit.logs.export",
-    "summary": "Export audit logs for compliance reporting. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.audit-trail \n - **Tags**: audit, logs, export \n - **File**: `packages/modules/audit-trail/src/contracts/index.ts`",
+    "summary": "Export audit logs for compliance reporting.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.audit-trail\n- **Tags**: audit, logs, export\n- **File**: `packages/modules/audit-trail/src/contracts/index.ts`",
     "route": "/docs/reference/audit-trail/audit.logs.export",
     "source": "generated",
     "contentPath": "audit-trail/audit.logs.export.md"
@@ -18,7 +18,7 @@
   {
     "id": "audit-trail/audit.logs.get",
     "title": "audit.logs.get",
-    "summary": "Get a specific audit log by ID. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.audit-trail \n - **Tags**: audit, logs, get \n - **File**: `packages/modules/audit-trail/src/contracts/index.ts`",
+    "summary": "Get a specific audit log by ID.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.audit-trail\n- **Tags**: audit, logs, get\n- **File**: `packages/modules/audit-trail/src/contracts/index.ts`",
     "route": "/docs/reference/audit-trail/audit.logs.get",
     "source": "generated",
     "contentPath": "audit-trail/audit.logs.get.md"
@@ -26,7 +26,7 @@
   {
     "id": "audit-trail/audit.logs.query",
     "title": "audit.logs.query",
-    "summary": "Query audit logs with filters. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.audit-trail \n - **Tags**: audit, logs, query \n - **File**: `packages/modules/audit-trail/src/contracts/index.ts`",
+    "summary": "Query audit logs with filters.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.audit-trail\n- **Tags**: audit, logs, query\n- **File**: `packages/modules/audit-trail/src/contracts/index.ts`",
     "route": "/docs/reference/audit-trail/audit.logs.query",
     "source": "generated",
     "contentPath": "audit-trail/audit.logs.query.md"
@@ -34,7 +34,7 @@
   {
     "id": "audit-trail/audit.stats",
     "title": "audit.stats",
-    "summary": "Get audit log statistics. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.audit-trail \n - **Tags**: audit, stats \n - **File**: `packages/modules/audit-trail/src/contracts/index.ts`",
+    "summary": "Get audit log statistics.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.audit-trail\n- **Tags**: audit, stats\n- **File**: `packages/modules/audit-trail/src/contracts/index.ts`",
     "route": "/docs/reference/audit-trail/audit.stats",
     "source": "generated",
     "contentPath": "audit-trail/audit.stats.md"
@@ -42,7 +42,7 @@
   {
     "id": "audit-trail/audit.trace.get",
     "title": "audit.trace.get",
-    "summary": "Get all audit logs for a trace. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.audit-trail \n - **Tags**: audit, trace, get \n - **File**: `packages/modules/audit-trail/src/contracts/index.ts`",
+    "summary": "Get all audit logs for a trace.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.audit-trail\n- **Tags**: audit, trace, get\n- **File**: `packages/modules/audit-trail/src/contracts/index.ts`",
     "route": "/docs/reference/audit-trail/audit.trace.get",
     "source": "generated",
     "contentPath": "audit-trail/audit.trace.get.md"

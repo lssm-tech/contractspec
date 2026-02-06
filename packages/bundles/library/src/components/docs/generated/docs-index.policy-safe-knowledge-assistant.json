@@ -2,7 +2,7 @@
   {
     "id": "policy-safe-knowledge-assistant/policy-safe-knowledge-assistant",
     "title": "policy-safe-knowledge-assistant",
-    "summary": "All-in-one example composing locale/jurisdiction gate + versioned KB + HITL pipeline + learning hub. \n - **Type**: feature \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @examples",
+    "summary": "All-in-one example composing locale/jurisdiction gate + versioned KB + HITL pipeline + learning hub.\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: assistant, knowledge, policy, hitl, learning",
     "route": "/docs/reference/policy-safe-knowledge-assistant/policy-safe-knowledge-assistant",
     "source": "generated",
     "contentPath": "policy-safe-knowledge-assistant/policy-safe-knowledge-assistant.md"
