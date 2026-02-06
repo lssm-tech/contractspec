@@ -2,7 +2,7 @@
 
 # meeting-recorder.granola
 
-Granola Enterprise API for meeting notes, attendees, and transcripts.
+Granola meeting notes and transcripts via Enterprise API or MCP transport.
 
 ## Metadata
 
@@ -22,7 +22,7 @@ export const granolaIntegrationSpec = defineIntegration({
     category: 'meeting-recorder',
     title: 'Granola Meeting Notes',
     description:
-      'Granola Enterprise API for meeting notes, attendees, and transcripts.',
+      'Granola meeting notes and transcripts via Enterprise API or MCP transport.',
     domain: 'productivity',
     owners: ['platform.integrations'],
     tags: ['meeting-recorder', 'granola', 'transcripts'],
@@ -42,7 +42,23 @@ export const granolaIntegrationSpec = defineIntegration({
         baseUrl: {
           type: 'string',
           description:
-            'Optional override for the Granola API base URL. Defaults to https://public-api.granola.ai.',
+            'Optional override for the Granola API base URL. Defaults to https://public-api.granola.ai for API transport.',
+        },
+        transport: {
+          type: 'string',
+          enum: ['api', 'mcp'],
+          description:
+            'Transport mode for Granola integration. Use api for Enterprise API or mcp for broader MCP access.',
+        },
+        mcpUrl: {
+          type: 'string',
+          description:
+            'Optional override for Granola MCP URL. Defaults to https://mcp.granola.ai/mcp.',
+        },
+        mcpHeaders: {
+          type: 'object',
+          additionalProperties: { type: 'string' },
+          description: 'Optional static headers for MCP gateway/proxy setups.',
         },
         pageSize: {
           type: 'number',
@@ -52,34 +68,39 @@ export const granolaIntegrationSpec = defineIntegration({
       },
     },
     example: {
-      baseUrl: 'https://public-api.granola.ai',
+      transport: 'mcp',
+      mcpUrl: 'https://mcp.granola.ai/mcp',
       pageSize: 10,
     },
   },
   secretSchema: {
     schema: {
       type: 'object',
-      required: ['apiKey'],
       properties: {
         apiKey: {
           type: 'string',
           description:
-            'Granola API key used as a Bearer token for Enterprise API requests.',
+            'Granola API key used as a Bearer token for Enterprise API requests (transport=api).',
+        },
+        mcpAccessToken: {
+          type: 'string',
+          description:
+            'Optional bearer token for MCP proxy/gateway auth (transport=mcp).',
         },
       },
     },
     example: {
-      apiKey: 'granola-***',
+      mcpAccessToken: 'granola-mcp-***',
     },
   },
   healthCheck: {
     method: 'list',
     timeoutMs: 8000,
   },
-  docsUrl: 'https://docs.granola.ai/introduction',
+  docsUrl: 'https://docs.granola.ai/help-center/sharing/integrations/mcp',
   byokSetup: {
     setupInstructions:
-      'Create a Granola Enterprise API key and grant access to meeting notes and transcripts.',
+      'Use Granola MCP for browser OAuth access, or configure an Enterprise API key for REST transport.',
   },
 });
 ```
