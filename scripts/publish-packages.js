@@ -6,6 +6,9 @@ import { execSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = process.cwd();
+const usePublishExports =
+  process.env.CONTRACTSPEC_USE_PUBLISH_EXPORTS === 'true' ||
+  process.env.CONTRACTSPEC_USE_PUBLISH_EXPORTS === '1';
 
 /**
  * Recursively finds all package.json files in a directory
@@ -60,7 +63,9 @@ const discoverPublishablePackages = () => {
         dir: '.',
         version: rootManifest.version,
       });
-      console.log(`[discover] Including root package: ${rootManifest.name}@${rootManifest.version}`);
+      console.log(
+        `[discover] Including root package: ${rootManifest.name}@${rootManifest.version}`
+      );
     }
   } catch (error) {
     console.warn(`[discover] Error reading root package.json:`, error.message);
@@ -137,7 +142,8 @@ const packagesByName = new Map(
 const publishSinglePackage = ({ name, dir }, dryRun, npmTag = 'latest') => {
   const pkgDir = path.join(repoRoot, dir);
   const manifestPath = path.join(pkgDir, 'package.json');
-  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  const originalManifestRaw = fs.readFileSync(manifestPath, 'utf8');
+  const manifest = JSON.parse(originalManifestRaw);
   const version = manifest.version;
 
   console.log(`\n[publish] ${name}@${version} (tag: ${npmTag})`);
@@ -157,7 +163,25 @@ const publishSinglePackage = ({ name, dir }, dryRun, npmTag = 'latest') => {
     return { name, version, published: false, reason: 'dry-run' };
   }
 
+  let manifestRewritten = false;
+
   try {
+    if (
+      usePublishExports &&
+      manifest.publishConfig?.exports &&
+      typeof manifest.publishConfig.exports === 'object'
+    ) {
+      manifest.exports = manifest.publishConfig.exports;
+      fs.writeFileSync(
+        `${manifestPath}`,
+        `${JSON.stringify(manifest, null, 2)}\n`
+      );
+      manifestRewritten = true;
+      console.log(
+        `[publish] Using publishConfig.exports for ${name}@${version}`
+      );
+    }
+
     // bun publish with --tolerate-republish exits 0 if version already exists
     // This is cleaner than manually checking npm view beforehand
     execSync(
@@ -174,6 +198,11 @@ const publishSinglePackage = ({ name, dir }, dryRun, npmTag = 'latest') => {
     console.error(`[publish] ✗ Failed to publish ${name}@${version}`);
     console.error(error.message);
     return { name, version, published: false, reason: 'error', error };
+  } finally {
+    if (manifestRewritten) {
+      fs.writeFileSync(manifestPath, originalManifestRaw);
+      console.log(`[publish] Restored package manifest for ${name}@${version}`);
+    }
   }
 };
 

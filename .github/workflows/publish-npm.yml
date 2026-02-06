@@ -64,8 +64,8 @@ jobs:
           version: bun run release:version
           # The command to publish packages
           publish: bun run release:publish
-          commit: "chore: update versions"
-          title: "chore: update versions"
+          commit: 'chore: update versions'
+          title: 'chore: update versions'
         env:
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
           TURBO_TEAM: ${{ vars.TURBO_TEAM }}
@@ -73,6 +73,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
+          CONTRACTSPEC_USE_PUBLISH_EXPORTS: 'true'
 
       - name: Package VS Code extension
         if: steps.changesets.outputs.hasChangesets == 'false'

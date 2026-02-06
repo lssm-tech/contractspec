@@ -54,6 +54,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
+          CONTRACTSPEC_USE_PUBLISH_EXPORTS: 'true'
 
       # VS Code Extension Publishing
       # - name: Check if VS Code extension should be published
@@ -64,7 +65,7 @@ jobs:
       #     bunx turbo-ignore vscode-contractspec --task=build
       #     code=$?
       #     set -e
-          
+
       #     if [[ $code -eq 0 ]]; then
       #       echo "skip=true" >> "$GITHUB_OUTPUT"
       #     else
@@ -81,18 +82,18 @@ jobs:
           CURRENT_VERSION=$(jq -r .version package.json)
           MAJOR=$(echo $CURRENT_VERSION | cut -d. -f1)
           MINOR=$(echo $CURRENT_VERSION | cut -d. -f2)
-          
+
           # Ensure minor is odd for pre-release (add 1 if even)
           if [ $((MINOR % 2)) -eq 0 ]; then
             MINOR=$((MINOR + 1))
           fi
-          
+
           # Use Unix timestamp as patch to ensure strictly increasing number without leading zeros
           PATCH=$(date +%s)
-          
+
           PRERELEASE_VERSION="${MAJOR}.${MINOR}.${PATCH}"
           echo "📝 Setting VS Code extension version: $CURRENT_VERSION → $PRERELEASE_VERSION"
-          
+
           # Update package.json with the pre-release version
           jq --arg v "$PRERELEASE_VERSION" '.version = $v' package.json > package.json.tmp
           mv package.json.tmp package.json
@@ -170,5 +171,3 @@ jobs:
           git config user.email github-actions[bot]@users.noreply.github.com
           git tag -fa action-canary -m "Update action-canary to ${{ steps.action-version.outputs.version }}"
           git push origin action-canary --force
-
-
