@@ -301,6 +301,7 @@ export type IntegrationCategoryData =
   | 'helpdesk'
   | 'project-management'
   | 'open-banking'
+  | 'database'
   | 'custom';
 
 export type IntegrationConfigFieldType = 'string' | 'number' | 'boolean';

@@ -2,12 +2,12 @@
 
 Website: https://contractspec.io/
 
-
 A comprehensive integration hub example demonstrating ContractSpec principles for data synchronization.
 
 ## Features
 
 - **Multi-Provider Support**: Connect to various external systems (Salesforce, HubSpot, etc.)
+- **Voice Provider Coverage**: Includes seeded examples for `ai-voice.gradium` and `ai-voice.fal`
 - **Bidirectional Sync**: INBOUND, OUTBOUND, or BIDIRECTIONAL data flow
 - **Field Mapping**: Configurable field mappings with transforms
 - **Sync Engine**: Change detection, deduplication, and error handling
@@ -18,12 +18,14 @@ A comprehensive integration hub example demonstrating ContractSpec principles fo
 ## Entities
 
 ### Core
+
 - `Integration` - Integration definition
 - `Connection` - Authenticated connection to external system
 - `SyncConfig` - Sync configuration for object pairs
 - `FieldMapping` - Field-level mapping configuration
 
 ### Sync Execution
+
 - `SyncRun` - A single sync execution
 - `SyncLog` - Log entries for a sync run
 - `SyncRecord` - Tracks synced records for deduplication
@@ -31,14 +33,17 @@ A comprehensive integration hub example demonstrating ContractSpec principles fo
 ## Contracts
 
 ### Integration Management
+
 - `integration.create` - Create a new integration
 - `integration.connection.create` - Create a connection
 
 ### Sync Configuration
+
 - `integration.syncConfig.create` - Create sync config
 - `integration.fieldMapping.add` - Add field mapping
 
 ### Sync Execution
+
 - `integration.sync.trigger` - Trigger manual sync
 - `integration.syncRun.list` - List sync history
 
@@ -101,11 +106,11 @@ const result = engine.transformRecord(
 ## Usage
 
 ```typescript
-import { 
+import {
   CreateIntegrationContract,
   CreateSyncConfigContract,
   TriggerSyncContract,
-  integrationHubSchemaContribution 
+  integrationHubSchemaContribution
 } from '@contractspec/example.integration-hub';
 
 // Create integration
@@ -138,19 +143,3 @@ const run = await executeContract(TriggerSyncContract, {
 - `@contractspec/lib.files` - Import/export file handling
 - `@contractspec/lib.jobs` - Background sync jobs
 - `@contractspec/module.audit-trail` - Action auditing
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

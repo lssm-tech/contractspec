@@ -25,7 +25,7 @@ This document describes the integration architecture that powers ContractSpec-ba
 
 ## Registered Providers
 
-The contracts library ships seventeen priority providers in \`packages/libs/contracts/src/integrations/providers\`:
+The contracts library ships twenty-one priority providers in \`packages/libs/contracts/src/integrations/providers\`:
 
 | Category      | Provider         | Key                         | Notes                                             |
 | ------------- | ---------------- | --------------------------- | ------------------------------------------------- |
@@ -34,9 +34,13 @@ The contracts library ships seventeen priority providers in \`packages/libs/cont
 | email (in)    | Gmail API        | \`email.gmail\`              | Thread ingestion (OAuth BYOK or service account)  |
 | calendar      | Google Calendar  | \`calendar.google\`          | Event scheduling via service account              |
 | vector-db     | Qdrant           | \`vectordb.qdrant\`          | Embedding storage & search                        |
+| vector-db     | Supabase pgvector| \`vectordb.supabase\`        | Embedding storage & search on Supabase Postgres   |
+| database      | Supabase Postgres| \`database.supabase\`        | SQL queries and transactions on Supabase Postgres |
 | storage       | Google Cloud     | \`storage.gcs\`              | Object storage                                    |
 | ai-llm        | Mistral          | \`ai-llm.mistral\`           | Primary chat + embedding provider                 |
 | ai-voice      | ElevenLabs       | \`ai-voice.elevenlabs\`      | Text-to-speech synthesis                          |
+| ai-voice      | Gradium          | \`ai-voice.gradium\`         | Low-latency text-to-speech synthesis              |
+| ai-voice      | Fal Chatterbox   | \`ai-voice.fal\`             | Chatterbox text-to-speech via queue API           |
 | sms           | Twilio SMS       | \`sms.twilio\`               | Urgent and fallback reminders                     |
 | open-banking  | Powens           | \`openbanking.powens\`       | Read-only account, transaction, and balance sync  |
 | project-management | Linear       | \`project-management.linear\` | Issues, project tracking, and team tasks          |
@@ -52,6 +56,10 @@ Each provider ships with:
 - Strongly typed adapter interfaces (\`payments.ts\`, \`llm.ts\`, etc.)
 - A concrete SDK-backed implementation under \`providers/impls\`
 - Unit tests validating adapter behaviour and health checks
+
+### Example package
+
+- Supabase dual-store example (vector + SQL): \`@contractspec/example.integration-supabase\`
 
 ### Canonical registry builder
 

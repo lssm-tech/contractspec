@@ -33,6 +33,12 @@ const blocks: DocBlock[] = [
 - Optionally set GOOGLE_CALENDAR_ID (defaults to primary).
 - Run the sync script to create a sample event.
 
+## Refresh token
+- Open https://developers.google.com/oauthplayground.
+- Enable "Use your own OAuth credentials" and enter client ID/secret.
+- Authorize https://www.googleapis.com/auth/calendar and exchange tokens.
+- Copy the refresh token into GOOGLE_REFRESH_TOKEN.
+
 ## Example
 - Call runCalendarSyncFromEnv() from run.ts to execute the flow.`,
   },

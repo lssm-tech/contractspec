@@ -32,6 +32,17 @@ const blocks: DocBlock[] = [
 - Set GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, and GOOGLE_REFRESH_TOKEN.
 - Set CONTRACTSPEC_EMAIL_MODE to inbound, outbound, or both.
 - Optionally set GMAIL_INBOUND_LABEL and GMAIL_SINCE_MINUTES.
+- GMAIL_FROM_EMAIL and GMAIL_TO_EMAIL default to the Gmail profile address.
+
+## Refresh token
+- Open https://developers.google.com/oauthplayground.
+- Enable "Use your own OAuth credentials" and enter client ID/secret.
+- Authorize https://www.googleapis.com/auth/gmail.modify and exchange tokens.
+- Use https://www.googleapis.com/auth/gmail.readonly for inbound only.
+- Do not use https://www.googleapis.com/auth/gmail.metadata for this example.
+- Copy the refresh token into GOOGLE_REFRESH_TOKEN.
+- If you see redirect_uri_mismatch, add https://developers.google.com/oauthplayground
+  to the OAuth client Authorized redirect URIs in Google Cloud Console.
 
 ## Example
 - Run run.ts to execute the selected mode and log JSON results.`,

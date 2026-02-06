@@ -6,6 +6,14 @@ import {
   registerPostmarkIntegration,
 } from './postmark';
 import { qdrantIntegrationSpec, registerQdrantIntegration } from './qdrant';
+import {
+  registerSupabaseVectorIntegration,
+  supabaseVectorIntegrationSpec,
+} from './supabase-vector';
+import {
+  registerSupabasePostgresIntegration,
+  supabasePostgresIntegrationSpec,
+} from './supabase-postgres';
 import { linearIntegrationSpec, registerLinearIntegration } from './linear';
 import { jiraIntegrationSpec, registerJiraIntegration } from './jira';
 import { notionIntegrationSpec, registerNotionIntegration } from './notion';
@@ -16,6 +24,8 @@ import {
   registerFirefliesIntegration,
 } from './fireflies';
 import { fathomIntegrationSpec, registerFathomIntegration } from './fathom';
+import { gradiumIntegrationSpec, registerGradiumIntegration } from './gradium';
+import { falIntegrationSpec, registerFalIntegration } from './fal';
 
 describe('integration provider specs', () => {
   it('registers Stripe integration', () => {
@@ -49,6 +59,31 @@ describe('integration provider specs', () => {
     expect(registered?.capabilities.provides).toEqual([
       { key: 'vector-db.search', version: '1.0.0' },
       { key: 'vector-db.storage', version: '1.0.0' },
+    ]);
+  });
+
+  it('registers Supabase vector integration', () => {
+    const registry = registerSupabaseVectorIntegration(
+      new IntegrationSpecRegistry()
+    );
+    const registered = registry.get('vectordb.supabase', '1.0.0');
+    expect(registered).toBe(supabaseVectorIntegrationSpec);
+    expect(registered?.supportedModes).toEqual(['managed', 'byok']);
+    expect(registered?.capabilities.provides).toEqual([
+      { key: 'vector-db.search', version: '1.0.0' },
+      { key: 'vector-db.storage', version: '1.0.0' },
+    ]);
+  });
+
+  it('registers Supabase Postgres integration', () => {
+    const registry = registerSupabasePostgresIntegration(
+      new IntegrationSpecRegistry()
+    );
+    const registered = registry.get('database.supabase', '1.0.0');
+    expect(registered).toBe(supabasePostgresIntegrationSpec);
+    expect(registered?.supportedModes).toEqual(['managed', 'byok']);
+    expect(registered?.capabilities.provides).toEqual([
+      { key: 'database.sql', version: '1.0.0' },
     ]);
   });
 
@@ -128,6 +163,32 @@ describe('integration provider specs', () => {
       { key: 'meeting-recorder.meetings.read', version: '1.0.0' },
       { key: 'meeting-recorder.transcripts.read', version: '1.0.0' },
       { key: 'meeting-recorder.webhooks', version: '1.0.0' },
+    ]);
+    expect(registered?.secretSchema.schema).toMatchObject({
+      required: ['apiKey'],
+    });
+  });
+
+  it('registers Gradium integration', () => {
+    const registry = registerGradiumIntegration(new IntegrationSpecRegistry());
+    const registered = registry.get('ai-voice.gradium', '1.0.0');
+    expect(registered).toBe(gradiumIntegrationSpec);
+    expect(registered?.supportedModes).toEqual(['byok']);
+    expect(registered?.capabilities.provides).toEqual([
+      { key: 'ai.voice.synthesis', version: '1.0.0' },
+    ]);
+    expect(registered?.secretSchema.schema).toMatchObject({
+      required: ['apiKey'],
+    });
+  });
+
+  it('registers Fal integration', () => {
+    const registry = registerFalIntegration(new IntegrationSpecRegistry());
+    const registered = registry.get('ai-voice.fal', '1.0.0');
+    expect(registered).toBe(falIntegrationSpec);
+    expect(registered?.supportedModes).toEqual(['byok']);
+    expect(registered?.capabilities.provides).toEqual([
+      { key: 'ai.voice.synthesis', version: '1.0.0' },
     ]);
     expect(registered?.secretSchema.schema).toMatchObject({
       required: ['apiKey'],

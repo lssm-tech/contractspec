@@ -5,11 +5,15 @@ import type { SecretValue } from '@contractspec/integration.runtime/secrets/prov
 import { MistralLLMProvider } from './mistral-llm';
 import { MistralEmbeddingProvider } from './mistral-embedding';
 import { QdrantVectorProvider } from './qdrant-vector';
+import { SupabaseVectorProvider } from './supabase-vector';
+import { SupabasePostgresProvider } from './supabase-psql';
 import { GoogleCloudStorageProvider } from './gcs-storage';
 import { StripePaymentsProvider } from './stripe-payments';
 import { PostmarkEmailProvider } from './postmark-email';
 import { TwilioSmsProvider } from './twilio-sms';
 import { ElevenLabsVoiceProvider } from './elevenlabs-voice';
+import { GradiumVoiceProvider } from './gradium-voice';
+import { FalVoiceProvider } from './fal-voice';
 import { LinearProjectManagementProvider } from './linear';
 import { JiraProjectManagementProvider } from './jira';
 import { NotionProjectManagementProvider } from './notion';
@@ -21,6 +25,7 @@ import type { PaymentsProvider } from '../payments';
 import type { EmailOutboundProvider } from '../email';
 import type { SmsProvider } from '../sms';
 import type { VectorStoreProvider } from '../vector-store';
+import type { DatabaseProvider } from '../database';
 import type { ObjectStorageProvider } from '../storage';
 import type { VoiceProvider } from '../voice';
 import type { LLMProvider } from '../llm';
@@ -106,6 +111,16 @@ export class IntegrationProviderFactory {
     context: IntegrationContext
   ): Promise<VectorStoreProvider> {
     const secrets = await this.loadSecrets(context);
+    const config = context.config as {
+      apiUrl?: string;
+      schema?: string;
+      table?: string;
+      createTableIfMissing?: boolean;
+      distanceMetric?: 'cosine' | 'l2' | 'inner_product';
+      maxConnections?: number;
+      sslMode?: 'require' | 'allow' | 'prefer';
+    };
+
     switch (context.spec.meta.key) {
       case 'vectordb.qdrant':
         return new QdrantVectorProvider({
@@ -116,9 +131,48 @@ export class IntegrationProviderFactory {
           ),
           apiKey: secrets.apiKey as string | undefined,
         });
+      case 'vectordb.supabase':
+        return new SupabaseVectorProvider({
+          connectionString: requireDatabaseUrl(
+            secrets,
+            'Supabase vector databaseUrl secret is required'
+          ),
+          schema: config?.schema,
+          table: config?.table,
+          createTableIfMissing: config?.createTableIfMissing,
+          distanceMetric: config?.distanceMetric,
+          maxConnections: config?.maxConnections,
+          sslMode: config?.sslMode,
+        });
       default:
         throw new Error(
           `Unsupported vector store integration: ${context.spec.meta.key}`
+        );
+    }
+  }
+
+  async createDatabaseProvider(
+    context: IntegrationContext
+  ): Promise<DatabaseProvider> {
+    const secrets = await this.loadSecrets(context);
+    const config = context.config as {
+      maxConnections?: number;
+      sslMode?: 'require' | 'allow' | 'prefer';
+    };
+
+    switch (context.spec.meta.key) {
+      case 'database.supabase':
+        return new SupabasePostgresProvider({
+          connectionString: requireDatabaseUrl(
+            secrets,
+            'Supabase database databaseUrl secret is required'
+          ),
+          maxConnections: config?.maxConnections,
+          sslMode: config?.sslMode,
+        });
+      default:
+        throw new Error(
+          `Unsupported database integration: ${context.spec.meta.key}`
         );
     }
   }
@@ -152,6 +206,27 @@ export class IntegrationProviderFactory {
     context: IntegrationContext
   ): Promise<VoiceProvider> {
     const secrets = await this.loadSecrets(context);
+    const config = context.config as {
+      defaultVoiceId?: string;
+      region?: 'eu' | 'us';
+      baseUrl?: string;
+      timeoutMs?: number;
+      outputFormat?:
+        | 'wav'
+        | 'pcm'
+        | 'opus'
+        | 'ulaw_8000'
+        | 'alaw_8000'
+        | 'pcm_16000'
+        | 'pcm_24000';
+      modelId?: string;
+      defaultVoiceUrl?: string;
+      defaultExaggeration?: number;
+      defaultTemperature?: number;
+      defaultCfg?: number;
+      pollIntervalMs?: number;
+    };
+
     switch (context.spec.meta.key) {
       case 'ai-voice.elevenlabs':
         return new ElevenLabsVoiceProvider({
@@ -160,8 +235,34 @@ export class IntegrationProviderFactory {
             'apiKey',
             'ElevenLabs API key is required'
           ),
-          defaultVoiceId: (context.config as { defaultVoiceId?: string })
-            .defaultVoiceId,
+          defaultVoiceId: config?.defaultVoiceId,
+        });
+      case 'ai-voice.gradium':
+        return new GradiumVoiceProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'Gradium API key is required'
+          ),
+          defaultVoiceId: config?.defaultVoiceId,
+          region: config?.region,
+          baseUrl: config?.baseUrl,
+          timeoutMs: config?.timeoutMs,
+          outputFormat: config?.outputFormat,
+        });
+      case 'ai-voice.fal':
+        return new FalVoiceProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'Fal API key is required'
+          ),
+          modelId: config?.modelId,
+          defaultVoiceUrl: config?.defaultVoiceUrl,
+          defaultExaggeration: config?.defaultExaggeration,
+          defaultTemperature: config?.defaultTemperature,
+          defaultCfg: config?.defaultCfg,
+          pollIntervalMs: config?.pollIntervalMs,
         });
       default:
         throw new Error(
@@ -459,6 +560,21 @@ function requireSecret<T>(
     throw new Error(message);
   }
   return value as T;
+}
+
+function requireDatabaseUrl(
+  secrets: Record<string, unknown>,
+  message: string
+): string {
+  const value =
+    secrets.databaseUrl ??
+    secrets.connectionString ??
+    secrets.postgresUrl ??
+    secrets.apiKey;
+  if (typeof value !== 'string' || value.trim().length === 0) {
+    throw new Error(message);
+  }
+  return value;
 }
 
 function requireConfig<T>(

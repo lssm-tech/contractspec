@@ -37,6 +37,7 @@
     "@contractspec/example.crm-pipeline": "workspace:*",
     "@contractspec/example.integration-hub": "workspace:*",
     "@contractspec/example.integration-stripe": "workspace:*",
+    "@contractspec/example.voice-providers": "workspace:*",
     "@contractspec/example.kb-update-pipeline": "workspace:*",
     "@contractspec/example.knowledge-canon": "workspace:*",
     "@contractspec/example.learning-journey-ambient-coach": "workspace:*",

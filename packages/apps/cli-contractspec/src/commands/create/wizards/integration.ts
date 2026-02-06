@@ -31,6 +31,7 @@ const CATEGORY_CHOICES: { name: string; value: IntegrationCategoryData }[] = [
   { name: 'Object Storage', value: 'storage' },
   { name: 'Accounting', value: 'accounting' },
   { name: 'Open Banking', value: 'open-banking' },
+  { name: 'Database', value: 'database' },
   { name: 'CRM', value: 'crm' },
   { name: 'Helpdesk', value: 'helpdesk' },
   { name: 'Project Management', value: 'project-management' },

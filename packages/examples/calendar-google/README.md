@@ -22,3 +22,12 @@ export GOOGLE_CALENDAR_ID="primary" # optional
 
 bun tsx packages/examples/calendar-google/src/run.ts
 ```
+
+Refresh token notes:
+
+1. Open https://developers.google.com/oauthplayground
+2. Click the gear icon and enable "Use your own OAuth credentials"
+3. Enter GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET
+4. Authorize scope https://www.googleapis.com/auth/calendar
+5. Exchange for tokens and copy the refresh token
+6. Export GOOGLE_REFRESH_TOKEN and rerun the script
