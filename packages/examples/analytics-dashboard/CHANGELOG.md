@@ -1,5 +1,20 @@
 # @contractspec/example.analytics-dashboard
 
+## 1.59.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/lib.example-shared-ui@1.13.0
+  - @contractspec/lib.runtime-sandbox@0.14.0
+  - @contractspec/lib.design-system@1.59.0
+  - @contractspec/lib.contracts@1.59.0
+  - @contractspec/lib.schema@1.59.0
+
 ## 1.58.0
 
 ### Minor Changes

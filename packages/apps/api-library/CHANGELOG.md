@@ -1,5 +1,19 @@
 # @contractspec/app.api-library
 
+## 1.13.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/bundle.marketing@1.14.0
+  - @contractspec/bundle.workspace@1.59.0
+  - @contractspec/bundle.library@1.14.0
+  - @contractspec/lib.contracts@1.59.0
+
 ## 1.12.0
 
 ### Minor Changes

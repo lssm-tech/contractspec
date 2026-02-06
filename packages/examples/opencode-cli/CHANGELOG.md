@@ -1,5 +1,11 @@
 # contractspec-example-opencode-cli
 
+## 0.8.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
 ## 0.7.0
 
 ### Minor Changes

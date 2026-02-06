@@ -1,5 +1,17 @@
 # @contractspec/app.alpic-mcp
 
+## 1.59.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/bundle.alpic@1.59.0
+  - @contractspec/lib.logger@1.59.0
+
 ## 1.58.0
 
 ### Minor Changes

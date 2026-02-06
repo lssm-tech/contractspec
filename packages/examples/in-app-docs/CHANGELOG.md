@@ -1,5 +1,17 @@
 # @contractspec/example.in-app-docs
 
+## 1.6.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/lib.example-shared-ui@1.13.0
+  - @contractspec/lib.contracts@1.59.0
+
 ## 1.5.0
 
 ### Minor Changes

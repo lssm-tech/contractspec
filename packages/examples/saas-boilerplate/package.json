@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.saas-boilerplate",
-  "version": "1.58.0",
+  "version": "1.59.0",
   "description": "SaaS Boilerplate - Users, Orgs, Projects, Billing, Settings",
   "type": "module",
   "types": "./dist/index.d.ts",

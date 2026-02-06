@@ -1,5 +1,22 @@
 # @contractspec/bundle.workspace
 
+## 1.59.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/lib.contracts-transformers@1.59.0
+  - @contractspec/lib.source-extractors@0.13.0
+  - @contractspec/lib.utils-typescript@1.59.0
+  - @contractspec/lib.ai-providers@1.59.0
+  - @contractspec/module.workspace@1.59.0
+  - @contractspec/lib.contracts@1.59.0
+  - @contractspec/lib.ai-agent@1.59.0
+
 ## 1.58.0
 
 ### Minor Changes

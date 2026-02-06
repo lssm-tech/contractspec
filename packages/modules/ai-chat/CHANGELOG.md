@@ -1,5 +1,23 @@
 # @contractspec/module.ai-chat
 
+## 1.59.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/lib.cost-tracking@1.59.0
+  - @contractspec/lib.design-system@1.59.0
+  - @contractspec/lib.ai-providers@1.59.0
+  - @contractspec/lib.ui-kit-web@1.59.0
+  - @contractspec/lib.contracts@1.59.0
+  - @contractspec/lib.ai-agent@1.59.0
+  - @contractspec/lib.metering@1.59.0
+  - @contractspec/lib.schema@1.59.0
+
 ## 1.58.0
 
 ### Minor Changes

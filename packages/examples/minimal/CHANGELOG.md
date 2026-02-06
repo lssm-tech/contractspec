@@ -1,5 +1,11 @@
 # contractspec-example-minimal
 
+## 0.12.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
 ## 0.11.0
 
 ### Minor Changes

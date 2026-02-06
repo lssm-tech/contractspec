@@ -1,5 +1,21 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 1.59.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/module.lifecycle-advisor@1.59.0
+  - @contractspec/module.lifecycle-core@1.59.0
+  - @contractspec/lib.observability@1.59.0
+  - @contractspec/lib.analytics@1.59.0
+  - @contractspec/lib.lifecycle@1.59.0
+  - @contractspec/lib.ai-agent@1.59.0
+
 ## 1.58.0
 
 ### Minor Changes

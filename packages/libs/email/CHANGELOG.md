@@ -1,5 +1,16 @@
 # @contractspec/lib.email
 
+## 1.13.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/lib.logger@1.59.0
+
 ## 1.12.0
 
 ### Minor Changes

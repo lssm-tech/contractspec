@@ -1,5 +1,25 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 1.59.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/example.locale-jurisdiction-gate@1.59.0
+  - @contractspec/example.versioned-knowledge-base@1.59.0
+  - @contractspec/example.kb-update-pipeline@1.59.0
+  - @contractspec/example.learning-patterns@1.59.0
+  - @contractspec/module.learning-journey@1.59.0
+  - @contractspec/lib.example-shared-ui@1.13.0
+  - @contractspec/lib.runtime-sandbox@0.14.0
+  - @contractspec/lib.design-system@1.59.0
+  - @contractspec/lib.ui-kit-web@1.59.0
+  - @contractspec/lib.contracts@1.59.0
+
 ## 1.58.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.8.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/bundle.workspace@1.59.0
+  - @contractspec/lib.contracts@1.59.0
+
 ## 0.7.0
 
 ### Minor Changes
