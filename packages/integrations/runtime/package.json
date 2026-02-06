@@ -58,55 +58,55 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "default": "./dist/index.js"
       },
       "./health": {
         "types": "./dist/health.d.ts",
         "bun": "./dist/health.js",
-        "node": "./dist/node/health.mjs",
+        "node": "./dist/node/health.js",
         "default": "./dist/health.js"
       },
       "./runtime": {
         "types": "./dist/runtime.d.ts",
         "bun": "./dist/runtime.js",
-        "node": "./dist/node/runtime.mjs",
+        "node": "./dist/node/runtime.js",
         "default": "./dist/runtime.js"
       },
       "./secrets": {
         "types": "./dist/secrets/index.d.ts",
         "bun": "./dist/secrets/index.js",
-        "node": "./dist/node/secrets/index.mjs",
+        "node": "./dist/node/secrets/index.js",
         "default": "./dist/secrets/index.js"
       },
       "./secrets/env-secret-provider": {
         "types": "./dist/secrets/env-secret-provider.d.ts",
         "bun": "./dist/secrets/env-secret-provider.js",
-        "node": "./dist/node/secrets/env-secret-provider.mjs",
+        "node": "./dist/node/secrets/env-secret-provider.js",
         "default": "./dist/secrets/env-secret-provider.js"
       },
       "./secrets/gcp-secret-manager": {
         "types": "./dist/secrets/gcp-secret-manager.d.ts",
         "bun": "./dist/secrets/gcp-secret-manager.js",
-        "node": "./dist/node/secrets/gcp-secret-manager.mjs",
+        "node": "./dist/node/secrets/gcp-secret-manager.js",
         "default": "./dist/secrets/gcp-secret-manager.js"
       },
       "./secrets/index": {
         "types": "./dist/secrets/index.d.ts",
         "bun": "./dist/secrets/index.js",
-        "node": "./dist/node/secrets/index.mjs",
+        "node": "./dist/node/secrets/index.js",
         "default": "./dist/secrets/index.js"
       },
       "./secrets/manager": {
         "types": "./dist/secrets/manager.d.ts",
         "bun": "./dist/secrets/manager.js",
-        "node": "./dist/node/secrets/manager.mjs",
+        "node": "./dist/node/secrets/manager.js",
         "default": "./dist/secrets/manager.js"
       },
       "./secrets/provider": {
         "types": "./dist/secrets/provider.d.ts",
         "bun": "./dist/secrets/provider.js",
-        "node": "./dist/node/secrets/provider.mjs",
+        "node": "./dist/node/secrets/provider.js",
         "default": "./dist/secrets/provider.js"
       }
     },

@@ -66,77 +66,77 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./adapter": {
         "types": "./dist/adapter.d.ts",
         "bun": "./dist/adapter.js",
-        "node": "./dist/node/adapter.mjs",
+        "node": "./dist/node/adapter.js",
         "browser": "./dist/browser/adapter.js",
         "default": "./dist/adapter.js"
       },
       "./analyzer": {
         "types": "./dist/analyzer.d.ts",
         "bun": "./dist/analyzer.js",
-        "node": "./dist/node/analyzer.mjs",
+        "node": "./dist/node/analyzer.js",
         "browser": "./dist/browser/analyzer.js",
         "default": "./dist/analyzer.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/behavior-tracking.docblock": {
         "types": "./dist/docs/behavior-tracking.docblock.d.ts",
         "bun": "./dist/docs/behavior-tracking.docblock.js",
-        "node": "./dist/node/docs/behavior-tracking.docblock.mjs",
+        "node": "./dist/node/docs/behavior-tracking.docblock.js",
         "browser": "./dist/browser/docs/behavior-tracking.docblock.js",
         "default": "./dist/docs/behavior-tracking.docblock.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/overlay-engine.docblock": {
         "types": "./dist/docs/overlay-engine.docblock.d.ts",
         "bun": "./dist/docs/overlay-engine.docblock.js",
-        "node": "./dist/node/docs/overlay-engine.docblock.mjs",
+        "node": "./dist/node/docs/overlay-engine.docblock.js",
         "browser": "./dist/browser/docs/overlay-engine.docblock.js",
         "default": "./dist/docs/overlay-engine.docblock.js"
       },
       "./docs/workflow-composition.docblock": {
         "types": "./dist/docs/workflow-composition.docblock.d.ts",
         "bun": "./dist/docs/workflow-composition.docblock.js",
-        "node": "./dist/node/docs/workflow-composition.docblock.mjs",
+        "node": "./dist/node/docs/workflow-composition.docblock.js",
         "browser": "./dist/browser/docs/workflow-composition.docblock.js",
         "default": "./dist/docs/workflow-composition.docblock.js"
       },
       "./store": {
         "types": "./dist/store.d.ts",
         "bun": "./dist/store.js",
-        "node": "./dist/node/store.mjs",
+        "node": "./dist/node/store.js",
         "browser": "./dist/browser/store.js",
         "default": "./dist/store.js"
       },
       "./tracker": {
         "types": "./dist/tracker.d.ts",
         "bun": "./dist/tracker.js",
-        "node": "./dist/node/tracker.mjs",
+        "node": "./dist/node/tracker.js",
         "browser": "./dist/browser/tracker.js",
         "default": "./dist/tracker.js"
       },
       "./types": {
         "types": "./dist/types.d.ts",
         "bun": "./dist/types.js",
-        "node": "./dist/node/types.mjs",
+        "node": "./dist/node/types.js",
         "browser": "./dist/browser/types.js",
         "default": "./dist/types.js"
       }

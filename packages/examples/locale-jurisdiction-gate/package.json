@@ -56,140 +56,140 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/locale-jurisdiction-gate.docblock": {
         "types": "./dist/docs/locale-jurisdiction-gate.docblock.d.ts",
         "bun": "./dist/docs/locale-jurisdiction-gate.docblock.js",
-        "node": "./dist/node/docs/locale-jurisdiction-gate.docblock.mjs",
+        "node": "./dist/node/docs/locale-jurisdiction-gate.docblock.js",
         "browser": "./dist/browser/docs/locale-jurisdiction-gate.docblock.js",
         "default": "./dist/docs/locale-jurisdiction-gate.docblock.js"
       },
       "./entities": {
         "types": "./dist/entities/index.d.ts",
         "bun": "./dist/entities/index.js",
-        "node": "./dist/node/entities/index.mjs",
+        "node": "./dist/node/entities/index.js",
         "browser": "./dist/browser/entities/index.js",
         "default": "./dist/entities/index.js"
       },
       "./entities/index": {
         "types": "./dist/entities/index.d.ts",
         "bun": "./dist/entities/index.js",
-        "node": "./dist/node/entities/index.mjs",
+        "node": "./dist/node/entities/index.js",
         "browser": "./dist/browser/entities/index.js",
         "default": "./dist/entities/index.js"
       },
       "./entities/models": {
         "types": "./dist/entities/models.d.ts",
         "bun": "./dist/entities/models.js",
-        "node": "./dist/node/entities/models.mjs",
+        "node": "./dist/node/entities/models.js",
         "browser": "./dist/browser/entities/models.js",
         "default": "./dist/entities/models.js"
       },
       "./events": {
         "types": "./dist/events.d.ts",
         "bun": "./dist/events.js",
-        "node": "./dist/node/events.mjs",
+        "node": "./dist/node/events.js",
         "browser": "./dist/browser/events.js",
         "default": "./dist/events.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./handlers": {
         "types": "./dist/handlers/index.d.ts",
         "bun": "./dist/handlers/index.js",
-        "node": "./dist/node/handlers/index.mjs",
+        "node": "./dist/node/handlers/index.js",
         "browser": "./dist/browser/handlers/index.js",
         "default": "./dist/handlers/index.js"
       },
       "./handlers/demo.handlers": {
         "types": "./dist/handlers/demo.handlers.d.ts",
         "bun": "./dist/handlers/demo.handlers.js",
-        "node": "./dist/node/handlers/demo.handlers.mjs",
+        "node": "./dist/node/handlers/demo.handlers.js",
         "browser": "./dist/browser/handlers/demo.handlers.js",
         "default": "./dist/handlers/demo.handlers.js"
       },
       "./handlers/index": {
         "types": "./dist/handlers/index.d.ts",
         "bun": "./dist/handlers/index.js",
-        "node": "./dist/node/handlers/index.mjs",
+        "node": "./dist/node/handlers/index.js",
         "browser": "./dist/browser/handlers/index.js",
         "default": "./dist/handlers/index.js"
       },
       "./locale-jurisdiction-gate.feature": {
         "types": "./dist/locale-jurisdiction-gate.feature.d.ts",
         "bun": "./dist/locale-jurisdiction-gate.feature.js",
-        "node": "./dist/node/locale-jurisdiction-gate.feature.mjs",
+        "node": "./dist/node/locale-jurisdiction-gate.feature.js",
         "browser": "./dist/browser/locale-jurisdiction-gate.feature.js",
         "default": "./dist/locale-jurisdiction-gate.feature.js"
       },
       "./operations": {
         "types": "./dist/operations/index.d.ts",
         "bun": "./dist/operations/index.js",
-        "node": "./dist/node/operations/index.mjs",
+        "node": "./dist/node/operations/index.js",
         "browser": "./dist/browser/operations/index.js",
         "default": "./dist/operations/index.js"
       },
       "./operations/assistant": {
         "types": "./dist/operations/assistant.d.ts",
         "bun": "./dist/operations/assistant.js",
-        "node": "./dist/node/operations/assistant.mjs",
+        "node": "./dist/node/operations/assistant.js",
         "browser": "./dist/browser/operations/assistant.js",
         "default": "./dist/operations/assistant.js"
       },
       "./operations/index": {
         "types": "./dist/operations/index.d.ts",
         "bun": "./dist/operations/index.js",
-        "node": "./dist/node/operations/index.mjs",
+        "node": "./dist/node/operations/index.js",
         "browser": "./dist/browser/operations/index.js",
         "default": "./dist/operations/index.js"
       },
       "./policy": {
         "types": "./dist/policy/index.d.ts",
         "bun": "./dist/policy/index.js",
-        "node": "./dist/node/policy/index.mjs",
+        "node": "./dist/node/policy/index.js",
         "browser": "./dist/browser/policy/index.js",
         "default": "./dist/policy/index.js"
       },
       "./policy/guard": {
         "types": "./dist/policy/guard.d.ts",
         "bun": "./dist/policy/guard.js",
-        "node": "./dist/node/policy/guard.mjs",
+        "node": "./dist/node/policy/guard.js",
         "browser": "./dist/browser/policy/guard.js",
         "default": "./dist/policy/guard.js"
       },
       "./policy/index": {
         "types": "./dist/policy/index.d.ts",
         "bun": "./dist/policy/index.js",
-        "node": "./dist/node/policy/index.mjs",
+        "node": "./dist/node/policy/index.js",
         "browser": "./dist/browser/policy/index.js",
         "default": "./dist/policy/index.js"
       },
       "./policy/types": {
         "types": "./dist/policy/types.d.ts",
         "bun": "./dist/policy/types.js",
-        "node": "./dist/node/policy/types.mjs",
+        "node": "./dist/node/policy/types.js",
         "browser": "./dist/browser/policy/types.js",
         "default": "./dist/policy/types.js"
       }

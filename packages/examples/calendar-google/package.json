@@ -44,49 +44,49 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/calendar-google.docblock": {
         "types": "./dist/docs/calendar-google.docblock.d.ts",
         "bun": "./dist/docs/calendar-google.docblock.js",
-        "node": "./dist/node/docs/calendar-google.docblock.mjs",
+        "node": "./dist/node/docs/calendar-google.docblock.js",
         "browser": "./dist/browser/docs/calendar-google.docblock.js",
         "default": "./dist/docs/calendar-google.docblock.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./run": {
         "types": "./dist/run.d.ts",
         "bun": "./dist/run.js",
-        "node": "./dist/node/run.mjs",
+        "node": "./dist/node/run.js",
         "browser": "./dist/browser/run.js",
         "default": "./dist/run.js"
       },
       "./sync": {
         "types": "./dist/sync.d.ts",
         "bun": "./dist/sync.js",
-        "node": "./dist/node/sync.mjs",
+        "node": "./dist/node/sync.js",
         "browser": "./dist/browser/sync.js",
         "default": "./dist/sync.js"
       }

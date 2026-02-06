@@ -58,63 +58,63 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./audit-trail.capability": {
         "types": "./dist/audit-trail.capability.d.ts",
         "bun": "./dist/audit-trail.capability.js",
-        "node": "./dist/node/audit-trail.capability.mjs",
+        "node": "./dist/node/audit-trail.capability.js",
         "browser": "./dist/browser/audit-trail.capability.js",
         "default": "./dist/audit-trail.capability.js"
       },
       "./audit-trail.feature": {
         "types": "./dist/audit-trail.feature.d.ts",
         "bun": "./dist/audit-trail.feature.js",
-        "node": "./dist/node/audit-trail.feature.mjs",
+        "node": "./dist/node/audit-trail.feature.js",
         "browser": "./dist/browser/audit-trail.feature.js",
         "default": "./dist/audit-trail.feature.js"
       },
       "./contracts": {
         "types": "./dist/contracts/index.d.ts",
         "bun": "./dist/contracts/index.js",
-        "node": "./dist/node/contracts/index.mjs",
+        "node": "./dist/node/contracts/index.js",
         "browser": "./dist/browser/contracts/index.js",
         "default": "./dist/contracts/index.js"
       },
       "./contracts/index": {
         "types": "./dist/contracts/index.d.ts",
         "bun": "./dist/contracts/index.js",
-        "node": "./dist/node/contracts/index.mjs",
+        "node": "./dist/node/contracts/index.js",
         "browser": "./dist/browser/contracts/index.js",
         "default": "./dist/contracts/index.js"
       },
       "./entities": {
         "types": "./dist/entities/index.d.ts",
         "bun": "./dist/entities/index.js",
-        "node": "./dist/node/entities/index.mjs",
+        "node": "./dist/node/entities/index.js",
         "browser": "./dist/browser/entities/index.js",
         "default": "./dist/entities/index.js"
       },
       "./entities/index": {
         "types": "./dist/entities/index.d.ts",
         "bun": "./dist/entities/index.js",
-        "node": "./dist/node/entities/index.mjs",
+        "node": "./dist/node/entities/index.js",
         "browser": "./dist/browser/entities/index.js",
         "default": "./dist/entities/index.js"
       },
       "./storage": {
         "types": "./dist/storage/index.d.ts",
         "bun": "./dist/storage/index.js",
-        "node": "./dist/node/storage/index.mjs",
+        "node": "./dist/node/storage/index.js",
         "browser": "./dist/browser/storage/index.js",
         "default": "./dist/storage/index.js"
       },
       "./storage/index": {
         "types": "./dist/storage/index.d.ts",
         "bun": "./dist/storage/index.js",
-        "node": "./dist/node/storage/index.mjs",
+        "node": "./dist/node/storage/index.js",
         "browser": "./dist/browser/storage/index.js",
         "default": "./dist/storage/index.js"
       }

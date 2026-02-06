@@ -41,42 +41,42 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/duo-drills.docblock": {
         "types": "./dist/docs/duo-drills.docblock.d.ts",
         "bun": "./dist/docs/duo-drills.docblock.js",
-        "node": "./dist/node/docs/duo-drills.docblock.mjs",
+        "node": "./dist/node/docs/duo-drills.docblock.js",
         "browser": "./dist/browser/docs/duo-drills.docblock.js",
         "default": "./dist/docs/duo-drills.docblock.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./track": {
         "types": "./dist/track.d.ts",
         "bun": "./dist/track.js",
-        "node": "./dist/node/track.mjs",
+        "node": "./dist/node/track.js",
         "browser": "./dist/browser/track.js",
         "default": "./dist/track.js"
       }

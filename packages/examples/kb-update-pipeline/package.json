@@ -54,126 +54,126 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/kb-update-pipeline.docblock": {
         "types": "./dist/docs/kb-update-pipeline.docblock.d.ts",
         "bun": "./dist/docs/kb-update-pipeline.docblock.js",
-        "node": "./dist/node/docs/kb-update-pipeline.docblock.mjs",
+        "node": "./dist/node/docs/kb-update-pipeline.docblock.js",
         "browser": "./dist/browser/docs/kb-update-pipeline.docblock.js",
         "default": "./dist/docs/kb-update-pipeline.docblock.js"
       },
       "./entities": {
         "types": "./dist/entities/index.d.ts",
         "bun": "./dist/entities/index.js",
-        "node": "./dist/node/entities/index.mjs",
+        "node": "./dist/node/entities/index.js",
         "browser": "./dist/browser/entities/index.js",
         "default": "./dist/entities/index.js"
       },
       "./entities/index": {
         "types": "./dist/entities/index.d.ts",
         "bun": "./dist/entities/index.js",
-        "node": "./dist/node/entities/index.mjs",
+        "node": "./dist/node/entities/index.js",
         "browser": "./dist/browser/entities/index.js",
         "default": "./dist/entities/index.js"
       },
       "./entities/models": {
         "types": "./dist/entities/models.d.ts",
         "bun": "./dist/entities/models.js",
-        "node": "./dist/node/entities/models.mjs",
+        "node": "./dist/node/entities/models.js",
         "browser": "./dist/browser/entities/models.js",
         "default": "./dist/entities/models.js"
       },
       "./events": {
         "types": "./dist/events.d.ts",
         "bun": "./dist/events.js",
-        "node": "./dist/node/events.mjs",
+        "node": "./dist/node/events.js",
         "browser": "./dist/browser/events.js",
         "default": "./dist/events.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./handlers": {
         "types": "./dist/handlers/index.d.ts",
         "bun": "./dist/handlers/index.js",
-        "node": "./dist/node/handlers/index.mjs",
+        "node": "./dist/node/handlers/index.js",
         "browser": "./dist/browser/handlers/index.js",
         "default": "./dist/handlers/index.js"
       },
       "./handlers/index": {
         "types": "./dist/handlers/index.d.ts",
         "bun": "./dist/handlers/index.js",
-        "node": "./dist/node/handlers/index.mjs",
+        "node": "./dist/node/handlers/index.js",
         "browser": "./dist/browser/handlers/index.js",
         "default": "./dist/handlers/index.js"
       },
       "./handlers/memory.handlers": {
         "types": "./dist/handlers/memory.handlers.d.ts",
         "bun": "./dist/handlers/memory.handlers.js",
-        "node": "./dist/node/handlers/memory.handlers.mjs",
+        "node": "./dist/node/handlers/memory.handlers.js",
         "browser": "./dist/browser/handlers/memory.handlers.js",
         "default": "./dist/handlers/memory.handlers.js"
       },
       "./kb-update-pipeline.feature": {
         "types": "./dist/kb-update-pipeline.feature.d.ts",
         "bun": "./dist/kb-update-pipeline.feature.js",
-        "node": "./dist/node/kb-update-pipeline.feature.mjs",
+        "node": "./dist/node/kb-update-pipeline.feature.js",
         "browser": "./dist/browser/kb-update-pipeline.feature.js",
         "default": "./dist/kb-update-pipeline.feature.js"
       },
       "./operations": {
         "types": "./dist/operations/index.d.ts",
         "bun": "./dist/operations/index.js",
-        "node": "./dist/node/operations/index.mjs",
+        "node": "./dist/node/operations/index.js",
         "browser": "./dist/browser/operations/index.js",
         "default": "./dist/operations/index.js"
       },
       "./operations/index": {
         "types": "./dist/operations/index.d.ts",
         "bun": "./dist/operations/index.js",
-        "node": "./dist/node/operations/index.mjs",
+        "node": "./dist/node/operations/index.js",
         "browser": "./dist/browser/operations/index.js",
         "default": "./dist/operations/index.js"
       },
       "./operations/pipeline": {
         "types": "./dist/operations/pipeline.d.ts",
         "bun": "./dist/operations/pipeline.js",
-        "node": "./dist/node/operations/pipeline.mjs",
+        "node": "./dist/node/operations/pipeline.js",
         "browser": "./dist/browser/operations/pipeline.js",
         "default": "./dist/operations/pipeline.js"
       },
       "./presentations": {
         "types": "./dist/presentations.d.ts",
         "bun": "./dist/presentations.js",
-        "node": "./dist/node/presentations.mjs",
+        "node": "./dist/node/presentations.js",
         "browser": "./dist/browser/presentations.js",
         "default": "./dist/presentations.js"
       },
       "./tests/operations.test-spec": {
         "types": "./dist/tests/operations.test-spec.d.ts",
         "bun": "./dist/tests/operations.test-spec.js",
-        "node": "./dist/node/tests/operations.test-spec.mjs",
+        "node": "./dist/node/tests/operations.test-spec.js",
         "browser": "./dist/browser/tests/operations.test-spec.js",
         "default": "./dist/tests/operations.test-spec.js"
       }

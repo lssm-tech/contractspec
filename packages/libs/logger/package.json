@@ -69,13 +69,13 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.browser.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "default": "./dist/index.browser.js"
       },
       "./context": {
         "types": "./dist/context.d.ts",
         "bun": "./dist/context.node.js",
-        "node": "./dist/node/context.node.mjs",
+        "node": "./dist/node/context.node.js",
         "default": "./dist/context.node.js"
       },
       "./context.browser": {
@@ -86,19 +86,19 @@
       "./context.node": {
         "types": "./dist/context.node.d.ts",
         "bun": "./dist/context.node.js",
-        "node": "./dist/node/context.node.mjs",
+        "node": "./dist/node/context.node.js",
         "default": "./dist/context.node.js"
       },
       "./elysia-plugin": {
         "types": "./dist/elysia-plugin.d.ts",
         "bun": "./dist/elysia-plugin.js",
-        "node": "./dist/node/elysia-plugin.mjs",
+        "node": "./dist/node/elysia-plugin.js",
         "default": "./dist/elysia-plugin.js"
       },
       "./formatters": {
         "types": "./dist/formatters.d.ts",
         "bun": "./dist/formatters.js",
-        "node": "./dist/node/formatters.mjs",
+        "node": "./dist/node/formatters.js",
         "default": "./dist/formatters.js"
       },
       "./index.browser": {
@@ -109,7 +109,7 @@
       "./logger": {
         "types": "./dist/logger.d.ts",
         "bun": "./dist/logger.node.js",
-        "node": "./dist/node/logger.node.mjs",
+        "node": "./dist/node/logger.node.js",
         "default": "./dist/logger.node.js"
       },
       "./logger.browser": {
@@ -120,19 +120,19 @@
       "./logger.node": {
         "types": "./dist/logger.node.d.ts",
         "bun": "./dist/logger.node.js",
-        "node": "./dist/node/logger.node.mjs",
+        "node": "./dist/node/logger.node.js",
         "default": "./dist/logger.node.js"
       },
       "./timer": {
         "types": "./dist/timer.d.ts",
         "bun": "./dist/timer.js",
-        "node": "./dist/node/timer.mjs",
+        "node": "./dist/node/timer.js",
         "default": "./dist/timer.js"
       },
       "./tracer": {
         "types": "./dist/tracer.d.ts",
         "bun": "./dist/tracer.node.js",
-        "node": "./dist/node/tracer.node.mjs",
+        "node": "./dist/node/tracer.node.js",
         "default": "./dist/tracer.node.js"
       },
       "./tracer.browser": {
@@ -143,13 +143,13 @@
       "./tracer.node": {
         "types": "./dist/tracer.node.d.ts",
         "bun": "./dist/tracer.node.js",
-        "node": "./dist/node/tracer.node.mjs",
+        "node": "./dist/node/tracer.node.js",
         "default": "./dist/tracer.node.js"
       },
       "./types": {
         "types": "./dist/types.d.ts",
         "bun": "./dist/types.js",
-        "node": "./dist/node/types.mjs",
+        "node": "./dist/node/types.js",
         "default": "./dist/types.js"
       }
     },

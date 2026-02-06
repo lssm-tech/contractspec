@@ -52,28 +52,28 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./appError": {
         "types": "./dist/appError.d.ts",
         "bun": "./dist/appError.js",
-        "node": "./dist/node/appError.mjs",
+        "node": "./dist/node/appError.js",
         "browser": "./dist/browser/appError.js",
         "default": "./dist/appError.js"
       },
       "./codes": {
         "types": "./dist/codes.d.ts",
         "bun": "./dist/codes.js",
-        "node": "./dist/node/codes.mjs",
+        "node": "./dist/node/codes.js",
         "browser": "./dist/browser/codes.js",
         "default": "./dist/codes.js"
       },
       "./http": {
         "types": "./dist/http.d.ts",
         "bun": "./dist/http.js",
-        "node": "./dist/node/http.mjs",
+        "node": "./dist/node/http.js",
         "browser": "./dist/browser/http.js",
         "default": "./dist/http.js"
       }

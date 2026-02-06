@@ -46,63 +46,63 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./blueprint": {
         "types": "./dist/blueprint.d.ts",
         "bun": "./dist/blueprint.js",
-        "node": "./dist/node/blueprint.mjs",
+        "node": "./dist/node/blueprint.js",
         "browser": "./dist/browser/blueprint.js",
         "default": "./dist/blueprint.js"
       },
       "./connection.sample": {
         "types": "./dist/connection.sample.d.ts",
         "bun": "./dist/connection.sample.js",
-        "node": "./dist/node/connection.sample.mjs",
+        "node": "./dist/node/connection.sample.js",
         "browser": "./dist/browser/connection.sample.js",
         "default": "./dist/connection.sample.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/integration-supabase.docblock": {
         "types": "./dist/docs/integration-supabase.docblock.d.ts",
         "bun": "./dist/docs/integration-supabase.docblock.js",
-        "node": "./dist/node/docs/integration-supabase.docblock.mjs",
+        "node": "./dist/node/docs/integration-supabase.docblock.js",
         "browser": "./dist/browser/docs/integration-supabase.docblock.js",
         "default": "./dist/docs/integration-supabase.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./runtime.sample": {
         "types": "./dist/runtime.sample.d.ts",
         "bun": "./dist/runtime.sample.js",
-        "node": "./dist/node/runtime.sample.mjs",
+        "node": "./dist/node/runtime.sample.js",
         "browser": "./dist/browser/runtime.sample.js",
         "default": "./dist/runtime.sample.js"
       },
       "./tenant": {
         "types": "./dist/tenant.d.ts",
         "bun": "./dist/tenant.js",
-        "node": "./dist/node/tenant.mjs",
+        "node": "./dist/node/tenant.js",
         "browser": "./dist/browser/tenant.js",
         "default": "./dist/tenant.js"
       }

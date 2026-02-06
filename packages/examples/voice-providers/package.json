@@ -46,70 +46,70 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./connection.sample": {
         "types": "./dist/connection.sample.d.ts",
         "bun": "./dist/connection.sample.js",
-        "node": "./dist/node/connection.sample.mjs",
+        "node": "./dist/node/connection.sample.js",
         "browser": "./dist/browser/connection.sample.js",
         "default": "./dist/connection.sample.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/voice-providers.docblock": {
         "types": "./dist/docs/voice-providers.docblock.d.ts",
         "bun": "./dist/docs/voice-providers.docblock.js",
-        "node": "./dist/node/docs/voice-providers.docblock.mjs",
+        "node": "./dist/node/docs/voice-providers.docblock.js",
         "browser": "./dist/browser/docs/voice-providers.docblock.js",
         "default": "./dist/docs/voice-providers.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./handlers/create-provider": {
         "types": "./dist/handlers/create-provider.d.ts",
         "bun": "./dist/handlers/create-provider.js",
-        "node": "./dist/node/handlers/create-provider.mjs",
+        "node": "./dist/node/handlers/create-provider.js",
         "browser": "./dist/browser/handlers/create-provider.js",
         "default": "./dist/handlers/create-provider.js"
       },
       "./handlers/list-voices": {
         "types": "./dist/handlers/list-voices.d.ts",
         "bun": "./dist/handlers/list-voices.js",
-        "node": "./dist/node/handlers/list-voices.mjs",
+        "node": "./dist/node/handlers/list-voices.js",
         "browser": "./dist/browser/handlers/list-voices.js",
         "default": "./dist/handlers/list-voices.js"
       },
       "./handlers/synthesize": {
         "types": "./dist/handlers/synthesize.d.ts",
         "bun": "./dist/handlers/synthesize.js",
-        "node": "./dist/node/handlers/synthesize.mjs",
+        "node": "./dist/node/handlers/synthesize.js",
         "browser": "./dist/browser/handlers/synthesize.js",
         "default": "./dist/handlers/synthesize.js"
       },
       "./run": {
         "types": "./dist/run.d.ts",
         "bun": "./dist/run.js",
-        "node": "./dist/node/run.mjs",
+        "node": "./dist/node/run.js",
         "browser": "./dist/browser/run.js",
         "default": "./dist/run.js"
       }

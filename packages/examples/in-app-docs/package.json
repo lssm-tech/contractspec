@@ -47,56 +47,56 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/in-app-docs.docblock": {
         "types": "./dist/docs/in-app-docs.docblock.d.ts",
         "bun": "./dist/docs/in-app-docs.docblock.js",
-        "node": "./dist/node/docs/in-app-docs.docblock.mjs",
+        "node": "./dist/node/docs/in-app-docs.docblock.js",
         "browser": "./dist/browser/docs/in-app-docs.docblock.js",
         "default": "./dist/docs/in-app-docs.docblock.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./ui": {
         "types": "./dist/ui/index.d.ts",
         "bun": "./dist/ui/index.js",
-        "node": "./dist/node/ui/index.mjs",
+        "node": "./dist/node/ui/index.js",
         "browser": "./dist/browser/ui/index.js",
         "default": "./dist/ui/index.js"
       },
       "./ui/InAppDocsViewer": {
         "types": "./dist/ui/InAppDocsViewer.d.ts",
         "bun": "./dist/ui/InAppDocsViewer.js",
-        "node": "./dist/node/ui/InAppDocsViewer.mjs",
+        "node": "./dist/node/ui/InAppDocsViewer.js",
         "browser": "./dist/browser/ui/InAppDocsViewer.js",
         "default": "./dist/ui/InAppDocsViewer.js"
       },
       "./ui/index": {
         "types": "./dist/ui/index.d.ts",
         "bun": "./dist/ui/index.js",
-        "node": "./dist/node/ui/index.mjs",
+        "node": "./dist/node/ui/index.js",
         "browser": "./dist/browser/ui/index.js",
         "default": "./dist/ui/index.js"
       }

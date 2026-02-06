@@ -62,119 +62,119 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./CoachingMiniApp": {
         "types": "./dist/CoachingMiniApp.d.ts",
         "bun": "./dist/CoachingMiniApp.js",
-        "node": "./dist/node/CoachingMiniApp.mjs",
+        "node": "./dist/node/CoachingMiniApp.js",
         "browser": "./dist/browser/CoachingMiniApp.js",
         "default": "./dist/CoachingMiniApp.js"
       },
       "./components": {
         "types": "./dist/components/index.d.ts",
         "bun": "./dist/components/index.js",
-        "node": "./dist/node/components/index.mjs",
+        "node": "./dist/node/components/index.js",
         "browser": "./dist/browser/components/index.js",
         "default": "./dist/components/index.js"
       },
       "./components/EngagementMeter": {
         "types": "./dist/components/EngagementMeter.d.ts",
         "bun": "./dist/components/EngagementMeter.js",
-        "node": "./dist/node/components/EngagementMeter.mjs",
+        "node": "./dist/node/components/EngagementMeter.js",
         "browser": "./dist/browser/components/EngagementMeter.js",
         "default": "./dist/components/EngagementMeter.js"
       },
       "./components/index": {
         "types": "./dist/components/index.d.ts",
         "bun": "./dist/components/index.js",
-        "node": "./dist/node/components/index.mjs",
+        "node": "./dist/node/components/index.js",
         "browser": "./dist/browser/components/index.js",
         "default": "./dist/components/index.js"
       },
       "./components/TipCard": {
         "types": "./dist/components/TipCard.d.ts",
         "bun": "./dist/components/TipCard.js",
-        "node": "./dist/node/components/TipCard.mjs",
+        "node": "./dist/node/components/TipCard.js",
         "browser": "./dist/browser/components/TipCard.js",
         "default": "./dist/components/TipCard.js"
       },
       "./components/TipFeed": {
         "types": "./dist/components/TipFeed.d.ts",
         "bun": "./dist/components/TipFeed.js",
-        "node": "./dist/node/components/TipFeed.mjs",
+        "node": "./dist/node/components/TipFeed.js",
         "browser": "./dist/browser/components/TipFeed.js",
         "default": "./dist/components/TipFeed.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/learning-journey-ui-coaching.docblock": {
         "types": "./dist/docs/learning-journey-ui-coaching.docblock.d.ts",
         "bun": "./dist/docs/learning-journey-ui-coaching.docblock.js",
-        "node": "./dist/node/docs/learning-journey-ui-coaching.docblock.mjs",
+        "node": "./dist/node/docs/learning-journey-ui-coaching.docblock.js",
         "browser": "./dist/browser/docs/learning-journey-ui-coaching.docblock.js",
         "default": "./dist/docs/learning-journey-ui-coaching.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./views": {
         "types": "./dist/views/index.d.ts",
         "bun": "./dist/views/index.js",
-        "node": "./dist/node/views/index.mjs",
+        "node": "./dist/node/views/index.js",
         "browser": "./dist/browser/views/index.js",
         "default": "./dist/views/index.js"
       },
       "./views/index": {
         "types": "./dist/views/index.d.ts",
         "bun": "./dist/views/index.js",
-        "node": "./dist/node/views/index.mjs",
+        "node": "./dist/node/views/index.js",
         "browser": "./dist/browser/views/index.js",
         "default": "./dist/views/index.js"
       },
       "./views/Overview": {
         "types": "./dist/views/Overview.d.ts",
         "bun": "./dist/views/Overview.js",
-        "node": "./dist/node/views/Overview.mjs",
+        "node": "./dist/node/views/Overview.js",
         "browser": "./dist/browser/views/Overview.js",
         "default": "./dist/views/Overview.js"
       },
       "./views/Progress": {
         "types": "./dist/views/Progress.d.ts",
         "bun": "./dist/views/Progress.js",
-        "node": "./dist/node/views/Progress.mjs",
+        "node": "./dist/node/views/Progress.js",
         "browser": "./dist/browser/views/Progress.js",
         "default": "./dist/views/Progress.js"
       },
       "./views/Steps": {
         "types": "./dist/views/Steps.d.ts",
         "bun": "./dist/views/Steps.js",
-        "node": "./dist/node/views/Steps.mjs",
+        "node": "./dist/node/views/Steps.js",
         "browser": "./dist/browser/views/Steps.js",
         "default": "./dist/views/Steps.js"
       },
       "./views/Timeline": {
         "types": "./dist/views/Timeline.d.ts",
         "bun": "./dist/views/Timeline.js",
-        "node": "./dist/node/views/Timeline.mjs",
+        "node": "./dist/node/views/Timeline.js",
         "browser": "./dist/browser/views/Timeline.js",
         "default": "./dist/views/Timeline.js"
       }

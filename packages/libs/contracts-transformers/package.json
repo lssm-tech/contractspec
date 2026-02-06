@@ -57,35 +57,35 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./common": {
         "types": "./dist/common/index.d.ts",
         "bun": "./dist/common/index.js",
-        "node": "./dist/node/common/index.mjs",
+        "node": "./dist/node/common/index.js",
         "browser": "./dist/browser/common/index.js",
         "default": "./dist/common/index.js"
       },
       "./common/index": {
         "types": "./dist/common/index.d.ts",
         "bun": "./dist/common/index.js",
-        "node": "./dist/node/common/index.mjs",
+        "node": "./dist/node/common/index.js",
         "browser": "./dist/browser/common/index.js",
         "default": "./dist/common/index.js"
       },
       "./openapi": {
         "types": "./dist/openapi/index.d.ts",
         "bun": "./dist/openapi/index.js",
-        "node": "./dist/node/openapi/index.mjs",
+        "node": "./dist/node/openapi/index.js",
         "browser": "./dist/browser/openapi/index.js",
         "default": "./dist/openapi/index.js"
       },
       "./openapi/index": {
         "types": "./dist/openapi/index.d.ts",
         "bun": "./dist/openapi/index.js",
-        "node": "./dist/node/openapi/index.mjs",
+        "node": "./dist/node/openapi/index.js",
         "browser": "./dist/browser/openapi/index.js",
         "default": "./dist/openapi/index.js"
       }

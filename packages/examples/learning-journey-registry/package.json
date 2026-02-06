@@ -65,105 +65,105 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./api": {
         "types": "./dist/api.d.ts",
         "bun": "./dist/api.js",
-        "node": "./dist/node/api.mjs",
+        "node": "./dist/node/api.js",
         "browser": "./dist/browser/api.js",
         "default": "./dist/api.js"
       },
       "./api-types": {
         "types": "./dist/api-types.d.ts",
         "bun": "./dist/api-types.js",
-        "node": "./dist/node/api-types.mjs",
+        "node": "./dist/node/api-types.js",
         "browser": "./dist/browser/api-types.js",
         "default": "./dist/api-types.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/learning-journey-registry.docblock": {
         "types": "./dist/docs/learning-journey-registry.docblock.d.ts",
         "bun": "./dist/docs/learning-journey-registry.docblock.js",
-        "node": "./dist/node/docs/learning-journey-registry.docblock.mjs",
+        "node": "./dist/node/docs/learning-journey-registry.docblock.js",
         "browser": "./dist/browser/docs/learning-journey-registry.docblock.js",
         "default": "./dist/docs/learning-journey-registry.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./learning-journey-registry.feature": {
         "types": "./dist/learning-journey-registry.feature.d.ts",
         "bun": "./dist/learning-journey-registry.feature.js",
-        "node": "./dist/node/learning-journey-registry.feature.mjs",
+        "node": "./dist/node/learning-journey-registry.feature.js",
         "browser": "./dist/browser/learning-journey-registry.feature.js",
         "default": "./dist/learning-journey-registry.feature.js"
       },
       "./presentations": {
         "types": "./dist/presentations/index.d.ts",
         "bun": "./dist/presentations/index.js",
-        "node": "./dist/node/presentations/index.mjs",
+        "node": "./dist/node/presentations/index.js",
         "browser": "./dist/browser/presentations/index.js",
         "default": "./dist/presentations/index.js"
       },
       "./presentations/index": {
         "types": "./dist/presentations/index.d.ts",
         "bun": "./dist/presentations/index.js",
-        "node": "./dist/node/presentations/index.mjs",
+        "node": "./dist/node/presentations/index.js",
         "browser": "./dist/browser/presentations/index.js",
         "default": "./dist/presentations/index.js"
       },
       "./progress-store": {
         "types": "./dist/progress-store.d.ts",
         "bun": "./dist/progress-store.js",
-        "node": "./dist/node/progress-store.mjs",
+        "node": "./dist/node/progress-store.js",
         "browser": "./dist/browser/progress-store.js",
         "default": "./dist/progress-store.js"
       },
       "./tracks": {
         "types": "./dist/tracks.d.ts",
         "bun": "./dist/tracks.js",
-        "node": "./dist/node/tracks.mjs",
+        "node": "./dist/node/tracks.js",
         "browser": "./dist/browser/tracks.js",
         "default": "./dist/tracks.js"
       },
       "./ui": {
         "types": "./dist/ui/index.d.ts",
         "bun": "./dist/ui/index.js",
-        "node": "./dist/node/ui/index.mjs",
+        "node": "./dist/node/ui/index.js",
         "browser": "./dist/browser/ui/index.js",
         "default": "./dist/ui/index.js"
       },
       "./ui/index": {
         "types": "./dist/ui/index.d.ts",
         "bun": "./dist/ui/index.js",
-        "node": "./dist/node/ui/index.mjs",
+        "node": "./dist/node/ui/index.js",
         "browser": "./dist/browser/ui/index.js",
         "default": "./dist/ui/index.js"
       },
       "./ui/LearningMiniApp": {
         "types": "./dist/ui/LearningMiniApp.d.ts",
         "bun": "./dist/ui/LearningMiniApp.js",
-        "node": "./dist/node/ui/LearningMiniApp.mjs",
+        "node": "./dist/node/ui/LearningMiniApp.js",
         "browser": "./dist/browser/ui/LearningMiniApp.js",
         "default": "./dist/ui/LearningMiniApp.js"
       }

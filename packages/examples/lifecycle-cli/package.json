@@ -44,42 +44,42 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./demo": {
         "types": "./dist/demo.d.ts",
         "bun": "./dist/demo.js",
-        "node": "./dist/node/demo.mjs",
+        "node": "./dist/node/demo.js",
         "browser": "./dist/browser/demo.js",
         "default": "./dist/demo.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/lifecycle-cli.docblock": {
         "types": "./dist/docs/lifecycle-cli.docblock.d.ts",
         "bun": "./dist/docs/lifecycle-cli.docblock.js",
-        "node": "./dist/node/docs/lifecycle-cli.docblock.mjs",
+        "node": "./dist/node/docs/lifecycle-cli.docblock.js",
         "browser": "./dist/browser/docs/lifecycle-cli.docblock.js",
         "default": "./dist/docs/lifecycle-cli.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       }

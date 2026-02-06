@@ -70,217 +70,217 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./announcement": {
         "types": "./dist/announcement/index.d.ts",
         "bun": "./dist/announcement/index.js",
-        "node": "./dist/node/announcement/index.mjs",
+        "node": "./dist/node/announcement/index.js",
         "browser": "./dist/browser/announcement/index.js",
         "default": "./dist/announcement/index.js"
       },
       "./announcement/announcement.operations": {
         "types": "./dist/announcement/announcement.operations.d.ts",
         "bun": "./dist/announcement/announcement.operations.js",
-        "node": "./dist/node/announcement/announcement.operations.mjs",
+        "node": "./dist/node/announcement/announcement.operations.js",
         "browser": "./dist/browser/announcement/announcement.operations.js",
         "default": "./dist/announcement/announcement.operations.js"
       },
       "./announcement/announcement.schema": {
         "types": "./dist/announcement/announcement.schema.d.ts",
         "bun": "./dist/announcement/announcement.schema.js",
-        "node": "./dist/node/announcement/announcement.schema.mjs",
+        "node": "./dist/node/announcement/announcement.schema.js",
         "browser": "./dist/browser/announcement/announcement.schema.js",
         "default": "./dist/announcement/announcement.schema.js"
       },
       "./announcement/index": {
         "types": "./dist/announcement/index.d.ts",
         "bun": "./dist/announcement/index.js",
-        "node": "./dist/node/announcement/index.mjs",
+        "node": "./dist/node/announcement/index.js",
         "browser": "./dist/browser/announcement/index.js",
         "default": "./dist/announcement/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/team-hub.docblock": {
         "types": "./dist/docs/team-hub.docblock.d.ts",
         "bun": "./dist/docs/team-hub.docblock.js",
-        "node": "./dist/node/docs/team-hub.docblock.mjs",
+        "node": "./dist/node/docs/team-hub.docblock.js",
         "browser": "./dist/browser/docs/team-hub.docblock.js",
         "default": "./dist/docs/team-hub.docblock.js"
       },
       "./entities": {
         "types": "./dist/entities/index.d.ts",
         "bun": "./dist/entities/index.js",
-        "node": "./dist/node/entities/index.mjs",
+        "node": "./dist/node/entities/index.js",
         "browser": "./dist/browser/entities/index.js",
         "default": "./dist/entities/index.js"
       },
       "./entities/index": {
         "types": "./dist/entities/index.d.ts",
         "bun": "./dist/entities/index.js",
-        "node": "./dist/node/entities/index.mjs",
+        "node": "./dist/node/entities/index.js",
         "browser": "./dist/browser/entities/index.js",
         "default": "./dist/entities/index.js"
       },
       "./events": {
         "types": "./dist/events.d.ts",
         "bun": "./dist/events.js",
-        "node": "./dist/node/events.mjs",
+        "node": "./dist/node/events.js",
         "browser": "./dist/browser/events.js",
         "default": "./dist/events.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./handlers": {
         "types": "./dist/handlers/index.d.ts",
         "bun": "./dist/handlers/index.js",
-        "node": "./dist/node/handlers/index.mjs",
+        "node": "./dist/node/handlers/index.js",
         "browser": "./dist/browser/handlers/index.js",
         "default": "./dist/handlers/index.js"
       },
       "./handlers/index": {
         "types": "./dist/handlers/index.d.ts",
         "bun": "./dist/handlers/index.js",
-        "node": "./dist/node/handlers/index.mjs",
+        "node": "./dist/node/handlers/index.js",
         "browser": "./dist/browser/handlers/index.js",
         "default": "./dist/handlers/index.js"
       },
       "./presentations": {
         "types": "./dist/presentations.d.ts",
         "bun": "./dist/presentations.js",
-        "node": "./dist/node/presentations.mjs",
+        "node": "./dist/node/presentations.js",
         "browser": "./dist/browser/presentations.js",
         "default": "./dist/presentations.js"
       },
       "./presentations/index": {
         "types": "./dist/presentations/index.d.ts",
         "bun": "./dist/presentations/index.js",
-        "node": "./dist/node/presentations/index.mjs",
+        "node": "./dist/node/presentations/index.js",
         "browser": "./dist/browser/presentations/index.js",
         "default": "./dist/presentations/index.js"
       },
       "./presentations/team-hub.presentation": {
         "types": "./dist/presentations/team-hub.presentation.d.ts",
         "bun": "./dist/presentations/team-hub.presentation.js",
-        "node": "./dist/node/presentations/team-hub.presentation.mjs",
+        "node": "./dist/node/presentations/team-hub.presentation.js",
         "browser": "./dist/browser/presentations/team-hub.presentation.js",
         "default": "./dist/presentations/team-hub.presentation.js"
       },
       "./ritual": {
         "types": "./dist/ritual/index.d.ts",
         "bun": "./dist/ritual/index.js",
-        "node": "./dist/node/ritual/index.mjs",
+        "node": "./dist/node/ritual/index.js",
         "browser": "./dist/browser/ritual/index.js",
         "default": "./dist/ritual/index.js"
       },
       "./ritual/index": {
         "types": "./dist/ritual/index.d.ts",
         "bun": "./dist/ritual/index.js",
-        "node": "./dist/node/ritual/index.mjs",
+        "node": "./dist/node/ritual/index.js",
         "browser": "./dist/browser/ritual/index.js",
         "default": "./dist/ritual/index.js"
       },
       "./ritual/ritual.operations": {
         "types": "./dist/ritual/ritual.operations.d.ts",
         "bun": "./dist/ritual/ritual.operations.js",
-        "node": "./dist/node/ritual/ritual.operations.mjs",
+        "node": "./dist/node/ritual/ritual.operations.js",
         "browser": "./dist/browser/ritual/ritual.operations.js",
         "default": "./dist/ritual/ritual.operations.js"
       },
       "./ritual/ritual.schema": {
         "types": "./dist/ritual/ritual.schema.d.ts",
         "bun": "./dist/ritual/ritual.schema.js",
-        "node": "./dist/node/ritual/ritual.schema.mjs",
+        "node": "./dist/node/ritual/ritual.schema.js",
         "browser": "./dist/browser/ritual/ritual.schema.js",
         "default": "./dist/ritual/ritual.schema.js"
       },
       "./space": {
         "types": "./dist/space/index.d.ts",
         "bun": "./dist/space/index.js",
-        "node": "./dist/node/space/index.mjs",
+        "node": "./dist/node/space/index.js",
         "browser": "./dist/browser/space/index.js",
         "default": "./dist/space/index.js"
       },
       "./space/index": {
         "types": "./dist/space/index.d.ts",
         "bun": "./dist/space/index.js",
-        "node": "./dist/node/space/index.mjs",
+        "node": "./dist/node/space/index.js",
         "browser": "./dist/browser/space/index.js",
         "default": "./dist/space/index.js"
       },
       "./space/space.operations": {
         "types": "./dist/space/space.operations.d.ts",
         "bun": "./dist/space/space.operations.js",
-        "node": "./dist/node/space/space.operations.mjs",
+        "node": "./dist/node/space/space.operations.js",
         "browser": "./dist/browser/space/space.operations.js",
         "default": "./dist/space/space.operations.js"
       },
       "./space/space.schema": {
         "types": "./dist/space/space.schema.d.ts",
         "bun": "./dist/space/space.schema.js",
-        "node": "./dist/node/space/space.schema.mjs",
+        "node": "./dist/node/space/space.schema.js",
         "browser": "./dist/browser/space/space.schema.js",
         "default": "./dist/space/space.schema.js"
       },
       "./task": {
         "types": "./dist/task/index.d.ts",
         "bun": "./dist/task/index.js",
-        "node": "./dist/node/task/index.mjs",
+        "node": "./dist/node/task/index.js",
         "browser": "./dist/browser/task/index.js",
         "default": "./dist/task/index.js"
       },
       "./task/index": {
         "types": "./dist/task/index.d.ts",
         "bun": "./dist/task/index.js",
-        "node": "./dist/node/task/index.mjs",
+        "node": "./dist/node/task/index.js",
         "browser": "./dist/browser/task/index.js",
         "default": "./dist/task/index.js"
       },
       "./task/task.operations": {
         "types": "./dist/task/task.operations.d.ts",
         "bun": "./dist/task/task.operations.js",
-        "node": "./dist/node/task/task.operations.mjs",
+        "node": "./dist/node/task/task.operations.js",
         "browser": "./dist/browser/task/task.operations.js",
         "default": "./dist/task/task.operations.js"
       },
       "./task/task.schema": {
         "types": "./dist/task/task.schema.d.ts",
         "bun": "./dist/task/task.schema.js",
-        "node": "./dist/node/task/task.schema.mjs",
+        "node": "./dist/node/task/task.schema.js",
         "browser": "./dist/browser/task/task.schema.js",
         "default": "./dist/task/task.schema.js"
       },
       "./team-hub.capability": {
         "types": "./dist/team-hub.capability.d.ts",
         "bun": "./dist/team-hub.capability.js",
-        "node": "./dist/node/team-hub.capability.mjs",
+        "node": "./dist/node/team-hub.capability.js",
         "browser": "./dist/browser/team-hub.capability.js",
         "default": "./dist/team-hub.capability.js"
       },
       "./team-hub.feature": {
         "types": "./dist/team-hub.feature.d.ts",
         "bun": "./dist/team-hub.feature.js",
-        "node": "./dist/node/team-hub.feature.mjs",
+        "node": "./dist/node/team-hub.feature.js",
         "browser": "./dist/browser/team-hub.feature.js",
         "default": "./dist/team-hub.feature.js"
       }

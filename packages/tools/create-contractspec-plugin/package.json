@@ -63,19 +63,19 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "default": "./dist/index.js"
       },
       "./templates/example-generator": {
         "types": "./dist/templates/example-generator.d.ts",
         "bun": "./dist/templates/example-generator.js",
-        "node": "./dist/node/templates/example-generator.mjs",
+        "node": "./dist/node/templates/example-generator.js",
         "default": "./dist/templates/example-generator.js"
       },
       "./utils": {
         "types": "./dist/utils.d.ts",
         "bun": "./dist/utils.js",
-        "node": "./dist/node/utils.mjs",
+        "node": "./dist/node/utils.js",
         "default": "./dist/utils.js"
       }
     }

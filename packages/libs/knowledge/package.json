@@ -66,121 +66,121 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "default": "./dist/index.js"
       },
       "./access": {
         "types": "./dist/access/index.d.ts",
         "bun": "./dist/access/index.js",
-        "node": "./dist/node/access/index.mjs",
+        "node": "./dist/node/access/index.js",
         "default": "./dist/access/index.js"
       },
       "./access/guard": {
         "types": "./dist/access/guard.d.ts",
         "bun": "./dist/access/guard.js",
-        "node": "./dist/node/access/guard.mjs",
+        "node": "./dist/node/access/guard.js",
         "default": "./dist/access/guard.js"
       },
       "./access/index": {
         "types": "./dist/access/index.d.ts",
         "bun": "./dist/access/index.js",
-        "node": "./dist/node/access/index.mjs",
+        "node": "./dist/node/access/index.js",
         "default": "./dist/access/index.js"
       },
       "./ingestion": {
         "types": "./dist/ingestion/index.d.ts",
         "bun": "./dist/ingestion/index.js",
-        "node": "./dist/node/ingestion/index.mjs",
+        "node": "./dist/node/ingestion/index.js",
         "default": "./dist/ingestion/index.js"
       },
       "./ingestion/document-processor": {
         "types": "./dist/ingestion/document-processor.d.ts",
         "bun": "./dist/ingestion/document-processor.js",
-        "node": "./dist/node/ingestion/document-processor.mjs",
+        "node": "./dist/node/ingestion/document-processor.js",
         "default": "./dist/ingestion/document-processor.js"
       },
       "./ingestion/embedding-service": {
         "types": "./dist/ingestion/embedding-service.d.ts",
         "bun": "./dist/ingestion/embedding-service.js",
-        "node": "./dist/node/ingestion/embedding-service.mjs",
+        "node": "./dist/node/ingestion/embedding-service.js",
         "default": "./dist/ingestion/embedding-service.js"
       },
       "./ingestion/gmail-adapter": {
         "types": "./dist/ingestion/gmail-adapter.d.ts",
         "bun": "./dist/ingestion/gmail-adapter.js",
-        "node": "./dist/node/ingestion/gmail-adapter.mjs",
+        "node": "./dist/node/ingestion/gmail-adapter.js",
         "default": "./dist/ingestion/gmail-adapter.js"
       },
       "./ingestion/index": {
         "types": "./dist/ingestion/index.d.ts",
         "bun": "./dist/ingestion/index.js",
-        "node": "./dist/node/ingestion/index.mjs",
+        "node": "./dist/node/ingestion/index.js",
         "default": "./dist/ingestion/index.js"
       },
       "./ingestion/storage-adapter": {
         "types": "./dist/ingestion/storage-adapter.d.ts",
         "bun": "./dist/ingestion/storage-adapter.js",
-        "node": "./dist/node/ingestion/storage-adapter.mjs",
+        "node": "./dist/node/ingestion/storage-adapter.js",
         "default": "./dist/ingestion/storage-adapter.js"
       },
       "./ingestion/vector-indexer": {
         "types": "./dist/ingestion/vector-indexer.d.ts",
         "bun": "./dist/ingestion/vector-indexer.js",
-        "node": "./dist/node/ingestion/vector-indexer.mjs",
+        "node": "./dist/node/ingestion/vector-indexer.js",
         "default": "./dist/ingestion/vector-indexer.js"
       },
       "./query": {
         "types": "./dist/query/index.d.ts",
         "bun": "./dist/query/index.js",
-        "node": "./dist/node/query/index.mjs",
+        "node": "./dist/node/query/index.js",
         "default": "./dist/query/index.js"
       },
       "./query/index": {
         "types": "./dist/query/index.d.ts",
         "bun": "./dist/query/index.js",
-        "node": "./dist/node/query/index.mjs",
+        "node": "./dist/node/query/index.js",
         "default": "./dist/query/index.js"
       },
       "./query/service": {
         "types": "./dist/query/service.d.ts",
         "bun": "./dist/query/service.js",
-        "node": "./dist/node/query/service.mjs",
+        "node": "./dist/node/query/service.js",
         "default": "./dist/query/service.js"
       },
       "./retriever": {
         "types": "./dist/retriever/index.d.ts",
         "bun": "./dist/retriever/index.js",
-        "node": "./dist/node/retriever/index.mjs",
+        "node": "./dist/node/retriever/index.js",
         "default": "./dist/retriever/index.js"
       },
       "./retriever/index": {
         "types": "./dist/retriever/index.d.ts",
         "bun": "./dist/retriever/index.js",
-        "node": "./dist/node/retriever/index.mjs",
+        "node": "./dist/node/retriever/index.js",
         "default": "./dist/retriever/index.js"
       },
       "./retriever/interface": {
         "types": "./dist/retriever/interface.d.ts",
         "bun": "./dist/retriever/interface.js",
-        "node": "./dist/node/retriever/interface.mjs",
+        "node": "./dist/node/retriever/interface.js",
         "default": "./dist/retriever/interface.js"
       },
       "./retriever/static-retriever": {
         "types": "./dist/retriever/static-retriever.d.ts",
         "bun": "./dist/retriever/static-retriever.js",
-        "node": "./dist/node/retriever/static-retriever.mjs",
+        "node": "./dist/node/retriever/static-retriever.js",
         "default": "./dist/retriever/static-retriever.js"
       },
       "./retriever/vector-retriever": {
         "types": "./dist/retriever/vector-retriever.d.ts",
         "bun": "./dist/retriever/vector-retriever.js",
-        "node": "./dist/node/retriever/vector-retriever.mjs",
+        "node": "./dist/node/retriever/vector-retriever.js",
         "default": "./dist/retriever/vector-retriever.js"
       },
       "./types": {
         "types": "./dist/types.d.ts",
         "bun": "./dist/types.js",
-        "node": "./dist/node/types.mjs",
+        "node": "./dist/node/types.js",
         "default": "./dist/types.js"
       }
     },

@@ -64,25 +64,25 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "default": "./dist/index.js"
       },
       "./config": {
         "types": "./dist/config.d.ts",
         "bun": "./dist/config.js",
-        "node": "./dist/node/config.mjs",
+        "node": "./dist/node/config.js",
         "default": "./dist/config.js"
       },
       "./generator": {
         "types": "./dist/generator.d.ts",
         "bun": "./dist/generator.js",
-        "node": "./dist/node/generator.mjs",
+        "node": "./dist/node/generator.js",
         "default": "./dist/generator.js"
       },
       "./types": {
         "types": "./dist/types.d.ts",
         "bun": "./dist/types.js",
-        "node": "./dist/node/types.mjs",
+        "node": "./dist/node/types.js",
         "default": "./dist/types.js"
       }
     }

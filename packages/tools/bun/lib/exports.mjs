@@ -78,8 +78,7 @@ function toOutputPath(sourceRelativePath, target, targetRoots) {
       : (targetRoots[target] ?? targetRoots.bun ?? '.');
   const outputRelativePath = stripBuildRoot(withoutExtension, outputRoot);
 
-  const extension =
-    target === 'node' ? 'mjs' : target === 'types' ? 'd.ts' : 'js';
+  const extension = target === 'types' ? 'd.ts' : 'js';
   const outputBaseDir =
     target === 'bun' || target === 'types' ? 'dist' : `dist/${target}`;
 

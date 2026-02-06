@@ -57,105 +57,105 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./components": {
         "types": "./dist/components/index.d.ts",
         "bun": "./dist/components/index.js",
-        "node": "./dist/node/components/index.mjs",
+        "node": "./dist/node/components/index.js",
         "browser": "./dist/browser/components/index.js",
         "default": "./dist/components/index.js"
       },
       "./components/BadgeDisplay": {
         "types": "./dist/components/BadgeDisplay.d.ts",
         "bun": "./dist/components/BadgeDisplay.js",
-        "node": "./dist/node/components/BadgeDisplay.mjs",
+        "node": "./dist/node/components/BadgeDisplay.js",
         "browser": "./dist/browser/components/BadgeDisplay.js",
         "default": "./dist/components/BadgeDisplay.js"
       },
       "./components/index": {
         "types": "./dist/components/index.d.ts",
         "bun": "./dist/components/index.js",
-        "node": "./dist/node/components/index.mjs",
+        "node": "./dist/node/components/index.js",
         "browser": "./dist/browser/components/index.js",
         "default": "./dist/components/index.js"
       },
       "./components/StreakCounter": {
         "types": "./dist/components/StreakCounter.d.ts",
         "bun": "./dist/components/StreakCounter.js",
-        "node": "./dist/node/components/StreakCounter.mjs",
+        "node": "./dist/node/components/StreakCounter.js",
         "browser": "./dist/browser/components/StreakCounter.js",
         "default": "./dist/components/StreakCounter.js"
       },
       "./components/ViewTabs": {
         "types": "./dist/components/ViewTabs.d.ts",
         "bun": "./dist/components/ViewTabs.js",
-        "node": "./dist/node/components/ViewTabs.mjs",
+        "node": "./dist/node/components/ViewTabs.js",
         "browser": "./dist/browser/components/ViewTabs.js",
         "default": "./dist/components/ViewTabs.js"
       },
       "./components/XpBar": {
         "types": "./dist/components/XpBar.d.ts",
         "bun": "./dist/components/XpBar.js",
-        "node": "./dist/node/components/XpBar.mjs",
+        "node": "./dist/node/components/XpBar.js",
         "browser": "./dist/browser/components/XpBar.js",
         "default": "./dist/components/XpBar.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/learning-journey-ui-shared.docblock": {
         "types": "./dist/docs/learning-journey-ui-shared.docblock.d.ts",
         "bun": "./dist/docs/learning-journey-ui-shared.docblock.js",
-        "node": "./dist/node/docs/learning-journey-ui-shared.docblock.mjs",
+        "node": "./dist/node/docs/learning-journey-ui-shared.docblock.js",
         "browser": "./dist/browser/docs/learning-journey-ui-shared.docblock.js",
         "default": "./dist/docs/learning-journey-ui-shared.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./hooks": {
         "types": "./dist/hooks/index.d.ts",
         "bun": "./dist/hooks/index.js",
-        "node": "./dist/node/hooks/index.mjs",
+        "node": "./dist/node/hooks/index.js",
         "browser": "./dist/browser/hooks/index.js",
         "default": "./dist/hooks/index.js"
       },
       "./hooks/index": {
         "types": "./dist/hooks/index.d.ts",
         "bun": "./dist/hooks/index.js",
-        "node": "./dist/node/hooks/index.mjs",
+        "node": "./dist/node/hooks/index.js",
         "browser": "./dist/browser/hooks/index.js",
         "default": "./dist/hooks/index.js"
       },
       "./hooks/useLearningProgress": {
         "types": "./dist/hooks/useLearningProgress.d.ts",
         "bun": "./dist/hooks/useLearningProgress.js",
-        "node": "./dist/node/hooks/useLearningProgress.mjs",
+        "node": "./dist/node/hooks/useLearningProgress.js",
         "browser": "./dist/browser/hooks/useLearningProgress.js",
         "default": "./dist/hooks/useLearningProgress.js"
       },
       "./types": {
         "types": "./dist/types.d.ts",
         "bun": "./dist/types.js",
-        "node": "./dist/node/types.mjs",
+        "node": "./dist/node/types.js",
         "browser": "./dist/browser/types.js",
         "default": "./dist/types.js"
       }

@@ -44,63 +44,63 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./agent": {
         "types": "./dist/agent.d.ts",
         "bun": "./dist/agent.js",
-        "node": "./dist/node/agent.mjs",
+        "node": "./dist/node/agent.js",
         "browser": "./dist/browser/agent.js",
         "default": "./dist/agent.js"
       },
       "./blueprint": {
         "types": "./dist/blueprint.d.ts",
         "bun": "./dist/blueprint.js",
-        "node": "./dist/node/blueprint.mjs",
+        "node": "./dist/node/blueprint.js",
         "browser": "./dist/browser/blueprint.js",
         "default": "./dist/blueprint.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/knowledge-canon.docblock": {
         "types": "./dist/docs/knowledge-canon.docblock.d.ts",
         "bun": "./dist/docs/knowledge-canon.docblock.js",
-        "node": "./dist/node/docs/knowledge-canon.docblock.mjs",
+        "node": "./dist/node/docs/knowledge-canon.docblock.js",
         "browser": "./dist/browser/docs/knowledge-canon.docblock.js",
         "default": "./dist/docs/knowledge-canon.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./source.sample": {
         "types": "./dist/source.sample.d.ts",
         "bun": "./dist/source.sample.js",
-        "node": "./dist/node/source.sample.mjs",
+        "node": "./dist/node/source.sample.js",
         "browser": "./dist/browser/source.sample.js",
         "default": "./dist/source.sample.js"
       },
       "./tenant": {
         "types": "./dist/tenant.d.ts",
         "bun": "./dist/tenant.js",
-        "node": "./dist/node/tenant.mjs",
+        "node": "./dist/node/tenant.js",
         "browser": "./dist/browser/tenant.js",
         "default": "./dist/tenant.js"
       }
