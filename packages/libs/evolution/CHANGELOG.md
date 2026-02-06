@@ -1,5 +1,20 @@
 # @contractspec/lib.evolution
 
+## 1.59.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/lib.observability@1.59.0
+  - @contractspec/lib.contracts@1.59.0
+  - @contractspec/lib.lifecycle@1.59.0
+  - @contractspec/lib.ai-agent@1.59.0
+  - @contractspec/lib.schema@1.59.0
+
 ## 1.58.0
 
 ### Minor Changes

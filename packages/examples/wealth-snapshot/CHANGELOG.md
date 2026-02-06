@@ -1,5 +1,20 @@
 # @contractspec/example.wealth-snapshot
 
+## 1.59.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/module.notifications@1.59.0
+  - @contractspec/module.audit-trail@1.59.0
+  - @contractspec/lib.identity-rbac@1.59.0
+  - @contractspec/lib.contracts@1.59.0
+  - @contractspec/lib.schema@1.59.0
+
 ## 1.58.0
 
 ### Minor Changes

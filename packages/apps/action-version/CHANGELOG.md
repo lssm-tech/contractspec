@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 0.15.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
 ## 0.14.0
 
 ### Minor Changes

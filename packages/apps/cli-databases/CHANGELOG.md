@@ -1,5 +1,11 @@
 # @contractspec/app.cli-databases
 
+## 1.59.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
 ## 1.58.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 13.0.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/lib.presentation-runtime-core@1.59.0
+  - @contractspec/lib.ui-kit@1.59.0
+
 ## 12.0.0
 
 ### Minor Changes

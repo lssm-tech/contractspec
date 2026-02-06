@@ -1,5 +1,17 @@
 # @contractspec/integration.example-generator
 
+## 12.0.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/lib.contracts@1.59.0
+  - @contractspec/lib.schema@1.59.0
+
 ## 11.0.0
 
 ### Minor Changes

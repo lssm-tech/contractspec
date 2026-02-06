@@ -1,5 +1,19 @@
 # @contractspec/example.product-intent
 
+## 1.59.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/integration.providers-impls@1.59.0
+  - @contractspec/lib.product-intent-utils@1.59.0
+  - @contractspec/lib.contracts@1.59.0
+  - @contractspec/lib.ai-agent@1.59.0
+
 ## 1.58.0
 
 ### Minor Changes

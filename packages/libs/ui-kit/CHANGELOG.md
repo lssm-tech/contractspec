@@ -1,5 +1,16 @@
 # @contractspec/lib.ui-kit
 
+## 1.59.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/lib.ui-kit-core@1.59.0
+
 ## 1.58.0
 
 ### Minor Changes
