@@ -1,5 +1,19 @@
 # @contractspec/example.meeting-recorder-providers
 
+## 1.57.0
+
+### Minor Changes
+
+- d1f0fd0: chore: Migrate non-app package builds from tsdown to shared Bun tooling, add `@contractspec/tool.bun`, and standardize `prebuild`/`build`/`typecheck` with platform-aware exports and `tsc` declaration emission into `dist`.
+- 4355a9e: Add Granola MCP transport support alongside Enterprise API for meeting-recorder integrations, and update provider specs/examples to document and demonstrate MCP-based setup.
+
+### Patch Changes
+
+- Updated dependencies [d1f0fd0]
+- Updated dependencies [4355a9e]
+  - @contractspec/integration.providers-impls@1.58.0
+  - @contractspec/lib.contracts@1.58.0
+
 ## 1.56.2
 
 ### Patch Changes

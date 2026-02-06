@@ -1,5 +1,23 @@
 # @contractspec/bundle.workspace
 
+## 1.58.0
+
+### Minor Changes
+
+- d1f0fd0: chore: Migrate non-app package builds from tsdown to shared Bun tooling, add `@contractspec/tool.bun`, and standardize `prebuild`/`build`/`typecheck` with platform-aware exports and `tsc` declaration emission into `dist`.
+
+### Patch Changes
+
+- Updated dependencies [d1f0fd0]
+- Updated dependencies [4355a9e]
+  - @contractspec/lib.contracts-transformers@1.58.0
+  - @contractspec/lib.source-extractors@0.12.0
+  - @contractspec/lib.utils-typescript@1.58.0
+  - @contractspec/lib.ai-providers@1.58.0
+  - @contractspec/module.workspace@1.58.0
+  - @contractspec/lib.contracts@1.58.0
+  - @contractspec/lib.ai-agent@1.58.0
+
 ## 1.57.0
 
 ### Minor Changes
