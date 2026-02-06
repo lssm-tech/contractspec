@@ -1,5 +1,33 @@
 # @contractspec/bundle.marketing
 
+## 1.16.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+### Patch Changes
+
+- Updated dependencies [374fd71]
+  - @contractspec/example.analytics-dashboard@1.61.0
+  - @contractspec/example.saas-boilerplate@1.61.0
+  - @contractspec/example.integration-hub@1.61.0
+  - @contractspec/example.workflow-system@1.61.0
+  - @contractspec/example.agent-console@1.61.0
+  - @contractspec/lib.example-shared-ui@1.15.0
+  - @contractspec/example.crm-pipeline@1.61.0
+  - @contractspec/example.marketplace@1.61.0
+  - @contractspec/lib.runtime-sandbox@0.16.0
+  - @contractspec/lib.design-system@1.61.0
+  - @contractspec/lib.ui-kit-core@1.61.0
+  - @contractspec/module.examples@1.61.0
+  - @contractspec/bundle.library@1.16.0
+  - @contractspec/lib.ui-kit-web@1.61.0
+  - @contractspec/lib.contracts@1.61.0
+  - @contractspec/lib.ui-link@1.61.0
+  - @contractspec/lib.logger@1.61.0
+  - @contractspec/lib.email@1.15.0
+
 ## 1.15.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # contractspec-example-opencode-cli
 
+## 0.10.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
 ## 0.9.0
 
 ### Minor Changes

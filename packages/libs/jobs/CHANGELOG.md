@@ -1,5 +1,19 @@
 # @contractspec/lib.jobs
 
+## 1.61.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+### Patch Changes
+
+- Updated dependencies [374fd71]
+  - @contractspec/lib.contracts@1.61.0
+  - @contractspec/lib.knowledge@1.61.0
+  - @contractspec/lib.logger@1.61.0
+  - @contractspec/lib.schema@1.61.0
+
 ## 1.60.0
 
 ### Minor Changes

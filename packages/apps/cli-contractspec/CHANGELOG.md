@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.61.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+### Patch Changes
+
+- Updated dependencies [374fd71]
+  - @contractspec/lib.contracts-transformers@1.61.0
+  - @contractspec/bundle.workspace@1.61.0
+  - @contractspec/lib.ai-providers@1.61.0
+  - @contractspec/module.workspace@1.61.0
+  - @contractspec/module.examples@1.61.0
+  - @contractspec/module.ai-chat@1.61.0
+  - @contractspec/lib.contracts@1.61.0
+  - @contractspec/lib.ai-agent@1.61.0
+  - @contractspec/lib.plugins@1.61.0
+  - @contractspec/lib.testing@1.61.0
+  - @contractspec/lib.schema@1.61.0
+
 ## 1.60.0
 
 ### Minor Changes

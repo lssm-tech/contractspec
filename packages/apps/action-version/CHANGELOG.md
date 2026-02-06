@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 0.17.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
 ## 0.16.0
 
 ### Minor Changes

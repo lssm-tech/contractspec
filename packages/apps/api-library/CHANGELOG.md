@@ -1,5 +1,19 @@
 # @contractspec/app.api-library
 
+## 1.15.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+### Patch Changes
+
+- Updated dependencies [374fd71]
+  - @contractspec/bundle.marketing@1.16.0
+  - @contractspec/bundle.workspace@1.61.0
+  - @contractspec/bundle.library@1.16.0
+  - @contractspec/lib.contracts@1.61.0
+
 ## 1.14.0
 
 ### Minor Changes

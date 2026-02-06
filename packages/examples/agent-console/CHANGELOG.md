@@ -1,5 +1,20 @@
 # @contractspec/example.agent-console
 
+## 1.61.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+### Patch Changes
+
+- Updated dependencies [374fd71]
+  - @contractspec/lib.example-shared-ui@1.15.0
+  - @contractspec/lib.runtime-sandbox@0.16.0
+  - @contractspec/lib.design-system@1.61.0
+  - @contractspec/lib.contracts@1.61.0
+  - @contractspec/lib.schema@1.61.0
+
 ## 1.60.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # @contractspec/lib.progressive-delivery
 
+## 15.0.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+### Patch Changes
+
+- Updated dependencies [374fd71]
+  - @contractspec/lib.observability@1.61.0
+
 ## 14.0.0
 
 ### Minor Changes

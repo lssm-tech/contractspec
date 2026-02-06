@@ -1,5 +1,11 @@
 # contractspec-example-minimal
 
+## 0.14.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
 ## 0.13.0
 
 ### Minor Changes

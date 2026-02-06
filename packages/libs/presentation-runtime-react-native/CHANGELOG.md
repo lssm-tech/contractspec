@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 15.0.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+### Patch Changes
+
+- Updated dependencies [374fd71]
+  - @contractspec/lib.presentation-runtime-core@1.61.0
+  - @contractspec/lib.ui-kit@1.61.0
+
 ## 14.0.0
 
 ### Minor Changes

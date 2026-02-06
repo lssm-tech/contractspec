@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 0.16.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
 ## 0.15.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @contractspec/integration.example-generator
 
+## 14.0.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+### Patch Changes
+
+- Updated dependencies [374fd71]
+  - @contractspec/lib.contracts@1.61.0
+  - @contractspec/lib.schema@1.61.0
+
 ## 13.0.0
 
 ### Minor Changes

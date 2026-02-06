@@ -1,5 +1,17 @@
 # @contractspec/example.in-app-docs
 
+## 1.8.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+### Patch Changes
+
+- Updated dependencies [374fd71]
+  - @contractspec/lib.example-shared-ui@1.15.0
+  - @contractspec/lib.contracts@1.61.0
+
 ## 1.7.0
 
 ### Minor Changes

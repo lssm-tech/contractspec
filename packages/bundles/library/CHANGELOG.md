@@ -1,5 +1,25 @@
 # @contractspec/bundle.library
 
+## 1.16.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+### Patch Changes
+
+- Updated dependencies [374fd71]
+  - @contractspec/lib.contracts-library@1.61.0
+  - @contractspec/lib.example-shared-ui@1.15.0
+  - @contractspec/lib.runtime-sandbox@0.16.0
+  - @contractspec/lib.design-system@1.61.0
+  - @contractspec/module.examples@1.61.0
+  - @contractspec/lib.ui-kit-web@1.61.0
+  - @contractspec/lib.contracts@1.61.0
+  - @contractspec/lib.ui-link@1.61.0
+  - @contractspec/lib.logger@1.61.0
+  - @contractspec/lib.schema@1.61.0
+
 ## 1.15.0
 
 ### Minor Changes

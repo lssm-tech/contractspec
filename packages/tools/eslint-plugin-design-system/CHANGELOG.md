@@ -1,5 +1,11 @@
 # @contractspec/eslint-plugin-design-system
 
+## 1.61.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
 ## 1.60.0
 
 ### Minor Changes

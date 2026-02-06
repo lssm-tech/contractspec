@@ -1,5 +1,25 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 1.61.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+### Patch Changes
+
+- Updated dependencies [374fd71]
+  - @contractspec/example.locale-jurisdiction-gate@1.61.0
+  - @contractspec/example.versioned-knowledge-base@1.61.0
+  - @contractspec/example.kb-update-pipeline@1.61.0
+  - @contractspec/example.learning-patterns@1.61.0
+  - @contractspec/module.learning-journey@1.61.0
+  - @contractspec/lib.example-shared-ui@1.15.0
+  - @contractspec/lib.runtime-sandbox@0.16.0
+  - @contractspec/lib.design-system@1.61.0
+  - @contractspec/lib.ui-kit-web@1.61.0
+  - @contractspec/lib.contracts@1.61.0
+
 ## 1.60.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.10.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+### Patch Changes
+
+- Updated dependencies [374fd71]
+  - @contractspec/bundle.workspace@1.61.0
+  - @contractspec/lib.contracts@1.61.0
+
 ## 0.9.0
 
 ### Minor Changes

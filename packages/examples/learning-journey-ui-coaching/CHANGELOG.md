@@ -1,5 +1,22 @@
 # @contractspec/example.learning-journey-ui-coaching
 
+## 1.61.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+### Patch Changes
+
+- Updated dependencies [374fd71]
+  - @contractspec/example.learning-journey-crm-onboarding@1.61.0
+  - @contractspec/example.learning-journey-ambient-coach@1.61.0
+  - @contractspec/example.learning-journey-ui-shared@1.61.0
+  - @contractspec/module.learning-journey@1.61.0
+  - @contractspec/lib.design-system@1.61.0
+  - @contractspec/lib.ui-kit-web@1.61.0
+  - @contractspec/lib.contracts@1.61.0
+
 ## 1.60.0
 
 ### Minor Changes

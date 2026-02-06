@@ -1,5 +1,18 @@
 # @contractspec/lib.accessibility
 
+## 1.61.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+### Patch Changes
+
+- Updated dependencies [374fd71]
+  - @contractspec/lib.design-system@1.61.0
+  - @contractspec/lib.ui-kit-web@1.61.0
+  - @contractspec/lib.ui-kit@1.61.0
+
 ## 1.60.0
 
 ### Minor Changes

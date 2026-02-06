@@ -1,5 +1,17 @@
 # @contractspec/lib.source-extractors
 
+## 0.15.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+### Patch Changes
+
+- Updated dependencies [374fd71]
+  - @contractspec/lib.contracts@1.61.0
+  - @contractspec/lib.schema@1.61.0
+
 ## 0.14.0
 
 ### Minor Changes
