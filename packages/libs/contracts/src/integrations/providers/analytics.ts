@@ -1,3 +1,6 @@
+import type { AnalyticsReader } from './analytics-reader';
+import type { AnalyticsWriter } from './analytics-writer';
+
 export type AnalyticsRequestMethod =
   | 'GET'
   | 'POST'
@@ -51,12 +54,12 @@ export interface AnalyticsMcpToolCall {
   arguments?: Record<string, unknown>;
 }
 
-export interface AnalyticsProvider {
-  capture(event: AnalyticsEventInput): Promise<void>;
-  identify?(input: AnalyticsIdentifyInput): Promise<void>;
-  queryHogQL?(input: AnalyticsQueryInput): Promise<AnalyticsQueryResult>;
-  request<T = unknown>(
-    request: AnalyticsRequest
-  ): Promise<AnalyticsResponse<T>>;
-  callMcpTool?(call: AnalyticsMcpToolCall): Promise<unknown>;
-}
+export type AnalyticsProvider = AnalyticsWriter &
+  AnalyticsReader & {
+    request<T = unknown>(
+      request: AnalyticsRequest
+    ): Promise<AnalyticsResponse<T>>;
+  };
+
+export * from './analytics-reader';
+export * from './analytics-writer';

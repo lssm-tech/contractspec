@@ -52,6 +52,8 @@ The contracts library ships twenty-two priority providers in \`packages/libs/con
 | meeting-recorder | Fireflies     | \`meeting-recorder.fireflies\` | GraphQL transcripts + webhook events              |
 | meeting-recorder | Fathom        | \`meeting-recorder.fathom\`   | External API meetings + webhook registration      |
 
+PostHog adapters also support read access (events, persons, insights, cohorts, annotations) via analytics providers.
+
 Each provider ships with:
 
 - Strongly typed adapter interfaces (\`payments.ts\`, \`llm.ts\`, etc.)

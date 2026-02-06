@@ -35,6 +35,7 @@ export {
   PosthogTelemetryProvider,
   type PosthogTelemetryProviderOptions,
 } from './telemetry/posthog-telemetry';
+export { PosthogBaselineReader } from './telemetry/posthog-baseline-reader';
 
 export type { LogLevel, LogEntry } from './logging';
 

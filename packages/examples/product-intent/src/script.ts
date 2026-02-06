@@ -10,7 +10,8 @@ import {
   type RepoScanFile,
   suggestPatch,
 } from '@contractspec/lib.product-intent-utils';
-import { loadEvidenceChunks } from './load-evidence';
+import { loadEvidenceChunksWithSignals } from './load-evidence';
+import { resolvePosthogEvidenceOptionsFromEnv } from './posthog-signals';
 
 const QUESTION =
   'Which activation and onboarding friction should we prioritize next?';
@@ -199,7 +200,10 @@ async function main() {
   console.log(`Max attempts: ${maxAttempts}`);
   console.log(`Trace log: ${path.relative(REPO_ROOT, logDir)}/trace.jsonl`);
 
-  const evidenceChunks = loadEvidenceChunks();
+  const posthogEvidence = resolvePosthogEvidenceOptionsFromEnv();
+  const evidenceChunks = await loadEvidenceChunksWithSignals({
+    posthog: posthogEvidence ?? undefined,
+  });
   console.log(`Loaded ${evidenceChunks.length} evidence chunks`);
 
   const findings = await extractEvidence(evidenceChunks, QUESTION, {

@@ -12,3 +12,4 @@ export * from './ui';
 
 // Query engine exports
 export * from './query-engine';
+export * from './datasource/posthog-datasource';

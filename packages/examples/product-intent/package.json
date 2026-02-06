@@ -15,6 +15,7 @@
     ".": "./dist/index.js",
     "./example": "./dist/example.js",
     "./load-evidence": "./dist/load-evidence.js",
+    "./posthog-signals": "./dist/posthog-signals.js",
     "./script": "./dist/script.js",
     "./sync-actions": "./dist/sync-actions.js",
     "./*": "./*"
@@ -51,6 +52,7 @@
       "./example": "./dist/example.js",
       "./load-evidence": "./dist/load-evidence.js",
       "./script": "./dist/script.js",
+      "./posthog-signals": "./dist/posthog-signals.js",
       "./*": "./*"
     },
     "registry": "https://registry.npmjs.org/"

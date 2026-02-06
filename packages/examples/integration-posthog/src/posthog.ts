@@ -7,7 +7,12 @@ import type {
   AnalyticsResponse,
 } from '@contractspec/integration.providers-impls/analytics';
 
-export type PosthogExampleMode = 'capture' | 'query' | 'request' | 'all';
+export type PosthogExampleMode =
+  | 'capture'
+  | 'query'
+  | 'request'
+  | 'read'
+  | 'all';
 
 export interface PosthogExampleOutput {
   mode: PosthogExampleMode;
@@ -16,6 +21,7 @@ export interface PosthogExampleOutput {
   capture?: unknown;
   query?: AnalyticsQueryResult | unknown;
   request?: Record<string, unknown>;
+  read?: Record<string, unknown>;
   mcp?: unknown;
 }
 
@@ -38,6 +44,9 @@ export async function runPosthogExampleFromEnv(): Promise<PosthogExampleOutput> 
     if (mode === 'request' || mode === 'all') {
       output.request = buildRequestPreview();
     }
+    if (mode === 'read' || mode === 'all') {
+      output.read = buildReadPreview();
+    }
     if (process.env.POSTHOG_MCP_URL) {
       output.mcp = buildMcpPreview();
     }
@@ -58,6 +67,10 @@ export async function runPosthogExampleFromEnv(): Promise<PosthogExampleOutput> 
     output.request = await runApiRequests(provider, allowWrites);
   }
 
+  if (mode === 'read' || mode === 'all') {
+    output.read = await runReadOperations(provider);
+  }
+
   if (process.env.POSTHOG_MCP_URL) {
     output.mcp = await runMcpToolCall(provider);
   }
@@ -71,12 +84,13 @@ export function resolvePosthogMode(): PosthogExampleMode {
     raw === 'capture' ||
     raw === 'query' ||
     raw === 'request' ||
+    raw === 'read' ||
     raw === 'all'
   ) {
     return raw;
   }
   throw new Error(
-    `Unsupported CONTRACTSPEC_POSTHOG_MODE: ${raw}. Use capture, query, request, or all.`
+    `Unsupported CONTRACTSPEC_POSTHOG_MODE: ${raw}. Use capture, query, request, read, or all.`
   );
 }
 
@@ -178,6 +192,43 @@ async function runApiRequests(
   return output;
 }
 
+async function runReadOperations(
+  provider: AnalyticsProvider
+): Promise<Record<string, unknown>> {
+  const now = new Date();
+  const from = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+  const dateRange = { from, to: now };
+  const output: Record<string, unknown> = {
+    window: { from: from.toISOString(), to: now.toISOString() },
+  };
+
+  if (provider.getEvents) {
+    output.events = await provider.getEvents({ dateRange, limit: 5 });
+  } else {
+    output.events = 'Provider does not support getEvents.';
+  }
+
+  if (provider.getPersons) {
+    output.persons = await provider.getPersons({ limit: 5 });
+  } else {
+    output.persons = 'Provider does not support getPersons.';
+  }
+
+  if (provider.getInsights) {
+    output.insights = await provider.getInsights({ limit: 5 });
+  } else {
+    output.insights = 'Provider does not support getInsights.';
+  }
+
+  if (provider.getFeatureFlags) {
+    output.featureFlags = await provider.getFeatureFlags({ limit: 5 });
+  } else {
+    output.featureFlags = 'Provider does not support getFeatureFlags.';
+  }
+
+  return output;
+}
+
 async function runMcpToolCall(provider: AnalyticsProvider): Promise<unknown> {
   if (!provider.callMcpTool) {
     throw new Error('Analytics provider does not support MCP tool calls.');
@@ -238,6 +289,24 @@ function buildRequestPreview(): Record<string, unknown> {
         method: 'DELETE',
         path: `/api/projects/${projectId}/feature_flags/{id}`,
       },
+    },
+  };
+}
+
+function buildReadPreview(): Record<string, unknown> {
+  return {
+    events: {
+      dateRange: 'last_24_hours',
+      limit: 5,
+    },
+    persons: {
+      limit: 5,
+    },
+    insights: {
+      limit: 5,
+    },
+    featureFlags: {
+      limit: 5,
     },
   };
 }

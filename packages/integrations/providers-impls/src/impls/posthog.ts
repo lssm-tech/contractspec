@@ -1,14 +1,30 @@
 import { PostHog } from 'posthog-node';
 import type {
+  AnalyticsAnnotation,
+  AnalyticsCohort,
+  AnalyticsEvent,
   AnalyticsEventInput,
+  AnalyticsFeatureFlag,
   AnalyticsIdentifyInput,
+  AnalyticsInsight,
   AnalyticsMcpToolCall,
+  AnalyticsPerson,
   AnalyticsProvider,
   AnalyticsQueryInput,
   AnalyticsQueryResult,
   AnalyticsRequest,
   AnalyticsResponse,
+  GetAnnotationsInput,
+  GetCohortsInput,
+  GetEventsInput,
+  GetFeatureFlagsInput,
+  GetInsightResultInput,
+  GetInsightsInput,
+  GetPersonsInput,
+  PaginatedResponse,
 } from '../analytics';
+import { PosthogAnalyticsReader } from './posthog-reader';
+import { buildUrl, normalizeHost, parseJson } from './posthog-utils';
 
 export interface PosthogAnalyticsProviderOptions {
   host?: string;
@@ -31,6 +47,7 @@ export class PosthogAnalyticsProvider implements AnalyticsProvider {
   private readonly mcpUrl?: string;
   private readonly fetchFn: typeof fetch;
   private readonly client?: PostHog;
+  private readonly reader: PosthogAnalyticsReader;
 
   constructor(options: PosthogAnalyticsProviderOptions) {
     this.host = normalizeHost(options.host ?? DEFAULT_POSTHOG_HOST);
@@ -47,6 +64,10 @@ export class PosthogAnalyticsProvider implements AnalyticsProvider {
             requestTimeout: options.requestTimeoutMs ?? 10000,
           })
         : undefined);
+    this.reader = new PosthogAnalyticsReader({
+      projectId: this.projectId,
+      client: { request: this.request.bind(this) },
+    });
   }
 
   async capture(event: AnalyticsEventInput): Promise<void> {
@@ -76,21 +97,49 @@ export class PosthogAnalyticsProvider implements AnalyticsProvider {
   }
 
   async queryHogQL(input: AnalyticsQueryInput): Promise<AnalyticsQueryResult> {
-    if (!this.projectId) {
-      throw new Error('PostHog projectId is required for HogQL queries.');
-    }
-    const response = await this.request<AnalyticsQueryResult>({
-      method: 'POST',
-      path: `/api/projects/${this.projectId}/query`,
-      body: {
-        query: {
-          kind: 'HogQLQuery',
-          query: input.query,
-          values: input.values,
-        },
-      },
-    });
-    return response.data;
+    return this.reader.queryHogQL(input);
+  }
+
+  async getEvents(
+    input: GetEventsInput
+  ): Promise<PaginatedResponse<AnalyticsEvent>> {
+    return this.reader.getEvents(input);
+  }
+
+  async getPersons(
+    input: GetPersonsInput
+  ): Promise<PaginatedResponse<AnalyticsPerson>> {
+    return this.reader.getPersons(input);
+  }
+
+  async getInsights(
+    input: GetInsightsInput
+  ): Promise<PaginatedResponse<AnalyticsInsight>> {
+    return this.reader.getInsights(input);
+  }
+
+  async getInsightResult(
+    input: GetInsightResultInput
+  ): Promise<AnalyticsInsight> {
+    return this.reader.getInsightResult(input);
+  }
+
+  async getCohorts(
+    input: GetCohortsInput
+  ): Promise<PaginatedResponse<AnalyticsCohort>> {
+    return this.reader.getCohorts(input);
+  }
+
+  async getFeatureFlags(
+    input: GetFeatureFlagsInput
+  ): Promise<PaginatedResponse<AnalyticsFeatureFlag>> {
+    return this.reader.getFeatureFlags(input);
+  }
+
+  async getAnnotations(
+    input: GetAnnotationsInput
+  ): Promise<PaginatedResponse<AnalyticsAnnotation>> {
+    return this.reader.getAnnotations(input);
   }
 
   async request<T = unknown>(
@@ -151,44 +200,5 @@ export class PosthogAnalyticsProvider implements AnalyticsProvider {
       throw new Error(result.error.message ?? 'PostHog MCP error');
     }
     return result.result ?? null;
-  }
-}
-
-function normalizeHost(host: string): string {
-  return host.replace(/\/$/, '');
-}
-
-function buildUrl(
-  host: string,
-  path: string,
-  query?: Record<string, string | number | boolean | undefined>
-): string {
-  if (/^https?:\/\//.test(path)) {
-    return appendQuery(path, query);
-  }
-  const normalizedPath = path.replace(/^\/+/, '');
-  return appendQuery(`${host}/${normalizedPath}`, query);
-}
-
-function appendQuery(
-  url: string,
-  query?: Record<string, string | number | boolean | undefined>
-): string {
-  if (!query) return url;
-  const params = new URLSearchParams();
-  Object.entries(query).forEach(([key, value]) => {
-    if (value === undefined) return;
-    params.set(key, String(value));
-  });
-  const suffix = params.toString();
-  return suffix ? `${url}?${suffix}` : url;
-}
-
-function parseJson<T>(value: string): T {
-  if (!value) return {} as T;
-  try {
-    return JSON.parse(value) as T;
-  } catch {
-    return value as T;
   }
 }

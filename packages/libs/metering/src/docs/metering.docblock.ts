@@ -32,6 +32,7 @@ const meteringDocBlocks: DocBlock[] = [
 4) Aggregate + thresholds
 - Run scheduled jobs using \`aggregateUsage\` helper to roll up summaries.
 - Configure \`UsageThreshold\` to emit alerts or blocking actions; pipe alerts into Notifications/Audit.
+- Use \`PosthogMeteringReader\` to backfill or validate usage from PostHog events.
 
 ## Example
 

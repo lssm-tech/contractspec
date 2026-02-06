@@ -7,6 +7,7 @@ This example shows how to use the PostHog AnalyticsProvider implementation to:
 - Capture product events and identify users.
 - Run HogQL queries.
 - Perform generic REST API requests (feature flag list/create/delete).
+- Read events, persons, insights, and feature flags.
 - Optionally call a PostHog MCP tool via JSON-RPC.
 
 Files included:
@@ -19,7 +20,7 @@ Files included:
 Usage:
 
 ```bash
-export CONTRACTSPEC_POSTHOG_MODE="all" # capture | query | request | all
+export CONTRACTSPEC_POSTHOG_MODE="all" # capture | query | request | read | all
 export CONTRACTSPEC_POSTHOG_DRY_RUN="true" # set to false for real calls
 export CONTRACTSPEC_POSTHOG_ALLOW_WRITES="false" # set true to capture/create/delete
 
@@ -77,6 +78,18 @@ Feature flags list/create/delete:
 export CONTRACTSPEC_POSTHOG_MODE="request"
 export CONTRACTSPEC_POSTHOG_DRY_RUN="false"
 export CONTRACTSPEC_POSTHOG_ALLOW_WRITES="true"
+
+export POSTHOG_PROJECT_ID="12345"
+export POSTHOG_PERSONAL_API_KEY="phx_..."
+
+bun tsx packages/examples/integration-posthog/src/run.ts
+```
+
+Read events/persons/insights/flags:
+
+```bash
+export CONTRACTSPEC_POSTHOG_MODE="read"
+export CONTRACTSPEC_POSTHOG_DRY_RUN="false"
 
 export POSTHOG_PROJECT_ID="12345"
 export POSTHOG_PERSONAL_API_KEY="phx_..."

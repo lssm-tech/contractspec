@@ -52,6 +52,9 @@
     "./lifecycle": "./dist/lifecycle/index.js",
     "./lifecycle/metric-collectors": "./dist/lifecycle/metric-collectors.js",
     "./lifecycle/posthog-bridge": "./dist/lifecycle/posthog-bridge.js",
+    "./lifecycle/posthog-metric-source": "./dist/lifecycle/posthog-metric-source.js",
+    "./posthog": "./dist/posthog/index.js",
+    "./posthog/event-source": "./dist/posthog/event-source.js",
     "./types": "./dist/types.js",
     "./*": "./*"
   },
@@ -70,6 +73,9 @@
       "./lifecycle": "./dist/lifecycle/index.js",
       "./lifecycle/metric-collectors": "./dist/lifecycle/metric-collectors.js",
       "./lifecycle/posthog-bridge": "./dist/lifecycle/posthog-bridge.js",
+      "./lifecycle/posthog-metric-source": "./dist/lifecycle/posthog-metric-source.js",
+      "./posthog": "./dist/posthog/index.js",
+      "./posthog/event-source": "./dist/posthog/event-source.js",
       "./types": "./dist/types.js",
       "./*": "./*"
     },

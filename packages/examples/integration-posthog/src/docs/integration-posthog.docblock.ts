@@ -15,6 +15,7 @@ const blocks: DocBlock[] = [
 - Capture product events and identify users.
 - Run HogQL queries through the analytics provider.
 - Perform generic REST API requests (feature flag list/create/delete).
+- Read events, persons, insights, and feature flags using typed reader methods.
 - Optionally call a PostHog MCP tool via JSON-RPC.
 
 ## Guardrails
@@ -31,7 +32,7 @@ const blocks: DocBlock[] = [
     route: '/docs/examples/integration-posthog/usage',
     tags: ['posthog', 'usage'],
     body: `## Usage
-- Set CONTRACTSPEC_POSTHOG_MODE to capture | query | request | all.
+- Set CONTRACTSPEC_POSTHOG_MODE to capture | query | request | read | all.
 - Set CONTRACTSPEC_POSTHOG_DRY_RUN=true for a safe preview.
 - Set CONTRACTSPEC_POSTHOG_ALLOW_WRITES=true to enable capture and create/delete.
 

@@ -13,6 +13,7 @@ export * from './gcs-storage';
 export * from './stripe-payments';
 export * from './postmark-email';
 export * from './posthog';
+export * from './posthog-reader';
 export * from './twilio-sms';
 export * from './powens-client';
 export * from './powens-openbanking';
