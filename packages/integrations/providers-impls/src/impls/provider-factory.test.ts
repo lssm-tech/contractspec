@@ -224,6 +224,17 @@ describe('IntegrationProviderFactory', () => {
     expect(provider).toBeInstanceOf(GranolaMeetingRecorderProvider);
   });
 
+  it('creates Granola MCP meeting recorder provider', async () => {
+    const provider = await factory.createMeetingRecorderProvider(
+      buildContext({
+        key: 'meeting-recorder.granola',
+        config: { transport: 'mcp', mcpUrl: 'https://mcp.granola.ai/mcp' },
+        secret: { mcpAccessToken: 'granola-mcp-token' },
+      })
+    );
+    expect(provider).toBeInstanceOf(GranolaMeetingRecorderProvider);
+  });
+
   it('creates tl;dv meeting recorder provider', async () => {
     const provider = await factory.createMeetingRecorderProvider(
       buildContext({

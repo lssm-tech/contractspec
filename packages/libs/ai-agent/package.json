@@ -20,15 +20,17 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "ai": "catalog:ai",
@@ -57,93 +59,449 @@
     }
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./agent": "./dist/agent/index.js",
-    "./agent/agent-factory": "./dist/agent/agent-factory.js",
-    "./agent/contract-spec-agent": "./dist/agent/contract-spec-agent.js",
-    "./agent/json-runner": "./dist/agent/json-runner.js",
-    "./agent/unified-agent": "./dist/agent/unified-agent.js",
-    "./approval": "./dist/approval/index.js",
-    "./approval/workflow": "./dist/approval/workflow.js",
-    "./exporters": "./dist/exporters/index.js",
-    "./exporters/claude-agent-exporter": "./dist/exporters/claude-agent-exporter.js",
-    "./exporters/opencode-exporter": "./dist/exporters/opencode-exporter.js",
-    "./exporters/types": "./dist/exporters/types.js",
-    "./interop": "./dist/interop/index.js",
-    "./interop/spec-consumer": "./dist/interop/spec-consumer.js",
-    "./interop/tool-consumer": "./dist/interop/tool-consumer.js",
-    "./interop/types": "./dist/interop/types.js",
-    "./knowledge": "./dist/knowledge/index.js",
-    "./knowledge/injector": "./dist/knowledge/injector.js",
-    "./memory": "./dist/memory/index.js",
-    "./memory/in-memory": "./dist/memory/in-memory.js",
-    "./memory/manager": "./dist/memory/manager.js",
-    "./providers": "./dist/providers/index.js",
-    "./providers/claude-agent-sdk": "./dist/providers/claude-agent-sdk/index.js",
-    "./providers/claude-agent-sdk/adapter": "./dist/providers/claude-agent-sdk/adapter.js",
-    "./providers/claude-agent-sdk/session-bridge": "./dist/providers/claude-agent-sdk/session-bridge.js",
-    "./providers/claude-agent-sdk/tool-bridge": "./dist/providers/claude-agent-sdk/tool-bridge.js",
-    "./providers/opencode-sdk": "./dist/providers/opencode-sdk/index.js",
-    "./providers/opencode-sdk/adapter": "./dist/providers/opencode-sdk/adapter.js",
-    "./providers/opencode-sdk/agent-bridge": "./dist/providers/opencode-sdk/agent-bridge.js",
-    "./providers/opencode-sdk/tool-bridge": "./dist/providers/opencode-sdk/tool-bridge.js",
-    "./providers/registry": "./dist/providers/registry.js",
-    "./providers/types": "./dist/providers/types.js",
-    "./schema": "./dist/schema/index.js",
-    "./schema/json-schema-to-zod": "./dist/schema/json-schema-to-zod.js",
-    "./schema/schema-output": "./dist/schema/schema-output.js",
-    "./session": "./dist/session/index.js",
-    "./session/store": "./dist/session/store.js",
-    "./spec": "./dist/spec/index.js",
-    "./spec/registry": "./dist/spec/registry.js",
-    "./spec/spec": "./dist/spec/spec.js",
-    "./telemetry": "./dist/telemetry/index.js",
-    "./telemetry/adapter": "./dist/telemetry/adapter.js",
-    "./tools": "./dist/tools/index.js",
-    "./tools/knowledge-tool": "./dist/tools/knowledge-tool.js",
-    "./tools/mcp-client": "./dist/tools/mcp-client.js",
-    "./tools/mcp-server": "./dist/tools/mcp-server.js",
-    "./tools/tool-adapter": "./dist/tools/tool-adapter.js",
-    "./types": "./dist/types.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./agent": "./src/agent/index.ts",
+    "./agent/agent-factory": "./src/agent/agent-factory.ts",
+    "./agent/contract-spec-agent": "./src/agent/contract-spec-agent.ts",
+    "./agent/index": "./src/agent/index.ts",
+    "./agent/json-runner": "./src/agent/json-runner.ts",
+    "./agent/unified-agent": "./src/agent/unified-agent.ts",
+    "./approval": "./src/approval/index.ts",
+    "./approval/index": "./src/approval/index.ts",
+    "./approval/workflow": "./src/approval/workflow.ts",
+    "./exporters": "./src/exporters/index.ts",
+    "./exporters/claude-agent-exporter": "./src/exporters/claude-agent-exporter.ts",
+    "./exporters/index": "./src/exporters/index.ts",
+    "./exporters/opencode-exporter": "./src/exporters/opencode-exporter.ts",
+    "./exporters/types": "./src/exporters/types.ts",
+    "./interop": "./src/interop/index.ts",
+    "./interop/index": "./src/interop/index.ts",
+    "./interop/spec-consumer": "./src/interop/spec-consumer.ts",
+    "./interop/tool-consumer": "./src/interop/tool-consumer.ts",
+    "./interop/types": "./src/interop/types.ts",
+    "./knowledge": "./src/knowledge/index.ts",
+    "./knowledge/index": "./src/knowledge/index.ts",
+    "./knowledge/injector": "./src/knowledge/injector.ts",
+    "./memory": "./src/memory/index.ts",
+    "./memory/in-memory": "./src/memory/in-memory.ts",
+    "./memory/index": "./src/memory/index.ts",
+    "./memory/manager": "./src/memory/manager.ts",
+    "./providers": "./src/providers/index.ts",
+    "./providers/claude-agent-sdk": "./src/providers/claude-agent-sdk/index.ts",
+    "./providers/claude-agent-sdk/adapter": "./src/providers/claude-agent-sdk/adapter.ts",
+    "./providers/claude-agent-sdk/index": "./src/providers/claude-agent-sdk/index.ts",
+    "./providers/claude-agent-sdk/session-bridge": "./src/providers/claude-agent-sdk/session-bridge.ts",
+    "./providers/claude-agent-sdk/tool-bridge": "./src/providers/claude-agent-sdk/tool-bridge.ts",
+    "./providers/index": "./src/providers/index.ts",
+    "./providers/opencode-sdk": "./src/providers/opencode-sdk/index.ts",
+    "./providers/opencode-sdk/adapter": "./src/providers/opencode-sdk/adapter.ts",
+    "./providers/opencode-sdk/agent-bridge": "./src/providers/opencode-sdk/agent-bridge.ts",
+    "./providers/opencode-sdk/index": "./src/providers/opencode-sdk/index.ts",
+    "./providers/opencode-sdk/tool-bridge": "./src/providers/opencode-sdk/tool-bridge.ts",
+    "./providers/registry": "./src/providers/registry.ts",
+    "./providers/types": "./src/providers/types.ts",
+    "./schema": "./src/schema/index.ts",
+    "./schema/index": "./src/schema/index.ts",
+    "./schema/json-schema-to-zod": "./src/schema/json-schema-to-zod.ts",
+    "./schema/schema-output": "./src/schema/schema-output.ts",
+    "./session": "./src/session/index.ts",
+    "./session/index": "./src/session/index.ts",
+    "./session/store": "./src/session/store.ts",
+    "./spec": "./src/spec/index.ts",
+    "./spec/index": "./src/spec/index.ts",
+    "./spec/registry": "./src/spec/registry.ts",
+    "./spec/spec": "./src/spec/spec.ts",
+    "./telemetry": "./src/telemetry/index.ts",
+    "./telemetry/adapter": "./src/telemetry/adapter.ts",
+    "./telemetry/index": "./src/telemetry/index.ts",
+    "./tools": "./src/tools/index.ts",
+    "./tools/index": "./src/tools/index.ts",
+    "./tools/knowledge-tool": "./src/tools/knowledge-tool.ts",
+    "./tools/mcp-client": "./src/tools/mcp-client.ts",
+    "./tools/mcp-server": "./src/tools/mcp-server.ts",
+    "./tools/tool-adapter": "./src/tools/tool-adapter.ts",
+    "./types": "./src/types.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./agent": "./dist/agent/index.js",
-      "./agent/agent-factory": "./dist/agent/agent-factory.js",
-      "./agent/contract-spec-agent": "./dist/agent/contract-spec-agent.js",
-      "./approval": "./dist/approval/index.js",
-      "./approval/workflow": "./dist/approval/workflow.js",
-      "./knowledge": "./dist/knowledge/index.js",
-      "./knowledge/injector": "./dist/knowledge/injector.js",
-      "./memory": "./dist/memory/index.js",
-      "./memory/in-memory": "./dist/memory/in-memory.js",
-      "./memory/manager": "./dist/memory/manager.js",
-      "./schema": "./dist/schema/index.js",
-      "./schema/json-schema-to-zod": "./dist/schema/json-schema-to-zod.js",
-      "./schema/schema-output": "./dist/schema/schema-output.js",
-      "./session": "./dist/session/index.js",
-      "./session/store": "./dist/session/store.js",
-      "./spec": "./dist/spec/index.js",
-      "./spec/registry": "./dist/spec/registry.js",
-      "./spec/spec": "./dist/spec/spec.js",
-      "./telemetry": "./dist/telemetry/index.js",
-      "./telemetry/adapter": "./dist/telemetry/adapter.js",
-      "./tools": "./dist/tools/index.js",
-      "./tools/knowledge-tool": "./dist/tools/knowledge-tool.js",
-      "./tools/mcp-client": "./dist/tools/mcp-client.js",
-      "./tools/mcp-server": "./dist/tools/mcp-server.js",
-      "./tools/tool-adapter": "./dist/tools/tool-adapter.js",
-      "./types": "./dist/types.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "default": "./dist/index.js"
+      },
+      "./agent": {
+        "types": "./dist/agent/index.d.ts",
+        "bun": "./dist/agent/index.js",
+        "node": "./dist/node/agent/index.mjs",
+        "default": "./dist/agent/index.js"
+      },
+      "./agent/agent-factory": {
+        "types": "./dist/agent/agent-factory.d.ts",
+        "bun": "./dist/agent/agent-factory.js",
+        "node": "./dist/node/agent/agent-factory.mjs",
+        "default": "./dist/agent/agent-factory.js"
+      },
+      "./agent/contract-spec-agent": {
+        "types": "./dist/agent/contract-spec-agent.d.ts",
+        "bun": "./dist/agent/contract-spec-agent.js",
+        "node": "./dist/node/agent/contract-spec-agent.mjs",
+        "default": "./dist/agent/contract-spec-agent.js"
+      },
+      "./agent/index": {
+        "types": "./dist/agent/index.d.ts",
+        "bun": "./dist/agent/index.js",
+        "node": "./dist/node/agent/index.mjs",
+        "default": "./dist/agent/index.js"
+      },
+      "./agent/json-runner": {
+        "types": "./dist/agent/json-runner.d.ts",
+        "bun": "./dist/agent/json-runner.js",
+        "node": "./dist/node/agent/json-runner.mjs",
+        "default": "./dist/agent/json-runner.js"
+      },
+      "./agent/unified-agent": {
+        "types": "./dist/agent/unified-agent.d.ts",
+        "bun": "./dist/agent/unified-agent.js",
+        "node": "./dist/node/agent/unified-agent.mjs",
+        "default": "./dist/agent/unified-agent.js"
+      },
+      "./approval": {
+        "types": "./dist/approval/index.d.ts",
+        "bun": "./dist/approval/index.js",
+        "node": "./dist/node/approval/index.mjs",
+        "default": "./dist/approval/index.js"
+      },
+      "./approval/index": {
+        "types": "./dist/approval/index.d.ts",
+        "bun": "./dist/approval/index.js",
+        "node": "./dist/node/approval/index.mjs",
+        "default": "./dist/approval/index.js"
+      },
+      "./approval/workflow": {
+        "types": "./dist/approval/workflow.d.ts",
+        "bun": "./dist/approval/workflow.js",
+        "node": "./dist/node/approval/workflow.mjs",
+        "default": "./dist/approval/workflow.js"
+      },
+      "./exporters": {
+        "types": "./dist/exporters/index.d.ts",
+        "bun": "./dist/exporters/index.js",
+        "node": "./dist/node/exporters/index.mjs",
+        "default": "./dist/exporters/index.js"
+      },
+      "./exporters/claude-agent-exporter": {
+        "types": "./dist/exporters/claude-agent-exporter.d.ts",
+        "bun": "./dist/exporters/claude-agent-exporter.js",
+        "node": "./dist/node/exporters/claude-agent-exporter.mjs",
+        "default": "./dist/exporters/claude-agent-exporter.js"
+      },
+      "./exporters/index": {
+        "types": "./dist/exporters/index.d.ts",
+        "bun": "./dist/exporters/index.js",
+        "node": "./dist/node/exporters/index.mjs",
+        "default": "./dist/exporters/index.js"
+      },
+      "./exporters/opencode-exporter": {
+        "types": "./dist/exporters/opencode-exporter.d.ts",
+        "bun": "./dist/exporters/opencode-exporter.js",
+        "node": "./dist/node/exporters/opencode-exporter.mjs",
+        "default": "./dist/exporters/opencode-exporter.js"
+      },
+      "./exporters/types": {
+        "types": "./dist/exporters/types.d.ts",
+        "bun": "./dist/exporters/types.js",
+        "node": "./dist/node/exporters/types.mjs",
+        "default": "./dist/exporters/types.js"
+      },
+      "./interop": {
+        "types": "./dist/interop/index.d.ts",
+        "bun": "./dist/interop/index.js",
+        "node": "./dist/node/interop/index.mjs",
+        "default": "./dist/interop/index.js"
+      },
+      "./interop/index": {
+        "types": "./dist/interop/index.d.ts",
+        "bun": "./dist/interop/index.js",
+        "node": "./dist/node/interop/index.mjs",
+        "default": "./dist/interop/index.js"
+      },
+      "./interop/spec-consumer": {
+        "types": "./dist/interop/spec-consumer.d.ts",
+        "bun": "./dist/interop/spec-consumer.js",
+        "node": "./dist/node/interop/spec-consumer.mjs",
+        "default": "./dist/interop/spec-consumer.js"
+      },
+      "./interop/tool-consumer": {
+        "types": "./dist/interop/tool-consumer.d.ts",
+        "bun": "./dist/interop/tool-consumer.js",
+        "node": "./dist/node/interop/tool-consumer.mjs",
+        "default": "./dist/interop/tool-consumer.js"
+      },
+      "./interop/types": {
+        "types": "./dist/interop/types.d.ts",
+        "bun": "./dist/interop/types.js",
+        "node": "./dist/node/interop/types.mjs",
+        "default": "./dist/interop/types.js"
+      },
+      "./knowledge": {
+        "types": "./dist/knowledge/index.d.ts",
+        "bun": "./dist/knowledge/index.js",
+        "node": "./dist/node/knowledge/index.mjs",
+        "default": "./dist/knowledge/index.js"
+      },
+      "./knowledge/index": {
+        "types": "./dist/knowledge/index.d.ts",
+        "bun": "./dist/knowledge/index.js",
+        "node": "./dist/node/knowledge/index.mjs",
+        "default": "./dist/knowledge/index.js"
+      },
+      "./knowledge/injector": {
+        "types": "./dist/knowledge/injector.d.ts",
+        "bun": "./dist/knowledge/injector.js",
+        "node": "./dist/node/knowledge/injector.mjs",
+        "default": "./dist/knowledge/injector.js"
+      },
+      "./memory": {
+        "types": "./dist/memory/index.d.ts",
+        "bun": "./dist/memory/index.js",
+        "node": "./dist/node/memory/index.mjs",
+        "default": "./dist/memory/index.js"
+      },
+      "./memory/in-memory": {
+        "types": "./dist/memory/in-memory.d.ts",
+        "bun": "./dist/memory/in-memory.js",
+        "node": "./dist/node/memory/in-memory.mjs",
+        "default": "./dist/memory/in-memory.js"
+      },
+      "./memory/index": {
+        "types": "./dist/memory/index.d.ts",
+        "bun": "./dist/memory/index.js",
+        "node": "./dist/node/memory/index.mjs",
+        "default": "./dist/memory/index.js"
+      },
+      "./memory/manager": {
+        "types": "./dist/memory/manager.d.ts",
+        "bun": "./dist/memory/manager.js",
+        "node": "./dist/node/memory/manager.mjs",
+        "default": "./dist/memory/manager.js"
+      },
+      "./providers": {
+        "types": "./dist/providers/index.d.ts",
+        "bun": "./dist/providers/index.js",
+        "node": "./dist/node/providers/index.mjs",
+        "default": "./dist/providers/index.js"
+      },
+      "./providers/claude-agent-sdk": {
+        "types": "./dist/providers/claude-agent-sdk/index.d.ts",
+        "bun": "./dist/providers/claude-agent-sdk/index.js",
+        "node": "./dist/node/providers/claude-agent-sdk/index.mjs",
+        "default": "./dist/providers/claude-agent-sdk/index.js"
+      },
+      "./providers/claude-agent-sdk/adapter": {
+        "types": "./dist/providers/claude-agent-sdk/adapter.d.ts",
+        "bun": "./dist/providers/claude-agent-sdk/adapter.js",
+        "node": "./dist/node/providers/claude-agent-sdk/adapter.mjs",
+        "default": "./dist/providers/claude-agent-sdk/adapter.js"
+      },
+      "./providers/claude-agent-sdk/index": {
+        "types": "./dist/providers/claude-agent-sdk/index.d.ts",
+        "bun": "./dist/providers/claude-agent-sdk/index.js",
+        "node": "./dist/node/providers/claude-agent-sdk/index.mjs",
+        "default": "./dist/providers/claude-agent-sdk/index.js"
+      },
+      "./providers/claude-agent-sdk/session-bridge": {
+        "types": "./dist/providers/claude-agent-sdk/session-bridge.d.ts",
+        "bun": "./dist/providers/claude-agent-sdk/session-bridge.js",
+        "node": "./dist/node/providers/claude-agent-sdk/session-bridge.mjs",
+        "default": "./dist/providers/claude-agent-sdk/session-bridge.js"
+      },
+      "./providers/claude-agent-sdk/tool-bridge": {
+        "types": "./dist/providers/claude-agent-sdk/tool-bridge.d.ts",
+        "bun": "./dist/providers/claude-agent-sdk/tool-bridge.js",
+        "node": "./dist/node/providers/claude-agent-sdk/tool-bridge.mjs",
+        "default": "./dist/providers/claude-agent-sdk/tool-bridge.js"
+      },
+      "./providers/index": {
+        "types": "./dist/providers/index.d.ts",
+        "bun": "./dist/providers/index.js",
+        "node": "./dist/node/providers/index.mjs",
+        "default": "./dist/providers/index.js"
+      },
+      "./providers/opencode-sdk": {
+        "types": "./dist/providers/opencode-sdk/index.d.ts",
+        "bun": "./dist/providers/opencode-sdk/index.js",
+        "node": "./dist/node/providers/opencode-sdk/index.mjs",
+        "default": "./dist/providers/opencode-sdk/index.js"
+      },
+      "./providers/opencode-sdk/adapter": {
+        "types": "./dist/providers/opencode-sdk/adapter.d.ts",
+        "bun": "./dist/providers/opencode-sdk/adapter.js",
+        "node": "./dist/node/providers/opencode-sdk/adapter.mjs",
+        "default": "./dist/providers/opencode-sdk/adapter.js"
+      },
+      "./providers/opencode-sdk/agent-bridge": {
+        "types": "./dist/providers/opencode-sdk/agent-bridge.d.ts",
+        "bun": "./dist/providers/opencode-sdk/agent-bridge.js",
+        "node": "./dist/node/providers/opencode-sdk/agent-bridge.mjs",
+        "default": "./dist/providers/opencode-sdk/agent-bridge.js"
+      },
+      "./providers/opencode-sdk/index": {
+        "types": "./dist/providers/opencode-sdk/index.d.ts",
+        "bun": "./dist/providers/opencode-sdk/index.js",
+        "node": "./dist/node/providers/opencode-sdk/index.mjs",
+        "default": "./dist/providers/opencode-sdk/index.js"
+      },
+      "./providers/opencode-sdk/tool-bridge": {
+        "types": "./dist/providers/opencode-sdk/tool-bridge.d.ts",
+        "bun": "./dist/providers/opencode-sdk/tool-bridge.js",
+        "node": "./dist/node/providers/opencode-sdk/tool-bridge.mjs",
+        "default": "./dist/providers/opencode-sdk/tool-bridge.js"
+      },
+      "./providers/registry": {
+        "types": "./dist/providers/registry.d.ts",
+        "bun": "./dist/providers/registry.js",
+        "node": "./dist/node/providers/registry.mjs",
+        "default": "./dist/providers/registry.js"
+      },
+      "./providers/types": {
+        "types": "./dist/providers/types.d.ts",
+        "bun": "./dist/providers/types.js",
+        "node": "./dist/node/providers/types.mjs",
+        "default": "./dist/providers/types.js"
+      },
+      "./schema": {
+        "types": "./dist/schema/index.d.ts",
+        "bun": "./dist/schema/index.js",
+        "node": "./dist/node/schema/index.mjs",
+        "default": "./dist/schema/index.js"
+      },
+      "./schema/index": {
+        "types": "./dist/schema/index.d.ts",
+        "bun": "./dist/schema/index.js",
+        "node": "./dist/node/schema/index.mjs",
+        "default": "./dist/schema/index.js"
+      },
+      "./schema/json-schema-to-zod": {
+        "types": "./dist/schema/json-schema-to-zod.d.ts",
+        "bun": "./dist/schema/json-schema-to-zod.js",
+        "node": "./dist/node/schema/json-schema-to-zod.mjs",
+        "default": "./dist/schema/json-schema-to-zod.js"
+      },
+      "./schema/schema-output": {
+        "types": "./dist/schema/schema-output.d.ts",
+        "bun": "./dist/schema/schema-output.js",
+        "node": "./dist/node/schema/schema-output.mjs",
+        "default": "./dist/schema/schema-output.js"
+      },
+      "./session": {
+        "types": "./dist/session/index.d.ts",
+        "bun": "./dist/session/index.js",
+        "node": "./dist/node/session/index.mjs",
+        "default": "./dist/session/index.js"
+      },
+      "./session/index": {
+        "types": "./dist/session/index.d.ts",
+        "bun": "./dist/session/index.js",
+        "node": "./dist/node/session/index.mjs",
+        "default": "./dist/session/index.js"
+      },
+      "./session/store": {
+        "types": "./dist/session/store.d.ts",
+        "bun": "./dist/session/store.js",
+        "node": "./dist/node/session/store.mjs",
+        "default": "./dist/session/store.js"
+      },
+      "./spec": {
+        "types": "./dist/spec/index.d.ts",
+        "bun": "./dist/spec/index.js",
+        "node": "./dist/node/spec/index.mjs",
+        "default": "./dist/spec/index.js"
+      },
+      "./spec/index": {
+        "types": "./dist/spec/index.d.ts",
+        "bun": "./dist/spec/index.js",
+        "node": "./dist/node/spec/index.mjs",
+        "default": "./dist/spec/index.js"
+      },
+      "./spec/registry": {
+        "types": "./dist/spec/registry.d.ts",
+        "bun": "./dist/spec/registry.js",
+        "node": "./dist/node/spec/registry.mjs",
+        "default": "./dist/spec/registry.js"
+      },
+      "./spec/spec": {
+        "types": "./dist/spec/spec.d.ts",
+        "bun": "./dist/spec/spec.js",
+        "node": "./dist/node/spec/spec.mjs",
+        "default": "./dist/spec/spec.js"
+      },
+      "./telemetry": {
+        "types": "./dist/telemetry/index.d.ts",
+        "bun": "./dist/telemetry/index.js",
+        "node": "./dist/node/telemetry/index.mjs",
+        "default": "./dist/telemetry/index.js"
+      },
+      "./telemetry/adapter": {
+        "types": "./dist/telemetry/adapter.d.ts",
+        "bun": "./dist/telemetry/adapter.js",
+        "node": "./dist/node/telemetry/adapter.mjs",
+        "default": "./dist/telemetry/adapter.js"
+      },
+      "./telemetry/index": {
+        "types": "./dist/telemetry/index.d.ts",
+        "bun": "./dist/telemetry/index.js",
+        "node": "./dist/node/telemetry/index.mjs",
+        "default": "./dist/telemetry/index.js"
+      },
+      "./tools": {
+        "types": "./dist/tools/index.d.ts",
+        "bun": "./dist/tools/index.js",
+        "node": "./dist/node/tools/index.mjs",
+        "default": "./dist/tools/index.js"
+      },
+      "./tools/index": {
+        "types": "./dist/tools/index.d.ts",
+        "bun": "./dist/tools/index.js",
+        "node": "./dist/node/tools/index.mjs",
+        "default": "./dist/tools/index.js"
+      },
+      "./tools/knowledge-tool": {
+        "types": "./dist/tools/knowledge-tool.d.ts",
+        "bun": "./dist/tools/knowledge-tool.js",
+        "node": "./dist/node/tools/knowledge-tool.mjs",
+        "default": "./dist/tools/knowledge-tool.js"
+      },
+      "./tools/mcp-client": {
+        "types": "./dist/tools/mcp-client.d.ts",
+        "bun": "./dist/tools/mcp-client.js",
+        "node": "./dist/node/tools/mcp-client.mjs",
+        "default": "./dist/tools/mcp-client.js"
+      },
+      "./tools/mcp-server": {
+        "types": "./dist/tools/mcp-server.d.ts",
+        "bun": "./dist/tools/mcp-server.js",
+        "node": "./dist/node/tools/mcp-server.mjs",
+        "default": "./dist/tools/mcp-server.js"
+      },
+      "./tools/tool-adapter": {
+        "types": "./dist/tools/tool-adapter.d.ts",
+        "bun": "./dist/tools/tool-adapter.js",
+        "node": "./dist/node/tools/tool-adapter.mjs",
+        "default": "./dist/tools/tool-adapter.js"
+      },
+      "./types": {
+        "types": "./dist/types.d.ts",
+        "bun": "./dist/types.js",
+        "node": "./dist/node/types.mjs",
+        "default": "./dist/types.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

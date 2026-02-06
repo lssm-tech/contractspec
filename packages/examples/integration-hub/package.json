@@ -7,15 +7,17 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "validate": "contractspec validate \"src/**/*\""
+    "validate": "contractspec validate \"src/**/*\"",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
@@ -28,46 +30,55 @@
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
     "typescript": "catalog:",
     "@types/react": "^19.2.13",
-    "@types/react-dom": "^19.2.2"
+    "@types/react-dom": "^19.2.2",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./connection": "./dist/connection/index.js",
-    "./connection/connection.enum": "./dist/connection/connection.enum.js",
-    "./connection/connection.operation": "./dist/connection/connection.operation.js",
-    "./connection/connection.presentation": "./dist/connection/connection.presentation.js",
-    "./connection/connection.schema": "./dist/connection/connection.schema.js",
-    "./docs": "./dist/docs/index.js",
-    "./docs/integration-hub.docblock": "./dist/docs/integration-hub.docblock.js",
-    "./events": "./dist/events.js",
-    "./example": "./dist/example.js",
-    "./handlers": "./dist/handlers/index.js",
-    "./handlers/integration.handlers": "./dist/handlers/integration.handlers.js",
-    "./integration": "./dist/integration/index.js",
-    "./integration-hub.capability": "./dist/integration-hub.capability.js",
-    "./integration-hub.feature": "./dist/integration-hub.feature.js",
-    "./integration/integration.enum": "./dist/integration/integration.enum.js",
-    "./integration/integration.operations": "./dist/integration/integration.operations.js",
-    "./integration/integration.presentation": "./dist/integration/integration.presentation.js",
-    "./integration/integration.schema": "./dist/integration/integration.schema.js",
-    "./seeders": "./dist/seeders/index.js",
-    "./sync": "./dist/sync/index.js",
-    "./sync-engine": "./dist/sync-engine/index.js",
-    "./sync/sync.enum": "./dist/sync/sync.enum.js",
-    "./sync/sync.operations": "./dist/sync/sync.operations.js",
-    "./sync/sync.presentation": "./dist/sync/sync.presentation.js",
-    "./sync/sync.schema": "./dist/sync/sync.schema.js",
-    "./tests/operations.test-spec": "./dist/tests/operations.test-spec.js",
-    "./ui": "./dist/ui/index.js",
-    "./ui/hooks": "./dist/ui/hooks/index.js",
-    "./ui/hooks/useIntegrationData": "./dist/ui/hooks/useIntegrationData.js",
-    "./ui/IntegrationDashboard": "./dist/ui/IntegrationDashboard.js",
-    "./ui/renderers": "./dist/ui/renderers/index.js",
-    "./ui/renderers/integration.markdown": "./dist/ui/renderers/integration.markdown.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./connection": "./src/connection/index.ts",
+    "./connection/connection.enum": "./src/connection/connection.enum.ts",
+    "./connection/connection.operation": "./src/connection/connection.operation.ts",
+    "./connection/connection.presentation": "./src/connection/connection.presentation.ts",
+    "./connection/connection.schema": "./src/connection/connection.schema.ts",
+    "./connection/index": "./src/connection/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/index": "./src/docs/index.ts",
+    "./docs/integration-hub.docblock": "./src/docs/integration-hub.docblock.ts",
+    "./events": "./src/events.ts",
+    "./example": "./src/example.ts",
+    "./handlers": "./src/handlers/index.ts",
+    "./handlers/index": "./src/handlers/index.ts",
+    "./handlers/integration.handlers": "./src/handlers/integration.handlers.ts",
+    "./integration": "./src/integration/index.ts",
+    "./integration-hub.capability": "./src/integration-hub.capability.ts",
+    "./integration-hub.feature": "./src/integration-hub.feature.ts",
+    "./integration/index": "./src/integration/index.ts",
+    "./integration/integration.enum": "./src/integration/integration.enum.ts",
+    "./integration/integration.operations": "./src/integration/integration.operations.ts",
+    "./integration/integration.presentation": "./src/integration/integration.presentation.ts",
+    "./integration/integration.schema": "./src/integration/integration.schema.ts",
+    "./seeders": "./src/seeders/index.ts",
+    "./seeders/index": "./src/seeders/index.ts",
+    "./sync": "./src/sync/index.ts",
+    "./sync-engine": "./src/sync-engine/index.ts",
+    "./sync-engine/index": "./src/sync-engine/index.ts",
+    "./sync/index": "./src/sync/index.ts",
+    "./sync/sync.enum": "./src/sync/sync.enum.ts",
+    "./sync/sync.operations": "./src/sync/sync.operations.ts",
+    "./sync/sync.presentation": "./src/sync/sync.presentation.ts",
+    "./sync/sync.schema": "./src/sync/sync.schema.ts",
+    "./tests/operations.test-spec": "./src/tests/operations.test-spec.ts",
+    "./ui": "./src/ui/index.ts",
+    "./ui/hooks": "./src/ui/hooks/index.ts",
+    "./ui/hooks/index": "./src/ui/hooks/index.ts",
+    "./ui/hooks/useIntegrationData": "./src/ui/hooks/useIntegrationData.ts",
+    "./ui/index": "./src/ui/index.ts",
+    "./ui/IntegrationDashboard": "./src/ui/IntegrationDashboard.tsx",
+    "./ui/renderers": "./src/ui/renderers/index.ts",
+    "./ui/renderers/index": "./src/ui/renderers/index.ts",
+    "./ui/renderers/integration.markdown": "./src/ui/renderers/integration.markdown.ts"
   },
   "files": [
     "dist",
@@ -76,29 +87,307 @@
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./connection": "./dist/connection/index.js",
-      "./connection/connection.contracts": "./dist/connection/connection.operations.js",
-      "./connection/connection.enum": "./dist/connection/connection.enum.js",
-      "./connection/connection.presentation": "./dist/connection/connection.presentation.js",
-      "./connection/connection.schema": "./dist/connection/connection.schema.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/integration-hub.docblock": "./dist/docs/integration-hub.docblock.js",
-      "./events": "./dist/events.js",
-      "./example": "./dist/example.js",
-      "./integration": "./dist/integration/index.js",
-      "./integration-hub.feature": "./dist/integration-hub.feature.js",
-      "./integration/integration.contracts": "./dist/integration/integration.operations.js",
-      "./integration/integration.enum": "./dist/integration/integration.enum.js",
-      "./integration/integration.presentation": "./dist/integration/integration.presentation.js",
-      "./integration/integration.schema": "./dist/integration/integration.schema.js",
-      "./sync": "./dist/sync/index.js",
-      "./sync-engine": "./dist/sync-engine/index.js",
-      "./sync/sync.contracts": "./dist/sync/sync.operations.js",
-      "./sync/sync.enum": "./dist/sync/sync.enum.js",
-      "./sync/sync.presentation": "./dist/sync/sync.presentation.js",
-      "./sync/sync.schema": "./dist/sync/sync.schema.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./connection": {
+        "types": "./dist/connection/index.d.ts",
+        "bun": "./dist/connection/index.js",
+        "node": "./dist/node/connection/index.mjs",
+        "browser": "./dist/browser/connection/index.js",
+        "default": "./dist/connection/index.js"
+      },
+      "./connection/connection.enum": {
+        "types": "./dist/connection/connection.enum.d.ts",
+        "bun": "./dist/connection/connection.enum.js",
+        "node": "./dist/node/connection/connection.enum.mjs",
+        "browser": "./dist/browser/connection/connection.enum.js",
+        "default": "./dist/connection/connection.enum.js"
+      },
+      "./connection/connection.operation": {
+        "types": "./dist/connection/connection.operation.d.ts",
+        "bun": "./dist/connection/connection.operation.js",
+        "node": "./dist/node/connection/connection.operation.mjs",
+        "browser": "./dist/browser/connection/connection.operation.js",
+        "default": "./dist/connection/connection.operation.js"
+      },
+      "./connection/connection.presentation": {
+        "types": "./dist/connection/connection.presentation.d.ts",
+        "bun": "./dist/connection/connection.presentation.js",
+        "node": "./dist/node/connection/connection.presentation.mjs",
+        "browser": "./dist/browser/connection/connection.presentation.js",
+        "default": "./dist/connection/connection.presentation.js"
+      },
+      "./connection/connection.schema": {
+        "types": "./dist/connection/connection.schema.d.ts",
+        "bun": "./dist/connection/connection.schema.js",
+        "node": "./dist/node/connection/connection.schema.mjs",
+        "browser": "./dist/browser/connection/connection.schema.js",
+        "default": "./dist/connection/connection.schema.js"
+      },
+      "./connection/index": {
+        "types": "./dist/connection/index.d.ts",
+        "bun": "./dist/connection/index.js",
+        "node": "./dist/node/connection/index.mjs",
+        "browser": "./dist/browser/connection/index.js",
+        "default": "./dist/connection/index.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/index": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/integration-hub.docblock": {
+        "types": "./dist/docs/integration-hub.docblock.d.ts",
+        "bun": "./dist/docs/integration-hub.docblock.js",
+        "node": "./dist/node/docs/integration-hub.docblock.mjs",
+        "browser": "./dist/browser/docs/integration-hub.docblock.js",
+        "default": "./dist/docs/integration-hub.docblock.js"
+      },
+      "./events": {
+        "types": "./dist/events.d.ts",
+        "bun": "./dist/events.js",
+        "node": "./dist/node/events.mjs",
+        "browser": "./dist/browser/events.js",
+        "default": "./dist/events.js"
+      },
+      "./example": {
+        "types": "./dist/example.d.ts",
+        "bun": "./dist/example.js",
+        "node": "./dist/node/example.mjs",
+        "browser": "./dist/browser/example.js",
+        "default": "./dist/example.js"
+      },
+      "./handlers": {
+        "types": "./dist/handlers/index.d.ts",
+        "bun": "./dist/handlers/index.js",
+        "node": "./dist/node/handlers/index.mjs",
+        "browser": "./dist/browser/handlers/index.js",
+        "default": "./dist/handlers/index.js"
+      },
+      "./handlers/index": {
+        "types": "./dist/handlers/index.d.ts",
+        "bun": "./dist/handlers/index.js",
+        "node": "./dist/node/handlers/index.mjs",
+        "browser": "./dist/browser/handlers/index.js",
+        "default": "./dist/handlers/index.js"
+      },
+      "./handlers/integration.handlers": {
+        "types": "./dist/handlers/integration.handlers.d.ts",
+        "bun": "./dist/handlers/integration.handlers.js",
+        "node": "./dist/node/handlers/integration.handlers.mjs",
+        "browser": "./dist/browser/handlers/integration.handlers.js",
+        "default": "./dist/handlers/integration.handlers.js"
+      },
+      "./integration": {
+        "types": "./dist/integration/index.d.ts",
+        "bun": "./dist/integration/index.js",
+        "node": "./dist/node/integration/index.mjs",
+        "browser": "./dist/browser/integration/index.js",
+        "default": "./dist/integration/index.js"
+      },
+      "./integration-hub.capability": {
+        "types": "./dist/integration-hub.capability.d.ts",
+        "bun": "./dist/integration-hub.capability.js",
+        "node": "./dist/node/integration-hub.capability.mjs",
+        "browser": "./dist/browser/integration-hub.capability.js",
+        "default": "./dist/integration-hub.capability.js"
+      },
+      "./integration-hub.feature": {
+        "types": "./dist/integration-hub.feature.d.ts",
+        "bun": "./dist/integration-hub.feature.js",
+        "node": "./dist/node/integration-hub.feature.mjs",
+        "browser": "./dist/browser/integration-hub.feature.js",
+        "default": "./dist/integration-hub.feature.js"
+      },
+      "./integration/index": {
+        "types": "./dist/integration/index.d.ts",
+        "bun": "./dist/integration/index.js",
+        "node": "./dist/node/integration/index.mjs",
+        "browser": "./dist/browser/integration/index.js",
+        "default": "./dist/integration/index.js"
+      },
+      "./integration/integration.enum": {
+        "types": "./dist/integration/integration.enum.d.ts",
+        "bun": "./dist/integration/integration.enum.js",
+        "node": "./dist/node/integration/integration.enum.mjs",
+        "browser": "./dist/browser/integration/integration.enum.js",
+        "default": "./dist/integration/integration.enum.js"
+      },
+      "./integration/integration.operations": {
+        "types": "./dist/integration/integration.operations.d.ts",
+        "bun": "./dist/integration/integration.operations.js",
+        "node": "./dist/node/integration/integration.operations.mjs",
+        "browser": "./dist/browser/integration/integration.operations.js",
+        "default": "./dist/integration/integration.operations.js"
+      },
+      "./integration/integration.presentation": {
+        "types": "./dist/integration/integration.presentation.d.ts",
+        "bun": "./dist/integration/integration.presentation.js",
+        "node": "./dist/node/integration/integration.presentation.mjs",
+        "browser": "./dist/browser/integration/integration.presentation.js",
+        "default": "./dist/integration/integration.presentation.js"
+      },
+      "./integration/integration.schema": {
+        "types": "./dist/integration/integration.schema.d.ts",
+        "bun": "./dist/integration/integration.schema.js",
+        "node": "./dist/node/integration/integration.schema.mjs",
+        "browser": "./dist/browser/integration/integration.schema.js",
+        "default": "./dist/integration/integration.schema.js"
+      },
+      "./seeders": {
+        "types": "./dist/seeders/index.d.ts",
+        "bun": "./dist/seeders/index.js",
+        "node": "./dist/node/seeders/index.mjs",
+        "browser": "./dist/browser/seeders/index.js",
+        "default": "./dist/seeders/index.js"
+      },
+      "./seeders/index": {
+        "types": "./dist/seeders/index.d.ts",
+        "bun": "./dist/seeders/index.js",
+        "node": "./dist/node/seeders/index.mjs",
+        "browser": "./dist/browser/seeders/index.js",
+        "default": "./dist/seeders/index.js"
+      },
+      "./sync": {
+        "types": "./dist/sync/index.d.ts",
+        "bun": "./dist/sync/index.js",
+        "node": "./dist/node/sync/index.mjs",
+        "browser": "./dist/browser/sync/index.js",
+        "default": "./dist/sync/index.js"
+      },
+      "./sync-engine": {
+        "types": "./dist/sync-engine/index.d.ts",
+        "bun": "./dist/sync-engine/index.js",
+        "node": "./dist/node/sync-engine/index.mjs",
+        "browser": "./dist/browser/sync-engine/index.js",
+        "default": "./dist/sync-engine/index.js"
+      },
+      "./sync-engine/index": {
+        "types": "./dist/sync-engine/index.d.ts",
+        "bun": "./dist/sync-engine/index.js",
+        "node": "./dist/node/sync-engine/index.mjs",
+        "browser": "./dist/browser/sync-engine/index.js",
+        "default": "./dist/sync-engine/index.js"
+      },
+      "./sync/index": {
+        "types": "./dist/sync/index.d.ts",
+        "bun": "./dist/sync/index.js",
+        "node": "./dist/node/sync/index.mjs",
+        "browser": "./dist/browser/sync/index.js",
+        "default": "./dist/sync/index.js"
+      },
+      "./sync/sync.enum": {
+        "types": "./dist/sync/sync.enum.d.ts",
+        "bun": "./dist/sync/sync.enum.js",
+        "node": "./dist/node/sync/sync.enum.mjs",
+        "browser": "./dist/browser/sync/sync.enum.js",
+        "default": "./dist/sync/sync.enum.js"
+      },
+      "./sync/sync.operations": {
+        "types": "./dist/sync/sync.operations.d.ts",
+        "bun": "./dist/sync/sync.operations.js",
+        "node": "./dist/node/sync/sync.operations.mjs",
+        "browser": "./dist/browser/sync/sync.operations.js",
+        "default": "./dist/sync/sync.operations.js"
+      },
+      "./sync/sync.presentation": {
+        "types": "./dist/sync/sync.presentation.d.ts",
+        "bun": "./dist/sync/sync.presentation.js",
+        "node": "./dist/node/sync/sync.presentation.mjs",
+        "browser": "./dist/browser/sync/sync.presentation.js",
+        "default": "./dist/sync/sync.presentation.js"
+      },
+      "./sync/sync.schema": {
+        "types": "./dist/sync/sync.schema.d.ts",
+        "bun": "./dist/sync/sync.schema.js",
+        "node": "./dist/node/sync/sync.schema.mjs",
+        "browser": "./dist/browser/sync/sync.schema.js",
+        "default": "./dist/sync/sync.schema.js"
+      },
+      "./tests/operations.test-spec": {
+        "types": "./dist/tests/operations.test-spec.d.ts",
+        "bun": "./dist/tests/operations.test-spec.js",
+        "node": "./dist/node/tests/operations.test-spec.mjs",
+        "browser": "./dist/browser/tests/operations.test-spec.js",
+        "default": "./dist/tests/operations.test-spec.js"
+      },
+      "./ui": {
+        "types": "./dist/ui/index.d.ts",
+        "bun": "./dist/ui/index.js",
+        "node": "./dist/node/ui/index.mjs",
+        "browser": "./dist/browser/ui/index.js",
+        "default": "./dist/ui/index.js"
+      },
+      "./ui/hooks": {
+        "types": "./dist/ui/hooks/index.d.ts",
+        "bun": "./dist/ui/hooks/index.js",
+        "node": "./dist/node/ui/hooks/index.mjs",
+        "browser": "./dist/browser/ui/hooks/index.js",
+        "default": "./dist/ui/hooks/index.js"
+      },
+      "./ui/hooks/index": {
+        "types": "./dist/ui/hooks/index.d.ts",
+        "bun": "./dist/ui/hooks/index.js",
+        "node": "./dist/node/ui/hooks/index.mjs",
+        "browser": "./dist/browser/ui/hooks/index.js",
+        "default": "./dist/ui/hooks/index.js"
+      },
+      "./ui/hooks/useIntegrationData": {
+        "types": "./dist/ui/hooks/useIntegrationData.d.ts",
+        "bun": "./dist/ui/hooks/useIntegrationData.js",
+        "node": "./dist/node/ui/hooks/useIntegrationData.mjs",
+        "browser": "./dist/browser/ui/hooks/useIntegrationData.js",
+        "default": "./dist/ui/hooks/useIntegrationData.js"
+      },
+      "./ui/index": {
+        "types": "./dist/ui/index.d.ts",
+        "bun": "./dist/ui/index.js",
+        "node": "./dist/node/ui/index.mjs",
+        "browser": "./dist/browser/ui/index.js",
+        "default": "./dist/ui/index.js"
+      },
+      "./ui/IntegrationDashboard": {
+        "types": "./dist/ui/IntegrationDashboard.d.ts",
+        "bun": "./dist/ui/IntegrationDashboard.js",
+        "node": "./dist/node/ui/IntegrationDashboard.mjs",
+        "browser": "./dist/browser/ui/IntegrationDashboard.js",
+        "default": "./dist/ui/IntegrationDashboard.js"
+      },
+      "./ui/renderers": {
+        "types": "./dist/ui/renderers/index.d.ts",
+        "bun": "./dist/ui/renderers/index.js",
+        "node": "./dist/node/ui/renderers/index.mjs",
+        "browser": "./dist/browser/ui/renderers/index.js",
+        "default": "./dist/ui/renderers/index.js"
+      },
+      "./ui/renderers/index": {
+        "types": "./dist/ui/renderers/index.d.ts",
+        "bun": "./dist/ui/renderers/index.js",
+        "node": "./dist/node/ui/renderers/index.mjs",
+        "browser": "./dist/browser/ui/renderers/index.js",
+        "default": "./dist/ui/renderers/index.js"
+      },
+      "./ui/renderers/integration.markdown": {
+        "types": "./dist/ui/renderers/integration.markdown.d.ts",
+        "bun": "./dist/ui/renderers/integration.markdown.js",
+        "node": "./dist/node/ui/renderers/integration.markdown.mjs",
+        "browser": "./dist/browser/ui/renderers/integration.markdown.js",
+        "default": "./dist/ui/renderers/integration.markdown.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

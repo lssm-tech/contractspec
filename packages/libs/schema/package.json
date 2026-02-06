@@ -14,20 +14,21 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "dependencies": {
     "zod": "catalog:",
@@ -40,25 +41,122 @@
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./entity": "./dist/entity/index.js",
-    "./entity/defineEntity": "./dist/entity/defineEntity.js",
-    "./entity/generator": "./dist/entity/generator.js",
-    "./entity/types": "./dist/entity/types.js",
-    "./EnumType": "./dist/EnumType.js",
-    "./FieldType": "./dist/FieldType.js",
-    "./GraphQLSchemaType": "./dist/GraphQLSchemaType.js",
-    "./JsonSchemaType": "./dist/JsonSchemaType.js",
-    "./ScalarTypeEnum": "./dist/ScalarTypeEnum.js",
-    "./SchemaModel": "./dist/SchemaModel.js",
-    "./SchemaModelType": "./dist/SchemaModelType.js",
-    "./ZodSchemaType": "./dist/ZodSchemaType.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./entity": "./src/entity/index.ts",
+    "./entity/defineEntity": "./src/entity/defineEntity.ts",
+    "./entity/generator": "./src/entity/generator.ts",
+    "./entity/index": "./src/entity/index.ts",
+    "./entity/types": "./src/entity/types.ts",
+    "./EnumType": "./src/EnumType.ts",
+    "./FieldType": "./src/FieldType.ts",
+    "./GraphQLSchemaType": "./src/GraphQLSchemaType.ts",
+    "./JsonSchemaType": "./src/JsonSchemaType.ts",
+    "./ScalarTypeEnum": "./src/ScalarTypeEnum.ts",
+    "./SchemaModel": "./src/SchemaModel.ts",
+    "./SchemaModelType": "./src/SchemaModelType.ts",
+    "./ZodSchemaType": "./src/ZodSchemaType.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./entity": {
+        "types": "./dist/entity/index.d.ts",
+        "bun": "./dist/entity/index.js",
+        "node": "./dist/node/entity/index.mjs",
+        "browser": "./dist/browser/entity/index.js",
+        "default": "./dist/entity/index.js"
+      },
+      "./entity/defineEntity": {
+        "types": "./dist/entity/defineEntity.d.ts",
+        "bun": "./dist/entity/defineEntity.js",
+        "node": "./dist/node/entity/defineEntity.mjs",
+        "browser": "./dist/browser/entity/defineEntity.js",
+        "default": "./dist/entity/defineEntity.js"
+      },
+      "./entity/generator": {
+        "types": "./dist/entity/generator.d.ts",
+        "bun": "./dist/entity/generator.js",
+        "node": "./dist/node/entity/generator.mjs",
+        "browser": "./dist/browser/entity/generator.js",
+        "default": "./dist/entity/generator.js"
+      },
+      "./entity/index": {
+        "types": "./dist/entity/index.d.ts",
+        "bun": "./dist/entity/index.js",
+        "node": "./dist/node/entity/index.mjs",
+        "browser": "./dist/browser/entity/index.js",
+        "default": "./dist/entity/index.js"
+      },
+      "./entity/types": {
+        "types": "./dist/entity/types.d.ts",
+        "bun": "./dist/entity/types.js",
+        "node": "./dist/node/entity/types.mjs",
+        "browser": "./dist/browser/entity/types.js",
+        "default": "./dist/entity/types.js"
+      },
+      "./EnumType": {
+        "types": "./dist/EnumType.d.ts",
+        "bun": "./dist/EnumType.js",
+        "node": "./dist/node/EnumType.mjs",
+        "browser": "./dist/browser/EnumType.js",
+        "default": "./dist/EnumType.js"
+      },
+      "./FieldType": {
+        "types": "./dist/FieldType.d.ts",
+        "bun": "./dist/FieldType.js",
+        "node": "./dist/node/FieldType.mjs",
+        "browser": "./dist/browser/FieldType.js",
+        "default": "./dist/FieldType.js"
+      },
+      "./GraphQLSchemaType": {
+        "types": "./dist/GraphQLSchemaType.d.ts",
+        "bun": "./dist/GraphQLSchemaType.js",
+        "node": "./dist/node/GraphQLSchemaType.mjs",
+        "browser": "./dist/browser/GraphQLSchemaType.js",
+        "default": "./dist/GraphQLSchemaType.js"
+      },
+      "./JsonSchemaType": {
+        "types": "./dist/JsonSchemaType.d.ts",
+        "bun": "./dist/JsonSchemaType.js",
+        "node": "./dist/node/JsonSchemaType.mjs",
+        "browser": "./dist/browser/JsonSchemaType.js",
+        "default": "./dist/JsonSchemaType.js"
+      },
+      "./ScalarTypeEnum": {
+        "types": "./dist/ScalarTypeEnum.d.ts",
+        "bun": "./dist/ScalarTypeEnum.js",
+        "node": "./dist/node/ScalarTypeEnum.mjs",
+        "browser": "./dist/browser/ScalarTypeEnum.js",
+        "default": "./dist/ScalarTypeEnum.js"
+      },
+      "./SchemaModel": {
+        "types": "./dist/SchemaModel.d.ts",
+        "bun": "./dist/SchemaModel.js",
+        "node": "./dist/node/SchemaModel.mjs",
+        "browser": "./dist/browser/SchemaModel.js",
+        "default": "./dist/SchemaModel.js"
+      },
+      "./SchemaModelType": {
+        "types": "./dist/SchemaModelType.d.ts",
+        "bun": "./dist/SchemaModelType.js",
+        "node": "./dist/node/SchemaModelType.mjs",
+        "browser": "./dist/browser/SchemaModelType.js",
+        "default": "./dist/SchemaModelType.js"
+      },
+      "./ZodSchemaType": {
+        "types": "./dist/ZodSchemaType.d.ts",
+        "bun": "./dist/ZodSchemaType.js",
+        "node": "./dist/node/ZodSchemaType.mjs",
+        "browser": "./dist/browser/ZodSchemaType.js",
+        "default": "./dist/ZodSchemaType.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

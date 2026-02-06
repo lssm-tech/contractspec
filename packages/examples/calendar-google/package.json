@@ -5,26 +5,28 @@
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./docs": "./dist/docs/index.js",
-    "./docs/calendar-google.docblock": "./dist/docs/calendar-google.docblock.js",
-    "./example": "./dist/example.js",
-    "./run": "./dist/run.js",
-    "./sync": "./dist/sync.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/calendar-google.docblock": "./src/docs/calendar-google.docblock.ts",
+    "./docs/index": "./src/docs/index.ts",
+    "./example": "./src/example.ts",
+    "./run": "./src/run.ts",
+    "./sync": "./src/sync.ts"
   },
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/integration.providers-impls": "workspace:*",
@@ -32,21 +34,62 @@
     "googleapis": "^171.4.0"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/calendar-google.docblock": "./dist/docs/calendar-google.docblock.js",
-      "./example": "./dist/example.js",
-      "./run": "./dist/run.js",
-      "./sync": "./dist/sync.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/calendar-google.docblock": {
+        "types": "./dist/docs/calendar-google.docblock.d.ts",
+        "bun": "./dist/docs/calendar-google.docblock.js",
+        "node": "./dist/node/docs/calendar-google.docblock.mjs",
+        "browser": "./dist/browser/docs/calendar-google.docblock.js",
+        "default": "./dist/docs/calendar-google.docblock.js"
+      },
+      "./docs/index": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./example": {
+        "types": "./dist/example.d.ts",
+        "bun": "./dist/example.js",
+        "node": "./dist/node/example.mjs",
+        "browser": "./dist/browser/example.js",
+        "default": "./dist/example.js"
+      },
+      "./run": {
+        "types": "./dist/run.d.ts",
+        "bun": "./dist/run.js",
+        "node": "./dist/node/run.mjs",
+        "browser": "./dist/browser/run.js",
+        "default": "./dist/run.js"
+      },
+      "./sync": {
+        "types": "./dist/sync.d.ts",
+        "bun": "./dist/sync.js",
+        "node": "./dist/node/sync.mjs",
+        "browser": "./dist/browser/sync.js",
+        "default": "./dist/sync.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

@@ -5,53 +5,114 @@
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./connection.sample": "./dist/connection.sample.js",
-    "./docs": "./dist/docs/index.js",
-    "./docs/voice-providers.docblock": "./dist/docs/voice-providers.docblock.js",
-    "./example": "./dist/example.js",
-    "./handlers/create-provider": "./dist/handlers/create-provider.js",
-    "./handlers/list-voices": "./dist/handlers/list-voices.js",
-    "./handlers/synthesize": "./dist/handlers/synthesize.js",
-    "./run": "./dist/run.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./connection.sample": "./src/connection.sample.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/index": "./src/docs/index.ts",
+    "./docs/voice-providers.docblock": "./src/docs/voice-providers.docblock.ts",
+    "./example": "./src/example.ts",
+    "./handlers/create-provider": "./src/handlers/create-provider.ts",
+    "./handlers/list-voices": "./src/handlers/list-voices.ts",
+    "./handlers/synthesize": "./src/handlers/synthesize.ts",
+    "./run": "./src/run.ts"
   },
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/integration.providers-impls": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/voice-providers.docblock": "./dist/docs/voice-providers.docblock.js",
-      "./example": "./dist/example.js",
-      "./connection.sample": "./dist/connection.sample.js",
-      "./handlers/create-provider": "./dist/handlers/create-provider.js",
-      "./handlers/list-voices": "./dist/handlers/list-voices.js",
-      "./handlers/synthesize": "./dist/handlers/synthesize.js",
-      "./run": "./dist/run.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./connection.sample": {
+        "types": "./dist/connection.sample.d.ts",
+        "bun": "./dist/connection.sample.js",
+        "node": "./dist/node/connection.sample.mjs",
+        "browser": "./dist/browser/connection.sample.js",
+        "default": "./dist/connection.sample.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/index": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/voice-providers.docblock": {
+        "types": "./dist/docs/voice-providers.docblock.d.ts",
+        "bun": "./dist/docs/voice-providers.docblock.js",
+        "node": "./dist/node/docs/voice-providers.docblock.mjs",
+        "browser": "./dist/browser/docs/voice-providers.docblock.js",
+        "default": "./dist/docs/voice-providers.docblock.js"
+      },
+      "./example": {
+        "types": "./dist/example.d.ts",
+        "bun": "./dist/example.js",
+        "node": "./dist/node/example.mjs",
+        "browser": "./dist/browser/example.js",
+        "default": "./dist/example.js"
+      },
+      "./handlers/create-provider": {
+        "types": "./dist/handlers/create-provider.d.ts",
+        "bun": "./dist/handlers/create-provider.js",
+        "node": "./dist/node/handlers/create-provider.mjs",
+        "browser": "./dist/browser/handlers/create-provider.js",
+        "default": "./dist/handlers/create-provider.js"
+      },
+      "./handlers/list-voices": {
+        "types": "./dist/handlers/list-voices.d.ts",
+        "bun": "./dist/handlers/list-voices.js",
+        "node": "./dist/node/handlers/list-voices.mjs",
+        "browser": "./dist/browser/handlers/list-voices.js",
+        "default": "./dist/handlers/list-voices.js"
+      },
+      "./handlers/synthesize": {
+        "types": "./dist/handlers/synthesize.d.ts",
+        "bun": "./dist/handlers/synthesize.js",
+        "node": "./dist/node/handlers/synthesize.mjs",
+        "browser": "./dist/browser/handlers/synthesize.js",
+        "default": "./dist/handlers/synthesize.js"
+      },
+      "./run": {
+        "types": "./dist/run.d.ts",
+        "bun": "./dist/run.js",
+        "node": "./dist/node/run.mjs",
+        "browser": "./dist/browser/run.js",
+        "default": "./dist/run.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

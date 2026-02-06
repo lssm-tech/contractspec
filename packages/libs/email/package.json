@@ -9,20 +9,52 @@
     "lint": "bun run lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit"
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit",
+    "dev": "contractspec-bun-build dev"
   },
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./client": {
+        "types": "./dist/client.d.ts",
+        "bun": "./dist/client.js",
+        "node": "./dist/node/client.mjs",
+        "browser": "./dist/browser/client.js",
+        "default": "./dist/client.js"
+      },
+      "./types": {
+        "types": "./dist/types.d.ts",
+        "bun": "./dist/types.js",
+        "node": "./dist/node/types.mjs",
+        "browser": "./dist/browser/types.js",
+        "default": "./dist/types.js"
+      },
+      "./utils": {
+        "types": "./dist/utils.d.ts",
+        "bun": "./dist/utils.js",
+        "node": "./dist/node/utils.mjs",
+        "browser": "./dist/browser/utils.js",
+        "default": "./dist/utils.js"
+      }
+    }
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./client": "./dist/client.js",
-    "./types": "./dist/types.js",
-    "./utils": "./dist/utils.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts",
+    "./types": "./src/types.ts",
+    "./utils": "./src/utils.ts"
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
@@ -31,9 +63,8 @@
     "@contractspec/lib.logger": "workspace:*"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   }
 }

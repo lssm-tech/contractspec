@@ -76,7 +76,8 @@
     "build:api": "turbo run build --filter=\"@contractspec/app.api-*\"",
     "build:worker": "turbo run build --filter=\"@contractspec/app.worker-*\"",
     "build:server": "turbo run build --filter=\"@contractspec/app.api-*\" --filter=\"@contractspec/app.worker-*\"",
-    "build:types": "turbo run build:types",
+    "build:types": "bun run typecheck",
+    "typecheck": "turbo run typecheck",
     "build:not-apps": "turbo run build --filter=\"!@contractspec/app.*\"",
     "db:deploy": "turbo run db:deploy"
   },

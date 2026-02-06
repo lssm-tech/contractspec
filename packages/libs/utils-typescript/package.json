@@ -16,87 +16,272 @@
     "lint:check": "eslint src",
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch"
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./lib/AwaitedResult": "./dist/lib/AwaitedResult.js",
-    "./lib/BrowserNativeObject": "./dist/lib/BrowserNativeObject.js",
-    "./lib/DeepInfiniteArray": "./dist/lib/DeepInfiniteArray.js",
-    "./lib/DeepKeepOnly": "./dist/lib/DeepKeepOnly.js",
-    "./lib/DeepKey": "./dist/lib/DeepKey.js",
-    "./lib/DeepMap": "./dist/lib/DeepMap.js",
-    "./lib/DeepNullable": "./dist/lib/DeepNullable.js",
-    "./lib/DeepOr": "./dist/lib/DeepOr.js",
-    "./lib/DeepPartial": "./dist/lib/DeepPartial.js",
-    "./lib/DeepReplace": "./dist/lib/DeepReplace.js",
-    "./lib/DeepReplaceNullByUndefined": "./dist/lib/DeepReplaceNullByUndefined.js",
-    "./lib/DeepValue": "./dist/lib/DeepValue.js",
-    "./lib/DictionaryFromEnum": "./dist/lib/DictionaryFromEnum.js",
-    "./lib/DictionaryFromEnumMapping": "./dist/lib/DictionaryFromEnumMapping.js",
-    "./lib/EmptyRecord": "./dist/lib/EmptyRecord.js",
-    "./lib/Identified": "./dist/lib/Identified.js",
-    "./lib/IdentifiedLabel": "./dist/lib/IdentifiedLabel.js",
-    "./lib/IsAny": "./dist/lib/IsAny.js",
-    "./lib/Json": "./dist/lib/Json.js",
-    "./lib/KeepOnly": "./dist/lib/KeepOnly.js",
-    "./lib/Maybe": "./dist/lib/Maybe.js",
-    "./lib/MaybeArray": "./dist/lib/MaybeArray.js",
-    "./lib/NestedValue": "./dist/lib/NestedValue.js",
-    "./lib/NonUndefined": "./dist/lib/NonUndefined.js",
-    "./lib/Primitive": "./dist/lib/Primitive.js",
-    "./lib/Replaced": "./dist/lib/Replaced.js",
-    "./lib/ReverseMap": "./dist/lib/ReverseMap.js",
-    "./lib/Satisfies": "./dist/lib/Satisfies.js",
-    "./lib/StringKey": "./dist/lib/StringKey.js",
-    "./lib/StringKeysOnly": "./dist/lib/StringKeysOnly.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./lib/AwaitedResult": "./src/lib/AwaitedResult.ts",
+    "./lib/BrowserNativeObject": "./src/lib/BrowserNativeObject.ts",
+    "./lib/DeepInfiniteArray": "./src/lib/DeepInfiniteArray.ts",
+    "./lib/DeepKeepOnly": "./src/lib/DeepKeepOnly.ts",
+    "./lib/DeepKey": "./src/lib/DeepKey.ts",
+    "./lib/DeepMap": "./src/lib/DeepMap.ts",
+    "./lib/DeepNullable": "./src/lib/DeepNullable.ts",
+    "./lib/DeepOr": "./src/lib/DeepOr.ts",
+    "./lib/DeepPartial": "./src/lib/DeepPartial.ts",
+    "./lib/DeepReplace": "./src/lib/DeepReplace.ts",
+    "./lib/DeepReplaceNullByUndefined": "./src/lib/DeepReplaceNullByUndefined.ts",
+    "./lib/DeepValue": "./src/lib/DeepValue.ts",
+    "./lib/DictionaryFromEnum": "./src/lib/DictionaryFromEnum.ts",
+    "./lib/DictionaryFromEnumMapping": "./src/lib/DictionaryFromEnumMapping.ts",
+    "./lib/EmptyRecord": "./src/lib/EmptyRecord.ts",
+    "./lib/Identified": "./src/lib/Identified.ts",
+    "./lib/IdentifiedLabel": "./src/lib/IdentifiedLabel.ts",
+    "./lib/IsAny": "./src/lib/IsAny.ts",
+    "./lib/Json": "./src/lib/Json.ts",
+    "./lib/KeepOnly": "./src/lib/KeepOnly.ts",
+    "./lib/Maybe": "./src/lib/Maybe.ts",
+    "./lib/MaybeArray": "./src/lib/MaybeArray.ts",
+    "./lib/NestedValue": "./src/lib/NestedValue.ts",
+    "./lib/NonUndefined": "./src/lib/NonUndefined.ts",
+    "./lib/Primitive": "./src/lib/Primitive.ts",
+    "./lib/Replaced": "./src/lib/Replaced.ts",
+    "./lib/ReverseMap": "./src/lib/ReverseMap.ts",
+    "./lib/Satisfies": "./src/lib/Satisfies.ts",
+    "./lib/StringKey": "./src/lib/StringKey.ts",
+    "./lib/StringKeysOnly": "./src/lib/StringKeysOnly.ts"
   },
   "publishConfig": {
     "exports": {
-      ".": "./dist/index.js",
-      "./lib/AwaitedResult": "./dist/lib/AwaitedResult.js",
-      "./lib/BrowserNativeObject": "./dist/lib/BrowserNativeObject.js",
-      "./lib/DeepInfiniteArray": "./dist/lib/DeepInfiniteArray.js",
-      "./lib/DeepKeepOnly": "./dist/lib/DeepKeepOnly.js",
-      "./lib/DeepKey": "./dist/lib/DeepKey.js",
-      "./lib/DeepMap": "./dist/lib/DeepMap.js",
-      "./lib/DeepNullable": "./dist/lib/DeepNullable.js",
-      "./lib/DeepOr": "./dist/lib/DeepOr.js",
-      "./lib/DeepPartial": "./dist/lib/DeepPartial.js",
-      "./lib/DeepReplace": "./dist/lib/DeepReplace.js",
-      "./lib/DeepReplaceNullByUndefined": "./dist/lib/DeepReplaceNullByUndefined.js",
-      "./lib/DeepValue": "./dist/lib/DeepValue.js",
-      "./lib/DictionaryFromEnum": "./dist/lib/DictionaryFromEnum.js",
-      "./lib/DictionaryFromEnumMapping": "./dist/lib/DictionaryFromEnumMapping.js",
-      "./lib/EmptyRecord": "./dist/lib/EmptyRecord.js",
-      "./lib/Identified": "./dist/lib/Identified.js",
-      "./lib/IdentifiedLabel": "./dist/lib/IdentifiedLabel.js",
-      "./lib/IsAny": "./dist/lib/IsAny.js",
-      "./lib/Json": "./dist/lib/Json.js",
-      "./lib/KeepOnly": "./dist/lib/KeepOnly.js",
-      "./lib/Maybe": "./dist/lib/Maybe.js",
-      "./lib/MaybeArray": "./dist/lib/MaybeArray.js",
-      "./lib/NestedValue": "./dist/lib/NestedValue.js",
-      "./lib/NonUndefined": "./dist/lib/NonUndefined.js",
-      "./lib/Primitive": "./dist/lib/Primitive.js",
-      "./lib/Replaced": "./dist/lib/Replaced.js",
-      "./lib/ReverseMap": "./dist/lib/ReverseMap.js",
-      "./lib/Satisfies": "./dist/lib/Satisfies.js",
-      "./lib/StringKey": "./dist/lib/StringKey.js",
-      "./lib/StringKeysOnly": "./dist/lib/StringKeysOnly.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./lib/AwaitedResult": {
+        "types": "./dist/lib/AwaitedResult.d.ts",
+        "bun": "./dist/lib/AwaitedResult.js",
+        "node": "./dist/node/lib/AwaitedResult.mjs",
+        "browser": "./dist/browser/lib/AwaitedResult.js",
+        "default": "./dist/lib/AwaitedResult.js"
+      },
+      "./lib/BrowserNativeObject": {
+        "types": "./dist/lib/BrowserNativeObject.d.ts",
+        "bun": "./dist/lib/BrowserNativeObject.js",
+        "node": "./dist/node/lib/BrowserNativeObject.mjs",
+        "browser": "./dist/browser/lib/BrowserNativeObject.js",
+        "default": "./dist/lib/BrowserNativeObject.js"
+      },
+      "./lib/DeepInfiniteArray": {
+        "types": "./dist/lib/DeepInfiniteArray.d.ts",
+        "bun": "./dist/lib/DeepInfiniteArray.js",
+        "node": "./dist/node/lib/DeepInfiniteArray.mjs",
+        "browser": "./dist/browser/lib/DeepInfiniteArray.js",
+        "default": "./dist/lib/DeepInfiniteArray.js"
+      },
+      "./lib/DeepKeepOnly": {
+        "types": "./dist/lib/DeepKeepOnly.d.ts",
+        "bun": "./dist/lib/DeepKeepOnly.js",
+        "node": "./dist/node/lib/DeepKeepOnly.mjs",
+        "browser": "./dist/browser/lib/DeepKeepOnly.js",
+        "default": "./dist/lib/DeepKeepOnly.js"
+      },
+      "./lib/DeepKey": {
+        "types": "./dist/lib/DeepKey.d.ts",
+        "bun": "./dist/lib/DeepKey.js",
+        "node": "./dist/node/lib/DeepKey.mjs",
+        "browser": "./dist/browser/lib/DeepKey.js",
+        "default": "./dist/lib/DeepKey.js"
+      },
+      "./lib/DeepMap": {
+        "types": "./dist/lib/DeepMap.d.ts",
+        "bun": "./dist/lib/DeepMap.js",
+        "node": "./dist/node/lib/DeepMap.mjs",
+        "browser": "./dist/browser/lib/DeepMap.js",
+        "default": "./dist/lib/DeepMap.js"
+      },
+      "./lib/DeepNullable": {
+        "types": "./dist/lib/DeepNullable.d.ts",
+        "bun": "./dist/lib/DeepNullable.js",
+        "node": "./dist/node/lib/DeepNullable.mjs",
+        "browser": "./dist/browser/lib/DeepNullable.js",
+        "default": "./dist/lib/DeepNullable.js"
+      },
+      "./lib/DeepOr": {
+        "types": "./dist/lib/DeepOr.d.ts",
+        "bun": "./dist/lib/DeepOr.js",
+        "node": "./dist/node/lib/DeepOr.mjs",
+        "browser": "./dist/browser/lib/DeepOr.js",
+        "default": "./dist/lib/DeepOr.js"
+      },
+      "./lib/DeepPartial": {
+        "types": "./dist/lib/DeepPartial.d.ts",
+        "bun": "./dist/lib/DeepPartial.js",
+        "node": "./dist/node/lib/DeepPartial.mjs",
+        "browser": "./dist/browser/lib/DeepPartial.js",
+        "default": "./dist/lib/DeepPartial.js"
+      },
+      "./lib/DeepReplace": {
+        "types": "./dist/lib/DeepReplace.d.ts",
+        "bun": "./dist/lib/DeepReplace.js",
+        "node": "./dist/node/lib/DeepReplace.mjs",
+        "browser": "./dist/browser/lib/DeepReplace.js",
+        "default": "./dist/lib/DeepReplace.js"
+      },
+      "./lib/DeepReplaceNullByUndefined": {
+        "types": "./dist/lib/DeepReplaceNullByUndefined.d.ts",
+        "bun": "./dist/lib/DeepReplaceNullByUndefined.js",
+        "node": "./dist/node/lib/DeepReplaceNullByUndefined.mjs",
+        "browser": "./dist/browser/lib/DeepReplaceNullByUndefined.js",
+        "default": "./dist/lib/DeepReplaceNullByUndefined.js"
+      },
+      "./lib/DeepValue": {
+        "types": "./dist/lib/DeepValue.d.ts",
+        "bun": "./dist/lib/DeepValue.js",
+        "node": "./dist/node/lib/DeepValue.mjs",
+        "browser": "./dist/browser/lib/DeepValue.js",
+        "default": "./dist/lib/DeepValue.js"
+      },
+      "./lib/DictionaryFromEnum": {
+        "types": "./dist/lib/DictionaryFromEnum.d.ts",
+        "bun": "./dist/lib/DictionaryFromEnum.js",
+        "node": "./dist/node/lib/DictionaryFromEnum.mjs",
+        "browser": "./dist/browser/lib/DictionaryFromEnum.js",
+        "default": "./dist/lib/DictionaryFromEnum.js"
+      },
+      "./lib/DictionaryFromEnumMapping": {
+        "types": "./dist/lib/DictionaryFromEnumMapping.d.ts",
+        "bun": "./dist/lib/DictionaryFromEnumMapping.js",
+        "node": "./dist/node/lib/DictionaryFromEnumMapping.mjs",
+        "browser": "./dist/browser/lib/DictionaryFromEnumMapping.js",
+        "default": "./dist/lib/DictionaryFromEnumMapping.js"
+      },
+      "./lib/EmptyRecord": {
+        "types": "./dist/lib/EmptyRecord.d.ts",
+        "bun": "./dist/lib/EmptyRecord.js",
+        "node": "./dist/node/lib/EmptyRecord.mjs",
+        "browser": "./dist/browser/lib/EmptyRecord.js",
+        "default": "./dist/lib/EmptyRecord.js"
+      },
+      "./lib/Identified": {
+        "types": "./dist/lib/Identified.d.ts",
+        "bun": "./dist/lib/Identified.js",
+        "node": "./dist/node/lib/Identified.mjs",
+        "browser": "./dist/browser/lib/Identified.js",
+        "default": "./dist/lib/Identified.js"
+      },
+      "./lib/IdentifiedLabel": {
+        "types": "./dist/lib/IdentifiedLabel.d.ts",
+        "bun": "./dist/lib/IdentifiedLabel.js",
+        "node": "./dist/node/lib/IdentifiedLabel.mjs",
+        "browser": "./dist/browser/lib/IdentifiedLabel.js",
+        "default": "./dist/lib/IdentifiedLabel.js"
+      },
+      "./lib/IsAny": {
+        "types": "./dist/lib/IsAny.d.ts",
+        "bun": "./dist/lib/IsAny.js",
+        "node": "./dist/node/lib/IsAny.mjs",
+        "browser": "./dist/browser/lib/IsAny.js",
+        "default": "./dist/lib/IsAny.js"
+      },
+      "./lib/Json": {
+        "types": "./dist/lib/Json.d.ts",
+        "bun": "./dist/lib/Json.js",
+        "node": "./dist/node/lib/Json.mjs",
+        "browser": "./dist/browser/lib/Json.js",
+        "default": "./dist/lib/Json.js"
+      },
+      "./lib/KeepOnly": {
+        "types": "./dist/lib/KeepOnly.d.ts",
+        "bun": "./dist/lib/KeepOnly.js",
+        "node": "./dist/node/lib/KeepOnly.mjs",
+        "browser": "./dist/browser/lib/KeepOnly.js",
+        "default": "./dist/lib/KeepOnly.js"
+      },
+      "./lib/Maybe": {
+        "types": "./dist/lib/Maybe.d.ts",
+        "bun": "./dist/lib/Maybe.js",
+        "node": "./dist/node/lib/Maybe.mjs",
+        "browser": "./dist/browser/lib/Maybe.js",
+        "default": "./dist/lib/Maybe.js"
+      },
+      "./lib/MaybeArray": {
+        "types": "./dist/lib/MaybeArray.d.ts",
+        "bun": "./dist/lib/MaybeArray.js",
+        "node": "./dist/node/lib/MaybeArray.mjs",
+        "browser": "./dist/browser/lib/MaybeArray.js",
+        "default": "./dist/lib/MaybeArray.js"
+      },
+      "./lib/NestedValue": {
+        "types": "./dist/lib/NestedValue.d.ts",
+        "bun": "./dist/lib/NestedValue.js",
+        "node": "./dist/node/lib/NestedValue.mjs",
+        "browser": "./dist/browser/lib/NestedValue.js",
+        "default": "./dist/lib/NestedValue.js"
+      },
+      "./lib/NonUndefined": {
+        "types": "./dist/lib/NonUndefined.d.ts",
+        "bun": "./dist/lib/NonUndefined.js",
+        "node": "./dist/node/lib/NonUndefined.mjs",
+        "browser": "./dist/browser/lib/NonUndefined.js",
+        "default": "./dist/lib/NonUndefined.js"
+      },
+      "./lib/Primitive": {
+        "types": "./dist/lib/Primitive.d.ts",
+        "bun": "./dist/lib/Primitive.js",
+        "node": "./dist/node/lib/Primitive.mjs",
+        "browser": "./dist/browser/lib/Primitive.js",
+        "default": "./dist/lib/Primitive.js"
+      },
+      "./lib/Replaced": {
+        "types": "./dist/lib/Replaced.d.ts",
+        "bun": "./dist/lib/Replaced.js",
+        "node": "./dist/node/lib/Replaced.mjs",
+        "browser": "./dist/browser/lib/Replaced.js",
+        "default": "./dist/lib/Replaced.js"
+      },
+      "./lib/ReverseMap": {
+        "types": "./dist/lib/ReverseMap.d.ts",
+        "bun": "./dist/lib/ReverseMap.js",
+        "node": "./dist/node/lib/ReverseMap.mjs",
+        "browser": "./dist/browser/lib/ReverseMap.js",
+        "default": "./dist/lib/ReverseMap.js"
+      },
+      "./lib/Satisfies": {
+        "types": "./dist/lib/Satisfies.d.ts",
+        "bun": "./dist/lib/Satisfies.js",
+        "node": "./dist/node/lib/Satisfies.mjs",
+        "browser": "./dist/browser/lib/Satisfies.js",
+        "default": "./dist/lib/Satisfies.js"
+      },
+      "./lib/StringKey": {
+        "types": "./dist/lib/StringKey.d.ts",
+        "bun": "./dist/lib/StringKey.js",
+        "node": "./dist/node/lib/StringKey.mjs",
+        "browser": "./dist/browser/lib/StringKey.js",
+        "default": "./dist/lib/StringKey.js"
+      },
+      "./lib/StringKeysOnly": {
+        "types": "./dist/lib/StringKeysOnly.d.ts",
+        "bun": "./dist/lib/StringKeysOnly.js",
+        "node": "./dist/node/lib/StringKeysOnly.mjs",
+        "browser": "./dist/browser/lib/StringKeysOnly.js",
+        "default": "./dist/lib/StringKeysOnly.js"
+      }
     },
     "access": "public",
     "registry": "https://registry.npmjs.org/"

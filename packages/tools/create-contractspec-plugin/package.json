@@ -14,24 +14,25 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "bin": {
     "create-contractspec-plugin": "./dist/index.js"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./templates": "./dist/templates/index.js",
-    "./templates/example-generator": "./dist/templates/example-generator.js",
-    "./utils": "./dist/utils.js"
+    ".": "./src/index.ts",
+    "./templates/example-generator": "./src/templates/example-generator.ts",
+    "./utils": "./src/utils.ts"
   },
   "files": [
     "dist",
@@ -49,16 +50,35 @@
     "mustache": "^4.2.0"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
     "@types/fs-extra": "^11.0.4",
     "@types/mustache": "^4.2.5",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "default": "./dist/index.js"
+      },
+      "./templates/example-generator": {
+        "types": "./dist/templates/example-generator.d.ts",
+        "bun": "./dist/templates/example-generator.js",
+        "node": "./dist/node/templates/example-generator.mjs",
+        "default": "./dist/templates/example-generator.js"
+      },
+      "./utils": {
+        "types": "./dist/utils.d.ts",
+        "bun": "./dist/utils.js",
+        "node": "./dist/node/utils.mjs",
+        "default": "./dist/utils.js"
+      }
+    }
   },
   "license": "MIT",
   "repository": {
@@ -66,5 +86,6 @@
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/tools/create-contractspec-plugin"
   },
-  "homepage": "https://contractspec.io"
+  "homepage": "https://contractspec.io",
+  "types": "./dist/index.d.ts"
 }

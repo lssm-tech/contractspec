@@ -13,11 +13,34 @@ export const granolaMeetingRecorderConnection: IntegrationConnection = {
   },
   ownershipMode: 'byok',
   config: {
+    transport: 'api',
     baseUrl: 'https://public-api.granola.ai',
     pageSize: 10,
   },
   secretProvider: 'vault',
   secretRef: 'vault://integrations/acme-inc/conn-granola-demo',
+  status: 'connected',
+};
+
+export const granolaMcpMeetingRecorderConnection: IntegrationConnection = {
+  meta: {
+    id: 'conn-granola-mcp-demo',
+    tenantId: 'acme-inc',
+    integrationKey: 'meeting-recorder.granola',
+    integrationVersion: '1',
+    label: 'Granola MCP Meeting Recorder',
+    environment: 'production',
+    createdAt: '2026-01-01T00:00:00.000Z',
+    updatedAt: '2026-01-01T00:00:00.000Z',
+  },
+  ownershipMode: 'byok',
+  config: {
+    transport: 'mcp',
+    mcpUrl: 'https://mcp.granola.ai/mcp',
+    pageSize: 10,
+  },
+  secretProvider: 'vault',
+  secretRef: 'vault://integrations/acme-inc/conn-granola-mcp-demo',
   status: 'connected',
 };
 
@@ -91,6 +114,7 @@ export const fathomMeetingRecorderConnection: IntegrationConnection = {
 
 export const meetingRecorderSampleConnections: IntegrationConnection[] = [
   granolaMeetingRecorderConnection,
+  granolaMcpMeetingRecorderConnection,
   tldvMeetingRecorderConnection,
   firefliesMeetingRecorderConnection,
   fathomMeetingRecorderConnection,

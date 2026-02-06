@@ -35,10 +35,12 @@ export function createExampleGeneratorTemplate() {
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "prebuild": "contractspec-bun-build prebuild",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "typecheck": "tsc --noEmit",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
@@ -54,9 +56,8 @@ export function createExampleGeneratorTemplate() {
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.bun": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
     "typescript": "catalog:",
     "@types/node": "^22.0.0",
     "rimraf": "^6.0.1"
@@ -1037,15 +1038,12 @@ describe("{{className}} Smoke Test", () => {
   ]
 }`,
 
-      'tsdown.config.js': `import { defineConfig } from "tsdown";
+      'tsdown.config.js': `import { defineConfig, nodeLib } from "@contractspec/tool.bun";
 
-export default defineConfig({
+export default defineConfig(() => ({
+  ...nodeLib,
   entry: ["src/index.ts"],
-  format: ["esm"],
-  dts: true,
-  clean: true,
-  sourcemap: true,
-});`,
+}));`,
 
       LICENSE: `MIT License
 

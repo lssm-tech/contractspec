@@ -15,14 +15,16 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
@@ -35,29 +37,33 @@
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./contracts": "./dist/contracts/index.js",
-    "./entities": "./dist/entities/index.js",
-    "./events": "./dist/events.js",
-    "./handlers": "./dist/handlers/index.js",
-    "./handlers/gmail-sync-handler": "./dist/handlers/gmail-sync-handler.js",
-    "./handlers/ping-job": "./dist/handlers/ping-job.js",
-    "./handlers/storage-document-handler": "./dist/handlers/storage-document-handler.js",
-    "./jobs.capability": "./dist/jobs.capability.js",
-    "./jobs.feature": "./dist/jobs.feature.js",
-    "./queue": "./dist/queue/index.js",
-    "./queue/gcp-cloud-tasks": "./dist/queue/gcp-cloud-tasks.js",
-    "./queue/gcp-pubsub": "./dist/queue/gcp-pubsub.js",
-    "./queue/memory-queue": "./dist/queue/memory-queue.js",
-    "./queue/register-defined-job": "./dist/queue/register-defined-job.js",
-    "./queue/scaleway-sqs-queue": "./dist/queue/scaleway-sqs-queue.js",
-    "./queue/types": "./dist/queue/types.js",
-    "./scheduler": "./dist/scheduler/index.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./contracts/index": "./src/contracts/index.ts",
+    "./entities": "./src/entities/index.ts",
+    "./entities/index": "./src/entities/index.ts",
+    "./events": "./src/events.ts",
+    "./handlers": "./src/handlers/index.ts",
+    "./handlers/gmail-sync-handler": "./src/handlers/gmail-sync-handler.ts",
+    "./handlers/index": "./src/handlers/index.ts",
+    "./handlers/ping-job": "./src/handlers/ping-job.ts",
+    "./handlers/storage-document-handler": "./src/handlers/storage-document-handler.ts",
+    "./jobs.capability": "./src/jobs.capability.ts",
+    "./jobs.feature": "./src/jobs.feature.ts",
+    "./queue": "./src/queue/index.ts",
+    "./queue/gcp-cloud-tasks": "./src/queue/gcp-cloud-tasks.ts",
+    "./queue/gcp-pubsub": "./src/queue/gcp-pubsub.ts",
+    "./queue/index": "./src/queue/index.ts",
+    "./queue/memory-queue": "./src/queue/memory-queue.ts",
+    "./queue/register-defined-job": "./src/queue/register-defined-job.ts",
+    "./queue/scaleway-sqs-queue": "./src/queue/scaleway-sqs-queue.ts",
+    "./queue/types": "./src/queue/types.ts",
+    "./scheduler": "./src/scheduler/index.ts",
+    "./scheduler/index": "./src/scheduler/index.ts"
   },
   "files": [
     "dist",
@@ -66,24 +72,144 @@
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./contracts": "./dist/contracts/index.js",
-      "./entities": "./dist/entities/index.js",
-      "./events": "./dist/events.js",
-      "./handlers": "./dist/handlers/index.js",
-      "./handlers/gmail-sync-handler": "./dist/handlers/gmail-sync-handler.js",
-      "./handlers/ping-job": "./dist/handlers/ping-job.js",
-      "./handlers/storage-document-handler": "./dist/handlers/storage-document-handler.js",
-      "./jobs.feature": "./dist/jobs.feature.js",
-      "./queue": "./dist/queue/index.js",
-      "./queue/gcp-cloud-tasks": "./dist/queue/gcp-cloud-tasks.js",
-      "./queue/gcp-pubsub": "./dist/queue/gcp-pubsub.js",
-      "./queue/memory-queue": "./dist/queue/memory-queue.js",
-      "./queue/register-defined-job": "./dist/queue/register-defined-job.js",
-      "./queue/scaleway-sqs-queue": "./dist/queue/scaleway-sqs-queue.js",
-      "./queue/types": "./dist/queue/types.js",
-      "./scheduler": "./dist/scheduler/index.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "default": "./dist/index.js"
+      },
+      "./contracts": {
+        "types": "./dist/contracts/index.d.ts",
+        "bun": "./dist/contracts/index.js",
+        "node": "./dist/node/contracts/index.mjs",
+        "default": "./dist/contracts/index.js"
+      },
+      "./contracts/index": {
+        "types": "./dist/contracts/index.d.ts",
+        "bun": "./dist/contracts/index.js",
+        "node": "./dist/node/contracts/index.mjs",
+        "default": "./dist/contracts/index.js"
+      },
+      "./entities": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "default": "./dist/entities/index.js"
+      },
+      "./entities/index": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "default": "./dist/entities/index.js"
+      },
+      "./events": {
+        "types": "./dist/events.d.ts",
+        "bun": "./dist/events.js",
+        "node": "./dist/node/events.mjs",
+        "default": "./dist/events.js"
+      },
+      "./handlers": {
+        "types": "./dist/handlers/index.d.ts",
+        "bun": "./dist/handlers/index.js",
+        "node": "./dist/node/handlers/index.mjs",
+        "default": "./dist/handlers/index.js"
+      },
+      "./handlers/gmail-sync-handler": {
+        "types": "./dist/handlers/gmail-sync-handler.d.ts",
+        "bun": "./dist/handlers/gmail-sync-handler.js",
+        "node": "./dist/node/handlers/gmail-sync-handler.mjs",
+        "default": "./dist/handlers/gmail-sync-handler.js"
+      },
+      "./handlers/index": {
+        "types": "./dist/handlers/index.d.ts",
+        "bun": "./dist/handlers/index.js",
+        "node": "./dist/node/handlers/index.mjs",
+        "default": "./dist/handlers/index.js"
+      },
+      "./handlers/ping-job": {
+        "types": "./dist/handlers/ping-job.d.ts",
+        "bun": "./dist/handlers/ping-job.js",
+        "node": "./dist/node/handlers/ping-job.mjs",
+        "default": "./dist/handlers/ping-job.js"
+      },
+      "./handlers/storage-document-handler": {
+        "types": "./dist/handlers/storage-document-handler.d.ts",
+        "bun": "./dist/handlers/storage-document-handler.js",
+        "node": "./dist/node/handlers/storage-document-handler.mjs",
+        "default": "./dist/handlers/storage-document-handler.js"
+      },
+      "./jobs.capability": {
+        "types": "./dist/jobs.capability.d.ts",
+        "bun": "./dist/jobs.capability.js",
+        "node": "./dist/node/jobs.capability.mjs",
+        "default": "./dist/jobs.capability.js"
+      },
+      "./jobs.feature": {
+        "types": "./dist/jobs.feature.d.ts",
+        "bun": "./dist/jobs.feature.js",
+        "node": "./dist/node/jobs.feature.mjs",
+        "default": "./dist/jobs.feature.js"
+      },
+      "./queue": {
+        "types": "./dist/queue/index.d.ts",
+        "bun": "./dist/queue/index.js",
+        "node": "./dist/node/queue/index.mjs",
+        "default": "./dist/queue/index.js"
+      },
+      "./queue/gcp-cloud-tasks": {
+        "types": "./dist/queue/gcp-cloud-tasks.d.ts",
+        "bun": "./dist/queue/gcp-cloud-tasks.js",
+        "node": "./dist/node/queue/gcp-cloud-tasks.mjs",
+        "default": "./dist/queue/gcp-cloud-tasks.js"
+      },
+      "./queue/gcp-pubsub": {
+        "types": "./dist/queue/gcp-pubsub.d.ts",
+        "bun": "./dist/queue/gcp-pubsub.js",
+        "node": "./dist/node/queue/gcp-pubsub.mjs",
+        "default": "./dist/queue/gcp-pubsub.js"
+      },
+      "./queue/index": {
+        "types": "./dist/queue/index.d.ts",
+        "bun": "./dist/queue/index.js",
+        "node": "./dist/node/queue/index.mjs",
+        "default": "./dist/queue/index.js"
+      },
+      "./queue/memory-queue": {
+        "types": "./dist/queue/memory-queue.d.ts",
+        "bun": "./dist/queue/memory-queue.js",
+        "node": "./dist/node/queue/memory-queue.mjs",
+        "default": "./dist/queue/memory-queue.js"
+      },
+      "./queue/register-defined-job": {
+        "types": "./dist/queue/register-defined-job.d.ts",
+        "bun": "./dist/queue/register-defined-job.js",
+        "node": "./dist/node/queue/register-defined-job.mjs",
+        "default": "./dist/queue/register-defined-job.js"
+      },
+      "./queue/scaleway-sqs-queue": {
+        "types": "./dist/queue/scaleway-sqs-queue.d.ts",
+        "bun": "./dist/queue/scaleway-sqs-queue.js",
+        "node": "./dist/node/queue/scaleway-sqs-queue.mjs",
+        "default": "./dist/queue/scaleway-sqs-queue.js"
+      },
+      "./queue/types": {
+        "types": "./dist/queue/types.d.ts",
+        "bun": "./dist/queue/types.js",
+        "node": "./dist/node/queue/types.mjs",
+        "default": "./dist/queue/types.js"
+      },
+      "./scheduler": {
+        "types": "./dist/scheduler/index.d.ts",
+        "bun": "./dist/scheduler/index.js",
+        "node": "./dist/node/scheduler/index.mjs",
+        "default": "./dist/scheduler/index.js"
+      },
+      "./scheduler/index": {
+        "types": "./dist/scheduler/index.d.ts",
+        "bun": "./dist/scheduler/index.js",
+        "node": "./dist/node/scheduler/index.mjs",
+        "default": "./dist/scheduler/index.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

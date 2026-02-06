@@ -5,29 +5,33 @@
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./docs": "./dist/docs/index.js",
-    "./docs/crm-onboarding.docblock": "./dist/docs/crm-onboarding.docblock.js",
-    "./example": "./dist/example.js",
-    "./handlers/demo.handlers": "./dist/handlers/demo.handlers.js",
-    "./learning-journey-crm-onboarding.feature": "./dist/learning-journey-crm-onboarding.feature.js",
-    "./operations": "./dist/operations/index.js",
-    "./presentations": "./dist/presentations/index.js",
-    "./tests/operations.test-spec": "./dist/tests/operations.test-spec.js",
-    "./track": "./dist/track.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/crm-onboarding.docblock": "./src/docs/crm-onboarding.docblock.ts",
+    "./docs/index": "./src/docs/index.ts",
+    "./example": "./src/example.ts",
+    "./handlers/demo.handlers": "./src/handlers/demo.handlers.ts",
+    "./learning-journey-crm-onboarding.feature": "./src/learning-journey-crm-onboarding.feature.ts",
+    "./operations": "./src/operations/index.ts",
+    "./operations/index": "./src/operations/index.ts",
+    "./presentations": "./src/presentations/index.ts",
+    "./presentations/index": "./src/presentations/index.ts",
+    "./tests/operations.test-spec": "./src/tests/operations.test-spec.ts",
+    "./track": "./src/track.ts"
   },
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
@@ -36,23 +40,103 @@
     "@contractspec/example.crm-pipeline": "workspace:*"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "publishConfig": {
     "exports": {
-      ".": "./dist/index.js",
-      "./contracts": "./dist/contracts/index.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/crm-onboarding.docblock": "./dist/docs/crm-onboarding.docblock.js",
-      "./example": "./dist/example.js",
-      "./handlers/demo.handlers": "./dist/handlers/demo.handlers.js",
-      "./learning-journey-crm-onboarding.feature": "./dist/learning-journey-crm-onboarding.feature.js",
-      "./presentations": "./dist/presentations/index.js",
-      "./track": "./dist/track.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/crm-onboarding.docblock": {
+        "types": "./dist/docs/crm-onboarding.docblock.d.ts",
+        "bun": "./dist/docs/crm-onboarding.docblock.js",
+        "node": "./dist/node/docs/crm-onboarding.docblock.mjs",
+        "browser": "./dist/browser/docs/crm-onboarding.docblock.js",
+        "default": "./dist/docs/crm-onboarding.docblock.js"
+      },
+      "./docs/index": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./example": {
+        "types": "./dist/example.d.ts",
+        "bun": "./dist/example.js",
+        "node": "./dist/node/example.mjs",
+        "browser": "./dist/browser/example.js",
+        "default": "./dist/example.js"
+      },
+      "./handlers/demo.handlers": {
+        "types": "./dist/handlers/demo.handlers.d.ts",
+        "bun": "./dist/handlers/demo.handlers.js",
+        "node": "./dist/node/handlers/demo.handlers.mjs",
+        "browser": "./dist/browser/handlers/demo.handlers.js",
+        "default": "./dist/handlers/demo.handlers.js"
+      },
+      "./learning-journey-crm-onboarding.feature": {
+        "types": "./dist/learning-journey-crm-onboarding.feature.d.ts",
+        "bun": "./dist/learning-journey-crm-onboarding.feature.js",
+        "node": "./dist/node/learning-journey-crm-onboarding.feature.mjs",
+        "browser": "./dist/browser/learning-journey-crm-onboarding.feature.js",
+        "default": "./dist/learning-journey-crm-onboarding.feature.js"
+      },
+      "./operations": {
+        "types": "./dist/operations/index.d.ts",
+        "bun": "./dist/operations/index.js",
+        "node": "./dist/node/operations/index.mjs",
+        "browser": "./dist/browser/operations/index.js",
+        "default": "./dist/operations/index.js"
+      },
+      "./operations/index": {
+        "types": "./dist/operations/index.d.ts",
+        "bun": "./dist/operations/index.js",
+        "node": "./dist/node/operations/index.mjs",
+        "browser": "./dist/browser/operations/index.js",
+        "default": "./dist/operations/index.js"
+      },
+      "./presentations": {
+        "types": "./dist/presentations/index.d.ts",
+        "bun": "./dist/presentations/index.js",
+        "node": "./dist/node/presentations/index.mjs",
+        "browser": "./dist/browser/presentations/index.js",
+        "default": "./dist/presentations/index.js"
+      },
+      "./presentations/index": {
+        "types": "./dist/presentations/index.d.ts",
+        "bun": "./dist/presentations/index.js",
+        "node": "./dist/node/presentations/index.mjs",
+        "browser": "./dist/browser/presentations/index.js",
+        "default": "./dist/presentations/index.js"
+      },
+      "./tests/operations.test-spec": {
+        "types": "./dist/tests/operations.test-spec.d.ts",
+        "bun": "./dist/tests/operations.test-spec.js",
+        "node": "./dist/node/tests/operations.test-spec.mjs",
+        "browser": "./dist/browser/tests/operations.test-spec.js",
+        "default": "./dist/tests/operations.test-spec.js"
+      },
+      "./track": {
+        "types": "./dist/track.d.ts",
+        "bun": "./dist/track.js",
+        "node": "./dist/node/track.mjs",
+        "browser": "./dist/browser/track.js",
+        "default": "./dist/track.js"
+      }
     },
     "registry": "https://registry.npmjs.org/",
     "access": "public"

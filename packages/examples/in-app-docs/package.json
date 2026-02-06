@@ -5,26 +5,29 @@
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./docs": "./dist/docs/index.js",
-    "./docs/in-app-docs.docblock": "./dist/docs/in-app-docs.docblock.js",
-    "./example": "./dist/example.js",
-    "./ui": "./dist/ui/index.js",
-    "./ui/InAppDocsViewer": "./dist/ui/InAppDocsViewer.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/in-app-docs.docblock": "./src/docs/in-app-docs.docblock.ts",
+    "./docs/index": "./src/docs/index.ts",
+    "./example": "./src/example.ts",
+    "./ui": "./src/ui/index.ts",
+    "./ui/InAppDocsViewer": "./src/ui/InAppDocsViewer.tsx",
+    "./ui/index": "./src/ui/index.ts"
   },
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
@@ -33,21 +36,70 @@
     "react-dom": "catalog:"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
     "typescript": "catalog:",
     "@types/react": "^19.2.13",
-    "@types/react-dom": "^19.2.2"
+    "@types/react-dom": "^19.2.2",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "publishConfig": {
     "exports": {
-      ".": "./dist/index.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/in-app-docs.docblock": "./dist/docs/in-app-docs.docblock.js",
-      "./example": "./dist/example.js",
-      "./ui": "./dist/ui/index.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/in-app-docs.docblock": {
+        "types": "./dist/docs/in-app-docs.docblock.d.ts",
+        "bun": "./dist/docs/in-app-docs.docblock.js",
+        "node": "./dist/node/docs/in-app-docs.docblock.mjs",
+        "browser": "./dist/browser/docs/in-app-docs.docblock.js",
+        "default": "./dist/docs/in-app-docs.docblock.js"
+      },
+      "./docs/index": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./example": {
+        "types": "./dist/example.d.ts",
+        "bun": "./dist/example.js",
+        "node": "./dist/node/example.mjs",
+        "browser": "./dist/browser/example.js",
+        "default": "./dist/example.js"
+      },
+      "./ui": {
+        "types": "./dist/ui/index.d.ts",
+        "bun": "./dist/ui/index.js",
+        "node": "./dist/node/ui/index.mjs",
+        "browser": "./dist/browser/ui/index.js",
+        "default": "./dist/ui/index.js"
+      },
+      "./ui/InAppDocsViewer": {
+        "types": "./dist/ui/InAppDocsViewer.d.ts",
+        "bun": "./dist/ui/InAppDocsViewer.js",
+        "node": "./dist/node/ui/InAppDocsViewer.mjs",
+        "browser": "./dist/browser/ui/InAppDocsViewer.js",
+        "default": "./dist/ui/InAppDocsViewer.js"
+      },
+      "./ui/index": {
+        "types": "./dist/ui/index.d.ts",
+        "bun": "./dist/ui/index.js",
+        "node": "./dist/node/ui/index.mjs",
+        "browser": "./dist/browser/ui/index.js",
+        "default": "./dist/ui/index.js"
+      }
     },
     "registry": "https://registry.npmjs.org/",
     "access": "public"
