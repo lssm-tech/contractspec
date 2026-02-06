@@ -1,5 +1,22 @@
 # @contractspec/lib.contracts
 
+## 1.57.0
+
+### Minor Changes
+
+- 8ecf3c1: Add typed PostHog read APIs and readers across contracts, providers, metering, evolution, analytics, observability, and examples.
+- a119963: Add project-management integrations (Linear, Jira, Notion), sync helpers for product intent outputs, and expose the new integration category across workspace tooling.
+- 4651e06: Add Supabase and voice provider integrations with new runnable examples, and expose these providers across contracts, workspace tooling, and provider factory wiring.
+- ad9d10a: feat: improve posthog integration
+- 11a5a05: feat: improve product intent
+
+### Patch Changes
+
+- 47c48c2: Refine product-intent contracts, add core/module orchestration and bundle wiring, and expand tests/examples.
+- Updated dependencies [11a5a05]
+  - @contractspec/lib.logger@1.57.0
+  - @contractspec/lib.schema@1.57.0
+
 ## 1.56.1
 
 ### Patch Changes

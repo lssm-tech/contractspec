@@ -1,5 +1,23 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 1.57.0
+
+### Minor Changes
+
+- 11a5a05: feat: improve product intent
+
+### Patch Changes
+
+- Updated dependencies [8ecf3c1]
+- Updated dependencies [ad9d10a]
+- Updated dependencies [11a5a05]
+  - @contractspec/lib.analytics@1.57.0
+  - @contractspec/lib.observability@1.57.0
+  - @contractspec/module.lifecycle-advisor@1.57.0
+  - @contractspec/module.lifecycle-core@1.57.0
+  - @contractspec/lib.lifecycle@1.57.0
+  - @contractspec/lib.ai-agent@1.57.0
+
 ## 1.56.1
 
 ### Patch Changes

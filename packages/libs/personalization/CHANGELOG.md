@@ -1,5 +1,25 @@
 # @contractspec/lib.personalization
 
+## 1.57.0
+
+### Minor Changes
+
+- 11a5a05: feat: improve product intent
+
+### Patch Changes
+
+- Updated dependencies [8ecf3c1]
+- Updated dependencies [47c48c2]
+- Updated dependencies [a119963]
+- Updated dependencies [4651e06]
+- Updated dependencies [ad9d10a]
+- Updated dependencies [11a5a05]
+  - @contractspec/lib.contracts@1.57.0
+  - @contractspec/lib.overlay-engine@1.57.0
+  - @contractspec/lib.knowledge@1.57.0
+  - @contractspec/lib.schema@1.57.0
+  - @contractspec/lib.bus@1.57.0
+
 ## 1.56.1
 
 ### Patch Changes

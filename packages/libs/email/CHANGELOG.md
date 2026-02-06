@@ -1,5 +1,16 @@
 # @contractspec/lib.email
 
+## 1.11.0
+
+### Minor Changes
+
+- 11a5a05: feat: improve product intent
+
+### Patch Changes
+
+- Updated dependencies [11a5a05]
+  - @contractspec/lib.logger@1.57.0
+
 ## 1.10.1
 
 ### Patch Changes

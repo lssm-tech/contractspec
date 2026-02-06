@@ -1,5 +1,11 @@
 # contractspec-example-minimal
 
+## 0.10.0
+
+### Minor Changes
+
+- 11a5a05: feat: improve product intent
+
 ## 0.9.1
 
 ### Patch Changes

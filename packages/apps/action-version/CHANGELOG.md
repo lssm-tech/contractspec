@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 0.13.0
+
+### Minor Changes
+
+- 11a5a05: feat: improve product intent
+
 ## 0.12.1
 
 ### Patch Changes

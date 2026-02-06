@@ -1,5 +1,59 @@
 # @contractspec/module.examples
 
+## 1.57.0
+
+### Minor Changes
+
+- 4651e06: Add Supabase and voice provider integrations with new runnable examples, and expose these providers across contracts, workspace tooling, and provider factory wiring.
+- 11a5a05: feat: improve product intent
+
+### Patch Changes
+
+- Updated dependencies [8ecf3c1]
+- Updated dependencies [47c48c2]
+- Updated dependencies [a119963]
+- Updated dependencies [4651e06]
+- Updated dependencies [ad9d10a]
+- Updated dependencies [11a5a05]
+  - @contractspec/lib.contracts@1.57.0
+  - @contractspec/example.analytics-dashboard@1.57.0
+  - @contractspec/example.integration-hub@1.57.0
+  - @contractspec/example.voice-providers@1.57.0
+  - @contractspec/example.saas-boilerplate@1.57.0
+  - @contractspec/example.crm-pipeline@1.57.0
+  - @contractspec/example.learning-journey-studio-onboarding@1.57.0
+  - @contractspec/example.learning-journey-quest-challenges@1.57.0
+  - @contractspec/example.learning-journey-crm-onboarding@1.57.0
+  - @contractspec/example.policy-safe-knowledge-assistant@1.57.0
+  - @contractspec/example.learning-journey-ambient-coach@1.57.0
+  - @contractspec/example.learning-journey-platform-tour@1.57.0
+  - @contractspec/example.learning-journey-ui-onboarding@1.57.0
+  - @contractspec/example.learning-journey-ui-coaching@1.57.0
+  - @contractspec/example.learning-journey-ui-gamified@1.57.0
+  - @contractspec/example.learning-journey-duo-drills@1.57.0
+  - @contractspec/example.learning-journey-ui-shared@1.57.0
+  - @contractspec/example.learning-journey-registry@1.57.0
+  - @contractspec/example.locale-jurisdiction-gate@1.57.0
+  - @contractspec/example.versioned-knowledge-base@1.57.0
+  - @contractspec/example.lifecycle-dashboard@1.57.0
+  - @contractspec/example.service-business-os@1.57.0
+  - @contractspec/example.content-generation@1.57.0
+  - @contractspec/example.integration-stripe@1.57.0
+  - @contractspec/example.kb-update-pipeline@1.57.0
+  - @contractspec/example.openbanking-powens@1.57.0
+  - @contractspec/example.learning-patterns@1.57.0
+  - @contractspec/example.knowledge-canon@1.57.0
+  - @contractspec/example.personalization@1.57.0
+  - @contractspec/example.wealth-snapshot@1.57.0
+  - @contractspec/example.workflow-system@1.57.0
+  - @contractspec/example.ai-support-bot@1.57.0
+  - @contractspec/example.agent-console@1.57.0
+  - @contractspec/example.lifecycle-cli@1.57.0
+  - @contractspec/lib.example-shared-ui@1.11.0
+  - @contractspec/example.marketplace@1.57.0
+  - @contractspec/lib.runtime-sandbox@0.12.0
+  - @contractspec/example.team-hub@1.57.0
+
 ## 1.56.1
 
 ### Patch Changes
