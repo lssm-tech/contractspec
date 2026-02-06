@@ -1,5 +1,19 @@
 # @contractspec/lib.example-shared-ui
 
+## 1.12.0
+
+### Minor Changes
+
+- d1f0fd0: chore: Migrate non-app package builds from tsdown to shared Bun tooling, add `@contractspec/tool.bun`, and standardize `prebuild`/`build`/`typecheck` with platform-aware exports and `tsc` declaration emission into `dist`.
+
+### Patch Changes
+
+- Updated dependencies [d1f0fd0]
+- Updated dependencies [4355a9e]
+  - @contractspec/lib.design-system@1.58.0
+  - @contractspec/lib.ui-kit-web@1.58.0
+  - @contractspec/lib.contracts@1.58.0
+
 ## 1.11.0
 
 ### Minor Changes

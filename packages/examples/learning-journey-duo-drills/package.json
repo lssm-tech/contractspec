@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.learning-journey-duo-drills",
-  "version": "1.57.0",
+  "version": "1.58.0",
   "description": "Drill-based learning journey example with SRS, XP, and streak hooks.",
   "type": "module",
   "types": "./dist/index.d.ts",

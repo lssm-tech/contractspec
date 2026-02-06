@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 0.13.0
+
+### Minor Changes
+
+- d1f0fd0: chore: Migrate non-app package builds from tsdown to shared Bun tooling, add `@contractspec/tool.bun`, and standardize `prebuild`/`build`/`typecheck` with platform-aware exports and `tsc` declaration emission into `dist`.
+
 ## 0.12.0
 
 ### Minor Changes
