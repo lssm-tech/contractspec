@@ -9,7 +9,8 @@ import {
   type TicketPipelineLogger,
 } from '@contractspec/lib.product-intent-utils';
 import type { TicketPipelineModelRunner } from '@contractspec/lib.product-intent-utils';
-import { loadEvidenceChunks } from './load-evidence';
+import { loadEvidenceChunksWithSignals } from './load-evidence';
+import { resolvePosthogEvidenceOptionsFromEnv } from './posthog-signals';
 import { LinearProjectManagementProvider } from '@contractspec/integration.providers-impls/impls/linear';
 import { JiraProjectManagementProvider } from '@contractspec/integration.providers-impls/impls/jira';
 import { NotionProjectManagementProvider } from '@contractspec/integration.providers-impls/impls/notion';
@@ -105,7 +106,9 @@ async function run() {
   const provider = resolveProvider();
   const modelRunner = await resolveModelRunner();
 
-  const evidenceChunks = loadEvidenceChunks();
+  const evidenceChunks = await loadEvidenceChunksWithSignals({
+    posthog: resolvePosthogEvidenceOptionsFromEnv() ?? undefined,
+  });
   const findings = await extractEvidence(evidenceChunks, QUESTION, {
     modelRunner,
     logger: createLogger(),

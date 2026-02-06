@@ -4,5 +4,14 @@ export {
   DEFAULT_EVIDENCE_ROOT,
   DEFAULT_TRANSCRIPT_DIRS,
   loadEvidenceChunks,
+  loadEvidenceChunksWithSignals,
 } from './load-evidence';
-export type { EvidenceLoadOptions } from './load-evidence';
+export type {
+  EvidenceLoadOptions,
+  EvidenceLoadWithSignalsOptions,
+} from './load-evidence';
+export {
+  loadPosthogEvidenceChunks,
+  resolvePosthogEvidenceOptionsFromEnv,
+} from './posthog-signals';
+export type { PosthogEvidenceOptions } from './posthog-signals';

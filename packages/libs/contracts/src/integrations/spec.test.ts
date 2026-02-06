@@ -66,8 +66,10 @@ describe('IntegrationSpecRegistry', () => {
     'email',
     'calendar',
     'ai-llm',
+    'analytics',
     'project-management',
     'meeting-recorder',
+    'database',
   ])('filters by category (%s)', (category) => {
     const registry = new IntegrationSpecRegistry();
     const spec = makeSpec({

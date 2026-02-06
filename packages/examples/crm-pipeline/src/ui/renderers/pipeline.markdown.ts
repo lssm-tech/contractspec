@@ -7,7 +7,7 @@ import type { PresentationRenderer } from '@contractspec/lib.contracts';
 import {
   mockListDealsHandler,
   mockGetPipelineStagesHandler,
-} from '@contractspec/example.crm-pipeline/handlers';
+} from '../../handlers';
 
 interface DealItem {
   id: string;

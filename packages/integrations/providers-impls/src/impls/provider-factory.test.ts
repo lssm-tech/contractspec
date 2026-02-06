@@ -12,8 +12,12 @@ import { StripePaymentsProvider } from './stripe-payments';
 import { PostmarkEmailProvider } from './postmark-email';
 import { TwilioSmsProvider } from './twilio-sms';
 import { QdrantVectorProvider } from './qdrant-vector';
+import { SupabaseVectorProvider } from './supabase-vector';
+import { SupabasePostgresProvider } from './supabase-psql';
 import { GoogleCloudStorageProvider } from './gcs-storage';
 import { ElevenLabsVoiceProvider } from './elevenlabs-voice';
+import { GradiumVoiceProvider } from './gradium-voice';
+import { FalVoiceProvider } from './fal-voice';
 import { MistralLLMProvider } from './mistral-llm';
 import { MistralEmbeddingProvider } from './mistral-embedding';
 import { PowensOpenBankingProvider } from './powens-openbanking';
@@ -24,6 +28,7 @@ import { GranolaMeetingRecorderProvider } from './granola-meeting-recorder';
 import { TldvMeetingRecorderProvider } from './tldv-meeting-recorder';
 import { FirefliesMeetingRecorderProvider } from './fireflies-meeting-recorder';
 import { FathomMeetingRecorderProvider } from './fathom-meeting-recorder';
+import { PosthogAnalyticsProvider } from './posthog';
 
 describe('IntegrationProviderFactory', () => {
   const factory = new IntegrationProviderFactory();
@@ -70,6 +75,46 @@ describe('IntegrationProviderFactory', () => {
     expect(provider).toBeInstanceOf(QdrantVectorProvider);
   });
 
+  it('creates Supabase vector store provider', async () => {
+    const provider = await factory.createVectorStoreProvider(
+      buildContext({
+        key: 'vectordb.supabase',
+        config: { schema: 'public', table: 'tenant_vectors' },
+        secret: {
+          databaseUrl: 'postgresql://postgres:postgres@localhost:5432/postgres',
+        },
+      })
+    );
+    expect(provider).toBeInstanceOf(SupabaseVectorProvider);
+  });
+
+  it('creates Supabase Postgres database provider', async () => {
+    const provider = await factory.createDatabaseProvider(
+      buildContext({
+        key: 'database.supabase',
+        config: { maxConnections: 5, sslMode: 'require' },
+        secret: {
+          databaseUrl: 'postgresql://postgres:postgres@localhost:5432/postgres',
+        },
+      })
+    );
+    expect(provider).toBeInstanceOf(SupabasePostgresProvider);
+  });
+
+  it('creates PostHog analytics provider', async () => {
+    const provider = await factory.createAnalyticsProvider(
+      buildContext({
+        key: 'analytics.posthog',
+        config: { host: 'https://app.posthog.com', projectId: '123' },
+        secret: {
+          personalApiKey: 'phx_personal',
+          projectApiKey: 'phc_project',
+        },
+      })
+    );
+    expect(provider).toBeInstanceOf(PosthogAnalyticsProvider);
+  });
+
   it('creates Google Cloud storage provider', async () => {
     const provider = await factory.createObjectStorageProvider(
       buildContext({
@@ -89,6 +134,28 @@ describe('IntegrationProviderFactory', () => {
       })
     );
     expect(provider).toBeInstanceOf(ElevenLabsVoiceProvider);
+  });
+
+  it('creates Gradium voice provider', async () => {
+    const provider = await factory.createVoiceProvider(
+      buildContext({
+        key: 'ai-voice.gradium',
+        config: { defaultVoiceId: 'voice-1', region: 'eu' },
+        secret: { apiKey: 'gd-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(GradiumVoiceProvider);
+  });
+
+  it('creates Fal voice provider', async () => {
+    const provider = await factory.createVoiceProvider(
+      buildContext({
+        key: 'ai-voice.fal',
+        config: { modelId: 'fal-ai/chatterbox/text-to-speech' },
+        secret: { apiKey: 'fal-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(FalVoiceProvider);
   });
 
   it('creates Mistral LLM and embedding providers', async () => {

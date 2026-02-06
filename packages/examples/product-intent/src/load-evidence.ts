@@ -2,6 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { EvidenceChunk } from '@contractspec/lib.contracts/product-intent/types';
+import type { PosthogEvidenceOptions } from './posthog-signals';
+import { loadPosthogEvidenceChunks } from './posthog-signals';
 
 const MODULE_DIR = path.dirname(fileURLToPath(import.meta.url));
 
@@ -13,6 +15,10 @@ export interface EvidenceLoadOptions {
   evidenceRoot?: string;
   transcriptDirs?: string[];
   chunkSize?: number;
+}
+
+export interface EvidenceLoadWithSignalsOptions extends EvidenceLoadOptions {
+  posthog?: PosthogEvidenceOptions;
 }
 
 /**
@@ -76,4 +82,13 @@ export function loadEvidenceChunks(
     }
   }
   return chunks;
+}
+
+export async function loadEvidenceChunksWithSignals(
+  options: EvidenceLoadWithSignalsOptions = {}
+): Promise<EvidenceChunk[]> {
+  const baseChunks = loadEvidenceChunks(options);
+  if (!options.posthog) return baseChunks;
+  const posthogChunks = await loadPosthogEvidenceChunks(options.posthog);
+  return [...baseChunks, ...posthogChunks];
 }

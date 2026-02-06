@@ -8,6 +8,7 @@ import ContentGeneration from '@contractspec/example.content-generation/example'
 import CrmPipeline from '@contractspec/example.crm-pipeline/example';
 import IntegrationHub from '@contractspec/example.integration-hub/example';
 import IntegrationStripe from '@contractspec/example.integration-stripe/example';
+import VoiceProviders from '@contractspec/example.voice-providers/example';
 import KbUpdatePipeline from '@contractspec/example.kb-update-pipeline/example';
 import KnowledgeCanon from '@contractspec/example.knowledge-canon/example';
 import LearningPatterns from '@contractspec/example.learning-patterns/example';
@@ -44,6 +45,7 @@ export const EXAMPLE_REGISTRY: readonly ExampleSpec[] = [
   CrmPipeline,
   IntegrationHub,
   IntegrationStripe,
+  VoiceProviders,
   KbUpdatePipeline,
   KnowledgeCanon,
   LearningPatterns,

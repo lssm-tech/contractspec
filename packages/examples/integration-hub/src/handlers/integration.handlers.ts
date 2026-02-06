@@ -16,7 +16,14 @@ export interface Integration {
   organizationId: string;
   name: string;
   description?: string;
-  type: 'CRM' | 'MARKETING' | 'PAYMENT' | 'COMMUNICATION' | 'DATA' | 'CUSTOM';
+  type:
+    | 'CRM'
+    | 'MARKETING'
+    | 'PAYMENT'
+    | 'COMMUNICATION'
+    | 'DATA'
+    | 'ANALYTICS'
+    | 'CUSTOM';
   status: 'ACTIVE' | 'INACTIVE';
   iconUrl?: string;
   createdAt: Date;

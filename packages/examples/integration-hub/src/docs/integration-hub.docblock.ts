@@ -34,6 +34,7 @@ const integrationHubDocBlocks: DocBlock[] = [
 ## Notes
 
 - Providers remain agnostic; keep mappings declarative for safe regeneration.
+- Seed data includes voice integrations for \`ai-voice.gradium\` and \`ai-voice.fal\`.
 - Feature flags can gate specific providers; metering can track sync volume.
 `,
   },

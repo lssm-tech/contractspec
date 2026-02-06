@@ -7,7 +7,7 @@ import type { PresentationRenderer } from '@contractspec/lib.contracts';
 import {
   mockListProjectsHandler,
   mockGetSubscriptionHandler,
-} from '@contractspec/example.saas-boilerplate/handlers';
+} from '../../handlers';
 
 interface ProjectItem {
   id: string;

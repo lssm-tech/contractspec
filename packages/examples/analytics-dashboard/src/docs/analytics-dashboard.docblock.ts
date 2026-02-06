@@ -35,6 +35,7 @@ const analyticsDashboardDocBlocks: DocBlock[] = [
 
 - Enforce org scoping for multi-tenant isolation.
 - Use Feature Flags for beta widgets; Metering to track query volume.
+- PostHog datasource can back query execution via HogQL for dashboard widgets.
 `,
   },
   {

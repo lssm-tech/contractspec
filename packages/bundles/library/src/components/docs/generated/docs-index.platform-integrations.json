@@ -16,12 +16,44 @@
     "contentPath": "platform.integrations/ai-voice.elevenlabs.md"
   },
   {
+    "id": "platform.integrations/ai-voice.fal",
+    "title": "ai-voice.fal",
+    "summary": "Fal integration for voice synthesis using Chatterbox text-to-speech models.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, tts, chatterbox\n- **File**: `packages/libs/contracts/src/integrations/providers/fal.ts`",
+    "route": "/docs/reference/platform.integrations/ai-voice.fal",
+    "source": "generated",
+    "contentPath": "platform.integrations/ai-voice.fal.md"
+  },
+  {
+    "id": "platform.integrations/ai-voice.gradium",
+    "title": "ai-voice.gradium",
+    "summary": "Gradium integration for low-latency voice synthesis and voice catalog access.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, tts, realtime\n- **File**: `packages/libs/contracts/src/integrations/providers/gradium.ts`",
+    "route": "/docs/reference/platform.integrations/ai-voice.gradium",
+    "source": "generated",
+    "contentPath": "platform.integrations/ai-voice.gradium.md"
+  },
+  {
+    "id": "platform.integrations/analytics.posthog",
+    "title": "analytics.posthog",
+    "summary": "PostHog integration for product analytics, feature flags, and HogQL queries.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: @platform.integrations\n- **Tags**: analytics, posthog\n- **File**: `packages/libs/contracts/src/integrations/providers/posthog.ts`",
+    "route": "/docs/reference/platform.integrations/analytics.posthog",
+    "source": "generated",
+    "contentPath": "platform.integrations/analytics.posthog.md"
+  },
+  {
     "id": "platform.integrations/calendar.google",
     "title": "calendar.google",
     "summary": "Google Calendar integration for event creation, updates, and scheduling automations.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: calendar, google",
     "route": "/docs/reference/platform.integrations/calendar.google",
     "source": "generated",
     "contentPath": "platform.integrations/calendar.google.md"
+  },
+  {
+    "id": "platform.integrations/database.supabase",
+    "title": "database.supabase",
+    "summary": "Supabase Postgres integration for SQL query execution and transactional workloads.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.infrastructure\n- **Tags**: database, postgres, supabase",
+    "route": "/docs/reference/platform.integrations/database.supabase",
+    "source": "generated",
+    "contentPath": "platform.integrations/database.supabase.md"
   },
   {
     "id": "platform.integrations/email.gmail",
@@ -190,5 +222,13 @@
     "route": "/docs/reference/platform.integrations/vectordb.qdrant",
     "source": "generated",
     "contentPath": "platform.integrations/vectordb.qdrant.md"
+  },
+  {
+    "id": "platform.integrations/vectordb.supabase",
+    "title": "vectordb.supabase",
+    "summary": "Supabase integration for embedding storage and vector similarity search using pgvector.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: vector-db, supabase, pgvector",
+    "route": "/docs/reference/platform.integrations/vectordb.supabase",
+    "source": "generated",
+    "contentPath": "platform.integrations/vectordb.supabase.md"
   }
 ]

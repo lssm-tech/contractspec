@@ -9,6 +9,7 @@ export type IntegrationCategory =
   | 'sms'
   | 'ai-llm'
   | 'ai-voice'
+  | 'analytics'
   | 'speech-to-text'
   | 'vector-db'
   | 'storage'
@@ -18,6 +19,7 @@ export type IntegrationCategory =
   | 'project-management'
   | 'open-banking'
   | 'meeting-recorder'
+  | 'database'
   | 'custom';
 
 export type IntegrationOwnershipMode = 'managed' | 'byok';

@@ -60,7 +60,6 @@ export function DataViewFormattedValue({
     case 'markdown':
       return <MarkdownRenderer content={value as string} />;
     default:
-      console.log('format value', value, format);
       return String(value);
   }
 }

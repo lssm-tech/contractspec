@@ -1,0 +1,64 @@
+{
+  "name": "@contractspec/example.integration-supabase",
+  "version": "1.56.1",
+  "description": "Integration example - Supabase vector store + Postgres database wiring.",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./blueprint": "./dist/blueprint.js",
+    "./connection.sample": "./dist/connection.sample.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/integration-supabase.docblock": "./dist/docs/integration-supabase.docblock.js",
+    "./example": "./dist/example.js",
+    "./runtime.sample": "./dist/runtime.sample.js",
+    "./tenant": "./dist/tenant.js",
+    "./*": "./*"
+  },
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@contractspec/integration.providers-impls": "workspace:*",
+    "@contractspec/integration.runtime": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./blueprint": "./dist/blueprint.js",
+      "./connection.sample": "./dist/connection.sample.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/integration-supabase.docblock": "./dist/docs/integration-supabase.docblock.js",
+      "./example": "./dist/example.js",
+      "./runtime.sample": "./dist/runtime.sample.js",
+      "./tenant": "./dist/tenant.js",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/integration-supabase"
+  },
+  "homepage": "https://contractspec.io"
+}
