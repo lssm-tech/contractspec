@@ -82,6 +82,7 @@
     "./impls/google-calendar": "./dist/impls/google-calendar.js",
     "./impls/gradium-voice": "./dist/impls/gradium-voice.js",
     "./impls/granola-meeting-recorder": "./dist/impls/granola-meeting-recorder.js",
+    "./impls/granola-meeting-recorder.mcp": "./dist/impls/granola-meeting-recorder.mcp.js",
     "./impls/granola-meeting-recorder.types": "./dist/impls/granola-meeting-recorder.types.js",
     "./impls/jira": "./dist/impls/jira.js",
     "./impls/linear": "./dist/impls/linear.js",

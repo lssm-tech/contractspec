@@ -13,13 +13,15 @@ const blocks: DocBlock[] = [
     tags: ['meeting-recorder', 'integration', 'example', 'transcripts'],
     body:
       '## What this example shows\n' +
-      '- Provider selection for Granola, tl;dv, Fireflies, and Fathom.\n' +
+      '- Provider selection for Granola (API and MCP), tl;dv, Fireflies, and Fathom.\n' +
       '- List meetings + fetch transcripts using the MeetingRecorderProvider interface.\n' +
       '- Webhook verification and normalization into a single event shape.\n\n' +
       '## Secrets and config\n' +
       '- apiKey (all providers)\n' +
+      '- Granola MCP: set transport=mcp and provide mcpAccessToken (or apiKey fallback for MCP proxy).\n' +
       '- webhookSecret (Fireflies and Fathom)\n' +
       '- baseUrl overrides for sandbox or proxy setups\n' +
+      '- mcpUrl and mcpHeaders for custom MCP routing\n' +
       '- pageSize / transcriptsPageSize for pagination\n' +
       '- Fathom options: includeTranscript, includeSummary, includeActionItems, includeCrmMatches, triggeredFor\n\n' +
       '## Guardrails\n' +
