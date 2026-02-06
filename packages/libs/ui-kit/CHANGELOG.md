@@ -1,5 +1,16 @@
 # @contractspec/lib.ui-kit
 
+## 1.60.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.ui-kit-core@1.60.0
+
 ## 1.59.0
 
 ### Minor Changes

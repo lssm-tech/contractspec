@@ -6,7 +6,7 @@ import { execSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = process.cwd();
-const usePublishExports =
+const shouldUsePublishExports = () =>
   process.env.CONTRACTSPEC_USE_PUBLISH_EXPORTS === 'true' ||
   process.env.CONTRACTSPEC_USE_PUBLISH_EXPORTS === '1';
 
@@ -89,17 +89,6 @@ const discoverPublishablePackages = () => {
         continue;
       }
 
-      // Skip tool packages (they are dev dependencies for the monorepo)
-      if (
-        pkgDir.startsWith('packages/tools/') ||
-        manifest.name?.startsWith('@contractspec/tool.')
-      ) {
-        console.log(
-          `[discover] Skipping tool package: ${manifest.name || pkgDir}`
-        );
-        continue;
-      }
-
       // Skip packages without a name
       if (!manifest.name) {
         console.log(`[discover] Skipping package without name: ${pkgDir}`);
@@ -148,26 +137,11 @@ const publishSinglePackage = ({ name, dir }, dryRun, npmTag = 'latest') => {
 
   console.log(`\n[publish] ${name}@${version} (tag: ${npmTag})`);
 
-  if (dryRun) {
-    console.log(
-      `[publish] DRY_RUN=true → running bun publish --dry-run for ${name}@${version}`
-    );
-    try {
-      execSync(`bun publish --access public --tag ${npmTag} --dry-run`, {
-        cwd: pkgDir,
-        stdio: 'inherit',
-      });
-    } catch {
-      // Dry run failures are informational only
-    }
-    return { name, version, published: false, reason: 'dry-run' };
-  }
-
   let manifestRewritten = false;
 
   try {
     if (
-      usePublishExports &&
+      shouldUsePublishExports() &&
       manifest.publishConfig?.exports &&
       typeof manifest.publishConfig.exports === 'object'
     ) {
@@ -180,6 +154,21 @@ const publishSinglePackage = ({ name, dir }, dryRun, npmTag = 'latest') => {
       console.log(
         `[publish] Using publishConfig.exports for ${name}@${version}`
       );
+    }
+
+    if (dryRun) {
+      console.log(
+        `[publish] DRY_RUN=true → running bun publish --dry-run for ${name}@${version}`
+      );
+      try {
+        execSync(`bun publish --access public --tag ${npmTag} --dry-run`, {
+          cwd: pkgDir,
+          stdio: 'inherit',
+        });
+      } catch {
+        // Dry run failures are informational only
+      }
+      return { name, version, published: false, reason: 'dry-run' };
     }
 
     // bun publish with --tolerate-republish exits 0 if version already exists

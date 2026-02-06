@@ -1,5 +1,17 @@
 # @contractspec/app.alpic-mcp
 
+## 1.60.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/bundle.alpic@1.60.0
+  - @contractspec/lib.logger@1.60.0
+
 ## 1.59.0
 
 ### Minor Changes

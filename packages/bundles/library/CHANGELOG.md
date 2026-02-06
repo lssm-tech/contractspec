@@ -1,5 +1,25 @@
 # @contractspec/bundle.library
 
+## 1.15.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-library@1.60.0
+  - @contractspec/lib.example-shared-ui@1.14.0
+  - @contractspec/lib.runtime-sandbox@0.15.0
+  - @contractspec/lib.design-system@1.60.0
+  - @contractspec/module.examples@1.60.0
+  - @contractspec/lib.ui-kit-web@1.60.0
+  - @contractspec/lib.contracts@1.60.0
+  - @contractspec/lib.ui-link@1.60.0
+  - @contractspec/lib.logger@1.60.0
+  - @contractspec/lib.schema@1.60.0
+
 ## 1.14.0
 
 ### Minor Changes

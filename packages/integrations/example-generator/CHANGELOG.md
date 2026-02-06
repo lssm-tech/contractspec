@@ -1,5 +1,17 @@
 # @contractspec/integration.example-generator
 
+## 13.0.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts@1.60.0
+  - @contractspec/lib.schema@1.60.0
+
 ## 12.0.0
 
 ### Minor Changes

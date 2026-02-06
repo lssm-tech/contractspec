@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.60.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-transformers@1.60.0
+  - @contractspec/bundle.workspace@1.60.0
+  - @contractspec/module.workspace@1.60.0
+  - @contractspec/module.examples@1.60.0
+  - @contractspec/module.ai-chat@1.60.0
+  - @contractspec/lib.contracts@1.60.0
+  - @contractspec/lib.ai-agent@1.60.0
+
 ## 1.59.0
 
 ### Minor Changes

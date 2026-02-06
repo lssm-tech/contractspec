@@ -1,5 +1,11 @@
 # contractspec-example-opencode-cli
 
+## 0.9.0
+
+### Minor Changes
+
+- fix: publish with bun
+
 ## 0.8.0
 
 ### Minor Changes

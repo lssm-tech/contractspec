@@ -1,5 +1,11 @@
 # contractspec-example-minimal
 
+## 0.13.0
+
+### Minor Changes
+
+- fix: publish with bun
+
 ## 0.12.0
 
 ### Minor Changes

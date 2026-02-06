@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 0.15.0
+
+### Minor Changes
+
+- fix: publish with bun
+
 ## 0.14.0
 
 ### Minor Changes

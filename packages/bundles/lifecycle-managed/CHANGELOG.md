@@ -1,5 +1,21 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 1.60.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/module.lifecycle-advisor@1.60.0
+  - @contractspec/module.lifecycle-core@1.60.0
+  - @contractspec/lib.observability@1.60.0
+  - @contractspec/lib.analytics@1.60.0
+  - @contractspec/lib.lifecycle@1.60.0
+  - @contractspec/lib.ai-agent@1.60.0
+
 ## 1.59.0
 
 ### Minor Changes

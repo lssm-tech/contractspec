@@ -1,5 +1,19 @@
 # @contractspec/app.api-library
 
+## 1.14.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/bundle.marketing@1.15.0
+  - @contractspec/bundle.workspace@1.60.0
+  - @contractspec/bundle.library@1.15.0
+  - @contractspec/lib.contracts@1.60.0
+
 ## 1.13.0
 
 ### Minor Changes

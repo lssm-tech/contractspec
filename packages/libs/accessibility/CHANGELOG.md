@@ -1,5 +1,18 @@
 # @contractspec/lib.accessibility
 
+## 1.60.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.design-system@1.60.0
+  - @contractspec/lib.ui-kit-web@1.60.0
+  - @contractspec/lib.ui-kit@1.60.0
+
 ## 1.59.0
 
 ### Minor Changes

@@ -1,5 +1,20 @@
 # @contractspec/example.wealth-snapshot
 
+## 1.60.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/module.notifications@1.60.0
+  - @contractspec/module.audit-trail@1.60.0
+  - @contractspec/lib.identity-rbac@1.60.0
+  - @contractspec/lib.contracts@1.60.0
+  - @contractspec/lib.schema@1.60.0
+
 ## 1.59.0
 
 ### Minor Changes

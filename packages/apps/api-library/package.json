@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/app.api-library",
-  "version": "1.13.0",
+  "version": "1.14.0",
   "private": true,
   "scripts": {
     "clean": "rm -rf dist",

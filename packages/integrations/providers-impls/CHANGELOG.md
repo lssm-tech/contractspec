@@ -1,5 +1,17 @@
 # @contractspec/integration.providers-impls
 
+## 1.60.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/integration.runtime@1.60.0
+  - @contractspec/lib.contracts@1.60.0
+
 ## 1.59.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @contractspec/lib.source-extractors
 
+## 0.14.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts@1.60.0
+  - @contractspec/lib.schema@1.60.0
+
 ## 0.13.0
 
 ### Minor Changes

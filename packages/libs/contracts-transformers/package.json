@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.contracts-transformers",
-  "version": "1.59.0",
+  "version": "1.60.0",
   "description": "Contract format transformations: import/export between ContractSpec and external formats (OpenAPI, AsyncAPI, etc.)",
   "keywords": [
     "contractspec",

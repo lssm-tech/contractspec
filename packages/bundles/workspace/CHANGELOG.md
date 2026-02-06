@@ -1,5 +1,22 @@
 # @contractspec/bundle.workspace
 
+## 1.60.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-transformers@1.60.0
+  - @contractspec/lib.source-extractors@0.14.0
+  - @contractspec/lib.utils-typescript@1.60.0
+  - @contractspec/lib.ai-providers@1.60.0
+  - @contractspec/module.workspace@1.60.0
+  - @contractspec/lib.contracts@1.60.0
+  - @contractspec/lib.ai-agent@1.60.0
+
 ## 1.59.0
 
 ### Minor Changes

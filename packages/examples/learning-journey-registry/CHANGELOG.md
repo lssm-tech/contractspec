@@ -1,5 +1,27 @@
 # @contractspec/example.learning-journey-registry
 
+## 1.60.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/example.learning-journey-studio-onboarding@1.60.0
+  - @contractspec/example.learning-journey-quest-challenges@1.60.0
+  - @contractspec/example.learning-journey-crm-onboarding@1.60.0
+  - @contractspec/example.learning-journey-ambient-coach@1.60.0
+  - @contractspec/example.learning-journey-platform-tour@1.60.0
+  - @contractspec/example.learning-journey-ui-onboarding@1.60.0
+  - @contractspec/example.learning-journey-ui-coaching@1.60.0
+  - @contractspec/example.learning-journey-ui-gamified@1.60.0
+  - @contractspec/example.learning-journey-duo-drills@1.60.0
+  - @contractspec/example.learning-journey-ui-shared@1.60.0
+  - @contractspec/module.learning-journey@1.60.0
+  - @contractspec/lib.contracts@1.60.0
+
 ## 1.59.0
 
 ### Minor Changes

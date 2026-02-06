@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.9.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/bundle.workspace@1.60.0
+  - @contractspec/lib.contracts@1.60.0
+
 ## 0.8.0
 
 ### Minor Changes

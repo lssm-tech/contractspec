@@ -1,5 +1,16 @@
 # @contractspec/lib.progressive-delivery
 
+## 14.0.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.observability@1.60.0
+
 ## 13.0.0
 
 ### Minor Changes

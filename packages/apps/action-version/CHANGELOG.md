@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 0.16.0
+
+### Minor Changes
+
+- fix: publish with bun
+
 ## 0.15.0
 
 ### Minor Changes

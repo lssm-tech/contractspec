@@ -1,5 +1,34 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 1.60.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/example.policy-safe-knowledge-assistant@1.60.0
+  - @contractspec/example.analytics-dashboard@1.60.0
+  - @contractspec/example.saas-boilerplate@1.60.0
+  - @contractspec/lib.progressive-delivery@14.0.0
+  - @contractspec/example.integration-hub@1.60.0
+  - @contractspec/example.workflow-system@1.60.0
+  - @contractspec/example.agent-console@1.60.0
+  - @contractspec/lib.example-shared-ui@1.14.0
+  - @contractspec/example.crm-pipeline@1.60.0
+  - @contractspec/example.in-app-docs@1.7.0
+  - @contractspec/example.marketplace@1.60.0
+  - @contractspec/lib.design-system@1.60.0
+  - @contractspec/bundle.marketing@1.15.0
+  - @contractspec/lib.ui-kit-core@1.60.0
+  - @contractspec/module.examples@1.60.0
+  - @contractspec/bundle.library@1.15.0
+  - @contractspec/lib.ui-kit-web@1.60.0
+  - @contractspec/lib.ui-link@1.60.0
+  - @contractspec/lib.ui-kit@1.60.0
+
 ## 1.59.0
 
 ### Minor Changes

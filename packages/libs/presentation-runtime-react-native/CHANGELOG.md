@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 14.0.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@1.60.0
+  - @contractspec/lib.ui-kit@1.60.0
+
 ## 13.0.0
 
 ### Minor Changes

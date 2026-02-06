@@ -1,5 +1,11 @@
 # @contractspec/tool.bun
 
+## 1.59.0
+
+### Minor Changes
+
+- fix: publish with bun
+
 ## 1.58.0
 
 ### Minor Changes

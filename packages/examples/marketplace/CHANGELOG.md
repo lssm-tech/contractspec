@@ -1,5 +1,20 @@
 # @contractspec/example.marketplace
 
+## 1.60.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.example-shared-ui@1.14.0
+  - @contractspec/lib.runtime-sandbox@0.15.0
+  - @contractspec/lib.design-system@1.60.0
+  - @contractspec/lib.contracts@1.60.0
+  - @contractspec/lib.schema@1.60.0
+
 ## 1.59.0
 
 ### Minor Changes

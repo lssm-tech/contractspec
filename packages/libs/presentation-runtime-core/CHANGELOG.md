@@ -1,5 +1,11 @@
 # @contractspec/lib.presentation-runtime-core
 
+## 1.60.0
+
+### Minor Changes
+
+- fix: publish with bun
+
 ## 1.59.0
 
 ### Minor Changes

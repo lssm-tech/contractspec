@@ -1,5 +1,16 @@
 # @contractspec/lib.graphql-prisma
 
+## 1.60.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.schema@1.60.0
+
 ## 1.59.0
 
 ### Minor Changes
