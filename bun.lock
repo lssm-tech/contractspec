@@ -1365,6 +1365,7 @@
       "name": "@contractspec/lib.analytics",
       "version": "1.56.1",
       "dependencies": {
+        "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.lifecycle": "workspace:*",
         "dayjs": "^1.11.13",
       },

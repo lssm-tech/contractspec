@@ -30,6 +30,7 @@
     "test": "bun test"
   },
   "dependencies": {
+    "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.lifecycle": "workspace:*",
     "dayjs": "^1.11.13"
   },
