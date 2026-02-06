@@ -1,5 +1,11 @@
 # @contractspec/lib.error
 
+## 1.57.0
+
+### Minor Changes
+
+- 11a5a05: feat: improve product intent
+
 ## 1.56.1
 
 ### Patch Changes
