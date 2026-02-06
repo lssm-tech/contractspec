@@ -5,8 +5,35 @@ import path from 'node:path';
 import { glob } from 'glob';
 import { selectEntriesForTarget } from './config.mjs';
 
-function resolveRootPath(cwd, root) {
-  return root && root !== '.' ? path.join(cwd, root) : cwd;
+function buildTranspileArgs({
+  selectedEntries,
+  root,
+  target,
+  outdir,
+  external,
+}) {
+  const args = [
+    'build',
+    ...selectedEntries,
+    '--root',
+    root,
+    '--target',
+    target,
+    '--format',
+    'esm',
+    '--packages',
+    'external',
+    '--outdir',
+    outdir,
+    '--entry-naming',
+    '[dir]/[name].[ext]',
+  ];
+
+  for (const item of external) {
+    args.push('--external', item);
+  }
+
+  return args;
 }
 
 async function readJson(filePath) {
@@ -211,24 +238,28 @@ export async function runTranspile({
         : path.join(cwd, 'dist', target);
     await rm(outdir, { recursive: true, force: true });
 
-    const result = await Bun.build({
-      entrypoints: selectedEntries.map((entry) => path.join(cwd, entry)),
-      outdir,
+    const relativeOutdir = path.relative(cwd, outdir).replaceAll('\\', '/');
+    const args = buildTranspileArgs({
+      selectedEntries,
+      root,
       target,
-      format: 'esm',
-      packages: 'external',
-      sourcemap: 'none',
-      splitting: false,
-      naming: '[dir]/[name].[ext]',
+      outdir: relativeOutdir,
       external,
-      root: resolveRootPath(cwd, root),
     });
 
-    if (!result.success) {
-      for (const log of result.logs) {
-        console.error(log.message);
-      }
-      process.exit(1);
+    console.log(
+      `[contractspec-bun-build] transpile target=${target} root=${root} entries=${selectedEntries.length}`
+    );
+
+    const subprocess = Bun.spawn(['bun', ...args], {
+      cwd,
+      stdout: 'inherit',
+      stderr: 'inherit',
+      stdin: 'inherit',
+    });
+    const exitCode = await subprocess.exited;
+    if (exitCode !== 0) {
+      process.exit(exitCode);
     }
   }
 }
@@ -250,27 +281,14 @@ export async function runDev({ cwd, entries, external, targets, targetRoots }) {
 
     const root = targetRoots?.[target] ?? '.';
     const outdir = target === 'bun' ? 'dist' : `dist/${target}`;
-    const args = [
-      'build',
-      ...selectedEntries,
-      '--root',
+    const args = buildTranspileArgs({
+      selectedEntries,
       root,
-      '--target',
       target,
-      '--format',
-      'esm',
-      '--packages',
-      'external',
-      '--outdir',
       outdir,
-      '--entry-naming',
-      '[dir]/[name].[ext]',
-      '--watch',
-    ];
-
-    for (const item of external) {
-      args.push('--external', item);
-    }
+      external,
+    });
+    args.push('--watch');
 
     const subprocess = Bun.spawn(['bun', ...args], {
       cwd,
