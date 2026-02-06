@@ -2,7 +2,7 @@
   {
     "id": "ai-chat/ai-chat",
     "title": "ai-chat",
-    "summary": "AI-powered chat interface \n - **Type**: capability (capability) \n - **Version**: 1.0.0 \n - **Owners**: @platform.core \n - **Tags**: ai, chat, ui \n - **File**: `packages/modules/ai-chat/src/ai-chat.capability.ts`",
+    "summary": "AI-powered chat interface\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.core\n- **Tags**: ai, chat, ui\n- **File**: `packages/modules/ai-chat/src/ai-chat.capability.ts`\n```typescript",
     "route": "/docs/reference/ai-chat/ai-chat",
     "source": "generated",
     "contentPath": "ai-chat/ai-chat.md"
@@ -10,7 +10,7 @@
   {
     "id": "ai-chat/ai-chat.context.scan",
     "title": "ai-chat.context.scan",
-    "summary": "Scan workspace context. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @ai-team \n - **Tags**: chat, context \n - **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
+    "summary": "Scan workspace context.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @ai-team\n- **Tags**: chat, context\n- **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
     "route": "/docs/reference/ai-chat/ai-chat.context.scan",
     "source": "generated",
     "contentPath": "ai-chat/ai-chat.context.scan.md"
@@ -18,7 +18,7 @@
   {
     "id": "ai-chat/ai-chat.conversation.created",
     "title": "ai-chat.conversation.created",
-    "summary": "New conversation created \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @ai-chat \n - **Tags**: ai-chat, conversation, created \n - **File**: `packages/modules/ai-chat/src/events.ts`",
+    "summary": "New conversation created\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @ai-chat\n- **Tags**: ai-chat, conversation, created\n- **File**: `packages/modules/ai-chat/src/events.ts`",
     "route": "/docs/reference/ai-chat/ai-chat.conversation.created",
     "source": "generated",
     "contentPath": "ai-chat/ai-chat.conversation.created.md"
@@ -26,7 +26,7 @@
   {
     "id": "ai-chat/ai-chat.conversation.deleted",
     "title": "ai-chat.conversation.deleted",
-    "summary": "Conversation deleted \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @ai-chat \n - **Tags**: ai-chat, conversation, deleted \n - **File**: `packages/modules/ai-chat/src/events.ts`",
+    "summary": "Conversation deleted\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @ai-chat\n- **Tags**: ai-chat, conversation, deleted\n- **File**: `packages/modules/ai-chat/src/events.ts`",
     "route": "/docs/reference/ai-chat/ai-chat.conversation.deleted",
     "source": "generated",
     "contentPath": "ai-chat/ai-chat.conversation.deleted.md"
@@ -34,7 +34,7 @@
   {
     "id": "ai-chat/ai-chat.conversations.delete",
     "title": "ai-chat.conversations.delete",
-    "summary": "Delete a conversation. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @ai-team \n - **Tags**: chat, delete \n - **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
+    "summary": "Delete a conversation.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @ai-team\n- **Tags**: chat, delete\n- **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
     "route": "/docs/reference/ai-chat/ai-chat.conversations.delete",
     "source": "generated",
     "contentPath": "ai-chat/ai-chat.conversations.delete.md"
@@ -42,7 +42,7 @@
   {
     "id": "ai-chat/ai-chat.conversations.get",
     "title": "ai-chat.conversations.get",
-    "summary": "Get a specific conversation. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @ai-team \n - **Tags**: chat, get \n - **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
+    "summary": "Get a specific conversation.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @ai-team\n- **Tags**: chat, get\n- **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
     "route": "/docs/reference/ai-chat/ai-chat.conversations.get",
     "source": "generated",
     "contentPath": "ai-chat/ai-chat.conversations.get.md"
@@ -50,7 +50,7 @@
   {
     "id": "ai-chat/ai-chat.conversations.list",
     "title": "ai-chat.conversations.list",
-    "summary": "List user conversations. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @ai-team \n - **Tags**: chat, list \n - **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
+    "summary": "List user conversations.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @ai-team\n- **Tags**: chat, list\n- **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
     "route": "/docs/reference/ai-chat/ai-chat.conversations.list",
     "source": "generated",
     "contentPath": "ai-chat/ai-chat.conversations.list.md"
@@ -58,7 +58,7 @@
   {
     "id": "ai-chat/ai-chat.error",
     "title": "ai-chat.error",
-    "summary": "Chat error occurred \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @ai-chat \n - **Tags**: ai-chat, error \n - **File**: `packages/modules/ai-chat/src/events.ts`",
+    "summary": "Chat error occurred\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @ai-chat\n- **Tags**: ai-chat, error\n- **File**: `packages/modules/ai-chat/src/events.ts`\n```typescript\nexport const ChatErrorEvent = defineEvent({",
     "route": "/docs/reference/ai-chat/ai-chat.error",
     "source": "generated",
     "contentPath": "ai-chat/ai-chat.error.md"
@@ -66,7 +66,7 @@
   {
     "id": "ai-chat/ai-chat.message.received",
     "title": "ai-chat.message.received",
-    "summary": "Message received from AI \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @ai-chat \n - **Tags**: ai-chat, message, received \n - **File**: `packages/modules/ai-chat/src/events.ts`",
+    "summary": "Message received from AI\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @ai-chat\n- **Tags**: ai-chat, message, received\n- **File**: `packages/modules/ai-chat/src/events.ts`",
     "route": "/docs/reference/ai-chat/ai-chat.message.received",
     "source": "generated",
     "contentPath": "ai-chat/ai-chat.message.received.md"
@@ -74,7 +74,7 @@
   {
     "id": "ai-chat/ai-chat.message.sent",
     "title": "ai-chat.message.sent",
-    "summary": "Message sent by user \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @ai-chat \n - **Tags**: ai-chat, message, sent \n - **File**: `packages/modules/ai-chat/src/events.ts`",
+    "summary": "Message sent by user\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @ai-chat\n- **Tags**: ai-chat, message, sent\n- **File**: `packages/modules/ai-chat/src/events.ts`\n```typescript",
     "route": "/docs/reference/ai-chat/ai-chat.message.sent",
     "source": "generated",
     "contentPath": "ai-chat/ai-chat.message.sent.md"
@@ -82,7 +82,7 @@
   {
     "id": "ai-chat/ai-chat.providers.list",
     "title": "ai-chat.providers.list",
-    "summary": "List available AI providers. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @ai-team \n - **Tags**: chat, providers \n - **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
+    "summary": "List available AI providers.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @ai-team\n- **Tags**: chat, providers\n- **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
     "route": "/docs/reference/ai-chat/ai-chat.providers.list",
     "source": "generated",
     "contentPath": "ai-chat/ai-chat.providers.list.md"
@@ -90,7 +90,7 @@
   {
     "id": "ai-chat/ai-chat.send",
     "title": "ai-chat.send",
-    "summary": "Send a message to the AI chat. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @ai-team \n - **Tags**: chat, send \n - **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
+    "summary": "Send a message to the AI chat.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @ai-team\n- **Tags**: chat, send\n- **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
     "route": "/docs/reference/ai-chat/ai-chat.send",
     "source": "generated",
     "contentPath": "ai-chat/ai-chat.send.md"
@@ -98,7 +98,7 @@
   {
     "id": "ai-chat/ai-chat.stream",
     "title": "ai-chat.stream",
-    "summary": "Stream a message response from the AI chat. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @ai-team \n - **Tags**: chat, stream \n - **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
+    "summary": "Stream a message response from the AI chat.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @ai-team\n- **Tags**: chat, stream\n- **File**: `packages/modules/ai-chat/src/ai-chat.operations.ts`",
     "route": "/docs/reference/ai-chat/ai-chat.stream",
     "source": "generated",
     "contentPath": "ai-chat/ai-chat.stream.md"

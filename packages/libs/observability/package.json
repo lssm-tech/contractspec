@@ -25,7 +25,8 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@contractspec/lib.lifecycle": "workspace:*"
+    "@contractspec/lib.lifecycle": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*"
   },
   "peerDependencies": {
     "@opentelemetry/api": "*"
@@ -47,6 +48,8 @@
     "./metrics": "./dist/metrics/index.mjs",
     "./pipeline/evolution-pipeline": "./dist/pipeline/evolution-pipeline.mjs",
     "./pipeline/lifecycle-pipeline": "./dist/pipeline/lifecycle-pipeline.mjs",
+    "./telemetry/posthog-baseline-reader": "./dist/telemetry/posthog-baseline-reader.mjs",
+    "./telemetry/posthog-telemetry": "./dist/telemetry/posthog-telemetry.mjs",
     "./tracing": "./dist/tracing/index.mjs",
     "./tracing/middleware": "./dist/tracing/middleware.mjs",
     "./*": "./*"
@@ -65,6 +68,7 @@
       "./metrics": "./dist/metrics/index.mjs",
       "./pipeline/evolution-pipeline": "./dist/pipeline/evolution-pipeline.mjs",
       "./pipeline/lifecycle-pipeline": "./dist/pipeline/lifecycle-pipeline.mjs",
+      "./telemetry/posthog-baseline-reader": "./dist/telemetry/posthog-baseline-reader.mjs",
       "./tracing": "./dist/tracing/index.mjs",
       "./tracing/middleware": "./dist/tracing/middleware.mjs",
       "./*": "./*"

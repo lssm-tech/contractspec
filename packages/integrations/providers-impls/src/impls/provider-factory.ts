@@ -5,20 +5,36 @@ import type { SecretValue } from '@contractspec/integration.runtime/secrets/prov
 import { MistralLLMProvider } from './mistral-llm';
 import { MistralEmbeddingProvider } from './mistral-embedding';
 import { QdrantVectorProvider } from './qdrant-vector';
+import { SupabaseVectorProvider } from './supabase-vector';
+import { SupabasePostgresProvider } from './supabase-psql';
 import { GoogleCloudStorageProvider } from './gcs-storage';
 import { StripePaymentsProvider } from './stripe-payments';
 import { PostmarkEmailProvider } from './postmark-email';
 import { TwilioSmsProvider } from './twilio-sms';
 import { ElevenLabsVoiceProvider } from './elevenlabs-voice';
+import { GradiumVoiceProvider } from './gradium-voice';
+import { FalVoiceProvider } from './fal-voice';
+import { LinearProjectManagementProvider } from './linear';
+import { JiraProjectManagementProvider } from './jira';
+import { NotionProjectManagementProvider } from './notion';
+import { GranolaMeetingRecorderProvider } from './granola-meeting-recorder';
+import { TldvMeetingRecorderProvider } from './tldv-meeting-recorder';
+import { FirefliesMeetingRecorderProvider } from './fireflies-meeting-recorder';
+import { FathomMeetingRecorderProvider } from './fathom-meeting-recorder';
+import { PosthogAnalyticsProvider } from './posthog';
 import type { PaymentsProvider } from '../payments';
 import type { EmailOutboundProvider } from '../email';
 import type { SmsProvider } from '../sms';
 import type { VectorStoreProvider } from '../vector-store';
+import type { AnalyticsProvider } from '../analytics';
+import type { DatabaseProvider } from '../database';
 import type { ObjectStorageProvider } from '../storage';
 import type { VoiceProvider } from '../voice';
 import type { LLMProvider } from '../llm';
 import type { EmbeddingProvider } from '../embedding';
 import type { OpenBankingProvider } from '../openbanking';
+import type { ProjectManagementProvider } from '../project-management';
+import type { MeetingRecorderProvider } from '../meeting-recorder';
 import { PowensOpenBankingProvider } from './powens-openbanking';
 import type { PowensEnvironment } from './powens-client';
 
@@ -97,6 +113,16 @@ export class IntegrationProviderFactory {
     context: IntegrationContext
   ): Promise<VectorStoreProvider> {
     const secrets = await this.loadSecrets(context);
+    const config = context.config as {
+      apiUrl?: string;
+      schema?: string;
+      table?: string;
+      createTableIfMissing?: boolean;
+      distanceMetric?: 'cosine' | 'l2' | 'inner_product';
+      maxConnections?: number;
+      sslMode?: 'require' | 'allow' | 'prefer';
+    };
+
     switch (context.spec.meta.key) {
       case 'vectordb.qdrant':
         return new QdrantVectorProvider({
@@ -107,9 +133,78 @@ export class IntegrationProviderFactory {
           ),
           apiKey: secrets.apiKey as string | undefined,
         });
+      case 'vectordb.supabase':
+        return new SupabaseVectorProvider({
+          connectionString: requireDatabaseUrl(
+            secrets,
+            'Supabase vector databaseUrl secret is required'
+          ),
+          schema: config?.schema,
+          table: config?.table,
+          createTableIfMissing: config?.createTableIfMissing,
+          distanceMetric: config?.distanceMetric,
+          maxConnections: config?.maxConnections,
+          sslMode: config?.sslMode,
+        });
       default:
         throw new Error(
           `Unsupported vector store integration: ${context.spec.meta.key}`
+        );
+    }
+  }
+
+  async createAnalyticsProvider(
+    context: IntegrationContext
+  ): Promise<AnalyticsProvider> {
+    const secrets = await this.loadSecrets(context);
+    const config = context.config as {
+      host?: string;
+      projectId?: string;
+      mcpUrl?: string;
+    };
+
+    switch (context.spec.meta.key) {
+      case 'analytics.posthog':
+        return new PosthogAnalyticsProvider({
+          host: config?.host,
+          projectId: config?.projectId,
+          mcpUrl: config?.mcpUrl,
+          projectApiKey: secrets.projectApiKey as string | undefined,
+          personalApiKey: requireSecret<string>(
+            secrets,
+            'personalApiKey',
+            'PostHog personalApiKey is required'
+          ),
+        });
+      default:
+        throw new Error(
+          `Unsupported analytics integration: ${context.spec.meta.key}`
+        );
+    }
+  }
+
+  async createDatabaseProvider(
+    context: IntegrationContext
+  ): Promise<DatabaseProvider> {
+    const secrets = await this.loadSecrets(context);
+    const config = context.config as {
+      maxConnections?: number;
+      sslMode?: 'require' | 'allow' | 'prefer';
+    };
+
+    switch (context.spec.meta.key) {
+      case 'database.supabase':
+        return new SupabasePostgresProvider({
+          connectionString: requireDatabaseUrl(
+            secrets,
+            'Supabase database databaseUrl secret is required'
+          ),
+          maxConnections: config?.maxConnections,
+          sslMode: config?.sslMode,
+        });
+      default:
+        throw new Error(
+          `Unsupported database integration: ${context.spec.meta.key}`
         );
     }
   }
@@ -143,6 +238,27 @@ export class IntegrationProviderFactory {
     context: IntegrationContext
   ): Promise<VoiceProvider> {
     const secrets = await this.loadSecrets(context);
+    const config = context.config as {
+      defaultVoiceId?: string;
+      region?: 'eu' | 'us';
+      baseUrl?: string;
+      timeoutMs?: number;
+      outputFormat?:
+        | 'wav'
+        | 'pcm'
+        | 'opus'
+        | 'ulaw_8000'
+        | 'alaw_8000'
+        | 'pcm_16000'
+        | 'pcm_24000';
+      modelId?: string;
+      defaultVoiceUrl?: string;
+      defaultExaggeration?: number;
+      defaultTemperature?: number;
+      defaultCfg?: number;
+      pollIntervalMs?: number;
+    };
+
     switch (context.spec.meta.key) {
       case 'ai-voice.elevenlabs':
         return new ElevenLabsVoiceProvider({
@@ -151,12 +267,199 @@ export class IntegrationProviderFactory {
             'apiKey',
             'ElevenLabs API key is required'
           ),
-          defaultVoiceId: (context.config as { defaultVoiceId?: string })
-            .defaultVoiceId,
+          defaultVoiceId: config?.defaultVoiceId,
+        });
+      case 'ai-voice.gradium':
+        return new GradiumVoiceProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'Gradium API key is required'
+          ),
+          defaultVoiceId: config?.defaultVoiceId,
+          region: config?.region,
+          baseUrl: config?.baseUrl,
+          timeoutMs: config?.timeoutMs,
+          outputFormat: config?.outputFormat,
+        });
+      case 'ai-voice.fal':
+        return new FalVoiceProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'Fal API key is required'
+          ),
+          modelId: config?.modelId,
+          defaultVoiceUrl: config?.defaultVoiceUrl,
+          defaultExaggeration: config?.defaultExaggeration,
+          defaultTemperature: config?.defaultTemperature,
+          defaultCfg: config?.defaultCfg,
+          pollIntervalMs: config?.pollIntervalMs,
         });
       default:
         throw new Error(
           `Unsupported voice integration: ${context.spec.meta.key}`
+        );
+    }
+  }
+
+  async createProjectManagementProvider(
+    context: IntegrationContext
+  ): Promise<ProjectManagementProvider> {
+    const secrets = await this.loadSecrets(context);
+    const config = context.config as {
+      teamId?: string;
+      projectId?: string;
+      assigneeId?: string;
+      stateId?: string;
+      labelIds?: string[];
+      tagLabelMap?: Record<string, string>;
+      siteUrl?: string;
+      projectKey?: string;
+      issueType?: string;
+      defaultLabels?: string[];
+      issueTypeMap?: Record<string, string>;
+      databaseId?: string;
+      summaryParentPageId?: string;
+      titleProperty?: string;
+      statusProperty?: string;
+      priorityProperty?: string;
+      tagsProperty?: string;
+      dueDateProperty?: string;
+      descriptionProperty?: string;
+    };
+
+    switch (context.spec.meta.key) {
+      case 'project-management.linear':
+        return new LinearProjectManagementProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'Linear API key is required'
+          ),
+          teamId: requireConfig<string>(
+            context,
+            'teamId',
+            'Linear teamId is required'
+          ),
+          projectId: config?.projectId,
+          assigneeId: config?.assigneeId,
+          stateId: config?.stateId,
+          labelIds: config?.labelIds,
+          tagLabelMap: config?.tagLabelMap,
+        });
+      case 'project-management.jira':
+        return new JiraProjectManagementProvider({
+          siteUrl: requireConfig<string>(
+            context,
+            'siteUrl',
+            'Jira siteUrl is required'
+          ),
+          email: requireSecret<string>(
+            secrets,
+            'email',
+            'Jira email is required'
+          ),
+          apiToken: requireSecret<string>(
+            secrets,
+            'apiToken',
+            'Jira API token is required'
+          ),
+          projectKey: config?.projectKey,
+          issueType: config?.issueType,
+          defaultLabels: config?.defaultLabels,
+          issueTypeMap: config?.issueTypeMap,
+        });
+      case 'project-management.notion':
+        return new NotionProjectManagementProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'Notion API key is required'
+          ),
+          databaseId: config?.databaseId,
+          summaryParentPageId: config?.summaryParentPageId,
+          titleProperty: config?.titleProperty,
+          statusProperty: config?.statusProperty,
+          priorityProperty: config?.priorityProperty,
+          tagsProperty: config?.tagsProperty,
+          dueDateProperty: config?.dueDateProperty,
+          descriptionProperty: config?.descriptionProperty,
+        });
+      default:
+        throw new Error(
+          `Unsupported project management integration: ${context.spec.meta.key}`
+        );
+    }
+  }
+
+  async createMeetingRecorderProvider(
+    context: IntegrationContext
+  ): Promise<MeetingRecorderProvider> {
+    const secrets = await this.loadSecrets(context);
+    const config = context.config as {
+      baseUrl?: string;
+      pageSize?: number;
+      transcriptsPageSize?: number;
+      includeTranscript?: boolean;
+      includeSummary?: boolean;
+      includeActionItems?: boolean;
+      includeCrmMatches?: boolean;
+      triggeredFor?: string[];
+      maxPages?: number;
+    };
+
+    switch (context.spec.meta.key) {
+      case 'meeting-recorder.granola':
+        return new GranolaMeetingRecorderProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'Granola API key is required'
+          ),
+          baseUrl: config?.baseUrl,
+          pageSize: config?.pageSize,
+        });
+      case 'meeting-recorder.tldv':
+        return new TldvMeetingRecorderProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'tl;dv API key is required'
+          ),
+          baseUrl: config?.baseUrl,
+          pageSize: config?.pageSize,
+        });
+      case 'meeting-recorder.fireflies':
+        return new FirefliesMeetingRecorderProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'Fireflies API key is required'
+          ),
+          baseUrl: config?.baseUrl,
+          pageSize: config?.transcriptsPageSize ?? config?.pageSize,
+          webhookSecret: secrets.webhookSecret as string | undefined,
+        });
+      case 'meeting-recorder.fathom':
+        return new FathomMeetingRecorderProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'Fathom API key is required'
+          ),
+          baseUrl: config?.baseUrl,
+          includeTranscript: config?.includeTranscript,
+          includeSummary: config?.includeSummary,
+          includeActionItems: config?.includeActionItems,
+          includeCrmMatches: config?.includeCrmMatches,
+          triggeredFor: config?.triggeredFor,
+          maxPages: config?.maxPages,
+          webhookSecret: secrets.webhookSecret as string | undefined,
+        });
+      default:
+        throw new Error(
+          `Unsupported meeting recorder integration: ${context.spec.meta.key}`
         );
     }
   }
@@ -289,6 +592,21 @@ function requireSecret<T>(
     throw new Error(message);
   }
   return value as T;
+}
+
+function requireDatabaseUrl(
+  secrets: Record<string, unknown>,
+  message: string
+): string {
+  const value =
+    secrets.databaseUrl ??
+    secrets.connectionString ??
+    secrets.postgresUrl ??
+    secrets.apiKey;
+  if (typeof value !== 'string' || value.trim().length === 0) {
+    throw new Error(message);
+  }
+  return value;
 }
 
 function requireConfig<T>(

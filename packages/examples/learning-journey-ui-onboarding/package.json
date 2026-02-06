@@ -48,7 +48,7 @@
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "@types/react": "^19.2.8",
+    "@types/react": "^19.2.13",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

@@ -61,21 +61,27 @@ describe('IntegrationSpecRegistry', () => {
     expect(() => registry.register(spec)).toThrowError(/Duplicate contract/);
   });
 
-  it.each<IntegrationCategory>(['payments', 'email', 'calendar', 'ai-llm'])(
-    'filters by category (%s)',
-    (category) => {
-      const registry = new IntegrationSpecRegistry();
-      const spec = makeSpec({
-        meta: {
-          ...makeSpec().meta,
-          key: `integration-${category}`,
-          category,
-        },
-      });
+  it.each<IntegrationCategory>([
+    'payments',
+    'email',
+    'calendar',
+    'ai-llm',
+    'analytics',
+    'project-management',
+    'meeting-recorder',
+    'database',
+  ])('filters by category (%s)', (category) => {
+    const registry = new IntegrationSpecRegistry();
+    const spec = makeSpec({
+      meta: {
+        ...makeSpec().meta,
+        key: `integration-${category}`,
+        category,
+      },
+    });
 
-      registry.register(spec);
+    registry.register(spec);
 
-      expect(registry.getByCategory(category)).toEqual([spec]);
-    }
-  );
+    expect(registry.getByCategory(category)).toEqual([spec]);
+  });
 });

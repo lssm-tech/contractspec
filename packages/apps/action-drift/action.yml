@@ -17,6 +17,7 @@ inputs:
   generate-command:
     description: 'Command to regenerate artifacts'
     required: true
+    default: 'bun contractspec generate'
   on-drift:
     description: 'Behavior when drift is detected (fail|issue|pr)'
     required: false
@@ -64,6 +65,28 @@ runs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
+
+    - name: Configure ContractSpec command
+      shell: bash
+      run: |
+        case "$PACKAGE_MANAGER" in
+          bun)
+            echo "CONTRACTSPEC_CMD=bunx contractspec" >> $GITHUB_ENV
+            ;;
+          npm)
+            echo "CONTRACTSPEC_CMD=npx contractspec" >> $GITHUB_ENV
+            ;;
+          pnpm)
+            echo "CONTRACTSPEC_CMD=pnpm dlx contractspec" >> $GITHUB_ENV
+            ;;
+          yarn)
+            echo "CONTRACTSPEC_CMD=yarn dlx contractspec" >> $GITHUB_ENV
+            ;;
+          *)
+            echo "::error::Unsupported package-manager: $PACKAGE_MANAGER"
+            exit 1
+            ;;
+        esac
 
     - name: Install dependencies
       shell: bash

@@ -9,13 +9,17 @@ export type IntegrationCategory =
   | 'sms'
   | 'ai-llm'
   | 'ai-voice'
+  | 'analytics'
   | 'speech-to-text'
   | 'vector-db'
   | 'storage'
   | 'accounting'
   | 'crm'
   | 'helpdesk'
+  | 'project-management'
   | 'open-banking'
+  | 'meeting-recorder'
+  | 'database'
   | 'custom';
 
 export type IntegrationOwnershipMode = 'managed' | 'byok';

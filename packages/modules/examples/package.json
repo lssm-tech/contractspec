@@ -29,7 +29,7 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@apollo/client": "^4.0.12",
+    "@apollo/client": "^4.1.4",
     "@contractspec/example.agent-console": "workspace:*",
     "@contractspec/example.ai-support-bot": "workspace:*",
     "@contractspec/example.analytics-dashboard": "workspace:*",
@@ -37,6 +37,7 @@
     "@contractspec/example.crm-pipeline": "workspace:*",
     "@contractspec/example.integration-hub": "workspace:*",
     "@contractspec/example.integration-stripe": "workspace:*",
+    "@contractspec/example.voice-providers": "workspace:*",
     "@contractspec/example.kb-update-pipeline": "workspace:*",
     "@contractspec/example.knowledge-canon": "workspace:*",
     "@contractspec/example.learning-journey-ambient-coach": "workspace:*",

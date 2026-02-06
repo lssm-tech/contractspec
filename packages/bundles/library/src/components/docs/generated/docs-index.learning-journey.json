@@ -2,7 +2,7 @@
   {
     "id": "learning-journey/achievement.unlocked",
     "title": "achievement.unlocked",
-    "summary": "An achievement has been unlocked. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, gamification, achievement \n - **File**: `packages/modules/learning-journey/src/events.ts`",
+    "summary": "An achievement has been unlocked.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, gamification, achievement\n- **File**: `packages/modules/learning-journey/src/events.ts`",
     "route": "/docs/reference/learning-journey/achievement.unlocked",
     "source": "generated",
     "contentPath": "learning-journey/achievement.unlocked.md"
@@ -10,7 +10,7 @@
   {
     "id": "learning-journey/certificate.issued",
     "title": "certificate.issued",
-    "summary": "A certificate has been issued. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, certificate \n - **File**: `packages/modules/learning-journey/src/events.ts`",
+    "summary": "A certificate has been issued.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, certificate\n- **File**: `packages/modules/learning-journey/src/events.ts`\n```typescript",
     "route": "/docs/reference/learning-journey/certificate.issued",
     "source": "generated",
     "contentPath": "learning-journey/certificate.issued.md"
@@ -18,7 +18,7 @@
   {
     "id": "learning-journey/course.completed",
     "title": "course.completed",
-    "summary": "A learner has completed a course. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, progress, course \n - **File**: `packages/modules/learning-journey/src/events.ts`",
+    "summary": "A learner has completed a course.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, progress, course\n- **File**: `packages/modules/learning-journey/src/events.ts`\n```typescript",
     "route": "/docs/reference/learning-journey/course.completed",
     "source": "generated",
     "contentPath": "learning-journey/course.completed.md"
@@ -26,7 +26,7 @@
   {
     "id": "learning-journey/course.published",
     "title": "course.published",
-    "summary": "A course has been published. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, course \n - **File**: `packages/modules/learning-journey/src/events.ts`",
+    "summary": "A course has been published.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, course\n- **File**: `packages/modules/learning-journey/src/events.ts`\n```typescript\nexport const CoursePublishedEvent = defineEvent({",
     "route": "/docs/reference/learning-journey/course.published",
     "source": "generated",
     "contentPath": "learning-journey/course.published.md"
@@ -34,7 +34,7 @@
   {
     "id": "learning-journey/daily_goal.completed",
     "title": "daily_goal.completed",
-    "summary": "A daily goal has been completed. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, gamification, goal \n - **File**: `packages/modules/learning-journey/src/events.ts`",
+    "summary": "A daily goal has been completed.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, gamification, goal\n- **File**: `packages/modules/learning-journey/src/events.ts`",
     "route": "/docs/reference/learning-journey/daily_goal.completed",
     "source": "generated",
     "contentPath": "learning-journey/daily_goal.completed.md"
@@ -42,7 +42,7 @@
   {
     "id": "learning-journey/enrollment.created",
     "title": "enrollment.created",
-    "summary": "A learner has enrolled in a course. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, enrollment \n - **File**: `packages/modules/learning-journey/src/events.ts`",
+    "summary": "A learner has enrolled in a course.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, enrollment\n- **File**: `packages/modules/learning-journey/src/events.ts`\n```typescript",
     "route": "/docs/reference/learning-journey/enrollment.created",
     "source": "generated",
     "contentPath": "learning-journey/enrollment.created.md"
@@ -50,7 +50,7 @@
   {
     "id": "learning-journey/flashcard.reviewed",
     "title": "flashcard.reviewed",
-    "summary": "A flashcard has been reviewed. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, flashcards \n - **File**: `packages/modules/learning-journey/src/events.ts`",
+    "summary": "A flashcard has been reviewed.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, flashcards\n- **File**: `packages/modules/learning-journey/src/events.ts`\n```typescript",
     "route": "/docs/reference/learning-journey/flashcard.reviewed",
     "source": "generated",
     "contentPath": "learning-journey/flashcard.reviewed.md"
@@ -58,7 +58,7 @@
   {
     "id": "learning-journey/gamification",
     "title": "gamification",
-    "summary": "Gamification elements like badges, points, and achievements \n - **Type**: capability (capability) \n - **Version**: 1.0.0 \n - **Owners**: platform.core \n - **Tags**: gamification, engagement, ui \n - **File**: `packages/modules/learning-journey/src/learning-journey.capability.ts`",
+    "summary": "Gamification elements like badges, points, and achievements\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: platform.core\n- **Tags**: gamification, engagement, ui\n- **File**: `packages/modules/learning-journey/src/learning-journey.capability.ts`",
     "route": "/docs/reference/learning-journey/gamification",
     "source": "generated",
     "contentPath": "learning-journey/gamification.md"
@@ -66,7 +66,7 @@
   {
     "id": "learning-journey/learning-journey",
     "title": "learning-journey",
-    "summary": "Learning platform with courses, onboarding, flashcards, and gamification \n - **Type**: feature \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @platform.learning-journey \n - **Tags**: learning, onboarding, courses, flashcards, gamification",
+    "summary": "Learning platform with courses, onboarding, flashcards, and gamification\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @platform.learning-journey\n- **Tags**: learning, onboarding, courses, flashcards, gamification",
     "route": "/docs/reference/learning-journey/learning-journey",
     "source": "generated",
     "contentPath": "learning-journey/learning-journey.md"
@@ -74,7 +74,7 @@
   {
     "id": "learning-journey/learning.completeLesson",
     "title": "learning.completeLesson",
-    "summary": "Mark a lesson as completed. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, progress \n - **File**: `packages/modules/learning-journey/src/contracts/operations.ts`",
+    "summary": "Mark a lesson as completed.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, progress\n- **File**: `packages/modules/learning-journey/src/contracts/operations.ts`",
     "route": "/docs/reference/learning-journey/learning.completeLesson",
     "source": "generated",
     "contentPath": "learning-journey/learning.completeLesson.md"
@@ -82,7 +82,7 @@
   {
     "id": "learning-journey/learning.enroll",
     "title": "learning.enroll",
-    "summary": "Enroll in a course. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, enrollment \n - **File**: `packages/modules/learning-journey/src/contracts/operations.ts`",
+    "summary": "Enroll in a course.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, enrollment\n- **File**: `packages/modules/learning-journey/src/contracts/operations.ts`\nStart learning a new course.",
     "route": "/docs/reference/learning-journey/learning.enroll",
     "source": "generated",
     "contentPath": "learning-journey/learning.enroll.md"
@@ -90,7 +90,7 @@
   {
     "id": "learning-journey/learning.getDashboard",
     "title": "learning.getDashboard",
-    "summary": "Get learner dashboard data. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, dashboard \n - **File**: `packages/modules/learning-journey/src/contracts/operations.ts`",
+    "summary": "Get learner dashboard data.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, dashboard\n- **File**: `packages/modules/learning-journey/src/contracts/operations.ts`",
     "route": "/docs/reference/learning-journey/learning.getDashboard",
     "source": "generated",
     "contentPath": "learning-journey/learning.getDashboard.md"
@@ -98,7 +98,7 @@
   {
     "id": "learning-journey/learning.getDueCards",
     "title": "learning.getDueCards",
-    "summary": "Get flashcards due for review. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, flashcards \n - **File**: `packages/modules/learning-journey/src/contracts/operations.ts`",
+    "summary": "Get flashcards due for review.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, flashcards\n- **File**: `packages/modules/learning-journey/src/contracts/operations.ts`",
     "route": "/docs/reference/learning-journey/learning.getDueCards",
     "source": "generated",
     "contentPath": "learning-journey/learning.getDueCards.md"
@@ -106,7 +106,7 @@
   {
     "id": "learning-journey/learning.onboarding.getProgress",
     "title": "learning.onboarding.getProgress",
-    "summary": "Fetch onboarding progress for a specific track. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, onboarding, journey \n - **File**: `packages/modules/learning-journey/src/contracts/onboarding.ts`",
+    "summary": "Fetch onboarding progress for a specific track.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, onboarding, journey\n- **File**: `packages/modules/learning-journey/src/contracts/onboarding.ts`",
     "route": "/docs/reference/learning-journey/learning.onboarding.getProgress",
     "source": "generated",
     "contentPath": "learning-journey/learning.onboarding.getProgress.md"
@@ -114,7 +114,7 @@
   {
     "id": "learning-journey/learning.onboarding.listTracks",
     "title": "learning.onboarding.listTracks",
-    "summary": "List onboarding tracks available to a learner or product. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, onboarding, journey \n - **File**: `packages/modules/learning-journey/src/contracts/onboarding.ts`",
+    "summary": "List onboarding tracks available to a learner or product.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, onboarding, journey\n- **File**: `packages/modules/learning-journey/src/contracts/onboarding.ts`",
     "route": "/docs/reference/learning-journey/learning.onboarding.listTracks",
     "source": "generated",
     "contentPath": "learning-journey/learning.onboarding.listTracks.md"
@@ -122,7 +122,7 @@
   {
     "id": "learning-journey/learning.onboarding.recordEvent",
     "title": "learning.onboarding.recordEvent",
-    "summary": "Record a domain event to evaluate onboarding step completion conditions. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, onboarding, events \n - **File**: `packages/modules/learning-journey/src/contracts/onboarding.ts`",
+    "summary": "Record a domain event to evaluate onboarding step completion conditions.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, onboarding, events\n- **File**: `packages/modules/learning-journey/src/contracts/onboarding.ts`",
     "route": "/docs/reference/learning-journey/learning.onboarding.recordEvent",
     "source": "generated",
     "contentPath": "learning-journey/learning.onboarding.recordEvent.md"
@@ -130,7 +130,7 @@
   {
     "id": "learning-journey/learning.submitCardReview",
     "title": "learning.submitCardReview",
-    "summary": "Submit a flashcard review. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, flashcards \n - **File**: `packages/modules/learning-journey/src/contracts/operations.ts`",
+    "summary": "Submit a flashcard review.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, flashcards\n- **File**: `packages/modules/learning-journey/src/contracts/operations.ts`",
     "route": "/docs/reference/learning-journey/learning.submitCardReview",
     "source": "generated",
     "contentPath": "learning-journey/learning.submitCardReview.md"
@@ -138,7 +138,7 @@
   {
     "id": "learning-journey/lesson.completed",
     "title": "lesson.completed",
-    "summary": "A learner has completed a lesson. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, progress, lesson \n - **File**: `packages/modules/learning-journey/src/events.ts`",
+    "summary": "A learner has completed a lesson.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, progress, lesson\n- **File**: `packages/modules/learning-journey/src/events.ts`\n```typescript",
     "route": "/docs/reference/learning-journey/lesson.completed",
     "source": "generated",
     "contentPath": "learning-journey/lesson.completed.md"
@@ -146,7 +146,7 @@
   {
     "id": "learning-journey/level.up",
     "title": "level.up",
-    "summary": "A learner has leveled up. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, gamification, level \n - **File**: `packages/modules/learning-journey/src/events.ts`",
+    "summary": "A learner has leveled up.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, gamification, level\n- **File**: `packages/modules/learning-journey/src/events.ts`\n```typescript",
     "route": "/docs/reference/learning-journey/level.up",
     "source": "generated",
     "contentPath": "learning-journey/level.up.md"
@@ -154,7 +154,7 @@
   {
     "id": "learning-journey/onboarding",
     "title": "onboarding",
-    "summary": "User onboarding and first-time experience flows \n - **Type**: capability (capability) \n - **Version**: 1.0.0 \n - **Owners**: platform.core \n - **Tags**: onboarding, ux, ui \n - **File**: `packages/modules/learning-journey/src/learning-journey.capability.ts`",
+    "summary": "User onboarding and first-time experience flows\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: platform.core\n- **Tags**: onboarding, ux, ui\n- **File**: `packages/modules/learning-journey/src/learning-journey.capability.ts`",
     "route": "/docs/reference/learning-journey/onboarding",
     "source": "generated",
     "contentPath": "learning-journey/onboarding.md"
@@ -162,7 +162,7 @@
   {
     "id": "learning-journey/onboarding.completed",
     "title": "onboarding.completed",
-    "summary": "A learner has completed onboarding. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, onboarding \n - **File**: `packages/modules/learning-journey/src/events.ts`",
+    "summary": "A learner has completed onboarding.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, onboarding\n- **File**: `packages/modules/learning-journey/src/events.ts`\n```typescript",
     "route": "/docs/reference/learning-journey/onboarding.completed",
     "source": "generated",
     "contentPath": "learning-journey/onboarding.completed.md"
@@ -170,7 +170,7 @@
   {
     "id": "learning-journey/onboarding.started",
     "title": "onboarding.started",
-    "summary": "A learner has started onboarding. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, onboarding \n - **File**: `packages/modules/learning-journey/src/events.ts`",
+    "summary": "A learner has started onboarding.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, onboarding\n- **File**: `packages/modules/learning-journey/src/events.ts`\n```typescript",
     "route": "/docs/reference/learning-journey/onboarding.started",
     "source": "generated",
     "contentPath": "learning-journey/onboarding.started.md"
@@ -178,7 +178,7 @@
   {
     "id": "learning-journey/onboarding.step_completed",
     "title": "onboarding.step_completed",
-    "summary": "An onboarding step has been completed. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, onboarding \n - **File**: `packages/modules/learning-journey/src/events.ts`",
+    "summary": "An onboarding step has been completed.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, onboarding\n- **File**: `packages/modules/learning-journey/src/events.ts`\n```typescript",
     "route": "/docs/reference/learning-journey/onboarding.step_completed",
     "source": "generated",
     "contentPath": "learning-journey/onboarding.step_completed.md"
@@ -186,7 +186,7 @@
   {
     "id": "learning-journey/quiz.completed",
     "title": "quiz.completed",
-    "summary": "A quiz attempt has been completed. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, quiz \n - **File**: `packages/modules/learning-journey/src/events.ts`",
+    "summary": "A quiz attempt has been completed.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, quiz\n- **File**: `packages/modules/learning-journey/src/events.ts`\n```typescript",
     "route": "/docs/reference/learning-journey/quiz.completed",
     "source": "generated",
     "contentPath": "learning-journey/quiz.completed.md"
@@ -194,7 +194,7 @@
   {
     "id": "learning-journey/quiz.started",
     "title": "quiz.started",
-    "summary": "A quiz attempt has started. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, quiz \n - **File**: `packages/modules/learning-journey/src/events.ts` \n ```typescript",
+    "summary": "A quiz attempt has started.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, quiz\n- **File**: `packages/modules/learning-journey/src/events.ts`\n```typescript\nexport const QuizStartedEvent = defineEvent({",
     "route": "/docs/reference/learning-journey/quiz.started",
     "source": "generated",
     "contentPath": "learning-journey/quiz.started.md"
@@ -202,7 +202,7 @@
   {
     "id": "learning-journey/streak.updated",
     "title": "streak.updated",
-    "summary": "A streak has been updated. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, gamification, streak \n - **File**: `packages/modules/learning-journey/src/events.ts`",
+    "summary": "A streak has been updated.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, gamification, streak\n- **File**: `packages/modules/learning-journey/src/events.ts`\n```typescript",
     "route": "/docs/reference/learning-journey/streak.updated",
     "source": "generated",
     "contentPath": "learning-journey/streak.updated.md"
@@ -210,7 +210,7 @@
   {
     "id": "learning-journey/xp.earned",
     "title": "xp.earned",
-    "summary": "XP has been earned. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Tags**: learning, gamification, xp \n - **File**: `packages/modules/learning-journey/src/events.ts`",
+    "summary": "XP has been earned.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Tags**: learning, gamification, xp\n- **File**: `packages/modules/learning-journey/src/events.ts`\n```typescript\nexport const XpEarnedEvent = defineEvent({",
     "route": "/docs/reference/learning-journey/xp.earned",
     "source": "generated",
     "contentPath": "learning-journey/xp.earned.md"

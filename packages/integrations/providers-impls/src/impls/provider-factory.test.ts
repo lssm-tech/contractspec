@@ -12,11 +12,23 @@ import { StripePaymentsProvider } from './stripe-payments';
 import { PostmarkEmailProvider } from './postmark-email';
 import { TwilioSmsProvider } from './twilio-sms';
 import { QdrantVectorProvider } from './qdrant-vector';
+import { SupabaseVectorProvider } from './supabase-vector';
+import { SupabasePostgresProvider } from './supabase-psql';
 import { GoogleCloudStorageProvider } from './gcs-storage';
 import { ElevenLabsVoiceProvider } from './elevenlabs-voice';
+import { GradiumVoiceProvider } from './gradium-voice';
+import { FalVoiceProvider } from './fal-voice';
 import { MistralLLMProvider } from './mistral-llm';
 import { MistralEmbeddingProvider } from './mistral-embedding';
 import { PowensOpenBankingProvider } from './powens-openbanking';
+import { LinearProjectManagementProvider } from './linear';
+import { JiraProjectManagementProvider } from './jira';
+import { NotionProjectManagementProvider } from './notion';
+import { GranolaMeetingRecorderProvider } from './granola-meeting-recorder';
+import { TldvMeetingRecorderProvider } from './tldv-meeting-recorder';
+import { FirefliesMeetingRecorderProvider } from './fireflies-meeting-recorder';
+import { FathomMeetingRecorderProvider } from './fathom-meeting-recorder';
+import { PosthogAnalyticsProvider } from './posthog';
 
 describe('IntegrationProviderFactory', () => {
   const factory = new IntegrationProviderFactory();
@@ -63,6 +75,46 @@ describe('IntegrationProviderFactory', () => {
     expect(provider).toBeInstanceOf(QdrantVectorProvider);
   });
 
+  it('creates Supabase vector store provider', async () => {
+    const provider = await factory.createVectorStoreProvider(
+      buildContext({
+        key: 'vectordb.supabase',
+        config: { schema: 'public', table: 'tenant_vectors' },
+        secret: {
+          databaseUrl: 'postgresql://postgres:postgres@localhost:5432/postgres',
+        },
+      })
+    );
+    expect(provider).toBeInstanceOf(SupabaseVectorProvider);
+  });
+
+  it('creates Supabase Postgres database provider', async () => {
+    const provider = await factory.createDatabaseProvider(
+      buildContext({
+        key: 'database.supabase',
+        config: { maxConnections: 5, sslMode: 'require' },
+        secret: {
+          databaseUrl: 'postgresql://postgres:postgres@localhost:5432/postgres',
+        },
+      })
+    );
+    expect(provider).toBeInstanceOf(SupabasePostgresProvider);
+  });
+
+  it('creates PostHog analytics provider', async () => {
+    const provider = await factory.createAnalyticsProvider(
+      buildContext({
+        key: 'analytics.posthog',
+        config: { host: 'https://app.posthog.com', projectId: '123' },
+        secret: {
+          personalApiKey: 'phx_personal',
+          projectApiKey: 'phc_project',
+        },
+      })
+    );
+    expect(provider).toBeInstanceOf(PosthogAnalyticsProvider);
+  });
+
   it('creates Google Cloud storage provider', async () => {
     const provider = await factory.createObjectStorageProvider(
       buildContext({
@@ -82,6 +134,28 @@ describe('IntegrationProviderFactory', () => {
       })
     );
     expect(provider).toBeInstanceOf(ElevenLabsVoiceProvider);
+  });
+
+  it('creates Gradium voice provider', async () => {
+    const provider = await factory.createVoiceProvider(
+      buildContext({
+        key: 'ai-voice.gradium',
+        config: { defaultVoiceId: 'voice-1', region: 'eu' },
+        secret: { apiKey: 'gd-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(GradiumVoiceProvider);
+  });
+
+  it('creates Fal voice provider', async () => {
+    const provider = await factory.createVoiceProvider(
+      buildContext({
+        key: 'ai-voice.fal',
+        config: { modelId: 'fal-ai/chatterbox/text-to-speech' },
+        secret: { apiKey: 'fal-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(FalVoiceProvider);
   });
 
   it('creates Mistral LLM and embedding providers', async () => {
@@ -105,6 +179,83 @@ describe('IntegrationProviderFactory', () => {
     );
     expect(provider).toBeInstanceOf(PowensOpenBankingProvider);
   });
+
+  it('creates Linear project management provider', async () => {
+    const provider = await factory.createProjectManagementProvider(
+      buildContext({
+        key: 'project-management.linear',
+        config: { teamId: 'team-1' },
+        secret: { apiKey: 'linear-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(LinearProjectManagementProvider);
+  });
+
+  it('creates Jira project management provider', async () => {
+    const provider = await factory.createProjectManagementProvider(
+      buildContext({
+        key: 'project-management.jira',
+        config: { siteUrl: 'https://acme.atlassian.net', projectKey: 'PM' },
+        secret: { email: 'user@acme.com', apiToken: 'token' },
+      })
+    );
+    expect(provider).toBeInstanceOf(JiraProjectManagementProvider);
+  });
+
+  it('creates Notion project management provider', async () => {
+    const provider = await factory.createProjectManagementProvider(
+      buildContext({
+        key: 'project-management.notion',
+        config: { databaseId: 'db-1' },
+        secret: { apiKey: 'notion-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(NotionProjectManagementProvider);
+  });
+
+  it('creates Granola meeting recorder provider', async () => {
+    const provider = await factory.createMeetingRecorderProvider(
+      buildContext({
+        key: 'meeting-recorder.granola',
+        config: { pageSize: 10 },
+        secret: { apiKey: 'granola-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(GranolaMeetingRecorderProvider);
+  });
+
+  it('creates tl;dv meeting recorder provider', async () => {
+    const provider = await factory.createMeetingRecorderProvider(
+      buildContext({
+        key: 'meeting-recorder.tldv',
+        config: { pageSize: 25 },
+        secret: { apiKey: 'tldv-key', webhookSecret: 'tldv-secret' },
+      })
+    );
+    expect(provider).toBeInstanceOf(TldvMeetingRecorderProvider);
+  });
+
+  it('creates Fireflies meeting recorder provider', async () => {
+    const provider = await factory.createMeetingRecorderProvider(
+      buildContext({
+        key: 'meeting-recorder.fireflies',
+        config: { transcriptsPageSize: 15 },
+        secret: { apiKey: 'fireflies-key', webhookSecret: 'ff-secret' },
+      })
+    );
+    expect(provider).toBeInstanceOf(FirefliesMeetingRecorderProvider);
+  });
+
+  it('creates Fathom meeting recorder provider', async () => {
+    const provider = await factory.createMeetingRecorderProvider(
+      buildContext({
+        key: 'meeting-recorder.fathom',
+        config: { includeTranscript: true },
+        secret: { apiKey: 'fathom-key', webhookSecret: 'fathom-secret' },
+      })
+    );
+    expect(provider).toBeInstanceOf(FathomMeetingRecorderProvider);
+  });
 });
 
 function buildContext({
@@ -121,9 +272,8 @@ function buildContext({
       key,
       version: '1.0.0',
       category: key.startsWith('openbanking.')
-        ? ('open-banking' as string)
-        : (key.split('.')[0] as string),
-      displayName: key,
+        ? ('open-banking' as IntegrationSpec['meta']['category'])
+        : (key.split('.')[0] as IntegrationSpec['meta']['category']),
       title: key,
       description: `${key} provider`,
       domain: 'test',
@@ -141,7 +291,7 @@ function buildContext({
       id: `conn-${key}`,
       tenantId: 'tenant',
       integrationKey: key,
-      integrationVersion: 1,
+      integrationVersion: '1.0.0',
       label: key,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -181,7 +331,7 @@ function buildContext({
     secretReference: 'mock://secret',
     trace: {
       blueprintName: 'blueprint',
-      blueprintVersion: '1.0.0',
+      blueprintVersion: 1,
       configVersion: 1,
     },
   };

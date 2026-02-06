@@ -1,0 +1,59 @@
+{
+  "name": "@contractspec/example.integration-posthog",
+  "version": "1.56.1",
+  "description": "PostHog analytics integration example: capture events, run HogQL, and manage feature flags.",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/integration-posthog.docblock": "./dist/docs/integration-posthog.docblock.js",
+    "./example": "./dist/example.js",
+    "./posthog": "./dist/posthog.js",
+    "./run": "./dist/run.js",
+    "./*": "./*"
+  },
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@contractspec/integration.providers-impls": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/integration-posthog.docblock": "./dist/docs/integration-posthog.docblock.js",
+      "./example": "./dist/example.js",
+      "./posthog": "./dist/posthog.js",
+      "./run": "./dist/run.js",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/integration-posthog"
+  },
+  "homepage": "https://contractspec.io"
+}

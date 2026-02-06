@@ -2,7 +2,7 @@
   {
     "id": "learning-journey-studio-onboarding/learning-journey-studio-onboarding",
     "title": "learning-journey-studio-onboarding",
-    "summary": "Studio onboarding journey for getting started with ContractSpec Studio \n - **Type**: feature \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @examples.learning-journey.studio-onboarding",
+    "summary": "Studio onboarding journey for getting started with ContractSpec Studio\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples.learning-journey.studio-onboarding\n- **Tags**: learning, onboarding, studio, journey",
     "route": "/docs/reference/learning-journey-studio-onboarding/learning-journey-studio-onboarding",
     "source": "generated",
     "contentPath": "learning-journey-studio-onboarding/learning-journey-studio-onboarding.md"
@@ -10,7 +10,7 @@
   {
     "id": "learning-journey-studio-onboarding/learning.journey.studio.track",
     "title": "learning.journey.studio.track",
-    "summary": "Studio onboarding track detail \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **File**: `packages/examples/learning-journey-studio-onboarding/src/presentations/index.ts` \n Visualize the onboarding track for the user.",
+    "summary": "Studio onboarding track detail\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **File**: `packages/examples/learning-journey-studio-onboarding/src/presentations/index.ts`\nVisualize the onboarding track for the user.",
     "route": "/docs/reference/learning-journey-studio-onboarding/learning.journey.studio.track",
     "source": "generated",
     "contentPath": "learning-journey-studio-onboarding/learning.journey.studio.track.md"
@@ -18,7 +18,7 @@
   {
     "id": "learning-journey-studio-onboarding/learning.journey.studio.widget",
     "title": "learning.journey.studio.widget",
-    "summary": "Compact widget for Studio onboarding progress \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **File**: `packages/examples/learning-journey-studio-onboarding/src/presentations/index.ts`",
+    "summary": "Compact widget for Studio onboarding progress\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **File**: `packages/examples/learning-journey-studio-onboarding/src/presentations/index.ts`\nShow quick progress summary.",
     "route": "/docs/reference/learning-journey-studio-onboarding/learning.journey.studio.widget",
     "source": "generated",
     "contentPath": "learning-journey-studio-onboarding/learning.journey.studio.widget.md"
@@ -26,7 +26,7 @@
   {
     "id": "learning-journey-studio-onboarding/learningJourney.studioOnboarding.getTrack",
     "title": "learningJourney.studioOnboarding.getTrack",
-    "summary": "Fetch the Studio onboarding track definition. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: examples.learning-journey.studio-onboarding \n - **Tags**: learning, onboarding, studio",
+    "summary": "Fetch the Studio onboarding track definition.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: examples.learning-journey.studio-onboarding\n- **Tags**: learning, onboarding, studio",
     "route": "/docs/reference/learning-journey-studio-onboarding/learningJourney.studioOnboarding.getTrack",
     "source": "generated",
     "contentPath": "learning-journey-studio-onboarding/learningJourney.studioOnboarding.getTrack.md"
@@ -34,7 +34,7 @@
   {
     "id": "learning-journey-studio-onboarding/learningJourney.studioOnboarding.getTrack.test",
     "title": "learningJourney.studioOnboarding.getTrack.test",
-    "summary": "Test for getting studio onboarding track \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @example.learning-journey-studio-onboarding \n - **Tags**: test",
+    "summary": "Test for getting studio onboarding track\n- **Type**: test-spec (test-spec)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @example.learning-journey-studio-onboarding\n- **Tags**: test\n- **File**: `packages/examples/learning-journey-studio-onboarding/src/tests/operations.test-spec.ts`",
     "route": "/docs/reference/learning-journey-studio-onboarding/learningJourney.studioOnboarding.getTrack.test",
     "source": "generated",
     "contentPath": "learning-journey-studio-onboarding/learningJourney.studioOnboarding.getTrack.test.md"
@@ -42,7 +42,7 @@
   {
     "id": "learning-journey-studio-onboarding/learningJourney.studioOnboarding.recordEvent",
     "title": "learningJourney.studioOnboarding.recordEvent",
-    "summary": "Record an event to advance Studio onboarding progress. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: examples.learning-journey.studio-onboarding",
+    "summary": "Record an event to advance Studio onboarding progress.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: examples.learning-journey.studio-onboarding\n- **Tags**: learning, onboarding, studio",
     "route": "/docs/reference/learning-journey-studio-onboarding/learningJourney.studioOnboarding.recordEvent",
     "source": "generated",
     "contentPath": "learning-journey-studio-onboarding/learningJourney.studioOnboarding.recordEvent.md"

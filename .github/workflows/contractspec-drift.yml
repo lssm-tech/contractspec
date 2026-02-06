@@ -18,6 +18,5 @@ jobs:
         with:
           package-manager: bun
           working-directory: '.'
-          generate-command: 'bun contractspec generate'
           on-drift: fail
           token: ${{ github.token }}

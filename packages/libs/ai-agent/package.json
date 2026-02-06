@@ -37,8 +37,9 @@
     "@ai-sdk/google": "catalog:ai",
     "@ai-sdk/mistral": "catalog:ai",
     "@ai-sdk/openai": "catalog:ai",
-    "@modelcontextprotocol/sdk": "^1.25.2",
+    "@modelcontextprotocol/sdk": "^1.26.0",
     "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.ai-providers": "workspace:*",
     "@contractspec/lib.knowledge": "workspace:*",
     "compare-versions": "^6.1.1",
     "zod": "catalog:"
@@ -66,6 +67,7 @@
     "./agent": "./dist/agent/index.js",
     "./agent/agent-factory": "./dist/agent/agent-factory.js",
     "./agent/contract-spec-agent": "./dist/agent/contract-spec-agent.js",
+    "./agent/json-runner": "./dist/agent/json-runner.js",
     "./agent/unified-agent": "./dist/agent/unified-agent.js",
     "./approval": "./dist/approval/index.js",
     "./approval/workflow": "./dist/approval/workflow.js",

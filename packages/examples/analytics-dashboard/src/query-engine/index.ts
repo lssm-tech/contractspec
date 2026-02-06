@@ -385,3 +385,8 @@ export class BasicQueryEngine implements IQueryEngine {
 export function createQueryEngine(cache?: IQueryCache): IQueryEngine {
   return new BasicQueryEngine(cache);
 }
+
+export {
+  PosthogQueryEngine,
+  createPosthogQueryEngine,
+} from '../datasource/posthog-datasource';

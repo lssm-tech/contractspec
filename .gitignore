@@ -118,7 +118,3 @@ build-*.apk
 **/WARP.md
 **/modular-mcp.json
 !.rulesync/.aiignore
-!packages/apps/action-pr/dist/
-!packages/apps/action-pr/dist/**
-!packages/apps/action-drift/dist/
-!packages/apps/action-drift/dist/**

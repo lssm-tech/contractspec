@@ -2,7 +2,7 @@
   {
     "id": "notifications/notifications",
     "title": "notifications",
-    "summary": "User notifications and alerts \n - **Type**: capability (capability) \n - **Version**: 1.0.0 \n - **Owners**: @platform.messaging \n - **Tags**: notifications, messaging, alerts \n - **File**: `packages/modules/notifications/src/notifications.capability.ts`",
+    "summary": "User notifications and alerts\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.messaging\n- **Tags**: notifications, messaging, alerts\n- **File**: `packages/modules/notifications/src/notifications.capability.ts`",
     "route": "/docs/reference/notifications/notifications",
     "source": "generated",
     "contentPath": "notifications/notifications.md"
@@ -10,7 +10,7 @@
   {
     "id": "notifications/notifications.delete",
     "title": "notifications.delete",
-    "summary": "Delete a notification. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.notifications \n - **Tags**: notifications, delete \n - **File**: `packages/modules/notifications/src/contracts/index.ts`",
+    "summary": "Delete a notification.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.notifications\n- **Tags**: notifications, delete\n- **File**: `packages/modules/notifications/src/contracts/index.ts`",
     "route": "/docs/reference/notifications/notifications.delete",
     "source": "generated",
     "contentPath": "notifications/notifications.delete.md"
@@ -18,7 +18,7 @@
   {
     "id": "notifications/notifications.list",
     "title": "notifications.list",
-    "summary": "List notifications for the current user. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.notifications \n - **Tags**: notifications, list \n - **File**: `packages/modules/notifications/src/contracts/index.ts`",
+    "summary": "List notifications for the current user.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.notifications\n- **Tags**: notifications, list\n- **File**: `packages/modules/notifications/src/contracts/index.ts`",
     "route": "/docs/reference/notifications/notifications.list",
     "source": "generated",
     "contentPath": "notifications/notifications.list.md"
@@ -26,7 +26,7 @@
   {
     "id": "notifications/notifications.markAllRead",
     "title": "notifications.markAllRead",
-    "summary": "Mark all notifications as read. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.notifications \n - **Tags**: notifications, read \n - **File**: `packages/modules/notifications/src/contracts/index.ts`",
+    "summary": "Mark all notifications as read.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.notifications\n- **Tags**: notifications, read\n- **File**: `packages/modules/notifications/src/contracts/index.ts`",
     "route": "/docs/reference/notifications/notifications.markAllRead",
     "source": "generated",
     "contentPath": "notifications/notifications.markAllRead.md"
@@ -34,7 +34,7 @@
   {
     "id": "notifications/notifications.markRead",
     "title": "notifications.markRead",
-    "summary": "Mark a notification as read. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.notifications \n - **Tags**: notifications, read \n - **File**: `packages/modules/notifications/src/contracts/index.ts`",
+    "summary": "Mark a notification as read.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.notifications\n- **Tags**: notifications, read\n- **File**: `packages/modules/notifications/src/contracts/index.ts`",
     "route": "/docs/reference/notifications/notifications.markRead",
     "source": "generated",
     "contentPath": "notifications/notifications.markRead.md"
@@ -42,7 +42,7 @@
   {
     "id": "notifications/notifications.preferences.get",
     "title": "notifications.preferences.get",
-    "summary": "Get notification preferences for current user. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.notifications \n - **Tags**: notifications, preferences, get",
+    "summary": "Get notification preferences for current user.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.notifications\n- **Tags**: notifications, preferences, get\n- **File**: `packages/modules/notifications/src/contracts/index.ts`",
     "route": "/docs/reference/notifications/notifications.preferences.get",
     "source": "generated",
     "contentPath": "notifications/notifications.preferences.get.md"
@@ -50,7 +50,7 @@
   {
     "id": "notifications/notifications.preferences.update",
     "title": "notifications.preferences.update",
-    "summary": "Update notification preferences. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.notifications \n - **Tags**: notifications, preferences, update",
+    "summary": "Update notification preferences.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.notifications\n- **Tags**: notifications, preferences, update\n- **File**: `packages/modules/notifications/src/contracts/index.ts`",
     "route": "/docs/reference/notifications/notifications.preferences.update",
     "source": "generated",
     "contentPath": "notifications/notifications.preferences.update.md"
@@ -58,7 +58,7 @@
   {
     "id": "notifications/notifications.send",
     "title": "notifications.send",
-    "summary": "Send a notification to a user. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.notifications \n - **Tags**: notifications, send \n - **File**: `packages/modules/notifications/src/contracts/index.ts`",
+    "summary": "Send a notification to a user.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.notifications\n- **Tags**: notifications, send\n- **File**: `packages/modules/notifications/src/contracts/index.ts`",
     "route": "/docs/reference/notifications/notifications.send",
     "source": "generated",
     "contentPath": "notifications/notifications.send.md"

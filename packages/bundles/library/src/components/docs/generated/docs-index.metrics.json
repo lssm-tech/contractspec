@@ -2,7 +2,7 @@
   {
     "id": "metrics/metering",
     "title": "metering",
-    "summary": "Usage metering and tracking \n - **Type**: capability (capability) \n - **Version**: 1.0.0 \n - **Owners**: @platform.finance \n - **Tags**: metering, usage, billing \n - **File**: `packages/libs/metering/src/metering.capability.ts`",
+    "summary": "Usage metering and tracking\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.finance\n- **Tags**: metering, usage, billing\n- **File**: `packages/libs/metering/src/metering.capability.ts`",
     "route": "/docs/reference/metrics/metering",
     "source": "generated",
     "contentPath": "metrics/metering.md"
@@ -10,7 +10,7 @@
   {
     "id": "metrics/metric.define",
     "title": "metric.define",
-    "summary": "Define a new usage metric. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.metering \n - **Tags**: metering, metric, define \n - **File**: `packages/libs/metering/src/contracts/index.ts`",
+    "summary": "Define a new usage metric.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.metering\n- **Tags**: metering, metric, define\n- **File**: `packages/libs/metering/src/contracts/index.ts`",
     "route": "/docs/reference/metrics/metric.define",
     "source": "generated",
     "contentPath": "metrics/metric.define.md"
@@ -18,7 +18,7 @@
   {
     "id": "metrics/metric.defined",
     "title": "metric.defined",
-    "summary": "A metric has been defined. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @platform.metering \n - **Tags**: metering, metric \n - **File**: `packages/libs/metering/src/events.ts`",
+    "summary": "A metric has been defined.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @platform.metering\n- **Tags**: metering, metric\n- **File**: `packages/libs/metering/src/events.ts`",
     "route": "/docs/reference/metrics/metric.defined",
     "source": "generated",
     "contentPath": "metrics/metric.defined.md"
@@ -26,7 +26,7 @@
   {
     "id": "metrics/metric.delete",
     "title": "metric.delete",
-    "summary": "Delete a metric definition. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.metering \n - **Tags**: metering, metric, delete \n - **File**: `packages/libs/metering/src/contracts/index.ts`",
+    "summary": "Delete a metric definition.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.metering\n- **Tags**: metering, metric, delete\n- **File**: `packages/libs/metering/src/contracts/index.ts`",
     "route": "/docs/reference/metrics/metric.delete",
     "source": "generated",
     "contentPath": "metrics/metric.delete.md"
@@ -34,7 +34,7 @@
   {
     "id": "metrics/metric.get",
     "title": "metric.get",
-    "summary": "Get a metric by key. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.metering \n - **Tags**: metering, metric, get \n - **File**: `packages/libs/metering/src/contracts/index.ts`",
+    "summary": "Get a metric by key.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.metering\n- **Tags**: metering, metric, get\n- **File**: `packages/libs/metering/src/contracts/index.ts`",
     "route": "/docs/reference/metrics/metric.get",
     "source": "generated",
     "contentPath": "metrics/metric.get.md"
@@ -42,7 +42,7 @@
   {
     "id": "metrics/metric.list",
     "title": "metric.list",
-    "summary": "List all metrics. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.metering \n - **Tags**: metering, metric, list \n - **File**: `packages/libs/metering/src/contracts/index.ts`",
+    "summary": "List all metrics.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.metering\n- **Tags**: metering, metric, list\n- **File**: `packages/libs/metering/src/contracts/index.ts`",
     "route": "/docs/reference/metrics/metric.list",
     "source": "generated",
     "contentPath": "metrics/metric.list.md"
@@ -50,7 +50,7 @@
   {
     "id": "metrics/metric.update",
     "title": "metric.update",
-    "summary": "Update a metric definition. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.metering \n - **Tags**: metering, metric, update \n - **File**: `packages/libs/metering/src/contracts/index.ts`",
+    "summary": "Update a metric definition.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.metering\n- **Tags**: metering, metric, update\n- **File**: `packages/libs/metering/src/contracts/index.ts`",
     "route": "/docs/reference/metrics/metric.update",
     "source": "generated",
     "contentPath": "metrics/metric.update.md"
@@ -58,7 +58,7 @@
   {
     "id": "metrics/metric.updated",
     "title": "metric.updated",
-    "summary": "A metric has been updated. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @platform.metering \n - **Tags**: metering, metric \n - **File**: `packages/libs/metering/src/events.ts`",
+    "summary": "A metric has been updated.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @platform.metering\n- **Tags**: metering, metric\n- **File**: `packages/libs/metering/src/events.ts`",
     "route": "/docs/reference/metrics/metric.updated",
     "source": "generated",
     "contentPath": "metrics/metric.updated.md"
@@ -66,7 +66,7 @@
   {
     "id": "metrics/metrics",
     "title": "metrics",
-    "summary": "Usage metering, metric definitions, and threshold alerting \n - **Type**: feature \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @platform.metering \n - **Tags**: metering, usage, billing, thresholds",
+    "summary": "Usage metering, metric definitions, and threshold alerting\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @platform.metering\n- **Tags**: metering, usage, billing, thresholds\n- **File**: `packages/libs/metering/src/metering.feature.ts`",
     "route": "/docs/reference/metrics/metrics",
     "source": "generated",
     "contentPath": "metrics/metrics.md"
@@ -74,7 +74,7 @@
   {
     "id": "metrics/threshold.approaching",
     "title": "threshold.approaching",
-    "summary": "Usage is approaching a threshold. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @platform.metering \n - **Tags**: metering, threshold \n - **File**: `packages/libs/metering/src/events.ts`",
+    "summary": "Usage is approaching a threshold.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @platform.metering\n- **Tags**: metering, threshold\n- **File**: `packages/libs/metering/src/events.ts`",
     "route": "/docs/reference/metrics/threshold.approaching",
     "source": "generated",
     "contentPath": "metrics/threshold.approaching.md"
@@ -82,7 +82,7 @@
   {
     "id": "metrics/threshold.create",
     "title": "threshold.create",
-    "summary": "Create a usage threshold. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.metering \n - **Tags**: metering, threshold, create \n - **File**: `packages/libs/metering/src/contracts/index.ts`",
+    "summary": "Create a usage threshold.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.metering\n- **Tags**: metering, threshold, create\n- **File**: `packages/libs/metering/src/contracts/index.ts`",
     "route": "/docs/reference/metrics/threshold.create",
     "source": "generated",
     "contentPath": "metrics/threshold.create.md"
@@ -90,7 +90,7 @@
   {
     "id": "metrics/threshold.created",
     "title": "threshold.created",
-    "summary": "A usage threshold has been created. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @platform.metering \n - **Tags**: metering, threshold \n - **File**: `packages/libs/metering/src/events.ts`",
+    "summary": "A usage threshold has been created.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @platform.metering\n- **Tags**: metering, threshold\n- **File**: `packages/libs/metering/src/events.ts`",
     "route": "/docs/reference/metrics/threshold.created",
     "source": "generated",
     "contentPath": "metrics/threshold.created.md"
@@ -98,7 +98,7 @@
   {
     "id": "metrics/threshold.delete",
     "title": "threshold.delete",
-    "summary": "Delete a threshold. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.metering \n - **Tags**: metering, threshold, delete \n - **File**: `packages/libs/metering/src/contracts/index.ts`",
+    "summary": "Delete a threshold.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.metering\n- **Tags**: metering, threshold, delete\n- **File**: `packages/libs/metering/src/contracts/index.ts`",
     "route": "/docs/reference/metrics/threshold.delete",
     "source": "generated",
     "contentPath": "metrics/threshold.delete.md"
@@ -106,7 +106,7 @@
   {
     "id": "metrics/threshold.exceeded",
     "title": "threshold.exceeded",
-    "summary": "Usage has exceeded a threshold. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @platform.metering \n - **Tags**: metering, threshold \n - **File**: `packages/libs/metering/src/events.ts`",
+    "summary": "Usage has exceeded a threshold.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @platform.metering\n- **Tags**: metering, threshold\n- **File**: `packages/libs/metering/src/events.ts`",
     "route": "/docs/reference/metrics/threshold.exceeded",
     "source": "generated",
     "contentPath": "metrics/threshold.exceeded.md"
@@ -114,7 +114,7 @@
   {
     "id": "metrics/threshold.list",
     "title": "threshold.list",
-    "summary": "List usage thresholds. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.metering \n - **Tags**: metering, threshold, list \n - **File**: `packages/libs/metering/src/contracts/index.ts`",
+    "summary": "List usage thresholds.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.metering\n- **Tags**: metering, threshold, list\n- **File**: `packages/libs/metering/src/contracts/index.ts`",
     "route": "/docs/reference/metrics/threshold.list",
     "source": "generated",
     "contentPath": "metrics/threshold.list.md"
@@ -122,7 +122,7 @@
   {
     "id": "metrics/threshold.update",
     "title": "threshold.update",
-    "summary": "Update a threshold. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.metering \n - **Tags**: metering, threshold, update \n - **File**: `packages/libs/metering/src/contracts/index.ts`",
+    "summary": "Update a threshold.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.metering\n- **Tags**: metering, threshold, update\n- **File**: `packages/libs/metering/src/contracts/index.ts`",
     "route": "/docs/reference/metrics/threshold.update",
     "source": "generated",
     "contentPath": "metrics/threshold.update.md"
@@ -130,7 +130,7 @@
   {
     "id": "metrics/thresholds",
     "title": "thresholds",
-    "summary": "Usage threshold alerts and limits \n - **Type**: capability (capability) \n - **Version**: 1.0.0 \n - **Owners**: @platform.finance \n - **Tags**: thresholds, limits, metering \n - **File**: `packages/libs/metering/src/metering.capability.ts`",
+    "summary": "Usage threshold alerts and limits\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.finance\n- **Tags**: thresholds, limits, metering\n- **File**: `packages/libs/metering/src/metering.capability.ts`",
     "route": "/docs/reference/metrics/thresholds",
     "source": "generated",
     "contentPath": "metrics/thresholds.md"
@@ -138,7 +138,7 @@
   {
     "id": "metrics/usage.aggregated",
     "title": "usage.aggregated",
-    "summary": "Usage has been aggregated into a summary. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @platform.metering \n - **Tags**: metering, usage \n - **File**: `packages/libs/metering/src/events.ts`",
+    "summary": "Usage has been aggregated into a summary.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @platform.metering\n- **Tags**: metering, usage\n- **File**: `packages/libs/metering/src/events.ts`",
     "route": "/docs/reference/metrics/usage.aggregated",
     "source": "generated",
     "contentPath": "metrics/usage.aggregated.md"
@@ -146,7 +146,7 @@
   {
     "id": "metrics/usage.batch_recorded",
     "title": "usage.batch_recorded",
-    "summary": "A batch of usage has been recorded. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @platform.metering \n - **Tags**: metering, usage \n - **File**: `packages/libs/metering/src/events.ts`",
+    "summary": "A batch of usage has been recorded.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @platform.metering\n- **Tags**: metering, usage\n- **File**: `packages/libs/metering/src/events.ts`",
     "route": "/docs/reference/metrics/usage.batch_recorded",
     "source": "generated",
     "contentPath": "metrics/usage.batch_recorded.md"
@@ -154,7 +154,7 @@
   {
     "id": "metrics/usage.get",
     "title": "usage.get",
-    "summary": "Get usage records for a subject. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.metering \n - **Tags**: metering, usage, get \n - **File**: `packages/libs/metering/src/contracts/index.ts`",
+    "summary": "Get usage records for a subject.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.metering\n- **Tags**: metering, usage, get\n- **File**: `packages/libs/metering/src/contracts/index.ts`",
     "route": "/docs/reference/metrics/usage.get",
     "source": "generated",
     "contentPath": "metrics/usage.get.md"
@@ -162,7 +162,7 @@
   {
     "id": "metrics/usage.getSummary",
     "title": "usage.getSummary",
-    "summary": "Get aggregated usage summary. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.metering \n - **Tags**: metering, usage, summary \n - **File**: `packages/libs/metering/src/contracts/index.ts`",
+    "summary": "Get aggregated usage summary.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.metering\n- **Tags**: metering, usage, summary\n- **File**: `packages/libs/metering/src/contracts/index.ts`",
     "route": "/docs/reference/metrics/usage.getSummary",
     "source": "generated",
     "contentPath": "metrics/usage.getSummary.md"
@@ -170,7 +170,7 @@
   {
     "id": "metrics/usage.record",
     "title": "usage.record",
-    "summary": "Record a usage event. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.metering \n - **Tags**: metering, usage, record \n - **File**: `packages/libs/metering/src/contracts/index.ts`",
+    "summary": "Record a usage event.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.metering\n- **Tags**: metering, usage, record\n- **File**: `packages/libs/metering/src/contracts/index.ts`",
     "route": "/docs/reference/metrics/usage.record",
     "source": "generated",
     "contentPath": "metrics/usage.record.md"
@@ -178,7 +178,7 @@
   {
     "id": "metrics/usage.recordBatch",
     "title": "usage.recordBatch",
-    "summary": "Record multiple usage events. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: platform.metering \n - **Tags**: metering, usage, batch \n - **File**: `packages/libs/metering/src/contracts/index.ts`",
+    "summary": "Record multiple usage events.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.metering\n- **Tags**: metering, usage, batch\n- **File**: `packages/libs/metering/src/contracts/index.ts`",
     "route": "/docs/reference/metrics/usage.recordBatch",
     "source": "generated",
     "contentPath": "metrics/usage.recordBatch.md"
@@ -186,7 +186,7 @@
   {
     "id": "metrics/usage.recorded",
     "title": "usage.recorded",
-    "summary": "Usage has been recorded. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @platform.metering \n - **Tags**: metering, usage \n - **File**: `packages/libs/metering/src/events.ts`",
+    "summary": "Usage has been recorded.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @platform.metering\n- **Tags**: metering, usage\n- **File**: `packages/libs/metering/src/events.ts`",
     "route": "/docs/reference/metrics/usage.recorded",
     "source": "generated",
     "contentPath": "metrics/usage.recorded.md"

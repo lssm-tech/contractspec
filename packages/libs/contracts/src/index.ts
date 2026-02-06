@@ -9,6 +9,7 @@ export * from './jsonschema';
 export * from './openapi';
 export * from './prompt';
 export * from './promptRegistry';
+export * from './product-intent';
 export * from './operations';
 export * from './resources';
 export * from './presentations';

@@ -40,6 +40,13 @@ const mockIntegrations = [
     status: 'ACTIVE',
     connectionCount: 5,
   },
+  {
+    id: 'int-6',
+    name: 'PostHog',
+    type: 'ANALYTICS',
+    status: 'ACTIVE',
+    connectionCount: 1,
+  },
 ];
 
 const mockConnections = [
@@ -78,6 +85,13 @@ const mockConnections = [
     status: 'ERROR',
     lastSyncAt: '2024-01-14T09:00:00Z',
     error: 'Authentication expired',
+  },
+  {
+    id: 'conn-6',
+    integrationId: 'int-6',
+    name: 'PostHog Workspace',
+    status: 'CONNECTED',
+    lastSyncAt: '2024-01-16T11:45:00Z',
   },
 ];
 

@@ -303,7 +303,7 @@
     "react": "catalog:"
   },
   "dependencies": {
-    "@apollo/client": "^4.0.12",
+    "@apollo/client": "^4.1.4",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.contracts-library": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
@@ -322,16 +322,16 @@
     "@scaleway/sdk-client": "^2.1.0",
     "drizzle-orm": "^0.45.1",
     "elysia-mcp": "^0.1.0",
-    "framer-motion": "^12.26.1",
+    "framer-motion": "^12.33.0",
     "lucide-react": "^0.563.0",
-    "posthog-js": "^1.319.0",
-    "posthog-node": "^5.20.0",
-    "posthog-react-native": "^4.17.3",
+    "posthog-js": "^1.342.0",
+    "posthog-node": "^5.24.10",
+    "posthog-react-native": "^4.30.1",
     "react-hook-form": "^7.70.0",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@types/react": "~19.2.8",
+    "@types/react": "~19.2.13",
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",

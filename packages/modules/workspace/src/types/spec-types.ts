@@ -295,13 +295,16 @@ export type IntegrationCategoryData =
   | 'sms'
   | 'ai-llm'
   | 'ai-voice'
+  | 'analytics'
   | 'speech-to-text'
   | 'vector-db'
   | 'storage'
   | 'accounting'
   | 'crm'
   | 'helpdesk'
+  | 'project-management'
   | 'open-banking'
+  | 'database'
   | 'custom';
 
 export type IntegrationConfigFieldType = 'string' | 'number' | 'boolean';

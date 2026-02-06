@@ -27,6 +27,11 @@ Three dedicated MCP servers keep AI agents efficient and scoped:
   - \`examples://example/<id>\`
 - Prompts mirror each surface (navigator, usage, bootstrap) for quick agent onboarding.
 - GraphQL remains at \`/graphql\`; health at \`/health\`.
+
+### Alpic hosting
+- Alpic exposes MCP at \`/\` (SSE + Streamable HTTP) and \`/mcp\` (Streamable HTTP).
+- Static UI assets are served at \`/assets\` from repo \`/assets\` or build output \`dist/assets\`.
+- Use the \`ALPIC_HOST\` environment variable to build absolute asset URLs.
 `,
   },
 ];

@@ -13,5 +13,9 @@ export * from './aggregation';
 // Feature module specification
 export * from './metering.feature';
 
+// PostHog analytics adapter
+export * from './analytics/posthog-metering';
+export * from './analytics/posthog-metering-reader';
+
 // Documentation
 import './docs';

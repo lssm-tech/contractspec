@@ -26,6 +26,4 @@ jobs:
           report-mode: both
           enable-drift: true
           fail-on: any
-          generate-command: 'bun contractspec generate'
-          validate-command: 'bun contractspec validate'
           token: ${{ github.token }}

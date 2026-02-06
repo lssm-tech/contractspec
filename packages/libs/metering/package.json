@@ -37,6 +37,8 @@
   "exports": {
     ".": "./dist/index.js",
     "./aggregation": "./dist/aggregation/index.js",
+    "./analytics/posthog-metering": "./dist/analytics/posthog-metering.js",
+    "./analytics/posthog-metering-reader": "./dist/analytics/posthog-metering-reader.js",
     "./contracts": "./dist/contracts/index.js",
     "./docs": "./dist/docs/index.js",
     "./docs/metering.docblock": "./dist/docs/metering.docblock.js",
@@ -55,6 +57,8 @@
     "exports": {
       ".": "./dist/index.js",
       "./aggregation": "./dist/aggregation/index.js",
+      "./analytics/posthog-metering": "./dist/analytics/posthog-metering.js",
+      "./analytics/posthog-metering-reader": "./dist/analytics/posthog-metering-reader.js",
       "./contracts": "./dist/contracts/index.js",
       "./docs": "./dist/docs/index.js",
       "./docs/metering.docblock": "./dist/docs/metering.docblock.js",

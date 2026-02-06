@@ -2,7 +2,7 @@
   {
     "id": "agent-console/agent",
     "title": "agent",
-    "summary": "AI agent management and console capability \n - **Type**: capability (capability) \n - **Version**: 1.0.0 \n - **Owners**: platform.core \n - **Tags**: agent, ai, console \n - **File**: `packages/examples/agent-console/src/agent.capability.ts`",
+    "summary": "AI agent management and console capability\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: platform.core\n- **Tags**: agent, ai, console\n- **File**: `packages/examples/agent-console/src/agent.capability.ts`",
     "route": "/docs/reference/agent-console/agent",
     "source": "generated",
     "contentPath": "agent-console/agent.md"
@@ -10,7 +10,7 @@
   {
     "id": "agent-console/agent-console",
     "title": "agent-console",
-    "summary": "AI agent orchestration with tools, runs, and logs management \n - **Type**: feature \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: ai, agents, orchestration",
+    "summary": "AI agent orchestration with tools, runs, and logs management\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: ai, agents, orchestration\n- **File**: `packages/examples/agent-console/src/agent.feature.ts`",
     "route": "/docs/reference/agent-console/agent-console",
     "source": "generated",
     "contentPath": "agent-console/agent-console.md"
@@ -18,7 +18,7 @@
   {
     "id": "agent-console/agent-console.agent.assignTool",
     "title": "agent-console.agent.assignTool",
-    "summary": "Assigns a tool to an agent with optional configuration. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: agent, tool, assign",
+    "summary": "Assigns a tool to an agent with optional configuration.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: agent, tool, assign\n- **File**: `packages/examples/agent-console/src/agent/agent.operation.ts`",
     "route": "/docs/reference/agent-console/agent-console.agent.assignTool",
     "source": "generated",
     "contentPath": "agent-console/agent-console.agent.assignTool.md"
@@ -26,7 +26,7 @@
   {
     "id": "agent-console/agent-console.agent.create",
     "title": "agent-console.agent.create",
-    "summary": "Creates a new AI agent configuration. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: agent, create \n - **File**: `packages/examples/agent-console/src/agent/agent.operation.ts`",
+    "summary": "Creates a new AI agent configuration.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: agent, create\n- **File**: `packages/examples/agent-console/src/agent/agent.operation.ts`",
     "route": "/docs/reference/agent-console/agent-console.agent.create",
     "source": "generated",
     "contentPath": "agent-console/agent-console.agent.create.md"
@@ -34,7 +34,7 @@
   {
     "id": "agent-console/agent-console.agent.created",
     "title": "agent-console.agent.created",
-    "summary": "A new AI agent was configured. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: agent, created \n - **File**: `packages/examples/agent-console/src/agent/agent.event.ts`",
+    "summary": "A new AI agent was configured.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: agent, created\n- **File**: `packages/examples/agent-console/src/agent/agent.event.ts`",
     "route": "/docs/reference/agent-console/agent-console.agent.created",
     "source": "generated",
     "contentPath": "agent-console/agent-console.agent.created.md"
@@ -42,7 +42,7 @@
   {
     "id": "agent-console/agent-console.agent.detail",
     "title": "agent-console.agent.detail",
-    "summary": "Detailed view of an AI agent with configuration, tools, and recent runs \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @agent-console-team \n - **Tags**: agent, detail",
+    "summary": "Detailed view of an AI agent with configuration, tools, and recent runs\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Owners**: @agent-console-team\n- **Tags**: agent, detail\n- **File**: `packages/examples/agent-console/src/agent/agent.presentation.ts`",
     "route": "/docs/reference/agent-console/agent-console.agent.detail",
     "source": "generated",
     "contentPath": "agent-console/agent-console.agent.detail.md"
@@ -50,7 +50,7 @@
   {
     "id": "agent-console/agent-console.agent.get",
     "title": "agent-console.agent.get",
-    "summary": "Retrieves an agent by its ID. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: agent, get \n - **File**: `packages/examples/agent-console/src/agent/agent.operation.ts`",
+    "summary": "Retrieves an agent by its ID.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: agent, get\n- **File**: `packages/examples/agent-console/src/agent/agent.operation.ts`",
     "route": "/docs/reference/agent-console/agent-console.agent.get",
     "source": "generated",
     "contentPath": "agent-console/agent-console.agent.get.md"
@@ -58,7 +58,7 @@
   {
     "id": "agent-console/agent-console.agent.list",
     "title": "agent-console.agent.list",
-    "summary": "Lists agents for an organization with optional filtering. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: agent, list",
+    "summary": "Lists agents for an organization with optional filtering.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: agent, list\n- **File**: `packages/examples/agent-console/src/agent/agent.operation.ts`",
     "route": "/docs/reference/agent-console/agent-console.agent.list",
     "source": "generated",
     "contentPath": "agent-console/agent-console.agent.list.md"
@@ -66,7 +66,7 @@
   {
     "id": "agent-console/agent-console.agent.removeTool",
     "title": "agent-console.agent.removeTool",
-    "summary": "Removes a tool assignment from an agent. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: agent, tool, remove \n - **File**: `packages/examples/agent-console/src/agent/agent.operation.ts`",
+    "summary": "Removes a tool assignment from an agent.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: agent, tool, remove\n- **File**: `packages/examples/agent-console/src/agent/agent.operation.ts`",
     "route": "/docs/reference/agent-console/agent-console.agent.removeTool",
     "source": "generated",
     "contentPath": "agent-console/agent-console.agent.removeTool.md"
@@ -74,7 +74,7 @@
   {
     "id": "agent-console/agent-console.agent.toolAssigned",
     "title": "agent-console.agent.toolAssigned",
-    "summary": "A tool was assigned to an agent. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: agent, tool, assigned \n - **File**: `packages/examples/agent-console/src/agent/agent.event.ts`",
+    "summary": "A tool was assigned to an agent.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: agent, tool, assigned\n- **File**: `packages/examples/agent-console/src/agent/agent.event.ts`",
     "route": "/docs/reference/agent-console/agent-console.agent.toolAssigned",
     "source": "generated",
     "contentPath": "agent-console/agent-console.agent.toolAssigned.md"
@@ -82,7 +82,7 @@
   {
     "id": "agent-console/agent-console.agent.toolRemoved",
     "title": "agent-console.agent.toolRemoved",
-    "summary": "A tool was removed from an agent. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: agent, tool, removed \n - **File**: `packages/examples/agent-console/src/agent/agent.event.ts`",
+    "summary": "A tool was removed from an agent.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: agent, tool, removed\n- **File**: `packages/examples/agent-console/src/agent/agent.event.ts`",
     "route": "/docs/reference/agent-console/agent-console.agent.toolRemoved",
     "source": "generated",
     "contentPath": "agent-console/agent-console.agent.toolRemoved.md"
@@ -90,7 +90,7 @@
   {
     "id": "agent-console/agent-console.agent.update",
     "title": "agent-console.agent.update",
-    "summary": "Updates an existing AI agent configuration. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: agent, update \n - **File**: `packages/examples/agent-console/src/agent/agent.operation.ts`",
+    "summary": "Updates an existing AI agent configuration.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: agent, update\n- **File**: `packages/examples/agent-console/src/agent/agent.operation.ts`",
     "route": "/docs/reference/agent-console/agent-console.agent.update",
     "source": "generated",
     "contentPath": "agent-console/agent-console.agent.update.md"
@@ -98,7 +98,7 @@
   {
     "id": "agent-console/agent-console.agent.updated",
     "title": "agent-console.agent.updated",
-    "summary": "An AI agent configuration was updated. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: agent, updated \n - **File**: `packages/examples/agent-console/src/agent/agent.event.ts`",
+    "summary": "An AI agent configuration was updated.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: agent, updated\n- **File**: `packages/examples/agent-console/src/agent/agent.event.ts`",
     "route": "/docs/reference/agent-console/agent-console.agent.updated",
     "source": "generated",
     "contentPath": "agent-console/agent-console.agent.updated.md"
@@ -106,7 +106,7 @@
   {
     "id": "agent-console/agent-console.agent.viewList",
     "title": "agent-console.agent.viewList",
-    "summary": "List view of AI agents with status, model provider, and version info \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @agent-console-team \n - **Tags**: agent, list, dashboard",
+    "summary": "List view of AI agents with status, model provider, and version info\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Owners**: @agent-console-team\n- **Tags**: agent, list, dashboard\n- **File**: `packages/examples/agent-console/src/agent/agent.presentation.ts`",
     "route": "/docs/reference/agent-console/agent-console.agent.viewList",
     "source": "generated",
     "contentPath": "agent-console/agent-console.agent.viewList.md"
@@ -114,7 +114,7 @@
   {
     "id": "agent-console/agent-console.dashboard",
     "title": "agent-console.dashboard",
-    "summary": "Dashboard overview of AI agents, runs, and tools \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @agent-console-team \n - **Tags**: dashboard, overview \n - **File**: `packages/examples/agent-console/src/agent/agent.presentation.ts`",
+    "summary": "Dashboard overview of AI agents, runs, and tools\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Owners**: @agent-console-team\n- **Tags**: dashboard, overview\n- **File**: `packages/examples/agent-console/src/agent/agent.presentation.ts`",
     "route": "/docs/reference/agent-console/agent-console.dashboard",
     "source": "generated",
     "contentPath": "agent-console/agent-console.dashboard.md"
@@ -122,7 +122,7 @@
   {
     "id": "agent-console/agent-console.run.detail",
     "title": "agent-console.run.detail",
-    "summary": "Detailed view of an agent run with steps, logs, and metrics \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @agent-console-team \n - **Tags**: run, detail \n - **File**: `packages/examples/agent-console/src/run/run.presentation.ts`",
+    "summary": "Detailed view of an agent run with steps, logs, and metrics\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Owners**: @agent-console-team\n- **Tags**: run, detail\n- **File**: `packages/examples/agent-console/src/run/run.presentation.ts`",
     "route": "/docs/reference/agent-console/agent-console.run.detail",
     "source": "generated",
     "contentPath": "agent-console/agent-console.run.detail.md"
@@ -130,7 +130,7 @@
   {
     "id": "agent-console/agent-console.run.list",
     "title": "agent-console.run.list",
-    "summary": "List view of agent runs with status, tokens, and duration info \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @agent-console-team \n - **Tags**: run, list, dashboard \n - **File**: `packages/examples/agent-console/src/run/run.presentation.ts`",
+    "summary": "List view of agent runs with status, tokens, and duration info\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Owners**: @agent-console-team\n- **Tags**: run, list, dashboard\n- **File**: `packages/examples/agent-console/src/run/run.presentation.ts`",
     "route": "/docs/reference/agent-console/agent-console.run.list",
     "source": "generated",
     "contentPath": "agent-console/agent-console.run.list.md"
@@ -138,7 +138,7 @@
   {
     "id": "agent-console/agent-console.tool.detail",
     "title": "agent-console.tool.detail",
-    "summary": "Detailed view of an AI tool with configuration and test panel \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @agent-console-team \n - **Tags**: tool, detail \n - **File**: `packages/examples/agent-console/src/tool/tool.presentation.ts`",
+    "summary": "Detailed view of an AI tool with configuration and test panel\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Owners**: @agent-console-team\n- **Tags**: tool, detail\n- **File**: `packages/examples/agent-console/src/tool/tool.presentation.ts`",
     "route": "/docs/reference/agent-console/agent-console.tool.detail",
     "source": "generated",
     "contentPath": "agent-console/agent-console.tool.detail.md"
@@ -146,7 +146,7 @@
   {
     "id": "agent-console/agent-console.tool.list",
     "title": "agent-console.tool.list",
-    "summary": "List view of AI tools with category, status, and version info \n - **Type**: presentation (presentation) \n - **Version**: 1.0.0 \n - **Owners**: @agent-console-team \n - **Tags**: tool, list, dashboard \n - **File**: `packages/examples/agent-console/src/tool/tool.presentation.ts`",
+    "summary": "List view of AI tools with category, status, and version info\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Owners**: @agent-console-team\n- **Tags**: tool, list, dashboard\n- **File**: `packages/examples/agent-console/src/tool/tool.presentation.ts`",
     "route": "/docs/reference/agent-console/agent-console.tool.list",
     "source": "generated",
     "contentPath": "agent-console/agent-console.tool.list.md"
@@ -154,7 +154,7 @@
   {
     "id": "agent-console/agent.run.cancel",
     "title": "agent.run.cancel",
-    "summary": "Cancels an in-progress agent run. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: run, cancel \n - **File**: `packages/examples/agent-console/src/run/run.operation.ts`",
+    "summary": "Cancels an in-progress agent run.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: run, cancel\n- **File**: `packages/examples/agent-console/src/run/run.operation.ts`",
     "route": "/docs/reference/agent-console/agent.run.cancel",
     "source": "generated",
     "contentPath": "agent-console/agent.run.cancel.md"
@@ -162,7 +162,7 @@
   {
     "id": "agent-console/agent.run.cancelled",
     "title": "agent.run.cancelled",
-    "summary": "An agent run was cancelled by the user. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: run, cancelled \n - **File**: `packages/examples/agent-console/src/run/run.event.ts`",
+    "summary": "An agent run was cancelled by the user.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: run, cancelled\n- **File**: `packages/examples/agent-console/src/run/run.event.ts`",
     "route": "/docs/reference/agent-console/agent.run.cancelled",
     "source": "generated",
     "contentPath": "agent-console/agent.run.cancelled.md"
@@ -170,7 +170,7 @@
   {
     "id": "agent-console/agent.run.completed",
     "title": "agent.run.completed",
-    "summary": "An agent run completed successfully. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: run, completed \n - **File**: `packages/examples/agent-console/src/run/run.event.ts`",
+    "summary": "An agent run completed successfully.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: run, completed\n- **File**: `packages/examples/agent-console/src/run/run.event.ts`",
     "route": "/docs/reference/agent-console/agent.run.completed",
     "source": "generated",
     "contentPath": "agent-console/agent.run.completed.md"
@@ -178,7 +178,7 @@
   {
     "id": "agent-console/agent.run.execute",
     "title": "agent.run.execute",
-    "summary": "Starts a new agent run with the given input. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: run, execute \n - **File**: `packages/examples/agent-console/src/run/run.operation.ts`",
+    "summary": "Starts a new agent run with the given input.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: run, execute\n- **File**: `packages/examples/agent-console/src/run/run.operation.ts`",
     "route": "/docs/reference/agent-console/agent.run.execute",
     "source": "generated",
     "contentPath": "agent-console/agent.run.execute.md"
@@ -186,7 +186,7 @@
   {
     "id": "agent-console/agent.run.failed",
     "title": "agent.run.failed",
-    "summary": "An agent run encountered an error. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: run, failed \n - **File**: `packages/examples/agent-console/src/run/run.event.ts`",
+    "summary": "An agent run encountered an error.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: run, failed\n- **File**: `packages/examples/agent-console/src/run/run.event.ts`",
     "route": "/docs/reference/agent-console/agent.run.failed",
     "source": "generated",
     "contentPath": "agent-console/agent.run.failed.md"
@@ -194,7 +194,7 @@
   {
     "id": "agent-console/agent.run.get",
     "title": "agent.run.get",
-    "summary": "Retrieves a run by its ID with optional details. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: run, get \n - **File**: `packages/examples/agent-console/src/run/run.operation.ts`",
+    "summary": "Retrieves a run by its ID with optional details.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: run, get\n- **File**: `packages/examples/agent-console/src/run/run.operation.ts`",
     "route": "/docs/reference/agent-console/agent.run.get",
     "source": "generated",
     "contentPath": "agent-console/agent.run.get.md"
@@ -202,7 +202,7 @@
   {
     "id": "agent-console/agent.run.getLogs",
     "title": "agent.run.getLogs",
-    "summary": "Retrieves all logs for a specific run. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: run, logs \n - **File**: `packages/examples/agent-console/src/run/run.operation.ts`",
+    "summary": "Retrieves all logs for a specific run.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: run, logs\n- **File**: `packages/examples/agent-console/src/run/run.operation.ts`",
     "route": "/docs/reference/agent-console/agent.run.getLogs",
     "source": "generated",
     "contentPath": "agent-console/agent.run.getLogs.md"
@@ -210,7 +210,7 @@
   {
     "id": "agent-console/agent.run.getMetrics",
     "title": "agent.run.getMetrics",
-    "summary": "Retrieves aggregated metrics for runs within a time period. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: run, metrics",
+    "summary": "Retrieves aggregated metrics for runs within a time period.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: run, metrics\n- **File**: `packages/examples/agent-console/src/run/run.operation.ts`",
     "route": "/docs/reference/agent-console/agent.run.getMetrics",
     "source": "generated",
     "contentPath": "agent-console/agent.run.getMetrics.md"
@@ -218,7 +218,7 @@
   {
     "id": "agent-console/agent.run.getSteps",
     "title": "agent.run.getSteps",
-    "summary": "Retrieves all steps for a specific run. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: run, steps \n - **File**: `packages/examples/agent-console/src/run/run.operation.ts`",
+    "summary": "Retrieves all steps for a specific run.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: run, steps\n- **File**: `packages/examples/agent-console/src/run/run.operation.ts`",
     "route": "/docs/reference/agent-console/agent.run.getSteps",
     "source": "generated",
     "contentPath": "agent-console/agent.run.getSteps.md"
@@ -226,7 +226,7 @@
   {
     "id": "agent-console/agent.run.list",
     "title": "agent.run.list",
-    "summary": "Lists runs with optional filtering. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: run, list \n - **File**: `packages/examples/agent-console/src/run/run.operation.ts`",
+    "summary": "Lists runs with optional filtering.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: run, list\n- **File**: `packages/examples/agent-console/src/run/run.operation.ts`",
     "route": "/docs/reference/agent-console/agent.run.list",
     "source": "generated",
     "contentPath": "agent-console/agent.run.list.md"
@@ -234,7 +234,7 @@
   {
     "id": "agent-console/agent.run.messageGenerated",
     "title": "agent.run.messageGenerated",
-    "summary": "An agent generated a message during a run. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: run, message, generated \n - **File**: `packages/examples/agent-console/src/run/run.event.ts`",
+    "summary": "An agent generated a message during a run.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: run, message, generated\n- **File**: `packages/examples/agent-console/src/run/run.event.ts`",
     "route": "/docs/reference/agent-console/agent.run.messageGenerated",
     "source": "generated",
     "contentPath": "agent-console/agent.run.messageGenerated.md"
@@ -242,7 +242,7 @@
   {
     "id": "agent-console/agent.run.started",
     "title": "agent.run.started",
-    "summary": "An agent run was started. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: run, started \n - **File**: `packages/examples/agent-console/src/run/run.event.ts`",
+    "summary": "An agent run was started.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: run, started\n- **File**: `packages/examples/agent-console/src/run/run.event.ts`",
     "route": "/docs/reference/agent-console/agent.run.started",
     "source": "generated",
     "contentPath": "agent-console/agent.run.started.md"
@@ -250,7 +250,7 @@
   {
     "id": "agent-console/agent.run.toolCompleted",
     "title": "agent.run.toolCompleted",
-    "summary": "A tool invocation completed during an agent run. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: run, tool, completed \n - **File**: `packages/examples/agent-console/src/run/run.event.ts`",
+    "summary": "A tool invocation completed during an agent run.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: run, tool, completed\n- **File**: `packages/examples/agent-console/src/run/run.event.ts`",
     "route": "/docs/reference/agent-console/agent.run.toolCompleted",
     "source": "generated",
     "contentPath": "agent-console/agent.run.toolCompleted.md"
@@ -258,7 +258,7 @@
   {
     "id": "agent-console/agent.run.toolInvoked",
     "title": "agent.run.toolInvoked",
-    "summary": "A tool was invoked during an agent run. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: run, tool, invoked \n - **File**: `packages/examples/agent-console/src/run/run.event.ts`",
+    "summary": "A tool was invoked during an agent run.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: run, tool, invoked\n- **File**: `packages/examples/agent-console/src/run/run.event.ts`",
     "route": "/docs/reference/agent-console/agent.run.toolInvoked",
     "source": "generated",
     "contentPath": "agent-console/agent.run.toolInvoked.md"
@@ -266,7 +266,7 @@
   {
     "id": "agent-console/agent.tool.create",
     "title": "agent.tool.create",
-    "summary": "Creates a new AI tool definition. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: tool, create \n - **File**: `packages/examples/agent-console/src/tool/tool.operation.ts`",
+    "summary": "Creates a new AI tool definition.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: tool, create\n- **File**: `packages/examples/agent-console/src/tool/tool.operation.ts`",
     "route": "/docs/reference/agent-console/agent.tool.create",
     "source": "generated",
     "contentPath": "agent-console/agent.tool.create.md"
@@ -274,7 +274,7 @@
   {
     "id": "agent-console/agent.tool.created",
     "title": "agent.tool.created",
-    "summary": "A new AI tool was created. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: tool, created \n - **File**: `packages/examples/agent-console/src/tool/tool.event.ts`",
+    "summary": "A new AI tool was created.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: tool, created\n- **File**: `packages/examples/agent-console/src/tool/tool.event.ts`",
     "route": "/docs/reference/agent-console/agent.tool.created",
     "source": "generated",
     "contentPath": "agent-console/agent.tool.created.md"
@@ -282,7 +282,7 @@
   {
     "id": "agent-console/agent.tool.get",
     "title": "agent.tool.get",
-    "summary": "Retrieves a tool by its ID. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: tool, get \n - **File**: `packages/examples/agent-console/src/tool/tool.operation.ts`",
+    "summary": "Retrieves a tool by its ID.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: tool, get\n- **File**: `packages/examples/agent-console/src/tool/tool.operation.ts`",
     "route": "/docs/reference/agent-console/agent.tool.get",
     "source": "generated",
     "contentPath": "agent-console/agent.tool.get.md"
@@ -290,7 +290,7 @@
   {
     "id": "agent-console/agent.tool.list",
     "title": "agent.tool.list",
-    "summary": "Lists tools for an organization with optional filtering. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: tool, list \n - **File**: `packages/examples/agent-console/src/tool/tool.operation.ts`",
+    "summary": "Lists tools for an organization with optional filtering.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: tool, list\n- **File**: `packages/examples/agent-console/src/tool/tool.operation.ts`",
     "route": "/docs/reference/agent-console/agent.tool.list",
     "source": "generated",
     "contentPath": "agent-console/agent.tool.list.md"
@@ -298,7 +298,7 @@
   {
     "id": "agent-console/agent.tool.statusChanged",
     "title": "agent.tool.statusChanged",
-    "summary": "An AI tool status was changed (activated, deprecated, disabled). \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: tool, status",
+    "summary": "An AI tool status was changed (activated, deprecated, disabled).\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: tool, status\n- **File**: `packages/examples/agent-console/src/tool/tool.event.ts`",
     "route": "/docs/reference/agent-console/agent.tool.statusChanged",
     "source": "generated",
     "contentPath": "agent-console/agent.tool.statusChanged.md"
@@ -306,7 +306,7 @@
   {
     "id": "agent-console/agent.tool.test",
     "title": "agent.tool.test",
-    "summary": "Tests a tool with sample input to verify it works correctly. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: tool, test",
+    "summary": "Tests a tool with sample input to verify it works correctly.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: tool, test\n- **File**: `packages/examples/agent-console/src/tool/tool.operation.ts`",
     "route": "/docs/reference/agent-console/agent.tool.test",
     "source": "generated",
     "contentPath": "agent-console/agent.tool.test.md"
@@ -314,7 +314,7 @@
   {
     "id": "agent-console/agent.tool.update",
     "title": "agent.tool.update",
-    "summary": "Updates an existing AI tool definition. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: tool, update \n - **File**: `packages/examples/agent-console/src/tool/tool.operation.ts`",
+    "summary": "Updates an existing AI tool definition.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: tool, update\n- **File**: `packages/examples/agent-console/src/tool/tool.operation.ts`",
     "route": "/docs/reference/agent-console/agent.tool.update",
     "source": "generated",
     "contentPath": "agent-console/agent.tool.update.md"
@@ -322,7 +322,7 @@
   {
     "id": "agent-console/agent.tool.updated",
     "title": "agent.tool.updated",
-    "summary": "An AI tool configuration was updated. \n - **Type**: event (event) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: tool, updated \n - **File**: `packages/examples/agent-console/src/tool/tool.event.ts`",
+    "summary": "An AI tool configuration was updated.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: tool, updated\n- **File**: `packages/examples/agent-console/src/tool/tool.event.ts`",
     "route": "/docs/reference/agent-console/agent.tool.updated",
     "source": "generated",
     "contentPath": "agent-console/agent.tool.updated.md"
@@ -330,7 +330,7 @@
   {
     "id": "agent-console/test.agent-console.agent.get",
     "title": "test.agent-console.agent.get",
-    "summary": "Test for getting agent \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: test \n - **File**: `packages/examples/agent-console/src/agent/agent.test-spec.ts`",
+    "summary": "Test for getting agent\n- **Type**: test-spec (test-spec)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: test\n- **File**: `packages/examples/agent-console/src/agent/agent.test-spec.ts`",
     "route": "/docs/reference/agent-console/test.agent-console.agent.get",
     "source": "generated",
     "contentPath": "agent-console/test.agent-console.agent.get.md"
@@ -338,7 +338,7 @@
   {
     "id": "agent-console/test.agent-console.agent.list",
     "title": "test.agent-console.agent.list",
-    "summary": "Test for listing agents \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: test \n - **File**: `packages/examples/agent-console/src/agent/agent.test-spec.ts`",
+    "summary": "Test for listing agents\n- **Type**: test-spec (test-spec)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: test\n- **File**: `packages/examples/agent-console/src/agent/agent.test-spec.ts`",
     "route": "/docs/reference/agent-console/test.agent-console.agent.list",
     "source": "generated",
     "contentPath": "agent-console/test.agent-console.agent.list.md"
@@ -346,7 +346,7 @@
   {
     "id": "agent-console/test.agent.run.get",
     "title": "test.agent.run.get",
-    "summary": "Test for getting run \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: test \n - **File**: `packages/examples/agent-console/src/run/run.test-spec.ts`",
+    "summary": "Test for getting run\n- **Type**: test-spec (test-spec)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: test\n- **File**: `packages/examples/agent-console/src/run/run.test-spec.ts`",
     "route": "/docs/reference/agent-console/test.agent.run.get",
     "source": "generated",
     "contentPath": "agent-console/test.agent.run.get.md"
@@ -354,7 +354,7 @@
   {
     "id": "agent-console/test.agent.run.list",
     "title": "test.agent.run.list",
-    "summary": "Test for listing runs \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: test \n - **File**: `packages/examples/agent-console/src/run/run.test-spec.ts`",
+    "summary": "Test for listing runs\n- **Type**: test-spec (test-spec)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: test\n- **File**: `packages/examples/agent-console/src/run/run.test-spec.ts`",
     "route": "/docs/reference/agent-console/test.agent.run.list",
     "source": "generated",
     "contentPath": "agent-console/test.agent.run.list.md"
@@ -362,7 +362,7 @@
   {
     "id": "agent-console/test.agent.tool.get",
     "title": "test.agent.tool.get",
-    "summary": "Test for getting tool \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: test \n - **File**: `packages/examples/agent-console/src/tool/tool.test-spec.ts`",
+    "summary": "Test for getting tool\n- **Type**: test-spec (test-spec)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: test\n- **File**: `packages/examples/agent-console/src/tool/tool.test-spec.ts`",
     "route": "/docs/reference/agent-console/test.agent.tool.get",
     "source": "generated",
     "contentPath": "agent-console/test.agent.tool.get.md"
@@ -370,7 +370,7 @@
   {
     "id": "agent-console/test.agent.tool.list",
     "title": "test.agent.tool.list",
-    "summary": "Test for listing tools \n - **Type**: test-spec (test-spec) \n - **Version**: 1.0.0 \n - **Stability**: stable \n - **Owners**: @agent-console-team \n - **Tags**: test \n - **File**: `packages/examples/agent-console/src/tool/tool.test-spec.ts`",
+    "summary": "Test for listing tools\n- **Type**: test-spec (test-spec)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @agent-console-team\n- **Tags**: test\n- **File**: `packages/examples/agent-console/src/tool/tool.test-spec.ts`",
     "route": "/docs/reference/agent-console/test.agent.tool.list",
     "source": "generated",
     "contentPath": "agent-console/test.agent.tool.list.md"

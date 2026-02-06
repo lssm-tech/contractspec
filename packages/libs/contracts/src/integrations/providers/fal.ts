@@ -1,0 +1,99 @@
+import { StabilityEnum } from '../../ownership';
+import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+
+export const falIntegrationSpec = defineIntegration({
+  meta: {
+    key: 'ai-voice.fal',
+    version: '1.0.0',
+    category: 'ai-voice',
+    title: 'Fal Chatterbox Text-to-Speech',
+    description:
+      'Fal integration for voice synthesis using Chatterbox text-to-speech models.',
+    domain: 'ai',
+    owners: ['platform.ai'],
+    tags: ['voice', 'tts', 'chatterbox'],
+    stability: StabilityEnum.Experimental,
+  },
+  supportedModes: ['byok'],
+  capabilities: {
+    provides: [{ key: 'ai.voice.synthesis', version: '1.0.0' }],
+  },
+  configSchema: {
+    schema: {
+      type: 'object',
+      properties: {
+        modelId: {
+          type: 'string',
+          description:
+            'Fal model endpoint identifier (e.g. fal-ai/chatterbox/text-to-speech).',
+        },
+        defaultVoiceUrl: {
+          type: 'string',
+          description:
+            'Optional reference audio URL used as default voice conditioning input.',
+        },
+        defaultExaggeration: {
+          type: 'number',
+          minimum: 0,
+          maximum: 1,
+          description: 'Optional default exaggeration value for speech output.',
+        },
+        defaultTemperature: {
+          type: 'number',
+          minimum: 0.05,
+          maximum: 2,
+          description: 'Optional default temperature for synthesis requests.',
+        },
+        defaultCfg: {
+          type: 'number',
+          minimum: 0.1,
+          maximum: 1,
+          description: 'Optional default cfg value for synthesis requests.',
+        },
+        pollIntervalMs: {
+          type: 'number',
+          description: 'Optional queue polling interval in milliseconds.',
+        },
+      },
+    },
+    example: {
+      modelId: 'fal-ai/chatterbox/text-to-speech',
+      defaultVoiceUrl:
+        'https://storage.googleapis.com/chatterbox-demo-samples/prompts/male_rickmorty.mp3',
+      defaultExaggeration: 0.25,
+      defaultTemperature: 0.7,
+      defaultCfg: 0.5,
+      pollIntervalMs: 1000,
+    },
+  },
+  secretSchema: {
+    schema: {
+      type: 'object',
+      required: ['apiKey'],
+      properties: {
+        apiKey: {
+          type: 'string',
+          description: 'Fal API key (FAL_KEY).',
+        },
+      },
+    },
+    example: {
+      apiKey: 'key-id:key-secret',
+    },
+  },
+  healthCheck: {
+    method: 'custom',
+    timeoutMs: 7000,
+  },
+  docsUrl: 'https://fal.ai/models/fal-ai/chatterbox/text-to-speech/api',
+  byokSetup: {
+    setupInstructions:
+      'Create a Fal API key and configure the desired voice model endpoint before connecting tenants.',
+  },
+});
+
+export function registerFalIntegration(
+  registry: IntegrationSpecRegistry
+): IntegrationSpecRegistry {
+  return registry.register(falIntegrationSpec);
+}

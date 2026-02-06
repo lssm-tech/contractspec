@@ -2,7 +2,7 @@
   {
     "id": "openbanking/openbanking",
     "title": "openbanking",
-    "summary": "Open Banking integrations capability \n - **Type**: capability (capability) \n - **Version**: 1.0.0 \n - **Owners**: @platform.finance \n - **Tags**: openbanking, finance, integrations \n - **File**: `packages/libs/contracts/src/integrations/openbanking/openbanking.capability.ts`",
+    "summary": "Open Banking integrations capability\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.finance\n- **Tags**: openbanking, finance, integrations\n- **File**: `packages/libs/contracts/src/integrations/openbanking/openbanking.capability.ts`",
     "route": "/docs/reference/openbanking/openbanking",
     "source": "generated",
     "contentPath": "openbanking/openbanking.md"
@@ -10,7 +10,7 @@
   {
     "id": "openbanking/openbanking.accounts.get",
     "title": "openbanking.accounts.get",
-    "summary": "Retrieve the canonical bank account record for the given account identifier. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @platform.finance \n - **Tags**: open-banking, powens, accounts",
+    "summary": "Retrieve the canonical bank account record for the given account identifier.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.finance\n- **Tags**: open-banking, powens, accounts",
     "route": "/docs/reference/openbanking/openbanking.accounts.get",
     "source": "generated",
     "contentPath": "openbanking/openbanking.accounts.get.md"
@@ -18,7 +18,7 @@
   {
     "id": "openbanking/openbanking.accounts.list",
     "title": "openbanking.accounts.list",
-    "summary": "List bank accounts available to a tenant/user via Powens Open Banking. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @platform.finance \n - **Tags**: open-banking, powens, accounts",
+    "summary": "List bank accounts available to a tenant/user via Powens Open Banking.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.finance\n- **Tags**: open-banking, powens, accounts",
     "route": "/docs/reference/openbanking/openbanking.accounts.list",
     "source": "generated",
     "contentPath": "openbanking/openbanking.accounts.list.md"
@@ -26,7 +26,7 @@
   {
     "id": "openbanking/openbanking.accounts.sync",
     "title": "openbanking.accounts.sync",
-    "summary": "Initiate a synchronisation run to refresh bank account metadata from Powens. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @platform.finance",
+    "summary": "Initiate a synchronisation run to refresh bank account metadata from Powens.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.finance\n- **Tags**: open-banking, powens, accounts",
     "route": "/docs/reference/openbanking/openbanking.accounts.sync",
     "source": "generated",
     "contentPath": "openbanking/openbanking.accounts.sync.md"
@@ -34,7 +34,7 @@
   {
     "id": "openbanking/openbanking.balances.get",
     "title": "openbanking.balances.get",
-    "summary": "Retrieve the latest cached balances for a bank account. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @platform.finance \n - **Tags**: open-banking, powens, balances",
+    "summary": "Retrieve the latest cached balances for a bank account.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.finance\n- **Tags**: open-banking, powens, balances",
     "route": "/docs/reference/openbanking/openbanking.balances.get",
     "source": "generated",
     "contentPath": "openbanking/openbanking.balances.get.md"
@@ -42,7 +42,7 @@
   {
     "id": "openbanking/openbanking.balances.refresh",
     "title": "openbanking.balances.refresh",
-    "summary": "Refresh balances for a bank account via the configured open banking provider. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @platform.finance",
+    "summary": "Refresh balances for a bank account via the configured open banking provider.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.finance\n- **Tags**: open-banking, powens, balances",
     "route": "/docs/reference/openbanking/openbanking.balances.refresh",
     "source": "generated",
     "contentPath": "openbanking/openbanking.balances.refresh.md"
@@ -50,7 +50,7 @@
   {
     "id": "openbanking/openbanking.transactions.list",
     "title": "openbanking.transactions.list",
-    "summary": "List bank transactions that have been normalised into the canonical ledger. \n - **Type**: operation (query) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @platform.finance \n - **Tags**: open-banking, powens, transactions",
+    "summary": "List bank transactions that have been normalised into the canonical ledger.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.finance\n- **Tags**: open-banking, powens, transactions",
     "route": "/docs/reference/openbanking/openbanking.transactions.list",
     "source": "generated",
     "contentPath": "openbanking/openbanking.transactions.list.md"
@@ -58,7 +58,7 @@
   {
     "id": "openbanking/openbanking.transactions.sync",
     "title": "openbanking.transactions.sync",
-    "summary": "Synchronise transactions for a bank account by calling the configured open banking provider. \n - **Type**: operation (command) \n - **Version**: 1.0.0 \n - **Stability**: experimental \n - **Owners**: @platform.finance",
+    "summary": "Synchronise transactions for a bank account by calling the configured open banking provider.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.finance",
     "route": "/docs/reference/openbanking/openbanking.transactions.sync",
     "source": "generated",
     "contentPath": "openbanking/openbanking.transactions.sync.md"
