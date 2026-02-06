@@ -34,6 +34,11 @@ export const posthogIntegrationSpec = defineIntegration({
       { key: 'analytics.events', version: '1.0.0' },
       { key: 'analytics.feature-flags', version: '1.0.0' },
       { key: 'analytics.query', version: '1.0.0' },
+      { key: 'analytics.events.read', version: '1.0.0' },
+      { key: 'analytics.persons', version: '1.0.0' },
+      { key: 'analytics.insights', version: '1.0.0' },
+      { key: 'analytics.cohorts', version: '1.0.0' },
+      { key: 'analytics.annotations', version: '1.0.0' },
     ],
   },
   configSchema: {
