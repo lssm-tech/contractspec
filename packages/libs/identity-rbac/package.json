@@ -15,14 +15,16 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
@@ -31,25 +33,27 @@
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./contracts": "./dist/contracts/index.js",
-    "./contracts/organization": "./dist/contracts/organization.js",
-    "./contracts/rbac": "./dist/contracts/rbac.js",
-    "./contracts/user": "./dist/contracts/user.js",
-    "./entities": "./dist/entities/index.js",
-    "./entities/organization": "./dist/entities/organization.js",
-    "./entities/rbac": "./dist/entities/rbac.js",
-    "./entities/user": "./dist/entities/user.js",
-    "./events": "./dist/events.js",
-    "./identity-rbac.capability": "./dist/identity-rbac.capability.js",
-    "./identity-rbac.feature": "./dist/identity-rbac.feature.js",
-    "./policies": "./dist/policies/index.js",
-    "./policies/engine": "./dist/policies/engine.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./contracts/index": "./src/contracts/index.ts",
+    "./contracts/organization": "./src/contracts/organization.ts",
+    "./contracts/rbac": "./src/contracts/rbac.ts",
+    "./contracts/user": "./src/contracts/user.ts",
+    "./entities": "./src/entities/index.ts",
+    "./entities/index": "./src/entities/index.ts",
+    "./entities/organization": "./src/entities/organization.ts",
+    "./entities/rbac": "./src/entities/rbac.ts",
+    "./entities/user": "./src/entities/user.ts",
+    "./events": "./src/events.ts",
+    "./identity-rbac.capability": "./src/identity-rbac.capability.ts",
+    "./identity-rbac.feature": "./src/identity-rbac.feature.ts",
+    "./policies": "./src/policies/index.ts",
+    "./policies/engine": "./src/policies/engine.ts",
+    "./policies/index": "./src/policies/index.ts"
   },
   "files": [
     "dist",
@@ -58,20 +62,125 @@
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./contracts": "./dist/contracts/index.js",
-      "./contracts/organization": "./dist/contracts/organization.js",
-      "./contracts/rbac": "./dist/contracts/rbac.js",
-      "./contracts/user": "./dist/contracts/user.js",
-      "./entities": "./dist/entities/index.js",
-      "./entities/organization": "./dist/entities/organization.js",
-      "./entities/rbac": "./dist/entities/rbac.js",
-      "./entities/user": "./dist/entities/user.js",
-      "./events": "./dist/events.js",
-      "./identity-rbac.feature": "./dist/identity-rbac.feature.js",
-      "./policies": "./dist/policies/index.js",
-      "./policies/engine": "./dist/policies/engine.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./contracts": {
+        "types": "./dist/contracts/index.d.ts",
+        "bun": "./dist/contracts/index.js",
+        "node": "./dist/node/contracts/index.mjs",
+        "browser": "./dist/browser/contracts/index.js",
+        "default": "./dist/contracts/index.js"
+      },
+      "./contracts/index": {
+        "types": "./dist/contracts/index.d.ts",
+        "bun": "./dist/contracts/index.js",
+        "node": "./dist/node/contracts/index.mjs",
+        "browser": "./dist/browser/contracts/index.js",
+        "default": "./dist/contracts/index.js"
+      },
+      "./contracts/organization": {
+        "types": "./dist/contracts/organization.d.ts",
+        "bun": "./dist/contracts/organization.js",
+        "node": "./dist/node/contracts/organization.mjs",
+        "browser": "./dist/browser/contracts/organization.js",
+        "default": "./dist/contracts/organization.js"
+      },
+      "./contracts/rbac": {
+        "types": "./dist/contracts/rbac.d.ts",
+        "bun": "./dist/contracts/rbac.js",
+        "node": "./dist/node/contracts/rbac.mjs",
+        "browser": "./dist/browser/contracts/rbac.js",
+        "default": "./dist/contracts/rbac.js"
+      },
+      "./contracts/user": {
+        "types": "./dist/contracts/user.d.ts",
+        "bun": "./dist/contracts/user.js",
+        "node": "./dist/node/contracts/user.mjs",
+        "browser": "./dist/browser/contracts/user.js",
+        "default": "./dist/contracts/user.js"
+      },
+      "./entities": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "browser": "./dist/browser/entities/index.js",
+        "default": "./dist/entities/index.js"
+      },
+      "./entities/index": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "browser": "./dist/browser/entities/index.js",
+        "default": "./dist/entities/index.js"
+      },
+      "./entities/organization": {
+        "types": "./dist/entities/organization.d.ts",
+        "bun": "./dist/entities/organization.js",
+        "node": "./dist/node/entities/organization.mjs",
+        "browser": "./dist/browser/entities/organization.js",
+        "default": "./dist/entities/organization.js"
+      },
+      "./entities/rbac": {
+        "types": "./dist/entities/rbac.d.ts",
+        "bun": "./dist/entities/rbac.js",
+        "node": "./dist/node/entities/rbac.mjs",
+        "browser": "./dist/browser/entities/rbac.js",
+        "default": "./dist/entities/rbac.js"
+      },
+      "./entities/user": {
+        "types": "./dist/entities/user.d.ts",
+        "bun": "./dist/entities/user.js",
+        "node": "./dist/node/entities/user.mjs",
+        "browser": "./dist/browser/entities/user.js",
+        "default": "./dist/entities/user.js"
+      },
+      "./events": {
+        "types": "./dist/events.d.ts",
+        "bun": "./dist/events.js",
+        "node": "./dist/node/events.mjs",
+        "browser": "./dist/browser/events.js",
+        "default": "./dist/events.js"
+      },
+      "./identity-rbac.capability": {
+        "types": "./dist/identity-rbac.capability.d.ts",
+        "bun": "./dist/identity-rbac.capability.js",
+        "node": "./dist/node/identity-rbac.capability.mjs",
+        "browser": "./dist/browser/identity-rbac.capability.js",
+        "default": "./dist/identity-rbac.capability.js"
+      },
+      "./identity-rbac.feature": {
+        "types": "./dist/identity-rbac.feature.d.ts",
+        "bun": "./dist/identity-rbac.feature.js",
+        "node": "./dist/node/identity-rbac.feature.mjs",
+        "browser": "./dist/browser/identity-rbac.feature.js",
+        "default": "./dist/identity-rbac.feature.js"
+      },
+      "./policies": {
+        "types": "./dist/policies/index.d.ts",
+        "bun": "./dist/policies/index.js",
+        "node": "./dist/node/policies/index.mjs",
+        "browser": "./dist/browser/policies/index.js",
+        "default": "./dist/policies/index.js"
+      },
+      "./policies/engine": {
+        "types": "./dist/policies/engine.d.ts",
+        "bun": "./dist/policies/engine.js",
+        "node": "./dist/node/policies/engine.mjs",
+        "browser": "./dist/browser/policies/engine.js",
+        "default": "./dist/policies/engine.js"
+      },
+      "./policies/index": {
+        "types": "./dist/policies/index.d.ts",
+        "bun": "./dist/policies/index.js",
+        "node": "./dist/node/policies/index.mjs",
+        "browser": "./dist/browser/policies/index.js",
+        "default": "./dist/policies/index.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

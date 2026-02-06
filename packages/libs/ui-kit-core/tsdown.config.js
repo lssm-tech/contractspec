@@ -1,5 +1,4 @@
-import { defineConfig } from 'tsdown';
-import { reactLibrary, withDevExports } from '@contractspec/tool.tsdown';
+import { defineConfig, reactLibrary, withDevExports } from '@contractspec/tool.bun';
 
 export default defineConfig({
   ...reactLibrary,

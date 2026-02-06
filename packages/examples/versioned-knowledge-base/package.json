@@ -5,59 +5,162 @@
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./docs": "./dist/docs/index.js",
-    "./docs/versioned-knowledge-base.docblock": "./dist/docs/versioned-knowledge-base.docblock.js",
-    "./entities": "./dist/entities/index.js",
-    "./entities/models": "./dist/entities/models.js",
-    "./events": "./dist/events.js",
-    "./example": "./dist/example.js",
-    "./handlers": "./dist/handlers/index.js",
-    "./handlers/memory.handlers": "./dist/handlers/memory.handlers.js",
-    "./operations": "./dist/operations/index.js",
-    "./operations/kb": "./dist/operations/kb.js",
-    "./versioned-knowledge-base.feature": "./dist/versioned-knowledge-base.feature.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/index": "./src/docs/index.ts",
+    "./docs/versioned-knowledge-base.docblock": "./src/docs/versioned-knowledge-base.docblock.ts",
+    "./entities": "./src/entities/index.ts",
+    "./entities/index": "./src/entities/index.ts",
+    "./entities/models": "./src/entities/models.ts",
+    "./events": "./src/events.ts",
+    "./example": "./src/example.ts",
+    "./handlers": "./src/handlers/index.ts",
+    "./handlers/index": "./src/handlers/index.ts",
+    "./handlers/memory.handlers": "./src/handlers/memory.handlers.ts",
+    "./operations": "./src/operations/index.ts",
+    "./operations/index": "./src/operations/index.ts",
+    "./operations/kb": "./src/operations/kb.ts",
+    "./versioned-knowledge-base.feature": "./src/versioned-knowledge-base.feature.ts"
   },
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.schema": "workspace:*"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./contracts": "./dist/contracts/index.js",
-      "./contracts/kb": "./dist/contracts/kb.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/versioned-knowledge-base.docblock": "./dist/docs/versioned-knowledge-base.docblock.js",
-      "./entities": "./dist/entities/index.js",
-      "./entities/models": "./dist/entities/models.js",
-      "./events": "./dist/events.js",
-      "./example": "./dist/example.js",
-      "./handlers": "./dist/handlers/index.js",
-      "./handlers/memory.handlers": "./dist/handlers/memory.handlers.js",
-      "./versioned-knowledge-base.feature": "./dist/versioned-knowledge-base.feature.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/index": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/versioned-knowledge-base.docblock": {
+        "types": "./dist/docs/versioned-knowledge-base.docblock.d.ts",
+        "bun": "./dist/docs/versioned-knowledge-base.docblock.js",
+        "node": "./dist/node/docs/versioned-knowledge-base.docblock.mjs",
+        "browser": "./dist/browser/docs/versioned-knowledge-base.docblock.js",
+        "default": "./dist/docs/versioned-knowledge-base.docblock.js"
+      },
+      "./entities": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "browser": "./dist/browser/entities/index.js",
+        "default": "./dist/entities/index.js"
+      },
+      "./entities/index": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "browser": "./dist/browser/entities/index.js",
+        "default": "./dist/entities/index.js"
+      },
+      "./entities/models": {
+        "types": "./dist/entities/models.d.ts",
+        "bun": "./dist/entities/models.js",
+        "node": "./dist/node/entities/models.mjs",
+        "browser": "./dist/browser/entities/models.js",
+        "default": "./dist/entities/models.js"
+      },
+      "./events": {
+        "types": "./dist/events.d.ts",
+        "bun": "./dist/events.js",
+        "node": "./dist/node/events.mjs",
+        "browser": "./dist/browser/events.js",
+        "default": "./dist/events.js"
+      },
+      "./example": {
+        "types": "./dist/example.d.ts",
+        "bun": "./dist/example.js",
+        "node": "./dist/node/example.mjs",
+        "browser": "./dist/browser/example.js",
+        "default": "./dist/example.js"
+      },
+      "./handlers": {
+        "types": "./dist/handlers/index.d.ts",
+        "bun": "./dist/handlers/index.js",
+        "node": "./dist/node/handlers/index.mjs",
+        "browser": "./dist/browser/handlers/index.js",
+        "default": "./dist/handlers/index.js"
+      },
+      "./handlers/index": {
+        "types": "./dist/handlers/index.d.ts",
+        "bun": "./dist/handlers/index.js",
+        "node": "./dist/node/handlers/index.mjs",
+        "browser": "./dist/browser/handlers/index.js",
+        "default": "./dist/handlers/index.js"
+      },
+      "./handlers/memory.handlers": {
+        "types": "./dist/handlers/memory.handlers.d.ts",
+        "bun": "./dist/handlers/memory.handlers.js",
+        "node": "./dist/node/handlers/memory.handlers.mjs",
+        "browser": "./dist/browser/handlers/memory.handlers.js",
+        "default": "./dist/handlers/memory.handlers.js"
+      },
+      "./operations": {
+        "types": "./dist/operations/index.d.ts",
+        "bun": "./dist/operations/index.js",
+        "node": "./dist/node/operations/index.mjs",
+        "browser": "./dist/browser/operations/index.js",
+        "default": "./dist/operations/index.js"
+      },
+      "./operations/index": {
+        "types": "./dist/operations/index.d.ts",
+        "bun": "./dist/operations/index.js",
+        "node": "./dist/node/operations/index.mjs",
+        "browser": "./dist/browser/operations/index.js",
+        "default": "./dist/operations/index.js"
+      },
+      "./operations/kb": {
+        "types": "./dist/operations/kb.d.ts",
+        "bun": "./dist/operations/kb.js",
+        "node": "./dist/node/operations/kb.mjs",
+        "browser": "./dist/browser/operations/kb.js",
+        "default": "./dist/operations/kb.js"
+      },
+      "./versioned-knowledge-base.feature": {
+        "types": "./dist/versioned-knowledge-base.feature.d.ts",
+        "bun": "./dist/versioned-knowledge-base.feature.js",
+        "node": "./dist/node/versioned-knowledge-base.feature.mjs",
+        "browser": "./dist/browser/versioned-knowledge-base.feature.js",
+        "default": "./dist/versioned-knowledge-base.feature.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

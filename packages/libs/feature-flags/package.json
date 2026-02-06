@@ -14,14 +14,16 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
@@ -30,20 +32,23 @@
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./contracts": "./dist/contracts/index.js",
-    "./docs": "./dist/docs/index.js",
-    "./docs/feature-flags.docblock": "./dist/docs/feature-flags.docblock.js",
-    "./entities": "./dist/entities/index.js",
-    "./evaluation": "./dist/evaluation/index.js",
-    "./events": "./dist/events.js",
-    "./feature-flags.capability": "./dist/feature-flags.capability.js",
-    "./feature-flags.feature": "./dist/feature-flags.feature.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./contracts/index": "./src/contracts/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/feature-flags.docblock": "./src/docs/feature-flags.docblock.ts",
+    "./docs/index": "./src/docs/index.ts",
+    "./entities": "./src/entities/index.ts",
+    "./entities/index": "./src/entities/index.ts",
+    "./evaluation": "./src/evaluation/index.ts",
+    "./evaluation/index": "./src/evaluation/index.ts",
+    "./events": "./src/events.ts",
+    "./feature-flags.capability": "./src/feature-flags.capability.ts",
+    "./feature-flags.feature": "./src/feature-flags.feature.ts"
   },
   "files": [
     "dist",
@@ -52,15 +57,97 @@
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./contracts": "./dist/contracts/index.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/feature-flags.docblock": "./dist/docs/feature-flags.docblock.js",
-      "./entities": "./dist/entities/index.js",
-      "./evaluation": "./dist/evaluation/index.js",
-      "./events": "./dist/events.js",
-      "./feature-flags.feature": "./dist/feature-flags.feature.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./contracts": {
+        "types": "./dist/contracts/index.d.ts",
+        "bun": "./dist/contracts/index.js",
+        "node": "./dist/node/contracts/index.mjs",
+        "browser": "./dist/browser/contracts/index.js",
+        "default": "./dist/contracts/index.js"
+      },
+      "./contracts/index": {
+        "types": "./dist/contracts/index.d.ts",
+        "bun": "./dist/contracts/index.js",
+        "node": "./dist/node/contracts/index.mjs",
+        "browser": "./dist/browser/contracts/index.js",
+        "default": "./dist/contracts/index.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/feature-flags.docblock": {
+        "types": "./dist/docs/feature-flags.docblock.d.ts",
+        "bun": "./dist/docs/feature-flags.docblock.js",
+        "node": "./dist/node/docs/feature-flags.docblock.mjs",
+        "browser": "./dist/browser/docs/feature-flags.docblock.js",
+        "default": "./dist/docs/feature-flags.docblock.js"
+      },
+      "./docs/index": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./entities": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "browser": "./dist/browser/entities/index.js",
+        "default": "./dist/entities/index.js"
+      },
+      "./entities/index": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "browser": "./dist/browser/entities/index.js",
+        "default": "./dist/entities/index.js"
+      },
+      "./evaluation": {
+        "types": "./dist/evaluation/index.d.ts",
+        "bun": "./dist/evaluation/index.js",
+        "node": "./dist/node/evaluation/index.mjs",
+        "browser": "./dist/browser/evaluation/index.js",
+        "default": "./dist/evaluation/index.js"
+      },
+      "./evaluation/index": {
+        "types": "./dist/evaluation/index.d.ts",
+        "bun": "./dist/evaluation/index.js",
+        "node": "./dist/node/evaluation/index.mjs",
+        "browser": "./dist/browser/evaluation/index.js",
+        "default": "./dist/evaluation/index.js"
+      },
+      "./events": {
+        "types": "./dist/events.d.ts",
+        "bun": "./dist/events.js",
+        "node": "./dist/node/events.mjs",
+        "browser": "./dist/browser/events.js",
+        "default": "./dist/events.js"
+      },
+      "./feature-flags.capability": {
+        "types": "./dist/feature-flags.capability.d.ts",
+        "bun": "./dist/feature-flags.capability.js",
+        "node": "./dist/node/feature-flags.capability.mjs",
+        "browser": "./dist/browser/feature-flags.capability.js",
+        "default": "./dist/feature-flags.capability.js"
+      },
+      "./feature-flags.feature": {
+        "types": "./dist/feature-flags.feature.d.ts",
+        "bun": "./dist/feature-flags.feature.js",
+        "node": "./dist/node/feature-flags.feature.mjs",
+        "browser": "./dist/browser/feature-flags.feature.js",
+        "default": "./dist/feature-flags.feature.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

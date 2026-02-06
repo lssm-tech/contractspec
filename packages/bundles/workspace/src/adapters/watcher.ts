@@ -30,7 +30,7 @@ export function createNodeWatcherAdapter(cwd?: string): WatcherAdapter {
   return {
     watch(options: WatchOptions): Watcher {
       const handlers: WatchEventHandler[] = [];
-      let debounceTimer: NodeJS.Timeout | undefined;
+      let debounceTimer: ReturnType<typeof setTimeout> | undefined;
 
       const watcher = chokidar.watch(options.pattern, {
         cwd: baseCwd,

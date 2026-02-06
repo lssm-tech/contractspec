@@ -15,14 +15,16 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
@@ -31,22 +33,25 @@
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./aggregation": "./dist/aggregation/index.js",
-    "./analytics/posthog-metering": "./dist/analytics/posthog-metering.js",
-    "./analytics/posthog-metering-reader": "./dist/analytics/posthog-metering-reader.js",
-    "./contracts": "./dist/contracts/index.js",
-    "./docs": "./dist/docs/index.js",
-    "./docs/metering.docblock": "./dist/docs/metering.docblock.js",
-    "./entities": "./dist/entities/index.js",
-    "./events": "./dist/events.js",
-    "./metering.capability": "./dist/metering.capability.js",
-    "./metering.feature": "./dist/metering.feature.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./aggregation": "./src/aggregation/index.ts",
+    "./aggregation/index": "./src/aggregation/index.ts",
+    "./analytics/posthog-metering": "./src/analytics/posthog-metering.ts",
+    "./analytics/posthog-metering-reader": "./src/analytics/posthog-metering-reader.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./contracts/index": "./src/contracts/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/index": "./src/docs/index.ts",
+    "./docs/metering.docblock": "./src/docs/metering.docblock.ts",
+    "./entities": "./src/entities/index.ts",
+    "./entities/index": "./src/entities/index.ts",
+    "./events": "./src/events.ts",
+    "./metering.capability": "./src/metering.capability.ts",
+    "./metering.feature": "./src/metering.feature.ts"
   },
   "files": [
     "dist",
@@ -55,17 +60,111 @@
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./aggregation": "./dist/aggregation/index.js",
-      "./analytics/posthog-metering": "./dist/analytics/posthog-metering.js",
-      "./analytics/posthog-metering-reader": "./dist/analytics/posthog-metering-reader.js",
-      "./contracts": "./dist/contracts/index.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/metering.docblock": "./dist/docs/metering.docblock.js",
-      "./entities": "./dist/entities/index.js",
-      "./events": "./dist/events.js",
-      "./metering.feature": "./dist/metering.feature.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./aggregation": {
+        "types": "./dist/aggregation/index.d.ts",
+        "bun": "./dist/aggregation/index.js",
+        "node": "./dist/node/aggregation/index.mjs",
+        "browser": "./dist/browser/aggregation/index.js",
+        "default": "./dist/aggregation/index.js"
+      },
+      "./aggregation/index": {
+        "types": "./dist/aggregation/index.d.ts",
+        "bun": "./dist/aggregation/index.js",
+        "node": "./dist/node/aggregation/index.mjs",
+        "browser": "./dist/browser/aggregation/index.js",
+        "default": "./dist/aggregation/index.js"
+      },
+      "./analytics/posthog-metering": {
+        "types": "./dist/analytics/posthog-metering.d.ts",
+        "bun": "./dist/analytics/posthog-metering.js",
+        "node": "./dist/node/analytics/posthog-metering.mjs",
+        "browser": "./dist/browser/analytics/posthog-metering.js",
+        "default": "./dist/analytics/posthog-metering.js"
+      },
+      "./analytics/posthog-metering-reader": {
+        "types": "./dist/analytics/posthog-metering-reader.d.ts",
+        "bun": "./dist/analytics/posthog-metering-reader.js",
+        "node": "./dist/node/analytics/posthog-metering-reader.mjs",
+        "browser": "./dist/browser/analytics/posthog-metering-reader.js",
+        "default": "./dist/analytics/posthog-metering-reader.js"
+      },
+      "./contracts": {
+        "types": "./dist/contracts/index.d.ts",
+        "bun": "./dist/contracts/index.js",
+        "node": "./dist/node/contracts/index.mjs",
+        "browser": "./dist/browser/contracts/index.js",
+        "default": "./dist/contracts/index.js"
+      },
+      "./contracts/index": {
+        "types": "./dist/contracts/index.d.ts",
+        "bun": "./dist/contracts/index.js",
+        "node": "./dist/node/contracts/index.mjs",
+        "browser": "./dist/browser/contracts/index.js",
+        "default": "./dist/contracts/index.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/index": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/metering.docblock": {
+        "types": "./dist/docs/metering.docblock.d.ts",
+        "bun": "./dist/docs/metering.docblock.js",
+        "node": "./dist/node/docs/metering.docblock.mjs",
+        "browser": "./dist/browser/docs/metering.docblock.js",
+        "default": "./dist/docs/metering.docblock.js"
+      },
+      "./entities": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "browser": "./dist/browser/entities/index.js",
+        "default": "./dist/entities/index.js"
+      },
+      "./entities/index": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "browser": "./dist/browser/entities/index.js",
+        "default": "./dist/entities/index.js"
+      },
+      "./events": {
+        "types": "./dist/events.d.ts",
+        "bun": "./dist/events.js",
+        "node": "./dist/node/events.mjs",
+        "browser": "./dist/browser/events.js",
+        "default": "./dist/events.js"
+      },
+      "./metering.capability": {
+        "types": "./dist/metering.capability.d.ts",
+        "bun": "./dist/metering.capability.js",
+        "node": "./dist/node/metering.capability.mjs",
+        "browser": "./dist/browser/metering.capability.js",
+        "default": "./dist/metering.capability.js"
+      },
+      "./metering.feature": {
+        "types": "./dist/metering.feature.d.ts",
+        "bun": "./dist/metering.feature.js",
+        "node": "./dist/node/metering.feature.mjs",
+        "browser": "./dist/browser/metering.feature.js",
+        "default": "./dist/metering.feature.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

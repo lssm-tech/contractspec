@@ -7,14 +7,16 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
@@ -27,43 +29,51 @@
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
     "typescript": "catalog:",
     "@types/react": "^19.2.13",
-    "@types/react-dom": "^19.2.2"
+    "@types/react-dom": "^19.2.2",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./dashboard": "./dist/dashboard/index.js",
-    "./dashboard.feature": "./dist/dashboard.feature.js",
-    "./dashboard/dashboard.enum": "./dist/dashboard/dashboard.enum.js",
-    "./dashboard/dashboard.operation": "./dist/dashboard/dashboard.operation.js",
-    "./dashboard/dashboard.presentation": "./dist/dashboard/dashboard.presentation.js",
-    "./dashboard/dashboard.schema": "./dist/dashboard/dashboard.schema.js",
-    "./dashboard/dashboard.test-spec": "./dist/dashboard/dashboard.test-spec.js",
-    "./datasource/posthog-datasource": "./dist/datasource/posthog-datasource.js",
-    "./docs": "./dist/docs/index.js",
-    "./docs/analytics-dashboard.docblock": "./dist/docs/analytics-dashboard.docblock.js",
-    "./events": "./dist/events.js",
-    "./example": "./dist/example.js",
-    "./handlers": "./dist/handlers/index.js",
-    "./handlers/analytics.handlers": "./dist/handlers/analytics.handlers.js",
-    "./handlers/query.handlers": "./dist/handlers/query.handlers.js",
-    "./query": "./dist/query/index.js",
-    "./query-engine": "./dist/query-engine/index.js",
-    "./query/query.enum": "./dist/query/query.enum.js",
-    "./query/query.operation": "./dist/query/query.operation.js",
-    "./query/query.presentation": "./dist/query/query.presentation.js",
-    "./query/query.schema": "./dist/query/query.schema.js",
-    "./query/query.test-spec": "./dist/query/query.test-spec.js",
-    "./seeders": "./dist/seeders/index.js",
-    "./ui": "./dist/ui/index.js",
-    "./ui/AnalyticsDashboard": "./dist/ui/AnalyticsDashboard.js",
-    "./ui/hooks": "./dist/ui/hooks/index.js",
-    "./ui/hooks/useAnalyticsData": "./dist/ui/hooks/useAnalyticsData.js",
-    "./ui/renderers": "./dist/ui/renderers/index.js",
-    "./ui/renderers/analytics.markdown": "./dist/ui/renderers/analytics.markdown.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./dashboard": "./src/dashboard/index.ts",
+    "./dashboard.feature": "./src/dashboard.feature.ts",
+    "./dashboard/dashboard.enum": "./src/dashboard/dashboard.enum.ts",
+    "./dashboard/dashboard.operation": "./src/dashboard/dashboard.operation.ts",
+    "./dashboard/dashboard.presentation": "./src/dashboard/dashboard.presentation.ts",
+    "./dashboard/dashboard.schema": "./src/dashboard/dashboard.schema.ts",
+    "./dashboard/dashboard.test-spec": "./src/dashboard/dashboard.test-spec.ts",
+    "./dashboard/index": "./src/dashboard/index.ts",
+    "./datasource/posthog-datasource": "./src/datasource/posthog-datasource.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/analytics-dashboard.docblock": "./src/docs/analytics-dashboard.docblock.ts",
+    "./docs/index": "./src/docs/index.ts",
+    "./events": "./src/events.ts",
+    "./example": "./src/example.ts",
+    "./handlers": "./src/handlers/index.ts",
+    "./handlers/analytics.handlers": "./src/handlers/analytics.handlers.ts",
+    "./handlers/index": "./src/handlers/index.ts",
+    "./handlers/query.handlers": "./src/handlers/query.handlers.ts",
+    "./query": "./src/query/index.ts",
+    "./query-engine": "./src/query-engine/index.ts",
+    "./query-engine/index": "./src/query-engine/index.ts",
+    "./query/index": "./src/query/index.ts",
+    "./query/query.enum": "./src/query/query.enum.ts",
+    "./query/query.operation": "./src/query/query.operation.ts",
+    "./query/query.presentation": "./src/query/query.presentation.ts",
+    "./query/query.schema": "./src/query/query.schema.ts",
+    "./query/query.test-spec": "./src/query/query.test-spec.ts",
+    "./seeders": "./src/seeders/index.ts",
+    "./seeders/index": "./src/seeders/index.ts",
+    "./ui": "./src/ui/index.ts",
+    "./ui/AnalyticsDashboard": "./src/ui/AnalyticsDashboard.tsx",
+    "./ui/hooks": "./src/ui/hooks/index.ts",
+    "./ui/hooks/index": "./src/ui/hooks/index.ts",
+    "./ui/hooks/useAnalyticsData": "./src/ui/hooks/useAnalyticsData.ts",
+    "./ui/index": "./src/ui/index.ts",
+    "./ui/renderers": "./src/ui/renderers/index.ts",
+    "./ui/renderers/analytics.markdown": "./src/ui/renderers/analytics.markdown.ts",
+    "./ui/renderers/index": "./src/ui/renderers/index.ts"
   },
   "files": [
     "dist",
@@ -72,28 +82,279 @@
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./dashboard": "./dist/dashboard/index.js",
-      "./dashboard.feature": "./dist/dashboard.feature.js",
-      "./dashboard/dashboard.contracts": "./dist/dashboard/dashboard.operations.js",
-      "./dashboard/dashboard.enum": "./dist/dashboard/dashboard.enum.js",
-      "./dashboard/dashboard.presentation": "./dist/dashboard/dashboard.presentation.js",
-      "./dashboard/dashboard.schema": "./dist/dashboard/dashboard.schema.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/analytics-dashboard.docblock": "./dist/docs/analytics-dashboard.docblock.js",
-      "./datasource/posthog-datasource": "./dist/datasource/posthog-datasource.js",
-      "./events": "./dist/events.js",
-      "./example": "./dist/example.js",
-      "./handlers": "./dist/handlers/index.js",
-      "./handlers/analytics.handlers": "./dist/handlers/analytics.handlers.js",
-      "./handlers/query.handlers": "./dist/handlers/query.handlers.js",
-      "./query": "./dist/query/index.js",
-      "./query-engine": "./dist/query-engine/index.js",
-      "./query/query.contracts": "./dist/query/query.operations.js",
-      "./query/query.enum": "./dist/query/query.enum.js",
-      "./query/query.presentation": "./dist/query/query.presentation.js",
-      "./query/query.schema": "./dist/query/query.schema.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./dashboard": {
+        "types": "./dist/dashboard/index.d.ts",
+        "bun": "./dist/dashboard/index.js",
+        "node": "./dist/node/dashboard/index.mjs",
+        "browser": "./dist/browser/dashboard/index.js",
+        "default": "./dist/dashboard/index.js"
+      },
+      "./dashboard.feature": {
+        "types": "./dist/dashboard.feature.d.ts",
+        "bun": "./dist/dashboard.feature.js",
+        "node": "./dist/node/dashboard.feature.mjs",
+        "browser": "./dist/browser/dashboard.feature.js",
+        "default": "./dist/dashboard.feature.js"
+      },
+      "./dashboard/dashboard.enum": {
+        "types": "./dist/dashboard/dashboard.enum.d.ts",
+        "bun": "./dist/dashboard/dashboard.enum.js",
+        "node": "./dist/node/dashboard/dashboard.enum.mjs",
+        "browser": "./dist/browser/dashboard/dashboard.enum.js",
+        "default": "./dist/dashboard/dashboard.enum.js"
+      },
+      "./dashboard/dashboard.operation": {
+        "types": "./dist/dashboard/dashboard.operation.d.ts",
+        "bun": "./dist/dashboard/dashboard.operation.js",
+        "node": "./dist/node/dashboard/dashboard.operation.mjs",
+        "browser": "./dist/browser/dashboard/dashboard.operation.js",
+        "default": "./dist/dashboard/dashboard.operation.js"
+      },
+      "./dashboard/dashboard.presentation": {
+        "types": "./dist/dashboard/dashboard.presentation.d.ts",
+        "bun": "./dist/dashboard/dashboard.presentation.js",
+        "node": "./dist/node/dashboard/dashboard.presentation.mjs",
+        "browser": "./dist/browser/dashboard/dashboard.presentation.js",
+        "default": "./dist/dashboard/dashboard.presentation.js"
+      },
+      "./dashboard/dashboard.schema": {
+        "types": "./dist/dashboard/dashboard.schema.d.ts",
+        "bun": "./dist/dashboard/dashboard.schema.js",
+        "node": "./dist/node/dashboard/dashboard.schema.mjs",
+        "browser": "./dist/browser/dashboard/dashboard.schema.js",
+        "default": "./dist/dashboard/dashboard.schema.js"
+      },
+      "./dashboard/dashboard.test-spec": {
+        "types": "./dist/dashboard/dashboard.test-spec.d.ts",
+        "bun": "./dist/dashboard/dashboard.test-spec.js",
+        "node": "./dist/node/dashboard/dashboard.test-spec.mjs",
+        "browser": "./dist/browser/dashboard/dashboard.test-spec.js",
+        "default": "./dist/dashboard/dashboard.test-spec.js"
+      },
+      "./dashboard/index": {
+        "types": "./dist/dashboard/index.d.ts",
+        "bun": "./dist/dashboard/index.js",
+        "node": "./dist/node/dashboard/index.mjs",
+        "browser": "./dist/browser/dashboard/index.js",
+        "default": "./dist/dashboard/index.js"
+      },
+      "./datasource/posthog-datasource": {
+        "types": "./dist/datasource/posthog-datasource.d.ts",
+        "bun": "./dist/datasource/posthog-datasource.js",
+        "node": "./dist/node/datasource/posthog-datasource.mjs",
+        "browser": "./dist/browser/datasource/posthog-datasource.js",
+        "default": "./dist/datasource/posthog-datasource.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/analytics-dashboard.docblock": {
+        "types": "./dist/docs/analytics-dashboard.docblock.d.ts",
+        "bun": "./dist/docs/analytics-dashboard.docblock.js",
+        "node": "./dist/node/docs/analytics-dashboard.docblock.mjs",
+        "browser": "./dist/browser/docs/analytics-dashboard.docblock.js",
+        "default": "./dist/docs/analytics-dashboard.docblock.js"
+      },
+      "./docs/index": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./events": {
+        "types": "./dist/events.d.ts",
+        "bun": "./dist/events.js",
+        "node": "./dist/node/events.mjs",
+        "browser": "./dist/browser/events.js",
+        "default": "./dist/events.js"
+      },
+      "./example": {
+        "types": "./dist/example.d.ts",
+        "bun": "./dist/example.js",
+        "node": "./dist/node/example.mjs",
+        "browser": "./dist/browser/example.js",
+        "default": "./dist/example.js"
+      },
+      "./handlers": {
+        "types": "./dist/handlers/index.d.ts",
+        "bun": "./dist/handlers/index.js",
+        "node": "./dist/node/handlers/index.mjs",
+        "browser": "./dist/browser/handlers/index.js",
+        "default": "./dist/handlers/index.js"
+      },
+      "./handlers/analytics.handlers": {
+        "types": "./dist/handlers/analytics.handlers.d.ts",
+        "bun": "./dist/handlers/analytics.handlers.js",
+        "node": "./dist/node/handlers/analytics.handlers.mjs",
+        "browser": "./dist/browser/handlers/analytics.handlers.js",
+        "default": "./dist/handlers/analytics.handlers.js"
+      },
+      "./handlers/index": {
+        "types": "./dist/handlers/index.d.ts",
+        "bun": "./dist/handlers/index.js",
+        "node": "./dist/node/handlers/index.mjs",
+        "browser": "./dist/browser/handlers/index.js",
+        "default": "./dist/handlers/index.js"
+      },
+      "./handlers/query.handlers": {
+        "types": "./dist/handlers/query.handlers.d.ts",
+        "bun": "./dist/handlers/query.handlers.js",
+        "node": "./dist/node/handlers/query.handlers.mjs",
+        "browser": "./dist/browser/handlers/query.handlers.js",
+        "default": "./dist/handlers/query.handlers.js"
+      },
+      "./query": {
+        "types": "./dist/query/index.d.ts",
+        "bun": "./dist/query/index.js",
+        "node": "./dist/node/query/index.mjs",
+        "browser": "./dist/browser/query/index.js",
+        "default": "./dist/query/index.js"
+      },
+      "./query-engine": {
+        "types": "./dist/query-engine/index.d.ts",
+        "bun": "./dist/query-engine/index.js",
+        "node": "./dist/node/query-engine/index.mjs",
+        "browser": "./dist/browser/query-engine/index.js",
+        "default": "./dist/query-engine/index.js"
+      },
+      "./query-engine/index": {
+        "types": "./dist/query-engine/index.d.ts",
+        "bun": "./dist/query-engine/index.js",
+        "node": "./dist/node/query-engine/index.mjs",
+        "browser": "./dist/browser/query-engine/index.js",
+        "default": "./dist/query-engine/index.js"
+      },
+      "./query/index": {
+        "types": "./dist/query/index.d.ts",
+        "bun": "./dist/query/index.js",
+        "node": "./dist/node/query/index.mjs",
+        "browser": "./dist/browser/query/index.js",
+        "default": "./dist/query/index.js"
+      },
+      "./query/query.enum": {
+        "types": "./dist/query/query.enum.d.ts",
+        "bun": "./dist/query/query.enum.js",
+        "node": "./dist/node/query/query.enum.mjs",
+        "browser": "./dist/browser/query/query.enum.js",
+        "default": "./dist/query/query.enum.js"
+      },
+      "./query/query.operation": {
+        "types": "./dist/query/query.operation.d.ts",
+        "bun": "./dist/query/query.operation.js",
+        "node": "./dist/node/query/query.operation.mjs",
+        "browser": "./dist/browser/query/query.operation.js",
+        "default": "./dist/query/query.operation.js"
+      },
+      "./query/query.presentation": {
+        "types": "./dist/query/query.presentation.d.ts",
+        "bun": "./dist/query/query.presentation.js",
+        "node": "./dist/node/query/query.presentation.mjs",
+        "browser": "./dist/browser/query/query.presentation.js",
+        "default": "./dist/query/query.presentation.js"
+      },
+      "./query/query.schema": {
+        "types": "./dist/query/query.schema.d.ts",
+        "bun": "./dist/query/query.schema.js",
+        "node": "./dist/node/query/query.schema.mjs",
+        "browser": "./dist/browser/query/query.schema.js",
+        "default": "./dist/query/query.schema.js"
+      },
+      "./query/query.test-spec": {
+        "types": "./dist/query/query.test-spec.d.ts",
+        "bun": "./dist/query/query.test-spec.js",
+        "node": "./dist/node/query/query.test-spec.mjs",
+        "browser": "./dist/browser/query/query.test-spec.js",
+        "default": "./dist/query/query.test-spec.js"
+      },
+      "./seeders": {
+        "types": "./dist/seeders/index.d.ts",
+        "bun": "./dist/seeders/index.js",
+        "node": "./dist/node/seeders/index.mjs",
+        "browser": "./dist/browser/seeders/index.js",
+        "default": "./dist/seeders/index.js"
+      },
+      "./seeders/index": {
+        "types": "./dist/seeders/index.d.ts",
+        "bun": "./dist/seeders/index.js",
+        "node": "./dist/node/seeders/index.mjs",
+        "browser": "./dist/browser/seeders/index.js",
+        "default": "./dist/seeders/index.js"
+      },
+      "./ui": {
+        "types": "./dist/ui/index.d.ts",
+        "bun": "./dist/ui/index.js",
+        "node": "./dist/node/ui/index.mjs",
+        "browser": "./dist/browser/ui/index.js",
+        "default": "./dist/ui/index.js"
+      },
+      "./ui/AnalyticsDashboard": {
+        "types": "./dist/ui/AnalyticsDashboard.d.ts",
+        "bun": "./dist/ui/AnalyticsDashboard.js",
+        "node": "./dist/node/ui/AnalyticsDashboard.mjs",
+        "browser": "./dist/browser/ui/AnalyticsDashboard.js",
+        "default": "./dist/ui/AnalyticsDashboard.js"
+      },
+      "./ui/hooks": {
+        "types": "./dist/ui/hooks/index.d.ts",
+        "bun": "./dist/ui/hooks/index.js",
+        "node": "./dist/node/ui/hooks/index.mjs",
+        "browser": "./dist/browser/ui/hooks/index.js",
+        "default": "./dist/ui/hooks/index.js"
+      },
+      "./ui/hooks/index": {
+        "types": "./dist/ui/hooks/index.d.ts",
+        "bun": "./dist/ui/hooks/index.js",
+        "node": "./dist/node/ui/hooks/index.mjs",
+        "browser": "./dist/browser/ui/hooks/index.js",
+        "default": "./dist/ui/hooks/index.js"
+      },
+      "./ui/hooks/useAnalyticsData": {
+        "types": "./dist/ui/hooks/useAnalyticsData.d.ts",
+        "bun": "./dist/ui/hooks/useAnalyticsData.js",
+        "node": "./dist/node/ui/hooks/useAnalyticsData.mjs",
+        "browser": "./dist/browser/ui/hooks/useAnalyticsData.js",
+        "default": "./dist/ui/hooks/useAnalyticsData.js"
+      },
+      "./ui/index": {
+        "types": "./dist/ui/index.d.ts",
+        "bun": "./dist/ui/index.js",
+        "node": "./dist/node/ui/index.mjs",
+        "browser": "./dist/browser/ui/index.js",
+        "default": "./dist/ui/index.js"
+      },
+      "./ui/renderers": {
+        "types": "./dist/ui/renderers/index.d.ts",
+        "bun": "./dist/ui/renderers/index.js",
+        "node": "./dist/node/ui/renderers/index.mjs",
+        "browser": "./dist/browser/ui/renderers/index.js",
+        "default": "./dist/ui/renderers/index.js"
+      },
+      "./ui/renderers/analytics.markdown": {
+        "types": "./dist/ui/renderers/analytics.markdown.d.ts",
+        "bun": "./dist/ui/renderers/analytics.markdown.js",
+        "node": "./dist/node/ui/renderers/analytics.markdown.mjs",
+        "browser": "./dist/browser/ui/renderers/analytics.markdown.js",
+        "default": "./dist/ui/renderers/analytics.markdown.js"
+      },
+      "./ui/renderers/index": {
+        "types": "./dist/ui/renderers/index.d.ts",
+        "bun": "./dist/ui/renderers/index.js",
+        "node": "./dist/node/ui/renderers/index.mjs",
+        "browser": "./dist/browser/ui/renderers/index.js",
+        "default": "./dist/ui/renderers/index.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

@@ -17,15 +17,17 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
@@ -34,9 +36,8 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build"
+    "@contractspec/tool.bun": "workspace:*"
   },
   "types": "./dist/index.d.ts",
   "files": [
@@ -44,20 +45,58 @@
     "README.md"
   ],
   "exports": {
-    ".": "./dist/index.js",
-    "./codegen": "./dist/codegen/index.js",
-    "./extractors": "./dist/extractors/index.js",
-    "./types": "./dist/types.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./codegen": "./src/codegen/index.ts",
+    "./codegen/index": "./src/codegen/index.ts",
+    "./extractors": "./src/extractors/index.ts",
+    "./extractors/index": "./src/extractors/index.ts",
+    "./types": "./src/types.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./types": "./dist/types.js",
-      "./extractors": "./dist/extractors/index.js",
-      "./codegen": "./dist/codegen/index.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./codegen": {
+        "types": "./dist/codegen/index.d.ts",
+        "bun": "./dist/codegen/index.js",
+        "node": "./dist/node/codegen/index.mjs",
+        "browser": "./dist/browser/codegen/index.js",
+        "default": "./dist/codegen/index.js"
+      },
+      "./codegen/index": {
+        "types": "./dist/codegen/index.d.ts",
+        "bun": "./dist/codegen/index.js",
+        "node": "./dist/node/codegen/index.mjs",
+        "browser": "./dist/browser/codegen/index.js",
+        "default": "./dist/codegen/index.js"
+      },
+      "./extractors": {
+        "types": "./dist/extractors/index.d.ts",
+        "bun": "./dist/extractors/index.js",
+        "node": "./dist/node/extractors/index.mjs",
+        "browser": "./dist/browser/extractors/index.js",
+        "default": "./dist/extractors/index.js"
+      },
+      "./extractors/index": {
+        "types": "./dist/extractors/index.d.ts",
+        "bun": "./dist/extractors/index.js",
+        "node": "./dist/node/extractors/index.mjs",
+        "browser": "./dist/browser/extractors/index.js",
+        "default": "./dist/extractors/index.js"
+      },
+      "./types": {
+        "types": "./dist/types.d.ts",
+        "bun": "./dist/types.js",
+        "node": "./dist/node/types.mjs",
+        "browser": "./dist/browser/types.js",
+        "default": "./dist/types.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

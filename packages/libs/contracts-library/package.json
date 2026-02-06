@@ -9,19 +9,68 @@
     "lint": "bun run lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit"
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit",
+    "dev": "contractspec-bun-build dev"
   },
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./templates": {
+        "types": "./dist/templates/index.d.ts",
+        "bun": "./dist/templates/index.js",
+        "node": "./dist/node/templates/index.mjs",
+        "browser": "./dist/browser/templates/index.js",
+        "default": "./dist/templates/index.js"
+      },
+      "./templates/index": {
+        "types": "./dist/templates/index.d.ts",
+        "bun": "./dist/templates/index.js",
+        "node": "./dist/node/templates/index.mjs",
+        "browser": "./dist/browser/templates/index.js",
+        "default": "./dist/templates/index.js"
+      },
+      "./templates/messaging": {
+        "types": "./dist/templates/messaging.d.ts",
+        "bun": "./dist/templates/messaging.js",
+        "node": "./dist/node/templates/messaging.mjs",
+        "browser": "./dist/browser/templates/messaging.js",
+        "default": "./dist/templates/messaging.js"
+      },
+      "./templates/recipes": {
+        "types": "./dist/templates/recipes.d.ts",
+        "bun": "./dist/templates/recipes.js",
+        "node": "./dist/node/templates/recipes.mjs",
+        "browser": "./dist/browser/templates/recipes.js",
+        "default": "./dist/templates/recipes.js"
+      },
+      "./templates/todos": {
+        "types": "./dist/templates/todos.d.ts",
+        "bun": "./dist/templates/todos.js",
+        "node": "./dist/node/templates/todos.mjs",
+        "browser": "./dist/browser/templates/todos.js",
+        "default": "./dist/templates/todos.js"
+      }
+    }
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./templates": "./dist/templates/index.js",
-    "./templates/recipes": "./dist/templates/recipes.js",
-    "./templates/todos": "./dist/templates/todos.js"
+    ".": "./src/index.ts",
+    "./templates": "./src/templates/index.ts",
+    "./templates/index": "./src/templates/index.ts",
+    "./templates/messaging": "./src/templates/messaging.ts",
+    "./templates/recipes": "./src/templates/recipes.ts",
+    "./templates/todos": "./src/templates/todos.ts"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -30,9 +79,8 @@
     "@contractspec/lib.schema": "workspace:*"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   }
 }

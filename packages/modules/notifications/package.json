@@ -15,14 +15,16 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
@@ -32,18 +34,21 @@
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./channels": "./dist/channels/index.js",
-    "./contracts": "./dist/contracts/index.js",
-    "./entities": "./dist/entities/index.js",
-    "./notifications.capability": "./dist/notifications.capability.js",
-    "./notifications.feature": "./dist/notifications.feature.js",
-    "./templates": "./dist/templates/index.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./channels": "./src/channels/index.ts",
+    "./channels/index": "./src/channels/index.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./contracts/index": "./src/contracts/index.ts",
+    "./entities": "./src/entities/index.ts",
+    "./entities/index": "./src/entities/index.ts",
+    "./notifications.capability": "./src/notifications.capability.ts",
+    "./notifications.feature": "./src/notifications.feature.ts",
+    "./templates": "./src/templates/index.ts",
+    "./templates/index": "./src/templates/index.ts"
   },
   "files": [
     "dist",
@@ -52,13 +57,83 @@
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./channels": "./dist/channels/index.js",
-      "./contracts": "./dist/contracts/index.js",
-      "./entities": "./dist/entities/index.js",
-      "./notifications.feature": "./dist/notifications.feature.js",
-      "./templates": "./dist/templates/index.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./channels": {
+        "types": "./dist/channels/index.d.ts",
+        "bun": "./dist/channels/index.js",
+        "node": "./dist/node/channels/index.mjs",
+        "browser": "./dist/browser/channels/index.js",
+        "default": "./dist/channels/index.js"
+      },
+      "./channels/index": {
+        "types": "./dist/channels/index.d.ts",
+        "bun": "./dist/channels/index.js",
+        "node": "./dist/node/channels/index.mjs",
+        "browser": "./dist/browser/channels/index.js",
+        "default": "./dist/channels/index.js"
+      },
+      "./contracts": {
+        "types": "./dist/contracts/index.d.ts",
+        "bun": "./dist/contracts/index.js",
+        "node": "./dist/node/contracts/index.mjs",
+        "browser": "./dist/browser/contracts/index.js",
+        "default": "./dist/contracts/index.js"
+      },
+      "./contracts/index": {
+        "types": "./dist/contracts/index.d.ts",
+        "bun": "./dist/contracts/index.js",
+        "node": "./dist/node/contracts/index.mjs",
+        "browser": "./dist/browser/contracts/index.js",
+        "default": "./dist/contracts/index.js"
+      },
+      "./entities": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "browser": "./dist/browser/entities/index.js",
+        "default": "./dist/entities/index.js"
+      },
+      "./entities/index": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "browser": "./dist/browser/entities/index.js",
+        "default": "./dist/entities/index.js"
+      },
+      "./notifications.capability": {
+        "types": "./dist/notifications.capability.d.ts",
+        "bun": "./dist/notifications.capability.js",
+        "node": "./dist/node/notifications.capability.mjs",
+        "browser": "./dist/browser/notifications.capability.js",
+        "default": "./dist/notifications.capability.js"
+      },
+      "./notifications.feature": {
+        "types": "./dist/notifications.feature.d.ts",
+        "bun": "./dist/notifications.feature.js",
+        "node": "./dist/node/notifications.feature.mjs",
+        "browser": "./dist/browser/notifications.feature.js",
+        "default": "./dist/notifications.feature.js"
+      },
+      "./templates": {
+        "types": "./dist/templates/index.d.ts",
+        "bun": "./dist/templates/index.js",
+        "node": "./dist/node/templates/index.mjs",
+        "browser": "./dist/browser/templates/index.js",
+        "default": "./dist/templates/index.js"
+      },
+      "./templates/index": {
+        "types": "./dist/templates/index.d.ts",
+        "bun": "./dist/templates/index.js",
+        "node": "./dist/node/templates/index.mjs",
+        "browser": "./dist/browser/templates/index.js",
+        "default": "./dist/templates/index.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

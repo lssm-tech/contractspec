@@ -13,25 +13,26 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "NODE_OPTIONS=--max-old-space-size=8192 tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "registry:build": "bun run scripts/build-registry.ts",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
     "@types/express": "^5.0.3",
     "@types/turndown": "^5.0.6",
-    "tsdown": "catalog:build",
     "typescript": "catalog:",
-    "vitest": "^4.0.18"
+    "vitest": "^4.0.18",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "dependencies": {
     "@aws-sdk/client-secrets-manager": "^3.984.0",
@@ -84,649 +85,2726 @@
     "README.md"
   ],
   "exports": {
-    ".": "./dist/index.js",
-    "./app-config": "./dist/app-config/index.js",
-    "./app-config/app-config.capability": "./dist/app-config/app-config.capability.js",
-    "./app-config/app-config.contracts": "./dist/app-config/app-config.contracts.js",
-    "./app-config/app-config.feature": "./dist/app-config/app-config.feature.js",
-    "./app-config/branding": "./dist/app-config/branding.js",
-    "./app-config/docs/app-config.docblock": "./dist/app-config/docs/app-config.docblock.js",
-    "./app-config/events": "./dist/app-config/events.js",
-    "./app-config/lifecycle": "./dist/app-config/lifecycle.js",
-    "./app-config/lifecycle-contracts": "./dist/app-config/lifecycle-contracts.js",
-    "./app-config/runtime": "./dist/app-config/runtime.js",
-    "./app-config/spec": "./dist/app-config/spec.js",
-    "./app-config/validation": "./dist/app-config/validation.js",
-    "./capabilities": "./dist/capabilities/index.js",
-    "./capabilities/capabilities": "./dist/capabilities/capabilities.js",
-    "./capabilities/context": "./dist/capabilities/context.js",
-    "./capabilities/docs/capabilities.docblock": "./dist/capabilities/docs/capabilities.docblock.js",
-    "./capabilities/guards": "./dist/capabilities/guards.js",
-    "./capabilities/meeting-recorder": "./dist/capabilities/meeting-recorder.js",
-    "./capabilities/openbanking": "./dist/capabilities/openbanking.js",
-    "./capabilities/validation": "./dist/capabilities/validation.js",
-    "./client": "./dist/client/index.js",
-    "./client/react": "./dist/client/react/index.js",
-    "./client/react/drivers/rn-reusables": "./dist/client/react/drivers/rn-reusables.js",
-    "./client/react/drivers/shadcn": "./dist/client/react/drivers/shadcn.js",
-    "./client/react/feature-render": "./dist/client/react/feature-render.js",
-    "./client/react/form-render": "./dist/client/react/form-render.js",
-    "./contract-registry": "./dist/contract-registry/index.js",
-    "./contract-registry/schemas": "./dist/contract-registry/schemas.js",
-    "./contract-registry/types": "./dist/contract-registry/types.js",
-    "./data-views": "./dist/data-views/index.js",
-    "./data-views/data-views": "./dist/data-views/data-views.js",
-    "./data-views/docs/data-views.docblock": "./dist/data-views/docs/data-views.docblock.js",
-    "./data-views/query-generator": "./dist/data-views/query-generator.js",
-    "./data-views/registry": "./dist/data-views/registry.js",
-    "./data-views/report/contractVerificationTable": "./dist/data-views/report/contractVerificationTable.js",
-    "./data-views/runtime": "./dist/data-views/runtime.js",
-    "./data-views/spec": "./dist/data-views/spec.js",
-    "./data-views/types": "./dist/data-views/types.js",
-    "./docs": "./dist/docs/index.js",
-    "./docs/accessibility_wcag_compliance_specs.docblock": "./dist/docs/accessibility_wcag_compliance_specs.docblock.js",
-    "./docs/capabilities": "./dist/docs/capabilities/index.js",
-    "./docs/capabilities/documentationSystem.capability": "./dist/docs/capabilities/documentationSystem.capability.js",
-    "./docs/commands": "./dist/docs/commands/index.js",
-    "./docs/commands/docsGenerate.command": "./dist/docs/commands/docsGenerate.command.js",
-    "./docs/commands/docsPublish.command": "./dist/docs/commands/docsPublish.command.js",
-    "./docs/constants": "./dist/docs/constants.js",
-    "./docs/contracts": "./dist/docs/contracts.js",
-    "./docs/ensure-docblocks": "./dist/docs/ensure-docblocks.js",
-    "./docs/events": "./dist/docs/events/index.js",
-    "./docs/events/docsGenerated.event": "./dist/docs/events/docsGenerated.event.js",
-    "./docs/events/docsPublished.event": "./dist/docs/events/docsPublished.event.js",
-    "./docs/forms": "./dist/docs/forms/index.js",
-    "./docs/forms/docsSearch.form": "./dist/docs/forms/docsSearch.form.js",
-    "./docs/meta.docs": "./dist/docs/meta.docs.js",
-    "./docs/presentations": "./dist/docs/presentations/index.js",
-    "./docs/presentations/docsLayout.presentation": "./dist/docs/presentations/docsLayout.presentation.js",
-    "./docs/presentations/docsReferencePage.presentation": "./dist/docs/presentations/docsReferencePage.presentation.js",
-    "./docs/queries": "./dist/docs/queries/index.js",
-    "./docs/queries/contractReference.query": "./dist/docs/queries/contractReference.query.js",
-    "./docs/queries/docsIndex.query": "./dist/docs/queries/docsIndex.query.js",
-    "./docs/registry": "./dist/docs/registry.js",
-    "./docs/tech-contracts.docs": "./dist/docs/tech-contracts.docs.js",
-    "./docs/tech/auth/better-auth-nextjs.docblock": "./dist/docs/tech/auth/better-auth-nextjs.docblock.js",
-    "./docs/tech/cli.docblock": "./dist/docs/tech/cli.docblock.js",
-    "./docs/tech/contracts/migrations.docblock": "./dist/docs/tech/contracts/migrations.docblock.js",
-    "./docs/tech/contracts/openapi-export.docblock": "./dist/docs/tech/contracts/openapi-export.docblock.js",
-    "./docs/tech/contracts/openapi-import.docblock": "./dist/docs/tech/contracts/openapi-import.docblock.js",
-    "./docs/tech/contracts/ops-to-presentation-linking.docblock": "./dist/docs/tech/contracts/ops-to-presentation-linking.docblock.js",
-    "./docs/tech/contracts/overlays.docblock": "./dist/docs/tech/contracts/overlays.docblock.js",
-    "./docs/tech/contracts/README.docblock": "./dist/docs/tech/contracts/README.docblock.js",
-    "./docs/tech/contracts/tests.docblock": "./dist/docs/tech/contracts/tests.docblock.js",
-    "./docs/tech/contracts/themes.docblock": "./dist/docs/tech/contracts/themes.docblock.js",
-    "./docs/tech/contracts/vertical-pocket-family-office.docblock": "./dist/docs/tech/contracts/vertical-pocket-family-office.docblock.js",
-    "./docs/tech/docs-system.docblock": "./dist/docs/tech/docs-system.docblock.js",
-    "./docs/tech/lifecycle-stage-system.docblock": "./dist/docs/tech/lifecycle-stage-system.docblock.js",
-    "./docs/tech/llm/llm-integration.docblock": "./dist/docs/tech/llm/llm-integration.docblock.js",
-    "./docs/tech/mcp-endpoints.docblock": "./dist/docs/tech/mcp-endpoints.docblock.js",
-    "./docs/tech/presentation-runtime.docblock": "./dist/docs/tech/presentation-runtime.docblock.js",
-    "./docs/tech/report-verification-table.docblock": "./dist/docs/tech/report-verification-table.docblock.js",
-    "./docs/tech/schema/README.docblock": "./dist/docs/tech/schema/README.docblock.js",
-    "./docs/tech/studio/learning-events.docblock": "./dist/docs/tech/studio/learning-events.docblock.js",
-    "./docs/tech/studio/learning-journeys.docblock": "./dist/docs/tech/studio/learning-journeys.docblock.js",
-    "./docs/tech/studio/platform-admin-panel.docblock": "./dist/docs/tech/studio/platform-admin-panel.docblock.js",
-    "./docs/tech/studio/project-access-teams.docblock": "./dist/docs/tech/studio/project-access-teams.docblock.js",
-    "./docs/tech/studio/project-routing.docblock": "./dist/docs/tech/studio/project-routing.docblock.js",
-    "./docs/tech/studio/sandbox-unlogged.docblock": "./dist/docs/tech/studio/sandbox-unlogged.docblock.js",
-    "./docs/tech/studio/team-invitations.docblock": "./dist/docs/tech/studio/team-invitations.docblock.js",
-    "./docs/tech/studio/workspace-ops.docblock": "./dist/docs/tech/studio/workspace-ops.docblock.js",
-    "./docs/tech/studio/workspaces.docblock": "./dist/docs/tech/studio/workspaces.docblock.js",
-    "./docs/tech/telemetry-ingest.docblock": "./dist/docs/tech/telemetry-ingest.docblock.js",
-    "./docs/tech/vscode-extension.docblock": "./dist/docs/tech/vscode-extension.docblock.js",
-    "./docs/types": "./dist/docs/types.js",
-    "./docs/views": "./dist/docs/views/index.js",
-    "./docs/views/contractReference.dataView": "./dist/docs/views/contractReference.dataView.js",
-    "./docs/views/docsIndex.dataView": "./dist/docs/views/docsIndex.dataView.js",
-    "./docs/views/exampleCatalog.dataView": "./dist/docs/views/exampleCatalog.dataView.js",
-    "./events": "./dist/events.js",
-    "./examples": "./dist/examples/index.js",
-    "./examples/docs/examples.docblock": "./dist/examples/docs/examples.docblock.js",
-    "./examples/registry": "./dist/examples/registry.js",
-    "./examples/schema": "./dist/examples/schema.js",
-    "./examples/types": "./dist/examples/types.js",
-    "./examples/validation": "./dist/examples/validation.js",
-    "./experiments/docs/experiments.docblock": "./dist/experiments/docs/experiments.docblock.js",
-    "./experiments/evaluator": "./dist/experiments/evaluator.js",
-    "./experiments/spec": "./dist/experiments/spec.js",
-    "./experiments/spec-resolver": "./dist/experiments/spec-resolver.js",
-    "./features": "./dist/features/index.js",
-    "./features/install": "./dist/features/install.js",
-    "./features/registry": "./dist/features/registry.js",
-    "./features/types": "./dist/features/types.js",
-    "./features/validation": "./dist/features/validation.js",
-    "./forms": "./dist/forms/index.js",
-    "./forms/docs/forms.docblock": "./dist/forms/docs/forms.docblock.js",
-    "./forms/forms": "./dist/forms/forms.js",
-    "./install": "./dist/install.js",
-    "./integrations": "./dist/integrations/index.js",
-    "./integrations/binding": "./dist/integrations/binding.js",
-    "./integrations/connection": "./dist/integrations/connection.js",
-    "./integrations/docs/integrations.docblock": "./dist/integrations/docs/integrations.docblock.js",
-    "./integrations/health": "./dist/integrations/health.js",
-    "./integrations/integrations.capability": "./dist/integrations/integrations.capability.js",
-    "./integrations/integrations.feature": "./dist/integrations/integrations.feature.js",
-    "./integrations/meeting-recorder/contracts": "./dist/integrations/meeting-recorder/contracts/index.js",
-    "./integrations/meeting-recorder/contracts/meetings": "./dist/integrations/meeting-recorder/contracts/meetings.js",
-    "./integrations/meeting-recorder/contracts/transcripts": "./dist/integrations/meeting-recorder/contracts/transcripts.js",
-    "./integrations/meeting-recorder/contracts/webhooks": "./dist/integrations/meeting-recorder/contracts/webhooks.js",
-    "./integrations/meeting-recorder/meeting-recorder.capability": "./dist/integrations/meeting-recorder/meeting-recorder.capability.js",
-    "./integrations/meeting-recorder/meeting-recorder.feature": "./dist/integrations/meeting-recorder/meeting-recorder.feature.js",
-    "./integrations/meeting-recorder/models": "./dist/integrations/meeting-recorder/models.js",
-    "./integrations/meeting-recorder/telemetry": "./dist/integrations/meeting-recorder/telemetry.js",
-    "./integrations/openbanking/contracts": "./dist/integrations/openbanking/contracts/index.js",
-    "./integrations/openbanking/contracts/accounts": "./dist/integrations/openbanking/contracts/accounts.js",
-    "./integrations/openbanking/contracts/balances": "./dist/integrations/openbanking/contracts/balances.js",
-    "./integrations/openbanking/contracts/transactions": "./dist/integrations/openbanking/contracts/transactions.js",
-    "./integrations/openbanking/guards": "./dist/integrations/openbanking/guards.js",
-    "./integrations/openbanking/models": "./dist/integrations/openbanking/models.js",
-    "./integrations/openbanking/openbanking.capability": "./dist/integrations/openbanking/openbanking.capability.js",
-    "./integrations/openbanking/openbanking.feature": "./dist/integrations/openbanking/openbanking.feature.js",
-    "./integrations/openbanking/telemetry": "./dist/integrations/openbanking/telemetry.js",
-    "./integrations/operations": "./dist/integrations/operations.js",
-    "./integrations/providers": "./dist/integrations/providers/index.js",
-    "./integrations/providers/analytics": "./dist/integrations/providers/analytics.js",
-    "./integrations/providers/analytics-reader": "./dist/integrations/providers/analytics-reader.js",
-    "./integrations/providers/analytics-writer": "./dist/integrations/providers/analytics-writer.js",
-    "./integrations/providers/calendar": "./dist/integrations/providers/calendar.js",
-    "./integrations/providers/database": "./dist/integrations/providers/database.js",
-    "./integrations/providers/elevenlabs": "./dist/integrations/providers/elevenlabs.js",
-    "./integrations/providers/email": "./dist/integrations/providers/email.js",
-    "./integrations/providers/embedding": "./dist/integrations/providers/embedding.js",
-    "./integrations/providers/fal": "./dist/integrations/providers/fal.js",
-    "./integrations/providers/fathom": "./dist/integrations/providers/fathom.js",
-    "./integrations/providers/fireflies": "./dist/integrations/providers/fireflies.js",
-    "./integrations/providers/gcs-storage": "./dist/integrations/providers/gcs-storage.js",
-    "./integrations/providers/gmail": "./dist/integrations/providers/gmail.js",
-    "./integrations/providers/google-calendar": "./dist/integrations/providers/google-calendar.js",
-    "./integrations/providers/gradium": "./dist/integrations/providers/gradium.js",
-    "./integrations/providers/granola": "./dist/integrations/providers/granola.js",
-    "./integrations/providers/jira": "./dist/integrations/providers/jira.js",
-    "./integrations/providers/linear": "./dist/integrations/providers/linear.js",
-    "./integrations/providers/llm": "./dist/integrations/providers/llm.js",
-    "./integrations/providers/meeting-recorder": "./dist/integrations/providers/meeting-recorder.js",
-    "./integrations/providers/mistral": "./dist/integrations/providers/mistral.js",
-    "./integrations/providers/notion": "./dist/integrations/providers/notion.js",
-    "./integrations/providers/openbanking": "./dist/integrations/providers/openbanking.js",
-    "./integrations/providers/payments": "./dist/integrations/providers/payments.js",
-    "./integrations/providers/posthog": "./dist/integrations/providers/posthog.js",
-    "./integrations/providers/postmark": "./dist/integrations/providers/postmark.js",
-    "./integrations/providers/powens": "./dist/integrations/providers/powens.js",
-    "./integrations/providers/project-management": "./dist/integrations/providers/project-management.js",
-    "./integrations/providers/qdrant": "./dist/integrations/providers/qdrant.js",
-    "./integrations/providers/registry": "./dist/integrations/providers/registry.js",
-    "./integrations/providers/sms": "./dist/integrations/providers/sms.js",
-    "./integrations/providers/storage": "./dist/integrations/providers/storage.js",
-    "./integrations/providers/stripe": "./dist/integrations/providers/stripe.js",
-    "./integrations/providers/supabase-postgres": "./dist/integrations/providers/supabase-postgres.js",
-    "./integrations/providers/supabase-vector": "./dist/integrations/providers/supabase-vector.js",
-    "./integrations/providers/tldv": "./dist/integrations/providers/tldv.js",
-    "./integrations/providers/twilio-sms": "./dist/integrations/providers/twilio-sms.js",
-    "./integrations/providers/vector-store": "./dist/integrations/providers/vector-store.js",
-    "./integrations/providers/voice": "./dist/integrations/providers/voice.js",
-    "./integrations/runtime": "./dist/integrations/runtime.js",
-    "./integrations/secrets": "./dist/integrations/secrets/index.js",
-    "./integrations/secrets-types": "./dist/integrations/secrets-types.js",
-    "./integrations/secrets/aws-secret-manager": "./dist/integrations/secrets/aws-secret-manager.js",
-    "./integrations/secrets/env-secret-provider": "./dist/integrations/secrets/env-secret-provider.js",
-    "./integrations/secrets/gcp-secret-manager": "./dist/integrations/secrets/gcp-secret-manager.js",
-    "./integrations/secrets/manager": "./dist/integrations/secrets/manager.js",
-    "./integrations/secrets/provider": "./dist/integrations/secrets/provider.js",
-    "./integrations/secrets/scaleway-secret-manager": "./dist/integrations/secrets/scaleway-secret-manager.js",
-    "./integrations/spec": "./dist/integrations/spec.js",
-    "./jobs": "./dist/jobs/index.js",
-    "./jobs/define-job": "./dist/jobs/define-job.js",
-    "./jobs/gcp-cloud-tasks": "./dist/jobs/gcp-cloud-tasks.js",
-    "./jobs/gcp-pubsub": "./dist/jobs/gcp-pubsub.js",
-    "./jobs/handlers": "./dist/jobs/handlers/index.js",
-    "./jobs/handlers/gmail-sync-handler": "./dist/jobs/handlers/gmail-sync-handler.js",
-    "./jobs/handlers/ping-handler": "./dist/jobs/handlers/ping-handler.js",
-    "./jobs/handlers/storage-document-handler": "./dist/jobs/handlers/storage-document-handler.js",
-    "./jobs/memory-queue": "./dist/jobs/memory-queue.js",
-    "./jobs/queue": "./dist/jobs/queue.js",
-    "./jobs/scaleway-sqs-queue": "./dist/jobs/scaleway-sqs-queue.js",
-    "./jsonschema": "./dist/jsonschema.js",
-    "./knowledge": "./dist/knowledge/index.js",
-    "./knowledge/binding": "./dist/knowledge/binding.js",
-    "./knowledge/docs/knowledge.docblock": "./dist/knowledge/docs/knowledge.docblock.js",
-    "./knowledge/ingestion": "./dist/knowledge/ingestion/index.js",
-    "./knowledge/ingestion/document-processor": "./dist/knowledge/ingestion/document-processor.js",
-    "./knowledge/ingestion/embedding-service": "./dist/knowledge/ingestion/embedding-service.js",
-    "./knowledge/ingestion/gmail-adapter": "./dist/knowledge/ingestion/gmail-adapter.js",
-    "./knowledge/ingestion/storage-adapter": "./dist/knowledge/ingestion/storage-adapter.js",
-    "./knowledge/ingestion/vector-indexer": "./dist/knowledge/ingestion/vector-indexer.js",
-    "./knowledge/knowledge.capability": "./dist/knowledge/knowledge.capability.js",
-    "./knowledge/knowledge.feature": "./dist/knowledge/knowledge.feature.js",
-    "./knowledge/operations": "./dist/knowledge/operations.js",
-    "./knowledge/query": "./dist/knowledge/query/index.js",
-    "./knowledge/query/service": "./dist/knowledge/query/service.js",
-    "./knowledge/runtime": "./dist/knowledge/runtime.js",
-    "./knowledge/source": "./dist/knowledge/source.js",
-    "./knowledge/spaces": "./dist/knowledge/spaces/index.js",
-    "./knowledge/spaces/email-threads": "./dist/knowledge/spaces/email-threads.js",
-    "./knowledge/spaces/financial-docs": "./dist/knowledge/spaces/financial-docs.js",
-    "./knowledge/spaces/financial-overview": "./dist/knowledge/spaces/financial-overview.js",
-    "./knowledge/spaces/product-canon": "./dist/knowledge/spaces/product-canon.js",
-    "./knowledge/spaces/support-faq": "./dist/knowledge/spaces/support-faq.js",
-    "./knowledge/spaces/uploaded-docs": "./dist/knowledge/spaces/uploaded-docs.js",
-    "./knowledge/spec": "./dist/knowledge/spec.js",
-    "./llm": "./dist/llm/index.js",
-    "./llm/exporters": "./dist/llm/exporters.js",
-    "./llm/prompts": "./dist/llm/prompts.js",
-    "./llm/types": "./dist/llm/types.js",
-    "./markdown": "./dist/markdown.js",
-    "./migrations": "./dist/migrations.js",
-    "./model-registry": "./dist/model-registry.js",
-    "./onboarding-base": "./dist/onboarding-base.js",
-    "./openapi": "./dist/openapi.js",
-    "./operations": "./dist/operations/index.js",
-    "./operations/operation": "./dist/operations/operation.js",
-    "./operations/registry": "./dist/operations/registry.js",
-    "./operations/report": "./dist/operations/report/index.js",
-    "./operations/report/getContractVerificationStatus": "./dist/operations/report/getContractVerificationStatus.js",
-    "./ownership": "./dist/ownership.js",
-    "./policy": "./dist/policy/index.js",
-    "./policy/context": "./dist/policy/context.js",
-    "./policy/docs/policy.docblock": "./dist/policy/docs/policy.docblock.js",
-    "./policy/engine": "./dist/policy/engine.js",
-    "./policy/guards": "./dist/policy/guards.js",
-    "./policy/opa-adapter": "./dist/policy/opa-adapter.js",
-    "./policy/registry": "./dist/policy/registry.js",
-    "./policy/spec": "./dist/policy/spec.js",
-    "./policy/validation": "./dist/policy/validation.js",
-    "./presentations": "./dist/presentations/index.js",
-    "./presentations/docs/presentations-conventions.docblock": "./dist/presentations/docs/presentations-conventions.docblock.js",
-    "./presentations/presentations": "./dist/presentations/presentations.js",
-    "./presentations/registry": "./dist/presentations/registry.js",
-    "./presentations/transform-engine": "./dist/presentations/transform-engine.js",
-    "./product-intent": "./dist/product-intent/index.js",
-    "./product-intent/contract-patch-intent": "./dist/product-intent/contract-patch-intent.js",
-    "./product-intent/contract-spec-patch": "./dist/product-intent/contract-spec-patch.js",
-    "./product-intent/evidence": "./dist/product-intent/evidence.js",
-    "./product-intent/findings": "./dist/product-intent/findings.js",
-    "./product-intent/impact-report": "./dist/product-intent/impact-report.js",
-    "./product-intent/insights": "./dist/product-intent/insights.js",
-    "./product-intent/opportunity-brief": "./dist/product-intent/opportunity-brief.js",
-    "./product-intent/problems": "./dist/product-intent/problems.js",
-    "./product-intent/registry": "./dist/product-intent/registry.js",
-    "./product-intent/runtime": "./dist/product-intent/runtime.js",
-    "./product-intent/spec": "./dist/product-intent/spec.js",
-    "./product-intent/task-pack": "./dist/product-intent/task-pack.js",
-    "./product-intent/tickets": "./dist/product-intent/tickets.js",
-    "./product-intent/types": "./dist/product-intent/types.js",
-    "./product-intent/ui-wireframe": "./dist/product-intent/ui-wireframe.js",
-    "./prompt": "./dist/prompt.js",
-    "./promptRegistry": "./dist/promptRegistry.js",
-    "./regenerator": "./dist/regenerator/index.js",
-    "./regenerator/adapters": "./dist/regenerator/adapters.js",
-    "./regenerator/docs/regenerator.docblock": "./dist/regenerator/docs/regenerator.docblock.js",
-    "./regenerator/executor": "./dist/regenerator/executor.js",
-    "./regenerator/service": "./dist/regenerator/service.js",
-    "./regenerator/sinks": "./dist/regenerator/sinks.js",
-    "./regenerator/types": "./dist/regenerator/types.js",
-    "./regenerator/utils": "./dist/regenerator/utils.js",
-    "./registry": "./dist/registry.js",
-    "./registry-utils": "./dist/registry-utils.js",
-    "./resources": "./dist/resources.js",
-    "./schema-to-markdown": "./dist/schema-to-markdown.js",
-    "./serialization": "./dist/serialization/index.js",
-    "./serialization/serializers": "./dist/serialization/serializers.js",
-    "./serialization/types": "./dist/serialization/types.js",
-    "./server": "./dist/server/index.js",
-    "./server/contracts-adapter-hydration": "./dist/server/contracts-adapter-hydration.js",
-    "./server/contracts-adapter-input": "./dist/server/contracts-adapter-input.js",
-    "./server/graphql-pothos": "./dist/server/graphql-pothos.js",
-    "./server/mcp/createMcpServer": "./dist/server/mcp/createMcpServer.js",
-    "./server/mcp/mcpTypes": "./dist/server/mcp/mcpTypes.js",
-    "./server/mcp/registerPresentations": "./dist/server/mcp/registerPresentations.js",
-    "./server/mcp/registerPrompts": "./dist/server/mcp/registerPrompts.js",
-    "./server/mcp/registerResources": "./dist/server/mcp/registerResources.js",
-    "./server/mcp/registerTools": "./dist/server/mcp/registerTools.js",
-    "./server/provider-mcp": "./dist/server/provider-mcp.js",
-    "./server/rest-elysia": "./dist/server/rest-elysia.js",
-    "./server/rest-express": "./dist/server/rest-express.js",
-    "./server/rest-generic": "./dist/server/rest-generic.js",
-    "./server/rest-next-app": "./dist/server/rest-next-app.js",
-    "./server/rest-next-mcp": "./dist/server/rest-next-mcp.js",
-    "./server/rest-next-pages": "./dist/server/rest-next-pages.js",
-    "./telemetry": "./dist/telemetry/index.js",
-    "./telemetry/anomaly": "./dist/telemetry/anomaly.js",
-    "./telemetry/docs/telemetry.docblock": "./dist/telemetry/docs/telemetry.docblock.js",
-    "./telemetry/spec": "./dist/telemetry/spec.js",
-    "./telemetry/tracker": "./dist/telemetry/tracker.js",
-    "./tests": "./dist/tests/index.js",
-    "./tests/runner": "./dist/tests/runner.js",
-    "./tests/spec": "./dist/tests/spec.js",
-    "./themes": "./dist/themes.js",
-    "./translations": "./dist/translations/index.js",
-    "./translations/catalog": "./dist/translations/catalog.js",
-    "./translations/registry": "./dist/translations/registry.js",
-    "./translations/spec": "./dist/translations/spec.js",
-    "./translations/tenant": "./dist/translations/tenant.js",
-    "./translations/validation": "./dist/translations/validation.js",
-    "./types": "./dist/types.js",
-    "./versioning": "./dist/versioning/index.js",
-    "./versioning/refs": "./dist/versioning/refs.js",
-    "./versioning/types": "./dist/versioning/types.js",
-    "./versioning/utils": "./dist/versioning/utils.js",
-    "./workflow": "./dist/workflow/index.js",
-    "./workflow/adapters": "./dist/workflow/adapters/index.js",
-    "./workflow/adapters/db-adapter": "./dist/workflow/adapters/db-adapter.js",
-    "./workflow/adapters/file-adapter": "./dist/workflow/adapters/file-adapter.js",
-    "./workflow/adapters/memory-store": "./dist/workflow/adapters/memory-store.js",
-    "./workflow/context": "./dist/workflow/context.js",
-    "./workflow/expression": "./dist/workflow/expression.js",
-    "./workflow/overview.docblock": "./dist/workflow/overview.docblock.js",
-    "./workflow/runner": "./dist/workflow/runner.js",
-    "./workflow/sla-monitor": "./dist/workflow/sla-monitor.js",
-    "./workflow/spec": "./dist/workflow/spec.js",
-    "./workflow/state": "./dist/workflow/state.js",
-    "./workflow/validation": "./dist/workflow/validation.js",
-    "./workspace-config": "./dist/workspace-config/index.js",
-    "./workspace-config/contractsrc-schema": "./dist/workspace-config/contractsrc-schema.js",
-    "./workspace-config/contractsrc-types": "./dist/workspace-config/contractsrc-types.js",
-    "./workspace-config/workspace-config.docblock": "./dist/workspace-config/workspace-config.docblock.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./app-config": "./src/app-config/index.ts",
+    "./app-config/app-config.capability": "./src/app-config/app-config.capability.ts",
+    "./app-config/app-config.contracts": "./src/app-config/app-config.contracts.ts",
+    "./app-config/app-config.feature": "./src/app-config/app-config.feature.ts",
+    "./app-config/branding": "./src/app-config/branding.ts",
+    "./app-config/docs/app-config.docblock": "./src/app-config/docs/app-config.docblock.ts",
+    "./app-config/events": "./src/app-config/events.ts",
+    "./app-config/index": "./src/app-config/index.ts",
+    "./app-config/lifecycle": "./src/app-config/lifecycle.ts",
+    "./app-config/lifecycle-contracts": "./src/app-config/lifecycle-contracts.ts",
+    "./app-config/runtime": "./src/app-config/runtime.ts",
+    "./app-config/spec": "./src/app-config/spec.ts",
+    "./app-config/validation": "./src/app-config/validation.ts",
+    "./capabilities": "./src/capabilities/index.ts",
+    "./capabilities/capabilities": "./src/capabilities/capabilities.ts",
+    "./capabilities/context": "./src/capabilities/context.ts",
+    "./capabilities/docs/capabilities.docblock": "./src/capabilities/docs/capabilities.docblock.ts",
+    "./capabilities/guards": "./src/capabilities/guards.ts",
+    "./capabilities/index": "./src/capabilities/index.ts",
+    "./capabilities/meeting-recorder": "./src/capabilities/meeting-recorder.ts",
+    "./capabilities/openbanking": "./src/capabilities/openbanking.ts",
+    "./capabilities/validation": "./src/capabilities/validation.ts",
+    "./client": "./src/client/index.ts",
+    "./client/index": "./src/client/index.ts",
+    "./client/react": "./src/client/react/index.ts",
+    "./client/react/drivers/rn-reusables": "./src/client/react/drivers/rn-reusables.ts",
+    "./client/react/drivers/shadcn": "./src/client/react/drivers/shadcn.ts",
+    "./client/react/feature-render": "./src/client/react/feature-render.ts",
+    "./client/react/form-render": "./src/client/react/form-render.tsx",
+    "./client/react/index": "./src/client/react/index.ts",
+    "./contract-registry": "./src/contract-registry/index.ts",
+    "./contract-registry/index": "./src/contract-registry/index.ts",
+    "./contract-registry/schemas": "./src/contract-registry/schemas.ts",
+    "./contract-registry/types": "./src/contract-registry/types.ts",
+    "./data-views": "./src/data-views/index.ts",
+    "./data-views/data-views": "./src/data-views/data-views.ts",
+    "./data-views/docs/data-views.docblock": "./src/data-views/docs/data-views.docblock.ts",
+    "./data-views/index": "./src/data-views/index.ts",
+    "./data-views/query-generator": "./src/data-views/query-generator.ts",
+    "./data-views/registry": "./src/data-views/registry.ts",
+    "./data-views/report/contractVerificationTable": "./src/data-views/report/contractVerificationTable.ts",
+    "./data-views/runtime": "./src/data-views/runtime.ts",
+    "./data-views/spec": "./src/data-views/spec.ts",
+    "./data-views/types": "./src/data-views/types.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/accessibility_wcag_compliance_specs.docblock": "./src/docs/accessibility_wcag_compliance_specs.docblock.ts",
+    "./docs/capabilities": "./src/docs/capabilities/index.ts",
+    "./docs/capabilities/documentationSystem.capability": "./src/docs/capabilities/documentationSystem.capability.ts",
+    "./docs/capabilities/index": "./src/docs/capabilities/index.ts",
+    "./docs/commands": "./src/docs/commands/index.ts",
+    "./docs/commands/docsGenerate.command": "./src/docs/commands/docsGenerate.command.ts",
+    "./docs/commands/docsPublish.command": "./src/docs/commands/docsPublish.command.ts",
+    "./docs/commands/index": "./src/docs/commands/index.ts",
+    "./docs/constants": "./src/docs/constants.ts",
+    "./docs/contracts": "./src/docs/contracts.ts",
+    "./docs/ensure-docblocks": "./src/docs/ensure-docblocks.ts",
+    "./docs/events": "./src/docs/events/index.ts",
+    "./docs/events/docsGenerated.event": "./src/docs/events/docsGenerated.event.ts",
+    "./docs/events/docsPublished.event": "./src/docs/events/docsPublished.event.ts",
+    "./docs/events/index": "./src/docs/events/index.ts",
+    "./docs/forms": "./src/docs/forms/index.ts",
+    "./docs/forms/docsSearch.form": "./src/docs/forms/docsSearch.form.ts",
+    "./docs/forms/index": "./src/docs/forms/index.ts",
+    "./docs/index": "./src/docs/index.ts",
+    "./docs/meta.docs": "./src/docs/meta.docs.ts",
+    "./docs/presentations": "./src/docs/presentations.ts",
+    "./docs/presentations/docsLayout.presentation": "./src/docs/presentations/docsLayout.presentation.ts",
+    "./docs/presentations/docsReferencePage.presentation": "./src/docs/presentations/docsReferencePage.presentation.ts",
+    "./docs/presentations/index": "./src/docs/presentations/index.ts",
+    "./docs/queries": "./src/docs/queries/index.ts",
+    "./docs/queries/contractReference.query": "./src/docs/queries/contractReference.query.ts",
+    "./docs/queries/docsIndex.query": "./src/docs/queries/docsIndex.query.ts",
+    "./docs/queries/index": "./src/docs/queries/index.ts",
+    "./docs/registry": "./src/docs/registry.ts",
+    "./docs/tech-contracts.docs": "./src/docs/tech-contracts.docs.ts",
+    "./docs/tech/auth/better-auth-nextjs.docblock": "./src/docs/tech/auth/better-auth-nextjs.docblock.ts",
+    "./docs/tech/cli.docblock": "./src/docs/tech/cli.docblock.ts",
+    "./docs/tech/contracts/migrations.docblock": "./src/docs/tech/contracts/migrations.docblock.ts",
+    "./docs/tech/contracts/openapi-export.docblock": "./src/docs/tech/contracts/openapi-export.docblock.ts",
+    "./docs/tech/contracts/openapi-import.docblock": "./src/docs/tech/contracts/openapi-import.docblock.ts",
+    "./docs/tech/contracts/ops-to-presentation-linking.docblock": "./src/docs/tech/contracts/ops-to-presentation-linking.docblock.ts",
+    "./docs/tech/contracts/overlays.docblock": "./src/docs/tech/contracts/overlays.docblock.ts",
+    "./docs/tech/contracts/README.docblock": "./src/docs/tech/contracts/README.docblock.ts",
+    "./docs/tech/contracts/tests.docblock": "./src/docs/tech/contracts/tests.docblock.ts",
+    "./docs/tech/contracts/themes.docblock": "./src/docs/tech/contracts/themes.docblock.ts",
+    "./docs/tech/contracts/vertical-pocket-family-office.docblock": "./src/docs/tech/contracts/vertical-pocket-family-office.docblock.ts",
+    "./docs/tech/docs-system.docblock": "./src/docs/tech/docs-system.docblock.ts",
+    "./docs/tech/lifecycle-stage-system.docblock": "./src/docs/tech/lifecycle-stage-system.docblock.ts",
+    "./docs/tech/llm/llm-integration.docblock": "./src/docs/tech/llm/llm-integration.docblock.ts",
+    "./docs/tech/mcp-endpoints.docblock": "./src/docs/tech/mcp-endpoints.docblock.ts",
+    "./docs/tech/presentation-runtime.docblock": "./src/docs/tech/presentation-runtime.docblock.ts",
+    "./docs/tech/report-verification-table.docblock": "./src/docs/tech/report-verification-table.docblock.ts",
+    "./docs/tech/schema/README.docblock": "./src/docs/tech/schema/README.docblock.ts",
+    "./docs/tech/studio/learning-events.docblock": "./src/docs/tech/studio/learning-events.docblock.ts",
+    "./docs/tech/studio/learning-journeys.docblock": "./src/docs/tech/studio/learning-journeys.docblock.ts",
+    "./docs/tech/studio/platform-admin-panel.docblock": "./src/docs/tech/studio/platform-admin-panel.docblock.ts",
+    "./docs/tech/studio/project-access-teams.docblock": "./src/docs/tech/studio/project-access-teams.docblock.ts",
+    "./docs/tech/studio/project-routing.docblock": "./src/docs/tech/studio/project-routing.docblock.ts",
+    "./docs/tech/studio/sandbox-unlogged.docblock": "./src/docs/tech/studio/sandbox-unlogged.docblock.ts",
+    "./docs/tech/studio/team-invitations.docblock": "./src/docs/tech/studio/team-invitations.docblock.ts",
+    "./docs/tech/studio/workspace-ops.docblock": "./src/docs/tech/studio/workspace-ops.docblock.ts",
+    "./docs/tech/studio/workspaces.docblock": "./src/docs/tech/studio/workspaces.docblock.ts",
+    "./docs/tech/telemetry-ingest.docblock": "./src/docs/tech/telemetry-ingest.docblock.ts",
+    "./docs/tech/vscode-extension.docblock": "./src/docs/tech/vscode-extension.docblock.ts",
+    "./docs/types": "./src/docs/types.ts",
+    "./docs/views": "./src/docs/views/index.ts",
+    "./docs/views/contractReference.dataView": "./src/docs/views/contractReference.dataView.ts",
+    "./docs/views/docsIndex.dataView": "./src/docs/views/docsIndex.dataView.ts",
+    "./docs/views/exampleCatalog.dataView": "./src/docs/views/exampleCatalog.dataView.ts",
+    "./docs/views/index": "./src/docs/views/index.ts",
+    "./events": "./src/events.ts",
+    "./examples": "./src/examples/index.ts",
+    "./examples/docs/examples.docblock": "./src/examples/docs/examples.docblock.ts",
+    "./examples/index": "./src/examples/index.ts",
+    "./examples/registry": "./src/examples/registry.ts",
+    "./examples/schema": "./src/examples/schema.ts",
+    "./examples/types": "./src/examples/types.ts",
+    "./examples/validation": "./src/examples/validation.ts",
+    "./experiments/docs/experiments.docblock": "./src/experiments/docs/experiments.docblock.ts",
+    "./experiments/evaluator": "./src/experiments/evaluator.ts",
+    "./experiments/spec": "./src/experiments/spec.ts",
+    "./experiments/spec-resolver": "./src/experiments/spec-resolver.ts",
+    "./features": "./src/features/index.ts",
+    "./features/index": "./src/features/index.ts",
+    "./features/install": "./src/features/install.ts",
+    "./features/registry": "./src/features/registry.ts",
+    "./features/types": "./src/features/types.ts",
+    "./features/validation": "./src/features/validation.ts",
+    "./forms": "./src/forms/index.ts",
+    "./forms/docs/forms.docblock": "./src/forms/docs/forms.docblock.ts",
+    "./forms/forms": "./src/forms/forms.ts",
+    "./forms/index": "./src/forms/index.ts",
+    "./install": "./src/install.ts",
+    "./integrations": "./src/integrations/index.ts",
+    "./integrations/binding": "./src/integrations/binding.ts",
+    "./integrations/connection": "./src/integrations/connection.ts",
+    "./integrations/docs/integrations.docblock": "./src/integrations/docs/integrations.docblock.ts",
+    "./integrations/health": "./src/integrations/health.ts",
+    "./integrations/index": "./src/integrations/index.ts",
+    "./integrations/integrations.capability": "./src/integrations/integrations.capability.ts",
+    "./integrations/integrations.feature": "./src/integrations/integrations.feature.ts",
+    "./integrations/meeting-recorder/contracts": "./src/integrations/meeting-recorder/contracts/index.ts",
+    "./integrations/meeting-recorder/contracts/index": "./src/integrations/meeting-recorder/contracts/index.ts",
+    "./integrations/meeting-recorder/contracts/meetings": "./src/integrations/meeting-recorder/contracts/meetings.ts",
+    "./integrations/meeting-recorder/contracts/transcripts": "./src/integrations/meeting-recorder/contracts/transcripts.ts",
+    "./integrations/meeting-recorder/contracts/webhooks": "./src/integrations/meeting-recorder/contracts/webhooks.ts",
+    "./integrations/meeting-recorder/meeting-recorder.capability": "./src/integrations/meeting-recorder/meeting-recorder.capability.ts",
+    "./integrations/meeting-recorder/meeting-recorder.feature": "./src/integrations/meeting-recorder/meeting-recorder.feature.ts",
+    "./integrations/meeting-recorder/models": "./src/integrations/meeting-recorder/models.ts",
+    "./integrations/meeting-recorder/telemetry": "./src/integrations/meeting-recorder/telemetry.ts",
+    "./integrations/openbanking/contracts": "./src/integrations/openbanking/contracts/index.ts",
+    "./integrations/openbanking/contracts/accounts": "./src/integrations/openbanking/contracts/accounts.ts",
+    "./integrations/openbanking/contracts/balances": "./src/integrations/openbanking/contracts/balances.ts",
+    "./integrations/openbanking/contracts/index": "./src/integrations/openbanking/contracts/index.ts",
+    "./integrations/openbanking/contracts/transactions": "./src/integrations/openbanking/contracts/transactions.ts",
+    "./integrations/openbanking/guards": "./src/integrations/openbanking/guards.ts",
+    "./integrations/openbanking/models": "./src/integrations/openbanking/models.ts",
+    "./integrations/openbanking/openbanking.capability": "./src/integrations/openbanking/openbanking.capability.ts",
+    "./integrations/openbanking/openbanking.feature": "./src/integrations/openbanking/openbanking.feature.ts",
+    "./integrations/openbanking/telemetry": "./src/integrations/openbanking/telemetry.ts",
+    "./integrations/operations": "./src/integrations/operations.ts",
+    "./integrations/providers": "./src/integrations/providers/index.ts",
+    "./integrations/providers/analytics": "./src/integrations/providers/analytics.ts",
+    "./integrations/providers/analytics-reader": "./src/integrations/providers/analytics-reader.ts",
+    "./integrations/providers/analytics-writer": "./src/integrations/providers/analytics-writer.ts",
+    "./integrations/providers/calendar": "./src/integrations/providers/calendar.ts",
+    "./integrations/providers/database": "./src/integrations/providers/database.ts",
+    "./integrations/providers/elevenlabs": "./src/integrations/providers/elevenlabs.ts",
+    "./integrations/providers/email": "./src/integrations/providers/email.ts",
+    "./integrations/providers/embedding": "./src/integrations/providers/embedding.ts",
+    "./integrations/providers/fal": "./src/integrations/providers/fal.ts",
+    "./integrations/providers/fathom": "./src/integrations/providers/fathom.ts",
+    "./integrations/providers/fireflies": "./src/integrations/providers/fireflies.ts",
+    "./integrations/providers/gcs-storage": "./src/integrations/providers/gcs-storage.ts",
+    "./integrations/providers/gmail": "./src/integrations/providers/gmail.ts",
+    "./integrations/providers/google-calendar": "./src/integrations/providers/google-calendar.ts",
+    "./integrations/providers/gradium": "./src/integrations/providers/gradium.ts",
+    "./integrations/providers/granola": "./src/integrations/providers/granola.ts",
+    "./integrations/providers/index": "./src/integrations/providers/index.ts",
+    "./integrations/providers/jira": "./src/integrations/providers/jira.ts",
+    "./integrations/providers/linear": "./src/integrations/providers/linear.ts",
+    "./integrations/providers/llm": "./src/integrations/providers/llm.ts",
+    "./integrations/providers/meeting-recorder": "./src/integrations/providers/meeting-recorder.ts",
+    "./integrations/providers/mistral": "./src/integrations/providers/mistral.ts",
+    "./integrations/providers/notion": "./src/integrations/providers/notion.ts",
+    "./integrations/providers/openbanking": "./src/integrations/providers/openbanking.ts",
+    "./integrations/providers/payments": "./src/integrations/providers/payments.ts",
+    "./integrations/providers/posthog": "./src/integrations/providers/posthog.ts",
+    "./integrations/providers/postmark": "./src/integrations/providers/postmark.ts",
+    "./integrations/providers/powens": "./src/integrations/providers/powens.ts",
+    "./integrations/providers/project-management": "./src/integrations/providers/project-management.ts",
+    "./integrations/providers/qdrant": "./src/integrations/providers/qdrant.ts",
+    "./integrations/providers/registry": "./src/integrations/providers/registry.ts",
+    "./integrations/providers/sms": "./src/integrations/providers/sms.ts",
+    "./integrations/providers/storage": "./src/integrations/providers/storage.ts",
+    "./integrations/providers/stripe": "./src/integrations/providers/stripe.ts",
+    "./integrations/providers/supabase-postgres": "./src/integrations/providers/supabase-postgres.ts",
+    "./integrations/providers/supabase-vector": "./src/integrations/providers/supabase-vector.ts",
+    "./integrations/providers/tldv": "./src/integrations/providers/tldv.ts",
+    "./integrations/providers/twilio-sms": "./src/integrations/providers/twilio-sms.ts",
+    "./integrations/providers/vector-store": "./src/integrations/providers/vector-store.ts",
+    "./integrations/providers/voice": "./src/integrations/providers/voice.ts",
+    "./integrations/runtime": "./src/integrations/runtime.ts",
+    "./integrations/secrets": "./src/integrations/secrets/index.ts",
+    "./integrations/secrets-types": "./src/integrations/secrets-types.ts",
+    "./integrations/secrets/aws-secret-manager": "./src/integrations/secrets/aws-secret-manager.ts",
+    "./integrations/secrets/env-secret-provider": "./src/integrations/secrets/env-secret-provider.ts",
+    "./integrations/secrets/gcp-secret-manager": "./src/integrations/secrets/gcp-secret-manager.ts",
+    "./integrations/secrets/index": "./src/integrations/secrets/index.ts",
+    "./integrations/secrets/manager": "./src/integrations/secrets/manager.ts",
+    "./integrations/secrets/provider": "./src/integrations/secrets/provider.ts",
+    "./integrations/secrets/scaleway-secret-manager": "./src/integrations/secrets/scaleway-secret-manager.ts",
+    "./integrations/spec": "./src/integrations/spec.ts",
+    "./jobs": "./src/jobs/index.ts",
+    "./jobs/define-job": "./src/jobs/define-job.ts",
+    "./jobs/gcp-cloud-tasks": "./src/jobs/gcp-cloud-tasks.ts",
+    "./jobs/gcp-pubsub": "./src/jobs/gcp-pubsub.ts",
+    "./jobs/handlers": "./src/jobs/handlers/index.ts",
+    "./jobs/handlers/gmail-sync-handler": "./src/jobs/handlers/gmail-sync-handler.ts",
+    "./jobs/handlers/index": "./src/jobs/handlers/index.ts",
+    "./jobs/handlers/ping-handler": "./src/jobs/handlers/ping-handler.ts",
+    "./jobs/handlers/storage-document-handler": "./src/jobs/handlers/storage-document-handler.ts",
+    "./jobs/index": "./src/jobs/index.ts",
+    "./jobs/memory-queue": "./src/jobs/memory-queue.ts",
+    "./jobs/queue": "./src/jobs/queue.ts",
+    "./jobs/scaleway-sqs-queue": "./src/jobs/scaleway-sqs-queue.ts",
+    "./jsonschema": "./src/jsonschema.ts",
+    "./knowledge": "./src/knowledge/index.ts",
+    "./knowledge/binding": "./src/knowledge/binding.ts",
+    "./knowledge/docs/knowledge.docblock": "./src/knowledge/docs/knowledge.docblock.ts",
+    "./knowledge/index": "./src/knowledge/index.ts",
+    "./knowledge/ingestion": "./src/knowledge/ingestion/index.ts",
+    "./knowledge/ingestion/document-processor": "./src/knowledge/ingestion/document-processor.ts",
+    "./knowledge/ingestion/embedding-service": "./src/knowledge/ingestion/embedding-service.ts",
+    "./knowledge/ingestion/gmail-adapter": "./src/knowledge/ingestion/gmail-adapter.ts",
+    "./knowledge/ingestion/index": "./src/knowledge/ingestion/index.ts",
+    "./knowledge/ingestion/storage-adapter": "./src/knowledge/ingestion/storage-adapter.ts",
+    "./knowledge/ingestion/vector-indexer": "./src/knowledge/ingestion/vector-indexer.ts",
+    "./knowledge/knowledge.capability": "./src/knowledge/knowledge.capability.ts",
+    "./knowledge/knowledge.feature": "./src/knowledge/knowledge.feature.ts",
+    "./knowledge/operations": "./src/knowledge/operations.ts",
+    "./knowledge/query": "./src/knowledge/query/index.ts",
+    "./knowledge/query/index": "./src/knowledge/query/index.ts",
+    "./knowledge/query/service": "./src/knowledge/query/service.ts",
+    "./knowledge/runtime": "./src/knowledge/runtime.ts",
+    "./knowledge/source": "./src/knowledge/source.ts",
+    "./knowledge/spaces": "./src/knowledge/spaces/index.ts",
+    "./knowledge/spaces/email-threads": "./src/knowledge/spaces/email-threads.ts",
+    "./knowledge/spaces/financial-docs": "./src/knowledge/spaces/financial-docs.ts",
+    "./knowledge/spaces/financial-overview": "./src/knowledge/spaces/financial-overview.ts",
+    "./knowledge/spaces/index": "./src/knowledge/spaces/index.ts",
+    "./knowledge/spaces/product-canon": "./src/knowledge/spaces/product-canon.ts",
+    "./knowledge/spaces/support-faq": "./src/knowledge/spaces/support-faq.ts",
+    "./knowledge/spaces/uploaded-docs": "./src/knowledge/spaces/uploaded-docs.ts",
+    "./knowledge/spec": "./src/knowledge/spec.ts",
+    "./llm": "./src/llm/index.ts",
+    "./llm/exporters": "./src/llm/exporters.ts",
+    "./llm/index": "./src/llm/index.ts",
+    "./llm/prompts": "./src/llm/prompts.ts",
+    "./llm/types": "./src/llm/types.ts",
+    "./markdown": "./src/markdown.ts",
+    "./migrations": "./src/migrations.ts",
+    "./model-registry": "./src/model-registry.ts",
+    "./onboarding-base": "./src/onboarding-base.ts",
+    "./openapi": "./src/openapi.ts",
+    "./operations": "./src/operations/index.ts",
+    "./operations/index": "./src/operations/index.ts",
+    "./operations/operation": "./src/operations/operation.ts",
+    "./operations/registry": "./src/operations/registry.ts",
+    "./operations/report": "./src/operations/report/index.ts",
+    "./operations/report/getContractVerificationStatus": "./src/operations/report/getContractVerificationStatus.ts",
+    "./operations/report/index": "./src/operations/report/index.ts",
+    "./ownership": "./src/ownership.ts",
+    "./policy": "./src/policy/index.ts",
+    "./policy/context": "./src/policy/context.ts",
+    "./policy/docs/policy.docblock": "./src/policy/docs/policy.docblock.ts",
+    "./policy/engine": "./src/policy/engine.ts",
+    "./policy/guards": "./src/policy/guards.ts",
+    "./policy/index": "./src/policy/index.ts",
+    "./policy/opa-adapter": "./src/policy/opa-adapter.ts",
+    "./policy/registry": "./src/policy/registry.ts",
+    "./policy/spec": "./src/policy/spec.ts",
+    "./policy/validation": "./src/policy/validation.ts",
+    "./presentations": "./src/presentations/index.ts",
+    "./presentations/docs/presentations-conventions.docblock": "./src/presentations/docs/presentations-conventions.docblock.ts",
+    "./presentations/index": "./src/presentations/index.ts",
+    "./presentations/presentations": "./src/presentations/presentations.ts",
+    "./presentations/registry": "./src/presentations/registry.ts",
+    "./presentations/transform-engine": "./src/presentations/transform-engine.ts",
+    "./product-intent": "./src/product-intent/index.ts",
+    "./product-intent/contract-patch-intent": "./src/product-intent/contract-patch-intent.ts",
+    "./product-intent/contract-spec-patch": "./src/product-intent/contract-spec-patch.ts",
+    "./product-intent/evidence": "./src/product-intent/evidence.ts",
+    "./product-intent/findings": "./src/product-intent/findings.ts",
+    "./product-intent/impact-report": "./src/product-intent/impact-report.ts",
+    "./product-intent/index": "./src/product-intent/index.ts",
+    "./product-intent/insights": "./src/product-intent/insights.ts",
+    "./product-intent/opportunity-brief": "./src/product-intent/opportunity-brief.ts",
+    "./product-intent/problems": "./src/product-intent/problems.ts",
+    "./product-intent/registry": "./src/product-intent/registry.ts",
+    "./product-intent/runtime": "./src/product-intent/runtime.ts",
+    "./product-intent/spec": "./src/product-intent/spec.ts",
+    "./product-intent/task-pack": "./src/product-intent/task-pack.ts",
+    "./product-intent/tickets": "./src/product-intent/tickets.ts",
+    "./product-intent/types": "./src/product-intent/types.ts",
+    "./product-intent/ui-wireframe": "./src/product-intent/ui-wireframe.ts",
+    "./prompt": "./src/prompt.ts",
+    "./promptRegistry": "./src/promptRegistry.ts",
+    "./regenerator": "./src/regenerator/index.ts",
+    "./regenerator/adapters": "./src/regenerator/adapters.ts",
+    "./regenerator/docs/regenerator.docblock": "./src/regenerator/docs/regenerator.docblock.ts",
+    "./regenerator/executor": "./src/regenerator/executor.ts",
+    "./regenerator/index": "./src/regenerator/index.ts",
+    "./regenerator/service": "./src/regenerator/service.ts",
+    "./regenerator/sinks": "./src/regenerator/sinks.ts",
+    "./regenerator/types": "./src/regenerator/types.ts",
+    "./regenerator/utils": "./src/regenerator/utils.ts",
+    "./registry": "./src/registry.ts",
+    "./registry-utils": "./src/registry-utils.ts",
+    "./resources": "./src/resources.ts",
+    "./schema-to-markdown": "./src/schema-to-markdown.ts",
+    "./serialization": "./src/serialization/index.ts",
+    "./serialization/index": "./src/serialization/index.ts",
+    "./serialization/serializers": "./src/serialization/serializers.ts",
+    "./serialization/types": "./src/serialization/types.ts",
+    "./server": "./src/server/index.ts",
+    "./server/contracts-adapter-hydration": "./src/server/contracts-adapter-hydration.ts",
+    "./server/contracts-adapter-input": "./src/server/contracts-adapter-input.ts",
+    "./server/graphql-pothos": "./src/server/graphql-pothos.ts",
+    "./server/index": "./src/server/index.ts",
+    "./server/mcp/createMcpServer": "./src/server/mcp/createMcpServer.ts",
+    "./server/mcp/mcpTypes": "./src/server/mcp/mcpTypes.ts",
+    "./server/mcp/registerPresentations": "./src/server/mcp/registerPresentations.ts",
+    "./server/mcp/registerPrompts": "./src/server/mcp/registerPrompts.ts",
+    "./server/mcp/registerResources": "./src/server/mcp/registerResources.ts",
+    "./server/mcp/registerTools": "./src/server/mcp/registerTools.ts",
+    "./server/provider-mcp": "./src/server/provider-mcp.ts",
+    "./server/rest-elysia": "./src/server/rest-elysia.ts",
+    "./server/rest-express": "./src/server/rest-express.ts",
+    "./server/rest-generic": "./src/server/rest-generic.ts",
+    "./server/rest-next-app": "./src/server/rest-next-app.ts",
+    "./server/rest-next-mcp": "./src/server/rest-next-mcp.ts",
+    "./server/rest-next-pages": "./src/server/rest-next-pages.ts",
+    "./telemetry": "./src/telemetry/index.ts",
+    "./telemetry/anomaly": "./src/telemetry/anomaly.ts",
+    "./telemetry/docs/telemetry.docblock": "./src/telemetry/docs/telemetry.docblock.ts",
+    "./telemetry/index": "./src/telemetry/index.ts",
+    "./telemetry/spec": "./src/telemetry/spec.ts",
+    "./telemetry/tracker": "./src/telemetry/tracker.ts",
+    "./tests": "./src/tests/index.ts",
+    "./tests/index": "./src/tests/index.ts",
+    "./tests/runner": "./src/tests/runner.ts",
+    "./tests/spec": "./src/tests/spec.ts",
+    "./themes": "./src/themes.ts",
+    "./translations": "./src/translations/index.ts",
+    "./translations/catalog": "./src/translations/catalog.ts",
+    "./translations/index": "./src/translations/index.ts",
+    "./translations/registry": "./src/translations/registry.ts",
+    "./translations/spec": "./src/translations/spec.ts",
+    "./translations/tenant": "./src/translations/tenant.ts",
+    "./translations/validation": "./src/translations/validation.ts",
+    "./types": "./src/types.ts",
+    "./versioning": "./src/versioning/index.ts",
+    "./versioning/index": "./src/versioning/index.ts",
+    "./versioning/refs": "./src/versioning/refs.ts",
+    "./versioning/types": "./src/versioning/types.ts",
+    "./versioning/utils": "./src/versioning/utils.ts",
+    "./workflow": "./src/workflow/index.ts",
+    "./workflow/adapters": "./src/workflow/adapters/index.ts",
+    "./workflow/adapters/db-adapter": "./src/workflow/adapters/db-adapter.ts",
+    "./workflow/adapters/file-adapter": "./src/workflow/adapters/file-adapter.ts",
+    "./workflow/adapters/index": "./src/workflow/adapters/index.ts",
+    "./workflow/adapters/memory-store": "./src/workflow/adapters/memory-store.ts",
+    "./workflow/context": "./src/workflow/context.ts",
+    "./workflow/expression": "./src/workflow/expression.ts",
+    "./workflow/index": "./src/workflow/index.ts",
+    "./workflow/overview.docblock": "./src/workflow/overview.docblock.ts",
+    "./workflow/runner": "./src/workflow/runner.ts",
+    "./workflow/sla-monitor": "./src/workflow/sla-monitor.ts",
+    "./workflow/spec": "./src/workflow/spec.ts",
+    "./workflow/state": "./src/workflow/state.ts",
+    "./workflow/validation": "./src/workflow/validation.ts",
+    "./workspace-config": "./src/workspace-config/index.ts",
+    "./workspace-config/contractsrc-schema": "./src/workspace-config/contractsrc-schema.ts",
+    "./workspace-config/contractsrc-types": "./src/workspace-config/contractsrc-types.ts",
+    "./workspace-config/index": "./src/workspace-config/index.ts",
+    "./workspace-config/workspace-config.docblock": "./src/workspace-config/workspace-config.docblock.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./app-config": "./dist/app-config/index.js",
-      "./app-config/app-config.feature": "./dist/app-config/app-config.feature.js",
-      "./app-config/branding": "./dist/app-config/branding.js",
-      "./app-config/contracts": "./dist/app-config/operations.js",
-      "./app-config/docs/app-config.docblock": "./dist/app-config/docs/app-config.docblock.js",
-      "./app-config/events": "./dist/app-config/events.js",
-      "./app-config/lifecycle": "./dist/app-config/lifecycle.js",
-      "./app-config/lifecycle-contracts": "./dist/app-config/lifecycle-operations.js",
-      "./app-config/runtime": "./dist/app-config/runtime.js",
-      "./app-config/spec": "./dist/app-config/spec.js",
-      "./app-config/validation": "./dist/app-config/validation.js",
-      "./capabilities": "./dist/capabilities.js",
-      "./capabilities/docs/capabilities.docblock": "./dist/capabilities/docs/capabilities.docblock.js",
-      "./capabilities/openbanking": "./dist/capabilities/openbanking.js",
-      "./capabilities/meeting-recorder": "./dist/capabilities/meeting-recorder.js",
-      "./client": "./dist/client/index.js",
-      "./client/react": "./dist/client/react/index.js",
-      "./client/react/drivers/rn-reusables": "./dist/client/react/drivers/rn-reusables.js",
-      "./client/react/drivers/shadcn": "./dist/client/react/drivers/shadcn.js",
-      "./client/react/feature-render": "./dist/client/react/feature-render.js",
-      "./client/react/form-render": "./dist/client/react/form-render.js",
-      "./contract-registry": "./dist/contract-registry/index.js",
-      "./contract-registry/schemas": "./dist/contract-registry/schemas.js",
-      "./contract-registry/types": "./dist/contract-registry/types.js",
-      "./contracts-adapter-hydration": "./dist/contracts-adapter-hydration.js",
-      "./contracts-adapter-input": "./dist/contracts-adapter-input.js",
-      "./data-views": "./dist/data-views.js",
-      "./data-views/docs/data-views.docblock": "./dist/data-views/docs/data-views.docblock.js",
-      "./data-views/query-generator": "./dist/data-views/query-generator.js",
-      "./data-views/runtime": "./dist/data-views/runtime.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/accessibility_wcag_compliance_specs.docblock": "./dist/docs/accessibility_wcag_compliance_specs.docblock.js",
-      "./docs/meta.docs": "./dist/docs/meta.docs.js",
-      "./docs/presentations": "./dist/docs/presentations.js",
-      "./docs/PUBLISHING.docblock": "./dist/docs/PUBLISHING.docblock.js",
-      "./docs/registry": "./dist/docs/registry.js",
-      "./docs/tech-contracts.docs": "./dist/docs/tech-contracts.docs.js",
-      "./docs/tech/auth/better-auth-nextjs.docblock": "./dist/docs/tech/auth/better-auth-nextjs.docblock.js",
-      "./docs/tech/contracts/create-subscription.docblock": "./dist/docs/tech/contracts/create-subscription.docblock.js",
-      "./docs/tech/contracts/graphql-typed-outputs.docblock": "./dist/docs/tech/contracts/graphql-typed-outputs.docblock.js",
-      "./docs/tech/contracts/migrations.docblock": "./dist/docs/tech/contracts/migrations.docblock.js",
-      "./docs/tech/contracts/openapi-export.docblock": "./dist/docs/tech/contracts/openapi-export.docblock.js",
-      "./docs/tech/contracts/ops-to-presentation-linking.docblock": "./dist/docs/tech/contracts/ops-to-presentation-linking.docblock.js",
-      "./docs/tech/contracts/overlays.docblock": "./dist/docs/tech/contracts/overlays.docblock.js",
-      "./docs/tech/contracts/README.docblock": "./dist/docs/tech/contracts/README.docblock.js",
-      "./docs/tech/contracts/tests.docblock": "./dist/docs/tech/contracts/tests.docblock.js",
-      "./docs/tech/contracts/themes.docblock": "./dist/docs/tech/contracts/themes.docblock.js",
-      "./docs/tech/contracts/vertical-pocket-family-office.docblock": "./dist/docs/tech/contracts/vertical-pocket-family-office.docblock.js",
-      "./docs/tech/lifecycle-stage-system.docblock": "./dist/docs/tech/lifecycle-stage-system.docblock.js",
-      "./docs/tech/llm/llm-integration.docblock": "./dist/docs/tech/llm/llm-integration.docblock.js",
-      "./docs/tech/mcp-endpoints.docblock": "./dist/docs/tech/mcp-endpoints.docblock.js",
-      "./docs/tech/PHASE_1_QUICKSTART.docblock": "./dist/docs/tech/PHASE_1_QUICKSTART.docblock.js",
-      "./docs/tech/PHASE_2_AI_NATIVE_OPERATIONS.docblock": "./dist/docs/tech/PHASE_2_AI_NATIVE_OPERATIONS.docblock.js",
-      "./docs/tech/PHASE_3_AUTO_EVOLUTION.docblock": "./dist/docs/tech/PHASE_3_AUTO_EVOLUTION.docblock.js",
-      "./docs/tech/PHASE_4_PERSONALIZATION_ENGINE.docblock": "./dist/docs/tech/PHASE_4_PERSONALIZATION_ENGINE.docblock.js",
-      "./docs/tech/PHASE_5_ZERO_TOUCH_OPERATIONS.docblock": "./dist/docs/tech/PHASE_5_ZERO_TOUCH_OPERATIONS.docblock.js",
-      "./docs/tech/presentation-runtime.docblock": "./dist/docs/tech/presentation-runtime.docblock.js",
-      "./docs/tech/schema/README.docblock": "./dist/docs/tech/schema/README.docblock.js",
-      "./docs/tech/studio/learning-events.docblock": "./dist/docs/tech/studio/learning-events.docblock.js",
-      "./docs/tech/studio/learning-journeys.docblock": "./dist/docs/tech/studio/learning-journeys.docblock.js",
-      "./docs/tech/studio/platform-admin-panel.docblock": "./dist/docs/tech/studio/platform-admin-panel.docblock.js",
-      "./docs/tech/studio/project-access-teams.docblock": "./dist/docs/tech/studio/project-access-teams.docblock.js",
-      "./docs/tech/studio/project-routing.docblock": "./dist/docs/tech/studio/project-routing.docblock.js",
-      "./docs/tech/studio/sandbox-unlogged.docblock": "./dist/docs/tech/studio/sandbox-unlogged.docblock.js",
-      "./docs/tech/studio/team-invitations.docblock": "./dist/docs/tech/studio/team-invitations.docblock.js",
-      "./docs/tech/studio/workspace-ops.docblock": "./dist/docs/tech/studio/workspace-ops.docblock.js",
-      "./docs/tech/studio/workspaces.docblock": "./dist/docs/tech/studio/workspaces.docblock.js",
-      "./docs/tech/telemetry-ingest.docblock": "./dist/docs/tech/telemetry-ingest.docblock.js",
-      "./docs/tech/templates/runtime.docblock": "./dist/docs/tech/templates/runtime.docblock.js",
-      "./docs/tech/vscode-extension.docblock": "./dist/docs/tech/vscode-extension.docblock.js",
-      "./docs/tech/workflows/overview.docblock": "./dist/docs/tech/workflows/overview.docblock.js",
-      "./docs/types": "./dist/docs/types.js",
-      "./events": "./dist/events.js",
-      "./experiments/docs/experiments.docblock": "./dist/experiments/docs/experiments.docblock.js",
-      "./experiments/evaluator": "./dist/experiments/evaluator.js",
-      "./experiments/spec": "./dist/experiments/spec.js",
-      "./experiments/spec-resolver": "./dist/experiments/spec-resolver.js",
-      "./features": "./dist/features.js",
-      "./forms": "./dist/forms.js",
-      "./forms/docs/forms.docblock": "./dist/forms/docs/forms.docblock.js",
-      "./install": "./dist/install.js",
-      "./integrations": "./dist/integrations/index.js",
-      "./integrations/binding": "./dist/integrations/binding.js",
-      "./integrations/connection": "./dist/integrations/connection.js",
-      "./integrations/contracts": "./dist/integrations/operations.js",
-      "./integrations/docs/integrations.docblock": "./dist/integrations/docs/integrations.docblock.js",
-      "./integrations/health": "./dist/integrations/health.js",
-      "./integrations/openbanking/contracts": "./dist/integrations/openbanking/contracts/index.js",
-      "./integrations/openbanking/contracts/accounts": "./dist/integrations/openbanking/contracts/accounts.js",
-      "./integrations/openbanking/contracts/balances": "./dist/integrations/openbanking/contracts/balances.js",
-      "./integrations/openbanking/contracts/transactions": "./dist/integrations/openbanking/contracts/transactions.js",
-      "./integrations/openbanking/guards": "./dist/integrations/openbanking/guards.js",
-      "./integrations/openbanking/models": "./dist/integrations/openbanking/models.js",
-      "./integrations/openbanking/openbanking.feature": "./dist/integrations/openbanking/openbanking.feature.js",
-      "./integrations/openbanking/telemetry": "./dist/integrations/openbanking/telemetry.js",
-      "./integrations/meeting-recorder/contracts": "./dist/integrations/meeting-recorder/contracts/index.js",
-      "./integrations/meeting-recorder/contracts/meetings": "./dist/integrations/meeting-recorder/contracts/meetings.js",
-      "./integrations/meeting-recorder/contracts/transcripts": "./dist/integrations/meeting-recorder/contracts/transcripts.js",
-      "./integrations/meeting-recorder/contracts/webhooks": "./dist/integrations/meeting-recorder/contracts/webhooks.js",
-      "./integrations/meeting-recorder/models": "./dist/integrations/meeting-recorder/models.js",
-      "./integrations/meeting-recorder/meeting-recorder.feature": "./dist/integrations/meeting-recorder/meeting-recorder.feature.js",
-      "./integrations/meeting-recorder/meeting-recorder.capability": "./dist/integrations/meeting-recorder/meeting-recorder.capability.js",
-      "./integrations/meeting-recorder/telemetry": "./dist/integrations/meeting-recorder/telemetry.js",
-      "./integrations/providers": "./dist/integrations/providers/index.js",
-      "./integrations/providers/analytics": "./dist/integrations/providers/analytics.js",
-      "./integrations/providers/analytics-reader": "./dist/integrations/providers/analytics-reader.js",
-      "./integrations/providers/analytics-writer": "./dist/integrations/providers/analytics-writer.js",
-      "./integrations/providers/calendar": "./dist/integrations/providers/calendar.js",
-      "./integrations/providers/database": "./dist/integrations/providers/database.js",
-      "./integrations/providers/elevenlabs": "./dist/integrations/providers/elevenlabs.js",
-      "./integrations/providers/email": "./dist/integrations/providers/email.js",
-      "./integrations/providers/embedding": "./dist/integrations/providers/embedding.js",
-      "./integrations/providers/fal": "./dist/integrations/providers/fal.js",
-      "./integrations/providers/gcs-storage": "./dist/integrations/providers/gcs-storage.js",
-      "./integrations/providers/gmail": "./dist/integrations/providers/gmail.js",
-      "./integrations/providers/google-calendar": "./dist/integrations/providers/google-calendar.js",
-      "./integrations/providers/fireflies": "./dist/integrations/providers/fireflies.js",
-      "./integrations/providers/fathom": "./dist/integrations/providers/fathom.js",
-      "./integrations/providers/gradium": "./dist/integrations/providers/gradium.js",
-      "./integrations/providers/granola": "./dist/integrations/providers/granola.js",
-      "./integrations/providers/meeting-recorder": "./dist/integrations/providers/meeting-recorder.js",
-      "./integrations/providers/tldv": "./dist/integrations/providers/tldv.js",
-      "./integrations/providers/project-management": "./dist/integrations/providers/project-management.js",
-      "./integrations/providers/linear": "./dist/integrations/providers/linear.js",
-      "./integrations/providers/jira": "./dist/integrations/providers/jira.js",
-      "./integrations/providers/notion": "./dist/integrations/providers/notion.js",
-      "./integrations/providers/impls": "./dist/integrations/providers/impls/index.js",
-      "./integrations/providers/impls/elevenlabs-voice": "./dist/integrations/providers/impls/elevenlabs-voice.js",
-      "./integrations/providers/impls/fireflies-meeting-recorder": "./dist/integrations/providers/impls/fireflies-meeting-recorder.js",
-      "./integrations/providers/impls/fathom-meeting-recorder": "./dist/integrations/providers/impls/fathom-meeting-recorder.js",
-      "./integrations/providers/impls/gcs-storage": "./dist/integrations/providers/impls/gcs-storage.js",
-      "./integrations/providers/impls/gmail-inbound": "./dist/integrations/providers/impls/gmail-inbound.js",
-      "./integrations/providers/impls/gmail-outbound": "./dist/integrations/providers/impls/gmail-outbound.js",
-      "./integrations/providers/impls/google-calendar": "./dist/integrations/providers/impls/google-calendar.js",
-      "./integrations/providers/impls/granola-meeting-recorder": "./dist/integrations/providers/impls/granola-meeting-recorder.js",
-      "./integrations/providers/impls/linear": "./dist/integrations/providers/impls/linear.js",
-      "./integrations/providers/impls/jira": "./dist/integrations/providers/impls/jira.js",
-      "./integrations/providers/impls/notion": "./dist/integrations/providers/impls/notion.js",
-      "./integrations/providers/impls/mistral-embedding": "./dist/integrations/providers/impls/mistral-embedding.js",
-      "./integrations/providers/impls/mistral-llm": "./dist/integrations/providers/impls/mistral-llm.js",
-      "./integrations/providers/impls/postmark-email": "./dist/integrations/providers/impls/postmark-email.js",
-      "./integrations/providers/impls/powens-client": "./dist/integrations/providers/impls/powens-client.js",
-      "./integrations/providers/impls/powens-openbanking": "./dist/integrations/providers/impls/powens-openbanking.js",
-      "./integrations/providers/impls/provider-factory": "./dist/integrations/providers/impls/provider-factory.js",
-      "./integrations/providers/impls/qdrant-vector": "./dist/integrations/providers/impls/qdrant-vector.js",
-      "./integrations/providers/impls/stripe-payments": "./dist/integrations/providers/impls/stripe-payments.js",
-      "./integrations/providers/impls/tldv-meeting-recorder": "./dist/integrations/providers/impls/tldv-meeting-recorder.js",
-      "./integrations/providers/impls/twilio-sms": "./dist/integrations/providers/impls/twilio-sms.js",
-      "./integrations/providers/llm": "./dist/integrations/providers/llm.js",
-      "./integrations/providers/mistral": "./dist/integrations/providers/mistral.js",
-      "./integrations/providers/openbanking": "./dist/integrations/providers/openbanking.js",
-      "./integrations/providers/payments": "./dist/integrations/providers/payments.js",
-      "./integrations/providers/postmark": "./dist/integrations/providers/postmark.js",
-      "./integrations/providers/posthog": "./dist/integrations/providers/posthog.js",
-      "./integrations/providers/powens": "./dist/integrations/providers/powens.js",
-      "./integrations/providers/qdrant": "./dist/integrations/providers/qdrant.js",
-      "./integrations/providers/registry": "./dist/integrations/providers/registry.js",
-      "./integrations/providers/sms": "./dist/integrations/providers/sms.js",
-      "./integrations/providers/storage": "./dist/integrations/providers/storage.js",
-      "./integrations/providers/supabase-postgres": "./dist/integrations/providers/supabase-postgres.js",
-      "./integrations/providers/supabase-vector": "./dist/integrations/providers/supabase-vector.js",
-      "./integrations/providers/stripe": "./dist/integrations/providers/stripe.js",
-      "./integrations/providers/twilio-sms": "./dist/integrations/providers/twilio-sms.js",
-      "./integrations/providers/vector-store": "./dist/integrations/providers/vector-store.js",
-      "./integrations/providers/voice": "./dist/integrations/providers/voice.js",
-      "./integrations/runtime": "./dist/integrations/runtime.js",
-      "./integrations/secrets": "./dist/integrations/secrets/index.js",
-      "./integrations/secrets/aws-secret-manager": "./dist/integrations/secrets/aws-secret-manager.js",
-      "./integrations/secrets/env-secret-provider": "./dist/integrations/secrets/env-secret-provider.js",
-      "./integrations/secrets/gcp-secret-manager": "./dist/integrations/secrets/gcp-secret-manager.js",
-      "./integrations/secrets/manager": "./dist/integrations/secrets/manager.js",
-      "./integrations/secrets/provider": "./dist/integrations/secrets/provider.js",
-      "./integrations/secrets/scaleway-secret-manager": "./dist/integrations/secrets/scaleway-secret-manager.js",
-      "./integrations/spec": "./dist/integrations/spec.js",
-      "./jobs": "./dist/jobs/index.js",
-      "./jobs/define-job": "./dist/jobs/define-job.js",
-      "./jobs/gcp-cloud-tasks": "./dist/jobs/gcp-cloud-tasks.js",
-      "./jobs/gcp-pubsub": "./dist/jobs/gcp-pubsub.js",
-      "./jobs/handlers": "./dist/jobs/handlers/index.js",
-      "./jobs/handlers/gmail-sync-handler": "./dist/jobs/handlers/gmail-sync-handler.js",
-      "./jobs/handlers/ping-handler": "./dist/jobs/handlers/ping-handler.js",
-      "./jobs/handlers/storage-document-handler": "./dist/jobs/handlers/storage-document-handler.js",
-      "./jobs/memory-queue": "./dist/jobs/memory-queue.js",
-      "./jobs/queue": "./dist/jobs/queue.js",
-      "./jobs/scaleway-sqs-queue": "./dist/jobs/scaleway-sqs-queue.js",
-      "./jsonschema": "./dist/jsonschema.js",
-      "./knowledge": "./dist/knowledge/index.js",
-      "./knowledge/binding": "./dist/knowledge/binding.js",
-      "./knowledge/contracts": "./dist/knowledge/operations.js",
-      "./knowledge/docs/knowledge.docblock": "./dist/knowledge/docs/knowledge.docblock.js",
-      "./knowledge/ingestion": "./dist/knowledge/ingestion/index.js",
-      "./knowledge/ingestion/document-processor": "./dist/knowledge/ingestion/document-processor.js",
-      "./knowledge/ingestion/embedding-service": "./dist/knowledge/ingestion/embedding-service.js",
-      "./knowledge/ingestion/gmail-adapter": "./dist/knowledge/ingestion/gmail-adapter.js",
-      "./knowledge/ingestion/storage-adapter": "./dist/knowledge/ingestion/storage-adapter.js",
-      "./knowledge/ingestion/vector-indexer": "./dist/knowledge/ingestion/vector-indexer.js",
-      "./knowledge/query": "./dist/knowledge/query/index.js",
-      "./knowledge/query/service": "./dist/knowledge/query/service.js",
-      "./knowledge/runtime": "./dist/knowledge/runtime.js",
-      "./knowledge/source": "./dist/knowledge/source.js",
-      "./knowledge/spaces": "./dist/knowledge/spaces/index.js",
-      "./knowledge/spaces/email-threads": "./dist/knowledge/spaces/email-threads.js",
-      "./knowledge/spaces/financial-docs": "./dist/knowledge/spaces/financial-docs.js",
-      "./knowledge/spaces/financial-overview": "./dist/knowledge/spaces/financial-overview.js",
-      "./knowledge/spaces/product-canon": "./dist/knowledge/spaces/product-canon.js",
-      "./knowledge/spaces/support-faq": "./dist/knowledge/spaces/support-faq.js",
-      "./knowledge/spaces/uploaded-docs": "./dist/knowledge/spaces/uploaded-docs.js",
-      "./knowledge/spec": "./dist/knowledge/spec.js",
-      "./llm": "./dist/llm/index.js",
-      "./llm/exporters": "./dist/llm/exporters.js",
-      "./llm/prompts": "./dist/llm/prompts.js",
-      "./llm/types": "./dist/llm/types.js",
-      "./markdown": "./dist/markdown.js",
-      "./migrations": "./dist/migrations.js",
-      "./onboarding-base": "./dist/onboarding-base.js",
-      "./openapi": "./dist/openapi.js",
-      "./openbanking/docs/openbanking.docblock": "./dist/openbanking/docs/openbanking.docblock.js",
-      "./ownership": "./dist/ownership.js",
-      "./policy/docs/policy.docblock": "./dist/policy/docs/policy.docblock.js",
-      "./policy/engine": "./dist/policy/engine.js",
-      "./policy/opa-adapter": "./dist/policy/opa-adapter.js",
-      "./policy/spec": "./dist/policy/spec.js",
-      "./presentations": "./dist/presentations.js",
-      "./presentations.backcompat": "./dist/presentations.backcompat.js",
-      "./presentations/presentation": "./dist/presentations/presentation.js",
-      "./presentations/docs/presentations-conventions.docblock": "./dist/presentations/docs/presentations-conventions.docblock.js",
-      "./product-intent": "./dist/product-intent/index.js",
-      "./product-intent/registry": "./dist/product-intent/registry.js",
-      "./product-intent/runtime": "./dist/product-intent/runtime.js",
-      "./product-intent/spec": "./dist/product-intent/spec.js",
-      "./product-intent/types": "./dist/product-intent/types.js",
-      "./product-intent/contract-patch-intent": "./dist/product-intent/contract-patch-intent.js",
-      "./product-intent/contract-spec-patch": "./dist/product-intent/contract-spec-patch.js",
-      "./product-intent/evidence": "./dist/product-intent/evidence.js",
-      "./product-intent/impact-report": "./dist/product-intent/impact-report.js",
-      "./product-intent/insights": "./dist/product-intent/insights.js",
-      "./product-intent/opportunity-brief": "./dist/product-intent/opportunity-brief.js",
-      "./product-intent/task-pack": "./dist/product-intent/task-pack.js",
-      "./product-intent/ui-wireframe": "./dist/product-intent/ui-wireframe.js",
-      "./prompt": "./dist/prompt.js",
-      "./promptRegistry": "./dist/promptRegistry.js",
-      "./regenerator": "./dist/regenerator/index.js",
-      "./regenerator/adapters": "./dist/regenerator/adapters.js",
-      "./regenerator/docs/regenerator.docblock": "./dist/regenerator/docs/regenerator.docblock.js",
-      "./regenerator/executor": "./dist/regenerator/executor.js",
-      "./regenerator/service": "./dist/regenerator/service.js",
-      "./regenerator/sinks": "./dist/regenerator/sinks.js",
-      "./regenerator/types": "./dist/regenerator/types.js",
-      "./regenerator/utils": "./dist/regenerator/utils.js",
-      "./registry": "./dist/registry.js",
-      "./resources": "./dist/resources.js",
-      "./schema-to-markdown": "./dist/schema-to-markdown.js",
-      "./server": "./dist/server/index.js",
-      "./server/graphql-pothos": "./dist/server/graphql-pothos.js",
-      "./server/mcp/createMcpServer": "./dist/server/mcp/createMcpServer.js",
-      "./server/mcp/mcpTypes": "./dist/server/mcp/mcpTypes.js",
-      "./server/mcp/registerPresentations": "./dist/server/mcp/registerPresentations.js",
-      "./server/mcp/registerPrompts": "./dist/server/mcp/registerPrompts.js",
-      "./server/mcp/registerResources": "./dist/server/mcp/registerResources.js",
-      "./server/mcp/registerTools": "./dist/server/mcp/registerTools.js",
-      "./server/provider-mcp": "./dist/server/provider-mcp.js",
-      "./server/rest-elysia": "./dist/server/rest-elysia.js",
-      "./server/rest-express": "./dist/server/rest-express.js",
-      "./server/rest-generic": "./dist/server/rest-generic.js",
-      "./server/rest-next-app": "./dist/server/rest-next-app.js",
-      "./server/rest-next-mcp": "./dist/server/rest-next-mcp.js",
-      "./server/rest-next-pages": "./dist/server/rest-next-pages.js",
-      "./operation": "./dist/operation.js",
-      "./telemetry": "./dist/telemetry/index.js",
-      "./telemetry/anomaly": "./dist/telemetry/anomaly.js",
-      "./telemetry/docs/telemetry.docblock": "./dist/telemetry/docs/telemetry.docblock.js",
-      "./telemetry/spec": "./dist/telemetry/spec.js",
-      "./telemetry/tracker": "./dist/telemetry/tracker.js",
-      "./tests": "./dist/tests/index.js",
-      "./tests/runner": "./dist/tests/runner.js",
-      "./tests/spec": "./dist/tests/spec.js",
-      "./themes": "./dist/themes.js",
-      "./translations/catalog": "./dist/translations/catalog.js",
-      "./translations/tenant": "./dist/translations/tenant.js",
-      "./types": "./dist/types.js",
-      "./types/all": "./dist/types/all.js",
-      "./workflow": "./dist/workflow/index.js",
-      "./workflow/adapters": "./dist/workflow/adapters/index.js",
-      "./workflow/adapters/db-adapter": "./dist/workflow/adapters/db-adapter.js",
-      "./workflow/adapters/file-adapter": "./dist/workflow/adapters/file-adapter.js",
-      "./workflow/adapters/memory-store": "./dist/workflow/adapters/memory-store.js",
-      "./workflow/expression": "./dist/workflow/expression.js",
-      "./workflow/runner": "./dist/workflow/runner.js",
-      "./workflow/sla-monitor": "./dist/workflow/sla-monitor.js",
-      "./workflow/spec": "./dist/workflow/spec.js",
-      "./workflow/state": "./dist/workflow/state.js",
-      "./workflow/validation": "./dist/workflow/validation.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "default": "./dist/index.js"
+      },
+      "./app-config": {
+        "types": "./dist/app-config/index.d.ts",
+        "bun": "./dist/app-config/index.js",
+        "node": "./dist/node/app-config/index.mjs",
+        "default": "./dist/app-config/index.js"
+      },
+      "./app-config/app-config.capability": {
+        "types": "./dist/app-config/app-config.capability.d.ts",
+        "bun": "./dist/app-config/app-config.capability.js",
+        "node": "./dist/node/app-config/app-config.capability.mjs",
+        "default": "./dist/app-config/app-config.capability.js"
+      },
+      "./app-config/app-config.contracts": {
+        "types": "./dist/app-config/app-config.contracts.d.ts",
+        "bun": "./dist/app-config/app-config.contracts.js",
+        "node": "./dist/node/app-config/app-config.contracts.mjs",
+        "default": "./dist/app-config/app-config.contracts.js"
+      },
+      "./app-config/app-config.feature": {
+        "types": "./dist/app-config/app-config.feature.d.ts",
+        "bun": "./dist/app-config/app-config.feature.js",
+        "node": "./dist/node/app-config/app-config.feature.mjs",
+        "default": "./dist/app-config/app-config.feature.js"
+      },
+      "./app-config/branding": {
+        "types": "./dist/app-config/branding.d.ts",
+        "bun": "./dist/app-config/branding.js",
+        "node": "./dist/node/app-config/branding.mjs",
+        "default": "./dist/app-config/branding.js"
+      },
+      "./app-config/docs/app-config.docblock": {
+        "types": "./dist/app-config/docs/app-config.docblock.d.ts",
+        "bun": "./dist/app-config/docs/app-config.docblock.js",
+        "node": "./dist/node/app-config/docs/app-config.docblock.mjs",
+        "default": "./dist/app-config/docs/app-config.docblock.js"
+      },
+      "./app-config/events": {
+        "types": "./dist/app-config/events.d.ts",
+        "bun": "./dist/app-config/events.js",
+        "node": "./dist/node/app-config/events.mjs",
+        "default": "./dist/app-config/events.js"
+      },
+      "./app-config/index": {
+        "types": "./dist/app-config/index.d.ts",
+        "bun": "./dist/app-config/index.js",
+        "node": "./dist/node/app-config/index.mjs",
+        "default": "./dist/app-config/index.js"
+      },
+      "./app-config/lifecycle": {
+        "types": "./dist/app-config/lifecycle.d.ts",
+        "bun": "./dist/app-config/lifecycle.js",
+        "node": "./dist/node/app-config/lifecycle.mjs",
+        "default": "./dist/app-config/lifecycle.js"
+      },
+      "./app-config/lifecycle-contracts": {
+        "types": "./dist/app-config/lifecycle-contracts.d.ts",
+        "bun": "./dist/app-config/lifecycle-contracts.js",
+        "node": "./dist/node/app-config/lifecycle-contracts.mjs",
+        "default": "./dist/app-config/lifecycle-contracts.js"
+      },
+      "./app-config/runtime": {
+        "types": "./dist/app-config/runtime.d.ts",
+        "bun": "./dist/app-config/runtime.js",
+        "node": "./dist/node/app-config/runtime.mjs",
+        "default": "./dist/app-config/runtime.js"
+      },
+      "./app-config/spec": {
+        "types": "./dist/app-config/spec.d.ts",
+        "bun": "./dist/app-config/spec.js",
+        "node": "./dist/node/app-config/spec.mjs",
+        "default": "./dist/app-config/spec.js"
+      },
+      "./app-config/validation": {
+        "types": "./dist/app-config/validation.d.ts",
+        "bun": "./dist/app-config/validation.js",
+        "node": "./dist/node/app-config/validation.mjs",
+        "default": "./dist/app-config/validation.js"
+      },
+      "./capabilities": {
+        "types": "./dist/capabilities/index.d.ts",
+        "bun": "./dist/capabilities/index.js",
+        "node": "./dist/node/capabilities/index.mjs",
+        "default": "./dist/capabilities/index.js"
+      },
+      "./capabilities/capabilities": {
+        "types": "./dist/capabilities/capabilities.d.ts",
+        "bun": "./dist/capabilities/capabilities.js",
+        "node": "./dist/node/capabilities/capabilities.mjs",
+        "default": "./dist/capabilities/capabilities.js"
+      },
+      "./capabilities/context": {
+        "types": "./dist/capabilities/context.d.ts",
+        "bun": "./dist/capabilities/context.js",
+        "node": "./dist/node/capabilities/context.mjs",
+        "default": "./dist/capabilities/context.js"
+      },
+      "./capabilities/docs/capabilities.docblock": {
+        "types": "./dist/capabilities/docs/capabilities.docblock.d.ts",
+        "bun": "./dist/capabilities/docs/capabilities.docblock.js",
+        "node": "./dist/node/capabilities/docs/capabilities.docblock.mjs",
+        "default": "./dist/capabilities/docs/capabilities.docblock.js"
+      },
+      "./capabilities/guards": {
+        "types": "./dist/capabilities/guards.d.ts",
+        "bun": "./dist/capabilities/guards.js",
+        "node": "./dist/node/capabilities/guards.mjs",
+        "default": "./dist/capabilities/guards.js"
+      },
+      "./capabilities/index": {
+        "types": "./dist/capabilities/index.d.ts",
+        "bun": "./dist/capabilities/index.js",
+        "node": "./dist/node/capabilities/index.mjs",
+        "default": "./dist/capabilities/index.js"
+      },
+      "./capabilities/meeting-recorder": {
+        "types": "./dist/capabilities/meeting-recorder.d.ts",
+        "bun": "./dist/capabilities/meeting-recorder.js",
+        "node": "./dist/node/capabilities/meeting-recorder.mjs",
+        "default": "./dist/capabilities/meeting-recorder.js"
+      },
+      "./capabilities/openbanking": {
+        "types": "./dist/capabilities/openbanking.d.ts",
+        "bun": "./dist/capabilities/openbanking.js",
+        "node": "./dist/node/capabilities/openbanking.mjs",
+        "default": "./dist/capabilities/openbanking.js"
+      },
+      "./capabilities/validation": {
+        "types": "./dist/capabilities/validation.d.ts",
+        "bun": "./dist/capabilities/validation.js",
+        "node": "./dist/node/capabilities/validation.mjs",
+        "default": "./dist/capabilities/validation.js"
+      },
+      "./client": {
+        "types": "./dist/client/index.d.ts",
+        "bun": "./dist/client/index.js",
+        "node": "./dist/node/client/index.mjs",
+        "default": "./dist/client/index.js"
+      },
+      "./client/index": {
+        "types": "./dist/client/index.d.ts",
+        "bun": "./dist/client/index.js",
+        "node": "./dist/node/client/index.mjs",
+        "default": "./dist/client/index.js"
+      },
+      "./client/react": {
+        "types": "./dist/client/react/index.d.ts",
+        "bun": "./dist/client/react/index.js",
+        "node": "./dist/node/client/react/index.mjs",
+        "default": "./dist/client/react/index.js"
+      },
+      "./client/react/drivers/rn-reusables": {
+        "types": "./dist/client/react/drivers/rn-reusables.d.ts",
+        "bun": "./dist/client/react/drivers/rn-reusables.js",
+        "node": "./dist/node/client/react/drivers/rn-reusables.mjs",
+        "default": "./dist/client/react/drivers/rn-reusables.js"
+      },
+      "./client/react/drivers/shadcn": {
+        "types": "./dist/client/react/drivers/shadcn.d.ts",
+        "bun": "./dist/client/react/drivers/shadcn.js",
+        "node": "./dist/node/client/react/drivers/shadcn.mjs",
+        "default": "./dist/client/react/drivers/shadcn.js"
+      },
+      "./client/react/feature-render": {
+        "types": "./dist/client/react/feature-render.d.ts",
+        "bun": "./dist/client/react/feature-render.js",
+        "node": "./dist/node/client/react/feature-render.mjs",
+        "default": "./dist/client/react/feature-render.js"
+      },
+      "./client/react/form-render": {
+        "types": "./dist/client/react/form-render.d.ts",
+        "bun": "./dist/client/react/form-render.js",
+        "node": "./dist/node/client/react/form-render.mjs",
+        "default": "./dist/client/react/form-render.js"
+      },
+      "./client/react/index": {
+        "types": "./dist/client/react/index.d.ts",
+        "bun": "./dist/client/react/index.js",
+        "node": "./dist/node/client/react/index.mjs",
+        "default": "./dist/client/react/index.js"
+      },
+      "./contract-registry": {
+        "types": "./dist/contract-registry/index.d.ts",
+        "bun": "./dist/contract-registry/index.js",
+        "node": "./dist/node/contract-registry/index.mjs",
+        "default": "./dist/contract-registry/index.js"
+      },
+      "./contract-registry/index": {
+        "types": "./dist/contract-registry/index.d.ts",
+        "bun": "./dist/contract-registry/index.js",
+        "node": "./dist/node/contract-registry/index.mjs",
+        "default": "./dist/contract-registry/index.js"
+      },
+      "./contract-registry/schemas": {
+        "types": "./dist/contract-registry/schemas.d.ts",
+        "bun": "./dist/contract-registry/schemas.js",
+        "node": "./dist/node/contract-registry/schemas.mjs",
+        "default": "./dist/contract-registry/schemas.js"
+      },
+      "./contract-registry/types": {
+        "types": "./dist/contract-registry/types.d.ts",
+        "bun": "./dist/contract-registry/types.js",
+        "node": "./dist/node/contract-registry/types.mjs",
+        "default": "./dist/contract-registry/types.js"
+      },
+      "./data-views": {
+        "types": "./dist/data-views/index.d.ts",
+        "bun": "./dist/data-views/index.js",
+        "node": "./dist/node/data-views/index.mjs",
+        "default": "./dist/data-views/index.js"
+      },
+      "./data-views/data-views": {
+        "types": "./dist/data-views/data-views.d.ts",
+        "bun": "./dist/data-views/data-views.js",
+        "node": "./dist/node/data-views/data-views.mjs",
+        "default": "./dist/data-views/data-views.js"
+      },
+      "./data-views/docs/data-views.docblock": {
+        "types": "./dist/data-views/docs/data-views.docblock.d.ts",
+        "bun": "./dist/data-views/docs/data-views.docblock.js",
+        "node": "./dist/node/data-views/docs/data-views.docblock.mjs",
+        "default": "./dist/data-views/docs/data-views.docblock.js"
+      },
+      "./data-views/index": {
+        "types": "./dist/data-views/index.d.ts",
+        "bun": "./dist/data-views/index.js",
+        "node": "./dist/node/data-views/index.mjs",
+        "default": "./dist/data-views/index.js"
+      },
+      "./data-views/query-generator": {
+        "types": "./dist/data-views/query-generator.d.ts",
+        "bun": "./dist/data-views/query-generator.js",
+        "node": "./dist/node/data-views/query-generator.mjs",
+        "default": "./dist/data-views/query-generator.js"
+      },
+      "./data-views/registry": {
+        "types": "./dist/data-views/registry.d.ts",
+        "bun": "./dist/data-views/registry.js",
+        "node": "./dist/node/data-views/registry.mjs",
+        "default": "./dist/data-views/registry.js"
+      },
+      "./data-views/report/contractVerificationTable": {
+        "types": "./dist/data-views/report/contractVerificationTable.d.ts",
+        "bun": "./dist/data-views/report/contractVerificationTable.js",
+        "node": "./dist/node/data-views/report/contractVerificationTable.mjs",
+        "default": "./dist/data-views/report/contractVerificationTable.js"
+      },
+      "./data-views/runtime": {
+        "types": "./dist/data-views/runtime.d.ts",
+        "bun": "./dist/data-views/runtime.js",
+        "node": "./dist/node/data-views/runtime.mjs",
+        "default": "./dist/data-views/runtime.js"
+      },
+      "./data-views/spec": {
+        "types": "./dist/data-views/spec.d.ts",
+        "bun": "./dist/data-views/spec.js",
+        "node": "./dist/node/data-views/spec.mjs",
+        "default": "./dist/data-views/spec.js"
+      },
+      "./data-views/types": {
+        "types": "./dist/data-views/types.d.ts",
+        "bun": "./dist/data-views/types.js",
+        "node": "./dist/node/data-views/types.mjs",
+        "default": "./dist/data-views/types.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/accessibility_wcag_compliance_specs.docblock": {
+        "types": "./dist/docs/accessibility_wcag_compliance_specs.docblock.d.ts",
+        "bun": "./dist/docs/accessibility_wcag_compliance_specs.docblock.js",
+        "node": "./dist/node/docs/accessibility_wcag_compliance_specs.docblock.mjs",
+        "default": "./dist/docs/accessibility_wcag_compliance_specs.docblock.js"
+      },
+      "./docs/capabilities": {
+        "types": "./dist/docs/capabilities/index.d.ts",
+        "bun": "./dist/docs/capabilities/index.js",
+        "node": "./dist/node/docs/capabilities/index.mjs",
+        "default": "./dist/docs/capabilities/index.js"
+      },
+      "./docs/capabilities/documentationSystem.capability": {
+        "types": "./dist/docs/capabilities/documentationSystem.capability.d.ts",
+        "bun": "./dist/docs/capabilities/documentationSystem.capability.js",
+        "node": "./dist/node/docs/capabilities/documentationSystem.capability.mjs",
+        "default": "./dist/docs/capabilities/documentationSystem.capability.js"
+      },
+      "./docs/capabilities/index": {
+        "types": "./dist/docs/capabilities/index.d.ts",
+        "bun": "./dist/docs/capabilities/index.js",
+        "node": "./dist/node/docs/capabilities/index.mjs",
+        "default": "./dist/docs/capabilities/index.js"
+      },
+      "./docs/commands": {
+        "types": "./dist/docs/commands/index.d.ts",
+        "bun": "./dist/docs/commands/index.js",
+        "node": "./dist/node/docs/commands/index.mjs",
+        "default": "./dist/docs/commands/index.js"
+      },
+      "./docs/commands/docsGenerate.command": {
+        "types": "./dist/docs/commands/docsGenerate.command.d.ts",
+        "bun": "./dist/docs/commands/docsGenerate.command.js",
+        "node": "./dist/node/docs/commands/docsGenerate.command.mjs",
+        "default": "./dist/docs/commands/docsGenerate.command.js"
+      },
+      "./docs/commands/docsPublish.command": {
+        "types": "./dist/docs/commands/docsPublish.command.d.ts",
+        "bun": "./dist/docs/commands/docsPublish.command.js",
+        "node": "./dist/node/docs/commands/docsPublish.command.mjs",
+        "default": "./dist/docs/commands/docsPublish.command.js"
+      },
+      "./docs/commands/index": {
+        "types": "./dist/docs/commands/index.d.ts",
+        "bun": "./dist/docs/commands/index.js",
+        "node": "./dist/node/docs/commands/index.mjs",
+        "default": "./dist/docs/commands/index.js"
+      },
+      "./docs/constants": {
+        "types": "./dist/docs/constants.d.ts",
+        "bun": "./dist/docs/constants.js",
+        "node": "./dist/node/docs/constants.mjs",
+        "default": "./dist/docs/constants.js"
+      },
+      "./docs/contracts": {
+        "types": "./dist/docs/contracts.d.ts",
+        "bun": "./dist/docs/contracts.js",
+        "node": "./dist/node/docs/contracts.mjs",
+        "default": "./dist/docs/contracts.js"
+      },
+      "./docs/ensure-docblocks": {
+        "types": "./dist/docs/ensure-docblocks.d.ts",
+        "bun": "./dist/docs/ensure-docblocks.js",
+        "node": "./dist/node/docs/ensure-docblocks.mjs",
+        "default": "./dist/docs/ensure-docblocks.js"
+      },
+      "./docs/events": {
+        "types": "./dist/docs/events/index.d.ts",
+        "bun": "./dist/docs/events/index.js",
+        "node": "./dist/node/docs/events/index.mjs",
+        "default": "./dist/docs/events/index.js"
+      },
+      "./docs/events/docsGenerated.event": {
+        "types": "./dist/docs/events/docsGenerated.event.d.ts",
+        "bun": "./dist/docs/events/docsGenerated.event.js",
+        "node": "./dist/node/docs/events/docsGenerated.event.mjs",
+        "default": "./dist/docs/events/docsGenerated.event.js"
+      },
+      "./docs/events/docsPublished.event": {
+        "types": "./dist/docs/events/docsPublished.event.d.ts",
+        "bun": "./dist/docs/events/docsPublished.event.js",
+        "node": "./dist/node/docs/events/docsPublished.event.mjs",
+        "default": "./dist/docs/events/docsPublished.event.js"
+      },
+      "./docs/events/index": {
+        "types": "./dist/docs/events/index.d.ts",
+        "bun": "./dist/docs/events/index.js",
+        "node": "./dist/node/docs/events/index.mjs",
+        "default": "./dist/docs/events/index.js"
+      },
+      "./docs/forms": {
+        "types": "./dist/docs/forms/index.d.ts",
+        "bun": "./dist/docs/forms/index.js",
+        "node": "./dist/node/docs/forms/index.mjs",
+        "default": "./dist/docs/forms/index.js"
+      },
+      "./docs/forms/docsSearch.form": {
+        "types": "./dist/docs/forms/docsSearch.form.d.ts",
+        "bun": "./dist/docs/forms/docsSearch.form.js",
+        "node": "./dist/node/docs/forms/docsSearch.form.mjs",
+        "default": "./dist/docs/forms/docsSearch.form.js"
+      },
+      "./docs/forms/index": {
+        "types": "./dist/docs/forms/index.d.ts",
+        "bun": "./dist/docs/forms/index.js",
+        "node": "./dist/node/docs/forms/index.mjs",
+        "default": "./dist/docs/forms/index.js"
+      },
+      "./docs/index": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/meta.docs": {
+        "types": "./dist/docs/meta.docs.d.ts",
+        "bun": "./dist/docs/meta.docs.js",
+        "node": "./dist/node/docs/meta.docs.mjs",
+        "default": "./dist/docs/meta.docs.js"
+      },
+      "./docs/presentations": {
+        "types": "./dist/docs/presentations.d.ts",
+        "bun": "./dist/docs/presentations.js",
+        "node": "./dist/node/docs/presentations.mjs",
+        "default": "./dist/docs/presentations.js"
+      },
+      "./docs/presentations/docsLayout.presentation": {
+        "types": "./dist/docs/presentations/docsLayout.presentation.d.ts",
+        "bun": "./dist/docs/presentations/docsLayout.presentation.js",
+        "node": "./dist/node/docs/presentations/docsLayout.presentation.mjs",
+        "default": "./dist/docs/presentations/docsLayout.presentation.js"
+      },
+      "./docs/presentations/docsReferencePage.presentation": {
+        "types": "./dist/docs/presentations/docsReferencePage.presentation.d.ts",
+        "bun": "./dist/docs/presentations/docsReferencePage.presentation.js",
+        "node": "./dist/node/docs/presentations/docsReferencePage.presentation.mjs",
+        "default": "./dist/docs/presentations/docsReferencePage.presentation.js"
+      },
+      "./docs/presentations/index": {
+        "types": "./dist/docs/presentations/index.d.ts",
+        "bun": "./dist/docs/presentations/index.js",
+        "node": "./dist/node/docs/presentations/index.mjs",
+        "default": "./dist/docs/presentations/index.js"
+      },
+      "./docs/queries": {
+        "types": "./dist/docs/queries/index.d.ts",
+        "bun": "./dist/docs/queries/index.js",
+        "node": "./dist/node/docs/queries/index.mjs",
+        "default": "./dist/docs/queries/index.js"
+      },
+      "./docs/queries/contractReference.query": {
+        "types": "./dist/docs/queries/contractReference.query.d.ts",
+        "bun": "./dist/docs/queries/contractReference.query.js",
+        "node": "./dist/node/docs/queries/contractReference.query.mjs",
+        "default": "./dist/docs/queries/contractReference.query.js"
+      },
+      "./docs/queries/docsIndex.query": {
+        "types": "./dist/docs/queries/docsIndex.query.d.ts",
+        "bun": "./dist/docs/queries/docsIndex.query.js",
+        "node": "./dist/node/docs/queries/docsIndex.query.mjs",
+        "default": "./dist/docs/queries/docsIndex.query.js"
+      },
+      "./docs/queries/index": {
+        "types": "./dist/docs/queries/index.d.ts",
+        "bun": "./dist/docs/queries/index.js",
+        "node": "./dist/node/docs/queries/index.mjs",
+        "default": "./dist/docs/queries/index.js"
+      },
+      "./docs/registry": {
+        "types": "./dist/docs/registry.d.ts",
+        "bun": "./dist/docs/registry.js",
+        "node": "./dist/node/docs/registry.mjs",
+        "default": "./dist/docs/registry.js"
+      },
+      "./docs/tech-contracts.docs": {
+        "types": "./dist/docs/tech-contracts.docs.d.ts",
+        "bun": "./dist/docs/tech-contracts.docs.js",
+        "node": "./dist/node/docs/tech-contracts.docs.mjs",
+        "default": "./dist/docs/tech-contracts.docs.js"
+      },
+      "./docs/tech/auth/better-auth-nextjs.docblock": {
+        "types": "./dist/docs/tech/auth/better-auth-nextjs.docblock.d.ts",
+        "bun": "./dist/docs/tech/auth/better-auth-nextjs.docblock.js",
+        "node": "./dist/node/docs/tech/auth/better-auth-nextjs.docblock.mjs",
+        "default": "./dist/docs/tech/auth/better-auth-nextjs.docblock.js"
+      },
+      "./docs/tech/cli.docblock": {
+        "types": "./dist/docs/tech/cli.docblock.d.ts",
+        "bun": "./dist/docs/tech/cli.docblock.js",
+        "node": "./dist/node/docs/tech/cli.docblock.mjs",
+        "default": "./dist/docs/tech/cli.docblock.js"
+      },
+      "./docs/tech/contracts/migrations.docblock": {
+        "types": "./dist/docs/tech/contracts/migrations.docblock.d.ts",
+        "bun": "./dist/docs/tech/contracts/migrations.docblock.js",
+        "node": "./dist/node/docs/tech/contracts/migrations.docblock.mjs",
+        "default": "./dist/docs/tech/contracts/migrations.docblock.js"
+      },
+      "./docs/tech/contracts/openapi-export.docblock": {
+        "types": "./dist/docs/tech/contracts/openapi-export.docblock.d.ts",
+        "bun": "./dist/docs/tech/contracts/openapi-export.docblock.js",
+        "node": "./dist/node/docs/tech/contracts/openapi-export.docblock.mjs",
+        "default": "./dist/docs/tech/contracts/openapi-export.docblock.js"
+      },
+      "./docs/tech/contracts/openapi-import.docblock": {
+        "types": "./dist/docs/tech/contracts/openapi-import.docblock.d.ts",
+        "bun": "./dist/docs/tech/contracts/openapi-import.docblock.js",
+        "node": "./dist/node/docs/tech/contracts/openapi-import.docblock.mjs",
+        "default": "./dist/docs/tech/contracts/openapi-import.docblock.js"
+      },
+      "./docs/tech/contracts/ops-to-presentation-linking.docblock": {
+        "types": "./dist/docs/tech/contracts/ops-to-presentation-linking.docblock.d.ts",
+        "bun": "./dist/docs/tech/contracts/ops-to-presentation-linking.docblock.js",
+        "node": "./dist/node/docs/tech/contracts/ops-to-presentation-linking.docblock.mjs",
+        "default": "./dist/docs/tech/contracts/ops-to-presentation-linking.docblock.js"
+      },
+      "./docs/tech/contracts/overlays.docblock": {
+        "types": "./dist/docs/tech/contracts/overlays.docblock.d.ts",
+        "bun": "./dist/docs/tech/contracts/overlays.docblock.js",
+        "node": "./dist/node/docs/tech/contracts/overlays.docblock.mjs",
+        "default": "./dist/docs/tech/contracts/overlays.docblock.js"
+      },
+      "./docs/tech/contracts/README.docblock": {
+        "types": "./dist/docs/tech/contracts/README.docblock.d.ts",
+        "bun": "./dist/docs/tech/contracts/README.docblock.js",
+        "node": "./dist/node/docs/tech/contracts/README.docblock.mjs",
+        "default": "./dist/docs/tech/contracts/README.docblock.js"
+      },
+      "./docs/tech/contracts/tests.docblock": {
+        "types": "./dist/docs/tech/contracts/tests.docblock.d.ts",
+        "bun": "./dist/docs/tech/contracts/tests.docblock.js",
+        "node": "./dist/node/docs/tech/contracts/tests.docblock.mjs",
+        "default": "./dist/docs/tech/contracts/tests.docblock.js"
+      },
+      "./docs/tech/contracts/themes.docblock": {
+        "types": "./dist/docs/tech/contracts/themes.docblock.d.ts",
+        "bun": "./dist/docs/tech/contracts/themes.docblock.js",
+        "node": "./dist/node/docs/tech/contracts/themes.docblock.mjs",
+        "default": "./dist/docs/tech/contracts/themes.docblock.js"
+      },
+      "./docs/tech/contracts/vertical-pocket-family-office.docblock": {
+        "types": "./dist/docs/tech/contracts/vertical-pocket-family-office.docblock.d.ts",
+        "bun": "./dist/docs/tech/contracts/vertical-pocket-family-office.docblock.js",
+        "node": "./dist/node/docs/tech/contracts/vertical-pocket-family-office.docblock.mjs",
+        "default": "./dist/docs/tech/contracts/vertical-pocket-family-office.docblock.js"
+      },
+      "./docs/tech/docs-system.docblock": {
+        "types": "./dist/docs/tech/docs-system.docblock.d.ts",
+        "bun": "./dist/docs/tech/docs-system.docblock.js",
+        "node": "./dist/node/docs/tech/docs-system.docblock.mjs",
+        "default": "./dist/docs/tech/docs-system.docblock.js"
+      },
+      "./docs/tech/lifecycle-stage-system.docblock": {
+        "types": "./dist/docs/tech/lifecycle-stage-system.docblock.d.ts",
+        "bun": "./dist/docs/tech/lifecycle-stage-system.docblock.js",
+        "node": "./dist/node/docs/tech/lifecycle-stage-system.docblock.mjs",
+        "default": "./dist/docs/tech/lifecycle-stage-system.docblock.js"
+      },
+      "./docs/tech/llm/llm-integration.docblock": {
+        "types": "./dist/docs/tech/llm/llm-integration.docblock.d.ts",
+        "bun": "./dist/docs/tech/llm/llm-integration.docblock.js",
+        "node": "./dist/node/docs/tech/llm/llm-integration.docblock.mjs",
+        "default": "./dist/docs/tech/llm/llm-integration.docblock.js"
+      },
+      "./docs/tech/mcp-endpoints.docblock": {
+        "types": "./dist/docs/tech/mcp-endpoints.docblock.d.ts",
+        "bun": "./dist/docs/tech/mcp-endpoints.docblock.js",
+        "node": "./dist/node/docs/tech/mcp-endpoints.docblock.mjs",
+        "default": "./dist/docs/tech/mcp-endpoints.docblock.js"
+      },
+      "./docs/tech/presentation-runtime.docblock": {
+        "types": "./dist/docs/tech/presentation-runtime.docblock.d.ts",
+        "bun": "./dist/docs/tech/presentation-runtime.docblock.js",
+        "node": "./dist/node/docs/tech/presentation-runtime.docblock.mjs",
+        "default": "./dist/docs/tech/presentation-runtime.docblock.js"
+      },
+      "./docs/tech/report-verification-table.docblock": {
+        "types": "./dist/docs/tech/report-verification-table.docblock.d.ts",
+        "bun": "./dist/docs/tech/report-verification-table.docblock.js",
+        "node": "./dist/node/docs/tech/report-verification-table.docblock.mjs",
+        "default": "./dist/docs/tech/report-verification-table.docblock.js"
+      },
+      "./docs/tech/schema/README.docblock": {
+        "types": "./dist/docs/tech/schema/README.docblock.d.ts",
+        "bun": "./dist/docs/tech/schema/README.docblock.js",
+        "node": "./dist/node/docs/tech/schema/README.docblock.mjs",
+        "default": "./dist/docs/tech/schema/README.docblock.js"
+      },
+      "./docs/tech/studio/learning-events.docblock": {
+        "types": "./dist/docs/tech/studio/learning-events.docblock.d.ts",
+        "bun": "./dist/docs/tech/studio/learning-events.docblock.js",
+        "node": "./dist/node/docs/tech/studio/learning-events.docblock.mjs",
+        "default": "./dist/docs/tech/studio/learning-events.docblock.js"
+      },
+      "./docs/tech/studio/learning-journeys.docblock": {
+        "types": "./dist/docs/tech/studio/learning-journeys.docblock.d.ts",
+        "bun": "./dist/docs/tech/studio/learning-journeys.docblock.js",
+        "node": "./dist/node/docs/tech/studio/learning-journeys.docblock.mjs",
+        "default": "./dist/docs/tech/studio/learning-journeys.docblock.js"
+      },
+      "./docs/tech/studio/platform-admin-panel.docblock": {
+        "types": "./dist/docs/tech/studio/platform-admin-panel.docblock.d.ts",
+        "bun": "./dist/docs/tech/studio/platform-admin-panel.docblock.js",
+        "node": "./dist/node/docs/tech/studio/platform-admin-panel.docblock.mjs",
+        "default": "./dist/docs/tech/studio/platform-admin-panel.docblock.js"
+      },
+      "./docs/tech/studio/project-access-teams.docblock": {
+        "types": "./dist/docs/tech/studio/project-access-teams.docblock.d.ts",
+        "bun": "./dist/docs/tech/studio/project-access-teams.docblock.js",
+        "node": "./dist/node/docs/tech/studio/project-access-teams.docblock.mjs",
+        "default": "./dist/docs/tech/studio/project-access-teams.docblock.js"
+      },
+      "./docs/tech/studio/project-routing.docblock": {
+        "types": "./dist/docs/tech/studio/project-routing.docblock.d.ts",
+        "bun": "./dist/docs/tech/studio/project-routing.docblock.js",
+        "node": "./dist/node/docs/tech/studio/project-routing.docblock.mjs",
+        "default": "./dist/docs/tech/studio/project-routing.docblock.js"
+      },
+      "./docs/tech/studio/sandbox-unlogged.docblock": {
+        "types": "./dist/docs/tech/studio/sandbox-unlogged.docblock.d.ts",
+        "bun": "./dist/docs/tech/studio/sandbox-unlogged.docblock.js",
+        "node": "./dist/node/docs/tech/studio/sandbox-unlogged.docblock.mjs",
+        "default": "./dist/docs/tech/studio/sandbox-unlogged.docblock.js"
+      },
+      "./docs/tech/studio/team-invitations.docblock": {
+        "types": "./dist/docs/tech/studio/team-invitations.docblock.d.ts",
+        "bun": "./dist/docs/tech/studio/team-invitations.docblock.js",
+        "node": "./dist/node/docs/tech/studio/team-invitations.docblock.mjs",
+        "default": "./dist/docs/tech/studio/team-invitations.docblock.js"
+      },
+      "./docs/tech/studio/workspace-ops.docblock": {
+        "types": "./dist/docs/tech/studio/workspace-ops.docblock.d.ts",
+        "bun": "./dist/docs/tech/studio/workspace-ops.docblock.js",
+        "node": "./dist/node/docs/tech/studio/workspace-ops.docblock.mjs",
+        "default": "./dist/docs/tech/studio/workspace-ops.docblock.js"
+      },
+      "./docs/tech/studio/workspaces.docblock": {
+        "types": "./dist/docs/tech/studio/workspaces.docblock.d.ts",
+        "bun": "./dist/docs/tech/studio/workspaces.docblock.js",
+        "node": "./dist/node/docs/tech/studio/workspaces.docblock.mjs",
+        "default": "./dist/docs/tech/studio/workspaces.docblock.js"
+      },
+      "./docs/tech/telemetry-ingest.docblock": {
+        "types": "./dist/docs/tech/telemetry-ingest.docblock.d.ts",
+        "bun": "./dist/docs/tech/telemetry-ingest.docblock.js",
+        "node": "./dist/node/docs/tech/telemetry-ingest.docblock.mjs",
+        "default": "./dist/docs/tech/telemetry-ingest.docblock.js"
+      },
+      "./docs/tech/vscode-extension.docblock": {
+        "types": "./dist/docs/tech/vscode-extension.docblock.d.ts",
+        "bun": "./dist/docs/tech/vscode-extension.docblock.js",
+        "node": "./dist/node/docs/tech/vscode-extension.docblock.mjs",
+        "default": "./dist/docs/tech/vscode-extension.docblock.js"
+      },
+      "./docs/types": {
+        "types": "./dist/docs/types.d.ts",
+        "bun": "./dist/docs/types.js",
+        "node": "./dist/node/docs/types.mjs",
+        "default": "./dist/docs/types.js"
+      },
+      "./docs/views": {
+        "types": "./dist/docs/views/index.d.ts",
+        "bun": "./dist/docs/views/index.js",
+        "node": "./dist/node/docs/views/index.mjs",
+        "default": "./dist/docs/views/index.js"
+      },
+      "./docs/views/contractReference.dataView": {
+        "types": "./dist/docs/views/contractReference.dataView.d.ts",
+        "bun": "./dist/docs/views/contractReference.dataView.js",
+        "node": "./dist/node/docs/views/contractReference.dataView.mjs",
+        "default": "./dist/docs/views/contractReference.dataView.js"
+      },
+      "./docs/views/docsIndex.dataView": {
+        "types": "./dist/docs/views/docsIndex.dataView.d.ts",
+        "bun": "./dist/docs/views/docsIndex.dataView.js",
+        "node": "./dist/node/docs/views/docsIndex.dataView.mjs",
+        "default": "./dist/docs/views/docsIndex.dataView.js"
+      },
+      "./docs/views/exampleCatalog.dataView": {
+        "types": "./dist/docs/views/exampleCatalog.dataView.d.ts",
+        "bun": "./dist/docs/views/exampleCatalog.dataView.js",
+        "node": "./dist/node/docs/views/exampleCatalog.dataView.mjs",
+        "default": "./dist/docs/views/exampleCatalog.dataView.js"
+      },
+      "./docs/views/index": {
+        "types": "./dist/docs/views/index.d.ts",
+        "bun": "./dist/docs/views/index.js",
+        "node": "./dist/node/docs/views/index.mjs",
+        "default": "./dist/docs/views/index.js"
+      },
+      "./events": {
+        "types": "./dist/events.d.ts",
+        "bun": "./dist/events.js",
+        "node": "./dist/node/events.mjs",
+        "default": "./dist/events.js"
+      },
+      "./examples": {
+        "types": "./dist/examples/index.d.ts",
+        "bun": "./dist/examples/index.js",
+        "node": "./dist/node/examples/index.mjs",
+        "default": "./dist/examples/index.js"
+      },
+      "./examples/docs/examples.docblock": {
+        "types": "./dist/examples/docs/examples.docblock.d.ts",
+        "bun": "./dist/examples/docs/examples.docblock.js",
+        "node": "./dist/node/examples/docs/examples.docblock.mjs",
+        "default": "./dist/examples/docs/examples.docblock.js"
+      },
+      "./examples/index": {
+        "types": "./dist/examples/index.d.ts",
+        "bun": "./dist/examples/index.js",
+        "node": "./dist/node/examples/index.mjs",
+        "default": "./dist/examples/index.js"
+      },
+      "./examples/registry": {
+        "types": "./dist/examples/registry.d.ts",
+        "bun": "./dist/examples/registry.js",
+        "node": "./dist/node/examples/registry.mjs",
+        "default": "./dist/examples/registry.js"
+      },
+      "./examples/schema": {
+        "types": "./dist/examples/schema.d.ts",
+        "bun": "./dist/examples/schema.js",
+        "node": "./dist/node/examples/schema.mjs",
+        "default": "./dist/examples/schema.js"
+      },
+      "./examples/types": {
+        "types": "./dist/examples/types.d.ts",
+        "bun": "./dist/examples/types.js",
+        "node": "./dist/node/examples/types.mjs",
+        "default": "./dist/examples/types.js"
+      },
+      "./examples/validation": {
+        "types": "./dist/examples/validation.d.ts",
+        "bun": "./dist/examples/validation.js",
+        "node": "./dist/node/examples/validation.mjs",
+        "default": "./dist/examples/validation.js"
+      },
+      "./experiments/docs/experiments.docblock": {
+        "types": "./dist/experiments/docs/experiments.docblock.d.ts",
+        "bun": "./dist/experiments/docs/experiments.docblock.js",
+        "node": "./dist/node/experiments/docs/experiments.docblock.mjs",
+        "default": "./dist/experiments/docs/experiments.docblock.js"
+      },
+      "./experiments/evaluator": {
+        "types": "./dist/experiments/evaluator.d.ts",
+        "bun": "./dist/experiments/evaluator.js",
+        "node": "./dist/node/experiments/evaluator.mjs",
+        "default": "./dist/experiments/evaluator.js"
+      },
+      "./experiments/spec": {
+        "types": "./dist/experiments/spec.d.ts",
+        "bun": "./dist/experiments/spec.js",
+        "node": "./dist/node/experiments/spec.mjs",
+        "default": "./dist/experiments/spec.js"
+      },
+      "./experiments/spec-resolver": {
+        "types": "./dist/experiments/spec-resolver.d.ts",
+        "bun": "./dist/experiments/spec-resolver.js",
+        "node": "./dist/node/experiments/spec-resolver.mjs",
+        "default": "./dist/experiments/spec-resolver.js"
+      },
+      "./features": {
+        "types": "./dist/features/index.d.ts",
+        "bun": "./dist/features/index.js",
+        "node": "./dist/node/features/index.mjs",
+        "default": "./dist/features/index.js"
+      },
+      "./features/index": {
+        "types": "./dist/features/index.d.ts",
+        "bun": "./dist/features/index.js",
+        "node": "./dist/node/features/index.mjs",
+        "default": "./dist/features/index.js"
+      },
+      "./features/install": {
+        "types": "./dist/features/install.d.ts",
+        "bun": "./dist/features/install.js",
+        "node": "./dist/node/features/install.mjs",
+        "default": "./dist/features/install.js"
+      },
+      "./features/registry": {
+        "types": "./dist/features/registry.d.ts",
+        "bun": "./dist/features/registry.js",
+        "node": "./dist/node/features/registry.mjs",
+        "default": "./dist/features/registry.js"
+      },
+      "./features/types": {
+        "types": "./dist/features/types.d.ts",
+        "bun": "./dist/features/types.js",
+        "node": "./dist/node/features/types.mjs",
+        "default": "./dist/features/types.js"
+      },
+      "./features/validation": {
+        "types": "./dist/features/validation.d.ts",
+        "bun": "./dist/features/validation.js",
+        "node": "./dist/node/features/validation.mjs",
+        "default": "./dist/features/validation.js"
+      },
+      "./forms": {
+        "types": "./dist/forms/index.d.ts",
+        "bun": "./dist/forms/index.js",
+        "node": "./dist/node/forms/index.mjs",
+        "default": "./dist/forms/index.js"
+      },
+      "./forms/docs/forms.docblock": {
+        "types": "./dist/forms/docs/forms.docblock.d.ts",
+        "bun": "./dist/forms/docs/forms.docblock.js",
+        "node": "./dist/node/forms/docs/forms.docblock.mjs",
+        "default": "./dist/forms/docs/forms.docblock.js"
+      },
+      "./forms/forms": {
+        "types": "./dist/forms/forms.d.ts",
+        "bun": "./dist/forms/forms.js",
+        "node": "./dist/node/forms/forms.mjs",
+        "default": "./dist/forms/forms.js"
+      },
+      "./forms/index": {
+        "types": "./dist/forms/index.d.ts",
+        "bun": "./dist/forms/index.js",
+        "node": "./dist/node/forms/index.mjs",
+        "default": "./dist/forms/index.js"
+      },
+      "./install": {
+        "types": "./dist/install.d.ts",
+        "bun": "./dist/install.js",
+        "node": "./dist/node/install.mjs",
+        "default": "./dist/install.js"
+      },
+      "./integrations": {
+        "types": "./dist/integrations/index.d.ts",
+        "bun": "./dist/integrations/index.js",
+        "node": "./dist/node/integrations/index.mjs",
+        "default": "./dist/integrations/index.js"
+      },
+      "./integrations/binding": {
+        "types": "./dist/integrations/binding.d.ts",
+        "bun": "./dist/integrations/binding.js",
+        "node": "./dist/node/integrations/binding.mjs",
+        "default": "./dist/integrations/binding.js"
+      },
+      "./integrations/connection": {
+        "types": "./dist/integrations/connection.d.ts",
+        "bun": "./dist/integrations/connection.js",
+        "node": "./dist/node/integrations/connection.mjs",
+        "default": "./dist/integrations/connection.js"
+      },
+      "./integrations/docs/integrations.docblock": {
+        "types": "./dist/integrations/docs/integrations.docblock.d.ts",
+        "bun": "./dist/integrations/docs/integrations.docblock.js",
+        "node": "./dist/node/integrations/docs/integrations.docblock.mjs",
+        "default": "./dist/integrations/docs/integrations.docblock.js"
+      },
+      "./integrations/health": {
+        "types": "./dist/integrations/health.d.ts",
+        "bun": "./dist/integrations/health.js",
+        "node": "./dist/node/integrations/health.mjs",
+        "default": "./dist/integrations/health.js"
+      },
+      "./integrations/index": {
+        "types": "./dist/integrations/index.d.ts",
+        "bun": "./dist/integrations/index.js",
+        "node": "./dist/node/integrations/index.mjs",
+        "default": "./dist/integrations/index.js"
+      },
+      "./integrations/integrations.capability": {
+        "types": "./dist/integrations/integrations.capability.d.ts",
+        "bun": "./dist/integrations/integrations.capability.js",
+        "node": "./dist/node/integrations/integrations.capability.mjs",
+        "default": "./dist/integrations/integrations.capability.js"
+      },
+      "./integrations/integrations.feature": {
+        "types": "./dist/integrations/integrations.feature.d.ts",
+        "bun": "./dist/integrations/integrations.feature.js",
+        "node": "./dist/node/integrations/integrations.feature.mjs",
+        "default": "./dist/integrations/integrations.feature.js"
+      },
+      "./integrations/meeting-recorder/contracts": {
+        "types": "./dist/integrations/meeting-recorder/contracts/index.d.ts",
+        "bun": "./dist/integrations/meeting-recorder/contracts/index.js",
+        "node": "./dist/node/integrations/meeting-recorder/contracts/index.mjs",
+        "default": "./dist/integrations/meeting-recorder/contracts/index.js"
+      },
+      "./integrations/meeting-recorder/contracts/index": {
+        "types": "./dist/integrations/meeting-recorder/contracts/index.d.ts",
+        "bun": "./dist/integrations/meeting-recorder/contracts/index.js",
+        "node": "./dist/node/integrations/meeting-recorder/contracts/index.mjs",
+        "default": "./dist/integrations/meeting-recorder/contracts/index.js"
+      },
+      "./integrations/meeting-recorder/contracts/meetings": {
+        "types": "./dist/integrations/meeting-recorder/contracts/meetings.d.ts",
+        "bun": "./dist/integrations/meeting-recorder/contracts/meetings.js",
+        "node": "./dist/node/integrations/meeting-recorder/contracts/meetings.mjs",
+        "default": "./dist/integrations/meeting-recorder/contracts/meetings.js"
+      },
+      "./integrations/meeting-recorder/contracts/transcripts": {
+        "types": "./dist/integrations/meeting-recorder/contracts/transcripts.d.ts",
+        "bun": "./dist/integrations/meeting-recorder/contracts/transcripts.js",
+        "node": "./dist/node/integrations/meeting-recorder/contracts/transcripts.mjs",
+        "default": "./dist/integrations/meeting-recorder/contracts/transcripts.js"
+      },
+      "./integrations/meeting-recorder/contracts/webhooks": {
+        "types": "./dist/integrations/meeting-recorder/contracts/webhooks.d.ts",
+        "bun": "./dist/integrations/meeting-recorder/contracts/webhooks.js",
+        "node": "./dist/node/integrations/meeting-recorder/contracts/webhooks.mjs",
+        "default": "./dist/integrations/meeting-recorder/contracts/webhooks.js"
+      },
+      "./integrations/meeting-recorder/meeting-recorder.capability": {
+        "types": "./dist/integrations/meeting-recorder/meeting-recorder.capability.d.ts",
+        "bun": "./dist/integrations/meeting-recorder/meeting-recorder.capability.js",
+        "node": "./dist/node/integrations/meeting-recorder/meeting-recorder.capability.mjs",
+        "default": "./dist/integrations/meeting-recorder/meeting-recorder.capability.js"
+      },
+      "./integrations/meeting-recorder/meeting-recorder.feature": {
+        "types": "./dist/integrations/meeting-recorder/meeting-recorder.feature.d.ts",
+        "bun": "./dist/integrations/meeting-recorder/meeting-recorder.feature.js",
+        "node": "./dist/node/integrations/meeting-recorder/meeting-recorder.feature.mjs",
+        "default": "./dist/integrations/meeting-recorder/meeting-recorder.feature.js"
+      },
+      "./integrations/meeting-recorder/models": {
+        "types": "./dist/integrations/meeting-recorder/models.d.ts",
+        "bun": "./dist/integrations/meeting-recorder/models.js",
+        "node": "./dist/node/integrations/meeting-recorder/models.mjs",
+        "default": "./dist/integrations/meeting-recorder/models.js"
+      },
+      "./integrations/meeting-recorder/telemetry": {
+        "types": "./dist/integrations/meeting-recorder/telemetry.d.ts",
+        "bun": "./dist/integrations/meeting-recorder/telemetry.js",
+        "node": "./dist/node/integrations/meeting-recorder/telemetry.mjs",
+        "default": "./dist/integrations/meeting-recorder/telemetry.js"
+      },
+      "./integrations/openbanking/contracts": {
+        "types": "./dist/integrations/openbanking/contracts/index.d.ts",
+        "bun": "./dist/integrations/openbanking/contracts/index.js",
+        "node": "./dist/node/integrations/openbanking/contracts/index.mjs",
+        "default": "./dist/integrations/openbanking/contracts/index.js"
+      },
+      "./integrations/openbanking/contracts/accounts": {
+        "types": "./dist/integrations/openbanking/contracts/accounts.d.ts",
+        "bun": "./dist/integrations/openbanking/contracts/accounts.js",
+        "node": "./dist/node/integrations/openbanking/contracts/accounts.mjs",
+        "default": "./dist/integrations/openbanking/contracts/accounts.js"
+      },
+      "./integrations/openbanking/contracts/balances": {
+        "types": "./dist/integrations/openbanking/contracts/balances.d.ts",
+        "bun": "./dist/integrations/openbanking/contracts/balances.js",
+        "node": "./dist/node/integrations/openbanking/contracts/balances.mjs",
+        "default": "./dist/integrations/openbanking/contracts/balances.js"
+      },
+      "./integrations/openbanking/contracts/index": {
+        "types": "./dist/integrations/openbanking/contracts/index.d.ts",
+        "bun": "./dist/integrations/openbanking/contracts/index.js",
+        "node": "./dist/node/integrations/openbanking/contracts/index.mjs",
+        "default": "./dist/integrations/openbanking/contracts/index.js"
+      },
+      "./integrations/openbanking/contracts/transactions": {
+        "types": "./dist/integrations/openbanking/contracts/transactions.d.ts",
+        "bun": "./dist/integrations/openbanking/contracts/transactions.js",
+        "node": "./dist/node/integrations/openbanking/contracts/transactions.mjs",
+        "default": "./dist/integrations/openbanking/contracts/transactions.js"
+      },
+      "./integrations/openbanking/guards": {
+        "types": "./dist/integrations/openbanking/guards.d.ts",
+        "bun": "./dist/integrations/openbanking/guards.js",
+        "node": "./dist/node/integrations/openbanking/guards.mjs",
+        "default": "./dist/integrations/openbanking/guards.js"
+      },
+      "./integrations/openbanking/models": {
+        "types": "./dist/integrations/openbanking/models.d.ts",
+        "bun": "./dist/integrations/openbanking/models.js",
+        "node": "./dist/node/integrations/openbanking/models.mjs",
+        "default": "./dist/integrations/openbanking/models.js"
+      },
+      "./integrations/openbanking/openbanking.capability": {
+        "types": "./dist/integrations/openbanking/openbanking.capability.d.ts",
+        "bun": "./dist/integrations/openbanking/openbanking.capability.js",
+        "node": "./dist/node/integrations/openbanking/openbanking.capability.mjs",
+        "default": "./dist/integrations/openbanking/openbanking.capability.js"
+      },
+      "./integrations/openbanking/openbanking.feature": {
+        "types": "./dist/integrations/openbanking/openbanking.feature.d.ts",
+        "bun": "./dist/integrations/openbanking/openbanking.feature.js",
+        "node": "./dist/node/integrations/openbanking/openbanking.feature.mjs",
+        "default": "./dist/integrations/openbanking/openbanking.feature.js"
+      },
+      "./integrations/openbanking/telemetry": {
+        "types": "./dist/integrations/openbanking/telemetry.d.ts",
+        "bun": "./dist/integrations/openbanking/telemetry.js",
+        "node": "./dist/node/integrations/openbanking/telemetry.mjs",
+        "default": "./dist/integrations/openbanking/telemetry.js"
+      },
+      "./integrations/operations": {
+        "types": "./dist/integrations/operations.d.ts",
+        "bun": "./dist/integrations/operations.js",
+        "node": "./dist/node/integrations/operations.mjs",
+        "default": "./dist/integrations/operations.js"
+      },
+      "./integrations/providers": {
+        "types": "./dist/integrations/providers/index.d.ts",
+        "bun": "./dist/integrations/providers/index.js",
+        "node": "./dist/node/integrations/providers/index.mjs",
+        "default": "./dist/integrations/providers/index.js"
+      },
+      "./integrations/providers/analytics": {
+        "types": "./dist/integrations/providers/analytics.d.ts",
+        "bun": "./dist/integrations/providers/analytics.js",
+        "node": "./dist/node/integrations/providers/analytics.mjs",
+        "default": "./dist/integrations/providers/analytics.js"
+      },
+      "./integrations/providers/analytics-reader": {
+        "types": "./dist/integrations/providers/analytics-reader.d.ts",
+        "bun": "./dist/integrations/providers/analytics-reader.js",
+        "node": "./dist/node/integrations/providers/analytics-reader.mjs",
+        "default": "./dist/integrations/providers/analytics-reader.js"
+      },
+      "./integrations/providers/analytics-writer": {
+        "types": "./dist/integrations/providers/analytics-writer.d.ts",
+        "bun": "./dist/integrations/providers/analytics-writer.js",
+        "node": "./dist/node/integrations/providers/analytics-writer.mjs",
+        "default": "./dist/integrations/providers/analytics-writer.js"
+      },
+      "./integrations/providers/calendar": {
+        "types": "./dist/integrations/providers/calendar.d.ts",
+        "bun": "./dist/integrations/providers/calendar.js",
+        "node": "./dist/node/integrations/providers/calendar.mjs",
+        "default": "./dist/integrations/providers/calendar.js"
+      },
+      "./integrations/providers/database": {
+        "types": "./dist/integrations/providers/database.d.ts",
+        "bun": "./dist/integrations/providers/database.js",
+        "node": "./dist/node/integrations/providers/database.mjs",
+        "default": "./dist/integrations/providers/database.js"
+      },
+      "./integrations/providers/elevenlabs": {
+        "types": "./dist/integrations/providers/elevenlabs.d.ts",
+        "bun": "./dist/integrations/providers/elevenlabs.js",
+        "node": "./dist/node/integrations/providers/elevenlabs.mjs",
+        "default": "./dist/integrations/providers/elevenlabs.js"
+      },
+      "./integrations/providers/email": {
+        "types": "./dist/integrations/providers/email.d.ts",
+        "bun": "./dist/integrations/providers/email.js",
+        "node": "./dist/node/integrations/providers/email.mjs",
+        "default": "./dist/integrations/providers/email.js"
+      },
+      "./integrations/providers/embedding": {
+        "types": "./dist/integrations/providers/embedding.d.ts",
+        "bun": "./dist/integrations/providers/embedding.js",
+        "node": "./dist/node/integrations/providers/embedding.mjs",
+        "default": "./dist/integrations/providers/embedding.js"
+      },
+      "./integrations/providers/fal": {
+        "types": "./dist/integrations/providers/fal.d.ts",
+        "bun": "./dist/integrations/providers/fal.js",
+        "node": "./dist/node/integrations/providers/fal.mjs",
+        "default": "./dist/integrations/providers/fal.js"
+      },
+      "./integrations/providers/fathom": {
+        "types": "./dist/integrations/providers/fathom.d.ts",
+        "bun": "./dist/integrations/providers/fathom.js",
+        "node": "./dist/node/integrations/providers/fathom.mjs",
+        "default": "./dist/integrations/providers/fathom.js"
+      },
+      "./integrations/providers/fireflies": {
+        "types": "./dist/integrations/providers/fireflies.d.ts",
+        "bun": "./dist/integrations/providers/fireflies.js",
+        "node": "./dist/node/integrations/providers/fireflies.mjs",
+        "default": "./dist/integrations/providers/fireflies.js"
+      },
+      "./integrations/providers/gcs-storage": {
+        "types": "./dist/integrations/providers/gcs-storage.d.ts",
+        "bun": "./dist/integrations/providers/gcs-storage.js",
+        "node": "./dist/node/integrations/providers/gcs-storage.mjs",
+        "default": "./dist/integrations/providers/gcs-storage.js"
+      },
+      "./integrations/providers/gmail": {
+        "types": "./dist/integrations/providers/gmail.d.ts",
+        "bun": "./dist/integrations/providers/gmail.js",
+        "node": "./dist/node/integrations/providers/gmail.mjs",
+        "default": "./dist/integrations/providers/gmail.js"
+      },
+      "./integrations/providers/google-calendar": {
+        "types": "./dist/integrations/providers/google-calendar.d.ts",
+        "bun": "./dist/integrations/providers/google-calendar.js",
+        "node": "./dist/node/integrations/providers/google-calendar.mjs",
+        "default": "./dist/integrations/providers/google-calendar.js"
+      },
+      "./integrations/providers/gradium": {
+        "types": "./dist/integrations/providers/gradium.d.ts",
+        "bun": "./dist/integrations/providers/gradium.js",
+        "node": "./dist/node/integrations/providers/gradium.mjs",
+        "default": "./dist/integrations/providers/gradium.js"
+      },
+      "./integrations/providers/granola": {
+        "types": "./dist/integrations/providers/granola.d.ts",
+        "bun": "./dist/integrations/providers/granola.js",
+        "node": "./dist/node/integrations/providers/granola.mjs",
+        "default": "./dist/integrations/providers/granola.js"
+      },
+      "./integrations/providers/index": {
+        "types": "./dist/integrations/providers/index.d.ts",
+        "bun": "./dist/integrations/providers/index.js",
+        "node": "./dist/node/integrations/providers/index.mjs",
+        "default": "./dist/integrations/providers/index.js"
+      },
+      "./integrations/providers/jira": {
+        "types": "./dist/integrations/providers/jira.d.ts",
+        "bun": "./dist/integrations/providers/jira.js",
+        "node": "./dist/node/integrations/providers/jira.mjs",
+        "default": "./dist/integrations/providers/jira.js"
+      },
+      "./integrations/providers/linear": {
+        "types": "./dist/integrations/providers/linear.d.ts",
+        "bun": "./dist/integrations/providers/linear.js",
+        "node": "./dist/node/integrations/providers/linear.mjs",
+        "default": "./dist/integrations/providers/linear.js"
+      },
+      "./integrations/providers/llm": {
+        "types": "./dist/integrations/providers/llm.d.ts",
+        "bun": "./dist/integrations/providers/llm.js",
+        "node": "./dist/node/integrations/providers/llm.mjs",
+        "default": "./dist/integrations/providers/llm.js"
+      },
+      "./integrations/providers/meeting-recorder": {
+        "types": "./dist/integrations/providers/meeting-recorder.d.ts",
+        "bun": "./dist/integrations/providers/meeting-recorder.js",
+        "node": "./dist/node/integrations/providers/meeting-recorder.mjs",
+        "default": "./dist/integrations/providers/meeting-recorder.js"
+      },
+      "./integrations/providers/mistral": {
+        "types": "./dist/integrations/providers/mistral.d.ts",
+        "bun": "./dist/integrations/providers/mistral.js",
+        "node": "./dist/node/integrations/providers/mistral.mjs",
+        "default": "./dist/integrations/providers/mistral.js"
+      },
+      "./integrations/providers/notion": {
+        "types": "./dist/integrations/providers/notion.d.ts",
+        "bun": "./dist/integrations/providers/notion.js",
+        "node": "./dist/node/integrations/providers/notion.mjs",
+        "default": "./dist/integrations/providers/notion.js"
+      },
+      "./integrations/providers/openbanking": {
+        "types": "./dist/integrations/providers/openbanking.d.ts",
+        "bun": "./dist/integrations/providers/openbanking.js",
+        "node": "./dist/node/integrations/providers/openbanking.mjs",
+        "default": "./dist/integrations/providers/openbanking.js"
+      },
+      "./integrations/providers/payments": {
+        "types": "./dist/integrations/providers/payments.d.ts",
+        "bun": "./dist/integrations/providers/payments.js",
+        "node": "./dist/node/integrations/providers/payments.mjs",
+        "default": "./dist/integrations/providers/payments.js"
+      },
+      "./integrations/providers/posthog": {
+        "types": "./dist/integrations/providers/posthog.d.ts",
+        "bun": "./dist/integrations/providers/posthog.js",
+        "node": "./dist/node/integrations/providers/posthog.mjs",
+        "default": "./dist/integrations/providers/posthog.js"
+      },
+      "./integrations/providers/postmark": {
+        "types": "./dist/integrations/providers/postmark.d.ts",
+        "bun": "./dist/integrations/providers/postmark.js",
+        "node": "./dist/node/integrations/providers/postmark.mjs",
+        "default": "./dist/integrations/providers/postmark.js"
+      },
+      "./integrations/providers/powens": {
+        "types": "./dist/integrations/providers/powens.d.ts",
+        "bun": "./dist/integrations/providers/powens.js",
+        "node": "./dist/node/integrations/providers/powens.mjs",
+        "default": "./dist/integrations/providers/powens.js"
+      },
+      "./integrations/providers/project-management": {
+        "types": "./dist/integrations/providers/project-management.d.ts",
+        "bun": "./dist/integrations/providers/project-management.js",
+        "node": "./dist/node/integrations/providers/project-management.mjs",
+        "default": "./dist/integrations/providers/project-management.js"
+      },
+      "./integrations/providers/qdrant": {
+        "types": "./dist/integrations/providers/qdrant.d.ts",
+        "bun": "./dist/integrations/providers/qdrant.js",
+        "node": "./dist/node/integrations/providers/qdrant.mjs",
+        "default": "./dist/integrations/providers/qdrant.js"
+      },
+      "./integrations/providers/registry": {
+        "types": "./dist/integrations/providers/registry.d.ts",
+        "bun": "./dist/integrations/providers/registry.js",
+        "node": "./dist/node/integrations/providers/registry.mjs",
+        "default": "./dist/integrations/providers/registry.js"
+      },
+      "./integrations/providers/sms": {
+        "types": "./dist/integrations/providers/sms.d.ts",
+        "bun": "./dist/integrations/providers/sms.js",
+        "node": "./dist/node/integrations/providers/sms.mjs",
+        "default": "./dist/integrations/providers/sms.js"
+      },
+      "./integrations/providers/storage": {
+        "types": "./dist/integrations/providers/storage.d.ts",
+        "bun": "./dist/integrations/providers/storage.js",
+        "node": "./dist/node/integrations/providers/storage.mjs",
+        "default": "./dist/integrations/providers/storage.js"
+      },
+      "./integrations/providers/stripe": {
+        "types": "./dist/integrations/providers/stripe.d.ts",
+        "bun": "./dist/integrations/providers/stripe.js",
+        "node": "./dist/node/integrations/providers/stripe.mjs",
+        "default": "./dist/integrations/providers/stripe.js"
+      },
+      "./integrations/providers/supabase-postgres": {
+        "types": "./dist/integrations/providers/supabase-postgres.d.ts",
+        "bun": "./dist/integrations/providers/supabase-postgres.js",
+        "node": "./dist/node/integrations/providers/supabase-postgres.mjs",
+        "default": "./dist/integrations/providers/supabase-postgres.js"
+      },
+      "./integrations/providers/supabase-vector": {
+        "types": "./dist/integrations/providers/supabase-vector.d.ts",
+        "bun": "./dist/integrations/providers/supabase-vector.js",
+        "node": "./dist/node/integrations/providers/supabase-vector.mjs",
+        "default": "./dist/integrations/providers/supabase-vector.js"
+      },
+      "./integrations/providers/tldv": {
+        "types": "./dist/integrations/providers/tldv.d.ts",
+        "bun": "./dist/integrations/providers/tldv.js",
+        "node": "./dist/node/integrations/providers/tldv.mjs",
+        "default": "./dist/integrations/providers/tldv.js"
+      },
+      "./integrations/providers/twilio-sms": {
+        "types": "./dist/integrations/providers/twilio-sms.d.ts",
+        "bun": "./dist/integrations/providers/twilio-sms.js",
+        "node": "./dist/node/integrations/providers/twilio-sms.mjs",
+        "default": "./dist/integrations/providers/twilio-sms.js"
+      },
+      "./integrations/providers/vector-store": {
+        "types": "./dist/integrations/providers/vector-store.d.ts",
+        "bun": "./dist/integrations/providers/vector-store.js",
+        "node": "./dist/node/integrations/providers/vector-store.mjs",
+        "default": "./dist/integrations/providers/vector-store.js"
+      },
+      "./integrations/providers/voice": {
+        "types": "./dist/integrations/providers/voice.d.ts",
+        "bun": "./dist/integrations/providers/voice.js",
+        "node": "./dist/node/integrations/providers/voice.mjs",
+        "default": "./dist/integrations/providers/voice.js"
+      },
+      "./integrations/runtime": {
+        "types": "./dist/integrations/runtime.d.ts",
+        "bun": "./dist/integrations/runtime.js",
+        "node": "./dist/node/integrations/runtime.mjs",
+        "default": "./dist/integrations/runtime.js"
+      },
+      "./integrations/secrets": {
+        "types": "./dist/integrations/secrets/index.d.ts",
+        "bun": "./dist/integrations/secrets/index.js",
+        "node": "./dist/node/integrations/secrets/index.mjs",
+        "default": "./dist/integrations/secrets/index.js"
+      },
+      "./integrations/secrets-types": {
+        "types": "./dist/integrations/secrets-types.d.ts",
+        "bun": "./dist/integrations/secrets-types.js",
+        "node": "./dist/node/integrations/secrets-types.mjs",
+        "default": "./dist/integrations/secrets-types.js"
+      },
+      "./integrations/secrets/aws-secret-manager": {
+        "types": "./dist/integrations/secrets/aws-secret-manager.d.ts",
+        "bun": "./dist/integrations/secrets/aws-secret-manager.js",
+        "node": "./dist/node/integrations/secrets/aws-secret-manager.mjs",
+        "default": "./dist/integrations/secrets/aws-secret-manager.js"
+      },
+      "./integrations/secrets/env-secret-provider": {
+        "types": "./dist/integrations/secrets/env-secret-provider.d.ts",
+        "bun": "./dist/integrations/secrets/env-secret-provider.js",
+        "node": "./dist/node/integrations/secrets/env-secret-provider.mjs",
+        "default": "./dist/integrations/secrets/env-secret-provider.js"
+      },
+      "./integrations/secrets/gcp-secret-manager": {
+        "types": "./dist/integrations/secrets/gcp-secret-manager.d.ts",
+        "bun": "./dist/integrations/secrets/gcp-secret-manager.js",
+        "node": "./dist/node/integrations/secrets/gcp-secret-manager.mjs",
+        "default": "./dist/integrations/secrets/gcp-secret-manager.js"
+      },
+      "./integrations/secrets/index": {
+        "types": "./dist/integrations/secrets/index.d.ts",
+        "bun": "./dist/integrations/secrets/index.js",
+        "node": "./dist/node/integrations/secrets/index.mjs",
+        "default": "./dist/integrations/secrets/index.js"
+      },
+      "./integrations/secrets/manager": {
+        "types": "./dist/integrations/secrets/manager.d.ts",
+        "bun": "./dist/integrations/secrets/manager.js",
+        "node": "./dist/node/integrations/secrets/manager.mjs",
+        "default": "./dist/integrations/secrets/manager.js"
+      },
+      "./integrations/secrets/provider": {
+        "types": "./dist/integrations/secrets/provider.d.ts",
+        "bun": "./dist/integrations/secrets/provider.js",
+        "node": "./dist/node/integrations/secrets/provider.mjs",
+        "default": "./dist/integrations/secrets/provider.js"
+      },
+      "./integrations/secrets/scaleway-secret-manager": {
+        "types": "./dist/integrations/secrets/scaleway-secret-manager.d.ts",
+        "bun": "./dist/integrations/secrets/scaleway-secret-manager.js",
+        "node": "./dist/node/integrations/secrets/scaleway-secret-manager.mjs",
+        "default": "./dist/integrations/secrets/scaleway-secret-manager.js"
+      },
+      "./integrations/spec": {
+        "types": "./dist/integrations/spec.d.ts",
+        "bun": "./dist/integrations/spec.js",
+        "node": "./dist/node/integrations/spec.mjs",
+        "default": "./dist/integrations/spec.js"
+      },
+      "./jobs": {
+        "types": "./dist/jobs/index.d.ts",
+        "bun": "./dist/jobs/index.js",
+        "node": "./dist/node/jobs/index.mjs",
+        "default": "./dist/jobs/index.js"
+      },
+      "./jobs/define-job": {
+        "types": "./dist/jobs/define-job.d.ts",
+        "bun": "./dist/jobs/define-job.js",
+        "node": "./dist/node/jobs/define-job.mjs",
+        "default": "./dist/jobs/define-job.js"
+      },
+      "./jobs/gcp-cloud-tasks": {
+        "types": "./dist/jobs/gcp-cloud-tasks.d.ts",
+        "bun": "./dist/jobs/gcp-cloud-tasks.js",
+        "node": "./dist/node/jobs/gcp-cloud-tasks.mjs",
+        "default": "./dist/jobs/gcp-cloud-tasks.js"
+      },
+      "./jobs/gcp-pubsub": {
+        "types": "./dist/jobs/gcp-pubsub.d.ts",
+        "bun": "./dist/jobs/gcp-pubsub.js",
+        "node": "./dist/node/jobs/gcp-pubsub.mjs",
+        "default": "./dist/jobs/gcp-pubsub.js"
+      },
+      "./jobs/handlers": {
+        "types": "./dist/jobs/handlers/index.d.ts",
+        "bun": "./dist/jobs/handlers/index.js",
+        "node": "./dist/node/jobs/handlers/index.mjs",
+        "default": "./dist/jobs/handlers/index.js"
+      },
+      "./jobs/handlers/gmail-sync-handler": {
+        "types": "./dist/jobs/handlers/gmail-sync-handler.d.ts",
+        "bun": "./dist/jobs/handlers/gmail-sync-handler.js",
+        "node": "./dist/node/jobs/handlers/gmail-sync-handler.mjs",
+        "default": "./dist/jobs/handlers/gmail-sync-handler.js"
+      },
+      "./jobs/handlers/index": {
+        "types": "./dist/jobs/handlers/index.d.ts",
+        "bun": "./dist/jobs/handlers/index.js",
+        "node": "./dist/node/jobs/handlers/index.mjs",
+        "default": "./dist/jobs/handlers/index.js"
+      },
+      "./jobs/handlers/ping-handler": {
+        "types": "./dist/jobs/handlers/ping-handler.d.ts",
+        "bun": "./dist/jobs/handlers/ping-handler.js",
+        "node": "./dist/node/jobs/handlers/ping-handler.mjs",
+        "default": "./dist/jobs/handlers/ping-handler.js"
+      },
+      "./jobs/handlers/storage-document-handler": {
+        "types": "./dist/jobs/handlers/storage-document-handler.d.ts",
+        "bun": "./dist/jobs/handlers/storage-document-handler.js",
+        "node": "./dist/node/jobs/handlers/storage-document-handler.mjs",
+        "default": "./dist/jobs/handlers/storage-document-handler.js"
+      },
+      "./jobs/index": {
+        "types": "./dist/jobs/index.d.ts",
+        "bun": "./dist/jobs/index.js",
+        "node": "./dist/node/jobs/index.mjs",
+        "default": "./dist/jobs/index.js"
+      },
+      "./jobs/memory-queue": {
+        "types": "./dist/jobs/memory-queue.d.ts",
+        "bun": "./dist/jobs/memory-queue.js",
+        "node": "./dist/node/jobs/memory-queue.mjs",
+        "default": "./dist/jobs/memory-queue.js"
+      },
+      "./jobs/queue": {
+        "types": "./dist/jobs/queue.d.ts",
+        "bun": "./dist/jobs/queue.js",
+        "node": "./dist/node/jobs/queue.mjs",
+        "default": "./dist/jobs/queue.js"
+      },
+      "./jobs/scaleway-sqs-queue": {
+        "types": "./dist/jobs/scaleway-sqs-queue.d.ts",
+        "bun": "./dist/jobs/scaleway-sqs-queue.js",
+        "node": "./dist/node/jobs/scaleway-sqs-queue.mjs",
+        "default": "./dist/jobs/scaleway-sqs-queue.js"
+      },
+      "./jsonschema": {
+        "types": "./dist/jsonschema.d.ts",
+        "bun": "./dist/jsonschema.js",
+        "node": "./dist/node/jsonschema.mjs",
+        "default": "./dist/jsonschema.js"
+      },
+      "./knowledge": {
+        "types": "./dist/knowledge/index.d.ts",
+        "bun": "./dist/knowledge/index.js",
+        "node": "./dist/node/knowledge/index.mjs",
+        "default": "./dist/knowledge/index.js"
+      },
+      "./knowledge/binding": {
+        "types": "./dist/knowledge/binding.d.ts",
+        "bun": "./dist/knowledge/binding.js",
+        "node": "./dist/node/knowledge/binding.mjs",
+        "default": "./dist/knowledge/binding.js"
+      },
+      "./knowledge/docs/knowledge.docblock": {
+        "types": "./dist/knowledge/docs/knowledge.docblock.d.ts",
+        "bun": "./dist/knowledge/docs/knowledge.docblock.js",
+        "node": "./dist/node/knowledge/docs/knowledge.docblock.mjs",
+        "default": "./dist/knowledge/docs/knowledge.docblock.js"
+      },
+      "./knowledge/index": {
+        "types": "./dist/knowledge/index.d.ts",
+        "bun": "./dist/knowledge/index.js",
+        "node": "./dist/node/knowledge/index.mjs",
+        "default": "./dist/knowledge/index.js"
+      },
+      "./knowledge/ingestion": {
+        "types": "./dist/knowledge/ingestion/index.d.ts",
+        "bun": "./dist/knowledge/ingestion/index.js",
+        "node": "./dist/node/knowledge/ingestion/index.mjs",
+        "default": "./dist/knowledge/ingestion/index.js"
+      },
+      "./knowledge/ingestion/document-processor": {
+        "types": "./dist/knowledge/ingestion/document-processor.d.ts",
+        "bun": "./dist/knowledge/ingestion/document-processor.js",
+        "node": "./dist/node/knowledge/ingestion/document-processor.mjs",
+        "default": "./dist/knowledge/ingestion/document-processor.js"
+      },
+      "./knowledge/ingestion/embedding-service": {
+        "types": "./dist/knowledge/ingestion/embedding-service.d.ts",
+        "bun": "./dist/knowledge/ingestion/embedding-service.js",
+        "node": "./dist/node/knowledge/ingestion/embedding-service.mjs",
+        "default": "./dist/knowledge/ingestion/embedding-service.js"
+      },
+      "./knowledge/ingestion/gmail-adapter": {
+        "types": "./dist/knowledge/ingestion/gmail-adapter.d.ts",
+        "bun": "./dist/knowledge/ingestion/gmail-adapter.js",
+        "node": "./dist/node/knowledge/ingestion/gmail-adapter.mjs",
+        "default": "./dist/knowledge/ingestion/gmail-adapter.js"
+      },
+      "./knowledge/ingestion/index": {
+        "types": "./dist/knowledge/ingestion/index.d.ts",
+        "bun": "./dist/knowledge/ingestion/index.js",
+        "node": "./dist/node/knowledge/ingestion/index.mjs",
+        "default": "./dist/knowledge/ingestion/index.js"
+      },
+      "./knowledge/ingestion/storage-adapter": {
+        "types": "./dist/knowledge/ingestion/storage-adapter.d.ts",
+        "bun": "./dist/knowledge/ingestion/storage-adapter.js",
+        "node": "./dist/node/knowledge/ingestion/storage-adapter.mjs",
+        "default": "./dist/knowledge/ingestion/storage-adapter.js"
+      },
+      "./knowledge/ingestion/vector-indexer": {
+        "types": "./dist/knowledge/ingestion/vector-indexer.d.ts",
+        "bun": "./dist/knowledge/ingestion/vector-indexer.js",
+        "node": "./dist/node/knowledge/ingestion/vector-indexer.mjs",
+        "default": "./dist/knowledge/ingestion/vector-indexer.js"
+      },
+      "./knowledge/knowledge.capability": {
+        "types": "./dist/knowledge/knowledge.capability.d.ts",
+        "bun": "./dist/knowledge/knowledge.capability.js",
+        "node": "./dist/node/knowledge/knowledge.capability.mjs",
+        "default": "./dist/knowledge/knowledge.capability.js"
+      },
+      "./knowledge/knowledge.feature": {
+        "types": "./dist/knowledge/knowledge.feature.d.ts",
+        "bun": "./dist/knowledge/knowledge.feature.js",
+        "node": "./dist/node/knowledge/knowledge.feature.mjs",
+        "default": "./dist/knowledge/knowledge.feature.js"
+      },
+      "./knowledge/operations": {
+        "types": "./dist/knowledge/operations.d.ts",
+        "bun": "./dist/knowledge/operations.js",
+        "node": "./dist/node/knowledge/operations.mjs",
+        "default": "./dist/knowledge/operations.js"
+      },
+      "./knowledge/query": {
+        "types": "./dist/knowledge/query/index.d.ts",
+        "bun": "./dist/knowledge/query/index.js",
+        "node": "./dist/node/knowledge/query/index.mjs",
+        "default": "./dist/knowledge/query/index.js"
+      },
+      "./knowledge/query/index": {
+        "types": "./dist/knowledge/query/index.d.ts",
+        "bun": "./dist/knowledge/query/index.js",
+        "node": "./dist/node/knowledge/query/index.mjs",
+        "default": "./dist/knowledge/query/index.js"
+      },
+      "./knowledge/query/service": {
+        "types": "./dist/knowledge/query/service.d.ts",
+        "bun": "./dist/knowledge/query/service.js",
+        "node": "./dist/node/knowledge/query/service.mjs",
+        "default": "./dist/knowledge/query/service.js"
+      },
+      "./knowledge/runtime": {
+        "types": "./dist/knowledge/runtime.d.ts",
+        "bun": "./dist/knowledge/runtime.js",
+        "node": "./dist/node/knowledge/runtime.mjs",
+        "default": "./dist/knowledge/runtime.js"
+      },
+      "./knowledge/source": {
+        "types": "./dist/knowledge/source.d.ts",
+        "bun": "./dist/knowledge/source.js",
+        "node": "./dist/node/knowledge/source.mjs",
+        "default": "./dist/knowledge/source.js"
+      },
+      "./knowledge/spaces": {
+        "types": "./dist/knowledge/spaces/index.d.ts",
+        "bun": "./dist/knowledge/spaces/index.js",
+        "node": "./dist/node/knowledge/spaces/index.mjs",
+        "default": "./dist/knowledge/spaces/index.js"
+      },
+      "./knowledge/spaces/email-threads": {
+        "types": "./dist/knowledge/spaces/email-threads.d.ts",
+        "bun": "./dist/knowledge/spaces/email-threads.js",
+        "node": "./dist/node/knowledge/spaces/email-threads.mjs",
+        "default": "./dist/knowledge/spaces/email-threads.js"
+      },
+      "./knowledge/spaces/financial-docs": {
+        "types": "./dist/knowledge/spaces/financial-docs.d.ts",
+        "bun": "./dist/knowledge/spaces/financial-docs.js",
+        "node": "./dist/node/knowledge/spaces/financial-docs.mjs",
+        "default": "./dist/knowledge/spaces/financial-docs.js"
+      },
+      "./knowledge/spaces/financial-overview": {
+        "types": "./dist/knowledge/spaces/financial-overview.d.ts",
+        "bun": "./dist/knowledge/spaces/financial-overview.js",
+        "node": "./dist/node/knowledge/spaces/financial-overview.mjs",
+        "default": "./dist/knowledge/spaces/financial-overview.js"
+      },
+      "./knowledge/spaces/index": {
+        "types": "./dist/knowledge/spaces/index.d.ts",
+        "bun": "./dist/knowledge/spaces/index.js",
+        "node": "./dist/node/knowledge/spaces/index.mjs",
+        "default": "./dist/knowledge/spaces/index.js"
+      },
+      "./knowledge/spaces/product-canon": {
+        "types": "./dist/knowledge/spaces/product-canon.d.ts",
+        "bun": "./dist/knowledge/spaces/product-canon.js",
+        "node": "./dist/node/knowledge/spaces/product-canon.mjs",
+        "default": "./dist/knowledge/spaces/product-canon.js"
+      },
+      "./knowledge/spaces/support-faq": {
+        "types": "./dist/knowledge/spaces/support-faq.d.ts",
+        "bun": "./dist/knowledge/spaces/support-faq.js",
+        "node": "./dist/node/knowledge/spaces/support-faq.mjs",
+        "default": "./dist/knowledge/spaces/support-faq.js"
+      },
+      "./knowledge/spaces/uploaded-docs": {
+        "types": "./dist/knowledge/spaces/uploaded-docs.d.ts",
+        "bun": "./dist/knowledge/spaces/uploaded-docs.js",
+        "node": "./dist/node/knowledge/spaces/uploaded-docs.mjs",
+        "default": "./dist/knowledge/spaces/uploaded-docs.js"
+      },
+      "./knowledge/spec": {
+        "types": "./dist/knowledge/spec.d.ts",
+        "bun": "./dist/knowledge/spec.js",
+        "node": "./dist/node/knowledge/spec.mjs",
+        "default": "./dist/knowledge/spec.js"
+      },
+      "./llm": {
+        "types": "./dist/llm/index.d.ts",
+        "bun": "./dist/llm/index.js",
+        "node": "./dist/node/llm/index.mjs",
+        "default": "./dist/llm/index.js"
+      },
+      "./llm/exporters": {
+        "types": "./dist/llm/exporters.d.ts",
+        "bun": "./dist/llm/exporters.js",
+        "node": "./dist/node/llm/exporters.mjs",
+        "default": "./dist/llm/exporters.js"
+      },
+      "./llm/index": {
+        "types": "./dist/llm/index.d.ts",
+        "bun": "./dist/llm/index.js",
+        "node": "./dist/node/llm/index.mjs",
+        "default": "./dist/llm/index.js"
+      },
+      "./llm/prompts": {
+        "types": "./dist/llm/prompts.d.ts",
+        "bun": "./dist/llm/prompts.js",
+        "node": "./dist/node/llm/prompts.mjs",
+        "default": "./dist/llm/prompts.js"
+      },
+      "./llm/types": {
+        "types": "./dist/llm/types.d.ts",
+        "bun": "./dist/llm/types.js",
+        "node": "./dist/node/llm/types.mjs",
+        "default": "./dist/llm/types.js"
+      },
+      "./markdown": {
+        "types": "./dist/markdown.d.ts",
+        "bun": "./dist/markdown.js",
+        "node": "./dist/node/markdown.mjs",
+        "default": "./dist/markdown.js"
+      },
+      "./migrations": {
+        "types": "./dist/migrations.d.ts",
+        "bun": "./dist/migrations.js",
+        "node": "./dist/node/migrations.mjs",
+        "default": "./dist/migrations.js"
+      },
+      "./model-registry": {
+        "types": "./dist/model-registry.d.ts",
+        "bun": "./dist/model-registry.js",
+        "node": "./dist/node/model-registry.mjs",
+        "default": "./dist/model-registry.js"
+      },
+      "./onboarding-base": {
+        "types": "./dist/onboarding-base.d.ts",
+        "bun": "./dist/onboarding-base.js",
+        "node": "./dist/node/onboarding-base.mjs",
+        "default": "./dist/onboarding-base.js"
+      },
+      "./openapi": {
+        "types": "./dist/openapi.d.ts",
+        "bun": "./dist/openapi.js",
+        "node": "./dist/node/openapi.mjs",
+        "default": "./dist/openapi.js"
+      },
+      "./operations": {
+        "types": "./dist/operations/index.d.ts",
+        "bun": "./dist/operations/index.js",
+        "node": "./dist/node/operations/index.mjs",
+        "default": "./dist/operations/index.js"
+      },
+      "./operations/index": {
+        "types": "./dist/operations/index.d.ts",
+        "bun": "./dist/operations/index.js",
+        "node": "./dist/node/operations/index.mjs",
+        "default": "./dist/operations/index.js"
+      },
+      "./operations/operation": {
+        "types": "./dist/operations/operation.d.ts",
+        "bun": "./dist/operations/operation.js",
+        "node": "./dist/node/operations/operation.mjs",
+        "default": "./dist/operations/operation.js"
+      },
+      "./operations/registry": {
+        "types": "./dist/operations/registry.d.ts",
+        "bun": "./dist/operations/registry.js",
+        "node": "./dist/node/operations/registry.mjs",
+        "default": "./dist/operations/registry.js"
+      },
+      "./operations/report": {
+        "types": "./dist/operations/report/index.d.ts",
+        "bun": "./dist/operations/report/index.js",
+        "node": "./dist/node/operations/report/index.mjs",
+        "default": "./dist/operations/report/index.js"
+      },
+      "./operations/report/getContractVerificationStatus": {
+        "types": "./dist/operations/report/getContractVerificationStatus.d.ts",
+        "bun": "./dist/operations/report/getContractVerificationStatus.js",
+        "node": "./dist/node/operations/report/getContractVerificationStatus.mjs",
+        "default": "./dist/operations/report/getContractVerificationStatus.js"
+      },
+      "./operations/report/index": {
+        "types": "./dist/operations/report/index.d.ts",
+        "bun": "./dist/operations/report/index.js",
+        "node": "./dist/node/operations/report/index.mjs",
+        "default": "./dist/operations/report/index.js"
+      },
+      "./ownership": {
+        "types": "./dist/ownership.d.ts",
+        "bun": "./dist/ownership.js",
+        "node": "./dist/node/ownership.mjs",
+        "default": "./dist/ownership.js"
+      },
+      "./policy": {
+        "types": "./dist/policy/index.d.ts",
+        "bun": "./dist/policy/index.js",
+        "node": "./dist/node/policy/index.mjs",
+        "default": "./dist/policy/index.js"
+      },
+      "./policy/context": {
+        "types": "./dist/policy/context.d.ts",
+        "bun": "./dist/policy/context.js",
+        "node": "./dist/node/policy/context.mjs",
+        "default": "./dist/policy/context.js"
+      },
+      "./policy/docs/policy.docblock": {
+        "types": "./dist/policy/docs/policy.docblock.d.ts",
+        "bun": "./dist/policy/docs/policy.docblock.js",
+        "node": "./dist/node/policy/docs/policy.docblock.mjs",
+        "default": "./dist/policy/docs/policy.docblock.js"
+      },
+      "./policy/engine": {
+        "types": "./dist/policy/engine.d.ts",
+        "bun": "./dist/policy/engine.js",
+        "node": "./dist/node/policy/engine.mjs",
+        "default": "./dist/policy/engine.js"
+      },
+      "./policy/guards": {
+        "types": "./dist/policy/guards.d.ts",
+        "bun": "./dist/policy/guards.js",
+        "node": "./dist/node/policy/guards.mjs",
+        "default": "./dist/policy/guards.js"
+      },
+      "./policy/index": {
+        "types": "./dist/policy/index.d.ts",
+        "bun": "./dist/policy/index.js",
+        "node": "./dist/node/policy/index.mjs",
+        "default": "./dist/policy/index.js"
+      },
+      "./policy/opa-adapter": {
+        "types": "./dist/policy/opa-adapter.d.ts",
+        "bun": "./dist/policy/opa-adapter.js",
+        "node": "./dist/node/policy/opa-adapter.mjs",
+        "default": "./dist/policy/opa-adapter.js"
+      },
+      "./policy/registry": {
+        "types": "./dist/policy/registry.d.ts",
+        "bun": "./dist/policy/registry.js",
+        "node": "./dist/node/policy/registry.mjs",
+        "default": "./dist/policy/registry.js"
+      },
+      "./policy/spec": {
+        "types": "./dist/policy/spec.d.ts",
+        "bun": "./dist/policy/spec.js",
+        "node": "./dist/node/policy/spec.mjs",
+        "default": "./dist/policy/spec.js"
+      },
+      "./policy/validation": {
+        "types": "./dist/policy/validation.d.ts",
+        "bun": "./dist/policy/validation.js",
+        "node": "./dist/node/policy/validation.mjs",
+        "default": "./dist/policy/validation.js"
+      },
+      "./presentations": {
+        "types": "./dist/presentations/index.d.ts",
+        "bun": "./dist/presentations/index.js",
+        "node": "./dist/node/presentations/index.mjs",
+        "default": "./dist/presentations/index.js"
+      },
+      "./presentations/docs/presentations-conventions.docblock": {
+        "types": "./dist/presentations/docs/presentations-conventions.docblock.d.ts",
+        "bun": "./dist/presentations/docs/presentations-conventions.docblock.js",
+        "node": "./dist/node/presentations/docs/presentations-conventions.docblock.mjs",
+        "default": "./dist/presentations/docs/presentations-conventions.docblock.js"
+      },
+      "./presentations/index": {
+        "types": "./dist/presentations/index.d.ts",
+        "bun": "./dist/presentations/index.js",
+        "node": "./dist/node/presentations/index.mjs",
+        "default": "./dist/presentations/index.js"
+      },
+      "./presentations/presentations": {
+        "types": "./dist/presentations/presentations.d.ts",
+        "bun": "./dist/presentations/presentations.js",
+        "node": "./dist/node/presentations/presentations.mjs",
+        "default": "./dist/presentations/presentations.js"
+      },
+      "./presentations/registry": {
+        "types": "./dist/presentations/registry.d.ts",
+        "bun": "./dist/presentations/registry.js",
+        "node": "./dist/node/presentations/registry.mjs",
+        "default": "./dist/presentations/registry.js"
+      },
+      "./presentations/transform-engine": {
+        "types": "./dist/presentations/transform-engine.d.ts",
+        "bun": "./dist/presentations/transform-engine.js",
+        "node": "./dist/node/presentations/transform-engine.mjs",
+        "default": "./dist/presentations/transform-engine.js"
+      },
+      "./product-intent": {
+        "types": "./dist/product-intent/index.d.ts",
+        "bun": "./dist/product-intent/index.js",
+        "node": "./dist/node/product-intent/index.mjs",
+        "default": "./dist/product-intent/index.js"
+      },
+      "./product-intent/contract-patch-intent": {
+        "types": "./dist/product-intent/contract-patch-intent.d.ts",
+        "bun": "./dist/product-intent/contract-patch-intent.js",
+        "node": "./dist/node/product-intent/contract-patch-intent.mjs",
+        "default": "./dist/product-intent/contract-patch-intent.js"
+      },
+      "./product-intent/contract-spec-patch": {
+        "types": "./dist/product-intent/contract-spec-patch.d.ts",
+        "bun": "./dist/product-intent/contract-spec-patch.js",
+        "node": "./dist/node/product-intent/contract-spec-patch.mjs",
+        "default": "./dist/product-intent/contract-spec-patch.js"
+      },
+      "./product-intent/evidence": {
+        "types": "./dist/product-intent/evidence.d.ts",
+        "bun": "./dist/product-intent/evidence.js",
+        "node": "./dist/node/product-intent/evidence.mjs",
+        "default": "./dist/product-intent/evidence.js"
+      },
+      "./product-intent/findings": {
+        "types": "./dist/product-intent/findings.d.ts",
+        "bun": "./dist/product-intent/findings.js",
+        "node": "./dist/node/product-intent/findings.mjs",
+        "default": "./dist/product-intent/findings.js"
+      },
+      "./product-intent/impact-report": {
+        "types": "./dist/product-intent/impact-report.d.ts",
+        "bun": "./dist/product-intent/impact-report.js",
+        "node": "./dist/node/product-intent/impact-report.mjs",
+        "default": "./dist/product-intent/impact-report.js"
+      },
+      "./product-intent/index": {
+        "types": "./dist/product-intent/index.d.ts",
+        "bun": "./dist/product-intent/index.js",
+        "node": "./dist/node/product-intent/index.mjs",
+        "default": "./dist/product-intent/index.js"
+      },
+      "./product-intent/insights": {
+        "types": "./dist/product-intent/insights.d.ts",
+        "bun": "./dist/product-intent/insights.js",
+        "node": "./dist/node/product-intent/insights.mjs",
+        "default": "./dist/product-intent/insights.js"
+      },
+      "./product-intent/opportunity-brief": {
+        "types": "./dist/product-intent/opportunity-brief.d.ts",
+        "bun": "./dist/product-intent/opportunity-brief.js",
+        "node": "./dist/node/product-intent/opportunity-brief.mjs",
+        "default": "./dist/product-intent/opportunity-brief.js"
+      },
+      "./product-intent/problems": {
+        "types": "./dist/product-intent/problems.d.ts",
+        "bun": "./dist/product-intent/problems.js",
+        "node": "./dist/node/product-intent/problems.mjs",
+        "default": "./dist/product-intent/problems.js"
+      },
+      "./product-intent/registry": {
+        "types": "./dist/product-intent/registry.d.ts",
+        "bun": "./dist/product-intent/registry.js",
+        "node": "./dist/node/product-intent/registry.mjs",
+        "default": "./dist/product-intent/registry.js"
+      },
+      "./product-intent/runtime": {
+        "types": "./dist/product-intent/runtime.d.ts",
+        "bun": "./dist/product-intent/runtime.js",
+        "node": "./dist/node/product-intent/runtime.mjs",
+        "default": "./dist/product-intent/runtime.js"
+      },
+      "./product-intent/spec": {
+        "types": "./dist/product-intent/spec.d.ts",
+        "bun": "./dist/product-intent/spec.js",
+        "node": "./dist/node/product-intent/spec.mjs",
+        "default": "./dist/product-intent/spec.js"
+      },
+      "./product-intent/task-pack": {
+        "types": "./dist/product-intent/task-pack.d.ts",
+        "bun": "./dist/product-intent/task-pack.js",
+        "node": "./dist/node/product-intent/task-pack.mjs",
+        "default": "./dist/product-intent/task-pack.js"
+      },
+      "./product-intent/tickets": {
+        "types": "./dist/product-intent/tickets.d.ts",
+        "bun": "./dist/product-intent/tickets.js",
+        "node": "./dist/node/product-intent/tickets.mjs",
+        "default": "./dist/product-intent/tickets.js"
+      },
+      "./product-intent/types": {
+        "types": "./dist/product-intent/types.d.ts",
+        "bun": "./dist/product-intent/types.js",
+        "node": "./dist/node/product-intent/types.mjs",
+        "default": "./dist/product-intent/types.js"
+      },
+      "./product-intent/ui-wireframe": {
+        "types": "./dist/product-intent/ui-wireframe.d.ts",
+        "bun": "./dist/product-intent/ui-wireframe.js",
+        "node": "./dist/node/product-intent/ui-wireframe.mjs",
+        "default": "./dist/product-intent/ui-wireframe.js"
+      },
+      "./prompt": {
+        "types": "./dist/prompt.d.ts",
+        "bun": "./dist/prompt.js",
+        "node": "./dist/node/prompt.mjs",
+        "default": "./dist/prompt.js"
+      },
+      "./promptRegistry": {
+        "types": "./dist/promptRegistry.d.ts",
+        "bun": "./dist/promptRegistry.js",
+        "node": "./dist/node/promptRegistry.mjs",
+        "default": "./dist/promptRegistry.js"
+      },
+      "./regenerator": {
+        "types": "./dist/regenerator/index.d.ts",
+        "bun": "./dist/regenerator/index.js",
+        "node": "./dist/node/regenerator/index.mjs",
+        "default": "./dist/regenerator/index.js"
+      },
+      "./regenerator/adapters": {
+        "types": "./dist/regenerator/adapters.d.ts",
+        "bun": "./dist/regenerator/adapters.js",
+        "node": "./dist/node/regenerator/adapters.mjs",
+        "default": "./dist/regenerator/adapters.js"
+      },
+      "./regenerator/docs/regenerator.docblock": {
+        "types": "./dist/regenerator/docs/regenerator.docblock.d.ts",
+        "bun": "./dist/regenerator/docs/regenerator.docblock.js",
+        "node": "./dist/node/regenerator/docs/regenerator.docblock.mjs",
+        "default": "./dist/regenerator/docs/regenerator.docblock.js"
+      },
+      "./regenerator/executor": {
+        "types": "./dist/regenerator/executor.d.ts",
+        "bun": "./dist/regenerator/executor.js",
+        "node": "./dist/node/regenerator/executor.mjs",
+        "default": "./dist/regenerator/executor.js"
+      },
+      "./regenerator/index": {
+        "types": "./dist/regenerator/index.d.ts",
+        "bun": "./dist/regenerator/index.js",
+        "node": "./dist/node/regenerator/index.mjs",
+        "default": "./dist/regenerator/index.js"
+      },
+      "./regenerator/service": {
+        "types": "./dist/regenerator/service.d.ts",
+        "bun": "./dist/regenerator/service.js",
+        "node": "./dist/node/regenerator/service.mjs",
+        "default": "./dist/regenerator/service.js"
+      },
+      "./regenerator/sinks": {
+        "types": "./dist/regenerator/sinks.d.ts",
+        "bun": "./dist/regenerator/sinks.js",
+        "node": "./dist/node/regenerator/sinks.mjs",
+        "default": "./dist/regenerator/sinks.js"
+      },
+      "./regenerator/types": {
+        "types": "./dist/regenerator/types.d.ts",
+        "bun": "./dist/regenerator/types.js",
+        "node": "./dist/node/regenerator/types.mjs",
+        "default": "./dist/regenerator/types.js"
+      },
+      "./regenerator/utils": {
+        "types": "./dist/regenerator/utils.d.ts",
+        "bun": "./dist/regenerator/utils.js",
+        "node": "./dist/node/regenerator/utils.mjs",
+        "default": "./dist/regenerator/utils.js"
+      },
+      "./registry": {
+        "types": "./dist/registry.d.ts",
+        "bun": "./dist/registry.js",
+        "node": "./dist/node/registry.mjs",
+        "default": "./dist/registry.js"
+      },
+      "./registry-utils": {
+        "types": "./dist/registry-utils.d.ts",
+        "bun": "./dist/registry-utils.js",
+        "node": "./dist/node/registry-utils.mjs",
+        "default": "./dist/registry-utils.js"
+      },
+      "./resources": {
+        "types": "./dist/resources.d.ts",
+        "bun": "./dist/resources.js",
+        "node": "./dist/node/resources.mjs",
+        "default": "./dist/resources.js"
+      },
+      "./schema-to-markdown": {
+        "types": "./dist/schema-to-markdown.d.ts",
+        "bun": "./dist/schema-to-markdown.js",
+        "node": "./dist/node/schema-to-markdown.mjs",
+        "default": "./dist/schema-to-markdown.js"
+      },
+      "./serialization": {
+        "types": "./dist/serialization/index.d.ts",
+        "bun": "./dist/serialization/index.js",
+        "node": "./dist/node/serialization/index.mjs",
+        "default": "./dist/serialization/index.js"
+      },
+      "./serialization/index": {
+        "types": "./dist/serialization/index.d.ts",
+        "bun": "./dist/serialization/index.js",
+        "node": "./dist/node/serialization/index.mjs",
+        "default": "./dist/serialization/index.js"
+      },
+      "./serialization/serializers": {
+        "types": "./dist/serialization/serializers.d.ts",
+        "bun": "./dist/serialization/serializers.js",
+        "node": "./dist/node/serialization/serializers.mjs",
+        "default": "./dist/serialization/serializers.js"
+      },
+      "./serialization/types": {
+        "types": "./dist/serialization/types.d.ts",
+        "bun": "./dist/serialization/types.js",
+        "node": "./dist/node/serialization/types.mjs",
+        "default": "./dist/serialization/types.js"
+      },
+      "./server": {
+        "types": "./dist/server/index.d.ts",
+        "bun": "./dist/server/index.js",
+        "node": "./dist/node/server/index.mjs",
+        "default": "./dist/server/index.js"
+      },
+      "./server/contracts-adapter-hydration": {
+        "types": "./dist/server/contracts-adapter-hydration.d.ts",
+        "bun": "./dist/server/contracts-adapter-hydration.js",
+        "node": "./dist/node/server/contracts-adapter-hydration.mjs",
+        "default": "./dist/server/contracts-adapter-hydration.js"
+      },
+      "./server/contracts-adapter-input": {
+        "types": "./dist/server/contracts-adapter-input.d.ts",
+        "bun": "./dist/server/contracts-adapter-input.js",
+        "node": "./dist/node/server/contracts-adapter-input.mjs",
+        "default": "./dist/server/contracts-adapter-input.js"
+      },
+      "./server/graphql-pothos": {
+        "types": "./dist/server/graphql-pothos.d.ts",
+        "bun": "./dist/server/graphql-pothos.js",
+        "node": "./dist/node/server/graphql-pothos.mjs",
+        "default": "./dist/server/graphql-pothos.js"
+      },
+      "./server/index": {
+        "types": "./dist/server/index.d.ts",
+        "bun": "./dist/server/index.js",
+        "node": "./dist/node/server/index.mjs",
+        "default": "./dist/server/index.js"
+      },
+      "./server/mcp/createMcpServer": {
+        "types": "./dist/server/mcp/createMcpServer.d.ts",
+        "bun": "./dist/server/mcp/createMcpServer.js",
+        "node": "./dist/node/server/mcp/createMcpServer.mjs",
+        "default": "./dist/server/mcp/createMcpServer.js"
+      },
+      "./server/mcp/mcpTypes": {
+        "types": "./dist/server/mcp/mcpTypes.d.ts",
+        "bun": "./dist/server/mcp/mcpTypes.js",
+        "node": "./dist/node/server/mcp/mcpTypes.mjs",
+        "default": "./dist/server/mcp/mcpTypes.js"
+      },
+      "./server/mcp/registerPresentations": {
+        "types": "./dist/server/mcp/registerPresentations.d.ts",
+        "bun": "./dist/server/mcp/registerPresentations.js",
+        "node": "./dist/node/server/mcp/registerPresentations.mjs",
+        "default": "./dist/server/mcp/registerPresentations.js"
+      },
+      "./server/mcp/registerPrompts": {
+        "types": "./dist/server/mcp/registerPrompts.d.ts",
+        "bun": "./dist/server/mcp/registerPrompts.js",
+        "node": "./dist/node/server/mcp/registerPrompts.mjs",
+        "default": "./dist/server/mcp/registerPrompts.js"
+      },
+      "./server/mcp/registerResources": {
+        "types": "./dist/server/mcp/registerResources.d.ts",
+        "bun": "./dist/server/mcp/registerResources.js",
+        "node": "./dist/node/server/mcp/registerResources.mjs",
+        "default": "./dist/server/mcp/registerResources.js"
+      },
+      "./server/mcp/registerTools": {
+        "types": "./dist/server/mcp/registerTools.d.ts",
+        "bun": "./dist/server/mcp/registerTools.js",
+        "node": "./dist/node/server/mcp/registerTools.mjs",
+        "default": "./dist/server/mcp/registerTools.js"
+      },
+      "./server/provider-mcp": {
+        "types": "./dist/server/provider-mcp.d.ts",
+        "bun": "./dist/server/provider-mcp.js",
+        "node": "./dist/node/server/provider-mcp.mjs",
+        "default": "./dist/server/provider-mcp.js"
+      },
+      "./server/rest-elysia": {
+        "types": "./dist/server/rest-elysia.d.ts",
+        "bun": "./dist/server/rest-elysia.js",
+        "node": "./dist/node/server/rest-elysia.mjs",
+        "default": "./dist/server/rest-elysia.js"
+      },
+      "./server/rest-express": {
+        "types": "./dist/server/rest-express.d.ts",
+        "bun": "./dist/server/rest-express.js",
+        "node": "./dist/node/server/rest-express.mjs",
+        "default": "./dist/server/rest-express.js"
+      },
+      "./server/rest-generic": {
+        "types": "./dist/server/rest-generic.d.ts",
+        "bun": "./dist/server/rest-generic.js",
+        "node": "./dist/node/server/rest-generic.mjs",
+        "default": "./dist/server/rest-generic.js"
+      },
+      "./server/rest-next-app": {
+        "types": "./dist/server/rest-next-app.d.ts",
+        "bun": "./dist/server/rest-next-app.js",
+        "node": "./dist/node/server/rest-next-app.mjs",
+        "default": "./dist/server/rest-next-app.js"
+      },
+      "./server/rest-next-mcp": {
+        "types": "./dist/server/rest-next-mcp.d.ts",
+        "bun": "./dist/server/rest-next-mcp.js",
+        "node": "./dist/node/server/rest-next-mcp.mjs",
+        "default": "./dist/server/rest-next-mcp.js"
+      },
+      "./server/rest-next-pages": {
+        "types": "./dist/server/rest-next-pages.d.ts",
+        "bun": "./dist/server/rest-next-pages.js",
+        "node": "./dist/node/server/rest-next-pages.mjs",
+        "default": "./dist/server/rest-next-pages.js"
+      },
+      "./telemetry": {
+        "types": "./dist/telemetry/index.d.ts",
+        "bun": "./dist/telemetry/index.js",
+        "node": "./dist/node/telemetry/index.mjs",
+        "default": "./dist/telemetry/index.js"
+      },
+      "./telemetry/anomaly": {
+        "types": "./dist/telemetry/anomaly.d.ts",
+        "bun": "./dist/telemetry/anomaly.js",
+        "node": "./dist/node/telemetry/anomaly.mjs",
+        "default": "./dist/telemetry/anomaly.js"
+      },
+      "./telemetry/docs/telemetry.docblock": {
+        "types": "./dist/telemetry/docs/telemetry.docblock.d.ts",
+        "bun": "./dist/telemetry/docs/telemetry.docblock.js",
+        "node": "./dist/node/telemetry/docs/telemetry.docblock.mjs",
+        "default": "./dist/telemetry/docs/telemetry.docblock.js"
+      },
+      "./telemetry/index": {
+        "types": "./dist/telemetry/index.d.ts",
+        "bun": "./dist/telemetry/index.js",
+        "node": "./dist/node/telemetry/index.mjs",
+        "default": "./dist/telemetry/index.js"
+      },
+      "./telemetry/spec": {
+        "types": "./dist/telemetry/spec.d.ts",
+        "bun": "./dist/telemetry/spec.js",
+        "node": "./dist/node/telemetry/spec.mjs",
+        "default": "./dist/telemetry/spec.js"
+      },
+      "./telemetry/tracker": {
+        "types": "./dist/telemetry/tracker.d.ts",
+        "bun": "./dist/telemetry/tracker.js",
+        "node": "./dist/node/telemetry/tracker.mjs",
+        "default": "./dist/telemetry/tracker.js"
+      },
+      "./tests": {
+        "types": "./dist/tests/index.d.ts",
+        "bun": "./dist/tests/index.js",
+        "node": "./dist/node/tests/index.mjs",
+        "default": "./dist/tests/index.js"
+      },
+      "./tests/index": {
+        "types": "./dist/tests/index.d.ts",
+        "bun": "./dist/tests/index.js",
+        "node": "./dist/node/tests/index.mjs",
+        "default": "./dist/tests/index.js"
+      },
+      "./tests/runner": {
+        "types": "./dist/tests/runner.d.ts",
+        "bun": "./dist/tests/runner.js",
+        "node": "./dist/node/tests/runner.mjs",
+        "default": "./dist/tests/runner.js"
+      },
+      "./tests/spec": {
+        "types": "./dist/tests/spec.d.ts",
+        "bun": "./dist/tests/spec.js",
+        "node": "./dist/node/tests/spec.mjs",
+        "default": "./dist/tests/spec.js"
+      },
+      "./themes": {
+        "types": "./dist/themes.d.ts",
+        "bun": "./dist/themes.js",
+        "node": "./dist/node/themes.mjs",
+        "default": "./dist/themes.js"
+      },
+      "./translations": {
+        "types": "./dist/translations/index.d.ts",
+        "bun": "./dist/translations/index.js",
+        "node": "./dist/node/translations/index.mjs",
+        "default": "./dist/translations/index.js"
+      },
+      "./translations/catalog": {
+        "types": "./dist/translations/catalog.d.ts",
+        "bun": "./dist/translations/catalog.js",
+        "node": "./dist/node/translations/catalog.mjs",
+        "default": "./dist/translations/catalog.js"
+      },
+      "./translations/index": {
+        "types": "./dist/translations/index.d.ts",
+        "bun": "./dist/translations/index.js",
+        "node": "./dist/node/translations/index.mjs",
+        "default": "./dist/translations/index.js"
+      },
+      "./translations/registry": {
+        "types": "./dist/translations/registry.d.ts",
+        "bun": "./dist/translations/registry.js",
+        "node": "./dist/node/translations/registry.mjs",
+        "default": "./dist/translations/registry.js"
+      },
+      "./translations/spec": {
+        "types": "./dist/translations/spec.d.ts",
+        "bun": "./dist/translations/spec.js",
+        "node": "./dist/node/translations/spec.mjs",
+        "default": "./dist/translations/spec.js"
+      },
+      "./translations/tenant": {
+        "types": "./dist/translations/tenant.d.ts",
+        "bun": "./dist/translations/tenant.js",
+        "node": "./dist/node/translations/tenant.mjs",
+        "default": "./dist/translations/tenant.js"
+      },
+      "./translations/validation": {
+        "types": "./dist/translations/validation.d.ts",
+        "bun": "./dist/translations/validation.js",
+        "node": "./dist/node/translations/validation.mjs",
+        "default": "./dist/translations/validation.js"
+      },
+      "./types": {
+        "types": "./dist/types.d.ts",
+        "bun": "./dist/types.js",
+        "node": "./dist/node/types.mjs",
+        "default": "./dist/types.js"
+      },
+      "./versioning": {
+        "types": "./dist/versioning/index.d.ts",
+        "bun": "./dist/versioning/index.js",
+        "node": "./dist/node/versioning/index.mjs",
+        "default": "./dist/versioning/index.js"
+      },
+      "./versioning/index": {
+        "types": "./dist/versioning/index.d.ts",
+        "bun": "./dist/versioning/index.js",
+        "node": "./dist/node/versioning/index.mjs",
+        "default": "./dist/versioning/index.js"
+      },
+      "./versioning/refs": {
+        "types": "./dist/versioning/refs.d.ts",
+        "bun": "./dist/versioning/refs.js",
+        "node": "./dist/node/versioning/refs.mjs",
+        "default": "./dist/versioning/refs.js"
+      },
+      "./versioning/types": {
+        "types": "./dist/versioning/types.d.ts",
+        "bun": "./dist/versioning/types.js",
+        "node": "./dist/node/versioning/types.mjs",
+        "default": "./dist/versioning/types.js"
+      },
+      "./versioning/utils": {
+        "types": "./dist/versioning/utils.d.ts",
+        "bun": "./dist/versioning/utils.js",
+        "node": "./dist/node/versioning/utils.mjs",
+        "default": "./dist/versioning/utils.js"
+      },
+      "./workflow": {
+        "types": "./dist/workflow/index.d.ts",
+        "bun": "./dist/workflow/index.js",
+        "node": "./dist/node/workflow/index.mjs",
+        "default": "./dist/workflow/index.js"
+      },
+      "./workflow/adapters": {
+        "types": "./dist/workflow/adapters/index.d.ts",
+        "bun": "./dist/workflow/adapters/index.js",
+        "node": "./dist/node/workflow/adapters/index.mjs",
+        "default": "./dist/workflow/adapters/index.js"
+      },
+      "./workflow/adapters/db-adapter": {
+        "types": "./dist/workflow/adapters/db-adapter.d.ts",
+        "bun": "./dist/workflow/adapters/db-adapter.js",
+        "node": "./dist/node/workflow/adapters/db-adapter.mjs",
+        "default": "./dist/workflow/adapters/db-adapter.js"
+      },
+      "./workflow/adapters/file-adapter": {
+        "types": "./dist/workflow/adapters/file-adapter.d.ts",
+        "bun": "./dist/workflow/adapters/file-adapter.js",
+        "node": "./dist/node/workflow/adapters/file-adapter.mjs",
+        "default": "./dist/workflow/adapters/file-adapter.js"
+      },
+      "./workflow/adapters/index": {
+        "types": "./dist/workflow/adapters/index.d.ts",
+        "bun": "./dist/workflow/adapters/index.js",
+        "node": "./dist/node/workflow/adapters/index.mjs",
+        "default": "./dist/workflow/adapters/index.js"
+      },
+      "./workflow/adapters/memory-store": {
+        "types": "./dist/workflow/adapters/memory-store.d.ts",
+        "bun": "./dist/workflow/adapters/memory-store.js",
+        "node": "./dist/node/workflow/adapters/memory-store.mjs",
+        "default": "./dist/workflow/adapters/memory-store.js"
+      },
+      "./workflow/context": {
+        "types": "./dist/workflow/context.d.ts",
+        "bun": "./dist/workflow/context.js",
+        "node": "./dist/node/workflow/context.mjs",
+        "default": "./dist/workflow/context.js"
+      },
+      "./workflow/expression": {
+        "types": "./dist/workflow/expression.d.ts",
+        "bun": "./dist/workflow/expression.js",
+        "node": "./dist/node/workflow/expression.mjs",
+        "default": "./dist/workflow/expression.js"
+      },
+      "./workflow/index": {
+        "types": "./dist/workflow/index.d.ts",
+        "bun": "./dist/workflow/index.js",
+        "node": "./dist/node/workflow/index.mjs",
+        "default": "./dist/workflow/index.js"
+      },
+      "./workflow/overview.docblock": {
+        "types": "./dist/workflow/overview.docblock.d.ts",
+        "bun": "./dist/workflow/overview.docblock.js",
+        "node": "./dist/node/workflow/overview.docblock.mjs",
+        "default": "./dist/workflow/overview.docblock.js"
+      },
+      "./workflow/runner": {
+        "types": "./dist/workflow/runner.d.ts",
+        "bun": "./dist/workflow/runner.js",
+        "node": "./dist/node/workflow/runner.mjs",
+        "default": "./dist/workflow/runner.js"
+      },
+      "./workflow/sla-monitor": {
+        "types": "./dist/workflow/sla-monitor.d.ts",
+        "bun": "./dist/workflow/sla-monitor.js",
+        "node": "./dist/node/workflow/sla-monitor.mjs",
+        "default": "./dist/workflow/sla-monitor.js"
+      },
+      "./workflow/spec": {
+        "types": "./dist/workflow/spec.d.ts",
+        "bun": "./dist/workflow/spec.js",
+        "node": "./dist/node/workflow/spec.mjs",
+        "default": "./dist/workflow/spec.js"
+      },
+      "./workflow/state": {
+        "types": "./dist/workflow/state.d.ts",
+        "bun": "./dist/workflow/state.js",
+        "node": "./dist/node/workflow/state.mjs",
+        "default": "./dist/workflow/state.js"
+      },
+      "./workflow/validation": {
+        "types": "./dist/workflow/validation.d.ts",
+        "bun": "./dist/workflow/validation.js",
+        "node": "./dist/node/workflow/validation.mjs",
+        "default": "./dist/workflow/validation.js"
+      },
+      "./workspace-config": {
+        "types": "./dist/workspace-config/index.d.ts",
+        "bun": "./dist/workspace-config/index.js",
+        "node": "./dist/node/workspace-config/index.mjs",
+        "default": "./dist/workspace-config/index.js"
+      },
+      "./workspace-config/contractsrc-schema": {
+        "types": "./dist/workspace-config/contractsrc-schema.d.ts",
+        "bun": "./dist/workspace-config/contractsrc-schema.js",
+        "node": "./dist/node/workspace-config/contractsrc-schema.mjs",
+        "default": "./dist/workspace-config/contractsrc-schema.js"
+      },
+      "./workspace-config/contractsrc-types": {
+        "types": "./dist/workspace-config/contractsrc-types.d.ts",
+        "bun": "./dist/workspace-config/contractsrc-types.js",
+        "node": "./dist/node/workspace-config/contractsrc-types.mjs",
+        "default": "./dist/workspace-config/contractsrc-types.js"
+      },
+      "./workspace-config/index": {
+        "types": "./dist/workspace-config/index.d.ts",
+        "bun": "./dist/workspace-config/index.js",
+        "node": "./dist/node/workspace-config/index.mjs",
+        "default": "./dist/workspace-config/index.js"
+      },
+      "./workspace-config/workspace-config.docblock": {
+        "types": "./dist/workspace-config/workspace-config.docblock.d.ts",
+        "bun": "./dist/workspace-config/workspace-config.docblock.js",
+        "node": "./dist/node/workspace-config/workspace-config.docblock.mjs",
+        "default": "./dist/workspace-config/workspace-config.docblock.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

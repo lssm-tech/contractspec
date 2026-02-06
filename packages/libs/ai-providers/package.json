@@ -20,15 +20,17 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "catalog:ai",
@@ -40,30 +42,63 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./factory": "./dist/factory.js",
-    "./legacy": "./dist/legacy.js",
-    "./models": "./dist/models.js",
-    "./types": "./dist/types.js",
-    "./validation": "./dist/validation.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./factory": "./src/factory.ts",
+    "./legacy": "./src/legacy.ts",
+    "./models": "./src/models.ts",
+    "./types": "./src/types.ts",
+    "./validation": "./src/validation.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./factory": "./dist/factory.js",
-      "./legacy": "./dist/legacy.js",
-      "./models": "./dist/models.js",
-      "./types": "./dist/types.js",
-      "./validation": "./dist/validation.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./factory": {
+        "types": "./dist/factory.d.ts",
+        "bun": "./dist/factory.js",
+        "node": "./dist/node/factory.mjs",
+        "browser": "./dist/browser/factory.js",
+        "default": "./dist/factory.js"
+      },
+      "./legacy": {
+        "types": "./dist/legacy.d.ts",
+        "bun": "./dist/legacy.js",
+        "node": "./dist/node/legacy.mjs",
+        "browser": "./dist/browser/legacy.js",
+        "default": "./dist/legacy.js"
+      },
+      "./models": {
+        "types": "./dist/models.d.ts",
+        "bun": "./dist/models.js",
+        "node": "./dist/node/models.mjs",
+        "browser": "./dist/browser/models.js",
+        "default": "./dist/models.js"
+      },
+      "./types": {
+        "types": "./dist/types.d.ts",
+        "bun": "./dist/types.js",
+        "node": "./dist/node/types.mjs",
+        "browser": "./dist/browser/types.js",
+        "default": "./dist/types.js"
+      },
+      "./validation": {
+        "types": "./dist/validation.d.ts",
+        "bun": "./dist/validation.js",
+        "node": "./dist/node/validation.mjs",
+        "browser": "./dist/browser/validation.js",
+        "default": "./dist/validation.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

@@ -15,14 +15,16 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
@@ -31,20 +33,23 @@
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./contracts": "./dist/contracts/index.js",
-    "./docs": "./dist/docs/index.js",
-    "./docs/files.docblock": "./dist/docs/files.docblock.js",
-    "./entities": "./dist/entities/index.js",
-    "./events": "./dist/events.js",
-    "./files.capability": "./dist/files.capability.js",
-    "./files.feature": "./dist/files.feature.js",
-    "./storage": "./dist/storage/index.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./contracts/index": "./src/contracts/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/files.docblock": "./src/docs/files.docblock.ts",
+    "./docs/index": "./src/docs/index.ts",
+    "./entities": "./src/entities/index.ts",
+    "./entities/index": "./src/entities/index.ts",
+    "./events": "./src/events.ts",
+    "./files.capability": "./src/files.capability.ts",
+    "./files.feature": "./src/files.feature.ts",
+    "./storage": "./src/storage/index.ts",
+    "./storage/index": "./src/storage/index.ts"
   },
   "files": [
     "dist",
@@ -53,15 +58,84 @@
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./contracts": "./dist/contracts/index.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/files.docblock": "./dist/docs/files.docblock.js",
-      "./entities": "./dist/entities/index.js",
-      "./events": "./dist/events.js",
-      "./files.feature": "./dist/files.feature.js",
-      "./storage": "./dist/storage/index.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "default": "./dist/index.js"
+      },
+      "./contracts": {
+        "types": "./dist/contracts/index.d.ts",
+        "bun": "./dist/contracts/index.js",
+        "node": "./dist/node/contracts/index.mjs",
+        "default": "./dist/contracts/index.js"
+      },
+      "./contracts/index": {
+        "types": "./dist/contracts/index.d.ts",
+        "bun": "./dist/contracts/index.js",
+        "node": "./dist/node/contracts/index.mjs",
+        "default": "./dist/contracts/index.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/files.docblock": {
+        "types": "./dist/docs/files.docblock.d.ts",
+        "bun": "./dist/docs/files.docblock.js",
+        "node": "./dist/node/docs/files.docblock.mjs",
+        "default": "./dist/docs/files.docblock.js"
+      },
+      "./docs/index": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "default": "./dist/docs/index.js"
+      },
+      "./entities": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "default": "./dist/entities/index.js"
+      },
+      "./entities/index": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "default": "./dist/entities/index.js"
+      },
+      "./events": {
+        "types": "./dist/events.d.ts",
+        "bun": "./dist/events.js",
+        "node": "./dist/node/events.mjs",
+        "default": "./dist/events.js"
+      },
+      "./files.capability": {
+        "types": "./dist/files.capability.d.ts",
+        "bun": "./dist/files.capability.js",
+        "node": "./dist/node/files.capability.mjs",
+        "default": "./dist/files.capability.js"
+      },
+      "./files.feature": {
+        "types": "./dist/files.feature.d.ts",
+        "bun": "./dist/files.feature.js",
+        "node": "./dist/node/files.feature.mjs",
+        "default": "./dist/files.feature.js"
+      },
+      "./storage": {
+        "types": "./dist/storage/index.d.ts",
+        "bun": "./dist/storage/index.js",
+        "node": "./dist/node/storage/index.mjs",
+        "default": "./dist/storage/index.js"
+      },
+      "./storage/index": {
+        "types": "./dist/storage/index.d.ts",
+        "bun": "./dist/storage/index.js",
+        "node": "./dist/node/storage/index.mjs",
+        "default": "./dist/storage/index.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

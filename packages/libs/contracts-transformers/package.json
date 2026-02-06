@@ -14,15 +14,17 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
@@ -33,10 +35,9 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "types": "./dist/index.d.ts",
   "files": [
@@ -44,18 +45,50 @@
     "README.md"
   ],
   "exports": {
-    ".": "./dist/index.js",
-    "./common": "./dist/common/index.js",
-    "./openapi": "./dist/openapi/index.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./common": "./src/common/index.ts",
+    "./common/index": "./src/common/index.ts",
+    "./openapi": "./src/openapi/index.ts",
+    "./openapi/index": "./src/openapi/index.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./common": "./dist/common/index.js",
-      "./openapi": "./dist/openapi/index.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./common": {
+        "types": "./dist/common/index.d.ts",
+        "bun": "./dist/common/index.js",
+        "node": "./dist/node/common/index.mjs",
+        "browser": "./dist/browser/common/index.js",
+        "default": "./dist/common/index.js"
+      },
+      "./common/index": {
+        "types": "./dist/common/index.d.ts",
+        "bun": "./dist/common/index.js",
+        "node": "./dist/node/common/index.mjs",
+        "browser": "./dist/browser/common/index.js",
+        "default": "./dist/common/index.js"
+      },
+      "./openapi": {
+        "types": "./dist/openapi/index.d.ts",
+        "bun": "./dist/openapi/index.js",
+        "node": "./dist/node/openapi/index.mjs",
+        "browser": "./dist/browser/openapi/index.js",
+        "default": "./dist/openapi/index.js"
+      },
+      "./openapi/index": {
+        "types": "./dist/openapi/index.d.ts",
+        "bun": "./dist/openapi/index.js",
+        "node": "./dist/node/openapi/index.mjs",
+        "browser": "./dist/browser/openapi/index.js",
+        "default": "./dist/openapi/index.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

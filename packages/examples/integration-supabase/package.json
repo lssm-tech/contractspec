@@ -5,28 +5,30 @@
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./blueprint": "./dist/blueprint.js",
-    "./connection.sample": "./dist/connection.sample.js",
-    "./docs": "./dist/docs/index.js",
-    "./docs/integration-supabase.docblock": "./dist/docs/integration-supabase.docblock.js",
-    "./example": "./dist/example.js",
-    "./runtime.sample": "./dist/runtime.sample.js",
-    "./tenant": "./dist/tenant.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./blueprint": "./src/blueprint.ts",
+    "./connection.sample": "./src/connection.sample.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/index": "./src/docs/index.ts",
+    "./docs/integration-supabase.docblock": "./src/docs/integration-supabase.docblock.ts",
+    "./example": "./src/example.ts",
+    "./runtime.sample": "./src/runtime.sample.ts",
+    "./tenant": "./src/tenant.ts"
   },
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/integration.providers-impls": "workspace:*",
@@ -34,23 +36,76 @@
     "@contractspec/lib.contracts": "workspace:*"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./blueprint": "./dist/blueprint.js",
-      "./connection.sample": "./dist/connection.sample.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/integration-supabase.docblock": "./dist/docs/integration-supabase.docblock.js",
-      "./example": "./dist/example.js",
-      "./runtime.sample": "./dist/runtime.sample.js",
-      "./tenant": "./dist/tenant.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./blueprint": {
+        "types": "./dist/blueprint.d.ts",
+        "bun": "./dist/blueprint.js",
+        "node": "./dist/node/blueprint.mjs",
+        "browser": "./dist/browser/blueprint.js",
+        "default": "./dist/blueprint.js"
+      },
+      "./connection.sample": {
+        "types": "./dist/connection.sample.d.ts",
+        "bun": "./dist/connection.sample.js",
+        "node": "./dist/node/connection.sample.mjs",
+        "browser": "./dist/browser/connection.sample.js",
+        "default": "./dist/connection.sample.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/index": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/integration-supabase.docblock": {
+        "types": "./dist/docs/integration-supabase.docblock.d.ts",
+        "bun": "./dist/docs/integration-supabase.docblock.js",
+        "node": "./dist/node/docs/integration-supabase.docblock.mjs",
+        "browser": "./dist/browser/docs/integration-supabase.docblock.js",
+        "default": "./dist/docs/integration-supabase.docblock.js"
+      },
+      "./example": {
+        "types": "./dist/example.d.ts",
+        "bun": "./dist/example.js",
+        "node": "./dist/node/example.mjs",
+        "browser": "./dist/browser/example.js",
+        "default": "./dist/example.js"
+      },
+      "./runtime.sample": {
+        "types": "./dist/runtime.sample.d.ts",
+        "bun": "./dist/runtime.sample.js",
+        "node": "./dist/node/runtime.sample.mjs",
+        "browser": "./dist/browser/runtime.sample.js",
+        "default": "./dist/runtime.sample.js"
+      },
+      "./tenant": {
+        "types": "./dist/tenant.d.ts",
+        "bun": "./dist/tenant.js",
+        "node": "./dist/node/tenant.mjs",
+        "browser": "./dist/browser/tenant.js",
+        "default": "./dist/tenant.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

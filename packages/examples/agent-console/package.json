@@ -5,86 +5,101 @@
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./agent": "./dist/agent/index.js",
-    "./agent.capability": "./dist/agent.capability.js",
-    "./agent.feature": "./dist/agent.feature.js",
-    "./agent/agent.entity": "./dist/agent/agent.entity.js",
-    "./agent/agent.enum": "./dist/agent/agent.enum.js",
-    "./agent/agent.event": "./dist/agent/agent.event.js",
-    "./agent/agent.handler": "./dist/agent/agent.handler.js",
-    "./agent/agent.operation": "./dist/agent/agent.operation.js",
-    "./agent/agent.presentation": "./dist/agent/agent.presentation.js",
-    "./agent/agent.schema": "./dist/agent/agent.schema.js",
-    "./agent/agent.test-spec": "./dist/agent/agent.test-spec.js",
-    "./docs": "./dist/docs/index.js",
-    "./docs/agent-console.docblock": "./dist/docs/agent-console.docblock.js",
-    "./example": "./dist/example.js",
-    "./handlers": "./dist/handlers/index.js",
-    "./handlers/agent.handlers": "./dist/handlers/agent.handlers.js",
-    "./presentations": "./dist/presentations/index.js",
-    "./run": "./dist/run/index.js",
-    "./run/run.entity": "./dist/run/run.entity.js",
-    "./run/run.enum": "./dist/run/run.enum.js",
-    "./run/run.event": "./dist/run/run.event.js",
-    "./run/run.handler": "./dist/run/run.handler.js",
-    "./run/run.operation": "./dist/run/run.operation.js",
-    "./run/run.presentation": "./dist/run/run.presentation.js",
-    "./run/run.schema": "./dist/run/run.schema.js",
-    "./run/run.test-spec": "./dist/run/run.test-spec.js",
-    "./seeders": "./dist/seeders/index.js",
-    "./shared": "./dist/shared/index.js",
-    "./shared/mock-agents": "./dist/shared/mock-agents.js",
-    "./shared/mock-runs": "./dist/shared/mock-runs.js",
-    "./shared/mock-tools": "./dist/shared/mock-tools.js",
-    "./shared/overlay-types": "./dist/shared/overlay-types.js",
-    "./tool": "./dist/tool/index.js",
-    "./tool/tool.entity": "./dist/tool/tool.entity.js",
-    "./tool/tool.enum": "./dist/tool/tool.enum.js",
-    "./tool/tool.event": "./dist/tool/tool.event.js",
-    "./tool/tool.handler": "./dist/tool/tool.handler.js",
-    "./tool/tool.operation": "./dist/tool/tool.operation.js",
-    "./tool/tool.presentation": "./dist/tool/tool.presentation.js",
-    "./tool/tool.schema": "./dist/tool/tool.schema.js",
-    "./tool/tool.test-spec": "./dist/tool/tool.test-spec.js",
-    "./ui": "./dist/ui/index.js",
-    "./ui/AgentDashboard": "./dist/ui/AgentDashboard.js",
-    "./ui/AgentRunList": "./dist/ui/AgentRunList.js",
-    "./ui/AgentToolRegistry": "./dist/ui/AgentToolRegistry.js",
-    "./ui/hooks": "./dist/ui/hooks/index.js",
-    "./ui/hooks/useAgentList": "./dist/ui/hooks/useAgentList.js",
-    "./ui/hooks/useAgentMutations": "./dist/ui/hooks/useAgentMutations.js",
-    "./ui/hooks/useRunList": "./dist/ui/hooks/useRunList.js",
-    "./ui/hooks/useToolList": "./dist/ui/hooks/useToolList.js",
-    "./ui/modals": "./dist/ui/modals/index.js",
-    "./ui/modals/AgentActionsModal": "./dist/ui/modals/AgentActionsModal.js",
-    "./ui/modals/CreateAgentModal": "./dist/ui/modals/CreateAgentModal.js",
-    "./ui/overlays": "./dist/ui/overlays/index.js",
-    "./ui/overlays/demo-overlays": "./dist/ui/overlays/demo-overlays.js",
-    "./ui/renderers": "./dist/ui/renderers/index.js",
-    "./ui/renderers/agent-list.markdown": "./dist/ui/renderers/agent-list.markdown.js",
-    "./ui/renderers/agent-list.renderer": "./dist/ui/renderers/agent-list.renderer.js",
-    "./ui/renderers/dashboard.markdown": "./dist/ui/renderers/dashboard.markdown.js",
-    "./ui/renderers/run-list.markdown": "./dist/ui/renderers/run-list.markdown.js",
-    "./ui/renderers/tool-registry.markdown": "./dist/ui/renderers/tool-registry.markdown.js",
-    "./ui/views": "./dist/ui/views/index.js",
-    "./ui/views/AgentListView": "./dist/ui/views/AgentListView.js",
-    "./ui/views/RunListView": "./dist/ui/views/RunListView.js",
-    "./ui/views/ToolRegistryView": "./dist/ui/views/ToolRegistryView.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./agent": "./src/agent/index.ts",
+    "./agent.capability": "./src/agent.capability.ts",
+    "./agent.feature": "./src/agent.feature.ts",
+    "./agent/agent.entity": "./src/agent/agent.entity.ts",
+    "./agent/agent.enum": "./src/agent/agent.enum.ts",
+    "./agent/agent.event": "./src/agent/agent.event.ts",
+    "./agent/agent.handler": "./src/agent/agent.handler.ts",
+    "./agent/agent.operation": "./src/agent/agent.operation.ts",
+    "./agent/agent.presentation": "./src/agent/agent.presentation.ts",
+    "./agent/agent.schema": "./src/agent/agent.schema.ts",
+    "./agent/agent.test-spec": "./src/agent/agent.test-spec.ts",
+    "./agent/index": "./src/agent/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/agent-console.docblock": "./src/docs/agent-console.docblock.ts",
+    "./docs/index": "./src/docs/index.ts",
+    "./example": "./src/example.ts",
+    "./handlers": "./src/handlers/index.ts",
+    "./handlers/agent.handlers": "./src/handlers/agent.handlers.ts",
+    "./handlers/index": "./src/handlers/index.ts",
+    "./presentations": "./src/presentations/index.ts",
+    "./presentations/index": "./src/presentations/index.ts",
+    "./run": "./src/run/index.ts",
+    "./run/index": "./src/run/index.ts",
+    "./run/run.entity": "./src/run/run.entity.ts",
+    "./run/run.enum": "./src/run/run.enum.ts",
+    "./run/run.event": "./src/run/run.event.ts",
+    "./run/run.handler": "./src/run/run.handler.ts",
+    "./run/run.operation": "./src/run/run.operation.ts",
+    "./run/run.presentation": "./src/run/run.presentation.ts",
+    "./run/run.schema": "./src/run/run.schema.ts",
+    "./run/run.test-spec": "./src/run/run.test-spec.ts",
+    "./seeders": "./src/seeders/index.ts",
+    "./seeders/index": "./src/seeders/index.ts",
+    "./shared": "./src/shared/index.ts",
+    "./shared/index": "./src/shared/index.ts",
+    "./shared/mock-agents": "./src/shared/mock-agents.ts",
+    "./shared/mock-runs": "./src/shared/mock-runs.ts",
+    "./shared/mock-tools": "./src/shared/mock-tools.ts",
+    "./shared/overlay-types": "./src/shared/overlay-types.ts",
+    "./tool": "./src/tool/index.ts",
+    "./tool/index": "./src/tool/index.ts",
+    "./tool/tool.entity": "./src/tool/tool.entity.ts",
+    "./tool/tool.enum": "./src/tool/tool.enum.ts",
+    "./tool/tool.event": "./src/tool/tool.event.ts",
+    "./tool/tool.handler": "./src/tool/tool.handler.ts",
+    "./tool/tool.operation": "./src/tool/tool.operation.ts",
+    "./tool/tool.presentation": "./src/tool/tool.presentation.ts",
+    "./tool/tool.schema": "./src/tool/tool.schema.ts",
+    "./tool/tool.test-spec": "./src/tool/tool.test-spec.ts",
+    "./ui": "./src/ui/index.ts",
+    "./ui/AgentDashboard": "./src/ui/AgentDashboard.tsx",
+    "./ui/AgentRunList": "./src/ui/AgentRunList.tsx",
+    "./ui/AgentToolRegistry": "./src/ui/AgentToolRegistry.tsx",
+    "./ui/hooks": "./src/ui/hooks/index.ts",
+    "./ui/hooks/index": "./src/ui/hooks/index.ts",
+    "./ui/hooks/useAgentList": "./src/ui/hooks/useAgentList.ts",
+    "./ui/hooks/useAgentMutations": "./src/ui/hooks/useAgentMutations.ts",
+    "./ui/hooks/useRunList": "./src/ui/hooks/useRunList.ts",
+    "./ui/hooks/useToolList": "./src/ui/hooks/useToolList.ts",
+    "./ui/index": "./src/ui/index.ts",
+    "./ui/modals": "./src/ui/modals/index.ts",
+    "./ui/modals/AgentActionsModal": "./src/ui/modals/AgentActionsModal.tsx",
+    "./ui/modals/CreateAgentModal": "./src/ui/modals/CreateAgentModal.tsx",
+    "./ui/modals/index": "./src/ui/modals/index.ts",
+    "./ui/overlays": "./src/ui/overlays/index.ts",
+    "./ui/overlays/demo-overlays": "./src/ui/overlays/demo-overlays.ts",
+    "./ui/overlays/index": "./src/ui/overlays/index.ts",
+    "./ui/renderers": "./src/ui/renderers/index.ts",
+    "./ui/renderers/agent-list.markdown": "./src/ui/renderers/agent-list.markdown.ts",
+    "./ui/renderers/agent-list.renderer": "./src/ui/renderers/agent-list.renderer.tsx",
+    "./ui/renderers/dashboard.markdown": "./src/ui/renderers/dashboard.markdown.ts",
+    "./ui/renderers/index": "./src/ui/renderers/index.ts",
+    "./ui/renderers/run-list.markdown": "./src/ui/renderers/run-list.markdown.ts",
+    "./ui/renderers/tool-registry.markdown": "./src/ui/renderers/tool-registry.markdown.ts",
+    "./ui/views": "./src/ui/views/index.ts",
+    "./ui/views/AgentListView": "./src/ui/views/AgentListView.tsx",
+    "./ui/views/index": "./src/ui/views/index.ts",
+    "./ui/views/RunListView": "./src/ui/views/RunListView.tsx",
+    "./ui/views/ToolRegistryView": "./src/ui/views/ToolRegistryView.tsx"
   },
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
@@ -96,51 +111,574 @@
     "react-dom": "catalog:"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
     "typescript": "catalog:",
     "@types/react": "^19.2.13",
-    "@types/react-dom": "^19.2.2"
+    "@types/react-dom": "^19.2.2",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "publishConfig": {
     "exports": {
-      ".": "./dist/index.js",
-      "./agent": "./dist/agent/index.js",
-      "./agent.feature": "./dist/agent.feature.js",
-      "./agent/agent.contracts": "./dist/agent/agent.operations.js",
-      "./agent/agent.entity": "./dist/agent/agent.entity.js",
-      "./agent/agent.enum": "./dist/agent/agent.enum.js",
-      "./agent/agent.event": "./dist/agent/agent.event.js",
-      "./agent/agent.handler": "./dist/agent/agent.handler.js",
-      "./agent/agent.presentation": "./dist/agent/agent.presentation.js",
-      "./agent/agent.schema": "./dist/agent/agent.schema.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/agent-console.docblock": "./dist/docs/agent-console.docblock.js",
-      "./example": "./dist/example.js",
-      "./handlers": "./dist/handlers/index.js",
-      "./presentations": "./dist/presentations/index.js",
-      "./run": "./dist/run/index.js",
-      "./run/run.contracts": "./dist/run/run.operations.js",
-      "./run/run.entity": "./dist/run/run.entity.js",
-      "./run/run.enum": "./dist/run/run.enum.js",
-      "./run/run.event": "./dist/run/run.event.js",
-      "./run/run.handler": "./dist/run/run.handler.js",
-      "./run/run.presentation": "./dist/run/run.presentation.js",
-      "./run/run.schema": "./dist/run/run.schema.js",
-      "./shared": "./dist/shared/index.js",
-      "./shared/mock-agents": "./dist/shared/mock-agents.js",
-      "./shared/mock-runs": "./dist/shared/mock-runs.js",
-      "./shared/mock-tools": "./dist/shared/mock-tools.js",
-      "./tool": "./dist/tool/index.js",
-      "./tool/tool.contracts": "./dist/tool/tool.operations.js",
-      "./tool/tool.entity": "./dist/tool/tool.entity.js",
-      "./tool/tool.enum": "./dist/tool/tool.enum.js",
-      "./tool/tool.event": "./dist/tool/tool.event.js",
-      "./tool/tool.handler": "./dist/tool/tool.handler.js",
-      "./tool/tool.presentation": "./dist/tool/tool.presentation.js",
-      "./tool/tool.schema": "./dist/tool/tool.schema.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./agent": {
+        "types": "./dist/agent/index.d.ts",
+        "bun": "./dist/agent/index.js",
+        "node": "./dist/node/agent/index.mjs",
+        "browser": "./dist/browser/agent/index.js",
+        "default": "./dist/agent/index.js"
+      },
+      "./agent.capability": {
+        "types": "./dist/agent.capability.d.ts",
+        "bun": "./dist/agent.capability.js",
+        "node": "./dist/node/agent.capability.mjs",
+        "browser": "./dist/browser/agent.capability.js",
+        "default": "./dist/agent.capability.js"
+      },
+      "./agent.feature": {
+        "types": "./dist/agent.feature.d.ts",
+        "bun": "./dist/agent.feature.js",
+        "node": "./dist/node/agent.feature.mjs",
+        "browser": "./dist/browser/agent.feature.js",
+        "default": "./dist/agent.feature.js"
+      },
+      "./agent/agent.entity": {
+        "types": "./dist/agent/agent.entity.d.ts",
+        "bun": "./dist/agent/agent.entity.js",
+        "node": "./dist/node/agent/agent.entity.mjs",
+        "browser": "./dist/browser/agent/agent.entity.js",
+        "default": "./dist/agent/agent.entity.js"
+      },
+      "./agent/agent.enum": {
+        "types": "./dist/agent/agent.enum.d.ts",
+        "bun": "./dist/agent/agent.enum.js",
+        "node": "./dist/node/agent/agent.enum.mjs",
+        "browser": "./dist/browser/agent/agent.enum.js",
+        "default": "./dist/agent/agent.enum.js"
+      },
+      "./agent/agent.event": {
+        "types": "./dist/agent/agent.event.d.ts",
+        "bun": "./dist/agent/agent.event.js",
+        "node": "./dist/node/agent/agent.event.mjs",
+        "browser": "./dist/browser/agent/agent.event.js",
+        "default": "./dist/agent/agent.event.js"
+      },
+      "./agent/agent.handler": {
+        "types": "./dist/agent/agent.handler.d.ts",
+        "bun": "./dist/agent/agent.handler.js",
+        "node": "./dist/node/agent/agent.handler.mjs",
+        "browser": "./dist/browser/agent/agent.handler.js",
+        "default": "./dist/agent/agent.handler.js"
+      },
+      "./agent/agent.operation": {
+        "types": "./dist/agent/agent.operation.d.ts",
+        "bun": "./dist/agent/agent.operation.js",
+        "node": "./dist/node/agent/agent.operation.mjs",
+        "browser": "./dist/browser/agent/agent.operation.js",
+        "default": "./dist/agent/agent.operation.js"
+      },
+      "./agent/agent.presentation": {
+        "types": "./dist/agent/agent.presentation.d.ts",
+        "bun": "./dist/agent/agent.presentation.js",
+        "node": "./dist/node/agent/agent.presentation.mjs",
+        "browser": "./dist/browser/agent/agent.presentation.js",
+        "default": "./dist/agent/agent.presentation.js"
+      },
+      "./agent/agent.schema": {
+        "types": "./dist/agent/agent.schema.d.ts",
+        "bun": "./dist/agent/agent.schema.js",
+        "node": "./dist/node/agent/agent.schema.mjs",
+        "browser": "./dist/browser/agent/agent.schema.js",
+        "default": "./dist/agent/agent.schema.js"
+      },
+      "./agent/agent.test-spec": {
+        "types": "./dist/agent/agent.test-spec.d.ts",
+        "bun": "./dist/agent/agent.test-spec.js",
+        "node": "./dist/node/agent/agent.test-spec.mjs",
+        "browser": "./dist/browser/agent/agent.test-spec.js",
+        "default": "./dist/agent/agent.test-spec.js"
+      },
+      "./agent/index": {
+        "types": "./dist/agent/index.d.ts",
+        "bun": "./dist/agent/index.js",
+        "node": "./dist/node/agent/index.mjs",
+        "browser": "./dist/browser/agent/index.js",
+        "default": "./dist/agent/index.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/agent-console.docblock": {
+        "types": "./dist/docs/agent-console.docblock.d.ts",
+        "bun": "./dist/docs/agent-console.docblock.js",
+        "node": "./dist/node/docs/agent-console.docblock.mjs",
+        "browser": "./dist/browser/docs/agent-console.docblock.js",
+        "default": "./dist/docs/agent-console.docblock.js"
+      },
+      "./docs/index": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./example": {
+        "types": "./dist/example.d.ts",
+        "bun": "./dist/example.js",
+        "node": "./dist/node/example.mjs",
+        "browser": "./dist/browser/example.js",
+        "default": "./dist/example.js"
+      },
+      "./handlers": {
+        "types": "./dist/handlers/index.d.ts",
+        "bun": "./dist/handlers/index.js",
+        "node": "./dist/node/handlers/index.mjs",
+        "browser": "./dist/browser/handlers/index.js",
+        "default": "./dist/handlers/index.js"
+      },
+      "./handlers/agent.handlers": {
+        "types": "./dist/handlers/agent.handlers.d.ts",
+        "bun": "./dist/handlers/agent.handlers.js",
+        "node": "./dist/node/handlers/agent.handlers.mjs",
+        "browser": "./dist/browser/handlers/agent.handlers.js",
+        "default": "./dist/handlers/agent.handlers.js"
+      },
+      "./handlers/index": {
+        "types": "./dist/handlers/index.d.ts",
+        "bun": "./dist/handlers/index.js",
+        "node": "./dist/node/handlers/index.mjs",
+        "browser": "./dist/browser/handlers/index.js",
+        "default": "./dist/handlers/index.js"
+      },
+      "./presentations": {
+        "types": "./dist/presentations/index.d.ts",
+        "bun": "./dist/presentations/index.js",
+        "node": "./dist/node/presentations/index.mjs",
+        "browser": "./dist/browser/presentations/index.js",
+        "default": "./dist/presentations/index.js"
+      },
+      "./presentations/index": {
+        "types": "./dist/presentations/index.d.ts",
+        "bun": "./dist/presentations/index.js",
+        "node": "./dist/node/presentations/index.mjs",
+        "browser": "./dist/browser/presentations/index.js",
+        "default": "./dist/presentations/index.js"
+      },
+      "./run": {
+        "types": "./dist/run/index.d.ts",
+        "bun": "./dist/run/index.js",
+        "node": "./dist/node/run/index.mjs",
+        "browser": "./dist/browser/run/index.js",
+        "default": "./dist/run/index.js"
+      },
+      "./run/index": {
+        "types": "./dist/run/index.d.ts",
+        "bun": "./dist/run/index.js",
+        "node": "./dist/node/run/index.mjs",
+        "browser": "./dist/browser/run/index.js",
+        "default": "./dist/run/index.js"
+      },
+      "./run/run.entity": {
+        "types": "./dist/run/run.entity.d.ts",
+        "bun": "./dist/run/run.entity.js",
+        "node": "./dist/node/run/run.entity.mjs",
+        "browser": "./dist/browser/run/run.entity.js",
+        "default": "./dist/run/run.entity.js"
+      },
+      "./run/run.enum": {
+        "types": "./dist/run/run.enum.d.ts",
+        "bun": "./dist/run/run.enum.js",
+        "node": "./dist/node/run/run.enum.mjs",
+        "browser": "./dist/browser/run/run.enum.js",
+        "default": "./dist/run/run.enum.js"
+      },
+      "./run/run.event": {
+        "types": "./dist/run/run.event.d.ts",
+        "bun": "./dist/run/run.event.js",
+        "node": "./dist/node/run/run.event.mjs",
+        "browser": "./dist/browser/run/run.event.js",
+        "default": "./dist/run/run.event.js"
+      },
+      "./run/run.handler": {
+        "types": "./dist/run/run.handler.d.ts",
+        "bun": "./dist/run/run.handler.js",
+        "node": "./dist/node/run/run.handler.mjs",
+        "browser": "./dist/browser/run/run.handler.js",
+        "default": "./dist/run/run.handler.js"
+      },
+      "./run/run.operation": {
+        "types": "./dist/run/run.operation.d.ts",
+        "bun": "./dist/run/run.operation.js",
+        "node": "./dist/node/run/run.operation.mjs",
+        "browser": "./dist/browser/run/run.operation.js",
+        "default": "./dist/run/run.operation.js"
+      },
+      "./run/run.presentation": {
+        "types": "./dist/run/run.presentation.d.ts",
+        "bun": "./dist/run/run.presentation.js",
+        "node": "./dist/node/run/run.presentation.mjs",
+        "browser": "./dist/browser/run/run.presentation.js",
+        "default": "./dist/run/run.presentation.js"
+      },
+      "./run/run.schema": {
+        "types": "./dist/run/run.schema.d.ts",
+        "bun": "./dist/run/run.schema.js",
+        "node": "./dist/node/run/run.schema.mjs",
+        "browser": "./dist/browser/run/run.schema.js",
+        "default": "./dist/run/run.schema.js"
+      },
+      "./run/run.test-spec": {
+        "types": "./dist/run/run.test-spec.d.ts",
+        "bun": "./dist/run/run.test-spec.js",
+        "node": "./dist/node/run/run.test-spec.mjs",
+        "browser": "./dist/browser/run/run.test-spec.js",
+        "default": "./dist/run/run.test-spec.js"
+      },
+      "./seeders": {
+        "types": "./dist/seeders/index.d.ts",
+        "bun": "./dist/seeders/index.js",
+        "node": "./dist/node/seeders/index.mjs",
+        "browser": "./dist/browser/seeders/index.js",
+        "default": "./dist/seeders/index.js"
+      },
+      "./seeders/index": {
+        "types": "./dist/seeders/index.d.ts",
+        "bun": "./dist/seeders/index.js",
+        "node": "./dist/node/seeders/index.mjs",
+        "browser": "./dist/browser/seeders/index.js",
+        "default": "./dist/seeders/index.js"
+      },
+      "./shared": {
+        "types": "./dist/shared/index.d.ts",
+        "bun": "./dist/shared/index.js",
+        "node": "./dist/node/shared/index.mjs",
+        "browser": "./dist/browser/shared/index.js",
+        "default": "./dist/shared/index.js"
+      },
+      "./shared/index": {
+        "types": "./dist/shared/index.d.ts",
+        "bun": "./dist/shared/index.js",
+        "node": "./dist/node/shared/index.mjs",
+        "browser": "./dist/browser/shared/index.js",
+        "default": "./dist/shared/index.js"
+      },
+      "./shared/mock-agents": {
+        "types": "./dist/shared/mock-agents.d.ts",
+        "bun": "./dist/shared/mock-agents.js",
+        "node": "./dist/node/shared/mock-agents.mjs",
+        "browser": "./dist/browser/shared/mock-agents.js",
+        "default": "./dist/shared/mock-agents.js"
+      },
+      "./shared/mock-runs": {
+        "types": "./dist/shared/mock-runs.d.ts",
+        "bun": "./dist/shared/mock-runs.js",
+        "node": "./dist/node/shared/mock-runs.mjs",
+        "browser": "./dist/browser/shared/mock-runs.js",
+        "default": "./dist/shared/mock-runs.js"
+      },
+      "./shared/mock-tools": {
+        "types": "./dist/shared/mock-tools.d.ts",
+        "bun": "./dist/shared/mock-tools.js",
+        "node": "./dist/node/shared/mock-tools.mjs",
+        "browser": "./dist/browser/shared/mock-tools.js",
+        "default": "./dist/shared/mock-tools.js"
+      },
+      "./shared/overlay-types": {
+        "types": "./dist/shared/overlay-types.d.ts",
+        "bun": "./dist/shared/overlay-types.js",
+        "node": "./dist/node/shared/overlay-types.mjs",
+        "browser": "./dist/browser/shared/overlay-types.js",
+        "default": "./dist/shared/overlay-types.js"
+      },
+      "./tool": {
+        "types": "./dist/tool/index.d.ts",
+        "bun": "./dist/tool/index.js",
+        "node": "./dist/node/tool/index.mjs",
+        "browser": "./dist/browser/tool/index.js",
+        "default": "./dist/tool/index.js"
+      },
+      "./tool/index": {
+        "types": "./dist/tool/index.d.ts",
+        "bun": "./dist/tool/index.js",
+        "node": "./dist/node/tool/index.mjs",
+        "browser": "./dist/browser/tool/index.js",
+        "default": "./dist/tool/index.js"
+      },
+      "./tool/tool.entity": {
+        "types": "./dist/tool/tool.entity.d.ts",
+        "bun": "./dist/tool/tool.entity.js",
+        "node": "./dist/node/tool/tool.entity.mjs",
+        "browser": "./dist/browser/tool/tool.entity.js",
+        "default": "./dist/tool/tool.entity.js"
+      },
+      "./tool/tool.enum": {
+        "types": "./dist/tool/tool.enum.d.ts",
+        "bun": "./dist/tool/tool.enum.js",
+        "node": "./dist/node/tool/tool.enum.mjs",
+        "browser": "./dist/browser/tool/tool.enum.js",
+        "default": "./dist/tool/tool.enum.js"
+      },
+      "./tool/tool.event": {
+        "types": "./dist/tool/tool.event.d.ts",
+        "bun": "./dist/tool/tool.event.js",
+        "node": "./dist/node/tool/tool.event.mjs",
+        "browser": "./dist/browser/tool/tool.event.js",
+        "default": "./dist/tool/tool.event.js"
+      },
+      "./tool/tool.handler": {
+        "types": "./dist/tool/tool.handler.d.ts",
+        "bun": "./dist/tool/tool.handler.js",
+        "node": "./dist/node/tool/tool.handler.mjs",
+        "browser": "./dist/browser/tool/tool.handler.js",
+        "default": "./dist/tool/tool.handler.js"
+      },
+      "./tool/tool.operation": {
+        "types": "./dist/tool/tool.operation.d.ts",
+        "bun": "./dist/tool/tool.operation.js",
+        "node": "./dist/node/tool/tool.operation.mjs",
+        "browser": "./dist/browser/tool/tool.operation.js",
+        "default": "./dist/tool/tool.operation.js"
+      },
+      "./tool/tool.presentation": {
+        "types": "./dist/tool/tool.presentation.d.ts",
+        "bun": "./dist/tool/tool.presentation.js",
+        "node": "./dist/node/tool/tool.presentation.mjs",
+        "browser": "./dist/browser/tool/tool.presentation.js",
+        "default": "./dist/tool/tool.presentation.js"
+      },
+      "./tool/tool.schema": {
+        "types": "./dist/tool/tool.schema.d.ts",
+        "bun": "./dist/tool/tool.schema.js",
+        "node": "./dist/node/tool/tool.schema.mjs",
+        "browser": "./dist/browser/tool/tool.schema.js",
+        "default": "./dist/tool/tool.schema.js"
+      },
+      "./tool/tool.test-spec": {
+        "types": "./dist/tool/tool.test-spec.d.ts",
+        "bun": "./dist/tool/tool.test-spec.js",
+        "node": "./dist/node/tool/tool.test-spec.mjs",
+        "browser": "./dist/browser/tool/tool.test-spec.js",
+        "default": "./dist/tool/tool.test-spec.js"
+      },
+      "./ui": {
+        "types": "./dist/ui/index.d.ts",
+        "bun": "./dist/ui/index.js",
+        "node": "./dist/node/ui/index.mjs",
+        "browser": "./dist/browser/ui/index.js",
+        "default": "./dist/ui/index.js"
+      },
+      "./ui/AgentDashboard": {
+        "types": "./dist/ui/AgentDashboard.d.ts",
+        "bun": "./dist/ui/AgentDashboard.js",
+        "node": "./dist/node/ui/AgentDashboard.mjs",
+        "browser": "./dist/browser/ui/AgentDashboard.js",
+        "default": "./dist/ui/AgentDashboard.js"
+      },
+      "./ui/AgentRunList": {
+        "types": "./dist/ui/AgentRunList.d.ts",
+        "bun": "./dist/ui/AgentRunList.js",
+        "node": "./dist/node/ui/AgentRunList.mjs",
+        "browser": "./dist/browser/ui/AgentRunList.js",
+        "default": "./dist/ui/AgentRunList.js"
+      },
+      "./ui/AgentToolRegistry": {
+        "types": "./dist/ui/AgentToolRegistry.d.ts",
+        "bun": "./dist/ui/AgentToolRegistry.js",
+        "node": "./dist/node/ui/AgentToolRegistry.mjs",
+        "browser": "./dist/browser/ui/AgentToolRegistry.js",
+        "default": "./dist/ui/AgentToolRegistry.js"
+      },
+      "./ui/hooks": {
+        "types": "./dist/ui/hooks/index.d.ts",
+        "bun": "./dist/ui/hooks/index.js",
+        "node": "./dist/node/ui/hooks/index.mjs",
+        "browser": "./dist/browser/ui/hooks/index.js",
+        "default": "./dist/ui/hooks/index.js"
+      },
+      "./ui/hooks/index": {
+        "types": "./dist/ui/hooks/index.d.ts",
+        "bun": "./dist/ui/hooks/index.js",
+        "node": "./dist/node/ui/hooks/index.mjs",
+        "browser": "./dist/browser/ui/hooks/index.js",
+        "default": "./dist/ui/hooks/index.js"
+      },
+      "./ui/hooks/useAgentList": {
+        "types": "./dist/ui/hooks/useAgentList.d.ts",
+        "bun": "./dist/ui/hooks/useAgentList.js",
+        "node": "./dist/node/ui/hooks/useAgentList.mjs",
+        "browser": "./dist/browser/ui/hooks/useAgentList.js",
+        "default": "./dist/ui/hooks/useAgentList.js"
+      },
+      "./ui/hooks/useAgentMutations": {
+        "types": "./dist/ui/hooks/useAgentMutations.d.ts",
+        "bun": "./dist/ui/hooks/useAgentMutations.js",
+        "node": "./dist/node/ui/hooks/useAgentMutations.mjs",
+        "browser": "./dist/browser/ui/hooks/useAgentMutations.js",
+        "default": "./dist/ui/hooks/useAgentMutations.js"
+      },
+      "./ui/hooks/useRunList": {
+        "types": "./dist/ui/hooks/useRunList.d.ts",
+        "bun": "./dist/ui/hooks/useRunList.js",
+        "node": "./dist/node/ui/hooks/useRunList.mjs",
+        "browser": "./dist/browser/ui/hooks/useRunList.js",
+        "default": "./dist/ui/hooks/useRunList.js"
+      },
+      "./ui/hooks/useToolList": {
+        "types": "./dist/ui/hooks/useToolList.d.ts",
+        "bun": "./dist/ui/hooks/useToolList.js",
+        "node": "./dist/node/ui/hooks/useToolList.mjs",
+        "browser": "./dist/browser/ui/hooks/useToolList.js",
+        "default": "./dist/ui/hooks/useToolList.js"
+      },
+      "./ui/index": {
+        "types": "./dist/ui/index.d.ts",
+        "bun": "./dist/ui/index.js",
+        "node": "./dist/node/ui/index.mjs",
+        "browser": "./dist/browser/ui/index.js",
+        "default": "./dist/ui/index.js"
+      },
+      "./ui/modals": {
+        "types": "./dist/ui/modals/index.d.ts",
+        "bun": "./dist/ui/modals/index.js",
+        "node": "./dist/node/ui/modals/index.mjs",
+        "browser": "./dist/browser/ui/modals/index.js",
+        "default": "./dist/ui/modals/index.js"
+      },
+      "./ui/modals/AgentActionsModal": {
+        "types": "./dist/ui/modals/AgentActionsModal.d.ts",
+        "bun": "./dist/ui/modals/AgentActionsModal.js",
+        "node": "./dist/node/ui/modals/AgentActionsModal.mjs",
+        "browser": "./dist/browser/ui/modals/AgentActionsModal.js",
+        "default": "./dist/ui/modals/AgentActionsModal.js"
+      },
+      "./ui/modals/CreateAgentModal": {
+        "types": "./dist/ui/modals/CreateAgentModal.d.ts",
+        "bun": "./dist/ui/modals/CreateAgentModal.js",
+        "node": "./dist/node/ui/modals/CreateAgentModal.mjs",
+        "browser": "./dist/browser/ui/modals/CreateAgentModal.js",
+        "default": "./dist/ui/modals/CreateAgentModal.js"
+      },
+      "./ui/modals/index": {
+        "types": "./dist/ui/modals/index.d.ts",
+        "bun": "./dist/ui/modals/index.js",
+        "node": "./dist/node/ui/modals/index.mjs",
+        "browser": "./dist/browser/ui/modals/index.js",
+        "default": "./dist/ui/modals/index.js"
+      },
+      "./ui/overlays": {
+        "types": "./dist/ui/overlays/index.d.ts",
+        "bun": "./dist/ui/overlays/index.js",
+        "node": "./dist/node/ui/overlays/index.mjs",
+        "browser": "./dist/browser/ui/overlays/index.js",
+        "default": "./dist/ui/overlays/index.js"
+      },
+      "./ui/overlays/demo-overlays": {
+        "types": "./dist/ui/overlays/demo-overlays.d.ts",
+        "bun": "./dist/ui/overlays/demo-overlays.js",
+        "node": "./dist/node/ui/overlays/demo-overlays.mjs",
+        "browser": "./dist/browser/ui/overlays/demo-overlays.js",
+        "default": "./dist/ui/overlays/demo-overlays.js"
+      },
+      "./ui/overlays/index": {
+        "types": "./dist/ui/overlays/index.d.ts",
+        "bun": "./dist/ui/overlays/index.js",
+        "node": "./dist/node/ui/overlays/index.mjs",
+        "browser": "./dist/browser/ui/overlays/index.js",
+        "default": "./dist/ui/overlays/index.js"
+      },
+      "./ui/renderers": {
+        "types": "./dist/ui/renderers/index.d.ts",
+        "bun": "./dist/ui/renderers/index.js",
+        "node": "./dist/node/ui/renderers/index.mjs",
+        "browser": "./dist/browser/ui/renderers/index.js",
+        "default": "./dist/ui/renderers/index.js"
+      },
+      "./ui/renderers/agent-list.markdown": {
+        "types": "./dist/ui/renderers/agent-list.markdown.d.ts",
+        "bun": "./dist/ui/renderers/agent-list.markdown.js",
+        "node": "./dist/node/ui/renderers/agent-list.markdown.mjs",
+        "browser": "./dist/browser/ui/renderers/agent-list.markdown.js",
+        "default": "./dist/ui/renderers/agent-list.markdown.js"
+      },
+      "./ui/renderers/agent-list.renderer": {
+        "types": "./dist/ui/renderers/agent-list.renderer.d.ts",
+        "bun": "./dist/ui/renderers/agent-list.renderer.js",
+        "node": "./dist/node/ui/renderers/agent-list.renderer.mjs",
+        "browser": "./dist/browser/ui/renderers/agent-list.renderer.js",
+        "default": "./dist/ui/renderers/agent-list.renderer.js"
+      },
+      "./ui/renderers/dashboard.markdown": {
+        "types": "./dist/ui/renderers/dashboard.markdown.d.ts",
+        "bun": "./dist/ui/renderers/dashboard.markdown.js",
+        "node": "./dist/node/ui/renderers/dashboard.markdown.mjs",
+        "browser": "./dist/browser/ui/renderers/dashboard.markdown.js",
+        "default": "./dist/ui/renderers/dashboard.markdown.js"
+      },
+      "./ui/renderers/index": {
+        "types": "./dist/ui/renderers/index.d.ts",
+        "bun": "./dist/ui/renderers/index.js",
+        "node": "./dist/node/ui/renderers/index.mjs",
+        "browser": "./dist/browser/ui/renderers/index.js",
+        "default": "./dist/ui/renderers/index.js"
+      },
+      "./ui/renderers/run-list.markdown": {
+        "types": "./dist/ui/renderers/run-list.markdown.d.ts",
+        "bun": "./dist/ui/renderers/run-list.markdown.js",
+        "node": "./dist/node/ui/renderers/run-list.markdown.mjs",
+        "browser": "./dist/browser/ui/renderers/run-list.markdown.js",
+        "default": "./dist/ui/renderers/run-list.markdown.js"
+      },
+      "./ui/renderers/tool-registry.markdown": {
+        "types": "./dist/ui/renderers/tool-registry.markdown.d.ts",
+        "bun": "./dist/ui/renderers/tool-registry.markdown.js",
+        "node": "./dist/node/ui/renderers/tool-registry.markdown.mjs",
+        "browser": "./dist/browser/ui/renderers/tool-registry.markdown.js",
+        "default": "./dist/ui/renderers/tool-registry.markdown.js"
+      },
+      "./ui/views": {
+        "types": "./dist/ui/views/index.d.ts",
+        "bun": "./dist/ui/views/index.js",
+        "node": "./dist/node/ui/views/index.mjs",
+        "browser": "./dist/browser/ui/views/index.js",
+        "default": "./dist/ui/views/index.js"
+      },
+      "./ui/views/AgentListView": {
+        "types": "./dist/ui/views/AgentListView.d.ts",
+        "bun": "./dist/ui/views/AgentListView.js",
+        "node": "./dist/node/ui/views/AgentListView.mjs",
+        "browser": "./dist/browser/ui/views/AgentListView.js",
+        "default": "./dist/ui/views/AgentListView.js"
+      },
+      "./ui/views/index": {
+        "types": "./dist/ui/views/index.d.ts",
+        "bun": "./dist/ui/views/index.js",
+        "node": "./dist/node/ui/views/index.mjs",
+        "browser": "./dist/browser/ui/views/index.js",
+        "default": "./dist/ui/views/index.js"
+      },
+      "./ui/views/RunListView": {
+        "types": "./dist/ui/views/RunListView.d.ts",
+        "bun": "./dist/ui/views/RunListView.js",
+        "node": "./dist/node/ui/views/RunListView.mjs",
+        "browser": "./dist/browser/ui/views/RunListView.js",
+        "default": "./dist/ui/views/RunListView.js"
+      },
+      "./ui/views/ToolRegistryView": {
+        "types": "./dist/ui/views/ToolRegistryView.d.ts",
+        "bun": "./dist/ui/views/ToolRegistryView.js",
+        "node": "./dist/node/ui/views/ToolRegistryView.mjs",
+        "browser": "./dist/browser/ui/views/ToolRegistryView.js",
+        "default": "./dist/ui/views/ToolRegistryView.js"
+      }
     },
     "registry": "https://registry.npmjs.org/",
     "access": "public"

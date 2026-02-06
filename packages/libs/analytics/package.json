@@ -19,15 +19,17 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
@@ -35,50 +37,191 @@
     "dayjs": "^1.11.13"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./churn": "./dist/churn/index.js",
-    "./churn/predictor": "./dist/churn/predictor.js",
-    "./cohort": "./dist/cohort/index.js",
-    "./cohort/tracker": "./dist/cohort/tracker.js",
-    "./funnel": "./dist/funnel/index.js",
-    "./funnel/analyzer": "./dist/funnel/analyzer.js",
-    "./growth": "./dist/growth/index.js",
-    "./growth/hypothesis-generator": "./dist/growth/hypothesis-generator.js",
-    "./lifecycle": "./dist/lifecycle/index.js",
-    "./lifecycle/metric-collectors": "./dist/lifecycle/metric-collectors.js",
-    "./lifecycle/posthog-bridge": "./dist/lifecycle/posthog-bridge.js",
-    "./lifecycle/posthog-metric-source": "./dist/lifecycle/posthog-metric-source.js",
-    "./posthog": "./dist/posthog/index.js",
-    "./posthog/event-source": "./dist/posthog/event-source.js",
-    "./types": "./dist/types.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./churn": "./src/churn/index.ts",
+    "./churn/index": "./src/churn/index.ts",
+    "./churn/predictor": "./src/churn/predictor.ts",
+    "./cohort": "./src/cohort/index.ts",
+    "./cohort/index": "./src/cohort/index.ts",
+    "./cohort/tracker": "./src/cohort/tracker.ts",
+    "./funnel": "./src/funnel/index.ts",
+    "./funnel/analyzer": "./src/funnel/analyzer.ts",
+    "./funnel/index": "./src/funnel/index.ts",
+    "./growth": "./src/growth/index.ts",
+    "./growth/hypothesis-generator": "./src/growth/hypothesis-generator.ts",
+    "./growth/index": "./src/growth/index.ts",
+    "./lifecycle": "./src/lifecycle/index.ts",
+    "./lifecycle/index": "./src/lifecycle/index.ts",
+    "./lifecycle/metric-collectors": "./src/lifecycle/metric-collectors.ts",
+    "./lifecycle/posthog-bridge": "./src/lifecycle/posthog-bridge.ts",
+    "./lifecycle/posthog-metric-source": "./src/lifecycle/posthog-metric-source.ts",
+    "./posthog": "./src/posthog/index.ts",
+    "./posthog/event-source": "./src/posthog/event-source.ts",
+    "./posthog/index": "./src/posthog/index.ts",
+    "./types": "./src/types.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./churn": "./dist/churn/index.js",
-      "./churn/predictor": "./dist/churn/predictor.js",
-      "./cohort": "./dist/cohort/index.js",
-      "./cohort/tracker": "./dist/cohort/tracker.js",
-      "./funnel": "./dist/funnel/index.js",
-      "./funnel/analyzer": "./dist/funnel/analyzer.js",
-      "./growth": "./dist/growth/index.js",
-      "./growth/hypothesis-generator": "./dist/growth/hypothesis-generator.js",
-      "./lifecycle": "./dist/lifecycle/index.js",
-      "./lifecycle/metric-collectors": "./dist/lifecycle/metric-collectors.js",
-      "./lifecycle/posthog-bridge": "./dist/lifecycle/posthog-bridge.js",
-      "./lifecycle/posthog-metric-source": "./dist/lifecycle/posthog-metric-source.js",
-      "./posthog": "./dist/posthog/index.js",
-      "./posthog/event-source": "./dist/posthog/event-source.js",
-      "./types": "./dist/types.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./churn": {
+        "types": "./dist/churn/index.d.ts",
+        "bun": "./dist/churn/index.js",
+        "node": "./dist/node/churn/index.mjs",
+        "browser": "./dist/browser/churn/index.js",
+        "default": "./dist/churn/index.js"
+      },
+      "./churn/index": {
+        "types": "./dist/churn/index.d.ts",
+        "bun": "./dist/churn/index.js",
+        "node": "./dist/node/churn/index.mjs",
+        "browser": "./dist/browser/churn/index.js",
+        "default": "./dist/churn/index.js"
+      },
+      "./churn/predictor": {
+        "types": "./dist/churn/predictor.d.ts",
+        "bun": "./dist/churn/predictor.js",
+        "node": "./dist/node/churn/predictor.mjs",
+        "browser": "./dist/browser/churn/predictor.js",
+        "default": "./dist/churn/predictor.js"
+      },
+      "./cohort": {
+        "types": "./dist/cohort/index.d.ts",
+        "bun": "./dist/cohort/index.js",
+        "node": "./dist/node/cohort/index.mjs",
+        "browser": "./dist/browser/cohort/index.js",
+        "default": "./dist/cohort/index.js"
+      },
+      "./cohort/index": {
+        "types": "./dist/cohort/index.d.ts",
+        "bun": "./dist/cohort/index.js",
+        "node": "./dist/node/cohort/index.mjs",
+        "browser": "./dist/browser/cohort/index.js",
+        "default": "./dist/cohort/index.js"
+      },
+      "./cohort/tracker": {
+        "types": "./dist/cohort/tracker.d.ts",
+        "bun": "./dist/cohort/tracker.js",
+        "node": "./dist/node/cohort/tracker.mjs",
+        "browser": "./dist/browser/cohort/tracker.js",
+        "default": "./dist/cohort/tracker.js"
+      },
+      "./funnel": {
+        "types": "./dist/funnel/index.d.ts",
+        "bun": "./dist/funnel/index.js",
+        "node": "./dist/node/funnel/index.mjs",
+        "browser": "./dist/browser/funnel/index.js",
+        "default": "./dist/funnel/index.js"
+      },
+      "./funnel/analyzer": {
+        "types": "./dist/funnel/analyzer.d.ts",
+        "bun": "./dist/funnel/analyzer.js",
+        "node": "./dist/node/funnel/analyzer.mjs",
+        "browser": "./dist/browser/funnel/analyzer.js",
+        "default": "./dist/funnel/analyzer.js"
+      },
+      "./funnel/index": {
+        "types": "./dist/funnel/index.d.ts",
+        "bun": "./dist/funnel/index.js",
+        "node": "./dist/node/funnel/index.mjs",
+        "browser": "./dist/browser/funnel/index.js",
+        "default": "./dist/funnel/index.js"
+      },
+      "./growth": {
+        "types": "./dist/growth/index.d.ts",
+        "bun": "./dist/growth/index.js",
+        "node": "./dist/node/growth/index.mjs",
+        "browser": "./dist/browser/growth/index.js",
+        "default": "./dist/growth/index.js"
+      },
+      "./growth/hypothesis-generator": {
+        "types": "./dist/growth/hypothesis-generator.d.ts",
+        "bun": "./dist/growth/hypothesis-generator.js",
+        "node": "./dist/node/growth/hypothesis-generator.mjs",
+        "browser": "./dist/browser/growth/hypothesis-generator.js",
+        "default": "./dist/growth/hypothesis-generator.js"
+      },
+      "./growth/index": {
+        "types": "./dist/growth/index.d.ts",
+        "bun": "./dist/growth/index.js",
+        "node": "./dist/node/growth/index.mjs",
+        "browser": "./dist/browser/growth/index.js",
+        "default": "./dist/growth/index.js"
+      },
+      "./lifecycle": {
+        "types": "./dist/lifecycle/index.d.ts",
+        "bun": "./dist/lifecycle/index.js",
+        "node": "./dist/node/lifecycle/index.mjs",
+        "browser": "./dist/browser/lifecycle/index.js",
+        "default": "./dist/lifecycle/index.js"
+      },
+      "./lifecycle/index": {
+        "types": "./dist/lifecycle/index.d.ts",
+        "bun": "./dist/lifecycle/index.js",
+        "node": "./dist/node/lifecycle/index.mjs",
+        "browser": "./dist/browser/lifecycle/index.js",
+        "default": "./dist/lifecycle/index.js"
+      },
+      "./lifecycle/metric-collectors": {
+        "types": "./dist/lifecycle/metric-collectors.d.ts",
+        "bun": "./dist/lifecycle/metric-collectors.js",
+        "node": "./dist/node/lifecycle/metric-collectors.mjs",
+        "browser": "./dist/browser/lifecycle/metric-collectors.js",
+        "default": "./dist/lifecycle/metric-collectors.js"
+      },
+      "./lifecycle/posthog-bridge": {
+        "types": "./dist/lifecycle/posthog-bridge.d.ts",
+        "bun": "./dist/lifecycle/posthog-bridge.js",
+        "node": "./dist/node/lifecycle/posthog-bridge.mjs",
+        "browser": "./dist/browser/lifecycle/posthog-bridge.js",
+        "default": "./dist/lifecycle/posthog-bridge.js"
+      },
+      "./lifecycle/posthog-metric-source": {
+        "types": "./dist/lifecycle/posthog-metric-source.d.ts",
+        "bun": "./dist/lifecycle/posthog-metric-source.js",
+        "node": "./dist/node/lifecycle/posthog-metric-source.mjs",
+        "browser": "./dist/browser/lifecycle/posthog-metric-source.js",
+        "default": "./dist/lifecycle/posthog-metric-source.js"
+      },
+      "./posthog": {
+        "types": "./dist/posthog/index.d.ts",
+        "bun": "./dist/posthog/index.js",
+        "node": "./dist/node/posthog/index.mjs",
+        "browser": "./dist/browser/posthog/index.js",
+        "default": "./dist/posthog/index.js"
+      },
+      "./posthog/event-source": {
+        "types": "./dist/posthog/event-source.d.ts",
+        "bun": "./dist/posthog/event-source.js",
+        "node": "./dist/node/posthog/event-source.mjs",
+        "browser": "./dist/browser/posthog/event-source.js",
+        "default": "./dist/posthog/event-source.js"
+      },
+      "./posthog/index": {
+        "types": "./dist/posthog/index.d.ts",
+        "bun": "./dist/posthog/index.js",
+        "node": "./dist/node/posthog/index.mjs",
+        "browser": "./dist/browser/posthog/index.js",
+        "default": "./dist/posthog/index.js"
+      },
+      "./types": {
+        "types": "./dist/types.d.ts",
+        "bun": "./dist/types.js",
+        "node": "./dist/node/types.mjs",
+        "browser": "./dist/browser/types.js",
+        "default": "./dist/types.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

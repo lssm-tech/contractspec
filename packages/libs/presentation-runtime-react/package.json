@@ -16,13 +16,15 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit -p tsconfig.json",
-    "dev": "bun run build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "lint": "bun run lint:fix",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "peerDependencies": {
     "react": "^19.2.4",
@@ -41,20 +43,45 @@
     "README.md"
   ],
   "exports": {
-    ".": "./dist/index.js",
-    "./useWorkflow": "./dist/useWorkflow.js",
-    "./WorkflowStepper": "./dist/WorkflowStepper.js",
-    "./WorkflowStepRenderer": "./dist/WorkflowStepRenderer.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./nativewind-env.d": "./src/nativewind-env.d.ts",
+    "./useWorkflow": "./src/useWorkflow.ts",
+    "./WorkflowStepper": "./src/WorkflowStepper.tsx",
+    "./WorkflowStepRenderer": "./src/WorkflowStepRenderer.tsx"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./useWorkflow": "./dist/useWorkflow.js",
-      "./WorkflowStepper": "./dist/WorkflowStepper.js",
-      "./WorkflowStepRenderer": "./dist/WorkflowStepRenderer.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./nativewind-env.d": {
+        "types": "./dist/nativewind-env.d.d.ts",
+        "bun": "./dist/nativewind-env.d.js",
+        "browser": "./dist/browser/nativewind-env.d.js",
+        "default": "./dist/nativewind-env.d.js"
+      },
+      "./useWorkflow": {
+        "types": "./dist/useWorkflow.d.ts",
+        "bun": "./dist/useWorkflow.js",
+        "browser": "./dist/browser/useWorkflow.js",
+        "default": "./dist/useWorkflow.js"
+      },
+      "./WorkflowStepper": {
+        "types": "./dist/WorkflowStepper.d.ts",
+        "bun": "./dist/WorkflowStepper.js",
+        "browser": "./dist/browser/WorkflowStepper.js",
+        "default": "./dist/WorkflowStepper.js"
+      },
+      "./WorkflowStepRenderer": {
+        "types": "./dist/WorkflowStepRenderer.d.ts",
+        "bun": "./dist/WorkflowStepRenderer.js",
+        "browser": "./dist/browser/WorkflowStepRenderer.js",
+        "default": "./dist/WorkflowStepRenderer.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },
@@ -66,6 +93,7 @@
   },
   "homepage": "https://contractspec.io",
   "devDependencies": {
-    "react-native-css": "^3.0.0"
+    "react-native-css": "^3.0.0",
+    "@contractspec/tool.bun": "workspace:*"
   }
 }
