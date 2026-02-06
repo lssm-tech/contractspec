@@ -1,5 +1,34 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 1.58.0
+
+### Minor Changes
+
+- d1f0fd0: chore: Migrate non-app package builds from tsdown to shared Bun tooling, add `@contractspec/tool.bun`, and standardize `prebuild`/`build`/`typecheck` with platform-aware exports and `tsc` declaration emission into `dist`.
+
+### Patch Changes
+
+- Updated dependencies [d1f0fd0]
+  - @contractspec/example.policy-safe-knowledge-assistant@1.58.0
+  - @contractspec/example.analytics-dashboard@1.58.0
+  - @contractspec/example.saas-boilerplate@1.58.0
+  - @contractspec/lib.progressive-delivery@12.0.0
+  - @contractspec/example.integration-hub@1.58.0
+  - @contractspec/example.workflow-system@1.58.0
+  - @contractspec/example.agent-console@1.58.0
+  - @contractspec/lib.example-shared-ui@1.12.0
+  - @contractspec/example.crm-pipeline@1.58.0
+  - @contractspec/example.in-app-docs@1.5.0
+  - @contractspec/example.marketplace@1.58.0
+  - @contractspec/lib.design-system@1.58.0
+  - @contractspec/bundle.marketing@1.13.0
+  - @contractspec/lib.ui-kit-core@1.58.0
+  - @contractspec/module.examples@1.58.0
+  - @contractspec/bundle.library@1.13.0
+  - @contractspec/lib.ui-kit-web@1.58.0
+  - @contractspec/lib.ui-link@1.58.0
+  - @contractspec/lib.ui-kit@1.58.0
+
 ## 1.57.0
 
 ### Minor Changes
