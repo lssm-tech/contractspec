@@ -8,6 +8,7 @@
     "esModuleInterop": true,
     "incremental": true,
     "isolatedModules": true,
+    "jsx": "preserve",
     "lib": ["esnext", "DOM", "DOM.Iterable"],
     "module": "Preserve",
     "moduleDetection": "force",

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.graphql-prisma",
-  "version": "1.56.1",
+  "version": "1.57.0",
   "description": "Pothos + Prisma builder factory with injectable client/DMMF",
   "keywords": [
     "contractspec",
@@ -18,9 +18,13 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "tsdown",
-    "dev": "tsup --watch",
-    "clean": "rm -rf dist"
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "dev": "contractspec-bun-build dev",
+    "clean": "rm -rf dist",
+    "prebuild": "contractspec-bun-build prebuild",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
@@ -38,20 +42,23 @@
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "type": "module",
   "exports": {
-    ".": "./dist/index.js",
-    "./*": "./*"
+    ".": "./src/index.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

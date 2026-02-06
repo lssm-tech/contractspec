@@ -12,16 +12,20 @@
 '@contractspec/example.learning-journey-ui-gamified': minor
 '@contractspec/example.learning-journey-duo-drills': minor
 '@contractspec/example.learning-journey-ui-shared': minor
+'@contractspec/example.meeting-recorder-providers': minor
 '@contractspec/example.learning-journey-registry': minor
 '@contractspec/example.locale-jurisdiction-gate': minor
 '@contractspec/example.versioned-knowledge-base': minor
 '@contractspec/eslint-plugin-design-system': minor
+'@contractspec/example.project-management-sync': minor
 '@contractspec/tool.create-contractspec-plugin': minor
 '@contractspec/lib.presentation-runtime-react': minor
 '@contractspec/integration.example-generator': minor
 '@contractspec/lib.presentation-runtime-core': minor
+'@contractspec/example.integration-supabase': minor
 '@contractspec/example.pocket-family-office': minor
 '@contractspec/example.analytics-dashboard': minor
+'@contractspec/example.integration-posthog': minor
 '@contractspec/example.lifecycle-dashboard': minor
 '@contractspec/example.service-business-os': minor
 '@contractspec/integration.providers-impls': minor
@@ -39,9 +43,11 @@
 '@contractspec/lib.progressive-delivery': minor
 '@contractspec/module.lifecycle-advisor': minor
 'vscode-contractspec': minor
+'@contractspec/example.calendar-google': minor
 '@contractspec/example.integration-hub': minor
 '@contractspec/example.knowledge-canon': minor
 '@contractspec/example.personalization': minor
+'@contractspec/example.voice-providers': minor
 '@contractspec/example.wealth-snapshot': minor
 '@contractspec/example.workflow-system': minor
 '@contractspec/module.learning-journey': minor
@@ -63,6 +69,7 @@
 '@contractspec/lib.utils-typescript': minor
 '@contractspec/module.notifications': minor
 '@contractspec/app.registry-server': minor
+'@contractspec/example.email-gmail': minor
 '@contractspec/example.in-app-docs': minor
 '@contractspec/example.marketplace': minor
 '@contractspec/integration.runtime': minor
@@ -122,7 +129,8 @@
 '@contractspec/lib.error': minor
 '@contractspec/lib.files': minor
 '@contractspec/lib.jobs': minor
+'@contractspec/tool.bun': minor
 '@contractspec/lib.bus': minor
 ---
 
-feat: improve product intent
+chore: Migrate non-app package builds from tsdown to shared Bun tooling, add `@contractspec/tool.bun`, and standardize `prebuild`/`build`/`typecheck` with platform-aware exports and `tsc` declaration emission into `dist`.

@@ -400,6 +400,9 @@ export class IntegrationProviderFactory {
     const config = context.config as {
       baseUrl?: string;
       pageSize?: number;
+      transport?: 'api' | 'mcp';
+      mcpUrl?: string;
+      mcpHeaders?: Record<string, string>;
       transcriptsPageSize?: number;
       includeTranscript?: boolean;
       includeSummary?: boolean;
@@ -411,6 +414,17 @@ export class IntegrationProviderFactory {
 
     switch (context.spec.meta.key) {
       case 'meeting-recorder.granola':
+        if (config?.transport === 'mcp') {
+          return new GranolaMeetingRecorderProvider({
+            transport: 'mcp',
+            mcpUrl: config?.mcpUrl,
+            mcpHeaders: config?.mcpHeaders,
+            mcpAccessToken:
+              (secrets.mcpAccessToken as string | undefined) ??
+              (secrets.apiKey as string | undefined),
+            pageSize: config?.pageSize,
+          });
+        }
         return new GranolaMeetingRecorderProvider({
           apiKey: requireSecret<string>(
             secrets,

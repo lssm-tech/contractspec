@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.error",
-  "version": "1.56.1",
+  "version": "1.57.0",
   "description": "Structured error handling and HTTP error utilities",
   "keywords": [
     "contractspec",
@@ -12,20 +12,21 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "dependencies": {},
   "peerDependencies": {
@@ -40,20 +41,42 @@
     "README.md"
   ],
   "exports": {
-    ".": "./dist/index.js",
-    "./appError": "./dist/appError.js",
-    "./codes": "./dist/codes.js",
-    "./http": "./dist/http.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./appError": "./src/appError.ts",
+    "./codes": "./src/codes.ts",
+    "./http": "./src/http.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./appError": "./dist/appError.js",
-      "./codes": "./dist/codes.js",
-      "./http": "./dist/http.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./appError": {
+        "types": "./dist/appError.d.ts",
+        "bun": "./dist/appError.js",
+        "node": "./dist/node/appError.mjs",
+        "browser": "./dist/browser/appError.js",
+        "default": "./dist/appError.js"
+      },
+      "./codes": {
+        "types": "./dist/codes.d.ts",
+        "bun": "./dist/codes.js",
+        "node": "./dist/node/codes.mjs",
+        "browser": "./dist/browser/codes.js",
+        "default": "./dist/codes.js"
+      },
+      "./http": {
+        "types": "./dist/http.d.ts",
+        "bun": "./dist/http.js",
+        "node": "./dist/node/http.mjs",
+        "browser": "./dist/browser/http.js",
+        "default": "./dist/http.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

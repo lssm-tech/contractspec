@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 0.12.0
+
+### Minor Changes
+
+- 11a5a05: feat: improve product intent
+
 ## 0.11.1
 
 ### Patch Changes

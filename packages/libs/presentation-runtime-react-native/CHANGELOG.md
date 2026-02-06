@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 11.0.0
+
+### Minor Changes
+
+- 11a5a05: feat: improve product intent
+
+### Patch Changes
+
+- Updated dependencies [11a5a05]
+  - @contractspec/lib.presentation-runtime-core@1.57.0
+  - @contractspec/lib.ui-kit@1.57.0
+
 ## 10.0.1
 
 ### Patch Changes

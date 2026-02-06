@@ -49,3 +49,16 @@ export interface GranolaTranscriptSegment {
   start_time: string;
   end_time: string;
 }
+
+export type GranolaMeetingRecorderTransport = 'api' | 'mcp';
+
+export interface GranolaMcpJsonRpcResponse {
+  result?: {
+    content?: { type?: string; text?: string }[];
+    structuredContent?: unknown;
+    data?: unknown;
+  };
+  error?: {
+    message?: string;
+  };
+}

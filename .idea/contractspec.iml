@@ -5,6 +5,33 @@
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/.agent/skills" />
+      <excludeFolder url="file://$MODULE_DIR$/.agents" />
+      <excludeFolder url="file://$MODULE_DIR$/.augment/rules" />
+      <excludeFolder url="file://$MODULE_DIR$/.claude/agents" />
+      <excludeFolder url="file://$MODULE_DIR$/.claude/commands" />
+      <excludeFolder url="file://$MODULE_DIR$/.claude/rules" />
+      <excludeFolder url="file://$MODULE_DIR$/.claude/skills" />
+      <excludeFolder url="file://$MODULE_DIR$/.clinerules" />
+      <excludeFolder url="file://$MODULE_DIR$/.codex" />
+      <excludeFolder url="file://$MODULE_DIR$/.cursor" />
+      <excludeFolder url="file://$MODULE_DIR$/.gemini/commands" />
+      <excludeFolder url="file://$MODULE_DIR$/.gemini/memories" />
+      <excludeFolder url="file://$MODULE_DIR$/.github/instructions" />
+      <excludeFolder url="file://$MODULE_DIR$/.github/prompts" />
+      <excludeFolder url="file://$MODULE_DIR$/.github/skills" />
+      <excludeFolder url="file://$MODULE_DIR$/.grepai" />
+      <excludeFolder url="file://$MODULE_DIR$/.kilocode/rules" />
+      <excludeFolder url="file://$MODULE_DIR$/.kilocode/skills" />
+      <excludeFolder url="file://$MODULE_DIR$/.kilocode/workflows" />
+      <excludeFolder url="file://$MODULE_DIR$/.opencode/agent" />
+      <excludeFolder url="file://$MODULE_DIR$/.opencode/command" />
+      <excludeFolder url="file://$MODULE_DIR$/.opencode/memories" />
+      <excludeFolder url="file://$MODULE_DIR$/.opencode/skill" />
+      <excludeFolder url="file://$MODULE_DIR$/.qwen/memories" />
+      <excludeFolder url="file://$MODULE_DIR$/.serena/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/.warp" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/apps/jetbrains-contractspec/.gradle" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

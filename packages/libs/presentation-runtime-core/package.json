@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.presentation-runtime-core",
-  "version": "1.56.1",
+  "version": "1.57.0",
   "description": "Core presentation runtime for contract-driven UIs",
   "keywords": [
     "contractspec",
@@ -16,38 +16,42 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:bundle && bun build:types",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit -p tsconfig.json",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
     "clean": "rimraf dist .turbo",
-    "dev": "bun run build:bundle --watch",
+    "dev": "contractspec-bun-build dev",
     "lint": "bun run lint:fix",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "peerDependencies": {
     "typescript": "^5.9.0"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "files": [
     "dist",
     "README.md"
   ],
   "exports": {
-    ".": "./dist/index.js",
-    "./*": "./*"
+    ".": "./src/index.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./metro.cjs": "./src/metro.cjs",
-      "./next.mjs": "./src/next.mjs"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

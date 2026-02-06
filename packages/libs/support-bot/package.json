@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.support-bot",
-  "version": "1.56.1",
+  "version": "1.57.0",
   "description": "AI support bot framework with RAG and ticket management",
   "keywords": [
     "contractspec",
@@ -19,15 +19,17 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@ai-sdk/provider-utils": "^4.0.4",
@@ -38,40 +40,127 @@
     "zod": "^4.3.5"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./bot": "./dist/bot/index.js",
-    "./bot/auto-responder": "./dist/bot/auto-responder.js",
-    "./bot/feedback-loop": "./dist/bot/feedback-loop.js",
-    "./bot/tools": "./dist/bot/tools.js",
-    "./rag": "./dist/rag/index.js",
-    "./rag/ticket-resolver": "./dist/rag/ticket-resolver.js",
-    "./spec": "./dist/spec.js",
-    "./tickets": "./dist/tickets/index.js",
-    "./tickets/classifier": "./dist/tickets/classifier.js",
-    "./types": "./dist/types.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./bot": "./src/bot/index.ts",
+    "./bot/auto-responder": "./src/bot/auto-responder.ts",
+    "./bot/feedback-loop": "./src/bot/feedback-loop.ts",
+    "./bot/index": "./src/bot/index.ts",
+    "./bot/tools": "./src/bot/tools.ts",
+    "./rag": "./src/rag/index.ts",
+    "./rag/index": "./src/rag/index.ts",
+    "./rag/ticket-resolver": "./src/rag/ticket-resolver.ts",
+    "./spec": "./src/spec.ts",
+    "./tickets": "./src/tickets/index.ts",
+    "./tickets/classifier": "./src/tickets/classifier.ts",
+    "./tickets/index": "./src/tickets/index.ts",
+    "./types": "./src/types.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./bot": "./dist/bot/index.js",
-      "./bot/auto-responder": "./dist/bot/auto-responder.js",
-      "./bot/feedback-loop": "./dist/bot/feedback-loop.js",
-      "./bot/tools": "./dist/bot/tools.js",
-      "./rag": "./dist/rag/index.js",
-      "./rag/ticket-resolver": "./dist/rag/ticket-resolver.js",
-      "./spec": "./dist/spec.js",
-      "./tickets": "./dist/tickets/index.js",
-      "./tickets/classifier": "./dist/tickets/classifier.js",
-      "./types": "./dist/types.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./bot": {
+        "types": "./dist/bot/index.d.ts",
+        "bun": "./dist/bot/index.js",
+        "node": "./dist/node/bot/index.mjs",
+        "browser": "./dist/browser/bot/index.js",
+        "default": "./dist/bot/index.js"
+      },
+      "./bot/auto-responder": {
+        "types": "./dist/bot/auto-responder.d.ts",
+        "bun": "./dist/bot/auto-responder.js",
+        "node": "./dist/node/bot/auto-responder.mjs",
+        "browser": "./dist/browser/bot/auto-responder.js",
+        "default": "./dist/bot/auto-responder.js"
+      },
+      "./bot/feedback-loop": {
+        "types": "./dist/bot/feedback-loop.d.ts",
+        "bun": "./dist/bot/feedback-loop.js",
+        "node": "./dist/node/bot/feedback-loop.mjs",
+        "browser": "./dist/browser/bot/feedback-loop.js",
+        "default": "./dist/bot/feedback-loop.js"
+      },
+      "./bot/index": {
+        "types": "./dist/bot/index.d.ts",
+        "bun": "./dist/bot/index.js",
+        "node": "./dist/node/bot/index.mjs",
+        "browser": "./dist/browser/bot/index.js",
+        "default": "./dist/bot/index.js"
+      },
+      "./bot/tools": {
+        "types": "./dist/bot/tools.d.ts",
+        "bun": "./dist/bot/tools.js",
+        "node": "./dist/node/bot/tools.mjs",
+        "browser": "./dist/browser/bot/tools.js",
+        "default": "./dist/bot/tools.js"
+      },
+      "./rag": {
+        "types": "./dist/rag/index.d.ts",
+        "bun": "./dist/rag/index.js",
+        "node": "./dist/node/rag/index.mjs",
+        "browser": "./dist/browser/rag/index.js",
+        "default": "./dist/rag/index.js"
+      },
+      "./rag/index": {
+        "types": "./dist/rag/index.d.ts",
+        "bun": "./dist/rag/index.js",
+        "node": "./dist/node/rag/index.mjs",
+        "browser": "./dist/browser/rag/index.js",
+        "default": "./dist/rag/index.js"
+      },
+      "./rag/ticket-resolver": {
+        "types": "./dist/rag/ticket-resolver.d.ts",
+        "bun": "./dist/rag/ticket-resolver.js",
+        "node": "./dist/node/rag/ticket-resolver.mjs",
+        "browser": "./dist/browser/rag/ticket-resolver.js",
+        "default": "./dist/rag/ticket-resolver.js"
+      },
+      "./spec": {
+        "types": "./dist/spec.d.ts",
+        "bun": "./dist/spec.js",
+        "node": "./dist/node/spec.mjs",
+        "browser": "./dist/browser/spec.js",
+        "default": "./dist/spec.js"
+      },
+      "./tickets": {
+        "types": "./dist/tickets/index.d.ts",
+        "bun": "./dist/tickets/index.js",
+        "node": "./dist/node/tickets/index.mjs",
+        "browser": "./dist/browser/tickets/index.js",
+        "default": "./dist/tickets/index.js"
+      },
+      "./tickets/classifier": {
+        "types": "./dist/tickets/classifier.d.ts",
+        "bun": "./dist/tickets/classifier.js",
+        "node": "./dist/node/tickets/classifier.mjs",
+        "browser": "./dist/browser/tickets/classifier.js",
+        "default": "./dist/tickets/classifier.js"
+      },
+      "./tickets/index": {
+        "types": "./dist/tickets/index.d.ts",
+        "bun": "./dist/tickets/index.js",
+        "node": "./dist/node/tickets/index.mjs",
+        "browser": "./dist/browser/tickets/index.js",
+        "default": "./dist/tickets/index.js"
+      },
+      "./types": {
+        "types": "./dist/types.d.ts",
+        "bun": "./dist/types.js",
+        "node": "./dist/node/types.mjs",
+        "browser": "./dist/browser/types.js",
+        "default": "./dist/types.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

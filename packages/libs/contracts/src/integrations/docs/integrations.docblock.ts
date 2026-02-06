@@ -47,7 +47,7 @@ The contracts library ships twenty-two priority providers in \`packages/libs/con
 | project-management | Linear       | \`project-management.linear\` | Issues, project tracking, and team tasks          |
 | project-management | Jira Cloud   | \`project-management.jira\`   | Work item sync for Jira Cloud                     |
 | project-management | Notion       | \`project-management.notion\` | Shared summaries and task databases               |
-| meeting-recorder | Granola       | \`meeting-recorder.granola\`  | Enterprise meeting notes + transcripts            |
+| meeting-recorder | Granola       | \`meeting-recorder.granola\`  | Meeting notes + transcripts via API or MCP        |
 | meeting-recorder | tl;dv         | \`meeting-recorder.tldv\`     | Meeting recordings, transcripts, and webhooks     |
 | meeting-recorder | Fireflies     | \`meeting-recorder.fireflies\` | GraphQL transcripts + webhook events              |
 | meeting-recorder | Fathom        | \`meeting-recorder.fathom\`   | External API meetings + webhook registration      |

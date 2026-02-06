@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.observability",
-  "version": "1.56.1",
+  "version": "1.57.0",
   "description": "OpenTelemetry-based observability primitives",
   "keywords": [
     "contractspec",
@@ -10,19 +10,21 @@
     "metrics",
     "typescript"
   ],
-  "types": "./dist/index.d.mts",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.lifecycle": "workspace:*",
@@ -32,46 +34,141 @@
     "@opentelemetry/api": "*"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "exports": {
-    ".": "./dist/index.mjs",
-    "./anomaly/alert-manager": "./dist/anomaly/alert-manager.mjs",
-    "./anomaly/anomaly-detector": "./dist/anomaly/anomaly-detector.mjs",
-    "./anomaly/baseline-calculator": "./dist/anomaly/baseline-calculator.mjs",
-    "./anomaly/root-cause-analyzer": "./dist/anomaly/root-cause-analyzer.mjs",
-    "./intent/aggregator": "./dist/intent/aggregator.mjs",
-    "./intent/detector": "./dist/intent/detector.mjs",
-    "./logging": "./dist/logging/index.mjs",
-    "./metrics": "./dist/metrics/index.mjs",
-    "./pipeline/evolution-pipeline": "./dist/pipeline/evolution-pipeline.mjs",
-    "./pipeline/lifecycle-pipeline": "./dist/pipeline/lifecycle-pipeline.mjs",
-    "./telemetry/posthog-baseline-reader": "./dist/telemetry/posthog-baseline-reader.mjs",
-    "./telemetry/posthog-telemetry": "./dist/telemetry/posthog-telemetry.mjs",
-    "./tracing": "./dist/tracing/index.mjs",
-    "./tracing/middleware": "./dist/tracing/middleware.mjs",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./anomaly/alert-manager": "./src/anomaly/alert-manager.ts",
+    "./anomaly/anomaly-detector": "./src/anomaly/anomaly-detector.ts",
+    "./anomaly/baseline-calculator": "./src/anomaly/baseline-calculator.ts",
+    "./anomaly/root-cause-analyzer": "./src/anomaly/root-cause-analyzer.ts",
+    "./intent/aggregator": "./src/intent/aggregator.ts",
+    "./intent/detector": "./src/intent/detector.ts",
+    "./logging": "./src/logging/index.ts",
+    "./logging/index": "./src/logging/index.ts",
+    "./metrics": "./src/metrics/index.ts",
+    "./metrics/index": "./src/metrics/index.ts",
+    "./pipeline/evolution-pipeline": "./src/pipeline/evolution-pipeline.ts",
+    "./pipeline/lifecycle-pipeline": "./src/pipeline/lifecycle-pipeline.ts",
+    "./telemetry/posthog-baseline-reader": "./src/telemetry/posthog-baseline-reader.ts",
+    "./telemetry/posthog-telemetry": "./src/telemetry/posthog-telemetry.ts",
+    "./tracing": "./src/tracing/index.ts",
+    "./tracing/index": "./src/tracing/index.ts",
+    "./tracing/middleware": "./src/tracing/middleware.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.mjs",
-      "./anomaly/alert-manager": "./dist/anomaly/alert-manager.mjs",
-      "./anomaly/anomaly-detector": "./dist/anomaly/anomaly-detector.mjs",
-      "./anomaly/baseline-calculator": "./dist/anomaly/baseline-calculator.mjs",
-      "./anomaly/root-cause-analyzer": "./dist/anomaly/root-cause-analyzer.mjs",
-      "./intent/aggregator": "./dist/intent/aggregator.mjs",
-      "./intent/detector": "./dist/intent/detector.mjs",
-      "./logging": "./dist/logging/index.mjs",
-      "./metrics": "./dist/metrics/index.mjs",
-      "./pipeline/evolution-pipeline": "./dist/pipeline/evolution-pipeline.mjs",
-      "./pipeline/lifecycle-pipeline": "./dist/pipeline/lifecycle-pipeline.mjs",
-      "./telemetry/posthog-baseline-reader": "./dist/telemetry/posthog-baseline-reader.mjs",
-      "./tracing": "./dist/tracing/index.mjs",
-      "./tracing/middleware": "./dist/tracing/middleware.mjs",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "default": "./dist/index.js"
+      },
+      "./anomaly/alert-manager": {
+        "types": "./dist/anomaly/alert-manager.d.ts",
+        "bun": "./dist/anomaly/alert-manager.js",
+        "node": "./dist/node/anomaly/alert-manager.mjs",
+        "default": "./dist/anomaly/alert-manager.js"
+      },
+      "./anomaly/anomaly-detector": {
+        "types": "./dist/anomaly/anomaly-detector.d.ts",
+        "bun": "./dist/anomaly/anomaly-detector.js",
+        "node": "./dist/node/anomaly/anomaly-detector.mjs",
+        "default": "./dist/anomaly/anomaly-detector.js"
+      },
+      "./anomaly/baseline-calculator": {
+        "types": "./dist/anomaly/baseline-calculator.d.ts",
+        "bun": "./dist/anomaly/baseline-calculator.js",
+        "node": "./dist/node/anomaly/baseline-calculator.mjs",
+        "default": "./dist/anomaly/baseline-calculator.js"
+      },
+      "./anomaly/root-cause-analyzer": {
+        "types": "./dist/anomaly/root-cause-analyzer.d.ts",
+        "bun": "./dist/anomaly/root-cause-analyzer.js",
+        "node": "./dist/node/anomaly/root-cause-analyzer.mjs",
+        "default": "./dist/anomaly/root-cause-analyzer.js"
+      },
+      "./intent/aggregator": {
+        "types": "./dist/intent/aggregator.d.ts",
+        "bun": "./dist/intent/aggregator.js",
+        "node": "./dist/node/intent/aggregator.mjs",
+        "default": "./dist/intent/aggregator.js"
+      },
+      "./intent/detector": {
+        "types": "./dist/intent/detector.d.ts",
+        "bun": "./dist/intent/detector.js",
+        "node": "./dist/node/intent/detector.mjs",
+        "default": "./dist/intent/detector.js"
+      },
+      "./logging": {
+        "types": "./dist/logging/index.d.ts",
+        "bun": "./dist/logging/index.js",
+        "node": "./dist/node/logging/index.mjs",
+        "default": "./dist/logging/index.js"
+      },
+      "./logging/index": {
+        "types": "./dist/logging/index.d.ts",
+        "bun": "./dist/logging/index.js",
+        "node": "./dist/node/logging/index.mjs",
+        "default": "./dist/logging/index.js"
+      },
+      "./metrics": {
+        "types": "./dist/metrics/index.d.ts",
+        "bun": "./dist/metrics/index.js",
+        "node": "./dist/node/metrics/index.mjs",
+        "default": "./dist/metrics/index.js"
+      },
+      "./metrics/index": {
+        "types": "./dist/metrics/index.d.ts",
+        "bun": "./dist/metrics/index.js",
+        "node": "./dist/node/metrics/index.mjs",
+        "default": "./dist/metrics/index.js"
+      },
+      "./pipeline/evolution-pipeline": {
+        "types": "./dist/pipeline/evolution-pipeline.d.ts",
+        "bun": "./dist/pipeline/evolution-pipeline.js",
+        "node": "./dist/node/pipeline/evolution-pipeline.mjs",
+        "default": "./dist/pipeline/evolution-pipeline.js"
+      },
+      "./pipeline/lifecycle-pipeline": {
+        "types": "./dist/pipeline/lifecycle-pipeline.d.ts",
+        "bun": "./dist/pipeline/lifecycle-pipeline.js",
+        "node": "./dist/node/pipeline/lifecycle-pipeline.mjs",
+        "default": "./dist/pipeline/lifecycle-pipeline.js"
+      },
+      "./telemetry/posthog-baseline-reader": {
+        "types": "./dist/telemetry/posthog-baseline-reader.d.ts",
+        "bun": "./dist/telemetry/posthog-baseline-reader.js",
+        "node": "./dist/node/telemetry/posthog-baseline-reader.mjs",
+        "default": "./dist/telemetry/posthog-baseline-reader.js"
+      },
+      "./telemetry/posthog-telemetry": {
+        "types": "./dist/telemetry/posthog-telemetry.d.ts",
+        "bun": "./dist/telemetry/posthog-telemetry.js",
+        "node": "./dist/node/telemetry/posthog-telemetry.mjs",
+        "default": "./dist/telemetry/posthog-telemetry.js"
+      },
+      "./tracing": {
+        "types": "./dist/tracing/index.d.ts",
+        "bun": "./dist/tracing/index.js",
+        "node": "./dist/node/tracing/index.mjs",
+        "default": "./dist/tracing/index.js"
+      },
+      "./tracing/index": {
+        "types": "./dist/tracing/index.d.ts",
+        "bun": "./dist/tracing/index.js",
+        "node": "./dist/node/tracing/index.mjs",
+        "default": "./dist/tracing/index.js"
+      },
+      "./tracing/middleware": {
+        "types": "./dist/tracing/middleware.d.ts",
+        "bun": "./dist/tracing/middleware.js",
+        "node": "./dist/node/tracing/middleware.mjs",
+        "default": "./dist/tracing/middleware.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

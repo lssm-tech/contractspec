@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.audit-trail",
-  "version": "1.56.1",
+  "version": "1.57.0",
   "description": "Audit trail module for tracking and querying system events",
   "keywords": [
     "contractspec",
@@ -15,14 +15,16 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
@@ -32,17 +34,19 @@
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./audit-trail.capability": "./dist/audit-trail.capability.js",
-    "./audit-trail.feature": "./dist/audit-trail.feature.js",
-    "./contracts": "./dist/contracts/index.js",
-    "./entities": "./dist/entities/index.js",
-    "./storage": "./dist/storage/index.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./audit-trail.capability": "./src/audit-trail.capability.ts",
+    "./audit-trail.feature": "./src/audit-trail.feature.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./contracts/index": "./src/contracts/index.ts",
+    "./entities": "./src/entities/index.ts",
+    "./entities/index": "./src/entities/index.ts",
+    "./storage": "./src/storage/index.ts",
+    "./storage/index": "./src/storage/index.ts"
   },
   "files": [
     "dist",
@@ -51,12 +55,69 @@
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./audit-trail.feature": "./dist/audit-trail.feature.js",
-      "./contracts": "./dist/contracts/index.js",
-      "./entities": "./dist/entities/index.js",
-      "./storage": "./dist/storage/index.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./audit-trail.capability": {
+        "types": "./dist/audit-trail.capability.d.ts",
+        "bun": "./dist/audit-trail.capability.js",
+        "node": "./dist/node/audit-trail.capability.mjs",
+        "browser": "./dist/browser/audit-trail.capability.js",
+        "default": "./dist/audit-trail.capability.js"
+      },
+      "./audit-trail.feature": {
+        "types": "./dist/audit-trail.feature.d.ts",
+        "bun": "./dist/audit-trail.feature.js",
+        "node": "./dist/node/audit-trail.feature.mjs",
+        "browser": "./dist/browser/audit-trail.feature.js",
+        "default": "./dist/audit-trail.feature.js"
+      },
+      "./contracts": {
+        "types": "./dist/contracts/index.d.ts",
+        "bun": "./dist/contracts/index.js",
+        "node": "./dist/node/contracts/index.mjs",
+        "browser": "./dist/browser/contracts/index.js",
+        "default": "./dist/contracts/index.js"
+      },
+      "./contracts/index": {
+        "types": "./dist/contracts/index.d.ts",
+        "bun": "./dist/contracts/index.js",
+        "node": "./dist/node/contracts/index.mjs",
+        "browser": "./dist/browser/contracts/index.js",
+        "default": "./dist/contracts/index.js"
+      },
+      "./entities": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "browser": "./dist/browser/entities/index.js",
+        "default": "./dist/entities/index.js"
+      },
+      "./entities/index": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "browser": "./dist/browser/entities/index.js",
+        "default": "./dist/entities/index.js"
+      },
+      "./storage": {
+        "types": "./dist/storage/index.d.ts",
+        "bun": "./dist/storage/index.js",
+        "node": "./dist/node/storage/index.mjs",
+        "browser": "./dist/browser/storage/index.js",
+        "default": "./dist/storage/index.js"
+      },
+      "./storage/index": {
+        "types": "./dist/storage/index.d.ts",
+        "bun": "./dist/storage/index.js",
+        "node": "./dist/node/storage/index.mjs",
+        "browser": "./dist/browser/storage/index.js",
+        "default": "./dist/storage/index.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

@@ -1,31 +1,33 @@
 {
   "name": "@contractspec/example.personalization",
-  "version": "1.56.1",
+  "version": "1.57.0",
   "description": "Personalization examples: behavior tracking, overlay customization, workflow extension.",
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./behavior-tracking": "./dist/behavior-tracking.js",
-    "./docs": "./dist/docs/index.js",
-    "./docs/personalization.docblock": "./dist/docs/personalization.docblock.js",
-    "./example": "./dist/example.js",
-    "./overlay-customization": "./dist/overlay-customization.js",
-    "./workflow-extension": "./dist/workflow-extension.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./behavior-tracking": "./src/behavior-tracking.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/index": "./src/docs/index.ts",
+    "./docs/personalization.docblock": "./src/docs/personalization.docblock.ts",
+    "./example": "./src/example.ts",
+    "./overlay-customization": "./src/overlay-customization.ts",
+    "./workflow-extension": "./src/workflow-extension.ts"
   },
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.personalization": "workspace:*",
@@ -35,22 +37,69 @@
     "@contractspec/lib.logger": "workspace:*"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./behavior-tracking": "./dist/behavior-tracking.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/personalization.docblock": "./dist/docs/personalization.docblock.js",
-      "./example": "./dist/example.js",
-      "./overlay-customization": "./dist/overlay-customization.js",
-      "./workflow-extension": "./dist/workflow-extension.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./behavior-tracking": {
+        "types": "./dist/behavior-tracking.d.ts",
+        "bun": "./dist/behavior-tracking.js",
+        "node": "./dist/node/behavior-tracking.mjs",
+        "browser": "./dist/browser/behavior-tracking.js",
+        "default": "./dist/behavior-tracking.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/index": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/personalization.docblock": {
+        "types": "./dist/docs/personalization.docblock.d.ts",
+        "bun": "./dist/docs/personalization.docblock.js",
+        "node": "./dist/node/docs/personalization.docblock.mjs",
+        "browser": "./dist/browser/docs/personalization.docblock.js",
+        "default": "./dist/docs/personalization.docblock.js"
+      },
+      "./example": {
+        "types": "./dist/example.d.ts",
+        "bun": "./dist/example.js",
+        "node": "./dist/node/example.mjs",
+        "browser": "./dist/browser/example.js",
+        "default": "./dist/example.js"
+      },
+      "./overlay-customization": {
+        "types": "./dist/overlay-customization.d.ts",
+        "bun": "./dist/overlay-customization.js",
+        "node": "./dist/node/overlay-customization.mjs",
+        "browser": "./dist/browser/overlay-customization.js",
+        "default": "./dist/overlay-customization.js"
+      },
+      "./workflow-extension": {
+        "types": "./dist/workflow-extension.d.ts",
+        "bun": "./dist/workflow-extension.js",
+        "node": "./dist/node/workflow-extension.mjs",
+        "browser": "./dist/browser/workflow-extension.js",
+        "default": "./dist/workflow-extension.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

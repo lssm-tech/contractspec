@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.logger",
-  "version": "1.56.1",
+  "version": "1.57.0",
   "description": "Comprehensive logging library optimized for Bun with ElysiaJS integration",
   "keywords": [
     "contractspec",
@@ -18,16 +18,17 @@
     "lint:check": "eslint src",
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch"
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "peerDependencies": {
     "elysia": ">=1.0.0"
@@ -40,48 +41,117 @@
   "dependencies": {
     "zone.js": "^0.16.0"
   },
-  "types": "./dist/index.d.mts",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "README.md"
   ],
   "exports": {
-    ".": "./dist/index.mjs",
-    "./context": "./dist/context.mjs",
-    "./context.browser": "./dist/context.browser.mjs",
-    "./context.node": "./dist/context.node.mjs",
-    "./elysia-plugin": "./dist/elysia-plugin.mjs",
-    "./formatters": "./dist/formatters.mjs",
-    "./index.browser": "./dist/index.browser.mjs",
-    "./logger": "./dist/logger.mjs",
-    "./logger.browser": "./dist/logger.browser.mjs",
-    "./logger.node": "./dist/logger.node.mjs",
-    "./timer": "./dist/timer.mjs",
-    "./tracer": "./dist/tracer.mjs",
-    "./tracer.browser": "./dist/tracer.browser.mjs",
-    "./tracer.node": "./dist/tracer.node.mjs",
-    "./types": "./dist/types.mjs",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./context": "./src/context.ts",
+    "./context.browser": "./src/context.browser.ts",
+    "./context.node": "./src/context.node.ts",
+    "./elysia-plugin": "./src/elysia-plugin.ts",
+    "./formatters": "./src/formatters.ts",
+    "./index.browser": "./src/index.browser.ts",
+    "./logger": "./src/logger.ts",
+    "./logger.browser": "./src/logger.browser.ts",
+    "./logger.node": "./src/logger.node.ts",
+    "./timer": "./src/timer.ts",
+    "./tracer": "./src/tracer.ts",
+    "./tracer.browser": "./src/tracer.browser.ts",
+    "./tracer.node": "./src/tracer.node.ts",
+    "./types": "./src/types.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.mjs",
-      "./context": "./dist/context.mjs",
-      "./context.browser": "./dist/context.browser.mjs",
-      "./context.node": "./dist/context.node.mjs",
-      "./elysia-plugin": "./dist/elysia-plugin.mjs",
-      "./formatters": "./dist/formatters.mjs",
-      "./index.browser": "./dist/index.browser.mjs",
-      "./logger": "./dist/logger.mjs",
-      "./logger.browser": "./dist/logger.browser.mjs",
-      "./logger.node": "./dist/logger.node.mjs",
-      "./timer": "./dist/timer.mjs",
-      "./tracer": "./dist/tracer.mjs",
-      "./tracer.browser": "./dist/tracer.browser.mjs",
-      "./tracer.node": "./dist/tracer.node.mjs",
-      "./types": "./dist/types.mjs",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.browser.js",
+        "node": "./dist/node/index.mjs",
+        "default": "./dist/index.browser.js"
+      },
+      "./context": {
+        "types": "./dist/context.d.ts",
+        "bun": "./dist/context.node.js",
+        "node": "./dist/node/context.node.mjs",
+        "default": "./dist/context.node.js"
+      },
+      "./context.browser": {
+        "types": "./dist/context.browser.d.ts",
+        "bun": "./dist/context.browser.js",
+        "default": "./dist/context.browser.js"
+      },
+      "./context.node": {
+        "types": "./dist/context.node.d.ts",
+        "bun": "./dist/context.node.js",
+        "node": "./dist/node/context.node.mjs",
+        "default": "./dist/context.node.js"
+      },
+      "./elysia-plugin": {
+        "types": "./dist/elysia-plugin.d.ts",
+        "bun": "./dist/elysia-plugin.js",
+        "node": "./dist/node/elysia-plugin.mjs",
+        "default": "./dist/elysia-plugin.js"
+      },
+      "./formatters": {
+        "types": "./dist/formatters.d.ts",
+        "bun": "./dist/formatters.js",
+        "node": "./dist/node/formatters.mjs",
+        "default": "./dist/formatters.js"
+      },
+      "./index.browser": {
+        "types": "./dist/index.browser.d.ts",
+        "bun": "./dist/index.browser.js",
+        "default": "./dist/index.browser.js"
+      },
+      "./logger": {
+        "types": "./dist/logger.d.ts",
+        "bun": "./dist/logger.node.js",
+        "node": "./dist/node/logger.node.mjs",
+        "default": "./dist/logger.node.js"
+      },
+      "./logger.browser": {
+        "types": "./dist/logger.browser.d.ts",
+        "bun": "./dist/logger.browser.js",
+        "default": "./dist/logger.browser.js"
+      },
+      "./logger.node": {
+        "types": "./dist/logger.node.d.ts",
+        "bun": "./dist/logger.node.js",
+        "node": "./dist/node/logger.node.mjs",
+        "default": "./dist/logger.node.js"
+      },
+      "./timer": {
+        "types": "./dist/timer.d.ts",
+        "bun": "./dist/timer.js",
+        "node": "./dist/node/timer.mjs",
+        "default": "./dist/timer.js"
+      },
+      "./tracer": {
+        "types": "./dist/tracer.d.ts",
+        "bun": "./dist/tracer.node.js",
+        "node": "./dist/node/tracer.node.mjs",
+        "default": "./dist/tracer.node.js"
+      },
+      "./tracer.browser": {
+        "types": "./dist/tracer.browser.d.ts",
+        "bun": "./dist/tracer.browser.js",
+        "default": "./dist/tracer.browser.js"
+      },
+      "./tracer.node": {
+        "types": "./dist/tracer.node.d.ts",
+        "bun": "./dist/tracer.node.js",
+        "node": "./dist/node/tracer.node.mjs",
+        "default": "./dist/tracer.node.js"
+      },
+      "./types": {
+        "types": "./dist/types.d.ts",
+        "bun": "./dist/types.js",
+        "node": "./dist/node/types.mjs",
+        "default": "./dist/types.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

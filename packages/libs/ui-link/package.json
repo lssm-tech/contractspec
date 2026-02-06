@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.ui-link",
-  "version": "1.56.1",
+  "version": "1.57.0",
   "description": "Deep linking utilities for navigation",
   "keywords": [
     "contractspec",
@@ -15,14 +15,16 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run build:bundle && bun run build:types",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun run build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rm -rf dist",
     "lint": "bun run lint:fix",
     "lint:fix": "eslint ui --fix",
-    "lint:check": "eslint ui"
+    "lint:check": "eslint ui",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.ui-kit-core": "workspace:*",
@@ -31,22 +33,31 @@
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "files": [
     "dist",
     "README.md"
   ],
   "exports": {
-    ".": "./dist/link.js",
-    "./*": "./*"
+    ".": "./ui/link.tsx",
+    "./ui/link": "./ui/link.tsx"
   },
   "publishConfig": {
     "exports": {
-      ".": "./dist/link.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/link.d.ts",
+        "bun": "./dist/link.js",
+        "browser": "./dist/browser/link.js",
+        "default": "./dist/link.js"
+      },
+      "./ui/link": {
+        "types": "./dist/link.d.ts",
+        "bun": "./dist/link.js",
+        "browser": "./dist/browser/link.js",
+        "default": "./dist/link.js"
+      }
     },
     "registry": "https://registry.npmjs.org/",
     "access": "public"

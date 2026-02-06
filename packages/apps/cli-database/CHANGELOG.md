@@ -1,5 +1,16 @@
 # @contractspec/app.cli-database
 
+## 1.57.0
+
+### Minor Changes
+
+- 11a5a05: feat: improve product intent
+
+### Patch Changes
+
+- Updated dependencies [11a5a05]
+  - @contractspec/lib.schema@1.57.0
+
 ## 1.56.1
 
 ### Patch Changes

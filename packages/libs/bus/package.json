@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.bus",
-  "version": "1.56.1",
+  "version": "1.57.0",
   "description": "Event bus and messaging primitives",
   "keywords": [
     "contractspec",
@@ -12,21 +12,22 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
     "@types/express": "^5.0.3",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
@@ -45,26 +46,66 @@
     "README.md"
   ],
   "exports": {
-    ".": "./dist/index.js",
-    "./auditableBus": "./dist/auditableBus.js",
-    "./eventBus": "./dist/eventBus.js",
-    "./filtering": "./dist/filtering.js",
-    "./inMemoryBus": "./dist/inMemoryBus.js",
-    "./metadata": "./dist/metadata.js",
-    "./subscriber": "./dist/subscriber.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./auditableBus": "./src/auditableBus.ts",
+    "./eventBus": "./src/eventBus.ts",
+    "./filtering": "./src/filtering.ts",
+    "./inMemoryBus": "./src/inMemoryBus.ts",
+    "./metadata": "./src/metadata.ts",
+    "./subscriber": "./src/subscriber.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./auditableBus": "./dist/auditableBus.js",
-      "./eventBus": "./dist/eventBus.js",
-      "./filtering": "./dist/filtering.js",
-      "./inMemoryBus": "./dist/inMemoryBus.js",
-      "./metadata": "./dist/metadata.js",
-      "./subscriber": "./dist/subscriber.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./auditableBus": {
+        "types": "./dist/auditableBus.d.ts",
+        "bun": "./dist/auditableBus.js",
+        "node": "./dist/node/auditableBus.mjs",
+        "browser": "./dist/browser/auditableBus.js",
+        "default": "./dist/auditableBus.js"
+      },
+      "./eventBus": {
+        "types": "./dist/eventBus.d.ts",
+        "bun": "./dist/eventBus.js",
+        "node": "./dist/node/eventBus.mjs",
+        "browser": "./dist/browser/eventBus.js",
+        "default": "./dist/eventBus.js"
+      },
+      "./filtering": {
+        "types": "./dist/filtering.d.ts",
+        "bun": "./dist/filtering.js",
+        "node": "./dist/node/filtering.mjs",
+        "browser": "./dist/browser/filtering.js",
+        "default": "./dist/filtering.js"
+      },
+      "./inMemoryBus": {
+        "types": "./dist/inMemoryBus.d.ts",
+        "bun": "./dist/inMemoryBus.js",
+        "node": "./dist/node/inMemoryBus.mjs",
+        "browser": "./dist/browser/inMemoryBus.js",
+        "default": "./dist/inMemoryBus.js"
+      },
+      "./metadata": {
+        "types": "./dist/metadata.d.ts",
+        "bun": "./dist/metadata.js",
+        "node": "./dist/node/metadata.mjs",
+        "browser": "./dist/browser/metadata.js",
+        "default": "./dist/metadata.js"
+      },
+      "./subscriber": {
+        "types": "./dist/subscriber.d.ts",
+        "bun": "./dist/subscriber.js",
+        "node": "./dist/node/subscriber.mjs",
+        "browser": "./dist/browser/subscriber.js",
+        "default": "./dist/subscriber.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

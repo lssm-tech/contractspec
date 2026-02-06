@@ -1,5 +1,18 @@
 # @contractspec/lib.progressive-delivery
 
+## 11.0.0
+
+### Minor Changes
+
+- 11a5a05: feat: improve product intent
+
+### Patch Changes
+
+- Updated dependencies [8ecf3c1]
+- Updated dependencies [ad9d10a]
+- Updated dependencies [11a5a05]
+  - @contractspec/lib.observability@1.57.0
+
 ## 10.0.1
 
 ### Patch Changes

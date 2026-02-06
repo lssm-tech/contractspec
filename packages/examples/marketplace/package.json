@@ -1,20 +1,22 @@
 {
   "name": "@contractspec/example.marketplace",
-  "version": "1.56.1",
+  "version": "1.57.0",
   "description": "Marketplace example with orders, payouts, and reviews for ContractSpec",
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
@@ -27,65 +29,76 @@
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
     "typescript": "catalog:",
     "@types/react": "^19.2.13",
-    "@types/react-dom": "^19.2.2"
+    "@types/react-dom": "^19.2.2",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./docs": "./dist/docs/index.js",
-    "./docs/marketplace.docblock": "./dist/docs/marketplace.docblock.js",
-    "./entities": "./dist/entities/index.js",
-    "./entities/order": "./dist/entities/order.js",
-    "./entities/payout": "./dist/entities/payout.js",
-    "./entities/product": "./dist/entities/product.js",
-    "./entities/review": "./dist/entities/review.js",
-    "./entities/store": "./dist/entities/store.js",
-    "./example": "./dist/example.js",
-    "./handlers": "./dist/handlers/index.js",
-    "./handlers/marketplace.handlers": "./dist/handlers/marketplace.handlers.js",
-    "./marketplace.capability": "./dist/marketplace.capability.js",
-    "./marketplace.feature": "./dist/marketplace.feature.js",
-    "./order": "./dist/order/index.js",
-    "./order/order.enum": "./dist/order/order.enum.js",
-    "./order/order.event": "./dist/order/order.event.js",
-    "./order/order.operations": "./dist/order/order.operations.js",
-    "./order/order.presentation": "./dist/order/order.presentation.js",
-    "./order/order.schema": "./dist/order/order.schema.js",
-    "./payout": "./dist/payout/index.js",
-    "./payout/payout.enum": "./dist/payout/payout.enum.js",
-    "./payout/payout.event": "./dist/payout/payout.event.js",
-    "./payout/payout.operations": "./dist/payout/payout.operations.js",
-    "./payout/payout.presentation": "./dist/payout/payout.presentation.js",
-    "./payout/payout.schema": "./dist/payout/payout.schema.js",
-    "./product": "./dist/product/index.js",
-    "./product/product.enum": "./dist/product/product.enum.js",
-    "./product/product.event": "./dist/product/product.event.js",
-    "./product/product.operations": "./dist/product/product.operations.js",
-    "./product/product.presentation": "./dist/product/product.presentation.js",
-    "./product/product.schema": "./dist/product/product.schema.js",
-    "./review": "./dist/review/index.js",
-    "./review/review.enum": "./dist/review/review.enum.js",
-    "./review/review.event": "./dist/review/review.event.js",
-    "./review/review.operations": "./dist/review/review.operations.js",
-    "./review/review.presentation": "./dist/review/review.presentation.js",
-    "./review/review.schema": "./dist/review/review.schema.js",
-    "./seeders": "./dist/seeders/index.js",
-    "./store": "./dist/store/index.js",
-    "./store/store.enum": "./dist/store/store.enum.js",
-    "./store/store.event": "./dist/store/store.event.js",
-    "./store/store.operations": "./dist/store/store.operations.js",
-    "./store/store.presentation": "./dist/store/store.presentation.js",
-    "./store/store.schema": "./dist/store/store.schema.js",
-    "./tests/operations.test-spec": "./dist/tests/operations.test-spec.js",
-    "./ui": "./dist/ui/index.js",
-    "./ui/hooks": "./dist/ui/hooks/index.js",
-    "./ui/hooks/useMarketplaceData": "./dist/ui/hooks/useMarketplaceData.js",
-    "./ui/MarketplaceDashboard": "./dist/ui/MarketplaceDashboard.js",
-    "./ui/renderers": "./dist/ui/renderers/index.js",
-    "./ui/renderers/marketplace.markdown": "./dist/ui/renderers/marketplace.markdown.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/index": "./src/docs/index.ts",
+    "./docs/marketplace.docblock": "./src/docs/marketplace.docblock.ts",
+    "./entities": "./src/entities/index.ts",
+    "./entities/index": "./src/entities/index.ts",
+    "./entities/order": "./src/entities/order.ts",
+    "./entities/payout": "./src/entities/payout.ts",
+    "./entities/product": "./src/entities/product.ts",
+    "./entities/review": "./src/entities/review.ts",
+    "./entities/store": "./src/entities/store.ts",
+    "./example": "./src/example.ts",
+    "./handlers": "./src/handlers/index.ts",
+    "./handlers/index": "./src/handlers/index.ts",
+    "./handlers/marketplace.handlers": "./src/handlers/marketplace.handlers.ts",
+    "./marketplace.capability": "./src/marketplace.capability.ts",
+    "./marketplace.feature": "./src/marketplace.feature.ts",
+    "./order": "./src/order/index.ts",
+    "./order/index": "./src/order/index.ts",
+    "./order/order.enum": "./src/order/order.enum.ts",
+    "./order/order.event": "./src/order/order.event.ts",
+    "./order/order.operations": "./src/order/order.operations.ts",
+    "./order/order.presentation": "./src/order/order.presentation.ts",
+    "./order/order.schema": "./src/order/order.schema.ts",
+    "./payout": "./src/payout/index.ts",
+    "./payout/index": "./src/payout/index.ts",
+    "./payout/payout.enum": "./src/payout/payout.enum.ts",
+    "./payout/payout.event": "./src/payout/payout.event.ts",
+    "./payout/payout.operations": "./src/payout/payout.operations.ts",
+    "./payout/payout.presentation": "./src/payout/payout.presentation.ts",
+    "./payout/payout.schema": "./src/payout/payout.schema.ts",
+    "./product": "./src/product/index.ts",
+    "./product/index": "./src/product/index.ts",
+    "./product/product.enum": "./src/product/product.enum.ts",
+    "./product/product.event": "./src/product/product.event.ts",
+    "./product/product.operations": "./src/product/product.operations.ts",
+    "./product/product.presentation": "./src/product/product.presentation.ts",
+    "./product/product.schema": "./src/product/product.schema.ts",
+    "./review": "./src/review/index.ts",
+    "./review/index": "./src/review/index.ts",
+    "./review/review.enum": "./src/review/review.enum.ts",
+    "./review/review.event": "./src/review/review.event.ts",
+    "./review/review.operations": "./src/review/review.operations.ts",
+    "./review/review.presentation": "./src/review/review.presentation.ts",
+    "./review/review.schema": "./src/review/review.schema.ts",
+    "./seeders": "./src/seeders/index.ts",
+    "./seeders/index": "./src/seeders/index.ts",
+    "./store": "./src/store/index.ts",
+    "./store/index": "./src/store/index.ts",
+    "./store/store.enum": "./src/store/store.enum.ts",
+    "./store/store.event": "./src/store/store.event.ts",
+    "./store/store.operations": "./src/store/store.operations.ts",
+    "./store/store.presentation": "./src/store/store.presentation.ts",
+    "./store/store.schema": "./src/store/store.schema.ts",
+    "./tests/operations.test-spec": "./src/tests/operations.test-spec.ts",
+    "./ui": "./src/ui/index.ts",
+    "./ui/hooks": "./src/ui/hooks/index.ts",
+    "./ui/hooks/index": "./src/ui/hooks/index.ts",
+    "./ui/hooks/useMarketplaceData": "./src/ui/hooks/useMarketplaceData.ts",
+    "./ui/index": "./src/ui/index.ts",
+    "./ui/MarketplaceDashboard": "./src/ui/MarketplaceDashboard.tsx",
+    "./ui/renderers": "./src/ui/renderers/index.ts",
+    "./ui/renderers/index": "./src/ui/renderers/index.ts",
+    "./ui/renderers/marketplace.markdown": "./src/ui/renderers/marketplace.markdown.ts"
   },
   "files": [
     "dist",
@@ -94,48 +107,454 @@
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/marketplace.docblock": "./dist/docs/marketplace.docblock.js",
-      "./entities": "./dist/entities/index.js",
-      "./entities/order": "./dist/entities/order.js",
-      "./entities/payout": "./dist/entities/payout.js",
-      "./entities/product": "./dist/entities/product.js",
-      "./entities/review": "./dist/entities/review.js",
-      "./entities/store": "./dist/entities/store.js",
-      "./example": "./dist/example.js",
-      "./marketplace.feature": "./dist/marketplace.feature.js",
-      "./order": "./dist/order/index.js",
-      "./order/order.contracts": "./dist/order/order.operations.js",
-      "./order/order.enum": "./dist/order/order.enum.js",
-      "./order/order.event": "./dist/order/order.event.js",
-      "./order/order.presentation": "./dist/order/order.presentation.js",
-      "./order/order.schema": "./dist/order/order.schema.js",
-      "./payout": "./dist/payout/index.js",
-      "./payout/payout.contracts": "./dist/payout/payout.operations.js",
-      "./payout/payout.enum": "./dist/payout/payout.enum.js",
-      "./payout/payout.event": "./dist/payout/payout.event.js",
-      "./payout/payout.presentation": "./dist/payout/payout.presentation.js",
-      "./payout/payout.schema": "./dist/payout/payout.schema.js",
-      "./product": "./dist/product/index.js",
-      "./product/product.contracts": "./dist/product/product.operations.js",
-      "./product/product.enum": "./dist/product/product.enum.js",
-      "./product/product.event": "./dist/product/product.event.js",
-      "./product/product.presentation": "./dist/product/product.presentation.js",
-      "./product/product.schema": "./dist/product/product.schema.js",
-      "./review": "./dist/review/index.js",
-      "./review/review.contracts": "./dist/review/review.operations.js",
-      "./review/review.enum": "./dist/review/review.enum.js",
-      "./review/review.event": "./dist/review/review.event.js",
-      "./review/review.presentation": "./dist/review/review.presentation.js",
-      "./review/review.schema": "./dist/review/review.schema.js",
-      "./store": "./dist/store/index.js",
-      "./store/store.contracts": "./dist/store/store.operations.js",
-      "./store/store.enum": "./dist/store/store.enum.js",
-      "./store/store.event": "./dist/store/store.event.js",
-      "./store/store.presentation": "./dist/store/store.presentation.js",
-      "./store/store.schema": "./dist/store/store.schema.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/index": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/marketplace.docblock": {
+        "types": "./dist/docs/marketplace.docblock.d.ts",
+        "bun": "./dist/docs/marketplace.docblock.js",
+        "node": "./dist/node/docs/marketplace.docblock.mjs",
+        "browser": "./dist/browser/docs/marketplace.docblock.js",
+        "default": "./dist/docs/marketplace.docblock.js"
+      },
+      "./entities": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "browser": "./dist/browser/entities/index.js",
+        "default": "./dist/entities/index.js"
+      },
+      "./entities/index": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "browser": "./dist/browser/entities/index.js",
+        "default": "./dist/entities/index.js"
+      },
+      "./entities/order": {
+        "types": "./dist/entities/order.d.ts",
+        "bun": "./dist/entities/order.js",
+        "node": "./dist/node/entities/order.mjs",
+        "browser": "./dist/browser/entities/order.js",
+        "default": "./dist/entities/order.js"
+      },
+      "./entities/payout": {
+        "types": "./dist/entities/payout.d.ts",
+        "bun": "./dist/entities/payout.js",
+        "node": "./dist/node/entities/payout.mjs",
+        "browser": "./dist/browser/entities/payout.js",
+        "default": "./dist/entities/payout.js"
+      },
+      "./entities/product": {
+        "types": "./dist/entities/product.d.ts",
+        "bun": "./dist/entities/product.js",
+        "node": "./dist/node/entities/product.mjs",
+        "browser": "./dist/browser/entities/product.js",
+        "default": "./dist/entities/product.js"
+      },
+      "./entities/review": {
+        "types": "./dist/entities/review.d.ts",
+        "bun": "./dist/entities/review.js",
+        "node": "./dist/node/entities/review.mjs",
+        "browser": "./dist/browser/entities/review.js",
+        "default": "./dist/entities/review.js"
+      },
+      "./entities/store": {
+        "types": "./dist/entities/store.d.ts",
+        "bun": "./dist/entities/store.js",
+        "node": "./dist/node/entities/store.mjs",
+        "browser": "./dist/browser/entities/store.js",
+        "default": "./dist/entities/store.js"
+      },
+      "./example": {
+        "types": "./dist/example.d.ts",
+        "bun": "./dist/example.js",
+        "node": "./dist/node/example.mjs",
+        "browser": "./dist/browser/example.js",
+        "default": "./dist/example.js"
+      },
+      "./handlers": {
+        "types": "./dist/handlers/index.d.ts",
+        "bun": "./dist/handlers/index.js",
+        "node": "./dist/node/handlers/index.mjs",
+        "browser": "./dist/browser/handlers/index.js",
+        "default": "./dist/handlers/index.js"
+      },
+      "./handlers/index": {
+        "types": "./dist/handlers/index.d.ts",
+        "bun": "./dist/handlers/index.js",
+        "node": "./dist/node/handlers/index.mjs",
+        "browser": "./dist/browser/handlers/index.js",
+        "default": "./dist/handlers/index.js"
+      },
+      "./handlers/marketplace.handlers": {
+        "types": "./dist/handlers/marketplace.handlers.d.ts",
+        "bun": "./dist/handlers/marketplace.handlers.js",
+        "node": "./dist/node/handlers/marketplace.handlers.mjs",
+        "browser": "./dist/browser/handlers/marketplace.handlers.js",
+        "default": "./dist/handlers/marketplace.handlers.js"
+      },
+      "./marketplace.capability": {
+        "types": "./dist/marketplace.capability.d.ts",
+        "bun": "./dist/marketplace.capability.js",
+        "node": "./dist/node/marketplace.capability.mjs",
+        "browser": "./dist/browser/marketplace.capability.js",
+        "default": "./dist/marketplace.capability.js"
+      },
+      "./marketplace.feature": {
+        "types": "./dist/marketplace.feature.d.ts",
+        "bun": "./dist/marketplace.feature.js",
+        "node": "./dist/node/marketplace.feature.mjs",
+        "browser": "./dist/browser/marketplace.feature.js",
+        "default": "./dist/marketplace.feature.js"
+      },
+      "./order": {
+        "types": "./dist/order/index.d.ts",
+        "bun": "./dist/order/index.js",
+        "node": "./dist/node/order/index.mjs",
+        "browser": "./dist/browser/order/index.js",
+        "default": "./dist/order/index.js"
+      },
+      "./order/index": {
+        "types": "./dist/order/index.d.ts",
+        "bun": "./dist/order/index.js",
+        "node": "./dist/node/order/index.mjs",
+        "browser": "./dist/browser/order/index.js",
+        "default": "./dist/order/index.js"
+      },
+      "./order/order.enum": {
+        "types": "./dist/order/order.enum.d.ts",
+        "bun": "./dist/order/order.enum.js",
+        "node": "./dist/node/order/order.enum.mjs",
+        "browser": "./dist/browser/order/order.enum.js",
+        "default": "./dist/order/order.enum.js"
+      },
+      "./order/order.event": {
+        "types": "./dist/order/order.event.d.ts",
+        "bun": "./dist/order/order.event.js",
+        "node": "./dist/node/order/order.event.mjs",
+        "browser": "./dist/browser/order/order.event.js",
+        "default": "./dist/order/order.event.js"
+      },
+      "./order/order.operations": {
+        "types": "./dist/order/order.operations.d.ts",
+        "bun": "./dist/order/order.operations.js",
+        "node": "./dist/node/order/order.operations.mjs",
+        "browser": "./dist/browser/order/order.operations.js",
+        "default": "./dist/order/order.operations.js"
+      },
+      "./order/order.presentation": {
+        "types": "./dist/order/order.presentation.d.ts",
+        "bun": "./dist/order/order.presentation.js",
+        "node": "./dist/node/order/order.presentation.mjs",
+        "browser": "./dist/browser/order/order.presentation.js",
+        "default": "./dist/order/order.presentation.js"
+      },
+      "./order/order.schema": {
+        "types": "./dist/order/order.schema.d.ts",
+        "bun": "./dist/order/order.schema.js",
+        "node": "./dist/node/order/order.schema.mjs",
+        "browser": "./dist/browser/order/order.schema.js",
+        "default": "./dist/order/order.schema.js"
+      },
+      "./payout": {
+        "types": "./dist/payout/index.d.ts",
+        "bun": "./dist/payout/index.js",
+        "node": "./dist/node/payout/index.mjs",
+        "browser": "./dist/browser/payout/index.js",
+        "default": "./dist/payout/index.js"
+      },
+      "./payout/index": {
+        "types": "./dist/payout/index.d.ts",
+        "bun": "./dist/payout/index.js",
+        "node": "./dist/node/payout/index.mjs",
+        "browser": "./dist/browser/payout/index.js",
+        "default": "./dist/payout/index.js"
+      },
+      "./payout/payout.enum": {
+        "types": "./dist/payout/payout.enum.d.ts",
+        "bun": "./dist/payout/payout.enum.js",
+        "node": "./dist/node/payout/payout.enum.mjs",
+        "browser": "./dist/browser/payout/payout.enum.js",
+        "default": "./dist/payout/payout.enum.js"
+      },
+      "./payout/payout.event": {
+        "types": "./dist/payout/payout.event.d.ts",
+        "bun": "./dist/payout/payout.event.js",
+        "node": "./dist/node/payout/payout.event.mjs",
+        "browser": "./dist/browser/payout/payout.event.js",
+        "default": "./dist/payout/payout.event.js"
+      },
+      "./payout/payout.operations": {
+        "types": "./dist/payout/payout.operations.d.ts",
+        "bun": "./dist/payout/payout.operations.js",
+        "node": "./dist/node/payout/payout.operations.mjs",
+        "browser": "./dist/browser/payout/payout.operations.js",
+        "default": "./dist/payout/payout.operations.js"
+      },
+      "./payout/payout.presentation": {
+        "types": "./dist/payout/payout.presentation.d.ts",
+        "bun": "./dist/payout/payout.presentation.js",
+        "node": "./dist/node/payout/payout.presentation.mjs",
+        "browser": "./dist/browser/payout/payout.presentation.js",
+        "default": "./dist/payout/payout.presentation.js"
+      },
+      "./payout/payout.schema": {
+        "types": "./dist/payout/payout.schema.d.ts",
+        "bun": "./dist/payout/payout.schema.js",
+        "node": "./dist/node/payout/payout.schema.mjs",
+        "browser": "./dist/browser/payout/payout.schema.js",
+        "default": "./dist/payout/payout.schema.js"
+      },
+      "./product": {
+        "types": "./dist/product/index.d.ts",
+        "bun": "./dist/product/index.js",
+        "node": "./dist/node/product/index.mjs",
+        "browser": "./dist/browser/product/index.js",
+        "default": "./dist/product/index.js"
+      },
+      "./product/index": {
+        "types": "./dist/product/index.d.ts",
+        "bun": "./dist/product/index.js",
+        "node": "./dist/node/product/index.mjs",
+        "browser": "./dist/browser/product/index.js",
+        "default": "./dist/product/index.js"
+      },
+      "./product/product.enum": {
+        "types": "./dist/product/product.enum.d.ts",
+        "bun": "./dist/product/product.enum.js",
+        "node": "./dist/node/product/product.enum.mjs",
+        "browser": "./dist/browser/product/product.enum.js",
+        "default": "./dist/product/product.enum.js"
+      },
+      "./product/product.event": {
+        "types": "./dist/product/product.event.d.ts",
+        "bun": "./dist/product/product.event.js",
+        "node": "./dist/node/product/product.event.mjs",
+        "browser": "./dist/browser/product/product.event.js",
+        "default": "./dist/product/product.event.js"
+      },
+      "./product/product.operations": {
+        "types": "./dist/product/product.operations.d.ts",
+        "bun": "./dist/product/product.operations.js",
+        "node": "./dist/node/product/product.operations.mjs",
+        "browser": "./dist/browser/product/product.operations.js",
+        "default": "./dist/product/product.operations.js"
+      },
+      "./product/product.presentation": {
+        "types": "./dist/product/product.presentation.d.ts",
+        "bun": "./dist/product/product.presentation.js",
+        "node": "./dist/node/product/product.presentation.mjs",
+        "browser": "./dist/browser/product/product.presentation.js",
+        "default": "./dist/product/product.presentation.js"
+      },
+      "./product/product.schema": {
+        "types": "./dist/product/product.schema.d.ts",
+        "bun": "./dist/product/product.schema.js",
+        "node": "./dist/node/product/product.schema.mjs",
+        "browser": "./dist/browser/product/product.schema.js",
+        "default": "./dist/product/product.schema.js"
+      },
+      "./review": {
+        "types": "./dist/review/index.d.ts",
+        "bun": "./dist/review/index.js",
+        "node": "./dist/node/review/index.mjs",
+        "browser": "./dist/browser/review/index.js",
+        "default": "./dist/review/index.js"
+      },
+      "./review/index": {
+        "types": "./dist/review/index.d.ts",
+        "bun": "./dist/review/index.js",
+        "node": "./dist/node/review/index.mjs",
+        "browser": "./dist/browser/review/index.js",
+        "default": "./dist/review/index.js"
+      },
+      "./review/review.enum": {
+        "types": "./dist/review/review.enum.d.ts",
+        "bun": "./dist/review/review.enum.js",
+        "node": "./dist/node/review/review.enum.mjs",
+        "browser": "./dist/browser/review/review.enum.js",
+        "default": "./dist/review/review.enum.js"
+      },
+      "./review/review.event": {
+        "types": "./dist/review/review.event.d.ts",
+        "bun": "./dist/review/review.event.js",
+        "node": "./dist/node/review/review.event.mjs",
+        "browser": "./dist/browser/review/review.event.js",
+        "default": "./dist/review/review.event.js"
+      },
+      "./review/review.operations": {
+        "types": "./dist/review/review.operations.d.ts",
+        "bun": "./dist/review/review.operations.js",
+        "node": "./dist/node/review/review.operations.mjs",
+        "browser": "./dist/browser/review/review.operations.js",
+        "default": "./dist/review/review.operations.js"
+      },
+      "./review/review.presentation": {
+        "types": "./dist/review/review.presentation.d.ts",
+        "bun": "./dist/review/review.presentation.js",
+        "node": "./dist/node/review/review.presentation.mjs",
+        "browser": "./dist/browser/review/review.presentation.js",
+        "default": "./dist/review/review.presentation.js"
+      },
+      "./review/review.schema": {
+        "types": "./dist/review/review.schema.d.ts",
+        "bun": "./dist/review/review.schema.js",
+        "node": "./dist/node/review/review.schema.mjs",
+        "browser": "./dist/browser/review/review.schema.js",
+        "default": "./dist/review/review.schema.js"
+      },
+      "./seeders": {
+        "types": "./dist/seeders/index.d.ts",
+        "bun": "./dist/seeders/index.js",
+        "node": "./dist/node/seeders/index.mjs",
+        "browser": "./dist/browser/seeders/index.js",
+        "default": "./dist/seeders/index.js"
+      },
+      "./seeders/index": {
+        "types": "./dist/seeders/index.d.ts",
+        "bun": "./dist/seeders/index.js",
+        "node": "./dist/node/seeders/index.mjs",
+        "browser": "./dist/browser/seeders/index.js",
+        "default": "./dist/seeders/index.js"
+      },
+      "./store": {
+        "types": "./dist/store/index.d.ts",
+        "bun": "./dist/store/index.js",
+        "node": "./dist/node/store/index.mjs",
+        "browser": "./dist/browser/store/index.js",
+        "default": "./dist/store/index.js"
+      },
+      "./store/index": {
+        "types": "./dist/store/index.d.ts",
+        "bun": "./dist/store/index.js",
+        "node": "./dist/node/store/index.mjs",
+        "browser": "./dist/browser/store/index.js",
+        "default": "./dist/store/index.js"
+      },
+      "./store/store.enum": {
+        "types": "./dist/store/store.enum.d.ts",
+        "bun": "./dist/store/store.enum.js",
+        "node": "./dist/node/store/store.enum.mjs",
+        "browser": "./dist/browser/store/store.enum.js",
+        "default": "./dist/store/store.enum.js"
+      },
+      "./store/store.event": {
+        "types": "./dist/store/store.event.d.ts",
+        "bun": "./dist/store/store.event.js",
+        "node": "./dist/node/store/store.event.mjs",
+        "browser": "./dist/browser/store/store.event.js",
+        "default": "./dist/store/store.event.js"
+      },
+      "./store/store.operations": {
+        "types": "./dist/store/store.operations.d.ts",
+        "bun": "./dist/store/store.operations.js",
+        "node": "./dist/node/store/store.operations.mjs",
+        "browser": "./dist/browser/store/store.operations.js",
+        "default": "./dist/store/store.operations.js"
+      },
+      "./store/store.presentation": {
+        "types": "./dist/store/store.presentation.d.ts",
+        "bun": "./dist/store/store.presentation.js",
+        "node": "./dist/node/store/store.presentation.mjs",
+        "browser": "./dist/browser/store/store.presentation.js",
+        "default": "./dist/store/store.presentation.js"
+      },
+      "./store/store.schema": {
+        "types": "./dist/store/store.schema.d.ts",
+        "bun": "./dist/store/store.schema.js",
+        "node": "./dist/node/store/store.schema.mjs",
+        "browser": "./dist/browser/store/store.schema.js",
+        "default": "./dist/store/store.schema.js"
+      },
+      "./tests/operations.test-spec": {
+        "types": "./dist/tests/operations.test-spec.d.ts",
+        "bun": "./dist/tests/operations.test-spec.js",
+        "node": "./dist/node/tests/operations.test-spec.mjs",
+        "browser": "./dist/browser/tests/operations.test-spec.js",
+        "default": "./dist/tests/operations.test-spec.js"
+      },
+      "./ui": {
+        "types": "./dist/ui/index.d.ts",
+        "bun": "./dist/ui/index.js",
+        "node": "./dist/node/ui/index.mjs",
+        "browser": "./dist/browser/ui/index.js",
+        "default": "./dist/ui/index.js"
+      },
+      "./ui/hooks": {
+        "types": "./dist/ui/hooks/index.d.ts",
+        "bun": "./dist/ui/hooks/index.js",
+        "node": "./dist/node/ui/hooks/index.mjs",
+        "browser": "./dist/browser/ui/hooks/index.js",
+        "default": "./dist/ui/hooks/index.js"
+      },
+      "./ui/hooks/index": {
+        "types": "./dist/ui/hooks/index.d.ts",
+        "bun": "./dist/ui/hooks/index.js",
+        "node": "./dist/node/ui/hooks/index.mjs",
+        "browser": "./dist/browser/ui/hooks/index.js",
+        "default": "./dist/ui/hooks/index.js"
+      },
+      "./ui/hooks/useMarketplaceData": {
+        "types": "./dist/ui/hooks/useMarketplaceData.d.ts",
+        "bun": "./dist/ui/hooks/useMarketplaceData.js",
+        "node": "./dist/node/ui/hooks/useMarketplaceData.mjs",
+        "browser": "./dist/browser/ui/hooks/useMarketplaceData.js",
+        "default": "./dist/ui/hooks/useMarketplaceData.js"
+      },
+      "./ui/index": {
+        "types": "./dist/ui/index.d.ts",
+        "bun": "./dist/ui/index.js",
+        "node": "./dist/node/ui/index.mjs",
+        "browser": "./dist/browser/ui/index.js",
+        "default": "./dist/ui/index.js"
+      },
+      "./ui/MarketplaceDashboard": {
+        "types": "./dist/ui/MarketplaceDashboard.d.ts",
+        "bun": "./dist/ui/MarketplaceDashboard.js",
+        "node": "./dist/node/ui/MarketplaceDashboard.mjs",
+        "browser": "./dist/browser/ui/MarketplaceDashboard.js",
+        "default": "./dist/ui/MarketplaceDashboard.js"
+      },
+      "./ui/renderers": {
+        "types": "./dist/ui/renderers/index.d.ts",
+        "bun": "./dist/ui/renderers/index.js",
+        "node": "./dist/node/ui/renderers/index.mjs",
+        "browser": "./dist/browser/ui/renderers/index.js",
+        "default": "./dist/ui/renderers/index.js"
+      },
+      "./ui/renderers/index": {
+        "types": "./dist/ui/renderers/index.d.ts",
+        "bun": "./dist/ui/renderers/index.js",
+        "node": "./dist/node/ui/renderers/index.mjs",
+        "browser": "./dist/browser/ui/renderers/index.js",
+        "default": "./dist/ui/renderers/index.js"
+      },
+      "./ui/renderers/marketplace.markdown": {
+        "types": "./dist/ui/renderers/marketplace.markdown.d.ts",
+        "bun": "./dist/ui/renderers/marketplace.markdown.js",
+        "node": "./dist/node/ui/renderers/marketplace.markdown.mjs",
+        "browser": "./dist/browser/ui/renderers/marketplace.markdown.js",
+        "default": "./dist/ui/renderers/marketplace.markdown.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

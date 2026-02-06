@@ -118,8 +118,16 @@ describe('integration provider specs', () => {
       { key: 'meeting-recorder.meetings.read', version: '1.0.0' },
       { key: 'meeting-recorder.transcripts.read', version: '1.0.0' },
     ]);
+    expect(registered?.configSchema.schema).toMatchObject({
+      properties: expect.objectContaining({
+        transport: expect.objectContaining({ enum: ['api', 'mcp'] }),
+      }),
+    });
     expect(registered?.secretSchema.schema).toMatchObject({
-      required: ['apiKey'],
+      properties: expect.objectContaining({
+        apiKey: expect.any(Object),
+        mcpAccessToken: expect.any(Object),
+      }),
     });
   });
 

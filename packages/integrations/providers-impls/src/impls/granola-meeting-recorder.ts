@@ -9,9 +9,16 @@ import type {
   MeetingTranscriptRecord,
   MeetingTranscriptSegment,
 } from '../meeting-recorder';
+import {
+  GranolaMcpClient,
+  normalizeMcpListResult,
+  normalizeMcpMeeting,
+  normalizeMcpTranscript,
+} from './granola-meeting-recorder.mcp';
 import type {
   GranolaInvitee,
   GranolaListNotesResponse,
+  GranolaMeetingRecorderTransport,
   GranolaNote,
   GranolaNoteSummary,
   GranolaTranscriptSegment,
@@ -19,28 +26,47 @@ import type {
 } from './granola-meeting-recorder.types';
 
 export interface GranolaMeetingRecorderProviderOptions {
-  apiKey: string;
+  apiKey?: string;
   baseUrl?: string;
   pageSize?: number;
+  transport?: GranolaMeetingRecorderTransport;
+  mcpUrl?: string;
+  mcpAccessToken?: string;
+  mcpHeaders?: Record<string, string>;
+  fetchFn?: typeof fetch;
 }
 
 const DEFAULT_BASE_URL = 'https://public-api.granola.ai';
+const DEFAULT_MCP_URL = 'https://mcp.granola.ai/mcp';
 const MAX_PAGE_SIZE = 30;
 
 export class GranolaMeetingRecorderProvider implements MeetingRecorderProvider {
-  private readonly apiKey: string;
+  private readonly apiKey?: string;
   private readonly baseUrl: string;
   private readonly defaultPageSize?: number;
+  private readonly transport: GranolaMeetingRecorderTransport;
+  private readonly mcpClient: GranolaMcpClient;
 
   constructor(options: GranolaMeetingRecorderProviderOptions) {
     this.apiKey = options.apiKey;
     this.baseUrl = options.baseUrl ?? DEFAULT_BASE_URL;
     this.defaultPageSize = options.pageSize;
+    this.transport = options.transport ?? 'api';
+    this.mcpClient = new GranolaMcpClient({
+      mcpUrl: options.mcpUrl ?? DEFAULT_MCP_URL,
+      mcpAccessToken: options.mcpAccessToken,
+      mcpHeaders: options.mcpHeaders,
+      fetchFn: options.fetchFn,
+    });
   }
 
   async listMeetings(
     params: MeetingRecorderListMeetingsParams
   ): Promise<MeetingRecorderListMeetingsResult> {
+    if (this.transport === 'mcp') {
+      return this.listMeetingsViaMcp(params);
+    }
+
     const query = new URLSearchParams();
     if (params.from) query.set('created_after', params.from);
     if (params.to) query.set('created_before', params.to);
@@ -63,6 +89,10 @@ export class GranolaMeetingRecorderProvider implements MeetingRecorderProvider {
   async getMeeting(
     params: MeetingRecorderGetMeetingParams
   ): Promise<MeetingRecord> {
+    if (this.transport === 'mcp') {
+      return this.getMeetingViaMcp(params);
+    }
+
     const includeTranscript = params.includeTranscript ?? false;
     const note = await this.getNote(params.meetingId, includeTranscript);
     return this.mapNoteDetail(note, params);
@@ -71,6 +101,10 @@ export class GranolaMeetingRecorderProvider implements MeetingRecorderProvider {
   async getTranscript(
     params: MeetingRecorderGetTranscriptParams
   ): Promise<MeetingTranscriptRecord> {
+    if (this.transport === 'mcp') {
+      return this.getTranscriptViaMcp(params);
+    }
+
     const note = await this.getNote(params.meetingId, true);
     const segments = this.mapTranscriptSegments(note.transcript);
     return {
@@ -87,6 +121,84 @@ export class GranolaMeetingRecorderProvider implements MeetingRecorderProvider {
         summaryText: note.summary_text,
       },
       raw: note.transcript ?? undefined,
+    };
+  }
+
+  private async listMeetingsViaMcp(
+    params: MeetingRecorderListMeetingsParams
+  ): Promise<MeetingRecorderListMeetingsResult> {
+    const payload = await this.mcpClient.callTool('list_meetings', {
+      cursor: params.cursor,
+      limit: params.pageSize ?? this.defaultPageSize,
+      query: params.query,
+      from: params.from,
+      to: params.to,
+      organizerEmail: params.organizerEmail,
+      participantEmail: params.participantEmail,
+    });
+
+    const normalized = normalizeMcpListResult(payload);
+    return {
+      meetings: normalized.notes.map((note) =>
+        this.mapNoteSummary(note, params)
+      ),
+      nextCursor: normalized.nextCursor,
+      hasMore:
+        normalized.hasMore ??
+        Boolean(normalized.nextCursor && normalized.notes.length > 0),
+    };
+  }
+
+  private async getMeetingViaMcp(
+    params: MeetingRecorderGetMeetingParams
+  ): Promise<MeetingRecord> {
+    const primaryPayload = await this.mcpClient.callTool('list_meetings', {
+      query: params.meetingId,
+      limit: 50,
+    });
+    let note = normalizeMcpMeeting(primaryPayload, params.meetingId);
+
+    if (!note) {
+      const fallbackPayload = await this.mcpClient.callTool('get_meetings', {
+        query: params.meetingId,
+      });
+      note = normalizeMcpMeeting(fallbackPayload, params.meetingId);
+    }
+
+    if (!note) {
+      throw new Error(
+        `Granola meeting "${params.meetingId}" not found via MCP.`
+      );
+    }
+
+    return this.mapNoteDetail(note, params);
+  }
+
+  private async getTranscriptViaMcp(
+    params: MeetingRecorderGetTranscriptParams
+  ): Promise<MeetingTranscriptRecord> {
+    const payload = await this.mcpClient.callTool('get_meeting_transcript', {
+      meeting_id: params.meetingId,
+      meetingId: params.meetingId,
+      id: params.meetingId,
+    });
+    const transcript = normalizeMcpTranscript(payload);
+    const segments = this.mapTranscriptSegments(transcript);
+
+    return {
+      id: params.meetingId,
+      meetingId: params.meetingId,
+      tenantId: params.tenantId,
+      connectionId: params.connectionId ?? 'unknown',
+      externalId: params.meetingId,
+      format: 'segments',
+      text: segments.map((segment) => segment.text).join('\n'),
+      segments,
+      metadata: {
+        provider: 'granola',
+        transport: 'mcp',
+      },
+      raw: payload,
     };
   }
 
@@ -189,6 +301,10 @@ export class GranolaMeetingRecorderProvider implements MeetingRecorderProvider {
   }
 
   private async request<T>(path: string): Promise<T> {
+    if (!this.apiKey) {
+      throw new Error('Granola apiKey is required when transport is "api".');
+    }
+
     const response = await fetch(`${this.baseUrl}${path}`, {
       headers: {
         Authorization: `Bearer ${this.apiKey}`,

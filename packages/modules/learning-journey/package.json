@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.learning-journey",
-  "version": "1.56.1",
+  "version": "1.57.0",
   "description": "Comprehensive learning journey engine - onboarding, LMS, flashcards, gamification, and AI personalization",
   "keywords": [
     "contractspec",
@@ -15,14 +15,16 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
@@ -31,35 +33,38 @@
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./contracts": "./dist/contracts/index.js",
-    "./contracts/models": "./dist/contracts/models.js",
-    "./contracts/onboarding": "./dist/contracts/onboarding.js",
-    "./contracts/operations": "./dist/contracts/operations.js",
-    "./contracts/shared": "./dist/contracts/shared.js",
-    "./docs": "./dist/docs/index.js",
-    "./docs/learning-journey.docblock": "./dist/docs/learning-journey.docblock.js",
-    "./engines": "./dist/engines/index.js",
-    "./engines/srs": "./dist/engines/srs.js",
-    "./engines/streak": "./dist/engines/streak.js",
-    "./engines/xp": "./dist/engines/xp.js",
-    "./entities": "./dist/entities/index.js",
-    "./entities/ai": "./dist/entities/ai.js",
-    "./entities/course": "./dist/entities/course.js",
-    "./entities/flashcard": "./dist/entities/flashcard.js",
-    "./entities/gamification": "./dist/entities/gamification.js",
-    "./entities/learner": "./dist/entities/learner.js",
-    "./entities/onboarding": "./dist/entities/onboarding.js",
-    "./entities/quiz": "./dist/entities/quiz.js",
-    "./events": "./dist/events.js",
-    "./learning-journey.capability": "./dist/learning-journey.capability.js",
-    "./learning-journey.feature": "./dist/learning-journey.feature.js",
-    "./track-spec": "./dist/track-spec.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./contracts/index": "./src/contracts/index.ts",
+    "./contracts/models": "./src/contracts/models.ts",
+    "./contracts/onboarding": "./src/contracts/onboarding.ts",
+    "./contracts/operations": "./src/contracts/operations.ts",
+    "./contracts/shared": "./src/contracts/shared.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/index": "./src/docs/index.ts",
+    "./docs/learning-journey.docblock": "./src/docs/learning-journey.docblock.ts",
+    "./engines": "./src/engines/index.ts",
+    "./engines/index": "./src/engines/index.ts",
+    "./engines/srs": "./src/engines/srs.ts",
+    "./engines/streak": "./src/engines/streak.ts",
+    "./engines/xp": "./src/engines/xp.ts",
+    "./entities": "./src/entities/index.ts",
+    "./entities/ai": "./src/entities/ai.ts",
+    "./entities/course": "./src/entities/course.ts",
+    "./entities/flashcard": "./src/entities/flashcard.ts",
+    "./entities/gamification": "./src/entities/gamification.ts",
+    "./entities/index": "./src/entities/index.ts",
+    "./entities/learner": "./src/entities/learner.ts",
+    "./entities/onboarding": "./src/entities/onboarding.ts",
+    "./entities/quiz": "./src/entities/quiz.ts",
+    "./events": "./src/events.ts",
+    "./learning-journey.capability": "./src/learning-journey.capability.ts",
+    "./learning-journey.feature": "./src/learning-journey.feature.ts",
+    "./track-spec": "./src/track-spec.ts"
   },
   "files": [
     "dist",
@@ -68,30 +73,202 @@
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./contracts": "./dist/contracts/index.js",
-      "./contracts/models": "./dist/contracts/models.js",
-      "./contracts/onboarding": "./dist/contracts/onboarding.js",
-      "./contracts/operations": "./dist/contracts/operations.js",
-      "./contracts/shared": "./dist/contracts/shared.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/learning-journey.docblock": "./dist/docs/learning-journey.docblock.js",
-      "./engines": "./dist/engines/index.js",
-      "./engines/srs": "./dist/engines/srs.js",
-      "./engines/streak": "./dist/engines/streak.js",
-      "./engines/xp": "./dist/engines/xp.js",
-      "./entities": "./dist/entities/index.js",
-      "./entities/ai": "./dist/entities/ai.js",
-      "./entities/course": "./dist/entities/course.js",
-      "./entities/flashcard": "./dist/entities/flashcard.js",
-      "./entities/gamification": "./dist/entities/gamification.js",
-      "./entities/learner": "./dist/entities/learner.js",
-      "./entities/onboarding": "./dist/entities/onboarding.js",
-      "./entities/quiz": "./dist/entities/quiz.js",
-      "./events": "./dist/events.js",
-      "./learning-journey.feature": "./dist/learning-journey.feature.js",
-      "./track-spec": "./dist/track-spec.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./contracts": {
+        "types": "./dist/contracts/index.d.ts",
+        "bun": "./dist/contracts/index.js",
+        "node": "./dist/node/contracts/index.mjs",
+        "browser": "./dist/browser/contracts/index.js",
+        "default": "./dist/contracts/index.js"
+      },
+      "./contracts/index": {
+        "types": "./dist/contracts/index.d.ts",
+        "bun": "./dist/contracts/index.js",
+        "node": "./dist/node/contracts/index.mjs",
+        "browser": "./dist/browser/contracts/index.js",
+        "default": "./dist/contracts/index.js"
+      },
+      "./contracts/models": {
+        "types": "./dist/contracts/models.d.ts",
+        "bun": "./dist/contracts/models.js",
+        "node": "./dist/node/contracts/models.mjs",
+        "browser": "./dist/browser/contracts/models.js",
+        "default": "./dist/contracts/models.js"
+      },
+      "./contracts/onboarding": {
+        "types": "./dist/contracts/onboarding.d.ts",
+        "bun": "./dist/contracts/onboarding.js",
+        "node": "./dist/node/contracts/onboarding.mjs",
+        "browser": "./dist/browser/contracts/onboarding.js",
+        "default": "./dist/contracts/onboarding.js"
+      },
+      "./contracts/operations": {
+        "types": "./dist/contracts/operations.d.ts",
+        "bun": "./dist/contracts/operations.js",
+        "node": "./dist/node/contracts/operations.mjs",
+        "browser": "./dist/browser/contracts/operations.js",
+        "default": "./dist/contracts/operations.js"
+      },
+      "./contracts/shared": {
+        "types": "./dist/contracts/shared.d.ts",
+        "bun": "./dist/contracts/shared.js",
+        "node": "./dist/node/contracts/shared.mjs",
+        "browser": "./dist/browser/contracts/shared.js",
+        "default": "./dist/contracts/shared.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/index": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/learning-journey.docblock": {
+        "types": "./dist/docs/learning-journey.docblock.d.ts",
+        "bun": "./dist/docs/learning-journey.docblock.js",
+        "node": "./dist/node/docs/learning-journey.docblock.mjs",
+        "browser": "./dist/browser/docs/learning-journey.docblock.js",
+        "default": "./dist/docs/learning-journey.docblock.js"
+      },
+      "./engines": {
+        "types": "./dist/engines/index.d.ts",
+        "bun": "./dist/engines/index.js",
+        "node": "./dist/node/engines/index.mjs",
+        "browser": "./dist/browser/engines/index.js",
+        "default": "./dist/engines/index.js"
+      },
+      "./engines/index": {
+        "types": "./dist/engines/index.d.ts",
+        "bun": "./dist/engines/index.js",
+        "node": "./dist/node/engines/index.mjs",
+        "browser": "./dist/browser/engines/index.js",
+        "default": "./dist/engines/index.js"
+      },
+      "./engines/srs": {
+        "types": "./dist/engines/srs.d.ts",
+        "bun": "./dist/engines/srs.js",
+        "node": "./dist/node/engines/srs.mjs",
+        "browser": "./dist/browser/engines/srs.js",
+        "default": "./dist/engines/srs.js"
+      },
+      "./engines/streak": {
+        "types": "./dist/engines/streak.d.ts",
+        "bun": "./dist/engines/streak.js",
+        "node": "./dist/node/engines/streak.mjs",
+        "browser": "./dist/browser/engines/streak.js",
+        "default": "./dist/engines/streak.js"
+      },
+      "./engines/xp": {
+        "types": "./dist/engines/xp.d.ts",
+        "bun": "./dist/engines/xp.js",
+        "node": "./dist/node/engines/xp.mjs",
+        "browser": "./dist/browser/engines/xp.js",
+        "default": "./dist/engines/xp.js"
+      },
+      "./entities": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "browser": "./dist/browser/entities/index.js",
+        "default": "./dist/entities/index.js"
+      },
+      "./entities/ai": {
+        "types": "./dist/entities/ai.d.ts",
+        "bun": "./dist/entities/ai.js",
+        "node": "./dist/node/entities/ai.mjs",
+        "browser": "./dist/browser/entities/ai.js",
+        "default": "./dist/entities/ai.js"
+      },
+      "./entities/course": {
+        "types": "./dist/entities/course.d.ts",
+        "bun": "./dist/entities/course.js",
+        "node": "./dist/node/entities/course.mjs",
+        "browser": "./dist/browser/entities/course.js",
+        "default": "./dist/entities/course.js"
+      },
+      "./entities/flashcard": {
+        "types": "./dist/entities/flashcard.d.ts",
+        "bun": "./dist/entities/flashcard.js",
+        "node": "./dist/node/entities/flashcard.mjs",
+        "browser": "./dist/browser/entities/flashcard.js",
+        "default": "./dist/entities/flashcard.js"
+      },
+      "./entities/gamification": {
+        "types": "./dist/entities/gamification.d.ts",
+        "bun": "./dist/entities/gamification.js",
+        "node": "./dist/node/entities/gamification.mjs",
+        "browser": "./dist/browser/entities/gamification.js",
+        "default": "./dist/entities/gamification.js"
+      },
+      "./entities/index": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.mjs",
+        "browser": "./dist/browser/entities/index.js",
+        "default": "./dist/entities/index.js"
+      },
+      "./entities/learner": {
+        "types": "./dist/entities/learner.d.ts",
+        "bun": "./dist/entities/learner.js",
+        "node": "./dist/node/entities/learner.mjs",
+        "browser": "./dist/browser/entities/learner.js",
+        "default": "./dist/entities/learner.js"
+      },
+      "./entities/onboarding": {
+        "types": "./dist/entities/onboarding.d.ts",
+        "bun": "./dist/entities/onboarding.js",
+        "node": "./dist/node/entities/onboarding.mjs",
+        "browser": "./dist/browser/entities/onboarding.js",
+        "default": "./dist/entities/onboarding.js"
+      },
+      "./entities/quiz": {
+        "types": "./dist/entities/quiz.d.ts",
+        "bun": "./dist/entities/quiz.js",
+        "node": "./dist/node/entities/quiz.mjs",
+        "browser": "./dist/browser/entities/quiz.js",
+        "default": "./dist/entities/quiz.js"
+      },
+      "./events": {
+        "types": "./dist/events.d.ts",
+        "bun": "./dist/events.js",
+        "node": "./dist/node/events.mjs",
+        "browser": "./dist/browser/events.js",
+        "default": "./dist/events.js"
+      },
+      "./learning-journey.capability": {
+        "types": "./dist/learning-journey.capability.d.ts",
+        "bun": "./dist/learning-journey.capability.js",
+        "node": "./dist/node/learning-journey.capability.mjs",
+        "browser": "./dist/browser/learning-journey.capability.js",
+        "default": "./dist/learning-journey.capability.js"
+      },
+      "./learning-journey.feature": {
+        "types": "./dist/learning-journey.feature.d.ts",
+        "bun": "./dist/learning-journey.feature.js",
+        "node": "./dist/node/learning-journey.feature.mjs",
+        "browser": "./dist/browser/learning-journey.feature.js",
+        "default": "./dist/learning-journey.feature.js"
+      },
+      "./track-spec": {
+        "types": "./dist/track-spec.d.ts",
+        "bun": "./dist/track-spec.js",
+        "node": "./dist/node/track-spec.mjs",
+        "browser": "./dist/browser/track-spec.js",
+        "default": "./dist/track-spec.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.design-system",
-  "version": "1.56.1",
+  "version": "1.57.0",
   "description": "Design tokens and theming primitives",
   "keywords": [
     "contractspec",
@@ -13,15 +13,17 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit -p tsconfig.build.json",
-    "dev": "bun run build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "registry:build": "bun run scripts/build-registry.ts",
     "test": "bun test",
     "lint": "bun run lint:fix",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit -p tsconfig.build.json"
   },
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -46,7 +48,6 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
     "@types/node": "^25.2.1",
     "@types/react-dom": "^19.0.14",
@@ -55,22 +56,25 @@
     "react-native": "^0.81.4",
     "react-native-css": "^3.0.0",
     "tailwindcss": "catalog:build",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "files": [
     "dist",
     "README.md"
   ],
   "exports": {
-    ".": "./src/index.ts",
-    "./package.json": "./package.json"
+    ".": "./src/index.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./package.json": "./package.json"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

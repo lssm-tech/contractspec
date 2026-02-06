@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.content-gen",
-  "version": "1.56.1",
+  "version": "1.57.0",
   "description": "AI-powered content generation for blog, email, and social",
   "keywords": [
     "contractspec",
@@ -19,50 +19,119 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./generators": "./dist/generators/index.js",
-    "./generators/blog": "./dist/generators/blog.js",
-    "./generators/email": "./dist/generators/email.js",
-    "./generators/landing-page": "./dist/generators/landing-page.js",
-    "./generators/social": "./dist/generators/social.js",
-    "./seo": "./dist/seo/index.js",
-    "./seo/optimizer": "./dist/seo/optimizer.js",
-    "./types": "./dist/types.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./generators": "./src/generators/index.ts",
+    "./generators/blog": "./src/generators/blog.ts",
+    "./generators/email": "./src/generators/email.ts",
+    "./generators/index": "./src/generators/index.ts",
+    "./generators/landing-page": "./src/generators/landing-page.ts",
+    "./generators/social": "./src/generators/social.ts",
+    "./seo": "./src/seo/index.ts",
+    "./seo/index": "./src/seo/index.ts",
+    "./seo/optimizer": "./src/seo/optimizer.ts",
+    "./types": "./src/types.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./generators": "./dist/generators/index.js",
-      "./generators/blog": "./dist/generators/blog.js",
-      "./generators/email": "./dist/generators/email.js",
-      "./generators/landing-page": "./dist/generators/landing-page.js",
-      "./generators/social": "./dist/generators/social.js",
-      "./seo": "./dist/seo/index.js",
-      "./seo/optimizer": "./dist/seo/optimizer.js",
-      "./types": "./dist/types.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./generators": {
+        "types": "./dist/generators/index.d.ts",
+        "bun": "./dist/generators/index.js",
+        "node": "./dist/node/generators/index.mjs",
+        "browser": "./dist/browser/generators/index.js",
+        "default": "./dist/generators/index.js"
+      },
+      "./generators/blog": {
+        "types": "./dist/generators/blog.d.ts",
+        "bun": "./dist/generators/blog.js",
+        "node": "./dist/node/generators/blog.mjs",
+        "browser": "./dist/browser/generators/blog.js",
+        "default": "./dist/generators/blog.js"
+      },
+      "./generators/email": {
+        "types": "./dist/generators/email.d.ts",
+        "bun": "./dist/generators/email.js",
+        "node": "./dist/node/generators/email.mjs",
+        "browser": "./dist/browser/generators/email.js",
+        "default": "./dist/generators/email.js"
+      },
+      "./generators/index": {
+        "types": "./dist/generators/index.d.ts",
+        "bun": "./dist/generators/index.js",
+        "node": "./dist/node/generators/index.mjs",
+        "browser": "./dist/browser/generators/index.js",
+        "default": "./dist/generators/index.js"
+      },
+      "./generators/landing-page": {
+        "types": "./dist/generators/landing-page.d.ts",
+        "bun": "./dist/generators/landing-page.js",
+        "node": "./dist/node/generators/landing-page.mjs",
+        "browser": "./dist/browser/generators/landing-page.js",
+        "default": "./dist/generators/landing-page.js"
+      },
+      "./generators/social": {
+        "types": "./dist/generators/social.d.ts",
+        "bun": "./dist/generators/social.js",
+        "node": "./dist/node/generators/social.mjs",
+        "browser": "./dist/browser/generators/social.js",
+        "default": "./dist/generators/social.js"
+      },
+      "./seo": {
+        "types": "./dist/seo/index.d.ts",
+        "bun": "./dist/seo/index.js",
+        "node": "./dist/node/seo/index.mjs",
+        "browser": "./dist/browser/seo/index.js",
+        "default": "./dist/seo/index.js"
+      },
+      "./seo/index": {
+        "types": "./dist/seo/index.d.ts",
+        "bun": "./dist/seo/index.js",
+        "node": "./dist/node/seo/index.mjs",
+        "browser": "./dist/browser/seo/index.js",
+        "default": "./dist/seo/index.js"
+      },
+      "./seo/optimizer": {
+        "types": "./dist/seo/optimizer.d.ts",
+        "bun": "./dist/seo/optimizer.js",
+        "node": "./dist/node/seo/optimizer.mjs",
+        "browser": "./dist/browser/seo/optimizer.js",
+        "default": "./dist/seo/optimizer.js"
+      },
+      "./types": {
+        "types": "./dist/types.d.ts",
+        "bun": "./dist/types.js",
+        "node": "./dist/node/types.mjs",
+        "browser": "./dist/browser/types.js",
+        "default": "./dist/types.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

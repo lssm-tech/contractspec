@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/integration.runtime",
-  "version": "1.56.1",
+  "version": "1.57.0",
   "description": "Runtime integration with secret management",
   "keywords": [
     "contractspec",
@@ -18,15 +18,17 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
@@ -35,34 +37,78 @@
     "google-gax": "^5.0.0"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./health": "./dist/health.js",
-    "./runtime": "./dist/runtime.js",
-    "./secrets": "./dist/secrets/index.js",
-    "./secrets/env-secret-provider": "./dist/secrets/env-secret-provider.js",
-    "./secrets/gcp-secret-manager": "./dist/secrets/gcp-secret-manager.js",
-    "./secrets/manager": "./dist/secrets/manager.js",
-    "./secrets/provider": "./dist/secrets/provider.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./health": "./src/health.ts",
+    "./runtime": "./src/runtime.ts",
+    "./secrets": "./src/secrets/index.ts",
+    "./secrets/env-secret-provider": "./src/secrets/env-secret-provider.ts",
+    "./secrets/gcp-secret-manager": "./src/secrets/gcp-secret-manager.ts",
+    "./secrets/index": "./src/secrets/index.ts",
+    "./secrets/manager": "./src/secrets/manager.ts",
+    "./secrets/provider": "./src/secrets/provider.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./health": "./dist/health.js",
-      "./runtime": "./dist/runtime.js",
-      "./secrets": "./dist/secrets/index.js",
-      "./secrets/env-secret-provider": "./dist/secrets/env-secret-provider.js",
-      "./secrets/gcp-secret-manager": "./dist/secrets/gcp-secret-manager.js",
-      "./secrets/manager": "./dist/secrets/manager.js",
-      "./secrets/provider": "./dist/secrets/provider.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "default": "./dist/index.js"
+      },
+      "./health": {
+        "types": "./dist/health.d.ts",
+        "bun": "./dist/health.js",
+        "node": "./dist/node/health.mjs",
+        "default": "./dist/health.js"
+      },
+      "./runtime": {
+        "types": "./dist/runtime.d.ts",
+        "bun": "./dist/runtime.js",
+        "node": "./dist/node/runtime.mjs",
+        "default": "./dist/runtime.js"
+      },
+      "./secrets": {
+        "types": "./dist/secrets/index.d.ts",
+        "bun": "./dist/secrets/index.js",
+        "node": "./dist/node/secrets/index.mjs",
+        "default": "./dist/secrets/index.js"
+      },
+      "./secrets/env-secret-provider": {
+        "types": "./dist/secrets/env-secret-provider.d.ts",
+        "bun": "./dist/secrets/env-secret-provider.js",
+        "node": "./dist/node/secrets/env-secret-provider.mjs",
+        "default": "./dist/secrets/env-secret-provider.js"
+      },
+      "./secrets/gcp-secret-manager": {
+        "types": "./dist/secrets/gcp-secret-manager.d.ts",
+        "bun": "./dist/secrets/gcp-secret-manager.js",
+        "node": "./dist/node/secrets/gcp-secret-manager.mjs",
+        "default": "./dist/secrets/gcp-secret-manager.js"
+      },
+      "./secrets/index": {
+        "types": "./dist/secrets/index.d.ts",
+        "bun": "./dist/secrets/index.js",
+        "node": "./dist/node/secrets/index.mjs",
+        "default": "./dist/secrets/index.js"
+      },
+      "./secrets/manager": {
+        "types": "./dist/secrets/manager.d.ts",
+        "bun": "./dist/secrets/manager.js",
+        "node": "./dist/node/secrets/manager.mjs",
+        "default": "./dist/secrets/manager.js"
+      },
+      "./secrets/provider": {
+        "types": "./dist/secrets/provider.d.ts",
+        "bun": "./dist/secrets/provider.js",
+        "node": "./dist/node/secrets/provider.mjs",
+        "default": "./dist/secrets/provider.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },

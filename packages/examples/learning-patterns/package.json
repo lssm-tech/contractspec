@@ -1,57 +1,126 @@
 {
   "name": "@contractspec/example.learning-patterns",
-  "version": "1.56.1",
+  "version": "1.57.0",
   "description": "Example: drills + ambient coach + quests learning patterns, powered by Learning Journey (event-driven, deterministic).",
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./docs": "./dist/docs/index.js",
-    "./docs/learning-patterns.docblock": "./dist/docs/learning-patterns.docblock.js",
-    "./events": "./dist/events.js",
-    "./example": "./dist/example.js",
-    "./tracks": "./dist/tracks/index.js",
-    "./tracks/ambient-coach": "./dist/tracks/ambient-coach.js",
-    "./tracks/drills": "./dist/tracks/drills.js",
-    "./tracks/quests": "./dist/tracks/quests.js",
-    "./*": "./*"
+    ".": "./src/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/index": "./src/docs/index.ts",
+    "./docs/learning-patterns.docblock": "./src/docs/learning-patterns.docblock.ts",
+    "./events": "./src/events.ts",
+    "./example": "./src/example.ts",
+    "./tracks": "./src/tracks/index.ts",
+    "./tracks/ambient-coach": "./src/tracks/ambient-coach.ts",
+    "./tracks/drills": "./src/tracks/drills.ts",
+    "./tracks/index": "./src/tracks/index.ts",
+    "./tracks/quests": "./src/tracks/quests.ts"
   },
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun build:types && bun build:bundle",
-    "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build:bundle --watch",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/module.learning-journey": "workspace:*"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": "./dist/index.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/learning-patterns.docblock": "./dist/docs/learning-patterns.docblock.js",
-      "./events": "./dist/events.js",
-      "./example": "./dist/example.js",
-      "./tracks": "./dist/tracks/index.js",
-      "./tracks/ambient-coach": "./dist/tracks/ambient-coach.js",
-      "./tracks/drills": "./dist/tracks/drills.js",
-      "./tracks/quests": "./dist/tracks/quests.js",
-      "./*": "./*"
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.mjs",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/index": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.mjs",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/learning-patterns.docblock": {
+        "types": "./dist/docs/learning-patterns.docblock.d.ts",
+        "bun": "./dist/docs/learning-patterns.docblock.js",
+        "node": "./dist/node/docs/learning-patterns.docblock.mjs",
+        "browser": "./dist/browser/docs/learning-patterns.docblock.js",
+        "default": "./dist/docs/learning-patterns.docblock.js"
+      },
+      "./events": {
+        "types": "./dist/events.d.ts",
+        "bun": "./dist/events.js",
+        "node": "./dist/node/events.mjs",
+        "browser": "./dist/browser/events.js",
+        "default": "./dist/events.js"
+      },
+      "./example": {
+        "types": "./dist/example.d.ts",
+        "bun": "./dist/example.js",
+        "node": "./dist/node/example.mjs",
+        "browser": "./dist/browser/example.js",
+        "default": "./dist/example.js"
+      },
+      "./tracks": {
+        "types": "./dist/tracks/index.d.ts",
+        "bun": "./dist/tracks/index.js",
+        "node": "./dist/node/tracks/index.mjs",
+        "browser": "./dist/browser/tracks/index.js",
+        "default": "./dist/tracks/index.js"
+      },
+      "./tracks/ambient-coach": {
+        "types": "./dist/tracks/ambient-coach.d.ts",
+        "bun": "./dist/tracks/ambient-coach.js",
+        "node": "./dist/node/tracks/ambient-coach.mjs",
+        "browser": "./dist/browser/tracks/ambient-coach.js",
+        "default": "./dist/tracks/ambient-coach.js"
+      },
+      "./tracks/drills": {
+        "types": "./dist/tracks/drills.d.ts",
+        "bun": "./dist/tracks/drills.js",
+        "node": "./dist/node/tracks/drills.mjs",
+        "browser": "./dist/browser/tracks/drills.js",
+        "default": "./dist/tracks/drills.js"
+      },
+      "./tracks/index": {
+        "types": "./dist/tracks/index.d.ts",
+        "bun": "./dist/tracks/index.js",
+        "node": "./dist/node/tracks/index.mjs",
+        "browser": "./dist/browser/tracks/index.js",
+        "default": "./dist/tracks/index.js"
+      },
+      "./tracks/quests": {
+        "types": "./dist/tracks/quests.d.ts",
+        "bun": "./dist/tracks/quests.js",
+        "node": "./dist/node/tracks/quests.mjs",
+        "browser": "./dist/browser/tracks/quests.js",
+        "default": "./dist/tracks/quests.js"
+      }
     },
     "registry": "https://registry.npmjs.org/"
   },
