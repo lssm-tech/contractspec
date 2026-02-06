@@ -1,5 +1,37 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 1.57.0
+
+### Minor Changes
+
+- 11a5a05: feat: improve product intent
+
+### Patch Changes
+
+- Updated dependencies [8ecf3c1]
+- Updated dependencies [4651e06]
+- Updated dependencies [ad9d10a]
+- Updated dependencies [11a5a05]
+  - @contractspec/example.analytics-dashboard@1.57.0
+  - @contractspec/example.integration-hub@1.57.0
+  - @contractspec/module.examples@1.57.0
+  - @contractspec/example.saas-boilerplate@1.57.0
+  - @contractspec/example.crm-pipeline@1.57.0
+  - @contractspec/bundle.library@1.12.0
+  - @contractspec/example.policy-safe-knowledge-assistant@1.57.0
+  - @contractspec/lib.progressive-delivery@11.0.0
+  - @contractspec/example.workflow-system@1.57.0
+  - @contractspec/example.agent-console@1.57.0
+  - @contractspec/lib.example-shared-ui@1.11.0
+  - @contractspec/example.in-app-docs@1.4.0
+  - @contractspec/example.marketplace@1.57.0
+  - @contractspec/lib.design-system@1.57.0
+  - @contractspec/bundle.marketing@1.12.0
+  - @contractspec/lib.ui-kit-core@1.57.0
+  - @contractspec/lib.ui-kit-web@1.57.0
+  - @contractspec/lib.ui-link@1.57.0
+  - @contractspec/lib.ui-kit@1.57.0
+
 ## 1.56.1
 
 ### Patch Changes
