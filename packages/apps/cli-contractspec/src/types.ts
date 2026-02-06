@@ -299,6 +299,7 @@ export type IntegrationCategoryData =
   | 'accounting'
   | 'crm'
   | 'helpdesk'
+  | 'project-management'
   | 'open-banking'
   | 'custom';
 

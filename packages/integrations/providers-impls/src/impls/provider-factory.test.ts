@@ -17,6 +17,13 @@ import { ElevenLabsVoiceProvider } from './elevenlabs-voice';
 import { MistralLLMProvider } from './mistral-llm';
 import { MistralEmbeddingProvider } from './mistral-embedding';
 import { PowensOpenBankingProvider } from './powens-openbanking';
+import { LinearProjectManagementProvider } from './linear';
+import { JiraProjectManagementProvider } from './jira';
+import { NotionProjectManagementProvider } from './notion';
+import { GranolaMeetingRecorderProvider } from './granola-meeting-recorder';
+import { TldvMeetingRecorderProvider } from './tldv-meeting-recorder';
+import { FirefliesMeetingRecorderProvider } from './fireflies-meeting-recorder';
+import { FathomMeetingRecorderProvider } from './fathom-meeting-recorder';
 
 describe('IntegrationProviderFactory', () => {
   const factory = new IntegrationProviderFactory();
@@ -105,6 +112,83 @@ describe('IntegrationProviderFactory', () => {
     );
     expect(provider).toBeInstanceOf(PowensOpenBankingProvider);
   });
+
+  it('creates Linear project management provider', async () => {
+    const provider = await factory.createProjectManagementProvider(
+      buildContext({
+        key: 'project-management.linear',
+        config: { teamId: 'team-1' },
+        secret: { apiKey: 'linear-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(LinearProjectManagementProvider);
+  });
+
+  it('creates Jira project management provider', async () => {
+    const provider = await factory.createProjectManagementProvider(
+      buildContext({
+        key: 'project-management.jira',
+        config: { siteUrl: 'https://acme.atlassian.net', projectKey: 'PM' },
+        secret: { email: 'user@acme.com', apiToken: 'token' },
+      })
+    );
+    expect(provider).toBeInstanceOf(JiraProjectManagementProvider);
+  });
+
+  it('creates Notion project management provider', async () => {
+    const provider = await factory.createProjectManagementProvider(
+      buildContext({
+        key: 'project-management.notion',
+        config: { databaseId: 'db-1' },
+        secret: { apiKey: 'notion-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(NotionProjectManagementProvider);
+  });
+
+  it('creates Granola meeting recorder provider', async () => {
+    const provider = await factory.createMeetingRecorderProvider(
+      buildContext({
+        key: 'meeting-recorder.granola',
+        config: { pageSize: 10 },
+        secret: { apiKey: 'granola-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(GranolaMeetingRecorderProvider);
+  });
+
+  it('creates tl;dv meeting recorder provider', async () => {
+    const provider = await factory.createMeetingRecorderProvider(
+      buildContext({
+        key: 'meeting-recorder.tldv',
+        config: { pageSize: 25 },
+        secret: { apiKey: 'tldv-key', webhookSecret: 'tldv-secret' },
+      })
+    );
+    expect(provider).toBeInstanceOf(TldvMeetingRecorderProvider);
+  });
+
+  it('creates Fireflies meeting recorder provider', async () => {
+    const provider = await factory.createMeetingRecorderProvider(
+      buildContext({
+        key: 'meeting-recorder.fireflies',
+        config: { transcriptsPageSize: 15 },
+        secret: { apiKey: 'fireflies-key', webhookSecret: 'ff-secret' },
+      })
+    );
+    expect(provider).toBeInstanceOf(FirefliesMeetingRecorderProvider);
+  });
+
+  it('creates Fathom meeting recorder provider', async () => {
+    const provider = await factory.createMeetingRecorderProvider(
+      buildContext({
+        key: 'meeting-recorder.fathom',
+        config: { includeTranscript: true },
+        secret: { apiKey: 'fathom-key', webhookSecret: 'fathom-secret' },
+      })
+    );
+    expect(provider).toBeInstanceOf(FathomMeetingRecorderProvider);
+  });
 });
 
 function buildContext({
@@ -121,9 +205,8 @@ function buildContext({
       key,
       version: '1.0.0',
       category: key.startsWith('openbanking.')
-        ? ('open-banking' as string)
-        : (key.split('.')[0] as string),
-      displayName: key,
+        ? ('open-banking' as IntegrationSpec['meta']['category'])
+        : (key.split('.')[0] as IntegrationSpec['meta']['category']),
       title: key,
       description: `${key} provider`,
       domain: 'test',
@@ -141,7 +224,7 @@ function buildContext({
       id: `conn-${key}`,
       tenantId: 'tenant',
       integrationKey: key,
-      integrationVersion: 1,
+      integrationVersion: '1.0.0',
       label: key,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -181,7 +264,7 @@ function buildContext({
     secretReference: 'mock://secret',
     trace: {
       blueprintName: 'blueprint',
-      blueprintVersion: '1.0.0',
+      blueprintVersion: 1,
       configVersion: 1,
     },
   };

@@ -33,6 +33,7 @@ const CATEGORY_CHOICES: { name: string; value: IntegrationCategoryData }[] = [
   { name: 'Open Banking', value: 'open-banking' },
   { name: 'CRM', value: 'crm' },
   { name: 'Helpdesk', value: 'helpdesk' },
+  { name: 'Project Management', value: 'project-management' },
   { name: 'Custom', value: 'custom' },
 ];
 

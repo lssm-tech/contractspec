@@ -1,0 +1,50 @@
+[
+  {
+    "id": "meeting-recorder/meeting-recorder",
+    "title": "meeting-recorder",
+    "summary": "Meeting recorder integrations capability\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.integrations\n- **Tags**: meeting-recorder, transcripts, integrations\n- **File**: `packages/libs/contracts/src/integrations/meeting-recorder/meeting-recorder.capability.ts`",
+    "route": "/docs/reference/meeting-recorder/meeting-recorder",
+    "source": "generated",
+    "contentPath": "meeting-recorder/meeting-recorder.md"
+  },
+  {
+    "id": "meeting-recorder/meeting-recorder.meetings.get",
+    "title": "meeting-recorder.meetings.get",
+    "summary": "Retrieve metadata for a single meeting recording.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: meeting-recorder, meetings",
+    "route": "/docs/reference/meeting-recorder/meeting-recorder.meetings.get",
+    "source": "generated",
+    "contentPath": "meeting-recorder/meeting-recorder.meetings.get.md"
+  },
+  {
+    "id": "meeting-recorder/meeting-recorder.meetings.list",
+    "title": "meeting-recorder.meetings.list",
+    "summary": "List meetings recorded by the configured meeting provider.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: meeting-recorder, meetings, transcripts",
+    "route": "/docs/reference/meeting-recorder/meeting-recorder.meetings.list",
+    "source": "generated",
+    "contentPath": "meeting-recorder/meeting-recorder.meetings.list.md"
+  },
+  {
+    "id": "meeting-recorder/meeting-recorder.transcripts.get",
+    "title": "meeting-recorder.transcripts.get",
+    "summary": "Fetch the transcript for a specific meeting recording.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: meeting-recorder, transcripts",
+    "route": "/docs/reference/meeting-recorder/meeting-recorder.transcripts.get",
+    "source": "generated",
+    "contentPath": "meeting-recorder/meeting-recorder.transcripts.get.md"
+  },
+  {
+    "id": "meeting-recorder/meeting-recorder.transcripts.sync",
+    "title": "meeting-recorder.transcripts.sync",
+    "summary": "Trigger a transcript sync from the meeting recorder provider.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: meeting-recorder, transcripts, sync",
+    "route": "/docs/reference/meeting-recorder/meeting-recorder.transcripts.sync",
+    "source": "generated",
+    "contentPath": "meeting-recorder/meeting-recorder.transcripts.sync.md"
+  },
+  {
+    "id": "meeting-recorder/meeting-recorder.webhooks.ingest",
+    "title": "meeting-recorder.webhooks.ingest",
+    "summary": "Ingest a webhook from a meeting recorder provider.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: meeting-recorder, webhooks, transcripts",
+    "route": "/docs/reference/meeting-recorder/meeting-recorder.webhooks.ingest",
+    "source": "generated",
+    "contentPath": "meeting-recorder/meeting-recorder.webhooks.ingest.md"
+  }
+]

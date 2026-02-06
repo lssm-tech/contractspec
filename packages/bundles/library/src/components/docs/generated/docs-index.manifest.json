@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-02-02T06:12:52.013Z",
-  "total": 668,
+  "generatedAt": "2026-02-06T00:42:00.973Z",
+  "total": 681,
   "version": null,
   "contentRoot": "../../../../../../../generated/docs",
   "chunks": [
@@ -105,6 +105,11 @@
       "total": 42
     },
     {
+      "key": "meeting-recorder",
+      "file": "docs-index.meeting-recorder.json",
+      "total": 6
+    },
+    {
       "key": "metrics",
       "file": "docs-index.metrics.json",
       "total": 24
@@ -122,7 +127,7 @@
     {
       "key": "platform.integrations",
       "file": "docs-index.platform-integrations.json",
-      "total": 17
+      "total": 24
     },
     {
       "key": "platform.knowledge",

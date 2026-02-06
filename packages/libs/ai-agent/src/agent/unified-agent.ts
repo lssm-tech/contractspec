@@ -25,6 +25,9 @@
  * const response = await agent.run('Hello');
  * ```
  */
+import type { LanguageModel } from 'ai';
+import type { ProviderConfig } from '@contractspec/lib.ai-providers/types';
+import { createProvider } from '@contractspec/lib.ai-providers/factory';
 import type { AgentSpec } from '../spec/spec';
 import type {
   AgentCallOptions,
@@ -53,6 +56,8 @@ export type UnifiedAgentBackend =
 export interface UnifiedAgentBackendConfig {
   'ai-sdk'?: {
     model?: string;
+    modelInstance?: LanguageModel;
+    provider?: ProviderConfig;
     temperature?: number;
     maxTokens?: number;
   };
@@ -247,19 +252,10 @@ export class UnifiedAgent {
   ): Promise<AgentGenerateResult> {
     // Import the existing ContractSpec agent factory
     const { ContractSpecAgent } = await import('./contract-spec-agent');
-    const { anthropic } = await import('@ai-sdk/anthropic');
-
-    // Use factory method create() instead of new
-    const backendConfig =
-      this.config.backend === 'ai-sdk'
-        ? (this.config.config as Record<string, unknown>)
-        : {};
-
+    const model = await this.resolveAISDKModel();
     const agent = await ContractSpecAgent.create({
       spec: this.spec,
-      model: anthropic(
-        (backendConfig?.model as string) ?? 'claude-3-5-sonnet-20240620'
-      ),
+      model,
       toolHandlers: this.tools,
     });
 
@@ -317,6 +313,55 @@ export class UnifiedAgent {
           } as unknown as LanguageModelUsage)
         : undefined,
     };
+  }
+
+  private getAISDKConfig(): UnifiedAgentBackendConfig['ai-sdk'] | undefined {
+    if (this.config.backend !== 'ai-sdk') return undefined;
+    return this.config.config as UnifiedAgentBackendConfig['ai-sdk'];
+  }
+
+  private async resolveAISDKModel(): Promise<LanguageModel> {
+    const backendConfig = this.getAISDKConfig();
+    let model: LanguageModel;
+
+    if (backendConfig?.modelInstance) {
+      model = backendConfig.modelInstance;
+    } else if (backendConfig?.provider) {
+      model = createProvider(backendConfig.provider).getModel();
+    } else {
+      const { anthropic } = await import('@ai-sdk/anthropic');
+      model = anthropic(backendConfig?.model ?? 'claude-3-5-sonnet-20240620');
+    }
+
+    return this.applyModelSettings(model, {
+      temperature: backendConfig?.temperature,
+      maxTokens: backendConfig?.maxTokens,
+    });
+  }
+
+  private applyModelSettings(
+    model: LanguageModel,
+    settings: { temperature?: number; maxTokens?: number }
+  ): LanguageModel {
+    if (
+      settings.temperature === undefined &&
+      settings.maxTokens === undefined
+    ) {
+      return model;
+    }
+
+    const withSettings = model as LanguageModel & {
+      withSettings?: (settings: Record<string, unknown>) => LanguageModel;
+    };
+
+    if (typeof withSettings.withSettings === 'function') {
+      return withSettings.withSettings({
+        temperature: settings.temperature,
+        maxTokens: settings.maxTokens,
+      });
+    }
+
+    return model;
   }
 
   /**
@@ -436,12 +481,22 @@ export function createAISDKAgent(
   options?: {
     tools?: Map<string, ToolHandler>;
     model?: string;
+    modelInstance?: LanguageModel;
+    provider?: ProviderConfig;
+    temperature?: number;
+    maxTokens?: number;
   }
 ): UnifiedAgent {
   return new UnifiedAgent(spec, {
     backend: 'ai-sdk',
     tools: options?.tools,
-    config: { model: options?.model },
+    config: {
+      model: options?.model,
+      modelInstance: options?.modelInstance,
+      provider: options?.provider,
+      temperature: options?.temperature,
+      maxTokens: options?.maxTokens,
+    },
   });
 }
 

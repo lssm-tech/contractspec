@@ -1,0 +1,65 @@
+{
+  "name": "@contractspec/example.meeting-recorder-providers",
+  "version": "1.56.1",
+  "description": "Meeting recorder provider example: list meetings, transcripts, and webhooks.",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./connection.sample": "./dist/connection.sample.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/meeting-recorder-providers.docblock": "./dist/docs/meeting-recorder-providers.docblock.js",
+    "./example": "./dist/example.js",
+    "./handlers/create-provider": "./dist/handlers/create-provider.js",
+    "./handlers/get-transcript": "./dist/handlers/get-transcript.js",
+    "./handlers/list-meetings": "./dist/handlers/list-meetings.js",
+    "./handlers/webhook-handler": "./dist/handlers/webhook-handler.js",
+    "./*": "./*"
+  },
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@contractspec/integration.providers-impls": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/meeting-recorder-providers.docblock": "./dist/docs/meeting-recorder-providers.docblock.js",
+      "./example": "./dist/example.js",
+      "./connection.sample": "./dist/connection.sample.js",
+      "./handlers/create-provider": "./dist/handlers/create-provider.js",
+      "./handlers/list-meetings": "./dist/handlers/list-meetings.js",
+      "./handlers/get-transcript": "./dist/handlers/get-transcript.js",
+      "./handlers/webhook-handler": "./dist/handlers/webhook-handler.js",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/meeting-recorder-providers"
+  },
+  "homepage": "https://contractspec.io"
+}

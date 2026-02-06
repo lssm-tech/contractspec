@@ -63,7 +63,7 @@
     }
   },
   "dependencies": {
-    "@apollo/client": "^4.0.12",
+    "@apollo/client": "^4.1.4",
     "@graphql-tools/schema": "^10.0.31",
     "graphql": "^16.12.0"
   }

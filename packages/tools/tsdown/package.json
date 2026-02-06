@@ -15,7 +15,7 @@
     "README.md"
   ],
   "peerDependencies": {
-    "tsdown": "^0.20.1"
+    "tsdown": "^0.20.3"
   },
   "publishConfig": {
     "access": "public",
