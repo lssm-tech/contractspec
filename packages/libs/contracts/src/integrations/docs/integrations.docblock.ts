@@ -25,7 +25,7 @@ This document describes the integration architecture that powers ContractSpec-ba
 
 ## Registered Providers
 
-The contracts library ships twenty-one priority providers in \`packages/libs/contracts/src/integrations/providers\`:
+The contracts library ships twenty-two priority providers in \`packages/libs/contracts/src/integrations/providers\`:
 
 | Category      | Provider         | Key                         | Notes                                             |
 | ------------- | ---------------- | --------------------------- | ------------------------------------------------- |
@@ -33,6 +33,7 @@ The contracts library ships twenty-one priority providers in \`packages/libs/con
 | email (out)   | Postmark         | \`email.postmark\`           | Transactional email delivery                      |
 | email (in)    | Gmail API        | \`email.gmail\`              | Thread ingestion (OAuth BYOK or service account)  |
 | calendar      | Google Calendar  | \`calendar.google\`          | Event scheduling via service account              |
+| analytics     | PostHog          | \`analytics.posthog\`         | Product analytics, flags, and HogQL queries       |
 | vector-db     | Qdrant           | \`vectordb.qdrant\`          | Embedding storage & search                        |
 | vector-db     | Supabase pgvector| \`vectordb.supabase\`        | Embedding storage & search on Supabase Postgres   |
 | database      | Supabase Postgres| \`database.supabase\`        | SQL queries and transactions on Supabase Postgres |

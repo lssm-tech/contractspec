@@ -21,10 +21,12 @@ import { GranolaMeetingRecorderProvider } from './granola-meeting-recorder';
 import { TldvMeetingRecorderProvider } from './tldv-meeting-recorder';
 import { FirefliesMeetingRecorderProvider } from './fireflies-meeting-recorder';
 import { FathomMeetingRecorderProvider } from './fathom-meeting-recorder';
+import { PosthogAnalyticsProvider } from './posthog';
 import type { PaymentsProvider } from '../payments';
 import type { EmailOutboundProvider } from '../email';
 import type { SmsProvider } from '../sms';
 import type { VectorStoreProvider } from '../vector-store';
+import type { AnalyticsProvider } from '../analytics';
 import type { DatabaseProvider } from '../database';
 import type { ObjectStorageProvider } from '../storage';
 import type { VoiceProvider } from '../voice';
@@ -147,6 +149,36 @@ export class IntegrationProviderFactory {
       default:
         throw new Error(
           `Unsupported vector store integration: ${context.spec.meta.key}`
+        );
+    }
+  }
+
+  async createAnalyticsProvider(
+    context: IntegrationContext
+  ): Promise<AnalyticsProvider> {
+    const secrets = await this.loadSecrets(context);
+    const config = context.config as {
+      host?: string;
+      projectId?: string;
+      mcpUrl?: string;
+    };
+
+    switch (context.spec.meta.key) {
+      case 'analytics.posthog':
+        return new PosthogAnalyticsProvider({
+          host: config?.host,
+          projectId: config?.projectId,
+          mcpUrl: config?.mcpUrl,
+          projectApiKey: secrets.projectApiKey as string | undefined,
+          personalApiKey: requireSecret<string>(
+            secrets,
+            'personalApiKey',
+            'PostHog personalApiKey is required'
+          ),
+        });
+      default:
+        throw new Error(
+          `Unsupported analytics integration: ${context.spec.meta.key}`
         );
     }
   }

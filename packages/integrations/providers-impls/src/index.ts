@@ -7,6 +7,7 @@ export * from './llm';
 export * from './embedding';
 export * from './vector-store';
 export * from './database';
+export * from './analytics';
 export * from './storage';
 export * from './email';
 export * from './calendar';

@@ -66,6 +66,7 @@ describe('IntegrationSpecRegistry', () => {
     'email',
     'calendar',
     'ai-llm',
+    'analytics',
     'project-management',
     'meeting-recorder',
     'database',

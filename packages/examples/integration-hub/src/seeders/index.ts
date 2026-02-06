@@ -67,4 +67,18 @@ export async function seedIntegrationHub(params: {
       'ACTIVE',
     ]
   );
+
+  await db.execute(
+    `INSERT INTO integration (id, "projectId", "organizationId", name, description, type, status)
+     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+    [
+      'int_5',
+      projectId,
+      'org_demo',
+      'PostHog Analytics',
+      'Product analytics and event capture',
+      'ANALYTICS',
+      'ACTIVE',
+    ]
+  );
 }

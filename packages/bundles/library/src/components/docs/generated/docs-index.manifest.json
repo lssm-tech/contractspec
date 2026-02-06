@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-02-06T00:42:00.973Z",
-  "total": 681,
+  "generatedAt": "2026-02-06T02:55:24.374Z",
+  "total": 686,
   "version": null,
   "contentRoot": "../../../../../../../generated/docs",
   "chunks": [
@@ -127,7 +127,7 @@
     {
       "key": "platform.integrations",
       "file": "docs-index.platform-integrations.json",
-      "total": 24
+      "total": 29
     },
     {
       "key": "platform.knowledge",

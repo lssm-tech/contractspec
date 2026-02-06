@@ -9,6 +9,40 @@ Depends on:
 - `@contractspec/lib.contracts` for provider interface types and IntegrationSpec declarations
 - `@contractspec/integration.runtime` for secret/guard helpers (when needed)
 
+## PostHog analytics
+
+This package ships a PostHog analytics provider:
+
+- `analytics.posthog` via `PosthogAnalyticsProvider`
+
+Connection config example:
+
+```json
+{
+  "host": "https://app.posthog.com",
+  "projectId": "12345",
+  "mcpUrl": "https://your-mcp-endpoint"
+}
+```
+
+Secret payload example (`secretRef` target value):
+
+```json
+{
+  "personalApiKey": "phx_personal_api_key",
+  "projectApiKey": "phc_project_api_key"
+}
+```
+
+Factory usage:
+
+```ts
+import { IntegrationProviderFactory } from "@contractspec/integration.providers-impls/impls/provider-factory";
+
+const factory = new IntegrationProviderFactory();
+const analytics = await factory.createAnalyticsProvider(context); // key: analytics.posthog
+```
+
 ## Supabase integrations
 
 This package now ships two Supabase providers:

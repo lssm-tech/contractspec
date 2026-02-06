@@ -26,6 +26,7 @@ import {
 import { fathomIntegrationSpec, registerFathomIntegration } from './fathom';
 import { gradiumIntegrationSpec, registerGradiumIntegration } from './gradium';
 import { falIntegrationSpec, registerFalIntegration } from './fal';
+import { posthogIntegrationSpec, registerPosthogIntegration } from './posthog';
 
 describe('integration provider specs', () => {
   it('registers Stripe integration', () => {
@@ -192,6 +193,20 @@ describe('integration provider specs', () => {
     ]);
     expect(registered?.secretSchema.schema).toMatchObject({
       required: ['apiKey'],
+    });
+  });
+
+  it('registers PostHog integration', () => {
+    const registry = registerPosthogIntegration(new IntegrationSpecRegistry());
+    const registered = registry.get('analytics.posthog', '1.0.0');
+    expect(registered).toBe(posthogIntegrationSpec);
+    expect(registered?.capabilities.provides).toEqual([
+      { key: 'analytics.events', version: '1.0.0' },
+      { key: 'analytics.feature-flags', version: '1.0.0' },
+      { key: 'analytics.query', version: '1.0.0' },
+    ]);
+    expect(registered?.secretSchema.schema).toMatchObject({
+      required: ['personalApiKey'],
     });
   });
 });

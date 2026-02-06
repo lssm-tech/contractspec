@@ -28,6 +28,7 @@ import { GranolaMeetingRecorderProvider } from './granola-meeting-recorder';
 import { TldvMeetingRecorderProvider } from './tldv-meeting-recorder';
 import { FirefliesMeetingRecorderProvider } from './fireflies-meeting-recorder';
 import { FathomMeetingRecorderProvider } from './fathom-meeting-recorder';
+import { PosthogAnalyticsProvider } from './posthog';
 
 describe('IntegrationProviderFactory', () => {
   const factory = new IntegrationProviderFactory();
@@ -98,6 +99,20 @@ describe('IntegrationProviderFactory', () => {
       })
     );
     expect(provider).toBeInstanceOf(SupabasePostgresProvider);
+  });
+
+  it('creates PostHog analytics provider', async () => {
+    const provider = await factory.createAnalyticsProvider(
+      buildContext({
+        key: 'analytics.posthog',
+        config: { host: 'https://app.posthog.com', projectId: '123' },
+        secret: {
+          personalApiKey: 'phx_personal',
+          projectApiKey: 'phc_project',
+        },
+      })
+    );
+    expect(provider).toBeInstanceOf(PosthogAnalyticsProvider);
   });
 
   it('creates Google Cloud storage provider', async () => {

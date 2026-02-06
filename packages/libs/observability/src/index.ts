@@ -31,6 +31,10 @@ export {
   type LifecycleKpiPipelineOptions,
   type LifecyclePipelineEvent,
 } from './pipeline/lifecycle-pipeline';
+export {
+  PosthogTelemetryProvider,
+  type PosthogTelemetryProviderOptions,
+} from './telemetry/posthog-telemetry';
 
 export type { LogLevel, LogEntry } from './logging';
 

@@ -8,6 +8,7 @@ A comprehensive integration hub example demonstrating ContractSpec principles fo
 
 - **Multi-Provider Support**: Connect to various external systems (Salesforce, HubSpot, etc.)
 - **Voice Provider Coverage**: Includes seeded examples for `ai-voice.gradium` and `ai-voice.fal`
+- **Analytics Coverage**: Includes seeded examples for PostHog analytics
 - **Bidirectional Sync**: INBOUND, OUTBOUND, or BIDIRECTIONAL data flow
 - **Field Mapping**: Configurable field mappings with transforms
 - **Sync Engine**: Change detection, deduplication, and error handling

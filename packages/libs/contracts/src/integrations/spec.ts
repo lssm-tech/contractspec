@@ -9,6 +9,7 @@ export type IntegrationCategory =
   | 'sms'
   | 'ai-llm'
   | 'ai-voice'
+  | 'analytics'
   | 'speech-to-text'
   | 'vector-db'
   | 'storage'

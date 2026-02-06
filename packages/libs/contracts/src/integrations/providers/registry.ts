@@ -11,6 +11,7 @@ import { registerGradiumIntegration } from './gradium';
 import { registerFalIntegration } from './fal';
 import { registerGmailIntegration } from './gmail';
 import { registerGoogleCalendarIntegration } from './google-calendar';
+import { registerPosthogIntegration } from './posthog';
 import { registerTwilioSmsIntegration } from './twilio-sms';
 import { registerGcsStorageIntegration } from './gcs-storage';
 import { registerPowensIntegration } from './powens';
@@ -40,6 +41,7 @@ export function createDefaultIntegrationSpecRegistry(): IntegrationSpecRegistry 
   registerFalIntegration(registry);
   registerGmailIntegration(registry);
   registerGoogleCalendarIntegration(registry);
+  registerPosthogIntegration(registry);
   registerTwilioSmsIntegration(registry);
   registerGcsStorageIntegration(registry);
   registerPowensIntegration(registry);

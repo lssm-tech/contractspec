@@ -26,6 +26,7 @@ const CATEGORY_CHOICES: { name: string; value: IntegrationCategoryData }[] = [
   { name: 'SMS', value: 'sms' },
   { name: 'AI - LLM', value: 'ai-llm' },
   { name: 'AI - Voice', value: 'ai-voice' },
+  { name: 'Analytics', value: 'analytics' },
   { name: 'Speech to Text', value: 'speech-to-text' },
   { name: 'Vector Database', value: 'vector-db' },
   { name: 'Object Storage', value: 'storage' },

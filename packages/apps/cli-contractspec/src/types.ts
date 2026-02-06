@@ -293,6 +293,7 @@ export type IntegrationCategoryData =
   | 'sms'
   | 'ai-llm'
   | 'ai-voice'
+  | 'analytics'
   | 'speech-to-text'
   | 'vector-db'
   | 'storage'

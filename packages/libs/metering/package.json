@@ -37,6 +37,7 @@
   "exports": {
     ".": "./dist/index.js",
     "./aggregation": "./dist/aggregation/index.js",
+    "./analytics/posthog-metering": "./dist/analytics/posthog-metering.js",
     "./contracts": "./dist/contracts/index.js",
     "./docs": "./dist/docs/index.js",
     "./docs/metering.docblock": "./dist/docs/metering.docblock.js",

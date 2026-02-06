@@ -7,10 +7,10 @@ import type {
   CalendarProvider,
 } from '@contractspec/integration.providers-impls/calendar';
 
-export type CalendarSyncOutput = {
+export interface CalendarSyncOutput {
   created?: CalendarEvent | CalendarEventInput;
   upcoming: CalendarEvent[] | CalendarEventInput[];
-};
+}
 
 export async function runCalendarSyncFromEnv(): Promise<CalendarSyncOutput> {
   const calendarId = resolveCalendarId();
