@@ -40,6 +40,8 @@
     "@ai-sdk/mistral": "catalog:ai",
     "@ai-sdk/openai": "catalog:ai",
     "@modelcontextprotocol/sdk": "^1.26.0",
+    "@posthog/react": "^1.7.1",
+    "@posthog/ai": "latest",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.ai-providers": "workspace:*",
     "@contractspec/lib.knowledge": "workspace:*",
@@ -49,7 +51,6 @@
   "peerDependencies": {
     "@anthropic-ai/claude-agent-sdk": ">=0.1.0",
     "@opencode-ai/sdk": ">=1.0.0",
-    "@posthog/ai": ">=1.0.0",
     "posthog-node": ">=4.0.0"
   },
   "peerDependenciesMeta": {

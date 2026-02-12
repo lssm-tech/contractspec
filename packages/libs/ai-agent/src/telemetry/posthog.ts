@@ -195,14 +195,12 @@ export function createCompositeTelemetryCollector(
 // =============================================================================
 
 async function importPostHogAI(): Promise<{
-  withTracing: (
-    model: LanguageModel,
-    client: PostHogClient,
-    options?: PostHogTracingOptions
-  ) => unknown;
+  withTracing: (...args: unknown[]) => unknown;
 }> {
   try {
-    return await import('@posthog/ai');
+    return await (import('@posthog/ai') as Promise<{
+      withTracing: (...args: unknown[]) => unknown;
+    }>);
   } catch {
     throw new Error(
       'PostHog LLM Analytics requires @posthog/ai to be installed. ' +
