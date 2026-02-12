@@ -1,6 +1,6 @@
 export type DocsIndexSource = 'generated' | 'docblock';
 
-export interface DocsIndexEntry {
+export type DocsIndexEntry = {
   id: string;
   title: string;
   summary?: string;
@@ -12,20 +12,20 @@ export interface DocsIndexEntry {
   visibility?: string;
   version?: string;
   owners?: string[];
-}
+};
 
-export interface DocsIndexChunk {
+export type DocsIndexChunk = {
   key: string;
   file: string;
   total: number;
-}
+};
 
-export interface DocsIndexManifest {
+export type DocsIndexManifest = {
   generatedAt: string;
   total: number;
   version: string | null;
   contentRoot: string | null;
   chunks: DocsIndexChunk[];
-}
+};
 
-export const DOCS_INDEX_MANIFEST = 'docs-index.manifest.json';
+export const DOCS_INDEX_MANIFEST = "docs-index.manifest.json";

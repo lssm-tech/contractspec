@@ -2,14 +2,14 @@
 
 # analytics.posthog
 
-PostHog integration for product analytics, feature flags, and HogQL queries.
+PostHog integration for product analytics, feature flags, HogQL queries, and LLM analytics with evaluations.
 
 ## Metadata
 
 - **Type**: integration (integration)
-- **Version**: 1.0.0
+- **Version**: 1.1.0
 - **Owners**: @platform.integrations
-- **Tags**: analytics, posthog
+- **Tags**: analytics, posthog, llm, ai
 - **File**: `packages/libs/contracts/src/integrations/providers/posthog.ts`
 
 ## Source Definition
@@ -18,14 +18,14 @@ PostHog integration for product analytics, feature flags, and HogQL queries.
 export const posthogIntegrationSpec = defineIntegration({
   meta: {
     key: 'analytics.posthog',
-    version: '1.0.0',
+    version: '1.1.0',
     category: 'analytics',
     title: 'PostHog',
     description:
-      'PostHog integration for product analytics, feature flags, and HogQL queries.',
+      'PostHog integration for product analytics, feature flags, HogQL queries, and LLM analytics with evaluations.',
     domain: 'analytics',
     owners: ['@platform.integrations'],
-    tags: ['analytics', 'posthog'],
+    tags: ['analytics', 'posthog', 'llm', 'ai'],
     stability: StabilityEnum.Beta,
   },
   supportedModes: ['managed', 'byok'],
@@ -39,6 +39,8 @@ export const posthogIntegrationSpec = defineIntegration({
       { key: 'analytics.insights', version: '1.0.0' },
       { key: 'analytics.cohorts', version: '1.0.0' },
       { key: 'analytics.annotations', version: '1.0.0' },
+      { key: 'analytics.llm-tracing', version: '1.0.0' },
+      { key: 'analytics.llm-evaluations', version: '1.0.0' },
     ],
   },
   configSchema: {

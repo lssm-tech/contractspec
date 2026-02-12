@@ -34,7 +34,7 @@
   {
     "id": "platform.integrations/analytics.posthog",
     "title": "analytics.posthog",
-    "summary": "PostHog integration for product analytics, feature flags, and HogQL queries.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: @platform.integrations\n- **Tags**: analytics, posthog\n- **File**: `packages/libs/contracts/src/integrations/providers/posthog.ts`",
+    "summary": "PostHog integration for product analytics, feature flags, HogQL queries, and LLM analytics with evaluations.\n- **Type**: integration (integration)\n- **Version**: 1.1.0\n- **Owners**: @platform.integrations",
     "route": "/docs/reference/platform.integrations/analytics.posthog",
     "source": "generated",
     "contentPath": "platform.integrations/analytics.posthog.md"

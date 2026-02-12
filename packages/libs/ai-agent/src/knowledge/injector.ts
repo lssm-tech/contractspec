@@ -1,6 +1,6 @@
 import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
 import type { AgentKnowledgeRef } from '../spec/spec';
-import { createAgentI18n, type AgentI18n } from '../i18n';
+import { createAgentI18n } from '../i18n';
 
 /**
  * Inject static knowledge into agent instructions.

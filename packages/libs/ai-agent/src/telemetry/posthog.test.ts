@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'bun:test';
 import {
   PostHogTelemetryCollector,
-  CompositeTelemetryCollector,
   createPostHogTelemetryCollector,
   createCompositeTelemetryCollector,
 } from './posthog';
@@ -18,6 +17,17 @@ interface CapturedEvent {
   event: string;
   properties?: Record<string, unknown>;
   groups?: Record<string, string>;
+}
+
+/**
+ * Assert a value is defined and narrow its type.
+ * Throws a test-friendly error if the value is undefined.
+ */
+function assertDefined<T>(value: T | undefined, label = 'value'): T {
+  if (value === undefined) {
+    throw new Error(`Expected ${label} to be defined`);
+  }
+  return value;
 }
 
 function createMockPostHogClient(): PostHogClient & {
@@ -68,7 +78,7 @@ describe('PostHogTelemetryCollector', () => {
     await collector.collect(sample);
 
     expect(mockClient.captured).toHaveLength(1);
-    const event = mockClient.captured[0]!;
+    const event = assertDefined(mockClient.captured[0], 'captured event');
     expect(event.event).toBe('$ai_generation');
     expect(event.properties?.$ai_model).toBe('support.bot');
     expect(event.properties?.$ai_provider).toBe('contractspec');
@@ -91,7 +101,8 @@ describe('PostHogTelemetryCollector', () => {
       })
     );
 
-    expect(mockClient.captured[0]!.distinctId).toBe('user_456');
+    const captured = assertDefined(mockClient.captured[0], 'captured event');
+    expect(captured.distinctId).toBe('user_456');
   });
 
   it('falls back to "system" distinctId when none available', async () => {
@@ -100,7 +111,8 @@ describe('PostHogTelemetryCollector', () => {
 
     await collector.collect(createSample());
 
-    expect(mockClient.captured[0]!.distinctId).toBe('system');
+    const captured = assertDefined(mockClient.captured[0], 'captured event');
+    expect(captured.distinctId).toBe('system');
   });
 
   it('marks failed operations with $ai_is_error', async () => {
@@ -109,7 +121,8 @@ describe('PostHogTelemetryCollector', () => {
 
     await collector.collect(createSample({ success: false, durationMs: 500 }));
 
-    expect(mockClient.captured[0]!.properties?.$ai_is_error).toBe(true);
+    const captured = assertDefined(mockClient.captured[0], 'captured event');
+    expect(captured.properties?.$ai_is_error).toBe(true);
   });
 
   it('forwards default tracing properties and groups', async () => {
@@ -126,7 +139,7 @@ describe('PostHogTelemetryCollector', () => {
 
     await collector.collect(createSample());
 
-    const event = mockClient.captured[0]!;
+    const event = assertDefined(mockClient.captured[0], 'captured event');
     expect(event.distinctId).toBe('default_user');
     expect(event.properties?.$ai_trace_id).toBe('trace_abc');
     expect(event.properties?.env).toBe('production');
@@ -144,7 +157,8 @@ describe('PostHogTelemetryCollector', () => {
       createSample({ metadata: { actorId: 'user_789' } })
     );
 
-    expect(mockClient.captured[0]!.distinctId).toBe('default_user');
+    const captured = assertDefined(mockClient.captured[0], 'captured event');
+    expect(captured.distinctId).toBe('default_user');
   });
 
   it('converts durationMs to seconds for $ai_latency', async () => {
@@ -153,7 +167,8 @@ describe('PostHogTelemetryCollector', () => {
 
     await collector.collect(createSample({ durationMs: 2500 }));
 
-    expect(mockClient.captured[0]!.properties?.$ai_latency).toBe(2.5);
+    const captured = assertDefined(mockClient.captured[0], 'captured event');
+    expect(captured.properties?.$ai_latency).toBe(2.5);
   });
 
   it('includes contractspec-specific context properties', async () => {
@@ -166,7 +181,7 @@ describe('PostHogTelemetryCollector', () => {
       })
     );
 
-    const event = mockClient.captured[0]!;
+    const event = assertDefined(mockClient.captured[0], 'captured event');
     expect(event.properties?.contractspec_operation).toBe('search.agent');
     expect(event.properties?.contractspec_version).toBe('2.1.0');
   });
@@ -182,7 +197,7 @@ describe('PostHogTelemetryCollector', () => {
     );
 
     expect(mockClient.captured).toHaveLength(1);
-    const event = mockClient.captured[0]!;
+    const event = assertDefined(mockClient.captured[0], 'captured event');
     expect(event.properties?.$ai_input_tokens).toBeUndefined();
     expect(event.properties?.$ai_output_tokens).toBeUndefined();
     expect(event.properties?.contractspec_agent_id).toBeUndefined();
@@ -272,7 +287,9 @@ describe('CompositeTelemetryCollector', () => {
 
     await composite.collect(createSample());
 
-    expect(client1.captured[0]!.distinctId).toBe('env_a');
-    expect(client2.captured[0]!.distinctId).toBe('env_b');
+    const captured1 = assertDefined(client1.captured[0], 'client1 captured');
+    expect(captured1.distinctId).toBe('env_a');
+    const captured2 = assertDefined(client2.captured[0], 'client2 captured');
+    expect(captured2.distinctId).toBe('env_b');
   });
 });
