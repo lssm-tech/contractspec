@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 16.0.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
+### Patch Changes
+
+- Updated dependencies [064258d]
+  - @contractspec/lib.presentation-runtime-core@1.62.0
+  - @contractspec/lib.ui-kit@1.62.0
+
 ## 15.0.0
 
 ### Minor Changes

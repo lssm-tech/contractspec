@@ -1,5 +1,22 @@
 # @contractspec/lib.evolution
 
+## 1.62.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
+### Patch Changes
+
+- Updated dependencies [064258d]
+- Updated dependencies [064258d]
+- Updated dependencies [064258d]
+  - @contractspec/lib.ai-agent@1.62.0
+  - @contractspec/lib.observability@1.62.0
+  - @contractspec/lib.contracts@1.62.0
+  - @contractspec/lib.lifecycle@1.62.0
+  - @contractspec/lib.schema@1.62.0
+
 ## 1.61.0
 
 ### Minor Changes

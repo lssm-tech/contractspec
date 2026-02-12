@@ -1,5 +1,16 @@
 # @contractspec/lib.ui-link
 
+## 1.62.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
+### Patch Changes
+
+- Updated dependencies [064258d]
+  - @contractspec/lib.ui-kit-core@1.62.0
+
 ## 1.61.0
 
 ### Minor Changes

@@ -1,5 +1,26 @@
 # @contractspec/bundle.library
 
+## 1.17.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
+### Patch Changes
+
+- Updated dependencies [064258d]
+- Updated dependencies [064258d]
+  - @contractspec/lib.contracts-library@1.62.0
+  - @contractspec/lib.example-shared-ui@1.16.0
+  - @contractspec/lib.runtime-sandbox@0.17.0
+  - @contractspec/lib.design-system@1.62.0
+  - @contractspec/module.examples@1.62.0
+  - @contractspec/lib.ui-kit-web@1.62.0
+  - @contractspec/lib.contracts@1.62.0
+  - @contractspec/lib.ui-link@1.62.0
+  - @contractspec/lib.logger@1.62.0
+  - @contractspec/lib.schema@1.62.0
+
 ## 1.16.0
 
 ### Minor Changes

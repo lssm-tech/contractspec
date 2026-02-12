@@ -1,5 +1,16 @@
 # @contractspec/lib.progressive-delivery
 
+## 16.0.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
+### Patch Changes
+
+- Updated dependencies [064258d]
+  - @contractspec/lib.observability@1.62.0
+
 ## 15.0.0
 
 ### Minor Changes

@@ -1,5 +1,50 @@
 # @contractspec/lib.ai-agent
 
+## 1.62.0
+
+### Minor Changes
+
+- 064258d: feat: add multi-language (i18n) support for all user-facing strings
+
+  Adds full internationalization to the ai-agent package with English, French, and Spanish support:
+  - **i18n module** (`src/i18n/`): `createAgentI18n(specLocale?, runtimeLocale?)` and `getDefaultI18n()` with `{placeholder}` interpolation, backed by the `TranslationRegistry` from `@contractspec/lib.contracts`
+  - **130+ typed message keys** organized by domain: agent prompts, knowledge, tools, interop, errors, exports, approval, and logs
+  - **3 complete catalogs**: English (reference), French (formal "vous"), Spanish (formal "usted")
+  - **Locale resolution**: runtime override > spec-level `locale` > default ("en"), with regional variant fallback (e.g. "fr-CA" -> "fr")
+  - **Spec/type changes**: `locale?: string` added to `AgentSpec`, `AgentCallOptions`, and `AgentSessionState`
+
+  All hardcoded strings across the package now go through the i18n system:
+  - Interop spec/tool consumers (markdown headings, prompt sections, error messages)
+  - Provider adapters and tool bridges (Claude Agent SDK, OpenCode SDK)
+  - Exporters (Claude Agent, OpenCode markdown/JSON generation, validation)
+  - Agent runners, knowledge injector, MCP server, approval workflow
+
+  New `./i18n` entrypoint exported from `package.json` for direct access to keys, catalogs, and locale utilities.
+
+- 064258d: feat: upgrade all dependencies
+- 064258d: feat: add PostHog LLM Analytics and Evaluations support
+
+  Adds PostHog LLM observability to the ai-agent package via two integration approaches:
+  - **Model wrapping** (`createPostHogTracedModel`): wraps any Vercel AI SDK `LanguageModel` with `@posthog/ai` `withTracing` to automatically capture `$ai_generation` events (tokens, latency, cost, I/O)
+  - **TelemetryCollector bridge** (`PostHogTelemetryCollector`): implements the existing `TelemetryCollector` interface to forward `trackAgentStep` data to PostHog
+  - **CompositeTelemetryCollector**: fan-out to multiple telemetry collectors simultaneously
+
+  Both `ContractSpecAgentConfig` and `AgentFactoryConfig` now accept an optional `posthogConfig` for automatic model wrapping.
+
+  PostHog Evaluations (Relevance, Helpfulness, Hallucination, Toxicity, Jailbreak) run server-side on captured events with no additional client code.
+
+  Contracts updated: PostHog integration spec bumped to v1.1.0 with `analytics.llm-tracing` and `analytics.llm-evaluations` capabilities. New `posthogLLMTelemetrySpec` defines the generation event schema, PII fields, and evaluation templates.
+
+  `@posthog/ai` and `posthog-node` added as optional peer dependencies.
+
+### Patch Changes
+
+- Updated dependencies [064258d]
+- Updated dependencies [064258d]
+  - @contractspec/lib.ai-providers@1.62.0
+  - @contractspec/lib.contracts@1.62.0
+  - @contractspec/lib.knowledge@1.62.0
+
 ## 1.61.0
 
 ### Minor Changes

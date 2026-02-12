@@ -1,5 +1,23 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 1.62.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
+### Patch Changes
+
+- Updated dependencies [064258d]
+- Updated dependencies [064258d]
+- Updated dependencies [064258d]
+  - @contractspec/lib.ai-agent@1.62.0
+  - @contractspec/module.lifecycle-advisor@1.62.0
+  - @contractspec/module.lifecycle-core@1.62.0
+  - @contractspec/lib.observability@1.62.0
+  - @contractspec/lib.analytics@1.62.0
+  - @contractspec/lib.lifecycle@1.62.0
+
 ## 1.61.0
 
 ### Minor Changes

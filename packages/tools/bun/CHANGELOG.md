@@ -1,5 +1,11 @@
 # @contractspec/tool.bun
 
+## 1.61.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
 ## 1.60.0
 
 ### Minor Changes

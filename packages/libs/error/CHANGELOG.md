@@ -1,5 +1,11 @@
 # @contractspec/lib.error
 
+## 1.62.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
 ## 1.61.0
 
 ### Minor Changes
