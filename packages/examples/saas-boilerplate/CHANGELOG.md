@@ -1,5 +1,25 @@
 # @contractspec/example.saas-boilerplate
 
+## 1.62.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
+### Patch Changes
+
+- Updated dependencies [064258d]
+- Updated dependencies [064258d]
+  - @contractspec/lib.example-shared-ui@1.16.0
+  - @contractspec/module.notifications@1.62.0
+  - @contractspec/lib.runtime-sandbox@0.17.0
+  - @contractspec/module.audit-trail@1.62.0
+  - @contractspec/lib.design-system@1.62.0
+  - @contractspec/lib.identity-rbac@1.62.0
+  - @contractspec/lib.contracts@1.62.0
+  - @contractspec/lib.schema@1.62.0
+  - @contractspec/lib.jobs@1.62.0
+
 ## 1.61.0
 
 ### Minor Changes

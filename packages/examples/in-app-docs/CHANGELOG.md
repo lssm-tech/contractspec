@@ -1,5 +1,18 @@
 # @contractspec/example.in-app-docs
 
+## 1.9.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
+### Patch Changes
+
+- Updated dependencies [064258d]
+- Updated dependencies [064258d]
+  - @contractspec/lib.example-shared-ui@1.16.0
+  - @contractspec/lib.contracts@1.62.0
+
 ## 1.8.0
 
 ### Minor Changes

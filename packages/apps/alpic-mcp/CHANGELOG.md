@@ -1,5 +1,17 @@
 # @contractspec/app.alpic-mcp
 
+## 1.62.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
+### Patch Changes
+
+- Updated dependencies [064258d]
+  - @contractspec/bundle.alpic@1.62.0
+  - @contractspec/lib.logger@1.62.0
+
 ## 1.61.0
 
 ### Minor Changes

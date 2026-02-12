@@ -1,5 +1,34 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 1.62.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
+### Patch Changes
+
+- Updated dependencies [064258d]
+  - @contractspec/example.policy-safe-knowledge-assistant@1.62.0
+  - @contractspec/example.analytics-dashboard@1.62.0
+  - @contractspec/example.saas-boilerplate@1.62.0
+  - @contractspec/lib.progressive-delivery@16.0.0
+  - @contractspec/example.integration-hub@1.62.0
+  - @contractspec/example.workflow-system@1.62.0
+  - @contractspec/example.agent-console@1.62.0
+  - @contractspec/lib.example-shared-ui@1.16.0
+  - @contractspec/example.crm-pipeline@1.62.0
+  - @contractspec/example.in-app-docs@1.9.0
+  - @contractspec/example.marketplace@1.62.0
+  - @contractspec/lib.design-system@1.62.0
+  - @contractspec/bundle.marketing@1.17.0
+  - @contractspec/lib.ui-kit-core@1.62.0
+  - @contractspec/module.examples@1.62.0
+  - @contractspec/bundle.library@1.17.0
+  - @contractspec/lib.ui-kit-web@1.62.0
+  - @contractspec/lib.ui-link@1.62.0
+  - @contractspec/lib.ui-kit@1.62.0
+
 ## 1.61.0
 
 ### Minor Changes

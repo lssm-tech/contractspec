@@ -1,5 +1,18 @@
 # @contractspec/module.product-intent-core
 
+## 1.62.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
+### Patch Changes
+
+- Updated dependencies [064258d]
+- Updated dependencies [064258d]
+  - @contractspec/lib.product-intent-utils@1.62.0
+  - @contractspec/lib.contracts@1.62.0
+
 ## 1.61.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # contractspec-example-minimal
 
+## 0.15.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
 ## 0.14.0
 
 ### Minor Changes
