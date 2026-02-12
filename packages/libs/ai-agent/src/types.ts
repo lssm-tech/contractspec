@@ -101,6 +101,8 @@ export interface AgentCallOptions {
   sessionId?: string;
   /** Arbitrary metadata forwarded to events and tool handlers */
   metadata?: Record<string, string>;
+  /** Locale override for this call */
+  locale?: string;
 }
 
 // ============================================================================
@@ -112,6 +114,8 @@ export interface AgentSessionState {
   agentId: string;
   tenantId?: string;
   actorId?: string;
+  /** Active locale for this session */
+  locale?: string;
   status: AgentStatus;
   messages: ModelMessage[];
   steps: StepResult<ToolSet>[];

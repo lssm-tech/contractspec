@@ -5,6 +5,10 @@ import type { AgentRegistry } from '../spec/registry';
 import type { ToolHandler } from '../types';
 import type { AgentSessionStore } from '../session/store';
 import type { TelemetryCollector } from '../telemetry/adapter';
+import type {
+  PostHogLLMConfig,
+  PostHogTracingOptions,
+} from '../telemetry/posthog-types';
 import { ContractSpecAgent } from './contract-spec-agent';
 
 /**
@@ -23,6 +27,10 @@ export interface AgentFactoryConfig {
   sessionStore?: AgentSessionStore;
   /** Optional telemetry collector */
   telemetryCollector?: TelemetryCollector;
+  /** PostHog LLM Analytics config for automatic $ai_generation event capture */
+  posthogConfig?: PostHogLLMConfig & {
+    tracingOptions?: PostHogTracingOptions;
+  };
   /** Additional tools to provide to all agents */
   additionalTools?: Record<string, Tool<unknown, unknown>>;
 }
@@ -115,6 +123,7 @@ export class AgentFactory {
       knowledgeRetriever: this.config.knowledgeRetriever,
       sessionStore: this.config.sessionStore,
       telemetryCollector: this.config.telemetryCollector,
+      posthogConfig: this.config.posthogConfig,
       additionalTools: mergedTools,
     });
   }

@@ -206,7 +206,7 @@ describe('integration provider specs', () => {
 
   it('registers PostHog integration', () => {
     const registry = registerPosthogIntegration(new IntegrationSpecRegistry());
-    const registered = registry.get('analytics.posthog', '1.0.0');
+    const registered = registry.get('analytics.posthog', '1.1.0');
     expect(registered).toBe(posthogIntegrationSpec);
     expect(registered?.capabilities.provides).toEqual([
       { key: 'analytics.events', version: '1.0.0' },
@@ -217,6 +217,8 @@ describe('integration provider specs', () => {
       { key: 'analytics.insights', version: '1.0.0' },
       { key: 'analytics.cohorts', version: '1.0.0' },
       { key: 'analytics.annotations', version: '1.0.0' },
+      { key: 'analytics.llm-tracing', version: '1.0.0' },
+      { key: 'analytics.llm-evaluations', version: '1.0.0' },
     ]);
     expect(registered?.secretSchema.schema).toMatchObject({
       required: ['personalApiKey'],

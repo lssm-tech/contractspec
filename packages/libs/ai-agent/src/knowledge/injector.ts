@@ -1,5 +1,6 @@
 import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
 import type { AgentKnowledgeRef } from '../spec/spec';
+import { createAgentI18n } from '../i18n';
 
 /**
  * Inject static knowledge into agent instructions.
@@ -16,18 +17,21 @@ import type { AgentKnowledgeRef } from '../spec/spec';
 export async function injectStaticKnowledge(
   instructions: string,
   knowledgeRefs: AgentKnowledgeRef[],
-  retriever?: KnowledgeRetriever
+  retriever?: KnowledgeRetriever,
+  locale?: string
 ): Promise<string> {
   if (!retriever) return instructions;
 
   const requiredRefs = knowledgeRefs.filter((ref) => ref.required);
   if (requiredRefs.length === 0) return instructions;
 
+  const i18n = createAgentI18n(locale);
+
   const blocks: string[] = [];
 
   for (const ref of requiredRefs) {
     if (!retriever.supportsSpace(ref.key)) {
-      console.warn(`Required knowledge space "${ref.key}" is not available`);
+      console.warn(i18n.t('log.knowledge.spaceNotAvailable', { key: ref.key }));
       continue;
     }
 
@@ -40,7 +44,7 @@ export async function injectStaticKnowledge(
         blocks.push(`${header}\n\n${content}`);
       }
     } catch (error) {
-      console.warn(`Failed to load required knowledge "${ref.key}":`, error);
+      console.warn(i18n.t('log.knowledge.loadFailed', { key: ref.key }), error);
     }
   }
 
@@ -50,9 +54,9 @@ export async function injectStaticKnowledge(
 
 ---
 
-# Reference Knowledge
+# ${i18n.t('knowledge.header')}
 
-The following information is provided for your reference. Use it to inform your responses.
+${i18n.t('knowledge.description')}
 
 ${blocks.join('\n\n---\n\n')}`;
 }
@@ -60,13 +64,16 @@ ${blocks.join('\n\n---\n\n')}`;
 /**
  * Create a knowledge injector instance for reuse.
  */
-export function createKnowledgeInjector(retriever?: KnowledgeRetriever) {
+export function createKnowledgeInjector(
+  retriever?: KnowledgeRetriever,
+  locale?: string
+) {
   return {
     /**
      * Inject static knowledge into instructions.
      */
     inject: (instructions: string, knowledgeRefs: AgentKnowledgeRef[]) =>
-      injectStaticKnowledge(instructions, knowledgeRefs, retriever),
+      injectStaticKnowledge(instructions, knowledgeRefs, retriever, locale),
 
     /**
      * Check if a knowledge space is available.

@@ -16,6 +16,7 @@ import type {
 } from './types';
 import type { OpenCodeAgentType } from '../providers/types';
 import { inferAgentType } from '../providers/opencode-sdk/agent-bridge';
+import { getDefaultI18n } from '../i18n';
 
 // ============================================================================
 // Exporter Implementation
@@ -62,25 +63,26 @@ export class OpenCodeExporter implements Exporter<
    * Validate that a spec can be exported.
    */
   validate(spec: AgentSpec): { valid: boolean; errors: string[] } {
+    const i18n = getDefaultI18n();
     const errors: string[] = [];
 
     if (!spec.meta?.key) {
-      errors.push('Spec must have a meta.key');
+      errors.push(i18n.t('export.validation.requiresKey'));
     }
 
     if (!spec.instructions) {
-      errors.push('Spec must have instructions');
+      errors.push(i18n.t('export.validation.requiresInstructions'));
     }
 
     // OpenCode doesn't require tools, but we check for valid tool names
     for (const tool of spec.tools ?? []) {
       if (!tool.name) {
-        errors.push('All tools must have a name');
+        errors.push(i18n.t('export.validation.toolRequiresName'));
       }
       // OpenCode tool names should be valid identifiers
       if (tool.name && !/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(tool.name)) {
         errors.push(
-          `Tool name '${tool.name}' should be a valid identifier (letters, numbers, underscores)`
+          i18n.t('export.validation.toolInvalidName', { name: tool.name })
         );
       }
     }
@@ -121,9 +123,12 @@ export class OpenCodeExporter implements Exporter<
    * Export tools to OpenCode format.
    */
   private exportTools(spec: AgentSpec): OpenCodeToolJSON[] {
+    const i18n = getDefaultI18n();
     return spec.tools.map((tool) => ({
       name: tool.name,
-      description: tool.description ?? `Execute ${tool.name}`,
+      description:
+        tool.description ??
+        i18n.t('tool.fallbackDescription', { name: tool.name }),
       schema: tool.schema ?? { type: 'object' },
       requires_approval: tool.requiresApproval ?? !tool.automationSafe,
     }));
@@ -137,6 +142,7 @@ export class OpenCodeExporter implements Exporter<
     jsonConfig: OpenCodeAgentJSON,
     options: OpenCodeExportOptions
   ): string {
+    const i18n = getDefaultI18n();
     const lines: string[] = [];
 
     // Frontmatter
@@ -164,7 +170,9 @@ export class OpenCodeExporter implements Exporter<
     if (jsonConfig.tools.length > 0) {
       lines.push('tools:');
       for (const tool of jsonConfig.tools) {
-        const permission = tool.requires_approval ? ' # requires approval' : '';
+        const permission = tool.requires_approval
+          ? ` # ${i18n.t('export.requiresApproval')}`
+          : '';
         lines.push(`  - ${tool.name}${permission}`);
       }
     }
@@ -183,25 +191,29 @@ export class OpenCodeExporter implements Exporter<
     }
 
     // Agent type explanation
-    lines.push(`> Agent type: **${jsonConfig.type}**`);
+    lines.push(i18n.t('export.agentType', { type: jsonConfig.type }));
     lines.push('');
     lines.push(this.getAgentTypeDescription(jsonConfig.type));
     lines.push('');
 
     // Instructions
-    lines.push('## Instructions');
+    lines.push(i18n.t('export.instructions'));
     lines.push('');
     lines.push(spec.instructions);
     lines.push('');
 
     // Tools section
     if (spec.tools.length > 0) {
-      lines.push('## Tools');
+      lines.push(i18n.t('export.tools'));
       lines.push('');
       for (const tool of spec.tools) {
-        const approval = tool.requiresApproval ? ' *(requires approval)*' : '';
+        const approval = tool.requiresApproval
+          ? ` ${i18n.t('export.requiresApprovalMd')}`
+          : '';
         const safe =
-          tool.automationSafe === false ? ' *(not automation safe)*' : '';
+          tool.automationSafe === false
+            ? ` ${i18n.t('export.notAutomationSafeMd')}`
+            : '';
         lines.push(`### ${tool.name}${approval}${safe}`);
         lines.push('');
         if (tool.description) {
@@ -209,7 +221,7 @@ export class OpenCodeExporter implements Exporter<
           lines.push('');
         }
         if (tool.schema && options.includeComments !== false) {
-          lines.push('**Parameters:**');
+          lines.push(i18n.t('export.parameters'));
           lines.push('');
           lines.push('```json');
           lines.push(
@@ -227,10 +239,12 @@ export class OpenCodeExporter implements Exporter<
 
     // Knowledge sources
     if (spec.knowledge && spec.knowledge.length > 0) {
-      lines.push('## Knowledge Sources');
+      lines.push(i18n.t('export.knowledgeSources'));
       lines.push('');
       for (const k of spec.knowledge) {
-        const required = k.required ? '(required)' : '(optional)';
+        const required = k.required
+          ? i18n.t('export.required')
+          : i18n.t('export.optional');
         lines.push(`- **${k.key}** ${required}`);
         if (k.instructions) {
           lines.push(`  - ${k.instructions}`);
@@ -241,19 +255,21 @@ export class OpenCodeExporter implements Exporter<
 
     // Policy
     if (spec.policy) {
-      lines.push('## Policy');
+      lines.push(i18n.t('export.policy'));
       lines.push('');
       if (spec.policy.confidence?.min) {
-        lines.push(`- Minimum confidence: ${spec.policy.confidence.min}`);
+        lines.push(
+          i18n.t('export.minConfidence', { min: spec.policy.confidence.min })
+        );
       }
       if (spec.policy.escalation) {
-        lines.push('- Escalation policy configured');
+        lines.push(i18n.t('export.escalationPolicyConfigured'));
       }
       lines.push('');
     }
 
     // Configuration (JSON)
-    lines.push('## Configuration');
+    lines.push(i18n.t('export.configuration'));
     lines.push('');
     lines.push('```json');
     lines.push(
@@ -269,8 +285,8 @@ export class OpenCodeExporter implements Exporter<
     // Footer
     lines.push('---');
     lines.push('');
-    lines.push(`*Generated from ContractSpec: ${agentKey(spec.meta)}*`);
-    lines.push(`*Exported at: ${new Date().toISOString()}*`);
+    lines.push(i18n.t('export.generatedFrom', { key: agentKey(spec.meta) }));
+    lines.push(i18n.t('export.exportedAt', { date: new Date().toISOString() }));
 
     return lines.join('\n');
   }
@@ -279,15 +295,16 @@ export class OpenCodeExporter implements Exporter<
    * Get description for agent type.
    */
   private getAgentTypeDescription(type: OpenCodeAgentType): string {
+    const i18n = getDefaultI18n();
     switch (type) {
       case 'build':
-        return 'Primary agent with full tool access for code generation and modification.';
+        return i18n.t('export.agentType.build');
       case 'plan':
-        return 'Restricted agent for analysis and planning. File edits and bash commands require approval.';
+        return i18n.t('export.agentType.plan');
       case 'general':
-        return 'General-purpose subagent for complex questions and multi-step tasks.';
+        return i18n.t('export.agentType.general');
       case 'explore':
-        return 'Fast subagent optimized for codebase exploration and pattern searching.';
+        return i18n.t('export.agentType.explore');
       default:
         return '';
     }

@@ -10,6 +10,7 @@ export * from './knowledge';
 export * from './session';
 export * from './telemetry';
 export * from './approval';
+export * from './i18n';
 
 // External SDK integration
 export * from './providers';

@@ -35,14 +35,14 @@
     "@contractspec/tool.bun": "workspace:*"
   },
   "dependencies": {
-    "@aws-sdk/client-secrets-manager": "^3.984.0",
-    "@aws-sdk/client-sqs": "^3.984.0",
+    "@aws-sdk/client-secrets-manager": "^3.988.0",
+    "@aws-sdk/client-sqs": "^3.988.0",
     "@contractspec/lib.logger": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
-    "@elevenlabs/elevenlabs-js": "^2.34.0",
+    "@elevenlabs/elevenlabs-js": "^2.35.0",
     "@google-cloud/secret-manager": "^6.1.1",
     "@google-cloud/storage": "^7.19.0",
-    "@linear/sdk": "^73.0.0",
+    "@linear/sdk": "^75.0.0",
     "@mistralai/mistralai": "^1.14.0",
     "@modelcontextprotocol/sdk": "^1.26.0",
     "@notionhq/client": "^5.9.0",
@@ -67,7 +67,7 @@
   "peerDependencies": {
     "@pothos/core": "^4.9.1",
     "@pothos/plugin-relay": "^4.7.0",
-    "elysia": "^1.4.21",
+    "elysia": "^1.4.24",
     "express": "^5.2.1",
     "graphql-scalars": "^1.24.2",
     "next": "16.1.6",
@@ -274,6 +274,7 @@
     "./integrations/providers/openbanking": "./src/integrations/providers/openbanking.ts",
     "./integrations/providers/payments": "./src/integrations/providers/payments.ts",
     "./integrations/providers/posthog": "./src/integrations/providers/posthog.ts",
+    "./integrations/providers/posthog-llm-telemetry": "./src/integrations/providers/posthog-llm-telemetry.ts",
     "./integrations/providers/postmark": "./src/integrations/providers/postmark.ts",
     "./integrations/providers/powens": "./src/integrations/providers/powens.ts",
     "./integrations/providers/project-management": "./src/integrations/providers/project-management.ts",
@@ -1610,6 +1611,12 @@
         "bun": "./dist/integrations/providers/posthog.js",
         "node": "./dist/node/integrations/providers/posthog.js",
         "default": "./dist/integrations/providers/posthog.js"
+      },
+      "./integrations/providers/posthog-llm-telemetry": {
+        "types": "./dist/integrations/providers/posthog-llm-telemetry.d.ts",
+        "bun": "./dist/integrations/providers/posthog-llm-telemetry.js",
+        "node": "./dist/node/integrations/providers/posthog-llm-telemetry.js",
+        "default": "./dist/integrations/providers/posthog-llm-telemetry.js"
       },
       "./integrations/providers/postmark": {
         "types": "./dist/integrations/providers/postmark.d.ts",

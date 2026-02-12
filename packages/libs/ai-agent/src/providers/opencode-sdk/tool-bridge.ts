@@ -5,6 +5,7 @@
 import type { AgentToolConfig } from '../../spec/spec';
 import type { ToolHandler, ToolExecutionContext } from '../../types';
 import type { ExternalToolDefinition } from '../types';
+import { getDefaultI18n } from '../../i18n';
 
 // ============================================================================
 // OpenCode SDK Tool Types
@@ -68,7 +69,9 @@ export interface OpenCodeToolResult {
 export function specToolToOpenCodeTool(tool: AgentToolConfig): OpenCodeTool {
   return {
     name: tool.name,
-    description: tool.description ?? `Execute ${tool.name}`,
+    description:
+      tool.description ??
+      getDefaultI18n().t('tool.fallbackDescription', { name: tool.name }),
     parameters: normalizeToOpenCodeParameters(tool.schema),
     // category property not in AgentToolConfig
     permission: getPermissionLevel(tool),
@@ -140,7 +143,9 @@ export function specToolToExternalToolForOpenCode(
 ): ExternalToolDefinition {
   return {
     name: tool.name,
-    description: tool.description ?? `Execute ${tool.name}`,
+    description:
+      tool.description ??
+      getDefaultI18n().t('tool.fallbackDescription', { name: tool.name }),
     inputSchema: tool.schema ?? { type: 'object' },
     requiresApproval: tool.requiresApproval ?? !tool.automationSafe,
     execute: handler
@@ -252,7 +257,9 @@ export async function executeToolCall(
   if (!handler) {
     return {
       tool_call_id: toolCall.id,
-      output: `Error: Tool '${toolCall.name}' not found`,
+      output: getDefaultI18n().t('error.toolNotFoundOrNoHandler', {
+        name: toolCall.name,
+      }),
       is_error: true,
     };
   }

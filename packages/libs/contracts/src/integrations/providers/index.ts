@@ -26,6 +26,7 @@ export * from './twilio-sms';
 export * from './gcs-storage';
 export * from './powens';
 export * from './posthog';
+export * from './posthog-llm-telemetry';
 export * from './linear';
 export * from './jira';
 export * from './notion';

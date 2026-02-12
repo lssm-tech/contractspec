@@ -4,28 +4,35 @@ import type { ProviderConfig } from '@contractspec/lib.ai-providers/types';
 import { StabilityEnum } from '@contractspec/lib.contracts/ownership';
 import type { AgentSpec } from '../spec/spec';
 import type { ToolHandler } from '../types';
+import { createAgentI18n, getDefaultI18n } from '../i18n';
 import { ContractSpecAgent } from './contract-spec-agent';
 
-const JSON_ONLY_RULES = [
-  'You MUST output valid JSON ONLY.',
-  'Do not wrap the output in markdown fences.',
-  'Do not include commentary or explanation.',
-  'Use double quotes for all keys and string values.',
-  'Do not include trailing commas.',
-].join('\n');
+function getJsonOnlyRules(locale?: string): string {
+  const i18n = createAgentI18n(locale);
+  return [
+    i18n.t('agent.json.rules.validJsonOnly'),
+    i18n.t('agent.json.rules.noMarkdownFences'),
+    i18n.t('agent.json.rules.noCommentary'),
+    i18n.t('agent.json.rules.doubleQuotes'),
+    i18n.t('agent.json.rules.noTrailingCommas'),
+  ].join('\n');
+}
 
-const DEFAULT_SPEC: AgentSpec = {
-  meta: {
-    key: 'agent.json-runner',
-    version: '1.0.0',
-    description: 'JSON-only agent runner for deterministic pipelines.',
-    stability: StabilityEnum.Experimental,
-    owners: ['platform.core'],
-    tags: ['json', 'agent'],
-  },
-  instructions: 'You are a precise JSON generator.',
-  tools: [],
-};
+function getDefaultSpec(locale?: string): AgentSpec {
+  const i18n = createAgentI18n(locale);
+  return {
+    meta: {
+      key: 'agent.json-runner',
+      version: '1.0.0',
+      description: i18n.t('agent.json.defaultDescription'),
+      stability: StabilityEnum.Experimental,
+      owners: ['platform.core'],
+      tags: ['json', 'agent'],
+    },
+    instructions: i18n.t('agent.json.systemPrompt'),
+    tools: [],
+  };
+}
 
 export interface AgentJsonRunnerOptions {
   spec?: AgentSpec;
@@ -35,6 +42,7 @@ export interface AgentJsonRunnerOptions {
   toolHandlers?: Map<string, ToolHandler>;
   maxSteps?: number;
   temperature?: number;
+  locale?: string;
 }
 
 export interface AgentJsonRunner {
@@ -46,7 +54,7 @@ function resolveModel(options: AgentJsonRunnerOptions): LanguageModel {
   if (options.provider) {
     return createProvider(options.provider).getModel();
   }
-  throw new Error('createAgentJsonRunner requires a model or provider config');
+  throw new Error(getDefaultI18n().t('error.jsonRunner.requiresModel'));
 }
 
 function applyModelSettings(
@@ -64,8 +72,12 @@ function applyModelSettings(
   return model;
 }
 
-function buildInstructions(base: string, system?: string): string {
-  return [base, JSON_ONLY_RULES, system].filter(Boolean).join('\n\n');
+function buildInstructions(
+  base: string,
+  locale?: string,
+  system?: string
+): string {
+  return [base, getJsonOnlyRules(locale), system].filter(Boolean).join('\n\n');
 }
 
 function ensureToolHandlers(
@@ -74,7 +86,9 @@ function ensureToolHandlers(
 ): void {
   for (const tool of spec.tools) {
     if (!handlers.has(tool.name)) {
-      throw new Error(`Missing handler for tool: ${tool.name}`);
+      throw new Error(
+        getDefaultI18n().t('error.missingToolHandler', { name: tool.name })
+      );
     }
   }
 }
@@ -85,10 +99,15 @@ export async function createAgentJsonRunner(
   const model = applyModelSettings(resolveModel(options), {
     temperature: options.temperature ?? 0,
   });
-  const baseSpec = options.spec ?? DEFAULT_SPEC;
+  const baseSpec = options.spec ?? getDefaultSpec(options.locale);
   const spec: AgentSpec = {
     ...baseSpec,
-    instructions: buildInstructions(baseSpec.instructions, options.system),
+    locale: options.spec?.locale ?? options.locale,
+    instructions: buildInstructions(
+      baseSpec.instructions,
+      options.locale,
+      options.system
+    ),
     maxSteps: options.maxSteps ?? baseSpec.maxSteps,
   };
 

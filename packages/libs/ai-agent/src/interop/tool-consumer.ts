@@ -17,6 +17,7 @@ import type {
 } from './types';
 import { specToolToClaudeAgentTool } from '../providers/claude-agent-sdk/tool-bridge';
 import { specToolToOpenCodeTool } from '../providers/opencode-sdk/tool-bridge';
+import { getDefaultI18n } from '../i18n';
 
 // =============================================================================
 // Tool Server Implementation
@@ -55,7 +56,11 @@ class MCPToolServer implements ToolServer {
     this.running = true;
 
     console.log(
-      `[MCPToolServer] Started ${this.name}@${this.version} with ${this.tools.size} tools`
+      getDefaultI18n().t('log.mcpServer.started', {
+        name: this.name,
+        version: this.version,
+        count: this.tools.size,
+      })
     );
   }
 
@@ -65,7 +70,9 @@ class MCPToolServer implements ToolServer {
     }
 
     this.running = false;
-    console.log(`[MCPToolServer] Stopped ${this.name}`);
+    console.log(
+      getDefaultI18n().t('log.mcpServer.stopped', { name: this.name })
+    );
   }
 
   isRunning(): boolean {
@@ -83,11 +90,15 @@ class MCPToolServer implements ToolServer {
   ): Promise<string> {
     const tool = this.tools.get(toolName);
     if (!tool) {
-      throw new Error(`Tool not found: ${toolName}`);
+      throw new Error(
+        getDefaultI18n().t('error.toolNotFound', { name: toolName })
+      );
     }
 
     if (!tool.handler) {
-      throw new Error(`No handler registered for tool: ${toolName}`);
+      throw new Error(
+        getDefaultI18n().t('error.noHandlerForTool', { name: toolName })
+      );
     }
 
     const fullContext: ToolExecutionContext = {
@@ -225,7 +236,9 @@ export class ContractSpecToolConsumer implements ToolConsumer {
         }));
 
       default:
-        throw new Error(`Unknown export format: ${format}`);
+        throw new Error(
+          getDefaultI18n().t('error.unknownExportFormat', { format })
+        );
     }
   }
 
@@ -286,11 +299,11 @@ export class ContractSpecToolConsumer implements ToolConsumer {
   ): Promise<string> {
     const tool = this.tools.get(name);
     if (!tool) {
-      throw new Error(`Tool not found: ${name}`);
+      throw new Error(getDefaultI18n().t('error.toolNotFound', { name }));
     }
 
     if (!tool.handler) {
-      throw new Error(`No handler for tool: ${name}`);
+      throw new Error(getDefaultI18n().t('error.noToolHandler', { name }));
     }
 
     const fullContext: ToolExecutionContext = {

@@ -46,21 +46,27 @@ type VStackProps = React.HTMLAttributes<HTMLDivElement> &
       | 'footer'
       | 'article'
       | 'aside';
+    ref?: React.Ref<HTMLDivElement>;
   };
 
-const VStack = React.forwardRef<HTMLDivElement, VStackProps>(
-  ({ className, gap, align, justify, as = 'div', ...props }, ref) => {
-    const Comp = as as React.ElementType;
-    return (
-      <Comp
-        ref={ref}
-        className={cn(vStackVariants({ gap, align, justify }), className)}
-        {...props}
-      />
-    );
-  }
-);
-VStack.displayName = 'VStack';
+function VStack({
+  className,
+  gap,
+  align,
+  justify,
+  as = 'div',
+  ref,
+  ...props
+}: VStackProps) {
+  const Comp = as as React.ElementType;
+  return (
+    <Comp
+      ref={ref}
+      className={cn(vStackVariants({ gap, align, justify }), className)}
+      {...props}
+    />
+  );
+}
 
 const hStackVariants = cva('flex flex-row', {
   variants: {
@@ -105,21 +111,28 @@ const hStackVariants = cva('flex flex-row', {
 type HStackProps = React.HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof hStackVariants> & {
     as?: 'div' | 'section' | 'nav' | 'header' | 'footer' | 'article' | 'aside';
+    ref?: React.Ref<HTMLDivElement>;
   };
 
-const HStack = React.forwardRef<HTMLDivElement, HStackProps>(
-  ({ className, gap, align, justify, wrap, as = 'div', ...props }, ref) => {
-    const Comp = as as React.ElementType;
-    return (
-      <Comp
-        ref={ref}
-        className={cn(hStackVariants({ gap, align, justify, wrap }), className)}
-        {...props}
-      />
-    );
-  }
-);
-HStack.displayName = 'HStack';
+function HStack({
+  className,
+  gap,
+  align,
+  justify,
+  wrap,
+  as = 'div',
+  ref,
+  ...props
+}: HStackProps) {
+  const Comp = as as React.ElementType;
+  return (
+    <Comp
+      ref={ref}
+      className={cn(hStackVariants({ gap, align, justify, wrap }), className)}
+      {...props}
+    />
+  );
+}
 
 const boxVariants = cva('flex flex-row', {
   variants: {
@@ -164,20 +177,27 @@ const boxVariants = cva('flex flex-row', {
 type BoxProps = React.HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof boxVariants> & {
     as?: 'div' | 'section' | 'nav' | 'header' | 'footer' | 'article' | 'aside';
+    ref?: React.Ref<HTMLDivElement>;
   };
 
-const Box = React.forwardRef<HTMLDivElement, BoxProps>(
-  ({ className, gap, align, justify, wrap, as = 'div', ...props }, ref) => {
-    const Comp = as as React.ElementType;
-    return (
-      <Comp
-        ref={ref}
-        className={cn(boxVariants({ gap, align, justify, wrap }), className)}
-        {...props}
-      />
-    );
-  }
-);
-Box.displayName = 'Box';
+function Box({
+  className,
+  gap,
+  align,
+  justify,
+  wrap,
+  as = 'div',
+  ref,
+  ...props
+}: BoxProps) {
+  const Comp = as as React.ElementType;
+  return (
+    <Comp
+      ref={ref}
+      className={cn(boxVariants({ gap, align, justify, wrap }), className)}
+      {...props}
+    />
+  );
+}
 
 export { VStack, HStack, vStackVariants, hStackVariants, boxVariants, Box };

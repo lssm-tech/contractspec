@@ -9,6 +9,7 @@
 import type { AgentToolConfig } from '../../spec/spec';
 import type { ToolHandler, ToolExecutionContext } from '../../types';
 import type { ExternalToolDefinition } from '../types';
+import { getDefaultI18n } from '../../i18n';
 
 // ============================================================================
 // Claude Agent SDK Tool Types (based on SDK API)
@@ -80,7 +81,9 @@ export function specToolToClaudeAgentTool(
 ): ClaudeAgentTool & { execute: (input: unknown) => Promise<unknown> } {
   return {
     name: tool.name,
-    description: tool.description ?? `Execute ${tool.name}`,
+    description:
+      tool.description ??
+      getDefaultI18n().t('tool.fallbackDescription', { name: tool.name }),
     input_schema: normalizeSchema(tool.schema),
     requires_confirmation: tool.requiresApproval ?? !tool.automationSafe,
     execute: async (input: unknown) => {
@@ -110,7 +113,11 @@ export function specToolsToClaudeAgentTools(
     .map((tool) => {
       const handler = handlers.get(tool.name);
       if (!handler) {
-        throw new Error(`Handler not found for tool ${tool.name}`);
+        throw new Error(
+          getDefaultI18n().t('error.handlerNotFoundForTool', {
+            name: tool.name,
+          })
+        );
       }
       return specToolToClaudeAgentTool(tool, handler, context);
     });
@@ -192,7 +199,9 @@ export function specToolToExternalTool(
 ): ExternalToolDefinition {
   return {
     name: tool.name,
-    description: tool.description ?? `Execute ${tool.name}`,
+    description:
+      tool.description ??
+      getDefaultI18n().t('tool.fallbackDescription', { name: tool.name }),
     inputSchema: tool.schema ?? { type: 'object' },
     requiresApproval: tool.requiresApproval ?? !tool.automationSafe,
     execute: handler
