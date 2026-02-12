@@ -1,0 +1,39 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "incremental": false,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@contractspec/lib.contracts": [
+        "../../libs/contracts/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts/*": [
+        "../../libs/contracts/dist/*"
+      ],
+      "@contractspec/lib.content-gen": [
+        "../../libs/content-gen/dist/index.d.ts"
+      ],
+      "@contractspec/lib.content-gen/*": [
+        "../../libs/content-gen/dist/*"
+      ],
+      "@contractspec/lib.logger": [
+        "../../libs/logger/dist/index.d.ts"
+      ],
+      "@contractspec/lib.logger/*": [
+        "../../libs/logger/dist/*"
+      ],
+      "@contractspec/tool.typescript/*": [
+        "../../tools/typescript/dist/*"
+      ],
+      "@contractspec/tool.bun/*": [
+        "../../tools/bun/dist/*"
+      ]
+    }
+  }
+}

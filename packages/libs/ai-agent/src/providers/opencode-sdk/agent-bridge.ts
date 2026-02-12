@@ -11,6 +11,7 @@
 import type { AgentSpec } from '../../spec/spec';
 import type { OpenCodeAgentType } from '../types';
 import { specToolsToOpenCodeTools, type OpenCodeTool } from './tool-bridge';
+import { getDefaultI18n } from '../../i18n';
 
 // ============================================================================
 // OpenCode Agent Configuration Types
@@ -218,6 +219,7 @@ export function specToOpenCodeMarkdown(
  * Build markdown body content from spec.
  */
 function buildMarkdownBody(spec: AgentSpec): string {
+  const i18n = getDefaultI18n();
   const lines: string[] = [];
 
   // Title
@@ -231,23 +233,23 @@ function buildMarkdownBody(spec: AgentSpec): string {
   }
 
   // Instructions
-  lines.push('## Instructions');
+  lines.push(i18n.t('export.instructions'));
   lines.push('');
   lines.push(spec.instructions);
   lines.push('');
 
   // Tools
   if (spec.tools.length > 0) {
-    lines.push('## Tools');
+    lines.push(i18n.t('export.tools'));
     lines.push('');
     for (const tool of spec.tools) {
       const permission = tool.requiresApproval
-        ? '(requires approval)'
+        ? i18n.t('export.bridge.requiresApproval')
         : tool.automationSafe === false
-          ? '(ask mode)'
+          ? i18n.t('export.bridge.askMode')
           : '';
       lines.push(
-        `- **${tool.name}**: ${tool.description ?? 'No description'} ${permission}`.trim()
+        `- **${tool.name}**: ${tool.description ?? i18n.t('export.noDescription')} ${permission}`.trim()
       );
     }
     lines.push('');
@@ -255,10 +257,12 @@ function buildMarkdownBody(spec: AgentSpec): string {
 
   // Knowledge sources
   if (spec.knowledge && spec.knowledge.length > 0) {
-    lines.push('## Knowledge Sources');
+    lines.push(i18n.t('export.knowledgeSources'));
     lines.push('');
     for (const k of spec.knowledge) {
-      const required = k.required ? '(required)' : '(optional)';
+      const required = k.required
+        ? i18n.t('export.required')
+        : i18n.t('export.optional');
       lines.push(`- ${k.key} ${required}`);
     }
     lines.push('');

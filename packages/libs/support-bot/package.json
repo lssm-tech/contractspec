@@ -32,7 +32,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ai-sdk/provider-utils": "^4.0.4",
+    "@ai-sdk/provider-utils": "^4.0.14",
     "@contractspec/lib.ai-agent": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.knowledge": "workspace:*",

@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type { ToolCallInfo } from '../types';
+import { getDefaultI18n } from '../i18n';
 
 export type ApprovalStatus = 'pending' | 'approved' | 'rejected';
 
@@ -199,7 +200,11 @@ export class ApprovalWorkflow {
       toolName: toolCall.toolName,
       toolCallId: toolCall.toolCallId,
       toolArgs: toolCall.args,
-      reason: context.reason ?? `Tool "${toolCall.toolName}" requires approval`,
+      reason:
+        context.reason ??
+        getDefaultI18n().t('approval.toolRequiresApproval', {
+          name: toolCall.toolName,
+        }),
     });
   }
 

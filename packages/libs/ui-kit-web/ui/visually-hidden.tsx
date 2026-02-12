@@ -3,6 +3,7 @@ import * as React from 'react';
 
 type VisuallyHiddenProps = React.HTMLAttributes<HTMLElement> & {
   as?: keyof JSX.IntrinsicElements;
+  ref?: React.Ref<HTMLElement>;
 };
 
 const srOnlyStyle: React.CSSProperties = {
@@ -17,16 +18,19 @@ const srOnlyStyle: React.CSSProperties = {
   whiteSpace: 'nowrap',
 };
 
-const VisuallyHidden = React.forwardRef<HTMLElement, VisuallyHiddenProps>(
-  ({ as = 'span', style, children, ...props }, ref) => {
-    const Comp = as as React.ElementType;
-    return (
-      <Comp ref={ref} style={{ ...srOnlyStyle, ...style }} {...props}>
-        {children}
-      </Comp>
-    );
-  }
-);
-VisuallyHidden.displayName = 'VisuallyHidden';
+function VisuallyHidden({
+  as = 'span',
+  style,
+  children,
+  ref,
+  ...props
+}: VisuallyHiddenProps) {
+  const Comp = as as React.ElementType;
+  return (
+    <Comp ref={ref} style={{ ...srOnlyStyle, ...style }} {...props}>
+      {children}
+    </Comp>
+  );
+}
 
 export { VisuallyHidden };

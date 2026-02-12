@@ -15,10 +15,10 @@
     "test": "node ./tests/prefer-design-system.test.js"
   },
   "peerDependencies": {
-    "eslint": "^9.39.2"
+    "eslint": "^10.0.0"
   },
   "devDependencies": {
-    "eslint": "^9.39.2"
+    "eslint": "^10.0.0"
   },
   "license": "MIT",
   "description": "Design-system ESLint rules (prefer-design-system) for LSSM apps",

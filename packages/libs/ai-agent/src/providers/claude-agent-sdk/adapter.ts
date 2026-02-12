@@ -43,6 +43,7 @@ import {
   type ClaudeAgentContentBlock,
 } from './session-bridge';
 import { injectStaticKnowledge } from '../../knowledge/injector';
+import { getDefaultI18n } from '../../i18n';
 
 // ============================================================================
 // Provider Implementation
@@ -98,7 +99,7 @@ export class ClaudeAgentSDKProvider implements ExternalAgentProvider {
     if (!this.isAvailable()) {
       throw new ProviderNotAvailableError(
         this.name,
-        'SDK not installed or API key not configured'
+        getDefaultI18n().t('error.provider.sdkNotConfigured')
       );
     }
 
@@ -140,7 +141,9 @@ export class ClaudeAgentSDKProvider implements ExternalAgentProvider {
     } catch (error) {
       throw new ContextCreationError(
         this.name,
-        `Failed to create context: ${error instanceof Error ? error.message : String(error)}`,
+        getDefaultI18n().t('error.provider.contextCreation', {
+          error: error instanceof Error ? error.message : String(error),
+        }),
         error instanceof Error ? error : undefined
       );
     }
@@ -245,7 +248,9 @@ export class ClaudeAgentSDKProvider implements ExternalAgentProvider {
     } catch (error) {
       throw new ProviderExecutionError(
         this.name,
-        `Execution failed: ${error instanceof Error ? error.message : String(error)}`,
+        getDefaultI18n().t('error.provider.executionFailed', {
+          error: error instanceof Error ? error.message : String(error),
+        }),
         error instanceof Error ? error : undefined
       );
     }
@@ -361,7 +366,9 @@ export class ClaudeAgentSDKProvider implements ExternalAgentProvider {
     } catch (error) {
       throw new ProviderExecutionError(
         this.name,
-        `Stream failed: ${error instanceof Error ? error.message : String(error)}`,
+        getDefaultI18n().t('error.provider.streamFailed', {
+          error: error instanceof Error ? error.message : String(error),
+        }),
         error instanceof Error ? error : undefined
       );
     }
@@ -382,7 +389,7 @@ export class ClaudeAgentSDKProvider implements ExternalAgentProvider {
     } catch {
       throw new ProviderNotAvailableError(
         this.name,
-        '@anthropic-ai/claude-agent-sdk is not installed'
+        getDefaultI18n().t('error.provider.claudeSdkMissing')
       );
     }
   }
@@ -401,7 +408,11 @@ export class ClaudeAgentSDKProvider implements ExternalAgentProvider {
       if (externalTool?.execute) {
         handlers.set(tool.name, async (input) => {
           if (!externalTool.execute) {
-            throw new Error(`Tool ${tool.name} has no execute handler`);
+            throw new Error(
+              getDefaultI18n().t('error.toolNoExecuteHandler', {
+                name: tool.name,
+              })
+            );
           }
           const result = await externalTool.execute(input);
           return typeof result === 'string' ? result : JSON.stringify(result);
@@ -432,7 +443,9 @@ export class ClaudeAgentSDKProvider implements ExternalAgentProvider {
       return {
         toolCallId: toolCall.toolCallId,
         toolName: toolCall.toolName,
-        output: `Error: Tool '${toolCall.toolName}' not found or has no handler`,
+        output: getDefaultI18n().t('error.toolNotFoundOrNoHandler', {
+          name: toolCall.toolName,
+        }),
       };
     }
 

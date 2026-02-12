@@ -230,17 +230,17 @@
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.ui-kit-web": "workspace:*",
-    "@tanstack/react-query": "^5.90.16",
-    "framer-motion": "^12.33.0",
+    "@tanstack/react-query": "^5.90.21",
+    "framer-motion": "^12.34.0",
     "lucide-react": "^0.563.0",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "@types/react": "^19.2.13",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.2",
-    "eslint": "^9.39.2",
+    "eslint": "^10.0.0",
     "typescript": "catalog:",
     "@contractspec/tool.bun": "workspace:*"
   },

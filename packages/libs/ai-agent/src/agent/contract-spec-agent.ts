@@ -22,6 +22,10 @@ import { createKnowledgeQueryTool } from '../tools/knowledge-tool';
 import { injectStaticKnowledge } from '../knowledge/injector';
 import { type AgentSessionStore, generateSessionId } from '../session/store';
 import { type TelemetryCollector, trackAgentStep } from '../telemetry/adapter';
+import type {
+  PostHogLLMConfig,
+  PostHogTracingOptions,
+} from '../telemetry/posthog-types';
 
 /**
  * Call options schema for AI SDK v6.
@@ -56,6 +60,11 @@ export interface ContractSpecAgentConfig {
   sessionStore?: AgentSessionStore;
   /** Optional telemetry collector for evolution */
   telemetryCollector?: TelemetryCollector;
+  /** PostHog LLM Analytics config for automatic $ai_generation event capture */
+  posthogConfig?: PostHogLLMConfig & {
+    /** Per-call tracing overrides (e.g., distinctId from the current user) */
+    tracingOptions?: PostHogTracingOptions;
+  };
   /** Additional AI SDK tools (e.g., from MCP servers) */
   additionalTools?: Record<string, ExecutableTool>;
 }
@@ -119,25 +128,37 @@ export class ContractSpecAgent {
   static async create(
     config: ContractSpecAgentConfig
   ): Promise<ContractSpecAgent> {
+    // 0. Wrap model with PostHog LLM tracing if configured
+    let effectiveConfig = config;
+    if (config.posthogConfig) {
+      const { createPostHogTracedModel } = await import('../telemetry/posthog');
+      const tracedModel = await createPostHogTracedModel(
+        config.model,
+        config.posthogConfig,
+        config.posthogConfig.tracingOptions
+      );
+      effectiveConfig = { ...config, model: tracedModel };
+    }
+
     // 1. Inject static knowledge into instructions
     const instructions = await injectStaticKnowledge(
-      config.spec.instructions,
-      config.spec.knowledge ?? [],
-      config.knowledgeRetriever
+      effectiveConfig.spec.instructions,
+      effectiveConfig.spec.knowledge ?? [],
+      effectiveConfig.knowledgeRetriever
     );
 
     // 2. Build tools from spec
     const specTools = specToolsToAISDKTools(
-      config.spec.tools,
-      config.toolHandlers,
-      { agentId: agentKey(config.spec.meta) }
+      effectiveConfig.spec.tools,
+      effectiveConfig.toolHandlers,
+      { agentId: agentKey(effectiveConfig.spec.meta) }
     );
 
     // 3. Add dynamic knowledge query tool
-    const knowledgeTool = config.knowledgeRetriever
+    const knowledgeTool = effectiveConfig.knowledgeRetriever
       ? createKnowledgeQueryTool(
-          config.knowledgeRetriever,
-          config.spec.knowledge ?? []
+          effectiveConfig.knowledgeRetriever,
+          effectiveConfig.spec.knowledge ?? []
         )
       : null;
 
@@ -145,10 +166,10 @@ export class ContractSpecAgent {
     const tools: Record<string, ExecutableTool> = {
       ...specTools,
       ...(knowledgeTool ? { query_knowledge: knowledgeTool } : {}),
-      ...(config.additionalTools ?? {}),
+      ...(effectiveConfig.additionalTools ?? {}),
     };
 
-    return new ContractSpecAgent(config, instructions, tools);
+    return new ContractSpecAgent(effectiveConfig, instructions, tools);
   }
 
   /**
