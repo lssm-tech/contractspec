@@ -30,7 +30,7 @@ export function GuideNextjsOneEndpointPage() {
             language="bash"
             filename="nextjs-install"
             code={`bun add -D contractspec
-bun add @contractspec/lib.contracts @contractspec/lib.schema`}
+bun add @contractspec/lib.contracts @contractspec/lib.contracts-runtime-server-rest @contractspec/lib.schema`}
           />
           <p className="text-muted-foreground text-sm">
             Expected output: <code>added 3 packages</code> and a lockfile
@@ -112,7 +112,7 @@ installOp(registry, HealthcheckQuery, async () => ({
           <CodeBlock
             language="typescript"
             filename="app/api/ops/[...route]/route.ts"
-            code={`import { makeNextAppHandler } from "@contractspec/lib.contracts/server/rest-next-app";
+            code={`import { makeNextAppHandler } from "@contractspec/lib.contracts-runtime-server-rest/rest-next-app";
 import { registry } from "@/contracts/registry";
 
 const handler = makeNextAppHandler(registry, async () => ({

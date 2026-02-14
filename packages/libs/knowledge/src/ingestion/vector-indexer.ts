@@ -1,8 +1,8 @@
 import type {
   VectorStoreProvider,
   VectorUpsertRequest,
-} from '@contractspec/lib.contracts/integrations/providers/vector-store';
-import type { EmbeddingResult } from '@contractspec/lib.contracts/integrations/providers/embedding';
+  EmbeddingResult,
+} from '@contractspec/lib.contracts-integrations';
 import type { DocumentFragment } from './document-processor';
 
 export interface VectorIndexConfig {

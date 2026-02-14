@@ -7,8 +7,8 @@ import type {
 import type {
   ConnectionStatus,
   IntegrationConnection,
-} from '@contractspec/lib.contracts/integrations/connection';
-import type { IntegrationSpec } from '@contractspec/lib.contracts/integrations/spec';
+  IntegrationSpec,
+} from '@contractspec/lib.contracts-integrations';
 import type { SecretProvider, SecretValue } from './secrets/provider';
 
 export interface IntegrationTraceMetadata {

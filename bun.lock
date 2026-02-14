@@ -307,6 +307,7 @@
         "@apollo/client": "^4.1.4",
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.contracts-library": "workspace:*",
+        "@contractspec/lib.contracts-runtime-server-mcp": "workspace:*",
         "@contractspec/lib.design-system": "workspace:*",
         "@contractspec/lib.example-shared-ui": "workspace:*",
         "@contractspec/lib.logger": "workspace:*",
@@ -372,6 +373,7 @@
         "@contractspec/example.saas-boilerplate": "workspace:*",
         "@contractspec/example.workflow-system": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-runtime-client-react": "workspace:*",
         "@contractspec/lib.design-system": "workspace:*",
         "@contractspec/lib.email": "workspace:*",
         "@contractspec/lib.example-shared-ui": "workspace:*",
@@ -423,6 +425,7 @@
         "@contractspec/lib.ai-agent": "workspace:*",
         "@contractspec/lib.ai-providers": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.contracts-transformers": "workspace:*",
         "@contractspec/lib.source-extractors": "workspace:*",
         "@contractspec/lib.utils-typescript": "workspace:*",
@@ -486,6 +489,7 @@
       "version": "1.61.0",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.design-system": "workspace:*",
         "@contractspec/lib.example-shared-ui": "workspace:*",
         "@contractspec/lib.runtime-sandbox": "workspace:*",
@@ -622,6 +626,7 @@
       "version": "1.61.0",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
       },
       "devDependencies": {
@@ -637,6 +642,7 @@
         "@contractspec/integration.providers-impls": "workspace:*",
         "@contractspec/integration.runtime": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
       },
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
@@ -948,6 +954,7 @@
       "dependencies": {
         "@contractspec/integration.providers-impls": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
       },
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
@@ -1005,6 +1012,7 @@
       "version": "1.61.0",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.knowledge": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
       },
@@ -1046,6 +1054,7 @@
         "@contractspec/integration.providers-impls": "workspace:*",
         "@contractspec/lib.ai-agent": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.product-intent-utils": "workspace:*",
       },
       "devDependencies": {
@@ -1136,6 +1145,7 @@
       "dependencies": {
         "@contractspec/integration.providers-impls": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
       },
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
@@ -1206,6 +1216,7 @@
         "@confiture-ai/gradium-sdk-js": "^0.1.1",
         "@contractspec/integration.runtime": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
         "@elevenlabs/elevenlabs-js": "^2.35.0",
         "@fal-ai/client": "^1.9.1",
         "@google-cloud/storage": "^7.19.0",
@@ -1235,6 +1246,7 @@
       "version": "1.61.0",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.logger": "workspace:*",
         "@google-cloud/secret-manager": "^6.1.1",
         "google-gax": "^5.0.0",
@@ -1322,6 +1334,7 @@
       "version": "1.61.0",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.lifecycle": "workspace:*",
         "dayjs": "^1.11.13",
       },
@@ -1356,6 +1369,7 @@
       "version": "1.61.0",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
       },
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
@@ -1419,12 +1433,89 @@
         "react-hook-form": "^7.70.0",
       },
     },
+    "packages/libs/contracts-integrations": {
+      "name": "@contractspec/lib.contracts-integrations",
+      "version": "1.0.0",
+      "dependencies": {
+        "@contractspec/lib.contracts": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
     "packages/libs/contracts-library": {
       "name": "@contractspec/lib.contracts-library",
       "version": "1.61.0",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/libs/contracts-runtime-client-react": {
+      "name": "@contractspec/lib.contracts-runtime-client-react",
+      "version": "1.0.0",
+      "dependencies": {
+        "@contractspec/lib.contracts": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+      "peerDependencies": {
+        "react": "^19.2.4",
+        "react-dom": "^19.2.4",
+        "react-hook-form": "^7.70.0",
+      },
+    },
+    "packages/libs/contracts-runtime-server-graphql": {
+      "name": "@contractspec/lib.contracts-runtime-server-graphql",
+      "version": "1.0.0",
+      "dependencies": {
+        "@contractspec/lib.contracts": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/libs/contracts-runtime-server-mcp": {
+      "name": "@contractspec/lib.contracts-runtime-server-mcp",
+      "version": "1.0.0",
+      "dependencies": {
+        "@contractspec/lib.contracts": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/libs/contracts-runtime-server-rest": {
+      "name": "@contractspec/lib.contracts-runtime-server-rest",
+      "version": "1.0.0",
+      "dependencies": {
+        "@contractspec/lib.contracts": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/libs/contracts-spec": {
+      "name": "@contractspec/lib.contracts-spec",
+      "version": "1.0.0",
+      "dependencies": {
+        "@contractspec/lib.contracts": "workspace:*",
       },
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
@@ -1464,6 +1555,7 @@
       "dependencies": {
         "@contractspec/lib.ai-agent": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-runtime-client-react": "workspace:*",
         "@contractspec/lib.ui-kit": "workspace:*",
         "@contractspec/lib.ui-kit-web": "workspace:*",
         "@hookform/resolvers": "5.2.2",
@@ -1526,6 +1618,7 @@
       "dependencies": {
         "@contractspec/lib.ai-agent": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.lifecycle": "workspace:*",
         "@contractspec/lib.observability": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -1684,6 +1777,7 @@
       "dependencies": {
         "@aws-sdk/client-sqs": "^3.988.0",
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.knowledge": "workspace:*",
         "@contractspec/lib.logger": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -1701,6 +1795,7 @@
       "version": "1.61.0",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
       },
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
@@ -1740,6 +1835,7 @@
       "version": "1.61.0",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
         "zod": "catalog:",
       },
@@ -1754,6 +1850,7 @@
       "version": "1.61.0",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.lifecycle": "workspace:*",
       },
       "devDependencies": {
@@ -1874,6 +1971,7 @@
       "version": "1.61.0",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
       },
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
@@ -1952,6 +2050,7 @@
         "@ai-sdk/provider-utils": "^4.0.14",
         "@contractspec/lib.ai-agent": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.knowledge": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
         "zod": "^4.3.5",
@@ -3026,7 +3125,19 @@
 
     "@contractspec/lib.contracts": ["@contractspec/lib.contracts@workspace:packages/libs/contracts"],
 
+    "@contractspec/lib.contracts-integrations": ["@contractspec/lib.contracts-integrations@workspace:packages/libs/contracts-integrations"],
+
     "@contractspec/lib.contracts-library": ["@contractspec/lib.contracts-library@workspace:packages/libs/contracts-library"],
+
+    "@contractspec/lib.contracts-runtime-client-react": ["@contractspec/lib.contracts-runtime-client-react@workspace:packages/libs/contracts-runtime-client-react"],
+
+    "@contractspec/lib.contracts-runtime-server-graphql": ["@contractspec/lib.contracts-runtime-server-graphql@workspace:packages/libs/contracts-runtime-server-graphql"],
+
+    "@contractspec/lib.contracts-runtime-server-mcp": ["@contractspec/lib.contracts-runtime-server-mcp@workspace:packages/libs/contracts-runtime-server-mcp"],
+
+    "@contractspec/lib.contracts-runtime-server-rest": ["@contractspec/lib.contracts-runtime-server-rest@workspace:packages/libs/contracts-runtime-server-rest"],
+
+    "@contractspec/lib.contracts-spec": ["@contractspec/lib.contracts-spec@workspace:packages/libs/contracts-spec"],
 
     "@contractspec/lib.contracts-transformers": ["@contractspec/lib.contracts-transformers@workspace:packages/libs/contracts-transformers"],
 

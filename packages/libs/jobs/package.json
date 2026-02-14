@@ -29,6 +29,7 @@
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-integrations": "workspace:*",
     "@contractspec/lib.logger": "workspace:*",
     "@contractspec/lib.knowledge": "workspace:*",
     "@aws-sdk/client-sqs": "^3.988.0",

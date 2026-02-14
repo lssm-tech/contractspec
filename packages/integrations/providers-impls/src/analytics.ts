@@ -1,1 +1,1 @@
-export * from '@contractspec/lib.contracts/integrations/providers/analytics';
+export * from '@contractspec/lib.contracts-integrations';

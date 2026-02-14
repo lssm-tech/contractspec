@@ -1,13 +1,13 @@
-import type { EmbeddingProvider } from '@contractspec/lib.contracts/integrations/providers/embedding';
+import type { EmbeddingProvider } from '@contractspec/lib.contracts-integrations';
 import type {
   VectorStoreProvider,
   VectorSearchResult,
-} from '@contractspec/lib.contracts/integrations/providers/vector-store';
+} from '@contractspec/lib.contracts-integrations';
 import type {
   LLMProvider,
   LLMMessage,
   LLMResponse,
-} from '@contractspec/lib.contracts/integrations/providers/llm';
+} from '@contractspec/lib.contracts-integrations';
 
 export interface KnowledgeQueryConfig {
   collection: string;

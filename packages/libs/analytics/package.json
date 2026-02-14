@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-integrations": "workspace:*",
     "@contractspec/lib.lifecycle": "workspace:*",
     "dayjs": "^1.11.13"
   },

@@ -7,7 +7,7 @@ import type {
 import type {
   ProjectManagementWorkItemInput,
   ProjectManagementWorkItemPriority,
-} from '@contractspec/lib.contracts/integrations/providers/project-management';
+} from '@contractspec/lib.contracts-integrations';
 
 export interface ProjectManagementSyncOptions {
   includeSummary?: boolean;

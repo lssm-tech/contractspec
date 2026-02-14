@@ -32,6 +32,7 @@
   "dependencies": {
     "@contractspec/lib.ai-agent": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-runtime-client-react": "workspace:*",
     "@contractspec/lib.ui-kit": "workspace:*",
     "@contractspec/lib.ui-kit-web": "workspace:*",
     "@hookform/resolvers": "5.2.2",

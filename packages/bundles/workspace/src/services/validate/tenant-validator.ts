@@ -6,8 +6,10 @@ import {
   type AppBlueprintSpec,
   type TenantAppConfig,
 } from '@contractspec/lib.contracts/app-config/spec';
-import type { IntegrationSpecRegistry } from '@contractspec/lib.contracts/integrations/spec';
-import type { IntegrationConnection } from '@contractspec/lib.contracts/integrations/connection';
+import type {
+  IntegrationConnection,
+  IntegrationSpecRegistry,
+} from '@contractspec/lib.contracts-integrations';
 import type { BlueprintTranslationCatalog } from '@contractspec/lib.contracts/translations/catalog';
 import type { FsAdapter } from '../../ports/fs';
 
@@ -257,9 +259,9 @@ async function loadIntegrationRegistrars(
   if (!entries.length) return undefined;
 
   // We need to import the Class dynamically or have it available.
-  // It is imported from @contractspec/lib.contracts
+  // It is imported from @contractspec/lib.contracts-integrations
   const { IntegrationSpecRegistry } =
-    await import('@contractspec/lib.contracts/integrations/spec');
+    await import('@contractspec/lib.contracts-integrations');
   const registry = new IntegrationSpecRegistry();
 
   for (const entry of entries) {

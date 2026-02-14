@@ -48,7 +48,8 @@ ${data.capabilitiesRequired
     data.byokRequiredScopes
   );
 
-  return `import { StabilityEnum, defineIntegration, IntegrationSpecRegistry } from '@contractspec/lib.contracts';
+  return `import { StabilityEnum } from '@contractspec/lib.contracts/ownership';
+import { defineIntegration, IntegrationSpecRegistry } from '@contractspec/lib.contracts-integrations';
 
 export const ${varName} = defineIntegration({
   meta: {

@@ -1,0 +1,86 @@
+{
+  "name": "@contractspec/lib.contracts-runtime-client-react",
+  "version": "1.0.0",
+  "description": "React runtime adapters for ContractSpec contracts",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "clean": "rm -rf dist",
+    "lint": "bun run lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit",
+    "dev": "contractspec-bun-build dev"
+  },
+  "peerDependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-hook-form": "^7.70.0"
+  },
+  "dependencies": {
+    "@contractspec/lib.contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./drivers/rn-reusables": "./src/drivers/rn-reusables.ts",
+    "./drivers/shadcn": "./src/drivers/shadcn.ts",
+    "./feature-render": "./src/feature-render.ts",
+    "./form-render": "./src/form-render.ts"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.js",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./drivers/rn-reusables": {
+        "types": "./dist/drivers/rn-reusables.d.ts",
+        "bun": "./dist/drivers/rn-reusables.js",
+        "node": "./dist/node/drivers/rn-reusables.js",
+        "browser": "./dist/browser/drivers/rn-reusables.js",
+        "default": "./dist/drivers/rn-reusables.js"
+      },
+      "./drivers/shadcn": {
+        "types": "./dist/drivers/shadcn.d.ts",
+        "bun": "./dist/drivers/shadcn.js",
+        "node": "./dist/node/drivers/shadcn.js",
+        "browser": "./dist/browser/drivers/shadcn.js",
+        "default": "./dist/drivers/shadcn.js"
+      },
+      "./feature-render": {
+        "types": "./dist/feature-render.d.ts",
+        "bun": "./dist/feature-render.js",
+        "node": "./dist/node/feature-render.js",
+        "browser": "./dist/browser/feature-render.js",
+        "default": "./dist/feature-render.js"
+      },
+      "./form-render": {
+        "types": "./dist/form-render.d.ts",
+        "bun": "./dist/form-render.js",
+        "node": "./dist/node/form-render.js",
+        "browser": "./dist/browser/form-render.js",
+        "default": "./dist/form-render.js"
+      }
+    }
+  }
+}

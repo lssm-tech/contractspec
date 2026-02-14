@@ -49,8 +49,8 @@ ${data.capabilitiesRequired
   );
 
   return `import { StabilityEnum } from '@contractspec/lib.contracts/ownership';
-import type { IntegrationSpec } from '@contractspec/lib.contracts/integrations/spec';
-import type { IntegrationSpecRegistry } from '@contractspec/lib.contracts/integrations/spec';
+import type { IntegrationSpec } from '@contractspec/lib.contracts-integrations';
+import type { IntegrationSpecRegistry } from '@contractspec/lib.contracts-integrations';
 
 export const ${varName}: IntegrationSpec = {
   meta: {

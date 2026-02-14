@@ -1,5 +1,5 @@
 import type { ContentBrief, GeneratorOptions, SocialPost } from '../types';
-import type { LLMProvider } from '@contractspec/lib.contracts/integrations/providers/llm';
+import type { LLMProvider } from '@contractspec/lib.contracts-integrations';
 
 export class SocialPostGenerator {
   private readonly llm?: LLMProvider;

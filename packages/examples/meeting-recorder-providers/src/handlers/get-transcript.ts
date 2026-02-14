@@ -1,7 +1,7 @@
 import type {
   MeetingRecorderGetTranscriptParams,
   MeetingTranscriptRecord,
-} from '@contractspec/lib.contracts/integrations/providers/meeting-recorder';
+} from '@contractspec/lib.contracts-integrations';
 
 import {
   createMeetingRecorderProvider,

@@ -7,7 +7,7 @@ import {
 import {
   OPENBANKING_PII_FIELDS,
   OPENBANKING_TELEMETRY_EVENTS,
-} from '@contractspec/lib.contracts/integrations';
+} from '@contractspec/lib.contracts-integrations';
 
 const commonProperties = {
   tenantId: {

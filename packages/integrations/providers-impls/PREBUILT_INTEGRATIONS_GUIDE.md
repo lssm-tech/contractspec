@@ -255,7 +255,7 @@ Each integration below lists:
 
 ```ts
 import { IntegrationProviderFactory } from "@contractspec/integration.providers-impls/impls/provider-factory";
-import { createDefaultIntegrationSpecRegistry } from "@contractspec/lib.contracts/integrations/providers/registry";
+import { createDefaultIntegrationSpecRegistry } from "@contractspec/lib.contracts-integrations";
 import { SecretProviderManager } from "@contractspec/integration.runtime/secrets/manager";
 import { EnvSecretProvider } from "@contractspec/integration.runtime/secrets/env-secret-provider";
 import type { IntegrationContext } from "@contractspec/integration.runtime/runtime";

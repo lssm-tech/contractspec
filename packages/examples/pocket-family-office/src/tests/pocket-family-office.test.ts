@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { IntegrationSpecRegistry } from '@contractspec/lib.contracts/integrations/spec';
+import { IntegrationSpecRegistry } from '@contractspec/lib.contracts-integrations';
 import {
   registerElevenLabsIntegration,
   registerGcsStorageIntegration,
@@ -11,7 +11,7 @@ import {
   registerQdrantIntegration,
   registerStripeIntegration,
   registerTwilioSmsIntegration,
-} from '@contractspec/lib.contracts/integrations/providers';
+} from '@contractspec/lib.contracts-integrations';
 import { composeAppConfig } from '@contractspec/lib.contracts/app-config/runtime';
 import { validateTenantConfig } from '@contractspec/lib.contracts/app-config/validation';
 import {
@@ -30,20 +30,20 @@ import type {
   EmbeddingDocument,
   EmbeddingProvider,
   EmbeddingResult,
-} from '@contractspec/lib.contracts/integrations/providers/embedding';
+} from '@contractspec/lib.contracts-integrations';
 import type {
   VectorDeleteRequest,
   VectorSearchQuery,
   VectorSearchResult,
   VectorStoreProvider,
   VectorUpsertRequest,
-} from '@contractspec/lib.contracts/integrations/providers/vector-store';
+} from '@contractspec/lib.contracts-integrations';
 import type {
   LLMMessage,
   LLMProvider,
   LLMResponse,
   LLMStreamChunk,
-} from '@contractspec/lib.contracts/integrations/providers/llm';
+} from '@contractspec/lib.contracts-integrations';
 
 import {
   pocketFamilyOfficeBlueprint,

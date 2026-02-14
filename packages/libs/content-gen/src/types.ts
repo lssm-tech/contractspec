@@ -1,4 +1,4 @@
-import type { LLMProvider } from '@contractspec/lib.contracts/integrations/providers/llm';
+import type { LLMProvider } from '@contractspec/lib.contracts-integrations';
 
 export interface AudienceProfile {
   role: string;

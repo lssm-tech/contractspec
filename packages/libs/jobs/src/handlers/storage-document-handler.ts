@@ -1,4 +1,4 @@
-import type { ObjectStorageProvider } from '@contractspec/lib.contracts/integrations/providers/storage';
+import type { ObjectStorageProvider } from '@contractspec/lib.contracts-integrations';
 import type { StorageIngestionAdapter } from '@contractspec/lib.knowledge/ingestion/storage-adapter';
 import type { JobHandler } from '@contractspec/lib.contracts/jobs/queue';
 

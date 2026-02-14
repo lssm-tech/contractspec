@@ -1,0 +1,105 @@
+{
+  "name": "@contractspec/lib.contracts-runtime-server-rest",
+  "version": "1.0.0",
+  "description": "REST server runtime adapters for ContractSpec contracts",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "clean": "rm -rf dist",
+    "lint": "bun run lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit",
+    "dev": "contractspec-bun-build dev"
+  },
+  "dependencies": {
+    "@contractspec/lib.contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./contracts-adapter-hydration": "./src/contracts-adapter-hydration.ts",
+    "./contracts-adapter-input": "./src/contracts-adapter-input.ts",
+    "./rest-elysia": "./src/rest-elysia.ts",
+    "./rest-express": "./src/rest-express.ts",
+    "./rest-generic": "./src/rest-generic.ts",
+    "./rest-next-app": "./src/rest-next-app.ts",
+    "./rest-next-pages": "./src/rest-next-pages.ts"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.js",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./contracts-adapter-hydration": {
+        "types": "./dist/contracts-adapter-hydration.d.ts",
+        "bun": "./dist/contracts-adapter-hydration.js",
+        "node": "./dist/node/contracts-adapter-hydration.js",
+        "browser": "./dist/browser/contracts-adapter-hydration.js",
+        "default": "./dist/contracts-adapter-hydration.js"
+      },
+      "./contracts-adapter-input": {
+        "types": "./dist/contracts-adapter-input.d.ts",
+        "bun": "./dist/contracts-adapter-input.js",
+        "node": "./dist/node/contracts-adapter-input.js",
+        "browser": "./dist/browser/contracts-adapter-input.js",
+        "default": "./dist/contracts-adapter-input.js"
+      },
+      "./rest-elysia": {
+        "types": "./dist/rest-elysia.d.ts",
+        "bun": "./dist/rest-elysia.js",
+        "node": "./dist/node/rest-elysia.js",
+        "browser": "./dist/browser/rest-elysia.js",
+        "default": "./dist/rest-elysia.js"
+      },
+      "./rest-express": {
+        "types": "./dist/rest-express.d.ts",
+        "bun": "./dist/rest-express.js",
+        "node": "./dist/node/rest-express.js",
+        "browser": "./dist/browser/rest-express.js",
+        "default": "./dist/rest-express.js"
+      },
+      "./rest-generic": {
+        "types": "./dist/rest-generic.d.ts",
+        "bun": "./dist/rest-generic.js",
+        "node": "./dist/node/rest-generic.js",
+        "browser": "./dist/browser/rest-generic.js",
+        "default": "./dist/rest-generic.js"
+      },
+      "./rest-next-app": {
+        "types": "./dist/rest-next-app.d.ts",
+        "bun": "./dist/rest-next-app.js",
+        "node": "./dist/node/rest-next-app.js",
+        "browser": "./dist/browser/rest-next-app.js",
+        "default": "./dist/rest-next-app.js"
+      },
+      "./rest-next-pages": {
+        "types": "./dist/rest-next-pages.d.ts",
+        "bun": "./dist/rest-next-pages.js",
+        "node": "./dist/node/rest-next-pages.js",
+        "browser": "./dist/browser/rest-next-pages.js",
+        "default": "./dist/rest-next-pages.js"
+      }
+    }
+  }
+}

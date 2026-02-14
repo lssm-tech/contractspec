@@ -1,7 +1,7 @@
 import type {
   VoiceSynthesisInput,
   VoiceSynthesisResult,
-} from '@contractspec/lib.contracts/integrations/providers/voice';
+} from '@contractspec/lib.contracts-integrations';
 
 import {
   createVoiceProvider,

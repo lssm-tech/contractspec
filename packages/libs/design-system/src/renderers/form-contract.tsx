@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
-import { createFormRenderer } from '@contractspec/lib.contracts/client/react/form-render';
-import { shadcnDriver } from '@contractspec/lib.contracts/client/react/drivers/shadcn';
+import { createFormRenderer } from '@contractspec/lib.contracts-runtime-client-react/form-render';
+import { shadcnDriver } from '@contractspec/lib.contracts-runtime-client-react/drivers/shadcn';
 
 // Minimal shadcn driver mapping: host must wire its components here.
 // Replace these placeholders with actual shadcn/ui imports in your app.

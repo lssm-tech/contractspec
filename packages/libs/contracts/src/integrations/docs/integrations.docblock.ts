@@ -68,7 +68,7 @@ Each provider ships with:
 
 To list all shipped specs at runtime, use:
 
-- \`createDefaultIntegrationSpecRegistry()\` from \`@contractspec/lib.contracts/integrations/providers/registry\`
+- \`createDefaultIntegrationSpecRegistry()\` from \`@contractspec/lib.contracts-integrations\`
 
 ## Secret Management
 

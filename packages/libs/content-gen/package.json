@@ -32,7 +32,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*"
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-integrations": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",

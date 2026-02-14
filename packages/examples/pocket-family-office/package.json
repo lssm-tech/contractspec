@@ -30,6 +30,7 @@
   "dependencies": {
     "@contractspec/lib.knowledge": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-integrations": "workspace:*",
     "@contractspec/lib.schema": "workspace:*"
   },
   "devDependencies": {

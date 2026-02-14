@@ -14,7 +14,7 @@ import {
   StabilityEnum,
   TagsEnum,
 } from '@contractspec/lib.contracts/ownership';
-import { OPENBANKING_TELEMETRY_EVENTS } from '@contractspec/lib.contracts/integrations';
+import { OPENBANKING_TELEMETRY_EVENTS } from '@contractspec/lib.contracts-integrations';
 
 // --- Enums ---
 const SourceEnum = defineEnum('Source', ['upload', 'email', 'sync']);

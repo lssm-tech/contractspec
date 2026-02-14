@@ -365,6 +365,7 @@
     "@apollo/client": "^4.1.4",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.contracts-library": "workspace:*",
+    "@contractspec/lib.contracts-runtime-server-mcp": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.example-shared-ui": "workspace:*",
     "@contractspec/lib.logger": "workspace:*",

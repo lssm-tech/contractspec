@@ -1,4 +1,4 @@
-import type { Voice } from '@contractspec/lib.contracts/integrations/providers/voice';
+import type { Voice } from '@contractspec/lib.contracts-integrations';
 
 import {
   createVoiceProvider,

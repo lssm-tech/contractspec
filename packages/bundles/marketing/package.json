@@ -75,6 +75,7 @@
     "@contractspec/example.saas-boilerplate": "workspace:*",
     "@contractspec/example.workflow-system": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-runtime-client-react": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.email": "workspace:*",
     "@contractspec/lib.example-shared-ui": "workspace:*",

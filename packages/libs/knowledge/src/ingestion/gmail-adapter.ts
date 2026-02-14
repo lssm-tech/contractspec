@@ -1,7 +1,7 @@
 import type {
   EmailInboundProvider,
   EmailThread,
-} from '@contractspec/lib.contracts/integrations/providers/email';
+} from '@contractspec/lib.contracts-integrations';
 import type { DocumentProcessor, RawDocument } from './document-processor';
 import type { EmbeddingService } from './embedding-service';
 import type { VectorIndexer } from './vector-indexer';

@@ -1,0 +1,57 @@
+{
+  "name": "@contractspec/lib.contracts-runtime-server-graphql",
+  "version": "1.0.0",
+  "description": "GraphQL server runtime adapters for ContractSpec contracts",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "clean": "rm -rf dist",
+    "lint": "bun run lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit",
+    "dev": "contractspec-bun-build dev"
+  },
+  "dependencies": {
+    "@contractspec/lib.contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./graphql-pothos": "./src/graphql-pothos.ts"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.js",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./graphql-pothos": {
+        "types": "./dist/graphql-pothos.d.ts",
+        "bun": "./dist/graphql-pothos.js",
+        "node": "./dist/node/graphql-pothos.js",
+        "browser": "./dist/browser/graphql-pothos.js",
+        "default": "./dist/graphql-pothos.js"
+      }
+    }
+  }
+}
