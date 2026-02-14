@@ -1,6 +1,5 @@
 ---
 '@contractspec/lib.ai-agent': minor
-'@contractspec/lib.contracts': minor
 ---
 
 feat: add PostHog LLM Analytics and Evaluations support

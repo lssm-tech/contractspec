@@ -109,7 +109,6 @@
 '@contractspec/action.pr': minor
 '@contractspec/app.alpic-mcp': minor
 '@contractspec/lib.analytics': minor
-'@contractspec/lib.contracts': minor
 '@contractspec/lib.evolution': minor
 '@contractspec/lib.knowledge': minor
 '@contractspec/lib.lifecycle': minor

@@ -1,5 +1,4 @@
 ---
-'@contractspec/lib.contracts': major
 '@contractspec/lib.ai-agent': major
 '@contractspec/lib.schema': patch
 '@contractspec/tool.bun': patch
