@@ -1,25 +1,15 @@
 export * from './events';
-export * from './client';
-export * from './server';
 export * from './capabilities';
 export * from './types';
-export * from './contract-registry';
 export * from './install';
-export * from './jsonschema';
-export * from './openapi';
 export * from './prompt';
 export * from './promptRegistry';
-export * from './product-intent';
 export * from './operations';
 export * from './resources';
 export * from './presentations';
 export * from './features';
 export * from './ownership';
 export * from './forms';
-export * from './model-registry';
-export * from './onboarding-base';
-export * from './data-views';
-export * from './policy';
 export * from './themes';
 export * from './migrations';
 export * from './telemetry';
@@ -29,23 +19,58 @@ export * from './experiments/evaluator';
 export * from './experiments/spec-resolver';
 export * from './app-config/spec';
 export * from './app-config/runtime';
-export * from './integrations';
-export * from './knowledge';
-export * from './integrations/operations';
-export * from './knowledge/operations';
 export * from './regenerator';
+export * from './workflow';
 export * from './translations/catalog';
 export * from './translations/tenant';
-export * from './workspace-config';
-export * from './workflow';
-export * from './schema-to-markdown';
-export * from './docs';
-export * from './llm';
+export type * from './workspace-config';
 export * from './registry-utils';
 export * from './app-config/validation';
-export * from './examples';
 export * from './versioning';
 export * from './serialization';
-
-// Re-export defineSchemaModel for convenience
 export { defineSchemaModel } from '@contractspec/lib.schema';
+export {
+  DocRegistry,
+  defaultDocRegistry,
+  registerDocBlocks,
+  listRegisteredDocBlocks,
+  docId,
+} from './docs/registry';
+export type {
+  DocBlock,
+  DocBlockLink,
+  DocKind,
+  DocVisibility,
+} from './docs/types';
+export { defineExample } from './examples/define';
+export { ExampleRegistry } from './examples/registry';
+export type { ExampleSpec } from './examples/types';
+export type {
+  ContractRegistryFile,
+  ContractRegistryItem,
+  ContractRegistryItemType,
+  ContractRegistryManifest,
+  JsonSchema,
+} from './contract-registry/types';
+export type { KnowledgeCategory } from './knowledge/spec';
+export type { DataViewFieldFormat } from './data-views/types';
+export type {
+  LLMProvider,
+  LLMMessage,
+  LLMResponse,
+} from './integrations/providers/llm';
+export type { EmbeddingProvider } from './integrations/providers/embedding';
+export type {
+  EmbeddingDocument,
+  EmbeddingResult,
+} from './integrations/providers/embedding';
+export type { VectorStoreProvider } from './integrations/providers/vector-store';
+export type {
+  VectorSearchResult,
+  VectorUpsertRequest,
+} from './integrations/providers/vector-store';
+export type {
+  EmailInboundProvider,
+  EmailThread,
+} from './integrations/providers/email';
+export type { GetObjectResult } from './integrations/providers/storage';
