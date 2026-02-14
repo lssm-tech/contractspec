@@ -27,7 +27,6 @@
  */
 import type { LanguageModel } from 'ai';
 import type { ProviderConfig } from '@contractspec/lib.ai-providers/types';
-import { createProvider } from '@contractspec/lib.ai-providers/factory';
 import type { AgentSpec } from '../spec/spec';
 import type {
   AgentCallOptions,
@@ -333,6 +332,8 @@ export class UnifiedAgent {
     if (backendConfig?.modelInstance) {
       model = backendConfig.modelInstance;
     } else if (backendConfig?.provider) {
+      const { createProvider } =
+        await import('@contractspec/lib.ai-providers/factory');
       model = createProvider(backendConfig.provider).getModel();
     } else {
       const { anthropic } = await import('@ai-sdk/anthropic');

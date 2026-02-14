@@ -1,4 +1,4 @@
-import { defineTestSpec } from '@contractspec/lib.contracts';
+import { defineTestSpec } from '@contractspec/lib.contracts/tests';
 
 export const runListTest = defineTestSpec({
   meta: {

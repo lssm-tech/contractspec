@@ -1,4 +1,4 @@
-import { DEFAULT_CONTRACTSRC } from '@contractspec/lib.contracts';
+import { DEFAULT_CONTRACTSRC } from '@contractspec/lib.contracts/workspace-config';
 import { mergeConfig, type Config } from './config';
 
 describe('mergeConfig', () => {

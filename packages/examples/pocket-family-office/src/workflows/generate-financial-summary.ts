@@ -1,4 +1,4 @@
-import { defineWorkflow } from '@contractspec/lib.contracts';
+import { defineWorkflow } from '@contractspec/lib.contracts/workflow';
 import {
   OwnersEnum,
   StabilityEnum,

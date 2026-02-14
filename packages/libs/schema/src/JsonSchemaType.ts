@@ -69,6 +69,7 @@ export class JsonSchemaType implements SchemaModelType<
 > {
   private readonly jsonSchema: JsonSchemaDefinition;
   private readonly options: JsonSchemaTypeOptions;
+  private cachedZod?: z.ZodType<Record<string, unknown>>;
 
   constructor(
     jsonSchema: JsonSchemaDefinition,
@@ -85,17 +86,24 @@ export class JsonSchemaType implements SchemaModelType<
    * consider using a dedicated json-schema-to-zod library.
    */
   getZod(): z.ZodType<Record<string, unknown>> {
+    if (this.cachedZod) {
+      return this.cachedZod;
+    }
+
     // Handle additionalProperties (dictionary/record types)
     if (this.jsonSchema.additionalProperties !== undefined) {
       if (this.jsonSchema.additionalProperties === true) {
-        return z.record(z.string(), z.unknown());
+        this.cachedZod = z.record(z.string(), z.unknown());
+        return this.cachedZod;
       }
       if (typeof this.jsonSchema.additionalProperties === 'object') {
         // For typed additionalProperties, use union or unknown
-        return z.record(z.string(), z.unknown());
+        this.cachedZod = z.record(z.string(), z.unknown());
+        return this.cachedZod;
       }
       if (this.jsonSchema.additionalProperties === false) {
-        return z.object({}).strict();
+        this.cachedZod = z.object({}).strict();
+        return this.cachedZod;
       }
     }
 
@@ -111,11 +119,13 @@ export class JsonSchemaType implements SchemaModelType<
         shape[key] = required.has(key) ? fieldType : fieldType.optional();
       }
 
-      return z.object(shape).passthrough();
+      this.cachedZod = z.object(shape).passthrough();
+      return this.cachedZod;
     }
 
     // Default: passthrough object
-    return z.object({}).passthrough();
+    this.cachedZod = z.object({}).passthrough();
+    return this.cachedZod;
   }
 
   /**

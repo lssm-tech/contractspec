@@ -198,6 +198,7 @@
     "./docs/views/index": "./src/docs/views/index.ts",
     "./events": "./src/events.ts",
     "./examples": "./src/examples/index.ts",
+    "./examples/define": "./src/examples/define.ts",
     "./examples/docs/examples.docblock": "./src/examples/docs/examples.docblock.ts",
     "./examples/index": "./src/examples/index.ts",
     "./examples/registry": "./src/examples/registry.ts",
@@ -1155,6 +1156,12 @@
         "bun": "./dist/examples/index.js",
         "node": "./dist/node/examples/index.js",
         "default": "./dist/examples/index.js"
+      },
+      "./examples/define": {
+        "types": "./dist/examples/define.d.ts",
+        "bun": "./dist/examples/define.js",
+        "node": "./dist/node/examples/define.js",
+        "default": "./dist/examples/define.js"
       },
       "./examples/docs/examples.docblock": {
         "types": "./dist/examples/docs/examples.docblock.d.ts",

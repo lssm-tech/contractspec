@@ -1,9 +1,7 @@
 import { resolve } from 'path';
 import { pathToFileURL } from 'url';
-import {
-  validateBlueprint as validateBlueprintSpec,
-  type AppBlueprintSpec,
-} from '@contractspec/lib.contracts';
+import { validateBlueprint as validateBlueprintSpec } from '@contractspec/lib.contracts/app-config/validation';
+import type { AppBlueprintSpec } from '@contractspec/lib.contracts/app-config/spec';
 import type { FsAdapter } from '../../ports/fs';
 
 /**

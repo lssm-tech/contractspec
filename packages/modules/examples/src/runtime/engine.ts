@@ -9,7 +9,7 @@ import {
   registerBasicValidation,
   registerDefaultReactRenderer,
   type TransformEngine,
-} from '@contractspec/lib.contracts/presentations';
+} from '@contractspec/lib.contracts/presentations/transform-engine';
 
 // Import template renderers from example packages
 import {

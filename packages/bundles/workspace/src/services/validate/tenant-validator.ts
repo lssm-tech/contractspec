@@ -1,14 +1,14 @@
 import { resolve } from 'path';
 import { readFile } from 'fs/promises';
 import { pathToFileURL } from 'url';
+import { validateConfig as validateTenantConfigSpecs } from '@contractspec/lib.contracts/app-config/validation';
 import {
-  validateConfig as validateTenantConfigSpecs,
   type AppBlueprintSpec,
   type TenantAppConfig,
-  type IntegrationSpecRegistry,
-  type BlueprintTranslationCatalog,
-  type IntegrationConnection,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts/app-config/spec';
+import type { IntegrationSpecRegistry } from '@contractspec/lib.contracts/integrations/spec';
+import type { IntegrationConnection } from '@contractspec/lib.contracts/integrations/connection';
+import type { BlueprintTranslationCatalog } from '@contractspec/lib.contracts/translations/catalog';
 import type { FsAdapter } from '../../ports/fs';
 
 export interface TenantValidationResult {
@@ -259,7 +259,7 @@ async function loadIntegrationRegistrars(
   // We need to import the Class dynamically or have it available.
   // It is imported from @contractspec/lib.contracts
   const { IntegrationSpecRegistry } =
-    await import('@contractspec/lib.contracts');
+    await import('@contractspec/lib.contracts/integrations/spec');
   const registry = new IntegrationSpecRegistry();
 
   for (const entry of entries) {

@@ -1,7 +1,7 @@
 /**
  * Markdown renderers for Integration Hub presentations
  */
-import type { PresentationRenderer } from '@contractspec/lib.contracts';
+import type { PresentationRenderer } from '@contractspec/lib.contracts/presentations/transform-engine';
 
 // Mock data for integration rendering
 const mockIntegrations = [

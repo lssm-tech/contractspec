@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createAgentJsonRunner } from '@contractspec/lib.ai-agent';
+import { createAgentJsonRunner } from '@contractspec/lib.ai-agent/agent/json-runner';
 import {
   extractEvidence,
   generateTickets,

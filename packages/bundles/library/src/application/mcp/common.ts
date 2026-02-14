@@ -3,10 +3,8 @@ import type {
   PromptRegistry,
   ResourceRegistry,
 } from '@contractspec/lib.contracts';
-import {
-  createMcpServer,
-  PresentationRegistry,
-} from '@contractspec/lib.contracts';
+import { PresentationRegistry } from '@contractspec/lib.contracts/presentations';
+import { createMcpServer } from '@contractspec/lib.contracts/server/provider-mcp';
 import type { PresentationSpec } from '@contractspec/lib.contracts/presentations';
 import { mcp } from 'elysia-mcp';
 import { Logger } from '@contractspec/lib.logger';

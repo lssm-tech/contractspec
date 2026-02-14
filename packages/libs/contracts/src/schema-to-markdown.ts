@@ -8,8 +8,8 @@
 import type {
   AnySchemaModel,
   SchemaFieldConfig,
-} from '@contractspec/lib.schema';
-import { isSchemaModel } from '@contractspec/lib.schema';
+} from '@contractspec/lib.schema/SchemaModel';
+import { isSchemaModel } from '@contractspec/lib.schema/SchemaModel';
 
 /**
  * Options for schema-to-markdown generation

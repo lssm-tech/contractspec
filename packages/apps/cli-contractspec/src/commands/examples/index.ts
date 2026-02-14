@@ -7,7 +7,7 @@ import {
   listExamples,
   searchExamples,
 } from '@contractspec/module.examples';
-import { validateExamples } from '@contractspec/lib.contracts';
+import { validateExamples } from '@contractspec/lib.contracts/examples/validation';
 
 interface WorkspaceExampleFolderCheck {
   exampleDir: string;

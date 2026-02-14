@@ -1,5 +1,5 @@
-import type { AnySchemaModel } from '@contractspec/lib.schema';
-import { isSchemaModel } from '@contractspec/lib.schema';
+import type { AnySchemaModel } from '@contractspec/lib.schema/SchemaModel';
+import { isSchemaModel } from '@contractspec/lib.schema/SchemaModel';
 
 /**
  * Get a name for any schema model type.

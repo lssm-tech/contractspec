@@ -2,7 +2,7 @@ import type {
   EmbeddingDocument,
   EmbeddingProvider,
   EmbeddingResult,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts/integrations/providers/embedding';
 import type { DocumentFragment } from './document-processor';
 
 export class EmbeddingService {

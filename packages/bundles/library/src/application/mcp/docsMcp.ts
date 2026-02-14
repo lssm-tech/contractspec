@@ -1,5 +1,4 @@
 import {
-  defaultDocRegistry,
   definePrompt,
   defineResourceTemplate,
   installOp,
@@ -7,6 +6,7 @@ import {
   PromptRegistry,
   ResourceRegistry,
 } from '@contractspec/lib.contracts';
+import { defaultDocRegistry } from '@contractspec/lib.contracts/docs';
 import z from 'zod';
 import type { DocPresentationRoute } from '@contractspec/lib.contracts/docs';
 import { createMcpElysiaHandler } from './common';

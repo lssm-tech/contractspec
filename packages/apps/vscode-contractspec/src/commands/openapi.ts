@@ -131,7 +131,7 @@ export async function exportToOpenApi(
 
           // Generate OpenAPI document using the lib
           const { openApiForRegistry } =
-            await import('@contractspec/lib.contracts');
+            await import('@contractspec/lib.contracts/openapi');
 
           const servers = serverUrl ? [{ url: serverUrl }] : undefined;
 

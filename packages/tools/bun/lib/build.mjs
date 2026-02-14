@@ -264,15 +264,21 @@ export async function runTranspile({
   }
 }
 
-export async function runDev({ cwd, entries, external, targets, targetRoots }) {
-  const requestedTargets = [
-    'bun',
-    targets.node ? 'node' : null,
-    targets.browser ? 'browser' : null,
-  ].filter(Boolean);
+export async function runDev({
+  cwd,
+  entries,
+  external,
+  targets,
+  targetRoots,
+  allTargets = false,
+}) {
+  const requestedTargets = allTargets
+    ? ['bun', targets.node ? 'node' : null, targets.browser ? 'browser' : null]
+    : ['bun'];
+  const selectedTargets = requestedTargets.filter(Boolean);
   const subprocesses = [];
 
-  for (const target of requestedTargets) {
+  for (const target of selectedTargets) {
     const selectedEntries = selectEntriesForTarget(entries, target);
 
     if (selectedEntries.length === 0) {
@@ -302,7 +308,12 @@ export async function runDev({ cwd, entries, external, targets, targetRoots }) {
   await Promise.all(subprocesses.map((subprocess) => subprocess.exited));
 }
 
-export async function runTypes({ cwd, tsconfigForTypes, typesRoot }) {
+export async function runTypes({
+  cwd,
+  tsconfigForTypes,
+  typesRoot,
+  declarationMap = process.env.CONTRACTSPEC_TYPES_DECLARATION_MAP === '1',
+}) {
   const configPath = tsconfigForTypes ?? 'tsconfig.json';
   const tempTsConfigPath = path.join(cwd, '.tsconfig.contractspec-types.json');
   const dependencyPaths = await resolveDependencyPathMappings(cwd);
@@ -314,7 +325,7 @@ export async function runTypes({ cwd, tsconfigForTypes, typesRoot }) {
       incremental: false,
       emitDeclarationOnly: true,
       declaration: true,
-      declarationMap: true,
+      declarationMap,
       outDir: 'dist',
       ...(typesRoot ? { rootDir: typesRoot } : {}),
       ...(Object.keys(dependencyPaths).length > 0

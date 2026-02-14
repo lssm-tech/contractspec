@@ -84,3 +84,9 @@ export interface FeatureModuleSpec {
  * Features are identified by key only, without version pinning.
  */
 export type FeatureRef = SpecKeyRef;
+
+/**
+ * Helper to define a Feature.
+ */
+export const defineFeature = (spec: FeatureModuleSpec): FeatureModuleSpec =>
+  spec;

@@ -1,14 +1,16 @@
 import React from 'react';
 import {
-  type ComponentMap,
-  createDefaultTransformEngine,
   type PresentationSpec,
   type PresentationTarget,
+} from '../../presentations/';
+import {
+  type ComponentMap,
+  createDefaultTransformEngine,
   type ReactRenderDescriptor,
   registerBasicValidation,
   registerDefaultReactRenderer,
   TransformEngine,
-} from '../../presentations/';
+} from '../../presentations/transform-engine';
 import { type FeatureModuleSpec, FeatureRegistry } from '../../features';
 import type { BlockConfig } from '@blocknote/core';
 

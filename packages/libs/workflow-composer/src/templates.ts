@@ -1,4 +1,8 @@
-import type { Step, StepAction, StepType } from '@contractspec/lib.contracts';
+import type {
+  Step,
+  StepAction,
+  StepType,
+} from '@contractspec/lib.contracts/workflow';
 
 export interface StepTemplateOptions {
   id: string;

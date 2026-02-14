@@ -35,6 +35,8 @@ export interface SchemaModelConfig<Fields extends SchemaModelFieldsAnyConfig> {
 export class SchemaModel<
   Fields extends SchemaModelFieldsAnyConfig,
 > implements SchemaModelType {
+  private cachedZod?: TopLevelZodFromModel<Fields>;
+
   constructor(public readonly config: SchemaModelConfig<Fields>) {}
 
   /**
@@ -42,6 +44,10 @@ export class SchemaModel<
    * Zod schema and optionality at the type level when possible.
    */
   getZod(): TopLevelZodFromModel<Fields> {
+    if (this.cachedZod) {
+      return this.cachedZod;
+    }
+
     const shape = Object.entries(this.config.fields).reduce(
       (acc, [key, def]) => {
         const base: z.ZodType = def.type.getZod();
@@ -54,7 +60,8 @@ export class SchemaModel<
       {} as Record<string, z.ZodType>
     ) as unknown as ZodShapeFromFields<Fields>;
 
-    return z.object(shape) as z.ZodObject<ZodShapeFromFields<Fields>>;
+    this.cachedZod = z.object(shape) as z.ZodObject<ZodShapeFromFields<Fields>>;
+    return this.cachedZod;
   }
 
   /** Input object name for GraphQL builder adapters. */

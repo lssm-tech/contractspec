@@ -12,12 +12,16 @@ import {
   type AnyOperationSpec,
   EventRegistry,
   type AnyEventSpec,
-  type PresentationSpec,
-  type DataViewSpec,
   type FormSpec,
 } from '@contractspec/lib.contracts';
-import { PresentationRegistry } from '@contractspec/lib.contracts/presentations';
-import { DataViewRegistry } from '@contractspec/lib.contracts/data-views';
+import {
+  PresentationRegistry,
+  type PresentationSpec,
+} from '@contractspec/lib.contracts/presentations';
+import {
+  DataViewRegistry,
+  type DataViewSpec,
+} from '@contractspec/lib.contracts/data-views';
 import { FormRegistry } from '@contractspec/lib.contracts/forms';
 import {
   serializeOperationSpec,

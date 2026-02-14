@@ -1,9 +1,5 @@
-import {
-  defineEvent,
-  defineSchemaModel,
-  StabilityEnum,
-} from '@contractspec/lib.contracts';
-import { ScalarTypeEnum } from '@contractspec/lib.schema';
+import { defineEvent, StabilityEnum } from '@contractspec/lib.contracts';
+import { ScalarTypeEnum, defineSchemaModel } from '@contractspec/lib.schema';
 
 const KbChangeDetectedPayload = defineSchemaModel({
   name: 'KbChangeDetectedPayload',

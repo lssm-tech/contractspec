@@ -3716,7 +3716,7 @@
 
     "@pkgr/core": ["@pkgr/core@0.2.9", "", {}, "sha512-QNqXyfVS2wm9hweSYD2O7F0G06uurj9kZ96TRQE5Y9hU7+tgdZwIkbAKc5Ocy1HxEY2kuDQa6cQ1WRs/O5LFKA=="],
 
-    "@posthog/ai": ["@posthog/ai@7.8.10", "", { "dependencies": { "@anthropic-ai/sdk": "^0.74.0", "@google/genai": "^1.40.0", "@langchain/core": "^1.1.17", "@posthog/core": "1.22.0", "langchain": "^1.2.3", "openai": "^6.17.0", "uuid": "^11.1.0", "zod": "^4.1.13" }, "peerDependencies": { "@ai-sdk/provider": "^2.0.0 || ^3.0.0", "posthog-node": "^5.0.0" }, "optionalPeers": ["@ai-sdk/provider"] }, "sha512-BY4PfB4cc5L2FGd0wqmr6kn9sZa7eVRdSbbWkbzD1WQxNE/ofxGkgphSuqISEJ8FZfxWlXHoS6bhJAwaKmStbw=="],
+    "@posthog/ai": ["@posthog/ai@7.8.11", "", { "dependencies": { "@anthropic-ai/sdk": "^0.74.0", "@google/genai": "^1.40.0", "@langchain/core": "^1.1.17", "@posthog/core": "1.22.0", "langchain": "^1.2.3", "openai": "^6.17.0", "uuid": "^11.1.0", "zod": "^4.1.13" }, "peerDependencies": { "@ai-sdk/provider": "^2.0.0 || ^3.0.0", "posthog-node": "^5.0.0" }, "optionalPeers": ["@ai-sdk/provider"] }, "sha512-h2TVBtCjMXAbeCHS3Vi67ocuyWS/u5V+v3FqRZkukkgohpjhKaKDBxdhWvZcXcHHy/lMKrYb/twx9PqXjsVn4g=="],
 
     "@posthog/core": ["@posthog/core@1.22.0", "", { "dependencies": { "cross-spawn": "^7.0.6" } }, "sha512-WkmOnq95aAOu6yk6r5LWr5cfXsQdpVbWDCwOxQwxSne8YV6GuZET1ziO5toSQXgrgbdcjrSz2/GopAfiL6iiAA=="],
 

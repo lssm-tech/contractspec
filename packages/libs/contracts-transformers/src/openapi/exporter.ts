@@ -7,11 +7,11 @@ import type {
   FeatureRegistry,
   PresentationRegistry,
   FormRegistry,
-  DataViewRegistry,
-  WorkflowRegistry,
   EventSpec,
   PresentationSpec,
 } from '@contractspec/lib.contracts';
+import type { DataViewRegistry } from '@contractspec/lib.contracts/data-views';
+import type { WorkflowRegistry } from '@contractspec/lib.contracts/workflow';
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type {
   ContractSpecOpenApiDocument,

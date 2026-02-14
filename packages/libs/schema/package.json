@@ -51,6 +51,7 @@
     "./FieldType": "./src/FieldType.ts",
     "./GraphQLSchemaType": "./src/GraphQLSchemaType.ts",
     "./JsonSchemaType": "./src/JsonSchemaType.ts",
+    "./ScalarFactoryCache": "./src/ScalarFactoryCache.ts",
     "./ScalarTypeEnum": "./src/ScalarTypeEnum.ts",
     "./SchemaModel": "./src/SchemaModel.ts",
     "./SchemaModelType": "./src/SchemaModelType.ts",
@@ -128,6 +129,13 @@
         "node": "./dist/node/JsonSchemaType.js",
         "browser": "./dist/browser/JsonSchemaType.js",
         "default": "./dist/JsonSchemaType.js"
+      },
+      "./ScalarFactoryCache": {
+        "types": "./dist/ScalarFactoryCache.d.ts",
+        "bun": "./dist/ScalarFactoryCache.js",
+        "node": "./dist/node/ScalarFactoryCache.js",
+        "browser": "./dist/browser/ScalarFactoryCache.js",
+        "default": "./dist/ScalarFactoryCache.js"
       },
       "./ScalarTypeEnum": {
         "types": "./dist/ScalarTypeEnum.d.ts",

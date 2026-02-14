@@ -7,14 +7,16 @@ import {
   RegeneratorService,
   type ProposalExecutorDeps,
   type ExecutorSinkOptions,
-  type AppBlueprintSpec,
-  type TenantAppConfig,
   type ProposalSink,
   type RegenerationContext,
   type RegenerationRule,
   type SignalAdapters,
-  resolveAppConfig,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts/regenerator';
+import { resolveAppConfig } from '@contractspec/lib.contracts/app-config/runtime';
+import type {
+  AppBlueprintSpec,
+  TenantAppConfig,
+} from '@contractspec/lib.contracts/app-config/spec';
 
 interface RegeneratorCliOptions {
   once?: boolean;

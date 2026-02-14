@@ -229,7 +229,7 @@ export async function importFromOpenApiService(
         });
         hasRegistry = true;
       } else if (isModels) {
-        registryCode += `import { ModelRegistry } from '@contractspec/lib.contracts';\n\n`;
+        registryCode += `import { ModelRegistry } from '@contractspec/lib.contracts/model-registry';\n\n`;
         registryCode += `export const modelRegistry = new ModelRegistry();\n`;
         specs.forEach((s) => {
           registryCode += `modelRegistry.register(${s.name});\n`;

@@ -1,8 +1,8 @@
+import type { KnowledgeCategory } from '@contractspec/lib.contracts';
 import type {
   ResolvedAppConfig,
   ResolvedKnowledge,
-  KnowledgeCategory,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts/app-config/runtime';
 import type { KnowledgeAccessContext, KnowledgeAccessResult } from '../types';
 
 export interface KnowledgeAccessGuardOptions {

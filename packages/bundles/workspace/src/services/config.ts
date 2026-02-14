@@ -7,7 +7,7 @@ import {
   ContractsrcSchema,
   DEFAULT_CONTRACTSRC,
   type ResolvedContractsrcConfig,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts/workspace-config';
 
 /**
  * Load workspace configuration from .contractsrc.json.

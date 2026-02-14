@@ -1,10 +1,11 @@
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import type { McpCtxFactories } from './mcpTypes';
+import {} from '../../presentations/';
 import {
   createDefaultTransformEngine,
   registerBasicValidation,
   registerDefaultReactRenderer,
-} from '../../presentations/';
+} from '../../presentations/transform-engine';
 import { sanitizeMcpName } from '../../jsonschema';
 
 function isEngineRenderOutput(

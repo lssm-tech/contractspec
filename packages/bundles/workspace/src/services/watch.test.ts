@@ -6,7 +6,7 @@ import type { WatcherAdapter } from '../ports/watcher';
 import {
   DEFAULT_CONTRACTSRC,
   type ResolvedContractsrcConfig,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts/workspace-config';
 
 describe('Watch Service', () => {
   const mockWatcher = {

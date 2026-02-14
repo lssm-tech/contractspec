@@ -1,4 +1,4 @@
-import { createAgentJsonRunner } from '@contractspec/lib.ai-agent';
+import { createAgentJsonRunner } from '@contractspec/lib.ai-agent/agent/json-runner';
 import {
   buildProjectManagementSyncPayload,
   extractEvidence,

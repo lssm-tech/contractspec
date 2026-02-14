@@ -421,7 +421,7 @@ import type {
   ConfigurationError,
   GenerationError
 } from "./types.js";
-import { schemaToMarkdown } from "@contractspec/lib.contracts";
+import { schemaToMarkdown } from "@contractspec/lib.contracts/schema-to-markdown";
 import { validateConfig, mergeConfig } from "./config.js";
 
 /**

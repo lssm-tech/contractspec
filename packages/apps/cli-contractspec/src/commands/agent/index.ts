@@ -6,7 +6,7 @@ import {
   exportToClaudeAgent,
   exportToOpenCode,
 } from '@contractspec/lib.ai-agent/exporters';
-import type { AgentSpec } from '@contractspec/lib.ai-agent';
+import type { AgentSpec } from '@contractspec/lib.ai-agent/spec';
 import { loadSpecFromFile } from '../../utils/spec-load';
 
 export const agentCommand = new Command('agent');

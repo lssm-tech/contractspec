@@ -5,7 +5,7 @@ import type { LoggerAdapter } from '../ports/logger';
 import {
   DEFAULT_CONTRACTSRC,
   type ResolvedContractsrcConfig,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts/workspace-config';
 
 describe('Sync Service', () => {
   const mockFs = {

@@ -6,7 +6,7 @@ import { web } from '@contractspec/lib.runtime-sandbox';
 
 const { LocalRuntimeServices } = web;
 
-import { type TransformEngine } from '@contractspec/lib.contracts/presentations';
+import type { TransformEngine } from '@contractspec/lib.contracts/presentations/transform-engine';
 
 // Import handlers from example packages
 import {

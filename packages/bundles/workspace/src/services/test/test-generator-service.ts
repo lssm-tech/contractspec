@@ -1,7 +1,4 @@
-import type {
-  LanguageModel,
-  LanguageModelUsage,
-} from '@contractspec/lib.ai-agent';
+import type { LanguageModel, LanguageModelUsage } from 'ai';
 import { generateText } from 'ai';
 import {
   type TestSpec,

@@ -3,10 +3,12 @@ import type { Logger } from '@contractspec/lib.logger';
 import {
   ContractRegistryItemTypeSchema,
   ContractRegistryManifestSchema,
+} from '@contractspec/lib.contracts/contract-registry/schemas';
+import {
   type ContractRegistryItem,
   type ContractRegistryItemType,
   type ContractRegistryManifest,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts/contract-registry/types';
 import { readJsonFile, readTextFile } from '../utils/fs';
 import { fromRepoRoot } from '../utils/paths';
 

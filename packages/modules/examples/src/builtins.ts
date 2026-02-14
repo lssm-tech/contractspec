@@ -1,4 +1,4 @@
-import type { ExampleSpec } from '@contractspec/lib.contracts';
+import type { ExampleSpec } from '@contractspec/lib.contracts/examples/types';
 
 // Import manifests ONLY via the side-effect-free `/example` entrypoints.
 import AgentConsole from '@contractspec/example.agent-console/example';

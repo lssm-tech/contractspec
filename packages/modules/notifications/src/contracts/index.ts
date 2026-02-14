@@ -1,9 +1,9 @@
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts';
 import {
-  defineCommand,
-  defineQuery,
+  ScalarTypeEnum,
+  defineEnum,
   defineSchemaModel,
-} from '@contractspec/lib.contracts';
-import { ScalarTypeEnum, defineEnum } from '@contractspec/lib.schema';
+} from '@contractspec/lib.schema';
 
 const OWNERS = ['platform.notifications'] as const;
 
