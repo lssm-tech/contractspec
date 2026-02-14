@@ -2,7 +2,7 @@
   {
     "id": "app-config/app_config.draft_created",
     "title": "app_config.draft_created",
-    "summary": "A new tenant config draft was created.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts/src/app-config/events.ts`\n```typescript\nexport const ConfigDraftCreatedEvent = defineEvent({",
+    "summary": "A new tenant config draft was created.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/app-config/events.ts`\n```typescript\nexport const ConfigDraftCreatedEvent = defineEvent({",
     "route": "/docs/reference/app-config/app_config.draft_created",
     "source": "generated",
     "contentPath": "app-config/app_config.draft_created.md"
@@ -10,7 +10,7 @@
   {
     "id": "app-config/app_config.promoted_to_preview",
     "title": "app_config.promoted_to_preview",
-    "summary": "A tenant config draft was promoted to preview.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts/src/app-config/events.ts`\n```typescript\nexport const ConfigPromotedToPreviewEvent = defineEvent({",
+    "summary": "A tenant config draft was promoted to preview.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/app-config/events.ts`\n```typescript\nexport const ConfigPromotedToPreviewEvent = defineEvent({",
     "route": "/docs/reference/app-config/app_config.promoted_to_preview",
     "source": "generated",
     "contentPath": "app-config/app_config.promoted_to_preview.md"
@@ -18,7 +18,7 @@
   {
     "id": "app-config/app_config.published",
     "title": "app_config.published",
-    "summary": "A tenant config version was published to production.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts/src/app-config/events.ts`\n```typescript\nexport const ConfigPublishedEvent = defineEvent({",
+    "summary": "A tenant config version was published to production.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/app-config/events.ts`\n```typescript\nexport const ConfigPublishedEvent = defineEvent({",
     "route": "/docs/reference/app-config/app_config.published",
     "source": "generated",
     "contentPath": "app-config/app_config.published.md"
@@ -26,7 +26,7 @@
   {
     "id": "app-config/app_config.rolled_back",
     "title": "app_config.rolled_back",
-    "summary": "A tenant config was rolled back to a previous version.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts/src/app-config/events.ts`\n```typescript\nexport const ConfigRolledBackEvent = defineEvent({",
+    "summary": "A tenant config was rolled back to a previous version.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/app-config/events.ts`\n```typescript\nexport const ConfigRolledBackEvent = defineEvent({",
     "route": "/docs/reference/app-config/app_config.rolled_back",
     "source": "generated",
     "contentPath": "app-config/app_config.rolled_back.md"
@@ -34,7 +34,7 @@
   {
     "id": "app-config/app-config",
     "title": "app-config",
-    "summary": "Provides tenant app configuration lifecycle management.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts/src/app-config/app-config.capability.ts`\n```typescript\nexport const AppConfigCapability = defineCapability({",
+    "summary": "Provides tenant app configuration lifecycle management.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/app-config/app-config.capability.ts`\n```typescript",
     "route": "/docs/reference/app-config/app-config",
     "source": "generated",
     "contentPath": "app-config/app-config.md"
@@ -42,7 +42,7 @@
   {
     "id": "app-config/appConfig.getResolvedBranding",
     "title": "appConfig.getResolvedBranding",
-    "summary": "Returns the resolved branding for a tenant/app/environment.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: branding\n- **File**: `packages/libs/contracts/src/app-config/app-config.contracts.ts`",
+    "summary": "Returns the resolved branding for a tenant/app/environment.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: branding\n- **File**: `packages/libs/contracts-spec/src/app-config/app-config.contracts.ts`",
     "route": "/docs/reference/app-config/appConfig.getResolvedBranding",
     "source": "generated",
     "contentPath": "app-config/appConfig.getResolvedBranding.md"
@@ -50,7 +50,7 @@
   {
     "id": "app-config/appConfig.lifecycle.createDraft",
     "title": "appConfig.lifecycle.createDraft",
-    "summary": "Creates a new draft tenant config version.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: app-config\n- **File**: `packages/libs/contracts/src/app-config/lifecycle-contracts.ts`\nAllow operators to start editing a new tenant config version.",
+    "summary": "Creates a new draft tenant config version.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: app-config\n- **File**: `packages/libs/contracts-spec/src/app-config/lifecycle-contracts.ts`\nAllow operators to start editing a new tenant config version.",
     "route": "/docs/reference/app-config/appConfig.lifecycle.createDraft",
     "source": "generated",
     "contentPath": "app-config/appConfig.lifecycle.createDraft.md"
@@ -58,7 +58,7 @@
   {
     "id": "app-config/appConfig.lifecycle.getVersion",
     "title": "appConfig.lifecycle.getVersion",
-    "summary": "Fetches a single tenant config version by id.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: app-config\n- **File**: `packages/libs/contracts/src/app-config/lifecycle-contracts.ts`\nAllow detail drill-down for lifecycle entries.",
+    "summary": "Fetches a single tenant config version by id.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: app-config\n- **File**: `packages/libs/contracts-spec/src/app-config/lifecycle-contracts.ts`\nAllow detail drill-down for lifecycle entries.",
     "route": "/docs/reference/app-config/appConfig.lifecycle.getVersion",
     "source": "generated",
     "contentPath": "app-config/appConfig.lifecycle.getVersion.md"
@@ -66,7 +66,7 @@
   {
     "id": "app-config/appConfig.lifecycle.listVersions",
     "title": "appConfig.lifecycle.listVersions",
-    "summary": "Lists all versions of a tenant configuration.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: app-config\n- **File**: `packages/libs/contracts/src/app-config/lifecycle-contracts.ts`\nSupport lifecycle views and change audit tooling.",
+    "summary": "Lists all versions of a tenant configuration.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: app-config\n- **File**: `packages/libs/contracts-spec/src/app-config/lifecycle-contracts.ts`\nSupport lifecycle views and change audit tooling.",
     "route": "/docs/reference/app-config/appConfig.lifecycle.listVersions",
     "source": "generated",
     "contentPath": "app-config/appConfig.lifecycle.listVersions.md"
@@ -74,7 +74,7 @@
   {
     "id": "app-config/appConfig.lifecycle.promoteToPreview",
     "title": "appConfig.lifecycle.promoteToPreview",
-    "summary": "Promotes a draft tenant config to preview/testing state.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: app-config\n- **File**: `packages/libs/contracts/src/app-config/lifecycle-contracts.ts`",
+    "summary": "Promotes a draft tenant config to preview/testing state.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: app-config\n- **File**: `packages/libs/contracts-spec/src/app-config/lifecycle-contracts.ts`",
     "route": "/docs/reference/app-config/appConfig.lifecycle.promoteToPreview",
     "source": "generated",
     "contentPath": "app-config/appConfig.lifecycle.promoteToPreview.md"
@@ -82,7 +82,7 @@
   {
     "id": "app-config/appConfig.lifecycle.publish",
     "title": "appConfig.lifecycle.publish",
-    "summary": "Publishes a preview tenant config to production.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: app-config\n- **File**: `packages/libs/contracts/src/app-config/lifecycle-contracts.ts`\nPromote tested configurations to production safely.",
+    "summary": "Publishes a preview tenant config to production.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: app-config\n- **File**: `packages/libs/contracts-spec/src/app-config/lifecycle-contracts.ts`",
     "route": "/docs/reference/app-config/appConfig.lifecycle.publish",
     "source": "generated",
     "contentPath": "app-config/appConfig.lifecycle.publish.md"
@@ -90,7 +90,7 @@
   {
     "id": "app-config/appConfig.lifecycle.rollback",
     "title": "appConfig.lifecycle.rollback",
-    "summary": "Rolls back to a previously published tenant config version.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: app-config\n- **File**: `packages/libs/contracts/src/app-config/lifecycle-contracts.ts`",
+    "summary": "Rolls back to a previously published tenant config version.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: app-config\n- **File**: `packages/libs/contracts-spec/src/app-config/lifecycle-contracts.ts`",
     "route": "/docs/reference/app-config/appConfig.lifecycle.rollback",
     "source": "generated",
     "contentPath": "app-config/appConfig.lifecycle.rollback.md"
@@ -98,7 +98,7 @@
   {
     "id": "app-config/appConfig.resolveMessage",
     "title": "appConfig.resolveMessage",
-    "summary": "Resolves a translation key for a tenant in the requested locale.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts/src/app-config/app-config.contracts.ts`\nExpose a server-side API for resolving message keys on demand.",
+    "summary": "Resolves a translation key for a tenant in the requested locale.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/app-config/app-config.contracts.ts`\nExpose a server-side API for resolving message keys on demand.",
     "route": "/docs/reference/app-config/appConfig.resolveMessage",
     "source": "generated",
     "contentPath": "app-config/appConfig.resolveMessage.md"
@@ -106,7 +106,7 @@
   {
     "id": "app-config/appConfig.updateBlueprintTranslationCatalog",
     "title": "appConfig.updateBlueprintTranslationCatalog",
-    "summary": "Registers or updates translation entries for a blueprint.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts/src/app-config/app-config.contracts.ts`\nKeep blueprint translation catalogs in sync with shipped copy.",
+    "summary": "Registers or updates translation entries for a blueprint.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/app-config/app-config.contracts.ts`\nKeep blueprint translation catalogs in sync with shipped copy.",
     "route": "/docs/reference/app-config/appConfig.updateBlueprintTranslationCatalog",
     "source": "generated",
     "contentPath": "app-config/appConfig.updateBlueprintTranslationCatalog.md"
@@ -114,7 +114,7 @@
   {
     "id": "app-config/appConfig.updateTenantBranding",
     "title": "appConfig.updateTenantBranding",
-    "summary": "Applies tenant branding overrides (names, assets, domains).\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: branding\n- **File**: `packages/libs/contracts/src/app-config/app-config.contracts.ts`",
+    "summary": "Applies tenant branding overrides (names, assets, domains).\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: branding\n- **File**: `packages/libs/contracts-spec/src/app-config/app-config.contracts.ts`",
     "route": "/docs/reference/app-config/appConfig.updateTenantBranding",
     "source": "generated",
     "contentPath": "app-config/appConfig.updateTenantBranding.md"
@@ -122,7 +122,7 @@
   {
     "id": "app-config/appConfig.updateTenantTranslations",
     "title": "appConfig.updateTenantTranslations",
-    "summary": "Applies tenant-specific translation entries.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts/src/app-config/app-config.contracts.ts`\nAllow tenants to override selected message keys.",
+    "summary": "Applies tenant-specific translation entries.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/app-config/app-config.contracts.ts`\nAllow tenants to override selected message keys.",
     "route": "/docs/reference/app-config/appConfig.updateTenantTranslations",
     "source": "generated",
     "contentPath": "app-config/appConfig.updateTenantTranslations.md"
@@ -130,7 +130,7 @@
   {
     "id": "app-config/appConfig.verifyCustomDomain",
     "title": "appConfig.verifyCustomDomain",
-    "summary": "Validates DNS ownership for tenant custom domains.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: branding\n- **File**: `packages/libs/contracts/src/app-config/app-config.contracts.ts`\nConfirm tenant-provided domains before activation.",
+    "summary": "Validates DNS ownership for tenant custom domains.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: branding\n- **File**: `packages/libs/contracts-spec/src/app-config/app-config.contracts.ts`",
     "route": "/docs/reference/app-config/appConfig.verifyCustomDomain",
     "source": "generated",
     "contentPath": "app-config/appConfig.verifyCustomDomain.md"

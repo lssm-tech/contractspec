@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-02-12T03:19:31.085Z",
-  "total": 686,
+  "generatedAt": "2026-02-14T18:06:14.346Z",
+  "total": 733,
   "version": null,
   "contentRoot": "../../../../../../../generated/docs",
   "chunks": [
     {
       "key": "_common",
       "file": "docs-index._common.json",
-      "total": 56
+      "total": 46
     },
     {
       "key": "agent-console",
@@ -130,11 +130,6 @@
       "total": 29
     },
     {
-      "key": "platform.knowledge",
-      "file": "docs-index.platform-knowledge.json",
-      "total": 7
-    },
-    {
       "key": "pocket-family-office",
       "file": "docs-index.pocket-family-office.json",
       "total": 15
@@ -158,6 +153,11 @@
       "key": "team-hub",
       "file": "docs-index.team-hub.json",
       "total": 23
+    },
+    {
+      "key": "unknown",
+      "file": "docs-index.unknown.json",
+      "total": 64
     },
     {
       "key": "versioned-knowledge-base",
