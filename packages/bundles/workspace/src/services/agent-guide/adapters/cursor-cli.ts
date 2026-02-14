@@ -5,12 +5,12 @@
  * Can also generate .mdc cursor rules files.
  */
 
-import type { AnyOperationSpec } from '@contractspec/lib.contracts';
+import type { AnyOperationSpec } from '@contractspec/lib.contracts-spec';
 import type {
   AgentPrompt,
   ImplementationPlan,
-} from '@contractspec/lib.contracts/llm';
-import { AGENT_SYSTEM_PROMPTS } from '@contractspec/lib.contracts/llm';
+} from '@contractspec/lib.contracts-spec/llm';
+import { AGENT_SYSTEM_PROMPTS } from '@contractspec/lib.contracts-spec/llm';
 import type { AgentAdapter } from '../types';
 
 /**

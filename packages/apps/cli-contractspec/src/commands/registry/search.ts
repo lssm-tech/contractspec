@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import type { ContractRegistryManifest } from '@contractspec/lib.contracts';
+import type { ContractRegistryManifest } from '@contractspec/lib.contracts-spec';
 import { getErrorMessage } from '../../utils/errors';
 import { RegistryClient, resolveRegistryUrl } from './client';
 

@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@contractspec/lib.presentation-runtime-core": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.ui-kit-web": "workspace:*"
   },

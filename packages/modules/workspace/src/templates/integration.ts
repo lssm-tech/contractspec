@@ -40,7 +40,7 @@ export function generateIntegrationSpec(data: IntegrationSpecData): string {
     data.byokRequiredScopes
   );
 
-  return `import { StabilityEnum } from '@contractspec/lib.contracts/ownership';
+  return `import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration } from '@contractspec/lib.contracts-integrations';
 import type { IntegrationSpecRegistry } from '@contractspec/lib.contracts-integrations';
 

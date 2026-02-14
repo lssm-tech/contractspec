@@ -1,4 +1,4 @@
-import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts-spec';
 import { DashboardModel } from './dashboard.schema';
 
 export const DashboardsListPresentation = definePresentation({

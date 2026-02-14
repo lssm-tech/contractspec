@@ -7,12 +7,12 @@
  * - Imports are correct
  */
 
-import type { AnyOperationSpec } from '@contractspec/lib.contracts';
-import { isEmitDeclRef } from '@contractspec/lib.contracts/operations';
+import type { AnyOperationSpec } from '@contractspec/lib.contracts-spec';
+import { isEmitDeclRef } from '@contractspec/lib.contracts-spec/operations';
 import type {
   VerificationIssue,
   VerificationReport,
-} from '@contractspec/lib.contracts/llm';
+} from '@contractspec/lib.contracts-spec/llm';
 import type { StructureCheck, VerifyInput } from './types';
 
 /**
@@ -35,20 +35,20 @@ function checkHandlerExport(code: string): StructureCheck {
 }
 
 /**
- * Check if code imports from @contractspec/lib.contracts.
+ * Check if code imports from @contractspec/lib.contracts-spec.
  */
 function checkContractsImport(code: string): StructureCheck {
   const hasImport =
-    code.includes("from '@contractspec/lib.contracts'") ||
-    code.includes('from "@contractspec/lib.contracts"');
+    code.includes("from '@contractspec/lib.contracts-spec'") ||
+    code.includes('from "@contractspec/lib.contracts-spec"');
 
   return {
     name: 'contracts_import',
     passed: hasImport,
     details: hasImport
       ? undefined
-      : 'Missing import from @contractspec/lib.contracts',
-    suggestion: "Add: import { ... } from '@contractspec/lib.contracts';",
+      : 'Missing import from @contractspec/lib.contracts-spec',
+    suggestion: "Add: import { ... } from '@contractspec/lib.contracts-spec';",
   };
 }
 

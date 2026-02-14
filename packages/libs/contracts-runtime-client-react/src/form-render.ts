@@ -1,1 +1,1 @@
-export * from '@contractspec/lib.contracts/client/react/form-render';
+export * from './form-render.impl';

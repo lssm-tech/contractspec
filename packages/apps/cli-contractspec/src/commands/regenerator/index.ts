@@ -11,12 +11,12 @@ import {
   type RegenerationContext,
   type RegenerationRule,
   type SignalAdapters,
-} from '@contractspec/lib.contracts/regenerator';
-import { resolveAppConfig } from '@contractspec/lib.contracts/app-config/runtime';
+} from '@contractspec/lib.contracts-spec/regenerator';
+import { resolveAppConfig } from '@contractspec/lib.contracts-spec/app-config/runtime';
 import type {
   AppBlueprintSpec,
   TenantAppConfig,
-} from '@contractspec/lib.contracts/app-config/spec';
+} from '@contractspec/lib.contracts-spec/app-config/spec';
 
 interface RegeneratorCliOptions {
   once?: boolean;

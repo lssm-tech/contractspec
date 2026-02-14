@@ -1,4 +1,4 @@
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts/features';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts-spec/features';
 
 /**
  * Documentation feature for ContractSpec.

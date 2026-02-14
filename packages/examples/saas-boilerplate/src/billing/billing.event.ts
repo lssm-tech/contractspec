@@ -1,5 +1,5 @@
 import { ScalarTypeEnum, defineSchemaModel } from '@contractspec/lib.schema';
-import { defineEvent } from '@contractspec/lib.contracts';
+import { defineEvent } from '@contractspec/lib.contracts-spec';
 
 /**
  * Payload when feature usage is recorded.

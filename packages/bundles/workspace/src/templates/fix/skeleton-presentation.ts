@@ -56,7 +56,7 @@ export function generateSkeletonPresentation(
  * Referenced by feature: ${ctx.featureKey || 'unknown'}
  */
 
-import { definePresentation } from '@contractspec/lib.contracts';
+import { definePresentation } from '@contractspec/lib.contracts-spec';
 
 export const ${specVarName} = definePresentation({
   meta: {

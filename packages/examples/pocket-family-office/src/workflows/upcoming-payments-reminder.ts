@@ -1,9 +1,9 @@
-import { defineWorkflow } from '@contractspec/lib.contracts/workflow';
+import { defineWorkflow } from '@contractspec/lib.contracts-spec/workflow';
 import {
   OwnersEnum,
   StabilityEnum,
   TagsEnum,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 
 export const upcomingPaymentsReminderWorkflow = defineWorkflow({
   meta: {

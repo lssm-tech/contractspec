@@ -8,7 +8,7 @@ import {
   OperationSpecRegistry,
   PromptRegistry,
   ResourceRegistry,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 import z from 'zod';
 import { createMcpElysiaHandler } from './common';

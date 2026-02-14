@@ -13,7 +13,7 @@ import type { SpecScanResult } from '@contractspec/module.workspace';
 import type {
   ImplementationType,
   ResolvedContractsrcConfig,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 import type { FsAdapter } from '../../../ports/fs';
 import type {
   ResolvedImplementation,

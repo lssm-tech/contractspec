@@ -1,7 +1,7 @@
 /**
  * Team Hub Presentations
  */
-import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts-spec';
 
 const OWNERS = ['@team-hub'] as const;
 

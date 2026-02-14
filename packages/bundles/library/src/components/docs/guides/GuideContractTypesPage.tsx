@@ -81,7 +81,7 @@ export function GuideContractTypesPage() {
           <CodeBlock
             language="typescript"
             filename="src/contracts/user.operation.ts"
-            code={`import { defineCommand, defineQuery } from "@contractspec/lib.contracts";
+            code={`import { defineCommand, defineQuery } from "@contractspec/lib.contracts-spec";
 import { SchemaModel, ScalarTypeEnum } from "@contractspec/lib.schema";
 
 // Command: Mutates state (creates a user)
@@ -161,7 +161,7 @@ export const GetUserQuery = defineQuery({
           <CodeBlock
             language="typescript"
             filename="src/contracts/user.event.ts"
-            code={`import { defineEvent } from "@contractspec/lib.contracts";
+            code={`import { defineEvent } from "@contractspec/lib.contracts-spec";
 import { SchemaModel, ScalarTypeEnum } from "@contractspec/lib.schema";
 
 export const UserCreatedEvent = defineEvent({
@@ -216,7 +216,7 @@ export const UserDeletedEvent = defineEvent({
           <CodeBlock
             language="typescript"
             filename="src/contracts/user-management.capability.ts"
-            code={`import { defineCapability } from "@contractspec/lib.contracts";
+            code={`import { defineCapability } from "@contractspec/lib.contracts-spec";
 
 export const UserManagementCapability = defineCapability({
   meta: {
@@ -273,7 +273,7 @@ export const AdminUserCapability = defineCapability({
           <CodeBlock
             language="typescript"
             filename="src/contracts/user-list.presentation.ts"
-            code={`import { definePresentation } from "@contractspec/lib.contracts";
+            code={`import { definePresentation } from "@contractspec/lib.contracts-spec";
 
 export const UserListPresentation = definePresentation({
   meta: {
@@ -377,9 +377,9 @@ export const UserListPresentation = definePresentation({
             code={`import {
   OperationSpecRegistry,
   installOp,
-} from "@contractspec/lib.contracts/operations";
-import { EventRegistry } from "@contractspec/lib.contracts";
-import { CapabilityRegistry } from "@contractspec/lib.contracts/capabilities";
+} from "@contractspec/lib.contracts-spec/operations";
+import { EventRegistry } from "@contractspec/lib.contracts-spec";
+import { CapabilityRegistry } from "@contractspec/lib.contracts-spec/capabilities";
 
 // Import your contracts
 import { CreateUserCommand, GetUserQuery } from "./user.operation";

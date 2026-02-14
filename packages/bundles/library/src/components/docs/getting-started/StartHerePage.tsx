@@ -22,7 +22,7 @@ export function StartHerePage() {
           <h2 className="text-2xl font-bold">Add core libraries</h2>
           <InstallCommand
             package={[
-              '@contractspec/lib.contracts',
+              '@contractspec/lib.contracts-spec',
               '@contractspec/lib.schema',
             ]}
           />

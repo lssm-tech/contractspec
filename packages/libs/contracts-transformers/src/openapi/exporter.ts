@@ -9,9 +9,9 @@ import type {
   FormRegistry,
   EventSpec,
   PresentationSpec,
-} from '@contractspec/lib.contracts';
-import type { DataViewRegistry } from '@contractspec/lib.contracts/data-views';
-import type { WorkflowRegistry } from '@contractspec/lib.contracts/workflow';
+} from '@contractspec/lib.contracts-spec';
+import type { DataViewRegistry } from '@contractspec/lib.contracts-spec/data-views';
+import type { WorkflowRegistry } from '@contractspec/lib.contracts-spec/workflow';
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type {
   ContractSpecOpenApiDocument,

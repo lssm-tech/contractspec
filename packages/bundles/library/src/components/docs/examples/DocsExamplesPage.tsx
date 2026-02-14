@@ -8,7 +8,7 @@ import {
 } from '@contractspec/lib.design-system';
 import { VStack, HStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { H1, Muted } from '@contractspec/lib.ui-kit-web/ui/typography';
-import { ExampleCatalogDataView } from '@contractspec/lib.contracts/docs';
+import { ExampleCatalogDataView } from '@contractspec/lib.contracts-spec/docs';
 
 interface ExampleItem extends Record<string, unknown> {
   id: string;

@@ -3,12 +3,12 @@ import type { Logger } from '@contractspec/lib.logger';
 import {
   ContractRegistryItemTypeSchema,
   ContractRegistryManifestSchema,
-} from '@contractspec/lib.contracts/contract-registry/schemas';
+} from '@contractspec/lib.contracts-spec/contract-registry/schemas';
 import {
   type ContractRegistryItem,
   type ContractRegistryItemType,
   type ContractRegistryManifest,
-} from '@contractspec/lib.contracts/contract-registry/types';
+} from '@contractspec/lib.contracts-spec/contract-registry/types';
 import { readJsonFile, readTextFile } from '../utils/fs';
 import { fromRepoRoot } from '../utils/paths';
 
@@ -20,9 +20,9 @@ function stripJsonSuffix(nameOrNameJson: string): string {
 
 export function getContractSpecRegistryPaths() {
   const manifestPath = fromRepoRoot(
-    'packages/libs/contracts/registry/registry.json'
+    'packages/libs/contracts-spec/registry/registry.json'
   );
-  const contractsRoot = fromRepoRoot('packages/libs/contracts');
+  const contractsRoot = fromRepoRoot('packages/libs/contracts-spec');
   return { manifestPath, contractsRoot };
 }
 

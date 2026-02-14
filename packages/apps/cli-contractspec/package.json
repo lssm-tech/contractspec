@@ -33,7 +33,7 @@
     "@contractspec/bundle.workspace": "workspace:*",
     "@contractspec/lib.ai-agent": "workspace:*",
     "@contractspec/lib.ai-providers": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.contracts-transformers": "workspace:*",
     "@contractspec/lib.plugins": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
@@ -50,7 +50,8 @@
     "ollama-ai-provider": "catalog:ai",
     "ora": "^9.3.0",
     "typescript": "catalog:",
-    "zod": "catalog:"
+    "zod": "catalog:",
+    "@contractspec/lib.contracts-integrations": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",

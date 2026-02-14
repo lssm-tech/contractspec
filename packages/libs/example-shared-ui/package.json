@@ -227,12 +227,12 @@
   },
   "dependencies": {
     "@apollo/client": "^4.1.4",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.ui-kit-web": "workspace:*",
     "@tanstack/react-query": "^5.90.21",
     "framer-motion": "^12.34.0",
-    "lucide-react": "^0.563.0",
+    "lucide-react": "^0.564.0",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

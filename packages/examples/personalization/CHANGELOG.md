@@ -12,7 +12,7 @@
   - @contractspec/lib.workflow-composer@1.61.0
   - @contractspec/lib.personalization@1.61.0
   - @contractspec/lib.overlay-engine@1.61.0
-  - @contractspec/lib.contracts@1.61.0
+  - @contractspec/lib.contracts-spec@1.61.0
   - @contractspec/lib.logger@1.61.0
 
 ## 1.60.0
@@ -27,7 +27,7 @@
   - @contractspec/lib.workflow-composer@1.60.0
   - @contractspec/lib.personalization@1.60.0
   - @contractspec/lib.overlay-engine@1.60.0
-  - @contractspec/lib.contracts@1.60.0
+  - @contractspec/lib.contracts-spec@1.60.0
   - @contractspec/lib.logger@1.60.0
 
 ## 1.59.0
@@ -42,7 +42,7 @@
   - @contractspec/lib.workflow-composer@1.59.0
   - @contractspec/lib.personalization@1.59.0
   - @contractspec/lib.overlay-engine@1.59.0
-  - @contractspec/lib.contracts@1.59.0
+  - @contractspec/lib.contracts-spec@1.59.0
   - @contractspec/lib.logger@1.59.0
 
 ## 1.58.0
@@ -58,7 +58,7 @@
   - @contractspec/lib.workflow-composer@1.58.0
   - @contractspec/lib.personalization@1.58.0
   - @contractspec/lib.overlay-engine@1.58.0
-  - @contractspec/lib.contracts@1.58.0
+  - @contractspec/lib.contracts-spec@1.58.0
   - @contractspec/lib.logger@1.58.0
 
 ## 1.57.0
@@ -75,7 +75,7 @@
 - Updated dependencies [4651e06]
 - Updated dependencies [ad9d10a]
 - Updated dependencies [11a5a05]
-  - @contractspec/lib.contracts@1.57.0
+  - @contractspec/lib.contracts-spec@1.57.0
   - @contractspec/lib.workflow-composer@1.57.0
   - @contractspec/lib.personalization@1.57.0
   - @contractspec/lib.overlay-engine@1.57.0
@@ -90,7 +90,7 @@
   - @contractspec/lib.workflow-composer@1.56.1
   - @contractspec/lib.personalization@1.56.1
   - @contractspec/lib.overlay-engine@1.56.1
-  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.contracts-spec@1.56.1
   - @contractspec/lib.logger@1.56.1
 
 ## 1.56.0
@@ -105,7 +105,7 @@
   - @contractspec/lib.workflow-composer@1.56.0
   - @contractspec/lib.personalization@1.56.0
   - @contractspec/lib.overlay-engine@1.56.0
-  - @contractspec/lib.contracts@1.56.0
+  - @contractspec/lib.contracts-spec@1.56.0
   - @contractspec/lib.logger@1.56.0
 
 ## 1.55.0
@@ -120,7 +120,7 @@
   - @contractspec/lib.workflow-composer@1.55.0
   - @contractspec/lib.personalization@1.55.0
   - @contractspec/lib.overlay-engine@1.55.0
-  - @contractspec/lib.contracts@1.55.0
+  - @contractspec/lib.contracts-spec@1.55.0
   - @contractspec/lib.logger@1.55.0
 
 ## 1.54.0
@@ -132,7 +132,7 @@
 ### Patch Changes
 
 - Updated dependencies [ec5e95c]
-  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/lib.contracts-spec@1.54.0
   - @contractspec/lib.logger@1.54.0
   - @contractspec/lib.overlay-engine@1.54.0
   - @contractspec/lib.personalization@1.54.0
@@ -149,7 +149,7 @@
 - Updated dependencies [5b371b1]
 - Updated dependencies [f4180d4]
 - Updated dependencies [64d84e1]
-  - @contractspec/lib.contracts@1.53.0
+  - @contractspec/lib.contracts-spec@1.53.0
   - @contractspec/lib.logger@1.53.0
   - @contractspec/lib.overlay-engine@1.53.0
   - @contractspec/lib.personalization@1.53.0
@@ -167,7 +167,7 @@
   - @contractspec/lib.workflow-composer@1.52.0
   - @contractspec/lib.personalization@1.52.0
   - @contractspec/lib.overlay-engine@1.52.0
-  - @contractspec/lib.contracts@1.52.0
+  - @contractspec/lib.contracts-spec@1.52.0
   - @contractspec/lib.logger@1.52.0
 
 ## 1.51.0
@@ -181,7 +181,7 @@
 - Updated dependencies [23e46e9]
 - Updated dependencies [ad1f852]
 - Updated dependencies [e6faefb]
-  - @contractspec/lib.contracts@1.51.0
+  - @contractspec/lib.contracts-spec@1.51.0
   - @contractspec/lib.workflow-composer@1.51.0
   - @contractspec/lib.personalization@1.51.0
   - @contractspec/lib.overlay-engine@1.51.0
@@ -196,7 +196,7 @@
 ### Patch Changes
 
 - Updated dependencies [5325d6b]
-  - @contractspec/lib.contracts@1.50.0
+  - @contractspec/lib.contracts-spec@1.50.0
   - @contractspec/lib.logger@1.50.0
   - @contractspec/lib.overlay-engine@1.50.0
   - @contractspec/lib.personalization@1.50.0
@@ -214,7 +214,7 @@
   - @contractspec/lib.workflow-composer@1.49.0
   - @contractspec/lib.personalization@1.49.0
   - @contractspec/lib.overlay-engine@1.49.0
-  - @contractspec/lib.contracts@1.49.0
+  - @contractspec/lib.contracts-spec@1.49.0
   - @contractspec/lib.logger@1.49.0
 
 ## 1.48.1
@@ -222,7 +222,7 @@
 ### Patch Changes
 
 - Updated dependencies [c560ee7]
-  - @contractspec/lib.contracts@1.48.1
+  - @contractspec/lib.contracts-spec@1.48.1
   - @contractspec/lib.overlay-engine@1.48.1
   - @contractspec/lib.personalization@1.48.1
   - @contractspec/lib.workflow-composer@1.48.1
@@ -239,7 +239,7 @@
   - @contractspec/lib.workflow-composer@1.48.0
   - @contractspec/lib.personalization@1.48.0
   - @contractspec/lib.overlay-engine@1.48.0
-  - @contractspec/lib.contracts@1.48.0
+  - @contractspec/lib.contracts-spec@1.48.0
   - @contractspec/lib.logger@1.48.0
 
 ## 1.47.0
@@ -264,7 +264,7 @@
   - @contractspec/lib.workflow-composer@1.47.0
   - @contractspec/lib.personalization@1.47.0
   - @contractspec/lib.overlay-engine@1.47.0
-  - @contractspec/lib.contracts@1.47.0
+  - @contractspec/lib.contracts-spec@1.47.0
   - @contractspec/lib.logger@1.47.0
 
 ## 1.46.2
@@ -276,7 +276,7 @@
   - @contractspec/lib.workflow-composer@1.46.2
   - @contractspec/lib.personalization@1.46.2
   - @contractspec/lib.overlay-engine@1.46.2
-  - @contractspec/lib.contracts@1.46.2
+  - @contractspec/lib.contracts-spec@1.46.2
   - @contractspec/lib.logger@1.46.2
 
 ## 1.46.1
@@ -288,7 +288,7 @@
   - @contractspec/lib.workflow-composer@1.46.1
   - @contractspec/lib.personalization@1.46.1
   - @contractspec/lib.overlay-engine@1.46.1
-  - @contractspec/lib.contracts@1.46.1
+  - @contractspec/lib.contracts-spec@1.46.1
   - @contractspec/lib.logger@1.46.1
 
 ## 1.46.0
@@ -303,7 +303,7 @@
   - @contractspec/lib.workflow-composer@1.46.0
   - @contractspec/lib.personalization@1.46.0
   - @contractspec/lib.overlay-engine@1.46.0
-  - @contractspec/lib.contracts@1.46.0
+  - @contractspec/lib.contracts-spec@1.46.0
   - @contractspec/lib.logger@1.46.0
 
 ## 1.45.6
@@ -315,7 +315,7 @@
   - @contractspec/lib.workflow-composer@1.45.6
   - @contractspec/lib.personalization@1.45.6
   - @contractspec/lib.overlay-engine@1.45.6
-  - @contractspec/lib.contracts@1.45.6
+  - @contractspec/lib.contracts-spec@1.45.6
   - @contractspec/lib.logger@1.45.6
 
 ## 1.45.5
@@ -327,7 +327,7 @@
   - @contractspec/lib.workflow-composer@1.45.5
   - @contractspec/lib.personalization@1.45.5
   - @contractspec/lib.overlay-engine@1.45.5
-  - @contractspec/lib.contracts@1.45.5
+  - @contractspec/lib.contracts-spec@1.45.5
   - @contractspec/lib.logger@1.45.5
 
 ## 1.45.4
@@ -339,7 +339,7 @@
   - @contractspec/lib.workflow-composer@1.45.4
   - @contractspec/lib.personalization@1.45.4
   - @contractspec/lib.overlay-engine@1.45.4
-  - @contractspec/lib.contracts@1.45.4
+  - @contractspec/lib.contracts-spec@1.45.4
   - @contractspec/lib.logger@1.45.4
 
 ## 1.45.3
@@ -351,7 +351,7 @@
   - @contractspec/lib.workflow-composer@1.45.3
   - @contractspec/lib.personalization@1.45.3
   - @contractspec/lib.overlay-engine@1.45.3
-  - @contractspec/lib.contracts@1.45.3
+  - @contractspec/lib.contracts-spec@1.45.3
   - @contractspec/lib.logger@1.45.3
 
 ## 1.45.2
@@ -363,7 +363,7 @@
   - @contractspec/lib.workflow-composer@1.45.2
   - @contractspec/lib.personalization@1.45.2
   - @contractspec/lib.overlay-engine@1.45.2
-  - @contractspec/lib.contracts@1.45.2
+  - @contractspec/lib.contracts-spec@1.45.2
   - @contractspec/lib.logger@1.45.2
 
 ## 1.45.1
@@ -375,7 +375,7 @@
   - @contractspec/lib.workflow-composer@1.45.1
   - @contractspec/lib.personalization@1.45.1
   - @contractspec/lib.overlay-engine@1.45.1
-  - @contractspec/lib.contracts@1.45.1
+  - @contractspec/lib.contracts-spec@1.45.1
   - @contractspec/lib.logger@1.45.1
   - @contractspec/lib.schema@1.45.1
 
@@ -405,7 +405,7 @@
   - @contractspec/lib.workflow-composer@1.45.0
   - @contractspec/lib.personalization@1.45.0
   - @contractspec/lib.overlay-engine@1.45.0
-  - @contractspec/lib.contracts@1.45.0
+  - @contractspec/lib.contracts-spec@1.45.0
   - @contractspec/lib.logger@1.45.0
   - @contractspec/lib.schema@1.45.0
 
@@ -418,7 +418,7 @@
   - @contractspec/lib.workflow-composer@1.44.1
   - @contractspec/lib.personalization@1.44.1
   - @contractspec/lib.overlay-engine@1.44.1
-  - @contractspec/lib.contracts@1.44.1
+  - @contractspec/lib.contracts-spec@1.44.1
   - @contractspec/lib.logger@1.44.1
   - @contractspec/lib.schema@1.44.1
 
@@ -434,7 +434,7 @@
   - @contractspec/lib.workflow-composer@1.44.0
   - @contractspec/lib.personalization@1.44.0
   - @contractspec/lib.overlay-engine@1.44.0
-  - @contractspec/lib.contracts@1.44.0
+  - @contractspec/lib.contracts-spec@1.44.0
   - @contractspec/lib.logger@1.44.0
   - @contractspec/lib.schema@1.44.0
 
@@ -447,7 +447,7 @@
   - @contractspec/lib.workflow-composer@1.43.4
   - @contractspec/lib.personalization@1.43.4
   - @contractspec/lib.overlay-engine@1.43.4
-  - @contractspec/lib.contracts@1.43.4
+  - @contractspec/lib.contracts-spec@1.43.4
   - @contractspec/lib.logger@1.43.3
   - @contractspec/lib.schema@1.43.3
 
@@ -460,7 +460,7 @@
   - @contractspec/lib.workflow-composer@1.43.3
   - @contractspec/lib.personalization@1.43.3
   - @contractspec/lib.overlay-engine@1.43.3
-  - @contractspec/lib.contracts@1.43.3
+  - @contractspec/lib.contracts-spec@1.43.3
   - @contractspec/lib.logger@1.43.2
   - @contractspec/lib.schema@1.43.2
 
@@ -473,7 +473,7 @@
   - @contractspec/lib.workflow-composer@1.43.2
   - @contractspec/lib.personalization@1.43.2
   - @contractspec/lib.overlay-engine@1.43.2
-  - @contractspec/lib.contracts@1.43.2
+  - @contractspec/lib.contracts-spec@1.43.2
   - @contractspec/lib.logger@1.43.1
   - @contractspec/lib.schema@1.43.1
 
@@ -482,7 +482,7 @@
 ### Patch Changes
 
 - Updated dependencies [f28fdad]
-  - @contractspec/lib.contracts@1.43.1
+  - @contractspec/lib.contracts-spec@1.43.1
   - @contractspec/lib.overlay-engine@1.43.1
   - @contractspec/lib.personalization@1.43.1
   - @contractspec/lib.workflow-composer@1.43.1
@@ -499,7 +499,7 @@
   - @contractspec/lib.workflow-composer@1.43.0
   - @contractspec/lib.personalization@1.43.0
   - @contractspec/lib.overlay-engine@1.43.0
-  - @contractspec/lib.contracts@1.43.0
+  - @contractspec/lib.contracts-spec@1.43.0
   - @contractspec/lib.logger@1.43.0
   - @contractspec/lib.schema@1.43.0
 
@@ -512,7 +512,7 @@
   - @contractspec/lib.workflow-composer@1.42.10
   - @contractspec/lib.personalization@1.42.10
   - @contractspec/lib.overlay-engine@1.42.10
-  - @contractspec/lib.contracts@1.42.10
+  - @contractspec/lib.contracts-spec@1.42.10
   - @contractspec/lib.logger@1.42.10
   - @contractspec/lib.schema@1.42.10
 
@@ -525,7 +525,7 @@
   - @contractspec/lib.workflow-composer@1.42.9
   - @contractspec/lib.personalization@1.42.9
   - @contractspec/lib.overlay-engine@1.42.9
-  - @contractspec/lib.contracts@1.42.9
+  - @contractspec/lib.contracts-spec@1.42.9
   - @contractspec/lib.logger@1.42.9
   - @contractspec/lib.schema@1.42.9
 
@@ -538,7 +538,7 @@
   - @contractspec/lib.workflow-composer@1.42.8
   - @contractspec/lib.personalization@1.42.8
   - @contractspec/lib.overlay-engine@1.42.8
-  - @contractspec/lib.contracts@1.42.8
+  - @contractspec/lib.contracts-spec@1.42.8
   - @contractspec/lib.logger@1.42.8
   - @contractspec/lib.schema@1.42.8
 
@@ -551,7 +551,7 @@
   - @contractspec/lib.workflow-composer@1.42.7
   - @contractspec/lib.personalization@1.42.7
   - @contractspec/lib.overlay-engine@1.42.7
-  - @contractspec/lib.contracts@1.42.7
+  - @contractspec/lib.contracts-spec@1.42.7
   - @contractspec/lib.logger@1.42.7
   - @contractspec/lib.schema@1.42.7
 
@@ -564,7 +564,7 @@
   - @contractspec/lib.workflow-composer@1.42.6
   - @contractspec/lib.personalization@1.42.6
   - @contractspec/lib.overlay-engine@1.42.6
-  - @contractspec/lib.contracts@1.42.6
+  - @contractspec/lib.contracts-spec@1.42.6
   - @contractspec/lib.logger@1.42.6
   - @contractspec/lib.schema@1.42.6
 
@@ -577,7 +577,7 @@
   - @contractspec/lib.workflow-composer@1.42.5
   - @contractspec/lib.personalization@1.42.5
   - @contractspec/lib.overlay-engine@1.42.5
-  - @contractspec/lib.contracts@1.42.5
+  - @contractspec/lib.contracts-spec@1.42.5
   - @contractspec/lib.logger@1.42.5
   - @contractspec/lib.schema@1.42.5
 
@@ -590,7 +590,7 @@
   - @contractspec/lib.workflow-composer@1.42.4
   - @contractspec/lib.personalization@1.42.4
   - @contractspec/lib.overlay-engine@1.42.4
-  - @contractspec/lib.contracts@1.42.4
+  - @contractspec/lib.contracts-spec@1.42.4
   - @contractspec/lib.logger@1.42.4
   - @contractspec/lib.schema@1.42.4
 
@@ -600,7 +600,7 @@
 
 - 3f5d015: fix(tooling): cicd
 - Updated dependencies [3f5d015]
-  - @contractspec/lib.contracts@1.42.3
+  - @contractspec/lib.contracts-spec@1.42.3
   - @contractspec/lib.logger@1.42.3
   - @contractspec/lib.overlay-engine@1.42.3
   - @contractspec/lib.personalization@1.42.3
@@ -613,7 +613,7 @@
 
 - 1f9ac4c: fix
 - Updated dependencies [1f9ac4c]
-  - @contractspec/lib.contracts@1.42.2
+  - @contractspec/lib.contracts-spec@1.42.2
   - @contractspec/lib.logger@1.42.2
   - @contractspec/lib.overlay-engine@1.42.2
   - @contractspec/lib.personalization@1.42.2
@@ -629,7 +629,7 @@
   - @contractspec/lib.workflow-composer@1.42.1
   - @contractspec/lib.personalization@1.42.1
   - @contractspec/lib.overlay-engine@1.42.1
-  - @contractspec/lib.contracts@1.42.1
+  - @contractspec/lib.contracts-spec@1.42.1
   - @contractspec/lib.logger@1.42.1
   - @contractspec/lib.schema@1.42.1
 
@@ -642,7 +642,7 @@
 ### Patch Changes
 
 - Updated dependencies [8eefd9c]
-  - @contractspec/lib.contracts@1.42.0
+  - @contractspec/lib.contracts-spec@1.42.0
   - @contractspec/lib.logger@1.42.0
   - @contractspec/lib.overlay-engine@1.42.0
   - @contractspec/lib.personalization@1.42.0

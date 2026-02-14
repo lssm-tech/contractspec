@@ -1,1 +1,1 @@
-export * from '@contractspec/lib.contracts/server/graphql-pothos';
+export * from './graphql-pothos';

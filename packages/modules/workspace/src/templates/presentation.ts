@@ -70,7 +70,7 @@ TODO: Add markdown content here
       break;
   }
 
-  return `import type { PresentationSpec } from '@contractspec/lib.contracts/presentations';
+  return `import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
 import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 export const ${varName}: PresentationSpec = {

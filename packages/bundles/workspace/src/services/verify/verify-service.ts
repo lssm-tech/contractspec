@@ -5,12 +5,12 @@
  * Supports three tiers: structure, behavior, and AI review.
  */
 
-import type { AnyOperationSpec } from '@contractspec/lib.contracts';
+import type { AnyOperationSpec } from '@contractspec/lib.contracts-spec';
 import type {
   VerificationIssue,
   VerificationReport,
   VerificationTier,
-} from '@contractspec/lib.contracts/llm';
+} from '@contractspec/lib.contracts-spec/llm';
 import { verifyStructure } from './structure-verifier';
 import { verifyBehavior } from './behavior-verifier';
 import { createQuickAIReview, verifyWithAI } from './ai-verifier';

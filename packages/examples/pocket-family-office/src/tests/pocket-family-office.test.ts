@@ -12,14 +12,14 @@ import {
   registerStripeIntegration,
   registerTwilioSmsIntegration,
 } from '@contractspec/lib.contracts-integrations';
-import { composeAppConfig } from '@contractspec/lib.contracts/app-config/runtime';
-import { validateTenantConfig } from '@contractspec/lib.contracts/app-config/validation';
+import { composeAppConfig } from '@contractspec/lib.contracts-spec/app-config/runtime';
+import { validateTenantConfig } from '@contractspec/lib.contracts-spec/app-config/validation';
 import {
   KnowledgeSpaceRegistry,
   registerEmailThreadsKnowledgeSpace,
   registerFinancialDocsKnowledgeSpace,
   registerFinancialOverviewKnowledgeSpace,
-} from '@contractspec/lib.contracts/knowledge';
+} from '@contractspec/lib.contracts-spec/knowledge';
 import {
   DocumentProcessor,
   EmbeddingService,

@@ -11,7 +11,7 @@
 - Updated dependencies [374fd71]
   - @contractspec/module.learning-journey@1.61.0
   - @contractspec/example.crm-pipeline@1.61.0
-  - @contractspec/lib.contracts@1.61.0
+  - @contractspec/lib.contracts-spec@1.61.0
   - @contractspec/lib.schema@1.61.0
 
 ## 1.60.0
@@ -25,7 +25,7 @@
 - Updated dependencies
   - @contractspec/module.learning-journey@1.60.0
   - @contractspec/example.crm-pipeline@1.60.0
-  - @contractspec/lib.contracts@1.60.0
+  - @contractspec/lib.contracts-spec@1.60.0
   - @contractspec/lib.schema@1.60.0
 
 ## 1.59.0
@@ -39,7 +39,7 @@
 - Updated dependencies [1a0cf44]
   - @contractspec/module.learning-journey@1.59.0
   - @contractspec/example.crm-pipeline@1.59.0
-  - @contractspec/lib.contracts@1.59.0
+  - @contractspec/lib.contracts-spec@1.59.0
   - @contractspec/lib.schema@1.59.0
 
 ## 1.58.0
@@ -54,7 +54,7 @@
 - Updated dependencies [4355a9e]
   - @contractspec/module.learning-journey@1.58.0
   - @contractspec/example.crm-pipeline@1.58.0
-  - @contractspec/lib.contracts@1.58.0
+  - @contractspec/lib.contracts-spec@1.58.0
   - @contractspec/lib.schema@1.58.0
 
 ## 1.57.0
@@ -71,7 +71,7 @@
 - Updated dependencies [4651e06]
 - Updated dependencies [ad9d10a]
 - Updated dependencies [11a5a05]
-  - @contractspec/lib.contracts@1.57.0
+  - @contractspec/lib.contracts-spec@1.57.0
   - @contractspec/example.crm-pipeline@1.57.0
   - @contractspec/module.learning-journey@1.57.0
   - @contractspec/lib.schema@1.57.0
@@ -84,7 +84,7 @@
 - Updated dependencies
   - @contractspec/module.learning-journey@1.56.1
   - @contractspec/example.crm-pipeline@1.56.1
-  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.contracts-spec@1.56.1
   - @contractspec/lib.schema@1.56.1
 
 ## 1.56.0
@@ -98,7 +98,7 @@
 - Updated dependencies
   - @contractspec/module.learning-journey@1.56.0
   - @contractspec/example.crm-pipeline@1.56.0
-  - @contractspec/lib.contracts@1.56.0
+  - @contractspec/lib.contracts-spec@1.56.0
   - @contractspec/lib.schema@1.56.0
 
 ## 1.55.0
@@ -112,7 +112,7 @@
 - Updated dependencies
   - @contractspec/module.learning-journey@1.55.0
   - @contractspec/example.crm-pipeline@1.55.0
-  - @contractspec/lib.contracts@1.55.0
+  - @contractspec/lib.contracts-spec@1.55.0
   - @contractspec/lib.schema@1.55.0
 
 ## 1.54.0
@@ -124,7 +124,7 @@
 ### Patch Changes
 
 - Updated dependencies [ec5e95c]
-  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/lib.contracts-spec@1.54.0
   - @contractspec/example.crm-pipeline@1.54.0
   - @contractspec/lib.schema@1.54.0
   - @contractspec/module.learning-journey@1.54.0
@@ -140,7 +140,7 @@
 - Updated dependencies [5b371b1]
 - Updated dependencies [f4180d4]
 - Updated dependencies [64d84e1]
-  - @contractspec/lib.contracts@1.53.0
+  - @contractspec/lib.contracts-spec@1.53.0
   - @contractspec/example.crm-pipeline@1.53.0
   - @contractspec/lib.schema@1.53.0
   - @contractspec/module.learning-journey@1.53.0
@@ -156,7 +156,7 @@
 - Updated dependencies [d93e6a9]
   - @contractspec/module.learning-journey@1.52.0
   - @contractspec/example.crm-pipeline@1.52.0
-  - @contractspec/lib.contracts@1.52.0
+  - @contractspec/lib.contracts-spec@1.52.0
   - @contractspec/lib.schema@1.52.0
 
 ## 1.51.0
@@ -170,7 +170,7 @@
 - Updated dependencies [23e46e9]
 - Updated dependencies [ad1f852]
 - Updated dependencies [e6faefb]
-  - @contractspec/lib.contracts@1.51.0
+  - @contractspec/lib.contracts-spec@1.51.0
   - @contractspec/module.learning-journey@1.51.0
   - @contractspec/example.crm-pipeline@1.51.0
   - @contractspec/lib.schema@1.51.0
@@ -184,7 +184,7 @@
 ### Patch Changes
 
 - Updated dependencies [5325d6b]
-  - @contractspec/lib.contracts@1.50.0
+  - @contractspec/lib.contracts-spec@1.50.0
   - @contractspec/example.crm-pipeline@1.50.0
   - @contractspec/lib.schema@1.50.0
   - @contractspec/module.learning-journey@1.50.0
@@ -200,7 +200,7 @@
 - Updated dependencies [cafd041]
   - @contractspec/module.learning-journey@1.49.0
   - @contractspec/example.crm-pipeline@1.49.0
-  - @contractspec/lib.contracts@1.49.0
+  - @contractspec/lib.contracts-spec@1.49.0
   - @contractspec/lib.schema@1.49.0
 
 ## 1.48.1
@@ -208,7 +208,7 @@
 ### Patch Changes
 
 - Updated dependencies [c560ee7]
-  - @contractspec/lib.contracts@1.48.1
+  - @contractspec/lib.contracts-spec@1.48.1
   - @contractspec/example.crm-pipeline@1.48.1
   - @contractspec/module.learning-journey@1.48.1
 
@@ -223,7 +223,7 @@
 - Updated dependencies [b0444a4]
   - @contractspec/module.learning-journey@1.48.0
   - @contractspec/example.crm-pipeline@1.48.0
-  - @contractspec/lib.contracts@1.48.0
+  - @contractspec/lib.contracts-spec@1.48.0
   - @contractspec/lib.schema@1.48.0
 
 ## 1.47.0
@@ -247,7 +247,7 @@
 - Updated dependencies [fd38e85]
   - @contractspec/module.learning-journey@1.47.0
   - @contractspec/example.crm-pipeline@1.47.0
-  - @contractspec/lib.contracts@1.47.0
+  - @contractspec/lib.contracts-spec@1.47.0
   - @contractspec/lib.schema@1.47.0
 
 ## 1.46.2
@@ -258,7 +258,7 @@
 - Updated dependencies [7e21625]
   - @contractspec/module.learning-journey@1.46.2
   - @contractspec/example.crm-pipeline@1.46.2
-  - @contractspec/lib.contracts@1.46.2
+  - @contractspec/lib.contracts-spec@1.46.2
   - @contractspec/lib.schema@1.46.2
 
 ## 1.46.1
@@ -269,7 +269,7 @@
 - Updated dependencies [2d8a72b]
   - @contractspec/module.learning-journey@1.46.1
   - @contractspec/example.crm-pipeline@1.46.1
-  - @contractspec/lib.contracts@1.46.1
+  - @contractspec/lib.contracts-spec@1.46.1
   - @contractspec/lib.schema@1.46.1
 
 ## 1.46.0
@@ -283,7 +283,7 @@
 - Updated dependencies [07cb19b]
   - @contractspec/module.learning-journey@1.46.0
   - @contractspec/example.crm-pipeline@1.46.0
-  - @contractspec/lib.contracts@1.46.0
+  - @contractspec/lib.contracts-spec@1.46.0
   - @contractspec/lib.schema@1.46.0
 
 ## 1.45.6
@@ -294,7 +294,7 @@
 - Updated dependencies [a913074]
   - @contractspec/module.learning-journey@1.45.6
   - @contractspec/example.crm-pipeline@1.45.6
-  - @contractspec/lib.contracts@1.45.6
+  - @contractspec/lib.contracts-spec@1.45.6
   - @contractspec/lib.schema@1.45.6
 
 ## 1.45.5
@@ -305,7 +305,7 @@
 - Updated dependencies [9ddd7fa]
   - @contractspec/module.learning-journey@1.45.5
   - @contractspec/example.crm-pipeline@1.45.5
-  - @contractspec/lib.contracts@1.45.5
+  - @contractspec/lib.contracts-spec@1.45.5
   - @contractspec/lib.schema@1.45.5
 
 ## 1.45.4
@@ -316,7 +316,7 @@
 - Updated dependencies
   - @contractspec/module.learning-journey@1.45.4
   - @contractspec/example.crm-pipeline@1.45.4
-  - @contractspec/lib.contracts@1.45.4
+  - @contractspec/lib.contracts-spec@1.45.4
   - @contractspec/lib.schema@1.45.4
 
 ## 1.45.3
@@ -327,7 +327,7 @@
 - Updated dependencies [e74ea9e]
   - @contractspec/module.learning-journey@1.45.3
   - @contractspec/example.crm-pipeline@1.45.3
-  - @contractspec/lib.contracts@1.45.3
+  - @contractspec/lib.contracts-spec@1.45.3
   - @contractspec/lib.schema@1.45.3
 
 ## 1.45.2
@@ -338,7 +338,7 @@
 - Updated dependencies [39ca241]
   - @contractspec/module.learning-journey@1.45.2
   - @contractspec/example.crm-pipeline@1.45.2
-  - @contractspec/lib.contracts@1.45.2
+  - @contractspec/lib.contracts-spec@1.45.2
 
 ## 1.45.1
 
@@ -348,7 +348,7 @@
 - Updated dependencies
   - @contractspec/module.learning-journey@1.45.1
   - @contractspec/example.crm-pipeline@1.45.1
-  - @contractspec/lib.contracts@1.45.1
+  - @contractspec/lib.contracts-spec@1.45.1
   - @contractspec/lib.schema@1.45.1
 
 ## 1.45.0
@@ -376,7 +376,7 @@
 - Updated dependencies [e73ca1d]
   - @contractspec/module.learning-journey@1.45.0
   - @contractspec/example.crm-pipeline@1.45.0
-  - @contractspec/lib.contracts@1.45.0
+  - @contractspec/lib.contracts-spec@1.45.0
   - @contractspec/lib.schema@1.45.0
 
 ## 1.44.1
@@ -387,7 +387,7 @@
 - Updated dependencies [3c594fb]
   - @contractspec/module.learning-journey@1.44.1
   - @contractspec/example.crm-pipeline@1.44.1
-  - @contractspec/lib.contracts@1.44.1
+  - @contractspec/lib.contracts-spec@1.44.1
   - @contractspec/lib.schema@1.44.1
 
 ## 1.44.0
@@ -401,7 +401,7 @@
 - Updated dependencies [5f3a868]
   - @contractspec/module.learning-journey@1.44.0
   - @contractspec/example.crm-pipeline@1.44.0
-  - @contractspec/lib.contracts@1.44.0
+  - @contractspec/lib.contracts-spec@1.44.0
   - @contractspec/lib.schema@1.44.0
 
 ## 1.43.4
@@ -412,7 +412,7 @@
 - Updated dependencies [9216062]
   - @contractspec/module.learning-journey@1.43.4
   - @contractspec/example.crm-pipeline@1.43.4
-  - @contractspec/lib.contracts@1.43.4
+  - @contractspec/lib.contracts-spec@1.43.4
   - @contractspec/lib.schema@1.43.3
 
 ## 1.43.3
@@ -423,7 +423,7 @@
 - Updated dependencies [24d9759]
   - @contractspec/module.learning-journey@1.43.3
   - @contractspec/example.crm-pipeline@1.43.3
-  - @contractspec/lib.contracts@1.43.3
+  - @contractspec/lib.contracts-spec@1.43.3
   - @contractspec/lib.schema@1.43.2
 
 ## 1.43.2
@@ -434,7 +434,7 @@
 - Updated dependencies [e147271]
   - @contractspec/module.learning-journey@1.43.2
   - @contractspec/example.crm-pipeline@1.43.2
-  - @contractspec/lib.contracts@1.43.2
+  - @contractspec/lib.contracts-spec@1.43.2
   - @contractspec/lib.schema@1.43.1
 
 ## 1.43.1
@@ -442,7 +442,7 @@
 ### Patch Changes
 
 - Updated dependencies [f28fdad]
-  - @contractspec/lib.contracts@1.43.1
+  - @contractspec/lib.contracts-spec@1.43.1
   - @contractspec/example.crm-pipeline@1.43.1
   - @contractspec/module.learning-journey@1.43.1
 
@@ -457,7 +457,7 @@
 - Updated dependencies [042d072]
   - @contractspec/module.learning-journey@1.43.0
   - @contractspec/example.crm-pipeline@1.43.0
-  - @contractspec/lib.contracts@1.43.0
+  - @contractspec/lib.contracts-spec@1.43.0
   - @contractspec/lib.schema@1.43.0
 
 ## 1.42.10
@@ -468,7 +468,7 @@
 - Updated dependencies [1e6a0f1]
   - @contractspec/module.learning-journey@1.42.10
   - @contractspec/example.crm-pipeline@1.42.10
-  - @contractspec/lib.contracts@1.42.10
+  - @contractspec/lib.contracts-spec@1.42.10
   - @contractspec/lib.schema@1.42.10
 
 ## 1.42.9
@@ -479,7 +479,7 @@
 - Updated dependencies [9281db7]
   - @contractspec/module.learning-journey@1.42.9
   - @contractspec/example.crm-pipeline@1.42.9
-  - @contractspec/lib.contracts@1.42.9
+  - @contractspec/lib.contracts-spec@1.42.9
   - @contractspec/lib.schema@1.42.9
 
 ## 1.42.8
@@ -490,7 +490,7 @@
 - Updated dependencies [e07b5ac]
   - @contractspec/module.learning-journey@1.42.8
   - @contractspec/example.crm-pipeline@1.42.8
-  - @contractspec/lib.contracts@1.42.8
+  - @contractspec/lib.contracts-spec@1.42.8
   - @contractspec/lib.schema@1.42.8
 
 ## 1.42.7
@@ -501,7 +501,7 @@
 - Updated dependencies [e9b575d]
   - @contractspec/module.learning-journey@1.42.7
   - @contractspec/example.crm-pipeline@1.42.7
-  - @contractspec/lib.contracts@1.42.7
+  - @contractspec/lib.contracts-spec@1.42.7
   - @contractspec/lib.schema@1.42.7
 
 ## 1.42.6
@@ -512,7 +512,7 @@
 - Updated dependencies [1500242]
   - @contractspec/module.learning-journey@1.42.6
   - @contractspec/example.crm-pipeline@1.42.6
-  - @contractspec/lib.contracts@1.42.6
+  - @contractspec/lib.contracts-spec@1.42.6
   - @contractspec/lib.schema@1.42.6
 
 ## 1.42.5
@@ -523,7 +523,7 @@
 - Updated dependencies [1299719]
   - @contractspec/module.learning-journey@1.42.5
   - @contractspec/example.crm-pipeline@1.42.5
-  - @contractspec/lib.contracts@1.42.5
+  - @contractspec/lib.contracts-spec@1.42.5
   - @contractspec/lib.schema@1.42.5
 
 ## 1.42.4
@@ -534,7 +534,7 @@
 - Updated dependencies [ac28b99]
   - @contractspec/module.learning-journey@1.42.4
   - @contractspec/example.crm-pipeline@1.42.4
-  - @contractspec/lib.contracts@1.42.4
+  - @contractspec/lib.contracts-spec@1.42.4
   - @contractspec/lib.schema@1.42.4
 
 ## 1.42.3
@@ -544,7 +544,7 @@
 - 3f5d015: fix(tooling): cicd
 - Updated dependencies [3f5d015]
   - @contractspec/example.crm-pipeline@1.42.3
-  - @contractspec/lib.contracts@1.42.3
+  - @contractspec/lib.contracts-spec@1.42.3
   - @contractspec/lib.schema@1.42.3
   - @contractspec/module.learning-journey@1.42.3
 
@@ -555,7 +555,7 @@
 - 1f9ac4c: fix
 - Updated dependencies [1f9ac4c]
   - @contractspec/example.crm-pipeline@1.42.2
-  - @contractspec/lib.contracts@1.42.2
+  - @contractspec/lib.contracts-spec@1.42.2
   - @contractspec/lib.schema@1.42.2
   - @contractspec/module.learning-journey@1.42.2
 
@@ -567,7 +567,7 @@
 - Updated dependencies [f043995]
   - @contractspec/module.learning-journey@1.42.1
   - @contractspec/example.crm-pipeline@1.42.1
-  - @contractspec/lib.contracts@1.42.1
+  - @contractspec/lib.contracts-spec@1.42.1
   - @contractspec/lib.schema@1.42.1
 
 ## 1.42.0
@@ -580,6 +580,6 @@
 
 - Updated dependencies [8eefd9c]
   - @contractspec/example.crm-pipeline@1.42.0
-  - @contractspec/lib.contracts@1.42.0
+  - @contractspec/lib.contracts-spec@1.42.0
   - @contractspec/lib.schema@1.42.0
   - @contractspec/module.learning-journey@1.42.0

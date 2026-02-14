@@ -30,7 +30,7 @@ import { TodoSpec } from '@contractspec/lib.contracts-library/templates/todos';
 
 ## Dependencies
 
-- `@contractspec/lib.contracts` — Core contract primitives
+- `@contractspec/lib.contracts-spec` — Core contract primitives
 - `@contractspec/lib.schema` — Schema utilities
 
 ## Related Packages

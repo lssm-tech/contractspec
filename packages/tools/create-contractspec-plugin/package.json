@@ -40,7 +40,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
     "@inquirer/prompts": "^8.2.0",
     "zod": "catalog:",

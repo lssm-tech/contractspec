@@ -1,4 +1,4 @@
-import type { ResolvedAppConfig } from '@contractspec/lib.contracts/app-config/runtime';
+import type { ResolvedAppConfig } from '@contractspec/lib.contracts-spec/app-config/runtime';
 
 /**
  * Selects knowledge bindings that apply to a workflow or agent identifier.

@@ -4,7 +4,7 @@
  * Validates actual coverage data against TestSpec.coverage requirements.
  */
 
-import type { CoverageRequirement } from '@contractspec/lib.contracts/tests';
+import type { CoverageRequirement } from '@contractspec/lib.contracts-spec/tests';
 import type {
   CoverageData,
   CoverageValidationResult,

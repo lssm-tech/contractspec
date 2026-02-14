@@ -1,5 +1,5 @@
 import type { ParsedSpec } from '../types/llm-types';
-import type { DocBlock, DocKind } from '@contractspec/lib.contracts/docs';
+import type { DocBlock, DocKind } from '@contractspec/lib.contracts-spec/docs';
 import { specToMarkdown } from './spec-markdown';
 
 /**

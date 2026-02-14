@@ -1,4 +1,4 @@
-import { defineEvent } from '@contractspec/lib.contracts';
+import { defineEvent } from '@contractspec/lib.contracts-spec';
 import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 import { ChatMessageModel, ChatConversationModel } from './schema';
 

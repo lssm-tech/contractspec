@@ -67,7 +67,7 @@
     "@contractspec/example.versioned-knowledge-base": "workspace:*",
     "@contractspec/example.wealth-snapshot": "workspace:*",
     "@contractspec/example.workflow-system": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.example-shared-ui": "workspace:*",
     "@contractspec/lib.runtime-sandbox": "workspace:*",
     "zod": "catalog:"

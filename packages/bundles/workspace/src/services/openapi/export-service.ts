@@ -6,8 +6,8 @@ import {
   type OpenApiDocument,
   openApiForRegistry,
   type OpenApiServer,
-} from '@contractspec/lib.contracts/openapi';
-import { OperationSpecRegistry } from '@contractspec/lib.contracts/operations';
+} from '@contractspec/lib.contracts-spec/openapi';
+import { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations';
 import type { FsAdapter } from '../../ports/fs';
 import type { LoggerAdapter } from '../../ports/logger';
 

@@ -31,7 +31,7 @@ export function HelloWorldPage() {
           <CodeBlock
             language="typescript"
             filename="lib/specs/billing/capture-payment.ts"
-            code={`import { defineCommand } from '@contractspec/lib.contracts';
+            code={`import { defineCommand } from '@contractspec/lib.contracts-spec';
 import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 const CapturePaymentInput = new SchemaModel({
@@ -136,7 +136,7 @@ export async function handleCapturePayment(input, ctx) {
           <CodeBlock
             language="typescript"
             filename="lib/registry.ts"
-            code={`import { OperationSpecRegistry, installOp } from '@contractspec/lib.contracts';
+            code={`import { OperationSpecRegistry, installOp } from '@contractspec/lib.contracts-spec';
 import { CapturePayment } from './specs/billing/capture-payment';
 import { handleCapturePayment } from './handlers/billing/capture-payment';
 

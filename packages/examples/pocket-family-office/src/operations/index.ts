@@ -8,12 +8,12 @@ import {
   defineCommand,
   defineQuery,
   type OperationSpec,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 import {
   OwnersEnum,
   StabilityEnum,
   TagsEnum,
-} from '@contractspec/lib.contracts/ownership';
+} from '@contractspec/lib.contracts-spec/ownership';
 import { OPENBANKING_TELEMETRY_EVENTS } from '@contractspec/lib.contracts-integrations';
 
 // --- Enums ---

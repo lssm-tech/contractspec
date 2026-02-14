@@ -30,7 +30,7 @@
   "dependencies": {
     "@contractspec/bundle.lifecycle-managed": "workspace:*",
     "@contractspec/lib.lifecycle": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.logger": "workspace:*"
   },
   "devDependencies": {

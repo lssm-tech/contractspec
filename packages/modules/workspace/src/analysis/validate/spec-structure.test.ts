@@ -4,7 +4,7 @@
 // describe('validateSpecStructure', () => {
 //   it('should validate operation with numeric version', () => {
 //     const code = `
-//             import { defineCommand } from '@contractspec/lib.contracts';
+//             import { defineCommand } from '@contractspec/lib.contracts-spec';
 //             export const MyCommand = defineCommand({
 //                 meta: {
 //                     key: 'my.command',
@@ -22,7 +22,7 @@
 //
 //   it('should validate operation with string version', () => {
 //     const code = `
-//             import { defineCommand } from '@contractspec/lib.contracts';
+//             import { defineCommand } from '@contractspec/lib.contracts-spec';
 //             export const MyCommand = defineCommand({
 //                 meta: {
 //                     key: 'my.command',
@@ -101,13 +101,13 @@
 //       'Missing import for SchemaModel from @contractspec/lib.schema'
 //     );
 //     expect(result.errors).toContain(
-//       'Missing import from @contractspec/lib.contracts'
+//       'Missing import from @contractspec/lib.contracts-spec'
 //     );
 //   });
 //
 //   it('should warning on missing acceptance criteria', () => {
 //     const code = `
-//       import { defineCommand } from '@contractspec/lib.contracts';
+//       import { defineCommand } from '@contractspec/lib.contracts-spec';
 //       export const op = defineCommand({
 //         meta: { key: 'op', version: '1' },
 //         io: {},
@@ -120,7 +120,7 @@
 //
 //   it('should detect TODOs', () => {
 //     const code = `
-//       import { defineCommand } from '@contractspec/lib.contracts';
+//       import { defineCommand } from '@contractspec/lib.contracts-spec';
 //       export const op = defineCommand({
 //         meta: { key: 'op', version: '1' }, // TODO: fix version
 //         io: {},
@@ -135,7 +135,7 @@
 //
 //   it('should validate owners format', () => {
 //     const code = `
-//       import { defineCommand } from '@contractspec/lib.contracts';
+//       import { defineCommand } from '@contractspec/lib.contracts-spec';
 //       export const op = defineCommand({
 //         meta: {
 //           key: 'op',
@@ -154,7 +154,7 @@
 //
 //   it('should validate event with string version', () => {
 //     const code = `
-//             import { defineEvent } from '@contractspec/lib.contracts';
+//             import { defineEvent } from '@contractspec/lib.contracts-spec';
 //             export const MyEvent = defineEvent({
 //                 meta: {
 //                     key: 'my.event.created',
@@ -170,7 +170,7 @@
 //
 //   it('should detect improper event names', () => {
 //     const code = `
-//       import { defineEvent } from '@contractspec/lib.contracts';
+//       import { defineEvent } from '@contractspec/lib.contracts-spec';
 //       export const e = defineEvent({
 //         meta: { key: 'k', version: '1', name: 'User.save' },
 //         payload: {}
@@ -184,7 +184,7 @@
 //
 //   it('should validate migration with string version', () => {
 //     const code = `
-//             import { defineMigration } from '@contractspec/lib.contracts';
+//             import { defineMigration } from '@contractspec/lib.contracts-spec';
 //             export const MyMigration: MigrationSpec = {
 //                 name: 'my-migration',
 //                 version: '1.0.0',
@@ -198,7 +198,7 @@
 //
 //   it('should validate telemetry specs', () => {
 //     const code = `
-//       import { TelemetrySpec } from '@contractspec/lib.contracts';
+//       import { TelemetrySpec } from '@contractspec/lib.contracts-spec';
 //       export const t: TelemetrySpec = {
 //         meta: { name: 't' },
 //         privacy: 'public',
@@ -219,7 +219,7 @@
 //
 //   it('should validate experiment specs', () => {
 //     const code = `
-//       import { ExperimentSpec } from '@contractspec/lib.contracts';
+//       import { ExperimentSpec } from '@contractspec/lib.contracts-spec';
 //       export const e: ExperimentSpec = {
 //         controlVariant: 'a',
 //         variants: {},
@@ -232,7 +232,7 @@
 //
 //   it('should detect missing experiment fields', () => {
 //     const code = `
-//       import { ExperimentSpec } from '@contractspec/lib.contracts';
+//       import { ExperimentSpec } from '@contractspec/lib.contracts-spec';
 //       export const e: ExperimentSpec = {
 //       };
 //     `;
@@ -248,7 +248,7 @@
 //
 //   it('should validate app config specs', () => {
 //     const code = `
-//       import { AppBlueprintSpec } from '@contractspec/lib.contracts';
+//       import { AppBlueprintSpec } from '@contractspec/lib.contracts-spec';
 //       export const a: AppBlueprintSpec = {
 //         meta: { appId: '1' },
 //         capabilities: {}
@@ -260,7 +260,7 @@
 //
 //   it('should detect missing app config fields', () => {
 //     const code = `
-//       import { AppBlueprintSpec } from '@contractspec/lib.contracts';
+//       import { AppBlueprintSpec } from '@contractspec/lib.contracts-spec';
 //       export const a: AppBlueprintSpec = {
 //         meta: {}
 //       };
@@ -276,7 +276,7 @@
 //
 //   it('should validate data view specs', () => {
 //     const code = `
-//       import { DataViewSpec } from '@contractspec/lib.contracts';
+//       import { DataViewSpec } from '@contractspec/lib.contracts-spec';
 //       export const v: DataViewSpec = {
 //         meta: {},
 //         source: {},
@@ -290,7 +290,7 @@
 //
 //   it('should detect missing data view fields', () => {
 //     const code = `
-//       import { DataViewSpec } from '@contractspec/lib.contracts';
+//       import { DataViewSpec } from '@contractspec/lib.contracts-spec';
 //       export const v: DataViewSpec = {
 //       };
 //     `;
@@ -306,7 +306,7 @@
 //
 //   it('should validate workflow specs', () => {
 //     const code = `
-//       import { WorkflowSpec } from '@contractspec/lib.contracts';
+//       import { WorkflowSpec } from '@contractspec/lib.contracts-spec';
 //       export const w: WorkflowSpec = {
 //         meta: { title: 'w', domain: 'd' },
 //         definition: {
@@ -321,7 +321,7 @@
 //
 //   it('should detect missing workflow fields', () => {
 //     const code = `
-//       import { WorkflowSpec } from '@contractspec/lib.contracts';
+//       import { WorkflowSpec } from '@contractspec/lib.contracts-spec';
 //       export const w: WorkflowSpec = {
 //         meta: {},
 //         definition: {}
@@ -338,7 +338,7 @@
 //
 //   it('should validate presentation specs', () => {
 //     const code = `
-//       import { PresentationSpec } from '@contractspec/lib.contracts';
+//       import { PresentationSpec } from '@contractspec/lib.contracts-spec';
 //       export const p: PresentationSpec = {
 //         meta: {},
 //         source: { type: 'component' },
@@ -351,7 +351,7 @@
 //
 //   it('should detect missing presentation fields', () => {
 //     const code = `
-//       import { PresentationSpec } from '@contractspec/lib.contracts';
+//       import { PresentationSpec } from '@contractspec/lib.contracts-spec';
 //       export const p: PresentationSpec = {};
 //     `;
 //     const result = validateSpecStructure(code, 'my.presentation.ts');

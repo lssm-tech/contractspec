@@ -8,7 +8,7 @@ export function LibrariesDataViewsPage() {
       <div className="space-y-4">
         <h1 className="text-4xl font-bold">DataViews Runtime Library</h1>
         <p className="text-muted-foreground text-lg">
-          The <code>@contractspec/lib.contracts/data-views</code> and{' '}
+          The <code>@contractspec/lib.contracts-spec/data-views</code> and{' '}
           <code>@contractspec/lib.design-system</code> libraries provide the
           runtime logic and UI components to render DataViews in your
           application.
@@ -19,7 +19,7 @@ export function LibrariesDataViewsPage() {
         <h2 className="text-2xl font-bold">Installation</h2>
         <InstallCommand
           package={[
-            '@contractspec/lib.contracts',
+            '@contractspec/lib.contracts-spec',
             '@contractspec/lib.design-system',
           ]}
         />
@@ -83,7 +83,7 @@ export function UserPage() {
         </p>
         <CodeBlock
           language="typescript"
-          code={`import { DataViewQueryGenerator } from '@contractspec/lib.contracts/data-views/query-generator';
+          code={`import { DataViewQueryGenerator } from '@contractspec/lib.contracts-spec/data-views/query-generator';
 
 const generator = new DataViewQueryGenerator(MyUserList);
 const query = generator.generate({

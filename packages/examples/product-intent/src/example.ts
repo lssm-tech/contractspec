@@ -1,4 +1,4 @@
-import { defineExample } from '@contractspec/lib.contracts/examples';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
 const example = defineExample({
   meta: {

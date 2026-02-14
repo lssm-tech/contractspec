@@ -5,8 +5,8 @@ import { writeFile } from 'node:fs/promises';
 import {
   openApiForRegistry,
   type OpenApiServer,
-} from '@contractspec/lib.contracts/openapi';
-import { OperationSpecRegistry } from '@contractspec/lib.contracts/operations';
+} from '@contractspec/lib.contracts-spec/openapi';
+import { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations';
 import { loadTypeScriptModule } from '../../utils/module-loader';
 import { getErrorMessage } from '../../utils/errors';
 import { loadConfig } from '../../utils/config';

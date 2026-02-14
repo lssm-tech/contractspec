@@ -1,4 +1,4 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts/presentations';
+import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
 import type React from 'react';
 
 /**

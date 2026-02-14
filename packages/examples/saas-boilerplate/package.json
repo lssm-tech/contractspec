@@ -87,7 +87,7 @@
     "@contractspec/lib.jobs": "workspace:*",
     "@contractspec/module.audit-trail": "workspace:*",
     "@contractspec/module.notifications": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.example-shared-ui": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",

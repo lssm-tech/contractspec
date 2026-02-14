@@ -1,5 +1,5 @@
 import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
-import { defineCommand, defineQuery } from '@contractspec/lib.contracts';
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
 
 const OWNERS = ['platform.identity-rbac'] as const;
 

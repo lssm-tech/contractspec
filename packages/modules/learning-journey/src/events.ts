@@ -1,5 +1,5 @@
 import { ScalarTypeEnum, defineSchemaModel } from '@contractspec/lib.schema';
-import { defineEvent } from '@contractspec/lib.contracts';
+import { defineEvent } from '@contractspec/lib.contracts-spec';
 import { LEARNING_JOURNEY_OWNERS } from './contracts/shared';
 
 // ============ Course Events ============

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.contracts-runtime-server-graphql",
-  "version": "1.0.0",
+  "version": "1.61.0",
   "description": "GraphQL server runtime adapters for ContractSpec contracts",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -19,7 +19,18 @@
     "dev": "contractspec-bun-build dev"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*"
+    "@contractspec/lib.contracts-runtime-server-rest": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
+    "@pothos/plugin-complexity": "^4.1.2",
+    "@pothos/plugin-dataloader": "^4.4.2",
+    "@pothos/plugin-prisma": "^4.14.0",
+    "@pothos/plugin-relay": "^4.7.0",
+    "@pothos/plugin-tracing": "^1.1.2"
+  },
+  "peerDependencies": {
+    "@pothos/core": "^4.9.1",
+    "@pothos/plugin-relay": "^4.7.0"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",

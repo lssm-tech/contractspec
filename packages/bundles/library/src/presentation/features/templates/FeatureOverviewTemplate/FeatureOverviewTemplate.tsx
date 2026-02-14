@@ -7,7 +7,7 @@ import {
 import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import { FeatureDetail } from '../../organisms/FeatureDetail';
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts/features';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts-spec/features';
 
 export interface FeatureOverviewTemplateProps {
   feature: FeatureModuleSpec;

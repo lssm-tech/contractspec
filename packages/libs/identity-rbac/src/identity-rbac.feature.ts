@@ -3,7 +3,7 @@
  *
  * Defines the feature module for identity management and role-based access control.
  */
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 /**
  * Identity & RBAC feature module that bundles user management,

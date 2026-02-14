@@ -3,7 +3,7 @@
  *
  * Defines the feature module for AI-powered vibe coding chat.
  */
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 /**
  * AI Chat feature module that bundles conversational AI assistance

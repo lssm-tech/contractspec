@@ -1,4 +1,4 @@
-import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts-spec';
 import { QueryModel } from './query.schema';
 
 export const QueriesListPresentation = definePresentation({

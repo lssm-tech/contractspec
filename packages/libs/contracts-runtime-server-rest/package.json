@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.contracts-runtime-server-rest",
-  "version": "1.0.0",
+  "version": "1.61.0",
   "description": "REST server runtime adapters for ContractSpec contracts",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -19,7 +19,14 @@
     "dev": "contractspec-bun-build dev"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*"
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*"
+  },
+  "peerDependencies": {
+    "@pothos/core": "^4.9.1",
+    "elysia": "^1.4.24",
+    "express": "^5.2.1",
+    "next": "16.1.6"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",

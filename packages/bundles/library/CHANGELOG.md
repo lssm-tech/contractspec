@@ -15,7 +15,7 @@
   - @contractspec/lib.design-system@1.61.0
   - @contractspec/module.examples@1.61.0
   - @contractspec/lib.ui-kit-web@1.61.0
-  - @contractspec/lib.contracts@1.61.0
+  - @contractspec/lib.contracts-spec@1.61.0
   - @contractspec/lib.ui-link@1.61.0
   - @contractspec/lib.logger@1.61.0
   - @contractspec/lib.schema@1.61.0
@@ -35,7 +35,7 @@
   - @contractspec/lib.design-system@1.60.0
   - @contractspec/module.examples@1.60.0
   - @contractspec/lib.ui-kit-web@1.60.0
-  - @contractspec/lib.contracts@1.60.0
+  - @contractspec/lib.contracts-spec@1.60.0
   - @contractspec/lib.ui-link@1.60.0
   - @contractspec/lib.logger@1.60.0
   - @contractspec/lib.schema@1.60.0
@@ -55,7 +55,7 @@
   - @contractspec/lib.design-system@1.59.0
   - @contractspec/module.examples@1.59.0
   - @contractspec/lib.ui-kit-web@1.59.0
-  - @contractspec/lib.contracts@1.59.0
+  - @contractspec/lib.contracts-spec@1.59.0
   - @contractspec/lib.ui-link@1.59.0
   - @contractspec/lib.logger@1.59.0
   - @contractspec/lib.schema@1.59.0
@@ -76,7 +76,7 @@
   - @contractspec/lib.design-system@1.58.0
   - @contractspec/module.examples@1.58.0
   - @contractspec/lib.ui-kit-web@1.58.0
-  - @contractspec/lib.contracts@1.58.0
+  - @contractspec/lib.contracts-spec@1.58.0
   - @contractspec/lib.ui-link@1.58.0
   - @contractspec/lib.logger@1.58.0
   - @contractspec/lib.schema@1.58.0
@@ -96,7 +96,7 @@
 - Updated dependencies [4651e06]
 - Updated dependencies [ad9d10a]
 - Updated dependencies [11a5a05]
-  - @contractspec/lib.contracts@1.57.0
+  - @contractspec/lib.contracts-spec@1.57.0
   - @contractspec/module.examples@1.57.0
   - @contractspec/lib.contracts-library@1.57.0
   - @contractspec/lib.example-shared-ui@1.11.0
@@ -119,7 +119,7 @@
   - @contractspec/lib.design-system@1.56.1
   - @contractspec/module.examples@1.56.1
   - @contractspec/lib.ui-kit-web@1.56.1
-  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.contracts-spec@1.56.1
   - @contractspec/lib.ui-link@1.56.1
   - @contractspec/lib.logger@1.56.1
   - @contractspec/lib.schema@1.56.1
@@ -139,7 +139,7 @@
   - @contractspec/lib.design-system@1.56.0
   - @contractspec/module.examples@1.56.0
   - @contractspec/lib.ui-kit-web@1.56.0
-  - @contractspec/lib.contracts@1.56.0
+  - @contractspec/lib.contracts-spec@1.56.0
   - @contractspec/lib.ui-link@1.56.0
   - @contractspec/lib.logger@1.56.0
   - @contractspec/lib.schema@1.56.0
@@ -159,7 +159,7 @@
   - @contractspec/lib.design-system@1.55.0
   - @contractspec/module.examples@1.55.0
   - @contractspec/lib.ui-kit-web@1.55.0
-  - @contractspec/lib.contracts@1.55.0
+  - @contractspec/lib.contracts-spec@1.55.0
   - @contractspec/lib.ui-link@1.55.0
   - @contractspec/lib.logger@1.55.0
   - @contractspec/lib.schema@1.55.0
@@ -176,7 +176,7 @@
   - @contractspec/lib.example-shared-ui@1.8.0
   - @contractspec/lib.design-system@1.54.0
   - @contractspec/lib.ui-kit-web@1.54.0
-  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/lib.contracts-spec@1.54.0
   - @contractspec/lib.contracts-library@1.54.0
   - @contractspec/lib.logger@1.54.0
   - @contractspec/lib.runtime-sandbox@0.9.0
@@ -200,7 +200,7 @@
 - Updated dependencies [f4180d4]
 - Updated dependencies [64d84e1]
   - @contractspec/lib.design-system@1.53.0
-  - @contractspec/lib.contracts@1.53.0
+  - @contractspec/lib.contracts-spec@1.53.0
   - @contractspec/module.examples@1.53.0
   - @contractspec/lib.schema@1.53.0
   - @contractspec/lib.contracts-library@1.53.0
@@ -225,7 +225,7 @@
   - @contractspec/lib.design-system@1.52.0
   - @contractspec/module.examples@1.52.0
   - @contractspec/lib.ui-kit-web@1.52.0
-  - @contractspec/lib.contracts@1.52.0
+  - @contractspec/lib.contracts-spec@1.52.0
   - @contractspec/lib.ui-link@1.52.0
   - @contractspec/lib.logger@1.52.0
   - @contractspec/lib.schema@1.52.0
@@ -241,7 +241,7 @@
 - Updated dependencies [23e46e9]
 - Updated dependencies [ad1f852]
 - Updated dependencies [e6faefb]
-  - @contractspec/lib.contracts@1.51.0
+  - @contractspec/lib.contracts-spec@1.51.0
   - @contractspec/lib.contracts-library@1.51.0
   - @contractspec/lib.example-shared-ui@1.5.0
   - @contractspec/lib.runtime-sandbox@0.6.0
@@ -261,7 +261,7 @@
 ### Patch Changes
 
 - Updated dependencies [5325d6b]
-  - @contractspec/lib.contracts@1.50.0
+  - @contractspec/lib.contracts-spec@1.50.0
   - @contractspec/lib.contracts-library@1.50.0
   - @contractspec/lib.design-system@1.50.0
   - @contractspec/lib.example-shared-ui@1.4.0
@@ -287,7 +287,7 @@
   - @contractspec/lib.design-system@1.49.0
   - @contractspec/module.examples@1.49.0
   - @contractspec/lib.ui-kit-web@1.49.0
-  - @contractspec/lib.contracts@1.49.0
+  - @contractspec/lib.contracts-spec@1.49.0
   - @contractspec/lib.ui-link@1.49.0
   - @contractspec/lib.logger@1.49.0
   - @contractspec/lib.schema@1.49.0
@@ -316,7 +316,7 @@
 - Updated dependencies [c560ee7]
 - Updated dependencies [1536bf3]
   - @contractspec/lib.design-system@1.48.1
-  - @contractspec/lib.contracts@1.48.1
+  - @contractspec/lib.contracts-spec@1.48.1
   - @contractspec/lib.example-shared-ui@1.2.1
   - @contractspec/lib.contracts-library@1.48.1
   - @contractspec/module.examples@1.48.1
@@ -336,7 +336,7 @@
   - @contractspec/lib.design-system@1.48.0
   - @contractspec/module.examples@1.48.0
   - @contractspec/lib.ui-kit-web@1.48.0
-  - @contractspec/lib.contracts@1.48.0
+  - @contractspec/lib.contracts-spec@1.48.0
   - @contractspec/lib.ui-link@1.48.0
   - @contractspec/lib.logger@1.48.0
   - @contractspec/lib.schema@1.48.0
@@ -366,7 +366,7 @@
   - @contractspec/lib.design-system@1.47.0
   - @contractspec/module.examples@1.47.0
   - @contractspec/lib.ui-kit-web@1.47.0
-  - @contractspec/lib.contracts@1.47.0
+  - @contractspec/lib.contracts-spec@1.47.0
   - @contractspec/lib.ui-link@1.47.0
   - @contractspec/lib.logger@1.47.0
   - @contractspec/lib.schema@1.47.0
@@ -382,4 +382,4 @@
   - @contractspec/lib.design-system@1.46.2
   - @contractspec/module.examples@1.46.2
   - @contractspec/lib.ui-kit-web@1.46.2
-  - @contractspec/lib.contracts@1.46.2
+  - @contractspec/lib.contracts-spec@1.46.2

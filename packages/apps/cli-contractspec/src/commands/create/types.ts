@@ -1,4 +1,4 @@
-import type { FormatterType } from '@contractspec/lib.contracts';
+import type { FormatterType } from '@contractspec/lib.contracts-spec';
 import type { SpecType } from '../../types';
 
 export interface CreateOptions {

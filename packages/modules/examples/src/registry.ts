@@ -1,9 +1,9 @@
-import { ExampleRegistry } from '@contractspec/lib.contracts/examples/registry';
-import type { ExampleSpec } from '@contractspec/lib.contracts/examples/types';
+import { ExampleRegistry } from '@contractspec/lib.contracts-spec/examples/registry';
+import type { ExampleSpec } from '@contractspec/lib.contracts-spec/examples/types';
 import { EXAMPLE_REGISTRY as BUILTIN_EXAMPLES } from './builtins';
 
 // Export the ExampleRegistry class from contracts
-export { ExampleRegistry } from '@contractspec/lib.contracts/examples/registry';
+export { ExampleRegistry } from '@contractspec/lib.contracts-spec/examples/registry';
 
 // Create a global registry instance populated with builtins
 const globalRegistry = new ExampleRegistry();

@@ -30,7 +30,7 @@ export async function runDepsChecks(
   // Check if node_modules exists
   results.push(await checkNodeModules(fs, ctx));
 
-  // Check if @contractspec/lib.contracts is installed
+  // Check if @contractspec/lib.contracts-spec is installed
   results.push(await checkContractsLibrary(fs, ctx));
 
   return results;
@@ -226,7 +226,7 @@ async function checkNodeModules(
 }
 
 /**
- * Check if @contractspec/lib.contracts is installed.
+ * Check if @contractspec/lib.contracts-spec is installed.
  */
 async function checkContractsLibrary(
   fs: FsAdapter,
@@ -246,12 +246,12 @@ async function checkContractsLibrary(
       ...packageJson.devDependencies,
     };
 
-    if ('@contractspec/lib.contracts' in allDeps) {
+    if ('@contractspec/lib.contracts-spec' in allDeps) {
       return {
         category: 'deps',
         name: 'ContractSpec Library',
         status: 'pass',
-        message: `@contractspec/lib.contracts installed (${allDeps['@contractspec/lib.contracts']})`,
+        message: `@contractspec/lib.contracts-spec installed (${allDeps['@contractspec/lib.contracts-spec']})`,
       };
     }
 
@@ -270,21 +270,21 @@ async function checkContractsLibrary(
       category: 'deps',
       name: 'ContractSpec Library',
       status: 'fail',
-      message: '@contractspec/lib.contracts not installed',
+      message: '@contractspec/lib.contracts-spec not installed',
       details: 'Run "contractspec quickstart" to install required packages',
       fix: {
-        description: 'Install @contractspec/lib.contracts and dependencies',
+        description: 'Install @contractspec/lib.contracts-spec and dependencies',
         apply: async () => {
           try {
             // Try bun first, then npm
             try {
-              await execAsync('bun add @contractspec/lib.contracts zod', {
+              await execAsync('bun add @contractspec/lib.contracts-spec zod', {
                 cwd: ctx.workspaceRoot,
                 timeout: 120000,
               });
               return { success: true, message: 'Installed with bun' };
             } catch {
-              await execAsync('npm install @contractspec/lib.contracts zod', {
+              await execAsync('npm install @contractspec/lib.contracts-spec zod', {
                 cwd: ctx.workspaceRoot,
                 timeout: 120000,
               });

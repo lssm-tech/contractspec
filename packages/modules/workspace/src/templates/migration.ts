@@ -12,7 +12,7 @@ export function generateMigrationSpec(data: MigrationSpecData): string {
           .join(', ')}],`
       : '';
 
-  return `import type { MigrationSpec } from '@contractspec/lib.contracts/migrations';
+  return `import type { MigrationSpec } from '@contractspec/lib.contracts-spec/migrations';
 
 export const ${migrationVar}: MigrationSpec = {
   meta: {

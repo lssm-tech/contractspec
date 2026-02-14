@@ -3,8 +3,8 @@
  *
  * Provides a comprehensive overview of agents, runs, and tools.
  */
-import type { PresentationSpec } from '@contractspec/lib.contracts/presentations';
-import type { PresentationRenderer } from '@contractspec/lib.contracts/presentations/transform-engine';
+import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
+import type { PresentationRenderer } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
 import {
   mockListAgentsHandler,
   mockListRunsHandler,

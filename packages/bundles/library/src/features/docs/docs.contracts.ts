@@ -5,4 +5,4 @@ export {
   DocsIndexQuery as docsSearchSpec,
   DocsIndexQuery,
   ContractReferenceQuery,
-} from '@contractspec/lib.contracts/docs';
+} from '@contractspec/lib.contracts-spec/docs';

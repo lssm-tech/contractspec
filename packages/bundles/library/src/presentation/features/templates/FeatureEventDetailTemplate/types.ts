@@ -1,8 +1,8 @@
 import type {
   EventRef,
   FeatureModuleSpec,
-} from '@contractspec/lib.contracts/features';
-import type { SerializedEventSpec } from '@contractspec/lib.contracts/serialization';
+} from '@contractspec/lib.contracts-spec/features';
+import type { SerializedEventSpec } from '@contractspec/lib.contracts-spec/serialization';
 
 export interface FeatureEventDetailTemplateProps {
   feature: FeatureModuleSpec;

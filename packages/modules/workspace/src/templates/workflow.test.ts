@@ -20,7 +20,7 @@ describe('generateWorkflowSpec', () => {
   it('generates a workflow spec', () => {
     const code = generateWorkflowSpec(baseData);
     expect(code).toContain(
-      "import type { WorkflowSpec } from '@contractspec/lib.contracts/workflow'"
+      "import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow'"
     );
     expect(code).toContain('export const WorkflowWorkflow: WorkflowSpec = {');
     expect(code).toContain("title: 'Test Workflow'");

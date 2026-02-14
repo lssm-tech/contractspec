@@ -3,7 +3,7 @@
  */
 
 import type { AgentProvider, AgentResult, AgentTask } from './types';
-import type { AgentMode } from '@contractspec/lib.contracts';
+import type { AgentMode } from '@contractspec/lib.contracts-spec';
 import {
   createUnifiedAgent,
   UnifiedAgent,

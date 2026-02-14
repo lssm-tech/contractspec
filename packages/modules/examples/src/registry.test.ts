@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test';
 import { listExamples } from './registry';
-import { validateExamples } from '@contractspec/lib.contracts/examples/validation';
+import { validateExamples } from '@contractspec/lib.contracts-spec/examples/validation';
 
 describe('@contractspec/module.examples registry', () => {
   test('should contain at least one example and all manifests should validate', () => {

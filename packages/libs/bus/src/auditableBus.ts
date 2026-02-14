@@ -3,7 +3,7 @@ import {
   type EventKey,
   eventKey,
   type EventSpec,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type { EventBus } from './eventBus';
 import { encodeEvent, decodeEvent } from './eventBus';

@@ -1,4 +1,4 @@
-import type { DocBlock } from '@contractspec/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { opsRunbookDocsA } from './ops-runbooks-a.docblocks';
 import { opsLifecycleDocs } from './ops-lifecycle.docblocks';
 import { opsRunbookDocsB } from './ops-runbooks-b.docblocks';

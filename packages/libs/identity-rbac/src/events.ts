@@ -1,5 +1,5 @@
 import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
-import { defineEvent } from '@contractspec/lib.contracts';
+import { defineEvent } from '@contractspec/lib.contracts-spec';
 
 // ============ User Event Payloads ============
 

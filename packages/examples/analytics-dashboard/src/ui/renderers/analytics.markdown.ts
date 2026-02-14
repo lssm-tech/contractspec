@@ -1,7 +1,7 @@
 /**
  * Markdown renderers for Analytics Dashboard presentations
  */
-import type { PresentationRenderer } from '@contractspec/lib.contracts/presentations/transform-engine';
+import type { PresentationRenderer } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
 
 // Mock data for analytics rendering
 const mockDashboards = [

@@ -20,7 +20,7 @@ import {
 } from '@contractspec/module.ai-chat/core';
 import { getWorkspaceAdapters } from '../workspace/adapters';
 import type { LanguageModel } from 'ai';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 import { loadWorkspaceConfig } from '@contractspec/bundle.workspace';
 
 class WrappedProvider implements Provider {

@@ -2,7 +2,7 @@
  * Code generation related type definitions.
  */
 
-import type { OpKind } from '@contractspec/lib.contracts';
+import type { OpKind } from '@contractspec/lib.contracts-spec';
 import type { PresentationKind } from './spec-types';
 import type { RuleSyncConfig } from './rulesync-types';
 

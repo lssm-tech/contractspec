@@ -3,7 +3,7 @@
  */
 
 import micromatch from 'micromatch';
-import type { ContractsrcConfig } from '@contractspec/lib.contracts/workspace-config';
+import type { ContractsrcConfig } from '@contractspec/lib.contracts-spec/workspace-config';
 
 /**
  * Check if a file path matches test file patterns.

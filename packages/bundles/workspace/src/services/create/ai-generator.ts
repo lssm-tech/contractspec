@@ -26,7 +26,7 @@ import {
 import type {
   OpKind,
   ResolvedContractsrcConfig,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 import { getApiKey } from '../config';
 
 /**

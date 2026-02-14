@@ -16,9 +16,9 @@ export function generateKnowledgeSpaceSpec(
       ? ` // defaults to latest version`
       : '';
 
-  return `import { StabilityEnum } from '@contractspec/lib.contracts/ownership';
-import type { KnowledgeSpaceSpec } from '@contractspec/lib.contracts/knowledge/spec';
-import type { KnowledgeSpaceRegistry } from '@contractspec/lib.contracts/knowledge/spec';
+  return `import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
+import type { KnowledgeSpaceSpec } from '@contractspec/lib.contracts-spec/knowledge/spec';
+import type { KnowledgeSpaceRegistry } from '@contractspec/lib.contracts-spec/knowledge/spec';
 
 export const ${varName}: KnowledgeSpaceSpec = {
   meta: {

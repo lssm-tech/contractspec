@@ -2,7 +2,7 @@ import { readFile, writeFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import { join } from 'path';
 import type { Config } from './config';
-import type { OpenApiSourceConfig } from '@contractspec/lib.contracts';
+import type { OpenApiSourceConfig } from '@contractspec/lib.contracts-spec';
 import { findPackageRoot } from '@contractspec/bundle.workspace';
 
 /**

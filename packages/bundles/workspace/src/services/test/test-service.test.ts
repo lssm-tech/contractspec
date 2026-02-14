@@ -1,8 +1,8 @@
 import { describe, expect, it, mock } from 'bun:test';
 import { listTests, runTests } from './test-service';
 import type { WorkspaceAdapters } from '../../ports/logger';
-import { OperationSpecRegistry } from '@contractspec/lib.contracts';
-import type { TestSpec } from '@contractspec/lib.contracts/tests';
+import { OperationSpecRegistry } from '@contractspec/lib.contracts-spec';
+import type { TestSpec } from '@contractspec/lib.contracts-spec/tests';
 
 // Mock dependencies
 const mockLoadModule = mock(async (path: string) => {

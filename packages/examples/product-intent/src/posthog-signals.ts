@@ -3,7 +3,7 @@ import type {
   AnalyticsQueryResult,
   DateRangeInput,
 } from '@contractspec/lib.contracts-integrations';
-import type { EvidenceChunk } from '@contractspec/lib.contracts/product-intent/types';
+import type { EvidenceChunk } from '@contractspec/lib.contracts-spec/product-intent/types';
 import { FunnelAnalyzer } from '@contractspec/lib.analytics/funnel';
 import type {
   AnalyticsEvent,

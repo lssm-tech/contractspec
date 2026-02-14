@@ -1,7 +1,7 @@
 import type { ParsedEvent } from '../types';
 import { generateImports, generateSchemaModelCode } from '../schema-converter';
 import { toPascalCase, toValidIdentifier } from '../../common/utils';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 
 /**
  * Generate code for an event.
@@ -25,7 +25,7 @@ export function generateEventCode(
 
   const imports = new Set<string>();
   imports.add(
-    "import { defineEvent, type EventSpec } from '@contractspec/lib.contracts';"
+    "import { defineEvent, type EventSpec } from '@contractspec/lib.contracts-spec';"
   );
 
   if (payloadModel.imports && payloadModel.imports.length > 0) {

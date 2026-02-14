@@ -12,7 +12,7 @@ import type {
   PresentationKind,
   PresentationSpecData,
 } from '../../types';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 
 // Cache service instance? Or create per call?
 // Per call is fine or we can pass it if we refactor deeper.

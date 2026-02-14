@@ -12,7 +12,7 @@ import {
   Users,
   Zap,
 } from 'lucide-react';
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts/features';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts-spec/features';
 
 export interface FeatureHoverPreviewProps {
   /** The feature to preview */

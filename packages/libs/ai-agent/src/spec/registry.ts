@@ -1,7 +1,7 @@
 import type { AgentSpec } from './spec';
 import { getDefaultI18n } from '../i18n';
 import { compareVersions } from 'compare-versions';
-import { SpecContractRegistry } from '@contractspec/lib.contracts/registry';
+import { SpecContractRegistry } from '@contractspec/lib.contracts-spec/registry';
 
 /**
  * Registry for managing agent specifications.

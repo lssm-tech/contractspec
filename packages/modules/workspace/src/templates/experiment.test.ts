@@ -22,7 +22,7 @@ describe('generateExperimentSpec', () => {
   it('generates an experiment spec', () => {
     const code = generateExperimentSpec(baseData);
     expect(code).toContain(
-      "import type { ExperimentSpec } from '@contractspec/lib.contracts/experiments'"
+      "import type { ExperimentSpec } from '@contractspec/lib.contracts-spec/experiments'"
     );
     expect(code).toContain('export const ExpExperiment: ExperimentSpec = {');
     expect(code).toContain("controlVariant: 'control'");

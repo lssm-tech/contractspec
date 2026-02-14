@@ -3,11 +3,11 @@
  */
 
 import type { Stability } from './spec-types';
-import type { ContractSpecType } from '@contractspec/lib.contracts';
+import type { ContractSpecType } from '@contractspec/lib.contracts-spec';
 
 /**
  * Spec type detected from file analysis.
- * Covers all contract types from @contractspec/lib.contracts.
+ * Covers all contract types from @contractspec/lib.contracts-spec.
  */
 export type AnalyzedSpecType = ContractSpecType | 'unknown';
 
@@ -53,7 +53,7 @@ export interface RefInfo {
 
 /**
  * Test target extracted from a TestSpec.
- * Matches the TestTarget type from @contractspec/lib.contracts.
+ * Matches the TestTarget type from @contractspec/lib.contracts-spec.
  */
 export interface ExtractedTestTarget {
   type: 'operation' | 'workflow';

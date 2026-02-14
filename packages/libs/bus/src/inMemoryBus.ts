@@ -1,4 +1,4 @@
-import type { EventKey } from '@contractspec/lib.contracts';
+import type { EventKey } from '@contractspec/lib.contracts-spec';
 import type { EventBus } from './eventBus';
 
 /**

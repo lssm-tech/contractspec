@@ -2,7 +2,7 @@ import {
   definePresentation,
   StabilityEnum,
   type PresentationSpecMeta,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 import { PlatformTourTrackModel } from '../operations';
 
 const baseMeta: Pick<

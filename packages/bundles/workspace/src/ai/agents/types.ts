@@ -2,7 +2,7 @@
  * Agent types and interfaces for code generation and validation
  */
 
-import type { AgentMode } from '@contractspec/lib.contracts';
+import type { AgentMode } from '@contractspec/lib.contracts-spec';
 
 export interface AgentTask {
   type: 'generate' | 'validate' | 'refactor' | 'test';

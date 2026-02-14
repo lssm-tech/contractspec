@@ -10,7 +10,7 @@
 
 - Updated dependencies [374fd71]
   - @contractspec/bundle.lifecycle-managed@1.61.0
-  - @contractspec/lib.contracts@1.61.0
+  - @contractspec/lib.contracts-spec@1.61.0
   - @contractspec/lib.lifecycle@1.61.0
   - @contractspec/lib.logger@1.61.0
 
@@ -24,7 +24,7 @@
 
 - Updated dependencies
   - @contractspec/bundle.lifecycle-managed@1.60.0
-  - @contractspec/lib.contracts@1.60.0
+  - @contractspec/lib.contracts-spec@1.60.0
   - @contractspec/lib.lifecycle@1.60.0
   - @contractspec/lib.logger@1.60.0
 
@@ -38,7 +38,7 @@
 
 - Updated dependencies [1a0cf44]
   - @contractspec/bundle.lifecycle-managed@1.59.0
-  - @contractspec/lib.contracts@1.59.0
+  - @contractspec/lib.contracts-spec@1.59.0
   - @contractspec/lib.lifecycle@1.59.0
   - @contractspec/lib.logger@1.59.0
 
@@ -53,7 +53,7 @@
 - Updated dependencies [d1f0fd0]
 - Updated dependencies [4355a9e]
   - @contractspec/bundle.lifecycle-managed@1.58.0
-  - @contractspec/lib.contracts@1.58.0
+  - @contractspec/lib.contracts-spec@1.58.0
   - @contractspec/lib.lifecycle@1.58.0
   - @contractspec/lib.logger@1.58.0
 
@@ -71,7 +71,7 @@
 - Updated dependencies [4651e06]
 - Updated dependencies [ad9d10a]
 - Updated dependencies [11a5a05]
-  - @contractspec/lib.contracts@1.57.0
+  - @contractspec/lib.contracts-spec@1.57.0
   - @contractspec/bundle.lifecycle-managed@1.57.0
   - @contractspec/lib.lifecycle@1.57.0
   - @contractspec/lib.logger@1.57.0
@@ -83,7 +83,7 @@
 - fix: improve publish config
 - Updated dependencies
   - @contractspec/bundle.lifecycle-managed@1.56.1
-  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.contracts-spec@1.56.1
   - @contractspec/lib.lifecycle@1.56.1
   - @contractspec/lib.logger@1.56.1
 
@@ -97,7 +97,7 @@
 
 - Updated dependencies
   - @contractspec/bundle.lifecycle-managed@1.56.0
-  - @contractspec/lib.contracts@1.56.0
+  - @contractspec/lib.contracts-spec@1.56.0
   - @contractspec/lib.lifecycle@1.56.0
   - @contractspec/lib.logger@1.56.0
 
@@ -111,7 +111,7 @@
 
 - Updated dependencies
   - @contractspec/bundle.lifecycle-managed@1.55.0
-  - @contractspec/lib.contracts@1.55.0
+  - @contractspec/lib.contracts-spec@1.55.0
   - @contractspec/lib.lifecycle@1.55.0
   - @contractspec/lib.logger@1.55.0
 
@@ -124,7 +124,7 @@
 ### Patch Changes
 
 - Updated dependencies [ec5e95c]
-  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/lib.contracts-spec@1.54.0
   - @contractspec/bundle.lifecycle-managed@1.54.0
   - @contractspec/lib.lifecycle@1.54.0
   - @contractspec/lib.logger@1.54.0
@@ -140,7 +140,7 @@
 - Updated dependencies [5b371b1]
 - Updated dependencies [f4180d4]
 - Updated dependencies [64d84e1]
-  - @contractspec/lib.contracts@1.53.0
+  - @contractspec/lib.contracts-spec@1.53.0
   - @contractspec/bundle.lifecycle-managed@1.53.0
   - @contractspec/lib.lifecycle@1.53.0
   - @contractspec/lib.logger@1.53.0
@@ -155,7 +155,7 @@
 
 - Updated dependencies [d93e6a9]
   - @contractspec/bundle.lifecycle-managed@1.52.0
-  - @contractspec/lib.contracts@1.52.0
+  - @contractspec/lib.contracts-spec@1.52.0
   - @contractspec/lib.lifecycle@1.52.0
   - @contractspec/lib.logger@1.52.0
 
@@ -170,7 +170,7 @@
 - Updated dependencies [23e46e9]
 - Updated dependencies [ad1f852]
 - Updated dependencies [e6faefb]
-  - @contractspec/lib.contracts@1.51.0
+  - @contractspec/lib.contracts-spec@1.51.0
   - @contractspec/bundle.lifecycle-managed@1.51.0
   - @contractspec/lib.lifecycle@1.51.0
   - @contractspec/lib.logger@1.51.0
@@ -184,7 +184,7 @@
 ### Patch Changes
 
 - Updated dependencies [5325d6b]
-  - @contractspec/lib.contracts@1.50.0
+  - @contractspec/lib.contracts-spec@1.50.0
   - @contractspec/bundle.lifecycle-managed@1.50.0
   - @contractspec/lib.lifecycle@1.50.0
   - @contractspec/lib.logger@1.50.0
@@ -199,7 +199,7 @@
 
 - Updated dependencies [cafd041]
   - @contractspec/bundle.lifecycle-managed@1.49.0
-  - @contractspec/lib.contracts@1.49.0
+  - @contractspec/lib.contracts-spec@1.49.0
   - @contractspec/lib.lifecycle@1.49.0
   - @contractspec/lib.logger@1.49.0
 
@@ -208,7 +208,7 @@
 ### Patch Changes
 
 - Updated dependencies [c560ee7]
-  - @contractspec/lib.contracts@1.48.1
+  - @contractspec/lib.contracts-spec@1.48.1
   - @contractspec/bundle.lifecycle-managed@1.48.1
 
 ## 1.48.0
@@ -221,7 +221,7 @@
 
 - Updated dependencies [b0444a4]
   - @contractspec/bundle.lifecycle-managed@1.48.0
-  - @contractspec/lib.contracts@1.48.0
+  - @contractspec/lib.contracts-spec@1.48.0
   - @contractspec/lib.lifecycle@1.48.0
   - @contractspec/lib.logger@1.48.0
 
@@ -245,7 +245,7 @@
 - Updated dependencies [42b8d78]
 - Updated dependencies [fd38e85]
   - @contractspec/bundle.lifecycle-managed@1.47.0
-  - @contractspec/lib.contracts@1.47.0
+  - @contractspec/lib.contracts-spec@1.47.0
   - @contractspec/lib.lifecycle@1.47.0
   - @contractspec/lib.logger@1.47.0
 
@@ -256,7 +256,7 @@
 - 7e21625: feat: library services (landing page & api)
 - Updated dependencies [7e21625]
   - @contractspec/bundle.lifecycle-managed@1.46.2
-  - @contractspec/lib.contracts@1.46.2
+  - @contractspec/lib.contracts-spec@1.46.2
   - @contractspec/lib.lifecycle@1.46.2
   - @contractspec/lib.logger@1.46.2
 
@@ -267,7 +267,7 @@
 - 2d8a72b: fix: mcp for presentation
 - Updated dependencies [2d8a72b]
   - @contractspec/bundle.lifecycle-managed@1.46.1
-  - @contractspec/lib.contracts@1.46.1
+  - @contractspec/lib.contracts-spec@1.46.1
   - @contractspec/lib.lifecycle@1.46.1
   - @contractspec/lib.logger@1.46.1
 
@@ -281,7 +281,7 @@
 
 - Updated dependencies [07cb19b]
   - @contractspec/bundle.lifecycle-managed@1.46.0
-  - @contractspec/lib.contracts@1.46.0
+  - @contractspec/lib.contracts-spec@1.46.0
   - @contractspec/lib.lifecycle@1.46.0
   - @contractspec/lib.logger@1.46.0
 
@@ -292,7 +292,7 @@
 - a913074: feat: improve ai agents rules management"
 - Updated dependencies [a913074]
   - @contractspec/bundle.lifecycle-managed@1.45.6
-  - @contractspec/lib.contracts@1.45.6
+  - @contractspec/lib.contracts-spec@1.45.6
   - @contractspec/lib.lifecycle@1.45.6
   - @contractspec/lib.logger@1.45.6
 
@@ -303,7 +303,7 @@
 - 9ddd7fa: feat: improve versioning
 - Updated dependencies [9ddd7fa]
   - @contractspec/bundle.lifecycle-managed@1.45.5
-  - @contractspec/lib.contracts@1.45.5
+  - @contractspec/lib.contracts-spec@1.45.5
   - @contractspec/lib.lifecycle@1.45.5
   - @contractspec/lib.logger@1.45.5
 
@@ -314,7 +314,7 @@
 - fix: github action
 - Updated dependencies
   - @contractspec/bundle.lifecycle-managed@1.45.4
-  - @contractspec/lib.contracts@1.45.4
+  - @contractspec/lib.contracts-spec@1.45.4
   - @contractspec/lib.lifecycle@1.45.4
   - @contractspec/lib.logger@1.45.4
 
@@ -325,7 +325,7 @@
 - e74ea9e: feat: version management
 - Updated dependencies [e74ea9e]
   - @contractspec/bundle.lifecycle-managed@1.45.3
-  - @contractspec/lib.contracts@1.45.3
+  - @contractspec/lib.contracts-spec@1.45.3
   - @contractspec/lib.lifecycle@1.45.3
   - @contractspec/lib.logger@1.45.3
 
@@ -336,7 +336,7 @@
 - 39ca241: code cleaning
 - Updated dependencies [39ca241]
   - @contractspec/bundle.lifecycle-managed@1.45.2
-  - @contractspec/lib.contracts@1.45.2
+  - @contractspec/lib.contracts-spec@1.45.2
   - @contractspec/lib.lifecycle@1.45.2
   - @contractspec/lib.logger@1.45.2
 
@@ -347,7 +347,7 @@
 - feat: improve app config and examples contracts
 - Updated dependencies
   - @contractspec/bundle.lifecycle-managed@1.45.1
-  - @contractspec/lib.contracts@1.45.1
+  - @contractspec/lib.contracts-spec@1.45.1
   - @contractspec/lib.lifecycle@1.45.1
   - @contractspec/lib.logger@1.45.1
   - @contractspec/lib.schema@1.45.1
@@ -376,7 +376,7 @@
 
 - Updated dependencies [e73ca1d]
   - @contractspec/bundle.lifecycle-managed@1.45.0
-  - @contractspec/lib.contracts@1.45.0
+  - @contractspec/lib.contracts-spec@1.45.0
   - @contractspec/lib.lifecycle@1.45.0
   - @contractspec/lib.logger@1.45.0
   - @contractspec/lib.schema@1.45.0
@@ -388,7 +388,7 @@
 - 3c594fb: fix
 - Updated dependencies [3c594fb]
   - @contractspec/bundle.lifecycle-managed@1.44.1
-  - @contractspec/lib.contracts@1.44.1
+  - @contractspec/lib.contracts-spec@1.44.1
   - @contractspec/lib.lifecycle@1.44.1
   - @contractspec/lib.logger@1.44.1
   - @contractspec/lib.schema@1.44.1
@@ -403,7 +403,7 @@
 
 - Updated dependencies [5f3a868]
   - @contractspec/bundle.lifecycle-managed@1.44.0
-  - @contractspec/lib.contracts@1.44.0
+  - @contractspec/lib.contracts-spec@1.44.0
   - @contractspec/lib.lifecycle@1.44.0
   - @contractspec/lib.logger@1.44.0
   - @contractspec/lib.schema@1.44.0
@@ -415,7 +415,7 @@
 - 9216062: fix: cross-platform compatibility
 - Updated dependencies [9216062]
   - @contractspec/bundle.lifecycle-managed@1.43.4
-  - @contractspec/lib.contracts@1.43.4
+  - @contractspec/lib.contracts-spec@1.43.4
   - @contractspec/lib.lifecycle@1.43.3
   - @contractspec/lib.logger@1.43.3
   - @contractspec/lib.schema@1.43.3
@@ -427,7 +427,7 @@
 - 24d9759: improve documentation
 - Updated dependencies [24d9759]
   - @contractspec/bundle.lifecycle-managed@1.43.3
-  - @contractspec/lib.contracts@1.43.3
+  - @contractspec/lib.contracts-spec@1.43.3
   - @contractspec/lib.lifecycle@1.43.2
   - @contractspec/lib.logger@1.43.2
   - @contractspec/lib.schema@1.43.2
@@ -439,7 +439,7 @@
 - e147271: fix: improve stability
 - Updated dependencies [e147271]
   - @contractspec/bundle.lifecycle-managed@1.43.2
-  - @contractspec/lib.contracts@1.43.2
+  - @contractspec/lib.contracts-spec@1.43.2
   - @contractspec/lib.lifecycle@1.43.1
   - @contractspec/lib.logger@1.43.1
   - @contractspec/lib.schema@1.43.1
@@ -449,7 +449,7 @@
 ### Patch Changes
 
 - Updated dependencies [f28fdad]
-  - @contractspec/lib.contracts@1.43.1
+  - @contractspec/lib.contracts-spec@1.43.1
   - @contractspec/bundle.lifecycle-managed@1.43.1
 
 ## 1.43.0
@@ -462,7 +462,7 @@
 
 - Updated dependencies [042d072]
   - @contractspec/bundle.lifecycle-managed@1.43.0
-  - @contractspec/lib.contracts@1.43.0
+  - @contractspec/lib.contracts-spec@1.43.0
   - @contractspec/lib.lifecycle@1.43.0
   - @contractspec/lib.logger@1.43.0
   - @contractspec/lib.schema@1.43.0
@@ -474,7 +474,7 @@
 - 1e6a0f1: fix: mcp server
 - Updated dependencies [1e6a0f1]
   - @contractspec/bundle.lifecycle-managed@1.42.10
-  - @contractspec/lib.contracts@1.42.10
+  - @contractspec/lib.contracts-spec@1.42.10
   - @contractspec/lib.lifecycle@1.42.10
   - @contractspec/lib.logger@1.42.10
   - @contractspec/lib.schema@1.42.10
@@ -486,7 +486,7 @@
 - 9281db7: fix ModelRegistry
 - Updated dependencies [9281db7]
   - @contractspec/bundle.lifecycle-managed@1.42.9
-  - @contractspec/lib.contracts@1.42.9
+  - @contractspec/lib.contracts-spec@1.42.9
   - @contractspec/lib.lifecycle@1.42.9
   - @contractspec/lib.logger@1.42.9
   - @contractspec/lib.schema@1.42.9
@@ -498,7 +498,7 @@
 - e07b5ac: fix
 - Updated dependencies [e07b5ac]
   - @contractspec/bundle.lifecycle-managed@1.42.8
-  - @contractspec/lib.contracts@1.42.8
+  - @contractspec/lib.contracts-spec@1.42.8
   - @contractspec/lib.lifecycle@1.42.8
   - @contractspec/lib.logger@1.42.8
   - @contractspec/lib.schema@1.42.8
@@ -510,7 +510,7 @@
 - e9b575d: fix release
 - Updated dependencies [e9b575d]
   - @contractspec/bundle.lifecycle-managed@1.42.7
-  - @contractspec/lib.contracts@1.42.7
+  - @contractspec/lib.contracts-spec@1.42.7
   - @contractspec/lib.lifecycle@1.42.7
   - @contractspec/lib.logger@1.42.7
   - @contractspec/lib.schema@1.42.7
@@ -522,7 +522,7 @@
 - 1500242: fix tooling
 - Updated dependencies [1500242]
   - @contractspec/bundle.lifecycle-managed@1.42.6
-  - @contractspec/lib.contracts@1.42.6
+  - @contractspec/lib.contracts-spec@1.42.6
   - @contractspec/lib.lifecycle@1.42.6
   - @contractspec/lib.logger@1.42.6
   - @contractspec/lib.schema@1.42.6
@@ -534,7 +534,7 @@
 - 1299719: fix vscode
 - Updated dependencies [1299719]
   - @contractspec/bundle.lifecycle-managed@1.42.5
-  - @contractspec/lib.contracts@1.42.5
+  - @contractspec/lib.contracts-spec@1.42.5
   - @contractspec/lib.lifecycle@1.42.5
   - @contractspec/lib.logger@1.42.5
   - @contractspec/lib.schema@1.42.5
@@ -546,7 +546,7 @@
 - ac28b99: fix: generate from openapi
 - Updated dependencies [ac28b99]
   - @contractspec/bundle.lifecycle-managed@1.42.4
-  - @contractspec/lib.contracts@1.42.4
+  - @contractspec/lib.contracts-spec@1.42.4
   - @contractspec/lib.lifecycle@1.42.4
   - @contractspec/lib.logger@1.42.4
   - @contractspec/lib.schema@1.42.4
@@ -558,7 +558,7 @@
 - 3f5d015: fix(tooling): cicd
 - Updated dependencies [3f5d015]
   - @contractspec/bundle.lifecycle-managed@1.42.3
-  - @contractspec/lib.contracts@1.42.3
+  - @contractspec/lib.contracts-spec@1.42.3
   - @contractspec/lib.lifecycle@1.42.3
   - @contractspec/lib.logger@1.42.3
   - @contractspec/lib.schema@1.42.3
@@ -570,7 +570,7 @@
 - 1f9ac4c: fix
 - Updated dependencies [1f9ac4c]
   - @contractspec/bundle.lifecycle-managed@1.42.2
-  - @contractspec/lib.contracts@1.42.2
+  - @contractspec/lib.contracts-spec@1.42.2
   - @contractspec/lib.lifecycle@1.42.2
   - @contractspec/lib.logger@1.42.2
   - @contractspec/lib.schema@1.42.2
@@ -582,7 +582,7 @@
 - f043995: Fix release
 - Updated dependencies [f043995]
   - @contractspec/bundle.lifecycle-managed@1.42.1
-  - @contractspec/lib.contracts@1.42.1
+  - @contractspec/lib.contracts-spec@1.42.1
   - @contractspec/lib.lifecycle@1.42.1
   - @contractspec/lib.logger@1.42.1
   - @contractspec/lib.schema@1.42.1
@@ -597,7 +597,7 @@
 
 - Updated dependencies [8eefd9c]
   - @contractspec/bundle.lifecycle-managed@1.42.0
-  - @contractspec/lib.contracts@1.42.0
+  - @contractspec/lib.contracts-spec@1.42.0
   - @contractspec/lib.lifecycle@1.42.0
   - @contractspec/lib.logger@1.42.0
   - @contractspec/lib.schema@1.42.0

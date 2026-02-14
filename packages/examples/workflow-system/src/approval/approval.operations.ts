@@ -1,7 +1,7 @@
 import {
   defineCommand,
   defineQuery,
-} from '@contractspec/lib.contracts/operations';
+} from '@contractspec/lib.contracts-spec/operations';
 import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 import { ApprovalDecisionEnum, ApprovalStatusEnum } from './approval.enum';
 import { ApprovalCommentModel, ApprovalRequestModel } from './approval.schema';

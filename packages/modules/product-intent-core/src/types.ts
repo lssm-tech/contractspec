@@ -1,5 +1,5 @@
-import type { EvidenceChunk } from '@contractspec/lib.contracts/product-intent/types';
-import type { ProductIntentMeta } from '@contractspec/lib.contracts/product-intent/spec';
+import type { EvidenceChunk } from '@contractspec/lib.contracts-spec/product-intent/types';
+import type { ProductIntentMeta } from '@contractspec/lib.contracts-spec/product-intent/spec';
 import type {
   ContractPatchIntent,
   ContractSpecPatch,
@@ -7,7 +7,7 @@ import type {
   InsightExtraction,
   OpportunityBrief,
   TaskPack,
-} from '@contractspec/lib.contracts/product-intent/types';
+} from '@contractspec/lib.contracts-spec/product-intent/types';
 
 export interface ProductIntentModelRunner {
   generateJson: (prompt: string) => Promise<string>;

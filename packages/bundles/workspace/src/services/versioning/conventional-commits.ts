@@ -12,7 +12,7 @@
  * @module versioning/conventional-commits
  */
 
-import type { VersionBumpType, ChangeEntry } from '@contractspec/lib.contracts';
+import type { VersionBumpType, ChangeEntry } from '@contractspec/lib.contracts-spec';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Types

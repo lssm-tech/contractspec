@@ -22,7 +22,7 @@ describe('generateKnowledgeSpaceSpec', () => {
   it('generates a knowledge space spec', () => {
     const code = generateKnowledgeSpaceSpec(baseData);
     expect(code).toContain(
-      "import type { KnowledgeSpaceSpec } from '@contractspec/lib.contracts/knowledge/spec'"
+      "import type { KnowledgeSpaceSpec } from '@contractspec/lib.contracts-spec/knowledge/spec'"
     );
     expect(code).toContain(
       'export const KnowledgeKnowledgeSpace: KnowledgeSpaceSpec = {'

@@ -12,7 +12,7 @@
   "dependencies": {
     "@contractspec/bundle.workspace": "workspace:*",
     "@contractspec/module.workspace": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.contracts-transformers": "workspace:*",
     "@contractspec/module.examples": "workspace:*",
     "vscode-jsonrpc": "^8.2.0"

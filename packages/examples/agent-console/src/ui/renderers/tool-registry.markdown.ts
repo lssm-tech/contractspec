@@ -3,8 +3,8 @@
  *
  * Uses dynamic import for handlers to ensure correct build order.
  */
-import type { PresentationSpec } from '@contractspec/lib.contracts/presentations';
-import type { PresentationRenderer } from '@contractspec/lib.contracts/presentations/transform-engine';
+import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
+import type { PresentationRenderer } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
 import { mockListToolsHandler } from '@contractspec/example.agent-console/handlers';
 
 interface ToolItem {

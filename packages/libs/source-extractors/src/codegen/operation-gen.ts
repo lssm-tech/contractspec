@@ -89,7 +89,7 @@ function generateOperationCode(
     ` * Confidence: ${endpoint.confidence.level}`,
     ` */`,
     ``,
-    `import { ${defineFunc} } from '@contractspec/lib.contracts';`,
+    `import { ${defineFunc} } from '@contractspec/lib.contracts-spec';`,
     `import { fromZod } from '@contractspec/lib.schema';`,
     `import { z } from 'zod';`,
     ``,

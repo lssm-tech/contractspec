@@ -42,7 +42,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
     "zod": "catalog:"
   },
@@ -54,7 +54,7 @@
     "@contractspec/tool.bun": "workspace:*"
   },
   "peerDependencies": {
-    "@contractspec/lib.contracts": "^1.61.0",
+    "@contractspec/lib.contracts-spec": "^1.61.0",
     "@contractspec/lib.schema": "^1.61.0"
   },
   "publishConfig": {

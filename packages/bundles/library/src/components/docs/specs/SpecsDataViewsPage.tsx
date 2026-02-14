@@ -72,7 +72,7 @@ export function SpecsDataViewsPage() {
           Here's a DataView for listing orders in TypeScript:
         </p>
         <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`import { defineDataView } from '@contractspec/lib.contracts';
+          <pre>{`import { defineDataView } from '@contractspec/lib.contracts-spec';
 import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 export const OrderList = defineDataView({

@@ -1,7 +1,7 @@
 /**
  * CRM Dashboard Presentation Descriptor
  */
-import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts-spec';
 
 /**
  * Main CRM dashboard presentation.

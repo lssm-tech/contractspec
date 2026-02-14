@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@contractspec/lib.ui-kit-core": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/example.learning-journey-ui-shared": "workspace:*",
     "@contractspec/example.learning-journey-studio-onboarding": "workspace:*",
     "@contractspec/example.learning-journey-platform-tour": "workspace:*",

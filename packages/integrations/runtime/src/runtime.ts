@@ -3,7 +3,7 @@ import { performance } from 'node:perf_hooks';
 import type {
   ResolvedAppConfig,
   ResolvedIntegration,
-} from '@contractspec/lib.contracts/app-config/runtime';
+} from '@contractspec/lib.contracts-spec/app-config/runtime';
 import type {
   ConnectionStatus,
   IntegrationConnection,

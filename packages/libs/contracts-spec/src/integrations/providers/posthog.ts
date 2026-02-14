@@ -1,0 +1,93 @@
+import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
+import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+
+export const posthogIntegrationSpec = defineIntegration({
+  meta: {
+    key: 'analytics.posthog',
+    version: '1.1.0',
+    category: 'analytics',
+    title: 'PostHog',
+    description:
+      'PostHog integration for product analytics, feature flags, HogQL queries, and LLM analytics with evaluations.',
+    domain: 'analytics',
+    owners: ['@platform.integrations'],
+    tags: ['analytics', 'posthog', 'llm', 'ai'],
+    stability: StabilityEnum.Beta,
+  },
+  supportedModes: ['managed', 'byok'],
+  capabilities: {
+    provides: [
+      { key: 'analytics.events', version: '1.0.0' },
+      { key: 'analytics.feature-flags', version: '1.0.0' },
+      { key: 'analytics.query', version: '1.0.0' },
+      { key: 'analytics.events.read', version: '1.0.0' },
+      { key: 'analytics.persons', version: '1.0.0' },
+      { key: 'analytics.insights', version: '1.0.0' },
+      { key: 'analytics.cohorts', version: '1.0.0' },
+      { key: 'analytics.annotations', version: '1.0.0' },
+      { key: 'analytics.llm-tracing', version: '1.0.0' },
+      { key: 'analytics.llm-evaluations', version: '1.0.0' },
+    ],
+  },
+  configSchema: {
+    schema: {
+      type: 'object',
+      properties: {
+        host: {
+          type: 'string',
+          description:
+            'PostHog host (e.g., https://app.posthog.com or self-hosted URL).',
+        },
+        projectId: {
+          type: 'string',
+          description: 'PostHog project ID for API queries.',
+        },
+        mcpUrl: {
+          type: 'string',
+          description: 'Optional MCP endpoint URL for PostHog tools.',
+        },
+      },
+    },
+    example: {
+      host: 'https://app.posthog.com',
+      projectId: '12345',
+    },
+  },
+  secretSchema: {
+    schema: {
+      type: 'object',
+      required: ['personalApiKey'],
+      properties: {
+        personalApiKey: {
+          type: 'string',
+          description:
+            'PostHog personal API key (required for API reads/writes).',
+        },
+        projectApiKey: {
+          type: 'string',
+          description:
+            'PostHog project API key (required for capture/ingest events).',
+        },
+      },
+    },
+    example: {
+      personalApiKey: 'phx_personal_api_key',
+      projectApiKey: 'phc_project_api_key',
+    },
+  },
+  healthCheck: {
+    method: 'custom',
+    timeoutMs: 5000,
+  },
+  docsUrl: 'https://posthog.com/docs',
+  byokSetup: {
+    setupInstructions:
+      'Generate a PostHog personal API key for read/write operations and a project API key for event capture.',
+  },
+});
+
+export function registerPosthogIntegration(
+  registry: IntegrationSpecRegistry
+): IntegrationSpecRegistry {
+  return registry.register(posthogIntegrationSpec);
+}

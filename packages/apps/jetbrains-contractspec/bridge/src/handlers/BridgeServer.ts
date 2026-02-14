@@ -43,7 +43,7 @@ import {
   watchSpecs,
   type WorkspaceAdapters,
 } from '@contractspec/bundle.workspace';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 
 export class BridgeServer {
   private connection: Connection;

@@ -7,9 +7,9 @@ import {
   type InsightExtraction,
   type OpportunityBrief,
   type TaskPack,
-} from '@contractspec/lib.contracts/product-intent/types';
-import type { ProductIntentSpec } from '@contractspec/lib.contracts/product-intent/spec';
-import { ProductIntentRegistry } from '@contractspec/lib.contracts/product-intent/registry';
+} from '@contractspec/lib.contracts-spec/product-intent/types';
+import type { ProductIntentSpec } from '@contractspec/lib.contracts-spec/product-intent/spec';
+import { ProductIntentRegistry } from '@contractspec/lib.contracts-spec/product-intent/registry';
 import {
   formatEvidenceForModel,
   impactEngine,

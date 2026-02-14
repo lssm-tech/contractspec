@@ -69,7 +69,7 @@ export function LibrariesGraphQLPage() {
           language="typescript"
           code={`import { builder } from '@contractspec/lib.graphql-core';
 import { registerContractsOnBuilder } from '@contractspec/lib.contracts-runtime-server-graphql/graphql-pothos';
-import { OperationSpecRegistry } from '@contractspec/lib.contracts';
+import { OperationSpecRegistry } from '@contractspec/lib.contracts-spec';
 import { MySpecs } from './specs';
 
 // 1. Register contracts

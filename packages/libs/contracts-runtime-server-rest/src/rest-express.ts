@@ -1,1 +1,62 @@
-export * from '@contractspec/lib.contracts/server/rest-express';
+import type {
+  Request as ExpressReq,
+  Response as ExpressRes,
+  Router,
+} from 'express';
+import { createFetchHandler, type RestOptions } from './rest-generic';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
+import type { HandlerCtx } from '@contractspec/lib.contracts-spec/types';
+
+export function expressRouter(
+  express: { Router: () => Router },
+  reg: OperationSpecRegistry,
+  ctxFactory: (req: ExpressReq) => HandlerCtx,
+  options?: RestOptions
+): Router {
+  const router = express.Router();
+
+  for (const spec of reg.list()) {
+    const method =
+      spec.transport?.rest?.method ??
+      (spec.meta.kind === 'query' ? 'GET' : 'POST');
+    const path =
+      (options?.basePath ?? '') +
+      (spec.transport?.rest?.path ??
+        `/${spec.meta.key.replace(/\./g, '/')}/v${spec.meta.version}`);
+
+    router[method.toLowerCase() as 'get' | 'post'](
+      path,
+      async (req: ExpressReq, res: ExpressRes) => {
+        const url = new URL(
+          `${req.protocol}://${req.get('host')}${req.originalUrl}`
+        );
+        const request = new Request(url.toString(), {
+          method,
+          headers: Object.fromEntries(
+            Object.entries(req.headers).map(([k, v]) => [k, String(v)])
+          ),
+          body: method === 'POST' ? JSON.stringify(req.body ?? {}) : undefined,
+        });
+
+        const handler = createFetchHandler(reg, () => ctxFactory(req), options);
+        const response = await handler(request);
+
+        res.status(response.status);
+        response.headers.forEach((v, k) => res.setHeader(k, v));
+        const text = await response.text();
+        res.send(text);
+      }
+    );
+  }
+
+  if (options?.cors) {
+    router.options('*', (_req, res) => {
+      const h = new Headers();
+      const resp = new Response(null, { status: 204 });
+      resp.headers.forEach((v, k) => h.set(k, v));
+      res.status(204).send();
+    });
+  }
+
+  return router;
+}

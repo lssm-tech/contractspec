@@ -2,7 +2,7 @@
  * Types for implementation tracking and verification.
  */
 
-import type { ImplementationType } from '@contractspec/lib.contracts';
+import type { ImplementationType } from '@contractspec/lib.contracts-spec';
 
 /**
  * Source of how an implementation was discovered/linked.

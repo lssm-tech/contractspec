@@ -3,7 +3,7 @@
  *
  * Defines the feature module for the learning journey registry.
  */
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 /**
  * Learning Journey Registry feature module that bundles

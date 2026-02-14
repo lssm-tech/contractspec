@@ -1,4 +1,4 @@
-import { defaultDocRegistry } from '@contractspec/lib.contracts/docs';
+import { defaultDocRegistry } from '@contractspec/lib.contracts-spec/docs';
 import { join, relative, resolve, sep } from 'node:path';
 import { ensureDir, listMarkdownFiles, readText, writeText } from './fs';
 import { extractSummary, extractTitle } from './markdown';

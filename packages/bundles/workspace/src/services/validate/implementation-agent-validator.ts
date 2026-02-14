@@ -1,7 +1,7 @@
 import type { FsAdapter } from '../../ports/fs';
 import { basename, dirname, join } from 'path';
 import { AgentOrchestrator } from '../../ai/agents/orchestrator';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 
 export interface ImplementationValidatorOptions {
   implementationPath?: string;

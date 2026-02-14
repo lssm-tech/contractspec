@@ -27,7 +27,7 @@ export function generateDataViewSpec(data: DataViewSpecData): string {
     ? `item: { name: '${data.itemOperation.name}', version: ${data.itemOperation.version} },`
     : '';
 
-  return `import type { DataViewSpec } from '@contractspec/lib.contracts/data-views';
+  return `import type { DataViewSpec } from '@contractspec/lib.contracts-spec/data-views';
 
 export const ${viewVarName}: DataViewSpec = {
   meta: {

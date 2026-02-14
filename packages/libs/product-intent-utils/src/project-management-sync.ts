@@ -3,7 +3,7 @@ import type {
   ImpactReport,
   Ticket,
   TicketPriority,
-} from '@contractspec/lib.contracts/product-intent/types';
+} from '@contractspec/lib.contracts-spec/product-intent/types';
 import type {
   ProjectManagementWorkItemInput,
   ProjectManagementWorkItemPriority,

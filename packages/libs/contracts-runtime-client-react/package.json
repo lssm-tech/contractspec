@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.contracts-runtime-client-react",
-  "version": "1.0.0",
+  "version": "1.61.0",
   "description": "React runtime adapters for ContractSpec contracts",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -19,12 +19,15 @@
     "dev": "contractspec-bun-build dev"
   },
   "peerDependencies": {
+    "@blocknote/core": "^0.46.1",
+    "@hookform/resolvers": "^5.2.2",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-hook-form": "^7.70.0"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*"
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
@@ -40,7 +43,8 @@
     "./drivers/rn-reusables": "./src/drivers/rn-reusables.ts",
     "./drivers/shadcn": "./src/drivers/shadcn.ts",
     "./feature-render": "./src/feature-render.ts",
-    "./form-render": "./src/form-render.ts"
+    "./form-render": "./src/form-render.ts",
+    "./form-render.impl": "./src/form-render.impl.tsx"
   },
   "publishConfig": {
     "access": "public",
@@ -80,6 +84,13 @@
         "node": "./dist/node/form-render.js",
         "browser": "./dist/browser/form-render.js",
         "default": "./dist/form-render.js"
+      },
+      "./form-render.impl": {
+        "types": "./dist/form-render.impl.d.ts",
+        "bun": "./dist/form-render.impl.js",
+        "node": "./dist/node/form-render.impl.js",
+        "browser": "./dist/browser/form-render.impl.js",
+        "default": "./dist/form-render.impl.js"
       }
     }
   }

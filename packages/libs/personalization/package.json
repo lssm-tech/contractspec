@@ -34,7 +34,7 @@
   "dependencies": {
     "@contractspec/lib.bus": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.knowledge": "workspace:*",
     "@contractspec/lib.overlay-engine": "workspace:*",
     "@opentelemetry/api": "^1.9.0"

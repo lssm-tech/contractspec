@@ -5,7 +5,7 @@
  * validation against TestSpec.coverage requirements.
  */
 
-import type { CoverageRequirement } from '@contractspec/lib.contracts/tests';
+import type { CoverageRequirement } from '@contractspec/lib.contracts-spec/tests';
 
 /**
  * Coverage metrics for a single metric type.

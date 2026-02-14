@@ -16,7 +16,7 @@
   "author": "LSSM",
   "license": "MIT",
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/bundle.workspace": "workspace:*"
   },
   "devDependencies": {

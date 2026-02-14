@@ -21,7 +21,7 @@ import {
   createNodeGitAdapter,
   versioning,
 } from '@contractspec/bundle.workspace';
-import type { VersionBumpType } from '@contractspec/lib.contracts';
+import type { VersionBumpType } from '@contractspec/lib.contracts-spec';
 
 export type VersionOutputFormat = 'text' | 'json' | 'table';
 

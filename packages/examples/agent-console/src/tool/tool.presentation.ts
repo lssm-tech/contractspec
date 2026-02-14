@@ -1,4 +1,4 @@
-import { StabilityEnum, definePresentation } from '@contractspec/lib.contracts';
+import { StabilityEnum, definePresentation } from '@contractspec/lib.contracts-spec';
 import { ToolSummaryModel } from './tool.schema';
 
 /**

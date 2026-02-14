@@ -2,7 +2,7 @@
  * Configuration types for ContractSpec workspace.
  */
 
-import type { AgentMode } from '@contractspec/lib.contracts';
+import type { AgentMode } from '@contractspec/lib.contracts-spec';
 import type { AiProvider } from '../ports';
 
 /**

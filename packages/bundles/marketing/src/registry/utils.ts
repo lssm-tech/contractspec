@@ -1,5 +1,5 @@
 import { renderFeaturePresentation } from '@contractspec/lib.contracts-runtime-client-react/feature-render';
-import type { PresentationSpec } from '@contractspec/lib.contracts/presentations';
+import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
 import type React from 'react';
 import { presentationEngine } from './engine';
 import { componentMap } from './registry';

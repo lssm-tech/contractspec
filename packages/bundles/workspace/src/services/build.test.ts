@@ -6,7 +6,7 @@ import type { LoggerAdapter } from '../ports/logger';
 import {
   DEFAULT_CONTRACTSRC,
   type ResolvedContractsrcConfig,
-} from '@contractspec/lib.contracts/workspace-config';
+} from '@contractspec/lib.contracts-spec/workspace-config';
 
 // Mock module.workspace
 const mockScanSpecSource = mock();

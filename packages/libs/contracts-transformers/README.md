@@ -21,7 +21,7 @@ bun add @contractspec/lib.contracts-transformers
 
 ```typescript
 import { openApiForRegistry } from '@contractspec/lib.contracts-transformers/openapi';
-import { OperationSpecRegistry } from '@contractspec/lib.contracts';
+import { OperationSpecRegistry } from '@contractspec/lib.contracts-spec';
 
 const registry = new OperationSpecRegistry();
 // ... register your specs ...

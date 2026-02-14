@@ -1,4 +1,4 @@
-import type { JobHandler } from '@contractspec/lib.contracts/jobs/queue';
+import type { JobHandler } from '@contractspec/lib.contracts-spec/jobs/queue';
 import type { GmailIngestionAdapter } from '@contractspec/lib.knowledge/ingestion/gmail-adapter';
 import type { EmailThreadListQuery } from '@contractspec/lib.contracts-integrations';
 

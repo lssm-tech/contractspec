@@ -1,7 +1,7 @@
 import { describe, it, expect, mock, beforeEach } from 'bun:test';
 import { VerifyService, createVerifyService } from './verify-service';
-import type { AnyOperationSpec } from '@contractspec/lib.contracts';
-import type { VerificationReport } from '@contractspec/lib.contracts/llm';
+import type { AnyOperationSpec } from '@contractspec/lib.contracts-spec';
+import type { VerificationReport } from '@contractspec/lib.contracts-spec/llm';
 
 // Mocks
 const mockVerifyStructure = mock(

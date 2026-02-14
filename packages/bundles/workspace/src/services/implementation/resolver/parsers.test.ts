@@ -4,7 +4,7 @@ import { parseExplicitImplementations } from './parsers';
 describe('parseExplicitImplementations', () => {
   it('should parse explicit implementations from defineCommand', () => {
     const code = `
-            import { defineCommand } from '@contractspec/lib.contracts';
+            import { defineCommand } from '@contractspec/lib.contracts-spec';
             export const Command = defineCommand({
                 meta: { key: 'cmd' },
                 implementations: [

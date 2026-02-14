@@ -1,4 +1,4 @@
-import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts-spec';
 import { PayoutModel } from './payout.schema';
 
 export const PayoutListPresentation = definePresentation({

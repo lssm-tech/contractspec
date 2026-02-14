@@ -49,10 +49,10 @@ const content = await retriever.getStatic('product-canon');
 
 ## Architecture
 
-This package bridges `@contractspec/lib.contracts` (specs/types) with `@contractspec/lib.ai-agent` (AI SDK integration):
+This package bridges `@contractspec/lib.contracts-spec` (specs/types) with `@contractspec/lib.ai-agent` (AI SDK integration):
 
 ```
-@contractspec/lib.contracts (specs/types)
+@contractspec/lib.contracts-spec (specs/types)
          ↓
 @contractspec/lib.knowledge (runtime)
          ↓

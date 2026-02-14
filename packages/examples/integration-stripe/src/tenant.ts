@@ -1,4 +1,4 @@
-import type { TenantAppConfig } from '@contractspec/lib.contracts/app-config/spec';
+import type { TenantAppConfig } from '@contractspec/lib.contracts-spec/app-config/spec';
 
 export const artisanStripeTenantConfig: TenantAppConfig = {
   meta: {

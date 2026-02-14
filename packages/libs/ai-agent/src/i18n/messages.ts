@@ -3,12 +3,12 @@
  *
  * Provides a lightweight `t()` function that resolves message keys
  * to translated strings using the TranslationRegistry from
- * @contractspec/lib.contracts.
+ * @contractspec/lib.contracts-spec.
  *
  * @module i18n/messages
  */
 
-import { TranslationRegistry } from '@contractspec/lib.contracts/translations';
+import { TranslationRegistry } from '@contractspec/lib.contracts-spec/translations';
 import { enMessages } from './catalogs/en';
 import { frMessages } from './catalogs/fr';
 import { esMessages } from './catalogs/es';

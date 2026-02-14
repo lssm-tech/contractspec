@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { EvidenceChunk } from '@contractspec/lib.contracts/product-intent/types';
+import type { EvidenceChunk } from '@contractspec/lib.contracts-spec/product-intent/types';
 import type { PosthogEvidenceOptions } from './posthog-signals';
 import { loadPosthogEvidenceChunks } from './posthog-signals';
 

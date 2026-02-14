@@ -1,4 +1,4 @@
-import type { OpKind } from '@contractspec/lib.contracts';
+import type { OpKind } from '@contractspec/lib.contracts-spec';
 import type { PresentationKind } from '../../types/spec-types';
 
 /**

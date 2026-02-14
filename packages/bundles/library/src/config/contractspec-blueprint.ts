@@ -1,9 +1,9 @@
 import type {
   AppBlueprintSpec,
   FeatureFlagState,
-} from '@contractspec/lib.contracts/app-config';
-import type { CapabilityRef } from '@contractspec/lib.contracts/capabilities';
-import type { FeatureRef } from '@contractspec/lib.contracts/features';
+} from '@contractspec/lib.contracts-spec/app-config';
+import type { CapabilityRef } from '@contractspec/lib.contracts-spec/capabilities';
+import type { FeatureRef } from '@contractspec/lib.contracts-spec/features';
 import { contractspecBrandingDefaults } from './contractspec-branding';
 import { contractspecRoutes } from './contractspec-routes';
 

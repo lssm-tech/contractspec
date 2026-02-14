@@ -1,1 +1,1 @@
-export * from '@contractspec/lib.contracts/server/provider-mcp';
+export { createMcpServer } from './mcp/createMcpServer';

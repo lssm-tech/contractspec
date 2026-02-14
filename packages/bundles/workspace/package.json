@@ -35,7 +35,7 @@
     "@ai-sdk/openai": "catalog:ai",
     "@contractspec/lib.ai-agent": "workspace:*",
     "@contractspec/lib.ai-providers": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.contracts-integrations": "workspace:*",
     "@contractspec/lib.contracts-transformers": "workspace:*",
     "@contractspec/lib.source-extractors": "workspace:*",

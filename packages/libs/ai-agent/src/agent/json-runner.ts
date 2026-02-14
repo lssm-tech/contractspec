@@ -1,7 +1,7 @@
 import type { LanguageModel } from 'ai';
 import { createProvider } from '@contractspec/lib.ai-providers/factory';
 import type { ProviderConfig } from '@contractspec/lib.ai-providers/types';
-import { StabilityEnum } from '@contractspec/lib.contracts/ownership';
+import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import type { AgentSpec } from '../spec/spec';
 import type { ToolHandler } from '../types';
 import { createAgentI18n, getDefaultI18n } from '../i18n';

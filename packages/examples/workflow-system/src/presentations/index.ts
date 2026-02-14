@@ -1,7 +1,7 @@
 /**
  * Workflow System Presentation Descriptors
  */
-import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts-spec';
 import { WorkflowDefinitionModel } from '../workflow/workflow.schema';
 import { WorkflowInstanceModel } from '../instance/instance.schema';
 import { ApprovalRequestModel } from '../approval/approval.schema';

@@ -5,12 +5,12 @@
  * examples, and error cases defined in the spec.
  */
 
-import type { AnyOperationSpec } from '@contractspec/lib.contracts';
-import { isEmitDeclRef } from '@contractspec/lib.contracts/operations';
+import type { AnyOperationSpec } from '@contractspec/lib.contracts-spec';
+import { isEmitDeclRef } from '@contractspec/lib.contracts-spec/operations';
 import type {
   VerificationIssue,
   VerificationReport,
-} from '@contractspec/lib.contracts/llm';
+} from '@contractspec/lib.contracts-spec/llm';
 import type { BehaviorCheck, VerifyInput } from './types';
 
 /**

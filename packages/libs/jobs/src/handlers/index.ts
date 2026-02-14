@@ -1,7 +1,7 @@
 export * from './ping-job';
 export * from './gmail-sync-handler';
 export * from './storage-document-handler';
-import type { JobQueue } from '@contractspec/lib.contracts/jobs/queue';
+import type { JobQueue } from '@contractspec/lib.contracts-spec/jobs/queue';
 import { registerDefinedJob } from '../queue/register-defined-job';
 
 import { pingJob } from './ping-job';

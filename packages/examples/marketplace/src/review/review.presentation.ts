@@ -1,4 +1,4 @@
-import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts-spec';
 import { ReviewModel } from './review.schema';
 
 export const ReviewListPresentation = definePresentation({

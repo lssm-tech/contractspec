@@ -1,4 +1,4 @@
-import { defineCommand } from '@contractspec/lib.contracts';
+import { defineCommand } from '@contractspec/lib.contracts-spec';
 import { PaymentModel, RecordPaymentInputModel } from './payment.schema';
 
 const OWNERS = ['@examples.service-business-os'] as const;

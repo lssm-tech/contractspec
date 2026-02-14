@@ -154,7 +154,7 @@ const SearchProductsIntegration = defineIntegration({
           . You can define specific policies in TypeScript:
         </p>
         <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`import { definePolicy } from '@contractspec/lib.contracts';
+          <pre>{`import { definePolicy } from '@contractspec/lib.contracts-spec';
 
 export const AIAgentRestrictions = definePolicy({
   meta: {

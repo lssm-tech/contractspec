@@ -30,7 +30,7 @@ export function GuideNextjsOneEndpointPage() {
             language="bash"
             filename="nextjs-install"
             code={`bun add -D contractspec
-bun add @contractspec/lib.contracts @contractspec/lib.contracts-runtime-server-rest @contractspec/lib.schema`}
+bun add @contractspec/lib.contracts-spec @contractspec/lib.contracts-runtime-server-rest @contractspec/lib.schema`}
           />
           <p className="text-muted-foreground text-sm">
             Expected output: <code>added 3 packages</code> and a lockfile
@@ -46,7 +46,7 @@ bun add @contractspec/lib.contracts @contractspec/lib.contracts-runtime-server-r
           <CodeBlock
             language="typescript"
             filename="src/contracts/healthcheck.operation.ts"
-            code={`import { defineQuery } from "@contractspec/lib.contracts/operations";
+            code={`import { defineQuery } from "@contractspec/lib.contracts-spec/operations";
 import { SchemaModel, ScalarTypeEnum } from "@contractspec/lib.schema";
 
 const HealthcheckOutput = new SchemaModel({
@@ -92,7 +92,7 @@ export const HealthcheckQuery = defineQuery({
             code={`import {
   OperationSpecRegistry,
   installOp,
-} from "@contractspec/lib.contracts/operations";
+} from "@contractspec/lib.contracts-spec/operations";
 import { HealthcheckQuery } from "./healthcheck.operation";
 
 export const registry = new OperationSpecRegistry();

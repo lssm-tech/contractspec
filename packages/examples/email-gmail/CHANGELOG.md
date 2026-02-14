@@ -10,7 +10,7 @@
 
 - Updated dependencies [374fd71]
   - @contractspec/integration.providers-impls@1.61.0
-  - @contractspec/lib.contracts@1.61.0
+  - @contractspec/lib.contracts-spec@1.61.0
 
 ## 1.60.0
 
@@ -22,7 +22,7 @@
 
 - Updated dependencies
   - @contractspec/integration.providers-impls@1.60.0
-  - @contractspec/lib.contracts@1.60.0
+  - @contractspec/lib.contracts-spec@1.60.0
 
 ## 1.59.0
 
@@ -34,7 +34,7 @@
 
 - Updated dependencies [1a0cf44]
   - @contractspec/integration.providers-impls@1.59.0
-  - @contractspec/lib.contracts@1.59.0
+  - @contractspec/lib.contracts-spec@1.59.0
 
 ## 1.58.0
 
@@ -47,7 +47,7 @@
 - Updated dependencies [d1f0fd0]
 - Updated dependencies [4355a9e]
   - @contractspec/integration.providers-impls@1.58.0
-  - @contractspec/lib.contracts@1.58.0
+  - @contractspec/lib.contracts-spec@1.58.0
 
 ## 1.57.0
 
@@ -64,7 +64,7 @@
 - Updated dependencies [4651e06]
 - Updated dependencies [ad9d10a]
 - Updated dependencies [11a5a05]
-  - @contractspec/lib.contracts@1.57.0
+  - @contractspec/lib.contracts-spec@1.57.0
   - @contractspec/integration.providers-impls@1.57.0
 
 ## 1.56.1
@@ -77,4 +77,4 @@
 
 - Updated dependencies
   - @contractspec/integration.providers-impls@1.56.1
-  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.contracts-spec@1.56.1

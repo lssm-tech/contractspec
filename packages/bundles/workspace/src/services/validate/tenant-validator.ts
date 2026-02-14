@@ -1,16 +1,16 @@
 import { resolve } from 'path';
 import { readFile } from 'fs/promises';
 import { pathToFileURL } from 'url';
-import { validateConfig as validateTenantConfigSpecs } from '@contractspec/lib.contracts/app-config/validation';
+import { validateConfig as validateTenantConfigSpecs } from '@contractspec/lib.contracts-spec/app-config/validation';
 import {
   type AppBlueprintSpec,
   type TenantAppConfig,
-} from '@contractspec/lib.contracts/app-config/spec';
+} from '@contractspec/lib.contracts-spec/app-config/spec';
 import type {
   IntegrationConnection,
   IntegrationSpecRegistry,
 } from '@contractspec/lib.contracts-integrations';
-import type { BlueprintTranslationCatalog } from '@contractspec/lib.contracts/translations/catalog';
+import type { BlueprintTranslationCatalog } from '@contractspec/lib.contracts-spec/translations/catalog';
 import type { FsAdapter } from '../../ports/fs';
 
 export interface TenantValidationResult {

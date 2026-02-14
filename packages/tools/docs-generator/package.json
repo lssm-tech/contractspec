@@ -37,7 +37,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "commander": "^14.0.3"
   },
   "devDependencies": {

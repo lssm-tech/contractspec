@@ -3,7 +3,7 @@
  *
  * Defines the feature module for audit logging and compliance.
  */
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 /**
  * Audit Trail feature module that bundles audit log querying,

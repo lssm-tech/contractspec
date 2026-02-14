@@ -8,7 +8,7 @@ export function LibrariesWorkflowsPage() {
       <div className="space-y-4">
         <h1 className="text-4xl font-bold">Workflow Runtime Library</h1>
         <p className="text-muted-foreground text-lg">
-          The <code>@contractspec/lib.contracts/workflow</code> library provides
+          The <code>@contractspec/lib.contracts-spec/workflow</code> library provides
           the core <code>WorkflowRunner</code> for executing stateful, durable
           workflows.
         </p>
@@ -16,7 +16,7 @@ export function LibrariesWorkflowsPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Installation</h2>
-        <InstallCommand package="@contractspec/lib.contracts" />
+        <InstallCommand package="@contractspec/lib.contracts-spec" />
       </div>
 
       <div className="space-y-4">
@@ -28,9 +28,9 @@ export function LibrariesWorkflowsPage() {
 
         <CodeBlock
           language="typescript"
-          code={`import { WorkflowRunner } from '@contractspec/lib.contracts/workflow/runner';
-import { InMemoryStateStore } from '@contractspec/lib.contracts/workflow/adapters/memory-store';
-import { WorkflowRegistry } from '@contractspec/lib.contracts/workflow/spec';
+          code={`import { WorkflowRunner } from '@contractspec/lib.contracts-spec/workflow/runner';
+import { InMemoryStateStore } from '@contractspec/lib.contracts-spec/workflow/adapters/memory-store';
+import { WorkflowRegistry } from '@contractspec/lib.contracts-spec/workflow/spec';
 
 const registry = new WorkflowRegistry();
 registry.register(MyWorkflow);

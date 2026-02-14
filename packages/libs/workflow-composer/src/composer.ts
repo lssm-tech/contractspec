@@ -1,4 +1,4 @@
-import type { WorkflowSpec } from '@contractspec/lib.contracts/workflow';
+import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow';
 import { applyWorkflowExtension } from './injector';
 import type { ComposeParams, WorkflowExtension } from './types';
 import { satisfies } from 'compare-versions';

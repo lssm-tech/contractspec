@@ -1,0 +1,97 @@
+import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
+import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+
+export const granolaIntegrationSpec = defineIntegration({
+  meta: {
+    key: 'meeting-recorder.granola',
+    version: '1.0.0',
+    category: 'meeting-recorder',
+    title: 'Granola Meeting Notes',
+    description:
+      'Granola meeting notes and transcripts via Enterprise API or MCP transport.',
+    domain: 'productivity',
+    owners: ['platform.integrations'],
+    tags: ['meeting-recorder', 'granola', 'transcripts'],
+    stability: StabilityEnum.Experimental,
+  },
+  supportedModes: ['byok'],
+  capabilities: {
+    provides: [
+      { key: 'meeting-recorder.meetings.read', version: '1.0.0' },
+      { key: 'meeting-recorder.transcripts.read', version: '1.0.0' },
+    ],
+  },
+  configSchema: {
+    schema: {
+      type: 'object',
+      properties: {
+        baseUrl: {
+          type: 'string',
+          description:
+            'Optional override for the Granola API base URL. Defaults to https://public-api.granola.ai for API transport.',
+        },
+        transport: {
+          type: 'string',
+          enum: ['api', 'mcp'],
+          description:
+            'Transport mode for Granola integration. Use api for Enterprise API or mcp for broader MCP access.',
+        },
+        mcpUrl: {
+          type: 'string',
+          description:
+            'Optional override for Granola MCP URL. Defaults to https://mcp.granola.ai/mcp.',
+        },
+        mcpHeaders: {
+          type: 'object',
+          additionalProperties: { type: 'string' },
+          description: 'Optional static headers for MCP gateway/proxy setups.',
+        },
+        pageSize: {
+          type: 'number',
+          description:
+            'Page size for listing notes (maximum 30 per Granola API).',
+        },
+      },
+    },
+    example: {
+      transport: 'mcp',
+      mcpUrl: 'https://mcp.granola.ai/mcp',
+      pageSize: 10,
+    },
+  },
+  secretSchema: {
+    schema: {
+      type: 'object',
+      properties: {
+        apiKey: {
+          type: 'string',
+          description:
+            'Granola API key used as a Bearer token for Enterprise API requests (transport=api).',
+        },
+        mcpAccessToken: {
+          type: 'string',
+          description:
+            'Optional bearer token for MCP proxy/gateway auth (transport=mcp).',
+        },
+      },
+    },
+    example: {
+      mcpAccessToken: 'granola-mcp-***',
+    },
+  },
+  healthCheck: {
+    method: 'list',
+    timeoutMs: 8000,
+  },
+  docsUrl: 'https://docs.granola.ai/help-center/sharing/integrations/mcp',
+  byokSetup: {
+    setupInstructions:
+      'Use Granola MCP for browser OAuth access, or configure an Enterprise API key for REST transport.',
+  },
+});
+
+export function registerGranolaIntegration(
+  registry: IntegrationSpecRegistry
+): IntegrationSpecRegistry {
+  return registry.register(granolaIntegrationSpec);
+}

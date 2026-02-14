@@ -5,7 +5,7 @@
  * of contracts for comparison and impact detection.
  */
 
-import type { EventRef } from '@contractspec/lib.contracts';
+import type { EventRef } from '@contractspec/lib.contracts-spec';
 
 /** Field type in a schema */
 export type FieldType =

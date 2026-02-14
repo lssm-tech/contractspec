@@ -2,7 +2,7 @@
 
 import { EntityCard } from '@contractspec/lib.design-system';
 import { Layout } from 'lucide-react';
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts/features';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts-spec/features';
 import { resolveSerializedPresentationSpec } from '../../../features';
 
 export function FeaturePresentationsList({

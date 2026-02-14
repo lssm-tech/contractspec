@@ -803,11 +803,11 @@ function validateCommonFields(
   if (usesSpecTypes && !isInternalLib) {
     const imports = sourceFile.getImportDeclarations();
     const hasContractsImport = imports.some((i) =>
-      i.getModuleSpecifierValue().includes('@contractspec/lib.contracts')
+      i.getModuleSpecifierValue().includes('@contractspec/lib.contracts-spec')
     );
 
     if (!hasContractsImport) {
-      errors.push('Missing import from @contractspec/lib.contracts');
+      errors.push('Missing import from @contractspec/lib.contracts-spec');
     }
   }
 
