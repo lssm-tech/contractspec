@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-02-14T18:06:14.346Z",
-  "total": 733,
+  "generatedAt": "2026-02-14T18:45:46.377Z",
+  "total": 750,
   "version": null,
   "contentRoot": "../../../../../../../generated/docs",
   "chunks": [
     {
       "key": "_common",
       "file": "docs-index._common.json",
-      "total": 46
+      "total": 56
     },
     {
       "key": "agent-console",
@@ -128,6 +128,11 @@
       "key": "platform.integrations",
       "file": "docs-index.platform-integrations.json",
       "total": 29
+    },
+    {
+      "key": "platform.knowledge",
+      "file": "docs-index.platform-knowledge.json",
+      "total": 7
     },
     {
       "key": "pocket-family-office",

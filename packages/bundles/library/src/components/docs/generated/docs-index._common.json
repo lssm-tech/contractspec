@@ -1,5 +1,77 @@
 [
   {
+    "id": "_common/docs.contract.reference",
+    "title": "docs.contract.reference",
+    "summary": "Resolve a contract into a documentation-ready reference.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: reference\n- **File**: `packages/libs/contracts-spec/src/docs/queries/contractReference.query.ts`",
+    "route": "/docs/reference/_common/docs.contract.reference",
+    "source": "generated",
+    "contentPath": "_common/docs.contract.reference.md"
+  },
+  {
+    "id": "_common/docs.generate",
+    "title": "docs.generate",
+    "summary": "Generate documentation artifacts from ContractSpecs.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: generation\n- **File**: `packages/libs/contracts-spec/src/docs/commands/docsGenerate.command.ts`",
+    "route": "/docs/reference/_common/docs.generate",
+    "source": "generated",
+    "contentPath": "_common/docs.generate.md"
+  },
+  {
+    "id": "_common/docs.generated",
+    "title": "docs.generated",
+    "summary": "Emitted when documentation artifacts are generated.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: generation\n- **File**: `packages/libs/contracts-spec/src/docs/events/docsGenerated.event.ts`\n```typescript",
+    "route": "/docs/reference/_common/docs.generated",
+    "source": "generated",
+    "contentPath": "_common/docs.generated.md"
+  },
+  {
+    "id": "_common/docs.layout",
+    "title": "docs.layout",
+    "summary": "Shared layout shell for documentation pages.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: layout\n- **File**: `packages/libs/contracts-spec/src/docs/presentations/docsLayout.presentation.ts`",
+    "route": "/docs/reference/_common/docs.layout",
+    "source": "generated",
+    "contentPath": "_common/docs.layout.md"
+  },
+  {
+    "id": "_common/docs.publish",
+    "title": "docs.publish",
+    "summary": "Publish generated documentation artifacts.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: publish\n- **File**: `packages/libs/contracts-spec/src/docs/commands/docsPublish.command.ts`\nDeploy docs to the public docs surface with consistent versioning.",
+    "route": "/docs/reference/_common/docs.publish",
+    "source": "generated",
+    "contentPath": "_common/docs.publish.md"
+  },
+  {
+    "id": "_common/docs.published",
+    "title": "docs.published",
+    "summary": "Emitted when documentation is published.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: publish\n- **File**: `packages/libs/contracts-spec/src/docs/events/docsPublished.event.ts`\n```typescript\nexport const DocsPublishedEvent = defineEvent({",
+    "route": "/docs/reference/_common/docs.published",
+    "source": "generated",
+    "contentPath": "_common/docs.published.md"
+  },
+  {
+    "id": "_common/docs.reference.page",
+    "title": "docs.reference.page",
+    "summary": "Reference page layout for contract documentation.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: reference\n- **File**: `packages/libs/contracts-spec/src/docs/presentations/docsReferencePage.presentation.ts`",
+    "route": "/docs/reference/_common/docs.reference.page",
+    "source": "generated",
+    "contentPath": "_common/docs.reference.page.md"
+  },
+  {
+    "id": "_common/docs.search",
+    "title": "docs.search",
+    "summary": "Search and filter DocBlocks by query, tag, or visibility.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: search, index\n- **File**: `packages/libs/contracts-spec/src/docs/queries/docsIndex.query.ts`",
+    "route": "/docs/reference/_common/docs.search",
+    "source": "generated",
+    "contentPath": "_common/docs.search.md"
+  },
+  {
+    "id": "_common/docs.system",
+    "title": "docs.system",
+    "summary": "End-to-end docs generation, indexing, and presentation.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: system\n- **File**: `packages/libs/contracts-spec/src/docs/capabilities/documentationSystem.capability.ts`",
+    "route": "/docs/reference/_common/docs.system",
+    "source": "generated",
+    "contentPath": "_common/docs.system.md"
+  },
+  {
     "id": "_common/init",
     "title": "init",
     "summary": "Sets up ContractSpec in a project (config, VSCode settings, etc.)\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @lssm/core\n- **Tags**: cli, setup\n- **File**: `packages/bundles/workspace/src/contracts/operations/init.operation.ts`",
@@ -14,6 +86,14 @@
     "route": "/docs/reference/_common/opencode.example.echo",
     "source": "generated",
     "contentPath": "_common/opencode.example.echo.md"
+  },
+  {
+    "id": "_common/report.getContractVerificationStatus",
+    "title": "report.getContractVerificationStatus",
+    "summary": "Retrieves per-contract verification status for the impact report.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/operations/report/getContractVerificationStatus.ts`",
+    "route": "/docs/reference/_common/report.getContractVerificationStatus",
+    "source": "generated",
+    "contentPath": "_common/report.getContractVerificationStatus.md"
   },
   {
     "id": "_common/template.messaging.core",
