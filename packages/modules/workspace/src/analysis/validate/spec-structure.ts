@@ -761,6 +761,9 @@ function validateCommonFields(
   // Skip import checks for internal library files that define the types
   const isInternalLib =
     fileName.includes('/libs/contracts/') ||
+    fileName.includes('/libs/contracts-spec/') ||
+    fileName.includes('/libs/contracts-integrations/') ||
+    fileName.includes('/libs/contracts-runtime-') ||
     fileName.includes('/libs/contracts-transformers/') ||
     fileName.includes('/libs/schema/');
 
