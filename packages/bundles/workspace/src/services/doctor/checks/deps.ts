@@ -273,7 +273,8 @@ async function checkContractsLibrary(
       message: '@contractspec/lib.contracts-spec not installed',
       details: 'Run "contractspec quickstart" to install required packages',
       fix: {
-        description: 'Install @contractspec/lib.contracts-spec and dependencies',
+        description:
+          'Install @contractspec/lib.contracts-spec and dependencies',
         apply: async () => {
           try {
             // Try bun first, then npm
@@ -284,10 +285,13 @@ async function checkContractsLibrary(
               });
               return { success: true, message: 'Installed with bun' };
             } catch {
-              await execAsync('npm install @contractspec/lib.contracts-spec zod', {
-                cwd: ctx.workspaceRoot,
-                timeout: 120000,
-              });
+              await execAsync(
+                'npm install @contractspec/lib.contracts-spec zod',
+                {
+                  cwd: ctx.workspaceRoot,
+                  timeout: 120000,
+                }
+              );
               return { success: true, message: 'Installed with npm' };
             }
           } catch (error) {

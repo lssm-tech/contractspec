@@ -1,5 +1,8 @@
 import type { OwnerShipMeta } from '@contractspec/lib.contracts-spec/ownership';
-import type { CapabilityRef, CapabilityRequirement } from '@contractspec/lib.contracts-spec/capabilities';
+import type {
+  CapabilityRef,
+  CapabilityRequirement,
+} from '@contractspec/lib.contracts-spec/capabilities';
 import { SpecContractRegistry } from '@contractspec/lib.contracts-spec/registry';
 
 export type IntegrationCategory =

@@ -1,4 +1,7 @@
-import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts-spec';
+import {
+  definePresentation,
+  StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
 import { IntegrationModel } from './integration.schema';
 
 export const IntegrationListPresentation = definePresentation({

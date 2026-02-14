@@ -16,7 +16,10 @@ export function LibrariesContractsPage() {
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Installation</h2>
         <InstallCommand
-          package={['@contractspec/lib.contracts-spec', '@contractspec/lib.schema']}
+          package={[
+            '@contractspec/lib.contracts-spec',
+            '@contractspec/lib.schema',
+          ]}
         />
       </div>
 
@@ -28,13 +31,13 @@ export function LibrariesContractsPage() {
             contracts definitions (OperationSpec, PresentationSpec, Registry).
           </li>
           <li>
-            <strong>@contractspec/lib.contracts-runtime-client-react</strong>: Browser-safe
-            helpers (React renderers, client SDK). Import this for web/React
-            Native.
+            <strong>@contractspec/lib.contracts-runtime-client-react</strong>:
+            Browser-safe helpers (React renderers, client SDK). Import this for
+            web/React Native.
           </li>
           <li>
-            <strong>@contractspec/lib.contracts-runtime-server-rest</strong>: HTTP/MCP
-            adapters, registries, integrations (Node-only).
+            <strong>@contractspec/lib.contracts-runtime-server-rest</strong>:
+            HTTP/MCP adapters, registries, integrations (Node-only).
           </li>
           <li>
             <strong>@contractspec/lib.schema</strong>: Schema dictionary

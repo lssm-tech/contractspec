@@ -1,4 +1,7 @@
-import { defineCapability, StabilityEnum } from '@contractspec/lib.contracts-spec';
+import {
+  defineCapability,
+  StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
 
 const OWNERS = ['platform.contractspec-studio'] as const;
 

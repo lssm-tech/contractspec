@@ -20,7 +20,10 @@ import type {
   TextareaFieldSpec,
   TextFieldSpec,
 } from '@contractspec/lib.contracts-spec/forms';
-import { buildZodWithRelations, evalPredicate } from '@contractspec/lib.contracts-spec/forms';
+import {
+  buildZodWithRelations,
+  evalPredicate,
+} from '@contractspec/lib.contracts-spec/forms';
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 
 // Minimal, library-agnostic driver slots. Hosts can provide any UI lib via this interface.

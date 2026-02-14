@@ -8,9 +8,9 @@ export function LibrariesWorkflowsPage() {
       <div className="space-y-4">
         <h1 className="text-4xl font-bold">Workflow Runtime Library</h1>
         <p className="text-muted-foreground text-lg">
-          The <code>@contractspec/lib.contracts-spec/workflow</code> library provides
-          the core <code>WorkflowRunner</code> for executing stateful, durable
-          workflows.
+          The <code>@contractspec/lib.contracts-spec/workflow</code> library
+          provides the core <code>WorkflowRunner</code> for executing stateful,
+          durable workflows.
         </p>
       </div>
 

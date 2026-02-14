@@ -5,7 +5,10 @@
  * or JSON for programmatic use.
  */
 
-import type { ChangelogEntry, ChangeEntry } from '@contractspec/lib.contracts-spec';
+import type {
+  ChangelogEntry,
+  ChangeEntry,
+} from '@contractspec/lib.contracts-spec';
 import type { VersionAnalyzeResult, ChangelogJsonExport } from './types';
 
 // ─────────────────────────────────────────────────────────────────────────────

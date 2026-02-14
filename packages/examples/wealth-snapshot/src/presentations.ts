@@ -1,4 +1,7 @@
-import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts-spec';
+import {
+  definePresentation,
+  StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
 
 export const WealthDashboardPresentation = definePresentation({
   meta: {
