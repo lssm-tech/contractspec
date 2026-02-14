@@ -18,7 +18,7 @@
     "build:types": "contractspec-bun-build types",
     "dev": "contractspec-bun-build dev",
     "registry:build": "bun run scripts/build-registry.ts",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "lint": "bun run lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
