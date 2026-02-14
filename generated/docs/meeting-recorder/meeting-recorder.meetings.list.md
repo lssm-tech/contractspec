@@ -11,7 +11,7 @@ List meetings recorded by the configured meeting provider.
 - **Stability**: experimental
 - **Owners**: @platform.integrations
 - **Tags**: meeting-recorder, meetings, transcripts
-- **File**: `packages/libs/contracts-integrations/src/integrations/meeting-recorder/contracts/meetings.ts`
+- **File**: `packages/libs/contracts-spec/src/integrations/meeting-recorder/contracts/meetings.ts`
 
 ## Goal
 

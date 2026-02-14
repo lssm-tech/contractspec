@@ -10,7 +10,7 @@ Notion integration for creating shared project summaries and task entries.
 - **Version**: 1.0.0
 - **Owners**: @platform.integrations
 - **Tags**: project-management, notion
-- **File**: `packages/libs/contracts-integrations/src/integrations/providers/notion.ts`
+- **File**: `packages/libs/contracts-spec/src/integrations/providers/notion.ts`
 
 ## Source Definition
 

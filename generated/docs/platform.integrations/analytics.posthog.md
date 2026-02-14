@@ -10,7 +10,7 @@ PostHog integration for product analytics, feature flags, HogQL queries, and LLM
 - **Version**: 1.1.0
 - **Owners**: @platform.integrations
 - **Tags**: analytics, posthog, llm, ai
-- **File**: `packages/libs/contracts-integrations/src/integrations/providers/posthog.ts`
+- **File**: `packages/libs/contracts-spec/src/integrations/providers/posthog.ts`
 
 ## Source Definition
 

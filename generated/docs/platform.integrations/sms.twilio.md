@@ -10,7 +10,7 @@ Twilio SMS integration for transactional and notification messaging.
 - **Version**: 1.0.0
 - **Owners**: platform.messaging
 - **Tags**: sms, messaging
-- **File**: `packages/libs/contracts-integrations/src/integrations/providers/twilio-sms.ts`
+- **File**: `packages/libs/contracts-spec/src/integrations/providers/twilio-sms.ts`
 
 ## Source Definition
 

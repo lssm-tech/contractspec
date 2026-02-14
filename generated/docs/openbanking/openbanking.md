@@ -10,7 +10,7 @@ Open Banking integrations capability
 - **Version**: 1.0.0
 - **Owners**: @platform.finance
 - **Tags**: openbanking, finance, integrations
-- **File**: `packages/libs/contracts-integrations/src/integrations/openbanking/openbanking.capability.ts`
+- **File**: `packages/libs/contracts-spec/src/integrations/openbanking/openbanking.capability.ts`
 
 ## Source Definition
 
