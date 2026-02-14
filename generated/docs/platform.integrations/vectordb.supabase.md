@@ -10,7 +10,7 @@ Supabase integration for embedding storage and vector similarity search using pg
 - **Version**: 1.0.0
 - **Owners**: platform.ai
 - **Tags**: vector-db, supabase, pgvector
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/supabase-vector.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/supabase-vector.ts`
 
 ## Source Definition
 

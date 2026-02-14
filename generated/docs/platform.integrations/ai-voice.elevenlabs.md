@@ -10,7 +10,7 @@ ElevenLabs integration for neural voice synthesis and voice catalog access.
 - **Version**: 1.0.0
 - **Owners**: platform.ai
 - **Tags**: voice, tts
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/elevenlabs.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/elevenlabs.ts`
 
 ## Source Definition
 

@@ -10,7 +10,7 @@ Core integrations capability for third-party connections
 - **Version**: 1.0.0
 - **Owners**: @platform.core
 - **Tags**: integrations, platform
-- **File**: `packages/libs/contracts-spec/src/integrations/integrations.capability.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/integrations.capability.ts`
 
 ## Source Definition
 

@@ -10,7 +10,7 @@ Stripe integration for payment processing, charges, and payouts.
 - **Version**: 1.0.0
 - **Owners**: platform.payments
 - **Tags**: payments, psp
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/stripe.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/stripe.ts`
 
 ## Source Definition
 

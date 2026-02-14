@@ -11,7 +11,7 @@ List bank transactions that have been normalised into the canonical ledger.
 - **Stability**: experimental
 - **Owners**: @platform.finance
 - **Tags**: open-banking, powens, transactions
-- **File**: `packages/libs/contracts-spec/src/integrations/openbanking/contracts/transactions.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/openbanking/contracts/transactions.ts`
 
 ## Goal
 

@@ -10,7 +10,7 @@ Google Cloud Storage integration for object storage and retrieval.
 - **Version**: 1.0.0
 - **Owners**: platform.infrastructure
 - **Tags**: storage, gcs, google-cloud
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/gcs-storage.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/gcs-storage.ts`
 
 ## Source Definition
 

@@ -10,7 +10,7 @@ Supabase Postgres integration for SQL query execution and transactional workload
 - **Version**: 1.0.0
 - **Owners**: platform.infrastructure
 - **Tags**: database, postgres, supabase
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/supabase-postgres.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/supabase-postgres.ts`
 
 ## Source Definition
 

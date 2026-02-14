@@ -11,7 +11,7 @@ Manage integration connections to external providers (e.g., Stripe, Qdrant)
 - **Stability**: experimental
 - **Owners**: @platform.integrations
 - **Tags**: integrations, connections, platform
-- **File**: `packages/libs/contracts-spec/src/integrations/integrations.feature.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/integrations.feature.ts`
 
 ## Operations (5)
 

@@ -10,7 +10,7 @@ Read-only Open Banking integration powered by Powens, exposing accounts, transac
 - **Version**: 1.0.0
 - **Owners**: platform.finance
 - **Tags**: open-banking, powens, finance
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/powens.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/powens.ts`
 
 ## Source Definition
 

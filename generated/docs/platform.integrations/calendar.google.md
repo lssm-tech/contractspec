@@ -10,7 +10,7 @@ Google Calendar integration for event creation, updates, and scheduling automati
 - **Version**: 1.0.0
 - **Owners**: platform.messaging
 - **Tags**: calendar, google
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/google-calendar.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/google-calendar.ts`
 
 ## Source Definition
 

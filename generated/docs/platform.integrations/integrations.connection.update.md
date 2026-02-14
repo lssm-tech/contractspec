@@ -11,7 +11,7 @@ Update metadata or credentials for an integration connection.
 - **Stability**: experimental
 - **Owners**: @platform.integrations
 - **Tags**: integration, connections
-- **File**: `packages/libs/contracts-spec/src/integrations/operations.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/operations.ts`
 
 ## Goal
 

@@ -10,7 +10,7 @@ Jira Cloud integration for creating and tracking work items.
 - **Version**: 1.0.0
 - **Owners**: @platform.integrations
 - **Tags**: project-management, jira
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/jira.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/jira.ts`
 
 ## Source Definition
 

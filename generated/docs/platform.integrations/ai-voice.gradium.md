@@ -10,7 +10,7 @@ Gradium integration for low-latency voice synthesis and voice catalog access.
 - **Version**: 1.0.0
 - **Owners**: platform.ai
 - **Tags**: voice, tts, realtime
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/gradium.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/gradium.ts`
 
 ## Source Definition
 

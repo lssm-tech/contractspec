@@ -10,7 +10,7 @@ Linear integration for issue tracking and project management workflows.
 - **Version**: 1.0.0
 - **Owners**: @platform.integrations
 - **Tags**: project-management, linear
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/linear.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/linear.ts`
 
 ## Source Definition
 

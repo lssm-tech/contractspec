@@ -10,7 +10,7 @@ Fal integration for voice synthesis using Chatterbox text-to-speech models.
 - **Version**: 1.0.0
 - **Owners**: platform.ai
 - **Tags**: voice, tts, chatterbox
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/fal.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/fal.ts`
 
 ## Source Definition
 

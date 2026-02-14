@@ -11,7 +11,7 @@ Retrieve the latest cached balances for a bank account.
 - **Stability**: experimental
 - **Owners**: @platform.finance
 - **Tags**: open-banking, powens, balances
-- **File**: `packages/libs/contracts-spec/src/integrations/openbanking/contracts/balances.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/openbanking/contracts/balances.ts`
 
 ## Goal
 
