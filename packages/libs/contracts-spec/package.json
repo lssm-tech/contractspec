@@ -30,9 +30,10 @@
     "react": "^19.2.4"
   },
   "devDependencies": {
+    "@contractspec/tool.bun": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:",
-    "@contractspec/tool.bun": "workspace:*"
+    "@types/turndown": "^5.0.6",
+    "typescript": "catalog:"
   },
   "files": [
     "dist",
