@@ -10,7 +10,7 @@ Granola meeting notes and transcripts via Enterprise API or MCP transport.
 - **Version**: 1.0.0
 - **Owners**: platform.integrations
 - **Tags**: meeting-recorder, granola, transcripts
-- **File**: `packages/libs/contracts/src/integrations/providers/granola.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/granola.ts`
 
 ## Source Definition
 

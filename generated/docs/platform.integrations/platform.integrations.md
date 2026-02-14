@@ -11,7 +11,7 @@ Manage integration connections to external providers (e.g., Stripe, Qdrant)
 - **Stability**: experimental
 - **Owners**: @platform.integrations
 - **Tags**: integrations, connections, platform
-- **File**: `packages/libs/contracts/src/integrations/integrations.feature.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/integrations.feature.ts`
 
 ## Operations (5)
 
@@ -29,7 +29,7 @@ Manage integration connections to external providers (e.g., Stripe, Qdrant)
  *
  * Defines the feature module for managing integration connections.
  */
-import { defineFeature } from '../features';
+import { defineFeature } from '@contractspec/lib.contracts-spec/features';
 
 /**
  * Platform Integrations feature module that bundles

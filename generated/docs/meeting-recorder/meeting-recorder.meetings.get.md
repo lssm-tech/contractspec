@@ -11,7 +11,7 @@ Retrieve metadata for a single meeting recording.
 - **Stability**: experimental
 - **Owners**: @platform.integrations
 - **Tags**: meeting-recorder, meetings
-- **File**: `packages/libs/contracts/src/integrations/meeting-recorder/contracts/meetings.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/meeting-recorder/contracts/meetings.ts`
 
 ## Goal
 

@@ -9,7 +9,7 @@ Returns the resolved branding for a tenant/app/environment.
 - **Type**: operation (query)
 - **Version**: 1.0.0
 - **Tags**: branding
-- **File**: `packages/libs/contracts/src/app-config/app-config.contracts.ts`
+- **File**: `packages/libs/contracts-spec/src/app-config/app-config.contracts.ts`
 
 ## Goal
 

@@ -9,7 +9,7 @@ Lists all versions of a tenant configuration.
 - **Type**: operation (query)
 - **Version**: 1.0.0
 - **Tags**: app-config
-- **File**: `packages/libs/contracts/src/app-config/lifecycle-contracts.ts`
+- **File**: `packages/libs/contracts-spec/src/app-config/lifecycle-contracts.ts`
 
 ## Goal
 

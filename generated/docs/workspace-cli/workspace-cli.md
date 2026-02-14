@@ -22,7 +22,7 @@ Core CLI operations for managing ContractSpec workspaces
 ## Source Definition
 
 ```typescript
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 export const cliFeature = defineFeature({
   meta: {

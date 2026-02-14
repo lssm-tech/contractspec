@@ -8,7 +8,7 @@ A tenant config version was published to production.
 
 - **Type**: event (event)
 - **Version**: 1.0.0
-- **File**: `packages/libs/contracts/src/app-config/events.ts`
+- **File**: `packages/libs/contracts-spec/src/app-config/events.ts`
 
 ## Source Definition
 

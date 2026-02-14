@@ -11,7 +11,7 @@ Retrieve the canonical bank account record for the given account identifier.
 - **Stability**: experimental
 - **Owners**: @platform.finance
 - **Tags**: open-banking, powens, accounts
-- **File**: `packages/libs/contracts/src/integrations/openbanking/contracts/accounts.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/openbanking/contracts/accounts.ts`
 
 ## Goal
 

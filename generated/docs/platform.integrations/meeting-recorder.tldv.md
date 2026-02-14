@@ -10,7 +10,7 @@ tl;dv Public API for meeting recordings, transcripts, and webhook events.
 - **Version**: 1.0.0
 - **Owners**: platform.integrations
 - **Tags**: meeting-recorder, tldv, transcripts
-- **File**: `packages/libs/contracts/src/integrations/providers/tldv.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/tldv.ts`
 
 ## Source Definition
 

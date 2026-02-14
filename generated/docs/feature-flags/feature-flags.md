@@ -51,7 +51,7 @@ Feature flag management with targeting rules and A/B experiments
  *
  * Defines the feature module for feature flag and experiment management.
  */
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 /**
  * Feature Flags feature module that bundles flag management,

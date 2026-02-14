@@ -10,7 +10,7 @@ Gmail integration supporting inbound thread ingestion and outbound transactional
 - **Version**: 1.0.0
 - **Owners**: platform.messaging
 - **Tags**: email, gmail
-- **File**: `packages/libs/contracts/src/integrations/providers/gmail.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/gmail.ts`
 
 ## Source Definition
 

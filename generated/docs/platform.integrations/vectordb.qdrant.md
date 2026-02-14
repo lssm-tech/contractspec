@@ -10,7 +10,7 @@ Qdrant integration for vector search and embeddings storage.
 - **Version**: 1.0.0
 - **Owners**: platform.ai
 - **Tags**: vector-db, search
-- **File**: `packages/libs/contracts/src/integrations/providers/qdrant.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/qdrant.ts`
 
 ## Source Definition
 

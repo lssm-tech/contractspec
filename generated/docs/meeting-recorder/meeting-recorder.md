@@ -10,7 +10,7 @@ Meeting recorder integrations capability
 - **Version**: 1.0.0
 - **Owners**: @platform.integrations
 - **Tags**: meeting-recorder, transcripts, integrations
-- **File**: `packages/libs/contracts/src/integrations/meeting-recorder/meeting-recorder.capability.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/meeting-recorder/meeting-recorder.capability.ts`
 
 ## Source Definition
 

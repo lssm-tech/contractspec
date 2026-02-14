@@ -10,7 +10,7 @@ Postmark integration for transactional email delivery.
 - **Version**: 1.0.0
 - **Owners**: platform.messaging
 - **Tags**: email, transactional
-- **File**: `packages/libs/contracts/src/integrations/providers/postmark.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/postmark.ts`
 
 ## Source Definition
 

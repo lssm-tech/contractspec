@@ -47,7 +47,7 @@ File storage, attachments, and media processing with presigned URLs
  *
  * Defines the feature module for file management capabilities.
  */
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 /**
  * Files feature module that bundles file storage,

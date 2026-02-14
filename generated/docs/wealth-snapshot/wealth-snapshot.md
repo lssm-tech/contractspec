@@ -40,7 +40,7 @@ Mini-app for accounts, assets, liabilities, goals, and net worth.
 ## Source Definition
 
 ```typescript
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 export const WealthSnapshotFeature = defineFeature({
   meta: {

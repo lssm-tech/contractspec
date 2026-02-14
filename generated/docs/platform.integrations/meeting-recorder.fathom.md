@@ -10,7 +10,7 @@ Fathom External API for meetings, transcripts, and webhook events.
 - **Version**: 1.0.0
 - **Owners**: platform.integrations
 - **Tags**: meeting-recorder, fathom, transcripts
-- **File**: `packages/libs/contracts/src/integrations/providers/fathom.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/fathom.ts`
 
 ## Source Definition
 

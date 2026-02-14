@@ -11,7 +11,7 @@ Ingest a webhook from a meeting recorder provider.
 - **Stability**: experimental
 - **Owners**: @platform.integrations
 - **Tags**: meeting-recorder, webhooks, transcripts
-- **File**: `packages/libs/contracts/src/integrations/meeting-recorder/contracts/webhooks.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/meeting-recorder/contracts/webhooks.ts`
 
 ## Goal
 

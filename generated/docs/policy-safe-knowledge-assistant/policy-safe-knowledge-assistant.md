@@ -43,7 +43,7 @@ All-in-one example composing locale/jurisdiction gate + versioned KB + HITL pipe
 ## Source Definition
 
 ```typescript
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 export const PolicySafeKnowledgeAssistantFeature = defineFeature({
   meta: {

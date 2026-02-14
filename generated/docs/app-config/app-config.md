@@ -8,7 +8,7 @@ Provides tenant app configuration lifecycle management.
 
 - **Type**: capability (capability)
 - **Version**: 1.0.0
-- **File**: `packages/libs/contracts/src/app-config/app-config.capability.ts`
+- **File**: `packages/libs/contracts-spec/src/app-config/app-config.capability.ts`
 
 ## Source Definition
 
