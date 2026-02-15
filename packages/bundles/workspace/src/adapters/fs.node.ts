@@ -83,7 +83,7 @@ export function createNodeFsAdapter(cwd?: string): FsAdapter {
         absolute,
       });
 
-      return matches;
+      return matches.sort((a, b) => a.localeCompare(b));
     },
 
     resolve(...paths: string[]): string {
