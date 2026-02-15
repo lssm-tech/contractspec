@@ -2,28 +2,85 @@
 
 # pocket-family-office
 
-Personal family office management
+Personal finance automation with document ingestion, open banking, and AI summaries
 
 ## Metadata
 
-- **Type**: capability (capability)
+- **Type**: feature
 - **Version**: 1.0.0
+- **Stability**: experimental
 - **Owners**: @platform.finance
-- **Tags**: family-office, wealth, personal
-- **File**: `packages/examples/pocket-family-office/src/pocket-family-office.capability.ts`
+- **Tags**: finance, open-banking, documents, automation, family-office
+- **File**: `packages/examples/pocket-family-office/src/pocket-family-office.feature.ts`
+
+## Operations (6)
+
+- `pfo.documents.upload` (v1.0.0)
+- `pfo.reminders.schedule-payment` (v1.0.0)
+- `pfo.summary.generate` (v1.0.0)
+- `pfo.email.sync-threads` (v1.0.0)
+- `pfo.summary.dispatch` (v1.0.0)
+- `pfo.openbanking.generate-overview` (v1.0.0)
 
 ## Source Definition
 
 ```typescript
-export const PocketFamilyOfficeCapability = defineCapability({
+/**
+ * Pocket Family Office Feature Module Specification
+ *
+ * Defines the feature module for personal finance automation.
+ */
+import { defineFeature } from '@contractspec/lib.contracts-spec';
+
+/**
+ * Pocket Family Office feature module that bundles financial document
+ * management, open banking integration, and automated summaries.
+ */
+export const PocketFamilyOfficeFeature = defineFeature({
   meta: {
     key: 'pocket-family-office',
     version: '1.0.0',
-    kind: 'ui',
-    stability: StabilityEnum.Experimental,
-    description: 'Personal family office management',
+    title: 'Pocket Family Office',
+    description:
+      'Personal finance automation with document ingestion, open banking, and AI summaries',
+    domain: 'finance',
     owners: ['@platform.finance'],
-    tags: ['family-office', 'wealth', 'personal'],
+    tags: [
+      'finance',
+      'open-banking',
+      'documents',
+      'automation',
+      'family-office',
+    ],
+    stability: 'experimental',
+  },
+
+  // All contract operations included in this feature
+  operations: [
+    { key: 'pfo.documents.upload', version: '1.0.0' },
+    { key: 'pfo.reminders.schedule-payment', version: '1.0.0' },
+    { key: 'pfo.summary.generate', version: '1.0.0' },
+    { key: 'pfo.email.sync-threads', version: '1.0.0' },
+    { key: 'pfo.summary.dispatch', version: '1.0.0' },
+    { key: 'pfo.openbanking.generate-overview', version: '1.0.0' },
+  ],
+
+  // No events defined separately for this feature
+  events: [],
+
+  // No presentations for this example feature
+  presentations: [],
+  opToPresentation: [],
+  presentationsTargets: [],
+
+  // Capability definitions
+  capabilities: {
+    provides: [{ key: 'pocket-family-office', version: '1.0.0' }],
+    requires: [
+      { key: 'identity', version: '1.0.0' },
+      { key: 'openbanking', version: '1.0.0' },
+    ],
   },
 });
+
 ```

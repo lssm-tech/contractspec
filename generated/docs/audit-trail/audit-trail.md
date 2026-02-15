@@ -2,28 +2,73 @@
 
 # audit-trail
 
-Audit logging and compliance tracking
+Audit logging, querying, export, and compliance reporting
 
 ## Metadata
 
-- **Type**: capability (capability)
+- **Type**: feature
 - **Version**: 1.0.0
-- **Owners**: @platform.core
-- **Tags**: audit, logging, compliance
-- **File**: `packages/modules/audit-trail/src/audit-trail.capability.ts`
+- **Stability**: stable
+- **Owners**: @platform.audit-trail
+- **Tags**: audit, compliance, logging, security
+- **File**: `packages/modules/audit-trail/src/audit-trail.feature.ts`
+
+## Operations (5)
+
+- `audit.logs.export` (v1.0.0)
+- `audit.logs.query` (v1.0.0)
+- `audit.logs.get` (v1.0.0)
+- `audit.trace.get` (v1.0.0)
+- `audit.stats` (v1.0.0)
 
 ## Source Definition
 
 ```typescript
-export const AuditTrailCapability = defineCapability({
+/**
+ * Audit Trail Feature Module Specification
+ *
+ * Defines the feature module for audit logging and compliance.
+ */
+import { defineFeature } from '@contractspec/lib.contracts-spec';
+
+/**
+ * Audit Trail feature module that bundles audit log querying,
+ * export, and statistics capabilities.
+ */
+export const AuditTrailFeature = defineFeature({
   meta: {
     key: 'audit-trail',
+    title: 'Audit Trail',
+    description: 'Audit logging, querying, export, and compliance reporting',
+    domain: 'platform',
     version: '1.0.0',
-    kind: 'data',
-    stability: StabilityEnum.Experimental,
-    description: 'Audit logging and compliance tracking',
-    owners: ['@platform.core'],
-    tags: ['audit', 'logging', 'compliance'],
+    owners: ['@platform.audit-trail'],
+    tags: ['audit', 'compliance', 'logging', 'security'],
+    stability: 'stable',
+  },
+
+  // All contract operations included in this feature
+  operations: [
+    { key: 'audit.logs.export', version: '1.0.0' },
+    { key: 'audit.logs.query', version: '1.0.0' },
+    { key: 'audit.logs.get', version: '1.0.0' },
+    { key: 'audit.trace.get', version: '1.0.0' },
+    { key: 'audit.stats', version: '1.0.0' },
+  ],
+
+  // No events for this feature - it consumes events, doesn't emit them
+  events: [],
+
+  // No presentations for this module feature
+  presentations: [],
+  opToPresentation: [],
+  presentationsTargets: [],
+
+  // Capability definitions
+  capabilities: {
+    provides: [{ key: 'audit-trail', version: '1.0.0' }],
+    requires: [],
   },
 });
+
 ```

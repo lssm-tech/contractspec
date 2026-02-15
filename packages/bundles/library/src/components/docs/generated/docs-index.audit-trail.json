@@ -2,7 +2,7 @@
   {
     "id": "audit-trail/audit-trail",
     "title": "audit-trail",
-    "summary": "Audit logging and compliance tracking\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.core\n- **Tags**: audit, logging, compliance\n- **File**: `packages/modules/audit-trail/src/audit-trail.capability.ts`",
+    "summary": "Audit logging, querying, export, and compliance reporting\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @platform.audit-trail\n- **Tags**: audit, compliance, logging, security",
     "route": "/docs/reference/audit-trail/audit-trail",
     "source": "generated",
     "contentPath": "audit-trail/audit-trail.md"
