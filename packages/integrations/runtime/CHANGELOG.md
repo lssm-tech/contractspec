@@ -1,5 +1,28 @@
 # @contractspec/integration.runtime
 
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- 7f3203a: fix: make workspace test runs resilient when packages have no tests
+
+  Updates package test scripts to pass cleanly when no matching test files exist:
+  - Uses `bun test --pass-with-no-tests` in Bun-based packages that currently ship without test files.
+  - Uses `jest --passWithNoTests` for the UI kit web package.
+  - Adds `.vscode-test.mjs` for `vscode-contractspec` so VS Code extension test runs have an explicit config and stop failing on missing default configuration.
+
+  This keeps `turbo run test` deterministic across the monorepo while preserving existing test execution behavior where tests are present.
+
+- Updated dependencies [a09bafc]
+- Updated dependencies [f152678]
+  - @contractspec/lib.contracts-integrations@2.0.0
+  - @contractspec/lib.contracts-spec@2.0.0
+  - @contractspec/lib.logger@2.0.0
+
 ## 1.62.0
 
 ### Minor Changes

@@ -105,13 +105,13 @@
     "prettier-plugin-prisma": "^5.0.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "rulesync": "^7.2.0",
-    "turbo-ignore": "^2.8.8",
+    "turbo-ignore": "^2.8.9",
     "typescript-eslint": "^8.55.0"
   },
   "dependencies": {
     "react": "catalog:",
     "react-dom": "catalog:",
-    "turbo": "^2.8.8"
+    "turbo": "^2.8.9"
   },
   "config": {
     "commitizen": {

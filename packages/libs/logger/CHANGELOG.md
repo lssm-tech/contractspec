@@ -1,5 +1,11 @@
 # @contractspec/lib.logger
 
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
 ## 1.62.0
 
 ### Minor Changes

@@ -1,5 +1,22 @@
 # @contractspec/example.product-intent
 
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+- Updated dependencies [94f3c24]
+- Updated dependencies [f152678]
+  - @contractspec/integration.providers-impls@2.0.0
+  - @contractspec/lib.contracts-integrations@2.0.0
+  - @contractspec/lib.product-intent-utils@2.0.0
+  - @contractspec/lib.contracts-spec@2.0.0
+  - @contractspec/lib.ai-agent@2.0.0
+
 ## 1.62.0
 
 ### Minor Changes

@@ -1,5 +1,23 @@
 # @contractspec/example.marketplace
 
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+- Updated dependencies [94f3c24]
+- Updated dependencies [f152678]
+- Updated dependencies [7f3203a]
+  - @contractspec/lib.example-shared-ui@2.0.0
+  - @contractspec/lib.runtime-sandbox@1.0.0
+  - @contractspec/lib.contracts-spec@2.0.0
+  - @contractspec/lib.design-system@2.0.0
+  - @contractspec/lib.schema@2.0.0
+
 ## 1.62.0
 
 ### Minor Changes

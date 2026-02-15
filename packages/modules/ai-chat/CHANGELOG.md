@@ -1,5 +1,26 @@
 # @contractspec/module.ai-chat
 
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+- Updated dependencies [94f3c24]
+- Updated dependencies [f152678]
+- Updated dependencies [7f3203a]
+  - @contractspec/lib.contracts-spec@2.0.0
+  - @contractspec/lib.cost-tracking@2.0.0
+  - @contractspec/lib.design-system@2.0.0
+  - @contractspec/lib.ai-providers@2.0.0
+  - @contractspec/lib.ui-kit-web@2.0.0
+  - @contractspec/lib.ai-agent@2.0.0
+  - @contractspec/lib.metering@2.0.0
+  - @contractspec/lib.schema@2.0.0
+
 ## 1.62.0
 
 ### Minor Changes

@@ -1,5 +1,37 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+- Updated dependencies [f152678]
+- Updated dependencies [7f3203a]
+  - @contractspec/example.policy-safe-knowledge-assistant@2.0.0
+  - @contractspec/example.analytics-dashboard@2.0.0
+  - @contractspec/example.saas-boilerplate@2.0.0
+  - @contractspec/lib.progressive-delivery@17.0.0
+  - @contractspec/example.integration-hub@2.0.0
+  - @contractspec/example.workflow-system@2.0.0
+  - @contractspec/example.agent-console@2.0.0
+  - @contractspec/lib.example-shared-ui@2.0.0
+  - @contractspec/example.crm-pipeline@2.0.0
+  - @contractspec/example.in-app-docs@2.0.0
+  - @contractspec/example.marketplace@2.0.0
+  - @contractspec/lib.contracts-spec@2.0.0
+  - @contractspec/lib.design-system@2.0.0
+  - @contractspec/bundle.marketing@2.0.0
+  - @contractspec/lib.ui-kit-core@2.0.0
+  - @contractspec/module.examples@2.0.0
+  - @contractspec/bundle.library@2.0.0
+  - @contractspec/lib.ui-kit-web@2.0.0
+  - @contractspec/lib.ui-link@2.0.0
+  - @contractspec/lib.ui-kit@2.0.0
+
 ## 1.62.0
 
 ### Minor Changes
