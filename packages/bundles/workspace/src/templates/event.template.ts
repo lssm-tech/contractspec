@@ -10,7 +10,7 @@ export function generateEventSpec(data: EventSpecData): string {
   const eventVarName = toPascalCase(name.replace(/\./g, '_')) + 'V' + version;
   const payloadSchemaName = eventVarName + 'Payload';
 
-  return `import { defineEvent } from '@contractspec/lib.contracts';
+  return `import { defineEvent } from '@contractspec/lib.contracts-spec';
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 
 // TODO: Define event payload schema

@@ -6,7 +6,7 @@
 
 import { AIGenerator } from './ai-generator';
 import * as templates from './templates';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 
 export class SpecCreatorService {
   public readonly ai: AIGenerator;

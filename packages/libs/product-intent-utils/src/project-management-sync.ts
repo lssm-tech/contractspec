@@ -3,11 +3,11 @@ import type {
   ImpactReport,
   Ticket,
   TicketPriority,
-} from '@contractspec/lib.contracts/product-intent/types';
+} from '@contractspec/lib.contracts-spec/product-intent/types';
 import type {
   ProjectManagementWorkItemInput,
   ProjectManagementWorkItemPriority,
-} from '@contractspec/lib.contracts/integrations/providers/project-management';
+} from '@contractspec/lib.contracts-integrations';
 
 export interface ProjectManagementSyncOptions {
   includeSummary?: boolean;

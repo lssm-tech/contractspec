@@ -19,7 +19,7 @@ import {
   createNodeGitAdapter,
   versioning,
 } from '@contractspec/bundle.workspace';
-import type { ChangelogTier } from '@contractspec/lib.contracts';
+import type { ChangelogTier } from '@contractspec/lib.contracts-spec';
 
 export interface ChangelogGenerateOptions {
   baseline?: string;

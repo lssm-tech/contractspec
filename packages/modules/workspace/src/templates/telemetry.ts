@@ -96,7 +96,7 @@ ${anomalyRules}
     })
     .join(',\n');
 
-  return `import type { TelemetrySpec } from '@contractspec/lib.contracts/telemetry';
+  return `import type { TelemetrySpec } from '@contractspec/lib.contracts-spec/telemetry';
 
 export const ${specVar}: TelemetrySpec = {
   meta: {

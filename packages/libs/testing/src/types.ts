@@ -1,7 +1,7 @@
 import type {
   OperationSpec,
   ResourceRefDescriptor,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 
 export interface TrafficSnapshot {

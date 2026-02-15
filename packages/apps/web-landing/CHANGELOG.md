@@ -1,5 +1,121 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 1.61.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+### Patch Changes
+
+- Updated dependencies [374fd71]
+  - @contractspec/example.policy-safe-knowledge-assistant@1.61.0
+  - @contractspec/example.analytics-dashboard@1.61.0
+  - @contractspec/example.saas-boilerplate@1.61.0
+  - @contractspec/lib.progressive-delivery@15.0.0
+  - @contractspec/example.integration-hub@1.61.0
+  - @contractspec/example.workflow-system@1.61.0
+  - @contractspec/example.agent-console@1.61.0
+  - @contractspec/lib.example-shared-ui@1.15.0
+  - @contractspec/example.crm-pipeline@1.61.0
+  - @contractspec/example.in-app-docs@1.8.0
+  - @contractspec/example.marketplace@1.61.0
+  - @contractspec/lib.design-system@1.61.0
+  - @contractspec/bundle.marketing@1.16.0
+  - @contractspec/lib.ui-kit-core@1.61.0
+  - @contractspec/module.examples@1.61.0
+  - @contractspec/bundle.library@1.16.0
+  - @contractspec/lib.ui-kit-web@1.61.0
+  - @contractspec/lib.ui-link@1.61.0
+  - @contractspec/lib.ui-kit@1.61.0
+
+## 1.60.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/example.policy-safe-knowledge-assistant@1.60.0
+  - @contractspec/example.analytics-dashboard@1.60.0
+  - @contractspec/example.saas-boilerplate@1.60.0
+  - @contractspec/lib.progressive-delivery@14.0.0
+  - @contractspec/example.integration-hub@1.60.0
+  - @contractspec/example.workflow-system@1.60.0
+  - @contractspec/example.agent-console@1.60.0
+  - @contractspec/lib.example-shared-ui@1.14.0
+  - @contractspec/example.crm-pipeline@1.60.0
+  - @contractspec/example.in-app-docs@1.7.0
+  - @contractspec/example.marketplace@1.60.0
+  - @contractspec/lib.design-system@1.60.0
+  - @contractspec/bundle.marketing@1.15.0
+  - @contractspec/lib.ui-kit-core@1.60.0
+  - @contractspec/module.examples@1.60.0
+  - @contractspec/bundle.library@1.15.0
+  - @contractspec/lib.ui-kit-web@1.60.0
+  - @contractspec/lib.ui-link@1.60.0
+  - @contractspec/lib.ui-kit@1.60.0
+
+## 1.59.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/example.policy-safe-knowledge-assistant@1.59.0
+  - @contractspec/example.analytics-dashboard@1.59.0
+  - @contractspec/example.saas-boilerplate@1.59.0
+  - @contractspec/lib.progressive-delivery@13.0.0
+  - @contractspec/example.integration-hub@1.59.0
+  - @contractspec/example.workflow-system@1.59.0
+  - @contractspec/example.agent-console@1.59.0
+  - @contractspec/lib.example-shared-ui@1.13.0
+  - @contractspec/example.crm-pipeline@1.59.0
+  - @contractspec/example.in-app-docs@1.6.0
+  - @contractspec/example.marketplace@1.59.0
+  - @contractspec/lib.design-system@1.59.0
+  - @contractspec/bundle.marketing@1.14.0
+  - @contractspec/lib.ui-kit-core@1.59.0
+  - @contractspec/module.examples@1.59.0
+  - @contractspec/bundle.library@1.14.0
+  - @contractspec/lib.ui-kit-web@1.59.0
+  - @contractspec/lib.ui-link@1.59.0
+  - @contractspec/lib.ui-kit@1.59.0
+
+## 1.58.0
+
+### Minor Changes
+
+- d1f0fd0: chore: Migrate non-app package builds from tsdown to shared Bun tooling, add `@contractspec/tool.bun`, and standardize `prebuild`/`build`/`typecheck` with platform-aware exports and `tsc` declaration emission into `dist`.
+
+### Patch Changes
+
+- Updated dependencies [d1f0fd0]
+  - @contractspec/example.policy-safe-knowledge-assistant@1.58.0
+  - @contractspec/example.analytics-dashboard@1.58.0
+  - @contractspec/example.saas-boilerplate@1.58.0
+  - @contractspec/lib.progressive-delivery@12.0.0
+  - @contractspec/example.integration-hub@1.58.0
+  - @contractspec/example.workflow-system@1.58.0
+  - @contractspec/example.agent-console@1.58.0
+  - @contractspec/lib.example-shared-ui@1.12.0
+  - @contractspec/example.crm-pipeline@1.58.0
+  - @contractspec/example.in-app-docs@1.5.0
+  - @contractspec/example.marketplace@1.58.0
+  - @contractspec/lib.design-system@1.58.0
+  - @contractspec/bundle.marketing@1.13.0
+  - @contractspec/lib.ui-kit-core@1.58.0
+  - @contractspec/module.examples@1.58.0
+  - @contractspec/bundle.library@1.13.0
+  - @contractspec/lib.ui-kit-web@1.58.0
+  - @contractspec/lib.ui-link@1.58.0
+  - @contractspec/lib.ui-kit@1.58.0
+
 ## 1.57.0
 
 ### Minor Changes

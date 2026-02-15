@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.product-intent",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Product intent example: evidence ingestion and prompt-ready outputs.",
   "keywords": [
     "contractspec",
@@ -35,7 +35,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.contracts-integrations": "workspace:*",
     "@contractspec/lib.ai-agent": "workspace:*",
     "@contractspec/lib.product-intent-utils": "workspace:*",
     "@contractspec/integration.providers-impls": "workspace:*"
@@ -51,37 +52,37 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "default": "./dist/index.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "default": "./dist/example.js"
       },
       "./load-evidence": {
         "types": "./dist/load-evidence.d.ts",
         "bun": "./dist/load-evidence.js",
-        "node": "./dist/node/load-evidence.mjs",
+        "node": "./dist/node/load-evidence.js",
         "default": "./dist/load-evidence.js"
       },
       "./posthog-signals": {
         "types": "./dist/posthog-signals.d.ts",
         "bun": "./dist/posthog-signals.js",
-        "node": "./dist/node/posthog-signals.mjs",
+        "node": "./dist/node/posthog-signals.js",
         "default": "./dist/posthog-signals.js"
       },
       "./script": {
         "types": "./dist/script.d.ts",
         "bun": "./dist/script.js",
-        "node": "./dist/node/script.mjs",
+        "node": "./dist/node/script.js",
         "default": "./dist/script.js"
       },
       "./sync-actions": {
         "types": "./dist/sync-actions.d.ts",
         "bun": "./dist/sync-actions.js",
-        "node": "./dist/node/sync-actions.mjs",
+        "node": "./dist/node/sync-actions.js",
         "default": "./dist/sync-actions.js"
       }
     },

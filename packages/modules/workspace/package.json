@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.workspace",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Workspace discovery and management module",
   "keywords": [
     "contractspec",
@@ -31,11 +31,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
     "compare-versions": "^6.1.1",
     "ts-morph": "^27.0.2",
-    "zod": "catalog:"
+    "zod": "catalog:",
+    "@contractspec/lib.contracts-integrations": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
@@ -51,7 +52,7 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "default": "./dist/index.js"
       }
     },

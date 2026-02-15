@@ -9,7 +9,7 @@ import { createHash } from 'crypto';
 import type {
   VerificationReport,
   VerificationTier,
-} from '@contractspec/lib.contracts/llm';
+} from '@contractspec/lib.contracts-spec/llm';
 import type {
   CacheKeyString,
   CacheLookupResult,

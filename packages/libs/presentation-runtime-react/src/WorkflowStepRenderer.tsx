@@ -6,7 +6,7 @@ import type {
   WorkflowSpec,
   WorkflowState,
   StepExecution,
-} from '@contractspec/lib.contracts/workflow';
+} from '@contractspec/lib.contracts-spec/workflow';
 
 export interface WorkflowStepRendererProps {
   spec: WorkflowSpec;

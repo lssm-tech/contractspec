@@ -4,7 +4,7 @@ import { FeatureEventDetailTemplate } from '@contractspec/bundle.library/present
 import type {
   EventRef,
   FeatureModuleSpec,
-} from '@contractspec/lib.contracts/features';
+} from '@contractspec/lib.contracts-spec/features';
 import type { SerializedEventSpec } from '@contractspec/bundle.library/features';
 
 export interface FeatureEventDetailClientProps {

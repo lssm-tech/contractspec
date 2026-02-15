@@ -2,28 +2,78 @@
 
 # notifications
 
-User notifications and alerts
+Multi-channel notification delivery with preference management
 
 ## Metadata
 
-- **Type**: capability (capability)
+- **Type**: feature
 - **Version**: 1.0.0
-- **Owners**: @platform.messaging
-- **Tags**: notifications, messaging, alerts
-- **File**: `packages/modules/notifications/src/notifications.capability.ts`
+- **Stability**: stable
+- **Owners**: @platform.notifications
+- **Tags**: notifications, email, push, in-app
+- **File**: `packages/modules/notifications/src/notifications.feature.ts`
+
+## Operations (7)
+
+- `notifications.send` (v1.0.0)
+- `notifications.markRead` (v1.0.0)
+- `notifications.markAllRead` (v1.0.0)
+- `notifications.delete` (v1.0.0)
+- `notifications.list` (v1.0.0)
+- `notifications.preferences.update` (v1.0.0)
+- `notifications.preferences.get` (v1.0.0)
 
 ## Source Definition
 
 ```typescript
-export const NotificationsCapability = defineCapability({
+/**
+ * Notifications Feature Module Specification
+ *
+ * Defines the feature module for notification management.
+ */
+import { defineFeature } from '@contractspec/lib.contracts-spec';
+
+/**
+ * Notifications feature module that bundles notification sending,
+ * listing, marking as read, and preference management capabilities.
+ */
+export const NotificationsFeature = defineFeature({
   meta: {
     key: 'notifications',
+    title: 'Notifications',
+    description:
+      'Multi-channel notification delivery with preference management',
+    domain: 'platform',
     version: '1.0.0',
-    kind: 'ui',
-    stability: StabilityEnum.Experimental,
-    description: 'User notifications and alerts',
-    owners: ['@platform.messaging'],
-    tags: ['notifications', 'messaging', 'alerts'],
+    owners: ['@platform.notifications'],
+    tags: ['notifications', 'email', 'push', 'in-app'],
+    stability: 'stable',
+  },
+
+  // All contract operations included in this feature
+  operations: [
+    { key: 'notifications.send', version: '1.0.0' },
+    { key: 'notifications.markRead', version: '1.0.0' },
+    { key: 'notifications.markAllRead', version: '1.0.0' },
+    { key: 'notifications.delete', version: '1.0.0' },
+    { key: 'notifications.list', version: '1.0.0' },
+    { key: 'notifications.preferences.update', version: '1.0.0' },
+    { key: 'notifications.preferences.get', version: '1.0.0' },
+  ],
+
+  // No events for this feature - it consumes events to send notifications
+  events: [],
+
+  // No presentations for this module feature
+  presentations: [],
+  opToPresentation: [],
+  presentationsTargets: [],
+
+  // Capability definitions
+  capabilities: {
+    provides: [{ key: 'notifications', version: '1.0.0' }],
+    requires: [{ key: 'identity', version: '1.0.0' }],
   },
 });
+
 ```

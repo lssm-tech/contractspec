@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createAgentJsonRunner } from '@contractspec/lib.ai-agent';
+import { createAgentJsonRunner } from '@contractspec/lib.ai-agent/agent/json-runner';
 import {
   extractEvidence,
   generateTickets,
@@ -25,8 +25,8 @@ const REPO_ROOT = path.resolve(MODULE_DIR, '../../../..');
 const REPO_SCAN_FILES = [
   'packages/examples/product-intent/src/load-evidence.ts',
   'packages/examples/product-intent/src/script.ts',
-  'packages/libs/contracts/src/product-intent/contract-patch-intent.ts',
-  'packages/libs/contracts/src/product-intent/spec.ts',
+  'packages/libs/contracts-spec/src/product-intent/contract-patch-intent.ts',
+  'packages/libs/contracts-spec/src/product-intent/spec.ts',
   'packages/libs/product-intent-utils/src/impact-engine.ts',
 ];
 

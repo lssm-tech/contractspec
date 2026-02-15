@@ -25,7 +25,7 @@ export function generateRegistry(
     ` * Generated operation registry.`,
     ` */`,
     ``,
-    `import { OperationSpecRegistry } from '@contractspec/lib.contracts';`,
+    `import { OperationSpecRegistry } from '@contractspec/lib.contracts-spec';`,
     ``,
   ];
 

@@ -15,7 +15,7 @@ import {
 } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../ports/fs';
 import type { LoggerAdapter } from '../ports/logger';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 
 /**
  * Build target types.

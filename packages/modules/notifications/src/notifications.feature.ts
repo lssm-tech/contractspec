@@ -3,7 +3,7 @@
  *
  * Defines the feature module for notification management.
  */
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 /**
  * Notifications feature module that bundles notification sending,

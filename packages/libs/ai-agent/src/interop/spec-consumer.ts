@@ -17,6 +17,7 @@ import type {
   SpecListOptions,
   SpecListResult,
 } from './types';
+import { getDefaultI18n } from '../i18n';
 
 // =============================================================================
 // Spec Consumer Implementation
@@ -64,9 +65,10 @@ export class ContractSpecConsumer implements SpecConsumer {
   getSpecMarkdown(specKey: string, options?: SpecMarkdownOptions): string {
     const spec = this.specs.get(specKey);
     if (!spec) {
-      throw new Error(`Spec not found: ${specKey}`);
+      throw new Error(getDefaultI18n().t('error.specNotFound', { specKey }));
     }
 
+    const i18n = getDefaultI18n();
     const sections: string[] = [];
     const opts = {
       includeToc: options?.includeToc ?? true,
@@ -92,7 +94,7 @@ export class ContractSpecConsumer implements SpecConsumer {
 
     // Table of contents
     if (opts.includeToc) {
-      sections.push('## Table of Contents');
+      sections.push(i18n.t('interop.md.toc'));
       sections.push('');
       sections.push('- [Overview](#overview)');
       sections.push('- [Instructions](#instructions)');
@@ -106,32 +108,44 @@ export class ContractSpecConsumer implements SpecConsumer {
     }
 
     // Overview
-    sections.push('## Overview');
+    sections.push(i18n.t('interop.md.overview'));
     sections.push('');
     if (this.includeMetadata) {
-      sections.push(`- **Key**: \`${spec.meta.key}\``);
-      sections.push(`- **Version**: ${spec.meta.version}`);
+      sections.push(i18n.t('interop.md.metaKey', { key: spec.meta.key }));
+      sections.push(
+        i18n.t('interop.md.metaVersion', { version: spec.meta.version })
+      );
       if (spec.meta.stability) {
-        sections.push(`- **Stability**: ${spec.meta.stability}`);
+        sections.push(
+          i18n.t('interop.md.metaStability', {
+            stability: spec.meta.stability,
+          })
+        );
       }
       if (spec.meta.owners && spec.meta.owners.length > 0) {
-        sections.push(`- **Owners**: ${spec.meta.owners.join(', ')}`);
+        sections.push(
+          i18n.t('interop.md.metaOwners', {
+            owners: spec.meta.owners.join(', '),
+          })
+        );
       }
       if (spec.tags && spec.tags.length > 0) {
-        sections.push(`- **Tags**: ${spec.tags.join(', ')}`);
+        sections.push(
+          i18n.t('interop.md.metaTags', { tags: spec.tags.join(', ') })
+        );
       }
     }
     sections.push('');
 
     // Instructions
-    sections.push('## Instructions');
+    sections.push(i18n.t('interop.prompt.instructions'));
     sections.push('');
     sections.push(spec.instructions);
     sections.push('');
 
     // Tools
     if (opts.includeTools && spec.tools && spec.tools.length > 0) {
-      sections.push('## Tools');
+      sections.push(i18n.t('interop.md.tools'));
       sections.push('');
       for (const tool of spec.tools) {
         sections.push(`### ${tool.name}`);
@@ -141,7 +155,7 @@ export class ContractSpecConsumer implements SpecConsumer {
           sections.push('');
         }
         if (tool.schema) {
-          sections.push('**Schema:**');
+          sections.push(i18n.t('interop.md.schema'));
           sections.push('');
           sections.push('```json');
           sections.push(JSON.stringify(tool.schema, null, 2));
@@ -150,7 +164,11 @@ export class ContractSpecConsumer implements SpecConsumer {
         }
         if (tool.automationSafe !== undefined) {
           sections.push(
-            `**Automation Safe**: ${tool.automationSafe ? 'Yes' : 'No'}`
+            i18n.t('interop.md.automationSafe', {
+              value: tool.automationSafe
+                ? i18n.t('interop.md.yes')
+                : i18n.t('interop.md.no'),
+            })
           );
           sections.push('');
         }
@@ -159,10 +177,11 @@ export class ContractSpecConsumer implements SpecConsumer {
 
     // Knowledge
     if (spec.knowledge && spec.knowledge.length > 0) {
-      sections.push('## Knowledge');
+      sections.push(i18n.t('interop.md.knowledge'));
       sections.push('');
       for (const k of spec.knowledge) {
-        sections.push(`- **${k.key}**${k.required ? ' (required)' : ''}`);
+        const marker = k.required ? ` ${i18n.t('interop.md.required')}` : '';
+        sections.push(`- **${k.key}**${marker}`);
         if (k.instructions) {
           sections.push(`  - ${k.instructions}`);
         }
@@ -172,25 +191,29 @@ export class ContractSpecConsumer implements SpecConsumer {
 
     // Policy
     if (spec.policy) {
-      sections.push('## Policy');
+      sections.push(i18n.t('interop.md.policy'));
       sections.push('');
       if (spec.policy.confidence) {
         sections.push(
-          `- **Minimum Confidence**: ${spec.policy.confidence.min ?? 0.7}`
+          i18n.t('interop.md.minConfidence', {
+            min: spec.policy.confidence.min ?? 0.7,
+          })
         );
       }
       if (spec.policy.escalation) {
         const esc = spec.policy.escalation;
         if (esc.confidenceThreshold) {
           sections.push(
-            `- **Escalation Threshold**: ${esc.confidenceThreshold}`
+            i18n.t('interop.md.escalationThreshold', {
+              threshold: esc.confidenceThreshold,
+            })
           );
         }
         if (esc.onToolFailure) {
-          sections.push('- **Escalate on Tool Failure**: Yes');
+          sections.push(i18n.t('interop.md.escalateToolFailure'));
         }
         if (esc.onTimeout) {
-          sections.push('- **Escalate on Timeout**: Yes');
+          sections.push(i18n.t('interop.md.escalateTimeout'));
         }
       }
       sections.push('');
@@ -205,9 +228,10 @@ export class ContractSpecConsumer implements SpecConsumer {
   getSpecPrompt(specKey: string, options?: SpecPromptOptions): string {
     const spec = this.specs.get(specKey);
     if (!spec) {
-      throw new Error(`Spec not found: ${specKey}`);
+      throw new Error(getDefaultI18n().t('error.specNotFound', { specKey }));
     }
 
+    const i18n = getDefaultI18n();
     const sections: string[] = [];
     const opts = {
       includeTools: options?.includeTools ?? true,
@@ -216,30 +240,35 @@ export class ContractSpecConsumer implements SpecConsumer {
     };
 
     // Identity section
-    sections.push('# Agent Identity');
+    sections.push(i18n.t('interop.prompt.agentIdentity'));
     sections.push('');
-    sections.push(`You are ${spec.meta.key} (v${spec.meta.version}).`);
+    sections.push(
+      i18n.t('interop.prompt.youAre', {
+        key: spec.meta.key,
+        version: spec.meta.version,
+      })
+    );
     sections.push('');
 
     // Description
     if (spec.description) {
-      sections.push('## Description');
+      sections.push(i18n.t('interop.prompt.description'));
       sections.push('');
       sections.push(spec.description);
       sections.push('');
     }
 
     // Instructions
-    sections.push('## Instructions');
+    sections.push(i18n.t('interop.prompt.instructions'));
     sections.push('');
     sections.push(spec.instructions);
     sections.push('');
 
     // Tools
     if (opts.includeTools && spec.tools && spec.tools.length > 0) {
-      sections.push('## Available Tools');
+      sections.push(i18n.t('interop.prompt.availableTools'));
       sections.push('');
-      sections.push('You have access to the following tools:');
+      sections.push(i18n.t('interop.prompt.toolsIntro'));
       sections.push('');
 
       for (const tool of spec.tools) {
@@ -250,7 +279,7 @@ export class ContractSpecConsumer implements SpecConsumer {
           sections.push('');
         }
         if (tool.schema && opts.format === 'structured') {
-          sections.push('Parameters:');
+          sections.push(i18n.t('interop.prompt.parameters'));
           sections.push('```json');
           sections.push(JSON.stringify(tool.schema, null, 2));
           sections.push('```');
@@ -263,7 +292,7 @@ export class ContractSpecConsumer implements SpecConsumer {
     if (spec.knowledge && spec.knowledge.length > 0) {
       const requiredKnowledge = spec.knowledge.filter((k) => k.required);
       if (requiredKnowledge.length > 0) {
-        sections.push('## Knowledge Context');
+        sections.push(i18n.t('interop.prompt.knowledgeContext'));
         sections.push('');
         for (const k of requiredKnowledge) {
           if (k.instructions) {
@@ -276,7 +305,7 @@ export class ContractSpecConsumer implements SpecConsumer {
 
     // Custom context
     if (options?.customContext) {
-      sections.push('## Additional Context');
+      sections.push(i18n.t('interop.prompt.additionalContext'));
       sections.push('');
       sections.push(options.customContext);
       sections.push('');

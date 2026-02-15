@@ -5,8 +5,35 @@ import path from 'node:path';
 import { glob } from 'glob';
 import { selectEntriesForTarget } from './config.mjs';
 
-function resolveRootPath(cwd, root) {
-  return root && root !== '.' ? path.join(cwd, root) : cwd;
+function buildTranspileArgs({
+  selectedEntries,
+  root,
+  target,
+  outdir,
+  external,
+}) {
+  const args = [
+    'build',
+    ...selectedEntries,
+    '--root',
+    root,
+    '--target',
+    target,
+    '--format',
+    'esm',
+    '--packages',
+    'external',
+    '--outdir',
+    outdir,
+    '--entry-naming',
+    '[dir]/[name].[ext]',
+  ];
+
+  for (const item of external) {
+    args.push('--external', item);
+  }
+
+  return args;
 }
 
 async function readJson(filePath) {
@@ -211,37 +238,47 @@ export async function runTranspile({
         : path.join(cwd, 'dist', target);
     await rm(outdir, { recursive: true, force: true });
 
-    const result = await Bun.build({
-      entrypoints: selectedEntries.map((entry) => path.join(cwd, entry)),
-      outdir,
+    const relativeOutdir = path.relative(cwd, outdir).replaceAll('\\', '/');
+    const args = buildTranspileArgs({
+      selectedEntries,
+      root,
       target,
-      format: 'esm',
-      packages: 'external',
-      sourcemap: 'none',
-      splitting: false,
-      naming: '[dir]/[name].[ext]',
+      outdir: relativeOutdir,
       external,
-      root: resolveRootPath(cwd, root),
     });
 
-    if (!result.success) {
-      for (const log of result.logs) {
-        console.error(log.message);
-      }
-      process.exit(1);
+    console.log(
+      `[contractspec-bun-build] transpile target=${target} root=${root} entries=${selectedEntries.length}`
+    );
+
+    const subprocess = Bun.spawn(['bun', ...args], {
+      cwd,
+      stdout: 'inherit',
+      stderr: 'inherit',
+      stdin: 'inherit',
+    });
+    const exitCode = await subprocess.exited;
+    if (exitCode !== 0) {
+      process.exit(exitCode);
     }
   }
 }
 
-export async function runDev({ cwd, entries, external, targets, targetRoots }) {
-  const requestedTargets = [
-    'bun',
-    targets.node ? 'node' : null,
-    targets.browser ? 'browser' : null,
-  ].filter(Boolean);
+export async function runDev({
+  cwd,
+  entries,
+  external,
+  targets,
+  targetRoots,
+  allTargets = false,
+}) {
+  const requestedTargets = allTargets
+    ? ['bun', targets.node ? 'node' : null, targets.browser ? 'browser' : null]
+    : ['bun'];
+  const selectedTargets = requestedTargets.filter(Boolean);
   const subprocesses = [];
 
-  for (const target of requestedTargets) {
+  for (const target of selectedTargets) {
     const selectedEntries = selectEntriesForTarget(entries, target);
 
     if (selectedEntries.length === 0) {
@@ -250,27 +287,14 @@ export async function runDev({ cwd, entries, external, targets, targetRoots }) {
 
     const root = targetRoots?.[target] ?? '.';
     const outdir = target === 'bun' ? 'dist' : `dist/${target}`;
-    const args = [
-      'build',
-      ...selectedEntries,
-      '--root',
+    const args = buildTranspileArgs({
+      selectedEntries,
       root,
-      '--target',
       target,
-      '--format',
-      'esm',
-      '--packages',
-      'external',
-      '--outdir',
       outdir,
-      '--entry-naming',
-      '[dir]/[name].[ext]',
-      '--watch',
-    ];
-
-    for (const item of external) {
-      args.push('--external', item);
-    }
+      external,
+    });
+    args.push('--watch');
 
     const subprocess = Bun.spawn(['bun', ...args], {
       cwd,
@@ -284,7 +308,12 @@ export async function runDev({ cwd, entries, external, targets, targetRoots }) {
   await Promise.all(subprocesses.map((subprocess) => subprocess.exited));
 }
 
-export async function runTypes({ cwd, tsconfigForTypes, typesRoot }) {
+export async function runTypes({
+  cwd,
+  tsconfigForTypes,
+  typesRoot,
+  declarationMap = process.env.CONTRACTSPEC_TYPES_DECLARATION_MAP === '1',
+}) {
   const configPath = tsconfigForTypes ?? 'tsconfig.json';
   const tempTsConfigPath = path.join(cwd, '.tsconfig.contractspec-types.json');
   const dependencyPaths = await resolveDependencyPathMappings(cwd);
@@ -296,7 +325,7 @@ export async function runTypes({ cwd, tsconfigForTypes, typesRoot }) {
       incremental: false,
       emitDeclarationOnly: true,
       declaration: true,
-      declarationMap: true,
+      declarationMap,
       outDir: 'dist',
       ...(typesRoot ? { rootDir: typesRoot } : {}),
       ...(Object.keys(dependencyPaths).length > 0

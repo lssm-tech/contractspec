@@ -27,7 +27,7 @@ export function generateSkeletonEvent(ctx: SpecGenerationContext): string {
  * Referenced by feature: ${ctx.featureKey || 'unknown'}
  */
 
-import { defineEvent } from '@contractspec/lib.contracts';
+import { defineEvent } from '@contractspec/lib.contracts-spec';
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 
 // TODO: Define event payload schema

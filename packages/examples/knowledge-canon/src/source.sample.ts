@@ -1,4 +1,4 @@
-import type { KnowledgeSourceConfig } from '@contractspec/lib.contracts/knowledge/source';
+import type { KnowledgeSourceConfig } from '@contractspec/lib.contracts-spec/knowledge/source';
 
 export const productCanonNotionSource: KnowledgeSourceConfig = {
   meta: {

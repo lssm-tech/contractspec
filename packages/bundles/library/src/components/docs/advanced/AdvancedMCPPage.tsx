@@ -76,7 +76,7 @@ export function AdvancedMCPPage() {
         <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import { createMcpServer } from '@contractspec/lib.contracts/server/provider-mcp';
+import { createMcpServer } from '@contractspec/lib.contracts-runtime-server-mcp/provider-mcp';
 import { registry, resources, prompts } from './lib/registry';
 
 const server = new McpServer({
@@ -107,7 +107,7 @@ await server.connect(transport);`}</pre>
           integration spec and use it in your operations:
         </p>
         <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`import { defineIntegration } from '@contractspec/lib.contracts';
+          <pre>{`import { defineIntegration } from '@contractspec/lib.contracts-integrations';
 import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 const SearchProductsIntegration = defineIntegration({
@@ -154,7 +154,7 @@ const SearchProductsIntegration = defineIntegration({
           . You can define specific policies in TypeScript:
         </p>
         <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`import { definePolicy } from '@contractspec/lib.contracts';
+          <pre>{`import { definePolicy } from '@contractspec/lib.contracts-spec';
 
 export const AIAgentRestrictions = definePolicy({
   meta: {

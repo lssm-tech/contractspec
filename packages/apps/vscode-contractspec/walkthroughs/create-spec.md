@@ -45,7 +45,7 @@ Browse example specs:
 ## Example: Creating a User Signup Command
 
 ```typescript
-import { defineCommand } from '@contractspec/lib.contracts';
+import { defineCommand } from '@contractspec/lib.contracts-spec';
 import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 const UserSignupInput = defineSchemaModel({

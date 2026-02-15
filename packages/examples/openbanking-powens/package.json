@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.openbanking-powens",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "OpenBanking Powens example: OAuth callback + webhook handler patterns (provider + workflows).",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -24,13 +24,13 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/integration.providers-impls": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*"
+    "@contractspec/lib.contracts-spec": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
@@ -43,43 +43,43 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "default": "./dist/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/openbanking-powens.docblock": {
         "types": "./dist/docs/openbanking-powens.docblock.d.ts",
         "bun": "./dist/docs/openbanking-powens.docblock.js",
-        "node": "./dist/node/docs/openbanking-powens.docblock.mjs",
+        "node": "./dist/node/docs/openbanking-powens.docblock.js",
         "default": "./dist/docs/openbanking-powens.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "default": "./dist/example.js"
       },
       "./handlers/oauth-callback": {
         "types": "./dist/handlers/oauth-callback.d.ts",
         "bun": "./dist/handlers/oauth-callback.js",
-        "node": "./dist/node/handlers/oauth-callback.mjs",
+        "node": "./dist/node/handlers/oauth-callback.js",
         "default": "./dist/handlers/oauth-callback.js"
       },
       "./handlers/webhook-handler": {
         "types": "./dist/handlers/webhook-handler.d.ts",
         "bun": "./dist/handlers/webhook-handler.js",
-        "node": "./dist/node/handlers/webhook-handler.mjs",
+        "node": "./dist/node/handlers/webhook-handler.js",
         "default": "./dist/handlers/webhook-handler.js"
       }
     },

@@ -1,13 +1,13 @@
-import type { TelemetrySpec } from '@contractspec/lib.contracts/telemetry/spec';
+import type { TelemetrySpec } from '@contractspec/lib.contracts-spec/telemetry/spec';
 import {
   OwnersEnum,
   StabilityEnum,
   TagsEnum,
-} from '@contractspec/lib.contracts/ownership';
+} from '@contractspec/lib.contracts-spec/ownership';
 import {
   OPENBANKING_PII_FIELDS,
   OPENBANKING_TELEMETRY_EVENTS,
-} from '@contractspec/lib.contracts/integrations';
+} from '@contractspec/lib.contracts-integrations';
 
 const commonProperties = {
   tenantId: {

@@ -1,5 +1,5 @@
-import { FeatureRegistry } from '@contractspec/lib.contracts/features';
-import { AppConfigFeature } from '@contractspec/lib.contracts/app-config';
+import { FeatureRegistry } from '@contractspec/lib.contracts-spec/features';
+import { AppConfigFeature } from '@contractspec/lib.contracts-spec/app-config';
 import { DocsFeature } from './docs.feature';
 import { MCPFeature } from './mcp.feature';
 import { PresentationsFeature } from './presentations.feature';

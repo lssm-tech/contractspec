@@ -1,8 +1,8 @@
 'use client';
 
 import { useMemo } from 'react';
-import type { AnyOperationSpec } from '@contractspec/lib.contracts';
-import type { OpRef } from '@contractspec/lib.contracts/features';
+import type { AnyOperationSpec } from '@contractspec/lib.contracts-spec';
+import type { OpRef } from '@contractspec/lib.contracts-spec/features';
 import {
   getContractSpecOperationRegistry,
   resolveOperationSpec,

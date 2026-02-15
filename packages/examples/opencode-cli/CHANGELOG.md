@@ -1,5 +1,29 @@
 # contractspec-example-opencode-cli
 
+## 0.10.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+## 0.9.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+## 0.8.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+## 0.7.0
+
+### Minor Changes
+
+- d1f0fd0: chore: Migrate non-app package builds from tsdown to shared Bun tooling, add `@contractspec/tool.bun`, and standardize `prebuild`/`build`/`typecheck` with platform-aware exports and `tsc` declaration emission into `dist`.
+
 ## 0.6.0
 
 ### Minor Changes

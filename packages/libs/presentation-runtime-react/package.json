@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.presentation-runtime-react",
-  "version": "11.0.0",
+  "version": "15.0.0",
   "description": "React presentation runtime with workflow components",
   "keywords": [
     "contractspec",
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@contractspec/lib.presentation-runtime-core": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.ui-kit-web": "workspace:*"
   },

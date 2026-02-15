@@ -19,7 +19,7 @@ export function generateAppBlueprintSpec(data: AppBlueprintSpecData): string {
     ? `  notes: '${escapeString(data.notes)}',\n`
     : '';
 
-  return `import type { AppBlueprintSpec } from '@contractspec/lib.contracts/app-config';
+  return `import type { AppBlueprintSpec } from '@contractspec/lib.contracts-spec/app-config';
 
 export const ${exportName}: AppBlueprintSpec = {
   meta: {

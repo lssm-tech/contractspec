@@ -243,7 +243,7 @@ export async function POST(request: Request) {
           <CodeBlock
             language="typescript"
             filename=".contractspec/generated/users.operation.ts"
-            code={`import { defineQuery, defineCommand } from "@contractspec/lib.contracts";
+            code={`import { defineQuery, defineCommand } from "@contractspec/lib.contracts-spec";
 import { SchemaModel, ScalarTypeEnum } from "@contractspec/lib.schema";
 
 export const GetUserQuery = defineQuery({
@@ -414,7 +414,7 @@ contractspec import ./src --json > import-result.json`}
             code={`import {
   OperationSpecRegistry,
   installOp,
-} from "@contractspec/lib.contracts/operations";
+} from "@contractspec/lib.contracts-spec/operations";
 import {
   GetUserQuery,
   CreateUserCommand,

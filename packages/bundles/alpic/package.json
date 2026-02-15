@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/bundle.alpic",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Alpic MCP server and ChatGPT App hosting bundle",
   "keywords": [
     "contractspec",
@@ -27,7 +27,7 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
@@ -48,7 +48,7 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       }

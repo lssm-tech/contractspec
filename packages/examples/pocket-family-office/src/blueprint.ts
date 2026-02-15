@@ -1,13 +1,13 @@
 import type {
   AppBlueprintRegistry,
   AppBlueprintSpec,
-} from '@contractspec/lib.contracts/app-config/spec';
-import type { CapabilityRef } from '@contractspec/lib.contracts/capabilities';
+} from '@contractspec/lib.contracts-spec/app-config/spec';
+import type { CapabilityRef } from '@contractspec/lib.contracts-spec/capabilities';
 import {
   OwnersEnum,
   StabilityEnum,
   TagsEnum,
-} from '@contractspec/lib.contracts/ownership';
+} from '@contractspec/lib.contracts-spec/ownership';
 
 const cap = (key: string, version: string): CapabilityRef => ({ key, version });
 

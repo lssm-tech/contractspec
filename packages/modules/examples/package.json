@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.examples",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Example contract specifications collection",
   "keywords": [
     "contractspec",
@@ -67,7 +67,7 @@
     "@contractspec/example.versioned-knowledge-base": "workspace:*",
     "@contractspec/example.wealth-snapshot": "workspace:*",
     "@contractspec/example.workflow-system": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.example-shared-ui": "workspace:*",
     "@contractspec/lib.runtime-sandbox": "workspace:*",
     "zod": "catalog:"
@@ -86,7 +86,7 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       }

@@ -4,7 +4,7 @@ import { FeatureFormDetailTemplate } from '@contractspec/bundle.library/presenta
 import type {
   FeatureModuleSpec,
   FormRef,
-} from '@contractspec/lib.contracts/features';
+} from '@contractspec/lib.contracts-spec/features';
 import type { SerializedFormSpec } from '@contractspec/bundle.library/features';
 
 export interface FeatureFormDetailClientProps {

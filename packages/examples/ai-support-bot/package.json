@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.ai-support-bot",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "AI support bot example: classify and resolve a support ticket using @contractspec/lib.support-bot.",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -23,14 +23,14 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.support-bot": "workspace:*",
     "@contractspec/lib.knowledge": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.logger": "workspace:*"
   },
   "devDependencies": {
@@ -44,42 +44,42 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/ai-support-bot.docblock": {
         "types": "./dist/docs/ai-support-bot.docblock.d.ts",
         "bun": "./dist/docs/ai-support-bot.docblock.js",
-        "node": "./dist/node/docs/ai-support-bot.docblock.mjs",
+        "node": "./dist/node/docs/ai-support-bot.docblock.js",
         "browser": "./dist/browser/docs/ai-support-bot.docblock.js",
         "default": "./dist/docs/ai-support-bot.docblock.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./setup": {
         "types": "./dist/setup.d.ts",
         "bun": "./dist/setup.js",
-        "node": "./dist/node/setup.mjs",
+        "node": "./dist/node/setup.js",
         "browser": "./dist/browser/setup.js",
         "default": "./dist/setup.js"
       }

@@ -3,7 +3,7 @@
  *
  * Defines the feature module for usage metering and threshold management.
  */
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 /**
  * Metering feature module that bundles usage tracking,

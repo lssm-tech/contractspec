@@ -31,7 +31,7 @@ Curated KB with immutable sources, rule versions, and published snapshots.
 ## Source Definition
 
 ```typescript
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 export const VersionedKnowledgeBaseFeature = defineFeature({
   meta: {

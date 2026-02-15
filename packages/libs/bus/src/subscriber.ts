@@ -1,5 +1,5 @@
 import { decodeEvent, type EventBus } from './eventBus';
-import type { EventSpec } from '@contractspec/lib.contracts';
+import type { EventSpec } from '@contractspec/lib.contracts-spec';
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 
 /** Typed subscription using your EventSpec */

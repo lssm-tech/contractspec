@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/bundle.library",
-  "version": "1.12.0",
+  "version": "1.16.0",
   "type": "module",
   "scripts": {
     "clean": "rm -rf dist",
@@ -363,8 +363,9 @@
   },
   "dependencies": {
     "@apollo/client": "^4.1.4",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.contracts-library": "workspace:*",
+    "@contractspec/lib.contracts-runtime-server-mcp": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.example-shared-ui": "workspace:*",
     "@contractspec/lib.logger": "workspace:*",
@@ -381,19 +382,22 @@
     "@scaleway/sdk-client": "^2.1.0",
     "drizzle-orm": "^0.45.1",
     "elysia-mcp": "^0.1.0",
-    "framer-motion": "^12.33.0",
-    "lucide-react": "^0.563.0",
-    "posthog-js": "^1.342.0",
-    "posthog-node": "^5.24.10",
-    "posthog-react-native": "^4.30.1",
+    "framer-motion": "^12.34.0",
+    "lucide-react": "^0.564.0",
+    "posthog-js": "^1.347.2",
+    "posthog-node": "^5.24.15",
+    "posthog-react-native": "^4.34.0",
     "react-hook-form": "^7.70.0",
-    "zod": "catalog:"
+    "zod": "catalog:",
+    "@contractspec/lib.contracts-integrations": "workspace:*",
+    "@contractspec/lib.contracts-runtime-server-rest": "workspace:*",
+    "@contractspec/lib.contracts-runtime-server-graphql": "workspace:*"
   },
   "devDependencies": {
-    "@types/react": "~19.2.13",
+    "@types/react": "~19.2.14",
     "@contractspec/tool.typescript": "workspace:*",
     "typescript": "catalog:",
-    "@types/bun": "~1.3.5",
+    "@types/bun": "~1.3.9",
     "@contractspec/tool.bun": "workspace:*"
   },
   "publishConfig": {
@@ -403,2029 +407,2029 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "default": "./dist/index.js"
       },
       "./application": {
         "types": "./dist/application/index.d.ts",
         "bun": "./dist/application/index.js",
-        "node": "./dist/node/application/index.mjs",
+        "node": "./dist/node/application/index.js",
         "default": "./dist/application/index.js"
       },
       "./application/index": {
         "types": "./dist/application/index.d.ts",
         "bun": "./dist/application/index.js",
-        "node": "./dist/node/application/index.mjs",
+        "node": "./dist/node/application/index.js",
         "default": "./dist/application/index.js"
       },
       "./application/mcp": {
         "types": "./dist/application/mcp/index.d.ts",
         "bun": "./dist/application/mcp/index.js",
-        "node": "./dist/node/application/mcp/index.mjs",
+        "node": "./dist/node/application/mcp/index.js",
         "default": "./dist/application/mcp/index.js"
       },
       "./application/mcp/cliMcp": {
         "types": "./dist/application/mcp/cliMcp.d.ts",
         "bun": "./dist/application/mcp/cliMcp.js",
-        "node": "./dist/node/application/mcp/cliMcp.mjs",
+        "node": "./dist/node/application/mcp/cliMcp.js",
         "default": "./dist/application/mcp/cliMcp.js"
       },
       "./application/mcp/common": {
         "types": "./dist/application/mcp/common.d.ts",
         "bun": "./dist/application/mcp/common.js",
-        "node": "./dist/node/application/mcp/common.mjs",
+        "node": "./dist/node/application/mcp/common.js",
         "default": "./dist/application/mcp/common.js"
       },
       "./application/mcp/docsMcp": {
         "types": "./dist/application/mcp/docsMcp.d.ts",
         "bun": "./dist/application/mcp/docsMcp.js",
-        "node": "./dist/node/application/mcp/docsMcp.mjs",
+        "node": "./dist/node/application/mcp/docsMcp.js",
         "default": "./dist/application/mcp/docsMcp.js"
       },
       "./application/mcp/index": {
         "types": "./dist/application/mcp/index.d.ts",
         "bun": "./dist/application/mcp/index.js",
-        "node": "./dist/node/application/mcp/index.mjs",
+        "node": "./dist/node/application/mcp/index.js",
         "default": "./dist/application/mcp/index.js"
       },
       "./application/mcp/internalMcp": {
         "types": "./dist/application/mcp/internalMcp.d.ts",
         "bun": "./dist/application/mcp/internalMcp.js",
-        "node": "./dist/node/application/mcp/internalMcp.mjs",
+        "node": "./dist/node/application/mcp/internalMcp.js",
         "default": "./dist/application/mcp/internalMcp.js"
       },
       "./components/docs": {
         "types": "./dist/components/docs/index.d.ts",
         "bun": "./dist/components/docs/index.js",
-        "node": "./dist/node/components/docs/index.mjs",
+        "node": "./dist/node/components/docs/index.js",
         "default": "./dist/components/docs/index.js"
       },
       "./components/docs/advanced": {
         "types": "./dist/components/docs/advanced/index.d.ts",
         "bun": "./dist/components/docs/advanced/index.js",
-        "node": "./dist/node/components/docs/advanced/index.mjs",
+        "node": "./dist/node/components/docs/advanced/index.js",
         "default": "./dist/components/docs/advanced/index.js"
       },
       "./components/docs/advanced/AdvancedMCPPage": {
         "types": "./dist/components/docs/advanced/AdvancedMCPPage.d.ts",
         "bun": "./dist/components/docs/advanced/AdvancedMCPPage.js",
-        "node": "./dist/node/components/docs/advanced/AdvancedMCPPage.mjs",
+        "node": "./dist/node/components/docs/advanced/AdvancedMCPPage.js",
         "default": "./dist/components/docs/advanced/AdvancedMCPPage.js"
       },
       "./components/docs/advanced/AdvancedOverlayEditorPage": {
         "types": "./dist/components/docs/advanced/AdvancedOverlayEditorPage.d.ts",
         "bun": "./dist/components/docs/advanced/AdvancedOverlayEditorPage.js",
-        "node": "./dist/node/components/docs/advanced/AdvancedOverlayEditorPage.mjs",
+        "node": "./dist/node/components/docs/advanced/AdvancedOverlayEditorPage.js",
         "default": "./dist/components/docs/advanced/AdvancedOverlayEditorPage.js"
       },
       "./components/docs/advanced/AdvancedRenderersPage": {
         "types": "./dist/components/docs/advanced/AdvancedRenderersPage.d.ts",
         "bun": "./dist/components/docs/advanced/AdvancedRenderersPage.js",
-        "node": "./dist/node/components/docs/advanced/AdvancedRenderersPage.mjs",
+        "node": "./dist/node/components/docs/advanced/AdvancedRenderersPage.js",
         "default": "./dist/components/docs/advanced/AdvancedRenderersPage.js"
       },
       "./components/docs/advanced/AdvancedSpecExperimentsPage": {
         "types": "./dist/components/docs/advanced/AdvancedSpecExperimentsPage.d.ts",
         "bun": "./dist/components/docs/advanced/AdvancedSpecExperimentsPage.js",
-        "node": "./dist/node/components/docs/advanced/AdvancedSpecExperimentsPage.mjs",
+        "node": "./dist/node/components/docs/advanced/AdvancedSpecExperimentsPage.js",
         "default": "./dist/components/docs/advanced/AdvancedSpecExperimentsPage.js"
       },
       "./components/docs/advanced/AdvancedTelemetryPage": {
         "types": "./dist/components/docs/advanced/AdvancedTelemetryPage.d.ts",
         "bun": "./dist/components/docs/advanced/AdvancedTelemetryPage.js",
-        "node": "./dist/node/components/docs/advanced/AdvancedTelemetryPage.mjs",
+        "node": "./dist/node/components/docs/advanced/AdvancedTelemetryPage.js",
         "default": "./dist/components/docs/advanced/AdvancedTelemetryPage.js"
       },
       "./components/docs/advanced/AdvancedWorkflowMonitoringPage": {
         "types": "./dist/components/docs/advanced/AdvancedWorkflowMonitoringPage.d.ts",
         "bun": "./dist/components/docs/advanced/AdvancedWorkflowMonitoringPage.js",
-        "node": "./dist/node/components/docs/advanced/AdvancedWorkflowMonitoringPage.mjs",
+        "node": "./dist/node/components/docs/advanced/AdvancedWorkflowMonitoringPage.js",
         "default": "./dist/components/docs/advanced/AdvancedWorkflowMonitoringPage.js"
       },
       "./components/docs/advanced/index": {
         "types": "./dist/components/docs/advanced/index.d.ts",
         "bun": "./dist/components/docs/advanced/index.js",
-        "node": "./dist/node/components/docs/advanced/index.mjs",
+        "node": "./dist/node/components/docs/advanced/index.js",
         "default": "./dist/components/docs/advanced/index.js"
       },
       "./components/docs/architecture": {
         "types": "./dist/components/docs/architecture/index.d.ts",
         "bun": "./dist/components/docs/architecture/index.js",
-        "node": "./dist/node/components/docs/architecture/index.mjs",
+        "node": "./dist/node/components/docs/architecture/index.js",
         "default": "./dist/components/docs/architecture/index.js"
       },
       "./components/docs/architecture/ArchitectureAppConfigPage": {
         "types": "./dist/components/docs/architecture/ArchitectureAppConfigPage.d.ts",
         "bun": "./dist/components/docs/architecture/ArchitectureAppConfigPage.js",
-        "node": "./dist/node/components/docs/architecture/ArchitectureAppConfigPage.mjs",
+        "node": "./dist/node/components/docs/architecture/ArchitectureAppConfigPage.js",
         "default": "./dist/components/docs/architecture/ArchitectureAppConfigPage.js"
       },
       "./components/docs/architecture/ArchitectureIntegrationBindingPage": {
         "types": "./dist/components/docs/architecture/ArchitectureIntegrationBindingPage.d.ts",
         "bun": "./dist/components/docs/architecture/ArchitectureIntegrationBindingPage.js",
-        "node": "./dist/node/components/docs/architecture/ArchitectureIntegrationBindingPage.mjs",
+        "node": "./dist/node/components/docs/architecture/ArchitectureIntegrationBindingPage.js",
         "default": "./dist/components/docs/architecture/ArchitectureIntegrationBindingPage.js"
       },
       "./components/docs/architecture/ArchitectureKnowledgeBindingPage": {
         "types": "./dist/components/docs/architecture/ArchitectureKnowledgeBindingPage.d.ts",
         "bun": "./dist/components/docs/architecture/ArchitectureKnowledgeBindingPage.js",
-        "node": "./dist/node/components/docs/architecture/ArchitectureKnowledgeBindingPage.mjs",
+        "node": "./dist/node/components/docs/architecture/ArchitectureKnowledgeBindingPage.js",
         "default": "./dist/components/docs/architecture/ArchitectureKnowledgeBindingPage.js"
       },
       "./components/docs/architecture/ArchitectureMultiTenancyPage": {
         "types": "./dist/components/docs/architecture/ArchitectureMultiTenancyPage.d.ts",
         "bun": "./dist/components/docs/architecture/ArchitectureMultiTenancyPage.js",
-        "node": "./dist/node/components/docs/architecture/ArchitectureMultiTenancyPage.mjs",
+        "node": "./dist/node/components/docs/architecture/ArchitectureMultiTenancyPage.js",
         "default": "./dist/components/docs/architecture/ArchitectureMultiTenancyPage.js"
       },
       "./components/docs/architecture/ArchitectureOverviewPage": {
         "types": "./dist/components/docs/architecture/ArchitectureOverviewPage.d.ts",
         "bun": "./dist/components/docs/architecture/ArchitectureOverviewPage.js",
-        "node": "./dist/node/components/docs/architecture/ArchitectureOverviewPage.mjs",
+        "node": "./dist/node/components/docs/architecture/ArchitectureOverviewPage.js",
         "default": "./dist/components/docs/architecture/ArchitectureOverviewPage.js"
       },
       "./components/docs/architecture/index": {
         "types": "./dist/components/docs/architecture/index.d.ts",
         "bun": "./dist/components/docs/architecture/index.js",
-        "node": "./dist/node/components/docs/architecture/index.mjs",
+        "node": "./dist/node/components/docs/architecture/index.js",
         "default": "./dist/components/docs/architecture/index.js"
       },
       "./components/docs/comparison": {
         "types": "./dist/components/docs/comparison/index.d.ts",
         "bun": "./dist/components/docs/comparison/index.js",
-        "node": "./dist/node/components/docs/comparison/index.mjs",
+        "node": "./dist/node/components/docs/comparison/index.js",
         "default": "./dist/components/docs/comparison/index.js"
       },
       "./components/docs/comparison/ComparisonAutomationPlatformsPage": {
         "types": "./dist/components/docs/comparison/ComparisonAutomationPlatformsPage.d.ts",
         "bun": "./dist/components/docs/comparison/ComparisonAutomationPlatformsPage.js",
-        "node": "./dist/node/components/docs/comparison/ComparisonAutomationPlatformsPage.mjs",
+        "node": "./dist/node/components/docs/comparison/ComparisonAutomationPlatformsPage.js",
         "default": "./dist/components/docs/comparison/ComparisonAutomationPlatformsPage.js"
       },
       "./components/docs/comparison/ComparisonEnterprisePlatformsPage": {
         "types": "./dist/components/docs/comparison/ComparisonEnterprisePlatformsPage.d.ts",
         "bun": "./dist/components/docs/comparison/ComparisonEnterprisePlatformsPage.js",
-        "node": "./dist/node/components/docs/comparison/ComparisonEnterprisePlatformsPage.mjs",
+        "node": "./dist/node/components/docs/comparison/ComparisonEnterprisePlatformsPage.js",
         "default": "./dist/components/docs/comparison/ComparisonEnterprisePlatformsPage.js"
       },
       "./components/docs/comparison/ComparisonInternalToolBuildersPage": {
         "types": "./dist/components/docs/comparison/ComparisonInternalToolBuildersPage.d.ts",
         "bun": "./dist/components/docs/comparison/ComparisonInternalToolBuildersPage.js",
-        "node": "./dist/node/components/docs/comparison/ComparisonInternalToolBuildersPage.mjs",
+        "node": "./dist/node/components/docs/comparison/ComparisonInternalToolBuildersPage.js",
         "default": "./dist/components/docs/comparison/ComparisonInternalToolBuildersPage.js"
       },
       "./components/docs/comparison/ComparisonOverviewPage": {
         "types": "./dist/components/docs/comparison/ComparisonOverviewPage.d.ts",
         "bun": "./dist/components/docs/comparison/ComparisonOverviewPage.js",
-        "node": "./dist/node/components/docs/comparison/ComparisonOverviewPage.mjs",
+        "node": "./dist/node/components/docs/comparison/ComparisonOverviewPage.js",
         "default": "./dist/components/docs/comparison/ComparisonOverviewPage.js"
       },
       "./components/docs/comparison/ComparisonWindmillPage": {
         "types": "./dist/components/docs/comparison/ComparisonWindmillPage.d.ts",
         "bun": "./dist/components/docs/comparison/ComparisonWindmillPage.js",
-        "node": "./dist/node/components/docs/comparison/ComparisonWindmillPage.mjs",
+        "node": "./dist/node/components/docs/comparison/ComparisonWindmillPage.js",
         "default": "./dist/components/docs/comparison/ComparisonWindmillPage.js"
       },
       "./components/docs/comparison/ComparisonWorkflowEnginesPage": {
         "types": "./dist/components/docs/comparison/ComparisonWorkflowEnginesPage.d.ts",
         "bun": "./dist/components/docs/comparison/ComparisonWorkflowEnginesPage.js",
-        "node": "./dist/node/components/docs/comparison/ComparisonWorkflowEnginesPage.mjs",
+        "node": "./dist/node/components/docs/comparison/ComparisonWorkflowEnginesPage.js",
         "default": "./dist/components/docs/comparison/ComparisonWorkflowEnginesPage.js"
       },
       "./components/docs/comparison/index": {
         "types": "./dist/components/docs/comparison/index.d.ts",
         "bun": "./dist/components/docs/comparison/index.js",
-        "node": "./dist/node/components/docs/comparison/index.mjs",
+        "node": "./dist/node/components/docs/comparison/index.js",
         "default": "./dist/components/docs/comparison/index.js"
       },
       "./components/docs/DocsIndexPage": {
         "types": "./dist/components/docs/DocsIndexPage.d.ts",
         "bun": "./dist/components/docs/DocsIndexPage.js",
-        "node": "./dist/node/components/docs/DocsIndexPage.mjs",
+        "node": "./dist/node/components/docs/DocsIndexPage.js",
         "default": "./dist/components/docs/DocsIndexPage.js"
       },
       "./components/docs/ecosystem": {
         "types": "./dist/components/docs/ecosystem/index.d.ts",
         "bun": "./dist/components/docs/ecosystem/index.js",
-        "node": "./dist/node/components/docs/ecosystem/index.mjs",
+        "node": "./dist/node/components/docs/ecosystem/index.js",
         "default": "./dist/components/docs/ecosystem/index.js"
       },
       "./components/docs/ecosystem/ecosystem.docblocks": {
         "types": "./dist/components/docs/ecosystem/ecosystem.docblocks.d.ts",
         "bun": "./dist/components/docs/ecosystem/ecosystem.docblocks.js",
-        "node": "./dist/node/components/docs/ecosystem/ecosystem.docblocks.mjs",
+        "node": "./dist/node/components/docs/ecosystem/ecosystem.docblocks.js",
         "default": "./dist/components/docs/ecosystem/ecosystem.docblocks.js"
       },
       "./components/docs/ecosystem/index": {
         "types": "./dist/components/docs/ecosystem/index.d.ts",
         "bun": "./dist/components/docs/ecosystem/index.js",
-        "node": "./dist/node/components/docs/ecosystem/index.mjs",
+        "node": "./dist/node/components/docs/ecosystem/index.js",
         "default": "./dist/components/docs/ecosystem/index.js"
       },
       "./components/docs/ecosystem/IntegrationsPage": {
         "types": "./dist/components/docs/ecosystem/IntegrationsPage.d.ts",
         "bun": "./dist/components/docs/ecosystem/IntegrationsPage.js",
-        "node": "./dist/node/components/docs/ecosystem/IntegrationsPage.mjs",
+        "node": "./dist/node/components/docs/ecosystem/IntegrationsPage.js",
         "default": "./dist/components/docs/ecosystem/IntegrationsPage.js"
       },
       "./components/docs/ecosystem/PluginsPage": {
         "types": "./dist/components/docs/ecosystem/PluginsPage.d.ts",
         "bun": "./dist/components/docs/ecosystem/PluginsPage.js",
-        "node": "./dist/node/components/docs/ecosystem/PluginsPage.mjs",
+        "node": "./dist/node/components/docs/ecosystem/PluginsPage.js",
         "default": "./dist/components/docs/ecosystem/PluginsPage.js"
       },
       "./components/docs/ecosystem/RegistryPage": {
         "types": "./dist/components/docs/ecosystem/RegistryPage.d.ts",
         "bun": "./dist/components/docs/ecosystem/RegistryPage.js",
-        "node": "./dist/node/components/docs/ecosystem/RegistryPage.mjs",
+        "node": "./dist/node/components/docs/ecosystem/RegistryPage.js",
         "default": "./dist/components/docs/ecosystem/RegistryPage.js"
       },
       "./components/docs/ecosystem/TemplatesPage": {
         "types": "./dist/components/docs/ecosystem/TemplatesPage.d.ts",
         "bun": "./dist/components/docs/ecosystem/TemplatesPage.js",
-        "node": "./dist/node/components/docs/ecosystem/TemplatesPage.mjs",
+        "node": "./dist/node/components/docs/ecosystem/TemplatesPage.js",
         "default": "./dist/components/docs/ecosystem/TemplatesPage.js"
       },
       "./components/docs/examples": {
         "types": "./dist/components/docs/examples/index.d.ts",
         "bun": "./dist/components/docs/examples/index.js",
-        "node": "./dist/node/components/docs/examples/index.mjs",
+        "node": "./dist/node/components/docs/examples/index.js",
         "default": "./dist/components/docs/examples/index.js"
       },
       "./components/docs/examples/DocsExamplesPage": {
         "types": "./dist/components/docs/examples/DocsExamplesPage.d.ts",
         "bun": "./dist/components/docs/examples/DocsExamplesPage.js",
-        "node": "./dist/node/components/docs/examples/DocsExamplesPage.mjs",
+        "node": "./dist/node/components/docs/examples/DocsExamplesPage.js",
         "default": "./dist/components/docs/examples/DocsExamplesPage.js"
       },
       "./components/docs/examples/index": {
         "types": "./dist/components/docs/examples/index.d.ts",
         "bun": "./dist/components/docs/examples/index.js",
-        "node": "./dist/node/components/docs/examples/index.mjs",
+        "node": "./dist/node/components/docs/examples/index.js",
         "default": "./dist/components/docs/examples/index.js"
       },
       "./components/docs/generated": {
         "types": "./dist/components/docs/generated/index.d.ts",
         "bun": "./dist/components/docs/generated/index.js",
-        "node": "./dist/node/components/docs/generated/index.mjs",
+        "node": "./dist/node/components/docs/generated/index.js",
         "default": "./dist/components/docs/generated/index.js"
       },
       "./components/docs/generated/docs-index.generated": {
         "types": "./dist/components/docs/generated/docs-index.generated.d.ts",
         "bun": "./dist/components/docs/generated/docs-index.generated.js",
-        "node": "./dist/node/components/docs/generated/docs-index.generated.mjs",
+        "node": "./dist/node/components/docs/generated/docs-index.generated.js",
         "default": "./dist/components/docs/generated/docs-index.generated.js"
       },
       "./components/docs/generated/index": {
         "types": "./dist/components/docs/generated/index.d.ts",
         "bun": "./dist/components/docs/generated/index.js",
-        "node": "./dist/node/components/docs/generated/index.mjs",
+        "node": "./dist/node/components/docs/generated/index.js",
         "default": "./dist/components/docs/generated/index.js"
       },
       "./components/docs/generated/loader": {
         "types": "./dist/components/docs/generated/loader.d.ts",
         "bun": "./dist/components/docs/generated/loader.js",
-        "node": "./dist/node/components/docs/generated/loader.mjs",
+        "node": "./dist/node/components/docs/generated/loader.js",
         "default": "./dist/components/docs/generated/loader.js"
       },
       "./components/docs/getting-started": {
         "types": "./dist/components/docs/getting-started/index.d.ts",
         "bun": "./dist/components/docs/getting-started/index.js",
-        "node": "./dist/node/components/docs/getting-started/index.mjs",
+        "node": "./dist/node/components/docs/getting-started/index.js",
         "default": "./dist/components/docs/getting-started/index.js"
       },
       "./components/docs/getting-started/CLIPage": {
         "types": "./dist/components/docs/getting-started/CLIPage.d.ts",
         "bun": "./dist/components/docs/getting-started/CLIPage.js",
-        "node": "./dist/node/components/docs/getting-started/CLIPage.mjs",
+        "node": "./dist/node/components/docs/getting-started/CLIPage.js",
         "default": "./dist/components/docs/getting-started/CLIPage.js"
       },
       "./components/docs/getting-started/CompatibilityPage": {
         "types": "./dist/components/docs/getting-started/CompatibilityPage.d.ts",
         "bun": "./dist/components/docs/getting-started/CompatibilityPage.js",
-        "node": "./dist/node/components/docs/getting-started/CompatibilityPage.mjs",
+        "node": "./dist/node/components/docs/getting-started/CompatibilityPage.js",
         "default": "./dist/components/docs/getting-started/CompatibilityPage.js"
       },
       "./components/docs/getting-started/DataViewTutorialPage": {
         "types": "./dist/components/docs/getting-started/DataViewTutorialPage.d.ts",
         "bun": "./dist/components/docs/getting-started/DataViewTutorialPage.js",
-        "node": "./dist/node/components/docs/getting-started/DataViewTutorialPage.mjs",
+        "node": "./dist/node/components/docs/getting-started/DataViewTutorialPage.js",
         "default": "./dist/components/docs/getting-started/DataViewTutorialPage.js"
       },
       "./components/docs/getting-started/DeveloperToolsPage": {
         "types": "./dist/components/docs/getting-started/DeveloperToolsPage.d.ts",
         "bun": "./dist/components/docs/getting-started/DeveloperToolsPage.js",
-        "node": "./dist/node/components/docs/getting-started/DeveloperToolsPage.mjs",
+        "node": "./dist/node/components/docs/getting-started/DeveloperToolsPage.js",
         "default": "./dist/components/docs/getting-started/DeveloperToolsPage.js"
       },
       "./components/docs/getting-started/getting-started.docblocks": {
         "types": "./dist/components/docs/getting-started/getting-started.docblocks.d.ts",
         "bun": "./dist/components/docs/getting-started/getting-started.docblocks.js",
-        "node": "./dist/node/components/docs/getting-started/getting-started.docblocks.mjs",
+        "node": "./dist/node/components/docs/getting-started/getting-started.docblocks.js",
         "default": "./dist/components/docs/getting-started/getting-started.docblocks.js"
       },
       "./components/docs/getting-started/HelloWorldPage": {
         "types": "./dist/components/docs/getting-started/HelloWorldPage.d.ts",
         "bun": "./dist/components/docs/getting-started/HelloWorldPage.js",
-        "node": "./dist/node/components/docs/getting-started/HelloWorldPage.mjs",
+        "node": "./dist/node/components/docs/getting-started/HelloWorldPage.js",
         "default": "./dist/components/docs/getting-started/HelloWorldPage.js"
       },
       "./components/docs/getting-started/index": {
         "types": "./dist/components/docs/getting-started/index.d.ts",
         "bun": "./dist/components/docs/getting-started/index.js",
-        "node": "./dist/node/components/docs/getting-started/index.mjs",
+        "node": "./dist/node/components/docs/getting-started/index.js",
         "default": "./dist/components/docs/getting-started/index.js"
       },
       "./components/docs/getting-started/InstallationPage": {
         "types": "./dist/components/docs/getting-started/InstallationPage.d.ts",
         "bun": "./dist/components/docs/getting-started/InstallationPage.js",
-        "node": "./dist/node/components/docs/getting-started/InstallationPage.mjs",
+        "node": "./dist/node/components/docs/getting-started/InstallationPage.js",
         "default": "./dist/components/docs/getting-started/InstallationPage.js"
       },
       "./components/docs/getting-started/StartHerePage": {
         "types": "./dist/components/docs/getting-started/StartHerePage.d.ts",
         "bun": "./dist/components/docs/getting-started/StartHerePage.js",
-        "node": "./dist/node/components/docs/getting-started/StartHerePage.mjs",
+        "node": "./dist/node/components/docs/getting-started/StartHerePage.js",
         "default": "./dist/components/docs/getting-started/StartHerePage.js"
       },
       "./components/docs/getting-started/TroubleshootingPage": {
         "types": "./dist/components/docs/getting-started/TroubleshootingPage.d.ts",
         "bun": "./dist/components/docs/getting-started/TroubleshootingPage.js",
-        "node": "./dist/node/components/docs/getting-started/TroubleshootingPage.mjs",
+        "node": "./dist/node/components/docs/getting-started/TroubleshootingPage.js",
         "default": "./dist/components/docs/getting-started/TroubleshootingPage.js"
       },
       "./components/docs/getting-started/VSCodeExtensionPage": {
         "types": "./dist/components/docs/getting-started/VSCodeExtensionPage.d.ts",
         "bun": "./dist/components/docs/getting-started/VSCodeExtensionPage.js",
-        "node": "./dist/node/components/docs/getting-started/VSCodeExtensionPage.mjs",
+        "node": "./dist/node/components/docs/getting-started/VSCodeExtensionPage.js",
         "default": "./dist/components/docs/getting-started/VSCodeExtensionPage.js"
       },
       "./components/docs/guides": {
         "types": "./dist/components/docs/guides/index.d.ts",
         "bun": "./dist/components/docs/guides/index.js",
-        "node": "./dist/node/components/docs/guides/index.mjs",
+        "node": "./dist/node/components/docs/guides/index.js",
         "default": "./dist/components/docs/guides/index.js"
       },
       "./components/docs/guides/GuideCIDiffGatingPage": {
         "types": "./dist/components/docs/guides/GuideCIDiffGatingPage.d.ts",
         "bun": "./dist/components/docs/guides/GuideCIDiffGatingPage.js",
-        "node": "./dist/node/components/docs/guides/GuideCIDiffGatingPage.mjs",
+        "node": "./dist/node/components/docs/guides/GuideCIDiffGatingPage.js",
         "default": "./dist/components/docs/guides/GuideCIDiffGatingPage.js"
       },
       "./components/docs/guides/GuideContractTypesPage": {
         "types": "./dist/components/docs/guides/GuideContractTypesPage.d.ts",
         "bun": "./dist/components/docs/guides/GuideContractTypesPage.js",
-        "node": "./dist/node/components/docs/guides/GuideContractTypesPage.mjs",
+        "node": "./dist/node/components/docs/guides/GuideContractTypesPage.js",
         "default": "./dist/components/docs/guides/GuideContractTypesPage.js"
       },
       "./components/docs/guides/GuideDocsPipelinePage": {
         "types": "./dist/components/docs/guides/GuideDocsPipelinePage.d.ts",
         "bun": "./dist/components/docs/guides/GuideDocsPipelinePage.js",
-        "node": "./dist/node/components/docs/guides/GuideDocsPipelinePage.mjs",
+        "node": "./dist/node/components/docs/guides/GuideDocsPipelinePage.js",
         "default": "./dist/components/docs/guides/GuideDocsPipelinePage.js"
       },
       "./components/docs/guides/GuideGenerateDocsClientsSchemasPage": {
         "types": "./dist/components/docs/guides/GuideGenerateDocsClientsSchemasPage.d.ts",
         "bun": "./dist/components/docs/guides/GuideGenerateDocsClientsSchemasPage.js",
-        "node": "./dist/node/components/docs/guides/GuideGenerateDocsClientsSchemasPage.mjs",
+        "node": "./dist/node/components/docs/guides/GuideGenerateDocsClientsSchemasPage.js",
         "default": "./dist/components/docs/guides/GuideGenerateDocsClientsSchemasPage.js"
       },
       "./components/docs/guides/GuideImportExistingCodebasesPage": {
         "types": "./dist/components/docs/guides/GuideImportExistingCodebasesPage.d.ts",
         "bun": "./dist/components/docs/guides/GuideImportExistingCodebasesPage.js",
-        "node": "./dist/node/components/docs/guides/GuideImportExistingCodebasesPage.mjs",
+        "node": "./dist/node/components/docs/guides/GuideImportExistingCodebasesPage.js",
         "default": "./dist/components/docs/guides/GuideImportExistingCodebasesPage.js"
       },
       "./components/docs/guides/GuideNextjsOneEndpointPage": {
         "types": "./dist/components/docs/guides/GuideNextjsOneEndpointPage.d.ts",
         "bun": "./dist/components/docs/guides/GuideNextjsOneEndpointPage.js",
-        "node": "./dist/node/components/docs/guides/GuideNextjsOneEndpointPage.mjs",
+        "node": "./dist/node/components/docs/guides/GuideNextjsOneEndpointPage.js",
         "default": "./dist/components/docs/guides/GuideNextjsOneEndpointPage.js"
       },
       "./components/docs/guides/guides.docblocks": {
         "types": "./dist/components/docs/guides/guides.docblocks.d.ts",
         "bun": "./dist/components/docs/guides/guides.docblocks.js",
-        "node": "./dist/node/components/docs/guides/guides.docblocks.mjs",
+        "node": "./dist/node/components/docs/guides/guides.docblocks.js",
         "default": "./dist/components/docs/guides/guides.docblocks.js"
       },
       "./components/docs/guides/GuidesIndexPage": {
         "types": "./dist/components/docs/guides/GuidesIndexPage.d.ts",
         "bun": "./dist/components/docs/guides/GuidesIndexPage.js",
-        "node": "./dist/node/components/docs/guides/GuidesIndexPage.mjs",
+        "node": "./dist/node/components/docs/guides/GuidesIndexPage.js",
         "default": "./dist/components/docs/guides/GuidesIndexPage.js"
       },
       "./components/docs/guides/GuideSpecValidationTypingPage": {
         "types": "./dist/components/docs/guides/GuideSpecValidationTypingPage.d.ts",
         "bun": "./dist/components/docs/guides/GuideSpecValidationTypingPage.js",
-        "node": "./dist/node/components/docs/guides/GuideSpecValidationTypingPage.mjs",
+        "node": "./dist/node/components/docs/guides/GuideSpecValidationTypingPage.js",
         "default": "./dist/components/docs/guides/GuideSpecValidationTypingPage.js"
       },
       "./components/docs/guides/index": {
         "types": "./dist/components/docs/guides/index.d.ts",
         "bun": "./dist/components/docs/guides/index.js",
-        "node": "./dist/node/components/docs/guides/index.mjs",
+        "node": "./dist/node/components/docs/guides/index.js",
         "default": "./dist/components/docs/guides/index.js"
       },
       "./components/docs/index": {
         "types": "./dist/components/docs/index.d.ts",
         "bun": "./dist/components/docs/index.js",
-        "node": "./dist/node/components/docs/index.mjs",
+        "node": "./dist/node/components/docs/index.js",
         "default": "./dist/components/docs/index.js"
       },
       "./components/docs/integrations": {
         "types": "./dist/components/docs/integrations/index.d.ts",
         "bun": "./dist/components/docs/integrations/index.js",
-        "node": "./dist/node/components/docs/integrations/index.mjs",
+        "node": "./dist/node/components/docs/integrations/index.js",
         "default": "./dist/components/docs/integrations/index.js"
       },
       "./components/docs/integrations/index": {
         "types": "./dist/components/docs/integrations/index.d.ts",
         "bun": "./dist/components/docs/integrations/index.js",
-        "node": "./dist/node/components/docs/integrations/index.mjs",
+        "node": "./dist/node/components/docs/integrations/index.js",
         "default": "./dist/components/docs/integrations/index.js"
       },
       "./components/docs/integrations/IntegrationsCircuitBreakersPage": {
         "types": "./dist/components/docs/integrations/IntegrationsCircuitBreakersPage.d.ts",
         "bun": "./dist/components/docs/integrations/IntegrationsCircuitBreakersPage.js",
-        "node": "./dist/node/components/docs/integrations/IntegrationsCircuitBreakersPage.mjs",
+        "node": "./dist/node/components/docs/integrations/IntegrationsCircuitBreakersPage.js",
         "default": "./dist/components/docs/integrations/IntegrationsCircuitBreakersPage.js"
       },
       "./components/docs/integrations/IntegrationsElevenLabsPage": {
         "types": "./dist/components/docs/integrations/IntegrationsElevenLabsPage.d.ts",
         "bun": "./dist/components/docs/integrations/IntegrationsElevenLabsPage.js",
-        "node": "./dist/node/components/docs/integrations/IntegrationsElevenLabsPage.mjs",
+        "node": "./dist/node/components/docs/integrations/IntegrationsElevenLabsPage.js",
         "default": "./dist/components/docs/integrations/IntegrationsElevenLabsPage.js"
       },
       "./components/docs/integrations/IntegrationsGmailPage": {
         "types": "./dist/components/docs/integrations/IntegrationsGmailPage.d.ts",
         "bun": "./dist/components/docs/integrations/IntegrationsGmailPage.js",
-        "node": "./dist/node/components/docs/integrations/IntegrationsGmailPage.mjs",
+        "node": "./dist/node/components/docs/integrations/IntegrationsGmailPage.js",
         "default": "./dist/components/docs/integrations/IntegrationsGmailPage.js"
       },
       "./components/docs/integrations/IntegrationsGoogleCalendarPage": {
         "types": "./dist/components/docs/integrations/IntegrationsGoogleCalendarPage.d.ts",
         "bun": "./dist/components/docs/integrations/IntegrationsGoogleCalendarPage.js",
-        "node": "./dist/node/components/docs/integrations/IntegrationsGoogleCalendarPage.mjs",
+        "node": "./dist/node/components/docs/integrations/IntegrationsGoogleCalendarPage.js",
         "default": "./dist/components/docs/integrations/IntegrationsGoogleCalendarPage.js"
       },
       "./components/docs/integrations/IntegrationsOpenAIPage": {
         "types": "./dist/components/docs/integrations/IntegrationsOpenAIPage.d.ts",
         "bun": "./dist/components/docs/integrations/IntegrationsOpenAIPage.js",
-        "node": "./dist/node/components/docs/integrations/IntegrationsOpenAIPage.mjs",
+        "node": "./dist/node/components/docs/integrations/IntegrationsOpenAIPage.js",
         "default": "./dist/components/docs/integrations/IntegrationsOpenAIPage.js"
       },
       "./components/docs/integrations/IntegrationsOverviewPage": {
         "types": "./dist/components/docs/integrations/IntegrationsOverviewPage.d.ts",
         "bun": "./dist/components/docs/integrations/IntegrationsOverviewPage.js",
-        "node": "./dist/node/components/docs/integrations/IntegrationsOverviewPage.mjs",
+        "node": "./dist/node/components/docs/integrations/IntegrationsOverviewPage.js",
         "default": "./dist/components/docs/integrations/IntegrationsOverviewPage.js"
       },
       "./components/docs/integrations/IntegrationsPostmarkPage": {
         "types": "./dist/components/docs/integrations/IntegrationsPostmarkPage.d.ts",
         "bun": "./dist/components/docs/integrations/IntegrationsPostmarkPage.js",
-        "node": "./dist/node/components/docs/integrations/IntegrationsPostmarkPage.mjs",
+        "node": "./dist/node/components/docs/integrations/IntegrationsPostmarkPage.js",
         "default": "./dist/components/docs/integrations/IntegrationsPostmarkPage.js"
       },
       "./components/docs/integrations/IntegrationsPowensPage": {
         "types": "./dist/components/docs/integrations/IntegrationsPowensPage.d.ts",
         "bun": "./dist/components/docs/integrations/IntegrationsPowensPage.js",
-        "node": "./dist/node/components/docs/integrations/IntegrationsPowensPage.mjs",
+        "node": "./dist/node/components/docs/integrations/IntegrationsPowensPage.js",
         "default": "./dist/components/docs/integrations/IntegrationsPowensPage.js"
       },
       "./components/docs/integrations/IntegrationsQdrantPage": {
         "types": "./dist/components/docs/integrations/IntegrationsQdrantPage.d.ts",
         "bun": "./dist/components/docs/integrations/IntegrationsQdrantPage.js",
-        "node": "./dist/node/components/docs/integrations/IntegrationsQdrantPage.mjs",
+        "node": "./dist/node/components/docs/integrations/IntegrationsQdrantPage.js",
         "default": "./dist/components/docs/integrations/IntegrationsQdrantPage.js"
       },
       "./components/docs/integrations/IntegrationsResendPage": {
         "types": "./dist/components/docs/integrations/IntegrationsResendPage.d.ts",
         "bun": "./dist/components/docs/integrations/IntegrationsResendPage.js",
-        "node": "./dist/node/components/docs/integrations/IntegrationsResendPage.mjs",
+        "node": "./dist/node/components/docs/integrations/IntegrationsResendPage.js",
         "default": "./dist/components/docs/integrations/IntegrationsResendPage.js"
       },
       "./components/docs/integrations/IntegrationsS3Page": {
         "types": "./dist/components/docs/integrations/IntegrationsS3Page.d.ts",
         "bun": "./dist/components/docs/integrations/IntegrationsS3Page.js",
-        "node": "./dist/node/components/docs/integrations/IntegrationsS3Page.mjs",
+        "node": "./dist/node/components/docs/integrations/IntegrationsS3Page.js",
         "default": "./dist/components/docs/integrations/IntegrationsS3Page.js"
       },
       "./components/docs/integrations/IntegrationsSpecModelPage": {
         "types": "./dist/components/docs/integrations/IntegrationsSpecModelPage.d.ts",
         "bun": "./dist/components/docs/integrations/IntegrationsSpecModelPage.js",
-        "node": "./dist/node/components/docs/integrations/IntegrationsSpecModelPage.mjs",
+        "node": "./dist/node/components/docs/integrations/IntegrationsSpecModelPage.js",
         "default": "./dist/components/docs/integrations/IntegrationsSpecModelPage.js"
       },
       "./components/docs/integrations/IntegrationsStripePage": {
         "types": "./dist/components/docs/integrations/IntegrationsStripePage.d.ts",
         "bun": "./dist/components/docs/integrations/IntegrationsStripePage.js",
-        "node": "./dist/node/components/docs/integrations/IntegrationsStripePage.mjs",
+        "node": "./dist/node/components/docs/integrations/IntegrationsStripePage.js",
         "default": "./dist/components/docs/integrations/IntegrationsStripePage.js"
       },
       "./components/docs/integrations/IntegrationsTwilioPage": {
         "types": "./dist/components/docs/integrations/IntegrationsTwilioPage.d.ts",
         "bun": "./dist/components/docs/integrations/IntegrationsTwilioPage.js",
-        "node": "./dist/node/components/docs/integrations/IntegrationsTwilioPage.mjs",
+        "node": "./dist/node/components/docs/integrations/IntegrationsTwilioPage.js",
         "default": "./dist/components/docs/integrations/IntegrationsTwilioPage.js"
       },
       "./components/docs/intent": {
         "types": "./dist/components/docs/intent/index.d.ts",
         "bun": "./dist/components/docs/intent/index.js",
-        "node": "./dist/node/components/docs/intent/index.mjs",
+        "node": "./dist/node/components/docs/intent/index.js",
         "default": "./dist/components/docs/intent/index.js"
       },
       "./components/docs/intent/ContractFirstApiPage": {
         "types": "./dist/components/docs/intent/ContractFirstApiPage.d.ts",
         "bun": "./dist/components/docs/intent/ContractFirstApiPage.js",
-        "node": "./dist/node/components/docs/intent/ContractFirstApiPage.mjs",
+        "node": "./dist/node/components/docs/intent/ContractFirstApiPage.js",
         "default": "./dist/components/docs/intent/ContractFirstApiPage.js"
       },
       "./components/docs/intent/DeterministicCodegenPage": {
         "types": "./dist/components/docs/intent/DeterministicCodegenPage.d.ts",
         "bun": "./dist/components/docs/intent/DeterministicCodegenPage.js",
-        "node": "./dist/node/components/docs/intent/DeterministicCodegenPage.mjs",
+        "node": "./dist/node/components/docs/intent/DeterministicCodegenPage.js",
         "default": "./dist/components/docs/intent/DeterministicCodegenPage.js"
       },
       "./components/docs/intent/GenerateClientFromSchemaPage": {
         "types": "./dist/components/docs/intent/GenerateClientFromSchemaPage.d.ts",
         "bun": "./dist/components/docs/intent/GenerateClientFromSchemaPage.js",
-        "node": "./dist/node/components/docs/intent/GenerateClientFromSchemaPage.mjs",
+        "node": "./dist/node/components/docs/intent/GenerateClientFromSchemaPage.js",
         "default": "./dist/components/docs/intent/GenerateClientFromSchemaPage.js"
       },
       "./components/docs/intent/index": {
         "types": "./dist/components/docs/intent/index.d.ts",
         "bun": "./dist/components/docs/intent/index.js",
-        "node": "./dist/node/components/docs/intent/index.mjs",
+        "node": "./dist/node/components/docs/intent/index.js",
         "default": "./dist/components/docs/intent/index.js"
       },
       "./components/docs/intent/intent-pages.docblocks": {
         "types": "./dist/components/docs/intent/intent-pages.docblocks.d.ts",
         "bun": "./dist/components/docs/intent/intent-pages.docblocks.js",
-        "node": "./dist/node/components/docs/intent/intent-pages.docblocks.mjs",
+        "node": "./dist/node/components/docs/intent/intent-pages.docblocks.js",
         "default": "./dist/components/docs/intent/intent-pages.docblocks.js"
       },
       "./components/docs/intent/OpenapiAlternativePage": {
         "types": "./dist/components/docs/intent/OpenapiAlternativePage.d.ts",
         "bun": "./dist/components/docs/intent/OpenapiAlternativePage.js",
-        "node": "./dist/node/components/docs/intent/OpenapiAlternativePage.mjs",
+        "node": "./dist/node/components/docs/intent/OpenapiAlternativePage.js",
         "default": "./dist/components/docs/intent/OpenapiAlternativePage.js"
       },
       "./components/docs/intent/SchemaValidationTypescriptPage": {
         "types": "./dist/components/docs/intent/SchemaValidationTypescriptPage.d.ts",
         "bun": "./dist/components/docs/intent/SchemaValidationTypescriptPage.js",
-        "node": "./dist/node/components/docs/intent/SchemaValidationTypescriptPage.mjs",
+        "node": "./dist/node/components/docs/intent/SchemaValidationTypescriptPage.js",
         "default": "./dist/components/docs/intent/SchemaValidationTypescriptPage.js"
       },
       "./components/docs/intent/SpecDrivenDevelopmentPage": {
         "types": "./dist/components/docs/intent/SpecDrivenDevelopmentPage.d.ts",
         "bun": "./dist/components/docs/intent/SpecDrivenDevelopmentPage.js",
-        "node": "./dist/node/components/docs/intent/SpecDrivenDevelopmentPage.mjs",
+        "node": "./dist/node/components/docs/intent/SpecDrivenDevelopmentPage.js",
         "default": "./dist/components/docs/intent/SpecDrivenDevelopmentPage.js"
       },
       "./components/docs/knowledge": {
         "types": "./dist/components/docs/knowledge/index.d.ts",
         "bun": "./dist/components/docs/knowledge/index.js",
-        "node": "./dist/node/components/docs/knowledge/index.mjs",
+        "node": "./dist/node/components/docs/knowledge/index.js",
         "default": "./dist/components/docs/knowledge/index.js"
       },
       "./components/docs/knowledge/index": {
         "types": "./dist/components/docs/knowledge/index.d.ts",
         "bun": "./dist/components/docs/knowledge/index.js",
-        "node": "./dist/node/components/docs/knowledge/index.mjs",
+        "node": "./dist/node/components/docs/knowledge/index.js",
         "default": "./dist/components/docs/knowledge/index.js"
       },
       "./components/docs/knowledge/KnowledgeCategoriesPage": {
         "types": "./dist/components/docs/knowledge/KnowledgeCategoriesPage.d.ts",
         "bun": "./dist/components/docs/knowledge/KnowledgeCategoriesPage.js",
-        "node": "./dist/node/components/docs/knowledge/KnowledgeCategoriesPage.mjs",
+        "node": "./dist/node/components/docs/knowledge/KnowledgeCategoriesPage.js",
         "default": "./dist/components/docs/knowledge/KnowledgeCategoriesPage.js"
       },
       "./components/docs/knowledge/KnowledgeExamplesPage": {
         "types": "./dist/components/docs/knowledge/KnowledgeExamplesPage.d.ts",
         "bun": "./dist/components/docs/knowledge/KnowledgeExamplesPage.js",
-        "node": "./dist/node/components/docs/knowledge/KnowledgeExamplesPage.mjs",
+        "node": "./dist/node/components/docs/knowledge/KnowledgeExamplesPage.js",
         "default": "./dist/components/docs/knowledge/KnowledgeExamplesPage.js"
       },
       "./components/docs/knowledge/KnowledgeOverviewPage": {
         "types": "./dist/components/docs/knowledge/KnowledgeOverviewPage.d.ts",
         "bun": "./dist/components/docs/knowledge/KnowledgeOverviewPage.js",
-        "node": "./dist/node/components/docs/knowledge/KnowledgeOverviewPage.mjs",
+        "node": "./dist/node/components/docs/knowledge/KnowledgeOverviewPage.js",
         "default": "./dist/components/docs/knowledge/KnowledgeOverviewPage.js"
       },
       "./components/docs/knowledge/KnowledgeSourcesPage": {
         "types": "./dist/components/docs/knowledge/KnowledgeSourcesPage.d.ts",
         "bun": "./dist/components/docs/knowledge/KnowledgeSourcesPage.js",
-        "node": "./dist/node/components/docs/knowledge/KnowledgeSourcesPage.mjs",
+        "node": "./dist/node/components/docs/knowledge/KnowledgeSourcesPage.js",
         "default": "./dist/components/docs/knowledge/KnowledgeSourcesPage.js"
       },
       "./components/docs/knowledge/KnowledgeSpacesPage": {
         "types": "./dist/components/docs/knowledge/KnowledgeSpacesPage.d.ts",
         "bun": "./dist/components/docs/knowledge/KnowledgeSpacesPage.js",
-        "node": "./dist/node/components/docs/knowledge/KnowledgeSpacesPage.mjs",
+        "node": "./dist/node/components/docs/knowledge/KnowledgeSpacesPage.js",
         "default": "./dist/components/docs/knowledge/KnowledgeSpacesPage.js"
       },
       "./components/docs/libraries": {
         "types": "./dist/components/docs/libraries/index.d.ts",
         "bun": "./dist/components/docs/libraries/index.js",
-        "node": "./dist/node/components/docs/libraries/index.mjs",
+        "node": "./dist/node/components/docs/libraries/index.js",
         "default": "./dist/components/docs/libraries/index.js"
       },
       "./components/docs/libraries/index": {
         "types": "./dist/components/docs/libraries/index.d.ts",
         "bun": "./dist/components/docs/libraries/index.js",
-        "node": "./dist/node/components/docs/libraries/index.mjs",
+        "node": "./dist/node/components/docs/libraries/index.js",
         "default": "./dist/components/docs/libraries/index.js"
       },
       "./components/docs/libraries/LibrariesAccessibilityPage": {
         "types": "./dist/components/docs/libraries/LibrariesAccessibilityPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesAccessibilityPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesAccessibilityPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesAccessibilityPage.js",
         "default": "./dist/components/docs/libraries/LibrariesAccessibilityPage.js"
       },
       "./components/docs/libraries/LibrariesAiAgentPage": {
         "types": "./dist/components/docs/libraries/LibrariesAiAgentPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesAiAgentPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesAiAgentPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesAiAgentPage.js",
         "default": "./dist/components/docs/libraries/LibrariesAiAgentPage.js"
       },
       "./components/docs/libraries/LibrariesAnalyticsPage": {
         "types": "./dist/components/docs/libraries/LibrariesAnalyticsPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesAnalyticsPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesAnalyticsPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesAnalyticsPage.js",
         "default": "./dist/components/docs/libraries/LibrariesAnalyticsPage.js"
       },
       "./components/docs/libraries/LibrariesContentGenPage": {
         "types": "./dist/components/docs/libraries/LibrariesContentGenPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesContentGenPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesContentGenPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesContentGenPage.js",
         "default": "./dist/components/docs/libraries/LibrariesContentGenPage.js"
       },
       "./components/docs/libraries/LibrariesContractsPage": {
         "types": "./dist/components/docs/libraries/LibrariesContractsPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesContractsPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesContractsPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesContractsPage.js",
         "default": "./dist/components/docs/libraries/LibrariesContractsPage.js"
       },
       "./components/docs/libraries/LibrariesCostTrackingPage": {
         "types": "./dist/components/docs/libraries/LibrariesCostTrackingPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesCostTrackingPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesCostTrackingPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesCostTrackingPage.js",
         "default": "./dist/components/docs/libraries/LibrariesCostTrackingPage.js"
       },
       "./components/docs/libraries/LibrariesDataBackendPage": {
         "types": "./dist/components/docs/libraries/LibrariesDataBackendPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesDataBackendPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesDataBackendPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesDataBackendPage.js",
         "default": "./dist/components/docs/libraries/LibrariesDataBackendPage.js"
       },
       "./components/docs/libraries/LibrariesDataViewsPage": {
         "types": "./dist/components/docs/libraries/LibrariesDataViewsPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesDataViewsPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesDataViewsPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesDataViewsPage.js",
         "default": "./dist/components/docs/libraries/LibrariesDataViewsPage.js"
       },
       "./components/docs/libraries/LibrariesDesignSystemPage": {
         "types": "./dist/components/docs/libraries/LibrariesDesignSystemPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesDesignSystemPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesDesignSystemPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesDesignSystemPage.js",
         "default": "./dist/components/docs/libraries/LibrariesDesignSystemPage.js"
       },
       "./components/docs/libraries/LibrariesEvolutionPage": {
         "types": "./dist/components/docs/libraries/LibrariesEvolutionPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesEvolutionPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesEvolutionPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesEvolutionPage.js",
         "default": "./dist/components/docs/libraries/LibrariesEvolutionPage.js"
       },
       "./components/docs/libraries/LibrariesGraphQLPage": {
         "types": "./dist/components/docs/libraries/LibrariesGraphQLPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesGraphQLPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesGraphQLPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesGraphQLPage.js",
         "default": "./dist/components/docs/libraries/LibrariesGraphQLPage.js"
       },
       "./components/docs/libraries/LibrariesGrowthPage": {
         "types": "./dist/components/docs/libraries/LibrariesGrowthPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesGrowthPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesGrowthPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesGrowthPage.js",
         "default": "./dist/components/docs/libraries/LibrariesGrowthPage.js"
       },
       "./components/docs/libraries/LibrariesMultiTenancyPage": {
         "types": "./dist/components/docs/libraries/LibrariesMultiTenancyPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesMultiTenancyPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesMultiTenancyPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesMultiTenancyPage.js",
         "default": "./dist/components/docs/libraries/LibrariesMultiTenancyPage.js"
       },
       "./components/docs/libraries/LibrariesObservabilityPage": {
         "types": "./dist/components/docs/libraries/LibrariesObservabilityPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesObservabilityPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesObservabilityPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesObservabilityPage.js",
         "default": "./dist/components/docs/libraries/LibrariesObservabilityPage.js"
       },
       "./components/docs/libraries/LibrariesOverlayEnginePage": {
         "types": "./dist/components/docs/libraries/LibrariesOverlayEnginePage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesOverlayEnginePage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesOverlayEnginePage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesOverlayEnginePage.js",
         "default": "./dist/components/docs/libraries/LibrariesOverlayEnginePage.js"
       },
       "./components/docs/libraries/LibrariesOverviewPage": {
         "types": "./dist/components/docs/libraries/LibrariesOverviewPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesOverviewPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesOverviewPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesOverviewPage.js",
         "default": "./dist/components/docs/libraries/LibrariesOverviewPage.js"
       },
       "./components/docs/libraries/LibrariesPersonalizationPage": {
         "types": "./dist/components/docs/libraries/LibrariesPersonalizationPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesPersonalizationPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesPersonalizationPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesPersonalizationPage.js",
         "default": "./dist/components/docs/libraries/LibrariesPersonalizationPage.js"
       },
       "./components/docs/libraries/LibrariesProgressiveDeliveryPage": {
         "types": "./dist/components/docs/libraries/LibrariesProgressiveDeliveryPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesProgressiveDeliveryPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesProgressiveDeliveryPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesProgressiveDeliveryPage.js",
         "default": "./dist/components/docs/libraries/LibrariesProgressiveDeliveryPage.js"
       },
       "./components/docs/libraries/LibrariesResiliencePage": {
         "types": "./dist/components/docs/libraries/LibrariesResiliencePage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesResiliencePage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesResiliencePage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesResiliencePage.js",
         "default": "./dist/components/docs/libraries/LibrariesResiliencePage.js"
       },
       "./components/docs/libraries/LibrariesRuntimePage": {
         "types": "./dist/components/docs/libraries/LibrariesRuntimePage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesRuntimePage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesRuntimePage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesRuntimePage.js",
         "default": "./dist/components/docs/libraries/LibrariesRuntimePage.js"
       },
       "./components/docs/libraries/LibrariesSchemaPage": {
         "types": "./dist/components/docs/libraries/LibrariesSchemaPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesSchemaPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesSchemaPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesSchemaPage.js",
         "default": "./dist/components/docs/libraries/LibrariesSchemaPage.js"
       },
       "./components/docs/libraries/LibrariesSLOPage": {
         "types": "./dist/components/docs/libraries/LibrariesSLOPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesSLOPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesSLOPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesSLOPage.js",
         "default": "./dist/components/docs/libraries/LibrariesSLOPage.js"
       },
       "./components/docs/libraries/LibrariesSupportBotPage": {
         "types": "./dist/components/docs/libraries/LibrariesSupportBotPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesSupportBotPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesSupportBotPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesSupportBotPage.js",
         "default": "./dist/components/docs/libraries/LibrariesSupportBotPage.js"
       },
       "./components/docs/libraries/LibrariesTestingPage": {
         "types": "./dist/components/docs/libraries/LibrariesTestingPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesTestingPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesTestingPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesTestingPage.js",
         "default": "./dist/components/docs/libraries/LibrariesTestingPage.js"
       },
       "./components/docs/libraries/LibrariesUIKitPage": {
         "types": "./dist/components/docs/libraries/LibrariesUIKitPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesUIKitPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesUIKitPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesUIKitPage.js",
         "default": "./dist/components/docs/libraries/LibrariesUIKitPage.js"
       },
       "./components/docs/libraries/LibrariesWorkflowComposerPage": {
         "types": "./dist/components/docs/libraries/LibrariesWorkflowComposerPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesWorkflowComposerPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesWorkflowComposerPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesWorkflowComposerPage.js",
         "default": "./dist/components/docs/libraries/LibrariesWorkflowComposerPage.js"
       },
       "./components/docs/libraries/LibrariesWorkflowsPage": {
         "types": "./dist/components/docs/libraries/LibrariesWorkflowsPage.d.ts",
         "bun": "./dist/components/docs/libraries/LibrariesWorkflowsPage.js",
-        "node": "./dist/node/components/docs/libraries/LibrariesWorkflowsPage.mjs",
+        "node": "./dist/node/components/docs/libraries/LibrariesWorkflowsPage.js",
         "default": "./dist/components/docs/libraries/LibrariesWorkflowsPage.js"
       },
       "./components/docs/manifesto/ManifestoPage": {
         "types": "./dist/components/docs/manifesto/ManifestoPage.d.ts",
         "bun": "./dist/components/docs/manifesto/ManifestoPage.js",
-        "node": "./dist/node/components/docs/manifesto/ManifestoPage.mjs",
+        "node": "./dist/node/components/docs/manifesto/ManifestoPage.js",
         "default": "./dist/components/docs/manifesto/ManifestoPage.js"
       },
       "./components/docs/ops": {
         "types": "./dist/components/docs/ops/index.d.ts",
         "bun": "./dist/components/docs/ops/index.js",
-        "node": "./dist/node/components/docs/ops/index.mjs",
+        "node": "./dist/node/components/docs/ops/index.js",
         "default": "./dist/components/docs/ops/index.js"
       },
       "./components/docs/ops/AutoEvolutionOpsPage": {
         "types": "./dist/components/docs/ops/AutoEvolutionOpsPage.d.ts",
         "bun": "./dist/components/docs/ops/AutoEvolutionOpsPage.js",
-        "node": "./dist/node/components/docs/ops/AutoEvolutionOpsPage.mjs",
+        "node": "./dist/node/components/docs/ops/AutoEvolutionOpsPage.js",
         "default": "./dist/components/docs/ops/AutoEvolutionOpsPage.js"
       },
       "./components/docs/ops/DistributedTracingOpsPage": {
         "types": "./dist/components/docs/ops/DistributedTracingOpsPage.d.ts",
         "bun": "./dist/components/docs/ops/DistributedTracingOpsPage.js",
-        "node": "./dist/node/components/docs/ops/DistributedTracingOpsPage.mjs",
+        "node": "./dist/node/components/docs/ops/DistributedTracingOpsPage.js",
         "default": "./dist/components/docs/ops/DistributedTracingOpsPage.js"
       },
       "./components/docs/ops/index": {
         "types": "./dist/components/docs/ops/index.d.ts",
         "bun": "./dist/components/docs/ops/index.js",
-        "node": "./dist/node/components/docs/ops/index.mjs",
+        "node": "./dist/node/components/docs/ops/index.js",
         "default": "./dist/components/docs/ops/index.js"
       },
       "./components/docs/ops/ops-lifecycle.docblocks": {
         "types": "./dist/components/docs/ops/ops-lifecycle.docblocks.d.ts",
         "bun": "./dist/components/docs/ops/ops-lifecycle.docblocks.js",
-        "node": "./dist/node/components/docs/ops/ops-lifecycle.docblocks.mjs",
+        "node": "./dist/node/components/docs/ops/ops-lifecycle.docblocks.js",
         "default": "./dist/components/docs/ops/ops-lifecycle.docblocks.js"
       },
       "./components/docs/ops/ops-runbooks-a.docblocks": {
         "types": "./dist/components/docs/ops/ops-runbooks-a.docblocks.d.ts",
         "bun": "./dist/components/docs/ops/ops-runbooks-a.docblocks.js",
-        "node": "./dist/node/components/docs/ops/ops-runbooks-a.docblocks.mjs",
+        "node": "./dist/node/components/docs/ops/ops-runbooks-a.docblocks.js",
         "default": "./dist/components/docs/ops/ops-runbooks-a.docblocks.js"
       },
       "./components/docs/ops/ops-runbooks-b.docblocks": {
         "types": "./dist/components/docs/ops/ops-runbooks-b.docblocks.d.ts",
         "bun": "./dist/components/docs/ops/ops-runbooks-b.docblocks.js",
-        "node": "./dist/node/components/docs/ops/ops-runbooks-b.docblocks.mjs",
+        "node": "./dist/node/components/docs/ops/ops-runbooks-b.docblocks.js",
         "default": "./dist/components/docs/ops/ops-runbooks-b.docblocks.js"
       },
       "./components/docs/ops/ops-slo-tenant.docblocks": {
         "types": "./dist/components/docs/ops/ops-slo-tenant.docblocks.d.ts",
         "bun": "./dist/components/docs/ops/ops-slo-tenant.docblocks.js",
-        "node": "./dist/node/components/docs/ops/ops-slo-tenant.docblocks.mjs",
+        "node": "./dist/node/components/docs/ops/ops-slo-tenant.docblocks.js",
         "default": "./dist/components/docs/ops/ops-slo-tenant.docblocks.js"
       },
       "./components/docs/ops/ops-top.docs": {
         "types": "./dist/components/docs/ops/ops-top.docs.d.ts",
         "bun": "./dist/components/docs/ops/ops-top.docs.js",
-        "node": "./dist/node/components/docs/ops/ops-top.docs.mjs",
+        "node": "./dist/node/components/docs/ops/ops-top.docs.js",
         "default": "./dist/components/docs/ops/ops-top.docs.js"
       },
       "./components/docs/ops/ops.docs": {
         "types": "./dist/components/docs/ops/ops.docs.d.ts",
         "bun": "./dist/components/docs/ops/ops.docs.js",
-        "node": "./dist/node/components/docs/ops/ops.docs.mjs",
+        "node": "./dist/node/components/docs/ops/ops.docs.js",
         "default": "./dist/components/docs/ops/ops.docs.js"
       },
       "./components/docs/product/product.docblocks": {
         "types": "./dist/components/docs/product/product.docblocks.d.ts",
         "bun": "./dist/components/docs/product/product.docblocks.js",
-        "node": "./dist/node/components/docs/product/product.docblocks.mjs",
+        "node": "./dist/node/components/docs/product/product.docblocks.js",
         "default": "./dist/components/docs/product/product.docblocks.js"
       },
       "./components/docs/reference": {
         "types": "./dist/components/docs/reference/index.d.ts",
         "bun": "./dist/components/docs/reference/index.js",
-        "node": "./dist/node/components/docs/reference/index.mjs",
+        "node": "./dist/node/components/docs/reference/index.js",
         "default": "./dist/components/docs/reference/index.js"
       },
       "./components/docs/reference/DocsMarkdownContent": {
         "types": "./dist/components/docs/reference/DocsMarkdownContent.d.ts",
         "bun": "./dist/components/docs/reference/DocsMarkdownContent.js",
-        "node": "./dist/node/components/docs/reference/DocsMarkdownContent.mjs",
+        "node": "./dist/node/components/docs/reference/DocsMarkdownContent.js",
         "default": "./dist/components/docs/reference/DocsMarkdownContent.js"
       },
       "./components/docs/reference/docsMarkdownParser": {
         "types": "./dist/components/docs/reference/docsMarkdownParser.d.ts",
         "bun": "./dist/components/docs/reference/docsMarkdownParser.js",
-        "node": "./dist/node/components/docs/reference/docsMarkdownParser.mjs",
+        "node": "./dist/node/components/docs/reference/docsMarkdownParser.js",
         "default": "./dist/components/docs/reference/docsMarkdownParser.js"
       },
       "./components/docs/reference/DocsReferenceContent": {
         "types": "./dist/components/docs/reference/DocsReferenceContent.d.ts",
         "bun": "./dist/components/docs/reference/DocsReferenceContent.js",
-        "node": "./dist/node/components/docs/reference/DocsReferenceContent.mjs",
+        "node": "./dist/node/components/docs/reference/DocsReferenceContent.js",
         "default": "./dist/components/docs/reference/DocsReferenceContent.js"
       },
       "./components/docs/reference/DocsReferenceIndexClient": {
         "types": "./dist/components/docs/reference/DocsReferenceIndexClient.d.ts",
         "bun": "./dist/components/docs/reference/DocsReferenceIndexClient.js",
-        "node": "./dist/node/components/docs/reference/DocsReferenceIndexClient.mjs",
+        "node": "./dist/node/components/docs/reference/DocsReferenceIndexClient.js",
         "default": "./dist/components/docs/reference/DocsReferenceIndexClient.js"
       },
       "./components/docs/reference/DocsReferenceIndexPage": {
         "types": "./dist/components/docs/reference/DocsReferenceIndexPage.d.ts",
         "bun": "./dist/components/docs/reference/DocsReferenceIndexPage.js",
-        "node": "./dist/node/components/docs/reference/DocsReferenceIndexPage.mjs",
+        "node": "./dist/node/components/docs/reference/DocsReferenceIndexPage.js",
         "default": "./dist/components/docs/reference/DocsReferenceIndexPage.js"
       },
       "./components/docs/reference/DocsReferencePage": {
         "types": "./dist/components/docs/reference/DocsReferencePage.d.ts",
         "bun": "./dist/components/docs/reference/DocsReferencePage.js",
-        "node": "./dist/node/components/docs/reference/DocsReferencePage.mjs",
+        "node": "./dist/node/components/docs/reference/DocsReferencePage.js",
         "default": "./dist/components/docs/reference/DocsReferencePage.js"
       },
       "./components/docs/reference/index": {
         "types": "./dist/components/docs/reference/index.d.ts",
         "bun": "./dist/components/docs/reference/index.js",
-        "node": "./dist/node/components/docs/reference/index.mjs",
+        "node": "./dist/node/components/docs/reference/index.js",
         "default": "./dist/components/docs/reference/index.js"
       },
       "./components/docs/safety": {
         "types": "./dist/components/docs/safety/index.d.ts",
         "bun": "./dist/components/docs/safety/index.js",
-        "node": "./dist/node/components/docs/safety/index.mjs",
+        "node": "./dist/node/components/docs/safety/index.js",
         "default": "./dist/components/docs/safety/index.js"
       },
       "./components/docs/safety/index": {
         "types": "./dist/components/docs/safety/index.d.ts",
         "bun": "./dist/components/docs/safety/index.js",
-        "node": "./dist/node/components/docs/safety/index.mjs",
+        "node": "./dist/node/components/docs/safety/index.js",
         "default": "./dist/components/docs/safety/index.js"
       },
       "./components/docs/safety/SafetyAuditingPage": {
         "types": "./dist/components/docs/safety/SafetyAuditingPage.d.ts",
         "bun": "./dist/components/docs/safety/SafetyAuditingPage.js",
-        "node": "./dist/node/components/docs/safety/SafetyAuditingPage.mjs",
+        "node": "./dist/node/components/docs/safety/SafetyAuditingPage.js",
         "default": "./dist/components/docs/safety/SafetyAuditingPage.js"
       },
       "./components/docs/safety/SafetyMigrationsPage": {
         "types": "./dist/components/docs/safety/SafetyMigrationsPage.d.ts",
         "bun": "./dist/components/docs/safety/SafetyMigrationsPage.js",
-        "node": "./dist/node/components/docs/safety/SafetyMigrationsPage.mjs",
+        "node": "./dist/node/components/docs/safety/SafetyMigrationsPage.js",
         "default": "./dist/components/docs/safety/SafetyMigrationsPage.js"
       },
       "./components/docs/safety/SafetyOverviewPage": {
         "types": "./dist/components/docs/safety/SafetyOverviewPage.d.ts",
         "bun": "./dist/components/docs/safety/SafetyOverviewPage.js",
-        "node": "./dist/node/components/docs/safety/SafetyOverviewPage.mjs",
+        "node": "./dist/node/components/docs/safety/SafetyOverviewPage.js",
         "default": "./dist/components/docs/safety/SafetyOverviewPage.js"
       },
       "./components/docs/safety/SafetyPDPPage": {
         "types": "./dist/components/docs/safety/SafetyPDPPage.d.ts",
         "bun": "./dist/components/docs/safety/SafetyPDPPage.js",
-        "node": "./dist/node/components/docs/safety/SafetyPDPPage.mjs",
+        "node": "./dist/node/components/docs/safety/SafetyPDPPage.js",
         "default": "./dist/components/docs/safety/SafetyPDPPage.js"
       },
       "./components/docs/safety/SafetySecurityTrustPage": {
         "types": "./dist/components/docs/safety/SafetySecurityTrustPage.d.ts",
         "bun": "./dist/components/docs/safety/SafetySecurityTrustPage.js",
-        "node": "./dist/node/components/docs/safety/SafetySecurityTrustPage.mjs",
+        "node": "./dist/node/components/docs/safety/SafetySecurityTrustPage.js",
         "default": "./dist/components/docs/safety/SafetySecurityTrustPage.js"
       },
       "./components/docs/safety/SafetySigningPage": {
         "types": "./dist/components/docs/safety/SafetySigningPage.d.ts",
         "bun": "./dist/components/docs/safety/SafetySigningPage.js",
-        "node": "./dist/node/components/docs/safety/SafetySigningPage.mjs",
+        "node": "./dist/node/components/docs/safety/SafetySigningPage.js",
         "default": "./dist/components/docs/safety/SafetySigningPage.js"
       },
       "./components/docs/safety/SafetyTenantIsolationPage": {
         "types": "./dist/components/docs/safety/SafetyTenantIsolationPage.d.ts",
         "bun": "./dist/components/docs/safety/SafetyTenantIsolationPage.js",
-        "node": "./dist/node/components/docs/safety/SafetyTenantIsolationPage.mjs",
+        "node": "./dist/node/components/docs/safety/SafetyTenantIsolationPage.js",
         "default": "./dist/components/docs/safety/SafetyTenantIsolationPage.js"
       },
       "./components/docs/shared/StudioPrompt": {
         "types": "./dist/components/docs/shared/StudioPrompt.d.ts",
         "bun": "./dist/components/docs/shared/StudioPrompt.js",
-        "node": "./dist/node/components/docs/shared/StudioPrompt.mjs",
+        "node": "./dist/node/components/docs/shared/StudioPrompt.js",
         "default": "./dist/components/docs/shared/StudioPrompt.js"
       },
       "./components/docs/specs": {
         "types": "./dist/components/docs/specs/index.d.ts",
         "bun": "./dist/components/docs/specs/index.js",
-        "node": "./dist/node/components/docs/specs/index.mjs",
+        "node": "./dist/node/components/docs/specs/index.js",
         "default": "./dist/components/docs/specs/index.js"
       },
       "./components/docs/specs/index": {
         "types": "./dist/components/docs/specs/index.d.ts",
         "bun": "./dist/components/docs/specs/index.js",
-        "node": "./dist/node/components/docs/specs/index.mjs",
+        "node": "./dist/node/components/docs/specs/index.js",
         "default": "./dist/components/docs/specs/index.js"
       },
       "./components/docs/specs/SpecsCapabilitiesPage": {
         "types": "./dist/components/docs/specs/SpecsCapabilitiesPage.d.ts",
         "bun": "./dist/components/docs/specs/SpecsCapabilitiesPage.js",
-        "node": "./dist/node/components/docs/specs/SpecsCapabilitiesPage.mjs",
+        "node": "./dist/node/components/docs/specs/SpecsCapabilitiesPage.js",
         "default": "./dist/components/docs/specs/SpecsCapabilitiesPage.js"
       },
       "./components/docs/specs/SpecsDataViewsPage": {
         "types": "./dist/components/docs/specs/SpecsDataViewsPage.d.ts",
         "bun": "./dist/components/docs/specs/SpecsDataViewsPage.js",
-        "node": "./dist/node/components/docs/specs/SpecsDataViewsPage.mjs",
+        "node": "./dist/node/components/docs/specs/SpecsDataViewsPage.js",
         "default": "./dist/components/docs/specs/SpecsDataViewsPage.js"
       },
       "./components/docs/specs/SpecsOverlaysPage": {
         "types": "./dist/components/docs/specs/SpecsOverlaysPage.d.ts",
         "bun": "./dist/components/docs/specs/SpecsOverlaysPage.js",
-        "node": "./dist/node/components/docs/specs/SpecsOverlaysPage.mjs",
+        "node": "./dist/node/components/docs/specs/SpecsOverlaysPage.js",
         "default": "./dist/components/docs/specs/SpecsOverlaysPage.js"
       },
       "./components/docs/specs/SpecsOverviewPage": {
         "types": "./dist/components/docs/specs/SpecsOverviewPage.d.ts",
         "bun": "./dist/components/docs/specs/SpecsOverviewPage.js",
-        "node": "./dist/node/components/docs/specs/SpecsOverviewPage.mjs",
+        "node": "./dist/node/components/docs/specs/SpecsOverviewPage.js",
         "default": "./dist/components/docs/specs/SpecsOverviewPage.js"
       },
       "./components/docs/specs/SpecsPolicyPage": {
         "types": "./dist/components/docs/specs/SpecsPolicyPage.d.ts",
         "bun": "./dist/components/docs/specs/SpecsPolicyPage.js",
-        "node": "./dist/node/components/docs/specs/SpecsPolicyPage.mjs",
+        "node": "./dist/node/components/docs/specs/SpecsPolicyPage.js",
         "default": "./dist/components/docs/specs/SpecsPolicyPage.js"
       },
       "./components/docs/specs/SpecsWorkflowsPage": {
         "types": "./dist/components/docs/specs/SpecsWorkflowsPage.d.ts",
         "bun": "./dist/components/docs/specs/SpecsWorkflowsPage.js",
-        "node": "./dist/node/components/docs/specs/SpecsWorkflowsPage.mjs",
+        "node": "./dist/node/components/docs/specs/SpecsWorkflowsPage.js",
         "default": "./dist/components/docs/specs/SpecsWorkflowsPage.js"
       },
       "./components/docs/studio": {
         "types": "./dist/components/docs/studio/index.d.ts",
         "bun": "./dist/components/docs/studio/index.js",
-        "node": "./dist/node/components/docs/studio/index.mjs",
+        "node": "./dist/node/components/docs/studio/index.js",
         "default": "./dist/components/docs/studio/index.js"
       },
       "./components/docs/studio/index": {
         "types": "./dist/components/docs/studio/index.d.ts",
         "bun": "./dist/components/docs/studio/index.js",
-        "node": "./dist/node/components/docs/studio/index.mjs",
+        "node": "./dist/node/components/docs/studio/index.js",
         "default": "./dist/components/docs/studio/index.js"
       },
       "./components/docs/studio/StudioBYOKPage": {
         "types": "./dist/components/docs/studio/StudioBYOKPage.d.ts",
         "bun": "./dist/components/docs/studio/StudioBYOKPage.js",
-        "node": "./dist/node/components/docs/studio/StudioBYOKPage.mjs",
+        "node": "./dist/node/components/docs/studio/StudioBYOKPage.js",
         "default": "./dist/components/docs/studio/StudioBYOKPage.js"
       },
       "./components/docs/studio/StudioDeploymentsPage": {
         "types": "./dist/components/docs/studio/StudioDeploymentsPage.d.ts",
         "bun": "./dist/components/docs/studio/StudioDeploymentsPage.js",
-        "node": "./dist/node/components/docs/studio/StudioDeploymentsPage.mjs",
+        "node": "./dist/node/components/docs/studio/StudioDeploymentsPage.js",
         "default": "./dist/components/docs/studio/StudioDeploymentsPage.js"
       },
       "./components/docs/studio/StudioGettingStartedPage": {
         "types": "./dist/components/docs/studio/StudioGettingStartedPage.d.ts",
         "bun": "./dist/components/docs/studio/StudioGettingStartedPage.js",
-        "node": "./dist/node/components/docs/studio/StudioGettingStartedPage.mjs",
+        "node": "./dist/node/components/docs/studio/StudioGettingStartedPage.js",
         "default": "./dist/components/docs/studio/StudioGettingStartedPage.js"
       },
       "./components/docs/studio/StudioIntegrationsPage": {
         "types": "./dist/components/docs/studio/StudioIntegrationsPage.d.ts",
         "bun": "./dist/components/docs/studio/StudioIntegrationsPage.js",
-        "node": "./dist/node/components/docs/studio/StudioIntegrationsPage.mjs",
+        "node": "./dist/node/components/docs/studio/StudioIntegrationsPage.js",
         "default": "./dist/components/docs/studio/StudioIntegrationsPage.js"
       },
       "./components/docs/studio/StudioOverviewPage": {
         "types": "./dist/components/docs/studio/StudioOverviewPage.d.ts",
         "bun": "./dist/components/docs/studio/StudioOverviewPage.js",
-        "node": "./dist/node/components/docs/studio/StudioOverviewPage.mjs",
+        "node": "./dist/node/components/docs/studio/StudioOverviewPage.js",
         "default": "./dist/components/docs/studio/StudioOverviewPage.js"
       },
       "./components/docs/studio/StudioVisualBuilderPage": {
         "types": "./dist/components/docs/studio/StudioVisualBuilderPage.d.ts",
         "bun": "./dist/components/docs/studio/StudioVisualBuilderPage.js",
-        "node": "./dist/node/components/docs/studio/StudioVisualBuilderPage.mjs",
+        "node": "./dist/node/components/docs/studio/StudioVisualBuilderPage.js",
         "default": "./dist/components/docs/studio/StudioVisualBuilderPage.js"
       },
       "./components/docs/tech/contracts/tech-docs.docblocks": {
         "types": "./dist/components/docs/tech/contracts/tech-docs.docblocks.d.ts",
         "bun": "./dist/components/docs/tech/contracts/tech-docs.docblocks.js",
-        "node": "./dist/node/components/docs/tech/contracts/tech-docs.docblocks.mjs",
+        "node": "./dist/node/components/docs/tech/contracts/tech-docs.docblocks.js",
         "default": "./dist/components/docs/tech/contracts/tech-docs.docblocks.js"
       },
       "./components/integrations": {
         "types": "./dist/components/integrations/index.d.ts",
         "bun": "./dist/components/integrations/index.js",
-        "node": "./dist/node/components/integrations/index.mjs",
+        "node": "./dist/node/components/integrations/index.js",
         "default": "./dist/components/integrations/index.js"
       },
       "./components/integrations/index": {
         "types": "./dist/components/integrations/index.d.ts",
         "bun": "./dist/components/integrations/index.js",
-        "node": "./dist/node/components/integrations/index.mjs",
+        "node": "./dist/node/components/integrations/index.js",
         "default": "./dist/components/integrations/index.js"
       },
       "./components/integrations/molecules/IntegrationCard": {
         "types": "./dist/components/integrations/molecules/IntegrationCard.d.ts",
         "bun": "./dist/components/integrations/molecules/IntegrationCard.js",
-        "node": "./dist/node/components/integrations/molecules/IntegrationCard.mjs",
+        "node": "./dist/node/components/integrations/molecules/IntegrationCard.js",
         "default": "./dist/components/integrations/molecules/IntegrationCard.js"
       },
       "./components/integrations/organisms/IntegrationMarketplace": {
         "types": "./dist/components/integrations/organisms/IntegrationMarketplace.d.ts",
         "bun": "./dist/components/integrations/organisms/IntegrationMarketplace.js",
-        "node": "./dist/node/components/integrations/organisms/IntegrationMarketplace.mjs",
+        "node": "./dist/node/components/integrations/organisms/IntegrationMarketplace.js",
         "default": "./dist/components/integrations/organisms/IntegrationMarketplace.js"
       },
       "./components/integrations/organisms/IntegrationSettings": {
         "types": "./dist/components/integrations/organisms/IntegrationSettings.d.ts",
         "bun": "./dist/components/integrations/organisms/IntegrationSettings.js",
-        "node": "./dist/node/components/integrations/organisms/IntegrationSettings.mjs",
+        "node": "./dist/node/components/integrations/organisms/IntegrationSettings.js",
         "default": "./dist/components/integrations/organisms/IntegrationSettings.js"
       },
       "./components/integrations/organisms/KnowledgeSourceList": {
         "types": "./dist/components/integrations/organisms/KnowledgeSourceList.d.ts",
         "bun": "./dist/components/integrations/organisms/KnowledgeSourceList.js",
-        "node": "./dist/node/components/integrations/organisms/KnowledgeSourceList.mjs",
+        "node": "./dist/node/components/integrations/organisms/KnowledgeSourceList.js",
         "default": "./dist/components/integrations/organisms/KnowledgeSourceList.js"
       },
       "./components/legal": {
         "types": "./dist/components/legal/index.d.ts",
         "bun": "./dist/components/legal/index.js",
-        "node": "./dist/node/components/legal/index.mjs",
+        "node": "./dist/node/components/legal/index.js",
         "default": "./dist/components/legal/index.js"
       },
       "./components/legal/index": {
         "types": "./dist/components/legal/index.d.ts",
         "bun": "./dist/components/legal/index.js",
-        "node": "./dist/node/components/legal/index.mjs",
+        "node": "./dist/node/components/legal/index.js",
         "default": "./dist/components/legal/index.js"
       },
       "./components/legal/PrivacyTemplate": {
         "types": "./dist/components/legal/PrivacyTemplate.d.ts",
         "bun": "./dist/components/legal/PrivacyTemplate.js",
-        "node": "./dist/node/components/legal/PrivacyTemplate.mjs",
+        "node": "./dist/node/components/legal/PrivacyTemplate.js",
         "default": "./dist/components/legal/PrivacyTemplate.js"
       },
       "./components/legal/TermsTemplate": {
         "types": "./dist/components/legal/TermsTemplate.d.ts",
         "bun": "./dist/components/legal/TermsTemplate.js",
-        "node": "./dist/node/components/legal/TermsTemplate.mjs",
+        "node": "./dist/node/components/legal/TermsTemplate.js",
         "default": "./dist/components/legal/TermsTemplate.js"
       },
       "./components/shared": {
         "types": "./dist/components/shared/index.d.ts",
         "bun": "./dist/components/shared/index.js",
-        "node": "./dist/node/components/shared/index.mjs",
+        "node": "./dist/node/components/shared/index.js",
         "default": "./dist/components/shared/index.js"
       },
       "./components/shared/FeatureGateNotice": {
         "types": "./dist/components/shared/FeatureGateNotice.d.ts",
         "bun": "./dist/components/shared/FeatureGateNotice.js",
-        "node": "./dist/node/components/shared/FeatureGateNotice.mjs",
+        "node": "./dist/node/components/shared/FeatureGateNotice.js",
         "default": "./dist/components/shared/FeatureGateNotice.js"
       },
       "./components/shared/index": {
         "types": "./dist/components/shared/index.d.ts",
         "bun": "./dist/components/shared/index.js",
-        "node": "./dist/node/components/shared/index.mjs",
+        "node": "./dist/node/components/shared/index.js",
         "default": "./dist/components/shared/index.js"
       },
       "./components/shell": {
         "types": "./dist/components/shell/index.d.ts",
         "bun": "./dist/components/shell/index.js",
-        "node": "./dist/node/components/shell/index.mjs",
+        "node": "./dist/node/components/shell/index.js",
         "default": "./dist/components/shell/index.js"
       },
       "./components/shell/index": {
         "types": "./dist/components/shell/index.d.ts",
         "bun": "./dist/components/shell/index.js",
-        "node": "./dist/node/components/shell/index.mjs",
+        "node": "./dist/node/components/shell/index.js",
         "default": "./dist/components/shell/index.js"
       },
       "./components/shell/WorkspaceHeader": {
         "types": "./dist/components/shell/WorkspaceHeader.d.ts",
         "bun": "./dist/components/shell/WorkspaceHeader.js",
-        "node": "./dist/node/components/shell/WorkspaceHeader.mjs",
+        "node": "./dist/node/components/shell/WorkspaceHeader.js",
         "default": "./dist/components/shell/WorkspaceHeader.js"
       },
       "./components/shell/WorkspaceProjectShellLayout": {
         "types": "./dist/components/shell/WorkspaceProjectShellLayout.d.ts",
         "bun": "./dist/components/shell/WorkspaceProjectShellLayout.js",
-        "node": "./dist/node/components/shell/WorkspaceProjectShellLayout.mjs",
+        "node": "./dist/node/components/shell/WorkspaceProjectShellLayout.js",
         "default": "./dist/components/shell/WorkspaceProjectShellLayout.js"
       },
       "./components/shell/WorkspaceSidebar": {
         "types": "./dist/components/shell/WorkspaceSidebar.d.ts",
         "bun": "./dist/components/shell/WorkspaceSidebar.js",
-        "node": "./dist/node/components/shell/WorkspaceSidebar.mjs",
+        "node": "./dist/node/components/shell/WorkspaceSidebar.js",
         "default": "./dist/components/shell/WorkspaceSidebar.js"
       },
       "./components/templates": {
         "types": "./dist/components/templates/index.d.ts",
         "bun": "./dist/components/templates/index.js",
-        "node": "./dist/node/components/templates/index.mjs",
+        "node": "./dist/node/components/templates/index.js",
         "default": "./dist/components/templates/index.js"
       },
       "./components/templates/engine": {
         "types": "./dist/components/templates/engine/index.d.ts",
         "bun": "./dist/components/templates/engine/index.js",
-        "node": "./dist/node/components/templates/engine/index.mjs",
+        "node": "./dist/node/components/templates/engine/index.js",
         "default": "./dist/components/templates/engine/index.js"
       },
       "./components/templates/engine/index": {
         "types": "./dist/components/templates/engine/index.d.ts",
         "bun": "./dist/components/templates/engine/index.js",
-        "node": "./dist/node/components/templates/engine/index.mjs",
+        "node": "./dist/node/components/templates/engine/index.js",
         "default": "./dist/components/templates/engine/index.js"
       },
       "./components/templates/index": {
         "types": "./dist/components/templates/index.d.ts",
         "bun": "./dist/components/templates/index.js",
-        "node": "./dist/node/components/templates/index.mjs",
+        "node": "./dist/node/components/templates/index.js",
         "default": "./dist/components/templates/index.js"
       },
       "./components/templates/messaging": {
         "types": "./dist/components/templates/messaging/index.d.ts",
         "bun": "./dist/components/templates/messaging/index.js",
-        "node": "./dist/node/components/templates/messaging/index.mjs",
+        "node": "./dist/node/components/templates/messaging/index.js",
         "default": "./dist/components/templates/messaging/index.js"
       },
       "./components/templates/messaging/ConversationList": {
         "types": "./dist/components/templates/messaging/ConversationList.d.ts",
         "bun": "./dist/components/templates/messaging/ConversationList.js",
-        "node": "./dist/node/components/templates/messaging/ConversationList.mjs",
+        "node": "./dist/node/components/templates/messaging/ConversationList.js",
         "default": "./dist/components/templates/messaging/ConversationList.js"
       },
       "./components/templates/messaging/index": {
         "types": "./dist/components/templates/messaging/index.d.ts",
         "bun": "./dist/components/templates/messaging/index.js",
-        "node": "./dist/node/components/templates/messaging/index.mjs",
+        "node": "./dist/node/components/templates/messaging/index.js",
         "default": "./dist/components/templates/messaging/index.js"
       },
       "./components/templates/messaging/MessageComposer": {
         "types": "./dist/components/templates/messaging/MessageComposer.d.ts",
         "bun": "./dist/components/templates/messaging/MessageComposer.js",
-        "node": "./dist/node/components/templates/messaging/MessageComposer.mjs",
+        "node": "./dist/node/components/templates/messaging/MessageComposer.js",
         "default": "./dist/components/templates/messaging/MessageComposer.js"
       },
       "./components/templates/messaging/MessageThread": {
         "types": "./dist/components/templates/messaging/MessageThread.d.ts",
         "bun": "./dist/components/templates/messaging/MessageThread.js",
-        "node": "./dist/node/components/templates/messaging/MessageThread.mjs",
+        "node": "./dist/node/components/templates/messaging/MessageThread.js",
         "default": "./dist/components/templates/messaging/MessageThread.js"
       },
       "./components/templates/messaging/MessagingWorkspace": {
         "types": "./dist/components/templates/messaging/MessagingWorkspace.d.ts",
         "bun": "./dist/components/templates/messaging/MessagingWorkspace.js",
-        "node": "./dist/node/components/templates/messaging/MessagingWorkspace.mjs",
+        "node": "./dist/node/components/templates/messaging/MessagingWorkspace.js",
         "default": "./dist/components/templates/messaging/MessagingWorkspace.js"
       },
       "./components/templates/messaging/types": {
         "types": "./dist/components/templates/messaging/types.d.ts",
         "bun": "./dist/components/templates/messaging/types.js",
-        "node": "./dist/node/components/templates/messaging/types.mjs",
+        "node": "./dist/node/components/templates/messaging/types.js",
         "default": "./dist/components/templates/messaging/types.js"
       },
       "./components/templates/recipes": {
         "types": "./dist/components/templates/recipes/index.d.ts",
         "bun": "./dist/components/templates/recipes/index.js",
-        "node": "./dist/node/components/templates/recipes/index.mjs",
+        "node": "./dist/node/components/templates/recipes/index.js",
         "default": "./dist/components/templates/recipes/index.js"
       },
       "./components/templates/recipes/index": {
         "types": "./dist/components/templates/recipes/index.d.ts",
         "bun": "./dist/components/templates/recipes/index.js",
-        "node": "./dist/node/components/templates/recipes/index.mjs",
+        "node": "./dist/node/components/templates/recipes/index.js",
         "default": "./dist/components/templates/recipes/index.js"
       },
       "./components/templates/recipes/LanguageSwitcher": {
         "types": "./dist/components/templates/recipes/LanguageSwitcher.d.ts",
         "bun": "./dist/components/templates/recipes/LanguageSwitcher.js",
-        "node": "./dist/node/components/templates/recipes/LanguageSwitcher.mjs",
+        "node": "./dist/node/components/templates/recipes/LanguageSwitcher.js",
         "default": "./dist/components/templates/recipes/LanguageSwitcher.js"
       },
       "./components/templates/recipes/RecipeCard": {
         "types": "./dist/components/templates/recipes/RecipeCard.d.ts",
         "bun": "./dist/components/templates/recipes/RecipeCard.js",
-        "node": "./dist/node/components/templates/recipes/RecipeCard.mjs",
+        "node": "./dist/node/components/templates/recipes/RecipeCard.js",
         "default": "./dist/components/templates/recipes/RecipeCard.js"
       },
       "./components/templates/recipes/RecipeDetail": {
         "types": "./dist/components/templates/recipes/RecipeDetail.d.ts",
         "bun": "./dist/components/templates/recipes/RecipeDetail.js",
-        "node": "./dist/node/components/templates/recipes/RecipeDetail.mjs",
+        "node": "./dist/node/components/templates/recipes/RecipeDetail.js",
         "default": "./dist/components/templates/recipes/RecipeDetail.js"
       },
       "./components/templates/recipes/RecipeList": {
         "types": "./dist/components/templates/recipes/RecipeList.d.ts",
         "bun": "./dist/components/templates/recipes/RecipeList.js",
-        "node": "./dist/node/components/templates/recipes/RecipeList.mjs",
+        "node": "./dist/node/components/templates/recipes/RecipeList.js",
         "default": "./dist/components/templates/recipes/RecipeList.js"
       },
       "./components/templates/recipes/types": {
         "types": "./dist/components/templates/recipes/types.d.ts",
         "bun": "./dist/components/templates/recipes/types.js",
-        "node": "./dist/node/components/templates/recipes/types.mjs",
+        "node": "./dist/node/components/templates/recipes/types.js",
         "default": "./dist/components/templates/recipes/types.js"
       },
       "./components/templates/todos": {
         "types": "./dist/components/templates/todos/index.d.ts",
         "bun": "./dist/components/templates/todos/index.js",
-        "node": "./dist/node/components/templates/todos/index.mjs",
+        "node": "./dist/node/components/templates/todos/index.js",
         "default": "./dist/components/templates/todos/index.js"
       },
       "./components/templates/todos/FilterBar": {
         "types": "./dist/components/templates/todos/FilterBar.d.ts",
         "bun": "./dist/components/templates/todos/FilterBar.js",
-        "node": "./dist/node/components/templates/todos/FilterBar.mjs",
+        "node": "./dist/node/components/templates/todos/FilterBar.js",
         "default": "./dist/components/templates/todos/FilterBar.js"
       },
       "./components/templates/todos/index": {
         "types": "./dist/components/templates/todos/index.d.ts",
         "bun": "./dist/components/templates/todos/index.js",
-        "node": "./dist/node/components/templates/todos/index.mjs",
+        "node": "./dist/node/components/templates/todos/index.js",
         "default": "./dist/components/templates/todos/index.js"
       },
       "./components/templates/todos/TaskForm": {
         "types": "./dist/components/templates/todos/TaskForm.d.ts",
         "bun": "./dist/components/templates/todos/TaskForm.js",
-        "node": "./dist/node/components/templates/todos/TaskForm.mjs",
+        "node": "./dist/node/components/templates/todos/TaskForm.js",
         "default": "./dist/components/templates/todos/TaskForm.js"
       },
       "./components/templates/todos/TaskItem": {
         "types": "./dist/components/templates/todos/TaskItem.d.ts",
         "bun": "./dist/components/templates/todos/TaskItem.js",
-        "node": "./dist/node/components/templates/todos/TaskItem.mjs",
+        "node": "./dist/node/components/templates/todos/TaskItem.js",
         "default": "./dist/components/templates/todos/TaskItem.js"
       },
       "./components/templates/todos/TaskList": {
         "types": "./dist/components/templates/todos/TaskList.d.ts",
         "bun": "./dist/components/templates/todos/TaskList.js",
-        "node": "./dist/node/components/templates/todos/TaskList.mjs",
+        "node": "./dist/node/components/templates/todos/TaskList.js",
         "default": "./dist/components/templates/todos/TaskList.js"
       },
       "./components/templates/todos/types": {
         "types": "./dist/components/templates/todos/types.d.ts",
         "bun": "./dist/components/templates/todos/types.js",
-        "node": "./dist/node/components/templates/todos/types.mjs",
+        "node": "./dist/node/components/templates/todos/types.js",
         "default": "./dist/components/templates/todos/types.js"
       },
       "./config": {
         "types": "./dist/config/index.d.ts",
         "bun": "./dist/config/index.js",
-        "node": "./dist/node/config/index.mjs",
+        "node": "./dist/node/config/index.js",
         "default": "./dist/config/index.js"
       },
       "./config/contractspec-blueprint": {
         "types": "./dist/config/contractspec-blueprint.d.ts",
         "bun": "./dist/config/contractspec-blueprint.js",
-        "node": "./dist/node/config/contractspec-blueprint.mjs",
+        "node": "./dist/node/config/contractspec-blueprint.js",
         "default": "./dist/config/contractspec-blueprint.js"
       },
       "./config/contractspec-branding": {
         "types": "./dist/config/contractspec-branding.d.ts",
         "bun": "./dist/config/contractspec-branding.js",
-        "node": "./dist/node/config/contractspec-branding.mjs",
+        "node": "./dist/node/config/contractspec-branding.js",
         "default": "./dist/config/contractspec-branding.js"
       },
       "./config/contractspec-routes": {
         "types": "./dist/config/contractspec-routes.d.ts",
         "bun": "./dist/config/contractspec-routes.js",
-        "node": "./dist/node/config/contractspec-routes.mjs",
+        "node": "./dist/node/config/contractspec-routes.js",
         "default": "./dist/config/contractspec-routes.js"
       },
       "./config/index": {
         "types": "./dist/config/index.d.ts",
         "bun": "./dist/config/index.js",
-        "node": "./dist/node/config/index.mjs",
+        "node": "./dist/node/config/index.js",
         "default": "./dist/config/index.js"
       },
       "./features": {
         "types": "./dist/features/index.d.ts",
         "bun": "./dist/features/index.js",
-        "node": "./dist/node/features/index.mjs",
+        "node": "./dist/node/features/index.js",
         "default": "./dist/features/index.js"
       },
       "./features/contracts-registry": {
         "types": "./dist/features/contracts-registry.d.ts",
         "bun": "./dist/features/contracts-registry.js",
-        "node": "./dist/node/features/contracts-registry.mjs",
+        "node": "./dist/node/features/contracts-registry.js",
         "default": "./dist/features/contracts-registry.js"
       },
       "./features/docs": {
         "types": "./dist/features/docs/index.d.ts",
         "bun": "./dist/features/docs/index.js",
-        "node": "./dist/node/features/docs/index.mjs",
+        "node": "./dist/node/features/docs/index.js",
         "default": "./dist/features/docs/index.js"
       },
       "./features/docs.feature": {
         "types": "./dist/features/docs.feature.d.ts",
         "bun": "./dist/features/docs.feature.js",
-        "node": "./dist/node/features/docs.feature.mjs",
+        "node": "./dist/node/features/docs.feature.js",
         "default": "./dist/features/docs.feature.js"
       },
       "./features/docs/docs.contracts": {
         "types": "./dist/features/docs/docs.contracts.d.ts",
         "bun": "./dist/features/docs/docs.contracts.js",
-        "node": "./dist/node/features/docs/docs.contracts.mjs",
+        "node": "./dist/node/features/docs/docs.contracts.js",
         "default": "./dist/features/docs/docs.contracts.js"
       },
       "./features/docs/index": {
         "types": "./dist/features/docs/index.d.ts",
         "bun": "./dist/features/docs/index.js",
-        "node": "./dist/node/features/docs/index.mjs",
+        "node": "./dist/node/features/docs/index.js",
         "default": "./dist/features/docs/index.js"
       },
       "./features/index": {
         "types": "./dist/features/index.d.ts",
         "bun": "./dist/features/index.js",
-        "node": "./dist/node/features/index.mjs",
+        "node": "./dist/node/features/index.js",
         "default": "./dist/features/index.js"
       },
       "./features/mcp.feature": {
         "types": "./dist/features/mcp.feature.d.ts",
         "bun": "./dist/features/mcp.feature.js",
-        "node": "./dist/node/features/mcp.feature.mjs",
+        "node": "./dist/node/features/mcp.feature.js",
         "default": "./dist/features/mcp.feature.js"
       },
       "./features/presentations.feature": {
         "types": "./dist/features/presentations.feature.d.ts",
         "bun": "./dist/features/presentations.feature.js",
-        "node": "./dist/node/features/presentations.feature.mjs",
+        "node": "./dist/node/features/presentations.feature.js",
         "default": "./dist/features/presentations.feature.js"
       },
       "./features/registry": {
         "types": "./dist/features/registry.d.ts",
         "bun": "./dist/features/registry.js",
-        "node": "./dist/node/features/registry.mjs",
+        "node": "./dist/node/features/registry.js",
         "default": "./dist/features/registry.js"
       },
       "./infrastructure": {
         "types": "./dist/infrastructure/index.d.ts",
         "bun": "./dist/infrastructure/index.js",
-        "node": "./dist/node/infrastructure/index.mjs",
+        "node": "./dist/node/infrastructure/index.js",
         "default": "./dist/infrastructure/index.js"
       },
       "./infrastructure/elysia": {
         "types": "./dist/infrastructure/elysia/index.d.ts",
         "bun": "./dist/infrastructure/elysia/index.js",
-        "node": "./dist/node/infrastructure/elysia/index.mjs",
+        "node": "./dist/node/infrastructure/elysia/index.js",
         "default": "./dist/infrastructure/elysia/index.js"
       },
       "./infrastructure/elysia/index": {
         "types": "./dist/infrastructure/elysia/index.d.ts",
         "bun": "./dist/infrastructure/elysia/index.js",
-        "node": "./dist/node/infrastructure/elysia/index.mjs",
+        "node": "./dist/node/infrastructure/elysia/index.js",
         "default": "./dist/infrastructure/elysia/index.js"
       },
       "./infrastructure/elysia/logger": {
         "types": "./dist/infrastructure/elysia/logger.d.ts",
         "bun": "./dist/infrastructure/elysia/logger.js",
-        "node": "./dist/node/infrastructure/elysia/logger.mjs",
+        "node": "./dist/node/infrastructure/elysia/logger.js",
         "default": "./dist/infrastructure/elysia/logger.js"
       },
       "./infrastructure/index": {
         "types": "./dist/infrastructure/index.d.ts",
         "bun": "./dist/infrastructure/index.js",
-        "node": "./dist/node/infrastructure/index.mjs",
+        "node": "./dist/node/infrastructure/index.js",
         "default": "./dist/infrastructure/index.js"
       },
       "./libs/email": {
         "types": "./dist/libs/email.d.ts",
         "bun": "./dist/libs/email.js",
-        "node": "./dist/node/libs/email.mjs",
+        "node": "./dist/node/libs/email.js",
         "default": "./dist/libs/email.js"
       },
       "./libs/email/client": {
         "types": "./dist/libs/email/client.d.ts",
         "bun": "./dist/libs/email/client.js",
-        "node": "./dist/node/libs/email/client.mjs",
+        "node": "./dist/node/libs/email/client.js",
         "default": "./dist/libs/email/client.js"
       },
       "./libs/email/contact": {
         "types": "./dist/libs/email/contact.d.ts",
         "bun": "./dist/libs/email/contact.js",
-        "node": "./dist/node/libs/email/contact.mjs",
+        "node": "./dist/node/libs/email/contact.js",
         "default": "./dist/libs/email/contact.js"
       },
       "./libs/email/newsletter": {
         "types": "./dist/libs/email/newsletter.d.ts",
         "bun": "./dist/libs/email/newsletter.js",
-        "node": "./dist/node/libs/email/newsletter.mjs",
+        "node": "./dist/node/libs/email/newsletter.js",
         "default": "./dist/libs/email/newsletter.js"
       },
       "./libs/email/types": {
         "types": "./dist/libs/email/types.d.ts",
         "bun": "./dist/libs/email/types.js",
-        "node": "./dist/node/libs/email/types.mjs",
+        "node": "./dist/node/libs/email/types.js",
         "default": "./dist/libs/email/types.js"
       },
       "./libs/email/utils": {
         "types": "./dist/libs/email/utils.d.ts",
         "bun": "./dist/libs/email/utils.js",
-        "node": "./dist/node/libs/email/utils.mjs",
+        "node": "./dist/node/libs/email/utils.js",
         "default": "./dist/libs/email/utils.js"
       },
       "./libs/email/waitlist": {
         "types": "./dist/libs/email/waitlist.d.ts",
         "bun": "./dist/libs/email/waitlist.js",
-        "node": "./dist/node/libs/email/waitlist.mjs",
+        "node": "./dist/node/libs/email/waitlist.js",
         "default": "./dist/libs/email/waitlist.js"
       },
       "./libs/email/waitlist-application": {
         "types": "./dist/libs/email/waitlist-application.d.ts",
         "bun": "./dist/libs/email/waitlist-application.js",
-        "node": "./dist/node/libs/email/waitlist-application.mjs",
+        "node": "./dist/node/libs/email/waitlist-application.js",
         "default": "./dist/libs/email/waitlist-application.js"
       },
       "./libs/posthog/client": {
         "types": "./dist/libs/posthog/client.d.ts",
         "bun": "./dist/libs/posthog/client.js",
-        "node": "./dist/node/libs/posthog/client.mjs",
+        "node": "./dist/node/libs/posthog/client.js",
         "default": "./dist/libs/posthog/client.js"
       },
       "./libs/posthog/native": {
         "types": "./dist/libs/posthog/native.d.ts",
         "bun": "./dist/libs/posthog/native.js",
-        "node": "./dist/node/libs/posthog/native.mjs",
+        "node": "./dist/node/libs/posthog/native.js",
         "default": "./dist/libs/posthog/native.js"
       },
       "./libs/posthog/server": {
         "types": "./dist/libs/posthog/server.d.ts",
         "bun": "./dist/libs/posthog/server.js",
-        "node": "./dist/node/libs/posthog/server.mjs",
+        "node": "./dist/node/libs/posthog/server.js",
         "default": "./dist/libs/posthog/server.js"
       },
       "./libs/pricing-examples": {
         "types": "./dist/libs/pricing-examples.d.ts",
         "bun": "./dist/libs/pricing-examples.js",
-        "node": "./dist/node/libs/pricing-examples.mjs",
+        "node": "./dist/node/libs/pricing-examples.js",
         "default": "./dist/libs/pricing-examples.js"
       },
       "./presentation/features": {
         "types": "./dist/presentation/features/index.d.ts",
         "bun": "./dist/presentation/features/index.js",
-        "node": "./dist/node/presentation/features/index.mjs",
+        "node": "./dist/node/presentation/features/index.js",
         "default": "./dist/presentation/features/index.js"
       },
       "./presentation/features/atoms": {
         "types": "./dist/presentation/features/atoms/index.d.ts",
         "bun": "./dist/presentation/features/atoms/index.js",
-        "node": "./dist/node/presentation/features/atoms/index.mjs",
+        "node": "./dist/node/presentation/features/atoms/index.js",
         "default": "./dist/presentation/features/atoms/index.js"
       },
       "./presentation/features/atoms/FeatureIcon": {
         "types": "./dist/presentation/features/atoms/FeatureIcon/index.d.ts",
         "bun": "./dist/presentation/features/atoms/FeatureIcon/index.js",
-        "node": "./dist/node/presentation/features/atoms/FeatureIcon/index.mjs",
+        "node": "./dist/node/presentation/features/atoms/FeatureIcon/index.js",
         "default": "./dist/presentation/features/atoms/FeatureIcon/index.js"
       },
       "./presentation/features/atoms/FeatureIcon/FeatureIcon": {
         "types": "./dist/presentation/features/atoms/FeatureIcon/FeatureIcon.d.ts",
         "bun": "./dist/presentation/features/atoms/FeatureIcon/FeatureIcon.js",
-        "node": "./dist/node/presentation/features/atoms/FeatureIcon/FeatureIcon.mjs",
+        "node": "./dist/node/presentation/features/atoms/FeatureIcon/FeatureIcon.js",
         "default": "./dist/presentation/features/atoms/FeatureIcon/FeatureIcon.js"
       },
       "./presentation/features/atoms/FeatureIcon/index": {
         "types": "./dist/presentation/features/atoms/FeatureIcon/index.d.ts",
         "bun": "./dist/presentation/features/atoms/FeatureIcon/index.js",
-        "node": "./dist/node/presentation/features/atoms/FeatureIcon/index.mjs",
+        "node": "./dist/node/presentation/features/atoms/FeatureIcon/index.js",
         "default": "./dist/presentation/features/atoms/FeatureIcon/index.js"
       },
       "./presentation/features/atoms/index": {
         "types": "./dist/presentation/features/atoms/index.d.ts",
         "bun": "./dist/presentation/features/atoms/index.js",
-        "node": "./dist/node/presentation/features/atoms/index.mjs",
+        "node": "./dist/node/presentation/features/atoms/index.js",
         "default": "./dist/presentation/features/atoms/index.js"
       },
       "./presentation/features/hooks": {
         "types": "./dist/presentation/features/hooks/index.d.ts",
         "bun": "./dist/presentation/features/hooks/index.js",
-        "node": "./dist/node/presentation/features/hooks/index.mjs",
+        "node": "./dist/node/presentation/features/hooks/index.js",
         "default": "./dist/presentation/features/hooks/index.js"
       },
       "./presentation/features/hooks/index": {
         "types": "./dist/presentation/features/hooks/index.d.ts",
         "bun": "./dist/presentation/features/hooks/index.js",
-        "node": "./dist/node/presentation/features/hooks/index.mjs",
+        "node": "./dist/node/presentation/features/hooks/index.js",
         "default": "./dist/presentation/features/hooks/index.js"
       },
       "./presentation/features/hooks/useContractsRegistry": {
         "types": "./dist/presentation/features/hooks/useContractsRegistry.d.ts",
         "bun": "./dist/presentation/features/hooks/useContractsRegistry.js",
-        "node": "./dist/node/presentation/features/hooks/useContractsRegistry.mjs",
+        "node": "./dist/node/presentation/features/hooks/useContractsRegistry.js",
         "default": "./dist/presentation/features/hooks/useContractsRegistry.js"
       },
       "./presentation/features/hooks/useFeatureFilters": {
         "types": "./dist/presentation/features/hooks/useFeatureFilters.d.ts",
         "bun": "./dist/presentation/features/hooks/useFeatureFilters.js",
-        "node": "./dist/node/presentation/features/hooks/useFeatureFilters.mjs",
+        "node": "./dist/node/presentation/features/hooks/useFeatureFilters.js",
         "default": "./dist/presentation/features/hooks/useFeatureFilters.js"
       },
       "./presentation/features/hooks/useFeatureRegistry": {
         "types": "./dist/presentation/features/hooks/useFeatureRegistry.d.ts",
         "bun": "./dist/presentation/features/hooks/useFeatureRegistry.js",
-        "node": "./dist/node/presentation/features/hooks/useFeatureRegistry.mjs",
+        "node": "./dist/node/presentation/features/hooks/useFeatureRegistry.js",
         "default": "./dist/presentation/features/hooks/useFeatureRegistry.js"
       },
       "./presentation/features/hooks/useRelatedDocs": {
         "types": "./dist/presentation/features/hooks/useRelatedDocs.d.ts",
         "bun": "./dist/presentation/features/hooks/useRelatedDocs.js",
-        "node": "./dist/node/presentation/features/hooks/useRelatedDocs.mjs",
+        "node": "./dist/node/presentation/features/hooks/useRelatedDocs.js",
         "default": "./dist/presentation/features/hooks/useRelatedDocs.js"
       },
       "./presentation/features/index": {
         "types": "./dist/presentation/features/index.d.ts",
         "bun": "./dist/presentation/features/index.js",
-        "node": "./dist/node/presentation/features/index.mjs",
+        "node": "./dist/node/presentation/features/index.js",
         "default": "./dist/presentation/features/index.js"
       },
       "./presentation/features/molecules": {
         "types": "./dist/presentation/features/molecules/index.d.ts",
         "bun": "./dist/presentation/features/molecules/index.js",
-        "node": "./dist/node/presentation/features/molecules/index.mjs",
+        "node": "./dist/node/presentation/features/molecules/index.js",
         "default": "./dist/presentation/features/molecules/index.js"
       },
       "./presentation/features/molecules/FeatureCard": {
         "types": "./dist/presentation/features/molecules/FeatureCard/index.d.ts",
         "bun": "./dist/presentation/features/molecules/FeatureCard/index.js",
-        "node": "./dist/node/presentation/features/molecules/FeatureCard/index.mjs",
+        "node": "./dist/node/presentation/features/molecules/FeatureCard/index.js",
         "default": "./dist/presentation/features/molecules/FeatureCard/index.js"
       },
       "./presentation/features/molecules/FeatureCard/FeatureCard": {
         "types": "./dist/presentation/features/molecules/FeatureCard/FeatureCard.d.ts",
         "bun": "./dist/presentation/features/molecules/FeatureCard/FeatureCard.js",
-        "node": "./dist/node/presentation/features/molecules/FeatureCard/FeatureCard.mjs",
+        "node": "./dist/node/presentation/features/molecules/FeatureCard/FeatureCard.js",
         "default": "./dist/presentation/features/molecules/FeatureCard/FeatureCard.js"
       },
       "./presentation/features/molecules/FeatureCard/index": {
         "types": "./dist/presentation/features/molecules/FeatureCard/index.d.ts",
         "bun": "./dist/presentation/features/molecules/FeatureCard/index.js",
-        "node": "./dist/node/presentation/features/molecules/FeatureCard/index.mjs",
+        "node": "./dist/node/presentation/features/molecules/FeatureCard/index.js",
         "default": "./dist/presentation/features/molecules/FeatureCard/index.js"
       },
       "./presentation/features/molecules/FeatureCard/types": {
         "types": "./dist/presentation/features/molecules/FeatureCard/types.d.ts",
         "bun": "./dist/presentation/features/molecules/FeatureCard/types.js",
-        "node": "./dist/node/presentation/features/molecules/FeatureCard/types.mjs",
+        "node": "./dist/node/presentation/features/molecules/FeatureCard/types.js",
         "default": "./dist/presentation/features/molecules/FeatureCard/types.js"
       },
       "./presentation/features/molecules/FeatureCategoryHeader": {
         "types": "./dist/presentation/features/molecules/FeatureCategoryHeader/index.d.ts",
         "bun": "./dist/presentation/features/molecules/FeatureCategoryHeader/index.js",
-        "node": "./dist/node/presentation/features/molecules/FeatureCategoryHeader/index.mjs",
+        "node": "./dist/node/presentation/features/molecules/FeatureCategoryHeader/index.js",
         "default": "./dist/presentation/features/molecules/FeatureCategoryHeader/index.js"
       },
       "./presentation/features/molecules/FeatureCategoryHeader/FeatureCategoryHeader": {
         "types": "./dist/presentation/features/molecules/FeatureCategoryHeader/FeatureCategoryHeader.d.ts",
         "bun": "./dist/presentation/features/molecules/FeatureCategoryHeader/FeatureCategoryHeader.js",
-        "node": "./dist/node/presentation/features/molecules/FeatureCategoryHeader/FeatureCategoryHeader.mjs",
+        "node": "./dist/node/presentation/features/molecules/FeatureCategoryHeader/FeatureCategoryHeader.js",
         "default": "./dist/presentation/features/molecules/FeatureCategoryHeader/FeatureCategoryHeader.js"
       },
       "./presentation/features/molecules/FeatureCategoryHeader/index": {
         "types": "./dist/presentation/features/molecules/FeatureCategoryHeader/index.d.ts",
         "bun": "./dist/presentation/features/molecules/FeatureCategoryHeader/index.js",
-        "node": "./dist/node/presentation/features/molecules/FeatureCategoryHeader/index.mjs",
+        "node": "./dist/node/presentation/features/molecules/FeatureCategoryHeader/index.js",
         "default": "./dist/presentation/features/molecules/FeatureCategoryHeader/index.js"
       },
       "./presentation/features/molecules/FeatureFilters": {
         "types": "./dist/presentation/features/molecules/FeatureFilters/index.d.ts",
         "bun": "./dist/presentation/features/molecules/FeatureFilters/index.js",
-        "node": "./dist/node/presentation/features/molecules/FeatureFilters/index.mjs",
+        "node": "./dist/node/presentation/features/molecules/FeatureFilters/index.js",
         "default": "./dist/presentation/features/molecules/FeatureFilters/index.js"
       },
       "./presentation/features/molecules/FeatureFilters/FeatureFilters": {
         "types": "./dist/presentation/features/molecules/FeatureFilters/FeatureFilters.d.ts",
         "bun": "./dist/presentation/features/molecules/FeatureFilters/FeatureFilters.js",
-        "node": "./dist/node/presentation/features/molecules/FeatureFilters/FeatureFilters.mjs",
+        "node": "./dist/node/presentation/features/molecules/FeatureFilters/FeatureFilters.js",
         "default": "./dist/presentation/features/molecules/FeatureFilters/FeatureFilters.js"
       },
       "./presentation/features/molecules/FeatureFilters/index": {
         "types": "./dist/presentation/features/molecules/FeatureFilters/index.d.ts",
         "bun": "./dist/presentation/features/molecules/FeatureFilters/index.js",
-        "node": "./dist/node/presentation/features/molecules/FeatureFilters/index.mjs",
+        "node": "./dist/node/presentation/features/molecules/FeatureFilters/index.js",
         "default": "./dist/presentation/features/molecules/FeatureFilters/index.js"
       },
       "./presentation/features/molecules/FeatureFilters/types": {
         "types": "./dist/presentation/features/molecules/FeatureFilters/types.d.ts",
         "bun": "./dist/presentation/features/molecules/FeatureFilters/types.js",
-        "node": "./dist/node/presentation/features/molecules/FeatureFilters/types.mjs",
+        "node": "./dist/node/presentation/features/molecules/FeatureFilters/types.js",
         "default": "./dist/presentation/features/molecules/FeatureFilters/types.js"
       },
       "./presentation/features/molecules/FeatureHoverPreview": {
         "types": "./dist/presentation/features/molecules/FeatureHoverPreview/index.d.ts",
         "bun": "./dist/presentation/features/molecules/FeatureHoverPreview/index.js",
-        "node": "./dist/node/presentation/features/molecules/FeatureHoverPreview/index.mjs",
+        "node": "./dist/node/presentation/features/molecules/FeatureHoverPreview/index.js",
         "default": "./dist/presentation/features/molecules/FeatureHoverPreview/index.js"
       },
       "./presentation/features/molecules/FeatureHoverPreview/FeatureHoverPreview": {
         "types": "./dist/presentation/features/molecules/FeatureHoverPreview/FeatureHoverPreview.d.ts",
         "bun": "./dist/presentation/features/molecules/FeatureHoverPreview/FeatureHoverPreview.js",
-        "node": "./dist/node/presentation/features/molecules/FeatureHoverPreview/FeatureHoverPreview.mjs",
+        "node": "./dist/node/presentation/features/molecules/FeatureHoverPreview/FeatureHoverPreview.js",
         "default": "./dist/presentation/features/molecules/FeatureHoverPreview/FeatureHoverPreview.js"
       },
       "./presentation/features/molecules/FeatureHoverPreview/index": {
         "types": "./dist/presentation/features/molecules/FeatureHoverPreview/index.d.ts",
         "bun": "./dist/presentation/features/molecules/FeatureHoverPreview/index.js",
-        "node": "./dist/node/presentation/features/molecules/FeatureHoverPreview/index.mjs",
+        "node": "./dist/node/presentation/features/molecules/FeatureHoverPreview/index.js",
         "default": "./dist/presentation/features/molecules/FeatureHoverPreview/index.js"
       },
       "./presentation/features/molecules/index": {
         "types": "./dist/presentation/features/molecules/index.d.ts",
         "bun": "./dist/presentation/features/molecules/index.js",
-        "node": "./dist/node/presentation/features/molecules/index.mjs",
+        "node": "./dist/node/presentation/features/molecules/index.js",
         "default": "./dist/presentation/features/molecules/index.js"
       },
       "./presentation/features/organisms": {
         "types": "./dist/presentation/features/organisms/index.d.ts",
         "bun": "./dist/presentation/features/organisms/index.js",
-        "node": "./dist/node/presentation/features/organisms/index.mjs",
+        "node": "./dist/node/presentation/features/organisms/index.js",
         "default": "./dist/presentation/features/organisms/index.js"
       },
       "./presentation/features/organisms/FeatureDataViewsList": {
         "types": "./dist/presentation/features/organisms/FeatureDataViewsList.d.ts",
         "bun": "./dist/presentation/features/organisms/FeatureDataViewsList.js",
-        "node": "./dist/node/presentation/features/organisms/FeatureDataViewsList.mjs",
+        "node": "./dist/node/presentation/features/organisms/FeatureDataViewsList.js",
         "default": "./dist/presentation/features/organisms/FeatureDataViewsList.js"
       },
       "./presentation/features/organisms/FeatureDetail": {
         "types": "./dist/presentation/features/organisms/FeatureDetail/index.d.ts",
         "bun": "./dist/presentation/features/organisms/FeatureDetail/index.js",
-        "node": "./dist/node/presentation/features/organisms/FeatureDetail/index.mjs",
+        "node": "./dist/node/presentation/features/organisms/FeatureDetail/index.js",
         "default": "./dist/presentation/features/organisms/FeatureDetail/index.js"
       },
       "./presentation/features/organisms/FeatureDetail/FeatureDetail": {
         "types": "./dist/presentation/features/organisms/FeatureDetail/FeatureDetail.d.ts",
         "bun": "./dist/presentation/features/organisms/FeatureDetail/FeatureDetail.js",
-        "node": "./dist/node/presentation/features/organisms/FeatureDetail/FeatureDetail.mjs",
+        "node": "./dist/node/presentation/features/organisms/FeatureDetail/FeatureDetail.js",
         "default": "./dist/presentation/features/organisms/FeatureDetail/FeatureDetail.js"
       },
       "./presentation/features/organisms/FeatureDetail/index": {
         "types": "./dist/presentation/features/organisms/FeatureDetail/index.d.ts",
         "bun": "./dist/presentation/features/organisms/FeatureDetail/index.js",
-        "node": "./dist/node/presentation/features/organisms/FeatureDetail/index.mjs",
+        "node": "./dist/node/presentation/features/organisms/FeatureDetail/index.js",
         "default": "./dist/presentation/features/organisms/FeatureDetail/index.js"
       },
       "./presentation/features/organisms/FeatureDetail/types": {
         "types": "./dist/presentation/features/organisms/FeatureDetail/types.d.ts",
         "bun": "./dist/presentation/features/organisms/FeatureDetail/types.js",
-        "node": "./dist/node/presentation/features/organisms/FeatureDetail/types.mjs",
+        "node": "./dist/node/presentation/features/organisms/FeatureDetail/types.js",
         "default": "./dist/presentation/features/organisms/FeatureDetail/types.js"
       },
       "./presentation/features/organisms/FeatureDiscovery": {
         "types": "./dist/presentation/features/organisms/FeatureDiscovery/index.d.ts",
         "bun": "./dist/presentation/features/organisms/FeatureDiscovery/index.js",
-        "node": "./dist/node/presentation/features/organisms/FeatureDiscovery/index.mjs",
+        "node": "./dist/node/presentation/features/organisms/FeatureDiscovery/index.js",
         "default": "./dist/presentation/features/organisms/FeatureDiscovery/index.js"
       },
       "./presentation/features/organisms/FeatureDiscovery/FeatureDiscovery": {
         "types": "./dist/presentation/features/organisms/FeatureDiscovery/FeatureDiscovery.d.ts",
         "bun": "./dist/presentation/features/organisms/FeatureDiscovery/FeatureDiscovery.js",
-        "node": "./dist/node/presentation/features/organisms/FeatureDiscovery/FeatureDiscovery.mjs",
+        "node": "./dist/node/presentation/features/organisms/FeatureDiscovery/FeatureDiscovery.js",
         "default": "./dist/presentation/features/organisms/FeatureDiscovery/FeatureDiscovery.js"
       },
       "./presentation/features/organisms/FeatureDiscovery/index": {
         "types": "./dist/presentation/features/organisms/FeatureDiscovery/index.d.ts",
         "bun": "./dist/presentation/features/organisms/FeatureDiscovery/index.js",
-        "node": "./dist/node/presentation/features/organisms/FeatureDiscovery/index.mjs",
+        "node": "./dist/node/presentation/features/organisms/FeatureDiscovery/index.js",
         "default": "./dist/presentation/features/organisms/FeatureDiscovery/index.js"
       },
       "./presentation/features/organisms/FeatureDiscovery/types": {
         "types": "./dist/presentation/features/organisms/FeatureDiscovery/types.d.ts",
         "bun": "./dist/presentation/features/organisms/FeatureDiscovery/types.js",
-        "node": "./dist/node/presentation/features/organisms/FeatureDiscovery/types.mjs",
+        "node": "./dist/node/presentation/features/organisms/FeatureDiscovery/types.js",
         "default": "./dist/presentation/features/organisms/FeatureDiscovery/types.js"
       },
       "./presentation/features/organisms/FeatureEventsList": {
         "types": "./dist/presentation/features/organisms/FeatureEventsList.d.ts",
         "bun": "./dist/presentation/features/organisms/FeatureEventsList.js",
-        "node": "./dist/node/presentation/features/organisms/FeatureEventsList.mjs",
+        "node": "./dist/node/presentation/features/organisms/FeatureEventsList.js",
         "default": "./dist/presentation/features/organisms/FeatureEventsList.js"
       },
       "./presentation/features/organisms/FeatureFormsList": {
         "types": "./dist/presentation/features/organisms/FeatureFormsList.d.ts",
         "bun": "./dist/presentation/features/organisms/FeatureFormsList.js",
-        "node": "./dist/node/presentation/features/organisms/FeatureFormsList.mjs",
+        "node": "./dist/node/presentation/features/organisms/FeatureFormsList.js",
         "default": "./dist/presentation/features/organisms/FeatureFormsList.js"
       },
       "./presentation/features/organisms/FeatureOperationsList": {
         "types": "./dist/presentation/features/organisms/FeatureOperationsList.d.ts",
         "bun": "./dist/presentation/features/organisms/FeatureOperationsList.js",
-        "node": "./dist/node/presentation/features/organisms/FeatureOperationsList.mjs",
+        "node": "./dist/node/presentation/features/organisms/FeatureOperationsList.js",
         "default": "./dist/presentation/features/organisms/FeatureOperationsList.js"
       },
       "./presentation/features/organisms/FeaturePresentationsList": {
         "types": "./dist/presentation/features/organisms/FeaturePresentationsList.d.ts",
         "bun": "./dist/presentation/features/organisms/FeaturePresentationsList.js",
-        "node": "./dist/node/presentation/features/organisms/FeaturePresentationsList.mjs",
+        "node": "./dist/node/presentation/features/organisms/FeaturePresentationsList.js",
         "default": "./dist/presentation/features/organisms/FeaturePresentationsList.js"
       },
       "./presentation/features/organisms/index": {
         "types": "./dist/presentation/features/organisms/index.d.ts",
         "bun": "./dist/presentation/features/organisms/index.js",
-        "node": "./dist/node/presentation/features/organisms/index.mjs",
+        "node": "./dist/node/presentation/features/organisms/index.js",
         "default": "./dist/presentation/features/organisms/index.js"
       },
       "./presentation/features/templates/FeatureDataViewDetailTemplate": {
         "types": "./dist/presentation/features/templates/FeatureDataViewDetailTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureDataViewDetailTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeatureDataViewDetailTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureDataViewDetailTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeatureDataViewDetailTemplate/index.js"
       },
       "./presentation/features/templates/FeatureDataViewDetailTemplate/FeatureDataViewDetailTemplate": {
         "types": "./dist/presentation/features/templates/FeatureDataViewDetailTemplate/FeatureDataViewDetailTemplate.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureDataViewDetailTemplate/FeatureDataViewDetailTemplate.js",
-        "node": "./dist/node/presentation/features/templates/FeatureDataViewDetailTemplate/FeatureDataViewDetailTemplate.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureDataViewDetailTemplate/FeatureDataViewDetailTemplate.js",
         "default": "./dist/presentation/features/templates/FeatureDataViewDetailTemplate/FeatureDataViewDetailTemplate.js"
       },
       "./presentation/features/templates/FeatureDataViewDetailTemplate/index": {
         "types": "./dist/presentation/features/templates/FeatureDataViewDetailTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureDataViewDetailTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeatureDataViewDetailTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureDataViewDetailTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeatureDataViewDetailTemplate/index.js"
       },
       "./presentation/features/templates/FeatureDataViewDetailTemplate/types": {
         "types": "./dist/presentation/features/templates/FeatureDataViewDetailTemplate/types.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureDataViewDetailTemplate/types.js",
-        "node": "./dist/node/presentation/features/templates/FeatureDataViewDetailTemplate/types.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureDataViewDetailTemplate/types.js",
         "default": "./dist/presentation/features/templates/FeatureDataViewDetailTemplate/types.js"
       },
       "./presentation/features/templates/FeatureDataViewsTemplate": {
         "types": "./dist/presentation/features/templates/FeatureDataViewsTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureDataViewsTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeatureDataViewsTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureDataViewsTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeatureDataViewsTemplate/index.js"
       },
       "./presentation/features/templates/FeatureDataViewsTemplate/FeatureDataViewsTemplate": {
         "types": "./dist/presentation/features/templates/FeatureDataViewsTemplate/FeatureDataViewsTemplate.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureDataViewsTemplate/FeatureDataViewsTemplate.js",
-        "node": "./dist/node/presentation/features/templates/FeatureDataViewsTemplate/FeatureDataViewsTemplate.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureDataViewsTemplate/FeatureDataViewsTemplate.js",
         "default": "./dist/presentation/features/templates/FeatureDataViewsTemplate/FeatureDataViewsTemplate.js"
       },
       "./presentation/features/templates/FeatureDataViewsTemplate/index": {
         "types": "./dist/presentation/features/templates/FeatureDataViewsTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureDataViewsTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeatureDataViewsTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureDataViewsTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeatureDataViewsTemplate/index.js"
       },
       "./presentation/features/templates/FeatureEventDetailTemplate": {
         "types": "./dist/presentation/features/templates/FeatureEventDetailTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureEventDetailTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeatureEventDetailTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureEventDetailTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeatureEventDetailTemplate/index.js"
       },
       "./presentation/features/templates/FeatureEventDetailTemplate/FeatureEventDetailTemplate": {
         "types": "./dist/presentation/features/templates/FeatureEventDetailTemplate/FeatureEventDetailTemplate.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureEventDetailTemplate/FeatureEventDetailTemplate.js",
-        "node": "./dist/node/presentation/features/templates/FeatureEventDetailTemplate/FeatureEventDetailTemplate.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureEventDetailTemplate/FeatureEventDetailTemplate.js",
         "default": "./dist/presentation/features/templates/FeatureEventDetailTemplate/FeatureEventDetailTemplate.js"
       },
       "./presentation/features/templates/FeatureEventDetailTemplate/index": {
         "types": "./dist/presentation/features/templates/FeatureEventDetailTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureEventDetailTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeatureEventDetailTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureEventDetailTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeatureEventDetailTemplate/index.js"
       },
       "./presentation/features/templates/FeatureEventDetailTemplate/types": {
         "types": "./dist/presentation/features/templates/FeatureEventDetailTemplate/types.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureEventDetailTemplate/types.js",
-        "node": "./dist/node/presentation/features/templates/FeatureEventDetailTemplate/types.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureEventDetailTemplate/types.js",
         "default": "./dist/presentation/features/templates/FeatureEventDetailTemplate/types.js"
       },
       "./presentation/features/templates/FeatureEventsTemplate": {
         "types": "./dist/presentation/features/templates/FeatureEventsTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureEventsTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeatureEventsTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureEventsTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeatureEventsTemplate/index.js"
       },
       "./presentation/features/templates/FeatureEventsTemplate/FeatureEventsTemplate": {
         "types": "./dist/presentation/features/templates/FeatureEventsTemplate/FeatureEventsTemplate.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureEventsTemplate/FeatureEventsTemplate.js",
-        "node": "./dist/node/presentation/features/templates/FeatureEventsTemplate/FeatureEventsTemplate.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureEventsTemplate/FeatureEventsTemplate.js",
         "default": "./dist/presentation/features/templates/FeatureEventsTemplate/FeatureEventsTemplate.js"
       },
       "./presentation/features/templates/FeatureEventsTemplate/index": {
         "types": "./dist/presentation/features/templates/FeatureEventsTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureEventsTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeatureEventsTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureEventsTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeatureEventsTemplate/index.js"
       },
       "./presentation/features/templates/FeatureFormDetailTemplate": {
         "types": "./dist/presentation/features/templates/FeatureFormDetailTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureFormDetailTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeatureFormDetailTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureFormDetailTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeatureFormDetailTemplate/index.js"
       },
       "./presentation/features/templates/FeatureFormDetailTemplate/FeatureFormDetailTemplate": {
         "types": "./dist/presentation/features/templates/FeatureFormDetailTemplate/FeatureFormDetailTemplate.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureFormDetailTemplate/FeatureFormDetailTemplate.js",
-        "node": "./dist/node/presentation/features/templates/FeatureFormDetailTemplate/FeatureFormDetailTemplate.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureFormDetailTemplate/FeatureFormDetailTemplate.js",
         "default": "./dist/presentation/features/templates/FeatureFormDetailTemplate/FeatureFormDetailTemplate.js"
       },
       "./presentation/features/templates/FeatureFormDetailTemplate/index": {
         "types": "./dist/presentation/features/templates/FeatureFormDetailTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureFormDetailTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeatureFormDetailTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureFormDetailTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeatureFormDetailTemplate/index.js"
       },
       "./presentation/features/templates/FeatureFormDetailTemplate/types": {
         "types": "./dist/presentation/features/templates/FeatureFormDetailTemplate/types.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureFormDetailTemplate/types.js",
-        "node": "./dist/node/presentation/features/templates/FeatureFormDetailTemplate/types.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureFormDetailTemplate/types.js",
         "default": "./dist/presentation/features/templates/FeatureFormDetailTemplate/types.js"
       },
       "./presentation/features/templates/FeatureFormsTemplate": {
         "types": "./dist/presentation/features/templates/FeatureFormsTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureFormsTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeatureFormsTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureFormsTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeatureFormsTemplate/index.js"
       },
       "./presentation/features/templates/FeatureFormsTemplate/FeatureFormsTemplate": {
         "types": "./dist/presentation/features/templates/FeatureFormsTemplate/FeatureFormsTemplate.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureFormsTemplate/FeatureFormsTemplate.js",
-        "node": "./dist/node/presentation/features/templates/FeatureFormsTemplate/FeatureFormsTemplate.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureFormsTemplate/FeatureFormsTemplate.js",
         "default": "./dist/presentation/features/templates/FeatureFormsTemplate/FeatureFormsTemplate.js"
       },
       "./presentation/features/templates/FeatureFormsTemplate/index": {
         "types": "./dist/presentation/features/templates/FeatureFormsTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureFormsTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeatureFormsTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureFormsTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeatureFormsTemplate/index.js"
       },
       "./presentation/features/templates/FeatureOperationDetailTemplate": {
         "types": "./dist/presentation/features/templates/FeatureOperationDetailTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureOperationDetailTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeatureOperationDetailTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureOperationDetailTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeatureOperationDetailTemplate/index.js"
       },
       "./presentation/features/templates/FeatureOperationDetailTemplate/FeatureOperationDetailTemplate": {
         "types": "./dist/presentation/features/templates/FeatureOperationDetailTemplate/FeatureOperationDetailTemplate.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureOperationDetailTemplate/FeatureOperationDetailTemplate.js",
-        "node": "./dist/node/presentation/features/templates/FeatureOperationDetailTemplate/FeatureOperationDetailTemplate.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureOperationDetailTemplate/FeatureOperationDetailTemplate.js",
         "default": "./dist/presentation/features/templates/FeatureOperationDetailTemplate/FeatureOperationDetailTemplate.js"
       },
       "./presentation/features/templates/FeatureOperationDetailTemplate/index": {
         "types": "./dist/presentation/features/templates/FeatureOperationDetailTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureOperationDetailTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeatureOperationDetailTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureOperationDetailTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeatureOperationDetailTemplate/index.js"
       },
       "./presentation/features/templates/FeatureOperationDetailTemplate/types": {
         "types": "./dist/presentation/features/templates/FeatureOperationDetailTemplate/types.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureOperationDetailTemplate/types.js",
-        "node": "./dist/node/presentation/features/templates/FeatureOperationDetailTemplate/types.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureOperationDetailTemplate/types.js",
         "default": "./dist/presentation/features/templates/FeatureOperationDetailTemplate/types.js"
       },
       "./presentation/features/templates/FeatureOperationsTemplate": {
         "types": "./dist/presentation/features/templates/FeatureOperationsTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureOperationsTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeatureOperationsTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureOperationsTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeatureOperationsTemplate/index.js"
       },
       "./presentation/features/templates/FeatureOperationsTemplate/FeatureOperationsTemplate": {
         "types": "./dist/presentation/features/templates/FeatureOperationsTemplate/FeatureOperationsTemplate.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureOperationsTemplate/FeatureOperationsTemplate.js",
-        "node": "./dist/node/presentation/features/templates/FeatureOperationsTemplate/FeatureOperationsTemplate.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureOperationsTemplate/FeatureOperationsTemplate.js",
         "default": "./dist/presentation/features/templates/FeatureOperationsTemplate/FeatureOperationsTemplate.js"
       },
       "./presentation/features/templates/FeatureOperationsTemplate/index": {
         "types": "./dist/presentation/features/templates/FeatureOperationsTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureOperationsTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeatureOperationsTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureOperationsTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeatureOperationsTemplate/index.js"
       },
       "./presentation/features/templates/FeatureOverviewTemplate": {
         "types": "./dist/presentation/features/templates/FeatureOverviewTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureOverviewTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeatureOverviewTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureOverviewTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeatureOverviewTemplate/index.js"
       },
       "./presentation/features/templates/FeatureOverviewTemplate/FeatureOverviewTemplate": {
         "types": "./dist/presentation/features/templates/FeatureOverviewTemplate/FeatureOverviewTemplate.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureOverviewTemplate/FeatureOverviewTemplate.js",
-        "node": "./dist/node/presentation/features/templates/FeatureOverviewTemplate/FeatureOverviewTemplate.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureOverviewTemplate/FeatureOverviewTemplate.js",
         "default": "./dist/presentation/features/templates/FeatureOverviewTemplate/FeatureOverviewTemplate.js"
       },
       "./presentation/features/templates/FeatureOverviewTemplate/index": {
         "types": "./dist/presentation/features/templates/FeatureOverviewTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeatureOverviewTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeatureOverviewTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeatureOverviewTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeatureOverviewTemplate/index.js"
       },
       "./presentation/features/templates/FeaturePresentationDetailTemplate": {
         "types": "./dist/presentation/features/templates/FeaturePresentationDetailTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeaturePresentationDetailTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeaturePresentationDetailTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeaturePresentationDetailTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeaturePresentationDetailTemplate/index.js"
       },
       "./presentation/features/templates/FeaturePresentationDetailTemplate/FeaturePresentationDetailTemplate": {
         "types": "./dist/presentation/features/templates/FeaturePresentationDetailTemplate/FeaturePresentationDetailTemplate.d.ts",
         "bun": "./dist/presentation/features/templates/FeaturePresentationDetailTemplate/FeaturePresentationDetailTemplate.js",
-        "node": "./dist/node/presentation/features/templates/FeaturePresentationDetailTemplate/FeaturePresentationDetailTemplate.mjs",
+        "node": "./dist/node/presentation/features/templates/FeaturePresentationDetailTemplate/FeaturePresentationDetailTemplate.js",
         "default": "./dist/presentation/features/templates/FeaturePresentationDetailTemplate/FeaturePresentationDetailTemplate.js"
       },
       "./presentation/features/templates/FeaturePresentationDetailTemplate/index": {
         "types": "./dist/presentation/features/templates/FeaturePresentationDetailTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeaturePresentationDetailTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeaturePresentationDetailTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeaturePresentationDetailTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeaturePresentationDetailTemplate/index.js"
       },
       "./presentation/features/templates/FeaturePresentationDetailTemplate/types": {
         "types": "./dist/presentation/features/templates/FeaturePresentationDetailTemplate/types.d.ts",
         "bun": "./dist/presentation/features/templates/FeaturePresentationDetailTemplate/types.js",
-        "node": "./dist/node/presentation/features/templates/FeaturePresentationDetailTemplate/types.mjs",
+        "node": "./dist/node/presentation/features/templates/FeaturePresentationDetailTemplate/types.js",
         "default": "./dist/presentation/features/templates/FeaturePresentationDetailTemplate/types.js"
       },
       "./presentation/features/templates/FeaturePresentationsTemplate": {
         "types": "./dist/presentation/features/templates/FeaturePresentationsTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeaturePresentationsTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeaturePresentationsTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeaturePresentationsTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeaturePresentationsTemplate/index.js"
       },
       "./presentation/features/templates/FeaturePresentationsTemplate/FeaturePresentationsTemplate": {
         "types": "./dist/presentation/features/templates/FeaturePresentationsTemplate/FeaturePresentationsTemplate.d.ts",
         "bun": "./dist/presentation/features/templates/FeaturePresentationsTemplate/FeaturePresentationsTemplate.js",
-        "node": "./dist/node/presentation/features/templates/FeaturePresentationsTemplate/FeaturePresentationsTemplate.mjs",
+        "node": "./dist/node/presentation/features/templates/FeaturePresentationsTemplate/FeaturePresentationsTemplate.js",
         "default": "./dist/presentation/features/templates/FeaturePresentationsTemplate/FeaturePresentationsTemplate.js"
       },
       "./presentation/features/templates/FeaturePresentationsTemplate/index": {
         "types": "./dist/presentation/features/templates/FeaturePresentationsTemplate/index.d.ts",
         "bun": "./dist/presentation/features/templates/FeaturePresentationsTemplate/index.js",
-        "node": "./dist/node/presentation/features/templates/FeaturePresentationsTemplate/index.mjs",
+        "node": "./dist/node/presentation/features/templates/FeaturePresentationsTemplate/index.js",
         "default": "./dist/presentation/features/templates/FeaturePresentationsTemplate/index.js"
       },
       "./presentation/features/templates/types": {
         "types": "./dist/presentation/features/templates/types.d.ts",
         "bun": "./dist/presentation/features/templates/types.js",
-        "node": "./dist/node/presentation/features/templates/types.mjs",
+        "node": "./dist/node/presentation/features/templates/types.js",
         "default": "./dist/presentation/features/templates/types.js"
       }
     }

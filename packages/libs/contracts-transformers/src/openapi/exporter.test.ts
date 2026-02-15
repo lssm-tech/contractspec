@@ -8,7 +8,7 @@ import {
   FeatureRegistry,
   OperationSpecRegistry,
   StabilityEnum,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import {
   contractSpecToJson,

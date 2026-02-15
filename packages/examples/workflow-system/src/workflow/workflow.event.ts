@@ -1,5 +1,5 @@
-import { defineEvent, defineSchemaModel } from '@contractspec/lib.contracts';
-import { ScalarTypeEnum } from '@contractspec/lib.schema';
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, defineSchemaModel } from '@contractspec/lib.schema';
 
 /**
  * Payload for workflow definition events.

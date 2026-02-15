@@ -15,7 +15,7 @@ export function generateWorkflowRunnerTemplate({
   InMemoryStateStore,
   WorkflowRegistry,
   WorkflowRunner,
-} from '@contractspec/lib.contracts/workflow';
+} from '@contractspec/lib.contracts-spec/workflow';
 import { ${exportName} } from '${specImportPath}';
 
 /**

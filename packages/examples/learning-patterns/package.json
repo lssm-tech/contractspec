@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.learning-patterns",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Example: drills + ambient coach + quests learning patterns, powered by Learning Journey (event-driven, deterministic).",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -33,7 +33,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/module.learning-journey": "workspace:*"
   },
   "devDependencies": {
@@ -47,77 +47,77 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/learning-patterns.docblock": {
         "types": "./dist/docs/learning-patterns.docblock.d.ts",
         "bun": "./dist/docs/learning-patterns.docblock.js",
-        "node": "./dist/node/docs/learning-patterns.docblock.mjs",
+        "node": "./dist/node/docs/learning-patterns.docblock.js",
         "browser": "./dist/browser/docs/learning-patterns.docblock.js",
         "default": "./dist/docs/learning-patterns.docblock.js"
       },
       "./events": {
         "types": "./dist/events.d.ts",
         "bun": "./dist/events.js",
-        "node": "./dist/node/events.mjs",
+        "node": "./dist/node/events.js",
         "browser": "./dist/browser/events.js",
         "default": "./dist/events.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./tracks": {
         "types": "./dist/tracks/index.d.ts",
         "bun": "./dist/tracks/index.js",
-        "node": "./dist/node/tracks/index.mjs",
+        "node": "./dist/node/tracks/index.js",
         "browser": "./dist/browser/tracks/index.js",
         "default": "./dist/tracks/index.js"
       },
       "./tracks/ambient-coach": {
         "types": "./dist/tracks/ambient-coach.d.ts",
         "bun": "./dist/tracks/ambient-coach.js",
-        "node": "./dist/node/tracks/ambient-coach.mjs",
+        "node": "./dist/node/tracks/ambient-coach.js",
         "browser": "./dist/browser/tracks/ambient-coach.js",
         "default": "./dist/tracks/ambient-coach.js"
       },
       "./tracks/drills": {
         "types": "./dist/tracks/drills.d.ts",
         "bun": "./dist/tracks/drills.js",
-        "node": "./dist/node/tracks/drills.mjs",
+        "node": "./dist/node/tracks/drills.js",
         "browser": "./dist/browser/tracks/drills.js",
         "default": "./dist/tracks/drills.js"
       },
       "./tracks/index": {
         "types": "./dist/tracks/index.d.ts",
         "bun": "./dist/tracks/index.js",
-        "node": "./dist/node/tracks/index.mjs",
+        "node": "./dist/node/tracks/index.js",
         "browser": "./dist/browser/tracks/index.js",
         "default": "./dist/tracks/index.js"
       },
       "./tracks/quests": {
         "types": "./dist/tracks/quests.d.ts",
         "bun": "./dist/tracks/quests.js",
-        "node": "./dist/node/tracks/quests.mjs",
+        "node": "./dist/node/tracks/quests.js",
         "browser": "./dist/browser/tracks/quests.js",
         "default": "./dist/tracks/quests.js"
       }

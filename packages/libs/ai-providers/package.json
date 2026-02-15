@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.ai-providers",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Unified AI provider abstraction layer",
   "keywords": [
     "contractspec",
@@ -28,7 +28,7 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
@@ -60,42 +60,42 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./factory": {
         "types": "./dist/factory.d.ts",
         "bun": "./dist/factory.js",
-        "node": "./dist/node/factory.mjs",
+        "node": "./dist/node/factory.js",
         "browser": "./dist/browser/factory.js",
         "default": "./dist/factory.js"
       },
       "./legacy": {
         "types": "./dist/legacy.d.ts",
         "bun": "./dist/legacy.js",
-        "node": "./dist/node/legacy.mjs",
+        "node": "./dist/node/legacy.js",
         "browser": "./dist/browser/legacy.js",
         "default": "./dist/legacy.js"
       },
       "./models": {
         "types": "./dist/models.d.ts",
         "bun": "./dist/models.js",
-        "node": "./dist/node/models.mjs",
+        "node": "./dist/node/models.js",
         "browser": "./dist/browser/models.js",
         "default": "./dist/models.js"
       },
       "./types": {
         "types": "./dist/types.d.ts",
         "bun": "./dist/types.js",
-        "node": "./dist/node/types.mjs",
+        "node": "./dist/node/types.js",
         "browser": "./dist/browser/types.js",
         "default": "./dist/types.js"
       },
       "./validation": {
         "types": "./dist/validation.d.ts",
         "bun": "./dist/validation.js",
-        "node": "./dist/node/validation.mjs",
+        "node": "./dist/node/validation.js",
         "browser": "./dist/browser/validation.js",
         "default": "./dist/validation.js"
       }

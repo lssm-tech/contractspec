@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.workflow-system",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Workflow and approval system example for ContractSpec - State machine with role-based transitions",
   "types": "./dist/index.d.ts",
   "type": "module",
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.example-shared-ui": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.runtime-sandbox": "workspace:*",
@@ -30,7 +30,7 @@
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
     "typescript": "catalog:",
-    "@types/react": "^19.2.13",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.2",
     "@contractspec/tool.bun": "workspace:*"
   },
@@ -103,399 +103,342 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./approval": {
         "types": "./dist/approval/index.d.ts",
         "bun": "./dist/approval/index.js",
-        "node": "./dist/node/approval/index.mjs",
         "browser": "./dist/browser/approval/index.js",
         "default": "./dist/approval/index.js"
       },
       "./approval/approval.enum": {
         "types": "./dist/approval/approval.enum.d.ts",
         "bun": "./dist/approval/approval.enum.js",
-        "node": "./dist/node/approval/approval.enum.mjs",
         "browser": "./dist/browser/approval/approval.enum.js",
         "default": "./dist/approval/approval.enum.js"
       },
       "./approval/approval.event": {
         "types": "./dist/approval/approval.event.d.ts",
         "bun": "./dist/approval/approval.event.js",
-        "node": "./dist/node/approval/approval.event.mjs",
         "browser": "./dist/browser/approval/approval.event.js",
         "default": "./dist/approval/approval.event.js"
       },
       "./approval/approval.handler": {
         "types": "./dist/approval/approval.handler.d.ts",
         "bun": "./dist/approval/approval.handler.js",
-        "node": "./dist/node/approval/approval.handler.mjs",
         "browser": "./dist/browser/approval/approval.handler.js",
         "default": "./dist/approval/approval.handler.js"
       },
       "./approval/approval.operations": {
         "types": "./dist/approval/approval.operations.d.ts",
         "bun": "./dist/approval/approval.operations.js",
-        "node": "./dist/node/approval/approval.operations.mjs",
         "browser": "./dist/browser/approval/approval.operations.js",
         "default": "./dist/approval/approval.operations.js"
       },
       "./approval/approval.schema": {
         "types": "./dist/approval/approval.schema.d.ts",
         "bun": "./dist/approval/approval.schema.js",
-        "node": "./dist/node/approval/approval.schema.mjs",
         "browser": "./dist/browser/approval/approval.schema.js",
         "default": "./dist/approval/approval.schema.js"
       },
       "./approval/index": {
         "types": "./dist/approval/index.d.ts",
         "bun": "./dist/approval/index.js",
-        "node": "./dist/node/approval/index.mjs",
         "browser": "./dist/browser/approval/index.js",
         "default": "./dist/approval/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/workflow-system.docblock": {
         "types": "./dist/docs/workflow-system.docblock.d.ts",
         "bun": "./dist/docs/workflow-system.docblock.js",
-        "node": "./dist/node/docs/workflow-system.docblock.mjs",
         "browser": "./dist/browser/docs/workflow-system.docblock.js",
         "default": "./dist/docs/workflow-system.docblock.js"
       },
       "./entities": {
         "types": "./dist/entities/index.d.ts",
         "bun": "./dist/entities/index.js",
-        "node": "./dist/node/entities/index.mjs",
         "browser": "./dist/browser/entities/index.js",
         "default": "./dist/entities/index.js"
       },
       "./entities/approval": {
         "types": "./dist/entities/approval.d.ts",
         "bun": "./dist/entities/approval.js",
-        "node": "./dist/node/entities/approval.mjs",
         "browser": "./dist/browser/entities/approval.js",
         "default": "./dist/entities/approval.js"
       },
       "./entities/index": {
         "types": "./dist/entities/index.d.ts",
         "bun": "./dist/entities/index.js",
-        "node": "./dist/node/entities/index.mjs",
         "browser": "./dist/browser/entities/index.js",
         "default": "./dist/entities/index.js"
       },
       "./entities/instance": {
         "types": "./dist/entities/instance.d.ts",
         "bun": "./dist/entities/instance.js",
-        "node": "./dist/node/entities/instance.mjs",
         "browser": "./dist/browser/entities/instance.js",
         "default": "./dist/entities/instance.js"
       },
       "./entities/step": {
         "types": "./dist/entities/step.d.ts",
         "bun": "./dist/entities/step.js",
-        "node": "./dist/node/entities/step.mjs",
         "browser": "./dist/browser/entities/step.js",
         "default": "./dist/entities/step.js"
       },
       "./entities/workflow": {
         "types": "./dist/entities/workflow.d.ts",
         "bun": "./dist/entities/workflow.js",
-        "node": "./dist/node/entities/workflow.mjs",
         "browser": "./dist/browser/entities/workflow.js",
         "default": "./dist/entities/workflow.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./handlers": {
         "types": "./dist/handlers/index.d.ts",
         "bun": "./dist/handlers/index.js",
-        "node": "./dist/node/handlers/index.mjs",
         "browser": "./dist/browser/handlers/index.js",
         "default": "./dist/handlers/index.js"
       },
       "./handlers/index": {
         "types": "./dist/handlers/index.d.ts",
         "bun": "./dist/handlers/index.js",
-        "node": "./dist/node/handlers/index.mjs",
         "browser": "./dist/browser/handlers/index.js",
         "default": "./dist/handlers/index.js"
       },
       "./handlers/workflow.handlers": {
         "types": "./dist/handlers/workflow.handlers.d.ts",
         "bun": "./dist/handlers/workflow.handlers.js",
-        "node": "./dist/node/handlers/workflow.handlers.mjs",
         "browser": "./dist/browser/handlers/workflow.handlers.js",
         "default": "./dist/handlers/workflow.handlers.js"
       },
       "./instance": {
         "types": "./dist/instance/index.d.ts",
         "bun": "./dist/instance/index.js",
-        "node": "./dist/node/instance/index.mjs",
         "browser": "./dist/browser/instance/index.js",
         "default": "./dist/instance/index.js"
       },
       "./instance/index": {
         "types": "./dist/instance/index.d.ts",
         "bun": "./dist/instance/index.js",
-        "node": "./dist/node/instance/index.mjs",
         "browser": "./dist/browser/instance/index.js",
         "default": "./dist/instance/index.js"
       },
       "./instance/instance.enum": {
         "types": "./dist/instance/instance.enum.d.ts",
         "bun": "./dist/instance/instance.enum.js",
-        "node": "./dist/node/instance/instance.enum.mjs",
         "browser": "./dist/browser/instance/instance.enum.js",
         "default": "./dist/instance/instance.enum.js"
       },
       "./instance/instance.event": {
         "types": "./dist/instance/instance.event.d.ts",
         "bun": "./dist/instance/instance.event.js",
-        "node": "./dist/node/instance/instance.event.mjs",
         "browser": "./dist/browser/instance/instance.event.js",
         "default": "./dist/instance/instance.event.js"
       },
       "./instance/instance.handler": {
         "types": "./dist/instance/instance.handler.d.ts",
         "bun": "./dist/instance/instance.handler.js",
-        "node": "./dist/node/instance/instance.handler.mjs",
         "browser": "./dist/browser/instance/instance.handler.js",
         "default": "./dist/instance/instance.handler.js"
       },
       "./instance/instance.operations": {
         "types": "./dist/instance/instance.operations.d.ts",
         "bun": "./dist/instance/instance.operations.js",
-        "node": "./dist/node/instance/instance.operations.mjs",
         "browser": "./dist/browser/instance/instance.operations.js",
         "default": "./dist/instance/instance.operations.js"
       },
       "./instance/instance.schema": {
         "types": "./dist/instance/instance.schema.d.ts",
         "bun": "./dist/instance/instance.schema.js",
-        "node": "./dist/node/instance/instance.schema.mjs",
         "browser": "./dist/browser/instance/instance.schema.js",
         "default": "./dist/instance/instance.schema.js"
       },
       "./presentations": {
         "types": "./dist/presentations/index.d.ts",
         "bun": "./dist/presentations/index.js",
-        "node": "./dist/node/presentations/index.mjs",
         "browser": "./dist/browser/presentations/index.js",
         "default": "./dist/presentations/index.js"
       },
       "./presentations/index": {
         "types": "./dist/presentations/index.d.ts",
         "bun": "./dist/presentations/index.js",
-        "node": "./dist/node/presentations/index.mjs",
         "browser": "./dist/browser/presentations/index.js",
         "default": "./dist/presentations/index.js"
       },
       "./seeders": {
         "types": "./dist/seeders/index.d.ts",
         "bun": "./dist/seeders/index.js",
-        "node": "./dist/node/seeders/index.mjs",
         "browser": "./dist/browser/seeders/index.js",
         "default": "./dist/seeders/index.js"
       },
       "./seeders/index": {
         "types": "./dist/seeders/index.d.ts",
         "bun": "./dist/seeders/index.js",
-        "node": "./dist/node/seeders/index.mjs",
         "browser": "./dist/browser/seeders/index.js",
         "default": "./dist/seeders/index.js"
       },
       "./shared": {
         "types": "./dist/shared/index.d.ts",
         "bun": "./dist/shared/index.js",
-        "node": "./dist/node/shared/index.mjs",
         "browser": "./dist/browser/shared/index.js",
         "default": "./dist/shared/index.js"
       },
       "./shared/index": {
         "types": "./dist/shared/index.d.ts",
         "bun": "./dist/shared/index.js",
-        "node": "./dist/node/shared/index.mjs",
         "browser": "./dist/browser/shared/index.js",
         "default": "./dist/shared/index.js"
       },
       "./shared/mock-data": {
         "types": "./dist/shared/mock-data.d.ts",
         "bun": "./dist/shared/mock-data.js",
-        "node": "./dist/node/shared/mock-data.mjs",
         "browser": "./dist/browser/shared/mock-data.js",
         "default": "./dist/shared/mock-data.js"
       },
       "./shared/types": {
         "types": "./dist/shared/types.d.ts",
         "bun": "./dist/shared/types.js",
-        "node": "./dist/node/shared/types.mjs",
         "browser": "./dist/browser/shared/types.js",
         "default": "./dist/shared/types.js"
       },
       "./state-machine": {
         "types": "./dist/state-machine/index.d.ts",
         "bun": "./dist/state-machine/index.js",
-        "node": "./dist/node/state-machine/index.mjs",
         "browser": "./dist/browser/state-machine/index.js",
         "default": "./dist/state-machine/index.js"
       },
       "./state-machine/index": {
         "types": "./dist/state-machine/index.d.ts",
         "bun": "./dist/state-machine/index.js",
-        "node": "./dist/node/state-machine/index.mjs",
         "browser": "./dist/browser/state-machine/index.js",
         "default": "./dist/state-machine/index.js"
       },
       "./tests/operations.test-spec": {
         "types": "./dist/tests/operations.test-spec.d.ts",
         "bun": "./dist/tests/operations.test-spec.js",
-        "node": "./dist/node/tests/operations.test-spec.mjs",
         "browser": "./dist/browser/tests/operations.test-spec.js",
         "default": "./dist/tests/operations.test-spec.js"
       },
       "./ui": {
         "types": "./dist/ui/index.d.ts",
         "bun": "./dist/ui/index.js",
-        "node": "./dist/node/ui/index.mjs",
         "browser": "./dist/browser/ui/index.js",
         "default": "./dist/ui/index.js"
       },
       "./ui/hooks": {
         "types": "./dist/ui/hooks/index.d.ts",
         "bun": "./dist/ui/hooks/index.js",
-        "node": "./dist/node/ui/hooks/index.mjs",
         "browser": "./dist/browser/ui/hooks/index.js",
         "default": "./dist/ui/hooks/index.js"
       },
       "./ui/hooks/index": {
         "types": "./dist/ui/hooks/index.d.ts",
         "bun": "./dist/ui/hooks/index.js",
-        "node": "./dist/node/ui/hooks/index.mjs",
         "browser": "./dist/browser/ui/hooks/index.js",
         "default": "./dist/ui/hooks/index.js"
       },
       "./ui/hooks/useWorkflowList": {
         "types": "./dist/ui/hooks/useWorkflowList.d.ts",
         "bun": "./dist/ui/hooks/useWorkflowList.js",
-        "node": "./dist/node/ui/hooks/useWorkflowList.mjs",
         "browser": "./dist/browser/ui/hooks/useWorkflowList.js",
         "default": "./dist/ui/hooks/useWorkflowList.js"
       },
       "./ui/index": {
         "types": "./dist/ui/index.d.ts",
         "bun": "./dist/ui/index.js",
-        "node": "./dist/node/ui/index.mjs",
         "browser": "./dist/browser/ui/index.js",
         "default": "./dist/ui/index.js"
       },
       "./ui/renderers": {
         "types": "./dist/ui/renderers/index.d.ts",
         "bun": "./dist/ui/renderers/index.js",
-        "node": "./dist/node/ui/renderers/index.mjs",
         "browser": "./dist/browser/ui/renderers/index.js",
         "default": "./dist/ui/renderers/index.js"
       },
       "./ui/renderers/index": {
         "types": "./dist/ui/renderers/index.d.ts",
         "bun": "./dist/ui/renderers/index.js",
-        "node": "./dist/node/ui/renderers/index.mjs",
         "browser": "./dist/browser/ui/renderers/index.js",
         "default": "./dist/ui/renderers/index.js"
       },
       "./ui/renderers/workflow.markdown": {
         "types": "./dist/ui/renderers/workflow.markdown.d.ts",
         "bun": "./dist/ui/renderers/workflow.markdown.js",
-        "node": "./dist/node/ui/renderers/workflow.markdown.mjs",
         "browser": "./dist/browser/ui/renderers/workflow.markdown.js",
         "default": "./dist/ui/renderers/workflow.markdown.js"
       },
       "./ui/WorkflowDashboard": {
         "types": "./dist/ui/WorkflowDashboard.d.ts",
         "bun": "./dist/ui/WorkflowDashboard.js",
-        "node": "./dist/node/ui/WorkflowDashboard.mjs",
         "browser": "./dist/browser/ui/WorkflowDashboard.js",
         "default": "./dist/ui/WorkflowDashboard.js"
       },
       "./workflow": {
         "types": "./dist/workflow/index.d.ts",
         "bun": "./dist/workflow/index.js",
-        "node": "./dist/node/workflow/index.mjs",
         "browser": "./dist/browser/workflow/index.js",
         "default": "./dist/workflow/index.js"
       },
       "./workflow-system.capability": {
         "types": "./dist/workflow-system.capability.d.ts",
         "bun": "./dist/workflow-system.capability.js",
-        "node": "./dist/node/workflow-system.capability.mjs",
         "browser": "./dist/browser/workflow-system.capability.js",
         "default": "./dist/workflow-system.capability.js"
       },
       "./workflow-system.feature": {
         "types": "./dist/workflow-system.feature.d.ts",
         "bun": "./dist/workflow-system.feature.js",
-        "node": "./dist/node/workflow-system.feature.mjs",
         "browser": "./dist/browser/workflow-system.feature.js",
         "default": "./dist/workflow-system.feature.js"
       },
       "./workflow/index": {
         "types": "./dist/workflow/index.d.ts",
         "bun": "./dist/workflow/index.js",
-        "node": "./dist/node/workflow/index.mjs",
         "browser": "./dist/browser/workflow/index.js",
         "default": "./dist/workflow/index.js"
       },
       "./workflow/workflow.enum": {
         "types": "./dist/workflow/workflow.enum.d.ts",
         "bun": "./dist/workflow/workflow.enum.js",
-        "node": "./dist/node/workflow/workflow.enum.mjs",
         "browser": "./dist/browser/workflow/workflow.enum.js",
         "default": "./dist/workflow/workflow.enum.js"
       },
       "./workflow/workflow.event": {
         "types": "./dist/workflow/workflow.event.d.ts",
         "bun": "./dist/workflow/workflow.event.js",
-        "node": "./dist/node/workflow/workflow.event.mjs",
         "browser": "./dist/browser/workflow/workflow.event.js",
         "default": "./dist/workflow/workflow.event.js"
       },
       "./workflow/workflow.handler": {
         "types": "./dist/workflow/workflow.handler.d.ts",
         "bun": "./dist/workflow/workflow.handler.js",
-        "node": "./dist/node/workflow/workflow.handler.mjs",
         "browser": "./dist/browser/workflow/workflow.handler.js",
         "default": "./dist/workflow/workflow.handler.js"
       },
       "./workflow/workflow.operations": {
         "types": "./dist/workflow/workflow.operations.d.ts",
         "bun": "./dist/workflow/workflow.operations.js",
-        "node": "./dist/node/workflow/workflow.operations.mjs",
         "browser": "./dist/browser/workflow/workflow.operations.js",
         "default": "./dist/workflow/workflow.operations.js"
       },
       "./workflow/workflow.schema": {
         "types": "./dist/workflow/workflow.schema.d.ts",
         "bun": "./dist/workflow/workflow.schema.js",
-        "node": "./dist/node/workflow/workflow.schema.mjs",
         "browser": "./dist/browser/workflow/workflow.schema.js",
         "default": "./dist/workflow/workflow.schema.js"
       }

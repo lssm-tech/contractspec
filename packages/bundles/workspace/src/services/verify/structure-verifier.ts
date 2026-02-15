@@ -7,12 +7,12 @@
  * - Imports are correct
  */
 
-import type { AnyOperationSpec } from '@contractspec/lib.contracts';
-import { isEmitDeclRef } from '@contractspec/lib.contracts/operations';
+import type { AnyOperationSpec } from '@contractspec/lib.contracts-spec';
+import { isEmitDeclRef } from '@contractspec/lib.contracts-spec/operations';
 import type {
   VerificationIssue,
   VerificationReport,
-} from '@contractspec/lib.contracts/llm';
+} from '@contractspec/lib.contracts-spec/llm';
 import type { StructureCheck, VerifyInput } from './types';
 
 /**
@@ -34,21 +34,40 @@ function checkHandlerExport(code: string): StructureCheck {
   };
 }
 
+function isContractsInternalFile(
+  implementationPath: string | undefined
+): boolean {
+  if (!implementationPath) return false;
+  const normalized = implementationPath.replace(/\\/g, '/');
+  return (
+    normalized.includes('/packages/libs/contracts-spec/src/') ||
+    normalized.includes('/packages/libs/contracts-integrations/src/') ||
+    normalized.includes('/packages/libs/contracts-runtime-')
+  );
+}
+
 /**
- * Check if code imports from @contractspec/lib.contracts.
+ * Check if code imports from @contractspec/lib.contracts-spec.
  */
-function checkContractsImport(code: string): StructureCheck {
+function checkContractsImportForPath(
+  code: string,
+  implementationPath: string | undefined
+): StructureCheck {
+  if (isContractsInternalFile(implementationPath)) {
+    return { name: 'contracts_import', passed: true };
+  }
+
   const hasImport =
-    code.includes("from '@contractspec/lib.contracts'") ||
-    code.includes('from "@contractspec/lib.contracts"');
+    code.includes("from '@contractspec/lib.contracts-spec'") ||
+    code.includes('from "@contractspec/lib.contracts-spec"');
 
   return {
     name: 'contracts_import',
     passed: hasImport,
     details: hasImport
       ? undefined
-      : 'Missing import from @contractspec/lib.contracts',
-    suggestion: "Add: import { ... } from '@contractspec/lib.contracts';",
+      : 'Missing import from @contractspec/lib.contracts-spec',
+    suggestion: "Add: import { ... } from '@contractspec/lib.contracts-spec';",
   };
 }
 
@@ -254,7 +273,7 @@ export function verifyStructure(input: VerifyInput): VerificationReport {
 
   const checks: StructureCheck[] = [
     checkHandlerExport(implementationCode),
-    checkContractsImport(implementationCode),
+    checkContractsImportForPath(implementationCode, implementationPath),
     checkSchemaImport(implementationCode, spec),
     checkNoAnyType(implementationCode),
     checkErrorHandling(implementationCode, spec),

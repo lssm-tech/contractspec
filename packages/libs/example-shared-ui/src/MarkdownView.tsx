@@ -8,10 +8,8 @@ import {
 } from '@contractspec/lib.design-system';
 import { Card } from '@contractspec/lib.ui-kit-web/ui/card';
 import { Badge } from '@contractspec/lib.ui-kit-web/ui/badge';
-import type {
-  PresentationTarget,
-  TransformEngine,
-} from '@contractspec/lib.contracts';
+import type { PresentationTarget } from '@contractspec/lib.contracts-spec/presentations';
+import type { TransformEngine } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
 import type { TemplateId } from './lib/types';
 
 import { useTemplateRuntime } from './lib/runtime-context';

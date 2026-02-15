@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.learning-journey-studio-onboarding",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Learning journey track for first 30 minutes in ContractSpec Studio.",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -34,7 +34,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
     "@contractspec/module.learning-journey": "workspace:*"
   },
@@ -48,91 +48,91 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/studio-onboarding.docblock": {
         "types": "./dist/docs/studio-onboarding.docblock.d.ts",
         "bun": "./dist/docs/studio-onboarding.docblock.js",
-        "node": "./dist/node/docs/studio-onboarding.docblock.mjs",
+        "node": "./dist/node/docs/studio-onboarding.docblock.js",
         "browser": "./dist/browser/docs/studio-onboarding.docblock.js",
         "default": "./dist/docs/studio-onboarding.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./handlers/demo.handlers": {
         "types": "./dist/handlers/demo.handlers.d.ts",
         "bun": "./dist/handlers/demo.handlers.js",
-        "node": "./dist/node/handlers/demo.handlers.mjs",
+        "node": "./dist/node/handlers/demo.handlers.js",
         "browser": "./dist/browser/handlers/demo.handlers.js",
         "default": "./dist/handlers/demo.handlers.js"
       },
       "./learning-journey-studio-onboarding.feature": {
         "types": "./dist/learning-journey-studio-onboarding.feature.d.ts",
         "bun": "./dist/learning-journey-studio-onboarding.feature.js",
-        "node": "./dist/node/learning-journey-studio-onboarding.feature.mjs",
+        "node": "./dist/node/learning-journey-studio-onboarding.feature.js",
         "browser": "./dist/browser/learning-journey-studio-onboarding.feature.js",
         "default": "./dist/learning-journey-studio-onboarding.feature.js"
       },
       "./operations": {
         "types": "./dist/operations/index.d.ts",
         "bun": "./dist/operations/index.js",
-        "node": "./dist/node/operations/index.mjs",
+        "node": "./dist/node/operations/index.js",
         "browser": "./dist/browser/operations/index.js",
         "default": "./dist/operations/index.js"
       },
       "./operations/index": {
         "types": "./dist/operations/index.d.ts",
         "bun": "./dist/operations/index.js",
-        "node": "./dist/node/operations/index.mjs",
+        "node": "./dist/node/operations/index.js",
         "browser": "./dist/browser/operations/index.js",
         "default": "./dist/operations/index.js"
       },
       "./presentations": {
         "types": "./dist/presentations/index.d.ts",
         "bun": "./dist/presentations/index.js",
-        "node": "./dist/node/presentations/index.mjs",
+        "node": "./dist/node/presentations/index.js",
         "browser": "./dist/browser/presentations/index.js",
         "default": "./dist/presentations/index.js"
       },
       "./presentations/index": {
         "types": "./dist/presentations/index.d.ts",
         "bun": "./dist/presentations/index.js",
-        "node": "./dist/node/presentations/index.mjs",
+        "node": "./dist/node/presentations/index.js",
         "browser": "./dist/browser/presentations/index.js",
         "default": "./dist/presentations/index.js"
       },
       "./tests/operations.test-spec": {
         "types": "./dist/tests/operations.test-spec.d.ts",
         "bun": "./dist/tests/operations.test-spec.js",
-        "node": "./dist/node/tests/operations.test-spec.mjs",
+        "node": "./dist/node/tests/operations.test-spec.js",
         "browser": "./dist/browser/tests/operations.test-spec.js",
         "default": "./dist/tests/operations.test-spec.js"
       },
       "./track": {
         "types": "./dist/track.d.ts",
         "bun": "./dist/track.js",
-        "node": "./dist/node/track.mjs",
+        "node": "./dist/node/track.js",
         "browser": "./dist/browser/track.js",
         "default": "./dist/track.js"
       }

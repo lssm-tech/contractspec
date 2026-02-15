@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.content-gen",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "AI-powered content generation for blog, email, and social",
   "keywords": [
     "contractspec",
@@ -27,12 +27,13 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*"
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.contracts-integrations": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
@@ -58,77 +59,77 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./generators": {
         "types": "./dist/generators/index.d.ts",
         "bun": "./dist/generators/index.js",
-        "node": "./dist/node/generators/index.mjs",
+        "node": "./dist/node/generators/index.js",
         "browser": "./dist/browser/generators/index.js",
         "default": "./dist/generators/index.js"
       },
       "./generators/blog": {
         "types": "./dist/generators/blog.d.ts",
         "bun": "./dist/generators/blog.js",
-        "node": "./dist/node/generators/blog.mjs",
+        "node": "./dist/node/generators/blog.js",
         "browser": "./dist/browser/generators/blog.js",
         "default": "./dist/generators/blog.js"
       },
       "./generators/email": {
         "types": "./dist/generators/email.d.ts",
         "bun": "./dist/generators/email.js",
-        "node": "./dist/node/generators/email.mjs",
+        "node": "./dist/node/generators/email.js",
         "browser": "./dist/browser/generators/email.js",
         "default": "./dist/generators/email.js"
       },
       "./generators/index": {
         "types": "./dist/generators/index.d.ts",
         "bun": "./dist/generators/index.js",
-        "node": "./dist/node/generators/index.mjs",
+        "node": "./dist/node/generators/index.js",
         "browser": "./dist/browser/generators/index.js",
         "default": "./dist/generators/index.js"
       },
       "./generators/landing-page": {
         "types": "./dist/generators/landing-page.d.ts",
         "bun": "./dist/generators/landing-page.js",
-        "node": "./dist/node/generators/landing-page.mjs",
+        "node": "./dist/node/generators/landing-page.js",
         "browser": "./dist/browser/generators/landing-page.js",
         "default": "./dist/generators/landing-page.js"
       },
       "./generators/social": {
         "types": "./dist/generators/social.d.ts",
         "bun": "./dist/generators/social.js",
-        "node": "./dist/node/generators/social.mjs",
+        "node": "./dist/node/generators/social.js",
         "browser": "./dist/browser/generators/social.js",
         "default": "./dist/generators/social.js"
       },
       "./seo": {
         "types": "./dist/seo/index.d.ts",
         "bun": "./dist/seo/index.js",
-        "node": "./dist/node/seo/index.mjs",
+        "node": "./dist/node/seo/index.js",
         "browser": "./dist/browser/seo/index.js",
         "default": "./dist/seo/index.js"
       },
       "./seo/index": {
         "types": "./dist/seo/index.d.ts",
         "bun": "./dist/seo/index.js",
-        "node": "./dist/node/seo/index.mjs",
+        "node": "./dist/node/seo/index.js",
         "browser": "./dist/browser/seo/index.js",
         "default": "./dist/seo/index.js"
       },
       "./seo/optimizer": {
         "types": "./dist/seo/optimizer.d.ts",
         "bun": "./dist/seo/optimizer.js",
-        "node": "./dist/node/seo/optimizer.mjs",
+        "node": "./dist/node/seo/optimizer.js",
         "browser": "./dist/browser/seo/optimizer.js",
         "default": "./dist/seo/optimizer.js"
       },
       "./types": {
         "types": "./dist/types.d.ts",
         "bun": "./dist/types.js",
-        "node": "./dist/node/types.mjs",
+        "node": "./dist/node/types.js",
         "browser": "./dist/browser/types.js",
         "default": "./dist/types.js"
       }

@@ -66,6 +66,6 @@ export type {
   EventRef,
   PresentationRef,
   FeatureRef,
-} from '@contractspec/lib.contracts/features';
+} from '@contractspec/lib.contracts-spec/features';
 
-export { FeatureRegistry } from '@contractspec/lib.contracts/features';
+export { FeatureRegistry } from '@contractspec/lib.contracts-spec/features';

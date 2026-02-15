@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.email-gmail",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Gmail integration example: inbound threads and outbound messages.",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -26,13 +26,13 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/integration.providers-impls": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "googleapis": "^171.4.0"
   },
   "devDependencies": {
@@ -46,63 +46,63 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./auth": {
         "types": "./dist/auth.d.ts",
         "bun": "./dist/auth.js",
-        "node": "./dist/node/auth.mjs",
+        "node": "./dist/node/auth.js",
         "browser": "./dist/browser/auth.js",
         "default": "./dist/auth.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/email-gmail.docblock": {
         "types": "./dist/docs/email-gmail.docblock.d.ts",
         "bun": "./dist/docs/email-gmail.docblock.js",
-        "node": "./dist/node/docs/email-gmail.docblock.mjs",
+        "node": "./dist/node/docs/email-gmail.docblock.js",
         "browser": "./dist/browser/docs/email-gmail.docblock.js",
         "default": "./dist/docs/email-gmail.docblock.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./inbound": {
         "types": "./dist/inbound.d.ts",
         "bun": "./dist/inbound.js",
-        "node": "./dist/node/inbound.mjs",
+        "node": "./dist/node/inbound.js",
         "browser": "./dist/browser/inbound.js",
         "default": "./dist/inbound.js"
       },
       "./outbound": {
         "types": "./dist/outbound.d.ts",
         "bun": "./dist/outbound.js",
-        "node": "./dist/node/outbound.mjs",
+        "node": "./dist/node/outbound.js",
         "browser": "./dist/browser/outbound.js",
         "default": "./dist/outbound.js"
       },
       "./run": {
         "types": "./dist/run.d.ts",
         "bun": "./dist/run.js",
-        "node": "./dist/node/run.mjs",
+        "node": "./dist/node/run.js",
         "browser": "./dist/browser/run.js",
         "default": "./dist/run.js"
       }

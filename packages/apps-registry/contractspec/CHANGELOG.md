@@ -1,5 +1,49 @@
 # contractspec
 
+## 1.61.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+### Patch Changes
+
+- Updated dependencies [374fd71]
+  - @contractspec/app.cli-contractspec@1.61.0
+
+## 1.60.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/app.cli-contractspec@1.60.0
+
+## 1.59.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/app.cli-contractspec@1.59.0
+
+## 1.58.0
+
+### Minor Changes
+
+- d1f0fd0: chore: Migrate non-app package builds from tsdown to shared Bun tooling, add `@contractspec/tool.bun`, and standardize `prebuild`/`build`/`typecheck` with platform-aware exports and `tsc` declaration emission into `dist`.
+
+### Patch Changes
+
+- Updated dependencies [d1f0fd0]
+  - @contractspec/app.cli-contractspec@1.58.0
+
 ## 1.57.0
 
 ### Minor Changes

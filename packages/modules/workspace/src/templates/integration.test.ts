@@ -25,7 +25,7 @@ describe('generateIntegrationSpec', () => {
   it('generates an integration spec', () => {
     const code = generateIntegrationSpec(baseData);
     expect(code).toContain(
-      "import { StabilityEnum, defineIntegration } from '@contractspec/lib.contracts';"
+      "import { defineIntegration } from '@contractspec/lib.contracts-integrations';"
     );
     expect(code).toContain(
       'export const IntegrationIntegrationSpec = defineIntegration({'

@@ -3,13 +3,13 @@
  */
 
 import type { AgentProvider, AgentResult, AgentTask } from './types';
-import type { AgentMode } from '@contractspec/lib.contracts';
+import type { AgentMode } from '@contractspec/lib.contracts-spec';
 import {
-  type AgentSpec,
   createUnifiedAgent,
   UnifiedAgent,
   type UnifiedAgentConfig,
-} from '@contractspec/lib.ai-agent';
+} from '@contractspec/lib.ai-agent/agent/unified-agent';
+import type { AgentSpec } from '@contractspec/lib.ai-agent/spec';
 
 export class UnifiedAgentAdapter implements AgentProvider {
   private agent: UnifiedAgent;

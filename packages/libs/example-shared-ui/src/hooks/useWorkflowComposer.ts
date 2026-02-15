@@ -220,7 +220,7 @@ ${extensions
 // Generated from ${templateId} template
 ${extensionsCode}
 
-import { workflowSpec } from '@contractspec/lib.contracts/workflow';
+import { workflowSpec } from '@contractspec/lib.contracts-spec/workflow';
 
 export const ${toCamelCase(composed.meta.key)}Workflow = workflowSpec({
   meta: {

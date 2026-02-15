@@ -3,6 +3,7 @@ import * as z from 'zod';
 import type { AgentSpec } from '../spec/spec';
 import type { ContractSpecAgent } from '../agent/contract-spec-agent';
 import { jsonSchemaToZodSafe } from '../schema/json-schema-to-zod';
+import { createAgentI18n } from '../i18n';
 
 /**
  * Generate an MCP server that exposes a ContractSpec agent as a tool.
@@ -27,6 +28,8 @@ export function agentToMcpServer(
   agent: ContractSpecAgent,
   spec: AgentSpec
 ): McpServer {
+  const i18n = createAgentI18n();
+
   const server = new McpServer({
     name: spec.meta.key,
     version: `${spec.meta.version}`,
@@ -36,15 +39,15 @@ export function agentToMcpServer(
   server.registerTool(
     spec.meta.key,
     {
-      description: spec.description ?? `Interact with ${spec.meta.key} agent`,
+      description:
+        spec.description ??
+        i18n.t('tool.mcp.agentDescription', { key: spec.meta.key }),
       inputSchema: z.object({
-        message: z
-          .string()
-          .describe('The message or query to send to the agent'),
+        message: z.string().describe(i18n.t('tool.mcp.param.message')),
         sessionId: z
           .string()
           .optional()
-          .describe('Optional session ID to continue a conversation'),
+          .describe(i18n.t('tool.mcp.param.sessionId')),
       }),
     },
     async (args) => {
@@ -76,12 +79,16 @@ export function agentToMcpServer(
       `${spec.meta.key}.${toolConfig.name}`,
       {
         description:
-          toolConfig.description ?? `Execute ${toolConfig.name} tool`,
+          toolConfig.description ??
+          i18n.t('tool.mcp.toolDescription', { name: toolConfig.name }),
         inputSchema,
       },
       async (args) => {
         const result = await agent.generate({
-          prompt: `Execute the ${toolConfig.name} tool with the following arguments: ${JSON.stringify(args)}`,
+          prompt: i18n.t('tool.mcp.executePrompt', {
+            name: toolConfig.name,
+            args: JSON.stringify(args),
+          }),
         });
 
         return {

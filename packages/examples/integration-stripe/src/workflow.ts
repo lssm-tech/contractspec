@@ -1,9 +1,9 @@
-import type { WorkflowSpec } from '@contractspec/lib.contracts/workflow/spec';
+import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow/spec';
 import {
   OwnersEnum,
   StabilityEnum,
   TagsEnum,
-} from '@contractspec/lib.contracts/ownership';
+} from '@contractspec/lib.contracts-spec/ownership';
 
 export const collectPaymentWorkflow: WorkflowSpec = {
   meta: {

@@ -1,7 +1,7 @@
 /**
  * Events exporter - exports EventSpec to OpenAPI extensions.
  */
-import type { EventSpec } from '@contractspec/lib.contracts';
+import type { EventSpec } from '@contractspec/lib.contracts-spec';
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 import { z } from 'zod';
 import type { GeneratedRegistryCode } from '../types';

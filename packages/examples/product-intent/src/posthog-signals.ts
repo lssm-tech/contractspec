@@ -2,8 +2,8 @@ import type {
   AnalyticsReader,
   AnalyticsQueryResult,
   DateRangeInput,
-} from '@contractspec/lib.contracts/integrations/providers/analytics';
-import type { EvidenceChunk } from '@contractspec/lib.contracts/product-intent/types';
+} from '@contractspec/lib.contracts-integrations';
+import type { EvidenceChunk } from '@contractspec/lib.contracts-spec/product-intent/types';
 import { FunnelAnalyzer } from '@contractspec/lib.analytics/funnel';
 import type {
   AnalyticsEvent,

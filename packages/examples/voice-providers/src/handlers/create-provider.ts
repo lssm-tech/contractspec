@@ -1,6 +1,6 @@
 import { FalVoiceProvider } from '@contractspec/integration.providers-impls/impls/fal-voice';
 import { GradiumVoiceProvider } from '@contractspec/integration.providers-impls/impls/gradium-voice';
-import type { VoiceProvider } from '@contractspec/lib.contracts/integrations/providers/voice';
+import type { VoiceProvider } from '@contractspec/lib.contracts-integrations';
 
 export type VoiceIntegrationKey = 'ai-voice.gradium' | 'ai-voice.fal';
 

@@ -1,14 +1,14 @@
 import {
-  defaultDocRegistry,
   definePrompt,
   defineResourceTemplate,
   installOp,
   OperationSpecRegistry,
   PromptRegistry,
   ResourceRegistry,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
+import { defaultDocRegistry } from '@contractspec/lib.contracts-spec/docs';
 import z from 'zod';
-import type { DocPresentationRoute } from '@contractspec/lib.contracts/docs';
+import type { DocPresentationRoute } from '@contractspec/lib.contracts-spec/docs';
 import { createMcpElysiaHandler } from './common';
 import { appLogger } from '../../infrastructure/elysia/logger';
 import { docsSearchSpec } from '../../features/docs';

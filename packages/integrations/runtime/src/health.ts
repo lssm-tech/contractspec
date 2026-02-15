@@ -1,4 +1,4 @@
-import type { IntegrationConnectionHealth } from '@contractspec/lib.contracts/integrations/connection';
+import type { IntegrationConnectionHealth } from '@contractspec/lib.contracts-integrations';
 
 import type {
   IntegrationContext,

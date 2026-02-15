@@ -1,0 +1,96 @@
+import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
+import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+
+export const tldvIntegrationSpec = defineIntegration({
+  meta: {
+    key: 'meeting-recorder.tldv',
+    version: '1.0.0',
+    category: 'meeting-recorder',
+    title: 'tl;dv Meeting Recorder',
+    description:
+      'tl;dv Public API for meeting recordings, transcripts, and webhook events.',
+    domain: 'productivity',
+    owners: ['platform.integrations'],
+    tags: ['meeting-recorder', 'tldv', 'transcripts'],
+    stability: StabilityEnum.Experimental,
+  },
+  supportedModes: ['byok'],
+  capabilities: {
+    provides: [
+      { key: 'meeting-recorder.meetings.read', version: '1.0.0' },
+      { key: 'meeting-recorder.transcripts.read', version: '1.0.0' },
+      { key: 'meeting-recorder.webhooks', version: '1.0.0' },
+    ],
+  },
+  configSchema: {
+    schema: {
+      type: 'object',
+      properties: {
+        baseUrl: {
+          type: 'string',
+          description:
+            'Optional override for the tl;dv API base URL. Defaults to https://pasta.tldv.io/v1alpha1.',
+        },
+        webhookUrl: {
+          type: 'string',
+          description:
+            'Webhook destination URL configured in tl;dv settings (MeetingReady/TranscriptReady).',
+        },
+        webhookEvents: {
+          type: 'array',
+          items: { type: 'string' },
+          description:
+            'Webhook triggers to enable (MeetingReady, TranscriptReady).',
+        },
+        webhookScope: {
+          type: 'string',
+          description:
+            'Webhook scope to configure (user, team, or organization).',
+        },
+      },
+    },
+    example: {
+      baseUrl: 'https://pasta.tldv.io/v1alpha1',
+      webhookUrl: 'https://example.com/webhooks/tldv',
+      webhookEvents: ['MeetingReady', 'TranscriptReady'],
+      webhookScope: 'team',
+    },
+  },
+  secretSchema: {
+    schema: {
+      type: 'object',
+      required: ['apiKey'],
+      properties: {
+        apiKey: {
+          type: 'string',
+          description:
+            'tl;dv API key used in the x-api-key header for API requests.',
+        },
+        webhookSecret: {
+          type: 'string',
+          description:
+            'Optional shared secret for webhook verification if configured in your environment.',
+        },
+      },
+    },
+    example: {
+      apiKey: 'tldv-***',
+      webhookSecret: 'tldv-webhook-secret',
+    },
+  },
+  healthCheck: {
+    method: 'ping',
+    timeoutMs: 6000,
+  },
+  docsUrl: 'https://doc.tldv.io/index.html',
+  byokSetup: {
+    setupInstructions:
+      'Generate a tl;dv API key and optionally configure MeetingReady/TranscriptReady webhooks.',
+  },
+});
+
+export function registerTldvIntegration(
+  registry: IntegrationSpecRegistry
+): IntegrationSpecRegistry {
+  return registry.register(tldvIntegrationSpec);
+}

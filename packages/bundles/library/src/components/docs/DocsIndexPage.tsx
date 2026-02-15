@@ -123,7 +123,7 @@ export function DocsIndexPage() {
             filename="docs-quick-start"
             code={`# Install the CLI and core libraries
 bun add -D contractspec
-bun add @contractspec/lib.contracts @contractspec/lib.schema
+bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 
 # Create your first contract
 bun contractspec create --type operation

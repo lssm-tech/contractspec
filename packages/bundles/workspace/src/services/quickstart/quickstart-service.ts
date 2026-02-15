@@ -280,7 +280,7 @@ export async function isContractSpecInstalled(
       ...packageJson.devDependencies,
     };
 
-    return '@contractspec/lib.contracts' in allDeps;
+    return '@contractspec/lib.contracts-spec' in allDeps;
   } catch {
     return false;
   }

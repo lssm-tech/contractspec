@@ -53,23 +53,28 @@ export type SectionProps = React.HTMLAttributes<HTMLElement> &
       | 'aside'
       | 'article'
       | 'nav';
+    ref?: React.Ref<HTMLElement>;
   };
 
-export const Section = React.forwardRef<HTMLElement, SectionProps>(
-  ({ as = 'section', className, width, px, py, tone, text, ...props }, ref) => {
-    const Comp = as as React.ElementType;
-    return (
-      <Comp
-        ref={ref}
-        className={cn(
-          sectionVariants({ width, px, py, tone, text }),
-          className
-        )}
-        {...props}
-      />
-    );
-  }
-);
-Section.displayName = 'Section';
+export function Section({
+  as = 'section',
+  className,
+  width,
+  px,
+  py,
+  tone,
+  text,
+  ref,
+  ...props
+}: SectionProps) {
+  const Comp = as as React.ElementType;
+  return (
+    <Comp
+      ref={ref}
+      className={cn(sectionVariants({ width, px, py, tone, text }), className)}
+      {...props}
+    />
+  );
+}
 
 export { sectionVariants };

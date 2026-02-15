@@ -33,7 +33,7 @@ export function generateFeatureSpec(params: FeatureSpecParams): string {
  * Auto-generated feature spec.
  */
 
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 export const ${toCamelCase(params.key)}Feature = defineFeature({
   key: '${params.key}',

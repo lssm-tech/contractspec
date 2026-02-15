@@ -761,6 +761,9 @@ function validateCommonFields(
   // Skip import checks for internal library files that define the types
   const isInternalLib =
     fileName.includes('/libs/contracts/') ||
+    fileName.includes('/libs/contracts-spec/') ||
+    fileName.includes('/libs/contracts-integrations/') ||
+    fileName.includes('/libs/contracts-runtime-') ||
     fileName.includes('/libs/contracts-transformers/') ||
     fileName.includes('/libs/schema/');
 
@@ -803,11 +806,11 @@ function validateCommonFields(
   if (usesSpecTypes && !isInternalLib) {
     const imports = sourceFile.getImportDeclarations();
     const hasContractsImport = imports.some((i) =>
-      i.getModuleSpecifierValue().includes('@contractspec/lib.contracts')
+      i.getModuleSpecifierValue().includes('@contractspec/lib.contracts-spec')
     );
 
     if (!hasContractsImport) {
-      errors.push('Missing import from @contractspec/lib.contracts');
+      errors.push('Missing import from @contractspec/lib.contracts-spec');
     }
   }
 

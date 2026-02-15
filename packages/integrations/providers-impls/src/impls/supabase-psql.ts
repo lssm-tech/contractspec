@@ -90,9 +90,11 @@ export class SupabasePostgresProvider implements DatabaseProvider {
     run: (database: DatabaseProvider) => Promise<T>
   ): Promise<T> {
     const transactionResult = this.client.begin(async (transactionClient) => {
+      // TransactionSql is a strict subset of Sql (omits close/end/listen etc.)
+      // but is fully compatible for query and execute operations within a transaction.
       const transactionalProvider = new SupabasePostgresProvider({
-        client: transactionClient,
-        db: this.createDrizzle(transactionClient),
+        client: transactionClient as unknown as Sql,
+        db: this.createDrizzle(transactionClient as unknown as Sql),
         createDrizzle: this.createDrizzle,
       });
       return run(transactionalProvider);

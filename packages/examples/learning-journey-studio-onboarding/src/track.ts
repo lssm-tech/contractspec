@@ -44,7 +44,7 @@ export const studioGettingStartedTrack: LearningJourneyTrackSpec = {
       order: 3,
       completion: {
         eventName: 'regeneration.completed',
-        sourceModule: '@contractspec/lib.contracts/regenerator',
+        sourceModule: '@contractspec/lib.contracts-spec/regenerator',
       },
       xpReward: 20,
       metadata: { surface: 'regenerator' },

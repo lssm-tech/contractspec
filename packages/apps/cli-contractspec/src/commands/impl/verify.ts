@@ -10,7 +10,7 @@ import ora, { type Ora } from 'ora';
 import type {
   VerificationReport,
   VerificationTier,
-} from '@contractspec/lib.contracts/llm';
+} from '@contractspec/lib.contracts-spec/llm';
 import {
   createConsoleLoggerAdapter,
   createFileSystemCacheStorage,

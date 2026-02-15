@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.overlay-engine",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Runtime overlay engine for ContractSpec personalization and adaptive UI rendering.",
   "keywords": [
     "contractspec",
@@ -27,12 +27,12 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "fast-json-stable-stringify": "^2.1.0"
   },
   "peerDependencies": {
@@ -65,55 +65,55 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "default": "./dist/index.js"
       },
       "./merger": {
         "types": "./dist/merger.d.ts",
         "bun": "./dist/merger.js",
-        "node": "./dist/node/merger.mjs",
+        "node": "./dist/node/merger.js",
         "default": "./dist/merger.js"
       },
       "./react": {
         "types": "./dist/react.d.ts",
         "bun": "./dist/react.js",
-        "node": "./dist/node/react.mjs",
+        "node": "./dist/node/react.js",
         "default": "./dist/react.js"
       },
       "./registry": {
         "types": "./dist/registry.d.ts",
         "bun": "./dist/registry.js",
-        "node": "./dist/node/registry.mjs",
+        "node": "./dist/node/registry.js",
         "default": "./dist/registry.js"
       },
       "./runtime": {
         "types": "./dist/runtime.d.ts",
         "bun": "./dist/runtime.js",
-        "node": "./dist/node/runtime.mjs",
+        "node": "./dist/node/runtime.js",
         "default": "./dist/runtime.js"
       },
       "./signer": {
         "types": "./dist/signer.d.ts",
         "bun": "./dist/signer.js",
-        "node": "./dist/node/signer.mjs",
+        "node": "./dist/node/signer.js",
         "default": "./dist/signer.js"
       },
       "./spec": {
         "types": "./dist/spec.d.ts",
         "bun": "./dist/spec.js",
-        "node": "./dist/node/spec.mjs",
+        "node": "./dist/node/spec.js",
         "default": "./dist/spec.js"
       },
       "./types": {
         "types": "./dist/types.d.ts",
         "bun": "./dist/types.js",
-        "node": "./dist/node/types.mjs",
+        "node": "./dist/node/types.js",
         "default": "./dist/types.js"
       },
       "./validator": {
         "types": "./dist/validator.d.ts",
         "bun": "./dist/validator.js",
-        "node": "./dist/node/validator.mjs",
+        "node": "./dist/node/validator.js",
         "default": "./dist/validator.js"
       }
     },

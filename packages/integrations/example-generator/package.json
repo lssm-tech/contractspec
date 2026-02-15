@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/integration.example-generator",
-  "version": "10.0.0",
+  "version": "14.0.0",
   "description": "Example plugin: Markdown documentation generator for ContractSpec specs",
   "keywords": [
     "contractspec",
@@ -35,27 +35,27 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "test:watch": "bun test --watch",
     "test:coverage": "bun test --coverage",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
     "typescript": "catalog:",
-    "@types/node": "^25.2.1",
+    "@types/node": "^25.2.3",
     "rimraf": "^6.0.1",
     "@contractspec/tool.bun": "workspace:*"
   },
   "peerDependencies": {
-    "@contractspec/lib.contracts": "^1.57.0",
-    "@contractspec/lib.schema": "^1.57.0"
+    "@contractspec/lib.contracts-spec": "^1.61.0",
+    "@contractspec/lib.schema": "^1.61.0"
   },
   "publishConfig": {
     "access": "public",
@@ -64,25 +64,25 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "default": "./dist/index.js"
       },
       "./config": {
         "types": "./dist/config.d.ts",
         "bun": "./dist/config.js",
-        "node": "./dist/node/config.mjs",
+        "node": "./dist/node/config.js",
         "default": "./dist/config.js"
       },
       "./generator": {
         "types": "./dist/generator.d.ts",
         "bun": "./dist/generator.js",
-        "node": "./dist/node/generator.mjs",
+        "node": "./dist/node/generator.js",
         "default": "./dist/generator.js"
       },
       "./types": {
         "types": "./dist/types.d.ts",
         "bun": "./dist/types.js",
-        "node": "./dist/node/types.mjs",
+        "node": "./dist/node/types.js",
         "default": "./dist/types.js"
       }
     }

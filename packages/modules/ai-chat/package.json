@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.ai-chat",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "AI chat interface module",
   "keywords": [
     "contractspec",
@@ -33,7 +33,7 @@
   "dependencies": {
     "@contractspec/lib.ai-agent": "workspace:*",
     "@contractspec/lib.ai-providers": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.metering": "workspace:*",
     "@contractspec/lib.cost-tracking": "workspace:*",
@@ -41,13 +41,13 @@
     "@contractspec/lib.ui-kit-web": "workspace:*",
     "@ai-sdk/react": "catalog:ai",
     "ai": "catalog:ai",
-    "lucide-react": "^0.563.0",
+    "lucide-react": "^0.564.0",
     "react": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "@types/react": "^19.2.13",
+    "@types/react": "^19.2.14",
     "typescript": "catalog:",
     "@contractspec/tool.bun": "workspace:*"
   },
@@ -75,91 +75,91 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./context": {
         "types": "./dist/context/index.d.ts",
         "bun": "./dist/context/index.js",
-        "node": "./dist/node/context/index.mjs",
+        "node": "./dist/node/context/index.js",
         "browser": "./dist/browser/context/index.js",
         "default": "./dist/context/index.js"
       },
       "./context/index": {
         "types": "./dist/context/index.d.ts",
         "bun": "./dist/context/index.js",
-        "node": "./dist/node/context/index.mjs",
+        "node": "./dist/node/context/index.js",
         "browser": "./dist/browser/context/index.js",
         "default": "./dist/context/index.js"
       },
       "./core": {
         "types": "./dist/core/index.d.ts",
         "bun": "./dist/core/index.js",
-        "node": "./dist/node/core/index.mjs",
+        "node": "./dist/node/core/index.js",
         "browser": "./dist/browser/core/index.js",
         "default": "./dist/core/index.js"
       },
       "./core/index": {
         "types": "./dist/core/index.d.ts",
         "bun": "./dist/core/index.js",
-        "node": "./dist/node/core/index.mjs",
+        "node": "./dist/node/core/index.js",
         "browser": "./dist/browser/core/index.js",
         "default": "./dist/core/index.js"
       },
       "./presentation": {
         "types": "./dist/presentation/index.d.ts",
         "bun": "./dist/presentation/index.js",
-        "node": "./dist/node/presentation/index.mjs",
+        "node": "./dist/node/presentation/index.js",
         "browser": "./dist/browser/presentation/index.js",
         "default": "./dist/presentation/index.js"
       },
       "./presentation/components": {
         "types": "./dist/presentation/components/index.d.ts",
         "bun": "./dist/presentation/components/index.js",
-        "node": "./dist/node/presentation/components/index.mjs",
+        "node": "./dist/node/presentation/components/index.js",
         "browser": "./dist/browser/presentation/components/index.js",
         "default": "./dist/presentation/components/index.js"
       },
       "./presentation/components/index": {
         "types": "./dist/presentation/components/index.d.ts",
         "bun": "./dist/presentation/components/index.js",
-        "node": "./dist/node/presentation/components/index.mjs",
+        "node": "./dist/node/presentation/components/index.js",
         "browser": "./dist/browser/presentation/components/index.js",
         "default": "./dist/presentation/components/index.js"
       },
       "./presentation/hooks": {
         "types": "./dist/presentation/hooks/index.d.ts",
         "bun": "./dist/presentation/hooks/index.js",
-        "node": "./dist/node/presentation/hooks/index.mjs",
+        "node": "./dist/node/presentation/hooks/index.js",
         "browser": "./dist/browser/presentation/hooks/index.js",
         "default": "./dist/presentation/hooks/index.js"
       },
       "./presentation/hooks/index": {
         "types": "./dist/presentation/hooks/index.d.ts",
         "bun": "./dist/presentation/hooks/index.js",
-        "node": "./dist/node/presentation/hooks/index.mjs",
+        "node": "./dist/node/presentation/hooks/index.js",
         "browser": "./dist/browser/presentation/hooks/index.js",
         "default": "./dist/presentation/hooks/index.js"
       },
       "./presentation/index": {
         "types": "./dist/presentation/index.d.ts",
         "bun": "./dist/presentation/index.js",
-        "node": "./dist/node/presentation/index.mjs",
+        "node": "./dist/node/presentation/index.js",
         "browser": "./dist/browser/presentation/index.js",
         "default": "./dist/presentation/index.js"
       },
       "./providers": {
         "types": "./dist/providers/index.d.ts",
         "bun": "./dist/providers/index.js",
-        "node": "./dist/node/providers/index.mjs",
+        "node": "./dist/node/providers/index.js",
         "browser": "./dist/browser/providers/index.js",
         "default": "./dist/providers/index.js"
       },
       "./providers/index": {
         "types": "./dist/providers/index.d.ts",
         "bun": "./dist/providers/index.js",
-        "node": "./dist/node/providers/index.mjs",
+        "node": "./dist/node/providers/index.js",
         "browser": "./dist/browser/providers/index.js",
         "default": "./dist/providers/index.js"
       }

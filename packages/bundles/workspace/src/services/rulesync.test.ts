@@ -2,7 +2,7 @@ import { describe, it, expect, mock, beforeEach, type Mock } from 'bun:test';
 import { RuleSyncService } from './rulesync';
 import type { FsAdapter } from '../ports/fs';
 import type { LoggerAdapter } from '../ports/logger';
-import type { RuleSyncConfig } from '@contractspec/lib.contracts';
+import type { RuleSyncConfig } from '@contractspec/lib.contracts-spec';
 
 describe('RuleSyncService', () => {
   let fs: {

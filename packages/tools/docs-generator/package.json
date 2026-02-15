@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/tool.docs-generator",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "type": "module",
   "description": "CLI tool for generating docs artifacts from ContractSpec specs and DocBlocks",
   "keywords": [
@@ -37,8 +37,8 @@
     "README.md"
   ],
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*",
-    "commander": "^12.1.0"
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "commander": "^14.0.3"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
@@ -52,7 +52,7 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "default": "./dist/index.js"
       }
     }

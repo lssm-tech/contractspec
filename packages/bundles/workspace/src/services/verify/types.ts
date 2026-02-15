@@ -2,12 +2,12 @@
  * Types for the Verification Service.
  */
 
-import type { AnyOperationSpec } from '@contractspec/lib.contracts';
+import type { AnyOperationSpec } from '@contractspec/lib.contracts-spec';
 import type {
   VerificationIssue,
   VerificationReport,
   VerificationTier,
-} from '@contractspec/lib.contracts/llm';
+} from '@contractspec/lib.contracts-spec/llm';
 
 /** Configuration for the verification service */
 export interface VerifyConfig {

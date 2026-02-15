@@ -11,9 +11,9 @@ import {
   validateSpec,
   validateTenantConfig,
 } from '@contractspec/bundle.workspace';
-import type { AppBlueprintSpec } from '@contractspec/lib.contracts/app-config';
+import type { AppBlueprintSpec } from '@contractspec/lib.contracts-spec/app-config';
 import type { Config } from '../../utils/config';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts/workspace-config/contractsrc-types';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec/workspace-config/contractsrc-types';
 import type { SpecScanResult } from '@contractspec/module.workspace';
 
 interface ValidateOptions {

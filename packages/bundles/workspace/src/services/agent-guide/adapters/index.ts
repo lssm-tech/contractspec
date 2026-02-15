@@ -9,7 +9,7 @@ export { ClaudeCodeAdapter, claudeCodeAdapter } from './claude-code';
 export { CursorCLIAdapter, cursorCLIAdapter } from './cursor-cli';
 export { GenericMCPAdapter, genericMCPAdapter } from './generic-mcp';
 
-import type { AgentType } from '@contractspec/lib.contracts/llm';
+import type { AgentType } from '@contractspec/lib.contracts-spec/llm';
 import type { AgentAdapter } from '../types';
 import { claudeCodeAdapter } from './claude-code';
 import { cursorCLIAdapter } from './cursor-cli';

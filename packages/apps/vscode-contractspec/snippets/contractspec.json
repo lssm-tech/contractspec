@@ -2,7 +2,7 @@
   "ContractSpec Command": {
     "prefix": ["contractspec-command", "defineCommand"],
     "body": [
-      "import { defineCommand } from '@contractspec/lib.contracts';",
+      "import { defineCommand } from '@contractspec/lib.contracts-spec';",
       "import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';",
       "",
       "const ${1:CommandName}Input = defineSchemaModel({",
@@ -54,7 +54,7 @@
   "ContractSpec Query": {
     "prefix": ["contractspec-query", "defineQuery"],
     "body": [
-      "import { defineQuery } from '@contractspec/lib.contracts';",
+      "import { defineQuery } from '@contractspec/lib.contracts-spec';",
       "import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';",
       "",
       "const ${1:QueryName}Input = defineSchemaModel({",
@@ -103,7 +103,7 @@
   "ContractSpec Event": {
     "prefix": ["contractspec-event", "defineEvent"],
     "body": [
-      "import { defineEvent } from '@contractspec/lib.contracts';",
+      "import { defineEvent } from '@contractspec/lib.contracts-spec';",
       "import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';",
       "",
       "const ${1:EventName}Payload = defineSchemaModel({",
@@ -127,8 +127,8 @@
   "ContractSpec DocBlock": {
     "prefix": ["contractspec-docblock", "docblock"],
     "body": [
-      "import type { DocBlock } from '@contractspec/lib.contracts/docs';",
-      "import { registerDocBlocks } from '@contractspec/lib.contracts/docs';",
+      "import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';",
+      "import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';",
       "",
       "export const ${1:docblock_name}_DocBlocks: DocBlock[] = [",
       "  {",
@@ -154,8 +154,8 @@
   "ContractSpec TelemetrySpec": {
     "prefix": ["contractspec-telemetry", "telemetrySpec"],
     "body": [
-      "import type { TelemetrySpec } from '@contractspec/lib.contracts/telemetry';",
-      "import { StabilityEnum } from '@contractspec/lib.contracts';",
+      "import type { TelemetrySpec } from '@contractspec/lib.contracts-spec/telemetry';",
+      "import { StabilityEnum } from '@contractspec/lib.contracts-spec';",
       "",
       "export const ${1:name}Telemetry: TelemetrySpec = {",
       "  meta: {",
@@ -194,7 +194,7 @@
   "ContractSpec Presentation": {
     "prefix": ["contractspec-presentation", "presentationSpec"],
     "body": [
-      "import type { PresentationSpec } from '@contractspec/lib.contracts/presentations';",
+      "import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';",
       "",
       "export const ${1:PresentationName}Presentation: PresentationSpec = {",
       "  meta: {",

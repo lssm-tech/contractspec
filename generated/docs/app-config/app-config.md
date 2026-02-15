@@ -2,30 +2,72 @@
 
 # app-config
 
-Provides tenant app configuration lifecycle management.
+Tenant app configuration lifecycle management with draft, preview, and publish stages
 
 ## Metadata
 
-- **Type**: capability (capability)
+- **Type**: feature
 - **Version**: 1.0.0
-- **File**: `packages/libs/contracts/src/app-config/app-config.capability.ts`
+- **Stability**: beta
+- **Owners**: @platform.sigil
+- **Tags**: app-config, lifecycle, configuration, tenant
+- **File**: `packages/libs/contracts-spec/src/app-config/app-config.feature.ts`
+
+## Events (4)
+
+- `app_config.draft_created` (v1.0.0)
+- `app_config.promoted_to_preview` (v1.0.0)
+- `app_config.published` (v1.0.0)
+- `app_config.rolled_back` (v1.0.0)
 
 ## Source Definition
 
 ```typescript
-export const AppConfigCapability = defineCapability({
+/**
+ * App Config Feature Module Specification
+ *
+ * Defines the feature module for tenant app configuration lifecycle.
+ */
+import { defineAppConfig } from './spec';
+
+/**
+ * App Config feature module that bundles tenant configuration
+ * lifecycle events for draft, preview, publish, and rollback stages.
+ */
+export const AppConfigFeature = defineAppConfig({
   meta: {
     key: 'app-config',
     version: '1.0.0',
-    title: 'App Configuration Capability',
-    description: 'Provides tenant app configuration lifecycle management.',
+    title: 'App Configuration',
+    description:
+      'Tenant app configuration lifecycle management with draft, preview, and publish stages',
     domain: 'platform',
-    owners: [OwnersEnum.PlatformSigil],
-    tags: [TagsEnum.Hygiene],
-    kind: 'api',
-    stability: StabilityEnum.Stable,
+    owners: ['@platform.sigil'],
+    tags: ['app-config', 'lifecycle', 'configuration', 'tenant'],
+    stability: 'beta',
   },
-  provides: [],
-  requires: [],
+
+  // No operations for this feature - it's events-only
+  operations: [],
+
+  // Events emitted by this feature
+  events: [
+    { key: 'app_config.draft_created', version: '1.0.0' },
+    { key: 'app_config.promoted_to_preview', version: '1.0.0' },
+    { key: 'app_config.published', version: '1.0.0' },
+    { key: 'app_config.rolled_back', version: '1.0.0' },
+  ],
+
+  // No presentations for this library feature
+  presentations: [],
+  opToPresentation: [],
+  presentationsTargets: [],
+
+  // Capability definitions
+  capabilities: {
+    provides: [{ key: 'app-config', version: '1.0.0' }],
+    requires: [],
+  },
 });
+
 ```

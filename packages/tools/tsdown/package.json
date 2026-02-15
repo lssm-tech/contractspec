@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/tool.tsdown",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "type": "module",
   "description": "Shared tsdown config presets for LSSM monorepo",
   "scripts": {

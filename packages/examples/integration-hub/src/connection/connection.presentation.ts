@@ -1,4 +1,7 @@
-import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
+import {
+  definePresentation,
+  StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
 import { ConnectionModel } from './connection.schema';
 
 export const ConnectionListPresentation = definePresentation({

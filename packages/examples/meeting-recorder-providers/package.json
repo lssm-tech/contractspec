@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.meeting-recorder-providers",
-  "version": "1.56.2",
+  "version": "1.60.0",
   "description": "Meeting recorder provider example: list meetings, transcripts, and webhooks.",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -27,13 +27,14 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/integration.providers-impls": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*"
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.contracts-integrations": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
@@ -46,70 +47,70 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./connection.sample": {
         "types": "./dist/connection.sample.d.ts",
         "bun": "./dist/connection.sample.js",
-        "node": "./dist/node/connection.sample.mjs",
+        "node": "./dist/node/connection.sample.js",
         "browser": "./dist/browser/connection.sample.js",
         "default": "./dist/connection.sample.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/meeting-recorder-providers.docblock": {
         "types": "./dist/docs/meeting-recorder-providers.docblock.d.ts",
         "bun": "./dist/docs/meeting-recorder-providers.docblock.js",
-        "node": "./dist/node/docs/meeting-recorder-providers.docblock.mjs",
+        "node": "./dist/node/docs/meeting-recorder-providers.docblock.js",
         "browser": "./dist/browser/docs/meeting-recorder-providers.docblock.js",
         "default": "./dist/docs/meeting-recorder-providers.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./handlers/create-provider": {
         "types": "./dist/handlers/create-provider.d.ts",
         "bun": "./dist/handlers/create-provider.js",
-        "node": "./dist/node/handlers/create-provider.mjs",
+        "node": "./dist/node/handlers/create-provider.js",
         "browser": "./dist/browser/handlers/create-provider.js",
         "default": "./dist/handlers/create-provider.js"
       },
       "./handlers/get-transcript": {
         "types": "./dist/handlers/get-transcript.d.ts",
         "bun": "./dist/handlers/get-transcript.js",
-        "node": "./dist/node/handlers/get-transcript.mjs",
+        "node": "./dist/node/handlers/get-transcript.js",
         "browser": "./dist/browser/handlers/get-transcript.js",
         "default": "./dist/handlers/get-transcript.js"
       },
       "./handlers/list-meetings": {
         "types": "./dist/handlers/list-meetings.d.ts",
         "bun": "./dist/handlers/list-meetings.js",
-        "node": "./dist/node/handlers/list-meetings.mjs",
+        "node": "./dist/node/handlers/list-meetings.js",
         "browser": "./dist/browser/handlers/list-meetings.js",
         "default": "./dist/handlers/list-meetings.js"
       },
       "./handlers/webhook-handler": {
         "types": "./dist/handlers/webhook-handler.d.ts",
         "bun": "./dist/handlers/webhook-handler.js",
-        "node": "./dist/node/handlers/webhook-handler.mjs",
+        "node": "./dist/node/handlers/webhook-handler.js",
         "browser": "./dist/browser/handlers/webhook-handler.js",
         "default": "./dist/handlers/webhook-handler.js"
       }

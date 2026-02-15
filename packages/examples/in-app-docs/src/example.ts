@@ -1,4 +1,4 @@
-import { defineExample } from '@contractspec/lib.contracts';
+import { defineExample } from '@contractspec/lib.contracts-spec';
 
 /**
  * Example specification for the in-app documentation example.

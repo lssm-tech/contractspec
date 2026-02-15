@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.example-shared-ui",
-  "version": "1.11.0",
+  "version": "1.15.0",
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
@@ -40,7 +40,7 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
@@ -51,175 +51,175 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./EvolutionDashboard": {
         "types": "./dist/EvolutionDashboard.d.ts",
         "bun": "./dist/EvolutionDashboard.js",
-        "node": "./dist/node/EvolutionDashboard.mjs",
+        "node": "./dist/node/EvolutionDashboard.js",
         "browser": "./dist/browser/EvolutionDashboard.js",
         "default": "./dist/EvolutionDashboard.js"
       },
       "./EvolutionSidebar": {
         "types": "./dist/EvolutionSidebar.d.ts",
         "bun": "./dist/EvolutionSidebar.js",
-        "node": "./dist/node/EvolutionSidebar.mjs",
+        "node": "./dist/node/EvolutionSidebar.js",
         "browser": "./dist/browser/EvolutionSidebar.js",
         "default": "./dist/EvolutionSidebar.js"
       },
       "./hooks": {
         "types": "./dist/hooks/index.d.ts",
         "bun": "./dist/hooks/index.js",
-        "node": "./dist/node/hooks/index.mjs",
+        "node": "./dist/node/hooks/index.js",
         "browser": "./dist/browser/hooks/index.js",
         "default": "./dist/hooks/index.js"
       },
       "./hooks/index": {
         "types": "./dist/hooks/index.d.ts",
         "bun": "./dist/hooks/index.js",
-        "node": "./dist/node/hooks/index.mjs",
+        "node": "./dist/node/hooks/index.js",
         "browser": "./dist/browser/hooks/index.js",
         "default": "./dist/hooks/index.js"
       },
       "./hooks/useBehaviorTracking": {
         "types": "./dist/hooks/useBehaviorTracking.d.ts",
         "bun": "./dist/hooks/useBehaviorTracking.js",
-        "node": "./dist/node/hooks/useBehaviorTracking.mjs",
+        "node": "./dist/node/hooks/useBehaviorTracking.js",
         "browser": "./dist/browser/hooks/useBehaviorTracking.js",
         "default": "./dist/hooks/useBehaviorTracking.js"
       },
       "./hooks/useEvolution": {
         "types": "./dist/hooks/useEvolution.d.ts",
         "bun": "./dist/hooks/useEvolution.js",
-        "node": "./dist/node/hooks/useEvolution.mjs",
+        "node": "./dist/node/hooks/useEvolution.js",
         "browser": "./dist/browser/hooks/useEvolution.js",
         "default": "./dist/hooks/useEvolution.js"
       },
       "./hooks/useRegistryTemplates": {
         "types": "./dist/hooks/useRegistryTemplates.d.ts",
         "bun": "./dist/hooks/useRegistryTemplates.js",
-        "node": "./dist/node/hooks/useRegistryTemplates.mjs",
+        "node": "./dist/node/hooks/useRegistryTemplates.js",
         "browser": "./dist/browser/hooks/useRegistryTemplates.js",
         "default": "./dist/hooks/useRegistryTemplates.js"
       },
       "./hooks/useSpecContent": {
         "types": "./dist/hooks/useSpecContent.d.ts",
         "bun": "./dist/hooks/useSpecContent.js",
-        "node": "./dist/node/hooks/useSpecContent.mjs",
+        "node": "./dist/node/hooks/useSpecContent.js",
         "browser": "./dist/browser/hooks/useSpecContent.js",
         "default": "./dist/hooks/useSpecContent.js"
       },
       "./hooks/useWorkflowComposer": {
         "types": "./dist/hooks/useWorkflowComposer.d.ts",
         "bun": "./dist/hooks/useWorkflowComposer.js",
-        "node": "./dist/node/hooks/useWorkflowComposer.mjs",
+        "node": "./dist/node/hooks/useWorkflowComposer.js",
         "browser": "./dist/browser/hooks/useWorkflowComposer.js",
         "default": "./dist/hooks/useWorkflowComposer.js"
       },
       "./lib/component-registry": {
         "types": "./dist/lib/component-registry.d.ts",
         "bun": "./dist/lib/component-registry.js",
-        "node": "./dist/node/lib/component-registry.mjs",
+        "node": "./dist/node/lib/component-registry.js",
         "browser": "./dist/browser/lib/component-registry.js",
         "default": "./dist/lib/component-registry.js"
       },
       "./lib/runtime-context": {
         "types": "./dist/lib/runtime-context.d.ts",
         "bun": "./dist/lib/runtime-context.js",
-        "node": "./dist/node/lib/runtime-context.mjs",
+        "node": "./dist/node/lib/runtime-context.js",
         "browser": "./dist/browser/lib/runtime-context.js",
         "default": "./dist/lib/runtime-context.js"
       },
       "./lib/types": {
         "types": "./dist/lib/types.d.ts",
         "bun": "./dist/lib/types.js",
-        "node": "./dist/node/lib/types.mjs",
+        "node": "./dist/node/lib/types.js",
         "browser": "./dist/browser/lib/types.js",
         "default": "./dist/lib/types.js"
       },
       "./LocalDataIndicator": {
         "types": "./dist/LocalDataIndicator.d.ts",
         "bun": "./dist/LocalDataIndicator.js",
-        "node": "./dist/node/LocalDataIndicator.mjs",
+        "node": "./dist/node/LocalDataIndicator.js",
         "browser": "./dist/browser/LocalDataIndicator.js",
         "default": "./dist/LocalDataIndicator.js"
       },
       "./MarkdownView": {
         "types": "./dist/MarkdownView.d.ts",
         "bun": "./dist/MarkdownView.js",
-        "node": "./dist/node/MarkdownView.mjs",
+        "node": "./dist/node/MarkdownView.js",
         "browser": "./dist/browser/MarkdownView.js",
         "default": "./dist/MarkdownView.js"
       },
       "./overlay-types": {
         "types": "./dist/overlay-types.d.ts",
         "bun": "./dist/overlay-types.js",
-        "node": "./dist/node/overlay-types.mjs",
+        "node": "./dist/node/overlay-types.js",
         "browser": "./dist/browser/overlay-types.js",
         "default": "./dist/overlay-types.js"
       },
       "./OverlayContextProvider": {
         "types": "./dist/OverlayContextProvider.d.ts",
         "bun": "./dist/OverlayContextProvider.js",
-        "node": "./dist/node/OverlayContextProvider.mjs",
+        "node": "./dist/node/OverlayContextProvider.js",
         "browser": "./dist/browser/OverlayContextProvider.js",
         "default": "./dist/OverlayContextProvider.js"
       },
       "./PersonalizationInsights": {
         "types": "./dist/PersonalizationInsights.d.ts",
         "bun": "./dist/PersonalizationInsights.js",
-        "node": "./dist/node/PersonalizationInsights.mjs",
+        "node": "./dist/node/PersonalizationInsights.js",
         "browser": "./dist/browser/PersonalizationInsights.js",
         "default": "./dist/PersonalizationInsights.js"
       },
       "./SaveToStudioButton": {
         "types": "./dist/SaveToStudioButton.d.ts",
         "bun": "./dist/SaveToStudioButton.js",
-        "node": "./dist/node/SaveToStudioButton.mjs",
+        "node": "./dist/node/SaveToStudioButton.js",
         "browser": "./dist/browser/SaveToStudioButton.js",
         "default": "./dist/SaveToStudioButton.js"
       },
       "./SpecEditorPanel": {
         "types": "./dist/SpecEditorPanel.d.ts",
         "bun": "./dist/SpecEditorPanel.js",
-        "node": "./dist/node/SpecEditorPanel.mjs",
+        "node": "./dist/node/SpecEditorPanel.js",
         "browser": "./dist/browser/SpecEditorPanel.js",
         "default": "./dist/SpecEditorPanel.js"
       },
       "./TemplateShell": {
         "types": "./dist/TemplateShell.d.ts",
         "bun": "./dist/TemplateShell.js",
-        "node": "./dist/node/TemplateShell.mjs",
+        "node": "./dist/node/TemplateShell.js",
         "browser": "./dist/browser/TemplateShell.js",
         "default": "./dist/TemplateShell.js"
       },
       "./utils": {
         "types": "./dist/utils/index.d.ts",
         "bun": "./dist/utils/index.js",
-        "node": "./dist/node/utils/index.mjs",
+        "node": "./dist/node/utils/index.js",
         "browser": "./dist/browser/utils/index.js",
         "default": "./dist/utils/index.js"
       },
       "./utils/fetchPresentationData": {
         "types": "./dist/utils/fetchPresentationData.d.ts",
         "bun": "./dist/utils/fetchPresentationData.js",
-        "node": "./dist/node/utils/fetchPresentationData.mjs",
+        "node": "./dist/node/utils/fetchPresentationData.js",
         "browser": "./dist/browser/utils/fetchPresentationData.js",
         "default": "./dist/utils/fetchPresentationData.js"
       },
       "./utils/generateSpecFromTemplate": {
         "types": "./dist/utils/generateSpecFromTemplate.d.ts",
         "bun": "./dist/utils/generateSpecFromTemplate.js",
-        "node": "./dist/node/utils/generateSpecFromTemplate.mjs",
+        "node": "./dist/node/utils/generateSpecFromTemplate.js",
         "browser": "./dist/browser/utils/generateSpecFromTemplate.js",
         "default": "./dist/utils/generateSpecFromTemplate.js"
       },
       "./utils/index": {
         "types": "./dist/utils/index.d.ts",
         "bun": "./dist/utils/index.js",
-        "node": "./dist/node/utils/index.mjs",
+        "node": "./dist/node/utils/index.js",
         "browser": "./dist/browser/utils/index.js",
         "default": "./dist/utils/index.js"
       }
@@ -227,18 +227,18 @@
   },
   "dependencies": {
     "@apollo/client": "^4.1.4",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.ui-kit-web": "workspace:*",
-    "@tanstack/react-query": "^5.90.16",
-    "framer-motion": "^12.33.0",
-    "lucide-react": "^0.563.0",
+    "@tanstack/react-query": "^5.90.21",
+    "framer-motion": "^12.34.0",
+    "lucide-react": "^0.564.0",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "@types/react": "^19.2.13",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.2",
     "eslint": "^9.39.2",
     "typescript": "catalog:",

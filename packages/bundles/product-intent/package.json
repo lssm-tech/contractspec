@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/bundle.product-intent",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Product intent bundle with AI runner and evidence retriever",
   "keywords": [
     "contractspec",
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "ai": "catalog:ai",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/module.product-intent-core": "workspace:*"
   },
   "devDependencies": {
@@ -50,7 +50,7 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       }

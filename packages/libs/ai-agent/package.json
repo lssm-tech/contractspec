@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.ai-agent",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "AI agent orchestration with MCP and tool support",
   "keywords": [
     "contractspec",
@@ -40,7 +40,9 @@
     "@ai-sdk/mistral": "catalog:ai",
     "@ai-sdk/openai": "catalog:ai",
     "@modelcontextprotocol/sdk": "^1.26.0",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@posthog/react": "^1.7.1",
+    "@posthog/ai": "latest",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.ai-providers": "workspace:*",
     "@contractspec/lib.knowledge": "workspace:*",
     "compare-versions": "^6.1.1",
@@ -48,13 +50,20 @@
   },
   "peerDependencies": {
     "@anthropic-ai/claude-agent-sdk": ">=0.1.0",
-    "@opencode-ai/sdk": ">=1.0.0"
+    "@opencode-ai/sdk": ">=1.0.0",
+    "posthog-node": ">=4.0.0"
   },
   "peerDependenciesMeta": {
     "@anthropic-ai/claude-agent-sdk": {
       "optional": true
     },
     "@opencode-ai/sdk": {
+      "optional": true
+    },
+    "@posthog/ai": {
+      "optional": true
+    },
+    "posthog-node": {
       "optional": true
     }
   },
@@ -79,6 +88,16 @@
     "./exporters/index": "./src/exporters/index.ts",
     "./exporters/opencode-exporter": "./src/exporters/opencode-exporter.ts",
     "./exporters/types": "./src/exporters/types.ts",
+    "./i18n": "./src/i18n/index.ts",
+    "./i18n/catalogs": "./src/i18n/catalogs/index.ts",
+    "./i18n/catalogs/en": "./src/i18n/catalogs/en.ts",
+    "./i18n/catalogs/es": "./src/i18n/catalogs/es.ts",
+    "./i18n/catalogs/fr": "./src/i18n/catalogs/fr.ts",
+    "./i18n/catalogs/index": "./src/i18n/catalogs/index.ts",
+    "./i18n/index": "./src/i18n/index.ts",
+    "./i18n/keys": "./src/i18n/keys.ts",
+    "./i18n/locale": "./src/i18n/locale.ts",
+    "./i18n/messages": "./src/i18n/messages.ts",
     "./interop": "./src/interop/index.ts",
     "./interop/index": "./src/interop/index.ts",
     "./interop/spec-consumer": "./src/interop/spec-consumer.ts",
@@ -119,6 +138,8 @@
     "./telemetry": "./src/telemetry/index.ts",
     "./telemetry/adapter": "./src/telemetry/adapter.ts",
     "./telemetry/index": "./src/telemetry/index.ts",
+    "./telemetry/posthog": "./src/telemetry/posthog.ts",
+    "./telemetry/posthog-types": "./src/telemetry/posthog-types.ts",
     "./tools": "./src/tools/index.ts",
     "./tools/index": "./src/tools/index.ts",
     "./tools/knowledge-tool": "./src/tools/knowledge-tool.ts",
@@ -133,373 +154,445 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "default": "./dist/index.js"
       },
       "./agent": {
         "types": "./dist/agent/index.d.ts",
         "bun": "./dist/agent/index.js",
-        "node": "./dist/node/agent/index.mjs",
+        "node": "./dist/node/agent/index.js",
         "default": "./dist/agent/index.js"
       },
       "./agent/agent-factory": {
         "types": "./dist/agent/agent-factory.d.ts",
         "bun": "./dist/agent/agent-factory.js",
-        "node": "./dist/node/agent/agent-factory.mjs",
+        "node": "./dist/node/agent/agent-factory.js",
         "default": "./dist/agent/agent-factory.js"
       },
       "./agent/contract-spec-agent": {
         "types": "./dist/agent/contract-spec-agent.d.ts",
         "bun": "./dist/agent/contract-spec-agent.js",
-        "node": "./dist/node/agent/contract-spec-agent.mjs",
+        "node": "./dist/node/agent/contract-spec-agent.js",
         "default": "./dist/agent/contract-spec-agent.js"
       },
       "./agent/index": {
         "types": "./dist/agent/index.d.ts",
         "bun": "./dist/agent/index.js",
-        "node": "./dist/node/agent/index.mjs",
+        "node": "./dist/node/agent/index.js",
         "default": "./dist/agent/index.js"
       },
       "./agent/json-runner": {
         "types": "./dist/agent/json-runner.d.ts",
         "bun": "./dist/agent/json-runner.js",
-        "node": "./dist/node/agent/json-runner.mjs",
+        "node": "./dist/node/agent/json-runner.js",
         "default": "./dist/agent/json-runner.js"
       },
       "./agent/unified-agent": {
         "types": "./dist/agent/unified-agent.d.ts",
         "bun": "./dist/agent/unified-agent.js",
-        "node": "./dist/node/agent/unified-agent.mjs",
+        "node": "./dist/node/agent/unified-agent.js",
         "default": "./dist/agent/unified-agent.js"
       },
       "./approval": {
         "types": "./dist/approval/index.d.ts",
         "bun": "./dist/approval/index.js",
-        "node": "./dist/node/approval/index.mjs",
+        "node": "./dist/node/approval/index.js",
         "default": "./dist/approval/index.js"
       },
       "./approval/index": {
         "types": "./dist/approval/index.d.ts",
         "bun": "./dist/approval/index.js",
-        "node": "./dist/node/approval/index.mjs",
+        "node": "./dist/node/approval/index.js",
         "default": "./dist/approval/index.js"
       },
       "./approval/workflow": {
         "types": "./dist/approval/workflow.d.ts",
         "bun": "./dist/approval/workflow.js",
-        "node": "./dist/node/approval/workflow.mjs",
+        "node": "./dist/node/approval/workflow.js",
         "default": "./dist/approval/workflow.js"
       },
       "./exporters": {
         "types": "./dist/exporters/index.d.ts",
         "bun": "./dist/exporters/index.js",
-        "node": "./dist/node/exporters/index.mjs",
+        "node": "./dist/node/exporters/index.js",
         "default": "./dist/exporters/index.js"
       },
       "./exporters/claude-agent-exporter": {
         "types": "./dist/exporters/claude-agent-exporter.d.ts",
         "bun": "./dist/exporters/claude-agent-exporter.js",
-        "node": "./dist/node/exporters/claude-agent-exporter.mjs",
+        "node": "./dist/node/exporters/claude-agent-exporter.js",
         "default": "./dist/exporters/claude-agent-exporter.js"
       },
       "./exporters/index": {
         "types": "./dist/exporters/index.d.ts",
         "bun": "./dist/exporters/index.js",
-        "node": "./dist/node/exporters/index.mjs",
+        "node": "./dist/node/exporters/index.js",
         "default": "./dist/exporters/index.js"
       },
       "./exporters/opencode-exporter": {
         "types": "./dist/exporters/opencode-exporter.d.ts",
         "bun": "./dist/exporters/opencode-exporter.js",
-        "node": "./dist/node/exporters/opencode-exporter.mjs",
+        "node": "./dist/node/exporters/opencode-exporter.js",
         "default": "./dist/exporters/opencode-exporter.js"
       },
       "./exporters/types": {
         "types": "./dist/exporters/types.d.ts",
         "bun": "./dist/exporters/types.js",
-        "node": "./dist/node/exporters/types.mjs",
+        "node": "./dist/node/exporters/types.js",
         "default": "./dist/exporters/types.js"
+      },
+      "./i18n": {
+        "types": "./dist/i18n/index.d.ts",
+        "bun": "./dist/i18n/index.js",
+        "node": "./dist/node/i18n/index.js",
+        "default": "./dist/i18n/index.js"
+      },
+      "./i18n/catalogs": {
+        "types": "./dist/i18n/catalogs/index.d.ts",
+        "bun": "./dist/i18n/catalogs/index.js",
+        "node": "./dist/node/i18n/catalogs/index.js",
+        "default": "./dist/i18n/catalogs/index.js"
+      },
+      "./i18n/catalogs/en": {
+        "types": "./dist/i18n/catalogs/en.d.ts",
+        "bun": "./dist/i18n/catalogs/en.js",
+        "node": "./dist/node/i18n/catalogs/en.js",
+        "default": "./dist/i18n/catalogs/en.js"
+      },
+      "./i18n/catalogs/es": {
+        "types": "./dist/i18n/catalogs/es.d.ts",
+        "bun": "./dist/i18n/catalogs/es.js",
+        "node": "./dist/node/i18n/catalogs/es.js",
+        "default": "./dist/i18n/catalogs/es.js"
+      },
+      "./i18n/catalogs/fr": {
+        "types": "./dist/i18n/catalogs/fr.d.ts",
+        "bun": "./dist/i18n/catalogs/fr.js",
+        "node": "./dist/node/i18n/catalogs/fr.js",
+        "default": "./dist/i18n/catalogs/fr.js"
+      },
+      "./i18n/catalogs/index": {
+        "types": "./dist/i18n/catalogs/index.d.ts",
+        "bun": "./dist/i18n/catalogs/index.js",
+        "node": "./dist/node/i18n/catalogs/index.js",
+        "default": "./dist/i18n/catalogs/index.js"
+      },
+      "./i18n/index": {
+        "types": "./dist/i18n/index.d.ts",
+        "bun": "./dist/i18n/index.js",
+        "node": "./dist/node/i18n/index.js",
+        "default": "./dist/i18n/index.js"
+      },
+      "./i18n/keys": {
+        "types": "./dist/i18n/keys.d.ts",
+        "bun": "./dist/i18n/keys.js",
+        "node": "./dist/node/i18n/keys.js",
+        "default": "./dist/i18n/keys.js"
+      },
+      "./i18n/locale": {
+        "types": "./dist/i18n/locale.d.ts",
+        "bun": "./dist/i18n/locale.js",
+        "node": "./dist/node/i18n/locale.js",
+        "default": "./dist/i18n/locale.js"
+      },
+      "./i18n/messages": {
+        "types": "./dist/i18n/messages.d.ts",
+        "bun": "./dist/i18n/messages.js",
+        "node": "./dist/node/i18n/messages.js",
+        "default": "./dist/i18n/messages.js"
       },
       "./interop": {
         "types": "./dist/interop/index.d.ts",
         "bun": "./dist/interop/index.js",
-        "node": "./dist/node/interop/index.mjs",
+        "node": "./dist/node/interop/index.js",
         "default": "./dist/interop/index.js"
       },
       "./interop/index": {
         "types": "./dist/interop/index.d.ts",
         "bun": "./dist/interop/index.js",
-        "node": "./dist/node/interop/index.mjs",
+        "node": "./dist/node/interop/index.js",
         "default": "./dist/interop/index.js"
       },
       "./interop/spec-consumer": {
         "types": "./dist/interop/spec-consumer.d.ts",
         "bun": "./dist/interop/spec-consumer.js",
-        "node": "./dist/node/interop/spec-consumer.mjs",
+        "node": "./dist/node/interop/spec-consumer.js",
         "default": "./dist/interop/spec-consumer.js"
       },
       "./interop/tool-consumer": {
         "types": "./dist/interop/tool-consumer.d.ts",
         "bun": "./dist/interop/tool-consumer.js",
-        "node": "./dist/node/interop/tool-consumer.mjs",
+        "node": "./dist/node/interop/tool-consumer.js",
         "default": "./dist/interop/tool-consumer.js"
       },
       "./interop/types": {
         "types": "./dist/interop/types.d.ts",
         "bun": "./dist/interop/types.js",
-        "node": "./dist/node/interop/types.mjs",
+        "node": "./dist/node/interop/types.js",
         "default": "./dist/interop/types.js"
       },
       "./knowledge": {
         "types": "./dist/knowledge/index.d.ts",
         "bun": "./dist/knowledge/index.js",
-        "node": "./dist/node/knowledge/index.mjs",
+        "node": "./dist/node/knowledge/index.js",
         "default": "./dist/knowledge/index.js"
       },
       "./knowledge/index": {
         "types": "./dist/knowledge/index.d.ts",
         "bun": "./dist/knowledge/index.js",
-        "node": "./dist/node/knowledge/index.mjs",
+        "node": "./dist/node/knowledge/index.js",
         "default": "./dist/knowledge/index.js"
       },
       "./knowledge/injector": {
         "types": "./dist/knowledge/injector.d.ts",
         "bun": "./dist/knowledge/injector.js",
-        "node": "./dist/node/knowledge/injector.mjs",
+        "node": "./dist/node/knowledge/injector.js",
         "default": "./dist/knowledge/injector.js"
       },
       "./memory": {
         "types": "./dist/memory/index.d.ts",
         "bun": "./dist/memory/index.js",
-        "node": "./dist/node/memory/index.mjs",
+        "node": "./dist/node/memory/index.js",
         "default": "./dist/memory/index.js"
       },
       "./memory/in-memory": {
         "types": "./dist/memory/in-memory.d.ts",
         "bun": "./dist/memory/in-memory.js",
-        "node": "./dist/node/memory/in-memory.mjs",
+        "node": "./dist/node/memory/in-memory.js",
         "default": "./dist/memory/in-memory.js"
       },
       "./memory/index": {
         "types": "./dist/memory/index.d.ts",
         "bun": "./dist/memory/index.js",
-        "node": "./dist/node/memory/index.mjs",
+        "node": "./dist/node/memory/index.js",
         "default": "./dist/memory/index.js"
       },
       "./memory/manager": {
         "types": "./dist/memory/manager.d.ts",
         "bun": "./dist/memory/manager.js",
-        "node": "./dist/node/memory/manager.mjs",
+        "node": "./dist/node/memory/manager.js",
         "default": "./dist/memory/manager.js"
       },
       "./providers": {
         "types": "./dist/providers/index.d.ts",
         "bun": "./dist/providers/index.js",
-        "node": "./dist/node/providers/index.mjs",
+        "node": "./dist/node/providers/index.js",
         "default": "./dist/providers/index.js"
       },
       "./providers/claude-agent-sdk": {
         "types": "./dist/providers/claude-agent-sdk/index.d.ts",
         "bun": "./dist/providers/claude-agent-sdk/index.js",
-        "node": "./dist/node/providers/claude-agent-sdk/index.mjs",
+        "node": "./dist/node/providers/claude-agent-sdk/index.js",
         "default": "./dist/providers/claude-agent-sdk/index.js"
       },
       "./providers/claude-agent-sdk/adapter": {
         "types": "./dist/providers/claude-agent-sdk/adapter.d.ts",
         "bun": "./dist/providers/claude-agent-sdk/adapter.js",
-        "node": "./dist/node/providers/claude-agent-sdk/adapter.mjs",
+        "node": "./dist/node/providers/claude-agent-sdk/adapter.js",
         "default": "./dist/providers/claude-agent-sdk/adapter.js"
       },
       "./providers/claude-agent-sdk/index": {
         "types": "./dist/providers/claude-agent-sdk/index.d.ts",
         "bun": "./dist/providers/claude-agent-sdk/index.js",
-        "node": "./dist/node/providers/claude-agent-sdk/index.mjs",
+        "node": "./dist/node/providers/claude-agent-sdk/index.js",
         "default": "./dist/providers/claude-agent-sdk/index.js"
       },
       "./providers/claude-agent-sdk/session-bridge": {
         "types": "./dist/providers/claude-agent-sdk/session-bridge.d.ts",
         "bun": "./dist/providers/claude-agent-sdk/session-bridge.js",
-        "node": "./dist/node/providers/claude-agent-sdk/session-bridge.mjs",
+        "node": "./dist/node/providers/claude-agent-sdk/session-bridge.js",
         "default": "./dist/providers/claude-agent-sdk/session-bridge.js"
       },
       "./providers/claude-agent-sdk/tool-bridge": {
         "types": "./dist/providers/claude-agent-sdk/tool-bridge.d.ts",
         "bun": "./dist/providers/claude-agent-sdk/tool-bridge.js",
-        "node": "./dist/node/providers/claude-agent-sdk/tool-bridge.mjs",
+        "node": "./dist/node/providers/claude-agent-sdk/tool-bridge.js",
         "default": "./dist/providers/claude-agent-sdk/tool-bridge.js"
       },
       "./providers/index": {
         "types": "./dist/providers/index.d.ts",
         "bun": "./dist/providers/index.js",
-        "node": "./dist/node/providers/index.mjs",
+        "node": "./dist/node/providers/index.js",
         "default": "./dist/providers/index.js"
       },
       "./providers/opencode-sdk": {
         "types": "./dist/providers/opencode-sdk/index.d.ts",
         "bun": "./dist/providers/opencode-sdk/index.js",
-        "node": "./dist/node/providers/opencode-sdk/index.mjs",
+        "node": "./dist/node/providers/opencode-sdk/index.js",
         "default": "./dist/providers/opencode-sdk/index.js"
       },
       "./providers/opencode-sdk/adapter": {
         "types": "./dist/providers/opencode-sdk/adapter.d.ts",
         "bun": "./dist/providers/opencode-sdk/adapter.js",
-        "node": "./dist/node/providers/opencode-sdk/adapter.mjs",
+        "node": "./dist/node/providers/opencode-sdk/adapter.js",
         "default": "./dist/providers/opencode-sdk/adapter.js"
       },
       "./providers/opencode-sdk/agent-bridge": {
         "types": "./dist/providers/opencode-sdk/agent-bridge.d.ts",
         "bun": "./dist/providers/opencode-sdk/agent-bridge.js",
-        "node": "./dist/node/providers/opencode-sdk/agent-bridge.mjs",
+        "node": "./dist/node/providers/opencode-sdk/agent-bridge.js",
         "default": "./dist/providers/opencode-sdk/agent-bridge.js"
       },
       "./providers/opencode-sdk/index": {
         "types": "./dist/providers/opencode-sdk/index.d.ts",
         "bun": "./dist/providers/opencode-sdk/index.js",
-        "node": "./dist/node/providers/opencode-sdk/index.mjs",
+        "node": "./dist/node/providers/opencode-sdk/index.js",
         "default": "./dist/providers/opencode-sdk/index.js"
       },
       "./providers/opencode-sdk/tool-bridge": {
         "types": "./dist/providers/opencode-sdk/tool-bridge.d.ts",
         "bun": "./dist/providers/opencode-sdk/tool-bridge.js",
-        "node": "./dist/node/providers/opencode-sdk/tool-bridge.mjs",
+        "node": "./dist/node/providers/opencode-sdk/tool-bridge.js",
         "default": "./dist/providers/opencode-sdk/tool-bridge.js"
       },
       "./providers/registry": {
         "types": "./dist/providers/registry.d.ts",
         "bun": "./dist/providers/registry.js",
-        "node": "./dist/node/providers/registry.mjs",
+        "node": "./dist/node/providers/registry.js",
         "default": "./dist/providers/registry.js"
       },
       "./providers/types": {
         "types": "./dist/providers/types.d.ts",
         "bun": "./dist/providers/types.js",
-        "node": "./dist/node/providers/types.mjs",
+        "node": "./dist/node/providers/types.js",
         "default": "./dist/providers/types.js"
       },
       "./schema": {
         "types": "./dist/schema/index.d.ts",
         "bun": "./dist/schema/index.js",
-        "node": "./dist/node/schema/index.mjs",
+        "node": "./dist/node/schema/index.js",
         "default": "./dist/schema/index.js"
       },
       "./schema/index": {
         "types": "./dist/schema/index.d.ts",
         "bun": "./dist/schema/index.js",
-        "node": "./dist/node/schema/index.mjs",
+        "node": "./dist/node/schema/index.js",
         "default": "./dist/schema/index.js"
       },
       "./schema/json-schema-to-zod": {
         "types": "./dist/schema/json-schema-to-zod.d.ts",
         "bun": "./dist/schema/json-schema-to-zod.js",
-        "node": "./dist/node/schema/json-schema-to-zod.mjs",
+        "node": "./dist/node/schema/json-schema-to-zod.js",
         "default": "./dist/schema/json-schema-to-zod.js"
       },
       "./schema/schema-output": {
         "types": "./dist/schema/schema-output.d.ts",
         "bun": "./dist/schema/schema-output.js",
-        "node": "./dist/node/schema/schema-output.mjs",
+        "node": "./dist/node/schema/schema-output.js",
         "default": "./dist/schema/schema-output.js"
       },
       "./session": {
         "types": "./dist/session/index.d.ts",
         "bun": "./dist/session/index.js",
-        "node": "./dist/node/session/index.mjs",
+        "node": "./dist/node/session/index.js",
         "default": "./dist/session/index.js"
       },
       "./session/index": {
         "types": "./dist/session/index.d.ts",
         "bun": "./dist/session/index.js",
-        "node": "./dist/node/session/index.mjs",
+        "node": "./dist/node/session/index.js",
         "default": "./dist/session/index.js"
       },
       "./session/store": {
         "types": "./dist/session/store.d.ts",
         "bun": "./dist/session/store.js",
-        "node": "./dist/node/session/store.mjs",
+        "node": "./dist/node/session/store.js",
         "default": "./dist/session/store.js"
       },
       "./spec": {
         "types": "./dist/spec/index.d.ts",
         "bun": "./dist/spec/index.js",
-        "node": "./dist/node/spec/index.mjs",
+        "node": "./dist/node/spec/index.js",
         "default": "./dist/spec/index.js"
       },
       "./spec/index": {
         "types": "./dist/spec/index.d.ts",
         "bun": "./dist/spec/index.js",
-        "node": "./dist/node/spec/index.mjs",
+        "node": "./dist/node/spec/index.js",
         "default": "./dist/spec/index.js"
       },
       "./spec/registry": {
         "types": "./dist/spec/registry.d.ts",
         "bun": "./dist/spec/registry.js",
-        "node": "./dist/node/spec/registry.mjs",
+        "node": "./dist/node/spec/registry.js",
         "default": "./dist/spec/registry.js"
       },
       "./spec/spec": {
         "types": "./dist/spec/spec.d.ts",
         "bun": "./dist/spec/spec.js",
-        "node": "./dist/node/spec/spec.mjs",
+        "node": "./dist/node/spec/spec.js",
         "default": "./dist/spec/spec.js"
       },
       "./telemetry": {
         "types": "./dist/telemetry/index.d.ts",
         "bun": "./dist/telemetry/index.js",
-        "node": "./dist/node/telemetry/index.mjs",
+        "node": "./dist/node/telemetry/index.js",
         "default": "./dist/telemetry/index.js"
       },
       "./telemetry/adapter": {
         "types": "./dist/telemetry/adapter.d.ts",
         "bun": "./dist/telemetry/adapter.js",
-        "node": "./dist/node/telemetry/adapter.mjs",
+        "node": "./dist/node/telemetry/adapter.js",
         "default": "./dist/telemetry/adapter.js"
       },
       "./telemetry/index": {
         "types": "./dist/telemetry/index.d.ts",
         "bun": "./dist/telemetry/index.js",
-        "node": "./dist/node/telemetry/index.mjs",
+        "node": "./dist/node/telemetry/index.js",
         "default": "./dist/telemetry/index.js"
+      },
+      "./telemetry/posthog": {
+        "types": "./dist/telemetry/posthog.d.ts",
+        "bun": "./dist/telemetry/posthog.js",
+        "node": "./dist/node/telemetry/posthog.js",
+        "default": "./dist/telemetry/posthog.js"
+      },
+      "./telemetry/posthog-types": {
+        "types": "./dist/telemetry/posthog-types.d.ts",
+        "bun": "./dist/telemetry/posthog-types.js",
+        "node": "./dist/node/telemetry/posthog-types.js",
+        "default": "./dist/telemetry/posthog-types.js"
       },
       "./tools": {
         "types": "./dist/tools/index.d.ts",
         "bun": "./dist/tools/index.js",
-        "node": "./dist/node/tools/index.mjs",
+        "node": "./dist/node/tools/index.js",
         "default": "./dist/tools/index.js"
       },
       "./tools/index": {
         "types": "./dist/tools/index.d.ts",
         "bun": "./dist/tools/index.js",
-        "node": "./dist/node/tools/index.mjs",
+        "node": "./dist/node/tools/index.js",
         "default": "./dist/tools/index.js"
       },
       "./tools/knowledge-tool": {
         "types": "./dist/tools/knowledge-tool.d.ts",
         "bun": "./dist/tools/knowledge-tool.js",
-        "node": "./dist/node/tools/knowledge-tool.mjs",
+        "node": "./dist/node/tools/knowledge-tool.js",
         "default": "./dist/tools/knowledge-tool.js"
       },
       "./tools/mcp-client": {
         "types": "./dist/tools/mcp-client.d.ts",
         "bun": "./dist/tools/mcp-client.js",
-        "node": "./dist/node/tools/mcp-client.mjs",
+        "node": "./dist/node/tools/mcp-client.js",
         "default": "./dist/tools/mcp-client.js"
       },
       "./tools/mcp-server": {
         "types": "./dist/tools/mcp-server.d.ts",
         "bun": "./dist/tools/mcp-server.js",
-        "node": "./dist/node/tools/mcp-server.mjs",
+        "node": "./dist/node/tools/mcp-server.js",
         "default": "./dist/tools/mcp-server.js"
       },
       "./tools/tool-adapter": {
         "types": "./dist/tools/tool-adapter.d.ts",
         "bun": "./dist/tools/tool-adapter.js",
-        "node": "./dist/node/tools/tool-adapter.mjs",
+        "node": "./dist/node/tools/tool-adapter.js",
         "default": "./dist/tools/tool-adapter.js"
       },
       "./types": {
         "types": "./dist/types.d.ts",
         "bun": "./dist/types.js",
-        "node": "./dist/node/types.mjs",
+        "node": "./dist/node/types.js",
         "default": "./dist/types.js"
       }
     },

@@ -3,8 +3,8 @@ import {
   TestRunner,
   type TestSpec,
   type TestRunResult,
-} from '@contractspec/lib.contracts/tests';
-import { OperationSpecRegistry } from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec/tests';
+import { OperationSpecRegistry } from '@contractspec/lib.contracts-spec';
 import { loadTypeScriptModule } from '../../utils/module-loader';
 import type { WorkspaceAdapters } from '../../ports/logger';
 

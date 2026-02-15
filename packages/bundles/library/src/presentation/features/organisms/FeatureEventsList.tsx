@@ -2,7 +2,7 @@
 
 import { EntityCard } from '@contractspec/lib.design-system';
 import { Radio } from 'lucide-react';
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts/features';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts-spec/features';
 import { resolveSerializedEventSpec } from '../../../features';
 
 export function FeatureEventsList({ feature }: { feature: FeatureModuleSpec }) {

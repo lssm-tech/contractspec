@@ -15,7 +15,7 @@ import {
 import type {
   VersionAnalysis,
   VersionBumpType,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 
 const { analyzeVersions } = versioning;
 import { getWorkspaceAdapters } from '../workspace/adapters';

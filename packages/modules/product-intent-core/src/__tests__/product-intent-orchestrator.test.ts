@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'bun:test';
-import { ProductIntentRegistry } from '@contractspec/lib.contracts/product-intent/registry';
-import { StabilityEnum } from '@contractspec/lib.contracts/ownership';
-import type { EvidenceChunk } from '@contractspec/lib.contracts/product-intent/types';
-import type { ProductIntentMeta } from '@contractspec/lib.contracts/product-intent/spec';
+import { ProductIntentRegistry } from '@contractspec/lib.contracts-spec/product-intent/registry';
+import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
+import type { EvidenceChunk } from '@contractspec/lib.contracts-spec/product-intent/types';
+import type { ProductIntentMeta } from '@contractspec/lib.contracts-spec/product-intent/spec';
 import { ProductIntentOrchestrator } from '../orchestrator/product-intent-orchestrator';
 import type { ProductIntentModelRunner } from '../types';
 

@@ -3,6 +3,7 @@ import { tool, type Tool } from 'ai';
 import type { AgentToolConfig } from '../spec/spec';
 import type { ToolExecutionContext, ToolHandler } from '../types';
 import { jsonSchemaToZodSafe } from '../schema/json-schema-to-zod';
+import { getDefaultI18n } from '../i18n';
 
 /**
  * Convert ContractSpec AgentToolConfig to AI SDK CoreTool.
@@ -55,7 +56,9 @@ export function specToolsToAISDKTools(
   for (const specTool of specTools) {
     const handler = handlers.get(specTool.name);
     if (!handler) {
-      throw new Error(`Missing handler for tool: ${specTool.name}`);
+      throw new Error(
+        getDefaultI18n().t('error.missingToolHandler', { name: specTool.name })
+      );
     }
 
     tools[specTool.name] = specToolToAISDKTool(specTool, handler, context);

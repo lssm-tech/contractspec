@@ -14,7 +14,7 @@ import type { QuickstartDependency } from './types';
  */
 export const MINIMAL_DEPENDENCIES: QuickstartDependency[] = [
   {
-    name: '@contractspec/lib.contracts',
+    name: '@contractspec/lib.contracts-spec',
     description:
       'Core ContractSpec library for defining commands, queries, and events',
   },

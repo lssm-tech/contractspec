@@ -1,5 +1,9 @@
-import { defineEvent, defineSchemaModel } from '@contractspec/lib.contracts';
-import { ScalarTypeEnum, defineEnum } from '@contractspec/lib.schema';
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import {
+  ScalarTypeEnum,
+  defineEnum,
+  defineSchemaModel,
+} from '@contractspec/lib.schema';
 
 const OWNERS = ['@agent-console-team'] as const;
 

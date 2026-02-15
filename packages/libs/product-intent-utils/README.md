@@ -24,7 +24,7 @@ import {
   promptExtractInsights,
   validateInsightExtraction,
 } from "@contractspec/lib.product-intent-utils";
-import type { EvidenceChunk } from "@contractspec/lib.contracts/product-intent/types";
+import type { EvidenceChunk } from "@contractspec/lib.contracts-spec/product-intent/types";
 
 const chunks: EvidenceChunk[] = [
   { chunkId: "INT-001#c_00", text: "...", meta: { persona: "admin" } },

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts/features';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts-spec/features';
 import { getContractSpecFeatureRegistry } from '../../../features/registry';
 
 export interface UseFeatureRegistryReturn {

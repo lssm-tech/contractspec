@@ -9,7 +9,7 @@ import type { Watcher, WatcherAdapter, WatchOptions } from '../ports/watcher';
 import type { FsAdapter } from '../ports/fs';
 import { buildSpec } from './build';
 import { validateSpec } from './validate';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 
 export interface WatchSpecsOptions extends WatchOptions {
   runValidate?: boolean;

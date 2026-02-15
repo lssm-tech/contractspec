@@ -1,5 +1,5 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import type { PresentationSpec } from '@contractspec/lib.contracts-spec';
+import { StabilityEnum } from '@contractspec/lib.contracts-spec';
 
 export const TeamDashboardPresentation: PresentationSpec = {
   meta: {

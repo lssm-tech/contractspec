@@ -1,7 +1,7 @@
 import type {
   BrandingDefaults,
   ResolvedBranding,
-} from '@contractspec/lib.contracts/app-config';
+} from '@contractspec/lib.contracts-spec/app-config';
 
 /**
  * Default branding configuration for ContractSpec.

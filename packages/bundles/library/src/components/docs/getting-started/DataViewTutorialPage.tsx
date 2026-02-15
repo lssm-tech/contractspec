@@ -21,7 +21,7 @@ export function DataViewTutorialPage() {
         <CodeBlock
           language="typescript"
           filename="lib/specs/billing/list-transactions.ts"
-          code={`import { defineQuery } from '@contractspec/lib.contracts';
+          code={`import { defineQuery } from '@contractspec/lib.contracts-spec';
 
 export const ListTransactions = defineQuery({
   meta: {
@@ -46,7 +46,7 @@ export const ListTransactions = defineQuery({
         <CodeBlock
           language="typescript"
           filename="lib/specs/billing/transaction-history.data-view.ts"
-          code={`import { defineDataView } from '@contractspec/lib.contracts';
+          code={`import { defineDataView } from '@contractspec/lib.contracts-spec';
 import { ListTransactions } from './list-transactions';
 
 export const TransactionHistory = defineDataView({

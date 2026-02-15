@@ -5,7 +5,7 @@
  * without requiring a full build or runtime environment.
  */
 
-import type { VerificationTier } from '@contractspec/lib.contracts/llm';
+import type { VerificationTier } from '@contractspec/lib.contracts-spec/llm';
 import type { ParsedSpec } from '@contractspec/module.workspace';
 
 /**

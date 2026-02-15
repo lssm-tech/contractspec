@@ -10,7 +10,7 @@ import type { FsAdapter } from '../ports/fs';
 import micromatch from 'micromatch';
 import { isLibraryDefinitionFile, isTestFile } from '../utils';
 import type { MaybeArray } from '@contractspec/lib.utils-typescript';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 
 /**
  * Options for listing specs.

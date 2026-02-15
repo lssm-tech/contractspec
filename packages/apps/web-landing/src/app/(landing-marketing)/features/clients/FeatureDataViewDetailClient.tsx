@@ -4,7 +4,7 @@ import { FeatureDataViewDetailTemplate } from '@contractspec/bundle.library/pres
 import type {
   FeatureModuleSpec,
   DataViewRef,
-} from '@contractspec/lib.contracts/features';
+} from '@contractspec/lib.contracts-spec/features';
 import type { SerializedDataViewSpec } from '@contractspec/bundle.library/features';
 
 export interface FeatureDataViewDetailClientProps {

@@ -1,4 +1,4 @@
-import type { ContractHandler } from '@contractspec/lib.contracts';
+import type { ContractHandler } from '@contractspec/lib.contracts-spec';
 import { UserInputSpec } from '../contracts/user-input.contracts';
 
 /**

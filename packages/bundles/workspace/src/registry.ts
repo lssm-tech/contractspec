@@ -1,7 +1,5 @@
-import {
-  OperationSpecRegistry,
-  registerReportContracts,
-} from '@contractspec/lib.contracts';
+import { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations';
+import { registerReportContracts } from '@contractspec/lib.contracts-spec/operations/report';
 
 /**
  * Create workspace operation registry with all required specs and handlers bound.

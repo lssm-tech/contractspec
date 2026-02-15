@@ -3,7 +3,7 @@
  *
  * Defines the feature module for workflow and approval capabilities.
  */
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 /**
  * Workflow System feature module that bundles workflow definition,

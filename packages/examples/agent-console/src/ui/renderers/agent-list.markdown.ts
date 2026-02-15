@@ -3,10 +3,8 @@
  *
  * Uses handlers from the agent-console example package.
  */
-import type {
-  PresentationRenderer,
-  PresentationSpec,
-} from '@contractspec/lib.contracts';
+import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
+import type { PresentationRenderer } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
 import {
   type AgentSummary,
   mockListAgentsHandler,

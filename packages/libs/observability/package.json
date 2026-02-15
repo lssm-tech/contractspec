@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.observability",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "OpenTelemetry-based observability primitives",
   "keywords": [
     "contractspec",
@@ -22,13 +22,14 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.lifecycle": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*"
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.contracts-integrations": "workspace:*"
   },
   "peerDependencies": {
     "@opentelemetry/api": "*"
@@ -64,109 +65,109 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "default": "./dist/index.js"
       },
       "./anomaly/alert-manager": {
         "types": "./dist/anomaly/alert-manager.d.ts",
         "bun": "./dist/anomaly/alert-manager.js",
-        "node": "./dist/node/anomaly/alert-manager.mjs",
+        "node": "./dist/node/anomaly/alert-manager.js",
         "default": "./dist/anomaly/alert-manager.js"
       },
       "./anomaly/anomaly-detector": {
         "types": "./dist/anomaly/anomaly-detector.d.ts",
         "bun": "./dist/anomaly/anomaly-detector.js",
-        "node": "./dist/node/anomaly/anomaly-detector.mjs",
+        "node": "./dist/node/anomaly/anomaly-detector.js",
         "default": "./dist/anomaly/anomaly-detector.js"
       },
       "./anomaly/baseline-calculator": {
         "types": "./dist/anomaly/baseline-calculator.d.ts",
         "bun": "./dist/anomaly/baseline-calculator.js",
-        "node": "./dist/node/anomaly/baseline-calculator.mjs",
+        "node": "./dist/node/anomaly/baseline-calculator.js",
         "default": "./dist/anomaly/baseline-calculator.js"
       },
       "./anomaly/root-cause-analyzer": {
         "types": "./dist/anomaly/root-cause-analyzer.d.ts",
         "bun": "./dist/anomaly/root-cause-analyzer.js",
-        "node": "./dist/node/anomaly/root-cause-analyzer.mjs",
+        "node": "./dist/node/anomaly/root-cause-analyzer.js",
         "default": "./dist/anomaly/root-cause-analyzer.js"
       },
       "./intent/aggregator": {
         "types": "./dist/intent/aggregator.d.ts",
         "bun": "./dist/intent/aggregator.js",
-        "node": "./dist/node/intent/aggregator.mjs",
+        "node": "./dist/node/intent/aggregator.js",
         "default": "./dist/intent/aggregator.js"
       },
       "./intent/detector": {
         "types": "./dist/intent/detector.d.ts",
         "bun": "./dist/intent/detector.js",
-        "node": "./dist/node/intent/detector.mjs",
+        "node": "./dist/node/intent/detector.js",
         "default": "./dist/intent/detector.js"
       },
       "./logging": {
         "types": "./dist/logging/index.d.ts",
         "bun": "./dist/logging/index.js",
-        "node": "./dist/node/logging/index.mjs",
+        "node": "./dist/node/logging/index.js",
         "default": "./dist/logging/index.js"
       },
       "./logging/index": {
         "types": "./dist/logging/index.d.ts",
         "bun": "./dist/logging/index.js",
-        "node": "./dist/node/logging/index.mjs",
+        "node": "./dist/node/logging/index.js",
         "default": "./dist/logging/index.js"
       },
       "./metrics": {
         "types": "./dist/metrics/index.d.ts",
         "bun": "./dist/metrics/index.js",
-        "node": "./dist/node/metrics/index.mjs",
+        "node": "./dist/node/metrics/index.js",
         "default": "./dist/metrics/index.js"
       },
       "./metrics/index": {
         "types": "./dist/metrics/index.d.ts",
         "bun": "./dist/metrics/index.js",
-        "node": "./dist/node/metrics/index.mjs",
+        "node": "./dist/node/metrics/index.js",
         "default": "./dist/metrics/index.js"
       },
       "./pipeline/evolution-pipeline": {
         "types": "./dist/pipeline/evolution-pipeline.d.ts",
         "bun": "./dist/pipeline/evolution-pipeline.js",
-        "node": "./dist/node/pipeline/evolution-pipeline.mjs",
+        "node": "./dist/node/pipeline/evolution-pipeline.js",
         "default": "./dist/pipeline/evolution-pipeline.js"
       },
       "./pipeline/lifecycle-pipeline": {
         "types": "./dist/pipeline/lifecycle-pipeline.d.ts",
         "bun": "./dist/pipeline/lifecycle-pipeline.js",
-        "node": "./dist/node/pipeline/lifecycle-pipeline.mjs",
+        "node": "./dist/node/pipeline/lifecycle-pipeline.js",
         "default": "./dist/pipeline/lifecycle-pipeline.js"
       },
       "./telemetry/posthog-baseline-reader": {
         "types": "./dist/telemetry/posthog-baseline-reader.d.ts",
         "bun": "./dist/telemetry/posthog-baseline-reader.js",
-        "node": "./dist/node/telemetry/posthog-baseline-reader.mjs",
+        "node": "./dist/node/telemetry/posthog-baseline-reader.js",
         "default": "./dist/telemetry/posthog-baseline-reader.js"
       },
       "./telemetry/posthog-telemetry": {
         "types": "./dist/telemetry/posthog-telemetry.d.ts",
         "bun": "./dist/telemetry/posthog-telemetry.js",
-        "node": "./dist/node/telemetry/posthog-telemetry.mjs",
+        "node": "./dist/node/telemetry/posthog-telemetry.js",
         "default": "./dist/telemetry/posthog-telemetry.js"
       },
       "./tracing": {
         "types": "./dist/tracing/index.d.ts",
         "bun": "./dist/tracing/index.js",
-        "node": "./dist/node/tracing/index.mjs",
+        "node": "./dist/node/tracing/index.js",
         "default": "./dist/tracing/index.js"
       },
       "./tracing/index": {
         "types": "./dist/tracing/index.d.ts",
         "bun": "./dist/tracing/index.js",
-        "node": "./dist/node/tracing/index.mjs",
+        "node": "./dist/node/tracing/index.js",
         "default": "./dist/tracing/index.js"
       },
       "./tracing/middleware": {
         "types": "./dist/tracing/middleware.d.ts",
         "bun": "./dist/tracing/middleware.js",
-        "node": "./dist/node/tracing/middleware.mjs",
+        "node": "./dist/node/tracing/middleware.js",
         "default": "./dist/tracing/middleware.js"
       }
     },

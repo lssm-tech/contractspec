@@ -51,7 +51,7 @@ export function createExampleGeneratorTemplate() {
     "test:smoke": "bun test/smoke.test.ts"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
     "zod": "catalog:"
   },
@@ -63,7 +63,7 @@ export function createExampleGeneratorTemplate() {
     "rimraf": "^6.0.1"
   },
   "peerDependencies": {
-    "@contractspec/lib.contracts": "^1.0.0",
+    "@contractspec/lib.contracts-spec": "^1.0.0",
     "@contractspec/lib.schema": "^1.0.0"
   },
   "publishConfig": {
@@ -252,7 +252,7 @@ export type { {{className}}Config, GeneratorResult } from "./types.js";
 export { defaultConfig } from "./config.js";`,
 
       'src/types.ts': `import type { AnySchemaModel } from "@contractspec/lib.schema";
-import type { SpecDefinition } from "@contractspec/lib.contracts";
+import type { SpecDefinition } from "@contractspec/lib.contracts-spec";
 
 /**
  * Configuration for the {{className}} plugin
@@ -421,7 +421,7 @@ import type {
   ConfigurationError,
   GenerationError
 } from "./types.js";
-import { schemaToMarkdown } from "@contractspec/lib.contracts";
+import { schemaToMarkdown } from "@contractspec/lib.contracts-spec/schema-to-markdown";
 import { validateConfig, mergeConfig } from "./config.js";
 
 /**

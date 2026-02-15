@@ -2,7 +2,7 @@ import { describe, it, expect, mock, beforeEach } from 'bun:test';
 import { UnifiedAgentAdapter } from './unified-adapter';
 import type { AgentTask } from './types';
 
-// Mock lib.ai-agent
+// Mock lib.ai-agent unified-agent module
 const mockRun = mock((_prompt: string) =>
   Promise.resolve({
     text: 'generated code',
@@ -11,7 +11,7 @@ const mockRun = mock((_prompt: string) =>
   })
 );
 
-mock.module('@contractspec/lib.ai-agent', () => ({
+mock.module('@contractspec/lib.ai-agent/agent/unified-agent', () => ({
   createUnifiedAgent: () => ({
     run: mockRun,
   }),

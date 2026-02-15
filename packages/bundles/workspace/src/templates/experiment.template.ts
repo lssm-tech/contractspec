@@ -46,7 +46,7 @@ ${data.successMetrics
   ],`
     : '';
 
-  return `import type { ExperimentSpec } from '@contractspec/lib.contracts/experiments';
+  return `import type { ExperimentSpec } from '@contractspec/lib.contracts-spec/experiments';
 
 export const ${specVar}: ExperimentSpec = {
   meta: {

@@ -1,7 +1,7 @@
 import type {
   AnalyticsReader,
   DateRangeInput,
-} from '@contractspec/lib.contracts/integrations/providers/analytics';
+} from '@contractspec/lib.contracts-integrations';
 import type {
   AnalyticsEvent,
   CohortDefinition,

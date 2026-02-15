@@ -4,8 +4,8 @@ import {
   listRegisteredDocBlocks,
   metaDocs,
   techContractsDocs,
-} from '@contractspec/lib.contracts/docs';
-import type { PresentationSpec } from '@contractspec/lib.contracts/presentations';
+} from '@contractspec/lib.contracts-spec/docs';
+import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
 import { opsDocBlocks } from '@contractspec/bundle.library/components/docs/ops/ops.docs';
 import { productDocs } from '@contractspec/bundle.library/components/docs/product/product.docblocks';
 import { techContractsDocBlocks } from '@contractspec/bundle.library/components/docs/tech/contracts/tech-docs.docblocks';

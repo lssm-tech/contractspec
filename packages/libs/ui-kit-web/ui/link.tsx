@@ -1,11 +1,15 @@
-import { forwardRef } from 'react';
+import * as React from 'react';
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import NextLink from 'next/link';
 
-const Link = forwardRef<
-  HTMLAnchorElement,
-  React.HTMLProps<HTMLAnchorElement> & { href: string }
->(({ className, ...props }, ref) => {
+function Link({
+  className,
+  ref,
+  ...props
+}: React.HTMLProps<HTMLAnchorElement> & {
+  href: string;
+  ref?: React.Ref<HTMLAnchorElement>;
+}) {
   return (
     <NextLink
       ref={ref}
@@ -13,7 +17,6 @@ const Link = forwardRef<
       {...props}
     />
   );
-});
-Link.displayName = 'Link';
+}
 
 export { Link };

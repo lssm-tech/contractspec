@@ -11,11 +11,11 @@
  */
 import {
   createDefaultTransformEngine,
-  type PresentationSpec,
   registerBasicValidation,
   registerDefaultReactRenderer,
   TransformEngine,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec/presentations/transform-engine';
+import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
 
 /**
  * Create a configured TransformEngine for template rendering

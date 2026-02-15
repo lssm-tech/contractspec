@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.schema",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Schema utilities for Zod, JSON Schema, and GraphQL",
   "keywords": [
     "contractspec",
@@ -51,6 +51,7 @@
     "./FieldType": "./src/FieldType.ts",
     "./GraphQLSchemaType": "./src/GraphQLSchemaType.ts",
     "./JsonSchemaType": "./src/JsonSchemaType.ts",
+    "./ScalarFactoryCache": "./src/ScalarFactoryCache.ts",
     "./ScalarTypeEnum": "./src/ScalarTypeEnum.ts",
     "./SchemaModel": "./src/SchemaModel.ts",
     "./SchemaModelType": "./src/SchemaModelType.ts",
@@ -62,98 +63,105 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./entity": {
         "types": "./dist/entity/index.d.ts",
         "bun": "./dist/entity/index.js",
-        "node": "./dist/node/entity/index.mjs",
+        "node": "./dist/node/entity/index.js",
         "browser": "./dist/browser/entity/index.js",
         "default": "./dist/entity/index.js"
       },
       "./entity/defineEntity": {
         "types": "./dist/entity/defineEntity.d.ts",
         "bun": "./dist/entity/defineEntity.js",
-        "node": "./dist/node/entity/defineEntity.mjs",
+        "node": "./dist/node/entity/defineEntity.js",
         "browser": "./dist/browser/entity/defineEntity.js",
         "default": "./dist/entity/defineEntity.js"
       },
       "./entity/generator": {
         "types": "./dist/entity/generator.d.ts",
         "bun": "./dist/entity/generator.js",
-        "node": "./dist/node/entity/generator.mjs",
+        "node": "./dist/node/entity/generator.js",
         "browser": "./dist/browser/entity/generator.js",
         "default": "./dist/entity/generator.js"
       },
       "./entity/index": {
         "types": "./dist/entity/index.d.ts",
         "bun": "./dist/entity/index.js",
-        "node": "./dist/node/entity/index.mjs",
+        "node": "./dist/node/entity/index.js",
         "browser": "./dist/browser/entity/index.js",
         "default": "./dist/entity/index.js"
       },
       "./entity/types": {
         "types": "./dist/entity/types.d.ts",
         "bun": "./dist/entity/types.js",
-        "node": "./dist/node/entity/types.mjs",
+        "node": "./dist/node/entity/types.js",
         "browser": "./dist/browser/entity/types.js",
         "default": "./dist/entity/types.js"
       },
       "./EnumType": {
         "types": "./dist/EnumType.d.ts",
         "bun": "./dist/EnumType.js",
-        "node": "./dist/node/EnumType.mjs",
+        "node": "./dist/node/EnumType.js",
         "browser": "./dist/browser/EnumType.js",
         "default": "./dist/EnumType.js"
       },
       "./FieldType": {
         "types": "./dist/FieldType.d.ts",
         "bun": "./dist/FieldType.js",
-        "node": "./dist/node/FieldType.mjs",
+        "node": "./dist/node/FieldType.js",
         "browser": "./dist/browser/FieldType.js",
         "default": "./dist/FieldType.js"
       },
       "./GraphQLSchemaType": {
         "types": "./dist/GraphQLSchemaType.d.ts",
         "bun": "./dist/GraphQLSchemaType.js",
-        "node": "./dist/node/GraphQLSchemaType.mjs",
+        "node": "./dist/node/GraphQLSchemaType.js",
         "browser": "./dist/browser/GraphQLSchemaType.js",
         "default": "./dist/GraphQLSchemaType.js"
       },
       "./JsonSchemaType": {
         "types": "./dist/JsonSchemaType.d.ts",
         "bun": "./dist/JsonSchemaType.js",
-        "node": "./dist/node/JsonSchemaType.mjs",
+        "node": "./dist/node/JsonSchemaType.js",
         "browser": "./dist/browser/JsonSchemaType.js",
         "default": "./dist/JsonSchemaType.js"
+      },
+      "./ScalarFactoryCache": {
+        "types": "./dist/ScalarFactoryCache.d.ts",
+        "bun": "./dist/ScalarFactoryCache.js",
+        "node": "./dist/node/ScalarFactoryCache.js",
+        "browser": "./dist/browser/ScalarFactoryCache.js",
+        "default": "./dist/ScalarFactoryCache.js"
       },
       "./ScalarTypeEnum": {
         "types": "./dist/ScalarTypeEnum.d.ts",
         "bun": "./dist/ScalarTypeEnum.js",
-        "node": "./dist/node/ScalarTypeEnum.mjs",
+        "node": "./dist/node/ScalarTypeEnum.js",
         "browser": "./dist/browser/ScalarTypeEnum.js",
         "default": "./dist/ScalarTypeEnum.js"
       },
       "./SchemaModel": {
         "types": "./dist/SchemaModel.d.ts",
         "bun": "./dist/SchemaModel.js",
-        "node": "./dist/node/SchemaModel.mjs",
+        "node": "./dist/node/SchemaModel.js",
         "browser": "./dist/browser/SchemaModel.js",
         "default": "./dist/SchemaModel.js"
       },
       "./SchemaModelType": {
         "types": "./dist/SchemaModelType.d.ts",
         "bun": "./dist/SchemaModelType.js",
-        "node": "./dist/node/SchemaModelType.mjs",
+        "node": "./dist/node/SchemaModelType.js",
         "browser": "./dist/browser/SchemaModelType.js",
         "default": "./dist/SchemaModelType.js"
       },
       "./ZodSchemaType": {
         "types": "./dist/ZodSchemaType.d.ts",
         "bun": "./dist/ZodSchemaType.js",
-        "node": "./dist/node/ZodSchemaType.mjs",
+        "node": "./dist/node/ZodSchemaType.js",
         "browser": "./dist/browser/ZodSchemaType.js",
         "default": "./dist/ZodSchemaType.js"
       }

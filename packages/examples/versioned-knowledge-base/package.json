@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.versioned-knowledge-base",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Example: curated, versioned knowledge base with immutable sources, rule versions, and published snapshots.",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -38,7 +38,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.schema": "workspace:*"
   },
   "devDependencies": {
@@ -52,112 +52,112 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/versioned-knowledge-base.docblock": {
         "types": "./dist/docs/versioned-knowledge-base.docblock.d.ts",
         "bun": "./dist/docs/versioned-knowledge-base.docblock.js",
-        "node": "./dist/node/docs/versioned-knowledge-base.docblock.mjs",
+        "node": "./dist/node/docs/versioned-knowledge-base.docblock.js",
         "browser": "./dist/browser/docs/versioned-knowledge-base.docblock.js",
         "default": "./dist/docs/versioned-knowledge-base.docblock.js"
       },
       "./entities": {
         "types": "./dist/entities/index.d.ts",
         "bun": "./dist/entities/index.js",
-        "node": "./dist/node/entities/index.mjs",
+        "node": "./dist/node/entities/index.js",
         "browser": "./dist/browser/entities/index.js",
         "default": "./dist/entities/index.js"
       },
       "./entities/index": {
         "types": "./dist/entities/index.d.ts",
         "bun": "./dist/entities/index.js",
-        "node": "./dist/node/entities/index.mjs",
+        "node": "./dist/node/entities/index.js",
         "browser": "./dist/browser/entities/index.js",
         "default": "./dist/entities/index.js"
       },
       "./entities/models": {
         "types": "./dist/entities/models.d.ts",
         "bun": "./dist/entities/models.js",
-        "node": "./dist/node/entities/models.mjs",
+        "node": "./dist/node/entities/models.js",
         "browser": "./dist/browser/entities/models.js",
         "default": "./dist/entities/models.js"
       },
       "./events": {
         "types": "./dist/events.d.ts",
         "bun": "./dist/events.js",
-        "node": "./dist/node/events.mjs",
+        "node": "./dist/node/events.js",
         "browser": "./dist/browser/events.js",
         "default": "./dist/events.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./handlers": {
         "types": "./dist/handlers/index.d.ts",
         "bun": "./dist/handlers/index.js",
-        "node": "./dist/node/handlers/index.mjs",
+        "node": "./dist/node/handlers/index.js",
         "browser": "./dist/browser/handlers/index.js",
         "default": "./dist/handlers/index.js"
       },
       "./handlers/index": {
         "types": "./dist/handlers/index.d.ts",
         "bun": "./dist/handlers/index.js",
-        "node": "./dist/node/handlers/index.mjs",
+        "node": "./dist/node/handlers/index.js",
         "browser": "./dist/browser/handlers/index.js",
         "default": "./dist/handlers/index.js"
       },
       "./handlers/memory.handlers": {
         "types": "./dist/handlers/memory.handlers.d.ts",
         "bun": "./dist/handlers/memory.handlers.js",
-        "node": "./dist/node/handlers/memory.handlers.mjs",
+        "node": "./dist/node/handlers/memory.handlers.js",
         "browser": "./dist/browser/handlers/memory.handlers.js",
         "default": "./dist/handlers/memory.handlers.js"
       },
       "./operations": {
         "types": "./dist/operations/index.d.ts",
         "bun": "./dist/operations/index.js",
-        "node": "./dist/node/operations/index.mjs",
+        "node": "./dist/node/operations/index.js",
         "browser": "./dist/browser/operations/index.js",
         "default": "./dist/operations/index.js"
       },
       "./operations/index": {
         "types": "./dist/operations/index.d.ts",
         "bun": "./dist/operations/index.js",
-        "node": "./dist/node/operations/index.mjs",
+        "node": "./dist/node/operations/index.js",
         "browser": "./dist/browser/operations/index.js",
         "default": "./dist/operations/index.js"
       },
       "./operations/kb": {
         "types": "./dist/operations/kb.d.ts",
         "bun": "./dist/operations/kb.js",
-        "node": "./dist/node/operations/kb.mjs",
+        "node": "./dist/node/operations/kb.js",
         "browser": "./dist/browser/operations/kb.js",
         "default": "./dist/operations/kb.js"
       },
       "./versioned-knowledge-base.feature": {
         "types": "./dist/versioned-knowledge-base.feature.d.ts",
         "bun": "./dist/versioned-knowledge-base.feature.js",
-        "node": "./dist/node/versioned-knowledge-base.feature.mjs",
+        "node": "./dist/node/versioned-knowledge-base.feature.js",
         "browser": "./dist/browser/versioned-knowledge-base.feature.js",
         "default": "./dist/versioned-knowledge-base.feature.js"
       }

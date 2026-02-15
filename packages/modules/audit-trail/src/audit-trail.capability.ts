@@ -1,4 +1,7 @@
-import { defineCapability, StabilityEnum } from '@contractspec/lib.contracts';
+import {
+  defineCapability,
+  StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
 
 export const AuditTrailCapability = defineCapability({
   meta: {

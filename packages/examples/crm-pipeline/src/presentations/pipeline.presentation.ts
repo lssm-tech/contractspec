@@ -1,7 +1,10 @@
 /**
  * Pipeline Presentation Descriptors
  */
-import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
+import {
+  definePresentation,
+  StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
 import { DealModel } from '../deal/deal.schema';
 
 /**

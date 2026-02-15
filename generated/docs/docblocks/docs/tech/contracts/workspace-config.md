@@ -21,4 +21,4 @@ export interface ContractsrcConfig {
 }
 ```
 
-Defined in `@contractspec/lib.contracts/workspace-config`.
+Defined in `@contractspec/lib.contracts-spec/workspace-config`.

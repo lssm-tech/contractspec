@@ -1,5 +1,90 @@
 # Changelog
 
+## 1.61.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+### Patch Changes
+
+- Updated dependencies [374fd71]
+  - @contractspec/lib.contracts-transformers@1.61.0
+  - @contractspec/bundle.workspace@1.61.0
+  - @contractspec/lib.ai-providers@1.61.0
+  - @contractspec/module.workspace@1.61.0
+  - @contractspec/module.examples@1.61.0
+  - @contractspec/module.ai-chat@1.61.0
+  - @contractspec/lib.contracts-spec@1.61.0
+  - @contractspec/lib.ai-agent@1.61.0
+  - @contractspec/lib.plugins@1.61.0
+  - @contractspec/lib.testing@1.61.0
+  - @contractspec/lib.schema@1.61.0
+
+## 1.60.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-transformers@1.60.0
+  - @contractspec/bundle.workspace@1.60.0
+  - @contractspec/lib.ai-providers@1.60.0
+  - @contractspec/module.workspace@1.60.0
+  - @contractspec/module.examples@1.60.0
+  - @contractspec/module.ai-chat@1.60.0
+  - @contractspec/lib.contracts-spec@1.60.0
+  - @contractspec/lib.ai-agent@1.60.0
+  - @contractspec/lib.plugins@1.60.0
+  - @contractspec/lib.testing@1.60.0
+  - @contractspec/lib.schema@1.60.0
+
+## 1.59.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/lib.contracts-transformers@1.59.0
+  - @contractspec/bundle.workspace@1.59.0
+  - @contractspec/lib.ai-providers@1.59.0
+  - @contractspec/module.workspace@1.59.0
+  - @contractspec/module.examples@1.59.0
+  - @contractspec/module.ai-chat@1.59.0
+  - @contractspec/lib.contracts-spec@1.59.0
+  - @contractspec/lib.ai-agent@1.59.0
+  - @contractspec/lib.plugins@1.59.0
+  - @contractspec/lib.testing@1.59.0
+  - @contractspec/lib.schema@1.59.0
+
+## 1.58.0
+
+### Minor Changes
+
+- d1f0fd0: chore: Migrate non-app package builds from tsdown to shared Bun tooling, add `@contractspec/tool.bun`, and standardize `prebuild`/`build`/`typecheck` with platform-aware exports and `tsc` declaration emission into `dist`.
+
+### Patch Changes
+
+- Updated dependencies [d1f0fd0]
+- Updated dependencies [4355a9e]
+  - @contractspec/lib.contracts-transformers@1.58.0
+  - @contractspec/bundle.workspace@1.58.0
+  - @contractspec/lib.ai-providers@1.58.0
+  - @contractspec/module.workspace@1.58.0
+  - @contractspec/module.examples@1.58.0
+  - @contractspec/module.ai-chat@1.58.0
+  - @contractspec/lib.contracts-spec@1.58.0
+  - @contractspec/lib.ai-agent@1.58.0
+  - @contractspec/lib.plugins@1.58.0
+  - @contractspec/lib.testing@1.58.0
+  - @contractspec/lib.schema@1.58.0
+
 ## 1.57.0
 
 ### Minor Changes
@@ -17,7 +102,7 @@
 - Updated dependencies [4651e06]
 - Updated dependencies [ad9d10a]
 - Updated dependencies [11a5a05]
-  - @contractspec/lib.contracts@1.57.0
+  - @contractspec/lib.contracts-spec@1.57.0
   - @contractspec/bundle.workspace@1.57.0
   - @contractspec/module.workspace@1.57.0
   - @contractspec/module.examples@1.57.0
@@ -41,7 +126,7 @@
   - @contractspec/module.workspace@1.56.1
   - @contractspec/module.examples@1.56.1
   - @contractspec/module.ai-chat@1.56.1
-  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.contracts-spec@1.56.1
   - @contractspec/lib.ai-agent@1.56.1
   - @contractspec/lib.plugins@1.56.1
   - @contractspec/lib.testing@1.56.1
@@ -62,7 +147,7 @@
   - @contractspec/module.workspace@1.56.0
   - @contractspec/module.examples@1.56.0
   - @contractspec/module.ai-chat@1.56.0
-  - @contractspec/lib.contracts@1.56.0
+  - @contractspec/lib.contracts-spec@1.56.0
   - @contractspec/lib.ai-agent@1.56.0
   - @contractspec/lib.plugins@1.56.0
   - @contractspec/lib.testing@1.56.0
@@ -83,7 +168,7 @@
   - @contractspec/module.workspace@1.55.0
   - @contractspec/module.examples@1.55.0
   - @contractspec/module.ai-chat@1.55.0
-  - @contractspec/lib.contracts@1.55.0
+  - @contractspec/lib.contracts-spec@1.55.0
   - @contractspec/lib.ai-agent@1.55.0
   - @contractspec/lib.plugins@1.55.0
   - @contractspec/lib.testing@1.55.0
@@ -99,7 +184,7 @@
 
 - Updated dependencies [ec5e95c]
   - @contractspec/module.ai-chat@1.54.0
-  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/lib.contracts-spec@1.54.0
   - @contractspec/bundle.workspace@1.54.0
   - @contractspec/lib.ai-agent@1.54.0
   - @contractspec/lib.ai-providers@1.54.0
@@ -122,7 +207,7 @@
 - Updated dependencies [5b371b1]
 - Updated dependencies [f4180d4]
 - Updated dependencies [64d84e1]
-  - @contractspec/lib.contracts@1.53.0
+  - @contractspec/lib.contracts-spec@1.53.0
   - @contractspec/bundle.workspace@1.53.0
   - @contractspec/module.workspace@1.53.0
   - @contractspec/module.examples@1.53.0
@@ -149,7 +234,7 @@
   - @contractspec/module.workspace@1.52.0
   - @contractspec/module.examples@1.52.0
   - @contractspec/module.ai-chat@1.52.0
-  - @contractspec/lib.contracts@1.52.0
+  - @contractspec/lib.contracts-spec@1.52.0
   - @contractspec/lib.ai-agent@1.52.0
   - @contractspec/lib.plugins@1.52.0
   - @contractspec/lib.testing@1.52.0
@@ -166,7 +251,7 @@
 - Updated dependencies [23e46e9]
 - Updated dependencies [ad1f852]
 - Updated dependencies [e6faefb]
-  - @contractspec/lib.contracts@1.51.0
+  - @contractspec/lib.contracts-spec@1.51.0
   - @contractspec/lib.contracts-transformers@1.51.0
   - @contractspec/bundle.workspace@1.51.0
   - @contractspec/lib.ai-providers@1.51.0
@@ -196,7 +281,7 @@
 - Updated dependencies [5325d6b]
 - Updated dependencies [81a703b]
   - @contractspec/bundle.workspace@1.50.0
-  - @contractspec/lib.contracts@1.50.0
+  - @contractspec/lib.contracts-spec@1.50.0
   - @contractspec/lib.ai-agent@1.50.0
   - @contractspec/lib.ai-providers@1.50.0
   - @contractspec/lib.contracts-transformers@1.50.0
@@ -222,7 +307,7 @@
   - @contractspec/module.workspace@1.49.0
   - @contractspec/module.examples@1.49.0
   - @contractspec/module.ai-chat@1.49.0
-  - @contractspec/lib.contracts@1.49.0
+  - @contractspec/lib.contracts-spec@1.49.0
   - @contractspec/lib.ai-agent@1.49.0
   - @contractspec/lib.plugins@1.49.0
   - @contractspec/lib.testing@1.49.0
@@ -250,7 +335,7 @@
 
 - Updated dependencies [c560ee7]
   - @contractspec/bundle.workspace@1.48.1
-  - @contractspec/lib.contracts@1.48.1
+  - @contractspec/lib.contracts-spec@1.48.1
   - @contractspec/module.ai-chat@1.48.1
   - @contractspec/lib.ai-agent@1.48.1
   - @contractspec/lib.contracts-transformers@1.48.1
@@ -273,7 +358,7 @@
   - @contractspec/module.workspace@1.48.0
   - @contractspec/module.examples@1.48.0
   - @contractspec/module.ai-chat@1.48.0
-  - @contractspec/lib.contracts@1.48.0
+  - @contractspec/lib.contracts-spec@1.48.0
   - @contractspec/lib.ai-agent@1.48.0
   - @contractspec/lib.testing@1.48.0
   - @contractspec/lib.schema@1.48.0
@@ -303,7 +388,7 @@
   - @contractspec/module.workspace@1.47.0
   - @contractspec/module.examples@1.47.0
   - @contractspec/module.ai-chat@1.47.0
-  - @contractspec/lib.contracts@1.47.0
+  - @contractspec/lib.contracts-spec@1.47.0
   - @contractspec/lib.ai-agent@1.47.0
   - @contractspec/lib.testing@1.47.0
   - @contractspec/lib.schema@1.47.0
@@ -320,7 +405,7 @@
   - @contractspec/module.workspace@1.46.2
   - @contractspec/module.examples@1.46.2
   - @contractspec/module.ai-chat@1.46.2
-  - @contractspec/lib.contracts@1.46.2
+  - @contractspec/lib.contracts-spec@1.46.2
   - @contractspec/lib.testing@1.46.2
   - @contractspec/lib.schema@1.46.2
 
@@ -336,7 +421,7 @@
   - @contractspec/module.workspace@1.46.1
   - @contractspec/module.examples@1.46.1
   - @contractspec/module.ai-chat@1.46.1
-  - @contractspec/lib.contracts@1.46.1
+  - @contractspec/lib.contracts-spec@1.46.1
   - @contractspec/lib.testing@1.46.1
   - @contractspec/lib.schema@1.46.1
 
@@ -355,7 +440,7 @@
   - @contractspec/module.workspace@1.46.0
   - @contractspec/module.examples@1.46.0
   - @contractspec/module.ai-chat@1.46.0
-  - @contractspec/lib.contracts@1.46.0
+  - @contractspec/lib.contracts-spec@1.46.0
   - @contractspec/lib.testing@1.46.0
   - @contractspec/lib.schema@1.46.0
 
@@ -371,7 +456,7 @@
   - @contractspec/module.workspace@1.45.6
   - @contractspec/module.examples@1.45.6
   - @contractspec/module.ai-chat@1.45.6
-  - @contractspec/lib.contracts@1.45.6
+  - @contractspec/lib.contracts-spec@1.45.6
   - @contractspec/lib.testing@1.45.6
   - @contractspec/lib.schema@1.45.6
 
@@ -387,7 +472,7 @@
   - @contractspec/module.workspace@1.45.5
   - @contractspec/module.examples@1.45.5
   - @contractspec/module.ai-chat@1.45.5
-  - @contractspec/lib.contracts@1.45.5
+  - @contractspec/lib.contracts-spec@1.45.5
   - @contractspec/lib.testing@1.45.5
   - @contractspec/lib.schema@1.45.5
 
@@ -403,7 +488,7 @@
   - @contractspec/module.workspace@1.45.4
   - @contractspec/module.examples@1.45.4
   - @contractspec/module.ai-chat@1.45.4
-  - @contractspec/lib.contracts@1.45.4
+  - @contractspec/lib.contracts-spec@1.45.4
   - @contractspec/lib.testing@1.45.4
   - @contractspec/lib.schema@1.45.4
 
@@ -419,7 +504,7 @@
   - @contractspec/module.workspace@1.45.3
   - @contractspec/module.examples@1.45.3
   - @contractspec/module.ai-chat@1.45.3
-  - @contractspec/lib.contracts@1.45.3
+  - @contractspec/lib.contracts-spec@1.45.3
   - @contractspec/lib.testing@1.45.3
   - @contractspec/lib.schema@1.45.3
 
@@ -435,7 +520,7 @@
   - @contractspec/module.workspace@1.45.2
   - @contractspec/module.examples@1.45.2
   - @contractspec/module.ai-chat@1.45.2
-  - @contractspec/lib.contracts@1.45.2
+  - @contractspec/lib.contracts-spec@1.45.2
   - @contractspec/lib.testing@1.45.2
   - @contractspec/lib.schema@1.45.2
 
@@ -451,7 +536,7 @@
   - @contractspec/module.workspace@1.45.1
   - @contractspec/module.examples@1.45.1
   - @contractspec/module.ai-chat@1.45.1
-  - @contractspec/lib.contracts@1.45.1
+  - @contractspec/lib.contracts-spec@1.45.1
   - @contractspec/lib.testing@1.45.1
   - @contractspec/lib.schema@1.45.1
 
@@ -484,7 +569,7 @@
   - @contractspec/module.workspace@1.45.0
   - @contractspec/module.examples@1.45.0
   - @contractspec/module.ai-chat@1.45.0
-  - @contractspec/lib.contracts@1.45.0
+  - @contractspec/lib.contracts-spec@1.45.0
   - @contractspec/lib.testing@1.45.0
   - @contractspec/lib.schema@1.45.0
 
@@ -499,7 +584,7 @@
   - @contractspec/lib.ai-providers@1.44.1
   - @contractspec/module.examples@1.44.1
   - @contractspec/module.ai-chat@1.44.1
-  - @contractspec/lib.contracts@1.44.1
+  - @contractspec/lib.contracts-spec@1.44.1
   - @contractspec/lib.testing@1.44.1
   - @contractspec/lib.schema@1.44.1
 
@@ -517,7 +602,7 @@
   - @contractspec/lib.ai-providers@1.44.0
   - @contractspec/module.examples@1.44.0
   - @contractspec/module.ai-chat@1.44.0
-  - @contractspec/lib.contracts@1.44.0
+  - @contractspec/lib.contracts-spec@1.44.0
   - @contractspec/lib.testing@1.44.0
   - @contractspec/lib.schema@1.44.0
 
@@ -532,7 +617,7 @@
   - @contractspec/lib.contracts-transformers@1.43.4
   - @contractspec/lib.ai-providers@1.43.3
   - @contractspec/module.ai-chat@1.43.4
-  - @contractspec/lib.contracts@1.43.4
+  - @contractspec/lib.contracts-spec@1.43.4
   - @contractspec/lib.testing@1.43.4
   - @contractspec/lib.schema@1.43.3
 
@@ -547,7 +632,7 @@
   - @contractspec/lib.contracts-transformers@1.43.3
   - @contractspec/lib.ai-providers@1.43.2
   - @contractspec/module.ai-chat@1.43.3
-  - @contractspec/lib.contracts@1.43.3
+  - @contractspec/lib.contracts-spec@1.43.3
   - @contractspec/lib.testing@1.43.3
   - @contractspec/lib.schema@1.43.2
 
@@ -561,7 +646,7 @@
   - @contractspec/module.examples@1.43.2
   - @contractspec/lib.contracts-transformers@1.43.2
   - @contractspec/module.ai-chat@1.43.2
-  - @contractspec/lib.contracts@1.43.2
+  - @contractspec/lib.contracts-spec@1.43.2
   - @contractspec/lib.testing@1.43.2
   - @contractspec/lib.ai-providers@1.43.1
   - @contractspec/lib.schema@1.43.1
@@ -572,7 +657,7 @@
 
 - f28fdad: fix
 - Updated dependencies [f28fdad]
-  - @contractspec/lib.contracts@1.43.1
+  - @contractspec/lib.contracts-spec@1.43.1
   - @contractspec/bundle.workspace@1.43.1
   - @contractspec/lib.contracts-transformers@1.43.1
   - @contractspec/lib.testing@1.43.1
@@ -593,7 +678,7 @@
   - @contractspec/lib.contracts-transformers@1.43.0
   - @contractspec/lib.ai-providers@1.43.0
   - @contractspec/module.ai-chat@1.43.0
-  - @contractspec/lib.contracts@1.43.0
+  - @contractspec/lib.contracts-spec@1.43.0
   - @contractspec/lib.testing@1.43.0
   - @contractspec/lib.schema@1.43.0
 
@@ -608,7 +693,7 @@
   - @contractspec/lib.contracts-transformers@1.42.10
   - @contractspec/lib.ai-providers@1.42.10
   - @contractspec/module.ai-chat@1.42.10
-  - @contractspec/lib.contracts@1.42.10
+  - @contractspec/lib.contracts-spec@1.42.10
   - @contractspec/lib.testing@1.42.10
   - @contractspec/lib.schema@1.42.10
 
@@ -623,7 +708,7 @@
   - @contractspec/lib.contracts-transformers@1.42.9
   - @contractspec/lib.ai-providers@1.42.9
   - @contractspec/module.ai-chat@1.42.9
-  - @contractspec/lib.contracts@1.42.9
+  - @contractspec/lib.contracts-spec@1.42.9
   - @contractspec/lib.testing@1.42.9
   - @contractspec/lib.schema@1.42.9
 
@@ -638,7 +723,7 @@
   - @contractspec/lib.contracts-transformers@1.42.8
   - @contractspec/lib.ai-providers@1.42.8
   - @contractspec/module.ai-chat@1.42.8
-  - @contractspec/lib.contracts@1.42.8
+  - @contractspec/lib.contracts-spec@1.42.8
   - @contractspec/lib.testing@1.42.8
   - @contractspec/lib.schema@1.42.8
 
@@ -653,7 +738,7 @@
   - @contractspec/lib.contracts-transformers@1.42.7
   - @contractspec/lib.ai-providers@1.42.7
   - @contractspec/module.ai-chat@1.42.7
-  - @contractspec/lib.contracts@1.42.7
+  - @contractspec/lib.contracts-spec@1.42.7
   - @contractspec/lib.testing@1.42.7
   - @contractspec/lib.schema@1.42.7
 
@@ -668,7 +753,7 @@
   - @contractspec/lib.contracts-transformers@1.42.6
   - @contractspec/lib.ai-providers@1.42.6
   - @contractspec/module.ai-chat@1.42.6
-  - @contractspec/lib.contracts@1.42.6
+  - @contractspec/lib.contracts-spec@1.42.6
   - @contractspec/lib.testing@1.42.6
   - @contractspec/lib.schema@1.42.6
 
@@ -683,7 +768,7 @@
   - @contractspec/lib.contracts-transformers@1.42.5
   - @contractspec/lib.ai-providers@1.42.5
   - @contractspec/module.ai-chat@1.42.5
-  - @contractspec/lib.contracts@1.42.5
+  - @contractspec/lib.contracts-spec@1.42.5
   - @contractspec/lib.testing@1.42.5
   - @contractspec/lib.schema@1.42.5
 
@@ -698,7 +783,7 @@
   - @contractspec/lib.contracts-transformers@1.42.4
   - @contractspec/lib.ai-providers@1.42.4
   - @contractspec/module.ai-chat@1.42.4
-  - @contractspec/lib.contracts@1.42.4
+  - @contractspec/lib.contracts-spec@1.42.4
   - @contractspec/lib.testing@1.42.4
   - @contractspec/lib.schema@1.42.4
 
@@ -711,7 +796,7 @@
   - @contractspec/lib.contracts-transformers@1.42.3
   - @contractspec/bundle.workspace@1.42.3
   - @contractspec/lib.ai-providers@1.42.3
-  - @contractspec/lib.contracts@1.42.3
+  - @contractspec/lib.contracts-spec@1.42.3
   - @contractspec/lib.schema@1.42.3
   - @contractspec/lib.testing@1.42.3
   - @contractspec/module.ai-chat@1.42.3
@@ -725,7 +810,7 @@
 - Updated dependencies [1f9ac4c]
   - @contractspec/bundle.workspace@1.42.2
   - @contractspec/lib.ai-providers@1.42.2
-  - @contractspec/lib.contracts@1.42.2
+  - @contractspec/lib.contracts-spec@1.42.2
   - @contractspec/lib.contracts-transformers@1.42.2
   - @contractspec/lib.schema@1.42.2
   - @contractspec/lib.testing@1.42.2
@@ -743,7 +828,7 @@
   - @contractspec/lib.contracts-transformers@1.42.1
   - @contractspec/lib.ai-providers@1.42.1
   - @contractspec/module.ai-chat@1.42.1
-  - @contractspec/lib.contracts@1.42.1
+  - @contractspec/lib.contracts-spec@1.42.1
   - @contractspec/lib.testing@1.42.1
   - @contractspec/lib.schema@1.42.1
 
@@ -758,7 +843,7 @@
 - Updated dependencies [8eefd9c]
   - @contractspec/bundle.workspace@1.42.0
   - @contractspec/lib.ai-providers@1.42.0
-  - @contractspec/lib.contracts@1.42.0
+  - @contractspec/lib.contracts-spec@1.42.0
   - @contractspec/lib.contracts-transformers@1.42.0
   - @contractspec/lib.schema@1.42.0
   - @contractspec/lib.testing@1.42.0
@@ -775,7 +860,7 @@
 
 - Updated dependencies
   - @contractspec/app.cli-database@1.12.0
-  - @contractspec/lib.contracts@1.12.0
+  - @contractspec/lib.contracts-spec@1.12.0
   - @contractspec/lib.schema@1.12.0
   - @contractspec/lib.testing@0.5.0
 
@@ -786,7 +871,7 @@
 - Fix dependencies
 - Updated dependencies
   - @contractspec/app.cli-database@1.11.1
-  - @contractspec/lib.contracts@1.11.1
+  - @contractspec/lib.contracts-spec@1.11.1
   - @contractspec/lib.schema@1.11.1
   - @contractspec/lib.testing@0.4.1
 
@@ -800,7 +885,7 @@
 
 - Updated dependencies [b7621d3]
   - @contractspec/app.cli-database@1.11.0
-  - @contractspec/lib.contracts@1.11.0
+  - @contractspec/lib.contracts-spec@1.11.0
   - @contractspec/lib.schema@1.11.0
   - @contractspec/lib.testing@0.4.0
 
@@ -814,7 +899,7 @@
 
 - Updated dependencies
   - @contractspec/app.cli-database@1.10.0
-  - @contractspec/lib.contracts@1.10.0
+  - @contractspec/lib.contracts-spec@1.10.0
   - @contractspec/lib.schema@1.10.0
   - @contractspec/lib.testing@0.3.0
 
@@ -826,7 +911,7 @@
 - Updated dependencies
   - @contractspec/lib.testing@0.2.2
   - @contractspec/app.cli-database@1.9.2
-  - @contractspec/lib.contracts@1.9.2
+  - @contractspec/lib.contracts-spec@1.9.2
   - @contractspec/lib.schema@1.9.2
 
 ## 0.9.1
@@ -836,7 +921,7 @@
 - fix
 - Updated dependencies
   - @contractspec/app.cli-database@1.9.1
-  - @contractspec/lib.contracts@1.9.1
+  - @contractspec/lib.contracts-spec@1.9.1
   - @contractspec/lib.testing@0.2.1
   - @contractspec/lib.schema@1.9.1
 
@@ -850,7 +935,7 @@
 
 - Updated dependencies [b1d0876]
   - @contractspec/app.cli-database@1.9.0
-  - @contractspec/lib.contracts@1.9.0
+  - @contractspec/lib.contracts-spec@1.9.0
   - @contractspec/lib.testing@0.2.0
   - @contractspec/lib.schema@1.9.0
 
@@ -863,7 +948,7 @@
 ### Patch Changes
 
 - Updated dependencies [f1f4ddd]
-  - @contractspec/lib.contracts@1.8.0
+  - @contractspec/lib.contracts-spec@1.8.0
   - @contractspec/lib.schema@1.8.0
 
 ## 0.7.4
@@ -872,7 +957,7 @@
 
 - fix typing
 - Updated dependencies
-  - @contractspec/lib.contracts@1.7.4
+  - @contractspec/lib.contracts-spec@1.7.4
   - @contractspec/lib.schema@1.7.4
 
 ## 0.7.3
@@ -881,7 +966,7 @@
 
 - add right-sidebar
 - Updated dependencies
-  - @contractspec/lib.contracts@1.7.3
+  - @contractspec/lib.contracts-spec@1.7.3
   - @contractspec/lib.schema@1.7.3
 
 ## 0.7.2
@@ -890,7 +975,7 @@
 
 - fix typing
 - Updated dependencies
-  - @contractspec/lib.contracts@1.7.2
+  - @contractspec/lib.contracts-spec@1.7.2
   - @contractspec/lib.schema@1.7.2
 
 ## 0.7.1
@@ -899,7 +984,7 @@
 
 - fix typing
 - Updated dependencies
-  - @contractspec/lib.contracts@1.7.1
+  - @contractspec/lib.contracts-spec@1.7.1
   - @contractspec/lib.schema@1.7.1
 
 ## 0.7.0
@@ -911,7 +996,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @contractspec/lib.contracts@1.7.0
+  - @contractspec/lib.contracts-spec@1.7.0
   - @contractspec/lib.schema@1.7.0
 
 ## 0.6.0
@@ -923,7 +1008,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @contractspec/lib.contracts@1.6.0
+  - @contractspec/lib.contracts-spec@1.6.0
   - @contractspec/lib.schema@1.6.0
 
 ## 0.5.0
@@ -935,7 +1020,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @contractspec/lib.contracts@1.5.0
+  - @contractspec/lib.contracts-spec@1.5.0
   - @contractspec/lib.schema@1.5.0
 
 ## 0.4.0
@@ -947,7 +1032,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @contractspec/lib.contracts@1.4.0
+  - @contractspec/lib.contracts-spec@1.4.0
   - @contractspec/lib.schema@1.4.0
 
 ## 0.3.0
@@ -959,7 +1044,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @contractspec/lib.contracts@1.3.0
+  - @contractspec/lib.contracts-spec@1.3.0
   - @contractspec/lib.schema@1.3.0
 
 ## 0.2.0
@@ -971,7 +1056,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @contractspec/lib.contracts@1.2.0
+  - @contractspec/lib.contracts-spec@1.2.0
   - @contractspec/lib.schema@1.2.0
 
 ## 0.1.0
@@ -985,7 +1070,7 @@
 
 - Updated dependencies
 - Updated dependencies [748b3a2]
-  - @contractspec/lib.contracts@1.1.0
+  - @contractspec/lib.contracts-spec@1.1.0
   - @contractspec/lib.schema@1.1.0
 
 All notable changes to this project will be documented in this file.

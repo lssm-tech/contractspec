@@ -16,7 +16,7 @@ export function AdvancedWorkflowMonitoringPage() {
           steps exceed their budgeted duration.
         </p>
         <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import { SLAMonitor } from '@contractspec/lib.contracts/workflow/sla-monitor';
+          {`import { SLAMonitor } from '@contractspec/lib.contracts-spec/workflow/sla-monitor';
 
 const monitor = new SLAMonitor((event, payload) => {
   if (event === 'workflow.sla_breach') {

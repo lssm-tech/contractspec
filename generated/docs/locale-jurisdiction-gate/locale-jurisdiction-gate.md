@@ -27,7 +27,7 @@ Fail-closed gating for assistant calls requiring locale/jurisdiction/snapshot/sc
 ## Source Definition
 
 ```typescript
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 export const LocaleJurisdictionGateFeature = defineFeature({
   meta: {

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.policy-safe-knowledge-assistant",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "All-in-one template example: policy-safe knowledge assistant with locale/jurisdiction gating, versioned KB snapshots, HITL update pipeline, and learning hub.",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -45,7 +45,7 @@
     "@contractspec/example.learning-patterns": "workspace:*",
     "@contractspec/example.locale-jurisdiction-gate": "workspace:*",
     "@contractspec/example.versioned-knowledge-base": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.example-shared-ui": "workspace:*",
     "@contractspec/lib.runtime-sandbox": "workspace:*",
@@ -57,7 +57,7 @@
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
     "typescript": "catalog:",
-    "@types/react": "^19.2.13",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.2",
     "@contractspec/tool.bun": "workspace:*"
   },
@@ -67,133 +67,133 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/policy-safe-knowledge-assistant.docblock": {
         "types": "./dist/docs/policy-safe-knowledge-assistant.docblock.d.ts",
         "bun": "./dist/docs/policy-safe-knowledge-assistant.docblock.js",
-        "node": "./dist/node/docs/policy-safe-knowledge-assistant.docblock.mjs",
+        "node": "./dist/node/docs/policy-safe-knowledge-assistant.docblock.js",
         "browser": "./dist/browser/docs/policy-safe-knowledge-assistant.docblock.js",
         "default": "./dist/docs/policy-safe-knowledge-assistant.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./handlers": {
         "types": "./dist/handlers/index.d.ts",
         "bun": "./dist/handlers/index.js",
-        "node": "./dist/node/handlers/index.mjs",
+        "node": "./dist/node/handlers/index.js",
         "browser": "./dist/browser/handlers/index.js",
         "default": "./dist/handlers/index.js"
       },
       "./handlers/index": {
         "types": "./dist/handlers/index.d.ts",
         "bun": "./dist/handlers/index.js",
-        "node": "./dist/node/handlers/index.mjs",
+        "node": "./dist/node/handlers/index.js",
         "browser": "./dist/browser/handlers/index.js",
         "default": "./dist/handlers/index.js"
       },
       "./handlers/policy-safe-knowledge-assistant.handlers": {
         "types": "./dist/handlers/policy-safe-knowledge-assistant.handlers.d.ts",
         "bun": "./dist/handlers/policy-safe-knowledge-assistant.handlers.js",
-        "node": "./dist/node/handlers/policy-safe-knowledge-assistant.handlers.mjs",
+        "node": "./dist/node/handlers/policy-safe-knowledge-assistant.handlers.js",
         "browser": "./dist/browser/handlers/policy-safe-knowledge-assistant.handlers.js",
         "default": "./dist/handlers/policy-safe-knowledge-assistant.handlers.js"
       },
       "./orchestrator/buildAnswer": {
         "types": "./dist/orchestrator/buildAnswer.d.ts",
         "bun": "./dist/orchestrator/buildAnswer.js",
-        "node": "./dist/node/orchestrator/buildAnswer.mjs",
+        "node": "./dist/node/orchestrator/buildAnswer.js",
         "browser": "./dist/browser/orchestrator/buildAnswer.js",
         "default": "./dist/orchestrator/buildAnswer.js"
       },
       "./policy-safe-knowledge-assistant.feature": {
         "types": "./dist/policy-safe-knowledge-assistant.feature.d.ts",
         "bun": "./dist/policy-safe-knowledge-assistant.feature.js",
-        "node": "./dist/node/policy-safe-knowledge-assistant.feature.mjs",
+        "node": "./dist/node/policy-safe-knowledge-assistant.feature.js",
         "browser": "./dist/browser/policy-safe-knowledge-assistant.feature.js",
         "default": "./dist/policy-safe-knowledge-assistant.feature.js"
       },
       "./seed": {
         "types": "./dist/seed/index.d.ts",
         "bun": "./dist/seed/index.js",
-        "node": "./dist/node/seed/index.mjs",
+        "node": "./dist/node/seed/index.js",
         "browser": "./dist/browser/seed/index.js",
         "default": "./dist/seed/index.js"
       },
       "./seed/fixtures": {
         "types": "./dist/seed/fixtures.d.ts",
         "bun": "./dist/seed/fixtures.js",
-        "node": "./dist/node/seed/fixtures.mjs",
+        "node": "./dist/node/seed/fixtures.js",
         "browser": "./dist/browser/seed/fixtures.js",
         "default": "./dist/seed/fixtures.js"
       },
       "./seed/index": {
         "types": "./dist/seed/index.d.ts",
         "bun": "./dist/seed/index.js",
-        "node": "./dist/node/seed/index.mjs",
+        "node": "./dist/node/seed/index.js",
         "browser": "./dist/browser/seed/index.js",
         "default": "./dist/seed/index.js"
       },
       "./seeders": {
         "types": "./dist/seeders/index.d.ts",
         "bun": "./dist/seeders/index.js",
-        "node": "./dist/node/seeders/index.mjs",
+        "node": "./dist/node/seeders/index.js",
         "browser": "./dist/browser/seeders/index.js",
         "default": "./dist/seeders/index.js"
       },
       "./seeders/index": {
         "types": "./dist/seeders/index.d.ts",
         "bun": "./dist/seeders/index.js",
-        "node": "./dist/node/seeders/index.mjs",
+        "node": "./dist/node/seeders/index.js",
         "browser": "./dist/browser/seeders/index.js",
         "default": "./dist/seeders/index.js"
       },
       "./ui": {
         "types": "./dist/ui/index.d.ts",
         "bun": "./dist/ui/index.js",
-        "node": "./dist/node/ui/index.mjs",
+        "node": "./dist/node/ui/index.js",
         "browser": "./dist/browser/ui/index.js",
         "default": "./dist/ui/index.js"
       },
       "./ui/hooks/usePolicySafeKnowledgeAssistant": {
         "types": "./dist/ui/hooks/usePolicySafeKnowledgeAssistant.d.ts",
         "bun": "./dist/ui/hooks/usePolicySafeKnowledgeAssistant.js",
-        "node": "./dist/node/ui/hooks/usePolicySafeKnowledgeAssistant.mjs",
+        "node": "./dist/node/ui/hooks/usePolicySafeKnowledgeAssistant.js",
         "browser": "./dist/browser/ui/hooks/usePolicySafeKnowledgeAssistant.js",
         "default": "./dist/ui/hooks/usePolicySafeKnowledgeAssistant.js"
       },
       "./ui/index": {
         "types": "./dist/ui/index.d.ts",
         "bun": "./dist/ui/index.js",
-        "node": "./dist/node/ui/index.mjs",
+        "node": "./dist/node/ui/index.js",
         "browser": "./dist/browser/ui/index.js",
         "default": "./dist/ui/index.js"
       },
       "./ui/PolicySafeKnowledgeAssistantDashboard": {
         "types": "./dist/ui/PolicySafeKnowledgeAssistantDashboard.d.ts",
         "bun": "./dist/ui/PolicySafeKnowledgeAssistantDashboard.js",
-        "node": "./dist/node/ui/PolicySafeKnowledgeAssistantDashboard.mjs",
+        "node": "./dist/node/ui/PolicySafeKnowledgeAssistantDashboard.js",
         "browser": "./dist/browser/ui/PolicySafeKnowledgeAssistantDashboard.js",
         "default": "./dist/ui/PolicySafeKnowledgeAssistantDashboard.js"
       }

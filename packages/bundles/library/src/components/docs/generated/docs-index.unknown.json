@@ -1,0 +1,514 @@
+[
+  {
+    "id": "unknown/ai-llm.mistral",
+    "title": "ai-llm.mistral",
+    "summary": "Mistral integration providing chat completions and embedding generation.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: ai, llm, embeddings\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/mistral.ts`",
+    "route": "/docs/reference/unknown/ai-llm.mistral",
+    "source": "generated",
+    "contentPath": "unknown/ai-llm.mistral.md"
+  },
+  {
+    "id": "unknown/ai-voice.elevenlabs",
+    "title": "ai-voice.elevenlabs",
+    "summary": "ElevenLabs integration for neural voice synthesis and voice catalog access.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, tts\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/elevenlabs.ts`",
+    "route": "/docs/reference/unknown/ai-voice.elevenlabs",
+    "source": "generated",
+    "contentPath": "unknown/ai-voice.elevenlabs.md"
+  },
+  {
+    "id": "unknown/ai-voice.fal",
+    "title": "ai-voice.fal",
+    "summary": "Fal integration for voice synthesis using Chatterbox text-to-speech models.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, tts, chatterbox\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/fal.ts`",
+    "route": "/docs/reference/unknown/ai-voice.fal",
+    "source": "generated",
+    "contentPath": "unknown/ai-voice.fal.md"
+  },
+  {
+    "id": "unknown/ai-voice.gradium",
+    "title": "ai-voice.gradium",
+    "summary": "Gradium integration for low-latency voice synthesis and voice catalog access.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, tts, realtime\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/gradium.ts`",
+    "route": "/docs/reference/unknown/ai-voice.gradium",
+    "source": "generated",
+    "contentPath": "unknown/ai-voice.gradium.md"
+  },
+  {
+    "id": "unknown/analytics.posthog",
+    "title": "analytics.posthog",
+    "summary": "PostHog integration for product analytics, feature flags, HogQL queries, and LLM analytics with evaluations.\n- **Type**: integration (integration)\n- **Version**: 1.1.0\n- **Owners**: @platform.integrations",
+    "route": "/docs/reference/unknown/analytics.posthog",
+    "source": "generated",
+    "contentPath": "unknown/analytics.posthog.md"
+  },
+  {
+    "id": "unknown/base.onboarding.complete",
+    "title": "base.onboarding.complete",
+    "summary": "Complete onboarding and finalize user/organization setup\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: onboarding\n- **File**: `packages/libs/contracts-spec/src/onboarding-base.ts`\nTransition from draft to active profile",
+    "route": "/docs/reference/unknown/base.onboarding.complete",
+    "source": "generated",
+    "contentPath": "unknown/base.onboarding.complete.md"
+  },
+  {
+    "id": "unknown/base.onboarding.deleteDraft",
+    "title": "base.onboarding.deleteDraft",
+    "summary": "Delete onboarding draft for active organization\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: onboarding, draft\n- **File**: `packages/libs/contracts-spec/src/onboarding-base.ts`\nClear draft after completion or if user wants to restart",
+    "route": "/docs/reference/unknown/base.onboarding.deleteDraft",
+    "source": "generated",
+    "contentPath": "unknown/base.onboarding.deleteDraft.md"
+  },
+  {
+    "id": "unknown/base.onboarding.getDraft",
+    "title": "base.onboarding.getDraft",
+    "summary": "Get onboarding draft for active organization\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: onboarding, draft\n- **File**: `packages/libs/contracts-spec/src/onboarding-base.ts`\nRetrieve saved onboarding progress",
+    "route": "/docs/reference/unknown/base.onboarding.getDraft",
+    "source": "generated",
+    "contentPath": "unknown/base.onboarding.getDraft.md"
+  },
+  {
+    "id": "unknown/base.onboarding.saveDraft",
+    "title": "base.onboarding.saveDraft",
+    "summary": "Save or update onboarding draft for active organization\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: onboarding, draft\n- **File**: `packages/libs/contracts-spec/src/onboarding-base.ts`\nPersist onboarding progress incrementally for resumption and safety",
+    "route": "/docs/reference/unknown/base.onboarding.saveDraft",
+    "source": "generated",
+    "contentPath": "unknown/base.onboarding.saveDraft.md"
+  },
+  {
+    "id": "unknown/calendar.google",
+    "title": "calendar.google",
+    "summary": "Google Calendar integration for event creation, updates, and scheduling automations.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: calendar, google",
+    "route": "/docs/reference/unknown/calendar.google",
+    "source": "generated",
+    "contentPath": "unknown/calendar.google.md"
+  },
+  {
+    "id": "unknown/database.supabase",
+    "title": "database.supabase",
+    "summary": "Supabase Postgres integration for SQL query execution and transactional workloads.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.infrastructure\n- **Tags**: database, postgres, supabase",
+    "route": "/docs/reference/unknown/database.supabase",
+    "source": "generated",
+    "contentPath": "unknown/database.supabase.md"
+  },
+  {
+    "id": "unknown/docs.contract.reference",
+    "title": "docs.contract.reference",
+    "summary": "Resolve a contract into a documentation-ready reference.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: reference\n- **File**: `packages/libs/contracts-spec/src/docs/queries/contractReference.query.ts`",
+    "route": "/docs/reference/unknown/docs.contract.reference",
+    "source": "generated",
+    "contentPath": "unknown/docs.contract.reference.md"
+  },
+  {
+    "id": "unknown/docs.generate",
+    "title": "docs.generate",
+    "summary": "Generate documentation artifacts from ContractSpecs.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: generation\n- **File**: `packages/libs/contracts-spec/src/docs/commands/docsGenerate.command.ts`",
+    "route": "/docs/reference/unknown/docs.generate",
+    "source": "generated",
+    "contentPath": "unknown/docs.generate.md"
+  },
+  {
+    "id": "unknown/docs.generated",
+    "title": "docs.generated",
+    "summary": "Emitted when documentation artifacts are generated.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: generation\n- **File**: `packages/libs/contracts-spec/src/docs/events/docsGenerated.event.ts`\n```typescript",
+    "route": "/docs/reference/unknown/docs.generated",
+    "source": "generated",
+    "contentPath": "unknown/docs.generated.md"
+  },
+  {
+    "id": "unknown/docs.layout",
+    "title": "docs.layout",
+    "summary": "Shared layout shell for documentation pages.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: layout\n- **File**: `packages/libs/contracts-spec/src/docs/presentations/docsLayout.presentation.ts`",
+    "route": "/docs/reference/unknown/docs.layout",
+    "source": "generated",
+    "contentPath": "unknown/docs.layout.md"
+  },
+  {
+    "id": "unknown/docs.publish",
+    "title": "docs.publish",
+    "summary": "Publish generated documentation artifacts.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: publish\n- **File**: `packages/libs/contracts-spec/src/docs/commands/docsPublish.command.ts`\nDeploy docs to the public docs surface with consistent versioning.",
+    "route": "/docs/reference/unknown/docs.publish",
+    "source": "generated",
+    "contentPath": "unknown/docs.publish.md"
+  },
+  {
+    "id": "unknown/docs.published",
+    "title": "docs.published",
+    "summary": "Emitted when documentation is published.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: publish\n- **File**: `packages/libs/contracts-spec/src/docs/events/docsPublished.event.ts`\n```typescript\nexport const DocsPublishedEvent = defineEvent({",
+    "route": "/docs/reference/unknown/docs.published",
+    "source": "generated",
+    "contentPath": "unknown/docs.published.md"
+  },
+  {
+    "id": "unknown/docs.reference.page",
+    "title": "docs.reference.page",
+    "summary": "Reference page layout for contract documentation.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: reference\n- **File**: `packages/libs/contracts-spec/src/docs/presentations/docsReferencePage.presentation.ts`",
+    "route": "/docs/reference/unknown/docs.reference.page",
+    "source": "generated",
+    "contentPath": "unknown/docs.reference.page.md"
+  },
+  {
+    "id": "unknown/docs.search",
+    "title": "docs.search",
+    "summary": "Search and filter DocBlocks by query, tag, or visibility.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: search, index\n- **File**: `packages/libs/contracts-spec/src/docs/queries/docsIndex.query.ts`",
+    "route": "/docs/reference/unknown/docs.search",
+    "source": "generated",
+    "contentPath": "unknown/docs.search.md"
+  },
+  {
+    "id": "unknown/docs.system",
+    "title": "docs.system",
+    "summary": "End-to-end docs generation, indexing, and presentation.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: system\n- **File**: `packages/libs/contracts-spec/src/docs/capabilities/documentationSystem.capability.ts`",
+    "route": "/docs/reference/unknown/docs.system",
+    "source": "generated",
+    "contentPath": "unknown/docs.system.md"
+  },
+  {
+    "id": "unknown/email.gmail",
+    "title": "email.gmail",
+    "summary": "Gmail integration supporting inbound thread ingestion and outbound transactional email.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: email, gmail\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/gmail.ts`",
+    "route": "/docs/reference/unknown/email.gmail",
+    "source": "generated",
+    "contentPath": "unknown/email.gmail.md"
+  },
+  {
+    "id": "unknown/email.postmark",
+    "title": "email.postmark",
+    "summary": "Postmark integration for transactional email delivery.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: email, transactional\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/postmark.ts`",
+    "route": "/docs/reference/unknown/email.postmark",
+    "source": "generated",
+    "contentPath": "unknown/email.postmark.md"
+  },
+  {
+    "id": "unknown/integrations",
+    "title": "integrations",
+    "summary": "Core integrations capability for third-party connections\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.core\n- **Tags**: integrations, platform\n- **File**: `packages/libs/contracts-spec/src/integrations/integrations.capability.ts`",
+    "route": "/docs/reference/unknown/integrations",
+    "source": "generated",
+    "contentPath": "unknown/integrations.md"
+  },
+  {
+    "id": "unknown/integrations.connection.create",
+    "title": "integrations.connection.create",
+    "summary": "Create a new integration connection for a tenant.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integration, connections",
+    "route": "/docs/reference/unknown/integrations.connection.create",
+    "source": "generated",
+    "contentPath": "unknown/integrations.connection.create.md"
+  },
+  {
+    "id": "unknown/integrations.connection.delete",
+    "title": "integrations.connection.delete",
+    "summary": "Delete an integration connection for a tenant.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integration, connections\n- **File**: `packages/libs/contracts-spec/src/integrations/operations.ts`",
+    "route": "/docs/reference/unknown/integrations.connection.delete",
+    "source": "generated",
+    "contentPath": "unknown/integrations.connection.delete.md"
+  },
+  {
+    "id": "unknown/integrations.connection.list",
+    "title": "integrations.connection.list",
+    "summary": "List integration connections for a tenant.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integration, connections\n- **File**: `packages/libs/contracts-spec/src/integrations/operations.ts`",
+    "route": "/docs/reference/unknown/integrations.connection.list",
+    "source": "generated",
+    "contentPath": "unknown/integrations.connection.list.md"
+  },
+  {
+    "id": "unknown/integrations.connection.test",
+    "title": "integrations.connection.test",
+    "summary": "Run a health check against a configured integration connection.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integration, connections",
+    "route": "/docs/reference/unknown/integrations.connection.test",
+    "source": "generated",
+    "contentPath": "unknown/integrations.connection.test.md"
+  },
+  {
+    "id": "unknown/integrations.connection.update",
+    "title": "integrations.connection.update",
+    "summary": "Update metadata or credentials for an integration connection.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integration, connections",
+    "route": "/docs/reference/unknown/integrations.connection.update",
+    "source": "generated",
+    "contentPath": "unknown/integrations.connection.update.md"
+  },
+  {
+    "id": "unknown/knowledge",
+    "title": "knowledge",
+    "summary": "Knowledge base and content management capability\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.content\n- **Tags**: knowledge, content, data\n- **File**: `packages/libs/contracts-spec/src/knowledge/knowledge.capability.ts`",
+    "route": "/docs/reference/unknown/knowledge",
+    "source": "generated",
+    "contentPath": "unknown/knowledge.md"
+  },
+  {
+    "id": "unknown/knowledge.source.create",
+    "title": "knowledge.source.create",
+    "summary": "Create a knowledge source binding for a tenant.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.knowledge\n- **Tags**: knowledge, sources\n- **File**: `packages/libs/contracts-spec/src/knowledge/operations.ts`",
+    "route": "/docs/reference/unknown/knowledge.source.create",
+    "source": "generated",
+    "contentPath": "unknown/knowledge.source.create.md"
+  },
+  {
+    "id": "unknown/knowledge.source.delete",
+    "title": "knowledge.source.delete",
+    "summary": "Delete a knowledge source binding for a tenant.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.knowledge\n- **Tags**: knowledge, sources\n- **File**: `packages/libs/contracts-spec/src/knowledge/operations.ts`",
+    "route": "/docs/reference/unknown/knowledge.source.delete",
+    "source": "generated",
+    "contentPath": "unknown/knowledge.source.delete.md"
+  },
+  {
+    "id": "unknown/knowledge.source.list",
+    "title": "knowledge.source.list",
+    "summary": "List knowledge sources configured for a tenant.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.knowledge\n- **Tags**: knowledge, sources\n- **File**: `packages/libs/contracts-spec/src/knowledge/operations.ts`",
+    "route": "/docs/reference/unknown/knowledge.source.list",
+    "source": "generated",
+    "contentPath": "unknown/knowledge.source.list.md"
+  },
+  {
+    "id": "unknown/knowledge.source.triggerSync",
+    "title": "knowledge.source.triggerSync",
+    "summary": "Trigger an immediate sync for a knowledge source.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.knowledge\n- **Tags**: knowledge, sources\n- **File**: `packages/libs/contracts-spec/src/knowledge/operations.ts`",
+    "route": "/docs/reference/unknown/knowledge.source.triggerSync",
+    "source": "generated",
+    "contentPath": "unknown/knowledge.source.triggerSync.md"
+  },
+  {
+    "id": "unknown/knowledge.source.update",
+    "title": "knowledge.source.update",
+    "summary": "Update metadata or configuration for a knowledge source.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.knowledge\n- **Tags**: knowledge, sources\n- **File**: `packages/libs/contracts-spec/src/knowledge/operations.ts`",
+    "route": "/docs/reference/unknown/knowledge.source.update",
+    "source": "generated",
+    "contentPath": "unknown/knowledge.source.update.md"
+  },
+  {
+    "id": "unknown/meeting-recorder",
+    "title": "meeting-recorder",
+    "summary": "Meeting recorder integrations capability\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.integrations\n- **Tags**: meeting-recorder, transcripts, integrations\n- **File**: `packages/libs/contracts-spec/src/integrations/meeting-recorder/meeting-recorder.capability.ts`",
+    "route": "/docs/reference/unknown/meeting-recorder",
+    "source": "generated",
+    "contentPath": "unknown/meeting-recorder.md"
+  },
+  {
+    "id": "unknown/meeting-recorder.fathom",
+    "title": "meeting-recorder.fathom",
+    "summary": "Fathom External API for meetings, transcripts, and webhook events.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.integrations\n- **Tags**: meeting-recorder, fathom, transcripts",
+    "route": "/docs/reference/unknown/meeting-recorder.fathom",
+    "source": "generated",
+    "contentPath": "unknown/meeting-recorder.fathom.md"
+  },
+  {
+    "id": "unknown/meeting-recorder.fireflies",
+    "title": "meeting-recorder.fireflies",
+    "summary": "Fireflies GraphQL API for meeting transcripts, metadata, and webhook events.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.integrations\n- **Tags**: meeting-recorder, fireflies, transcripts",
+    "route": "/docs/reference/unknown/meeting-recorder.fireflies",
+    "source": "generated",
+    "contentPath": "unknown/meeting-recorder.fireflies.md"
+  },
+  {
+    "id": "unknown/meeting-recorder.granola",
+    "title": "meeting-recorder.granola",
+    "summary": "Granola meeting notes and transcripts via Enterprise API or MCP transport.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.integrations\n- **Tags**: meeting-recorder, granola, transcripts",
+    "route": "/docs/reference/unknown/meeting-recorder.granola",
+    "source": "generated",
+    "contentPath": "unknown/meeting-recorder.granola.md"
+  },
+  {
+    "id": "unknown/meeting-recorder.meetings.get",
+    "title": "meeting-recorder.meetings.get",
+    "summary": "Retrieve metadata for a single meeting recording.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: meeting-recorder, meetings",
+    "route": "/docs/reference/unknown/meeting-recorder.meetings.get",
+    "source": "generated",
+    "contentPath": "unknown/meeting-recorder.meetings.get.md"
+  },
+  {
+    "id": "unknown/meeting-recorder.meetings.list",
+    "title": "meeting-recorder.meetings.list",
+    "summary": "List meetings recorded by the configured meeting provider.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: meeting-recorder, meetings, transcripts",
+    "route": "/docs/reference/unknown/meeting-recorder.meetings.list",
+    "source": "generated",
+    "contentPath": "unknown/meeting-recorder.meetings.list.md"
+  },
+  {
+    "id": "unknown/meeting-recorder.tldv",
+    "title": "meeting-recorder.tldv",
+    "summary": "tl;dv Public API for meeting recordings, transcripts, and webhook events.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.integrations\n- **Tags**: meeting-recorder, tldv, transcripts",
+    "route": "/docs/reference/unknown/meeting-recorder.tldv",
+    "source": "generated",
+    "contentPath": "unknown/meeting-recorder.tldv.md"
+  },
+  {
+    "id": "unknown/meeting-recorder.transcripts.get",
+    "title": "meeting-recorder.transcripts.get",
+    "summary": "Fetch the transcript for a specific meeting recording.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: meeting-recorder, transcripts",
+    "route": "/docs/reference/unknown/meeting-recorder.transcripts.get",
+    "source": "generated",
+    "contentPath": "unknown/meeting-recorder.transcripts.get.md"
+  },
+  {
+    "id": "unknown/meeting-recorder.transcripts.sync",
+    "title": "meeting-recorder.transcripts.sync",
+    "summary": "Trigger a transcript sync from the meeting recorder provider.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: meeting-recorder, transcripts, sync",
+    "route": "/docs/reference/unknown/meeting-recorder.transcripts.sync",
+    "source": "generated",
+    "contentPath": "unknown/meeting-recorder.transcripts.sync.md"
+  },
+  {
+    "id": "unknown/meeting-recorder.webhooks.ingest",
+    "title": "meeting-recorder.webhooks.ingest",
+    "summary": "Ingest a webhook from a meeting recorder provider.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: meeting-recorder, webhooks, transcripts",
+    "route": "/docs/reference/unknown/meeting-recorder.webhooks.ingest",
+    "source": "generated",
+    "contentPath": "unknown/meeting-recorder.webhooks.ingest.md"
+  },
+  {
+    "id": "unknown/openbanking",
+    "title": "openbanking",
+    "summary": "Open Banking integrations capability\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.finance\n- **Tags**: openbanking, finance, integrations\n- **File**: `packages/libs/contracts-spec/src/integrations/openbanking/openbanking.capability.ts`",
+    "route": "/docs/reference/unknown/openbanking",
+    "source": "generated",
+    "contentPath": "unknown/openbanking.md"
+  },
+  {
+    "id": "unknown/openbanking.accounts.get",
+    "title": "openbanking.accounts.get",
+    "summary": "Retrieve the canonical bank account record for the given account identifier.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.finance\n- **Tags**: open-banking, powens, accounts",
+    "route": "/docs/reference/unknown/openbanking.accounts.get",
+    "source": "generated",
+    "contentPath": "unknown/openbanking.accounts.get.md"
+  },
+  {
+    "id": "unknown/openbanking.accounts.list",
+    "title": "openbanking.accounts.list",
+    "summary": "List bank accounts available to a tenant/user via Powens Open Banking.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.finance\n- **Tags**: open-banking, powens, accounts",
+    "route": "/docs/reference/unknown/openbanking.accounts.list",
+    "source": "generated",
+    "contentPath": "unknown/openbanking.accounts.list.md"
+  },
+  {
+    "id": "unknown/openbanking.accounts.sync",
+    "title": "openbanking.accounts.sync",
+    "summary": "Initiate a synchronisation run to refresh bank account metadata from Powens.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.finance\n- **Tags**: open-banking, powens, accounts",
+    "route": "/docs/reference/unknown/openbanking.accounts.sync",
+    "source": "generated",
+    "contentPath": "unknown/openbanking.accounts.sync.md"
+  },
+  {
+    "id": "unknown/openbanking.balances.get",
+    "title": "openbanking.balances.get",
+    "summary": "Retrieve the latest cached balances for a bank account.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.finance\n- **Tags**: open-banking, powens, balances",
+    "route": "/docs/reference/unknown/openbanking.balances.get",
+    "source": "generated",
+    "contentPath": "unknown/openbanking.balances.get.md"
+  },
+  {
+    "id": "unknown/openbanking.balances.refresh",
+    "title": "openbanking.balances.refresh",
+    "summary": "Refresh balances for a bank account via the configured open banking provider.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.finance\n- **Tags**: open-banking, powens, balances",
+    "route": "/docs/reference/unknown/openbanking.balances.refresh",
+    "source": "generated",
+    "contentPath": "unknown/openbanking.balances.refresh.md"
+  },
+  {
+    "id": "unknown/openbanking.powens",
+    "title": "openbanking.powens",
+    "summary": "Read-only Open Banking integration powered by Powens, exposing accounts, transactions, and balances.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.finance\n- **Tags**: open-banking, powens, finance",
+    "route": "/docs/reference/unknown/openbanking.powens",
+    "source": "generated",
+    "contentPath": "unknown/openbanking.powens.md"
+  },
+  {
+    "id": "unknown/openbanking.transactions.list",
+    "title": "openbanking.transactions.list",
+    "summary": "List bank transactions that have been normalised into the canonical ledger.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.finance\n- **Tags**: open-banking, powens, transactions",
+    "route": "/docs/reference/unknown/openbanking.transactions.list",
+    "source": "generated",
+    "contentPath": "unknown/openbanking.transactions.list.md"
+  },
+  {
+    "id": "unknown/openbanking.transactions.sync",
+    "title": "openbanking.transactions.sync",
+    "summary": "Synchronise transactions for a bank account by calling the configured open banking provider.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.finance",
+    "route": "/docs/reference/unknown/openbanking.transactions.sync",
+    "source": "generated",
+    "contentPath": "unknown/openbanking.transactions.sync.md"
+  },
+  {
+    "id": "unknown/payments.stripe",
+    "title": "payments.stripe",
+    "summary": "Stripe integration for payment processing, charges, and payouts.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.payments\n- **Tags**: payments, psp\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/stripe.ts`",
+    "route": "/docs/reference/unknown/payments.stripe",
+    "source": "generated",
+    "contentPath": "unknown/payments.stripe.md"
+  },
+  {
+    "id": "unknown/platform.integrations",
+    "title": "platform.integrations",
+    "summary": "Manage integration connections to external providers (e.g., Stripe, Qdrant)\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integrations, connections, platform",
+    "route": "/docs/reference/unknown/platform.integrations",
+    "source": "generated",
+    "contentPath": "unknown/platform.integrations.md"
+  },
+  {
+    "id": "unknown/platform.knowledge",
+    "title": "platform.knowledge",
+    "summary": "Manage knowledge source bindings for ingestion (e.g., Notion, uploads)\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.knowledge\n- **Tags**: knowledge, sources, platform, ingestion",
+    "route": "/docs/reference/unknown/platform.knowledge",
+    "source": "generated",
+    "contentPath": "unknown/platform.knowledge.md"
+  },
+  {
+    "id": "unknown/project-management.jira",
+    "title": "project-management.jira",
+    "summary": "Jira Cloud integration for creating and tracking work items.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: @platform.integrations\n- **Tags**: project-management, jira\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/jira.ts`",
+    "route": "/docs/reference/unknown/project-management.jira",
+    "source": "generated",
+    "contentPath": "unknown/project-management.jira.md"
+  },
+  {
+    "id": "unknown/project-management.linear",
+    "title": "project-management.linear",
+    "summary": "Linear integration for issue tracking and project management workflows.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: @platform.integrations\n- **Tags**: project-management, linear",
+    "route": "/docs/reference/unknown/project-management.linear",
+    "source": "generated",
+    "contentPath": "unknown/project-management.linear.md"
+  },
+  {
+    "id": "unknown/project-management.notion",
+    "title": "project-management.notion",
+    "summary": "Notion integration for creating shared project summaries and task entries.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: @platform.integrations\n- **Tags**: project-management, notion",
+    "route": "/docs/reference/unknown/project-management.notion",
+    "source": "generated",
+    "contentPath": "unknown/project-management.notion.md"
+  },
+  {
+    "id": "unknown/report.getContractVerificationStatus",
+    "title": "report.getContractVerificationStatus",
+    "summary": "Retrieves per-contract verification status for the impact report.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/operations/report/getContractVerificationStatus.ts`",
+    "route": "/docs/reference/unknown/report.getContractVerificationStatus",
+    "source": "generated",
+    "contentPath": "unknown/report.getContractVerificationStatus.md"
+  },
+  {
+    "id": "unknown/sms.twilio",
+    "title": "sms.twilio",
+    "summary": "Twilio SMS integration for transactional and notification messaging.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: sms, messaging\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/twilio-sms.ts`",
+    "route": "/docs/reference/unknown/sms.twilio",
+    "source": "generated",
+    "contentPath": "unknown/sms.twilio.md"
+  },
+  {
+    "id": "unknown/storage.gcs",
+    "title": "storage.gcs",
+    "summary": "Google Cloud Storage integration for object storage and retrieval.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.infrastructure\n- **Tags**: storage, gcs, google-cloud\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/gcs-storage.ts`",
+    "route": "/docs/reference/unknown/storage.gcs",
+    "source": "generated",
+    "contentPath": "unknown/storage.gcs.md"
+  },
+  {
+    "id": "unknown/vectordb.qdrant",
+    "title": "vectordb.qdrant",
+    "summary": "Qdrant integration for vector search and embeddings storage.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: vector-db, search\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/qdrant.ts`",
+    "route": "/docs/reference/unknown/vectordb.qdrant",
+    "source": "generated",
+    "contentPath": "unknown/vectordb.qdrant.md"
+  },
+  {
+    "id": "unknown/vectordb.supabase",
+    "title": "vectordb.supabase",
+    "summary": "Supabase integration for embedding storage and vector similarity search using pgvector.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: vector-db, supabase, pgvector",
+    "route": "/docs/reference/unknown/vectordb.supabase",
+    "source": "generated",
+    "contentPath": "unknown/vectordb.supabase.md"
+  }
+]

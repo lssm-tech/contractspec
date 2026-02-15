@@ -1,4 +1,4 @@
-import type { KnowledgeCategory } from '@contractspec/lib.contracts';
+import type { KnowledgeCategory } from '@contractspec/lib.contracts-spec';
 
 /**
  * Result from a knowledge retrieval operation.

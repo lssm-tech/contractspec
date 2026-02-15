@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import type { ContractRegistryItem } from '@contractspec/lib.contracts';
+import type { ContractRegistryItem } from '@contractspec/lib.contracts-spec';
 import { loadConfig } from '../../utils/config';
 import { getErrorMessage } from '../../utils/errors';
 import { ensureDir, generateFileName, writeFileSafe } from '../../utils/fs';

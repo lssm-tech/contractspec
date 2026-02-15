@@ -4,6 +4,7 @@
 
 import type { ExternalAgentProvider, ProviderRegistry } from './types';
 import { ProviderNotAvailableError } from './types';
+import { getDefaultI18n } from '../i18n';
 
 /**
  * In-memory implementation of the provider registry.
@@ -34,12 +35,15 @@ class InMemoryProviderRegistry implements ProviderRegistry {
   require(name: string): ExternalAgentProvider {
     const provider = this.providers.get(name);
     if (!provider) {
-      throw new ProviderNotAvailableError(name, 'not registered');
+      throw new ProviderNotAvailableError(
+        name,
+        getDefaultI18n().t('error.provider.notRegistered')
+      );
     }
     if (!provider.isAvailable()) {
       throw new ProviderNotAvailableError(
         name,
-        'dependencies not installed or not configured'
+        getDefaultI18n().t('error.provider.depsNotInstalled')
       );
     }
     return provider;

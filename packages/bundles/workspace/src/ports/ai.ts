@@ -2,7 +2,7 @@
  * AI adapter port.
  */
 
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 
 /**
  * AI provider type.

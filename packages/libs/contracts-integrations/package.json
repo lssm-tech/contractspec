@@ -1,0 +1,619 @@
+{
+  "name": "@contractspec/lib.contracts-integrations",
+  "version": "1.61.0",
+  "description": "Integration contract definitions for external services",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "clean": "rm -rf dist",
+    "lint": "bun run lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit",
+    "dev": "contractspec-bun-build dev"
+  },
+  "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.988.0",
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
+    "@google-cloud/secret-manager": "^6.1.1",
+    "google-gax": "^5.0.6"
+  },
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./integrations": "./src/integrations/index.ts",
+    "./integrations/binding": "./src/integrations/binding.ts",
+    "./integrations/connection": "./src/integrations/connection.ts",
+    "./integrations/docs/integrations.docblock": "./src/integrations/docs/integrations.docblock.ts",
+    "./integrations/health": "./src/integrations/health.ts",
+    "./integrations/index": "./src/integrations/index.ts",
+    "./integrations/integrations.capability": "./src/integrations/integrations.capability.ts",
+    "./integrations/integrations.feature": "./src/integrations/integrations.feature.ts",
+    "./integrations/meeting-recorder/contracts": "./src/integrations/meeting-recorder/contracts/index.ts",
+    "./integrations/meeting-recorder/contracts/index": "./src/integrations/meeting-recorder/contracts/index.ts",
+    "./integrations/meeting-recorder/contracts/meetings": "./src/integrations/meeting-recorder/contracts/meetings.ts",
+    "./integrations/meeting-recorder/contracts/transcripts": "./src/integrations/meeting-recorder/contracts/transcripts.ts",
+    "./integrations/meeting-recorder/contracts/webhooks": "./src/integrations/meeting-recorder/contracts/webhooks.ts",
+    "./integrations/meeting-recorder/meeting-recorder.capability": "./src/integrations/meeting-recorder/meeting-recorder.capability.ts",
+    "./integrations/meeting-recorder/meeting-recorder.feature": "./src/integrations/meeting-recorder/meeting-recorder.feature.ts",
+    "./integrations/meeting-recorder/models": "./src/integrations/meeting-recorder/models.ts",
+    "./integrations/meeting-recorder/telemetry": "./src/integrations/meeting-recorder/telemetry.ts",
+    "./integrations/openbanking/contracts": "./src/integrations/openbanking/contracts/index.ts",
+    "./integrations/openbanking/contracts/accounts": "./src/integrations/openbanking/contracts/accounts.ts",
+    "./integrations/openbanking/contracts/balances": "./src/integrations/openbanking/contracts/balances.ts",
+    "./integrations/openbanking/contracts/index": "./src/integrations/openbanking/contracts/index.ts",
+    "./integrations/openbanking/contracts/transactions": "./src/integrations/openbanking/contracts/transactions.ts",
+    "./integrations/openbanking/guards": "./src/integrations/openbanking/guards.ts",
+    "./integrations/openbanking/models": "./src/integrations/openbanking/models.ts",
+    "./integrations/openbanking/openbanking.capability": "./src/integrations/openbanking/openbanking.capability.ts",
+    "./integrations/openbanking/openbanking.feature": "./src/integrations/openbanking/openbanking.feature.ts",
+    "./integrations/openbanking/telemetry": "./src/integrations/openbanking/telemetry.ts",
+    "./integrations/operations": "./src/integrations/operations.ts",
+    "./integrations/providers": "./src/integrations/providers/index.ts",
+    "./integrations/providers/analytics": "./src/integrations/providers/analytics.ts",
+    "./integrations/providers/analytics-reader": "./src/integrations/providers/analytics-reader.ts",
+    "./integrations/providers/analytics-writer": "./src/integrations/providers/analytics-writer.ts",
+    "./integrations/providers/calendar": "./src/integrations/providers/calendar.ts",
+    "./integrations/providers/database": "./src/integrations/providers/database.ts",
+    "./integrations/providers/elevenlabs": "./src/integrations/providers/elevenlabs.ts",
+    "./integrations/providers/email": "./src/integrations/providers/email.ts",
+    "./integrations/providers/embedding": "./src/integrations/providers/embedding.ts",
+    "./integrations/providers/fal": "./src/integrations/providers/fal.ts",
+    "./integrations/providers/fathom": "./src/integrations/providers/fathom.ts",
+    "./integrations/providers/fireflies": "./src/integrations/providers/fireflies.ts",
+    "./integrations/providers/gcs-storage": "./src/integrations/providers/gcs-storage.ts",
+    "./integrations/providers/gmail": "./src/integrations/providers/gmail.ts",
+    "./integrations/providers/google-calendar": "./src/integrations/providers/google-calendar.ts",
+    "./integrations/providers/gradium": "./src/integrations/providers/gradium.ts",
+    "./integrations/providers/granola": "./src/integrations/providers/granola.ts",
+    "./integrations/providers/index": "./src/integrations/providers/index.ts",
+    "./integrations/providers/jira": "./src/integrations/providers/jira.ts",
+    "./integrations/providers/linear": "./src/integrations/providers/linear.ts",
+    "./integrations/providers/llm": "./src/integrations/providers/llm.ts",
+    "./integrations/providers/meeting-recorder": "./src/integrations/providers/meeting-recorder.ts",
+    "./integrations/providers/mistral": "./src/integrations/providers/mistral.ts",
+    "./integrations/providers/notion": "./src/integrations/providers/notion.ts",
+    "./integrations/providers/openbanking": "./src/integrations/providers/openbanking.ts",
+    "./integrations/providers/payments": "./src/integrations/providers/payments.ts",
+    "./integrations/providers/posthog": "./src/integrations/providers/posthog.ts",
+    "./integrations/providers/posthog-llm-telemetry": "./src/integrations/providers/posthog-llm-telemetry.ts",
+    "./integrations/providers/postmark": "./src/integrations/providers/postmark.ts",
+    "./integrations/providers/powens": "./src/integrations/providers/powens.ts",
+    "./integrations/providers/project-management": "./src/integrations/providers/project-management.ts",
+    "./integrations/providers/qdrant": "./src/integrations/providers/qdrant.ts",
+    "./integrations/providers/registry": "./src/integrations/providers/registry.ts",
+    "./integrations/providers/sms": "./src/integrations/providers/sms.ts",
+    "./integrations/providers/storage": "./src/integrations/providers/storage.ts",
+    "./integrations/providers/stripe": "./src/integrations/providers/stripe.ts",
+    "./integrations/providers/supabase-postgres": "./src/integrations/providers/supabase-postgres.ts",
+    "./integrations/providers/supabase-vector": "./src/integrations/providers/supabase-vector.ts",
+    "./integrations/providers/tldv": "./src/integrations/providers/tldv.ts",
+    "./integrations/providers/twilio-sms": "./src/integrations/providers/twilio-sms.ts",
+    "./integrations/providers/vector-store": "./src/integrations/providers/vector-store.ts",
+    "./integrations/providers/voice": "./src/integrations/providers/voice.ts",
+    "./integrations/runtime": "./src/integrations/runtime.ts",
+    "./integrations/secrets": "./src/integrations/secrets/index.ts",
+    "./integrations/secrets-types": "./src/integrations/secrets-types.ts",
+    "./integrations/secrets/aws-secret-manager": "./src/integrations/secrets/aws-secret-manager.ts",
+    "./integrations/secrets/env-secret-provider": "./src/integrations/secrets/env-secret-provider.ts",
+    "./integrations/secrets/gcp-secret-manager": "./src/integrations/secrets/gcp-secret-manager.ts",
+    "./integrations/secrets/index": "./src/integrations/secrets/index.ts",
+    "./integrations/secrets/manager": "./src/integrations/secrets/manager.ts",
+    "./integrations/secrets/provider": "./src/integrations/secrets/provider.ts",
+    "./integrations/secrets/scaleway-secret-manager": "./src/integrations/secrets/scaleway-secret-manager.ts",
+    "./integrations/spec": "./src/integrations/spec.ts"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.js",
+        "default": "./dist/index.js"
+      },
+      "./integrations": {
+        "types": "./dist/integrations/index.d.ts",
+        "bun": "./dist/integrations/index.js",
+        "node": "./dist/node/integrations/index.js",
+        "default": "./dist/integrations/index.js"
+      },
+      "./integrations/binding": {
+        "types": "./dist/integrations/binding.d.ts",
+        "bun": "./dist/integrations/binding.js",
+        "node": "./dist/node/integrations/binding.js",
+        "default": "./dist/integrations/binding.js"
+      },
+      "./integrations/connection": {
+        "types": "./dist/integrations/connection.d.ts",
+        "bun": "./dist/integrations/connection.js",
+        "node": "./dist/node/integrations/connection.js",
+        "default": "./dist/integrations/connection.js"
+      },
+      "./integrations/docs/integrations.docblock": {
+        "types": "./dist/integrations/docs/integrations.docblock.d.ts",
+        "bun": "./dist/integrations/docs/integrations.docblock.js",
+        "node": "./dist/node/integrations/docs/integrations.docblock.js",
+        "default": "./dist/integrations/docs/integrations.docblock.js"
+      },
+      "./integrations/health": {
+        "types": "./dist/integrations/health.d.ts",
+        "bun": "./dist/integrations/health.js",
+        "node": "./dist/node/integrations/health.js",
+        "default": "./dist/integrations/health.js"
+      },
+      "./integrations/index": {
+        "types": "./dist/integrations/index.d.ts",
+        "bun": "./dist/integrations/index.js",
+        "node": "./dist/node/integrations/index.js",
+        "default": "./dist/integrations/index.js"
+      },
+      "./integrations/integrations.capability": {
+        "types": "./dist/integrations/integrations.capability.d.ts",
+        "bun": "./dist/integrations/integrations.capability.js",
+        "node": "./dist/node/integrations/integrations.capability.js",
+        "default": "./dist/integrations/integrations.capability.js"
+      },
+      "./integrations/integrations.feature": {
+        "types": "./dist/integrations/integrations.feature.d.ts",
+        "bun": "./dist/integrations/integrations.feature.js",
+        "node": "./dist/node/integrations/integrations.feature.js",
+        "default": "./dist/integrations/integrations.feature.js"
+      },
+      "./integrations/meeting-recorder/contracts": {
+        "types": "./dist/integrations/meeting-recorder/contracts/index.d.ts",
+        "bun": "./dist/integrations/meeting-recorder/contracts/index.js",
+        "node": "./dist/node/integrations/meeting-recorder/contracts/index.js",
+        "default": "./dist/integrations/meeting-recorder/contracts/index.js"
+      },
+      "./integrations/meeting-recorder/contracts/index": {
+        "types": "./dist/integrations/meeting-recorder/contracts/index.d.ts",
+        "bun": "./dist/integrations/meeting-recorder/contracts/index.js",
+        "node": "./dist/node/integrations/meeting-recorder/contracts/index.js",
+        "default": "./dist/integrations/meeting-recorder/contracts/index.js"
+      },
+      "./integrations/meeting-recorder/contracts/meetings": {
+        "types": "./dist/integrations/meeting-recorder/contracts/meetings.d.ts",
+        "bun": "./dist/integrations/meeting-recorder/contracts/meetings.js",
+        "node": "./dist/node/integrations/meeting-recorder/contracts/meetings.js",
+        "default": "./dist/integrations/meeting-recorder/contracts/meetings.js"
+      },
+      "./integrations/meeting-recorder/contracts/transcripts": {
+        "types": "./dist/integrations/meeting-recorder/contracts/transcripts.d.ts",
+        "bun": "./dist/integrations/meeting-recorder/contracts/transcripts.js",
+        "node": "./dist/node/integrations/meeting-recorder/contracts/transcripts.js",
+        "default": "./dist/integrations/meeting-recorder/contracts/transcripts.js"
+      },
+      "./integrations/meeting-recorder/contracts/webhooks": {
+        "types": "./dist/integrations/meeting-recorder/contracts/webhooks.d.ts",
+        "bun": "./dist/integrations/meeting-recorder/contracts/webhooks.js",
+        "node": "./dist/node/integrations/meeting-recorder/contracts/webhooks.js",
+        "default": "./dist/integrations/meeting-recorder/contracts/webhooks.js"
+      },
+      "./integrations/meeting-recorder/meeting-recorder.capability": {
+        "types": "./dist/integrations/meeting-recorder/meeting-recorder.capability.d.ts",
+        "bun": "./dist/integrations/meeting-recorder/meeting-recorder.capability.js",
+        "node": "./dist/node/integrations/meeting-recorder/meeting-recorder.capability.js",
+        "default": "./dist/integrations/meeting-recorder/meeting-recorder.capability.js"
+      },
+      "./integrations/meeting-recorder/meeting-recorder.feature": {
+        "types": "./dist/integrations/meeting-recorder/meeting-recorder.feature.d.ts",
+        "bun": "./dist/integrations/meeting-recorder/meeting-recorder.feature.js",
+        "node": "./dist/node/integrations/meeting-recorder/meeting-recorder.feature.js",
+        "default": "./dist/integrations/meeting-recorder/meeting-recorder.feature.js"
+      },
+      "./integrations/meeting-recorder/models": {
+        "types": "./dist/integrations/meeting-recorder/models.d.ts",
+        "bun": "./dist/integrations/meeting-recorder/models.js",
+        "node": "./dist/node/integrations/meeting-recorder/models.js",
+        "default": "./dist/integrations/meeting-recorder/models.js"
+      },
+      "./integrations/meeting-recorder/telemetry": {
+        "types": "./dist/integrations/meeting-recorder/telemetry.d.ts",
+        "bun": "./dist/integrations/meeting-recorder/telemetry.js",
+        "node": "./dist/node/integrations/meeting-recorder/telemetry.js",
+        "default": "./dist/integrations/meeting-recorder/telemetry.js"
+      },
+      "./integrations/openbanking/contracts": {
+        "types": "./dist/integrations/openbanking/contracts/index.d.ts",
+        "bun": "./dist/integrations/openbanking/contracts/index.js",
+        "node": "./dist/node/integrations/openbanking/contracts/index.js",
+        "default": "./dist/integrations/openbanking/contracts/index.js"
+      },
+      "./integrations/openbanking/contracts/accounts": {
+        "types": "./dist/integrations/openbanking/contracts/accounts.d.ts",
+        "bun": "./dist/integrations/openbanking/contracts/accounts.js",
+        "node": "./dist/node/integrations/openbanking/contracts/accounts.js",
+        "default": "./dist/integrations/openbanking/contracts/accounts.js"
+      },
+      "./integrations/openbanking/contracts/balances": {
+        "types": "./dist/integrations/openbanking/contracts/balances.d.ts",
+        "bun": "./dist/integrations/openbanking/contracts/balances.js",
+        "node": "./dist/node/integrations/openbanking/contracts/balances.js",
+        "default": "./dist/integrations/openbanking/contracts/balances.js"
+      },
+      "./integrations/openbanking/contracts/index": {
+        "types": "./dist/integrations/openbanking/contracts/index.d.ts",
+        "bun": "./dist/integrations/openbanking/contracts/index.js",
+        "node": "./dist/node/integrations/openbanking/contracts/index.js",
+        "default": "./dist/integrations/openbanking/contracts/index.js"
+      },
+      "./integrations/openbanking/contracts/transactions": {
+        "types": "./dist/integrations/openbanking/contracts/transactions.d.ts",
+        "bun": "./dist/integrations/openbanking/contracts/transactions.js",
+        "node": "./dist/node/integrations/openbanking/contracts/transactions.js",
+        "default": "./dist/integrations/openbanking/contracts/transactions.js"
+      },
+      "./integrations/openbanking/guards": {
+        "types": "./dist/integrations/openbanking/guards.d.ts",
+        "bun": "./dist/integrations/openbanking/guards.js",
+        "node": "./dist/node/integrations/openbanking/guards.js",
+        "default": "./dist/integrations/openbanking/guards.js"
+      },
+      "./integrations/openbanking/models": {
+        "types": "./dist/integrations/openbanking/models.d.ts",
+        "bun": "./dist/integrations/openbanking/models.js",
+        "node": "./dist/node/integrations/openbanking/models.js",
+        "default": "./dist/integrations/openbanking/models.js"
+      },
+      "./integrations/openbanking/openbanking.capability": {
+        "types": "./dist/integrations/openbanking/openbanking.capability.d.ts",
+        "bun": "./dist/integrations/openbanking/openbanking.capability.js",
+        "node": "./dist/node/integrations/openbanking/openbanking.capability.js",
+        "default": "./dist/integrations/openbanking/openbanking.capability.js"
+      },
+      "./integrations/openbanking/openbanking.feature": {
+        "types": "./dist/integrations/openbanking/openbanking.feature.d.ts",
+        "bun": "./dist/integrations/openbanking/openbanking.feature.js",
+        "node": "./dist/node/integrations/openbanking/openbanking.feature.js",
+        "default": "./dist/integrations/openbanking/openbanking.feature.js"
+      },
+      "./integrations/openbanking/telemetry": {
+        "types": "./dist/integrations/openbanking/telemetry.d.ts",
+        "bun": "./dist/integrations/openbanking/telemetry.js",
+        "node": "./dist/node/integrations/openbanking/telemetry.js",
+        "default": "./dist/integrations/openbanking/telemetry.js"
+      },
+      "./integrations/operations": {
+        "types": "./dist/integrations/operations.d.ts",
+        "bun": "./dist/integrations/operations.js",
+        "node": "./dist/node/integrations/operations.js",
+        "default": "./dist/integrations/operations.js"
+      },
+      "./integrations/providers": {
+        "types": "./dist/integrations/providers/index.d.ts",
+        "bun": "./dist/integrations/providers/index.js",
+        "node": "./dist/node/integrations/providers/index.js",
+        "default": "./dist/integrations/providers/index.js"
+      },
+      "./integrations/providers/analytics": {
+        "types": "./dist/integrations/providers/analytics.d.ts",
+        "bun": "./dist/integrations/providers/analytics.js",
+        "node": "./dist/node/integrations/providers/analytics.js",
+        "default": "./dist/integrations/providers/analytics.js"
+      },
+      "./integrations/providers/analytics-reader": {
+        "types": "./dist/integrations/providers/analytics-reader.d.ts",
+        "bun": "./dist/integrations/providers/analytics-reader.js",
+        "node": "./dist/node/integrations/providers/analytics-reader.js",
+        "default": "./dist/integrations/providers/analytics-reader.js"
+      },
+      "./integrations/providers/analytics-writer": {
+        "types": "./dist/integrations/providers/analytics-writer.d.ts",
+        "bun": "./dist/integrations/providers/analytics-writer.js",
+        "node": "./dist/node/integrations/providers/analytics-writer.js",
+        "default": "./dist/integrations/providers/analytics-writer.js"
+      },
+      "./integrations/providers/calendar": {
+        "types": "./dist/integrations/providers/calendar.d.ts",
+        "bun": "./dist/integrations/providers/calendar.js",
+        "node": "./dist/node/integrations/providers/calendar.js",
+        "default": "./dist/integrations/providers/calendar.js"
+      },
+      "./integrations/providers/database": {
+        "types": "./dist/integrations/providers/database.d.ts",
+        "bun": "./dist/integrations/providers/database.js",
+        "node": "./dist/node/integrations/providers/database.js",
+        "default": "./dist/integrations/providers/database.js"
+      },
+      "./integrations/providers/elevenlabs": {
+        "types": "./dist/integrations/providers/elevenlabs.d.ts",
+        "bun": "./dist/integrations/providers/elevenlabs.js",
+        "node": "./dist/node/integrations/providers/elevenlabs.js",
+        "default": "./dist/integrations/providers/elevenlabs.js"
+      },
+      "./integrations/providers/email": {
+        "types": "./dist/integrations/providers/email.d.ts",
+        "bun": "./dist/integrations/providers/email.js",
+        "node": "./dist/node/integrations/providers/email.js",
+        "default": "./dist/integrations/providers/email.js"
+      },
+      "./integrations/providers/embedding": {
+        "types": "./dist/integrations/providers/embedding.d.ts",
+        "bun": "./dist/integrations/providers/embedding.js",
+        "node": "./dist/node/integrations/providers/embedding.js",
+        "default": "./dist/integrations/providers/embedding.js"
+      },
+      "./integrations/providers/fal": {
+        "types": "./dist/integrations/providers/fal.d.ts",
+        "bun": "./dist/integrations/providers/fal.js",
+        "node": "./dist/node/integrations/providers/fal.js",
+        "default": "./dist/integrations/providers/fal.js"
+      },
+      "./integrations/providers/fathom": {
+        "types": "./dist/integrations/providers/fathom.d.ts",
+        "bun": "./dist/integrations/providers/fathom.js",
+        "node": "./dist/node/integrations/providers/fathom.js",
+        "default": "./dist/integrations/providers/fathom.js"
+      },
+      "./integrations/providers/fireflies": {
+        "types": "./dist/integrations/providers/fireflies.d.ts",
+        "bun": "./dist/integrations/providers/fireflies.js",
+        "node": "./dist/node/integrations/providers/fireflies.js",
+        "default": "./dist/integrations/providers/fireflies.js"
+      },
+      "./integrations/providers/gcs-storage": {
+        "types": "./dist/integrations/providers/gcs-storage.d.ts",
+        "bun": "./dist/integrations/providers/gcs-storage.js",
+        "node": "./dist/node/integrations/providers/gcs-storage.js",
+        "default": "./dist/integrations/providers/gcs-storage.js"
+      },
+      "./integrations/providers/gmail": {
+        "types": "./dist/integrations/providers/gmail.d.ts",
+        "bun": "./dist/integrations/providers/gmail.js",
+        "node": "./dist/node/integrations/providers/gmail.js",
+        "default": "./dist/integrations/providers/gmail.js"
+      },
+      "./integrations/providers/google-calendar": {
+        "types": "./dist/integrations/providers/google-calendar.d.ts",
+        "bun": "./dist/integrations/providers/google-calendar.js",
+        "node": "./dist/node/integrations/providers/google-calendar.js",
+        "default": "./dist/integrations/providers/google-calendar.js"
+      },
+      "./integrations/providers/gradium": {
+        "types": "./dist/integrations/providers/gradium.d.ts",
+        "bun": "./dist/integrations/providers/gradium.js",
+        "node": "./dist/node/integrations/providers/gradium.js",
+        "default": "./dist/integrations/providers/gradium.js"
+      },
+      "./integrations/providers/granola": {
+        "types": "./dist/integrations/providers/granola.d.ts",
+        "bun": "./dist/integrations/providers/granola.js",
+        "node": "./dist/node/integrations/providers/granola.js",
+        "default": "./dist/integrations/providers/granola.js"
+      },
+      "./integrations/providers/index": {
+        "types": "./dist/integrations/providers/index.d.ts",
+        "bun": "./dist/integrations/providers/index.js",
+        "node": "./dist/node/integrations/providers/index.js",
+        "default": "./dist/integrations/providers/index.js"
+      },
+      "./integrations/providers/jira": {
+        "types": "./dist/integrations/providers/jira.d.ts",
+        "bun": "./dist/integrations/providers/jira.js",
+        "node": "./dist/node/integrations/providers/jira.js",
+        "default": "./dist/integrations/providers/jira.js"
+      },
+      "./integrations/providers/linear": {
+        "types": "./dist/integrations/providers/linear.d.ts",
+        "bun": "./dist/integrations/providers/linear.js",
+        "node": "./dist/node/integrations/providers/linear.js",
+        "default": "./dist/integrations/providers/linear.js"
+      },
+      "./integrations/providers/llm": {
+        "types": "./dist/integrations/providers/llm.d.ts",
+        "bun": "./dist/integrations/providers/llm.js",
+        "node": "./dist/node/integrations/providers/llm.js",
+        "default": "./dist/integrations/providers/llm.js"
+      },
+      "./integrations/providers/meeting-recorder": {
+        "types": "./dist/integrations/providers/meeting-recorder.d.ts",
+        "bun": "./dist/integrations/providers/meeting-recorder.js",
+        "node": "./dist/node/integrations/providers/meeting-recorder.js",
+        "default": "./dist/integrations/providers/meeting-recorder.js"
+      },
+      "./integrations/providers/mistral": {
+        "types": "./dist/integrations/providers/mistral.d.ts",
+        "bun": "./dist/integrations/providers/mistral.js",
+        "node": "./dist/node/integrations/providers/mistral.js",
+        "default": "./dist/integrations/providers/mistral.js"
+      },
+      "./integrations/providers/notion": {
+        "types": "./dist/integrations/providers/notion.d.ts",
+        "bun": "./dist/integrations/providers/notion.js",
+        "node": "./dist/node/integrations/providers/notion.js",
+        "default": "./dist/integrations/providers/notion.js"
+      },
+      "./integrations/providers/openbanking": {
+        "types": "./dist/integrations/providers/openbanking.d.ts",
+        "bun": "./dist/integrations/providers/openbanking.js",
+        "node": "./dist/node/integrations/providers/openbanking.js",
+        "default": "./dist/integrations/providers/openbanking.js"
+      },
+      "./integrations/providers/payments": {
+        "types": "./dist/integrations/providers/payments.d.ts",
+        "bun": "./dist/integrations/providers/payments.js",
+        "node": "./dist/node/integrations/providers/payments.js",
+        "default": "./dist/integrations/providers/payments.js"
+      },
+      "./integrations/providers/posthog": {
+        "types": "./dist/integrations/providers/posthog.d.ts",
+        "bun": "./dist/integrations/providers/posthog.js",
+        "node": "./dist/node/integrations/providers/posthog.js",
+        "default": "./dist/integrations/providers/posthog.js"
+      },
+      "./integrations/providers/posthog-llm-telemetry": {
+        "types": "./dist/integrations/providers/posthog-llm-telemetry.d.ts",
+        "bun": "./dist/integrations/providers/posthog-llm-telemetry.js",
+        "node": "./dist/node/integrations/providers/posthog-llm-telemetry.js",
+        "default": "./dist/integrations/providers/posthog-llm-telemetry.js"
+      },
+      "./integrations/providers/postmark": {
+        "types": "./dist/integrations/providers/postmark.d.ts",
+        "bun": "./dist/integrations/providers/postmark.js",
+        "node": "./dist/node/integrations/providers/postmark.js",
+        "default": "./dist/integrations/providers/postmark.js"
+      },
+      "./integrations/providers/powens": {
+        "types": "./dist/integrations/providers/powens.d.ts",
+        "bun": "./dist/integrations/providers/powens.js",
+        "node": "./dist/node/integrations/providers/powens.js",
+        "default": "./dist/integrations/providers/powens.js"
+      },
+      "./integrations/providers/project-management": {
+        "types": "./dist/integrations/providers/project-management.d.ts",
+        "bun": "./dist/integrations/providers/project-management.js",
+        "node": "./dist/node/integrations/providers/project-management.js",
+        "default": "./dist/integrations/providers/project-management.js"
+      },
+      "./integrations/providers/qdrant": {
+        "types": "./dist/integrations/providers/qdrant.d.ts",
+        "bun": "./dist/integrations/providers/qdrant.js",
+        "node": "./dist/node/integrations/providers/qdrant.js",
+        "default": "./dist/integrations/providers/qdrant.js"
+      },
+      "./integrations/providers/registry": {
+        "types": "./dist/integrations/providers/registry.d.ts",
+        "bun": "./dist/integrations/providers/registry.js",
+        "node": "./dist/node/integrations/providers/registry.js",
+        "default": "./dist/integrations/providers/registry.js"
+      },
+      "./integrations/providers/sms": {
+        "types": "./dist/integrations/providers/sms.d.ts",
+        "bun": "./dist/integrations/providers/sms.js",
+        "node": "./dist/node/integrations/providers/sms.js",
+        "default": "./dist/integrations/providers/sms.js"
+      },
+      "./integrations/providers/storage": {
+        "types": "./dist/integrations/providers/storage.d.ts",
+        "bun": "./dist/integrations/providers/storage.js",
+        "node": "./dist/node/integrations/providers/storage.js",
+        "default": "./dist/integrations/providers/storage.js"
+      },
+      "./integrations/providers/stripe": {
+        "types": "./dist/integrations/providers/stripe.d.ts",
+        "bun": "./dist/integrations/providers/stripe.js",
+        "node": "./dist/node/integrations/providers/stripe.js",
+        "default": "./dist/integrations/providers/stripe.js"
+      },
+      "./integrations/providers/supabase-postgres": {
+        "types": "./dist/integrations/providers/supabase-postgres.d.ts",
+        "bun": "./dist/integrations/providers/supabase-postgres.js",
+        "node": "./dist/node/integrations/providers/supabase-postgres.js",
+        "default": "./dist/integrations/providers/supabase-postgres.js"
+      },
+      "./integrations/providers/supabase-vector": {
+        "types": "./dist/integrations/providers/supabase-vector.d.ts",
+        "bun": "./dist/integrations/providers/supabase-vector.js",
+        "node": "./dist/node/integrations/providers/supabase-vector.js",
+        "default": "./dist/integrations/providers/supabase-vector.js"
+      },
+      "./integrations/providers/tldv": {
+        "types": "./dist/integrations/providers/tldv.d.ts",
+        "bun": "./dist/integrations/providers/tldv.js",
+        "node": "./dist/node/integrations/providers/tldv.js",
+        "default": "./dist/integrations/providers/tldv.js"
+      },
+      "./integrations/providers/twilio-sms": {
+        "types": "./dist/integrations/providers/twilio-sms.d.ts",
+        "bun": "./dist/integrations/providers/twilio-sms.js",
+        "node": "./dist/node/integrations/providers/twilio-sms.js",
+        "default": "./dist/integrations/providers/twilio-sms.js"
+      },
+      "./integrations/providers/vector-store": {
+        "types": "./dist/integrations/providers/vector-store.d.ts",
+        "bun": "./dist/integrations/providers/vector-store.js",
+        "node": "./dist/node/integrations/providers/vector-store.js",
+        "default": "./dist/integrations/providers/vector-store.js"
+      },
+      "./integrations/providers/voice": {
+        "types": "./dist/integrations/providers/voice.d.ts",
+        "bun": "./dist/integrations/providers/voice.js",
+        "node": "./dist/node/integrations/providers/voice.js",
+        "default": "./dist/integrations/providers/voice.js"
+      },
+      "./integrations/runtime": {
+        "types": "./dist/integrations/runtime.d.ts",
+        "bun": "./dist/integrations/runtime.js",
+        "node": "./dist/node/integrations/runtime.js",
+        "default": "./dist/integrations/runtime.js"
+      },
+      "./integrations/secrets": {
+        "types": "./dist/integrations/secrets/index.d.ts",
+        "bun": "./dist/integrations/secrets/index.js",
+        "node": "./dist/node/integrations/secrets/index.js",
+        "default": "./dist/integrations/secrets/index.js"
+      },
+      "./integrations/secrets-types": {
+        "types": "./dist/integrations/secrets-types.d.ts",
+        "bun": "./dist/integrations/secrets-types.js",
+        "node": "./dist/node/integrations/secrets-types.js",
+        "default": "./dist/integrations/secrets-types.js"
+      },
+      "./integrations/secrets/aws-secret-manager": {
+        "types": "./dist/integrations/secrets/aws-secret-manager.d.ts",
+        "bun": "./dist/integrations/secrets/aws-secret-manager.js",
+        "node": "./dist/node/integrations/secrets/aws-secret-manager.js",
+        "default": "./dist/integrations/secrets/aws-secret-manager.js"
+      },
+      "./integrations/secrets/env-secret-provider": {
+        "types": "./dist/integrations/secrets/env-secret-provider.d.ts",
+        "bun": "./dist/integrations/secrets/env-secret-provider.js",
+        "node": "./dist/node/integrations/secrets/env-secret-provider.js",
+        "default": "./dist/integrations/secrets/env-secret-provider.js"
+      },
+      "./integrations/secrets/gcp-secret-manager": {
+        "types": "./dist/integrations/secrets/gcp-secret-manager.d.ts",
+        "bun": "./dist/integrations/secrets/gcp-secret-manager.js",
+        "node": "./dist/node/integrations/secrets/gcp-secret-manager.js",
+        "default": "./dist/integrations/secrets/gcp-secret-manager.js"
+      },
+      "./integrations/secrets/index": {
+        "types": "./dist/integrations/secrets/index.d.ts",
+        "bun": "./dist/integrations/secrets/index.js",
+        "node": "./dist/node/integrations/secrets/index.js",
+        "default": "./dist/integrations/secrets/index.js"
+      },
+      "./integrations/secrets/manager": {
+        "types": "./dist/integrations/secrets/manager.d.ts",
+        "bun": "./dist/integrations/secrets/manager.js",
+        "node": "./dist/node/integrations/secrets/manager.js",
+        "default": "./dist/integrations/secrets/manager.js"
+      },
+      "./integrations/secrets/provider": {
+        "types": "./dist/integrations/secrets/provider.d.ts",
+        "bun": "./dist/integrations/secrets/provider.js",
+        "node": "./dist/node/integrations/secrets/provider.js",
+        "default": "./dist/integrations/secrets/provider.js"
+      },
+      "./integrations/secrets/scaleway-secret-manager": {
+        "types": "./dist/integrations/secrets/scaleway-secret-manager.d.ts",
+        "bun": "./dist/integrations/secrets/scaleway-secret-manager.js",
+        "node": "./dist/node/integrations/secrets/scaleway-secret-manager.js",
+        "default": "./dist/integrations/secrets/scaleway-secret-manager.js"
+      },
+      "./integrations/spec": {
+        "types": "./dist/integrations/spec.d.ts",
+        "bun": "./dist/integrations/spec.js",
+        "node": "./dist/node/integrations/spec.js",
+        "default": "./dist/integrations/spec.js"
+      }
+    }
+  }
+}

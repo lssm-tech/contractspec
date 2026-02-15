@@ -17,7 +17,7 @@ export function generateHandlerTemplate(
   const specVarName =
     toPascalCase(specName.split('.').pop() ?? 'Unknown') + 'Spec';
 
-  return `import type { ContractHandler } from '@contractspec/lib.contracts';
+  return `import type { ContractHandler } from '@contractspec/lib.contracts-spec';
 import { ${specVarName} } from '../contracts/${toKebabCase(specName)}.contracts';
 
 /**

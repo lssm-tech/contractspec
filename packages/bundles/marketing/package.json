@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/bundle.marketing",
-  "version": "1.12.0",
+  "version": "1.16.0",
   "type": "module",
   "scripts": {
     "clean": "rm -rf dist",
@@ -74,7 +74,8 @@
     "@contractspec/example.marketplace": "workspace:*",
     "@contractspec/example.saas-boilerplate": "workspace:*",
     "@contractspec/example.workflow-system": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.contracts-runtime-client-react": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.email": "workspace:*",
     "@contractspec/lib.example-shared-ui": "workspace:*",
@@ -89,15 +90,15 @@
     "@scaleway/sdk": "^3.1.5",
     "@scaleway/sdk-client": "^2.1.0",
     "class-variance-authority": "^0.7.1",
-    "framer-motion": "^12.33.0",
-    "lucide-react": "^0.563.0",
+    "framer-motion": "^12.34.0",
+    "lucide-react": "^0.564.0",
     "next": "catalog:",
     "react": "catalog:",
     "react-hook-form": "^7.70.0",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@types/react": "~19.2.13",
+    "@types/react": "~19.2.14",
     "@contractspec/tool.typescript": "workspace:*",
     "typescript": "catalog:",
     "@contractspec/tool.bun": "workspace:*"
@@ -109,322 +110,322 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./components/marketing": {
         "types": "./dist/components/marketing/index.d.ts",
         "bun": "./dist/components/marketing/index.js",
-        "node": "./dist/node/components/marketing/index.mjs",
+        "node": "./dist/node/components/marketing/index.js",
         "browser": "./dist/browser/components/marketing/index.js",
         "default": "./dist/components/marketing/index.js"
       },
       "./components/marketing/ChangelogPage": {
         "types": "./dist/components/marketing/ChangelogPage.d.ts",
         "bun": "./dist/components/marketing/ChangelogPage.js",
-        "node": "./dist/node/components/marketing/ChangelogPage.mjs",
+        "node": "./dist/node/components/marketing/ChangelogPage.js",
         "browser": "./dist/browser/components/marketing/ChangelogPage.js",
         "default": "./dist/components/marketing/ChangelogPage.js"
       },
       "./components/marketing/CofounderPage": {
         "types": "./dist/components/marketing/CofounderPage.d.ts",
         "bun": "./dist/components/marketing/CofounderPage.js",
-        "node": "./dist/node/components/marketing/CofounderPage.mjs",
+        "node": "./dist/node/components/marketing/CofounderPage.js",
         "browser": "./dist/browser/components/marketing/CofounderPage.js",
         "default": "./dist/components/marketing/CofounderPage.js"
       },
       "./components/marketing/ContactClient": {
         "types": "./dist/components/marketing/ContactClient.d.ts",
         "bun": "./dist/components/marketing/ContactClient.js",
-        "node": "./dist/node/components/marketing/ContactClient.mjs",
+        "node": "./dist/node/components/marketing/ContactClient.js",
         "browser": "./dist/browser/components/marketing/ContactClient.js",
         "default": "./dist/components/marketing/ContactClient.js"
       },
       "./components/marketing/ContributePage": {
         "types": "./dist/components/marketing/ContributePage.d.ts",
         "bun": "./dist/components/marketing/ContributePage.js",
-        "node": "./dist/node/components/marketing/ContributePage.mjs",
+        "node": "./dist/node/components/marketing/ContributePage.js",
         "browser": "./dist/browser/components/marketing/ContributePage.js",
         "default": "./dist/components/marketing/ContributePage.js"
       },
       "./components/marketing/DesignPartnerPage": {
         "types": "./dist/components/marketing/DesignPartnerPage.d.ts",
         "bun": "./dist/components/marketing/DesignPartnerPage.js",
-        "node": "./dist/node/components/marketing/DesignPartnerPage.mjs",
+        "node": "./dist/node/components/marketing/DesignPartnerPage.js",
         "browser": "./dist/browser/components/marketing/DesignPartnerPage.js",
         "default": "./dist/components/marketing/DesignPartnerPage.js"
       },
       "./components/marketing/index": {
         "types": "./dist/components/marketing/index.d.ts",
         "bun": "./dist/components/marketing/index.js",
-        "node": "./dist/node/components/marketing/index.mjs",
+        "node": "./dist/node/components/marketing/index.js",
         "browser": "./dist/browser/components/marketing/index.js",
         "default": "./dist/components/marketing/index.js"
       },
       "./components/marketing/LandingPage": {
         "types": "./dist/components/marketing/LandingPage.d.ts",
         "bun": "./dist/components/marketing/LandingPage.js",
-        "node": "./dist/node/components/marketing/LandingPage.mjs",
+        "node": "./dist/node/components/marketing/LandingPage.js",
         "browser": "./dist/browser/components/marketing/LandingPage.js",
         "default": "./dist/components/marketing/LandingPage.js"
       },
       "./components/marketing/pricing-thinking-modal": {
         "types": "./dist/components/marketing/pricing-thinking-modal.d.ts",
         "bun": "./dist/components/marketing/pricing-thinking-modal.js",
-        "node": "./dist/node/components/marketing/pricing-thinking-modal.mjs",
+        "node": "./dist/node/components/marketing/pricing-thinking-modal.js",
         "browser": "./dist/browser/components/marketing/pricing-thinking-modal.js",
         "default": "./dist/components/marketing/pricing-thinking-modal.js"
       },
       "./components/marketing/PricingClient": {
         "types": "./dist/components/marketing/PricingClient.d.ts",
         "bun": "./dist/components/marketing/PricingClient.js",
-        "node": "./dist/node/components/marketing/PricingClient.mjs",
+        "node": "./dist/node/components/marketing/PricingClient.js",
         "browser": "./dist/browser/components/marketing/PricingClient.js",
         "default": "./dist/components/marketing/PricingClient.js"
       },
       "./components/marketing/ProductClientPage": {
         "types": "./dist/components/marketing/ProductClientPage.d.ts",
         "bun": "./dist/components/marketing/ProductClientPage.js",
-        "node": "./dist/node/components/marketing/ProductClientPage.mjs",
+        "node": "./dist/node/components/marketing/ProductClientPage.js",
         "browser": "./dist/browser/components/marketing/ProductClientPage.js",
         "default": "./dist/components/marketing/ProductClientPage.js"
       },
       "./components/marketing/sections/AudienceSection": {
         "types": "./dist/components/marketing/sections/AudienceSection.d.ts",
         "bun": "./dist/components/marketing/sections/AudienceSection.js",
-        "node": "./dist/node/components/marketing/sections/AudienceSection.mjs",
+        "node": "./dist/node/components/marketing/sections/AudienceSection.js",
         "browser": "./dist/browser/components/marketing/sections/AudienceSection.js",
         "default": "./dist/components/marketing/sections/AudienceSection.js"
       },
       "./components/marketing/sections/CorePositioningSection": {
         "types": "./dist/components/marketing/sections/CorePositioningSection.d.ts",
         "bun": "./dist/components/marketing/sections/CorePositioningSection.js",
-        "node": "./dist/node/components/marketing/sections/CorePositioningSection.mjs",
+        "node": "./dist/node/components/marketing/sections/CorePositioningSection.js",
         "browser": "./dist/browser/components/marketing/sections/CorePositioningSection.js",
         "default": "./dist/components/marketing/sections/CorePositioningSection.js"
       },
       "./components/marketing/sections/CtaSection": {
         "types": "./dist/components/marketing/sections/CtaSection.d.ts",
         "bun": "./dist/components/marketing/sections/CtaSection.js",
-        "node": "./dist/node/components/marketing/sections/CtaSection.mjs",
+        "node": "./dist/node/components/marketing/sections/CtaSection.js",
         "browser": "./dist/browser/components/marketing/sections/CtaSection.js",
         "default": "./dist/components/marketing/sections/CtaSection.js"
       },
       "./components/marketing/sections/DevelopersSection": {
         "types": "./dist/components/marketing/sections/DevelopersSection.d.ts",
         "bun": "./dist/components/marketing/sections/DevelopersSection.js",
-        "node": "./dist/node/components/marketing/sections/DevelopersSection.mjs",
+        "node": "./dist/node/components/marketing/sections/DevelopersSection.js",
         "browser": "./dist/browser/components/marketing/sections/DevelopersSection.js",
         "default": "./dist/components/marketing/sections/DevelopersSection.js"
       },
       "./components/marketing/sections/FearsSection": {
         "types": "./dist/components/marketing/sections/FearsSection.d.ts",
         "bun": "./dist/components/marketing/sections/FearsSection.js",
-        "node": "./dist/node/components/marketing/sections/FearsSection.mjs",
+        "node": "./dist/node/components/marketing/sections/FearsSection.js",
         "browser": "./dist/browser/components/marketing/sections/FearsSection.js",
         "default": "./dist/components/marketing/sections/FearsSection.js"
       },
       "./components/marketing/sections/HeroMarketingSection": {
         "types": "./dist/components/marketing/sections/HeroMarketingSection.d.ts",
         "bun": "./dist/components/marketing/sections/HeroMarketingSection.js",
-        "node": "./dist/node/components/marketing/sections/HeroMarketingSection.mjs",
+        "node": "./dist/node/components/marketing/sections/HeroMarketingSection.js",
         "browser": "./dist/browser/components/marketing/sections/HeroMarketingSection.js",
         "default": "./dist/components/marketing/sections/HeroMarketingSection.js"
       },
       "./components/marketing/sections/IconGridSection": {
         "types": "./dist/components/marketing/sections/IconGridSection.d.ts",
         "bun": "./dist/components/marketing/sections/IconGridSection.js",
-        "node": "./dist/node/components/marketing/sections/IconGridSection.mjs",
+        "node": "./dist/node/components/marketing/sections/IconGridSection.js",
         "browser": "./dist/browser/components/marketing/sections/IconGridSection.js",
         "default": "./dist/components/marketing/sections/IconGridSection.js"
       },
       "./components/marketing/sections/OutputsSection": {
         "types": "./dist/components/marketing/sections/OutputsSection.d.ts",
         "bun": "./dist/components/marketing/sections/OutputsSection.js",
-        "node": "./dist/node/components/marketing/sections/OutputsSection.mjs",
+        "node": "./dist/node/components/marketing/sections/OutputsSection.js",
         "browser": "./dist/browser/components/marketing/sections/OutputsSection.js",
         "default": "./dist/components/marketing/sections/OutputsSection.js"
       },
       "./components/marketing/sections/ProblemSection": {
         "types": "./dist/components/marketing/sections/ProblemSection.d.ts",
         "bun": "./dist/components/marketing/sections/ProblemSection.js",
-        "node": "./dist/node/components/marketing/sections/ProblemSection.mjs",
+        "node": "./dist/node/components/marketing/sections/ProblemSection.js",
         "browser": "./dist/browser/components/marketing/sections/ProblemSection.js",
         "default": "./dist/components/marketing/sections/ProblemSection.js"
       },
       "./components/marketing/sections/SolutionSection": {
         "types": "./dist/components/marketing/sections/SolutionSection.d.ts",
         "bun": "./dist/components/marketing/sections/SolutionSection.js",
-        "node": "./dist/node/components/marketing/sections/SolutionSection.mjs",
+        "node": "./dist/node/components/marketing/sections/SolutionSection.js",
         "browser": "./dist/browser/components/marketing/sections/SolutionSection.js",
         "default": "./dist/components/marketing/sections/SolutionSection.js"
       },
       "./components/marketing/sections/StepsSection": {
         "types": "./dist/components/marketing/sections/StepsSection.d.ts",
         "bun": "./dist/components/marketing/sections/StepsSection.js",
-        "node": "./dist/node/components/marketing/sections/StepsSection.mjs",
+        "node": "./dist/node/components/marketing/sections/StepsSection.js",
         "browser": "./dist/browser/components/marketing/sections/StepsSection.js",
         "default": "./dist/components/marketing/sections/StepsSection.js"
       },
       "./components/marketing/waitlist-section": {
         "types": "./dist/components/marketing/waitlist-section.d.ts",
         "bun": "./dist/components/marketing/waitlist-section.js",
-        "node": "./dist/node/components/marketing/waitlist-section.mjs",
+        "node": "./dist/node/components/marketing/waitlist-section.js",
         "browser": "./dist/browser/components/marketing/waitlist-section.js",
         "default": "./dist/components/marketing/waitlist-section.js"
       },
       "./components/templates": {
         "types": "./dist/components/templates/index.d.ts",
         "bun": "./dist/components/templates/index.js",
-        "node": "./dist/node/components/templates/index.mjs",
+        "node": "./dist/node/components/templates/index.js",
         "browser": "./dist/browser/components/templates/index.js",
         "default": "./dist/components/templates/index.js"
       },
       "./components/templates/index": {
         "types": "./dist/components/templates/index.d.ts",
         "bun": "./dist/components/templates/index.js",
-        "node": "./dist/node/components/templates/index.mjs",
+        "node": "./dist/node/components/templates/index.js",
         "browser": "./dist/browser/components/templates/index.js",
         "default": "./dist/components/templates/index.js"
       },
       "./components/templates/TemplatesClientPage": {
         "types": "./dist/components/templates/TemplatesClientPage.d.ts",
         "bun": "./dist/components/templates/TemplatesClientPage.js",
-        "node": "./dist/node/components/templates/TemplatesClientPage.mjs",
+        "node": "./dist/node/components/templates/TemplatesClientPage.js",
         "browser": "./dist/browser/components/templates/TemplatesClientPage.js",
         "default": "./dist/components/templates/TemplatesClientPage.js"
       },
       "./components/templates/TemplatesPage": {
         "types": "./dist/components/templates/TemplatesPage.d.ts",
         "bun": "./dist/components/templates/TemplatesPage.js",
-        "node": "./dist/node/components/templates/TemplatesPage.mjs",
+        "node": "./dist/node/components/templates/TemplatesPage.js",
         "browser": "./dist/browser/components/templates/TemplatesPage.js",
         "default": "./dist/components/templates/TemplatesPage.js"
       },
       "./components/templates/TemplatesPreviewModal": {
         "types": "./dist/components/templates/TemplatesPreviewModal.d.ts",
         "bun": "./dist/components/templates/TemplatesPreviewModal.js",
-        "node": "./dist/node/components/templates/TemplatesPreviewModal.mjs",
+        "node": "./dist/node/components/templates/TemplatesPreviewModal.js",
         "browser": "./dist/browser/components/templates/TemplatesPreviewModal.js",
         "default": "./dist/components/templates/TemplatesPreviewModal.js"
       },
       "./libs/email/client": {
         "types": "./dist/libs/email/client.d.ts",
         "bun": "./dist/libs/email/client.js",
-        "node": "./dist/node/libs/email/client.mjs",
+        "node": "./dist/node/libs/email/client.js",
         "browser": "./dist/browser/libs/email/client.js",
         "default": "./dist/libs/email/client.js"
       },
       "./libs/email/contact": {
         "types": "./dist/libs/email/contact.d.ts",
         "bun": "./dist/libs/email/contact.js",
-        "node": "./dist/node/libs/email/contact.mjs",
+        "node": "./dist/node/libs/email/contact.js",
         "browser": "./dist/browser/libs/email/contact.js",
         "default": "./dist/libs/email/contact.js"
       },
       "./libs/email/newsletter": {
         "types": "./dist/libs/email/newsletter.d.ts",
         "bun": "./dist/libs/email/newsletter.js",
-        "node": "./dist/node/libs/email/newsletter.mjs",
+        "node": "./dist/node/libs/email/newsletter.js",
         "browser": "./dist/browser/libs/email/newsletter.js",
         "default": "./dist/libs/email/newsletter.js"
       },
       "./libs/email/types": {
         "types": "./dist/libs/email/types.d.ts",
         "bun": "./dist/libs/email/types.js",
-        "node": "./dist/node/libs/email/types.mjs",
+        "node": "./dist/node/libs/email/types.js",
         "browser": "./dist/browser/libs/email/types.js",
         "default": "./dist/libs/email/types.js"
       },
       "./libs/email/utils": {
         "types": "./dist/libs/email/utils.d.ts",
         "bun": "./dist/libs/email/utils.js",
-        "node": "./dist/node/libs/email/utils.mjs",
+        "node": "./dist/node/libs/email/utils.js",
         "browser": "./dist/browser/libs/email/utils.js",
         "default": "./dist/libs/email/utils.js"
       },
       "./libs/email/waitlist": {
         "types": "./dist/libs/email/waitlist.d.ts",
         "bun": "./dist/libs/email/waitlist.js",
-        "node": "./dist/node/libs/email/waitlist.mjs",
+        "node": "./dist/node/libs/email/waitlist.js",
         "browser": "./dist/browser/libs/email/waitlist.js",
         "default": "./dist/libs/email/waitlist.js"
       },
       "./libs/email/waitlist-application": {
         "types": "./dist/libs/email/waitlist-application.d.ts",
         "bun": "./dist/libs/email/waitlist-application.js",
-        "node": "./dist/node/libs/email/waitlist-application.mjs",
+        "node": "./dist/node/libs/email/waitlist-application.js",
         "browser": "./dist/browser/libs/email/waitlist-application.js",
         "default": "./dist/libs/email/waitlist-application.js"
       },
       "./libs/pricing-examples": {
         "types": "./dist/libs/pricing-examples.d.ts",
         "bun": "./dist/libs/pricing-examples.js",
-        "node": "./dist/node/libs/pricing-examples.mjs",
+        "node": "./dist/node/libs/pricing-examples.js",
         "browser": "./dist/browser/libs/pricing-examples.js",
         "default": "./dist/libs/pricing-examples.js"
       },
       "./registry": {
         "types": "./dist/registry/index.d.ts",
         "bun": "./dist/registry/index.js",
-        "node": "./dist/node/registry/index.mjs",
+        "node": "./dist/node/registry/index.js",
         "browser": "./dist/browser/registry/index.js",
         "default": "./dist/registry/index.js"
       },
       "./registry/engine": {
         "types": "./dist/registry/engine.d.ts",
         "bun": "./dist/registry/engine.js",
-        "node": "./dist/node/registry/engine.mjs",
+        "node": "./dist/node/registry/engine.js",
         "browser": "./dist/browser/registry/engine.js",
         "default": "./dist/registry/engine.js"
       },
       "./registry/factory": {
         "types": "./dist/registry/factory.d.ts",
         "bun": "./dist/registry/factory.js",
-        "node": "./dist/node/registry/factory.mjs",
+        "node": "./dist/node/registry/factory.js",
         "browser": "./dist/browser/registry/factory.js",
         "default": "./dist/registry/factory.js"
       },
       "./registry/index": {
         "types": "./dist/registry/index.d.ts",
         "bun": "./dist/registry/index.js",
-        "node": "./dist/node/registry/index.mjs",
+        "node": "./dist/node/registry/index.js",
         "browser": "./dist/browser/registry/index.js",
         "default": "./dist/registry/index.js"
       },
       "./registry/registry": {
         "types": "./dist/registry/registry.d.ts",
         "bun": "./dist/registry/registry.js",
-        "node": "./dist/node/registry/registry.mjs",
+        "node": "./dist/node/registry/registry.js",
         "browser": "./dist/browser/registry/registry.js",
         "default": "./dist/registry/registry.js"
       },
       "./registry/registry-docs": {
         "types": "./dist/registry/registry-docs.d.ts",
         "bun": "./dist/registry/registry-docs.js",
-        "node": "./dist/node/registry/registry-docs.mjs",
+        "node": "./dist/node/registry/registry-docs.js",
         "browser": "./dist/browser/registry/registry-docs.js",
         "default": "./dist/registry/registry-docs.js"
       },
       "./registry/registry-landing": {
         "types": "./dist/registry/registry-landing.d.ts",
         "bun": "./dist/registry/registry-landing.js",
-        "node": "./dist/node/registry/registry-landing.mjs",
+        "node": "./dist/node/registry/registry-landing.js",
         "browser": "./dist/browser/registry/registry-landing.js",
         "default": "./dist/registry/registry-landing.js"
       },
       "./registry/types": {
         "types": "./dist/registry/types.d.ts",
         "bun": "./dist/registry/types.js",
-        "node": "./dist/node/registry/types.mjs",
+        "node": "./dist/node/registry/types.js",
         "browser": "./dist/browser/registry/types.js",
         "default": "./dist/registry/types.js"
       },
       "./registry/utils": {
         "types": "./dist/registry/utils.d.ts",
         "bun": "./dist/registry/utils.js",
-        "node": "./dist/node/registry/utils.mjs",
+        "node": "./dist/node/registry/utils.js",
         "browser": "./dist/browser/registry/utils.js",
         "default": "./dist/registry/utils.js"
       }

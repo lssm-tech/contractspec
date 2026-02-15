@@ -6,7 +6,7 @@ export function LibrariesContractsPage() {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <h1 className="text-4xl font-bold">@contractspec/lib.contracts</h1>
+        <h1 className="text-4xl font-bold">@contractspec/lib.contracts-spec</h1>
         <p className="text-muted-foreground text-lg">
           The core library for defining what your application can do. Unified
           specifications for Operations, Events, Presentations, and Features.
@@ -16,7 +16,10 @@ export function LibrariesContractsPage() {
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Installation</h2>
         <InstallCommand
-          package={['@contractspec/lib.contracts', '@contractspec/lib.schema']}
+          package={[
+            '@contractspec/lib.contracts-spec',
+            '@contractspec/lib.schema',
+          ]}
         />
       </div>
 
@@ -24,17 +27,17 @@ export function LibrariesContractsPage() {
         <h2 className="text-2xl font-bold">What lives where</h2>
         <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>
-            <strong>@contractspec/lib.contracts</strong> (root): The core
+            <strong>@contractspec/lib.contracts-spec</strong> (root): The core
             contracts definitions (OperationSpec, PresentationSpec, Registry).
           </li>
           <li>
-            <strong>@contractspec/lib.contracts/client</strong>: Browser-safe
-            helpers (React renderers, client SDK). Import this for web/React
-            Native.
+            <strong>@contractspec/lib.contracts-runtime-client-react</strong>:
+            Browser-safe helpers (React renderers, client SDK). Import this for
+            web/React Native.
           </li>
           <li>
-            <strong>@contractspec/lib.contracts/server</strong>: HTTP/MCP
-            adapters, registries, integrations (Node-only).
+            <strong>@contractspec/lib.contracts-runtime-server-rest</strong>:
+            HTTP/MCP adapters, registries, integrations (Node-only).
           </li>
           <li>
             <strong>@contractspec/lib.schema</strong>: Schema dictionary
@@ -47,7 +50,7 @@ export function LibrariesContractsPage() {
         <h2 className="text-2xl font-bold">Quick Example</h2>
         <CodeBlock
           language="typescript"
-          code={`import { defineCommand } from '@contractspec/lib.contracts';
+          code={`import { defineCommand } from '@contractspec/lib.contracts-spec';
 import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 const CreateUserInput = new SchemaModel({

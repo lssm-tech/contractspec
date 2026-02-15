@@ -76,7 +76,7 @@ export const app = new Elysia()
       return {
         error: 'Failed to load ContractSpec registry manifest',
         message: msg,
-        hint: 'Run the contracts registry build step to generate packages/libs/contracts/registry/registry.json',
+        hint: 'Run the contracts registry build step to generate packages/libs/contracts-spec/registry/registry.json',
       };
     }
   })

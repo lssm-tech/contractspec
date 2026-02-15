@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.pocket-family-office",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Pocket Family Office example - personal finance automation with open banking",
   "keywords": [
     "contractspec",
@@ -29,7 +29,8 @@
   },
   "dependencies": {
     "@contractspec/lib.knowledge": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.contracts-integrations": "workspace:*",
     "@contractspec/lib.schema": "workspace:*"
   },
   "devDependencies": {
@@ -74,168 +75,168 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./blueprint": {
         "types": "./dist/blueprint.d.ts",
         "bun": "./dist/blueprint.js",
-        "node": "./dist/node/blueprint.mjs",
+        "node": "./dist/node/blueprint.js",
         "browser": "./dist/browser/blueprint.js",
         "default": "./dist/blueprint.js"
       },
       "./connections/samples": {
         "types": "./dist/connections/samples.d.ts",
         "bun": "./dist/connections/samples.js",
-        "node": "./dist/node/connections/samples.mjs",
+        "node": "./dist/node/connections/samples.js",
         "browser": "./dist/browser/connections/samples.js",
         "default": "./dist/connections/samples.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/pocket-family-office.docblock": {
         "types": "./dist/docs/pocket-family-office.docblock.d.ts",
         "bun": "./dist/docs/pocket-family-office.docblock.js",
-        "node": "./dist/node/docs/pocket-family-office.docblock.mjs",
+        "node": "./dist/node/docs/pocket-family-office.docblock.js",
         "browser": "./dist/browser/docs/pocket-family-office.docblock.js",
         "default": "./dist/docs/pocket-family-office.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./knowledge/sources.sample": {
         "types": "./dist/knowledge/sources.sample.d.ts",
         "bun": "./dist/knowledge/sources.sample.js",
-        "node": "./dist/node/knowledge/sources.sample.mjs",
+        "node": "./dist/node/knowledge/sources.sample.js",
         "browser": "./dist/browser/knowledge/sources.sample.js",
         "default": "./dist/knowledge/sources.sample.js"
       },
       "./operations": {
         "types": "./dist/operations/index.d.ts",
         "bun": "./dist/operations/index.js",
-        "node": "./dist/node/operations/index.mjs",
+        "node": "./dist/node/operations/index.js",
         "browser": "./dist/browser/operations/index.js",
         "default": "./dist/operations/index.js"
       },
       "./operations/index": {
         "types": "./dist/operations/index.d.ts",
         "bun": "./dist/operations/index.js",
-        "node": "./dist/node/operations/index.mjs",
+        "node": "./dist/node/operations/index.js",
         "browser": "./dist/browser/operations/index.js",
         "default": "./dist/operations/index.js"
       },
       "./pocket-family-office.capability": {
         "types": "./dist/pocket-family-office.capability.d.ts",
         "bun": "./dist/pocket-family-office.capability.js",
-        "node": "./dist/node/pocket-family-office.capability.mjs",
+        "node": "./dist/node/pocket-family-office.capability.js",
         "browser": "./dist/browser/pocket-family-office.capability.js",
         "default": "./dist/pocket-family-office.capability.js"
       },
       "./pocket-family-office.feature": {
         "types": "./dist/pocket-family-office.feature.d.ts",
         "bun": "./dist/pocket-family-office.feature.js",
-        "node": "./dist/node/pocket-family-office.feature.mjs",
+        "node": "./dist/node/pocket-family-office.feature.js",
         "browser": "./dist/browser/pocket-family-office.feature.js",
         "default": "./dist/pocket-family-office.feature.js"
       },
       "./telemetry": {
         "types": "./dist/telemetry.d.ts",
         "bun": "./dist/telemetry.js",
-        "node": "./dist/node/telemetry.mjs",
+        "node": "./dist/node/telemetry.js",
         "browser": "./dist/browser/telemetry.js",
         "default": "./dist/telemetry.js"
       },
       "./tenant.sample": {
         "types": "./dist/tenant.sample.d.ts",
         "bun": "./dist/tenant.sample.js",
-        "node": "./dist/node/tenant.sample.mjs",
+        "node": "./dist/node/tenant.sample.js",
         "browser": "./dist/browser/tenant.sample.js",
         "default": "./dist/tenant.sample.js"
       },
       "./workflows": {
         "types": "./dist/workflows/index.d.ts",
         "bun": "./dist/workflows/index.js",
-        "node": "./dist/node/workflows/index.mjs",
+        "node": "./dist/node/workflows/index.js",
         "browser": "./dist/browser/workflows/index.js",
         "default": "./dist/workflows/index.js"
       },
       "./workflows/generate-financial-summary": {
         "types": "./dist/workflows/generate-financial-summary.d.ts",
         "bun": "./dist/workflows/generate-financial-summary.js",
-        "node": "./dist/node/workflows/generate-financial-summary.mjs",
+        "node": "./dist/node/workflows/generate-financial-summary.js",
         "browser": "./dist/browser/workflows/generate-financial-summary.js",
         "default": "./dist/workflows/generate-financial-summary.js"
       },
       "./workflows/generate-openbanking-overview": {
         "types": "./dist/workflows/generate-openbanking-overview.d.ts",
         "bun": "./dist/workflows/generate-openbanking-overview.js",
-        "node": "./dist/node/workflows/generate-openbanking-overview.mjs",
+        "node": "./dist/node/workflows/generate-openbanking-overview.js",
         "browser": "./dist/browser/workflows/generate-openbanking-overview.js",
         "default": "./dist/workflows/generate-openbanking-overview.js"
       },
       "./workflows/index": {
         "types": "./dist/workflows/index.d.ts",
         "bun": "./dist/workflows/index.js",
-        "node": "./dist/node/workflows/index.mjs",
+        "node": "./dist/node/workflows/index.js",
         "browser": "./dist/browser/workflows/index.js",
         "default": "./dist/workflows/index.js"
       },
       "./workflows/ingest-email-threads": {
         "types": "./dist/workflows/ingest-email-threads.d.ts",
         "bun": "./dist/workflows/ingest-email-threads.js",
-        "node": "./dist/node/workflows/ingest-email-threads.mjs",
+        "node": "./dist/node/workflows/ingest-email-threads.js",
         "browser": "./dist/browser/workflows/ingest-email-threads.js",
         "default": "./dist/workflows/ingest-email-threads.js"
       },
       "./workflows/process-uploaded-document": {
         "types": "./dist/workflows/process-uploaded-document.d.ts",
         "bun": "./dist/workflows/process-uploaded-document.js",
-        "node": "./dist/node/workflows/process-uploaded-document.mjs",
+        "node": "./dist/node/workflows/process-uploaded-document.js",
         "browser": "./dist/browser/workflows/process-uploaded-document.js",
         "default": "./dist/workflows/process-uploaded-document.js"
       },
       "./workflows/refresh-openbanking-balances": {
         "types": "./dist/workflows/refresh-openbanking-balances.d.ts",
         "bun": "./dist/workflows/refresh-openbanking-balances.js",
-        "node": "./dist/node/workflows/refresh-openbanking-balances.mjs",
+        "node": "./dist/node/workflows/refresh-openbanking-balances.js",
         "browser": "./dist/browser/workflows/refresh-openbanking-balances.js",
         "default": "./dist/workflows/refresh-openbanking-balances.js"
       },
       "./workflows/sync-openbanking-accounts": {
         "types": "./dist/workflows/sync-openbanking-accounts.d.ts",
         "bun": "./dist/workflows/sync-openbanking-accounts.js",
-        "node": "./dist/node/workflows/sync-openbanking-accounts.mjs",
+        "node": "./dist/node/workflows/sync-openbanking-accounts.js",
         "browser": "./dist/browser/workflows/sync-openbanking-accounts.js",
         "default": "./dist/workflows/sync-openbanking-accounts.js"
       },
       "./workflows/sync-openbanking-transactions": {
         "types": "./dist/workflows/sync-openbanking-transactions.d.ts",
         "bun": "./dist/workflows/sync-openbanking-transactions.js",
-        "node": "./dist/node/workflows/sync-openbanking-transactions.mjs",
+        "node": "./dist/node/workflows/sync-openbanking-transactions.js",
         "browser": "./dist/browser/workflows/sync-openbanking-transactions.js",
         "default": "./dist/workflows/sync-openbanking-transactions.js"
       },
       "./workflows/upcoming-payments-reminder": {
         "types": "./dist/workflows/upcoming-payments-reminder.d.ts",
         "bun": "./dist/workflows/upcoming-payments-reminder.js",
-        "node": "./dist/node/workflows/upcoming-payments-reminder.mjs",
+        "node": "./dist/node/workflows/upcoming-payments-reminder.js",
         "browser": "./dist/browser/workflows/upcoming-payments-reminder.js",
         "default": "./dist/workflows/upcoming-payments-reminder.js"
       }

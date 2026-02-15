@@ -5,7 +5,7 @@ import type {
   DataViewDetailConfig,
   DataViewField,
   DataViewSpec,
-} from '@contractspec/lib.contracts/data-views';
+} from '@contractspec/lib.contracts-spec/data-views';
 import { cn } from '../../lib/utils';
 import { DataViewFormattedValue, getAtPath } from './utils';
 import { MarkdownRenderer } from '@contractspec/lib.example-shared-ui';

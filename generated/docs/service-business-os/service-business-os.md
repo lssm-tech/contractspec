@@ -46,7 +46,7 @@ Quotes → jobs → invoices → payments for field services and agencies.
 ## Source Definition
 
 ```typescript
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 export const ServiceBusinessFeature = defineFeature({
   meta: {

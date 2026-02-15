@@ -16,7 +16,7 @@ import {
   type OpenApiConfig,
   type OpenApiSourceConfig,
   type ResolvedContractsrcConfig as ResolvedContractsrcConfig,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec/workspace-config';
 
 // Re-export types for convenience
 export type { OpenApiSourceConfig, OpenApiConfig, FolderConventions };

@@ -1,5 +1,29 @@
 # @contractspec/lib.ui-kit-core
 
+## 1.61.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+## 1.60.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+## 1.59.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+## 1.58.0
+
+### Minor Changes
+
+- d1f0fd0: chore: Migrate non-app package builds from tsdown to shared Bun tooling, add `@contractspec/tool.bun`, and standardize `prebuild`/`build`/`typecheck` with platform-aware exports and `tsc` declaration emission into `dist`.
+
 ## 1.57.0
 
 ### Minor Changes

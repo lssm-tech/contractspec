@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
-import { type VerificationTier } from '@contractspec/lib.contracts/llm';
+import { type VerificationTier } from '@contractspec/lib.contracts-spec/llm';
 import { loadSpecFromSource } from '@contractspec/module.workspace';
 import {
   formatVerificationReport,

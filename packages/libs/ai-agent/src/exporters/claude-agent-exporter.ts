@@ -14,6 +14,7 @@ import type {
   ClaudeAgentConfig,
   ClaudeToolDefinition,
 } from './types';
+import { getDefaultI18n } from '../i18n';
 
 // ============================================================================
 // Exporter Implementation
@@ -64,26 +65,27 @@ export class ClaudeAgentExporter implements Exporter<
    * Validate that a spec can be exported.
    */
   validate(spec: AgentSpec): { valid: boolean; errors: string[] } {
+    const i18n = getDefaultI18n();
     const errors: string[] = [];
 
     if (!spec.meta?.key) {
-      errors.push('Spec must have a meta.key');
+      errors.push(i18n.t('export.validation.requiresKey'));
     }
 
     if (!spec.instructions) {
-      errors.push('Spec must have instructions');
+      errors.push(i18n.t('export.validation.requiresInstructions'));
     }
 
     if (!spec.tools || spec.tools.length === 0) {
-      errors.push('Spec must have at least one tool');
+      errors.push(i18n.t('export.validation.requiresTool'));
     }
 
     for (const tool of spec.tools ?? []) {
       if (!tool.name) {
-        errors.push('All tools must have a name');
+        errors.push(i18n.t('export.validation.toolRequiresName'));
       }
       if (!tool.description && !tool.name) {
-        errors.push(`Tool must have a description or name`);
+        errors.push(i18n.t('export.validation.toolRequiresDescOrName'));
       }
     }
 
@@ -131,6 +133,7 @@ export class ClaudeAgentExporter implements Exporter<
     spec: AgentSpec,
     options: ClaudeAgentExportOptions
   ): string {
+    const i18n = getDefaultI18n();
     const parts: string[] = [];
 
     // Base instructions
@@ -139,7 +142,7 @@ export class ClaudeAgentExporter implements Exporter<
     // Add knowledge context if available
     if (spec.knowledge && spec.knowledge.length > 0) {
       parts.push('');
-      parts.push('## Knowledge Sources');
+      parts.push(i18n.t('export.knowledgeSources'));
       for (const k of spec.knowledge) {
         if (k.instructions) {
           parts.push(`- ${k.key}: ${k.instructions}`);
@@ -150,19 +153,21 @@ export class ClaudeAgentExporter implements Exporter<
     // Add policy information if available
     if (spec.policy) {
       parts.push('');
-      parts.push('## Policy');
+      parts.push(i18n.t('export.policy'));
       if (spec.policy.confidence?.min) {
-        parts.push(`- Minimum confidence: ${spec.policy.confidence.min}`);
+        parts.push(
+          i18n.t('export.minConfidence', { min: spec.policy.confidence.min })
+        );
       }
       if (spec.policy.escalation) {
-        parts.push('- Escalation policy is configured');
+        parts.push(i18n.t('export.escalationConfigured'));
       }
     }
 
     // Add custom metadata if provided
     if (options.metadata) {
       parts.push('');
-      parts.push('## Additional Context');
+      parts.push(i18n.t('export.additionalContext'));
       for (const [key, value] of Object.entries(options.metadata)) {
         parts.push(`- ${key}: ${String(value)}`);
       }
@@ -175,9 +180,12 @@ export class ClaudeAgentExporter implements Exporter<
    * Export tools to Claude Agent SDK format.
    */
   private exportTools(spec: AgentSpec): ClaudeToolDefinition[] {
+    const i18n = getDefaultI18n();
     return spec.tools.map((tool) => ({
       name: tool.name,
-      description: tool.description ?? `Execute ${tool.name}`,
+      description:
+        tool.description ??
+        i18n.t('tool.fallbackDescription', { name: tool.name }),
       input_schema: this.normalizeSchema(tool.schema),
       requires_confirmation: tool.requiresApproval ?? !tool.automationSafe,
     }));
@@ -216,10 +224,11 @@ export class ClaudeAgentExporter implements Exporter<
     spec: AgentSpec,
     options: ClaudeAgentExportOptions
   ): string {
+    const i18n = getDefaultI18n();
     const lines: string[] = [];
 
     // Header
-    lines.push('# Agent Configuration');
+    lines.push(i18n.t('export.agentConfiguration'));
     lines.push('');
 
     // Description
@@ -229,35 +238,39 @@ export class ClaudeAgentExporter implements Exporter<
     }
 
     // Metadata
-    lines.push('## Metadata');
+    lines.push(i18n.t('export.metadata'));
     lines.push('');
-    lines.push(`- **Name**: ${spec.meta.key}`);
-    lines.push(`- **Version**: ${spec.meta.version}`);
+    lines.push(i18n.t('export.metaName', { name: spec.meta.key }));
+    lines.push(i18n.t('export.metaVersion', { version: spec.meta.version }));
     if (spec.meta.owners && spec.meta.owners.length > 0) {
-      lines.push(`- **Owners**: ${spec.meta.owners.join(', ')}`);
+      lines.push(
+        i18n.t('export.metaOwners', {
+          owners: spec.meta.owners.join(', '),
+        })
+      );
     }
     if (options.model) {
-      lines.push(`- **Model**: ${options.model}`);
+      lines.push(i18n.t('export.metaModel', { model: options.model }));
     }
     lines.push('');
 
     // Instructions
-    lines.push('## Instructions');
+    lines.push(i18n.t('export.instructions'));
     lines.push('');
     lines.push(spec.instructions);
     lines.push('');
 
     // Tools
     if (spec.tools.length > 0) {
-      lines.push('## Available Tools');
+      lines.push(i18n.t('export.availableTools'));
       lines.push('');
       for (const tool of spec.tools) {
         const flags: string[] = [];
         if (tool.requiresApproval) {
-          flags.push('requires approval');
+          flags.push(i18n.t('export.requiresApproval'));
         }
         if (tool.automationSafe === false) {
-          flags.push('not automation safe');
+          flags.push(i18n.t('export.notAutomationSafe'));
         }
         const flagStr = flags.length > 0 ? ` (${flags.join(', ')})` : '';
 
@@ -268,7 +281,7 @@ export class ClaudeAgentExporter implements Exporter<
           lines.push('');
         }
         if (tool.schema) {
-          lines.push('**Parameters:**');
+          lines.push(i18n.t('export.parameters'));
           lines.push('```json');
           lines.push(JSON.stringify(tool.schema, null, 2));
           lines.push('```');
@@ -279,10 +292,12 @@ export class ClaudeAgentExporter implements Exporter<
 
     // Knowledge
     if (spec.knowledge && spec.knowledge.length > 0) {
-      lines.push('## Knowledge Sources');
+      lines.push(i18n.t('export.knowledgeSources'));
       lines.push('');
       for (const k of spec.knowledge) {
-        const required = k.required ? '(required)' : '(optional)';
+        const required = k.required
+          ? i18n.t('export.required')
+          : i18n.t('export.optional');
         lines.push(`- **${k.key}** ${required}`);
         if (k.instructions) {
           lines.push(`  - ${k.instructions}`);
@@ -293,23 +308,29 @@ export class ClaudeAgentExporter implements Exporter<
 
     // Policy
     if (spec.policy) {
-      lines.push('## Policy');
+      lines.push(i18n.t('export.policy'));
       lines.push('');
       if (spec.policy.confidence?.min) {
-        lines.push(`- Minimum confidence: ${spec.policy.confidence.min}`);
+        lines.push(
+          i18n.t('export.minConfidence', { min: spec.policy.confidence.min })
+        );
       }
       if (spec.policy.escalation) {
-        lines.push('- Escalation policy configured');
+        lines.push(i18n.t('export.escalationPolicyConfigured'));
       }
       if (spec.policy.flags && spec.policy.flags.length > 0) {
-        lines.push(`- Feature flags: ${spec.policy.flags.join(', ')}`);
+        lines.push(
+          i18n.t('export.featureFlags', {
+            flags: spec.policy.flags.join(', '),
+          })
+        );
       }
       lines.push('');
     }
 
     // MCP Servers
     if (options.mcpServers && options.mcpServers.length > 0) {
-      lines.push('## MCP Servers');
+      lines.push(i18n.t('export.mcpServers'));
       lines.push('');
       for (const server of options.mcpServers) {
         lines.push(
@@ -322,7 +343,7 @@ export class ClaudeAgentExporter implements Exporter<
     // Footer
     lines.push('---');
     lines.push('');
-    lines.push(`*Generated from ContractSpec: ${agentKey(spec.meta)}*`);
+    lines.push(i18n.t('export.generatedFrom', { key: agentKey(spec.meta) }));
 
     return lines.join('\n');
   }

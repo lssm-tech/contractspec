@@ -2,7 +2,7 @@
   {
     "id": "notifications/notifications",
     "title": "notifications",
-    "summary": "User notifications and alerts\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.messaging\n- **Tags**: notifications, messaging, alerts\n- **File**: `packages/modules/notifications/src/notifications.capability.ts`",
+    "summary": "Multi-channel notification delivery with preference management\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @platform.notifications\n- **Tags**: notifications, email, push, in-app",
     "route": "/docs/reference/notifications/notifications",
     "source": "generated",
     "contentPath": "notifications/notifications.md"

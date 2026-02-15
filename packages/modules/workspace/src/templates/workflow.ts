@@ -25,7 +25,7 @@ ${transition.condition ? `      condition: '${escapeString(transition.condition)
     )
     .join(',\n');
 
-  return `import type { WorkflowSpec } from '@contractspec/lib.contracts/workflow';
+  return `import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow';
 
 /**
  * Workflow generated via contractspec CLI.

@@ -30,7 +30,7 @@ src/
 1. **Pure transformations**: Core logic should be pure functions with no I/O
 2. **Transport hints**: Preserve original transport metadata (path/query/header params) for accurate round-trips
 3. **Provenance tracking**: Track where specs came from for sync operations
-4. **Backwards compatibility**: `@contractspec/lib.contracts` re-exports this library for existing consumers
+4. **Backwards compatibility**: `@contractspec/lib.contracts-spec` re-exports this library for existing consumers
 
 ## Adding a New Format
 

@@ -11,7 +11,7 @@ Checks TypeScript structure against spec requirements:
 | Check | What it validates |
 |-------|------------------|
 | Handler export | Function is properly exported |
-| Contracts import | Imports from @contractspec/lib.contracts |
+| Contracts import | Imports from @contractspec/lib.contracts-spec |
 | Schema import | Imports from @contractspec/lib.schema |
 | No `any` type | TypeScript strict compliance |
 | Error handling | Error codes are referenced |

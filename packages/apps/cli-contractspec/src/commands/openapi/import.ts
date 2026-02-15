@@ -10,7 +10,10 @@ import {
   createNodeAdapters,
 } from '@contractspec/bundle.workspace';
 import { parseOpenApi as parseOpenApiTransformer } from '@contractspec/lib.contracts-transformers/openapi';
-import type { FormatterType, SchemaFormat } from '@contractspec/lib.contracts';
+import type {
+  FormatterType,
+  SchemaFormat,
+} from '@contractspec/lib.contracts-spec';
 
 interface ImportOptions {
   outputDir?: string;

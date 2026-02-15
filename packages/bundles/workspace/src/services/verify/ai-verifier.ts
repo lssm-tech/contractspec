@@ -5,12 +5,12 @@
  * the specification for deeper compliance checking.
  */
 
-import type { AnyOperationSpec } from '@contractspec/lib.contracts';
+import type { AnyOperationSpec } from '@contractspec/lib.contracts-spec';
 import type {
   VerificationIssue,
   VerificationReport,
-} from '@contractspec/lib.contracts/llm';
-import { generateVerificationPrompt } from '@contractspec/lib.contracts/llm';
+} from '@contractspec/lib.contracts-spec/llm';
+import { generateVerificationPrompt } from '@contractspec/lib.contracts-spec/llm';
 import type {
   AIReviewResult,
   FieldMapping,

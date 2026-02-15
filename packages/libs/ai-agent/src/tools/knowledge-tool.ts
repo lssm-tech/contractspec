@@ -2,6 +2,7 @@ import { tool, type Tool } from 'ai';
 import * as z from 'zod';
 import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
 import type { AgentKnowledgeRef } from '../spec/spec';
+import { createAgentI18n } from '../i18n';
 
 /**
  * Create a knowledge query tool for dynamic RAG.
@@ -16,9 +17,12 @@ import type { AgentKnowledgeRef } from '../spec/spec';
  */
 export function createKnowledgeQueryTool(
   retriever: KnowledgeRetriever,
-  knowledgeRefs: AgentKnowledgeRef[]
+  knowledgeRefs: AgentKnowledgeRef[],
+  locale?: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Tool<any, any> | null {
+  const i18n = createAgentI18n(locale);
+
   // Only include optional (non-required) knowledge spaces
   const optionalSpaces = knowledgeRefs
     .filter((k) => !k.required)
@@ -32,30 +36,26 @@ export function createKnowledgeQueryTool(
   // Build space descriptions for the tool
   const spaceDescriptions = knowledgeRefs
     .filter((k) => !k.required && retriever.supportsSpace(k.key))
-    .map((k) => `- ${k.key}: ${k.instructions ?? 'Knowledge space'}`)
+    .map(
+      (k) =>
+        `- ${k.key}: ${k.instructions ?? i18n.t('tool.knowledge.spaceDefault')}`
+    )
     .join('\n');
 
   return tool({
-    description: `Query knowledge bases for relevant information. Use this tool when you need to look up specific information that may not be in your context.
-
-Available knowledge spaces:
-${spaceDescriptions}`,
+    description: `${i18n.t('tool.knowledge.description')}\n\n${i18n.t('tool.knowledge.availableSpaces')}\n${spaceDescriptions}`,
     // AI SDK v6 uses inputSchema instead of parameters
     inputSchema: z.object({
-      query: z
-        .string()
-        .describe('The question or search query to find relevant information'),
+      query: z.string().describe(i18n.t('tool.knowledge.param.query')),
       spaceKey: z
         .enum(optionalSpaces as [string, ...string[]])
         .optional()
-        .describe(
-          'Specific knowledge space to query. If omitted, searches all available spaces.'
-        ),
+        .describe(i18n.t('tool.knowledge.param.spaceKey')),
       topK: z
         .number()
         .optional()
         .default(5)
-        .describe('Maximum number of results to return'),
+        .describe(i18n.t('tool.knowledge.param.topK')),
     }),
     execute: async ({ query, spaceKey, topK }) => {
       const spacesToSearch = spaceKey ? [spaceKey] : optionalSpaces;
@@ -78,12 +78,12 @@ ${spaceDescriptions}`,
           }
         } catch (error) {
           // Log but don't fail on individual space errors
-          console.warn(`Failed to query knowledge space ${space}:`, error);
+          console.warn(i18n.t('log.knowledge.queryFailed', { space }), error);
         }
       }
 
       if (allResults.length === 0) {
-        return 'No relevant information found in the knowledge bases.';
+        return i18n.t('tool.knowledge.noResults');
       }
 
       // Sort by score and format results
@@ -93,7 +93,7 @@ ${spaceDescriptions}`,
       return topResults
         .map(
           (r, i) =>
-            `[Source ${i + 1} - ${r.space}] (relevance: ${(r.score * 100).toFixed(0)}%)\n${r.content}`
+            `${i18n.t('tool.knowledge.sourceLabel', { index: i + 1, space: r.space, score: (r.score * 100).toFixed(0) })}\n${r.content}`
         )
         .join('\n\n---\n\n');
     },

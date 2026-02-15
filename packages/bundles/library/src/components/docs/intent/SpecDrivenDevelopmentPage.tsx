@@ -48,9 +48,9 @@ export function SpecDrivenDevelopmentPage() {
           <CodeBlock
             language="typescript"
             filename="src/contracts/user-management.feature.ts"
-            code={`import { defineFeature } from '@contractspec/lib.contracts/features';
-import { defineOperation } from '@contractspec/lib.contracts/operations';
-import { defineEvent } from '@contractspec/lib.contracts/events';
+            code={`import { defineFeature } from '@contractspec/lib.contracts-spec/features';
+import { defineOperation } from '@contractspec/lib.contracts-spec/operations';
+import { defineEvent } from '@contractspec/lib.contracts-spec/events';
 import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 export const UserManagementFeature = defineFeature({

@@ -27,7 +27,6 @@
  */
 import type { LanguageModel } from 'ai';
 import type { ProviderConfig } from '@contractspec/lib.ai-providers/types';
-import { createProvider } from '@contractspec/lib.ai-providers/factory';
 import type { AgentSpec } from '../spec/spec';
 import type {
   AgentCallOptions,
@@ -41,6 +40,7 @@ import type {
   OpenCodeSDKConfig,
   ExternalExecuteResult,
 } from '../providers/types';
+import { getDefaultI18n } from '../i18n';
 
 // =============================================================================
 // Types
@@ -142,7 +142,11 @@ export class UnifiedAgent {
           break;
 
         default:
-          throw new Error(`Unknown backend: ${backend}`);
+          throw new Error(
+            getDefaultI18n().t('error.unknownBackend', {
+              backend: String(backend),
+            })
+          );
       }
     } catch (error) {
       this.state.lastError =
@@ -154,7 +158,10 @@ export class UnifiedAgent {
         this.config.fallbackBackend !== backend
       ) {
         console.warn(
-          `[UnifiedAgent] ${backend} failed, falling back to ${this.config.fallbackBackend}`
+          getDefaultI18n().t('log.unifiedAgent.fallback', {
+            backend: String(backend),
+            fallback: String(this.config.fallbackBackend),
+          })
         );
         this.state.backend = this.config.fallbackBackend;
         await this.initialize();
@@ -173,18 +180,14 @@ export class UnifiedAgent {
       this.provider = new ClaudeAgentSDKProvider(config ?? {});
 
       if (!this.provider.isAvailable()) {
-        throw new Error(
-          'Claude Agent SDK not available. Install @anthropic-ai/claude-agent-sdk'
-        );
+        throw new Error(getDefaultI18n().t('error.claudeSdk.notAvailable'));
       }
 
       this.context = await this.provider.createContext(this.spec);
       this.state.isReady = true;
     } catch (error) {
       if ((error as { code?: string }).code === 'MODULE_NOT_FOUND') {
-        throw new Error(
-          'Claude Agent SDK not installed. Run: npm install @anthropic-ai/claude-agent-sdk'
-        );
+        throw new Error(getDefaultI18n().t('error.claudeSdk.notInstalled'));
       }
       throw error;
     }
@@ -198,16 +201,14 @@ export class UnifiedAgent {
       this.provider = new OpenCodeSDKProvider(config ?? {});
 
       if (!this.provider.isAvailable()) {
-        throw new Error('OpenCode SDK not available. Install @opencode-ai/sdk');
+        throw new Error(getDefaultI18n().t('error.opencodeSdk.notAvailable'));
       }
 
       this.context = await this.provider.createContext(this.spec);
       this.state.isReady = true;
     } catch (error) {
       if ((error as { code?: string }).code === 'MODULE_NOT_FOUND') {
-        throw new Error(
-          'OpenCode SDK not installed. Run: npm install @opencode-ai/sdk'
-        );
+        throw new Error(getDefaultI18n().t('error.opencodeSdk.notInstalled'));
       }
       throw error;
     }
@@ -237,7 +238,11 @@ export class UnifiedAgent {
           return await this.runWithExternalProvider(message, options);
 
         default:
-          throw new Error(`Unknown backend: ${backend}`);
+          throw new Error(
+            getDefaultI18n().t('error.unknownBackend', {
+              backend: String(backend),
+            })
+          );
       }
     } catch (error) {
       this.state.lastError =
@@ -270,7 +275,7 @@ export class UnifiedAgent {
     options?: UnifiedAgentRunOptions
   ): Promise<AgentGenerateResult> {
     if (!this.provider || !this.context) {
-      throw new Error('Provider not initialized');
+      throw new Error(getDefaultI18n().t('error.providerNotInitialized'));
     }
 
     const result: ExternalExecuteResult = await this.provider.execute(
@@ -327,6 +332,8 @@ export class UnifiedAgent {
     if (backendConfig?.modelInstance) {
       model = backendConfig.modelInstance;
     } else if (backendConfig?.provider) {
+      const { createProvider } =
+        await import('@contractspec/lib.ai-providers/factory');
       model = createProvider(backendConfig.provider).getModel();
     } else {
       const { anthropic } = await import('@ai-sdk/anthropic');

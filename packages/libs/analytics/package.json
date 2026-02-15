@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.analytics",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Product analytics and growth metrics",
   "keywords": [
     "contractspec",
@@ -27,12 +27,13 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.contracts-integrations": "workspace:*",
     "@contractspec/lib.lifecycle": "workspace:*",
     "dayjs": "^1.11.13"
   },
@@ -71,154 +72,154 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./churn": {
         "types": "./dist/churn/index.d.ts",
         "bun": "./dist/churn/index.js",
-        "node": "./dist/node/churn/index.mjs",
+        "node": "./dist/node/churn/index.js",
         "browser": "./dist/browser/churn/index.js",
         "default": "./dist/churn/index.js"
       },
       "./churn/index": {
         "types": "./dist/churn/index.d.ts",
         "bun": "./dist/churn/index.js",
-        "node": "./dist/node/churn/index.mjs",
+        "node": "./dist/node/churn/index.js",
         "browser": "./dist/browser/churn/index.js",
         "default": "./dist/churn/index.js"
       },
       "./churn/predictor": {
         "types": "./dist/churn/predictor.d.ts",
         "bun": "./dist/churn/predictor.js",
-        "node": "./dist/node/churn/predictor.mjs",
+        "node": "./dist/node/churn/predictor.js",
         "browser": "./dist/browser/churn/predictor.js",
         "default": "./dist/churn/predictor.js"
       },
       "./cohort": {
         "types": "./dist/cohort/index.d.ts",
         "bun": "./dist/cohort/index.js",
-        "node": "./dist/node/cohort/index.mjs",
+        "node": "./dist/node/cohort/index.js",
         "browser": "./dist/browser/cohort/index.js",
         "default": "./dist/cohort/index.js"
       },
       "./cohort/index": {
         "types": "./dist/cohort/index.d.ts",
         "bun": "./dist/cohort/index.js",
-        "node": "./dist/node/cohort/index.mjs",
+        "node": "./dist/node/cohort/index.js",
         "browser": "./dist/browser/cohort/index.js",
         "default": "./dist/cohort/index.js"
       },
       "./cohort/tracker": {
         "types": "./dist/cohort/tracker.d.ts",
         "bun": "./dist/cohort/tracker.js",
-        "node": "./dist/node/cohort/tracker.mjs",
+        "node": "./dist/node/cohort/tracker.js",
         "browser": "./dist/browser/cohort/tracker.js",
         "default": "./dist/cohort/tracker.js"
       },
       "./funnel": {
         "types": "./dist/funnel/index.d.ts",
         "bun": "./dist/funnel/index.js",
-        "node": "./dist/node/funnel/index.mjs",
+        "node": "./dist/node/funnel/index.js",
         "browser": "./dist/browser/funnel/index.js",
         "default": "./dist/funnel/index.js"
       },
       "./funnel/analyzer": {
         "types": "./dist/funnel/analyzer.d.ts",
         "bun": "./dist/funnel/analyzer.js",
-        "node": "./dist/node/funnel/analyzer.mjs",
+        "node": "./dist/node/funnel/analyzer.js",
         "browser": "./dist/browser/funnel/analyzer.js",
         "default": "./dist/funnel/analyzer.js"
       },
       "./funnel/index": {
         "types": "./dist/funnel/index.d.ts",
         "bun": "./dist/funnel/index.js",
-        "node": "./dist/node/funnel/index.mjs",
+        "node": "./dist/node/funnel/index.js",
         "browser": "./dist/browser/funnel/index.js",
         "default": "./dist/funnel/index.js"
       },
       "./growth": {
         "types": "./dist/growth/index.d.ts",
         "bun": "./dist/growth/index.js",
-        "node": "./dist/node/growth/index.mjs",
+        "node": "./dist/node/growth/index.js",
         "browser": "./dist/browser/growth/index.js",
         "default": "./dist/growth/index.js"
       },
       "./growth/hypothesis-generator": {
         "types": "./dist/growth/hypothesis-generator.d.ts",
         "bun": "./dist/growth/hypothesis-generator.js",
-        "node": "./dist/node/growth/hypothesis-generator.mjs",
+        "node": "./dist/node/growth/hypothesis-generator.js",
         "browser": "./dist/browser/growth/hypothesis-generator.js",
         "default": "./dist/growth/hypothesis-generator.js"
       },
       "./growth/index": {
         "types": "./dist/growth/index.d.ts",
         "bun": "./dist/growth/index.js",
-        "node": "./dist/node/growth/index.mjs",
+        "node": "./dist/node/growth/index.js",
         "browser": "./dist/browser/growth/index.js",
         "default": "./dist/growth/index.js"
       },
       "./lifecycle": {
         "types": "./dist/lifecycle/index.d.ts",
         "bun": "./dist/lifecycle/index.js",
-        "node": "./dist/node/lifecycle/index.mjs",
+        "node": "./dist/node/lifecycle/index.js",
         "browser": "./dist/browser/lifecycle/index.js",
         "default": "./dist/lifecycle/index.js"
       },
       "./lifecycle/index": {
         "types": "./dist/lifecycle/index.d.ts",
         "bun": "./dist/lifecycle/index.js",
-        "node": "./dist/node/lifecycle/index.mjs",
+        "node": "./dist/node/lifecycle/index.js",
         "browser": "./dist/browser/lifecycle/index.js",
         "default": "./dist/lifecycle/index.js"
       },
       "./lifecycle/metric-collectors": {
         "types": "./dist/lifecycle/metric-collectors.d.ts",
         "bun": "./dist/lifecycle/metric-collectors.js",
-        "node": "./dist/node/lifecycle/metric-collectors.mjs",
+        "node": "./dist/node/lifecycle/metric-collectors.js",
         "browser": "./dist/browser/lifecycle/metric-collectors.js",
         "default": "./dist/lifecycle/metric-collectors.js"
       },
       "./lifecycle/posthog-bridge": {
         "types": "./dist/lifecycle/posthog-bridge.d.ts",
         "bun": "./dist/lifecycle/posthog-bridge.js",
-        "node": "./dist/node/lifecycle/posthog-bridge.mjs",
+        "node": "./dist/node/lifecycle/posthog-bridge.js",
         "browser": "./dist/browser/lifecycle/posthog-bridge.js",
         "default": "./dist/lifecycle/posthog-bridge.js"
       },
       "./lifecycle/posthog-metric-source": {
         "types": "./dist/lifecycle/posthog-metric-source.d.ts",
         "bun": "./dist/lifecycle/posthog-metric-source.js",
-        "node": "./dist/node/lifecycle/posthog-metric-source.mjs",
+        "node": "./dist/node/lifecycle/posthog-metric-source.js",
         "browser": "./dist/browser/lifecycle/posthog-metric-source.js",
         "default": "./dist/lifecycle/posthog-metric-source.js"
       },
       "./posthog": {
         "types": "./dist/posthog/index.d.ts",
         "bun": "./dist/posthog/index.js",
-        "node": "./dist/node/posthog/index.mjs",
+        "node": "./dist/node/posthog/index.js",
         "browser": "./dist/browser/posthog/index.js",
         "default": "./dist/posthog/index.js"
       },
       "./posthog/event-source": {
         "types": "./dist/posthog/event-source.d.ts",
         "bun": "./dist/posthog/event-source.js",
-        "node": "./dist/node/posthog/event-source.mjs",
+        "node": "./dist/node/posthog/event-source.js",
         "browser": "./dist/browser/posthog/event-source.js",
         "default": "./dist/posthog/event-source.js"
       },
       "./posthog/index": {
         "types": "./dist/posthog/index.d.ts",
         "bun": "./dist/posthog/index.js",
-        "node": "./dist/node/posthog/index.mjs",
+        "node": "./dist/node/posthog/index.js",
         "browser": "./dist/browser/posthog/index.js",
         "default": "./dist/posthog/index.js"
       },
       "./types": {
         "types": "./dist/types.d.ts",
         "bun": "./dist/types.js",
-        "node": "./dist/node/types.mjs",
+        "node": "./dist/node/types.js",
         "browser": "./dist/browser/types.js",
         "default": "./dist/types.js"
       }

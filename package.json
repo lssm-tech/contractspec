@@ -31,21 +31,21 @@
         "tailwindcss": "4.1.18",
         "eslint": "^9.39.2",
         "rimraf": "^6.1.2",
-        "glob": "^13.0.1"
+        "glob": "^13.0.3"
       },
       "testing": {
         "jest": "^30.2.0",
         "@types/jest": "^30.0.0",
-        "storybook": "^10.2.7"
+        "storybook": "^10.2.8"
       },
       "ai": {
-        "ai": "6.0.73",
-        "@ai-sdk/mcp": "1.0.18",
-        "@ai-sdk/anthropic": "3.0.37",
-        "@ai-sdk/google": "3.0.21",
-        "@ai-sdk/mistral": "3.0.18",
-        "@ai-sdk/openai": "3.0.25",
-        "@ai-sdk/react": "3.0.75",
+        "ai": "6.0.86",
+        "@ai-sdk/mcp": "1.0.21",
+        "@ai-sdk/anthropic": "3.0.44",
+        "@ai-sdk/google": "3.0.29",
+        "@ai-sdk/mistral": "3.0.20",
+        "@ai-sdk/openai": "3.0.29",
+        "@ai-sdk/react": "3.0.88",
         "ollama-ai-provider": "^1.2.0"
       }
     }
@@ -59,8 +59,8 @@
     "rulesync:codex": "bunx rulesync generate --targets codex --features \"*\"",
     "release:version:canary": "bun changeset version --snapshot canary --verbose && bun update",
     "release:version": "changeset version --verbose && bun update",
-    "release:publish": "turbo run publish:pkg",
-    "release:publish:canary": "turbo run publish:pkg:canary",
+    "release:publish": "node scripts/publish-packages.js",
+    "release:publish:canary": "NPM_TAG=canary node scripts/publish-packages.js",
     "knip": "knip",
     "clean": "turbo run clean",
     "lint": "turbo run lint",
@@ -87,7 +87,7 @@
     "@eslint/css": "^0.14.1",
     "@eslint/js": "^9.39.2",
     "@eslint/json": "^1.0.0",
-    "@types/bun": "^1.3.8",
+    "@types/bun": "^1.3.9",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
@@ -96,7 +96,7 @@
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^17.3.0",
-    "knip": "^5.83.0",
+    "knip": "^5.83.1",
     "memoirist": "^0.4.0",
     "next": "catalog:",
     "patch-package": "^8.0.1",
@@ -104,14 +104,14 @@
     "prettier": "3.8.1",
     "prettier-plugin-prisma": "^5.0.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "rulesync": "^6.6.3",
-    "turbo-ignore": "^2.8.3",
-    "typescript-eslint": "^8.54.0"
+    "rulesync": "^7.2.0",
+    "turbo-ignore": "^2.8.8",
+    "typescript-eslint": "^8.55.0"
   },
   "dependencies": {
     "react": "catalog:",
     "react-dom": "catalog:",
-    "turbo": "^2.8.3"
+    "turbo": "^2.8.8"
   },
   "config": {
     "commitizen": {

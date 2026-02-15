@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/app.cli-contractspec",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "CLI tool for creating, building, and validating contract specifications",
   "type": "module",
   "main": "./dist/index.js",
@@ -33,7 +33,7 @@
     "@contractspec/bundle.workspace": "workspace:*",
     "@contractspec/lib.ai-agent": "workspace:*",
     "@contractspec/lib.ai-providers": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.contracts-transformers": "workspace:*",
     "@contractspec/lib.plugins": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
@@ -50,15 +50,16 @@
     "ollama-ai-provider": "catalog:ai",
     "ora": "^9.3.0",
     "typescript": "catalog:",
-    "zod": "catalog:"
+    "zod": "catalog:",
+    "@contractspec/lib.contracts-integrations": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^25.2.1",
+    "@types/node": "^25.2.3",
     "@types/sarif": "^2.1.7",
-    "eslint": "^9.39.2",
+    "eslint": "^9.32.2",
     "rimraf": "catalog:build"
   },
   "keywords": [

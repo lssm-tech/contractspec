@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.exporter",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Generic CSV and XML exporters usable across web and mobile.",
   "keywords": [
     "contractspec",
@@ -44,7 +44,7 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       }

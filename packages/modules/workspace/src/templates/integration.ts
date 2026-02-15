@@ -40,8 +40,9 @@ export function generateIntegrationSpec(data: IntegrationSpecData): string {
     data.byokRequiredScopes
   );
 
-  return `import { StabilityEnum, defineIntegration } from '@contractspec/lib.contracts';
-import type { IntegrationSpecRegistry } from '@contractspec/lib.contracts/integrations/spec';
+  return `import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
+import { defineIntegration } from '@contractspec/lib.contracts-integrations';
+import type { IntegrationSpecRegistry } from '@contractspec/lib.contracts-integrations';
 
 export const ${varName} = defineIntegration({
   meta: {

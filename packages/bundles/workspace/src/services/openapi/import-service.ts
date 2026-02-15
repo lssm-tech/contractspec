@@ -13,7 +13,7 @@ import type {
   OpenApiImportServiceResult,
 } from './types';
 import { dirname, join, basename } from 'path';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 
 /**
  * Get output directory for spec type
@@ -215,21 +215,21 @@ export async function importFromOpenApiService(
 
       let hasRegistry = false;
       if (isOperations) {
-        registryCode += `import { OperationSpecRegistry } from '@contractspec/lib.contracts';\n\n`;
+        registryCode += `import { OperationSpecRegistry } from '@contractspec/lib.contracts-spec';\n\n`;
         registryCode += `export const operationRegistry = new OperationSpecRegistry();\n`;
         specs.forEach((s) => {
           registryCode += `operationRegistry.register(${s.name});\n`;
         });
         hasRegistry = true;
       } else if (isEvents) {
-        registryCode += `import { EventRegistry } from '@contractspec/lib.contracts';\n\n`;
+        registryCode += `import { EventRegistry } from '@contractspec/lib.contracts-spec';\n\n`;
         registryCode += `export const eventRegistry = new EventRegistry();\n`;
         specs.forEach((s) => {
           registryCode += `eventRegistry.register(${s.name});\n`;
         });
         hasRegistry = true;
       } else if (isModels) {
-        registryCode += `import { ModelRegistry } from '@contractspec/lib.contracts';\n\n`;
+        registryCode += `import { ModelRegistry } from '@contractspec/lib.contracts-spec/model-registry';\n\n`;
         registryCode += `export const modelRegistry = new ModelRegistry();\n`;
         specs.forEach((s) => {
           registryCode += `modelRegistry.register(${s.name});\n`;

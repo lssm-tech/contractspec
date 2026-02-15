@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.learning-journey-ui-onboarding",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Developer onboarding UI with checklists and journey maps.",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -34,13 +34,13 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.ui-kit-core": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/example.learning-journey-ui-shared": "workspace:*",
     "@contractspec/example.learning-journey-studio-onboarding": "workspace:*",
     "@contractspec/example.learning-journey-platform-tour": "workspace:*",
@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "@types/react": "^19.2.13",
+    "@types/react": "^19.2.14",
     "typescript": "catalog:",
     "@contractspec/tool.bun": "workspace:*"
   },
@@ -63,119 +63,119 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./components": {
         "types": "./dist/components/index.d.ts",
         "bun": "./dist/components/index.js",
-        "node": "./dist/node/components/index.mjs",
+        "node": "./dist/node/components/index.js",
         "browser": "./dist/browser/components/index.js",
         "default": "./dist/components/index.js"
       },
       "./components/CodeSnippet": {
         "types": "./dist/components/CodeSnippet.d.ts",
         "bun": "./dist/components/CodeSnippet.js",
-        "node": "./dist/node/components/CodeSnippet.mjs",
+        "node": "./dist/node/components/CodeSnippet.js",
         "browser": "./dist/browser/components/CodeSnippet.js",
         "default": "./dist/components/CodeSnippet.js"
       },
       "./components/index": {
         "types": "./dist/components/index.d.ts",
         "bun": "./dist/components/index.js",
-        "node": "./dist/node/components/index.mjs",
+        "node": "./dist/node/components/index.js",
         "browser": "./dist/browser/components/index.js",
         "default": "./dist/components/index.js"
       },
       "./components/JourneyMap": {
         "types": "./dist/components/JourneyMap.d.ts",
         "bun": "./dist/components/JourneyMap.js",
-        "node": "./dist/node/components/JourneyMap.mjs",
+        "node": "./dist/node/components/JourneyMap.js",
         "browser": "./dist/browser/components/JourneyMap.js",
         "default": "./dist/components/JourneyMap.js"
       },
       "./components/StepChecklist": {
         "types": "./dist/components/StepChecklist.d.ts",
         "bun": "./dist/components/StepChecklist.js",
-        "node": "./dist/node/components/StepChecklist.mjs",
+        "node": "./dist/node/components/StepChecklist.js",
         "browser": "./dist/browser/components/StepChecklist.js",
         "default": "./dist/components/StepChecklist.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/learning-journey-ui-onboarding.docblock": {
         "types": "./dist/docs/learning-journey-ui-onboarding.docblock.d.ts",
         "bun": "./dist/docs/learning-journey-ui-onboarding.docblock.js",
-        "node": "./dist/node/docs/learning-journey-ui-onboarding.docblock.mjs",
+        "node": "./dist/node/docs/learning-journey-ui-onboarding.docblock.js",
         "browser": "./dist/browser/docs/learning-journey-ui-onboarding.docblock.js",
         "default": "./dist/docs/learning-journey-ui-onboarding.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./OnboardingMiniApp": {
         "types": "./dist/OnboardingMiniApp.d.ts",
         "bun": "./dist/OnboardingMiniApp.js",
-        "node": "./dist/node/OnboardingMiniApp.mjs",
+        "node": "./dist/node/OnboardingMiniApp.js",
         "browser": "./dist/browser/OnboardingMiniApp.js",
         "default": "./dist/OnboardingMiniApp.js"
       },
       "./views": {
         "types": "./dist/views/index.d.ts",
         "bun": "./dist/views/index.js",
-        "node": "./dist/node/views/index.mjs",
+        "node": "./dist/node/views/index.js",
         "browser": "./dist/browser/views/index.js",
         "default": "./dist/views/index.js"
       },
       "./views/index": {
         "types": "./dist/views/index.d.ts",
         "bun": "./dist/views/index.js",
-        "node": "./dist/node/views/index.mjs",
+        "node": "./dist/node/views/index.js",
         "browser": "./dist/browser/views/index.js",
         "default": "./dist/views/index.js"
       },
       "./views/Overview": {
         "types": "./dist/views/Overview.d.ts",
         "bun": "./dist/views/Overview.js",
-        "node": "./dist/node/views/Overview.mjs",
+        "node": "./dist/node/views/Overview.js",
         "browser": "./dist/browser/views/Overview.js",
         "default": "./dist/views/Overview.js"
       },
       "./views/Progress": {
         "types": "./dist/views/Progress.d.ts",
         "bun": "./dist/views/Progress.js",
-        "node": "./dist/node/views/Progress.mjs",
+        "node": "./dist/node/views/Progress.js",
         "browser": "./dist/browser/views/Progress.js",
         "default": "./dist/views/Progress.js"
       },
       "./views/Steps": {
         "types": "./dist/views/Steps.d.ts",
         "bun": "./dist/views/Steps.js",
-        "node": "./dist/node/views/Steps.mjs",
+        "node": "./dist/node/views/Steps.js",
         "browser": "./dist/browser/views/Steps.js",
         "default": "./dist/views/Steps.js"
       },
       "./views/Timeline": {
         "types": "./dist/views/Timeline.d.ts",
         "bun": "./dist/views/Timeline.js",
-        "node": "./dist/node/views/Timeline.mjs",
+        "node": "./dist/node/views/Timeline.js",
         "browser": "./dist/browser/views/Timeline.js",
         "default": "./dist/views/Timeline.js"
       }

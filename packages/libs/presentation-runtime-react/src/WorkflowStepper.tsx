@@ -2,7 +2,7 @@ import * as React from 'react';
 import type {
   WorkflowSpec,
   WorkflowState,
-} from '@contractspec/lib.contracts/workflow';
+} from '@contractspec/lib.contracts-spec/workflow';
 import { Stepper } from '@contractspec/lib.design-system';
 
 export interface WorkflowStepperProps {

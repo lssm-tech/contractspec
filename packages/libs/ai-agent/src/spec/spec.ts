@@ -1,6 +1,7 @@
-import type { OwnerShipMeta } from '@contractspec/lib.contracts/ownership';
-import type { KnowledgeCategory } from '@contractspec/lib.contracts/knowledge/spec';
-import type { PolicyRef } from '@contractspec/lib.contracts/policy/spec';
+import type { OwnerShipMeta } from '@contractspec/lib.contracts-spec/ownership';
+import type { KnowledgeCategory } from '@contractspec/lib.contracts-spec/knowledge/spec';
+import type { PolicyRef } from '@contractspec/lib.contracts-spec/policy/spec';
+import { getDefaultI18n } from '../i18n';
 
 /**
  * Metadata for an agent specification.
@@ -104,6 +105,8 @@ export interface AgentSpec {
   description?: string;
   /** Tags for categorization */
   tags?: string[];
+  /** Default locale for the agent (e.g., 'en', 'fr'). Falls back to 'en' if unset. */
+  locale?: string;
   /** Tools the agent can use */
   tools: AgentToolConfig[];
   /** Memory/session configuration */
@@ -124,17 +127,22 @@ export interface AgentSpec {
  * @throws Error if the specification is invalid
  */
 export function defineAgent(spec: AgentSpec): AgentSpec {
+  const i18n = getDefaultI18n();
   if (!spec.meta?.key) {
-    throw new Error('Agent key is required');
+    throw new Error(i18n.t('error.agentKeyRequired'));
   }
   if (typeof spec.meta.version !== 'string') {
-    throw new Error(`Agent ${spec.meta.key} is missing a string version`);
+    throw new Error(
+      i18n.t('error.agentMissingVersion', { key: spec.meta.key })
+    );
   }
   if (!spec.instructions?.trim()) {
-    throw new Error(`Agent ${spec.meta.key} requires instructions`);
+    throw new Error(
+      i18n.t('error.agentRequiresInstructions', { key: spec.meta.key })
+    );
   }
   if (!spec.tools?.length) {
-    throw new Error(`Agent ${spec.meta.key} must expose at least one tool`);
+    throw new Error(i18n.t('error.agentRequiresTool', { key: spec.meta.key }));
   }
 
   // Validate tool names are unique
@@ -142,7 +150,10 @@ export function defineAgent(spec: AgentSpec): AgentSpec {
   for (const tool of spec.tools) {
     if (toolNames.has(tool.name)) {
       throw new Error(
-        `Agent ${spec.meta.key} has duplicate tool name: ${tool.name}`
+        i18n.t('error.agentDuplicateTool', {
+          key: spec.meta.key,
+          name: tool.name,
+        })
       );
     }
     toolNames.add(tool.name);

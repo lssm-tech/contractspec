@@ -1,4 +1,4 @@
-import type { GetObjectResult } from '@contractspec/lib.contracts';
+import type { GetObjectResult } from '@contractspec/lib.contracts-integrations';
 import type { DocumentProcessor } from './document-processor';
 import type { EmbeddingService } from './embedding-service';
 import type { VectorIndexer } from './vector-indexer';

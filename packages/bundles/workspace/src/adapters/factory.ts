@@ -11,7 +11,7 @@ import { createConsoleLoggerAdapter, createNoopLoggerAdapter } from './logger';
 import {
   DEFAULT_CONTRACTSRC,
   type ResolvedContractsrcConfig,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec/workspace-config';
 
 /**
  * Options for creating adapters.

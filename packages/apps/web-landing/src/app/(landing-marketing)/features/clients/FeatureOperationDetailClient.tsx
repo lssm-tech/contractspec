@@ -4,7 +4,7 @@ import { FeatureOperationDetailTemplate } from '@contractspec/bundle.library/pre
 import type {
   FeatureModuleSpec,
   OpRef,
-} from '@contractspec/lib.contracts/features';
+} from '@contractspec/lib.contracts-spec/features';
 import type { SerializedOperationSpec } from '@contractspec/bundle.library/features';
 
 export interface FeatureOperationDetailClientProps {

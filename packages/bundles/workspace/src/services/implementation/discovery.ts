@@ -6,7 +6,7 @@
  */
 
 import type { FsAdapter } from '../../ports/fs';
-import type { ImplementationType } from '@contractspec/lib.contracts';
+import type { ImplementationType } from '@contractspec/lib.contracts-spec';
 import type { DiscoveryOptions, SpecReferenceMatch } from './types';
 import { DEFAULT_FS_IGNORES, DEFAULT_SPEC_PATTERNS } from '../../adapters';
 

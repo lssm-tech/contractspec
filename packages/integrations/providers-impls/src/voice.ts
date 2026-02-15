@@ -1,1 +1,1 @@
-export * from '@contractspec/lib.contracts/integrations/providers/voice';
+export * from '@contractspec/lib.contracts-integrations';

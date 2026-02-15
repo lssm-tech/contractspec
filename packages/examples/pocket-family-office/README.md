@@ -31,7 +31,7 @@ blueprint.
 
 The files are designed for direct consumption inside tests, CLI
 generators, or documentation tooling. They depend exclusively on the
-public APIs exported by `@contractspec/lib.contracts`, making them safe to copy
+public APIs exported by `@contractspec/lib.contracts-spec`, making them safe to copy
 into downstream projects or use as a reference implementation during the
 Pocket Family Office hackathon.
 

@@ -47,7 +47,7 @@ CRM and sales pipeline management with deals, contacts, and companies
  *
  * Defines the feature module for CRM and sales pipeline capabilities.
  */
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 /**
  * CRM Pipeline feature module that bundles deal management,

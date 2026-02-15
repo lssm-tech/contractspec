@@ -1,4 +1,4 @@
-import { defineTestSpec } from '@contractspec/lib.contracts';
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
 
 export const GetTrackTest = defineTestSpec({
   meta: {

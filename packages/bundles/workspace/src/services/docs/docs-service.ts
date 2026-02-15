@@ -2,7 +2,7 @@ import path from 'path';
 import {
   defaultDocRegistry,
   type DocBlock,
-} from '@contractspec/lib.contracts/docs';
+} from '@contractspec/lib.contracts-spec/docs';
 import {
   convertSpecToDocBlock,
   loadSpecFromSource,
@@ -48,9 +48,6 @@ export async function generateDocsFromSpecs(
   for (const file of specFiles) {
     try {
       const content = await fs.readFile(file);
-      if (file.endsWith('packages/libs/contracts/src/app-config/spec.ts')) {
-        console.log('coupable', file);
-      }
       const results = scanAllSpecsFromSource(content, file);
       if (results.length > 0) {
         scanResults.push(...results);

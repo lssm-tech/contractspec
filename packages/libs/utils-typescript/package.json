@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.utils-typescript",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "TypeScript utility types and helpers",
   "keywords": [
     "contractspec",
@@ -68,217 +68,217 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./lib/AwaitedResult": {
         "types": "./dist/lib/AwaitedResult.d.ts",
         "bun": "./dist/lib/AwaitedResult.js",
-        "node": "./dist/node/lib/AwaitedResult.mjs",
+        "node": "./dist/node/lib/AwaitedResult.js",
         "browser": "./dist/browser/lib/AwaitedResult.js",
         "default": "./dist/lib/AwaitedResult.js"
       },
       "./lib/BrowserNativeObject": {
         "types": "./dist/lib/BrowserNativeObject.d.ts",
         "bun": "./dist/lib/BrowserNativeObject.js",
-        "node": "./dist/node/lib/BrowserNativeObject.mjs",
+        "node": "./dist/node/lib/BrowserNativeObject.js",
         "browser": "./dist/browser/lib/BrowserNativeObject.js",
         "default": "./dist/lib/BrowserNativeObject.js"
       },
       "./lib/DeepInfiniteArray": {
         "types": "./dist/lib/DeepInfiniteArray.d.ts",
         "bun": "./dist/lib/DeepInfiniteArray.js",
-        "node": "./dist/node/lib/DeepInfiniteArray.mjs",
+        "node": "./dist/node/lib/DeepInfiniteArray.js",
         "browser": "./dist/browser/lib/DeepInfiniteArray.js",
         "default": "./dist/lib/DeepInfiniteArray.js"
       },
       "./lib/DeepKeepOnly": {
         "types": "./dist/lib/DeepKeepOnly.d.ts",
         "bun": "./dist/lib/DeepKeepOnly.js",
-        "node": "./dist/node/lib/DeepKeepOnly.mjs",
+        "node": "./dist/node/lib/DeepKeepOnly.js",
         "browser": "./dist/browser/lib/DeepKeepOnly.js",
         "default": "./dist/lib/DeepKeepOnly.js"
       },
       "./lib/DeepKey": {
         "types": "./dist/lib/DeepKey.d.ts",
         "bun": "./dist/lib/DeepKey.js",
-        "node": "./dist/node/lib/DeepKey.mjs",
+        "node": "./dist/node/lib/DeepKey.js",
         "browser": "./dist/browser/lib/DeepKey.js",
         "default": "./dist/lib/DeepKey.js"
       },
       "./lib/DeepMap": {
         "types": "./dist/lib/DeepMap.d.ts",
         "bun": "./dist/lib/DeepMap.js",
-        "node": "./dist/node/lib/DeepMap.mjs",
+        "node": "./dist/node/lib/DeepMap.js",
         "browser": "./dist/browser/lib/DeepMap.js",
         "default": "./dist/lib/DeepMap.js"
       },
       "./lib/DeepNullable": {
         "types": "./dist/lib/DeepNullable.d.ts",
         "bun": "./dist/lib/DeepNullable.js",
-        "node": "./dist/node/lib/DeepNullable.mjs",
+        "node": "./dist/node/lib/DeepNullable.js",
         "browser": "./dist/browser/lib/DeepNullable.js",
         "default": "./dist/lib/DeepNullable.js"
       },
       "./lib/DeepOr": {
         "types": "./dist/lib/DeepOr.d.ts",
         "bun": "./dist/lib/DeepOr.js",
-        "node": "./dist/node/lib/DeepOr.mjs",
+        "node": "./dist/node/lib/DeepOr.js",
         "browser": "./dist/browser/lib/DeepOr.js",
         "default": "./dist/lib/DeepOr.js"
       },
       "./lib/DeepPartial": {
         "types": "./dist/lib/DeepPartial.d.ts",
         "bun": "./dist/lib/DeepPartial.js",
-        "node": "./dist/node/lib/DeepPartial.mjs",
+        "node": "./dist/node/lib/DeepPartial.js",
         "browser": "./dist/browser/lib/DeepPartial.js",
         "default": "./dist/lib/DeepPartial.js"
       },
       "./lib/DeepReplace": {
         "types": "./dist/lib/DeepReplace.d.ts",
         "bun": "./dist/lib/DeepReplace.js",
-        "node": "./dist/node/lib/DeepReplace.mjs",
+        "node": "./dist/node/lib/DeepReplace.js",
         "browser": "./dist/browser/lib/DeepReplace.js",
         "default": "./dist/lib/DeepReplace.js"
       },
       "./lib/DeepReplaceNullByUndefined": {
         "types": "./dist/lib/DeepReplaceNullByUndefined.d.ts",
         "bun": "./dist/lib/DeepReplaceNullByUndefined.js",
-        "node": "./dist/node/lib/DeepReplaceNullByUndefined.mjs",
+        "node": "./dist/node/lib/DeepReplaceNullByUndefined.js",
         "browser": "./dist/browser/lib/DeepReplaceNullByUndefined.js",
         "default": "./dist/lib/DeepReplaceNullByUndefined.js"
       },
       "./lib/DeepValue": {
         "types": "./dist/lib/DeepValue.d.ts",
         "bun": "./dist/lib/DeepValue.js",
-        "node": "./dist/node/lib/DeepValue.mjs",
+        "node": "./dist/node/lib/DeepValue.js",
         "browser": "./dist/browser/lib/DeepValue.js",
         "default": "./dist/lib/DeepValue.js"
       },
       "./lib/DictionaryFromEnum": {
         "types": "./dist/lib/DictionaryFromEnum.d.ts",
         "bun": "./dist/lib/DictionaryFromEnum.js",
-        "node": "./dist/node/lib/DictionaryFromEnum.mjs",
+        "node": "./dist/node/lib/DictionaryFromEnum.js",
         "browser": "./dist/browser/lib/DictionaryFromEnum.js",
         "default": "./dist/lib/DictionaryFromEnum.js"
       },
       "./lib/DictionaryFromEnumMapping": {
         "types": "./dist/lib/DictionaryFromEnumMapping.d.ts",
         "bun": "./dist/lib/DictionaryFromEnumMapping.js",
-        "node": "./dist/node/lib/DictionaryFromEnumMapping.mjs",
+        "node": "./dist/node/lib/DictionaryFromEnumMapping.js",
         "browser": "./dist/browser/lib/DictionaryFromEnumMapping.js",
         "default": "./dist/lib/DictionaryFromEnumMapping.js"
       },
       "./lib/EmptyRecord": {
         "types": "./dist/lib/EmptyRecord.d.ts",
         "bun": "./dist/lib/EmptyRecord.js",
-        "node": "./dist/node/lib/EmptyRecord.mjs",
+        "node": "./dist/node/lib/EmptyRecord.js",
         "browser": "./dist/browser/lib/EmptyRecord.js",
         "default": "./dist/lib/EmptyRecord.js"
       },
       "./lib/Identified": {
         "types": "./dist/lib/Identified.d.ts",
         "bun": "./dist/lib/Identified.js",
-        "node": "./dist/node/lib/Identified.mjs",
+        "node": "./dist/node/lib/Identified.js",
         "browser": "./dist/browser/lib/Identified.js",
         "default": "./dist/lib/Identified.js"
       },
       "./lib/IdentifiedLabel": {
         "types": "./dist/lib/IdentifiedLabel.d.ts",
         "bun": "./dist/lib/IdentifiedLabel.js",
-        "node": "./dist/node/lib/IdentifiedLabel.mjs",
+        "node": "./dist/node/lib/IdentifiedLabel.js",
         "browser": "./dist/browser/lib/IdentifiedLabel.js",
         "default": "./dist/lib/IdentifiedLabel.js"
       },
       "./lib/IsAny": {
         "types": "./dist/lib/IsAny.d.ts",
         "bun": "./dist/lib/IsAny.js",
-        "node": "./dist/node/lib/IsAny.mjs",
+        "node": "./dist/node/lib/IsAny.js",
         "browser": "./dist/browser/lib/IsAny.js",
         "default": "./dist/lib/IsAny.js"
       },
       "./lib/Json": {
         "types": "./dist/lib/Json.d.ts",
         "bun": "./dist/lib/Json.js",
-        "node": "./dist/node/lib/Json.mjs",
+        "node": "./dist/node/lib/Json.js",
         "browser": "./dist/browser/lib/Json.js",
         "default": "./dist/lib/Json.js"
       },
       "./lib/KeepOnly": {
         "types": "./dist/lib/KeepOnly.d.ts",
         "bun": "./dist/lib/KeepOnly.js",
-        "node": "./dist/node/lib/KeepOnly.mjs",
+        "node": "./dist/node/lib/KeepOnly.js",
         "browser": "./dist/browser/lib/KeepOnly.js",
         "default": "./dist/lib/KeepOnly.js"
       },
       "./lib/Maybe": {
         "types": "./dist/lib/Maybe.d.ts",
         "bun": "./dist/lib/Maybe.js",
-        "node": "./dist/node/lib/Maybe.mjs",
+        "node": "./dist/node/lib/Maybe.js",
         "browser": "./dist/browser/lib/Maybe.js",
         "default": "./dist/lib/Maybe.js"
       },
       "./lib/MaybeArray": {
         "types": "./dist/lib/MaybeArray.d.ts",
         "bun": "./dist/lib/MaybeArray.js",
-        "node": "./dist/node/lib/MaybeArray.mjs",
+        "node": "./dist/node/lib/MaybeArray.js",
         "browser": "./dist/browser/lib/MaybeArray.js",
         "default": "./dist/lib/MaybeArray.js"
       },
       "./lib/NestedValue": {
         "types": "./dist/lib/NestedValue.d.ts",
         "bun": "./dist/lib/NestedValue.js",
-        "node": "./dist/node/lib/NestedValue.mjs",
+        "node": "./dist/node/lib/NestedValue.js",
         "browser": "./dist/browser/lib/NestedValue.js",
         "default": "./dist/lib/NestedValue.js"
       },
       "./lib/NonUndefined": {
         "types": "./dist/lib/NonUndefined.d.ts",
         "bun": "./dist/lib/NonUndefined.js",
-        "node": "./dist/node/lib/NonUndefined.mjs",
+        "node": "./dist/node/lib/NonUndefined.js",
         "browser": "./dist/browser/lib/NonUndefined.js",
         "default": "./dist/lib/NonUndefined.js"
       },
       "./lib/Primitive": {
         "types": "./dist/lib/Primitive.d.ts",
         "bun": "./dist/lib/Primitive.js",
-        "node": "./dist/node/lib/Primitive.mjs",
+        "node": "./dist/node/lib/Primitive.js",
         "browser": "./dist/browser/lib/Primitive.js",
         "default": "./dist/lib/Primitive.js"
       },
       "./lib/Replaced": {
         "types": "./dist/lib/Replaced.d.ts",
         "bun": "./dist/lib/Replaced.js",
-        "node": "./dist/node/lib/Replaced.mjs",
+        "node": "./dist/node/lib/Replaced.js",
         "browser": "./dist/browser/lib/Replaced.js",
         "default": "./dist/lib/Replaced.js"
       },
       "./lib/ReverseMap": {
         "types": "./dist/lib/ReverseMap.d.ts",
         "bun": "./dist/lib/ReverseMap.js",
-        "node": "./dist/node/lib/ReverseMap.mjs",
+        "node": "./dist/node/lib/ReverseMap.js",
         "browser": "./dist/browser/lib/ReverseMap.js",
         "default": "./dist/lib/ReverseMap.js"
       },
       "./lib/Satisfies": {
         "types": "./dist/lib/Satisfies.d.ts",
         "bun": "./dist/lib/Satisfies.js",
-        "node": "./dist/node/lib/Satisfies.mjs",
+        "node": "./dist/node/lib/Satisfies.js",
         "browser": "./dist/browser/lib/Satisfies.js",
         "default": "./dist/lib/Satisfies.js"
       },
       "./lib/StringKey": {
         "types": "./dist/lib/StringKey.d.ts",
         "bun": "./dist/lib/StringKey.js",
-        "node": "./dist/node/lib/StringKey.mjs",
+        "node": "./dist/node/lib/StringKey.js",
         "browser": "./dist/browser/lib/StringKey.js",
         "default": "./dist/lib/StringKey.js"
       },
       "./lib/StringKeysOnly": {
         "types": "./dist/lib/StringKeysOnly.d.ts",
         "bun": "./dist/lib/StringKeysOnly.js",
-        "node": "./dist/node/lib/StringKeysOnly.mjs",
+        "node": "./dist/node/lib/StringKeysOnly.js",
         "browser": "./dist/browser/lib/StringKeysOnly.js",
         "default": "./dist/lib/StringKeysOnly.js"
       }

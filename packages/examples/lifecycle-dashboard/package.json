@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.lifecycle-dashboard",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Lifecycle dashboard example (snippet): how to call lifecycle-managed APIs and render a status card.",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -23,12 +23,12 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*"
+    "@contractspec/lib.contracts-spec": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
@@ -41,42 +41,42 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/lifecycle-dashboard.docblock": {
         "types": "./dist/docs/lifecycle-dashboard.docblock.d.ts",
         "bun": "./dist/docs/lifecycle-dashboard.docblock.js",
-        "node": "./dist/node/docs/lifecycle-dashboard.docblock.mjs",
+        "node": "./dist/node/docs/lifecycle-dashboard.docblock.js",
         "browser": "./dist/browser/docs/lifecycle-dashboard.docblock.js",
         "default": "./dist/docs/lifecycle-dashboard.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./snippets/page": {
         "types": "./dist/snippets/page.d.ts",
         "bun": "./dist/snippets/page.js",
-        "node": "./dist/node/snippets/page.mjs",
+        "node": "./dist/node/snippets/page.js",
         "browser": "./dist/browser/snippets/page.js",
         "default": "./dist/snippets/page.js"
       }

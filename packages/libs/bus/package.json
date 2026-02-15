@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.bus",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Event bus and messaging primitives",
   "keywords": [
     "contractspec",
@@ -31,11 +31,11 @@
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "compare-versions": "^6.1.1"
   },
   "peerDependencies": {
-    "elysia": "^1.4.21",
+    "elysia": "^1.4.25",
     "express": "^5.2.1",
     "next": "16.1.6"
   },
@@ -60,49 +60,49 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./auditableBus": {
         "types": "./dist/auditableBus.d.ts",
         "bun": "./dist/auditableBus.js",
-        "node": "./dist/node/auditableBus.mjs",
+        "node": "./dist/node/auditableBus.js",
         "browser": "./dist/browser/auditableBus.js",
         "default": "./dist/auditableBus.js"
       },
       "./eventBus": {
         "types": "./dist/eventBus.d.ts",
         "bun": "./dist/eventBus.js",
-        "node": "./dist/node/eventBus.mjs",
+        "node": "./dist/node/eventBus.js",
         "browser": "./dist/browser/eventBus.js",
         "default": "./dist/eventBus.js"
       },
       "./filtering": {
         "types": "./dist/filtering.d.ts",
         "bun": "./dist/filtering.js",
-        "node": "./dist/node/filtering.mjs",
+        "node": "./dist/node/filtering.js",
         "browser": "./dist/browser/filtering.js",
         "default": "./dist/filtering.js"
       },
       "./inMemoryBus": {
         "types": "./dist/inMemoryBus.d.ts",
         "bun": "./dist/inMemoryBus.js",
-        "node": "./dist/node/inMemoryBus.mjs",
+        "node": "./dist/node/inMemoryBus.js",
         "browser": "./dist/browser/inMemoryBus.js",
         "default": "./dist/inMemoryBus.js"
       },
       "./metadata": {
         "types": "./dist/metadata.d.ts",
         "bun": "./dist/metadata.js",
-        "node": "./dist/node/metadata.mjs",
+        "node": "./dist/node/metadata.js",
         "browser": "./dist/browser/metadata.js",
         "default": "./dist/metadata.js"
       },
       "./subscriber": {
         "types": "./dist/subscriber.d.ts",
         "bun": "./dist/subscriber.js",
-        "node": "./dist/node/subscriber.mjs",
+        "node": "./dist/node/subscriber.js",
         "browser": "./dist/browser/subscriber.js",
         "default": "./dist/subscriber.js"
       }

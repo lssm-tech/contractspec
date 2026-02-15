@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.personalization",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Personalization examples: behavior tracking, overlay customization, workflow extension.",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -25,7 +25,7 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
@@ -33,7 +33,7 @@
     "@contractspec/lib.personalization": "workspace:*",
     "@contractspec/lib.overlay-engine": "workspace:*",
     "@contractspec/lib.workflow-composer": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.logger": "workspace:*"
   },
   "devDependencies": {
@@ -47,56 +47,56 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./behavior-tracking": {
         "types": "./dist/behavior-tracking.d.ts",
         "bun": "./dist/behavior-tracking.js",
-        "node": "./dist/node/behavior-tracking.mjs",
+        "node": "./dist/node/behavior-tracking.js",
         "browser": "./dist/browser/behavior-tracking.js",
         "default": "./dist/behavior-tracking.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.mjs",
+        "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/personalization.docblock": {
         "types": "./dist/docs/personalization.docblock.d.ts",
         "bun": "./dist/docs/personalization.docblock.js",
-        "node": "./dist/node/docs/personalization.docblock.mjs",
+        "node": "./dist/node/docs/personalization.docblock.js",
         "browser": "./dist/browser/docs/personalization.docblock.js",
         "default": "./dist/docs/personalization.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
-        "node": "./dist/node/example.mjs",
+        "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./overlay-customization": {
         "types": "./dist/overlay-customization.d.ts",
         "bun": "./dist/overlay-customization.js",
-        "node": "./dist/node/overlay-customization.mjs",
+        "node": "./dist/node/overlay-customization.js",
         "browser": "./dist/browser/overlay-customization.js",
         "default": "./dist/overlay-customization.js"
       },
       "./workflow-extension": {
         "types": "./dist/workflow-extension.d.ts",
         "bun": "./dist/workflow-extension.js",
-        "node": "./dist/node/workflow-extension.mjs",
+        "node": "./dist/node/workflow-extension.js",
         "browser": "./dist/browser/workflow-extension.js",
         "default": "./dist/workflow-extension.js"
       }

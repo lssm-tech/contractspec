@@ -1,0 +1,100 @@
+{
+  "name": "@contractspec/lib.contracts-runtime-server-mcp",
+  "version": "1.61.0",
+  "description": "MCP server runtime adapters for ContractSpec contracts",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "clean": "rm -rf dist",
+    "lint": "bun run lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit",
+    "dev": "contractspec-bun-build dev"
+  },
+  "dependencies": {
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.logger": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.26.0",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./mcp/createMcpServer": "./src/mcp/createMcpServer.ts",
+    "./mcp/mcpTypes": "./src/mcp/mcpTypes.ts",
+    "./mcp/registerPresentations": "./src/mcp/registerPresentations.ts",
+    "./mcp/registerPrompts": "./src/mcp/registerPrompts.ts",
+    "./mcp/registerResources": "./src/mcp/registerResources.ts",
+    "./mcp/registerTools": "./src/mcp/registerTools.ts",
+    "./provider-mcp": "./src/provider-mcp.ts"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.js",
+        "default": "./dist/index.js"
+      },
+      "./mcp/createMcpServer": {
+        "types": "./dist/mcp/createMcpServer.d.ts",
+        "bun": "./dist/mcp/createMcpServer.js",
+        "node": "./dist/node/mcp/createMcpServer.js",
+        "default": "./dist/mcp/createMcpServer.js"
+      },
+      "./mcp/mcpTypes": {
+        "types": "./dist/mcp/mcpTypes.d.ts",
+        "bun": "./dist/mcp/mcpTypes.js",
+        "node": "./dist/node/mcp/mcpTypes.js",
+        "default": "./dist/mcp/mcpTypes.js"
+      },
+      "./mcp/registerPresentations": {
+        "types": "./dist/mcp/registerPresentations.d.ts",
+        "bun": "./dist/mcp/registerPresentations.js",
+        "node": "./dist/node/mcp/registerPresentations.js",
+        "default": "./dist/mcp/registerPresentations.js"
+      },
+      "./mcp/registerPrompts": {
+        "types": "./dist/mcp/registerPrompts.d.ts",
+        "bun": "./dist/mcp/registerPrompts.js",
+        "node": "./dist/node/mcp/registerPrompts.js",
+        "default": "./dist/mcp/registerPrompts.js"
+      },
+      "./mcp/registerResources": {
+        "types": "./dist/mcp/registerResources.d.ts",
+        "bun": "./dist/mcp/registerResources.js",
+        "node": "./dist/node/mcp/registerResources.js",
+        "default": "./dist/mcp/registerResources.js"
+      },
+      "./mcp/registerTools": {
+        "types": "./dist/mcp/registerTools.d.ts",
+        "bun": "./dist/mcp/registerTools.js",
+        "node": "./dist/node/mcp/registerTools.js",
+        "default": "./dist/mcp/registerTools.js"
+      },
+      "./provider-mcp": {
+        "types": "./dist/provider-mcp.d.ts",
+        "bun": "./dist/provider-mcp.js",
+        "node": "./dist/node/provider-mcp.js",
+        "default": "./dist/provider-mcp.js"
+      }
+    }
+  }
+}

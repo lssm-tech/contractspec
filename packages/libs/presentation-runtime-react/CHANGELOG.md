@@ -1,5 +1,62 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 15.0.0
+
+### Minor Changes
+
+- 374fd71: fix: publishing
+
+### Patch Changes
+
+- Updated dependencies [374fd71]
+  - @contractspec/lib.presentation-runtime-core@1.61.0
+  - @contractspec/lib.design-system@1.61.0
+  - @contractspec/lib.ui-kit-web@1.61.0
+  - @contractspec/lib.contracts-spec@1.61.0
+
+## 14.0.0
+
+### Minor Changes
+
+- fix: publish with bun
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@1.60.0
+  - @contractspec/lib.design-system@1.60.0
+  - @contractspec/lib.ui-kit-web@1.60.0
+  - @contractspec/lib.contracts-spec@1.60.0
+
+## 13.0.0
+
+### Minor Changes
+
+- 1a0cf44: fix: publishConfig not supported by bun
+
+### Patch Changes
+
+- Updated dependencies [1a0cf44]
+  - @contractspec/lib.presentation-runtime-core@1.59.0
+  - @contractspec/lib.design-system@1.59.0
+  - @contractspec/lib.ui-kit-web@1.59.0
+  - @contractspec/lib.contracts-spec@1.59.0
+
+## 12.0.0
+
+### Minor Changes
+
+- d1f0fd0: chore: Migrate non-app package builds from tsdown to shared Bun tooling, add `@contractspec/tool.bun`, and standardize `prebuild`/`build`/`typecheck` with platform-aware exports and `tsc` declaration emission into `dist`.
+
+### Patch Changes
+
+- Updated dependencies [d1f0fd0]
+- Updated dependencies [4355a9e]
+  - @contractspec/lib.presentation-runtime-core@1.58.0
+  - @contractspec/lib.design-system@1.58.0
+  - @contractspec/lib.ui-kit-web@1.58.0
+  - @contractspec/lib.contracts-spec@1.58.0
+
 ## 11.0.0
 
 ### Minor Changes
@@ -14,7 +71,7 @@
 - Updated dependencies [4651e06]
 - Updated dependencies [ad9d10a]
 - Updated dependencies [11a5a05]
-  - @contractspec/lib.contracts@1.57.0
+  - @contractspec/lib.contracts-spec@1.57.0
   - @contractspec/lib.presentation-runtime-core@1.57.0
   - @contractspec/lib.design-system@1.57.0
   - @contractspec/lib.ui-kit-web@1.57.0
@@ -28,7 +85,7 @@
   - @contractspec/lib.presentation-runtime-core@1.56.1
   - @contractspec/lib.design-system@1.56.1
   - @contractspec/lib.ui-kit-web@1.56.1
-  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.contracts-spec@1.56.1
 
 ## 10.0.0
 
@@ -42,7 +99,7 @@
   - @contractspec/lib.presentation-runtime-core@1.56.0
   - @contractspec/lib.design-system@1.56.0
   - @contractspec/lib.ui-kit-web@1.56.0
-  - @contractspec/lib.contracts@1.56.0
+  - @contractspec/lib.contracts-spec@1.56.0
 
 ## 9.0.0
 
@@ -56,7 +113,7 @@
   - @contractspec/lib.presentation-runtime-core@1.55.0
   - @contractspec/lib.design-system@1.55.0
   - @contractspec/lib.ui-kit-web@1.55.0
-  - @contractspec/lib.contracts@1.55.0
+  - @contractspec/lib.contracts-spec@1.55.0
 
 ## 8.0.0
 
@@ -69,7 +126,7 @@
 - Updated dependencies [ec5e95c]
   - @contractspec/lib.design-system@1.54.0
   - @contractspec/lib.ui-kit-web@1.54.0
-  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/lib.contracts-spec@1.54.0
   - @contractspec/lib.presentation-runtime-core@1.54.0
 
 ## 7.0.0
@@ -85,7 +142,7 @@
 - Updated dependencies [f4180d4]
 - Updated dependencies [64d84e1]
   - @contractspec/lib.design-system@1.53.0
-  - @contractspec/lib.contracts@1.53.0
+  - @contractspec/lib.contracts-spec@1.53.0
   - @contractspec/lib.presentation-runtime-core@1.53.0
   - @contractspec/lib.ui-kit-web@1.53.0
 
@@ -101,7 +158,7 @@
   - @contractspec/lib.presentation-runtime-core@1.52.0
   - @contractspec/lib.design-system@1.52.0
   - @contractspec/lib.ui-kit-web@1.52.0
-  - @contractspec/lib.contracts@1.52.0
+  - @contractspec/lib.contracts-spec@1.52.0
 
 ## 5.0.0
 
@@ -114,7 +171,7 @@
 - Updated dependencies [23e46e9]
 - Updated dependencies [ad1f852]
 - Updated dependencies [e6faefb]
-  - @contractspec/lib.contracts@1.51.0
+  - @contractspec/lib.contracts-spec@1.51.0
   - @contractspec/lib.presentation-runtime-core@1.51.0
   - @contractspec/lib.design-system@1.51.0
   - @contractspec/lib.ui-kit-web@1.51.0
@@ -128,7 +185,7 @@
 ### Patch Changes
 
 - Updated dependencies [5325d6b]
-  - @contractspec/lib.contracts@1.50.0
+  - @contractspec/lib.contracts-spec@1.50.0
   - @contractspec/lib.design-system@1.50.0
   - @contractspec/lib.presentation-runtime-core@1.50.0
   - @contractspec/lib.ui-kit-web@1.50.0
@@ -145,7 +202,7 @@
   - @contractspec/lib.presentation-runtime-core@1.49.0
   - @contractspec/lib.design-system@1.49.0
   - @contractspec/lib.ui-kit-web@1.49.0
-  - @contractspec/lib.contracts@1.49.0
+  - @contractspec/lib.contracts-spec@1.49.0
 
 ## 2.0.1
 
@@ -154,7 +211,7 @@
 - Updated dependencies [c560ee7]
 - Updated dependencies [1536bf3]
   - @contractspec/lib.design-system@1.48.1
-  - @contractspec/lib.contracts@1.48.1
+  - @contractspec/lib.contracts-spec@1.48.1
 
 ## 2.0.0
 
@@ -168,7 +225,7 @@
   - @contractspec/lib.presentation-runtime-core@1.48.0
   - @contractspec/lib.design-system@1.48.0
   - @contractspec/lib.ui-kit-web@1.48.0
-  - @contractspec/lib.contracts@1.48.0
+  - @contractspec/lib.contracts-spec@1.48.0
 
 ## 1.47.0
 
@@ -192,7 +249,7 @@
   - @contractspec/lib.presentation-runtime-core@1.47.0
   - @contractspec/lib.design-system@1.47.0
   - @contractspec/lib.ui-kit-web@1.47.0
-  - @contractspec/lib.contracts@1.47.0
+  - @contractspec/lib.contracts-spec@1.47.0
 
 ## 1.46.2
 
@@ -203,7 +260,7 @@
   - @contractspec/lib.presentation-runtime-core@1.46.2
   - @contractspec/lib.design-system@1.46.2
   - @contractspec/lib.ui-kit-web@1.46.2
-  - @contractspec/lib.contracts@1.46.2
+  - @contractspec/lib.contracts-spec@1.46.2
 
 ## 2.0.1
 
@@ -214,7 +271,7 @@
   - @contractspec/lib.presentation-runtime-core@1.46.1
   - @contractspec/lib.design-system@1.46.1
   - @contractspec/lib.ui-kit-web@1.46.1
-  - @contractspec/lib.contracts@1.46.1
+  - @contractspec/lib.contracts-spec@1.46.1
 
 ## 2.0.0
 
@@ -228,7 +285,7 @@
   - @contractspec/lib.presentation-runtime-core@1.46.0
   - @contractspec/lib.design-system@1.46.0
   - @contractspec/lib.ui-kit-web@1.46.0
-  - @contractspec/lib.contracts@1.46.0
+  - @contractspec/lib.contracts-spec@1.46.0
 
 ## 1.45.6
 
@@ -239,7 +296,7 @@
   - @contractspec/lib.presentation-runtime-core@1.45.6
   - @contractspec/lib.design-system@1.45.6
   - @contractspec/lib.ui-kit-web@1.45.6
-  - @contractspec/lib.contracts@1.45.6
+  - @contractspec/lib.contracts-spec@1.45.6
 
 ## 1.45.5
 
@@ -250,7 +307,7 @@
   - @contractspec/lib.presentation-runtime-core@1.45.5
   - @contractspec/lib.design-system@1.45.5
   - @contractspec/lib.ui-kit-web@1.45.5
-  - @contractspec/lib.contracts@1.45.5
+  - @contractspec/lib.contracts-spec@1.45.5
 
 ## 1.45.4
 
@@ -261,7 +318,7 @@
   - @contractspec/lib.presentation-runtime-core@1.45.4
   - @contractspec/lib.design-system@1.45.4
   - @contractspec/lib.ui-kit-web@1.45.4
-  - @contractspec/lib.contracts@1.45.4
+  - @contractspec/lib.contracts-spec@1.45.4
 
 ## 1.45.3
 
@@ -272,7 +329,7 @@
   - @contractspec/lib.presentation-runtime-core@1.45.3
   - @contractspec/lib.design-system@1.45.3
   - @contractspec/lib.ui-kit-web@1.45.3
-  - @contractspec/lib.contracts@1.45.3
+  - @contractspec/lib.contracts-spec@1.45.3
 
 ## 1.45.2
 
@@ -283,7 +340,7 @@
   - @contractspec/lib.presentation-runtime-core@1.45.2
   - @contractspec/lib.design-system@1.45.2
   - @contractspec/lib.ui-kit-web@1.45.2
-  - @contractspec/lib.contracts@1.45.2
+  - @contractspec/lib.contracts-spec@1.45.2
 
 ## 1.45.1
 
@@ -294,7 +351,7 @@
   - @contractspec/lib.presentation-runtime-core@1.45.1
   - @contractspec/lib.design-system@1.45.1
   - @contractspec/lib.ui-kit-web@1.45.1
-  - @contractspec/lib.contracts@1.45.1
+  - @contractspec/lib.contracts-spec@1.45.1
 
 ## 2.0.0
 
@@ -322,7 +379,7 @@
   - @contractspec/lib.presentation-runtime-core@1.45.0
   - @contractspec/lib.design-system@1.45.0
   - @contractspec/lib.ui-kit-web@1.45.0
-  - @contractspec/lib.contracts@1.45.0
+  - @contractspec/lib.contracts-spec@1.45.0
 
 ## 1.44.1
 
@@ -333,7 +390,7 @@
   - @contractspec/lib.presentation-runtime-core@1.44.1
   - @contractspec/lib.design-system@1.44.1
   - @contractspec/lib.ui-kit-web@1.44.1
-  - @contractspec/lib.contracts@1.44.1
+  - @contractspec/lib.contracts-spec@1.44.1
 
 ## 2.0.0
 
@@ -347,7 +404,7 @@
   - @contractspec/lib.presentation-runtime-core@1.44.0
   - @contractspec/lib.design-system@1.44.0
   - @contractspec/lib.ui-kit-web@1.44.0
-  - @contractspec/lib.contracts@1.44.0
+  - @contractspec/lib.contracts-spec@1.44.0
 
 ## 1.43.4
 
@@ -358,7 +415,7 @@
   - @contractspec/lib.presentation-runtime-core@1.43.3
   - @contractspec/lib.design-system@1.43.4
   - @contractspec/lib.ui-kit-web@1.43.3
-  - @contractspec/lib.contracts@1.43.4
+  - @contractspec/lib.contracts-spec@1.43.4
 
 ## 1.43.3
 
@@ -369,7 +426,7 @@
   - @contractspec/lib.presentation-runtime-core@1.43.2
   - @contractspec/lib.design-system@1.43.3
   - @contractspec/lib.ui-kit-web@1.43.2
-  - @contractspec/lib.contracts@1.43.3
+  - @contractspec/lib.contracts-spec@1.43.3
 
 ## 1.43.2
 
@@ -378,7 +435,7 @@
 - e147271: fix: improve stability
 - Updated dependencies [e147271]
   - @contractspec/lib.design-system@1.43.2
-  - @contractspec/lib.contracts@1.43.2
+  - @contractspec/lib.contracts-spec@1.43.2
   - @contractspec/lib.presentation-runtime-core@1.43.1
   - @contractspec/lib.ui-kit-web@1.43.1
 
@@ -388,7 +445,7 @@
 
 - f28fdad: fix
 - Updated dependencies [f28fdad]
-  - @contractspec/lib.contracts@1.43.1
+  - @contractspec/lib.contracts-spec@1.43.1
   - @contractspec/lib.design-system@1.43.1
 
 ## 2.0.0
@@ -403,7 +460,7 @@
   - @contractspec/lib.presentation-runtime-core@1.43.0
   - @contractspec/lib.design-system@1.43.0
   - @contractspec/lib.ui-kit-web@1.43.0
-  - @contractspec/lib.contracts@1.43.0
+  - @contractspec/lib.contracts-spec@1.43.0
 
 ## 1.42.10
 
@@ -414,7 +471,7 @@
   - @contractspec/lib.presentation-runtime-core@1.42.10
   - @contractspec/lib.design-system@1.42.10
   - @contractspec/lib.ui-kit-web@1.42.10
-  - @contractspec/lib.contracts@1.42.10
+  - @contractspec/lib.contracts-spec@1.42.10
 
 ## 1.42.9
 
@@ -425,7 +482,7 @@
   - @contractspec/lib.presentation-runtime-core@1.42.9
   - @contractspec/lib.design-system@1.42.9
   - @contractspec/lib.ui-kit-web@1.42.9
-  - @contractspec/lib.contracts@1.42.9
+  - @contractspec/lib.contracts-spec@1.42.9
 
 ## 1.42.8
 
@@ -436,7 +493,7 @@
   - @contractspec/lib.presentation-runtime-core@1.42.8
   - @contractspec/lib.design-system@1.42.8
   - @contractspec/lib.ui-kit-web@1.42.8
-  - @contractspec/lib.contracts@1.42.8
+  - @contractspec/lib.contracts-spec@1.42.8
 
 ## 1.42.7
 
@@ -447,7 +504,7 @@
   - @contractspec/lib.presentation-runtime-core@1.42.7
   - @contractspec/lib.design-system@1.42.7
   - @contractspec/lib.ui-kit-web@1.42.7
-  - @contractspec/lib.contracts@1.42.7
+  - @contractspec/lib.contracts-spec@1.42.7
 
 ## 1.42.6
 
@@ -458,7 +515,7 @@
   - @contractspec/lib.presentation-runtime-core@1.42.6
   - @contractspec/lib.design-system@1.42.6
   - @contractspec/lib.ui-kit-web@1.42.6
-  - @contractspec/lib.contracts@1.42.6
+  - @contractspec/lib.contracts-spec@1.42.6
 
 ## 1.42.5
 
@@ -469,7 +526,7 @@
   - @contractspec/lib.presentation-runtime-core@1.42.5
   - @contractspec/lib.design-system@1.42.5
   - @contractspec/lib.ui-kit-web@1.42.5
-  - @contractspec/lib.contracts@1.42.5
+  - @contractspec/lib.contracts-spec@1.42.5
 
 ## 1.42.4
 
@@ -480,7 +537,7 @@
   - @contractspec/lib.presentation-runtime-core@1.42.4
   - @contractspec/lib.design-system@1.42.4
   - @contractspec/lib.ui-kit-web@1.42.4
-  - @contractspec/lib.contracts@1.42.4
+  - @contractspec/lib.contracts-spec@1.42.4
 
 ## 1.42.3
 
@@ -488,7 +545,7 @@
 
 - 3f5d015: fix(tooling): cicd
 - Updated dependencies [3f5d015]
-  - @contractspec/lib.contracts@1.42.3
+  - @contractspec/lib.contracts-spec@1.42.3
   - @contractspec/lib.design-system@1.42.3
   - @contractspec/lib.presentation-runtime-core@1.42.3
   - @contractspec/lib.ui-kit-web@1.42.3
@@ -499,7 +556,7 @@
 
 - 1f9ac4c: fix
 - Updated dependencies [1f9ac4c]
-  - @contractspec/lib.contracts@1.42.2
+  - @contractspec/lib.contracts-spec@1.42.2
   - @contractspec/lib.design-system@1.42.2
   - @contractspec/lib.presentation-runtime-core@1.42.2
   - @contractspec/lib.ui-kit-web@1.42.2
@@ -513,7 +570,7 @@
   - @contractspec/lib.presentation-runtime-core@1.42.1
   - @contractspec/lib.design-system@1.42.1
   - @contractspec/lib.ui-kit-web@1.42.1
-  - @contractspec/lib.contracts@1.42.1
+  - @contractspec/lib.contracts-spec@1.42.1
 
 ## 1.42.0
 
@@ -524,7 +581,7 @@
 ### Patch Changes
 
 - Updated dependencies [8eefd9c]
-  - @contractspec/lib.contracts@1.42.0
+  - @contractspec/lib.contracts-spec@1.42.0
   - @contractspec/lib.design-system@1.42.0
   - @contractspec/lib.presentation-runtime-core@1.42.0
   - @contractspec/lib.ui-kit-web@1.42.0

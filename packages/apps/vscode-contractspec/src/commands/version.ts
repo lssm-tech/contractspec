@@ -12,7 +12,7 @@ import {
 import type {
   VersionAnalysis,
   VersionBumpType,
-} from '@contractspec/lib.contracts'; // Import types from libs or use versioning.X
+} from '@contractspec/lib.contracts-spec'; // Import types from libs or use versioning.X
 
 const { analyzeVersions, applyVersionBump, generateChangelogs } = versioning;
 

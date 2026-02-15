@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'bun:test';
 import type { LanguageModel } from 'ai';
-import { StabilityEnum } from '@contractspec/lib.contracts/ownership';
-import type { EvidenceChunk } from '@contractspec/lib.contracts/product-intent/types';
-import type { ProductIntentMeta } from '@contractspec/lib.contracts/product-intent/spec';
+import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
+import type { EvidenceChunk } from '@contractspec/lib.contracts-spec/product-intent/types';
+import type { ProductIntentMeta } from '@contractspec/lib.contracts-spec/product-intent/spec';
 import { createAiProductIntentRunner } from '../ai-runner';
 import { createProductIntentService } from '../service';
 import type { ProductIntentModelRunner } from '@contractspec/module.product-intent-core';

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.testing",
-  "version": "1.57.0",
+  "version": "1.61.0",
   "description": "Contract-aware testing utilities and runners",
   "keywords": [
     "contractspec",
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*"
+    "@contractspec/lib.contracts-spec": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
@@ -47,7 +47,7 @@
       ".": {
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
-        "node": "./dist/node/index.mjs",
+        "node": "./dist/node/index.js",
         "default": "./dist/index.js"
       }
     },

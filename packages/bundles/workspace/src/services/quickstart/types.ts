@@ -13,7 +13,7 @@ export type QuickstartMode = 'minimal' | 'full';
  * A dependency to install during quickstart.
  */
 export interface QuickstartDependency {
-  /** Package name (e.g., '@contractspec/lib.contracts') */
+  /** Package name (e.g., '@contractspec/lib.contracts-spec') */
   name: string;
   /** Specific version or latest if not specified */
   version?: string;
