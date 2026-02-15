@@ -1,5 +1,20 @@
 # @contractspec/app.api-library
 
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+- Updated dependencies [f152678]
+  - @contractspec/lib.contracts-spec@2.0.0
+  - @contractspec/bundle.marketing@2.0.0
+  - @contractspec/bundle.workspace@2.0.0
+  - @contractspec/bundle.library@2.0.0
+
 ## 1.16.0
 
 ### Minor Changes

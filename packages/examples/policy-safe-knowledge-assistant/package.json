@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.policy-safe-knowledge-assistant",
-  "version": "1.62.0",
+  "version": "2.0.0",
   "description": "All-in-one template example: policy-safe knowledge assistant with locale/jurisdiction gating, versioned KB snapshots, HITL update pipeline, and learning hub.",
   "type": "module",
   "types": "./dist/index.d.ts",

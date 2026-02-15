@@ -1,5 +1,16 @@
 # contractspec
 
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+  - @contractspec/app.cli-contractspec@2.0.0
+
 ## 1.62.0
 
 ### Minor Changes

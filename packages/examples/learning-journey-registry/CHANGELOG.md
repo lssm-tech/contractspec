@@ -1,5 +1,29 @@
 # @contractspec/example.learning-journey-registry
 
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+- Updated dependencies [f152678]
+- Updated dependencies [7f3203a]
+  - @contractspec/example.learning-journey-studio-onboarding@2.0.0
+  - @contractspec/example.learning-journey-quest-challenges@2.0.0
+  - @contractspec/example.learning-journey-crm-onboarding@2.0.0
+  - @contractspec/example.learning-journey-ambient-coach@2.0.0
+  - @contractspec/example.learning-journey-platform-tour@2.0.0
+  - @contractspec/example.learning-journey-ui-onboarding@2.0.0
+  - @contractspec/example.learning-journey-ui-coaching@2.0.0
+  - @contractspec/example.learning-journey-ui-gamified@2.0.0
+  - @contractspec/example.learning-journey-duo-drills@2.0.0
+  - @contractspec/example.learning-journey-ui-shared@2.0.0
+  - @contractspec/module.learning-journey@2.0.0
+  - @contractspec/lib.contracts-spec@2.0.0
+
 ## 1.62.0
 
 ### Minor Changes

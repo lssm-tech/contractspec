@@ -1,5 +1,33 @@
 # @contractspec/bundle.library
 
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- f152678: Scaffolded split contracts packages for spec+registry, integrations definitions, and runtime adapters by surface (client-react, server-rest, server-graphql, server-mcp). Migrated first consumers and documentation examples to the new runtime package imports.
+- Updated dependencies [a09bafc]
+- Updated dependencies [94f3c24]
+- Updated dependencies [f152678]
+- Updated dependencies [7f3203a]
+  - @contractspec/lib.contracts-runtime-server-graphql@2.0.0
+  - @contractspec/lib.contracts-runtime-server-rest@2.0.0
+  - @contractspec/lib.contracts-runtime-server-mcp@2.0.0
+  - @contractspec/lib.contracts-integrations@2.0.0
+  - @contractspec/lib.contracts-library@2.0.0
+  - @contractspec/lib.example-shared-ui@2.0.0
+  - @contractspec/lib.runtime-sandbox@1.0.0
+  - @contractspec/lib.contracts-spec@2.0.0
+  - @contractspec/lib.design-system@2.0.0
+  - @contractspec/module.examples@2.0.0
+  - @contractspec/lib.ui-kit-web@2.0.0
+  - @contractspec/lib.ui-link@2.0.0
+  - @contractspec/lib.logger@2.0.0
+  - @contractspec/lib.schema@2.0.0
+
 ## 1.17.0
 
 ### Minor Changes

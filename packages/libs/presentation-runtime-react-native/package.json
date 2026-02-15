@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.presentation-runtime-react-native",
-  "version": "16.0.0",
+  "version": "17.0.0",
   "description": "React Native presentation runtime for mobile apps",
   "keywords": [
     "contractspec",

@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 1.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
 ## 0.17.0
 
 ### Minor Changes

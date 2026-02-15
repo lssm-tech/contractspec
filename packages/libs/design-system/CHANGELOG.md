@@ -1,5 +1,33 @@
 # @contractspec/lib.design-system
 
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- f152678: Scaffolded split contracts packages for spec+registry, integrations definitions, and runtime adapters by surface (client-react, server-rest, server-graphql, server-mcp). Migrated first consumers and documentation examples to the new runtime package imports.
+- 7f3203a: fix: make workspace test runs resilient when packages have no tests
+
+  Updates package test scripts to pass cleanly when no matching test files exist:
+  - Uses `bun test --pass-with-no-tests` in Bun-based packages that currently ship without test files.
+  - Uses `jest --passWithNoTests` for the UI kit web package.
+  - Adds `.vscode-test.mjs` for `vscode-contractspec` so VS Code extension test runs have an explicit config and stop failing on missing default configuration.
+
+  This keeps `turbo run test` deterministic across the monorepo while preserving existing test execution behavior where tests are present.
+
+- Updated dependencies [a09bafc]
+- Updated dependencies [94f3c24]
+- Updated dependencies [f152678]
+- Updated dependencies [7f3203a]
+  - @contractspec/lib.contracts-runtime-client-react@2.0.0
+  - @contractspec/lib.contracts-spec@2.0.0
+  - @contractspec/lib.ui-kit-web@2.0.0
+  - @contractspec/lib.ai-agent@2.0.0
+  - @contractspec/lib.ui-kit@2.0.0
+
 ## 1.62.0
 
 ### Minor Changes

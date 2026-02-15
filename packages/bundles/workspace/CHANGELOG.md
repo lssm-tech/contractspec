@@ -1,5 +1,26 @@
 # @contractspec/bundle.workspace
 
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+- Updated dependencies [94f3c24]
+- Updated dependencies [f152678]
+- Updated dependencies [7f3203a]
+  - @contractspec/lib.contracts-integrations@2.0.0
+  - @contractspec/lib.contracts-transformers@2.0.0
+  - @contractspec/lib.source-extractors@1.0.0
+  - @contractspec/lib.utils-typescript@2.0.0
+  - @contractspec/lib.contracts-spec@2.0.0
+  - @contractspec/lib.ai-providers@2.0.0
+  - @contractspec/module.workspace@2.0.0
+  - @contractspec/lib.ai-agent@2.0.0
+
 ## 1.62.0
 
 ### Minor Changes

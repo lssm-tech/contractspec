@@ -1,5 +1,18 @@
 # @contractspec/app.alpic-mcp
 
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+- Updated dependencies [7f3203a]
+  - @contractspec/bundle.alpic@2.0.0
+  - @contractspec/lib.logger@2.0.0
+
 ## 1.62.0
 
 ### Minor Changes

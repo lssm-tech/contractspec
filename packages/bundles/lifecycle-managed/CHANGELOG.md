@@ -1,5 +1,23 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+- Updated dependencies [94f3c24]
+- Updated dependencies [7f3203a]
+  - @contractspec/module.lifecycle-advisor@2.0.0
+  - @contractspec/module.lifecycle-core@2.0.0
+  - @contractspec/lib.observability@2.0.0
+  - @contractspec/lib.analytics@2.0.0
+  - @contractspec/lib.lifecycle@2.0.0
+  - @contractspec/lib.ai-agent@2.0.0
+
 ## 1.62.0
 
 ### Minor Changes
