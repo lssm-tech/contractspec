@@ -1,7 +1,7 @@
 /**
  * Integration Hub Feature Module Specification
  */
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 export const IntegrationHubFeature = defineFeature({
   meta: {

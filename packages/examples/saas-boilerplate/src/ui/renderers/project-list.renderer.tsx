@@ -2,7 +2,7 @@
  * React renderer for SaaS Project List presentation
  */
 import * as React from 'react';
-import type { PresentationRenderer } from '@contractspec/lib.contracts';
+import type { PresentationRenderer } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
 import { SaasProjectList } from '../SaasProjectList';
 
 export const projectListReactRenderer: PresentationRenderer<React.ReactElement> =

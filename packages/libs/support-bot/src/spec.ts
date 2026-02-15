@@ -1,5 +1,8 @@
-import type { AgentSpec, AgentToolConfig } from '@contractspec/lib.ai-agent';
-import { defineAgent } from '@contractspec/lib.ai-agent';
+import type {
+  AgentSpec,
+  AgentToolConfig,
+} from '@contractspec/lib.ai-agent/spec';
+import { defineAgent } from '@contractspec/lib.ai-agent/spec';
 import type { SupportBotSpec } from './types';
 
 export interface SupportBotDefinition {

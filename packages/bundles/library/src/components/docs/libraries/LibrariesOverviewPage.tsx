@@ -28,7 +28,7 @@ export function LibrariesOverviewPage() {
             className="card-subtle group p-6 transition-colors hover:border-violet-500/50"
           >
             <h3 className="text-lg font-bold transition-colors group-hover:text-violet-400">
-              @contractspec/lib.contracts
+              @contractspec/lib.contracts-spec
             </h3>
             <p className="text-muted-foreground mt-2 text-sm">
               Define operations, events, and policies in pure TypeScript.

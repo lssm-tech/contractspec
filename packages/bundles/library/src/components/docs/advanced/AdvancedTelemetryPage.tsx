@@ -69,7 +69,7 @@ export function AdvancedTelemetryPage() {
           Here's how telemetry is configured in TypeScript:
         </p>
         <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`import { defineTelemetry } from '@contractspec/lib.contracts';
+          <pre>{`import { defineTelemetry } from '@contractspec/lib.contracts-spec/telemetry';
 
 export const OrderProcessingTelemetry = defineTelemetry({
   meta: {

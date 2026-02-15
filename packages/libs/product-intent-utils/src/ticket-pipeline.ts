@@ -11,7 +11,7 @@ import {
   type ProblemStatement,
   type Ticket,
   type TicketCollection,
-} from '@contractspec/lib.contracts/product-intent/types';
+} from '@contractspec/lib.contracts-spec/product-intent/types';
 import { formatEvidenceForModel } from './prompts';
 import {
   promptExtractEvidenceFindings,

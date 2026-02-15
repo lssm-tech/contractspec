@@ -167,7 +167,7 @@ bun exec contractspec --help
 **Import errors?**
 ```bash
 # Install dependencies
-bun add @contractspec/lib.contracts @contractspec/lib.schema
+bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 ```
 
 Happy contract authoring! 🎉

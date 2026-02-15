@@ -25,7 +25,7 @@ export function generateSkeletonCapability(ctx: SpecGenerationContext): string {
  * Referenced by feature: ${ctx.featureKey || 'unknown'}
  */
 
-import { defineCapability } from '@contractspec/lib.contracts';
+import { defineCapability } from '@contractspec/lib.contracts-spec';
 
 export const ${specVarName} = defineCapability({
   meta: {

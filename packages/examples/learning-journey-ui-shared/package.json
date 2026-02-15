@@ -32,12 +32,12 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/module.learning-journey": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.ui-kit-web": "workspace:*",

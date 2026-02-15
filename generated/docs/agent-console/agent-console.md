@@ -69,8 +69,8 @@ AI agent orchestration with tools, runs, and logs management
  *
  * Defines the feature module for agent orchestration capabilities.
  */
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
-import { defineFeature } from '@contractspec/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts-spec';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 /**
  * Agent Console feature module that bundles all agent, tool, and run

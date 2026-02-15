@@ -48,7 +48,7 @@ export function GenerateClientFromSchemaPage() {
           <CodeBlock
             language="typescript"
             filename="src/contracts/api.contract.ts"
-            code={`import { defineContract } from '@contractspec/lib.contracts';
+            code={`import { defineContract } from '@contractspec/lib.contracts-spec';
 import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 export const ApiContract = defineContract({

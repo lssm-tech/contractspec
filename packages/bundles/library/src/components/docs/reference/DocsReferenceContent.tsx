@@ -2,7 +2,7 @@
 
 import { DataViewRenderer } from '@contractspec/lib.design-system';
 import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
-import { ContractReferenceDataView } from '@contractspec/lib.contracts/docs';
+import { ContractReferenceDataView } from '@contractspec/lib.contracts-spec/docs';
 import type { DocsIndexEntry } from '../generated/docs-index.generated';
 import { DocsMarkdownContent } from './DocsMarkdownContent';
 

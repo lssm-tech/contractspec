@@ -3,7 +3,7 @@
  *
  * Defines the feature module for the SaaS application foundation.
  */
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 /**
  * SaaS Boilerplate feature module that bundles project management,

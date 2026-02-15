@@ -14,7 +14,7 @@ import ora from 'ora';
 import type {
   AgentMode,
   ResolvedContractsrcConfig,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 
 export class AgentOrchestrator {
   private readonly agents: Map<AgentMode, AgentProvider>;

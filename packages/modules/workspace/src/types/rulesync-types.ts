@@ -2,7 +2,7 @@
  * Rule synchronization type definitions.
  */
 
-import type { RuleSyncTarget } from '@contractspec/lib.contracts';
+import type { RuleSyncTarget } from '@contractspec/lib.contracts-spec';
 
 /**
  * Configuration for AI agent rules synchronization.

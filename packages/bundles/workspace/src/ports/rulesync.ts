@@ -5,7 +5,7 @@
 import type {
   RuleSyncConfig,
   RuleSyncTarget,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 
 export interface RuleSyncOptions {
   /** Root directory of the workspace */

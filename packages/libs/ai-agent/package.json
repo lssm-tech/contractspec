@@ -42,7 +42,7 @@
     "@modelcontextprotocol/sdk": "^1.26.0",
     "@posthog/react": "^1.7.1",
     "@posthog/ai": "latest",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.ai-providers": "workspace:*",
     "@contractspec/lib.knowledge": "workspace:*",
     "compare-versions": "^6.1.1",

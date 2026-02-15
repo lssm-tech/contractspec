@@ -1,4 +1,4 @@
-import { createAgentJsonRunner } from '@contractspec/lib.ai-agent';
+import { createAgentJsonRunner } from '@contractspec/lib.ai-agent/agent/json-runner';
 import {
   buildProjectManagementSyncPayload,
   extractEvidence,
@@ -14,7 +14,7 @@ import { resolvePosthogEvidenceOptionsFromEnv } from './posthog-signals';
 import { LinearProjectManagementProvider } from '@contractspec/integration.providers-impls/impls/linear';
 import { JiraProjectManagementProvider } from '@contractspec/integration.providers-impls/impls/jira';
 import { NotionProjectManagementProvider } from '@contractspec/integration.providers-impls/impls/notion';
-import type { ProjectManagementProvider } from '@contractspec/lib.contracts/integrations/providers/project-management';
+import type { ProjectManagementProvider } from '@contractspec/lib.contracts-integrations';
 
 const QUESTION =
   'Which activation and onboarding friction should we prioritize next?';

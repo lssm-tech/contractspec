@@ -28,7 +28,7 @@ export function generateOperationSpec(data: OperationSpecData): string {
   const inputSchemaName = specVarName.replace('Spec', 'Input');
   const outputSchemaName = specVarName.replace('Spec', 'Output');
 
-  return `import { define${capitalize(kind)} } from '@contractspec/lib.contracts';
+  return `import { define${capitalize(kind)} } from '@contractspec/lib.contracts-spec';
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 
 // TODO: Define input schema

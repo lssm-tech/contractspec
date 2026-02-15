@@ -17,7 +17,9 @@ describe('generateWorkflowRunnerTemplate', () => {
     expect(code).toContain('InMemoryStateStore,');
     expect(code).toContain('WorkflowRegistry,');
     expect(code).toContain('WorkflowRunner,');
-    expect(code).toContain("} from '@contractspec/lib.contracts/workflow'");
+    expect(code).toContain(
+      "} from '@contractspec/lib.contracts-spec/workflow'"
+    );
     expect(code).toContain('registry.register(MyWorkflow)');
     expect(code).toContain(
       'export const myWorkflowRunner = new WorkflowRunner({'

@@ -21,7 +21,7 @@
   "dependencies": {
     "@contractspec/lib.identity-rbac": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/module.audit-trail": "workspace:*",
     "@contractspec/module.notifications": "workspace:*"
   },

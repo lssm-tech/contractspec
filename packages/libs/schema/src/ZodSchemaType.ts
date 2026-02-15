@@ -51,6 +51,7 @@ export class ZodSchemaType<T extends z.ZodType> implements SchemaModelType<
 > {
   private readonly schema: T;
   private readonly options: ZodSchemaTypeOptions;
+  private cachedJsonSchema?: unknown;
 
   constructor(schema: T, options: ZodSchemaTypeOptions = {}) {
     this.schema = schema;
@@ -68,7 +69,12 @@ export class ZodSchemaType<T extends z.ZodType> implements SchemaModelType<
    * Return JSON Schema representation using Zod's toJSONSchema.
    */
   getJsonSchema(): unknown {
-    return z.toJSONSchema(this.schema);
+    if (this.cachedJsonSchema !== undefined) {
+      return this.cachedJsonSchema;
+    }
+
+    this.cachedJsonSchema = z.toJSONSchema(this.schema);
+    return this.cachedJsonSchema;
   }
 
   /**

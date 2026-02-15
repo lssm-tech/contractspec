@@ -3,7 +3,7 @@
  *
  * Imports handlers from the hooks module to ensure correct build order.
  */
-import type { PresentationRenderer } from '@contractspec/lib.contracts';
+import type { PresentationRenderer } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
 import {
   mockListDealsHandler,
   mockGetPipelineStagesHandler,

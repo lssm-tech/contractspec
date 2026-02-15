@@ -9,18 +9,18 @@ import type {
   AnyOperationSpec,
   OperationSpecRegistry,
   PresentationRegistry,
-} from '@contractspec/lib.contracts';
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts/features';
+} from '@contractspec/lib.contracts-spec';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts-spec/features';
 import type {
   AgentType,
   ImplementationPlan,
-} from '@contractspec/lib.contracts/llm';
+} from '@contractspec/lib.contracts-spec/llm';
 import {
   featureToMarkdown,
   generateImplementationPlan,
   operationSpecToAgentPrompt,
   operationSpecToFullMarkdown,
-} from '@contractspec/lib.contracts/llm';
+} from '@contractspec/lib.contracts-spec/llm';
 import { getAgentAdapter, listAgentTypes } from './adapters';
 import type { AgentGuideConfig, GuideOptions, GuideResult } from './types';
 

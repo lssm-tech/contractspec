@@ -634,10 +634,10 @@ contractspec build spec.ts --provider openai --model gpt-3.5-turbo
 
 ### Import errors in generated code
 
-Make sure `@contractspec/lib.contracts` and `@contractspec/lib.schema` are installed:
+Make sure `@contractspec/lib.contracts-spec` and `@contractspec/lib.schema` are installed:
 
 ```bash
-bunadd @contractspec/lib.contracts @contractspec/lib.schema
+bunadd @contractspec/lib.contracts-spec @contractspec/lib.schema
 ```
 
 ## Contributing

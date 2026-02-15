@@ -20,7 +20,7 @@ describe('generateMigrationSpec', () => {
   it('generates a migration spec', () => {
     const code = generateMigrationSpec(baseData);
     expect(code).toContain(
-      "import type { MigrationSpec } from '@contractspec/lib.contracts/migrations'"
+      "import type { MigrationSpec } from '@contractspec/lib.contracts-spec/migrations'"
     );
     expect(code).toContain(
       'export const MigrationMigration: MigrationSpec = {'

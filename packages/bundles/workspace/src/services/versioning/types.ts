@@ -10,8 +10,8 @@ import type {
   ChangeEntry,
   VersionBumpType,
   VersioningConfig,
-} from '@contractspec/lib.contracts';
-import type { ChangelogTier } from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
+import type { ChangelogTier } from '@contractspec/lib.contracts-spec';
 
 // Re-export imported types for convenience
 export type {

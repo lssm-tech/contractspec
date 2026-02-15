@@ -25,7 +25,7 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
@@ -33,7 +33,7 @@
     "@contractspec/lib.personalization": "workspace:*",
     "@contractspec/lib.overlay-engine": "workspace:*",
     "@contractspec/lib.workflow-composer": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.logger": "workspace:*"
   },
   "devDependencies": {

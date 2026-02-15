@@ -8,7 +8,7 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import { resolve } from 'path';
 import { existsSync, readFileSync } from 'fs';
-import type { VerificationTier } from '@contractspec/lib.contracts/llm';
+import type { VerificationTier } from '@contractspec/lib.contracts-spec/llm';
 import { loadSpecFromSource } from '@contractspec/module.workspace';
 import {
   verifyImplementationAgainstParsedSpec,

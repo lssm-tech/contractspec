@@ -47,7 +47,7 @@ export function ContractFirstApiPage() {
           <CodeBlock
             language="typescript"
             filename="src/contracts/user-create.operation.ts"
-            code={`import { defineOperation } from '@contractspec/lib.contracts/operations';
+            code={`import { defineOperation } from '@contractspec/lib.contracts-spec/operations';
 import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 export const CreateUserOperation = defineOperation({

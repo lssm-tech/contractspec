@@ -5,12 +5,12 @@ import {
   StabilityEnum,
   type Tag,
   TagsEnum,
-} from '@contractspec/lib.contracts/ownership';
+} from '@contractspec/lib.contracts-spec/ownership';
 import type {
   PresentationSourceComponentReact,
   PresentationSpec,
   PresentationTarget,
-} from '@contractspec/lib.contracts/presentations';
+} from '@contractspec/lib.contracts-spec/presentations';
 
 /**
  * Options for creating a React component presentation.

@@ -1,7 +1,7 @@
 import type {
   EmbeddingProvider,
   VectorStoreProvider,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 import type { RetrievalResult, RetrievalOptions } from '../types';
 import type { KnowledgeRetriever, RetrieverConfig } from './interface';
 

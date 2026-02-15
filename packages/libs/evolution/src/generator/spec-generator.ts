@@ -2,7 +2,7 @@ import type {
   AnyOperationSpec,
   OperationSpec,
   ResourceRefDescriptor,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 import { Logger } from '@contractspec/lib.observability';
 import { randomUUID } from 'node:crypto';

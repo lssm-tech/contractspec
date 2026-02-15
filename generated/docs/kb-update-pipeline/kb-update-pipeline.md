@@ -37,7 +37,7 @@ Automation proposes KB patches; humans verify; publishing is blocked until appro
 ## Source Definition
 
 ```typescript
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 export const KbUpdatePipelineFeature = defineFeature({
   meta: {

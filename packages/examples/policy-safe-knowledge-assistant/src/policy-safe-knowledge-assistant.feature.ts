@@ -1,4 +1,4 @@
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 export const PolicySafeKnowledgeAssistantFeature = defineFeature({
   meta: {

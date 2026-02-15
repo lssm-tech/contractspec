@@ -6,7 +6,7 @@
  * @module i18n/catalogs/en
  */
 
-import { defineTranslation } from '@contractspec/lib.contracts/translations';
+import { defineTranslation } from '@contractspec/lib.contracts-spec/translations';
 
 export const enMessages = defineTranslation({
   meta: {

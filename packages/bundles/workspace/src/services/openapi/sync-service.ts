@@ -13,7 +13,7 @@ import type {
   OpenApiSyncServiceResult,
 } from './types';
 import { dirname, join } from 'path';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 
 /**
  * Sync ContractSpec specs with OpenAPI sources.

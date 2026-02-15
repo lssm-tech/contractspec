@@ -10,7 +10,7 @@ describe('Handler Templates', () => {
     it('generates a handler template', () => {
       const code = generateHandlerTemplate('test.op', 'command');
       expect(code).toContain(
-        "import type { ContractHandler } from '@contractspec/lib.contracts'"
+        "import type { ContractHandler } from '@contractspec/lib.contracts-spec'"
       );
       expect(code).toContain(
         'export const opHandler: ContractHandler<typeof OpSpec>'

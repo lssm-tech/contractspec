@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test';
 import { createKeywordEvidenceFetcher } from '../evidence/keyword-retriever';
-import type { EvidenceChunk } from '@contractspec/lib.contracts/product-intent/types';
+import type { EvidenceChunk } from '@contractspec/lib.contracts-spec/product-intent/types';
 
 describe('createKeywordEvidenceFetcher', () => {
   it('returns the highest scoring chunks first', async () => {

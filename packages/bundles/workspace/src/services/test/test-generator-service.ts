@@ -1,13 +1,10 @@
-import type {
-  LanguageModel,
-  LanguageModelUsage,
-} from '@contractspec/lib.ai-agent';
+import type { LanguageModel, LanguageModelUsage } from 'ai';
 import { generateText } from 'ai';
 import {
   type TestSpec,
   type TestTarget,
-} from '@contractspec/lib.contracts/tests';
-import type { OperationSpec } from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec/tests';
+import type { OperationSpec } from '@contractspec/lib.contracts-spec';
 import type { LoggerAdapter } from '../../ports/logger';
 
 export interface TestGeneratorOptions {

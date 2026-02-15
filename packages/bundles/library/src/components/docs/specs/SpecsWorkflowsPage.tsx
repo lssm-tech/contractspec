@@ -96,7 +96,7 @@ export function SpecsWorkflowsPage() {
           Here's a simplified example of a payment workflow in TypeScript:
         </p>
         <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`import { defineWorkflow } from '@contractspec/lib.contracts';
+          <pre>{`import { defineWorkflow } from '@contractspec/lib.contracts-spec/workflow';
 import { ValidatePaymentMethod, ChargePayment, SendEmail } from './specs';
 
 export const PaymentFlow = defineWorkflow({

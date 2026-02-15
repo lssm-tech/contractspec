@@ -2,7 +2,7 @@ import type {
   AnalyticsReader,
   AnalyticsQueryResult,
   DateRangeInput,
-} from '@contractspec/lib.contracts/integrations/providers/analytics';
+} from '@contractspec/lib.contracts-integrations';
 import type {
   AggregatedOperationMetrics,
   OperationSequence,

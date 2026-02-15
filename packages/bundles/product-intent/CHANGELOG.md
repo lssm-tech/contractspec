@@ -23,7 +23,7 @@
 
 - Updated dependencies [374fd71]
   - @contractspec/module.product-intent-core@1.61.0
-  - @contractspec/lib.contracts@1.61.0
+  - @contractspec/lib.contracts-spec@1.61.0
 
 ## 1.60.0
 
@@ -35,7 +35,7 @@
 
 - Updated dependencies
   - @contractspec/module.product-intent-core@1.60.0
-  - @contractspec/lib.contracts@1.60.0
+  - @contractspec/lib.contracts-spec@1.60.0
 
 ## 1.59.0
 
@@ -47,7 +47,7 @@
 
 - Updated dependencies [1a0cf44]
   - @contractspec/module.product-intent-core@1.59.0
-  - @contractspec/lib.contracts@1.59.0
+  - @contractspec/lib.contracts-spec@1.59.0
 
 ## 1.58.0
 
@@ -60,7 +60,7 @@
 - Updated dependencies [d1f0fd0]
 - Updated dependencies [4355a9e]
   - @contractspec/module.product-intent-core@1.58.0
-  - @contractspec/lib.contracts@1.58.0
+  - @contractspec/lib.contracts-spec@1.58.0
 
 ## 1.57.0
 
@@ -77,5 +77,5 @@
 - Updated dependencies [4651e06]
 - Updated dependencies [ad9d10a]
 - Updated dependencies [11a5a05]
-  - @contractspec/lib.contracts@1.57.0
+  - @contractspec/lib.contracts-spec@1.57.0
   - @contractspec/module.product-intent-core@1.57.0

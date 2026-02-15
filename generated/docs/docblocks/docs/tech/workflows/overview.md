@@ -2,7 +2,7 @@
 
 ## Purpose
 
-WorkflowSpec provides a declarative, versioned format for long-running flows that mix automation and human review. Specs stay inside `@contractspec/lib.contracts` (`src/workflow/spec.ts`) so the same definition powers runtime execution, documentation, and future generation.
+WorkflowSpec provides a declarative, versioned format for long-running flows that mix automation and human review. Specs stay inside `@contractspec/lib.contracts-spec` (`src/workflow/spec.ts`) so the same definition powers runtime execution, documentation, and future generation.
 
 ## Core Types
 

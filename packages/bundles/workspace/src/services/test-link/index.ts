@@ -10,7 +10,7 @@ import type { SpecScanResult } from '@contractspec/module.workspace';
 
 /**
  * Test target extracted from a TestSpec.
- * Matches the TestTarget type from @contractspec/lib.contracts.
+ * Matches the TestTarget type from @contractspec/lib.contracts-spec.
  */
 export interface ExtractedTestTarget {
   type: 'operation' | 'workflow';

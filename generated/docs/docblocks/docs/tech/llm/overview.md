@@ -70,7 +70,7 @@ llm.verify { specPath: "path/to/my.spec.ts", implementationPath: "path/to/impl.t
 ### Programmatic Usage
 
 ```typescript
-import { operationSpecToFullMarkdown, operationSpecToAgentPrompt } from '@contractspec/lib.contracts/llm';
+import { operationSpecToFullMarkdown, operationSpecToAgentPrompt } from '@contractspec/lib.contracts-spec/llm';
 import { createAgentGuideService, createVerifyService } from '@contractspec/bundle.workspace';
 
 // Export

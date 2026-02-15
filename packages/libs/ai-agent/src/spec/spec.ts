@@ -1,6 +1,6 @@
-import type { OwnerShipMeta } from '@contractspec/lib.contracts/ownership';
-import type { KnowledgeCategory } from '@contractspec/lib.contracts/knowledge/spec';
-import type { PolicyRef } from '@contractspec/lib.contracts/policy/spec';
+import type { OwnerShipMeta } from '@contractspec/lib.contracts-spec/ownership';
+import type { KnowledgeCategory } from '@contractspec/lib.contracts-spec/knowledge/spec';
+import type { PolicyRef } from '@contractspec/lib.contracts-spec/policy/spec';
 import { getDefaultI18n } from '../i18n';
 
 /**

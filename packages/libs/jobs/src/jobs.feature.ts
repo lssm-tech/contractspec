@@ -3,7 +3,7 @@
  *
  * Defines the feature module for background job processing and scheduling.
  */
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 /**
  * Jobs feature module that bundles background job processing,

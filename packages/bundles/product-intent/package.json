@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "ai": "catalog:ai",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/module.product-intent-core": "workspace:*"
   },
   "devDependencies": {

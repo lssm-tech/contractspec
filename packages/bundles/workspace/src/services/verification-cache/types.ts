@@ -5,7 +5,7 @@
 import type {
   VerificationReport,
   VerificationTier,
-} from '@contractspec/lib.contracts/llm';
+} from '@contractspec/lib.contracts-spec/llm';
 
 /**
  * Cache key for verification results.

@@ -363,8 +363,9 @@
   },
   "dependencies": {
     "@apollo/client": "^4.1.4",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.contracts-library": "workspace:*",
+    "@contractspec/lib.contracts-runtime-server-mcp": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.example-shared-ui": "workspace:*",
     "@contractspec/lib.logger": "workspace:*",
@@ -382,12 +383,15 @@
     "drizzle-orm": "^0.45.1",
     "elysia-mcp": "^0.1.0",
     "framer-motion": "^12.34.0",
-    "lucide-react": "^0.563.0",
-    "posthog-js": "^1.345.5",
+    "lucide-react": "^0.564.0",
+    "posthog-js": "^1.347.2",
     "posthog-node": "^5.24.15",
-    "posthog-react-native": "^4.32.0",
+    "posthog-react-native": "^4.34.0",
     "react-hook-form": "^7.70.0",
-    "zod": "catalog:"
+    "zod": "catalog:",
+    "@contractspec/lib.contracts-integrations": "workspace:*",
+    "@contractspec/lib.contracts-runtime-server-rest": "workspace:*",
+    "@contractspec/lib.contracts-runtime-server-graphql": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "~19.2.14",

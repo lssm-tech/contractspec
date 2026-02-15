@@ -235,7 +235,7 @@ const result = await queryEngine.execute(
 ## Dependencies
 
 - `@contractspec/lib.schema` - Entity definitions
-- `@contractspec/lib.contracts` - Contract definitions
+- `@contractspec/lib.contracts-spec` - Contract definitions
 - `@contractspec/lib.identity-rbac` - Access control
 - `@contractspec/lib.metering` - Usage metrics integration
 - `@contractspec/module.audit-trail` - Change tracking

@@ -3,7 +3,7 @@ import ora from 'ora';
 import type { AgentOrchestrator } from '../../ai/agents/index';
 import type { AgentResult } from '../../ai/agents/types';
 import type { GenerationTarget, TestTarget } from './types';
-import type { ContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ContractsrcConfig } from '@contractspec/lib.contracts-spec';
 
 export async function generateWithAgent(
   orchestrator: AgentOrchestrator | null,

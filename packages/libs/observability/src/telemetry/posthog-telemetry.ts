@@ -1,4 +1,4 @@
-import type { AnalyticsProvider } from '@contractspec/lib.contracts/integrations/providers/analytics';
+import type { AnalyticsProvider } from '@contractspec/lib.contracts-integrations';
 import type {
   IntentAggregatorSnapshot,
   TelemetrySample,

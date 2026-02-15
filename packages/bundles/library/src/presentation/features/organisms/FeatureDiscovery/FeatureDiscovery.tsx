@@ -16,7 +16,7 @@ import { FeatureCard } from '../../molecules/FeatureCard';
 import { FeatureFiltersBar } from '../../molecules/FeatureFilters';
 import { FeatureCategoryHeader } from '../../molecules/FeatureCategoryHeader';
 import type { FeatureDiscoveryProps, FeatureViewMode } from './types';
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts/features';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts-spec/features';
 
 // Group features by domain
 function groupFeaturesByDomain(features: FeatureModuleSpec[]) {

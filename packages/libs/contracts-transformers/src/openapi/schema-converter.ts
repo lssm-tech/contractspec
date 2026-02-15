@@ -7,7 +7,7 @@ import { createSchemaGenerator } from './schema-generators';
 import type {
   SchemaFormat,
   ResolvedContractsrcConfig,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 import type { OpenApiSchema } from './types';
 import { toPascalCase } from '../common/utils';
 

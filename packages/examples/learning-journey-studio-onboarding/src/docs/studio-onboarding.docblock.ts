@@ -1,5 +1,5 @@
-import type { DocBlock } from '@contractspec/lib.contracts';
-import { registerDocBlocks } from '@contractspec/lib.contracts';
+import type { DocBlock } from '@contractspec/lib.contracts-spec';
+import { registerDocBlocks } from '@contractspec/lib.contracts-spec';
 
 const studioOnboardingDocBlocks: DocBlock[] = [
   {

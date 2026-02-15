@@ -6,7 +6,7 @@ This guide shows how to use the prebuilt provider implementations in `packages/i
 
 - SDK-backed adapters for ContractSpec integration interfaces.
 - A single `IntegrationProviderFactory` that maps `IntegrationSpec.meta.key` to concrete providers.
-- Strongly typed provider interfaces re-exported from `@contractspec/lib.contracts`.
+- Strongly typed provider interfaces re-exported from `@contractspec/lib.contracts-spec`.
 
 ## Supported provider keys
 
@@ -245,7 +245,7 @@ Each integration below lists:
 
 ## Recommended flow (factory-first)
 
-1. Resolve `IntegrationSpec` from `@contractspec/lib.contracts`.
+1. Resolve `IntegrationSpec` from `@contractspec/lib.contracts-spec`.
 2. Load tenant `IntegrationConnection` from your app config.
 3. Resolve secrets with a `SecretProvider` (usually `SecretProviderManager`).
 4. Build `IntegrationContext`.
@@ -255,7 +255,7 @@ Each integration below lists:
 
 ```ts
 import { IntegrationProviderFactory } from "@contractspec/integration.providers-impls/impls/provider-factory";
-import { createDefaultIntegrationSpecRegistry } from "@contractspec/lib.contracts/integrations/providers/registry";
+import { createDefaultIntegrationSpecRegistry } from "@contractspec/lib.contracts-integrations";
 import { SecretProviderManager } from "@contractspec/integration.runtime/secrets/manager";
 import { EnvSecretProvider } from "@contractspec/integration.runtime/secrets/env-secret-provider";
 import type { IntegrationContext } from "@contractspec/integration.runtime/runtime";

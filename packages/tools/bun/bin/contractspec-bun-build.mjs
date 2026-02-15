@@ -15,6 +15,7 @@ async function main() {
   const cwd = process.cwd();
   const packageJsonPath = path.join(cwd, 'package.json');
   const command = process.argv[2] ?? 'build';
+  const allTargets = process.argv.includes('--all-targets');
 
   const { config } = await loadUserConfig(cwd);
   const normalizedConfig = await normalizeBuildConfig(cwd, config);
@@ -66,6 +67,7 @@ async function main() {
       external: normalizedConfig.external,
       targets: normalizedConfig.targets,
       targetRoots,
+      allTargets,
     });
     return;
   }

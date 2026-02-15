@@ -1,4 +1,4 @@
-import type { AnalyticsReader } from '@contractspec/lib.contracts/integrations/providers/analytics';
+import type { AnalyticsReader } from '@contractspec/lib.contracts-integrations';
 import type {
   QueryDefinition,
   QueryParameters,

@@ -3,7 +3,7 @@ import type {
   ImpactReport,
   PatchChange,
   PatchChangeType,
-} from '@contractspec/lib.contracts/product-intent/types';
+} from '@contractspec/lib.contracts-spec/product-intent/types';
 
 export interface RepoScanFile {
   path: string;

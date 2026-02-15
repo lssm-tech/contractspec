@@ -80,7 +80,7 @@ function buildCommand(
  *
  * @example
  * ```tsx
- * <InstallCommand package="@contractspec/lib.contracts" />
+ * <InstallCommand package="@contractspec/lib.contracts-spec" />
  * <InstallCommand package={["react", "react-dom"]} />
  * <InstallCommand package="typescript" dev />
  * <InstallCommand package="create-next-app" type="exec" />

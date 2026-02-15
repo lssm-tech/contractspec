@@ -13,7 +13,7 @@ import {
   buildTestPrompt,
   getCodeGenSystemPrompt,
 } from '../prompts/code-generation';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 
 export class SimpleAgent implements AgentProvider {
   name = 'simple' as const;

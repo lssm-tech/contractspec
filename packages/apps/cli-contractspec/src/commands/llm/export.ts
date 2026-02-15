@@ -8,7 +8,7 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import { resolve } from 'path';
 import { existsSync, writeFileSync } from 'fs';
-import { type LLMExportFormat } from '@contractspec/lib.contracts/llm';
+import { type LLMExportFormat } from '@contractspec/lib.contracts-spec/llm';
 import {
   loadSpecFromSource,
   specToMarkdown,

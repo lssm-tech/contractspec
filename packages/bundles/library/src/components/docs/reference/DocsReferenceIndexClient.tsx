@@ -11,7 +11,7 @@ import { H1, Muted } from '@contractspec/lib.ui-kit-web/ui/typography';
 import {
   DocsIndexDataView,
   DocsSearchForm,
-} from '@contractspec/lib.contracts/docs';
+} from '@contractspec/lib.contracts-spec/docs';
 import type { DocsIndexEntry } from '../generated/docs-index.generated';
 
 interface Filters {

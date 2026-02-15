@@ -1,4 +1,4 @@
-import type { EventKey, EventSpec } from '@contractspec/lib.contracts';
+import type { EventKey, EventSpec } from '@contractspec/lib.contracts-spec';
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type { EventBus } from './eventBus';
 import { decodeEvent } from './eventBus';

@@ -27,7 +27,7 @@
   - @contractspec/bundle.marketing@1.16.0
   - @contractspec/bundle.workspace@1.61.0
   - @contractspec/bundle.library@1.16.0
-  - @contractspec/lib.contracts@1.61.0
+  - @contractspec/lib.contracts-spec@1.61.0
 
 ## 1.14.0
 
@@ -41,7 +41,7 @@
   - @contractspec/bundle.marketing@1.15.0
   - @contractspec/bundle.workspace@1.60.0
   - @contractspec/bundle.library@1.15.0
-  - @contractspec/lib.contracts@1.60.0
+  - @contractspec/lib.contracts-spec@1.60.0
 
 ## 1.13.0
 
@@ -55,7 +55,7 @@
   - @contractspec/bundle.marketing@1.14.0
   - @contractspec/bundle.workspace@1.59.0
   - @contractspec/bundle.library@1.14.0
-  - @contractspec/lib.contracts@1.59.0
+  - @contractspec/lib.contracts-spec@1.59.0
 
 ## 1.12.0
 
@@ -70,7 +70,7 @@
   - @contractspec/bundle.marketing@1.13.0
   - @contractspec/bundle.workspace@1.58.0
   - @contractspec/bundle.library@1.13.0
-  - @contractspec/lib.contracts@1.58.0
+  - @contractspec/lib.contracts-spec@1.58.0
 
 ## 1.11.0
 
@@ -86,7 +86,7 @@
 - Updated dependencies [4651e06]
 - Updated dependencies [ad9d10a]
 - Updated dependencies [11a5a05]
-  - @contractspec/lib.contracts@1.57.0
+  - @contractspec/lib.contracts-spec@1.57.0
   - @contractspec/bundle.workspace@1.57.0
   - @contractspec/bundle.library@1.12.0
   - @contractspec/bundle.marketing@1.12.0
@@ -100,7 +100,7 @@
   - @contractspec/bundle.marketing@1.11.1
   - @contractspec/bundle.workspace@1.56.1
   - @contractspec/bundle.library@1.11.1
-  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.contracts-spec@1.56.1
 
 ## 1.10.0
 
@@ -114,7 +114,7 @@
   - @contractspec/bundle.marketing@1.11.0
   - @contractspec/bundle.workspace@1.56.0
   - @contractspec/bundle.library@1.11.0
-  - @contractspec/lib.contracts@1.56.0
+  - @contractspec/lib.contracts-spec@1.56.0
 
 ## 1.9.0
 
@@ -128,7 +128,7 @@
   - @contractspec/bundle.marketing@1.10.0
   - @contractspec/bundle.workspace@1.55.0
   - @contractspec/bundle.library@1.10.0
-  - @contractspec/lib.contracts@1.55.0
+  - @contractspec/lib.contracts-spec@1.55.0
 
 ## 1.8.0
 
@@ -141,7 +141,7 @@
 - Updated dependencies [ec5e95c]
   - @contractspec/bundle.marketing@1.9.0
   - @contractspec/bundle.library@1.9.0
-  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/lib.contracts-spec@1.54.0
   - @contractspec/bundle.workspace@1.54.0
 
 ## 1.7.0
@@ -159,7 +159,7 @@
 - Updated dependencies [f4180d4]
 - Updated dependencies [64d84e1]
   - @contractspec/bundle.library@1.8.0
-  - @contractspec/lib.contracts@1.53.0
+  - @contractspec/lib.contracts-spec@1.53.0
   - @contractspec/bundle.workspace@1.53.0
   - @contractspec/bundle.marketing@1.8.0
 
@@ -175,7 +175,7 @@
   - @contractspec/bundle.marketing@1.7.0
   - @contractspec/bundle.workspace@1.52.0
   - @contractspec/bundle.library@1.7.0
-  - @contractspec/lib.contracts@1.52.0
+  - @contractspec/lib.contracts-spec@1.52.0
 
 ## 1.5.0
 
@@ -188,7 +188,7 @@
 - Updated dependencies [23e46e9]
 - Updated dependencies [ad1f852]
 - Updated dependencies [e6faefb]
-  - @contractspec/lib.contracts@1.51.0
+  - @contractspec/lib.contracts-spec@1.51.0
   - @contractspec/bundle.marketing@1.6.0
   - @contractspec/bundle.workspace@1.51.0
   - @contractspec/bundle.library@1.6.0
@@ -204,7 +204,7 @@
 - Updated dependencies [5325d6b]
 - Updated dependencies [81a703b]
   - @contractspec/bundle.workspace@1.50.0
-  - @contractspec/lib.contracts@1.50.0
+  - @contractspec/lib.contracts-spec@1.50.0
   - @contractspec/bundle.library@1.5.0
   - @contractspec/bundle.marketing@1.5.0
 
@@ -220,7 +220,7 @@
   - @contractspec/bundle.marketing@1.4.0
   - @contractspec/bundle.workspace@1.49.0
   - @contractspec/bundle.library@1.4.0
-  - @contractspec/lib.contracts@1.49.0
+  - @contractspec/lib.contracts-spec@1.49.0
 
 ## 1.2.2
 
@@ -244,7 +244,7 @@
   - @contractspec/bundle.marketing@1.3.0
   - @contractspec/bundle.library@1.3.0
   - @contractspec/bundle.workspace@1.48.1
-  - @contractspec/lib.contracts@1.48.1
+  - @contractspec/lib.contracts-spec@1.48.1
 
 ## 1.2.0
 
@@ -258,7 +258,7 @@
   - @contractspec/bundle.marketing@1.2.0
   - @contractspec/bundle.workspace@1.48.0
   - @contractspec/bundle.library@1.2.0
-  - @contractspec/lib.contracts@1.48.0
+  - @contractspec/lib.contracts-spec@1.48.0
 
 ## 1.1.0
 
@@ -282,7 +282,7 @@
   - @contractspec/bundle.marketing@1.1.0
   - @contractspec/bundle.workspace@1.47.0
   - @contractspec/bundle.library@1.1.0
-  - @contractspec/lib.contracts@1.47.0
+  - @contractspec/lib.contracts-spec@1.47.0
 
 ## 1.0.51
 
@@ -293,4 +293,4 @@
   - @contractspec/bundle.marketing@1.0.1
   - @contractspec/bundle.workspace@1.46.2
   - @contractspec/bundle.library@1.0.1
-  - @contractspec/lib.contracts@1.46.2
+  - @contractspec/lib.contracts-spec@1.46.2

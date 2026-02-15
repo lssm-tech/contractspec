@@ -1,4 +1,7 @@
-import { StabilityEnum, definePresentation } from '@contractspec/lib.contracts';
+import {
+  StabilityEnum,
+  definePresentation,
+} from '@contractspec/lib.contracts-spec';
 import { RunSummaryModel } from './run.schema';
 
 /**

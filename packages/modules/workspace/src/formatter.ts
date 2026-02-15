@@ -12,7 +12,7 @@ import { readFile } from 'node:fs/promises';
 import type {
   FormatterConfig,
   FormatterType,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 
 const execAsync = promisify(exec);
 

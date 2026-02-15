@@ -1,1 +1,1 @@
-export * from '@contractspec/lib.contracts/integrations/providers/embedding';
+export * from '@contractspec/lib.contracts-integrations';

@@ -1,7 +1,7 @@
 /**
  * Marketplace Feature Module Specification
  */
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 /**
  * Marketplace feature module that bundles multi-vendor marketplace

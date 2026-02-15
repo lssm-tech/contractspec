@@ -1,5 +1,5 @@
 import type { LanguageModel } from 'ai';
-import type { EvidenceChunk } from '@contractspec/lib.contracts/product-intent/types';
+import type { EvidenceChunk } from '@contractspec/lib.contracts-spec/product-intent/types';
 import {
   ProductIntentOrchestrator,
   createKeywordEvidenceFetcher,

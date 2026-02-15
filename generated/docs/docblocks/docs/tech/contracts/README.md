@@ -8,10 +8,10 @@
 
 ### npm distribution
 
-- `@contractspec/lib.contracts` (root) keeps the legacy \"everything\" surface for backward compatibility.
-- `@contractspec/lib.contracts/client` exposes only browser-safe helpers (React renderers, client SDK, drivers). Import from this entry when bundling for the web or React Native to avoid dragging server adapters.
-- `@contractspec/lib.contracts/server` covers HTTP/MCP adapters, registries, integrations, and other Node-only helpers.
-- `@contractspec/lib.contracts/types` exports the runtime handler context utilities, while `@contractspec/lib.contracts/types/all` re-exports every type alias/interface across the package via `export type` so consumers can import a single module for typings without shipping runtime code.
+- `@contractspec/lib.contracts-spec` (root) keeps the legacy \"everything\" surface for backward compatibility.
+- `@contractspec/lib.contracts-runtime-client-react` exposes only browser-safe helpers (React renderers, client SDK, drivers). Import from this entry when bundling for the web or React Native to avoid dragging server adapters.
+- `@contractspec/lib.contracts-runtime-server-rest` covers HTTP/MCP adapters, registries, integrations, and other Node-only helpers.
+- `@contractspec/lib.contracts-spec/types` exports the runtime handler context utilities, while `@contractspec/lib.contracts-spec/types/all` re-exports every type alias/interface across the package via `export type` so consumers can import a single module for typings without shipping runtime code.
 - `@contractspec/lib.schema`, `@contractspec/lib.design-system`, `@contractspec/lib.ui-kit`, `@contractspec/lib.ui-kit-web`, `@contractspec/lib.accessibility`, and the presentation runtime packages are published to npm alongside contracts; prefer the scoped packages to keep tree-shaking intact.
 - Bundlers with conditional exports should resolve subpaths first; keep root imports for server-only code paths.
 

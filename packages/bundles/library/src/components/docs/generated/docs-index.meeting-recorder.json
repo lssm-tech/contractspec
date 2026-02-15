@@ -2,7 +2,7 @@
   {
     "id": "meeting-recorder/meeting-recorder",
     "title": "meeting-recorder",
-    "summary": "Meeting recorder integrations capability\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.integrations\n- **Tags**: meeting-recorder, transcripts, integrations\n- **File**: `packages/libs/contracts/src/integrations/meeting-recorder/meeting-recorder.capability.ts`",
+    "summary": "Meeting metadata, transcript retrieval, and webhook ingestion for meeting recorder providers.\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: meeting-recorder, transcripts, integrations",
     "route": "/docs/reference/meeting-recorder/meeting-recorder",
     "source": "generated",
     "contentPath": "meeting-recorder/meeting-recorder.md"

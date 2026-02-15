@@ -9,7 +9,7 @@ import type { FsAdapter } from '../ports/fs';
 import type { LoggerAdapter } from '../ports/logger';
 import { buildSpec, type BuildSpecOptions } from './build';
 import { validateSpec, type ValidateSpecResult } from './validate';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 
 export interface SyncSpecsOptions {
   pattern?: string;

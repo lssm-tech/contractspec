@@ -3,7 +3,7 @@
  */
 
 import micromatch from 'micromatch';
-import type { ContractsrcConfig } from '@contractspec/lib.contracts/workspace-config';
+import type { ContractsrcConfig } from '@contractspec/lib.contracts-spec/workspace-config';
 
 /**
  * Check if a file path matches test file patterns.
@@ -41,6 +41,11 @@ export function isLibraryDefinitionFile(filePath: string): boolean {
     '**/libs/contracts/src/app-config/app-config.feature.ts',
     '**/libs/contracts/src/app-config/lifecycle-contracts.ts',
     '**/libs/contracts/src/app-config/events.ts',
+    '**/libs/contracts-spec/src/app-config/app-config.capability.ts',
+    '**/libs/contracts-spec/src/app-config/app-config.contracts.ts',
+    '**/libs/contracts-spec/src/app-config/app-config.feature.ts',
+    '**/libs/contracts-spec/src/app-config/lifecycle-contracts.ts',
+    '**/libs/contracts-spec/src/app-config/events.ts',
   ];
   if (micromatch.isMatch(filePath, allowedPatterns)) {
     return false;
@@ -50,12 +55,20 @@ export function isLibraryDefinitionFile(filePath: string): boolean {
   const libraryPatterns = [
     // Top-level files in libs/contracts/src are mostly library logic
     '**/libs/contracts/src/*.ts',
+    // Top-level files in libs/contracts-spec/src are mostly library logic
+    '**/libs/contracts-spec/src/*.ts',
     // These specific subfolders in libs/contracts/src contain library logic, not specs
     '**/libs/contracts/src/operations/*.ts',
     '**/libs/contracts/src/presentations/*.ts',
     '**/libs/contracts/src/contract-registry/*.ts',
     '**/libs/contracts/src/model-registry/*.ts',
     '**/libs/contracts/src/registry-utils/*.ts',
+    // These specific subfolders in libs/contracts-spec/src contain library logic, not specs
+    '**/libs/contracts-spec/src/operations/*.ts',
+    '**/libs/contracts-spec/src/presentations/*.ts',
+    '**/libs/contracts-spec/src/contract-registry/*.ts',
+    '**/libs/contracts-spec/src/model-registry/*.ts',
+    '**/libs/contracts-spec/src/registry-utils/*.ts',
     // These packages are pure library code
     '**/libs/contracts-transformers/src/**',
     '**/libs/schema/src/**',

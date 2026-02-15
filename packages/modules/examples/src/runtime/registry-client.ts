@@ -2,7 +2,7 @@ import type {
   ContractRegistryItem,
   ContractRegistryItemType,
   ContractRegistryManifest,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 
 export interface RegistryTemplateSummary {
   id: string;

@@ -44,7 +44,7 @@ Tasks, rituals, and announcements for internal teams with ceremonies.
 ## Source Definition
 
 ```typescript
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 export const TeamHubFeature = defineFeature({
   meta: {

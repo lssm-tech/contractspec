@@ -12,7 +12,7 @@ import {
   type ChangelogEntry,
   type ChangelogDocBlock,
   type VersionBumpType,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 import { findPackageRoot, getPackageName } from '../../adapters/workspace';
 import type { FsAdapter } from '../../ports/fs';
 import type { GitAdapter } from '../../ports/git';

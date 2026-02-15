@@ -1,5 +1,5 @@
 import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
-import { defineCommand, defineQuery } from '@contractspec/lib.contracts';
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
 
 import { crmFirstWinTrack } from '../track';
 

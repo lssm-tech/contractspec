@@ -2,12 +2,10 @@ import type {
   OperationSpecRegistry,
   PromptRegistry,
   ResourceRegistry,
-} from '@contractspec/lib.contracts';
-import {
-  createMcpServer,
-  PresentationRegistry,
-} from '@contractspec/lib.contracts';
-import type { PresentationSpec } from '@contractspec/lib.contracts/presentations';
+} from '@contractspec/lib.contracts-spec';
+import { PresentationRegistry } from '@contractspec/lib.contracts-spec/presentations';
+import { createMcpServer } from '@contractspec/lib.contracts-runtime-server-mcp/provider-mcp';
+import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
 import { mcp } from 'elysia-mcp';
 import { Logger } from '@contractspec/lib.logger';
 

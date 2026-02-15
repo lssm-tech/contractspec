@@ -1,6 +1,7 @@
 import * as z from 'zod';
 import { Kind, type ValueNode } from 'graphql';
 import { FieldType } from './FieldType';
+import { createCachedScalarFactories } from './ScalarFactoryCache';
 
 // Helpers to build standard scalars
 const localeRegex = /^[A-Za-z]{2}(?:-[A-Za-z0-9]{2,8})*$/;
@@ -16,7 +17,7 @@ const lonMax = 180;
 /**
  * Factory functions for common scalar FieldTypes with zod/GraphQL/JSON Schema.
  */
-export const ScalarTypeEnum = {
+const scalarTypeFactories = {
   // primitives (_unsecure)
   String_unsecure: (): FieldType<string> =>
     new FieldType<string>({
@@ -233,4 +234,7 @@ export const ScalarTypeEnum = {
   //       jsonSchema: { type: 'object' },
   //     }),
 } as const;
+
+export const ScalarTypeEnum = createCachedScalarFactories(scalarTypeFactories);
+
 export type ScalarTypeEnum = [keyof typeof ScalarTypeEnum];

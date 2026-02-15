@@ -4,7 +4,8 @@
  * Colocated documentation following the DocBlock pattern.
  */
 
-import { type DocBlock, registerDocBlocks } from '@contractspec/lib.contracts';
+import type { DocBlock } from '@contractspec/lib.contracts-spec/docs/types';
+import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs/registry';
 
 export const ImpactDetectionOverviewDoc: DocBlock = {
   id: 'feature.impact-detection.overview',

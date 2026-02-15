@@ -5,7 +5,7 @@ import type {
   DataViewGridConfig,
   DataViewListConfig,
   DataViewSpec,
-} from '@contractspec/lib.contracts/data-views';
+} from '@contractspec/lib.contracts-spec/data-views';
 import { DataViewList } from './DataViewList';
 import { DataViewTable } from './DataViewTable';
 import { DataViewDetail } from './DataViewDetail';

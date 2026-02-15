@@ -1,5 +1,5 @@
-import type { DocBlock } from '@contractspec/lib.contracts/docs';
-import { registerDocBlocks } from '@contractspec/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
+import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 export const gettingStartedDocBlocks: DocBlock[] = [
   {
@@ -18,7 +18,7 @@ Get ContractSpec running quickly and generate your first contract-backed code.
 
 \`\`\`bash
 bun add -D contractspec
-bun add @contractspec/lib.contracts @contractspec/lib.schema
+bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 \`\`\`
 
 ## 2. Initialize your project

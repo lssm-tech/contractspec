@@ -31,7 +31,7 @@ Platform primitives tour journey for exploring ContractSpec core features
  *
  * Defines the feature module for platform primitives tour journey.
  */
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 /**
  * Learning Journey Platform Tour feature module that bundles

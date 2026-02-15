@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@contractspec/module.learning-journey": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*"
+    "@contractspec/lib.contracts-spec": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",

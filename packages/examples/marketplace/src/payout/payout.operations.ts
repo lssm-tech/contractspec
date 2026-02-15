@@ -1,4 +1,4 @@
-import { defineQuery } from '@contractspec/lib.contracts/operations';
+import { defineQuery } from '@contractspec/lib.contracts-spec/operations';
 import { ListPayoutsInputModel, ListPayoutsOutputModel } from './payout.schema';
 
 const OWNERS = ['@example.marketplace'] as const;

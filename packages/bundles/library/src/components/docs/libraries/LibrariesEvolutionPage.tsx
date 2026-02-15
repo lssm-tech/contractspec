@@ -72,7 +72,7 @@ await orchestrator.submit(suggestion, sessionState);`}
 
 const writer = new FileSystemSuggestionWriter({
   outputDir:
-    'packages/libs/contracts/src/generated',
+    'packages/libs/contracts-spec/src/generated',
 });
 
 await writer.write({

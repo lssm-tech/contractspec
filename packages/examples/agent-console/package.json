@@ -97,13 +97,13 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.example-shared-ui": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.runtime-sandbox": "workspace:*",

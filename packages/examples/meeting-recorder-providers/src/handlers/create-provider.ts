@@ -2,7 +2,7 @@ import { GranolaMeetingRecorderProvider } from '@contractspec/integration.provid
 import { TldvMeetingRecorderProvider } from '@contractspec/integration.providers-impls/impls/tldv-meeting-recorder';
 import { FirefliesMeetingRecorderProvider } from '@contractspec/integration.providers-impls/impls/fireflies-meeting-recorder';
 import { FathomMeetingRecorderProvider } from '@contractspec/integration.providers-impls/impls/fathom-meeting-recorder';
-import type { MeetingRecorderProvider } from '@contractspec/lib.contracts/integrations/providers/meeting-recorder';
+import type { MeetingRecorderProvider } from '@contractspec/lib.contracts-integrations';
 
 export type MeetingRecorderIntegrationKey =
   | 'meeting-recorder.granola'

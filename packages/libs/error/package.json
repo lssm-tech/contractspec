@@ -30,7 +30,7 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "elysia": "^1.4.24",
+    "elysia": "^1.4.25",
     "express": "^5.2.1",
     "next": "16.1.6"
   },

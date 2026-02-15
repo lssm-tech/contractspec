@@ -54,7 +54,7 @@ Connect and sync data with external systems through configurable integrations
 /**
  * Integration Hub Feature Module Specification
  */
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 export const IntegrationHubFeature = defineFeature({
   meta: {

@@ -18,4 +18,4 @@ export type {
   AppRouteConfig,
   BrandingDefaults,
   FeatureFlagState,
-} from '@contractspec/lib.contracts/app-config';
+} from '@contractspec/lib.contracts-spec/app-config';

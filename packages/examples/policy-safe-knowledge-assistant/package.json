@@ -45,7 +45,7 @@
     "@contractspec/example.learning-patterns": "workspace:*",
     "@contractspec/example.locale-jurisdiction-gate": "workspace:*",
     "@contractspec/example.versioned-knowledge-base": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.example-shared-ui": "workspace:*",
     "@contractspec/lib.runtime-sandbox": "workspace:*",

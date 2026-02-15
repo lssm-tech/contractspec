@@ -31,7 +31,7 @@ Studio onboarding journey for getting started with ContractSpec Studio
  *
  * Defines the feature module for Studio onboarding journey.
  */
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 /**
  * Learning Journey Studio Onboarding feature module that bundles

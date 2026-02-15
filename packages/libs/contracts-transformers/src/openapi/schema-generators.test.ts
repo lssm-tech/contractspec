@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test';
 import { generateSchemaModelCode } from './schema-converter';
 import type { OpenApiSchema } from './types';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 
 const mockConfig = {
   conventions: { models: 'models' },

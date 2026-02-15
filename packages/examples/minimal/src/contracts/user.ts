@@ -1,4 +1,4 @@
-import { defineCommand } from '@contractspec/lib.contracts';
+import { defineCommand } from '@contractspec/lib.contracts-spec';
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 
 const UserInput = new SchemaModel({

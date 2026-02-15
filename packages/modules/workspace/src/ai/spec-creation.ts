@@ -3,7 +3,7 @@
  * Extracted from cli-contractspec/src/ai/prompts/spec-creation.ts
  */
 
-import type { OpKind } from '@contractspec/lib.contracts';
+import type { OpKind } from '@contractspec/lib.contracts-spec';
 import type { PresentationKind } from '../types/spec-types';
 
 /**

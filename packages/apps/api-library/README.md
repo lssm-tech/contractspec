@@ -24,7 +24,7 @@ bun start
 
 - `@contractspec/bundle.library` — Core library bundle with docs, templates, and MCP servers
 - `@contractspec/bundle.workspace` — Workspace utilities
-- `@contractspec/lib.contracts` — Contract definitions
+- `@contractspec/lib.contracts-spec` — Contract definitions
 
 ## Package Structure
 

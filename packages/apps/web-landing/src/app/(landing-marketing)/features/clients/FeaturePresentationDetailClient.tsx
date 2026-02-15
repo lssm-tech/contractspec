@@ -4,7 +4,7 @@ import { FeaturePresentationDetailTemplate } from '@contractspec/bundle.library/
 import type {
   FeatureModuleSpec,
   PresentationRef,
-} from '@contractspec/lib.contracts/features';
+} from '@contractspec/lib.contracts-spec/features';
 import type { SerializedPresentationSpec } from '@contractspec/bundle.library/features';
 
 export interface FeaturePresentationDetailClientProps {

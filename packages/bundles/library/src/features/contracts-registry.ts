@@ -12,20 +12,24 @@ import {
   type AnyOperationSpec,
   EventRegistry,
   type AnyEventSpec,
-  type PresentationSpec,
-  type DataViewSpec,
   type FormSpec,
-} from '@contractspec/lib.contracts';
-import { PresentationRegistry } from '@contractspec/lib.contracts/presentations';
-import { DataViewRegistry } from '@contractspec/lib.contracts/data-views';
-import { FormRegistry } from '@contractspec/lib.contracts/forms';
+} from '@contractspec/lib.contracts-spec';
+import {
+  PresentationRegistry,
+  type PresentationSpec,
+} from '@contractspec/lib.contracts-spec/presentations';
+import {
+  DataViewRegistry,
+  type DataViewSpec,
+} from '@contractspec/lib.contracts-spec/data-views';
+import { FormRegistry } from '@contractspec/lib.contracts-spec/forms';
 import {
   serializeOperationSpec,
   serializeEventSpec,
   serializePresentationSpec,
   serializeDataViewSpec,
   serializeFormSpec,
-} from '@contractspec/lib.contracts/serialization';
+} from '@contractspec/lib.contracts-spec/serialization';
 import {
   ContractReferenceDataView,
   ContractReferenceQuery,
@@ -39,7 +43,7 @@ import {
   DocsReferencePagePresentation,
   DocsSearchForm,
   ExampleCatalogDataView,
-} from '@contractspec/lib.contracts/docs';
+} from '@contractspec/lib.contracts-spec/docs';
 
 // Re-export serialization types from lib.contracts for convenience
 export type {
@@ -50,7 +54,7 @@ export type {
   SerializedPresentationSpec,
   SerializedDataViewSpec,
   SerializedFormSpec,
-} from '@contractspec/lib.contracts/serialization';
+} from '@contractspec/lib.contracts-spec/serialization';
 
 // ============================================================================
 // Operation Registry

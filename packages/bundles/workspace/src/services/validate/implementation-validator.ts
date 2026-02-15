@@ -7,7 +7,7 @@
 
 import type { SpecScanResult } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../../ports/fs';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 
 export interface ValidateImplementationOptions {
   checkHandlers?: boolean;

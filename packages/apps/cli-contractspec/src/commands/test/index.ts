@@ -8,7 +8,7 @@ import {
   listTests,
 } from '@contractspec/bundle.workspace';
 import { loadTypeScriptModule } from '../../utils/module-loader';
-import type { OperationSpec } from '@contractspec/lib.contracts';
+import type { OperationSpec } from '@contractspec/lib.contracts-spec';
 
 interface TestCommandOptions {
   registry?: string;

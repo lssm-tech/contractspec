@@ -9,7 +9,7 @@
 import type {
   ResolvedContractsrcConfig,
   SchemaFormat,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 import type { OpenApiSchema } from '../types';
 import {
   type GeneratedModel,

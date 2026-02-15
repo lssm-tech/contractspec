@@ -32,7 +32,7 @@ export function SpecsCapabilitiesPage() {
         <div className="space-y-3">
           <h2 className="text-2xl font-bold">Defining a Command (Write)</h2>
           <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`import { defineCommand } from '@contractspec/lib.contracts';
+            <pre>{`import { defineCommand } from '@contractspec/lib.contracts-spec';
 import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 const TransferFundsInput = new SchemaModel({

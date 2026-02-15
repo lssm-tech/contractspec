@@ -34,13 +34,13 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.ui-kit-core": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/example.learning-journey-ui-shared": "workspace:*",
     "@contractspec/example.learning-journey-studio-onboarding": "workspace:*",
     "@contractspec/example.learning-journey-platform-tour": "workspace:*",

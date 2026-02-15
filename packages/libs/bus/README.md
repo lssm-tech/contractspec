@@ -20,7 +20,7 @@ bun add @contractspec/lib.bus
 ## Key Concepts
 
 - **EventBus Interface**: A standard contract for `publish` and `subscribe`.
-- **Type Safety**: leveraging `@contractspec/lib.contracts` event definitions for payload validation.
+- **Type Safety**: leveraging `@contractspec/lib.contracts-spec` event definitions for payload validation.
 - **Decoupling**: Producers and consumers don't need to know about each other.
 
 ## Exports

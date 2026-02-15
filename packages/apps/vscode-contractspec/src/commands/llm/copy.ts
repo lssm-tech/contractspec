@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { type LLMExportFormat } from '@contractspec/lib.contracts/llm';
+import { type LLMExportFormat } from '@contractspec/lib.contracts-spec/llm';
 import {
   loadSpecFromSource,
   specToMarkdown,

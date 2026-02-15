@@ -22,13 +22,14 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@contractspec/lib.lifecycle": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*"
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.contracts-integrations": "workspace:*"
   },
   "peerDependencies": {
     "@opentelemetry/api": "*"

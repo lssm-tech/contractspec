@@ -35,7 +35,7 @@
   - @contractspec/module.audit-trail@1.61.0
   - @contractspec/lib.design-system@1.61.0
   - @contractspec/lib.identity-rbac@1.61.0
-  - @contractspec/lib.contracts@1.61.0
+  - @contractspec/lib.contracts-spec@1.61.0
   - @contractspec/lib.schema@1.61.0
   - @contractspec/lib.jobs@1.61.0
 
@@ -54,7 +54,7 @@
   - @contractspec/module.audit-trail@1.60.0
   - @contractspec/lib.design-system@1.60.0
   - @contractspec/lib.identity-rbac@1.60.0
-  - @contractspec/lib.contracts@1.60.0
+  - @contractspec/lib.contracts-spec@1.60.0
   - @contractspec/lib.schema@1.60.0
   - @contractspec/lib.jobs@1.60.0
 
@@ -73,7 +73,7 @@
   - @contractspec/module.audit-trail@1.59.0
   - @contractspec/lib.design-system@1.59.0
   - @contractspec/lib.identity-rbac@1.59.0
-  - @contractspec/lib.contracts@1.59.0
+  - @contractspec/lib.contracts-spec@1.59.0
   - @contractspec/lib.schema@1.59.0
   - @contractspec/lib.jobs@1.59.0
 
@@ -93,7 +93,7 @@
   - @contractspec/module.audit-trail@1.58.0
   - @contractspec/lib.design-system@1.58.0
   - @contractspec/lib.identity-rbac@1.58.0
-  - @contractspec/lib.contracts@1.58.0
+  - @contractspec/lib.contracts-spec@1.58.0
   - @contractspec/lib.schema@1.58.0
   - @contractspec/lib.jobs@1.58.0
 
@@ -112,7 +112,7 @@
 - Updated dependencies [4651e06]
 - Updated dependencies [ad9d10a]
 - Updated dependencies [11a5a05]
-  - @contractspec/lib.contracts@1.57.0
+  - @contractspec/lib.contracts-spec@1.57.0
   - @contractspec/lib.example-shared-ui@1.11.0
   - @contractspec/module.notifications@1.57.0
   - @contractspec/lib.runtime-sandbox@0.12.0
@@ -134,7 +134,7 @@
   - @contractspec/module.audit-trail@1.56.1
   - @contractspec/lib.design-system@1.56.1
   - @contractspec/lib.identity-rbac@1.56.1
-  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.contracts-spec@1.56.1
   - @contractspec/lib.schema@1.56.1
   - @contractspec/lib.jobs@1.56.1
 
@@ -153,7 +153,7 @@
   - @contractspec/module.audit-trail@1.56.0
   - @contractspec/lib.design-system@1.56.0
   - @contractspec/lib.identity-rbac@1.56.0
-  - @contractspec/lib.contracts@1.56.0
+  - @contractspec/lib.contracts-spec@1.56.0
   - @contractspec/lib.schema@1.56.0
   - @contractspec/lib.jobs@1.56.0
 
@@ -172,7 +172,7 @@
   - @contractspec/module.audit-trail@1.55.0
   - @contractspec/lib.design-system@1.55.0
   - @contractspec/lib.identity-rbac@1.55.0
-  - @contractspec/lib.contracts@1.55.0
+  - @contractspec/lib.contracts-spec@1.55.0
   - @contractspec/lib.schema@1.55.0
   - @contractspec/lib.jobs@1.55.0
 
@@ -187,7 +187,7 @@
 - Updated dependencies [ec5e95c]
   - @contractspec/lib.example-shared-ui@1.8.0
   - @contractspec/lib.design-system@1.54.0
-  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/lib.contracts-spec@1.54.0
   - @contractspec/lib.identity-rbac@1.54.0
   - @contractspec/lib.jobs@1.54.0
   - @contractspec/lib.runtime-sandbox@0.9.0
@@ -208,7 +208,7 @@
 - Updated dependencies [f4180d4]
 - Updated dependencies [64d84e1]
   - @contractspec/lib.design-system@1.53.0
-  - @contractspec/lib.contracts@1.53.0
+  - @contractspec/lib.contracts-spec@1.53.0
   - @contractspec/lib.schema@1.53.0
   - @contractspec/lib.example-shared-ui@1.7.0
   - @contractspec/lib.identity-rbac@1.53.0
@@ -232,7 +232,7 @@
   - @contractspec/module.audit-trail@1.52.0
   - @contractspec/lib.design-system@1.52.0
   - @contractspec/lib.identity-rbac@1.52.0
-  - @contractspec/lib.contracts@1.52.0
+  - @contractspec/lib.contracts-spec@1.52.0
   - @contractspec/lib.schema@1.52.0
   - @contractspec/lib.jobs@1.52.0
 
@@ -247,7 +247,7 @@
 - Updated dependencies [23e46e9]
 - Updated dependencies [ad1f852]
 - Updated dependencies [e6faefb]
-  - @contractspec/lib.contracts@1.51.0
+  - @contractspec/lib.contracts-spec@1.51.0
   - @contractspec/lib.example-shared-ui@1.5.0
   - @contractspec/module.notifications@1.51.0
   - @contractspec/lib.runtime-sandbox@0.6.0
@@ -266,7 +266,7 @@
 ### Patch Changes
 
 - Updated dependencies [5325d6b]
-  - @contractspec/lib.contracts@1.50.0
+  - @contractspec/lib.contracts-spec@1.50.0
   - @contractspec/lib.design-system@1.50.0
   - @contractspec/lib.example-shared-ui@1.4.0
   - @contractspec/lib.identity-rbac@1.50.0
@@ -291,7 +291,7 @@
   - @contractspec/module.audit-trail@1.49.0
   - @contractspec/lib.design-system@1.49.0
   - @contractspec/lib.identity-rbac@1.49.0
-  - @contractspec/lib.contracts@1.49.0
+  - @contractspec/lib.contracts-spec@1.49.0
   - @contractspec/lib.schema@1.49.0
   - @contractspec/lib.jobs@1.49.0
 
@@ -302,7 +302,7 @@
 - Updated dependencies [c560ee7]
 - Updated dependencies [1536bf3]
   - @contractspec/lib.design-system@1.48.1
-  - @contractspec/lib.contracts@1.48.1
+  - @contractspec/lib.contracts-spec@1.48.1
   - @contractspec/lib.example-shared-ui@1.2.1
   - @contractspec/lib.identity-rbac@1.48.1
   - @contractspec/lib.jobs@1.48.1
@@ -324,7 +324,7 @@
   - @contractspec/module.audit-trail@1.48.0
   - @contractspec/lib.design-system@1.48.0
   - @contractspec/lib.identity-rbac@1.48.0
-  - @contractspec/lib.contracts@1.48.0
+  - @contractspec/lib.contracts-spec@1.48.0
   - @contractspec/lib.schema@1.48.0
   - @contractspec/lib.jobs@1.48.0
 
@@ -353,7 +353,7 @@
   - @contractspec/module.audit-trail@1.47.0
   - @contractspec/lib.design-system@1.47.0
   - @contractspec/lib.identity-rbac@1.47.0
-  - @contractspec/lib.contracts@1.47.0
+  - @contractspec/lib.contracts-spec@1.47.0
   - @contractspec/lib.schema@1.47.0
   - @contractspec/lib.jobs@1.47.0
 
@@ -369,7 +369,7 @@
   - @contractspec/module.audit-trail@1.46.2
   - @contractspec/lib.design-system@1.46.2
   - @contractspec/lib.identity-rbac@1.46.2
-  - @contractspec/lib.contracts@1.46.2
+  - @contractspec/lib.contracts-spec@1.46.2
   - @contractspec/lib.schema@1.46.2
   - @contractspec/lib.jobs@1.46.2
 
@@ -382,7 +382,7 @@
   - @contractspec/module.notifications@1.46.1
   - @contractspec/module.audit-trail@1.46.1
   - @contractspec/lib.identity-rbac@1.46.1
-  - @contractspec/lib.contracts@1.46.1
+  - @contractspec/lib.contracts-spec@1.46.1
   - @contractspec/lib.schema@1.46.1
   - @contractspec/lib.jobs@1.46.1
 
@@ -398,7 +398,7 @@
   - @contractspec/module.notifications@1.46.0
   - @contractspec/module.audit-trail@1.46.0
   - @contractspec/lib.identity-rbac@1.46.0
-  - @contractspec/lib.contracts@1.46.0
+  - @contractspec/lib.contracts-spec@1.46.0
   - @contractspec/lib.schema@1.46.0
   - @contractspec/lib.jobs@1.46.0
 
@@ -411,7 +411,7 @@
   - @contractspec/module.notifications@1.45.6
   - @contractspec/module.audit-trail@1.45.6
   - @contractspec/lib.identity-rbac@1.45.6
-  - @contractspec/lib.contracts@1.45.6
+  - @contractspec/lib.contracts-spec@1.45.6
   - @contractspec/lib.schema@1.45.6
   - @contractspec/lib.jobs@1.45.6
 
@@ -424,7 +424,7 @@
   - @contractspec/module.notifications@1.45.5
   - @contractspec/module.audit-trail@1.45.5
   - @contractspec/lib.identity-rbac@1.45.5
-  - @contractspec/lib.contracts@1.45.5
+  - @contractspec/lib.contracts-spec@1.45.5
   - @contractspec/lib.schema@1.45.5
   - @contractspec/lib.jobs@1.45.5
 
@@ -437,7 +437,7 @@
   - @contractspec/module.notifications@1.45.4
   - @contractspec/module.audit-trail@1.45.4
   - @contractspec/lib.identity-rbac@1.45.4
-  - @contractspec/lib.contracts@1.45.4
+  - @contractspec/lib.contracts-spec@1.45.4
   - @contractspec/lib.schema@1.45.4
   - @contractspec/lib.jobs@1.45.4
 
@@ -450,7 +450,7 @@
   - @contractspec/module.notifications@1.45.3
   - @contractspec/module.audit-trail@1.45.3
   - @contractspec/lib.identity-rbac@1.45.3
-  - @contractspec/lib.contracts@1.45.3
+  - @contractspec/lib.contracts-spec@1.45.3
   - @contractspec/lib.schema@1.45.3
   - @contractspec/lib.jobs@1.45.3
 
@@ -460,7 +460,7 @@
 
 - 39ca241: code cleaning
 - Updated dependencies [39ca241]
-  - @contractspec/lib.contracts@1.45.2
+  - @contractspec/lib.contracts-spec@1.45.2
   - @contractspec/lib.schema@1.45.2
 
 ## 1.45.1
@@ -472,7 +472,7 @@
   - @contractspec/module.notifications@1.45.1
   - @contractspec/module.audit-trail@1.45.1
   - @contractspec/lib.identity-rbac@1.45.1
-  - @contractspec/lib.contracts@1.45.1
+  - @contractspec/lib.contracts-spec@1.45.1
   - @contractspec/lib.schema@1.45.1
   - @contractspec/lib.jobs@1.45.1
   - @contractspec/lib.bus@1.45.1
@@ -503,7 +503,7 @@
   - @contractspec/module.notifications@1.45.0
   - @contractspec/module.audit-trail@1.45.0
   - @contractspec/lib.identity-rbac@1.45.0
-  - @contractspec/lib.contracts@1.45.0
+  - @contractspec/lib.contracts-spec@1.45.0
   - @contractspec/lib.schema@1.45.0
   - @contractspec/lib.jobs@1.45.0
   - @contractspec/lib.bus@1.45.0
@@ -517,7 +517,7 @@
   - @contractspec/module.notifications@1.44.1
   - @contractspec/module.audit-trail@1.44.1
   - @contractspec/lib.identity-rbac@1.44.1
-  - @contractspec/lib.contracts@1.44.1
+  - @contractspec/lib.contracts-spec@1.44.1
   - @contractspec/lib.schema@1.44.1
   - @contractspec/lib.jobs@1.44.1
   - @contractspec/lib.bus@1.44.1
@@ -534,7 +534,7 @@
   - @contractspec/module.notifications@1.44.0
   - @contractspec/module.audit-trail@1.44.0
   - @contractspec/lib.identity-rbac@1.44.0
-  - @contractspec/lib.contracts@1.44.0
+  - @contractspec/lib.contracts-spec@1.44.0
   - @contractspec/lib.schema@1.44.0
   - @contractspec/lib.jobs@1.44.0
   - @contractspec/lib.bus@1.44.0
@@ -548,7 +548,7 @@
   - @contractspec/module.notifications@1.43.4
   - @contractspec/module.audit-trail@1.43.4
   - @contractspec/lib.identity-rbac@1.43.4
-  - @contractspec/lib.contracts@1.43.4
+  - @contractspec/lib.contracts-spec@1.43.4
   - @contractspec/lib.schema@1.43.3
   - @contractspec/lib.jobs@1.43.4
   - @contractspec/lib.bus@1.43.4
@@ -562,7 +562,7 @@
   - @contractspec/module.notifications@1.43.3
   - @contractspec/module.audit-trail@1.43.3
   - @contractspec/lib.identity-rbac@1.43.3
-  - @contractspec/lib.contracts@1.43.3
+  - @contractspec/lib.contracts-spec@1.43.3
   - @contractspec/lib.schema@1.43.2
   - @contractspec/lib.jobs@1.43.3
   - @contractspec/lib.bus@1.43.3
@@ -576,7 +576,7 @@
   - @contractspec/module.notifications@1.43.2
   - @contractspec/module.audit-trail@1.43.2
   - @contractspec/lib.identity-rbac@1.43.2
-  - @contractspec/lib.contracts@1.43.2
+  - @contractspec/lib.contracts-spec@1.43.2
   - @contractspec/lib.jobs@1.43.2
   - @contractspec/lib.bus@1.43.2
   - @contractspec/lib.schema@1.43.1
@@ -586,7 +586,7 @@
 ### Patch Changes
 
 - Updated dependencies [f28fdad]
-  - @contractspec/lib.contracts@1.43.1
+  - @contractspec/lib.contracts-spec@1.43.1
   - @contractspec/lib.bus@1.43.1
   - @contractspec/lib.identity-rbac@1.43.1
   - @contractspec/lib.jobs@1.43.1
@@ -605,7 +605,7 @@
   - @contractspec/module.notifications@1.43.0
   - @contractspec/module.audit-trail@1.43.0
   - @contractspec/lib.identity-rbac@1.43.0
-  - @contractspec/lib.contracts@1.43.0
+  - @contractspec/lib.contracts-spec@1.43.0
   - @contractspec/lib.schema@1.43.0
   - @contractspec/lib.jobs@1.43.0
   - @contractspec/lib.bus@1.43.0
@@ -619,7 +619,7 @@
   - @contractspec/module.notifications@1.42.10
   - @contractspec/module.audit-trail@1.42.10
   - @contractspec/lib.identity-rbac@1.42.10
-  - @contractspec/lib.contracts@1.42.10
+  - @contractspec/lib.contracts-spec@1.42.10
   - @contractspec/lib.schema@1.42.10
   - @contractspec/lib.jobs@1.42.10
   - @contractspec/lib.bus@1.42.10
@@ -633,7 +633,7 @@
   - @contractspec/module.notifications@1.42.9
   - @contractspec/module.audit-trail@1.42.9
   - @contractspec/lib.identity-rbac@1.42.9
-  - @contractspec/lib.contracts@1.42.9
+  - @contractspec/lib.contracts-spec@1.42.9
   - @contractspec/lib.schema@1.42.9
   - @contractspec/lib.jobs@1.42.9
   - @contractspec/lib.bus@1.42.9
@@ -647,7 +647,7 @@
   - @contractspec/module.notifications@1.42.8
   - @contractspec/module.audit-trail@1.42.8
   - @contractspec/lib.identity-rbac@1.42.8
-  - @contractspec/lib.contracts@1.42.8
+  - @contractspec/lib.contracts-spec@1.42.8
   - @contractspec/lib.schema@1.42.8
   - @contractspec/lib.jobs@1.42.8
   - @contractspec/lib.bus@1.42.8
@@ -661,7 +661,7 @@
   - @contractspec/module.notifications@1.42.7
   - @contractspec/module.audit-trail@1.42.7
   - @contractspec/lib.identity-rbac@1.42.7
-  - @contractspec/lib.contracts@1.42.7
+  - @contractspec/lib.contracts-spec@1.42.7
   - @contractspec/lib.schema@1.42.7
   - @contractspec/lib.jobs@1.42.7
   - @contractspec/lib.bus@1.42.7
@@ -675,7 +675,7 @@
   - @contractspec/module.notifications@1.42.6
   - @contractspec/module.audit-trail@1.42.6
   - @contractspec/lib.identity-rbac@1.42.6
-  - @contractspec/lib.contracts@1.42.6
+  - @contractspec/lib.contracts-spec@1.42.6
   - @contractspec/lib.schema@1.42.6
   - @contractspec/lib.jobs@1.42.6
   - @contractspec/lib.bus@1.42.6
@@ -689,7 +689,7 @@
   - @contractspec/module.notifications@1.42.5
   - @contractspec/module.audit-trail@1.42.5
   - @contractspec/lib.identity-rbac@1.42.5
-  - @contractspec/lib.contracts@1.42.5
+  - @contractspec/lib.contracts-spec@1.42.5
   - @contractspec/lib.schema@1.42.5
   - @contractspec/lib.jobs@1.42.5
   - @contractspec/lib.bus@1.42.5
@@ -703,7 +703,7 @@
   - @contractspec/module.notifications@1.42.4
   - @contractspec/module.audit-trail@1.42.4
   - @contractspec/lib.identity-rbac@1.42.4
-  - @contractspec/lib.contracts@1.42.4
+  - @contractspec/lib.contracts-spec@1.42.4
   - @contractspec/lib.schema@1.42.4
   - @contractspec/lib.jobs@1.42.4
   - @contractspec/lib.bus@1.42.4
@@ -715,7 +715,7 @@
 - 3f5d015: fix(tooling): cicd
 - Updated dependencies [3f5d015]
   - @contractspec/lib.bus@1.42.3
-  - @contractspec/lib.contracts@1.42.3
+  - @contractspec/lib.contracts-spec@1.42.3
   - @contractspec/lib.identity-rbac@1.42.3
   - @contractspec/lib.jobs@1.42.3
   - @contractspec/lib.schema@1.42.3
@@ -729,7 +729,7 @@
 - 1f9ac4c: fix
 - Updated dependencies [1f9ac4c]
   - @contractspec/lib.bus@1.42.2
-  - @contractspec/lib.contracts@1.42.2
+  - @contractspec/lib.contracts-spec@1.42.2
   - @contractspec/lib.identity-rbac@1.42.2
   - @contractspec/lib.jobs@1.42.2
   - @contractspec/lib.schema@1.42.2
@@ -745,7 +745,7 @@
   - @contractspec/module.notifications@1.42.1
   - @contractspec/module.audit-trail@1.42.1
   - @contractspec/lib.identity-rbac@1.42.1
-  - @contractspec/lib.contracts@1.42.1
+  - @contractspec/lib.contracts-spec@1.42.1
   - @contractspec/lib.schema@1.42.1
   - @contractspec/lib.jobs@1.42.1
   - @contractspec/lib.bus@1.42.1
@@ -760,7 +760,7 @@
 
 - Updated dependencies [8eefd9c]
   - @contractspec/lib.bus@1.42.0
-  - @contractspec/lib.contracts@1.42.0
+  - @contractspec/lib.contracts-spec@1.42.0
   - @contractspec/lib.identity-rbac@1.42.0
   - @contractspec/lib.jobs@1.42.0
   - @contractspec/lib.schema@1.42.0

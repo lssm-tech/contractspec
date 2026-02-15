@@ -2,7 +2,7 @@ import type {
   VectorStoreProvider,
   VectorUpsertRequest,
   EmbeddingResult,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-integrations';
 import type { DocumentFragment } from './document-processor';
 
 export interface VectorIndexConfig {

@@ -1,7 +1,7 @@
 import { describe, expect, it, mock } from 'bun:test';
 import { TestGeneratorService } from './test-generator-service';
-import type { OperationSpec } from '@contractspec/lib.contracts';
-import type { LanguageModel } from '@contractspec/lib.ai-agent';
+import type { OperationSpec } from '@contractspec/lib.contracts-spec';
+import type { LanguageModel } from 'ai';
 import type { LoggerAdapter } from '../../ports/logger';
 
 // Mock lib.ai-agent

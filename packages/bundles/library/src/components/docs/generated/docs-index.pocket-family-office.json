@@ -114,7 +114,7 @@
   {
     "id": "pocket-family-office/pocket-family-office",
     "title": "pocket-family-office",
-    "summary": "Personal family office management\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.finance\n- **Tags**: family-office, wealth, personal\n- **File**: `packages/examples/pocket-family-office/src/pocket-family-office.capability.ts`",
+    "summary": "Personal finance automation with document ingestion, open banking, and AI summaries\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.finance\n- **Tags**: finance, open-banking, documents, automation, family-office",
     "route": "/docs/reference/pocket-family-office/pocket-family-office",
     "source": "generated",
     "contentPath": "pocket-family-office/pocket-family-office.md"

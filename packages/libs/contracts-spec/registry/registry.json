@@ -1,0 +1,406 @@
+{
+  "$schema": "https://lssm.tech/schema/contractspec-registry.json",
+  "name": "contractspec",
+  "homepage": "https://lssm.tech",
+  "items": [
+    {
+      "key": "agent-console",
+      "type": "contractspec:template",
+      "version": "1.0.0",
+      "title": "agent-console",
+      "description": "Template metadata published from ContractSpec Studio.",
+      "meta": {
+        "stability": "stable",
+        "owners": [],
+        "tags": [
+          "template",
+          "studio"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/items/template/agent-console.json",
+          "type": "contractspec:template-metadata"
+        }
+      ]
+    },
+    {
+      "key": "analytics-dashboard",
+      "type": "contractspec:template",
+      "version": "1.0.0",
+      "title": "analytics-dashboard",
+      "description": "Template metadata published from ContractSpec Studio.",
+      "meta": {
+        "stability": "stable",
+        "owners": [],
+        "tags": [
+          "template",
+          "studio"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/items/template/analytics-dashboard.json",
+          "type": "contractspec:template-metadata"
+        }
+      ]
+    },
+    {
+      "key": "crm-pipeline",
+      "type": "contractspec:template",
+      "version": "1.0.0",
+      "title": "crm-pipeline",
+      "description": "Template metadata published from ContractSpec Studio.",
+      "meta": {
+        "stability": "stable",
+        "owners": [],
+        "tags": [
+          "template",
+          "studio"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/items/template/crm-pipeline.json",
+          "type": "contractspec:template-metadata"
+        }
+      ]
+    },
+    {
+      "key": "integration-hub",
+      "type": "contractspec:template",
+      "version": "1.0.0",
+      "title": "integration-hub",
+      "description": "Template metadata published from ContractSpec Studio.",
+      "meta": {
+        "stability": "stable",
+        "owners": [],
+        "tags": [
+          "template",
+          "studio"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/items/template/integration-hub.json",
+          "type": "contractspec:template-metadata"
+        }
+      ]
+    },
+    {
+      "key": "learning-journey-ambient-coach",
+      "type": "contractspec:template",
+      "version": "1.0.0",
+      "title": "learning-journey-ambient-coach",
+      "description": "Template metadata published from ContractSpec Studio.",
+      "meta": {
+        "stability": "stable",
+        "owners": [],
+        "tags": [
+          "template",
+          "studio"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/items/template/learning-journey-ambient-coach.json",
+          "type": "contractspec:template-metadata"
+        }
+      ]
+    },
+    {
+      "key": "learning-journey-crm-onboarding",
+      "type": "contractspec:template",
+      "version": "1.0.0",
+      "title": "learning-journey-crm-onboarding",
+      "description": "Template metadata published from ContractSpec Studio.",
+      "meta": {
+        "stability": "stable",
+        "owners": [],
+        "tags": [
+          "template",
+          "studio"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/items/template/learning-journey-crm-onboarding.json",
+          "type": "contractspec:template-metadata"
+        }
+      ]
+    },
+    {
+      "key": "learning-journey-duo-drills",
+      "type": "contractspec:template",
+      "version": "1.0.0",
+      "title": "learning-journey-duo-drills",
+      "description": "Template metadata published from ContractSpec Studio.",
+      "meta": {
+        "stability": "stable",
+        "owners": [],
+        "tags": [
+          "template",
+          "studio"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/items/template/learning-journey-duo-drills.json",
+          "type": "contractspec:template-metadata"
+        }
+      ]
+    },
+    {
+      "key": "learning-journey-platform-tour",
+      "type": "contractspec:template",
+      "version": "1.0.0",
+      "title": "learning-journey-platform-tour",
+      "description": "Template metadata published from ContractSpec Studio.",
+      "meta": {
+        "stability": "stable",
+        "owners": [],
+        "tags": [
+          "template",
+          "studio"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/items/template/learning-journey-platform-tour.json",
+          "type": "contractspec:template-metadata"
+        }
+      ]
+    },
+    {
+      "key": "learning-journey-quest-challenges",
+      "type": "contractspec:template",
+      "version": "1.0.0",
+      "title": "learning-journey-quest-challenges",
+      "description": "Template metadata published from ContractSpec Studio.",
+      "meta": {
+        "stability": "stable",
+        "owners": [],
+        "tags": [
+          "template",
+          "studio"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/items/template/learning-journey-quest-challenges.json",
+          "type": "contractspec:template-metadata"
+        }
+      ]
+    },
+    {
+      "key": "learning-journey-studio-onboarding",
+      "type": "contractspec:template",
+      "version": "1.0.0",
+      "title": "learning-journey-studio-onboarding",
+      "description": "Template metadata published from ContractSpec Studio.",
+      "meta": {
+        "stability": "stable",
+        "owners": [],
+        "tags": [
+          "template",
+          "studio"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/items/template/learning-journey-studio-onboarding.json",
+          "type": "contractspec:template-metadata"
+        }
+      ]
+    },
+    {
+      "key": "marketplace",
+      "type": "contractspec:template",
+      "version": "1.0.0",
+      "title": "marketplace",
+      "description": "Template metadata published from ContractSpec Studio.",
+      "meta": {
+        "stability": "stable",
+        "owners": [],
+        "tags": [
+          "template",
+          "studio"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/items/template/marketplace.json",
+          "type": "contractspec:template-metadata"
+        }
+      ]
+    },
+    {
+      "key": "messaging-app",
+      "type": "contractspec:template",
+      "version": "1.0.0",
+      "title": "messaging-app",
+      "description": "Template metadata published from ContractSpec Studio.",
+      "meta": {
+        "stability": "stable",
+        "owners": [],
+        "tags": [
+          "template",
+          "studio"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/items/template/messaging-app.json",
+          "type": "contractspec:template-metadata"
+        }
+      ]
+    },
+    {
+      "key": "recipe-app-i18n",
+      "type": "contractspec:template",
+      "version": "1.0.0",
+      "title": "recipe-app-i18n",
+      "description": "Template metadata published from ContractSpec Studio.",
+      "meta": {
+        "stability": "stable",
+        "owners": [],
+        "tags": [
+          "template",
+          "studio"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/items/template/recipe-app-i18n.json",
+          "type": "contractspec:template-metadata"
+        }
+      ]
+    },
+    {
+      "key": "saas-boilerplate",
+      "type": "contractspec:template",
+      "version": "1.0.0",
+      "title": "saas-boilerplate",
+      "description": "Template metadata published from ContractSpec Studio.",
+      "meta": {
+        "stability": "stable",
+        "owners": [],
+        "tags": [
+          "template",
+          "studio"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/items/template/saas-boilerplate.json",
+          "type": "contractspec:template-metadata"
+        }
+      ]
+    },
+    {
+      "key": "service-business-os",
+      "type": "contractspec:template",
+      "version": "1.0.0",
+      "title": "service-business-os",
+      "description": "Template metadata published from ContractSpec Studio.",
+      "meta": {
+        "stability": "stable",
+        "owners": [],
+        "tags": [
+          "template",
+          "studio"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/items/template/service-business-os.json",
+          "type": "contractspec:template-metadata"
+        }
+      ]
+    },
+    {
+      "key": "team-hub",
+      "type": "contractspec:template",
+      "version": "1.0.0",
+      "title": "team-hub",
+      "description": "Template metadata published from ContractSpec Studio.",
+      "meta": {
+        "stability": "stable",
+        "owners": [],
+        "tags": [
+          "template",
+          "studio"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/items/template/team-hub.json",
+          "type": "contractspec:template-metadata"
+        }
+      ]
+    },
+    {
+      "key": "todos-app",
+      "type": "contractspec:template",
+      "version": "1.0.0",
+      "title": "todos-app",
+      "description": "Template metadata published from ContractSpec Studio.",
+      "meta": {
+        "stability": "stable",
+        "owners": [],
+        "tags": [
+          "template",
+          "studio"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/items/template/todos-app.json",
+          "type": "contractspec:template-metadata"
+        }
+      ]
+    },
+    {
+      "key": "wealth-snapshot",
+      "type": "contractspec:template",
+      "version": "1.0.0",
+      "title": "wealth-snapshot",
+      "description": "Template metadata published from ContractSpec Studio.",
+      "meta": {
+        "stability": "stable",
+        "owners": [],
+        "tags": [
+          "template",
+          "studio"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/items/template/wealth-snapshot.json",
+          "type": "contractspec:template-metadata"
+        }
+      ]
+    },
+    {
+      "key": "workflow-system",
+      "type": "contractspec:template",
+      "version": "1.0.0",
+      "title": "workflow-system",
+      "description": "Template metadata published from ContractSpec Studio.",
+      "meta": {
+        "stability": "stable",
+        "owners": [],
+        "tags": [
+          "template",
+          "studio"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/items/template/workflow-system.json",
+          "type": "contractspec:template-metadata"
+        }
+      ]
+    }
+  ]
+}

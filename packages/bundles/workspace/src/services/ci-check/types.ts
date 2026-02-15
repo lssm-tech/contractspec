@@ -4,7 +4,7 @@
  * Types for CI/CD validation checks with support for multiple output formats.
  */
 
-import type { ContractsrcConfig } from '@contractspec/lib.contracts/workspace-config';
+import type { ContractsrcConfig } from '@contractspec/lib.contracts-spec/workspace-config';
 
 /**
  * Categories of CI checks.

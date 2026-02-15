@@ -1,5 +1,5 @@
 import { ScalarTypeEnum, defineSchemaModel } from '@contractspec/lib.schema';
-import { defineEvent } from '@contractspec/lib.contracts';
+import { defineEvent } from '@contractspec/lib.contracts-spec';
 
 const OrderCreatedPayload = defineSchemaModel({
   name: 'OrderCreatedEventPayload',

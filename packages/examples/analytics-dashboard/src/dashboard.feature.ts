@@ -8,7 +8,7 @@
  * and presentations into an installable feature following FeatureModuleSpec.
  */
 
-import { defineFeature } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 // ============ Feature Definition ============
 

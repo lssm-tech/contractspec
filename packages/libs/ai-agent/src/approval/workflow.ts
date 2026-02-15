@@ -59,13 +59,23 @@ export interface ApprovalStore {
   }): Promise<ApprovalRequest[]>;
 }
 
+export interface InMemoryApprovalStoreOptions {
+  maxItems?: number;
+}
+
 /**
  * In-memory approval store for development and testing.
  */
 export class InMemoryApprovalStore implements ApprovalStore {
   private readonly items = new Map<string, ApprovalRequest>();
+  private readonly maxItems: number;
+
+  constructor(options: InMemoryApprovalStoreOptions = {}) {
+    this.maxItems = options.maxItems ?? 1000;
+  }
 
   async create(request: ApprovalRequest): Promise<void> {
+    this.evictIfNeeded();
     this.items.set(request.id, request);
   }
 
@@ -116,6 +126,27 @@ export class InMemoryApprovalStore implements ApprovalStore {
 
   clear(): void {
     this.items.clear();
+  }
+
+  private evictIfNeeded(): void {
+    if (this.items.size < this.maxItems) {
+      return;
+    }
+
+    let oldestId: string | null = null;
+    let oldestTimestamp = Number.POSITIVE_INFINITY;
+
+    for (const [id, request] of this.items.entries()) {
+      const ts = request.requestedAt.getTime();
+      if (ts < oldestTimestamp) {
+        oldestTimestamp = ts;
+        oldestId = id;
+      }
+    }
+
+    if (oldestId) {
+      this.items.delete(oldestId);
+    }
   }
 }
 
@@ -270,7 +301,17 @@ export class ApprovalWorkflow {
  * Create an approval workflow instance.
  */
 export function createApprovalWorkflow(
-  store?: ApprovalStore
+  store?: ApprovalStore | InMemoryApprovalStoreOptions
 ): ApprovalWorkflow {
-  return new ApprovalWorkflow(store);
+  if (
+    store &&
+    typeof store === 'object' &&
+    'create' in store &&
+    typeof store.create === 'function'
+  ) {
+    return new ApprovalWorkflow(store as ApprovalStore);
+  }
+
+  const options = store as InMemoryApprovalStoreOptions | undefined;
+  return new ApprovalWorkflow(new InMemoryApprovalStore(options));
 }

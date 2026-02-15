@@ -1,4 +1,4 @@
-import { defineCommand } from '@contractspec/lib.contracts/operations';
+import { defineCommand } from '@contractspec/lib.contracts-spec/operations';
 import {
   ConnectionModel,
   CreateConnectionInputModel,

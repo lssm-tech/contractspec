@@ -1,4 +1,4 @@
-import type { EvidenceChunk } from '@contractspec/lib.contracts/product-intent/types';
+import type { EvidenceChunk } from '@contractspec/lib.contracts-spec/product-intent/types';
 
 /**
  * Prompt construction helpers for the product intent workflow.

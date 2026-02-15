@@ -8,7 +8,7 @@ import {
   getAIProvider as getProviderFromLib,
   type LegacyConfig,
 } from '@contractspec/lib.ai-providers';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 
 /**
  * Initialize AI provider based on configuration

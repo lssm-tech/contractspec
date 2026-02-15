@@ -1,4 +1,7 @@
-import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
+import {
+  definePresentation,
+  StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
 
 /**
  * Main dashboard presentation for the SaaS application.

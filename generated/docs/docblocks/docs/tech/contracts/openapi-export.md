@@ -15,7 +15,7 @@ The export is **spec-first**:
 ### Library API
 
 - Function: `openApiForRegistry(registry, options?)`
-- Location: `@contractspec/lib.contracts/openapi`
+- Location: `@contractspec/lib.contracts-spec/openapi`
 
 ### CLI
 

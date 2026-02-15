@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'bun:test';
 
-import type { IntegrationConnection } from '@contractspec/lib.contracts/integrations/connection';
-import type { IntegrationSpec } from '@contractspec/lib.contracts/integrations/spec';
+import type {
+  IntegrationConnection,
+  IntegrationSpec,
+} from '@contractspec/lib.contracts-integrations';
 import type { IntegrationContext } from '@contractspec/integration.runtime/runtime';
 import type {
   SecretProvider,

@@ -1,4 +1,4 @@
-import { defineCommand } from '@contractspec/lib.contracts';
+import { defineCommand } from '@contractspec/lib.contracts-spec';
 import { ClientModel, CreateClientInputModel } from './client.schema';
 
 const OWNERS = ['@examples.service-business-os'] as const;

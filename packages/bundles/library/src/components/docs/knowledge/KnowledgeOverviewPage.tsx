@@ -219,7 +219,7 @@ export function KnowledgeOverviewPage() {
           capabilities:
         </p>
         <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`import { defineWorkflow } from '@contractspec/lib.contracts';
+          <pre>{`import { defineWorkflow } from '@contractspec/lib.contracts-spec/workflow';
 import { OpenAIEmbeddings, VectorSearch, OpenAIChat } from './specs';
 
 export const AnswerSupportQuestion = defineWorkflow({

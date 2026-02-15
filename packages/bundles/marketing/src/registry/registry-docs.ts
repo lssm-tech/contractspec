@@ -1,5 +1,5 @@
-import { TagsEnum } from '@contractspec/lib.contracts/ownership';
-import type { PresentationSpec } from '@contractspec/lib.contracts/presentations';
+import { TagsEnum } from '@contractspec/lib.contracts-spec/ownership';
+import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
 import {
   createComponentPresentation,
   DOCS_CONTEXT,

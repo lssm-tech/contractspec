@@ -2,7 +2,7 @@
  * Types for OpenAPI services.
  */
 
-import type { OpenApiSourceConfig } from '@contractspec/lib.contracts';
+import type { OpenApiSourceConfig } from '@contractspec/lib.contracts-spec';
 
 /**
  * Options for OpenAPI import.

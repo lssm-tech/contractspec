@@ -15,7 +15,7 @@ import {
   type AgentType,
   type LLMExportFormat,
   type VerificationTier,
-} from '@contractspec/lib.contracts/llm';
+} from '@contractspec/lib.contracts-spec/llm';
 import {
   loadSpecFromSource,
   specToMarkdown,

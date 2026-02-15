@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { defaultDocRegistry } from '@contractspec/lib.contracts';
+import { defaultDocRegistry } from '@contractspec/lib.contracts-spec/docs';
 
 /**
  * Hook to fetch documentation blocks related to a specific key or set of tags.

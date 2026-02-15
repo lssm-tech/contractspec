@@ -14,7 +14,7 @@ import type {
   AiGenerateStructuredOptions,
   AiValidationResult,
 } from '../ports/ai';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 
 /**
  * Create a Node.js AI adapter using Vercel AI SDK.

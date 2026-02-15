@@ -3,7 +3,7 @@
  *
  * DocBlock for the AI Chat module.
  */
-import { registerDocBlocks } from '@contractspec/lib.contracts/docs';
+import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 registerDocBlocks([
   {

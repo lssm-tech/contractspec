@@ -32,7 +32,7 @@ export function GuideSpecValidationTypingPage() {
           <CodeBlock
             language="typescript"
             filename="src/contracts/contact-create.operation.ts"
-            code={`import { defineCommand } from "@contractspec/lib.contracts/operations";
+            code={`import { defineCommand } from "@contractspec/lib.contracts-spec/operations";
 import { SchemaModel, ScalarTypeEnum } from "@contractspec/lib.schema";
 
 const ContactInput = new SchemaModel({

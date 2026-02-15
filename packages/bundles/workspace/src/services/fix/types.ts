@@ -5,7 +5,7 @@
  */
 
 import type { AnalyzedSpecType, RefInfo } from '@contractspec/module.workspace';
-import type { Stability } from '@contractspec/lib.contracts';
+import type { Stability } from '@contractspec/lib.contracts-spec';
 import type { IntegrityIssue } from '../integrity';
 
 /**

@@ -5,7 +5,7 @@
 import type {
   ImplementationRef,
   ImplementationType,
-} from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec';
 import { Node, Project, SyntaxKind } from 'ts-morph';
 
 /**

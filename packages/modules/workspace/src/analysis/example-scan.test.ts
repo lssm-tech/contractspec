@@ -27,7 +27,7 @@ describe('isExampleFile', () => {
 describe('scanExampleSource', () => {
   it('should extract basic meta fields', () => {
     const code = `
-import type { ExampleSpec } from '@contractspec/lib.contracts';
+import type { ExampleSpec } from '@contractspec/lib.contracts-spec';
 
 const example: ExampleSpec = {
   meta: {

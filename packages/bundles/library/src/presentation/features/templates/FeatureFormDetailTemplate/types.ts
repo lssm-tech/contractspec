@@ -1,8 +1,8 @@
 import type {
   FeatureModuleSpec,
   FormRef,
-} from '@contractspec/lib.contracts/features';
-import type { SerializedFormSpec } from '@contractspec/lib.contracts/serialization';
+} from '@contractspec/lib.contracts-spec/features';
+import type { SerializedFormSpec } from '@contractspec/lib.contracts-spec/serialization';
 
 export interface FeatureFormDetailTemplateProps {
   feature: FeatureModuleSpec;

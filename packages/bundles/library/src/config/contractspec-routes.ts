@@ -1,4 +1,4 @@
-import type { AppRouteConfig } from '@contractspec/lib.contracts/app-config';
+import type { AppRouteConfig } from '@contractspec/lib.contracts-spec/app-config';
 
 /**
  * Route configuration for the ContractSpec application.

@@ -17,7 +17,7 @@ describe('generateTelemetrySpec', () => {
   it('generates a telemetry spec', () => {
     const code = generateTelemetrySpec(baseData);
     expect(code).toContain(
-      "import type { TelemetrySpec } from '@contractspec/lib.contracts/telemetry';"
+      "import type { TelemetrySpec } from '@contractspec/lib.contracts-spec/telemetry';"
     );
     expect(code).toContain(
       'export const TelemetryTelemetry: TelemetrySpec = {'

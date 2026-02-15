@@ -2,7 +2,7 @@
  * Convention-based implementation path resolution.
  */
 
-import type { ImplementationType } from '@contractspec/lib.contracts';
+import type { ImplementationType } from '@contractspec/lib.contracts-spec';
 
 /**
  * Convert string to kebab-case.

@@ -21,7 +21,7 @@
 ### Patch Changes
 
 - Updated dependencies [374fd71]
-  - @contractspec/lib.contracts@1.61.0
+  - @contractspec/lib.contracts-spec@1.61.0
 
 ## 1.60.0
 
@@ -32,7 +32,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @contractspec/lib.contracts@1.60.0
+  - @contractspec/lib.contracts-spec@1.60.0
 
 ## 1.59.0
 
@@ -43,7 +43,7 @@
 ### Patch Changes
 
 - Updated dependencies [1a0cf44]
-  - @contractspec/lib.contracts@1.59.0
+  - @contractspec/lib.contracts-spec@1.59.0
 
 ## 1.58.0
 
@@ -55,7 +55,7 @@
 
 - Updated dependencies [d1f0fd0]
 - Updated dependencies [4355a9e]
-  - @contractspec/lib.contracts@1.58.0
+  - @contractspec/lib.contracts-spec@1.58.0
 
 ## 1.57.0
 
@@ -71,7 +71,7 @@
 - Updated dependencies [4651e06]
 - Updated dependencies [ad9d10a]
 - Updated dependencies [11a5a05]
-  - @contractspec/lib.contracts@1.57.0
+  - @contractspec/lib.contracts-spec@1.57.0
 
 ## 1.56.1
 
@@ -79,7 +79,7 @@
 
 - fix: improve publish config
 - Updated dependencies
-  - @contractspec/lib.contracts@1.56.1
+  - @contractspec/lib.contracts-spec@1.56.1
 
 ## 1.56.0
 
@@ -90,7 +90,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @contractspec/lib.contracts@1.56.0
+  - @contractspec/lib.contracts-spec@1.56.0
 
 ## 1.55.0
 
@@ -101,7 +101,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @contractspec/lib.contracts@1.55.0
+  - @contractspec/lib.contracts-spec@1.55.0
 
 ## 1.54.0
 
@@ -112,7 +112,7 @@
 ### Patch Changes
 
 - Updated dependencies [ec5e95c]
-  - @contractspec/lib.contracts@1.54.0
+  - @contractspec/lib.contracts-spec@1.54.0
 
 ## 1.53.0
 
@@ -125,7 +125,7 @@
 - Updated dependencies [5b371b1]
 - Updated dependencies [f4180d4]
 - Updated dependencies [64d84e1]
-  - @contractspec/lib.contracts@1.53.0
+  - @contractspec/lib.contracts-spec@1.53.0
 
 ## 1.52.0
 
@@ -136,7 +136,7 @@
 ### Patch Changes
 
 - Updated dependencies [d93e6a9]
-  - @contractspec/lib.contracts@1.52.0
+  - @contractspec/lib.contracts-spec@1.52.0
 
 ## 1.51.0
 
@@ -149,7 +149,7 @@
 - Updated dependencies [23e46e9]
 - Updated dependencies [ad1f852]
 - Updated dependencies [e6faefb]
-  - @contractspec/lib.contracts@1.51.0
+  - @contractspec/lib.contracts-spec@1.51.0
 
 ## 1.50.0
 
@@ -160,7 +160,7 @@
 ### Patch Changes
 
 - Updated dependencies [5325d6b]
-  - @contractspec/lib.contracts@1.50.0
+  - @contractspec/lib.contracts-spec@1.50.0
 
 ## 1.49.0
 
@@ -171,14 +171,14 @@
 ### Patch Changes
 
 - Updated dependencies [cafd041]
-  - @contractspec/lib.contracts@1.49.0
+  - @contractspec/lib.contracts-spec@1.49.0
 
 ## 1.48.1
 
 ### Patch Changes
 
 - Updated dependencies [c560ee7]
-  - @contractspec/lib.contracts@1.48.1
+  - @contractspec/lib.contracts-spec@1.48.1
 
 ## 1.48.0
 
@@ -189,7 +189,7 @@
 ### Patch Changes
 
 - Updated dependencies [b0444a4]
-  - @contractspec/lib.contracts@1.48.0
+  - @contractspec/lib.contracts-spec@1.48.0
 
 ## 1.47.0
 
@@ -210,7 +210,7 @@
 - Updated dependencies [c231a8b]
 - Updated dependencies [42b8d78]
 - Updated dependencies [fd38e85]
-  - @contractspec/lib.contracts@1.47.0
+  - @contractspec/lib.contracts-spec@1.47.0
 
 ## 1.46.2
 
@@ -218,7 +218,7 @@
 
 - 7e21625: feat: library services (landing page & api)
 - Updated dependencies [7e21625]
-  - @contractspec/lib.contracts@1.46.2
+  - @contractspec/lib.contracts-spec@1.46.2
 
 ## 1.46.1
 
@@ -226,7 +226,7 @@
 
 - 2d8a72b: fix: mcp for presentation
 - Updated dependencies [2d8a72b]
-  - @contractspec/lib.contracts@1.46.1
+  - @contractspec/lib.contracts-spec@1.46.1
 
 ## 1.46.0
 
@@ -237,7 +237,7 @@
 ### Patch Changes
 
 - Updated dependencies [07cb19b]
-  - @contractspec/lib.contracts@1.46.0
+  - @contractspec/lib.contracts-spec@1.46.0
 
 ## 1.45.6
 
@@ -245,7 +245,7 @@
 
 - a913074: feat: improve ai agents rules management"
 - Updated dependencies [a913074]
-  - @contractspec/lib.contracts@1.45.6
+  - @contractspec/lib.contracts-spec@1.45.6
 
 ## 1.45.5
 
@@ -253,7 +253,7 @@
 
 - 9ddd7fa: feat: improve versioning
 - Updated dependencies [9ddd7fa]
-  - @contractspec/lib.contracts@1.45.5
+  - @contractspec/lib.contracts-spec@1.45.5
 
 ## 1.45.4
 
@@ -261,7 +261,7 @@
 
 - fix: github action
 - Updated dependencies
-  - @contractspec/lib.contracts@1.45.4
+  - @contractspec/lib.contracts-spec@1.45.4
 
 ## 1.45.3
 
@@ -269,7 +269,7 @@
 
 - e74ea9e: feat: version management
 - Updated dependencies [e74ea9e]
-  - @contractspec/lib.contracts@1.45.3
+  - @contractspec/lib.contracts-spec@1.45.3
 
 ## 1.45.2
 
@@ -277,7 +277,7 @@
 
 - 39ca241: code cleaning
 - Updated dependencies [39ca241]
-  - @contractspec/lib.contracts@1.45.2
+  - @contractspec/lib.contracts-spec@1.45.2
 
 ## 1.45.1
 
@@ -285,7 +285,7 @@
 
 - feat: improve app config and examples contracts
 - Updated dependencies
-  - @contractspec/lib.contracts@1.45.1
+  - @contractspec/lib.contracts-spec@1.45.1
 
 ## 1.45.0
 
@@ -310,7 +310,7 @@
 ### Patch Changes
 
 - Updated dependencies [e73ca1d]
-  - @contractspec/lib.contracts@1.45.0
+  - @contractspec/lib.contracts-spec@1.45.0
 
 ## 1.44.1
 
@@ -318,7 +318,7 @@
 
 - 3c594fb: fix
 - Updated dependencies [3c594fb]
-  - @contractspec/lib.contracts@1.44.1
+  - @contractspec/lib.contracts-spec@1.44.1
 
 ## 1.44.0
 
@@ -329,7 +329,7 @@
 ### Patch Changes
 
 - Updated dependencies [5f3a868]
-  - @contractspec/lib.contracts@1.44.0
+  - @contractspec/lib.contracts-spec@1.44.0
 
 ## 1.43.4
 
@@ -337,7 +337,7 @@
 
 - 9216062: fix: cross-platform compatibility
 - Updated dependencies [9216062]
-  - @contractspec/lib.contracts@1.43.4
+  - @contractspec/lib.contracts-spec@1.43.4
 
 ## 1.43.3
 
@@ -345,7 +345,7 @@
 
 - 24d9759: improve documentation
 - Updated dependencies [24d9759]
-  - @contractspec/lib.contracts@1.43.3
+  - @contractspec/lib.contracts-spec@1.43.3
 
 ## 1.43.2
 
@@ -353,14 +353,14 @@
 
 - e147271: fix: improve stability
 - Updated dependencies [e147271]
-  - @contractspec/lib.contracts@1.43.2
+  - @contractspec/lib.contracts-spec@1.43.2
 
 ## 1.43.1
 
 ### Patch Changes
 
 - Updated dependencies [f28fdad]
-  - @contractspec/lib.contracts@1.43.1
+  - @contractspec/lib.contracts-spec@1.43.1
 
 ## 1.43.0
 
@@ -371,7 +371,7 @@
 ### Patch Changes
 
 - Updated dependencies [042d072]
-  - @contractspec/lib.contracts@1.43.0
+  - @contractspec/lib.contracts-spec@1.43.0
 
 ## 1.42.10
 
@@ -379,7 +379,7 @@
 
 - 1e6a0f1: fix: mcp server
 - Updated dependencies [1e6a0f1]
-  - @contractspec/lib.contracts@1.42.10
+  - @contractspec/lib.contracts-spec@1.42.10
 
 ## 1.42.9
 
@@ -387,7 +387,7 @@
 
 - 9281db7: fix ModelRegistry
 - Updated dependencies [9281db7]
-  - @contractspec/lib.contracts@1.42.9
+  - @contractspec/lib.contracts-spec@1.42.9
 
 ## 1.42.8
 
@@ -395,7 +395,7 @@
 
 - e07b5ac: fix
 - Updated dependencies [e07b5ac]
-  - @contractspec/lib.contracts@1.42.8
+  - @contractspec/lib.contracts-spec@1.42.8
 
 ## 1.42.7
 
@@ -403,7 +403,7 @@
 
 - e9b575d: fix release
 - Updated dependencies [e9b575d]
-  - @contractspec/lib.contracts@1.42.7
+  - @contractspec/lib.contracts-spec@1.42.7
 
 ## 1.42.6
 
@@ -411,7 +411,7 @@
 
 - 1500242: fix tooling
 - Updated dependencies [1500242]
-  - @contractspec/lib.contracts@1.42.6
+  - @contractspec/lib.contracts-spec@1.42.6
 
 ## 1.42.5
 
@@ -419,7 +419,7 @@
 
 - 1299719: fix vscode
 - Updated dependencies [1299719]
-  - @contractspec/lib.contracts@1.42.5
+  - @contractspec/lib.contracts-spec@1.42.5
 
 ## 1.42.4
 
@@ -427,7 +427,7 @@
 
 - ac28b99: fix: generate from openapi
 - Updated dependencies [ac28b99]
-  - @contractspec/lib.contracts@1.42.4
+  - @contractspec/lib.contracts-spec@1.42.4
 
 ## 1.42.3
 
@@ -435,7 +435,7 @@
 
 - 3f5d015: fix(tooling): cicd
 - Updated dependencies [3f5d015]
-  - @contractspec/lib.contracts@1.42.3
+  - @contractspec/lib.contracts-spec@1.42.3
 
 ## 1.42.2
 
@@ -443,7 +443,7 @@
 
 - 1f9ac4c: fix
 - Updated dependencies [1f9ac4c]
-  - @contractspec/lib.contracts@1.42.2
+  - @contractspec/lib.contracts-spec@1.42.2
 
 ## 1.42.1
 
@@ -451,7 +451,7 @@
 
 - f043995: Fix release
 - Updated dependencies [f043995]
-  - @contractspec/lib.contracts@1.42.1
+  - @contractspec/lib.contracts-spec@1.42.1
 
 ## 1.42.0
 
@@ -462,7 +462,7 @@
 ### Patch Changes
 
 - Updated dependencies [8eefd9c]
-  - @contractspec/lib.contracts@1.42.0
+  - @contractspec/lib.contracts-spec@1.42.0
 
 ## 0.4.0
 
@@ -473,7 +473,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @contractspec/lib.contracts@1.12.0
+  - @contractspec/lib.contracts-spec@1.12.0
 
 ## 0.3.1
 
@@ -481,7 +481,7 @@
 
 - Fix dependencies
 - Updated dependencies
-  - @contractspec/lib.contracts@1.11.1
+  - @contractspec/lib.contracts-spec@1.11.1
 
 ## 0.3.0
 
@@ -492,7 +492,7 @@
 ### Patch Changes
 
 - Updated dependencies [b7621d3]
-  - @contractspec/lib.contracts@1.11.0
+  - @contractspec/lib.contracts-spec@1.11.0
 
 ## 0.2.0
 
@@ -503,7 +503,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @contractspec/lib.contracts@1.10.0
+  - @contractspec/lib.contracts-spec@1.10.0
 
 ## 0.1.2
 
@@ -511,7 +511,7 @@
 
 - fix dependencies
 - Updated dependencies
-  - @contractspec/lib.contracts@1.9.2
+  - @contractspec/lib.contracts-spec@1.9.2
 
 ## 0.1.1
 
@@ -519,7 +519,7 @@
 
 - fix
 - Updated dependencies
-  - @contractspec/lib.contracts@1.9.1
+  - @contractspec/lib.contracts-spec@1.9.1
 
 ## 0.1.0
 
@@ -530,7 +530,7 @@
 ### Patch Changes
 
 - Updated dependencies [b1d0876]
-  - @contractspec/lib.contracts@1.9.0
+  - @contractspec/lib.contracts-spec@1.9.0
 
 ## 0.0.1
 

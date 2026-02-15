@@ -6,8 +6,8 @@ import type {
   AgentPrompt,
   AgentType,
   ImplementationPlan,
-} from '@contractspec/lib.contracts/llm';
-import type { AnyOperationSpec } from '@contractspec/lib.contracts';
+} from '@contractspec/lib.contracts-spec/llm';
+import type { AnyOperationSpec } from '@contractspec/lib.contracts-spec';
 
 /** Configuration for the agent guide service */
 export interface AgentGuideConfig {

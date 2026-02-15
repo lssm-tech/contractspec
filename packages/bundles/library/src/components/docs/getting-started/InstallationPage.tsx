@@ -30,7 +30,7 @@ export function InstallationPage() {
           </p>
           <InstallCommand
             package={[
-              '@contractspec/lib.contracts',
+              '@contractspec/lib.contracts-spec',
               '@contractspec/lib.schema',
             ]}
           />
@@ -38,7 +38,7 @@ export function InstallationPage() {
 
         <div className="space-y-3">
           <h2 className="text-2xl font-bold">For Next.js projects</h2>
-          <InstallCommand package="@contractspec/lib.contracts" />
+          <InstallCommand package="@contractspec/lib.contracts-spec" />
         </div>
 
         <div className="space-y-3">
