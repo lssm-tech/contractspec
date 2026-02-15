@@ -1,5 +1,18 @@
 # @contractspec/integration.example-generator
 
+## 15.0.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
+### Patch Changes
+
+- Updated dependencies [064258d]
+- Updated dependencies [064258d]
+  - @contractspec/lib.contracts@1.62.0
+  - @contractspec/lib.schema@1.62.0
+
 ## 14.0.0
 
 ### Minor Changes

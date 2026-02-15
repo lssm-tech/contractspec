@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 0.17.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
 ## 0.16.0
 
 ### Minor Changes

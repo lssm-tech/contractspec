@@ -1,5 +1,26 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 1.62.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
+### Patch Changes
+
+- Updated dependencies [064258d]
+- Updated dependencies [064258d]
+  - @contractspec/example.locale-jurisdiction-gate@1.62.0
+  - @contractspec/example.versioned-knowledge-base@1.62.0
+  - @contractspec/example.kb-update-pipeline@1.62.0
+  - @contractspec/example.learning-patterns@1.62.0
+  - @contractspec/module.learning-journey@1.62.0
+  - @contractspec/lib.example-shared-ui@1.16.0
+  - @contractspec/lib.runtime-sandbox@0.17.0
+  - @contractspec/lib.design-system@1.62.0
+  - @contractspec/lib.ui-kit-web@1.62.0
+  - @contractspec/lib.contracts@1.62.0
+
 ## 1.61.0
 
 ### Minor Changes

@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.62.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
+### Patch Changes
+
+- Updated dependencies [064258d]
+- Updated dependencies [064258d]
+- Updated dependencies [064258d]
+  - @contractspec/lib.ai-agent@1.62.0
+  - @contractspec/lib.contracts-transformers@1.62.0
+  - @contractspec/bundle.workspace@1.62.0
+  - @contractspec/module.workspace@1.62.0
+  - @contractspec/module.examples@1.62.0
+  - @contractspec/module.ai-chat@1.62.0
+  - @contractspec/lib.contracts@1.62.0
+
 ## 1.61.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # contractspec-example-opencode-cli
 
+## 0.11.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
 ## 0.10.0
 
 ### Minor Changes

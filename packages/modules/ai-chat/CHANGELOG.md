@@ -1,5 +1,25 @@
 # @contractspec/module.ai-chat
 
+## 1.62.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
+### Patch Changes
+
+- Updated dependencies [064258d]
+- Updated dependencies [064258d]
+- Updated dependencies [064258d]
+  - @contractspec/lib.ai-agent@1.62.0
+  - @contractspec/lib.cost-tracking@1.62.0
+  - @contractspec/lib.design-system@1.62.0
+  - @contractspec/lib.ai-providers@1.62.0
+  - @contractspec/lib.ui-kit-web@1.62.0
+  - @contractspec/lib.contracts@1.62.0
+  - @contractspec/lib.metering@1.62.0
+  - @contractspec/lib.schema@1.62.0
+
 ## 1.61.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.files",
-  "version": "1.61.0",
+  "version": "1.62.0",
   "description": "Files, documents and attachments module for ContractSpec applications",
   "keywords": [
     "contractspec",

@@ -1,5 +1,20 @@
 # @contractspec/app.api-library
 
+## 1.16.0
+
+### Minor Changes
+
+- 064258d: feat: upgrade all dependencies
+
+### Patch Changes
+
+- Updated dependencies [064258d]
+- Updated dependencies [064258d]
+  - @contractspec/bundle.marketing@1.17.0
+  - @contractspec/bundle.workspace@1.62.0
+  - @contractspec/bundle.library@1.17.0
+  - @contractspec/lib.contracts@1.62.0
+
 ## 1.15.0
 
 ### Minor Changes
