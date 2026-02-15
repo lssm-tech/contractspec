@@ -10,7 +10,7 @@ Fireflies GraphQL API for meeting transcripts, metadata, and webhook events.
 - **Version**: 1.0.0
 - **Owners**: platform.integrations
 - **Tags**: meeting-recorder, fireflies, transcripts
-- **File**: `packages/libs/contracts-integrations/src/integrations/providers/fireflies.ts`
+- **File**: `packages/libs/contracts-spec/src/integrations/providers/fireflies.ts`
 
 ## Source Definition
 

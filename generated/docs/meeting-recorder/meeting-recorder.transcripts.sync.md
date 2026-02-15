@@ -11,7 +11,7 @@ Trigger a transcript sync from the meeting recorder provider.
 - **Stability**: experimental
 - **Owners**: @platform.integrations
 - **Tags**: meeting-recorder, transcripts, sync
-- **File**: `packages/libs/contracts-integrations/src/integrations/meeting-recorder/contracts/transcripts.ts`
+- **File**: `packages/libs/contracts-spec/src/integrations/meeting-recorder/contracts/transcripts.ts`
 
 ## Goal
 

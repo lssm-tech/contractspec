@@ -11,7 +11,7 @@ Synchronise transactions for a bank account by calling the configured open banki
 - **Stability**: experimental
 - **Owners**: @platform.finance
 - **Tags**: open-banking, powens, transactions
-- **File**: `packages/libs/contracts-integrations/src/integrations/openbanking/contracts/transactions.ts`
+- **File**: `packages/libs/contracts-spec/src/integrations/openbanking/contracts/transactions.ts`
 
 ## Goal
 

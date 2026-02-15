@@ -11,7 +11,7 @@ List bank accounts available to a tenant/user via Powens Open Banking.
 - **Stability**: experimental
 - **Owners**: @platform.finance
 - **Tags**: open-banking, powens, accounts
-- **File**: `packages/libs/contracts-integrations/src/integrations/openbanking/contracts/accounts.ts`
+- **File**: `packages/libs/contracts-spec/src/integrations/openbanking/contracts/accounts.ts`
 
 ## Goal
 

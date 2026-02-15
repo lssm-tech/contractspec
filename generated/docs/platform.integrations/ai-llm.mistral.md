@@ -10,7 +10,7 @@ Mistral integration providing chat completions and embedding generation.
 - **Version**: 1.0.0
 - **Owners**: platform.ai
 - **Tags**: ai, llm, embeddings
-- **File**: `packages/libs/contracts-integrations/src/integrations/providers/mistral.ts`
+- **File**: `packages/libs/contracts-spec/src/integrations/providers/mistral.ts`
 
 ## Source Definition
 
