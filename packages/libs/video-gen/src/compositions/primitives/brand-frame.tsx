@@ -3,7 +3,7 @@ import { interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 import { videoDurations, videoEasing } from '../../design/motion';
 import { defaultVideoTheme } from '../../design/tokens';
 import { scaleSafeZone } from '../../design/layouts';
-import type { VideoStyleOverrides } from '@contractspec/lib.contracts-integrations/providers/video';
+import type { VideoStyleOverrides } from '@contractspec/lib.contracts-integrations/integrations/providers/video';
 
 // ---------------------------------------------------------------------------
 // BrandFrame -- Branded container with logo area, background, and safe zone
@@ -35,7 +35,7 @@ export const BrandFrame: React.FC<BrandFrameProps> = ({
   const safeZone = scaleSafeZone({ type: 'custom', width, height });
 
   const primaryColor = styleOverrides?.primaryColor ?? theme.colors.primary;
-  const accentColor = styleOverrides?.accentColor ?? theme.colors.accent;
+  const _accentColor = styleOverrides?.accentColor ?? theme.colors.accent;
   const isDark = styleOverrides?.darkMode ?? true;
 
   // Background

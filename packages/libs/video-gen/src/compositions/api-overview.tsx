@@ -6,6 +6,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from 'remotion';
+// Note: useCurrentFrame is used by sub-components (MethodBadge, OutputChip)
 import { BrandFrame } from './primitives/brand-frame';
 import { AnimatedText } from './primitives/animated-text';
 import { CodeBlock } from './primitives/code-block';
@@ -50,8 +51,7 @@ export const ApiOverview: React.FC<ApiOverviewProps> = ({
   ],
   tagline = 'One spec. Every surface.',
 }) => {
-  const frame = useCurrentFrame();
-  const { durationInFrames, width, height } = useVideoConfig();
+  const { durationInFrames } = useVideoConfig();
 
   const theme = defaultVideoTheme;
 
@@ -223,7 +223,7 @@ const OutputChip: React.FC<{
   label: string;
   index: number;
   startFrame: number;
-}> = ({ label, index, startFrame }) => {
+}> = ({ label, startFrame }) => {
   const frame = useCurrentFrame();
 
   const opacity = interpolate(frame, [startFrame, startFrame + 12], [0, 1], {

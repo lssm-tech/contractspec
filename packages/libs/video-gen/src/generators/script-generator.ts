@@ -152,13 +152,16 @@ export class ScriptGenerator {
     brief: ContentBrief,
     style: NarrationConfig['style']
   ): Promise<NarrationScript> {
-    const styleGuide = {
+    const styleGuide: Record<NonNullable<NarrationConfig['style']>, string> = {
       professional:
         'Use a clear, authoritative, professional tone. Be concise and direct.',
       casual:
         'Use a friendly, conversational tone. Be approachable and relatable.',
       technical: 'Use precise technical language. Be detailed and accurate.',
     };
+
+    const styleKey: NonNullable<NarrationConfig['style']> =
+      style ?? 'professional';
 
     const messages: LLMMessage[] = [
       {
@@ -168,7 +171,7 @@ export class ScriptGenerator {
             type: 'text',
             text: `You are a video narration script writer.
 Write a narration script for a short video (30-60 seconds).
-${styleGuide[style ?? 'professional']}
+${styleGuide[styleKey]}
 
 Return JSON with shape:
 {
@@ -187,8 +190,12 @@ Only include segments that are relevant to the brief content.`,
       },
     ];
 
+    if (!this.llm) {
+      return this.generateDeterministic(brief, style);
+    }
+
     try {
-      const response = await this.llm!.chat(messages, {
+      const response = await this.llm.chat(messages, {
         model: this.model,
         temperature: this.temperature,
         responseFormat: 'json',

@@ -5,8 +5,8 @@
 // generator options, and content-pipeline integration.
 // ---------------------------------------------------------------------------
 
-import type { LLMProvider } from '@contractspec/lib.contracts-integrations/providers/llm';
-import type { VoiceProvider } from '@contractspec/lib.contracts-integrations/providers/voice';
+import type { LLMProvider } from '@contractspec/lib.contracts-integrations/integrations/providers/llm';
+import type { VoiceProvider } from '@contractspec/lib.contracts-integrations/integrations/providers/voice';
 import type { ContentBrief } from '@contractspec/lib.content-gen/types';
 import type {
   NarrationConfig,

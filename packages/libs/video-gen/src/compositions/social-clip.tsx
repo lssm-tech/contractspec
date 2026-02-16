@@ -42,13 +42,11 @@ export const SocialClip: React.FC<SocialClipProps> = ({
   ctaUrl = 'contractspec.dev',
   accentColor,
 }) => {
-  const frame = useCurrentFrame();
   const { durationInFrames, width, height } = useVideoConfig();
 
   const theme = defaultVideoTheme;
   const accent = accentColor ?? theme.colors.accent;
   const isPortrait = height > width;
-  const isSquare = Math.abs(width - height) < 100;
 
   // Scene timing
   const HOOK_DURATION = 75; // 2.5s
@@ -144,7 +142,7 @@ const PointItem: React.FC<{
   index: number;
   startFrame: number;
   accent: string;
-}> = ({ text, index, startFrame, accent }) => {
+}> = ({ text, startFrame, accent }) => {
   const frame = useCurrentFrame();
 
   const opacity = interpolate(frame, [startFrame, startFrame + 12], [0, 1], {

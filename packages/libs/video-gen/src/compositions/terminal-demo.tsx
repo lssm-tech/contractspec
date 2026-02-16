@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  AbsoluteFill,
-  Sequence,
-  interpolate,
-  useCurrentFrame,
-  useVideoConfig,
-} from 'remotion';
+import { AbsoluteFill, Sequence, useVideoConfig } from 'remotion';
 import { BrandFrame } from './primitives/brand-frame';
 import { AnimatedText } from './primitives/animated-text';
 import { Terminal } from './primitives/terminal';
@@ -43,13 +37,11 @@ export const TerminalDemo: React.FC<TerminalDemoProps> = ({
   prompt = '$ ',
   summary,
 }) => {
-  const frame = useCurrentFrame();
-  const { durationInFrames, width, height } = useVideoConfig();
+  const { durationInFrames } = useVideoConfig();
 
   const theme = defaultVideoTheme;
 
   // Scene timing
-  const TITLE_DURATION = 60;
   const TERMINAL_START = 40;
   const SUMMARY_START = durationInFrames - 90;
 

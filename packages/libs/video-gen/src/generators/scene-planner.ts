@@ -189,8 +189,12 @@ Prioritize clarity and pacing. Each scene should communicate one idea.`,
       },
     ];
 
+    if (!this.llm) {
+      return this.planDeterministic(brief);
+    }
+
     try {
-      const response = await this.llm!.chat(messages, {
+      const response = await this.llm.chat(messages, {
         model: this.model,
         temperature: this.temperature,
         responseFormat: 'json',

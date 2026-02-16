@@ -19,7 +19,7 @@
     "dev": "contractspec-bun-build dev"
   },
   "dependencies": {
-    "@aws-sdk/client-secrets-manager": "^3.988.0",
+    "@aws-sdk/client-secrets-manager": "^3.991.0",
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
     "@google-cloud/secret-manager": "^6.1.1",
@@ -105,6 +105,7 @@
     "./integrations/providers/tldv": "./src/integrations/providers/tldv.ts",
     "./integrations/providers/twilio-sms": "./src/integrations/providers/twilio-sms.ts",
     "./integrations/providers/vector-store": "./src/integrations/providers/vector-store.ts",
+    "./integrations/providers/video": "./src/integrations/providers/video.ts",
     "./integrations/providers/voice": "./src/integrations/providers/voice.ts",
     "./integrations/runtime": "./src/integrations/runtime.ts",
     "./integrations/secrets": "./src/integrations/secrets/index.ts",
@@ -541,6 +542,12 @@
         "bun": "./dist/integrations/providers/vector-store.js",
         "node": "./dist/node/integrations/providers/vector-store.js",
         "default": "./dist/integrations/providers/vector-store.js"
+      },
+      "./integrations/providers/video": {
+        "types": "./dist/integrations/providers/video.d.ts",
+        "bun": "./dist/integrations/providers/video.js",
+        "node": "./dist/node/integrations/providers/video.js",
+        "default": "./dist/integrations/providers/video.js"
       },
       "./integrations/providers/voice": {
         "types": "./dist/integrations/providers/voice.d.ts",

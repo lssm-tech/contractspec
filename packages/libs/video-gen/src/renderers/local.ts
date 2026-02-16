@@ -48,8 +48,11 @@ export class LocalRenderer implements VideoProvider {
 
     // For single-composition projects, render the first scene's composition
     // For multi-scene projects, this would use a Sequence-based master composition
+    const firstScene = project.scenes[0];
     const mainCompositionId =
-      project.scenes.length === 1 ? project.scenes[0]!.compositionId : 'Master';
+      project.scenes.length === 1 && firstScene
+        ? firstScene.compositionId
+        : 'Master';
 
     const composition = await selectComposition({
       serveUrl: bundleLocation,
