@@ -87,9 +87,7 @@ export const importCommand = new Command('import')
         const filePath = resolve(outputDir, spec.fileName);
 
         if (options.dryRun) {
-          console.log(
-            chalk.gray(`[DRY RUN] Would create: ${filePath}`)
-          );
+          console.log(chalk.gray(`[DRY RUN] Would create: ${filePath}`));
         } else {
           // Ensure directory exists
           const dir = dirname(filePath);
@@ -106,7 +104,9 @@ export const importCommand = new Command('import')
 
       // Report skipped operations
       if (importResult.skipped.length > 0) {
-        console.log(chalk.yellow(`\nSkipped ${importResult.skipped.length} operations:`));
+        console.log(
+          chalk.yellow(`\nSkipped ${importResult.skipped.length} operations:`)
+        );
         for (const skipped of importResult.skipped) {
           console.log(chalk.gray(`  - ${skipped.sourceId}: ${skipped.reason}`));
         }
@@ -114,7 +114,9 @@ export const importCommand = new Command('import')
 
       // Report errors
       if (importResult.errors.length > 0) {
-        console.log(chalk.red(`\nErrors for ${importResult.errors.length} operations:`));
+        console.log(
+          chalk.red(`\nErrors for ${importResult.errors.length} operations:`)
+        );
         for (const error of importResult.errors) {
           console.log(chalk.red(`  - ${error.sourceId}: ${error.error}`));
         }
@@ -137,4 +139,3 @@ export const importCommand = new Command('import')
       process.exit(1);
     }
   });
-

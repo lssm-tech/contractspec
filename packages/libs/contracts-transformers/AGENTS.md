@@ -50,3 +50,4 @@ To add support for a new format (e.g., AsyncAPI):
 - Test: `bun test`
 - Lint: `bun run lint:check`
 
+

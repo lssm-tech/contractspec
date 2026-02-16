@@ -157,4 +157,3 @@ function jsonToYaml(obj: unknown, indent = 0): string {
 
   return yaml;
 }
-

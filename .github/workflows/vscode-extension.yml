@@ -331,4 +331,3 @@ jobs:
                   # Clean up old artifacts (keep last 5)
                   gh run list --workflow=vscode-extension.yml --json databaseId --jq '.[5:] | .[].databaseId' | xargs -I {} gh run delete {} || true
               continue-on-error: true
-

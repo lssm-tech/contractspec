@@ -5,6 +5,7 @@ export * from './vector-store';
 export * from './email';
 export * from './calendar';
 export * from './sms';
+export * from './video';
 export * from './voice';
 export * from './storage';
 export * from './stripe';

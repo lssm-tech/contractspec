@@ -29,7 +29,13 @@ export async function syncWithOpenApiService(
   adapters: { fs: FsAdapter; logger: LoggerAdapter }
 ): Promise<OpenApiSyncServiceResult> {
   const { fs, logger } = adapters;
-  const { sources: optSources, sourceName, interactive, force, dryRun } = options;
+  const {
+    sources: optSources,
+    sourceName,
+    interactive,
+    force,
+    dryRun,
+  } = options;
   const { sources: configSources, outputDir } = config;
 
   // Determine which sources to sync
@@ -43,7 +49,9 @@ export async function syncWithOpenApiService(
   }
 
   if (sourcesToSync.length === 0) {
-    logger.warn('No OpenAPI sources configured. Add sources to .contractsrc.json');
+    logger.warn(
+      'No OpenAPI sources configured. Add sources to .contractsrc.json'
+    );
     return {
       added: 0,
       updated: 0,
@@ -113,7 +121,7 @@ export async function syncWithOpenApiService(
       } else {
         // Existing spec - check for differences
         const existingCode = await fs.readFile(filePath);
-        
+
         if (existingCode === imported.code) {
           // No changes
           result.unchanged++;
@@ -153,7 +161,9 @@ export async function syncWithOpenApiService(
               action: 'conflict',
               path: filePath,
             });
-            logger.warn(`Conflict: ${imported.source.sourceId} - needs resolution`);
+            logger.warn(
+              `Conflict: ${imported.source.sourceId} - needs resolution`
+            );
           } else {
             // Default: report conflict
             result.conflicts++;
@@ -175,4 +185,3 @@ export async function syncWithOpenApiService(
 
   return result;
 }
-
