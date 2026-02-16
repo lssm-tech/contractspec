@@ -1,109 +1,43 @@
-# @contractspec/lib.contracts
+# @contractspec/lib.contracts (Deprecated)
 
-[![npm version](https://img.shields.io/npm/v/@contractspec/lib.contracts)](https://www.npmjs.com/package/@contractspec/lib.contracts)
-[![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.contracts)](https://www.npmjs.com/package/@contractspec/lib.contracts)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/lssm-tech/contractspec)
+`@contractspec/lib.contracts` has been deprecated and split into focused packages.
 
+This package is kept only as a migration marker and no longer provides the old monolithic API surface.
 
-Website: https://contractspec.io/
+## Replacement packages
 
+- `@contractspec/lib.contracts-spec` - core contract declarations, registries, policies, workflows, and shared contract types.
+- `@contractspec/lib.contracts-integrations` - integration contracts, provider specs, and integration-specific models/ops.
+- `@contractspec/lib.contracts-runtime-client-react` - React runtime adapters (forms, feature rendering, drivers).
+- `@contractspec/lib.contracts-runtime-server-rest` - REST server adapters (`rest-next-app`, `rest-express`, `rest-elysia`, etc.).
+- `@contractspec/lib.contracts-runtime-server-graphql` - GraphQL runtime adapter (`graphql-pothos`).
+- `@contractspec/lib.contracts-runtime-server-mcp` - MCP runtime adapter (`provider-mcp` and MCP registration helpers).
 
-**The core of ContractSpec** — Define contracts once, generate consistent code across all surfaces.
+## Migration map
 
-Unified specifications for Operations (commands/queries), Events, and Presentations. Contracts serve as the canonical source of truth that AI agents and code generators read to understand system constraints.
+- `@contractspec/lib.contracts` -> `@contractspec/lib.contracts-spec`
+- `@contractspec/lib.contracts/integrations/*` -> `@contractspec/lib.contracts-integrations/integrations/*`
+- `@contractspec/lib.contracts/client/react/*` -> `@contractspec/lib.contracts-runtime-client-react/*`
+- `@contractspec/lib.contracts/server/rest-next-app` -> `@contractspec/lib.contracts-runtime-server-rest/rest-next-app`
+- `@contractspec/lib.contracts/server/graphql-pothos` -> `@contractspec/lib.contracts-runtime-server-graphql/graphql-pothos`
+- `@contractspec/lib.contracts/server/provider-mcp` -> `@contractspec/lib.contracts-runtime-server-mcp/provider-mcp`
 
-## Purpose
-
-To provide a single, typed source of truth for backend operations (`ContractSpec`), events (`EventSpec`), and UI/data presentations. This enables **runtime adapters** (REST, GraphQL, MCP, UI) to automatically generate endpoints, schemas, and user interfaces without code duplication.
-
-## Installation
+## Install
 
 ```bash
-npm install @contractspec/lib.contracts @contractspec/lib.schema
-# or
-bun add @contractspec/lib.contracts @contractspec/lib.schema
+bun add @contractspec/lib.contracts-spec
+bun add @contractspec/lib.contracts-integrations
+bun add @contractspec/lib.contracts-runtime-client-react
+bun add @contractspec/lib.contracts-runtime-server-rest
+bun add @contractspec/lib.contracts-runtime-server-graphql
+bun add @contractspec/lib.contracts-runtime-server-mcp
 ```
 
-## Key Concepts
+## Why this split
 
-- **Spec-First, TypeScript-First**: Define operations in pure TypeScript (no YAML).
-- **Runtime Adapters**: The `OperationSpecRegistry` is passed to adapters (e.g., `makeNextAppHandler`) to serve APIs dynamically. There is no intermediate "compile" step to generate code; the spec _is_ the code.
-- **Capabilities**: `defineCommand` (writes) and `defineQuery` (reads) with Zod-backed I/O.
-- **Events**: `defineEvent` for type-safe side effects.
-- **Presentations**: (V2) Describe how data is rendered (Web Components, Markdown, Data) for automated UI generation.
+- Smaller, focused dependency graphs.
+- Clear boundaries between declarations, integrations, and runtime adapters.
+- Faster builds and better tree shaking.
+- Safer long-term evolution of runtime surfaces.
 
-## Exports
-
-- **Core**: `OperationSpecRegistry`, `defineCommand`, `defineQuery`, `defineEvent`.
-- **Config**: `SchemaFormat` ('contractspec' | 'zod' | 'json-schema' | 'graphql').
-- **Adapters**:
-  - `server/rest-next-app`: Next.js App Router adapter.
-  - `server/provider-mcp`: Model Context Protocol (MCP) adapter for AI agents.
-  - `server/graphql-pothos`: GraphQL schema generator.
-- **Docs**: `markdown` utilities to generate human-readable documentation from specs.
-
-## Usage
-
-### 1. Define a Spec
-
-```ts
-import { defineCommand, defineQuery } from '@contractspec/lib.contracts';
-import * as z from "zod";
-import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
-
-const UserInput = new SchemaModel({
-  name: 'UserInput',
-  fields: {
-    email: { type: ScalarTypeEnum.Email(), isOptional: false },
-  },
-});
-
-export const CreateUser = defineCommand({
-  meta: {
-    name: 'user.create',
-    version: '1.0.0',
-    description: 'Register a new user',
-    owners: ['team-auth'],
-    tags: ['auth'],
-    goal: 'Onboard users',
-    context: 'Public registration',
-    stability: 'stable',
-  },
-  io: {
-    input: UserInput,
-    output: new SchemaModel({
-      name: 'UserOutput',
-      fields: {
-        id: { type: ScalarTypeEnum.String(), isOptional: false },
-      },
-    }),
-  },
-  policy: {
-    auth: 'anonymous',
-  },
-});
-```
-
-### 2. Register and Implement
-
-```ts
-import { OperationSpecRegistry, installOp } from '@contractspec/lib.contracts';
-
-const reg = new OperationSpecRegistry();
-
-installOp(reg, CreateUser, async (ctx, input) => {
-  // Implementation logic here
-  return { id: '123' };
-});
-```
-
-### 3. Serve (Next.js Adapter)
-
-```ts
-// app/api/[...route]/route.ts
-import { makeNextAppHandler } from '@contractspec/lib.contracts/server/rest-next-app';
-
-const handler = makeNextAppHandler(reg, (req) => ({ actor: 'anonymous' }));
-
-export { handler as GET, handler as POST };
-```
+Website: https://contractspec.io/

@@ -74,6 +74,11 @@
     "./design/motion": "./src/design/motion.ts",
     "./design/tokens": "./src/design/tokens.ts",
     "./design/typography": "./src/design/typography.ts",
+    "./docs/compositions.docblock": "./src/docs/compositions.docblock.ts",
+    "./docs/design.docblock": "./src/docs/design.docblock.ts",
+    "./docs/generators.docblock": "./src/docs/generators.docblock.ts",
+    "./docs/rendering.docblock": "./src/docs/rendering.docblock.ts",
+    "./docs/video-gen.docblock": "./src/docs/video-gen.docblock.ts",
     "./generators": "./src/generators/index.ts",
     "./generators/index": "./src/generators/index.ts",
     "./generators/scene-planner": "./src/generators/scene-planner.ts",
@@ -233,6 +238,41 @@
         "node": "./dist/node/design/typography.js",
         "browser": "./dist/browser/design/typography.js",
         "default": "./dist/design/typography.js"
+      },
+      "./docs/compositions.docblock": {
+        "types": "./dist/docs/compositions.docblock.d.ts",
+        "bun": "./dist/docs/compositions.docblock.js",
+        "node": "./dist/node/docs/compositions.docblock.js",
+        "browser": "./dist/browser/docs/compositions.docblock.js",
+        "default": "./dist/docs/compositions.docblock.js"
+      },
+      "./docs/design.docblock": {
+        "types": "./dist/docs/design.docblock.d.ts",
+        "bun": "./dist/docs/design.docblock.js",
+        "node": "./dist/node/docs/design.docblock.js",
+        "browser": "./dist/browser/docs/design.docblock.js",
+        "default": "./dist/docs/design.docblock.js"
+      },
+      "./docs/generators.docblock": {
+        "types": "./dist/docs/generators.docblock.d.ts",
+        "bun": "./dist/docs/generators.docblock.js",
+        "node": "./dist/node/docs/generators.docblock.js",
+        "browser": "./dist/browser/docs/generators.docblock.js",
+        "default": "./dist/docs/generators.docblock.js"
+      },
+      "./docs/rendering.docblock": {
+        "types": "./dist/docs/rendering.docblock.d.ts",
+        "bun": "./dist/docs/rendering.docblock.js",
+        "node": "./dist/node/docs/rendering.docblock.js",
+        "browser": "./dist/browser/docs/rendering.docblock.js",
+        "default": "./dist/docs/rendering.docblock.js"
+      },
+      "./docs/video-gen.docblock": {
+        "types": "./dist/docs/video-gen.docblock.d.ts",
+        "bun": "./dist/docs/video-gen.docblock.js",
+        "node": "./dist/node/docs/video-gen.docblock.js",
+        "browser": "./dist/browser/docs/video-gen.docblock.js",
+        "default": "./dist/docs/video-gen.docblock.js"
       },
       "./generators": {
         "types": "./dist/generators/index.d.ts",
