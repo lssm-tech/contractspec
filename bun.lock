@@ -1169,6 +1169,48 @@
         "typescript": "catalog:",
       },
     },
+    "packages/examples/video-api-showcase": {
+      "name": "@contractspec/example.video-api-showcase",
+      "version": "2.0.0",
+      "dependencies": {
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+        "@contractspec/lib.contracts-spec": "workspace:*",
+        "@contractspec/lib.video-gen": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/examples/video-docs-terminal": {
+      "name": "@contractspec/example.video-docs-terminal",
+      "version": "2.0.0",
+      "dependencies": {
+        "@contractspec/lib.content-gen": "workspace:*",
+        "@contractspec/lib.contracts-spec": "workspace:*",
+        "@contractspec/lib.video-gen": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/examples/video-marketing-clip": {
+      "name": "@contractspec/example.video-marketing-clip",
+      "version": "2.0.0",
+      "dependencies": {
+        "@contractspec/lib.content-gen": "workspace:*",
+        "@contractspec/lib.contracts-spec": "workspace:*",
+        "@contractspec/lib.video-gen": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
     "packages/examples/voice-providers": {
       "name": "@contractspec/example.voice-providers",
       "version": "2.0.0",
@@ -3144,6 +3186,12 @@
     "@contractspec/example.team-hub": ["@contractspec/example.team-hub@workspace:packages/examples/team-hub"],
 
     "@contractspec/example.versioned-knowledge-base": ["@contractspec/example.versioned-knowledge-base@workspace:packages/examples/versioned-knowledge-base"],
+
+    "@contractspec/example.video-api-showcase": ["@contractspec/example.video-api-showcase@workspace:packages/examples/video-api-showcase"],
+
+    "@contractspec/example.video-docs-terminal": ["@contractspec/example.video-docs-terminal@workspace:packages/examples/video-docs-terminal"],
+
+    "@contractspec/example.video-marketing-clip": ["@contractspec/example.video-marketing-clip@workspace:packages/examples/video-marketing-clip"],
 
     "@contractspec/example.voice-providers": ["@contractspec/example.voice-providers@workspace:packages/examples/voice-providers"],
 
