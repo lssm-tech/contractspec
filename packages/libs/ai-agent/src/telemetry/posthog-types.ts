@@ -20,12 +20,25 @@ export interface PostHogTracingOptions {
   posthogDistinctId?: string;
   /** Trace ID for grouping related generations */
   posthogTraceId?: string;
+  /** Optional model id override */
+  posthogModelOverride?: string;
+  /** Optional provider override */
+  posthogProviderOverride?: string;
+  /** Optional explicit token pricing override */
+  posthogCostOverride?: PostHogCostOverride;
   /** Custom properties attached to every generation event */
   posthogProperties?: Record<string, unknown>;
   /** When true, input/output content is redacted */
   posthogPrivacyMode?: boolean;
   /** Group analytics (e.g., { company: "companyId" }) */
   posthogGroups?: Record<string, string>;
+  /** Sends events immediately (useful for short-lived/serverless contexts) */
+  posthogCaptureImmediate?: boolean;
+}
+
+export interface PostHogCostOverride {
+  inputCost: number;
+  outputCost: number;
 }
 
 // =============================================================================
