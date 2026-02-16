@@ -1,0 +1,103 @@
+{
+  "name": "@contractspec/example.video-marketing-clip",
+  "version": "2.0.0",
+  "description": "Generate short-form marketing videos from content briefs using the video-gen pipeline.",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./briefs": "./src/briefs.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/index": "./src/docs/index.ts",
+    "./docs/video-marketing-clip.docblock": "./src/docs/video-marketing-clip.docblock.ts",
+    "./example": "./src/example.ts",
+    "./generate-clip": "./src/generate-clip.ts"
+  },
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test --pass-with-no-tests",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.video-gen": "workspace:*",
+    "@contractspec/lib.content-gen": "workspace:*"
+  },
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.bun": "workspace:*",
+    "typescript": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.js",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./briefs": {
+        "types": "./dist/briefs.d.ts",
+        "bun": "./dist/briefs.js",
+        "node": "./dist/node/briefs.js",
+        "browser": "./dist/browser/briefs.js",
+        "default": "./dist/briefs.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.js",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/index": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.js",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/video-marketing-clip.docblock": {
+        "types": "./dist/docs/video-marketing-clip.docblock.d.ts",
+        "bun": "./dist/docs/video-marketing-clip.docblock.js",
+        "node": "./dist/node/docs/video-marketing-clip.docblock.js",
+        "browser": "./dist/browser/docs/video-marketing-clip.docblock.js",
+        "default": "./dist/docs/video-marketing-clip.docblock.js"
+      },
+      "./example": {
+        "types": "./dist/example.d.ts",
+        "bun": "./dist/example.js",
+        "node": "./dist/node/example.js",
+        "browser": "./dist/browser/example.js",
+        "default": "./dist/example.js"
+      },
+      "./generate-clip": {
+        "types": "./dist/generate-clip.d.ts",
+        "bun": "./dist/generate-clip.js",
+        "node": "./dist/node/generate-clip.js",
+        "browser": "./dist/browser/generate-clip.js",
+        "default": "./dist/generate-clip.js"
+      }
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/video-marketing-clip"
+  },
+  "homepage": "https://contractspec.io"
+}
