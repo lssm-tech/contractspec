@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.feature-flags",
-  "version": "1.62.0",
+  "version": "2.0.0",
   "description": "Feature flags and experiments module for ContractSpec applications",
   "keywords": [
     "contractspec",

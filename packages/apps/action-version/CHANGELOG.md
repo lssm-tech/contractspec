@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 1.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
 ## 0.18.0
 
 ### Minor Changes

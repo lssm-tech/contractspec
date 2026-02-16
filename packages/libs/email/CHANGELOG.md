@@ -1,5 +1,16 @@
 # @contractspec/lib.email
 
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+  - @contractspec/lib.logger@2.0.0
+
 ## 1.16.0
 
 ### Minor Changes

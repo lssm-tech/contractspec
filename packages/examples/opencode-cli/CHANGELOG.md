@@ -1,5 +1,17 @@
 # contractspec-example-opencode-cli
 
+## 1.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+- Updated dependencies [f152678]
+  - @contractspec/lib.contracts-spec@2.0.0
+
 ## 0.11.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 17.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+  - @contractspec/lib.presentation-runtime-core@2.0.0
+  - @contractspec/lib.ui-kit@2.0.0
+
 ## 16.0.0
 
 ### Minor Changes
