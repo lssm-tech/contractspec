@@ -1,5 +1,11 @@
 # @contractspec/app.cli-databases
 
+## 2.1.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
 ## 2.0.0
 
 ### Major Changes

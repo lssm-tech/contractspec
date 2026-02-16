@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 18.0.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
+### Patch Changes
+
+- Updated dependencies [362fbac]
+  - @contractspec/lib.presentation-runtime-core@2.1.0
+  - @contractspec/lib.ui-kit@2.1.0
+
 ## 17.0.0
 
 ### Major Changes

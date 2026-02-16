@@ -1,5 +1,11 @@
 # @contractspec/lib.contracts
 
+## 1.62.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
 ## 1.61.0
 
 ### Minor Changes

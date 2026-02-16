@@ -1,5 +1,32 @@
 # @contractspec/bundle.library
 
+## 2.1.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+- 659d15f: feat: improve ai-agent analytics leveraging posthog
+
+### Patch Changes
+
+- Updated dependencies [b4bfbc5]
+- Updated dependencies [362fbac]
+- Updated dependencies [659d15f]
+  - @contractspec/lib.contracts-spec@2.1.0
+  - @contractspec/lib.contracts-runtime-server-graphql@2.1.0
+  - @contractspec/lib.contracts-runtime-server-rest@2.1.0
+  - @contractspec/lib.contracts-runtime-server-mcp@2.1.0
+  - @contractspec/lib.contracts-integrations@2.1.0
+  - @contractspec/lib.contracts-library@2.1.0
+  - @contractspec/lib.example-shared-ui@2.1.0
+  - @contractspec/lib.runtime-sandbox@1.1.0
+  - @contractspec/lib.design-system@2.1.0
+  - @contractspec/module.examples@2.1.0
+  - @contractspec/lib.ui-kit-web@2.1.0
+  - @contractspec/lib.ui-link@2.1.0
+  - @contractspec/lib.logger@2.1.0
+  - @contractspec/lib.schema@2.1.0
+
 ## 2.0.0
 
 ### Major Changes

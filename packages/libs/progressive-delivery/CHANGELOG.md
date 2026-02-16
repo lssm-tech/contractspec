@@ -1,5 +1,16 @@
 # @contractspec/lib.progressive-delivery
 
+## 18.0.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
+### Patch Changes
+
+- Updated dependencies [362fbac]
+  - @contractspec/lib.observability@2.1.0
+
 ## 17.0.0
 
 ### Major Changes
