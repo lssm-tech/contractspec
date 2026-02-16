@@ -1,5 +1,22 @@
 # @contractspec/example.product-intent
 
+## 2.1.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
+### Patch Changes
+
+- Updated dependencies [b4bfbc5]
+- Updated dependencies [362fbac]
+- Updated dependencies [659d15f]
+  - @contractspec/lib.contracts-spec@2.1.0
+  - @contractspec/integration.providers-impls@2.1.0
+  - @contractspec/lib.contracts-integrations@2.1.0
+  - @contractspec/lib.product-intent-utils@2.1.0
+  - @contractspec/lib.ai-agent@2.1.0
+
 ## 2.0.0
 
 ### Major Changes

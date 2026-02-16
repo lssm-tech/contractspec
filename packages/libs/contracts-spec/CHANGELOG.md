@@ -1,5 +1,18 @@
 # @contractspec/lib.contracts-spec
 
+## 2.1.0
+
+### Minor Changes
+
+- b4bfbc5: feat: init video system
+- 362fbac: feat: improve video
+- 659d15f: feat: improve ai-agent analytics leveraging posthog
+
+### Patch Changes
+
+- Updated dependencies [362fbac]
+  - @contractspec/lib.schema@2.1.0
+
 ## 2.0.0
 
 ### Major Changes

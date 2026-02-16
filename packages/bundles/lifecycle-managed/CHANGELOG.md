@@ -1,5 +1,22 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 2.1.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
+### Patch Changes
+
+- Updated dependencies [362fbac]
+- Updated dependencies [659d15f]
+  - @contractspec/module.lifecycle-advisor@2.1.0
+  - @contractspec/module.lifecycle-core@2.1.0
+  - @contractspec/lib.observability@2.1.0
+  - @contractspec/lib.analytics@2.1.0
+  - @contractspec/lib.lifecycle@2.1.0
+  - @contractspec/lib.ai-agent@2.1.0
+
 ## 2.0.0
 
 ### Major Changes

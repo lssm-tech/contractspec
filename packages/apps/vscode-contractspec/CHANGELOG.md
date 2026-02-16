@@ -1,5 +1,24 @@
 # Changelog
 
+## 2.1.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
+### Patch Changes
+
+- Updated dependencies [b4bfbc5]
+- Updated dependencies [362fbac]
+- Updated dependencies [659d15f]
+  - @contractspec/lib.contracts-spec@2.1.0
+  - @contractspec/lib.contracts-transformers@2.1.0
+  - @contractspec/bundle.workspace@2.1.0
+  - @contractspec/module.workspace@2.1.0
+  - @contractspec/module.examples@2.1.0
+  - @contractspec/module.ai-chat@2.1.0
+  - @contractspec/lib.ai-agent@2.1.0
+
 ## 2.0.0
 
 ### Major Changes
