@@ -1,0 +1,93 @@
+name: Render Release Video
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      composition:
+        description: 'Composition ID to render'
+        required: false
+        default: 'SocialClip'
+        type: choice
+        options:
+          - ApiOverview
+          - SocialClip
+          - SocialClipSquare
+          - SocialClipPortrait
+          - TerminalDemo
+      props_json:
+        description: 'Input props as JSON (optional)'
+        required: false
+        type: string
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  BUN_VERSION: 1.3.4
+  NODE_OPTIONS: --max-old-space-size=6144
+
+jobs:
+  render:
+    name: Render Video
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - name: Setup Node.js (required by Remotion)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Create output directory
+        run: mkdir -p out
+
+      # On release: render a release announcement video
+      - name: Render release video
+        if: github.event_name == 'release'
+        run: |
+          npx remotion render \
+            packages/apps/video-studio/src/index.ts \
+            SocialClip \
+            out/release-${{ github.event.release.tag_name }}.mp4
+
+      # On manual dispatch: render specified composition
+      - name: Render specified composition
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          COMPOSITION="${{ inputs.composition }}"
+          OUTPUT="out/${COMPOSITION}.mp4"
+
+          if [ -n "${{ inputs.props_json }}" ]; then
+            echo '${{ inputs.props_json }}' > /tmp/props.json
+            npx remotion render \
+              packages/apps/video-studio/src/index.ts \
+              "$COMPOSITION" \
+              "$OUTPUT" \
+              --props=/tmp/props.json
+          else
+            npx remotion render \
+              packages/apps/video-studio/src/index.ts \
+              "$COMPOSITION" \
+              "$OUTPUT"
+          fi
+
+      - name: Upload rendered videos
+        uses: actions/upload-artifact@v4
+        with:
+          name: rendered-videos
+          path: out/*.mp4
+          retention-days: 30
