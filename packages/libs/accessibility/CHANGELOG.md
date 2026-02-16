@@ -1,5 +1,18 @@
 # @contractspec/lib.accessibility
 
+## 2.1.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
+### Patch Changes
+
+- Updated dependencies [362fbac]
+  - @contractspec/lib.design-system@2.1.0
+  - @contractspec/lib.ui-kit-web@2.1.0
+  - @contractspec/lib.ui-kit@2.1.0
+
 ## 2.0.0
 
 ### Major Changes

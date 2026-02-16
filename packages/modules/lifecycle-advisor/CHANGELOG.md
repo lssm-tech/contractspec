@@ -1,5 +1,16 @@
 # @contractspec/module.lifecycle-advisor
 
+## 2.1.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
+### Patch Changes
+
+- Updated dependencies [362fbac]
+  - @contractspec/lib.lifecycle@2.1.0
+
 ## 2.0.0
 
 ### Major Changes

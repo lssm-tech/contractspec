@@ -1,5 +1,19 @@
 # @contractspec/integration.example-generator
 
+## 17.0.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
+### Patch Changes
+
+- Updated dependencies [b4bfbc5]
+- Updated dependencies [362fbac]
+- Updated dependencies [659d15f]
+  - @contractspec/lib.contracts-spec@2.1.0
+  - @contractspec/lib.schema@2.1.0
+
 ## 16.0.0
 
 ### Major Changes

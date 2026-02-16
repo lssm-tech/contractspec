@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 1.1.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
 ## 1.0.0
 
 ### Major Changes

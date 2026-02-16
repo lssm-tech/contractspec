@@ -1,5 +1,27 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 2.1.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
+### Patch Changes
+
+- Updated dependencies [b4bfbc5]
+- Updated dependencies [362fbac]
+- Updated dependencies [659d15f]
+  - @contractspec/lib.contracts-spec@2.1.0
+  - @contractspec/example.locale-jurisdiction-gate@2.1.0
+  - @contractspec/example.versioned-knowledge-base@2.1.0
+  - @contractspec/example.kb-update-pipeline@2.1.0
+  - @contractspec/example.learning-patterns@2.1.0
+  - @contractspec/module.learning-journey@2.1.0
+  - @contractspec/lib.example-shared-ui@2.1.0
+  - @contractspec/lib.runtime-sandbox@1.1.0
+  - @contractspec/lib.design-system@2.1.0
+  - @contractspec/lib.ui-kit-web@2.1.0
+
 ## 2.0.0
 
 ### Major Changes
