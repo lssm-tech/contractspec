@@ -1,5 +1,20 @@
 # @contractspec/example.wealth-snapshot
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/module.notifications@2.2.0
+  - @contractspec/lib.contracts-spec@2.2.0
+  - @contractspec/module.audit-trail@2.2.0
+  - @contractspec/lib.identity-rbac@2.2.0
+  - @contractspec/lib.schema@2.2.0
+
 ## 2.1.1
 
 ### Patch Changes

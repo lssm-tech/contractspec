@@ -1,5 +1,16 @@
 # contractspec
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/app.cli-contractspec@2.2.0
+
 ## 2.1.1
 
 ### Patch Changes

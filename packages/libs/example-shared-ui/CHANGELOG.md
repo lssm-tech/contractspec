@@ -1,5 +1,18 @@
 # @contractspec/lib.example-shared-ui
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.2.0
+  - @contractspec/lib.design-system@2.2.0
+  - @contractspec/lib.ui-kit-web@2.2.0
+
 ## 2.1.1
 
 ### Patch Changes

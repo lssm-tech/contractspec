@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.contracts",
-  "version": "1.62.0",
+  "version": "1.63.0",
   "description": "Deprecated monolith package split into contracts-spec, contracts-integrations, and contracts-runtime-* packages",
   "deprecated": "@contractspec/lib.contracts is deprecated. Migrate to @contractspec/lib.contracts-spec, @contractspec/lib.contracts-integrations, and @contractspec/lib.contracts-runtime-* packages.",
   "keywords": [

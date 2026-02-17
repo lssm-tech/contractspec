@@ -1,5 +1,19 @@
 # @contractspec/example.lifecycle-cli
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/bundle.lifecycle-managed@2.2.0
+  - @contractspec/lib.contracts-spec@2.2.0
+  - @contractspec/lib.lifecycle@2.2.0
+  - @contractspec/lib.logger@2.2.0
+
 ## 2.1.1
 
 ### Patch Changes

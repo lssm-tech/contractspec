@@ -1,5 +1,22 @@
 # @contractspec/example.learning-journey-ui-gamified
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/example.learning-journey-quest-challenges@2.2.0
+  - @contractspec/example.learning-journey-duo-drills@2.2.0
+  - @contractspec/example.learning-journey-ui-shared@2.2.0
+  - @contractspec/module.learning-journey@2.2.0
+  - @contractspec/lib.contracts-spec@2.2.0
+  - @contractspec/lib.design-system@2.2.0
+  - @contractspec/lib.ui-kit-web@2.2.0
+
 ## 2.1.1
 
 ### Patch Changes

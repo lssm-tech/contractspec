@@ -1,5 +1,18 @@
 # @contractspec/example.video-marketing-clip
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.2.0
+  - @contractspec/lib.content-gen@2.2.0
+  - @contractspec/lib.video-gen@1.43.0
+
 ## 2.1.0
 
 ### Minor Changes

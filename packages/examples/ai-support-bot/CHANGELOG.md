@@ -1,5 +1,19 @@
 # @contractspec/example.ai-support-bot
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.2.0
+  - @contractspec/lib.support-bot@2.2.0
+  - @contractspec/lib.knowledge@2.2.0
+  - @contractspec/lib.logger@2.2.0
+
 ## 2.1.1
 
 ### Patch Changes

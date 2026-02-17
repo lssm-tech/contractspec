@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 1.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
 ## 1.1.0
 
 ### Minor Changes

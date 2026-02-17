@@ -1,5 +1,22 @@
 # Changelog
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-transformers@2.2.0
+  - @contractspec/lib.contracts-spec@2.2.0
+  - @contractspec/bundle.workspace@2.2.0
+  - @contractspec/module.workspace@2.2.0
+  - @contractspec/module.examples@2.2.0
+  - @contractspec/module.ai-chat@2.2.0
+  - @contractspec/lib.ai-agent@2.2.0
+
 ## 2.1.1
 
 ### Patch Changes

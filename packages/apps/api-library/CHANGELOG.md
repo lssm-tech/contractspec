@@ -1,5 +1,19 @@
 # @contractspec/app.api-library
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.2.0
+  - @contractspec/bundle.marketing@2.2.0
+  - @contractspec/bundle.workspace@2.2.0
+  - @contractspec/bundle.library@2.2.0
+
 ## 2.1.1
 
 ### Patch Changes

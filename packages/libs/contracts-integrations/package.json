@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.contracts-integrations",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Integration contract definitions for external services",
   "type": "module",
   "types": "./dist/index.d.ts",

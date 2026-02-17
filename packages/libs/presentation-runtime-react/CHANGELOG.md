@@ -1,5 +1,19 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 19.0.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@2.2.0
+  - @contractspec/lib.contracts-spec@2.2.0
+  - @contractspec/lib.design-system@2.2.0
+  - @contractspec/lib.ui-kit-web@2.2.0
+
 ## 18.0.1
 
 ### Patch Changes

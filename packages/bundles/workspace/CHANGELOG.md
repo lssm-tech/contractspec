@@ -1,5 +1,23 @@
 # @contractspec/bundle.workspace
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@2.2.0
+  - @contractspec/lib.contracts-transformers@2.2.0
+  - @contractspec/lib.source-extractors@1.2.0
+  - @contractspec/lib.utils-typescript@2.2.0
+  - @contractspec/lib.contracts-spec@2.2.0
+  - @contractspec/lib.ai-providers@2.2.0
+  - @contractspec/module.workspace@2.2.0
+  - @contractspec/lib.ai-agent@2.2.0
+
 ## 2.1.1
 
 ### Patch Changes

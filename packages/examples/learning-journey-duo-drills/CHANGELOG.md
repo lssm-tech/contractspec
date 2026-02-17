@@ -1,5 +1,17 @@
 # @contractspec/example.learning-journey-duo-drills
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/module.learning-journey@2.2.0
+  - @contractspec/lib.contracts-spec@2.2.0
+
 ## 2.1.1
 
 ### Patch Changes

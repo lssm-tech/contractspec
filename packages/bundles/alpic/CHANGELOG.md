@@ -1,5 +1,16 @@
 # @contractspec/bundle.alpic
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/module.alpic@2.2.0
+
 ## 2.1.0
 
 ### Minor Changes

@@ -1,5 +1,19 @@
 # @contractspec/app.video-studio
 
+## 1.43.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.2.0
+  - @contractspec/lib.design-system@2.2.0
+  - @contractspec/lib.content-gen@2.2.0
+  - @contractspec/lib.video-gen@1.43.0
+
 ## 1.42.1
 
 ### Patch Changes

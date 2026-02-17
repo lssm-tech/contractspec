@@ -1,5 +1,16 @@
 # @contractspec/lib.progressive-delivery
 
+## 19.0.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.observability@2.2.0
+
 ## 18.0.1
 
 ### Patch Changes

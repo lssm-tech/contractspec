@@ -1,5 +1,20 @@
 # @contractspec/lib.design-system
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-runtime-client-react@2.2.0
+  - @contractspec/lib.contracts-spec@2.2.0
+  - @contractspec/lib.ui-kit-web@2.2.0
+  - @contractspec/lib.ai-agent@2.2.0
+  - @contractspec/lib.ui-kit@2.2.0
+
 ## 2.1.1
 
 ### Patch Changes

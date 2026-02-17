@@ -1,5 +1,21 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/module.lifecycle-advisor@2.2.0
+  - @contractspec/module.lifecycle-core@2.2.0
+  - @contractspec/lib.observability@2.2.0
+  - @contractspec/lib.analytics@2.2.0
+  - @contractspec/lib.lifecycle@2.2.0
+  - @contractspec/lib.ai-agent@2.2.0
+
 ## 2.1.1
 
 ### Patch Changes

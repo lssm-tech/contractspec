@@ -1,5 +1,17 @@
 # @contractspec/integration.example-generator
 
+## 18.0.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.2.0
+  - @contractspec/lib.schema@2.2.0
+
 ## 17.0.1
 
 ### Patch Changes

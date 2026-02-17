@@ -1,5 +1,11 @@
 # @contractspec/eslint-plugin-design-system
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
 ## 2.1.0
 
 ### Minor Changes

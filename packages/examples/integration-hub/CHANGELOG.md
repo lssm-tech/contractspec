@@ -1,5 +1,20 @@
 # @contractspec/example.integration-hub
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.example-shared-ui@2.2.0
+  - @contractspec/lib.runtime-sandbox@1.2.0
+  - @contractspec/lib.contracts-spec@2.2.0
+  - @contractspec/lib.design-system@2.2.0
+  - @contractspec/lib.schema@2.2.0
+
 ## 2.1.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @contractspec/lib.contracts
 
+## 1.63.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
 ## 1.62.0
 
 ### Minor Changes

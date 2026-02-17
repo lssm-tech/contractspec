@@ -1,5 +1,16 @@
 # @contractspec/lib.ui-kit
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.ui-kit-core@2.2.0
+
 ## 2.1.0
 
 ### Minor Changes

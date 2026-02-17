@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.locale-jurisdiction-gate",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Example: enforce locale + jurisdiction + kbSnapshotId + allowed scope for assistant calls (fail-closed).",
   "type": "module",
   "types": "./dist/index.d.ts",

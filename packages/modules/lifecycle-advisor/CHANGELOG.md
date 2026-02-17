@@ -1,5 +1,16 @@
 # @contractspec/module.lifecycle-advisor
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.lifecycle@2.2.0
+
 ## 2.1.0
 
 ### Minor Changes

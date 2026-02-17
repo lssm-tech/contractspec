@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 19.0.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@2.2.0
+  - @contractspec/lib.ui-kit@2.2.0
+
 ## 18.0.0
 
 ### Minor Changes
