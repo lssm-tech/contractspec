@@ -1,5 +1,19 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies [57e2819]
+  - @contractspec/lib.contracts-spec@2.1.1
+  - @contractspec/example.kb-update-pipeline@2.1.1
+  - @contractspec/example.learning-patterns@2.1.1
+  - @contractspec/example.locale-jurisdiction-gate@2.1.1
+  - @contractspec/example.versioned-knowledge-base@2.1.1
+  - @contractspec/lib.design-system@2.1.1
+  - @contractspec/lib.example-shared-ui@2.1.1
+  - @contractspec/module.learning-journey@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes

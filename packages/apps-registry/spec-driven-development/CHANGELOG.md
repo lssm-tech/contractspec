@@ -1,5 +1,12 @@
 # spec-driven-development
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies [57e2819]
+  - @contractspec/app.cli-contractspec@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes

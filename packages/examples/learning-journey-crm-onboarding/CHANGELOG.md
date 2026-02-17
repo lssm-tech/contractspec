@@ -1,5 +1,14 @@
 # @contractspec/example.learning-journey-crm-onboarding
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies [57e2819]
+  - @contractspec/lib.contracts-spec@2.1.1
+  - @contractspec/example.crm-pipeline@2.1.1
+  - @contractspec/module.learning-journey@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes

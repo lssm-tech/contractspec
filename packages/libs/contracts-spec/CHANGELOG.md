@@ -1,5 +1,11 @@
 # @contractspec/lib.contracts-spec
 
+## 2.1.1
+
+### Patch Changes
+
+- 57e2819: chore: align Studio messaging with live product positioning
+
 ## 2.1.0
 
 ### Minor Changes

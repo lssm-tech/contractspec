@@ -1,5 +1,22 @@
 # Changelog
 
+## 2.1.1
+
+### Patch Changes
+
+- 57e2819: chore: align Studio messaging with live product positioning
+- Updated dependencies [57e2819]
+  - @contractspec/lib.contracts-spec@2.1.1
+  - @contractspec/bundle.workspace@2.1.1
+  - @contractspec/lib.ai-agent@2.1.1
+  - @contractspec/lib.contracts-integrations@2.1.1
+  - @contractspec/lib.contracts-transformers@2.1.1
+  - @contractspec/lib.plugins@2.1.1
+  - @contractspec/lib.testing@2.1.1
+  - @contractspec/module.ai-chat@2.1.1
+  - @contractspec/module.examples@2.1.1
+  - @contractspec/module.workspace@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes
