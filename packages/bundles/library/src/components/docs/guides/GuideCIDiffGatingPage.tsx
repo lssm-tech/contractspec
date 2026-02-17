@@ -86,8 +86,8 @@ bun run validate`}
         </div>
 
         <StudioPrompt
-          title="Need managed CI policy gates?"
-          body="Studio adds policy approvals, drift dashboards, and audit trails after CI checks pass."
+          title="Need continuous checks tied to outcomes?"
+          body="Studio closes the loop with post-change verification and learning dividends that improve future decisions."
         />
       </div>
 

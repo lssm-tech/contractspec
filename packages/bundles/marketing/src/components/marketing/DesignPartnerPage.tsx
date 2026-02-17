@@ -48,12 +48,12 @@ export function DesignPartnerPage() {
               <h3 className="text-xl font-semibold">1. Access the Studio</h3>
               <p className="text-muted-foreground">
                 Your account has been enabled with Design Partner privileges.
-                Log in to the Studio to start exploring the latest features
-                before they're public.
+                Log in to ContractSpec Studio to run the full loop from evidence
+                to spec-first deliverables with your team.
               </p>
               <div className="pt-2">
                 <Button asChild variant="outline">
-                  <Link href="https://www.contractspec.studio">
+                  <Link href="https://app.contractspec.studio">
                     Launch Studio <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>

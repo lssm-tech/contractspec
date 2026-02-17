@@ -128,8 +128,8 @@ export function ManifestoPage() {
           <a href="/install" className="btn-primary">
             Install OSS Core
           </a>
-          <a href="/contact#waitlist" className="btn-ghost">
-            Join Studio Waitlist
+          <a href="https://app.contractspec.studio" className="btn-ghost">
+            Try Studio
           </a>
         </div>
       </div>

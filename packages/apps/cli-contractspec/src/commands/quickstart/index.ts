@@ -174,13 +174,15 @@ export const quickstartCommand = new Command('quickstart')
         console.log(`     ${chalk.cyan('contractspec doctor')}`);
         console.log();
 
-        console.log(chalk.bold('Ready for Studio-scale workflows?'));
         console.log(
-          '  Studio adds managed policy gates, shared registries, and audit trails.'
+          chalk.bold(
+            'Want to turn product signals into spec-first deliverables?'
+          )
         );
         console.log(
-          '  Join the waitlist: https://contractspec.io/contact#waitlist'
+          '  ContractSpec Studio is the AI-powered product decision engine built on ContractSpec.'
         );
+        console.log('  Try Studio: https://app.contractspec.studio');
         console.log();
       }
 

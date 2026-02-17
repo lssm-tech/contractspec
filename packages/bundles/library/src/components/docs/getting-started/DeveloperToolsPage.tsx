@@ -32,15 +32,15 @@ export function DeveloperToolsPage() {
     },
     {
       name: 'ContractSpec Studio',
-      href: 'https://www.contractspec.studio',
+      href: 'https://app.contractspec.studio',
       description:
-        'Visual builder, lifecycle management, and deployment orchestration.',
+        'AI-powered product decision engine that turns product signals into spec-first deliverables.',
       icon: Layers,
-      status: 'coming-soon',
+      status: 'available',
       highlights: [
-        'Visual spec editor',
-        'Deployment pipelines',
-        'Analytics dashboard',
+        'Evidence-to-decision loop',
+        'Compiled spec diffs and task packs',
+        'Exports to Linear, Jira, Notion, and GitHub',
       ],
     },
     {

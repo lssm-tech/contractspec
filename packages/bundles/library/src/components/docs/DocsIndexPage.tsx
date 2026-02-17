@@ -94,16 +94,16 @@ export function DocsIndexPage() {
         </Link>
 
         <Link
-          href="/studio"
+          href="/docs/studio"
           className="card-subtle group space-y-3 p-6 transition-colors hover:border-violet-500/50"
         >
           <div className="flex items-start justify-between">
             <div>
               <h3 className="text-lg font-bold transition-colors group-hover:text-violet-400">
-                Studio (managed)
+                Studio
               </h3>
               <p className="text-muted-foreground mt-1 text-sm">
-                Visual builder, deployments, and team collaboration.
+                AI-powered product decision engine for spec-first teams.
               </p>
             </div>
             <Zap size={20} className="shrink-0 text-violet-400" />

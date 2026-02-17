@@ -31,8 +31,8 @@ export function CorePositioningSection() {
           align="center"
           className="pt-2 sm:flex sm:flex-row sm:flex-wrap sm:items-center sm:justify-center"
         >
-          <ButtonLink href="/pricing#waitlist">
-            Join waitlist <ChevronRight size={16} />
+          <ButtonLink href="https://app.contractspec.studio">
+            Try Studio <ChevronRight size={16} />
           </ButtonLink>
           <ButtonLink variant="ghost" href="/contact">
             Book a call

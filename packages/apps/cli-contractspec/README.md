@@ -682,6 +682,19 @@ Contributions welcome! Please:
 
 For more details, see [AGENT_MODES.md](./AGENT_MODES.md).
 
+## ContractSpec Studio
+
+[ContractSpec Studio](https://app.contractspec.studio) is the AI-powered product decision engine built on top of ContractSpec. It turns product signals into spec-first deliverables through a deterministic loop:
+
+```text
+Evidence -> Correlation -> Decision -> Change -> Export -> Check -> Notify -> Autopilot
+```
+
+The CLI helps you define and validate specs locally; Studio runs the full product-truth loop in a collaborative SaaS workflow.
+
+- Try Studio: https://app.contractspec.studio
+- Learn more: https://contractspec.io
+
 ## Roadmap
 
 - [x] AI-powered code generation

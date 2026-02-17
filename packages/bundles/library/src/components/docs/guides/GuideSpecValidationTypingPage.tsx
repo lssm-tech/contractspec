@@ -137,8 +137,8 @@ bun run validate`}
         </div>
 
         <StudioPrompt
-          title="Need shared validation policies?"
-          body="Studio lets teams enforce validation policies and review changes before they ship."
+          title="Need validation tied to real outcomes?"
+          body="Studio links checks to evidence, focus decisions, and post-release verification so specs evolve with product truth."
         />
       </div>
 

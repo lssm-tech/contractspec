@@ -99,11 +99,6 @@ const DOCS_ROUTES = [
   '/docs/comparison/workflow-engines',
   // Studio
   '/docs/studio',
-  '/docs/studio/overview',
-  '/docs/studio/editor',
-  '/docs/studio/preview',
-  '/docs/studio/deployment',
-  '/docs/studio/collaboration',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

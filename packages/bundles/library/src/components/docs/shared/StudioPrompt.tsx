@@ -8,10 +8,10 @@ interface StudioPromptProps {
 }
 
 export function StudioPrompt({
-  title = 'Need managed policy gates and approvals?',
-  body = 'ContractSpec Studio adds policy gates, remote registry workflows, and audit trails when you are ready to scale adoption.',
-  ctaLabel = 'Join Studio waitlist',
-  href = '/contact#waitlist',
+  title = 'Want to turn product signals into spec-first deliverables?',
+  body = 'ContractSpec Studio ingests evidence from meetings, support, analytics, docs, and code, then compiles decisions into spec diffs and task packs.',
+  ctaLabel = 'Try Studio',
+  href = 'https://app.contractspec.studio',
 }: StudioPromptProps) {
   return (
     <div className="card-subtle space-y-3 p-6">

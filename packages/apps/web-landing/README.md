@@ -2,9 +2,20 @@
 
 Marketing landing page and documentation site for ContractSpec.
 
+## ContractSpec Studio
+
+Studio is live at https://app.contractspec.studio.
+
+Positioning used across this app:
+
+- ContractSpec Studio is the AI-powered product decision engine.
+- It turns product signals into spec-first deliverables.
+- Core loop: Evidence -> Correlation -> Decision -> Change -> Export -> Check -> Notify -> Autopilot.
+
 ## Overview
 
 Next.js application providing:
+
 - Marketing landing page
 - Product documentation
 - Pricing and contact pages
@@ -27,7 +38,7 @@ bun start
 - 🎨 **Modern Design** — Tailwind CSS with animations
 - 📖 **Documentation** — Comprehensive docs pages
 - 🚀 **Templates** — Interactive template gallery
-- 📧 **Email** — Newsletter and waitlist integration
+- 📧 **Email** — Newsletter and Studio signup integration
 - 📊 **Analytics** — PostHog and Vercel Analytics
 
 ## dependencies
@@ -39,9 +50,9 @@ bun start
 
 ## Contributing
 
-This application is a **thin adapter**. 
+This application is a **thin adapter**.
 
-- **Want to change the design or content?** 
+- **Want to change the design or content?**
   - Go to `packages/bundles/marketing` for landing pages.
   - Go to `packages/bundles/library` for documentation and templates.
 - **Want to change the routing or config?**

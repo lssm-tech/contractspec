@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { CheckCircle, ChevronDown, ChevronRight } from 'lucide-react';
 
-import { WaitlistSection } from './waitlist-section';
+import { StudioSignupSection } from './studio-signup-section';
 import { PricingThinkingModal } from './pricing-thinking-modal';
 
 interface FAQ {
@@ -14,19 +14,19 @@ interface FAQ {
 
 const faqs: FAQ[] = [
   {
-    question: 'Can I pay for ContractSpec today?',
+    question: 'Can I use ContractSpec Studio today?',
     answer:
-      "Not yet. We're pre-PMF and working closely with a small set of design partners. They get full access during early access and will be first to move onto paid plans once we're confident in the value and stability.",
+      'Yes. ContractSpec Studio is live at app.contractspec.studio. Start with the free tier and upgrade as paid plans roll out.',
   },
   {
     question: 'What will you charge for later?',
     answer:
-      'Our plan is to charge based on usage: regenerations, AI agent actions, and number of active projects. A generous free tier will stay available so smaller teams and experiments can thrive.',
+      'Pricing is evolving toward usage: regenerations, AI agent actions, and active projects. A generous free tier will remain so smaller teams and experiments can thrive.',
   },
   {
     question: 'What do I get as a design partner?',
     answer:
-      'Direct collaboration on features, priority onboarding, and a founding discount when paid plans launch. You also shape how ContractSpec works for teams like yours.',
+      'Direct collaboration on roadmap priorities, hands-on onboarding, and priority support. You also help shape Studio workflows before broad rollout.',
   },
   {
     question: 'Will you ever charge per seat?',
@@ -39,11 +39,12 @@ export function PricingClient() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [pricingModalOpen, setPricingModalOpen] = useState(false);
 
-  const scrollToWaitlist = () => {
-    const waitlistElement = document.getElementById('waitlist');
-    if (waitlistElement) {
-      waitlistElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+  const openStudio = () => {
+    window.open(
+      'https://app.contractspec.studio',
+      '_blank',
+      'noopener,noreferrer'
+    );
   };
 
   return (
@@ -56,7 +57,8 @@ export function PricingClient() {
           </h1>
           <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
             ContractSpec Core (the OSS compiler) is and always will be free.
-            ContractSpec Studio (the managed platform) is in early access.
+            ContractSpec Studio is live, with paid plans rolling out
+            progressively.
           </p>
           <div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
             <Link
@@ -65,12 +67,12 @@ export function PricingClient() {
             >
               Install OSS Core <ChevronRight size={16} />
             </Link>
-            <button
-              onClick={scrollToWaitlist}
+            <Link
+              href="https://app.contractspec.studio"
               className="btn-ghost inline-flex items-center gap-2"
             >
-              Join Studio waitlist
-            </button>
+              Try Studio Free
+            </Link>
           </div>
         </div>
       </section>
@@ -101,7 +103,7 @@ export function PricingClient() {
                     size={16}
                     className="mt-0.5 shrink-0 text-violet-400"
                   />
-                  Early access to ContractSpec Studio
+                  Priority access to new Studio capabilities
                 </li>
                 <li className="flex gap-2">
                   <CheckCircle
@@ -122,22 +124,22 @@ export function PricingClient() {
                     size={16}
                     className="mt-0.5 shrink-0 text-violet-400"
                   />
-                  Priority support during early access
+                  Priority support through direct channels
                 </li>
                 <li className="flex gap-2">
                   <CheckCircle
                     size={16}
                     className="mt-0.5 shrink-0 text-violet-400"
                   />
-                  Founding discount when paid plans launch
+                  Pricing input and partner incentives
                 </li>
               </ul>
-              <button
-                onClick={scrollToWaitlist}
+              <Link
+                href="/design-partner"
                 className="btn-primary w-full md:w-auto"
               >
-                Apply to the waitlist
-              </button>
+                Apply as a design partner
+              </Link>
             </div>
           </div>
         </div>
@@ -204,16 +206,14 @@ export function PricingClient() {
             {/* Design Partner (Current) */}
             <div className="card-subtle relative space-y-6 bg-violet-500/5 p-6 ring-2 ring-violet-500">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-violet-500 px-3 py-1 text-xs font-medium text-white">
-                Current
+                Live program
               </div>
               <div className="space-y-2">
                 <h2 className="text-2xl font-bold">Design Partner</h2>
                 <div className="space-y-1">
-                  <div className="text-2xl font-bold">
-                    Free during early access
-                  </div>
+                  <div className="text-2xl font-bold">Invite-based</div>
                   <p className="text-muted-foreground text-xs">
-                    Founding discount when paid plans launch
+                    Built for teams shaping the next Studio capabilities
                   </p>
                 </div>
               </div>
@@ -223,33 +223,34 @@ export function PricingClient() {
                     size={16}
                     className="mt-0.5 shrink-0 text-violet-400"
                   />
-                  Use ContractSpec Studio for real projects during early access
+                  Use ContractSpec Studio for real projects
                 </li>
                 <li className="text-muted-foreground flex gap-3 text-sm">
                   <CheckCircle
                     size={16}
                     className="mt-0.5 shrink-0 text-violet-400"
                   />
-                  Work directly with the founder on architecture & use cases
+                  Work directly with the team on architecture and workflow
+                  design
                 </li>
                 <li className="text-muted-foreground flex gap-3 text-sm">
                   <CheckCircle
                     size={16}
                     className="mt-0.5 shrink-0 text-violet-400"
                   />
-                  Reasonable "fair use" limits on regenerations and AI credits
+                  Access to partner-only previews and feedback loops
                 </li>
                 <li className="text-muted-foreground flex gap-3 text-sm">
                   <CheckCircle
                     size={16}
                     className="mt-0.5 shrink-0 text-violet-400"
                   />
-                  Priority support & feedback loops
+                  Priority support and roadmap influence
                 </li>
               </ul>
-              <button onClick={scrollToWaitlist} className="btn-primary w-full">
+              <Link href="/design-partner" className="btn-primary w-full">
                 Apply as a design partner
-              </button>
+              </Link>
             </div>
 
             {/* Builder (Coming Soon) */}
@@ -282,7 +283,7 @@ export function PricingClient() {
                 disabled
                 className="btn-ghost w-full cursor-not-allowed opacity-50"
               >
-                Available after public launch
+                Available after pricing rollout
               </button>
             </div>
 
@@ -346,7 +347,7 @@ export function PricingClient() {
         <div className="mx-auto max-w-4xl space-y-8">
           <div className="space-y-4 text-center">
             <h2 className="text-3xl font-bold">
-              How ContractSpec pricing will work
+              How ContractSpec pricing works now and next
             </h2>
             <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
               We charge based on how much of your stack we help you maintain,
@@ -428,10 +429,10 @@ export function PricingClient() {
         </div>
       </section>
 
-      {/* Waitlist Section */}
+      {/* Studio Signup Section */}
       <section className="section-padding hero-gradient">
         <div className="mx-auto max-w-4xl">
-          <WaitlistSection />
+          <StudioSignupSection />
         </div>
       </section>
 
@@ -439,7 +440,7 @@ export function PricingClient() {
       <PricingThinkingModal
         open={pricingModalOpen}
         onOpenChange={setPricingModalOpen}
-        onApplyClick={scrollToWaitlist}
+        onApplyClick={openStudio}
       />
     </main>
   );

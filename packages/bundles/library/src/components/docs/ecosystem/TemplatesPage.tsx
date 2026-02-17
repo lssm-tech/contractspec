@@ -52,8 +52,8 @@ bun add @contractspec/integration.markdown-generator`}
       </div>
 
       <StudioPrompt
-        title="Need managed plugin distribution?"
-        body="Studio can host private plugin registries, approvals, and policy gates for teams."
+        title="Need evidence-backed template iteration?"
+        body="Studio helps teams prioritize template changes from real product signals and export implementation-ready task packs."
       />
 
       <div className="flex items-center gap-4 pt-4">

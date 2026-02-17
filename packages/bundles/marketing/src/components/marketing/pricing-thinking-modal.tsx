@@ -103,8 +103,8 @@ export function PricingThinkingModal({
         <DialogHeader>
           <DialogTitle>Tentative pricing (work in progress)</DialogTitle>
           <DialogDescription>
-            We're still in design-partner mode. This is a draft of how we expect
-            pricing to look once we open public access.
+            ContractSpec Studio is live. This is a draft of how paid plans are
+            expected to evolve as usage grows.
           </DialogDescription>
         </DialogHeader>
 
@@ -201,8 +201,8 @@ export function PricingThinkingModal({
               still in draft, subject to change based on what we learn.
             </p>
             <p className="text-muted-foreground text-xs">
-              Design partners get early access and a founding discount when paid
-              plans launch.
+              Design partners get priority onboarding and partner incentives as
+              paid plans launch.
             </p>
             {onApplyClick && (
               <Button
@@ -213,7 +213,7 @@ export function PricingThinkingModal({
                 className="w-full"
                 variant="outline"
               >
-                Apply as a design partner
+                Try Studio
               </Button>
             )}
           </div>

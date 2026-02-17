@@ -1,3 +1,5 @@
-import { StudioVisualBuilderPage } from '@contractspec/bundle.library';
+import { redirect } from 'next/navigation';
 
-export default StudioVisualBuilderPage;
+export default function StudioDocsRedirectPage() {
+  redirect('https://app.contractspec.studio/docs');
+}

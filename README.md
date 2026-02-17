@@ -147,18 +147,24 @@ Notes: add `pull-requests: write` permissions for PR comments, and add `contents
 
 ## ContractSpec Studio
 
-ContractSpec Studio is a visual builder and managed control plane for your contracts.
+[ContractSpec Studio](https://app.contractspec.studio) is the AI-powered product decision engine built on top of ContractSpec.
 
-- **Visual Builder + Specs**: Drag-and-drop canvas synced to specs with mobile-first UI.
-- **Progressive Delivery & QA**: Canary rollouts, traffic mirroring, and golden tests.
-- **Auto-evolution**: Safe regeneration analyzing telemetry to evolve specs.
-- **Lifecycle Advisor**: Guidance layer for learning paths and recommendations.
-- **AI Growth Engine**: Experiment orchestration and automated content generation.
-- **AI Support Desk**: Production-ready support automation with RAG pipelines.
-- **Integration & Knowledge**: BYOK credential manager and knowledge source indexing.
-- **Security & Governance**: Per-tenant encryption, audit logs, and feature flags.
+It turns product signals into spec-first deliverables through a deterministic loop:
 
-[**Join the Waitlist**](https://contractspec.io/contact#waitlist)
+```text
+Evidence -> Correlation -> Decision -> Change -> Export -> Check -> Notify -> Autopilot
+```
+
+- **Evidence**: Ingest product signals from meetings, support, analytics, code, docs, and Slack.
+- **Correlation**: Cluster evidence into scored patterns using hybrid heuristics + AI signatures.
+- **Decision**: Create evidence-backed focus briefs with citation chains and clear constraints.
+- **Change**: Compile patch intents into spec diffs, impact reports, and task packs.
+- **Export**: Push execution-ready outputs to Linear, Jira, Notion, and GitHub.
+- **Check + Autopilot**: Verify outcomes, feed learning dividends back into evidence, and automate safely with policy gates.
+
+`contractspec` is the grammar and compiler. Studio is the IDE and decision platform that runs on top of it.
+
+[**Try Studio**](https://app.contractspec.studio)
 
 ## Example Contract
 

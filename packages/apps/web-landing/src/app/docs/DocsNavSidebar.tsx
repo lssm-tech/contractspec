@@ -36,7 +36,7 @@ const data = {
     { title: 'Home', href: '/', icon: <HouseIcon /> },
     {
       title: 'Studio',
-      href: 'https://www.contractspec.studio/docs',
+      href: 'https://app.contractspec.studio/docs',
       icon: <AnvilIcon />,
     },
   ],

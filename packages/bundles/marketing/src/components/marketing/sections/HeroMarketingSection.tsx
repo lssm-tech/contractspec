@@ -44,14 +44,14 @@ export function HeroMarketingSection() {
           </ButtonLink>
           <ButtonLink
             variant="ghost"
-            href="/contact#waitlist"
+            href="https://app.contractspec.studio"
             onClick={() =>
               captureAnalyticsEvent(analyticsEventNames.CTA_STUDIO_CLICK, {
                 surface: 'hero',
               })
             }
           >
-            Join Studio Waitlist
+            Try Studio
           </ButtonLink>
         </HStack>
 

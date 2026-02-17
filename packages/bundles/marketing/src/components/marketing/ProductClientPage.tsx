@@ -381,8 +381,8 @@ export const ProductClientPage = () => (
           >
             Install OSS Core <ChevronRight size={16} />
           </Link>
-          <Link href="/contact#waitlist" className="btn-ghost">
-            Join Studio Waitlist
+          <Link href="https://app.contractspec.studio" className="btn-ghost">
+            Try Studio
           </Link>
         </div>
       </div>
