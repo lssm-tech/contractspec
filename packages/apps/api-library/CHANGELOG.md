@@ -1,5 +1,15 @@
 # @contractspec/app.api-library
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies [57e2819]
+  - @contractspec/bundle.library@2.1.1
+  - @contractspec/bundle.marketing@2.1.1
+  - @contractspec/lib.contracts-spec@2.1.1
+  - @contractspec/bundle.workspace@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes

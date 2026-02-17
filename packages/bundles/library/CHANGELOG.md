@@ -1,5 +1,21 @@
 # @contractspec/bundle.library
 
+## 2.1.1
+
+### Patch Changes
+
+- 57e2819: chore: align Studio messaging with live product positioning
+- Updated dependencies [57e2819]
+  - @contractspec/lib.contracts-spec@2.1.1
+  - @contractspec/lib.contracts-integrations@2.1.1
+  - @contractspec/lib.contracts-library@2.1.1
+  - @contractspec/lib.contracts-runtime-server-graphql@2.1.1
+  - @contractspec/lib.contracts-runtime-server-mcp@2.1.1
+  - @contractspec/lib.contracts-runtime-server-rest@2.1.1
+  - @contractspec/lib.design-system@2.1.1
+  - @contractspec/lib.example-shared-ui@2.1.1
+  - @contractspec/module.examples@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes

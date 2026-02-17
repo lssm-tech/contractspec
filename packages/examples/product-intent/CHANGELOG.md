@@ -1,5 +1,16 @@
 # @contractspec/example.product-intent
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies [57e2819]
+  - @contractspec/lib.contracts-spec@2.1.1
+  - @contractspec/integration.providers-impls@2.1.1
+  - @contractspec/lib.ai-agent@2.1.1
+  - @contractspec/lib.contracts-integrations@2.1.1
+  - @contractspec/lib.product-intent-utils@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes

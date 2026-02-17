@@ -1,5 +1,13 @@
 # @contractspec/lib.contracts-runtime-server-graphql
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies [57e2819]
+  - @contractspec/lib.contracts-spec@2.1.1
+  - @contractspec/lib.contracts-runtime-server-rest@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes

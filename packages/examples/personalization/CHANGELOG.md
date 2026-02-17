@@ -1,5 +1,15 @@
 # @contractspec/example.personalization
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies [57e2819]
+  - @contractspec/lib.contracts-spec@2.1.1
+  - @contractspec/lib.overlay-engine@2.1.1
+  - @contractspec/lib.personalization@2.1.1
+  - @contractspec/lib.workflow-composer@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes

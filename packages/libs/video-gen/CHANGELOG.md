@@ -1,5 +1,14 @@
 # @contractspec/lib.video-gen
 
+## 1.42.1
+
+### Patch Changes
+
+- Updated dependencies [57e2819]
+  - @contractspec/lib.contracts-spec@2.1.1
+  - @contractspec/lib.content-gen@2.1.1
+  - @contractspec/lib.design-system@2.1.1
+
 ## 1.42.0
 
 ### Minor Changes

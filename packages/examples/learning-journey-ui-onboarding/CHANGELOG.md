@@ -1,5 +1,17 @@
 # @contractspec/example.learning-journey-ui-onboarding
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies [57e2819]
+  - @contractspec/lib.contracts-spec@2.1.1
+  - @contractspec/example.learning-journey-platform-tour@2.1.1
+  - @contractspec/example.learning-journey-studio-onboarding@2.1.1
+  - @contractspec/example.learning-journey-ui-shared@2.1.1
+  - @contractspec/lib.design-system@2.1.1
+  - @contractspec/module.learning-journey@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes

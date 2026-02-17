@@ -1,5 +1,13 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 2.1.1
+
+### Patch Changes
+
+- @contractspec/lib.ai-agent@2.1.1
+- @contractspec/lib.analytics@2.1.1
+- @contractspec/lib.observability@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes

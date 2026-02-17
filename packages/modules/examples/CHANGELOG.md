@@ -1,5 +1,48 @@
 # @contractspec/module.examples
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies [57e2819]
+  - @contractspec/lib.contracts-spec@2.1.1
+  - @contractspec/example.agent-console@2.1.1
+  - @contractspec/example.ai-support-bot@2.1.1
+  - @contractspec/example.analytics-dashboard@2.1.1
+  - @contractspec/example.content-generation@2.1.1
+  - @contractspec/example.crm-pipeline@2.1.1
+  - @contractspec/example.integration-hub@2.1.1
+  - @contractspec/example.integration-stripe@2.1.1
+  - @contractspec/example.kb-update-pipeline@2.1.1
+  - @contractspec/example.knowledge-canon@2.1.1
+  - @contractspec/example.learning-journey-ambient-coach@2.1.1
+  - @contractspec/example.learning-journey-crm-onboarding@2.1.1
+  - @contractspec/example.learning-journey-duo-drills@2.1.1
+  - @contractspec/example.learning-journey-platform-tour@2.1.1
+  - @contractspec/example.learning-journey-quest-challenges@2.1.1
+  - @contractspec/example.learning-journey-registry@2.1.1
+  - @contractspec/example.learning-journey-studio-onboarding@2.1.1
+  - @contractspec/example.learning-journey-ui-coaching@2.1.1
+  - @contractspec/example.learning-journey-ui-gamified@2.1.1
+  - @contractspec/example.learning-journey-ui-onboarding@2.1.1
+  - @contractspec/example.learning-journey-ui-shared@2.1.1
+  - @contractspec/example.learning-patterns@2.1.1
+  - @contractspec/example.lifecycle-cli@2.1.1
+  - @contractspec/example.lifecycle-dashboard@2.1.1
+  - @contractspec/example.locale-jurisdiction-gate@2.1.1
+  - @contractspec/example.marketplace@2.1.1
+  - @contractspec/example.openbanking-powens@2.1.1
+  - @contractspec/example.personalization@2.1.1
+  - @contractspec/example.policy-safe-knowledge-assistant@2.1.1
+  - @contractspec/example.saas-boilerplate@2.1.1
+  - @contractspec/example.service-business-os@2.1.1
+  - @contractspec/example.team-hub@2.1.1
+  - @contractspec/example.versioned-knowledge-base@2.1.1
+  - @contractspec/example.voice-providers@2.1.1
+  - @contractspec/example.wealth-snapshot@2.1.1
+  - @contractspec/example.workflow-system@2.1.1
+  - @contractspec/lib.example-shared-ui@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes

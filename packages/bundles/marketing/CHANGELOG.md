@@ -1,5 +1,25 @@
 # @contractspec/bundle.marketing
 
+## 2.1.1
+
+### Patch Changes
+
+- 57e2819: chore: align Studio messaging with live product positioning
+- Updated dependencies [57e2819]
+  - @contractspec/bundle.library@2.1.1
+  - @contractspec/lib.contracts-spec@2.1.1
+  - @contractspec/example.agent-console@2.1.1
+  - @contractspec/example.analytics-dashboard@2.1.1
+  - @contractspec/example.crm-pipeline@2.1.1
+  - @contractspec/example.integration-hub@2.1.1
+  - @contractspec/example.marketplace@2.1.1
+  - @contractspec/example.saas-boilerplate@2.1.1
+  - @contractspec/example.workflow-system@2.1.1
+  - @contractspec/lib.contracts-runtime-client-react@2.1.1
+  - @contractspec/lib.design-system@2.1.1
+  - @contractspec/lib.example-shared-ui@2.1.1
+  - @contractspec/module.examples@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes
