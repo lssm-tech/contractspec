@@ -8,6 +8,8 @@ import { runImport } from './cli/import-cmd.js';
 import { runPackCreate } from './cli/pack/create.js';
 import { runPackList } from './cli/pack/list.js';
 import { runPackValidate } from './cli/pack/validate.js';
+import { runInstall } from './cli/install.js';
+import { runPackEnable, runPackDisable } from './cli/pack/enable.js';
 
 const program = new Command();
 
@@ -42,6 +44,17 @@ program
   .option('-v, --verbose', 'Enable verbose logging')
   .action((options) => {
     runGenerate(resolve('.'), options);
+  });
+
+// install
+program
+  .command('install')
+  .description('Install remote packs (git, npm) into local cache')
+  .option('--update', 'Re-resolve all refs (ignore lockfile)')
+  .option('--frozen', 'Fail if lockfile is missing or incomplete')
+  .option('-v, --verbose', 'Enable verbose logging')
+  .action(async (options) => {
+    await runInstall(resolve('.'), options);
   });
 
 // import
@@ -79,6 +92,22 @@ packCmd
   .description('Validate all configured packs')
   .action(() => {
     runPackValidate(resolve('.'));
+  });
+
+// pack enable
+packCmd
+  .command('enable <name>')
+  .description('Enable a previously disabled pack')
+  .action((name: string) => {
+    runPackEnable(resolve('.'), name);
+  });
+
+// pack disable
+packCmd
+  .command('disable <name>')
+  .description('Disable a pack without removing it')
+  .action((name: string) => {
+    runPackDisable(resolve('.'), name);
   });
 
 program.parse();

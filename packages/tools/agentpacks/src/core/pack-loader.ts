@@ -103,8 +103,51 @@ export class PackLoader {
   }
 
   /**
+   * Load packs scoped to a specific baseDir (monorepo support).
+   * Looks for an agentpacks.jsonc in the baseDir and loads its packs.
+   */
+  loadForBaseDir(baseDir: string): { packs: LoadedPack[]; warnings: string[] } {
+    const baseDirRoot = resolve(this.projectRoot, baseDir);
+    const localConfigPath = resolve(baseDirRoot, 'agentpacks.jsonc');
+
+    if (!existsSync(localConfigPath)) {
+      return { packs: [], warnings: [] };
+    }
+
+    const { loadWorkspaceConfig } = require('./config.js');
+    const localConfig = loadWorkspaceConfig(baseDirRoot);
+    const loader = new PackLoader(baseDirRoot, localConfig);
+    return loader.loadAll();
+  }
+
+  /**
+   * Resolve a curated (installed) pack from .agentpacks/.curated/.
+   */
+  private resolveCuratedPack(packRef: string): string | null {
+    const curatedDir = resolve(this.projectRoot, '.agentpacks', '.curated');
+    // Derive pack directory name from ref
+    let packName = packRef;
+    if (packName.startsWith('npm:')) packName = packName.slice(4);
+    if (packName.startsWith('github:')) packName = packName.slice(7);
+    if (packName.startsWith('@')) packName = packName.slice(1);
+    // For owner/repo, take repo part; for scoped npm, replace / with -
+    if (packName.includes('/')) {
+      const parts = packName.split('/');
+      // Git: use last part (repo name). npm scoped: join with -
+      packName = packName.includes('@')
+        ? parts.join('-')
+        : (parts[parts.length - 1] ?? packName);
+    }
+    // Strip any @version or :path suffixes
+    packName = packName.split('@')[0]!.split(':')[0]!;
+
+    const resolved = resolve(curatedDir, packName);
+    return existsSync(resolved) ? resolved : null;
+  }
+
+  /**
    * Resolve a pack reference to an absolute directory path.
-   * Supports: ./relative, /absolute, npm:pkg (future), github:owner/repo (future)
+   * Supports: ./relative, /absolute, npm:pkg, github:owner/repo, curated cache
    */
   private resolvePackPath(packRef: string): string | null {
     // Local relative path
@@ -117,20 +160,18 @@ export class PackLoader {
       return packRef;
     }
 
-    // npm package (Phase 2)
+    // npm package — resolve from curated cache
     if (
       packRef.startsWith('@') ||
-      !packRef.includes('/') ||
-      packRef.startsWith('npm:')
+      packRef.startsWith('npm:') ||
+      !packRef.includes('/')
     ) {
-      // TODO: Phase 2 - npm pack resolver
-      return null;
+      return this.resolveCuratedPack(packRef);
     }
 
-    // Git repo (Phase 2)
+    // Git repo — resolve from curated cache
     if (packRef.startsWith('github:') || packRef.includes('/')) {
-      // TODO: Phase 2 - git pack resolver
-      return null;
+      return this.resolveCuratedPack(packRef);
     }
 
     // Fallback: treat as local path

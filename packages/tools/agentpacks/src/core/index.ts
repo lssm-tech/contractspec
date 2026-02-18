@@ -17,3 +17,15 @@ export {
 
 export { PackLoader } from './pack-loader.js';
 export { FeatureMerger } from './feature-merger.js';
+
+export {
+  type Lockfile,
+  type LockfileSourceEntry,
+  type LockfileSkillEntry,
+  loadLockfile,
+  saveLockfile,
+  getLockedSource,
+  setLockedSource,
+  computeIntegrity,
+  isLockfileFrozenValid,
+} from './lockfile.js';
