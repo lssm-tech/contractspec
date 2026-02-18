@@ -1,0 +1,34 @@
+{
+  "$schema": "https://unpkg.com/agentpacks/schema.json",
+
+  // Active packs (local directories, npm packages, or git repos)
+  "packs": ["./packs/default"],
+
+  // Packs to disable (override)
+  "disabled": [],
+
+  // Target AI tools to generate configs for
+  "targets": [
+    "opencode",
+    "cursor",
+    "claudecode",
+    "geminicli",
+    "codexcli",
+    "copilot",
+  ],
+
+  // Features to generate ("*" for all, or per-target object)
+  "features": ["*"],
+
+  // Repository mode: "repo" | "monorepo" | "metarepo"
+  "mode": "repo",
+
+  // Base directories (for monorepo mode)
+  "baseDirs": ["."],
+
+  // Generate global (user-scope) configs
+  "global": false,
+
+  // Delete existing generated files before regenerating
+  "delete": true,
+}
