@@ -1,4 +1,5 @@
 import { resolve } from 'path';
+import { existsSync, readFileSync } from 'fs';
 import chalk from 'chalk';
 import {
   loadWorkspaceConfig,
@@ -9,6 +10,7 @@ import {
 import { PackLoader } from '../core/pack-loader.js';
 import { FeatureMerger } from '../core/feature-merger.js';
 import { getTargets } from '../targets/registry.js';
+import { diffFile } from '../utils/diff.js';
 import type {
   GenerateOptions,
   GenerateResult,
@@ -18,6 +20,7 @@ interface GenerateCliOptions {
   targets?: string;
   features?: string;
   dryRun?: boolean;
+  diff?: boolean;
   verbose?: boolean;
 }
 
@@ -97,6 +100,7 @@ export function runGenerate(
 
   // Step 4: Generate for each target in each baseDir
   const allResults: GenerateResult[] = [];
+  const diffEntries: import('../utils/diff.js').FileDiffEntry[] = [];
 
   for (const baseDir of config.baseDirs) {
     for (const target of targets) {
@@ -114,7 +118,7 @@ export function runGenerate(
         continue;
       }
 
-      if (options.dryRun) {
+      if (options.dryRun && !options.diff) {
         console.log(
           chalk.cyan(`  [dry-run] Would generate ${target.name} in ${baseDir}`)
         );
@@ -126,14 +130,30 @@ export function runGenerate(
         baseDir,
         features,
         enabledFeatures: enabledFeatures as FeatureId[],
-        deleteExisting: config.delete,
+        deleteExisting: options.diff ? false : config.delete,
         global: config.global,
         verbose: config.verbose,
       };
 
+      // Snapshot existing files before generating (for --diff)
+      const preSnapshot = new Map<string, string>();
+
       try {
         const result = target.generate(generateOptions);
         allResults.push(result);
+
+        // Compute and display diffs
+        if (options.diff) {
+          for (const filepath of result.filesWritten) {
+            const newContent = existsSync(filepath)
+              ? readFileSync(filepath, 'utf-8')
+              : '';
+            const entry = diffFile(filepath, newContent);
+            if (entry.status !== 'unchanged') {
+              diffEntries.push(entry);
+            }
+          }
+        }
 
         for (const w of result.warnings) {
           console.log(chalk.yellow(`  warn [${target.name}]: ${w}`));
@@ -151,6 +171,39 @@ export function runGenerate(
         console.log(chalk.red(`  error [${target.name}]: ${message}`));
       }
     }
+  }
+
+  // Diff output
+  if (options.diff && diffEntries.length > 0) {
+    const added = diffEntries.filter((e) => e.status === 'added').length;
+    const modified = diffEntries.filter((e) => e.status === 'modified').length;
+    console.log(chalk.bold(`\nDiff: ${added} added, ${modified} modified\n`));
+    for (const entry of diffEntries) {
+      const label =
+        entry.status === 'added'
+          ? chalk.green('[+] ' + entry.filepath)
+          : chalk.yellow('[M] ' + entry.filepath);
+      console.log(label);
+      if (verbose) {
+        for (const line of entry.diffLines.slice(0, 50)) {
+          if (line.startsWith('+') && !line.startsWith('+++')) {
+            console.log(chalk.green(line));
+          } else if (line.startsWith('-') && !line.startsWith('---')) {
+            console.log(chalk.red(line));
+          } else {
+            console.log(chalk.dim(line));
+          }
+        }
+        if (entry.diffLines.length > 50) {
+          console.log(
+            chalk.dim(`  ... ${entry.diffLines.length - 50} more lines`)
+          );
+        }
+      }
+    }
+    console.log();
+  } else if (options.diff) {
+    console.log(chalk.dim('No changes detected.'));
   }
 
   // Summary

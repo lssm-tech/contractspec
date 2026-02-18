@@ -38,6 +38,8 @@
   },
   "exports": {
     ".": "./src/index.ts",
+    "./api": "./src/api.ts",
+    "./cli/export-cmd": "./src/cli/export-cmd.ts",
     "./cli/generate": "./src/cli/generate.ts",
     "./cli/import-cmd": "./src/cli/import-cmd.ts",
     "./cli/init": "./src/cli/init.ts",
@@ -48,10 +50,15 @@
     "./cli/pack/validate": "./src/cli/pack/validate.ts",
     "./core": "./src/core/index.ts",
     "./core/config": "./src/core/config.ts",
+    "./core/dependency-resolver": "./src/core/dependency-resolver.ts",
     "./core/feature-merger": "./src/core/feature-merger.ts",
     "./core/index": "./src/core/index.ts",
     "./core/lockfile": "./src/core/lockfile.ts",
+    "./core/metarepo": "./src/core/metarepo.ts",
     "./core/pack-loader": "./src/core/pack-loader.ts",
+    "./exporters": "./src/exporters/index.ts",
+    "./exporters/cursor-plugin": "./src/exporters/cursor-plugin.ts",
+    "./exporters/index": "./src/exporters/index.ts",
     "./features": "./src/features/index.ts",
     "./features/agents": "./src/features/agents.ts",
     "./features/commands": "./src/features/commands.ts",
@@ -62,6 +69,9 @@
     "./features/plugins": "./src/features/plugins.ts",
     "./features/rules": "./src/features/rules.ts",
     "./features/skills": "./src/features/skills.ts",
+    "./importers/claude-code": "./src/importers/claude-code.ts",
+    "./importers/cursor": "./src/importers/cursor.ts",
+    "./importers/opencode": "./src/importers/opencode.ts",
     "./importers/rulesync": "./src/importers/rulesync.ts",
     "./sources": "./src/sources/index.ts",
     "./sources/git": "./src/sources/git.ts",
@@ -71,6 +81,7 @@
     "./sources/npm": "./src/sources/npm.ts",
     "./sources/npm-ref": "./src/sources/npm-ref.ts",
     "./targets": "./src/targets/index.ts",
+    "./targets/additional-targets": "./src/targets/additional-targets.ts",
     "./targets/agents-md": "./src/targets/agents-md.ts",
     "./targets/base-target": "./src/targets/base-target.ts",
     "./targets/claude-code": "./src/targets/claude-code.ts",
@@ -78,9 +89,11 @@
     "./targets/copilot": "./src/targets/copilot.ts",
     "./targets/cursor": "./src/targets/cursor.ts",
     "./targets/gemini-cli": "./src/targets/gemini-cli.ts",
+    "./targets/generic-md-target": "./src/targets/generic-md-target.ts",
     "./targets/index": "./src/targets/index.ts",
     "./targets/opencode": "./src/targets/opencode.ts",
     "./targets/registry": "./src/targets/registry.ts",
+    "./utils/diff": "./src/utils/diff.ts",
     "./utils/filesystem": "./src/utils/filesystem.ts",
     "./utils/frontmatter": "./src/utils/frontmatter.ts",
     "./utils/global": "./src/utils/global.ts",
@@ -116,6 +129,18 @@
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
         "default": "./dist/index.js"
+      },
+      "./api": {
+        "types": "./dist/api.d.ts",
+        "bun": "./dist/api.js",
+        "node": "./dist/node/api.js",
+        "default": "./dist/api.js"
+      },
+      "./cli/export-cmd": {
+        "types": "./dist/cli/export-cmd.d.ts",
+        "bun": "./dist/cli/export-cmd.js",
+        "node": "./dist/node/cli/export-cmd.js",
+        "default": "./dist/cli/export-cmd.js"
       },
       "./cli/generate": {
         "types": "./dist/cli/generate.d.ts",
@@ -177,6 +202,12 @@
         "node": "./dist/node/core/config.js",
         "default": "./dist/core/config.js"
       },
+      "./core/dependency-resolver": {
+        "types": "./dist/core/dependency-resolver.d.ts",
+        "bun": "./dist/core/dependency-resolver.js",
+        "node": "./dist/node/core/dependency-resolver.js",
+        "default": "./dist/core/dependency-resolver.js"
+      },
       "./core/feature-merger": {
         "types": "./dist/core/feature-merger.d.ts",
         "bun": "./dist/core/feature-merger.js",
@@ -195,11 +226,35 @@
         "node": "./dist/node/core/lockfile.js",
         "default": "./dist/core/lockfile.js"
       },
+      "./core/metarepo": {
+        "types": "./dist/core/metarepo.d.ts",
+        "bun": "./dist/core/metarepo.js",
+        "node": "./dist/node/core/metarepo.js",
+        "default": "./dist/core/metarepo.js"
+      },
       "./core/pack-loader": {
         "types": "./dist/core/pack-loader.d.ts",
         "bun": "./dist/core/pack-loader.js",
         "node": "./dist/node/core/pack-loader.js",
         "default": "./dist/core/pack-loader.js"
+      },
+      "./exporters": {
+        "types": "./dist/exporters/index.d.ts",
+        "bun": "./dist/exporters/index.js",
+        "node": "./dist/node/exporters/index.js",
+        "default": "./dist/exporters/index.js"
+      },
+      "./exporters/cursor-plugin": {
+        "types": "./dist/exporters/cursor-plugin.d.ts",
+        "bun": "./dist/exporters/cursor-plugin.js",
+        "node": "./dist/node/exporters/cursor-plugin.js",
+        "default": "./dist/exporters/cursor-plugin.js"
+      },
+      "./exporters/index": {
+        "types": "./dist/exporters/index.d.ts",
+        "bun": "./dist/exporters/index.js",
+        "node": "./dist/node/exporters/index.js",
+        "default": "./dist/exporters/index.js"
       },
       "./features": {
         "types": "./dist/features/index.d.ts",
@@ -261,6 +316,24 @@
         "node": "./dist/node/features/skills.js",
         "default": "./dist/features/skills.js"
       },
+      "./importers/claude-code": {
+        "types": "./dist/importers/claude-code.d.ts",
+        "bun": "./dist/importers/claude-code.js",
+        "node": "./dist/node/importers/claude-code.js",
+        "default": "./dist/importers/claude-code.js"
+      },
+      "./importers/cursor": {
+        "types": "./dist/importers/cursor.d.ts",
+        "bun": "./dist/importers/cursor.js",
+        "node": "./dist/node/importers/cursor.js",
+        "default": "./dist/importers/cursor.js"
+      },
+      "./importers/opencode": {
+        "types": "./dist/importers/opencode.d.ts",
+        "bun": "./dist/importers/opencode.js",
+        "node": "./dist/node/importers/opencode.js",
+        "default": "./dist/importers/opencode.js"
+      },
       "./importers/rulesync": {
         "types": "./dist/importers/rulesync.d.ts",
         "bun": "./dist/importers/rulesync.js",
@@ -315,6 +388,12 @@
         "node": "./dist/node/targets/index.js",
         "default": "./dist/targets/index.js"
       },
+      "./targets/additional-targets": {
+        "types": "./dist/targets/additional-targets.d.ts",
+        "bun": "./dist/targets/additional-targets.js",
+        "node": "./dist/node/targets/additional-targets.js",
+        "default": "./dist/targets/additional-targets.js"
+      },
       "./targets/agents-md": {
         "types": "./dist/targets/agents-md.d.ts",
         "bun": "./dist/targets/agents-md.js",
@@ -357,6 +436,12 @@
         "node": "./dist/node/targets/gemini-cli.js",
         "default": "./dist/targets/gemini-cli.js"
       },
+      "./targets/generic-md-target": {
+        "types": "./dist/targets/generic-md-target.d.ts",
+        "bun": "./dist/targets/generic-md-target.js",
+        "node": "./dist/node/targets/generic-md-target.js",
+        "default": "./dist/targets/generic-md-target.js"
+      },
       "./targets/index": {
         "types": "./dist/targets/index.d.ts",
         "bun": "./dist/targets/index.js",
@@ -374,6 +459,12 @@
         "bun": "./dist/targets/registry.js",
         "node": "./dist/node/targets/registry.js",
         "default": "./dist/targets/registry.js"
+      },
+      "./utils/diff": {
+        "types": "./dist/utils/diff.d.ts",
+        "bun": "./dist/utils/diff.js",
+        "node": "./dist/node/utils/diff.js",
+        "default": "./dist/utils/diff.js"
       },
       "./utils/filesystem": {
         "types": "./dist/utils/filesystem.d.ts",

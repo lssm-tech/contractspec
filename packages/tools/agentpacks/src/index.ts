@@ -10,6 +10,7 @@ import { runPackList } from './cli/pack/list.js';
 import { runPackValidate } from './cli/pack/validate.js';
 import { runInstall } from './cli/install.js';
 import { runPackEnable, runPackDisable } from './cli/pack/enable.js';
+import { runExport } from './cli/export-cmd.js';
 
 const program = new Command();
 
@@ -41,6 +42,7 @@ program
     "Comma-separated feature IDs or '*' for all"
   )
   .option('--dry-run', 'Preview changes without writing files')
+  .option('--diff', 'Show diff of what would change')
   .option('-v, --verbose', 'Enable verbose logging')
   .action((options) => {
     runGenerate(resolve('.'), options);
@@ -55,6 +57,18 @@ program
   .option('-v, --verbose', 'Enable verbose logging')
   .action(async (options) => {
     await runInstall(resolve('.'), options);
+  });
+
+// export
+program
+  .command('export')
+  .description('Export packs to target-native format (e.g. Cursor plugin)')
+  .requiredOption('--format <format>', 'Export format (cursor-plugin)')
+  .option('-o, --output <dir>', 'Output directory')
+  .option('--pack <name>', 'Export a specific pack only')
+  .option('-v, --verbose', 'Enable verbose logging')
+  .action((options) => {
+    runExport(resolve('.'), options);
   });
 
 // import

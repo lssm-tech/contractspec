@@ -6,11 +6,27 @@ import { CodexCliTarget } from './codex-cli.js';
 import { GeminiCliTarget } from './gemini-cli.js';
 import { CopilotTarget } from './copilot.js';
 import { AgentsMdTarget } from './agents-md.js';
+import {
+  ClineTarget,
+  KiloTarget,
+  RooTarget,
+  QwenCodeTarget,
+  KiroTarget,
+  FactoryDroidTarget,
+  AntiGravityTarget,
+  JunieTarget,
+  AugmentCodeTarget,
+  WindsurfTarget,
+  WarpTarget,
+  ReplitTarget,
+  ZedTarget,
+} from './additional-targets.js';
 
 /**
  * Registry of all available target generators.
  */
 const TARGETS: BaseTarget[] = [
+  // Core targets (Phase 1)
   new OpenCodeTarget(),
   new CursorTarget(),
   new ClaudeCodeTarget(),
@@ -18,6 +34,20 @@ const TARGETS: BaseTarget[] = [
   new GeminiCliTarget(),
   new CopilotTarget(),
   new AgentsMdTarget(),
+  // Additional targets (Phase 3)
+  ClineTarget,
+  KiloTarget,
+  RooTarget,
+  QwenCodeTarget,
+  KiroTarget,
+  FactoryDroidTarget,
+  AntiGravityTarget,
+  JunieTarget,
+  AugmentCodeTarget,
+  WindsurfTarget,
+  WarpTarget,
+  ReplitTarget,
+  ZedTarget,
 ];
 
 const targetMap = new Map<string, BaseTarget>(TARGETS.map((t) => [t.id, t]));

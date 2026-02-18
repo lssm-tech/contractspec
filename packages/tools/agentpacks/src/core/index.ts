@@ -29,3 +29,10 @@ export {
   computeIntegrity,
   isLockfileFrozenValid,
 } from './lockfile.js';
+
+export {
+  type DependencyNode,
+  type DependencyResolution,
+  buildDependencyGraph,
+  resolveDependencies,
+} from './dependency-resolver.js';
