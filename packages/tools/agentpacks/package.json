@@ -41,13 +41,16 @@
     "./cli/generate": "./src/cli/generate.ts",
     "./cli/import-cmd": "./src/cli/import-cmd.ts",
     "./cli/init": "./src/cli/init.ts",
+    "./cli/install": "./src/cli/install.ts",
     "./cli/pack/create": "./src/cli/pack/create.ts",
+    "./cli/pack/enable": "./src/cli/pack/enable.ts",
     "./cli/pack/list": "./src/cli/pack/list.ts",
     "./cli/pack/validate": "./src/cli/pack/validate.ts",
     "./core": "./src/core/index.ts",
     "./core/config": "./src/core/config.ts",
     "./core/feature-merger": "./src/core/feature-merger.ts",
     "./core/index": "./src/core/index.ts",
+    "./core/lockfile": "./src/core/lockfile.ts",
     "./core/pack-loader": "./src/core/pack-loader.ts",
     "./features": "./src/features/index.ts",
     "./features/agents": "./src/features/agents.ts",
@@ -60,7 +63,13 @@
     "./features/rules": "./src/features/rules.ts",
     "./features/skills": "./src/features/skills.ts",
     "./importers/rulesync": "./src/importers/rulesync.ts",
+    "./sources": "./src/sources/index.ts",
+    "./sources/git": "./src/sources/git.ts",
+    "./sources/git-ref": "./src/sources/git-ref.ts",
+    "./sources/index": "./src/sources/index.ts",
     "./sources/local": "./src/sources/local.ts",
+    "./sources/npm": "./src/sources/npm.ts",
+    "./sources/npm-ref": "./src/sources/npm-ref.ts",
     "./targets": "./src/targets/index.ts",
     "./targets/agents-md": "./src/targets/agents-md.ts",
     "./targets/base-target": "./src/targets/base-target.ts",
@@ -74,6 +83,7 @@
     "./targets/registry": "./src/targets/registry.ts",
     "./utils/filesystem": "./src/utils/filesystem.ts",
     "./utils/frontmatter": "./src/utils/frontmatter.ts",
+    "./utils/global": "./src/utils/global.ts",
     "./utils/markdown": "./src/utils/markdown.ts"
   },
   "files": [
@@ -125,11 +135,23 @@
         "node": "./dist/node/cli/init.js",
         "default": "./dist/cli/init.js"
       },
+      "./cli/install": {
+        "types": "./dist/cli/install.d.ts",
+        "bun": "./dist/cli/install.js",
+        "node": "./dist/node/cli/install.js",
+        "default": "./dist/cli/install.js"
+      },
       "./cli/pack/create": {
         "types": "./dist/cli/pack/create.d.ts",
         "bun": "./dist/cli/pack/create.js",
         "node": "./dist/node/cli/pack/create.js",
         "default": "./dist/cli/pack/create.js"
+      },
+      "./cli/pack/enable": {
+        "types": "./dist/cli/pack/enable.d.ts",
+        "bun": "./dist/cli/pack/enable.js",
+        "node": "./dist/node/cli/pack/enable.js",
+        "default": "./dist/cli/pack/enable.js"
       },
       "./cli/pack/list": {
         "types": "./dist/cli/pack/list.d.ts",
@@ -166,6 +188,12 @@
         "bun": "./dist/core/index.js",
         "node": "./dist/node/core/index.js",
         "default": "./dist/core/index.js"
+      },
+      "./core/lockfile": {
+        "types": "./dist/core/lockfile.d.ts",
+        "bun": "./dist/core/lockfile.js",
+        "node": "./dist/node/core/lockfile.js",
+        "default": "./dist/core/lockfile.js"
       },
       "./core/pack-loader": {
         "types": "./dist/core/pack-loader.d.ts",
@@ -239,11 +267,47 @@
         "node": "./dist/node/importers/rulesync.js",
         "default": "./dist/importers/rulesync.js"
       },
+      "./sources": {
+        "types": "./dist/sources/index.d.ts",
+        "bun": "./dist/sources/index.js",
+        "node": "./dist/node/sources/index.js",
+        "default": "./dist/sources/index.js"
+      },
+      "./sources/git": {
+        "types": "./dist/sources/git.d.ts",
+        "bun": "./dist/sources/git.js",
+        "node": "./dist/node/sources/git.js",
+        "default": "./dist/sources/git.js"
+      },
+      "./sources/git-ref": {
+        "types": "./dist/sources/git-ref.d.ts",
+        "bun": "./dist/sources/git-ref.js",
+        "node": "./dist/node/sources/git-ref.js",
+        "default": "./dist/sources/git-ref.js"
+      },
+      "./sources/index": {
+        "types": "./dist/sources/index.d.ts",
+        "bun": "./dist/sources/index.js",
+        "node": "./dist/node/sources/index.js",
+        "default": "./dist/sources/index.js"
+      },
       "./sources/local": {
         "types": "./dist/sources/local.d.ts",
         "bun": "./dist/sources/local.js",
         "node": "./dist/node/sources/local.js",
         "default": "./dist/sources/local.js"
+      },
+      "./sources/npm": {
+        "types": "./dist/sources/npm.d.ts",
+        "bun": "./dist/sources/npm.js",
+        "node": "./dist/node/sources/npm.js",
+        "default": "./dist/sources/npm.js"
+      },
+      "./sources/npm-ref": {
+        "types": "./dist/sources/npm-ref.d.ts",
+        "bun": "./dist/sources/npm-ref.js",
+        "node": "./dist/node/sources/npm-ref.js",
+        "default": "./dist/sources/npm-ref.js"
       },
       "./targets": {
         "types": "./dist/targets/index.d.ts",
@@ -322,6 +386,12 @@
         "bun": "./dist/utils/frontmatter.js",
         "node": "./dist/node/utils/frontmatter.js",
         "default": "./dist/utils/frontmatter.js"
+      },
+      "./utils/global": {
+        "types": "./dist/utils/global.d.ts",
+        "bun": "./dist/utils/global.js",
+        "node": "./dist/node/utils/global.js",
+        "default": "./dist/utils/global.js"
       },
       "./utils/markdown": {
         "types": "./dist/utils/markdown.d.ts",
