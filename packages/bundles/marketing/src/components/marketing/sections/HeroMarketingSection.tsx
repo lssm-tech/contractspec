@@ -44,7 +44,7 @@ export function HeroMarketingSection() {
           </ButtonLink>
           <ButtonLink
             variant="ghost"
-            href="https://app.contractspec.studio"
+            href="https://www.contractspec.studio"
             onClick={() =>
               captureAnalyticsEvent(analyticsEventNames.CTA_STUDIO_CLICK, {
                 surface: 'hero',

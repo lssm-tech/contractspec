@@ -8,8 +8,8 @@ interface StudioSignupSectionProps {
   variant?: 'default' | 'compact';
 }
 
-const studioUrl = 'https://app.contractspec.studio';
-const studioDocsUrl = 'https://app.contractspec.studio/docs';
+const studioUrl = 'https://www.contractspec.studio';
+const studioDocsUrl = 'https://www.contractspec.studio/docs';
 
 export function StudioSignupSection({
   variant = 'default',

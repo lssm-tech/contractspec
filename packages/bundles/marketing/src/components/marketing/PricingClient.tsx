@@ -16,7 +16,7 @@ const faqs: FAQ[] = [
   {
     question: 'Can I use ContractSpec Studio today?',
     answer:
-      'Yes. ContractSpec Studio is live at app.contractspec.studio. Start with the free tier and upgrade as paid plans roll out.',
+      'Yes. ContractSpec Studio is live at www.contractspec.studio. Start with the free tier and upgrade as paid plans roll out.',
   },
   {
     question: 'What will you charge for later?',
@@ -41,7 +41,7 @@ export function PricingClient() {
 
   const openStudio = () => {
     window.open(
-      'https://app.contractspec.studio',
+      'https://www.contractspec.studio',
       '_blank',
       'noopener,noreferrer'
     );
@@ -68,7 +68,7 @@ export function PricingClient() {
               Install OSS Core <ChevronRight size={16} />
             </Link>
             <Link
-              href="https://app.contractspec.studio"
+              href="https://www.contractspec.studio"
               className="btn-ghost inline-flex items-center gap-2"
             >
               Try Studio Free

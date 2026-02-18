@@ -5,6 +5,7 @@ src/
 tsconfig.json
 tsconfig.tsbuildinfo
 tsdown.config.js
+bun.config.js
 eslint.config.js
 .eslintrc*
 

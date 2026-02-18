@@ -196,7 +196,7 @@ export async function runCiCommand(options: CICommandOptions) {
       console.log(
         '  Studio correlates product signals and compiles decisions into spec diffs and task packs.'
       );
-      console.log('  Try Studio: https://app.contractspec.studio');
+      console.log('  Try Studio: https://www.contractspec.studio');
     }
   } catch (error) {
     spinner?.fail('CI checks failed');

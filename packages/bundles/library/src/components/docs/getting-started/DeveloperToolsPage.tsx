@@ -32,7 +32,7 @@ export function DeveloperToolsPage() {
     },
     {
       name: 'ContractSpec Studio',
-      href: 'https://app.contractspec.studio',
+      href: 'https://www.contractspec.studio',
       description:
         'AI-powered product decision engine that turns product signals into spec-first deliverables.',
       icon: Layers,

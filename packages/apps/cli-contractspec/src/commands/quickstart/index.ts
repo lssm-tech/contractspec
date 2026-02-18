@@ -182,7 +182,7 @@ export const quickstartCommand = new Command('quickstart')
         console.log(
           '  ContractSpec Studio is the AI-powered product decision engine built on ContractSpec.'
         );
-        console.log('  Try Studio: https://app.contractspec.studio');
+        console.log('  Try Studio: https://www.contractspec.studio');
         console.log();
       }
 

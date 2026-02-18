@@ -27,7 +27,11 @@
         "tsdown.config.js",
         "tsdown.config.mjs",
         "tsdown.config.ts",
-        "tsdown.config.cjs"
+        "tsdown.config.cjs",
+        "bun.config.js",
+        "bun.config.mjs",
+        "bun.config.ts",
+        "bun.config.cjs"
       ],
       "outputs": []
     },
@@ -43,6 +47,10 @@
         "tsdown.config.mjs",
         "tsdown.config.ts",
         "tsdown.config.cjs",
+        "bun.config.js",
+        "bun.config.mjs",
+        "bun.config.ts",
+        "bun.config.cjs",
         "src/**",
         "!src/generated/**",
         "public/**"
@@ -68,6 +76,10 @@
         "tsdown.config.mjs",
         "tsdown.config.ts",
         "tsdown.config.cjs",
+        "bun.config.js",
+        "bun.config.mjs",
+        "bun.config.ts",
+        "bun.config.cjs",
         "src/**",
         "!src/generated/**",
         "public/**"
@@ -95,7 +107,11 @@
         "tsdown.config.js",
         "tsdown.config.mjs",
         "tsdown.config.ts",
-        "tsdown.config.cjs"
+        "tsdown.config.cjs",
+        "bun.config.js",
+        "bun.config.mjs",
+        "bun.config.ts",
+        "bun.config.cjs"
       ],
       "outputs": ["dist/**/*.d.ts", "dist/**/*.d.ts.map"]
     },

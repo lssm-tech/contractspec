@@ -23,6 +23,7 @@ eslint.config.*
 tsconfig.json
 tsconfig.*.json
 tsdown.config.*
+bun.config.*
 rollup.config.*
 webpack.config.*
 *.map

@@ -128,7 +128,7 @@ export function ManifestoPage() {
           <a href="/install" className="btn-primary">
             Install OSS Core
           </a>
-          <a href="https://app.contractspec.studio" className="btn-ghost">
+          <a href="https://www.contractspec.studio" className="btn-ghost">
             Try Studio
           </a>
         </div>

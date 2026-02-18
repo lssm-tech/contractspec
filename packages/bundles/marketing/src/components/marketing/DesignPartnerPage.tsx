@@ -53,7 +53,7 @@ export function DesignPartnerPage() {
               </p>
               <div className="pt-2">
                 <Button asChild variant="outline">
-                  <Link href="https://app.contractspec.studio">
+                  <Link href="https://www.contractspec.studio">
                     Launch Studio <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>

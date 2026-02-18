@@ -7,7 +7,7 @@ export function StudioIntegrationsPage() {
       <p className="text-muted-foreground text-sm">
         Integration guides now live in the Studio app docs.
       </p>
-      <Link href="https://app.contractspec.studio/docs" className="btn-primary">
+      <Link href="https://www.contractspec.studio/docs" className="btn-primary">
         Open Studio docs
       </Link>
     </main>

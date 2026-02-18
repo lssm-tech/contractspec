@@ -65,11 +65,11 @@ export function StudioOverviewPage() {
           decision-to-change workflow on top.
         </p>
         <div className="flex flex-wrap gap-3">
-          <Link href="https://app.contractspec.studio" className="btn-primary">
+          <Link href="https://www.contractspec.studio" className="btn-primary">
             Try Studio
           </Link>
           <Link
-            href="https://app.contractspec.studio/docs"
+            href="https://www.contractspec.studio/docs"
             className="btn-ghost"
           >
             Read Studio docs

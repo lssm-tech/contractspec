@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { MarketingSection, ButtonLink } from '@contractspec/lib.design-system';
+import { ButtonLink, MarketingSection } from '@contractspec/lib.design-system';
 import {
   analyticsEventNames,
   captureAnalyticsEvent,
@@ -29,7 +29,7 @@ export function CtaSection() {
           className="pt-2 sm:flex sm:flex-row sm:flex-wrap sm:items-center sm:justify-center"
         >
           <ButtonLink
-            href="https://app.contractspec.studio"
+            href="https://www.contractspec.studio"
             onClick={() =>
               captureAnalyticsEvent(analyticsEventNames.CTA_STUDIO_CLICK, {
                 surface: 'cta-section',

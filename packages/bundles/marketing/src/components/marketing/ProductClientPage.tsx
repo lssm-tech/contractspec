@@ -381,7 +381,7 @@ export const ProductClientPage = () => (
           >
             Install OSS Core <ChevronRight size={16} />
           </Link>
-          <Link href="https://app.contractspec.studio" className="btn-ghost">
+          <Link href="https://www.contractspec.studio" className="btn-ghost">
             Try Studio
           </Link>
         </div>

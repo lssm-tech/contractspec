@@ -51,7 +51,7 @@ export default function Header() {
       right={
         <a
           className="btn-ghost"
-          href="https://app.contractspec.studio"
+          href="https://www.contractspec.studio"
           onClick={() =>
             captureAnalyticsEvent(analyticsEventNames.CTA_STUDIO_CLICK, {
               surface: 'header',

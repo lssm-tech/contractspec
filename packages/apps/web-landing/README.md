@@ -4,7 +4,7 @@ Marketing landing page and documentation site for ContractSpec.
 
 ## ContractSpec Studio
 
-Studio is live at https://app.contractspec.studio.
+Studio is live at https://www.contractspec.studio.
 
 Positioning used across this app:
 
