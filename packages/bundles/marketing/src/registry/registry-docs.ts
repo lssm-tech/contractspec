@@ -119,12 +119,7 @@ import { SpecsPolicyPage } from '@contractspec/bundle.library/components/docs/sp
 import { SpecsWorkflowsPage } from '@contractspec/bundle.library/components/docs/specs/SpecsWorkflowsPage';
 
 // Studio
-import { StudioBYOKPage } from '@contractspec/bundle.library/components/docs/studio/StudioBYOKPage';
-import { StudioDeploymentsPage } from '@contractspec/bundle.library/components/docs/studio/StudioDeploymentsPage';
-import { StudioGettingStartedPage } from '@contractspec/bundle.library/components/docs/studio/StudioGettingStartedPage';
-import { StudioIntegrationsPage } from '@contractspec/bundle.library/components/docs/studio/StudioIntegrationsPage';
 import { StudioOverviewPage } from '@contractspec/bundle.library/components/docs/studio/StudioOverviewPage';
-import { StudioVisualBuilderPage } from '@contractspec/bundle.library/components/docs/studio/StudioVisualBuilderPage';
 
 // Docs Index
 import { DocsIndexPage } from '@contractspec/bundle.library/components/docs/DocsIndexPage';
@@ -232,11 +227,6 @@ export const docsComponentMap: ComponentMap = {
   ManifestoPage,
   // Studio docs
   StudioOverviewPage,
-  StudioGettingStartedPage,
-  StudioVisualBuilderPage,
-  StudioIntegrationsPage,
-  StudioDeploymentsPage,
-  StudioBYOKPage,
 };
 
 /** Helper to create a docs presentation entry */
@@ -809,35 +799,5 @@ export const docsPresentations: [string, PresentationSpec][] = [
     'web-landing.docs.studio.overview',
     'StudioOverviewPage',
     'ContractSpec Studio overview'
-  ),
-  docsEntry(
-    '/docs/studio/getting-started',
-    'web-landing.docs.studio.getting-started',
-    'StudioGettingStartedPage',
-    'ContractSpec Studio getting started'
-  ),
-  docsEntry(
-    '/docs/studio/visual-builder',
-    'web-landing.docs.studio.visual-builder',
-    'StudioVisualBuilderPage',
-    'ContractSpec Studio visual builder'
-  ),
-  docsEntry(
-    '/docs/studio/integrations',
-    'web-landing.docs.studio.integrations',
-    'StudioIntegrationsPage',
-    'ContractSpec Studio integrations'
-  ),
-  docsEntry(
-    '/docs/studio/deployments',
-    'web-landing.docs.studio.deployments',
-    'StudioDeploymentsPage',
-    'ContractSpec Studio deployments'
-  ),
-  docsEntry(
-    '/docs/studio/byok',
-    'web-landing.docs.studio.byok',
-    'StudioBYOKPage',
-    'ContractSpec Studio BYOK'
   ),
 ];

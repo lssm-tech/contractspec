@@ -1,5 +1,78 @@
 # @contractspec/lib.accessibility
 
+## 2.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.design-system@2.4.0
+  - @contractspec/lib.ui-kit-web@2.4.0
+  - @contractspec/lib.ui-kit@2.4.0
+
+## 2.3.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
+### Patch Changes
+
+- Updated dependencies [12c9556]
+  - @contractspec/lib.design-system@2.3.0
+  - @contractspec/lib.ui-kit-web@2.3.0
+  - @contractspec/lib.ui-kit@2.3.0
+
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.design-system@2.2.0
+  - @contractspec/lib.ui-kit-web@2.2.0
+  - @contractspec/lib.ui-kit@2.2.0
+
+## 2.1.1
+
+### Patch Changes
+
+- @contractspec/lib.design-system@2.1.1
+
+## 2.1.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
+### Patch Changes
+
+- Updated dependencies [362fbac]
+  - @contractspec/lib.design-system@2.1.0
+  - @contractspec/lib.ui-kit-web@2.1.0
+  - @contractspec/lib.ui-kit@2.1.0
+
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+- Updated dependencies [f152678]
+- Updated dependencies [7f3203a]
+  - @contractspec/lib.design-system@2.0.0
+  - @contractspec/lib.ui-kit-web@2.0.0
+  - @contractspec/lib.ui-kit@2.0.0
+
 ## 1.62.0
 
 ### Minor Changes

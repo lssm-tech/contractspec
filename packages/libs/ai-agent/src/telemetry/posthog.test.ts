@@ -186,6 +186,59 @@ describe('PostHogTelemetryCollector', () => {
     expect(event.properties?.contractspec_version).toBe('2.1.0');
   });
 
+  it('captures $ai_span when telemetryEvent is span', async () => {
+    const mockClient = createMockPostHogClient();
+    const collector = createPostHogTelemetryCollector({ client: mockClient });
+
+    await collector.collect(
+      createSample({
+        metadata: {
+          telemetryEvent: 'span',
+          traceId: 'trace_xyz',
+          sessionId: 'sess_123',
+          spanId: 'span_1',
+          parentSpanId: 'span_root',
+          spanName: 'tool.search',
+        },
+      })
+    );
+
+    const event = assertDefined(mockClient.captured[0], 'captured event');
+    expect(event.event).toBe('$ai_span');
+    expect(event.properties?.$ai_trace_id).toBe('trace_xyz');
+    expect(event.properties?.$ai_session_id).toBe('sess_123');
+    expect(event.properties?.$ai_span_id).toBe('span_1');
+    expect(event.properties?.$ai_parent_id).toBe('span_root');
+    expect(event.properties?.$ai_span_name).toBe('tool.search');
+  });
+
+  it('maps extended usage details when present', async () => {
+    const mockClient = createMockPostHogClient();
+    const collector = createPostHogTelemetryCollector({ client: mockClient });
+
+    await collector.collect(
+      createSample({
+        metadata: {
+          tokenUsage: {
+            inputTokens: 120,
+            outputTokens: 80,
+            inputTokenDetails: { cacheReadTokens: 30, cacheWriteTokens: 10 },
+            outputTokenDetails: { reasoningTokens: 20 },
+            raw: { provider: 'test' },
+          },
+        },
+      })
+    );
+
+    const event = assertDefined(mockClient.captured[0], 'captured event');
+    expect(event.properties?.$ai_input_tokens).toBe(120);
+    expect(event.properties?.$ai_output_tokens).toBe(80);
+    expect(event.properties?.$ai_cache_read_input_tokens).toBe(30);
+    expect(event.properties?.$ai_cache_creation_input_tokens).toBe(10);
+    expect(event.properties?.$ai_reasoning_tokens).toBe(20);
+    expect(event.properties?.$ai_usage).toEqual({ provider: 'test' });
+  });
+
   it('handles samples without metadata gracefully', async () => {
     const mockClient = createMockPostHogClient();
     const collector = createPostHogTelemetryCollector({ client: mockClient });

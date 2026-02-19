@@ -23,19 +23,19 @@ POST /api/telemetry/ingest
 
 ### Headers
 
-| Header | Description |
-|--------|-------------|
+| Header                     | Description                                                   |
+| -------------------------- | ------------------------------------------------------------- |
 | `x-contractspec-client-id` | Optional client identifier (used as fallback for distinct_id) |
-| `Content-Type` | Must be `application/json` |
+| `Content-Type`             | Must be `application/json`                                    |
 
 ### Body
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `event` | string | Yes | Event name (e.g., `contractspec.vscode.activated`) |
-| `distinct_id` | string | Yes | Anonymous client identifier |
-| `properties` | object | No | Event properties |
-| `timestamp` | string | No | ISO 8601 timestamp |
+| Field         | Type   | Required | Description                                        |
+| ------------- | ------ | -------- | -------------------------------------------------- |
+| `event`       | string | Yes      | Event name (e.g., `contractspec.vscode.activated`) |
+| `distinct_id` | string | Yes      | Anonymous client identifier                        |
+| `properties`  | object | No       | Event properties                                   |
+| `timestamp`   | string | No       | ISO 8601 timestamp                                 |
 
 ## Response
 
@@ -49,10 +49,10 @@ POST /api/telemetry/ingest
 
 The endpoint requires `POSTHOG_PROJECT_KEY` environment variable to be set. If not configured, events are accepted but not forwarded.
 
-| Environment Variable | Description | Default |
-|---------------------|-------------|---------|
-| `POSTHOG_HOST` | PostHog host URL | `https://eu.posthog.com` |
-| `POSTHOG_PROJECT_KEY` | PostHog project API key | (required) |
+| Environment Variable  | Description             | Default                  |
+| --------------------- | ----------------------- | ------------------------ |
+| `POSTHOG_HOST`        | PostHog host URL        | `https://eu.posthog.com` |
+| `POSTHOG_PROJECT_KEY` | PostHog project API key | (required)               |
 
 ## Privacy
 
@@ -65,24 +65,24 @@ The endpoint requires `POSTHOG_PROJECT_KEY` environment variable to be set. If n
 
 ### OSS Adoption Funnel
 
-| Event | Description | Properties |
-|-------|-------------|------------|
-| `cta_install_click` | Clicked Install OSS CTA | `surface` |
-| `cta_studio_click` | Clicked Studio waitlist CTA | `surface`, `variant` |
-| `docs_quickstart_view` | Entered quickstart docs path | `surface`, `destination` |
-| `copy_command_click` | Copied a command block | `surface`, `language`, `filename`, `packageManager` |
-| `example_repo_open` | Selected a template/example | `surface`, `templateId`, `source` |
+| Event                  | Description                  | Properties                                          |
+| ---------------------- | ---------------------------- | --------------------------------------------------- |
+| `cta_install_click`    | Clicked Install OSS CTA      | `surface`                                           |
+| `cta_studio_click`     | Clicked Studio CTA           | `surface`, `variant`                                |
+| `docs_quickstart_view` | Entered quickstart docs path | `surface`, `destination`                            |
+| `copy_command_click`   | Copied a command block       | `surface`, `language`, `filename`, `packageManager` |
+| `example_repo_open`    | Selected a template/example  | `surface`, `templateId`, `source`                   |
 
 ### Extension Events
 
-| Event | Description | Properties |
-|-------|-------------|------------|
-| `contractspec.vscode.activated` | Extension activated | `version` |
-| `contractspec.vscode.command_run` | Command executed | `command` |
-| `contractspec.vscode.mcp_call` | MCP call made | `endpoint`, `tool` |
+| Event                             | Description         | Properties         |
+| --------------------------------- | ------------------- | ------------------ |
+| `contractspec.vscode.activated`   | Extension activated | `version`          |
+| `contractspec.vscode.command_run` | Command executed    | `command`          |
+| `contractspec.vscode.mcp_call`    | MCP call made       | `endpoint`, `tool` |
 
 ### API Events
 
-| Event | Description | Properties |
-|-------|-------------|------------|
+| Event                          | Description           | Properties                                     |
+| ------------------------------ | --------------------- | ---------------------------------------------- |
 | `contractspec.api.mcp_request` | MCP request processed | `endpoint`, `method`, `success`, `duration_ms` |

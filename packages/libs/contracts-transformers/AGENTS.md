@@ -40,7 +40,7 @@ To add support for a new format (e.g., AsyncAPI):
 2. Implement: `types.ts`, `parser.ts`, `importer.ts`, `exporter.ts`, `differ.ts`
 3. Export from `src/asyncapi/index.ts`
 4. Re-export from `src/index.ts`
-5. Update `tsdown.config.js` entry points
+5. Update `bun.config.js` entry points
 6. Update `package.json` exports
 
 ## Local Commands

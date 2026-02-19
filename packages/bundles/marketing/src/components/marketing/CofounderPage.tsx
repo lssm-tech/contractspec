@@ -77,7 +77,7 @@ function WhatExistsSection() {
   ];
 
   const planned = [
-    'Visual studio for specs',
+    'ContractSpec Studio product-decision engine',
     'Auto-evolution engine',
     'Multi-tenant SaaS',
     'Integration marketplace',
@@ -128,7 +128,7 @@ function RoleSection() {
   const productDeliverables = [
     'Ship UI/UX improvements weekly',
     'Define specs based on user research',
-    'Own the studio experience',
+    'Own the Studio product experience',
     'Collaborate on architecture decisions',
   ];
 

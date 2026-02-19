@@ -1,5 +1,60 @@
 # @contractspec/lib.email
 
+## 2.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.logger@2.4.0
+
+## 2.3.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
+### Patch Changes
+
+- Updated dependencies [12c9556]
+  - @contractspec/lib.logger@2.3.0
+
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.logger@2.2.0
+
+## 2.1.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
+### Patch Changes
+
+- Updated dependencies [362fbac]
+  - @contractspec/lib.logger@2.1.0
+
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+  - @contractspec/lib.logger@2.0.0
+
 ## 1.16.0
 
 ### Minor Changes

@@ -1,0 +1,391 @@
+{
+  "name": "@contractspec/lib.video-gen",
+  "version": "1.45.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test --pass-with-no-tests",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.content-gen": "workspace:*",
+    "@contractspec/lib.design-system": "workspace:*",
+    "remotion": "^4.0.0"
+  },
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.bun": "workspace:*",
+    "typescript": "catalog:",
+    "@remotion/bundler": "^4.0.0",
+    "@remotion/cli": "^4.0.0",
+    "@remotion/player": "^4.0.0",
+    "@remotion/renderer": "^4.0.0",
+    "@types/react": "^19.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tsdown": "^0.20.3"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@remotion/player": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@remotion/player": {
+      "optional": true
+    }
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./compositions": "./src/compositions/index.ts",
+    "./compositions/api-overview": "./src/compositions/api-overview.tsx",
+    "./compositions/index": "./src/compositions/index.ts",
+    "./compositions/primitives": "./src/compositions/primitives/index.ts",
+    "./compositions/primitives/animated-text": "./src/compositions/primitives/animated-text.tsx",
+    "./compositions/primitives/brand-frame": "./src/compositions/primitives/brand-frame.tsx",
+    "./compositions/primitives/code-block": "./src/compositions/primitives/code-block.tsx",
+    "./compositions/primitives/index": "./src/compositions/primitives/index.ts",
+    "./compositions/primitives/progress-bar": "./src/compositions/primitives/progress-bar.tsx",
+    "./compositions/primitives/terminal": "./src/compositions/primitives/terminal.tsx",
+    "./compositions/primitives/transition": "./src/compositions/primitives/transition.tsx",
+    "./compositions/social-clip": "./src/compositions/social-clip.tsx",
+    "./compositions/terminal-demo": "./src/compositions/terminal-demo.tsx",
+    "./design": "./src/design/index.ts",
+    "./design/index": "./src/design/index.ts",
+    "./design/layouts": "./src/design/layouts.ts",
+    "./design/motion": "./src/design/motion.ts",
+    "./design/tokens": "./src/design/tokens.ts",
+    "./design/typography": "./src/design/typography.ts",
+    "./docs/compositions.docblock": "./src/docs/compositions.docblock.ts",
+    "./docs/design.docblock": "./src/docs/design.docblock.ts",
+    "./docs/generators.docblock": "./src/docs/generators.docblock.ts",
+    "./docs/rendering.docblock": "./src/docs/rendering.docblock.ts",
+    "./docs/video-gen.docblock": "./src/docs/video-gen.docblock.ts",
+    "./generators": "./src/generators/index.ts",
+    "./generators/index": "./src/generators/index.ts",
+    "./generators/scene-planner": "./src/generators/scene-planner.ts",
+    "./generators/script-generator": "./src/generators/script-generator.ts",
+    "./generators/video-generator": "./src/generators/video-generator.ts",
+    "./player": "./src/player/index.ts",
+    "./player/demo-player": "./src/player/demo-player.tsx",
+    "./player/index": "./src/player/index.ts",
+    "./remotion": "./src/remotion/index.ts",
+    "./remotion/index": "./src/remotion/index.ts",
+    "./remotion/Root": "./src/remotion/Root.tsx",
+    "./renderers": "./src/renderers/index.ts",
+    "./renderers/config": "./src/renderers/config.ts",
+    "./renderers/index": "./src/renderers/index.ts",
+    "./renderers/local": "./src/renderers/local.ts",
+    "./types": "./src/types.ts"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.js",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./compositions": {
+        "types": "./dist/compositions/index.d.ts",
+        "bun": "./dist/compositions/index.js",
+        "node": "./dist/node/compositions/index.js",
+        "browser": "./dist/browser/compositions/index.js",
+        "default": "./dist/compositions/index.js"
+      },
+      "./compositions/api-overview": {
+        "types": "./dist/compositions/api-overview.d.ts",
+        "bun": "./dist/compositions/api-overview.js",
+        "node": "./dist/node/compositions/api-overview.js",
+        "browser": "./dist/browser/compositions/api-overview.js",
+        "default": "./dist/compositions/api-overview.js"
+      },
+      "./compositions/index": {
+        "types": "./dist/compositions/index.d.ts",
+        "bun": "./dist/compositions/index.js",
+        "node": "./dist/node/compositions/index.js",
+        "browser": "./dist/browser/compositions/index.js",
+        "default": "./dist/compositions/index.js"
+      },
+      "./compositions/primitives": {
+        "types": "./dist/compositions/primitives/index.d.ts",
+        "bun": "./dist/compositions/primitives/index.js",
+        "node": "./dist/node/compositions/primitives/index.js",
+        "browser": "./dist/browser/compositions/primitives/index.js",
+        "default": "./dist/compositions/primitives/index.js"
+      },
+      "./compositions/primitives/animated-text": {
+        "types": "./dist/compositions/primitives/animated-text.d.ts",
+        "bun": "./dist/compositions/primitives/animated-text.js",
+        "node": "./dist/node/compositions/primitives/animated-text.js",
+        "browser": "./dist/browser/compositions/primitives/animated-text.js",
+        "default": "./dist/compositions/primitives/animated-text.js"
+      },
+      "./compositions/primitives/brand-frame": {
+        "types": "./dist/compositions/primitives/brand-frame.d.ts",
+        "bun": "./dist/compositions/primitives/brand-frame.js",
+        "node": "./dist/node/compositions/primitives/brand-frame.js",
+        "browser": "./dist/browser/compositions/primitives/brand-frame.js",
+        "default": "./dist/compositions/primitives/brand-frame.js"
+      },
+      "./compositions/primitives/code-block": {
+        "types": "./dist/compositions/primitives/code-block.d.ts",
+        "bun": "./dist/compositions/primitives/code-block.js",
+        "node": "./dist/node/compositions/primitives/code-block.js",
+        "browser": "./dist/browser/compositions/primitives/code-block.js",
+        "default": "./dist/compositions/primitives/code-block.js"
+      },
+      "./compositions/primitives/index": {
+        "types": "./dist/compositions/primitives/index.d.ts",
+        "bun": "./dist/compositions/primitives/index.js",
+        "node": "./dist/node/compositions/primitives/index.js",
+        "browser": "./dist/browser/compositions/primitives/index.js",
+        "default": "./dist/compositions/primitives/index.js"
+      },
+      "./compositions/primitives/progress-bar": {
+        "types": "./dist/compositions/primitives/progress-bar.d.ts",
+        "bun": "./dist/compositions/primitives/progress-bar.js",
+        "node": "./dist/node/compositions/primitives/progress-bar.js",
+        "browser": "./dist/browser/compositions/primitives/progress-bar.js",
+        "default": "./dist/compositions/primitives/progress-bar.js"
+      },
+      "./compositions/primitives/terminal": {
+        "types": "./dist/compositions/primitives/terminal.d.ts",
+        "bun": "./dist/compositions/primitives/terminal.js",
+        "node": "./dist/node/compositions/primitives/terminal.js",
+        "browser": "./dist/browser/compositions/primitives/terminal.js",
+        "default": "./dist/compositions/primitives/terminal.js"
+      },
+      "./compositions/primitives/transition": {
+        "types": "./dist/compositions/primitives/transition.d.ts",
+        "bun": "./dist/compositions/primitives/transition.js",
+        "node": "./dist/node/compositions/primitives/transition.js",
+        "browser": "./dist/browser/compositions/primitives/transition.js",
+        "default": "./dist/compositions/primitives/transition.js"
+      },
+      "./compositions/social-clip": {
+        "types": "./dist/compositions/social-clip.d.ts",
+        "bun": "./dist/compositions/social-clip.js",
+        "node": "./dist/node/compositions/social-clip.js",
+        "browser": "./dist/browser/compositions/social-clip.js",
+        "default": "./dist/compositions/social-clip.js"
+      },
+      "./compositions/terminal-demo": {
+        "types": "./dist/compositions/terminal-demo.d.ts",
+        "bun": "./dist/compositions/terminal-demo.js",
+        "node": "./dist/node/compositions/terminal-demo.js",
+        "browser": "./dist/browser/compositions/terminal-demo.js",
+        "default": "./dist/compositions/terminal-demo.js"
+      },
+      "./design": {
+        "types": "./dist/design/index.d.ts",
+        "bun": "./dist/design/index.js",
+        "node": "./dist/node/design/index.js",
+        "browser": "./dist/browser/design/index.js",
+        "default": "./dist/design/index.js"
+      },
+      "./design/index": {
+        "types": "./dist/design/index.d.ts",
+        "bun": "./dist/design/index.js",
+        "node": "./dist/node/design/index.js",
+        "browser": "./dist/browser/design/index.js",
+        "default": "./dist/design/index.js"
+      },
+      "./design/layouts": {
+        "types": "./dist/design/layouts.d.ts",
+        "bun": "./dist/design/layouts.js",
+        "node": "./dist/node/design/layouts.js",
+        "browser": "./dist/browser/design/layouts.js",
+        "default": "./dist/design/layouts.js"
+      },
+      "./design/motion": {
+        "types": "./dist/design/motion.d.ts",
+        "bun": "./dist/design/motion.js",
+        "node": "./dist/node/design/motion.js",
+        "browser": "./dist/browser/design/motion.js",
+        "default": "./dist/design/motion.js"
+      },
+      "./design/tokens": {
+        "types": "./dist/design/tokens.d.ts",
+        "bun": "./dist/design/tokens.js",
+        "node": "./dist/node/design/tokens.js",
+        "browser": "./dist/browser/design/tokens.js",
+        "default": "./dist/design/tokens.js"
+      },
+      "./design/typography": {
+        "types": "./dist/design/typography.d.ts",
+        "bun": "./dist/design/typography.js",
+        "node": "./dist/node/design/typography.js",
+        "browser": "./dist/browser/design/typography.js",
+        "default": "./dist/design/typography.js"
+      },
+      "./docs/compositions.docblock": {
+        "types": "./dist/docs/compositions.docblock.d.ts",
+        "bun": "./dist/docs/compositions.docblock.js",
+        "node": "./dist/node/docs/compositions.docblock.js",
+        "browser": "./dist/browser/docs/compositions.docblock.js",
+        "default": "./dist/docs/compositions.docblock.js"
+      },
+      "./docs/design.docblock": {
+        "types": "./dist/docs/design.docblock.d.ts",
+        "bun": "./dist/docs/design.docblock.js",
+        "node": "./dist/node/docs/design.docblock.js",
+        "browser": "./dist/browser/docs/design.docblock.js",
+        "default": "./dist/docs/design.docblock.js"
+      },
+      "./docs/generators.docblock": {
+        "types": "./dist/docs/generators.docblock.d.ts",
+        "bun": "./dist/docs/generators.docblock.js",
+        "node": "./dist/node/docs/generators.docblock.js",
+        "browser": "./dist/browser/docs/generators.docblock.js",
+        "default": "./dist/docs/generators.docblock.js"
+      },
+      "./docs/rendering.docblock": {
+        "types": "./dist/docs/rendering.docblock.d.ts",
+        "bun": "./dist/docs/rendering.docblock.js",
+        "node": "./dist/node/docs/rendering.docblock.js",
+        "browser": "./dist/browser/docs/rendering.docblock.js",
+        "default": "./dist/docs/rendering.docblock.js"
+      },
+      "./docs/video-gen.docblock": {
+        "types": "./dist/docs/video-gen.docblock.d.ts",
+        "bun": "./dist/docs/video-gen.docblock.js",
+        "node": "./dist/node/docs/video-gen.docblock.js",
+        "browser": "./dist/browser/docs/video-gen.docblock.js",
+        "default": "./dist/docs/video-gen.docblock.js"
+      },
+      "./generators": {
+        "types": "./dist/generators/index.d.ts",
+        "bun": "./dist/generators/index.js",
+        "node": "./dist/node/generators/index.js",
+        "browser": "./dist/browser/generators/index.js",
+        "default": "./dist/generators/index.js"
+      },
+      "./generators/index": {
+        "types": "./dist/generators/index.d.ts",
+        "bun": "./dist/generators/index.js",
+        "node": "./dist/node/generators/index.js",
+        "browser": "./dist/browser/generators/index.js",
+        "default": "./dist/generators/index.js"
+      },
+      "./generators/scene-planner": {
+        "types": "./dist/generators/scene-planner.d.ts",
+        "bun": "./dist/generators/scene-planner.js",
+        "node": "./dist/node/generators/scene-planner.js",
+        "browser": "./dist/browser/generators/scene-planner.js",
+        "default": "./dist/generators/scene-planner.js"
+      },
+      "./generators/script-generator": {
+        "types": "./dist/generators/script-generator.d.ts",
+        "bun": "./dist/generators/script-generator.js",
+        "node": "./dist/node/generators/script-generator.js",
+        "browser": "./dist/browser/generators/script-generator.js",
+        "default": "./dist/generators/script-generator.js"
+      },
+      "./generators/video-generator": {
+        "types": "./dist/generators/video-generator.d.ts",
+        "bun": "./dist/generators/video-generator.js",
+        "node": "./dist/node/generators/video-generator.js",
+        "browser": "./dist/browser/generators/video-generator.js",
+        "default": "./dist/generators/video-generator.js"
+      },
+      "./player": {
+        "types": "./dist/player/index.d.ts",
+        "bun": "./dist/player/index.js",
+        "node": "./dist/node/player/index.js",
+        "browser": "./dist/browser/player/index.js",
+        "default": "./dist/player/index.js"
+      },
+      "./player/demo-player": {
+        "types": "./dist/player/demo-player.d.ts",
+        "bun": "./dist/player/demo-player.js",
+        "node": "./dist/node/player/demo-player.js",
+        "browser": "./dist/browser/player/demo-player.js",
+        "default": "./dist/player/demo-player.js"
+      },
+      "./player/index": {
+        "types": "./dist/player/index.d.ts",
+        "bun": "./dist/player/index.js",
+        "node": "./dist/node/player/index.js",
+        "browser": "./dist/browser/player/index.js",
+        "default": "./dist/player/index.js"
+      },
+      "./remotion": {
+        "types": "./dist/remotion/index.d.ts",
+        "bun": "./dist/remotion/index.js",
+        "node": "./dist/node/remotion/index.js",
+        "browser": "./dist/browser/remotion/index.js",
+        "default": "./dist/remotion/index.js"
+      },
+      "./remotion/index": {
+        "types": "./dist/remotion/index.d.ts",
+        "bun": "./dist/remotion/index.js",
+        "node": "./dist/node/remotion/index.js",
+        "browser": "./dist/browser/remotion/index.js",
+        "default": "./dist/remotion/index.js"
+      },
+      "./remotion/Root": {
+        "types": "./dist/remotion/Root.d.ts",
+        "bun": "./dist/remotion/Root.js",
+        "node": "./dist/node/remotion/Root.js",
+        "browser": "./dist/browser/remotion/Root.js",
+        "default": "./dist/remotion/Root.js"
+      },
+      "./renderers": {
+        "types": "./dist/renderers/index.d.ts",
+        "bun": "./dist/renderers/index.js",
+        "node": "./dist/node/renderers/index.js",
+        "browser": "./dist/browser/renderers/index.js",
+        "default": "./dist/renderers/index.js"
+      },
+      "./renderers/config": {
+        "types": "./dist/renderers/config.d.ts",
+        "bun": "./dist/renderers/config.js",
+        "node": "./dist/node/renderers/config.js",
+        "browser": "./dist/browser/renderers/config.js",
+        "default": "./dist/renderers/config.js"
+      },
+      "./renderers/index": {
+        "types": "./dist/renderers/index.d.ts",
+        "bun": "./dist/renderers/index.js",
+        "node": "./dist/node/renderers/index.js",
+        "browser": "./dist/browser/renderers/index.js",
+        "default": "./dist/renderers/index.js"
+      },
+      "./renderers/local": {
+        "types": "./dist/renderers/local.d.ts",
+        "bun": "./dist/renderers/local.js",
+        "node": "./dist/node/renderers/local.js",
+        "browser": "./dist/browser/renderers/local.js",
+        "default": "./dist/renderers/local.js"
+      },
+      "./types": {
+        "types": "./dist/types.d.ts",
+        "bun": "./dist/types.js",
+        "node": "./dist/node/types.js",
+        "browser": "./dist/browser/types.js",
+        "default": "./dist/types.js"
+      }
+    }
+  }
+}

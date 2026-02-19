@@ -1,5 +1,65 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 21.0.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@2.4.0
+  - @contractspec/lib.ui-kit@2.4.0
+
+## 20.0.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
+### Patch Changes
+
+- Updated dependencies [12c9556]
+  - @contractspec/lib.presentation-runtime-core@2.3.0
+  - @contractspec/lib.ui-kit@2.3.0
+
+## 19.0.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@2.2.0
+  - @contractspec/lib.ui-kit@2.2.0
+
+## 18.0.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
+### Patch Changes
+
+- Updated dependencies [362fbac]
+  - @contractspec/lib.presentation-runtime-core@2.1.0
+  - @contractspec/lib.ui-kit@2.1.0
+
+## 17.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+  - @contractspec/lib.presentation-runtime-core@2.0.0
+  - @contractspec/lib.ui-kit@2.0.0
+
 ## 16.0.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.ui-kit-web",
-  "version": "1.62.0",
+  "version": "2.4.0",
   "description": "Web UI components with Radix primitives",
   "keywords": [
     "contractspec",
@@ -73,14 +73,14 @@
     "react-hook-form": "^7.70.0",
     "react-resizable-panels": "^4.6.4",
     "sonner": "^2.0.7",
-    "tailwind-merge": "^3.3.1",
+    "tailwind-merge": "^3.4.1",
     "vaul": "^1.1.2"
   },
   "peerDependencies": {
     "react": "^19.2.4",
     "react-dom": ">=19.2.4",
     "react-hook-form": "^7.70.0",
-    "@sentry/nextjs": "^10.33.0",
+    "@sentry/nextjs": "^10.39.0",
     "maplibre-gl": "^5.18.0",
     "react-map-gl": "^8.0.4"
   },

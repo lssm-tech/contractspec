@@ -1,5 +1,35 @@
 # @contractspec/lib.utils-typescript
 
+## 2.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+## 2.3.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+## 2.1.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
 ## 1.62.0
 
 ### Minor Changes

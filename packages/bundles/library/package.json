@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/bundle.library",
-  "version": "1.17.0",
+  "version": "2.4.0",
   "type": "module",
   "scripts": {
     "clean": "rm -rf dist",
@@ -378,7 +378,7 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@electric-sql/pglite": "^0.3.14",
-    "@scaleway/sdk": "^3.1.5",
+    "@scaleway/sdk": "^3.2.0",
     "@scaleway/sdk-client": "^2.1.0",
     "drizzle-orm": "^0.45.1",
     "elysia-mcp": "^0.1.0",

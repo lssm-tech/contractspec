@@ -1,5 +1,76 @@
 # Changelog
 
+## 1.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.4.0
+  - @contractspec/bundle.workspace@2.4.0
+
+## 1.3.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
+### Patch Changes
+
+- Updated dependencies [12c9556]
+  - @contractspec/lib.contracts-spec@2.3.0
+  - @contractspec/bundle.workspace@2.3.0
+
+## 1.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.2.0
+  - @contractspec/bundle.workspace@2.2.0
+
+## 1.1.1
+
+### Patch Changes
+
+- Updated dependencies [57e2819]
+  - @contractspec/lib.contracts-spec@2.1.1
+  - @contractspec/bundle.workspace@2.1.1
+
+## 1.1.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
+### Patch Changes
+
+- Updated dependencies [b4bfbc5]
+- Updated dependencies [362fbac]
+- Updated dependencies [659d15f]
+  - @contractspec/lib.contracts-spec@2.1.0
+  - @contractspec/bundle.workspace@2.1.0
+
+## 1.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+- Updated dependencies [f152678]
+  - @contractspec/lib.contracts-spec@2.0.0
+  - @contractspec/bundle.workspace@2.0.0
+
 ## 0.11.0
 
 ### Minor Changes

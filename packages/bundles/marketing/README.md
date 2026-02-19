@@ -5,9 +5,10 @@ Marketing-focused bundle providing documentation pages, email templates, and lan
 ## Overview
 
 This bundle provides components specifically for marketing and documentation:
+
 - Documentation pages (same as library, for standalone use)
 - Marketing landing page sections
-- Email templates (waitlist, newsletter, contact)
+- Email templates (Studio signup, newsletter, contact)
 - Pricing examples and comparisons
 - Template preview components
 
@@ -20,6 +21,7 @@ bun add @contractspec/bundle.marketing
 ## Exports
 
 ### Documentation
+
 - `components/docs/*` — Full documentation pages by category
   - `/advanced` — MCP, overlays, renderers, telemetry
   - `/architecture` — App config, multi-tenancy, integrations
@@ -33,15 +35,18 @@ bun add @contractspec/bundle.marketing
   - `/studio` — Studio features
 
 ### Marketing
+
 - `components/marketing/*` — Landing page sections
   - `HeroMarketingSection`, `ProblemSection`, `SolutionSection`
   - `AudienceSection`, `DevelopersSection`, `FearsSection`
   - `PricingClient`, `ContactClient`, `ChangelogPage`
 
 ### Templates
+
 - `components/templates/*` — Template preview and gallery
 
 ### Email
+
 - `libs/email/*` — Email utilities and templates
 
 ## Dependencies

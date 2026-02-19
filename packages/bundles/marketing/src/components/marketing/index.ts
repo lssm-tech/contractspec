@@ -6,5 +6,5 @@ export { ChangelogPage } from './ChangelogPage';
 export { CofounderPage } from './CofounderPage';
 export { ContributePage } from './ContributePage';
 export { DesignPartnerPage } from './DesignPartnerPage';
-export { WaitlistSection } from './waitlist-section';
+export { StudioSignupSection } from './studio-signup-section';
 export { PricingThinkingModal } from './pricing-thinking-modal';

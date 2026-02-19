@@ -91,37 +91,79 @@ export class PostHogTelemetryCollector implements TelemetryCollector {
 
   async collect(sample: OperationMetricSample): Promise<void> {
     const client = await this.getClient();
+    const metadata = asRecord(sample.metadata);
     const distinctId =
       this.config.defaults?.posthogDistinctId ??
-      (sample.metadata?.['actorId'] as string | undefined) ??
+      asString(metadata['actorId']) ??
       'system';
+    const traceId =
+      asString(metadata['traceId']) ?? this.config.defaults?.posthogTraceId;
+    const sessionId = asString(metadata['sessionId']);
+    const telemetryEvent = asString(metadata['telemetryEvent']);
+    const event = telemetryEvent === 'span' ? '$ai_span' : '$ai_generation';
+    const tokenUsage = metadata['tokenUsage'];
+    const totalUsage = metadata['totalUsage'];
+    const errorMessage = asString(metadata['errorMessage']);
 
     client.capture({
       distinctId,
-      event: '$ai_generation',
+      event,
       properties: {
-        $ai_model: sample.operation.name,
-        $ai_provider: 'contractspec',
+        $ai_model:
+          asString(metadata['responseModelId']) ?? sample.operation.name,
+        $ai_provider: asString(metadata['provider']) ?? 'contractspec',
         $ai_latency: sample.durationMs / 1000,
         $ai_is_error: !sample.success,
-        $ai_trace_id: this.config.defaults?.posthogTraceId,
-        ...(sample.metadata?.['tokenUsage']
-          ? mapTokenUsage(
-              sample.metadata['tokenUsage'] as Record<string, number>
-            )
-          : {}),
+        $ai_error: !sample.success ? errorMessage : undefined,
+        $ai_trace_id: traceId,
+        $ai_session_id: sessionId,
+        $ai_span_id: asString(metadata['spanId']),
+        $ai_parent_id: asString(metadata['parentSpanId']),
+        $ai_span_name: asString(metadata['spanName']) ?? sample.operation.name,
+        ...(tokenUsage ? mapTokenUsage(tokenUsage) : {}),
+        ...(totalUsage ? mapTotalUsage(totalUsage) : {}),
+        $ai_http_status: asNumber(metadata['httpStatus']),
+        $ai_request_url: asString(metadata['requestUrl']),
+        $ai_base_url: asString(metadata['baseUrl']),
         ...this.config.defaults?.posthogProperties,
         contractspec_operation: sample.operation.name,
         contractspec_version: sample.operation.version,
-        contractspec_agent_id: sample.metadata?.['agentId'] as
-          | string
-          | undefined,
-        contractspec_finish_reason: sample.metadata?.['finishReason'] as
-          | string
-          | undefined,
-        contractspec_tool_count: sample.metadata?.['toolCallCount'] as
-          | number
-          | undefined,
+        contractspec_agent_id: asString(metadata['agentId']),
+        contractspec_tenant_id: asString(metadata['tenantId']),
+        contractspec_actor_id: asString(metadata['actorId']),
+        contractspec_step_index: asNumber(metadata['stepIndex']),
+        contractspec_step_started_at: asDateIso(metadata['stepStartedAt']),
+        contractspec_finish_reason: asString(metadata['finishReason']),
+        contractspec_finish_reason_raw: asString(metadata['rawFinishReason']),
+        contractspec_tool_count: asNumber(metadata['toolCallCount']),
+        contractspec_tool_name: asString(metadata['toolName']),
+        contractspec_tool_call_args: metadata['toolCallArgs'],
+        contractspec_tool_result_output: metadata['toolResultOutput'],
+        contractspec_provider_metadata: metadata['providerMetadata'],
+        contractspec_step_warnings: metadata['warnings'],
+        contractspec_response_id: asString(metadata['responseId']),
+        contractspec_response_model_id: asString(metadata['responseModelId']),
+        contractspec_response_timestamp: asDateIso(
+          metadata['responseTimestamp']
+        ),
+        contractspec_response_headers: metadata['responseHeaders'],
+        contractspec_response_body: this.config.defaults?.posthogPrivacyMode
+          ? undefined
+          : metadata['responseBody'],
+        contractspec_response_messages: this.config.defaults?.posthogPrivacyMode
+          ? undefined
+          : metadata['responseMessages'],
+        contractspec_request_headers: metadata['requestHeaders'],
+        contractspec_request_body: this.config.defaults?.posthogPrivacyMode
+          ? undefined
+          : metadata['requestBody'],
+        contractspec_step_text: this.config.defaults?.posthogPrivacyMode
+          ? undefined
+          : metadata['stepText'],
+        contractspec_step_reasoning_text: this.config.defaults
+          ?.posthogPrivacyMode
+          ? undefined
+          : metadata['stepReasoningText'],
       },
       groups: this.config.defaults?.posthogGroups,
     });
@@ -233,10 +275,66 @@ async function resolvePostHogClient(
 }
 
 function mapTokenUsage(
-  usage: Record<string, number>
-): Record<string, number | undefined> {
+  usage: unknown
+): Record<string, number | Record<string, unknown> | undefined> {
+  const usageRecord = asRecord(usage);
+  const inputTokenDetails = asRecord(usageRecord['inputTokenDetails']);
+  const outputTokenDetails = asRecord(usageRecord['outputTokenDetails']);
+
   return {
-    $ai_input_tokens: usage['promptTokens'],
-    $ai_output_tokens: usage['completionTokens'],
+    $ai_input_tokens:
+      asNumber(usageRecord['inputTokens']) ??
+      asNumber(usageRecord['promptTokens']),
+    $ai_output_tokens:
+      asNumber(usageRecord['outputTokens']) ??
+      asNumber(usageRecord['completionTokens']),
+    $ai_reasoning_tokens:
+      asNumber(outputTokenDetails['reasoningTokens']) ??
+      asNumber(usageRecord['reasoningTokens']),
+    $ai_cache_read_input_tokens:
+      asNumber(inputTokenDetails['cacheReadTokens']) ??
+      asNumber(usageRecord['cachedInputTokens']),
+    $ai_cache_creation_input_tokens: asNumber(
+      inputTokenDetails['cacheWriteTokens']
+    ),
+    $ai_usage: maybeRecord(usageRecord['raw']) ?? usageRecord,
   };
+}
+
+function mapTotalUsage(
+  usage: unknown
+): Record<string, number | Record<string, unknown> | undefined> {
+  const usageRecord = asRecord(usage);
+  return {
+    contractspec_total_input_tokens: asNumber(usageRecord['inputTokens']),
+    contractspec_total_output_tokens: asNumber(usageRecord['outputTokens']),
+    contractspec_total_tokens: asNumber(usageRecord['totalTokens']),
+    contractspec_total_usage_raw:
+      maybeRecord(usageRecord['raw']) ?? usageRecord,
+  };
+}
+
+function asRecord(value: unknown): Record<string, unknown> {
+  return value && typeof value === 'object'
+    ? (value as Record<string, unknown>)
+    : {};
+}
+
+function maybeRecord(value: unknown): Record<string, unknown> | undefined {
+  return value && typeof value === 'object'
+    ? (value as Record<string, unknown>)
+    : undefined;
+}
+
+function asString(value: unknown): string | undefined {
+  return typeof value === 'string' && value.length > 0 ? value : undefined;
+}
+
+function asNumber(value: unknown): number | undefined {
+  return typeof value === 'number' ? value : undefined;
+}
+
+function asDateIso(value: unknown): string | undefined {
+  if (value instanceof Date) return value.toISOString();
+  return undefined;
 }

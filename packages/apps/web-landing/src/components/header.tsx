@@ -51,14 +51,14 @@ export default function Header() {
       right={
         <a
           className="btn-ghost"
-          href="/contact#waitlist"
+          href="https://www.contractspec.studio"
           onClick={() =>
             captureAnalyticsEvent(analyticsEventNames.CTA_STUDIO_CLICK, {
               surface: 'header',
             })
           }
         >
-          Studio Waitlist
+          Try Studio
         </a>
       }
       commandPaletteGroups={[]}

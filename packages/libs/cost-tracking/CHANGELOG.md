@@ -1,5 +1,46 @@
 # @contractspec/lib.cost-tracking
 
+## 2.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+## 2.3.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+## 2.1.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- 7f3203a: fix: make workspace test runs resilient when packages have no tests
+
+  Updates package test scripts to pass cleanly when no matching test files exist:
+  - Uses `bun test --pass-with-no-tests` in Bun-based packages that currently ship without test files.
+  - Uses `jest --passWithNoTests` for the UI kit web package.
+  - Adds `.vscode-test.mjs` for `vscode-contractspec` so VS Code extension test runs have an explicit config and stop failing on missing default configuration.
+
+  This keeps `turbo run test` deterministic across the monorepo while preserving existing test execution behavior where tests are present.
+
 ## 1.62.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.in-app-docs",
-  "version": "1.9.0",
+  "version": "2.4.0",
   "description": "Example showing how to use DocBlock for in-app documentation for non-technical users",
   "type": "module",
   "types": "./dist/index.d.ts",

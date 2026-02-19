@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { MarketingSection, ButtonLink } from '@contractspec/lib.design-system';
+import { ButtonLink, MarketingSection } from '@contractspec/lib.design-system';
 import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { H2, Lead, Small } from '@contractspec/lib.ui-kit-web/ui/typography';
 import { ChevronRight } from 'lucide-react';
@@ -31,8 +31,8 @@ export function CorePositioningSection() {
           align="center"
           className="pt-2 sm:flex sm:flex-row sm:flex-wrap sm:items-center sm:justify-center"
         >
-          <ButtonLink href="/pricing#waitlist">
-            Join waitlist <ChevronRight size={16} />
+          <ButtonLink href="https://www.contractspec.studio">
+            Try Studio <ChevronRight size={16} />
           </ButtonLink>
           <ButtonLink variant="ghost" href="/contact">
             Book a call

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.ui-kit-core",
-  "version": "1.62.0",
+  "version": "2.4.0",
   "description": "Core UI primitives and utilities",
   "keywords": [
     "contractspec",
@@ -32,7 +32,7 @@
     "clsx": "^2.1.0",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "tailwind-merge": "^3.3.1",
+    "tailwind-merge": "^3.4.1",
     "tailwindcss": "catalog:build",
     "tailwindcss-animate": "^1.0.7"
   },

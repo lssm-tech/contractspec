@@ -27,7 +27,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@contractspec/lib.ui-kit-web/ui/dialog';
-import { WaitlistSection } from '../marketing';
+import { StudioSignupSection } from '../marketing';
 import { TemplatePreviewModal } from './TemplatesPreviewModal';
 
 const templates = [
@@ -252,7 +252,7 @@ export const TemplatesPage = () => {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [preview, setPreview] = useState<TemplateId | null>(null);
-  const [waitlistModalOpen, setWaitlistModalOpen] = useState(false);
+  const [studioSignupModalOpen, setStudioSignupModalOpen] = useState(false);
   const [source, setSource] = useState<'local' | 'registry'>('local');
   const [selectedTemplateForCommand, setSelectedTemplateForCommand] = useState<
     RegistryTemplate | LocalTemplate | null
@@ -632,16 +632,19 @@ export const TemplatesPage = () => {
       />
       {/*) : null}*/}
 
-      <Dialog open={waitlistModalOpen} onOpenChange={setWaitlistModalOpen}>
+      <Dialog
+        open={studioSignupModalOpen}
+        onOpenChange={setStudioSignupModalOpen}
+      >
         <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Early Access Required</DialogTitle>
+            <DialogTitle>Deploy in Studio</DialogTitle>
             <DialogDescription>
-              ContractSpec Studio is in early access. Join the waitlist to
-              deploy projects to our managed cloud.
+              Deploy templates in ContractSpec Studio and run the full
+              evidence-to-spec loop with your team.
             </DialogDescription>
           </DialogHeader>
-          <WaitlistSection variant="compact" />
+          <StudioSignupSection variant="compact" />
         </DialogContent>
       </Dialog>
 
@@ -698,10 +701,10 @@ export const TemplatesPage = () => {
                   templateId: commandId,
                 });
                 setSelectedTemplateForCommand(null);
-                setWaitlistModalOpen(true);
+                setStudioSignupModalOpen(true);
               }}
             >
-              Deploy to Studio (Waitlist)
+              Deploy to Studio
             </button>
           </div>
         </DialogContent>

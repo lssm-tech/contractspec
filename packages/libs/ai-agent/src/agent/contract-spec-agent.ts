@@ -6,6 +6,7 @@ import {
   type Tool,
   type ToolSet,
 } from 'ai';
+import { randomUUID } from 'node:crypto';
 import * as z from 'zod';
 import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
 import type { AgentSpec } from '../spec/spec';
@@ -86,13 +87,18 @@ export class ContractSpecAgent {
   readonly spec: AgentSpec;
   readonly tools: Record<string, ExecutableTool>;
 
-  private readonly inner: ToolLoopAgent<
-    z.infer<typeof ContractSpecCallOptionsSchema>,
-    ToolSet,
-    never
-  >;
   private readonly config: ContractSpecAgentConfig;
   private instructions: string;
+  private readonly activeStepContexts = new Map<
+    string,
+    {
+      traceId: string;
+      tenantId?: string;
+      actorId?: string;
+      stepIndex: number;
+      stepStartedAt: Date;
+    }
+  >();
 
   private constructor(
     config: ContractSpecAgentConfig,
@@ -104,21 +110,6 @@ export class ContractSpecAgent {
     this.id = agentKey(config.spec.meta);
     this.tools = tools;
     this.instructions = instructions;
-
-    // Create the inner ToolLoopAgent with AI SDK v6 settings
-    this.inner = new ToolLoopAgent({
-      model: config.model,
-      instructions,
-      tools: tools as ToolSet,
-      // Use stopWhen instead of maxSteps (AI SDK v6 API)
-      stopWhen: stepCountIs(config.spec.maxSteps ?? 10),
-      // Schema for call options (tenant/actor context)
-      callOptionsSchema: ContractSpecCallOptionsSchema,
-      // Step-level telemetry callback
-      onStepFinish: async (step: StepResult<ToolSet>) => {
-        await this.handleStepFinish(step);
-      },
-    });
   }
 
   /**
@@ -128,17 +119,7 @@ export class ContractSpecAgent {
   static async create(
     config: ContractSpecAgentConfig
   ): Promise<ContractSpecAgent> {
-    // 0. Wrap model with PostHog LLM tracing if configured
-    let effectiveConfig = config;
-    if (config.posthogConfig) {
-      const { createPostHogTracedModel } = await import('../telemetry/posthog');
-      const tracedModel = await createPostHogTracedModel(
-        config.model,
-        config.posthogConfig,
-        config.posthogConfig.tracingOptions
-      );
-      effectiveConfig = { ...config, model: tracedModel };
-    }
+    const effectiveConfig = config;
 
     // 1. Inject static knowledge into instructions
     const instructions = await injectStaticKnowledge(
@@ -177,6 +158,17 @@ export class ContractSpecAgent {
    */
   async generate(params: AgentGenerateParams): Promise<AgentGenerateResult> {
     const sessionId = params.options?.sessionId ?? generateSessionId();
+    const traceId =
+      params.options?.metadata?.['traceId'] ??
+      this.config.posthogConfig?.tracingOptions?.posthogTraceId ??
+      randomUUID();
+    this.activeStepContexts.set(sessionId, {
+      traceId,
+      tenantId: params.options?.tenantId,
+      actorId: params.options?.actorId,
+      stepIndex: 0,
+      stepStartedAt: new Date(),
+    });
 
     // Ensure session exists
     if (this.config.sessionStore) {
@@ -200,17 +192,28 @@ export class ContractSpecAgent {
       ? `${this.instructions}\n\n${params.systemOverride}\n\n${params.prompt}`
       : params.prompt;
 
-    // AI SDK v6: maxSteps is controlled via stopWhen in agent settings
-    const result = await this.inner.generate({
-      prompt,
-      abortSignal: params.signal,
-      options: {
-        tenantId: params.options?.tenantId,
-        actorId: params.options?.actorId,
-        sessionId,
-        metadata: params.options?.metadata,
-      },
+    const model = await this.resolveModelForCall({
+      sessionId,
+      traceId,
+      options: params.options,
     });
+    const inner = this.createInnerAgent(model);
+
+    // AI SDK v6: maxSteps is controlled via stopWhen in agent settings
+    const result = await inner
+      .generate({
+        prompt,
+        abortSignal: params.signal,
+        options: {
+          tenantId: params.options?.tenantId,
+          actorId: params.options?.actorId,
+          sessionId,
+          metadata: params.options?.metadata,
+        },
+      })
+      .finally(() => {
+        this.activeStepContexts.delete(sessionId);
+      });
 
     // Update session status
     if (this.config.sessionStore) {
@@ -245,14 +248,32 @@ export class ContractSpecAgent {
    */
   async stream(params: AgentStreamParams) {
     const sessionId = params.options?.sessionId ?? generateSessionId();
+    const traceId =
+      params.options?.metadata?.['traceId'] ??
+      this.config.posthogConfig?.tracingOptions?.posthogTraceId ??
+      randomUUID();
+    this.activeStepContexts.set(sessionId, {
+      traceId,
+      tenantId: params.options?.tenantId,
+      actorId: params.options?.actorId,
+      stepIndex: 0,
+      stepStartedAt: new Date(),
+    });
 
     const prompt = params.systemOverride
       ? `${this.instructions}\n\n${params.systemOverride}\n\n${params.prompt}`
       : params.prompt;
 
+    const model = await this.resolveModelForCall({
+      sessionId,
+      traceId,
+      options: params.options,
+    });
+    const inner = this.createInnerAgent(model);
+
     // AI SDK v6: maxSteps is controlled via stopWhen in agent settings
     // onStepFinish callback is already set in agent construction
-    return this.inner.stream({
+    return inner.stream({
       prompt,
       abortSignal: params.signal,
       options: {
@@ -277,7 +298,93 @@ export class ContractSpecAgent {
 
     // 2. Feed telemetry to evolution engine
     if (this.config.telemetryCollector) {
-      await trackAgentStep(this.config.telemetryCollector, this.id, step);
+      const now = new Date();
+      const context = sessionId
+        ? this.activeStepContexts.get(sessionId)
+        : undefined;
+      const stepStartedAt = context?.stepStartedAt ?? now;
+      const durationMs = Math.max(now.getTime() - stepStartedAt.getTime(), 0);
+
+      if (context) {
+        context.stepIndex += 1;
+        context.stepStartedAt = now;
+      }
+
+      await trackAgentStep(
+        this.config.telemetryCollector,
+        this.id,
+        step,
+        durationMs,
+        {
+          sessionId,
+          tenantId: context?.tenantId,
+          actorId: context?.actorId,
+          traceId: context?.traceId,
+          stepIndex: context?.stepIndex,
+          stepStartedAt,
+        }
+      );
+
+      if (sessionId && step.finishReason !== 'tool-calls') {
+        this.activeStepContexts.delete(sessionId);
+      }
     }
+  }
+
+  private createInnerAgent(
+    model: LanguageModel
+  ): ToolLoopAgent<
+    z.infer<typeof ContractSpecCallOptionsSchema>,
+    ToolSet,
+    never
+  > {
+    return new ToolLoopAgent({
+      model,
+      instructions: this.instructions,
+      tools: this.tools as ToolSet,
+      stopWhen: stepCountIs(this.spec.maxSteps ?? 10),
+      callOptionsSchema: ContractSpecCallOptionsSchema,
+      onStepFinish: async (step: StepResult<ToolSet>) => {
+        await this.handleStepFinish(step);
+      },
+    });
+  }
+
+  private async resolveModelForCall(params: {
+    sessionId: string;
+    traceId: string;
+    options?: AgentCallOptions;
+  }): Promise<LanguageModel> {
+    const posthogConfig = this.config.posthogConfig;
+    if (!posthogConfig) {
+      return this.config.model;
+    }
+
+    const mergedProperties: Record<string, unknown> = {
+      ...posthogConfig.defaults?.posthogProperties,
+      ...posthogConfig.tracingOptions?.posthogProperties,
+      $ai_session_id: params.sessionId,
+      contractspec_session_id: params.sessionId,
+      contractspec_trace_id: params.traceId,
+      contractspec_agent_id: this.id,
+      contractspec_tenant_id: params.options?.tenantId,
+      contractspec_actor_id: params.options?.actorId,
+    };
+
+    const tracingOptions: PostHogTracingOptions = {
+      ...posthogConfig.tracingOptions,
+      posthogDistinctId:
+        posthogConfig.tracingOptions?.posthogDistinctId ??
+        params.options?.actorId,
+      posthogTraceId: params.traceId,
+      posthogProperties: mergedProperties,
+    };
+
+    const { createPostHogTracedModel } = await import('../telemetry/posthog');
+    return createPostHogTracedModel(
+      this.config.model,
+      posthogConfig,
+      tracingOptions
+    );
   }
 }

@@ -147,18 +147,24 @@ Notes: add `pull-requests: write` permissions for PR comments, and add `contents
 
 ## ContractSpec Studio
 
-ContractSpec Studio is a visual builder and managed control plane for your contracts.
+[ContractSpec Studio](https://www.contractspec.studio) is the AI-powered product decision engine built on top of ContractSpec.
 
-- **Visual Builder + Specs**: Drag-and-drop canvas synced to specs with mobile-first UI.
-- **Progressive Delivery & QA**: Canary rollouts, traffic mirroring, and golden tests.
-- **Auto-evolution**: Safe regeneration analyzing telemetry to evolve specs.
-- **Lifecycle Advisor**: Guidance layer for learning paths and recommendations.
-- **AI Growth Engine**: Experiment orchestration and automated content generation.
-- **AI Support Desk**: Production-ready support automation with RAG pipelines.
-- **Integration & Knowledge**: BYOK credential manager and knowledge source indexing.
-- **Security & Governance**: Per-tenant encryption, audit logs, and feature flags.
+It turns product signals into spec-first deliverables through a deterministic loop:
 
-[**Join the Waitlist**](https://contractspec.io/contact#waitlist)
+```text
+Evidence -> Correlation -> Decision -> Change -> Export -> Check -> Notify -> Autopilot
+```
+
+- **Evidence**: Ingest product signals from meetings, support, analytics, code, docs, and Slack.
+- **Correlation**: Cluster evidence into scored patterns using hybrid heuristics + AI signatures.
+- **Decision**: Create evidence-backed focus briefs with citation chains and clear constraints.
+- **Change**: Compile patch intents into spec diffs, impact reports, and task packs.
+- **Export**: Push execution-ready outputs to Linear, Jira, Notion, and GitHub.
+- **Check + Autopilot**: Verify outcomes, feed learning dividends back into evidence, and automate safely with policy gates.
+
+`contractspec` is the grammar and compiler. Studio is the IDE and decision platform that runs on top of it.
+
+[**Try Studio**](https://www.contractspec.studio)
 
 ## Example Contract
 
@@ -199,27 +205,43 @@ export const CreateUser = defineCommand({
 
 ## Packages
 
-### Core
+### Contracts Core
 
-| npm                                                                                                                                                  | Package                                                                          | Description                                      |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------ |
-| [![npm version](https://img.shields.io/npm/dt/@contractspec/lib.contracts)](https://www.npmjs.com/package/@contractspec/lib.contracts)               | [`@contractspec/lib.contracts`](packages/libs/contracts/README.md)               | Core contract definitions and runtime adapters   |
-| [![npm version](https://img.shields.io/npm/dt/@contractspec/lib.schema)](https://www.npmjs.com/package/@contractspec/lib.schema)                     | [`@contractspec/lib.schema`](packages/libs/schema/README.md)                     | Schema definitions for multi-surface consistency |
-| [![npm version](https://img.shields.io/npm/dt/@contractspec/app.cli-contractspec)](https://www.npmjs.com/package/@contractspec/app.cli-contractspec) | [`@contractspec/app.cli-contractspec`](packages/apps/cli-contractspec/README.md) | CLI for creating, building, and validating specs |
+| npm                                                                                                                                                                | Package                                                                                      | Description                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.contracts-spec)](https://www.npmjs.com/package/@contractspec/lib.contracts-spec)                 | [`@contractspec/lib.contracts-spec`](packages/libs/contracts-spec/README.md)                 | Core contract declarations, registries, policy, workflow, and shared spec types |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.contracts-integrations)](https://www.npmjs.com/package/@contractspec/lib.contracts-integrations) | [`@contractspec/lib.contracts-integrations`](packages/libs/contracts-integrations/README.md) | Integration definitions (providers, capabilities, connection/runtime metadata)  |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.schema)](https://www.npmjs.com/package/@contractspec/lib.schema)                                 | [`@contractspec/lib.schema`](packages/libs/schema/README.md)                                 | Schema definitions for multi-surface consistency                                |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/app.cli-contractspec)](https://www.npmjs.com/package/@contractspec/app.cli-contractspec)             | [`@contractspec/app.cli-contractspec`](packages/apps/cli-contractspec/README.md)             | CLI for creating, generating, validating, and running CI checks                 |
+
+### Contracts Runtime Adapters
+
+| npm                                                                                                                                                                                    | Package                                                                                                          | Description                                                                    |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.contracts-runtime-client-react)](https://www.npmjs.com/package/@contractspec/lib.contracts-runtime-client-react)     | [`@contractspec/lib.contracts-runtime-client-react`](packages/libs/contracts-runtime-client-react/README.md)     | React runtime adapters for forms and feature rendering                         |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.contracts-runtime-server-rest)](https://www.npmjs.com/package/@contractspec/lib.contracts-runtime-server-rest)       | [`@contractspec/lib.contracts-runtime-server-rest`](packages/libs/contracts-runtime-server-rest/README.md)       | REST server adapters (`rest-next-app`, `rest-express`, `rest-elysia`, generic) |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.contracts-runtime-server-graphql)](https://www.npmjs.com/package/@contractspec/lib.contracts-runtime-server-graphql) | [`@contractspec/lib.contracts-runtime-server-graphql`](packages/libs/contracts-runtime-server-graphql/README.md) | GraphQL runtime adapter (`graphql-pothos`)                                     |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.contracts-runtime-server-mcp)](https://www.npmjs.com/package/@contractspec/lib.contracts-runtime-server-mcp)         | [`@contractspec/lib.contracts-runtime-server-mcp`](packages/libs/contracts-runtime-server-mcp/README.md)         | MCP runtime adapter (`provider-mcp` + MCP registrars)                          |
+
+### Legacy Package
+
+| npm                                                                                                                                      | Package                                                                         | Description                                                            |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.contracts)](https://www.npmjs.com/package/@contractspec/lib.contracts) | [`@contractspec/lib.contracts` (deprecated)](packages/libs/contracts/README.md) | Deprecated monolith kept as migration marker; use split packages above |
 
 ### AI & Evolution
 
-| npm                                                                                                                                    | Package                                                            | Description                                     |
-| -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | ----------------------------------------------- |
-| [![npm version](https://img.shields.io/npm/dt/@contractspec/lib.ai-agent)](https://www.npmjs.com/package/@contractspec/lib.ai-agent)   | [`@contractspec/lib.ai-agent`](packages/libs/ai-agent/README.md)   | AI agent orchestration with contract governance |
-| [![npm version](https://img.shields.io/npm/dt/@contractspec/lib.evolution)](https://www.npmjs.com/package/@contractspec/lib.evolution) | [`@contractspec/lib.evolution`](packages/libs/evolution/README.md) | Auto-evolution and safe regeneration            |
+| npm                                                                                                                                      | Package                                                            | Description                                     |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | ----------------------------------------------- |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.ai-agent)](https://www.npmjs.com/package/@contractspec/lib.ai-agent)   | [`@contractspec/lib.ai-agent`](packages/libs/ai-agent/README.md)   | AI agent orchestration with contract governance |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.evolution)](https://www.npmjs.com/package/@contractspec/lib.evolution) | [`@contractspec/lib.evolution`](packages/libs/evolution/README.md) | Auto-evolution and safe regeneration            |
 
 ### Testing & Quality
 
-| npm                                                                                                                                            | Package                                                                    | Description                                     |
-| ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ----------------------------------------------- |
-| [![npm version](https://img.shields.io/npm/dt/@contractspec/lib.testing)](https://www.npmjs.com/package/@contractspec/lib.testing)             | [`@contractspec/lib.testing`](packages/libs/testing/README.md)             | Golden tests for safe regeneration verification |
-| [![npm version](https://img.shields.io/npm/dt/@contractspec/lib.observability)](https://www.npmjs.com/package/@contractspec/lib.observability) | [`@contractspec/lib.observability`](packages/libs/observability/README.md) | Tracing, metrics, and structured logging        |
+| npm                                                                                                                                              | Package                                                                    | Description                                     |
+| ------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- | ----------------------------------------------- |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.testing)](https://www.npmjs.com/package/@contractspec/lib.testing)             | [`@contractspec/lib.testing`](packages/libs/testing/README.md)             | Golden tests for safe regeneration verification |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.observability)](https://www.npmjs.com/package/@contractspec/lib.observability) | [`@contractspec/lib.observability`](packages/libs/observability/README.md) | Tracing, metrics, and structured logging        |
 
 ## Who It's For
 

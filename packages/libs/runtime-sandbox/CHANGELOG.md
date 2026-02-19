@@ -1,5 +1,35 @@
 # @contractspec/lib.runtime-sandbox
 
+## 1.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+## 1.3.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
+## 1.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+## 1.1.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
+## 1.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
 ## 0.17.0
 
 ### Minor Changes

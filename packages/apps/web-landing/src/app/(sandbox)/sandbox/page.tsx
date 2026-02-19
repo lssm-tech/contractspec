@@ -4,20 +4,20 @@ import SandboxExperienceClient from './SandboxExperienceClient';
 export const metadata: Metadata = {
   title: 'Sandbox – ContractSpec',
   description:
-    'Explore templates, specs, and visual builder in your browser. Fully local runtime, no infrastructure required.',
+    'Explore templates and spec-first workflows in your browser. Fully local runtime, no infrastructure required.',
   keywords: [
     'sandbox',
     'playground',
     'interactive demo',
     'templates',
-    'visual builder',
+    'spec-first workflows',
     'browser development',
     'local runtime',
   ],
   openGraph: {
     title: 'Sandbox – ContractSpec',
     description:
-      'Explore templates, specs, and visual builder in your browser. Fully local runtime, no infrastructure required.',
+      'Explore templates and spec-first workflows in your browser. Fully local runtime, no infrastructure required.',
     url: 'https://www.contractspec.io/sandbox',
     type: 'website',
   },
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Sandbox – ContractSpec',
     description:
-      'Explore templates, specs, and visual builder in your browser. Fully local runtime, no infrastructure required.',
+      'Explore templates and spec-first workflows in your browser. Fully local runtime, no infrastructure required.',
   },
   alternates: {
     canonical: 'https://www.contractspec.io/sandbox',

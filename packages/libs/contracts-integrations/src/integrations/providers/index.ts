@@ -30,6 +30,7 @@ export * from './posthog-llm-telemetry';
 export * from './linear';
 export * from './jira';
 export * from './notion';
+export * from './video';
 export * from './granola';
 export * from './tldv';
 export * from './fireflies';

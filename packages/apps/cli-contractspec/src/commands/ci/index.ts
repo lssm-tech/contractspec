@@ -192,13 +192,11 @@ export async function runCiCommand(options: CICommandOptions) {
 
     if (result.success && isTextOutput) {
       console.log();
-      console.log(chalk.bold('Looking for managed CI gates?'));
+      console.log(chalk.bold('Want evidence-backed decisions for your specs?'));
       console.log(
-        '  Studio adds policy approvals, drift dashboards, and audit trails.'
+        '  Studio correlates product signals and compiles decisions into spec diffs and task packs.'
       );
-      console.log(
-        '  Join the waitlist: https://contractspec.io/contact#waitlist'
-      );
+      console.log('  Try Studio: https://www.contractspec.studio');
     }
   } catch (error) {
     spinner?.fail('CI checks failed');

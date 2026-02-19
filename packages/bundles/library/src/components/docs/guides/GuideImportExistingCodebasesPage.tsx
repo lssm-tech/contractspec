@@ -496,8 +496,8 @@ installOp(registry, CreateUserCommand, async (input) => {
         </div>
 
         <StudioPrompt
-          title="Want automated contract evolution?"
-          body="Studio monitors your codebase and suggests contract updates when your API changes, keeping specs and code in sync."
+          title="Want evidence-driven migration priorities?"
+          body="Studio clusters product signals into scored patterns, then proposes spec-first change cards for the highest-impact areas."
         />
       </div>
 

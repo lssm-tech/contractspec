@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.jobs",
-  "version": "1.62.0",
+  "version": "2.4.0",
   "description": "Background jobs and scheduler module for ContractSpec applications",
   "keywords": [
     "contractspec",
@@ -32,7 +32,7 @@
     "@contractspec/lib.contracts-integrations": "workspace:*",
     "@contractspec/lib.logger": "workspace:*",
     "@contractspec/lib.knowledge": "workspace:*",
-    "@aws-sdk/client-sqs": "^3.990.0",
+    "@aws-sdk/client-sqs": "^3.991.0",
     "zod": "catalog:",
     "cron-parser": "^5.4.0"
   },

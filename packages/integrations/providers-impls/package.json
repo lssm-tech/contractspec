@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/integration.providers-impls",
-  "version": "1.62.0",
+  "version": "2.4.0",
   "description": "Integration provider implementations for email, payments, storage, and more",
   "keywords": [
     "contractspec",
@@ -35,7 +35,7 @@
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.contracts-integrations": "workspace:*",
     "@contractspec/integration.runtime": "workspace:*",
-    "@elevenlabs/elevenlabs-js": "^2.35.0",
+    "@elevenlabs/elevenlabs-js": "^2.36.0",
     "@fal-ai/client": "^1.9.1",
     "@google-cloud/storage": "^7.19.0",
     "@linear/sdk": "^75.0.0",

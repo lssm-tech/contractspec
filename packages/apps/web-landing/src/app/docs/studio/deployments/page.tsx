@@ -1,3 +1,5 @@
-import { StudioDeploymentsPage } from '@contractspec/bundle.library/components/docs/studio';
+import { redirect } from 'next/navigation';
 
-export default StudioDeploymentsPage;
+export default function StudioDocsRedirectPage() {
+  redirect('https://www.contractspec.studio/docs');
+}

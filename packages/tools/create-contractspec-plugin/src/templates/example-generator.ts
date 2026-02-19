@@ -1038,7 +1038,7 @@ describe("{{className}} Smoke Test", () => {
   ]
 }`,
 
-      'tsdown.config.js': `import { defineConfig, nodeLib } from "@contractspec/tool.bun";
+      'bun.config.js': `import { defineConfig, nodeLib } from "@contractspec/tool.bun";
 
 export default defineConfig(() => ({
   ...nodeLib,

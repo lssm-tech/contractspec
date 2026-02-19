@@ -1,5 +1,67 @@
 # spec-driven-development
 
+## 2.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/app.cli-contractspec@2.4.0
+
+## 2.3.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
+### Patch Changes
+
+- Updated dependencies [12c9556]
+  - @contractspec/app.cli-contractspec@2.3.0
+
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/app.cli-contractspec@2.2.0
+
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies [57e2819]
+  - @contractspec/app.cli-contractspec@2.1.1
+
+## 2.1.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
+### Patch Changes
+
+- Updated dependencies [362fbac]
+  - @contractspec/app.cli-contractspec@2.1.0
+
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+  - @contractspec/app.cli-contractspec@2.0.0
+
 ## 1.62.0
 
 ### Minor Changes

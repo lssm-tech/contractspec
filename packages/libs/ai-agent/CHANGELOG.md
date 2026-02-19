@@ -1,5 +1,92 @@
 # @contractspec/lib.ai-agent
 
+## 2.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.4.0
+  - @contractspec/lib.ai-providers@2.4.0
+  - @contractspec/lib.knowledge@2.4.0
+
+## 2.3.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
+### Patch Changes
+
+- Updated dependencies [12c9556]
+  - @contractspec/lib.contracts-spec@2.3.0
+  - @contractspec/lib.ai-providers@2.3.0
+  - @contractspec/lib.knowledge@2.3.0
+
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.2.0
+  - @contractspec/lib.ai-providers@2.2.0
+  - @contractspec/lib.knowledge@2.2.0
+
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies [57e2819]
+  - @contractspec/lib.contracts-spec@2.1.1
+  - @contractspec/lib.knowledge@2.1.1
+
+## 2.1.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+- 659d15f: feat: improve ai-agent analytics leveraging posthog
+
+### Patch Changes
+
+- Updated dependencies [b4bfbc5]
+- Updated dependencies [362fbac]
+- Updated dependencies [659d15f]
+  - @contractspec/lib.contracts-spec@2.1.0
+  - @contractspec/lib.ai-providers@2.1.0
+  - @contractspec/lib.knowledge@2.1.0
+
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+- 94f3c24: perf: reduce import-time memory usage by slimming root barrels and moving heavy runtime surfaces to explicit subpath entrypoints.
+
+  Breaking changes:
+  - `@contractspec/lib.contracts` root exports are now intentionally minimal; workflow/tests/app-config/regenerator/telemetry/experiments and other heavy modules must be imported from their dedicated subpaths.
+  - `@contractspec/lib.ai-agent` root exports are reduced to lightweight surfaces; runtime agent APIs should be imported from package subpaths.
+
+  Additional optimizations:
+  - add schema-level memoization/caching for zod/json-schema conversion paths and scalar factory reuse in `@contractspec/lib.schema`.
+  - lower default build memory pressure in `@contractspec/tool.bun` by preferring bun-only dev targets and disabling declaration maps by default for type builds.
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+- Updated dependencies [f152678]
+- Updated dependencies [7f3203a]
+  - @contractspec/lib.contracts-spec@2.0.0
+  - @contractspec/lib.ai-providers@2.0.0
+  - @contractspec/lib.knowledge@2.0.0
+
 ## 1.62.0
 
 ### Minor Changes

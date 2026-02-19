@@ -12,7 +12,7 @@ import type { SubmitContactFormResult } from '../../libs/email/types'; // Assumi
 // Wait check imports again. submitContactForm is imported from @contractspec/bundle.marketing.
 // In bundle.marketing, it is likely in 'src/actions' or 'src/utils'.
 // I need to check where submitContactForm is defined in bundle.marketing.
-import { WaitlistSection } from './waitlist-section';
+import { StudioSignupSection } from './studio-signup-section';
 import {
   ActionForm,
   Button,
@@ -63,8 +63,8 @@ export function ContactClient() {
           </Muted>
         </VStack>
 
-        {/* Waitlist Registration Section */}
-        <WaitlistSection context="contact" />
+        {/* Studio Signup Section */}
+        <StudioSignupSection />
 
         {/* Book a Call Section */}
         <VStack className="card-subtle gap-6 p-8" id="call">

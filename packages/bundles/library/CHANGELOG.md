@@ -1,5 +1,148 @@
 # @contractspec/bundle.library
 
+## 2.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-runtime-server-graphql@2.4.0
+  - @contractspec/lib.contracts-runtime-server-rest@2.4.0
+  - @contractspec/lib.contracts-runtime-server-mcp@2.4.0
+  - @contractspec/lib.contracts-integrations@2.4.0
+  - @contractspec/lib.contracts-library@2.4.0
+  - @contractspec/lib.example-shared-ui@2.4.0
+  - @contractspec/lib.runtime-sandbox@1.4.0
+  - @contractspec/lib.contracts-spec@2.4.0
+  - @contractspec/lib.design-system@2.4.0
+  - @contractspec/module.examples@2.4.0
+  - @contractspec/lib.ui-kit-web@2.4.0
+  - @contractspec/lib.ui-link@2.4.0
+  - @contractspec/lib.logger@2.4.0
+  - @contractspec/lib.schema@2.4.0
+
+## 2.3.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
+### Patch Changes
+
+- Updated dependencies [12c9556]
+  - @contractspec/lib.contracts-runtime-server-graphql@2.3.0
+  - @contractspec/lib.contracts-runtime-server-rest@2.3.0
+  - @contractspec/lib.contracts-runtime-server-mcp@2.3.0
+  - @contractspec/lib.contracts-integrations@2.3.0
+  - @contractspec/lib.contracts-library@2.3.0
+  - @contractspec/lib.example-shared-ui@2.3.0
+  - @contractspec/lib.runtime-sandbox@1.3.0
+  - @contractspec/lib.contracts-spec@2.3.0
+  - @contractspec/lib.design-system@2.3.0
+  - @contractspec/module.examples@2.3.0
+  - @contractspec/lib.ui-kit-web@2.3.0
+  - @contractspec/lib.ui-link@2.3.0
+  - @contractspec/lib.logger@2.3.0
+  - @contractspec/lib.schema@2.3.0
+
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-runtime-server-graphql@2.2.0
+  - @contractspec/lib.contracts-runtime-server-rest@2.2.0
+  - @contractspec/lib.contracts-runtime-server-mcp@2.2.0
+  - @contractspec/lib.contracts-integrations@2.2.0
+  - @contractspec/lib.contracts-library@2.2.0
+  - @contractspec/lib.example-shared-ui@2.2.0
+  - @contractspec/lib.runtime-sandbox@1.2.0
+  - @contractspec/lib.contracts-spec@2.2.0
+  - @contractspec/lib.design-system@2.2.0
+  - @contractspec/module.examples@2.2.0
+  - @contractspec/lib.ui-kit-web@2.2.0
+  - @contractspec/lib.ui-link@2.2.0
+  - @contractspec/lib.logger@2.2.0
+  - @contractspec/lib.schema@2.2.0
+
+## 2.1.1
+
+### Patch Changes
+
+- 57e2819: chore: align Studio messaging with live product positioning
+- Updated dependencies [57e2819]
+  - @contractspec/lib.contracts-spec@2.1.1
+  - @contractspec/lib.contracts-integrations@2.1.1
+  - @contractspec/lib.contracts-library@2.1.1
+  - @contractspec/lib.contracts-runtime-server-graphql@2.1.1
+  - @contractspec/lib.contracts-runtime-server-mcp@2.1.1
+  - @contractspec/lib.contracts-runtime-server-rest@2.1.1
+  - @contractspec/lib.design-system@2.1.1
+  - @contractspec/lib.example-shared-ui@2.1.1
+  - @contractspec/module.examples@2.1.1
+
+## 2.1.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+- 659d15f: feat: improve ai-agent analytics leveraging posthog
+
+### Patch Changes
+
+- Updated dependencies [b4bfbc5]
+- Updated dependencies [362fbac]
+- Updated dependencies [659d15f]
+  - @contractspec/lib.contracts-spec@2.1.0
+  - @contractspec/lib.contracts-runtime-server-graphql@2.1.0
+  - @contractspec/lib.contracts-runtime-server-rest@2.1.0
+  - @contractspec/lib.contracts-runtime-server-mcp@2.1.0
+  - @contractspec/lib.contracts-integrations@2.1.0
+  - @contractspec/lib.contracts-library@2.1.0
+  - @contractspec/lib.example-shared-ui@2.1.0
+  - @contractspec/lib.runtime-sandbox@1.1.0
+  - @contractspec/lib.design-system@2.1.0
+  - @contractspec/module.examples@2.1.0
+  - @contractspec/lib.ui-kit-web@2.1.0
+  - @contractspec/lib.ui-link@2.1.0
+  - @contractspec/lib.logger@2.1.0
+  - @contractspec/lib.schema@2.1.0
+
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- f152678: Scaffolded split contracts packages for spec+registry, integrations definitions, and runtime adapters by surface (client-react, server-rest, server-graphql, server-mcp). Migrated first consumers and documentation examples to the new runtime package imports.
+- Updated dependencies [a09bafc]
+- Updated dependencies [94f3c24]
+- Updated dependencies [f152678]
+- Updated dependencies [7f3203a]
+  - @contractspec/lib.contracts-runtime-server-graphql@2.0.0
+  - @contractspec/lib.contracts-runtime-server-rest@2.0.0
+  - @contractspec/lib.contracts-runtime-server-mcp@2.0.0
+  - @contractspec/lib.contracts-integrations@2.0.0
+  - @contractspec/lib.contracts-library@2.0.0
+  - @contractspec/lib.example-shared-ui@2.0.0
+  - @contractspec/lib.runtime-sandbox@1.0.0
+  - @contractspec/lib.contracts-spec@2.0.0
+  - @contractspec/lib.design-system@2.0.0
+  - @contractspec/module.examples@2.0.0
+  - @contractspec/lib.ui-kit-web@2.0.0
+  - @contractspec/lib.ui-link@2.0.0
+  - @contractspec/lib.logger@2.0.0
+  - @contractspec/lib.schema@2.0.0
+
 ## 1.17.0
 
 ### Minor Changes

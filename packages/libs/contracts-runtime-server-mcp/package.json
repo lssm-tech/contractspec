@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.contracts-runtime-server-mcp",
-  "version": "1.61.0",
+  "version": "2.4.0",
   "description": "MCP server runtime adapters for ContractSpec contracts",
   "type": "module",
   "types": "./dist/index.d.ts",

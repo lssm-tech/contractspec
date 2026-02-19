@@ -158,8 +158,8 @@ contractspec examples validate --repo-root .`}
         </div>
 
         <StudioPrompt
-          title="Need team approvals for new endpoints?"
-          body="Studio adds review gates, shared registries, and audit trails after you ship your first endpoint."
+          title="Want real product evidence behind endpoint changes?"
+          body="Studio correlates meetings, support, analytics, and code signals before compiling endpoint decisions into spec diffs."
         />
       </div>
 

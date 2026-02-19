@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/tool.bun",
-  "version": "1.61.0",
+  "version": "2.4.0",
   "type": "module",
   "description": "Shared Bun build presets and CLI for ContractSpec packages",
   "keywords": [

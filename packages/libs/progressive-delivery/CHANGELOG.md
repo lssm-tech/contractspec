@@ -1,5 +1,67 @@
 # @contractspec/lib.progressive-delivery
 
+## 21.0.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.observability@2.4.0
+
+## 20.0.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
+### Patch Changes
+
+- Updated dependencies [12c9556]
+  - @contractspec/lib.observability@2.3.0
+
+## 19.0.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.observability@2.2.0
+
+## 18.0.1
+
+### Patch Changes
+
+- @contractspec/lib.observability@2.1.1
+
+## 18.0.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
+### Patch Changes
+
+- Updated dependencies [362fbac]
+  - @contractspec/lib.observability@2.1.0
+
+## 17.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- Updated dependencies [a09bafc]
+- Updated dependencies [7f3203a]
+  - @contractspec/lib.observability@2.0.0
+
 ## 16.0.0
 
 ### Minor Changes

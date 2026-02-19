@@ -1,3 +1,5 @@
-import { StudioBYOKPage } from '@contractspec/bundle.library';
+import { redirect } from 'next/navigation';
 
-export default StudioBYOKPage;
+export default function StudioDocsRedirectPage() {
+  redirect('https://www.contractspec.studio/docs');
+}

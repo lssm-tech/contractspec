@@ -469,8 +469,8 @@ capabilityRegistry.register(UserManagementCapability);`}
         </div>
 
         <StudioPrompt
-          title="Want visual contract design?"
-          body="Studio provides a visual editor for creating and managing contracts with team collaboration and version control."
+          title="Need to decide which contract should change next?"
+          body="Studio uses evidence and focus constraints to generate decision briefs, patch intents, and execution-ready task packs."
         />
       </div>
 

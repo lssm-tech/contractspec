@@ -85,8 +85,8 @@ contractspec openapi export --registry ./src/contracts/registry.ts --out ./gener
         </div>
 
         <StudioPrompt
-          title="Want managed schema releases?"
-          body="Studio can publish OpenAPI, SDKs, and release notes automatically with approvals."
+          title="Want exports tied to product decisions?"
+          body="Studio compiles approved changes into deliverables and pushes them to your execution stack with full evidence context."
         />
       </div>
 

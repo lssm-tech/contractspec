@@ -91,8 +91,8 @@ export default async function Page({ params }: { params: { slug?: string[] } }) 
         </div>
 
         <StudioPrompt
-          title="Need hosted docs releases?"
-          body="Studio can publish versioned docs bundles with approvals and audit trails."
+          title="Need decision-to-export automation?"
+          body="Studio exports evidence-backed spec changes and task packs to Linear, Jira, Notion, and GitHub."
         />
       </div>
 

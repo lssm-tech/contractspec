@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/bundle.marketing",
-  "version": "1.17.0",
+  "version": "2.4.0",
   "type": "module",
   "scripts": {
     "clean": "rm -rf dist",
@@ -40,7 +40,7 @@
     "./components/marketing/sections/ProblemSection": "./src/components/marketing/sections/ProblemSection.tsx",
     "./components/marketing/sections/SolutionSection": "./src/components/marketing/sections/SolutionSection.tsx",
     "./components/marketing/sections/StepsSection": "./src/components/marketing/sections/StepsSection.tsx",
-    "./components/marketing/waitlist-section": "./src/components/marketing/waitlist-section.tsx",
+    "./components/marketing/studio-signup-section": "./src/components/marketing/studio-signup-section.tsx",
     "./components/templates": "./src/components/templates/index.ts",
     "./components/templates/index": "./src/components/templates/index.ts",
     "./components/templates/TemplatesClientPage": "./src/components/templates/TemplatesClientPage.tsx",
@@ -87,7 +87,7 @@
     "@contractspec/module.examples": "workspace:*",
     "@electric-sql/pglite": "^0.3.14",
     "@hookform/resolvers": "^5.2.2",
-    "@scaleway/sdk": "^3.1.5",
+    "@scaleway/sdk": "^3.2.0",
     "@scaleway/sdk-client": "^2.1.0",
     "class-variance-authority": "^0.7.1",
     "framer-motion": "^12.34.0",
@@ -268,12 +268,12 @@
         "browser": "./dist/browser/components/marketing/sections/StepsSection.js",
         "default": "./dist/components/marketing/sections/StepsSection.js"
       },
-      "./components/marketing/waitlist-section": {
-        "types": "./dist/components/marketing/waitlist-section.d.ts",
-        "bun": "./dist/components/marketing/waitlist-section.js",
-        "node": "./dist/node/components/marketing/waitlist-section.js",
-        "browser": "./dist/browser/components/marketing/waitlist-section.js",
-        "default": "./dist/components/marketing/waitlist-section.js"
+      "./components/marketing/studio-signup-section": {
+        "types": "./dist/components/marketing/studio-signup-section.d.ts",
+        "bun": "./dist/components/marketing/studio-signup-section.js",
+        "node": "./dist/node/components/marketing/studio-signup-section.js",
+        "browser": "./dist/browser/components/marketing/studio-signup-section.js",
+        "default": "./dist/components/marketing/studio-signup-section.js"
       },
       "./components/templates": {
         "types": "./dist/components/templates/index.d.ts",

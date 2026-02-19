@@ -1,0 +1,103 @@
+{
+  "name": "@contractspec/example.video-api-showcase",
+  "version": "2.4.0",
+  "description": "Generate API documentation videos from contract spec definitions using the ApiOverview composition.",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./build-api-video": "./src/build-api-video.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/index": "./src/docs/index.ts",
+    "./docs/video-api-showcase.docblock": "./src/docs/video-api-showcase.docblock.ts",
+    "./example": "./src/example.ts",
+    "./sample-specs": "./src/sample-specs.ts"
+  },
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test --pass-with-no-tests",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.contracts-integrations": "workspace:*",
+    "@contractspec/lib.video-gen": "workspace:*"
+  },
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.bun": "workspace:*",
+    "typescript": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.js",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./build-api-video": {
+        "types": "./dist/build-api-video.d.ts",
+        "bun": "./dist/build-api-video.js",
+        "node": "./dist/node/build-api-video.js",
+        "browser": "./dist/browser/build-api-video.js",
+        "default": "./dist/build-api-video.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.js",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/index": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.js",
+        "browser": "./dist/browser/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/video-api-showcase.docblock": {
+        "types": "./dist/docs/video-api-showcase.docblock.d.ts",
+        "bun": "./dist/docs/video-api-showcase.docblock.js",
+        "node": "./dist/node/docs/video-api-showcase.docblock.js",
+        "browser": "./dist/browser/docs/video-api-showcase.docblock.js",
+        "default": "./dist/docs/video-api-showcase.docblock.js"
+      },
+      "./example": {
+        "types": "./dist/example.d.ts",
+        "bun": "./dist/example.js",
+        "node": "./dist/node/example.js",
+        "browser": "./dist/browser/example.js",
+        "default": "./dist/example.js"
+      },
+      "./sample-specs": {
+        "types": "./dist/sample-specs.d.ts",
+        "bun": "./dist/sample-specs.js",
+        "node": "./dist/node/sample-specs.js",
+        "browser": "./dist/browser/sample-specs.js",
+        "default": "./dist/sample-specs.js"
+      }
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/video-api-showcase"
+  },
+  "homepage": "https://contractspec.io"
+}

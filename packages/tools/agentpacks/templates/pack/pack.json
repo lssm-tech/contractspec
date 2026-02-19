@@ -1,0 +1,10 @@
+{
+  "name": "{{name}}",
+  "version": "1.0.0",
+  "description": "{{description}}",
+  "tags": [],
+  "dependencies": [],
+  "conflicts": [],
+  "targets": ["*"],
+  "features": ["*"]
+}

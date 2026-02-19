@@ -1,5 +1,127 @@
 # @contractspec/example.saas-boilerplate
 
+## 2.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.example-shared-ui@2.4.0
+  - @contractspec/module.notifications@2.4.0
+  - @contractspec/lib.runtime-sandbox@1.4.0
+  - @contractspec/lib.contracts-spec@2.4.0
+  - @contractspec/module.audit-trail@2.4.0
+  - @contractspec/lib.design-system@2.4.0
+  - @contractspec/lib.identity-rbac@2.4.0
+  - @contractspec/lib.schema@2.4.0
+  - @contractspec/lib.jobs@2.4.0
+
+## 2.3.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
+### Patch Changes
+
+- Updated dependencies [12c9556]
+  - @contractspec/lib.example-shared-ui@2.3.0
+  - @contractspec/module.notifications@2.3.0
+  - @contractspec/lib.runtime-sandbox@1.3.0
+  - @contractspec/lib.contracts-spec@2.3.0
+  - @contractspec/module.audit-trail@2.3.0
+  - @contractspec/lib.design-system@2.3.0
+  - @contractspec/lib.identity-rbac@2.3.0
+  - @contractspec/lib.schema@2.3.0
+  - @contractspec/lib.jobs@2.3.0
+
+## 2.2.0
+
+### Minor Changes
+
+- feat: release ContractSpec Studio
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.example-shared-ui@2.2.0
+  - @contractspec/module.notifications@2.2.0
+  - @contractspec/lib.runtime-sandbox@1.2.0
+  - @contractspec/lib.contracts-spec@2.2.0
+  - @contractspec/module.audit-trail@2.2.0
+  - @contractspec/lib.design-system@2.2.0
+  - @contractspec/lib.identity-rbac@2.2.0
+  - @contractspec/lib.schema@2.2.0
+  - @contractspec/lib.jobs@2.2.0
+
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies [57e2819]
+  - @contractspec/lib.contracts-spec@2.1.1
+  - @contractspec/lib.design-system@2.1.1
+  - @contractspec/lib.example-shared-ui@2.1.1
+  - @contractspec/lib.identity-rbac@2.1.1
+  - @contractspec/lib.jobs@2.1.1
+  - @contractspec/module.audit-trail@2.1.1
+  - @contractspec/module.notifications@2.1.1
+
+## 2.1.0
+
+### Minor Changes
+
+- 362fbac: feat: improve video
+
+### Patch Changes
+
+- Updated dependencies [b4bfbc5]
+- Updated dependencies [362fbac]
+- Updated dependencies [659d15f]
+  - @contractspec/lib.contracts-spec@2.1.0
+  - @contractspec/lib.example-shared-ui@2.1.0
+  - @contractspec/module.notifications@2.1.0
+  - @contractspec/lib.runtime-sandbox@1.1.0
+  - @contractspec/module.audit-trail@2.1.0
+  - @contractspec/lib.design-system@2.1.0
+  - @contractspec/lib.identity-rbac@2.1.0
+  - @contractspec/lib.schema@2.1.0
+  - @contractspec/lib.jobs@2.1.0
+
+## 2.0.0
+
+### Major Changes
+
+- a09bafc: feat: optimize performance
+
+### Patch Changes
+
+- 7f3203a: fix: make workspace test runs resilient when packages have no tests
+
+  Updates package test scripts to pass cleanly when no matching test files exist:
+  - Uses `bun test --pass-with-no-tests` in Bun-based packages that currently ship without test files.
+  - Uses `jest --passWithNoTests` for the UI kit web package.
+  - Adds `.vscode-test.mjs` for `vscode-contractspec` so VS Code extension test runs have an explicit config and stop failing on missing default configuration.
+
+  This keeps `turbo run test` deterministic across the monorepo while preserving existing test execution behavior where tests are present.
+
+- Updated dependencies [a09bafc]
+- Updated dependencies [94f3c24]
+- Updated dependencies [f152678]
+- Updated dependencies [7f3203a]
+  - @contractspec/lib.example-shared-ui@2.0.0
+  - @contractspec/module.notifications@2.0.0
+  - @contractspec/lib.runtime-sandbox@1.0.0
+  - @contractspec/lib.contracts-spec@2.0.0
+  - @contractspec/module.audit-trail@2.0.0
+  - @contractspec/lib.design-system@2.0.0
+  - @contractspec/lib.identity-rbac@2.0.0
+  - @contractspec/lib.schema@2.0.0
+  - @contractspec/lib.jobs@2.0.0
+
 ## 1.62.0
 
 ### Minor Changes
