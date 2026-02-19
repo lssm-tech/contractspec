@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.voice-providers",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Voice provider example: Gradium and Fal text-to-speech integration patterns.",
   "type": "module",
   "types": "./dist/index.d.ts",

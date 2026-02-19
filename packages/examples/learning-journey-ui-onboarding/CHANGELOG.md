@@ -1,5 +1,23 @@
 # @contractspec/example.learning-journey-ui-onboarding
 
+## 2.3.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
+### Patch Changes
+
+- Updated dependencies [12c9556]
+  - @contractspec/example.learning-journey-studio-onboarding@2.3.0
+  - @contractspec/example.learning-journey-platform-tour@2.3.0
+  - @contractspec/example.learning-journey-ui-shared@2.3.0
+  - @contractspec/module.learning-journey@2.3.0
+  - @contractspec/lib.contracts-spec@2.3.0
+  - @contractspec/lib.design-system@2.3.0
+  - @contractspec/lib.ui-kit-core@2.3.0
+  - @contractspec/lib.ui-kit-web@2.3.0
+
 ## 2.2.0
 
 ### Minor Changes
