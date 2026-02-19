@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.notifications",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Notification center module for ContractSpec applications",
   "keywords": [
     "contractspec",

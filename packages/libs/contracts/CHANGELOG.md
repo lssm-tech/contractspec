@@ -1,5 +1,11 @@
 # @contractspec/lib.contracts
 
+## 1.64.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
 ## 1.63.0
 
 ### Minor Changes
