@@ -75,8 +75,43 @@ jobs:
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
           CONTRACTSPEC_USE_PUBLISH_EXPORTS: 'true'
 
-      - name: Package VS Code extension
+      - name: Determine non-npm publish targets
         if: steps.changesets.outputs.hasChangesets == 'false'
+        id: non-npm-targets
+        run: |
+          BASE_SHA="${{ github.event.before }}"
+          if [ -z "$BASE_SHA" ] || [ "$BASE_SHA" = "0000000000000000000000000000000000000000" ] || ! git cat-file -e "${BASE_SHA}^{commit}" 2>/dev/null; then
+            if git rev-parse HEAD^ >/dev/null 2>&1; then
+              BASE_SHA=$(git rev-parse HEAD^)
+            else
+              BASE_SHA=$(git rev-parse HEAD)
+            fi
+          fi
+
+          NEXT_VSCODE_VERSION=$(jq -r .version packages/apps/vscode-contractspec/package.json)
+          NEXT_ACTION_VERSION=$(jq -r .version packages/apps/action-validation/package.json)
+
+          BASE_VSCODE_VERSION=$(git show "${BASE_SHA}:packages/apps/vscode-contractspec/package.json" 2>/dev/null | jq -r .version 2>/dev/null || true)
+          BASE_ACTION_VERSION=$(git show "${BASE_SHA}:packages/apps/action-validation/package.json" 2>/dev/null | jq -r .version 2>/dev/null || true)
+
+          if [ -n "$BASE_VSCODE_VERSION" ] && [ "$BASE_VSCODE_VERSION" != "$NEXT_VSCODE_VERSION" ]; then
+            echo "publish_vscode=true" >> "$GITHUB_OUTPUT"
+            echo "[publish] VS Code extension version bump detected: ${BASE_VSCODE_VERSION} -> ${NEXT_VSCODE_VERSION}"
+          else
+            echo "publish_vscode=false" >> "$GITHUB_OUTPUT"
+            echo "[publish] Skip VS Code extension publish: no version bump in push range"
+          fi
+
+          if [ -n "$BASE_ACTION_VERSION" ] && [ "$BASE_ACTION_VERSION" != "$NEXT_ACTION_VERSION" ]; then
+            echo "publish_action=true" >> "$GITHUB_OUTPUT"
+            echo "[publish] GitHub Action version bump detected: ${BASE_ACTION_VERSION} -> ${NEXT_ACTION_VERSION}"
+          else
+            echo "publish_action=false" >> "$GITHUB_OUTPUT"
+            echo "[publish] Skip GitHub Action publish: no version bump in push range"
+          fi
+
+      - name: Package VS Code extension
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.non-npm-targets.outputs.publish_vscode == 'true'
         id: vscode-package
         working-directory: packages/apps/vscode-contractspec
         run: |
@@ -86,18 +121,18 @@ jobs:
           echo "📦 Packaged: $VSIX_NAME"
 
       - name: Get VS Code extension version
-        if: steps.changesets.outputs.hasChangesets == 'false'
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.non-npm-targets.outputs.publish_vscode == 'true'
         id: vscode-version
         run: |
           VERSION=$(jq -r .version packages/apps/vscode-contractspec/package.json)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Install vsce
-        if: steps.changesets.outputs.hasChangesets == 'false'
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.non-npm-targets.outputs.publish_vscode == 'true'
         run: bun add -g @vscode/vsce
 
       - name: Publish VS Code extension to Marketplace
-        if: steps.changesets.outputs.hasChangesets == 'false'
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.non-npm-targets.outputs.publish_vscode == 'true'
         working-directory: packages/apps/vscode-contractspec
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
@@ -107,7 +142,7 @@ jobs:
           vsce publish --packagePath "$VSIX_FILE" --pat "$VSCE_PAT"
 
       - name: Publish VS Code extension to Open VSX Registry
-        if: steps.changesets.outputs.hasChangesets == 'false' && env.OVSX_PAT != ''
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.non-npm-targets.outputs.publish_vscode == 'true' && secrets.OVSX_PAT != ''
         working-directory: packages/apps/vscode-contractspec
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
@@ -119,7 +154,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload VSIX artifact
-        if: steps.changesets.outputs.hasChangesets == 'false'
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.non-npm-targets.outputs.publish_vscode == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: vscode-extension
@@ -127,7 +162,7 @@ jobs:
           retention-days: 90
 
       - name: Create VS Code Extension GitHub Release
-        if: steps.changesets.outputs.hasChangesets == 'false'
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.non-npm-targets.outputs.publish_vscode == 'true'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: vscode-v${{ steps.vscode-version.outputs.version }}
@@ -151,7 +186,7 @@ jobs:
 
       # GitHub Action Publishing
       - name: Get GitHub Action version
-        if: steps.changesets.outputs.hasChangesets == 'false'
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.non-npm-targets.outputs.publish_action == 'true'
         id: action-version
         run: |
           VERSION=$(jq -r .version packages/apps/action-validation/package.json)
@@ -160,7 +195,7 @@ jobs:
           echo "major=$MAJOR" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Action Release
-        if: steps.changesets.outputs.hasChangesets == 'false'
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.non-npm-targets.outputs.publish_action == 'true'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: action-v${{ steps.action-version.outputs.version }}
@@ -185,7 +220,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Update major version tag for action
-        if: steps.changesets.outputs.hasChangesets == 'false'
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.non-npm-targets.outputs.publish_action == 'true'
         run: |
           git config user.name github-actions[bot]
           git config user.email github-actions[bot]@users.noreply.github.com
