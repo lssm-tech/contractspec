@@ -1,0 +1,13 @@
+{
+  "name": "default",
+  "version": "1.0.0",
+  "description": "Imported from rulesync",
+  "tags": [
+    "imported",
+    "rulesync"
+  ],
+  "dependencies": [],
+  "conflicts": [],
+  "targets": "*",
+  "features": "*"
+}
