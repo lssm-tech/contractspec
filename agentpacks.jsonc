@@ -4,9 +4,8 @@
     "./packs/workspace-specific",
     "./packs/contractspec-rules",
     "./packs/software-best-practices",
-    "./packs/default",
   ],
-  "disabled": ["default"],
+  "disabled": [],
   "targets": [
     "cursor",
     "claudecode",

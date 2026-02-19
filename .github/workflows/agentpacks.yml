@@ -1,0 +1,42 @@
+name: Agentpacks Integrity
+
+on:
+  pull_request:
+    paths:
+      - 'agentpacks.jsonc'
+      - 'packs/**'
+      - 'packages/tools/agentpacks/**'
+      - 'package.json'
+      - '.github/workflows/agentpacks.yml'
+  push:
+    branches:
+      - main
+      - release
+    paths:
+      - 'agentpacks.jsonc'
+      - 'packs/**'
+      - 'packages/tools/agentpacks/**'
+      - 'package.json'
+      - '.github/workflows/agentpacks.yml'
+
+jobs:
+  validate-and-diff:
+    name: Validate Agentpacks and Drift
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.3.8'
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Validate pack definitions
+        run: bun run agentpacks:validate
+
+      - name: Check generated config drift
+        run: bun run agentpacks:diff
