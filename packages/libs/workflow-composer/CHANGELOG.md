@@ -1,5 +1,16 @@
 # @contractspec/lib.workflow-composer
 
+## 2.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.4.0
+
 ## 2.3.0
 
 ### Minor Changes

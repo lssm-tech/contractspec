@@ -1,5 +1,16 @@
 # spec-driven-development
 
+## 2.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/app.cli-contractspec@2.4.0
+
 ## 2.3.0
 
 ### Minor Changes

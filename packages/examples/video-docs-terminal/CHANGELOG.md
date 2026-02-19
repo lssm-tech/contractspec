@@ -1,5 +1,18 @@
 # @contractspec/example.video-docs-terminal
 
+## 2.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.4.0
+  - @contractspec/lib.content-gen@2.4.0
+  - @contractspec/lib.video-gen@1.45.0
+
 ## 2.3.0
 
 ### Minor Changes

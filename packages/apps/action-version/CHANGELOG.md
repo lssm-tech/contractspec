@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 1.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
 ## 1.3.0
 
 ### Minor Changes

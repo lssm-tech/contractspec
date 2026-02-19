@@ -1,5 +1,19 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 21.0.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@2.4.0
+  - @contractspec/lib.contracts-spec@2.4.0
+  - @contractspec/lib.design-system@2.4.0
+  - @contractspec/lib.ui-kit-web@2.4.0
+
 ## 20.0.0
 
 ### Minor Changes

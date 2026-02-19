@@ -1,5 +1,23 @@
 # @contractspec/example.learning-journey-ui-onboarding
 
+## 2.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/example.learning-journey-studio-onboarding@2.4.0
+  - @contractspec/example.learning-journey-platform-tour@2.4.0
+  - @contractspec/example.learning-journey-ui-shared@2.4.0
+  - @contractspec/module.learning-journey@2.4.0
+  - @contractspec/lib.contracts-spec@2.4.0
+  - @contractspec/lib.design-system@2.4.0
+  - @contractspec/lib.ui-kit-core@2.4.0
+  - @contractspec/lib.ui-kit-web@2.4.0
+
 ## 2.3.0
 
 ### Minor Changes

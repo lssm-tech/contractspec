@@ -1,5 +1,19 @@
 # @contractspec/app.api-library
 
+## 2.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.4.0
+  - @contractspec/bundle.marketing@2.4.0
+  - @contractspec/bundle.workspace@2.4.0
+  - @contractspec/bundle.library@2.4.0
+
 ## 2.3.0
 
 ### Minor Changes

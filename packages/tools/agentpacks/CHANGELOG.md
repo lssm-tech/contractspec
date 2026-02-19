@@ -1,5 +1,11 @@
 # agentpacks
 
+## 0.3.0
+
+### Minor Changes
+
+- chore: improve documentation
+
 ## 0.2.0
 
 ### Minor Changes

@@ -1,5 +1,23 @@
 # @contractspec/module.ai-chat
 
+## 2.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.4.0
+  - @contractspec/lib.cost-tracking@2.4.0
+  - @contractspec/lib.design-system@2.4.0
+  - @contractspec/lib.ai-providers@2.4.0
+  - @contractspec/lib.ui-kit-web@2.4.0
+  - @contractspec/lib.ai-agent@2.4.0
+  - @contractspec/lib.metering@2.4.0
+  - @contractspec/lib.schema@2.4.0
+
 ## 2.3.0
 
 ### Minor Changes

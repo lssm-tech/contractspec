@@ -1,5 +1,19 @@
 # @contractspec/app.video-studio
 
+## 1.45.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.4.0
+  - @contractspec/lib.design-system@2.4.0
+  - @contractspec/lib.content-gen@2.4.0
+  - @contractspec/lib.video-gen@1.45.0
+
 ## 1.44.0
 
 ### Minor Changes

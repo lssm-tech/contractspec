@@ -1,5 +1,11 @@
 # @contractspec/lib.contracts
 
+## 1.65.0
+
+### Minor Changes
+
+- chore: improve documentation
+
 ## 1.64.0
 
 ### Minor Changes

@@ -1,5 +1,22 @@
 # Changelog
 
+## 2.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-transformers@2.4.0
+  - @contractspec/lib.contracts-spec@2.4.0
+  - @contractspec/bundle.workspace@2.4.0
+  - @contractspec/module.workspace@2.4.0
+  - @contractspec/module.examples@2.4.0
+  - @contractspec/module.ai-chat@2.4.0
+  - @contractspec/lib.ai-agent@2.4.0
+
 ## 2.3.0
 
 ### Minor Changes

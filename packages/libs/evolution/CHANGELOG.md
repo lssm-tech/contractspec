@@ -1,5 +1,21 @@
 # @contractspec/lib.evolution
 
+## 2.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@2.4.0
+  - @contractspec/lib.contracts-spec@2.4.0
+  - @contractspec/lib.observability@2.4.0
+  - @contractspec/lib.lifecycle@2.4.0
+  - @contractspec/lib.ai-agent@2.4.0
+  - @contractspec/lib.schema@2.4.0
+
 ## 2.3.0
 
 ### Minor Changes

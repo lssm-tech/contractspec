@@ -1,5 +1,16 @@
 # @contractspec/module.alpic
 
+## 2.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.logger@2.4.0
+
 ## 2.3.0
 
 ### Minor Changes

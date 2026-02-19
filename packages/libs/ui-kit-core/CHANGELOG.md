@@ -1,5 +1,11 @@
 # @contractspec/lib.ui-kit-core
 
+## 2.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
 ## 2.3.0
 
 ### Minor Changes

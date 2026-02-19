@@ -1,5 +1,18 @@
 # @contractspec/module.audit-trail
 
+## 2.4.0
+
+### Minor Changes
+
+- chore: improve documentation
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.4.0
+  - @contractspec/lib.schema@2.4.0
+  - @contractspec/lib.bus@2.4.0
+
 ## 2.3.0
 
 ### Minor Changes
