@@ -1,0 +1,16 @@
+{
+  "name": "software-best-practices",
+  "version": "1.0.0",
+  "description": "Cross-cutting engineering quality, security, performance, and delivery best practices.",
+  "tags": [
+    "engineering",
+    "quality",
+    "security",
+    "performance",
+    "best-practices"
+  ],
+  "dependencies": [],
+  "conflicts": [],
+  "targets": ["*"],
+  "features": ["rules", "commands", "agents", "mcp", "ignore"]
+}

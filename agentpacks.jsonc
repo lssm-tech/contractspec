@@ -1,23 +1,23 @@
 {
   "$schema": "https://unpkg.com/agentpacks/schema.json",
   "packs": [
-    "./packs/default"
+    "./packs/workspace-specific",
+    "./packs/contractspec-rules",
+    "./packs/software-best-practices",
+    "./packs/default",
   ],
-  "disabled": [],
+  "disabled": ["default"],
   "targets": [
     "cursor",
     "claudecode",
     "geminicli",
     "opencode",
-    "codexcli"
+    "codexcli",
+    "copilot",
   ],
-  "features": [
-    "*"
-  ],
+  "features": ["*"],
   "mode": "repo",
-  "baseDirs": [
-    "."
-  ],
+  "baseDirs": ["."],
   "global": false,
-  "delete": true
+  "delete": true,
 }

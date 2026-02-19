@@ -1,0 +1,10 @@
+{
+  "name": "workspace-specific",
+  "version": "1.0.0",
+  "description": "Workspace context, architecture, and product-specific guidance for ContractSpec contributors.",
+  "tags": ["workspace", "contractspec", "architecture", "product-context"],
+  "dependencies": [],
+  "conflicts": [],
+  "targets": ["*"],
+  "features": ["rules", "commands", "agents", "skills", "mcp"]
+}
