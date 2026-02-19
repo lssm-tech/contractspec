@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 1.3.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
 ## 1.2.0
 
 ### Minor Changes

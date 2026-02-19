@@ -1,5 +1,11 @@
 # @contractspec/eslint-plugin-design-system
 
+## 2.3.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
 ## 2.2.0
 
 ### Minor Changes

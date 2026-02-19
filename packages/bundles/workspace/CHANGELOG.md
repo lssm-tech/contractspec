@@ -1,5 +1,23 @@
 # @contractspec/bundle.workspace
 
+## 2.3.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
+### Patch Changes
+
+- Updated dependencies [12c9556]
+  - @contractspec/lib.contracts-integrations@2.3.0
+  - @contractspec/lib.contracts-transformers@2.3.0
+  - @contractspec/lib.source-extractors@1.3.0
+  - @contractspec/lib.utils-typescript@2.3.0
+  - @contractspec/lib.contracts-spec@2.3.0
+  - @contractspec/lib.ai-providers@2.3.0
+  - @contractspec/module.workspace@2.3.0
+  - @contractspec/lib.ai-agent@2.3.0
+
 ## 2.2.0
 
 ### Minor Changes

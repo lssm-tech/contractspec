@@ -1,5 +1,19 @@
 # @contractspec/app.api-library
 
+## 2.3.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
+### Patch Changes
+
+- Updated dependencies [12c9556]
+  - @contractspec/lib.contracts-spec@2.3.0
+  - @contractspec/bundle.marketing@2.3.0
+  - @contractspec/bundle.workspace@2.3.0
+  - @contractspec/bundle.library@2.3.0
+
 ## 2.2.0
 
 ### Minor Changes

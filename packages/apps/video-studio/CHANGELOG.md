@@ -1,5 +1,19 @@
 # @contractspec/app.video-studio
 
+## 1.44.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
+### Patch Changes
+
+- Updated dependencies [12c9556]
+  - @contractspec/lib.contracts-spec@2.3.0
+  - @contractspec/lib.design-system@2.3.0
+  - @contractspec/lib.content-gen@2.3.0
+  - @contractspec/lib.video-gen@1.44.0
+
 ## 1.43.0
 
 ### Minor Changes

@@ -1,5 +1,19 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 20.0.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
+### Patch Changes
+
+- Updated dependencies [12c9556]
+  - @contractspec/lib.presentation-runtime-core@2.3.0
+  - @contractspec/lib.contracts-spec@2.3.0
+  - @contractspec/lib.design-system@2.3.0
+  - @contractspec/lib.ui-kit-web@2.3.0
+
 ## 19.0.0
 
 ### Minor Changes

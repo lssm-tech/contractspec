@@ -1,5 +1,16 @@
 # contractspec-example-minimal
 
+## 1.3.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
+### Patch Changes
+
+- Updated dependencies [12c9556]
+  - @contractspec/lib.contracts-spec@2.3.0
+
 ## 1.2.0
 
 ### Minor Changes

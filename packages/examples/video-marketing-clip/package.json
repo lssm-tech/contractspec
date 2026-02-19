@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.video-marketing-clip",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Generate short-form marketing videos from content briefs using the video-gen pipeline.",
   "type": "module",
   "types": "./dist/index.d.ts",

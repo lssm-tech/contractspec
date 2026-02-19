@@ -1,5 +1,18 @@
 # @contractspec/example.video-docs-terminal
 
+## 2.3.0
+
+### Minor Changes
+
+- 12c9556: feat: release agentpacks
+
+### Patch Changes
+
+- Updated dependencies [12c9556]
+  - @contractspec/lib.contracts-spec@2.3.0
+  - @contractspec/lib.content-gen@2.3.0
+  - @contractspec/lib.video-gen@1.44.0
+
 ## 2.2.0
 
 ### Minor Changes
