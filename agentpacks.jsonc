@@ -1,0 +1,23 @@
+{
+  "$schema": "https://unpkg.com/agentpacks/schema.json",
+  "packs": [
+    "./packs/default"
+  ],
+  "disabled": [],
+  "targets": [
+    "cursor",
+    "claudecode",
+    "geminicli",
+    "opencode",
+    "codexcli"
+  ],
+  "features": [
+    "*"
+  ],
+  "mode": "repo",
+  "baseDirs": [
+    "."
+  ],
+  "global": false,
+  "delete": true
+}
