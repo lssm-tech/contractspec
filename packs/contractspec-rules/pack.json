@@ -1,0 +1,16 @@
+{
+  "name": "contractspec-rules",
+  "version": "1.0.0",
+  "description": "ContractSpec specification governance, AI agent policy, and documentation workflow rules.",
+  "tags": [
+    "contractspec",
+    "governance",
+    "spec-first",
+    "ai-policy",
+    "documentation"
+  ],
+  "dependencies": [],
+  "conflicts": [],
+  "targets": ["*"],
+  "features": ["rules", "commands", "agents", "skills", "mcp"]
+}

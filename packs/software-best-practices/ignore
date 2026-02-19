@@ -1,0 +1,57 @@
+# Secrets and credentials
+credentials/
+.env
+.env.*
+*.pem
+*.key
+*.crt
+secrets/
+
+# Build outputs
+dist/
+build/
+.next/
+.turbo/
+out/
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# IDE and editor
+.idea/
+.vscode/settings.json
+*.swp
+*.swo
+
+# Generated files
+*.generated.*
+*.d.ts.map
+coverage/
+.nyc_output/
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Lock files (readable but rarely useful for AI)
+bun.lockb
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Large binary files
+*.zip
+*.tar.gz
+*.mp4
+*.mp3
+*.mov
+*.avi
+
+# Database files
+*.sqlite
+*.db
