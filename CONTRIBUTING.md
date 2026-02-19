@@ -7,10 +7,10 @@ Welcome! We're building the safety layer for AI-native software. We believe in k
 We embrace AI agents (like Cursor, Claude, Windsurf) as first-class contributors. Our repo is designed to be easily understood and modified by AI.
 
 - **Context is King**: We maintain `AGENTS.md` - **READ THIS FILE FIRST**. It contains the definitive map of the repository, architecture rules, and dependency flows.
-- **Rule Synchronization**: We use [rulesync](https://github.com/dyoshikawa/rulesync) to generate agent configurations.
-  - **Do not edit `.agent/` directly.**
-  - Edit files in `.rulesync/` instead.
-  - Run `bun run rulessync:all` to regenerate rules.
+- **Agent Configuration Sync**: We use [`agentpacks`](packages/tools/agentpacks/README.md) to generate agent configurations.
+  - **Do not edit generated tool files directly** (`AGENTS.md`, `.claude/`, `.github/copilot/`, `.gemini/`, etc.).
+  - Edit pack sources in `packs/workspace-specific`, `packs/software-best-practices`, and `packs/contractspec-rules`.
+  - Run `bun run agentpacks:all` to regenerate all targets.
 - **Validation**: We rely on `contractspec ci` to enforce rules, rather than human nitpicking.
 
 ### 🧠 AI Tools & Resources
