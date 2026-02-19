@@ -18,6 +18,7 @@ jobs:
       BUN_VERSION: 1.3.8
       TURBO_TELEMETRY_DISABLED: 1
       DO_NOT_TRACK: 1
+      OVSX_PAT: ${{ secrets.OVSX_PAT }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -148,7 +149,7 @@ jobs:
           vsce publish --packagePath "$VSIX_FILE" --pat "$VSCE_PAT" --pre-release
 
       - name: Publish VS Code extension to Open VSX Registry
-        if: steps.non-npm-targets.outputs.publish_vscode == 'true' && secrets.OVSX_PAT != ''
+        if: steps.non-npm-targets.outputs.publish_vscode == 'true' && env.OVSX_PAT != ''
         working-directory: packages/apps/vscode-contractspec
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
