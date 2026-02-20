@@ -135,7 +135,7 @@ This matches the content-gen pattern: \`constructor({ llm? })\` -> \`generate(br
 
 - Compositions must be **deterministic**: same props = same visual output.
 - Design tokens bridge from \`@contractspec/lib.design-system\` -- do not duplicate brand values.
-- \`LocalRenderer\` requires Node.js (\`@remotion/renderer\` is not Bun-compatible).
+- \`LocalRenderer\` works with Node.js and Bun. On Bun, SSR scripts may not auto-quit (see [Remotion Bun docs](https://www.remotion.dev/docs/bun)).
 - The \`remotion\` entry point is a side-effect module (calls \`registerRoot\`) -- import it only from Remotion Studio or render scripts.
 `,
   },
