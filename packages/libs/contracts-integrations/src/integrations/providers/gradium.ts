@@ -5,7 +5,7 @@ export const gradiumIntegrationSpec = defineIntegration({
   meta: {
     key: 'ai-voice.gradium',
     version: '1.0.0',
-    category: 'ai-voice',
+    category: 'ai-voice-tts',
     title: 'Gradium Text-to-Speech',
     description:
       'Gradium integration for low-latency voice synthesis and voice catalog access.',
@@ -16,7 +16,7 @@ export const gradiumIntegrationSpec = defineIntegration({
   },
   supportedModes: ['byok'],
   capabilities: {
-    provides: [{ key: 'ai.voice.synthesis', version: '1.0.0' }],
+    provides: [{ key: 'ai.voice.tts', version: '1.0.0' }],
   },
   configSchema: {
     schema: {

@@ -22,6 +22,8 @@ import { registerGranolaIntegration } from './granola';
 import { registerTldvIntegration } from './tldv';
 import { registerFirefliesIntegration } from './fireflies';
 import { registerFathomIntegration } from './fathom';
+import { registerDeepgramIntegration } from './deepgram';
+import { registerOpenaiRealtimeIntegration } from './openai-realtime';
 
 /**
  * Creates a registry containing all IntegrationSpec providers shipped by
@@ -52,6 +54,8 @@ export function createDefaultIntegrationSpecRegistry(): IntegrationSpecRegistry 
   registerTldvIntegration(registry);
   registerFirefliesIntegration(registry);
   registerFathomIntegration(registry);
+  registerDeepgramIntegration(registry);
+  registerOpenaiRealtimeIntegration(registry);
 
   return registry;
 }
