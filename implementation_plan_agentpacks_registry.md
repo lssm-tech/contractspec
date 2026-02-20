@@ -1074,14 +1074,17 @@ interface RegistryStatsResponse {
 - [x] `/registry/featured` — curated grid with cards
 - [x] `/registry/publish` — static publishing guide page
 
-#### Storage & Stats
+#### Storage & Stats ✅
 
-- [ ] `src/storage/s3.ts` — S3-compatible storage implementation
-- [ ] Config switch: `STORAGE_BACKEND=local|s3`
-- [ ] Migration script for local → S3
-- [ ] Daily download aggregation cron/worker
-- [ ] Weekly rolling window calculation
-- [ ] `/packs/:name/stats` endpoint (download trends)
+- [x] `src/storage/s3.ts` — S3-compatible storage with AWS Signature V4
+- [x] `src/storage/factory.ts` — Config switch: `STORAGE_BACKEND=local|s3`
+- [x] Routes refactored to use `getStorage()` factory
+- [x] `src/services/stats-service.ts` — Download recording + daily aggregation
+- [x] `download_stats` table + migration
+- [x] Weekly rolling window recalculation (`recalculateWeekly()`)
+- [x] `/packs/:name/stats` endpoint (daily download trends)
+- [x] Download tracking wired into version download route
+- [x] 8 stats service tests
 
 #### Task-Aware Routing
 

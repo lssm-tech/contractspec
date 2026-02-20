@@ -96,6 +96,18 @@ export const authTokens = sqliteTable('auth_tokens', {
 });
 
 /**
+ * Download stats table — daily download counts per pack.
+ */
+export const downloadStats = sqliteTable('download_stats', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  packName: text('pack_name')
+    .notNull()
+    .references(() => packs.name, { onDelete: 'cascade' }),
+  date: text('date').notNull(), // YYYY-MM-DD
+  count: integer('count').notNull().default(0),
+});
+
+/**
  * Type exports for use in services.
  */
 export type Pack = typeof packs.$inferSelect;
@@ -104,3 +116,4 @@ export type PackVersion = typeof packVersions.$inferSelect;
 export type NewPackVersion = typeof packVersions.$inferInsert;
 export type PackReadme = typeof packReadmes.$inferSelect;
 export type AuthToken = typeof authTokens.$inferSelect;
+export type DownloadStat = typeof downloadStats.$inferSelect;

@@ -2,7 +2,8 @@ import { Elysia } from 'elysia';
 import { getDb } from '../db/client.js';
 import { VersionService } from '../services/version-service.js';
 import { PackService } from '../services/pack-service.js';
-import { LocalStorage } from '../storage/local.js';
+import { StatsService } from '../services/stats-service.js';
+import { getStorage } from '../storage/factory.js';
 import { extractAuth } from '../auth/middleware.js';
 
 /**
@@ -41,15 +42,16 @@ export const versionRoutes = new Elysia({ prefix: '/packs' })
       return { error: `Version not found` };
     }
 
-    const storage = new LocalStorage();
+    const storage = getStorage();
     const data = await storage.get(params.name, params.version);
     if (!data) {
       set.status = 404;
       return { error: `Tarball not found` };
     }
 
-    // Increment download count
-    await packService.incrementDownloads(params.name);
+    // Record download (daily stats + total counter)
+    const statsService = new StatsService(db);
+    await statsService.recordDownload(params.name);
 
     set.headers['content-type'] = 'application/gzip';
     set.headers['x-integrity'] = version.integrity;
@@ -97,7 +99,7 @@ export const versionDeleteRoutes = new Elysia({ prefix: '/packs' }).delete(
     }
 
     // Delete tarball from storage
-    const storage = new LocalStorage();
+    const storage = getStorage();
     await storage.delete(params.name, params.version);
 
     // Delete version record
