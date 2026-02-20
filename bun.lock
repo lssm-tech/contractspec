@@ -2369,6 +2369,7 @@
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.design-system": "workspace:*",
         "@contractspec/lib.image-gen": "workspace:*",
+        "@contractspec/lib.voice": "workspace:*",
         "remotion": "^4.0.0",
       },
       "devDependencies": {
@@ -2392,6 +2393,20 @@
       "optionalPeers": [
         "@remotion/player",
       ],
+    },
+    "packages/libs/voice": {
+      "name": "@contractspec/lib.voice",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.content-gen": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+        "@contractspec/lib.contracts-spec": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
     },
     "packages/libs/workflow-composer": {
       "name": "@contractspec/lib.workflow-composer",
@@ -3369,6 +3384,8 @@
     "@contractspec/lib.utils-typescript": ["@contractspec/lib.utils-typescript@workspace:packages/libs/utils-typescript"],
 
     "@contractspec/lib.video-gen": ["@contractspec/lib.video-gen@workspace:packages/libs/video-gen"],
+
+    "@contractspec/lib.voice": ["@contractspec/lib.voice@workspace:packages/libs/voice"],
 
     "@contractspec/lib.workflow-composer": ["@contractspec/lib.workflow-composer@workspace:packages/libs/workflow-composer"],
 

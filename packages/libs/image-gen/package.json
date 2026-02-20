@@ -1,0 +1,250 @@
+{
+  "name": "@contractspec/lib.image-gen",
+  "version": "0.1.0",
+  "description": "AI-powered image generation for hero, social, thumbnail, OG, and illustration",
+  "keywords": [
+    "contractspec",
+    "image",
+    "ai",
+    "generation",
+    "typescript"
+  ],
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test --pass-with-no-tests",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.contracts-integrations": "workspace:*",
+    "@contractspec/lib.content-gen": "workspace:*"
+  },
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.bun": "workspace:*",
+    "typescript": "catalog:"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./docs/generators.docblock": "./src/docs/generators.docblock.ts",
+    "./docs/image-gen.docblock": "./src/docs/image-gen.docblock.ts",
+    "./generators": "./src/generators/index.ts",
+    "./generators/image-generator": "./src/generators/image-generator.ts",
+    "./generators/index": "./src/generators/index.ts",
+    "./generators/prompt-builder": "./src/generators/prompt-builder.ts",
+    "./generators/style-resolver": "./src/generators/style-resolver.ts",
+    "./i18n": "./src/i18n/index.ts",
+    "./i18n/catalogs": "./src/i18n/catalogs/index.ts",
+    "./i18n/catalogs/en": "./src/i18n/catalogs/en.ts",
+    "./i18n/catalogs/es": "./src/i18n/catalogs/es.ts",
+    "./i18n/catalogs/fr": "./src/i18n/catalogs/fr.ts",
+    "./i18n/catalogs/index": "./src/i18n/catalogs/index.ts",
+    "./i18n/index": "./src/i18n/index.ts",
+    "./i18n/keys": "./src/i18n/keys.ts",
+    "./i18n/locale": "./src/i18n/locale.ts",
+    "./i18n/messages": "./src/i18n/messages.ts",
+    "./presets": "./src/presets/index.ts",
+    "./presets/index": "./src/presets/index.ts",
+    "./presets/marketing": "./src/presets/marketing.ts",
+    "./presets/social": "./src/presets/social.ts",
+    "./presets/video": "./src/presets/video.ts",
+    "./types": "./src/types.ts"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.js",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./docs/generators.docblock": {
+        "types": "./dist/docs/generators.docblock.d.ts",
+        "bun": "./dist/docs/generators.docblock.js",
+        "node": "./dist/node/docs/generators.docblock.js",
+        "browser": "./dist/browser/docs/generators.docblock.js",
+        "default": "./dist/docs/generators.docblock.js"
+      },
+      "./docs/image-gen.docblock": {
+        "types": "./dist/docs/image-gen.docblock.d.ts",
+        "bun": "./dist/docs/image-gen.docblock.js",
+        "node": "./dist/node/docs/image-gen.docblock.js",
+        "browser": "./dist/browser/docs/image-gen.docblock.js",
+        "default": "./dist/docs/image-gen.docblock.js"
+      },
+      "./generators": {
+        "types": "./dist/generators/index.d.ts",
+        "bun": "./dist/generators/index.js",
+        "node": "./dist/node/generators/index.js",
+        "browser": "./dist/browser/generators/index.js",
+        "default": "./dist/generators/index.js"
+      },
+      "./generators/image-generator": {
+        "types": "./dist/generators/image-generator.d.ts",
+        "bun": "./dist/generators/image-generator.js",
+        "node": "./dist/node/generators/image-generator.js",
+        "browser": "./dist/browser/generators/image-generator.js",
+        "default": "./dist/generators/image-generator.js"
+      },
+      "./generators/index": {
+        "types": "./dist/generators/index.d.ts",
+        "bun": "./dist/generators/index.js",
+        "node": "./dist/node/generators/index.js",
+        "browser": "./dist/browser/generators/index.js",
+        "default": "./dist/generators/index.js"
+      },
+      "./generators/prompt-builder": {
+        "types": "./dist/generators/prompt-builder.d.ts",
+        "bun": "./dist/generators/prompt-builder.js",
+        "node": "./dist/node/generators/prompt-builder.js",
+        "browser": "./dist/browser/generators/prompt-builder.js",
+        "default": "./dist/generators/prompt-builder.js"
+      },
+      "./generators/style-resolver": {
+        "types": "./dist/generators/style-resolver.d.ts",
+        "bun": "./dist/generators/style-resolver.js",
+        "node": "./dist/node/generators/style-resolver.js",
+        "browser": "./dist/browser/generators/style-resolver.js",
+        "default": "./dist/generators/style-resolver.js"
+      },
+      "./i18n": {
+        "types": "./dist/i18n/index.d.ts",
+        "bun": "./dist/i18n/index.js",
+        "node": "./dist/node/i18n/index.js",
+        "browser": "./dist/browser/i18n/index.js",
+        "default": "./dist/i18n/index.js"
+      },
+      "./i18n/catalogs": {
+        "types": "./dist/i18n/catalogs/index.d.ts",
+        "bun": "./dist/i18n/catalogs/index.js",
+        "node": "./dist/node/i18n/catalogs/index.js",
+        "browser": "./dist/browser/i18n/catalogs/index.js",
+        "default": "./dist/i18n/catalogs/index.js"
+      },
+      "./i18n/catalogs/en": {
+        "types": "./dist/i18n/catalogs/en.d.ts",
+        "bun": "./dist/i18n/catalogs/en.js",
+        "node": "./dist/node/i18n/catalogs/en.js",
+        "browser": "./dist/browser/i18n/catalogs/en.js",
+        "default": "./dist/i18n/catalogs/en.js"
+      },
+      "./i18n/catalogs/es": {
+        "types": "./dist/i18n/catalogs/es.d.ts",
+        "bun": "./dist/i18n/catalogs/es.js",
+        "node": "./dist/node/i18n/catalogs/es.js",
+        "browser": "./dist/browser/i18n/catalogs/es.js",
+        "default": "./dist/i18n/catalogs/es.js"
+      },
+      "./i18n/catalogs/fr": {
+        "types": "./dist/i18n/catalogs/fr.d.ts",
+        "bun": "./dist/i18n/catalogs/fr.js",
+        "node": "./dist/node/i18n/catalogs/fr.js",
+        "browser": "./dist/browser/i18n/catalogs/fr.js",
+        "default": "./dist/i18n/catalogs/fr.js"
+      },
+      "./i18n/catalogs/index": {
+        "types": "./dist/i18n/catalogs/index.d.ts",
+        "bun": "./dist/i18n/catalogs/index.js",
+        "node": "./dist/node/i18n/catalogs/index.js",
+        "browser": "./dist/browser/i18n/catalogs/index.js",
+        "default": "./dist/i18n/catalogs/index.js"
+      },
+      "./i18n/index": {
+        "types": "./dist/i18n/index.d.ts",
+        "bun": "./dist/i18n/index.js",
+        "node": "./dist/node/i18n/index.js",
+        "browser": "./dist/browser/i18n/index.js",
+        "default": "./dist/i18n/index.js"
+      },
+      "./i18n/keys": {
+        "types": "./dist/i18n/keys.d.ts",
+        "bun": "./dist/i18n/keys.js",
+        "node": "./dist/node/i18n/keys.js",
+        "browser": "./dist/browser/i18n/keys.js",
+        "default": "./dist/i18n/keys.js"
+      },
+      "./i18n/locale": {
+        "types": "./dist/i18n/locale.d.ts",
+        "bun": "./dist/i18n/locale.js",
+        "node": "./dist/node/i18n/locale.js",
+        "browser": "./dist/browser/i18n/locale.js",
+        "default": "./dist/i18n/locale.js"
+      },
+      "./i18n/messages": {
+        "types": "./dist/i18n/messages.d.ts",
+        "bun": "./dist/i18n/messages.js",
+        "node": "./dist/node/i18n/messages.js",
+        "browser": "./dist/browser/i18n/messages.js",
+        "default": "./dist/i18n/messages.js"
+      },
+      "./presets": {
+        "types": "./dist/presets/index.d.ts",
+        "bun": "./dist/presets/index.js",
+        "node": "./dist/node/presets/index.js",
+        "browser": "./dist/browser/presets/index.js",
+        "default": "./dist/presets/index.js"
+      },
+      "./presets/index": {
+        "types": "./dist/presets/index.d.ts",
+        "bun": "./dist/presets/index.js",
+        "node": "./dist/node/presets/index.js",
+        "browser": "./dist/browser/presets/index.js",
+        "default": "./dist/presets/index.js"
+      },
+      "./presets/marketing": {
+        "types": "./dist/presets/marketing.d.ts",
+        "bun": "./dist/presets/marketing.js",
+        "node": "./dist/node/presets/marketing.js",
+        "browser": "./dist/browser/presets/marketing.js",
+        "default": "./dist/presets/marketing.js"
+      },
+      "./presets/social": {
+        "types": "./dist/presets/social.d.ts",
+        "bun": "./dist/presets/social.js",
+        "node": "./dist/node/presets/social.js",
+        "browser": "./dist/browser/presets/social.js",
+        "default": "./dist/presets/social.js"
+      },
+      "./presets/video": {
+        "types": "./dist/presets/video.d.ts",
+        "bun": "./dist/presets/video.js",
+        "node": "./dist/node/presets/video.js",
+        "browser": "./dist/browser/presets/video.js",
+        "default": "./dist/presets/video.js"
+      },
+      "./types": {
+        "types": "./dist/types.d.ts",
+        "bun": "./dist/types.js",
+        "node": "./dist/node/types.js",
+        "browser": "./dist/browser/types.js",
+        "default": "./dist/types.js"
+      }
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/image-gen"
+  },
+  "homepage": "https://contractspec.io"
+}

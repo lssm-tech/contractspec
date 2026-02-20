@@ -26,8 +26,11 @@
   },
   "dependencies": {
     "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.contracts-integrations": "workspace:*",
+    "@contractspec/lib.voice": "workspace:*",
     "@contractspec/lib.content-gen": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
+    "@contractspec/lib.image-gen": "workspace:*",
     "remotion": "^4.0.0"
   },
   "devDependencies": {

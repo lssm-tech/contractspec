@@ -209,10 +209,12 @@
     "./integrations/providers/analytics-writer": "./src/integrations/providers/analytics-writer.ts",
     "./integrations/providers/calendar": "./src/integrations/providers/calendar.ts",
     "./integrations/providers/database": "./src/integrations/providers/database.ts",
+    "./integrations/providers/deepgram": "./src/integrations/providers/deepgram.ts",
     "./integrations/providers/elevenlabs": "./src/integrations/providers/elevenlabs.ts",
     "./integrations/providers/email": "./src/integrations/providers/email.ts",
     "./integrations/providers/embedding": "./src/integrations/providers/embedding.ts",
     "./integrations/providers/fal": "./src/integrations/providers/fal.ts",
+    "./integrations/providers/fal-image": "./src/integrations/providers/fal-image.ts",
     "./integrations/providers/fathom": "./src/integrations/providers/fathom.ts",
     "./integrations/providers/fireflies": "./src/integrations/providers/fireflies.ts",
     "./integrations/providers/gcs-storage": "./src/integrations/providers/gcs-storage.ts",
@@ -220,6 +222,7 @@
     "./integrations/providers/google-calendar": "./src/integrations/providers/google-calendar.ts",
     "./integrations/providers/gradium": "./src/integrations/providers/gradium.ts",
     "./integrations/providers/granola": "./src/integrations/providers/granola.ts",
+    "./integrations/providers/image": "./src/integrations/providers/image.ts",
     "./integrations/providers/index": "./src/integrations/providers/index.ts",
     "./integrations/providers/jira": "./src/integrations/providers/jira.ts",
     "./integrations/providers/linear": "./src/integrations/providers/linear.ts",
@@ -227,6 +230,8 @@
     "./integrations/providers/meeting-recorder": "./src/integrations/providers/meeting-recorder.ts",
     "./integrations/providers/mistral": "./src/integrations/providers/mistral.ts",
     "./integrations/providers/notion": "./src/integrations/providers/notion.ts",
+    "./integrations/providers/openai-image": "./src/integrations/providers/openai-image.ts",
+    "./integrations/providers/openai-realtime": "./src/integrations/providers/openai-realtime.ts",
     "./integrations/providers/openbanking": "./src/integrations/providers/openbanking.ts",
     "./integrations/providers/payments": "./src/integrations/providers/payments.ts",
     "./integrations/providers/posthog": "./src/integrations/providers/posthog.ts",
@@ -245,6 +250,7 @@
     "./integrations/providers/twilio-sms": "./src/integrations/providers/twilio-sms.ts",
     "./integrations/providers/vector-store": "./src/integrations/providers/vector-store.ts",
     "./integrations/providers/voice": "./src/integrations/providers/voice.ts",
+    "./integrations/providers/voice-video-sync": "./src/integrations/providers/voice-video-sync.ts",
     "./integrations/runtime": "./src/integrations/runtime.ts",
     "./integrations/secrets": "./src/integrations/secrets/index.ts",
     "./integrations/secrets-types": "./src/integrations/secrets-types.ts",
@@ -1384,6 +1390,12 @@
         "node": "./dist/node/integrations/providers/database.js",
         "default": "./dist/integrations/providers/database.js"
       },
+      "./integrations/providers/deepgram": {
+        "types": "./dist/integrations/providers/deepgram.d.ts",
+        "bun": "./dist/integrations/providers/deepgram.js",
+        "node": "./dist/node/integrations/providers/deepgram.js",
+        "default": "./dist/integrations/providers/deepgram.js"
+      },
       "./integrations/providers/elevenlabs": {
         "types": "./dist/integrations/providers/elevenlabs.d.ts",
         "bun": "./dist/integrations/providers/elevenlabs.js",
@@ -1407,6 +1419,12 @@
         "bun": "./dist/integrations/providers/fal.js",
         "node": "./dist/node/integrations/providers/fal.js",
         "default": "./dist/integrations/providers/fal.js"
+      },
+      "./integrations/providers/fal-image": {
+        "types": "./dist/integrations/providers/fal-image.d.ts",
+        "bun": "./dist/integrations/providers/fal-image.js",
+        "node": "./dist/node/integrations/providers/fal-image.js",
+        "default": "./dist/integrations/providers/fal-image.js"
       },
       "./integrations/providers/fathom": {
         "types": "./dist/integrations/providers/fathom.d.ts",
@@ -1450,6 +1468,12 @@
         "node": "./dist/node/integrations/providers/granola.js",
         "default": "./dist/integrations/providers/granola.js"
       },
+      "./integrations/providers/image": {
+        "types": "./dist/integrations/providers/image.d.ts",
+        "bun": "./dist/integrations/providers/image.js",
+        "node": "./dist/node/integrations/providers/image.js",
+        "default": "./dist/integrations/providers/image.js"
+      },
       "./integrations/providers/index": {
         "types": "./dist/integrations/providers/index.d.ts",
         "bun": "./dist/integrations/providers/index.js",
@@ -1491,6 +1515,18 @@
         "bun": "./dist/integrations/providers/notion.js",
         "node": "./dist/node/integrations/providers/notion.js",
         "default": "./dist/integrations/providers/notion.js"
+      },
+      "./integrations/providers/openai-image": {
+        "types": "./dist/integrations/providers/openai-image.d.ts",
+        "bun": "./dist/integrations/providers/openai-image.js",
+        "node": "./dist/node/integrations/providers/openai-image.js",
+        "default": "./dist/integrations/providers/openai-image.js"
+      },
+      "./integrations/providers/openai-realtime": {
+        "types": "./dist/integrations/providers/openai-realtime.d.ts",
+        "bun": "./dist/integrations/providers/openai-realtime.js",
+        "node": "./dist/node/integrations/providers/openai-realtime.js",
+        "default": "./dist/integrations/providers/openai-realtime.js"
       },
       "./integrations/providers/openbanking": {
         "types": "./dist/integrations/providers/openbanking.d.ts",
@@ -1599,6 +1635,12 @@
         "bun": "./dist/integrations/providers/voice.js",
         "node": "./dist/node/integrations/providers/voice.js",
         "default": "./dist/integrations/providers/voice.js"
+      },
+      "./integrations/providers/voice-video-sync": {
+        "types": "./dist/integrations/providers/voice-video-sync.d.ts",
+        "bun": "./dist/integrations/providers/voice-video-sync.js",
+        "node": "./dist/node/integrations/providers/voice-video-sync.js",
+        "default": "./dist/integrations/providers/voice-video-sync.js"
       },
       "./integrations/runtime": {
         "types": "./dist/integrations/runtime.d.ts",
