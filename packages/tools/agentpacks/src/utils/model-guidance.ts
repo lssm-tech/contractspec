@@ -78,16 +78,27 @@ export function generateModelGuidanceMarkdown(
 
   // Routing rules
   if (resolved.routing.length > 0) {
-    lines.push('## Routing Rules');
+    lines.push('## Task-Aware Routing');
     lines.push('');
-    lines.push('| Condition | Profile |');
-    lines.push('| --- | --- |');
+    lines.push('Select the appropriate profile based on the task context:');
+    lines.push('');
+    lines.push('| Condition | Profile | Description |');
+    lines.push('| --- | --- | --- |');
     for (const rule of resolved.routing) {
       const conditions = Object.entries(rule.when)
         .map(([k, v]) => `${k}=${v}`)
         .join(', ');
-      lines.push(`| ${conditions} | ${rule.use} |`);
+      const desc = (rule as { description?: string }).description ?? '\u2014';
+      lines.push(`| ${conditions} | ${rule.use} | ${desc} |`);
     }
+    lines.push('');
+    lines.push('### Condition Reference');
+    lines.push('');
+    lines.push('- **complexity**: low | medium | high | critical');
+    lines.push('- **urgency**: low | normal | high');
+    lines.push('- **budget**: minimal | standard | premium');
+    lines.push('- **contextWindowNeed**: small | medium | large | max');
+    lines.push('- **toolUseIntensity**: none | light | heavy');
     lines.push('');
   }
 

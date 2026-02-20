@@ -42,11 +42,47 @@ export const ModelProfileSchema = z.object({
 export type ModelProfile = z.infer<typeof ModelProfileSchema>;
 
 /**
+ * Structured routing condition — richer than simple key=value.
+ * Supports task complexity, urgency, budget, context needs, and tool usage.
+ */
+export const RoutingConditionSchema = z.object({
+  complexity: z
+    .enum(['low', 'medium', 'high', 'critical'])
+    .optional()
+    .describe('Task complexity level'),
+  urgency: z
+    .enum(['low', 'normal', 'high'])
+    .optional()
+    .describe('Time sensitivity'),
+  budget: z
+    .enum(['minimal', 'standard', 'premium'])
+    .optional()
+    .describe('Cost/token budget tier'),
+  contextWindowNeed: z
+    .enum(['small', 'medium', 'large', 'max'])
+    .optional()
+    .describe('Required context window size'),
+  toolUseIntensity: z
+    .enum(['none', 'light', 'heavy'])
+    .optional()
+    .describe('Expected tool/function calling intensity'),
+});
+
+export type RoutingCondition = z.infer<typeof RoutingConditionSchema>;
+
+/**
  * Routing rule — maps task context to a profile.
+ *
+ * `when` accepts either:
+ * - Simple key=value pairs: `{ task: "review", language: "rust" }`
+ * - Structured conditions: `{ complexity: "high", budget: "premium" }`
+ * Both forms can be mixed.
  */
 export const RoutingRuleSchema = z.object({
   when: z.record(z.string(), z.string()),
   use: z.string(),
+  description: z.string().optional(),
+  priority: z.number().optional(),
 });
 
 export type RoutingRule = z.infer<typeof RoutingRuleSchema>;
