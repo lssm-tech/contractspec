@@ -52,6 +52,16 @@
     "./bot/feedback-loop": "./src/bot/feedback-loop.ts",
     "./bot/index": "./src/bot/index.ts",
     "./bot/tools": "./src/bot/tools.ts",
+    "./i18n": "./src/i18n/index.ts",
+    "./i18n/catalogs": "./src/i18n/catalogs/index.ts",
+    "./i18n/catalogs/en": "./src/i18n/catalogs/en.ts",
+    "./i18n/catalogs/es": "./src/i18n/catalogs/es.ts",
+    "./i18n/catalogs/fr": "./src/i18n/catalogs/fr.ts",
+    "./i18n/catalogs/index": "./src/i18n/catalogs/index.ts",
+    "./i18n/index": "./src/i18n/index.ts",
+    "./i18n/keys": "./src/i18n/keys.ts",
+    "./i18n/locale": "./src/i18n/locale.ts",
+    "./i18n/messages": "./src/i18n/messages.ts",
     "./rag": "./src/rag/index.ts",
     "./rag/index": "./src/rag/index.ts",
     "./rag/ticket-resolver": "./src/rag/ticket-resolver.ts",
@@ -59,15 +69,7 @@
     "./tickets": "./src/tickets/index.ts",
     "./tickets/classifier": "./src/tickets/classifier.ts",
     "./tickets/index": "./src/tickets/index.ts",
-    "./types": "./src/types.ts",
-    "./i18n": "./src/i18n/index.ts",
-    "./i18n/keys": "./src/i18n/keys.ts",
-    "./i18n/locale": "./src/i18n/locale.ts",
-    "./i18n/messages": "./src/i18n/messages.ts",
-    "./i18n/catalogs": "./src/i18n/catalogs/index.ts",
-    "./i18n/catalogs/en": "./src/i18n/catalogs/en.ts",
-    "./i18n/catalogs/fr": "./src/i18n/catalogs/fr.ts",
-    "./i18n/catalogs/es": "./src/i18n/catalogs/es.ts"
+    "./types": "./src/types.ts"
   },
   "publishConfig": {
     "access": "public",
@@ -113,6 +115,76 @@
         "node": "./dist/node/bot/tools.js",
         "browser": "./dist/browser/bot/tools.js",
         "default": "./dist/bot/tools.js"
+      },
+      "./i18n": {
+        "types": "./dist/i18n/index.d.ts",
+        "bun": "./dist/i18n/index.js",
+        "node": "./dist/node/i18n/index.js",
+        "browser": "./dist/browser/i18n/index.js",
+        "default": "./dist/i18n/index.js"
+      },
+      "./i18n/catalogs": {
+        "types": "./dist/i18n/catalogs/index.d.ts",
+        "bun": "./dist/i18n/catalogs/index.js",
+        "node": "./dist/node/i18n/catalogs/index.js",
+        "browser": "./dist/browser/i18n/catalogs/index.js",
+        "default": "./dist/i18n/catalogs/index.js"
+      },
+      "./i18n/catalogs/en": {
+        "types": "./dist/i18n/catalogs/en.d.ts",
+        "bun": "./dist/i18n/catalogs/en.js",
+        "node": "./dist/node/i18n/catalogs/en.js",
+        "browser": "./dist/browser/i18n/catalogs/en.js",
+        "default": "./dist/i18n/catalogs/en.js"
+      },
+      "./i18n/catalogs/es": {
+        "types": "./dist/i18n/catalogs/es.d.ts",
+        "bun": "./dist/i18n/catalogs/es.js",
+        "node": "./dist/node/i18n/catalogs/es.js",
+        "browser": "./dist/browser/i18n/catalogs/es.js",
+        "default": "./dist/i18n/catalogs/es.js"
+      },
+      "./i18n/catalogs/fr": {
+        "types": "./dist/i18n/catalogs/fr.d.ts",
+        "bun": "./dist/i18n/catalogs/fr.js",
+        "node": "./dist/node/i18n/catalogs/fr.js",
+        "browser": "./dist/browser/i18n/catalogs/fr.js",
+        "default": "./dist/i18n/catalogs/fr.js"
+      },
+      "./i18n/catalogs/index": {
+        "types": "./dist/i18n/catalogs/index.d.ts",
+        "bun": "./dist/i18n/catalogs/index.js",
+        "node": "./dist/node/i18n/catalogs/index.js",
+        "browser": "./dist/browser/i18n/catalogs/index.js",
+        "default": "./dist/i18n/catalogs/index.js"
+      },
+      "./i18n/index": {
+        "types": "./dist/i18n/index.d.ts",
+        "bun": "./dist/i18n/index.js",
+        "node": "./dist/node/i18n/index.js",
+        "browser": "./dist/browser/i18n/index.js",
+        "default": "./dist/i18n/index.js"
+      },
+      "./i18n/keys": {
+        "types": "./dist/i18n/keys.d.ts",
+        "bun": "./dist/i18n/keys.js",
+        "node": "./dist/node/i18n/keys.js",
+        "browser": "./dist/browser/i18n/keys.js",
+        "default": "./dist/i18n/keys.js"
+      },
+      "./i18n/locale": {
+        "types": "./dist/i18n/locale.d.ts",
+        "bun": "./dist/i18n/locale.js",
+        "node": "./dist/node/i18n/locale.js",
+        "browser": "./dist/browser/i18n/locale.js",
+        "default": "./dist/i18n/locale.js"
+      },
+      "./i18n/messages": {
+        "types": "./dist/i18n/messages.d.ts",
+        "bun": "./dist/i18n/messages.js",
+        "node": "./dist/node/i18n/messages.js",
+        "browser": "./dist/browser/i18n/messages.js",
+        "default": "./dist/i18n/messages.js"
       },
       "./rag": {
         "types": "./dist/rag/index.d.ts",
@@ -169,62 +241,6 @@
         "node": "./dist/node/types.js",
         "browser": "./dist/browser/types.js",
         "default": "./dist/types.js"
-      },
-      "./i18n": {
-        "types": "./dist/i18n/index.d.ts",
-        "bun": "./dist/i18n/index.js",
-        "node": "./dist/node/i18n/index.js",
-        "browser": "./dist/browser/i18n/index.js",
-        "default": "./dist/i18n/index.js"
-      },
-      "./i18n/keys": {
-        "types": "./dist/i18n/keys.d.ts",
-        "bun": "./dist/i18n/keys.js",
-        "node": "./dist/node/i18n/keys.js",
-        "browser": "./dist/browser/i18n/keys.js",
-        "default": "./dist/i18n/keys.js"
-      },
-      "./i18n/locale": {
-        "types": "./dist/i18n/locale.d.ts",
-        "bun": "./dist/i18n/locale.js",
-        "node": "./dist/node/i18n/locale.js",
-        "browser": "./dist/browser/i18n/locale.js",
-        "default": "./dist/i18n/locale.js"
-      },
-      "./i18n/messages": {
-        "types": "./dist/i18n/messages.d.ts",
-        "bun": "./dist/i18n/messages.js",
-        "node": "./dist/node/i18n/messages.js",
-        "browser": "./dist/browser/i18n/messages.js",
-        "default": "./dist/i18n/messages.js"
-      },
-      "./i18n/catalogs": {
-        "types": "./dist/i18n/catalogs/index.d.ts",
-        "bun": "./dist/i18n/catalogs/index.js",
-        "node": "./dist/node/i18n/catalogs/index.js",
-        "browser": "./dist/browser/i18n/catalogs/index.js",
-        "default": "./dist/i18n/catalogs/index.js"
-      },
-      "./i18n/catalogs/en": {
-        "types": "./dist/i18n/catalogs/en.d.ts",
-        "bun": "./dist/i18n/catalogs/en.js",
-        "node": "./dist/node/i18n/catalogs/en.js",
-        "browser": "./dist/browser/i18n/catalogs/en.js",
-        "default": "./dist/i18n/catalogs/en.js"
-      },
-      "./i18n/catalogs/fr": {
-        "types": "./dist/i18n/catalogs/fr.d.ts",
-        "bun": "./dist/i18n/catalogs/fr.js",
-        "node": "./dist/node/i18n/catalogs/fr.js",
-        "browser": "./dist/browser/i18n/catalogs/fr.js",
-        "default": "./dist/i18n/catalogs/fr.js"
-      },
-      "./i18n/catalogs/es": {
-        "types": "./dist/i18n/catalogs/es.d.ts",
-        "bun": "./dist/i18n/catalogs/es.js",
-        "node": "./dist/node/i18n/catalogs/es.js",
-        "browser": "./dist/browser/i18n/catalogs/es.js",
-        "default": "./dist/i18n/catalogs/es.js"
       }
     },
     "registry": "https://registry.npmjs.org/"

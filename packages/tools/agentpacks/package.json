@@ -42,8 +42,8 @@
     "./cli/export-cmd": "./src/cli/export-cmd.ts",
     "./cli/generate": "./src/cli/generate.ts",
     "./cli/import-cmd": "./src/cli/import-cmd.ts",
-    "./cli/init": "./src/cli/init.ts",
     "./cli/info": "./src/cli/info.ts",
+    "./cli/init": "./src/cli/init.ts",
     "./cli/install": "./src/cli/install.ts",
     "./cli/login": "./src/cli/login.ts",
     "./cli/pack/create": "./src/cli/pack/create.ts",
@@ -71,9 +71,9 @@
     "./features/ignore": "./src/features/ignore.ts",
     "./features/index": "./src/features/index.ts",
     "./features/mcp": "./src/features/mcp.ts",
+    "./features/models": "./src/features/models.ts",
     "./features/plugins": "./src/features/plugins.ts",
     "./features/rules": "./src/features/rules.ts",
-    "./features/models": "./src/features/models.ts",
     "./features/skills": "./src/features/skills.ts",
     "./importers/claude-code": "./src/importers/claude-code.ts",
     "./importers/cursor": "./src/importers/cursor.ts",
@@ -101,11 +101,11 @@
     "./targets/index": "./src/targets/index.ts",
     "./targets/opencode": "./src/targets/opencode.ts",
     "./targets/registry": "./src/targets/registry.ts",
+    "./utils/credentials": "./src/utils/credentials.ts",
     "./utils/diff": "./src/utils/diff.ts",
     "./utils/filesystem": "./src/utils/filesystem.ts",
     "./utils/frontmatter": "./src/utils/frontmatter.ts",
     "./utils/global": "./src/utils/global.ts",
-    "./utils/credentials": "./src/utils/credentials.ts",
     "./utils/markdown": "./src/utils/markdown.ts",
     "./utils/model-guidance": "./src/utils/model-guidance.ts",
     "./utils/registry-client": "./src/utils/registry-client.ts",
@@ -164,17 +164,17 @@
         "node": "./dist/node/cli/import-cmd.js",
         "default": "./dist/cli/import-cmd.js"
       },
-      "./cli/init": {
-        "types": "./dist/cli/init.d.ts",
-        "bun": "./dist/cli/init.js",
-        "node": "./dist/node/cli/init.js",
-        "default": "./dist/cli/init.js"
-      },
       "./cli/info": {
         "types": "./dist/cli/info.d.ts",
         "bun": "./dist/cli/info.js",
         "node": "./dist/node/cli/info.js",
         "default": "./dist/cli/info.js"
+      },
+      "./cli/init": {
+        "types": "./dist/cli/init.d.ts",
+        "bun": "./dist/cli/init.js",
+        "node": "./dist/node/cli/init.js",
+        "default": "./dist/cli/init.js"
       },
       "./cli/install": {
         "types": "./dist/cli/install.d.ts",
