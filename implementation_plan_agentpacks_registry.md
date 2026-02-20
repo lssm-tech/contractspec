@@ -1065,14 +1065,14 @@ interface RegistryStatsResponse {
 - [x] Wire MCP endpoint into Elysia server (`/mcp`)
 - [x] MCP integration tests (17 tests)
 
-#### Website
+#### Website ✅
 
-- [ ] Shared API client lib for SSR/CSR data fetching
-- [ ] `/registry/packs` — search page with tag/target filters, pagination
-- [ ] `/registry/packs/[name]` — detail page with README render, version list, install snippet
-- [ ] `/registry/packs/[name]/versions/[ver]` — version detail with manifest + changelog
-- [ ] `/registry/featured` — curated grid with cards
-- [ ] `/registry/publish` — static publishing guide page
+- [x] Shared API client lib for SSR/CSR data fetching (`web-landing/src/lib/registry-api.ts`)
+- [x] `/registry/packs` — search page with tag/target filters, pagination
+- [x] `/registry/packs/[name]` — detail page with README render, version list, install snippet
+- [x] `/registry/packs/[name]/versions/[ver]` — version detail with manifest + changelog
+- [x] `/registry/featured` — curated grid with cards
+- [x] `/registry/publish` — static publishing guide page
 
 #### Storage & Stats
 
