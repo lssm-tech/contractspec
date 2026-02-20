@@ -25,7 +25,7 @@ The rendering layer wraps \`@remotion/renderer\` for MP4/WebM output and \`@remo
 
 ## LocalRenderer
 
-Renders a \`VideoProject\` to a video file using the local Remotion renderer. Requires **Node.js** (not Bun-compatible).
+Renders a \`VideoProject\` to a video file using the local Remotion renderer. Works with **Node.js** and **Bun** (via \`remotionb\`). Bun caveat: SSR scripts may not auto-quit (see [Remotion Bun docs](https://www.remotion.dev/docs/bun)).
 
 \`\`\`ts
 import { LocalRenderer } from "@contractspec/lib.video-gen/renderers/local";
@@ -47,7 +47,7 @@ result.fileSizeBytes;   // file size
 result.dimensions;      // { width: 1920, height: 1080 }
 \`\`\`
 
-> **Important**: Import \`LocalRenderer\` from the \`/renderers/local\` subpath, not from the main entry. It dynamically imports \`@remotion/bundler\` and \`@remotion/renderer\` which are Node.js-only.
+> **Important**: Import \`LocalRenderer\` from the \`/renderers/local\` subpath, not from the main entry. It dynamically imports \`@remotion/bundler\` and \`@remotion/renderer\` to avoid bundling them in browser builds.
 
 ### Auto-Variants
 
@@ -169,7 +169,7 @@ The \`@contractspec/app.video-studio\` package provides a Remotion Studio entry 
 bun run dev:video
 
 # Render a specific composition
-npx remotion render src/index.ts ApiOverview out/api-overview.mp4
+bunx remotionb render src/index.ts ApiOverview out/api-overview.mp4
 
 # Render all compositions
 bun run render:all
@@ -189,7 +189,7 @@ All compositions run at 30fps.
 
 ## Guardrails
 
-- \`LocalRenderer\` requires Node.js -- do not attempt to use it in browser or Bun environments.
+- \`LocalRenderer\` requires Node.js or Bun -- do not attempt to use it in browser environments. On Bun, SSR scripts may not auto-quit (see [Remotion Bun docs](https://www.remotion.dev/docs/bun)).
 - Import \`LocalRenderer\` from the \`/renderers/local\` subpath to avoid bundling \`@remotion/renderer\` in browser builds.
 - The \`remotion\` entry point (\`@contractspec/lib.video-gen/remotion\`) is a **side-effect module** that calls \`registerRoot()\`. Only import it from Remotion Studio or render scripts.
 - Use quality presets for consistency: \`draft\` for development, \`standard\` for CI, \`high\` for releases.

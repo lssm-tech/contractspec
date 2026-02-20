@@ -8,7 +8,7 @@ This app is a thin wrapper around `@contractspec/lib.video-gen` -- it provides t
 
 ## Quick Start
 
-> **Requires Node.js** -- Remotion does not run on Bun.
+> Uses `remotionb` CLI for Bun runtime support. See [Remotion Bun docs](https://www.remotion.dev/docs/bun) for known caveats (`lazyComponent` disabled, SSR scripts may not auto-quit).
 
 ```bash
 # Start Remotion Studio for live preview

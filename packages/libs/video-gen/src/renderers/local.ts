@@ -1,7 +1,9 @@
 // ---------------------------------------------------------------------------
 // Local Renderer -- Wraps @remotion/renderer for local video rendering
 // ---------------------------------------------------------------------------
-// This module is designed to be imported only in Node.js environments.
+// This module can be used in Node.js or Bun environments.
+// Bun caveat: SSR scripts may not auto-quit after completion
+// (see https://www.remotion.dev/docs/bun).
 // The @remotion/renderer dependency is a devDependency / optional.
 // ---------------------------------------------------------------------------
 
@@ -36,7 +38,7 @@ export class LocalRenderer implements VideoProvider {
   ): Promise<RenderResult> {
     const resolved = resolveRenderConfig(config);
 
-    // Dynamically import Remotion packages (Node.js only)
+    // Dynamically import Remotion packages (Node.js or Bun)
     const { bundle } = await import('@remotion/bundler');
     const { renderMedia, selectComposition } =
       await import('@remotion/renderer');

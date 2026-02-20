@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "npx remotion studio src/index.ts",
+    "dev": "bunx remotionb studio src/index.ts",
     "build": "echo 'No build step needed for Remotion Studio'",
-    "render": "npx remotion render src/index.ts",
-    "render:all": "npx remotion render src/index.ts ApiOverview out/api-overview.mp4 && npx remotion render src/index.ts SocialClip out/social-clip.mp4 && npx remotion render src/index.ts SocialClipSquare out/social-clip-square.mp4 && npx remotion render src/index.ts SocialClipPortrait out/social-clip-portrait.mp4 && npx remotion render src/index.ts TerminalDemo out/terminal-demo.mp4",
+    "render": "bunx remotionb render src/index.ts",
+    "render:all": "bunx remotionb render src/index.ts ApiOverview out/api-overview.mp4 && bunx remotionb render src/index.ts SocialClip out/social-clip.mp4 && bunx remotionb render src/index.ts SocialClipSquare out/social-clip-square.mp4 && bunx remotionb render src/index.ts SocialClipPortrait out/social-clip-portrait.mp4 && bunx remotionb render src/index.ts TerminalDemo out/terminal-demo.mp4",
     "clean": "rimraf out .turbo"
   },
   "dependencies": {
