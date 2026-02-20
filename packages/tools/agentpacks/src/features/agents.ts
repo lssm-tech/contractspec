@@ -13,10 +13,12 @@ export interface AgentFrontmatter {
   /** Per-target overrides */
   claudecode?: { model?: string; [key: string]: unknown };
   copilot?: { tools?: string[]; [key: string]: unknown };
+  cursor?: { model?: string; [key: string]: unknown };
   opencode?: {
     mode?: string;
     model?: string;
     temperature?: number;
+    top_p?: number;
     tools?: Record<string, boolean>;
     permission?: Record<string, Record<string, string>>;
     [key: string]: unknown;

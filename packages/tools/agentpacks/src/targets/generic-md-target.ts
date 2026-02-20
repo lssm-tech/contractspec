@@ -16,6 +16,8 @@ import {
 } from './base-target.js';
 import { ruleMatchesTarget } from '../features/rules.js';
 import { commandMatchesTarget } from '../features/commands.js';
+import { resolveModels } from '../core/profile-resolver.js';
+import { generateModelGuidanceMarkdown } from '../utils/model-guidance.js';
 import {
   writeGeneratedFile,
   writeGeneratedJson,
@@ -137,6 +139,22 @@ class GenericMdTarget extends BaseTarget {
       if (features.ignorePatterns.length > 0) {
         const filepath = resolve(root, this.config.ignoreFile);
         writeGeneratedFile(filepath, features.ignorePatterns.join('\n') + '\n');
+        filesWritten.push(filepath);
+      }
+    }
+
+    // Models: generate guidance markdown
+    if (effective.includes('models') && features.models) {
+      const resolved = resolveModels(
+        features.models,
+        options.modelProfile,
+        this.id
+      );
+      const guidance = generateModelGuidanceMarkdown(resolved);
+      if (guidance) {
+        ensureDir(configDir);
+        const filepath = join(configDir, 'model-config.md');
+        writeGeneratedFile(filepath, guidance);
         filesWritten.push(filepath);
       }
     }

@@ -1,0 +1,30 @@
+import Database from 'better-sqlite3';
+import { drizzle } from 'drizzle-orm/better-sqlite3';
+import * as schema from './schema.js';
+
+const DATABASE_URL = process.env.DATABASE_URL ?? './data/registry.db';
+
+/**
+ * SQLite database connection singleton.
+ */
+let _db: ReturnType<typeof createDb> | null = null;
+
+function createDb() {
+  const sqlite = new Database(DATABASE_URL);
+  sqlite.pragma('journal_mode = WAL');
+  sqlite.pragma('foreign_keys = ON');
+
+  return drizzle(sqlite, { schema });
+}
+
+/**
+ * Get the database instance (singleton).
+ */
+export function getDb() {
+  if (!_db) {
+    _db = createDb();
+  }
+  return _db;
+}
+
+export type Db = ReturnType<typeof getDb>;

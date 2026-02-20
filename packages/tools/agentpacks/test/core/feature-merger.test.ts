@@ -23,6 +23,7 @@ function makePack(overrides: Partial<LoadedPack>): LoadedPack {
     plugins: [],
     mcp: null,
     ignore: null,
+    models: null,
     ...overrides,
   };
 }

@@ -44,6 +44,11 @@ export {
   type DependencyResolution,
   resolveDependencies,
 } from './core/dependency-resolver.js';
+export {
+  type ResolvedModels,
+  resolveModels,
+  resolveAgentModel,
+} from './core/profile-resolver.js';
 
 // Sources
 export { isLocalPackRef, resolveLocalPack } from './sources/local.js';
@@ -57,6 +62,12 @@ export {
   parseNpmSourceRef,
   type NpmSourceRef,
 } from './sources/npm-ref.js';
+export {
+  isRegistryPackRef,
+  parseRegistrySourceRef,
+  registrySourceKey,
+  type RegistrySourceRef,
+} from './sources/registry-ref.js';
 export { installGitSource } from './sources/git.js';
 export { installNpmSource } from './sources/npm.js';
 

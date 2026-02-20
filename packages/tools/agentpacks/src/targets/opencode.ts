@@ -14,10 +14,13 @@ import { commandMatchesTarget } from '../features/commands.js';
 import { agentMatchesTarget } from '../features/agents.js';
 import { skillMatchesTarget } from '../features/skills.js';
 import { resolveHooksForTarget } from '../features/hooks.js';
+import { resolveModels, resolveAgentModel } from '../core/profile-resolver.js';
 import { packNameToIdentifier } from '../utils/markdown.js';
+import { serializeFrontmatter } from '../utils/frontmatter.js';
 import {
   writeGeneratedFile,
   writeGeneratedJson,
+  readJsonOrNull,
   removeIfExists,
   ensureDir,
 } from '../utils/filesystem.js';
@@ -42,6 +45,7 @@ export class OpenCodeTarget extends BaseTarget {
     'plugins',
     'mcp',
     'ignore',
+    'models',
   ];
 
   generate(options: GenerateOptions): GenerateResult {
@@ -63,12 +67,39 @@ export class OpenCodeTarget extends BaseTarget {
       }
       ensureDir(agentDir);
 
+      // Resolve models for agent frontmatter passthrough
+      const resolvedModels = features.models
+        ? resolveModels(features.models, options.modelProfile, TARGET_ID)
+        : null;
+
       const agents = features.agents.filter((a) =>
         agentMatchesTarget(a, TARGET_ID)
       );
       for (const agent of agents) {
         const filepath = join(agentDir, `${agent.name}.md`);
-        writeGeneratedFile(filepath, agent.content);
+        // Build frontmatter with model metadata
+        const fm: Record<string, unknown> = {};
+        const oc = agent.meta.opencode ?? {};
+        // Models feature takes precedence over agent frontmatter
+        const modelsAgent = resolvedModels?.agents[agent.name];
+        const agentModel =
+          modelsAgent?.model ?? (oc as Record<string, unknown>).model;
+        const agentTemp =
+          modelsAgent?.temperature ??
+          (oc as Record<string, unknown>).temperature;
+
+        if (agentModel) fm.model = agentModel;
+        if (agentTemp !== undefined) fm.temperature = agentTemp;
+        if ((oc as Record<string, unknown>).mode)
+          fm.mode = (oc as Record<string, unknown>).mode;
+        if ((oc as Record<string, unknown>).top_p !== undefined)
+          fm.top_p = (oc as Record<string, unknown>).top_p;
+
+        const content =
+          Object.keys(fm).length > 0
+            ? serializeFrontmatter(fm, agent.content)
+            : agent.content;
+        writeGeneratedFile(filepath, content);
         filesWritten.push(filepath);
       }
     }
@@ -149,11 +180,55 @@ export class OpenCodeTarget extends BaseTarget {
       }
     }
 
-    if (effective.includes('mcp')) {
-      const mcpEntries = Object.entries(features.mcpServers);
-      if (mcpEntries.length > 0) {
-        const opencodeConfig = buildOpenCodeMcp(features.mcpServers);
-        const filepath = resolve(root, 'opencode.json');
+    // Build opencode.json (combines MCP + models config)
+    if (effective.includes('mcp') || effective.includes('models')) {
+      const filepath = resolve(root, 'opencode.json');
+      const existing = readJsonOrNull<Record<string, unknown>>(filepath) ?? {};
+      const opencodeConfig: Record<string, unknown> = {
+        $schema: 'https://opencode.ai/config.json',
+      };
+
+      // MCP servers
+      if (effective.includes('mcp')) {
+        const mcpEntries = Object.entries(features.mcpServers);
+        if (mcpEntries.length > 0) {
+          opencodeConfig.mcp = buildOpenCodeMcpServers(features.mcpServers);
+        }
+      }
+
+      // Models config
+      if (effective.includes('models') && features.models) {
+        const resolved = resolveModels(
+          features.models,
+          options.modelProfile,
+          TARGET_ID
+        );
+        if (resolved.default) opencodeConfig.model = resolved.default;
+        if (resolved.small) opencodeConfig.small_model = resolved.small;
+
+        // Provider options/variants
+        if (Object.keys(resolved.providers).length > 0) {
+          opencodeConfig.provider = resolved.providers;
+        }
+
+        // Per-agent model assignments
+        const agentEntries = Object.entries(resolved.agents);
+        if (agentEntries.length > 0) {
+          const agentConfig: Record<string, Record<string, unknown>> = {};
+          for (const [name, assignment] of agentEntries) {
+            agentConfig[name] = { model: assignment.model };
+            if (assignment.temperature !== undefined) {
+              agentConfig[name]!.temperature = assignment.temperature;
+            }
+            if (assignment.top_p !== undefined) {
+              agentConfig[name]!.top_p = assignment.top_p;
+            }
+          }
+          opencodeConfig.agent = agentConfig;
+        }
+      }
+
+      if (Object.keys(opencodeConfig).length > 1) {
         writeGeneratedJson(filepath, opencodeConfig, { header: false });
         filesWritten.push(filepath);
       }
@@ -191,9 +266,9 @@ export class OpenCodeTarget extends BaseTarget {
 }
 
 /**
- * Build opencode.json MCP config from merged servers.
+ * Build opencode.json MCP servers map from merged servers.
  */
-function buildOpenCodeMcp(
+function buildOpenCodeMcpServers(
   servers: Record<
     string,
     {
@@ -232,10 +307,7 @@ function buildOpenCodeMcp(
     }
   }
 
-  return {
-    $schema: 'https://opencode.ai/config.json',
-    mcp,
-  };
+  return mcp;
 }
 
 /**

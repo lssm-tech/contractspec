@@ -3,6 +3,7 @@ import { resolve, join } from 'path';
 import chalk from 'chalk';
 import { loadWorkspaceConfig, loadPackManifest } from '../../core/config.js';
 import { listFiles, listDirs } from '../../utils/filesystem.js';
+import { parseModels, scanModelsForSecrets } from '../../features/models.js';
 
 /**
  * Validate all configured packs.
@@ -86,6 +87,29 @@ export function runPackValidate(projectRoot: string): void {
         ...listFiles(pluginsDir, { extension: '.js' }),
       ];
       console.log(chalk.green(`  plugins/: ${pluginFiles.length} file(s)`));
+    }
+
+    // Validate models.json (if present)
+    const modelsJsonPath = join(packDir, 'models.json');
+    if (existsSync(modelsJsonPath)) {
+      try {
+        const parsed = parseModels(packDir, 'validate');
+        if (parsed) {
+          console.log(chalk.green('  models.json: valid'));
+          // Run secret scanning
+          const secretWarnings = scanModelsForSecrets(parsed.config);
+          if (secretWarnings.length > 0) {
+            for (const w of secretWarnings) {
+              console.log(chalk.red(`  ERROR models.json: ${w}`));
+            }
+            hasErrors = true;
+          }
+        }
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        console.log(chalk.red(`  ERROR models.json: ${message}`));
+        hasErrors = true;
+      }
     }
   }
 

@@ -43,11 +43,15 @@
     "./cli/generate": "./src/cli/generate.ts",
     "./cli/import-cmd": "./src/cli/import-cmd.ts",
     "./cli/init": "./src/cli/init.ts",
+    "./cli/info": "./src/cli/info.ts",
     "./cli/install": "./src/cli/install.ts",
+    "./cli/login": "./src/cli/login.ts",
     "./cli/pack/create": "./src/cli/pack/create.ts",
     "./cli/pack/enable": "./src/cli/pack/enable.ts",
     "./cli/pack/list": "./src/cli/pack/list.ts",
     "./cli/pack/validate": "./src/cli/pack/validate.ts",
+    "./cli/publish": "./src/cli/publish.ts",
+    "./cli/search": "./src/cli/search.ts",
     "./core": "./src/core/index.ts",
     "./core/config": "./src/core/config.ts",
     "./core/dependency-resolver": "./src/core/dependency-resolver.ts",
@@ -56,6 +60,7 @@
     "./core/lockfile": "./src/core/lockfile.ts",
     "./core/metarepo": "./src/core/metarepo.ts",
     "./core/pack-loader": "./src/core/pack-loader.ts",
+    "./core/profile-resolver": "./src/core/profile-resolver.ts",
     "./exporters": "./src/exporters/index.ts",
     "./exporters/cursor-plugin": "./src/exporters/cursor-plugin.ts",
     "./exporters/index": "./src/exporters/index.ts",
@@ -68,6 +73,7 @@
     "./features/mcp": "./src/features/mcp.ts",
     "./features/plugins": "./src/features/plugins.ts",
     "./features/rules": "./src/features/rules.ts",
+    "./features/models": "./src/features/models.ts",
     "./features/skills": "./src/features/skills.ts",
     "./importers/claude-code": "./src/importers/claude-code.ts",
     "./importers/cursor": "./src/importers/cursor.ts",
@@ -80,6 +86,8 @@
     "./sources/local": "./src/sources/local.ts",
     "./sources/npm": "./src/sources/npm.ts",
     "./sources/npm-ref": "./src/sources/npm-ref.ts",
+    "./sources/registry": "./src/sources/registry.ts",
+    "./sources/registry-ref": "./src/sources/registry-ref.ts",
     "./targets": "./src/targets/index.ts",
     "./targets/additional-targets": "./src/targets/additional-targets.ts",
     "./targets/agents-md": "./src/targets/agents-md.ts",
@@ -97,7 +105,11 @@
     "./utils/filesystem": "./src/utils/filesystem.ts",
     "./utils/frontmatter": "./src/utils/frontmatter.ts",
     "./utils/global": "./src/utils/global.ts",
-    "./utils/markdown": "./src/utils/markdown.ts"
+    "./utils/credentials": "./src/utils/credentials.ts",
+    "./utils/markdown": "./src/utils/markdown.ts",
+    "./utils/model-guidance": "./src/utils/model-guidance.ts",
+    "./utils/registry-client": "./src/utils/registry-client.ts",
+    "./utils/tarball": "./src/utils/tarball.ts"
   },
   "files": [
     "dist",
@@ -158,11 +170,23 @@
         "node": "./dist/node/cli/init.js",
         "default": "./dist/cli/init.js"
       },
+      "./cli/info": {
+        "types": "./dist/cli/info.d.ts",
+        "bun": "./dist/cli/info.js",
+        "node": "./dist/node/cli/info.js",
+        "default": "./dist/cli/info.js"
+      },
       "./cli/install": {
         "types": "./dist/cli/install.d.ts",
         "bun": "./dist/cli/install.js",
         "node": "./dist/node/cli/install.js",
         "default": "./dist/cli/install.js"
+      },
+      "./cli/login": {
+        "types": "./dist/cli/login.d.ts",
+        "bun": "./dist/cli/login.js",
+        "node": "./dist/node/cli/login.js",
+        "default": "./dist/cli/login.js"
       },
       "./cli/pack/create": {
         "types": "./dist/cli/pack/create.d.ts",
@@ -187,6 +211,18 @@
         "bun": "./dist/cli/pack/validate.js",
         "node": "./dist/node/cli/pack/validate.js",
         "default": "./dist/cli/pack/validate.js"
+      },
+      "./cli/publish": {
+        "types": "./dist/cli/publish.d.ts",
+        "bun": "./dist/cli/publish.js",
+        "node": "./dist/node/cli/publish.js",
+        "default": "./dist/cli/publish.js"
+      },
+      "./cli/search": {
+        "types": "./dist/cli/search.d.ts",
+        "bun": "./dist/cli/search.js",
+        "node": "./dist/node/cli/search.js",
+        "default": "./dist/cli/search.js"
       },
       "./core": {
         "types": "./dist/core/index.d.ts",
@@ -235,6 +271,12 @@
         "bun": "./dist/core/pack-loader.js",
         "node": "./dist/node/core/pack-loader.js",
         "default": "./dist/core/pack-loader.js"
+      },
+      "./core/profile-resolver": {
+        "types": "./dist/core/profile-resolver.d.ts",
+        "bun": "./dist/core/profile-resolver.js",
+        "node": "./dist/node/core/profile-resolver.js",
+        "default": "./dist/core/profile-resolver.js"
       },
       "./exporters": {
         "types": "./dist/exporters/index.d.ts",
@@ -295,6 +337,12 @@
         "bun": "./dist/features/mcp.js",
         "node": "./dist/node/features/mcp.js",
         "default": "./dist/features/mcp.js"
+      },
+      "./features/models": {
+        "types": "./dist/features/models.d.ts",
+        "bun": "./dist/features/models.js",
+        "node": "./dist/node/features/models.js",
+        "default": "./dist/features/models.js"
       },
       "./features/plugins": {
         "types": "./dist/features/plugins.d.ts",
@@ -380,6 +428,18 @@
         "node": "./dist/node/sources/npm-ref.js",
         "default": "./dist/sources/npm-ref.js"
       },
+      "./sources/registry": {
+        "types": "./dist/sources/registry.d.ts",
+        "bun": "./dist/sources/registry.js",
+        "node": "./dist/node/sources/registry.js",
+        "default": "./dist/sources/registry.js"
+      },
+      "./sources/registry-ref": {
+        "types": "./dist/sources/registry-ref.d.ts",
+        "bun": "./dist/sources/registry-ref.js",
+        "node": "./dist/node/sources/registry-ref.js",
+        "default": "./dist/sources/registry-ref.js"
+      },
       "./targets": {
         "types": "./dist/targets/index.d.ts",
         "bun": "./dist/targets/index.js",
@@ -458,6 +518,12 @@
         "node": "./dist/node/targets/registry.js",
         "default": "./dist/targets/registry.js"
       },
+      "./utils/credentials": {
+        "types": "./dist/utils/credentials.d.ts",
+        "bun": "./dist/utils/credentials.js",
+        "node": "./dist/node/utils/credentials.js",
+        "default": "./dist/utils/credentials.js"
+      },
       "./utils/diff": {
         "types": "./dist/utils/diff.d.ts",
         "bun": "./dist/utils/diff.js",
@@ -487,6 +553,24 @@
         "bun": "./dist/utils/markdown.js",
         "node": "./dist/node/utils/markdown.js",
         "default": "./dist/utils/markdown.js"
+      },
+      "./utils/model-guidance": {
+        "types": "./dist/utils/model-guidance.d.ts",
+        "bun": "./dist/utils/model-guidance.js",
+        "node": "./dist/node/utils/model-guidance.js",
+        "default": "./dist/utils/model-guidance.js"
+      },
+      "./utils/registry-client": {
+        "types": "./dist/utils/registry-client.d.ts",
+        "bun": "./dist/utils/registry-client.js",
+        "node": "./dist/node/utils/registry-client.js",
+        "default": "./dist/utils/registry-client.js"
+      },
+      "./utils/tarball": {
+        "types": "./dist/utils/tarball.d.ts",
+        "bun": "./dist/utils/tarball.js",
+        "node": "./dist/node/utils/tarball.js",
+        "default": "./dist/utils/tarball.js"
       }
     }
   },

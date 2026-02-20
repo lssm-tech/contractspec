@@ -22,3 +22,12 @@ export {
 } from './npm-ref.js';
 
 export { resolveNpmVersion, installNpmSource } from './npm.js';
+
+export {
+  type RegistrySourceRef,
+  parseRegistrySourceRef,
+  isRegistryPackRef,
+  registrySourceKey,
+} from './registry-ref.js';
+
+export { installRegistrySource } from './registry.js';

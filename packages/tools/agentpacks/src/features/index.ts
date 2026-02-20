@@ -43,3 +43,15 @@ export {
   parseIgnore,
   mergeIgnorePatterns,
 } from './ignore.js';
+export {
+  type ParsedModels,
+  type ModelsConfig,
+  type AgentModel,
+  type ModelProfile,
+  type RoutingRule,
+  type ProviderConfig,
+  ModelsSchema,
+  parseModels,
+  mergeModelsConfigs,
+  scanModelsForSecrets,
+} from './models.js';

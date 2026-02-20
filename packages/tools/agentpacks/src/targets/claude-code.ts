@@ -14,6 +14,8 @@ import { commandMatchesTarget } from '../features/commands.js';
 import { agentMatchesTarget } from '../features/agents.js';
 import { skillMatchesTarget } from '../features/skills.js';
 import { resolveHooksForTarget } from '../features/hooks.js';
+import { resolveModels } from '../core/profile-resolver.js';
+import { generateModelGuidanceMarkdown } from '../utils/model-guidance.js';
 import {
   writeGeneratedFile,
   writeGeneratedJson,
@@ -41,6 +43,7 @@ export class ClaudeCodeTarget extends BaseTarget {
     'hooks',
     'mcp',
     'ignore',
+    'models',
   ];
 
   generate(options: GenerateOptions): GenerateResult {
@@ -136,6 +139,23 @@ export class ClaudeCodeTarget extends BaseTarget {
       for (const cmd of commands) {
         const filepath = join(commandsDir, `${cmd.name}.md`);
         writeGeneratedFile(filepath, cmd.content);
+        filesWritten.push(filepath);
+      }
+    }
+
+    // Models: generate guidance rule in .claude/rules/
+    if (effective.includes('models') && features.models) {
+      const resolved = resolveModels(
+        features.models,
+        options.modelProfile,
+        TARGET_ID
+      );
+      const guidance = generateModelGuidanceMarkdown(resolved);
+      if (guidance) {
+        const rulesDir = resolve(claudeDir, 'rules');
+        ensureDir(rulesDir);
+        const filepath = join(rulesDir, 'model-config.md');
+        writeGeneratedFile(filepath, guidance);
         filesWritten.push(filepath);
       }
     }
