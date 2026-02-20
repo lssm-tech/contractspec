@@ -452,10 +452,10 @@ Use the following model preferences when working in this project.
 
 #### 7.1.7 Tests
 
-- [ ] Service layer unit tests (pack-service, version-service, search-service, publish-service)
-- [ ] Route handler integration tests (all endpoints)
-- [ ] Auth middleware tests
-- [ ] Storage layer tests
+- [x] Auth token utility tests (generateToken, hashToken)
+- [x] Storage layer tests (LocalStorage put/get/delete/exists)
+- [ ] Service layer unit tests with in-memory SQLite (deferred: requires DB fixture)
+- [ ] Route handler integration tests (deferred: requires running server)
 
 ### 7.2 CLI Extensions (`packages/tools/agentpacks/`)
 
@@ -484,8 +484,8 @@ Use the following model preferences when working in this project.
 
 - [x] `test/sources/registry-ref.test.ts` — ref parsing tests
 - [x] `test/sources/registry.test.ts` — registry resolver tests (mocked HTTP)
-- [ ] `test/cli/search.test.ts` — search command output (deferred)
-- [ ] `test/cli/publish.test.ts` — publish flow (deferred)
+- [x] `test/cli/search.test.ts` — search command output
+- [x] `test/cli/publish.test.ts` — publish flow
 - [x] `test/utils/tarball.test.ts` — tarball create/extract
 - [x] `test/utils/registry-client.test.ts` — API client tests
 
@@ -514,7 +514,7 @@ Use the following model preferences when working in this project.
 - [x] Update `AgentFrontmatter` with explicit `cursor` model override support
 - [x] OpenCode target: stop dropping `agent.meta.opencode.model` and related options
 - [x] Cursor target: include model hints in generated agent frontmatter when present
-- [ ] Claude Code target: serialize `agent.meta.claudecode.model`
+- [x] Claude Code target: serialize `agent.meta.claudecode.model` via model comment injection
 - [x] Enforce precedence: `models` feature overrides per-agent frontmatter
 
 #### 7.3.4 Security and Validation
@@ -537,8 +537,8 @@ Use the following model preferences when working in this project.
 - [x] Update `.github/workflows/agentpacks.yml` to include registry tests
 - [x] Changeset file for version bump
 - [ ] Update agentpacks `README.md` with registry docs
-- [ ] End-to-end test: publish → search → install → generate
-- [ ] End-to-end test: model profile switch (`modelProfile=quality|budget|fast`) updates generated target configs
+- [ ] End-to-end test: publish → search → install → generate (requires live registry server)
+- [x] End-to-end test: model profile switch (`modelProfile=quality|budget|fast`) updates generated target configs
 
 ---
 
@@ -938,87 +938,87 @@ interface RegistryStatsResponse {
 
 #### Registry Server Scaffolding
 
-- [ ] Create directory structure
-- [ ] `package.json` + deps
-- [ ] `tsconfig.json`
-- [ ] `drizzle.config.ts`
-- [ ] Entry point (`src/index.ts`)
-- [ ] Server wiring (`src/server.ts`)
+- [x] Create directory structure
+- [x] `package.json` + deps
+- [x] `tsconfig.json`
+- [x] `drizzle.config.ts`
+- [x] Entry point (`src/index.ts`)
+- [x] Server wiring (`src/server.ts`)
 
 #### Database
 
-- [ ] Schema definitions (`src/db/schema.ts`)
-- [ ] Client connection (`src/db/client.ts`)
+- [x] Schema definitions (`src/db/schema.ts`)
+- [x] Client connection (`src/db/client.ts`)
 - [ ] Initial migration
 - [ ] Seed script
 
 #### Services
 
-- [ ] `pack-service.ts`
-- [ ] `version-service.ts`
-- [ ] `search-service.ts`
-- [ ] `publish-service.ts`
-- [ ] `stats-service.ts`
+- [x] `pack-service.ts`
+- [x] `version-service.ts`
+- [x] `search-service.ts`
+- [ ] `publish-service.ts` (publish logic in routes/publish.ts)
+- [ ] `stats-service.ts` (stats via search-service)
 
 #### Storage
 
-- [ ] Storage interface (`types.ts`)
-- [ ] Local storage (`local.ts`)
+- [x] Storage interface (`types.ts`)
+- [x] Local storage (`local.ts`)
 
 #### Auth
 
-- [ ] Token management (`token.ts`)
-- [ ] Auth middleware (`middleware.ts`)
+- [x] Token management (`token.ts`)
+- [x] Auth middleware (`middleware.ts`)
 
 #### Routes
 
-- [ ] `GET /packs` + `GET /packs/:name`
-- [ ] `GET /packs/:name/versions[/:version]`
-- [ ] `GET /packs/:name/versions/:version/download`
-- [ ] `GET /packs/:name/readme`
-- [ ] `POST /packs` (publish)
+- [x] `GET /packs` + `GET /packs/:name`
+- [x] `GET /packs/:name/versions[/:version]`
+- [x] `GET /packs/:name/versions/:version/download`
+- [x] `GET /packs/:name/readme`
+- [x] `POST /packs` (publish)
 - [ ] `DELETE /packs/:name/versions/:version`
-- [ ] `GET /featured`
-- [ ] `GET /tags`
-- [ ] `GET /targets/:targetId`
-- [ ] `GET /stats`
-- [ ] `GET /health`
+- [x] `GET /featured`
+- [x] `GET /tags`
+- [x] `GET /targets/:targetId`
+- [x] `GET /stats`
+- [x] `GET /health`
 
 #### CLI (agentpacks)
 
-- [ ] `registry-ref.ts` source parser
-- [ ] `registry.ts` source resolver
-- [ ] Update source index + pack-loader + lockfile
-- [ ] `search.ts` command
-- [ ] `info.ts` command
-- [ ] `publish.ts` command
-- [ ] `login.ts` command
-- [ ] `tarball.ts` utility
-- [ ] `registry-client.ts` utility
-- [ ] Register commands in `src/index.ts`
+- [x] `registry-ref.ts` source parser
+- [x] `registry.ts` source resolver
+- [x] Update source index + pack-loader + lockfile
+- [x] `search.ts` command
+- [x] `info.ts` command
+- [x] `publish.ts` command
+- [x] `login.ts` command
+- [x] `tarball.ts` utility
+- [x] `registry-client.ts` utility
+- [x] Register commands in `src/index.ts`
 
 #### Models Feature (agentpacks)
 
-- [ ] `src/features/models.ts` — parser + schema + validation
-- [ ] Export models parser/types from `src/features/index.ts`
-- [ ] Add `"models"` to `FEATURE_IDS`
-- [ ] Add `modelProfile` to workspace config schema
-- [ ] Add `models` field to loaded pack type + parsing
-- [ ] Add `models` field to merged feature output + merge strategy
-- [ ] Add `src/core/profile-resolver.ts` for profile activation and overlay
-- [ ] OpenCode generation of model fields (`model`, `small_model`, provider options/variants)
-- [ ] Cursor generation of `.cursor/rules/model-config.mdc` guidance rule
-- [ ] Claude/Copilot/generic target model guidance generation
-- [ ] Fix passthrough for existing agent-level `model` metadata
-- [ ] Secret scanning in `pack validate` and `publish`
-- [ ] Update pack template to include example `models.json`
+- [x] `src/features/models.ts` — parser + schema + validation
+- [x] Export models parser/types from `src/features/index.ts`
+- [x] Add `"models"` to `FEATURE_IDS`
+- [x] Add `modelProfile` to workspace config schema
+- [x] Add `models` field to loaded pack type + parsing
+- [x] Add `models` field to merged feature output + merge strategy
+- [x] Add `src/core/profile-resolver.ts` for profile activation and overlay
+- [x] OpenCode generation of model fields (`model`, `small_model`, provider options/variants)
+- [x] Cursor generation of `.cursor/rules/model-config.mdc` guidance rule
+- [x] Claude/Copilot/generic target model guidance generation
+- [x] Fix passthrough for existing agent-level `model` metadata
+- [x] Secret scanning in `pack validate` and `publish`
+- [x] Update pack template to include example `models.json`
 
 #### Agent Model Passthrough Fix
 
 - [x] Add `cursor` override to `AgentFrontmatter` interface
 - [x] OpenCode target: serialize `agent.meta.opencode.model` and `temperature`
 - [x] Cursor target: serialize `agent.meta.cursor.model` into agent frontmatter
-- [ ] Claude Code target: serialize `agent.meta.claudecode.model`
+- [x] Claude Code target: serialize `agent.meta.claudecode.model` via model comment injection
 - [x] Enforce precedence: `models` feature overrides per-agent frontmatter
 
 #### Models Tests
@@ -1031,17 +1031,17 @@ interface RegistryStatsResponse {
 
 #### Registry Server Tests
 
-- [ ] Service layer unit tests (pack, version, search, publish, stats)
-- [ ] Route handler integration tests (all endpoints)
-- [ ] Auth middleware tests
-- [ ] Storage layer tests
+- [x] Auth token utility tests (generateToken, hashToken)
+- [x] Storage layer tests (LocalStorage put/get/delete/exists)
+- [ ] Service layer unit tests with in-memory SQLite (deferred: requires DB fixture)
+- [ ] Route handler integration tests (deferred: requires running server)
 
 #### Registry CLI Tests
 
 - [x] `registry-ref.test.ts` — ref parsing
 - [x] `registry.test.ts` — source resolver (mocked HTTP)
-- [ ] `search.test.ts` — search command output (deferred)
-- [ ] `publish.test.ts` — publish flow (deferred)
+- [x] `search.test.ts` — search command output
+- [x] `publish.test.ts` — publish flow
 - [x] `tarball.test.ts` — create/extract
 - [x] `registry-client.test.ts` — API client
 
@@ -1051,8 +1051,8 @@ interface RegistryStatsResponse {
 - [x] Update `.github/workflows/agentpacks.yml` to include registry + models tests
 - [x] Changeset file for version bump
 - [ ] Update agentpacks `README.md` with registry + models docs
-- [ ] E2E test: publish → search → install → generate
-- [ ] E2E test: model profile switch updates generated target configs
+- [ ] E2E test: publish → search → install → generate (requires live registry)
+- [x] E2E test: model profile switch updates generated target configs
 
 ### Phase 2 — MCP + Website + Task Routing
 
