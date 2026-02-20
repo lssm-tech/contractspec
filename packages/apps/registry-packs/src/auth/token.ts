@@ -23,7 +23,7 @@ export function hashToken(token: string): string {
 export async function createAuthToken(
   db: Db,
   username: string,
-  scope: string = 'publish'
+  scope = 'publish'
 ): Promise<string> {
   const token = generateToken();
   const hashed = hashToken(token);

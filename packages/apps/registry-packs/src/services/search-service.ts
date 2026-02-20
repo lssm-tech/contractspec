@@ -75,7 +75,7 @@ export class SearchService {
   }
 
   /** Get all unique tags with counts. */
-  async getTags(): Promise<Array<{ tag: string; count: number }>> {
+  async getTags(): Promise<{ tag: string; count: number }[]> {
     const result = await this.db.all<{ tag: string; count: number }>(
       sql`SELECT json_each.value as tag, count(*) as count FROM packs, json_each(packs.tags) GROUP BY json_each.value ORDER BY count DESC`
     );
@@ -83,7 +83,7 @@ export class SearchService {
   }
 
   /** Get packs by target. */
-  async getByTarget(targetId: string, limit: number = 20): Promise<Pack[]> {
+  async getByTarget(targetId: string, limit = 20): Promise<Pack[]> {
     const result = await this.db.all<Pack>(
       sql`SELECT packs.* FROM packs, json_each(packs.targets) WHERE json_each.value = ${targetId} ORDER BY packs.downloads DESC LIMIT ${limit}`
     );

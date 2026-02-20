@@ -63,10 +63,7 @@ export class StatsService {
    * Get download stats for a pack.
    * Returns daily counts for the last 30 days + total/weekly summary.
    */
-  async getPackStats(
-    packName: string,
-    days: number = 30
-  ): Promise<PackStats | null> {
+  async getPackStats(packName: string, days = 30): Promise<PackStats | null> {
     const pack = await this.db
       .select({
         name: packs.name,

@@ -54,9 +54,7 @@
       "indexes": {
         "auth_tokens_token_unique": {
           "name": "auth_tokens_token_unique",
-          "columns": [
-            "token"
-          ],
+          "columns": ["token"],
           "isUnique": true
         }
       },
@@ -96,12 +94,8 @@
           "name": "pack_readmes_pack_name_packs_name_fk",
           "tableFrom": "pack_readmes",
           "tableTo": "packs",
-          "columnsFrom": [
-            "pack_name"
-          ],
-          "columnsTo": [
-            "name"
-          ],
+          "columnsFrom": ["pack_name"],
+          "columnsTo": ["name"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -199,12 +193,8 @@
           "name": "pack_versions_pack_name_packs_name_fk",
           "tableFrom": "pack_versions",
           "tableTo": "packs",
-          "columnsFrom": [
-            "pack_name"
-          ],
-          "columnsTo": [
-            "name"
-          ],
+          "columnsFrom": ["pack_name"],
+          "columnsTo": ["name"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
