@@ -8,6 +8,7 @@ import { createRegistryMcpHandler } from './mcp/handler.js';
 import { getDb } from './db/client.js';
 import { PackService } from './services/pack-service.js';
 import { SearchService } from './services/search-service.js';
+import { StatsService } from './services/stats-service.js';
 
 /**
  * Create the Elysia app (without listening).
@@ -33,6 +34,7 @@ export const app = new Elysia()
       tags: '/tags',
       targets: '/targets/:targetId',
       stats: '/stats',
+      packStats: '/packs/:name/stats',
       health: '/health',
       mcp: '/mcp',
     },

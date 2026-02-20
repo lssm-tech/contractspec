@@ -3,7 +3,7 @@ import { createHash } from 'crypto';
 import { getDb } from '../db/client.js';
 import { PackService } from '../services/pack-service.js';
 import { VersionService } from '../services/version-service.js';
-import { LocalStorage } from '../storage/local.js';
+import { getStorage } from '../storage/factory.js';
 import { extractAuth } from '../auth/middleware.js';
 
 /**
@@ -61,7 +61,7 @@ export const publishRoutes = new Elysia({ prefix: '/packs' }).post(
       const tarballBuffer = Buffer.from(await tarballFile.arrayBuffer());
       const integrity = `sha256-${createHash('sha256').update(tarballBuffer).digest('hex')}`;
 
-      const storage = new LocalStorage();
+      const storage = getStorage();
       const tarballUrl = await storage.put(
         metadata.name,
         metadata.version,

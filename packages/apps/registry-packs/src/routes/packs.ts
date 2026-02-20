@@ -3,6 +3,7 @@ import { getDb } from '../db/client.js';
 import { PackService } from '../services/pack-service.js';
 import { VersionService } from '../services/version-service.js';
 import { SearchService } from '../services/search-service.js';
+import { StatsService } from '../services/stats-service.js';
 
 /**
  * Pack routes: GET /packs, GET /packs/:name
@@ -73,4 +74,17 @@ export const packRoutes = new Elysia({ prefix: '/packs' })
     }
 
     return { content: readme };
+  })
+  .get('/:name/stats', async ({ params, set, query }) => {
+    const db = getDb();
+    const statsService = new StatsService(db);
+    const days = query.days ? Number(query.days) : 30;
+
+    const stats = await statsService.getPackStats(params.name, days);
+    if (!stats) {
+      set.status = 404;
+      return { error: `Pack "${params.name}" not found` };
+    }
+
+    return stats;
   });
