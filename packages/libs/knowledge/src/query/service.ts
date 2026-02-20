@@ -8,12 +8,16 @@ import type {
   LLMMessage,
   LLMResponse,
 } from '@contractspec/lib.contracts-integrations';
+import { getDefaultI18n, createKnowledgeI18n } from '../i18n/messages';
+import type { KnowledgeI18n } from '../i18n/messages';
 
 export interface KnowledgeQueryConfig {
   collection: string;
   namespace?: string;
   topK?: number;
   systemPrompt?: string;
+  /** Locale for LLM prompts and context labels */
+  locale?: string;
 }
 
 export interface KnowledgeAnswer {
@@ -29,6 +33,7 @@ export class KnowledgeQueryService {
   private readonly vectorStore: VectorStoreProvider;
   private readonly llm: LLMProvider;
   private readonly config: KnowledgeQueryConfig;
+  private readonly i18n: KnowledgeI18n;
 
   constructor(
     embeddings: EmbeddingProvider,
@@ -40,6 +45,9 @@ export class KnowledgeQueryService {
     this.vectorStore = vectorStore;
     this.llm = llm;
     this.config = config;
+    this.i18n = config.locale
+      ? createKnowledgeI18n(config.locale)
+      : getDefaultI18n();
   }
 
   async query(question: string): Promise<KnowledgeAnswer> {
@@ -51,7 +59,7 @@ export class KnowledgeQueryService {
       namespace: this.config.namespace,
       filter: undefined,
     });
-    const context = buildContext(results);
+    const context = buildContext(results, this.i18n);
     const messages = this.buildMessages(question, context);
     const response = await this.llm.chat(messages);
     return {
@@ -68,8 +76,7 @@ export class KnowledgeQueryService {
 
   private buildMessages(question: string, context: string): LLMMessage[] {
     const systemPrompt =
-      this.config.systemPrompt ??
-      'You are a knowledge assistant that answers questions using the provided context. Cite relevant sources if possible.';
+      this.config.systemPrompt ?? this.i18n.t('query.systemPrompt');
     return [
       {
         role: 'system',
@@ -80,7 +87,7 @@ export class KnowledgeQueryService {
         content: [
           {
             type: 'text',
-            text: `Question:\n${question}\n\nContext:\n${context}`,
+            text: this.i18n.t('query.userMessage', { question, context }),
           },
         ],
       },
@@ -88,14 +95,21 @@ export class KnowledgeQueryService {
   }
 }
 
-function buildContext(results: VectorSearchResult[]): string {
+function buildContext(
+  results: VectorSearchResult[],
+  i18n: KnowledgeI18n
+): string {
   if (results.length === 0) {
-    return 'No relevant documents found.';
+    return i18n.t('query.noResults');
   }
   return results
     .map((result, index) => {
       const text = extractText(result);
-      return `Source ${index + 1} (score: ${result.score.toFixed(3)}):\n${text}`;
+      const label = i18n.t('query.sourceLabel', {
+        index: index + 1,
+        score: result.score.toFixed(3),
+      });
+      return `${label}\n${text}`;
     })
     .join('\n\n');
 }

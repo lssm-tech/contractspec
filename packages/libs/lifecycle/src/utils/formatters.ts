@@ -7,8 +7,11 @@ import {
   LIFECYCLE_STAGE_META,
   LIFECYCLE_STAGE_ORDER,
   LifecycleStage,
+  getLocalizedStageMeta,
 } from '../types/stages';
 import type { LifecycleScore } from '../types/signals';
+import { createLifecycleI18n, getDefaultI18n } from '../i18n/messages';
+import type { LifecycleI18n } from '../i18n/messages';
 
 export interface StageSummary {
   title: string;
@@ -21,11 +24,19 @@ export interface StageSummary {
 
 export const formatStageSummary = (
   stage: LifecycleStage,
-  assessment?: Pick<LifecycleAssessment, 'axes' | 'gaps'>
+  assessment?: Pick<LifecycleAssessment, 'axes' | 'gaps'>,
+  locale?: string
 ): StageSummary => {
-  const meta = LIFECYCLE_STAGE_META[stage];
-  const title = `Stage ${meta.order} · ${meta.name}`;
-  const axesSummary = assessment ? summarizeAxes(assessment.axes) : [];
+  const i18n = locale ? createLifecycleI18n(locale) : getDefaultI18n();
+  const stageMeta = locale
+    ? getLocalizedStageMeta(locale)
+    : LIFECYCLE_STAGE_META;
+  const meta = stageMeta[stage];
+  const title = i18n.t('formatter.stageTitle', {
+    order: meta.order,
+    name: meta.name,
+  });
+  const axesSummary = assessment ? summarizeAxes(assessment.axes, locale) : [];
 
   return {
     title,
@@ -37,11 +48,17 @@ export const formatStageSummary = (
   };
 };
 
-export const summarizeAxes = (axes: LifecycleAxes): string[] => [
-  `Product: ${axes.product}`,
-  `Company: ${axes.company}`,
-  `Capital: ${axes.capital}`,
-];
+export const summarizeAxes = (
+  axes: LifecycleAxes,
+  locale?: string
+): string[] => {
+  const i18n = locale ? createLifecycleI18n(locale) : getDefaultI18n();
+  return [
+    i18n.t('formatter.axis.product', { phase: axes.product }),
+    i18n.t('formatter.axis.company', { phase: axes.company }),
+    i18n.t('formatter.axis.capital', { phase: axes.capital }),
+  ];
+};
 
 export const rankStageCandidates = (
   scores: LifecycleScore[]
@@ -54,19 +71,31 @@ export const rankStageCandidates = (
   });
 
 export const createRecommendationDigest = (
-  recommendation: LifecycleRecommendation
+  recommendation: LifecycleRecommendation,
+  locale?: string
 ): string => {
-  const meta = LIFECYCLE_STAGE_META[recommendation.stage];
+  const i18n = locale ? createLifecycleI18n(locale) : getDefaultI18n();
+  const stageMeta = locale
+    ? getLocalizedStageMeta(locale)
+    : LIFECYCLE_STAGE_META;
+  const meta = stageMeta[recommendation.stage];
   const topAction = recommendation.actions[0];
   const actionCopy = topAction
     ? `${topAction.title} (${topAction.estimatedImpact} impact)`
-    : 'Focus on upcoming milestones.';
+    : i18n.t('formatter.action.fallback');
 
-  return `Next up for ${meta.name}: ${actionCopy}`;
+  return i18n.t('formatter.digest', { name: meta.name, actionCopy });
 };
 
-export const getStageLabel = (stage: LifecycleStage): string =>
-  LIFECYCLE_STAGE_META[stage].name;
+export const getStageLabel = (
+  stage: LifecycleStage,
+  locale?: string
+): string => {
+  const stageMeta = locale
+    ? getLocalizedStageMeta(locale)
+    : LIFECYCLE_STAGE_META;
+  return stageMeta[stage].name;
+};
 
 export const getStageOrderIndex = (stage: LifecycleStage): number =>
   LIFECYCLE_STAGE_ORDER.indexOf(stage);

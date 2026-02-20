@@ -16,7 +16,7 @@ import type {
 } from './types';
 import type { OpenCodeAgentType } from '../providers/types';
 import { inferAgentType } from '../providers/opencode-sdk/agent-bridge';
-import { getDefaultI18n } from '../i18n';
+import { createAgentI18n } from '../i18n';
 
 // ============================================================================
 // Exporter Implementation
@@ -63,7 +63,7 @@ export class OpenCodeExporter implements Exporter<
    * Validate that a spec can be exported.
    */
   validate(spec: AgentSpec): { valid: boolean; errors: string[] } {
-    const i18n = getDefaultI18n();
+    const i18n = createAgentI18n(spec.locale);
     const errors: string[] = [];
 
     if (!spec.meta?.key) {
@@ -123,7 +123,7 @@ export class OpenCodeExporter implements Exporter<
    * Export tools to OpenCode format.
    */
   private exportTools(spec: AgentSpec): OpenCodeToolJSON[] {
-    const i18n = getDefaultI18n();
+    const i18n = createAgentI18n(spec.locale);
     return spec.tools.map((tool) => ({
       name: tool.name,
       description:
@@ -142,7 +142,7 @@ export class OpenCodeExporter implements Exporter<
     jsonConfig: OpenCodeAgentJSON,
     options: OpenCodeExportOptions
   ): string {
-    const i18n = getDefaultI18n();
+    const i18n = createAgentI18n(options.locale ?? spec.locale);
     const lines: string[] = [];
 
     // Frontmatter
@@ -193,7 +193,12 @@ export class OpenCodeExporter implements Exporter<
     // Agent type explanation
     lines.push(i18n.t('export.agentType', { type: jsonConfig.type }));
     lines.push('');
-    lines.push(this.getAgentTypeDescription(jsonConfig.type));
+    lines.push(
+      this.getAgentTypeDescription(
+        jsonConfig.type,
+        options.locale ?? spec.locale
+      )
+    );
     lines.push('');
 
     // Instructions
@@ -294,8 +299,11 @@ export class OpenCodeExporter implements Exporter<
   /**
    * Get description for agent type.
    */
-  private getAgentTypeDescription(type: OpenCodeAgentType): string {
-    const i18n = getDefaultI18n();
+  private getAgentTypeDescription(
+    type: OpenCodeAgentType,
+    locale?: string
+  ): string {
+    const i18n = createAgentI18n(locale);
     switch (type) {
       case 'build':
         return i18n.t('export.agentType.build');

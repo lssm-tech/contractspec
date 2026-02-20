@@ -1,10 +1,26 @@
-import type { ContentBrief, SeoMetadata } from '../types';
+import type { ContentBrief, SeoMetadata, GeneratorOptions } from '../types';
+import { createContentGenI18n } from '../i18n';
+import type { ContentGenI18n } from '../i18n';
 
 export class SeoOptimizer {
+  private readonly i18n: ContentGenI18n;
+
+  constructor(options?: GeneratorOptions) {
+    this.i18n = createContentGenI18n(options?.locale);
+  }
+
   optimize(brief: ContentBrief): SeoMetadata {
+    const { t } = this.i18n;
     const keywords = this.keywords(brief);
-    const metaTitle = `${brief.title} | ContractSpec`;
-    const metaDescription = `${brief.summary} — built for ${brief.audience.role}${brief.audience.industry ? ` in ${brief.audience.industry}` : ''}.`;
+    const metaTitle = t('seo.metaTitle', { title: brief.title });
+    const industrySuffix = brief.audience.industry
+      ? t('seo.audience.industry', { industry: brief.audience.industry })
+      : '';
+    const metaDescription = t('seo.metaDescription', {
+      summary: brief.summary,
+      role: brief.audience.role,
+      industry: industrySuffix,
+    });
     const slug = this.slugify(brief.title);
     const schemaMarkup = this.schema(brief, metaDescription, keywords);
     return { metaTitle, metaDescription, keywords, slug, schemaMarkup };
@@ -19,10 +35,19 @@ export class SeoOptimizer {
       .slice(0, 12);
   }
 
+  /**
+   * Unicode-safe slug generator.
+   *
+   * Uses Unicode property escapes to preserve letters from any script
+   * (Latin, Cyrillic, CJK, Arabic, etc.) while collapsing non-alphanumeric
+   * characters into hyphens.
+   */
   private slugify(text: string): string {
     return text
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '') // strip combining diacritics
+      .replace(/[^\p{L}\p{N}]+/gu, '-') // non-letter/digit → hyphen
       .replace(/^-+|-+$/g, '');
   }
 
@@ -31,6 +56,7 @@ export class SeoOptimizer {
     description: string,
     keywords: string[]
   ): Record<string, unknown> {
+    const { t } = this.i18n;
     return {
       '@context': 'https://schema.org',
       '@type': 'Product',
@@ -43,7 +69,7 @@ export class SeoOptimizer {
       },
       offers: {
         '@type': 'Offer',
-        description: brief.callToAction ?? 'Start building with ContractSpec',
+        description: brief.callToAction ?? t('seo.offer.default'),
       },
       keywords: keywords.join(', '),
       citation: brief.references?.map((ref) => ref.url),

@@ -1,5 +1,7 @@
 import type { ContentBrief, ContentBlock, GeneratorOptions } from '../types';
 import type { LLMProvider } from '@contractspec/lib.contracts-integrations';
+import { createContentGenI18n } from '../i18n';
+import type { ContentGenI18n } from '../i18n';
 
 export interface LandingPageCopy {
   hero: {
@@ -17,10 +19,12 @@ export interface LandingPageCopy {
 export class LandingPageGenerator {
   private readonly llm?: LLMProvider;
   private readonly model?: string;
+  private readonly i18n: ContentGenI18n;
 
   constructor(private readonly options?: GeneratorOptions) {
     this.llm = options?.llm;
     this.model = options?.model;
+    this.i18n = createContentGenI18n(options?.locale);
   }
 
   async generate(brief: ContentBrief): Promise<LandingPageCopy> {
@@ -41,7 +45,7 @@ export class LandingPageGenerator {
           content: [
             {
               type: 'text',
-              text: 'Write JSON landing page copy with hero/highlights/socialProof/faq arrays.',
+              text: this.i18n.t('prompt.landing.system'),
             },
           ],
         },
@@ -64,47 +68,52 @@ export class LandingPageGenerator {
   }
 
   private generateFallback(brief: ContentBrief): LandingPageCopy {
+    const { t } = this.i18n;
+    const industry =
+      brief.audience.industry ?? t('landing.eyebrow.defaultIndustry');
+
     return {
       hero: {
-        eyebrow: `${brief.audience.industry ?? 'Operations'} teams`,
+        eyebrow: t('landing.eyebrow.template', { industry }),
         title: brief.title,
         subtitle: brief.summary,
-        primaryCta: brief.callToAction ?? 'Launch a sandbox',
-        secondaryCta: 'View docs',
+        primaryCta: brief.callToAction ?? t('landing.cta.primary'),
+        secondaryCta: t('landing.cta.secondary'),
       },
       highlights: brief.solutions.slice(0, 3).map((solution, index) => ({
         heading:
           [
-            'Policy-safe by default',
-            'Auto-adapts per tenant',
-            'Launch-ready in days',
-          ][index] ?? 'Key capability',
+            t('landing.highlight.policySafe'),
+            t('landing.highlight.autoAdapts'),
+            t('landing.highlight.launchReady'),
+          ][index] ?? t('landing.highlight.fallback'),
         body: solution,
       })),
       socialProof: {
-        heading: 'Teams using ContractSpec',
+        heading: t('landing.socialProof.heading'),
         body:
           brief.proofPoints?.join('\n') ??
-          '“We ship compliant workflows 5x faster while cutting ops toil in half.”',
+          t('landing.socialProof.defaultQuote'),
       },
       faq: this.buildFaq(brief),
     };
   }
 
   private buildFaq(brief: ContentBrief): ContentBlock[] {
+    const { t } = this.i18n;
     const faqs: ContentBlock[] = [
       {
-        heading: 'How does this keep policies enforced?',
-        body: 'All workflows compile from TypeScript specs and pass through PDP checks before execution, so no shadow logic slips through.',
+        heading: t('landing.faq.policiesEnforced.heading'),
+        body: t('landing.faq.policiesEnforced.body'),
       },
       {
-        heading: 'Will it fit our existing stack?',
-        body: 'Runtime adapters plug into REST, GraphQL, or MCP. Integrations stay vendor agnostic.',
+        heading: t('landing.faq.existingStack.heading'),
+        body: t('landing.faq.existingStack.body'),
       },
     ];
     if (brief.complianceNotes?.length) {
       faqs.push({
-        heading: 'What about compliance requirements?',
+        heading: t('landing.faq.compliance.heading'),
         body: brief.complianceNotes.join(' '),
       });
     }

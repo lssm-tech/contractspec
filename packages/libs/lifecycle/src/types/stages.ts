@@ -1,3 +1,6 @@
+import { createLifecycleI18n, getDefaultI18n } from '../i18n/messages';
+import type { LifecycleI18n } from '../i18n/messages';
+
 export enum LifecycleStage {
   Exploration = 0,
   ProblemSolutionFit = 1,
@@ -38,96 +41,103 @@ export const LIFECYCLE_STAGE_ORDER: LifecycleStage[] = [
   LifecycleStage.MaturityRenewal,
 ];
 
+/**
+ * Stage slug-to-i18n key prefix mapping.
+ * Kept internal to avoid coupling callers to key naming conventions.
+ */
+const STAGE_KEY_PREFIXES: Record<LifecycleStage, string> = {
+  [LifecycleStage.Exploration]: 'stage.exploration',
+  [LifecycleStage.ProblemSolutionFit]: 'stage.problemSolutionFit',
+  [LifecycleStage.MvpEarlyTraction]: 'stage.mvpEarlyTraction',
+  [LifecycleStage.ProductMarketFit]: 'stage.productMarketFit',
+  [LifecycleStage.GrowthScaleUp]: 'stage.growthScaleUp',
+  [LifecycleStage.ExpansionPlatform]: 'stage.expansionPlatform',
+  [LifecycleStage.MaturityRenewal]: 'stage.maturityRenewal',
+};
+
+/** Number of signal keys per stage */
+const SIGNAL_COUNT = 3;
+/** Number of focus area keys per stage */
+const FOCUS_COUNT = 3;
+
+/**
+ * Trap counts per stage (varies by stage).
+ */
+const TRAP_COUNTS: Record<LifecycleStage, number> = {
+  [LifecycleStage.Exploration]: 2,
+  [LifecycleStage.ProblemSolutionFit]: 2,
+  [LifecycleStage.MvpEarlyTraction]: 2,
+  [LifecycleStage.ProductMarketFit]: 2,
+  [LifecycleStage.GrowthScaleUp]: 2,
+  [LifecycleStage.ExpansionPlatform]: 1,
+  [LifecycleStage.MaturityRenewal]: 1,
+};
+
+/** Slug mapping for each stage */
+const STAGE_SLUGS: Record<LifecycleStage, LifecycleStageSlug> = {
+  [LifecycleStage.Exploration]: 'exploration',
+  [LifecycleStage.ProblemSolutionFit]: 'problem-solution-fit',
+  [LifecycleStage.MvpEarlyTraction]: 'mvp-early-traction',
+  [LifecycleStage.ProductMarketFit]: 'product-market-fit',
+  [LifecycleStage.GrowthScaleUp]: 'growth-scale-up',
+  [LifecycleStage.ExpansionPlatform]: 'expansion-platform',
+  [LifecycleStage.MaturityRenewal]: 'maturity-renewal',
+};
+
+/**
+ * Build stage metadata for a given stage using an i18n instance.
+ */
+function buildStageMeta(
+  stage: LifecycleStage,
+  i18n: LifecycleI18n
+): LifecycleStageMetadata {
+  const prefix = STAGE_KEY_PREFIXES[stage];
+  const trapCount = TRAP_COUNTS[stage];
+
+  return {
+    id: stage,
+    order: stage,
+    slug: STAGE_SLUGS[stage],
+    name: i18n.t(`${prefix}.name`),
+    question: i18n.t(`${prefix}.question`),
+    signals: Array.from({ length: SIGNAL_COUNT }, (_, i) =>
+      i18n.t(`${prefix}.signal.${i}`)
+    ),
+    traps: Array.from({ length: trapCount }, (_, i) =>
+      i18n.t(`${prefix}.trap.${i}`)
+    ),
+    focusAreas: Array.from({ length: FOCUS_COUNT }, (_, i) =>
+      i18n.t(`${prefix}.focus.${i}`)
+    ),
+  };
+}
+
+/**
+ * Get localized lifecycle stage metadata for all stages.
+ *
+ * @param locale - Optional locale (defaults to "en")
+ * @returns Record mapping LifecycleStage to localized LifecycleStageMetadata
+ */
+export const getLocalizedStageMeta = (
+  locale?: string
+): Record<LifecycleStage, LifecycleStageMetadata> => {
+  const i18n = locale ? createLifecycleI18n(locale) : getDefaultI18n();
+  const result = {} as Record<LifecycleStage, LifecycleStageMetadata>;
+  for (const stage of LIFECYCLE_STAGE_ORDER) {
+    result[stage] = buildStageMeta(stage, i18n);
+  }
+  return result;
+};
+
+/**
+ * Static English stage metadata — backward-compatible default.
+ *
+ * For localized metadata, use `getLocalizedStageMeta(locale)` instead.
+ */
 export const LIFECYCLE_STAGE_META: Record<
   LifecycleStage,
   LifecycleStageMetadata
-> = {
-  [LifecycleStage.Exploration]: {
-    id: LifecycleStage.Exploration,
-    order: 0,
-    slug: 'exploration',
-    name: 'Exploration / Ideation',
-    question: 'Is there a problem worth my time?',
-    signals: [
-      '20+ discovery interviews',
-      'Clear problem statement',
-      'Named ICP',
-    ],
-    traps: ['Branding before discovery', 'Premature tooling decisions'],
-    focusAreas: ['Customer discovery', 'Problem definition', 'Segment clarity'],
-  },
-  [LifecycleStage.ProblemSolutionFit]: {
-    id: LifecycleStage.ProblemSolutionFit,
-    order: 1,
-    slug: 'problem-solution-fit',
-    name: 'Problem–Solution Fit',
-    question: 'Do people care enough about this solution?',
-    signals: ['Prototype reuse', 'Referral energy', 'Pre-pay interest'],
-    traps: ['“Market is huge” without users', 'Skipping qualitative loops'],
-    focusAreas: ['Solution hypothesis', 'Value messaging', 'Feedback capture'],
-  },
-  [LifecycleStage.MvpEarlyTraction]: {
-    id: LifecycleStage.MvpEarlyTraction,
-    order: 2,
-    slug: 'mvp-early-traction',
-    name: 'MVP & Early Traction',
-    question: 'Can we get real usage and learn fast?',
-    signals: ['20–50 named active users', 'Weekly releases', 'Noisy feedback'],
-    traps: ['Overbuilt infra for 10 users', 'Undefined retention metric'],
-    focusAreas: ['Activation', 'Cohort tracking', 'Feedback rituals'],
-  },
-  [LifecycleStage.ProductMarketFit]: {
-    id: LifecycleStage.ProductMarketFit,
-    order: 3,
-    slug: 'product-market-fit',
-    name: 'Product–Market Fit',
-    question: 'Is this pulling us forward?',
-    signals: [
-      'Retention without heroics',
-      'Organic word-of-mouth',
-      'Value stories',
-    ],
-    traps: ['Hero growth that does not scale', 'Ignoring churn signals'],
-    focusAreas: ['Retention', 'Reliability', 'ICP clarity'],
-  },
-  [LifecycleStage.GrowthScaleUp]: {
-    id: LifecycleStage.GrowthScaleUp,
-    order: 4,
-    slug: 'growth-scale-up',
-    name: 'Growth / Scale-up',
-    question: 'Can we grow this repeatably?',
-    signals: [
-      'Predictable channels',
-      'Specialized hires',
-      'Unit economics on track',
-    ],
-    traps: [
-      'Paid spend masking retention gaps',
-      'Infra debt blocking launches',
-    ],
-    focusAreas: ['Ops systems', 'Growth loops', 'Reliability engineering'],
-  },
-  [LifecycleStage.ExpansionPlatform]: {
-    id: LifecycleStage.ExpansionPlatform,
-    order: 5,
-    slug: 'expansion-platform',
-    name: 'Expansion / Platform',
-    question: 'What is the next growth curve?',
-    signals: ['Stable core metrics', 'Partner/API demand', 'Ecosystem pull'],
-    traps: ['Platform theater before wedge is solid'],
-    focusAreas: ['Partnerships', 'APIs', 'New market validation'],
-  },
-  [LifecycleStage.MaturityRenewal]: {
-    id: LifecycleStage.MaturityRenewal,
-    order: 6,
-    slug: 'maturity-renewal',
-    name: 'Maturity / Renewal',
-    question: 'Optimize, reinvent, or sunset?',
-    signals: ['Margin focus', 'Portfolio bets', 'Narrative refresh'],
-    traps: ['Assuming past success is enough'],
-    focusAreas: ['Cost optimization', 'Reinvention bets', 'Sunset planning'],
-  },
-};
+> = getLocalizedStageMeta('en');
 
 export const getLifecycleStageBySlug = (
   slug: LifecycleStageSlug

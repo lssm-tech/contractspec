@@ -14,7 +14,7 @@ import type {
   ClaudeAgentConfig,
   ClaudeToolDefinition,
 } from './types';
-import { getDefaultI18n } from '../i18n';
+import { createAgentI18n } from '../i18n';
 
 // ============================================================================
 // Exporter Implementation
@@ -65,7 +65,7 @@ export class ClaudeAgentExporter implements Exporter<
    * Validate that a spec can be exported.
    */
   validate(spec: AgentSpec): { valid: boolean; errors: string[] } {
-    const i18n = getDefaultI18n();
+    const i18n = createAgentI18n(spec.locale);
     const errors: string[] = [];
 
     if (!spec.meta?.key) {
@@ -133,7 +133,7 @@ export class ClaudeAgentExporter implements Exporter<
     spec: AgentSpec,
     options: ClaudeAgentExportOptions
   ): string {
-    const i18n = getDefaultI18n();
+    const i18n = createAgentI18n(options.locale ?? spec.locale);
     const parts: string[] = [];
 
     // Base instructions
@@ -180,7 +180,7 @@ export class ClaudeAgentExporter implements Exporter<
    * Export tools to Claude Agent SDK format.
    */
   private exportTools(spec: AgentSpec): ClaudeToolDefinition[] {
-    const i18n = getDefaultI18n();
+    const i18n = createAgentI18n(spec.locale);
     return spec.tools.map((tool) => ({
       name: tool.name,
       description:
@@ -224,7 +224,7 @@ export class ClaudeAgentExporter implements Exporter<
     spec: AgentSpec,
     options: ClaudeAgentExportOptions
   ): string {
-    const i18n = getDefaultI18n();
+    const i18n = createAgentI18n(options.locale ?? spec.locale);
     const lines: string[] = [];
 
     // Header

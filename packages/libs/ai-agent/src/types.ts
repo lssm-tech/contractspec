@@ -187,6 +187,8 @@ export interface ToolExecutionContext {
   sessionId: string;
   tenantId?: string;
   actorId?: string;
+  /** Locale for i18n (BCP 47). Falls back to 'en' when unset. */
+  locale?: string;
   metadata?: Record<string, string>;
   signal?: AbortSignal;
 }

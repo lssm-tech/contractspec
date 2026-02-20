@@ -4,7 +4,7 @@
 
 import type { ExternalAgentProvider, ProviderRegistry } from './types';
 import { ProviderNotAvailableError } from './types';
-import { getDefaultI18n } from '../i18n';
+import { createAgentI18n } from '../i18n';
 
 /**
  * In-memory implementation of the provider registry.
@@ -32,18 +32,19 @@ class InMemoryProviderRegistry implements ProviderRegistry {
   /**
    * Get a provider, throwing if not found or not available.
    */
-  require(name: string): ExternalAgentProvider {
+  require(name: string, locale?: string): ExternalAgentProvider {
+    const i18n = createAgentI18n(locale);
     const provider = this.providers.get(name);
     if (!provider) {
       throw new ProviderNotAvailableError(
         name,
-        getDefaultI18n().t('error.provider.notRegistered')
+        i18n.t('error.provider.notRegistered')
       );
     }
     if (!provider.isAvailable()) {
       throw new ProviderNotAvailableError(
         name,
-        getDefaultI18n().t('error.provider.depsNotInstalled')
+        i18n.t('error.provider.depsNotInstalled')
       );
     }
     return provider;
@@ -61,7 +62,7 @@ class InMemoryProviderRegistry implements ProviderRegistry {
  * Create a new provider registry.
  */
 export function createProviderRegistry(): ProviderRegistry & {
-  require: (name: string) => ExternalAgentProvider;
+  require: (name: string, locale?: string) => ExternalAgentProvider;
   clear: () => void;
 } {
   return new InMemoryProviderRegistry();

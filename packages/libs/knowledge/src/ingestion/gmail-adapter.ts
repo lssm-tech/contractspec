@@ -5,14 +5,21 @@ import type {
 import type { DocumentProcessor, RawDocument } from './document-processor';
 import type { EmbeddingService } from './embedding-service';
 import type { VectorIndexer } from './vector-indexer';
+import { getDefaultI18n, createKnowledgeI18n } from '../i18n/messages';
+import type { KnowledgeI18n } from '../i18n/messages';
 
 export class GmailIngestionAdapter {
+  private readonly i18n: KnowledgeI18n;
+
   constructor(
     private readonly gmail: EmailInboundProvider,
     private readonly processor: DocumentProcessor,
     private readonly embeddings: EmbeddingService,
-    private readonly indexer: VectorIndexer
-  ) {}
+    private readonly indexer: VectorIndexer,
+    locale?: string
+  ) {
+    this.i18n = locale ? createKnowledgeI18n(locale) : getDefaultI18n();
+  }
 
   async syncThreads(
     query?: Parameters<EmailInboundProvider['listThreads']>[0]
@@ -31,7 +38,7 @@ export class GmailIngestionAdapter {
   }
 
   private toRawDocument(thread: EmailThread): RawDocument {
-    const content = composeThreadText(thread);
+    const content = composeThreadText(thread, this.i18n);
     return {
       id: thread.id,
       mimeType: 'text/plain',
@@ -45,18 +52,24 @@ export class GmailIngestionAdapter {
   }
 }
 
-function composeThreadText(thread: EmailThread): string {
+function composeThreadText(thread: EmailThread, i18n: KnowledgeI18n): string {
   const header = [
-    `Subject: ${thread.subject ?? ''}`,
-    `Snippet: ${thread.snippet ?? ''}`,
+    i18n.t('ingestion.gmail.subject', { subject: thread.subject ?? '' }),
+    i18n.t('ingestion.gmail.snippet', { snippet: thread.snippet ?? '' }),
   ];
   const messageTexts = thread.messages.map((message) => {
     const parts = [
-      `From: ${formatAddress(message.from)}`,
-      `To: ${message.to.map(formatAddress).join(', ')}`,
+      i18n.t('ingestion.gmail.from', { from: formatAddress(message.from) }),
+      i18n.t('ingestion.gmail.to', {
+        to: message.to.map(formatAddress).join(', '),
+      }),
     ];
     if (message.sentAt) {
-      parts.push(`Date: ${message.sentAt.toISOString()}`);
+      parts.push(
+        i18n.t('ingestion.gmail.date', {
+          date: message.sentAt.toISOString(),
+        })
+      );
     }
     const body = message.textBody ?? stripHtml(message.htmlBody ?? '');
     return `${parts.join('\n')}\n\n${body ?? ''}`;

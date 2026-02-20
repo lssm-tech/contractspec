@@ -60,6 +60,8 @@ export interface VideoBrief {
   style?: VideoStyleOverrides;
   /** Composition template to use (if known). Otherwise scene planner picks. */
   compositionId?: string;
+  /** Locale for generated content and LLM prompts (defaults to "en") */
+  locale?: string;
 }
 
 // -- Generator Options ------------------------------------------------------
@@ -77,6 +79,8 @@ export interface VideoGeneratorOptions {
   defaultVoiceId?: string;
   /** Default FPS. Default 30. */
   fps?: number;
+  /** Locale for generated content and LLM prompts (defaults to "en") */
+  locale?: string;
 }
 
 // -- Generated Video --------------------------------------------------------

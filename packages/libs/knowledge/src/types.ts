@@ -30,6 +30,8 @@ export interface RetrievalOptions {
   tenantId?: string;
   /** Additional filter criteria */
   filter?: Record<string, unknown>;
+  /** Locale for i18n-aware retrieval */
+  locale?: string;
 }
 
 /**

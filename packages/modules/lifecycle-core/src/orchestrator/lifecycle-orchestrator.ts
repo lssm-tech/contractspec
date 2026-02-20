@@ -7,6 +7,7 @@ import type {
 import {
   LIFECYCLE_STAGE_META,
   LifecycleStage,
+  getLocalizedStageMeta,
 } from '@contractspec/lib.lifecycle';
 import { StageSignalCollector } from '../collectors/signal-collector';
 import { StageScorer } from '../scoring/stage-scorer';
@@ -16,17 +17,21 @@ export interface LifecycleOrchestratorOptions {
   collector: StageSignalCollector;
   scorer: StageScorer;
   milestonePlanner?: LifecycleMilestonePlanner;
+  /** Locale for localized stage metadata */
+  locale?: string;
 }
 
 export class LifecycleOrchestrator {
   private readonly collector: StageSignalCollector;
   private readonly scorer: StageScorer;
   private readonly planner?: LifecycleMilestonePlanner;
+  private readonly locale?: string;
 
   constructor(options: LifecycleOrchestratorOptions) {
     this.collector = options.collector;
     this.scorer = options.scorer;
     this.planner = options.milestonePlanner;
+    this.locale = options.locale;
   }
 
   async run(input?: LifecycleAssessmentInput): Promise<LifecycleAssessment> {
@@ -36,7 +41,10 @@ export class LifecycleOrchestrator {
       signals: collected.signals,
     });
     const top = scorecard[0] ?? fallbackScore();
-    const meta = LIFECYCLE_STAGE_META[top.stage];
+    const stageMeta = this.locale
+      ? getLocalizedStageMeta(this.locale)
+      : LIFECYCLE_STAGE_META;
+    const meta = stageMeta[top.stage];
 
     return {
       stage: top.stage,

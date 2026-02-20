@@ -17,7 +17,7 @@ import type {
   SpecListOptions,
   SpecListResult,
 } from './types';
-import { getDefaultI18n } from '../i18n';
+import { createAgentI18n } from '../i18n';
 
 // =============================================================================
 // Spec Consumer Implementation
@@ -46,11 +46,13 @@ export class ContractSpecConsumer implements SpecConsumer {
   private readonly specs: Map<string, AgentSpec>;
   private readonly includeMetadata: boolean;
   private readonly baseUrl?: string;
+  private readonly locale?: string;
 
   constructor(config: SpecConsumerConfig) {
     this.specs = new Map();
     this.includeMetadata = config.includeMetadata ?? true;
     this.baseUrl = config.baseUrl;
+    this.locale = config.locale;
 
     // Index specs by key
     for (const spec of config.specs) {
@@ -65,10 +67,12 @@ export class ContractSpecConsumer implements SpecConsumer {
   getSpecMarkdown(specKey: string, options?: SpecMarkdownOptions): string {
     const spec = this.specs.get(specKey);
     if (!spec) {
-      throw new Error(getDefaultI18n().t('error.specNotFound', { specKey }));
+      throw new Error(
+        createAgentI18n(this.locale).t('error.specNotFound', { specKey })
+      );
     }
 
-    const i18n = getDefaultI18n();
+    const i18n = createAgentI18n(options?.locale ?? this.locale);
     const sections: string[] = [];
     const opts = {
       includeToc: options?.includeToc ?? true,
@@ -228,10 +232,12 @@ export class ContractSpecConsumer implements SpecConsumer {
   getSpecPrompt(specKey: string, options?: SpecPromptOptions): string {
     const spec = this.specs.get(specKey);
     if (!spec) {
-      throw new Error(getDefaultI18n().t('error.specNotFound', { specKey }));
+      throw new Error(
+        createAgentI18n(this.locale).t('error.specNotFound', { specKey })
+      );
     }
 
-    const i18n = getDefaultI18n();
+    const i18n = createAgentI18n(options?.locale ?? this.locale);
     const sections: string[] = [];
     const opts = {
       includeTools: options?.includeTools ?? true,

@@ -4,7 +4,7 @@ import type { ProviderConfig } from '@contractspec/lib.ai-providers/types';
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import type { AgentSpec } from '../spec/spec';
 import type { ToolHandler } from '../types';
-import { createAgentI18n, getDefaultI18n } from '../i18n';
+import { createAgentI18n } from '../i18n';
 import { ContractSpecAgent } from './contract-spec-agent';
 
 function getJsonOnlyRules(locale?: string): string {
@@ -54,7 +54,9 @@ function resolveModel(options: AgentJsonRunnerOptions): LanguageModel {
   if (options.provider) {
     return createProvider(options.provider).getModel();
   }
-  throw new Error(getDefaultI18n().t('error.jsonRunner.requiresModel'));
+  throw new Error(
+    createAgentI18n(options.locale).t('error.jsonRunner.requiresModel')
+  );
 }
 
 function applyModelSettings(
@@ -82,12 +84,15 @@ function buildInstructions(
 
 function ensureToolHandlers(
   spec: AgentSpec,
-  handlers: Map<string, ToolHandler>
+  handlers: Map<string, ToolHandler>,
+  locale?: string
 ): void {
   for (const tool of spec.tools) {
     if (!handlers.has(tool.name)) {
       throw new Error(
-        getDefaultI18n().t('error.missingToolHandler', { name: tool.name })
+        createAgentI18n(locale).t('error.missingToolHandler', {
+          name: tool.name,
+        })
       );
     }
   }
@@ -112,7 +117,7 @@ export async function createAgentJsonRunner(
   };
 
   const toolHandlers = options.toolHandlers ?? new Map<string, ToolHandler>();
-  ensureToolHandlers(spec, toolHandlers);
+  ensureToolHandlers(spec, toolHandlers, options.locale);
 
   const agent = await ContractSpecAgent.create({
     spec,

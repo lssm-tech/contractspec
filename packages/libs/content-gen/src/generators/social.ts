@@ -1,13 +1,17 @@
 import type { ContentBrief, GeneratorOptions, SocialPost } from '../types';
 import type { LLMProvider } from '@contractspec/lib.contracts-integrations';
+import { createContentGenI18n } from '../i18n';
+import type { ContentGenI18n } from '../i18n';
 
 export class SocialPostGenerator {
   private readonly llm?: LLMProvider;
   private readonly model?: string;
+  private readonly i18n: ContentGenI18n;
 
   constructor(options?: GeneratorOptions) {
     this.llm = options?.llm;
     this.model = options?.model;
+    this.i18n = createContentGenI18n(options?.locale);
   }
 
   async generate(brief: ContentBrief): Promise<SocialPost[]> {
@@ -27,7 +31,7 @@ export class SocialPostGenerator {
           content: [
             {
               type: 'text',
-              text: 'Create JSON array of social posts for twitter/linkedin/threads with body, hashtags, cta.',
+              text: this.i18n.t('prompt.social.system'),
             },
           ],
         },
@@ -44,23 +48,24 @@ export class SocialPostGenerator {
   }
 
   private generateFallback(brief: ContentBrief): SocialPost[] {
+    const { t } = this.i18n;
     const hashtags = this.buildHashtags(brief);
     return [
       {
         channel: 'linkedin',
-        body: `${brief.title}: ${brief.summary}\n${brief.problems[0]} → ${brief.solutions[0]}`,
+        body: `${brief.title}: ${brief.summary}\n${brief.problems[0]} \u2192 ${brief.solutions[0]}`,
         hashtags,
-        cta: brief.callToAction ?? 'Book a 15-min run-through',
+        cta: brief.callToAction ?? t('social.cta.linkedin'),
       },
       {
         channel: 'twitter',
-        body: `${brief.solutions[0]} in <60s. ${brief.solutions[1] ?? ''}`.trim(),
+        body: `${brief.solutions[0]}${t('social.body.twitter.connector')}${brief.solutions[1] ?? ''}`.trim(),
         hashtags: hashtags.slice(0, 3),
-        cta: '→ contractspec.io/sandbox',
+        cta: t('social.cta.twitter'),
       },
       {
         channel: 'threads',
-        body: `Ops + policy can move fast. ${brief.title} automates guardrails so teams ship daily.`,
+        body: t('social.body.threads', { title: brief.title }),
         hashtags: hashtags.slice(1, 4),
       },
     ];

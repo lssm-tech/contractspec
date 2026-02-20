@@ -4,6 +4,8 @@
  * Calculates XP rewards for various learning activities.
  */
 
+import { createLearningJourneyI18n } from '../i18n/messages';
+
 // ============ Types ============
 
 export type XPActivityType =
@@ -292,6 +294,31 @@ export class XPEngine {
     }
     return 0;
   }
+}
+
+/**
+ * Map from programmatic XP source key to its i18n key.
+ * UIs should use `getXpSourceLabel()` to get a localized display string.
+ */
+const SOURCE_KEY_MAP: Record<string, string> = {
+  base: 'xp.source.base',
+  score_bonus: 'xp.source.scoreBonus',
+  perfect_score: 'xp.source.perfectScore',
+  first_attempt: 'xp.source.firstAttempt',
+  retry_penalty: 'xp.source.retryPenalty',
+  streak_bonus: 'xp.source.streakBonus',
+};
+
+/**
+ * Get a localized display label for an XP breakdown source.
+ *
+ * @param source - The programmatic source key (e.g. `'base'`, `'streak_bonus'`).
+ * @param locale - Optional locale; defaults to English.
+ */
+export function getXpSourceLabel(source: string, locale?: string): string {
+  const i18n = createLearningJourneyI18n(locale);
+  const i18nKey = SOURCE_KEY_MAP[source];
+  return i18nKey ? i18n.t(i18nKey) : source;
 }
 
 /**

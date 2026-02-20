@@ -1,5 +1,6 @@
 import { LifecycleStage } from '@contractspec/lib.lifecycle';
 import libraryStageMap, {
+  getLocalizedLibraryStageMap,
   type LibraryStageEntry,
 } from '../data/library-stage-map';
 
@@ -22,7 +23,20 @@ export class ContractSpecLibraryRecommender {
       : LIBRARY_MAP;
   }
 
-  recommend(stage: LifecycleStage, limit = 4): LibraryRecommendation[] {
+  /**
+   * Recommend libraries for a lifecycle stage.
+   * When `locale` is provided, library descriptions are translated.
+   */
+  recommend(
+    stage: LifecycleStage,
+    limit = 4,
+    locale?: string
+  ): LibraryRecommendation[] {
+    if (locale) {
+      const localized = getLocalizedLibraryStageMap(locale);
+      const entry = localized.find((e) => e.stage === stage);
+      return entry?.items.slice(0, limit) ?? [];
+    }
     const items = this.mapping.get(stage);
     if (!items?.length) return [];
     return items.slice(0, limit);

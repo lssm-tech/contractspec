@@ -70,6 +70,11 @@ export const LearnerEntity = defineEntity({
     }),
 
     // Settings
+    locale: field.string({
+      isOptional: true,
+      description:
+        'Preferred locale for learning content (e.g. "en", "fr", "es")',
+    }),
     timezone: field.string({
       default: '"UTC"',
       description: 'Learner timezone',

@@ -1,5 +1,7 @@
 import type { KnowledgeAnswer } from '@contractspec/lib.knowledge/query/service';
 import type { SupportResolution, SupportTicket } from '../types';
+import { createSupportBotI18n } from '../i18n';
+import type { SupportBotI18n } from '../i18n';
 
 export interface KnowledgeRetriever {
   query(question: string): Promise<KnowledgeAnswer>;
@@ -9,17 +11,20 @@ export interface TicketResolverOptions {
   knowledge: KnowledgeRetriever;
   minConfidence?: number;
   prependPrompt?: string;
+  locale?: string;
 }
 
 export class TicketResolver {
   private readonly knowledge: KnowledgeRetriever;
   private readonly minConfidence: number;
   private readonly prependPrompt?: string;
+  private readonly i18n: SupportBotI18n;
 
   constructor(options: TicketResolverOptions) {
     this.knowledge = options.knowledge;
     this.minConfidence = options.minConfidence ?? 0.65;
     this.prependPrompt = options.prependPrompt;
+    this.i18n = createSupportBotI18n(options.locale);
   }
 
   async resolve(ticket: SupportTicket): Promise<SupportResolution> {
@@ -29,8 +34,16 @@ export class TicketResolver {
   }
 
   private buildQuestion(ticket: SupportTicket): string {
-    const header = [`Subject: ${ticket.subject}`, `Channel: ${ticket.channel}`];
-    if (ticket.customerName) header.push(`Customer: ${ticket.customerName}`);
+    const { t } = this.i18n;
+    const header = [
+      t('resolver.question.subjectLabel', { subject: ticket.subject }),
+      t('resolver.question.channelLabel', { channel: ticket.channel }),
+    ];
+    if (ticket.customerName) {
+      header.push(
+        t('resolver.question.customerLabel', { name: ticket.customerName })
+      );
+    }
     const sections = [
       this.prependPrompt,
       header.join('\n'),
@@ -62,6 +75,7 @@ export class TicketResolver {
       };
     });
 
+    const { t } = this.i18n;
     const confidence = this.deriveConfidence(answer);
     const escalate = confidence < this.minConfidence || citations.length === 0;
 
@@ -72,11 +86,11 @@ export class TicketResolver {
       citations,
       actions: [
         escalate
-          ? { type: 'escalate', label: 'Escalate for human review' }
-          : { type: 'respond', label: 'Send automated response' },
+          ? { type: 'escalate', label: t('resolver.action.escalate') }
+          : { type: 'respond', label: t('resolver.action.respond') },
       ],
       escalationReason: escalate
-        ? 'Insufficient confidence or missing knowledge references'
+        ? t('resolver.escalation.insufficientConfidence')
         : undefined,
       knowledgeUpdates: escalate ? [ticket.body.slice(0, 200)] : undefined,
     };

@@ -734,5 +734,38 @@ export const esMessages = defineTranslation({
         'Mensaje de registro cuando el servidor de herramientas MCP se detiene',
       placeholders: [{ name: 'name', type: 'string' }],
     },
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // Errores de telemetría
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    'error.telemetry.posthogAiRequired': {
+      value:
+        'PostHog LLM Analytics requiere que @posthog/ai esté instalado. Ejecute: npm install @posthog/ai posthog-node',
+      description: 'Error when PostHog AI dependency is missing',
+    },
+    'error.telemetry.posthogClientOrKeyRequired': {
+      value:
+        'PostHog LLM Analytics requiere una instancia de cliente o una apiKey.',
+      description: 'Error when PostHog client or API key is not configured',
+    },
+    'error.telemetry.posthogNodeRequired': {
+      value:
+        'PostHog LLM Analytics requiere que posthog-node esté instalado. Ejecute: npm install posthog-node',
+      description: 'Error when posthog-node dependency is missing',
+    },
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // Disponibilidad del proveedor
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    'error.provider.notAvailable': {
+      value: "El proveedor '{provider}' no está disponible{reason}",
+      description: 'Error when a provider is unavailable',
+      placeholders: [
+        { name: 'provider', type: 'string' },
+        { name: 'reason', type: 'string' },
+      ],
+    },
   },
 });

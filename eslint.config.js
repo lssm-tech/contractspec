@@ -18,8 +18,42 @@ export default defineConfig([
   },
   i18next.configs['flat/recommended'],
   {
-    // Global default: off (too noisy). Opt-in per app below.
+    // Global default: off (too noisy). Opt-in per i18n-instrumented package below.
     rules: { 'i18next/no-literal-string': 'off' },
+  },
+  // ── i18n: enable no-literal-string for i18n-instrumented packages ──
+  // Only user-facing runtime files; exclude tests, catalogs, types, configs.
+  {
+    files: [
+      'packages/libs/ai-agent/src/**/*.ts',
+      'packages/libs/content-gen/src/**/*.ts',
+      'packages/libs/video-gen/src/**/*.ts',
+      'packages/libs/support-bot/src/**/*.ts',
+      'packages/libs/knowledge/src/**/*.ts',
+      'packages/libs/lifecycle/src/**/*.ts',
+      'packages/modules/lifecycle-core/src/**/*.ts',
+      'packages/modules/lifecycle-advisor/src/**/*.ts',
+      'packages/modules/notifications/src/**/*.ts',
+      'packages/modules/learning-journey/src/**/*.ts',
+    ],
+    ignores: [
+      '**/*.test.ts',
+      '**/*.spec.ts',
+      '**/i18n/catalogs/**',
+      '**/i18n/keys.ts',
+      '**/types.ts',
+      '**/types/**',
+      '**/*.d.ts',
+    ],
+    rules: {
+      'i18next/no-literal-string': [
+        'warn',
+        {
+          mode: 'jsx-text-only',
+          'should-validate-template': false,
+        },
+      ],
+    },
   },
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],

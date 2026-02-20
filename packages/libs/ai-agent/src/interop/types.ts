@@ -22,6 +22,8 @@ export interface SpecConsumerConfig {
   includeMetadata?: boolean;
   /** Base URL for linking */
   baseUrl?: string;
+  /** Locale for i18n (BCP 47). Falls back to 'en'. */
+  locale?: string;
 }
 
 /**
@@ -38,6 +40,8 @@ export interface SpecMarkdownOptions {
   includeConstraints?: boolean;
   /** Custom header */
   customHeader?: string;
+  /** Locale override for this call (BCP 47). */
+  locale?: string;
 }
 
 /**
@@ -54,6 +58,8 @@ export interface SpecPromptOptions {
   format?: 'structured' | 'natural';
   /** Custom context to append */
   customContext?: string;
+  /** Locale override for this call (BCP 47). */
+  locale?: string;
 }
 
 /**
@@ -129,6 +135,8 @@ export interface ToolConsumerConfig {
     config: AgentToolConfig;
     handler?: ToolHandler;
   }[];
+  /** Locale for i18n (BCP 47). Falls back to 'en'. */
+  locale?: string;
 }
 
 /**
@@ -146,6 +154,8 @@ export interface ToolServerConfig {
   version?: string;
   /** Port to run on */
   port?: number;
+  /** Locale for i18n (BCP 47). Falls back to 'en'. */
+  locale?: string;
 }
 
 /**

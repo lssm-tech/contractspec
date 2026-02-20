@@ -17,7 +17,7 @@ import type {
 } from './types';
 import { specToolToClaudeAgentTool } from '../providers/claude-agent-sdk/tool-bridge';
 import { specToolToOpenCodeTool } from '../providers/opencode-sdk/tool-bridge';
-import { getDefaultI18n } from '../i18n';
+import { createAgentI18n } from '../i18n';
 
 // =============================================================================
 // Tool Server Implementation
@@ -33,12 +33,14 @@ class MCPToolServer implements ToolServer {
   >;
   private readonly name: string;
   private readonly version: string;
+  private readonly locale?: string;
   private running = false;
 
   constructor(config: ToolServerConfig) {
     this.tools = new Map();
     this.name = config.name ?? 'contractspec-tools';
     this.version = config.version ?? '1.0.0';
+    this.locale = config.locale;
 
     // Register tools
     for (const tool of config.tools) {
@@ -56,7 +58,7 @@ class MCPToolServer implements ToolServer {
     this.running = true;
 
     console.log(
-      getDefaultI18n().t('log.mcpServer.started', {
+      createAgentI18n(this.locale).t('log.mcpServer.started', {
         name: this.name,
         version: this.version,
         count: this.tools.size,
@@ -71,7 +73,9 @@ class MCPToolServer implements ToolServer {
 
     this.running = false;
     console.log(
-      getDefaultI18n().t('log.mcpServer.stopped', { name: this.name })
+      createAgentI18n(this.locale).t('log.mcpServer.stopped', {
+        name: this.name,
+      })
     );
   }
 
@@ -88,17 +92,14 @@ class MCPToolServer implements ToolServer {
     args: Record<string, unknown>,
     context?: ToolExecutionContext
   ): Promise<string> {
+    const i18n = createAgentI18n(context?.locale ?? this.locale);
     const tool = this.tools.get(toolName);
     if (!tool) {
-      throw new Error(
-        getDefaultI18n().t('error.toolNotFound', { name: toolName })
-      );
+      throw new Error(i18n.t('error.toolNotFound', { name: toolName }));
     }
 
     if (!tool.handler) {
-      throw new Error(
-        getDefaultI18n().t('error.noHandlerForTool', { name: toolName })
-      );
+      throw new Error(i18n.t('error.noHandlerForTool', { name: toolName }));
     }
 
     const fullContext: ToolExecutionContext = {
@@ -106,6 +107,7 @@ class MCPToolServer implements ToolServer {
       sessionId: context?.sessionId ?? 'mcp-session',
       tenantId: context?.tenantId,
       actorId: context?.actorId,
+      locale: context?.locale ?? this.locale,
       metadata: context?.metadata,
       signal: context?.signal,
     };
@@ -168,9 +170,11 @@ export class ContractSpecToolConsumer implements ToolConsumer {
     string,
     { config: AgentToolConfig; handler?: ToolHandler }
   >;
+  private readonly locale?: string;
 
   constructor(config: ToolConsumerConfig) {
     this.tools = new Map();
+    this.locale = config.locale;
 
     // Register tools
     for (const tool of config.tools) {
@@ -237,7 +241,9 @@ export class ContractSpecToolConsumer implements ToolConsumer {
 
       default:
         throw new Error(
-          getDefaultI18n().t('error.unknownExportFormat', { format })
+          createAgentI18n(this.locale).t('error.unknownExportFormat', {
+            format,
+          })
         );
     }
   }
@@ -297,13 +303,14 @@ export class ContractSpecToolConsumer implements ToolConsumer {
     args: Record<string, unknown>,
     context?: ToolExecutionContext
   ): Promise<string> {
+    const i18n = createAgentI18n(context?.locale ?? this.locale);
     const tool = this.tools.get(name);
     if (!tool) {
-      throw new Error(getDefaultI18n().t('error.toolNotFound', { name }));
+      throw new Error(i18n.t('error.toolNotFound', { name }));
     }
 
     if (!tool.handler) {
-      throw new Error(getDefaultI18n().t('error.noToolHandler', { name }));
+      throw new Error(i18n.t('error.noToolHandler', { name }));
     }
 
     const fullContext: ToolExecutionContext = {
@@ -311,6 +318,7 @@ export class ContractSpecToolConsumer implements ToolConsumer {
       sessionId: context?.sessionId ?? 'consumer-session',
       tenantId: context?.tenantId,
       actorId: context?.actorId,
+      locale: context?.locale ?? this.locale,
       metadata: context?.metadata,
       signal: context?.signal,
     };

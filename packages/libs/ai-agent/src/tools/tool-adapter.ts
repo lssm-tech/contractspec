@@ -3,7 +3,7 @@ import { tool, type Tool } from 'ai';
 import type { AgentToolConfig } from '../spec/spec';
 import type { ToolExecutionContext, ToolHandler } from '../types';
 import { jsonSchemaToZodSafe } from '../schema/json-schema-to-zod';
-import { getDefaultI18n } from '../i18n';
+import { createAgentI18n } from '../i18n';
 
 /**
  * Convert ContractSpec AgentToolConfig to AI SDK CoreTool.
@@ -30,6 +30,7 @@ export function specToolToAISDKTool(
         sessionId: context.sessionId ?? 'unknown',
         tenantId: context.tenantId,
         actorId: context.actorId,
+        locale: context.locale,
         metadata: context.metadata,
         signal: context.signal,
       });
@@ -57,7 +58,9 @@ export function specToolsToAISDKTools(
     const handler = handlers.get(specTool.name);
     if (!handler) {
       throw new Error(
-        getDefaultI18n().t('error.missingToolHandler', { name: specTool.name })
+        createAgentI18n(context.locale).t('error.missingToolHandler', {
+          name: specTool.name,
+        })
       );
     }
 
