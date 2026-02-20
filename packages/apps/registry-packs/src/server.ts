@@ -4,6 +4,7 @@ import { serverTiming } from '@elysiajs/server-timing';
 import { packRoutes } from './routes/packs.js';
 import { versionRoutes, versionDeleteRoutes } from './routes/versions.js';
 import { publishRoutes } from './routes/publish.js';
+import { createRegistryMcpHandler } from './mcp/handler.js';
 import { getDb } from './db/client.js';
 import { PackService } from './services/pack-service.js';
 import { SearchService } from './services/search-service.js';
@@ -33,6 +34,7 @@ export const app = new Elysia()
       targets: '/targets/:targetId',
       stats: '/stats',
       health: '/health',
+      mcp: '/mcp',
     },
   }))
   // Featured packs
@@ -67,7 +69,9 @@ export const app = new Elysia()
   .use(packRoutes)
   .use(versionRoutes)
   .use(versionDeleteRoutes)
-  .use(publishRoutes);
+  .use(publishRoutes)
+  // MCP endpoint
+  .use(createRegistryMcpHandler());
 
 export type App = typeof app;
 

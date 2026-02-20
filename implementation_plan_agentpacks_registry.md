@@ -1056,14 +1056,14 @@ interface RegistryStatsResponse {
 
 ### Phase 2 — MCP + Website + Task Routing
 
-#### MCP Integration
+#### MCP Integration ✅
 
-- [ ] `src/mcp/handler.ts` — MCP server setup with tools, resources, prompts
-- [ ] `src/mcp/tools.ts` — tool implementations (`search_packs`, `get_pack_info`, `list_featured`, `list_by_target`, `get_pack_readme`)
-- [ ] `src/mcp/resources.ts` — resource providers (`registry://packs`, `registry://packs/{name}`, `registry://featured`, `registry://tags`)
-- [ ] `src/mcp/prompts.ts` — prompt templates (`suggest_packs`, `compare_packs`)
-- [ ] Wire MCP endpoint into Elysia server (`/mcp`)
-- [ ] MCP integration tests
+- [x] `src/mcp/handler.ts` — MCP server setup with tools, resources, prompts
+- [x] `src/mcp/tools.ts` — tool implementations (`search_packs`, `get_pack_info`, `list_featured`, `list_by_target`, `get_pack_readme`)
+- [x] `src/mcp/resources.ts` — resource providers (`registry://packs`, `registry://packs/{name}`, `registry://featured`, `registry://tags`)
+- [x] `src/mcp/prompts.ts` — prompt templates (`suggest_packs`, `compare_packs`)
+- [x] Wire MCP endpoint into Elysia server (`/mcp`)
+- [x] MCP integration tests (17 tests)
 
 #### Website
 
