@@ -6,6 +6,8 @@
 // and can be implemented by different rendering backends (local, Lambda, etc.).
 // ---------------------------------------------------------------------------
 
+import type { VoiceTimingMap } from './voice-video-sync';
+
 // -- Video Format -----------------------------------------------------------
 
 export interface VideoFormatLandscape {
@@ -129,6 +131,12 @@ export interface VideoProject {
   };
   /** Metadata for the rendered file */
   metadata?: VideoProjectMetadata;
+  /** VTT subtitles generated from voice narration */
+  subtitles?: string;
+  /** Voice timing map for per-scene audio sync */
+  voiceTimingMap?: VoiceTimingMap;
+  /** Generated thumbnail image */
+  thumbnail?: { prompt: string; imageUrl?: string };
 }
 
 export interface VideoProjectMetadata {

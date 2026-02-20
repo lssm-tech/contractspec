@@ -5,18 +5,21 @@ export const elevenLabsIntegrationSpec = defineIntegration({
   meta: {
     key: 'ai-voice.elevenlabs',
     version: '1.0.0',
-    category: 'ai-voice',
+    category: 'ai-voice-tts',
     title: 'ElevenLabs Text-to-Speech',
     description:
       'ElevenLabs integration for neural voice synthesis and voice catalog access.',
     domain: 'ai',
     owners: ['platform.ai'],
-    tags: ['voice', 'tts'],
+    tags: ['voice', 'tts', 'stt'],
     stability: StabilityEnum.Beta,
   },
   supportedModes: ['managed', 'byok'],
   capabilities: {
-    provides: [{ key: 'ai.voice.synthesis', version: '1.0.0' }],
+    provides: [
+      { key: 'ai.voice.tts', version: '1.0.0' },
+      { key: 'ai.voice.stt', version: '1.0.0' },
+    ],
   },
   configSchema: {
     schema: {

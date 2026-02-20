@@ -1,0 +1,460 @@
+{
+  "name": "@contractspec/lib.voice",
+  "version": "0.1.0",
+  "description": "Voice capabilities: TTS, STT, and conversational AI",
+  "keywords": [
+    "contractspec",
+    "voice",
+    "tts",
+    "stt",
+    "conversational",
+    "ai",
+    "typescript"
+  ],
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test --pass-with-no-tests",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.contracts-integrations": "workspace:*",
+    "@contractspec/lib.content-gen": "workspace:*"
+  },
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.bun": "workspace:*",
+    "typescript": "catalog:"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./audio": "./src/audio/index.ts",
+    "./audio/audio-concatenator": "./src/audio/audio-concatenator.ts",
+    "./audio/duration-estimator": "./src/audio/duration-estimator.ts",
+    "./audio/format-converter": "./src/audio/format-converter.ts",
+    "./audio/index": "./src/audio/index.ts",
+    "./audio/silence-generator": "./src/audio/silence-generator.ts",
+    "./conversational": "./src/conversational/index.ts",
+    "./conversational/index": "./src/conversational/index.ts",
+    "./conversational/response-orchestrator": "./src/conversational/response-orchestrator.ts",
+    "./conversational/transcript-builder": "./src/conversational/transcript-builder.ts",
+    "./conversational/turn-detector": "./src/conversational/turn-detector.ts",
+    "./conversational/types": "./src/conversational/types.ts",
+    "./conversational/voice-session-manager": "./src/conversational/voice-session-manager.ts",
+    "./docs/conversational.docblock": "./src/docs/conversational.docblock.ts",
+    "./docs/stt.docblock": "./src/docs/stt.docblock.ts",
+    "./docs/sync.docblock": "./src/docs/sync.docblock.ts",
+    "./docs/tts.docblock": "./src/docs/tts.docblock.ts",
+    "./docs/voice.docblock": "./src/docs/voice.docblock.ts",
+    "./i18n": "./src/i18n/index.ts",
+    "./i18n/catalogs": "./src/i18n/catalogs/index.ts",
+    "./i18n/catalogs/en": "./src/i18n/catalogs/en.ts",
+    "./i18n/catalogs/es": "./src/i18n/catalogs/es.ts",
+    "./i18n/catalogs/fr": "./src/i18n/catalogs/fr.ts",
+    "./i18n/catalogs/index": "./src/i18n/catalogs/index.ts",
+    "./i18n/index": "./src/i18n/index.ts",
+    "./i18n/keys": "./src/i18n/keys.ts",
+    "./i18n/locale": "./src/i18n/locale.ts",
+    "./i18n/messages": "./src/i18n/messages.ts",
+    "./stt": "./src/stt/index.ts",
+    "./stt/diarization-mapper": "./src/stt/diarization-mapper.ts",
+    "./stt/index": "./src/stt/index.ts",
+    "./stt/segment-splitter": "./src/stt/segment-splitter.ts",
+    "./stt/subtitle-formatter": "./src/stt/subtitle-formatter.ts",
+    "./stt/transcriber": "./src/stt/transcriber.ts",
+    "./stt/types": "./src/stt/types.ts",
+    "./sync": "./src/sync/index.ts",
+    "./sync/duration-negotiator": "./src/sync/duration-negotiator.ts",
+    "./sync/index": "./src/sync/index.ts",
+    "./sync/scene-adapter": "./src/sync/scene-adapter.ts",
+    "./sync/timing-calculator": "./src/sync/timing-calculator.ts",
+    "./tts": "./src/tts/index.ts",
+    "./tts/audio-assembler": "./src/tts/audio-assembler.ts",
+    "./tts/emphasis-planner": "./src/tts/emphasis-planner.ts",
+    "./tts/index": "./src/tts/index.ts",
+    "./tts/pace-analyzer": "./src/tts/pace-analyzer.ts",
+    "./tts/segment-synthesizer": "./src/tts/segment-synthesizer.ts",
+    "./tts/types": "./src/tts/types.ts",
+    "./tts/voice-synthesizer": "./src/tts/voice-synthesizer.ts",
+    "./types": "./src/types.ts"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.js",
+        "browser": "./dist/browser/index.js",
+        "default": "./dist/index.js"
+      },
+      "./audio": {
+        "types": "./dist/audio/index.d.ts",
+        "bun": "./dist/audio/index.js",
+        "node": "./dist/node/audio/index.js",
+        "browser": "./dist/browser/audio/index.js",
+        "default": "./dist/audio/index.js"
+      },
+      "./audio/audio-concatenator": {
+        "types": "./dist/audio/audio-concatenator.d.ts",
+        "bun": "./dist/audio/audio-concatenator.js",
+        "node": "./dist/node/audio/audio-concatenator.js",
+        "browser": "./dist/browser/audio/audio-concatenator.js",
+        "default": "./dist/audio/audio-concatenator.js"
+      },
+      "./audio/duration-estimator": {
+        "types": "./dist/audio/duration-estimator.d.ts",
+        "bun": "./dist/audio/duration-estimator.js",
+        "node": "./dist/node/audio/duration-estimator.js",
+        "browser": "./dist/browser/audio/duration-estimator.js",
+        "default": "./dist/audio/duration-estimator.js"
+      },
+      "./audio/format-converter": {
+        "types": "./dist/audio/format-converter.d.ts",
+        "bun": "./dist/audio/format-converter.js",
+        "node": "./dist/node/audio/format-converter.js",
+        "browser": "./dist/browser/audio/format-converter.js",
+        "default": "./dist/audio/format-converter.js"
+      },
+      "./audio/index": {
+        "types": "./dist/audio/index.d.ts",
+        "bun": "./dist/audio/index.js",
+        "node": "./dist/node/audio/index.js",
+        "browser": "./dist/browser/audio/index.js",
+        "default": "./dist/audio/index.js"
+      },
+      "./audio/silence-generator": {
+        "types": "./dist/audio/silence-generator.d.ts",
+        "bun": "./dist/audio/silence-generator.js",
+        "node": "./dist/node/audio/silence-generator.js",
+        "browser": "./dist/browser/audio/silence-generator.js",
+        "default": "./dist/audio/silence-generator.js"
+      },
+      "./conversational": {
+        "types": "./dist/conversational/index.d.ts",
+        "bun": "./dist/conversational/index.js",
+        "node": "./dist/node/conversational/index.js",
+        "browser": "./dist/browser/conversational/index.js",
+        "default": "./dist/conversational/index.js"
+      },
+      "./conversational/index": {
+        "types": "./dist/conversational/index.d.ts",
+        "bun": "./dist/conversational/index.js",
+        "node": "./dist/node/conversational/index.js",
+        "browser": "./dist/browser/conversational/index.js",
+        "default": "./dist/conversational/index.js"
+      },
+      "./conversational/response-orchestrator": {
+        "types": "./dist/conversational/response-orchestrator.d.ts",
+        "bun": "./dist/conversational/response-orchestrator.js",
+        "node": "./dist/node/conversational/response-orchestrator.js",
+        "browser": "./dist/browser/conversational/response-orchestrator.js",
+        "default": "./dist/conversational/response-orchestrator.js"
+      },
+      "./conversational/transcript-builder": {
+        "types": "./dist/conversational/transcript-builder.d.ts",
+        "bun": "./dist/conversational/transcript-builder.js",
+        "node": "./dist/node/conversational/transcript-builder.js",
+        "browser": "./dist/browser/conversational/transcript-builder.js",
+        "default": "./dist/conversational/transcript-builder.js"
+      },
+      "./conversational/turn-detector": {
+        "types": "./dist/conversational/turn-detector.d.ts",
+        "bun": "./dist/conversational/turn-detector.js",
+        "node": "./dist/node/conversational/turn-detector.js",
+        "browser": "./dist/browser/conversational/turn-detector.js",
+        "default": "./dist/conversational/turn-detector.js"
+      },
+      "./conversational/types": {
+        "types": "./dist/conversational/types.d.ts",
+        "bun": "./dist/conversational/types.js",
+        "node": "./dist/node/conversational/types.js",
+        "browser": "./dist/browser/conversational/types.js",
+        "default": "./dist/conversational/types.js"
+      },
+      "./conversational/voice-session-manager": {
+        "types": "./dist/conversational/voice-session-manager.d.ts",
+        "bun": "./dist/conversational/voice-session-manager.js",
+        "node": "./dist/node/conversational/voice-session-manager.js",
+        "browser": "./dist/browser/conversational/voice-session-manager.js",
+        "default": "./dist/conversational/voice-session-manager.js"
+      },
+      "./docs/conversational.docblock": {
+        "types": "./dist/docs/conversational.docblock.d.ts",
+        "bun": "./dist/docs/conversational.docblock.js",
+        "node": "./dist/node/docs/conversational.docblock.js",
+        "browser": "./dist/browser/docs/conversational.docblock.js",
+        "default": "./dist/docs/conversational.docblock.js"
+      },
+      "./docs/stt.docblock": {
+        "types": "./dist/docs/stt.docblock.d.ts",
+        "bun": "./dist/docs/stt.docblock.js",
+        "node": "./dist/node/docs/stt.docblock.js",
+        "browser": "./dist/browser/docs/stt.docblock.js",
+        "default": "./dist/docs/stt.docblock.js"
+      },
+      "./docs/sync.docblock": {
+        "types": "./dist/docs/sync.docblock.d.ts",
+        "bun": "./dist/docs/sync.docblock.js",
+        "node": "./dist/node/docs/sync.docblock.js",
+        "browser": "./dist/browser/docs/sync.docblock.js",
+        "default": "./dist/docs/sync.docblock.js"
+      },
+      "./docs/tts.docblock": {
+        "types": "./dist/docs/tts.docblock.d.ts",
+        "bun": "./dist/docs/tts.docblock.js",
+        "node": "./dist/node/docs/tts.docblock.js",
+        "browser": "./dist/browser/docs/tts.docblock.js",
+        "default": "./dist/docs/tts.docblock.js"
+      },
+      "./docs/voice.docblock": {
+        "types": "./dist/docs/voice.docblock.d.ts",
+        "bun": "./dist/docs/voice.docblock.js",
+        "node": "./dist/node/docs/voice.docblock.js",
+        "browser": "./dist/browser/docs/voice.docblock.js",
+        "default": "./dist/docs/voice.docblock.js"
+      },
+      "./i18n": {
+        "types": "./dist/i18n/index.d.ts",
+        "bun": "./dist/i18n/index.js",
+        "node": "./dist/node/i18n/index.js",
+        "browser": "./dist/browser/i18n/index.js",
+        "default": "./dist/i18n/index.js"
+      },
+      "./i18n/catalogs": {
+        "types": "./dist/i18n/catalogs/index.d.ts",
+        "bun": "./dist/i18n/catalogs/index.js",
+        "node": "./dist/node/i18n/catalogs/index.js",
+        "browser": "./dist/browser/i18n/catalogs/index.js",
+        "default": "./dist/i18n/catalogs/index.js"
+      },
+      "./i18n/catalogs/en": {
+        "types": "./dist/i18n/catalogs/en.d.ts",
+        "bun": "./dist/i18n/catalogs/en.js",
+        "node": "./dist/node/i18n/catalogs/en.js",
+        "browser": "./dist/browser/i18n/catalogs/en.js",
+        "default": "./dist/i18n/catalogs/en.js"
+      },
+      "./i18n/catalogs/es": {
+        "types": "./dist/i18n/catalogs/es.d.ts",
+        "bun": "./dist/i18n/catalogs/es.js",
+        "node": "./dist/node/i18n/catalogs/es.js",
+        "browser": "./dist/browser/i18n/catalogs/es.js",
+        "default": "./dist/i18n/catalogs/es.js"
+      },
+      "./i18n/catalogs/fr": {
+        "types": "./dist/i18n/catalogs/fr.d.ts",
+        "bun": "./dist/i18n/catalogs/fr.js",
+        "node": "./dist/node/i18n/catalogs/fr.js",
+        "browser": "./dist/browser/i18n/catalogs/fr.js",
+        "default": "./dist/i18n/catalogs/fr.js"
+      },
+      "./i18n/catalogs/index": {
+        "types": "./dist/i18n/catalogs/index.d.ts",
+        "bun": "./dist/i18n/catalogs/index.js",
+        "node": "./dist/node/i18n/catalogs/index.js",
+        "browser": "./dist/browser/i18n/catalogs/index.js",
+        "default": "./dist/i18n/catalogs/index.js"
+      },
+      "./i18n/index": {
+        "types": "./dist/i18n/index.d.ts",
+        "bun": "./dist/i18n/index.js",
+        "node": "./dist/node/i18n/index.js",
+        "browser": "./dist/browser/i18n/index.js",
+        "default": "./dist/i18n/index.js"
+      },
+      "./i18n/keys": {
+        "types": "./dist/i18n/keys.d.ts",
+        "bun": "./dist/i18n/keys.js",
+        "node": "./dist/node/i18n/keys.js",
+        "browser": "./dist/browser/i18n/keys.js",
+        "default": "./dist/i18n/keys.js"
+      },
+      "./i18n/locale": {
+        "types": "./dist/i18n/locale.d.ts",
+        "bun": "./dist/i18n/locale.js",
+        "node": "./dist/node/i18n/locale.js",
+        "browser": "./dist/browser/i18n/locale.js",
+        "default": "./dist/i18n/locale.js"
+      },
+      "./i18n/messages": {
+        "types": "./dist/i18n/messages.d.ts",
+        "bun": "./dist/i18n/messages.js",
+        "node": "./dist/node/i18n/messages.js",
+        "browser": "./dist/browser/i18n/messages.js",
+        "default": "./dist/i18n/messages.js"
+      },
+      "./stt": {
+        "types": "./dist/stt/index.d.ts",
+        "bun": "./dist/stt/index.js",
+        "node": "./dist/node/stt/index.js",
+        "browser": "./dist/browser/stt/index.js",
+        "default": "./dist/stt/index.js"
+      },
+      "./stt/diarization-mapper": {
+        "types": "./dist/stt/diarization-mapper.d.ts",
+        "bun": "./dist/stt/diarization-mapper.js",
+        "node": "./dist/node/stt/diarization-mapper.js",
+        "browser": "./dist/browser/stt/diarization-mapper.js",
+        "default": "./dist/stt/diarization-mapper.js"
+      },
+      "./stt/index": {
+        "types": "./dist/stt/index.d.ts",
+        "bun": "./dist/stt/index.js",
+        "node": "./dist/node/stt/index.js",
+        "browser": "./dist/browser/stt/index.js",
+        "default": "./dist/stt/index.js"
+      },
+      "./stt/segment-splitter": {
+        "types": "./dist/stt/segment-splitter.d.ts",
+        "bun": "./dist/stt/segment-splitter.js",
+        "node": "./dist/node/stt/segment-splitter.js",
+        "browser": "./dist/browser/stt/segment-splitter.js",
+        "default": "./dist/stt/segment-splitter.js"
+      },
+      "./stt/subtitle-formatter": {
+        "types": "./dist/stt/subtitle-formatter.d.ts",
+        "bun": "./dist/stt/subtitle-formatter.js",
+        "node": "./dist/node/stt/subtitle-formatter.js",
+        "browser": "./dist/browser/stt/subtitle-formatter.js",
+        "default": "./dist/stt/subtitle-formatter.js"
+      },
+      "./stt/transcriber": {
+        "types": "./dist/stt/transcriber.d.ts",
+        "bun": "./dist/stt/transcriber.js",
+        "node": "./dist/node/stt/transcriber.js",
+        "browser": "./dist/browser/stt/transcriber.js",
+        "default": "./dist/stt/transcriber.js"
+      },
+      "./stt/types": {
+        "types": "./dist/stt/types.d.ts",
+        "bun": "./dist/stt/types.js",
+        "node": "./dist/node/stt/types.js",
+        "browser": "./dist/browser/stt/types.js",
+        "default": "./dist/stt/types.js"
+      },
+      "./sync": {
+        "types": "./dist/sync/index.d.ts",
+        "bun": "./dist/sync/index.js",
+        "node": "./dist/node/sync/index.js",
+        "browser": "./dist/browser/sync/index.js",
+        "default": "./dist/sync/index.js"
+      },
+      "./sync/duration-negotiator": {
+        "types": "./dist/sync/duration-negotiator.d.ts",
+        "bun": "./dist/sync/duration-negotiator.js",
+        "node": "./dist/node/sync/duration-negotiator.js",
+        "browser": "./dist/browser/sync/duration-negotiator.js",
+        "default": "./dist/sync/duration-negotiator.js"
+      },
+      "./sync/index": {
+        "types": "./dist/sync/index.d.ts",
+        "bun": "./dist/sync/index.js",
+        "node": "./dist/node/sync/index.js",
+        "browser": "./dist/browser/sync/index.js",
+        "default": "./dist/sync/index.js"
+      },
+      "./sync/scene-adapter": {
+        "types": "./dist/sync/scene-adapter.d.ts",
+        "bun": "./dist/sync/scene-adapter.js",
+        "node": "./dist/node/sync/scene-adapter.js",
+        "browser": "./dist/browser/sync/scene-adapter.js",
+        "default": "./dist/sync/scene-adapter.js"
+      },
+      "./sync/timing-calculator": {
+        "types": "./dist/sync/timing-calculator.d.ts",
+        "bun": "./dist/sync/timing-calculator.js",
+        "node": "./dist/node/sync/timing-calculator.js",
+        "browser": "./dist/browser/sync/timing-calculator.js",
+        "default": "./dist/sync/timing-calculator.js"
+      },
+      "./tts": {
+        "types": "./dist/tts/index.d.ts",
+        "bun": "./dist/tts/index.js",
+        "node": "./dist/node/tts/index.js",
+        "browser": "./dist/browser/tts/index.js",
+        "default": "./dist/tts/index.js"
+      },
+      "./tts/audio-assembler": {
+        "types": "./dist/tts/audio-assembler.d.ts",
+        "bun": "./dist/tts/audio-assembler.js",
+        "node": "./dist/node/tts/audio-assembler.js",
+        "browser": "./dist/browser/tts/audio-assembler.js",
+        "default": "./dist/tts/audio-assembler.js"
+      },
+      "./tts/emphasis-planner": {
+        "types": "./dist/tts/emphasis-planner.d.ts",
+        "bun": "./dist/tts/emphasis-planner.js",
+        "node": "./dist/node/tts/emphasis-planner.js",
+        "browser": "./dist/browser/tts/emphasis-planner.js",
+        "default": "./dist/tts/emphasis-planner.js"
+      },
+      "./tts/index": {
+        "types": "./dist/tts/index.d.ts",
+        "bun": "./dist/tts/index.js",
+        "node": "./dist/node/tts/index.js",
+        "browser": "./dist/browser/tts/index.js",
+        "default": "./dist/tts/index.js"
+      },
+      "./tts/pace-analyzer": {
+        "types": "./dist/tts/pace-analyzer.d.ts",
+        "bun": "./dist/tts/pace-analyzer.js",
+        "node": "./dist/node/tts/pace-analyzer.js",
+        "browser": "./dist/browser/tts/pace-analyzer.js",
+        "default": "./dist/tts/pace-analyzer.js"
+      },
+      "./tts/segment-synthesizer": {
+        "types": "./dist/tts/segment-synthesizer.d.ts",
+        "bun": "./dist/tts/segment-synthesizer.js",
+        "node": "./dist/node/tts/segment-synthesizer.js",
+        "browser": "./dist/browser/tts/segment-synthesizer.js",
+        "default": "./dist/tts/segment-synthesizer.js"
+      },
+      "./tts/types": {
+        "types": "./dist/tts/types.d.ts",
+        "bun": "./dist/tts/types.js",
+        "node": "./dist/node/tts/types.js",
+        "browser": "./dist/browser/tts/types.js",
+        "default": "./dist/tts/types.js"
+      },
+      "./tts/voice-synthesizer": {
+        "types": "./dist/tts/voice-synthesizer.d.ts",
+        "bun": "./dist/tts/voice-synthesizer.js",
+        "node": "./dist/node/tts/voice-synthesizer.js",
+        "browser": "./dist/browser/tts/voice-synthesizer.js",
+        "default": "./dist/tts/voice-synthesizer.js"
+      },
+      "./types": {
+        "types": "./dist/types.d.ts",
+        "bun": "./dist/types.js",
+        "node": "./dist/node/types.js",
+        "browser": "./dist/browser/types.js",
+        "default": "./dist/types.js"
+      }
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/voice"
+  },
+  "homepage": "https://contractspec.io"
+}
