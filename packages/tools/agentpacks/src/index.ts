@@ -15,6 +15,7 @@ import { runSearch } from './cli/search.js';
 import { runInfo } from './cli/info.js';
 import { runPublish } from './cli/publish.js';
 import { runLogin } from './cli/login.js';
+import { runModelsExplain } from './cli/models-explain.js';
 
 const program = new Command();
 
@@ -123,6 +124,22 @@ program
   .option('--registry <url>', 'Registry URL')
   .action(async (options) => {
     await runLogin(options);
+  });
+
+// models (parent command)
+const modelsCmd = program
+  .command('models')
+  .description('Model configuration and routing');
+
+modelsCmd
+  .command('explain')
+  .description('Explain model profile and routing resolution')
+  .option('-c, --config <path>', 'Path to agentpacks.yaml')
+  .option('-p, --profile <name>', 'Profile to activate')
+  .option('-t, --target <id>', 'Target to resolve for')
+  .option('--task <description>', 'Task description for routing match')
+  .action(async (options) => {
+    await runModelsExplain(options);
   });
 
 // pack (parent command)

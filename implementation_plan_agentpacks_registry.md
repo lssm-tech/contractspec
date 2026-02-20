@@ -1086,12 +1086,14 @@ interface RegistryStatsResponse {
 - [x] Download tracking wired into version download route
 - [x] 8 stats service tests
 
-#### Task-Aware Routing
+#### Task-Aware Routing ✅
 
-- [ ] Routing schema evolution for richer conditions (`complexity`, `urgency`, `budget`, `contextWindowNeed`, `toolUseIntensity`)
-- [ ] Generate routing guidance artifacts for OpenCode and Cursor from merged routing rules
-- [ ] `agentpacks models explain` CLI command (explain profile/routing resolution for a task)
-- [ ] Registry search filters for packs with routing rules (`has:routing`, `routing:budget`, etc.)
+- [x] Routing schema evolution: `RoutingConditionSchema` with `complexity`, `urgency`, `budget`, `contextWindowNeed`, `toolUseIntensity`
+- [x] `RoutingRuleSchema` extended with `description` and `priority` fields
+- [x] Enhanced routing guidance generation with condition reference table
+- [x] `agentpacks models explain` CLI command (profile/routing resolution + task matching)
+- [x] Heuristic task-to-routing matcher for `--task` flag
+- [x] Registry search supports `features` filter for routing packs
 
 ### Phase 3 — Community
 
