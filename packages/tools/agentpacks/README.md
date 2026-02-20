@@ -3,11 +3,11 @@
 [![npm version](https://img.shields.io/npm/v/agentpacks.svg)](https://www.npmjs.com/package/agentpacks)
 [![npm downloads](https://img.shields.io/npm/dm/agentpacks.svg)](https://www.npmjs.com/package/agentpacks)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests](https://img.shields.io/badge/tests-247%20passing-brightgreen.svg)](https://github.com/lssm-tech/contractspec/tree/main/packages/tools/agentpacks)
+[![Tests](https://img.shields.io/badge/tests-378%20passing-brightgreen.svg)](https://github.com/lssm-tech/contractspec/tree/main/packages/tools/agentpacks)
 
 **Composable AI agent configuration manager.**
 
-Write your rules, commands, skills, hooks, and MCP configs once — in a pack — and sync them automatically to OpenCode, Cursor, Claude Code, Codex CLI, Gemini CLI, GitHub Copilot, and 13 more tools.
+Write your rules, commands, skills, hooks, models, and MCP configs once — in a pack — and sync them automatically to OpenCode, Cursor, Claude Code, Codex CLI, Gemini CLI, GitHub Copilot, and 13 more tools. Discover and share packs via the **agentpacks registry**.
 
 ---
 
@@ -40,7 +40,9 @@ AI coding tools are proliferating fast. Every tool has its own config format:
 |                      | agentpacks                              | rulesync      |
 | -------------------- | --------------------------------------- | ------------- |
 | Architecture         | Composable packs                        | Flat files    |
-| Pack distribution    | npm, git, local                         | Local only    |
+| Pack distribution    | npm, git, local, **registry**           | Local only    |
+| **Pack registry**    | Search, publish, install via CLI        | —             |
+| **Model configs**    | Per-tool model/profile management       | Not supported |
 | OpenCode plugins     | Per-pack `.ts` plugin files             | Not supported |
 | Cursor plugin export | Native plugin format                    | Not supported |
 | Import from tools    | Cursor, Claude Code, OpenCode, rulesync | —             |
@@ -127,7 +129,7 @@ This reads your `.rulesync/` directory and `rulesync.jsonc`, and creates an equi
 
 ## Features
 
-agentpacks supports 8 feature types inside a pack:
+agentpacks supports 9 feature types inside a pack:
 
 | Feature      | Description                                          | Example files                               |
 | ------------ | ---------------------------------------------------- | ------------------------------------------- |
@@ -138,6 +140,7 @@ agentpacks supports 8 feature types inside a pack:
 | **hooks**    | Shell commands triggered by agent events             | `hooks.json`                                |
 | **plugins**  | Raw TypeScript plugin files (OpenCode)               | `plugins/my-plugin.ts`                      |
 | **mcp**      | MCP server definitions                               | `mcp.json`                                  |
+| **models**   | Model preferences, profiles, and per-agent overrides | `models.json`                               |
 | **ignore**   | Patterns the agent should ignore                     | `ignore`                                    |
 
 ---
@@ -164,6 +167,7 @@ agentpacks generate [options]
 Options:
   -t, --targets <targets>    Comma-separated target IDs, or * for all (default: from config)
   -f, --features <features>  Comma-separated feature IDs, or * for all (default: from config)
+  --model-profile <profile>  Activate a model profile (e.g. quality, budget, fast)
   --dry-run                  Preview changes without writing files
   --diff                     Show a diff of what would change
   -v, --verbose              Enable verbose output
@@ -178,13 +182,16 @@ agentpacks generate --targets cursor,claudecode
 
 # Preview changes without writing
 agentpacks generate --dry-run --diff
+
+# Generate with the "budget" model profile active
+agentpacks generate --model-profile budget
 ```
 
 ---
 
 ### `agentpacks install`
 
-Install remote packs (npm packages or git repos) into the local pack cache.
+Install remote packs (npm packages, git repos, or registry packs) into the local pack cache.
 
 ```bash
 agentpacks install [options]
@@ -305,6 +312,130 @@ agentpacks pack enable my-pack    # removes from "disabled" array
 
 ---
 
+### `agentpacks search <query>`
+
+Search the pack registry for packs matching a query.
+
+```bash
+agentpacks search typescript
+
+# Filter by target
+agentpacks search react --target cursor
+
+# Sort by downloads
+agentpacks search monorepo --sort downloads
+```
+
+---
+
+### `agentpacks info <pack>`
+
+Show detailed information about a registry pack.
+
+```bash
+agentpacks info typescript-best-practices
+```
+
+---
+
+### `agentpacks publish`
+
+Publish the current pack to the registry. Requires authentication.
+
+```bash
+agentpacks login   # store your registry token
+agentpacks publish # validate, bundle, and upload
+```
+
+The publish command validates the pack, scans for secrets, creates a tarball, and uploads it. Publish will be blocked if the pack contains potential secrets (API keys, tokens, etc.) in `models.json` or other config files.
+
+---
+
+### `agentpacks login`
+
+Authenticate with the pack registry.
+
+```bash
+agentpacks login
+```
+
+Stores your token in `~/.config/agentpacks/credentials.json`.
+
+---
+
+## Model Configuration
+
+agentpacks can manage AI model preferences across all your tools through the `models` feature. Define model assignments, named profiles, and provider options in a single `models.json` — agentpacks generates the right config for each tool.
+
+### models.json
+
+Place `models.json` at the root of a pack:
+
+```json
+{
+  "default": "anthropic/claude-sonnet-4-20250514",
+  "small": "anthropic/claude-haiku-3-5",
+  "agents": {
+    "code-reviewer": { "model": "anthropic/claude-opus-4-20250514" },
+    "quick-fixer": { "model": "anthropic/claude-haiku-3-5" }
+  },
+  "profiles": {
+    "quality": {
+      "default": "anthropic/claude-opus-4-20250514",
+      "small": "anthropic/claude-sonnet-4-20250514"
+    },
+    "budget": {
+      "default": "anthropic/claude-haiku-3-5",
+      "small": "anthropic/claude-haiku-3-5"
+    },
+    "fast": {
+      "default": "anthropic/claude-haiku-3-5"
+    }
+  },
+  "providers": {
+    "anthropic": {
+      "models": {
+        "claude-opus-4-20250514": {
+          "options": { "budgetTokens": 10000, "reasoningEffort": "high" }
+        }
+      }
+    }
+  }
+}
+```
+
+### Activating a profile
+
+Set `modelProfile` in your workspace config:
+
+```jsonc
+{
+  "modelProfile": "quality",
+}
+```
+
+Or override at generate time:
+
+```bash
+agentpacks generate --model-profile budget
+```
+
+### Per-tool output
+
+| Tool            | What agentpacks generates                                                                 |
+| --------------- | ----------------------------------------------------------------------------------------- |
+| **OpenCode**    | `model`, `small_model`, `provider.*.models.*.options`, `agent.*.model` in `opencode.json` |
+| **Cursor**      | `.cursor/rules/model-config.mdc` — an always-applied guidance rule                        |
+| **Claude Code** | Model guidance in `CLAUDE.md`, `<!-- model: ... -->` hints in agent files                 |
+| **Copilot**     | Model guidance section in `.github/copilot-instructions.md`                               |
+| **Others**      | Model guidance in their root rule file                                                    |
+
+### Security
+
+`models.json` must **never** contain credentials. agentpacks scans for API keys, tokens, secrets, and private key markers during `pack validate` and `publish`. Publish is blocked if secrets are detected.
+
+---
+
 ## Configuration
 
 ### Workspace config — `agentpacks.jsonc`
@@ -315,11 +446,12 @@ Created at your project root by `agentpacks init`.
 {
   "$schema": "https://unpkg.com/agentpacks/schema.json",
 
-  // Packs to load — local paths, npm packages, or git repos
+  // Packs to load — local, npm, git, or registry
   "packs": [
     "./packs/default",
     "agentpacks-typescript-rules", // npm package
     "github:myorg/agent-packs#main/python", // git ref
+    "registry:react-patterns", // registry pack
   ],
 
   // Temporarily disable a pack without removing it
@@ -335,8 +467,11 @@ Created at your project root by `agentpacks init`.
     "copilot",
   ],
 
-  // Which feature types to generate (* = all 8)
+  // Which feature types to generate (* = all 9)
   "features": ["*"],
+
+  // Active model profile (from models.json profiles)
+  "modelProfile": "quality",
 
   // Repository mode: "repo" | "monorepo" | "metarepo"
   "mode": "repo",
@@ -391,6 +526,7 @@ my-pack/
 │       └── SKILL.md
 ├── hooks.json
 ├── mcp.json
+├── models.json
 └── ignore
 ```
 
@@ -476,7 +612,31 @@ For metarepo setups (a repo of repos), set `mode: "metarepo"` and agentpacks wil
 
 ## Pack Distribution
 
-Packs can be shared as:
+Packs can be shared via four sources:
+
+### agentpacks registry
+
+The official pack registry at [agentpacks.dev](https://agentpacks.dev) — search, publish, and install community packs.
+
+```bash
+# Search for packs
+agentpacks search typescript
+
+# View pack details
+agentpacks info typescript-best-practices
+
+# Install from registry
+agentpacks install
+```
+
+```jsonc
+{
+  "packs": [
+    "registry:typescript-best-practices",
+    "registry:react-patterns@1.2.0", // pinned version
+  ],
+}
+```
 
 ### npm packages
 

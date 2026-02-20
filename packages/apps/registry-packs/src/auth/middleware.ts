@@ -1,4 +1,3 @@
-import { Elysia } from 'elysia';
 import { getDb } from '../db/client.js';
 import { validateToken } from './token.js';
 
@@ -9,35 +8,18 @@ export interface AuthContext {
 }
 
 /**
- * Elysia plugin for bearer token authentication.
- * Adds `auth` to the context for authenticated routes.
+ * Extract auth from request headers.
+ * Returns null if no valid bearer token is present.
  */
-export const authPlugin = new Elysia({ name: 'auth' }).derive(
-  async ({ headers }) => {
-    const authorization = headers.authorization;
-    if (!authorization?.startsWith('Bearer ')) {
-      return { auth: null as AuthContext | null };
-    }
-
-    const token = authorization.slice(7);
-    const db = getDb();
-    const result = await validateToken(db, token);
-
-    return { auth: result };
+export async function extractAuth(
+  headers: Record<string, string | undefined>
+): Promise<AuthContext | null> {
+  const authorization = headers.authorization;
+  if (!authorization?.startsWith('Bearer ')) {
+    return null;
   }
-);
 
-/**
- * Guard that requires authentication.
- * Use in route chains: `.use(requireAuth)`
- */
-export const requireAuth = new Elysia({ name: 'requireAuth' })
-  .use(authPlugin)
-  .onBeforeHandle((ctx) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const auth = (ctx as any).auth as AuthContext | null;
-    if (!auth) {
-      ctx.set.status = 401;
-      return { error: 'Authentication required' };
-    }
-  });
+  const token = authorization.slice(7);
+  const db = getDb();
+  return validateToken(db, token);
+}
