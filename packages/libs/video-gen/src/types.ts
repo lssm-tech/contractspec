@@ -6,8 +6,12 @@
 // ---------------------------------------------------------------------------
 
 import type { LLMProvider } from '@contractspec/lib.contracts-integrations/integrations/providers/llm';
-import type { VoiceProvider } from '@contractspec/lib.contracts-integrations/integrations/providers/voice';
+import type { VoiceSynthesizer } from '@contractspec/lib.voice/tts';
+import type { Transcriber } from '@contractspec/lib.voice/stt';
+import type { TTSProject } from '@contractspec/lib.voice/tts';
+import type { VoiceTimingMap } from '@contractspec/lib.contracts-integrations/integrations/providers/voice-video-sync';
 import type { ContentBrief } from '@contractspec/lib.content-gen/types';
+import type { ImageGenerator } from '@contractspec/lib.image-gen/generators/image-generator';
 import type {
   NarrationConfig,
   VideoFormat,
@@ -39,6 +43,8 @@ export type {
   VideoStyleOverrides,
 } from '@contractspec/lib.contracts-integrations/integrations/providers/video';
 
+export type { TTSProject } from '@contractspec/lib.voice/tts';
+
 export { VIDEO_FORMATS } from '@contractspec/lib.contracts-integrations/integrations/providers/video';
 
 // -- Video Brief ------------------------------------------------------------
@@ -69,8 +75,12 @@ export interface VideoBrief {
 export interface VideoGeneratorOptions {
   /** Optional LLM for enhanced scene planning & script generation */
   llm?: LLMProvider;
-  /** Optional voice provider for narration synthesis */
-  voice?: VoiceProvider;
+  /** Optional voice synthesizer for narration synthesis */
+  voice?: VoiceSynthesizer;
+  /** Optional transcriber for subtitle generation */
+  transcriber?: Transcriber;
+  /** Optional image generator for thumbnail generation */
+  image?: ImageGenerator;
   /** LLM model override */
   model?: string;
   /** LLM temperature (0-1). Default 0.4 for determinism. */
