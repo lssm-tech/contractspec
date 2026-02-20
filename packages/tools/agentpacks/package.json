@@ -46,6 +46,7 @@
     "./cli/init": "./src/cli/init.ts",
     "./cli/install": "./src/cli/install.ts",
     "./cli/login": "./src/cli/login.ts",
+    "./cli/models-explain": "./src/cli/models-explain.ts",
     "./cli/pack/create": "./src/cli/pack/create.ts",
     "./cli/pack/enable": "./src/cli/pack/enable.ts",
     "./cli/pack/list": "./src/cli/pack/list.ts",
@@ -187,6 +188,12 @@
         "bun": "./dist/cli/login.js",
         "node": "./dist/node/cli/login.js",
         "default": "./dist/cli/login.js"
+      },
+      "./cli/models-explain": {
+        "types": "./dist/cli/models-explain.d.ts",
+        "bun": "./dist/cli/models-explain.js",
+        "node": "./dist/node/cli/models-explain.js",
+        "default": "./dist/cli/models-explain.js"
       },
       "./cli/pack/create": {
         "types": "./dist/cli/pack/create.d.ts",
