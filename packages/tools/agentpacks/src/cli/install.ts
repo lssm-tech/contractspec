@@ -8,9 +8,11 @@ import {
 } from '../core/lockfile.js';
 import { isGitPackRef } from '../sources/git-ref.js';
 import { isNpmPackRef } from '../sources/npm-ref.js';
+import { isRegistryPackRef } from '../sources/registry-ref.js';
 import { isLocalPackRef } from '../sources/local.js';
 import { installGitSource } from '../sources/git.js';
 import { installNpmSource } from '../sources/npm.js';
+import { installRegistrySource } from '../sources/registry.js';
 
 interface InstallCliOptions {
   update?: boolean;
@@ -32,7 +34,7 @@ export async function runInstall(
 
   // Separate remote packs from local packs
   const remotePacks = config.packs.filter(
-    (ref) => isGitPackRef(ref) || isNpmPackRef(ref)
+    (ref) => isGitPackRef(ref) || isNpmPackRef(ref) || isRegistryPackRef(ref)
   );
   const localPacks = config.packs.filter((ref) => isLocalPackRef(ref));
 
@@ -73,7 +75,12 @@ export async function runInstall(
     try {
       let result: { installed: string[]; warnings: string[] };
 
-      if (isGitPackRef(packRef)) {
+      if (isRegistryPackRef(packRef)) {
+        result = await installRegistrySource(projectRoot, packRef, lockfile, {
+          update: options.update,
+          frozen: options.frozen,
+        });
+      } else if (isGitPackRef(packRef)) {
         const token =
           process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN ?? undefined;
         result = await installGitSource(projectRoot, packRef, lockfile, {

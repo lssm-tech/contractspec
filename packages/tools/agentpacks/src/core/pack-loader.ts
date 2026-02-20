@@ -13,6 +13,7 @@ import { parseHooks, type ParsedHooks } from '../features/hooks.js';
 import { parsePlugins, type ParsedPlugin } from '../features/plugins.js';
 import { parseMcp, type ParsedMcp } from '../features/mcp.js';
 import { parseIgnore, type ParsedIgnore } from '../features/ignore.js';
+import { parseModels, type ParsedModels } from '../features/models.js';
 
 /**
  * A fully loaded pack with all parsed features.
@@ -28,6 +29,7 @@ export interface LoadedPack {
   plugins: ParsedPlugin[];
   mcp: ParsedMcp | null;
   ignore: ParsedIgnore | null;
+  models: ParsedModels | null;
 }
 
 /**
@@ -99,6 +101,7 @@ export class PackLoader {
       plugins: parsePlugins(packDir, name),
       mcp: parseMcp(packDir, name),
       ignore: parseIgnore(packDir, name),
+      models: parseModels(packDir, name),
     };
   }
 
@@ -127,6 +130,7 @@ export class PackLoader {
     const curatedDir = resolve(this.projectRoot, '.agentpacks', '.curated');
     // Derive pack directory name from ref
     let packName = packRef;
+    if (packName.startsWith('registry:')) packName = packName.slice(9);
     if (packName.startsWith('npm:')) packName = packName.slice(4);
     if (packName.startsWith('github:')) packName = packName.slice(7);
     if (packName.startsWith('@')) packName = packName.slice(1);
@@ -158,6 +162,11 @@ export class PackLoader {
     // Absolute path
     if (isAbsolute(packRef)) {
       return packRef;
+    }
+
+    // Registry pack — resolve from curated cache
+    if (packRef.startsWith('registry:')) {
+      return this.resolveCuratedPack(packRef);
     }
 
     // npm package — resolve from curated cache

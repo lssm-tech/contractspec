@@ -1,0 +1,38 @@
+{
+  "$schema": "https://agentpacks.dev/schemas/models.json",
+  "default": "anthropic/claude-sonnet-4-20250514",
+  "small": "anthropic/claude-haiku-3.5",
+  "profiles": {
+    "quality": {
+      "description": "Maximum quality — use the strongest available model",
+      "default": "anthropic/claude-opus-4-20250514",
+      "small": "anthropic/claude-sonnet-4-20250514"
+    },
+    "budget": {
+      "description": "Cost-efficient — use smaller models where possible",
+      "default": "anthropic/claude-haiku-3.5",
+      "small": "anthropic/claude-haiku-3.5"
+    },
+    "fast": {
+      "description": "Low-latency — prioritize speed over depth",
+      "default": "anthropic/claude-haiku-3.5",
+      "small": "anthropic/claude-haiku-3.5"
+    }
+  },
+  "providers": {
+    "anthropic": {
+      "models": {
+        "claude-opus-4-20250514": {
+          "options": {
+            "budgetTokens": 10000
+          }
+        },
+        "claude-sonnet-4-20250514": {
+          "options": {
+            "budgetTokens": 5000
+          }
+        }
+      }
+    }
+  }
+}

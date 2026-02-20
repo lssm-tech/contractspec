@@ -9,6 +9,10 @@ import { ruleMatchesTarget } from '../features/rules.js';
 import { commandMatchesTarget } from '../features/commands.js';
 import { agentMatchesTarget } from '../features/agents.js';
 import { skillMatchesTarget } from '../features/skills.js';
+import {
+  resolveModels,
+  type ResolvedModels,
+} from '../core/profile-resolver.js';
 import { serializeFrontmatter } from '../utils/frontmatter.js';
 import {
   writeGeneratedFile,
@@ -36,6 +40,7 @@ export class CursorTarget extends BaseTarget {
     'hooks',
     'mcp',
     'ignore',
+    'models',
   ];
 
   generate(options: GenerateOptions): GenerateResult {
@@ -93,6 +98,11 @@ export class CursorTarget extends BaseTarget {
       }
       ensureDir(agentsDir);
 
+      // Resolve models for agent model hints
+      const resolvedModels = features.models
+        ? resolveModels(features.models, options.modelProfile, TARGET_ID)
+        : null;
+
       const agents = features.agents.filter((a) =>
         agentMatchesTarget(a, TARGET_ID)
       );
@@ -101,6 +111,14 @@ export class CursorTarget extends BaseTarget {
           name: agent.name,
           description: agent.meta.description ?? '',
         };
+        // Include model hint from models feature or agent frontmatter
+        const cursorMeta = agent.meta.cursor ?? {};
+        const modelsAgent = resolvedModels?.agents[agent.name];
+        const model =
+          modelsAgent?.model ?? (cursorMeta as Record<string, unknown>).model;
+        if (model) {
+          frontmatter.model = model;
+        }
         const filepath = join(agentsDir, `${agent.name}.md`);
         const content = serializeFrontmatter(frontmatter, agent.content);
         writeGeneratedFile(filepath, content);
@@ -170,6 +188,23 @@ export class CursorTarget extends BaseTarget {
       }
     }
 
+    // Models: generate guidance rule
+    if (effective.includes('models') && features.models) {
+      const resolved = resolveModels(
+        features.models,
+        options.modelProfile,
+        TARGET_ID
+      );
+      const guidanceContent = buildCursorModelGuidance(resolved);
+      if (guidanceContent) {
+        const rulesDir = resolve(cursorDir, 'rules');
+        ensureDir(rulesDir);
+        const filepath = join(rulesDir, 'model-config.mdc');
+        writeGeneratedFile(filepath, guidanceContent, { header: false });
+        filesWritten.push(filepath);
+      }
+    }
+
     return this.createResult(filesWritten, filesDeleted, warnings);
   }
 }
@@ -204,4 +239,85 @@ function buildCursorMcp(
   }
 
   return { mcpServers };
+}
+
+/**
+ * Build Cursor model guidance rule content (.mdc format).
+ */
+function buildCursorModelGuidance(resolved: ResolvedModels): string | null {
+  if (
+    !resolved.default &&
+    !resolved.small &&
+    Object.keys(resolved.agents).length === 0
+  ) {
+    return null;
+  }
+
+  const frontmatter: Record<string, unknown> = {
+    description:
+      'Model configuration and selection guidelines for this workspace',
+    alwaysApply: true,
+  };
+
+  const lines: string[] = [];
+  lines.push('# Model Configuration');
+  lines.push('');
+  lines.push(
+    'Use the following model preferences when working in this project.'
+  );
+  lines.push('');
+
+  // Default models
+  if (resolved.default || resolved.small) {
+    lines.push('## Default Models');
+    lines.push('');
+    if (resolved.default) {
+      lines.push(`- **Primary model**: ${resolved.default}`);
+    }
+    if (resolved.small) {
+      lines.push(
+        `- **Lightweight tasks** (titles, summaries): ${resolved.small}`
+      );
+    }
+    lines.push('');
+  }
+
+  // Agent assignments
+  const agentEntries = Object.entries(resolved.agents);
+  if (agentEntries.length > 0) {
+    lines.push('## Agent Model Assignments');
+    lines.push('');
+    lines.push('| Agent | Model | Temperature |');
+    lines.push('| --- | --- | --- |');
+    for (const [name, assignment] of agentEntries) {
+      const temp =
+        assignment.temperature !== undefined
+          ? String(assignment.temperature)
+          : '\u2014';
+      lines.push(`| ${name} | ${assignment.model} | ${temp} |`);
+    }
+    lines.push('');
+  }
+
+  // Available profiles
+  if (Object.keys(resolved.profiles).length > 0) {
+    lines.push('## Available Profiles');
+    lines.push('');
+    lines.push('| Profile | Description | Default Model |');
+    lines.push('| --- | --- | --- |');
+    for (const [name, profile] of Object.entries(resolved.profiles)) {
+      lines.push(
+        `| ${name} | ${profile.description ?? '\u2014'} | ${profile.default ?? '\u2014'} |`
+      );
+    }
+    lines.push('');
+  }
+
+  // Active profile
+  if (resolved.activeProfile) {
+    lines.push(`**Active profile**: \`${resolved.activeProfile}\``);
+    lines.push('');
+  }
+
+  return serializeFrontmatter(frontmatter, lines.join('\n'));
 }

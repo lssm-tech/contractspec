@@ -9,6 +9,8 @@ import { ruleMatchesTarget } from '../features/rules.js';
 import { commandMatchesTarget } from '../features/commands.js';
 import { agentMatchesTarget } from '../features/agents.js';
 import { skillMatchesTarget } from '../features/skills.js';
+import { resolveModels } from '../core/profile-resolver.js';
+import { generateModelGuidanceMarkdown } from '../utils/model-guidance.js';
 import {
   writeGeneratedFile,
   removeIfExists,
@@ -32,6 +34,7 @@ export class CopilotTarget extends BaseTarget {
     'skills',
     'mcp',
     'ignore',
+    'models',
   ];
 
   generate(options: GenerateOptions): GenerateResult {
@@ -121,6 +124,23 @@ export class CopilotTarget extends BaseTarget {
 
     if (effective.includes('ignore')) {
       // Copilot does not have a dedicated ignore file; skip
+    }
+
+    // Models: generate guidance markdown
+    if (effective.includes('models') && features.models) {
+      const resolved = resolveModels(
+        features.models,
+        options.modelProfile,
+        TARGET_ID
+      );
+      const guidance = generateModelGuidanceMarkdown(resolved);
+      if (guidance) {
+        const copilotDir = resolve(githubDir, 'copilot');
+        ensureDir(copilotDir);
+        const filepath = join(copilotDir, 'model-config.md');
+        writeGeneratedFile(filepath, guidance);
+        filesWritten.push(filepath);
+      }
     }
 
     return this.createResult(filesWritten, filesDeleted, warnings);

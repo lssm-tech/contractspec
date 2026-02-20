@@ -6,6 +6,11 @@ import type { ParsedSkill } from '../features/skills.js';
 import type { ParsedHooks, HookEvents } from '../features/hooks.js';
 import type { ParsedPlugin } from '../features/plugins.js';
 import type { McpServerEntry } from '../features/mcp.js';
+import {
+  type ParsedModels,
+  type ModelsConfig,
+  mergeModelsConfigs,
+} from '../features/models.js';
 
 /**
  * Merged features from all active packs.
@@ -19,6 +24,7 @@ export interface MergedFeatures {
   plugins: ParsedPlugin[];
   mcpServers: Record<string, McpServerEntry>;
   ignorePatterns: string[];
+  models: ModelsConfig | null;
 }
 
 /**
@@ -48,6 +54,7 @@ export class FeatureMerger {
       plugins: this.mergePlugins(),
       mcpServers: this.mergeMcp(),
       ignorePatterns: this.mergeIgnore(),
+      models: this.mergeModels(),
     };
 
     return { features, warnings: this.warnings };
@@ -181,5 +188,21 @@ export class FeatureMerger {
     }
 
     return result;
+  }
+
+  /**
+   * Models: delegate to mergeModelsConfigs.
+   * Returns null if no packs define models.
+   */
+  private mergeModels(): ModelsConfig | null {
+    const configs: ParsedModels[] = this.packs
+      .map((p) => p.models)
+      .filter((m): m is ParsedModels => m != null);
+
+    if (configs.length === 0) return null;
+
+    const { config, warnings } = mergeModelsConfigs(configs);
+    this.warnings.push(...warnings);
+    return config;
   }
 }

@@ -43,6 +43,7 @@ export const FEATURE_IDS = [
   'plugins',
   'mcp',
   'ignore',
+  'models',
 ] as const;
 
 export type FeatureId = (typeof FEATURE_IDS)[number];
@@ -109,6 +110,8 @@ export const WorkspaceConfigSchema = z.object({
       })
     )
     .default([]),
+  /** Active model profile name (selects from merged models profiles). */
+  modelProfile: z.string().optional(),
 });
 
 export type WorkspaceConfig = z.infer<typeof WorkspaceConfigSchema>;

@@ -19,6 +19,8 @@ export interface GenerateOptions {
   global: boolean;
   /** Verbose logging */
   verbose: boolean;
+  /** Active model profile name (from workspace config) */
+  modelProfile?: string;
 }
 
 /**

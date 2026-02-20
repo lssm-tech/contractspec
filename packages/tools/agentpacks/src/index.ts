@@ -11,6 +11,10 @@ import { runPackValidate } from './cli/pack/validate.js';
 import { runInstall } from './cli/install.js';
 import { runPackEnable, runPackDisable } from './cli/pack/enable.js';
 import { runExport } from './cli/export-cmd.js';
+import { runSearch } from './cli/search.js';
+import { runInfo } from './cli/info.js';
+import { runPublish } from './cli/publish.js';
+import { runLogin } from './cli/login.js';
 
 const program = new Command();
 
@@ -79,6 +83,46 @@ program
   .option('-o, --output <dir>', 'Output pack directory')
   .action((options) => {
     runImport(resolve('.'), options);
+  });
+
+// search
+program
+  .command('search [query]')
+  .description('Search for packs in the registry')
+  .option('--tags <tags>', 'Filter by tags (comma-separated)')
+  .option('--targets <targets>', 'Filter by targets (comma-separated)')
+  .option('--sort <sort>', 'Sort by: downloads, updated, name, weekly')
+  .option('-l, --limit <limit>', 'Max results to show')
+  .option('-v, --verbose', 'Show additional details')
+  .action(async (query: string, options) => {
+    await runSearch(query ?? '', options);
+  });
+
+// info
+program
+  .command('info <pack>')
+  .description('Show detailed pack information from the registry')
+  .action(async (packName: string) => {
+    await runInfo(packName);
+  });
+
+// publish
+program
+  .command('publish')
+  .description('Publish a pack to the registry')
+  .option('-v, --verbose', 'Enable verbose logging')
+  .action(async (options) => {
+    await runPublish(resolve('.'), options);
+  });
+
+// login
+program
+  .command('login')
+  .description('Authenticate with the agentpacks registry')
+  .option('--token <token>', 'API token')
+  .option('--registry <url>', 'Registry URL')
+  .action(async (options) => {
+    await runLogin(options);
   });
 
 // pack (parent command)

@@ -133,6 +133,7 @@ export function runGenerate(
         deleteExisting: options.diff ? false : config.delete,
         global: config.global,
         verbose: config.verbose,
+        modelProfile: config.modelProfile,
       };
 
       // Snapshot existing files before generating (for --diff)
