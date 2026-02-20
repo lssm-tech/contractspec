@@ -138,8 +138,8 @@ modelsCmd
   .option('-p, --profile <name>', 'Profile to activate')
   .option('-t, --target <id>', 'Target to resolve for')
   .option('--task <description>', 'Task description for routing match')
-  .action(async (options) => {
-    await runModelsExplain(options);
+  .action((options) => {
+    runModelsExplain(options);
   });
 
 // pack (parent command)

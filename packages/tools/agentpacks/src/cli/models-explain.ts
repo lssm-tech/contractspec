@@ -1,8 +1,8 @@
 import chalk from 'chalk';
 import { resolve } from 'path';
-import { existsSync } from 'fs';
-import { loadPacks } from '../core/loader.js';
-import { mergePacks } from '../core/merger.js';
+import { loadWorkspaceConfig } from '../core/config.js';
+import { PackLoader } from '../core/pack-loader.js';
+import { FeatureMerger } from '../core/feature-merger.js';
 import { resolveModels } from '../core/profile-resolver.js';
 import { generateModelGuidanceMarkdown } from '../utils/model-guidance.js';
 
@@ -21,21 +21,21 @@ interface ModelsExplainOptions {
  *   agentpacks models explain --profile performance
  *   agentpacks models explain --task "complex refactor" --target opencode
  */
-export async function runModelsExplain(
-  options: ModelsExplainOptions
-): Promise<void> {
-  const configPath = resolve(options.config ?? 'agentpacks.yaml');
+export function runModelsExplain(options: ModelsExplainOptions): void {
+  const projectRoot = resolve(options.config ?? '.');
+  const config = loadWorkspaceConfig(projectRoot);
 
-  if (!existsSync(configPath)) {
-    console.log(
-      chalk.red('No agentpacks.yaml found. Run `agentpacks init` first.')
-    );
+  // Load and merge packs
+  const loader = new PackLoader(projectRoot, config);
+  const { packs } = loader.loadAll();
+
+  if (packs.length === 0) {
+    console.log(chalk.red('No packs loaded. Run `agentpacks init` first.'));
     process.exit(1);
   }
 
-  // Load and merge packs
-  const packs = await loadPacks(configPath);
-  const merged = mergePacks(packs);
+  const merger = new FeatureMerger(packs);
+  const { features: merged } = merger.merge();
 
   if (!merged.models) {
     console.log(chalk.dim('No model configuration found in your packs.'));
