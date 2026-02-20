@@ -14,7 +14,7 @@ import { commandMatchesTarget } from '../features/commands.js';
 import { agentMatchesTarget } from '../features/agents.js';
 import { skillMatchesTarget } from '../features/skills.js';
 import { resolveHooksForTarget } from '../features/hooks.js';
-import { resolveModels } from '../core/profile-resolver.js';
+import { resolveModels, resolveAgentModel } from '../core/profile-resolver.js';
 import { generateModelGuidanceMarkdown } from '../utils/model-guidance.js';
 import {
   writeGeneratedFile,
@@ -95,12 +95,28 @@ export class ClaudeCodeTarget extends BaseTarget {
       }
       ensureDir(agentsDir);
 
+      // Resolve models for agent model passthrough
+      const resolvedModels = features.models
+        ? resolveModels(features.models, options.modelProfile, TARGET_ID)
+        : null;
+
       const agents = features.agents.filter((a) =>
         agentMatchesTarget(a, TARGET_ID)
       );
       for (const agent of agents) {
         const filepath = join(agentsDir, `${agent.name}.md`);
-        writeGeneratedFile(filepath, agent.content);
+        // Serialize claudecode model metadata into agent content
+        const cc = agent.meta.claudecode ?? {};
+        const modelsAgent = resolvedModels?.agents[agent.name];
+        const agentModel =
+          modelsAgent?.model ?? (cc as Record<string, unknown>).model;
+
+        let content = agent.content;
+        if (agentModel) {
+          // Prepend model hint as a metadata comment for Claude Code
+          content = `<!-- model: ${agentModel} -->\n${content}`;
+        }
+        writeGeneratedFile(filepath, content);
         filesWritten.push(filepath);
       }
     }
