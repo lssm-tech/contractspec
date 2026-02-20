@@ -37,7 +37,7 @@ import {
 } from './tool-bridge';
 import { inferAgentType } from './agent-bridge';
 import { injectStaticKnowledge } from '../../knowledge/injector';
-import { getDefaultI18n } from '../../i18n';
+import { createAgentI18n } from '../../i18n';
 
 // ============================================================================
 // Provider Implementation
@@ -95,7 +95,7 @@ export class OpenCodeSDKProvider implements ExternalAgentProvider {
     if (!this.isAvailable()) {
       throw new ProviderNotAvailableError(
         this.name,
-        getDefaultI18n().t('error.provider.sdkNotInstalled')
+        createAgentI18n(this.config.locale).t('error.provider.sdkNotInstalled')
       );
     }
 
@@ -158,9 +158,12 @@ export class OpenCodeSDKProvider implements ExternalAgentProvider {
     } catch (error) {
       throw new ContextCreationError(
         this.name,
-        getDefaultI18n().t('error.provider.contextCreation', {
-          error: error instanceof Error ? error.message : String(error),
-        }),
+        createAgentI18n(this.config.locale).t(
+          'error.provider.contextCreation',
+          {
+            error: error instanceof Error ? error.message : String(error),
+          }
+        ),
         error instanceof Error ? error : undefined
       );
     }
@@ -233,9 +236,12 @@ export class OpenCodeSDKProvider implements ExternalAgentProvider {
     } catch (error) {
       throw new ProviderExecutionError(
         this.name,
-        getDefaultI18n().t('error.provider.executionFailed', {
-          error: error instanceof Error ? error.message : String(error),
-        }),
+        createAgentI18n(this.config.locale).t(
+          'error.provider.executionFailed',
+          {
+            error: error instanceof Error ? error.message : String(error),
+          }
+        ),
         error instanceof Error ? error : undefined
       );
     }
@@ -347,7 +353,7 @@ export class OpenCodeSDKProvider implements ExternalAgentProvider {
     } catch (error) {
       throw new ProviderExecutionError(
         this.name,
-        getDefaultI18n().t('error.provider.streamFailed', {
+        createAgentI18n(this.config.locale).t('error.provider.streamFailed', {
           error: error instanceof Error ? error.message : String(error),
         }),
         error instanceof Error ? error : undefined
@@ -370,7 +376,9 @@ export class OpenCodeSDKProvider implements ExternalAgentProvider {
     } catch {
       throw new ProviderNotAvailableError(
         this.name,
-        getDefaultI18n().t('error.provider.opencodeSdkMissing')
+        createAgentI18n(this.config.locale).t(
+          'error.provider.opencodeSdkMissing'
+        )
       );
     }
   }

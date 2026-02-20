@@ -28,7 +28,7 @@ export function agentToMcpServer(
   agent: ContractSpecAgent,
   spec: AgentSpec
 ): McpServer {
-  const i18n = createAgentI18n();
+  const i18n = createAgentI18n(spec.locale);
 
   const server = new McpServer({
     name: spec.meta.key,

@@ -14,6 +14,7 @@ import type {
   ToolResultInfo,
 } from '../types';
 import type { McpClientConfig } from '../tools/mcp-client';
+import { createAgentI18n } from '../i18n';
 
 // ============================================================================
 // Core Provider Interface
@@ -185,6 +186,8 @@ export interface ClaudeAgentSDKConfig {
   maxTokens?: number;
   /** Temperature for generation */
   temperature?: number;
+  /** Locale for i18n (BCP 47). Falls back to 'en'. */
+  locale?: string;
 }
 
 /**
@@ -225,6 +228,8 @@ export interface OpenCodeSDKConfig {
   temperature?: number;
   /** Connection timeout in milliseconds */
   timeout?: number;
+  /** Locale for i18n (BCP 47). Falls back to 'en'. */
+  locale?: string;
 }
 
 /**
@@ -292,9 +297,13 @@ export class ExternalProviderError extends Error {
  * Error when provider is not available.
  */
 export class ProviderNotAvailableError extends ExternalProviderError {
-  constructor(provider: string, reason?: string) {
+  constructor(provider: string, reason?: string, locale?: string) {
+    const i18n = createAgentI18n(locale);
     super(
-      `Provider '${provider}' is not available${reason ? `: ${reason}` : ''}`,
+      i18n.t('error.provider.notAvailable', {
+        provider,
+        reason: reason ? `: ${reason}` : '',
+      }),
       provider,
       'PROVIDER_NOT_AVAILABLE'
     );

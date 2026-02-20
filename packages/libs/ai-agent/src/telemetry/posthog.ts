@@ -5,6 +5,7 @@ import type {
   PostHogLLMConfig,
   PostHogTracingOptions,
 } from './posthog-types';
+import { createAgentI18n } from '../i18n';
 
 // Re-export types for consumer convenience
 export type {
@@ -244,10 +245,7 @@ async function importPostHogAI(): Promise<{
       withTracing: (...args: unknown[]) => unknown;
     }>);
   } catch {
-    throw new Error(
-      'PostHog LLM Analytics requires @posthog/ai to be installed. ' +
-        'Run: npm install @posthog/ai posthog-node'
-    );
+    throw new Error(createAgentI18n().t('error.telemetry.posthogAiRequired'));
   }
 }
 
@@ -257,7 +255,7 @@ async function resolvePostHogClient(
   if (config.client) return config.client;
   if (!config.apiKey) {
     throw new Error(
-      'PostHog LLM Analytics requires either a client instance or an apiKey.'
+      createAgentI18n().t('error.telemetry.posthogClientOrKeyRequired')
     );
   }
 
@@ -267,10 +265,7 @@ async function resolvePostHogClient(
       host: config.host ?? 'https://us.i.posthog.com',
     }) as unknown as PostHogClient;
   } catch {
-    throw new Error(
-      'PostHog LLM Analytics requires posthog-node to be installed. ' +
-        'Run: npm install posthog-node'
-    );
+    throw new Error(createAgentI18n().t('error.telemetry.posthogNodeRequired'));
   }
 }
 

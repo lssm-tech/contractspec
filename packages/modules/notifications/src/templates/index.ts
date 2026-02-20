@@ -20,6 +20,14 @@ export interface ChannelTemplateContent {
   actionText?: string;
 }
 
+/** Channel content map for a template. */
+export type ChannelContentMap = {
+  email?: ChannelTemplateContent;
+  inApp?: ChannelTemplateContent;
+  push?: ChannelTemplateContent;
+  webhook?: ChannelTemplateContent;
+};
+
 /**
  * Notification template definition.
  */
@@ -30,12 +38,12 @@ export interface NotificationTemplateDefinition {
   category?: string;
   variables?: TemplateVariable[];
   defaultChannels?: string[];
-  channels: {
-    email?: ChannelTemplateContent;
-    inApp?: ChannelTemplateContent;
-    push?: ChannelTemplateContent;
-    webhook?: ChannelTemplateContent;
-  };
+  channels: ChannelContentMap;
+  /**
+   * Per-locale channel content overrides.
+   * Falls back to `channels` for unlisted locales.
+   */
+  localeChannels?: Record<string, Partial<ChannelContentMap>>;
 }
 
 /**
@@ -79,13 +87,20 @@ export function renderTemplate(
 
 /**
  * Render a notification template for a specific channel.
+ *
+ * When `locale` is provided, the renderer first looks for channel content
+ * under `localeChannels[locale]`, falling back to the default `channels`.
  */
 export function renderNotificationTemplate(
   template: NotificationTemplateDefinition,
-  channel: keyof NotificationTemplateDefinition['channels'],
-  variables: Record<string, unknown>
+  channel: keyof ChannelContentMap,
+  variables: Record<string, unknown>,
+  locale?: string
 ): RenderedNotification | null {
-  const channelContent = template.channels[channel];
+  const channelContent =
+    (locale && template.localeChannels?.[locale]?.[channel]) ??
+    template.channels[channel];
+
   if (!channelContent) {
     return null;
   }
@@ -189,6 +204,38 @@ export const WelcomeTemplate = defineTemplate({
       actionUrl: '{{actionUrl}}',
     },
   },
+  localeChannels: {
+    fr: {
+      email: {
+        subject: 'Bienvenue sur {{appName}}, {{name}}\u202f!',
+        body: `
+          <h1>Bienvenue, {{name}}\u202f!</h1>
+          <p>Merci d\u2019avoir rejoint {{appName}}. Nous sommes ravis de vous compter parmi nous.</p>
+          <p><a href="{{actionUrl}}">Commencer maintenant</a></p>
+        `,
+      },
+      inApp: {
+        title: 'Bienvenue sur {{appName}}\u202f!',
+        body: 'Merci de nous avoir rejoint. Cliquez pour compl\u00e9ter votre profil.',
+        actionUrl: '{{actionUrl}}',
+      },
+    },
+    es: {
+      email: {
+        subject: '\u00a1Bienvenido a {{appName}}, {{name}}!',
+        body: `
+          <h1>\u00a1Bienvenido, {{name}}!</h1>
+          <p>Gracias por unirte a {{appName}}. Estamos encantados de tenerte.</p>
+          <p><a href="{{actionUrl}}">Comenzar ahora</a></p>
+        `,
+      },
+      inApp: {
+        title: '\u00a1Bienvenido a {{appName}}!',
+        body: 'Gracias por unirte. Haz clic para completar tu perfil.',
+        actionUrl: '{{actionUrl}}',
+      },
+    },
+  },
 });
 
 /**
@@ -222,6 +269,40 @@ export const OrgInviteTemplate = defineTemplate({
       actionText: 'Accept',
     },
   },
+  localeChannels: {
+    fr: {
+      email: {
+        subject: '{{inviterName}} vous invite \u00e0 rejoindre {{orgName}}',
+        body: `
+          <h1>Vous \u00eates invit\u00e9\u202f!</h1>
+          <p>{{inviterName}} vous a invit\u00e9 \u00e0 rejoindre <strong>{{orgName}}</strong> en tant que {{role}}.</p>
+          <p><a href="{{actionUrl}}">Accepter l\u2019invitation</a></p>
+        `,
+      },
+      inApp: {
+        title: 'Invitation \u00e0 {{orgName}}',
+        body: '{{inviterName}} vous a invit\u00e9 \u00e0 rejoindre en tant que {{role}}.',
+        actionUrl: '{{actionUrl}}',
+        actionText: 'Accepter',
+      },
+    },
+    es: {
+      email: {
+        subject: '{{inviterName}} te invit\u00f3 a unirte a {{orgName}}',
+        body: `
+          <h1>\u00a1Has sido invitado!</h1>
+          <p>{{inviterName}} te ha invitado a unirte a <strong>{{orgName}}</strong> como {{role}}.</p>
+          <p><a href="{{actionUrl}}">Aceptar invitaci\u00f3n</a></p>
+        `,
+      },
+      inApp: {
+        title: 'Invitaci\u00f3n a {{orgName}}',
+        body: '{{inviterName}} te invit\u00f3 a unirte como {{role}}.',
+        actionUrl: '{{actionUrl}}',
+        actionText: 'Aceptar',
+      },
+    },
+  },
 });
 
 /**
@@ -248,6 +329,30 @@ export const MentionTemplate = defineTemplate({
     push: {
       title: '{{mentionerName}} mentioned you',
       body: '{{preview}}',
+    },
+  },
+  localeChannels: {
+    fr: {
+      inApp: {
+        title: '{{mentionerName}} vous a mentionn\u00e9',
+        body: 'Dans {{context}}\u202f: \u00ab\u202f{{preview}}\u202f\u00bb',
+        actionUrl: '{{actionUrl}}',
+      },
+      push: {
+        title: '{{mentionerName}} vous a mentionn\u00e9',
+        body: '{{preview}}',
+      },
+    },
+    es: {
+      inApp: {
+        title: '{{mentionerName}} te mencion\u00f3',
+        body: 'En {{context}}: "{{preview}}"',
+        actionUrl: '{{actionUrl}}',
+      },
+      push: {
+        title: '{{mentionerName}} te mencion\u00f3',
+        body: '{{preview}}',
+      },
     },
   },
 });

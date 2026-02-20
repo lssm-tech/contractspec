@@ -4,16 +4,20 @@ import type {
   GeneratedContent,
   GeneratorOptions,
 } from '../types';
+import { createContentGenI18n } from '../i18n';
+import type { ContentGenI18n } from '../i18n';
 
 export class BlogGenerator {
   private readonly llm?: LLMProvider;
   private readonly model?: string;
   private readonly temperature: number;
+  private readonly i18n: ContentGenI18n;
 
   constructor(options?: GeneratorOptions) {
     this.llm = options?.llm;
     this.model = options?.model;
     this.temperature = options?.temperature ?? 0.4;
+    this.i18n = createContentGenI18n(options?.locale);
   }
 
   async generate(brief: ContentBrief): Promise<GeneratedContent> {
@@ -36,7 +40,7 @@ export class BlogGenerator {
           content: [
             {
               type: 'text',
-              text: 'You are a product marketing writer. Produce JSON with title, subtitle, intro, sections[].heading/body/bullets, outro.',
+              text: this.i18n.t('prompt.blog.system'),
             },
           ],
         },
@@ -64,26 +68,31 @@ export class BlogGenerator {
   }
 
   private generateDeterministic(brief: ContentBrief): GeneratedContent {
-    const intro = `Operators like ${brief.audience.role} teams face ${brief.problems
-      .slice(0, 2)
-      .join(' and ')}. ${brief.title} changes that by ${brief.summary}.`;
+    const { t } = this.i18n;
+
+    const intro = t('blog.intro', {
+      role: brief.audience.role,
+      problems: brief.problems.slice(0, 2).join(' and '),
+      title: brief.title,
+      summary: brief.summary,
+    });
 
     const sections = [
       {
-        heading: 'Why now',
+        heading: t('blog.heading.whyNow'),
         body: this.renderWhyNow(brief),
       },
       {
-        heading: 'What you get',
-        body: 'A focused stack built for policy-safe automation.',
+        heading: t('blog.heading.whatYouGet'),
+        body: t('blog.body.whatYouGet'),
         bullets: brief.solutions,
       },
       {
-        heading: 'Proof it works',
-        body: 'Teams using the blueprint report measurable wins.',
+        heading: t('blog.heading.proofItWorks'),
+        body: t('blog.body.proofItWorks'),
         bullets: brief.metrics ?? [
-          'Launch workflows in minutes',
-          'Cut review time by 60%',
+          t('blog.metric.launchWorkflows'),
+          t('blog.metric.cutReviewTime'),
         ],
       },
     ];
@@ -93,15 +102,18 @@ export class BlogGenerator {
       subtitle: brief.summary,
       intro,
       sections,
-      outro:
-        brief.callToAction ??
-        'Ready to see it live? Spin up a sandbox in under 5 minutes.',
+      outro: brief.callToAction ?? t('blog.outro.default'),
     };
   }
 
   private renderWhyNow(brief: ContentBrief): string {
-    const audience = `${brief.audience.role}${brief.audience.industry ? ` in ${brief.audience.industry}` : ''}`;
+    const { t } = this.i18n;
+    const audience = `${brief.audience.role}${brief.audience.industry ? t('blog.audience.industry', { industry: brief.audience.industry }) : ''}`;
     const pains = brief.problems.slice(0, 2).join('; ');
-    return `${audience} teams are stuck with ${pains}. ${brief.title} delivers guardrails without slowing shipping.`;
+    return t('blog.whyNow', {
+      audience,
+      pains,
+      title: brief.title,
+    });
   }
 }

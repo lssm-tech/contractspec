@@ -4,11 +4,15 @@ import type {
   ResolvedKnowledge,
 } from '@contractspec/lib.contracts-spec/app-config/runtime';
 import type { KnowledgeAccessContext, KnowledgeAccessResult } from '../types';
+import { getDefaultI18n, createKnowledgeI18n } from '../i18n/messages';
+import type { KnowledgeI18n } from '../i18n/messages';
 
 export interface KnowledgeAccessGuardOptions {
   disallowWriteCategories?: KnowledgeCategory[];
   requireWorkflowBinding?: boolean;
   requireAgentBinding?: boolean;
+  /** Default locale for access denial/warning messages */
+  locale?: string;
 }
 
 const DEFAULT_DISALLOWED_WRITE: KnowledgeCategory[] = ['external', 'ephemeral'];
@@ -17,6 +21,7 @@ export class KnowledgeAccessGuard {
   private readonly disallowedWrite: Set<KnowledgeCategory>;
   private readonly requireWorkflowBinding: boolean;
   private readonly requireAgentBinding: boolean;
+  private readonly i18n: KnowledgeI18n;
 
   constructor(options: KnowledgeAccessGuardOptions = {}) {
     this.disallowedWrite = new Set(
@@ -24,6 +29,9 @@ export class KnowledgeAccessGuard {
     );
     this.requireWorkflowBinding = options.requireWorkflowBinding ?? true;
     this.requireAgentBinding = options.requireAgentBinding ?? false;
+    this.i18n = options.locale
+      ? createKnowledgeI18n(options.locale)
+      : getDefaultI18n();
   }
 
   checkAccess(
@@ -39,7 +47,9 @@ export class KnowledgeAccessGuard {
     ) {
       return {
         allowed: false,
-        reason: `Knowledge space "${space.meta.key}" is not bound in the resolved app config.`,
+        reason: this.i18n.t('access.notBound', {
+          spaceKey: space.meta.key,
+        }),
       };
     }
 
@@ -49,7 +59,10 @@ export class KnowledgeAccessGuard {
     ) {
       return {
         allowed: false,
-        reason: `Knowledge space "${space.meta.key}" is category "${space.meta.category}" and is read-only.`,
+        reason: this.i18n.t('access.readOnly', {
+          spaceKey: space.meta.key,
+          category: space.meta.category,
+        }),
       };
     }
 
@@ -61,7 +74,10 @@ export class KnowledgeAccessGuard {
       ) {
         return {
           allowed: false,
-          reason: `Workflow "${context.workflowName}" is not authorized to access knowledge space "${space.meta.key}".`,
+          reason: this.i18n.t('access.workflowUnauthorized', {
+            workflowName: context.workflowName,
+            spaceKey: space.meta.key,
+          }),
         };
       }
     }
@@ -71,7 +87,10 @@ export class KnowledgeAccessGuard {
       if (allowedAgents && !allowedAgents.includes(context.agentName)) {
         return {
           allowed: false,
-          reason: `Agent "${context.agentName}" is not authorized to access knowledge space "${space.meta.key}".`,
+          reason: this.i18n.t('access.agentUnauthorized', {
+            agentName: context.agentName,
+            spaceKey: space.meta.key,
+          }),
         };
       }
     }
@@ -80,7 +99,9 @@ export class KnowledgeAccessGuard {
       return {
         allowed: true,
         severity: 'warning',
-        reason: `Knowledge space "${space.meta.key}" is ephemeral; results may be transient.`,
+        reason: this.i18n.t('access.ephemeralWarning', {
+          spaceKey: space.meta.key,
+        }),
       };
     }
 

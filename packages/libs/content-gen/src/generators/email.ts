@@ -4,16 +4,20 @@ import type {
   GeneratorOptions,
 } from '../types';
 import type { LLMProvider } from '@contractspec/lib.contracts-integrations';
+import { createContentGenI18n } from '../i18n';
+import type { ContentGenI18n } from '../i18n';
 
 export class EmailCampaignGenerator {
   private readonly llm?: LLMProvider;
   private readonly model?: string;
   private readonly temperature: number;
+  private readonly i18n: ContentGenI18n;
 
   constructor(options?: GeneratorOptions) {
     this.llm = options?.llm;
     this.model = options?.model;
     this.temperature = options?.temperature ?? 0.6;
+    this.i18n = createContentGenI18n(options?.locale);
   }
 
   async generate(input: EmailCampaignBrief): Promise<EmailDraft> {
@@ -35,7 +39,7 @@ export class EmailCampaignGenerator {
           content: [
             {
               type: 'text',
-              text: 'Draft product marketing email as JSON {subject, previewText, body, cta}.',
+              text: this.i18n.t('prompt.email.system'),
             },
           ],
         },
@@ -65,11 +69,13 @@ export class EmailCampaignGenerator {
 
   private generateFallback(input: EmailCampaignBrief): EmailDraft {
     const { brief, variant } = input;
+    const { t } = this.i18n;
     const subject =
-      this.subjects(brief.title, variant)[0] ?? `${brief.title} update`;
+      this.subjects(brief.title, variant)[0] ??
+      t('email.subject.fallback', { title: brief.title });
     const previewText = this.defaultPreview(input);
     const body = this.renderBody(input);
-    const cta = brief.callToAction ?? 'Explore the sandbox';
+    const cta = brief.callToAction ?? t('email.cta.explore');
     return { subject, previewText, body, cta, variant };
   }
 
@@ -77,38 +83,51 @@ export class EmailCampaignGenerator {
     title: string,
     variant: EmailCampaignBrief['variant']
   ): string[] {
+    const { t } = this.i18n;
     switch (variant) {
       case 'announcement':
-        return [`Launch: ${title}`, `${title} is live`, `New: ${title}`];
+        return [
+          t('email.subject.announcement.launch', { title }),
+          t('email.subject.announcement.live', { title }),
+          t('email.subject.announcement.new', { title }),
+        ];
       case 'onboarding':
-        return [`Get started with ${title}`, `Your ${title} guide`];
+        return [
+          t('email.subject.onboarding.getStarted', { title }),
+          t('email.subject.onboarding.guide', { title }),
+        ];
       case 'nurture':
       default:
-        return [`How ${title} speeds ops`, `Proof ${title} works`];
+        return [
+          t('email.subject.nurture.speeds', { title }),
+          t('email.subject.nurture.proof', { title }),
+        ];
     }
   }
 
   private defaultPreview(input: EmailCampaignBrief) {
-    const win = input.brief.metrics?.[0] ?? 'ship faster without policy gaps';
-    return `See how teams ${win}.`;
+    const { t } = this.i18n;
+    const win = input.brief.metrics?.[0] ?? t('email.preview.defaultWin');
+    return t('email.preview.template', { win });
   }
 
   private renderBody(input: EmailCampaignBrief): string {
     const { brief, variant } = input;
-    const greeting = 'Hi there,';
+    const { t } = this.i18n;
+    const greeting = t('email.body.greeting');
     const hook = this.variantHook(variant, brief);
     const proof =
-      brief.metrics?.map((metric) => `• ${metric}`).join('\n') ?? '';
+      brief.metrics?.map((metric) => `\u2022 ${metric}`).join('\n') ?? '';
     return `${greeting}
 
 ${hook}
 
-Top reasons teams adopt ${brief.title}:
-${brief.solutions.map((solution) => `• ${solution}`).join('\n')}
+${t('email.body.reasons', { title: brief.title })}
+${brief.solutions.map((solution) => `\u2022 ${solution}`).join('\n')}
 
 ${proof}
 
-${brief.callToAction ?? 'Spin up a sandbox'} → ${(input.cadenceDay ?? 0) + 1}
+${brief.callToAction ?? t('email.cta.sandbox')} \u2192 ${(input.cadenceDay ?? 0) + 1}
 `;
   }
 
@@ -116,14 +135,18 @@ ${brief.callToAction ?? 'Spin up a sandbox'} → ${(input.cadenceDay ?? 0) + 1}
     variant: EmailCampaignBrief['variant'],
     brief: EmailCampaignBrief['brief']
   ): string {
+    const { t } = this.i18n;
     switch (variant) {
       case 'announcement':
-        return `${brief.title} is live. ${brief.summary}`;
+        return t('email.hook.announcement', {
+          title: brief.title,
+          summary: brief.summary,
+        });
       case 'onboarding':
-        return `Here is your next step to unlock ${brief.title}.`;
+        return t('email.hook.onboarding', { title: brief.title });
       case 'nurture':
       default:
-        return `Operators like ${brief.audience.role} keep asking how to automate policy checks. Here is what works.`;
+        return t('email.hook.nurture', { role: brief.audience.role });
     }
   }
 }

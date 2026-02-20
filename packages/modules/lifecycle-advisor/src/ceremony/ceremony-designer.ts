@@ -1,6 +1,8 @@
 import type { LifecycleRecommendation } from '@contractspec/lib.lifecycle';
 import { LifecycleStage } from '@contractspec/lib.lifecycle';
-import stagePlaybooks from '../data/stage-playbooks';
+import stagePlaybooks, {
+  getLocalizedStagePlaybooks,
+} from '../data/stage-playbooks';
 
 type CeremonyConfig = NonNullable<LifecycleRecommendation['ceremony']>;
 
@@ -25,7 +27,16 @@ export class LifecycleCeremonyDesigner {
       : CEREMONY_MAP;
   }
 
-  design(stage: LifecycleStage): CeremonyConfig | undefined {
+  /**
+   * Return ceremony config for a stage.
+   * When `locale` is provided, ceremony title and copy are translated.
+   */
+  design(stage: LifecycleStage, locale?: string): CeremonyConfig | undefined {
+    if (locale) {
+      const localized = getLocalizedStagePlaybooks(locale);
+      const entry = localized.find((p) => p.stage === stage);
+      return entry?.ceremony;
+    }
     return this.ceremonies.get(stage);
   }
 }

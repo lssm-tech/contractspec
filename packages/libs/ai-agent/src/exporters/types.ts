@@ -22,6 +22,8 @@ export interface ExportOptions {
   prettyPrint?: boolean;
   /** Custom metadata to include */
   metadata?: Record<string, unknown>;
+  /** Target locale for exported strings (BCP 47, e.g., "en", "fr", "es") */
+  locale?: string;
 }
 
 /**

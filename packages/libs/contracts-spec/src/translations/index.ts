@@ -58,3 +58,6 @@ export type {
 
 // Tenant overrides
 export * from './tenant';
+
+// I18n factory for package-level message helpers
+export * from './i18n-factory';

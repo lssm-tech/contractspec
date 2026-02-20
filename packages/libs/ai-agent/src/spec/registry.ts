@@ -1,5 +1,5 @@
 import type { AgentSpec } from './spec';
-import { getDefaultI18n } from '../i18n';
+import { createAgentI18n } from '../i18n';
 import { compareVersions } from 'compare-versions';
 import { SpecContractRegistry } from '@contractspec/lib.contracts-spec/registry';
 
@@ -32,11 +32,11 @@ export class AgentRegistry extends SpecContractRegistry<'agent', AgentSpec> {
    * @returns The agent spec
    * @throws Error if the spec is not found
    */
-  require(name: string, version?: string): AgentSpec {
+  require(name: string, version?: string, locale?: string): AgentSpec {
     const spec = this.get(name, version);
     if (!spec) {
       throw new Error(
-        getDefaultI18n().t('error.agentSpecNotFound', {
+        createAgentI18n(locale).t('error.agentSpecNotFound', {
           name: `${name}${version != null ? `.v${version}` : ''}`,
         })
       );

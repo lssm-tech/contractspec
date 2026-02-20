@@ -133,14 +133,21 @@ export abstract class PushChannel implements NotificationChannel {
  */
 export class WebhookChannel implements NotificationChannel {
   readonly channelId = 'WEBHOOK';
+  private readonly locale?: string;
+
+  constructor(options?: { locale?: string }) {
+    this.locale = options?.locale;
+  }
 
   async send(
     notification: ChannelNotification
   ): Promise<ChannelDeliveryResult> {
     if (!notification.webhook?.url) {
+      const { createNotificationsI18n } = await import('../i18n/messages');
+      const i18n = createNotificationsI18n(this.locale);
       return {
         success: false,
-        responseMessage: 'No webhook URL configured',
+        responseMessage: i18n.t('channel.webhook.noUrl'),
       };
     }
 

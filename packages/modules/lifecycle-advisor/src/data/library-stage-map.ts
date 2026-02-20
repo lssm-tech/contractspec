@@ -1,12 +1,30 @@
 import type { LifecycleStage } from '@contractspec/lib.lifecycle';
 import type { LibraryRecommendation } from '../recommendations/library-recommender';
+import { createLifecycleAdvisorI18n } from '../i18n/messages';
 
 export interface LibraryStageEntry {
   stage: LifecycleStage;
   items: LibraryRecommendation[];
 }
 
-const libraryStageMap: LibraryStageEntry[] = [
+/**
+ * Return the library-stage map with translated descriptions for the given locale.
+ * Falls back to English when locale is omitted or unsupported.
+ */
+export function getLocalizedLibraryStageMap(
+  locale?: string
+): LibraryStageEntry[] {
+  const i18n = createLifecycleAdvisorI18n(locale);
+  return staticLibraryStageMap.map((entry, stageIdx) => ({
+    ...entry,
+    items: entry.items.map((item, itemIdx) => ({
+      ...item,
+      description: i18n.t(`library.stage${stageIdx}.item${itemIdx}`),
+    })),
+  }));
+}
+
+const staticLibraryStageMap: LibraryStageEntry[] = [
   {
     stage: 0 as LifecycleStage,
     items: [
@@ -114,4 +132,6 @@ const libraryStageMap: LibraryStageEntry[] = [
   },
 ];
 
+/** Backward-compatible static export (English defaults). */
+const libraryStageMap: LibraryStageEntry[] = staticLibraryStageMap;
 export default libraryStageMap;

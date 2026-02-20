@@ -40,7 +40,7 @@ import type {
   OpenCodeSDKConfig,
   ExternalExecuteResult,
 } from '../providers/types';
-import { getDefaultI18n } from '../i18n';
+import { createAgentI18n } from '../i18n';
 
 // =============================================================================
 // Types
@@ -77,6 +77,8 @@ export interface UnifiedAgentConfig {
   fallbackBackend?: UnifiedAgentBackend;
   /** Enable verbose logging */
   verbose?: boolean;
+  /** Locale for i18n (BCP 47). Falls back to spec.locale, then 'en'. */
+  locale?: string;
 }
 
 /** Unified agent run options */
@@ -120,6 +122,14 @@ export class UnifiedAgent {
     };
   }
 
+  /** Resolve i18n from config.locale > spec.locale > 'en' */
+  private i18n(runtimeLocale?: string) {
+    return createAgentI18n(
+      this.spec.locale,
+      runtimeLocale ?? this.config.locale
+    );
+  }
+
   /**
    * Initialize the agent with its backend.
    */
@@ -143,7 +153,7 @@ export class UnifiedAgent {
 
         default:
           throw new Error(
-            getDefaultI18n().t('error.unknownBackend', {
+            this.i18n().t('error.unknownBackend', {
               backend: String(backend),
             })
           );
@@ -158,7 +168,7 @@ export class UnifiedAgent {
         this.config.fallbackBackend !== backend
       ) {
         console.warn(
-          getDefaultI18n().t('log.unifiedAgent.fallback', {
+          this.i18n().t('log.unifiedAgent.fallback', {
             backend: String(backend),
             fallback: String(this.config.fallbackBackend),
           })
@@ -180,14 +190,14 @@ export class UnifiedAgent {
       this.provider = new ClaudeAgentSDKProvider(config ?? {});
 
       if (!this.provider.isAvailable()) {
-        throw new Error(getDefaultI18n().t('error.claudeSdk.notAvailable'));
+        throw new Error(this.i18n().t('error.claudeSdk.notAvailable'));
       }
 
       this.context = await this.provider.createContext(this.spec);
       this.state.isReady = true;
     } catch (error) {
       if ((error as { code?: string }).code === 'MODULE_NOT_FOUND') {
-        throw new Error(getDefaultI18n().t('error.claudeSdk.notInstalled'));
+        throw new Error(this.i18n().t('error.claudeSdk.notInstalled'));
       }
       throw error;
     }
@@ -201,14 +211,14 @@ export class UnifiedAgent {
       this.provider = new OpenCodeSDKProvider(config ?? {});
 
       if (!this.provider.isAvailable()) {
-        throw new Error(getDefaultI18n().t('error.opencodeSdk.notAvailable'));
+        throw new Error(this.i18n().t('error.opencodeSdk.notAvailable'));
       }
 
       this.context = await this.provider.createContext(this.spec);
       this.state.isReady = true;
     } catch (error) {
       if ((error as { code?: string }).code === 'MODULE_NOT_FOUND') {
-        throw new Error(getDefaultI18n().t('error.opencodeSdk.notInstalled'));
+        throw new Error(this.i18n().t('error.opencodeSdk.notInstalled'));
       }
       throw error;
     }
@@ -239,7 +249,7 @@ export class UnifiedAgent {
 
         default:
           throw new Error(
-            getDefaultI18n().t('error.unknownBackend', {
+            this.i18n().t('error.unknownBackend', {
               backend: String(backend),
             })
           );
@@ -275,7 +285,7 @@ export class UnifiedAgent {
     options?: UnifiedAgentRunOptions
   ): Promise<AgentGenerateResult> {
     if (!this.provider || !this.context) {
-      throw new Error(getDefaultI18n().t('error.providerNotInitialized'));
+      throw new Error(this.i18n().t('error.providerNotInitialized'));
     }
 
     const result: ExternalExecuteResult = await this.provider.execute(

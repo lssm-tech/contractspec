@@ -11,6 +11,8 @@ import type {
 } from '@contractspec/lib.contracts-integrations/integrations/providers/llm';
 import type { ContentBrief } from '@contractspec/lib.content-gen/types';
 import type { NarrationConfig } from '@contractspec/lib.contracts-integrations/integrations/providers/video';
+import { createVideoGenI18n } from '../i18n';
+import type { VideoGenI18n } from '../i18n';
 
 export interface NarrationScript {
   /** Full narration text */
@@ -36,17 +38,20 @@ export interface ScriptGeneratorOptions {
   llm?: LLMProvider;
   model?: string;
   temperature?: number;
+  locale?: string;
 }
 
 export class ScriptGenerator {
   private readonly llm?: LLMProvider;
   private readonly model?: string;
   private readonly temperature: number;
+  private readonly i18n: VideoGenI18n;
 
   constructor(options?: ScriptGeneratorOptions) {
     this.llm = options?.llm;
     this.model = options?.model;
     this.temperature = options?.temperature ?? 0.5;
+    this.i18n = createVideoGenI18n(options?.locale);
   }
 
   /**
@@ -70,6 +75,7 @@ export class ScriptGenerator {
     brief: ContentBrief,
     style: NarrationConfig['style']
   ): NarrationScript {
+    const { t } = this.i18n;
     const segments: NarrationSegment[] = [];
 
     // Intro
@@ -86,7 +92,9 @@ export class ScriptGenerator {
     // Problems
     if (brief.problems.length > 0) {
       const problemText = this.formatForStyle(
-        `The challenge: ${brief.problems.join('. ')}`,
+        t('script.segment.challenge', {
+          content: brief.problems.join('. '),
+        }),
         style
       );
       segments.push({
@@ -99,7 +107,9 @@ export class ScriptGenerator {
     // Solutions
     if (brief.solutions.length > 0) {
       const solutionText = this.formatForStyle(
-        `The solution: ${brief.solutions.join('. ')}`,
+        t('script.segment.solution', {
+          content: brief.solutions.join('. '),
+        }),
         style
       );
       segments.push({
@@ -112,7 +122,9 @@ export class ScriptGenerator {
     // Metrics
     if (brief.metrics && brief.metrics.length > 0) {
       const metricsText = this.formatForStyle(
-        `The results: ${brief.metrics.join('. ')}`,
+        t('script.segment.results', {
+          content: brief.metrics.join('. '),
+        }),
         style
       );
       segments.push({
@@ -152,12 +164,12 @@ export class ScriptGenerator {
     brief: ContentBrief,
     style: NarrationConfig['style']
   ): Promise<NarrationScript> {
+    const { t } = this.i18n;
+
     const styleGuide: Record<NonNullable<NarrationConfig['style']>, string> = {
-      professional:
-        'Use a clear, authoritative, professional tone. Be concise and direct.',
-      casual:
-        'Use a friendly, conversational tone. Be approachable and relatable.',
-      technical: 'Use precise technical language. Be detailed and accurate.',
+      professional: t('prompt.style.professional'),
+      casual: t('prompt.style.casual'),
+      technical: t('prompt.style.technical'),
     };
 
     const styleKey: NonNullable<NarrationConfig['style']> =
@@ -169,18 +181,9 @@ export class ScriptGenerator {
         content: [
           {
             type: 'text',
-            text: `You are a video narration script writer.
-Write a narration script for a short video (30-60 seconds).
-${styleGuide[styleKey]}
-
-Return JSON with shape:
-{
-  "segments": [{ "sceneId": string, "text": string }],
-  "fullText": string
-}
-
-Scene IDs should be: "intro", "problems", "solutions", "metrics", "cta".
-Only include segments that are relevant to the brief content.`,
+            text: t('prompt.script.system', {
+              styleGuide: styleGuide[styleKey],
+            }),
           },
         ],
       },
@@ -242,8 +245,6 @@ Only include segments that are relevant to the brief content.`,
     text: string,
     _style: NarrationConfig['style']
   ): string {
-    // In deterministic mode, the text is already composed from the brief.
-    // Style adjustments would require an LLM. Return as-is.
     return text;
   }
 

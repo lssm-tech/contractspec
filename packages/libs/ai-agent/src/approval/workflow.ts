@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type { ToolCallInfo } from '../types';
-import { getDefaultI18n } from '../i18n';
+import { createAgentI18n } from '../i18n';
 
 export type ApprovalStatus = 'pending' | 'approved' | 'rejected';
 
@@ -222,6 +222,8 @@ export class ApprovalWorkflow {
       agentId: string;
       tenantId?: string;
       reason?: string;
+      /** Locale for i18n (BCP 47). Falls back to 'en'. */
+      locale?: string;
     }
   ): Promise<ApprovalRequest> {
     return this.requestApproval({
@@ -233,7 +235,7 @@ export class ApprovalWorkflow {
       toolArgs: toolCall.args,
       reason:
         context.reason ??
-        getDefaultI18n().t('approval.toolRequiresApproval', {
+        createAgentI18n(context.locale).t('approval.toolRequiresApproval', {
           name: toolCall.toolName,
         }),
     });

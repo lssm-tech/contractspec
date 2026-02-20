@@ -1861,6 +1861,9 @@
     "packages/libs/lifecycle": {
       "name": "@contractspec/lib.lifecycle",
       "version": "2.4.0",
+      "dependencies": {
+        "@contractspec/lib.contracts-spec": "workspace:*",
+      },
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
         "@contractspec/tool.typescript": "workspace:*",
@@ -2500,6 +2503,7 @@
       "name": "@contractspec/module.lifecycle-advisor",
       "version": "2.4.0",
       "dependencies": {
+        "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.lifecycle": "workspace:*",
       },
       "devDependencies": {
@@ -2512,6 +2516,7 @@
       "name": "@contractspec/module.lifecycle-core",
       "version": "2.4.0",
       "dependencies": {
+        "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.lifecycle": "workspace:*",
       },
       "devDependencies": {

@@ -83,7 +83,8 @@
     "build:types": "bun run typecheck",
     "typecheck": "turbo run typecheck",
     "build:not-apps": "turbo run build --filter=\"!@contractspec/app.*\"",
-    "db:deploy": "turbo run db:deploy"
+    "db:deploy": "turbo run db:deploy",
+    "i18n:check": "bun run scripts/check-i18n-parity.ts"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",

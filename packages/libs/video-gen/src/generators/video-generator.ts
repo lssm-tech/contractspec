@@ -33,12 +33,14 @@ export class VideoGenerator {
       model: options?.model,
       temperature: options?.temperature,
       fps: this.fps,
+      locale: options?.locale,
     });
 
     this.scriptGenerator = new ScriptGenerator({
       llm: options?.llm,
       model: options?.model,
       temperature: options?.temperature,
+      locale: options?.locale,
     });
   }
 

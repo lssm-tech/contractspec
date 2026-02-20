@@ -1,4 +1,5 @@
 import type { ResolutionResultPayload } from '../types';
+import { getDefaultI18n } from '../i18n';
 
 export interface FeedbackMetrics {
   totalTickets: number;
@@ -49,16 +50,17 @@ export class SupportFeedbackLoop {
   }
 
   feedbackSummary(limit = 5): string {
+    const { t } = getDefaultI18n();
     const recent = this.history.slice(-limit);
-    if (!recent.length) return 'No feedback recorded yet.';
+    if (!recent.length) return t('feedback.noRecords');
     return recent
       .map((entry) => {
         const status = entry.resolution.actions.some(
           (action) => action.type === 'escalate'
         )
-          ? 'Escalated'
-          : 'Auto-resolved';
-        return `${entry.ticket.subject} – ${status} (confidence: ${entry.resolution.confidence})`;
+          ? t('feedback.status.escalated')
+          : t('feedback.status.autoResolved');
+        return `${entry.ticket.subject} \u2013 ${status} (confidence: ${entry.resolution.confidence})`;
       })
       .join('\n');
   }

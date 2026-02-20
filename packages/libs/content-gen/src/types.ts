@@ -40,6 +40,8 @@ export interface GeneratorOptions {
   llm?: LLMProvider;
   model?: string;
   temperature?: number;
+  /** Locale for generated content and LLM prompts (defaults to "en") */
+  locale?: string;
 }
 
 export interface EmailCampaignBrief {

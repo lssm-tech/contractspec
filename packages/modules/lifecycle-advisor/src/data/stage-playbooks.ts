@@ -3,6 +3,7 @@ import type {
   LifecycleRecommendation,
 } from '@contractspec/lib.lifecycle';
 import { LifecycleStage } from '@contractspec/lib.lifecycle';
+import { createLifecycleAdvisorI18n } from '../i18n/messages';
 
 export interface StagePlaybookData {
   stage: LifecycleStage;
@@ -11,7 +12,37 @@ export interface StagePlaybookData {
   ceremony?: LifecycleRecommendation['ceremony'];
 }
 
-const stagePlaybooks: StagePlaybookData[] = [
+/**
+ * Return stage playbooks with translated strings for the given locale.
+ * Falls back to English when locale is omitted or unsupported.
+ */
+export function getLocalizedStagePlaybooks(
+  locale?: string
+): StagePlaybookData[] {
+  const i18n = createLifecycleAdvisorI18n(locale);
+  return staticPlaybooks.map((playbook, stageIdx) => ({
+    ...playbook,
+    focusAreas: playbook.focusAreas.map((_, focusIdx) =>
+      i18n.t(`playbook.stage${stageIdx}.focus.${focusIdx}`)
+    ),
+    actions: playbook.actions.map((action, actionIdx) => ({
+      ...action,
+      title: i18n.t(`playbook.stage${stageIdx}.action${actionIdx}.title`),
+      description: i18n.t(
+        `playbook.stage${stageIdx}.action${actionIdx}.description`
+      ),
+    })),
+    ceremony: playbook.ceremony
+      ? {
+          ...playbook.ceremony,
+          title: i18n.t(`ceremony.stage${stageIdx}.title`),
+          copy: i18n.t(`ceremony.stage${stageIdx}.copy`),
+        }
+      : undefined,
+  }));
+}
+
+const staticPlaybooks: StagePlaybookData[] = [
   {
     stage: LifecycleStage.Exploration,
     focusAreas: ['Discovery', 'Problem clarity', 'Persona'],
@@ -251,4 +282,6 @@ const stagePlaybooks: StagePlaybookData[] = [
   },
 ];
 
+/** Backward-compatible static export (English defaults). */
+const stagePlaybooks: StagePlaybookData[] = staticPlaybooks;
 export default stagePlaybooks;

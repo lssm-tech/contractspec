@@ -5,12 +5,15 @@ import type {
   SupportTicket,
   TicketClassification,
 } from '../types';
+import { createSupportBotI18n } from '../i18n';
+import type { SupportBotI18n } from '../i18n';
 
 export interface AutoResponderOptions {
   llm?: LLMProvider;
   model?: string;
   tone?: 'friendly' | 'formal';
   closing?: string;
+  locale?: string;
 }
 
 export class AutoResponder {
@@ -18,16 +21,19 @@ export class AutoResponder {
   private readonly model?: string;
   private readonly tone: 'friendly' | 'formal';
   private readonly closing: string;
+  private readonly i18n: SupportBotI18n;
 
   constructor(options?: AutoResponderOptions) {
     this.llm = options?.llm;
     this.model = options?.model;
     this.tone = options?.tone ?? 'friendly';
+    this.i18n = createSupportBotI18n(options?.locale);
+    const { t } = this.i18n;
     this.closing =
       options?.closing ??
       (this.tone === 'friendly'
-        ? 'We remain available if you need anything else.'
-        : 'Please let us know if you require additional assistance.');
+        ? t('responder.closing.friendly')
+        : t('responder.closing.formal'));
   }
 
   async draft(
@@ -46,14 +52,16 @@ export class AutoResponder {
     resolution: SupportResolution,
     classification: TicketClassification
   ): Promise<SupportResponseDraft> {
-    const prompt = `You are a ${this.tone} support agent. Draft an email response.
-Ticket Subject: ${ticket.subject}
-Ticket Body: ${ticket.body}
-Detected Category: ${classification.category}
-Detected Priority: ${classification.priority}
-Resolution:
-${resolution.answer}
-Citations: ${resolution.citations.map((c) => c.label).join(', ')}`;
+    const { t } = this.i18n;
+    const prompt = t('prompt.autoResponder.user', {
+      tone: this.tone,
+      subject: ticket.subject,
+      body: ticket.body,
+      category: classification.category,
+      priority: classification.priority,
+      answer: resolution.answer,
+      citations: resolution.citations.map((c) => c.label).join(', '),
+    });
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const response = await this.llm!.chat(
@@ -63,7 +71,7 @@ Citations: ${resolution.citations.map((c) => c.label).join(', ')}`;
           content: [
             {
               type: 'text',
-              text: 'Write empathetic, accurate support replies that cite sources when relevant.',
+              text: t('prompt.autoResponder.system'),
             },
           ],
         },
@@ -88,12 +96,13 @@ Citations: ${resolution.citations.map((c) => c.label).join(', ')}`;
     resolution: SupportResolution,
     classification: TicketClassification
   ): SupportResponseDraft {
+    const { t } = this.i18n;
     const greeting = ticket.customerName
-      ? `Hi ${ticket.customerName},`
-      : 'Hi there,';
+      ? t('responder.greeting.named', { name: ticket.customerName })
+      : t('responder.greeting.anonymous');
     const body = `${greeting}
 
-Thanks for contacting us about "${ticket.subject}". ${this.renderCategoryIntro(
+${t('responder.intro.thanks', { subject: ticket.subject })} ${this.renderCategoryIntro(
       classification
     )}
 
@@ -102,7 +111,7 @@ ${resolution.answer}
 ${this.renderCitations(resolution)}
 ${this.closing}
 
-— ContractSpec Support`;
+${t('responder.signature')}`;
 
     return this.buildDraft(ticket, resolution, classification, body);
   }
@@ -128,29 +137,33 @@ ${this.closing}
   }
 
   private renderCategoryIntro(classification: TicketClassification) {
+    const { t } = this.i18n;
     switch (classification.category) {
       case 'billing':
-        return 'I understand billing issues can be stressful, so let me clarify the situation.';
+        return t('responder.category.billing');
       case 'technical':
-        return 'I see you encountered a technical issue. Here is what happened and how to fix it.';
+        return t('responder.category.technical');
       case 'product':
-        return 'Thanks for sharing feedback about the product. Here are the next steps.';
+        return t('responder.category.product');
       case 'account':
-        return 'Account access is critical, so let me walk you through the resolution.';
+        return t('responder.category.account');
       case 'compliance':
-        return 'Compliance questions require precision. See the policy-aligned answer below.';
+        return t('responder.category.compliance');
       default:
-        return 'Here is what we found after reviewing your request.';
+        return t('responder.category.other');
     }
   }
 
   private renderCitations(resolution: SupportResolution) {
+    const { t } = this.i18n;
     if (!resolution.citations.length) return '';
     const lines = resolution.citations.map((citation, index) => {
-      const label = citation.label || `Source ${index + 1}`;
+      const label =
+        citation.label ||
+        t('responder.references.sourceLabel', { index: index + 1 });
       const link = citation.url ? ` (${citation.url})` : '';
       return `- ${label}${link}`;
     });
-    return `References:\n${lines.join('\n')}`;
+    return `${t('responder.references.header')}\n${lines.join('\n')}`;
   }
 }

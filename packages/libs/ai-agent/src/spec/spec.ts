@@ -1,7 +1,7 @@
 import type { OwnerShipMeta } from '@contractspec/lib.contracts-spec/ownership';
 import type { KnowledgeCategory } from '@contractspec/lib.contracts-spec/knowledge/spec';
 import type { PolicyRef } from '@contractspec/lib.contracts-spec/policy/spec';
-import { getDefaultI18n } from '../i18n';
+import { createAgentI18n } from '../i18n';
 
 /**
  * Metadata for an agent specification.
@@ -127,7 +127,7 @@ export interface AgentSpec {
  * @throws Error if the specification is invalid
  */
 export function defineAgent(spec: AgentSpec): AgentSpec {
-  const i18n = getDefaultI18n();
+  const i18n = createAgentI18n(spec.locale);
   if (!spec.meta?.key) {
     throw new Error(i18n.t('error.agentKeyRequired'));
   }

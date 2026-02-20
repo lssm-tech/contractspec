@@ -10,12 +10,15 @@ import type {
 } from '@contractspec/lib.contracts-integrations/integrations/providers/llm';
 import type { PlannedScene, ScenePlan, VideoBrief } from '../types';
 import { DEFAULT_FPS } from '../design/layouts';
+import { createVideoGenI18n } from '../i18n';
+import type { VideoGenI18n } from '../i18n';
 
 export interface ScenePlannerOptions {
   llm?: LLMProvider;
   model?: string;
   temperature?: number;
   fps?: number;
+  locale?: string;
 }
 
 export class ScenePlanner {
@@ -23,12 +26,14 @@ export class ScenePlanner {
   private readonly model?: string;
   private readonly temperature: number;
   private readonly fps: number;
+  private readonly i18n: VideoGenI18n;
 
   constructor(options?: ScenePlannerOptions) {
     this.llm = options?.llm;
     this.model = options?.model;
     this.temperature = options?.temperature ?? 0.3;
     this.fps = options?.fps ?? DEFAULT_FPS;
+    this.i18n = createVideoGenI18n(options?.locale);
   }
 
   /**
@@ -47,6 +52,7 @@ export class ScenePlanner {
 
   private planDeterministic(brief: VideoBrief): ScenePlan {
     const { content } = brief;
+    const { t } = this.i18n;
     const scenes: PlannedScene[] = [];
     const fps = this.fps;
 
@@ -57,7 +63,7 @@ export class ScenePlanner {
         hook: content.title,
         message: content.summary,
         points: content.solutions.slice(0, 3),
-        cta: content.callToAction ?? 'Learn more',
+        cta: content.callToAction ?? t('scene.cta.default'),
       },
       durationInFrames: 3 * fps,
       narrationText: `${content.title}. ${content.summary}`,
@@ -68,12 +74,14 @@ export class ScenePlanner {
       scenes.push({
         compositionId: 'SocialClip',
         props: {
-          hook: 'The Problem',
+          hook: t('scene.hook.problem'),
           message: content.problems[0] ?? '',
           points: content.problems.slice(1, 4),
         },
         durationInFrames: 4 * fps,
-        narrationText: `The problem: ${content.problems.join('. ')}`,
+        narrationText: t('scene.narration.problem', {
+          content: content.problems.join('. '),
+        }),
       });
     }
 
@@ -82,12 +90,14 @@ export class ScenePlanner {
       scenes.push({
         compositionId: 'SocialClip',
         props: {
-          hook: 'The Solution',
+          hook: t('scene.hook.solution'),
           message: content.solutions[0] ?? '',
           points: content.solutions.slice(1, 4),
         },
         durationInFrames: 5 * fps,
-        narrationText: `The solution: ${content.solutions.join('. ')}`,
+        narrationText: t('scene.narration.solution', {
+          content: content.solutions.join('. '),
+        }),
       });
     }
 
@@ -96,7 +106,7 @@ export class ScenePlanner {
       scenes.push({
         compositionId: 'SocialClip',
         props: {
-          hook: 'Results',
+          hook: t('scene.hook.results'),
           message: content.metrics[0] ?? '',
           points: content.metrics.slice(1, 3),
         },
@@ -152,29 +162,18 @@ export class ScenePlanner {
   // -- LLM-enhanced planning ------------------------------------------------
 
   private async planWithLlm(brief: VideoBrief): Promise<ScenePlan> {
+    const { t } = this.i18n;
+
     const messages: LLMMessage[] = [
       {
         role: 'system',
         content: [
           {
             type: 'text',
-            text: `You are a video scene planner for ContractSpec marketing/documentation videos.
-Given a content brief, break it into video scenes.
-
-Each scene must have:
-- compositionId: one of "ApiOverview", "SocialClip", "TerminalDemo"
-- props: the input props for that composition (see type definitions)
-- durationInFrames: duration at ${this.fps}fps
-- narrationText: what the narrator says during this scene
-
-Return a JSON object with shape:
-{
-  "scenes": [{ "compositionId": string, "props": object, "durationInFrames": number, "narrationText": string }],
-  "narrationScript": string
-}
-
-Keep the total duration around ${brief.targetDurationSeconds ?? 30} seconds.
-Prioritize clarity and pacing. Each scene should communicate one idea.`,
+            text: t('prompt.scenePlanner.system', {
+              fps: this.fps,
+              targetSeconds: brief.targetDurationSeconds ?? 30,
+            }),
           },
         ],
       },

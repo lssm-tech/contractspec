@@ -11,7 +11,7 @@
 import type { AgentSpec } from '../../spec/spec';
 import type { OpenCodeAgentType } from '../types';
 import { specToolsToOpenCodeTools, type OpenCodeTool } from './tool-bridge';
-import { getDefaultI18n } from '../../i18n';
+import { createAgentI18n } from '../../i18n';
 
 // ============================================================================
 // OpenCode Agent Configuration Types
@@ -219,7 +219,7 @@ export function specToOpenCodeMarkdown(
  * Build markdown body content from spec.
  */
 function buildMarkdownBody(spec: AgentSpec): string {
-  const i18n = getDefaultI18n();
+  const i18n = createAgentI18n(spec.locale);
   const lines: string[] = [];
 
   // Title

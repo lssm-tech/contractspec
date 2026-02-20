@@ -208,6 +208,15 @@ export const ERROR_KEYS = {
   'error.provider.executionFailed': 'error.provider.executionFailed',
   /** "Stream failed: {error}" */
   'error.provider.streamFailed': 'error.provider.streamFailed',
+  /** "Provider '{provider}' is not available: {reason}" */
+  'error.provider.notAvailable': 'error.provider.notAvailable',
+  /** "PostHog LLM Analytics requires @posthog/ai to be installed." */
+  'error.telemetry.posthogAiRequired': 'error.telemetry.posthogAiRequired',
+  /** "PostHog LLM Analytics requires either a client instance or an apiKey." */
+  'error.telemetry.posthogClientOrKeyRequired':
+    'error.telemetry.posthogClientOrKeyRequired',
+  /** "PostHog LLM Analytics requires posthog-node to be installed." */
+  'error.telemetry.posthogNodeRequired': 'error.telemetry.posthogNodeRequired',
 } as const;
 
 // ─────────────────────────────────────────────────────────────────────────────
