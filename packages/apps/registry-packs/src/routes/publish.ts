@@ -4,17 +4,15 @@ import { getDb } from '../db/client.js';
 import { PackService } from '../services/pack-service.js';
 import { VersionService } from '../services/version-service.js';
 import { LocalStorage } from '../storage/local.js';
-import { requireAuth, type AuthContext } from '../auth/middleware.js';
+import { extractAuth } from '../auth/middleware.js';
 
 /**
  * Publish routes: POST /packs (authenticated)
  */
-export const publishRoutes = new Elysia({ prefix: '/packs' })
-  .use(requireAuth)
-  .post('/', async (ctx) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const auth = (ctx as any).auth as AuthContext | null;
-    const { body, set } = ctx;
+export const publishRoutes = new Elysia({ prefix: '/packs' }).post(
+  '/',
+  async ({ body, set, headers }) => {
+    const auth = await extractAuth(headers);
 
     if (!auth) {
       set.status = 401;
@@ -22,17 +20,21 @@ export const publishRoutes = new Elysia({ prefix: '/packs' })
     }
 
     try {
-      // Parse multipart form data
-      const formData = body as FormData;
-      const tarballFile = formData.get('tarball') as Blob | null;
-      const metadataStr = formData.get('metadata') as string | null;
+      // Elysia auto-parses multipart bodies into { tarball: File, metadata: object|string }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const parsed = body as any;
+      const tarballFile = parsed?.tarball as Blob | null;
+      const rawMetadata = parsed?.metadata;
 
-      if (!tarballFile || !metadataStr) {
+      if (!tarballFile || !rawMetadata) {
         set.status = 400;
         return { error: 'Missing tarball or metadata' };
       }
 
-      const metadata = JSON.parse(metadataStr) as {
+      // metadata may already be parsed (Elysia auto-parse) or a raw string
+      const metadata = (
+        typeof rawMetadata === 'string' ? JSON.parse(rawMetadata) : rawMetadata
+      ) as {
         name: string;
         version: string;
         manifest: Record<string, unknown>;
@@ -115,4 +117,5 @@ export const publishRoutes = new Elysia({ prefix: '/packs' })
         message: err instanceof Error ? err.message : String(err),
       };
     }
-  });
+  }
+);

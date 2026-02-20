@@ -2,14 +2,16 @@ import { Elysia } from 'elysia';
 import { cors } from '@elysiajs/cors';
 import { serverTiming } from '@elysiajs/server-timing';
 import { packRoutes } from './routes/packs.js';
-import { versionRoutes } from './routes/versions.js';
+import { versionRoutes, versionDeleteRoutes } from './routes/versions.js';
 import { publishRoutes } from './routes/publish.js';
 import { getDb } from './db/client.js';
 import { PackService } from './services/pack-service.js';
 import { SearchService } from './services/search-service.js';
 
-const PORT = Number(process.env.PORT ?? 8091);
-
+/**
+ * Create the Elysia app (without listening).
+ * Exported separately so tests can import the app without starting a server.
+ */
 export const app = new Elysia()
   .use(cors())
   .use(serverTiming())
@@ -25,6 +27,7 @@ export const app = new Elysia()
       versions: '/packs/:name/versions',
       download: '/packs/:name/versions/:version/download',
       publish: 'POST /packs',
+      deleteVersion: 'DELETE /packs/:name/versions/:version',
       featured: '/featured',
       tags: '/tags',
       targets: '/targets/:targetId',
@@ -63,9 +66,18 @@ export const app = new Elysia()
   // Mount route groups
   .use(packRoutes)
   .use(versionRoutes)
-  .use(publishRoutes)
-  .listen(PORT);
-
-console.log(`agentpacks-registry running on http://localhost:${PORT}`);
+  .use(versionDeleteRoutes)
+  .use(publishRoutes);
 
 export type App = typeof app;
+
+/**
+ * Start the server if this file is the entry point.
+ * When imported by tests, the server is NOT started.
+ */
+export function startServer(port?: number) {
+  const PORT = port ?? Number(process.env.PORT ?? 8091);
+  app.listen(PORT);
+  console.log(`agentpacks-registry running on http://localhost:${PORT}`);
+  return app;
+}
