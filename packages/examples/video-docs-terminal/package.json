@@ -6,13 +6,13 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./sample-tutorials": "./src/sample-tutorials.ts",
     "./build-tutorial": "./src/build-tutorial.ts",
-    "./generate-narration": "./src/generate-narration.ts",
     "./docs": "./src/docs/index.ts",
     "./docs/index": "./src/docs/index.ts",
     "./docs/video-docs-terminal.docblock": "./src/docs/video-docs-terminal.docblock.ts",
-    "./example": "./src/example.ts"
+    "./example": "./src/example.ts",
+    "./generate-narration": "./src/generate-narration.ts",
+    "./sample-tutorials": "./src/sample-tutorials.ts"
   },
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
@@ -49,26 +49,12 @@
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
-      "./sample-tutorials": {
-        "types": "./dist/sample-tutorials.d.ts",
-        "bun": "./dist/sample-tutorials.js",
-        "node": "./dist/node/sample-tutorials.js",
-        "browser": "./dist/browser/sample-tutorials.js",
-        "default": "./dist/sample-tutorials.js"
-      },
       "./build-tutorial": {
         "types": "./dist/build-tutorial.d.ts",
         "bun": "./dist/build-tutorial.js",
         "node": "./dist/node/build-tutorial.js",
         "browser": "./dist/browser/build-tutorial.js",
         "default": "./dist/build-tutorial.js"
-      },
-      "./generate-narration": {
-        "types": "./dist/generate-narration.d.ts",
-        "bun": "./dist/generate-narration.js",
-        "node": "./dist/node/generate-narration.js",
-        "browser": "./dist/browser/generate-narration.js",
-        "default": "./dist/generate-narration.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
@@ -97,6 +83,20 @@
         "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
+      },
+      "./generate-narration": {
+        "types": "./dist/generate-narration.d.ts",
+        "bun": "./dist/generate-narration.js",
+        "node": "./dist/node/generate-narration.js",
+        "browser": "./dist/browser/generate-narration.js",
+        "default": "./dist/generate-narration.js"
+      },
+      "./sample-tutorials": {
+        "types": "./dist/sample-tutorials.d.ts",
+        "bun": "./dist/sample-tutorials.js",
+        "node": "./dist/node/sample-tutorials.js",
+        "browser": "./dist/browser/sample-tutorials.js",
+        "default": "./dist/sample-tutorials.js"
       }
     },
     "registry": "https://registry.npmjs.org/"

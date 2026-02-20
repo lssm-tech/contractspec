@@ -381,6 +381,7 @@
     "./themes": "./src/themes.ts",
     "./translations": "./src/translations/index.ts",
     "./translations/catalog": "./src/translations/catalog.ts",
+    "./translations/i18n-factory": "./src/translations/i18n-factory.ts",
     "./translations/index": "./src/translations/index.ts",
     "./translations/registry": "./src/translations/registry.ts",
     "./translations/spec": "./src/translations/spec.ts",
@@ -2414,6 +2415,12 @@
         "bun": "./dist/translations/catalog.js",
         "node": "./dist/node/translations/catalog.js",
         "default": "./dist/translations/catalog.js"
+      },
+      "./translations/i18n-factory": {
+        "types": "./dist/translations/i18n-factory.d.ts",
+        "bun": "./dist/translations/i18n-factory.js",
+        "node": "./dist/node/translations/i18n-factory.js",
+        "default": "./dist/translations/i18n-factory.js"
       },
       "./translations/index": {
         "types": "./dist/translations/index.d.ts",

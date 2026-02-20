@@ -48,18 +48,20 @@
     "./generators/index": "./src/generators/index.ts",
     "./generators/landing-page": "./src/generators/landing-page.ts",
     "./generators/social": "./src/generators/social.ts",
-    "./seo": "./src/seo/index.ts",
-    "./seo/index": "./src/seo/index.ts",
-    "./seo/optimizer": "./src/seo/optimizer.ts",
-    "./types": "./src/types.ts",
     "./i18n": "./src/i18n/index.ts",
+    "./i18n/catalogs": "./src/i18n/catalogs/index.ts",
+    "./i18n/catalogs/en": "./src/i18n/catalogs/en.ts",
+    "./i18n/catalogs/es": "./src/i18n/catalogs/es.ts",
+    "./i18n/catalogs/fr": "./src/i18n/catalogs/fr.ts",
+    "./i18n/catalogs/index": "./src/i18n/catalogs/index.ts",
+    "./i18n/index": "./src/i18n/index.ts",
     "./i18n/keys": "./src/i18n/keys.ts",
     "./i18n/locale": "./src/i18n/locale.ts",
     "./i18n/messages": "./src/i18n/messages.ts",
-    "./i18n/catalogs": "./src/i18n/catalogs/index.ts",
-    "./i18n/catalogs/en": "./src/i18n/catalogs/en.ts",
-    "./i18n/catalogs/fr": "./src/i18n/catalogs/fr.ts",
-    "./i18n/catalogs/es": "./src/i18n/catalogs/es.ts"
+    "./seo": "./src/seo/index.ts",
+    "./seo/index": "./src/seo/index.ts",
+    "./seo/optimizer": "./src/seo/optimizer.ts",
+    "./types": "./src/types.ts"
   },
   "publishConfig": {
     "access": "public",
@@ -113,35 +115,49 @@
         "browser": "./dist/browser/generators/social.js",
         "default": "./dist/generators/social.js"
       },
-      "./seo": {
-        "types": "./dist/seo/index.d.ts",
-        "bun": "./dist/seo/index.js",
-        "node": "./dist/node/seo/index.js",
-        "browser": "./dist/browser/seo/index.js",
-        "default": "./dist/seo/index.js"
-      },
-      "./seo/index": {
-        "types": "./dist/seo/index.d.ts",
-        "bun": "./dist/seo/index.js",
-        "node": "./dist/node/seo/index.js",
-        "browser": "./dist/browser/seo/index.js",
-        "default": "./dist/seo/index.js"
-      },
-      "./seo/optimizer": {
-        "types": "./dist/seo/optimizer.d.ts",
-        "bun": "./dist/seo/optimizer.js",
-        "node": "./dist/node/seo/optimizer.js",
-        "browser": "./dist/browser/seo/optimizer.js",
-        "default": "./dist/seo/optimizer.js"
-      },
-      "./types": {
-        "types": "./dist/types.d.ts",
-        "bun": "./dist/types.js",
-        "node": "./dist/node/types.js",
-        "browser": "./dist/browser/types.js",
-        "default": "./dist/types.js"
-      },
       "./i18n": {
+        "types": "./dist/i18n/index.d.ts",
+        "bun": "./dist/i18n/index.js",
+        "node": "./dist/node/i18n/index.js",
+        "browser": "./dist/browser/i18n/index.js",
+        "default": "./dist/i18n/index.js"
+      },
+      "./i18n/catalogs": {
+        "types": "./dist/i18n/catalogs/index.d.ts",
+        "bun": "./dist/i18n/catalogs/index.js",
+        "node": "./dist/node/i18n/catalogs/index.js",
+        "browser": "./dist/browser/i18n/catalogs/index.js",
+        "default": "./dist/i18n/catalogs/index.js"
+      },
+      "./i18n/catalogs/en": {
+        "types": "./dist/i18n/catalogs/en.d.ts",
+        "bun": "./dist/i18n/catalogs/en.js",
+        "node": "./dist/node/i18n/catalogs/en.js",
+        "browser": "./dist/browser/i18n/catalogs/en.js",
+        "default": "./dist/i18n/catalogs/en.js"
+      },
+      "./i18n/catalogs/es": {
+        "types": "./dist/i18n/catalogs/es.d.ts",
+        "bun": "./dist/i18n/catalogs/es.js",
+        "node": "./dist/node/i18n/catalogs/es.js",
+        "browser": "./dist/browser/i18n/catalogs/es.js",
+        "default": "./dist/i18n/catalogs/es.js"
+      },
+      "./i18n/catalogs/fr": {
+        "types": "./dist/i18n/catalogs/fr.d.ts",
+        "bun": "./dist/i18n/catalogs/fr.js",
+        "node": "./dist/node/i18n/catalogs/fr.js",
+        "browser": "./dist/browser/i18n/catalogs/fr.js",
+        "default": "./dist/i18n/catalogs/fr.js"
+      },
+      "./i18n/catalogs/index": {
+        "types": "./dist/i18n/catalogs/index.d.ts",
+        "bun": "./dist/i18n/catalogs/index.js",
+        "node": "./dist/node/i18n/catalogs/index.js",
+        "browser": "./dist/browser/i18n/catalogs/index.js",
+        "default": "./dist/i18n/catalogs/index.js"
+      },
+      "./i18n/index": {
         "types": "./dist/i18n/index.d.ts",
         "bun": "./dist/i18n/index.js",
         "node": "./dist/node/i18n/index.js",
@@ -169,33 +185,33 @@
         "browser": "./dist/browser/i18n/messages.js",
         "default": "./dist/i18n/messages.js"
       },
-      "./i18n/catalogs": {
-        "types": "./dist/i18n/catalogs/index.d.ts",
-        "bun": "./dist/i18n/catalogs/index.js",
-        "node": "./dist/node/i18n/catalogs/index.js",
-        "browser": "./dist/browser/i18n/catalogs/index.js",
-        "default": "./dist/i18n/catalogs/index.js"
+      "./seo": {
+        "types": "./dist/seo/index.d.ts",
+        "bun": "./dist/seo/index.js",
+        "node": "./dist/node/seo/index.js",
+        "browser": "./dist/browser/seo/index.js",
+        "default": "./dist/seo/index.js"
       },
-      "./i18n/catalogs/en": {
-        "types": "./dist/i18n/catalogs/en.d.ts",
-        "bun": "./dist/i18n/catalogs/en.js",
-        "node": "./dist/node/i18n/catalogs/en.js",
-        "browser": "./dist/browser/i18n/catalogs/en.js",
-        "default": "./dist/i18n/catalogs/en.js"
+      "./seo/index": {
+        "types": "./dist/seo/index.d.ts",
+        "bun": "./dist/seo/index.js",
+        "node": "./dist/node/seo/index.js",
+        "browser": "./dist/browser/seo/index.js",
+        "default": "./dist/seo/index.js"
       },
-      "./i18n/catalogs/fr": {
-        "types": "./dist/i18n/catalogs/fr.d.ts",
-        "bun": "./dist/i18n/catalogs/fr.js",
-        "node": "./dist/node/i18n/catalogs/fr.js",
-        "browser": "./dist/browser/i18n/catalogs/fr.js",
-        "default": "./dist/i18n/catalogs/fr.js"
+      "./seo/optimizer": {
+        "types": "./dist/seo/optimizer.d.ts",
+        "bun": "./dist/seo/optimizer.js",
+        "node": "./dist/node/seo/optimizer.js",
+        "browser": "./dist/browser/seo/optimizer.js",
+        "default": "./dist/seo/optimizer.js"
       },
-      "./i18n/catalogs/es": {
-        "types": "./dist/i18n/catalogs/es.d.ts",
-        "bun": "./dist/i18n/catalogs/es.js",
-        "node": "./dist/node/i18n/catalogs/es.js",
-        "browser": "./dist/browser/i18n/catalogs/es.js",
-        "default": "./dist/i18n/catalogs/es.js"
+      "./types": {
+        "types": "./dist/types.d.ts",
+        "bun": "./dist/types.js",
+        "node": "./dist/node/types.js",
+        "browser": "./dist/browser/types.js",
+        "default": "./dist/types.js"
       }
     },
     "registry": "https://registry.npmjs.org/"
