@@ -21,12 +21,12 @@ export interface ChannelTemplateContent {
 }
 
 /** Channel content map for a template. */
-export type ChannelContentMap = {
+export interface ChannelContentMap {
   email?: ChannelTemplateContent;
   inApp?: ChannelTemplateContent;
   push?: ChannelTemplateContent;
   webhook?: ChannelTemplateContent;
-};
+}
 
 /**
  * Notification template definition.

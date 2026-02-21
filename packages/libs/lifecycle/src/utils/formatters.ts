@@ -4,14 +4,13 @@ import type {
 } from '../types/milestones';
 import type { LifecycleAxes } from '../types/axes';
 import {
+  getLocalizedStageMeta,
   LIFECYCLE_STAGE_META,
   LIFECYCLE_STAGE_ORDER,
   LifecycleStage,
-  getLocalizedStageMeta,
 } from '../types/stages';
 import type { LifecycleScore } from '../types/signals';
 import { createLifecycleI18n, getDefaultI18n } from '../i18n/messages';
-import type { LifecycleI18n } from '../i18n/messages';
 
 export interface StageSummary {
   title: string;

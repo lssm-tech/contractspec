@@ -29,7 +29,7 @@ export interface ResolvedModels {
     }
   >;
   /** Routing rules (passthrough for guidance generation) */
-  routing: Array<{ when: Record<string, string>; use: string }>;
+  routing: { when: Record<string, string>; use: string }[];
   /** Available profile names (for guidance docs) */
   profileNames: string[];
   /** Active profile name (if any) */

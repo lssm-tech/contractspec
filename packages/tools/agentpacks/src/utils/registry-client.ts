@@ -44,12 +44,12 @@ export interface RegistryPackInfo extends RegistryPackResult {
   license: string;
   homepage?: string;
   repository?: string;
-  versions: Array<{
+  versions: {
     version: string;
     createdAt: string;
     fileCount: number;
     tarballSize: number;
-  }>;
+  }[];
   readme?: string;
 }
 
@@ -143,7 +143,7 @@ export class RegistryClient {
    */
   async download(
     packName: string,
-    version: string = 'latest'
+    version = 'latest'
   ): Promise<{ data: ArrayBuffer; integrity: string }> {
     const url = `${this.config.registryUrl}/packs/${encodeURIComponent(packName)}/versions/${encodeURIComponent(version)}/download`;
     const response = await fetch(url, {
@@ -221,10 +221,10 @@ export class RegistryClient {
   /**
    * Get available tags.
    */
-  async tags(): Promise<Array<{ tag: string; count: number }>> {
+  async tags(): Promise<{ tag: string; count: number }[]> {
     const url = `${this.config.registryUrl}/tags`;
     const res = await this.fetch(url);
-    return (res as { tags: Array<{ tag: string; count: number }> }).tags;
+    return (res as { tags: { tag: string; count: number }[] }).tags;
   }
 
   /**

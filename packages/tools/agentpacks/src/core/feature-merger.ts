@@ -91,13 +91,13 @@ export class FeatureMerger {
     featureKey: K
   ): LoadedPack[K] {
     const seen = new Map<string, string>();
-    const result: Array<ParsedCommand | ParsedAgent | ParsedSkill> = [];
+    const result: (ParsedCommand | ParsedAgent | ParsedSkill)[] = [];
 
     for (const pack of this.packs) {
-      const items = pack[featureKey] as Array<{
+      const items = pack[featureKey] as {
         name: string;
         packName: string;
-      }>;
+      }[];
       for (const item of items) {
         const existing = seen.get(item.name);
         if (existing) {

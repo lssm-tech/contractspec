@@ -159,7 +159,7 @@ export function runModelsExplain(options: ModelsExplainOptions): void {
  */
 function matchTaskToRouting(
   task: string,
-  routing: Array<{ when: Record<string, string>; use: string }>
+  routing: { when: Record<string, string>; use: string }[]
 ): { when: Record<string, string>; use: string } | null {
   const lowerTask = task.toLowerCase();
 
