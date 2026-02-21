@@ -8,6 +8,8 @@
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
     "dev": "bun run --watch src/index.ts",
+    "build": "bun run build:types && bun run build:bundle",
+    "build:bundle": "bun build --target bun --outfile dist/index.js src/index.ts",
     "build:types": "tsc -p ./tsconfig.json --noEmit",
     "start": "bun run ./dist/index.js"
   },
