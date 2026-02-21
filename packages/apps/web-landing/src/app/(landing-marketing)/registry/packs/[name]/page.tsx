@@ -1,6 +1,12 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getPack, getPackReadme, getPackVersions } from '@/lib/registry-api';
+import {
+  getPack,
+  getPackReadme,
+  getPackVersions,
+  getPackReviews,
+  getPackQuality,
+} from '@/lib/registry-api';
 import { PackDetailClient } from './clients/pack-detail-client';
 
 interface PageProps {
@@ -21,11 +27,14 @@ export async function generateMetadata({
 
 export default async function PackDetailPage({ params }: PageProps) {
   const { name } = await params;
-  const [pack, readme, versionsResult] = await Promise.all([
-    getPack(name),
-    getPackReadme(name),
-    getPackVersions(name),
-  ]);
+  const [pack, readme, versionsResult, reviewsResult, quality] =
+    await Promise.all([
+      getPack(name),
+      getPackReadme(name),
+      getPackVersions(name),
+      getPackReviews(name, { limit: 10 }),
+      getPackQuality(name),
+    ]);
 
   if (!pack) notFound();
 
@@ -34,6 +43,10 @@ export default async function PackDetailPage({ params }: PageProps) {
       pack={pack}
       readme={readme}
       versions={versionsResult.versions}
+      reviews={reviewsResult.reviews}
+      reviewTotal={reviewsResult.total}
+      averageRating={reviewsResult.averageRating}
+      quality={quality}
     />
   );
 }
