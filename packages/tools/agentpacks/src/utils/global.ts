@@ -60,14 +60,14 @@ export function globalTargetDir(
  * Resolve XDG_CONFIG_HOME or platform equivalent.
  */
 function xdgConfig(platform: NodeJS.Platform, home: string): string {
-  if (process.env.XDG_CONFIG_HOME) {
-    return process.env.XDG_CONFIG_HOME;
-  }
   if (platform === 'darwin') {
     return join(home, 'Library', 'Application Support');
   }
   if (platform === 'win32') {
     return process.env.APPDATA ?? join(home, 'AppData', 'Roaming');
+  }
+  if (process.env.XDG_CONFIG_HOME) {
+    return process.env.XDG_CONFIG_HOME;
   }
   return join(home, '.config');
 }
