@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { saveCredentials, loadCredentials } from '../utils/credentials.js';
+import { saveCredentials } from '../utils/credentials.js';
 import { createRegistryClient } from '../utils/registry-client.js';
 
 interface LoginOptions {

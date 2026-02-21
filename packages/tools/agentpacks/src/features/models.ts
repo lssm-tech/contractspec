@@ -233,7 +233,11 @@ export function mergeModelsConfigs(configs: ParsedModels[]): {
           result.providers[providerName] = providerConfig;
         } else {
           // Deep merge options
-          const existing = result.providers[providerName]!;
+          const existing = result.providers[providerName];
+          if (!existing) {
+            result.providers[providerName] = providerConfig;
+            continue;
+          }
           if (providerConfig.options) {
             existing.options = {
               ...providerConfig.options,

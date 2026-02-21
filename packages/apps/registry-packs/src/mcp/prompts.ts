@@ -109,12 +109,11 @@ export function registerPrompts(server: McpServer): void {
         })
       );
 
-      const found = packs.filter((p) => p.pack !== null);
+      const found = packs.flatMap((p) => (p.pack ? [p.pack] : []));
       const notFound = packs.filter((p) => p.pack === null).map((p) => p.name);
 
       const comparison = found
-        .map((p) => {
-          const pk = p.pack!;
+        .map((pk) => {
           return [
             `## ${pk.displayName} (\`${pk.name}\`)`,
             '',

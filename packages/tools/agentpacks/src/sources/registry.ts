@@ -10,11 +10,7 @@ import {
   getLockedSource,
   setLockedSource,
 } from '../core/lockfile.js';
-import {
-  type RegistrySourceRef,
-  parseRegistrySourceRef,
-  registrySourceKey,
-} from './registry-ref.js';
+import { parseRegistrySourceRef, registrySourceKey } from './registry-ref.js';
 import {
   createRegistryClient,
   type RegistryClientConfig,
@@ -70,10 +66,7 @@ export async function installRegistrySource(
   // Download the tarball
   const clientCfg = buildClientConfig(options.registryUrl);
   const client = createRegistryClient(clientCfg);
-  const { data, integrity: remoteIntegrity } = await client.download(
-    parsed.packName,
-    targetVersion
-  );
+  const { data } = await client.download(parsed.packName, targetVersion);
 
   // Verify integrity if we have a locked hash
   const localIntegrity = computeTarballIntegrity(data);

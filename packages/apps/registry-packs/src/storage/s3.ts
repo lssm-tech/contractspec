@@ -161,7 +161,7 @@ export class S3Storage implements PackStorage {
 
     const sortedKeys = Object.keys(headers).sort();
     const canonicalHeaders = sortedKeys
-      .map((k) => `${k.toLowerCase()}:${headers[k]!.trim()}`)
+      .map((k) => `${k.toLowerCase()}:${(headers[k] ?? '').trim()}`)
       .join('\n');
     const signedHeaders = sortedKeys.map((k) => k.toLowerCase()).join(';');
 

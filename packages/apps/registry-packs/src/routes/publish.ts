@@ -166,7 +166,7 @@ export const publishRoutes = new Elysia({ prefix: '/packs' }).post(
           },
           metadata.version
         )
-        .catch(() => {}); // Swallow webhook errors
+        .catch(() => undefined); // Swallow webhook errors
 
       set.status = 201;
       return {

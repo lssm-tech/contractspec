@@ -39,8 +39,8 @@ describe('ElevenLabsVoiceProvider', () => {
     });
 
     expect(client.textToSpeech.convert).toHaveBeenCalled();
-    expect(result.audio).toBeInstanceOf(Uint8Array);
-    expect(result.audio.length).toBeGreaterThan(0);
+    expect(result.audio.data).toBeInstanceOf(Uint8Array);
+    expect(result.audio.data.length).toBeGreaterThan(0);
   });
 });
 

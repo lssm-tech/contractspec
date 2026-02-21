@@ -16,12 +16,12 @@ export interface GitHubReleasePayload {
     body: string;
     draft: boolean;
     prerelease: boolean;
-    assets: Array<{
+    assets: {
       name: string;
       browser_download_url: string;
       content_type: string;
       size: number;
-    }>;
+    }[];
   };
   repository: {
     full_name: string;

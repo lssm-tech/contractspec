@@ -110,10 +110,12 @@ function topologicalSort(graph: Map<string, DependencyNode>): {
 
   const sorted: string[] = [];
   while (queue.length > 0) {
-    const current = queue.shift()!;
+    const current = queue.shift();
+    if (!current) continue;
     sorted.push(current);
 
-    const node = graph.get(current)!;
+    const node = graph.get(current);
+    if (!node) continue;
     for (const dep of node.dependencies) {
       if (!graph.has(dep)) continue;
       const newDegree = (inDegree.get(dep) ?? 1) - 1;

@@ -1,4 +1,3 @@
-import { resolve } from 'path';
 import { existsSync, readFileSync } from 'fs';
 import chalk from 'chalk';
 import {
@@ -135,9 +134,6 @@ export function runGenerate(
         verbose: config.verbose,
         modelProfile: config.modelProfile,
       };
-
-      // Snapshot existing files before generating (for --diff)
-      const preSnapshot = new Map<string, string>();
 
       try {
         const result = target.generate(generateOptions);

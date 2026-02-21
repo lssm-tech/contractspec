@@ -2,6 +2,7 @@ import { existsSync } from 'fs';
 import { resolve, isAbsolute } from 'path';
 import {
   loadPackManifest,
+  loadWorkspaceConfig,
   type PackManifest,
   type WorkspaceConfig,
 } from './config.js';
@@ -117,7 +118,6 @@ export class PackLoader {
       return { packs: [], warnings: [] };
     }
 
-    const { loadWorkspaceConfig } = require('./config.js');
     const localConfig = loadWorkspaceConfig(baseDirRoot);
     const loader = new PackLoader(baseDirRoot, localConfig);
     return loader.loadAll();
@@ -143,7 +143,8 @@ export class PackLoader {
         : (parts[parts.length - 1] ?? packName);
     }
     // Strip any @version or :path suffixes
-    packName = packName.split('@')[0]!.split(':')[0]!;
+    const withoutVersion = packName.split('@')[0] ?? packName;
+    packName = withoutVersion.split(':')[0] ?? withoutVersion;
 
     const resolved = resolve(curatedDir, packName);
     return existsSync(resolved) ? resolved : null;

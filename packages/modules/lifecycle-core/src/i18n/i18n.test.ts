@@ -37,7 +37,7 @@ describe('resolveLocale', () => {
   });
 
   it('should fall back to DEFAULT_LOCALE for unsupported locales', () => {
-    expect(resolveLocale('de')).toBe('en');
+    expect(resolveLocale('de')).toBe(DEFAULT_LOCALE);
   });
 });
 

@@ -1,4 +1,3 @@
-import { resolve } from 'path';
 import chalk from 'chalk';
 import { loadWorkspaceConfig } from '../core/config.js';
 import {

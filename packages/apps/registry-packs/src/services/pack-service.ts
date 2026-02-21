@@ -54,7 +54,11 @@ export class PackService {
   /** Create a new pack. */
   async create(pack: NewPack): Promise<Pack> {
     await this.db.insert(packs).values(pack);
-    return (await this.get(pack.name))!;
+    const created = await this.get(pack.name);
+    if (!created) {
+      throw new Error(`Failed to create pack: ${pack.name}`);
+    }
+    return created;
   }
 
   /** Update a pack. */

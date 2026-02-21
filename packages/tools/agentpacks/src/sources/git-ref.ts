@@ -50,9 +50,17 @@ export function parseGitSourceRef(source: string): GitSourceRef {
     );
   }
 
+  const owner = parts[0];
+  const repo = parts[1];
+  if (!owner || !repo) {
+    throw new Error(
+      `Invalid git source reference: "${source}". Expected owner/repo format.`
+    );
+  }
+
   return {
-    owner: parts[0]!,
-    repo: parts[1]!,
+    owner,
+    repo,
     ref,
     path: path || '',
   };

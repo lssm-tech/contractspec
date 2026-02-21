@@ -48,7 +48,11 @@ export class WebhookService {
         updatedAt: now,
       })
       .returning();
-    return result[0]!;
+    const created = result[0];
+    if (!created) {
+      throw new Error(`Failed to create webhook for pack ${input.packName}`);
+    }
+    return created;
   }
 
   /** List webhooks for a pack. */

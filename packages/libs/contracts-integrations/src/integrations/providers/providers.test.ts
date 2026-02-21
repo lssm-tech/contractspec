@@ -184,7 +184,7 @@ describe('integration provider specs', () => {
     expect(registered).toBe(gradiumIntegrationSpec);
     expect(registered?.supportedModes).toEqual(['byok']);
     expect(registered?.capabilities.provides).toEqual([
-      { key: 'ai.voice.synthesis', version: '1.0.0' },
+      { key: 'ai.voice.tts', version: '1.0.0' },
     ]);
     expect(registered?.secretSchema.schema).toMatchObject({
       required: ['apiKey'],
@@ -197,7 +197,7 @@ describe('integration provider specs', () => {
     expect(registered).toBe(falIntegrationSpec);
     expect(registered?.supportedModes).toEqual(['byok']);
     expect(registered?.capabilities.provides).toEqual([
-      { key: 'ai.voice.synthesis', version: '1.0.0' },
+      { key: 'ai.voice.tts', version: '1.0.0' },
     ]);
     expect(registered?.secretSchema.schema).toMatchObject({
       required: ['apiKey'],

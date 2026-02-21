@@ -130,7 +130,8 @@ export function getClientIp(
 ): string {
   const forwarded = headers['x-forwarded-for'];
   if (forwarded) {
-    return forwarded.split(',')[0]!.trim();
+    const first = forwarded.split(',')[0];
+    return (first ?? 'unknown').trim();
   }
   return headers['x-real-ip'] ?? 'unknown';
 }

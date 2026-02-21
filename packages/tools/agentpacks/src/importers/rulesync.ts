@@ -144,11 +144,7 @@ export function importFromRulesync(
   let configGenerated = false;
   const rulesyncConfig = resolve(projectRoot, 'rulesync.jsonc');
   if (existsSync(rulesyncConfig)) {
-    const agentpacksConfig = convertRulesyncConfig(
-      rulesyncConfig,
-      packDir,
-      projectRoot
-    );
+    const agentpacksConfig = convertRulesyncConfig(rulesyncConfig, packDir);
     const configPath = resolve(projectRoot, 'agentpacks.jsonc');
     writeFileSync(configPath, agentpacksConfig);
     configGenerated = true;
@@ -160,11 +156,7 @@ export function importFromRulesync(
 /**
  * Convert a rulesync.jsonc to agentpacks.jsonc format.
  */
-function convertRulesyncConfig(
-  rulesyncPath: string,
-  packDir: string,
-  projectRoot: string
-): string {
+function convertRulesyncConfig(rulesyncPath: string, _packDir: string): string {
   const raw = readFileSync(rulesyncPath, 'utf-8');
   const parsed = parseJsonc(raw) as Record<string, unknown>;
 

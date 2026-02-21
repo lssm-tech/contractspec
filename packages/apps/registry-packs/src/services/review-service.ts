@@ -119,7 +119,13 @@ export class ReviewService {
       )
       .limit(1);
 
-    return result[0]!;
+    const review = result[0];
+    if (!review) {
+      throw new Error(
+        `Failed to upsert review for ${input.packName} by ${input.username}`
+      );
+    }
+    return review;
   }
 
   /**

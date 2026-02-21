@@ -1,5 +1,5 @@
 import { resolve } from 'path';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync } from 'fs';
 import chalk from 'chalk';
 import { loadPackManifest } from '../core/config.js';
 import { parseModels, scanModelsForSecrets } from '../features/models.js';

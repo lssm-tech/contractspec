@@ -35,7 +35,7 @@ export const pocketFamilyOfficeBlueprint: AppBlueprintSpec = {
       cap('email.transactional', '1.0.0'),
       cap('calendar.events', '1.0.0'),
       cap('sms.outbound', '1.0.0'),
-      cap('ai.voice.synthesis', '1.0.0'),
+      cap('ai.voice.tts', '1.0.0'),
       cap('payments.psp', '1.0.0'),
       cap('openbanking.accounts.read', '1.0.0'),
       cap('openbanking.transactions.read', '1.0.0'),
@@ -113,7 +113,7 @@ export const pocketFamilyOfficeBlueprint: AppBlueprintSpec = {
       slotId: 'voicePlayback',
       requiredCategory: 'ai-voice-tts',
       allowedModes: ['managed', 'byok'],
-      requiredCapabilities: [cap('ai.voice.synthesis', '1.0.0')],
+      requiredCapabilities: [cap('ai.voice.tts', '1.0.0')],
       required: false,
       description:
         'Optional voice synthesis for spoken summaries (ElevenLabs).',
