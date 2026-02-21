@@ -1,8 +1,7 @@
 {
   "extends": "@contractspec/tool.typescript/react-library.json",
   "compilerOptions": {
-    "noEmit": false,
-    "emitDeclarationOnly": false,
+    "noEmit": true,
     "moduleResolution": "bundler",
     "resolveJsonModule": true
   },
