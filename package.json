@@ -83,6 +83,7 @@
     "build:types": "bun run typecheck",
     "typecheck": "turbo run typecheck",
     "build:not-apps": "turbo run build --filter=\"!@contractspec/app.*\"",
+    "postinstall": "if [ \"$VERCEL\" = \"1\" ] && [ \"$VERCEL_PROJECT_ID\" = \"prj_vk3MvXyU7016PFc8jAer5GlsfUhP\" ]; then bun run --cwd packages/apps/api-library build:bundle; fi",
     "db:deploy": "turbo run db:deploy",
     "i18n:check": "bun run scripts/check-i18n-parity.ts"
   },
