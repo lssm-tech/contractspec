@@ -1,5 +1,17 @@
 # @contractspec/app.alpic-mcp
 
+## 2.5.0
+
+### Minor Changes
+
+- c83c323: feat: major change to content generation
+
+### Patch Changes
+
+- Updated dependencies [c83c323]
+  - @contractspec/bundle.alpic@2.5.0
+  - @contractspec/lib.logger@2.5.0
+
 ## 2.4.0
 
 ### Minor Changes

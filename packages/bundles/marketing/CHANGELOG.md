@@ -1,5 +1,37 @@
 # @contractspec/bundle.marketing
 
+## 2.5.0
+
+### Minor Changes
+
+- c83c323: feat: major change to content generation
+
+### Patch Changes
+
+- Updated dependencies [4fa3bd4]
+- Updated dependencies [63eee9b]
+- Updated dependencies [284cbe2]
+- Updated dependencies [c83c323]
+  - @contractspec/lib.contracts-spec@2.5.0
+  - @contractspec/lib.contracts-runtime-client-react@2.5.0
+  - @contractspec/example.analytics-dashboard@2.5.0
+  - @contractspec/example.saas-boilerplate@2.5.0
+  - @contractspec/example.integration-hub@2.5.0
+  - @contractspec/example.workflow-system@2.5.0
+  - @contractspec/example.agent-console@2.5.0
+  - @contractspec/lib.example-shared-ui@2.5.0
+  - @contractspec/example.crm-pipeline@2.5.0
+  - @contractspec/example.marketplace@2.5.0
+  - @contractspec/lib.runtime-sandbox@1.5.0
+  - @contractspec/lib.design-system@2.5.0
+  - @contractspec/lib.ui-kit-core@2.5.0
+  - @contractspec/module.examples@2.5.0
+  - @contractspec/bundle.library@2.5.0
+  - @contractspec/lib.ui-kit-web@2.5.0
+  - @contractspec/lib.ui-link@2.5.0
+  - @contractspec/lib.logger@2.5.0
+  - @contractspec/lib.email@2.5.0
+
 ## 2.4.0
 
 ### Minor Changes

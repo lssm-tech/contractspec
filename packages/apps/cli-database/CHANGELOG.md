@@ -1,5 +1,16 @@
 # @contractspec/app.cli-database
 
+## 2.5.0
+
+### Minor Changes
+
+- c83c323: feat: major change to content generation
+
+### Patch Changes
+
+- Updated dependencies [c83c323]
+  - @contractspec/lib.schema@2.5.0
+
 ## 2.4.0
 
 ### Minor Changes

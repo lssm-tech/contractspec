@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 22.0.0
+
+### Minor Changes
+
+- c83c323: feat: major change to content generation
+
+### Patch Changes
+
+- Updated dependencies [c83c323]
+  - @contractspec/lib.presentation-runtime-core@2.5.0
+  - @contractspec/lib.ui-kit@2.5.0
+
 ## 21.0.0
 
 ### Minor Changes

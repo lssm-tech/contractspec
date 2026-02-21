@@ -1,5 +1,40 @@
 # @contractspec/lib.contracts-integrations
 
+## 2.5.0
+
+### Minor Changes
+
+- 4fa3bd4: Add @contractspec/lib.image-gen package for AI-powered image generation
+  - New `ai-image` IntegrationCategory in both contracts-spec and contracts-integrations
+  - New ImageProvider contract with image generation, upscale, and edit interfaces
+  - New fal-image and openai-image integration specs
+  - New image-gen library with ImageGenerator, PromptBuilder, StyleResolver
+  - Presets for social (OG, Twitter, Instagram), marketing (blog hero, landing, email), and video thumbnails
+  - Full i18n support (en, fr, es)
+  - video-gen: fix missing contracts-integrations dependency, add image-gen dependency, add image option to VideoGeneratorOptions, implement thumbnail generation in VideoGenerator
+  - IMAGE_PRESETS: add emailHeader and illustration presets to contract layer
+  - Comprehensive test suite (129 tests across 5 files)
+
+- 63eee9b: Add @contractspec/lib.voice package for TTS, STT, and conversational voice
+  - Expanded voice.ts contract with VoiceSynthesizer, Transcriber, and conversational types
+  - New deepgram, openai-realtime, and voice-video-sync integration specs (mirrored)
+  - Updated elevenlabs, fal, gradium integration specs for voice capabilities
+  - New voice library with TTS, STT, audio utilities, sync, and conversational modules
+  - Full i18n support (en, fr, es)
+  - video-gen: integrate VoiceSynthesizer, Transcriber, subtitle generation, voice timing
+  - Added thumbnail and voiceTimingMap fields to VideoProject contract
+
+- c83c323: feat: major change to content generation
+
+### Patch Changes
+
+- Updated dependencies [4fa3bd4]
+- Updated dependencies [63eee9b]
+- Updated dependencies [284cbe2]
+- Updated dependencies [c83c323]
+  - @contractspec/lib.contracts-spec@2.5.0
+  - @contractspec/lib.schema@2.5.0
+
 ## 2.4.0
 
 ### Minor Changes

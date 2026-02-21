@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 1.5.0
+
+### Minor Changes
+
+- c83c323: feat: major change to content generation
+
 ## 1.4.0
 
 ### Minor Changes

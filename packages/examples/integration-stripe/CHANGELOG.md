@@ -1,5 +1,21 @@
 # @contractspec/example.integration-stripe
 
+## 2.5.0
+
+### Minor Changes
+
+- c83c323: feat: major change to content generation
+
+### Patch Changes
+
+- Updated dependencies [4fa3bd4]
+- Updated dependencies [63eee9b]
+- Updated dependencies [284cbe2]
+- Updated dependencies [c83c323]
+  - @contractspec/lib.contracts-spec@2.5.0
+  - @contractspec/lib.contracts-integrations@2.5.0
+  - @contractspec/lib.schema@2.5.0
+
 ## 2.4.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @contractspec/lib.contracts
 
+## 1.66.0
+
+### Minor Changes
+
+- c83c323: feat: major change to content generation
+
 ## 1.65.0
 
 ### Minor Changes

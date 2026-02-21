@@ -1,5 +1,16 @@
 # @contractspec/lib.progressive-delivery
 
+## 22.0.0
+
+### Minor Changes
+
+- c83c323: feat: major change to content generation
+
+### Patch Changes
+
+- Updated dependencies [c83c323]
+  - @contractspec/lib.observability@2.5.0
+
 ## 21.0.0
 
 ### Minor Changes
