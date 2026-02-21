@@ -48,11 +48,11 @@ describe('GradiumVoiceProvider', () => {
       text: 'Hello from Gradium',
     });
     expect(result).toEqual({
-      audio: new Uint8Array([1, 2, 3, 4]),
-      format: 'ogg',
-      sampleRateHz: 24000,
-      durationSeconds: undefined,
-      url: undefined,
+      audio: {
+        data: new Uint8Array([1, 2, 3, 4]),
+        format: 'ogg',
+        sampleRateHz: 24000,
+      },
     });
   });
 });

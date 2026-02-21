@@ -3,8 +3,8 @@
  * A metarepo contains multiple sub-repositories, each potentially with
  * their own agentpacks.jsonc configuration.
  */
-import { existsSync, readdirSync, statSync } from 'fs';
-import { resolve, join, relative } from 'path';
+import { existsSync, readdirSync } from 'fs';
+import { join, relative } from 'path';
 import type { WorkspaceConfig } from './config.js';
 import { loadWorkspaceConfig } from './config.js';
 

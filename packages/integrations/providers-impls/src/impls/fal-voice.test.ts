@@ -70,11 +70,11 @@ describe('FalVoiceProvider', () => {
       );
       expect(fetchSpy).toHaveBeenCalledWith('https://example.com/output.wav');
       expect(result).toEqual({
-        audio: new Uint8Array([10, 11, 12]),
-        format: 'wav',
-        sampleRateHz: 24000,
-        durationSeconds: undefined,
-        url: 'https://example.com/output.wav',
+        audio: {
+          data: new Uint8Array([10, 11, 12]),
+          format: 'wav',
+          sampleRateHz: 24000,
+        },
       });
     } finally {
       fetchSpy.mockRestore();

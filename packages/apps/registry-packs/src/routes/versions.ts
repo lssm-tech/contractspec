@@ -1,7 +1,7 @@
 import { Elysia } from 'elysia';
 import { getDb } from '../db/client.js';
-import { VersionService } from '../services/version-service.js';
 import { PackService } from '../services/pack-service.js';
+import { VersionService } from '../services/version-service.js';
 import { StatsService } from '../services/stats-service.js';
 import { getStorage } from '../storage/factory.js';
 import { extractAuth } from '../auth/middleware.js';
@@ -34,7 +34,6 @@ export const versionRoutes = new Elysia({ prefix: '/packs' })
   .get('/:name/versions/:version/download', async ({ params, set }) => {
     const db = getDb();
     const versionService = new VersionService(db);
-    const packService = new PackService(db);
 
     const version = await versionService.get(params.name, params.version);
     if (!version) {

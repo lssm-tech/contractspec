@@ -5,22 +5,17 @@ import {
   type GenerateOptions,
   type GenerateResult,
 } from './base-target.js';
-import {
-  ruleMatchesTarget,
-  getRootRules,
-  getDetailRules,
-} from '../features/rules.js';
+import { ruleMatchesTarget, getDetailRules } from '../features/rules.js';
 import { commandMatchesTarget } from '../features/commands.js';
 import { agentMatchesTarget } from '../features/agents.js';
 import { skillMatchesTarget } from '../features/skills.js';
 import { resolveHooksForTarget } from '../features/hooks.js';
-import { resolveModels, resolveAgentModel } from '../core/profile-resolver.js';
+import { resolveModels } from '../core/profile-resolver.js';
 import { packNameToIdentifier } from '../utils/markdown.js';
 import { serializeFrontmatter } from '../utils/frontmatter.js';
 import {
   writeGeneratedFile,
   writeGeneratedJson,
-  readJsonOrNull,
   removeIfExists,
   ensureDir,
 } from '../utils/filesystem.js';
@@ -183,7 +178,6 @@ export class OpenCodeTarget extends BaseTarget {
     // Build opencode.json (combines MCP + models config)
     if (effective.includes('mcp') || effective.includes('models')) {
       const filepath = resolve(root, 'opencode.json');
-      const existing = readJsonOrNull<Record<string, unknown>>(filepath) ?? {};
       const opencodeConfig: Record<string, unknown> = {
         $schema: 'https://opencode.ai/config.json',
       };
@@ -216,13 +210,14 @@ export class OpenCodeTarget extends BaseTarget {
         if (agentEntries.length > 0) {
           const agentConfig: Record<string, Record<string, unknown>> = {};
           for (const [name, assignment] of agentEntries) {
-            agentConfig[name] = { model: assignment.model };
+            const config: Record<string, unknown> = { model: assignment.model };
             if (assignment.temperature !== undefined) {
-              agentConfig[name]!.temperature = assignment.temperature;
+              config.temperature = assignment.temperature;
             }
             if (assignment.top_p !== undefined) {
-              agentConfig[name]!.top_p = assignment.top_p;
+              config.top_p = assignment.top_p;
             }
+            agentConfig[name] = config;
           }
           opencodeConfig.agent = agentConfig;
         }
@@ -238,7 +233,6 @@ export class OpenCodeTarget extends BaseTarget {
       const rules = features.rules.filter((r) =>
         ruleMatchesTarget(r, TARGET_ID)
       );
-      const rootRules = getRootRules(rules);
       const detailRules = getDetailRules(rules);
 
       // AGENTS.md generation is handled by the agents-md target

@@ -94,10 +94,13 @@ export class StatsService {
       )
       .orderBy(downloadStats.date);
 
+    const packData = pack[0];
+    if (!packData) return null;
+
     return {
       packName,
-      totalDownloads: pack[0]!.downloads,
-      weeklyDownloads: pack[0]!.weeklyDownloads,
+      totalDownloads: packData.downloads,
+      weeklyDownloads: packData.weeklyDownloads,
       dailyStats: daily,
     };
   }

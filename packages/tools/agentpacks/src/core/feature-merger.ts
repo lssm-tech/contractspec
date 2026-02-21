@@ -3,7 +3,7 @@ import type { ParsedRule } from '../features/rules.js';
 import type { ParsedCommand } from '../features/commands.js';
 import type { ParsedAgent } from '../features/agents.js';
 import type { ParsedSkill } from '../features/skills.js';
-import type { ParsedHooks, HookEvents } from '../features/hooks.js';
+import type { ParsedHooks } from '../features/hooks.js';
 import type { ParsedPlugin } from '../features/plugins.js';
 import type { McpServerEntry } from '../features/mcp.js';
 import {

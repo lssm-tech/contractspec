@@ -14,7 +14,7 @@ import { commandMatchesTarget } from '../features/commands.js';
 import { agentMatchesTarget } from '../features/agents.js';
 import { skillMatchesTarget } from '../features/skills.js';
 import { resolveHooksForTarget } from '../features/hooks.js';
-import { resolveModels, resolveAgentModel } from '../core/profile-resolver.js';
+import { resolveModels } from '../core/profile-resolver.js';
 import { generateModelGuidanceMarkdown } from '../utils/model-guidance.js';
 import {
   writeGeneratedFile,

@@ -60,7 +60,8 @@ export class DependencyService {
     let maxReachedDepth = 0;
 
     while (queue.length > 0) {
-      const current = queue.shift()!;
+      const current = queue.shift();
+      if (!current) continue;
       if (current.depth >= maxDepth) continue;
 
       const pack = await this.db

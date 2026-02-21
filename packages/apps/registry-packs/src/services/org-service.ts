@@ -48,7 +48,11 @@ export class OrgService {
       createdAt: now,
     });
 
-    return (await this.get(input.name))!;
+    const organization = await this.get(input.name);
+    if (!organization) {
+      throw new Error(`Failed to create organization: ${input.name}`);
+    }
+    return organization;
   }
 
   /** Get an organization by name. */
@@ -133,7 +137,11 @@ export class OrgService {
       )
       .limit(1);
 
-    return result[0]!;
+    const member = result[0];
+    if (!member) {
+      throw new Error(`Failed to add member ${username} to ${orgName}`);
+    }
+    return member;
   }
 
   /** Remove a member from an organization. */

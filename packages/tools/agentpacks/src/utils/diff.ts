@@ -110,17 +110,33 @@ function findHunks(oldLines: string[], newLines: string[]): Hunk[] {
       ni < newLines.length &&
       oldLines[oi] === newLines[ni]
     ) {
-      changes.push({ type: ' ', line: oldLines[oi]!, oldIdx: oi, newIdx: ni });
+      changes.push({
+        type: ' ',
+        line: oldLines[oi] ?? '',
+        oldIdx: oi,
+        newIdx: ni,
+      });
       oi++;
       ni++;
     } else if (
       ni < newLines.length &&
-      (oi >= oldLines.length || !newLines.slice(ni).includes(oldLines[oi]!))
+      (oi >= oldLines.length ||
+        !newLines.slice(ni).includes(oldLines[oi] ?? ''))
     ) {
-      changes.push({ type: '+', line: newLines[ni]!, oldIdx: oi, newIdx: ni });
+      changes.push({
+        type: '+',
+        line: newLines[ni] ?? '',
+        oldIdx: oi,
+        newIdx: ni,
+      });
       ni++;
     } else {
-      changes.push({ type: '-', line: oldLines[oi]!, oldIdx: oi, newIdx: oi });
+      changes.push({
+        type: '-',
+        line: oldLines[oi] ?? '',
+        oldIdx: oi,
+        newIdx: oi,
+      });
       oi++;
     }
   }
@@ -158,8 +174,9 @@ function findHunks(oldLines: string[], newLines: string[]): Hunk[] {
         };
         // Add leading context
         for (let i = contextStart; i < changes.indexOf(change); i++) {
-          if (changes[i]!.type === ' ') {
-            currentHunk.lines.push(` ${changes[i]!.line}`);
+          const entry = changes[i];
+          if (entry?.type === ' ') {
+            currentHunk.lines.push(` ${entry.line}`);
             currentHunk.oldCount++;
             currentHunk.newCount++;
           }

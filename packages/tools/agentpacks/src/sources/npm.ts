@@ -1,7 +1,7 @@
 /**
  * npm pack source — registry fetching and local installation.
  */
-import { mkdirSync, writeFileSync, existsSync } from 'fs';
+import { mkdirSync, existsSync, readdirSync } from 'fs';
 import { resolve, join } from 'path';
 import { execSync } from 'child_process';
 import {
@@ -9,7 +9,6 @@ import {
   type LockfileSourceEntry,
   getLockedSource,
   setLockedSource,
-  computeIntegrity,
 } from '../core/lockfile.js';
 import {
   type NpmSourceRef,
@@ -73,28 +72,18 @@ export async function installNpmSource(
 
   // Determine exact version
   let resolvedVersion: string;
-  let tarballUrl: string;
-
   if (locked && !options.update) {
     resolvedVersion = locked.resolvedRef;
-    tarballUrl = '';
   } else {
     const resolved = await resolveNpmVersion(parsed);
     resolvedVersion = resolved.version;
-    tarballUrl = resolved.tarball;
   }
 
   // Extract pack files into .agentpacks/.curated/
   const curatedDir = resolve(projectRoot, '.agentpacks', '.curated');
   mkdirSync(curatedDir, { recursive: true });
 
-  const packDir = extractNpmPack(
-    parsed,
-    resolvedVersion,
-    curatedDir,
-    installed,
-    warnings
-  );
+  extractNpmPack(parsed, resolvedVersion, curatedDir, installed, warnings);
 
   // Update lockfile
   const newEntry: LockfileSourceEntry = {
@@ -136,16 +125,19 @@ function extractNpmPack(
     });
 
     // Find the downloaded tarball
-    const tgzFiles = require('fs')
-      .readdirSync(tmpDir)
-      .filter((f: string) => f.endsWith('.tgz'));
+    const tgzFiles = readdirSync(tmpDir).filter((f) => f.endsWith('.tgz'));
 
     if (tgzFiles.length === 0) {
       warnings.push(`No tarball found for ${pkgSpec}`);
       return packOutDir;
     }
 
-    const tgzPath = join(tmpDir, tgzFiles[0]!);
+    const firstTgz = tgzFiles[0];
+    if (!firstTgz) {
+      warnings.push(`No tarball found for ${pkgSpec}`);
+      return packOutDir;
+    }
+    const tgzPath = join(tmpDir, firstTgz);
 
     // Extract to pack output directory
     mkdirSync(packOutDir, { recursive: true });
@@ -176,8 +168,7 @@ function extractNpmPack(
  * Recursively collect all file paths in a directory.
  */
 function collectFiles(dir: string, out: string[]): void {
-  const fs = require('fs');
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  const entries = readdirSync(dir, { withFileTypes: true });
   for (const entry of entries) {
     const full = join(dir, entry.name);
     if (entry.isDirectory()) {

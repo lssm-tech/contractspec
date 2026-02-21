@@ -8,8 +8,6 @@
 import type { LLMProvider } from '@contractspec/lib.contracts-integrations/integrations/providers/llm';
 import type { VoiceSynthesizer } from '@contractspec/lib.voice/tts';
 import type { Transcriber } from '@contractspec/lib.voice/stt';
-import type { TTSProject } from '@contractspec/lib.voice/tts';
-import type { VoiceTimingMap } from '@contractspec/lib.contracts-integrations/integrations/providers/voice-video-sync';
 import type { ContentBrief } from '@contractspec/lib.content-gen/types';
 import type { ImageGenerator } from '@contractspec/lib.image-gen/generators/image-generator';
 import type {

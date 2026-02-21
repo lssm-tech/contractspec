@@ -81,12 +81,14 @@ export function resolveModels(
   }
 
   // Step 3: Apply target-specific overrides
-  if (targetId && merged.overrides?.[targetId]) {
-    const targetOverride = merged.overrides[targetId]!;
-    if (targetOverride.default) defaultModel = targetOverride.default;
-    if (targetOverride.small) smallModel = targetOverride.small;
-    if (targetOverride.agents) {
-      agents = { ...agents, ...targetOverride.agents };
+  if (targetId) {
+    const targetOverride = merged.overrides?.[targetId];
+    if (targetOverride) {
+      if (targetOverride.default) defaultModel = targetOverride.default;
+      if (targetOverride.small) smallModel = targetOverride.small;
+      if (targetOverride.agents) {
+        agents = { ...agents, ...targetOverride.agents };
+      }
     }
   }
 

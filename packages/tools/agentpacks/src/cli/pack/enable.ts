@@ -29,7 +29,7 @@ function parseDisabledFromRaw(raw: string): {
   const match = regex.exec(raw);
   if (!match) return { list: [], match: null };
 
-  const inner = match[1]!.trim();
+  const inner = (match[1] ?? '').trim();
   if (!inner) return { list: [], match };
 
   const list = inner

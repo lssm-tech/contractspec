@@ -15,8 +15,9 @@ import { createSupportBotI18n } from '../i18n';
 type LocaleKeywords = Record<TicketCategory, string[]>;
 type LocalePriorityHints = Record<TicketPriority, string[]>;
 type LocaleSentimentHints = Record<TicketSentiment, string[]>;
+type SupportedLocale = 'en' | 'fr' | 'es';
 
-const CATEGORY_KEYWORDS: Record<string, LocaleKeywords> = {
+const CATEGORY_KEYWORDS: Record<SupportedLocale, LocaleKeywords> = {
   en: {
     billing: ['invoice', 'payout', 'refund', 'charge', 'billing', 'payment'],
     technical: ['bug', 'error', 'crash', 'issue', 'failed', 'timeout'],
@@ -97,7 +98,7 @@ const CATEGORY_KEYWORDS: Record<string, LocaleKeywords> = {
   },
 };
 
-const PRIORITY_HINTS: Record<string, LocalePriorityHints> = {
+const PRIORITY_HINTS: Record<SupportedLocale, LocalePriorityHints> = {
   en: {
     urgent: ['urgent', 'asap', 'immediately', 'today', 'right away'],
     high: ['high priority', 'blocking', 'major', 'critical'],
@@ -130,7 +131,7 @@ const PRIORITY_HINTS: Record<string, LocalePriorityHints> = {
   },
 };
 
-const SENTIMENT_HINTS: Record<string, LocaleSentimentHints> = {
+const SENTIMENT_HINTS: Record<SupportedLocale, LocaleSentimentHints> = {
   en: {
     positive: ['love', 'great', 'awesome', 'thank you'],
     neutral: ['question', 'wonder', 'curious'],
@@ -152,7 +153,10 @@ const SENTIMENT_HINTS: Record<string, LocaleSentimentHints> = {
 };
 
 /** Intent keywords per locale */
-const INTENT_KEYWORDS: Record<string, { keyword: string; intent: string }[]> = {
+const INTENT_KEYWORDS: Record<
+  SupportedLocale,
+  { keyword: string; intent: string }[]
+> = {
   en: [
     { keyword: 'refund', intent: 'refund' },
     { keyword: 'chargeback', intent: 'refund' },
@@ -182,10 +186,13 @@ const INTENT_KEYWORDS: Record<string, { keyword: string; intent: string }[]> = {
   ],
 };
 
-function resolveBaseLocale(locale?: string): string {
+function resolveBaseLocale(locale?: string): SupportedLocale {
   if (!locale) return 'en';
   const base = locale.split('-')[0]?.toLowerCase() ?? 'en';
-  return base in CATEGORY_KEYWORDS ? base : 'en';
+  if (base === 'en' || base === 'fr' || base === 'es') {
+    return base;
+  }
+  return 'en';
 }
 
 export interface TicketClassifierOptions {
@@ -203,7 +210,7 @@ export class TicketClassifier {
   private readonly intentKeywords: { keyword: string; intent: string }[];
   private readonly llm?: LLMProvider;
   private readonly llmModel?: string;
-  private readonly locale: string;
+  private readonly locale: SupportedLocale;
 
   constructor(options?: TicketClassifierOptions) {
     this.locale = resolveBaseLocale(options?.locale);
@@ -211,14 +218,9 @@ export class TicketClassifier {
       ...CATEGORY_KEYWORDS[this.locale],
       ...(options?.keywords ?? {}),
     } as Record<TicketCategory, string[]>;
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- 'en' is guaranteed to exist
-    this.priorityHints = PRIORITY_HINTS[this.locale] ?? PRIORITY_HINTS['en']!;
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- 'en' is guaranteed to exist
-    this.sentimentHints =
-      SENTIMENT_HINTS[this.locale] ?? SENTIMENT_HINTS['en']!;
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- 'en' is guaranteed to exist
-    this.intentKeywords =
-      INTENT_KEYWORDS[this.locale] ?? INTENT_KEYWORDS['en']!;
+    this.priorityHints = PRIORITY_HINTS[this.locale];
+    this.sentimentHints = SENTIMENT_HINTS[this.locale];
+    this.intentKeywords = INTENT_KEYWORDS[this.locale];
     this.llm = options?.llm;
     this.llmModel = options?.llmModel;
   }

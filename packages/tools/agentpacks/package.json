@@ -108,6 +108,7 @@
     "./utils/frontmatter": "./src/utils/frontmatter.ts",
     "./utils/global": "./src/utils/global.ts",
     "./utils/markdown": "./src/utils/markdown.ts",
+    "./utils/model-allowlist": "./src/utils/model-allowlist.ts",
     "./utils/model-guidance": "./src/utils/model-guidance.ts",
     "./utils/registry-client": "./src/utils/registry-client.ts",
     "./utils/tarball": "./src/utils/tarball.ts"
@@ -560,6 +561,12 @@
         "bun": "./dist/utils/markdown.js",
         "node": "./dist/node/utils/markdown.js",
         "default": "./dist/utils/markdown.js"
+      },
+      "./utils/model-allowlist": {
+        "types": "./dist/utils/model-allowlist.d.ts",
+        "bun": "./dist/utils/model-allowlist.js",
+        "node": "./dist/node/utils/model-allowlist.js",
+        "default": "./dist/utils/model-allowlist.js"
       },
       "./utils/model-guidance": {
         "types": "./dist/utils/model-guidance.d.ts",

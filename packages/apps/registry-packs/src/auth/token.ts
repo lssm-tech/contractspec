@@ -53,7 +53,8 @@ export async function validateToken(
 
   if (result.length === 0) return null;
 
-  const entry = result[0]!;
+  const entry = result[0];
+  if (!entry) return null;
 
   // Check expiry
   if (entry.expiresAt && new Date(entry.expiresAt) < new Date()) {

@@ -53,7 +53,13 @@ export class VersionService {
       .insert(packVersions)
       .values(version)
       .returning();
-    return result[0]!;
+    const created = result[0];
+    if (!created) {
+      throw new Error(
+        `Failed to create version ${version.version} for ${version.packName}`
+      );
+    }
+    return created;
   }
 
   /** Delete a specific version. */
@@ -104,9 +110,10 @@ export function bumpPatch(version: string): string {
     while (parts.length < 3) parts.push('0');
   }
 
-  const major = parseInt(parts[0]!, 10) || 0;
-  const minor = parseInt(parts[1]!, 10) || 0;
-  const patch = parseInt(parts[2]!, 10) || 0;
+  const [majorPart = '0', minorPart = '0', patchPart = '0'] = parts;
+  const major = parseInt(majorPart, 10) || 0;
+  const minor = parseInt(minorPart, 10) || 0;
+  const patch = parseInt(patchPart, 10) || 0;
 
   return `${major}.${minor}.${patch + 1}`;
 }
