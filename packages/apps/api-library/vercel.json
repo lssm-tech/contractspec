@@ -1,5 +1,16 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "bunVersion": "1.3.9",
-  "relatedProjects": ["prj_foFw7J45Siaf2APNQLKvkk76cB06"]
+  "bunVersion": "1.3.6",
+  "relatedProjects": ["prj_foFw7J45Siaf2APNQLKvkk76cB06"],
+  "functions": {
+    "dist/index.js": {
+      "runtime": "bun@1.3.6"
+    }
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/dist"
+    }
+  ]
 }
