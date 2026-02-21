@@ -47,6 +47,10 @@ jobs:
       - name: Check generated config drift
         run: bun run agentpacks:diff
 
+      - name: Run registry-packs tests
+        run: bun test
+        working-directory: packages/apps/registry-packs
+
       - name: Typecheck registry-packs
         run: npx tsc --noEmit
         working-directory: packages/apps/registry-packs

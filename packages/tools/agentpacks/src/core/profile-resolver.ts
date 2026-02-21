@@ -1,4 +1,8 @@
-import type { ModelsConfig, AgentModel } from '../features/models.js';
+import type {
+  ModelsConfig,
+  AgentModel,
+  ModelProfile,
+} from '../features/models.js';
 
 /**
  * Resolved model configuration after profile activation and target overrides.
@@ -63,13 +67,16 @@ export function resolveModels(
   let smallModel = merged.small;
   let agents: Record<string, AgentModel> = { ...merged.agents };
 
-  // Step 2: Apply profile overlay
+  // Step 2: Apply profile overlay (with inheritance resolution)
   if (modelProfile && merged.profiles?.[modelProfile]) {
-    const profile = merged.profiles[modelProfile]!;
-    if (profile.default) defaultModel = profile.default;
-    if (profile.small) smallModel = profile.small;
-    if (profile.agents) {
-      agents = { ...agents, ...profile.agents };
+    const resolvedProfile = resolveProfileInheritance(
+      modelProfile,
+      merged.profiles
+    );
+    if (resolvedProfile.default) defaultModel = resolvedProfile.default;
+    if (resolvedProfile.small) smallModel = resolvedProfile.small;
+    if (resolvedProfile.agents) {
+      agents = { ...agents, ...resolvedProfile.agents };
     }
   }
 
@@ -148,4 +155,77 @@ export function resolveAgentModel(
   }
 
   return {};
+}
+
+/**
+ * Resolve profile inheritance by following `extends` chains.
+ *
+ * A profile with `extends: "parent"` inherits all fields from the parent
+ * profile, with the child's fields taking precedence.
+ *
+ * Cycle detection: tracks visited profile names; throws on cycle.
+ * Max depth: 10 levels (to prevent runaway resolution).
+ *
+ * @param profileName - The profile to resolve
+ * @param profiles - All available profiles
+ * @returns Fully resolved profile with inherited fields applied
+ */
+export function resolveProfileInheritance(
+  profileName: string,
+  profiles: Record<string, ModelProfile>
+): ModelProfile {
+  const visited = new Set<string>();
+  return resolveProfileChain(profileName, profiles, visited, 0);
+}
+
+const MAX_INHERITANCE_DEPTH = 10;
+
+function resolveProfileChain(
+  name: string,
+  profiles: Record<string, ModelProfile>,
+  visited: Set<string>,
+  depth: number
+): ModelProfile {
+  if (depth > MAX_INHERITANCE_DEPTH) {
+    throw new Error(
+      `Profile inheritance too deep (max ${MAX_INHERITANCE_DEPTH}): ${name}`
+    );
+  }
+
+  if (visited.has(name)) {
+    throw new Error(
+      `Circular profile inheritance detected: ${[...visited, name].join(' → ')}`
+    );
+  }
+
+  const profile = profiles[name];
+  if (!profile) {
+    throw new Error(`Profile "${name}" not found`);
+  }
+
+  visited.add(name);
+
+  // Base case: no parent
+  if (!profile.extends) {
+    return { ...profile };
+  }
+
+  // Resolve parent first
+  const parent = resolveProfileChain(
+    profile.extends,
+    profiles,
+    visited,
+    depth + 1
+  );
+
+  // Child overrides parent (shallow merge for agents)
+  return {
+    description: profile.description ?? parent.description,
+    default: profile.default ?? parent.default,
+    small: profile.small ?? parent.small,
+    agents: {
+      ...parent.agents,
+      ...profile.agents,
+    },
+  };
 }

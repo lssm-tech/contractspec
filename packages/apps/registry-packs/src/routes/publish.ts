@@ -6,6 +6,15 @@ import { VersionService } from '../services/version-service.js';
 import { WebhookService } from '../services/webhook-service.js';
 import { getStorage } from '../storage/factory.js';
 import { extractAuth } from '../auth/middleware.js';
+import {
+  publishLimiter,
+  getClientIp,
+  checkRateLimit,
+} from '../middleware/rate-limit.js';
+import { validatePackName } from '../utils/reserved-names.js';
+
+/** Maximum tarball size in bytes (10 MB). */
+const MAX_TARBALL_SIZE = 10 * 1024 * 1024;
 
 /**
  * Publish routes: POST /packs (authenticated)
@@ -13,6 +22,11 @@ import { extractAuth } from '../auth/middleware.js';
 export const publishRoutes = new Elysia({ prefix: '/packs' }).post(
   '/',
   async ({ body, set, headers }) => {
+    // Rate limiting (publish tier)
+    const ip = getClientIp(headers);
+    const rateLimitError = checkRateLimit(publishLimiter, ip, set);
+    if (rateLimitError) return rateLimitError;
+
     const auth = await extractAuth(headers);
 
     if (!auth) {
@@ -32,6 +46,16 @@ export const publishRoutes = new Elysia({ prefix: '/packs' }).post(
         return { error: 'Missing tarball or metadata' };
       }
 
+      // Enforce tarball size limit
+      if (tarballFile.size > MAX_TARBALL_SIZE) {
+        set.status = 413;
+        return {
+          error: `Tarball exceeds maximum size of ${MAX_TARBALL_SIZE / (1024 * 1024)}MB`,
+          maxSize: MAX_TARBALL_SIZE,
+          actualSize: tarballFile.size,
+        };
+      }
+
       // metadata may already be parsed (Elysia auto-parse) or a raw string
       const metadata = (
         typeof rawMetadata === 'string' ? JSON.parse(rawMetadata) : rawMetadata
@@ -46,9 +70,23 @@ export const publishRoutes = new Elysia({ prefix: '/packs' }).post(
         return { error: 'Missing name or version in metadata' };
       }
 
+      // Validate pack name (squatting prevention)
+      const nameValidation = validatePackName(metadata.name);
+      if (!nameValidation.valid) {
+        set.status = 400;
+        return {
+          error: `Invalid pack name: ${nameValidation.reason}`,
+        };
+      }
+
       const db = getDb();
       const packService = new PackService(db);
       const versionService = new VersionService(db);
+
+      // Auto-bump version if "auto" is specified
+      if (metadata.version === 'auto') {
+        metadata.version = await versionService.getNextVersion(metadata.name);
+      }
 
       // Check if version already exists
       if (await versionService.exists(metadata.name, metadata.version)) {
@@ -60,6 +98,15 @@ export const publishRoutes = new Elysia({ prefix: '/packs' }).post(
 
       // Store tarball
       const tarballBuffer = Buffer.from(await tarballFile.arrayBuffer());
+
+      // Double-check buffer size (defense in depth)
+      if (tarballBuffer.length > MAX_TARBALL_SIZE) {
+        set.status = 413;
+        return {
+          error: `Tarball exceeds maximum size of ${MAX_TARBALL_SIZE / (1024 * 1024)}MB`,
+        };
+      }
+
       const integrity = `sha256-${createHash('sha256').update(tarballBuffer).digest('hex')}`;
 
       const storage = getStorage();

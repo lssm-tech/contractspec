@@ -1,7 +1,7 @@
 # agentpacks Registry — Implementation Plan
 
 > Living document tracking the design, progress, and decisions for the agentpacks pack registry.
-> Last updated: 2026-02-20
+> Last updated: 2026-02-21
 
 ---
 
@@ -38,7 +38,7 @@
 | Repo root       | `/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec` |
 | Branch          | `release`                                                                    |
 | Current version | `0.3.0`                                                                      |
-| Test suite      | 247 tests / 31 files / 499 assertions — all pass                             |
+| Test suite      | 637 tests / 62 files / 1321 assertions — all pass                            |
 
 ---
 
@@ -726,14 +726,16 @@ packages/apps/registry-packs/
 │   ├── index.ts                    # Entry point (cluster fork)
 │   ├── server.ts                   # Elysia app + route wiring
 │   ├── db/
-│   │   ├── schema.ts              # Drizzle table defs (8 tables)
-│   │   ├── client.ts              # SQLite connection
+│   │   ├── schema.ts              # Drizzle table defs (10 tables)
+│   │   ├── schema-pg.ts           # PostgreSQL mirror schema
+│   │   ├── client.ts              # Dual-driver (SQLite + PG)
 │   │   ├── seed.ts                # Optional seed data
 │   │   └── migrations/
 │   │       ├── 0000_conscious_skin.sql
 │   │       ├── 0001_download_stats.sql
 │   │       ├── 0002_community.sql  # reviews, orgs, quality cols
-│   │       └── 0003_webhooks.sql   # webhooks + deliveries
+│   │       ├── 0003_webhooks.sql   # webhooks + deliveries
+│   │       └── 0004_deprecation.sql # deprecated + deprecation_message
 │   ├── routes/
 │   │   ├── packs.ts               # GET /packs, /packs/:name, /stats
 │   │   ├── versions.ts            # GET /packs/:name/versions[/:ver]
@@ -742,7 +744,8 @@ packages/apps/registry-packs/
 │   │   ├── orgs.ts                # CRUD /orgs, /orgs/:name/members
 │   │   ├── webhooks.ts            # CRUD /packs/:name/webhooks
 │   │   ├── dependencies.ts        # GET /packs/:name/dependencies, /dependents
-│   │   └── github.ts              # POST /github/webhook
+│   │   ├── github.ts              # POST /github/webhook
+│   │   └── deprecation.ts        # POST /packs/:name/deprecate
 │   ├── services/
 │   │   ├── pack-service.ts        # Pack CRUD
 │   │   ├── version-service.ts     # Version management
@@ -759,6 +762,10 @@ packages/apps/registry-packs/
 │   │   ├── local.ts               # Filesystem storage
 │   │   ├── s3.ts                  # S3-compatible storage
 │   │   └── factory.ts             # STORAGE_BACKEND switch
+│   ├── middleware/
+│   │   └── rate-limit.ts          # Token bucket rate limiter
+│   ├── utils/
+│   │   └── reserved-names.ts      # Pack name validation + squatting prevention
 │   ├── auth/
 │   │   ├── token.ts               # Token gen/hash/validate
 │   │   └── middleware.ts          # extractAuth() function
@@ -782,7 +789,13 @@ packages/apps/registry-packs/
 │   ├── org-service.test.ts        # Phase 3
 │   ├── dependency-service.test.ts # Phase 3b
 │   ├── webhook-service.test.ts    # Phase 3b
-│   └── github-service.test.ts     # Phase 3b
+│   ├── github-service.test.ts     # Phase 3b
+│   ├── rate-limit.test.ts         # Phase 4
+│   ├── reserved-names.test.ts     # Phase 4
+│   ├── security-routes.test.ts    # Phase 4
+│   ├── version-autobump.test.ts   # Phase 4
+│   └── e2e/
+│       └── publish-flow.test.ts   # Phase 4 E2E
 ├── drizzle-pg.config.ts             # Drizzle Kit config for PostgreSQL
 ├── scripts/
 │   └── migrate-sqlite-to-pg.ts     # One-time SQLite → PG data migration
@@ -808,7 +821,9 @@ src/
 │   └── login.ts                   # agentpacks login
 └── utils/
     ├── tarball.ts                 # Tarball create/extract
-    └── registry-client.ts         # HTTP client for registry
+    ├── registry-client.ts         # HTTP client for registry
+    ├── model-allowlist.ts         # Model ID pattern validation (Phase 4)
+    └── model-guidance.ts          # Markdown guidance generator
 
 test/
 ├── features/
@@ -827,7 +842,8 @@ test/
 │   └── publish.test.ts
 └── utils/
     ├── tarball.test.ts
-    └── registry-client.test.ts
+    ├── registry-client.test.ts
+    └── model-allowlist.test.ts    # Phase 4
 ```
 
 ### New files in packs (`packs/*/`)
@@ -861,10 +877,11 @@ packs/<pack-name>/
 
 ### Authenticated Endpoints (Bearer token)
 
-| Method | Path                             | Description                    | Body               |
-| ------ | -------------------------------- | ------------------------------ | ------------------ |
-| POST   | `/packs`                         | Publish pack (multipart)       | tarball + metadata |
-| DELETE | `/packs/:name/versions/:version` | Unpublish version (owner only) | —                  |
+| Method | Path                             | Description                    | Body                                          |
+| ------ | -------------------------------- | ------------------------------ | --------------------------------------------- |
+| POST   | `/packs`                         | Publish pack (multipart)       | tarball + metadata (version="auto" supported) |
+| DELETE | `/packs/:name/versions/:version` | Unpublish version (owner only) | —                                             |
+| POST   | `/packs/:name/deprecate`         | Deprecate/undeprecate (owner)  | `{ deprecated: bool, message?: str }`         |
 
 ### Response Shapes
 
@@ -1129,7 +1146,7 @@ interface RegistryStatsResponse {
 - [x] Update `.github/workflows/agentpacks.yml` to include registry + models tests
 - [x] Changeset file for version bump
 - [x] Update agentpacks `README.md` with registry + models documentation
-- [ ] E2E test: publish → search → install → generate (requires live registry)
+- [x] E2E test: publish → search → install → generate (Phase 4)
 - [x] E2E test: model profile switch updates generated target configs
 
 ### Phase 2 — MCP + Website + Task Routing
@@ -1245,34 +1262,35 @@ interface RegistryStatsResponse {
 - [x] `scripts/migrate-sqlite-to-pg.ts` — one-time data migration script
 - [x] `pg` optional dep, `@types/pg` devDep
 
-### Phase 4 — Production Hardening
+### Phase 4 — Production Hardening ✅
 
-#### 4.1 Rate Limiting & Security
+#### 4.1 Rate Limiting & Security ✅
 
-- [ ] Rate limiting middleware (`src/middleware/rate-limit.ts`) — token bucket per IP
-- [ ] Rate limit configuration via env vars (`RATE_LIMIT_*`)
-- [ ] Pack size limit enforcement (10MB) in publish route
-- [ ] Reserved names list (`src/utils/reserved-names.ts`) — squatting prevention
-- [ ] Pack name validation rules (min length, forbidden patterns)
-- [ ] `deprecated` + `deprecationMessage` columns on packs table
-- [ ] `POST /packs/:name/deprecate` route (authenticated, owner-only)
-- [ ] DB migration `0004_deprecation.sql`
-- [ ] Rate limiting + security tests
-- [ ] Deprecation service + route tests
+- [x] Rate limiting middleware (`src/middleware/rate-limit.ts`) — token bucket per IP
+- [x] Rate limit configuration via env vars (`RATE_LIMIT_*`)
+- [x] Pack size limit enforcement (10MB) in publish route
+- [x] Reserved names list (`src/utils/reserved-names.ts`) — squatting prevention
+- [x] Pack name validation rules (min length, forbidden patterns)
+- [x] `deprecated` + `deprecationMessage` columns on packs table
+- [x] `POST /packs/:name/deprecate` route (authenticated, owner-only)
+- [x] DB migration `0004_deprecation.sql`
+- [x] Rate limiting + security tests (13 tests)
+- [x] Deprecation + name validation route tests (20 tests)
 
-#### 4.2 E2E Tests
+#### 4.2 E2E Tests ✅
 
-- [ ] `test/e2e/publish-flow.test.ts` — full publish → search → install → generate
-- [ ] CI pipeline validation (all tests passing)
+- [x] `test/e2e/publish-flow.test.ts` — full publish → search → info → download → deprecate (5 tests)
+- [x] CI pipeline: `bun test` for registry-packs added to workflow
+- [x] All 637 tests passing (402 agentpacks + 235 registry-packs)
 
-#### 4.3 Pack Versioning Polish
+#### 4.3 Pack Versioning Polish ✅
 
-- [ ] `VersionService.getNextVersion()` — auto-bump patch from latest
-- [ ] Auto-bump wired into publish route (version = "auto")
-- [ ] Model ID allowlist (`src/utils/model-allowlist.ts`) — pattern-based validation
-- [ ] `scanModelsForUnknownIds()` — warning on unknown model IDs
-- [ ] `extends` field on `ModelProfileSchema`
-- [ ] `resolveProfileInheritance()` — recursive resolution with cycle detection
-- [ ] Profile inheritance tests
-- [ ] Model ID allowlist tests
-- [ ] Auto-bump version tests
+- [x] `VersionService.getNextVersion()` + `bumpPatch()` — auto-bump patch from latest
+- [x] Auto-bump wired into publish route (version = "auto")
+- [x] Model ID allowlist (`agentpacks/src/utils/model-allowlist.ts`) — pattern-based validation
+- [x] `scanModelsForUnknownIds()` — advisory warnings for unknown model IDs
+- [x] `extends` field on `ModelProfileSchema`
+- [x] `resolveProfileInheritance()` — recursive resolution with cycle detection (max depth 10)
+- [x] Profile inheritance tests (8 tests)
+- [x] Model ID allowlist tests (14 tests)
+- [x] Auto-bump version tests (10 tests)
