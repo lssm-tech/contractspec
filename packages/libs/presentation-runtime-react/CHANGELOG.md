@@ -1,5 +1,22 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 22.0.0
+
+### Minor Changes
+
+- c83c323: feat: major change to content generation
+
+### Patch Changes
+
+- Updated dependencies [4fa3bd4]
+- Updated dependencies [63eee9b]
+- Updated dependencies [284cbe2]
+- Updated dependencies [c83c323]
+  - @contractspec/lib.contracts-spec@2.5.0
+  - @contractspec/lib.presentation-runtime-core@2.5.0
+  - @contractspec/lib.design-system@2.5.0
+  - @contractspec/lib.ui-kit-web@2.5.0
+
 ## 21.0.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.video-api-showcase",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "Generate API documentation videos from contract spec definitions using the ApiOverview composition.",
   "type": "module",
   "types": "./dist/index.d.ts",

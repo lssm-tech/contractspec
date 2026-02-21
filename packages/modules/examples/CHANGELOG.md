@@ -1,5 +1,56 @@
 # @contractspec/module.examples
 
+## 2.5.0
+
+### Minor Changes
+
+- c83c323: feat: major change to content generation
+
+### Patch Changes
+
+- Updated dependencies [4fa3bd4]
+- Updated dependencies [63eee9b]
+- Updated dependencies [284cbe2]
+- Updated dependencies [c83c323]
+  - @contractspec/lib.contracts-spec@2.5.0
+  - @contractspec/example.learning-journey-studio-onboarding@2.5.0
+  - @contractspec/example.learning-journey-quest-challenges@2.5.0
+  - @contractspec/example.learning-journey-crm-onboarding@2.5.0
+  - @contractspec/example.policy-safe-knowledge-assistant@2.5.0
+  - @contractspec/example.learning-journey-ambient-coach@2.5.0
+  - @contractspec/example.learning-journey-platform-tour@2.5.0
+  - @contractspec/example.learning-journey-ui-onboarding@2.5.0
+  - @contractspec/example.learning-journey-ui-coaching@2.5.0
+  - @contractspec/example.learning-journey-ui-gamified@2.5.0
+  - @contractspec/example.learning-journey-duo-drills@2.5.0
+  - @contractspec/example.learning-journey-ui-shared@2.5.0
+  - @contractspec/example.learning-journey-registry@2.5.0
+  - @contractspec/example.locale-jurisdiction-gate@2.5.0
+  - @contractspec/example.versioned-knowledge-base@2.5.0
+  - @contractspec/example.analytics-dashboard@2.5.0
+  - @contractspec/example.lifecycle-dashboard@2.5.0
+  - @contractspec/example.service-business-os@2.5.0
+  - @contractspec/example.content-generation@2.5.0
+  - @contractspec/example.integration-stripe@2.5.0
+  - @contractspec/example.kb-update-pipeline@2.5.0
+  - @contractspec/example.openbanking-powens@2.5.0
+  - @contractspec/example.learning-patterns@2.5.0
+  - @contractspec/example.saas-boilerplate@2.5.0
+  - @contractspec/example.integration-hub@2.5.0
+  - @contractspec/example.knowledge-canon@2.5.0
+  - @contractspec/example.personalization@2.5.0
+  - @contractspec/example.voice-providers@2.5.0
+  - @contractspec/example.wealth-snapshot@2.5.0
+  - @contractspec/example.workflow-system@2.5.0
+  - @contractspec/example.ai-support-bot@2.5.0
+  - @contractspec/example.agent-console@2.5.0
+  - @contractspec/example.lifecycle-cli@2.5.0
+  - @contractspec/lib.example-shared-ui@2.5.0
+  - @contractspec/example.crm-pipeline@2.5.0
+  - @contractspec/example.marketplace@2.5.0
+  - @contractspec/lib.runtime-sandbox@1.5.0
+  - @contractspec/example.team-hub@2.5.0
+
 ## 2.4.0
 
 ### Minor Changes

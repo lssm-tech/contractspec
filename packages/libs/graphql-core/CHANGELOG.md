@@ -1,5 +1,11 @@
 # @contractspec/lib.graphql-core
 
+## 2.5.0
+
+### Minor Changes
+
+- c83c323: feat: major change to content generation
+
 ## 2.4.0
 
 ### Minor Changes

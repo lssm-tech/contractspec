@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.ai-providers",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "Unified AI provider abstraction layer",
   "keywords": [
     "contractspec",

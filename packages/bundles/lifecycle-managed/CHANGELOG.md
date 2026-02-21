@@ -1,5 +1,22 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 2.5.0
+
+### Minor Changes
+
+- c83c323: feat: major change to content generation
+
+### Patch Changes
+
+- Updated dependencies [284cbe2]
+- Updated dependencies [c83c323]
+  - @contractspec/lib.ai-agent@2.5.0
+  - @contractspec/lib.lifecycle@2.5.0
+  - @contractspec/module.lifecycle-core@2.5.0
+  - @contractspec/module.lifecycle-advisor@2.5.0
+  - @contractspec/lib.observability@2.5.0
+  - @contractspec/lib.analytics@2.5.0
+
 ## 2.4.0
 
 ### Minor Changes
