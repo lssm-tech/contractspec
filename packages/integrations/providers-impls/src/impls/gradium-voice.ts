@@ -6,22 +6,21 @@ import type {
 } from '@confiture-ai/gradium-sdk-js';
 
 import type {
+  AudioFormat,
   Voice,
-  VoiceProvider,
-  VoiceSynthesisInput,
-  VoiceSynthesisResult,
+  TTSProvider,
+  TTSSynthesisInput,
+  TTSSynthesisResult,
 } from '../voice';
 
 type GradiumClient = Gradium;
 
-const FORMAT_MAP: Record<
-  NonNullable<VoiceSynthesisInput['format']>,
-  TTSOutputFormat
-> = {
+const FORMAT_MAP: Record<AudioFormat, TTSOutputFormat> = {
   mp3: 'wav',
   wav: 'wav',
   ogg: 'opus',
   pcm: 'pcm',
+  opus: 'opus',
 };
 
 export interface GradiumVoiceProviderOptions {
@@ -34,7 +33,7 @@ export interface GradiumVoiceProviderOptions {
   client?: GradiumClient;
 }
 
-export class GradiumVoiceProvider implements VoiceProvider {
+export class GradiumVoiceProvider implements TTSProvider {
   private readonly client: GradiumClient;
   private readonly defaultVoiceId?: string;
   private readonly defaultOutputFormat?: TTSOutputFormat;
@@ -57,7 +56,7 @@ export class GradiumVoiceProvider implements VoiceProvider {
     return voices.map((voice) => this.fromGradiumVoice(voice));
   }
 
-  async synthesize(input: VoiceSynthesisInput): Promise<VoiceSynthesisResult> {
+  async synthesize(input: TTSSynthesisInput): Promise<TTSSynthesisResult> {
     const voiceId = input.voiceId ?? this.defaultVoiceId;
     if (!voiceId) {
       throw new Error('Voice ID is required for Gradium synthesis.');
@@ -74,15 +73,18 @@ export class GradiumVoiceProvider implements VoiceProvider {
       text: input.text,
     });
 
+    const format: AudioFormat = input.format ?? toContractFormat(outputFormat);
+    const sampleRate =
+      input.sampleRateHz ??
+      response.sample_rate ??
+      inferSampleRate(outputFormat);
+
     return {
-      audio: response.raw_data,
-      format: input.format ?? toContractFormat(outputFormat),
-      sampleRateHz:
-        input.sampleRateHz ??
-        response.sample_rate ??
-        inferSampleRate(outputFormat),
-      durationSeconds: undefined,
-      url: undefined,
+      audio: {
+        data: response.raw_data,
+        format,
+        sampleRateHz: sampleRate,
+      },
     };
   }
 
@@ -101,10 +103,10 @@ export class GradiumVoiceProvider implements VoiceProvider {
   }
 }
 
-function toContractFormat(format: TTSOutputFormat): string {
+function toContractFormat(format: TTSOutputFormat): AudioFormat {
   switch (format) {
     case 'opus':
-      return 'ogg';
+      return 'opus';
     case 'wav':
       return 'wav';
     case 'pcm':
@@ -112,7 +114,7 @@ function toContractFormat(format: TTSOutputFormat): string {
     case 'pcm_24000':
       return 'pcm';
     default:
-      return format;
+      return format as AudioFormat;
   }
 }
 

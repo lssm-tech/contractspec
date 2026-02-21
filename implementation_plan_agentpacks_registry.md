@@ -16,12 +16,13 @@
 7. [Phase 1 — MVP (Registry Server + CLI + Models)](#7-phase-1--mvp-registry-server--cli--models)
 8. [Phase 2 — MCP + Website + Task Routing](#8-phase-2--mcp--website--task-routing)
 9. [Phase 3 — Community + Ecosystem](#9-phase-3--community--ecosystem)
-10. [File Inventory](#10-file-inventory)
-11. [API Reference](#11-api-reference)
-12. [CLI Commands Reference](#12-cli-commands-reference)
-13. [Decision Log](#13-decision-log)
-14. [Open Questions](#14-open-questions)
-15. [Progress Tracker](#15-progress-tracker)
+10. [Phase 4 — Production Hardening](#10-phase-4--production-hardening)
+11. [File Inventory](#11-file-inventory)
+12. [API Reference](#12-api-reference)
+13. [CLI Commands Reference](#13-cli-commands-reference)
+14. [Decision Log](#14-decision-log)
+15. [Open Questions](#15-open-questions)
+16. [Progress Tracker](#16-progress-tracker)
 
 ---
 
@@ -681,7 +682,37 @@ Pattern B (direct MCP SDK), same as `alpic-mcp`:
 
 ---
 
-## 10. File Inventory
+## 10. Phase 4 — Production Hardening
+
+Phase 4 hardens the registry for production use with security, testing, and versioning improvements.
+
+### 4.1 — Rate Limiting & Security
+
+| Feature                       | Details                                                                                                                                                                               |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **API Rate Limiting**         | In-memory token bucket per IP. Default: 100 req/min general, 10 req/min publish. Configurable via `RATE_LIMIT_*` env vars. Returns `429 Too Many Requests` with `Retry-After` header. |
+| **Pack Size Limits**          | 10MB max tarball upload. Enforced at publish route before storage write. Returns `413 Payload Too Large`.                                                                             |
+| **Name Squatting Prevention** | Reserved names list (common, confusable, offensive). Minimum 2 chars. No `-` only or `_` only names. Validated at publish time. `reserved-names.ts` allowlist.                        |
+| **Pack Deprecation**          | `deprecated` boolean + `deprecationMessage` text on packs table. `POST /packs/:name/deprecate` (authenticated, owner-only). Deprecated packs shown with warning in search/detail.     |
+
+### 4.2 — E2E Tests
+
+| Feature           | Details                                                                                                                            |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| **Full E2E Flow** | `test/e2e/publish-flow.test.ts` — publish tarball → search → get info → download → verify integrity. Uses live in-memory registry. |
+| **CI Pipeline**   | Ensure `bun test` runs both unit and E2E tests. Validate all 555+ tests pass in CI.                                                |
+
+### 4.3 — Pack Versioning Polish
+
+| Feature                 | Details                                                                                                                                                      |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Auto-Bump Version**   | When publishing without explicit version, auto-bump patch from latest. `VersionService.getNextVersion()` with semver.                                        |
+| **Model ID Allowlist**  | Validate model IDs against known provider patterns (e.g. `anthropic/claude-*`, `openai/gpt-*`, `google/gemini-*`). Warning on unknown models (not blocking). |
+| **Profile Inheritance** | `extends` field on `ModelProfileSchema`. Profiles can inherit from parent profile and override specific fields. Resolved recursively with cycle detection.   |
+
+---
+
+## 11. File Inventory
 
 ### Registry Server (new: `packages/apps/registry-packs/`)
 
@@ -810,7 +841,7 @@ packs/<pack-name>/
 
 ---
 
-## 11. API Reference
+## 12. API Reference
 
 ### Public Endpoints (no auth)
 
@@ -908,7 +939,7 @@ interface RegistryStatsResponse {
 
 ---
 
-## 12. CLI Commands Reference
+## 13. CLI Commands Reference
 
 ### Existing Commands (already implemented)
 
@@ -938,7 +969,7 @@ interface RegistryStatsResponse {
 
 ---
 
-## 13. Decision Log
+## 14. Decision Log
 
 | #   | Date       | Decision                                         | Rationale                                                                               |
 | --- | ---------- | ------------------------------------------------ | --------------------------------------------------------------------------------------- |
@@ -954,28 +985,32 @@ interface RegistryStatsResponse {
 | 10  | 2026-02-20 | Fix dead agent `model` passthrough               | Existing metadata exists but generators currently drop it                               |
 | 11  | 2026-02-20 | Cursor model config via guidance rule            | Cursor model selection is UI-driven; `.mdc` guidance is the deterministic path          |
 | 12  | 2026-02-20 | Task-aware routing shipped after static profiles | Deliver quickly with stable base, then add richer routing semantics in Phase 2          |
+| 13  | 2026-02-21 | In-memory rate limiting (not Redis)              | No external deps; single-instance MVP is sufficient for current scale                   |
+| 14  | 2026-02-21 | 10MB tarball size limit                          | Generous for config packs; prevents abuse without blocking legitimate use               |
+| 15  | 2026-02-21 | Model ID allowlist = warning only, not blocking  | Allows innovative use of new models while still guiding toward known-good IDs           |
+| 16  | 2026-02-21 | Profile inheritance via `extends` keyword        | Mirrors TypeScript's `extends` semantics; familiar pattern, cycle detection built-in    |
 
 ---
 
-## 14. Open Questions
+## 15. Open Questions
 
-| #   | Question                                                                   | Status   | Resolution                |
-| --- | -------------------------------------------------------------------------- | -------- | ------------------------- |
-| 1   | Should we support pack name scoping (`@org/name`)?                         | Deferred | Phase 3 with org accounts |
-| 2   | Rate limiting strategy for API?                                            | Open     | —                         |
-| 3   | How to handle pack name squatting?                                         | Open     | —                         |
-| 4   | Should `agentpacks publish` auto-bump version?                             | Open     | —                         |
-| 5   | Pack size limits (tarball max)?                                            | Open     | Suggest 10MB              |
-| 6   | Should we support pack deprecation (soft delete)?                          | Open     | —                         |
-| 7   | CDN for tarball serving in production?                                     | Deferred | Phase 2 with S3           |
-| 8   | Should model IDs be validated against an allowlist/registry?               | Open     | —                         |
-| 9   | Should profiles support inheritance (`extends`)?                           | Open     | —                         |
-| 10  | How to handle model deprecations/EOL migrations?                           | Open     | —                         |
-| 11  | Should routing support custom dimensions beyond complexity/urgency/budget? | Deferred | Phase 2+                  |
+| #   | Question                                                                   | Status   | Resolution                                                             |
+| --- | -------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------- |
+| 1   | Should we support pack name scoping (`@org/name`)?                         | Deferred | Phase 3 with org accounts                                              |
+| 2   | Rate limiting strategy for API?                                            | Resolved | Phase 4 — token bucket per IP, 100 req/min general, 10 req/min publish |
+| 3   | How to handle pack name squatting?                                         | Resolved | Phase 4 — reserved names + validation rules                            |
+| 4   | Should `agentpacks publish` auto-bump version?                             | Resolved | Phase 4 — auto-bump patch from latest                                  |
+| 5   | Pack size limits (tarball max)?                                            | Resolved | Phase 4 — 10MB max                                                     |
+| 6   | Should we support pack deprecation (soft delete)?                          | Resolved | Phase 4 — deprecated flag + message                                    |
+| 7   | CDN for tarball serving in production?                                     | Deferred | Phase 2 with S3                                                        |
+| 8   | Should model IDs be validated against an allowlist/registry?               | Resolved | Phase 4 — pattern-based allowlist, warning on unknown                  |
+| 9   | Should profiles support inheritance (`extends`)?                           | Resolved | Phase 4 — `extends` field with recursive resolution                    |
+| 10  | How to handle model deprecations/EOL migrations?                           | Open     | —                                                                      |
+| 11  | Should routing support custom dimensions beyond complexity/urgency/budget? | Deferred | Phase 2+                                                               |
 
 ---
 
-## 15. Progress Tracker
+## 16. Progress Tracker
 
 ### Phase 1 — MVP
 
@@ -1209,3 +1244,35 @@ interface RegistryStatsResponse {
 - [x] Connection pooling: `DB_POOL_MAX`, `DB_POOL_IDLE_TIMEOUT`, `DB_POOL_CONNECT_TIMEOUT`
 - [x] `scripts/migrate-sqlite-to-pg.ts` — one-time data migration script
 - [x] `pg` optional dep, `@types/pg` devDep
+
+### Phase 4 — Production Hardening
+
+#### 4.1 Rate Limiting & Security
+
+- [ ] Rate limiting middleware (`src/middleware/rate-limit.ts`) — token bucket per IP
+- [ ] Rate limit configuration via env vars (`RATE_LIMIT_*`)
+- [ ] Pack size limit enforcement (10MB) in publish route
+- [ ] Reserved names list (`src/utils/reserved-names.ts`) — squatting prevention
+- [ ] Pack name validation rules (min length, forbidden patterns)
+- [ ] `deprecated` + `deprecationMessage` columns on packs table
+- [ ] `POST /packs/:name/deprecate` route (authenticated, owner-only)
+- [ ] DB migration `0004_deprecation.sql`
+- [ ] Rate limiting + security tests
+- [ ] Deprecation service + route tests
+
+#### 4.2 E2E Tests
+
+- [ ] `test/e2e/publish-flow.test.ts` — full publish → search → install → generate
+- [ ] CI pipeline validation (all tests passing)
+
+#### 4.3 Pack Versioning Polish
+
+- [ ] `VersionService.getNextVersion()` — auto-bump patch from latest
+- [ ] Auto-bump wired into publish route (version = "auto")
+- [ ] Model ID allowlist (`src/utils/model-allowlist.ts`) — pattern-based validation
+- [ ] `scanModelsForUnknownIds()` — warning on unknown model IDs
+- [ ] `extends` field on `ModelProfileSchema`
+- [ ] `resolveProfileInheritance()` — recursive resolution with cycle detection
+- [ ] Profile inheritance tests
+- [ ] Model ID allowlist tests
+- [ ] Auto-bump version tests

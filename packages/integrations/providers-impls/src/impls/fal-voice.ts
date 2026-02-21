@@ -2,10 +2,11 @@ import { createFalClient } from '@fal-ai/client';
 import type { FalClient } from '@fal-ai/client';
 
 import type {
+  AudioFormat,
   Voice,
-  VoiceProvider,
-  VoiceSynthesisInput,
-  VoiceSynthesisResult,
+  TTSProvider,
+  TTSSynthesisInput,
+  TTSSynthesisResult,
 } from '../voice';
 
 const DEFAULT_MODEL_ID = 'fal-ai/chatterbox/text-to-speech';
@@ -27,7 +28,7 @@ export interface FalVoiceProviderOptions {
   client?: FalClient;
 }
 
-export class FalVoiceProvider implements VoiceProvider {
+export class FalVoiceProvider implements TTSProvider {
   private readonly client: FalClient;
   private readonly modelId: string;
   private readonly defaultVoiceUrl?: string;
@@ -80,7 +81,7 @@ export class FalVoiceProvider implements VoiceProvider {
     return voices;
   }
 
-  async synthesize(input: VoiceSynthesisInput): Promise<VoiceSynthesisResult> {
+  async synthesize(input: TTSSynthesisInput): Promise<TTSSynthesisResult> {
     const referenceVoiceUrl = resolveVoiceUrl(
       input.voiceId,
       this.defaultVoiceUrl
@@ -112,14 +113,16 @@ export class FalVoiceProvider implements VoiceProvider {
       throw new Error(`Fal audio download failed (${response.status}).`);
     }
 
-    const audio = new Uint8Array(await response.arrayBuffer());
+    const rawAudio = new Uint8Array(await response.arrayBuffer());
+    const format: AudioFormat =
+      input.format ?? inferFormatFromUrl(audioUrl) ?? 'wav';
 
     return {
-      audio,
-      format: input.format ?? inferFormatFromUrl(audioUrl) ?? 'wav',
-      sampleRateHz: input.sampleRateHz ?? 24000,
-      durationSeconds: undefined,
-      url: audioUrl,
+      audio: {
+        data: rawAudio,
+        format,
+        sampleRateHz: input.sampleRateHz ?? 24000,
+      },
     };
   }
 }
@@ -142,11 +145,12 @@ function extractAudioUrl(output: FalSynthesisOutput): string | undefined {
   return undefined;
 }
 
-function inferFormatFromUrl(url: string): string | undefined {
+function inferFormatFromUrl(url: string): AudioFormat | undefined {
   const normalized = url.toLowerCase();
   if (normalized.endsWith('.wav')) return 'wav';
   if (normalized.endsWith('.mp3')) return 'mp3';
-  if (normalized.endsWith('.ogg') || normalized.endsWith('.opus')) return 'ogg';
+  if (normalized.endsWith('.ogg')) return 'ogg';
+  if (normalized.endsWith('.opus')) return 'opus';
   if (normalized.endsWith('.pcm')) return 'pcm';
   return undefined;
 }

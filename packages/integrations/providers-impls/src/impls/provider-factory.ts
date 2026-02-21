@@ -29,7 +29,7 @@ import type { VectorStoreProvider } from '../vector-store';
 import type { AnalyticsProvider } from '../analytics';
 import type { DatabaseProvider } from '../database';
 import type { ObjectStorageProvider } from '../storage';
-import type { VoiceProvider } from '../voice';
+import type { TTSProvider } from '../voice';
 import type { LLMProvider } from '../llm';
 import type { EmbeddingProvider } from '../embedding';
 import type { OpenBankingProvider } from '../openbanking';
@@ -234,9 +234,7 @@ export class IntegrationProviderFactory {
     }
   }
 
-  async createVoiceProvider(
-    context: IntegrationContext
-  ): Promise<VoiceProvider> {
+  async createVoiceProvider(context: IntegrationContext): Promise<TTSProvider> {
     const secrets = await this.loadSecrets(context);
     const config = context.config as {
       defaultVoiceId?: string;
