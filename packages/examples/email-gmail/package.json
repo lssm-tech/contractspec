@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.email-gmail",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "Gmail integration example: inbound threads and outbound messages.",
   "type": "module",
   "types": "./dist/index.d.ts",

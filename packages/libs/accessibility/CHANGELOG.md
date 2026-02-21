@@ -1,5 +1,18 @@
 # @contractspec/lib.accessibility
 
+## 2.5.0
+
+### Minor Changes
+
+- c83c323: feat: major change to content generation
+
+### Patch Changes
+
+- Updated dependencies [c83c323]
+  - @contractspec/lib.design-system@2.5.0
+  - @contractspec/lib.ui-kit-web@2.5.0
+  - @contractspec/lib.ui-kit@2.5.0
+
 ## 2.4.0
 
 ### Minor Changes

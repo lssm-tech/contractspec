@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/bundle.library",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "type": "module",
   "scripts": {
     "clean": "rm -rf dist",

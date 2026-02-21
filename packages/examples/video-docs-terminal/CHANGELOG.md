@@ -1,5 +1,23 @@
 # @contractspec/example.video-docs-terminal
 
+## 2.5.0
+
+### Minor Changes
+
+- c83c323: feat: major change to content generation
+
+### Patch Changes
+
+- Updated dependencies [4fa3bd4]
+- Updated dependencies [63eee9b]
+- Updated dependencies [284cbe2]
+- Updated dependencies [c83c323]
+- Updated dependencies [397b7c0]
+- Updated dependencies [4d19382]
+  - @contractspec/lib.contracts-spec@2.5.0
+  - @contractspec/lib.video-gen@1.46.0
+  - @contractspec/lib.content-gen@2.5.0
+
 ## 2.4.0
 
 ### Minor Changes

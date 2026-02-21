@@ -1,5 +1,27 @@
 # @contractspec/example.pocket-family-office
 
+## 2.5.0
+
+### Minor Changes
+
+- c83c323: feat: major change to content generation
+
+### Patch Changes
+
+- 4d19382: fix: stabilize lint and tests after voice capability migration
+  - remove strict-lint violations across registry-packs, support-bot, video-gen, and agentpacks
+  - align voice provider tests and pocket-family-office blueprint with the `ai.voice.tts` capability key
+  - keep agentpacks package exports in sync by exposing `./utils/model-allowlist`
+
+- Updated dependencies [4fa3bd4]
+- Updated dependencies [63eee9b]
+- Updated dependencies [284cbe2]
+- Updated dependencies [c83c323]
+  - @contractspec/lib.contracts-spec@2.5.0
+  - @contractspec/lib.contracts-integrations@2.5.0
+  - @contractspec/lib.knowledge@2.5.0
+  - @contractspec/lib.schema@2.5.0
+
 ## 2.4.0
 
 ### Minor Changes

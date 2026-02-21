@@ -1,5 +1,28 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 2.5.0
+
+### Minor Changes
+
+- c83c323: feat: major change to content generation
+
+### Patch Changes
+
+- Updated dependencies [4fa3bd4]
+- Updated dependencies [63eee9b]
+- Updated dependencies [284cbe2]
+- Updated dependencies [c83c323]
+  - @contractspec/lib.contracts-spec@2.5.0
+  - @contractspec/module.learning-journey@2.5.0
+  - @contractspec/example.locale-jurisdiction-gate@2.5.0
+  - @contractspec/example.versioned-knowledge-base@2.5.0
+  - @contractspec/example.kb-update-pipeline@2.5.0
+  - @contractspec/example.learning-patterns@2.5.0
+  - @contractspec/lib.example-shared-ui@2.5.0
+  - @contractspec/lib.runtime-sandbox@1.5.0
+  - @contractspec/lib.design-system@2.5.0
+  - @contractspec/lib.ui-kit-web@2.5.0
+
 ## 2.4.0
 
 ### Minor Changes
