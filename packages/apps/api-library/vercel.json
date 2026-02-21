@@ -4,7 +4,7 @@
   "relatedProjects": ["prj_foFw7J45Siaf2APNQLKvkk76cB06"],
   "functions": {
     "api/index.js": {
-      "includeFiles": "dist/**"
+      "includeFiles": "api/index.js"
     }
   },
   "rewrites": [
