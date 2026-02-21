@@ -111,7 +111,7 @@ export const pocketFamilyOfficeBlueprint: AppBlueprintSpec = {
     },
     {
       slotId: 'voicePlayback',
-      requiredCategory: 'ai-voice',
+      requiredCategory: 'ai-voice-tts',
       allowedModes: ['managed', 'byok'],
       requiredCapabilities: [cap('ai.voice.synthesis', '1.0.0')],
       required: false,

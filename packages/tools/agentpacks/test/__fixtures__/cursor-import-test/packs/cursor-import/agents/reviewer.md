@@ -1,5 +1,0 @@
----
-name: reviewer
----
-
-Review code.

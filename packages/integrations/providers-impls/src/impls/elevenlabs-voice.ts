@@ -2,10 +2,11 @@ import type { ElevenLabs } from '@elevenlabs/elevenlabs-js';
 import { ElevenLabsClient } from '@elevenlabs/elevenlabs-js';
 
 import type {
+  AudioFormat,
   Voice,
-  VoiceProvider,
-  VoiceSynthesisInput,
-  VoiceSynthesisResult,
+  TTSProvider,
+  TTSSynthesisInput,
+  TTSSynthesisResult,
 } from '../voice';
 
 export interface ElevenLabsVoiceProviderOptions {
@@ -16,13 +17,14 @@ export interface ElevenLabsVoiceProviderOptions {
 }
 
 const FORMAT_MAP: Record<
-  NonNullable<VoiceSynthesisInput['format']>,
+  AudioFormat,
   ElevenLabs.TextToSpeechConvertRequestOutputFormat
 > = {
   mp3: 'mp3_44100_128',
   wav: 'pcm_44100',
   ogg: 'mp3_44100_128',
   pcm: 'pcm_16000',
+  opus: 'mp3_44100_128',
 };
 
 const SAMPLE_RATE: Partial<
@@ -41,7 +43,7 @@ const SAMPLE_RATE: Partial<
   ulaw_8000: 8000,
 };
 
-export class ElevenLabsVoiceProvider implements VoiceProvider {
+export class ElevenLabsVoiceProvider implements TTSProvider {
   private readonly client: ElevenLabsClient;
   private readonly defaultVoiceId?: string;
   private readonly modelId?: string;
@@ -74,13 +76,13 @@ export class ElevenLabsVoiceProvider implements VoiceProvider {
     }));
   }
 
-  async synthesize(input: VoiceSynthesisInput): Promise<VoiceSynthesisResult> {
+  async synthesize(input: TTSSynthesisInput): Promise<TTSSynthesisResult> {
     const voiceId = input.voiceId ?? this.defaultVoiceId;
     if (!voiceId) {
       throw new Error('Voice ID is required for ElevenLabs synthesis.');
     }
 
-    const formatKey = input.format ?? 'mp3';
+    const formatKey: AudioFormat = input.format ?? 'mp3';
     const outputFormat = FORMAT_MAP[formatKey] ?? FORMAT_MAP.mp3;
     const sampleRate =
       input.sampleRateHz ??
@@ -89,14 +91,9 @@ export class ElevenLabsVoiceProvider implements VoiceProvider {
       44100;
 
     const voiceSettings =
-      input.stability != null ||
-      input.similarityBoost != null ||
-      input.style != null
+      input.stability != null || input.style != null
         ? {
             ...(input.stability != null ? { stability: input.stability } : {}),
-            ...(input.similarityBoost != null
-              ? { similarityBoost: input.similarityBoost }
-              : {}),
             ...(input.style != null ? { style: input.style } : {}),
           }
         : undefined;
@@ -108,14 +105,14 @@ export class ElevenLabsVoiceProvider implements VoiceProvider {
       voiceSettings,
     });
 
-    const audio = await readWebStream(stream);
+    const rawAudio = await readWebStream(stream);
 
     return {
-      audio,
-      format: formatKey,
-      sampleRateHz: sampleRate,
-      durationSeconds: undefined,
-      url: undefined,
+      audio: {
+        data: rawAudio,
+        format: formatKey,
+        sampleRateHz: sampleRate,
+      },
     };
   }
 }

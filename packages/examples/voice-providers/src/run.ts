@@ -53,14 +53,14 @@ export async function runVoiceProvidersExampleFromEnv() {
       ...input,
       synthesis: {
         text,
-        voiceId,
+        voiceId: voiceId ?? 'default',
       },
     });
     output.synthesis = {
-      format: result.format,
-      sampleRateHz: result.sampleRateHz,
-      bytes: result.audio.length,
-      url: result.url,
+      format: result.audio.format,
+      sampleRateHz: result.audio.sampleRateHz,
+      bytes: result.audio.data.length,
+      durationMs: result.audio.durationMs,
     };
   }
 
