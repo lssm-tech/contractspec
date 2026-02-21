@@ -3,6 +3,7 @@ import { createHash } from 'crypto';
 import { getDb } from '../db/client.js';
 import { PackService } from '../services/pack-service.js';
 import { VersionService } from '../services/version-service.js';
+import { WebhookService } from '../services/webhook-service.js';
 import { getStorage } from '../storage/factory.js';
 import { extractAuth } from '../auth/middleware.js';
 
@@ -103,6 +104,22 @@ export const publishRoutes = new Elysia({ prefix: '/packs' }).post(
         fileCount: 0,
         featureSummary: {},
       });
+
+      // Dispatch webhooks (fire-and-forget)
+      const webhookService = new WebhookService(db);
+      const webhookEvent = existingPack ? 'update' : 'publish';
+      webhookService
+        .dispatch(
+          metadata.name,
+          webhookEvent,
+          {
+            version: metadata.version,
+            integrity,
+            publisher: auth.username,
+          },
+          metadata.version
+        )
+        .catch(() => {}); // Swallow webhook errors
 
       set.status = 201;
       return {

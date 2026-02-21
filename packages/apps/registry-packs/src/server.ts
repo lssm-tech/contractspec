@@ -6,6 +6,9 @@ import { versionRoutes, versionDeleteRoutes } from './routes/versions.js';
 import { publishRoutes } from './routes/publish.js';
 import { reviewRoutes } from './routes/reviews.js';
 import { orgRoutes, orgMemberRoutes } from './routes/orgs.js';
+import { webhookRoutes } from './routes/webhooks.js';
+import { dependencyRoutes } from './routes/dependencies.js';
+import { githubRoutes } from './routes/github.js';
 import { createRegistryMcpHandler } from './mcp/handler.js';
 import { getDb } from './db/client.js';
 import { PackService } from './services/pack-service.js';
@@ -39,8 +42,12 @@ export const app = new Elysia()
       packStats: '/packs/:name/stats',
       packReviews: '/packs/:name/reviews',
       packQuality: '/packs/:name/quality',
+      packDependencies: '/packs/:name/dependencies',
+      packDependents: '/packs/:name/dependents',
+      packWebhooks: '/packs/:name/webhooks',
       orgs: '/orgs',
       orgMembers: '/orgs/:name/members',
+      github: 'POST /github/webhook',
       health: '/health',
       mcp: '/mcp',
     },
@@ -104,6 +111,9 @@ export const app = new Elysia()
   .use(reviewRoutes)
   .use(orgRoutes)
   .use(orgMemberRoutes)
+  .use(webhookRoutes)
+  .use(dependencyRoutes)
+  .use(githubRoutes)
   // MCP endpoint
   .use(createRegistryMcpHandler());
 

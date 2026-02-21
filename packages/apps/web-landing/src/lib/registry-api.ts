@@ -74,6 +74,36 @@ export interface QualityResult {
   breakdown: QualityBreakdown;
 }
 
+export interface DependencyEdge {
+  from: string;
+  to: string;
+}
+
+export interface DependencyGraph {
+  root: string;
+  nodes: string[];
+  edges: DependencyEdge[];
+  depth: number;
+}
+
+export interface DependencyGraphResult {
+  graph?: DependencyGraph;
+  mermaid?: string;
+  cycles: string[] | null;
+}
+
+export interface ReverseDependency {
+  packName: string;
+  displayName: string;
+  downloads: number;
+}
+
+export interface DependentsResult {
+  packName: string;
+  dependents: ReverseDependency[];
+  total: number;
+}
+
 export interface PackVersion {
   packName: string;
   version: string;
@@ -259,6 +289,41 @@ export async function getPackQuality(
   try {
     return await registryFetch<QualityResult>(
       `/packs/${encodeURIComponent(name)}/quality`,
+      init
+    );
+  } catch {
+    return null;
+  }
+}
+
+/** Get dependency graph for a pack. */
+export async function getPackDependencies(
+  name: string,
+  opts?: { format?: 'json' | 'mermaid'; depth?: number },
+  init?: RequestInit
+): Promise<DependencyGraphResult | null> {
+  try {
+    const qs = new URLSearchParams();
+    if (opts?.format) qs.set('format', opts.format);
+    if (opts?.depth) qs.set('depth', String(opts.depth));
+    const query = qs.toString();
+    return await registryFetch<DependencyGraphResult>(
+      `/packs/${encodeURIComponent(name)}/dependencies${query ? `?${query}` : ''}`,
+      init
+    );
+  } catch {
+    return null;
+  }
+}
+
+/** Get reverse dependencies (packs that depend on this pack). */
+export async function getPackDependents(
+  name: string,
+  init?: RequestInit
+): Promise<DependentsResult | null> {
+  try {
+    return await registryFetch<DependentsResult>(
+      `/packs/${encodeURIComponent(name)}/dependents`,
       init
     );
   } catch {

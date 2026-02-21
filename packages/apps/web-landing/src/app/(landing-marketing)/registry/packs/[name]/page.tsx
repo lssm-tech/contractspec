@@ -6,6 +6,8 @@ import {
   getPackVersions,
   getPackReviews,
   getPackQuality,
+  getPackDependencies,
+  getPackDependents,
 } from '@/lib/registry-api';
 import { PackDetailClient } from './clients/pack-detail-client';
 
@@ -27,14 +29,23 @@ export async function generateMetadata({
 
 export default async function PackDetailPage({ params }: PageProps) {
   const { name } = await params;
-  const [pack, readme, versionsResult, reviewsResult, quality] =
-    await Promise.all([
-      getPack(name),
-      getPackReadme(name),
-      getPackVersions(name),
-      getPackReviews(name, { limit: 10 }),
-      getPackQuality(name),
-    ]);
+  const [
+    pack,
+    readme,
+    versionsResult,
+    reviewsResult,
+    quality,
+    depsResult,
+    dependents,
+  ] = await Promise.all([
+    getPack(name),
+    getPackReadme(name),
+    getPackVersions(name),
+    getPackReviews(name, { limit: 10 }),
+    getPackQuality(name),
+    getPackDependencies(name, { format: 'mermaid' }),
+    getPackDependents(name),
+  ]);
 
   if (!pack) notFound();
 
@@ -47,6 +58,9 @@ export default async function PackDetailPage({ params }: PageProps) {
       reviewTotal={reviewsResult.total}
       averageRating={reviewsResult.averageRating}
       quality={quality}
+      dependencyMermaid={depsResult?.mermaid ?? null}
+      dependencyGraph={depsResult?.graph ?? null}
+      dependents={dependents?.dependents ?? []}
     />
   );
 }

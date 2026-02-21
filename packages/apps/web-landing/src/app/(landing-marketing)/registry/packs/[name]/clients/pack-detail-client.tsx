@@ -7,6 +7,8 @@ import type {
   PackVersion,
   Review,
   QualityResult,
+  DependencyGraph,
+  ReverseDependency,
 } from '@/lib/registry-api';
 
 interface PackDetailClientProps {
@@ -17,6 +19,9 @@ interface PackDetailClientProps {
   reviewTotal: number;
   averageRating: number | null;
   quality: QualityResult | null;
+  dependencyMermaid: string | null;
+  dependencyGraph: DependencyGraph | null;
+  dependents: ReverseDependency[];
 }
 
 /** Render filled/empty stars for a rating (1-5 scale). */
@@ -75,6 +80,9 @@ export function PackDetailClient({
   reviewTotal,
   averageRating,
   quality,
+  dependencyMermaid,
+  dependencyGraph,
+  dependents,
 }: PackDetailClientProps) {
   const [copiedSnippet, setCopiedSnippet] = useState(false);
   const installSnippet = `{ "packs": ["registry:${pack.name}"] }`;
@@ -355,6 +363,84 @@ export function PackDetailClient({
                   </span>
                 </div>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* Dependency Graph */}
+        {dependencyGraph && dependencyGraph.edges.length > 0 && (
+          <div className="mb-8">
+            <h2 className="mb-4 text-lg font-semibold">
+              Dependencies ({dependencyGraph.nodes.length - 1})
+            </h2>
+            {dependencyMermaid && (
+              <div className="border-border mb-4 rounded-lg border p-4">
+                <details>
+                  <summary className="text-muted-foreground cursor-pointer text-sm">
+                    View Mermaid diagram source
+                  </summary>
+                  <pre className="bg-muted/30 mt-2 overflow-x-auto rounded p-3 text-xs">
+                    {dependencyMermaid}
+                  </pre>
+                </details>
+              </div>
+            )}
+            <div className="border-border rounded-lg border p-4">
+              <div className="flex flex-wrap gap-2">
+                {dependencyGraph.edges.map((edge, i) => (
+                  <div
+                    key={`${edge.from}-${edge.to}-${i}`}
+                    className="bg-muted/30 flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm"
+                  >
+                    <span
+                      className={
+                        edge.from === dependencyGraph.root
+                          ? 'text-primary font-medium'
+                          : 'text-foreground'
+                      }
+                    >
+                      {edge.from}
+                    </span>
+                    <span className="text-muted-foreground">→</span>
+                    <Link
+                      href={`/registry/packs/${edge.to}`}
+                      className="text-primary hover:underline"
+                    >
+                      {edge.to}
+                    </Link>
+                  </div>
+                ))}
+              </div>
+              {dependencyGraph.depth > 1 && (
+                <p className="text-muted-foreground mt-3 text-xs">
+                  Dependency depth: {dependencyGraph.depth} levels
+                </p>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Reverse Dependencies (Dependents) */}
+        {dependents.length > 0 && (
+          <div className="mb-8">
+            <h2 className="mb-4 text-lg font-semibold">
+              Used By ({dependents.length})
+            </h2>
+            <div className="space-y-2">
+              {dependents.map((dep) => (
+                <Link
+                  key={dep.packName}
+                  href={`/registry/packs/${dep.packName}`}
+                  className="border-border hover:border-primary/50 flex items-center justify-between rounded-lg border p-3 transition-colors"
+                >
+                  <span className="text-foreground text-sm font-medium">
+                    {dep.displayName}
+                  </span>
+                  <span className="text-muted-foreground text-xs">
+                    {dep.downloads.toLocaleString()} downloads
+                  </span>
+                </Link>
+              ))}
             </div>
           </div>
         )}

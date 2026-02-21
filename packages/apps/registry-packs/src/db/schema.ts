@@ -162,6 +162,50 @@ export const orgMembers = sqliteTable('org_members', {
 });
 
 /**
+ * Webhooks table — registered webhook endpoints for events.
+ */
+export const webhooks = sqliteTable('webhooks', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  packName: text('pack_name')
+    .notNull()
+    .references(() => packs.name, { onDelete: 'cascade' }),
+  url: text('url').notNull(),
+  secret: text('secret'), // HMAC secret for payload signing
+  events: text('events', { mode: 'json' })
+    .notNull()
+    .$type<string[]>()
+    .default([]), // e.g. ['publish', 'update', 'delete']
+  active: integer('active', { mode: 'boolean' }).notNull().default(true),
+  username: text('username').notNull(), // creator
+  createdAt: text('created_at')
+    .notNull()
+    .$defaultFn(() => new Date().toISOString()),
+  updatedAt: text('updated_at')
+    .notNull()
+    .$defaultFn(() => new Date().toISOString()),
+});
+
+/**
+ * Webhook deliveries table — log of all dispatch attempts.
+ */
+export const webhookDeliveries = sqliteTable('webhook_deliveries', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  webhookId: integer('webhook_id')
+    .notNull()
+    .references(() => webhooks.id, { onDelete: 'cascade' }),
+  event: text('event').notNull(),
+  payload: text('payload', { mode: 'json' })
+    .notNull()
+    .$type<Record<string, unknown>>(),
+  statusCode: integer('status_code'),
+  responseBody: text('response_body'),
+  success: integer('success', { mode: 'boolean' }).notNull().default(false),
+  attemptedAt: text('attempted_at')
+    .notNull()
+    .$defaultFn(() => new Date().toISOString()),
+});
+
+/**
  * Type exports for use in services.
  */
 export type Pack = typeof packs.$inferSelect;
@@ -177,3 +221,6 @@ export type Organization = typeof organizations.$inferSelect;
 export type NewOrganization = typeof organizations.$inferInsert;
 export type OrgMember = typeof orgMembers.$inferSelect;
 export type NewOrgMember = typeof orgMembers.$inferInsert;
+export type Webhook = typeof webhooks.$inferSelect;
+export type NewWebhook = typeof webhooks.$inferInsert;
+export type WebhookDelivery = typeof webhookDeliveries.$inferSelect;
