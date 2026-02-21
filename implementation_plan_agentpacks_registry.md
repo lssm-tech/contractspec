@@ -625,24 +625,30 @@ Pattern B (direct MCP SDK), same as `alpic-mcp`:
 
 ## 9. Phase 3 — Community + Ecosystem
 
-### 9.1 Ratings & Reviews
+### 9.1 Ratings & Reviews ✅
 
-- [ ] `reviews` table (packName, username, rating 1-5, comment, createdAt)
-- [ ] `GET /packs/:name/reviews`, `POST /packs/:name/reviews`
-- [ ] Average rating on pack cards
+- [x] `reviews` table (packName, username, rating 1-5, comment, createdAt/updatedAt)
+- [x] `GET /packs/:name/reviews`, `POST /packs/:name/reviews`, `DELETE /packs/:name/reviews`
+- [x] One review per user per pack (upsert), self-review prevention
+- [x] Cached `average_rating` (10x scaled) + `review_count` on packs table
+- [x] Average rating + star display on pack cards
+- [x] Reviews section on pack detail page
 
-### 9.2 Organization Scopes
+### 9.2 Organization Scopes ✅
 
-- [ ] `organizations` table
-- [ ] `@org/pack-name` scoped pack names
-- [ ] Org member management
+- [x] `organizations` table + `org_members` table with role hierarchy
+- [x] `@org/pack-name` scoped pack name parsing
+- [x] Org CRUD + member management routes
+- [x] Role-based access control (owner > admin > member)
 
-### 9.3 Quality Scoring
+### 9.3 Quality Scoring ✅
 
-- [ ] Automated pack quality score (0-100) based on:
-  - Has README (+20), has tests (+15), target coverage (+20), feature count (+15)
-  - License present (+10), no conflicts (+10), semver compliance (+10)
-- [ ] Badge display on pack cards
+- [x] Automated pack quality score (0-100) based on:
+  - Has README (+20), multiple versions (+10), license (+10)
+  - Target coverage (+20 proportional, max 4), feature count (+15 proportional, max 5)
+  - Has tags (+10), repository (+5), homepage (+5), no conflicts (+5)
+- [x] `GET /packs/:name/quality` endpoint with full breakdown
+- [x] Badge display on pack cards + quality breakdown on detail page
 
 ### 9.4 Dependency Graph
 
@@ -676,42 +682,53 @@ packages/apps/registry-packs/
 │   ├── index.ts                    # Entry point (cluster fork)
 │   ├── server.ts                   # Elysia app + route wiring
 │   ├── db/
-│   │   ├── schema.ts              # Drizzle table definitions
+│   │   ├── schema.ts              # Drizzle table defs (8 tables)
 │   │   ├── client.ts              # SQLite connection
 │   │   ├── seed.ts                # Optional seed data
 │   │   └── migrations/
-│   │       └── 0000_initial.sql
+│   │       ├── 0000_conscious_skin.sql
+│   │       ├── 0001_download_stats.sql
+│   │       └── 0002_community.sql  # reviews, orgs, quality cols
 │   ├── routes/
-│   │   ├── packs.ts               # GET /packs, GET /packs/:name
+│   │   ├── packs.ts               # GET /packs, /packs/:name, /stats
 │   │   ├── versions.ts            # GET /packs/:name/versions[/:ver]
 │   │   ├── publish.ts             # POST /packs, DELETE version
-│   │   ├── featured.ts            # GET /featured
-│   │   ├── tags.ts                # GET /tags
-│   │   ├── targets.ts             # GET /targets/:targetId
-│   │   └── stats.ts               # GET /stats
+│   │   ├── reviews.ts             # GET/POST/DELETE /packs/:name/reviews
+│   │   └── orgs.ts                # CRUD /orgs, /orgs/:name/members
 │   ├── services/
 │   │   ├── pack-service.ts        # Pack CRUD
 │   │   ├── version-service.ts     # Version management
 │   │   ├── search-service.ts      # Search + filters
-│   │   ├── publish-service.ts     # Tarball validation + publish
-│   │   └── stats-service.ts       # Download tracking
+│   │   ├── stats-service.ts       # Download tracking
+│   │   ├── review-service.ts      # Reviews + rating cache
+│   │   ├── quality-service.ts     # Quality scoring (0-100)
+│   │   └── org-service.ts         # Org + member management
 │   ├── storage/
 │   │   ├── types.ts               # Storage interface
 │   │   ├── local.ts               # Filesystem storage
-│   │   └── s3.ts                  # S3 storage (Phase 2)
+│   │   ├── s3.ts                  # S3-compatible storage
+│   │   └── factory.ts             # STORAGE_BACKEND switch
 │   ├── auth/
 │   │   ├── token.ts               # Token gen/hash/validate
-│   │   └── middleware.ts          # Elysia auth derive
-│   └── mcp/                       # Phase 2
+│   │   └── middleware.ts          # extractAuth() function
+│   └── mcp/
 │       ├── handler.ts             # MCP server setup
-│       ├── tools.ts               # MCP tools
-│       ├── resources.ts           # MCP resources
-│       └── prompts.ts             # MCP prompts
+│       ├── tools.ts               # MCP tools (5)
+│       ├── resources.ts           # MCP resources (4)
+│       └── prompts.ts             # MCP prompts (2)
 ├── test/
-│   ├── services/
-│   ├── routes/
-│   ├── auth/
-│   └── storage/
+│   ├── db-fixture.ts              # In-memory test DB factory
+│   ├── test-app.ts                # Test DB + setDb() injection
+│   ├── pack-service.test.ts
+│   ├── version-service.test.ts
+│   ├── search-service.test.ts
+│   ├── auth-service.test.ts
+│   ├── routes.test.ts
+│   ├── mcp.test.ts
+│   ├── stats-service.test.ts
+│   ├── review-service.test.ts     # Phase 3
+│   ├── quality-service.test.ts    # Phase 3
+│   └── org-service.test.ts        # Phase 3
 └── storage/                        # Local tarball storage (gitignored)
     └── packs/
 ```
@@ -1095,16 +1112,54 @@ interface RegistryStatsResponse {
 - [x] Heuristic task-to-routing matcher for `--task` flag
 - [x] Registry search supports `features` filter for routing packs
 
-### Phase 3 — Community
+### Phase 3 — Community ✅
 
-- [ ] `reviews` table (packName, username, rating 1-5, comment, createdAt)
-- [ ] `GET /packs/:name/reviews`, `POST /packs/:name/reviews` endpoints
-- [ ] Average rating display on pack cards
-- [ ] `organizations` table
-- [ ] `@org/pack-name` scoped pack names
-- [ ] Org member management
-- [ ] Automated pack quality score (0-100)
-- [ ] Quality badge display on pack cards
+#### Reviews & Ratings ✅
+
+- [x] `reviews` table (packName, username, rating 1-5, comment, createdAt/updatedAt)
+- [x] `GET /packs/:name/reviews`, `POST /packs/:name/reviews`, `DELETE /packs/:name/reviews`
+- [x] One review per user per pack (upsert), self-review prevention
+- [x] Cached `average_rating` (10x scaled) + `review_count` on packs table
+- [x] Average rating + star display on pack cards (website)
+- [x] Reviews section on pack detail page (website)
+
+#### Organizations ✅
+
+- [x] `organizations` table (name, displayName, description, avatarUrl, website)
+- [x] `org_members` table with role hierarchy (owner > admin > member)
+- [x] `@org/pack-name` scoped pack name parsing (`OrgService.parseOrgScope`)
+- [x] Org CRUD: `POST /orgs`, `GET /orgs/:name`, `PUT /orgs/:name`, `DELETE /orgs/:name`
+- [x] Member management: `GET/POST /orgs/:name/members`, `DELETE /orgs/:name/members/:username`
+- [x] Role-based access control (owner/admin/member hierarchy)
+
+#### Quality Scoring ✅
+
+- [x] Automated quality score (0-100) — README +20, versions +10, license +10, targets +20, features +15, tags +10, repo +5, homepage +5, no-conflicts +5
+- [x] `GET /packs/:name/quality` endpoint with full breakdown
+- [x] `?recalculate=true` flag to recompute and persist score
+- [x] `recalculateAll()` for batch score updates
+- [x] Quality badge display on pack cards (excellent/good/fair/needs-work)
+- [x] Quality breakdown section on pack detail page (website)
+
+#### DB Migration (0002_community.sql) ✅
+
+- [x] `ALTER TABLE packs ADD COLUMN average_rating, review_count, quality_score`
+- [x] `CREATE TABLE reviews` with unique index on (pack_name, username)
+- [x] `CREATE TABLE organizations`
+- [x] `CREATE TABLE org_members` with unique index on (org_name, username)
+
+#### Tests (54 new tests) ✅
+
+- [x] ReviewService: upsert, update, cached rating, list, pagination, delete, getUserReview (10)
+- [x] Review routes: GET/POST/DELETE, validation, auth, self-review prevention (5)
+- [x] QualityService: computeScore, scoring rubric, updateScore, recalculateAll, getBadge (9)
+- [x] Quality route: GET, 404, recalculate flag (3)
+- [x] OrgService: create, get, update, delete, addMember, removeMember, hasRole, parseOrgScope, getUserOrgs (12)
+- [x] Org routes: POST/GET/DELETE orgs, member management, role enforcement (6)
+- [x] Website: API client extended with reviews/quality types and methods
+
+#### Remaining (Phase 3b — future)
+
 - [ ] Pack dependency visualization (D3 or Mermaid)
 - [ ] Reverse dependency lookup
 - [ ] Webhook registration for pack publish/update events

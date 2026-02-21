@@ -15,6 +15,13 @@
       "when": 1771776000000,
       "tag": "0001_download_stats",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1771948800000,
+      "tag": "0002_community",
+      "breakpoints": true
     }
   ]
 }

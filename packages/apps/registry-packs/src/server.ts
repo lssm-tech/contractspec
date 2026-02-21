@@ -4,11 +4,13 @@ import { serverTiming } from '@elysiajs/server-timing';
 import { packRoutes } from './routes/packs.js';
 import { versionRoutes, versionDeleteRoutes } from './routes/versions.js';
 import { publishRoutes } from './routes/publish.js';
+import { reviewRoutes } from './routes/reviews.js';
+import { orgRoutes, orgMemberRoutes } from './routes/orgs.js';
 import { createRegistryMcpHandler } from './mcp/handler.js';
 import { getDb } from './db/client.js';
 import { PackService } from './services/pack-service.js';
 import { SearchService } from './services/search-service.js';
-import { StatsService } from './services/stats-service.js';
+import { QualityService } from './services/quality-service.js';
 
 /**
  * Create the Elysia app (without listening).
@@ -35,6 +37,10 @@ export const app = new Elysia()
       targets: '/targets/:targetId',
       stats: '/stats',
       packStats: '/packs/:name/stats',
+      packReviews: '/packs/:name/reviews',
+      packQuality: '/packs/:name/quality',
+      orgs: '/orgs',
+      orgMembers: '/orgs/:name/members',
       health: '/health',
       mcp: '/mcp',
     },
@@ -67,11 +73,37 @@ export const app = new Elysia()
     const search = new SearchService(db);
     return search.getStats();
   })
+  // Quality score endpoint
+  .get('/packs/:name/quality', async ({ params, set, query }) => {
+    const db = getDb();
+    const qualityService = new QualityService(db);
+    const recalculate = query.recalculate === 'true';
+
+    if (recalculate) {
+      await qualityService.updateScore(params.name);
+    }
+
+    const breakdown = await qualityService.computeScore(params.name);
+    if (!breakdown) {
+      set.status = 404;
+      return { error: `Pack "${params.name}" not found` };
+    }
+
+    return {
+      packName: params.name,
+      score: breakdown.total,
+      badge: QualityService.getBadge(breakdown.total),
+      breakdown,
+    };
+  })
   // Mount route groups
   .use(packRoutes)
   .use(versionRoutes)
   .use(versionDeleteRoutes)
   .use(publishRoutes)
+  .use(reviewRoutes)
+  .use(orgRoutes)
+  .use(orgMemberRoutes)
   // MCP endpoint
   .use(createRegistryMcpHandler());
 

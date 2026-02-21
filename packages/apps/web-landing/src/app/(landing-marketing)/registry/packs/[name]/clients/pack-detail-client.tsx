@@ -2,18 +2,79 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import type { Pack, PackVersion } from '@/lib/registry-api';
+import type {
+  Pack,
+  PackVersion,
+  Review,
+  QualityResult,
+} from '@/lib/registry-api';
 
 interface PackDetailClientProps {
   pack: Pack;
   readme: string | null;
   versions: PackVersion[];
+  reviews: Review[];
+  reviewTotal: number;
+  averageRating: number | null;
+  quality: QualityResult | null;
+}
+
+/** Render filled/empty stars for a rating (1-5 scale). */
+function StarRating({
+  rating,
+  size = 'sm',
+}: {
+  rating: number;
+  size?: 'sm' | 'lg';
+}) {
+  const stars = [];
+  const cls = size === 'lg' ? 'text-lg' : 'text-sm';
+  for (let i = 1; i <= 5; i++) {
+    stars.push(
+      <span
+        key={i}
+        className={
+          i <= Math.round(rating)
+            ? 'text-yellow-500'
+            : 'text-muted-foreground/30'
+        }
+      >
+        ★
+      </span>
+    );
+  }
+  return <span className={cls}>{stars}</span>;
+}
+
+/** Quality badge with color coding. */
+function QualityBadge({ score, badge }: { score: number; badge: string }) {
+  const colorCls =
+    score >= 80
+      ? 'bg-green-500/10 text-green-500 border-green-500/20'
+      : score >= 60
+        ? 'bg-blue-500/10 text-blue-500 border-blue-500/20'
+        : score >= 40
+          ? 'bg-yellow-500/10 text-yellow-600 border-yellow-600/20'
+          : 'bg-red-500/10 text-red-500 border-red-500/20';
+
+  return (
+    <div
+      className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-1 ${colorCls}`}
+    >
+      <span className="text-sm font-bold">{score}</span>
+      <span className="text-xs capitalize">{badge}</span>
+    </div>
+  );
 }
 
 export function PackDetailClient({
   pack,
   readme,
   versions,
+  reviews,
+  reviewTotal,
+  averageRating,
+  quality,
 }: PackDetailClientProps) {
   const [copiedSnippet, setCopiedSnippet] = useState(false);
   const installSnippet = `{ "packs": ["registry:${pack.name}"] }`;
@@ -51,10 +112,23 @@ export function PackDetailClient({
               by {pack.authorName}
             </p>
             <p className="text-muted-foreground mt-3">{pack.description}</p>
+
+            {/* Rating summary */}
+            {averageRating !== null && (
+              <div className="mt-2 flex items-center gap-2">
+                <StarRating rating={averageRating} size="lg" />
+                <span className="text-foreground text-sm font-medium">
+                  {averageRating.toFixed(1)}
+                </span>
+                <span className="text-muted-foreground text-sm">
+                  ({reviewTotal} review{reviewTotal !== 1 ? 's' : ''})
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Stats card */}
-          <div className="card-subtle border-border flex-shrink-0 rounded-lg border p-4">
+          <div className="card-subtle border-border flex-shrink-0 space-y-3 rounded-lg border p-4">
             <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
               <span className="text-muted-foreground">Downloads</span>
               <span className="font-medium">
@@ -67,6 +141,14 @@ export function PackDetailClient({
               <span className="text-muted-foreground">License</span>
               <span className="font-medium">{pack.license}</span>
             </div>
+            {quality && (
+              <div className="border-border border-t pt-3">
+                <span className="text-muted-foreground mb-1 block text-xs">
+                  Quality Score
+                </span>
+                <QualityBadge score={quality.score} badge={quality.badge} />
+              </div>
+            )}
           </div>
         </div>
 
@@ -173,6 +255,110 @@ export function PackDetailClient({
           </div>
         )}
 
+        {/* Reviews */}
+        <div className="mb-8">
+          <h2 className="mb-4 text-lg font-semibold">
+            Reviews ({reviewTotal})
+          </h2>
+          {reviews.length === 0 ? (
+            <p className="text-muted-foreground text-sm">
+              No reviews yet. Be the first to review this pack!
+            </p>
+          ) : (
+            <div className="space-y-4">
+              {reviews.map((review) => (
+                <div
+                  key={review.id}
+                  className="border-border rounded-lg border p-4"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="text-foreground text-sm font-medium">
+                        {review.username}
+                      </span>
+                      <StarRating rating={review.rating} />
+                    </div>
+                    <span className="text-muted-foreground text-xs">
+                      {new Date(review.createdAt).toLocaleDateString()}
+                    </span>
+                  </div>
+                  {review.comment && (
+                    <p className="text-muted-foreground mt-2 text-sm">
+                      {review.comment}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Quality breakdown */}
+        {quality && (
+          <div className="mb-8">
+            <h2 className="mb-4 text-lg font-semibold">Quality Breakdown</h2>
+            <div className="border-border rounded-lg border p-4">
+              <div className="mb-3 flex items-center gap-3">
+                <QualityBadge score={quality.score} badge={quality.badge} />
+                <span className="text-muted-foreground text-sm">
+                  {quality.score}/100 points
+                </span>
+              </div>
+              <div className="grid grid-cols-2 gap-2 text-sm sm:grid-cols-3">
+                <QualityItem
+                  label="README"
+                  met={quality.breakdown.hasReadme}
+                  points={20}
+                />
+                <QualityItem
+                  label="Multi-version"
+                  met={quality.breakdown.hasMultipleVersions}
+                  points={10}
+                />
+                <QualityItem
+                  label="License"
+                  met={quality.breakdown.hasLicense}
+                  points={10}
+                />
+                <QualityItem
+                  label="Tags"
+                  met={quality.breakdown.hasTags}
+                  points={10}
+                />
+                <QualityItem
+                  label="Repository"
+                  met={quality.breakdown.hasRepository}
+                  points={5}
+                />
+                <QualityItem
+                  label="Homepage"
+                  met={quality.breakdown.hasHomepage}
+                  points={5}
+                />
+                <QualityItem
+                  label="No conflicts"
+                  met={quality.breakdown.noConflicts}
+                  points={5}
+                />
+                <div className="flex items-center gap-1.5">
+                  <span className="text-blue-500">◆</span>
+                  <span className="text-muted-foreground">
+                    Targets: {quality.breakdown.targetCoverage}/4 (+
+                    {Math.round((quality.breakdown.targetCoverage / 4) * 20)})
+                  </span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-blue-500">◆</span>
+                  <span className="text-muted-foreground">
+                    Features: {quality.breakdown.featureCount}/5 (+
+                    {Math.round((quality.breakdown.featureCount / 5) * 15)})
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Versions */}
         {versions.length > 0 && (
           <div>
@@ -205,6 +391,28 @@ export function PackDetailClient({
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+/** Quality item row — checkmark/cross with label and points. */
+function QualityItem({
+  label,
+  met,
+  points,
+}: {
+  label: string;
+  met: boolean;
+  points: number;
+}) {
+  return (
+    <div className="flex items-center gap-1.5">
+      <span className={met ? 'text-green-500' : 'text-red-500/50'}>
+        {met ? '✓' : '✗'}
+      </span>
+      <span className={met ? 'text-foreground' : 'text-muted-foreground'}>
+        {label} (+{points})
+      </span>
     </div>
   );
 }

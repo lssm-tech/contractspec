@@ -29,10 +29,49 @@ export interface Pack {
   conflicts: string[];
   downloads: number;
   weeklyDownloads: number;
+  averageRating?: number | null; // 10x scaled (e.g. 42 = 4.2)
+  reviewCount?: number;
+  qualityScore?: number | null; // 0-100
   featured: boolean;
   verified: boolean;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface Review {
+  id: number;
+  packName: string;
+  username: string;
+  rating: number;
+  comment: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ReviewListResult {
+  reviews: Review[];
+  total: number;
+  averageRating: number | null;
+}
+
+export interface QualityBreakdown {
+  hasReadme: boolean;
+  hasMultipleVersions: boolean;
+  hasLicense: boolean;
+  targetCoverage: number;
+  featureCount: number;
+  hasTags: boolean;
+  hasRepository: boolean;
+  hasHomepage: boolean;
+  noConflicts: boolean;
+  total: number;
+}
+
+export interface QualityResult {
+  packName: string;
+  score: number;
+  badge: string;
+  breakdown: QualityBreakdown;
 }
 
 export interface PackVersion {
@@ -194,4 +233,35 @@ export async function getRegistryStats(
   init?: RequestInit
 ): Promise<RegistryStats> {
   return registryFetch('/stats', init);
+}
+
+/** Get reviews for a pack. */
+export async function getPackReviews(
+  name: string,
+  opts?: { limit?: number; offset?: number },
+  init?: RequestInit
+): Promise<ReviewListResult> {
+  const qs = new URLSearchParams();
+  if (opts?.limit) qs.set('limit', String(opts.limit));
+  if (opts?.offset) qs.set('offset', String(opts.offset));
+  const query = qs.toString();
+  return registryFetch(
+    `/packs/${encodeURIComponent(name)}/reviews${query ? `?${query}` : ''}`,
+    init
+  );
+}
+
+/** Get quality score breakdown for a pack. */
+export async function getPackQuality(
+  name: string,
+  init?: RequestInit
+): Promise<QualityResult | null> {
+  try {
+    return await registryFetch<QualityResult>(
+      `/packs/${encodeURIComponent(name)}/quality`,
+      init
+    );
+  } catch {
+    return null;
+  }
 }
