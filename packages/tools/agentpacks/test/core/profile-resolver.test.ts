@@ -2,8 +2,9 @@ import { describe, expect, test } from 'bun:test';
 import {
   resolveModels,
   resolveAgentModel,
+  resolveProfileInheritance,
 } from '../../src/core/profile-resolver.js';
-import type { ModelsConfig } from '../../src/features/models.js';
+import type { ModelsConfig, ModelProfile } from '../../src/features/models.js';
 
 const SAMPLE_CONFIG: ModelsConfig = {
   default: 'anthropic/claude-sonnet-4-5',
@@ -153,5 +154,106 @@ describe('resolveAgentModel', () => {
     const resolved = resolveModels(SAMPLE_CONFIG);
     const result = resolveAgentModel(resolved, 'unknown-agent');
     expect(result.model).toBeUndefined();
+  });
+});
+
+describe('resolveProfileInheritance', () => {
+  const profiles: Record<string, ModelProfile> = {
+    base: {
+      description: 'Base profile',
+      default: 'claude-sonnet-4-20250514',
+      small: 'claude-haiku-3-5-20250514',
+      agents: {
+        build: { model: 'claude-sonnet-4-20250514', temperature: 0.3 },
+      },
+    },
+    premium: {
+      extends: 'base',
+      description: 'Premium tier',
+      default: 'claude-opus-4-6',
+      // small inherited from base
+      agents: {
+        review: { model: 'claude-opus-4-6', temperature: 0.1 },
+      },
+    },
+    'premium-fast': {
+      extends: 'premium',
+      small: 'claude-haiku-3-5-20250514',
+      // default inherited from premium → opus
+    },
+    standalone: {
+      description: 'Standalone, no inheritance',
+      default: 'gpt-4o',
+    },
+  };
+
+  test('resolves profile without extends', () => {
+    const result = resolveProfileInheritance('base', profiles);
+    expect(result.default).toBe('claude-sonnet-4-20250514');
+    expect(result.small).toBe('claude-haiku-3-5-20250514');
+    expect(result.description).toBe('Base profile');
+  });
+
+  test('inherits from parent profile', () => {
+    const result = resolveProfileInheritance('premium', profiles);
+    expect(result.default).toBe('claude-opus-4-6');
+    // Inherited from base
+    expect(result.small).toBe('claude-haiku-3-5-20250514');
+    expect(result.description).toBe('Premium tier');
+  });
+
+  test('inherits agents from parent and merges', () => {
+    const result = resolveProfileInheritance('premium', profiles);
+    // From base
+    expect(result.agents?.build?.model).toBe('claude-sonnet-4-20250514');
+    // From premium (child)
+    expect(result.agents?.review?.model).toBe('claude-opus-4-6');
+  });
+
+  test('resolves multi-level inheritance', () => {
+    const result = resolveProfileInheritance('premium-fast', profiles);
+    // From premium → from base (not overridden in premium-fast)
+    expect(result.default).toBe('claude-opus-4-6');
+    // Overridden in premium-fast
+    expect(result.small).toBe('claude-haiku-3-5-20250514');
+  });
+
+  test('detects circular inheritance', () => {
+    const circular: Record<string, ModelProfile> = {
+      a: { extends: 'b', default: 'model-a' },
+      b: { extends: 'a', default: 'model-b' },
+    };
+    expect(() => resolveProfileInheritance('a', circular)).toThrow(
+      /[Cc]ircular/
+    );
+  });
+
+  test('throws for missing parent profile', () => {
+    const broken: Record<string, ModelProfile> = {
+      child: { extends: 'nonexistent', default: 'model' },
+    };
+    expect(() => resolveProfileInheritance('child', broken)).toThrow(
+      /not found/
+    );
+  });
+
+  test('throws for missing profile name', () => {
+    expect(() => resolveProfileInheritance('missing', profiles)).toThrow(
+      /not found/
+    );
+  });
+
+  test('works with resolveModels for inherited profiles', () => {
+    const config: ModelsConfig = {
+      default: 'claude-sonnet-4-20250514',
+      small: 'claude-haiku-3-5-20250514',
+      profiles,
+    };
+
+    // Using "premium" profile which inherits from "base"
+    const result = resolveModels(config, 'premium');
+    expect(result.default).toBe('claude-opus-4-6');
+    expect(result.small).toBe('claude-haiku-3-5-20250514');
+    expect(result.activeProfile).toBe('premium');
   });
 });

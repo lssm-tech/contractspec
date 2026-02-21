@@ -9,11 +9,17 @@ import { orgRoutes, orgMemberRoutes } from './routes/orgs.js';
 import { webhookRoutes } from './routes/webhooks.js';
 import { dependencyRoutes } from './routes/dependencies.js';
 import { githubRoutes } from './routes/github.js';
+import { deprecationRoutes } from './routes/deprecation.js';
 import { createRegistryMcpHandler } from './mcp/handler.js';
 import { getDb } from './db/client.js';
 import { PackService } from './services/pack-service.js';
 import { SearchService } from './services/search-service.js';
 import { QualityService } from './services/quality-service.js';
+import {
+  generalLimiter,
+  getClientIp,
+  checkRateLimit,
+} from './middleware/rate-limit.js';
 
 /**
  * Create the Elysia app (without listening).
@@ -22,12 +28,25 @@ import { QualityService } from './services/quality-service.js';
 export const app = new Elysia()
   .use(cors())
   .use(serverTiming())
+  // Global rate limiting for all read endpoints
+  .onBeforeHandle(({ headers, set, path }) => {
+    // Skip rate limiting for health checks
+    if (path === '/health') return;
+    // Skip for publish (has its own stricter limiter)
+    if (path === '/packs' && set.status === undefined) {
+      // POST /packs is handled by publishRoutes with publishLimiter
+      // We can't distinguish HTTP method here, so publish adds its own check
+    }
+    const ip = getClientIp(headers);
+    const rateLimitError = checkRateLimit(generalLimiter, ip, set);
+    if (rateLimitError) return rateLimitError;
+  })
   // Health
   .get('/health', () => ({ status: 'healthy' }))
   // Root info
   .get('/', () => ({
     name: 'agentpacks-registry',
-    version: '0.1.0',
+    version: '0.2.0',
     routes: {
       packs: '/packs',
       packDetail: '/packs/:name',
@@ -35,6 +54,7 @@ export const app = new Elysia()
       download: '/packs/:name/versions/:version/download',
       publish: 'POST /packs',
       deleteVersion: 'DELETE /packs/:name/versions/:version',
+      deprecate: 'POST /packs/:name/deprecate',
       featured: '/featured',
       tags: '/tags',
       targets: '/targets/:targetId',
@@ -114,6 +134,7 @@ export const app = new Elysia()
   .use(webhookRoutes)
   .use(dependencyRoutes)
   .use(githubRoutes)
+  .use(deprecationRoutes)
   // MCP endpoint
   .use(createRegistryMcpHandler());
 

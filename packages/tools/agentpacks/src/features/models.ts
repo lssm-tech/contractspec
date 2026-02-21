@@ -31,8 +31,10 @@ export type AgentModel = z.infer<typeof AgentModelSchema>;
 
 /**
  * Model profile — a named preset for default/small model selection.
+ * Supports inheritance via `extends` to compose profiles.
  */
 export const ModelProfileSchema = z.object({
+  extends: z.string().optional(),
   description: z.string().optional(),
   default: z.string().optional(),
   small: z.string().optional(),

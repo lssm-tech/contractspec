@@ -41,6 +41,8 @@ export const packs = pgTable('packs', {
   averageRating: integer('average_rating'),
   reviewCount: integer('review_count').notNull().default(0),
   qualityScore: integer('quality_score'),
+  deprecated: boolean('deprecated').notNull().default(false),
+  deprecationMessage: text('deprecation_message'),
   featured: boolean('featured').notNull().default(false),
   verified: boolean('verified').notNull().default(false),
   createdAt: text('created_at')

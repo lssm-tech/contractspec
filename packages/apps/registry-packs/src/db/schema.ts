@@ -37,6 +37,10 @@ export const packs = sqliteTable('packs', {
   averageRating: integer('average_rating'), // 10x scaled (e.g. 42 = 4.2)
   reviewCount: integer('review_count').notNull().default(0),
   qualityScore: integer('quality_score'), // 0-100
+  deprecated: integer('deprecated', { mode: 'boolean' })
+    .notNull()
+    .default(false),
+  deprecationMessage: text('deprecation_message'),
   featured: integer('featured', { mode: 'boolean' }).notNull().default(false),
   verified: integer('verified', { mode: 'boolean' }).notNull().default(false),
   createdAt: text('created_at')
