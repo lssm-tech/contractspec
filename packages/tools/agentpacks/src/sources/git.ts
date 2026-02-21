@@ -65,16 +65,16 @@ export async function fetchGitDirectory(
   sha: string,
   subpath: string,
   token?: string
-): Promise<Array<{ name: string; type: string; download_url: string | null }>> {
+): Promise<{ name: string; type: string; download_url: string | null }[]> {
   const path = parsed.path ? `${parsed.path}/${subpath}` : subpath;
   const url = `${GITHUB_API}/repos/${parsed.owner}/${parsed.repo}/contents/${path}?ref=${sha}`;
   const res = await fetch(url, { headers: githubHeaders(token) });
   if (!res.ok) return [];
-  return (await res.json()) as Array<{
+  return (await res.json()) as {
     name: string;
     type: string;
     download_url: string | null;
-  }>;
+  }[];
 }
 
 /**

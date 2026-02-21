@@ -10,11 +10,11 @@
  * Known model ID patterns by provider.
  * Each pattern is a regex that matches valid model IDs for that provider.
  */
-const KNOWN_MODEL_PATTERNS: Array<{
+const KNOWN_MODEL_PATTERNS: {
   provider: string;
   pattern: RegExp;
   examples: string[];
-}> = [
+}[] = [
   {
     provider: 'Anthropic',
     pattern:

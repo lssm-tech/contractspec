@@ -315,7 +315,7 @@ function buildOpenCodeMcpServers(
  */
 function generateOpenCodeHookPlugin(
   packName: string,
-  events: Record<string, Array<{ command?: string; matcher?: string }>>
+  events: Record<string, { command?: string; matcher?: string }[]>
 ): string {
   const identifier = packNameToIdentifier(packName);
   const hookMap = mapHookEvents(events);
@@ -346,12 +346,9 @@ ${hookEntries}
 
 /** Map rulesync/canonical hook events to OpenCode plugin events. */
 function mapHookEvents(
-  events: Record<string, Array<{ command?: string; matcher?: string }>>
-): Record<string, Array<{ command?: string; matcher?: string }>> {
-  const mapped: Record<
-    string,
-    Array<{ command?: string; matcher?: string }>
-  > = {};
+  events: Record<string, { command?: string; matcher?: string }[]>
+): Record<string, { command?: string; matcher?: string }[]> {
+  const mapped: Record<string, { command?: string; matcher?: string }[]> = {};
 
   const eventMapping: Record<string, string> = {
     sessionStart: 'session.created',

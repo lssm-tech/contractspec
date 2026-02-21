@@ -94,12 +94,12 @@ interface Hunk {
  */
 function findHunks(oldLines: string[], newLines: string[]): Hunk[] {
   const CONTEXT = 3;
-  const changes: Array<{
+  const changes: {
     type: '-' | '+' | ' ';
     line: string;
     oldIdx: number;
     newIdx: number;
-  }> = [];
+  }[] = [];
 
   // Simple O(n) diff for lines that match
   let oi = 0;

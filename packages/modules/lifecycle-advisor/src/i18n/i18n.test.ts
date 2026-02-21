@@ -4,12 +4,7 @@ import {
   getDefaultI18n,
   resetI18nRegistry,
 } from './messages';
-import {
-  resolveLocale,
-  isSupportedLocale,
-  DEFAULT_LOCALE,
-  SUPPORTED_LOCALES,
-} from './locale';
+import { resolveLocale, isSupportedLocale, SUPPORTED_LOCALES } from './locale';
 import { I18N_KEYS } from './keys';
 import { enMessages } from './catalogs/en';
 import { frMessages } from './catalogs/fr';
