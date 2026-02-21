@@ -2,7 +2,7 @@
   "extends": "@contractspec/tool.typescript/react-library.json",
   "compilerOptions": {
     "noEmit": false,
-    "emitDeclarationOnly": "false"
+    "emitDeclarationOnly": false
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
