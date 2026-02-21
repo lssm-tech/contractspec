@@ -650,21 +650,34 @@ Pattern B (direct MCP SDK), same as `alpic-mcp`:
 - [x] `GET /packs/:name/quality` endpoint with full breakdown
 - [x] Badge display on pack cards + quality breakdown on detail page
 
-### 9.4 Dependency Graph
+### 9.4 Dependency Graph ✅
 
-- [ ] Pack dependency visualization (D3 or Mermaid)
-- [ ] Reverse dependency lookup ("who depends on this pack?")
+- [x] `DependencyService` — BFS graph builder with transitive closure, max depth
+- [x] Mermaid diagram generation from dependency graph
+- [x] Circular dependency detection (DFS cycle finder)
+- [x] `GET /packs/:name/dependencies` — JSON or Mermaid format
+- [x] `GET /packs/:name/dependents` — reverse dependency lookup
+- [x] Dependency visualization on pack detail page (website)
 
-### 9.5 Webhooks & Automation
+### 9.5 Webhooks & Automation ✅
 
-- [ ] Webhook registration for pack publish/update events
-- [ ] GitHub App: auto-publish on release tag
+- [x] `webhooks` + `webhook_deliveries` tables (migration `0003_webhooks.sql`)
+- [x] `WebhookService` — CRUD, HMAC signing, dispatch with delivery logging
+- [x] `GET/POST/DELETE /packs/:name/webhooks` — owner-only management
+- [x] `GET /packs/:name/webhooks/:id/deliveries` — delivery history
+- [x] Fire-and-forget dispatch wired into publish route
+- [x] `GitHubService` — HMAC-SHA256 signature verification + auto-publish
+- [x] `POST /github/webhook` — release event receiver, auto-publish on tag
+- [x] Config via `GITHUB_WEBHOOK_SECRET` + `GITHUB_REPO_PACK_MAP` env vars
 
-### 9.6 PostgreSQL Migration
+### 9.6 PostgreSQL Migration ✅
 
-- [ ] Drizzle config for PostgreSQL
-- [ ] Migration scripts SQLite → PostgreSQL
-- [ ] Connection pooling setup
+- [x] `schema-pg.ts` — full PG schema mirror (pgTable, jsonb, serial, boolean)
+- [x] `drizzle-pg.config.ts` — Drizzle Kit config for PostgreSQL
+- [x] `client.ts` dual-driver: `DB_DRIVER=sqlite|pg`, `initDb()` for async PG init
+- [x] Connection pooling via `pg.Pool` with `DB_POOL_MAX`, `DB_POOL_IDLE_TIMEOUT`, `DB_POOL_CONNECT_TIMEOUT`
+- [x] `scripts/migrate-sqlite-to-pg.ts` — one-time data migration script
+- [x] `pg` as optional dependency, `@types/pg` as devDependency
 
 ---
 
@@ -688,13 +701,17 @@ packages/apps/registry-packs/
 │   │   └── migrations/
 │   │       ├── 0000_conscious_skin.sql
 │   │       ├── 0001_download_stats.sql
-│   │       └── 0002_community.sql  # reviews, orgs, quality cols
+│   │       ├── 0002_community.sql  # reviews, orgs, quality cols
+│   │       └── 0003_webhooks.sql   # webhooks + deliveries
 │   ├── routes/
 │   │   ├── packs.ts               # GET /packs, /packs/:name, /stats
 │   │   ├── versions.ts            # GET /packs/:name/versions[/:ver]
-│   │   ├── publish.ts             # POST /packs, DELETE version
+│   │   ├── publish.ts             # POST /packs + webhook dispatch
 │   │   ├── reviews.ts             # GET/POST/DELETE /packs/:name/reviews
-│   │   └── orgs.ts                # CRUD /orgs, /orgs/:name/members
+│   │   ├── orgs.ts                # CRUD /orgs, /orgs/:name/members
+│   │   ├── webhooks.ts            # CRUD /packs/:name/webhooks
+│   │   ├── dependencies.ts        # GET /packs/:name/dependencies, /dependents
+│   │   └── github.ts              # POST /github/webhook
 │   ├── services/
 │   │   ├── pack-service.ts        # Pack CRUD
 │   │   ├── version-service.ts     # Version management
@@ -702,7 +719,10 @@ packages/apps/registry-packs/
 │   │   ├── stats-service.ts       # Download tracking
 │   │   ├── review-service.ts      # Reviews + rating cache
 │   │   ├── quality-service.ts     # Quality scoring (0-100)
-│   │   └── org-service.ts         # Org + member management
+│   │   ├── org-service.ts         # Org + member management
+│   │   ├── dependency-service.ts  # Graph builder + Mermaid + cycles
+│   │   ├── webhook-service.ts     # Webhook CRUD + dispatch + HMAC
+│   │   └── github-service.ts      # GitHub release auto-publish
 │   ├── storage/
 │   │   ├── types.ts               # Storage interface
 │   │   ├── local.ts               # Filesystem storage
@@ -728,7 +748,13 @@ packages/apps/registry-packs/
 │   ├── stats-service.test.ts
 │   ├── review-service.test.ts     # Phase 3
 │   ├── quality-service.test.ts    # Phase 3
-│   └── org-service.test.ts        # Phase 3
+│   ├── org-service.test.ts        # Phase 3
+│   ├── dependency-service.test.ts # Phase 3b
+│   ├── webhook-service.test.ts    # Phase 3b
+│   └── github-service.test.ts     # Phase 3b
+├── drizzle-pg.config.ts             # Drizzle Kit config for PostgreSQL
+├── scripts/
+│   └── migrate-sqlite-to-pg.ts     # One-time SQLite → PG data migration
 └── storage/                        # Local tarball storage (gitignored)
     └── packs/
 ```
@@ -1158,12 +1184,28 @@ interface RegistryStatsResponse {
 - [x] Org routes: POST/GET/DELETE orgs, member management, role enforcement (6)
 - [x] Website: API client extended with reviews/quality types and methods
 
-#### Remaining (Phase 3b — future)
+#### Dependency Graph ✅
 
-- [ ] Pack dependency visualization (D3 or Mermaid)
-- [ ] Reverse dependency lookup
-- [ ] Webhook registration for pack publish/update events
-- [ ] GitHub App: auto-publish on release tag
-- [ ] Drizzle config for PostgreSQL
-- [ ] Migration scripts SQLite → PostgreSQL
-- [ ] Connection pooling setup
+- [x] `DependencyService` — BFS graph builder, Mermaid generation, cycle detection
+- [x] `GET /packs/:name/dependencies` (JSON + Mermaid), `GET /packs/:name/dependents`
+- [x] Dependency visualization + dependents list on pack detail page (website)
+- [x] 16 dependency tests (service + routes)
+
+#### Webhooks & GitHub App ✅
+
+- [x] `webhooks` + `webhook_deliveries` tables, migration `0003_webhooks.sql`
+- [x] `WebhookService` — CRUD, HMAC signing, dispatch with delivery logging
+- [x] Webhook routes: `GET/POST/DELETE /packs/:name/webhooks`, `/deliveries`
+- [x] Fire-and-forget dispatch wired into publish route
+- [x] `GitHubService` — signature verification + auto-publish on release tag
+- [x] `POST /github/webhook` — release event receiver
+- [x] 20 webhook tests, 10 GitHub service tests
+
+#### PostgreSQL Migration ✅
+
+- [x] `schema-pg.ts` — full PG schema mirror (pgTable, jsonb, serial, boolean)
+- [x] `drizzle-pg.config.ts` + `db:generate:pg`/`db:migrate:pg` scripts
+- [x] Dual-driver `client.ts`: `DB_DRIVER=sqlite|pg`, async `initDb()` for PG
+- [x] Connection pooling: `DB_POOL_MAX`, `DB_POOL_IDLE_TIMEOUT`, `DB_POOL_CONNECT_TIMEOUT`
+- [x] `scripts/migrate-sqlite-to-pg.ts` — one-time data migration script
+- [x] `pg` optional dep, `@types/pg` devDep
