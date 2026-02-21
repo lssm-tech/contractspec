@@ -4,7 +4,7 @@ import { markdownHandler } from './handlers/markdown-handler';
 import { mcpHandler } from './handlers/mcp-handler';
 import { schemaHandler } from './handlers/schema-handler';
 
-const PORT = process.env.PORT || 8081;
+// const PORT = process.env.PORT || 8081;
 
 const app = new Elysia()
   .get('/', () => ({
@@ -20,25 +20,25 @@ const app = new Elysia()
   }))
   .use(markdownHandler)
   .use(mcpHandler)
-  .use(schemaHandler)
-  .listen(PORT);
+  .use(schemaHandler);
+// .listen(PORT);
 
 appLogger.info(
   `📚 ContractSpec Library API Server running at ${app.server?.hostname}:${app.server?.port}`
 );
 
 // Graceful shutdown handling
-process.on('SIGTERM', async () => {
-  appLogger.info('📴 SIGTERM received, shutting down gracefully');
-  await appLogger.flush();
-  process.exit(0);
-});
-
-process.on('SIGINT', async () => {
-  appLogger.info('📴 SIGINT received, shutting down gracefully');
-  await appLogger.flush();
-  process.exit(0);
-});
+// process.on('SIGTERM', async () => {
+//   appLogger.info('📴 SIGTERM received, shutting down gracefully');
+//   await appLogger.flush();
+//   process.exit(0);
+// });
+//
+// process.on('SIGINT', async () => {
+//   appLogger.info('📴 SIGINT received, shutting down gracefully');
+//   await appLogger.flush();
+//   process.exit(0);
+// });
 
 export type App = typeof app;
 export default app;

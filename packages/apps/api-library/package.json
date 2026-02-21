@@ -22,6 +22,6 @@
     "zod": "^4.3.5"
   },
   "devDependencies": {},
-  "module": "src/index.ts",
+  "module": "dist/index.js",
   "type": "module"
 }
