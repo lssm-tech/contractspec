@@ -3,13 +3,13 @@
   "version": "2.5.0",
   "private": true,
   "scripts": {
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist api/dist",
     "lint": "bun run lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
     "dev": "bun run --watch src/index.ts",
     "build": "bun run build:types && bun run build:bundle",
-    "build:bundle": "bun build --target node --packages bundle --outfile dist/index.js src/index.ts",
+    "build:bundle": "bun build --target node --packages bundle --outfile dist/index.js src/index.ts && mkdir -p api/dist && cp dist/index.js api/dist/index.js",
     "build:types": "tsc -p ./tsconfig.json --noEmit",
     "start": "bun run ./dist/index.js"
   },

@@ -1,5 +1,30 @@
 let appPromise;
 
+async function importBuiltApp() {
+  const candidates = ['./dist/index.js', '../dist/index.js'];
+  let lastError;
+
+  for (const path of candidates) {
+    try {
+      const mod = await import(path);
+      if (!mod?.default || typeof mod.default.handle !== 'function') {
+        throw new Error(`Invalid app export from ${path}`);
+      }
+      return mod.default;
+    } catch (error) {
+      const isMissingModule =
+        error &&
+        typeof error === 'object' &&
+        error.code === 'ERR_MODULE_NOT_FOUND';
+
+      if (!isMissingModule) throw error;
+      lastError = error;
+    }
+  }
+
+  throw lastError ?? new Error('Unable to load built app module');
+}
+
 function getApp() {
   if (appPromise) return appPromise;
 
@@ -11,13 +36,7 @@ function getApp() {
 
   process.env.CONTRACTSPEC_MCP_STATEFUL = '0';
 
-  appPromise = import('../dist/index.js').then((mod) => {
-    if (!mod?.default || typeof mod.default.handle !== 'function') {
-      throw new Error('Invalid app export from dist/index.js');
-    }
-
-    return mod.default;
-  });
+  appPromise = importBuiltApp();
 
   return appPromise;
 }
