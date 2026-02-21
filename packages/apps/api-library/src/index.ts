@@ -12,7 +12,6 @@ const app = new Elysia()
     endpoints: {
       mcp: {
         docs: '/mcp/docs',
-        cli: '/mcp/cli',
       },
       schemas: '/schemas/contractsrc.json',
       markdown: '/mdx/*',

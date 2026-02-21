@@ -1,21 +1,16 @@
 import { Elysia } from 'elysia';
-import {
-  createCliMcpHandler,
-  createDocsMcpHandler,
-  createInternalMcpHandler,
-} from '@contractspec/bundle.library/application/mcp';
+import { createDocsMcpHandler } from '@contractspec/bundle.library/application/mcp/docsMcp';
 import { appLogger } from '@contractspec/bundle.library/infrastructure/elysia/logger';
 
-export const mcpHandler = new Elysia()
-  .use(createDocsMcpHandler('/mcp/docs'))
-  .use(createCliMcpHandler('/mcp/cli'))
-  .use(createInternalMcpHandler('/mcp/internal'));
+export const mcpHandler = new Elysia().use(createDocsMcpHandler('/mcp/docs'));
 
 // Also mount the legacy /api/mcp/docs path (Cursor MCP clients often use /api/* by default).
 // Keep both mounted to avoid breaking existing integrations.
 mcpHandler.use(createDocsMcpHandler('/api/mcp/docs'));
-mcpHandler.use(createCliMcpHandler('/api/mcp/cli'));
-mcpHandler.use(createInternalMcpHandler('/api/mcp/internal'));
+
+appLogger.warn(
+  'CLI and internal MCP handlers are disabled in api-library deployment.'
+);
 
 // Lightweight request logging for MCP endpoints (gate verbosity via env).
 mcpHandler.onRequest(({ request }) => {
