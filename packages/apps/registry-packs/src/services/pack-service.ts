@@ -75,8 +75,13 @@ export class PackService {
 
   /** Delete a pack and all its versions/readme. */
   async delete(name: string): Promise<boolean> {
-    const result = await this.db.delete(packs).where(eq(packs.name, name));
-    return result.changes > 0;
+    const existing = await this.get(name);
+    if (!existing) {
+      return false;
+    }
+
+    await this.db.delete(packs).where(eq(packs.name, name));
+    return true;
   }
 
   /** Get featured packs. */

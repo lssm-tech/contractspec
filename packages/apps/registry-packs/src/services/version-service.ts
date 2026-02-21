@@ -64,7 +64,12 @@ export class VersionService {
 
   /** Delete a specific version. */
   async delete(packName: string, version: string): Promise<boolean> {
-    const result = await this.db
+    const existing = await this.get(packName, version);
+    if (!existing) {
+      return false;
+    }
+
+    await this.db
       .delete(packVersions)
       .where(
         and(
@@ -72,7 +77,7 @@ export class VersionService {
           eq(packVersions.version, version)
         )
       );
-    return result.changes > 0;
+    return true;
   }
 
   /** Check if a version already exists. */

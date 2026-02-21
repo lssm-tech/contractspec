@@ -73,7 +73,7 @@ export class S3Storage implements PackStorage {
         'Content-Type': 'application/gzip',
         'Content-Length': String(data.length),
       }),
-      body: data,
+      body: new Uint8Array(data),
     });
 
     if (!res.ok) {
