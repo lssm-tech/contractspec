@@ -1,5 +1,19 @@
 # @contractspec/app.api-library
 
+## 2.6.0
+
+### Minor Changes
+
+- bae3db1: fix: build issues
+
+### Patch Changes
+
+- Updated dependencies [bae3db1]
+  - @contractspec/bundle.library@2.6.0
+  - @contractspec/bundle.marketing@2.6.0
+  - @contractspec/bundle.workspace@2.6.0
+  - @contractspec/lib.contracts-spec@2.6.0
+
 ## 2.5.0
 
 ### Minor Changes

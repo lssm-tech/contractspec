@@ -1,5 +1,25 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 2.6.0
+
+### Minor Changes
+
+- bae3db1: fix: build issues
+
+### Patch Changes
+
+- Updated dependencies [bae3db1]
+  - @contractspec/example.kb-update-pipeline@2.6.0
+  - @contractspec/example.learning-patterns@2.6.0
+  - @contractspec/example.locale-jurisdiction-gate@2.6.0
+  - @contractspec/example.versioned-knowledge-base@2.6.0
+  - @contractspec/lib.contracts-spec@2.6.0
+  - @contractspec/lib.design-system@2.6.0
+  - @contractspec/lib.example-shared-ui@2.6.0
+  - @contractspec/lib.runtime-sandbox@1.6.0
+  - @contractspec/lib.ui-kit-web@2.6.0
+  - @contractspec/module.learning-journey@2.6.0
+
 ## 2.5.0
 
 ### Minor Changes

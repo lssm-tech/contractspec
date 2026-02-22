@@ -1,5 +1,11 @@
 # agentpacks
 
+## 0.5.0
+
+### Minor Changes
+
+- bae3db1: fix: build issues
+
 ## 0.4.0
 
 ### Minor Changes

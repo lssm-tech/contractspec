@@ -1,5 +1,34 @@
 # @contractspec/bundle.marketing
 
+## 2.6.0
+
+### Minor Changes
+
+- bae3db1: fix: build issues
+
+### Patch Changes
+
+- Updated dependencies [bae3db1]
+  - @contractspec/bundle.library@2.6.0
+  - @contractspec/example.agent-console@2.6.0
+  - @contractspec/example.analytics-dashboard@2.6.0
+  - @contractspec/example.crm-pipeline@2.6.0
+  - @contractspec/example.integration-hub@2.6.0
+  - @contractspec/example.marketplace@2.6.0
+  - @contractspec/example.saas-boilerplate@2.6.0
+  - @contractspec/example.workflow-system@2.6.0
+  - @contractspec/lib.contracts-runtime-client-react@2.6.0
+  - @contractspec/lib.contracts-spec@2.6.0
+  - @contractspec/lib.design-system@2.6.0
+  - @contractspec/lib.email@2.6.0
+  - @contractspec/lib.example-shared-ui@2.6.0
+  - @contractspec/lib.logger@2.6.0
+  - @contractspec/lib.runtime-sandbox@1.6.0
+  - @contractspec/lib.ui-kit-core@2.6.0
+  - @contractspec/lib.ui-kit-web@2.6.0
+  - @contractspec/lib.ui-link@2.6.0
+  - @contractspec/module.examples@2.6.0
+
 ## 2.5.0
 
 ### Minor Changes

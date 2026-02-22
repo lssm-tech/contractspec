@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.lifecycle-cli",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "Lifecycle CLI demo (example): run lifecycle assessment without an HTTP server.",
   "type": "module",
   "types": "./dist/index.d.ts",

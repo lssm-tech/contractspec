@@ -1,5 +1,17 @@
 # @contractspec/integration.example-generator
 
+## 22.0.0
+
+### Minor Changes
+
+- bae3db1: fix: build issues
+
+### Patch Changes
+
+- Updated dependencies [bae3db1]
+  - @contractspec/lib.contracts-spec@2.6.0
+  - @contractspec/lib.schema@2.6.0
+
 ## 21.0.0
 
 ### Minor Changes
