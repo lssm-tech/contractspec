@@ -1,5 +1,11 @@
 # @contractspec/lib.contracts
 
+## 1.67.0
+
+### Minor Changes
+
+- bae3db1: fix: build issues
+
 ## 1.66.0
 
 ### Minor Changes

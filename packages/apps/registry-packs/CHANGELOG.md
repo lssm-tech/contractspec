@@ -1,5 +1,11 @@
 # @contractspec/app.registry-packs
 
+## 0.3.0
+
+### Minor Changes
+
+- bae3db1: fix: build issues
+
 ## 0.2.0
 
 ### Minor Changes

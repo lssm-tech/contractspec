@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 1.6.0
+
+### Minor Changes
+
+- bae3db1: fix: build issues
+
 ## 1.5.0
 
 ### Minor Changes

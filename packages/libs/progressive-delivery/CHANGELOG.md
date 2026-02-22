@@ -1,5 +1,16 @@
 # @contractspec/lib.progressive-delivery
 
+## 23.0.0
+
+### Minor Changes
+
+- bae3db1: fix: build issues
+
+### Patch Changes
+
+- Updated dependencies [bae3db1]
+  - @contractspec/lib.observability@2.6.0
+
 ## 22.0.0
 
 ### Minor Changes
