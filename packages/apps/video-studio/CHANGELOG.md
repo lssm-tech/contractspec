@@ -1,5 +1,19 @@
 # @contractspec/app.video-studio
 
+## 1.47.0
+
+### Minor Changes
+
+- bae3db1: fix: build issues
+
+### Patch Changes
+
+- Updated dependencies [bae3db1]
+  - @contractspec/lib.video-gen@1.47.0
+  - @contractspec/lib.content-gen@2.6.0
+  - @contractspec/lib.contracts-spec@2.6.0
+  - @contractspec/lib.design-system@2.6.0
+
 ## 1.46.0
 
 ### Minor Changes

@@ -102,7 +102,7 @@
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^17.3.0",
-    "knip": "^5.84.1",
+    "knip": "^5.85.0",
     "memoirist": "^0.4.0",
     "next": "catalog:",
     "patch-package": "^8.0.1",

@@ -1,5 +1,24 @@
 # @contractspec/example.saas-boilerplate
 
+## 2.6.0
+
+### Minor Changes
+
+- bae3db1: fix: build issues
+
+### Patch Changes
+
+- Updated dependencies [bae3db1]
+  - @contractspec/lib.contracts-spec@2.6.0
+  - @contractspec/lib.design-system@2.6.0
+  - @contractspec/lib.example-shared-ui@2.6.0
+  - @contractspec/lib.identity-rbac@2.6.0
+  - @contractspec/lib.jobs@2.6.0
+  - @contractspec/lib.runtime-sandbox@1.6.0
+  - @contractspec/lib.schema@2.6.0
+  - @contractspec/module.audit-trail@2.6.0
+  - @contractspec/module.notifications@2.6.0
+
 ## 2.5.0
 
 ### Minor Changes
