@@ -1,5 +1,13 @@
 # @contractspec/lib.design-system
 
+## 2.6.1
+
+### Patch Changes
+
+- f8dc3ad: Fix the marketing header language switcher flicker on desktop by removing hover-driven dropdown toggling.
+
+  Clean related design-system header issues by wiring mobile language and command search props, fixing a stray nav label typo, correcting sheet title placement, and avoiding barrel import cycles in filter toolbars.
+
 ## 2.6.0
 
 ### Minor Changes

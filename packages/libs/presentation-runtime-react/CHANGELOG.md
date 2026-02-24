@@ -1,5 +1,12 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 23.0.1
+
+### Patch Changes
+
+- Updated dependencies [f8dc3ad]
+  - @contractspec/lib.design-system@2.6.1
+
 ## 23.0.0
 
 ### Minor Changes

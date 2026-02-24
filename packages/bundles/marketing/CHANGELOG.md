@@ -1,5 +1,22 @@
 # @contractspec/bundle.marketing
 
+## 2.6.1
+
+### Patch Changes
+
+- Updated dependencies [f8dc3ad]
+  - @contractspec/lib.design-system@2.6.1
+  - @contractspec/bundle.library@2.6.1
+  - @contractspec/example.agent-console@2.6.1
+  - @contractspec/example.analytics-dashboard@2.6.1
+  - @contractspec/example.crm-pipeline@2.6.1
+  - @contractspec/example.integration-hub@2.6.1
+  - @contractspec/example.marketplace@2.6.1
+  - @contractspec/example.saas-boilerplate@2.6.1
+  - @contractspec/example.workflow-system@2.6.1
+  - @contractspec/lib.example-shared-ui@2.6.1
+  - @contractspec/module.examples@2.6.1
+
 ## 2.6.0
 
 ### Minor Changes

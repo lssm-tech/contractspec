@@ -1,5 +1,15 @@
 # @contractspec/example.learning-journey-registry
 
+## 2.6.1
+
+### Patch Changes
+
+- @contractspec/example.learning-journey-ui-coaching@2.6.1
+- @contractspec/example.learning-journey-ui-gamified@2.6.1
+- @contractspec/example.learning-journey-ui-onboarding@2.6.1
+- @contractspec/example.learning-journey-ui-shared@2.6.1
+- @contractspec/example.learning-journey-crm-onboarding@2.6.1
+
 ## 2.6.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # contractspec
 
+## 2.6.1
+
+### Patch Changes
+
+- a968f66: Strengthen the canonical agentpacks with Cursor-first lifecycle workflows.
+
+  This adds marketplace-readiness guidance, new analysis commands (`/analyze-codebase`, `/impact`), model-profile routing, and updated generated assistant artifacts while keeping canonical packs clearly separated from imported reference packs.
+  - @contractspec/app.cli-contractspec@2.6.1
+
 ## 2.6.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @contractspec/example.learning-journey-ui-coaching
 
+## 2.6.1
+
+### Patch Changes
+
+- Updated dependencies [f8dc3ad]
+  - @contractspec/lib.design-system@2.6.1
+  - @contractspec/example.learning-journey-ui-shared@2.6.1
+  - @contractspec/example.learning-journey-crm-onboarding@2.6.1
+
 ## 2.6.0
 
 ### Minor Changes

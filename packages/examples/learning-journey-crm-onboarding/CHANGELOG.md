@@ -1,5 +1,11 @@
 # @contractspec/example.learning-journey-crm-onboarding
 
+## 2.6.1
+
+### Patch Changes
+
+- @contractspec/example.crm-pipeline@2.6.1
+
 ## 2.6.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @contractspec/example.video-docs-terminal
 
+## 2.6.1
+
+### Patch Changes
+
+- @contractspec/lib.video-gen@1.47.1
+
 ## 2.6.0
 
 ### Minor Changes

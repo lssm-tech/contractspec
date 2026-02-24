@@ -1,5 +1,11 @@
 # @contractspec/example.in-app-docs
 
+## 2.6.1
+
+### Patch Changes
+
+- @contractspec/lib.example-shared-ui@2.6.1
+
 ## 2.6.0
 
 ### Minor Changes

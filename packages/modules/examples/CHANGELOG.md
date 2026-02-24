@@ -1,5 +1,25 @@
 # @contractspec/module.examples
 
+## 2.6.1
+
+### Patch Changes
+
+- @contractspec/example.agent-console@2.6.1
+- @contractspec/example.analytics-dashboard@2.6.1
+- @contractspec/example.crm-pipeline@2.6.1
+- @contractspec/example.integration-hub@2.6.1
+- @contractspec/example.learning-journey-ui-coaching@2.6.1
+- @contractspec/example.learning-journey-ui-gamified@2.6.1
+- @contractspec/example.learning-journey-ui-onboarding@2.6.1
+- @contractspec/example.learning-journey-ui-shared@2.6.1
+- @contractspec/example.marketplace@2.6.1
+- @contractspec/example.policy-safe-knowledge-assistant@2.6.1
+- @contractspec/example.saas-boilerplate@2.6.1
+- @contractspec/example.workflow-system@2.6.1
+- @contractspec/lib.example-shared-ui@2.6.1
+- @contractspec/example.learning-journey-crm-onboarding@2.6.1
+- @contractspec/example.learning-journey-registry@2.6.1
+
 ## 2.6.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @contractspec/app.video-studio
 
+## 1.47.1
+
+### Patch Changes
+
+- Updated dependencies [f8dc3ad]
+  - @contractspec/lib.design-system@2.6.1
+  - @contractspec/lib.video-gen@1.47.1
+
 ## 1.47.0
 
 ### Minor Changes

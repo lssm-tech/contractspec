@@ -1,5 +1,11 @@
 # spec-driven-development
 
+## 2.6.1
+
+### Patch Changes
+
+- @contractspec/app.cli-contractspec@2.6.1
+
 ## 2.6.0
 
 ### Minor Changes
