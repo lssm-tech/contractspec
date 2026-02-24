@@ -1,5 +1,18 @@
 # @contractspec/lib.voice
 
+## 0.3.0
+
+### Minor Changes
+
+- bae3db1: fix: build issues
+
+### Patch Changes
+
+- Updated dependencies [bae3db1]
+  - @contractspec/lib.content-gen@2.6.0
+  - @contractspec/lib.contracts-integrations@2.6.0
+  - @contractspec/lib.contracts-spec@2.6.0
+
 ## 0.2.0
 
 ### Minor Changes

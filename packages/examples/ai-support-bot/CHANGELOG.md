@@ -1,5 +1,19 @@
 # @contractspec/example.ai-support-bot
 
+## 2.6.0
+
+### Minor Changes
+
+- bae3db1: fix: build issues
+
+### Patch Changes
+
+- Updated dependencies [bae3db1]
+  - @contractspec/lib.contracts-spec@2.6.0
+  - @contractspec/lib.knowledge@2.6.0
+  - @contractspec/lib.logger@2.6.0
+  - @contractspec/lib.support-bot@2.6.0
+
 ## 2.5.0
 
 ### Minor Changes

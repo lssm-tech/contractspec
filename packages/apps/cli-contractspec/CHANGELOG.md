@@ -1,5 +1,27 @@
 # Changelog
 
+## 2.6.0
+
+### Minor Changes
+
+- bae3db1: fix: build issues
+
+### Patch Changes
+
+- Updated dependencies [bae3db1]
+  - @contractspec/bundle.workspace@2.6.0
+  - @contractspec/lib.ai-agent@2.6.0
+  - @contractspec/lib.ai-providers@2.6.0
+  - @contractspec/lib.contracts-integrations@2.6.0
+  - @contractspec/lib.contracts-spec@2.6.0
+  - @contractspec/lib.contracts-transformers@2.6.0
+  - @contractspec/lib.plugins@2.6.0
+  - @contractspec/lib.schema@2.6.0
+  - @contractspec/lib.testing@2.6.0
+  - @contractspec/module.ai-chat@2.6.0
+  - @contractspec/module.examples@2.6.0
+  - @contractspec/module.workspace@2.6.0
+
 ## 2.5.0
 
 ### Minor Changes

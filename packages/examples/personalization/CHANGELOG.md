@@ -1,5 +1,20 @@
 # @contractspec/example.personalization
 
+## 2.6.0
+
+### Minor Changes
+
+- bae3db1: fix: build issues
+
+### Patch Changes
+
+- Updated dependencies [bae3db1]
+  - @contractspec/lib.contracts-spec@2.6.0
+  - @contractspec/lib.logger@2.6.0
+  - @contractspec/lib.overlay-engine@2.6.0
+  - @contractspec/lib.personalization@2.6.0
+  - @contractspec/lib.workflow-composer@2.6.0
+
 ## 2.5.0
 
 ### Minor Changes

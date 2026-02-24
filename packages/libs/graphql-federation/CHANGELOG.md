@@ -1,5 +1,11 @@
 # @contractspec/lib.graphql-federation
 
+## 2.6.0
+
+### Minor Changes
+
+- bae3db1: fix: build issues
+
 ## 2.5.0
 
 ### Minor Changes

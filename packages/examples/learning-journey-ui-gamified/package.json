@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.learning-journey-ui-gamified",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "Duolingo-style gamified learning UI for drills and quests.",
   "type": "module",
   "types": "./dist/index.d.ts",
