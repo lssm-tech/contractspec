@@ -1,12 +1,12 @@
-import { describe, it, expect } from 'bun:test";
+import { describe, expect, it } from 'bun:test';
 import {
-  validateTranslationSpec,
-  validateICUFormat,
-  findMissingTranslations,
-  findAllMissingTranslations,
-  validateTranslationRegistry,
   assertTranslationSpecValid,
+  findAllMissingTranslations,
+  findMissingTranslations,
   TranslationValidationError,
+  validateICUFormat,
+  validateTranslationRegistry,
+  validateTranslationSpec,
 } from './validation';
 import { TranslationRegistry } from './registry';
 import type { TranslationSpec } from './spec';

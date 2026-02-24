@@ -1,16 +1,16 @@
-import { describe, it, expect, vi } from 'bun:test";
+import { describe, expect, it, vi } from 'bun:test';
 import {
-  checkPolicyForOperation,
-  assertPolicyForOperation,
-  filterOperationsByPolicy,
-  checkRole,
-  assertRole,
-  checkAnyRole,
-  checkPermission,
-  assertPermission,
-  checkAllPermissions,
-  checkCombinedPolicy,
   assertCombinedPolicy,
+  assertPermission,
+  assertPolicyForOperation,
+  assertRole,
+  checkAllPermissions,
+  checkAnyRole,
+  checkCombinedPolicy,
+  checkPermission,
+  checkPolicyForOperation,
+  checkRole,
+  filterOperationsByPolicy,
 } from './guards';
 import { createPolicyContext, PolicyViolationError } from './context';
 import type { AnyOperationSpec } from '../operations/operation';

@@ -1,10 +1,10 @@
-import { describe, it, expect } from 'bun:test";
+import { describe, expect, it } from 'bun:test';
 import {
-  validatePolicySpec,
-  validatePolicyConsistency,
-  assertPolicySpecValid,
   assertPolicyConsistency,
+  assertPolicySpecValid,
   PolicyValidationError,
+  validatePolicyConsistency,
+  validatePolicySpec,
 } from './validation';
 import { PolicyRegistry } from './registry';
 import { OperationSpecRegistry } from '../operations/registry';
