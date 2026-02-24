@@ -5,7 +5,7 @@ This pack contains workspace and product context that is specific to the Contrac
 ## Scope
 
 - Repository mission, architecture, UX/front-end/back-end expectations, and workspace-level operating context.
-- Workspace command and agent behavior needed for planning and explanation workflows.
+- Workspace command and agent behavior needed for ideation, planning, and explanation workflows.
 - Workspace skills for creating features and migrating components.
 - MCP integration for Alpic documentation lookup.
 
@@ -13,6 +13,7 @@ This pack contains workspace and product context that is specific to the Contrac
 
 - Rules tied to ContractSpec mission, architecture, and repository conventions.
 - General-purpose workspace guidance used by contributors in this monorepo.
+- Entry-point workflow commands like `/ideate` and `/explain` that anchor user intent in repo context.
 
 ## Does not belong here
 

@@ -1,16 +1,31 @@
 {
   "name": "software-best-practices",
-  "version": "1.0.0",
-  "description": "Cross-cutting engineering quality, security, performance, and delivery best practices.",
+  "version": "1.1.0",
+  "description": "Cursor-first engineering standards and lifecycle tooling for planning, shipping, QA/review, observability, and documentation.",
+  "author": {
+    "name": "ContractSpec Team",
+    "email": "tboutron@lssm.co"
+  },
+  "homepage": "https://contractspec.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec"
+  },
+  "license": "MIT",
   "tags": [
     "engineering",
     "quality",
     "security",
     "performance",
-    "best-practices"
+    "best-practices",
+    "cursor",
+    "cursor-plugin",
+    "marketplace",
+    "ai-native",
+    "lifecycle"
   ],
   "dependencies": [],
   "conflicts": [],
   "targets": ["*"],
-  "features": ["rules", "commands", "agents", "mcp", "ignore"]
+  "features": ["rules", "commands", "agents", "mcp", "ignore", "models"]
 }

@@ -15,6 +15,7 @@
     "copilot",
   ],
   "features": ["*"],
+  "modelProfile": "balanced",
   "mode": "repo",
   "baseDirs": ["."],
   "global": false,

@@ -5,19 +5,21 @@
 
 ## Quick Reference
 
-| Concern | Rule File | Key Points |
-|---------|-----------|------------|
-| **Contracts** | `contracts-first.md` | Spec before implementation |
-| Mission & Context | `contractspec-mission.md` | Why we exist, who we serve |
-| Architecture | `package-architecture.md` | libs → bundles → apps |
-| Code Quality | `code-quality-practices.md` | Testing, naming, standards |
-| File Organization | `code-splitting.md` | Max 250 lines, domain grouping |
-| Type Safety | `type-safety-dependencies.md` | No `any`, latest deps |
-| Frontend | `frontend.md` | Atomic design, state handling |
-| Backend | `backend.md` | Hexagonal, DDD |
-| Design System | `design-system-usage.md` | No raw HTML |
-| AI Governance | `ai-agent.md` | Traceability, composability |
-| Documentation | `docs.md` | DocBlocks first |
+| Concern            | Rule File                         | Key Points                                           |
+| ------------------ | --------------------------------- | ---------------------------------------------------- |
+| **Contracts**      | `contracts-first.md`              | Spec before implementation                           |
+| Mission & Context  | `contractspec-mission.md`         | Why we exist, who we serve                           |
+| Architecture       | `package-architecture.md`         | libs → bundles → apps                                |
+| Code Quality       | `code-quality-practices.md`       | Testing, naming, standards                           |
+| File Organization  | `code-splitting.md`               | Max 250 lines, domain grouping                       |
+| Type Safety        | `type-safety-dependencies.md`     | No `any`, latest deps                                |
+| Frontend           | `frontend.md`                     | Atomic design, state handling                        |
+| Backend            | `backend.md`                      | Hexagonal, DDD                                       |
+| Design System      | `design-system-usage.md`          | No raw HTML                                          |
+| Delivery Lifecycle | `lifecycle-loop.md`               | Ideation → plan → ship → review → observe → document |
+| Cursor Marketplace | `cursor-marketplace-readiness.md` | Plugin metadata, artifact safety, publish readiness  |
+| AI Governance      | `ai-agent.md`                     | Traceability, composability                          |
+| Documentation      | `docs.md`                         | DocBlocks first                                      |
 
 ## Core Principles
 
@@ -44,6 +46,7 @@
 ## AI Agent Guidelines
 
 When working with AI assistants:
+
 - Rules are applied contextually based on file type
 - Conflicts resolved by: Security > Compliance > Safety > Quality > UX > Performance
 - All decisions should be traceable and reversible
@@ -56,8 +59,18 @@ When working with AI assistants:
 - `/lint` - Check and fix lint issues
 - `/fix` - Auto-fix common issues
 - `/explain` - Understand code
+- `/ideate` - Shape idea into a scoped brief
+- `/analyze-codebase` - Audit architecture/contracts/quality hotspots
+- `/impact` - Analyze change impact before build/PR
+- `/review-plan` - Review plan before coding
 - `/refactor` - Guided refactoring
+- `/ship` - Run release-readiness checks
+- `/draft-pr` - Create draft PR with checklist
 - `/review-pr` - Code review
+- `/audit-health` - File/layer/reuse health audit
+- `/audit-observability` - Logging/metrics/analytics audit
+- `/document` - Sync docs with implementation
+- `/cursor-plugin` - Build Cursor plugin artifacts
 - `/ai-audit` - Governance check
 
 ## Getting Help

@@ -2,25 +2,28 @@
 targets:
   - '*'
 root: false
-description: When following instruction of a plan in mardkown file PLAN_VNEXT.md
+description: Apply while executing any implementation plan from markdown
 globs: []
 cursor:
   alwaysApply: false
-  description: When following instruction of a plan in mardkown file PLAN_VNEXT.md
+  description: Apply while executing any implementation plan from markdown
 ---
-# Plan Coding Rule: DocBlock completeness
 
-Scope: Active while implementing the docblock-plan-completion tasks.
+# Plan Coding Rule
+
+Scope: Active while executing any implementation plan (for example `IMPLEMENTATION_PLAN.md`).
 
 Requirements:
 
-- Every DocBlock you touch/create MUST include explicit `kind` and `visibility` fields.
-- Allowed `kind` values: `goal`, `how`, `usage`, `reference`, `faq` (see `packages/libs/contracts/src/docs/types.ts`).
-- Allowed `visibility` values: `public`, `internal`, `mixed`.
-- When editing features tied to PLAN_VNEXT documentation (docs + BlockNote), update or add DocBlocks in the same change, and ensure they are registered (via `registerDocBlocks`) with stable routes.
-- Keep DocBlocks spec-first: describe purpose, steps, and guardrails; avoid PII/secrets.
-- Respect accessibility and a11y guidance for docs (clear headings, concise summaries).
+- Keep implementation aligned with the approved plan order unless the user requests a change.
+- If scope changes mid-implementation, record the delta explicitly in your response before continuing.
+- When touching or creating DocBlocks, always include valid `kind` and `visibility` fields.
+  - Allowed `kind`: `goal`, `how`, `usage`, `reference`, `faq`
+  - Allowed `visibility`: `public`, `internal`, `mixed`
+- Keep docs/specs synchronized with behavioral changes in the same iteration whenever possible.
+- Maintain reversibility: prefer incremental changes and clear checkpoints.
 
 Failure handling:
 
-- If a DocBlock lacks `kind` or `visibility`, or uses values outside the allowed sets, stop and fix before continuing.
+- If required DocBlock fields are invalid or missing, stop and fix before additional work.
+- If the plan is unclear or conflicts with active rules, raise a targeted clarification and list the blocking trade-off.

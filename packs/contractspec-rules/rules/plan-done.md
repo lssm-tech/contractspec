@@ -2,21 +2,25 @@
 targets:
   - '*'
 root: false
+description: Final verification checklist when closing an implementation plan
 globs: []
 cursor:
   alwaysApply: false
+  description: Final verification checklist when closing an implementation plan
 ---
-# Plan Done Rule: Final DocBlock verification
 
-Trigger: Run after completing docblock-plan-completion tasks.
+# Plan Done Rule
+
+Trigger: Run after all planned implementation tasks are completed.
 
 Checks:
 
-- Re-assert all DocBlocks added/updated for this plan include `kind` and `visibility` using allowed values (kind: goal/how/usage/reference/faq; visibility: public/internal/mixed).
-- Confirm PLAN_VNEXT documentation items (docs quickstarts + BlockNote support) are present in codebase and registered via `registerDocBlocks` with stable routes.
-- Ensure doc content is spec-first, includes purpose/steps/guardrails, and avoids PII/secrets.
+- Re-assert every DocBlock touched in this plan has valid `kind` and `visibility` values.
+- Confirm plan deliverables are complete: code, tests, observability, and documentation updates.
+- Confirm quality gates are run (types, lint, tests, build) or explicitly documented as deferred.
+- Confirm unresolved risks or follow-ups are listed with clear ownership.
 
 Actions:
 
-- If any DocBlock is missing `kind`/`visibility` or uses invalid values, fix before closing the plan.
-- If PLAN_VNEXT doc items or BlockNote support are missing, add/fix before closing the plan.
+- If any required check fails, fix it or document an explicit blocker before marking the plan as done.
+- Do not close the plan if behavior changed but docs/spec references were not synchronized.

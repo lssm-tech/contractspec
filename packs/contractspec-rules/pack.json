@@ -1,13 +1,25 @@
 {
   "name": "contractspec-rules",
-  "version": "1.0.0",
-  "description": "ContractSpec specification governance, AI agent policy, and documentation workflow rules.",
+  "version": "1.1.0",
+  "description": "ContractSpec governance for spec-first delivery, AI policy, lifecycle orchestration, and documentation discipline.",
+  "author": {
+    "name": "ContractSpec Team",
+    "email": "tboutron@lssm.co"
+  },
+  "homepage": "https://contractspec.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec"
+  },
+  "license": "MIT",
   "tags": [
     "contractspec",
     "governance",
     "spec-first",
     "ai-policy",
-    "documentation"
+    "documentation",
+    "cursor",
+    "lifecycle"
   ],
   "dependencies": [],
   "conflicts": [],

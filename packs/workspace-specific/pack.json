@@ -1,8 +1,25 @@
 {
   "name": "workspace-specific",
-  "version": "1.0.0",
-  "description": "Workspace context, architecture, and product-specific guidance for ContractSpec contributors.",
-  "tags": ["workspace", "contractspec", "architecture", "product-context"],
+  "version": "1.1.0",
+  "description": "Workspace context, product architecture, and Cursor-ready ideation guidance for ContractSpec contributors.",
+  "author": {
+    "name": "ContractSpec Team",
+    "email": "tboutron@lssm.co"
+  },
+  "homepage": "https://contractspec.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec"
+  },
+  "license": "MIT",
+  "tags": [
+    "workspace",
+    "contractspec",
+    "architecture",
+    "product-context",
+    "cursor",
+    "ideation"
+  ],
   "dependencies": [],
   "conflicts": [],
   "targets": ["*"],

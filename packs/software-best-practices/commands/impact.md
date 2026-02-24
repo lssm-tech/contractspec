@@ -1,0 +1,62 @@
+---
+description: Assess change impact across contracts, code surfaces, and downstream consumers
+targets: ['*']
+---
+
+args = $ARGUMENTS
+
+Run impact analysis before implementation or before opening a PR:
+
+1. **Parse arguments**:
+   - Read `base` and `head` from `args` as `impact <base> <head>`.
+   - Defaults: `base = main`, `head = current branch`.
+
+2. **Collect candidate changes**:
+   - Use `git diff --name-only <base>...<head>` to list changed files.
+   - Group paths by surface: contracts/specs, API/backend, UI/frontend, data/events, tests, docs.
+
+3. **Identify contract-level risk**:
+   - Prioritize files under contract/spec paths and schema/types modules.
+   - Mark risk:
+     - `LOW`: additive change, docs/tests-only, internal refactor.
+     - `MEDIUM`: behavior change with same external shape.
+     - `HIGH`: breaking contract, removed/renamed fields, incompatible type change.
+
+4. **Trace downstream consumers**:
+   - For high/medium-risk contract symbols, use symbol reference search to find consumers.
+   - Include package/app ownership where obvious from path conventions.
+
+5. **Produce actionable report**:
+   - Summarize what changed, what can break, and what must be validated.
+   - Add migration notes for high-risk changes.
+   - Suggest version bump guidance (patch/minor/major) when contract compatibility changed.
+
+## Output format
+
+```md
+## Impact Analysis: <base>...<head>
+
+Changed files: <n>
+Risk level: LOW|MEDIUM|HIGH
+
+### Surface Summary
+
+- Contracts/specs: <n>
+- API/backend: <n>
+- UI/frontend: <n>
+- Data/events: <n>
+- Tests/docs: <n>
+
+### Potential Breakage
+
+1. <change> -> <affected consumer count>
+
+### Required Validation
+
+1. <test or check>
+2. <test or check>
+
+### Suggested Versioning
+
+- <package>: patch|minor|major
+```

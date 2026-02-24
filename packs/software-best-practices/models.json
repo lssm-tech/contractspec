@@ -1,0 +1,99 @@
+{
+  "default": "anthropic/claude-sonnet-4-5",
+  "small": "anthropic/claude-haiku-4-5",
+  "agents": {
+    "planner": {
+      "model": "anthropic/claude-sonnet-4-5",
+      "temperature": 0.2
+    },
+    "plan-reviewer": {
+      "model": "anthropic/claude-opus-4-5",
+      "temperature": 0.1
+    },
+    "code-reviewer": {
+      "model": "anthropic/claude-opus-4-5",
+      "temperature": 0.1
+    },
+    "security-scanner": {
+      "model": "openai/o3",
+      "temperature": 0
+    },
+    "test-writer": {
+      "model": "anthropic/claude-sonnet-4-5",
+      "temperature": 0.2
+    },
+    "documenter": {
+      "model": "anthropic/claude-sonnet-4-5",
+      "temperature": 0.3
+    },
+    "ai-auditor": {
+      "model": "openai/o3",
+      "temperature": 0
+    }
+  },
+  "profiles": {
+    "balanced": {
+      "description": "Balanced quality, latency, and cost for day-to-day delivery",
+      "default": "anthropic/claude-sonnet-4-5",
+      "small": "anthropic/claude-haiku-4-5"
+    },
+    "quality": {
+      "extends": "balanced",
+      "description": "Maximum reasoning quality for architecture, review, and security work",
+      "default": "anthropic/claude-opus-4-5",
+      "small": "anthropic/claude-sonnet-4-5"
+    },
+    "fast": {
+      "description": "Low-latency profile for quick triage and lightweight edits",
+      "default": "anthropic/claude-haiku-4-5",
+      "small": "anthropic/claude-haiku-4-5"
+    },
+    "cursor-demo": {
+      "description": "Demo-ready profile for Cursor workshops and marketplace previews",
+      "default": "anthropic/claude-sonnet-4-5",
+      "small": "anthropic/claude-haiku-4-5"
+    }
+  },
+  "routing": [
+    {
+      "when": {
+        "complexity": "high",
+        "urgency": "normal"
+      },
+      "use": "quality",
+      "description": "Deep architecture and review work"
+    },
+    {
+      "when": {
+        "complexity": "low",
+        "urgency": "high"
+      },
+      "use": "fast",
+      "description": "Rapid triage and small edits"
+    },
+    {
+      "when": {
+        "budget": "minimal"
+      },
+      "use": "fast",
+      "description": "Low-cost routing"
+    },
+    {
+      "when": {
+        "toolUseIntensity": "heavy"
+      },
+      "use": "quality",
+      "description": "Complex multi-tool orchestration"
+    }
+  ],
+  "overrides": {
+    "cursor": {
+      "default": "anthropic/claude-sonnet-4-5",
+      "small": "anthropic/claude-haiku-4-5"
+    },
+    "opencode": {
+      "default": "anthropic/claude-sonnet-4-5",
+      "small": "anthropic/claude-haiku-4-5"
+    }
+  }
+}

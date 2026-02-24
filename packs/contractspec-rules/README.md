@@ -5,6 +5,7 @@ This pack contains ContractSpec-specific governance for specification-first deli
 ## Scope
 
 - Rules that define ContractSpec process guardrails for contracts, planning, completion, docs, and AI governance.
+- Lifecycle governance that keeps ideation -> planning -> shipping -> QA -> observability -> documentation coherent.
 - Commands and agents for AI audit and implementation planning workflows.
 - Skill support for creating new ContractSpec specifications.
 - MCP integrations for ContractSpec internal, docs, and CLI services.

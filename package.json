@@ -60,6 +60,7 @@
     "agentpacks:copilot": "bun packages/tools/agentpacks/src/index.ts generate --targets copilot --features \"*\"",
     "agentpacks:validate": "bun packages/tools/agentpacks/src/index.ts pack validate",
     "agentpacks:diff": "bun packages/tools/agentpacks/src/index.ts generate --diff",
+    "agentpacks:cursor-plugin": "bun packages/tools/agentpacks/src/index.ts export --format cursor-plugin --output dist/cursor-plugins",
     "release:version:canary": "node scripts/prepare-dependent-bumps.js && bun changeset version --snapshot canary --verbose && bun update",
     "release:version": "node scripts/prepare-dependent-bumps.js && changeset version --verbose && bun update",
     "release:publish": "node scripts/publish-packages.js",

@@ -9,7 +9,8 @@ We embrace AI agents (like Cursor, Claude, Windsurf) as first-class contributors
 - **Context is King**: We maintain `AGENTS.md` - **READ THIS FILE FIRST**. It contains the definitive map of the repository, architecture rules, and dependency flows.
 - **Agent Configuration Sync**: We use [`agentpacks`](packages/tools/agentpacks/README.md) to generate agent configurations.
   - **Do not edit generated tool files directly** (`AGENTS.md`, `.claude/`, `.github/copilot/`, `.gemini/`, etc.).
-  - Edit pack sources in `packs/workspace-specific`, `packs/software-best-practices`, and `packs/contractspec-rules`.
+  - Edit canonical pack sources in `packs/workspace-specific`, `packs/software-best-practices`, and `packs/contractspec-rules`.
+  - Treat `packs/vibecoding-*` as imported reference material unless explicitly enabled.
   - Run `bun run agentpacks:all` to regenerate all targets.
 - **Validation**: We rely on `contractspec ci` to enforce rules, rather than human nitpicking.
 

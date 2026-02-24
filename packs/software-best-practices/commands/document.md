@@ -1,0 +1,26 @@
+---
+description: 'Update documentation in lockstep with implementation changes'
+targets: ['*']
+---
+
+scope = $ARGUMENTS
+
+Invoke the `documenter` subagent to synchronize docs after implementation:
+
+1. **Determine scope**:
+   - Use `scope` if provided.
+   - Otherwise focus on changed files and affected public behavior.
+
+2. **Documentation targets**:
+   - DocBlocks close to changed code.
+   - Public API JSDoc where signatures/behavior changed.
+   - Module/package README updates when usage changed.
+
+3. **Quality checks**:
+   - Keep docs behavior-accurate and concise.
+   - Mark roadmap/future behavior clearly vs current behavior.
+   - Ensure examples remain valid.
+
+4. **Report result**:
+   - List files updated.
+   - List unresolved doc gaps requiring follow-up.
