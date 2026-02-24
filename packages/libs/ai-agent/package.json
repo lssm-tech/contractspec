@@ -144,6 +144,7 @@
     "./tools/index": "./src/tools/index.ts",
     "./tools/knowledge-tool": "./src/tools/knowledge-tool.ts",
     "./tools/mcp-client": "./src/tools/mcp-client.ts",
+    "./tools/mcp-client-helpers": "./src/tools/mcp-client-helpers.ts",
     "./tools/mcp-server": "./src/tools/mcp-server.ts",
     "./tools/tool-adapter": "./src/tools/tool-adapter.ts",
     "./types": "./src/types.ts"
@@ -576,6 +577,12 @@
         "bun": "./dist/tools/mcp-client.js",
         "node": "./dist/node/tools/mcp-client.js",
         "default": "./dist/tools/mcp-client.js"
+      },
+      "./tools/mcp-client-helpers": {
+        "types": "./dist/tools/mcp-client-helpers.d.ts",
+        "bun": "./dist/tools/mcp-client-helpers.js",
+        "node": "./dist/node/tools/mcp-client-helpers.js",
+        "default": "./dist/tools/mcp-client-helpers.js"
       },
       "./tools/mcp-server": {
         "types": "./dist/tools/mcp-server.d.ts",

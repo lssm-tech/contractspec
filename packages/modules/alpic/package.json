@@ -34,7 +34,6 @@
     "@contractspec/lib.logger": "workspace:*",
     "@modelcontextprotocol/sdk": "^1.27.0",
     "elysia": "^1.4.25",
-    "elysia-mcp": "^0.1.0",
     "zod": "catalog:"
   },
   "devDependencies": {
@@ -52,7 +51,6 @@
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       }
     },

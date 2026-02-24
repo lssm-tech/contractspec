@@ -6,7 +6,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  transpilePackages: ['elysia-mcp', '@contractspec/bundle.library'],
+  transpilePackages: ['@contractspec/bundle.library'],
 
   // Configure Turbopack to handle sql.js properly
   turbopack: {

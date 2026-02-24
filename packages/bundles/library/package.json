@@ -381,7 +381,6 @@
     "@scaleway/sdk": "^3.2.1",
     "@scaleway/sdk-client": "^2.1.0",
     "drizzle-orm": "^0.45.1",
-    "elysia-mcp": "^0.1.0",
     "framer-motion": "^12.34.3",
     "lucide-react": "^0.575.0",
     "posthog-js": "^1.353.0",

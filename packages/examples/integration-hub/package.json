@@ -61,6 +61,8 @@
     "./integration/integration.operations": "./src/integration/integration.operations.ts",
     "./integration/integration.presentation": "./src/integration/integration.presentation.ts",
     "./integration/integration.schema": "./src/integration/integration.schema.ts",
+    "./mcp-example": "./src/mcp-example.ts",
+    "./run-mcp": "./src/run-mcp.ts",
     "./seeders": "./src/seeders/index.ts",
     "./seeders/index": "./src/seeders/index.ts",
     "./sync": "./src/sync/index.ts",
@@ -93,301 +95,270 @@
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./connection": {
         "types": "./dist/connection/index.d.ts",
         "bun": "./dist/connection/index.js",
         "node": "./dist/node/connection/index.js",
-        "browser": "./dist/browser/connection/index.js",
         "default": "./dist/connection/index.js"
       },
       "./connection/connection.enum": {
         "types": "./dist/connection/connection.enum.d.ts",
         "bun": "./dist/connection/connection.enum.js",
         "node": "./dist/node/connection/connection.enum.js",
-        "browser": "./dist/browser/connection/connection.enum.js",
         "default": "./dist/connection/connection.enum.js"
       },
       "./connection/connection.operation": {
         "types": "./dist/connection/connection.operation.d.ts",
         "bun": "./dist/connection/connection.operation.js",
         "node": "./dist/node/connection/connection.operation.js",
-        "browser": "./dist/browser/connection/connection.operation.js",
         "default": "./dist/connection/connection.operation.js"
       },
       "./connection/connection.presentation": {
         "types": "./dist/connection/connection.presentation.d.ts",
         "bun": "./dist/connection/connection.presentation.js",
         "node": "./dist/node/connection/connection.presentation.js",
-        "browser": "./dist/browser/connection/connection.presentation.js",
         "default": "./dist/connection/connection.presentation.js"
       },
       "./connection/connection.schema": {
         "types": "./dist/connection/connection.schema.d.ts",
         "bun": "./dist/connection/connection.schema.js",
         "node": "./dist/node/connection/connection.schema.js",
-        "browser": "./dist/browser/connection/connection.schema.js",
         "default": "./dist/connection/connection.schema.js"
       },
       "./connection/index": {
         "types": "./dist/connection/index.d.ts",
         "bun": "./dist/connection/index.js",
         "node": "./dist/node/connection/index.js",
-        "browser": "./dist/browser/connection/index.js",
         "default": "./dist/connection/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
         "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
         "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/integration-hub.docblock": {
         "types": "./dist/docs/integration-hub.docblock.d.ts",
         "bun": "./dist/docs/integration-hub.docblock.js",
         "node": "./dist/node/docs/integration-hub.docblock.js",
-        "browser": "./dist/browser/docs/integration-hub.docblock.js",
         "default": "./dist/docs/integration-hub.docblock.js"
       },
       "./events": {
         "types": "./dist/events.d.ts",
         "bun": "./dist/events.js",
         "node": "./dist/node/events.js",
-        "browser": "./dist/browser/events.js",
         "default": "./dist/events.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
         "bun": "./dist/example.js",
         "node": "./dist/node/example.js",
-        "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./handlers": {
         "types": "./dist/handlers/index.d.ts",
         "bun": "./dist/handlers/index.js",
         "node": "./dist/node/handlers/index.js",
-        "browser": "./dist/browser/handlers/index.js",
         "default": "./dist/handlers/index.js"
       },
       "./handlers/index": {
         "types": "./dist/handlers/index.d.ts",
         "bun": "./dist/handlers/index.js",
         "node": "./dist/node/handlers/index.js",
-        "browser": "./dist/browser/handlers/index.js",
         "default": "./dist/handlers/index.js"
       },
       "./handlers/integration.handlers": {
         "types": "./dist/handlers/integration.handlers.d.ts",
         "bun": "./dist/handlers/integration.handlers.js",
         "node": "./dist/node/handlers/integration.handlers.js",
-        "browser": "./dist/browser/handlers/integration.handlers.js",
         "default": "./dist/handlers/integration.handlers.js"
       },
       "./integration": {
         "types": "./dist/integration/index.d.ts",
         "bun": "./dist/integration/index.js",
         "node": "./dist/node/integration/index.js",
-        "browser": "./dist/browser/integration/index.js",
         "default": "./dist/integration/index.js"
       },
       "./integration-hub.capability": {
         "types": "./dist/integration-hub.capability.d.ts",
         "bun": "./dist/integration-hub.capability.js",
         "node": "./dist/node/integration-hub.capability.js",
-        "browser": "./dist/browser/integration-hub.capability.js",
         "default": "./dist/integration-hub.capability.js"
       },
       "./integration-hub.feature": {
         "types": "./dist/integration-hub.feature.d.ts",
         "bun": "./dist/integration-hub.feature.js",
         "node": "./dist/node/integration-hub.feature.js",
-        "browser": "./dist/browser/integration-hub.feature.js",
         "default": "./dist/integration-hub.feature.js"
       },
       "./integration/index": {
         "types": "./dist/integration/index.d.ts",
         "bun": "./dist/integration/index.js",
         "node": "./dist/node/integration/index.js",
-        "browser": "./dist/browser/integration/index.js",
         "default": "./dist/integration/index.js"
       },
       "./integration/integration.enum": {
         "types": "./dist/integration/integration.enum.d.ts",
         "bun": "./dist/integration/integration.enum.js",
         "node": "./dist/node/integration/integration.enum.js",
-        "browser": "./dist/browser/integration/integration.enum.js",
         "default": "./dist/integration/integration.enum.js"
       },
       "./integration/integration.operations": {
         "types": "./dist/integration/integration.operations.d.ts",
         "bun": "./dist/integration/integration.operations.js",
         "node": "./dist/node/integration/integration.operations.js",
-        "browser": "./dist/browser/integration/integration.operations.js",
         "default": "./dist/integration/integration.operations.js"
       },
       "./integration/integration.presentation": {
         "types": "./dist/integration/integration.presentation.d.ts",
         "bun": "./dist/integration/integration.presentation.js",
         "node": "./dist/node/integration/integration.presentation.js",
-        "browser": "./dist/browser/integration/integration.presentation.js",
         "default": "./dist/integration/integration.presentation.js"
       },
       "./integration/integration.schema": {
         "types": "./dist/integration/integration.schema.d.ts",
         "bun": "./dist/integration/integration.schema.js",
         "node": "./dist/node/integration/integration.schema.js",
-        "browser": "./dist/browser/integration/integration.schema.js",
         "default": "./dist/integration/integration.schema.js"
+      },
+      "./mcp-example": {
+        "types": "./dist/mcp-example.d.ts",
+        "bun": "./dist/mcp-example.js",
+        "node": "./dist/node/mcp-example.js",
+        "default": "./dist/mcp-example.js"
+      },
+      "./run-mcp": {
+        "types": "./dist/run-mcp.d.ts",
+        "bun": "./dist/run-mcp.js",
+        "node": "./dist/node/run-mcp.js",
+        "default": "./dist/run-mcp.js"
       },
       "./seeders": {
         "types": "./dist/seeders/index.d.ts",
         "bun": "./dist/seeders/index.js",
         "node": "./dist/node/seeders/index.js",
-        "browser": "./dist/browser/seeders/index.js",
         "default": "./dist/seeders/index.js"
       },
       "./seeders/index": {
         "types": "./dist/seeders/index.d.ts",
         "bun": "./dist/seeders/index.js",
         "node": "./dist/node/seeders/index.js",
-        "browser": "./dist/browser/seeders/index.js",
         "default": "./dist/seeders/index.js"
       },
       "./sync": {
         "types": "./dist/sync/index.d.ts",
         "bun": "./dist/sync/index.js",
         "node": "./dist/node/sync/index.js",
-        "browser": "./dist/browser/sync/index.js",
         "default": "./dist/sync/index.js"
       },
       "./sync-engine": {
         "types": "./dist/sync-engine/index.d.ts",
         "bun": "./dist/sync-engine/index.js",
         "node": "./dist/node/sync-engine/index.js",
-        "browser": "./dist/browser/sync-engine/index.js",
         "default": "./dist/sync-engine/index.js"
       },
       "./sync-engine/index": {
         "types": "./dist/sync-engine/index.d.ts",
         "bun": "./dist/sync-engine/index.js",
         "node": "./dist/node/sync-engine/index.js",
-        "browser": "./dist/browser/sync-engine/index.js",
         "default": "./dist/sync-engine/index.js"
       },
       "./sync/index": {
         "types": "./dist/sync/index.d.ts",
         "bun": "./dist/sync/index.js",
         "node": "./dist/node/sync/index.js",
-        "browser": "./dist/browser/sync/index.js",
         "default": "./dist/sync/index.js"
       },
       "./sync/sync.enum": {
         "types": "./dist/sync/sync.enum.d.ts",
         "bun": "./dist/sync/sync.enum.js",
         "node": "./dist/node/sync/sync.enum.js",
-        "browser": "./dist/browser/sync/sync.enum.js",
         "default": "./dist/sync/sync.enum.js"
       },
       "./sync/sync.operations": {
         "types": "./dist/sync/sync.operations.d.ts",
         "bun": "./dist/sync/sync.operations.js",
         "node": "./dist/node/sync/sync.operations.js",
-        "browser": "./dist/browser/sync/sync.operations.js",
         "default": "./dist/sync/sync.operations.js"
       },
       "./sync/sync.presentation": {
         "types": "./dist/sync/sync.presentation.d.ts",
         "bun": "./dist/sync/sync.presentation.js",
         "node": "./dist/node/sync/sync.presentation.js",
-        "browser": "./dist/browser/sync/sync.presentation.js",
         "default": "./dist/sync/sync.presentation.js"
       },
       "./sync/sync.schema": {
         "types": "./dist/sync/sync.schema.d.ts",
         "bun": "./dist/sync/sync.schema.js",
         "node": "./dist/node/sync/sync.schema.js",
-        "browser": "./dist/browser/sync/sync.schema.js",
         "default": "./dist/sync/sync.schema.js"
       },
       "./tests/operations.test-spec": {
         "types": "./dist/tests/operations.test-spec.d.ts",
         "bun": "./dist/tests/operations.test-spec.js",
         "node": "./dist/node/tests/operations.test-spec.js",
-        "browser": "./dist/browser/tests/operations.test-spec.js",
         "default": "./dist/tests/operations.test-spec.js"
       },
       "./ui": {
         "types": "./dist/ui/index.d.ts",
         "bun": "./dist/ui/index.js",
         "node": "./dist/node/ui/index.js",
-        "browser": "./dist/browser/ui/index.js",
         "default": "./dist/ui/index.js"
       },
       "./ui/hooks": {
         "types": "./dist/ui/hooks/index.d.ts",
         "bun": "./dist/ui/hooks/index.js",
         "node": "./dist/node/ui/hooks/index.js",
-        "browser": "./dist/browser/ui/hooks/index.js",
         "default": "./dist/ui/hooks/index.js"
       },
       "./ui/hooks/index": {
         "types": "./dist/ui/hooks/index.d.ts",
         "bun": "./dist/ui/hooks/index.js",
         "node": "./dist/node/ui/hooks/index.js",
-        "browser": "./dist/browser/ui/hooks/index.js",
         "default": "./dist/ui/hooks/index.js"
       },
       "./ui/hooks/useIntegrationData": {
         "types": "./dist/ui/hooks/useIntegrationData.d.ts",
         "bun": "./dist/ui/hooks/useIntegrationData.js",
         "node": "./dist/node/ui/hooks/useIntegrationData.js",
-        "browser": "./dist/browser/ui/hooks/useIntegrationData.js",
         "default": "./dist/ui/hooks/useIntegrationData.js"
       },
       "./ui/index": {
         "types": "./dist/ui/index.d.ts",
         "bun": "./dist/ui/index.js",
         "node": "./dist/node/ui/index.js",
-        "browser": "./dist/browser/ui/index.js",
         "default": "./dist/ui/index.js"
       },
       "./ui/IntegrationDashboard": {
         "types": "./dist/ui/IntegrationDashboard.d.ts",
         "bun": "./dist/ui/IntegrationDashboard.js",
         "node": "./dist/node/ui/IntegrationDashboard.js",
-        "browser": "./dist/browser/ui/IntegrationDashboard.js",
         "default": "./dist/ui/IntegrationDashboard.js"
       },
       "./ui/renderers": {
         "types": "./dist/ui/renderers/index.d.ts",
         "bun": "./dist/ui/renderers/index.js",
         "node": "./dist/node/ui/renderers/index.js",
-        "browser": "./dist/browser/ui/renderers/index.js",
         "default": "./dist/ui/renderers/index.js"
       },
       "./ui/renderers/index": {
         "types": "./dist/ui/renderers/index.d.ts",
         "bun": "./dist/ui/renderers/index.js",
         "node": "./dist/node/ui/renderers/index.js",
-        "browser": "./dist/browser/ui/renderers/index.js",
         "default": "./dist/ui/renderers/index.js"
       },
       "./ui/renderers/integration.markdown": {
         "types": "./dist/ui/renderers/integration.markdown.d.ts",
         "bun": "./dist/ui/renderers/integration.markdown.js",
         "node": "./dist/node/ui/renderers/integration.markdown.js",
-        "browser": "./dist/browser/ui/renderers/integration.markdown.js",
         "default": "./dist/ui/renderers/integration.markdown.js"
       }
     },
