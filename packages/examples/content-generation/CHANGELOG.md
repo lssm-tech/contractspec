@@ -1,5 +1,18 @@
 # @contractspec/example.content-generation
 
+## 2.7.0
+
+### Minor Changes
+
+- chore: release improvements
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.content-gen@2.7.0
+  - @contractspec/lib.contracts-spec@2.7.0
+  - @contractspec/lib.logger@2.7.0
+
 ## 2.6.0
 
 ### Minor Changes

@@ -1,5 +1,18 @@
 # @contractspec/example.video-marketing-clip
 
+## 2.7.0
+
+### Minor Changes
+
+- chore: release improvements
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.content-gen@2.7.0
+  - @contractspec/lib.contracts-spec@2.7.0
+  - @contractspec/lib.video-gen@1.48.0
+
 ## 2.6.1
 
 ### Patch Changes

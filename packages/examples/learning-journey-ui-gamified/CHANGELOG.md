@@ -1,5 +1,22 @@
 # @contractspec/example.learning-journey-ui-gamified
 
+## 2.7.0
+
+### Minor Changes
+
+- chore: release improvements
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/example.learning-journey-duo-drills@2.7.0
+  - @contractspec/example.learning-journey-quest-challenges@2.7.0
+  - @contractspec/example.learning-journey-ui-shared@2.7.0
+  - @contractspec/lib.contracts-spec@2.7.0
+  - @contractspec/lib.design-system@2.7.0
+  - @contractspec/lib.ui-kit-web@2.7.0
+  - @contractspec/module.learning-journey@2.7.0
+
 ## 2.6.1
 
 ### Patch Changes

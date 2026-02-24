@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 1.7.0
+
+### Minor Changes
+
+- chore: release improvements
+
 ## 1.6.0
 
 ### Minor Changes

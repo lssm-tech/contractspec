@@ -2,6 +2,13 @@ import fs from 'fs';
 import path from 'path';
 
 const MONOREPO_ROOT = path.resolve(process.cwd(), '../../..');
+const CHANGELOG_GLOB = path.join(
+  MONOREPO_ROOT,
+  'packages',
+  '*',
+  '*',
+  'CHANGELOG.md'
+);
 
 export interface ChangelogEntry {
   version: string;
@@ -21,45 +28,12 @@ interface RawDetail {
   changes: string[];
 }
 
-// Scan workspace package folders for changelogs.
-function findChangelogs(packagesDir: string): string[] {
-  if (!fs.existsSync(packagesDir)) return [];
-
-  const results: string[] = [];
-  const scopeDirs = fs.readdirSync(packagesDir, { withFileTypes: true });
-
-  for (const scopeDir of scopeDirs) {
-    if (!scopeDir.isDirectory()) continue;
-
-    const scopePath = path.join(packagesDir, scopeDir.name);
-    const packageDirs = fs.readdirSync(scopePath, { withFileTypes: true });
-
-    for (const packageDir of packageDirs) {
-      if (!packageDir.isDirectory()) continue;
-
-      const changelogPath = path.join(
-        scopePath,
-        packageDir.name,
-        'CHANGELOG.md'
-      );
-
-      if (fs.existsSync(changelogPath)) {
-        results.push(changelogPath);
-      }
-    }
-  }
-
-  return results;
+function findChangelogs(): string[] {
+  return fs.globSync(CHANGELOG_GLOB);
 }
 
 export async function getAggregatedChangelog(): Promise<ChangelogEntry[]> {
-  const packagesDir = path.join(MONOREPO_ROOT, 'packages');
-
-  if (!fs.existsSync(packagesDir)) {
-    return [];
-  }
-
-  const files = findChangelogs(packagesDir);
+  const files = findChangelogs();
 
   const allDetails: RawDetail[] = [];
 

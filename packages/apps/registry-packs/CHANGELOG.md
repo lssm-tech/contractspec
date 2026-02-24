@@ -1,5 +1,11 @@
 # @contractspec/app.registry-packs
 
+## 0.4.0
+
+### Minor Changes
+
+- chore: release improvements
+
 ## 0.3.0
 
 ### Minor Changes

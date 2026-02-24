@@ -1,5 +1,23 @@
 # @contractspec/bundle.workspace
 
+## 2.7.0
+
+### Minor Changes
+
+- chore: release improvements
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.ai-agent@2.7.0
+  - @contractspec/lib.ai-providers@2.7.0
+  - @contractspec/lib.contracts-integrations@2.7.0
+  - @contractspec/lib.contracts-spec@2.7.0
+  - @contractspec/lib.contracts-transformers@2.7.0
+  - @contractspec/lib.source-extractors@1.7.0
+  - @contractspec/lib.utils-typescript@2.7.0
+  - @contractspec/module.workspace@2.7.0
+
 ## 2.6.0
 
 ### Minor Changes

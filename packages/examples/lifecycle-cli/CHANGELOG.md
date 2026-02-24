@@ -1,5 +1,19 @@
 # @contractspec/example.lifecycle-cli
 
+## 2.7.0
+
+### Minor Changes
+
+- chore: release improvements
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/bundle.lifecycle-managed@2.7.0
+  - @contractspec/lib.contracts-spec@2.7.0
+  - @contractspec/lib.lifecycle@2.7.0
+  - @contractspec/lib.logger@2.7.0
+
 ## 2.6.0
 
 ### Minor Changes

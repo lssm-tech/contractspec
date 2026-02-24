@@ -1,5 +1,20 @@
 # @contractspec/example.wealth-snapshot
 
+## 2.7.0
+
+### Minor Changes
+
+- chore: release improvements
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.7.0
+  - @contractspec/lib.identity-rbac@2.7.0
+  - @contractspec/lib.schema@2.7.0
+  - @contractspec/module.audit-trail@2.7.0
+  - @contractspec/module.notifications@2.7.0
+
 ## 2.6.0
 
 ### Minor Changes

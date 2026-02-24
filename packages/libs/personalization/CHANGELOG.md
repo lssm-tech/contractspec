@@ -1,5 +1,20 @@
 # @contractspec/lib.personalization
 
+## 2.7.0
+
+### Minor Changes
+
+- chore: release improvements
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.bus@2.7.0
+  - @contractspec/lib.contracts-spec@2.7.0
+  - @contractspec/lib.knowledge@2.7.0
+  - @contractspec/lib.overlay-engine@2.7.0
+  - @contractspec/lib.schema@2.7.0
+
 ## 2.6.0
 
 ### Minor Changes

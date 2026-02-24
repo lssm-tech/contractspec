@@ -1,5 +1,21 @@
 # @contractspec/lib.video-gen
 
+## 1.48.0
+
+### Minor Changes
+
+- chore: release improvements
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.content-gen@2.7.0
+  - @contractspec/lib.contracts-integrations@2.7.0
+  - @contractspec/lib.contracts-spec@2.7.0
+  - @contractspec/lib.design-system@2.7.0
+  - @contractspec/lib.image-gen@0.4.0
+  - @contractspec/lib.voice@0.4.0
+
 ## 1.47.1
 
 ### Patch Changes

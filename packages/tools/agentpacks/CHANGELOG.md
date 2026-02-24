@@ -1,5 +1,11 @@
 # agentpacks
 
+## 0.7.0
+
+### Minor Changes
+
+- chore: release improvements
+
 ## 0.6.0
 
 ### Minor Changes

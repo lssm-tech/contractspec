@@ -1,5 +1,17 @@
 # @contractspec/example.in-app-docs
 
+## 2.7.0
+
+### Minor Changes
+
+- chore: release improvements
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.7.0
+  - @contractspec/lib.example-shared-ui@2.7.0
+
 ## 2.6.1
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 24.0.0
+
+### Minor Changes
+
+- chore: release improvements
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@2.7.0
+  - @contractspec/lib.ui-kit@2.7.0
+
 ## 23.0.0
 
 ### Minor Changes

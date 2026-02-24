@@ -1,5 +1,20 @@
 # @contractspec/example.product-intent
 
+## 2.7.0
+
+### Minor Changes
+
+- chore: release improvements
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/integration.providers-impls@2.7.0
+  - @contractspec/lib.ai-agent@2.7.0
+  - @contractspec/lib.contracts-integrations@2.7.0
+  - @contractspec/lib.contracts-spec@2.7.0
+  - @contractspec/lib.product-intent-utils@2.7.0
+
 ## 2.6.0
 
 ### Minor Changes

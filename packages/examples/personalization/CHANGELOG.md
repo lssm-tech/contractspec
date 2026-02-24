@@ -1,5 +1,20 @@
 # @contractspec/example.personalization
 
+## 2.7.0
+
+### Minor Changes
+
+- chore: release improvements
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.7.0
+  - @contractspec/lib.logger@2.7.0
+  - @contractspec/lib.overlay-engine@2.7.0
+  - @contractspec/lib.personalization@2.7.0
+  - @contractspec/lib.workflow-composer@2.7.0
+
 ## 2.6.0
 
 ### Minor Changes

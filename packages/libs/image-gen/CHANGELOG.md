@@ -1,5 +1,18 @@
 # @contractspec/lib.image-gen
 
+## 0.4.0
+
+### Minor Changes
+
+- chore: release improvements
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.content-gen@2.7.0
+  - @contractspec/lib.contracts-integrations@2.7.0
+  - @contractspec/lib.contracts-spec@2.7.0
+
 ## 0.3.0
 
 ### Minor Changes

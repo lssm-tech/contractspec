@@ -1,5 +1,16 @@
 # @contractspec/lib.progressive-delivery
 
+## 24.0.0
+
+### Minor Changes
+
+- chore: release improvements
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.observability@2.7.0
+
 ## 23.0.0
 
 ### Minor Changes

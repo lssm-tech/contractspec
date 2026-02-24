@@ -1,5 +1,11 @@
 # @contractspec/lib.schema
 
+## 2.7.0
+
+### Minor Changes
+
+- chore: release improvements
+
 ## 2.6.0
 
 ### Minor Changes

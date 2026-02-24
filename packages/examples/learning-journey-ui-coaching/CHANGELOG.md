@@ -1,5 +1,22 @@
 # @contractspec/example.learning-journey-ui-coaching
 
+## 2.7.0
+
+### Minor Changes
+
+- chore: release improvements
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/example.learning-journey-ambient-coach@2.7.0
+  - @contractspec/example.learning-journey-crm-onboarding@2.7.0
+  - @contractspec/example.learning-journey-ui-shared@2.7.0
+  - @contractspec/lib.contracts-spec@2.7.0
+  - @contractspec/lib.design-system@2.7.0
+  - @contractspec/lib.ui-kit-web@2.7.0
+  - @contractspec/module.learning-journey@2.7.0
+
 ## 2.6.1
 
 ### Patch Changes

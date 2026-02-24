@@ -1,5 +1,53 @@
 # @contractspec/module.examples
 
+## 2.7.0
+
+### Minor Changes
+
+- chore: release improvements
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/example.agent-console@2.7.0
+  - @contractspec/example.ai-support-bot@2.7.0
+  - @contractspec/example.analytics-dashboard@2.7.0
+  - @contractspec/example.content-generation@2.7.0
+  - @contractspec/example.crm-pipeline@2.7.0
+  - @contractspec/example.integration-hub@2.7.0
+  - @contractspec/example.integration-stripe@2.7.0
+  - @contractspec/example.kb-update-pipeline@2.7.0
+  - @contractspec/example.knowledge-canon@2.7.0
+  - @contractspec/example.learning-journey-ambient-coach@2.7.0
+  - @contractspec/example.learning-journey-crm-onboarding@2.7.0
+  - @contractspec/example.learning-journey-duo-drills@2.7.0
+  - @contractspec/example.learning-journey-platform-tour@2.7.0
+  - @contractspec/example.learning-journey-quest-challenges@2.7.0
+  - @contractspec/example.learning-journey-registry@2.7.0
+  - @contractspec/example.learning-journey-studio-onboarding@2.7.0
+  - @contractspec/example.learning-journey-ui-coaching@2.7.0
+  - @contractspec/example.learning-journey-ui-gamified@2.7.0
+  - @contractspec/example.learning-journey-ui-onboarding@2.7.0
+  - @contractspec/example.learning-journey-ui-shared@2.7.0
+  - @contractspec/example.learning-patterns@2.7.0
+  - @contractspec/example.lifecycle-cli@2.7.0
+  - @contractspec/example.lifecycle-dashboard@2.7.0
+  - @contractspec/example.locale-jurisdiction-gate@2.7.0
+  - @contractspec/example.marketplace@2.7.0
+  - @contractspec/example.openbanking-powens@2.7.0
+  - @contractspec/example.personalization@2.7.0
+  - @contractspec/example.policy-safe-knowledge-assistant@2.7.0
+  - @contractspec/example.saas-boilerplate@2.7.0
+  - @contractspec/example.service-business-os@2.7.0
+  - @contractspec/example.team-hub@2.7.0
+  - @contractspec/example.versioned-knowledge-base@2.7.0
+  - @contractspec/example.voice-providers@2.7.0
+  - @contractspec/example.wealth-snapshot@2.7.0
+  - @contractspec/example.workflow-system@2.7.0
+  - @contractspec/lib.contracts-spec@2.7.0
+  - @contractspec/lib.example-shared-ui@2.7.0
+  - @contractspec/lib.runtime-sandbox@1.7.0
+
 ## 2.6.1
 
 ### Patch Changes

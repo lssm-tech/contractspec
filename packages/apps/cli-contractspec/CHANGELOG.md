@@ -1,5 +1,27 @@
 # Changelog
 
+## 2.7.0
+
+### Minor Changes
+
+- chore: release improvements
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/bundle.workspace@2.7.0
+  - @contractspec/lib.ai-agent@2.7.0
+  - @contractspec/lib.ai-providers@2.7.0
+  - @contractspec/lib.contracts-integrations@2.7.0
+  - @contractspec/lib.contracts-spec@2.7.0
+  - @contractspec/lib.contracts-transformers@2.7.0
+  - @contractspec/lib.plugins@2.7.0
+  - @contractspec/lib.schema@2.7.0
+  - @contractspec/lib.testing@2.7.0
+  - @contractspec/module.ai-chat@2.7.0
+  - @contractspec/module.examples@2.7.0
+  - @contractspec/module.workspace@2.7.0
+
 ## 2.6.1
 
 ### Patch Changes

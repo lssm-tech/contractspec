@@ -1,5 +1,17 @@
 # @contractspec/integration.example-generator
 
+## 23.0.0
+
+### Minor Changes
+
+- chore: release improvements
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.7.0
+  - @contractspec/lib.schema@2.7.0
+
 ## 22.0.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # @contractspec/lib.ui-kit-web
 
+## 2.7.0
+
+### Minor Changes
+
+- chore: release improvements
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.ui-kit-core@2.7.0
+
 ## 2.6.0
 
 ### Minor Changes
