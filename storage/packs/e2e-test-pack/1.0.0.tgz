@@ -1,0 +1,1 @@
+{"name":"e2e-test-pack","version":"1.0.0","description":"End-to-end test pack","rules":[{"name":"test-rule","content":"Always write tests."}]}
