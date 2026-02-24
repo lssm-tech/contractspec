@@ -67,6 +67,15 @@ export const PackManifestSchema = z.object({
       z.object({ name: z.string(), email: z.string().optional() }),
     ])
     .optional(),
+  homepage: z.string().optional(),
+  repository: z
+    .union([
+      z.string(),
+      z.object({ url: z.string(), type: z.string().optional() }),
+    ])
+    .optional(),
+  license: z.string().optional(),
+  logo: z.string().optional(),
   tags: z.array(z.string()).default([]),
   dependencies: z.array(z.string()).default([]),
   conflicts: z.array(z.string()).default([]),

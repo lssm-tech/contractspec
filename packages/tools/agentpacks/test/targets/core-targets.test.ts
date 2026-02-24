@@ -85,6 +85,22 @@ beforeAll(() => {
     "---\nname: migrate\ntargets: ['*']\n---\n\nMigration steps.\n"
   );
 
+  // Hooks
+  mkdirSync(join(packDir, 'hooks'), { recursive: true });
+  writeFileSync(
+    join(packDir, 'hooks', 'hooks.json'),
+    JSON.stringify(
+      {
+        version: 1,
+        hooks: {
+          afterFileEdit: [{ command: 'echo edited' }],
+        },
+      },
+      null,
+      2
+    )
+  );
+
   // MCP
   writeFileSync(
     join(packDir, 'mcp.json'),
@@ -148,6 +164,19 @@ describe('CursorTarget', () => {
   test('generates agents in .cursor/agents/', () => {
     const result = target.generate(makeOptions());
     expect(result.filesWritten.some((f) => f.includes('agents'))).toBe(true);
+  });
+
+  test('generates hooks in .cursor/hooks.json', () => {
+    const result = target.generate(makeOptions());
+    const hooksPath = join(TEST_DIR, '.cursor', 'hooks.json');
+    expect(result.filesWritten.some((f) => f.includes('hooks.json'))).toBe(
+      true
+    );
+    expect(existsSync(hooksPath)).toBe(true);
+
+    const hooks = JSON.parse(readFileSync(hooksPath, 'utf-8'));
+    expect(hooks.version).toBe(1);
+    expect(hooks.hooks.afterFileEdit).toHaveLength(1);
   });
 
   test('generates MCP in .cursor/mcp.json', () => {

@@ -256,9 +256,16 @@ Options:
 ```
 
 ```bash
-# Export all packs as a single Cursor plugin
+# Export all packs as Cursor plugins
 agentpacks export --format cursor-plugin --output ./cursor-plugin-dist
 ```
+
+Each exported plugin follows Cursor's native plugin layout:
+
+- `.cursor-plugin/plugin.json`
+- `rules/*.mdc`, `agents/*.md`, `skills/*/SKILL.md`, `commands/*.md`
+- `hooks/hooks.json` (when hooks are defined)
+- `.mcp.json` (when MCP servers are defined)
 
 ---
 

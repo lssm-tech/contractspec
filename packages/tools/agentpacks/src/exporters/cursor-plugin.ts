@@ -2,76 +2,102 @@
  * Export an agentpacks pack as a Cursor plugin.
  *
  * Cursor plugin structure:
- *   manifest.json — plugin metadata
+ *   .cursor-plugin/plugin.json — required plugin manifest
  *   rules/*.mdc — rule files with frontmatter
  *   agents/*.md — agent definitions
  *   skills/<name>/SKILL.md — skill definitions
  *   commands/*.md — command definitions
- *   mcp.json — MCP server definitions (optional)
+ *   hooks/hooks.json — hook definitions (optional)
+ *   .mcp.json — MCP server definitions (optional)
  */
 import { resolve, join } from 'path';
 import { mkdirSync, writeFileSync } from 'fs';
 import type { LoadedPack } from '../core/pack-loader.js';
+import { resolveHooksForTarget } from '../features/hooks.js';
 import { serializeFrontmatter } from '../utils/frontmatter.js';
 import { ensureDir } from '../utils/filesystem.js';
 
-/**
- * Cursor plugin manifest shape.
- */
-interface CursorPluginManifest {
+interface CursorPluginAuthor {
   name: string;
-  version: string;
-  description: string;
-  author?: string;
-  tags?: string[];
-  rules?: string[];
-  agents?: string[];
-  skills?: string[];
-  commands?: string[];
-  mcp?: boolean;
+  email?: string;
 }
 
-/**
- * Export result.
- */
+interface CursorPluginManifest {
+  name: string;
+  version?: string;
+  description?: string;
+  author?: CursorPluginAuthor;
+  homepage?: string;
+  repository?: string;
+  license?: string;
+  logo?: string;
+  keywords?: string[];
+  rules?: string | string[];
+  agents?: string | string[];
+  skills?: string | string[];
+  commands?: string | string[];
+  hooks?: string | Record<string, unknown>;
+  mcpServers?:
+    | string
+    | Record<string, unknown>
+    | (string | Record<string, unknown>)[];
+}
+
 export interface CursorPluginExportResult {
   outputDir: string;
   filesWritten: string[];
   manifest: CursorPluginManifest;
 }
 
-/**
- * Export a loaded pack as a Cursor plugin directory.
- */
 export function exportCursorPlugin(
   pack: LoadedPack,
   outputDir: string
 ): CursorPluginExportResult {
   const filesWritten: string[] = [];
-  const pluginDir = resolve(outputDir, pack.manifest.name);
+  const pluginName = normalizeCursorPluginName(pack.manifest.name);
+  const pluginDir = resolve(outputDir, pluginName);
   mkdirSync(pluginDir, { recursive: true });
 
   const manifest: CursorPluginManifest = {
-    name: pack.manifest.name,
-    version: pack.manifest.version,
-    description: pack.manifest.description,
+    name: pluginName,
   };
 
-  if (pack.manifest.author) {
-    manifest.author =
-      typeof pack.manifest.author === 'string'
-        ? pack.manifest.author
-        : pack.manifest.author.name;
+  if (pack.manifest.version) {
+    manifest.version = pack.manifest.version;
   }
-  if (pack.manifest.tags.length > 0) {
-    manifest.tags = pack.manifest.tags;
+  if (pack.manifest.description) {
+    manifest.description = pack.manifest.description;
   }
 
-  // Rules → .mdc files
+  const author = toCursorPluginAuthor(pack.manifest.author);
+  if (author) {
+    manifest.author = author;
+  }
+
+  if (pack.manifest.homepage) {
+    manifest.homepage = pack.manifest.homepage;
+  }
+  if (pack.manifest.repository) {
+    manifest.repository =
+      typeof pack.manifest.repository === 'string'
+        ? pack.manifest.repository
+        : pack.manifest.repository.url;
+  }
+  if (pack.manifest.license) {
+    manifest.license = pack.manifest.license;
+  }
+  if (pack.manifest.logo) {
+    manifest.logo = pack.manifest.logo;
+  }
+
+  if (pack.manifest.tags.length > 0) {
+    manifest.keywords = pack.manifest.tags;
+  }
+
   if (pack.rules.length > 0) {
     const rulesDir = join(pluginDir, 'rules');
     ensureDir(rulesDir);
-    manifest.rules = [];
+    manifest.rules = 'rules';
 
     for (const rule of pack.rules) {
       const cursorMeta = rule.meta.cursor ?? {};
@@ -93,15 +119,13 @@ export function exportCursorPlugin(
       const filepath = join(rulesDir, filename);
       writeFileSync(filepath, serializeFrontmatter(fm, rule.content));
       filesWritten.push(filepath);
-      manifest.rules.push(filename);
     }
   }
 
-  // Agents
   if (pack.agents.length > 0) {
     const agentsDir = join(pluginDir, 'agents');
     ensureDir(agentsDir);
-    manifest.agents = [];
+    manifest.agents = 'agents';
 
     for (const agent of pack.agents) {
       const fm: Record<string, unknown> = {
@@ -112,15 +136,13 @@ export function exportCursorPlugin(
       const filepath = join(agentsDir, filename);
       writeFileSync(filepath, serializeFrontmatter(fm, agent.content));
       filesWritten.push(filepath);
-      manifest.agents.push(filename);
     }
   }
 
-  // Skills
   if (pack.skills.length > 0) {
     const skillsDir = join(pluginDir, 'skills');
     ensureDir(skillsDir);
-    manifest.skills = [];
+    manifest.skills = 'skills';
 
     for (const skill of pack.skills) {
       const skillSubDir = join(skillsDir, skill.name);
@@ -132,29 +154,51 @@ export function exportCursorPlugin(
       const filepath = join(skillSubDir, 'SKILL.md');
       writeFileSync(filepath, serializeFrontmatter(fm, skill.content));
       filesWritten.push(filepath);
-      manifest.skills.push(skill.name);
     }
   }
 
-  // Commands
   if (pack.commands.length > 0) {
     const commandsDir = join(pluginDir, 'commands');
     ensureDir(commandsDir);
-    manifest.commands = [];
+    manifest.commands = 'commands';
 
     for (const cmd of pack.commands) {
+      const fm: Record<string, unknown> = {
+        name: cmd.name,
+      };
+      if (cmd.meta.description) {
+        fm.description = cmd.meta.description;
+      }
+
       const filename = `${cmd.name}.md`;
       const filepath = join(commandsDir, filename);
-      writeFileSync(filepath, cmd.content);
+      writeFileSync(filepath, serializeFrontmatter(fm, cmd.content));
       filesWritten.push(filepath);
-      manifest.commands.push(filename);
     }
   }
 
-  // MCP
+  if (pack.hooks) {
+    const events = resolveHooksForTarget(pack.hooks, 'cursor');
+    if (Object.keys(events).length > 0) {
+      const hooksDir = join(pluginDir, 'hooks');
+      ensureDir(hooksDir);
+      const filepath = join(hooksDir, 'hooks.json');
+      writeFileSync(
+        filepath,
+        JSON.stringify(
+          { version: pack.hooks.version ?? 1, hooks: events },
+          null,
+          2
+        ) + '\n'
+      );
+      filesWritten.push(filepath);
+      manifest.hooks = 'hooks/hooks.json';
+    }
+  }
+
   if (pack.mcp && Object.keys(pack.mcp.servers).length > 0) {
-    manifest.mcp = true;
-    const filepath = join(pluginDir, 'mcp.json');
+    manifest.mcpServers = '.mcp.json';
+    const filepath = join(pluginDir, '.mcp.json');
     writeFileSync(
       filepath,
       JSON.stringify({ mcpServers: pack.mcp.servers }, null, 2) + '\n'
@@ -162,10 +206,39 @@ export function exportCursorPlugin(
     filesWritten.push(filepath);
   }
 
-  // Write manifest
-  const manifestPath = join(pluginDir, 'manifest.json');
+  const manifestDir = join(pluginDir, '.cursor-plugin');
+  ensureDir(manifestDir);
+  const manifestPath = join(manifestDir, 'plugin.json');
   writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
   filesWritten.push(manifestPath);
 
   return { outputDir: pluginDir, filesWritten, manifest };
+}
+
+function normalizeCursorPluginName(name: string): string {
+  const normalized = name
+    .toLowerCase()
+    .replace(/[^a-z0-9.-]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^[^a-z0-9]+/, '')
+    .replace(/[^a-z0-9]+$/, '');
+
+  return normalized.length > 0 ? normalized : 'agentpacks-plugin';
+}
+
+function toCursorPluginAuthor(
+  author: LoadedPack['manifest']['author']
+): CursorPluginAuthor | null {
+  if (!author) {
+    return null;
+  }
+
+  if (typeof author === 'string') {
+    return { name: author };
+  }
+
+  return {
+    name: author.name,
+    ...(author.email ? { email: author.email } : {}),
+  };
 }

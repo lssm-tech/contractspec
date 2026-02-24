@@ -9,6 +9,7 @@ import { ruleMatchesTarget } from '../features/rules.js';
 import { commandMatchesTarget } from '../features/commands.js';
 import { agentMatchesTarget } from '../features/agents.js';
 import { skillMatchesTarget } from '../features/skills.js';
+import { resolveHooksForTarget } from '../features/hooks.js';
 import {
   resolveModels,
   type ResolvedModels,
@@ -26,7 +27,7 @@ const TARGET_ID = 'cursor';
 /**
  * Cursor target generator.
  * Generates: .cursor/rules/, .cursor/skills/, .cursor/agents/, .cursor/commands/,
- * .cursor/mcp.json, .cursorignore
+ * .cursor/hooks.json, .cursor/mcp.json, .cursorignore
  */
 export class CursorTarget extends BaseTarget {
   readonly id = TARGET_ID;
@@ -166,6 +167,36 @@ export class CursorTarget extends BaseTarget {
         const filepath = join(commandsDir, `${cmd.name}.md`);
         writeGeneratedFile(filepath, cmd.content);
         filesWritten.push(filepath);
+      }
+    }
+
+    if (effective.includes('hooks')) {
+      const hooksFilepath = resolve(cursorDir, 'hooks.json');
+      if (deleteExisting) {
+        removeIfExists(hooksFilepath);
+        filesDeleted.push(hooksFilepath);
+      }
+
+      const mergedHooks: Record<string, unknown[]> = {};
+      for (const hookSet of features.hooks) {
+        const events = resolveHooksForTarget(hookSet, TARGET_ID);
+        for (const [event, entries] of Object.entries(events)) {
+          if (!mergedHooks[event]) {
+            mergedHooks[event] = [];
+          }
+          mergedHooks[event].push(...entries);
+        }
+      }
+
+      if (Object.keys(mergedHooks).length > 0) {
+        const hooksVersion =
+          features.hooks.find((h) => h.version !== undefined)?.version ?? 1;
+        writeGeneratedJson(
+          hooksFilepath,
+          { version: hooksVersion, hooks: mergedHooks },
+          { header: false }
+        );
+        filesWritten.push(hooksFilepath);
       }
     }
 
