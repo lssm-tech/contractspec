@@ -69,6 +69,7 @@ const integrationHubDocBlocks: DocBlock[] = [
     body: `## Setup
 1) Seed integrations/connections (if available) or create connector definitions.
 2) Configure sync jobs with Jobs module; store payload archives via Files.
+3) Use \`src/run-mcp.ts\` to validate MCP connectivity for provider adapters.
 
 ## Extend & regenerate
 1) Add mapping fields or provider configs in the spec; include validation and PII paths.
@@ -97,6 +98,7 @@ const integrationHubDocBlocks: DocBlock[] = [
 ## PII & Payloads
 - Treat payload archives as potentially sensitive; mark policy.pii paths.
 - For MCP/web, avoid exposing raw credentials/tokens; store via provider adapters only.
+- Keep MCP endpoint URLs, headers, and tokens in provider connection config, never in mappings.
 
 ## Verification
 - Include fixtures for mapping changes and sync retries.

@@ -333,9 +333,7 @@ export class ClaudeAgentExporter implements Exporter<
       lines.push(i18n.t('export.mcpServers'));
       lines.push('');
       for (const server of options.mcpServers) {
-        lines.push(
-          `- **${server.name}**: \`${server.command}${server.args ? ' ' + server.args.join(' ') : ''}\``
-        );
+        lines.push(`- **${server.name}**: \`${this.formatMcpServer(server)}\``);
       }
       lines.push('');
     }
@@ -346,6 +344,21 @@ export class ClaudeAgentExporter implements Exporter<
     lines.push(i18n.t('export.generatedFrom', { key: agentKey(spec.meta) }));
 
     return lines.join('\n');
+  }
+
+  private formatMcpServer(
+    server: NonNullable<ClaudeAgentExportOptions['mcpServers']>[number]
+  ): string {
+    if ('command' in server) {
+      const args = server.args ? ` ${server.args.join(' ')}` : '';
+      return `${server.command}${args}`;
+    }
+
+    if (server.transport === 'http' || server.transport === 'sse') {
+      return `${server.transport} ${server.url}`;
+    }
+
+    return server.url;
   }
 }
 

@@ -3,6 +3,7 @@ import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
 import type { AgentSpec } from '../spec/spec';
 import type { AgentRegistry } from '../spec/registry';
 import type { ToolHandler } from '../types';
+import type { McpClientConfig } from '../tools/mcp-client';
 import type { AgentSessionStore } from '../session/store';
 import type { TelemetryCollector } from '../telemetry/adapter';
 import type {
@@ -33,6 +34,8 @@ export interface AgentFactoryConfig {
   };
   /** Additional tools to provide to all agents */
   additionalTools?: Record<string, Tool<unknown, unknown>>;
+  /** MCP servers to provide to all agents */
+  mcpServers?: McpClientConfig[];
 }
 
 /**
@@ -45,6 +48,8 @@ export interface CreateAgentOptions {
   toolHandlers?: Map<string, ToolHandler>;
   /** Additional tools for this instance */
   additionalTools?: Record<string, Tool<unknown, unknown>>;
+  /** MCP servers for this instance */
+  mcpServers?: McpClientConfig[];
 }
 
 /**
@@ -115,6 +120,10 @@ export class AgentFactory {
       ...this.config.additionalTools,
       ...options?.additionalTools,
     };
+    const mergedMcpServers = [
+      ...(this.config.mcpServers ?? []),
+      ...(options?.mcpServers ?? []),
+    ];
 
     return ContractSpecAgent.create({
       spec,
@@ -125,6 +134,7 @@ export class AgentFactory {
       telemetryCollector: this.config.telemetryCollector,
       posthogConfig: this.config.posthogConfig,
       additionalTools: mergedTools,
+      mcpServers: mergedMcpServers.length > 0 ? mergedMcpServers : undefined,
     });
   }
 
@@ -156,6 +166,9 @@ export class AgentFactory {
    * Clear the agent cache.
    */
   clearCache(): void {
+    for (const agent of this.cache.values()) {
+      void agent.cleanup().catch(() => undefined);
+    }
     this.cache.clear();
   }
 

@@ -7,6 +7,7 @@
 
 import type { AgentSpec } from '../spec/spec';
 import type { OpenCodeAgentType } from '../providers/types';
+import type { McpClientConfig } from '../tools/mcp-client';
 
 // ============================================================================
 // Common Export Types
@@ -48,7 +49,7 @@ export interface ClaudeAgentExportOptions extends ExportOptions {
   /** Enable extended thinking in exported config */
   extendedThinking?: boolean;
   /** MCP servers to include */
-  mcpServers?: { name: string; command: string; args?: string[] }[];
+  mcpServers?: McpClientConfig[];
 }
 
 /**
@@ -77,7 +78,7 @@ export interface ClaudeAgentConfig {
   max_turns?: number;
   computer_use?: boolean;
   extended_thinking?: boolean;
-  mcp_servers?: { name: string; command: string; args?: string[] }[];
+  mcp_servers?: McpClientConfig[];
 }
 
 /**

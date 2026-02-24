@@ -119,4 +119,17 @@ describe('ContractSpecAgent', () => {
     // For now, let's verify basic generation works.
     expect(result).toBeDefined();
   });
+
+  it('cleanup should be a no-op without MCP tools', async () => {
+    const agent = await ContractSpecAgent.create({
+      spec: mockSpec,
+      model: new MockLanguageModelV3({
+        doGenerate: async () => mockGenerateResult('done'),
+      }),
+      toolHandlers: new Map(),
+    });
+
+    await agent.cleanup();
+    expect(agent.id).toBe(agentKey(mockSpec.meta));
+  });
 });

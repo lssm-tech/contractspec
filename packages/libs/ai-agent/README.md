@@ -4,9 +4,7 @@
 [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.ai-agent)](https://www.npmjs.com/package/@contractspec/lib.ai-agent)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/lssm-tech/contractspec)
 
-
 Website: https://contractspec.io/
-
 
 **AI governance for ContractSpec** — Constrain what AI agents can change, enforce contracts they must respect.
 
@@ -19,6 +17,7 @@ Stateful AI agent orchestration with type-safe specs, tool execution, knowledge 
 - Memory framework that mixes working memory with long-term persistence hooks
 - Tool registry/executor with structured input validation and telemetry hooks
 - Approval workflow helpers for human-in-the-loop gates (see `/approval`)
+- MCP client support for `stdio`, `sse`, and `http` transports
 
 ## Quickstart
 
@@ -47,3 +46,35 @@ if (result.requiresEscalation) notifyHuman(result);
 ```
 
 See `examples/ai-support-bot` for a full workflow including ticket ingestion and approval queues.
+
+## MCP Client Tooling
+
+```ts
+import { createAgentFactory } from '@contractspec/lib.ai-agent/agent/agent-factory';
+
+const factory = createAgentFactory({
+  defaultModel,
+  registry,
+  toolHandlers,
+  mcpServers: [
+    {
+      name: 'filesystem',
+      command: 'npx',
+      args: ['-y', '@modelcontextprotocol/server-filesystem', '/workspace'],
+      toolPrefix: 'fs',
+    },
+    {
+      name: 'posthog',
+      transport: 'http',
+      url: process.env.POSTHOG_MCP_URL!,
+      accessTokenEnvVar: 'POSTHOG_MCP_TOKEN',
+      toolPrefix: 'ph',
+    },
+  ],
+});
+
+const agent = await factory.create('support.bot');
+const result = await agent.generate({ prompt: 'Summarize today\'s incidents.' });
+
+await agent.cleanup();
+```

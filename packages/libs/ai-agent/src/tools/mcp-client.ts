@@ -1,20 +1,71 @@
-import { experimental_createMCPClient } from '@ai-sdk/mcp';
-import { Experimental_StdioMCPTransport as StdioClientTransport } from '@ai-sdk/mcp/mcp-stdio';
+import {
+  experimental_createMCPClient,
+  type OAuthClientProvider,
+} from '@ai-sdk/mcp';
 import type { Tool } from 'ai';
+import {
+  buildMcpTransport,
+  getErrorMessage,
+  prefixToolNames,
+} from './mcp-client-helpers';
 
 /**
- * Configuration for connecting to an MCP server.
+ * Supported transport types for MCP clients.
  */
-export interface McpClientConfig {
+export type McpTransportType = 'stdio' | 'sse' | 'http';
+
+/**
+ * Shared configuration for all MCP server transports.
+ */
+interface McpClientBaseConfig {
   /** Display name for the MCP server */
   name: string;
+  /** Optional prefix applied to every imported tool name */
+  toolPrefix?: string;
+  /** Optional MCP client name override */
+  clientName?: string;
+  /** Optional MCP client version override */
+  clientVersion?: string;
+}
+
+/**
+ * Configuration for stdio MCP servers.
+ */
+export interface McpStdioClientConfig extends McpClientBaseConfig {
+  /** Transport type (defaults to "stdio" when omitted) */
+  transport?: 'stdio';
   /** Command to spawn the MCP server process */
   command: string;
   /** Arguments to pass to the command */
   args?: string[];
   /** Environment variables for the process */
   env?: Record<string, string>;
+  /** Working directory for spawned process */
+  cwd?: string;
 }
+
+/**
+ * Configuration for remote MCP servers (SSE / Streamable HTTP).
+ */
+export interface McpRemoteClientConfig extends McpClientBaseConfig {
+  /** Transport type */
+  transport: 'sse' | 'http';
+  /** MCP endpoint URL */
+  url: string;
+  /** Optional static headers */
+  headers?: Record<string, string>;
+  /** Optional OAuth provider for MCP auth flow */
+  authProvider?: OAuthClientProvider;
+  /** Optional bearer token injected into Authorization header */
+  accessToken?: string;
+  /** Optional env var name containing bearer token */
+  accessTokenEnvVar?: string;
+}
+
+/**
+ * Configuration for connecting to an MCP server.
+ */
+export type McpClientConfig = McpStdioClientConfig | McpRemoteClientConfig;
 
 /**
  * Result of creating an MCP client with tools.
@@ -24,6 +75,16 @@ export interface McpClientResult {
   tools: Record<string, Tool<unknown, unknown>>;
   /** Cleanup function to close the connection */
   cleanup: () => Promise<void>;
+  /** Tool names grouped by source server name */
+  serverToolNames: Record<string, string[]>;
+}
+
+/**
+ * Options for combining multiple MCP toolsets.
+ */
+export interface CreateMcpToolsetsOptions {
+  /** Strategy used when two MCP servers expose the same tool name */
+  onNameCollision?: 'overwrite' | 'error';
 }
 
 /**
@@ -51,41 +112,108 @@ export interface McpClientResult {
 export async function mcpServerToTools(
   config: McpClientConfig
 ): Promise<McpClientResult> {
-  const transport = new StdioClientTransport({
-    command: config.command,
-    args: config.args,
-    env: config.env,
-  });
+  let client: Awaited<ReturnType<typeof experimental_createMCPClient>> | null =
+    null;
 
-  const client = await experimental_createMCPClient({ transport });
-  const tools = await client.tools();
+  try {
+    const transport = buildMcpTransport(config);
+    client = await experimental_createMCPClient({
+      transport,
+      name: config.clientName,
+      version: config.clientVersion,
+    });
 
-  return {
-    tools: tools as Record<string, Tool<unknown, unknown>>,
-    cleanup: () => client.close(),
-  };
+    const tools = await client.tools();
+    const prefixedTools = prefixToolNames(config, tools);
+    const connectedClient = client;
+
+    return {
+      tools: prefixedTools as Record<string, Tool<unknown, unknown>>,
+      cleanup: () => connectedClient.close(),
+      serverToolNames: {
+        [config.name]: Object.keys(prefixedTools),
+      },
+    };
+  } catch (error) {
+    if (client) {
+      await client.close().catch(() => undefined);
+    }
+    throw new Error(
+      `[MCP:${config.name}] Failed to connect tools: ${getErrorMessage(error)}`
+    );
+  }
 }
 
 /**
  * Create multiple MCP tool sets from configurations.
  *
  * @param configs - Array of MCP server configurations
+ * @param options - Merge options for conflicts
  * @returns Combined tools and cleanup function
  */
 export async function createMcpToolsets(
-  configs: McpClientConfig[]
+  configs: McpClientConfig[],
+  options: CreateMcpToolsetsOptions = {}
 ): Promise<McpClientResult> {
-  const results = await Promise.all(configs.map(mcpServerToTools));
+  const connected: McpClientResult[] = [];
+
+  try {
+    for (const config of configs) {
+      const result = await mcpServerToTools(config);
+      connected.push(result);
+    }
+  } catch (error) {
+    await Promise.allSettled(connected.map((result) => result.cleanup()));
+    throw error;
+  }
 
   const combinedTools: Record<string, Tool<unknown, unknown>> = {};
-  for (const result of results) {
-    Object.assign(combinedTools, result.tools);
+  const serverToolNames: Record<string, string[]> = {};
+  const collisionStrategy = options.onNameCollision ?? 'overwrite';
+
+  try {
+    for (const result of connected) {
+      for (const [serverName, toolNames] of Object.entries(
+        result.serverToolNames
+      )) {
+        serverToolNames[serverName] = toolNames;
+      }
+
+      for (const [toolName, tool] of Object.entries(result.tools)) {
+        const hasCollision = combinedTools[toolName] !== undefined;
+
+        if (hasCollision && collisionStrategy === 'error') {
+          throw new Error(
+            `Duplicate MCP tool name "${toolName}" detected. Use "toolPrefix" or set onNameCollision to "overwrite".`
+          );
+        }
+
+        combinedTools[toolName] = tool;
+      }
+    }
+  } catch (error) {
+    await Promise.allSettled(connected.map((result) => result.cleanup()));
+    throw error;
   }
 
   return {
     tools: combinedTools,
+    serverToolNames,
     cleanup: async () => {
-      await Promise.all(results.map((r) => r.cleanup()));
+      const cleanupResults = await Promise.allSettled(
+        connected.map((result) => result.cleanup())
+      );
+
+      const failures = cleanupResults.filter(
+        (result): result is PromiseRejectedResult =>
+          result.status === 'rejected'
+      );
+
+      if (failures.length > 0) {
+        throw new Error(
+          `Failed to cleanup ${failures.length} MCP client connection(s).`
+        );
+      }
     },
   };
 }

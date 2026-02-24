@@ -15,6 +15,7 @@ A comprehensive integration hub example demonstrating ContractSpec principles fo
 - **Scheduled Sync**: Cron-based scheduled synchronization
 - **Feature Flag Integration**: Control integration availability
 - **Full Audit Trail**: Track all sync operations
+- **MCP-Ready Providers**: Supports provider configs that call remote MCP tools
 
 ## Entities
 
@@ -136,6 +137,45 @@ const run = await executeContract(TriggerSyncContract, {
   syncConfigId: syncConfig.id,
 });
 ```
+
+## MCP Provider Wiring
+
+Provider adapters in this workspace can be configured to call MCP endpoints
+(for example `mcpUrl` + headers/tokens on analytics providers, or transport
+selection for meeting recorder providers). This example remains provider-agnostic,
+so MCP transport details stay in provider config rather than contract logic.
+
+## Run MCP Example
+
+This package now includes a runnable MCP connectivity example:
+`src/run-mcp.ts`.
+
+List MCP tools from a local stdio server (default):
+
+```bash
+export CONTRACTSPEC_INTEGRATION_HUB_MCP_TRANSPORT="stdio"
+export CONTRACTSPEC_INTEGRATION_HUB_MCP_COMMAND="npx"
+export CONTRACTSPEC_INTEGRATION_HUB_MCP_ARGS_JSON='["-y","@modelcontextprotocol/server-filesystem","."]'
+
+bun run --filter @contractspec/example.integration-hub run:mcp
+```
+
+Call a specific MCP tool:
+
+```bash
+export CONTRACTSPEC_INTEGRATION_HUB_MCP_MODE="call"
+export CONTRACTSPEC_INTEGRATION_HUB_MCP_TOOL_NAME="read_file"
+export CONTRACTSPEC_INTEGRATION_HUB_MCP_TOOL_ARGS_JSON='{"path":"README.md"}'
+
+bun run --filter @contractspec/example.integration-hub run:mcp
+```
+
+Remote MCP transport is also supported via:
+
+- `CONTRACTSPEC_INTEGRATION_HUB_MCP_TRANSPORT=http|sse`
+- `CONTRACTSPEC_INTEGRATION_HUB_MCP_URL`
+- `CONTRACTSPEC_INTEGRATION_HUB_MCP_HEADERS_JSON` (optional)
+- `CONTRACTSPEC_INTEGRATION_HUB_MCP_ACCESS_TOKEN` or `..._ACCESS_TOKEN_ENV` (optional)
 
 ## Dependencies
 

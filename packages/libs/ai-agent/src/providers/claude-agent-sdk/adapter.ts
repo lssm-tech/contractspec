@@ -11,9 +11,10 @@
  * for ContractSpec agents.
  */
 
+import { randomUUID } from 'node:crypto';
+import type { Tool } from 'ai';
 import type { AgentSpec } from '../../spec/spec';
 import { agentKey } from '../../spec/spec';
-import type { ToolHandler } from '../../types';
 import type {
   ExternalAgentProvider,
   ExternalAgentContext,
@@ -29,11 +30,7 @@ import {
   ProviderExecutionError,
   ProviderNotAvailableError,
 } from '../types';
-import {
-  specToolsToClaudeAgentTools,
-  specToolToExternalTool,
-  extractToolCalls,
-} from './tool-bridge';
+import { specToolToExternalTool, extractToolCalls } from './tool-bridge';
 import {
   buildClaudeAgentContext,
   createEmptyClaudeSession,
@@ -43,6 +40,7 @@ import {
   type ClaudeAgentContentBlock,
 } from './session-bridge';
 import { injectStaticKnowledge } from '../../knowledge/injector';
+import { createMcpToolsets } from '../../tools/mcp-client';
 import { createAgentI18n } from '../../i18n';
 
 // ============================================================================
@@ -103,11 +101,29 @@ export class ClaudeAgentSDKProvider implements ExternalAgentProvider {
       );
     }
 
+    let mcpToolset: Awaited<ReturnType<typeof createMcpToolsets>> | null = null;
+
     try {
       // Build tools set
       const toolSet: ExternalToolSet = {};
       for (const tool of spec.tools) {
         toolSet[tool.name] = specToolToExternalTool(tool);
+      }
+
+      if ((this.config.mcpServers?.length ?? 0) > 0) {
+        mcpToolset = await createMcpToolsets(this.config.mcpServers ?? [], {
+          onNameCollision: 'error',
+        });
+
+        for (const [toolName, mcpTool] of Object.entries(mcpToolset.tools)) {
+          if (toolSet[toolName]) {
+            throw new Error(
+              `MCP tool "${toolName}" collides with a ContractSpec tool. Configure MCP toolPrefix values to avoid collisions.`
+            );
+          }
+
+          toolSet[toolName] = this.mcpToolToExternalTool(toolName, mcpTool);
+        }
       }
 
       // Inject static knowledge into instructions
@@ -125,6 +141,8 @@ export class ClaudeAgentSDKProvider implements ExternalAgentProvider {
         mcpServerIds: this.config.mcpServers?.map((s) => s.name) ?? [],
       };
 
+      const cleanupMcp = mcpToolset?.cleanup;
+
       return {
         id: contextId,
         spec: {
@@ -134,11 +152,16 @@ export class ClaudeAgentSDKProvider implements ExternalAgentProvider {
         tools: toolSet,
         metadata,
         cleanup: async () => {
-          // Cleanup MCP connections if any
-          // This would be implemented when MCP support is added
+          if (cleanupMcp) {
+            await cleanupMcp();
+          }
         },
       };
     } catch (error) {
+      if (mcpToolset) {
+        await mcpToolset.cleanup().catch(() => undefined);
+      }
+
       throw new ContextCreationError(
         this.name,
         createAgentI18n(this.config.locale).t(
@@ -176,7 +199,7 @@ export class ClaudeAgentSDKProvider implements ExternalAgentProvider {
       session = appendUserMessage(session, params.prompt);
 
       // Prepare tools for Claude Agent SDK
-      const claudeTools = this.prepareToolsForSDK(context, params);
+      const claudeTools = this.prepareToolsForSDK(context);
 
       // Execute via SDK
       // Execute via SDK
@@ -277,7 +300,7 @@ export class ClaudeAgentSDKProvider implements ExternalAgentProvider {
         : context.spec.instructions;
 
       const claudeContext = buildClaudeAgentContext(params.options);
-      const claudeTools = this.prepareToolsForSDK(context, params);
+      const claudeTools = this.prepareToolsForSDK(context);
 
       const stream = await sdk.stream({
         model: this.config.model,
@@ -403,40 +426,112 @@ export class ClaudeAgentSDKProvider implements ExternalAgentProvider {
   /**
    * Prepare tools for Claude Agent SDK format.
    */
-  private prepareToolsForSDK(
-    context: ExternalAgentContext,
-    params: ExternalExecuteParams
-  ): unknown[] {
-    const handlers = new Map<string, ToolHandler>();
+  private prepareToolsForSDK(context: ExternalAgentContext): unknown[] {
+    const i18n = createAgentI18n(this.config.locale);
+    const toolsForSdk: unknown[] = [];
 
-    for (const tool of context.spec.tools) {
-      const externalTool = context.tools[tool.name];
-      if (externalTool?.execute) {
-        handlers.set(tool.name, async (input) => {
-          if (!externalTool.execute) {
-            throw new Error(
-              createAgentI18n(this.config.locale).t(
-                'error.toolNoExecuteHandler',
-                {
-                  name: tool.name,
-                }
-              )
-            );
-          }
-          const result = await externalTool.execute(input);
+    for (const [toolName, externalTool] of Object.entries(context.tools)) {
+      if (!externalTool.execute) {
+        continue;
+      }
+
+      toolsForSdk.push({
+        name: toolName,
+        description:
+          externalTool.description ??
+          i18n.t('tool.fallbackDescription', { name: toolName }),
+        input_schema: this.normalizeToolSchemaForClaude(
+          externalTool.inputSchema
+        ),
+        requires_confirmation: externalTool.requiresApproval,
+        execute: async (input: unknown) => {
+          const result = await externalTool.execute?.(input);
           return typeof result === 'string' ? result : JSON.stringify(result);
+        },
+      });
+    }
+
+    return toolsForSdk;
+  }
+
+  private mcpToolToExternalTool(
+    toolName: string,
+    tool: Tool<unknown, unknown>
+  ): ExternalToolSet[string] {
+    return {
+      name: toolName,
+      description:
+        tool.description ??
+        createAgentI18n(this.config.locale).t('tool.fallbackDescription', {
+          name: toolName,
+        }),
+      inputSchema: this.normalizeExternalInputSchema(
+        (tool as { inputSchema?: unknown }).inputSchema
+      ),
+      execute: async (input: unknown) => {
+        if (!tool.execute) {
+          throw new Error(
+            createAgentI18n(this.config.locale).t(
+              'error.toolNoExecuteHandler',
+              {
+                name: toolName,
+              }
+            )
+          );
+        }
+
+        return tool.execute(input, {
+          toolCallId: `mcp-${randomUUID()}`,
+          messages: [],
         });
+      },
+    };
+  }
+
+  private normalizeExternalInputSchema(
+    schema: unknown
+  ): Record<string, unknown> {
+    if (this.isRecord(schema)) {
+      const type = schema['type'];
+      if (type === 'object' || schema['properties']) {
+        return schema;
       }
     }
 
-    return specToolsToClaudeAgentTools(context.spec.tools, handlers, {
-      agentId: context.id,
-      sessionId: params.options?.sessionId,
-      tenantId: params.options?.tenantId,
-      actorId: params.options?.actorId,
-      metadata: params.options?.metadata,
-      signal: params.signal,
-    });
+    return {
+      type: 'object',
+      properties: {},
+    };
+  }
+
+  private normalizeToolSchemaForClaude(schema: Record<string, unknown>): {
+    type: 'object';
+    properties?: Record<string, unknown>;
+    required?: string[];
+    additionalProperties?: boolean;
+  } {
+    if (schema.type === 'object') {
+      return {
+        type: 'object',
+        properties: schema.properties as Record<string, unknown> | undefined,
+        required: schema.required as string[] | undefined,
+        additionalProperties: schema.additionalProperties as
+          | boolean
+          | undefined,
+      };
+    }
+
+    return {
+      type: 'object',
+      properties: {
+        value: schema,
+      },
+      required: ['value'],
+    };
+  }
+
+  private isRecord(value: unknown): value is Record<string, unknown> {
+    return typeof value === 'object' && value !== null;
   }
 
   /**

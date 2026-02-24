@@ -16,3 +16,6 @@ export * from './ui';
 
 // Sync engine exports
 export * from './sync-engine';
+
+// MCP example exports
+export * from './mcp-example';

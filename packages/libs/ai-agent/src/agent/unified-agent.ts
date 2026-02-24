@@ -28,6 +28,7 @@
 import type { LanguageModel } from 'ai';
 import type { ProviderConfig } from '@contractspec/lib.ai-providers/types';
 import type { AgentSpec } from '../spec/spec';
+import type { McpClientConfig } from '../tools/mcp-client';
 import type {
   AgentCallOptions,
   AgentGenerateResult,
@@ -36,6 +37,7 @@ import type {
 } from '../types';
 import type {
   ExternalAgentProvider,
+  ExternalAgentContext,
   ClaudeAgentSDKConfig,
   OpenCodeSDKConfig,
   ExternalExecuteResult,
@@ -60,6 +62,7 @@ export interface UnifiedAgentBackendConfig {
     provider?: ProviderConfig;
     temperature?: number;
     maxTokens?: number;
+    mcpServers?: McpClientConfig[];
   };
   'claude-agent-sdk'?: ClaudeAgentSDKConfig;
   'opencode-sdk'?: OpenCodeSDKConfig;
@@ -108,7 +111,7 @@ export class UnifiedAgent {
   private readonly config: UnifiedAgentConfig;
   private readonly tools: Map<string, ToolHandler>;
   private provider?: ExternalAgentProvider;
-  private context?: unknown;
+  private context?: ExternalAgentContext;
   private state: UnifiedAgentState;
 
   constructor(spec: AgentSpec, config: UnifiedAgentConfig) {
@@ -167,6 +170,7 @@ export class UnifiedAgent {
         this.config.fallbackBackend &&
         this.config.fallbackBackend !== backend
       ) {
+        await this.cleanupProviderContext();
         console.warn(
           this.i18n().t('log.unifiedAgent.fallback', {
             backend: String(backend),
@@ -267,17 +271,23 @@ export class UnifiedAgent {
   ): Promise<AgentGenerateResult> {
     // Import the existing ContractSpec agent factory
     const { ContractSpecAgent } = await import('./contract-spec-agent');
+    const backendConfig = this.getAISDKConfig();
     const model = await this.resolveAISDKModel();
     const agent = await ContractSpecAgent.create({
       spec: this.spec,
       model,
       toolHandlers: this.tools,
+      mcpServers: backendConfig?.mcpServers,
     });
 
-    return await agent.generate({
-      prompt: message,
-      options,
-    });
+    try {
+      return await agent.generate({
+        prompt: message,
+        options,
+      });
+    } finally {
+      await agent.cleanup().catch(() => undefined);
+    }
   }
 
   private async runWithExternalProvider(
@@ -289,7 +299,7 @@ export class UnifiedAgent {
     }
 
     const result: ExternalExecuteResult = await this.provider.execute(
-      this.context as Parameters<ExternalAgentProvider['execute']>[0],
+      this.context,
       {
         prompt: message,
         options,
@@ -443,6 +453,7 @@ export class UnifiedAgent {
       return;
     }
 
+    await this.cleanupProviderContext();
     this.state.backend = backend;
     this.state.isReady = false;
     this.provider = undefined;
@@ -458,7 +469,17 @@ export class UnifiedAgent {
     this.state.messageCount = 0;
     this.state.sessionId = undefined;
     this.state.lastError = undefined;
+    void this.cleanupProviderContext().catch(() => undefined);
     this.context = undefined;
+  }
+
+  private async cleanupProviderContext(): Promise<void> {
+    const context = this.context;
+    this.context = undefined;
+
+    if (context) {
+      await context.cleanup().catch(() => undefined);
+    }
   }
 
   /**
@@ -502,6 +523,7 @@ export function createAISDKAgent(
     provider?: ProviderConfig;
     temperature?: number;
     maxTokens?: number;
+    mcpServers?: McpClientConfig[];
   }
 ): UnifiedAgent {
   return new UnifiedAgent(spec, {
@@ -513,6 +535,7 @@ export function createAISDKAgent(
       provider: options?.provider,
       temperature: options?.temperature,
       maxTokens: options?.maxTokens,
+      mcpServers: options?.mcpServers,
     },
   });
 }

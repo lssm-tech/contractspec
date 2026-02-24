@@ -8,6 +8,14 @@
  * const provider = new ClaudeAgentSDKProvider({
  *   extendedThinking: true,
  *   computerUse: true,
+ *   mcpServers: [
+ *     {
+ *       name: 'filesystem',
+ *       command: 'npx',
+ *       args: ['-y', '@modelcontextprotocol/server-filesystem', '/workspace'],
+ *       toolPrefix: 'fs',
+ *     },
+ *   ],
  * });
  *
  * if (provider.isAvailable()) {

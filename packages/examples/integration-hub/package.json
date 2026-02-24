@@ -11,6 +11,7 @@
     "build:bundle": "contractspec-bun-build transpile",
     "build:types": "contractspec-bun-build types",
     "dev": "contractspec-bun-build dev",
+    "run:mcp": "bun tsx src/run-mcp.ts",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
@@ -20,6 +21,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@contractspec/lib.ai-agent": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.example-shared-ui": "workspace:*",

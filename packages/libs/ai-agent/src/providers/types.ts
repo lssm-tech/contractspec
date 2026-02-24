@@ -180,7 +180,7 @@ export interface ClaudeAgentSDKConfig {
   extendedThinking?: boolean;
   /** Enable computer use capabilities (file editing, bash) */
   computerUse?: boolean;
-  /** MCP servers to connect */
+  /** MCP servers to connect (stdio, sse, or http transports) */
   mcpServers?: McpClientConfig[];
   /** Maximum tokens for response */
   maxTokens?: number;

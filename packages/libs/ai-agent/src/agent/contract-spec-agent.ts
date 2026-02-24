@@ -20,6 +20,7 @@ import type {
 } from '../types';
 import { specToolsToAISDKTools } from '../tools/tool-adapter';
 import { createKnowledgeQueryTool } from '../tools/knowledge-tool';
+import { createMcpToolsets, type McpClientConfig } from '../tools/mcp-client';
 import { injectStaticKnowledge } from '../knowledge/injector';
 import { type AgentSessionStore, generateSessionId } from '../session/store';
 import { type TelemetryCollector, trackAgentStep } from '../telemetry/adapter';
@@ -68,6 +69,8 @@ export interface ContractSpecAgentConfig {
   };
   /** Additional AI SDK tools (e.g., from MCP servers) */
   additionalTools?: Record<string, ExecutableTool>;
+  /** MCP servers to connect and expose as tools */
+  mcpServers?: McpClientConfig[];
 }
 
 /**
@@ -89,6 +92,7 @@ export class ContractSpecAgent {
 
   private readonly config: ContractSpecAgentConfig;
   private instructions: string;
+  private mcpCleanup?: () => Promise<void>;
   private readonly activeStepContexts = new Map<
     string,
     {
@@ -103,13 +107,15 @@ export class ContractSpecAgent {
   private constructor(
     config: ContractSpecAgentConfig,
     instructions: string,
-    tools: Record<string, ExecutableTool>
+    tools: Record<string, ExecutableTool>,
+    mcpCleanup?: () => Promise<void>
   ) {
     this.config = config;
     this.spec = config.spec;
     this.id = agentKey(config.spec.meta);
     this.tools = tools;
     this.instructions = instructions;
+    this.mcpCleanup = mcpCleanup;
   }
 
   /**
@@ -120,37 +126,86 @@ export class ContractSpecAgent {
     config: ContractSpecAgentConfig
   ): Promise<ContractSpecAgent> {
     const effectiveConfig = config;
+    let mcpToolset: Awaited<ReturnType<typeof createMcpToolsets>> | null = null;
 
-    // 1. Inject static knowledge into instructions
-    const instructions = await injectStaticKnowledge(
-      effectiveConfig.spec.instructions,
-      effectiveConfig.spec.knowledge ?? [],
-      effectiveConfig.knowledgeRetriever
-    );
+    if ((effectiveConfig.mcpServers?.length ?? 0) > 0) {
+      mcpToolset = await createMcpToolsets(effectiveConfig.mcpServers ?? [], {
+        onNameCollision: 'error',
+      });
+    }
 
-    // 2. Build tools from spec
-    const specTools = specToolsToAISDKTools(
-      effectiveConfig.spec.tools,
-      effectiveConfig.toolHandlers,
-      { agentId: agentKey(effectiveConfig.spec.meta) }
-    );
+    try {
+      // 1. Inject static knowledge into instructions
+      const instructions = await injectStaticKnowledge(
+        effectiveConfig.spec.instructions,
+        effectiveConfig.spec.knowledge ?? [],
+        effectiveConfig.knowledgeRetriever
+      );
 
-    // 3. Add dynamic knowledge query tool
-    const knowledgeTool = effectiveConfig.knowledgeRetriever
-      ? createKnowledgeQueryTool(
-          effectiveConfig.knowledgeRetriever,
-          effectiveConfig.spec.knowledge ?? []
-        )
-      : null;
+      // 2. Build tools from spec
+      const specTools = specToolsToAISDKTools(
+        effectiveConfig.spec.tools,
+        effectiveConfig.toolHandlers,
+        { agentId: agentKey(effectiveConfig.spec.meta) }
+      );
 
-    // 4. Combine all tools
-    const tools: Record<string, ExecutableTool> = {
-      ...specTools,
-      ...(knowledgeTool ? { query_knowledge: knowledgeTool } : {}),
-      ...(effectiveConfig.additionalTools ?? {}),
-    };
+      // 3. Add dynamic knowledge query tool
+      const knowledgeTool = effectiveConfig.knowledgeRetriever
+        ? createKnowledgeQueryTool(
+            effectiveConfig.knowledgeRetriever,
+            effectiveConfig.spec.knowledge ?? []
+          )
+        : null;
 
-    return new ContractSpecAgent(effectiveConfig, instructions, tools);
+      // 4. Ensure MCP tools do not silently override spec or built-in tools
+      const reservedToolNames = new Set(Object.keys(specTools));
+      if (knowledgeTool) {
+        reservedToolNames.add('query_knowledge');
+      }
+
+      const conflictingMcpTools = Object.keys(mcpToolset?.tools ?? {}).filter(
+        (toolName) => reservedToolNames.has(toolName)
+      );
+
+      if (conflictingMcpTools.length > 0) {
+        throw new Error(
+          `MCP tools conflict with agent tools: ${conflictingMcpTools.join(', ')}. Configure MCP toolPrefix values to avoid collisions.`
+        );
+      }
+
+      // 5. Combine all tools
+      const tools: Record<string, ExecutableTool> = {
+        ...specTools,
+        ...(knowledgeTool ? { query_knowledge: knowledgeTool } : {}),
+        ...(mcpToolset?.tools ?? {}),
+        ...(effectiveConfig.additionalTools ?? {}),
+      };
+
+      return new ContractSpecAgent(
+        effectiveConfig,
+        instructions,
+        tools,
+        mcpToolset?.cleanup
+      );
+    } catch (error) {
+      if (mcpToolset) {
+        await mcpToolset.cleanup().catch(() => undefined);
+      }
+      throw error;
+    }
+  }
+
+  /**
+   * Cleanup resources held by this agent (e.g., MCP connections).
+   */
+  async cleanup(): Promise<void> {
+    if (!this.mcpCleanup) {
+      return;
+    }
+
+    const cleanup = this.mcpCleanup;
+    this.mcpCleanup = undefined;
+    await cleanup();
   }
 
   /**
