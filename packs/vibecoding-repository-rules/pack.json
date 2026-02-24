@@ -1,0 +1,20 @@
+{
+  "name": "vibecoding-repository-rules",
+  "version": "1.0.0",
+  "description": "Repository-specific governance rules and AGENTS index",
+  "tags": [
+    "vibecoding",
+    "repository",
+    "governance",
+    "rules"
+  ],
+  "dependencies": [
+    "vibecoding-contractspec-core",
+    "vibecoding-best-practices"
+  ],
+  "conflicts": [],
+  "targets": "*",
+  "features": [
+    "rules"
+  ]
+}

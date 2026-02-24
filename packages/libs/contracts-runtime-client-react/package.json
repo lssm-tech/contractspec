@@ -19,7 +19,7 @@
     "dev": "contractspec-bun-build dev"
   },
   "peerDependencies": {
-    "@blocknote/core": "^0.46.1",
+    "@blocknote/core": "^0.47.0",
     "@hookform/resolvers": "^5.2.2",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",

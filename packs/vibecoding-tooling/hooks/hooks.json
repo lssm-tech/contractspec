@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "type": "command",
+        "command": "scripts/agent-hooks/session-summary.sh start"
+      }
+    ],
+    "postToolUse": [
+      {
+        "type": "command",
+        "matcher": "Write|Edit",
+        "command": "scripts/agent-hooks/post-edit-checks.sh"
+      }
+    ],
+    "stop": [
+      {
+        "type": "command",
+        "command": "scripts/agent-hooks/session-summary.sh stop"
+      }
+    ]
+  },
+  "opencode": {
+    "hooks": {
+      "afterFileEdit": [
+        {
+          "command": "scripts/agent-hooks/post-edit-checks.sh"
+        }
+      ],
+      "afterShellExecution": [
+        {
+          "command": "scripts/agent-hooks/post-shell-checks.sh"
+        }
+      ]
+    }
+  }
+}

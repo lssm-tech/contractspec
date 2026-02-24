@@ -1,0 +1,19 @@
+{
+  "name": "vibecoding-best-practices",
+  "version": "1.0.0",
+  "description": "Engineering best-practice governance for quality, security, performance, and delivery",
+  "tags": [
+    "vibecoding",
+    "best-practices",
+    "governance",
+    "rules"
+  ],
+  "dependencies": [
+    "vibecoding-contractspec-core"
+  ],
+  "conflicts": [],
+  "targets": "*",
+  "features": [
+    "rules"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "vibecoding-tooling",
+  "version": "1.0.0",
+  "description": "Shared vibecoding commands, subagents, skills, hooks, mcp, and ignore configuration",
+  "tags": [
+    "vibecoding",
+    "tooling",
+    "commands",
+    "agents",
+    "skills"
+  ],
+  "dependencies": [
+    "vibecoding-contractspec-core",
+    "vibecoding-best-practices",
+    "vibecoding-repository-rules"
+  ],
+  "conflicts": [],
+  "targets": "*",
+  "features": "*"
+}

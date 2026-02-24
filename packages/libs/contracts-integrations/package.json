@@ -19,7 +19,7 @@
     "dev": "contractspec-bun-build dev"
   },
   "dependencies": {
-    "@aws-sdk/client-secrets-manager": "^3.991.0",
+    "@aws-sdk/client-secrets-manager": "^3.996.0",
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
     "@google-cloud/secret-manager": "^6.1.1",

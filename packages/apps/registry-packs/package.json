@@ -22,7 +22,7 @@
   "dependencies": {
     "@elysiajs/cors": "^1.4.1",
     "@elysiajs/server-timing": "^1.4.0",
-    "drizzle-orm": "^0.44.2",
+    "drizzle-orm": "^0.45.1",
     "elysia": "^1.4.25",
     "zod": "catalog:"
   },
@@ -30,7 +30,7 @@
     "pg": "^8.14.1"
   },
   "devDependencies": {
-    "@types/pg": "^8.11.11",
+    "@types/pg": "^8.16.0",
     "drizzle-kit": "^0.31.1",
     "typescript": "catalog:"
   },

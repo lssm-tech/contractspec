@@ -87,14 +87,14 @@
     "@contractspec/module.examples": "workspace:*",
     "@electric-sql/pglite": "^0.3.14",
     "@hookform/resolvers": "^5.2.2",
-    "@scaleway/sdk": "^3.2.0",
+    "@scaleway/sdk": "^3.2.1",
     "@scaleway/sdk-client": "^2.1.0",
     "class-variance-authority": "^0.7.1",
-    "framer-motion": "^12.34.0",
-    "lucide-react": "^0.564.0",
+    "framer-motion": "^12.34.3",
+    "lucide-react": "^0.575.0",
     "next": "catalog:",
     "react": "catalog:",
-    "react-hook-form": "^7.70.0",
+    "react-hook-form": "^7.71.2",
     "zod": "catalog:"
   },
   "devDependencies": {

@@ -21,7 +21,7 @@
   "dependencies": {
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.logger": "workspace:*",
-    "@modelcontextprotocol/sdk": "^1.26.0",
+    "@modelcontextprotocol/sdk": "^1.27.0",
     "zod": "catalog:"
   },
   "devDependencies": {

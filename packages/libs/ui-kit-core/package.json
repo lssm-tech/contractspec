@@ -32,7 +32,7 @@
     "clsx": "^2.1.0",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "tailwind-merge": "^3.4.1",
+    "tailwind-merge": "^3.5.0",
     "tailwindcss": "catalog:build",
     "tailwindcss-animate": "^1.0.7"
   },

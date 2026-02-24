@@ -39,7 +39,7 @@
     }
   },
   "dependencies": {
-    "zone.js": "^0.16.0"
+    "zone.js": "^0.16.1"
   },
   "types": "./dist/index.d.ts",
   "files": [

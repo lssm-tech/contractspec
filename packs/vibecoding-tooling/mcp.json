@@ -1,0 +1,45 @@
+{
+  "mcpServers": {
+    "contractspec-internal": {
+      "description": "ContractSpec internal API for project management, specs, and deployments",
+      "url": "https://api.contractspec.io/mcp/internal"
+    },
+    "contractspec-docs": {
+      "description": "ContractSpec documentation and DocBlocks API for reading and updating docs",
+      "url": "https://api.contractspec.io/mcp/docs"
+    },
+    "contractspec-cli": {
+      "description": "ContractSpec CLI operations for code generation, validation, and migrations",
+      "url": "https://api.contractspec.io/mcp/cli"
+    },
+    "vercel": {
+      "description": "Vercel MCP to view and manage projects",
+      "url": "https://mcp.vercel.com"
+    },
+    "serena": {
+      "description": "Serena IDE assistant for semantic code understanding and refactoring",
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant",
+        "--enable-web-dashboard",
+        "false",
+        "--project",
+        "."
+      ],
+      "env": {}
+    },
+    "context7": {
+      "description": "Context7 for library documentation lookup and up-to-date API references",
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "env": {}
+    }
+  }
+}

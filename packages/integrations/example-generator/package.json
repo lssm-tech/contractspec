@@ -49,7 +49,7 @@
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
     "typescript": "catalog:",
-    "@types/node": "^25.2.3",
+    "@types/node": "^25.3.0",
     "rimraf": "^6.1.3",
     "@contractspec/tool.bun": "workspace:*"
   },

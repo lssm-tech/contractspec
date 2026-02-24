@@ -15,13 +15,13 @@
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.content-gen": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
-    "remotion": "^4.0.0",
-    "@remotion/cli": "^4.0.0",
+    "remotion": "^4.0.428",
+    "@remotion/cli": "^4.0.428",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@remotion/renderer": "^4.0.0",
+    "@remotion/renderer": "^4.0.428",
     "@types/react": "^19.0.0",
     "typescript": "^5.9.3"
   }

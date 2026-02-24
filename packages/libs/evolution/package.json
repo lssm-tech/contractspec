@@ -41,7 +41,7 @@
     "@contractspec/lib.schema": "workspace:*"
   },
   "peerDependencies": {
-    "@prisma/client": "7.4.0"
+    "@prisma/client": "7.4.1"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
