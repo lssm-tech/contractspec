@@ -54,14 +54,16 @@ const createTestSpec = (overrides?: Partial<WorkflowSpec>): WorkflowSpec => ({
   ...overrides,
 });
 
-const createTestState = (
-  overrides?: Partial<WorkflowState>
-): WorkflowState => ({
+const createTestState = <
+  TData extends Record<string, unknown> = Record<string, unknown>,
+>(
+  overrides?: Partial<WorkflowState<TData>>
+): WorkflowState<TData> => ({
   workflowId: 'wf-123',
   workflowName: 'test.workflow',
   workflowVersion: '1.0.0',
   currentStep: 'step1',
-  data: { approved: true },
+  data: { approved: true } as unknown as TData,
   retryCounts: {},
   history: [],
   status: 'running',
@@ -108,11 +110,13 @@ describe('WorkflowContext State Management', () => {
 
   describe('getData', () => {
     it('should return data value for existing key', () => {
-      const state = createTestState({ data: { name: 'test', count: 42 } });
+      const state = createTestState<{ name: string; count: number }>({
+        data: { name: 'test', count: 42 },
+      });
       const ctx = createWorkflowContext(state, spec);
 
       expect(ctx.getData('name')).toBe('test');
-      expect(ctx.getData<number>('count')).toBe(42);
+      expect(ctx.getData('count')).toBe(42);
     });
 
     it('should return undefined for non-existing key', () => {

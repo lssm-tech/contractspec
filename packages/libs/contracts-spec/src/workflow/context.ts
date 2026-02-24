@@ -30,8 +30,8 @@
  * ```
  */
 
-import type { WorkflowState, StepExecution } from './state';
-import type { WorkflowSpec, Step } from './spec';
+import type { StepExecution, WorkflowState } from './state';
+import type { Step, WorkflowSpec } from './spec';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Error Types
@@ -131,7 +131,9 @@ export interface WorkflowEvent {
  * Provides a simplified interface over WorkflowRunner for common
  * workflow operations like state access, transitions, and SLA tracking.
  */
-export interface WorkflowContext<TData = Record<string, unknown>> {
+export interface WorkflowContext<
+  TData extends Record<string, unknown> = Record<string, unknown>,
+> {
   /** Unique workflow instance identifier. */
   readonly workflowId: string;
 
@@ -161,14 +163,14 @@ export interface WorkflowContext<TData = Record<string, unknown>> {
    * Get the current workflow state.
    * @returns Full workflow state object
    */
-  getState(): WorkflowState;
+  getState(): WorkflowState<TData>;
 
   /**
    * Get a value from workflow data.
    * @param key - Data key to retrieve
    * @returns Value or undefined
    */
-  getData<T = unknown>(key: string): T | undefined;
+  getData<Key extends keyof TData>(key: Key): TData[Key] | undefined;
 
   /**
    * Check if workflow is in a terminal state.
@@ -278,10 +280,10 @@ export interface WorkflowContext<TData = Record<string, unknown>> {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class WorkflowContextImpl<
-  TData = Record<string, unknown>,
+  TData extends Record<string, unknown> = Record<string, unknown>,
 > implements WorkflowContext<TData> {
   constructor(
-    private readonly state: WorkflowState,
+    private readonly state: WorkflowState<TData>,
     private readonly spec: WorkflowSpec
   ) {}
 
@@ -314,12 +316,12 @@ class WorkflowContextImpl<
   }
 
   // State Management
-  getState(): WorkflowState {
+  getState(): WorkflowState<TData> {
     return this.state;
   }
 
-  getData<T = unknown>(key: string): T | undefined {
-    return this.state.data[key] as T | undefined;
+  getData<Key extends keyof TData>(key: Key): TData[Key] | undefined {
+    return this.state.data[key];
   }
 
   isTerminal(): boolean {
@@ -524,10 +526,9 @@ class WorkflowContextImpl<
  * console.log('Available transitions:', ctx.getAvailableTransitions());
  * ```
  */
-export function createWorkflowContext<TData = Record<string, unknown>>(
-  state: WorkflowState,
-  spec: WorkflowSpec
-): WorkflowContext<TData> {
+export function createWorkflowContext<
+  TData extends Record<string, unknown> = Record<string, unknown>,
+>(state: WorkflowState<TData>, spec: WorkflowSpec): WorkflowContext<TData> {
   return new WorkflowContextImpl<TData>(state, spec);
 }
 

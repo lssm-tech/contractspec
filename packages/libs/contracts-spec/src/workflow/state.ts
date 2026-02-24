@@ -10,12 +10,14 @@ export interface StepExecution {
   error?: string;
 }
 
-export interface WorkflowState {
+export interface WorkflowState<
+  Data extends Record<string, unknown> = Record<string, unknown>,
+> {
   workflowId: string;
   workflowName: string;
   workflowVersion: string;
   currentStep: string;
-  data: Record<string, unknown>;
+  data: Data;
   retryCounts?: Record<string, number>;
   history: StepExecution[];
   status: WorkflowStatus;

@@ -1,0 +1,57 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "incremental": false,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "declarationMap": false,
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@contractspec/lib.contracts-spec": [
+        "../contracts-spec/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/*": [
+        "../contracts-spec/dist/*"
+      ],
+      "@contractspec/lib.contracts-integrations": [
+        "../contracts-integrations/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/*": [
+        "../contracts-integrations/dist/*"
+      ],
+      "@contractspec/lib.voice": [
+        "../voice/dist/index.d.ts"
+      ],
+      "@contractspec/lib.voice/*": [
+        "../voice/dist/*"
+      ],
+      "@contractspec/lib.content-gen": [
+        "../content-gen/dist/index.d.ts"
+      ],
+      "@contractspec/lib.content-gen/*": [
+        "../content-gen/dist/*"
+      ],
+      "@contractspec/lib.design-system": [
+        "../design-system/dist/index.d.ts"
+      ],
+      "@contractspec/lib.design-system/*": [
+        "../design-system/dist/*"
+      ],
+      "@contractspec/lib.image-gen": [
+        "../image-gen/dist/index.d.ts"
+      ],
+      "@contractspec/lib.image-gen/*": [
+        "../image-gen/dist/*"
+      ],
+      "@contractspec/tool.typescript/*": [
+        "../../tools/typescript/dist/*"
+      ],
+      "@contractspec/tool.bun/*": [
+        "../../tools/bun/dist/*"
+      ]
+    }
+  }
+}
