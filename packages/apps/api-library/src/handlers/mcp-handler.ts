@@ -1,8 +1,19 @@
 import { Elysia } from 'elysia';
-import { createDocsMcpHandler } from '@contractspec/bundle.library/application/mcp/docsMcp';
 import { appLogger } from '@contractspec/bundle.library/infrastructure/elysia/logger';
+import { createDocsMcpHandler } from '@contractspec/bundle.library/application/mcp/docsMcp';
+import { createCliMcpHandler } from '@contractspec/bundle.library/application/mcp/cliMcp';
+import { createInternalMcpHandler } from '@contractspec/bundle.library/application/mcp/internalMcp';
 
-export const mcpHandler = new Elysia().use(createDocsMcpHandler('/mcp/docs'));
+export const mcpHandler = new Elysia()
+  .use(createDocsMcpHandler('/mcp/docs'))
+  .use(createCliMcpHandler('/mcp/cli'))
+  .use(createInternalMcpHandler('/mcp/internal'));
+
+// Also mount the legacy /api/mcp/docs path (Cursor MCP clients often use /api/* by default).
+// Keep both mounted to avoid breaking existing integrations.
+mcpHandler.use(createDocsMcpHandler('/api/mcp/docs'));
+mcpHandler.use(createCliMcpHandler('/api/mcp/cli'));
+mcpHandler.use(createInternalMcpHandler('/api/mcp/internal'));
 
 // Also mount the legacy /api/mcp/docs path (Cursor MCP clients often use /api/* by default).
 // Keep both mounted to avoid breaking existing integrations.
