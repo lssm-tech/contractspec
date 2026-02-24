@@ -10,7 +10,6 @@ import {
   SheetTitle,
   SheetHeader,
   SheetFooter,
-  SheetDescription,
 } from '@contractspec/lib.ui-kit-web/ui/sheet';
 import { Menu } from 'lucide-react';
 import type { MarketingHeaderProps } from './MarketingHeader';
@@ -24,6 +23,8 @@ export function MarketingHeaderMobile({
   nav = [],
   className,
   right,
+  commandPaletteGroups,
+  langSwitchProps,
 }: MarketingHeaderProps) {
   const [open, setOpen] = React.useState(false);
   return (
@@ -44,35 +45,31 @@ export function MarketingHeaderMobile({
             <SheetContent side="left" className="w-[320px] p-4">
               <SheetHeader>
                 <SheetTitle>Menu</SheetTitle>
-                <SheetDescription>
+                {!!commandPaletteGroups?.length && (
                   <div className="mb-3">
-                    <CommandSearchTrigger groups={[]} compact />
+                    <CommandSearchTrigger
+                      groups={commandPaletteGroups}
+                      compact
+                    />
                   </div>
-                  <MobileNavMenu items={nav} />
-                </SheetDescription>
+                )}
               </SheetHeader>
               <VStack>
                 <MobileNavMenu items={nav} />
               </VStack>
-              <SheetFooter>
-                {right}
-                {/* todo */}
-              </SheetFooter>
+              <SheetFooter>{right}</SheetFooter>
             </SheetContent>
           </Sheet>
           {logo}
         </div>
         <div className="flex items-center gap-2">
-          <LangSwitchDropdown
-            value={'en'}
-            options={[
-              { code: 'fr', label: 'FR' },
-              { code: 'en', label: 'EN' },
-            ]}
-            onChange={() => {
-              /* noop */
-            }}
-          />
+          {!!(langSwitchProps?.options?.length > 1) && (
+            <LangSwitchDropdown
+              value={langSwitchProps.value}
+              options={langSwitchProps.options}
+              onChange={langSwitchProps.onChange}
+            />
+          )}
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
-import { Button, Input } from '../../index';
+import { Button } from '../atoms/Button';
+import { Input } from '../atoms/Input';
 import { Badge } from '@contractspec/lib.ui-kit-web/ui/badge';
 
 export interface ActiveFilterChip {

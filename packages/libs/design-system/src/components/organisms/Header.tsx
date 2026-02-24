@@ -103,8 +103,8 @@ export function MobileHeader({
             <Menu className="h-5 w-5" />
           </Button>
         </SheetTrigger>
-        <SheetTitle>Menu</SheetTitle>
         <SheetContent side="left" className="w-[300px] p-0">
+          <SheetTitle className="sr-only">Menu</SheetTitle>
           {mobileSidebar ? (
             <AppSidebar
               sections={mobileSidebar.sections}

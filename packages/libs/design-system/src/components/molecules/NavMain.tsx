@@ -27,7 +27,7 @@ export function NavMain({
             {it.items && it.items.length > 0 ? (
               <>
                 <NavTrigger>
-                  <Text>r{it.label}</Text>
+                  <Text>{it.label}</Text>
                 </NavTrigger>
                 <NavContent>
                   <HStack className="grid w-[500px] grid-cols-2 gap-3 p-3">

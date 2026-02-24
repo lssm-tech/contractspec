@@ -23,16 +23,11 @@ export function LangSwitchDropdown({
   onChange: (code: string) => void;
   className?: string;
 }) {
-  const [open, setOpen] = React.useState(false);
   const current = options.find((o) => o.code === value);
 
   return (
-    <DropdownMenu open={open} onOpenChange={setOpen}>
-      <DropdownMenuTrigger
-        className={className}
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
-      >
+    <DropdownMenu>
+      <DropdownMenuTrigger className={className}>
         <div className="hover:bg-muted/40 inline-flex items-center gap-2 rounded-xs border px-2 py-1 text-sm">
           <Globe className="h-4 w-4" />
           <span className="hidden sm:inline">
@@ -40,13 +35,9 @@ export function LangSwitchDropdown({
           </span>
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent
-        align="end"
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
-      >
+      <DropdownMenuContent align="end">
         {options.map((opt) => (
-          <DropdownMenuItem key={opt.code} onClick={() => onChange(opt.code)}>
+          <DropdownMenuItem key={opt.code} onSelect={() => onChange(opt.code)}>
             {opt.label}
           </DropdownMenuItem>
         ))}
