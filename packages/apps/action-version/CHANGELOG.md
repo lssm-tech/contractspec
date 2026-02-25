@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 1.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
 ## 1.8.0
 
 ### Minor Changes

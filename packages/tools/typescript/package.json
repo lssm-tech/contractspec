@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/tool.typescript",
-  "version": "2.8.0",
+  "version": "2.9.0",
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary"

@@ -1,5 +1,23 @@
 # @contractspec/module.ai-chat
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/lib.cost-tracking@2.9.0
+  - @contractspec/lib.design-system@2.9.0
+  - @contractspec/lib.ai-providers@2.9.0
+  - @contractspec/lib.ui-kit-web@2.9.0
+  - @contractspec/lib.ai-agent@2.9.0
+  - @contractspec/lib.metering@2.9.0
+  - @contractspec/lib.schema@2.9.0
+
 ## 2.8.0
 
 ### Minor Changes

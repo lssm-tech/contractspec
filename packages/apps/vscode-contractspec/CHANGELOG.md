@@ -1,5 +1,22 @@
 # Changelog
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-transformers@2.9.0
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/bundle.workspace@2.9.0
+  - @contractspec/module.workspace@2.9.0
+  - @contractspec/module.examples@2.9.0
+  - @contractspec/module.ai-chat@2.9.0
+  - @contractspec/lib.ai-agent@2.9.0
+
 ## 2.8.0
 
 ### Minor Changes

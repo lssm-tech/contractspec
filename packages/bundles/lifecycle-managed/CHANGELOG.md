@@ -1,5 +1,21 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/module.lifecycle-advisor@2.9.0
+  - @contractspec/module.lifecycle-core@2.9.0
+  - @contractspec/lib.observability@2.9.0
+  - @contractspec/lib.analytics@2.9.0
+  - @contractspec/lib.lifecycle@2.9.0
+  - @contractspec/lib.ai-agent@2.9.0
+
 ## 2.8.0
 
 ### Minor Changes

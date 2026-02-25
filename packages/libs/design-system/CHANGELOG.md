@@ -1,5 +1,20 @@
 # @contractspec/lib.design-system
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-runtime-client-react@2.9.0
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/lib.ui-kit-web@2.9.0
+  - @contractspec/lib.ai-agent@2.9.0
+  - @contractspec/lib.ui-kit@2.9.0
+
 ## 2.8.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # spec-driven-development
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/app.cli-contractspec@2.9.0
+
 ## 2.8.0
 
 ### Minor Changes

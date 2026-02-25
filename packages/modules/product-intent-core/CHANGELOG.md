@@ -1,5 +1,17 @@
 # @contractspec/module.product-intent-core
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.product-intent-utils@2.9.0
+  - @contractspec/lib.contracts-spec@2.9.0
+
 ## 2.8.0
 
 ### Minor Changes

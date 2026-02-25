@@ -1,5 +1,19 @@
 # @contractspec/app.api-library
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/bundle.marketing@2.9.0
+  - @contractspec/bundle.workspace@2.9.0
+  - @contractspec/bundle.library@2.9.0
+
 ## 2.8.0
 
 ### Minor Changes

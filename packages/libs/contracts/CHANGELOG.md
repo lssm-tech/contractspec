@@ -1,5 +1,11 @@
 # @contractspec/lib.contracts
 
+## 1.70.0
+
+### Minor Changes
+
+- fix: minimatch version
+
 ## 1.69.0
 
 ### Minor Changes

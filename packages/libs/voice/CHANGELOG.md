@@ -1,5 +1,18 @@
 # @contractspec/lib.voice
 
+## 0.6.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@2.9.0
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/lib.content-gen@2.9.0
+
 ## 0.5.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @contractspec/integration.example-generator
 
+## 25.0.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/lib.schema@2.9.0
+
 ## 24.0.0
 
 ### Minor Changes

@@ -1,5 +1,18 @@
 # @contractspec/integration.runtime
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@2.9.0
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/lib.logger@2.9.0
+
 ## 2.8.0
 
 ### Minor Changes

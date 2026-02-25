@@ -1,5 +1,21 @@
 # @contractspec/lib.video-gen
 
+## 1.50.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@2.9.0
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/lib.design-system@2.9.0
+  - @contractspec/lib.content-gen@2.9.0
+  - @contractspec/lib.image-gen@0.6.0
+  - @contractspec/lib.voice@0.6.0
+
 ## 1.49.0
 
 ### Minor Changes

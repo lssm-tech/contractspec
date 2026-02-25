@@ -1,5 +1,16 @@
 # @contractspec/lib.ui-kit
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.ui-kit-core@2.9.0
+
 ## 2.8.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @contractspec/action.validation
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
 ## 2.8.0
 
 ### Minor Changes

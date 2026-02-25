@@ -1,5 +1,19 @@
 # @contractspec/example.learning-journey-crm-onboarding
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/module.learning-journey@2.9.0
+  - @contractspec/example.crm-pipeline@2.9.0
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/lib.schema@2.9.0
+
 ## 2.8.0
 
 ### Minor Changes

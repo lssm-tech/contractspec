@@ -1,5 +1,19 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 26.0.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@2.9.0
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/lib.design-system@2.9.0
+  - @contractspec/lib.ui-kit-web@2.9.0
+
 ## 25.0.0
 
 ### Minor Changes

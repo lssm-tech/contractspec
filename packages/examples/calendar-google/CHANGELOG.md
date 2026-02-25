@@ -1,5 +1,17 @@
 # @contractspec/example.calendar-google
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/integration.providers-impls@2.9.0
+  - @contractspec/lib.contracts-spec@2.9.0
+
 ## 2.8.0
 
 ### Minor Changes

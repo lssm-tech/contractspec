@@ -1,5 +1,20 @@
 # @contractspec/example.wealth-snapshot
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/module.notifications@2.9.0
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/module.audit-trail@2.9.0
+  - @contractspec/lib.identity-rbac@2.9.0
+  - @contractspec/lib.schema@2.9.0
+
 ## 2.8.0
 
 ### Minor Changes

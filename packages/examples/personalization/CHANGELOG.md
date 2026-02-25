@@ -1,5 +1,20 @@
 # @contractspec/example.personalization
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.workflow-composer@2.9.0
+  - @contractspec/lib.personalization@2.9.0
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/lib.overlay-engine@2.9.0
+  - @contractspec/lib.logger@2.9.0
+
 ## 2.8.0
 
 ### Minor Changes

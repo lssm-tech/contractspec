@@ -1,5 +1,16 @@
 # @contractspec/app.cli-database
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.schema@2.9.0
+
 ## 2.8.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # agentpacks
 
+## 0.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
 ## 0.8.0
 
 ### Minor Changes

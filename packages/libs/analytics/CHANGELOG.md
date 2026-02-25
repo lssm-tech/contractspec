@@ -1,5 +1,18 @@
 # @contractspec/lib.analytics
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@2.9.0
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/lib.lifecycle@2.9.0
+
 ## 2.8.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # @contractspec/lib.progressive-delivery
 
+## 26.0.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.observability@2.9.0
+
 ## 25.0.0
 
 ### Minor Changes

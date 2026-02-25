@@ -1,5 +1,19 @@
 # @contractspec/example.lifecycle-cli
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/bundle.lifecycle-managed@2.9.0
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/lib.lifecycle@2.9.0
+  - @contractspec/lib.logger@2.9.0
+
 ## 2.8.0
 
 ### Minor Changes

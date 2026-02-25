@@ -1,5 +1,24 @@
 # @contractspec/example.crm-pipeline
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.example-shared-ui@2.9.0
+  - @contractspec/module.notifications@2.9.0
+  - @contractspec/lib.runtime-sandbox@1.9.0
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/module.audit-trail@2.9.0
+  - @contractspec/lib.design-system@2.9.0
+  - @contractspec/lib.identity-rbac@2.9.0
+  - @contractspec/lib.ui-kit-web@2.9.0
+  - @contractspec/lib.schema@2.9.0
+
 ## 2.8.0
 
 ### Minor Changes

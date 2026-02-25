@@ -1,5 +1,18 @@
 # @contractspec/example.video-docs-terminal
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/lib.content-gen@2.9.0
+  - @contractspec/lib.video-gen@1.50.0
+
 ## 2.8.0
 
 ### Minor Changes
