@@ -1,5 +1,21 @@
 # @contractspec/lib.video-gen
 
+## 1.49.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.content-gen@2.8.0
+  - @contractspec/lib.contracts-integrations@2.8.0
+  - @contractspec/lib.contracts-spec@2.8.0
+  - @contractspec/lib.design-system@2.8.0
+  - @contractspec/lib.image-gen@0.5.0
+  - @contractspec/lib.voice@0.5.0
+
 ## 1.48.0
 
 ### Minor Changes

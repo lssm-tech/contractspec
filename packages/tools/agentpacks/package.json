@@ -1,6 +1,6 @@
 {
   "name": "agentpacks",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "type": "module",
   "description": "Composable AI agent configuration manager. Pack-based rules, commands, skills, hooks, and MCP sync across OpenCode, Cursor, Claude Code, Codex, Gemini, Copilot, and more.",
   "keywords": [

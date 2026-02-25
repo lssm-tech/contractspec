@@ -1,5 +1,18 @@
 # @contractspec/lib.image-gen
 
+## 0.5.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.content-gen@2.8.0
+  - @contractspec/lib.contracts-integrations@2.8.0
+  - @contractspec/lib.contracts-spec@2.8.0
+
 ## 0.4.0
 
 ### Minor Changes

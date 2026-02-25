@@ -1,5 +1,16 @@
 # @contractspec/lib.ui-kit
 
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.ui-kit-core@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

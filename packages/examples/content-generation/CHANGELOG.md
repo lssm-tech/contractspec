@@ -1,5 +1,18 @@
 # @contractspec/example.content-generation
 
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.content-gen@2.8.0
+  - @contractspec/lib.contracts-spec@2.8.0
+  - @contractspec/lib.logger@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

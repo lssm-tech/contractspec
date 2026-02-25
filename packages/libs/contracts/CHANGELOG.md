@@ -1,5 +1,11 @@
 # @contractspec/lib.contracts
 
+## 1.69.0
+
+### Minor Changes
+
+- fix: tarball packages
+
 ## 1.68.0
 
 ### Minor Changes

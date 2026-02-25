@@ -1,5 +1,19 @@
 # @contractspec/example.lifecycle-cli
 
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/bundle.lifecycle-managed@2.8.0
+  - @contractspec/lib.contracts-spec@2.8.0
+  - @contractspec/lib.lifecycle@2.8.0
+  - @contractspec/lib.logger@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

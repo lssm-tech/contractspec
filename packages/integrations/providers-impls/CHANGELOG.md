@@ -1,5 +1,18 @@
 # @contractspec/integration.providers-impls
 
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/integration.runtime@2.8.0
+  - @contractspec/lib.contracts-integrations@2.8.0
+  - @contractspec/lib.contracts-spec@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

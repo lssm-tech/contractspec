@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/bundle.workspace@2.8.0
+  - @contractspec/lib.contracts-spec@2.8.0
+
 ## 1.7.0
 
 ### Minor Changes

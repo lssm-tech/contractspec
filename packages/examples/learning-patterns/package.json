@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.learning-patterns",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "Example: drills + ambient coach + quests learning patterns, powered by Learning Journey (event-driven, deterministic).",
   "type": "module",
   "types": "./dist/index.d.ts",

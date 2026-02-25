@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 25.0.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@2.8.0
+  - @contractspec/lib.ui-kit@2.8.0
+
 ## 24.0.0
 
 ### Minor Changes

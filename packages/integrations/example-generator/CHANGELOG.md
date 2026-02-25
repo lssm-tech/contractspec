@@ -1,5 +1,17 @@
 # @contractspec/integration.example-generator
 
+## 24.0.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.8.0
+  - @contractspec/lib.schema@2.8.0
+
 ## 23.0.0
 
 ### Minor Changes

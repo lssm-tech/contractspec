@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 1.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
 ## 1.7.0
 
 ### Minor Changes

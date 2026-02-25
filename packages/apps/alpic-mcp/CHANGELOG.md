@@ -1,5 +1,17 @@
 # @contractspec/app.alpic-mcp
 
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/bundle.alpic@2.8.0
+  - @contractspec/lib.logger@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

@@ -1,5 +1,20 @@
 # @contractspec/lib.jobs
 
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@2.8.0
+  - @contractspec/lib.contracts-spec@2.8.0
+  - @contractspec/lib.knowledge@2.8.0
+  - @contractspec/lib.logger@2.8.0
+  - @contractspec/lib.schema@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

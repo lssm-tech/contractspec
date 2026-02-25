@@ -1,5 +1,34 @@
 # @contractspec/bundle.marketing
 
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/bundle.library@2.8.0
+  - @contractspec/example.agent-console@2.8.0
+  - @contractspec/example.analytics-dashboard@2.8.0
+  - @contractspec/example.crm-pipeline@2.8.0
+  - @contractspec/example.integration-hub@2.8.0
+  - @contractspec/example.marketplace@2.8.0
+  - @contractspec/example.saas-boilerplate@2.8.0
+  - @contractspec/example.workflow-system@2.8.0
+  - @contractspec/lib.contracts-runtime-client-react@2.8.0
+  - @contractspec/lib.contracts-spec@2.8.0
+  - @contractspec/lib.design-system@2.8.0
+  - @contractspec/lib.email@2.8.0
+  - @contractspec/lib.example-shared-ui@2.8.0
+  - @contractspec/lib.logger@2.8.0
+  - @contractspec/lib.runtime-sandbox@1.8.0
+  - @contractspec/lib.ui-kit-core@2.8.0
+  - @contractspec/lib.ui-kit-web@2.8.0
+  - @contractspec/lib.ui-link@2.8.0
+  - @contractspec/module.examples@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

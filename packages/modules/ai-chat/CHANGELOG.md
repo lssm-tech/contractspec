@@ -1,5 +1,23 @@
 # @contractspec/module.ai-chat
 
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.ai-agent@2.8.0
+  - @contractspec/lib.ai-providers@2.8.0
+  - @contractspec/lib.contracts-spec@2.8.0
+  - @contractspec/lib.cost-tracking@2.8.0
+  - @contractspec/lib.design-system@2.8.0
+  - @contractspec/lib.metering@2.8.0
+  - @contractspec/lib.schema@2.8.0
+  - @contractspec/lib.ui-kit-web@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

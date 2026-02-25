@@ -1,5 +1,22 @@
 # Changelog
 
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/bundle.workspace@2.8.0
+  - @contractspec/lib.ai-agent@2.8.0
+  - @contractspec/lib.contracts-spec@2.8.0
+  - @contractspec/lib.contracts-transformers@2.8.0
+  - @contractspec/module.ai-chat@2.8.0
+  - @contractspec/module.examples@2.8.0
+  - @contractspec/module.workspace@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @contractspec/example.learning-journey-quest-challenges
 
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.8.0
+  - @contractspec/module.learning-journey@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

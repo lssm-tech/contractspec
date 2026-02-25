@@ -1,5 +1,16 @@
 # @contractspec/lib.progressive-delivery
 
+## 25.0.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.observability@2.8.0
+
 ## 24.0.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/integration.runtime",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "Runtime integration with secret management",
   "keywords": [
     "contractspec",

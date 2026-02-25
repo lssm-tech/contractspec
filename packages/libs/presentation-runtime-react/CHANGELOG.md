@@ -1,5 +1,19 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 25.0.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.8.0
+  - @contractspec/lib.design-system@2.8.0
+  - @contractspec/lib.presentation-runtime-core@2.8.0
+  - @contractspec/lib.ui-kit-web@2.8.0
+
 ## 24.0.0
 
 ### Minor Changes

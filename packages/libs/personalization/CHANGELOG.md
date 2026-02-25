@@ -1,5 +1,20 @@
 # @contractspec/lib.personalization
 
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.bus@2.8.0
+  - @contractspec/lib.contracts-spec@2.8.0
+  - @contractspec/lib.knowledge@2.8.0
+  - @contractspec/lib.overlay-engine@2.8.0
+  - @contractspec/lib.schema@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

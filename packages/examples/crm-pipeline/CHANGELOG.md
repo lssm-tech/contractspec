@@ -1,5 +1,24 @@
 # @contractspec/example.crm-pipeline
 
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.8.0
+  - @contractspec/lib.design-system@2.8.0
+  - @contractspec/lib.example-shared-ui@2.8.0
+  - @contractspec/lib.identity-rbac@2.8.0
+  - @contractspec/lib.runtime-sandbox@1.8.0
+  - @contractspec/lib.schema@2.8.0
+  - @contractspec/lib.ui-kit-web@2.8.0
+  - @contractspec/module.audit-trail@2.8.0
+  - @contractspec/module.notifications@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @contractspec/app.registry-packs
 
+## 0.5.0
+
+### Minor Changes
+
+- fix: tarball packages
+
 ## 0.4.0
 
 ### Minor Changes

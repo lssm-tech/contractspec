@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.video-docs-terminal",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "Generate terminal demo videos from CLI walkthroughs using the TerminalDemo composition and ScriptGenerator.",
   "type": "module",
   "types": "./dist/index.d.ts",

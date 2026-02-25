@@ -1,5 +1,11 @@
 # agentpacks
 
+## 0.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
 ## 0.7.0
 
 ### Minor Changes

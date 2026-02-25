@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.marketplace",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "Marketplace example with orders, payouts, and reviews for ContractSpec",
   "types": "./dist/index.d.ts",
   "type": "module",

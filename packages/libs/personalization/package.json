@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.personalization",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "Behavior tracking, analysis, and adaptation helpers for ContractSpec personalization.",
   "keywords": [
     "contractspec",

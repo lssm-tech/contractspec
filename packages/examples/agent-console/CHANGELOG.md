@@ -1,5 +1,20 @@
 # @contractspec/example.agent-console
 
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@2.8.0
+  - @contractspec/lib.design-system@2.8.0
+  - @contractspec/lib.example-shared-ui@2.8.0
+  - @contractspec/lib.runtime-sandbox@1.8.0
+  - @contractspec/lib.schema@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

@@ -1,5 +1,18 @@
 # @contractspec/lib.accessibility
 
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.design-system@2.8.0
+  - @contractspec/lib.ui-kit@2.8.0
+  - @contractspec/lib.ui-kit-web@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @contractspec/lib.presentation-runtime-core
 
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
 ## 2.7.0
 
 ### Minor Changes
