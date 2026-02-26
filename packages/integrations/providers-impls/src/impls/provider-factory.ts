@@ -35,8 +35,10 @@ import type { EmbeddingProvider } from '../embedding';
 import type { OpenBankingProvider } from '../openbanking';
 import type { ProjectManagementProvider } from '../project-management';
 import type { MeetingRecorderProvider } from '../meeting-recorder';
+import type { HealthProvider } from '../health';
 import { PowensOpenBankingProvider } from './powens-openbanking';
 import type { PowensEnvironment } from './powens-client';
+import { createHealthProviderFromContext } from './health-provider-factory';
 
 const SECRET_CACHE = new Map<string, Record<string, unknown>>();
 
@@ -565,6 +567,13 @@ export class IntegrationProviderFactory {
           `Unsupported open banking integration: ${context.spec.meta.key}`
         );
     }
+  }
+
+  async createHealthProvider(
+    context: IntegrationContext
+  ): Promise<HealthProvider> {
+    const secrets = await this.loadSecrets(context);
+    return createHealthProviderFromContext(context, secrets);
   }
 
   private async loadSecrets(

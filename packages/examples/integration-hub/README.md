@@ -16,6 +16,7 @@ A comprehensive integration hub example demonstrating ContractSpec principles fo
 - **Feature Flag Integration**: Control integration availability
 - **Full Audit Trail**: Track all sync operations
 - **MCP-Ready Providers**: Supports provider configs that call remote MCP tools
+- **Health Strategy Routing**: Supports `health.*` providers with official, aggregator, and gated unofficial fallback transports
 
 ## Entities
 
@@ -144,6 +145,11 @@ Provider adapters in this workspace can be configured to call MCP endpoints
 (for example `mcpUrl` + headers/tokens on analytics providers, or transport
 selection for meeting recorder providers). This example remains provider-agnostic,
 so MCP transport details stay in provider config rather than contract logic.
+
+For health integrations, configure strategy routing at the connection level using
+`defaultTransport`, `strategyOrder`, `allowUnofficial`, and `unofficialAllowList`.
+This keeps official and aggregator transports deterministic while requiring
+explicit opt-in before unofficial automation routes are used.
 
 ## Run MCP Example
 

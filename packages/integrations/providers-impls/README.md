@@ -43,6 +43,59 @@ const factory = new IntegrationProviderFactory();
 const analytics = await factory.createAnalyticsProvider(context); // key: analytics.posthog
 ```
 
+## Health integrations
+
+This package ships health/wearables providers routed by a transport strategy:
+
+- Official provider APIs/MCP (Whoop, Apple Health bridge, Oura, Strava, Garmin, Fitbit)
+- Aggregator API/MCP (Open Wearables)
+- Unofficial automation fallback (opt-in and allow-list gated)
+
+Factory usage:
+
+```ts
+import { IntegrationProviderFactory } from "@contractspec/integration.providers-impls/impls/provider-factory";
+
+const factory = new IntegrationProviderFactory();
+const healthProvider = await factory.createHealthProvider(context); // key: health.*
+```
+
+Connection config example:
+
+```json
+{
+  "defaultTransport": "official-api",
+  "strategyOrder": [
+    "official-api",
+    "official-mcp",
+    "aggregator-api",
+    "aggregator-mcp",
+    "unofficial"
+  ],
+  "allowUnofficial": false,
+  "unofficialAllowList": ["health.peloton"],
+  "apiBaseUrl": "https://api.provider.example",
+  "mcpUrl": "https://mcp.provider.example"
+}
+```
+
+Secret payload example (`secretRef` target value):
+
+```json
+{
+  "apiKey": "provider-api-key",
+  "accessToken": "oauth-access-token",
+  "mcpAccessToken": "mcp-access-token",
+  "webhookSecret": "webhook-signature-secret"
+}
+```
+
+Notes:
+
+- Unofficial routing is disabled unless `allowUnofficial: true`.
+- When `unofficialAllowList` is provided, only listed `health.*` keys can use unofficial routing.
+- If a selected strategy is unavailable, the resolver falls through `strategyOrder`.
+
 ## Supabase integrations
 
 This package now ships two Supabase providers:

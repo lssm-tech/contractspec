@@ -35,6 +35,16 @@ The factory in `src/impls/provider-factory.ts` supports the following integratio
 | Meeting Recorder   | `meeting-recorder.tldv`      | `createMeetingRecorderProvider`   |
 | Meeting Recorder   | `meeting-recorder.fireflies` | `createMeetingRecorderProvider`   |
 | Meeting Recorder   | `meeting-recorder.fathom`    | `createMeetingRecorderProvider`   |
+| Health             | `health.openwearables`       | `createHealthProvider`            |
+| Health             | `health.whoop`               | `createHealthProvider`            |
+| Health             | `health.apple-health`        | `createHealthProvider`            |
+| Health             | `health.oura`                | `createHealthProvider`            |
+| Health             | `health.strava`              | `createHealthProvider`            |
+| Health             | `health.garmin`              | `createHealthProvider`            |
+| Health             | `health.fitbit`              | `createHealthProvider`            |
+| Health             | `health.myfitnesspal`        | `createHealthProvider`            |
+| Health             | `health.eightsleep`          | `createHealthProvider`            |
+| Health             | `health.peloton`             | `createHealthProvider`            |
 
 Notes:
 
@@ -242,6 +252,28 @@ Each integration below lists:
   - Helpers: `extractItems`, `extractNextCursor`, `mapInvitee`, `matchRecordingId`, `durationSeconds`, `mapTranscriptSegment`, `parseTimestamp` (`src/impls/fathom-meeting-recorder.utils.ts`)
   - Webhook helpers: `normalizeWebhookHeaders`, `normalizeTriggeredFor` (`src/impls/fathom-meeting-recorder.webhooks.ts`)
   - Types: `src/impls/fathom-meeting-recorder.types.ts`
+
+### Health
+
+#### `health.*`
+
+- Entry: health providers + resolver (`src/impls/health/providers.ts`, `src/impls/health-provider-factory.ts`)
+- Create via factory: `IntegrationProviderFactory.createHealthProvider`
+- Functions: `listActivities`, `listWorkouts`, `listSleep`, `listBiometrics`, `listNutrition`, `getConnectionStatus`, `sync*`, `parseWebhook`, `verifyWebhook`
+- Utilities: base transport implementation (`src/impls/health/base-health-provider.ts`)
+
+Transport strategy options in `IntegrationConnection.config`:
+
+- `defaultTransport`: preferred first strategy
+- `strategyOrder`: explicit fallback order across `official-api`, `official-mcp`, `aggregator-api`, `aggregator-mcp`, `unofficial`
+- `allowUnofficial`: gate for unofficial automation connectors
+- `unofficialAllowList`: optional per-provider allow-list for unofficial routing
+
+Unofficial routing notes:
+
+- Unofficial mode is disabled unless `allowUnofficial` is `true`.
+- When `unofficialAllowList` is set, only listed provider keys are eligible.
+- Current unofficial wrapper targets: `health.myfitnesspal`, `health.eightsleep`, `health.peloton`, `health.garmin`.
 
 ## Recommended flow (factory-first)
 

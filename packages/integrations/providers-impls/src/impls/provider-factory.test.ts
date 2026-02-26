@@ -31,6 +31,11 @@ import { TldvMeetingRecorderProvider } from './tldv-meeting-recorder';
 import { FirefliesMeetingRecorderProvider } from './fireflies-meeting-recorder';
 import { FathomMeetingRecorderProvider } from './fathom-meeting-recorder';
 import { PosthogAnalyticsProvider } from './posthog';
+import {
+  OpenWearablesHealthProvider,
+  UnofficialHealthAutomationProvider,
+  WhoopHealthProvider,
+} from './health/providers';
 
 describe('IntegrationProviderFactory', () => {
   const factory = new IntegrationProviderFactory();
@@ -268,6 +273,61 @@ describe('IntegrationProviderFactory', () => {
       })
     );
     expect(provider).toBeInstanceOf(FathomMeetingRecorderProvider);
+  });
+
+  it('creates Whoop health provider with official transport', async () => {
+    const provider = await factory.createHealthProvider(
+      buildContext({
+        key: 'health.whoop',
+        secret: { accessToken: 'whoop-token' },
+      })
+    );
+    expect(provider).toBeInstanceOf(WhoopHealthProvider);
+  });
+
+  it('creates OpenWearables health provider when configured as aggregator', async () => {
+    const provider = await factory.createHealthProvider(
+      buildContext({
+        key: 'health.strava',
+        config: {
+          defaultTransport: 'aggregator-api',
+          strategyOrder: ['aggregator-api', 'official-api'],
+        },
+        secret: { apiKey: 'ow-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(OpenWearablesHealthProvider);
+  });
+
+  it('creates unofficial health provider only when allow-listed', async () => {
+    const provider = await factory.createHealthProvider(
+      buildContext({
+        key: 'health.peloton',
+        config: {
+          defaultTransport: 'unofficial',
+          strategyOrder: ['unofficial', 'aggregator-api'],
+          allowUnofficial: true,
+          unofficialAllowList: ['health.peloton'],
+        },
+        secret: { apiKey: 'peloton-cookie' },
+      })
+    );
+    expect(provider).toBeInstanceOf(UnofficialHealthAutomationProvider);
+  });
+
+  it('falls back to aggregator when unofficial transport is blocked', async () => {
+    const provider = await factory.createHealthProvider(
+      buildContext({
+        key: 'health.peloton',
+        config: {
+          defaultTransport: 'unofficial',
+          strategyOrder: ['unofficial', 'aggregator-api'],
+          allowUnofficial: false,
+        },
+        secret: { apiKey: 'ow-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(OpenWearablesHealthProvider);
   });
 });
 

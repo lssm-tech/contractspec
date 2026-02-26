@@ -66,6 +66,7 @@
     "./database": "./src/database.ts",
     "./email": "./src/email.ts",
     "./embedding": "./src/embedding.ts",
+    "./health": "./src/health.ts",
     "./impls": "./src/impls/index.ts",
     "./impls/elevenlabs-voice": "./src/impls/elevenlabs-voice.ts",
     "./impls/fal-voice": "./src/impls/fal-voice.ts",
@@ -82,6 +83,8 @@
     "./impls/gmail-inbound": "./src/impls/gmail-inbound.ts",
     "./impls/gmail-outbound": "./src/impls/gmail-outbound.ts",
     "./impls/google-calendar": "./src/impls/google-calendar.ts",
+    "./impls/health-provider-factory": "./src/impls/health-provider-factory.ts",
+    "./impls/health/providers": "./src/impls/health/providers.ts",
     "./impls/gradium-voice": "./src/impls/gradium-voice.ts",
     "./impls/granola-meeting-recorder": "./src/impls/granola-meeting-recorder.ts",
     "./impls/granola-meeting-recorder.mcp": "./src/impls/granola-meeting-recorder.mcp.ts",
@@ -155,6 +158,12 @@
         "bun": "./dist/embedding.js",
         "node": "./dist/node/embedding.js",
         "default": "./dist/embedding.js"
+      },
+      "./health": {
+        "types": "./dist/health.d.ts",
+        "bun": "./dist/health.js",
+        "node": "./dist/node/health.js",
+        "default": "./dist/health.js"
       },
       "./impls": {
         "types": "./dist/impls/index.d.ts",
@@ -251,6 +260,18 @@
         "bun": "./dist/impls/google-calendar.js",
         "node": "./dist/node/impls/google-calendar.js",
         "default": "./dist/impls/google-calendar.js"
+      },
+      "./impls/health-provider-factory": {
+        "types": "./dist/impls/health-provider-factory.d.ts",
+        "bun": "./dist/impls/health-provider-factory.js",
+        "node": "./dist/node/impls/health-provider-factory.js",
+        "default": "./dist/impls/health-provider-factory.js"
+      },
+      "./impls/health/providers": {
+        "types": "./dist/impls/health/providers.d.ts",
+        "bun": "./dist/impls/health/providers.js",
+        "node": "./dist/node/impls/health/providers.js",
+        "default": "./dist/impls/health/providers.js"
       },
       "./impls/gradium-voice": {
         "types": "./dist/impls/gradium-voice.d.ts",

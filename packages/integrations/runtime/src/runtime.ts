@@ -375,6 +375,55 @@ export class IntegrationCallGuard {
   }
 }
 
+export type HealthTransportStrategy =
+  | 'official-api'
+  | 'official-mcp'
+  | 'aggregator-api'
+  | 'aggregator-mcp'
+  | 'unofficial';
+
+export interface HealthRuntimeStrategyOptions {
+  strategyOrder?: HealthTransportStrategy[];
+  allowUnofficial?: boolean;
+  unofficialAllowList?: string[];
+}
+
+export const DEFAULT_HEALTH_STRATEGY_ORDER: readonly HealthTransportStrategy[] =
+  [
+    'official-api',
+    'official-mcp',
+    'aggregator-api',
+    'aggregator-mcp',
+    'unofficial',
+  ] as const;
+
+export function resolveHealthStrategyOrder(
+  options?: HealthRuntimeStrategyOptions
+): HealthTransportStrategy[] {
+  const ordered =
+    options?.strategyOrder && options.strategyOrder.length > 0
+      ? options.strategyOrder
+      : [...DEFAULT_HEALTH_STRATEGY_ORDER];
+  if (options?.allowUnofficial) {
+    return [...ordered];
+  }
+  return ordered.filter((item) => item !== 'unofficial');
+}
+
+export function isUnofficialHealthProviderAllowed(
+  providerKey: string,
+  options?: HealthRuntimeStrategyOptions
+): boolean {
+  if (!options?.allowUnofficial) return false;
+  if (
+    !options.unofficialAllowList ||
+    options.unofficialAllowList.length === 0
+  ) {
+    return true;
+  }
+  return options.unofficialAllowList.includes(providerKey);
+}
+
 export function ensureConnectionReady(integration: ResolvedIntegration): void {
   const status = integration.connection.status;
   if (status === 'disconnected' || status === 'error') {

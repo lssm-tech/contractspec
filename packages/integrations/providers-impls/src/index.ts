@@ -16,3 +16,4 @@ export * from './payments';
 export * from './voice';
 export * from './project-management';
 export * from './meeting-recorder';
+export * from './health';

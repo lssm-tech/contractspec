@@ -24,6 +24,16 @@ import { registerFirefliesIntegration } from './fireflies';
 import { registerFathomIntegration } from './fathom';
 import { registerDeepgramIntegration } from './deepgram';
 import { registerOpenaiRealtimeIntegration } from './openai-realtime';
+import { registerOpenWearablesIntegration } from './openwearables';
+import { registerWhoopIntegration } from './whoop';
+import { registerAppleHealthIntegration } from './apple-health';
+import { registerOuraIntegration } from './oura';
+import { registerStravaIntegration } from './strava';
+import { registerGarminIntegration } from './garmin';
+import { registerFitbitIntegration } from './fitbit';
+import { registerMyFitnessPalIntegration } from './myfitnesspal';
+import { registerEightSleepIntegration } from './eightsleep';
+import { registerPelotonIntegration } from './peloton';
 
 /**
  * Creates a registry containing all IntegrationSpec providers shipped by
@@ -56,6 +66,16 @@ export function createDefaultIntegrationSpecRegistry(): IntegrationSpecRegistry 
   registerFathomIntegration(registry);
   registerDeepgramIntegration(registry);
   registerOpenaiRealtimeIntegration(registry);
+  registerOpenWearablesIntegration(registry);
+  registerWhoopIntegration(registry);
+  registerAppleHealthIntegration(registry);
+  registerOuraIntegration(registry);
+  registerStravaIntegration(registry);
+  registerGarminIntegration(registry);
+  registerFitbitIntegration(registry);
+  registerMyFitnessPalIntegration(registry);
+  registerEightSleepIntegration(registry);
+  registerPelotonIntegration(registry);
 
   return registry;
 }

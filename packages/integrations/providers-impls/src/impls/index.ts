@@ -24,4 +24,6 @@ export * from './granola-meeting-recorder';
 export * from './tldv-meeting-recorder';
 export * from './fireflies-meeting-recorder';
 export * from './fathom-meeting-recorder';
+export * from './health-provider-factory';
+export * from './health/providers';
 export * from './provider-factory';

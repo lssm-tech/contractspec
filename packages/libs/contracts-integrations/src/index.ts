@@ -4,6 +4,7 @@ export * from './integrations/connection';
 export * from './integrations/health';
 export * from './integrations/integrations.capability';
 export * from './integrations/integrations.feature';
+export * from './integrations/health/contracts';
 export * from './integrations/meeting-recorder/contracts';
 export * from './integrations/openbanking/contracts';
 export * from './integrations/operations';

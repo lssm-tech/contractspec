@@ -180,6 +180,19 @@
     "./integrations/connection": "./src/integrations/connection.ts",
     "./integrations/docs/integrations.docblock": "./src/integrations/docs/integrations.docblock.ts",
     "./integrations/health": "./src/integrations/health.ts",
+    "./integrations/health/contracts": "./src/integrations/health/contracts/index.ts",
+    "./integrations/health/contracts/activities": "./src/integrations/health/contracts/activities.ts",
+    "./integrations/health/contracts/biometrics": "./src/integrations/health/contracts/biometrics.ts",
+    "./integrations/health/contracts/index": "./src/integrations/health/contracts/index.ts",
+    "./integrations/health/contracts/nutrition": "./src/integrations/health/contracts/nutrition.ts",
+    "./integrations/health/contracts/sleep": "./src/integrations/health/contracts/sleep.ts",
+    "./integrations/health/contracts/webhooks": "./src/integrations/health/contracts/webhooks.ts",
+    "./integrations/health/contracts/workouts": "./src/integrations/health/contracts/workouts.ts",
+    "./integrations/health/guards": "./src/integrations/health/guards.ts",
+    "./integrations/health/health.capability": "./src/integrations/health/health.capability.ts",
+    "./integrations/health/health.feature": "./src/integrations/health/health.feature.ts",
+    "./integrations/health/models": "./src/integrations/health/models.ts",
+    "./integrations/health/telemetry": "./src/integrations/health/telemetry.ts",
     "./integrations/index": "./src/integrations/index.ts",
     "./integrations/integrations.capability": "./src/integrations/integrations.capability.ts",
     "./integrations/integrations.feature": "./src/integrations/integrations.feature.ts",
@@ -232,7 +245,19 @@
     "./integrations/providers/notion": "./src/integrations/providers/notion.ts",
     "./integrations/providers/openai-image": "./src/integrations/providers/openai-image.ts",
     "./integrations/providers/openai-realtime": "./src/integrations/providers/openai-realtime.ts",
+    "./integrations/providers/openwearables": "./src/integrations/providers/openwearables.ts",
     "./integrations/providers/openbanking": "./src/integrations/providers/openbanking.ts",
+    "./integrations/providers/health": "./src/integrations/providers/health.ts",
+    "./integrations/providers/health-provider-shared": "./src/integrations/providers/health-provider-shared.ts",
+    "./integrations/providers/whoop": "./src/integrations/providers/whoop.ts",
+    "./integrations/providers/apple-health": "./src/integrations/providers/apple-health.ts",
+    "./integrations/providers/oura": "./src/integrations/providers/oura.ts",
+    "./integrations/providers/strava": "./src/integrations/providers/strava.ts",
+    "./integrations/providers/garmin": "./src/integrations/providers/garmin.ts",
+    "./integrations/providers/fitbit": "./src/integrations/providers/fitbit.ts",
+    "./integrations/providers/myfitnesspal": "./src/integrations/providers/myfitnesspal.ts",
+    "./integrations/providers/eightsleep": "./src/integrations/providers/eightsleep.ts",
+    "./integrations/providers/peloton": "./src/integrations/providers/peloton.ts",
     "./integrations/providers/payments": "./src/integrations/providers/payments.ts",
     "./integrations/providers/posthog": "./src/integrations/providers/posthog.ts",
     "./integrations/providers/posthog-llm-telemetry": "./src/integrations/providers/posthog-llm-telemetry.ts",
@@ -1216,6 +1241,84 @@
         "node": "./dist/node/integrations/health.js",
         "default": "./dist/integrations/health.js"
       },
+      "./integrations/health/contracts": {
+        "types": "./dist/integrations/health/contracts/index.d.ts",
+        "bun": "./dist/integrations/health/contracts/index.js",
+        "node": "./dist/node/integrations/health/contracts/index.js",
+        "default": "./dist/integrations/health/contracts/index.js"
+      },
+      "./integrations/health/contracts/activities": {
+        "types": "./dist/integrations/health/contracts/activities.d.ts",
+        "bun": "./dist/integrations/health/contracts/activities.js",
+        "node": "./dist/node/integrations/health/contracts/activities.js",
+        "default": "./dist/integrations/health/contracts/activities.js"
+      },
+      "./integrations/health/contracts/biometrics": {
+        "types": "./dist/integrations/health/contracts/biometrics.d.ts",
+        "bun": "./dist/integrations/health/contracts/biometrics.js",
+        "node": "./dist/node/integrations/health/contracts/biometrics.js",
+        "default": "./dist/integrations/health/contracts/biometrics.js"
+      },
+      "./integrations/health/contracts/index": {
+        "types": "./dist/integrations/health/contracts/index.d.ts",
+        "bun": "./dist/integrations/health/contracts/index.js",
+        "node": "./dist/node/integrations/health/contracts/index.js",
+        "default": "./dist/integrations/health/contracts/index.js"
+      },
+      "./integrations/health/contracts/nutrition": {
+        "types": "./dist/integrations/health/contracts/nutrition.d.ts",
+        "bun": "./dist/integrations/health/contracts/nutrition.js",
+        "node": "./dist/node/integrations/health/contracts/nutrition.js",
+        "default": "./dist/integrations/health/contracts/nutrition.js"
+      },
+      "./integrations/health/contracts/sleep": {
+        "types": "./dist/integrations/health/contracts/sleep.d.ts",
+        "bun": "./dist/integrations/health/contracts/sleep.js",
+        "node": "./dist/node/integrations/health/contracts/sleep.js",
+        "default": "./dist/integrations/health/contracts/sleep.js"
+      },
+      "./integrations/health/contracts/webhooks": {
+        "types": "./dist/integrations/health/contracts/webhooks.d.ts",
+        "bun": "./dist/integrations/health/contracts/webhooks.js",
+        "node": "./dist/node/integrations/health/contracts/webhooks.js",
+        "default": "./dist/integrations/health/contracts/webhooks.js"
+      },
+      "./integrations/health/contracts/workouts": {
+        "types": "./dist/integrations/health/contracts/workouts.d.ts",
+        "bun": "./dist/integrations/health/contracts/workouts.js",
+        "node": "./dist/node/integrations/health/contracts/workouts.js",
+        "default": "./dist/integrations/health/contracts/workouts.js"
+      },
+      "./integrations/health/guards": {
+        "types": "./dist/integrations/health/guards.d.ts",
+        "bun": "./dist/integrations/health/guards.js",
+        "node": "./dist/node/integrations/health/guards.js",
+        "default": "./dist/integrations/health/guards.js"
+      },
+      "./integrations/health/health.capability": {
+        "types": "./dist/integrations/health/health.capability.d.ts",
+        "bun": "./dist/integrations/health/health.capability.js",
+        "node": "./dist/node/integrations/health/health.capability.js",
+        "default": "./dist/integrations/health/health.capability.js"
+      },
+      "./integrations/health/health.feature": {
+        "types": "./dist/integrations/health/health.feature.d.ts",
+        "bun": "./dist/integrations/health/health.feature.js",
+        "node": "./dist/node/integrations/health/health.feature.js",
+        "default": "./dist/integrations/health/health.feature.js"
+      },
+      "./integrations/health/models": {
+        "types": "./dist/integrations/health/models.d.ts",
+        "bun": "./dist/integrations/health/models.js",
+        "node": "./dist/node/integrations/health/models.js",
+        "default": "./dist/integrations/health/models.js"
+      },
+      "./integrations/health/telemetry": {
+        "types": "./dist/integrations/health/telemetry.d.ts",
+        "bun": "./dist/integrations/health/telemetry.js",
+        "node": "./dist/node/integrations/health/telemetry.js",
+        "default": "./dist/integrations/health/telemetry.js"
+      },
       "./integrations/index": {
         "types": "./dist/integrations/index.d.ts",
         "bun": "./dist/integrations/index.js",
@@ -1528,11 +1631,83 @@
         "node": "./dist/node/integrations/providers/openai-realtime.js",
         "default": "./dist/integrations/providers/openai-realtime.js"
       },
+      "./integrations/providers/openwearables": {
+        "types": "./dist/integrations/providers/openwearables.d.ts",
+        "bun": "./dist/integrations/providers/openwearables.js",
+        "node": "./dist/node/integrations/providers/openwearables.js",
+        "default": "./dist/integrations/providers/openwearables.js"
+      },
       "./integrations/providers/openbanking": {
         "types": "./dist/integrations/providers/openbanking.d.ts",
         "bun": "./dist/integrations/providers/openbanking.js",
         "node": "./dist/node/integrations/providers/openbanking.js",
         "default": "./dist/integrations/providers/openbanking.js"
+      },
+      "./integrations/providers/health": {
+        "types": "./dist/integrations/providers/health.d.ts",
+        "bun": "./dist/integrations/providers/health.js",
+        "node": "./dist/node/integrations/providers/health.js",
+        "default": "./dist/integrations/providers/health.js"
+      },
+      "./integrations/providers/health-provider-shared": {
+        "types": "./dist/integrations/providers/health-provider-shared.d.ts",
+        "bun": "./dist/integrations/providers/health-provider-shared.js",
+        "node": "./dist/node/integrations/providers/health-provider-shared.js",
+        "default": "./dist/integrations/providers/health-provider-shared.js"
+      },
+      "./integrations/providers/whoop": {
+        "types": "./dist/integrations/providers/whoop.d.ts",
+        "bun": "./dist/integrations/providers/whoop.js",
+        "node": "./dist/node/integrations/providers/whoop.js",
+        "default": "./dist/integrations/providers/whoop.js"
+      },
+      "./integrations/providers/apple-health": {
+        "types": "./dist/integrations/providers/apple-health.d.ts",
+        "bun": "./dist/integrations/providers/apple-health.js",
+        "node": "./dist/node/integrations/providers/apple-health.js",
+        "default": "./dist/integrations/providers/apple-health.js"
+      },
+      "./integrations/providers/oura": {
+        "types": "./dist/integrations/providers/oura.d.ts",
+        "bun": "./dist/integrations/providers/oura.js",
+        "node": "./dist/node/integrations/providers/oura.js",
+        "default": "./dist/integrations/providers/oura.js"
+      },
+      "./integrations/providers/strava": {
+        "types": "./dist/integrations/providers/strava.d.ts",
+        "bun": "./dist/integrations/providers/strava.js",
+        "node": "./dist/node/integrations/providers/strava.js",
+        "default": "./dist/integrations/providers/strava.js"
+      },
+      "./integrations/providers/garmin": {
+        "types": "./dist/integrations/providers/garmin.d.ts",
+        "bun": "./dist/integrations/providers/garmin.js",
+        "node": "./dist/node/integrations/providers/garmin.js",
+        "default": "./dist/integrations/providers/garmin.js"
+      },
+      "./integrations/providers/fitbit": {
+        "types": "./dist/integrations/providers/fitbit.d.ts",
+        "bun": "./dist/integrations/providers/fitbit.js",
+        "node": "./dist/node/integrations/providers/fitbit.js",
+        "default": "./dist/integrations/providers/fitbit.js"
+      },
+      "./integrations/providers/myfitnesspal": {
+        "types": "./dist/integrations/providers/myfitnesspal.d.ts",
+        "bun": "./dist/integrations/providers/myfitnesspal.js",
+        "node": "./dist/node/integrations/providers/myfitnesspal.js",
+        "default": "./dist/integrations/providers/myfitnesspal.js"
+      },
+      "./integrations/providers/eightsleep": {
+        "types": "./dist/integrations/providers/eightsleep.d.ts",
+        "bun": "./dist/integrations/providers/eightsleep.js",
+        "node": "./dist/node/integrations/providers/eightsleep.js",
+        "default": "./dist/integrations/providers/eightsleep.js"
+      },
+      "./integrations/providers/peloton": {
+        "types": "./dist/integrations/providers/peloton.d.ts",
+        "bun": "./dist/integrations/providers/peloton.js",
+        "node": "./dist/node/integrations/providers/peloton.js",
+        "default": "./dist/integrations/providers/peloton.js"
       },
       "./integrations/providers/payments": {
         "types": "./dist/integrations/providers/payments.d.ts",
