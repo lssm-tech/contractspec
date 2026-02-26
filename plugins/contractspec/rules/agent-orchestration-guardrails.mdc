@@ -1,0 +1,23 @@
+---
+description: Enforce safe, traceable agent orchestration with approval and escalation guardrails
+alwaysApply: true
+globs:
+  - "**/*"
+---
+
+Treat AI orchestration as a governed system, not a prompt-only behavior.
+
+Core rules:
+
+- Every agent must be declared with a typed `AgentSpec` and explicit tools.
+- Risky tools must require approval (`requiresApproval: true`) or be marked non-automation-safe.
+- Agents must define escalation behavior for low confidence, tool failure, or timeout.
+- Keep `maxSteps` explicit for bounded execution.
+- Avoid tool namespace collisions between built-in tools and MCP tools; require prefixes for overlapping MCP tool names.
+
+Audit checklist:
+
+1. Approval workflow exists for high-risk actions.
+2. Tool schemas are explicit and validated.
+3. Escalation thresholds and ownership are documented.
+4. Runtime behavior remains reversible and easy to disable.

@@ -1,0 +1,17 @@
+{
+  "name": "contractspec-marketplace",
+  "owner": {
+    "name": "ContractSpec Team",
+    "email": "tboutron@lssm.co"
+  },
+  "metadata": {
+    "description": "Focused ContractSpec plugin for spec-first contracts and AI agent guardrails."
+  },
+  "plugins": [
+    {
+      "name": "contractspec",
+      "source": "plugins/contractspec",
+      "description": "Spec-first contracts and governed agent orchestration for AI-built software."
+    }
+  ]
+}
