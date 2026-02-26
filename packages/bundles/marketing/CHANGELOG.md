@@ -1,5 +1,24 @@
 # @contractspec/bundle.marketing
 
+## 2.9.1
+
+### Patch Changes
+
+- Updated dependencies [4556b80]
+  - @contractspec/lib.contracts-spec@2.10.0
+  - @contractspec/example.integration-hub@2.9.1
+  - @contractspec/bundle.library@2.9.1
+  - @contractspec/example.analytics-dashboard@2.9.1
+  - @contractspec/example.agent-console@2.9.1
+  - @contractspec/example.crm-pipeline@2.9.1
+  - @contractspec/example.marketplace@2.9.1
+  - @contractspec/example.saas-boilerplate@2.9.1
+  - @contractspec/example.workflow-system@2.9.1
+  - @contractspec/lib.contracts-runtime-client-react@2.9.1
+  - @contractspec/lib.design-system@2.9.1
+  - @contractspec/lib.example-shared-ui@2.9.1
+  - @contractspec/module.examples@2.9.1
+
 ## 2.9.0
 
 ### Minor Changes

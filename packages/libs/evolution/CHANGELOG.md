@@ -1,5 +1,16 @@
 # @contractspec/lib.evolution
 
+## 2.9.1
+
+### Patch Changes
+
+- Updated dependencies [4556b80]
+  - @contractspec/lib.contracts-integrations@2.10.0
+  - @contractspec/lib.contracts-spec@2.10.0
+  - @contractspec/lib.observability@2.9.1
+  - @contractspec/lib.ai-agent@2.9.1
+  - @contractspec/lib.lifecycle@2.9.1
+
 ## 2.9.0
 
 ### Minor Changes

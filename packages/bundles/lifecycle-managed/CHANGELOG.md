@@ -1,5 +1,16 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 2.9.1
+
+### Patch Changes
+
+- @contractspec/lib.analytics@2.9.1
+- @contractspec/lib.observability@2.9.1
+- @contractspec/lib.ai-agent@2.9.1
+- @contractspec/lib.lifecycle@2.9.1
+- @contractspec/module.lifecycle-advisor@2.9.1
+- @contractspec/module.lifecycle-core@2.9.1
+
 ## 2.9.0
 
 ### Minor Changes

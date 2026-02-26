@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.observability",
-  "version": "2.9.0",
+  "version": "2.9.1",
   "description": "OpenTelemetry-based observability primitives",
   "keywords": [
     "contractspec",

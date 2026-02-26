@@ -1,5 +1,11 @@
 # @contractspec/lib.progressive-delivery
 
+## 26.0.1
+
+### Patch Changes
+
+- @contractspec/lib.observability@2.9.1
+
 ## 26.0.0
 
 ### Minor Changes

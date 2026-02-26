@@ -1,5 +1,11 @@
 # @contractspec/lib.accessibility
 
+## 2.9.1
+
+### Patch Changes
+
+- @contractspec/lib.design-system@2.9.1
+
 ## 2.9.0
 
 ### Minor Changes

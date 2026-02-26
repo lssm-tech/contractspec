@@ -1,5 +1,18 @@
 # @contractspec/lib.contracts-integrations
 
+## 2.10.0
+
+### Minor Changes
+
+- 4556b80: Add a full health and wearables integration stack across contracts and runtime, including provider specs for Whoop, Apple Health, Oura, Strava, Garmin, Fitbit, MyFitnessPal, Eight Sleep, Peloton, and Open Wearables.
+
+  Introduce health transport strategy resolution with official API/MCP, aggregator API/MCP, and gated unofficial fallback support, and wire provider implementations/factory routing with tests and docs updates.
+
+### Patch Changes
+
+- Updated dependencies [4556b80]
+  - @contractspec/lib.contracts-spec@2.10.0
+
 ## 2.9.0
 
 ### Minor Changes

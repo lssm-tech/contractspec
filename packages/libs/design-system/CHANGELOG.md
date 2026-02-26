@@ -1,5 +1,14 @@
 # @contractspec/lib.design-system
 
+## 2.9.1
+
+### Patch Changes
+
+- Updated dependencies [4556b80]
+  - @contractspec/lib.contracts-spec@2.10.0
+  - @contractspec/lib.ai-agent@2.9.1
+  - @contractspec/lib.contracts-runtime-client-react@2.9.1
+
 ## 2.9.0
 
 ### Minor Changes

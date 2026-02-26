@@ -1,5 +1,13 @@
 # @contractspec/example.in-app-docs
 
+## 2.9.1
+
+### Patch Changes
+
+- Updated dependencies [4556b80]
+  - @contractspec/lib.contracts-spec@2.10.0
+  - @contractspec/lib.example-shared-ui@2.9.1
+
 ## 2.9.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @contractspec/module.lifecycle-advisor
 
+## 2.9.1
+
+### Patch Changes
+
+- Updated dependencies [4556b80]
+  - @contractspec/lib.contracts-spec@2.10.0
+  - @contractspec/lib.lifecycle@2.9.1
+
 ## 2.9.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @contractspec/example.video-marketing-clip
 
+## 2.9.1
+
+### Patch Changes
+
+- Updated dependencies [4556b80]
+  - @contractspec/lib.contracts-spec@2.10.0
+  - @contractspec/lib.content-gen@2.9.1
+  - @contractspec/lib.video-gen@1.50.1
+
 ## 2.9.0
 
 ### Minor Changes

@@ -1,5 +1,18 @@
 # @contractspec/example.saas-boilerplate
 
+## 2.9.1
+
+### Patch Changes
+
+- Updated dependencies [4556b80]
+  - @contractspec/lib.contracts-spec@2.10.0
+  - @contractspec/lib.jobs@2.9.1
+  - @contractspec/lib.design-system@2.9.1
+  - @contractspec/lib.example-shared-ui@2.9.1
+  - @contractspec/lib.identity-rbac@2.9.1
+  - @contractspec/module.audit-trail@2.9.1
+  - @contractspec/module.notifications@2.9.1
+
 ## 2.9.0
 
 ### Minor Changes

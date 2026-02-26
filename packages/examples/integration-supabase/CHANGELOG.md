@@ -1,5 +1,15 @@
 # @contractspec/example.integration-supabase
 
+## 2.9.1
+
+### Patch Changes
+
+- Updated dependencies [4556b80]
+  - @contractspec/lib.contracts-integrations@2.10.0
+  - @contractspec/lib.contracts-spec@2.10.0
+  - @contractspec/integration.runtime@2.10.0
+  - @contractspec/integration.providers-impls@2.10.0
+
 ## 2.9.0
 
 ### Minor Changes

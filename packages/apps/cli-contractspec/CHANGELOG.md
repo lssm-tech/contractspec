@@ -1,5 +1,21 @@
 # Changelog
 
+## 2.9.1
+
+### Patch Changes
+
+- Updated dependencies [4556b80]
+  - @contractspec/lib.contracts-integrations@2.10.0
+  - @contractspec/lib.contracts-spec@2.10.0
+  - @contractspec/bundle.workspace@2.9.1
+  - @contractspec/module.workspace@2.9.1
+  - @contractspec/lib.ai-agent@2.9.1
+  - @contractspec/lib.contracts-transformers@2.9.1
+  - @contractspec/lib.plugins@2.9.1
+  - @contractspec/lib.testing@2.9.1
+  - @contractspec/module.ai-chat@2.9.1
+  - @contractspec/module.examples@2.9.1
+
 ## 2.9.0
 
 ### Minor Changes
