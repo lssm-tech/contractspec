@@ -11,6 +11,10 @@ import { GoogleCloudStorageProvider } from './gcs-storage';
 import { StripePaymentsProvider } from './stripe-payments';
 import { PostmarkEmailProvider } from './postmark-email';
 import { TwilioSmsProvider } from './twilio-sms';
+import { SlackMessagingProvider } from './messaging-slack';
+import { GithubMessagingProvider } from './messaging-github';
+import { MetaWhatsappMessagingProvider } from './messaging-whatsapp-meta';
+import { TwilioWhatsappMessagingProvider } from './messaging-whatsapp-twilio';
 import { ElevenLabsVoiceProvider } from './elevenlabs-voice';
 import { GradiumVoiceProvider } from './gradium-voice';
 import { FalVoiceProvider } from './fal-voice';
@@ -25,6 +29,7 @@ import { PosthogAnalyticsProvider } from './posthog';
 import type { PaymentsProvider } from '../payments';
 import type { EmailOutboundProvider } from '../email';
 import type { SmsProvider } from '../sms';
+import type { MessagingProvider } from '../messaging';
 import type { VectorStoreProvider } from '../vector-store';
 import type { AnalyticsProvider } from '../analytics';
 import type { DatabaseProvider } from '../database';
@@ -107,6 +112,78 @@ export class IntegrationProviderFactory {
       default:
         throw new Error(
           `Unsupported SMS integration: ${context.spec.meta.key}`
+        );
+    }
+  }
+
+  async createMessagingProvider(
+    context: IntegrationContext
+  ): Promise<MessagingProvider> {
+    const secrets = await this.loadSecrets(context);
+    const config = context.config as {
+      defaultChannelId?: string;
+      allowUserMentions?: boolean;
+      defaultOwner?: string;
+      defaultRepo?: string;
+      apiBaseUrl?: string;
+      phoneNumberId?: string;
+      apiVersion?: string;
+      fromNumber?: string;
+    };
+
+    switch (context.spec.meta.key) {
+      case 'messaging.slack':
+        return new SlackMessagingProvider({
+          botToken: requireSecret<string>(
+            secrets,
+            'botToken',
+            'Slack bot token is required'
+          ),
+          defaultChannelId: config?.defaultChannelId,
+          apiBaseUrl: config?.apiBaseUrl,
+        });
+      case 'messaging.github':
+        return new GithubMessagingProvider({
+          token: requireSecret<string>(
+            secrets,
+            'token',
+            'GitHub token is required'
+          ),
+          defaultOwner: config?.defaultOwner,
+          defaultRepo: config?.defaultRepo,
+          apiBaseUrl: config?.apiBaseUrl,
+        });
+      case 'messaging.whatsapp.meta':
+        return new MetaWhatsappMessagingProvider({
+          accessToken: requireSecret<string>(
+            secrets,
+            'accessToken',
+            'Meta WhatsApp access token is required'
+          ),
+          phoneNumberId: requireConfig<string>(
+            context,
+            'phoneNumberId',
+            'Meta WhatsApp phoneNumberId is required'
+          ),
+          apiVersion: config?.apiVersion,
+        });
+      case 'messaging.whatsapp.twilio':
+        return new TwilioWhatsappMessagingProvider({
+          accountSid: requireSecret<string>(
+            secrets,
+            'accountSid',
+            'Twilio account SID is required'
+          ),
+          authToken: requireSecret<string>(
+            secrets,
+            'authToken',
+            'Twilio auth token is required'
+          ),
+          fromNumber: config?.fromNumber,
+        });
+      default:
+        throw new Error(
+          `Unsupported messaging integration: ${context.spec.meta.key}`
         );
     }
   }

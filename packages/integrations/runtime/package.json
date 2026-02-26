@@ -37,6 +37,9 @@
     "@google-cloud/secret-manager": "^6.1.1",
     "google-gax": "^5.0.0"
   },
+  "optionalDependencies": {
+    "pg": "^8.14.1"
+  },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
     "typescript": "catalog:",
@@ -44,6 +47,23 @@
   },
   "exports": {
     ".": "./src/index.ts",
+    "./channel": "./src/channel/index.ts",
+    "./channel/dispatcher": "./src/channel/dispatcher.ts",
+    "./channel/github": "./src/channel/github.ts",
+    "./channel/index": "./src/channel/index.ts",
+    "./channel/memory-store": "./src/channel/memory-store.ts",
+    "./channel/policy": "./src/channel/policy.ts",
+    "./channel/postgres-queries": "./src/channel/postgres-queries.ts",
+    "./channel/postgres-schema": "./src/channel/postgres-schema.ts",
+    "./channel/postgres-store": "./src/channel/postgres-store.ts",
+    "./channel/replay-fixtures": "./src/channel/replay-fixtures.ts",
+    "./channel/service": "./src/channel/service.ts",
+    "./channel/slack": "./src/channel/slack.ts",
+    "./channel/store": "./src/channel/store.ts",
+    "./channel/telemetry": "./src/channel/telemetry.ts",
+    "./channel/types": "./src/channel/types.ts",
+    "./channel/whatsapp-meta": "./src/channel/whatsapp-meta.ts",
+    "./channel/whatsapp-twilio": "./src/channel/whatsapp-twilio.ts",
     "./health": "./src/health.ts",
     "./runtime": "./src/runtime.ts",
     "./secrets": "./src/secrets/index.ts",
@@ -61,6 +81,108 @@
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
         "default": "./dist/index.js"
+      },
+      "./channel": {
+        "types": "./dist/channel/index.d.ts",
+        "bun": "./dist/channel/index.js",
+        "node": "./dist/node/channel/index.js",
+        "default": "./dist/channel/index.js"
+      },
+      "./channel/dispatcher": {
+        "types": "./dist/channel/dispatcher.d.ts",
+        "bun": "./dist/channel/dispatcher.js",
+        "node": "./dist/node/channel/dispatcher.js",
+        "default": "./dist/channel/dispatcher.js"
+      },
+      "./channel/github": {
+        "types": "./dist/channel/github.d.ts",
+        "bun": "./dist/channel/github.js",
+        "node": "./dist/node/channel/github.js",
+        "default": "./dist/channel/github.js"
+      },
+      "./channel/index": {
+        "types": "./dist/channel/index.d.ts",
+        "bun": "./dist/channel/index.js",
+        "node": "./dist/node/channel/index.js",
+        "default": "./dist/channel/index.js"
+      },
+      "./channel/memory-store": {
+        "types": "./dist/channel/memory-store.d.ts",
+        "bun": "./dist/channel/memory-store.js",
+        "node": "./dist/node/channel/memory-store.js",
+        "default": "./dist/channel/memory-store.js"
+      },
+      "./channel/policy": {
+        "types": "./dist/channel/policy.d.ts",
+        "bun": "./dist/channel/policy.js",
+        "node": "./dist/node/channel/policy.js",
+        "default": "./dist/channel/policy.js"
+      },
+      "./channel/postgres-queries": {
+        "types": "./dist/channel/postgres-queries.d.ts",
+        "bun": "./dist/channel/postgres-queries.js",
+        "node": "./dist/node/channel/postgres-queries.js",
+        "default": "./dist/channel/postgres-queries.js"
+      },
+      "./channel/postgres-schema": {
+        "types": "./dist/channel/postgres-schema.d.ts",
+        "bun": "./dist/channel/postgres-schema.js",
+        "node": "./dist/node/channel/postgres-schema.js",
+        "default": "./dist/channel/postgres-schema.js"
+      },
+      "./channel/postgres-store": {
+        "types": "./dist/channel/postgres-store.d.ts",
+        "bun": "./dist/channel/postgres-store.js",
+        "node": "./dist/node/channel/postgres-store.js",
+        "default": "./dist/channel/postgres-store.js"
+      },
+      "./channel/replay-fixtures": {
+        "types": "./dist/channel/replay-fixtures.d.ts",
+        "bun": "./dist/channel/replay-fixtures.js",
+        "node": "./dist/node/channel/replay-fixtures.js",
+        "default": "./dist/channel/replay-fixtures.js"
+      },
+      "./channel/service": {
+        "types": "./dist/channel/service.d.ts",
+        "bun": "./dist/channel/service.js",
+        "node": "./dist/node/channel/service.js",
+        "default": "./dist/channel/service.js"
+      },
+      "./channel/slack": {
+        "types": "./dist/channel/slack.d.ts",
+        "bun": "./dist/channel/slack.js",
+        "node": "./dist/node/channel/slack.js",
+        "default": "./dist/channel/slack.js"
+      },
+      "./channel/store": {
+        "types": "./dist/channel/store.d.ts",
+        "bun": "./dist/channel/store.js",
+        "node": "./dist/node/channel/store.js",
+        "default": "./dist/channel/store.js"
+      },
+      "./channel/telemetry": {
+        "types": "./dist/channel/telemetry.d.ts",
+        "bun": "./dist/channel/telemetry.js",
+        "node": "./dist/node/channel/telemetry.js",
+        "default": "./dist/channel/telemetry.js"
+      },
+      "./channel/types": {
+        "types": "./dist/channel/types.d.ts",
+        "bun": "./dist/channel/types.js",
+        "node": "./dist/node/channel/types.js",
+        "default": "./dist/channel/types.js"
+      },
+      "./channel/whatsapp-meta": {
+        "types": "./dist/channel/whatsapp-meta.d.ts",
+        "bun": "./dist/channel/whatsapp-meta.js",
+        "node": "./dist/node/channel/whatsapp-meta.js",
+        "default": "./dist/channel/whatsapp-meta.js"
+      },
+      "./channel/whatsapp-twilio": {
+        "types": "./dist/channel/whatsapp-twilio.d.ts",
+        "bun": "./dist/channel/whatsapp-twilio.js",
+        "node": "./dist/node/channel/whatsapp-twilio.js",
+        "default": "./dist/channel/whatsapp-twilio.js"
       },
       "./health": {
         "types": "./dist/health.d.ts",

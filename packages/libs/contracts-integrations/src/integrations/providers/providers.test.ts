@@ -27,6 +27,22 @@ import { fathomIntegrationSpec, registerFathomIntegration } from './fathom';
 import { gradiumIntegrationSpec, registerGradiumIntegration } from './gradium';
 import { falIntegrationSpec, registerFalIntegration } from './fal';
 import { posthogIntegrationSpec, registerPosthogIntegration } from './posthog';
+import {
+  messagingSlackIntegrationSpec,
+  registerMessagingSlackIntegration,
+} from './messaging-slack';
+import {
+  messagingGithubIntegrationSpec,
+  registerMessagingGithubIntegration,
+} from './messaging-github';
+import {
+  messagingWhatsappMetaIntegrationSpec,
+  registerMessagingWhatsappMetaIntegration,
+} from './messaging-whatsapp-meta';
+import {
+  messagingWhatsappTwilioIntegrationSpec,
+  registerMessagingWhatsappTwilioIntegration,
+} from './messaging-whatsapp-twilio';
 
 describe('integration provider specs', () => {
   it('registers Stripe integration', () => {
@@ -222,6 +238,58 @@ describe('integration provider specs', () => {
     ]);
     expect(registered?.secretSchema.schema).toMatchObject({
       required: ['personalApiKey'],
+    });
+  });
+
+  it('registers Slack messaging integration', () => {
+    const registry = registerMessagingSlackIntegration(
+      new IntegrationSpecRegistry()
+    );
+    const registered = registry.get('messaging.slack', '1.0.0');
+    expect(registered).toBe(messagingSlackIntegrationSpec);
+    expect(registered?.capabilities.provides).toEqual([
+      { key: 'messaging.inbound', version: '1.0.0' },
+      { key: 'messaging.outbound', version: '1.0.0' },
+      { key: 'messaging.interactions', version: '1.0.0' },
+    ]);
+    expect(registered?.secretSchema.schema).toMatchObject({
+      required: ['botToken', 'signingSecret'],
+    });
+  });
+
+  it('registers GitHub messaging integration', () => {
+    const registry = registerMessagingGithubIntegration(
+      new IntegrationSpecRegistry()
+    );
+    const registered = registry.get('messaging.github', '1.0.0');
+    expect(registered).toBe(messagingGithubIntegrationSpec);
+    expect(registered?.secretSchema.schema).toMatchObject({
+      required: ['token', 'webhookSecret'],
+    });
+  });
+
+  it('registers Meta WhatsApp messaging integration', () => {
+    const registry = registerMessagingWhatsappMetaIntegration(
+      new IntegrationSpecRegistry()
+    );
+    const registered = registry.get('messaging.whatsapp.meta', '1.0.0');
+    expect(registered).toBe(messagingWhatsappMetaIntegrationSpec);
+    expect(registered?.configSchema.schema).toMatchObject({
+      required: ['phoneNumberId'],
+    });
+    expect(registered?.secretSchema.schema).toMatchObject({
+      required: ['accessToken', 'appSecret', 'verifyToken'],
+    });
+  });
+
+  it('registers Twilio WhatsApp messaging integration', () => {
+    const registry = registerMessagingWhatsappTwilioIntegration(
+      new IntegrationSpecRegistry()
+    );
+    const registered = registry.get('messaging.whatsapp.twilio', '1.0.0');
+    expect(registered).toBe(messagingWhatsappTwilioIntegrationSpec);
+    expect(registered?.secretSchema.schema).toMatchObject({
+      required: ['accountSid', 'authToken'],
     });
   });
 });

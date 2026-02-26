@@ -10,6 +10,7 @@ export type IntegrationCategory =
   | 'email'
   | 'calendar'
   | 'sms'
+  | 'messaging'
   | 'health'
   | 'ai-llm'
   | 'ai-voice-tts'
