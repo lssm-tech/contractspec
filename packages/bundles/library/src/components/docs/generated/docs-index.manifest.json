@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-02-15T02:25:57.758Z",
-  "total": 753,
+  "generatedAt": "2026-02-27T04:36:17.754Z",
+  "total": 776,
   "version": null,
   "contentRoot": "../../../../../../../generated/docs",
   "chunks": [
@@ -48,6 +48,11 @@
       "key": "files",
       "file": "docs-index.files.json",
       "total": 22
+    },
+    {
+      "key": "health",
+      "file": "docs-index.health.json",
+      "total": 12
     },
     {
       "key": "identity-rbac",
@@ -127,7 +132,7 @@
     {
       "key": "platform.integrations",
       "file": "docs-index.platform-integrations.json",
-      "total": 29
+      "total": 37
     },
     {
       "key": "platform.knowledge",
@@ -168,6 +173,11 @@
       "key": "versioned-knowledge-base",
       "file": "docs-index.versioned-knowledge-base.json",
       "total": 10
+    },
+    {
+      "key": "video-api-showcase",
+      "file": "docs-index.video-api-showcase.json",
+      "total": 3
     },
     {
       "key": "wealth-snapshot",
