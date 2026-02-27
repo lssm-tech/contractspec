@@ -140,10 +140,10 @@ export const docsSections = [
   {
     title: 'Ecosystem',
     items: [
-      { title: 'Plugin API', href: '/docs/ecosystem/plugins' },
+      { title: 'Marketplace Plugins', href: '/docs/ecosystem/plugins' },
       { title: 'Integrations', href: '/docs/ecosystem/integrations' },
-      { title: 'Templates', href: '/docs/ecosystem/templates' },
-      { title: 'Registry', href: '/docs/ecosystem/registry' },
+      { title: 'Authoring Templates', href: '/docs/ecosystem/templates' },
+      { title: 'Marketplace Manifest', href: '/docs/ecosystem/registry' },
     ],
   },
   {

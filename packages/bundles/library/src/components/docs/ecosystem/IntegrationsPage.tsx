@@ -46,10 +46,10 @@ bun add -D @contractspec/lib.plugin.example-generator`}
 
       <div className="flex items-center gap-4 pt-4">
         <Link href="/docs/ecosystem/registry" className="btn-primary">
-          Registry resolution <ChevronRight size={16} />
+          Marketplace manifest <ChevronRight size={16} />
         </Link>
         <Link href="/docs/ecosystem/templates" className="btn-ghost">
-          Plugin templates
+          Authoring templates
         </Link>
       </div>
     </div>
