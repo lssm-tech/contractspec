@@ -8,7 +8,7 @@ import {
 import { ruleMatchesTarget } from '../features/rules.js';
 import { commandMatchesTarget } from '../features/commands.js';
 import { agentMatchesTarget } from '../features/agents.js';
-import { skillMatchesTarget } from '../features/skills.js';
+import { skillMatchesTarget, serializeSkill } from '../features/skills.js';
 import { resolveHooksForTarget } from '../features/hooks.js';
 import {
   resolveModels,
@@ -141,12 +141,8 @@ export class CursorTarget extends BaseTarget {
       for (const skill of skills) {
         const skillSubDir = join(skillsDir, skill.name);
         ensureDir(skillSubDir);
-        const frontmatter: Record<string, unknown> = {
-          name: skill.name,
-          description: skill.meta.description ?? '',
-        };
         const filepath = join(skillSubDir, 'SKILL.md');
-        const content = serializeFrontmatter(frontmatter, skill.content);
+        const content = serializeSkill(skill);
         writeGeneratedFile(filepath, content);
         filesWritten.push(filepath);
       }

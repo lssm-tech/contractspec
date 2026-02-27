@@ -1,9 +1,13 @@
 import { existsSync } from 'fs';
-import { resolve, join } from 'path';
+import { resolve, join, basename } from 'path';
 import chalk from 'chalk';
 import { loadWorkspaceConfig, loadPackManifest } from '../../core/config.js';
 import { listFiles, listDirs } from '../../utils/filesystem.js';
 import { parseModels, scanModelsForSecrets } from '../../features/models.js';
+import {
+  parseSkillFile,
+  validateAgentSkillsFrontmatter,
+} from '../../features/skills.js';
 
 /**
  * Validate all configured packs.
@@ -50,13 +54,40 @@ export function runPackValidate(projectRoot: string): void {
         if (sub === 'skills') {
           const skillDirs = listDirs(subDir);
           for (const skillDir of skillDirs) {
+            const skillName = basename(skillDir);
             const skillMd = join(skillDir, 'SKILL.md');
             if (!existsSync(skillMd)) {
               console.log(
-                chalk.yellow(
-                  `  warn: skills/${skillDir.split('/').pop()} missing SKILL.md`
+                chalk.yellow(`  warn: skills/${skillName} missing SKILL.md`)
+              );
+              continue;
+            }
+
+            try {
+              const parsed = parseSkillFile(
+                skillMd,
+                skillDir,
+                '__validation__'
+              );
+              const skillErrors = validateAgentSkillsFrontmatter(parsed);
+
+              for (const err of skillErrors) {
+                console.log(
+                  chalk.red(`  ERROR skills/${skillName}/SKILL.md: ${err}`)
+                );
+              }
+
+              if (skillErrors.length > 0) {
+                hasErrors = true;
+              }
+            } catch (err) {
+              const message = err instanceof Error ? err.message : String(err);
+              console.log(
+                chalk.red(
+                  `  ERROR skills/${skillName}/SKILL.md: failed to parse (${message})`
                 )
               );
+              hasErrors = true;
             }
           }
           console.log(chalk.green(`  ${sub}/: ${skillDirs.length} skill(s)`));

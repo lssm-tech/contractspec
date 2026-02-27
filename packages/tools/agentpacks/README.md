@@ -137,7 +137,7 @@ agentpacks supports 9 feature types inside a pack:
 | **rules**    | Project/coding guidelines injected as context        | `rules/security.md`, `rules/style.md`       |
 | **commands** | Slash commands (e.g. `/lint`, `/review`)             | `commands/lint.md`, `commands/deploy.md`    |
 | **agents**   | Named sub-agents with specific personas              | `agents/reviewer.md`, `agents/architect.md` |
-| **skills**   | Step-by-step skill guides (with structured SKILL.md) | `skills/migrate/SKILL.md`                   |
+| **skills**   | Step-by-step skill guides (AgentSkills-compatible)   | `skills/migrate/SKILL.md`                   |
 | **hooks**    | Shell commands triggered by agent events             | `hooks.json`                                |
 | **plugins**  | Raw TypeScript plugin files (OpenCode)               | `plugins/my-plugin.ts`                      |
 | **mcp**      | MCP server definitions                               | `mcp.json`                                  |
@@ -302,6 +302,8 @@ agentpacks pack list
 ### `agentpacks pack validate`
 
 Validate pack manifests and feature files for schema errors.
+
+For skills, validation also checks AgentSkills requirements (`name`, `description`, naming rules, and `skills/<name>/SKILL.md` alignment).
 
 ```bash
 agentpacks pack validate
@@ -562,6 +564,29 @@ description: 'Run a code review'
 ---
 
 Review the selected code for correctness, style, and potential bugs.
+```
+
+### Skill frontmatter (AgentSkills-compatible)
+
+`SKILL.md` follows the [AgentSkills](https://agentskills.io/home.md) metadata model.
+
+- Required: `name`, `description`
+- `name` must match the `skills/<name>/` directory and use lowercase letters, numbers, and single hyphens
+- Optional fields like `allowed-tools`, `compatibility`, and other metadata are preserved during generation/export
+
+```markdown
+---
+name: migrate-component
+description: Migrate a component to design-system primitives
+allowed-tools:
+  - read
+  - edit
+compatibility:
+  cursor: '>=0.50.0'
+targets: ['*']
+---
+
+Step-by-step migration workflow...
 ```
 
 ### MCP config — `mcp.json`

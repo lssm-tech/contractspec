@@ -133,6 +133,15 @@ Status: Completed
 - [x] Update docs and examples for final support matrix.
 - [x] Produce final change summary with known limitations.
 
+### WS8 - AgentSkills Compatibility Hardening
+
+Status: Completed
+
+- [x] Preserve full SKILL.md frontmatter during generation/export across skill-capable targets.
+- [x] Add AgentSkills metadata validation in `agentpacks pack validate`.
+- [x] Normalize imported skills to include minimum required AgentSkills metadata.
+- [x] Update tests and docs to reflect AgentSkills-compatible behavior.
+
 ## Dependency order
 
 1. WS1 -> WS2 (contracts/config first)
@@ -173,3 +182,4 @@ Status: Completed
 - 2026-02-27: Completed WS5 CLI legacy/new path alignment for Mistral provider and key resolution.
 - 2026-02-27: Completed WS6 agentpacks `mistralvibe` target support and model allowlist updates.
 - 2026-02-27: Completed WS7 validation/docs sweep (targeted package tests, typecheck, lint, and monorepo checks).
+- 2026-02-27: Completed WS8 AgentSkills hardening (skill metadata passthrough, validation, importer normalization, and docs/tests updates).

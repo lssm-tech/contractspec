@@ -8,7 +8,7 @@ import {
 import { ruleMatchesTarget } from '../features/rules.js';
 import { commandMatchesTarget } from '../features/commands.js';
 import { agentMatchesTarget } from '../features/agents.js';
-import { skillMatchesTarget } from '../features/skills.js';
+import { skillMatchesTarget, serializeSkill } from '../features/skills.js';
 import { resolveModels } from '../core/profile-resolver.js';
 import { generateModelGuidanceMarkdown } from '../utils/model-guidance.js';
 import {
@@ -102,7 +102,7 @@ export class MistralVibeTarget extends BaseTarget {
         const skillSubDir = join(skillsDir, skill.name);
         ensureDir(skillSubDir);
         const filepath = join(skillSubDir, 'SKILL.md');
-        writeGeneratedFile(filepath, skill.content);
+        writeGeneratedFile(filepath, serializeSkill(skill));
         filesWritten.push(filepath);
       }
     }
