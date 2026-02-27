@@ -19,7 +19,7 @@
     "dev": "contractspec-bun-build dev"
   },
   "dependencies": {
-    "@aws-sdk/client-secrets-manager": "^3.996.0",
+    "@aws-sdk/client-secrets-manager": "^3.999.0",
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
     "@google-cloud/secret-manager": "^6.1.1",
@@ -114,6 +114,8 @@
     "./integrations/providers/messaging-whatsapp-meta": "./src/integrations/providers/messaging-whatsapp-meta.ts",
     "./integrations/providers/messaging-whatsapp-twilio": "./src/integrations/providers/messaging-whatsapp-twilio.ts",
     "./integrations/providers/mistral": "./src/integrations/providers/mistral.ts",
+    "./integrations/providers/mistral-conversational": "./src/integrations/providers/mistral-conversational.ts",
+    "./integrations/providers/mistral-stt": "./src/integrations/providers/mistral-stt.ts",
     "./integrations/providers/myfitnesspal": "./src/integrations/providers/myfitnesspal.ts",
     "./integrations/providers/notion": "./src/integrations/providers/notion.ts",
     "./integrations/providers/openai-image": "./src/integrations/providers/openai-image.ts",
@@ -632,6 +634,18 @@
         "bun": "./dist/integrations/providers/mistral.js",
         "node": "./dist/node/integrations/providers/mistral.js",
         "default": "./dist/integrations/providers/mistral.js"
+      },
+      "./integrations/providers/mistral-conversational": {
+        "types": "./dist/integrations/providers/mistral-conversational.d.ts",
+        "bun": "./dist/integrations/providers/mistral-conversational.js",
+        "node": "./dist/node/integrations/providers/mistral-conversational.js",
+        "default": "./dist/integrations/providers/mistral-conversational.js"
+      },
+      "./integrations/providers/mistral-stt": {
+        "types": "./dist/integrations/providers/mistral-stt.d.ts",
+        "bun": "./dist/integrations/providers/mistral-stt.js",
+        "node": "./dist/node/integrations/providers/mistral-stt.js",
+        "default": "./dist/integrations/providers/mistral-stt.js"
       },
       "./integrations/providers/myfitnesspal": {
         "types": "./dist/integrations/providers/myfitnesspal.d.ts",

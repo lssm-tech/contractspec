@@ -38,7 +38,7 @@
     "google-gax": "^5.0.0"
   },
   "optionalDependencies": {
-    "pg": "^8.14.1"
+    "pg": "^8.19.0"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",

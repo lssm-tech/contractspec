@@ -36,12 +36,12 @@
     "@contractspec/lib.contracts-integrations": "workspace:*",
     "@contractspec/integration.runtime": "workspace:*",
     "@elevenlabs/elevenlabs-js": "^2.36.0",
-    "@fal-ai/client": "^1.9.3",
+    "@fal-ai/client": "^1.9.4",
     "@google-cloud/storage": "^7.19.0",
-    "@linear/sdk": "^75.0.0",
-    "@mistralai/mistralai": "^1.14.0",
-    "@notionhq/client": "^5.9.0",
-    "posthog-node": "^5.25.0",
+    "@linear/sdk": "^76.0.0",
+    "@mistralai/mistralai": "^1.14.1",
+    "@notionhq/client": "^5.11.0",
+    "posthog-node": "^5.26.0",
     "@qdrant/js-client-rest": "^1.17.0",
     "@confiture-ai/gradium-sdk-js": "^0.1.1",
     "drizzle-orm": "^0.45.1",
@@ -49,7 +49,7 @@
     "googleapis": "^171.4.0",
     "postgres": "^3.4.8",
     "postmark": "^4.0.7",
-    "stripe": "^20.3.1",
+    "stripe": "^20.4.0",
     "twilio": "^5.12.2",
     "zod": "catalog:"
   },
@@ -68,6 +68,7 @@
     "./embedding": "./src/embedding.ts",
     "./health": "./src/health.ts",
     "./impls": "./src/impls/index.ts",
+    "./impls/async-event-queue": "./src/impls/async-event-queue.ts",
     "./impls/elevenlabs-voice": "./src/impls/elevenlabs-voice.ts",
     "./impls/fal-voice": "./src/impls/fal-voice.ts",
     "./impls/fathom-meeting-recorder": "./src/impls/fathom-meeting-recorder.ts",
@@ -100,8 +101,11 @@
     "./impls/messaging-slack": "./src/impls/messaging-slack.ts",
     "./impls/messaging-whatsapp-meta": "./src/impls/messaging-whatsapp-meta.ts",
     "./impls/messaging-whatsapp-twilio": "./src/impls/messaging-whatsapp-twilio.ts",
+    "./impls/mistral-conversational": "./src/impls/mistral-conversational.ts",
+    "./impls/mistral-conversational.session": "./src/impls/mistral-conversational.session.ts",
     "./impls/mistral-embedding": "./src/impls/mistral-embedding.ts",
     "./impls/mistral-llm": "./src/impls/mistral-llm.ts",
+    "./impls/mistral-stt": "./src/impls/mistral-stt.ts",
     "./impls/notion": "./src/impls/notion.ts",
     "./impls/posthog": "./src/impls/posthog.ts",
     "./impls/posthog-reader": "./src/impls/posthog-reader.ts",
@@ -179,6 +183,12 @@
         "bun": "./dist/impls/index.js",
         "node": "./dist/node/impls/index.js",
         "default": "./dist/impls/index.js"
+      },
+      "./impls/async-event-queue": {
+        "types": "./dist/impls/async-event-queue.d.ts",
+        "bun": "./dist/impls/async-event-queue.js",
+        "node": "./dist/node/impls/async-event-queue.js",
+        "default": "./dist/impls/async-event-queue.js"
       },
       "./impls/elevenlabs-voice": {
         "types": "./dist/impls/elevenlabs-voice.d.ts",
@@ -372,6 +382,18 @@
         "node": "./dist/node/impls/messaging-whatsapp-twilio.js",
         "default": "./dist/impls/messaging-whatsapp-twilio.js"
       },
+      "./impls/mistral-conversational": {
+        "types": "./dist/impls/mistral-conversational.d.ts",
+        "bun": "./dist/impls/mistral-conversational.js",
+        "node": "./dist/node/impls/mistral-conversational.js",
+        "default": "./dist/impls/mistral-conversational.js"
+      },
+      "./impls/mistral-conversational.session": {
+        "types": "./dist/impls/mistral-conversational.session.d.ts",
+        "bun": "./dist/impls/mistral-conversational.session.js",
+        "node": "./dist/node/impls/mistral-conversational.session.js",
+        "default": "./dist/impls/mistral-conversational.session.js"
+      },
       "./impls/mistral-embedding": {
         "types": "./dist/impls/mistral-embedding.d.ts",
         "bun": "./dist/impls/mistral-embedding.js",
@@ -383,6 +405,12 @@
         "bun": "./dist/impls/mistral-llm.js",
         "node": "./dist/node/impls/mistral-llm.js",
         "default": "./dist/impls/mistral-llm.js"
+      },
+      "./impls/mistral-stt": {
+        "types": "./dist/impls/mistral-stt.d.ts",
+        "bun": "./dist/impls/mistral-stt.js",
+        "node": "./dist/node/impls/mistral-stt.js",
+        "default": "./dist/impls/mistral-stt.js"
       },
       "./impls/notion": {
         "types": "./dist/impls/notion.d.ts",

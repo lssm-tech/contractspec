@@ -96,6 +96,7 @@
     "./components/docs/integrations/IntegrationsElevenLabsPage": "./src/components/docs/integrations/IntegrationsElevenLabsPage.tsx",
     "./components/docs/integrations/IntegrationsGmailPage": "./src/components/docs/integrations/IntegrationsGmailPage.tsx",
     "./components/docs/integrations/IntegrationsGoogleCalendarPage": "./src/components/docs/integrations/IntegrationsGoogleCalendarPage.tsx",
+    "./components/docs/integrations/IntegrationsMistralPage": "./src/components/docs/integrations/IntegrationsMistralPage.tsx",
     "./components/docs/integrations/IntegrationsOpenAIPage": "./src/components/docs/integrations/IntegrationsOpenAIPage.tsx",
     "./components/docs/integrations/IntegrationsOverviewPage": "./src/components/docs/integrations/IntegrationsOverviewPage.tsx",
     "./components/docs/integrations/IntegrationsPostmarkPage": "./src/components/docs/integrations/IntegrationsPostmarkPage.tsx",
@@ -383,9 +384,9 @@
     "drizzle-orm": "^0.45.1",
     "framer-motion": "^12.34.3",
     "lucide-react": "^0.575.0",
-    "posthog-js": "^1.353.0",
-    "posthog-node": "^5.25.0",
-    "posthog-react-native": "^4.34.0",
+    "posthog-js": "^1.356.0",
+    "posthog-node": "^5.26.0",
+    "posthog-react-native": "^4.36.1",
     "react-hook-form": "^7.71.2",
     "zod": "catalog:",
     "@contractspec/lib.contracts-integrations": "workspace:*",
@@ -870,6 +871,12 @@
         "bun": "./dist/components/docs/integrations/IntegrationsGoogleCalendarPage.js",
         "node": "./dist/node/components/docs/integrations/IntegrationsGoogleCalendarPage.js",
         "default": "./dist/components/docs/integrations/IntegrationsGoogleCalendarPage.js"
+      },
+      "./components/docs/integrations/IntegrationsMistralPage": {
+        "types": "./dist/components/docs/integrations/IntegrationsMistralPage.d.ts",
+        "bun": "./dist/components/docs/integrations/IntegrationsMistralPage.js",
+        "node": "./dist/node/components/docs/integrations/IntegrationsMistralPage.js",
+        "default": "./dist/components/docs/integrations/IntegrationsMistralPage.js"
       },
       "./components/docs/integrations/IntegrationsOpenAIPage": {
         "types": "./dist/components/docs/integrations/IntegrationsOpenAIPage.d.ts",
