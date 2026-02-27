@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.learning-journey-quest-challenges",
-  "version": "2.9.1",
+  "version": "3.0.0",
   "description": "Time-bound quest/challenge learning journey example.",
   "type": "module",
   "types": "./dist/index.d.ts",

@@ -1,5 +1,26 @@
 # @contractspec/lib.video-gen
 
+## 2.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- Updated dependencies [7cbdb7f]
+- Updated dependencies [c608804]
+- Updated dependencies [e3bc858]
+- Updated dependencies [b19ae0a]
+- Updated dependencies [aa4a9c9]
+- Updated dependencies [b781ce6]
+  - @contractspec/lib.contracts-spec@3.0.0
+  - @contractspec/lib.contracts-integrations@3.0.0
+  - @contractspec/lib.design-system@3.0.0
+  - @contractspec/lib.content-gen@3.0.0
+  - @contractspec/lib.image-gen@1.0.0
+  - @contractspec/lib.voice@1.0.0
+
 ## 1.50.1
 
 ### Patch Changes

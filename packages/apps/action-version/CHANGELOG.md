@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 2.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
 ## 1.9.0
 
 ### Minor Changes

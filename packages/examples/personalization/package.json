@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.personalization",
-  "version": "2.9.1",
+  "version": "3.0.0",
   "description": "Personalization examples: behavior tracking, overlay customization, workflow extension.",
   "type": "module",
   "types": "./dist/index.d.ts",
