@@ -1,5 +1,55 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- e3bc858: Fix lint stability across workspaces by pinning ESLint's AJV resolver compatibility and removing an incompatible minimatch override that caused jsx-a11y runtime failures.
+
+  Apply strict-type and lint compliance updates across health contracts and channel runtime code paths, including empty-interface aliases, dynamic env cleanup in integration tests, and normalized array typing with full lint/build/test validation.
+
+- 95c27e4: Align ecosystem docs with the Cursor marketplace catalog model by documenting the root `.cursor-plugin/marketplace.json`, package-scoped plugin sources in `packages/apps-registry/cursor-marketplace`, and catalog-wide validation via `bun run plugin:contractspec:validate`.
+
+  Rename ecosystem navigation and docblocks from generic Plugin API and Registry wording to Marketplace Plugins, Authoring Templates, and Marketplace Manifest for consistent docs discoverability.
+
+- 3aa6269: Expand the integrations docs with Mistral, Slack, GitHub, WhatsApp Meta, WhatsApp Twilio, and health transport routing pages.
+
+  Refresh the integrations overview/spec model and docs sidebar links so the new messaging and runtime guidance is discoverable from web-landing.
+
+- Updated dependencies [7cbdb7f]
+- Updated dependencies [0c438ac]
+- Updated dependencies [c608804]
+- Updated dependencies [e3bc858]
+- Updated dependencies [b19ae0a]
+- Updated dependencies [aa4a9c9]
+- Updated dependencies [95c27e4]
+- Updated dependencies [3aa6269]
+- Updated dependencies [b781ce6]
+  - @contractspec/lib.contracts-spec@3.0.0
+  - @contractspec/bundle.library@3.0.0
+  - @contractspec/example.integration-hub@3.0.0
+  - @contractspec/example.policy-safe-knowledge-assistant@3.0.0
+  - @contractspec/example.analytics-dashboard@3.0.0
+  - @contractspec/example.saas-boilerplate@3.0.0
+  - @contractspec/lib.progressive-delivery@27.0.0
+  - @contractspec/example.workflow-system@3.0.0
+  - @contractspec/example.agent-console@3.0.0
+  - @contractspec/lib.example-shared-ui@3.0.0
+  - @contractspec/example.crm-pipeline@3.0.0
+  - @contractspec/example.in-app-docs@3.0.0
+  - @contractspec/example.marketplace@3.0.0
+  - @contractspec/lib.design-system@3.0.0
+  - @contractspec/bundle.marketing@3.0.0
+  - @contractspec/lib.ui-kit-core@3.0.0
+  - @contractspec/module.examples@3.0.0
+  - @contractspec/lib.ui-kit-web@3.0.0
+  - @contractspec/lib.ui-link@3.0.0
+  - @contractspec/lib.ui-kit@3.0.0
+
 ## 2.9.1
 
 ### Patch Changes

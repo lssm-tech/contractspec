@@ -1,5 +1,11 @@
 # @contractspec/app.registry-packs
 
+## 1.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
 ## 0.6.0
 
 ### Minor Changes

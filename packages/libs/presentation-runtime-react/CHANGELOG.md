@@ -1,5 +1,24 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 27.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- Updated dependencies [7cbdb7f]
+- Updated dependencies [c608804]
+- Updated dependencies [e3bc858]
+- Updated dependencies [b19ae0a]
+- Updated dependencies [aa4a9c9]
+- Updated dependencies [b781ce6]
+  - @contractspec/lib.contracts-spec@3.0.0
+  - @contractspec/lib.presentation-runtime-core@3.0.0
+  - @contractspec/lib.design-system@3.0.0
+  - @contractspec/lib.ui-kit-web@3.0.0
+
 ## 26.0.1
 
 ### Patch Changes

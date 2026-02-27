@@ -1,5 +1,21 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- Updated dependencies [b781ce6]
+  - @contractspec/module.lifecycle-advisor@3.0.0
+  - @contractspec/module.lifecycle-core@3.0.0
+  - @contractspec/lib.observability@3.0.0
+  - @contractspec/lib.analytics@3.0.0
+  - @contractspec/lib.lifecycle@3.0.0
+  - @contractspec/lib.ai-agent@3.0.0
+
 ## 2.9.1
 
 ### Patch Changes

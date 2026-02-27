@@ -1,5 +1,43 @@
 # @contractspec/bundle.library
 
+## 3.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- 0c438ac: Add architecture docs for the control-plane runtime and link the new page from the architecture overview and docs navigation.
+- 95c27e4: Align ecosystem docs with the Cursor marketplace catalog model by documenting the root `.cursor-plugin/marketplace.json`, package-scoped plugin sources in `packages/apps-registry/cursor-marketplace`, and catalog-wide validation via `bun run plugin:contractspec:validate`.
+
+  Rename ecosystem navigation and docblocks from generic Plugin API and Registry wording to Marketplace Plugins, Authoring Templates, and Marketplace Manifest for consistent docs discoverability.
+
+- 3aa6269: Expand the integrations docs with Mistral, Slack, GitHub, WhatsApp Meta, WhatsApp Twilio, and health transport routing pages.
+
+  Refresh the integrations overview/spec model and docs sidebar links so the new messaging and runtime guidance is discoverable from web-landing.
+
+- Updated dependencies [7cbdb7f]
+- Updated dependencies [c608804]
+- Updated dependencies [e3bc858]
+- Updated dependencies [b19ae0a]
+- Updated dependencies [aa4a9c9]
+- Updated dependencies [b781ce6]
+  - @contractspec/lib.contracts-spec@3.0.0
+  - @contractspec/lib.contracts-integrations@3.0.0
+  - @contractspec/lib.contracts-runtime-server-graphql@3.0.0
+  - @contractspec/lib.contracts-runtime-server-rest@3.0.0
+  - @contractspec/lib.contracts-runtime-server-mcp@3.0.0
+  - @contractspec/lib.contracts-library@3.0.0
+  - @contractspec/lib.example-shared-ui@3.0.0
+  - @contractspec/lib.runtime-sandbox@2.0.0
+  - @contractspec/lib.design-system@3.0.0
+  - @contractspec/module.examples@3.0.0
+  - @contractspec/lib.ui-kit-web@3.0.0
+  - @contractspec/lib.ui-link@3.0.0
+  - @contractspec/lib.logger@3.0.0
+  - @contractspec/lib.schema@3.0.0
+
 ## 2.9.1
 
 ### Patch Changes

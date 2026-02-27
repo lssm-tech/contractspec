@@ -1,5 +1,11 @@
 # @contractspec/lib.error
 
+## 3.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
 ## 2.9.0
 
 ### Minor Changes
