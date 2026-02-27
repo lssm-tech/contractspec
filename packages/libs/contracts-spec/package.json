@@ -25,7 +25,8 @@
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit",
     "dev": "contractspec-bun-build dev",
-    "registry:build": "bun run scripts/build-registry.ts"
+    "registry:build": "bun run scripts/build-registry.ts",
+    "readme:inventory": "bun run scripts/update-readme-contract-inventory.ts"
   },
   "dependencies": {
     "@blocknote/core": "^0.47.0",
