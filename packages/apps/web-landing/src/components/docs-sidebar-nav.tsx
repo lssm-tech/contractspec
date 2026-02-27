@@ -59,6 +59,10 @@ export const docsSections = [
     title: 'Architecture',
     items: [
       { title: 'Overview', href: '/docs/architecture' },
+      {
+        title: 'Control Plane Runtime',
+        href: '/docs/architecture/control-plane',
+      },
       { title: 'App Configuration', href: '/docs/architecture/app-config' },
       { title: 'Multi-Tenancy', href: '/docs/architecture/multi-tenancy' },
       {
