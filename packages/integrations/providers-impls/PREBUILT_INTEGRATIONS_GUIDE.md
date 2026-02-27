@@ -24,6 +24,8 @@ The factory in `src/impls/provider-factory.ts` supports the following integratio
 | Storage            | `storage.gcs`                | `createObjectStorageProvider`     |
 | LLM                | `ai-llm.mistral`             | `createLlmProvider`               |
 | Embeddings         | `ai-llm.mistral`             | `createEmbeddingProvider`         |
+| Voice (STT)        | `ai-voice-stt.mistral`       | `createSttProvider`               |
+| Voice (Convers.)   | `ai-voice-conv.mistral`      | `createConversationalProvider`    |
 | Voice              | `ai-voice.elevenlabs`        | `createVoiceProvider`             |
 | Voice              | `ai-voice.gradium`           | `createVoiceProvider`             |
 | Voice              | `ai-voice.fal`               | `createVoiceProvider`             |
@@ -148,6 +150,20 @@ Each integration below lists:
 - Functions (LLM): `chat`, `stream`, `countTokens`
 - Functions (embeddings): `embedDocuments`, `embedQuery`
 - Utilities: none
+
+#### `ai-voice-stt.mistral`
+
+- Entry: `MistralSttProvider` (`src/impls/mistral-stt.ts`)
+- Create via factory: `createSttProvider`
+- Functions: `transcribe`
+- Utilities: none
+
+#### `ai-voice-conv.mistral`
+
+- Entry: `MistralConversationalProvider` (`src/impls/mistral-conversational.ts`)
+- Create via factory: `createConversationalProvider`
+- Functions: `startSession`, `listVoices`
+- Utilities: session runtime in `src/impls/mistral-conversational.session.ts`
 
 ### Voice
 

@@ -14,6 +14,15 @@ import {
   registerSupabasePostgresIntegration,
   supabasePostgresIntegrationSpec,
 } from './supabase-postgres';
+import { mistralIntegrationSpec, registerMistralIntegration } from './mistral';
+import {
+  mistralSttIntegrationSpec,
+  registerMistralSttIntegration,
+} from './mistral-stt';
+import {
+  mistralConversationalIntegrationSpec,
+  registerMistralConversationalIntegration,
+} from './mistral-conversational';
 import { linearIntegrationSpec, registerLinearIntegration } from './linear';
 import { jiraIntegrationSpec, registerJiraIntegration } from './jira';
 import { notionIntegrationSpec, registerNotionIntegration } from './notion';
@@ -102,6 +111,50 @@ describe('integration provider specs', () => {
     expect(registered?.capabilities.provides).toEqual([
       { key: 'database.sql', version: '1.0.0' },
     ]);
+  });
+
+  it('registers Mistral LLM integration', () => {
+    const registry = registerMistralIntegration(new IntegrationSpecRegistry());
+    const registered = registry.get('ai-llm.mistral', '1.0.0');
+    expect(registered).toBe(mistralIntegrationSpec);
+    expect(registered?.supportedModes).toEqual(['managed', 'byok']);
+    expect(registered?.capabilities.provides).toEqual([
+      { key: 'ai.chat', version: '1.0.0' },
+      { key: 'ai.embeddings', version: '1.0.0' },
+    ]);
+    expect(registered?.secretSchema.schema).toMatchObject({
+      required: ['apiKey'],
+    });
+  });
+
+  it('registers Mistral STT integration', () => {
+    const registry = registerMistralSttIntegration(
+      new IntegrationSpecRegistry()
+    );
+    const registered = registry.get('ai-voice-stt.mistral', '1.0.0');
+    expect(registered).toBe(mistralSttIntegrationSpec);
+    expect(registered?.supportedModes).toEqual(['managed', 'byok']);
+    expect(registered?.capabilities.provides).toEqual([
+      { key: 'ai.voice.stt', version: '1.0.0' },
+    ]);
+    expect(registered?.secretSchema.schema).toMatchObject({
+      required: ['apiKey'],
+    });
+  });
+
+  it('registers Mistral conversational voice integration', () => {
+    const registry = registerMistralConversationalIntegration(
+      new IntegrationSpecRegistry()
+    );
+    const registered = registry.get('ai-voice-conv.mistral', '1.0.0');
+    expect(registered).toBe(mistralConversationalIntegrationSpec);
+    expect(registered?.supportedModes).toEqual(['managed', 'byok']);
+    expect(registered?.capabilities.provides).toEqual([
+      { key: 'ai.voice.conversational', version: '1.0.0' },
+    ]);
+    expect(registered?.secretSchema.schema).toMatchObject({
+      required: ['apiKey'],
+    });
   });
 
   it('registers Linear integration', () => {

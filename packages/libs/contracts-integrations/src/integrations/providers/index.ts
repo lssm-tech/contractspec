@@ -23,6 +23,8 @@ export * from './qdrant';
 export * from './supabase-vector';
 export * from './supabase-postgres';
 export * from './mistral';
+export * from './mistral-stt';
+export * from './mistral-conversational';
 export * from './elevenlabs';
 export * from './gradium';
 export * from './fal';

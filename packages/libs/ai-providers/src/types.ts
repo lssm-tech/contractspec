@@ -16,7 +16,12 @@ export type ProviderName =
 /**
  * Legacy provider names (for backwards compatibility)
  */
-export type LegacyProviderName = 'claude' | 'openai' | 'ollama' | 'custom';
+export type LegacyProviderName =
+  | 'claude'
+  | 'openai'
+  | 'ollama'
+  | 'custom'
+  | 'mistral';
 
 /**
  * Provider mode determines how API keys are resolved

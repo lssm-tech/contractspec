@@ -65,4 +65,15 @@ describe('ContractsrcSchema with testing', () => {
       expect(result.data.testing?.runner).toBe('bun');
     }
   });
+
+  it('should allow mistral as aiProvider', () => {
+    const result = ContractsrcSchema.safeParse({
+      aiProvider: 'mistral',
+    });
+
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.aiProvider).toBe('mistral');
+    }
+  });
 });

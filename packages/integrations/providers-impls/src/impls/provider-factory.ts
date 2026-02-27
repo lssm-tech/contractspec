@@ -18,6 +18,8 @@ import { TwilioWhatsappMessagingProvider } from './messaging-whatsapp-twilio';
 import { ElevenLabsVoiceProvider } from './elevenlabs-voice';
 import { GradiumVoiceProvider } from './gradium-voice';
 import { FalVoiceProvider } from './fal-voice';
+import { MistralSttProvider } from './mistral-stt';
+import { MistralConversationalProvider } from './mistral-conversational';
 import { LinearProjectManagementProvider } from './linear';
 import { JiraProjectManagementProvider } from './jira';
 import { NotionProjectManagementProvider } from './notion';
@@ -34,7 +36,11 @@ import type { VectorStoreProvider } from '../vector-store';
 import type { AnalyticsProvider } from '../analytics';
 import type { DatabaseProvider } from '../database';
 import type { ObjectStorageProvider } from '../storage';
-import type { TTSProvider } from '../voice';
+import type {
+  ConversationalProvider,
+  STTProvider,
+  TTSProvider,
+} from '../voice';
 import type { LLMProvider } from '../llm';
 import type { EmbeddingProvider } from '../embedding';
 import type { OpenBankingProvider } from '../openbanking';
@@ -376,6 +382,68 @@ export class IntegrationProviderFactory {
       default:
         throw new Error(
           `Unsupported voice integration: ${context.spec.meta.key}`
+        );
+    }
+  }
+
+  async createSttProvider(context: IntegrationContext): Promise<STTProvider> {
+    const secrets = await this.loadSecrets(context);
+    const config = context.config as {
+      model?: string;
+      language?: string;
+      serverURL?: string;
+    };
+
+    switch (context.spec.meta.key) {
+      case 'ai-voice-stt.mistral':
+        return new MistralSttProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'Mistral API key is required'
+          ),
+          defaultModel: config?.model,
+          defaultLanguage: config?.language,
+          serverURL: config?.serverURL,
+        });
+      default:
+        throw new Error(
+          `Unsupported STT integration: ${context.spec.meta.key}`
+        );
+    }
+  }
+
+  async createConversationalProvider(
+    context: IntegrationContext
+  ): Promise<ConversationalProvider> {
+    const secrets = await this.loadSecrets(context);
+    const config = context.config as {
+      model?: string;
+      defaultVoice?: string;
+      serverURL?: string;
+      language?: string;
+    };
+
+    switch (context.spec.meta.key) {
+      case 'ai-voice-conv.mistral':
+        return new MistralConversationalProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'Mistral API key is required'
+          ),
+          defaultModel: config?.model,
+          defaultVoiceId: config?.defaultVoice,
+          serverURL: config?.serverURL,
+          sttOptions: {
+            defaultModel: config?.model,
+            defaultLanguage: config?.language,
+            serverURL: config?.serverURL,
+          },
+        });
+      default:
+        throw new Error(
+          `Unsupported conversational integration: ${context.spec.meta.key}`
         );
     }
   }

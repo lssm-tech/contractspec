@@ -1,5 +1,7 @@
 export * from './mistral-llm';
 export * from './mistral-embedding';
+export * from './mistral-stt';
+export * from './mistral-conversational';
 export * from './qdrant-vector';
 export * from './supabase-vector';
 export * from './supabase-psql';

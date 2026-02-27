@@ -26,6 +26,8 @@ import { GradiumVoiceProvider } from './gradium-voice';
 import { FalVoiceProvider } from './fal-voice';
 import { MistralLLMProvider } from './mistral-llm';
 import { MistralEmbeddingProvider } from './mistral-embedding';
+import { MistralSttProvider } from './mistral-stt';
+import { MistralConversationalProvider } from './mistral-conversational';
 import { PowensOpenBankingProvider } from './powens-openbanking';
 import { LinearProjectManagementProvider } from './linear';
 import { JiraProjectManagementProvider } from './jira';
@@ -228,6 +230,28 @@ describe('IntegrationProviderFactory', () => {
     const embedding = await factory.createEmbeddingProvider(context);
     expect(llm).toBeInstanceOf(MistralLLMProvider);
     expect(embedding).toBeInstanceOf(MistralEmbeddingProvider);
+  });
+
+  it('creates Mistral STT provider', async () => {
+    const provider = await factory.createSttProvider(
+      buildContext({
+        key: 'ai-voice-stt.mistral',
+        config: { model: 'voxtral-mini-latest', language: 'en' },
+        secret: { apiKey: 'mistral-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(MistralSttProvider);
+  });
+
+  it('creates Mistral conversational provider', async () => {
+    const provider = await factory.createConversationalProvider(
+      buildContext({
+        key: 'ai-voice-conv.mistral',
+        config: { model: 'mistral-small-latest', defaultVoice: 'default' },
+        secret: { apiKey: 'mistral-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(MistralConversationalProvider);
   });
 
   it('creates Powens open banking provider', async () => {

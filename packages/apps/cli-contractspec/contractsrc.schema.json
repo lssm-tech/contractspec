@@ -6,7 +6,7 @@
   "properties": {
     "aiProvider": {
       "type": "string",
-      "enum": ["claude", "openai", "ollama", "custom"],
+      "enum": ["claude", "openai", "ollama", "mistral", "custom"],
       "default": "claude",
       "description": "AI provider for spec generation and code assistance"
     },
@@ -120,7 +120,15 @@
       "items": {
         "type": "string"
       },
-      "default": ["**/node_modules/**", "**/dist/**", "**/.turbo/**", "**/.next/**", "**/build/**", "**/coverage/**", "**/*.d.ts"],
+      "default": [
+        "**/node_modules/**",
+        "**/dist/**",
+        "**/.turbo/**",
+        "**/.next/**",
+        "**/build/**",
+        "**/coverage/**",
+        "**/*.d.ts"
+      ],
       "description": "Glob patterns to exclude from spec discovery. Defaults include common build outputs."
     },
     "openapi": {
@@ -386,7 +394,15 @@
       "properties": {
         "strategy": {
           "type": "string",
-          "enum": ["by-tag", "by-owner", "by-domain", "by-url-path-single", "by-url-path-multi", "by-feature", "none"],
+          "enum": [
+            "by-tag",
+            "by-owner",
+            "by-domain",
+            "by-url-path-single",
+            "by-url-path-multi",
+            "by-feature",
+            "none"
+          ],
           "description": "Grouping strategy to apply"
         },
         "urlPathLevel": {

@@ -14,9 +14,9 @@
   },
   "defaultOwners": ["@team"],
   "defaultTags": ["auto-generated"],
-  
+
   "_comments": {
-    "aiProvider": "Options: 'claude', 'openai', 'ollama', 'custom'",
+    "aiProvider": "Options: 'claude', 'openai', 'ollama', 'mistral', 'custom'",
     "agentMode": "Options: 'simple', 'cursor', 'claude-code', 'openai-codex'. Controls code generation strategy.",
     "aiModel": "Specific model to use. Defaults vary by provider.",
     "customEndpoint": "For custom providers. Example: 'https://your-llm-endpoint.com'",

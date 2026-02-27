@@ -574,7 +574,7 @@ export const HooksConfigSchema: z.ZodType<HooksConfig> = z.record(
  */
 export const ContractsrcSchema: z.ZodType<ContractsrcFileConfig> = z.object({
   aiProvider: z
-    .enum(['claude', 'openai', 'ollama', 'custom'])
+    .enum(['claude', 'openai', 'ollama', 'mistral', 'custom'])
     .default('claude')
     .optional(),
   aiModel: z.string().optional(),

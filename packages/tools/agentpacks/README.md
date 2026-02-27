@@ -7,7 +7,7 @@
 
 **Composable AI agent configuration manager.**
 
-Write your rules, commands, skills, hooks, models, and MCP configs once — in a pack — and sync them automatically to OpenCode, Cursor, Claude Code, Codex CLI, Gemini CLI, GitHub Copilot, and 13 more tools. Discover and share packs via the **agentpacks registry**.
+Write your rules, commands, skills, hooks, models, and MCP configs once — in a pack — and sync them automatically to OpenCode, Cursor, Claude Code, Codex CLI, Gemini CLI, GitHub Copilot, and 14 more tools. Discover and share packs via the **agentpacks registry**.
 
 ---
 
@@ -19,7 +19,7 @@ AI coding tools are proliferating fast. Every tool has its own config format:
 - Claude Code wants `CLAUDE.md` and `.claude/rules/*.md`
 - OpenCode wants `.opencode/agent/*.md`, `.opencode/skill/*.md`, `opencode.json`
 - Codex wants `.codex/memories/*.md`
-- And so on for 20+ tools…
+- And so on for 21+ tools…
 
 **Maintaining all of these by hand means:**
 
@@ -31,7 +31,7 @@ AI coding tools are proliferating fast. Every tool has its own config format:
 
 1. Write your rules/commands/agents/skills once, in plain Markdown with simple frontmatter
 2. Group them into a _pack_ (a folder with a `pack.json` manifest)
-3. Run `agentpacks generate` — all 20 supported tools get their configs, properly formatted
+3. Run `agentpacks generate` — all 21 supported tools get their configs, properly formatted
 
 ### vs rulesync
 
@@ -97,15 +97,16 @@ This reads your `.rulesync/` directory and `rulesync.jsonc`, and creates an equi
 
 ### Core targets — full feature support
 
-| Target         | ID           | Rules | Commands | Agents | Skills | Hooks | Plugins | MCP | Ignore |
-| -------------- | ------------ | :---: | :------: | :----: | :----: | :---: | :-----: | :-: | :----: |
-| OpenCode       | `opencode`   |   ✓   |    ✓     |   ✓    |   ✓    |   ✓   |    ✓    |  ✓  |   ✓    |
-| Cursor         | `cursor`     |   ✓   |    ✓     |   ✓    |   ✓    |   ✓   |         |  ✓  |   ✓    |
-| Claude Code    | `claudecode` |   ✓   |    ✓     |   ✓    |   ✓    |   ✓   |         |  ✓  |   ✓    |
-| Codex CLI      | `codexcli`   |   ✓   |          |        |   ✓    |   ✓   |         |  ✓  |        |
-| Gemini CLI     | `geminicli`  |   ✓   |    ✓     |        |   ✓    |   ✓   |         |  ✓  |   ✓    |
-| GitHub Copilot | `copilot`    |   ✓   |    ✓     |   ✓    |   ✓    |       |         |  ✓  |   ✓    |
-| AGENTS.md      | `agentsmd`   |   ✓   |          |        |        |       |         |     |        |
+| Target         | ID            | Rules | Commands | Agents | Skills | Hooks | Plugins | MCP | Ignore |
+| -------------- | ------------- | :---: | :------: | :----: | :----: | :---: | :-----: | :-: | :----: |
+| OpenCode       | `opencode`    |   ✓   |    ✓     |   ✓    |   ✓    |   ✓   |    ✓    |  ✓  |   ✓    |
+| Cursor         | `cursor`      |   ✓   |    ✓     |   ✓    |   ✓    |   ✓   |         |  ✓  |   ✓    |
+| Claude Code    | `claudecode`  |   ✓   |    ✓     |   ✓    |   ✓    |   ✓   |         |  ✓  |   ✓    |
+| Codex CLI      | `codexcli`    |   ✓   |          |        |   ✓    |   ✓   |         |  ✓  |        |
+| Mistral Vibe   | `mistralvibe` |   ✓   |    ✓     |   ✓    |   ✓    |       |         |  ✓  |   ✓    |
+| Gemini CLI     | `geminicli`   |   ✓   |    ✓     |        |   ✓    |   ✓   |         |  ✓  |   ✓    |
+| GitHub Copilot | `copilot`     |   ✓   |    ✓     |   ✓    |   ✓    |       |         |  ✓  |   ✓    |
+| AGENTS.md      | `agentsmd`    |   ✓   |          |        |        |       |         |     |        |
 
 ### Additional targets — rules, MCP, and more
 
@@ -464,13 +465,14 @@ Created at your project root by `agentpacks init`.
   // Temporarily disable a pack without removing it
   "disabled": [],
 
-  // Which AI tools to generate configs for (* = all 20)
+  // Which AI tools to generate configs for (* = all 21)
   "targets": [
     "opencode",
     "cursor",
     "claudecode",
     "geminicli",
     "codexcli",
+    "mistralvibe",
     "copilot",
   ],
 

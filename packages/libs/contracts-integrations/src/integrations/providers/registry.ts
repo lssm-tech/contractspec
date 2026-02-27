@@ -6,6 +6,8 @@ import { registerQdrantIntegration } from './qdrant';
 import { registerSupabaseVectorIntegration } from './supabase-vector';
 import { registerSupabasePostgresIntegration } from './supabase-postgres';
 import { registerMistralIntegration } from './mistral';
+import { registerMistralSttIntegration } from './mistral-stt';
+import { registerMistralConversationalIntegration } from './mistral-conversational';
 import { registerElevenLabsIntegration } from './elevenlabs';
 import { registerGradiumIntegration } from './gradium';
 import { registerFalIntegration } from './fal';
@@ -52,6 +54,8 @@ export function createDefaultIntegrationSpecRegistry(): IntegrationSpecRegistry 
   registerSupabaseVectorIntegration(registry);
   registerSupabasePostgresIntegration(registry);
   registerMistralIntegration(registry);
+  registerMistralSttIntegration(registry);
+  registerMistralConversationalIntegration(registry);
   registerElevenLabsIntegration(registry);
   registerGradiumIntegration(registry);
   registerFalIntegration(registry);
