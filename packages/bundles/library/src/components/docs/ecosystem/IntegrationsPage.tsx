@@ -34,7 +34,8 @@ bun add -D @contractspec/lib.plugin.example-generator`}
         <ul className="text-muted-foreground space-y-2 text-sm">
           <li>Payments: Stripe</li>
           <li>Email: Postmark, Gmail</li>
-          <li>Voice: ElevenLabs</li>
+          <li>AI: OpenAI, Mistral</li>
+          <li>Voice: ElevenLabs, Mistral</li>
           <li>Vector DB: Qdrant</li>
           <li>Storage: GCS</li>
         </ul>

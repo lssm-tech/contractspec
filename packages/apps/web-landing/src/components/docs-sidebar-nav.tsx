@@ -157,10 +157,22 @@ export const docsSections = [
       { title: 'Gmail API', href: '/docs/integrations/gmail' },
       { title: 'Google Calendar', href: '/docs/integrations/google-calendar' },
       { title: 'OpenAI', href: '/docs/integrations/openai' },
+      { title: 'Mistral', href: '/docs/integrations/mistral' },
       { title: 'ElevenLabs', href: '/docs/integrations/elevenlabs' },
       { title: 'Qdrant', href: '/docs/integrations/qdrant' },
       { title: 'S3 Storage', href: '/docs/integrations/s3' },
       { title: 'Twilio', href: '/docs/integrations/twilio' },
+      { title: 'Slack Messaging', href: '/docs/integrations/slack' },
+      { title: 'GitHub Messaging', href: '/docs/integrations/github' },
+      { title: 'WhatsApp Meta', href: '/docs/integrations/whatsapp-meta' },
+      {
+        title: 'WhatsApp Twilio',
+        href: '/docs/integrations/whatsapp-twilio',
+      },
+      {
+        title: 'Health Routing',
+        href: '/docs/integrations/health-routing',
+      },
       {
         title: 'Circuit Breakers',
         href: '/docs/integrations/circuit-breakers',

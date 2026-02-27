@@ -1,21 +1,16 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
-// export const metadata = {
-//   title: 'OpenAI Integration: ContractSpec Docs',
-//   description:
-//     'Use GPT models, embeddings, and Whisper speech-to-text with OpenAI in ContractSpec.',
-// };
-
-export function IntegrationsOpenAIPage() {
+export function IntegrationsMistralPage() {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <h1 className="text-4xl font-bold">OpenAI</h1>
+        <h1 className="text-4xl font-bold">Mistral</h1>
         <p className="text-muted-foreground">
-          Integrate OpenAI's powerful AI models for chat completion, embeddings,
-          and speech-to-text. Build intelligent features with GPT-4, generate
-          embeddings for semantic search, and transcribe audio with Whisper.
+          Integrate Mistral models for chat, reasoning, embeddings,
+          speech-to-text, and conversational voice workflows. ContractSpec ships
+          first-class Mistral support across contracts, provider runtime wiring,
+          and CLI provider selection.
         </p>
       </div>
 
@@ -23,33 +18,26 @@ export function IntegrationsOpenAIPage() {
         <h2 className="text-2xl font-bold">Setup</h2>
         <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`# .env
-OPENAI_API_KEY=sk-...
-OPENAI_ORGANIZATION=org-...`}</pre>
+MISTRAL_API_KEY=...`}</pre>
         </div>
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Chat completions</h2>
+        <h2 className="text-2xl font-bold">Chat and reasoning</h2>
         <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`capabilityId: openai-chat
+          <pre>{`capabilityId: mistral-chat
 provider:
-  type: openai
+  type: mistral
   operation: chatCompletion
 
 inputs:
   messages:
     type: array
-    items:
-      type: object
-      properties:
-        role: string
-        content: string
   model:
     type: string
-    default: "gpt-4"
+    default: "mistral-large-latest"
   temperature:
     type: number
-    default: 0.7
     optional: true
 
 outputs:
@@ -63,9 +51,9 @@ outputs:
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Embeddings</h2>
         <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`capabilityId: openai-embeddings
+          <pre>{`capabilityId: mistral-embeddings
 provider:
-  type: openai
+  type: mistral
   operation: createEmbedding
 
 inputs:
@@ -73,7 +61,7 @@ inputs:
     type: string
   model:
     type: string
-    default: "text-embedding-3-small"
+    default: "mistral-embed"
 
 outputs:
   embedding:
@@ -84,16 +72,18 @@ outputs:
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Whisper (Speech-to-Text)</h2>
+        <h2 className="text-2xl font-bold">Speech-to-Text (Voxtral)</h2>
         <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`capabilityId: openai-transcribe
+          <pre>{`capabilityId: mistral-stt
 provider:
-  type: openai
+  type: mistral
   operation: transcribe
 
 inputs:
-  audioFile:
-    type: file
+  audio:
+    type: bytes
+  format:
+    type: string
   language:
     type: string
     optional: true
@@ -101,28 +91,41 @@ inputs:
 outputs:
   text:
     type: string
+  segments:
+    type: array
   language:
     type: string`}</pre>
         </div>
       </div>
 
       <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Conversational voice sessions</h2>
+        <p className="text-muted-foreground">
+          Use the conversational provider for session-based realtime voice flows
+          (turn handling, events, and interruption-safe streaming).
+        </p>
+      </div>
+
+      <div className="space-y-4">
         <h2 className="text-2xl font-bold">Best practices</h2>
         <ul className="text-muted-foreground list-inside list-disc space-y-2">
-          <li>Use streaming for real-time chat responses</li>
-          <li>Cache embeddings to reduce API costs</li>
-          <li>Implement rate limiting to avoid quota issues</li>
-          <li>Store conversation history for context</li>
-          <li>Monitor token usage and costs</li>
+          <li>
+            Choose model families by workload: coding, reasoning, or speech
+          </li>
+          <li>
+            Persist session IDs for conversational continuity across turns
+          </li>
+          <li>Capture token and latency telemetry for provider-level tuning</li>
+          <li>Set explicit fallbacks for network and rate-limit failures</li>
         </ul>
       </div>
 
       <div className="flex items-center gap-4 pt-4">
-        <Link href="/docs/integrations/google-calendar" className="btn-ghost">
-          Previous: Google Calendar
+        <Link href="/docs/integrations/openai" className="btn-ghost">
+          Previous: OpenAI
         </Link>
-        <Link href="/docs/integrations/mistral" className="btn-primary">
-          Next: Mistral <ChevronRight size={16} />
+        <Link href="/docs/integrations/elevenlabs" className="btn-primary">
+          Next: ElevenLabs <ChevronRight size={16} />
         </Link>
       </div>
     </div>
