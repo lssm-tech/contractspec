@@ -24,6 +24,14 @@
     "contentPath": "platform.integrations/ai-llm.mistral.md"
   },
   {
+    "id": "platform.integrations/ai-voice-conv.mistral",
+    "title": "ai-voice-conv.mistral",
+    "summary": "Mistral conversational voice integration using conversation sessions and speech models for bidirectional interactions.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, conversational, mistral, agents, sessions",
+    "route": "/docs/reference/platform.integrations/ai-voice-conv.mistral",
+    "source": "generated",
+    "contentPath": "platform.integrations/ai-voice-conv.mistral.md"
+  },
+  {
     "id": "platform.integrations/ai-voice-conv.openai",
     "title": "ai-voice-conv.openai",
     "summary": "OpenAI Realtime API integration for bidirectional conversational voice with GPT models.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, conversational, realtime, openai",
@@ -38,6 +46,14 @@
     "route": "/docs/reference/platform.integrations/ai-voice-stt.deepgram",
     "source": "generated",
     "contentPath": "platform.integrations/ai-voice-stt.deepgram.md"
+  },
+  {
+    "id": "platform.integrations/ai-voice-stt.mistral",
+    "title": "ai-voice-stt.mistral",
+    "summary": "Mistral audio transcription integration for batch and streaming speech-to-text use cases.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, stt, transcription, mistral, voxtral",
+    "route": "/docs/reference/platform.integrations/ai-voice-stt.mistral",
+    "source": "generated",
+    "contentPath": "platform.integrations/ai-voice-stt.mistral.md"
   },
   {
     "id": "platform.integrations/ai-voice.elevenlabs",

@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-02-27T04:36:17.754Z",
-  "total": 776,
+  "generatedAt": "2026-02-27T08:24:14.176Z",
+  "total": 808,
   "version": null,
   "contentRoot": "../../../../../../../generated/docs",
   "chunks": [
     {
       "key": "_common",
       "file": "docs-index._common.json",
-      "total": 59
+      "total": 89
     },
     {
       "key": "agent-console",
@@ -132,7 +132,7 @@
     {
       "key": "platform.integrations",
       "file": "docs-index.platform-integrations.json",
-      "total": 37
+      "total": 39
     },
     {
       "key": "platform.knowledge",

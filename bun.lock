@@ -46,6 +46,10 @@
         "@contractspec/app.cli-contractspec": "workspace:*",
       },
     },
+    "packages/apps-registry/cursor-marketplace": {
+      "name": "@contractspec/app.cursor-marketplace",
+      "version": "0.1.0",
+    },
     "packages/apps-registry/spec-driven-development": {
       "name": "spec-driven-development",
       "version": "2.9.1",
@@ -3172,6 +3176,8 @@
     "@contractspec/app.cli-database": ["@contractspec/app.cli-database@workspace:packages/apps/cli-database"],
 
     "@contractspec/app.cli-databases": ["@contractspec/app.cli-databases@workspace:packages/apps/cli-databases"],
+
+    "@contractspec/app.cursor-marketplace": ["@contractspec/app.cursor-marketplace@workspace:packages/apps-registry/cursor-marketplace"],
 
     "@contractspec/app.registry-packs": ["@contractspec/app.registry-packs@workspace:packages/apps/registry-packs"],
 

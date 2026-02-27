@@ -24,6 +24,246 @@
     "contentPath": "_common/contractspec.presentations.md"
   },
   {
+    "id": "_common/control-plane.approval",
+    "title": "control-plane.approval",
+    "summary": "Human approval and rejection gates for execution steps.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/control-plane/capabilities/controlPlaneApproval.capability.ts`",
+    "route": "/docs/reference/_common/control-plane.approval",
+    "source": "generated",
+    "contentPath": "_common/control-plane.approval.md"
+  },
+  {
+    "id": "_common/control-plane.audit",
+    "title": "control-plane.audit",
+    "summary": "Trace, policy explanation, and replay-grade observability.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: audit\n- **File**: `packages/libs/contracts-spec/src/control-plane/capabilities/controlPlaneAudit.capability.ts`",
+    "route": "/docs/reference/_common/control-plane.audit",
+    "source": "generated",
+    "contentPath": "_common/control-plane.audit.md"
+  },
+  {
+    "id": "_common/control-plane.channel-runtime",
+    "title": "control-plane.channel-runtime",
+    "summary": "Channel-facing runtime surfaces for controlled execution.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: channels\n- **File**: `packages/libs/contracts-spec/src/control-plane/capabilities/controlPlaneChannelRuntime.capability.ts`",
+    "route": "/docs/reference/_common/control-plane.channel-runtime",
+    "source": "generated",
+    "contentPath": "_common/control-plane.channel-runtime.md"
+  },
+  {
+    "id": "_common/control-plane.core",
+    "title": "control-plane.core",
+    "summary": "Core intent, planning, and execution surfaces.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: core\n- **File**: `packages/libs/contracts-spec/src/control-plane/capabilities/controlPlaneCore.capability.ts`",
+    "route": "/docs/reference/_common/control-plane.core",
+    "source": "generated",
+    "contentPath": "_common/control-plane.core.md"
+  },
+  {
+    "id": "_common/control-plane.skill-registry",
+    "title": "control-plane.skill-registry",
+    "summary": "Signed skill lifecycle and compatibility governance.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: skills\n- **File**: `packages/libs/contracts-spec/src/control-plane/capabilities/controlPlaneSkillRegistry.capability.ts`",
+    "route": "/docs/reference/_common/control-plane.skill-registry",
+    "source": "generated",
+    "contentPath": "_common/control-plane.skill-registry.md"
+  },
+  {
+    "id": "_common/controlPlane.execution.approve",
+    "title": "controlPlane.execution.approve",
+    "summary": "Approve a pending execution step for continuation.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionApprove.command.ts`",
+    "route": "/docs/reference/_common/controlPlane.execution.approve",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.execution.approve.md"
+  },
+  {
+    "id": "_common/controlPlane.execution.cancel",
+    "title": "controlPlane.execution.cancel",
+    "summary": "Cancel an execution run and transition to terminal state.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: execution, approval\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionCancel.command.ts`",
+    "route": "/docs/reference/_common/controlPlane.execution.cancel",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.execution.cancel.md"
+  },
+  {
+    "id": "_common/controlPlane.execution.completed",
+    "title": "controlPlane.execution.completed",
+    "summary": "Emitted when an execution run finishes successfully.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneExecutionCompleted.event.ts`",
+    "route": "/docs/reference/_common/controlPlane.execution.completed",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.execution.completed.md"
+  },
+  {
+    "id": "_common/controlPlane.execution.failed",
+    "title": "controlPlane.execution.failed",
+    "summary": "Emitted when an execution run fails.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: execution, failure\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneExecutionFailed.event.ts`",
+    "route": "/docs/reference/_common/controlPlane.execution.failed",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.execution.failed.md"
+  },
+  {
+    "id": "_common/controlPlane.execution.get",
+    "title": "controlPlane.execution.get",
+    "summary": "Fetch the latest state for one execution.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlaneExecutionGet.query.ts`",
+    "route": "/docs/reference/_common/controlPlane.execution.get",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.execution.get.md"
+  },
+  {
+    "id": "_common/controlPlane.execution.list",
+    "title": "controlPlane.execution.list",
+    "summary": "List execution runs with filtering and pagination.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlaneExecutionList.query.ts`",
+    "route": "/docs/reference/_common/controlPlane.execution.list",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.execution.list.md"
+  },
+  {
+    "id": "_common/controlPlane.execution.reject",
+    "title": "controlPlane.execution.reject",
+    "summary": "Reject a pending execution step.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionReject.command.ts`",
+    "route": "/docs/reference/_common/controlPlane.execution.reject",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.execution.reject.md"
+  },
+  {
+    "id": "_common/controlPlane.execution.start",
+    "title": "controlPlane.execution.start",
+    "summary": "Start executing an approved compiled plan.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionStart.command.ts`",
+    "route": "/docs/reference/_common/controlPlane.execution.start",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.execution.start.md"
+  },
+  {
+    "id": "_common/controlPlane.execution.step.blocked",
+    "title": "controlPlane.execution.step.blocked",
+    "summary": "Emitted when policy blocks an execution step.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: execution, blocked\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneExecutionStepBlocked.event.ts`",
+    "route": "/docs/reference/_common/controlPlane.execution.step.blocked",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.execution.step.blocked.md"
+  },
+  {
+    "id": "_common/controlPlane.execution.step.completed",
+    "title": "controlPlane.execution.step.completed",
+    "summary": "Emitted when an execution step completes.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneExecutionStepCompleted.event.ts`",
+    "route": "/docs/reference/_common/controlPlane.execution.step.completed",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.execution.step.completed.md"
+  },
+  {
+    "id": "_common/controlPlane.execution.step.started",
+    "title": "controlPlane.execution.step.started",
+    "summary": "Emitted when an execution step starts.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneExecutionStepStarted.event.ts`",
+    "route": "/docs/reference/_common/controlPlane.execution.step.started",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.execution.step.started.md"
+  },
+  {
+    "id": "_common/controlPlane.intent.received",
+    "title": "controlPlane.intent.received",
+    "summary": "Emitted when a new control plane intent is accepted.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: intent\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneIntentReceived.event.ts`",
+    "route": "/docs/reference/_common/controlPlane.intent.received",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.intent.received.md"
+  },
+  {
+    "id": "_common/controlPlane.intent.submit",
+    "title": "controlPlane.intent.submit",
+    "summary": "Submit a natural-language intent to the control plane.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: intent\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneIntentSubmit.command.ts`",
+    "route": "/docs/reference/_common/controlPlane.intent.submit",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.intent.submit.md"
+  },
+  {
+    "id": "_common/controlPlane.plan.compile",
+    "title": "controlPlane.plan.compile",
+    "summary": "Compile an intent into a deterministic plan DAG.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: plan\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlanePlanCompile.command.ts`",
+    "route": "/docs/reference/_common/controlPlane.plan.compile",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.plan.compile.md"
+  },
+  {
+    "id": "_common/controlPlane.plan.compiled",
+    "title": "controlPlane.plan.compiled",
+    "summary": "Emitted when an intent is compiled into an executable plan.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: plan\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlanePlanCompiled.event.ts`",
+    "route": "/docs/reference/_common/controlPlane.plan.compiled",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.plan.compiled.md"
+  },
+  {
+    "id": "_common/controlPlane.plan.rejected",
+    "title": "controlPlane.plan.rejected",
+    "summary": "Emitted when a plan fails verification or governance checks.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: plan, governance\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlanePlanRejected.event.ts`",
+    "route": "/docs/reference/_common/controlPlane.plan.rejected",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.plan.rejected.md"
+  },
+  {
+    "id": "_common/controlPlane.plan.verify",
+    "title": "controlPlane.plan.verify",
+    "summary": "Run policy and risk validation against a compiled plan.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: plan, governance\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlanePlanVerify.command.ts`",
+    "route": "/docs/reference/_common/controlPlane.plan.verify",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.plan.verify.md"
+  },
+  {
+    "id": "_common/controlPlane.policy.explain",
+    "title": "controlPlane.policy.explain",
+    "summary": "Explain policy outcomes for an execution or step.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: policy, audit\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlanePolicyExplain.query.ts`",
+    "route": "/docs/reference/_common/controlPlane.policy.explain",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.policy.explain.md"
+  },
+  {
+    "id": "_common/controlPlane.skill.disable",
+    "title": "controlPlane.skill.disable",
+    "summary": "Disable an installed skill in the control plane registry.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: skills, governance\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneSkillDisable.command.ts`",
+    "route": "/docs/reference/_common/controlPlane.skill.disable",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.skill.disable.md"
+  },
+  {
+    "id": "_common/controlPlane.skill.install",
+    "title": "controlPlane.skill.install",
+    "summary": "Install a signed skill artifact after verification checks.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: skills\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneSkillInstall.command.ts`",
+    "route": "/docs/reference/_common/controlPlane.skill.install",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.skill.install.md"
+  },
+  {
+    "id": "_common/controlPlane.skill.installed",
+    "title": "controlPlane.skill.installed",
+    "summary": "Emitted when a skill artifact is verified and installed.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: skills\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneSkillInstalled.event.ts`",
+    "route": "/docs/reference/_common/controlPlane.skill.installed",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.skill.installed.md"
+  },
+  {
+    "id": "_common/controlPlane.skill.list",
+    "title": "controlPlane.skill.list",
+    "summary": "List installed and available skill artifacts.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: skills\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlaneSkillList.query.ts`",
+    "route": "/docs/reference/_common/controlPlane.skill.list",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.skill.list.md"
+  },
+  {
+    "id": "_common/controlPlane.skill.rejected",
+    "title": "controlPlane.skill.rejected",
+    "summary": "Emitted when a skill install attempt is rejected.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: skills, governance\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneSkillRejected.event.ts`",
+    "route": "/docs/reference/_common/controlPlane.skill.rejected",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.skill.rejected.md"
+  },
+  {
+    "id": "_common/controlPlane.skill.verify",
+    "title": "controlPlane.skill.verify",
+    "summary": "Verify skill signature and compatibility constraints.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: skills, governance\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlaneSkillVerify.query.ts`",
+    "route": "/docs/reference/_common/controlPlane.skill.verify",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.skill.verify.md"
+  },
+  {
+    "id": "_common/controlPlane.trace.get",
+    "title": "controlPlane.trace.get",
+    "summary": "Return the replayable trace timeline for one execution.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: trace, audit\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlaneTraceGet.query.ts`",
+    "route": "/docs/reference/_common/controlPlane.trace.get",
+    "source": "generated",
+    "contentPath": "_common/controlPlane.trace.get.md"
+  },
+  {
     "id": "_common/docs.contract.reference",
     "title": "docs.contract.reference",
     "summary": "Resolve a contract into a documentation-ready reference.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: reference\n- **File**: `packages/libs/contracts-spec/src/docs/queries/contractReference.query.ts`",
