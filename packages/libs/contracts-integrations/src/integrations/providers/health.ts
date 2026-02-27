@@ -122,14 +122,14 @@ export interface HealthListActivitiesResult extends HealthPagination {
   source?: HealthDataSource;
 }
 
-export interface HealthListWorkoutsParams extends HealthListActivitiesParams {}
+export type HealthListWorkoutsParams = HealthListActivitiesParams;
 
 export interface HealthListWorkoutsResult extends HealthPagination {
   workouts: HealthWorkout[];
   source?: HealthDataSource;
 }
 
-export interface HealthListSleepParams extends HealthListActivitiesParams {}
+export type HealthListSleepParams = HealthListActivitiesParams;
 
 export interface HealthListSleepResult extends HealthPagination {
   sleep: HealthSleep[];
@@ -145,7 +145,7 @@ export interface HealthListBiometricsResult extends HealthPagination {
   source?: HealthDataSource;
 }
 
-export interface HealthListNutritionParams extends HealthListActivitiesParams {}
+export type HealthListNutritionParams = HealthListActivitiesParams;
 
 export interface HealthListNutritionResult extends HealthPagination {
   nutrition: HealthNutrition[];

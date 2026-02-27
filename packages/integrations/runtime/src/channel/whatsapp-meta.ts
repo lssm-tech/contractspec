@@ -4,35 +4,35 @@ import type { ChannelInboundEvent } from './types';
 
 export interface MetaWhatsappWebhookPayload {
   object?: string;
-  entry?: Array<{
+  entry?: {
     id?: string;
-    changes?: Array<{
+    changes?: {
       field?: string;
       value?: {
         metadata?: {
           phone_number_id?: string;
           display_phone_number?: string;
         };
-        contacts?: Array<{
+        contacts?: {
           wa_id?: string;
           profile?: { name?: string };
-        }>;
-        messages?: Array<{
+        }[];
+        messages?: {
           id?: string;
           from?: string;
           timestamp?: string;
           type?: string;
           text?: { body?: string };
-        }>;
-        statuses?: Array<{
+        }[];
+        statuses?: {
           id?: string;
           recipient_id?: string;
           status?: string;
           timestamp?: string;
-        }>;
+        }[];
       };
-    }>;
-  }>;
+    }[];
+  }[];
 }
 
 export interface MetaSignatureVerificationInput {

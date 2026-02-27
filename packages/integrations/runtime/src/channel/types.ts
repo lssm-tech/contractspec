@@ -89,7 +89,7 @@ export interface ChannelDecisionRecord {
   modelName: string;
   promptVersion: string;
   policyVersion: string;
-  toolTrace: Array<Record<string, unknown>>;
+  toolTrace: Record<string, unknown>[];
   actionPlan: Record<string, unknown>;
   requiresApproval: boolean;
   approvedBy?: string;

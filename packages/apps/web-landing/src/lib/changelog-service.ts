@@ -7,12 +7,10 @@ import {
   type ParsedPackageRelease,
 } from '@/lib/changelog-parser';
 import type {
-  ChangelogChangeDetail,
   ChangelogEntry,
   ChangelogManifest,
   ChangelogPackageDetail,
   ChangelogReleaseDetail,
-  ChangelogReleaseSummary,
 } from '@/lib/changelog-types';
 interface ReleaseAccumulator {
   version: string;

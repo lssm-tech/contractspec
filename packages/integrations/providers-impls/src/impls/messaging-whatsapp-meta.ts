@@ -5,7 +5,7 @@ import type {
 } from '../messaging';
 
 interface MetaWhatsappSendResponse {
-  messages?: Array<{ id?: string }>;
+  messages?: { id?: string }[];
   error?: {
     message?: string;
     code?: number;

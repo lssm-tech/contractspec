@@ -37,7 +37,7 @@ const originalFetch = globalThis.fetch;
 beforeEach(() => {
   resetChannelRuntimeResourcesForTests();
   for (const key of TEST_ENV_KEYS) {
-    delete process.env[key];
+    Reflect.deleteProperty(process.env, key);
   }
   process.env.CHANNEL_RUNTIME_STORAGE = 'memory';
   process.env.CHANNEL_RUNTIME_ASYNC_PROCESSING = '0';
@@ -48,7 +48,7 @@ beforeEach(() => {
 afterEach(() => {
   resetChannelRuntimeResourcesForTests();
   for (const key of TEST_ENV_KEYS) {
-    delete process.env[key];
+    Reflect.deleteProperty(process.env, key);
   }
   globalThis.fetch = originalFetch;
 });

@@ -7,7 +7,7 @@ interface MockQueryResult<T = unknown> {
 }
 
 class MockPool {
-  public readonly calls: Array<{ sql: string; params?: unknown[] }> = [];
+  public readonly calls: { sql: string; params?: unknown[] }[] = [];
   private readonly queue: MockQueryResult[];
 
   constructor(queue: MockQueryResult[]) {

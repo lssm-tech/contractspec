@@ -40,7 +40,7 @@ export interface SaveDecisionInput {
   modelName: string;
   promptVersion: string;
   policyVersion: string;
-  toolTrace?: Array<Record<string, unknown>>;
+  toolTrace?: Record<string, unknown>[];
   actionPlan: Record<string, unknown>;
   requiresApproval: boolean;
 }
