@@ -22,6 +22,7 @@ import {
 interface HealthProviderFactoryConfig {
   apiBaseUrl?: string;
   mcpUrl?: string;
+  oauthTokenUrl?: string;
   defaultTransport?: HealthTransportStrategy;
   strategyOrder?: HealthTransportStrategy[];
   allowUnofficial?: boolean;
@@ -40,6 +41,35 @@ type HealthProviderKey =
   | 'health.eightsleep'
   | 'health.peloton';
 
+const OFFICIAL_TRANSPORT_SUPPORTED_BY_PROVIDER: Record<
+  HealthProviderKey,
+  boolean
+> = {
+  'health.openwearables': false,
+  'health.whoop': true,
+  'health.apple-health': false,
+  'health.oura': true,
+  'health.strava': true,
+  'health.garmin': false,
+  'health.fitbit': true,
+  'health.myfitnesspal': false,
+  'health.eightsleep': false,
+  'health.peloton': false,
+};
+
+const UNOFFICIAL_SUPPORTED_BY_PROVIDER: Record<HealthProviderKey, boolean> = {
+  'health.openwearables': false,
+  'health.whoop': false,
+  'health.apple-health': false,
+  'health.oura': false,
+  'health.strava': false,
+  'health.garmin': true,
+  'health.fitbit': false,
+  'health.myfitnesspal': true,
+  'health.eightsleep': true,
+  'health.peloton': true,
+};
+
 export function createHealthProviderFromContext(
   context: IntegrationContext,
   secrets: Record<string, unknown>
@@ -47,23 +77,38 @@ export function createHealthProviderFromContext(
   const providerKey = context.spec.meta.key as HealthProviderKey;
   const config = toFactoryConfig(context.config);
   const strategyOrder = buildStrategyOrder(config);
-  const errors: string[] = [];
+  const attemptLogs: string[] = [];
 
-  for (const strategy of strategyOrder) {
+  for (let index = 0; index < strategyOrder.length; index += 1) {
+    const strategy = strategyOrder[index];
+    if (!strategy) continue;
+    const route = index === 0 ? 'primary' : 'fallback';
+
+    if (!supportsStrategy(providerKey, strategy)) {
+      attemptLogs.push(`${strategy}: unsupported by ${providerKey}`);
+      continue;
+    }
+
+    if (!hasCredentialsForStrategy(strategy, config, secrets)) {
+      attemptLogs.push(`${strategy}: missing credentials`);
+      continue;
+    }
+
     const provider = createHealthProviderForStrategy(
       providerKey,
       strategy,
+      route,
       config,
       secrets
     );
     if (provider) {
       return provider;
     }
-    errors.push(`${strategy}: not available`);
+    attemptLogs.push(`${strategy}: not available`);
   }
 
   throw new Error(
-    `Unable to resolve health provider for ${providerKey}. Strategies attempted: ${errors.join(
+    `Unable to resolve health provider for ${providerKey}. Strategies attempted: ${attemptLogs.join(
       ', '
     )}.`
   );
@@ -72,6 +117,7 @@ export function createHealthProviderFromContext(
 function createHealthProviderForStrategy(
   providerKey: HealthProviderKey,
   strategy: HealthTransportStrategy,
+  route: 'primary' | 'fallback',
   config: HealthProviderFactoryConfig,
   secrets: Record<string, unknown>
 ): HealthProvider | undefined {
@@ -83,10 +129,21 @@ function createHealthProviderForStrategy(
     accessToken: getSecretString(secrets, 'accessToken'),
     mcpAccessToken: getSecretString(secrets, 'mcpAccessToken'),
     webhookSecret: getSecretString(secrets, 'webhookSecret'),
+    route,
+    oauth: {
+      tokenUrl: config.oauthTokenUrl,
+      refreshToken: getSecretString(secrets, 'refreshToken'),
+      clientId: getSecretString(secrets, 'clientId'),
+      clientSecret: getSecretString(secrets, 'clientSecret'),
+      tokenExpiresAt: getSecretString(secrets, 'tokenExpiresAt'),
+    },
   };
 
   if (strategy === 'aggregator-api' || strategy === 'aggregator-mcp') {
-    return new OpenWearablesHealthProvider(options);
+    return createAggregatorProvider(providerKey, {
+      ...options,
+      aggregatorKey: 'health.openwearables',
+    });
   }
 
   if (strategy === 'unofficial') {
@@ -117,6 +174,53 @@ function createHealthProviderForStrategy(
   return createOfficialProvider(providerKey, options);
 }
 
+function createAggregatorProvider(
+  providerKey: HealthProviderKey,
+  options: {
+    transport: HealthDataTransport;
+    apiBaseUrl?: string;
+    mcpUrl?: string;
+    apiKey?: string;
+    accessToken?: string;
+    mcpAccessToken?: string;
+    webhookSecret?: string;
+    route: 'primary' | 'fallback';
+    aggregatorKey?: string;
+    oauth: {
+      tokenUrl?: string;
+      refreshToken?: string;
+      clientId?: string;
+      clientSecret?: string;
+      tokenExpiresAt?: string;
+    };
+  }
+): HealthProvider {
+  if (providerKey === 'health.apple-health') {
+    return new AppleHealthBridgeProvider(options);
+  }
+  if (providerKey === 'health.garmin') {
+    return new GarminHealthProvider(options);
+  }
+  if (providerKey === 'health.myfitnesspal') {
+    return new MyFitnessPalHealthProvider(options);
+  }
+  if (providerKey === 'health.eightsleep') {
+    return new EightSleepHealthProvider(options);
+  }
+  if (providerKey === 'health.peloton') {
+    return new PelotonHealthProvider(options);
+  }
+  if (providerKey === 'health.openwearables') {
+    return new OpenWearablesHealthProvider(options);
+  }
+
+  return new OpenWearablesHealthProvider({
+    ...options,
+    providerKey,
+    upstreamProvider: providerKey.replace('health.', ''),
+  });
+}
+
 function createOfficialProvider(
   providerKey: HealthProviderKey,
   options: {
@@ -127,6 +231,15 @@ function createOfficialProvider(
     accessToken?: string;
     mcpAccessToken?: string;
     webhookSecret?: string;
+    route: 'primary' | 'fallback';
+    aggregatorKey?: string;
+    oauth: {
+      tokenUrl?: string;
+      refreshToken?: string;
+      clientId?: string;
+      clientSecret?: string;
+      tokenExpiresAt?: string;
+    };
   }
 ): HealthProvider {
   switch (providerKey) {
@@ -145,11 +258,20 @@ function createOfficialProvider(
     case 'health.fitbit':
       return new FitbitHealthProvider(options);
     case 'health.myfitnesspal':
-      return new MyFitnessPalHealthProvider(options);
+      return new MyFitnessPalHealthProvider({
+        ...options,
+        transport: 'aggregator-api',
+      });
     case 'health.eightsleep':
-      return new EightSleepHealthProvider(options);
+      return new EightSleepHealthProvider({
+        ...options,
+        transport: 'aggregator-api',
+      });
     case 'health.peloton':
-      return new PelotonHealthProvider(options);
+      return new PelotonHealthProvider({
+        ...options,
+        transport: 'aggregator-api',
+      });
     default:
       throw new Error(`Unsupported health provider key: ${providerKey}`);
   }
@@ -163,6 +285,7 @@ function toFactoryConfig(config: unknown): HealthProviderFactoryConfig {
   return {
     apiBaseUrl: asString(record.apiBaseUrl),
     mcpUrl: asString(record.mcpUrl),
+    oauthTokenUrl: asString(record.oauthTokenUrl),
     defaultTransport: normalizeTransport(record.defaultTransport),
     strategyOrder: normalizeTransportArray(record.strategyOrder),
     allowUnofficial:
@@ -214,6 +337,45 @@ function normalizeTransportArray(
     .map((item) => normalizeTransport(item))
     .filter((item): item is HealthTransportStrategy => Boolean(item));
   return transports.length > 0 ? transports : undefined;
+}
+
+function supportsStrategy(
+  providerKey: HealthProviderKey,
+  strategy: HealthTransportStrategy
+): boolean {
+  if (strategy === 'official-api' || strategy === 'official-mcp') {
+    return OFFICIAL_TRANSPORT_SUPPORTED_BY_PROVIDER[providerKey];
+  }
+  if (strategy === 'unofficial') {
+    return UNOFFICIAL_SUPPORTED_BY_PROVIDER[providerKey];
+  }
+  return true;
+}
+
+function hasCredentialsForStrategy(
+  strategy: HealthTransportStrategy,
+  config: HealthProviderFactoryConfig,
+  secrets: Record<string, unknown>
+): boolean {
+  const hasApiCredential =
+    Boolean(getSecretString(secrets, 'accessToken')) ||
+    Boolean(getSecretString(secrets, 'apiKey'));
+  const hasMcpCredential =
+    Boolean(getSecretString(secrets, 'mcpAccessToken')) || hasApiCredential;
+
+  if (strategy === 'official-api' || strategy === 'aggregator-api') {
+    return hasApiCredential;
+  }
+
+  if (strategy === 'official-mcp' || strategy === 'aggregator-mcp') {
+    return Boolean(config.mcpUrl) && hasMcpCredential;
+  }
+
+  const hasAutomationCredential =
+    hasMcpCredential ||
+    (Boolean(getSecretString(secrets, 'username')) &&
+      Boolean(getSecretString(secrets, 'password')));
+  return Boolean(config.mcpUrl) && hasAutomationCredential;
 }
 
 function getSecretString(

@@ -83,15 +83,23 @@
     "./impls/gmail-inbound": "./src/impls/gmail-inbound.ts",
     "./impls/gmail-outbound": "./src/impls/gmail-outbound.ts",
     "./impls/google-calendar": "./src/impls/google-calendar.ts",
-    "./impls/health-provider-factory": "./src/impls/health-provider-factory.ts",
-    "./impls/health/providers": "./src/impls/health/providers.ts",
     "./impls/gradium-voice": "./src/impls/gradium-voice.ts",
     "./impls/granola-meeting-recorder": "./src/impls/granola-meeting-recorder.ts",
     "./impls/granola-meeting-recorder.mcp": "./src/impls/granola-meeting-recorder.mcp.ts",
     "./impls/granola-meeting-recorder.types": "./src/impls/granola-meeting-recorder.types.ts",
+    "./impls/health-provider-factory": "./src/impls/health-provider-factory.ts",
+    "./impls/health/base-health-provider": "./src/impls/health/base-health-provider.ts",
+    "./impls/health/hybrid-health-providers": "./src/impls/health/hybrid-health-providers.ts",
+    "./impls/health/official-health-providers": "./src/impls/health/official-health-providers.ts",
+    "./impls/health/provider-normalizers": "./src/impls/health/provider-normalizers.ts",
+    "./impls/health/providers": "./src/impls/health/providers.ts",
     "./impls/index": "./src/impls/index.ts",
     "./impls/jira": "./src/impls/jira.ts",
     "./impls/linear": "./src/impls/linear.ts",
+    "./impls/messaging-github": "./src/impls/messaging-github.ts",
+    "./impls/messaging-slack": "./src/impls/messaging-slack.ts",
+    "./impls/messaging-whatsapp-meta": "./src/impls/messaging-whatsapp-meta.ts",
+    "./impls/messaging-whatsapp-twilio": "./src/impls/messaging-whatsapp-twilio.ts",
     "./impls/mistral-embedding": "./src/impls/mistral-embedding.ts",
     "./impls/mistral-llm": "./src/impls/mistral-llm.ts",
     "./impls/notion": "./src/impls/notion.ts",
@@ -110,6 +118,7 @@
     "./impls/twilio-sms": "./src/impls/twilio-sms.ts",
     "./llm": "./src/llm.ts",
     "./meeting-recorder": "./src/meeting-recorder.ts",
+    "./messaging": "./src/messaging.ts",
     "./openbanking": "./src/openbanking.ts",
     "./payments": "./src/payments.ts",
     "./project-management": "./src/project-management.ts",
@@ -261,18 +270,6 @@
         "node": "./dist/node/impls/google-calendar.js",
         "default": "./dist/impls/google-calendar.js"
       },
-      "./impls/health-provider-factory": {
-        "types": "./dist/impls/health-provider-factory.d.ts",
-        "bun": "./dist/impls/health-provider-factory.js",
-        "node": "./dist/node/impls/health-provider-factory.js",
-        "default": "./dist/impls/health-provider-factory.js"
-      },
-      "./impls/health/providers": {
-        "types": "./dist/impls/health/providers.d.ts",
-        "bun": "./dist/impls/health/providers.js",
-        "node": "./dist/node/impls/health/providers.js",
-        "default": "./dist/impls/health/providers.js"
-      },
       "./impls/gradium-voice": {
         "types": "./dist/impls/gradium-voice.d.ts",
         "bun": "./dist/impls/gradium-voice.js",
@@ -297,6 +294,42 @@
         "node": "./dist/node/impls/granola-meeting-recorder.types.js",
         "default": "./dist/impls/granola-meeting-recorder.types.js"
       },
+      "./impls/health-provider-factory": {
+        "types": "./dist/impls/health-provider-factory.d.ts",
+        "bun": "./dist/impls/health-provider-factory.js",
+        "node": "./dist/node/impls/health-provider-factory.js",
+        "default": "./dist/impls/health-provider-factory.js"
+      },
+      "./impls/health/base-health-provider": {
+        "types": "./dist/impls/health/base-health-provider.d.ts",
+        "bun": "./dist/impls/health/base-health-provider.js",
+        "node": "./dist/node/impls/health/base-health-provider.js",
+        "default": "./dist/impls/health/base-health-provider.js"
+      },
+      "./impls/health/hybrid-health-providers": {
+        "types": "./dist/impls/health/hybrid-health-providers.d.ts",
+        "bun": "./dist/impls/health/hybrid-health-providers.js",
+        "node": "./dist/node/impls/health/hybrid-health-providers.js",
+        "default": "./dist/impls/health/hybrid-health-providers.js"
+      },
+      "./impls/health/official-health-providers": {
+        "types": "./dist/impls/health/official-health-providers.d.ts",
+        "bun": "./dist/impls/health/official-health-providers.js",
+        "node": "./dist/node/impls/health/official-health-providers.js",
+        "default": "./dist/impls/health/official-health-providers.js"
+      },
+      "./impls/health/provider-normalizers": {
+        "types": "./dist/impls/health/provider-normalizers.d.ts",
+        "bun": "./dist/impls/health/provider-normalizers.js",
+        "node": "./dist/node/impls/health/provider-normalizers.js",
+        "default": "./dist/impls/health/provider-normalizers.js"
+      },
+      "./impls/health/providers": {
+        "types": "./dist/impls/health/providers.d.ts",
+        "bun": "./dist/impls/health/providers.js",
+        "node": "./dist/node/impls/health/providers.js",
+        "default": "./dist/impls/health/providers.js"
+      },
       "./impls/index": {
         "types": "./dist/impls/index.d.ts",
         "bun": "./dist/impls/index.js",
@@ -314,6 +347,30 @@
         "bun": "./dist/impls/linear.js",
         "node": "./dist/node/impls/linear.js",
         "default": "./dist/impls/linear.js"
+      },
+      "./impls/messaging-github": {
+        "types": "./dist/impls/messaging-github.d.ts",
+        "bun": "./dist/impls/messaging-github.js",
+        "node": "./dist/node/impls/messaging-github.js",
+        "default": "./dist/impls/messaging-github.js"
+      },
+      "./impls/messaging-slack": {
+        "types": "./dist/impls/messaging-slack.d.ts",
+        "bun": "./dist/impls/messaging-slack.js",
+        "node": "./dist/node/impls/messaging-slack.js",
+        "default": "./dist/impls/messaging-slack.js"
+      },
+      "./impls/messaging-whatsapp-meta": {
+        "types": "./dist/impls/messaging-whatsapp-meta.d.ts",
+        "bun": "./dist/impls/messaging-whatsapp-meta.js",
+        "node": "./dist/node/impls/messaging-whatsapp-meta.js",
+        "default": "./dist/impls/messaging-whatsapp-meta.js"
+      },
+      "./impls/messaging-whatsapp-twilio": {
+        "types": "./dist/impls/messaging-whatsapp-twilio.d.ts",
+        "bun": "./dist/impls/messaging-whatsapp-twilio.js",
+        "node": "./dist/node/impls/messaging-whatsapp-twilio.js",
+        "default": "./dist/impls/messaging-whatsapp-twilio.js"
       },
       "./impls/mistral-embedding": {
         "types": "./dist/impls/mistral-embedding.d.ts",
@@ -422,6 +479,12 @@
         "bun": "./dist/meeting-recorder.js",
         "node": "./dist/node/meeting-recorder.js",
         "default": "./dist/meeting-recorder.js"
+      },
+      "./messaging": {
+        "types": "./dist/messaging.d.ts",
+        "bun": "./dist/messaging.js",
+        "node": "./dist/node/messaging.js",
+        "default": "./dist/messaging.js"
       },
       "./openbanking": {
         "types": "./dist/openbanking.d.ts",

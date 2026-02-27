@@ -6,7 +6,11 @@ import type {
 } from '@contractspec/lib.contracts-spec/app-config/runtime';
 import type { IntegrationConnection } from './connection';
 import type { IntegrationSpec } from './spec';
-import { IntegrationCallGuard } from './runtime';
+import {
+  IntegrationCallGuard,
+  isUnofficialHealthProviderAllowed,
+  resolveHealthStrategyOrder,
+} from './runtime';
 import type {
   IntegrationTelemetryEmitter,
   IntegrationTelemetryEvent,
@@ -322,5 +326,37 @@ describe('IntegrationCallGuard', () => {
       status: 'error',
       errorCode: 'ECLIENT',
     });
+  });
+});
+
+describe('health runtime strategy helpers', () => {
+  it('filters unofficial strategy by default', () => {
+    const order = resolveHealthStrategyOrder({
+      strategyOrder: ['official-api', 'unofficial', 'aggregator-api'],
+    });
+    expect(order).toEqual(['official-api', 'aggregator-api']);
+  });
+
+  it('keeps unofficial strategy when explicitly enabled', () => {
+    const order = resolveHealthStrategyOrder({
+      strategyOrder: ['official-api', 'unofficial'],
+      allowUnofficial: true,
+    });
+    expect(order).toEqual(['official-api', 'unofficial']);
+  });
+
+  it('supports unofficial allow-list checks', () => {
+    expect(
+      isUnofficialHealthProviderAllowed('health.peloton', {
+        allowUnofficial: true,
+        unofficialAllowList: ['health.peloton'],
+      })
+    ).toBe(true);
+    expect(
+      isUnofficialHealthProviderAllowed('health.garmin', {
+        allowUnofficial: true,
+        unofficialAllowList: ['health.peloton'],
+      })
+    ).toBe(false);
   });
 });

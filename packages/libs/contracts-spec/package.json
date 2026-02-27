@@ -220,9 +220,11 @@
     "./integrations/providers/analytics": "./src/integrations/providers/analytics.ts",
     "./integrations/providers/analytics-reader": "./src/integrations/providers/analytics-reader.ts",
     "./integrations/providers/analytics-writer": "./src/integrations/providers/analytics-writer.ts",
+    "./integrations/providers/apple-health": "./src/integrations/providers/apple-health.ts",
     "./integrations/providers/calendar": "./src/integrations/providers/calendar.ts",
     "./integrations/providers/database": "./src/integrations/providers/database.ts",
     "./integrations/providers/deepgram": "./src/integrations/providers/deepgram.ts",
+    "./integrations/providers/eightsleep": "./src/integrations/providers/eightsleep.ts",
     "./integrations/providers/elevenlabs": "./src/integrations/providers/elevenlabs.ts",
     "./integrations/providers/email": "./src/integrations/providers/email.ts",
     "./integrations/providers/embedding": "./src/integrations/providers/embedding.ts",
@@ -230,35 +232,36 @@
     "./integrations/providers/fal-image": "./src/integrations/providers/fal-image.ts",
     "./integrations/providers/fathom": "./src/integrations/providers/fathom.ts",
     "./integrations/providers/fireflies": "./src/integrations/providers/fireflies.ts",
+    "./integrations/providers/fitbit": "./src/integrations/providers/fitbit.ts",
+    "./integrations/providers/garmin": "./src/integrations/providers/garmin.ts",
     "./integrations/providers/gcs-storage": "./src/integrations/providers/gcs-storage.ts",
     "./integrations/providers/gmail": "./src/integrations/providers/gmail.ts",
     "./integrations/providers/google-calendar": "./src/integrations/providers/google-calendar.ts",
     "./integrations/providers/gradium": "./src/integrations/providers/gradium.ts",
     "./integrations/providers/granola": "./src/integrations/providers/granola.ts",
+    "./integrations/providers/health": "./src/integrations/providers/health.ts",
+    "./integrations/providers/health-provider-shared": "./src/integrations/providers/health-provider-shared.ts",
     "./integrations/providers/image": "./src/integrations/providers/image.ts",
     "./integrations/providers/index": "./src/integrations/providers/index.ts",
     "./integrations/providers/jira": "./src/integrations/providers/jira.ts",
     "./integrations/providers/linear": "./src/integrations/providers/linear.ts",
     "./integrations/providers/llm": "./src/integrations/providers/llm.ts",
     "./integrations/providers/meeting-recorder": "./src/integrations/providers/meeting-recorder.ts",
+    "./integrations/providers/messaging": "./src/integrations/providers/messaging.ts",
+    "./integrations/providers/messaging-github": "./src/integrations/providers/messaging-github.ts",
+    "./integrations/providers/messaging-slack": "./src/integrations/providers/messaging-slack.ts",
+    "./integrations/providers/messaging-whatsapp-meta": "./src/integrations/providers/messaging-whatsapp-meta.ts",
+    "./integrations/providers/messaging-whatsapp-twilio": "./src/integrations/providers/messaging-whatsapp-twilio.ts",
     "./integrations/providers/mistral": "./src/integrations/providers/mistral.ts",
+    "./integrations/providers/myfitnesspal": "./src/integrations/providers/myfitnesspal.ts",
     "./integrations/providers/notion": "./src/integrations/providers/notion.ts",
     "./integrations/providers/openai-image": "./src/integrations/providers/openai-image.ts",
     "./integrations/providers/openai-realtime": "./src/integrations/providers/openai-realtime.ts",
-    "./integrations/providers/openwearables": "./src/integrations/providers/openwearables.ts",
     "./integrations/providers/openbanking": "./src/integrations/providers/openbanking.ts",
-    "./integrations/providers/health": "./src/integrations/providers/health.ts",
-    "./integrations/providers/health-provider-shared": "./src/integrations/providers/health-provider-shared.ts",
-    "./integrations/providers/whoop": "./src/integrations/providers/whoop.ts",
-    "./integrations/providers/apple-health": "./src/integrations/providers/apple-health.ts",
+    "./integrations/providers/openwearables": "./src/integrations/providers/openwearables.ts",
     "./integrations/providers/oura": "./src/integrations/providers/oura.ts",
-    "./integrations/providers/strava": "./src/integrations/providers/strava.ts",
-    "./integrations/providers/garmin": "./src/integrations/providers/garmin.ts",
-    "./integrations/providers/fitbit": "./src/integrations/providers/fitbit.ts",
-    "./integrations/providers/myfitnesspal": "./src/integrations/providers/myfitnesspal.ts",
-    "./integrations/providers/eightsleep": "./src/integrations/providers/eightsleep.ts",
-    "./integrations/providers/peloton": "./src/integrations/providers/peloton.ts",
     "./integrations/providers/payments": "./src/integrations/providers/payments.ts",
+    "./integrations/providers/peloton": "./src/integrations/providers/peloton.ts",
     "./integrations/providers/posthog": "./src/integrations/providers/posthog.ts",
     "./integrations/providers/posthog-llm-telemetry": "./src/integrations/providers/posthog-llm-telemetry.ts",
     "./integrations/providers/postmark": "./src/integrations/providers/postmark.ts",
@@ -268,6 +271,7 @@
     "./integrations/providers/registry": "./src/integrations/providers/registry.ts",
     "./integrations/providers/sms": "./src/integrations/providers/sms.ts",
     "./integrations/providers/storage": "./src/integrations/providers/storage.ts",
+    "./integrations/providers/strava": "./src/integrations/providers/strava.ts",
     "./integrations/providers/stripe": "./src/integrations/providers/stripe.ts",
     "./integrations/providers/supabase-postgres": "./src/integrations/providers/supabase-postgres.ts",
     "./integrations/providers/supabase-vector": "./src/integrations/providers/supabase-vector.ts",
@@ -276,6 +280,7 @@
     "./integrations/providers/vector-store": "./src/integrations/providers/vector-store.ts",
     "./integrations/providers/voice": "./src/integrations/providers/voice.ts",
     "./integrations/providers/voice-video-sync": "./src/integrations/providers/voice-video-sync.ts",
+    "./integrations/providers/whoop": "./src/integrations/providers/whoop.ts",
     "./integrations/runtime": "./src/integrations/runtime.ts",
     "./integrations/secrets": "./src/integrations/secrets/index.ts",
     "./integrations/secrets-types": "./src/integrations/secrets-types.ts",
@@ -1481,6 +1486,12 @@
         "node": "./dist/node/integrations/providers/analytics-writer.js",
         "default": "./dist/integrations/providers/analytics-writer.js"
       },
+      "./integrations/providers/apple-health": {
+        "types": "./dist/integrations/providers/apple-health.d.ts",
+        "bun": "./dist/integrations/providers/apple-health.js",
+        "node": "./dist/node/integrations/providers/apple-health.js",
+        "default": "./dist/integrations/providers/apple-health.js"
+      },
       "./integrations/providers/calendar": {
         "types": "./dist/integrations/providers/calendar.d.ts",
         "bun": "./dist/integrations/providers/calendar.js",
@@ -1498,6 +1509,12 @@
         "bun": "./dist/integrations/providers/deepgram.js",
         "node": "./dist/node/integrations/providers/deepgram.js",
         "default": "./dist/integrations/providers/deepgram.js"
+      },
+      "./integrations/providers/eightsleep": {
+        "types": "./dist/integrations/providers/eightsleep.d.ts",
+        "bun": "./dist/integrations/providers/eightsleep.js",
+        "node": "./dist/node/integrations/providers/eightsleep.js",
+        "default": "./dist/integrations/providers/eightsleep.js"
       },
       "./integrations/providers/elevenlabs": {
         "types": "./dist/integrations/providers/elevenlabs.d.ts",
@@ -1541,6 +1558,18 @@
         "node": "./dist/node/integrations/providers/fireflies.js",
         "default": "./dist/integrations/providers/fireflies.js"
       },
+      "./integrations/providers/fitbit": {
+        "types": "./dist/integrations/providers/fitbit.d.ts",
+        "bun": "./dist/integrations/providers/fitbit.js",
+        "node": "./dist/node/integrations/providers/fitbit.js",
+        "default": "./dist/integrations/providers/fitbit.js"
+      },
+      "./integrations/providers/garmin": {
+        "types": "./dist/integrations/providers/garmin.d.ts",
+        "bun": "./dist/integrations/providers/garmin.js",
+        "node": "./dist/node/integrations/providers/garmin.js",
+        "default": "./dist/integrations/providers/garmin.js"
+      },
       "./integrations/providers/gcs-storage": {
         "types": "./dist/integrations/providers/gcs-storage.d.ts",
         "bun": "./dist/integrations/providers/gcs-storage.js",
@@ -1570,6 +1599,18 @@
         "bun": "./dist/integrations/providers/granola.js",
         "node": "./dist/node/integrations/providers/granola.js",
         "default": "./dist/integrations/providers/granola.js"
+      },
+      "./integrations/providers/health": {
+        "types": "./dist/integrations/providers/health.d.ts",
+        "bun": "./dist/integrations/providers/health.js",
+        "node": "./dist/node/integrations/providers/health.js",
+        "default": "./dist/integrations/providers/health.js"
+      },
+      "./integrations/providers/health-provider-shared": {
+        "types": "./dist/integrations/providers/health-provider-shared.d.ts",
+        "bun": "./dist/integrations/providers/health-provider-shared.js",
+        "node": "./dist/node/integrations/providers/health-provider-shared.js",
+        "default": "./dist/integrations/providers/health-provider-shared.js"
       },
       "./integrations/providers/image": {
         "types": "./dist/integrations/providers/image.d.ts",
@@ -1607,11 +1648,47 @@
         "node": "./dist/node/integrations/providers/meeting-recorder.js",
         "default": "./dist/integrations/providers/meeting-recorder.js"
       },
+      "./integrations/providers/messaging": {
+        "types": "./dist/integrations/providers/messaging.d.ts",
+        "bun": "./dist/integrations/providers/messaging.js",
+        "node": "./dist/node/integrations/providers/messaging.js",
+        "default": "./dist/integrations/providers/messaging.js"
+      },
+      "./integrations/providers/messaging-github": {
+        "types": "./dist/integrations/providers/messaging-github.d.ts",
+        "bun": "./dist/integrations/providers/messaging-github.js",
+        "node": "./dist/node/integrations/providers/messaging-github.js",
+        "default": "./dist/integrations/providers/messaging-github.js"
+      },
+      "./integrations/providers/messaging-slack": {
+        "types": "./dist/integrations/providers/messaging-slack.d.ts",
+        "bun": "./dist/integrations/providers/messaging-slack.js",
+        "node": "./dist/node/integrations/providers/messaging-slack.js",
+        "default": "./dist/integrations/providers/messaging-slack.js"
+      },
+      "./integrations/providers/messaging-whatsapp-meta": {
+        "types": "./dist/integrations/providers/messaging-whatsapp-meta.d.ts",
+        "bun": "./dist/integrations/providers/messaging-whatsapp-meta.js",
+        "node": "./dist/node/integrations/providers/messaging-whatsapp-meta.js",
+        "default": "./dist/integrations/providers/messaging-whatsapp-meta.js"
+      },
+      "./integrations/providers/messaging-whatsapp-twilio": {
+        "types": "./dist/integrations/providers/messaging-whatsapp-twilio.d.ts",
+        "bun": "./dist/integrations/providers/messaging-whatsapp-twilio.js",
+        "node": "./dist/node/integrations/providers/messaging-whatsapp-twilio.js",
+        "default": "./dist/integrations/providers/messaging-whatsapp-twilio.js"
+      },
       "./integrations/providers/mistral": {
         "types": "./dist/integrations/providers/mistral.d.ts",
         "bun": "./dist/integrations/providers/mistral.js",
         "node": "./dist/node/integrations/providers/mistral.js",
         "default": "./dist/integrations/providers/mistral.js"
+      },
+      "./integrations/providers/myfitnesspal": {
+        "types": "./dist/integrations/providers/myfitnesspal.d.ts",
+        "bun": "./dist/integrations/providers/myfitnesspal.js",
+        "node": "./dist/node/integrations/providers/myfitnesspal.js",
+        "default": "./dist/integrations/providers/myfitnesspal.js"
       },
       "./integrations/providers/notion": {
         "types": "./dist/integrations/providers/notion.d.ts",
@@ -1631,41 +1708,17 @@
         "node": "./dist/node/integrations/providers/openai-realtime.js",
         "default": "./dist/integrations/providers/openai-realtime.js"
       },
-      "./integrations/providers/openwearables": {
-        "types": "./dist/integrations/providers/openwearables.d.ts",
-        "bun": "./dist/integrations/providers/openwearables.js",
-        "node": "./dist/node/integrations/providers/openwearables.js",
-        "default": "./dist/integrations/providers/openwearables.js"
-      },
       "./integrations/providers/openbanking": {
         "types": "./dist/integrations/providers/openbanking.d.ts",
         "bun": "./dist/integrations/providers/openbanking.js",
         "node": "./dist/node/integrations/providers/openbanking.js",
         "default": "./dist/integrations/providers/openbanking.js"
       },
-      "./integrations/providers/health": {
-        "types": "./dist/integrations/providers/health.d.ts",
-        "bun": "./dist/integrations/providers/health.js",
-        "node": "./dist/node/integrations/providers/health.js",
-        "default": "./dist/integrations/providers/health.js"
-      },
-      "./integrations/providers/health-provider-shared": {
-        "types": "./dist/integrations/providers/health-provider-shared.d.ts",
-        "bun": "./dist/integrations/providers/health-provider-shared.js",
-        "node": "./dist/node/integrations/providers/health-provider-shared.js",
-        "default": "./dist/integrations/providers/health-provider-shared.js"
-      },
-      "./integrations/providers/whoop": {
-        "types": "./dist/integrations/providers/whoop.d.ts",
-        "bun": "./dist/integrations/providers/whoop.js",
-        "node": "./dist/node/integrations/providers/whoop.js",
-        "default": "./dist/integrations/providers/whoop.js"
-      },
-      "./integrations/providers/apple-health": {
-        "types": "./dist/integrations/providers/apple-health.d.ts",
-        "bun": "./dist/integrations/providers/apple-health.js",
-        "node": "./dist/node/integrations/providers/apple-health.js",
-        "default": "./dist/integrations/providers/apple-health.js"
+      "./integrations/providers/openwearables": {
+        "types": "./dist/integrations/providers/openwearables.d.ts",
+        "bun": "./dist/integrations/providers/openwearables.js",
+        "node": "./dist/node/integrations/providers/openwearables.js",
+        "default": "./dist/integrations/providers/openwearables.js"
       },
       "./integrations/providers/oura": {
         "types": "./dist/integrations/providers/oura.d.ts",
@@ -1673,47 +1726,17 @@
         "node": "./dist/node/integrations/providers/oura.js",
         "default": "./dist/integrations/providers/oura.js"
       },
-      "./integrations/providers/strava": {
-        "types": "./dist/integrations/providers/strava.d.ts",
-        "bun": "./dist/integrations/providers/strava.js",
-        "node": "./dist/node/integrations/providers/strava.js",
-        "default": "./dist/integrations/providers/strava.js"
-      },
-      "./integrations/providers/garmin": {
-        "types": "./dist/integrations/providers/garmin.d.ts",
-        "bun": "./dist/integrations/providers/garmin.js",
-        "node": "./dist/node/integrations/providers/garmin.js",
-        "default": "./dist/integrations/providers/garmin.js"
-      },
-      "./integrations/providers/fitbit": {
-        "types": "./dist/integrations/providers/fitbit.d.ts",
-        "bun": "./dist/integrations/providers/fitbit.js",
-        "node": "./dist/node/integrations/providers/fitbit.js",
-        "default": "./dist/integrations/providers/fitbit.js"
-      },
-      "./integrations/providers/myfitnesspal": {
-        "types": "./dist/integrations/providers/myfitnesspal.d.ts",
-        "bun": "./dist/integrations/providers/myfitnesspal.js",
-        "node": "./dist/node/integrations/providers/myfitnesspal.js",
-        "default": "./dist/integrations/providers/myfitnesspal.js"
-      },
-      "./integrations/providers/eightsleep": {
-        "types": "./dist/integrations/providers/eightsleep.d.ts",
-        "bun": "./dist/integrations/providers/eightsleep.js",
-        "node": "./dist/node/integrations/providers/eightsleep.js",
-        "default": "./dist/integrations/providers/eightsleep.js"
+      "./integrations/providers/payments": {
+        "types": "./dist/integrations/providers/payments.d.ts",
+        "bun": "./dist/integrations/providers/payments.js",
+        "node": "./dist/node/integrations/providers/payments.js",
+        "default": "./dist/integrations/providers/payments.js"
       },
       "./integrations/providers/peloton": {
         "types": "./dist/integrations/providers/peloton.d.ts",
         "bun": "./dist/integrations/providers/peloton.js",
         "node": "./dist/node/integrations/providers/peloton.js",
         "default": "./dist/integrations/providers/peloton.js"
-      },
-      "./integrations/providers/payments": {
-        "types": "./dist/integrations/providers/payments.d.ts",
-        "bun": "./dist/integrations/providers/payments.js",
-        "node": "./dist/node/integrations/providers/payments.js",
-        "default": "./dist/integrations/providers/payments.js"
       },
       "./integrations/providers/posthog": {
         "types": "./dist/integrations/providers/posthog.d.ts",
@@ -1769,6 +1792,12 @@
         "node": "./dist/node/integrations/providers/storage.js",
         "default": "./dist/integrations/providers/storage.js"
       },
+      "./integrations/providers/strava": {
+        "types": "./dist/integrations/providers/strava.d.ts",
+        "bun": "./dist/integrations/providers/strava.js",
+        "node": "./dist/node/integrations/providers/strava.js",
+        "default": "./dist/integrations/providers/strava.js"
+      },
       "./integrations/providers/stripe": {
         "types": "./dist/integrations/providers/stripe.d.ts",
         "bun": "./dist/integrations/providers/stripe.js",
@@ -1816,6 +1845,12 @@
         "bun": "./dist/integrations/providers/voice-video-sync.js",
         "node": "./dist/node/integrations/providers/voice-video-sync.js",
         "default": "./dist/integrations/providers/voice-video-sync.js"
+      },
+      "./integrations/providers/whoop": {
+        "types": "./dist/integrations/providers/whoop.d.ts",
+        "bun": "./dist/integrations/providers/whoop.js",
+        "node": "./dist/node/integrations/providers/whoop.js",
+        "default": "./dist/integrations/providers/whoop.js"
       },
       "./integrations/runtime": {
         "types": "./dist/integrations/runtime.d.ts",

@@ -147,7 +147,8 @@ selection for meeting recorder providers). This example remains provider-agnosti
 so MCP transport details stay in provider config rather than contract logic.
 
 For health integrations, configure strategy routing at the connection level using
-`defaultTransport`, `strategyOrder`, `allowUnofficial`, and `unofficialAllowList`.
+`defaultTransport`, `strategyOrder`, `allowUnofficial`, `unofficialAllowList`,
+and optionally `oauthTokenUrl` for refresh-token flows.
 This keeps official and aggregator transports deterministic while requiring
 explicit opt-in before unofficial automation routes are used.
 

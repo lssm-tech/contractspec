@@ -13,6 +13,10 @@ import { IntegrationProviderFactory } from './provider-factory';
 import { StripePaymentsProvider } from './stripe-payments';
 import { PostmarkEmailProvider } from './postmark-email';
 import { TwilioSmsProvider } from './twilio-sms';
+import { SlackMessagingProvider } from './messaging-slack';
+import { GithubMessagingProvider } from './messaging-github';
+import { MetaWhatsappMessagingProvider } from './messaging-whatsapp-meta';
+import { TwilioWhatsappMessagingProvider } from './messaging-whatsapp-twilio';
 import { QdrantVectorProvider } from './qdrant-vector';
 import { SupabaseVectorProvider } from './supabase-vector';
 import { SupabasePostgresProvider } from './supabase-psql';
@@ -32,7 +36,9 @@ import { FirefliesMeetingRecorderProvider } from './fireflies-meeting-recorder';
 import { FathomMeetingRecorderProvider } from './fathom-meeting-recorder';
 import { PosthogAnalyticsProvider } from './posthog';
 import {
+  GarminHealthProvider,
   OpenWearablesHealthProvider,
+  PelotonHealthProvider,
   UnofficialHealthAutomationProvider,
   WhoopHealthProvider,
 } from './health/providers';
@@ -69,6 +75,54 @@ describe('IntegrationProviderFactory', () => {
       })
     );
     expect(provider).toBeInstanceOf(TwilioSmsProvider);
+  });
+
+  it('creates Slack messaging provider', async () => {
+    const provider = await factory.createMessagingProvider(
+      buildContext({
+        key: 'messaging.slack',
+        config: { defaultChannelId: 'C123' },
+        secret: { botToken: 'xoxb-test', signingSecret: 'secret' },
+      })
+    );
+    expect(provider).toBeInstanceOf(SlackMessagingProvider);
+  });
+
+  it('creates GitHub messaging provider', async () => {
+    const provider = await factory.createMessagingProvider(
+      buildContext({
+        key: 'messaging.github',
+        config: { defaultOwner: 'lssm-tech', defaultRepo: 'contractspec' },
+        secret: { token: 'ghp_test', webhookSecret: 'secret' },
+      })
+    );
+    expect(provider).toBeInstanceOf(GithubMessagingProvider);
+  });
+
+  it('creates Meta WhatsApp messaging provider', async () => {
+    const provider = await factory.createMessagingProvider(
+      buildContext({
+        key: 'messaging.whatsapp.meta',
+        config: { phoneNumberId: '12345' },
+        secret: {
+          accessToken: 'meta-token',
+          appSecret: 'app-secret',
+          verifyToken: 'verify-token',
+        },
+      })
+    );
+    expect(provider).toBeInstanceOf(MetaWhatsappMessagingProvider);
+  });
+
+  it('creates Twilio WhatsApp messaging provider', async () => {
+    const provider = await factory.createMessagingProvider(
+      buildContext({
+        key: 'messaging.whatsapp.twilio',
+        config: { fromNumber: 'whatsapp:+15551234567' },
+        secret: { accountSid: 'AC123', authToken: 'token' },
+      })
+    );
+    expect(provider).toBeInstanceOf(TwilioWhatsappMessagingProvider);
   });
 
   it('creates Qdrant vector store provider', async () => {
@@ -304,12 +358,13 @@ describe('IntegrationProviderFactory', () => {
       buildContext({
         key: 'health.peloton',
         config: {
+          mcpUrl: 'https://mcp.example-health.local',
           defaultTransport: 'unofficial',
           strategyOrder: ['unofficial', 'aggregator-api'],
           allowUnofficial: true,
           unofficialAllowList: ['health.peloton'],
         },
-        secret: { apiKey: 'peloton-cookie' },
+        secret: { mcpAccessToken: 'mcp-token' },
       })
     );
     expect(provider).toBeInstanceOf(UnofficialHealthAutomationProvider);
@@ -327,9 +382,21 @@ describe('IntegrationProviderFactory', () => {
         secret: { apiKey: 'ow-key' },
       })
     );
-    expect(provider).toBeInstanceOf(OpenWearablesHealthProvider);
+    expect(provider).toBeInstanceOf(PelotonHealthProvider);
+  });
+
+  it('falls back from unsupported official Garmin to aggregator transport', async () => {
+    const provider = await factory.createHealthProvider(
+      buildContext({
+        key: 'health.garmin',
+        secret: { apiKey: 'ow-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(GarminHealthProvider);
   });
 });
+
+let contextCounter = 0;
 
 function buildContext({
   key,
@@ -361,7 +428,7 @@ function buildContext({
   };
   const connection: IntegrationConnection = {
     meta: {
-      id: `conn-${key}`,
+      id: `conn-${key}-${++contextCounter}`,
       tenantId: 'tenant',
       integrationKey: key,
       integrationVersion: '1.0.0',

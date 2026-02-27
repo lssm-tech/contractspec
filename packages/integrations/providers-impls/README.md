@@ -75,7 +75,8 @@ Connection config example:
   "allowUnofficial": false,
   "unofficialAllowList": ["health.peloton"],
   "apiBaseUrl": "https://api.provider.example",
-  "mcpUrl": "https://mcp.provider.example"
+  "mcpUrl": "https://mcp.provider.example",
+  "oauthTokenUrl": "https://api.provider.example/oauth/token"
 }
 ```
 
@@ -85,6 +86,10 @@ Secret payload example (`secretRef` target value):
 {
   "apiKey": "provider-api-key",
   "accessToken": "oauth-access-token",
+  "refreshToken": "oauth-refresh-token",
+  "clientId": "oauth-client-id",
+  "clientSecret": "oauth-client-secret",
+  "tokenExpiresAt": "2026-02-01T00:00:00.000Z",
   "mcpAccessToken": "mcp-access-token",
   "webhookSecret": "webhook-signature-secret"
 }
@@ -94,6 +99,7 @@ Notes:
 
 - Unofficial routing is disabled unless `allowUnofficial: true`.
 - When `unofficialAllowList` is provided, only listed `health.*` keys can use unofficial routing.
+- Unofficial routing expects MCP transport (`mcpUrl`) plus either `mcpAccessToken` or automation credentials.
 - If a selected strategy is unavailable, the resolver falls through `strategyOrder`.
 
 ## Supabase integrations

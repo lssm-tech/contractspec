@@ -268,6 +268,13 @@ Transport strategy options in `IntegrationConnection.config`:
 - `strategyOrder`: explicit fallback order across `official-api`, `official-mcp`, `aggregator-api`, `aggregator-mcp`, `unofficial`
 - `allowUnofficial`: gate for unofficial automation connectors
 - `unofficialAllowList`: optional per-provider allow-list for unofficial routing
+- `oauthTokenUrl`: optional OAuth token endpoint override used for refresh-token exchanges
+
+Credential notes:
+
+- Official API providers (`health.whoop`, `health.oura`, `health.strava`, `health.fitbit`) support OAuth refresh with `refreshToken`, `clientId`, and `clientSecret`.
+- Aggregator routes accept either `apiKey` or `accessToken`.
+- Unofficial routes expect MCP transport (`mcpUrl`) with `mcpAccessToken` (or equivalent automation credentials).
 
 Unofficial routing notes:
 
