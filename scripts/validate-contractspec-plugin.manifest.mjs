@@ -6,17 +6,19 @@ import {
   isSafeRelativePath,
 } from './validate-contractspec-plugin.context.mjs';
 
-export function validateManifest(context, manifest) {
+export function validateManifest(context, manifest, pluginName) {
   if (typeof manifest.name !== 'string' || !NAME_RE.test(manifest.name)) {
     context.errors.push(
-      'Manifest name must be lowercase kebab-style and marketplace-safe'
+      `Plugin '${pluginName}' has invalid manifest name '${manifest.name ?? ''}'`
     );
   }
   if (
     typeof manifest.description !== 'string' ||
     manifest.description.trim().length === 0
   ) {
-    context.errors.push('Manifest must include a non-empty description');
+    context.errors.push(
+      `Plugin '${pluginName}' manifest must include a non-empty description`
+    );
   }
 
   for (const fieldName of ['logo', 'rules', 'commands', 'agents', 'skills']) {
@@ -27,29 +29,29 @@ export function validateManifest(context, manifest) {
     for (const pathValue of Array.isArray(value) ? value : [value]) {
       if (typeof pathValue !== 'string') {
         context.errors.push(
-          `Manifest ${fieldName} must be a string or array of strings`
+          `Plugin '${pluginName}' manifest field '${fieldName}' must be a string or array of strings`
         );
         continue;
       }
-      ensurePluginPath(context, pathValue, fieldName);
+      ensurePluginPath(context, pathValue, `${pluginName}.${fieldName}`);
     }
   }
 
   if (typeof manifest.mcpServers === 'string') {
-    ensurePluginPath(context, manifest.mcpServers, 'mcpServers');
+    ensurePluginPath(context, manifest.mcpServers, `${pluginName}.mcpServers`);
   }
   if (Array.isArray(manifest.mcpServers)) {
     for (const entry of manifest.mcpServers) {
       if (typeof entry === 'string') {
-        ensurePluginPath(context, entry, 'mcpServers');
+        ensurePluginPath(context, entry, `${pluginName}.mcpServers`);
       }
     }
   }
 }
 
-export function validateMarketplace(context, marketplace, pluginName) {
+export function validateMarketplace(context, marketplace) {
   if (!marketplace) {
-    return;
+    return [];
   }
   if (
     typeof marketplace.name !== 'string' ||
@@ -68,29 +70,70 @@ export function validateMarketplace(context, marketplace, pluginName) {
     context.errors.push(
       'Marketplace manifest must include at least one plugin entry'
     );
-    return;
+    return [];
   }
 
-  const entry = marketplace.plugins.find((item) => item?.name === pluginName);
-  if (!entry) {
-    context.errors.push(
-      `Marketplace manifest is missing plugin entry for '${pluginName}'`
-    );
+  const validEntries = [];
+  const names = new Set();
+  const sources = new Set();
+
+  for (const entry of marketplace.plugins) {
+    if (!entry || typeof entry !== 'object') {
+      context.errors.push('Marketplace plugin entry must be an object');
+      continue;
+    }
+
+    if (typeof entry.name !== 'string' || !NAME_RE.test(entry.name)) {
+      context.errors.push('Marketplace plugin entry has invalid name');
+      continue;
+    }
+    if (names.has(entry.name)) {
+      context.errors.push(
+        `Marketplace plugin name is duplicated: ${entry.name}`
+      );
+      continue;
+    }
+    names.add(entry.name);
+
+    if (typeof entry.source !== 'string') {
+      context.errors.push(
+        `Marketplace plugin '${entry.name}' must define string source`
+      );
+      continue;
+    }
+    if (!isSafeRelativePath(entry.source)) {
+      context.errors.push(
+        `Marketplace plugin '${entry.name}' source is unsafe: ${entry.source}`
+      );
+      continue;
+    }
+    if (sources.has(entry.source)) {
+      context.errors.push(
+        `Marketplace plugin source is duplicated: ${entry.source}`
+      );
+      continue;
+    }
+    sources.add(entry.source);
+    if (!existsSync(join(context.root, entry.source))) {
+      context.errors.push(
+        `Marketplace plugin '${entry.name}' source does not exist: ${entry.source}`
+      );
+      continue;
+    }
+
+    validEntries.push(entry);
+  }
+
+  return validEntries;
+}
+
+export function validateMarketplaceLink(context, manifest, entry) {
+  if (!manifest || !entry) {
     return;
   }
-  if (typeof entry.source !== 'string') {
+  if (manifest.name !== entry.name) {
     context.errors.push(
-      `Marketplace plugin '${pluginName}' must define string source`
-    );
-    return;
-  }
-  if (!isSafeRelativePath(entry.source)) {
-    context.errors.push(`Marketplace plugin source is unsafe: ${entry.source}`);
-    return;
-  }
-  if (!existsSync(join(context.root, entry.source))) {
-    context.errors.push(
-      `Marketplace plugin source does not exist: ${entry.source}`
+      `Marketplace name '${entry.name}' does not match manifest name '${manifest.name}' for source ${entry.source}`
     );
   }
 }
