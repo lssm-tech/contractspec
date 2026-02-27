@@ -1,0 +1,22 @@
+---
+description: Require traceable decisions and telemetry for contract execution and agent runs
+alwaysApply: true
+globs:
+  - "**/*"
+---
+
+All contract execution and agent orchestration changes must preserve traceability.
+
+Core rules:
+
+- Propagate trace context (`traceId`, `sessionId`, actor, tenant) through orchestration and tool calls.
+- Emit telemetry for success and failure paths; never instrument only happy paths.
+- Keep policy decisions explainable with explicit reason fields.
+- Keep logs safe: do not emit secrets or raw PII fields in telemetry metadata.
+- Preserve auditability of declared side effects (events, analytics, audit intents).
+
+Minimum verification:
+
+1. Step-level telemetry is captured for agent/tool execution.
+2. Contract side effects remain declared and runtime-guarded.
+3. Policy decisions can be explained post-run.

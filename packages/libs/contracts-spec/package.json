@@ -75,6 +75,48 @@
     "./contract-registry/index": "./src/contract-registry/index.ts",
     "./contract-registry/schemas": "./src/contract-registry/schemas.ts",
     "./contract-registry/types": "./src/contract-registry/types.ts",
+    "./control-plane": "./src/control-plane/index.ts",
+    "./control-plane/capabilities": "./src/control-plane/capabilities/index.ts",
+    "./control-plane/capabilities/controlPlaneApproval.capability": "./src/control-plane/capabilities/controlPlaneApproval.capability.ts",
+    "./control-plane/capabilities/controlPlaneAudit.capability": "./src/control-plane/capabilities/controlPlaneAudit.capability.ts",
+    "./control-plane/capabilities/controlPlaneChannelRuntime.capability": "./src/control-plane/capabilities/controlPlaneChannelRuntime.capability.ts",
+    "./control-plane/capabilities/controlPlaneCore.capability": "./src/control-plane/capabilities/controlPlaneCore.capability.ts",
+    "./control-plane/capabilities/controlPlaneSkillRegistry.capability": "./src/control-plane/capabilities/controlPlaneSkillRegistry.capability.ts",
+    "./control-plane/capabilities/index": "./src/control-plane/capabilities/index.ts",
+    "./control-plane/commands": "./src/control-plane/commands/index.ts",
+    "./control-plane/commands/controlPlaneExecutionApprove.command": "./src/control-plane/commands/controlPlaneExecutionApprove.command.ts",
+    "./control-plane/commands/controlPlaneExecutionCancel.command": "./src/control-plane/commands/controlPlaneExecutionCancel.command.ts",
+    "./control-plane/commands/controlPlaneExecutionReject.command": "./src/control-plane/commands/controlPlaneExecutionReject.command.ts",
+    "./control-plane/commands/controlPlaneExecutionStart.command": "./src/control-plane/commands/controlPlaneExecutionStart.command.ts",
+    "./control-plane/commands/controlPlaneIntentSubmit.command": "./src/control-plane/commands/controlPlaneIntentSubmit.command.ts",
+    "./control-plane/commands/controlPlanePlanCompile.command": "./src/control-plane/commands/controlPlanePlanCompile.command.ts",
+    "./control-plane/commands/controlPlanePlanVerify.command": "./src/control-plane/commands/controlPlanePlanVerify.command.ts",
+    "./control-plane/commands/controlPlaneSkillDisable.command": "./src/control-plane/commands/controlPlaneSkillDisable.command.ts",
+    "./control-plane/commands/controlPlaneSkillInstall.command": "./src/control-plane/commands/controlPlaneSkillInstall.command.ts",
+    "./control-plane/commands/index": "./src/control-plane/commands/index.ts",
+    "./control-plane/constants": "./src/control-plane/constants.ts",
+    "./control-plane/contracts": "./src/control-plane/contracts.ts",
+    "./control-plane/events": "./src/control-plane/events/index.ts",
+    "./control-plane/events/controlPlaneExecutionCompleted.event": "./src/control-plane/events/controlPlaneExecutionCompleted.event.ts",
+    "./control-plane/events/controlPlaneExecutionFailed.event": "./src/control-plane/events/controlPlaneExecutionFailed.event.ts",
+    "./control-plane/events/controlPlaneExecutionStepBlocked.event": "./src/control-plane/events/controlPlaneExecutionStepBlocked.event.ts",
+    "./control-plane/events/controlPlaneExecutionStepCompleted.event": "./src/control-plane/events/controlPlaneExecutionStepCompleted.event.ts",
+    "./control-plane/events/controlPlaneExecutionStepStarted.event": "./src/control-plane/events/controlPlaneExecutionStepStarted.event.ts",
+    "./control-plane/events/controlPlaneIntentReceived.event": "./src/control-plane/events/controlPlaneIntentReceived.event.ts",
+    "./control-plane/events/controlPlanePlanCompiled.event": "./src/control-plane/events/controlPlanePlanCompiled.event.ts",
+    "./control-plane/events/controlPlanePlanRejected.event": "./src/control-plane/events/controlPlanePlanRejected.event.ts",
+    "./control-plane/events/controlPlaneSkillInstalled.event": "./src/control-plane/events/controlPlaneSkillInstalled.event.ts",
+    "./control-plane/events/controlPlaneSkillRejected.event": "./src/control-plane/events/controlPlaneSkillRejected.event.ts",
+    "./control-plane/events/index": "./src/control-plane/events/index.ts",
+    "./control-plane/index": "./src/control-plane/index.ts",
+    "./control-plane/queries": "./src/control-plane/queries/index.ts",
+    "./control-plane/queries/controlPlaneExecutionGet.query": "./src/control-plane/queries/controlPlaneExecutionGet.query.ts",
+    "./control-plane/queries/controlPlaneExecutionList.query": "./src/control-plane/queries/controlPlaneExecutionList.query.ts",
+    "./control-plane/queries/controlPlanePolicyExplain.query": "./src/control-plane/queries/controlPlanePolicyExplain.query.ts",
+    "./control-plane/queries/controlPlaneSkillList.query": "./src/control-plane/queries/controlPlaneSkillList.query.ts",
+    "./control-plane/queries/controlPlaneSkillVerify.query": "./src/control-plane/queries/controlPlaneSkillVerify.query.ts",
+    "./control-plane/queries/controlPlaneTraceGet.query": "./src/control-plane/queries/controlPlaneTraceGet.query.ts",
+    "./control-plane/queries/index": "./src/control-plane/queries/index.ts",
     "./data-views": "./src/data-views/index.ts",
     "./data-views/data-views": "./src/data-views/data-views.ts",
     "./data-views/docs/data-views.docblock": "./src/data-views/docs/data-views.docblock.ts",
@@ -220,9 +262,11 @@
     "./integrations/providers/analytics": "./src/integrations/providers/analytics.ts",
     "./integrations/providers/analytics-reader": "./src/integrations/providers/analytics-reader.ts",
     "./integrations/providers/analytics-writer": "./src/integrations/providers/analytics-writer.ts",
+    "./integrations/providers/apple-health": "./src/integrations/providers/apple-health.ts",
     "./integrations/providers/calendar": "./src/integrations/providers/calendar.ts",
     "./integrations/providers/database": "./src/integrations/providers/database.ts",
     "./integrations/providers/deepgram": "./src/integrations/providers/deepgram.ts",
+    "./integrations/providers/eightsleep": "./src/integrations/providers/eightsleep.ts",
     "./integrations/providers/elevenlabs": "./src/integrations/providers/elevenlabs.ts",
     "./integrations/providers/email": "./src/integrations/providers/email.ts",
     "./integrations/providers/embedding": "./src/integrations/providers/embedding.ts",
@@ -230,35 +274,38 @@
     "./integrations/providers/fal-image": "./src/integrations/providers/fal-image.ts",
     "./integrations/providers/fathom": "./src/integrations/providers/fathom.ts",
     "./integrations/providers/fireflies": "./src/integrations/providers/fireflies.ts",
+    "./integrations/providers/fitbit": "./src/integrations/providers/fitbit.ts",
+    "./integrations/providers/garmin": "./src/integrations/providers/garmin.ts",
     "./integrations/providers/gcs-storage": "./src/integrations/providers/gcs-storage.ts",
     "./integrations/providers/gmail": "./src/integrations/providers/gmail.ts",
     "./integrations/providers/google-calendar": "./src/integrations/providers/google-calendar.ts",
     "./integrations/providers/gradium": "./src/integrations/providers/gradium.ts",
     "./integrations/providers/granola": "./src/integrations/providers/granola.ts",
+    "./integrations/providers/health": "./src/integrations/providers/health.ts",
+    "./integrations/providers/health-provider-shared": "./src/integrations/providers/health-provider-shared.ts",
     "./integrations/providers/image": "./src/integrations/providers/image.ts",
     "./integrations/providers/index": "./src/integrations/providers/index.ts",
     "./integrations/providers/jira": "./src/integrations/providers/jira.ts",
     "./integrations/providers/linear": "./src/integrations/providers/linear.ts",
     "./integrations/providers/llm": "./src/integrations/providers/llm.ts",
     "./integrations/providers/meeting-recorder": "./src/integrations/providers/meeting-recorder.ts",
+    "./integrations/providers/messaging": "./src/integrations/providers/messaging.ts",
+    "./integrations/providers/messaging-github": "./src/integrations/providers/messaging-github.ts",
+    "./integrations/providers/messaging-slack": "./src/integrations/providers/messaging-slack.ts",
+    "./integrations/providers/messaging-whatsapp-meta": "./src/integrations/providers/messaging-whatsapp-meta.ts",
+    "./integrations/providers/messaging-whatsapp-twilio": "./src/integrations/providers/messaging-whatsapp-twilio.ts",
     "./integrations/providers/mistral": "./src/integrations/providers/mistral.ts",
+    "./integrations/providers/mistral-conversational": "./src/integrations/providers/mistral-conversational.ts",
+    "./integrations/providers/mistral-stt": "./src/integrations/providers/mistral-stt.ts",
+    "./integrations/providers/myfitnesspal": "./src/integrations/providers/myfitnesspal.ts",
     "./integrations/providers/notion": "./src/integrations/providers/notion.ts",
     "./integrations/providers/openai-image": "./src/integrations/providers/openai-image.ts",
     "./integrations/providers/openai-realtime": "./src/integrations/providers/openai-realtime.ts",
-    "./integrations/providers/openwearables": "./src/integrations/providers/openwearables.ts",
     "./integrations/providers/openbanking": "./src/integrations/providers/openbanking.ts",
-    "./integrations/providers/health": "./src/integrations/providers/health.ts",
-    "./integrations/providers/health-provider-shared": "./src/integrations/providers/health-provider-shared.ts",
-    "./integrations/providers/whoop": "./src/integrations/providers/whoop.ts",
-    "./integrations/providers/apple-health": "./src/integrations/providers/apple-health.ts",
+    "./integrations/providers/openwearables": "./src/integrations/providers/openwearables.ts",
     "./integrations/providers/oura": "./src/integrations/providers/oura.ts",
-    "./integrations/providers/strava": "./src/integrations/providers/strava.ts",
-    "./integrations/providers/garmin": "./src/integrations/providers/garmin.ts",
-    "./integrations/providers/fitbit": "./src/integrations/providers/fitbit.ts",
-    "./integrations/providers/myfitnesspal": "./src/integrations/providers/myfitnesspal.ts",
-    "./integrations/providers/eightsleep": "./src/integrations/providers/eightsleep.ts",
-    "./integrations/providers/peloton": "./src/integrations/providers/peloton.ts",
     "./integrations/providers/payments": "./src/integrations/providers/payments.ts",
+    "./integrations/providers/peloton": "./src/integrations/providers/peloton.ts",
     "./integrations/providers/posthog": "./src/integrations/providers/posthog.ts",
     "./integrations/providers/posthog-llm-telemetry": "./src/integrations/providers/posthog-llm-telemetry.ts",
     "./integrations/providers/postmark": "./src/integrations/providers/postmark.ts",
@@ -268,6 +315,7 @@
     "./integrations/providers/registry": "./src/integrations/providers/registry.ts",
     "./integrations/providers/sms": "./src/integrations/providers/sms.ts",
     "./integrations/providers/storage": "./src/integrations/providers/storage.ts",
+    "./integrations/providers/strava": "./src/integrations/providers/strava.ts",
     "./integrations/providers/stripe": "./src/integrations/providers/stripe.ts",
     "./integrations/providers/supabase-postgres": "./src/integrations/providers/supabase-postgres.ts",
     "./integrations/providers/supabase-vector": "./src/integrations/providers/supabase-vector.ts",
@@ -276,6 +324,7 @@
     "./integrations/providers/vector-store": "./src/integrations/providers/vector-store.ts",
     "./integrations/providers/voice": "./src/integrations/providers/voice.ts",
     "./integrations/providers/voice-video-sync": "./src/integrations/providers/voice-video-sync.ts",
+    "./integrations/providers/whoop": "./src/integrations/providers/whoop.ts",
     "./integrations/runtime": "./src/integrations/runtime.ts",
     "./integrations/secrets": "./src/integrations/secrets/index.ts",
     "./integrations/secrets-types": "./src/integrations/secrets-types.ts",
@@ -610,6 +659,258 @@
         "bun": "./dist/contract-registry/types.js",
         "node": "./dist/node/contract-registry/types.js",
         "default": "./dist/contract-registry/types.js"
+      },
+      "./control-plane": {
+        "types": "./dist/control-plane/index.d.ts",
+        "bun": "./dist/control-plane/index.js",
+        "node": "./dist/node/control-plane/index.js",
+        "default": "./dist/control-plane/index.js"
+      },
+      "./control-plane/capabilities": {
+        "types": "./dist/control-plane/capabilities/index.d.ts",
+        "bun": "./dist/control-plane/capabilities/index.js",
+        "node": "./dist/node/control-plane/capabilities/index.js",
+        "default": "./dist/control-plane/capabilities/index.js"
+      },
+      "./control-plane/capabilities/controlPlaneApproval.capability": {
+        "types": "./dist/control-plane/capabilities/controlPlaneApproval.capability.d.ts",
+        "bun": "./dist/control-plane/capabilities/controlPlaneApproval.capability.js",
+        "node": "./dist/node/control-plane/capabilities/controlPlaneApproval.capability.js",
+        "default": "./dist/control-plane/capabilities/controlPlaneApproval.capability.js"
+      },
+      "./control-plane/capabilities/controlPlaneAudit.capability": {
+        "types": "./dist/control-plane/capabilities/controlPlaneAudit.capability.d.ts",
+        "bun": "./dist/control-plane/capabilities/controlPlaneAudit.capability.js",
+        "node": "./dist/node/control-plane/capabilities/controlPlaneAudit.capability.js",
+        "default": "./dist/control-plane/capabilities/controlPlaneAudit.capability.js"
+      },
+      "./control-plane/capabilities/controlPlaneChannelRuntime.capability": {
+        "types": "./dist/control-plane/capabilities/controlPlaneChannelRuntime.capability.d.ts",
+        "bun": "./dist/control-plane/capabilities/controlPlaneChannelRuntime.capability.js",
+        "node": "./dist/node/control-plane/capabilities/controlPlaneChannelRuntime.capability.js",
+        "default": "./dist/control-plane/capabilities/controlPlaneChannelRuntime.capability.js"
+      },
+      "./control-plane/capabilities/controlPlaneCore.capability": {
+        "types": "./dist/control-plane/capabilities/controlPlaneCore.capability.d.ts",
+        "bun": "./dist/control-plane/capabilities/controlPlaneCore.capability.js",
+        "node": "./dist/node/control-plane/capabilities/controlPlaneCore.capability.js",
+        "default": "./dist/control-plane/capabilities/controlPlaneCore.capability.js"
+      },
+      "./control-plane/capabilities/controlPlaneSkillRegistry.capability": {
+        "types": "./dist/control-plane/capabilities/controlPlaneSkillRegistry.capability.d.ts",
+        "bun": "./dist/control-plane/capabilities/controlPlaneSkillRegistry.capability.js",
+        "node": "./dist/node/control-plane/capabilities/controlPlaneSkillRegistry.capability.js",
+        "default": "./dist/control-plane/capabilities/controlPlaneSkillRegistry.capability.js"
+      },
+      "./control-plane/capabilities/index": {
+        "types": "./dist/control-plane/capabilities/index.d.ts",
+        "bun": "./dist/control-plane/capabilities/index.js",
+        "node": "./dist/node/control-plane/capabilities/index.js",
+        "default": "./dist/control-plane/capabilities/index.js"
+      },
+      "./control-plane/commands": {
+        "types": "./dist/control-plane/commands/index.d.ts",
+        "bun": "./dist/control-plane/commands/index.js",
+        "node": "./dist/node/control-plane/commands/index.js",
+        "default": "./dist/control-plane/commands/index.js"
+      },
+      "./control-plane/commands/controlPlaneExecutionApprove.command": {
+        "types": "./dist/control-plane/commands/controlPlaneExecutionApprove.command.d.ts",
+        "bun": "./dist/control-plane/commands/controlPlaneExecutionApprove.command.js",
+        "node": "./dist/node/control-plane/commands/controlPlaneExecutionApprove.command.js",
+        "default": "./dist/control-plane/commands/controlPlaneExecutionApprove.command.js"
+      },
+      "./control-plane/commands/controlPlaneExecutionCancel.command": {
+        "types": "./dist/control-plane/commands/controlPlaneExecutionCancel.command.d.ts",
+        "bun": "./dist/control-plane/commands/controlPlaneExecutionCancel.command.js",
+        "node": "./dist/node/control-plane/commands/controlPlaneExecutionCancel.command.js",
+        "default": "./dist/control-plane/commands/controlPlaneExecutionCancel.command.js"
+      },
+      "./control-plane/commands/controlPlaneExecutionReject.command": {
+        "types": "./dist/control-plane/commands/controlPlaneExecutionReject.command.d.ts",
+        "bun": "./dist/control-plane/commands/controlPlaneExecutionReject.command.js",
+        "node": "./dist/node/control-plane/commands/controlPlaneExecutionReject.command.js",
+        "default": "./dist/control-plane/commands/controlPlaneExecutionReject.command.js"
+      },
+      "./control-plane/commands/controlPlaneExecutionStart.command": {
+        "types": "./dist/control-plane/commands/controlPlaneExecutionStart.command.d.ts",
+        "bun": "./dist/control-plane/commands/controlPlaneExecutionStart.command.js",
+        "node": "./dist/node/control-plane/commands/controlPlaneExecutionStart.command.js",
+        "default": "./dist/control-plane/commands/controlPlaneExecutionStart.command.js"
+      },
+      "./control-plane/commands/controlPlaneIntentSubmit.command": {
+        "types": "./dist/control-plane/commands/controlPlaneIntentSubmit.command.d.ts",
+        "bun": "./dist/control-plane/commands/controlPlaneIntentSubmit.command.js",
+        "node": "./dist/node/control-plane/commands/controlPlaneIntentSubmit.command.js",
+        "default": "./dist/control-plane/commands/controlPlaneIntentSubmit.command.js"
+      },
+      "./control-plane/commands/controlPlanePlanCompile.command": {
+        "types": "./dist/control-plane/commands/controlPlanePlanCompile.command.d.ts",
+        "bun": "./dist/control-plane/commands/controlPlanePlanCompile.command.js",
+        "node": "./dist/node/control-plane/commands/controlPlanePlanCompile.command.js",
+        "default": "./dist/control-plane/commands/controlPlanePlanCompile.command.js"
+      },
+      "./control-plane/commands/controlPlanePlanVerify.command": {
+        "types": "./dist/control-plane/commands/controlPlanePlanVerify.command.d.ts",
+        "bun": "./dist/control-plane/commands/controlPlanePlanVerify.command.js",
+        "node": "./dist/node/control-plane/commands/controlPlanePlanVerify.command.js",
+        "default": "./dist/control-plane/commands/controlPlanePlanVerify.command.js"
+      },
+      "./control-plane/commands/controlPlaneSkillDisable.command": {
+        "types": "./dist/control-plane/commands/controlPlaneSkillDisable.command.d.ts",
+        "bun": "./dist/control-plane/commands/controlPlaneSkillDisable.command.js",
+        "node": "./dist/node/control-plane/commands/controlPlaneSkillDisable.command.js",
+        "default": "./dist/control-plane/commands/controlPlaneSkillDisable.command.js"
+      },
+      "./control-plane/commands/controlPlaneSkillInstall.command": {
+        "types": "./dist/control-plane/commands/controlPlaneSkillInstall.command.d.ts",
+        "bun": "./dist/control-plane/commands/controlPlaneSkillInstall.command.js",
+        "node": "./dist/node/control-plane/commands/controlPlaneSkillInstall.command.js",
+        "default": "./dist/control-plane/commands/controlPlaneSkillInstall.command.js"
+      },
+      "./control-plane/commands/index": {
+        "types": "./dist/control-plane/commands/index.d.ts",
+        "bun": "./dist/control-plane/commands/index.js",
+        "node": "./dist/node/control-plane/commands/index.js",
+        "default": "./dist/control-plane/commands/index.js"
+      },
+      "./control-plane/constants": {
+        "types": "./dist/control-plane/constants.d.ts",
+        "bun": "./dist/control-plane/constants.js",
+        "node": "./dist/node/control-plane/constants.js",
+        "default": "./dist/control-plane/constants.js"
+      },
+      "./control-plane/contracts": {
+        "types": "./dist/control-plane/contracts.d.ts",
+        "bun": "./dist/control-plane/contracts.js",
+        "node": "./dist/node/control-plane/contracts.js",
+        "default": "./dist/control-plane/contracts.js"
+      },
+      "./control-plane/events": {
+        "types": "./dist/control-plane/events/index.d.ts",
+        "bun": "./dist/control-plane/events/index.js",
+        "node": "./dist/node/control-plane/events/index.js",
+        "default": "./dist/control-plane/events/index.js"
+      },
+      "./control-plane/events/controlPlaneExecutionCompleted.event": {
+        "types": "./dist/control-plane/events/controlPlaneExecutionCompleted.event.d.ts",
+        "bun": "./dist/control-plane/events/controlPlaneExecutionCompleted.event.js",
+        "node": "./dist/node/control-plane/events/controlPlaneExecutionCompleted.event.js",
+        "default": "./dist/control-plane/events/controlPlaneExecutionCompleted.event.js"
+      },
+      "./control-plane/events/controlPlaneExecutionFailed.event": {
+        "types": "./dist/control-plane/events/controlPlaneExecutionFailed.event.d.ts",
+        "bun": "./dist/control-plane/events/controlPlaneExecutionFailed.event.js",
+        "node": "./dist/node/control-plane/events/controlPlaneExecutionFailed.event.js",
+        "default": "./dist/control-plane/events/controlPlaneExecutionFailed.event.js"
+      },
+      "./control-plane/events/controlPlaneExecutionStepBlocked.event": {
+        "types": "./dist/control-plane/events/controlPlaneExecutionStepBlocked.event.d.ts",
+        "bun": "./dist/control-plane/events/controlPlaneExecutionStepBlocked.event.js",
+        "node": "./dist/node/control-plane/events/controlPlaneExecutionStepBlocked.event.js",
+        "default": "./dist/control-plane/events/controlPlaneExecutionStepBlocked.event.js"
+      },
+      "./control-plane/events/controlPlaneExecutionStepCompleted.event": {
+        "types": "./dist/control-plane/events/controlPlaneExecutionStepCompleted.event.d.ts",
+        "bun": "./dist/control-plane/events/controlPlaneExecutionStepCompleted.event.js",
+        "node": "./dist/node/control-plane/events/controlPlaneExecutionStepCompleted.event.js",
+        "default": "./dist/control-plane/events/controlPlaneExecutionStepCompleted.event.js"
+      },
+      "./control-plane/events/controlPlaneExecutionStepStarted.event": {
+        "types": "./dist/control-plane/events/controlPlaneExecutionStepStarted.event.d.ts",
+        "bun": "./dist/control-plane/events/controlPlaneExecutionStepStarted.event.js",
+        "node": "./dist/node/control-plane/events/controlPlaneExecutionStepStarted.event.js",
+        "default": "./dist/control-plane/events/controlPlaneExecutionStepStarted.event.js"
+      },
+      "./control-plane/events/controlPlaneIntentReceived.event": {
+        "types": "./dist/control-plane/events/controlPlaneIntentReceived.event.d.ts",
+        "bun": "./dist/control-plane/events/controlPlaneIntentReceived.event.js",
+        "node": "./dist/node/control-plane/events/controlPlaneIntentReceived.event.js",
+        "default": "./dist/control-plane/events/controlPlaneIntentReceived.event.js"
+      },
+      "./control-plane/events/controlPlanePlanCompiled.event": {
+        "types": "./dist/control-plane/events/controlPlanePlanCompiled.event.d.ts",
+        "bun": "./dist/control-plane/events/controlPlanePlanCompiled.event.js",
+        "node": "./dist/node/control-plane/events/controlPlanePlanCompiled.event.js",
+        "default": "./dist/control-plane/events/controlPlanePlanCompiled.event.js"
+      },
+      "./control-plane/events/controlPlanePlanRejected.event": {
+        "types": "./dist/control-plane/events/controlPlanePlanRejected.event.d.ts",
+        "bun": "./dist/control-plane/events/controlPlanePlanRejected.event.js",
+        "node": "./dist/node/control-plane/events/controlPlanePlanRejected.event.js",
+        "default": "./dist/control-plane/events/controlPlanePlanRejected.event.js"
+      },
+      "./control-plane/events/controlPlaneSkillInstalled.event": {
+        "types": "./dist/control-plane/events/controlPlaneSkillInstalled.event.d.ts",
+        "bun": "./dist/control-plane/events/controlPlaneSkillInstalled.event.js",
+        "node": "./dist/node/control-plane/events/controlPlaneSkillInstalled.event.js",
+        "default": "./dist/control-plane/events/controlPlaneSkillInstalled.event.js"
+      },
+      "./control-plane/events/controlPlaneSkillRejected.event": {
+        "types": "./dist/control-plane/events/controlPlaneSkillRejected.event.d.ts",
+        "bun": "./dist/control-plane/events/controlPlaneSkillRejected.event.js",
+        "node": "./dist/node/control-plane/events/controlPlaneSkillRejected.event.js",
+        "default": "./dist/control-plane/events/controlPlaneSkillRejected.event.js"
+      },
+      "./control-plane/events/index": {
+        "types": "./dist/control-plane/events/index.d.ts",
+        "bun": "./dist/control-plane/events/index.js",
+        "node": "./dist/node/control-plane/events/index.js",
+        "default": "./dist/control-plane/events/index.js"
+      },
+      "./control-plane/index": {
+        "types": "./dist/control-plane/index.d.ts",
+        "bun": "./dist/control-plane/index.js",
+        "node": "./dist/node/control-plane/index.js",
+        "default": "./dist/control-plane/index.js"
+      },
+      "./control-plane/queries": {
+        "types": "./dist/control-plane/queries/index.d.ts",
+        "bun": "./dist/control-plane/queries/index.js",
+        "node": "./dist/node/control-plane/queries/index.js",
+        "default": "./dist/control-plane/queries/index.js"
+      },
+      "./control-plane/queries/controlPlaneExecutionGet.query": {
+        "types": "./dist/control-plane/queries/controlPlaneExecutionGet.query.d.ts",
+        "bun": "./dist/control-plane/queries/controlPlaneExecutionGet.query.js",
+        "node": "./dist/node/control-plane/queries/controlPlaneExecutionGet.query.js",
+        "default": "./dist/control-plane/queries/controlPlaneExecutionGet.query.js"
+      },
+      "./control-plane/queries/controlPlaneExecutionList.query": {
+        "types": "./dist/control-plane/queries/controlPlaneExecutionList.query.d.ts",
+        "bun": "./dist/control-plane/queries/controlPlaneExecutionList.query.js",
+        "node": "./dist/node/control-plane/queries/controlPlaneExecutionList.query.js",
+        "default": "./dist/control-plane/queries/controlPlaneExecutionList.query.js"
+      },
+      "./control-plane/queries/controlPlanePolicyExplain.query": {
+        "types": "./dist/control-plane/queries/controlPlanePolicyExplain.query.d.ts",
+        "bun": "./dist/control-plane/queries/controlPlanePolicyExplain.query.js",
+        "node": "./dist/node/control-plane/queries/controlPlanePolicyExplain.query.js",
+        "default": "./dist/control-plane/queries/controlPlanePolicyExplain.query.js"
+      },
+      "./control-plane/queries/controlPlaneSkillList.query": {
+        "types": "./dist/control-plane/queries/controlPlaneSkillList.query.d.ts",
+        "bun": "./dist/control-plane/queries/controlPlaneSkillList.query.js",
+        "node": "./dist/node/control-plane/queries/controlPlaneSkillList.query.js",
+        "default": "./dist/control-plane/queries/controlPlaneSkillList.query.js"
+      },
+      "./control-plane/queries/controlPlaneSkillVerify.query": {
+        "types": "./dist/control-plane/queries/controlPlaneSkillVerify.query.d.ts",
+        "bun": "./dist/control-plane/queries/controlPlaneSkillVerify.query.js",
+        "node": "./dist/node/control-plane/queries/controlPlaneSkillVerify.query.js",
+        "default": "./dist/control-plane/queries/controlPlaneSkillVerify.query.js"
+      },
+      "./control-plane/queries/controlPlaneTraceGet.query": {
+        "types": "./dist/control-plane/queries/controlPlaneTraceGet.query.d.ts",
+        "bun": "./dist/control-plane/queries/controlPlaneTraceGet.query.js",
+        "node": "./dist/node/control-plane/queries/controlPlaneTraceGet.query.js",
+        "default": "./dist/control-plane/queries/controlPlaneTraceGet.query.js"
+      },
+      "./control-plane/queries/index": {
+        "types": "./dist/control-plane/queries/index.d.ts",
+        "bun": "./dist/control-plane/queries/index.js",
+        "node": "./dist/node/control-plane/queries/index.js",
+        "default": "./dist/control-plane/queries/index.js"
       },
       "./data-views": {
         "types": "./dist/data-views/index.d.ts",
@@ -1481,6 +1782,12 @@
         "node": "./dist/node/integrations/providers/analytics-writer.js",
         "default": "./dist/integrations/providers/analytics-writer.js"
       },
+      "./integrations/providers/apple-health": {
+        "types": "./dist/integrations/providers/apple-health.d.ts",
+        "bun": "./dist/integrations/providers/apple-health.js",
+        "node": "./dist/node/integrations/providers/apple-health.js",
+        "default": "./dist/integrations/providers/apple-health.js"
+      },
       "./integrations/providers/calendar": {
         "types": "./dist/integrations/providers/calendar.d.ts",
         "bun": "./dist/integrations/providers/calendar.js",
@@ -1498,6 +1805,12 @@
         "bun": "./dist/integrations/providers/deepgram.js",
         "node": "./dist/node/integrations/providers/deepgram.js",
         "default": "./dist/integrations/providers/deepgram.js"
+      },
+      "./integrations/providers/eightsleep": {
+        "types": "./dist/integrations/providers/eightsleep.d.ts",
+        "bun": "./dist/integrations/providers/eightsleep.js",
+        "node": "./dist/node/integrations/providers/eightsleep.js",
+        "default": "./dist/integrations/providers/eightsleep.js"
       },
       "./integrations/providers/elevenlabs": {
         "types": "./dist/integrations/providers/elevenlabs.d.ts",
@@ -1541,6 +1854,18 @@
         "node": "./dist/node/integrations/providers/fireflies.js",
         "default": "./dist/integrations/providers/fireflies.js"
       },
+      "./integrations/providers/fitbit": {
+        "types": "./dist/integrations/providers/fitbit.d.ts",
+        "bun": "./dist/integrations/providers/fitbit.js",
+        "node": "./dist/node/integrations/providers/fitbit.js",
+        "default": "./dist/integrations/providers/fitbit.js"
+      },
+      "./integrations/providers/garmin": {
+        "types": "./dist/integrations/providers/garmin.d.ts",
+        "bun": "./dist/integrations/providers/garmin.js",
+        "node": "./dist/node/integrations/providers/garmin.js",
+        "default": "./dist/integrations/providers/garmin.js"
+      },
       "./integrations/providers/gcs-storage": {
         "types": "./dist/integrations/providers/gcs-storage.d.ts",
         "bun": "./dist/integrations/providers/gcs-storage.js",
@@ -1570,6 +1895,18 @@
         "bun": "./dist/integrations/providers/granola.js",
         "node": "./dist/node/integrations/providers/granola.js",
         "default": "./dist/integrations/providers/granola.js"
+      },
+      "./integrations/providers/health": {
+        "types": "./dist/integrations/providers/health.d.ts",
+        "bun": "./dist/integrations/providers/health.js",
+        "node": "./dist/node/integrations/providers/health.js",
+        "default": "./dist/integrations/providers/health.js"
+      },
+      "./integrations/providers/health-provider-shared": {
+        "types": "./dist/integrations/providers/health-provider-shared.d.ts",
+        "bun": "./dist/integrations/providers/health-provider-shared.js",
+        "node": "./dist/node/integrations/providers/health-provider-shared.js",
+        "default": "./dist/integrations/providers/health-provider-shared.js"
       },
       "./integrations/providers/image": {
         "types": "./dist/integrations/providers/image.d.ts",
@@ -1607,11 +1944,59 @@
         "node": "./dist/node/integrations/providers/meeting-recorder.js",
         "default": "./dist/integrations/providers/meeting-recorder.js"
       },
+      "./integrations/providers/messaging": {
+        "types": "./dist/integrations/providers/messaging.d.ts",
+        "bun": "./dist/integrations/providers/messaging.js",
+        "node": "./dist/node/integrations/providers/messaging.js",
+        "default": "./dist/integrations/providers/messaging.js"
+      },
+      "./integrations/providers/messaging-github": {
+        "types": "./dist/integrations/providers/messaging-github.d.ts",
+        "bun": "./dist/integrations/providers/messaging-github.js",
+        "node": "./dist/node/integrations/providers/messaging-github.js",
+        "default": "./dist/integrations/providers/messaging-github.js"
+      },
+      "./integrations/providers/messaging-slack": {
+        "types": "./dist/integrations/providers/messaging-slack.d.ts",
+        "bun": "./dist/integrations/providers/messaging-slack.js",
+        "node": "./dist/node/integrations/providers/messaging-slack.js",
+        "default": "./dist/integrations/providers/messaging-slack.js"
+      },
+      "./integrations/providers/messaging-whatsapp-meta": {
+        "types": "./dist/integrations/providers/messaging-whatsapp-meta.d.ts",
+        "bun": "./dist/integrations/providers/messaging-whatsapp-meta.js",
+        "node": "./dist/node/integrations/providers/messaging-whatsapp-meta.js",
+        "default": "./dist/integrations/providers/messaging-whatsapp-meta.js"
+      },
+      "./integrations/providers/messaging-whatsapp-twilio": {
+        "types": "./dist/integrations/providers/messaging-whatsapp-twilio.d.ts",
+        "bun": "./dist/integrations/providers/messaging-whatsapp-twilio.js",
+        "node": "./dist/node/integrations/providers/messaging-whatsapp-twilio.js",
+        "default": "./dist/integrations/providers/messaging-whatsapp-twilio.js"
+      },
       "./integrations/providers/mistral": {
         "types": "./dist/integrations/providers/mistral.d.ts",
         "bun": "./dist/integrations/providers/mistral.js",
         "node": "./dist/node/integrations/providers/mistral.js",
         "default": "./dist/integrations/providers/mistral.js"
+      },
+      "./integrations/providers/mistral-conversational": {
+        "types": "./dist/integrations/providers/mistral-conversational.d.ts",
+        "bun": "./dist/integrations/providers/mistral-conversational.js",
+        "node": "./dist/node/integrations/providers/mistral-conversational.js",
+        "default": "./dist/integrations/providers/mistral-conversational.js"
+      },
+      "./integrations/providers/mistral-stt": {
+        "types": "./dist/integrations/providers/mistral-stt.d.ts",
+        "bun": "./dist/integrations/providers/mistral-stt.js",
+        "node": "./dist/node/integrations/providers/mistral-stt.js",
+        "default": "./dist/integrations/providers/mistral-stt.js"
+      },
+      "./integrations/providers/myfitnesspal": {
+        "types": "./dist/integrations/providers/myfitnesspal.d.ts",
+        "bun": "./dist/integrations/providers/myfitnesspal.js",
+        "node": "./dist/node/integrations/providers/myfitnesspal.js",
+        "default": "./dist/integrations/providers/myfitnesspal.js"
       },
       "./integrations/providers/notion": {
         "types": "./dist/integrations/providers/notion.d.ts",
@@ -1631,41 +2016,17 @@
         "node": "./dist/node/integrations/providers/openai-realtime.js",
         "default": "./dist/integrations/providers/openai-realtime.js"
       },
-      "./integrations/providers/openwearables": {
-        "types": "./dist/integrations/providers/openwearables.d.ts",
-        "bun": "./dist/integrations/providers/openwearables.js",
-        "node": "./dist/node/integrations/providers/openwearables.js",
-        "default": "./dist/integrations/providers/openwearables.js"
-      },
       "./integrations/providers/openbanking": {
         "types": "./dist/integrations/providers/openbanking.d.ts",
         "bun": "./dist/integrations/providers/openbanking.js",
         "node": "./dist/node/integrations/providers/openbanking.js",
         "default": "./dist/integrations/providers/openbanking.js"
       },
-      "./integrations/providers/health": {
-        "types": "./dist/integrations/providers/health.d.ts",
-        "bun": "./dist/integrations/providers/health.js",
-        "node": "./dist/node/integrations/providers/health.js",
-        "default": "./dist/integrations/providers/health.js"
-      },
-      "./integrations/providers/health-provider-shared": {
-        "types": "./dist/integrations/providers/health-provider-shared.d.ts",
-        "bun": "./dist/integrations/providers/health-provider-shared.js",
-        "node": "./dist/node/integrations/providers/health-provider-shared.js",
-        "default": "./dist/integrations/providers/health-provider-shared.js"
-      },
-      "./integrations/providers/whoop": {
-        "types": "./dist/integrations/providers/whoop.d.ts",
-        "bun": "./dist/integrations/providers/whoop.js",
-        "node": "./dist/node/integrations/providers/whoop.js",
-        "default": "./dist/integrations/providers/whoop.js"
-      },
-      "./integrations/providers/apple-health": {
-        "types": "./dist/integrations/providers/apple-health.d.ts",
-        "bun": "./dist/integrations/providers/apple-health.js",
-        "node": "./dist/node/integrations/providers/apple-health.js",
-        "default": "./dist/integrations/providers/apple-health.js"
+      "./integrations/providers/openwearables": {
+        "types": "./dist/integrations/providers/openwearables.d.ts",
+        "bun": "./dist/integrations/providers/openwearables.js",
+        "node": "./dist/node/integrations/providers/openwearables.js",
+        "default": "./dist/integrations/providers/openwearables.js"
       },
       "./integrations/providers/oura": {
         "types": "./dist/integrations/providers/oura.d.ts",
@@ -1673,47 +2034,17 @@
         "node": "./dist/node/integrations/providers/oura.js",
         "default": "./dist/integrations/providers/oura.js"
       },
-      "./integrations/providers/strava": {
-        "types": "./dist/integrations/providers/strava.d.ts",
-        "bun": "./dist/integrations/providers/strava.js",
-        "node": "./dist/node/integrations/providers/strava.js",
-        "default": "./dist/integrations/providers/strava.js"
-      },
-      "./integrations/providers/garmin": {
-        "types": "./dist/integrations/providers/garmin.d.ts",
-        "bun": "./dist/integrations/providers/garmin.js",
-        "node": "./dist/node/integrations/providers/garmin.js",
-        "default": "./dist/integrations/providers/garmin.js"
-      },
-      "./integrations/providers/fitbit": {
-        "types": "./dist/integrations/providers/fitbit.d.ts",
-        "bun": "./dist/integrations/providers/fitbit.js",
-        "node": "./dist/node/integrations/providers/fitbit.js",
-        "default": "./dist/integrations/providers/fitbit.js"
-      },
-      "./integrations/providers/myfitnesspal": {
-        "types": "./dist/integrations/providers/myfitnesspal.d.ts",
-        "bun": "./dist/integrations/providers/myfitnesspal.js",
-        "node": "./dist/node/integrations/providers/myfitnesspal.js",
-        "default": "./dist/integrations/providers/myfitnesspal.js"
-      },
-      "./integrations/providers/eightsleep": {
-        "types": "./dist/integrations/providers/eightsleep.d.ts",
-        "bun": "./dist/integrations/providers/eightsleep.js",
-        "node": "./dist/node/integrations/providers/eightsleep.js",
-        "default": "./dist/integrations/providers/eightsleep.js"
+      "./integrations/providers/payments": {
+        "types": "./dist/integrations/providers/payments.d.ts",
+        "bun": "./dist/integrations/providers/payments.js",
+        "node": "./dist/node/integrations/providers/payments.js",
+        "default": "./dist/integrations/providers/payments.js"
       },
       "./integrations/providers/peloton": {
         "types": "./dist/integrations/providers/peloton.d.ts",
         "bun": "./dist/integrations/providers/peloton.js",
         "node": "./dist/node/integrations/providers/peloton.js",
         "default": "./dist/integrations/providers/peloton.js"
-      },
-      "./integrations/providers/payments": {
-        "types": "./dist/integrations/providers/payments.d.ts",
-        "bun": "./dist/integrations/providers/payments.js",
-        "node": "./dist/node/integrations/providers/payments.js",
-        "default": "./dist/integrations/providers/payments.js"
       },
       "./integrations/providers/posthog": {
         "types": "./dist/integrations/providers/posthog.d.ts",
@@ -1769,6 +2100,12 @@
         "node": "./dist/node/integrations/providers/storage.js",
         "default": "./dist/integrations/providers/storage.js"
       },
+      "./integrations/providers/strava": {
+        "types": "./dist/integrations/providers/strava.d.ts",
+        "bun": "./dist/integrations/providers/strava.js",
+        "node": "./dist/node/integrations/providers/strava.js",
+        "default": "./dist/integrations/providers/strava.js"
+      },
       "./integrations/providers/stripe": {
         "types": "./dist/integrations/providers/stripe.d.ts",
         "bun": "./dist/integrations/providers/stripe.js",
@@ -1816,6 +2153,12 @@
         "bun": "./dist/integrations/providers/voice-video-sync.js",
         "node": "./dist/node/integrations/providers/voice-video-sync.js",
         "default": "./dist/integrations/providers/voice-video-sync.js"
+      },
+      "./integrations/providers/whoop": {
+        "types": "./dist/integrations/providers/whoop.d.ts",
+        "bun": "./dist/integrations/providers/whoop.js",
+        "node": "./dist/node/integrations/providers/whoop.js",
+        "default": "./dist/integrations/providers/whoop.js"
       },
       "./integrations/runtime": {
         "types": "./dist/integrations/runtime.d.ts",

@@ -77,15 +77,22 @@ export function IntegrationsOverviewPage() {
         <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`type IntegrationCategory =
   | "payments"      // Stripe
+  | "open-banking"  // Powens
   | "email"         // Postmark, Resend, Gmail
   | "calendar"      // Google Calendar
   | "sms"           // Twilio
-  | "ai-llm"        // OpenAI
-  | "ai-voice"      // ElevenLabs
-  | "speech-to-text" // OpenAI Whisper
+  | "messaging"     // Slack, GitHub, WhatsApp
+  | "health"        // Whoop, Oura, Strava, Fitbit
+  | "ai-llm"        // OpenAI, Mistral
+  | "ai-voice-tts"  // ElevenLabs
+  | "ai-voice-stt"  // OpenAI Whisper, Mistral Voxtral
+  | "ai-voice-conversational" // OpenAI Realtime, Mistral Voice
+  | "ai-image"      // OpenAI Image, Fal
   | "vector-db"     // Qdrant
+  | "database"      // Supabase Postgres
   | "storage"       // S3-compatible
-  | "open-banking"  // Powens (read-only)
+  | "meeting-recorder" // Fireflies, tl;dv
+  | "project-management" // Linear, Jira, Notion
   | "accounting"    // Coming soon
   | "crm"           // Coming soon
   | "helpdesk"      // Coming soon
@@ -207,6 +214,17 @@ export function IntegrationsOverviewPage() {
                 </p>
               </Link>
               <Link
+                href="/docs/integrations/mistral"
+                className="card-subtle group p-4 transition-colors hover:border-violet-500/50"
+              >
+                <h4 className="font-bold transition-colors group-hover:text-violet-400">
+                  Mistral
+                </h4>
+                <p className="text-muted-foreground mt-1 text-sm">
+                  LLMs, embeddings, Voxtral STT, and conversational voice
+                </p>
+              </Link>
+              <Link
                 href="/docs/integrations/elevenlabs"
                 className="card-subtle group p-4 transition-colors hover:border-violet-500/50"
               >
@@ -251,7 +269,7 @@ export function IntegrationsOverviewPage() {
 
           {/* SMS */}
           <div className="space-y-3">
-            <h3 className="text-xl font-semibold">SMS & Messaging</h3>
+            <h3 className="text-xl font-semibold">SMS</h3>
             <div className="grid gap-4 md:grid-cols-2">
               <Link
                 href="/docs/integrations/twilio"
@@ -261,7 +279,78 @@ export function IntegrationsOverviewPage() {
                   Twilio
                 </h4>
                 <p className="text-muted-foreground mt-1 text-sm">
-                  SMS notifications and messaging
+                  SMS notifications and transactional messaging
+                </p>
+              </Link>
+            </div>
+          </div>
+
+          {/* Messaging channels */}
+          <div className="space-y-3">
+            <h3 className="text-xl font-semibold">Messaging channels</h3>
+            <div className="grid gap-4 md:grid-cols-2">
+              <Link
+                href="/docs/integrations/slack"
+                className="card-subtle group p-4 transition-colors hover:border-violet-500/50"
+              >
+                <h4 className="font-bold transition-colors group-hover:text-violet-400">
+                  Slack
+                </h4>
+                <p className="text-muted-foreground mt-1 text-sm">
+                  Signed event ingestion and outbox-backed replies
+                </p>
+              </Link>
+              <Link
+                href="/docs/integrations/github"
+                className="card-subtle group p-4 transition-colors hover:border-violet-500/50"
+              >
+                <h4 className="font-bold transition-colors group-hover:text-violet-400">
+                  GitHub
+                </h4>
+                <p className="text-muted-foreground mt-1 text-sm">
+                  Issue and PR comment workflows with webhook verification
+                </p>
+              </Link>
+              <Link
+                href="/docs/integrations/whatsapp-meta"
+                className="card-subtle group p-4 transition-colors hover:border-violet-500/50"
+              >
+                <h4 className="font-bold transition-colors group-hover:text-violet-400">
+                  WhatsApp Meta
+                </h4>
+                <p className="text-muted-foreground mt-1 text-sm">
+                  Primary WhatsApp Business API transport for inbound and
+                  outbound
+                </p>
+              </Link>
+              <Link
+                href="/docs/integrations/whatsapp-twilio"
+                className="card-subtle group p-4 transition-colors hover:border-violet-500/50"
+              >
+                <h4 className="font-bold transition-colors group-hover:text-violet-400">
+                  WhatsApp Twilio
+                </h4>
+                <p className="text-muted-foreground mt-1 text-sm">
+                  Fallback WhatsApp route with Twilio signature validation
+                </p>
+              </Link>
+            </div>
+          </div>
+
+          {/* Health */}
+          <div className="space-y-3">
+            <h3 className="text-xl font-semibold">Health & wearables</h3>
+            <div className="grid gap-4 md:grid-cols-2">
+              <Link
+                href="/docs/integrations/health-routing"
+                className="card-subtle group p-4 transition-colors hover:border-violet-500/50"
+              >
+                <h4 className="font-bold transition-colors group-hover:text-violet-400">
+                  Health routing strategy
+                </h4>
+                <p className="text-muted-foreground mt-1 text-sm">
+                  Official vs aggregator transport order, unofficial gating, and
+                  OAuth refresh config
                 </p>
               </Link>
             </div>
@@ -372,6 +461,8 @@ POSTMARK_FROM_EMAIL=noreply@example.com
 OPENAI_API_KEY=sk-...
 OPENAI_ORGANIZATION=org-...
 
+MISTRAL_API_KEY=...
+
 QDRANT_URL=https://...
 QDRANT_API_KEY=...
 
@@ -395,14 +486,22 @@ STRIPE_SECRET_OVERRIDE=env://STRIPE_SECRET_KEY`}</pre>
         <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`type IntegrationCategory =
   | "payments"        // Stripe, PayPal, etc.
+  | "open-banking"    // Powens and open banking providers
   | "email"           // Postmark, Resend, Gmail
   | "calendar"        // Google Calendar, Outlook
   | "sms"             // Twilio, MessageBird
-  | "ai-llm"          // OpenAI, Anthropic, Cohere
-  | "ai-voice"        // ElevenLabs, Google TTS
-  | "speech-to-text"  // OpenAI Whisper, Google STT
+  | "messaging"       // Slack, GitHub, WhatsApp
+  | "health"          // Whoop, Oura, Strava, Fitbit
+  | "ai-llm"          // OpenAI, Anthropic, Cohere, Mistral
+  | "ai-voice-tts"    // ElevenLabs, Google TTS
+  | "ai-voice-stt"    // OpenAI Whisper, Google STT, Mistral Voxtral
+  | "ai-voice-conversational" // OpenAI Realtime, Mistral Voice
+  | "ai-image"        // OpenAI Image, Fal
   | "vector-db"       // Qdrant, Pinecone, Weaviate
+  | "database"        // Supabase, Postgres
   | "storage"         // S3, GCS, Azure Blob
+  | "meeting-recorder" // Fireflies, tl;dv, Granola
+  | "project-management" // Linear, Jira, Notion
   | "accounting"      // QuickBooks, Xero (coming soon)
   | "crm"             // Salesforce, HubSpot (coming soon)
   | "helpdesk"        // Zendesk, Intercom (coming soon)

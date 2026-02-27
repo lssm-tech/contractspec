@@ -1,0 +1,32 @@
+{
+  "name": "contractspec-marketplace",
+  "owner": {
+    "name": "ContractSpec Team",
+    "email": "tboutron@lssm.co"
+  },
+  "metadata": {
+    "description": "ContractSpec Cursor marketplace catalog for the product and core contract/agent libraries."
+  },
+  "plugins": [
+    {
+      "name": "contractspec",
+      "source": "packages/apps-registry/cursor-marketplace/plugins/contractspec",
+      "description": "Product-level ContractSpec workflow plugin for spec-first delivery and governed AI orchestration."
+    },
+    {
+      "name": "contractspec-contracts-spec",
+      "source": "packages/apps-registry/cursor-marketplace/plugins/contractspec-contracts-spec",
+      "description": "Focused contract model authoring and compatibility governance for @contractspec/lib.contracts-spec."
+    },
+    {
+      "name": "contractspec-contracts-integrations",
+      "source": "packages/apps-registry/cursor-marketplace/plugins/contractspec-contracts-integrations",
+      "description": "Provider and runtime contract governance for @contractspec/lib.contracts-integrations."
+    },
+    {
+      "name": "contractspec-ai-agent",
+      "source": "packages/apps-registry/cursor-marketplace/plugins/contractspec-ai-agent",
+      "description": "Typed agent orchestration guardrails for @contractspec/lib.ai-agent."
+    }
+  ]
+}

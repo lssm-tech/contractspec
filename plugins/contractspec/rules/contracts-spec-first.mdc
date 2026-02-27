@@ -1,0 +1,21 @@
+---
+description: Enforce spec-first delivery in @contractspec/lib.contracts-spec before implementation
+alwaysApply: true
+globs:
+  - "**/*"
+---
+
+Always define or evolve ContractSpec contracts before changing implementation code.
+
+Core rules:
+
+- New behavior starts in `@contractspec/lib.contracts-spec` contracts (`defineCommand`, `defineQuery`, `defineEvent`, `defineForm`, `defineCapability`, `defineFeature`, `defineDataView`, workflow specs).
+- For operation specs, require explicit `meta.key`, `meta.version`, `description`, `goal`, `context`, `owners`, `tags`, and `stability`.
+- Bind handlers through `OperationSpecRegistry` and keep `io.input` / `io.output` contracts authoritative.
+- Do not add endpoint behavior that bypasses contract definitions.
+- If a contract changes, run impact analysis before merge.
+
+Required validation for contract changes:
+
+1. `contractspec impact --baseline main`
+2. `contractspec validate`

@@ -76,8 +76,8 @@ outputs:
         <Link href="/docs/integrations/s3" className="btn-ghost">
           Previous: S3 Storage
         </Link>
-        <Link href="/docs/integrations" className="btn-primary">
-          Back to Integrations
+        <Link href="/docs/integrations/slack" className="btn-primary">
+          Next: Slack Messaging
         </Link>
       </div>
     </div>

@@ -39,13 +39,13 @@
         "storybook": "^10.2.12"
       },
       "ai": {
-        "ai": "6.0.97",
+        "ai": "6.0.103",
         "@ai-sdk/mcp": "1.0.21",
-        "@ai-sdk/anthropic": "3.0.46",
-        "@ai-sdk/google": "3.0.30",
+        "@ai-sdk/anthropic": "3.0.48",
+        "@ai-sdk/google": "3.0.33",
         "@ai-sdk/mistral": "3.0.20",
-        "@ai-sdk/openai": "3.0.31",
-        "@ai-sdk/react": "3.0.99",
+        "@ai-sdk/openai": "3.0.36",
+        "@ai-sdk/react": "3.0.105",
         "ollama-ai-provider": "^1.2.0"
       }
     }
@@ -61,6 +61,7 @@
     "agentpacks:validate": "bun packages/tools/agentpacks/src/index.ts pack validate",
     "agentpacks:diff": "bun packages/tools/agentpacks/src/index.ts generate --diff",
     "agentpacks:cursor-plugin": "bun packages/tools/agentpacks/src/index.ts export --format cursor-plugin --output dist/cursor-plugins",
+    "plugin:contractspec:validate": "node scripts/validate-contractspec-plugin.mjs",
     "release:version:canary": "node scripts/prepare-dependent-bumps.js && bun changeset version --snapshot canary --verbose && bun update",
     "release:version": "node scripts/prepare-dependent-bumps.js && changeset version --verbose && bun update",
     "release:publish": "node scripts/publish-packages.js",
@@ -111,13 +112,13 @@
     "prettier": "3.8.1",
     "prettier-plugin-prisma": "^5.0.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "turbo-ignore": "^2.8.10",
+    "turbo-ignore": "^2.8.11",
     "typescript-eslint": "^8.56.1"
   },
   "dependencies": {
     "react": "catalog:",
     "react-dom": "catalog:",
-    "turbo": "^2.8.10"
+    "turbo": "^2.8.11"
   },
   "config": {
     "commitizen": {
@@ -135,7 +136,7 @@
     "schema": "packages/libs/database/prisma/schema.prisma"
   },
   "overrides": {
-    "ajv": "8.18.0",
+    "@eslint/eslintrc>ajv": "6.12.6",
     "bl": "4.1.0",
     "diff": "8.0.3",
     "esbuild": "0.27.3",
@@ -144,7 +145,6 @@
     "fast-xml-parser": "5.3.6",
     "hono": "4.11.10",
     "lodash": "4.17.23",
-    "minimatch": "10.2.2",
     "react-native": "0.81.4",
     "react-native-css": "3.0.0",
     "semver": "7.7.4",

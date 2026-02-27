@@ -1,6 +1,7 @@
 export * from './events';
 export * from './capabilities';
 export * from './types';
+export * from './control-plane';
 export * from './install';
 export * from './prompt';
 export * from './promptRegistry';

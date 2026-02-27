@@ -1,0 +1,17 @@
+{
+  "name": "@contractspec/app.cursor-marketplace",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Cursor marketplace catalog for ContractSpec product and core libraries",
+  "scripts": {
+    "validate": "node ../../../scripts/validate-contractspec-plugin.mjs"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/apps-registry/cursor-marketplace"
+  },
+  "homepage": "https://contractspec.io"
+}

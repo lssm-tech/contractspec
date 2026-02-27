@@ -12,6 +12,7 @@ export * from './storage';
 export * from './email';
 export * from './calendar';
 export * from './sms';
+export * from './messaging';
 export * from './payments';
 export * from './voice';
 export * from './project-management';

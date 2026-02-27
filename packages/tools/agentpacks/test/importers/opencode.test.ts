@@ -1,5 +1,5 @@
 import { describe, expect, test, beforeAll, afterAll } from 'bun:test';
-import { existsSync, mkdirSync, writeFileSync, rmSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync, readFileSync, rmSync } from 'fs';
 import { join } from 'path';
 import { importFromOpenCode } from '../../src/importers/opencode.js';
 
@@ -87,6 +87,18 @@ describe('importFromOpenCode', () => {
       f.includes('/skills/')
     );
     expect(skillFiles).toHaveLength(1);
+  });
+
+  test('normalizes imported skills to AgentSkills frontmatter', () => {
+    const result = importFromOpenCode(TEST_DIR);
+    const skillFile = result.filesImported.find((f) =>
+      f.includes('/skills/migrate-component/SKILL.md')
+    );
+    expect(skillFile).toBeDefined();
+
+    const content = readFileSync(skillFile!, 'utf-8');
+    expect(content).toContain('name: migrate-component');
+    expect(content).toContain('Imported skill: migrate-component');
   });
 
   test('imports plugins', () => {

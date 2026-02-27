@@ -24,6 +24,8 @@ The factory in `src/impls/provider-factory.ts` supports the following integratio
 | Storage            | `storage.gcs`                | `createObjectStorageProvider`     |
 | LLM                | `ai-llm.mistral`             | `createLlmProvider`               |
 | Embeddings         | `ai-llm.mistral`             | `createEmbeddingProvider`         |
+| Voice (STT)        | `ai-voice-stt.mistral`       | `createSttProvider`               |
+| Voice (Convers.)   | `ai-voice-conv.mistral`      | `createConversationalProvider`    |
 | Voice              | `ai-voice.elevenlabs`        | `createVoiceProvider`             |
 | Voice              | `ai-voice.gradium`           | `createVoiceProvider`             |
 | Voice              | `ai-voice.fal`               | `createVoiceProvider`             |
@@ -149,6 +151,20 @@ Each integration below lists:
 - Functions (embeddings): `embedDocuments`, `embedQuery`
 - Utilities: none
 
+#### `ai-voice-stt.mistral`
+
+- Entry: `MistralSttProvider` (`src/impls/mistral-stt.ts`)
+- Create via factory: `createSttProvider`
+- Functions: `transcribe`
+- Utilities: none
+
+#### `ai-voice-conv.mistral`
+
+- Entry: `MistralConversationalProvider` (`src/impls/mistral-conversational.ts`)
+- Create via factory: `createConversationalProvider`
+- Functions: `startSession`, `listVoices`
+- Utilities: session runtime in `src/impls/mistral-conversational.session.ts`
+
 ### Voice
 
 #### `ai-voice.elevenlabs`
@@ -268,6 +284,13 @@ Transport strategy options in `IntegrationConnection.config`:
 - `strategyOrder`: explicit fallback order across `official-api`, `official-mcp`, `aggregator-api`, `aggregator-mcp`, `unofficial`
 - `allowUnofficial`: gate for unofficial automation connectors
 - `unofficialAllowList`: optional per-provider allow-list for unofficial routing
+- `oauthTokenUrl`: optional OAuth token endpoint override used for refresh-token exchanges
+
+Credential notes:
+
+- Official API providers (`health.whoop`, `health.oura`, `health.strava`, `health.fitbit`) support OAuth refresh with `refreshToken`, `clientId`, and `clientSecret`.
+- Aggregator routes accept either `apiKey` or `accessToken`.
+- Unofficial routes expect MCP transport (`mcpUrl`) with `mcpAccessToken` (or equivalent automation credentials).
 
 Unofficial routing notes:
 

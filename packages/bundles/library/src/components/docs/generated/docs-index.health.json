@@ -1,0 +1,98 @@
+[
+  {
+    "id": "health/health",
+    "title": "health",
+    "summary": "Unified health and wearable data sync for activities, workouts, sleep, biometrics, nutrition, and webhooks.\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations",
+    "route": "/docs/reference/health/health",
+    "source": "generated",
+    "contentPath": "health/health.md"
+  },
+  {
+    "id": "health/health.activities.list",
+    "title": "health.activities.list",
+    "summary": "List normalized activity entries synced from health integrations.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: health, activities, wearables",
+    "route": "/docs/reference/health/health.activities.list",
+    "source": "generated",
+    "contentPath": "health/health.activities.list.md"
+  },
+  {
+    "id": "health/health.activities.sync",
+    "title": "health.activities.sync",
+    "summary": "Synchronize activity entries from the configured health provider.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: health, activities, wearables",
+    "route": "/docs/reference/health/health.activities.sync",
+    "source": "generated",
+    "contentPath": "health/health.activities.sync.md"
+  },
+  {
+    "id": "health/health.biometrics.list",
+    "title": "health.biometrics.list",
+    "summary": "List normalized biometrics synced from connected health providers.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: health, biometrics, wearables",
+    "route": "/docs/reference/health/health.biometrics.list",
+    "source": "generated",
+    "contentPath": "health/health.biometrics.list.md"
+  },
+  {
+    "id": "health/health.biometrics.sync",
+    "title": "health.biometrics.sync",
+    "summary": "Synchronize biometric datapoints from provider sources.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: health, biometrics, wearables",
+    "route": "/docs/reference/health/health.biometrics.sync",
+    "source": "generated",
+    "contentPath": "health/health.biometrics.sync.md"
+  },
+  {
+    "id": "health/health.nutrition.list",
+    "title": "health.nutrition.list",
+    "summary": "List normalized nutrition and hydration records from connected providers.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: health, nutrition, wearables",
+    "route": "/docs/reference/health/health.nutrition.list",
+    "source": "generated",
+    "contentPath": "health/health.nutrition.list.md"
+  },
+  {
+    "id": "health/health.nutrition.sync",
+    "title": "health.nutrition.sync",
+    "summary": "Synchronize nutrition records from provider sources.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: health, nutrition, wearables",
+    "route": "/docs/reference/health/health.nutrition.sync",
+    "source": "generated",
+    "contentPath": "health/health.nutrition.sync.md"
+  },
+  {
+    "id": "health/health.sleep.list",
+    "title": "health.sleep.list",
+    "summary": "List normalized sleep intervals synced from health providers.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: health, sleep, wearables",
+    "route": "/docs/reference/health/health.sleep.list",
+    "source": "generated",
+    "contentPath": "health/health.sleep.list.md"
+  },
+  {
+    "id": "health/health.sleep.sync",
+    "title": "health.sleep.sync",
+    "summary": "Synchronize sleep intervals from connected providers.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: health, sleep, wearables",
+    "route": "/docs/reference/health/health.sleep.sync",
+    "source": "generated",
+    "contentPath": "health/health.sleep.sync.md"
+  },
+  {
+    "id": "health/health.webhooks.ingest",
+    "title": "health.webhooks.ingest",
+    "summary": "Ingest and normalize health provider webhook payloads.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: health, webhooks, integrations",
+    "route": "/docs/reference/health/health.webhooks.ingest",
+    "source": "generated",
+    "contentPath": "health/health.webhooks.ingest.md"
+  },
+  {
+    "id": "health/health.workouts.list",
+    "title": "health.workouts.list",
+    "summary": "List normalized workout entries synced from health integrations.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: health, workouts, wearables",
+    "route": "/docs/reference/health/health.workouts.list",
+    "source": "generated",
+    "contentPath": "health/health.workouts.list.md"
+  },
+  {
+    "id": "health/health.workouts.sync",
+    "title": "health.workouts.sync",
+    "summary": "Synchronize workouts from configured health providers.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: health, workouts, wearables",
+    "route": "/docs/reference/health/health.workouts.sync",
+    "source": "generated",
+    "contentPath": "health/health.workouts.sync.md"
+  }
+]

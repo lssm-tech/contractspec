@@ -6,70 +6,62 @@ export function EcosystemRegistryPage() {
   return (
     <div className="space-y-8">
       <div className="space-y-3">
-        <h1 className="text-4xl font-bold">Registry resolution</h1>
+        <h1 className="text-4xl font-bold">Marketplace manifest</h1>
         <p className="text-muted-foreground text-lg">
-          Resolve plugins from local workspaces, npm packages, or remote
-          registries.
+          ContractSpec publishes a multi-plugin Cursor marketplace catalog from
+          a single root manifest.
         </p>
       </div>
 
       <div className="card-subtle space-y-4 p-6">
-        <h2 className="text-2xl font-bold">Resolution order</h2>
+        <h2 className="text-2xl font-bold">Root manifest shape</h2>
         <p className="text-muted-foreground text-sm">
-          Control where ContractSpec loads plugins and how versions are
-          resolved.
+          Cursor reads <code>.cursor-plugin/marketplace.json</code> at
+          repository root and resolves each plugin source path.
         </p>
         <CodeBlock
           language="json"
-          filename=".contractsrc.json"
+          filename=".cursor-plugin/marketplace.json"
           code={`{
+  "name": "contractspec-marketplace",
   "plugins": [
     {
-      "id": "markdown-generator",
-      "package": "@contractspec/plugin.markdown-generator",
-      "capabilities": ["generator"],
-      "options": {
-        "outputDir": "./docs/generated",
-        "format": "table"
-      }
+      "name": "contractspec",
+      "source": "packages/apps-registry/cursor-marketplace/plugins/contractspec"
+    },
+    {
+      "name": "contractspec-contracts-spec",
+      "source": "packages/apps-registry/cursor-marketplace/plugins/contractspec-contracts-spec"
     }
-  ],
-  "pluginRegistry": {
-    "resolutionOrder": ["workspace", "npm", "remote"],
-    "allowPrerelease": false,
-    "sources": {
-      "remote": "https://registry.contractspec.io"
-    }
-  }
+  ]
 }`}
         />
       </div>
 
       <div className="card-subtle space-y-4 p-6">
-        <h2 className="text-2xl font-bold">Custom registry resolvers</h2>
+        <h2 className="text-2xl font-bold">Per-plugin contract</h2>
         <p className="text-muted-foreground text-sm">
-          Register resolver plugins to load plugins from private registries.
+          Each plugin source must include a Cursor plugin manifest and
+          composable assets.
         </p>
         <CodeBlock
-          language="typescript"
-          filename="registry-resolver.ts"
-          code={`import type { RegistryResolverPlugin } from "@contractspec/lib.plugins";
+          language="text"
+          filename="plugin-layout"
+          code={`plugins/<plugin-name>/
+  .cursor-plugin/plugin.json
+  rules/
+  commands/
+  agents/
+  skills/
+  .mcp.json`}
+        />
+        <CodeBlock
+          language="bash"
+          filename="validate-catalog"
+          code={`bun run plugin:contractspec:validate
 
-export const PrivateRegistryResolver: RegistryResolverPlugin = {
-  meta: {
-    id: "private-registry",
-    version: "1.0.0",
-    type: "registryResolver",
-    provides: ["private-registry"],
-  },
-  resolve: async (request) => {
-    // Fetch plugin package metadata from private registry
-    const result = await fetch(
-      "https://registry.acme.io/" + request.package
-    );
-    return result.json();
-  },
-};`}
+# Optional in offline environments
+SKIP_PLUGIN_NETWORK_CHECK=1 bun run plugin:contractspec:validate`}
         />
       </div>
 
@@ -78,7 +70,7 @@ export const PrivateRegistryResolver: RegistryResolverPlugin = {
           Integrations <ChevronRight size={16} />
         </Link>
         <Link href="/docs/ecosystem/templates" className="btn-ghost">
-          Plugin templates
+          Plugin authoring templates
         </Link>
       </div>
     </div>

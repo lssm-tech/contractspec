@@ -31,16 +31,16 @@
     "@contractspec/lib.content-gen": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.image-gen": "workspace:*",
-    "remotion": "^4.0.428"
+    "remotion": "^4.0.429"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
     "@contractspec/tool.bun": "workspace:*",
     "typescript": "catalog:",
-    "@remotion/bundler": "^4.0.428",
-    "@remotion/cli": "^4.0.428",
-    "@remotion/player": "^4.0.428",
-    "@remotion/renderer": "^4.0.428",
+    "@remotion/bundler": "^4.0.429",
+    "@remotion/cli": "^4.0.429",
+    "@remotion/player": "^4.0.429",
+    "@remotion/renderer": "^4.0.429",
     "@types/react": "^19.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -121,8 +121,8 @@ outputs:
         <Link href="/docs/integrations/google-calendar" className="btn-ghost">
           Previous: Google Calendar
         </Link>
-        <Link href="/docs/integrations/elevenlabs" className="btn-primary">
-          Next: ElevenLabs <ChevronRight size={16} />
+        <Link href="/docs/integrations/mistral" className="btn-primary">
+          Next: Mistral <ChevronRight size={16} />
         </Link>
       </div>
     </div>

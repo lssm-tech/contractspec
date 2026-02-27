@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "contractspec-docs": {
+      "description": "ContractSpec documentation lookup and reference retrieval.",
+      "url": "https://api.contractspec.io/api/mcp/docs"
+    },
+    "contractspec-cli": {
+      "description": "ContractSpec CLI command guidance for implementation and release workflows.",
+      "url": "https://api.contractspec.io/api/mcp/cli"
+    },
+    "contractspec-internal": {
+      "description": "ContractSpec internal endpoint map for managed orchestration workflows.",
+      "url": "https://api.contractspec.io/api/mcp/internal"
+    }
+  }
+}

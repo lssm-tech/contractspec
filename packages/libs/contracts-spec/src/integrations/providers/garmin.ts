@@ -10,6 +10,7 @@ export const garminIntegrationSpec = defineHealthProviderSpec({
   tags: ['garmin', 'official-api', 'partner'],
   byokSetupInstructions:
     'Use Garmin partner credentials or aggregator routes; enable unofficial connector only with explicit opt-in.',
+  defaultTransport: 'aggregator-api',
 });
 
 export function registerGarminIntegration(

@@ -63,6 +63,11 @@ export function defineHealthProviderSpec(
             description:
               'Optional MCP endpoint URL for provider tool transport.',
           },
+          oauthTokenUrl: {
+            type: 'string',
+            description:
+              'Optional OAuth token endpoint override used for access-token refresh flows.',
+          },
           defaultTransport: {
             type: 'string',
             enum: [...STRATEGY_ENUM],
@@ -105,6 +110,7 @@ export function defineHealthProviderSpec(
           apiKey: { type: 'string' },
           accessToken: { type: 'string' },
           refreshToken: { type: 'string' },
+          tokenExpiresAt: { type: 'string' },
           clientId: { type: 'string' },
           clientSecret: { type: 'string' },
           mcpAccessToken: { type: 'string' },

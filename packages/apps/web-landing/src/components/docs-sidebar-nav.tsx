@@ -59,6 +59,10 @@ export const docsSections = [
     title: 'Architecture',
     items: [
       { title: 'Overview', href: '/docs/architecture' },
+      {
+        title: 'Control Plane Runtime',
+        href: '/docs/architecture/control-plane',
+      },
       { title: 'App Configuration', href: '/docs/architecture/app-config' },
       { title: 'Multi-Tenancy', href: '/docs/architecture/multi-tenancy' },
       {
@@ -136,10 +140,10 @@ export const docsSections = [
   {
     title: 'Ecosystem',
     items: [
-      { title: 'Plugin API', href: '/docs/ecosystem/plugins' },
+      { title: 'Marketplace Plugins', href: '/docs/ecosystem/plugins' },
       { title: 'Integrations', href: '/docs/ecosystem/integrations' },
-      { title: 'Templates', href: '/docs/ecosystem/templates' },
-      { title: 'Registry', href: '/docs/ecosystem/registry' },
+      { title: 'Authoring Templates', href: '/docs/ecosystem/templates' },
+      { title: 'Marketplace Manifest', href: '/docs/ecosystem/registry' },
     ],
   },
   {
@@ -153,10 +157,22 @@ export const docsSections = [
       { title: 'Gmail API', href: '/docs/integrations/gmail' },
       { title: 'Google Calendar', href: '/docs/integrations/google-calendar' },
       { title: 'OpenAI', href: '/docs/integrations/openai' },
+      { title: 'Mistral', href: '/docs/integrations/mistral' },
       { title: 'ElevenLabs', href: '/docs/integrations/elevenlabs' },
       { title: 'Qdrant', href: '/docs/integrations/qdrant' },
       { title: 'S3 Storage', href: '/docs/integrations/s3' },
       { title: 'Twilio', href: '/docs/integrations/twilio' },
+      { title: 'Slack Messaging', href: '/docs/integrations/slack' },
+      { title: 'GitHub Messaging', href: '/docs/integrations/github' },
+      { title: 'WhatsApp Meta', href: '/docs/integrations/whatsapp-meta' },
+      {
+        title: 'WhatsApp Twilio',
+        href: '/docs/integrations/whatsapp-twilio',
+      },
+      {
+        title: 'Health Routing',
+        href: '/docs/integrations/health-routing',
+      },
       {
         title: 'Circuit Breakers',
         href: '/docs/integrations/circuit-breakers',

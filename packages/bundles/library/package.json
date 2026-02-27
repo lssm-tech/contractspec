@@ -38,6 +38,7 @@
     "./components/docs/advanced/index": "./src/components/docs/advanced/index.ts",
     "./components/docs/architecture": "./src/components/docs/architecture/index.ts",
     "./components/docs/architecture/ArchitectureAppConfigPage": "./src/components/docs/architecture/ArchitectureAppConfigPage.tsx",
+    "./components/docs/architecture/ArchitectureControlPlanePage": "./src/components/docs/architecture/ArchitectureControlPlanePage.tsx",
     "./components/docs/architecture/ArchitectureIntegrationBindingPage": "./src/components/docs/architecture/ArchitectureIntegrationBindingPage.tsx",
     "./components/docs/architecture/ArchitectureKnowledgeBindingPage": "./src/components/docs/architecture/ArchitectureKnowledgeBindingPage.tsx",
     "./components/docs/architecture/ArchitectureMultiTenancyPage": "./src/components/docs/architecture/ArchitectureMultiTenancyPage.tsx",
@@ -94,8 +95,11 @@
     "./components/docs/integrations/index": "./src/components/docs/integrations/index.ts",
     "./components/docs/integrations/IntegrationsCircuitBreakersPage": "./src/components/docs/integrations/IntegrationsCircuitBreakersPage.tsx",
     "./components/docs/integrations/IntegrationsElevenLabsPage": "./src/components/docs/integrations/IntegrationsElevenLabsPage.tsx",
+    "./components/docs/integrations/IntegrationsGithubPage": "./src/components/docs/integrations/IntegrationsGithubPage.tsx",
     "./components/docs/integrations/IntegrationsGmailPage": "./src/components/docs/integrations/IntegrationsGmailPage.tsx",
     "./components/docs/integrations/IntegrationsGoogleCalendarPage": "./src/components/docs/integrations/IntegrationsGoogleCalendarPage.tsx",
+    "./components/docs/integrations/IntegrationsHealthRoutingPage": "./src/components/docs/integrations/IntegrationsHealthRoutingPage.tsx",
+    "./components/docs/integrations/IntegrationsMistralPage": "./src/components/docs/integrations/IntegrationsMistralPage.tsx",
     "./components/docs/integrations/IntegrationsOpenAIPage": "./src/components/docs/integrations/IntegrationsOpenAIPage.tsx",
     "./components/docs/integrations/IntegrationsOverviewPage": "./src/components/docs/integrations/IntegrationsOverviewPage.tsx",
     "./components/docs/integrations/IntegrationsPostmarkPage": "./src/components/docs/integrations/IntegrationsPostmarkPage.tsx",
@@ -103,9 +107,12 @@
     "./components/docs/integrations/IntegrationsQdrantPage": "./src/components/docs/integrations/IntegrationsQdrantPage.tsx",
     "./components/docs/integrations/IntegrationsResendPage": "./src/components/docs/integrations/IntegrationsResendPage.tsx",
     "./components/docs/integrations/IntegrationsS3Page": "./src/components/docs/integrations/IntegrationsS3Page.tsx",
+    "./components/docs/integrations/IntegrationsSlackPage": "./src/components/docs/integrations/IntegrationsSlackPage.tsx",
     "./components/docs/integrations/IntegrationsSpecModelPage": "./src/components/docs/integrations/IntegrationsSpecModelPage.tsx",
     "./components/docs/integrations/IntegrationsStripePage": "./src/components/docs/integrations/IntegrationsStripePage.tsx",
     "./components/docs/integrations/IntegrationsTwilioPage": "./src/components/docs/integrations/IntegrationsTwilioPage.tsx",
+    "./components/docs/integrations/IntegrationsWhatsappMetaPage": "./src/components/docs/integrations/IntegrationsWhatsappMetaPage.tsx",
+    "./components/docs/integrations/IntegrationsWhatsappTwilioPage": "./src/components/docs/integrations/IntegrationsWhatsappTwilioPage.tsx",
     "./components/docs/intent": "./src/components/docs/intent/index.ts",
     "./components/docs/intent/ContractFirstApiPage": "./src/components/docs/intent/ContractFirstApiPage.tsx",
     "./components/docs/intent/DeterministicCodegenPage": "./src/components/docs/intent/DeterministicCodegenPage.tsx",
@@ -383,9 +390,9 @@
     "drizzle-orm": "^0.45.1",
     "framer-motion": "^12.34.3",
     "lucide-react": "^0.575.0",
-    "posthog-js": "^1.353.0",
-    "posthog-node": "^5.25.0",
-    "posthog-react-native": "^4.34.0",
+    "posthog-js": "^1.356.0",
+    "posthog-node": "^5.26.0",
+    "posthog-react-native": "^4.36.1",
     "react-hook-form": "^7.71.2",
     "zod": "catalog:",
     "@contractspec/lib.contracts-integrations": "workspace:*",
@@ -522,6 +529,12 @@
         "bun": "./dist/components/docs/architecture/ArchitectureAppConfigPage.js",
         "node": "./dist/node/components/docs/architecture/ArchitectureAppConfigPage.js",
         "default": "./dist/components/docs/architecture/ArchitectureAppConfigPage.js"
+      },
+      "./components/docs/architecture/ArchitectureControlPlanePage": {
+        "types": "./dist/components/docs/architecture/ArchitectureControlPlanePage.d.ts",
+        "bun": "./dist/components/docs/architecture/ArchitectureControlPlanePage.js",
+        "node": "./dist/node/components/docs/architecture/ArchitectureControlPlanePage.js",
+        "default": "./dist/components/docs/architecture/ArchitectureControlPlanePage.js"
       },
       "./components/docs/architecture/ArchitectureIntegrationBindingPage": {
         "types": "./dist/components/docs/architecture/ArchitectureIntegrationBindingPage.d.ts",
@@ -859,6 +872,12 @@
         "node": "./dist/node/components/docs/integrations/IntegrationsElevenLabsPage.js",
         "default": "./dist/components/docs/integrations/IntegrationsElevenLabsPage.js"
       },
+      "./components/docs/integrations/IntegrationsGithubPage": {
+        "types": "./dist/components/docs/integrations/IntegrationsGithubPage.d.ts",
+        "bun": "./dist/components/docs/integrations/IntegrationsGithubPage.js",
+        "node": "./dist/node/components/docs/integrations/IntegrationsGithubPage.js",
+        "default": "./dist/components/docs/integrations/IntegrationsGithubPage.js"
+      },
       "./components/docs/integrations/IntegrationsGmailPage": {
         "types": "./dist/components/docs/integrations/IntegrationsGmailPage.d.ts",
         "bun": "./dist/components/docs/integrations/IntegrationsGmailPage.js",
@@ -870,6 +889,18 @@
         "bun": "./dist/components/docs/integrations/IntegrationsGoogleCalendarPage.js",
         "node": "./dist/node/components/docs/integrations/IntegrationsGoogleCalendarPage.js",
         "default": "./dist/components/docs/integrations/IntegrationsGoogleCalendarPage.js"
+      },
+      "./components/docs/integrations/IntegrationsHealthRoutingPage": {
+        "types": "./dist/components/docs/integrations/IntegrationsHealthRoutingPage.d.ts",
+        "bun": "./dist/components/docs/integrations/IntegrationsHealthRoutingPage.js",
+        "node": "./dist/node/components/docs/integrations/IntegrationsHealthRoutingPage.js",
+        "default": "./dist/components/docs/integrations/IntegrationsHealthRoutingPage.js"
+      },
+      "./components/docs/integrations/IntegrationsMistralPage": {
+        "types": "./dist/components/docs/integrations/IntegrationsMistralPage.d.ts",
+        "bun": "./dist/components/docs/integrations/IntegrationsMistralPage.js",
+        "node": "./dist/node/components/docs/integrations/IntegrationsMistralPage.js",
+        "default": "./dist/components/docs/integrations/IntegrationsMistralPage.js"
       },
       "./components/docs/integrations/IntegrationsOpenAIPage": {
         "types": "./dist/components/docs/integrations/IntegrationsOpenAIPage.d.ts",
@@ -913,6 +944,12 @@
         "node": "./dist/node/components/docs/integrations/IntegrationsS3Page.js",
         "default": "./dist/components/docs/integrations/IntegrationsS3Page.js"
       },
+      "./components/docs/integrations/IntegrationsSlackPage": {
+        "types": "./dist/components/docs/integrations/IntegrationsSlackPage.d.ts",
+        "bun": "./dist/components/docs/integrations/IntegrationsSlackPage.js",
+        "node": "./dist/node/components/docs/integrations/IntegrationsSlackPage.js",
+        "default": "./dist/components/docs/integrations/IntegrationsSlackPage.js"
+      },
       "./components/docs/integrations/IntegrationsSpecModelPage": {
         "types": "./dist/components/docs/integrations/IntegrationsSpecModelPage.d.ts",
         "bun": "./dist/components/docs/integrations/IntegrationsSpecModelPage.js",
@@ -930,6 +967,18 @@
         "bun": "./dist/components/docs/integrations/IntegrationsTwilioPage.js",
         "node": "./dist/node/components/docs/integrations/IntegrationsTwilioPage.js",
         "default": "./dist/components/docs/integrations/IntegrationsTwilioPage.js"
+      },
+      "./components/docs/integrations/IntegrationsWhatsappMetaPage": {
+        "types": "./dist/components/docs/integrations/IntegrationsWhatsappMetaPage.d.ts",
+        "bun": "./dist/components/docs/integrations/IntegrationsWhatsappMetaPage.js",
+        "node": "./dist/node/components/docs/integrations/IntegrationsWhatsappMetaPage.js",
+        "default": "./dist/components/docs/integrations/IntegrationsWhatsappMetaPage.js"
+      },
+      "./components/docs/integrations/IntegrationsWhatsappTwilioPage": {
+        "types": "./dist/components/docs/integrations/IntegrationsWhatsappTwilioPage.d.ts",
+        "bun": "./dist/components/docs/integrations/IntegrationsWhatsappTwilioPage.js",
+        "node": "./dist/node/components/docs/integrations/IntegrationsWhatsappTwilioPage.js",
+        "default": "./dist/components/docs/integrations/IntegrationsWhatsappTwilioPage.js"
       },
       "./components/docs/intent": {
         "types": "./dist/components/docs/intent/index.d.ts",

@@ -73,7 +73,12 @@ export type TestLinkingStrategy =
   | 'convention-only' // Only use {specKey}.test naming convention
   | 'both'; // Accept both (default)
 
-export type AgentProvider = 'claude' | 'openai' | 'ollama' | 'custom';
+export type AgentProvider =
+  | 'claude'
+  | 'openai'
+  | 'ollama'
+  | 'mistral'
+  | 'custom';
 
 export type AgentMode =
   | 'simple'
@@ -429,7 +434,7 @@ export interface ContractsrcFileConfig {
  * This is what the application uses at runtime.
  */
 export interface ResolvedContractsrcConfig extends ContractsrcFileConfig {
-  aiProvider: 'claude' | 'openai' | 'ollama' | 'custom';
+  aiProvider: 'claude' | 'openai' | 'ollama' | 'mistral' | 'custom';
   agentMode:
     | 'simple'
     | 'cursor'

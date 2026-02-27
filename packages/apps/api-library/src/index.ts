@@ -3,6 +3,11 @@ import { appLogger } from '@contractspec/bundle.library/infrastructure/elysia/lo
 import { markdownHandler } from './handlers/markdown-handler';
 import { mcpHandler } from './handlers/mcp-handler';
 import { schemaHandler } from './handlers/schema-handler';
+import { slackWebhookHandler } from './handlers/slack-webhook-handler';
+import { githubWebhookHandler } from './handlers/github-webhook-handler';
+import { whatsappWebhookHandler } from './handlers/whatsapp-webhook-handler';
+import { channelDispatchHandler } from './handlers/channel-dispatch-handler';
+import { startChannelDispatchScheduler } from './handlers/channel-dispatch-scheduler';
 
 // const PORT = process.env.PORT || 8081;
 
@@ -16,11 +21,22 @@ const app = new Elysia()
       },
       schemas: '/schemas/contractsrc.json',
       markdown: '/mdx/*',
+      slackWebhook: '/webhooks/slack/events',
+      githubWebhook: '/webhooks/github/events',
+      whatsappMetaWebhook: '/webhooks/whatsapp/meta',
+      whatsappTwilioWebhook: '/webhooks/whatsapp/twilio',
+      channelDispatch: '/internal/channel/dispatch',
     },
   }))
   .use(markdownHandler)
   .use(mcpHandler)
-  .use(schemaHandler);
+  .use(schemaHandler)
+  .use(slackWebhookHandler)
+  .use(githubWebhookHandler)
+  .use(whatsappWebhookHandler)
+  .use(channelDispatchHandler);
+
+startChannelDispatchScheduler();
 // .listen(PORT);
 
 appLogger.info(

@@ -235,6 +235,65 @@ export function IntegrationsSpecModelPage() {
       </div>
 
       <div className="space-y-4">
+        <h2 className="text-2xl font-bold">
+          Example: Messaging IntegrationConnection
+        </h2>
+        <p className="text-muted-foreground">
+          Messaging providers use the same spec + connection model, then route
+          inbound events through the channel runtime for signature validation,
+          idempotent ingestion, policy decisions, and outbox-backed dispatch.
+        </p>
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
+          <pre>{`{
+  id: "conn_slack_acme_prod",
+  tenantId: "acme-corp",
+  integrationId: "messaging.slack",
+  environment: "production",
+  config: {
+    defaultChannelId: "C0123456789",
+    apiBaseUrl: "https://slack.com/api"
+  },
+  secretRef: "secret_slack_acme_prod_v1",
+  status: "connected"
+}
+
+// secret payload behind secretRef
+{
+  "botToken": "xoxb-...",
+  "signingSecret": "..."
+}`}</pre>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Health transport strategy config</h2>
+        <p className="text-muted-foreground">
+          Health providers support deterministic transport routing and explicit
+          unofficial gating in connection config.
+        </p>
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
+          <pre>{`{
+  "defaultTransport": "official-api",
+  "strategyOrder": ["official-api", "aggregator-api", "unofficial"],
+  "allowUnofficial": false,
+  "unofficialAllowList": ["health.peloton"],
+  "mcpUrl": "https://mcp.provider.example",
+  "oauthTokenUrl": "https://api.provider.example/oauth/token"
+}
+
+// secret payload behind secretRef
+{
+  "accessToken": "...",
+  "refreshToken": "...",
+  "clientId": "...",
+  "clientSecret": "...",
+  "tokenExpiresAt": "2026-02-01T00:00:00.000Z",
+  "mcpAccessToken": "..."
+}`}</pre>
+        </div>
+      </div>
+
+      <div className="space-y-4">
         <h2 className="text-2xl font-bold">Health checks</h2>
         <p className="text-muted-foreground">
           IntegrationConnections are periodically health-checked to ensure they

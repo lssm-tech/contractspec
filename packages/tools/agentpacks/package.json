@@ -100,6 +100,7 @@
     "./targets/gemini-cli": "./src/targets/gemini-cli.ts",
     "./targets/generic-md-target": "./src/targets/generic-md-target.ts",
     "./targets/index": "./src/targets/index.ts",
+    "./targets/mistral-vibe": "./src/targets/mistral-vibe.ts",
     "./targets/opencode": "./src/targets/opencode.ts",
     "./targets/registry": "./src/targets/registry.ts",
     "./utils/credentials": "./src/utils/credentials.ts",
@@ -513,6 +514,12 @@
         "bun": "./dist/targets/index.js",
         "node": "./dist/node/targets/index.js",
         "default": "./dist/targets/index.js"
+      },
+      "./targets/mistral-vibe": {
+        "types": "./dist/targets/mistral-vibe.d.ts",
+        "bun": "./dist/targets/mistral-vibe.js",
+        "node": "./dist/node/targets/mistral-vibe.js",
+        "default": "./dist/targets/mistral-vibe.js"
       },
       "./targets/opencode": {
         "types": "./dist/targets/opencode.d.ts",

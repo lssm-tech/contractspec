@@ -7,6 +7,7 @@ import { existsSync, readFileSync, writeFileSync, copyFileSync } from 'fs';
 import { resolve, join, basename } from 'path';
 import { ensureDir, listFiles, listDirs } from '../utils/filesystem.js';
 import { parseFrontmatter } from '../utils/frontmatter.js';
+import { normalizeImportedSkillMarkdown } from '../features/skills.js';
 import type { ImportResult } from './rulesync.js';
 
 /**
@@ -90,8 +91,16 @@ export function importFromCursor(
       if (existsSync(skillMd)) {
         const outSkillDir = join(outDir, name);
         ensureDir(outSkillDir);
-        copyFileSync(skillMd, join(outSkillDir, 'SKILL.md'));
-        filesImported.push(join(outSkillDir, 'SKILL.md'));
+        const rawSkill = readFileSync(skillMd, 'utf-8');
+        const normalized = normalizeImportedSkillMarkdown(rawSkill, name);
+        const dest = join(outSkillDir, 'SKILL.md');
+        writeFileSync(dest, normalized.content);
+        filesImported.push(dest);
+        if (normalized.addedDescription) {
+          warnings.push(
+            `skills/${name}/SKILL.md missing description; added import placeholder.`
+          );
+        }
       }
     }
   }

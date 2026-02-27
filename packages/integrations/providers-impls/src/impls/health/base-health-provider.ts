@@ -1,5 +1,6 @@
 import type {
   HealthActivity,
+  HealthBiometric,
   HealthConnectionStatus,
   HealthDataSource,
   HealthListActivitiesParams,
@@ -12,22 +13,32 @@ import type {
   HealthListSleepResult,
   HealthListWorkoutsParams,
   HealthListWorkoutsResult,
+  HealthNutrition,
   HealthProvider,
+  HealthSleep,
   HealthSyncRequest,
   HealthSyncResult,
   HealthWebhookEvent,
   HealthWebhookRequest,
-  HealthBiometric,
-  HealthNutrition,
-  HealthSleep,
   HealthWorkout,
 } from '../../health';
 import type { HealthTransportStrategy } from '@contractspec/integration.runtime/runtime';
+import {
+  asRecord,
+  extractList,
+  extractPagination,
+  toHealthConnectionStatus,
+  toHealthWebhookEvent,
+} from './provider-normalizers';
 
-interface BaseHealthListResponse {
-  items: unknown[];
-  nextCursor?: string;
-  hasMore?: boolean;
+type UnknownRecord = Record<string, unknown>;
+
+interface OAuthOptions {
+  tokenUrl?: string;
+  refreshToken?: string;
+  clientId?: string;
+  clientSecret?: string;
+  tokenExpiresAt?: string;
 }
 
 export interface BaseHealthProviderOptions {
@@ -39,215 +50,322 @@ export interface BaseHealthProviderOptions {
   accessToken?: string;
   mcpAccessToken?: string;
   webhookSecret?: string;
+  webhookSignatureHeader?: string;
+  route?: 'primary' | 'fallback';
+  aggregatorKey?: string;
+  oauth?: OAuthOptions;
   fetchFn?: typeof fetch;
 }
 
+interface DatasetFetchConfig<P, T> {
+  apiPath?: string;
+  mcpTool: string;
+  listKeys?: readonly string[];
+  method?: 'GET' | 'POST';
+  buildQuery?: (params: P) => UnknownRecord;
+  buildBody?: (params: P) => UnknownRecord;
+  mapItem: (item: UnknownRecord, params: P) => T | undefined;
+}
+
+interface ConnectionStatusConfig {
+  apiPath?: string;
+  mcpTool: string;
+}
+
+interface RefreshTokenPayload {
+  access_token: string;
+  refresh_token?: string;
+  expires_in?: number;
+}
+
+export class HealthProviderCapabilityError extends Error {
+  readonly code = 'NOT_SUPPORTED';
+
+  constructor(message: string) {
+    super(message);
+    this.name = 'HealthProviderCapabilityError';
+  }
+}
+
 export class BaseHealthProvider implements HealthProvider {
-  private readonly providerKey: string;
-  private readonly transport: HealthTransportStrategy;
-  private readonly apiBaseUrl: string;
+  protected readonly providerKey: string;
+  protected readonly transport: HealthTransportStrategy;
+  private readonly apiBaseUrl?: string;
   private readonly mcpUrl?: string;
   private readonly apiKey?: string;
-  private readonly accessToken?: string;
+  private accessToken?: string;
+  private refreshToken?: string;
   private readonly mcpAccessToken?: string;
   private readonly webhookSecret?: string;
+  private readonly webhookSignatureHeader: string;
+  private readonly route: 'primary' | 'fallback';
+  private readonly aggregatorKey?: string;
+  private readonly oauth: OAuthOptions;
   private readonly fetchFn: typeof fetch;
   private mcpRequestId = 0;
 
   constructor(options: BaseHealthProviderOptions) {
     this.providerKey = options.providerKey;
     this.transport = options.transport;
-    this.apiBaseUrl = options.apiBaseUrl ?? 'https://api.example-health.local';
+    this.apiBaseUrl = options.apiBaseUrl;
     this.mcpUrl = options.mcpUrl;
     this.apiKey = options.apiKey;
     this.accessToken = options.accessToken;
+    this.refreshToken = options.oauth?.refreshToken;
     this.mcpAccessToken = options.mcpAccessToken;
     this.webhookSecret = options.webhookSecret;
+    this.webhookSignatureHeader =
+      options.webhookSignatureHeader ?? 'x-webhook-signature';
+    this.route = options.route ?? 'primary';
+    this.aggregatorKey = options.aggregatorKey;
+    this.oauth = options.oauth ?? {};
     this.fetchFn = options.fetchFn ?? fetch;
   }
 
   async listActivities(
-    params: HealthListActivitiesParams
+    _params: HealthListActivitiesParams
   ): Promise<HealthListActivitiesResult> {
-    const result = await this.fetchList('activities', params);
-    return {
-      activities: result.items as HealthActivity[],
-      nextCursor: result.nextCursor,
-      hasMore: result.hasMore,
-      source: this.currentSource(),
-    };
+    throw this.unsupported('activities');
   }
 
   async listWorkouts(
-    params: HealthListWorkoutsParams
+    _params: HealthListWorkoutsParams
   ): Promise<HealthListWorkoutsResult> {
-    const result = await this.fetchList('workouts', params);
-    return {
-      workouts: result.items as HealthWorkout[],
-      nextCursor: result.nextCursor,
-      hasMore: result.hasMore,
-      source: this.currentSource(),
-    };
+    throw this.unsupported('workouts');
   }
 
   async listSleep(
-    params: HealthListSleepParams
+    _params: HealthListSleepParams
   ): Promise<HealthListSleepResult> {
-    const result = await this.fetchList('sleep', params);
-    return {
-      sleep: result.items as HealthSleep[],
-      nextCursor: result.nextCursor,
-      hasMore: result.hasMore,
-      source: this.currentSource(),
-    };
+    throw this.unsupported('sleep');
   }
 
   async listBiometrics(
-    params: HealthListBiometricsParams
+    _params: HealthListBiometricsParams
   ): Promise<HealthListBiometricsResult> {
-    const result = await this.fetchList('biometrics', params);
-    return {
-      biometrics: result.items as HealthBiometric[],
-      nextCursor: result.nextCursor,
-      hasMore: result.hasMore,
-      source: this.currentSource(),
-    };
+    throw this.unsupported('biometrics');
   }
 
   async listNutrition(
-    params: HealthListNutritionParams
+    _params: HealthListNutritionParams
   ): Promise<HealthListNutritionResult> {
-    const result = await this.fetchList('nutrition', params);
-    return {
-      nutrition: result.items as HealthNutrition[],
-      nextCursor: result.nextCursor,
-      hasMore: result.hasMore,
-      source: this.currentSource(),
-    };
+    throw this.unsupported('nutrition');
   }
 
   async getConnectionStatus(params: {
     tenantId: string;
     connectionId: string;
   }): Promise<HealthConnectionStatus> {
-    const payload = await this.fetchRecord('connection/status', params);
-    const status = readString(payload, 'status') ?? 'healthy';
-    return {
-      tenantId: params.tenantId,
-      connectionId: params.connectionId,
-      status:
-        status === 'healthy' ||
-        status === 'degraded' ||
-        status === 'error' ||
-        status === 'disconnected'
-          ? status
-          : 'healthy',
-      source: this.currentSource(),
-      lastCheckedAt:
-        readString(payload, 'lastCheckedAt') ?? new Date().toISOString(),
-      errorCode: readString(payload, 'errorCode'),
-      errorMessage: readString(payload, 'errorMessage'),
-      metadata: asRecord(payload.metadata),
-    };
+    return this.fetchConnectionStatus(params, {
+      mcpTool: `${this.providerSlug()}_connection_status`,
+    });
   }
 
   async syncActivities(params: HealthSyncRequest): Promise<HealthSyncResult> {
-    return this.sync('activities', params);
+    return this.syncFromList(() => this.listActivities(params));
   }
 
   async syncWorkouts(params: HealthSyncRequest): Promise<HealthSyncResult> {
-    return this.sync('workouts', params);
+    return this.syncFromList(() => this.listWorkouts(params));
   }
 
   async syncSleep(params: HealthSyncRequest): Promise<HealthSyncResult> {
-    return this.sync('sleep', params);
+    return this.syncFromList(() => this.listSleep(params));
   }
 
   async syncBiometrics(params: HealthSyncRequest): Promise<HealthSyncResult> {
-    return this.sync('biometrics', params);
+    return this.syncFromList(() => this.listBiometrics(params));
   }
 
   async syncNutrition(params: HealthSyncRequest): Promise<HealthSyncResult> {
-    return this.sync('nutrition', params);
+    return this.syncFromList(() => this.listNutrition(params));
   }
 
   async parseWebhook(
     request: HealthWebhookRequest
   ): Promise<HealthWebhookEvent> {
     const payload = request.parsedBody ?? safeJsonParse(request.rawBody);
-    const body = asRecord(payload);
-    return {
-      providerKey: this.providerKey,
-      eventType: readString(body, 'eventType') ?? readString(body, 'event'),
-      externalEntityId:
-        readString(body, 'externalEntityId') ?? readString(body, 'entityId'),
-      entityType: normalizeEntityType(
-        readString(body, 'entityType') ?? readString(body, 'type')
-      ),
-      receivedAt: new Date().toISOString(),
-      verified: await this.verifyWebhook(request),
-      payload,
-    };
+    const verified = await this.verifyWebhook(request);
+    return toHealthWebhookEvent(payload, this.providerKey, verified);
   }
 
   async verifyWebhook(request: HealthWebhookRequest): Promise<boolean> {
-    if (!this.webhookSecret) {
-      return true;
-    }
-    const signature = readHeader(request.headers, 'x-webhook-signature');
+    if (!this.webhookSecret) return true;
+    const signature = readHeader(request.headers, this.webhookSignatureHeader);
     return signature === this.webhookSecret;
   }
 
-  private async fetchList(
-    resource: string,
-    params: object
-  ): Promise<BaseHealthListResponse> {
-    const payload = await this.fetchRecord(resource, params);
-    const items =
-      asArray(payload.items) ??
-      asArray(payload[resource]) ??
-      asArray(payload.records) ??
-      [];
+  protected async fetchActivities(
+    params: HealthListActivitiesParams,
+    config: DatasetFetchConfig<HealthListActivitiesParams, HealthActivity>
+  ): Promise<HealthListActivitiesResult> {
+    const response = await this.fetchList(params, config);
     return {
-      items,
-      nextCursor:
-        readString(payload, 'nextCursor') ?? readString(payload, 'cursor'),
-      hasMore: readBoolean(payload, 'hasMore'),
-    };
-  }
-
-  private async sync(
-    resource: string,
-    params: HealthSyncRequest
-  ): Promise<HealthSyncResult> {
-    const payload = await this.fetchRecord(`sync/${resource}`, params, 'POST');
-    return {
-      synced: readNumber(payload, 'synced') ?? 0,
-      failed: readNumber(payload, 'failed') ?? 0,
-      nextCursor: readString(payload, 'nextCursor'),
-      errors: asArray(payload.errors)?.map((item) => String(item)),
+      activities: response.items,
+      nextCursor: response.nextCursor,
+      hasMore: response.hasMore,
       source: this.currentSource(),
     };
   }
 
-  private async fetchRecord(
-    resource: string,
-    params: object,
-    method: 'GET' | 'POST' = 'GET'
-  ): Promise<Record<string, unknown>> {
-    if (this.transport.endsWith('mcp')) {
-      return this.callMcpTool(resource, params);
+  protected async fetchWorkouts(
+    params: HealthListWorkoutsParams,
+    config: DatasetFetchConfig<HealthListWorkoutsParams, HealthWorkout>
+  ): Promise<HealthListWorkoutsResult> {
+    const response = await this.fetchList(params, config);
+    return {
+      workouts: response.items,
+      nextCursor: response.nextCursor,
+      hasMore: response.hasMore,
+      source: this.currentSource(),
+    };
+  }
+
+  protected async fetchSleep(
+    params: HealthListSleepParams,
+    config: DatasetFetchConfig<HealthListSleepParams, HealthSleep>
+  ): Promise<HealthListSleepResult> {
+    const response = await this.fetchList(params, config);
+    return {
+      sleep: response.items,
+      nextCursor: response.nextCursor,
+      hasMore: response.hasMore,
+      source: this.currentSource(),
+    };
+  }
+
+  protected async fetchBiometrics(
+    params: HealthListBiometricsParams,
+    config: DatasetFetchConfig<HealthListBiometricsParams, HealthBiometric>
+  ): Promise<HealthListBiometricsResult> {
+    const response = await this.fetchList(params, config);
+    return {
+      biometrics: response.items,
+      nextCursor: response.nextCursor,
+      hasMore: response.hasMore,
+      source: this.currentSource(),
+    };
+  }
+
+  protected async fetchNutrition(
+    params: HealthListNutritionParams,
+    config: DatasetFetchConfig<HealthListNutritionParams, HealthNutrition>
+  ): Promise<HealthListNutritionResult> {
+    const response = await this.fetchList(params, config);
+    return {
+      nutrition: response.items,
+      nextCursor: response.nextCursor,
+      hasMore: response.hasMore,
+      source: this.currentSource(),
+    };
+  }
+
+  protected async fetchConnectionStatus(
+    params: { tenantId: string; connectionId: string },
+    config: ConnectionStatusConfig
+  ): Promise<HealthConnectionStatus> {
+    const payload = await this.fetchPayload(config, params);
+    return toHealthConnectionStatus(payload, params, this.currentSource());
+  }
+
+  protected currentSource(): HealthDataSource {
+    return {
+      providerKey: this.providerKey,
+      transport: this.transport,
+      route: this.route,
+      aggregatorKey: this.aggregatorKey,
+    };
+  }
+
+  protected providerSlug(): string {
+    return this.providerKey.replace('health.', '').replace(/-/g, '_');
+  }
+
+  protected unsupported(capability: string): HealthProviderCapabilityError {
+    return new HealthProviderCapabilityError(
+      `${this.providerKey} does not support ${capability}`
+    );
+  }
+
+  private async syncFromList<T>(
+    executor: () => Promise<
+      { hasMore?: boolean; source?: HealthDataSource } & T
+    >
+  ): Promise<HealthSyncResult> {
+    const result = await executor();
+    const records = countResultRecords(result);
+    return {
+      synced: records,
+      failed: 0,
+      nextCursor: undefined,
+      source: result.source,
+    };
+  }
+
+  private async fetchList<P, T>(
+    params: P,
+    config: DatasetFetchConfig<P, T>
+  ): Promise<{ items: T[]; nextCursor?: string; hasMore?: boolean }> {
+    const payload = await this.fetchPayload(config, params);
+    const items = extractList(payload, config.listKeys)
+      .map((item) => config.mapItem(item, params))
+      .filter((item): item is T => Boolean(item));
+    const pagination = extractPagination(payload);
+    return {
+      items,
+      nextCursor: pagination.nextCursor,
+      hasMore: pagination.hasMore,
+    };
+  }
+
+  private async fetchPayload<P>(
+    config: {
+      apiPath?: string;
+      mcpTool: string;
+      method?: 'GET' | 'POST';
+      buildQuery?: (params: P) => UnknownRecord;
+      buildBody?: (params: P) => UnknownRecord;
+    },
+    params: P
+  ): Promise<unknown> {
+    const method = config.method ?? 'GET';
+    const query = config.buildQuery?.(params);
+    const body = config.buildBody?.(params);
+
+    if (this.isMcpTransport()) {
+      return this.callMcpTool(config.mcpTool, {
+        ...(query ?? {}),
+        ...(body ?? {}),
+      });
     }
 
-    const url = new URL(`${this.apiBaseUrl.replace(/\/$/, '')}/${resource}`);
-    if (method === 'GET') {
-      for (const [key, value] of Object.entries(
-        params as Record<string, unknown>
-      )) {
+    if (!config.apiPath || !this.apiBaseUrl) {
+      throw new Error(`${this.providerKey} transport is missing an API path.`);
+    }
+
+    if (method === 'POST') {
+      return this.requestApi(config.apiPath, 'POST', undefined, body);
+    }
+    return this.requestApi(config.apiPath, 'GET', query, undefined);
+  }
+
+  private isMcpTransport(): boolean {
+    return this.transport.endsWith('mcp') || this.transport === 'unofficial';
+  }
+
+  private async requestApi(
+    path: string,
+    method: 'GET' | 'POST',
+    query?: UnknownRecord,
+    body?: UnknownRecord
+  ): Promise<unknown> {
+    const url = new URL(path, ensureTrailingSlash(this.apiBaseUrl ?? ''));
+    if (query) {
+      for (const [key, value] of Object.entries(query)) {
         if (value == null) continue;
         if (Array.isArray(value)) {
-          value.forEach((item) => {
-            url.searchParams.append(key, String(item));
+          value.forEach((entry) => {
+            if (entry != null) url.searchParams.append(key, String(entry));
           });
           continue;
         }
@@ -257,30 +375,28 @@ export class BaseHealthProvider implements HealthProvider {
 
     const response = await this.fetchFn(url, {
       method,
-      headers: {
-        'Content-Type': 'application/json',
-        ...(this.accessToken || this.apiKey
-          ? { Authorization: `Bearer ${this.accessToken ?? this.apiKey}` }
-          : {}),
-      },
-      body: method === 'POST' ? JSON.stringify(params) : undefined,
+      headers: this.authorizationHeaders(),
+      body: method === 'POST' ? JSON.stringify(body ?? {}) : undefined,
     });
-    if (!response.ok) {
-      const errorBody = await safeResponseText(response);
-      throw new Error(
-        `${this.providerKey} ${resource} failed (${response.status}): ${errorBody}`
-      );
+
+    if (response.status === 401 && (await this.refreshAccessToken())) {
+      const retryResponse = await this.fetchFn(url, {
+        method,
+        headers: this.authorizationHeaders(),
+        body: method === 'POST' ? JSON.stringify(body ?? {}) : undefined,
+      });
+      return this.readResponsePayload(retryResponse, path);
     }
-    const data = (await response.json()) as unknown;
-    return asRecord(data) ?? {};
+
+    return this.readResponsePayload(response, path);
   }
 
   private async callMcpTool(
-    resource: string,
-    params: object
-  ): Promise<Record<string, unknown>> {
+    toolName: string,
+    args: UnknownRecord
+  ): Promise<unknown> {
     if (!this.mcpUrl) {
-      return {};
+      throw new Error(`${this.providerKey} MCP URL is not configured.`);
     }
     const response = await this.fetchFn(this.mcpUrl, {
       method: 'POST',
@@ -295,41 +411,81 @@ export class BaseHealthProvider implements HealthProvider {
         id: ++this.mcpRequestId,
         method: 'tools/call',
         params: {
-          name: `${this.providerKey.replace('health.', '')}_${resource.replace(/\//g, '_')}`,
-          arguments: params,
+          name: toolName,
+          arguments: args,
         },
       }),
     });
-    if (!response.ok) {
-      const errorBody = await safeResponseText(response);
-      throw new Error(
-        `${this.providerKey} MCP ${resource} failed (${response.status}): ${errorBody}`
-      );
+    const payload = await this.readResponsePayload(response, toolName);
+    const rpcEnvelope = asRecord(payload);
+    if (!rpcEnvelope) return payload;
+    const rpcResult = asRecord(rpcEnvelope.result);
+    if (rpcResult) {
+      return rpcResult.structuredContent ?? rpcResult.data ?? rpcResult;
     }
-    const rpcPayload = (await response.json()) as unknown;
-    const rpc = asRecord(rpcPayload);
-    const result = asRecord(rpc?.result) ?? {};
-    const structured = asRecord(result.structuredContent);
-    if (structured) return structured;
-    const data = asRecord(result.data);
-    if (data) return data;
-    return result;
+    return rpcEnvelope.structuredContent ?? rpcEnvelope.data ?? rpcEnvelope;
   }
 
-  protected currentSource(): HealthDataSource {
+  private authorizationHeaders(): Record<string, string> {
+    const token = this.accessToken ?? this.apiKey;
     return {
-      providerKey: this.providerKey,
-      transport: this.transport,
-      route: 'primary',
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
     };
   }
-}
 
-function safeJsonParse(raw: string): unknown {
-  try {
-    return JSON.parse(raw) as unknown;
-  } catch {
-    return { rawBody: raw };
+  private async refreshAccessToken(): Promise<boolean> {
+    if (!this.oauth.tokenUrl || !this.refreshToken) {
+      return false;
+    }
+
+    const tokenUrl = new URL(this.oauth.tokenUrl);
+    const body = new URLSearchParams({
+      grant_type: 'refresh_token',
+      refresh_token: this.refreshToken,
+      ...(this.oauth.clientId ? { client_id: this.oauth.clientId } : {}),
+      ...(this.oauth.clientSecret
+        ? { client_secret: this.oauth.clientSecret }
+        : {}),
+    });
+
+    const response = await this.fetchFn(tokenUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: body.toString(),
+    });
+
+    if (!response.ok) {
+      return false;
+    }
+
+    const payload = (await response.json()) as RefreshTokenPayload;
+    this.accessToken = payload.access_token;
+    this.refreshToken = payload.refresh_token ?? this.refreshToken;
+    if (typeof payload.expires_in === 'number') {
+      this.oauth.tokenExpiresAt = new Date(
+        Date.now() + payload.expires_in * 1000
+      ).toISOString();
+    }
+    return Boolean(this.accessToken);
+  }
+
+  private async readResponsePayload(
+    response: Response,
+    context: string
+  ): Promise<unknown> {
+    if (!response.ok) {
+      const message = await safeReadText(response);
+      throw new Error(
+        `${this.providerKey} request ${context} failed (${response.status}): ${message}`
+      );
+    }
+    if (response.status === 204) {
+      return {};
+    }
+    return response.json();
   }
 }
 
@@ -337,59 +493,45 @@ function readHeader(
   headers: Record<string, string | string[] | undefined>,
   key: string
 ): string | undefined {
-  const match = Object.entries(headers).find(
-    ([headerKey]) => headerKey.toLowerCase() === key.toLowerCase()
+  const target = key.toLowerCase();
+  const entry = Object.entries(headers).find(
+    ([headerKey]) => headerKey.toLowerCase() === target
   );
-  if (!match) return undefined;
-  const value = match[1];
+  if (!entry) return undefined;
+  const value = entry[1];
   return Array.isArray(value) ? value[0] : value;
 }
 
-function normalizeEntityType(
-  value?: string
-): 'activity' | 'workout' | 'sleep' | 'biometric' | 'nutrition' | undefined {
-  if (!value) return undefined;
-  if (
-    value === 'activity' ||
-    value === 'workout' ||
-    value === 'sleep' ||
-    value === 'biometric' ||
-    value === 'nutrition'
-  ) {
-    return value;
+function countResultRecords(result: Record<string, unknown>): number {
+  const listKeys = [
+    'activities',
+    'workouts',
+    'sleep',
+    'biometrics',
+    'nutrition',
+  ];
+  for (const key of listKeys) {
+    const value = result[key];
+    if (Array.isArray(value)) {
+      return value.length;
+    }
   }
-  return undefined;
+  return 0;
 }
 
-function asRecord(value: unknown): Record<string, unknown> | undefined {
-  if (typeof value !== 'object' || value === null || Array.isArray(value)) {
-    return undefined;
+function ensureTrailingSlash(value: string): string {
+  return value.endsWith('/') ? value : `${value}/`;
+}
+
+function safeJsonParse(raw: string): unknown {
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return { rawBody: raw };
   }
-  return value as Record<string, unknown>;
 }
 
-function asArray(value: unknown): unknown[] | undefined {
-  return Array.isArray(value) ? value : undefined;
-}
-
-function readString(record: Record<string, unknown> | undefined, key: string) {
-  const value = record?.[key];
-  return typeof value === 'string' ? value : undefined;
-}
-
-function readBoolean(record: Record<string, unknown> | undefined, key: string) {
-  const value = record?.[key];
-  return typeof value === 'boolean' ? value : undefined;
-}
-
-function readNumber(record: Record<string, unknown> | undefined, key: string) {
-  const value = record?.[key];
-  return typeof value === 'number' && Number.isFinite(value)
-    ? value
-    : undefined;
-}
-
-async function safeResponseText(response: Response): Promise<string> {
+async function safeReadText(response: Response): Promise<string> {
   try {
     return await response.text();
   } catch {

@@ -1,0 +1,13 @@
+---
+description: Require typed AgentSpec definitions and bounded execution in @contractspec/lib.ai-agent
+alwaysApply: true
+globs:
+  - "**/*"
+---
+
+Treat agent execution as governed runtime behavior.
+
+- Define agents with typed `AgentSpec` and explicit tool schemas.
+- Keep `maxSteps` explicit and conservative.
+- Ensure spec registry wiring matches runtime agent identity.
+- Reject prompt-only orchestration that bypasses typed specs.

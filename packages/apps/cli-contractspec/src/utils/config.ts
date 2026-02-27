@@ -189,6 +189,8 @@ export function getApiKey(provider: Config['aiProvider']): string | undefined {
       return process.env.ANTHROPIC_API_KEY;
     case 'openai':
       return process.env.OPENAI_API_KEY;
+    case 'mistral':
+      return process.env.MISTRAL_API_KEY;
     case 'custom':
       return process.env.CONTRACTSPEC_LLM_API_KEY;
     case 'ollama':

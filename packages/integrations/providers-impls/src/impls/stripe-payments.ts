@@ -21,7 +21,7 @@ export interface StripePaymentsProviderOptions {
   stripe?: Stripe;
 }
 
-const API_VERSION: Stripe.LatestApiVersion = '2026-01-28.clover';
+const API_VERSION: Stripe.LatestApiVersion = '2026-02-25.clover';
 
 export class StripePaymentsProvider implements PaymentsProvider {
   private readonly stripe: Stripe;

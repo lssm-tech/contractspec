@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-02-15T02:25:57.758Z",
-  "total": 753,
+  "generatedAt": "2026-02-27T08:24:14.176Z",
+  "total": 808,
   "version": null,
   "contentRoot": "../../../../../../../generated/docs",
   "chunks": [
     {
       "key": "_common",
       "file": "docs-index._common.json",
-      "total": 59
+      "total": 89
     },
     {
       "key": "agent-console",
@@ -48,6 +48,11 @@
       "key": "files",
       "file": "docs-index.files.json",
       "total": 22
+    },
+    {
+      "key": "health",
+      "file": "docs-index.health.json",
+      "total": 12
     },
     {
       "key": "identity-rbac",
@@ -127,7 +132,7 @@
     {
       "key": "platform.integrations",
       "file": "docs-index.platform-integrations.json",
-      "total": 29
+      "total": 39
     },
     {
       "key": "platform.knowledge",
@@ -168,6 +173,11 @@
       "key": "versioned-knowledge-base",
       "file": "docs-index.versioned-knowledge-base.json",
       "total": 10
+    },
+    {
+      "key": "video-api-showcase",
+      "file": "docs-index.video-api-showcase.json",
+      "total": 3
     },
     {
       "key": "wealth-snapshot",

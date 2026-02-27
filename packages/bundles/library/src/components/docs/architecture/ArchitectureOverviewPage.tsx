@@ -16,7 +16,7 @@ export function ArchitectureOverviewPage() {
           ContractSpec's architecture is built on a foundation of typed
           specifications served by runtime adapters. This section covers the
           core architectural concepts: app configuration, integration binding,
-          and knowledge management.
+          control-plane governance, and knowledge management.
         </p>
       </div>
 
@@ -147,6 +147,15 @@ export function ArchitectureOverviewPage() {
                 on every operation
               </li>
               <li>
+                <Link
+                  href="/docs/architecture/control-plane"
+                  className="text-violet-400 hover:text-violet-300"
+                >
+                  Control Plane Runtime
+                </Link>{' '}
+                - Deterministic intent to plan to policy to execution loop
+              </li>
+              <li>
                 <strong>Presentation Runtime</strong> - React and React Native
                 renderers
               </li>
@@ -255,6 +264,9 @@ export function ArchitectureOverviewPage() {
       <div className="flex items-center gap-4 pt-4">
         <Link href="/docs/architecture/app-config" className="btn-primary">
           App Configuration <ChevronRight size={16} />
+        </Link>
+        <Link href="/docs/architecture/control-plane" className="btn-ghost">
+          Control Plane Runtime
         </Link>
         <Link href="/docs/integrations" className="btn-ghost">
           Integrations

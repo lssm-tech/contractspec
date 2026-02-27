@@ -3,6 +3,7 @@ import { OpenCodeTarget } from './opencode.js';
 import { CursorTarget } from './cursor.js';
 import { ClaudeCodeTarget } from './claude-code.js';
 import { CodexCliTarget } from './codex-cli.js';
+import { MistralVibeTarget } from './mistral-vibe.js';
 import { GeminiCliTarget } from './gemini-cli.js';
 import { CopilotTarget } from './copilot.js';
 import { AgentsMdTarget } from './agents-md.js';
@@ -31,6 +32,7 @@ const TARGETS: BaseTarget[] = [
   new CursorTarget(),
   new ClaudeCodeTarget(),
   new CodexCliTarget(),
+  new MistralVibeTarget(),
   new GeminiCliTarget(),
   new CopilotTarget(),
   new AgentsMdTarget(),

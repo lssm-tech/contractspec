@@ -18,8 +18,11 @@
     "@contractspec/bundle.library": "workspace:*",
     "@contractspec/bundle.marketing": "workspace:*",
     "@contractspec/bundle.workspace": "workspace:*",
+    "@contractspec/integration.providers-impls": "workspace:*",
+    "@contractspec/integration.runtime": "workspace:*",
     "@contractspec/lib.contracts-spec": "workspace:*",
-    "elysia": "^1.4.25",
+    "elysia": "^1.4.26",
+    "pg": "^8.19.0",
     "zod": "^4.3.5"
   },
   "devDependencies": {

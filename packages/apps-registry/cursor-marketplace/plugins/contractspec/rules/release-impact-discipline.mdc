@@ -1,0 +1,21 @@
+---
+description: Enforce compatibility-aware release discipline for contract and orchestration changes
+alwaysApply: true
+globs:
+  - "**/*"
+---
+
+Before release, classify compatibility impact and verify guardrails end to end.
+
+Core rules:
+
+- Any contract change must be categorized as additive, compatible behavior change, or breaking change.
+- Breaking changes require explicit migration notes and version bump rationale.
+- Release reports must include impact output, validation results, and unresolved risk items.
+- MCP integrations must be health-checked with successful endpoint initialization.
+
+Required release checks:
+
+1. `contractspec impact --baseline main --format markdown`
+2. `contractspec ci --check-drift`
+3. `contractspec version analyze --baseline main`

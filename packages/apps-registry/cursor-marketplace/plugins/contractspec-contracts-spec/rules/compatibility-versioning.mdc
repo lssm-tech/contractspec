@@ -1,0 +1,13 @@
+---
+description: Enforce compatibility-aware contract versioning in @contractspec/lib.contracts-spec
+alwaysApply: true
+globs:
+  - "**/*"
+---
+
+Every contract change must carry compatibility intent.
+
+- Classify changes as additive, behavior-compatible, or breaking.
+- Breaking changes require migration notes and version bump rationale.
+- Run impact analysis against baseline before merge.
+- Keep release notes tied to impacted contract keys and versions.
