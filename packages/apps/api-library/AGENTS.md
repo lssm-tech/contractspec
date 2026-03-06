@@ -1,26 +1,32 @@
-# api-library
+# AI Agent Guide — `@contractspec/app.api-library`
 
-Library API server for ContractSpec documentation, templates, and MCP servers.
+Scope: `packages/apps/api-library/*`
+
+Library API server for ContractSpec documentation, templates, and MCP servers. Thin HTTP layer over `bundle.library`.
 
 ## Quick Context
 
-- **Type**: Elysia HTTP server
-- **Purpose**: Serve docs, templates, and AI agent interfaces
-- **Bundle**: `@contractspec/bundle.library`
+- **Layer**: app (Elysia HTTP server)
+- **Consumers**: web-landing, external API clients, MCP integrations
+
+## Architecture
+
+- This app is a thin HTTP layer — all business logic lives in `bundle.library`.
+- Elysia server with MCP endpoint integration.
 
 ## Key Files
 
 - `src/server.ts` — Elysia server setup
 - `src/handlers/mcp-handler.ts` — MCP endpoint integration
 
-## Commands
+## Guardrails
 
-```bash
-bun dev    # Development with hot reload
-bun build  # Production binary
-bun start  # Run production binary
-```
+- Keep this app thin — no business logic here; delegate to `bundle.library`.
+- MCP handler changes may affect VS Code extension and CLI consumers.
+- API route changes require coordinating with `app.web-landing` and any external clients.
 
-## Dependencies
+## Local Commands
 
-Uses `bundle.library` for all business logic. This app is a thin HTTP layer.
+- Build: `bun run build`
+- Dev: `bun run dev`
+- Start: `bun run start`

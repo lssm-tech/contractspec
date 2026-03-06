@@ -2,15 +2,14 @@
 
 Scope: `packages/apps/action-validation/*`
 
-This is the ContractSpec GitHub Action for CI/CD integration.
+ContractSpec GitHub Action for CI/CD integration. Wraps the `contractspec ci` CLI command as a composite action.
 
-## Structure
+## Quick Context
 
-- `action.yml` - GitHub Action definition (composite action)
-- `README.md` - Usage documentation
-- `package.json` - Package metadata (private, not published to npm)
+- **Layer**: app (GitHub Action)
+- **Consumers**: external CI/CD pipelines via `lssm/contractspec-action@v1`
 
-## How It Works
+## Architecture
 
 This is a **composite action** that:
 
@@ -20,28 +19,22 @@ This is a **composite action** that:
 4. Uploads SARIF to GitHub Code Scanning (optional)
 5. Uploads results as artifacts
 
-## Modifying the Action
+## Key Files
 
-When making changes:
+- `action.yml` — GitHub Action definition (composite action)
+- `README.md` — Usage documentation
+- `package.json` — Package metadata (private, not published to npm)
 
-1. Update `action.yml` for input/output changes
-2. Update `README.md` for documentation
-3. Test locally using `act` or by referencing the local action:
+## Public Exports
 
-```yaml
-- uses: ./packages/apps/action-validation
-```
+None — this is a GitHub Action, not an npm package. Inputs/outputs are defined in `action.yml`.
 
-## Inputs/Outputs
+## Guardrails
 
-All inputs and outputs are defined in `action.yml`. The action wraps the `contractspec ci` CLI command.
+- All input/output changes must be reflected in both `action.yml` and `README.md`.
+- The action is versioned with tags on the repository — breaking input changes require a major version bump.
+- Test locally using `act` or by referencing the local action: `uses: ./packages/apps/action-validation`.
 
-## Publishing
+## Local Commands
 
-The action is published as part of the monorepo. Users reference it as:
-
-```yaml
-- uses: lssm/contractspec-action@v1
-```
-
-The action is versioned with tags on the repository.
+- No build step — this is a composite action defined in `action.yml`.

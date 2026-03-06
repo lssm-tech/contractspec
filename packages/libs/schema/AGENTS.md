@@ -2,7 +2,19 @@
 
 Scope: `packages/libs/schema/*`
 
-This library defines schema primitives used across ContractSpec (Zod validation, GraphQL types, JSON Schema). Changes here have a very high blast radius.
+Schema primitives used across ContractSpec (Zod validation, GraphQL types, JSON Schema). Changes here have a very high blast radius.
+
+## Quick Context
+
+- **Layer**: lib
+- **Consumers**: nearly all libs, bundles, and apps
+
+## Public Exports
+
+Keep these maps in sync when adding/moving exports:
+
+- `package.json#exports` → `src/*`
+- `package.json#publishConfig.exports` → `dist/*`
 
 ## Guardrails
 
@@ -10,15 +22,8 @@ This library defines schema primitives used across ContractSpec (Zod validation,
 - Prefer additive changes; avoid silently weakening validation or changing scalar semantics.
 - Do not edit `dist/`; source of truth is `src/`.
 
-## Public entrypoints (package.json)
+## Local Commands
 
-Keep these maps in sync when adding/moving exports:
-
-- `packages/libs/schema/package.json#exports` → `src/*`
-- `packages/libs/schema/package.json#publishConfig.exports` → `dist/*`
-
-## Local commands
-
-- Lint: `bun run lint:check` (or `bun run lint:fix`)
 - Build: `bun run build`
 - Dev/watch: `bun run dev`
+- Lint: `bun run lint:check` (or `bun run lint:fix`)
