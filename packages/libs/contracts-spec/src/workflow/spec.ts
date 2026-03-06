@@ -18,6 +18,45 @@ export type WorkflowStatus =
 
 export type GuardConditionKind = 'policy' | 'expression';
 
+export type WorkflowRuntimeAdapterKey =
+  | 'langgraph'
+  | 'langchain'
+  | 'workflow-devkit';
+
+export type WorkflowExecutionErrorKind =
+  | 'fatal'
+  | 'retryable'
+  | 'timeout'
+  | 'guard_rejected'
+  | 'policy_blocked';
+
+export interface WorkflowRuntimeCapabilities {
+  /** Optional adapter availability map for external workflow runtimes. */
+  adapters?: Partial<Record<WorkflowRuntimeAdapterKey, boolean>>;
+  /** Whether workflow execution should persist checkpoints. */
+  checkpointing?: boolean;
+  /** Whether workflow execution supports suspend/resume semantics. */
+  suspendResume?: boolean;
+  /** Whether workflow execution can delegate to approval gateways. */
+  approvalGateway?: boolean;
+}
+
+export interface WorkflowRuntimePorts {
+  /** Symbolic identifier for checkpoint store adapter. */
+  checkpointStore?: string;
+  /** Symbolic identifier for suspend/resume adapter. */
+  suspension?: string;
+  /** Symbolic identifier for retry classifier adapter. */
+  retryClassifier?: string;
+  /** Symbolic identifier for approval gateway adapter. */
+  approvalGateway?: string;
+}
+
+export interface WorkflowRuntimeConfig {
+  capabilities?: WorkflowRuntimeCapabilities;
+  ports?: WorkflowRuntimePorts;
+}
+
 export interface GuardCondition {
   type: GuardConditionKind;
   /** Policy name or expression string depending on the type. */
@@ -92,6 +131,12 @@ export type WorkflowMeta = OwnerShipMeta;
 export interface WorkflowSpec {
   meta: WorkflowMeta;
   definition: WorkflowDefinition;
+  /** Optional runtime config for adapter-first workflow orchestration. */
+  runtime?: WorkflowRuntimeConfig;
+  /** Optional metadata merged by workflow composition overlays. */
+  metadata?: Record<string, unknown>;
+  /** Optional annotations merged by workflow composition overlays. */
+  annotations?: Record<string, unknown>;
   policy?: { flags?: string[] };
   experiments?: ExperimentRef[];
 }

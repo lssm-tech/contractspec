@@ -75,6 +75,20 @@ export type AgentFinishReason =
   | 'other'
   | 'unknown';
 
+export type AgentExecutionErrorKind =
+  | 'fatal'
+  | 'retryable'
+  | 'timeout'
+  | 'guard_rejected'
+  | 'policy_blocked';
+
+export interface AgentExecutionError {
+  kind: AgentExecutionErrorKind;
+  message: string;
+  code?: string;
+  retryAfterMs?: number;
+}
+
 export interface AgentEventPayload {
   sessionId: string;
   agentId: string;

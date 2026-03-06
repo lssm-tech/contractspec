@@ -58,8 +58,8 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@scaleway/sdk": "^3.2.1",
-    "@scaleway/sdk-client": "^2.1.0",
+    "@scaleway/sdk": "^3.3.1",
+    "@scaleway/sdk-client": "^2.2.1",
     "@contractspec/lib.logger": "workspace:*"
   },
   "devDependencies": {

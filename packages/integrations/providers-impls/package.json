@@ -35,13 +35,13 @@
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.contracts-integrations": "workspace:*",
     "@contractspec/integration.runtime": "workspace:*",
-    "@elevenlabs/elevenlabs-js": "^2.36.0",
+    "@elevenlabs/elevenlabs-js": "^2.38.0",
     "@fal-ai/client": "^1.9.4",
     "@google-cloud/storage": "^7.19.0",
     "@linear/sdk": "^76.0.0",
     "@mistralai/mistralai": "^1.14.1",
-    "@notionhq/client": "^5.11.0",
-    "posthog-node": "^5.26.0",
+    "@notionhq/client": "^5.11.1",
+    "posthog-node": "^5.28.0",
     "@qdrant/js-client-rest": "^1.17.0",
     "@confiture-ai/gradium-sdk-js": "^0.1.1",
     "drizzle-orm": "^0.45.1",
@@ -54,7 +54,7 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@types/bun": "1.3.9",
+    "@types/bun": "1.3.10",
     "@contractspec/tool.typescript": "workspace:*",
     "typescript": "catalog:",
     "@contractspec/tool.bun": "workspace:*"

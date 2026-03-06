@@ -52,6 +52,24 @@ describe('ChannelRuntimeService', () => {
     expect(store.receipts.size).toBe(1);
   });
 
+  it('rejects events with invalid signatures before processing', async () => {
+    const store = new InMemoryChannelRuntimeStore();
+    const service = new ChannelRuntimeService(store, {
+      asyncProcessing: false,
+    });
+
+    const result = await service.ingest({
+      ...makeEvent('evt-reject', 'hello'),
+      signatureValid: false,
+    });
+
+    expect(result.status).toBe('rejected');
+    const receipt = store.receipts.get(result.receiptId);
+    expect(receipt?.status).toBe('rejected');
+    expect(store.decisions.size).toBe(0);
+    expect(store.outbox.size).toBe(0);
+  });
+
   it('does not enqueue outbox for blocked decisions', async () => {
     const store = new InMemoryChannelRuntimeStore();
     const service = new ChannelRuntimeService(store, {

@@ -13,11 +13,23 @@ Stateful AI agent orchestration with type-safe specs, tool execution, knowledge 
 ## Features
 
 - Type-safe `AgentSpec` + registry for declarative agent definitions
-- `AgentRunner` with tool calling, iteration caps, and confidence-aware escalation
+- Tool loop orchestration with runtime `maxSteps` overrides and confidence-aware escalation hooks
 - Memory framework that mixes working memory with long-term persistence hooks
-- Tool registry/executor with structured input validation and telemetry hooks
+- Tool registry/executor with structured input validation, timeout, and cooldown controls
 - Approval workflow helpers for human-in-the-loop gates (see `/approval`)
 - MCP client support for `stdio`, `sse`, and `http` transports
+- Adapter-first runtime interop surfaces for LangGraph, LangChain, and workflow-devkit style integrations
+
+## Runtime adapter surfaces
+
+`AgentSpec.runtime` and `interop/runtime-adapters` expose optional ports for:
+
+- checkpoint storage
+- suspend/resume orchestration
+- retry classification
+- approval gateways
+
+These ports are optional by design and keep external runtime dependencies decoupled from core agent contracts.
 
 ## Quickstart
 

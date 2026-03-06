@@ -7,6 +7,10 @@ export interface MessagingPolicyConfig {
   highRiskSignals: string[];
   mediumRiskSignals: string[];
   safeAckTemplate: string;
+  policyRef: {
+    key: string;
+    version: string;
+  };
 }
 
 export const DEFAULT_MESSAGING_POLICY_CONFIG: MessagingPolicyConfig = {
@@ -40,6 +44,10 @@ export const DEFAULT_MESSAGING_POLICY_CONFIG: MessagingPolicyConfig = {
   ],
   safeAckTemplate:
     'Thanks for your message. We received it and are preparing the next step.',
+  policyRef: {
+    key: 'channel.messaging-policy',
+    version: '1.0.0',
+  },
 };
 
 export interface PolicyEvaluationInput {
@@ -67,6 +75,7 @@ export class MessagingPolicyEngine {
         reasons: ['blocked_signal_detected'],
         responseText: this.config.safeAckTemplate,
         requiresApproval: true,
+        policyRef: this.config.policyRef,
       };
     }
 
@@ -78,6 +87,7 @@ export class MessagingPolicyEngine {
         reasons: ['high_risk_topic_detected'],
         responseText: this.config.safeAckTemplate,
         requiresApproval: true,
+        policyRef: this.config.policyRef,
       };
     }
 
@@ -96,6 +106,7 @@ export class MessagingPolicyEngine {
         reasons: ['low_risk_high_confidence'],
         responseText: this.defaultResponseText(input.event),
         requiresApproval: false,
+        policyRef: this.config.policyRef,
       };
     }
 
@@ -107,6 +118,7 @@ export class MessagingPolicyEngine {
         reasons: ['needs_human_review'],
         responseText: this.config.safeAckTemplate,
         requiresApproval: true,
+        policyRef: this.config.policyRef,
       };
     }
 
@@ -117,6 +129,7 @@ export class MessagingPolicyEngine {
       reasons: ['low_confidence'],
       responseText: this.config.safeAckTemplate,
       requiresApproval: true,
+      policyRef: this.config.policyRef,
     };
   }
 

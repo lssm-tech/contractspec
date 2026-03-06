@@ -6,7 +6,7 @@ export const personalization_workflow_composition_DocBlocks: DocBlock[] = [
     id: 'docs.personalization.workflow-composition',
     title: 'Workflow Composition',
     summary:
-      '`@contractspec/lib.workflow-composer` composes base WorkflowSpecs with tenant/role/device-specific extensions.',
+      '`@contractspec/lib.workflow-composer` composes base WorkflowSpecs with tenant/role/device-specific extensions, strict validation, deterministic merge ordering, and metadata/annotation overlays.',
     kind: 'reference',
     visibility: 'public',
     route: '/docs/personalization/workflow-composition',

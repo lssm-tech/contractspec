@@ -7,6 +7,7 @@ export type ChannelTelemetryStage =
 export type ChannelTelemetryStatus =
   | 'accepted'
   | 'duplicate'
+  | 'rejected'
   | 'processed'
   | 'failed'
   | 'sent'

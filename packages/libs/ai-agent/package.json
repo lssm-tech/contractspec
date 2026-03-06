@@ -40,8 +40,8 @@
     "@ai-sdk/mistral": "catalog:ai",
     "@ai-sdk/openai": "catalog:ai",
     "@modelcontextprotocol/sdk": "^1.27.1",
-    "@posthog/react": "^1.8.1",
-    "@posthog/ai": "latest",
+    "@posthog/react": "^1.8.2",
+    "@posthog/ai": "7.9.5",
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.ai-providers": "workspace:*",
     "@contractspec/lib.knowledge": "workspace:*",
@@ -100,6 +100,7 @@
     "./i18n/messages": "./src/i18n/messages.ts",
     "./interop": "./src/interop/index.ts",
     "./interop/index": "./src/interop/index.ts",
+    "./interop/runtime-adapters": "./src/interop/runtime-adapters.ts",
     "./interop/spec-consumer": "./src/interop/spec-consumer.ts",
     "./interop/tool-consumer": "./src/interop/tool-consumer.ts",
     "./interop/types": "./src/interop/types.ts",
@@ -313,6 +314,12 @@
         "bun": "./dist/interop/index.js",
         "node": "./dist/node/interop/index.js",
         "default": "./dist/interop/index.js"
+      },
+      "./interop/runtime-adapters": {
+        "types": "./dist/interop/runtime-adapters.d.ts",
+        "bun": "./dist/interop/runtime-adapters.js",
+        "node": "./dist/node/interop/runtime-adapters.js",
+        "default": "./dist/interop/runtime-adapters.js"
       },
       "./interop/spec-consumer": {
         "types": "./dist/interop/spec-consumer.d.ts",

@@ -29,6 +29,8 @@ describe('channel policy replay fixtures', () => {
       const result = policy.evaluate({ event: makeEvent(fixture.text, index) });
       expect(result.verdict).toBe(fixture.expectedVerdict);
       expect(result.riskTier).toBe(fixture.expectedRiskTier);
+      expect(result.requiresApproval).toBe(fixture.expectedRequiresApproval);
+      expect(result.policyRef?.key).toBe('channel.messaging-policy');
     });
   }
 });

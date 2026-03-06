@@ -81,6 +81,29 @@ export class ChannelRuntimeService {
       latencyMs: Date.now() - startedAtMs,
     });
 
+    if (!event.signatureValid) {
+      await this.store.updateReceiptStatus(claim.receiptId, 'rejected', {
+        code: 'INVALID_SIGNATURE',
+        message: 'Inbound event signature is invalid.',
+      });
+      this.telemetry?.record({
+        stage: 'ingest',
+        status: 'rejected',
+        workspaceId: event.workspaceId,
+        providerKey: event.providerKey,
+        receiptId: claim.receiptId,
+        traceId: event.traceId,
+        latencyMs: Date.now() - startedAtMs,
+        metadata: {
+          errorCode: 'INVALID_SIGNATURE',
+        },
+      });
+      return {
+        status: 'rejected',
+        receiptId: claim.receiptId,
+      };
+    }
+
     const task = async () => {
       await this.processAcceptedEvent(claim.receiptId, event);
     };
@@ -140,6 +163,7 @@ export class ChannelRuntimeService {
         actionPlan: {
           verdict: policyDecision.verdict,
           reasons: policyDecision.reasons,
+          policyRef: policyDecision.policyRef,
         },
         requiresApproval: policyDecision.requiresApproval,
       });

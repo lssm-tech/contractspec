@@ -24,10 +24,10 @@
     },
     "catalogs": {
       "build": {
-        "tsdown": "^0.20.3",
+        "tsdown": "^0.21.0",
         "turbo": "^2.7.4",
         "@changesets/cli": "^2.29.7",
-        "postcss": "^8.5",
+        "postcss": "^8.5.8",
         "tailwindcss": "4.2.1",
         "eslint": "^9.39.2",
         "rimraf": "^6.1.3",
@@ -36,16 +36,16 @@
       "testing": {
         "jest": "^30.2.0",
         "@types/jest": "^30.0.0",
-        "storybook": "^10.2.12"
+        "storybook": "^10.2.15"
       },
       "ai": {
-        "ai": "6.0.103",
-        "@ai-sdk/mcp": "1.0.21",
-        "@ai-sdk/anthropic": "3.0.48",
-        "@ai-sdk/google": "3.0.33",
-        "@ai-sdk/mistral": "3.0.20",
-        "@ai-sdk/openai": "3.0.36",
-        "@ai-sdk/react": "3.0.105",
+        "ai": "6.0.116",
+        "@ai-sdk/mcp": "1.0.25",
+        "@ai-sdk/anthropic": "3.0.58",
+        "@ai-sdk/google": "3.0.43",
+        "@ai-sdk/mistral": "3.0.24",
+        "@ai-sdk/openai": "3.0.41",
+        "@ai-sdk/react": "3.0.118",
         "ollama-ai-provider": "^1.2.0"
       }
     }
@@ -90,12 +90,12 @@
     "i18n:check": "bun run scripts/check-i18n-parity.ts"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.8",
+    "@changesets/cli": "^2.30.0",
     "@contractspec/eslint-plugin-design-system": "workspace:*",
     "@eslint/css": "^0.14.1",
     "@eslint/js": "^9.39.3",
     "@eslint/json": "^1.0.1",
-    "@types/bun": "^1.3.9",
+    "@types/bun": "^1.3.10",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.39.3",
     "eslint-config-prettier": "^10.1.8",
@@ -103,7 +103,7 @@
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-react": "^7.37.5",
-    "globals": "^17.3.0",
+    "globals": "^17.4.0",
     "knip": "^5.85.0",
     "memoirist": "^0.4.0",
     "next": "catalog:",
@@ -112,13 +112,13 @@
     "prettier": "3.8.1",
     "prettier-plugin-prisma": "^5.0.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "turbo-ignore": "^2.8.11",
+    "turbo-ignore": "^2.8.13",
     "typescript-eslint": "^8.56.1"
   },
   "dependencies": {
     "react": "catalog:",
     "react-dom": "catalog:",
-    "turbo": "^2.8.11"
+    "turbo": "^2.8.13"
   },
   "config": {
     "commitizen": {

@@ -196,4 +196,41 @@ describe('validateWorkflowSpec', () => {
       errors(issues).some((issue) => /unknown form/.test(issue.message))
     ).toBe(true);
   });
+
+  it('flags empty runtime port references', () => {
+    const spec = sampleWorkflowSpec();
+    spec.runtime = {
+      ports: {
+        checkpointStore: ' ',
+      },
+    };
+
+    const issues = validateWorkflowSpec(spec);
+    expect(
+      errors(issues).some((issue) =>
+        /runtime port "checkpointStore" must not be empty/.test(issue.message)
+      )
+    ).toBe(true);
+  });
+
+  it('warns when runtime capabilities do not define corresponding ports', () => {
+    const spec = sampleWorkflowSpec();
+    spec.runtime = {
+      capabilities: {
+        checkpointing: true,
+      },
+      ports: {},
+    };
+
+    const issues = validateWorkflowSpec(spec);
+    expect(
+      issues.some(
+        (issue) =>
+          issue.level === 'warning' &&
+          /checkpointing without defining runtime\.ports\.checkpointStore/.test(
+            issue.message
+          )
+      )
+    ).toBe(true);
+  });
 });

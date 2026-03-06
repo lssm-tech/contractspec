@@ -29,7 +29,7 @@
     "readme:inventory": "bun run scripts/update-readme-contract-inventory.ts"
   },
   "dependencies": {
-    "@blocknote/core": "^0.47.0",
+    "@blocknote/core": "^0.47.1",
     "@contractspec/lib.schema": "workspace:*",
     "compare-versions": "^6.1.1",
     "turndown": "^7.2.2",

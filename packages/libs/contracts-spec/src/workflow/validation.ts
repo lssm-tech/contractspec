@@ -67,6 +67,7 @@ export function validateWorkflowSpec(
 
   const adjacency = buildAdjacency(definition, stepsById, issues);
 
+  validateRuntimeConfig(spec, issues);
   validateStepActions(definition.steps, options, issues);
   validateReachability(entryStepId, stepsById, adjacency, issues);
   detectCycles(adjacency, issues);
@@ -183,6 +184,72 @@ function validateTransition(
     issues.push({
       level: 'error',
       message: `Transition ${transition.from} -> ${transition.to} declares an empty condition.`,
+    });
+  }
+}
+
+function validateRuntimeConfig(
+  spec: WorkflowSpec,
+  issues: WorkflowValidationIssue[]
+) {
+  const runtime = spec.runtime;
+  if (!runtime) {
+    return;
+  }
+
+  const adapters = runtime.capabilities?.adapters;
+  if (adapters) {
+    const enabledAdapterKeys = Object.entries(adapters)
+      .filter(([, enabled]) => Boolean(enabled))
+      .map(([key]) => key);
+
+    if (enabledAdapterKeys.length > 1) {
+      issues.push({
+        level: 'warning',
+        message: `Workflow enables multiple runtime adapters (${enabledAdapterKeys.join(', ')}). Ensure adapter routing is deterministic.`,
+      });
+    }
+  }
+
+  const ports = runtime.ports;
+  if (!ports) {
+    return;
+  }
+
+  for (const [portName, portRef] of Object.entries(ports)) {
+    if (portRef === undefined) {
+      continue;
+    }
+
+    if (portRef.trim().length === 0) {
+      issues.push({
+        level: 'error',
+        message: `Workflow runtime port "${portName}" must not be empty when provided.`,
+      });
+    }
+  }
+
+  if (runtime.capabilities?.checkpointing && !ports.checkpointStore) {
+    issues.push({
+      level: 'warning',
+      message:
+        'Workflow enables checkpointing without defining runtime.ports.checkpointStore.',
+    });
+  }
+
+  if (runtime.capabilities?.suspendResume && !ports.suspension) {
+    issues.push({
+      level: 'warning',
+      message:
+        'Workflow enables suspend/resume without defining runtime.ports.suspension.',
+    });
+  }
+
+  if (runtime.capabilities?.approvalGateway && !ports.approvalGateway) {
+    issues.push({
+      level: 'warning',
+      message:
+        'Workflow enables approval gateway without defining runtime.ports.approvalGateway.',
     });
   }
 }

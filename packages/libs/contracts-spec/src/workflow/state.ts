@@ -14,6 +14,7 @@ export interface WorkflowState<
   Data extends Record<string, unknown> = Record<string, unknown>,
 > {
   workflowId: string;
+  traceId?: string;
   workflowName: string;
   workflowVersion: string;
   currentStep: string;

@@ -41,6 +41,10 @@ export interface ChannelPolicyDecision {
   reasons: string[];
   responseText: string;
   requiresApproval: boolean;
+  policyRef?: {
+    key: string;
+    version: string;
+  };
 }
 
 export interface ChannelEventReceiptRecord {
@@ -136,6 +140,6 @@ export interface ChannelDeliveryAttemptRecord {
 }
 
 export interface ChannelIngestResult {
-  status: 'accepted' | 'duplicate';
+  status: 'accepted' | 'duplicate' | 'rejected';
   receiptId: string;
 }
