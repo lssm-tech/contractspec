@@ -1,6 +1,14 @@
 import type { LLMProvider, VoicePacingDirective } from '../types';
+import type { ModelSelector, ModelSelectionContext } from '@contractspec/lib.ai-providers/selector-types';
 import type { TTSScriptSegment } from './types';
 import { PaceAnalyzer } from './pace-analyzer';
+
+export interface EmphasisPlannerOptions {
+  llm?: LLMProvider;
+  model?: string;
+  modelSelector?: ModelSelector;
+  selectionContext?: ModelSelectionContext;
+}
 
 /**
  * Plan emphasis and tone per segment.
@@ -11,11 +19,15 @@ import { PaceAnalyzer } from './pace-analyzer';
 export class EmphasisPlanner {
   private readonly llm?: LLMProvider;
   private readonly model?: string;
+  private readonly modelSelector?: ModelSelector;
+  private readonly selectionContext?: ModelSelectionContext;
   private readonly paceAnalyzer: PaceAnalyzer;
 
-  constructor(options?: { llm?: LLMProvider; model?: string }) {
+  constructor(options?: EmphasisPlannerOptions) {
     this.llm = options?.llm;
     this.model = options?.model;
+    this.modelSelector = options?.modelSelector;
+    this.selectionContext = options?.selectionContext;
     this.paceAnalyzer = new PaceAnalyzer();
   }
 
@@ -40,6 +52,16 @@ export class EmphasisPlanner {
     }
   }
 
+  private async resolveModel(): Promise<string | undefined> {
+    if (this.model) return this.model;
+    if (this.modelSelector) {
+      const ctx = this.selectionContext ?? { taskDimension: "reasoning" as const };
+      const result = await this.modelSelector.select(ctx);
+      return result.modelId;
+    }
+    return undefined;
+  }
+
   private async planWithLlm(
     segments: TTSScriptSegment[],
     baseRate: number
@@ -48,6 +70,7 @@ export class EmphasisPlanner {
       return this.paceAnalyzer.analyze(segments, baseRate);
     }
 
+    const model = await this.resolveModel();
     const response = await this.llm.chat(
       [
         {
@@ -81,7 +104,7 @@ export class EmphasisPlanner {
           ],
         },
       ],
-      { model: this.model, temperature: 0.3, responseFormat: 'json' }
+      { model, temperature: 0.3, responseFormat: 'json' }
     );
 
     const text = response.message.content.find((p) => p.type === 'text');

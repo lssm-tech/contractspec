@@ -21,6 +21,8 @@
     ".": "./src/index.ts",
     "./application": "./src/application/index.ts",
     "./application/index": "./src/application/index.ts",
+    "./application/context-storage": "./src/application/context-storage/index.ts",
+    "./application/context-storage/index": "./src/application/context-storage/index.ts",
     "./application/mcp": "./src/application/mcp/index.ts",
     "./application/mcp/cliMcp": "./src/application/mcp/cliMcp.ts",
     "./application/mcp/common": "./src/application/mcp/common.ts",
@@ -375,11 +377,13 @@
     "@contractspec/lib.contracts-runtime-server-mcp": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.example-shared-ui": "workspace:*",
+    "@contractspec/lib.knowledge": "workspace:*",
     "@contractspec/lib.logger": "workspace:*",
     "@contractspec/lib.runtime-sandbox": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.ui-kit-web": "workspace:*",
     "@contractspec/lib.ui-link": "workspace:*",
+    "@contractspec/module.context-storage": "workspace:*",
     "@contractspec/module.examples": "workspace:*",
     "@dnd-kit/core": "^6.1.0",
     "@dnd-kit/sortable": "^10.0.0",
@@ -427,6 +431,18 @@
         "bun": "./dist/application/index.js",
         "node": "./dist/node/application/index.js",
         "default": "./dist/application/index.js"
+      },
+      "./application/context-storage": {
+        "types": "./dist/application/context-storage/index.d.ts",
+        "bun": "./dist/application/context-storage/index.js",
+        "node": "./dist/node/application/context-storage/index.js",
+        "default": "./dist/application/context-storage/index.js"
+      },
+      "./application/context-storage/index": {
+        "types": "./dist/application/context-storage/index.d.ts",
+        "bun": "./dist/application/context-storage/index.js",
+        "node": "./dist/node/application/context-storage/index.js",
+        "default": "./dist/application/context-storage/index.js"
       },
       "./application/mcp": {
         "types": "./dist/application/mcp/index.d.ts",

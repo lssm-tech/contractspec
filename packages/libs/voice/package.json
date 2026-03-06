@@ -35,7 +35,8 @@
   "dependencies": {
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.contracts-integrations": "workspace:*",
-    "@contractspec/lib.content-gen": "workspace:*"
+    "@contractspec/lib.content-gen": "workspace:*",
+    "@contractspec/lib.ai-providers": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",

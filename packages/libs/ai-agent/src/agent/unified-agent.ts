@@ -27,6 +27,7 @@
  */
 import type { LanguageModel } from 'ai';
 import type { ProviderConfig } from '@contractspec/lib.ai-providers/types';
+import type { ModelSelector, ModelSelectionContext } from '@contractspec/lib.ai-providers/selector-types';
 import type { AgentSpec } from '../spec/spec';
 import type { McpClientConfig } from '../tools/mcp-client';
 import type {
@@ -63,6 +64,8 @@ export interface UnifiedAgentBackendConfig {
     temperature?: number;
     maxTokens?: number;
     mcpServers?: McpClientConfig[];
+    modelSelector?: ModelSelector;
+    selectionContext?: ModelSelectionContext;
   };
   'claude-agent-sdk'?: ClaudeAgentSDKConfig;
   'opencode-sdk'?: OpenCodeSDKConfig;
@@ -349,7 +352,12 @@ export class UnifiedAgent {
     const backendConfig = this.getAISDKConfig();
     let model: LanguageModel;
 
-    if (backendConfig?.modelInstance) {
+    if (backendConfig?.modelSelector && backendConfig.selectionContext) {
+      const result = await backendConfig.modelSelector.selectAndCreate(
+        backendConfig.selectionContext,
+      );
+      model = result.model;
+    } else if (backendConfig?.modelInstance) {
       model = backendConfig.modelInstance;
     } else if (backendConfig?.provider) {
       const { createProvider } =

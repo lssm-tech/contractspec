@@ -55,9 +55,11 @@
     "./pipeline/lifecycle-pipeline": "./src/pipeline/lifecycle-pipeline.ts",
     "./telemetry/posthog-baseline-reader": "./src/telemetry/posthog-baseline-reader.ts",
     "./telemetry/posthog-telemetry": "./src/telemetry/posthog-telemetry.ts",
+    "./telemetry/model-selection-telemetry": "./src/telemetry/model-selection-telemetry.ts",
     "./tracing": "./src/tracing/index.ts",
     "./tracing/index": "./src/tracing/index.ts",
-    "./tracing/middleware": "./src/tracing/middleware.ts"
+    "./tracing/middleware": "./src/tracing/middleware.ts",
+    "./tracing/model-selection": "./src/tracing/model-selection.span.ts"
   },
   "publishConfig": {
     "access": "public",

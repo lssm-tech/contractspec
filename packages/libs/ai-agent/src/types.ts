@@ -117,6 +117,8 @@ export interface AgentCallOptions {
   metadata?: Record<string, string>;
   /** Locale override for this call */
   locale?: string;
+  /** Model selection context for ranking-driven model routing */
+  selectionContext?: import('@contractspec/lib.ai-providers/selector-types').ModelSelectionContext;
 }
 
 // ============================================================================

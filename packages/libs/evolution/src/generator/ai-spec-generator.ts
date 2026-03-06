@@ -2,6 +2,7 @@ import type { LanguageModel } from 'ai';
 import { generateText, Output } from 'ai';
 import * as z from 'zod';
 import { randomUUID } from 'node:crypto';
+import type { ModelSelector, ModelSelectionContext } from '@contractspec/lib.ai-providers/selector-types';
 import type {
   EvolutionConfig,
   IntentPattern,
@@ -48,6 +49,10 @@ export interface AISpecGeneratorConfig {
   evolutionConfig?: EvolutionConfig;
   /** Custom system prompt */
   systemPrompt?: string;
+  /** Ranking-driven model selector for dynamic model routing */
+  modelSelector?: ModelSelector;
+  /** Per-call selection context override */
+  selectionContext?: ModelSelectionContext;
 }
 
 /**
@@ -60,9 +65,13 @@ export class AISpecGenerator {
   private readonly model: LanguageModel;
   private readonly config: EvolutionConfig;
   private readonly systemPrompt: string;
+  private readonly modelSelector?: ModelSelector;
+  private readonly selectionContext?: ModelSelectionContext;
 
   constructor(options: AISpecGeneratorConfig) {
     this.model = options.model;
+    this.modelSelector = options.modelSelector;
+    this.selectionContext = options.selectionContext;
     this.config = options.evolutionConfig ?? {};
     this.systemPrompt =
       options.systemPrompt ??
@@ -76,6 +85,15 @@ When generating suggestions:
 5. Estimate impact and risk accurately`;
   }
 
+  private async resolveModel(): Promise<LanguageModel> {
+    if (this.modelSelector) {
+      const ctx = this.selectionContext ?? { taskDimension: "reasoning" as const };
+      const { model } = await this.modelSelector.selectAndCreate(ctx);
+      return model;
+    }
+    return this.model;
+  }
+
   /**
    * Generate a spec suggestion from an intent pattern using AI.
    */
@@ -87,10 +105,11 @@ When generating suggestions:
     } = {}
   ): Promise<SpecSuggestion> {
     const prompt = this.buildPrompt(intent, options);
+    const model = await this.resolveModel();
 
     // AI SDK v6: Output.object() only takes { schema }
     const { output } = await generateText({
-      model: this.model,
+      model,
       system: this.systemPrompt,
       prompt,
       output: Output.object({
@@ -138,9 +157,10 @@ ${suggestion.evidence.map((e) => `- ${e.type}: ${e.description}`).join('\n')}
 
 Please provide an improved version with more specific recommendations.`;
 
+    const model = await this.resolveModel();
     // AI SDK v6: Output.object() only takes { schema }
     const { output } = await generateText({
-      model: this.model,
+      model,
       system: this.systemPrompt,
       prompt,
       output: Output.object({

@@ -5,6 +5,8 @@ import {
   type Tracer,
 } from '@opentelemetry/api';
 
+export * from './model-selection.span';
+
 const DEFAULT_TRACER_NAME = '@contractspec/lib.observability';
 
 export function getTracer(name: string = DEFAULT_TRACER_NAME): Tracer {

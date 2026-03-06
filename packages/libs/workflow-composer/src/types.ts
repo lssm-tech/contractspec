@@ -1,7 +1,23 @@
 import type {
   Step,
+  StepModelHints,
   WorkflowSpec,
 } from '@contractspec/lib.contracts-spec/workflow';
+import type { ModelSelector } from '@contractspec/lib.ai-providers/selector-types';
+
+/**
+ * Context provided to operation executors during workflow step execution.
+ * Includes an optional ranking-driven model selector for AI-powered steps.
+ */
+export interface OperationExecutorContext {
+  tenantId?: string;
+  role?: string;
+  /** Ranking-driven model selector; executors should use this when selecting AI models. */
+  modelSelector?: ModelSelector;
+  /** Model hints from the current step, if any. */
+  stepModelHints?: StepModelHints;
+  metadata?: Record<string, unknown>;
+}
 
 export interface WorkflowExtensionScope {
   tenantId?: string;

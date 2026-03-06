@@ -1,5 +1,6 @@
 import type { LanguageModel, Tool } from 'ai';
 import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
+import type { ModelSelector } from '@contractspec/lib.ai-providers/selector-types';
 import type { AgentSpec } from '../spec/spec';
 import type { AgentRegistry } from '../spec/registry';
 import type { ToolHandler } from '../types';
@@ -36,6 +37,8 @@ export interface AgentFactoryConfig {
   additionalTools?: Record<string, Tool<unknown, unknown>>;
   /** MCP servers to provide to all agents */
   mcpServers?: McpClientConfig[];
+  /** Ranking-driven model selector for dynamic per-call routing */
+  modelSelector?: ModelSelector;
 }
 
 /**
@@ -135,6 +138,7 @@ export class AgentFactory {
       posthogConfig: this.config.posthogConfig,
       additionalTools: mergedTools,
       mcpServers: mergedMcpServers.length > 0 ? mergedMcpServers : undefined,
+      modelSelector: this.config.modelSelector,
     });
   }
 

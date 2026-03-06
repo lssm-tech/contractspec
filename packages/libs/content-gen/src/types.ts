@@ -1,4 +1,5 @@
 import type { LLMProvider } from '@contractspec/lib.contracts-integrations';
+import type { ModelSelector, ModelSelectionContext } from '@contractspec/lib.ai-providers/selector-types';
 
 export interface AudienceProfile {
   role: string;
@@ -42,6 +43,10 @@ export interface GeneratorOptions {
   temperature?: number;
   /** Locale for generated content and LLM prompts (defaults to "en") */
   locale?: string;
+  /** Ranking-driven model selector for dynamic model routing */
+  modelSelector?: ModelSelector;
+  /** Per-call selection context override */
+  selectionContext?: ModelSelectionContext;
 }
 
 export interface EmailCampaignBrief {

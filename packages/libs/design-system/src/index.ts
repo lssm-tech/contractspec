@@ -25,6 +25,8 @@ export {
   PlaceChip,
   DurationChip,
 } from './components/atoms/DataChips';
+export { ScoreBar, type ScoreBarProps } from './components/atoms/ScoreBar';
+export { RankBadge, type RankBadgeProps } from './components/atoms/RankBadge';
 
 // Molecules
 export { NavMain } from './components/molecules/NavMain';
@@ -107,6 +109,11 @@ export {
   type EntityCardIconTone,
 } from './components/molecules/EntityCard';
 export { StatCard, StatCardGroup } from './components/molecules/StatCard';
+export {
+  DimensionScoresCard,
+  type DimensionScoresCardProps,
+  type DimensionScore as DimensionScoreDisplay,
+} from './components/molecules/DimensionScoresCard';
 export { OverviewCard } from './components/molecules/OverviewCard';
 export { HoverPreview } from './components/molecules/HoverPreview';
 export { HoverPreviewSimple } from './components/molecules/hover-previews/Simple';
@@ -131,6 +138,11 @@ export { ListPageTemplate } from './components/templates/lists/ListPageTemplate'
 export { AiLinkButton } from './components/molecules/AiLinkButton';
 export { EmptyDataList } from './components/organisms/EmptyDataList';
 export { EmptySearchResult } from './components/organisms/EmptySearchResult';
+export {
+  ModelComparisonView,
+  type ModelComparisonViewProps,
+  type ComparisonModel,
+} from './components/organisms/ModelComparisonView';
 // Loaders & Skeletons
 export { LoaderCircular } from './components/atoms/LoaderCircular';
 export { LoaderBlock } from './components/molecules/LoaderBlock';

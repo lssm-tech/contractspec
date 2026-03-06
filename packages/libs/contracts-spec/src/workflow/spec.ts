@@ -78,6 +78,15 @@ export interface StepAction {
   form?: FormRef;
 }
 
+export interface StepModelHints {
+  /** Preferred benchmark dimension for model selection. */
+  dimension?: string;
+  /** Weighted priorities across multiple dimensions. */
+  priorities?: Array<{ dimension: string; weight: number }>;
+  /** Hard constraints for model filtering. */
+  constraints?: Record<string, unknown>;
+}
+
 export interface Step {
   id: string;
   type: StepType;
@@ -91,6 +100,8 @@ export interface Step {
   requiredIntegrations?: string[];
   /** Capabilities that must be enabled for this step to execute. */
   requiredCapabilities?: CapabilityRef[];
+  /** Hints for ranking-driven AI model selection on this step. */
+  modelHints?: StepModelHints;
 }
 
 export interface Transition {

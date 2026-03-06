@@ -11,6 +11,7 @@ import * as z from 'zod';
 import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
 import type { AgentSpec } from '../spec/spec';
 import { agentKey } from '../spec/spec';
+import type { ModelSelector } from '@contractspec/lib.ai-providers/selector-types';
 import type {
   AgentCallOptions,
   AgentExecutionError,
@@ -72,6 +73,8 @@ export interface ContractSpecAgentConfig {
   additionalTools?: Record<string, ExecutableTool>;
   /** MCP servers to connect and expose as tools */
   mcpServers?: McpClientConfig[];
+  /** Ranking-driven model selector for dynamic per-call routing */
+  modelSelector?: ModelSelector;
 }
 
 /**
@@ -489,6 +492,13 @@ export class ContractSpecAgent {
     traceId: string;
     options?: AgentCallOptions;
   }): Promise<LanguageModel> {
+    if (this.config.modelSelector && params.options?.selectionContext) {
+      const { model } = await this.config.modelSelector.selectAndCreate(
+        params.options.selectionContext,
+      );
+      return model;
+    }
+
     const posthogConfig = this.config.posthogConfig;
     if (!posthogConfig) {
       return this.config.model;

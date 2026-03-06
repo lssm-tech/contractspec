@@ -37,6 +37,8 @@ export class VideoGenerator {
       temperature: options?.temperature,
       fps: this.fps,
       locale: options?.locale,
+      modelSelector: options?.modelSelector,
+      selectionContext: options?.selectionContext,
     });
   }
 

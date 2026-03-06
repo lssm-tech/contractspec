@@ -364,11 +364,13 @@
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.design-system": "workspace:*",
         "@contractspec/lib.example-shared-ui": "workspace:*",
+        "@contractspec/lib.knowledge": "workspace:*",
         "@contractspec/lib.logger": "workspace:*",
         "@contractspec/lib.runtime-sandbox": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
         "@contractspec/lib.ui-kit-web": "workspace:*",
         "@contractspec/lib.ui-link": "workspace:*",
+        "@contractspec/module.context-storage": "workspace:*",
         "@contractspec/module.examples": "workspace:*",
         "@dnd-kit/core": "^6.1.0",
         "@dnd-kit/sortable": "^10.0.0",
@@ -1482,6 +1484,15 @@
         "typescript": "catalog:",
       },
     },
+    "packages/libs/context-storage": {
+      "name": "@contractspec/lib.context-storage",
+      "version": "0.1.0",
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
     "packages/libs/contracts": {
       "name": "@contractspec/lib.contracts",
       "version": "2.0.0",
@@ -2097,6 +2108,15 @@
         "@contractspec/lib.observability": "workspace:*",
       },
     },
+    "packages/libs/provider-ranking": {
+      "name": "@contractspec/lib.provider-ranking",
+      "version": "0.1.0",
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
     "packages/libs/runtime-sandbox": {
       "name": "@contractspec/lib.runtime-sandbox",
       "version": "2.0.0",
@@ -2491,6 +2511,21 @@
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
         "zod": "catalog:",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/modules/context-storage": {
+      "name": "@contractspec/module.context-storage",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.context-storage": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+        "@contractspec/lib.knowledge": "workspace:*",
+        "@contractspec/lib.schema": "workspace:*",
       },
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
@@ -3323,6 +3358,8 @@
 
     "@contractspec/lib.content-gen": ["@contractspec/lib.content-gen@workspace:packages/libs/content-gen"],
 
+    "@contractspec/lib.context-storage": ["@contractspec/lib.context-storage@workspace:packages/libs/context-storage"],
+
     "@contractspec/lib.contracts": ["@contractspec/lib.contracts@workspace:packages/libs/contracts"],
 
     "@contractspec/lib.contracts-integrations": ["@contractspec/lib.contracts-integrations@workspace:packages/libs/contracts-integrations"],
@@ -3397,6 +3434,8 @@
 
     "@contractspec/lib.progressive-delivery": ["@contractspec/lib.progressive-delivery@workspace:packages/libs/progressive-delivery"],
 
+    "@contractspec/lib.provider-ranking": ["@contractspec/lib.provider-ranking@workspace:packages/libs/provider-ranking"],
+
     "@contractspec/lib.runtime-sandbox": ["@contractspec/lib.runtime-sandbox@workspace:packages/libs/runtime-sandbox"],
 
     "@contractspec/lib.schema": ["@contractspec/lib.schema@workspace:packages/libs/schema"],
@@ -3428,6 +3467,8 @@
     "@contractspec/module.alpic": ["@contractspec/module.alpic@workspace:packages/modules/alpic"],
 
     "@contractspec/module.audit-trail": ["@contractspec/module.audit-trail@workspace:packages/modules/audit-trail"],
+
+    "@contractspec/module.context-storage": ["@contractspec/module.context-storage@workspace:packages/modules/context-storage"],
 
     "@contractspec/module.examples": ["@contractspec/module.examples@workspace:packages/modules/examples"],
 

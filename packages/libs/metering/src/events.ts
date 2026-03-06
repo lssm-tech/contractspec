@@ -249,6 +249,40 @@ export const ThresholdApproachingEvent = defineEvent({
   payload: ThresholdApproachingPayload,
 });
 
+// ============ Model Selection Event ============
+
+const ModelSelectionPayload = defineSchemaModel({
+  name: 'ModelSelectionEventPayload',
+  description: 'Payload when an AI model is selected via ranking',
+  fields: {
+    modelId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    providerKey: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    dimension: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    score: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
+    reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    alternativesCount: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    costEstimateInput: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
+    costEstimateOutput: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
+    selectionDurationMs: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
+    timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
+  },
+});
+
+/**
+ * Emitted when a model is selected via ranking-driven selection.
+ */
+export const ModelSelectionEvent = defineEvent({
+  meta: {
+    key: 'model.selected',
+    version: '1.0.0',
+    description: 'An AI model has been selected via ranking-driven selection.',
+    stability: 'experimental',
+    owners: ['@platform.metering'],
+    tags: ['metering', 'ai', 'model-selection'],
+  },
+  payload: ModelSelectionPayload,
+});
+
 /**
  * All metering events.
  */
@@ -261,4 +295,5 @@ export const MeteringEvents = {
   ThresholdCreatedEvent,
   ThresholdExceededEvent,
   ThresholdApproachingEvent,
+  ModelSelectionEvent,
 };

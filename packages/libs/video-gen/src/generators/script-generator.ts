@@ -9,6 +9,7 @@ import type {
   LLMMessage,
   LLMProvider,
 } from '@contractspec/lib.contracts-integrations/integrations/providers/llm';
+import type { ModelSelector, ModelSelectionContext } from '@contractspec/lib.ai-providers/selector-types';
 import type { ContentBrief } from '@contractspec/lib.content-gen/types';
 import type { NarrationConfig } from '@contractspec/lib.contracts-integrations/integrations/providers/video';
 import { createVideoGenI18n } from '../i18n';
@@ -39,6 +40,8 @@ export interface ScriptGeneratorOptions {
   model?: string;
   temperature?: number;
   locale?: string;
+  modelSelector?: ModelSelector;
+  selectionContext?: ModelSelectionContext;
 }
 
 export class ScriptGenerator {
@@ -46,12 +49,16 @@ export class ScriptGenerator {
   private readonly model?: string;
   private readonly temperature: number;
   private readonly i18n: VideoGenI18n;
+  private readonly modelSelector?: ModelSelector;
+  private readonly selectionContext?: ModelSelectionContext;
 
   constructor(options?: ScriptGeneratorOptions) {
     this.llm = options?.llm;
     this.model = options?.model;
     this.temperature = options?.temperature ?? 0.5;
     this.i18n = createVideoGenI18n(options?.locale);
+    this.modelSelector = options?.modelSelector;
+    this.selectionContext = options?.selectionContext;
   }
 
   /**
@@ -158,6 +165,16 @@ export class ScriptGenerator {
     };
   }
 
+  private async resolveModel(): Promise<string | undefined> {
+    if (this.model) return this.model;
+    if (this.modelSelector) {
+      const ctx = this.selectionContext ?? { taskDimension: "reasoning" as const };
+      const result = await this.modelSelector.select(ctx);
+      return result.modelId;
+    }
+    return undefined;
+  }
+
   // -- LLM-enhanced generation ----------------------------------------------
 
   private async generateWithLlm(
@@ -198,8 +215,9 @@ export class ScriptGenerator {
     }
 
     try {
+      const model = await this.resolveModel();
       const response = await this.llm.chat(messages, {
-        model: this.model,
+        model,
         temperature: this.temperature,
         responseFormat: 'json',
       });
