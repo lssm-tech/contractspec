@@ -1,5 +1,16 @@
 # @contractspec/lib.progressive-delivery
 
+## 27.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- Updated dependencies [b781ce6]
+  - @contractspec/lib.observability@3.0.0
+
 ## 26.0.1
 
 ### Patch Changes

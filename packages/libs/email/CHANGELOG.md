@@ -1,5 +1,16 @@
 # @contractspec/lib.email
 
+## 3.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- Updated dependencies [b781ce6]
+  - @contractspec/lib.logger@3.0.0
+
 ## 2.9.0
 
 ### Minor Changes

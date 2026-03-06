@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/app.cursor-marketplace",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "description": "Cursor marketplace catalog for ContractSpec product and core libraries",

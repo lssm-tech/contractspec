@@ -1,5 +1,42 @@
 # @contractspec/bundle.marketing
 
+## 3.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- Updated dependencies [7cbdb7f]
+- Updated dependencies [0c438ac]
+- Updated dependencies [c608804]
+- Updated dependencies [e3bc858]
+- Updated dependencies [b19ae0a]
+- Updated dependencies [aa4a9c9]
+- Updated dependencies [95c27e4]
+- Updated dependencies [3aa6269]
+- Updated dependencies [b781ce6]
+  - @contractspec/lib.contracts-spec@3.0.0
+  - @contractspec/bundle.library@3.0.0
+  - @contractspec/example.integration-hub@3.0.0
+  - @contractspec/lib.contracts-runtime-client-react@3.0.0
+  - @contractspec/example.analytics-dashboard@3.0.0
+  - @contractspec/example.saas-boilerplate@3.0.0
+  - @contractspec/example.workflow-system@3.0.0
+  - @contractspec/example.agent-console@3.0.0
+  - @contractspec/lib.example-shared-ui@3.0.0
+  - @contractspec/example.crm-pipeline@3.0.0
+  - @contractspec/example.marketplace@3.0.0
+  - @contractspec/lib.runtime-sandbox@2.0.0
+  - @contractspec/lib.design-system@3.0.0
+  - @contractspec/lib.ui-kit-core@3.0.0
+  - @contractspec/module.examples@3.0.0
+  - @contractspec/lib.ui-kit-web@3.0.0
+  - @contractspec/lib.ui-link@3.0.0
+  - @contractspec/lib.logger@3.0.0
+  - @contractspec/lib.email@3.0.0
+
 ## 2.9.1
 
 ### Patch Changes

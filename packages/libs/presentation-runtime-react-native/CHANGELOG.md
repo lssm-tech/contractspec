@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 27.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- Updated dependencies [b781ce6]
+  - @contractspec/lib.presentation-runtime-core@3.0.0
+  - @contractspec/lib.ui-kit@3.0.0
+
 ## 26.0.0
 
 ### Minor Changes

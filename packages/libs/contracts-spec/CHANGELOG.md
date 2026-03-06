@@ -1,5 +1,35 @@
 # @contractspec/lib.contracts-spec
 
+## 3.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Minor Changes
+
+- 7cbdb7f: Make Mistral a first-class provider across contracts, runtime adapters, model catalogs, and CLI provider resolution so teams can run end-to-end Mistral workflows without custom patching.
+
+  Add Mistral STT and conversational contract/runtime coverage plus a new `mistralvibe` agentpacks target, while keeping legacy provider flows backward compatible.
+
+- c608804: Add a new messaging integration category and provider contracts for Slack, GitHub, WhatsApp Meta, and WhatsApp Twilio, plus provider implementation wiring for outbound delivery.
+
+  Introduce an AI-native channel runtime with webhook normalization/signature verification, policy gating, idempotent ingest, outbox dispatch/retry flow, API ingress routes, scheduler dispatch support, and end-to-end integration coverage in api-library.
+
+- b19ae0a: Refine health transport resolution with deterministic strategy fallbacks, provider-level capability gating, and explicit unofficial-route credential checks.
+
+  Add reusable provider normalizers, split health implementations into focused modules, and support OAuth refresh-token configuration (`oauthTokenUrl`, `tokenExpiresAt`) across health provider contracts, docs, and factory tests.
+
+### Patch Changes
+
+- e3bc858: Fix lint stability across workspaces by pinning ESLint's AJV resolver compatibility and removing an incompatible minimatch override that caused jsx-a11y runtime failures.
+
+  Apply strict-type and lint compliance updates across health contracts and channel runtime code paths, including empty-interface aliases, dynamic env cleanup in integration tests, and normalized array typing with full lint/build/test validation.
+
+- aa4a9c9: Add a first control-plane contract baseline with typed commands, queries, events, capabilities, and registry helpers for intent, execution, policy, audit, and skill governance workflows.
+- Updated dependencies [b781ce6]
+  - @contractspec/lib.schema@3.0.0
+
 ## 2.10.0
 
 ### Minor Changes

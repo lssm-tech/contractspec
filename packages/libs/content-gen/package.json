@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.content-gen",
-  "version": "2.9.1",
+  "version": "3.0.0",
   "description": "AI-powered content generation for blog, email, and social",
   "keywords": [
     "contractspec",

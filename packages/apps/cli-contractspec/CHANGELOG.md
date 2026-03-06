@@ -1,5 +1,40 @@
 # Changelog
 
+## 3.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- 7cbdb7f: Make Mistral a first-class provider across contracts, runtime adapters, model catalogs, and CLI provider resolution so teams can run end-to-end Mistral workflows without custom patching.
+
+  Add Mistral STT and conversational contract/runtime coverage plus a new `mistralvibe` agentpacks target, while keeping legacy provider flows backward compatible.
+
+- c608804: Add a new messaging integration category and provider contracts for Slack, GitHub, WhatsApp Meta, and WhatsApp Twilio, plus provider implementation wiring for outbound delivery.
+
+  Introduce an AI-native channel runtime with webhook normalization/signature verification, policy gating, idempotent ingest, outbox dispatch/retry flow, API ingress routes, scheduler dispatch support, and end-to-end integration coverage in api-library.
+
+- Updated dependencies [7cbdb7f]
+- Updated dependencies [c608804]
+- Updated dependencies [e3bc858]
+- Updated dependencies [b19ae0a]
+- Updated dependencies [aa4a9c9]
+- Updated dependencies [b781ce6]
+  - @contractspec/lib.contracts-spec@3.0.0
+  - @contractspec/lib.contracts-integrations@3.0.0
+  - @contractspec/lib.ai-providers@3.0.0
+  - @contractspec/module.workspace@3.0.0
+  - @contractspec/bundle.workspace@3.0.0
+  - @contractspec/lib.contracts-transformers@3.0.0
+  - @contractspec/module.examples@3.0.0
+  - @contractspec/module.ai-chat@3.0.0
+  - @contractspec/lib.ai-agent@3.0.0
+  - @contractspec/lib.plugins@3.0.0
+  - @contractspec/lib.testing@3.0.0
+  - @contractspec/lib.schema@3.0.0
+
 ## 2.9.1
 
 ### Patch Changes

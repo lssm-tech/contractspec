@@ -1,5 +1,18 @@
 # @contractspec/lib.accessibility
 
+## 3.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- Updated dependencies [b781ce6]
+  - @contractspec/lib.design-system@3.0.0
+  - @contractspec/lib.ui-kit-web@3.0.0
+  - @contractspec/lib.ui-kit@3.0.0
+
 ## 2.9.1
 
 ### Patch Changes

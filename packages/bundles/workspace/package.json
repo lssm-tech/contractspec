@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/bundle.workspace",
-  "version": "2.9.1",
+  "version": "3.0.0",
   "description": "Workspace utilities for monorepo development",
   "keywords": [
     "contractspec",
