@@ -1,5 +1,22 @@
 # @contractspec/example.learning-journey-ui-coaching
 
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/example.learning-journey-crm-onboarding@3.2.0
+  - @contractspec/example.learning-journey-ambient-coach@3.2.0
+  - @contractspec/example.learning-journey-ui-shared@3.2.0
+  - @contractspec/module.learning-journey@3.2.0
+  - @contractspec/lib.contracts-spec@3.2.0
+  - @contractspec/lib.design-system@3.2.0
+  - @contractspec/lib.ui-kit-web@3.2.0
+
 ## 3.1.1
 
 ### Patch Changes

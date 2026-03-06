@@ -1,5 +1,16 @@
 # @contractspec/lib.progressive-delivery
 
+## 29.0.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/lib.observability@3.2.0
+
 ## 28.0.1
 
 ### Patch Changes

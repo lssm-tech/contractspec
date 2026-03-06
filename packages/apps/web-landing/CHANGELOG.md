@@ -1,5 +1,35 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/example.policy-safe-knowledge-assistant@3.2.0
+  - @contractspec/example.analytics-dashboard@3.2.0
+  - @contractspec/example.saas-boilerplate@3.2.0
+  - @contractspec/lib.progressive-delivery@29.0.0
+  - @contractspec/example.integration-hub@3.2.0
+  - @contractspec/example.workflow-system@3.2.0
+  - @contractspec/example.agent-console@3.2.0
+  - @contractspec/lib.example-shared-ui@3.2.0
+  - @contractspec/example.crm-pipeline@3.2.0
+  - @contractspec/example.in-app-docs@3.2.0
+  - @contractspec/example.marketplace@3.2.0
+  - @contractspec/lib.contracts-spec@3.2.0
+  - @contractspec/lib.design-system@3.2.0
+  - @contractspec/bundle.marketing@3.2.0
+  - @contractspec/lib.ui-kit-core@3.2.0
+  - @contractspec/module.examples@3.2.0
+  - @contractspec/bundle.library@3.2.0
+  - @contractspec/lib.ui-kit-web@3.2.0
+  - @contractspec/lib.ui-link@3.2.0
+  - @contractspec/lib.ui-kit@3.2.0
+
 ## 3.1.1
 
 ### Patch Changes

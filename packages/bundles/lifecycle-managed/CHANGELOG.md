@@ -1,5 +1,21 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/module.lifecycle-advisor@3.2.0
+  - @contractspec/module.lifecycle-core@3.2.0
+  - @contractspec/lib.observability@3.2.0
+  - @contractspec/lib.analytics@3.2.0
+  - @contractspec/lib.lifecycle@3.2.0
+  - @contractspec/lib.ai-agent@3.2.0
+
 ## 3.1.1
 
 ### Patch Changes

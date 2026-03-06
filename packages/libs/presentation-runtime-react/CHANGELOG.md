@@ -1,5 +1,19 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 29.0.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/lib.presentation-runtime-core@3.2.0
+  - @contractspec/lib.contracts-spec@3.2.0
+  - @contractspec/lib.design-system@3.2.0
+  - @contractspec/lib.ui-kit-web@3.2.0
+
 ## 28.0.1
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @contractspec/lib.accessibility
 
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/lib.design-system@3.2.0
+  - @contractspec/lib.ui-kit-web@3.2.0
+  - @contractspec/lib.ui-kit@3.2.0
+
 ## 3.1.1
 
 ### Patch Changes

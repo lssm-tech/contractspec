@@ -1,5 +1,18 @@
 # @contractspec/example.meeting-recorder-providers
 
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/integration.providers-impls@3.2.0
+  - @contractspec/lib.contracts-integrations@3.2.0
+  - @contractspec/lib.contracts-spec@3.2.0
+
 ## 3.1.1
 
 ### Patch Changes

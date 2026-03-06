@@ -1,5 +1,27 @@
 # @contractspec/example.learning-journey-registry
 
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/example.learning-journey-studio-onboarding@3.2.0
+  - @contractspec/example.learning-journey-quest-challenges@3.2.0
+  - @contractspec/example.learning-journey-crm-onboarding@3.2.0
+  - @contractspec/example.learning-journey-ambient-coach@3.2.0
+  - @contractspec/example.learning-journey-platform-tour@3.2.0
+  - @contractspec/example.learning-journey-ui-onboarding@3.2.0
+  - @contractspec/example.learning-journey-ui-coaching@3.2.0
+  - @contractspec/example.learning-journey-ui-gamified@3.2.0
+  - @contractspec/example.learning-journey-duo-drills@3.2.0
+  - @contractspec/example.learning-journey-ui-shared@3.2.0
+  - @contractspec/module.learning-journey@3.2.0
+  - @contractspec/lib.contracts-spec@3.2.0
+
 ## 3.1.1
 
 ### Patch Changes

@@ -1,5 +1,20 @@
 # @contractspec/lib.personalization
 
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/lib.contracts-spec@3.2.0
+  - @contractspec/lib.overlay-engine@3.2.0
+  - @contractspec/lib.knowledge@3.2.0
+  - @contractspec/lib.schema@3.2.0
+  - @contractspec/lib.bus@3.2.0
+
 ## 3.1.1
 
 ### Patch Changes

@@ -1,5 +1,22 @@
 # @contractspec/lib.video-gen
 
+## 2.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/lib.contracts-integrations@3.2.0
+  - @contractspec/lib.contracts-spec@3.2.0
+  - @contractspec/lib.design-system@3.2.0
+  - @contractspec/lib.ai-providers@3.2.0
+  - @contractspec/lib.content-gen@3.2.0
+  - @contractspec/lib.image-gen@1.2.0
+  - @contractspec/lib.voice@1.2.0
+
 ## 2.1.1
 
 ### Patch Changes

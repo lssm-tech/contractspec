@@ -1,5 +1,20 @@
 # @contractspec/app.provider-ranking-mcp
 
+## 1.1.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/lib.contracts-runtime-server-mcp@3.2.0
+  - @contractspec/module.provider-ranking@0.2.0
+  - @contractspec/lib.provider-ranking@0.2.0
+  - @contractspec/lib.contracts-spec@3.2.0
+  - @contractspec/lib.logger@3.2.0
+
 ## 1.0.2
 
 ### Patch Changes

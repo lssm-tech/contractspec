@@ -1,5 +1,20 @@
 # @contractspec/example.personalization
 
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/lib.workflow-composer@3.2.0
+  - @contractspec/lib.personalization@3.2.0
+  - @contractspec/lib.contracts-spec@3.2.0
+  - @contractspec/lib.overlay-engine@3.2.0
+  - @contractspec/lib.logger@3.2.0
+
 ## 3.1.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.contracts-spec",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "description": "Spec definitions and registries for ContractSpec",
   "keywords": [
     "contractspec",

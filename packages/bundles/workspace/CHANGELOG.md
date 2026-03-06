@@ -1,5 +1,23 @@
 # @contractspec/bundle.workspace
 
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/lib.contracts-integrations@3.2.0
+  - @contractspec/lib.contracts-transformers@3.2.0
+  - @contractspec/lib.source-extractors@2.2.0
+  - @contractspec/lib.utils-typescript@3.2.0
+  - @contractspec/lib.contracts-spec@3.2.0
+  - @contractspec/lib.ai-providers@3.2.0
+  - @contractspec/module.workspace@3.2.0
+  - @contractspec/lib.ai-agent@3.2.0
+
 ## 3.1.1
 
 ### Patch Changes

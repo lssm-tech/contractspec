@@ -1,5 +1,19 @@
 # @contractspec/example.lifecycle-cli
 
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/bundle.lifecycle-managed@3.2.0
+  - @contractspec/lib.contracts-spec@3.2.0
+  - @contractspec/lib.lifecycle@3.2.0
+  - @contractspec/lib.logger@3.2.0
+
 ## 3.1.1
 
 ### Patch Changes

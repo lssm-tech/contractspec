@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.jobs",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "description": "Background jobs and scheduler module for ContractSpec applications",
   "keywords": [
     "contractspec",

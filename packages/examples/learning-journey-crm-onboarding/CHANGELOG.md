@@ -1,5 +1,19 @@
 # @contractspec/example.learning-journey-crm-onboarding
 
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/module.learning-journey@3.2.0
+  - @contractspec/example.crm-pipeline@3.2.0
+  - @contractspec/lib.contracts-spec@3.2.0
+  - @contractspec/lib.schema@3.2.0
+
 ## 3.1.1
 
 ### Patch Changes

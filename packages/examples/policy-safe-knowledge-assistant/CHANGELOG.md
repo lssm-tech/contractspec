@@ -1,5 +1,25 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/example.locale-jurisdiction-gate@3.2.0
+  - @contractspec/example.versioned-knowledge-base@3.2.0
+  - @contractspec/example.kb-update-pipeline@3.2.0
+  - @contractspec/example.learning-patterns@3.2.0
+  - @contractspec/module.learning-journey@3.2.0
+  - @contractspec/lib.example-shared-ui@3.2.0
+  - @contractspec/lib.runtime-sandbox@2.2.0
+  - @contractspec/lib.contracts-spec@3.2.0
+  - @contractspec/lib.design-system@3.2.0
+  - @contractspec/lib.ui-kit-web@3.2.0
+
 ## 3.1.1
 
 ### Patch Changes
