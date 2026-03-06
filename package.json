@@ -113,13 +113,13 @@
     "prettier": "3.8.1",
     "prettier-plugin-prisma": "^5.0.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "turbo-ignore": "^2.8.13",
+    "turbo-ignore": "^2.8.14",
     "typescript-eslint": "^8.56.1"
   },
   "dependencies": {
     "react": "catalog:",
     "react-dom": "catalog:",
-    "turbo": "^2.8.13"
+    "turbo": "^2.8.14"
   },
   "config": {
     "commitizen": {
@@ -142,12 +142,12 @@
     "diff": "8.0.3",
     "esbuild": "0.27.3",
     "nativewind": "5.0.0-preview.2",
-    "expo": "^54.0.0",
+    "expo": "^55",
     "fast-xml-parser": "5.3.6",
     "hono": "4.11.10",
     "lodash": "4.17.23",
-    "react-native": "0.81.4",
-    "react-native-css": "3.0.0",
+    "react-native": "0.83",
+    "react-native-css": "3.0.4",
     "semver": "7.7.4",
     "tar": "7.5.8",
     "tmp": "0.2.5",
