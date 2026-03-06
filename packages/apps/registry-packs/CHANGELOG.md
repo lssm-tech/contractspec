@@ -1,5 +1,11 @@
 # @contractspec/app.registry-packs
 
+## 1.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
 ## 1.0.0
 
 ### Major Changes

@@ -1,5 +1,25 @@
 # @contractspec/module.ai-chat
 
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [f2a4faf]
+- Updated dependencies [28987eb]
+- Updated dependencies [28987eb]
+  - @contractspec/lib.contracts-spec@3.1.0
+  - @contractspec/lib.ai-agent@3.1.0
+  - @contractspec/lib.cost-tracking@3.1.0
+  - @contractspec/lib.design-system@3.1.0
+  - @contractspec/lib.ai-providers@3.1.0
+  - @contractspec/lib.ui-kit-web@3.1.0
+  - @contractspec/lib.metering@3.1.0
+  - @contractspec/lib.schema@3.1.0
+
 ## 3.0.0
 
 ### Major Changes

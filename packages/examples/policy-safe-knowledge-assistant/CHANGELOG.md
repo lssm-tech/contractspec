@@ -1,5 +1,27 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [f2a4faf]
+- Updated dependencies [28987eb]
+- Updated dependencies [28987eb]
+  - @contractspec/lib.contracts-spec@3.1.0
+  - @contractspec/example.locale-jurisdiction-gate@3.1.0
+  - @contractspec/example.versioned-knowledge-base@3.1.0
+  - @contractspec/example.kb-update-pipeline@3.1.0
+  - @contractspec/example.learning-patterns@3.1.0
+  - @contractspec/module.learning-journey@3.1.0
+  - @contractspec/lib.example-shared-ui@3.1.0
+  - @contractspec/lib.runtime-sandbox@2.1.0
+  - @contractspec/lib.design-system@3.1.0
+  - @contractspec/lib.ui-kit-web@3.1.0
+
 ## 3.0.0
 
 ### Major Changes

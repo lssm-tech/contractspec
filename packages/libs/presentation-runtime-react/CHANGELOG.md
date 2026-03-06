@@ -1,5 +1,21 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 28.0.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [f2a4faf]
+- Updated dependencies [28987eb]
+- Updated dependencies [28987eb]
+  - @contractspec/lib.contracts-spec@3.1.0
+  - @contractspec/lib.presentation-runtime-core@3.1.0
+  - @contractspec/lib.design-system@3.1.0
+  - @contractspec/lib.ui-kit-web@3.1.0
+
 ## 27.0.0
 
 ### Major Changes

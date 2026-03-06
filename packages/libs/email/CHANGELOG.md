@@ -1,5 +1,16 @@
 # @contractspec/lib.email
 
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [28987eb]
+  - @contractspec/lib.logger@3.1.0
+
 ## 3.0.0
 
 ### Major Changes

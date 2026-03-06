@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 2.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
 ## 2.0.0
 
 ### Major Changes

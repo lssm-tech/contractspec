@@ -1,5 +1,18 @@
 # @contractspec/lib.lifecycle
 
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [f2a4faf]
+- Updated dependencies [28987eb]
+- Updated dependencies [28987eb]
+  - @contractspec/lib.contracts-spec@3.1.0
+
 ## 3.0.0
 
 ### Major Changes

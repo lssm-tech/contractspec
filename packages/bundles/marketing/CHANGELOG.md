@@ -1,5 +1,36 @@
 # @contractspec/bundle.marketing
 
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [f2a4faf]
+- Updated dependencies [28987eb]
+- Updated dependencies [28987eb]
+  - @contractspec/lib.contracts-spec@3.1.0
+  - @contractspec/lib.contracts-runtime-client-react@3.1.0
+  - @contractspec/example.analytics-dashboard@3.1.0
+  - @contractspec/example.saas-boilerplate@3.1.0
+  - @contractspec/example.integration-hub@3.1.0
+  - @contractspec/example.workflow-system@3.1.0
+  - @contractspec/example.agent-console@3.1.0
+  - @contractspec/lib.example-shared-ui@3.1.0
+  - @contractspec/example.crm-pipeline@3.1.0
+  - @contractspec/example.marketplace@3.1.0
+  - @contractspec/lib.runtime-sandbox@2.1.0
+  - @contractspec/lib.design-system@3.1.0
+  - @contractspec/lib.ui-kit-core@3.1.0
+  - @contractspec/module.examples@3.1.0
+  - @contractspec/bundle.library@3.1.0
+  - @contractspec/lib.ui-kit-web@3.1.0
+  - @contractspec/lib.ui-link@3.1.0
+  - @contractspec/lib.logger@3.1.0
+  - @contractspec/lib.email@3.1.0
+
 ## 3.0.0
 
 ### Major Changes

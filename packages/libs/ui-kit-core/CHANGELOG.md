@@ -1,5 +1,11 @@
 # @contractspec/lib.ui-kit-core
 
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
 ## 3.0.0
 
 ### Major Changes

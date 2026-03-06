@@ -1,5 +1,24 @@
 # @contractspec/lib.contracts-spec
 
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: Harden workflow and agent loop execution with stricter validation, deterministic composition ordering, runtime timeout/cooldown controls, and pause/resume-capable workflow execution semantics.
+
+  Add adapter-first runtime interop surfaces and safer channel ingest policy gating so teams can adopt LangGraph/LangChain/useworkflow-style integrations without coupling core ContractSpec contracts to vendor runtimes.
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- f2a4faf: Automate the `contracts-spec` README contract inventory section from package exports and `ContractSpecType`, so category/kind listings stay accurate as new contracts are added.
+
+  Add `bun run readme:inventory` and a generator script to refresh the inventory block with counts, per-category matrices, and fully enumerated contract artifact lists.
+
+- Updated dependencies [28987eb]
+  - @contractspec/lib.schema@3.1.0
+
 ## 3.0.0
 
 ### Major Changes

@@ -1,5 +1,22 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [28987eb]
+- Updated dependencies [28987eb]
+  - @contractspec/lib.ai-agent@3.1.0
+  - @contractspec/module.lifecycle-advisor@3.1.0
+  - @contractspec/module.lifecycle-core@3.1.0
+  - @contractspec/lib.observability@3.1.0
+  - @contractspec/lib.analytics@3.1.0
+  - @contractspec/lib.lifecycle@3.1.0
+
 ## 3.0.0
 
 ### Major Changes

@@ -1,5 +1,15 @@
 # @contractspec/lib.ai-providers
 
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- @contractspec/lib.provider-ranking@0.1.0
+
 ## 3.0.0
 
 ### Major Changes

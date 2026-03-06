@@ -1,5 +1,23 @@
 # @contractspec/lib.workflow-composer
 
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: Harden workflow and agent loop execution with stricter validation, deterministic composition ordering, runtime timeout/cooldown controls, and pause/resume-capable workflow execution semantics.
+
+  Add adapter-first runtime interop surfaces and safer channel ingest policy gating so teams can adopt LangGraph/LangChain/useworkflow-style integrations without coupling core ContractSpec contracts to vendor runtimes.
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [f2a4faf]
+- Updated dependencies [28987eb]
+- Updated dependencies [28987eb]
+  - @contractspec/lib.contracts-spec@3.1.0
+  - @contractspec/lib.ai-providers@3.1.0
+
 ## 3.0.0
 
 ### Major Changes

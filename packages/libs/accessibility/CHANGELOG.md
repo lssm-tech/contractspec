@@ -1,5 +1,18 @@
 # @contractspec/lib.accessibility
 
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [28987eb]
+  - @contractspec/lib.design-system@3.1.0
+  - @contractspec/lib.ui-kit-web@3.1.0
+  - @contractspec/lib.ui-kit@3.1.0
+
 ## 3.0.0
 
 ### Major Changes
