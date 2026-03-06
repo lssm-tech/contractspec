@@ -72,6 +72,14 @@
     "contentPath": "metrics/metrics.md"
   },
   {
+    "id": "metrics/model.selected",
+    "title": "model.selected",
+    "summary": "An AI model has been selected via ranking-driven selection.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.metering\n- **Tags**: metering, ai, model-selection",
+    "route": "/docs/reference/metrics/model.selected",
+    "source": "generated",
+    "contentPath": "metrics/model.selected.md"
+  },
+  {
     "id": "metrics/threshold.approaching",
     "title": "threshold.approaching",
     "summary": "Usage is approaching a threshold.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @platform.metering\n- **Tags**: metering, threshold\n- **File**: `packages/libs/metering/src/events.ts`",

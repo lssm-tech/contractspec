@@ -120,6 +120,14 @@
     "contentPath": "platform.integrations/email.postmark.md"
   },
   {
+    "id": "platform.integrations/fallback.composio",
+    "title": "fallback.composio",
+    "summary": "Composio integration platform providing 850+ toolkits as a universal fallback for unsupported provider keys.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.integrations\n- **Tags**: composio, fallback, mcp, universal",
+    "route": "/docs/reference/platform.integrations/fallback.composio",
+    "source": "generated",
+    "contentPath": "platform.integrations/fallback.composio.md"
+  },
+  {
     "id": "platform.integrations/integrations",
     "title": "integrations",
     "summary": "Core integrations capability for third-party connections\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.core\n- **Tags**: integrations, platform\n- **File**: `packages/libs/contracts-spec/src/integrations/integrations.capability.ts`",

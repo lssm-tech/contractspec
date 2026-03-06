@@ -1,0 +1,3 @@
+# provider-ranking.benchmark.results.list
+
+Returns individual benchmark data points filterable by source, model, and dimension.

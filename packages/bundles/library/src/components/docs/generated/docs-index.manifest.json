@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-02-27T08:24:14.176Z",
-  "total": 808,
+  "generatedAt": "2026-03-06T15:57:43.601Z",
+  "total": 901,
   "version": null,
   "contentRoot": "../../../../../../../generated/docs",
   "chunks": [
     {
       "key": "_common",
       "file": "docs-index._common.json",
-      "total": 89
+      "total": 180
     },
     {
       "key": "agent-console",
@@ -117,7 +117,7 @@
     {
       "key": "metrics",
       "file": "docs-index.metrics.json",
-      "total": 24
+      "total": 25
     },
     {
       "key": "notifications",
@@ -132,7 +132,7 @@
     {
       "key": "platform.integrations",
       "file": "docs-index.platform-integrations.json",
-      "total": 39
+      "total": 40
     },
     {
       "key": "platform.knowledge",
