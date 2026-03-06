@@ -1,5 +1,7 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+import type { IntegrationTransportConfig } from '../transport';
+import type { IntegrationAuthConfig } from '../auth';
 
 export const supabasePostgresIntegrationSpec = defineIntegration({
   meta: {
@@ -15,6 +17,15 @@ export const supabasePostgresIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Beta,
   },
   supportedModes: ['managed', 'byok'],
+  transports: [
+    { type: 'rest' },
+    { type: 'sdk', packageName: '@supabase/supabase-js' },
+  ],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    { type: 'api-key' },
+    { type: 'basic' },
+  ],
   capabilities: {
     provides: [{ key: 'database.sql', version: '1.0.0' }],
   },
@@ -64,6 +75,8 @@ export const supabasePostgresIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Create or reuse a Supabase project and provide a Postgres connection string with permissions aligned to your workload.',
+    keyRotationSupported: true,
+    quotaTrackingSupported: false,
   },
 });
 

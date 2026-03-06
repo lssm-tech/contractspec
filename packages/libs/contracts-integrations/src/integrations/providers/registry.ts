@@ -1,4 +1,8 @@
-import { IntegrationSpecRegistry } from '../spec';
+import { IntegrationSpecRegistry, type IntegrationSpec } from '../spec';
+import type { IntegrationTransportType } from '../transport';
+import { supportsTransport } from '../transport';
+import type { IntegrationAuthType } from '../auth';
+import { supportsAuthMethod } from '../auth';
 
 import { registerStripeIntegration } from './stripe';
 import { registerPostmarkIntegration } from './postmark';
@@ -90,4 +94,52 @@ export function createDefaultIntegrationSpecRegistry(): IntegrationSpecRegistry 
   registerPelotonIntegration(registry);
 
   return registry;
+}
+
+/**
+ * Filter specs that support a given transport type.
+ */
+export function filterByTransport(
+  specs: IntegrationSpec[],
+  transport: IntegrationTransportType,
+): IntegrationSpec[] {
+  return specs.filter(
+    (s) => s.transports && supportsTransport(s.transports, transport),
+  );
+}
+
+/**
+ * Filter specs that support a given auth method.
+ */
+export function filterByAuthMethod(
+  specs: IntegrationSpec[],
+  method: IntegrationAuthType,
+): IntegrationSpec[] {
+  return specs.filter(
+    (s) =>
+      s.supportedAuthMethods &&
+      supportsAuthMethod(s.supportedAuthMethods, method),
+  );
+}
+
+/**
+ * Filter specs that have a version policy (API versioning support).
+ */
+export function filterVersioned(
+  specs: IntegrationSpec[],
+): IntegrationSpec[] {
+  return specs.filter((s) => s.versionPolicy !== undefined);
+}
+
+/**
+ * Filter specs that support BYOK with key rotation.
+ */
+export function filterByokRotatable(
+  specs: IntegrationSpec[],
+): IntegrationSpec[] {
+  return specs.filter(
+    (s) =>
+      s.supportedModes.includes('byok') &&
+      s.byokSetup?.keyRotationSupported === true,
+  );
 }

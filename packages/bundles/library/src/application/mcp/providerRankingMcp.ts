@@ -15,10 +15,16 @@ import z from 'zod';
 import { createMcpElysiaHandler } from './common';
 import { appLogger } from '../../infrastructure/elysia/logger';
 import type { ProviderRankingStore } from '@contractspec/lib.provider-ranking/store';
+import type { ProviderTransportSupport, ProviderAuthSupport } from '@contractspec/lib.provider-ranking/types';
 import { InMemoryProviderRankingStore } from '@contractspec/lib.provider-ranking/in-memory-store';
 import { createDefaultIngesterRegistry } from '@contractspec/lib.provider-ranking/ingesters';
 import { computeModelRankings } from '@contractspec/lib.provider-ranking/scoring';
 import { normalizeBenchmarkResults } from '@contractspec/lib.provider-ranking/scoring';
+
+const TransportFilterSchema = z.enum(["rest", "mcp", "webhook", "sdk"]).optional();
+const AuthFilterSchema = z.enum([
+  "api-key", "oauth2", "bearer", "header", "basic", "webhook-signing", "service-account",
+]).optional();
 
 const RANKING_TAGS = ['ranking', 'mcp', 'ai'];
 const RANKING_OWNERS = ['platform.ai'];
@@ -40,14 +46,21 @@ function buildRankingResources() {
       meta: {
         uriTemplate: 'ranking://leaderboard',
         title: 'AI Model Leaderboard',
-        description: 'Current ranked list of AI models by composite score.',
+        description: 'Current ranked list of AI models by composite score. Supports optional transport and authMethod query filters.',
         mimeType: 'application/json',
         tags: RANKING_TAGS,
       },
-      input: z.object({}),
-      resolve: async () => {
+      input: z.object({
+        transport: TransportFilterSchema,
+        authMethod: AuthFilterSchema,
+      }),
+      resolve: async ({ transport, authMethod }) => {
         const store = getStore();
-        const result = await store.listModelRankings({ limit: 100 });
+        const result = await store.listModelRankings({
+          limit: 100,
+          requiredTransport: transport as ProviderTransportSupport | undefined,
+          requiredAuthMethod: authMethod as ProviderAuthSupport | undefined,
+        });
         return {
           uri: 'ranking://leaderboard',
           mimeType: 'application/json',
@@ -62,16 +75,22 @@ function buildRankingResources() {
       meta: {
         uriTemplate: 'ranking://leaderboard/{dimension}',
         title: 'AI Model Leaderboard by Dimension',
-        description: 'Ranked list of AI models filtered by a specific dimension.',
+        description: 'Ranked list of AI models filtered by a specific dimension. Supports optional transport and authMethod query filters.',
         mimeType: 'application/json',
         tags: RANKING_TAGS,
       },
-      input: z.object({ dimension: z.string() }),
-      resolve: async ({ dimension }) => {
+      input: z.object({
+        dimension: z.string(),
+        transport: TransportFilterSchema,
+        authMethod: AuthFilterSchema,
+      }),
+      resolve: async ({ dimension, transport, authMethod }) => {
         const store = getStore();
         const result = await store.listModelRankings({
           dimension: dimension as "coding" | "reasoning" | "agentic" | "cost" | "latency" | "context" | "safety" | "custom",
           limit: 100,
+          requiredTransport: transport as ProviderTransportSupport | undefined,
+          requiredAuthMethod: authMethod as ProviderAuthSupport | undefined,
         });
         return {
           uri: `ranking://leaderboard/${encodeURIComponent(dimension)}`,
@@ -163,22 +182,43 @@ function buildRankingPrompts() {
           required: false,
           schema: z.string().optional(),
         },
+        {
+          name: 'transport',
+          description: 'Required transport type (rest, mcp, webhook, sdk).',
+          required: false,
+          schema: TransportFilterSchema,
+        },
+        {
+          name: 'authMethod',
+          description: 'Required auth method (api-key, oauth2, bearer, etc.).',
+          required: false,
+          schema: AuthFilterSchema,
+        },
       ],
       input: z.object({
         task: z.string(),
         priority: z.string().optional(),
+        transport: TransportFilterSchema,
+        authMethod: AuthFilterSchema,
       }),
-      render: async ({ task, priority }) => [
-        {
-          type: 'text' as const,
-          text: `Recommend the best AI model for: "${task}".${priority ? ` Prioritize: ${priority}.` : ''} Use the leaderboard data to justify your recommendation.`,
-        },
-        {
-          type: 'resource' as const,
-          uri: priority ? `ranking://leaderboard/${priority}` : 'ranking://leaderboard',
-          title: 'Leaderboard',
-        },
-      ],
+      render: async ({ task, priority, transport, authMethod }) => {
+        const constraints: string[] = [];
+        if (priority) constraints.push(`Prioritize: ${priority}.`);
+        if (transport) constraints.push(`Required transport: ${transport}.`);
+        if (authMethod) constraints.push(`Required auth: ${authMethod}.`);
+
+        return [
+          {
+            type: 'text' as const,
+            text: `Recommend the best AI model for: "${task}".${constraints.length ? ` ${constraints.join(' ')}` : ''} Use the leaderboard data to justify your recommendation.`,
+          },
+          {
+            type: 'resource' as const,
+            uri: priority ? `ranking://leaderboard/${priority}` : 'ranking://leaderboard',
+            title: 'Leaderboard',
+          },
+        ];
+      },
     }),
   );
 
@@ -212,7 +252,7 @@ function buildRankingOps() {
       source,
       resultsCount: normalized.length,
       status: 'completed',
-      ingestedAt: new Date().toISOString(),
+      ingestedAt: new Date(),
     };
   });
 
@@ -222,7 +262,7 @@ function buildRankingOps() {
       evalSuiteKey: args.evalSuiteKey,
       modelId: args.modelId,
       status: 'started',
-      startedAt: new Date().toISOString(),
+      startedAt: new Date(),
     };
   });
 
@@ -261,7 +301,7 @@ function buildRankingOps() {
 
     return {
       modelsRanked: newRankings.length,
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date(),
       status: 'completed',
     };
   });

@@ -94,6 +94,12 @@ export interface VideoGeneratorOptions {
   modelSelector?: ModelSelector;
   /** Per-call selection context override */
   selectionContext?: ModelSelectionContext;
+  /** Transport mode for video/LLM providers. */
+  transport?: "rest" | "mcp" | "sdk";
+  /** Auth method for video/LLM providers. */
+  authMethod?: "api-key" | "oauth2" | "bearer";
+  /** Custom auth headers for video/LLM providers. */
+  authHeaders?: Record<string, string>;
 }
 
 // -- Generated Video --------------------------------------------------------

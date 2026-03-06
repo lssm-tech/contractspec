@@ -1,4 +1,7 @@
 import type { IntegrationOwnershipMode } from './spec';
+import type { IntegrationTransportType } from './transport';
+import type { IntegrationAuthType, OAuth2TokenState } from './auth';
+import type { ByokKeyMetadata } from './byok';
 
 export type ConnectionStatus =
   | 'connected'
@@ -53,4 +56,17 @@ export interface IntegrationConnection {
   health?: IntegrationConnectionHealth;
   /** Usage tracking. */
   usage?: IntegrationUsageMetrics;
+
+  /** Which transport this connection is currently using. */
+  activeTransport?: IntegrationTransportType;
+  /** Transport-specific runtime config overrides. */
+  transportConfig?: Record<string, unknown>;
+  /** Which auth method this connection is using. */
+  authMethod?: IntegrationAuthType;
+  /** OAuth2 token state when authMethod is "oauth2". */
+  oauth2State?: OAuth2TokenState;
+  /** Provider API version this connection targets. */
+  apiVersion?: string;
+  /** BYOK key lifecycle metadata (only when ownershipMode is "byok"). */
+  byokKeyMetadata?: ByokKeyMetadata;
 }

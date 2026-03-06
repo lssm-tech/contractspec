@@ -1,5 +1,7 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+import type { IntegrationTransportConfig } from '../transport';
+import type { IntegrationAuthConfig } from '../auth';
 
 export const messagingWhatsappTwilioIntegrationSpec = defineIntegration({
   meta: {
@@ -15,6 +17,14 @@ export const messagingWhatsappTwilioIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Beta,
   },
   supportedModes: ['managed', 'byok'],
+  transports: [
+    { type: 'rest', baseUrl: 'https://api.twilio.com' },
+    { type: 'webhook', inbound: { signatureHeader: 'x-twilio-signature', signingAlgorithm: 'hmac-sha1' } },
+  ],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    { type: 'basic' },
+  ],
   capabilities: {
     provides: [
       { key: 'messaging.inbound', version: '1.0.0' },
@@ -69,6 +79,8 @@ export const messagingWhatsappTwilioIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Create a Twilio project with WhatsApp sender provisioning, then provide account SID/auth token and sender number.',
+    keyRotationSupported: true,
+    quotaTrackingSupported: false,
   },
 });
 

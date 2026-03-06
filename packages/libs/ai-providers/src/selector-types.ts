@@ -20,6 +20,10 @@ export interface ModelSelectionContext {
   constraints?: ModelConstraints;
   /** Opaque metadata forwarded to telemetry/observability. */
   metadata?: Record<string, unknown>;
+  /** Required transport mode. */
+  requiredTransport?: 'rest' | 'mcp' | 'sdk';
+  /** Required auth method. */
+  requiredAuthMethod?: 'api-key' | 'oauth2' | 'bearer';
 }
 
 export interface ModelSelectionResult {

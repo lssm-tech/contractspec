@@ -1,5 +1,7 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+import type { IntegrationTransportConfig } from '../transport';
+import type { IntegrationAuthConfig } from '../auth';
 
 export const mistralConversationalIntegrationSpec = defineIntegration({
   meta: {
@@ -15,6 +17,13 @@ export const mistralConversationalIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Experimental,
   },
   supportedModes: ['managed', 'byok'],
+  transports: [
+    { type: 'rest', baseUrl: 'https://api.mistral.ai' },
+  ] satisfies IntegrationTransportConfig[],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    { type: 'api-key', headerName: 'Authorization', prefix: 'Bearer ' },
+  ] satisfies IntegrationAuthConfig[],
   capabilities: {
     provides: [{ key: 'ai.voice.conversational', version: '1.0.0' }],
   },
@@ -74,6 +83,8 @@ export const mistralConversationalIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Create a Mistral API key, enable conversation-capable models for your account, and configure default turn detection settings.',
+    keyRotationSupported: true,
+    quotaTrackingSupported: true,
   },
 });
 

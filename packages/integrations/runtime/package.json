@@ -71,7 +71,12 @@
     "./secrets/gcp-secret-manager": "./src/secrets/gcp-secret-manager.ts",
     "./secrets/index": "./src/secrets/index.ts",
     "./secrets/manager": "./src/secrets/manager.ts",
-    "./secrets/provider": "./src/secrets/provider.ts"
+    "./secrets/provider": "./src/secrets/provider.ts",
+    "./transport": "./src/transport/index.ts",
+    "./transport/auth-resolver": "./src/transport/auth-resolver.ts",
+    "./transport/index": "./src/transport/index.ts",
+    "./transport/transport-factory": "./src/transport/transport-factory.ts",
+    "./transport/version-negotiator": "./src/transport/version-negotiator.ts"
   },
   "publishConfig": {
     "access": "public",
@@ -231,6 +236,36 @@
         "bun": "./dist/secrets/provider.js",
         "node": "./dist/node/secrets/provider.js",
         "default": "./dist/secrets/provider.js"
+      },
+      "./transport": {
+        "types": "./dist/transport/index.d.ts",
+        "bun": "./dist/transport/index.js",
+        "node": "./dist/node/transport/index.js",
+        "default": "./dist/transport/index.js"
+      },
+      "./transport/auth-resolver": {
+        "types": "./dist/transport/auth-resolver.d.ts",
+        "bun": "./dist/transport/auth-resolver.js",
+        "node": "./dist/node/transport/auth-resolver.js",
+        "default": "./dist/transport/auth-resolver.js"
+      },
+      "./transport/index": {
+        "types": "./dist/transport/index.d.ts",
+        "bun": "./dist/transport/index.js",
+        "node": "./dist/node/transport/index.js",
+        "default": "./dist/transport/index.js"
+      },
+      "./transport/transport-factory": {
+        "types": "./dist/transport/transport-factory.d.ts",
+        "bun": "./dist/transport/transport-factory.js",
+        "node": "./dist/node/transport/transport-factory.js",
+        "default": "./dist/transport/transport-factory.js"
+      },
+      "./transport/version-negotiator": {
+        "types": "./dist/transport/version-negotiator.d.ts",
+        "bun": "./dist/transport/version-negotiator.js",
+        "node": "./dist/node/transport/version-negotiator.js",
+        "default": "./dist/transport/version-negotiator.js"
       }
     },
     "registry": "https://registry.npmjs.org/"

@@ -4,6 +4,12 @@ import type {
   CapabilityRequirement,
 } from '@contractspec/lib.contracts-spec/capabilities';
 import { SpecContractRegistry } from '@contractspec/lib.contracts-spec/registry';
+import type {
+  IntegrationTransportConfig,
+  IntegrationTransportType,
+} from './transport';
+import type { IntegrationAuthConfig } from './auth';
+import type { IntegrationVersionPolicy } from './versioning';
 
 export type IntegrationCategory =
   | 'payments'
@@ -61,6 +67,14 @@ export interface IntegrationByokSetup {
   setupInstructions?: string;
   /** Required scopes/permissions for BYOK accounts. */
   requiredScopes?: string[];
+  /** Provider endpoint that can be called to validate a BYOK key. */
+  validationEndpoint?: string;
+  /** Whether the provider supports programmatic key rotation. */
+  keyRotationSupported?: boolean;
+  /** Whether quota usage can be tracked per BYOK key. */
+  quotaTrackingSupported?: boolean;
+  /** Ordered steps a tenant must follow to provision BYOK credentials. */
+  provisioningSteps?: string[];
 }
 
 export interface IntegrationHealthCheck {
@@ -91,6 +105,15 @@ export interface IntegrationSpec {
   };
   /** Provider-specific metadata for BYOK setup flows. */
   byokSetup?: IntegrationByokSetup;
+
+  /** Transports this integration supports (REST, MCP, Webhook, SDK). */
+  transports?: IntegrationTransportConfig[];
+  /** Preferred transport when multiple are available. */
+  preferredTransport?: IntegrationTransportType;
+  /** Authentication methods this integration supports. */
+  supportedAuthMethods?: IntegrationAuthConfig[];
+  /** API version policy for this provider. */
+  versionPolicy?: IntegrationVersionPolicy;
 }
 
 const integrationKey = (meta: Pick<IntegrationMeta, 'key' | 'version'>) =>

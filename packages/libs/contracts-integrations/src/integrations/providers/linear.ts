@@ -1,5 +1,7 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+import type { IntegrationTransportConfig } from '../transport';
+import type { IntegrationAuthConfig } from '../auth';
 
 export const linearIntegrationSpec = defineIntegration({
   meta: {
@@ -15,6 +17,16 @@ export const linearIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Beta,
   },
   supportedModes: ['managed', 'byok'],
+  transports: [
+    { type: 'rest', baseUrl: 'https://api.linear.app' },
+    { type: 'webhook', inbound: { signatureHeader: 'linear-signature', signingAlgorithm: 'hmac-sha256' } },
+    { type: 'sdk', packageName: '@linear/sdk' },
+  ],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    { type: 'api-key' },
+    { type: 'oauth2', grantType: 'authorization_code', authorizationUrl: 'https://linear.app/oauth/authorize', tokenUrl: 'https://api.linear.app/oauth/token', scopes: ['read', 'write', 'issues:create'] },
+  ],
   capabilities: {
     provides: [{ key: 'project-management.work-items', version: '1.0.0' }],
   },
@@ -82,6 +94,8 @@ export const linearIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Create a Linear API key with issue:write permission and store it as a secret.',
+    keyRotationSupported: true,
+    quotaTrackingSupported: false,
   },
 });
 

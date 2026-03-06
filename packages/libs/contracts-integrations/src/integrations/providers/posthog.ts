@@ -1,5 +1,7 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+import type { IntegrationTransportConfig } from '../transport';
+import type { IntegrationAuthConfig } from '../auth';
 
 export const posthogIntegrationSpec = defineIntegration({
   meta: {
@@ -15,6 +17,15 @@ export const posthogIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Beta,
   },
   supportedModes: ['managed', 'byok'],
+  transports: [
+    { type: 'rest' },
+    { type: 'mcp', transport: 'http' },
+    { type: 'sdk', packageName: 'posthog-node' },
+  ] satisfies IntegrationTransportConfig[],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    { type: 'api-key' },
+  ] satisfies IntegrationAuthConfig[],
   capabilities: {
     provides: [
       { key: 'analytics.events', version: '1.0.0' },
@@ -83,6 +94,8 @@ export const posthogIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Generate a PostHog personal API key for read/write operations and a project API key for event capture.',
+    keyRotationSupported: true,
+    quotaTrackingSupported: false,
   },
 });
 

@@ -1,5 +1,7 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+import type { IntegrationTransportConfig } from '../transport';
+import type { IntegrationAuthConfig } from '../auth';
 
 export const firefliesIntegrationSpec = defineIntegration({
   meta: {
@@ -15,6 +17,15 @@ export const firefliesIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Experimental,
   },
   supportedModes: ['byok'],
+  transports: [
+    { type: 'rest', baseUrl: 'https://api.fireflies.ai/graphql' },
+    { type: 'webhook', inbound: { signatureHeader: 'x-fireflies-signature', signingAlgorithm: 'hmac-sha256' } },
+  ],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    { type: 'api-key' },
+    { type: 'webhook-signing', algorithm: 'hmac-sha256', signatureHeader: 'x-fireflies-signature' },
+  ],
   capabilities: {
     provides: [
       { key: 'meeting-recorder.meetings.read', version: '1.0.0' },
@@ -84,6 +95,8 @@ export const firefliesIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Create a Fireflies API key and optionally configure webhook settings in Developer Settings.',
+    keyRotationSupported: false,
+    quotaTrackingSupported: false,
   },
 });
 

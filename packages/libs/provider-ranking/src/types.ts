@@ -79,6 +79,12 @@ export interface ModelProfile {
   capabilities: string[];
   ranking: ModelRanking | null;
   benchmarkResults: BenchmarkResult[];
+  /** Transports supported by this model's provider. */
+  supportedTransports?: ProviderTransportSupport[];
+  /** Auth methods supported by this model's provider. */
+  supportedAuthMethods?: ProviderAuthSupport[];
+  /** Whether the provider supports BYOK. */
+  byokSupported?: boolean;
 }
 
 export interface BenchmarkResultQuery {
@@ -101,6 +107,10 @@ export interface RankingQuery {
   providerKey?: string;
   limit?: number;
   offset?: number;
+  /** Filter by required transport support. */
+  requiredTransport?: ProviderTransportSupport;
+  /** Filter by required auth method. */
+  requiredAuthMethod?: ProviderAuthSupport;
 }
 
 export interface RankingListResult {
@@ -118,6 +128,9 @@ export interface IngestionRun {
   completedAt: Date | null;
   error: string | null;
 }
+
+export type ProviderTransportSupport = "rest" | "mcp" | "webhook" | "sdk";
+export type ProviderAuthSupport = "api-key" | "oauth2" | "bearer" | "header" | "basic" | "webhook-signing" | "service-account";
 
 export interface DimensionWeightConfig {
   dimension: BenchmarkDimension;

@@ -1,5 +1,7 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+import type { IntegrationTransportConfig } from '../transport';
+import type { IntegrationAuthConfig } from '../auth';
 
 export const openaiImageIntegrationSpec = defineIntegration({
   meta: {
@@ -15,6 +17,14 @@ export const openaiImageIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Experimental,
   },
   supportedModes: ['managed', 'byok'],
+  transports: [
+    { type: 'rest', baseUrl: 'https://api.openai.com' },
+    { type: 'sdk', packageName: 'openai' },
+  ] satisfies IntegrationTransportConfig[],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    { type: 'api-key', headerName: 'Authorization', prefix: 'Bearer ' },
+  ] satisfies IntegrationAuthConfig[],
   capabilities: {
     provides: [{ key: 'ai.image.generation', version: '1.0.0' }],
   },
@@ -71,6 +81,8 @@ export const openaiImageIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Create an OpenAI API key with image generation access enabled.',
+    keyRotationSupported: true,
+    quotaTrackingSupported: true,
   },
 });
 

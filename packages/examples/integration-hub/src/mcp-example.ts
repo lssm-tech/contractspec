@@ -10,8 +10,10 @@ interface IntegrationHubMcpOutput {
   mode: IntegrationHubMcpMode;
   server: {
     name: string;
-    transport: 'stdio' | 'http' | 'sse';
+    transport: 'stdio' | 'http' | 'sse' | 'webhook';
   };
+  authMethod?: string;
+  apiVersion?: string;
   tools: string[];
   toolCall?: {
     name: string;
@@ -28,6 +30,7 @@ const DEFAULT_STDIO_ARGS = [
 
 export async function runIntegrationHubMcpExampleFromEnv(): Promise<IntegrationHubMcpOutput> {
   const mode = resolveMode();
+  const transport = resolveTransport();
   const config = buildMcpConfigFromEnv();
 
   const toolset = await createMcpToolsets([config], {
@@ -40,8 +43,10 @@ export async function runIntegrationHubMcpExampleFromEnv(): Promise<IntegrationH
       mode,
       server: {
         name: config.name,
-        transport: config.transport ?? 'stdio',
+        transport,
       },
+      authMethod: process.env.CONTRACTSPEC_INTEGRATION_HUB_MCP_AUTH_METHOD,
+      apiVersion: process.env.CONTRACTSPEC_INTEGRATION_HUB_MCP_API_VERSION,
       tools: toolNames,
     };
 
@@ -100,9 +105,12 @@ function buildMcpConfigFromEnv(): McpClientConfig {
   const accessTokenEnvVar =
     process.env.CONTRACTSPEC_INTEGRATION_HUB_MCP_ACCESS_TOKEN_ENV;
 
+  const mcpTransport: 'sse' | 'http' =
+    transport === 'webhook' || transport === 'http' ? 'http' : 'sse';
+
   return {
     name,
-    transport,
+    transport: mcpTransport,
     url: requireEnv('CONTRACTSPEC_INTEGRATION_HUB_MCP_URL'),
     headers: parseStringRecordEnv(
       'CONTRACTSPEC_INTEGRATION_HUB_MCP_HEADERS_JSON'
@@ -125,7 +133,7 @@ function resolveMode(): IntegrationHubMcpMode {
   );
 }
 
-function resolveTransport(): 'stdio' | 'http' | 'sse' {
+function resolveTransport(): 'stdio' | 'http' | 'sse' | 'webhook' {
   const rawTransport =
     process.env.CONTRACTSPEC_INTEGRATION_HUB_MCP_TRANSPORT?.toLowerCase() ??
     'stdio';
@@ -133,13 +141,14 @@ function resolveTransport(): 'stdio' | 'http' | 'sse' {
   if (
     rawTransport === 'stdio' ||
     rawTransport === 'http' ||
-    rawTransport === 'sse'
+    rawTransport === 'sse' ||
+    rawTransport === 'webhook'
   ) {
     return rawTransport;
   }
 
   throw new Error(
-    `Unsupported CONTRACTSPEC_INTEGRATION_HUB_MCP_TRANSPORT: ${rawTransport}. Use "stdio", "http", or "sse".`
+    `Unsupported CONTRACTSPEC_INTEGRATION_HUB_MCP_TRANSPORT: ${rawTransport}. Use "stdio", "http", "sse", or "webhook".`
   );
 }
 

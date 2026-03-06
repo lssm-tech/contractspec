@@ -1,5 +1,7 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+import type { IntegrationTransportConfig } from '../transport';
+import type { IntegrationAuthConfig } from '../auth';
 
 export const powensIntegrationSpec = defineIntegration({
   meta: {
@@ -15,6 +17,23 @@ export const powensIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Experimental,
   },
   supportedModes: ['byok'],
+  transports: [
+    { type: 'rest', baseUrl: 'https://api.powens.com' },
+    {
+      type: 'webhook',
+      inbound: { signatureHeader: 'x-powens-signature', signingAlgorithm: 'hmac-sha256' },
+    },
+  ],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    {
+      type: 'oauth2',
+      grantType: 'authorization_code',
+      authorizationUrl: 'https://auth.powens.com/authorize',
+      tokenUrl: 'https://auth.powens.com/token',
+      scopes: ['accounts:read', 'transactions:read', 'balances:read'],
+    },
+  ],
   capabilities: {
     provides: [
       { key: 'openbanking.accounts.read', version: '1.0.0' },
@@ -106,6 +125,8 @@ export const powensIntegrationSpec = defineIntegration({
     setupInstructions:
       'Create a Powens BYOK project, generate OAuth credentials, and optionally configure webhook delivery for account/transaction updates.',
     requiredScopes: ['accounts:read', 'transactions:read', 'balances:read'],
+    keyRotationSupported: false,
+    quotaTrackingSupported: false,
   },
 });
 

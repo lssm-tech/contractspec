@@ -3,6 +3,8 @@ import type {
   BenchmarkDimension,
   BenchmarkResult,
   DimensionWeightConfig,
+  ProviderTransportSupport,
+  ProviderAuthSupport,
 } from '@contractspec/lib.provider-ranking/types';
 import { computeModelRankings } from '@contractspec/lib.provider-ranking/scoring';
 
@@ -14,6 +16,10 @@ export interface RefreshParams {
   weightOverrides?: DimensionWeightConfig[];
   dimensions?: BenchmarkDimension[];
   forceRecalculate?: boolean;
+  /** Filter rankings to models whose provider supports this transport. */
+  requiredTransport?: ProviderTransportSupport;
+  /** Filter rankings to models whose provider supports this auth method. */
+  requiredAuthMethod?: ProviderAuthSupport;
 }
 
 export interface RankingPipelineResult {
@@ -46,7 +52,11 @@ export class RankingPipeline {
     const existingRankings = params?.forceRecalculate
       ? new Map<string, never>()
       : new Map(
-          (await this.store.listModelRankings({ limit: 10000 })).rankings.map(
+          (await this.store.listModelRankings({
+            limit: 10000,
+            requiredTransport: params?.requiredTransport,
+            requiredAuthMethod: params?.requiredAuthMethod,
+          })).rankings.map(
             (r) => [r.modelId, r],
           ),
         );

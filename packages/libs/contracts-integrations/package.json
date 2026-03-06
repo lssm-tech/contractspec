@@ -37,7 +37,10 @@
   "exports": {
     ".": "./src/index.ts",
     "./integrations": "./src/integrations/index.ts",
+    "./integrations/auth": "./src/integrations/auth.ts",
+    "./integrations/auth-helpers": "./src/integrations/auth-helpers.ts",
     "./integrations/binding": "./src/integrations/binding.ts",
+    "./integrations/byok": "./src/integrations/byok.ts",
     "./integrations/connection": "./src/integrations/connection.ts",
     "./integrations/docs/integrations.docblock": "./src/integrations/docs/integrations.docblock.ts",
     "./integrations/health": "./src/integrations/health.ts",
@@ -155,7 +158,9 @@
     "./integrations/secrets/manager": "./src/integrations/secrets/manager.ts",
     "./integrations/secrets/provider": "./src/integrations/secrets/provider.ts",
     "./integrations/secrets/scaleway-secret-manager": "./src/integrations/secrets/scaleway-secret-manager.ts",
-    "./integrations/spec": "./src/integrations/spec.ts"
+    "./integrations/spec": "./src/integrations/spec.ts",
+    "./integrations/transport": "./src/integrations/transport.ts",
+    "./integrations/versioning": "./src/integrations/versioning.ts"
   },
   "publishConfig": {
     "access": "public",
@@ -173,11 +178,29 @@
         "node": "./dist/node/integrations/index.js",
         "default": "./dist/integrations/index.js"
       },
+      "./integrations/auth": {
+        "types": "./dist/integrations/auth.d.ts",
+        "bun": "./dist/integrations/auth.js",
+        "node": "./dist/node/integrations/auth.js",
+        "default": "./dist/integrations/auth.js"
+      },
+      "./integrations/auth-helpers": {
+        "types": "./dist/integrations/auth-helpers.d.ts",
+        "bun": "./dist/integrations/auth-helpers.js",
+        "node": "./dist/node/integrations/auth-helpers.js",
+        "default": "./dist/integrations/auth-helpers.js"
+      },
       "./integrations/binding": {
         "types": "./dist/integrations/binding.d.ts",
         "bun": "./dist/integrations/binding.js",
         "node": "./dist/node/integrations/binding.js",
         "default": "./dist/integrations/binding.js"
+      },
+      "./integrations/byok": {
+        "types": "./dist/integrations/byok.d.ts",
+        "bun": "./dist/integrations/byok.js",
+        "node": "./dist/node/integrations/byok.js",
+        "default": "./dist/integrations/byok.js"
       },
       "./integrations/connection": {
         "types": "./dist/integrations/connection.d.ts",
@@ -886,6 +909,18 @@
         "bun": "./dist/integrations/spec.js",
         "node": "./dist/node/integrations/spec.js",
         "default": "./dist/integrations/spec.js"
+      },
+      "./integrations/transport": {
+        "types": "./dist/integrations/transport.d.ts",
+        "bun": "./dist/integrations/transport.js",
+        "node": "./dist/node/integrations/transport.js",
+        "default": "./dist/integrations/transport.js"
+      },
+      "./integrations/versioning": {
+        "types": "./dist/integrations/versioning.d.ts",
+        "bun": "./dist/integrations/versioning.js",
+        "node": "./dist/node/integrations/versioning.js",
+        "default": "./dist/integrations/versioning.js"
       }
     }
   }

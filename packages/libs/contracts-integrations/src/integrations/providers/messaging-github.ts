@@ -1,5 +1,8 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+import type { IntegrationTransportConfig } from '../transport';
+import type { IntegrationAuthConfig } from '../auth';
+import type { IntegrationVersionPolicy } from '../versioning';
 
 export const messagingGithubIntegrationSpec = defineIntegration({
   meta: {
@@ -15,6 +18,21 @@ export const messagingGithubIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Beta,
   },
   supportedModes: ['managed', 'byok'],
+  transports: [
+    { type: 'rest', baseUrl: 'https://api.github.com', apiVersionHeader: 'X-GitHub-Api-Version' },
+    { type: 'webhook', inbound: { signatureHeader: 'x-hub-signature-256', signingAlgorithm: 'hmac-sha256' } },
+  ],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    { type: 'bearer' },
+    { type: 'oauth2', grantType: 'authorization_code', authorizationUrl: 'https://github.com/login/oauth/authorize', tokenUrl: 'https://github.com/login/oauth/access_token', scopes: ['repo', 'read:org'] },
+    { type: 'webhook-signing', algorithm: 'hmac-sha256', signatureHeader: 'x-hub-signature-256' },
+  ],
+  versionPolicy: {
+    currentVersion: '2022-11-28',
+    supportedVersions: [{ version: '2022-11-28', status: 'stable' }],
+    versionHeader: 'X-GitHub-Api-Version',
+  },
   capabilities: {
     provides: [
       { key: 'messaging.inbound', version: '1.0.0' },
@@ -81,6 +99,8 @@ export const messagingGithubIntegrationSpec = defineIntegration({
     setupInstructions:
       'Create a GitHub token or app installation token with repository access and configure the webhook secret.',
     requiredScopes: ['repo', 'read:org'],
+    keyRotationSupported: true,
+    quotaTrackingSupported: false,
   },
 });
 

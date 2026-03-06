@@ -1,5 +1,7 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+import type { IntegrationTransportConfig } from '../transport';
+import type { IntegrationAuthConfig } from '../auth';
 
 export const supabaseVectorIntegrationSpec = defineIntegration({
   meta: {
@@ -15,6 +17,15 @@ export const supabaseVectorIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Beta,
   },
   supportedModes: ['managed', 'byok'],
+  transports: [
+    { type: 'rest' },
+    { type: 'sdk', packageName: '@supabase/supabase-js' },
+  ],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    { type: 'api-key' },
+    { type: 'bearer' },
+  ],
   capabilities: {
     provides: [
       { key: 'vector-db.search', version: '1.0.0' },
@@ -87,6 +98,8 @@ export const supabaseVectorIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Create or reuse a Supabase project, enable pgvector, and provide a Postgres connection string with read/write access to the target vector table.',
+    keyRotationSupported: true,
+    quotaTrackingSupported: false,
   },
 });
 

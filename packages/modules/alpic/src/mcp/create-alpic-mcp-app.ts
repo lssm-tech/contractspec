@@ -16,6 +16,10 @@ export interface AlpicMcpAppOptions {
   ui?: AlpicMcpUiConfig;
   tool?: AlpicMcpToolConfig;
   logger?: Logger;
+  /** Validate incoming requests against an auth scheme before processing. */
+  validateAuth?: (request: Request) => boolean | Promise<boolean>;
+  /** Auth methods the MCP server requires clients to use. */
+  requiredAuthMethods?: string[];
 }
 
 export interface AlpicMcpHandlerOptions extends AlpicMcpAppOptions {
@@ -210,6 +214,13 @@ export function createAlpicMcpHandler(options: AlpicMcpHandlerOptions): Elysia {
     options.path,
     async ({ request }) => {
       try {
+        if (options.validateAuth) {
+          const authorized = await options.validateAuth(request);
+          if (!authorized) {
+            return createJsonRpcErrorResponse(401, -32002, 'Unauthorized');
+          }
+        }
+
         if (stateless) {
           return await handleStateless(request);
         }

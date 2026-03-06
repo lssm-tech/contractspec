@@ -47,6 +47,12 @@ export interface GeneratorOptions {
   modelSelector?: ModelSelector;
   /** Per-call selection context override */
   selectionContext?: ModelSelectionContext;
+  /** Transport mode for the LLM provider. */
+  transport?: "rest" | "mcp" | "sdk";
+  /** Auth method for the LLM provider. */
+  authMethod?: "api-key" | "oauth2" | "bearer";
+  /** Custom auth headers for the LLM provider. */
+  authHeaders?: Record<string, string>;
 }
 
 export interface EmailCampaignBrief {

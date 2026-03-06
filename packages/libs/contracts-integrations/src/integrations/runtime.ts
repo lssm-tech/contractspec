@@ -372,6 +372,108 @@ export class IntegrationCallGuard {
   }
 }
 
+import type {
+  IntegrationTransportConfig,
+  IntegrationTransportType,
+} from './transport';
+import { supportsTransport } from './transport';
+import type { IntegrationAuthConfig, IntegrationAuthType } from './auth';
+import { supportsAuthMethod } from './auth';
+import type { IntegrationVersionPolicy } from './versioning';
+import { resolveApiVersion } from './versioning';
+
+/**
+ * Resolves the best transport to use for a given spec + connection.
+ */
+export interface TransportResolver {
+  resolve(
+    specTransports: IntegrationTransportConfig[],
+    preferredTransport: IntegrationTransportType | undefined,
+    connectionTransport: IntegrationTransportType | undefined,
+  ): IntegrationTransportType;
+}
+
+/**
+ * Default transport resolver: connection override > spec preferred > first available.
+ */
+export class DefaultTransportResolver implements TransportResolver {
+  resolve(
+    specTransports: IntegrationTransportConfig[],
+    preferredTransport: IntegrationTransportType | undefined,
+    connectionTransport: IntegrationTransportType | undefined,
+  ): IntegrationTransportType {
+    if (
+      connectionTransport &&
+      supportsTransport(specTransports, connectionTransport)
+    ) {
+      return connectionTransport;
+    }
+    if (
+      preferredTransport &&
+      supportsTransport(specTransports, preferredTransport)
+    ) {
+      return preferredTransport;
+    }
+    if (specTransports.length > 0) {
+      return specTransports[0]!.type;
+    }
+    return 'rest';
+  }
+}
+
+/**
+ * Resolves auth method: connection override > first supported method.
+ */
+export function resolveAuthMethod(
+  specMethods: IntegrationAuthConfig[] | undefined,
+  connectionMethod: IntegrationAuthType | undefined,
+): IntegrationAuthType | undefined {
+  if (!specMethods || specMethods.length === 0) return connectionMethod;
+  if (connectionMethod && supportsAuthMethod(specMethods, connectionMethod)) {
+    return connectionMethod;
+  }
+  return specMethods[0]!.type;
+}
+
+/**
+ * Resolve full integration request context: transport, auth, and version.
+ */
+export function resolveIntegrationRequestContext(
+  spec: {
+    transports?: IntegrationTransportConfig[];
+    preferredTransport?: IntegrationTransportType;
+    supportedAuthMethods?: IntegrationAuthConfig[];
+    versionPolicy?: IntegrationVersionPolicy;
+  },
+  connection: {
+    activeTransport?: IntegrationTransportType;
+    authMethod?: IntegrationAuthType;
+    apiVersion?: string;
+  },
+): {
+  transport: IntegrationTransportType;
+  authMethod: IntegrationAuthType | undefined;
+  apiVersion: string | undefined;
+} {
+  const resolver = new DefaultTransportResolver();
+  return {
+    transport: resolver.resolve(
+      spec.transports ?? [],
+      spec.preferredTransport,
+      connection.activeTransport,
+    ),
+    authMethod: resolveAuthMethod(
+      spec.supportedAuthMethods,
+      connection.authMethod,
+    ),
+    apiVersion: resolveApiVersion(spec.versionPolicy, connection.apiVersion),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Health-domain transport strategy (preserved for backward compatibility)
+// ---------------------------------------------------------------------------
+
 export type HealthTransportStrategy =
   | 'official-api'
   | 'official-mcp'
@@ -395,7 +497,7 @@ export const DEFAULT_HEALTH_STRATEGY_ORDER: readonly HealthTransportStrategy[] =
   ] as const;
 
 export function resolveHealthStrategyOrder(
-  options?: HealthRuntimeStrategyOptions
+  options?: HealthRuntimeStrategyOptions,
 ): HealthTransportStrategy[] {
   const ordered =
     options?.strategyOrder && options.strategyOrder.length > 0
@@ -409,7 +511,7 @@ export function resolveHealthStrategyOrder(
 
 export function isUnofficialHealthProviderAllowed(
   providerKey: string,
-  options?: HealthRuntimeStrategyOptions
+  options?: HealthRuntimeStrategyOptions,
 ): boolean {
   if (!options?.allowUnofficial) return false;
   if (

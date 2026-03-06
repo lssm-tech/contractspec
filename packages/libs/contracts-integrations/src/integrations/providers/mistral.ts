@@ -1,5 +1,7 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+import type { IntegrationTransportConfig } from '../transport';
+import type { IntegrationAuthConfig } from '../auth';
 
 export const mistralIntegrationSpec = defineIntegration({
   meta: {
@@ -15,6 +17,14 @@ export const mistralIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Experimental,
   },
   supportedModes: ['managed', 'byok'],
+  transports: [
+    { type: 'rest', baseUrl: 'https://api.mistral.ai' },
+    { type: 'sdk', packageName: '@mistralai/mistralai' },
+  ] satisfies IntegrationTransportConfig[],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    { type: 'api-key', headerName: 'Authorization', prefix: 'Bearer ' },
+  ] satisfies IntegrationAuthConfig[],
   capabilities: {
     provides: [
       { key: 'ai.chat', version: '1.0.0' },
@@ -70,6 +80,8 @@ export const mistralIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Generate an API key within the Mistral console and ensure the selected models are enabled for the account.',
+    keyRotationSupported: true,
+    quotaTrackingSupported: true,
   },
 });
 

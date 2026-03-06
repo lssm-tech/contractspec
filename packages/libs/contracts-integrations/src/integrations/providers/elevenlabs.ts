@@ -1,5 +1,7 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+import type { IntegrationTransportConfig } from '../transport';
+import type { IntegrationAuthConfig } from '../auth';
 
 export const elevenLabsIntegrationSpec = defineIntegration({
   meta: {
@@ -15,6 +17,14 @@ export const elevenLabsIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Beta,
   },
   supportedModes: ['managed', 'byok'],
+  transports: [
+    { type: 'rest', baseUrl: 'https://api.elevenlabs.io' },
+    { type: 'sdk', packageName: 'elevenlabs' },
+  ] satisfies IntegrationTransportConfig[],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    { type: 'header', headerName: 'xi-api-key' },
+  ] satisfies IntegrationAuthConfig[],
   capabilities: {
     provides: [
       { key: 'ai.voice.tts', version: '1.0.0' },
@@ -64,6 +74,8 @@ export const elevenLabsIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Create an ElevenLabs API key and ensure the desired voices are accessible to the key scope.',
+    keyRotationSupported: false,
+    quotaTrackingSupported: true,
   },
 });
 

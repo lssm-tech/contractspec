@@ -26,6 +26,12 @@ interface McpClientBaseConfig {
   clientName?: string;
   /** Optional MCP client version override */
   clientVersion?: string;
+  /** Auth method for the MCP connection. */
+  authMethod?: 'api-key' | 'oauth2' | 'bearer';
+  /** Custom auth headers. */
+  authHeaders?: Record<string, string>;
+  /** API version for the MCP server. */
+  apiVersion?: string;
 }
 
 /**

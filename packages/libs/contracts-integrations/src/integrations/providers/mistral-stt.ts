@@ -1,5 +1,7 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+import type { IntegrationTransportConfig } from '../transport';
+import type { IntegrationAuthConfig } from '../auth';
 
 export const mistralSttIntegrationSpec = defineIntegration({
   meta: {
@@ -15,6 +17,13 @@ export const mistralSttIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Experimental,
   },
   supportedModes: ['managed', 'byok'],
+  transports: [
+    { type: 'rest', baseUrl: 'https://api.mistral.ai' },
+  ] satisfies IntegrationTransportConfig[],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    { type: 'api-key', headerName: 'Authorization', prefix: 'Bearer ' },
+  ] satisfies IntegrationAuthConfig[],
   capabilities: {
     provides: [{ key: 'ai.voice.stt', version: '1.0.0' }],
   },
@@ -73,6 +82,8 @@ export const mistralSttIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Generate a Mistral API key and ensure the project has access to Voxtral or another transcription-capable model.',
+    keyRotationSupported: true,
+    quotaTrackingSupported: true,
   },
 });
 

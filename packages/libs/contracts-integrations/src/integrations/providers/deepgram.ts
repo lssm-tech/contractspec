@@ -1,5 +1,7 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+import type { IntegrationTransportConfig } from '../transport';
+import type { IntegrationAuthConfig } from '../auth';
 
 export const deepgramIntegrationSpec = defineIntegration({
   meta: {
@@ -15,6 +17,14 @@ export const deepgramIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Experimental,
   },
   supportedModes: ['byok'],
+  transports: [
+    { type: 'rest', baseUrl: 'https://api.deepgram.com' },
+    { type: 'sdk', packageName: '@deepgram/sdk' },
+  ] satisfies IntegrationTransportConfig[],
+  preferredTransport: 'sdk',
+  supportedAuthMethods: [
+    { type: 'api-key', headerName: 'Authorization', prefix: 'Token ' },
+  ] satisfies IntegrationAuthConfig[],
   capabilities: {
     provides: [
       { key: 'ai.voice.stt', version: '1.0.0' },
@@ -73,6 +83,8 @@ export const deepgramIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Create a Deepgram API key with speech-to-text permissions and store it in your secret provider.',
+    keyRotationSupported: true,
+    quotaTrackingSupported: true,
   },
 });
 

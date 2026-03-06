@@ -2,6 +2,16 @@ import { Buffer } from 'node:buffer';
 
 import type { IntegrationContext } from '@contractspec/integration.runtime/runtime';
 import type { SecretValue } from '@contractspec/integration.runtime/secrets/provider';
+import type { IntegrationTransportType } from '@contractspec/lib.contracts-integrations/integrations/transport';
+import type { IntegrationAuthType } from '@contractspec/lib.contracts-integrations/integrations/auth';
+import {
+  resolveIntegrationRequestContext,
+} from '@contractspec/lib.contracts-integrations/integrations/runtime';
+import {
+  buildAuthHeaders,
+} from '@contractspec/lib.contracts-integrations/integrations/auth-helpers';
+import { findAuthConfig } from '@contractspec/lib.contracts-integrations/integrations/auth';
+import { resolveApiVersion } from '@contractspec/lib.contracts-integrations/integrations/versioning';
 import { MistralLLMProvider } from './mistral-llm';
 import { MistralEmbeddingProvider } from './mistral-embedding';
 import { QdrantVectorProvider } from './qdrant-vector';
@@ -53,9 +63,52 @@ import { createHealthProviderFromContext } from './health-provider-factory';
 
 const SECRET_CACHE = new Map<string, Record<string, unknown>>();
 
+/**
+ * Resolved transport, auth, and version context for a provider invocation.
+ */
+export interface ResolvedProviderContext {
+  transport: IntegrationTransportType;
+  authMethod: IntegrationAuthType | undefined;
+  apiVersion: string | undefined;
+  /** Pre-built auth headers from the resolved auth method and secrets. */
+  authHeaders: Record<string, string>;
+  secrets: Record<string, unknown>;
+}
+
 export class IntegrationProviderFactory {
+  /**
+   * Resolve transport, auth method, API version, and build auth headers
+   * for a given integration context. Consumers can call this directly
+   * for custom wiring or it is used internally by the create* methods.
+   */
+  async resolveProviderContext(
+    context: IntegrationContext,
+  ): Promise<ResolvedProviderContext> {
+    const secrets = await this.loadSecrets(context);
+    const { transport, authMethod, apiVersion } =
+      resolveIntegrationRequestContext(context.spec, context.connection);
+
+    let authHeaders: Record<string, string> = {};
+    if (authMethod && context.spec.supportedAuthMethods) {
+      const authConfig = findAuthConfig(
+        context.spec.supportedAuthMethods,
+        authMethod,
+      );
+      if (authConfig) {
+        const stringSecrets = Object.fromEntries(
+          Object.entries(secrets)
+            .filter(([, v]) => typeof v === 'string')
+            .map(([k, v]) => [k, v as string]),
+        );
+        authHeaders = buildAuthHeaders(authConfig, stringSecrets);
+      }
+    }
+
+    return { transport, authMethod, apiVersion, authHeaders, secrets };
+  }
+
   async createPaymentsProvider(
-    context: IntegrationContext
+    context: IntegrationContext,
   ): Promise<PaymentsProvider> {
     const secrets = await this.loadSecrets(context);
     switch (context.spec.meta.key) {

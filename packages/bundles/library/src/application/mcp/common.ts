@@ -11,6 +11,13 @@ import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/
 import { Elysia } from 'elysia';
 import { Logger } from '@contractspec/lib.logger';
 import { randomUUID } from 'node:crypto';
+import type { IntegrationAuthType } from '@contractspec/lib.contracts-integrations/integrations';
+
+export interface McpAuthValidationResult {
+  valid: boolean;
+  actor?: string;
+  reason?: string;
+}
 
 interface McpHttpHandlerConfig {
   path: string;
@@ -20,6 +27,10 @@ interface McpHttpHandlerConfig {
   prompts: PromptRegistry;
   presentations?: PresentationSpec[];
   logger: Logger;
+  /** Callback to validate auth credentials from the incoming request. */
+  validateAuth?: (request: Request) => Promise<McpAuthValidationResult>;
+  /** Auth methods this MCP handler requires callers to present. */
+  requiredAuthMethods?: IntegrationAuthType[];
 }
 
 const baseCtx = {
@@ -116,8 +127,12 @@ export function createMcpElysiaHandler({
   resources,
   prompts,
   presentations,
+  validateAuth,
+  requiredAuthMethods,
 }: McpHttpHandlerConfig) {
-  logger.info('Setting up MCP handler...');
+  logger.info('Setting up MCP handler...', {
+    requiredAuthMethods: requiredAuthMethods ?? [],
+  });
 
   const isStateful = process.env.CONTRACTSPEC_MCP_STATEFUL === '1';
   const sessions = new Map<string, McpSessionState>();
@@ -200,6 +215,18 @@ export function createMcpElysiaHandler({
     path,
     async ({ request }) => {
       try {
+        if (validateAuth) {
+          const authResult = await validateAuth(request);
+          if (!authResult.valid) {
+            return createJsonRpcErrorResponse(
+              401,
+              -32002,
+              'Authentication failed',
+              authResult.reason,
+            );
+          }
+        }
+
         if (isStateful) {
           return await handleStateful(request);
         }

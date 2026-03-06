@@ -119,6 +119,12 @@ export interface AgentCallOptions {
   locale?: string;
   /** Model selection context for ranking-driven model routing */
   selectionContext?: import('@contractspec/lib.ai-providers/selector-types').ModelSelectionContext;
+  /** Transport preference for provider calls. */
+  transport?: 'rest' | 'mcp' | 'sdk';
+  /** Auth method to use for provider calls. */
+  authMethod?: 'api-key' | 'oauth2' | 'bearer';
+  /** Custom auth headers for provider calls. */
+  authHeaders?: Record<string, string>;
 }
 
 // ============================================================================

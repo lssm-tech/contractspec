@@ -1,5 +1,7 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, type IntegrationSpec } from '../spec';
+import type { IntegrationTransportConfig } from '../transport';
+import type { IntegrationAuthConfig } from '../auth';
 
 const STRATEGY_ENUM = [
   'official-api',
@@ -16,6 +18,25 @@ const DEFAULT_PROVIDED_CAPABILITIES = [
   { key: 'health.biometrics.read', version: '1.0.0' },
 ] as const;
 
+const HEALTH_DEFAULT_TRANSPORTS: IntegrationTransportConfig[] = [
+  { type: 'rest' },
+  { type: 'mcp', transport: 'http' },
+  {
+    type: 'webhook',
+    inbound: {
+      signatureHeader: 'x-webhook-signature',
+      signingAlgorithm: 'hmac-sha256',
+    },
+  },
+];
+
+const HEALTH_DEFAULT_AUTH_METHODS: IntegrationAuthConfig[] = [
+  { type: 'oauth2', grantType: 'authorization_code', tokenUrl: '', scopes: [] },
+  { type: 'api-key' },
+  { type: 'bearer' },
+  { type: 'basic' },
+];
+
 export interface HealthProviderSpecInput {
   key: string;
   title: string;
@@ -28,11 +49,19 @@ export interface HealthProviderSpecInput {
   byokScopes?: string[];
   capabilities?: { key: string; version: string }[];
   defaultTransport?: (typeof STRATEGY_ENUM)[number];
+  /** Override default transports for this health provider. */
+  transports?: IntegrationTransportConfig[];
+  /** Override default auth methods for this health provider. */
+  supportedAuthMethods?: IntegrationAuthConfig[];
+  /** OAuth token endpoint URL (populates oauth2 auth config). */
+  oauthTokenUrl?: string;
 }
 
 export function defineHealthProviderSpec(
-  input: HealthProviderSpecInput
+  input: HealthProviderSpecInput,
 ): IntegrationSpec {
+  const authMethods = input.supportedAuthMethods ?? buildHealthAuthMethods(input);
+
   return defineIntegration({
     meta: {
       key: input.key,
@@ -46,6 +75,9 @@ export function defineHealthProviderSpec(
       stability: input.stability ?? StabilityEnum.Experimental,
     },
     supportedModes: input.supportedModes ?? ['managed', 'byok'],
+    transports: input.transports ?? HEALTH_DEFAULT_TRANSPORTS,
+    preferredTransport: 'rest',
+    supportedAuthMethods: authMethods,
     capabilities: {
       provides: input.capabilities ?? [...DEFAULT_PROVIDED_CAPABILITIES],
     },
@@ -134,6 +166,26 @@ export function defineHealthProviderSpec(
         input.byokSetupInstructions ??
         'Create provider credentials, set allowed scopes, and store credentials in secret provider.',
       requiredScopes: input.byokScopes,
+      keyRotationSupported: false,
+      quotaTrackingSupported: false,
     },
   });
+}
+
+function buildHealthAuthMethods(
+  input: HealthProviderSpecInput,
+): IntegrationAuthConfig[] {
+  if (input.oauthTokenUrl) {
+    return HEALTH_DEFAULT_AUTH_METHODS.map((m) => {
+      if (m.type === 'oauth2') {
+        return {
+          ...m,
+          tokenUrl: input.oauthTokenUrl!,
+          scopes: input.byokScopes ?? [],
+        };
+      }
+      return m;
+    });
+  }
+  return [...HEALTH_DEFAULT_AUTH_METHODS];
 }

@@ -1,5 +1,7 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+import type { IntegrationTransportConfig } from '../transport';
+import type { IntegrationAuthConfig } from '../auth';
 
 export const messagingSlackIntegrationSpec = defineIntegration({
   meta: {
@@ -15,6 +17,17 @@ export const messagingSlackIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Beta,
   },
   supportedModes: ['managed', 'byok'],
+  transports: [
+    { type: 'rest', baseUrl: 'https://slack.com/api' },
+    { type: 'webhook', inbound: { signatureHeader: 'x-slack-signature', signingAlgorithm: 'hmac-sha256' } },
+    { type: 'sdk', packageName: '@slack/web-api' },
+  ],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    { type: 'oauth2', grantType: 'authorization_code', authorizationUrl: 'https://slack.com/oauth/v2/authorize', tokenUrl: 'https://slack.com/api/oauth.v2.access', scopes: ['chat:write', 'channels:history', 'commands'] },
+    { type: 'bearer' },
+    { type: 'webhook-signing', algorithm: 'hmac-sha256', signatureHeader: 'x-slack-signature' },
+  ],
   capabilities: {
     provides: [
       { key: 'messaging.inbound', version: '1.0.0' },
@@ -82,6 +95,8 @@ export const messagingSlackIntegrationSpec = defineIntegration({
     setupInstructions:
       'Create a Slack app, install it to your workspace, then provide bot token and signing secret.',
     requiredScopes: ['chat:write', 'channels:history', 'commands'],
+    keyRotationSupported: true,
+    quotaTrackingSupported: false,
   },
 });
 
