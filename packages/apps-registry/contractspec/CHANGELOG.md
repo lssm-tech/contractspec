@@ -1,5 +1,11 @@
 # contractspec
 
+## 3.1.1
+
+### Patch Changes
+
+- @contractspec/app.cli-contractspec@3.1.1
+
 ## 3.1.0
 
 ### Minor Changes

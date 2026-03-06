@@ -1,5 +1,15 @@
 # @contractspec/lib.voice
 
+## 1.1.1
+
+### Patch Changes
+
+- Updated dependencies [02c0cc5]
+  - @contractspec/lib.contracts-integrations@3.1.1
+  - @contractspec/lib.contracts-spec@3.1.1
+  - @contractspec/lib.ai-providers@3.1.1
+  - @contractspec/lib.content-gen@3.1.1
+
 ## 1.1.0
 
 ### Minor Changes

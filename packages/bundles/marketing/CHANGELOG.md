@@ -1,5 +1,25 @@
 # @contractspec/bundle.marketing
 
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies [02c0cc5]
+- Updated dependencies [f1a249b]
+  - @contractspec/lib.contracts-spec@3.1.1
+  - @contractspec/lib.design-system@3.1.1
+  - @contractspec/bundle.library@3.1.1
+  - @contractspec/example.analytics-dashboard@3.1.1
+  - @contractspec/example.agent-console@3.1.1
+  - @contractspec/example.crm-pipeline@3.1.1
+  - @contractspec/example.integration-hub@3.1.1
+  - @contractspec/example.marketplace@3.1.1
+  - @contractspec/example.saas-boilerplate@3.1.1
+  - @contractspec/example.workflow-system@3.1.1
+  - @contractspec/lib.contracts-runtime-client-react@3.1.1
+  - @contractspec/lib.example-shared-ui@3.1.1
+  - @contractspec/module.examples@3.1.1
+
 ## 3.1.0
 
 ### Minor Changes

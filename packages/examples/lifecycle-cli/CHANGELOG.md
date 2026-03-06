@@ -1,5 +1,14 @@
 # @contractspec/example.lifecycle-cli
 
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies [02c0cc5]
+  - @contractspec/lib.contracts-spec@3.1.1
+  - @contractspec/lib.lifecycle@3.1.1
+  - @contractspec/bundle.lifecycle-managed@3.1.1
+
 ## 3.1.0
 
 ### Minor Changes

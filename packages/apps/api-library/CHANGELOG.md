@@ -1,5 +1,18 @@
 # @contractspec/app.api-library
 
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies [02c0cc5]
+- Updated dependencies [f1a249b]
+  - @contractspec/lib.contracts-spec@3.1.1
+  - @contractspec/integration.providers-impls@3.1.1
+  - @contractspec/integration.runtime@3.1.1
+  - @contractspec/bundle.library@3.1.1
+  - @contractspec/bundle.workspace@3.1.1
+  - @contractspec/bundle.marketing@3.1.1
+
 ## 3.1.0
 
 ### Minor Changes

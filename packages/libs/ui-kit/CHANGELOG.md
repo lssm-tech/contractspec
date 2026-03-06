@@ -1,5 +1,11 @@
 # @contractspec/lib.ui-kit
 
+## 3.1.1
+
+### Patch Changes
+
+- 02c0cc5: Fix lint and build errors across nine packages: remove unused imports and type imports from integration provider files, replace forbidden non-null assertions with proper type narrowing, and resolve TypeScript indexing error for `ColorSchemeName` in the Switch component.
+
 ## 3.1.0
 
 ### Minor Changes

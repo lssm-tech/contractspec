@@ -1,5 +1,23 @@
 # @contractspec/bundle.library
 
+## 3.1.1
+
+### Patch Changes
+
+- f1a249b: Regenerate docs-index JSON files to reflect new provider-ranking, ACP, agent, context, and database contract documentation entries produced by the build.
+- Updated dependencies [02c0cc5]
+  - @contractspec/lib.contracts-integrations@3.1.1
+  - @contractspec/lib.contracts-spec@3.1.1
+  - @contractspec/lib.design-system@3.1.1
+  - @contractspec/lib.knowledge@3.1.1
+  - @contractspec/module.context-storage@0.1.2
+  - @contractspec/lib.contracts-library@3.1.1
+  - @contractspec/lib.contracts-runtime-server-graphql@3.1.1
+  - @contractspec/lib.contracts-runtime-server-mcp@3.1.1
+  - @contractspec/lib.contracts-runtime-server-rest@3.1.1
+  - @contractspec/lib.example-shared-ui@3.1.1
+  - @contractspec/module.examples@3.1.1
+
 ## 3.1.0
 
 ### Minor Changes

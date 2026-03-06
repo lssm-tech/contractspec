@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.support-bot",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "AI support bot framework with RAG and ticket management",
   "keywords": [
     "contractspec",

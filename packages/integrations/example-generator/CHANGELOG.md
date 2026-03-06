@@ -1,5 +1,12 @@
 # @contractspec/integration.example-generator
 
+## 28.0.1
+
+### Patch Changes
+
+- Updated dependencies [02c0cc5]
+  - @contractspec/lib.contracts-spec@3.1.1
+
 ## 28.0.0
 
 ### Minor Changes

@@ -1,5 +1,15 @@
 # @contractspec/lib.personalization
 
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies [02c0cc5]
+  - @contractspec/lib.contracts-spec@3.1.1
+  - @contractspec/lib.knowledge@3.1.1
+  - @contractspec/lib.bus@3.1.1
+  - @contractspec/lib.overlay-engine@3.1.1
+
 ## 3.1.0
 
 ### Minor Changes

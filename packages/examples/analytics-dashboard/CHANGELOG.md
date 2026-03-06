@@ -1,5 +1,15 @@
 # @contractspec/example.analytics-dashboard
 
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies [02c0cc5]
+  - @contractspec/lib.contracts-integrations@3.1.1
+  - @contractspec/lib.contracts-spec@3.1.1
+  - @contractspec/lib.design-system@3.1.1
+  - @contractspec/lib.example-shared-ui@3.1.1
+
 ## 3.1.0
 
 ### Minor Changes

@@ -1,5 +1,12 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 28.0.1
+
+### Patch Changes
+
+- Updated dependencies [02c0cc5]
+  - @contractspec/lib.ui-kit@3.1.1
+
 ## 28.0.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @contractspec/example.learning-journey-ui-gamified
 
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies [02c0cc5]
+  - @contractspec/lib.contracts-spec@3.1.1
+  - @contractspec/lib.design-system@3.1.1
+  - @contractspec/example.learning-journey-duo-drills@3.1.1
+  - @contractspec/example.learning-journey-quest-challenges@3.1.1
+  - @contractspec/example.learning-journey-ui-shared@3.1.1
+  - @contractspec/module.learning-journey@3.1.1
+
 ## 3.1.0
 
 ### Minor Changes
