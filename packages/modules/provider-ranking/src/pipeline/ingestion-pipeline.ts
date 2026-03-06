@@ -51,7 +51,7 @@ export class IngestionPipeline {
 
   async ingest(
     source: BenchmarkSource,
-    params?: IngestParams,
+    params?: IngestParams
   ): Promise<IngestionPipelineResult> {
     const ingester = this.registry.get(source);
     if (!ingester) {
@@ -82,7 +82,7 @@ export class IngestionPipeline {
 
   private async runIngester(
     ingester: BenchmarkIngester,
-    params?: IngestParams,
+    params?: IngestParams
   ): Promise<IngestionPipelineResult> {
     const ingestionId = `ingest-${ingester.source}-${Date.now()}`;
     const run: IngestionRun = {
@@ -119,7 +119,8 @@ export class IngestionPipeline {
         status: 'completed',
       };
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
 
       await this.store.updateIngestionRun(ingestionId, {
         status: 'failed',

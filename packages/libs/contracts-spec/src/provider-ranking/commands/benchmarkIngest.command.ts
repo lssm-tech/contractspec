@@ -15,7 +15,11 @@ const BenchmarkIngestInput = new SchemaModel({
   fields: {
     source: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     sourceUrl: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    dimensions: { type: ScalarTypeEnum.String_unsecure(), isOptional: true, isArray: true },
+    dimensions: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+      isArray: true,
+    },
     fromDate: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     toDate: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     metadata: { type: ScalarTypeEnum.JSONObject(), isOptional: true },

@@ -5,14 +5,17 @@
  * full-content replacement, re-validates, and writes back.
  */
 
-import { scanSpecSource, type SpecScanResult } from "@contractspec/module.workspace";
-import type { FsAdapter } from "../ports/fs";
-import type { LoggerAdapter } from "../ports/logger";
-import { validateSpec } from "./validate/spec-validator";
+import {
+  scanSpecSource,
+  type SpecScanResult,
+} from '@contractspec/module.workspace';
+import type { FsAdapter } from '../ports/fs';
+import type { LoggerAdapter } from '../ports/logger';
+import { validateSpec } from './validate/spec-validator';
 
 function unknownSpecResult(filePath: string): SpecScanResult {
   return {
-    specType: "unknown",
+    specType: 'unknown',
     filePath,
     hasMeta: false,
     hasIo: false,
@@ -59,7 +62,7 @@ export interface UpdateSpecResult {
 export async function updateSpec(
   specPath: string,
   adapters: { fs: FsAdapter; logger: LoggerAdapter },
-  options: UpdateSpecOptions = {},
+  options: UpdateSpecOptions = {}
 ): Promise<UpdateSpecResult> {
   const { fs, logger } = adapters;
 
@@ -86,7 +89,7 @@ export async function updateSpec(
       specPath,
       specInfo: scanSpecSource(originalCode, specPath),
       updated: false,
-      errors: ["No update provided: supply `content` or `fields`"],
+      errors: ['No update provided: supply `content` or `fields`'],
       warnings: [],
     };
   }
@@ -113,7 +116,9 @@ export async function updateSpec(
         specPath,
         specInfo: scanSpecSource(updatedCode, specPath),
         updated: false,
-        errors: ["Validation produced warnings (use allowWarnings to override)"],
+        errors: [
+          'Validation produced warnings (use allowWarnings to override)',
+        ],
         warnings: validation.warnings,
       };
     }
@@ -149,12 +154,12 @@ function applyFieldPatches(code: string, fields: SpecFieldPatch[]): string {
   let result = code;
 
   for (const { key, value } of fields) {
-    const fieldName = key.includes(".") ? key.split(".").pop() : key;
+    const fieldName = key.includes('.') ? key.split('.').pop() : key;
     if (!fieldName) continue;
 
     const pattern = new RegExp(
       `(${escapeRegex(fieldName)}\\s*:\\s*)(['"\`])([^'"\`]*?)\\2`,
-      "g",
+      'g'
     );
 
     const needsQuotes = !/^(true|false|\d+(\.\d+)?)$/.test(value);
@@ -167,5 +172,5 @@ function applyFieldPatches(code: string, fields: SpecFieldPatch[]): string {
 }
 
 function escapeRegex(str: string): string {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

@@ -6,7 +6,6 @@ import type { IntegrationVersionPolicy } from '@contractspec/lib.contracts-integ
 import {
   resolveApiVersion,
   isVersionDeprecated,
-  getVersionInfo,
 } from '@contractspec/lib.contracts-integrations/integrations/versioning';
 
 export interface VersionNegotiationResult {
@@ -21,7 +20,7 @@ export interface VersionNegotiationResult {
  */
 export function negotiateVersion(
   policy: IntegrationVersionPolicy | undefined,
-  connectionOverride?: string,
+  connectionOverride?: string
 ): VersionNegotiationResult {
   if (!policy) {
     return {
@@ -47,5 +46,10 @@ export function negotiateVersion(
     }
   }
 
-  return { resolvedVersion: version, deprecated, versionHeaders, versionQueryParams };
+  return {
+    resolvedVersion: version,
+    deprecated,
+    versionHeaders,
+    versionQueryParams,
+  };
 }

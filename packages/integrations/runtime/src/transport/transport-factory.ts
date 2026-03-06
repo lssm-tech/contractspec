@@ -6,20 +6,15 @@ import type {
   IntegrationTransportConfig,
   IntegrationTransportType,
   RestTransportConfig,
-  McpTransportConfig,
-  WebhookTransportConfig,
-  SdkTransportConfig,
 } from '@contractspec/lib.contracts-integrations/integrations/transport';
-import {
-  findTransportConfig,
-} from '@contractspec/lib.contracts-integrations/integrations/transport';
+import { findTransportConfig } from '@contractspec/lib.contracts-integrations/integrations/transport';
 
 export interface TransportClient {
   readonly type: IntegrationTransportType;
   request<T>(
     method: string,
     path: string,
-    options?: TransportRequestOptions,
+    options?: TransportRequestOptions
   ): Promise<TransportResponse<T>>;
 }
 
@@ -45,13 +40,13 @@ export class RestTransportClient implements TransportClient {
   constructor(
     private readonly config: RestTransportConfig,
     private readonly authHeaders: Record<string, string> = {},
-    private readonly fetchFn: typeof globalThis.fetch = globalThis.fetch,
+    private readonly fetchFn: typeof globalThis.fetch = globalThis.fetch
   ) {}
 
   async request<T>(
     method: string,
     path: string,
-    options?: TransportRequestOptions,
+    options?: TransportRequestOptions
   ): Promise<TransportResponse<T>> {
     const url = new URL(path, this.config.baseUrl ?? 'https://localhost');
 
@@ -109,7 +104,7 @@ export function createTransportClient(
   transports: IntegrationTransportConfig[],
   targetType: IntegrationTransportType,
   authHeaders: Record<string, string> = {},
-  fetchFn?: typeof globalThis.fetch,
+  fetchFn?: typeof globalThis.fetch
 ): TransportClient | undefined {
   const config = findTransportConfig(transports, targetType);
   if (!config) return undefined;

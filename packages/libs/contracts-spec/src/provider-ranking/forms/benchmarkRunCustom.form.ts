@@ -24,7 +24,8 @@ export const BenchmarkRunCustomForm = defineFormSpec({
     key: 'provider-ranking.benchmark.run-custom.form',
     title: 'Run Custom Benchmark',
     version: '1.0.0',
-    description: 'Form to launch a custom benchmark evaluation against a model.',
+    description:
+      'Form to launch a custom benchmark evaluation against a model.',
     domain: PROVIDER_RANKING_DOMAIN,
     owners: PROVIDER_RANKING_OWNERS,
     tags: [...PROVIDER_RANKING_TAGS, 'custom', 'eval'],

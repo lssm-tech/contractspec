@@ -13,7 +13,11 @@ import { RankingUpdatedEvent } from '../events/rankingUpdated.event';
 const RankingRefreshInput = new SchemaModel({
   name: 'RankingRefreshInput',
   fields: {
-    dimensions: { type: ScalarTypeEnum.String_unsecure(), isOptional: true, isArray: true },
+    dimensions: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+      isArray: true,
+    },
     weightOverrides: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
     forceRecalculate: { type: ScalarTypeEnum.Boolean(), isOptional: true },
   },

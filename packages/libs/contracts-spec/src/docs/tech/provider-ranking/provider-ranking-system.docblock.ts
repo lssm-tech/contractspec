@@ -5,7 +5,8 @@ export const tech_providerRanking_system_DocBlocks: DocBlock[] = [
   {
     id: 'docs.tech.provider-ranking.system',
     title: 'AI Provider Ranking',
-    summary: 'Benchmark ingestion, scoring, and ranking for AI providers and models.',
+    summary:
+      'Benchmark ingestion, scoring, and ranking for AI providers and models.',
     kind: 'reference',
     visibility: 'public',
     route: '/docs/tech/provider-ranking/system',

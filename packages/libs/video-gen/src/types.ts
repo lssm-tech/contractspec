@@ -6,7 +6,10 @@
 // ---------------------------------------------------------------------------
 
 import type { LLMProvider } from '@contractspec/lib.contracts-integrations/integrations/providers/llm';
-import type { ModelSelector, ModelSelectionContext } from '@contractspec/lib.ai-providers/selector-types';
+import type {
+  ModelSelector,
+  ModelSelectionContext,
+} from '@contractspec/lib.ai-providers/selector-types';
 import type { VoiceSynthesizer } from '@contractspec/lib.voice/tts';
 import type { Transcriber } from '@contractspec/lib.voice/stt';
 import type { ContentBrief } from '@contractspec/lib.content-gen/types';
@@ -95,9 +98,9 @@ export interface VideoGeneratorOptions {
   /** Per-call selection context override */
   selectionContext?: ModelSelectionContext;
   /** Transport mode for video/LLM providers. */
-  transport?: "rest" | "mcp" | "sdk";
+  transport?: 'rest' | 'mcp' | 'sdk';
   /** Auth method for video/LLM providers. */
-  authMethod?: "api-key" | "oauth2" | "bearer";
+  authMethod?: 'api-key' | 'oauth2' | 'bearer';
   /** Custom auth headers for video/LLM providers. */
   authHeaders?: Record<string, string>;
 }

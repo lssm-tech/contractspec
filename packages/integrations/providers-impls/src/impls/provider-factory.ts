@@ -4,14 +4,9 @@ import type { IntegrationContext } from '@contractspec/integration.runtime/runti
 import type { SecretValue } from '@contractspec/integration.runtime/secrets/provider';
 import type { IntegrationTransportType } from '@contractspec/lib.contracts-integrations/integrations/transport';
 import type { IntegrationAuthType } from '@contractspec/lib.contracts-integrations/integrations/auth';
-import {
-  resolveIntegrationRequestContext,
-} from '@contractspec/lib.contracts-integrations/integrations/runtime';
-import {
-  buildAuthHeaders,
-} from '@contractspec/lib.contracts-integrations/integrations/auth-helpers';
+import { resolveIntegrationRequestContext } from '@contractspec/lib.contracts-integrations/integrations/runtime';
+import { buildAuthHeaders } from '@contractspec/lib.contracts-integrations/integrations/auth-helpers';
 import { findAuthConfig } from '@contractspec/lib.contracts-integrations/integrations/auth';
-import { resolveApiVersion } from '@contractspec/lib.contracts-integrations/integrations/versioning';
 import { MistralLLMProvider } from './mistral-llm';
 import { MistralEmbeddingProvider } from './mistral-embedding';
 import { QdrantVectorProvider } from './qdrant-vector';
@@ -88,7 +83,7 @@ export class IntegrationProviderFactory {
    * for custom wiring or it is used internally by the create* methods.
    */
   async resolveProviderContext(
-    context: IntegrationContext,
+    context: IntegrationContext
   ): Promise<ResolvedProviderContext> {
     const secrets = await this.loadSecrets(context);
     const { transport, authMethod, apiVersion } =
@@ -98,13 +93,13 @@ export class IntegrationProviderFactory {
     if (authMethod && context.spec.supportedAuthMethods) {
       const authConfig = findAuthConfig(
         context.spec.supportedAuthMethods,
-        authMethod,
+        authMethod
       );
       if (authConfig) {
         const stringSecrets = Object.fromEntries(
           Object.entries(secrets)
             .filter(([, v]) => typeof v === 'string')
-            .map(([k, v]) => [k, v as string]),
+            .map(([k, v]) => [k, v as string])
         );
         authHeaders = buildAuthHeaders(authConfig, stringSecrets);
       }
@@ -114,7 +109,7 @@ export class IntegrationProviderFactory {
   }
 
   async createPaymentsProvider(
-    context: IntegrationContext,
+    context: IntegrationContext
   ): Promise<PaymentsProvider> {
     const secrets = await this.loadSecrets(context);
     switch (context.spec.meta.key) {
@@ -182,7 +177,9 @@ export class IntegrationProviderFactory {
         });
       default:
         if (this.composioFallback?.canHandle(context.spec.meta.key)) {
-          return this.composioFallback.createMessagingProxy(context) as unknown as SmsProvider;
+          return this.composioFallback.createMessagingProxy(
+            context
+          ) as unknown as SmsProvider;
         }
         throw new Error(
           `Unsupported SMS integration: ${context.spec.meta.key}`
@@ -304,7 +301,9 @@ export class IntegrationProviderFactory {
         });
       default:
         if (this.composioFallback?.canHandle(context.spec.meta.key)) {
-          return this.composioFallback.createGenericProxy(context) as unknown as VectorStoreProvider;
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as VectorStoreProvider;
         }
         throw new Error(
           `Unsupported vector store integration: ${context.spec.meta.key}`
@@ -337,7 +336,9 @@ export class IntegrationProviderFactory {
         });
       default:
         if (this.composioFallback?.canHandle(context.spec.meta.key)) {
-          return this.composioFallback.createGenericProxy(context) as unknown as AnalyticsProvider;
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as AnalyticsProvider;
         }
         throw new Error(
           `Unsupported analytics integration: ${context.spec.meta.key}`
@@ -366,7 +367,9 @@ export class IntegrationProviderFactory {
         });
       default:
         if (this.composioFallback?.canHandle(context.spec.meta.key)) {
-          return this.composioFallback.createGenericProxy(context) as unknown as DatabaseProvider;
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as DatabaseProvider;
         }
         throw new Error(
           `Unsupported database integration: ${context.spec.meta.key}`
@@ -394,7 +397,9 @@ export class IntegrationProviderFactory {
         });
       default:
         if (this.composioFallback?.canHandle(context.spec.meta.key)) {
-          return this.composioFallback.createGenericProxy(context) as unknown as ObjectStorageProvider;
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as ObjectStorageProvider;
         }
         throw new Error(
           `Unsupported storage integration: ${context.spec.meta.key}`
@@ -464,7 +469,9 @@ export class IntegrationProviderFactory {
         });
       default:
         if (this.composioFallback?.canHandle(context.spec.meta.key)) {
-          return this.composioFallback.createGenericProxy(context) as unknown as TTSProvider;
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as TTSProvider;
         }
         throw new Error(
           `Unsupported voice integration: ${context.spec.meta.key}`
@@ -494,7 +501,9 @@ export class IntegrationProviderFactory {
         });
       default:
         if (this.composioFallback?.canHandle(context.spec.meta.key)) {
-          return this.composioFallback.createGenericProxy(context) as unknown as STTProvider;
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as STTProvider;
         }
         throw new Error(
           `Unsupported STT integration: ${context.spec.meta.key}`
@@ -532,7 +541,9 @@ export class IntegrationProviderFactory {
         });
       default:
         if (this.composioFallback?.canHandle(context.spec.meta.key)) {
-          return this.composioFallback.createGenericProxy(context) as unknown as ConversationalProvider;
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as ConversationalProvider;
         }
         throw new Error(
           `Unsupported conversational integration: ${context.spec.meta.key}`
@@ -713,7 +724,9 @@ export class IntegrationProviderFactory {
         });
       default:
         if (this.composioFallback?.canHandle(context.spec.meta.key)) {
-          return this.composioFallback.createGenericProxy(context) as unknown as MeetingRecorderProvider;
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as MeetingRecorderProvider;
         }
         throw new Error(
           `Unsupported meeting recorder integration: ${context.spec.meta.key}`
@@ -735,7 +748,9 @@ export class IntegrationProviderFactory {
         });
       default:
         if (this.composioFallback?.canHandle(context.spec.meta.key)) {
-          return this.composioFallback.createGenericProxy(context) as unknown as LLMProvider;
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as LLMProvider;
         }
         throw new Error(
           `Unsupported LLM integration: ${context.spec.meta.key}`
@@ -760,7 +775,9 @@ export class IntegrationProviderFactory {
         });
       default:
         if (this.composioFallback?.canHandle(context.spec.meta.key)) {
-          return this.composioFallback.createGenericProxy(context) as unknown as EmbeddingProvider;
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as EmbeddingProvider;
         }
         throw new Error(
           `Unsupported embeddings integration: ${context.spec.meta.key}`
@@ -813,7 +830,9 @@ export class IntegrationProviderFactory {
       }
       default:
         if (this.composioFallback?.canHandle(context.spec.meta.key)) {
-          return this.composioFallback.createGenericProxy(context) as unknown as OpenBankingProvider;
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as OpenBankingProvider;
         }
         throw new Error(
           `Unsupported open banking integration: ${context.spec.meta.key}`

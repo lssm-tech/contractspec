@@ -21,26 +21,26 @@ export interface ContractsMcpServices {
   }): Promise<ContractInfo[]>;
 
   getSpec(
-    path: string,
+    path: string
   ): Promise<{ content: string; info: ContractInfo } | null>;
 
   validateSpec(
-    path: string,
+    path: string
   ): Promise<{ valid: boolean; errors: string[]; warnings: string[] }>;
 
   buildSpec(
     path: string,
-    options?: { dryRun?: boolean },
+    options?: { dryRun?: boolean }
   ): Promise<{ results: unknown[] }>;
 
   updateSpec(
     path: string,
-    options: { content?: string; fields?: unknown[] },
+    options: { content?: string; fields?: unknown[] }
   ): Promise<{ updated: boolean; errors: string[]; warnings: string[] }>;
 
   deleteSpec(
     path: string,
-    options?: { clean?: boolean },
+    options?: { clean?: boolean }
   ): Promise<{ deleted: boolean; cleanedFiles: string[]; errors: string[] }>;
 
   fetchRegistryManifest(): Promise<unknown>;

@@ -3,6 +3,7 @@ import type {
   EmbeddingDocument,
   EmbeddingProvider,
   EmbeddingResult,
+  VectorDeleteRequest,
   VectorSearchQuery,
   VectorSearchResult,
   VectorStoreProvider,
@@ -53,7 +54,9 @@ class FakeVectorStoreProvider implements VectorStoreProvider {
     return [];
   }
 
-  async delete(): Promise<void> {}
+  async delete(_request: VectorDeleteRequest): Promise<void> {
+    /* noop */
+  }
 }
 
 describe('ContextSnapshotPipeline', () => {

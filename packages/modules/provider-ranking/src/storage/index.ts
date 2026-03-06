@@ -56,7 +56,7 @@ export class PostgresProviderRankingStore implements ProviderRankingStore {
         result.metadata ? JSON.stringify(result.metadata) : null,
         result.measuredAt.toISOString(),
         result.ingestedAt.toISOString(),
-      ],
+      ]
     );
   }
 
@@ -64,13 +64,13 @@ export class PostgresProviderRankingStore implements ProviderRankingStore {
     await this.ensureTables();
     const rows = await this.database.query(
       `SELECT * FROM ${this.table('benchmark_result')} WHERE id = $1;`,
-      [id],
+      [id]
     );
     return rows.rows[0] ? this.mapBenchmarkResult(rows.rows[0]) : null;
   }
 
   async listBenchmarkResults(
-    query: BenchmarkResultQuery,
+    query: BenchmarkResultQuery
   ): Promise<BenchmarkResultListResult> {
     await this.ensureTables();
     const limit = query.limit ?? 50;
@@ -96,30 +96,39 @@ export class PostgresProviderRankingStore implements ProviderRankingStore {
       countFilters.push(`provider_key = $${countParams.length}`);
     }
 
-    const where = countFilters.length ? `WHERE ${countFilters.join(' AND ')}` : '';
+    const where = countFilters.length
+      ? `WHERE ${countFilters.join(' AND ')}`
+      : '';
 
     const countResult = await this.database.query(
       `SELECT COUNT(*)::int as total FROM ${this.table('benchmark_result')} ${where};`,
-      countParams,
+      countParams
     );
     const total = Number(countResult.rows[0]?.total ?? 0);
 
-    const dataParams: DatabaseStatementParam[] = [limit, offset, ...countParams];
-    const dataFilters = countFilters.map(
-      (_f, i) => _f.replace(`$${i + 1}`, `$${i + 3}`),
+    const dataParams: DatabaseStatementParam[] = [
+      limit,
+      offset,
+      ...countParams,
+    ];
+    const dataFilters = countFilters.map((_f, i) =>
+      _f.replace(`$${i + 1}`, `$${i + 3}`)
     );
-    const dataWhere = dataFilters.length ? `WHERE ${dataFilters.join(' AND ')}` : '';
+    const dataWhere = dataFilters.length
+      ? `WHERE ${dataFilters.join(' AND ')}`
+      : '';
 
     const rows = await this.database.query(
       `SELECT * FROM ${this.table('benchmark_result')}
        ${dataWhere}
        ORDER BY ingested_at DESC
        LIMIT $1 OFFSET $2;`,
-      dataParams,
+      dataParams
     );
 
     const results = rows.rows.map((row) => this.mapBenchmarkResult(row));
-    const nextOffset = offset + results.length < total ? offset + results.length : undefined;
+    const nextOffset =
+      offset + results.length < total ? offset + results.length : undefined;
 
     return { results, total, nextOffset };
   }
@@ -146,7 +155,7 @@ export class PostgresProviderRankingStore implements ProviderRankingStore {
         ranking.rank,
         ranking.previousRank,
         ranking.updatedAt.toISOString(),
-      ],
+      ]
     );
   }
 
@@ -154,7 +163,7 @@ export class PostgresProviderRankingStore implements ProviderRankingStore {
     await this.ensureTables();
     const rows = await this.database.query(
       `SELECT * FROM ${this.table('model_ranking')} WHERE model_id = $1;`,
-      [modelId],
+      [modelId]
     );
     return rows.rows[0] ? this.mapModelRanking(rows.rows[0]) : null;
   }
@@ -172,19 +181,27 @@ export class PostgresProviderRankingStore implements ProviderRankingStore {
       countFilters.push(`provider_key = $${countParams.length}`);
     }
 
-    const where = countFilters.length ? `WHERE ${countFilters.join(' AND ')}` : '';
+    const where = countFilters.length
+      ? `WHERE ${countFilters.join(' AND ')}`
+      : '';
 
     const countResult = await this.database.query(
       `SELECT COUNT(*)::int as total FROM ${this.table('model_ranking')} ${where};`,
-      countParams,
+      countParams
     );
     const total = Number(countResult.rows[0]?.total ?? 0);
 
-    const dataParams: DatabaseStatementParam[] = [limit, offset, ...countParams];
-    const dataFilters = countFilters.map(
-      (_f, i) => _f.replace(`$${i + 1}`, `$${i + 3}`),
+    const dataParams: DatabaseStatementParam[] = [
+      limit,
+      offset,
+      ...countParams,
+    ];
+    const dataFilters = countFilters.map((_f, i) =>
+      _f.replace(`$${i + 1}`, `$${i + 3}`)
     );
-    const dataWhere = dataFilters.length ? `WHERE ${dataFilters.join(' AND ')}` : '';
+    const dataWhere = dataFilters.length
+      ? `WHERE ${dataFilters.join(' AND ')}`
+      : '';
 
     const orderBy = query.dimension
       ? `(dimension_scores->>'${query.dimension}')::jsonb->>'score' DESC NULLS LAST`
@@ -195,11 +212,12 @@ export class PostgresProviderRankingStore implements ProviderRankingStore {
        ${dataWhere}
        ORDER BY ${orderBy}
        LIMIT $1 OFFSET $2;`,
-      dataParams,
+      dataParams
     );
 
     const rankings = rows.rows.map((row) => this.mapModelRanking(row));
-    const nextOffset = offset + rankings.length < total ? offset + rankings.length : undefined;
+    const nextOffset =
+      offset + rankings.length < total ? offset + rankings.length : undefined;
 
     return { rankings, total, nextOffset };
   }
@@ -212,20 +230,24 @@ export class PostgresProviderRankingStore implements ProviderRankingStore {
       `SELECT * FROM ${this.table('benchmark_result')}
        WHERE model_id = $1
        ORDER BY ingested_at DESC;`,
-      [modelId],
+      [modelId]
     );
 
     if (!ranking && benchResults.rows.length === 0) return null;
 
     return {
       modelId,
-      providerKey: ranking?.providerKey ?? String(benchResults.rows[0]?.provider_key ?? 'unknown'),
+      providerKey:
+        ranking?.providerKey ??
+        String(benchResults.rows[0]?.provider_key ?? 'unknown'),
       displayName: modelId,
       contextWindow: 0,
       costPerMillion: null,
       capabilities: [],
       ranking: ranking ?? null,
-      benchmarkResults: benchResults.rows.map((row) => this.mapBenchmarkResult(row)),
+      benchmarkResults: benchResults.rows.map((row) =>
+        this.mapBenchmarkResult(row)
+      ),
     };
   }
 
@@ -243,13 +265,13 @@ export class PostgresProviderRankingStore implements ProviderRankingStore {
         run.startedAt.toISOString(),
         run.completedAt?.toISOString() ?? null,
         run.error,
-      ],
+      ]
     );
   }
 
   async updateIngestionRun(
     id: string,
-    update: Partial<IngestionRun>,
+    update: Partial<IngestionRun>
   ): Promise<void> {
     await this.ensureTables();
     const sets: string[] = [];
@@ -276,7 +298,7 @@ export class PostgresProviderRankingStore implements ProviderRankingStore {
 
     await this.database.execute(
       `UPDATE ${this.table('ingestion_run')} SET ${sets.join(', ')} WHERE id = $1;`,
-      params,
+      params
     );
   }
 
@@ -284,7 +306,7 @@ export class PostgresProviderRankingStore implements ProviderRankingStore {
     await this.ensureTables();
     const rows = await this.database.query(
       `SELECT * FROM ${this.table('ingestion_run')} WHERE id = $1;`,
-      [id],
+      [id]
     );
     return rows.rows[0] ? this.mapIngestionRun(rows.rows[0]) : null;
   }
@@ -306,20 +328,20 @@ export class PostgresProviderRankingStore implements ProviderRankingStore {
         metadata jsonb,
         measured_at timestamptz NOT NULL,
         ingested_at timestamptz NOT NULL
-      );`,
+      );`
     );
 
     await this.database.execute(
       `CREATE INDEX IF NOT EXISTS benchmark_result_model_idx
-       ON ${this.table('benchmark_result')} (model_id);`,
+       ON ${this.table('benchmark_result')} (model_id);`
     );
     await this.database.execute(
       `CREATE INDEX IF NOT EXISTS benchmark_result_source_idx
-       ON ${this.table('benchmark_result')} (source);`,
+       ON ${this.table('benchmark_result')} (source);`
     );
     await this.database.execute(
       `CREATE INDEX IF NOT EXISTS benchmark_result_dimension_idx
-       ON ${this.table('benchmark_result')} (dimension);`,
+       ON ${this.table('benchmark_result')} (dimension);`
     );
 
     await this.database.execute(
@@ -331,12 +353,12 @@ export class PostgresProviderRankingStore implements ProviderRankingStore {
         rank int NOT NULL,
         previous_rank int,
         updated_at timestamptz NOT NULL
-      );`,
+      );`
     );
 
     await this.database.execute(
       `CREATE INDEX IF NOT EXISTS model_ranking_rank_idx
-       ON ${this.table('model_ranking')} (rank);`,
+       ON ${this.table('model_ranking')} (rank);`
     );
 
     await this.database.execute(
@@ -348,7 +370,7 @@ export class PostgresProviderRankingStore implements ProviderRankingStore {
         started_at timestamptz NOT NULL,
         completed_at timestamptz,
         error text
-      );`,
+      );`
     );
 
     this.ensured = true;
@@ -378,9 +400,12 @@ export class PostgresProviderRankingStore implements ProviderRankingStore {
       modelId: String(row.model_id),
       providerKey: String(row.provider_key),
       compositeScore: Number(row.composite_score),
-      dimensionScores: (parseJson(row.dimension_scores) as ModelRanking['dimensionScores']) ?? {},
+      dimensionScores:
+        (parseJson(row.dimension_scores) as ModelRanking['dimensionScores']) ??
+        {},
       rank: Number(row.rank),
-      previousRank: row.previous_rank != null ? Number(row.previous_rank) : null,
+      previousRank:
+        row.previous_rank != null ? Number(row.previous_rank) : null,
       updatedAt: new Date(String(row.updated_at)),
     };
   }

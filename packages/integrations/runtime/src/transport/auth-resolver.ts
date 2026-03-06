@@ -13,7 +13,6 @@ import {
   refreshOAuth2Token,
   isOAuth2TokenExpired,
 } from '@contractspec/lib.contracts-integrations/integrations/auth-helpers';
-import type { SecretProvider } from '../secrets/provider';
 
 export interface AuthResolutionResult {
   headers: Record<string, string>;
@@ -33,11 +32,11 @@ export interface AuthResolverOptions {
  * Resolve auth headers, refreshing OAuth2 tokens if needed.
  */
 export async function resolveAuth(
-  options: AuthResolverOptions,
+  options: AuthResolverOptions
 ): Promise<AuthResolutionResult> {
   const authConfig = findAuthConfig(
     options.supportedAuthMethods,
-    options.activeAuthMethod,
+    options.activeAuthMethod
   );
 
   if (!authConfig) {
@@ -54,7 +53,7 @@ export async function resolveAuth(
           authConfig,
           options.oauth2State,
           { clientId, clientSecret },
-          options.fetchFn,
+          options.fetchFn
         );
 
         const mergedSecrets = {

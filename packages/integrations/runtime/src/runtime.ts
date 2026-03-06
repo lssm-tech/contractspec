@@ -455,7 +455,7 @@ export function connectionStatusLabel(status: ConnectionStatus): string {
 export interface ComposioRuntimeConfig {
   apiKey: string;
   baseUrl?: string;
-  preferredTransport?: "mcp" | "sdk";
+  preferredTransport?: 'mcp' | 'sdk';
 }
 
 export interface IntegrationRuntimeConfig {

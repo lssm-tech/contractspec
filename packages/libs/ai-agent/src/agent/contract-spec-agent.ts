@@ -494,7 +494,7 @@ export class ContractSpecAgent {
   }): Promise<LanguageModel> {
     if (this.config.modelSelector && params.options?.selectionContext) {
       const { model } = await this.config.modelSelector.selectAndCreate(
-        params.options.selectionContext,
+        params.options.selectionContext
       );
       return model;
     }

@@ -82,7 +82,7 @@ export interface StepModelHints {
   /** Preferred benchmark dimension for model selection. */
   dimension?: string;
   /** Weighted priorities across multiple dimensions. */
-  priorities?: Array<{ dimension: string; weight: number }>;
+  priorities?: { dimension: string; weight: number }[];
   /** Hard constraints for model filtering. */
   constraints?: Record<string, unknown>;
 }

@@ -18,7 +18,9 @@ export const mcpHandler = new Elysia()
 mcpHandler.use(createDocsMcpHandler('/api/mcp/docs'));
 mcpHandler.use(createCliMcpHandler('/api/mcp/cli'));
 mcpHandler.use(createInternalMcpHandler('/api/mcp/internal'));
-mcpHandler.use(createContractsMcpHandler('/api/mcp/contracts', contractsServices));
+mcpHandler.use(
+  createContractsMcpHandler('/api/mcp/contracts', contractsServices)
+);
 
 appLogger.warn(
   'CLI and internal MCP handlers are disabled in api-library deployment.'

@@ -15,16 +15,29 @@ import z from 'zod';
 import { createMcpElysiaHandler } from './common';
 import { appLogger } from '../../infrastructure/elysia/logger';
 import type { ProviderRankingStore } from '@contractspec/lib.provider-ranking/store';
-import type { ProviderTransportSupport, ProviderAuthSupport } from '@contractspec/lib.provider-ranking/types';
+import type {
+  ProviderTransportSupport,
+  ProviderAuthSupport,
+} from '@contractspec/lib.provider-ranking/types';
 import { InMemoryProviderRankingStore } from '@contractspec/lib.provider-ranking/in-memory-store';
 import { createDefaultIngesterRegistry } from '@contractspec/lib.provider-ranking/ingesters';
 import { computeModelRankings } from '@contractspec/lib.provider-ranking/scoring';
 import { normalizeBenchmarkResults } from '@contractspec/lib.provider-ranking/scoring';
 
-const TransportFilterSchema = z.enum(["rest", "mcp", "webhook", "sdk"]).optional();
-const AuthFilterSchema = z.enum([
-  "api-key", "oauth2", "bearer", "header", "basic", "webhook-signing", "service-account",
-]).optional();
+const TransportFilterSchema = z
+  .enum(['rest', 'mcp', 'webhook', 'sdk'])
+  .optional();
+const AuthFilterSchema = z
+  .enum([
+    'api-key',
+    'oauth2',
+    'bearer',
+    'header',
+    'basic',
+    'webhook-signing',
+    'service-account',
+  ])
+  .optional();
 
 const RANKING_TAGS = ['ranking', 'mcp', 'ai'];
 const RANKING_OWNERS = ['platform.ai'];
@@ -46,7 +59,8 @@ function buildRankingResources() {
       meta: {
         uriTemplate: 'ranking://leaderboard',
         title: 'AI Model Leaderboard',
-        description: 'Current ranked list of AI models by composite score. Supports optional transport and authMethod query filters.',
+        description:
+          'Current ranked list of AI models by composite score. Supports optional transport and authMethod query filters.',
         mimeType: 'application/json',
         tags: RANKING_TAGS,
       },
@@ -67,7 +81,7 @@ function buildRankingResources() {
           data: JSON.stringify(result, null, 2),
         };
       },
-    }),
+    })
   );
 
   resources.register(
@@ -75,7 +89,8 @@ function buildRankingResources() {
       meta: {
         uriTemplate: 'ranking://leaderboard/{dimension}',
         title: 'AI Model Leaderboard by Dimension',
-        description: 'Ranked list of AI models filtered by a specific dimension. Supports optional transport and authMethod query filters.',
+        description:
+          'Ranked list of AI models filtered by a specific dimension. Supports optional transport and authMethod query filters.',
         mimeType: 'application/json',
         tags: RANKING_TAGS,
       },
@@ -87,7 +102,15 @@ function buildRankingResources() {
       resolve: async ({ dimension, transport, authMethod }) => {
         const store = getStore();
         const result = await store.listModelRankings({
-          dimension: dimension as "coding" | "reasoning" | "agentic" | "cost" | "latency" | "context" | "safety" | "custom",
+          dimension: dimension as
+            | 'coding'
+            | 'reasoning'
+            | 'agentic'
+            | 'cost'
+            | 'latency'
+            | 'context'
+            | 'safety'
+            | 'custom',
           limit: 100,
           requiredTransport: transport as ProviderTransportSupport | undefined,
           requiredAuthMethod: authMethod as ProviderAuthSupport | undefined,
@@ -98,7 +121,7 @@ function buildRankingResources() {
           data: JSON.stringify(result, null, 2),
         };
       },
-    }),
+    })
   );
 
   resources.register(
@@ -106,7 +129,8 @@ function buildRankingResources() {
       meta: {
         uriTemplate: 'ranking://model/{modelId}',
         title: 'AI Model Profile',
-        description: 'Detailed profile for a specific AI model including scores and benchmarks.',
+        description:
+          'Detailed profile for a specific AI model including scores and benchmarks.',
         mimeType: 'application/json',
         tags: RANKING_TAGS,
       },
@@ -127,7 +151,7 @@ function buildRankingResources() {
           data: JSON.stringify(profile, null, 2),
         };
       },
-    }),
+    })
   );
 
   resources.register(
@@ -149,7 +173,7 @@ function buildRankingResources() {
           data: JSON.stringify(result, null, 2),
         };
       },
-    }),
+    })
   );
 
   return resources;
@@ -164,7 +188,8 @@ function buildRankingPrompts() {
         key: 'ranking.advisor',
         version: '1.0.0',
         title: 'AI Model Advisor',
-        description: 'Which AI model is best for a given task? Uses the leaderboard to recommend.',
+        description:
+          'Which AI model is best for a given task? Uses the leaderboard to recommend.',
         tags: RANKING_TAGS,
         stability: 'beta',
         owners: RANKING_OWNERS,
@@ -178,7 +203,8 @@ function buildRankingPrompts() {
         },
         {
           name: 'priority',
-          description: 'Priority dimension (coding, reasoning, cost, latency, etc.).',
+          description:
+            'Priority dimension (coding, reasoning, cost, latency, etc.).',
           required: false,
           schema: z.string().optional(),
         },
@@ -214,12 +240,14 @@ function buildRankingPrompts() {
           },
           {
             type: 'resource' as const,
-            uri: priority ? `ranking://leaderboard/${priority}` : 'ranking://leaderboard',
+            uri: priority
+              ? `ranking://leaderboard/${priority}`
+              : 'ranking://leaderboard',
             title: 'Leaderboard',
           },
         ];
       },
-    }),
+    })
   );
 
   return prompts;
@@ -232,14 +260,20 @@ function buildRankingOps() {
   installOp(registry, BenchmarkIngestCommand, async (args) => {
     const store = getStore();
     const source = args.source as string;
-    const ingester = ingesterRegistry.get(source as Parameters<typeof ingesterRegistry.get>[0]);
+    const ingester = ingesterRegistry.get(
+      source as Parameters<typeof ingesterRegistry.get>[0]
+    );
     if (!ingester) {
       throw new Error(`No ingester registered for source: ${source}`);
     }
 
     const rawResults = await ingester.ingest({
       sourceUrl: args.sourceUrl as string | undefined,
-      dimensions: args.dimensions as string[] | undefined as Parameters<typeof ingester.ingest>[0] extends undefined ? never : NonNullable<Parameters<typeof ingester.ingest>[0]>['dimensions'],
+      dimensions: args.dimensions as string[] | undefined as Parameters<
+        typeof ingester.ingest
+      >[0] extends undefined
+        ? never
+        : NonNullable<Parameters<typeof ingester.ingest>[0]>['dimensions'],
     });
     const normalized = normalizeBenchmarkResults(rawResults);
 
@@ -273,26 +307,43 @@ function buildRankingOps() {
     const pageSize = 500;
 
     while (true) {
-      const page = await store.listBenchmarkResults({ limit: pageSize, offset });
+      const page = await store.listBenchmarkResults({
+        limit: pageSize,
+        offset,
+      });
       allResults.push(...page.results);
-      if (allResults.length >= page.total || page.results.length < pageSize) break;
+      if (allResults.length >= page.total || page.results.length < pageSize)
+        break;
       offset += pageSize;
     }
 
     const existingRankings = new Map(
-      (await store.listModelRankings({ limit: 10000 })).rankings.map(
-        (r) => [r.modelId, r],
-      ),
+      (await store.listModelRankings({ limit: 10000 })).rankings.map((r) => [
+        r.modelId,
+        r,
+      ])
     );
 
     const weightOverrides = args.weightOverrides
-      ? (Array.isArray(args.weightOverrides) ? args.weightOverrides : [args.weightOverrides])
+      ? Array.isArray(args.weightOverrides)
+        ? args.weightOverrides
+        : [args.weightOverrides]
       : undefined;
 
     const newRankings = computeModelRankings(
       allResults,
-      weightOverrides ? { weightOverrides: weightOverrides as Parameters<typeof computeModelRankings>[1] extends undefined ? never : NonNullable<Parameters<typeof computeModelRankings>[1]>['weightOverrides'] } : undefined,
-      existingRankings,
+      weightOverrides
+        ? {
+            weightOverrides: weightOverrides as Parameters<
+              typeof computeModelRankings
+            >[1] extends undefined
+              ? never
+              : NonNullable<
+                  Parameters<typeof computeModelRankings>[1]
+                >['weightOverrides'],
+          }
+        : undefined,
+      existingRankings
     );
 
     for (const ranking of newRankings) {

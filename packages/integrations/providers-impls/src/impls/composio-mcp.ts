@@ -170,10 +170,10 @@ interface JsonRpcResponse {
 
 interface JsonRpcToolsListResponse {
   result?: {
-    tools?: Array<{
+    tools?: {
       name: string;
       description?: string;
       inputSchema?: Record<string, unknown>;
-    }>;
+    }[];
   };
 }

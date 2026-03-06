@@ -10,7 +10,7 @@ interface FetchWithRetryOptions {
 
 export async function fetchWithRetry(
   url: string,
-  options?: FetchWithRetryOptions,
+  options?: FetchWithRetryOptions
 ): Promise<Response> {
   const fetchFn = options?.fetch ?? globalThis.fetch;
   const maxRetries = options?.maxRetries ?? 2;
@@ -28,7 +28,9 @@ export async function fetchWithRetry(
         continue;
       }
 
-      throw new Error(`Fetch failed: ${response.status} ${response.statusText} (${url})`);
+      throw new Error(
+        `Fetch failed: ${response.status} ${response.statusText} (${url})`
+      );
     } catch (error) {
       lastError = error instanceof Error ? error : new Error(String(error));
       if (attempt < maxRetries) {
@@ -37,14 +39,19 @@ export async function fetchWithRetry(
     }
   }
 
-  throw lastError ?? new Error(`Fetch failed after ${maxRetries + 1} attempts: ${url}`);
+  throw (
+    lastError ??
+    new Error(`Fetch failed after ${maxRetries + 1} attempts: ${url}`)
+  );
 }
 
 export function parseJsonSafe<T>(text: string, label: string): T {
   try {
     return JSON.parse(text) as T;
   } catch {
-    throw new Error(`Failed to parse JSON response from ${label}: ${text.slice(0, 200)}`);
+    throw new Error(
+      `Failed to parse JSON response from ${label}: ${text.slice(0, 200)}`
+    );
   }
 }
 

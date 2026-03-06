@@ -9,7 +9,10 @@ import type {
   LLMMessage,
   LLMProvider,
 } from '@contractspec/lib.contracts-integrations/integrations/providers/llm';
-import type { ModelSelector, ModelSelectionContext } from '@contractspec/lib.ai-providers/selector-types';
+import type {
+  ModelSelector,
+  ModelSelectionContext,
+} from '@contractspec/lib.ai-providers/selector-types';
 import type { ContentBrief } from '@contractspec/lib.content-gen/types';
 import type { NarrationConfig } from '@contractspec/lib.contracts-integrations/integrations/providers/video';
 import { createVideoGenI18n } from '../i18n';
@@ -168,7 +171,9 @@ export class ScriptGenerator {
   private async resolveModel(): Promise<string | undefined> {
     if (this.model) return this.model;
     if (this.modelSelector) {
-      const ctx = this.selectionContext ?? { taskDimension: "reasoning" as const };
+      const ctx = this.selectionContext ?? {
+        taskDimension: 'reasoning' as const,
+      };
       const result = await this.modelSelector.select(ctx);
       return result.modelId;
     }

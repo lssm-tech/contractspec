@@ -1,15 +1,15 @@
-import type { ComposioToolProxy, ComposioToolResult } from "./composio-types";
+import type { ComposioToolProxy, ComposioToolResult } from './composio-types';
 import type {
   MessagingProvider,
   MessagingSendInput,
   MessagingSendResult,
   MessagingUpdateInput,
-} from "../messaging";
+} from '../messaging';
 import type {
   EmailOutboundProvider,
   EmailOutboundMessage,
   EmailOutboundResult,
-} from "../email";
+} from '../email';
 import type {
   PaymentsProvider,
   CreateCustomerInput,
@@ -23,12 +23,12 @@ import type {
   PaymentInvoice,
   ListTransactionsQuery,
   PaymentTransaction,
-} from "../payments";
+} from '../payments';
 import type {
   ProjectManagementProvider,
   ProjectManagementWorkItemInput,
   ProjectManagementWorkItem,
-} from "../project-management";
+} from '../project-management';
 import type {
   CalendarProvider,
   CalendarListEventsQuery,
@@ -36,7 +36,7 @@ import type {
   CalendarEventInput,
   CalendarEvent,
   CalendarEventUpdateInput,
-} from "../calendar";
+} from '../calendar';
 
 function composioToolName(toolkit: string, action: string): string {
   return `${toolkit.toUpperCase()}_${action.toUpperCase()}`;
@@ -52,44 +52,44 @@ function unwrapResult<T>(result: ComposioToolResult, fallback: T): T {
 export class ComposioMessagingProxy implements MessagingProvider {
   constructor(
     private readonly proxy: ComposioToolProxy,
-    private readonly toolkit: string,
+    private readonly toolkit: string
   ) {}
 
   async sendMessage(input: MessagingSendInput): Promise<MessagingSendResult> {
     const result = await this.proxy.executeTool(
-      composioToolName(this.toolkit, "SEND_MESSAGE"),
+      composioToolName(this.toolkit, 'SEND_MESSAGE'),
       {
         channel: input.channelId,
         thread_ts: input.threadId,
         text: input.text,
         recipient: input.recipientId,
-      },
+      }
     );
     const data = unwrapResult<Record<string, unknown>>(result, {});
     return {
       id: String(data.id ?? data.ts ?? crypto.randomUUID()),
       providerMessageId: data.ts as string | undefined,
-      status: "sent",
+      status: 'sent',
       sentAt: new Date(),
     };
   }
 
   async updateMessage(
     messageId: string,
-    input: MessagingUpdateInput,
+    input: MessagingUpdateInput
   ): Promise<MessagingSendResult> {
     const result = await this.proxy.executeTool(
-      composioToolName(this.toolkit, "UPDATE_MESSAGE"),
+      composioToolName(this.toolkit, 'UPDATE_MESSAGE'),
       {
         message_id: messageId,
         channel: input.channelId,
         text: input.text,
-      },
+      }
     );
     const data = unwrapResult<Record<string, unknown>>(result, {});
     return {
       id: String(data.id ?? messageId),
-      status: "sent",
+      status: 'sent',
       sentAt: new Date(),
     };
   }
@@ -98,20 +98,20 @@ export class ComposioMessagingProxy implements MessagingProvider {
 export class ComposioEmailProxy implements EmailOutboundProvider {
   constructor(
     private readonly proxy: ComposioToolProxy,
-    private readonly toolkit: string,
+    private readonly toolkit: string
   ) {}
 
   async sendEmail(message: EmailOutboundMessage): Promise<EmailOutboundResult> {
     const result = await this.proxy.executeTool(
-      composioToolName(this.toolkit, "SEND_EMAIL"),
+      composioToolName(this.toolkit, 'SEND_EMAIL'),
       {
-        to: message.to.map((a) => a.email).join(","),
-        cc: message.cc?.map((a) => a.email).join(","),
-        bcc: message.bcc?.map((a) => a.email).join(","),
+        to: message.to.map((a) => a.email).join(','),
+        cc: message.cc?.map((a) => a.email).join(','),
+        bcc: message.bcc?.map((a) => a.email).join(','),
         subject: message.subject,
-        body: message.htmlBody ?? message.textBody ?? "",
+        body: message.htmlBody ?? message.textBody ?? '',
         from: message.from.email,
-      },
+      }
     );
     const data = unwrapResult<Record<string, unknown>>(result, {});
     return {
@@ -125,13 +125,13 @@ export class ComposioEmailProxy implements EmailOutboundProvider {
 export class ComposioPaymentsProxy implements PaymentsProvider {
   constructor(
     private readonly proxy: ComposioToolProxy,
-    private readonly toolkit: string,
+    private readonly toolkit: string
   ) {}
 
   async createCustomer(input: CreateCustomerInput): Promise<PaymentCustomer> {
     const result = await this.proxy.executeTool(
-      composioToolName(this.toolkit, "CREATE_CUSTOMER"),
-      { email: input.email, name: input.name, description: input.description },
+      composioToolName(this.toolkit, 'CREATE_CUSTOMER'),
+      { email: input.email, name: input.name, description: input.description }
     );
     const data = unwrapResult<Record<string, unknown>>(result, {});
     return {
@@ -143,8 +143,8 @@ export class ComposioPaymentsProxy implements PaymentsProvider {
 
   async getCustomer(customerId: string): Promise<PaymentCustomer | null> {
     const result = await this.proxy.executeTool(
-      composioToolName(this.toolkit, "GET_CUSTOMER"),
-      { customer_id: customerId },
+      composioToolName(this.toolkit, 'GET_CUSTOMER'),
+      { customer_id: customerId }
     );
     if (!result.success) return null;
     const data = result.data as Record<string, unknown> | undefined;
@@ -156,21 +156,24 @@ export class ComposioPaymentsProxy implements PaymentsProvider {
     };
   }
 
-  async createPaymentIntent(input: CreatePaymentIntentInput): Promise<PaymentIntent> {
+  async createPaymentIntent(
+    input: CreatePaymentIntentInput
+  ): Promise<PaymentIntent> {
     const result = await this.proxy.executeTool(
-      composioToolName(this.toolkit, "CREATE_PAYMENT_INTENT"),
+      composioToolName(this.toolkit, 'CREATE_PAYMENT_INTENT'),
       {
         amount: input.amount.amount,
         currency: input.amount.currency,
         customer_id: input.customerId,
         description: input.description,
-      },
+      }
     );
     const data = unwrapResult<Record<string, unknown>>(result, {});
     return {
       id: String(data.id ?? crypto.randomUUID()),
       amount: input.amount,
-      status: (data.status as PaymentIntent["status"]) ?? "requires_payment_method",
+      status:
+        (data.status as PaymentIntent['status']) ?? 'requires_payment_method',
       customerId: input.customerId,
       clientSecret: data.client_secret as string | undefined,
     };
@@ -178,77 +181,85 @@ export class ComposioPaymentsProxy implements PaymentsProvider {
 
   async capturePayment(
     paymentIntentId: string,
-    input?: CapturePaymentInput,
+    input?: CapturePaymentInput
   ): Promise<PaymentIntent> {
     const result = await this.proxy.executeTool(
-      composioToolName(this.toolkit, "CAPTURE_PAYMENT"),
-      { payment_intent_id: paymentIntentId, amount: input?.amount?.amount },
+      composioToolName(this.toolkit, 'CAPTURE_PAYMENT'),
+      { payment_intent_id: paymentIntentId, amount: input?.amount?.amount }
     );
     const data = unwrapResult<Record<string, unknown>>(result, {});
     return {
       id: paymentIntentId,
-      amount: input?.amount ?? { amount: 0, currency: "usd" },
-      status: (data.status as PaymentIntent["status"]) ?? "succeeded",
+      amount: input?.amount ?? { amount: 0, currency: 'usd' },
+      status: (data.status as PaymentIntent['status']) ?? 'succeeded',
     };
   }
 
   async cancelPaymentIntent(paymentIntentId: string): Promise<PaymentIntent> {
     const result = await this.proxy.executeTool(
-      composioToolName(this.toolkit, "CANCEL_PAYMENT_INTENT"),
-      { payment_intent_id: paymentIntentId },
+      composioToolName(this.toolkit, 'CANCEL_PAYMENT_INTENT'),
+      { payment_intent_id: paymentIntentId }
     );
     const data = unwrapResult<Record<string, unknown>>(result, {});
     return {
       id: paymentIntentId,
-      amount: { amount: 0, currency: "usd" },
-      status: (data.status as PaymentIntent["status"]) ?? "canceled",
+      amount: { amount: 0, currency: 'usd' },
+      status: (data.status as PaymentIntent['status']) ?? 'canceled',
     };
   }
 
   async refundPayment(input: RefundPaymentInput): Promise<PaymentRefund> {
     const result = await this.proxy.executeTool(
-      composioToolName(this.toolkit, "REFUND_PAYMENT"),
+      composioToolName(this.toolkit, 'REFUND_PAYMENT'),
       {
         payment_intent_id: input.paymentIntentId,
         amount: input.amount?.amount,
         reason: input.reason,
-      },
+      }
     );
     const data = unwrapResult<Record<string, unknown>>(result, {});
     return {
       id: String(data.id ?? crypto.randomUUID()),
       paymentIntentId: input.paymentIntentId,
-      amount: input.amount ?? { amount: 0, currency: "usd" },
-      status: "succeeded",
+      amount: input.amount ?? { amount: 0, currency: 'usd' },
+      status: 'succeeded',
     };
   }
 
   async listInvoices(_query?: ListInvoicesQuery): Promise<PaymentInvoice[]> {
     const result = await this.proxy.executeTool(
-      composioToolName(this.toolkit, "LIST_INVOICES"),
-      { customer_id: _query?.customerId, limit: _query?.limit },
+      composioToolName(this.toolkit, 'LIST_INVOICES'),
+      { customer_id: _query?.customerId, limit: _query?.limit }
     );
     if (!result.success) return [];
     const items = (result.data as Record<string, unknown>[]) ?? [];
     return items.map((i) => ({
       id: String(i.id),
-      status: (i.status as PaymentInvoice["status"]) ?? "open",
-      amountDue: { amount: Number(i.amount_due ?? 0), currency: String(i.currency ?? "usd") },
+      status: (i.status as PaymentInvoice['status']) ?? 'open',
+      amountDue: {
+        amount: Number(i.amount_due ?? 0),
+        currency: String(i.currency ?? 'usd'),
+      },
     }));
   }
 
-  async listTransactions(_query?: ListTransactionsQuery): Promise<PaymentTransaction[]> {
+  async listTransactions(
+    _query?: ListTransactionsQuery
+  ): Promise<PaymentTransaction[]> {
     const result = await this.proxy.executeTool(
-      composioToolName(this.toolkit, "LIST_TRANSACTIONS"),
-      { customer_id: _query?.customerId, limit: _query?.limit },
+      composioToolName(this.toolkit, 'LIST_TRANSACTIONS'),
+      { customer_id: _query?.customerId, limit: _query?.limit }
     );
     if (!result.success) return [];
     const items = (result.data as Record<string, unknown>[]) ?? [];
     return items.map((i) => ({
       id: String(i.id),
-      amount: { amount: Number(i.amount ?? 0), currency: String(i.currency ?? "usd") },
-      type: "capture" as const,
-      status: "succeeded" as const,
+      amount: {
+        amount: Number(i.amount ?? 0),
+        currency: String(i.currency ?? 'usd'),
+      },
+      type: 'capture' as const,
+      status: 'succeeded' as const,
       createdAt: new Date(),
     }));
   }
@@ -257,14 +268,14 @@ export class ComposioPaymentsProxy implements PaymentsProvider {
 export class ComposioProjectManagementProxy implements ProjectManagementProvider {
   constructor(
     private readonly proxy: ComposioToolProxy,
-    private readonly toolkit: string,
+    private readonly toolkit: string
   ) {}
 
   async createWorkItem(
-    input: ProjectManagementWorkItemInput,
+    input: ProjectManagementWorkItemInput
   ): Promise<ProjectManagementWorkItem> {
     const result = await this.proxy.executeTool(
-      composioToolName(this.toolkit, "CREATE_ISSUE"),
+      composioToolName(this.toolkit, 'CREATE_ISSUE'),
       {
         title: input.title,
         description: input.description,
@@ -272,7 +283,7 @@ export class ComposioProjectManagementProxy implements ProjectManagementProvider
         assignee_id: input.assigneeId,
         project_id: input.projectId,
         labels: input.tags,
-      },
+      }
     );
     const data = unwrapResult<Record<string, unknown>>(result, {});
     return {
@@ -287,7 +298,7 @@ export class ComposioProjectManagementProxy implements ProjectManagementProvider
   }
 
   async createWorkItems(
-    items: ProjectManagementWorkItemInput[],
+    items: ProjectManagementWorkItemInput[]
   ): Promise<ProjectManagementWorkItem[]> {
     return Promise.all(items.map((item) => this.createWorkItem(item)));
   }
@@ -296,18 +307,20 @@ export class ComposioProjectManagementProxy implements ProjectManagementProvider
 export class ComposioCalendarProxy implements CalendarProvider {
   constructor(
     private readonly proxy: ComposioToolProxy,
-    private readonly toolkit: string,
+    private readonly toolkit: string
   ) {}
 
-  async listEvents(query: CalendarListEventsQuery): Promise<CalendarListEventsResult> {
+  async listEvents(
+    query: CalendarListEventsQuery
+  ): Promise<CalendarListEventsResult> {
     const result = await this.proxy.executeTool(
-      composioToolName(this.toolkit, "LIST_EVENTS"),
+      composioToolName(this.toolkit, 'LIST_EVENTS'),
       {
         calendar_id: query.calendarId,
         time_min: query.timeMin?.toISOString(),
         time_max: query.timeMax?.toISOString(),
         max_results: query.maxResults,
-      },
+      }
     );
     if (!result.success) return { events: [] };
     const items = (result.data as Record<string, unknown>[]) ?? [];
@@ -315,7 +328,7 @@ export class ComposioCalendarProxy implements CalendarProvider {
       events: items.map((e) => ({
         id: String(e.id),
         calendarId: query.calendarId,
-        title: String(e.summary ?? e.title ?? ""),
+        title: String(e.summary ?? e.title ?? ''),
         start: new Date(String(e.start ?? Date.now())),
         end: new Date(String(e.end ?? Date.now())),
       })),
@@ -324,7 +337,7 @@ export class ComposioCalendarProxy implements CalendarProvider {
 
   async createEvent(input: CalendarEventInput): Promise<CalendarEvent> {
     const result = await this.proxy.executeTool(
-      composioToolName(this.toolkit, "CREATE_EVENT"),
+      composioToolName(this.toolkit, 'CREATE_EVENT'),
       {
         calendar_id: input.calendarId,
         summary: input.title,
@@ -333,7 +346,7 @@ export class ComposioCalendarProxy implements CalendarProvider {
         start: input.start.toISOString(),
         end: input.end.toISOString(),
         attendees: input.attendees?.map((a) => a.email),
-      },
+      }
     );
     const data = unwrapResult<Record<string, unknown>>(result, {});
     return {
@@ -348,10 +361,10 @@ export class ComposioCalendarProxy implements CalendarProvider {
   async updateEvent(
     calendarId: string,
     eventId: string,
-    input: CalendarEventUpdateInput,
+    input: CalendarEventUpdateInput
   ): Promise<CalendarEvent> {
     const result = await this.proxy.executeTool(
-      composioToolName(this.toolkit, "UPDATE_EVENT"),
+      composioToolName(this.toolkit, 'UPDATE_EVENT'),
       {
         calendar_id: calendarId,
         event_id: eventId,
@@ -359,13 +372,13 @@ export class ComposioCalendarProxy implements CalendarProvider {
         description: input.description,
         start: input.start?.toISOString(),
         end: input.end?.toISOString(),
-      },
+      }
     );
     const data = unwrapResult<Record<string, unknown>>(result, {});
     return {
       id: eventId,
       calendarId,
-      title: String(data.summary ?? input.title ?? ""),
+      title: String(data.summary ?? input.title ?? ''),
       start: input.start ?? new Date(),
       end: input.end ?? new Date(),
     };
@@ -373,8 +386,8 @@ export class ComposioCalendarProxy implements CalendarProvider {
 
   async deleteEvent(calendarId: string, eventId: string): Promise<void> {
     await this.proxy.executeTool(
-      composioToolName(this.toolkit, "DELETE_EVENT"),
-      { calendar_id: calendarId, event_id: eventId },
+      composioToolName(this.toolkit, 'DELETE_EVENT'),
+      { calendar_id: calendarId, event_id: eventId }
     );
   }
 }
@@ -386,20 +399,19 @@ export class ComposioCalendarProxy implements CalendarProvider {
 export class ComposioGenericProxy {
   constructor(
     private readonly proxy: ComposioToolProxy,
-    private readonly toolkit: string,
+    private readonly toolkit: string
   ) {}
 
   async executeTool(
     action: string,
-    args: Record<string, unknown>,
+    args: Record<string, unknown>
   ): Promise<ComposioToolResult> {
-    return this.proxy.executeTool(
-      composioToolName(this.toolkit, action),
-      args,
-    );
+    return this.proxy.executeTool(composioToolName(this.toolkit, action), args);
   }
 
-  async searchTools(query: string): Promise<ReturnType<ComposioToolProxy["searchTools"]>> {
+  async searchTools(
+    query: string
+  ): Promise<ReturnType<ComposioToolProxy['searchTools']>> {
     return this.proxy.searchTools(query);
   }
 

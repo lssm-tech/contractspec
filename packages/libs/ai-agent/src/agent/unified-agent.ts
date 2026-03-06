@@ -27,7 +27,10 @@
  */
 import type { LanguageModel } from 'ai';
 import type { ProviderConfig } from '@contractspec/lib.ai-providers/types';
-import type { ModelSelector, ModelSelectionContext } from '@contractspec/lib.ai-providers/selector-types';
+import type {
+  ModelSelector,
+  ModelSelectionContext,
+} from '@contractspec/lib.ai-providers/selector-types';
 import type { AgentSpec } from '../spec/spec';
 import type { McpClientConfig } from '../tools/mcp-client';
 import type {
@@ -354,7 +357,7 @@ export class UnifiedAgent {
 
     if (backendConfig?.modelSelector && backendConfig.selectionContext) {
       const result = await backendConfig.modelSelector.selectAndCreate(
-        backendConfig.selectionContext,
+        backendConfig.selectionContext
       );
       model = result.model;
     } else if (backendConfig?.modelInstance) {

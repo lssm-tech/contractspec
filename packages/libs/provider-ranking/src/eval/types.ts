@@ -1,4 +1,4 @@
-import type { BenchmarkDimension } from "../types";
+import type { BenchmarkDimension } from '../types';
 
 export interface EvalCase {
   id: string;
@@ -18,7 +18,7 @@ export interface EvalSuite {
   dimension: BenchmarkDimension;
   cases: EvalCase[];
   /** Default grading strategy when individual cases don't specify one. */
-  defaultGrader: "exact" | "contains" | "regex" | "llm-judge";
+  defaultGrader: 'exact' | 'contains' | 'regex' | 'llm-judge';
 }
 
 export interface EvalCaseResult {

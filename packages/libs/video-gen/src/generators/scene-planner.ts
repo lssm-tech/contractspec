@@ -8,7 +8,10 @@ import type {
   LLMMessage,
   LLMProvider,
 } from '@contractspec/lib.contracts-integrations/integrations/providers/llm';
-import type { ModelSelector, ModelSelectionContext } from '@contractspec/lib.ai-providers/selector-types';
+import type {
+  ModelSelector,
+  ModelSelectionContext,
+} from '@contractspec/lib.ai-providers/selector-types';
 import type { PlannedScene, ScenePlan, VideoBrief } from '../types';
 import { DEFAULT_FPS } from '../design/layouts';
 import { createVideoGenI18n } from '../i18n';
@@ -169,7 +172,9 @@ export class ScenePlanner {
   private async resolveModel(): Promise<string | undefined> {
     if (this.model) return this.model;
     if (this.modelSelector) {
-      const ctx = this.selectionContext ?? { taskDimension: "reasoning" as const };
+      const ctx = this.selectionContext ?? {
+        taskDimension: 'reasoning' as const,
+      };
       const result = await this.modelSelector.select(ctx);
       return result.modelId;
     }

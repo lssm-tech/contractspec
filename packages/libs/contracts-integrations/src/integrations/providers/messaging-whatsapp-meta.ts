@@ -1,8 +1,5 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
-import type { IntegrationTransportConfig } from '../transport';
-import type { IntegrationAuthConfig } from '../auth';
-
 export const messagingWhatsappMetaIntegrationSpec = defineIntegration({
   meta: {
     key: 'messaging.whatsapp.meta',

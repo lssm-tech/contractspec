@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { cn } from "@contractspec/lib.ui-kit-web/ui/utils";
-import { cva, type VariantProps } from "class-variance-authority";
+import * as React from 'react';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
 
-const sizeVariants = cva("rounded-full", {
+const sizeVariants = cva('rounded-full', {
   variants: {
     size: {
-      sm: "h-2",
-      md: "h-3",
-      lg: "h-4",
+      sm: 'h-2',
+      md: 'h-3',
+      lg: 'h-4',
     },
   },
-  defaultVariants: { size: "md" },
+  defaultVariants: { size: 'md' },
 });
 
 export type ScoreBarProps = VariantProps<typeof sizeVariants> & {
@@ -24,10 +24,10 @@ export type ScoreBarProps = VariantProps<typeof sizeVariants> & {
 };
 
 function scoreColor(pct: number): string {
-  if (pct >= 75) return "bg-green-500";
-  if (pct >= 50) return "bg-yellow-500";
-  if (pct >= 25) return "bg-orange-500";
-  return "bg-red-500";
+  if (pct >= 75) return 'bg-green-500';
+  if (pct >= 50) return 'bg-yellow-500';
+  if (pct >= 25) return 'bg-orange-500';
+  return 'bg-red-500';
 }
 
 export function ScoreBar({
@@ -41,7 +41,7 @@ export function ScoreBar({
   const pct = Math.max(0, Math.min(100, (score / maxScore) * 100));
 
   return (
-    <div className={cn("flex flex-col gap-1", className)}>
+    <div className={cn('flex flex-col gap-1', className)}>
       {(label || showValue) && (
         <div className="flex items-center justify-between text-sm">
           {label && (
@@ -55,18 +55,21 @@ export function ScoreBar({
         </div>
       )}
       <div
-        className={cn("bg-muted w-full overflow-hidden", sizeVariants({ size }))}
+        className={cn(
+          'bg-muted w-full overflow-hidden',
+          sizeVariants({ size })
+        )}
         role="progressbar"
         aria-valuenow={score}
         aria-valuemin={0}
         aria-valuemax={maxScore}
-        aria-label={label ?? "Score"}
+        aria-label={label ?? 'Score'}
       >
         <div
           className={cn(
-            "h-full transition-all duration-300",
+            'h-full transition-all duration-300',
             sizeVariants({ size }),
-            scoreColor(pct),
+            scoreColor(pct)
           )}
           style={{ width: `${pct}%` }}
         />

@@ -1,7 +1,10 @@
 import type { LanguageModel } from 'ai';
 import { createProvider } from '@contractspec/lib.ai-providers/factory';
 import type { ProviderConfig } from '@contractspec/lib.ai-providers/types';
-import type { ModelSelector, ModelSelectionContext } from '@contractspec/lib.ai-providers/selector-types';
+import type {
+  ModelSelector,
+  ModelSelectionContext,
+} from '@contractspec/lib.ai-providers/selector-types';
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import type { AgentSpec } from '../spec/spec';
 import type { ToolHandler } from '../types';
@@ -52,9 +55,13 @@ export interface AgentJsonRunner {
   generateJson: (prompt: string) => Promise<string>;
 }
 
-async function resolveModel(options: AgentJsonRunnerOptions): Promise<LanguageModel> {
+async function resolveModel(
+  options: AgentJsonRunnerOptions
+): Promise<LanguageModel> {
   if (options.modelSelector && options.selectionContext) {
-    const { model } = await options.modelSelector.selectAndCreate(options.selectionContext);
+    const { model } = await options.modelSelector.selectAndCreate(
+      options.selectionContext
+    );
     return model;
   }
   if (options.model) return options.model;

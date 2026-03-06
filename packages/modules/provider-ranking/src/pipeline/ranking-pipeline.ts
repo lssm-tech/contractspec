@@ -52,19 +52,21 @@ export class RankingPipeline {
     const existingRankings = params?.forceRecalculate
       ? new Map<string, never>()
       : new Map(
-          (await this.store.listModelRankings({
-            limit: 10000,
-            requiredTransport: params?.requiredTransport,
-            requiredAuthMethod: params?.requiredAuthMethod,
-          })).rankings.map(
-            (r) => [r.modelId, r],
-          ),
+          (
+            await this.store.listModelRankings({
+              limit: 10000,
+              requiredTransport: params?.requiredTransport,
+              requiredAuthMethod: params?.requiredAuthMethod,
+            })
+          ).rankings.map((r) => [r.modelId, r])
         );
 
     const newRankings = computeModelRankings(
       allResults,
-      params?.weightOverrides ? { weightOverrides: params.weightOverrides } : undefined,
-      existingRankings,
+      params?.weightOverrides
+        ? { weightOverrides: params.weightOverrides }
+        : undefined,
+      existingRankings
     );
 
     for (const ranking of newRankings) {

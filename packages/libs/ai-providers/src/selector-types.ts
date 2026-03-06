@@ -1,6 +1,9 @@
-import type { LanguageModel } from "ai";
-import type { ModelCapabilities, ProviderName } from "./types";
-import type { BenchmarkDimension, DimensionWeightConfig } from "@contractspec/lib.provider-ranking";
+import type { LanguageModel } from 'ai';
+import type { ModelCapabilities, ProviderName } from './types';
+import type {
+  BenchmarkDimension,
+  DimensionWeightConfig,
+} from '@contractspec/lib.provider-ranking';
 
 export interface ModelConstraints {
   maxCostPerMillionInput?: number;
@@ -31,7 +34,7 @@ export interface ModelSelectionResult {
   providerKey: string;
   score: number;
   reason: string;
-  alternatives: Array<{ modelId: string; providerKey: string; score: number }>;
+  alternatives: { modelId: string; providerKey: string; score: number }[];
 }
 
 export interface ModelSelector {

@@ -414,8 +414,9 @@ export class DefaultTransportResolver implements TransportResolver {
     ) {
       return preferredTransport;
     }
-    if (specTransports.length > 0) {
-      return specTransports[0]!.type;
+    const firstTransport = specTransports[0];
+    if (firstTransport) {
+      return firstTransport.type;
     }
     return 'rest';
   }
@@ -432,7 +433,8 @@ export function resolveAuthMethod(
   if (connectionMethod && supportsAuthMethod(specMethods, connectionMethod)) {
     return connectionMethod;
   }
-  return specMethods[0]!.type;
+  const firstMethod = specMethods[0];
+  return firstMethod?.type;
 }
 
 /**

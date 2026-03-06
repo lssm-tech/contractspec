@@ -23,13 +23,26 @@ const ModelProfileOutput = new SchemaModel({
     providerKey: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     displayName: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     contextWindow: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-    costPerMillionInput: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
-    costPerMillionOutput: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
-    capabilities: { type: ScalarTypeEnum.String_unsecure(), isOptional: false, isArray: true },
+    costPerMillionInput: {
+      type: ScalarTypeEnum.Float_unsecure(),
+      isOptional: true,
+    },
+    costPerMillionOutput: {
+      type: ScalarTypeEnum.Float_unsecure(),
+      isOptional: true,
+    },
+    capabilities: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+      isArray: true,
+    },
     compositeScore: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
     rank: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
     dimensionScores: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
-    benchmarkResultsCount: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    benchmarkResultsCount: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+    },
     updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
   },
 });

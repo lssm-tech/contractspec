@@ -260,10 +260,22 @@ const ModelSelectionPayload = defineSchemaModel({
     dimension: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     score: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
     reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    alternativesCount: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-    costEstimateInput: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
-    costEstimateOutput: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
-    selectionDurationMs: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
+    alternativesCount: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+    },
+    costEstimateInput: {
+      type: ScalarTypeEnum.Float_unsecure(),
+      isOptional: true,
+    },
+    costEstimateOutput: {
+      type: ScalarTypeEnum.Float_unsecure(),
+      isOptional: true,
+    },
+    selectionDurationMs: {
+      type: ScalarTypeEnum.Float_unsecure(),
+      isOptional: true,
+    },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });

@@ -11,7 +11,7 @@ export type {
   RankingListResult,
   IngestionRun,
   DimensionWeightConfig,
-} from "./types";
-export { BENCHMARK_DIMENSIONS } from "./types";
-export type { ProviderRankingStore } from "./store";
-export { InMemoryProviderRankingStore } from "./in-memory-store";
+} from './types';
+export { BENCHMARK_DIMENSIONS } from './types';
+export type { ProviderRankingStore } from './store';
+export { InMemoryProviderRankingStore } from './in-memory-store';

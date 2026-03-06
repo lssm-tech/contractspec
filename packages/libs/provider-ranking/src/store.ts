@@ -7,7 +7,7 @@ import type {
   ModelRanking,
   RankingListResult,
   RankingQuery,
-} from "./types";
+} from './types';
 
 /**
  * Storage interface for the provider ranking system.
@@ -18,7 +18,9 @@ import type {
 export interface ProviderRankingStore {
   upsertBenchmarkResult(result: BenchmarkResult): Promise<void>;
   getBenchmarkResult(id: string): Promise<BenchmarkResult | null>;
-  listBenchmarkResults(query: BenchmarkResultQuery): Promise<BenchmarkResultListResult>;
+  listBenchmarkResults(
+    query: BenchmarkResultQuery
+  ): Promise<BenchmarkResultListResult>;
 
   upsertModelRanking(ranking: ModelRanking): Promise<void>;
   getModelRanking(modelId: string): Promise<ModelRanking | null>;

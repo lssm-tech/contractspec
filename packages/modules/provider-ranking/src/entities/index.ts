@@ -9,13 +9,21 @@ export const BenchmarkResultEntity = defineEntity({
   fields: {
     id: field.id({ description: 'Benchmark result ID' }),
     modelId: field.string({ description: 'Model identifier' }),
-    providerKey: field.string({ description: 'Provider key (e.g. openai, anthropic)' }),
-    source: field.string({ description: 'Benchmark source (e.g. swe-bench, chatbot-arena)' }),
-    dimension: field.string({ description: 'Ranking dimension (coding, reasoning, etc.)' }),
+    providerKey: field.string({
+      description: 'Provider key (e.g. openai, anthropic)',
+    }),
+    source: field.string({
+      description: 'Benchmark source (e.g. swe-bench, chatbot-arena)',
+    }),
+    dimension: field.string({
+      description: 'Ranking dimension (coding, reasoning, etc.)',
+    }),
     score: field.float({ description: 'Normalized score 0-100' }),
     rawScore: field.json({ description: 'Original score from source' }),
     metadata: field.json({ isOptional: true }),
-    measuredAt: field.dateTime({ description: 'When the benchmark was measured' }),
+    measuredAt: field.dateTime({
+      description: 'When the benchmark was measured',
+    }),
     ingestedAt: field.dateTime({ description: 'When the result was ingested' }),
   },
   indexes: [
@@ -36,10 +44,17 @@ export const ModelRankingEntity = defineEntity({
   fields: {
     modelId: field.id({ description: 'Model identifier (primary key)' }),
     providerKey: field.string({ description: 'Provider key' }),
-    compositeScore: field.float({ description: 'Weighted composite score 0-100' }),
-    dimensionScores: field.json({ description: 'Per-dimension score breakdown' }),
+    compositeScore: field.float({
+      description: 'Weighted composite score 0-100',
+    }),
+    dimensionScores: field.json({
+      description: 'Per-dimension score breakdown',
+    }),
     rank: field.int({ description: 'Current rank position' }),
-    previousRank: field.int({ isOptional: true, description: 'Previous rank position' }),
+    previousRank: field.int({
+      isOptional: true,
+      description: 'Previous rank position',
+    }),
     updatedAt: field.updatedAt(),
   },
   indexes: [
@@ -57,11 +72,19 @@ export const IngestionRunEntity = defineEntity({
   fields: {
     id: field.id({ description: 'Ingestion run ID' }),
     source: field.string({ description: 'Benchmark source' }),
-    status: field.string({ description: 'Run status: pending, running, completed, failed' }),
+    status: field.string({
+      description: 'Run status: pending, running, completed, failed',
+    }),
     resultsCount: field.int({ description: 'Number of results ingested' }),
     startedAt: field.dateTime({ description: 'When the run started' }),
-    completedAt: field.dateTime({ isOptional: true, description: 'When the run completed' }),
-    error: field.string({ isOptional: true, description: 'Error message if failed' }),
+    completedAt: field.dateTime({
+      isOptional: true,
+      description: 'When the run completed',
+    }),
+    error: field.string({
+      isOptional: true,
+      description: 'Error message if failed',
+    }),
   },
   indexes: [
     index.on(['source']),

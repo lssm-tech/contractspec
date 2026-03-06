@@ -4,8 +4,8 @@ import type {
   DimensionScore,
   DimensionWeightConfig,
   ModelRanking,
-} from "../types";
-import { getWeightMap, normalizeWeights } from "./dimension-weights";
+} from '../types';
+import { getWeightMap, normalizeWeights } from './dimension-weights';
 
 interface ScorerOptions {
   weightOverrides?: DimensionWeightConfig[];
@@ -18,7 +18,7 @@ interface ScorerOptions {
 export function computeModelRankings(
   results: BenchmarkResult[],
   options?: ScorerOptions,
-  existingRankings?: Map<string, ModelRanking>,
+  existingRankings?: Map<string, ModelRanking>
 ): ModelRanking[] {
   const byModel = groupByModel(results);
   const weights = getWeightMap(options?.weightOverrides);
@@ -26,9 +26,11 @@ export function computeModelRankings(
   const unsorted: ModelRanking[] = [];
 
   for (const [modelId, modelResults] of byModel) {
-    const providerKey = modelResults[0]?.providerKey ?? "unknown";
+    const providerKey = modelResults[0]?.providerKey ?? 'unknown';
     const dimensionScores = computeDimensionScores(modelResults);
-    const activeDimensions = Object.keys(dimensionScores) as BenchmarkDimension[];
+    const activeDimensions = Object.keys(
+      dimensionScores
+    ) as BenchmarkDimension[];
     const normalizedWeights = normalizeWeights(weights, activeDimensions);
 
     let compositeScore = 0;
@@ -62,7 +64,7 @@ export function computeModelRankings(
 }
 
 function groupByModel(
-  results: BenchmarkResult[],
+  results: BenchmarkResult[]
 ): Map<string, BenchmarkResult[]> {
   const map = new Map<string, BenchmarkResult[]>();
 
@@ -79,7 +81,7 @@ function groupByModel(
 }
 
 function computeDimensionScores(
-  results: BenchmarkResult[],
+  results: BenchmarkResult[]
 ): Partial<Record<BenchmarkDimension, DimensionScore>> {
   const byDimension = new Map<BenchmarkDimension, BenchmarkResult[]>();
 
@@ -102,7 +104,8 @@ function computeDimensionScores(
 
     const recencyFactor = computeRecencyFactor(dimResults);
     const sourceDiversity = Math.min(sources.length / 3, 1);
-    const confidence = Math.round((recencyFactor * 0.5 + sourceDiversity * 0.5) * 100) / 100;
+    const confidence =
+      Math.round((recencyFactor * 0.5 + sourceDiversity * 0.5) * 100) / 100;
 
     scores[dimension] = {
       score: Math.round(avgScore * 100) / 100,
@@ -128,5 +131,5 @@ function computeRecencyFactor(results: BenchmarkResult[]): number {
   if (daysSinceMostRecent <= 30) return 1.0;
   if (daysSinceMostRecent >= 180) return 0.3;
 
-  return 1.0 - (daysSinceMostRecent - 30) / (180 - 30) * 0.7;
+  return 1.0 - ((daysSinceMostRecent - 30) / (180 - 30)) * 0.7;
 }

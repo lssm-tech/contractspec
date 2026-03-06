@@ -177,11 +177,12 @@ function buildHealthAuthMethods(
   input: HealthProviderSpecInput
 ): IntegrationAuthConfig[] {
   if (input.oauthTokenUrl) {
+    const tokenUrl = input.oauthTokenUrl;
     return HEALTH_DEFAULT_AUTH_METHODS.map((m) => {
       if (m.type === 'oauth2') {
         return {
           ...m,
-          tokenUrl: input.oauthTokenUrl!,
+          tokenUrl,
           scopes: input.byokScopes ?? [],
         };
       }

@@ -6,37 +6,37 @@
  */
 
 export type BenchmarkDimension =
-  | "coding"
-  | "reasoning"
-  | "agentic"
-  | "cost"
-  | "latency"
-  | "context"
-  | "safety"
-  | "custom";
+  | 'coding'
+  | 'reasoning'
+  | 'agentic'
+  | 'cost'
+  | 'latency'
+  | 'context'
+  | 'safety'
+  | 'custom';
 
 export const BENCHMARK_DIMENSIONS: readonly BenchmarkDimension[] = [
-  "coding",
-  "reasoning",
-  "agentic",
-  "cost",
-  "latency",
-  "context",
-  "safety",
-  "custom",
+  'coding',
+  'reasoning',
+  'agentic',
+  'cost',
+  'latency',
+  'context',
+  'safety',
+  'custom',
 ] as const;
 
 export type BenchmarkSource =
-  | "chatbot-arena"
-  | "swe-bench"
-  | "human-eval"
-  | "mmlu"
-  | "gpqa"
-  | "arc"
-  | "truthfulqa"
-  | "tau-bench"
-  | "artificial-analysis"
-  | "custom";
+  | 'chatbot-arena'
+  | 'swe-bench'
+  | 'human-eval'
+  | 'mmlu'
+  | 'gpqa'
+  | 'arc'
+  | 'truthfulqa'
+  | 'tau-bench'
+  | 'artificial-analysis'
+  | 'custom';
 
 export interface BenchmarkResult {
   id: string;
@@ -122,15 +122,22 @@ export interface RankingListResult {
 export interface IngestionRun {
   id: string;
   source: BenchmarkSource;
-  status: "pending" | "running" | "completed" | "failed";
+  status: 'pending' | 'running' | 'completed' | 'failed';
   resultsCount: number;
   startedAt: Date;
   completedAt: Date | null;
   error: string | null;
 }
 
-export type ProviderTransportSupport = "rest" | "mcp" | "webhook" | "sdk";
-export type ProviderAuthSupport = "api-key" | "oauth2" | "bearer" | "header" | "basic" | "webhook-signing" | "service-account";
+export type ProviderTransportSupport = 'rest' | 'mcp' | 'webhook' | 'sdk';
+export type ProviderAuthSupport =
+  | 'api-key'
+  | 'oauth2'
+  | 'bearer'
+  | 'header'
+  | 'basic'
+  | 'webhook-signing'
+  | 'service-account';
 
 export interface DimensionWeightConfig {
   dimension: BenchmarkDimension;

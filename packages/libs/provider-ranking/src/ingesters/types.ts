@@ -1,4 +1,8 @@
-import type { BenchmarkDimension, BenchmarkResult, BenchmarkSource } from "../types";
+import type {
+  BenchmarkDimension,
+  BenchmarkResult,
+  BenchmarkSource,
+} from '../types';
 
 export interface IngesterOptions {
   /** Override the fetch function (useful for testing). */

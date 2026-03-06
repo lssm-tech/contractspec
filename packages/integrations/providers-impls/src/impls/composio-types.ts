@@ -8,7 +8,7 @@
 export interface ComposioConfig {
   apiKey: string;
   baseUrl?: string;
-  preferredTransport: "mcp" | "sdk";
+  preferredTransport: 'mcp' | 'sdk';
 }
 
 export interface ComposioSessionInfo {
@@ -27,7 +27,7 @@ export interface ComposioToolResult {
 export interface ComposioToolProxy {
   executeTool(
     toolName: string,
-    args: Record<string, unknown>,
+    args: Record<string, unknown>
   ): Promise<ComposioToolResult>;
   searchTools(query: string): Promise<ComposioToolDescriptor[]>;
 }
@@ -44,32 +44,32 @@ export interface ComposioToolDescriptor {
  * Keys are the domain prefix from integration keys (e.g. "messaging" from "messaging.discord").
  */
 export const INTEGRATION_KEY_TO_TOOLKIT: Record<string, string> = {
-  "payments": "stripe",
-  "email": "gmail",
-  "calendar": "googlecalendar",
-  "sms": "twilio",
-  "messaging.slack": "slack",
-  "messaging.github": "github",
-  "messaging.discord": "discord",
-  "messaging.teams": "microsoft_teams",
-  "analytics.posthog": "posthog",
-  "project-management.linear": "linear",
-  "project-management.jira": "jira",
-  "project-management.notion": "notion",
-  "project-management.asana": "asana",
-  "project-management.trello": "trello",
-  "project-management.monday": "monday",
-  "storage.s3": "aws",
-  "storage.gcs": "google_cloud",
-  "storage.gdrive": "googledrive",
-  "storage.dropbox": "dropbox",
-  "storage.onedrive": "onedrive",
-  "crm.salesforce": "salesforce",
-  "crm.hubspot": "hubspot",
-  "crm.pipedrive": "pipedrive",
-  "database.supabase": "supabase",
-  "vectordb.supabase": "supabase",
-  "ai-llm": "openai",
+  payments: 'stripe',
+  email: 'gmail',
+  calendar: 'googlecalendar',
+  sms: 'twilio',
+  'messaging.slack': 'slack',
+  'messaging.github': 'github',
+  'messaging.discord': 'discord',
+  'messaging.teams': 'microsoft_teams',
+  'analytics.posthog': 'posthog',
+  'project-management.linear': 'linear',
+  'project-management.jira': 'jira',
+  'project-management.notion': 'notion',
+  'project-management.asana': 'asana',
+  'project-management.trello': 'trello',
+  'project-management.monday': 'monday',
+  'storage.s3': 'aws',
+  'storage.gcs': 'google_cloud',
+  'storage.gdrive': 'googledrive',
+  'storage.dropbox': 'dropbox',
+  'storage.onedrive': 'onedrive',
+  'crm.salesforce': 'salesforce',
+  'crm.hubspot': 'hubspot',
+  'crm.pipedrive': 'pipedrive',
+  'database.supabase': 'supabase',
+  'vectordb.supabase': 'supabase',
+  'ai-llm': 'openai',
 };
 
 const SESSION_TTL_MS = 30 * 60 * 1000;
@@ -93,7 +93,7 @@ export function resolveToolkit(integrationKey: string): string {
     }
   }
 
-  const parts = integrationKey.split(".");
+  const parts = integrationKey.split('.');
   const last = parts[parts.length - 1];
   return parts.length > 1 && last ? last : integrationKey;
 }

@@ -45,8 +45,18 @@ export const BenchmarkResultsDataView = defineDataView({
     filters: [
       { key: 'source', label: 'Source', field: 'source', type: 'search' },
       { key: 'modelId', label: 'Model', field: 'modelId', type: 'search' },
-      { key: 'dimension', label: 'Dimension', field: 'dimension', type: 'search' },
-      { key: 'providerKey', label: 'Provider', field: 'providerKey', type: 'search' },
+      {
+        key: 'dimension',
+        label: 'Dimension',
+        field: 'dimension',
+        type: 'search',
+      },
+      {
+        key: 'providerKey',
+        label: 'Provider',
+        field: 'providerKey',
+        type: 'search',
+      },
     ],
   },
   policy: {

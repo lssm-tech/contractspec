@@ -110,7 +110,9 @@ export interface ComposioConnectedAccount {
 
 interface ComposioSdkClient {
   getEntity(userId: string): Promise<ComposioSdkEntity>;
-  actions: { list(opts: { query: string; limit: number }): Promise<ComposioAction[]> };
+  actions: {
+    list(opts: { query: string; limit: number }): Promise<ComposioAction[]>;
+  };
 }
 
 interface ComposioSdkEntity {

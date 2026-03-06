@@ -162,11 +162,11 @@ export interface RefreshOAuth2TokenOutput {
   scopes: string[];
 }
 
-export type TransportOption = {
+export interface TransportOption {
   transport: 'rest' | 'mcp' | 'webhook' | 'sdk';
   supported: boolean;
   defaultVersion?: string;
-};
+}
 
 export interface GetTransportOptionsInput {
   integrationId: string;

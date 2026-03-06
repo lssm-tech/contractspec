@@ -1,4 +1,4 @@
-import type { ProviderRankingStore } from "./store";
+import type { ProviderRankingStore } from './store';
 import type {
   BenchmarkResult,
   BenchmarkResultListResult,
@@ -8,7 +8,7 @@ import type {
   ModelRanking,
   RankingListResult,
   RankingQuery,
-} from "./types";
+} from './types';
 
 export class InMemoryProviderRankingStore implements ProviderRankingStore {
   private benchmarkResults = new Map<string, BenchmarkResult>();
@@ -24,7 +24,7 @@ export class InMemoryProviderRankingStore implements ProviderRankingStore {
   }
 
   async listBenchmarkResults(
-    query: BenchmarkResultQuery,
+    query: BenchmarkResultQuery
   ): Promise<BenchmarkResultListResult> {
     let results = Array.from(this.benchmarkResults.values());
 
@@ -45,7 +45,8 @@ export class InMemoryProviderRankingStore implements ProviderRankingStore {
     const offset = query.offset ?? 0;
     const limit = query.limit ?? 50;
     results = results.slice(offset, offset + limit);
-    const nextOffset = offset + results.length < total ? offset + results.length : undefined;
+    const nextOffset =
+      offset + results.length < total ? offset + results.length : undefined;
 
     return { results, total, nextOffset };
   }
@@ -80,7 +81,8 @@ export class InMemoryProviderRankingStore implements ProviderRankingStore {
     const offset = query.offset ?? 0;
     const limit = query.limit ?? 50;
     rankings = rankings.slice(offset, offset + limit);
-    const nextOffset = offset + rankings.length < total ? offset + rankings.length : undefined;
+    const nextOffset =
+      offset + rankings.length < total ? offset + rankings.length : undefined;
 
     return { rankings, total, nextOffset };
   }
@@ -90,7 +92,7 @@ export class InMemoryProviderRankingStore implements ProviderRankingStore {
     if (!ranking) return null;
 
     const benchmarkResults = Array.from(this.benchmarkResults.values()).filter(
-      (r) => r.modelId === modelId,
+      (r) => r.modelId === modelId
     );
 
     return {
@@ -111,7 +113,7 @@ export class InMemoryProviderRankingStore implements ProviderRankingStore {
 
   async updateIngestionRun(
     id: string,
-    update: Partial<IngestionRun>,
+    update: Partial<IngestionRun>
   ): Promise<void> {
     const existing = this.ingestionRuns.get(id);
     if (existing) {

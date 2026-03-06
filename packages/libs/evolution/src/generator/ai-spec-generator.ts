@@ -2,7 +2,10 @@ import type { LanguageModel } from 'ai';
 import { generateText, Output } from 'ai';
 import * as z from 'zod';
 import { randomUUID } from 'node:crypto';
-import type { ModelSelector, ModelSelectionContext } from '@contractspec/lib.ai-providers/selector-types';
+import type {
+  ModelSelector,
+  ModelSelectionContext,
+} from '@contractspec/lib.ai-providers/selector-types';
 import type {
   EvolutionConfig,
   IntentPattern,
@@ -87,7 +90,9 @@ When generating suggestions:
 
   private async resolveModel(): Promise<LanguageModel> {
     if (this.modelSelector) {
-      const ctx = this.selectionContext ?? { taskDimension: "reasoning" as const };
+      const ctx = this.selectionContext ?? {
+        taskDimension: 'reasoning' as const,
+      };
       const { model } = await this.modelSelector.selectAndCreate(ctx);
       return model;
     }

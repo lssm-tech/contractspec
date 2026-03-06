@@ -1,8 +1,8 @@
-import type { IntegrationContext } from "@contractspec/integration.runtime/runtime";
-import type { ComposioConfig, ComposioToolProxy } from "./composio-types";
-import { resolveToolkit } from "./composio-types";
-import { ComposioMcpProvider } from "./composio-mcp";
-import { ComposioSdkProvider } from "./composio-sdk";
+import type { IntegrationContext } from '@contractspec/integration.runtime/runtime';
+import type { ComposioConfig, ComposioToolProxy } from './composio-types';
+import { resolveToolkit } from './composio-types';
+import { ComposioMcpProvider } from './composio-mcp';
+import { ComposioSdkProvider } from './composio-sdk';
 import {
   ComposioMessagingProxy,
   ComposioEmailProxy,
@@ -10,12 +10,12 @@ import {
   ComposioProjectManagementProxy,
   ComposioCalendarProxy,
   ComposioGenericProxy,
-} from "./composio-proxies";
-import type { MessagingProvider } from "../messaging";
-import type { EmailOutboundProvider } from "../email";
-import type { PaymentsProvider } from "../payments";
-import type { ProjectManagementProvider } from "../project-management";
-import type { CalendarProvider } from "../calendar";
+} from './composio-proxies';
+import type { MessagingProvider } from '../messaging';
+import type { EmailOutboundProvider } from '../email';
+import type { PaymentsProvider } from '../payments';
+import type { ProjectManagementProvider } from '../project-management';
+import type { CalendarProvider } from '../calendar';
 
 /**
  * Resolves unsupported integration keys to Composio-backed proxy providers.
@@ -28,7 +28,7 @@ import type { CalendarProvider } from "../calendar";
 export class ComposioFallbackResolver {
   private readonly mcpProvider: ComposioMcpProvider;
   private readonly sdkProvider: ComposioSdkProvider;
-  private readonly preferredTransport: "mcp" | "sdk";
+  private readonly preferredTransport: 'mcp' | 'sdk';
 
   constructor(config: ComposioConfig) {
     this.mcpProvider = new ComposioMcpProvider(config);
@@ -59,7 +59,9 @@ export class ComposioFallbackResolver {
     return new ComposioPaymentsProxy(this.getProxy(), toolkit);
   }
 
-  createProjectManagementProxy(context: IntegrationContext): ProjectManagementProvider {
+  createProjectManagementProxy(
+    context: IntegrationContext
+  ): ProjectManagementProvider {
     const toolkit = resolveToolkit(context.spec.meta.key);
     return new ComposioProjectManagementProxy(this.getProxy(), toolkit);
   }
@@ -75,7 +77,7 @@ export class ComposioFallbackResolver {
   }
 
   private getProxy(): ComposioToolProxy {
-    return this.preferredTransport === "sdk"
+    return this.preferredTransport === 'sdk'
       ? this.sdkProvider
       : this.mcpProvider;
   }

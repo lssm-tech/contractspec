@@ -1,9 +1,9 @@
-import type { BenchmarkSource } from "../types";
-import type { BenchmarkIngester } from "./types";
-import { chatbotArenaIngester } from "./chatbot-arena";
-import { artificialAnalysisIngester } from "./artificial-analysis";
-import { sweBenchIngester } from "./swe-bench";
-import { openLlmLeaderboardIngester } from "./open-llm-leaderboard";
+import type { BenchmarkSource } from '../types';
+import type { BenchmarkIngester } from './types';
+import { chatbotArenaIngester } from './chatbot-arena';
+import { artificialAnalysisIngester } from './artificial-analysis';
+import { sweBenchIngester } from './swe-bench';
+import { openLlmLeaderboardIngester } from './open-llm-leaderboard';
 
 /**
  * Registry of available benchmark ingesters.

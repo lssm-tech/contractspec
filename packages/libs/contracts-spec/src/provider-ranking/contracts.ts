@@ -20,14 +20,8 @@ import {
   RankingUpdatedEvent,
 } from './events';
 import { ProviderRankingCapability } from './capabilities';
-import {
-  ProviderRankingsDataView,
-  BenchmarkResultsDataView,
-} from './views';
-import {
-  BenchmarkIngestForm,
-  BenchmarkRunCustomForm,
-} from './forms';
+import { ProviderRankingsDataView, BenchmarkResultsDataView } from './views';
+import { BenchmarkIngestForm, BenchmarkRunCustomForm } from './forms';
 import { ModelComparisonPresentation } from './presentations';
 
 export const providerRankingOperationContracts = {
@@ -63,7 +57,9 @@ export const providerRankingPresentationContracts = {
   ModelComparisonPresentation,
 };
 
-export function registerProviderRankingOperations(registry: OperationSpecRegistry) {
+export function registerProviderRankingOperations(
+  registry: OperationSpecRegistry
+) {
   return registry
     .register(BenchmarkIngestCommand)
     .register(BenchmarkRunCustomCommand)
@@ -80,7 +76,9 @@ export function registerProviderRankingEvents(registry: EventRegistry) {
     .register(RankingUpdatedEvent);
 }
 
-export function registerProviderRankingCapabilities(registry: CapabilityRegistry) {
+export function registerProviderRankingCapabilities(
+  registry: CapabilityRegistry
+) {
   return registry.register(ProviderRankingCapability);
 }
 
@@ -96,6 +94,8 @@ export function registerProviderRankingForms(registry: FormRegistry) {
     .register(BenchmarkRunCustomForm);
 }
 
-export function registerProviderRankingPresentations(registry: PresentationRegistry) {
+export function registerProviderRankingPresentations(
+  registry: PresentationRegistry
+) {
   return registry.register(ModelComparisonPresentation);
 }

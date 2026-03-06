@@ -1,14 +1,19 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { cn } from "@contractspec/lib.ui-kit-web/ui/utils";
-import { Card, CardContent, CardHeader, CardTitle } from "@contractspec/lib.ui-kit-web/ui/card";
-import { RankBadge } from "../atoms/RankBadge";
-import { StatCard } from "../molecules/StatCard";
+import * as React from 'react';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@contractspec/lib.ui-kit-web/ui/card';
+import { RankBadge } from '../atoms/RankBadge';
+import { StatCard } from '../molecules/StatCard';
 import {
   DimensionScoresCard,
   type DimensionScore,
-} from "../molecules/DimensionScoresCard";
+} from '../molecules/DimensionScoresCard';
 
 export interface ComparisonModel {
   modelId: string;
@@ -29,21 +34,23 @@ export interface ModelComparisonViewProps {
 
 export function ModelComparisonView({
   models,
-  title = "Model Comparison",
+  title = 'Model Comparison',
   className,
 }: ModelComparisonViewProps) {
   if (models.length === 0) {
     return (
       <Card className={className}>
         <CardContent className="py-8 text-center">
-          <p className="text-muted-foreground">No models selected for comparison.</p>
+          <p className="text-muted-foreground">
+            No models selected for comparison.
+          </p>
         </CardContent>
       </Card>
     );
   }
 
   return (
-    <div className={cn("flex flex-col gap-4", className)}>
+    <div className={cn('flex flex-col gap-4', className)}>
       <h2 className="text-xl font-semibold">{title}</h2>
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4">
@@ -66,10 +73,10 @@ export function ModelComparisonView({
 
       <div
         className={cn(
-          "grid gap-4",
-          models.length === 1 && "grid-cols-1",
-          models.length === 2 && "grid-cols-1 md:grid-cols-2",
-          models.length >= 3 && "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
+          'grid gap-4',
+          models.length === 1 && 'grid-cols-1',
+          models.length === 2 && 'grid-cols-1 md:grid-cols-2',
+          models.length >= 3 && 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
         )}
       >
         {models.map((model) => (
@@ -82,16 +89,14 @@ export function ModelComparisonView({
         ))}
       </div>
 
-      {models.length >= 2 && (
-        <ComparisonTable models={models} />
-      )}
+      {models.length >= 2 && <ComparisonTable models={models} />}
     </div>
   );
 }
 
 function ComparisonTable({ models }: { models: ComparisonModel[] }) {
   const allDimensions = Array.from(
-    new Set(models.flatMap((m) => Object.keys(m.dimensionScores))),
+    new Set(models.flatMap((m) => Object.keys(m.dimensionScores)))
   ).sort();
 
   if (allDimensions.length === 0) return null;
@@ -121,28 +126,35 @@ function ComparisonTable({ models }: { models: ComparisonModel[] }) {
           <tbody>
             {allDimensions.map((dim) => {
               const scores = models.map(
-                (m) => m.dimensionScores[dim]?.score ?? null,
+                (m) => m.dimensionScores[dim]?.score ?? null
               );
               const best = Math.max(
-                ...scores.filter((s): s is number => s !== null),
+                ...scores.filter((s): s is number => s !== null)
               );
 
               return (
                 <tr key={dim} className="border-b last:border-0">
                   <td className="py-2 capitalize">{dim}</td>
-                  {scores.map((score, i) => (
-                    <td
-                      key={models[i]!.modelId}
-                      className={cn(
-                        "py-2 text-right tabular-nums",
-                        score === best && scores.filter((s) => s !== null).length > 1
-                          ? "font-semibold text-green-600 dark:text-green-400"
-                          : "",
-                      )}
-                    >
-                      {score != null ? (Math.round(score * 10) / 10).toFixed(1) : "–"}
-                    </td>
-                  ))}
+                  {scores.map((score, i) => {
+                    const model = models[i];
+                    if (!model) return null;
+                    return (
+                      <td
+                        key={model.modelId}
+                        className={cn(
+                          'py-2 text-right tabular-nums',
+                          score === best &&
+                            scores.filter((s) => s !== null).length > 1
+                            ? 'font-semibold text-green-600 dark:text-green-400'
+                            : ''
+                        )}
+                      >
+                        {score != null
+                          ? (Math.round(score * 10) / 10).toFixed(1)
+                          : '–'}
+                      </td>
+                    );
+                  })}
                 </tr>
               );
             })}

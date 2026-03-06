@@ -1,9 +1,5 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
-import type { IntegrationTransportConfig } from '../transport';
-import type { IntegrationAuthConfig } from '../auth';
-import type { IntegrationVersionPolicy } from '../versioning';
-
 export const messagingGithubIntegrationSpec = defineIntegration({
   meta: {
     key: 'messaging.github',

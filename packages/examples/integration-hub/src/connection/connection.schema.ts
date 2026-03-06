@@ -1,5 +1,9 @@
 import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
-import { AuthTypeEnum, ConnectionStatusEnum, TransportTypeEnum } from './connection.enum';
+import {
+  AuthTypeEnum,
+  ConnectionStatusEnum,
+  TransportTypeEnum,
+} from './connection.enum';
 
 /**
  * A connection to an external system.

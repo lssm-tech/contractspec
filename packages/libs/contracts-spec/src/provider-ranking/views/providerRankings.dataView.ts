@@ -14,7 +14,8 @@ export const ProviderRankingsDataView = defineDataView({
     key: 'provider-ranking.ranking.index',
     title: 'Provider Rankings',
     version: '1.0.0',
-    description: 'Ranked leaderboard of AI models with composite and per-dimension scores.',
+    description:
+      'Ranked leaderboard of AI models with composite and per-dimension scores.',
     domain: PROVIDER_RANKING_DOMAIN,
     owners: PROVIDER_RANKING_OWNERS,
     tags: [...PROVIDER_RANKING_TAGS, 'leaderboard', 'index'],
@@ -41,8 +42,18 @@ export const ProviderRankingsDataView = defineDataView({
     primaryField: 'rank',
     secondaryFields: ['modelId', 'providerKey', 'compositeScore'],
     filters: [
-      { key: 'dimension', label: 'Dimension', field: 'dimension', type: 'search' },
-      { key: 'providerKey', label: 'Provider', field: 'providerKey', type: 'search' },
+      {
+        key: 'dimension',
+        label: 'Dimension',
+        field: 'dimension',
+        type: 'search',
+      },
+      {
+        key: 'providerKey',
+        label: 'Provider',
+        field: 'providerKey',
+        type: 'search',
+      },
     ],
   },
   policy: {

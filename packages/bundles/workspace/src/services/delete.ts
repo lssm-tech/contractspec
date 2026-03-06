@@ -5,14 +5,17 @@
  * (handlers, tests, components) that reference it.
  */
 
-import { scanSpecSource, type SpecScanResult } from "@contractspec/module.workspace";
-import type { FsAdapter } from "../ports/fs";
-import type { LoggerAdapter } from "../ports/logger";
-import { discoverImplementationsForSpec } from "./implementation/discovery";
+import {
+  scanSpecSource,
+  type SpecScanResult,
+} from '@contractspec/module.workspace';
+import type { FsAdapter } from '../ports/fs';
+import type { LoggerAdapter } from '../ports/logger';
+import { discoverImplementationsForSpec } from './implementation/discovery';
 
 function unknownSpecResult(filePath: string): SpecScanResult {
   return {
-    specType: "unknown",
+    specType: 'unknown',
     filePath,
     hasMeta: false,
     hasIo: false,
@@ -44,7 +47,7 @@ export interface DeleteSpecResult {
 export async function deleteSpec(
   specPath: string,
   adapters: { fs: FsAdapter; logger: LoggerAdapter },
-  options: DeleteSpecOptions = {},
+  options: DeleteSpecOptions = {}
 ): Promise<DeleteSpecResult> {
   const { fs, logger } = adapters;
 
@@ -76,10 +79,9 @@ export async function deleteSpec(
 
   if (options.clean && specKey) {
     try {
-      const implementations = await discoverImplementationsForSpec(
-        specKey,
-        { fs },
-      );
+      const implementations = await discoverImplementationsForSpec(specKey, {
+        fs,
+      });
 
       for (const impl of implementations) {
         try {
@@ -91,7 +93,7 @@ export async function deleteSpec(
         }
       }
     } catch {
-      logger.warn("Could not discover implementations for cleanup");
+      logger.warn('Could not discover implementations for cleanup');
     }
   }
 

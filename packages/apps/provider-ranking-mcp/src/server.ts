@@ -19,13 +19,21 @@ import { PresentationRegistry } from '@contractspec/lib.contracts-spec/presentat
 import type { ProviderRankingStore } from '@contractspec/lib.provider-ranking/store';
 import { InMemoryProviderRankingStore } from '@contractspec/lib.provider-ranking/in-memory-store';
 import { createDefaultIngesterRegistry } from '@contractspec/lib.provider-ranking/ingesters';
-import { normalizeBenchmarkResults, computeModelRankings } from '@contractspec/lib.provider-ranking/scoring';
+import {
+  normalizeBenchmarkResults,
+  computeModelRankings,
+} from '@contractspec/lib.provider-ranking/scoring';
 import type { BenchmarkDimension } from '@contractspec/lib.provider-ranking/types';
 import z from 'zod';
 
 const logger = new Logger({
   level: process.env.NODE_ENV === 'production' ? LogLevel.INFO : LogLevel.DEBUG,
-  environment: process.env.NODE_ENV || 'development',
+  environment:
+    (process.env.NODE_ENV as
+      | 'production'
+      | 'development'
+      | 'test'
+      | undefined) ?? 'development',
   enableTracing: false,
   enableTiming: false,
   enableContext: false,
@@ -44,7 +52,9 @@ function buildOps(): OperationSpecRegistry {
 
   installOp(registry, BenchmarkIngestCommand, async (args) => {
     const source = args.source as string;
-    const ingester = ingesterRegistry.get(source as Parameters<typeof ingesterRegistry.get>[0]);
+    const ingester = ingesterRegistry.get(
+      source as Parameters<typeof ingesterRegistry.get>[0]
+    );
     if (!ingester) {
       throw new Error(`No ingester registered for source: ${source}`);
     }
@@ -52,8 +62,8 @@ function buildOps(): OperationSpecRegistry {
     const rawResults = await ingester.ingest({
       sourceUrl: args.sourceUrl as string | undefined,
       dimensions: args.dimensions as BenchmarkDimension[] | undefined,
-      fromDate: args.fromDate ? new Date(args.fromDate as string) : undefined,
-      toDate: args.toDate ? new Date(args.toDate as string) : undefined,
+      fromDate: args.fromDate ?? undefined,
+      toDate: args.toDate ?? undefined,
     });
     const normalized = normalizeBenchmarkResults(rawResults);
 
@@ -66,7 +76,7 @@ function buildOps(): OperationSpecRegistry {
       source,
       resultsCount: normalized.length,
       status: 'completed',
-      ingestedAt: new Date().toISOString(),
+      ingestedAt: new Date(),
     };
   });
 
@@ -76,29 +86,38 @@ function buildOps(): OperationSpecRegistry {
       evalSuiteKey: args.evalSuiteKey,
       modelId: args.modelId,
       status: 'started',
-      startedAt: new Date().toISOString(),
+      startedAt: new Date(),
     };
   });
 
-  installOp(registry, RankingRefreshCommand, async (args) => {
+  installOp(registry, RankingRefreshCommand, async (_args) => {
     const allResults = [];
     let offset = 0;
     const pageSize = 500;
 
     while (true) {
-      const page = await store.listBenchmarkResults({ limit: pageSize, offset });
+      const page = await store.listBenchmarkResults({
+        limit: pageSize,
+        offset,
+      });
       allResults.push(...page.results);
-      if (allResults.length >= page.total || page.results.length < pageSize) break;
+      if (allResults.length >= page.total || page.results.length < pageSize)
+        break;
       offset += pageSize;
     }
 
     const existingRankings = new Map(
-      (await store.listModelRankings({ limit: 10000 })).rankings.map(
-        (r) => [r.modelId, r],
-      ),
+      (await store.listModelRankings({ limit: 10000 })).rankings.map((r) => [
+        r.modelId,
+        r,
+      ])
     );
 
-    const newRankings = computeModelRankings(allResults, undefined, existingRankings);
+    const newRankings = computeModelRankings(
+      allResults,
+      undefined,
+      existingRankings
+    );
 
     for (const ranking of newRankings) {
       await store.upsertModelRanking(ranking);
@@ -106,7 +125,7 @@ function buildOps(): OperationSpecRegistry {
 
     return {
       modelsRanked: newRankings.length,
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date(),
       status: 'completed',
     };
   });
@@ -135,7 +154,7 @@ function buildResources(): ResourceRegistry {
           data: JSON.stringify(result, null, 2),
         };
       },
-    }),
+    })
   );
 
   resources.register(
@@ -143,7 +162,8 @@ function buildResources(): ResourceRegistry {
       meta: {
         uriTemplate: 'ranking://leaderboard/{dimension}',
         title: 'AI Model Leaderboard by Dimension',
-        description: 'Ranked list of AI models filtered by a specific dimension.',
+        description:
+          'Ranked list of AI models filtered by a specific dimension.',
         mimeType: 'application/json',
         tags: ['ranking', 'mcp'],
       },
@@ -159,7 +179,7 @@ function buildResources(): ResourceRegistry {
           data: JSON.stringify(result, null, 2),
         };
       },
-    }),
+    })
   );
 
   resources.register(
@@ -182,7 +202,7 @@ function buildResources(): ResourceRegistry {
             : JSON.stringify({ error: 'not_found', modelId }),
         };
       },
-    }),
+    })
   );
 
   resources.register(
@@ -203,7 +223,7 @@ function buildResources(): ResourceRegistry {
           data: JSON.stringify(result, null, 2),
         };
       },
-    }),
+    })
   );
 
   return resources;
@@ -232,7 +252,8 @@ function buildPrompts(): PromptRegistry {
         },
         {
           name: 'priority',
-          description: 'Priority dimension (coding, reasoning, cost, latency, etc.).',
+          description:
+            'Priority dimension (coding, reasoning, cost, latency, etc.).',
           required: false,
           schema: z.string().optional(),
         },
@@ -248,11 +269,13 @@ function buildPrompts(): PromptRegistry {
         },
         {
           type: 'resource' as const,
-          uri: priority ? `ranking://leaderboard/${priority}` : 'ranking://leaderboard',
+          uri: priority
+            ? `ranking://leaderboard/${priority}`
+            : 'ranking://leaderboard',
           title: 'Leaderboard',
         },
       ],
-    }),
+    })
   );
 
   return prompts;
@@ -270,12 +293,15 @@ const server = new McpServer(
       prompts: {},
       logging: {},
     },
-  },
+  }
 );
 
 createMcpServer(server, buildOps(), buildResources(), buildPrompts(), {
   logger,
-  toolCtx: () => ({ actor: 'anonymous' as const, decide: async () => ({ effect: 'allow' as const }) }),
+  toolCtx: () => ({
+    actor: 'anonymous' as const,
+    decide: async () => ({ effect: 'allow' as const }),
+  }),
   promptCtx: () => ({ locale: 'en' }),
   resourceCtx: () => ({ locale: 'en' }),
   presentations: new PresentationRegistry(),
@@ -287,7 +313,11 @@ server.connect(transport).then(() => {
   logger.info('provider-ranking-mcp.started', {
     transport: 'stdio',
     tools: ['benchmark.ingest', 'benchmark.run-custom', 'ranking.refresh'],
-    resources: ['ranking://leaderboard', 'ranking://model/{id}', 'ranking://results'],
+    resources: [
+      'ranking://leaderboard',
+      'ranking://model/{id}',
+      'ranking://results',
+    ],
     prompts: ['ranking.advisor'],
   });
 });

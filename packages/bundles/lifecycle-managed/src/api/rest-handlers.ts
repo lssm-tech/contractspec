@@ -14,8 +14,15 @@ export interface AuthContext {
 
 /** Transport/auth preferences extracted from the request. */
 export interface TransportAuthPreferences {
-  preferredTransport?: "rest" | "mcp" | "webhook" | "sdk";
-  preferredAuthMethod?: "api-key" | "oauth2" | "bearer" | "header" | "basic" | "webhook-signing" | "service-account";
+  preferredTransport?: 'rest' | 'mcp' | 'webhook' | 'sdk';
+  preferredAuthMethod?:
+    | 'api-key'
+    | 'oauth2'
+    | 'bearer'
+    | 'header'
+    | 'basic'
+    | 'webhook-signing'
+    | 'service-account';
 }
 
 export interface HttpRequest<
@@ -44,8 +51,10 @@ export const createLifecycleHandlers = (
   ): Promise<HttpResponse<LifecycleAssessmentResponse>> => {
     const payload: LifecycleAssessmentRequest = {
       ...(req.body ?? {}),
-      transport: req.body?.transport ?? req.transportPreferences?.preferredTransport,
-      authMethod: req.body?.authMethod ?? req.transportPreferences?.preferredAuthMethod,
+      transport:
+        req.body?.transport ?? req.transportPreferences?.preferredTransport,
+      authMethod:
+        req.body?.authMethod ?? req.transportPreferences?.preferredAuthMethod,
     };
     const result = await service.runAssessment(payload);
     return { status: 200, body: result };

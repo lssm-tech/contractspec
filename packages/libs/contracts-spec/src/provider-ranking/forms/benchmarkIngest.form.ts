@@ -24,7 +24,8 @@ export const BenchmarkIngestForm = defineFormSpec({
     key: 'provider-ranking.benchmark.ingest.form',
     title: 'Ingest Benchmark Data',
     version: '1.0.0',
-    description: 'Form to trigger benchmark data ingestion from external sources.',
+    description:
+      'Form to trigger benchmark data ingestion from external sources.',
     domain: PROVIDER_RANKING_DOMAIN,
     owners: PROVIDER_RANKING_OWNERS,
     tags: [...PROVIDER_RANKING_TAGS, 'ingest'],

@@ -1,4 +1,4 @@
-import type { BenchmarkResult, BenchmarkSource } from "../types";
+import type { BenchmarkResult, BenchmarkSource } from '../types';
 
 interface NormalizationConfig {
   /** Minimum possible raw score for the source. */
@@ -13,16 +13,18 @@ interface NormalizationConfig {
  * Known normalization ranges per benchmark source.
  * Scores are mapped to a 0-100 normalized scale.
  */
-const SOURCE_NORMALIZATION: Partial<Record<BenchmarkSource, NormalizationConfig>> = {
-  "chatbot-arena": { min: 800, max: 1400, invertScale: false },
-  "swe-bench": { min: 0, max: 100, invertScale: false },
-  "human-eval": { min: 0, max: 100, invertScale: false },
-  "mmlu": { min: 0, max: 100, invertScale: false },
-  "gpqa": { min: 0, max: 100, invertScale: false },
-  "arc": { min: 0, max: 100, invertScale: false },
-  "truthfulqa": { min: 0, max: 100, invertScale: false },
-  "tau-bench": { min: 0, max: 100, invertScale: false },
-  "artificial-analysis": { min: 0, max: 100, invertScale: false },
+const SOURCE_NORMALIZATION: Partial<
+  Record<BenchmarkSource, NormalizationConfig>
+> = {
+  'chatbot-arena': { min: 800, max: 1400, invertScale: false },
+  'swe-bench': { min: 0, max: 100, invertScale: false },
+  'human-eval': { min: 0, max: 100, invertScale: false },
+  mmlu: { min: 0, max: 100, invertScale: false },
+  gpqa: { min: 0, max: 100, invertScale: false },
+  arc: { min: 0, max: 100, invertScale: false },
+  truthfulqa: { min: 0, max: 100, invertScale: false },
+  'tau-bench': { min: 0, max: 100, invertScale: false },
+  'artificial-analysis': { min: 0, max: 100, invertScale: false },
 };
 
 /**
@@ -32,7 +34,7 @@ const SOURCE_NORMALIZATION: Partial<Record<BenchmarkSource, NormalizationConfig>
 export function normalizeScore(
   rawScore: number,
   source: BenchmarkSource,
-  configOverride?: NormalizationConfig,
+  configOverride?: NormalizationConfig
 ): number {
   const config = configOverride ?? SOURCE_NORMALIZATION[source];
 
@@ -59,13 +61,13 @@ export function normalizeScore(
  * setting the `score` field from `rawScore`.
  */
 export function normalizeBenchmarkResults(
-  results: BenchmarkResult[],
+  results: BenchmarkResult[]
 ): BenchmarkResult[] {
   return results.map((result) => ({
     ...result,
     score: normalizeScore(
-      typeof result.rawScore === "number" ? result.rawScore : result.score,
-      result.source,
+      typeof result.rawScore === 'number' ? result.rawScore : result.score,
+      result.source
     ),
   }));
 }

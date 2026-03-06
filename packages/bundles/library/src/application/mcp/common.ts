@@ -222,7 +222,7 @@ export function createMcpElysiaHandler({
               401,
               -32002,
               'Authentication failed',
-              authResult.reason,
+              authResult.reason
             );
           }
         }

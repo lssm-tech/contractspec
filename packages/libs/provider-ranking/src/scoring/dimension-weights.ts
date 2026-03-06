@@ -1,22 +1,22 @@
-import type { BenchmarkDimension, DimensionWeightConfig } from "../types";
+import type { BenchmarkDimension, DimensionWeightConfig } from '../types';
 
 /**
  * Default weights for composite score calculation.
  * Weights are normalized to sum to 1.0 at scoring time.
  */
 export const DEFAULT_DIMENSION_WEIGHTS: DimensionWeightConfig[] = [
-  { dimension: "coding", weight: 20 },
-  { dimension: "reasoning", weight: 20 },
-  { dimension: "agentic", weight: 15 },
-  { dimension: "cost", weight: 10 },
-  { dimension: "latency", weight: 10 },
-  { dimension: "context", weight: 10 },
-  { dimension: "safety", weight: 10 },
-  { dimension: "custom", weight: 5 },
+  { dimension: 'coding', weight: 20 },
+  { dimension: 'reasoning', weight: 20 },
+  { dimension: 'agentic', weight: 15 },
+  { dimension: 'cost', weight: 10 },
+  { dimension: 'latency', weight: 10 },
+  { dimension: 'context', weight: 10 },
+  { dimension: 'safety', weight: 10 },
+  { dimension: 'custom', weight: 5 },
 ];
 
 export function getWeightMap(
-  overrides?: DimensionWeightConfig[],
+  overrides?: DimensionWeightConfig[]
 ): Map<BenchmarkDimension, number> {
   const map = new Map<BenchmarkDimension, number>();
 
@@ -35,11 +35,11 @@ export function getWeightMap(
 
 export function normalizeWeights(
   weights: Map<BenchmarkDimension, number>,
-  activeDimensions: BenchmarkDimension[],
+  activeDimensions: BenchmarkDimension[]
 ): Map<BenchmarkDimension, number> {
   const totalWeight = activeDimensions.reduce(
     (sum, dim) => sum + (weights.get(dim) ?? 0),
-    0,
+    0
   );
 
   if (totalWeight === 0) return new Map();

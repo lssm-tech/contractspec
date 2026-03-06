@@ -3,7 +3,7 @@
  * expected by the contracts MCP handler in bundle.library.
  */
 
-import type { ContractsMcpServices } from "@contractspec/bundle.library/application/mcp/contractsMcpTypes";
+import type { ContractsMcpServices } from '@contractspec/bundle.library/application/mcp/contractsMcpTypes';
 import {
   module,
   listSpecs,
@@ -14,14 +14,14 @@ import {
   RegistryClient,
   resolveRegistryUrl,
   createNodeAdapters,
-} from "@contractspec/bundle.workspace";
+} from '@contractspec/bundle.workspace';
 import {
   DEFAULT_CONTRACTSRC,
   type ResolvedContractsrcConfig,
-} from "@contractspec/lib.contracts-spec/workspace-config";
+} from '@contractspec/lib.contracts-spec/workspace-config';
 
 export function createContractsMcpServices(
-  config?: ResolvedContractsrcConfig,
+  config?: ResolvedContractsrcConfig
 ): ContractsMcpServices {
   const adapters = createNodeAdapters({ config });
   const resolvedConfig = config ?? DEFAULT_CONTRACTSRC;
@@ -106,7 +106,7 @@ export function createContractsMcpServices(
     async fetchRegistryManifest() {
       const url = resolveRegistryUrl();
       const client = new RegistryClient({ registryUrl: url });
-      return client.getJson("/r/contractspec.json");
+      return client.getJson('/r/contractspec.json');
     },
   };
 }
