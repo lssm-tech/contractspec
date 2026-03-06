@@ -4,8 +4,8 @@ import type {
   ComposioToolProxy,
   ComposioToolResult,
   ComposioToolDescriptor,
-} from "./composio-types";
-import { isSessionExpired, resolveToolkit } from "./composio-types";
+} from './composio-types';
+import { isSessionExpired, resolveToolkit } from './composio-types';
 
 /**
  * Composio MCP transport provider.
@@ -25,22 +25,22 @@ export class ComposioMcpProvider implements ComposioToolProxy {
 
   async executeTool(
     toolName: string,
-    args: Record<string, unknown>,
+    args: Record<string, unknown>
   ): Promise<ComposioToolResult> {
-    const userId = (args._userId as string) ?? "default";
+    const userId = (args._userId as string) ?? 'default';
     const session = await this.getOrCreateSession(userId);
 
     try {
       const response = await fetch(session.mcpUrl, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           ...session.mcpHeaders,
         },
         body: JSON.stringify({
-          jsonrpc: "2.0",
+          jsonrpc: '2.0',
           id: crypto.randomUUID(),
-          method: "tools/call",
+          method: 'tools/call',
           params: { name: toolName, arguments: args },
         }),
       });
@@ -56,7 +56,7 @@ export class ComposioMcpProvider implements ComposioToolProxy {
       if (result.error) {
         return {
           success: false,
-          error: result.error.message ?? "Unknown MCP error",
+          error: result.error.message ?? 'Unknown MCP error',
         };
       }
 
@@ -70,19 +70,19 @@ export class ComposioMcpProvider implements ComposioToolProxy {
   }
 
   async searchTools(query: string): Promise<ComposioToolDescriptor[]> {
-    const session = await this.getOrCreateSession("default");
+    const session = await this.getOrCreateSession('default');
 
     try {
       const response = await fetch(session.mcpUrl, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           ...session.mcpHeaders,
         },
         body: JSON.stringify({
-          jsonrpc: "2.0",
+          jsonrpc: '2.0',
           id: crypto.randomUUID(),
-          method: "tools/list",
+          method: 'tools/list',
           params: {},
         }),
       });
@@ -96,12 +96,12 @@ export class ComposioMcpProvider implements ComposioToolProxy {
         .filter(
           (t) =>
             t.name.toLowerCase().includes(query.toLowerCase()) ||
-            (t.description ?? "").toLowerCase().includes(query.toLowerCase()),
+            (t.description ?? '').toLowerCase().includes(query.toLowerCase())
         )
         .map((t) => ({
           name: t.name,
-          description: t.description ?? "",
-          toolkit: resolveToolkit(t.name.split("_")[0]?.toLowerCase() ?? ""),
+          description: t.description ?? '',
+          toolkit: resolveToolkit(t.name.split('_')[0]?.toLowerCase() ?? ''),
           parameters: t.inputSchema ?? {},
         }));
     } catch {
@@ -109,13 +109,17 @@ export class ComposioMcpProvider implements ComposioToolProxy {
     }
   }
 
-  getMcpConfig(userId: string): { url: string; headers: Record<string, string> } | undefined {
+  getMcpConfig(
+    userId: string
+  ): { url: string; headers: Record<string, string> } | undefined {
     const session = this.sessions.get(userId);
     if (!session || isSessionExpired(session)) return undefined;
     return { url: session.mcpUrl, headers: session.mcpHeaders };
   }
 
-  private async getOrCreateSession(userId: string): Promise<ComposioSessionInfo> {
+  private async getOrCreateSession(
+    userId: string
+  ): Promise<ComposioSessionInfo> {
     const existing = this.sessions.get(userId);
     if (existing && !isSessionExpired(existing)) {
       return existing;
@@ -140,7 +144,7 @@ export class ComposioMcpProvider implements ComposioToolProxy {
   private async getClient(): Promise<ComposioClient> {
     if (this.composioInstance) return this.composioInstance;
 
-    const { Composio } = await import("composio-core");
+    const { Composio } = await import('@composio/core');
     this.composioInstance = new Composio({
       apiKey: this.config.apiKey,
       ...(this.config.baseUrl ? { baseUrl: this.config.baseUrl } : {}),

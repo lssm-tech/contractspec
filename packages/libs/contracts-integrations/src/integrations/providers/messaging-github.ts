@@ -19,14 +19,34 @@ export const messagingGithubIntegrationSpec = defineIntegration({
   },
   supportedModes: ['managed', 'byok'],
   transports: [
-    { type: 'rest', baseUrl: 'https://api.github.com', apiVersionHeader: 'X-GitHub-Api-Version' },
-    { type: 'webhook', inbound: { signatureHeader: 'x-hub-signature-256', signingAlgorithm: 'hmac-sha256' } },
+    {
+      type: 'rest',
+      baseUrl: 'https://api.github.com',
+      apiVersionHeader: 'X-GitHub-Api-Version',
+    },
+    {
+      type: 'webhook',
+      inbound: {
+        signatureHeader: 'x-hub-signature-256',
+        signingAlgorithm: 'hmac-sha256',
+      },
+    },
   ],
   preferredTransport: 'rest',
   supportedAuthMethods: [
     { type: 'bearer' },
-    { type: 'oauth2', grantType: 'authorization_code', authorizationUrl: 'https://github.com/login/oauth/authorize', tokenUrl: 'https://github.com/login/oauth/access_token', scopes: ['repo', 'read:org'] },
-    { type: 'webhook-signing', algorithm: 'hmac-sha256', signatureHeader: 'x-hub-signature-256' },
+    {
+      type: 'oauth2',
+      grantType: 'authorization_code',
+      authorizationUrl: 'https://github.com/login/oauth/authorize',
+      tokenUrl: 'https://github.com/login/oauth/access_token',
+      scopes: ['repo', 'read:org'],
+    },
+    {
+      type: 'webhook-signing',
+      algorithm: 'hmac-sha256',
+      signatureHeader: 'x-hub-signature-256',
+    },
   ],
   versionPolicy: {
     currentVersion: '2022-11-28',

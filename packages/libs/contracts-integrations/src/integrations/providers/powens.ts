@@ -21,7 +21,10 @@ export const powensIntegrationSpec = defineIntegration({
     { type: 'rest', baseUrl: 'https://api.powens.com' },
     {
       type: 'webhook',
-      inbound: { signatureHeader: 'x-powens-signature', signingAlgorithm: 'hmac-sha256' },
+      inbound: {
+        signatureHeader: 'x-powens-signature',
+        signingAlgorithm: 'hmac-sha256',
+      },
     },
   ],
   preferredTransport: 'rest',

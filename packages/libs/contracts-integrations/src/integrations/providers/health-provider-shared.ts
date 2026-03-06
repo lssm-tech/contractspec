@@ -58,9 +58,10 @@ export interface HealthProviderSpecInput {
 }
 
 export function defineHealthProviderSpec(
-  input: HealthProviderSpecInput,
+  input: HealthProviderSpecInput
 ): IntegrationSpec {
-  const authMethods = input.supportedAuthMethods ?? buildHealthAuthMethods(input);
+  const authMethods =
+    input.supportedAuthMethods ?? buildHealthAuthMethods(input);
 
   return defineIntegration({
     meta: {
@@ -173,7 +174,7 @@ export function defineHealthProviderSpec(
 }
 
 function buildHealthAuthMethods(
-  input: HealthProviderSpecInput,
+  input: HealthProviderSpecInput
 ): IntegrationAuthConfig[] {
   if (input.oauthTokenUrl) {
     return HEALTH_DEFAULT_AUTH_METHODS.map((m) => {

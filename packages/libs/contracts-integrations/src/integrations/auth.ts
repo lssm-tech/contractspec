@@ -7,16 +7,16 @@
  */
 
 export type IntegrationAuthType =
-  | "api-key"
-  | "oauth2"
-  | "bearer"
-  | "header"
-  | "basic"
-  | "webhook-signing"
-  | "service-account";
+  | 'api-key'
+  | 'oauth2'
+  | 'bearer'
+  | 'header'
+  | 'basic'
+  | 'webhook-signing'
+  | 'service-account';
 
 export interface ApiKeyAuthConfig {
-  type: "api-key";
+  type: 'api-key';
   /** HTTP header name to carry the key (default: Authorization). */
   headerName?: string;
   /** Query-parameter name when using URL-based key passing. */
@@ -26,12 +26,12 @@ export interface ApiKeyAuthConfig {
 }
 
 export interface OAuth2AuthConfig {
-  type: "oauth2";
+  type: 'oauth2';
   grantType:
-    | "authorization_code"
-    | "client_credentials"
-    | "refresh_token"
-    | "device_code";
+    | 'authorization_code'
+    | 'client_credentials'
+    | 'refresh_token'
+    | 'device_code';
   /** Provider authorization endpoint (authorization_code flow). */
   authorizationUrl?: string;
   /** Provider token endpoint. */
@@ -45,13 +45,13 @@ export interface OAuth2AuthConfig {
 }
 
 export interface BearerAuthConfig {
-  type: "bearer";
+  type: 'bearer';
   /** Secret-schema field name containing the token (default: accessToken). */
   tokenField?: string;
 }
 
 export interface HeaderAuthConfig {
-  type: "header";
+  type: 'header';
   /** Custom header name (e.g. X-Custom-Token). */
   headerName: string;
   /** Optional value prefix added before the secret value. */
@@ -59,7 +59,7 @@ export interface HeaderAuthConfig {
 }
 
 export interface BasicAuthConfig {
-  type: "basic";
+  type: 'basic';
   /** Secret-schema field name for the username (default: username). */
   usernameField?: string;
   /** Secret-schema field name for the password (default: password). */
@@ -67,8 +67,8 @@ export interface BasicAuthConfig {
 }
 
 export interface WebhookSigningAuthConfig {
-  type: "webhook-signing";
-  algorithm: "hmac-sha256" | "hmac-sha1" | "ed25519";
+  type: 'webhook-signing';
+  algorithm: 'hmac-sha256' | 'hmac-sha1' | 'ed25519';
   /** Header carrying the inbound signature. */
   signatureHeader: string;
   /** Optional timestamp header for replay-attack protection. */
@@ -78,8 +78,8 @@ export interface WebhookSigningAuthConfig {
 }
 
 export interface ServiceAccountAuthConfig {
-  type: "service-account";
-  credentialFormat: "json-key" | "pem" | "p12";
+  type: 'service-account';
+  credentialFormat: 'json-key' | 'pem' | 'p12';
   /** Secret-schema field name containing the credential payload. */
   credentialField?: string;
 }
@@ -111,10 +111,10 @@ export interface OAuth2TokenState {
  */
 export function findAuthConfig<T extends IntegrationAuthType>(
   methods: IntegrationAuthConfig[],
-  type: T,
+  type: T
 ): Extract<IntegrationAuthConfig, { type: T }> | undefined {
   return methods.find(
-    (m): m is Extract<IntegrationAuthConfig, { type: T }> => m.type === type,
+    (m): m is Extract<IntegrationAuthConfig, { type: T }> => m.type === type
   );
 }
 
@@ -123,7 +123,7 @@ export function findAuthConfig<T extends IntegrationAuthType>(
  */
 export function supportsAuthMethod(
   methods: IntegrationAuthConfig[],
-  type: IntegrationAuthType,
+  type: IntegrationAuthType
 ): boolean {
   return methods.some((m) => m.type === type);
 }

@@ -5,7 +5,7 @@
  * - Webhook signature verification
  */
 
-import { timingSafeEqual, createHmac } from "node:crypto";
+import { timingSafeEqual, createHmac } from 'node:crypto';
 import type {
   IntegrationAuthConfig,
   OAuth2AuthConfig,
@@ -15,7 +15,7 @@ import type {
   BearerAuthConfig,
   HeaderAuthConfig,
   BasicAuthConfig,
-} from "./auth";
+} from './auth';
 
 /**
  * Refresh an OAuth2 access token using the refresh_token grant.
@@ -27,51 +27,50 @@ export async function refreshOAuth2Token(
   config: OAuth2AuthConfig,
   currentState: OAuth2TokenState,
   clientCredentials: { clientId: string; clientSecret: string },
-  fetchFn: typeof globalThis.fetch = globalThis.fetch,
+  fetchFn: typeof globalThis.fetch = globalThis.fetch
 ): Promise<OAuth2TokenState> {
   if (!currentState.refreshToken) {
-    throw new Error("Cannot refresh: no refresh_token available.");
+    throw new Error('Cannot refresh: no refresh_token available.');
   }
 
   const body = new URLSearchParams({
-    grant_type: "refresh_token",
+    grant_type: 'refresh_token',
     refresh_token: currentState.refreshToken,
     client_id: clientCredentials.clientId,
     client_secret: clientCredentials.clientSecret,
   });
 
   if (currentState.scope) {
-    body.set("scope", currentState.scope);
+    body.set('scope', currentState.scope);
   }
 
   const response = await fetchFn(config.tokenUrl, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: body.toString(),
   });
 
   if (!response.ok) {
-    const errorBody = await response.text().catch(() => "");
+    const errorBody = await response.text().catch(() => '');
     throw new Error(
-      `OAuth2 token refresh failed (${response.status}): ${errorBody}`,
+      `OAuth2 token refresh failed (${response.status}): ${errorBody}`
     );
   }
 
   const data = (await response.json()) as Record<string, unknown>;
 
   return {
-    accessToken: String(data.access_token ?? ""),
+    accessToken: String(data.access_token ?? ''),
     refreshToken:
-      typeof data.refresh_token === "string"
+      typeof data.refresh_token === 'string'
         ? data.refresh_token
         : currentState.refreshToken,
-    tokenType: String(data.token_type ?? "Bearer"),
+    tokenType: String(data.token_type ?? 'Bearer'),
     expiresAt:
-      typeof data.expires_in === "number"
+      typeof data.expires_in === 'number'
         ? new Date(Date.now() + data.expires_in * 1000).toISOString()
         : undefined,
-    scope:
-      typeof data.scope === "string" ? data.scope : currentState.scope,
+    scope: typeof data.scope === 'string' ? data.scope : currentState.scope,
     extra: data,
   };
 }
@@ -87,27 +86,27 @@ export function buildOAuth2AuthorizationUrl(
     state: string;
     codeChallenge?: string;
     codeChallengeMethod?: string;
-  },
+  }
 ): string {
   if (!config.authorizationUrl) {
-    throw new Error("OAuth2 config missing authorizationUrl.");
+    throw new Error('OAuth2 config missing authorizationUrl.');
   }
 
   const url = new URL(config.authorizationUrl);
-  url.searchParams.set("response_type", "code");
-  url.searchParams.set("client_id", params.clientId);
-  url.searchParams.set("redirect_uri", params.redirectUri);
-  url.searchParams.set("state", params.state);
+  url.searchParams.set('response_type', 'code');
+  url.searchParams.set('client_id', params.clientId);
+  url.searchParams.set('redirect_uri', params.redirectUri);
+  url.searchParams.set('state', params.state);
 
   if (config.scopes.length > 0) {
-    url.searchParams.set("scope", config.scopes.join(" "));
+    url.searchParams.set('scope', config.scopes.join(' '));
   }
 
   if (params.codeChallenge) {
-    url.searchParams.set("code_challenge", params.codeChallenge);
+    url.searchParams.set('code_challenge', params.codeChallenge);
     url.searchParams.set(
-      "code_challenge_method",
-      params.codeChallengeMethod ?? "S256",
+      'code_challenge_method',
+      params.codeChallengeMethod ?? 'S256'
     );
   }
 
@@ -126,10 +125,10 @@ export async function exchangeOAuth2Code(
     clientSecret: string;
     codeVerifier?: string;
   },
-  fetchFn: typeof globalThis.fetch = globalThis.fetch,
+  fetchFn: typeof globalThis.fetch = globalThis.fetch
 ): Promise<OAuth2TokenState> {
   const body = new URLSearchParams({
-    grant_type: "authorization_code",
+    grant_type: 'authorization_code',
     code: params.code,
     redirect_uri: params.redirectUri,
     client_id: params.clientId,
@@ -137,36 +136,34 @@ export async function exchangeOAuth2Code(
   });
 
   if (params.codeVerifier) {
-    body.set("code_verifier", params.codeVerifier);
+    body.set('code_verifier', params.codeVerifier);
   }
 
   const response = await fetchFn(config.tokenUrl, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: body.toString(),
   });
 
   if (!response.ok) {
-    const errorBody = await response.text().catch(() => "");
+    const errorBody = await response.text().catch(() => '');
     throw new Error(
-      `OAuth2 code exchange failed (${response.status}): ${errorBody}`,
+      `OAuth2 code exchange failed (${response.status}): ${errorBody}`
     );
   }
 
   const data = (await response.json()) as Record<string, unknown>;
 
   return {
-    accessToken: String(data.access_token ?? ""),
+    accessToken: String(data.access_token ?? ''),
     refreshToken:
-      typeof data.refresh_token === "string"
-        ? data.refresh_token
-        : undefined,
-    tokenType: String(data.token_type ?? "Bearer"),
+      typeof data.refresh_token === 'string' ? data.refresh_token : undefined,
+    tokenType: String(data.token_type ?? 'Bearer'),
     expiresAt:
-      typeof data.expires_in === "number"
+      typeof data.expires_in === 'number'
         ? new Date(Date.now() + data.expires_in * 1000).toISOString()
         : undefined,
-    scope: typeof data.scope === "string" ? data.scope : undefined,
+    scope: typeof data.scope === 'string' ? data.scope : undefined,
     extra: data,
   };
 }
@@ -176,7 +173,7 @@ export async function exchangeOAuth2Code(
  */
 export function isOAuth2TokenExpired(
   state: OAuth2TokenState,
-  bufferMs = 60_000,
+  bufferMs = 60_000
 ): boolean {
   if (!state.expiresAt) return false;
   return new Date(state.expiresAt).getTime() - bufferMs <= Date.now();
@@ -190,21 +187,21 @@ export function isOAuth2TokenExpired(
  */
 export function buildAuthHeaders(
   method: IntegrationAuthConfig,
-  secrets: Record<string, string>,
+  secrets: Record<string, string>
 ): Record<string, string> {
   switch (method.type) {
-    case "api-key":
+    case 'api-key':
       return buildApiKeyHeaders(method, secrets);
-    case "bearer":
+    case 'bearer':
       return buildBearerHeaders(method, secrets);
-    case "header":
+    case 'header':
       return buildCustomHeaders(method, secrets);
-    case "basic":
+    case 'basic':
       return buildBasicHeaders(method, secrets);
-    case "oauth2":
+    case 'oauth2':
       return buildOAuth2Headers(secrets);
-    case "service-account":
-    case "webhook-signing":
+    case 'service-account':
+    case 'webhook-signing':
       return {};
     default: {
       const _exhaustive: never = method;
@@ -215,51 +212,51 @@ export function buildAuthHeaders(
 
 function buildApiKeyHeaders(
   config: ApiKeyAuthConfig,
-  secrets: Record<string, string>,
+  secrets: Record<string, string>
 ): Record<string, string> {
-  const key = secrets.apiKey ?? secrets.api_key ?? "";
+  const key = secrets.apiKey ?? secrets.api_key ?? '';
   if (!key) return {};
 
-  const headerName = config.headerName ?? "Authorization";
-  const prefix = config.prefix ?? "Bearer ";
+  const headerName = config.headerName ?? 'Authorization';
+  const prefix = config.prefix ?? 'Bearer ';
   return { [headerName]: `${prefix}${key}` };
 }
 
 function buildBearerHeaders(
   config: BearerAuthConfig,
-  secrets: Record<string, string>,
+  secrets: Record<string, string>
 ): Record<string, string> {
-  const field = config.tokenField ?? "accessToken";
-  const token = secrets[field] ?? secrets.access_token ?? "";
+  const field = config.tokenField ?? 'accessToken';
+  const token = secrets[field] ?? secrets.access_token ?? '';
   if (!token) return {};
   return { Authorization: `Bearer ${token}` };
 }
 
 function buildCustomHeaders(
   config: HeaderAuthConfig,
-  secrets: Record<string, string>,
+  secrets: Record<string, string>
 ): Record<string, string> {
-  const value = secrets[config.headerName] ?? secrets.apiKey ?? "";
+  const value = secrets[config.headerName] ?? secrets.apiKey ?? '';
   if (!value) return {};
-  const prefix = config.valuePrefix ?? "";
+  const prefix = config.valuePrefix ?? '';
   return { [config.headerName]: `${prefix}${value}` };
 }
 
 function buildBasicHeaders(
   config: BasicAuthConfig,
-  secrets: Record<string, string>,
+  secrets: Record<string, string>
 ): Record<string, string> {
-  const username = secrets[config.usernameField ?? "username"] ?? "";
-  const password = secrets[config.passwordField ?? "password"] ?? "";
+  const username = secrets[config.usernameField ?? 'username'] ?? '';
+  const password = secrets[config.passwordField ?? 'password'] ?? '';
   if (!username) return {};
-  const encoded = Buffer.from(`${username}:${password}`).toString("base64");
+  const encoded = Buffer.from(`${username}:${password}`).toString('base64');
   return { Authorization: `Basic ${encoded}` };
 }
 
 function buildOAuth2Headers(
-  secrets: Record<string, string>,
+  secrets: Record<string, string>
 ): Record<string, string> {
-  const token = secrets.accessToken ?? secrets.access_token ?? "";
+  const token = secrets.accessToken ?? secrets.access_token ?? '';
   if (!token) return {};
   return { Authorization: `Bearer ${token}` };
 }
@@ -273,29 +270,28 @@ export function verifyWebhookSignature(
   config: WebhookSigningAuthConfig,
   secret: string,
   payload: string | Uint8Array,
-  receivedSignature: string,
+  receivedSignature: string
 ): boolean {
-  if (config.algorithm === "ed25519") {
+  if (config.algorithm === 'ed25519') {
     throw new Error(
-      "Ed25519 verification requires the `crypto.verify` API — use verifyEd25519WebhookSignature instead.",
+      'Ed25519 verification requires the `crypto.verify` API — use verifyEd25519WebhookSignature instead.'
     );
   }
 
-  const algo =
-    config.algorithm === "hmac-sha256" ? "sha256" : "sha1";
+  const algo = config.algorithm === 'hmac-sha256' ? 'sha256' : 'sha1';
   const computed = createHmac(algo, secret)
-    .update(typeof payload === "string" ? payload : Buffer.from(payload))
-    .digest("hex");
+    .update(typeof payload === 'string' ? payload : Buffer.from(payload))
+    .digest('hex');
 
-  const sigToCompare = receivedSignature.includes("=")
-    ? receivedSignature.split("=").pop() ?? receivedSignature
+  const sigToCompare = receivedSignature.includes('=')
+    ? (receivedSignature.split('=').pop() ?? receivedSignature)
     : receivedSignature;
 
   if (computed.length !== sigToCompare.length) return false;
 
   return timingSafeEqual(
-    Buffer.from(computed, "hex"),
-    Buffer.from(sigToCompare, "hex"),
+    Buffer.from(computed, 'hex'),
+    Buffer.from(sigToCompare, 'hex')
   );
 }
 
@@ -304,7 +300,7 @@ export function verifyWebhookSignature(
  */
 export function isWebhookTimestampValid(
   timestampHeader: string | undefined,
-  toleranceMs = 300_000,
+  toleranceMs = 300_000
 ): boolean {
   if (!timestampHeader) return true;
 

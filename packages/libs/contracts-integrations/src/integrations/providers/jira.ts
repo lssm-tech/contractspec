@@ -18,12 +18,24 @@ export const jiraIntegrationSpec = defineIntegration({
   supportedModes: ['managed', 'byok'],
   transports: [
     { type: 'rest' },
-    { type: 'webhook', inbound: { signatureHeader: 'x-atlassian-webhook-signature', signingAlgorithm: 'hmac-sha256' } },
+    {
+      type: 'webhook',
+      inbound: {
+        signatureHeader: 'x-atlassian-webhook-signature',
+        signingAlgorithm: 'hmac-sha256',
+      },
+    },
   ],
   preferredTransport: 'rest',
   supportedAuthMethods: [
     { type: 'basic' },
-    { type: 'oauth2', grantType: 'authorization_code', authorizationUrl: 'https://auth.atlassian.com/authorize', tokenUrl: 'https://auth.atlassian.com/oauth/token', scopes: ['read:jira-work', 'write:jira-work'] },
+    {
+      type: 'oauth2',
+      grantType: 'authorization_code',
+      authorizationUrl: 'https://auth.atlassian.com/authorize',
+      tokenUrl: 'https://auth.atlassian.com/oauth/token',
+      scopes: ['read:jira-work', 'write:jira-work'],
+    },
   ],
   capabilities: {
     provides: [{ key: 'project-management.work-items', version: '1.0.0' }],

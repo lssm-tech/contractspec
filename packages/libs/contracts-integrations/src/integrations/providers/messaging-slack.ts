@@ -19,14 +19,30 @@ export const messagingSlackIntegrationSpec = defineIntegration({
   supportedModes: ['managed', 'byok'],
   transports: [
     { type: 'rest', baseUrl: 'https://slack.com/api' },
-    { type: 'webhook', inbound: { signatureHeader: 'x-slack-signature', signingAlgorithm: 'hmac-sha256' } },
+    {
+      type: 'webhook',
+      inbound: {
+        signatureHeader: 'x-slack-signature',
+        signingAlgorithm: 'hmac-sha256',
+      },
+    },
     { type: 'sdk', packageName: '@slack/web-api' },
   ],
   preferredTransport: 'rest',
   supportedAuthMethods: [
-    { type: 'oauth2', grantType: 'authorization_code', authorizationUrl: 'https://slack.com/oauth/v2/authorize', tokenUrl: 'https://slack.com/api/oauth.v2.access', scopes: ['chat:write', 'channels:history', 'commands'] },
+    {
+      type: 'oauth2',
+      grantType: 'authorization_code',
+      authorizationUrl: 'https://slack.com/oauth/v2/authorize',
+      tokenUrl: 'https://slack.com/api/oauth.v2.access',
+      scopes: ['chat:write', 'channels:history', 'commands'],
+    },
     { type: 'bearer' },
-    { type: 'webhook-signing', algorithm: 'hmac-sha256', signatureHeader: 'x-slack-signature' },
+    {
+      type: 'webhook-signing',
+      algorithm: 'hmac-sha256',
+      signatureHeader: 'x-slack-signature',
+    },
   ],
   capabilities: {
     provides: [

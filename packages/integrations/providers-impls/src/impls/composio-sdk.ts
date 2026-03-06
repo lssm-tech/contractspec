@@ -3,7 +3,7 @@ import type {
   ComposioToolProxy,
   ComposioToolResult,
   ComposioToolDescriptor,
-} from "./composio-types";
+} from './composio-types';
 
 /**
  * Composio Native SDK provider.
@@ -21,10 +21,10 @@ export class ComposioSdkProvider implements ComposioToolProxy {
 
   async executeTool(
     toolName: string,
-    args: Record<string, unknown>,
+    args: Record<string, unknown>
   ): Promise<ComposioToolResult> {
     const client = await this.getClient();
-    const userId = (args._userId as string) ?? "default";
+    const userId = (args._userId as string) ?? 'default';
 
     try {
       const entity = await client.getEntity(userId);
@@ -46,8 +46,8 @@ export class ComposioSdkProvider implements ComposioToolProxy {
 
       return tools.map((t: ComposioAction) => ({
         name: t.name,
-        description: t.description ?? "",
-        toolkit: t.appName ?? "",
+        description: t.description ?? '',
+        toolkit: t.appName ?? '',
         parameters: t.parameters ?? {},
       }));
     } catch {
@@ -55,7 +55,9 @@ export class ComposioSdkProvider implements ComposioToolProxy {
     }
   }
 
-  async getConnectedAccounts(userId: string): Promise<ComposioConnectedAccount[]> {
+  async getConnectedAccounts(
+    userId: string
+  ): Promise<ComposioConnectedAccount[]> {
     const client = await this.getClient();
 
     try {
@@ -72,7 +74,7 @@ export class ComposioSdkProvider implements ComposioToolProxy {
   }
 
   async getMcpConfig(
-    userId: string,
+    userId: string
   ): Promise<{ url: string; headers: Record<string, string> } | undefined> {
     const client = await this.getClient();
 
@@ -90,7 +92,7 @@ export class ComposioSdkProvider implements ComposioToolProxy {
   private async getClient(): Promise<ComposioSdkClient> {
     if (this.client) return this.client;
 
-    const { Composio } = await import("composio-core");
+    const { Composio } = await import('@composio/core');
     this.client = new Composio({
       apiKey: this.config.apiKey,
       ...(this.config.baseUrl ? { baseUrl: this.config.baseUrl } : {}),

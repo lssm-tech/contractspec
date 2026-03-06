@@ -19,12 +19,16 @@ export const messagingWhatsappTwilioIntegrationSpec = defineIntegration({
   supportedModes: ['managed', 'byok'],
   transports: [
     { type: 'rest', baseUrl: 'https://api.twilio.com' },
-    { type: 'webhook', inbound: { signatureHeader: 'x-twilio-signature', signingAlgorithm: 'hmac-sha1' } },
+    {
+      type: 'webhook',
+      inbound: {
+        signatureHeader: 'x-twilio-signature',
+        signingAlgorithm: 'hmac-sha1',
+      },
+    },
   ],
   preferredTransport: 'rest',
-  supportedAuthMethods: [
-    { type: 'basic' },
-  ],
+  supportedAuthMethods: [{ type: 'basic' }],
   capabilities: {
     provides: [
       { key: 'messaging.inbound', version: '1.0.0' },

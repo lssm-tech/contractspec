@@ -19,12 +19,22 @@ export const notionIntegrationSpec = defineIntegration({
   },
   supportedModes: ['managed', 'byok'],
   transports: [
-    { type: 'rest', baseUrl: 'https://api.notion.com', apiVersionHeader: 'Notion-Version' },
+    {
+      type: 'rest',
+      baseUrl: 'https://api.notion.com',
+      apiVersionHeader: 'Notion-Version',
+    },
   ],
   preferredTransport: 'rest',
   supportedAuthMethods: [
     { type: 'bearer' },
-    { type: 'oauth2', grantType: 'authorization_code', authorizationUrl: 'https://api.notion.com/v1/oauth/authorize', tokenUrl: 'https://api.notion.com/v1/oauth/token', scopes: [] },
+    {
+      type: 'oauth2',
+      grantType: 'authorization_code',
+      authorizationUrl: 'https://api.notion.com/v1/oauth/authorize',
+      tokenUrl: 'https://api.notion.com/v1/oauth/token',
+      scopes: [],
+    },
   ],
   versionPolicy: {
     currentVersion: '2022-06-28',

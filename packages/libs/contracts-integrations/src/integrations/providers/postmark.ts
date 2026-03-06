@@ -20,7 +20,10 @@ export const postmarkIntegrationSpec = defineIntegration({
     { type: 'rest', baseUrl: 'https://api.postmarkapp.com' },
     {
       type: 'webhook',
-      inbound: { signatureHeader: 'x-postmark-signature', signingAlgorithm: 'hmac-sha256' },
+      inbound: {
+        signatureHeader: 'x-postmark-signature',
+        signingAlgorithm: 'hmac-sha256',
+      },
     },
   ],
   preferredTransport: 'rest',

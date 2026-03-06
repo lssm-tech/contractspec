@@ -30,7 +30,7 @@ export interface ModelSelectionSpanInput {
  */
 export async function traceModelSelection<T>(
   fn: () => Promise<T>,
-  input: ModelSelectionSpanInput,
+  input: ModelSelectionSpanInput
 ): Promise<T> {
   const startMs = performance.now();
 

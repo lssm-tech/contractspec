@@ -17,13 +17,9 @@ export const gradiumIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Experimental,
   },
   supportedModes: ['byok'],
-  transports: [
-    { type: 'rest' },
-  ] satisfies IntegrationTransportConfig[],
+  transports: [{ type: 'rest' }] satisfies IntegrationTransportConfig[],
   preferredTransport: 'rest',
-  supportedAuthMethods: [
-    { type: 'api-key' },
-  ] satisfies IntegrationAuthConfig[],
+  supportedAuthMethods: [{ type: 'api-key' }] satisfies IntegrationAuthConfig[],
   capabilities: {
     provides: [{ key: 'ai.voice.tts', version: '1.0.0' }],
   },

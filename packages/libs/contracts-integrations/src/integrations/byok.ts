@@ -24,7 +24,7 @@ export interface ByokKeyRotationRequest {
   /** Connection whose key should be rotated. */
   connectionId: string;
   /** Reason for the rotation. */
-  reason: "scheduled" | "compromised" | "manual";
+  reason: 'scheduled' | 'compromised' | 'manual';
   /** New secret reference (post-rotation). */
   newSecretRef?: string;
 }
@@ -46,7 +46,7 @@ export interface ByokKeyMetadata {
   /** When the key was last validated against the provider. */
   lastValidatedAt?: string;
   /** Outcome of the last validation. */
-  validationStatus: "valid" | "invalid" | "unknown";
+  validationStatus: 'valid' | 'invalid' | 'unknown';
   /** Provider-reported quota snapshot from the last validation. */
   quotaSnapshot?: Record<string, number>;
 }
@@ -62,7 +62,7 @@ export interface ByokKeyLifecycle {
    * @param secrets Resolved secret key-value pairs from the store.
    */
   validateKey(
-    secrets: Record<string, string>,
+    secrets: Record<string, string>
   ): Promise<ByokKeyValidationResult>;
 
   /**
@@ -74,7 +74,7 @@ export interface ByokKeyLifecycle {
    */
   rotateKey?(
     secrets: Record<string, string>,
-    request: ByokKeyRotationRequest,
+    request: ByokKeyRotationRequest
   ): Promise<ByokKeyRotationResult>;
 }
 
@@ -86,7 +86,7 @@ export interface ByokKeyLifecycle {
  */
 export function isByokValidationStale(
   meta: ByokKeyMetadata,
-  maxAgeMs = 86_400_000,
+  maxAgeMs = 86_400_000
 ): boolean {
   if (!meta.lastValidatedAt) return true;
   return Date.now() - new Date(meta.lastValidatedAt).getTime() > maxAgeMs;

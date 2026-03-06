@@ -17,15 +17,9 @@ export const granolaIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Experimental,
   },
   supportedModes: ['byok'],
-  transports: [
-    { type: 'rest' },
-    { type: 'mcp', transport: 'http' },
-  ],
+  transports: [{ type: 'rest' }, { type: 'mcp', transport: 'http' }],
   preferredTransport: 'mcp',
-  supportedAuthMethods: [
-    { type: 'api-key' },
-    { type: 'bearer' },
-  ],
+  supportedAuthMethods: [{ type: 'api-key' }, { type: 'bearer' }],
   capabilities: {
     provides: [
       { key: 'meeting-recorder.meetings.read', version: '1.0.0' },

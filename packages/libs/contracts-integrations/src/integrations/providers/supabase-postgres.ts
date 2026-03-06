@@ -22,10 +22,7 @@ export const supabasePostgresIntegrationSpec = defineIntegration({
     { type: 'sdk', packageName: '@supabase/supabase-js' },
   ],
   preferredTransport: 'rest',
-  supportedAuthMethods: [
-    { type: 'api-key' },
-    { type: 'basic' },
-  ],
+  supportedAuthMethods: [{ type: 'api-key' }, { type: 'basic' }],
   capabilities: {
     provides: [{ key: 'database.sql', version: '1.0.0' }],
   },

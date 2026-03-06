@@ -23,9 +23,7 @@ export const posthogIntegrationSpec = defineIntegration({
     { type: 'sdk', packageName: 'posthog-node' },
   ] satisfies IntegrationTransportConfig[],
   preferredTransport: 'rest',
-  supportedAuthMethods: [
-    { type: 'api-key' },
-  ] satisfies IntegrationAuthConfig[],
+  supportedAuthMethods: [{ type: 'api-key' }] satisfies IntegrationAuthConfig[],
   capabilities: {
     provides: [
       { key: 'analytics.events', version: '1.0.0' },

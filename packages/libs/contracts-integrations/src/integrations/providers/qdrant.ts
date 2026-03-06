@@ -21,10 +21,7 @@ export const qdrantIntegrationSpec = defineIntegration({
     { type: 'sdk', packageName: '@qdrant/js-client-rest' },
   ],
   preferredTransport: 'rest',
-  supportedAuthMethods: [
-    { type: 'api-key' },
-    { type: 'bearer' },
-  ],
+  supportedAuthMethods: [{ type: 'api-key' }, { type: 'bearer' }],
   capabilities: {
     provides: [
       { key: 'vector-db.search', version: '1.0.0' },

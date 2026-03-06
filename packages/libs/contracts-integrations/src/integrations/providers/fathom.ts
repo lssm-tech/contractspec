@@ -19,12 +19,22 @@ export const fathomIntegrationSpec = defineIntegration({
   supportedModes: ['byok'],
   transports: [
     { type: 'rest' },
-    { type: 'webhook', inbound: { signatureHeader: 'x-fathom-signature', signingAlgorithm: 'hmac-sha256' } },
+    {
+      type: 'webhook',
+      inbound: {
+        signatureHeader: 'x-fathom-signature',
+        signingAlgorithm: 'hmac-sha256',
+      },
+    },
   ],
   preferredTransport: 'rest',
   supportedAuthMethods: [
     { type: 'api-key' },
-    { type: 'webhook-signing', algorithm: 'hmac-sha256', signatureHeader: 'x-fathom-signature' },
+    {
+      type: 'webhook-signing',
+      algorithm: 'hmac-sha256',
+      signatureHeader: 'x-fathom-signature',
+    },
   ],
   capabilities: {
     provides: [

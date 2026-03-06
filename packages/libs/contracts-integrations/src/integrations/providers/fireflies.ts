@@ -19,12 +19,22 @@ export const firefliesIntegrationSpec = defineIntegration({
   supportedModes: ['byok'],
   transports: [
     { type: 'rest', baseUrl: 'https://api.fireflies.ai/graphql' },
-    { type: 'webhook', inbound: { signatureHeader: 'x-fireflies-signature', signingAlgorithm: 'hmac-sha256' } },
+    {
+      type: 'webhook',
+      inbound: {
+        signatureHeader: 'x-fireflies-signature',
+        signingAlgorithm: 'hmac-sha256',
+      },
+    },
   ],
   preferredTransport: 'rest',
   supportedAuthMethods: [
     { type: 'api-key' },
-    { type: 'webhook-signing', algorithm: 'hmac-sha256', signatureHeader: 'x-fireflies-signature' },
+    {
+      type: 'webhook-signing',
+      algorithm: 'hmac-sha256',
+      signatureHeader: 'x-fireflies-signature',
+    },
   ],
   capabilities: {
     provides: [

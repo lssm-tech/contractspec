@@ -19,10 +19,17 @@ export const stripeIntegrationSpec = defineIntegration({
   },
   supportedModes: ['managed', 'byok'],
   transports: [
-    { type: 'rest', baseUrl: 'https://api.stripe.com', apiVersionHeader: 'Stripe-Version' },
+    {
+      type: 'rest',
+      baseUrl: 'https://api.stripe.com',
+      apiVersionHeader: 'Stripe-Version',
+    },
     {
       type: 'webhook',
-      inbound: { signatureHeader: 'stripe-signature', signingAlgorithm: 'hmac-sha256' },
+      inbound: {
+        signatureHeader: 'stripe-signature',
+        signingAlgorithm: 'hmac-sha256',
+      },
     },
     { type: 'sdk', packageName: 'stripe', minVersion: '14.0.0' },
   ],
@@ -44,9 +51,7 @@ export const stripeIntegrationSpec = defineIntegration({
   ],
   versionPolicy: {
     currentVersion: '2024-11-20.acacia',
-    supportedVersions: [
-      { version: '2024-11-20.acacia', status: 'stable' },
-    ],
+    supportedVersions: [{ version: '2024-11-20.acacia', status: 'stable' }],
     versionHeader: 'Stripe-Version',
   },
   capabilities: {

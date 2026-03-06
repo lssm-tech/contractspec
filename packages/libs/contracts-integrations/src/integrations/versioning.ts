@@ -6,7 +6,7 @@
  * (header, query parameter, or URL path segment).
  */
 
-export type ApiVersionStatus = "stable" | "beta" | "deprecated" | "sunset";
+export type ApiVersionStatus = 'stable' | 'beta' | 'deprecated' | 'sunset';
 
 export interface ApiVersionInfo {
   /** Semantic or date-based version string (e.g. "2024-11-01", "v2"). */
@@ -42,7 +42,7 @@ export interface IntegrationVersionPolicy {
  */
 export function resolveApiVersion(
   policy: IntegrationVersionPolicy | undefined,
-  connectionOverride?: string,
+  connectionOverride?: string
 ): string | undefined {
   if (!policy) return undefined;
   return connectionOverride ?? policy.currentVersion;
@@ -53,7 +53,7 @@ export function resolveApiVersion(
  */
 export function getVersionInfo(
   policy: IntegrationVersionPolicy,
-  version: string,
+  version: string
 ): ApiVersionInfo | undefined {
   return policy.supportedVersions.find((v) => v.version === version);
 }
@@ -63,19 +63,19 @@ export function getVersionInfo(
  */
 export function isVersionDeprecated(
   policy: IntegrationVersionPolicy,
-  version: string,
+  version: string
 ): boolean {
   const info = getVersionInfo(policy, version);
-  return info?.status === "deprecated" || info?.status === "sunset";
+  return info?.status === 'deprecated' || info?.status === 'sunset';
 }
 
 /**
  * List only stable or beta versions from a policy.
  */
 export function getActiveVersions(
-  policy: IntegrationVersionPolicy,
+  policy: IntegrationVersionPolicy
 ): ApiVersionInfo[] {
   return policy.supportedVersions.filter(
-    (v) => v.status === "stable" || v.status === "beta",
+    (v) => v.status === 'stable' || v.status === 'beta'
   );
 }

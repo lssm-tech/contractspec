@@ -103,10 +103,10 @@ export function createDefaultIntegrationSpecRegistry(): IntegrationSpecRegistry 
  */
 export function filterByTransport(
   specs: IntegrationSpec[],
-  transport: IntegrationTransportType,
+  transport: IntegrationTransportType
 ): IntegrationSpec[] {
   return specs.filter(
-    (s) => s.transports && supportsTransport(s.transports, transport),
+    (s) => s.transports && supportsTransport(s.transports, transport)
   );
 }
 
@@ -115,21 +115,19 @@ export function filterByTransport(
  */
 export function filterByAuthMethod(
   specs: IntegrationSpec[],
-  method: IntegrationAuthType,
+  method: IntegrationAuthType
 ): IntegrationSpec[] {
   return specs.filter(
     (s) =>
       s.supportedAuthMethods &&
-      supportsAuthMethod(s.supportedAuthMethods, method),
+      supportsAuthMethod(s.supportedAuthMethods, method)
   );
 }
 
 /**
  * Filter specs that have a version policy (API versioning support).
  */
-export function filterVersioned(
-  specs: IntegrationSpec[],
-): IntegrationSpec[] {
+export function filterVersioned(specs: IntegrationSpec[]): IntegrationSpec[] {
   return specs.filter((s) => s.versionPolicy !== undefined);
 }
 
@@ -137,11 +135,11 @@ export function filterVersioned(
  * Filter specs that support BYOK with key rotation.
  */
 export function filterByokRotatable(
-  specs: IntegrationSpec[],
+  specs: IntegrationSpec[]
 ): IntegrationSpec[] {
   return specs.filter(
     (s) =>
       s.supportedModes.includes('byok') &&
-      s.byokSetup?.keyRotationSupported === true,
+      s.byokSetup?.keyRotationSupported === true
   );
 }

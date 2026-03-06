@@ -19,12 +19,22 @@ export const tldvIntegrationSpec = defineIntegration({
   supportedModes: ['byok'],
   transports: [
     { type: 'rest' },
-    { type: 'webhook', inbound: { signatureHeader: 'x-tldv-signature', signingAlgorithm: 'hmac-sha256' } },
+    {
+      type: 'webhook',
+      inbound: {
+        signatureHeader: 'x-tldv-signature',
+        signingAlgorithm: 'hmac-sha256',
+      },
+    },
   ],
   preferredTransport: 'rest',
   supportedAuthMethods: [
     { type: 'api-key' },
-    { type: 'webhook-signing', algorithm: 'hmac-sha256', signatureHeader: 'x-tldv-signature' },
+    {
+      type: 'webhook-signing',
+      algorithm: 'hmac-sha256',
+      signatureHeader: 'x-tldv-signature',
+    },
   ],
   capabilities: {
     provides: [

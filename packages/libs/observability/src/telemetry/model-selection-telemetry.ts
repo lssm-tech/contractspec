@@ -22,17 +22,14 @@ export class ModelSelectionTelemetry {
   private readonly provider: AnalyticsProvider;
   private readonly eventName: string;
 
-  constructor(
-    provider: AnalyticsProvider,
-    options?: { eventName?: string },
-  ) {
+  constructor(provider: AnalyticsProvider, options?: { eventName?: string }) {
     this.provider = provider;
     this.eventName = options?.eventName ?? '$model_selection';
   }
 
   async trackSelection(
     distinctId: string,
-    properties: ModelSelectionEventProperties,
+    properties: ModelSelectionEventProperties
   ): Promise<void> {
     await this.provider.capture({
       distinctId,

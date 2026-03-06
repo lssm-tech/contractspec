@@ -40,12 +40,12 @@ Entry point for the fallback. Instantiated with a `ComposioConfig` and injected 
 Default transport. Creates Composio sessions and communicates via MCP JSON-RPC.
 
 - Sessions cached per userId with 30-minute TTL
-- Uses `composio-core` SDK to obtain MCP URL and headers
+- Uses `@composio/core` SDK to obtain MCP URL and headers
 - Implements `ComposioToolProxy` interface
 
 ### ComposioSdkProvider
 
-Advanced transport. Uses `composio-core` directly for:
+Advanced transport. Uses `@composio/core` directly for:
 
 - Tool search by query
 - Direct tool execution
@@ -56,14 +56,14 @@ Advanced transport. Uses `composio-core` directly for:
 
 Each proxy implements a ContractSpec domain interface by mapping method calls to Composio tool names:
 
-| Proxy | Interface | Tool pattern |
-| --- | --- | --- |
-| `ComposioMessagingProxy` | `MessagingProvider` | `{TOOLKIT}_SEND_MESSAGE` |
-| `ComposioEmailProxy` | `EmailOutboundProvider` | `{TOOLKIT}_SEND_EMAIL` |
-| `ComposioPaymentsProxy` | `PaymentsProvider` | `{TOOLKIT}_CREATE_PAYMENT_INTENT` |
-| `ComposioProjectManagementProxy` | `ProjectManagementProvider` | `{TOOLKIT}_CREATE_ISSUE` |
-| `ComposioCalendarProxy` | `CalendarProvider` | `{TOOLKIT}_CREATE_EVENT` |
-| `ComposioGenericProxy` | (raw) | `{TOOLKIT}_{ACTION}` |
+| Proxy                            | Interface                   | Tool pattern                      |
+| -------------------------------- | --------------------------- | --------------------------------- |
+| `ComposioMessagingProxy`         | `MessagingProvider`         | `{TOOLKIT}_SEND_MESSAGE`          |
+| `ComposioEmailProxy`             | `EmailOutboundProvider`     | `{TOOLKIT}_SEND_EMAIL`            |
+| `ComposioPaymentsProxy`          | `PaymentsProvider`          | `{TOOLKIT}_CREATE_PAYMENT_INTENT` |
+| `ComposioProjectManagementProxy` | `ProjectManagementProvider` | `{TOOLKIT}_CREATE_ISSUE`          |
+| `ComposioCalendarProxy`          | `CalendarProvider`          | `{TOOLKIT}_CREATE_EVENT`          |
+| `ComposioGenericProxy`           | (raw)                       | `{TOOLKIT}_{ACTION}`              |
 
 ### Integration Key Mapping
 
@@ -78,12 +78,12 @@ Each proxy implements a ContractSpec domain interface by mapping method calls to
 ### Factory-level
 
 ```typescript
-import { ComposioFallbackResolver } from "@contractspec/integration.providers-impls/impls/composio-fallback-resolver";
+import { ComposioFallbackResolver } from '@contractspec/integration.providers-impls/impls/composio-fallback-resolver';
 
 const factory = new IntegrationProviderFactory({
   composioFallback: new ComposioFallbackResolver({
     apiKey: process.env.COMPOSIO_API_KEY!,
-    preferredTransport: "mcp",
+    preferredTransport: 'mcp',
   }),
 });
 ```
@@ -95,7 +95,7 @@ const config: IntegrationRuntimeConfig = {
   secretProvider: mySecretProvider,
   composio: {
     apiKey: process.env.COMPOSIO_API_KEY!,
-    preferredTransport: "mcp",
+    preferredTransport: 'mcp',
   },
 };
 ```
@@ -111,13 +111,13 @@ const config: IntegrationRuntimeConfig = {
 
 ## Files
 
-| File | Package | Purpose |
-| --- | --- | --- |
-| `providers/composio.ts` | contracts-integrations | Integration spec definition |
-| `impls/composio-types.ts` | providers-impls | Shared types and key mapping |
-| `impls/composio-mcp.ts` | providers-impls | MCP transport provider |
-| `impls/composio-sdk.ts` | providers-impls | Native SDK provider |
-| `impls/composio-fallback-resolver.ts` | providers-impls | Fallback orchestrator |
-| `impls/composio-proxies.ts` | providers-impls | Domain proxy adapters |
-| `impls/provider-factory.ts` | providers-impls | Factory wiring (modified) |
-| `runtime.ts` | runtime | Runtime config types (modified) |
+| File                                  | Package                | Purpose                         |
+| ------------------------------------- | ---------------------- | ------------------------------- |
+| `providers/composio.ts`               | contracts-integrations | Integration spec definition     |
+| `impls/composio-types.ts`             | providers-impls        | Shared types and key mapping    |
+| `impls/composio-mcp.ts`               | providers-impls        | MCP transport provider          |
+| `impls/composio-sdk.ts`               | providers-impls        | Native SDK provider             |
+| `impls/composio-fallback-resolver.ts` | providers-impls        | Fallback orchestrator           |
+| `impls/composio-proxies.ts`           | providers-impls        | Domain proxy adapters           |
+| `impls/provider-factory.ts`           | providers-impls        | Factory wiring (modified)       |
+| `runtime.ts`                          | runtime                | Runtime config types (modified) |

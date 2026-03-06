@@ -389,7 +389,7 @@ export interface TransportResolver {
   resolve(
     specTransports: IntegrationTransportConfig[],
     preferredTransport: IntegrationTransportType | undefined,
-    connectionTransport: IntegrationTransportType | undefined,
+    connectionTransport: IntegrationTransportType | undefined
   ): IntegrationTransportType;
 }
 
@@ -400,7 +400,7 @@ export class DefaultTransportResolver implements TransportResolver {
   resolve(
     specTransports: IntegrationTransportConfig[],
     preferredTransport: IntegrationTransportType | undefined,
-    connectionTransport: IntegrationTransportType | undefined,
+    connectionTransport: IntegrationTransportType | undefined
   ): IntegrationTransportType {
     if (
       connectionTransport &&
@@ -426,7 +426,7 @@ export class DefaultTransportResolver implements TransportResolver {
  */
 export function resolveAuthMethod(
   specMethods: IntegrationAuthConfig[] | undefined,
-  connectionMethod: IntegrationAuthType | undefined,
+  connectionMethod: IntegrationAuthType | undefined
 ): IntegrationAuthType | undefined {
   if (!specMethods || specMethods.length === 0) return connectionMethod;
   if (connectionMethod && supportsAuthMethod(specMethods, connectionMethod)) {
@@ -449,7 +449,7 @@ export function resolveIntegrationRequestContext(
     activeTransport?: IntegrationTransportType;
     authMethod?: IntegrationAuthType;
     apiVersion?: string;
-  },
+  }
 ): {
   transport: IntegrationTransportType;
   authMethod: IntegrationAuthType | undefined;
@@ -460,11 +460,11 @@ export function resolveIntegrationRequestContext(
     transport: resolver.resolve(
       spec.transports ?? [],
       spec.preferredTransport,
-      connection.activeTransport,
+      connection.activeTransport
     ),
     authMethod: resolveAuthMethod(
       spec.supportedAuthMethods,
-      connection.authMethod,
+      connection.authMethod
     ),
     apiVersion: resolveApiVersion(spec.versionPolicy, connection.apiVersion),
   };
@@ -497,7 +497,7 @@ export const DEFAULT_HEALTH_STRATEGY_ORDER: readonly HealthTransportStrategy[] =
   ] as const;
 
 export function resolveHealthStrategyOrder(
-  options?: HealthRuntimeStrategyOptions,
+  options?: HealthRuntimeStrategyOptions
 ): HealthTransportStrategy[] {
   const ordered =
     options?.strategyOrder && options.strategyOrder.length > 0
@@ -511,7 +511,7 @@ export function resolveHealthStrategyOrder(
 
 export function isUnofficialHealthProviderAllowed(
   providerKey: string,
-  options?: HealthRuntimeStrategyOptions,
+  options?: HealthRuntimeStrategyOptions
 ): boolean {
   if (!options?.allowUnofficial) return false;
   if (

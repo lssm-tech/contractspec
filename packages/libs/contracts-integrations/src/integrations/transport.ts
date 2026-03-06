@@ -6,10 +6,10 @@
  * IntegrationSpec can declare and every connection can activate.
  */
 
-export type IntegrationTransportType = "rest" | "mcp" | "webhook" | "sdk";
+export type IntegrationTransportType = 'rest' | 'mcp' | 'webhook' | 'sdk';
 
 export interface RestTransportConfig {
-  type: "rest";
+  type: 'rest';
   /** Default base URL for the provider API. */
   baseUrl?: string;
   /** Headers sent with every request (e.g. content-type). */
@@ -27,9 +27,9 @@ export interface RestTransportConfig {
 }
 
 export interface McpTransportConfig {
-  type: "mcp";
+  type: 'mcp';
   /** Underlying MCP wire transport. */
-  transport: "stdio" | "http" | "sse";
+  transport: 'stdio' | 'http' | 'sse';
   /** Remote MCP server URL (http/sse). */
   url?: string;
   /** Local MCP server command (stdio). */
@@ -41,11 +41,11 @@ export interface McpTransportConfig {
 }
 
 export interface WebhookTransportConfig {
-  type: "webhook";
+  type: 'webhook';
   /** Inbound webhook configuration (provider pushes to us). */
   inbound?: {
     signatureHeader: string;
-    signingAlgorithm: "hmac-sha256" | "hmac-sha1" | "ed25519";
+    signingAlgorithm: 'hmac-sha256' | 'hmac-sha1' | 'ed25519';
     /** Whether the provider supports webhook registration via API. */
     registrationSupported?: boolean;
   };
@@ -57,13 +57,13 @@ export interface WebhookTransportConfig {
 }
 
 export interface SdkTransportConfig {
-  type: "sdk";
+  type: 'sdk';
   /** npm package name of the official SDK. */
   packageName: string;
   /** Minimum supported SDK version (semver). */
   minVersion?: string;
   /** Language/runtime the SDK targets. */
-  runtime?: "node" | "browser" | "universal";
+  runtime?: 'node' | 'browser' | 'universal';
 }
 
 export type IntegrationTransportConfig =
@@ -77,11 +77,11 @@ export type IntegrationTransportConfig =
  */
 export function findTransportConfig<T extends IntegrationTransportType>(
   transports: IntegrationTransportConfig[],
-  type: T,
+  type: T
 ): Extract<IntegrationTransportConfig, { type: T }> | undefined {
   return transports.find(
     (t): t is Extract<IntegrationTransportConfig, { type: T }> =>
-      t.type === type,
+      t.type === type
   );
 }
 
@@ -90,7 +90,7 @@ export function findTransportConfig<T extends IntegrationTransportType>(
  */
 export function supportsTransport(
   transports: IntegrationTransportConfig[],
-  type: IntegrationTransportType,
+  type: IntegrationTransportType
 ): boolean {
   return transports.some((t) => t.type === type);
 }

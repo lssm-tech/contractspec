@@ -21,14 +21,15 @@ export const twilioSmsIntegrationSpec = defineIntegration({
     { type: 'rest', baseUrl: 'https://api.twilio.com' },
     {
       type: 'webhook',
-      inbound: { signatureHeader: 'x-twilio-signature', signingAlgorithm: 'hmac-sha1' },
+      inbound: {
+        signatureHeader: 'x-twilio-signature',
+        signingAlgorithm: 'hmac-sha1',
+      },
     },
     { type: 'sdk', packageName: 'twilio', minVersion: '5.0.0' },
   ],
   preferredTransport: 'rest',
-  supportedAuthMethods: [
-    { type: 'basic' },
-  ],
+  supportedAuthMethods: [{ type: 'basic' }],
   capabilities: {
     provides: [{ key: 'sms.outbound', version: '1.0.0' }],
   },

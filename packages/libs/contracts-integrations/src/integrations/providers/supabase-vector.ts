@@ -22,10 +22,7 @@ export const supabaseVectorIntegrationSpec = defineIntegration({
     { type: 'sdk', packageName: '@supabase/supabase-js' },
   ],
   preferredTransport: 'rest',
-  supportedAuthMethods: [
-    { type: 'api-key' },
-    { type: 'bearer' },
-  ],
+  supportedAuthMethods: [{ type: 'api-key' }, { type: 'bearer' }],
   capabilities: {
     provides: [
       { key: 'vector-db.search', version: '1.0.0' },
