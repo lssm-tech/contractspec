@@ -10,6 +10,19 @@ import type { FsAdapter } from "../ports/fs";
 import type { LoggerAdapter } from "../ports/logger";
 import { discoverImplementationsForSpec } from "./implementation/discovery";
 
+function unknownSpecResult(filePath: string): SpecScanResult {
+  return {
+    specType: "unknown",
+    filePath,
+    hasMeta: false,
+    hasIo: false,
+    hasPolicy: false,
+    hasPayload: false,
+    hasContent: false,
+    hasDefinition: false,
+  };
+}
+
 export interface DeleteSpecOptions {
   /** Also remove generated artifacts that reference this spec. */
   clean?: boolean;
@@ -39,14 +52,14 @@ export async function deleteSpec(
   if (!exists && !options.force) {
     return {
       specPath,
-      specInfo: { specType: "unknown", filePath: specPath },
+      specInfo: unknownSpecResult(specPath),
       deleted: false,
       cleanedFiles: [],
       errors: [`Spec file not found: ${specPath}`],
     };
   }
 
-  let specInfo: SpecScanResult = { specType: "unknown", filePath: specPath };
+  let specInfo: SpecScanResult = unknownSpecResult(specPath);
   let specKey: string | undefined;
 
   if (exists) {

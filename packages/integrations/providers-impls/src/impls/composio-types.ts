@@ -94,5 +94,6 @@ export function resolveToolkit(integrationKey: string): string {
   }
 
   const parts = integrationKey.split(".");
-  return parts.length > 1 ? parts[parts.length - 1] : integrationKey;
+  const last = parts[parts.length - 1];
+  return parts.length > 1 && last ? last : integrationKey;
 }

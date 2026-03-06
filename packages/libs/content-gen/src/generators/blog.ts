@@ -1,5 +1,8 @@
 import type { LLMProvider } from '@contractspec/lib.contracts-integrations';
-import type { ModelSelector, ModelSelectionContext } from '@contractspec/lib.ai-providers/selector-types';
+import type {
+  ModelSelector,
+  ModelSelectionContext,
+} from '@contractspec/lib.ai-providers/selector-types';
 import type {
   ContentBrief,
   GeneratedContent,
@@ -35,7 +38,9 @@ export class BlogGenerator {
   private async resolveModel(): Promise<string | undefined> {
     if (this.model) return this.model;
     if (this.modelSelector) {
-      const ctx = this.selectionContext ?? { taskDimension: "reasoning" as const };
+      const ctx = this.selectionContext ?? {
+        taskDimension: 'reasoning' as const,
+      };
       const result = await this.modelSelector.select(ctx);
       return result.modelId;
     }

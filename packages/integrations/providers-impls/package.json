@@ -70,11 +70,11 @@
     "./health": "./src/health.ts",
     "./impls": "./src/impls/index.ts",
     "./impls/async-event-queue": "./src/impls/async-event-queue.ts",
-    "./impls/composio-types": "./src/impls/composio-types.ts",
-    "./impls/composio-mcp": "./src/impls/composio-mcp.ts",
-    "./impls/composio-sdk": "./src/impls/composio-sdk.ts",
     "./impls/composio-fallback-resolver": "./src/impls/composio-fallback-resolver.ts",
+    "./impls/composio-mcp": "./src/impls/composio-mcp.ts",
     "./impls/composio-proxies": "./src/impls/composio-proxies.ts",
+    "./impls/composio-sdk": "./src/impls/composio-sdk.ts",
+    "./impls/composio-types": "./src/impls/composio-types.ts",
     "./impls/elevenlabs-voice": "./src/impls/elevenlabs-voice.ts",
     "./impls/fal-voice": "./src/impls/fal-voice.ts",
     "./impls/fathom-meeting-recorder": "./src/impls/fathom-meeting-recorder.ts",
@@ -196,11 +196,11 @@
         "node": "./dist/node/impls/async-event-queue.js",
         "default": "./dist/impls/async-event-queue.js"
       },
-      "./impls/composio-types": {
-        "types": "./dist/impls/composio-types.d.ts",
-        "bun": "./dist/impls/composio-types.js",
-        "node": "./dist/node/impls/composio-types.js",
-        "default": "./dist/impls/composio-types.js"
+      "./impls/composio-fallback-resolver": {
+        "types": "./dist/impls/composio-fallback-resolver.d.ts",
+        "bun": "./dist/impls/composio-fallback-resolver.js",
+        "node": "./dist/node/impls/composio-fallback-resolver.js",
+        "default": "./dist/impls/composio-fallback-resolver.js"
       },
       "./impls/composio-mcp": {
         "types": "./dist/impls/composio-mcp.d.ts",
@@ -208,23 +208,23 @@
         "node": "./dist/node/impls/composio-mcp.js",
         "default": "./dist/impls/composio-mcp.js"
       },
+      "./impls/composio-proxies": {
+        "types": "./dist/impls/composio-proxies.d.ts",
+        "bun": "./dist/impls/composio-proxies.js",
+        "node": "./dist/node/impls/composio-proxies.js",
+        "default": "./dist/impls/composio-proxies.js"
+      },
       "./impls/composio-sdk": {
         "types": "./dist/impls/composio-sdk.d.ts",
         "bun": "./dist/impls/composio-sdk.js",
         "node": "./dist/node/impls/composio-sdk.js",
         "default": "./dist/impls/composio-sdk.js"
       },
-      "./impls/composio-fallback-resolver": {
-        "types": "./dist/impls/composio-fallback-resolver.d.ts",
-        "bun": "./dist/impls/composio-fallback-resolver.js",
-        "node": "./dist/node/impls/composio-fallback-resolver.js",
-        "default": "./dist/impls/composio-fallback-resolver.js"
-      },
-      "./impls/composio-proxies": {
-        "types": "./dist/impls/composio-proxies.d.ts",
-        "bun": "./dist/impls/composio-proxies.js",
-        "node": "./dist/node/impls/composio-proxies.js",
-        "default": "./dist/impls/composio-proxies.js"
+      "./impls/composio-types": {
+        "types": "./dist/impls/composio-types.d.ts",
+        "bun": "./dist/impls/composio-types.js",
+        "node": "./dist/node/impls/composio-types.js",
+        "default": "./dist/impls/composio-types.js"
       },
       "./impls/elevenlabs-voice": {
         "types": "./dist/impls/elevenlabs-voice.d.ts",

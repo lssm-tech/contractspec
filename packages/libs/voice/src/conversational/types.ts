@@ -7,7 +7,10 @@ import type {
   TTSProvider,
 } from '../types';
 import type { LLMProvider } from '@contractspec/lib.contracts-integrations/integrations/providers/llm';
-import type { ModelSelector, ModelSelectionContext } from '@contractspec/lib.ai-providers/selector-types';
+import type {
+  ModelSelector,
+  ModelSelectionContext,
+} from '@contractspec/lib.ai-providers/selector-types';
 
 export interface ConversationConfig {
   voiceId: string;

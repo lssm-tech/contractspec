@@ -10,6 +10,19 @@ import type { FsAdapter } from "../ports/fs";
 import type { LoggerAdapter } from "../ports/logger";
 import { validateSpec } from "./validate/spec-validator";
 
+function unknownSpecResult(filePath: string): SpecScanResult {
+  return {
+    specType: "unknown",
+    filePath,
+    hasMeta: false,
+    hasIo: false,
+    hasPolicy: false,
+    hasPayload: false,
+    hasContent: false,
+    hasDefinition: false,
+  };
+}
+
 /**
  * A single field patch: dot-path key and the replacement source text.
  *
@@ -54,7 +67,7 @@ export async function updateSpec(
   if (!exists) {
     return {
       specPath,
-      specInfo: { specType: "unknown", filePath: specPath },
+      specInfo: unknownSpecResult(specPath),
       updated: false,
       errors: [`Spec file not found: ${specPath}`],
       warnings: [],

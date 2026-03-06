@@ -169,6 +169,13 @@ export class WorkflowRunner {
     const spec = this.getSpec(state.workflowName, state.workflowVersion);
     const step = getCurrentStep(spec, state.currentStep);
 
+    const guardOk = await this.evaluateGuard(step, state, input);
+    if (!guardOk)
+      throw new WorkflowExecutionError(
+        `GuardRejected: ${state.workflowName} -> ${step.id}`,
+        'guard_rejected'
+      );
+
     if (step.type === 'human' && input === undefined) {
       const pausedState: WorkflowState = {
         ...state,
@@ -184,13 +191,6 @@ export class WorkflowRunner {
       });
       return;
     }
-
-    const guardOk = await this.evaluateGuard(step, state, input);
-    if (!guardOk)
-      throw new WorkflowExecutionError(
-        `GuardRejected: ${state.workflowName} -> ${step.id}`,
-        'guard_rejected'
-      );
 
     const execution: StepExecution = {
       stepId: step.id,

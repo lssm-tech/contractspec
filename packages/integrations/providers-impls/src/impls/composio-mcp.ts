@@ -148,7 +148,7 @@ export class ComposioMcpProvider implements ComposioToolProxy {
     this.composioInstance = new Composio({
       apiKey: this.config.apiKey,
       ...(this.config.baseUrl ? { baseUrl: this.config.baseUrl } : {}),
-    }) as ComposioClient;
+    }) as unknown as ComposioClient;
 
     return this.composioInstance;
   }

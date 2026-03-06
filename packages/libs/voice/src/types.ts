@@ -40,9 +40,9 @@ export interface VoiceOptions {
   temperature?: number;
   locale?: string;
   /** Transport mode for voice providers. */
-  transport?: "rest" | "mcp" | "sdk";
+  transport?: 'rest' | 'mcp' | 'sdk';
   /** Auth method for voice providers. */
-  authMethod?: "api-key" | "oauth2" | "bearer";
+  authMethod?: 'api-key' | 'oauth2' | 'bearer';
   /** Custom auth headers for voice providers. */
   authHeaders?: Record<string, string>;
 }

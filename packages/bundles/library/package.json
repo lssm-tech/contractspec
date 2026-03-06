@@ -26,12 +26,14 @@
     "./application/mcp": "./src/application/mcp/index.ts",
     "./application/mcp/cliMcp": "./src/application/mcp/cliMcp.ts",
     "./application/mcp/common": "./src/application/mcp/common.ts",
+    "./application/mcp/contractsMcp": "./src/application/mcp/contractsMcp.ts",
+    "./application/mcp/contractsMcpResources": "./src/application/mcp/contractsMcpResources.ts",
+    "./application/mcp/contractsMcpTools": "./src/application/mcp/contractsMcpTools.ts",
+    "./application/mcp/contractsMcpTypes": "./src/application/mcp/contractsMcpTypes.ts",
     "./application/mcp/docsMcp": "./src/application/mcp/docsMcp.ts",
     "./application/mcp/index": "./src/application/mcp/index.ts",
     "./application/mcp/internalMcp": "./src/application/mcp/internalMcp.ts",
     "./application/mcp/providerRankingMcp": "./src/application/mcp/providerRankingMcp.ts",
-    "./application/mcp/contractsMcp": "./src/application/mcp/contractsMcp.ts",
-    "./application/mcp/contractsMcpTypes": "./src/application/mcp/contractsMcpTypes.ts",
     "./components/docs": "./src/components/docs/index.ts",
     "./components/docs/advanced": "./src/components/docs/advanced/index.ts",
     "./components/docs/advanced/AdvancedMCPPage": "./src/components/docs/advanced/AdvancedMCPPage.tsx",
@@ -464,6 +466,30 @@
         "bun": "./dist/application/mcp/common.js",
         "node": "./dist/node/application/mcp/common.js",
         "default": "./dist/application/mcp/common.js"
+      },
+      "./application/mcp/contractsMcp": {
+        "types": "./dist/application/mcp/contractsMcp.d.ts",
+        "bun": "./dist/application/mcp/contractsMcp.js",
+        "node": "./dist/node/application/mcp/contractsMcp.js",
+        "default": "./dist/application/mcp/contractsMcp.js"
+      },
+      "./application/mcp/contractsMcpResources": {
+        "types": "./dist/application/mcp/contractsMcpResources.d.ts",
+        "bun": "./dist/application/mcp/contractsMcpResources.js",
+        "node": "./dist/node/application/mcp/contractsMcpResources.js",
+        "default": "./dist/application/mcp/contractsMcpResources.js"
+      },
+      "./application/mcp/contractsMcpTools": {
+        "types": "./dist/application/mcp/contractsMcpTools.d.ts",
+        "bun": "./dist/application/mcp/contractsMcpTools.js",
+        "node": "./dist/node/application/mcp/contractsMcpTools.js",
+        "default": "./dist/application/mcp/contractsMcpTools.js"
+      },
+      "./application/mcp/contractsMcpTypes": {
+        "types": "./dist/application/mcp/contractsMcpTypes.d.ts",
+        "bun": "./dist/application/mcp/contractsMcpTypes.js",
+        "node": "./dist/node/application/mcp/contractsMcpTypes.js",
+        "default": "./dist/application/mcp/contractsMcpTypes.js"
       },
       "./application/mcp/docsMcp": {
         "types": "./dist/application/mcp/docsMcp.d.ts",

@@ -30,8 +30,8 @@ export function buildContractsOps(services: ContractsMcpServices) {
   const ListOutput = defineSchemaModel({
     name: "ContractsListOutput",
     fields: {
-      specs: { type: ScalarTypeEnum.Json(), isOptional: false },
-      total: { type: ScalarTypeEnum.Int(), isOptional: false },
+      specs: { type: ScalarTypeEnum.JSON(), isOptional: false },
+      total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     },
   });
   installOp(
@@ -67,7 +67,7 @@ export function buildContractsOps(services: ContractsMcpServices) {
     name: "ContractsGetOutput",
     fields: {
       content: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      info: { type: ScalarTypeEnum.Json(), isOptional: false },
+      info: { type: ScalarTypeEnum.JSON(), isOptional: false },
     },
   });
   installOp(
@@ -104,8 +104,8 @@ export function buildContractsOps(services: ContractsMcpServices) {
     name: "ContractsValidateOutput",
     fields: {
       valid: { type: ScalarTypeEnum.Boolean(), isOptional: false },
-      errors: { type: ScalarTypeEnum.Json(), isOptional: false },
-      warnings: { type: ScalarTypeEnum.Json(), isOptional: false },
+      errors: { type: ScalarTypeEnum.JSON(), isOptional: false },
+      warnings: { type: ScalarTypeEnum.JSON(), isOptional: false },
     },
   });
   installOp(
@@ -138,7 +138,7 @@ export function buildContractsOps(services: ContractsMcpServices) {
   const BuildOutput = defineSchemaModel({
     name: "ContractsBuildOutput",
     fields: {
-      results: { type: ScalarTypeEnum.Json(), isOptional: false },
+      results: { type: ScalarTypeEnum.JSON(), isOptional: false },
     },
   });
   installOp(
@@ -155,7 +155,7 @@ export function buildContractsOps(services: ContractsMcpServices) {
         context: "Contracts MCP server.",
       },
       io: { input: BuildInput, output: BuildOutput },
-      policy: { auth: "authenticated" },
+      policy: { auth: "user" },
     }),
     async ({ path, dryRun }) => services.buildSpec(path, { dryRun }),
   );
@@ -175,15 +175,15 @@ function registerMutationTools(
     fields: {
       path: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
       content: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-      fields: { type: ScalarTypeEnum.Json(), isOptional: true },
+      fields: { type: ScalarTypeEnum.JSON(), isOptional: true },
     },
   });
   const UpdateOutput = defineSchemaModel({
     name: "ContractsUpdateOutput",
     fields: {
       updated: { type: ScalarTypeEnum.Boolean(), isOptional: false },
-      errors: { type: ScalarTypeEnum.Json(), isOptional: false },
-      warnings: { type: ScalarTypeEnum.Json(), isOptional: false },
+      errors: { type: ScalarTypeEnum.JSON(), isOptional: false },
+      warnings: { type: ScalarTypeEnum.JSON(), isOptional: false },
     },
   });
   installOp(
@@ -200,10 +200,13 @@ function registerMutationTools(
         context: "Contracts MCP server.",
       },
       io: { input: UpdateInput, output: UpdateOutput },
-      policy: { auth: "authenticated" },
+      policy: { auth: "user" },
     }),
     async ({ path, content, fields }) =>
-      services.updateSpec(path, { content, fields }),
+      services.updateSpec(path, {
+        content,
+        fields: Array.isArray(fields) ? fields as unknown[] : undefined,
+      }),
   );
 
   // -- contracts.delete --
@@ -218,8 +221,8 @@ function registerMutationTools(
     name: "ContractsDeleteOutput",
     fields: {
       deleted: { type: ScalarTypeEnum.Boolean(), isOptional: false },
-      cleanedFiles: { type: ScalarTypeEnum.Json(), isOptional: false },
-      errors: { type: ScalarTypeEnum.Json(), isOptional: false },
+      cleanedFiles: { type: ScalarTypeEnum.JSON(), isOptional: false },
+      errors: { type: ScalarTypeEnum.JSON(), isOptional: false },
     },
   });
   installOp(
@@ -236,7 +239,7 @@ function registerMutationTools(
         context: "Contracts MCP server.",
       },
       io: { input: DeleteInput, output: DeleteOutput },
-      policy: { auth: "authenticated" },
+      policy: { auth: "user" },
     }),
     async ({ path, clean }) => services.deleteSpec(path, { clean }),
   );

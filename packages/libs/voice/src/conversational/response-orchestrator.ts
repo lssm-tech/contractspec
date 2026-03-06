@@ -5,7 +5,10 @@ import type {
   ConversationalEvent,
 } from '../types';
 import type { LLMProvider } from '@contractspec/lib.contracts-integrations/integrations/providers/llm';
-import type { ModelSelector, ModelSelectionContext } from '@contractspec/lib.ai-providers/selector-types';
+import type {
+  ModelSelector,
+  ModelSelectionContext,
+} from '@contractspec/lib.ai-providers/selector-types';
 import type { ConversationConfig } from './types';
 
 export interface ResponseOrchestratorOptions {
@@ -33,7 +36,11 @@ export class ResponseOrchestrator {
     content: string;
   }[] = [];
 
-  constructor(sttOrOptions: STTProvider | ResponseOrchestratorOptions, llm?: LLMProvider, tts?: TTSProvider) {
+  constructor(
+    sttOrOptions: STTProvider | ResponseOrchestratorOptions,
+    llm?: LLMProvider,
+    tts?: TTSProvider
+  ) {
     if ('stt' in sttOrOptions) {
       this.stt = sttOrOptions.stt;
       this.llm = sttOrOptions.llm;
@@ -41,9 +48,14 @@ export class ResponseOrchestrator {
       this.modelSelector = sttOrOptions.modelSelector;
       this.selectionContext = sttOrOptions.selectionContext;
     } else {
+      if (!llm || !tts) {
+        throw new Error(
+          'ResponseOrchestrator requires llm and tts when constructed with positional arguments'
+        );
+      }
       this.stt = sttOrOptions;
-      this.llm = llm!;
-      this.tts = tts!;
+      this.llm = llm;
+      this.tts = tts;
     }
   }
 
@@ -121,10 +133,14 @@ export class ResponseOrchestrator {
     };
   }
 
-  private async resolveModel(explicitModel?: string): Promise<string | undefined> {
+  private async resolveModel(
+    explicitModel?: string
+  ): Promise<string | undefined> {
     if (explicitModel) return explicitModel;
     if (this.modelSelector) {
-      const ctx = this.selectionContext ?? { taskDimension: "reasoning" as const };
+      const ctx = this.selectionContext ?? {
+        taskDimension: 'reasoning' as const,
+      };
       const result = await this.modelSelector.select(ctx);
       return result.modelId;
     }

@@ -1,5 +1,8 @@
 import type { LLMProvider, VoicePacingDirective } from '../types';
-import type { ModelSelector, ModelSelectionContext } from '@contractspec/lib.ai-providers/selector-types';
+import type {
+  ModelSelector,
+  ModelSelectionContext,
+} from '@contractspec/lib.ai-providers/selector-types';
 import type { TTSScriptSegment } from './types';
 import { PaceAnalyzer } from './pace-analyzer';
 
@@ -55,7 +58,9 @@ export class EmphasisPlanner {
   private async resolveModel(): Promise<string | undefined> {
     if (this.model) return this.model;
     if (this.modelSelector) {
-      const ctx = this.selectionContext ?? { taskDimension: "reasoning" as const };
+      const ctx = this.selectionContext ?? {
+        taskDimension: 'reasoning' as const,
+      };
       const result = await this.modelSelector.select(ctx);
       return result.modelId;
     }

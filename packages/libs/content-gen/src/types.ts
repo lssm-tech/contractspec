@@ -1,5 +1,8 @@
 import type { LLMProvider } from '@contractspec/lib.contracts-integrations';
-import type { ModelSelector, ModelSelectionContext } from '@contractspec/lib.ai-providers/selector-types';
+import type {
+  ModelSelector,
+  ModelSelectionContext,
+} from '@contractspec/lib.ai-providers/selector-types';
 
 export interface AudienceProfile {
   role: string;
@@ -48,9 +51,9 @@ export interface GeneratorOptions {
   /** Per-call selection context override */
   selectionContext?: ModelSelectionContext;
   /** Transport mode for the LLM provider. */
-  transport?: "rest" | "mcp" | "sdk";
+  transport?: 'rest' | 'mcp' | 'sdk';
   /** Auth method for the LLM provider. */
-  authMethod?: "api-key" | "oauth2" | "bearer";
+  authMethod?: 'api-key' | 'oauth2' | 'bearer';
   /** Custom auth headers for the LLM provider. */
   authHeaders?: Record<string, string>;
 }

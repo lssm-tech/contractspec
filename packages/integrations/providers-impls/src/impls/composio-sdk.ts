@@ -1,4 +1,3 @@
-import type { Composio } from '@composio/core';
 import type {
   ComposioConfig,
   ComposioToolProxy,
@@ -14,7 +13,7 @@ import type {
  */
 export class ComposioSdkProvider implements ComposioToolProxy {
   private readonly config: ComposioConfig;
-  private client: Composio | undefined;
+  private client: ComposioSdkClient | undefined;
 
   constructor(config: ComposioConfig) {
     this.config = config;
@@ -90,14 +89,14 @@ export class ComposioSdkProvider implements ComposioToolProxy {
     }
   }
 
-  private async getClient(): Promise<Composio> {
+  private async getClient(): Promise<ComposioSdkClient> {
     if (this.client) return this.client;
 
     const { Composio } = await import('@composio/core');
     this.client = new Composio({
       apiKey: this.config.apiKey,
       ...(this.config.baseUrl ? { baseUrl: this.config.baseUrl } : {}),
-    });
+    }) as unknown as ComposioSdkClient;
 
     return this.client;
   }
@@ -107,6 +106,18 @@ export interface ComposioConnectedAccount {
   id: string;
   appName: string;
   status: string;
+}
+
+interface ComposioSdkClient {
+  getEntity(userId: string): Promise<ComposioSdkEntity>;
+  actions: { list(opts: { query: string; limit: number }): Promise<ComposioAction[]> };
+}
+
+interface ComposioSdkEntity {
+  execute(toolName: string, args: Record<string, unknown>): Promise<unknown>;
+  getConnections(): Promise<RawConnection[]>;
+  getMcpUrl(): string;
+  getMcpHeaders(): Record<string, string>;
 }
 
 interface ComposioAction {

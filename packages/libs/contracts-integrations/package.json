@@ -86,6 +86,7 @@
     "./integrations/providers/analytics-writer": "./src/integrations/providers/analytics-writer.ts",
     "./integrations/providers/apple-health": "./src/integrations/providers/apple-health.ts",
     "./integrations/providers/calendar": "./src/integrations/providers/calendar.ts",
+    "./integrations/providers/composio": "./src/integrations/providers/composio.ts",
     "./integrations/providers/database": "./src/integrations/providers/database.ts",
     "./integrations/providers/deepgram": "./src/integrations/providers/deepgram.ts",
     "./integrations/providers/eightsleep": "./src/integrations/providers/eightsleep.ts",
@@ -471,6 +472,12 @@
         "bun": "./dist/integrations/providers/calendar.js",
         "node": "./dist/node/integrations/providers/calendar.js",
         "default": "./dist/integrations/providers/calendar.js"
+      },
+      "./integrations/providers/composio": {
+        "types": "./dist/integrations/providers/composio.d.ts",
+        "bun": "./dist/integrations/providers/composio.js",
+        "node": "./dist/node/integrations/providers/composio.js",
+        "default": "./dist/integrations/providers/composio.js"
       },
       "./integrations/providers/database": {
         "types": "./dist/integrations/providers/database.d.ts",
