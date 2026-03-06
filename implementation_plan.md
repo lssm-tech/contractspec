@@ -1,185 +1,141 @@
-# Implementation Plan: Mistral Everywhere
+# Implementation Plan: Central Context + Background Agents + ACP (Server + Client)
 
-Last updated: 2026-02-27
-Owner: OpenCode + project maintainer
-Status: Completed (ready for review)
+## Goal
 
-## Why this exists
+Deliver a ContractSpec-native central context system with auditable background agents and full ACP server + client support (HTTP streamable first), while keeping data retrieval powerful, governed, and traceable.
 
-This plan tracks the work required to make Mistral support first-class across the monorepo for hackathon readiness, while keeping a durable record for future contributors.
+## Background
 
-## Objectives
+### Pain points to solve
 
-1. Ensure `mistral` is consistently supported across contracts, integrations, providers, and CLI configuration.
-2. Expand Mistral capability coverage beyond chat + embeddings where existing abstractions allow.
-3. Keep implementation traceable with tests, docs, and clear registry wiring.
-4. Add Mistral Vibe-targeted output in agentpacks.
+- Context is fragmented across docs, contracts, schemas, and data sources, which makes AI output inconsistent and hard to audit.
+- Background automation lacks durable run logs, approvals, and replayable provenance.
+- External agent interoperability (ACP) is missing or incomplete.
+- Data access is either too constrained (no live data) or too risky (no governance layer).
 
-## Non-goals (unless scope changes)
+### Success metrics
 
-1. Re-architecting unrelated AI provider systems.
-2. Building net-new abstractions not needed for Mistral support.
-3. Breaking backward compatibility in existing provider names/config formats.
+- 100 percent of agent runs reference a context snapshot ID.
+- Context snapshots are deterministic and reproducible across environments.
+- ACP server + client conformance tests pass for HTTP streamable transport.
+- Policy enforcement prevents any unauthorized data access or tool execution.
+- Studio surfaces can explain why an agent did something (context + tools + approvals).
 
-## Baseline (already done)
+## Constraints
 
-- [x] Cross-package audit of current Mistral support and gaps.
-- [x] Mistral docs review (API + Vibe) for capability mapping.
-- [x] Initial execution order and validation strategy drafted.
+- Spec-first: contracts come before implementation.
+- DocBlocks are canonical; no /docs markdown updates.
+- Layering rules: libs -> bundles -> apps, no upward dependencies.
+- No raw HTML in apps or bundles; design system components only.
+- Auditability and traceability take precedence over convenience.
+- Security priority: Security > Compliance > Safety/Privacy > Stability/Quality > UX > Performance > Convenience.
+- ACP must support server + client with HTTP streamable transport first.
+- Auth must support API key, OAuth, and internal tokens.
+- Vector store defaults to Postgres pgvector, but must be pluggable.
+- Studio integration happens after ACP baseline is stable.
 
-## Workstreams and checklist
+## ContractSpec Alignment
 
-### WS1 - Provider Surface Unification (contracts + config)
+### Contracts to create (type + path + owners)
 
-Status: Completed
+- Query: `context.pack.describe` -> `packages/libs/contracts/src/operations/context/contextPackDescribe.query.ts` (owners: platform.context)
+- Query: `context.pack.search` -> `packages/libs/contracts/src/operations/context/contextPackSearch.query.ts` (owners: platform.context)
+- Command: `context.pack.snapshot` -> `packages/libs/contracts/src/operations/context/contextPackSnapshot.command.ts` (owners: platform.context)
 
-- [x] Add/confirm `mistral` in workspace config types and schemas.
-- [x] Align CLI `.contractsrc` schema and example config with `mistral`.
-- [x] Update config parsing/validation tests for `mistral`.
+- Query: `database.schema.describe` -> `packages/libs/contracts/src/operations/database/databaseSchemaDescribe.query.ts` (owners: platform.data)
+- Query: `database.migrations.list` -> `packages/libs/contracts/src/operations/database/databaseMigrationsList.query.ts` (owners: platform.data)
+- Query: `database.dictionary.get` -> `packages/libs/contracts/src/operations/database/databaseDictionaryGet.query.ts` (owners: platform.data)
+- Query: `database.query.readonly` -> `packages/libs/contracts/src/operations/database/databaseQueryReadonly.query.ts` (owners: platform.data)
 
-Primary paths:
+- Command: `agent.run` -> `packages/libs/contracts/src/operations/agent/agentRun.command.ts` (owners: platform.ai)
+- Query: `agent.status` -> `packages/libs/contracts/src/operations/agent/agentStatus.query.ts` (owners: platform.ai)
+- Command: `agent.cancel` -> `packages/libs/contracts/src/operations/agent/agentCancel.command.ts` (owners: platform.ai)
+- Query: `agent.artifacts` -> `packages/libs/contracts/src/operations/agent/agentArtifacts.query.ts` (owners: platform.ai)
+- Command: `agent.approvals` -> `packages/libs/contracts/src/operations/agent/agentApprovals.command.ts` (owners: platform.ai)
 
-- `packages/libs/contracts-spec/src/workspace-config/contractsrc-types.ts`
-- `packages/libs/contracts-spec/src/workspace-config/contractsrc-schema.ts`
-- `packages/apps/cli-contractspec/contractsrc.schema.json`
-- `packages/apps/cli-contractspec/.contractsrc.example.json`
-- `packages/apps/cli-contractspec/src/utils/config.ts`
-- `packages/apps/cli-contractspec/src/utils/config.test.ts`
+- Command: `acp.session.init` -> `packages/libs/contracts/src/operations/acp/acpSessionInit.command.ts` (owners: platform.ai)
+- Command: `acp.session.resume` -> `packages/libs/contracts/src/operations/acp/acpSessionResume.command.ts` (owners: platform.ai)
+- Command: `acp.session.stop` -> `packages/libs/contracts/src/operations/acp/acpSessionStop.command.ts` (owners: platform.ai)
+- Command: `acp.prompt.turn` -> `packages/libs/contracts/src/operations/acp/acpPromptTurn.command.ts` (owners: platform.ai)
+- Command: `acp.tool.calls` -> `packages/libs/contracts/src/operations/acp/acpToolCalls.command.ts` (owners: platform.ai)
+- Command: `acp.terminal.exec` -> `packages/libs/contracts/src/operations/acp/acpTerminalExec.command.ts` (owners: platform.ai)
+- Command: `acp.fs.access` -> `packages/libs/contracts/src/operations/acp/acpFsAccess.command.ts` (owners: platform.ai)
 
-### WS2 - Mistral Integration Contracts Expansion
+- Event: `context.snapshot.created` -> `packages/libs/contracts/src/events/context/contextSnapshotCreated.event.ts` (owners: platform.context)
+- Event: `agent.run.started` -> `packages/libs/contracts/src/events/agent/agentRunStarted.event.ts` (owners: platform.ai)
+- Event: `agent.run.completed` -> `packages/libs/contracts/src/events/agent/agentRunCompleted.event.ts` (owners: platform.ai)
+- Event: `agent.run.failed` -> `packages/libs/contracts/src/events/agent/agentRunFailed.event.ts` (owners: platform.ai)
+- Event: `agent.approval.requested` -> `packages/libs/contracts/src/events/agent/agentApprovalRequested.event.ts` (owners: platform.ai)
 
-Status: Completed
+- Capability: `context.system` -> `packages/libs/contracts/src/capabilities/contextSystem.capability.ts` (owners: platform.context)
+- Capability: `agent.execution` -> `packages/libs/contracts/src/capabilities/agentExecution.capability.ts` (owners: platform.ai)
+- Capability: `acp.transport` -> `packages/libs/contracts/src/capabilities/acpTransport.capability.ts` (owners: platform.ai)
+- Capability: `database.context` -> `packages/libs/contracts/src/capabilities/databaseContext.capability.ts` (owners: platform.data)
 
-- [x] Add missing Mistral integration specs in `contracts-spec`.
-- [x] Mirror and register contracts in `contracts-integrations`.
-- [x] Extend provider integration tests to include new Mistral contracts.
+- Data view: `context.snapshot.index` -> `packages/libs/contracts/src/data-views/contextSnapshots.dataView.ts` (owners: platform.context)
+- Data view: `agent.run.index` -> `packages/libs/contracts/src/data-views/agentRuns.dataView.ts` (owners: platform.ai)
+- Data view: `database.schema.index` -> `packages/libs/contracts/src/data-views/databaseSchemas.dataView.ts` (owners: platform.data)
 
-Primary paths:
+- Form: `agent.run.form` -> `packages/libs/contracts/src/forms/agentRun.form.ts` (owners: platform.ai)
+- Form: `context.pack.search.form` -> `packages/libs/contracts/src/forms/contextPackSearch.form.ts` (owners: platform.context)
 
-- `packages/libs/contracts-spec/src/integrations/providers/`
-- `packages/libs/contracts-integrations/src/integrations/providers/`
-- `packages/libs/contracts-spec/src/integrations/providers/registry.ts`
-- `packages/libs/contracts-integrations/src/integrations/providers/registry.ts`
-- `packages/libs/contracts-spec/src/integrations/providers/providers.test.ts`
-- `packages/libs/contracts-integrations/src/integrations/providers/providers.test.ts`
+- Presentation: `context.snapshot.summary` -> `packages/libs/contracts/src/presentations/contextSnapshot.presentation.ts` (owners: platform.context)
+- Presentation: `agent.run.audit` -> `packages/libs/contracts/src/presentations/agentRunAudit.presentation.ts` (owners: platform.ai)
 
-### WS3 - Runtime Provider Implementations (providers-impls)
+### Required meta fields for every contract
 
-Status: Completed
+- `name`, `version`, `description`, `goal`, `context`, `owners`, `tags`
+- IO schemas and policy definitions must be present for every operation.
 
-- [x] Implement high-value Mistral adapters using existing interfaces.
-- [x] Wire adapters in provider factory and exports.
-- [x] Add/update tests and implementation docs.
+### Registry updates
 
-Primary paths:
+- Update registries for operations, events, capabilities, data views, forms, and presentations.
+- Ensure DocBlocks are registered (no barrel registries).
 
-- `packages/integrations/providers-impls/src/impls/`
-- `packages/integrations/providers-impls/src/impls/provider-factory.ts`
-- `packages/integrations/providers-impls/src/impls/index.ts`
-- `packages/integrations/providers-impls/PREBUILT_INTEGRATIONS_GUIDE.md`
+### Versioning strategy
 
-### WS4 - AI Provider Catalog and Validation Refresh
+- New specs start at `1.0.0` and follow semver.
+- Breaking changes require new major versions and deprecation notices in DocBlocks.
+- Old versions remain registered until migration is complete.
 
-Status: Completed
+## Delivery Steps
 
-- [x] Refresh Mistral model catalog in ai-providers.
-- [x] Align validation and defaults with updated catalog.
-- [x] Update ai-providers docs if model/provider behavior changes.
+1. Define contracts (spec-first)
+   - Create all operations, events, capabilities, data views, forms, and presentations listed above.
+   - Add DocBlocks for every new spec and link them via `docId`.
+   - Register all specs in their registries.
 
-Primary paths:
+2. Implement handlers and adapters using contract types
+   - Build context snapshot pipeline and knowledge ingestion with pgvector default and pluggable adapters.
+   - Implement read-only data access using DataView-backed queries with policy gating and redaction.
+   - Implement durable agent run orchestration with approvals, artifacts, and telemetry.
+   - Implement ACP server (HTTP streamable) and ACP client; bridge MCP-over-ACP.
+   - Defer Studio UI implementation until ACP baseline is stable.
 
-- `packages/libs/ai-providers/src/models.ts`
-- `packages/libs/ai-providers/src/validation.ts`
-- `packages/libs/ai-providers/src/factory.ts`
-- `packages/libs/ai-providers/README.md`
+3. Tests and docs updates
+   - Add contract tests, run orchestration tests, and ACP conformance tests.
+   - Update DocBlocks for all behavior and policy decisions.
+   - Ensure knowledge and context documentation is in DocBlocks only.
 
-### WS5 - CLI Provider Path Consistency
+## Impact and Diff
 
-Status: Completed
+- Run `contractspec impact` before committing changes.
+- Run `contractspec impact --baseline main` to generate PR summaries.
+- Use `contractspec diff <refA>..<refB> --json` when comparing versions.
+- For breaking changes, create new versions and document deprecations with migration guidance.
 
-- [x] Ensure legacy and new CLI AI paths both accept and use `mistral`.
-- [x] Resolve provider/mode naming mismatches where they affect behavior.
-- [x] Verify end-to-end Mistral chat/provider resolution.
+## Generation and Validation
 
-Primary paths:
+- Run `contractspec generate` when scaffolding specs or registries is needed.
+- Run `contractspec ci --check-drift` before PR or push.
+- Run package-level lint and tests for touched packages.
 
-- `packages/apps/cli-contractspec/src/ai/providers.ts`
-- `packages/apps/cli-contractspec/src/commands/chat/index.ts`
-- `packages/apps/cli-contractspec/src/ai/client.ts`
-- `packages/apps/cli-contractspec/src/ai/agents/`
-- `packages/apps/cli-contractspec/README.md`
+## Post-plan Verification
 
-### WS6 - Agentpacks Mistral Vibe Target
+- Product and business review: confirm contract goals and context align to intended outcomes.
+- Technical review: run Greptile or Graphite review if configured, summarize findings.
+- Confirm `contractspec impact` reports no unexpected breaking changes.
 
-Status: Completed
+## Plan execution
 
-- [x] Add a Mistral Vibe target implementation.
-- [x] Register target and connect model allowlist/config behavior.
-- [x] Document generation output and usage.
-
-Primary paths:
-
-- `packages/tools/agentpacks/src/targets/`
-- `packages/tools/agentpacks/src/targets/registry.ts`
-- `packages/tools/agentpacks/src/utils/model-allowlist.ts`
-- `packages/tools/agentpacks/README.md`
-
-### WS7 - Validation, Docs, and Final Readiness Sweep
-
-Status: Completed
-
-- [x] Run targeted tests for each touched package.
-- [x] Run lint/typecheck for touched packages (or monorepo scope if needed).
-- [x] Update docs and examples for final support matrix.
-- [x] Produce final change summary with known limitations.
-
-### WS8 - AgentSkills Compatibility Hardening
-
-Status: Completed
-
-- [x] Preserve full SKILL.md frontmatter during generation/export across skill-capable targets.
-- [x] Add AgentSkills metadata validation in `agentpacks pack validate`.
-- [x] Normalize imported skills to include minimum required AgentSkills metadata.
-- [x] Update tests and docs to reflect AgentSkills-compatible behavior.
-
-## Dependency order
-
-1. WS1 -> WS2 (contracts/config first)
-2. WS2 -> WS3 (implementations against stable contracts)
-3. WS3 + WS4 -> WS5 (provider runtime + model catalog before full CLI alignment)
-4. WS6 in parallel after WS1 (mostly isolated)
-5. WS7 at each milestone and final pass
-
-## Validation checklist (to run during implementation)
-
-- [x] Package-level tests for each changed package.
-- [x] Typecheck in changed packages.
-- [x] CLI smoke checks for `mistral` provider config and command execution.
-- [x] Registry snapshots or equivalent tests updated.
-
-## Decisions log
-
-- 2026-02-27: Start with broad Mistral surface coverage and prioritize production-ready adapters for core flows (chat, embeddings, transcription, conversational) before optional capabilities.
-- 2026-02-27: Keep provider naming backward-compatible in CLI by mapping `claude` -> `anthropic` and `custom` -> OpenAI-compatible transport while adding explicit `mistral` handling.
-- 2026-02-27: Keep new Mistral contracts and runtime adapters additive (no breaking changes to existing provider IDs).
-
-## Risks and mitigations
-
-- Risk: Capability mismatch between Mistral APIs and current internal abstractions.
-  - Mitigation: Land contracts first, then implement adapters only where abstraction fit is clear.
-- Risk: CLI has mixed legacy/new AI plumbing.
-  - Mitigation: Add compatibility-first wiring and tests before refactors.
-- Risk: Model catalog drift over time.
-  - Mitigation: Keep models centralized and documented in ai-providers.
-
-## Progress log
-
-- 2026-02-27: Created implementation plan and captured baseline + ordered workstreams.
-- 2026-02-27: Completed WS1 provider/config unification (`mistral` in schemas + config parsing tests).
-- 2026-02-27: Completed WS2 contracts for Mistral STT and conversational capabilities in both contracts packages.
-- 2026-02-27: Completed WS3 runtime adapters and factory wiring for Mistral STT/conversational providers.
-- 2026-02-27: Completed WS4 ai-providers Mistral model catalog refresh with validation tests and README updates.
-- 2026-02-27: Completed WS5 CLI legacy/new path alignment for Mistral provider and key resolution.
-- 2026-02-27: Completed WS6 agentpacks `mistralvibe` target support and model allowlist updates.
-- 2026-02-27: Completed WS7 validation/docs sweep (targeted package tests, typecheck, lint, and monorepo checks).
-- 2026-02-27: Completed WS8 AgentSkills hardening (skill metadata passthrough, validation, importer normalization, and docs/tests updates).
+- Hand off to `/implementation-plan` once this plan is finalized.
