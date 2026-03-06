@@ -15,8 +15,8 @@ export const BenchmarkResultEntity = defineEntity({
     score: field.float({ description: 'Normalized score 0-100' }),
     rawScore: field.json({ description: 'Original score from source' }),
     metadata: field.json({ isOptional: true }),
-    measuredAt: field.datetime({ description: 'When the benchmark was measured' }),
-    ingestedAt: field.datetime({ description: 'When the result was ingested' }),
+    measuredAt: field.dateTime({ description: 'When the benchmark was measured' }),
+    ingestedAt: field.dateTime({ description: 'When the result was ingested' }),
   },
   indexes: [
     index.unique(['id']),
@@ -59,8 +59,8 @@ export const IngestionRunEntity = defineEntity({
     source: field.string({ description: 'Benchmark source' }),
     status: field.string({ description: 'Run status: pending, running, completed, failed' }),
     resultsCount: field.int({ description: 'Number of results ingested' }),
-    startedAt: field.datetime({ description: 'When the run started' }),
-    completedAt: field.datetime({ isOptional: true, description: 'When the run completed' }),
+    startedAt: field.dateTime({ description: 'When the run started' }),
+    completedAt: field.dateTime({ isOptional: true, description: 'When the run completed' }),
     error: field.string({ isOptional: true, description: 'Error message if failed' }),
   },
   indexes: [

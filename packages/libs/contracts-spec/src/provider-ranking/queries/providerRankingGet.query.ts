@@ -22,8 +22,8 @@ const ProviderRankingGetInput = new SchemaModel({
 const DimensionScoreModel = new SchemaModel({
   name: 'DimensionScoreModel',
   fields: {
-    score: { type: ScalarTypeEnum.Float(), isOptional: false },
-    confidence: { type: ScalarTypeEnum.Float(), isOptional: false },
+    score: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
+    confidence: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
     sources: { type: ScalarTypeEnum.String_unsecure(), isOptional: false, isArray: true },
   },
 });
@@ -33,7 +33,7 @@ const RankedModelSummary = new SchemaModel({
   fields: {
     modelId: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     providerKey: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-    compositeScore: { type: ScalarTypeEnum.Float(), isOptional: false },
+    compositeScore: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
     rank: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     previousRank: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
     dimensionScores: { type: ScalarTypeEnum.JSONObject(), isOptional: false },

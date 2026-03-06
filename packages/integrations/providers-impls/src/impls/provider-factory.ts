@@ -60,6 +60,7 @@ import type { HealthProvider } from '../health';
 import { PowensOpenBankingProvider } from './powens-openbanking';
 import type { PowensEnvironment } from './powens-client';
 import { createHealthProviderFromContext } from './health-provider-factory';
+import type { ComposioFallbackResolver } from './composio-fallback-resolver';
 
 const SECRET_CACHE = new Map<string, Record<string, unknown>>();
 
@@ -76,6 +77,11 @@ export interface ResolvedProviderContext {
 }
 
 export class IntegrationProviderFactory {
+  private readonly composioFallback?: ComposioFallbackResolver;
+
+  constructor(options?: { composioFallback?: ComposioFallbackResolver }) {
+    this.composioFallback = options?.composioFallback;
+  }
   /**
    * Resolve transport, auth method, API version, and build auth headers
    * for a given integration context. Consumers can call this directly
@@ -121,6 +127,9 @@ export class IntegrationProviderFactory {
           ),
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createPaymentsProxy(context);
+        }
         throw new Error(
           `Unsupported payments integration: ${context.spec.meta.key}`
         );
@@ -145,6 +154,9 @@ export class IntegrationProviderFactory {
             .messageStream,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createEmailProxy(context);
+        }
         throw new Error(
           `Unsupported email integration: ${context.spec.meta.key}`
         );
@@ -169,6 +181,9 @@ export class IntegrationProviderFactory {
           fromNumber: (context.config as { fromNumber?: string }).fromNumber,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createMessagingProxy(context) as unknown as SmsProvider;
+        }
         throw new Error(
           `Unsupported SMS integration: ${context.spec.meta.key}`
         );
@@ -241,6 +256,9 @@ export class IntegrationProviderFactory {
           fromNumber: config?.fromNumber,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createMessagingProxy(context);
+        }
         throw new Error(
           `Unsupported messaging integration: ${context.spec.meta.key}`
         );
@@ -285,6 +303,9 @@ export class IntegrationProviderFactory {
           sslMode: config?.sslMode,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(context) as unknown as VectorStoreProvider;
+        }
         throw new Error(
           `Unsupported vector store integration: ${context.spec.meta.key}`
         );
@@ -315,6 +336,9 @@ export class IntegrationProviderFactory {
           ),
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(context) as unknown as AnalyticsProvider;
+        }
         throw new Error(
           `Unsupported analytics integration: ${context.spec.meta.key}`
         );
@@ -341,6 +365,9 @@ export class IntegrationProviderFactory {
           sslMode: config?.sslMode,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(context) as unknown as DatabaseProvider;
+        }
         throw new Error(
           `Unsupported database integration: ${context.spec.meta.key}`
         );
@@ -366,6 +393,9 @@ export class IntegrationProviderFactory {
               : undefined,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(context) as unknown as ObjectStorageProvider;
+        }
         throw new Error(
           `Unsupported storage integration: ${context.spec.meta.key}`
         );
@@ -433,6 +463,9 @@ export class IntegrationProviderFactory {
           pollIntervalMs: config?.pollIntervalMs,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(context) as unknown as TTSProvider;
+        }
         throw new Error(
           `Unsupported voice integration: ${context.spec.meta.key}`
         );
@@ -460,6 +493,9 @@ export class IntegrationProviderFactory {
           serverURL: config?.serverURL,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(context) as unknown as STTProvider;
+        }
         throw new Error(
           `Unsupported STT integration: ${context.spec.meta.key}`
         );
@@ -495,6 +531,9 @@ export class IntegrationProviderFactory {
           },
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(context) as unknown as ConversationalProvider;
+        }
         throw new Error(
           `Unsupported conversational integration: ${context.spec.meta.key}`
         );
@@ -585,6 +624,9 @@ export class IntegrationProviderFactory {
           descriptionProperty: config?.descriptionProperty,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createProjectManagementProxy(context);
+        }
         throw new Error(
           `Unsupported project management integration: ${context.spec.meta.key}`
         );
@@ -670,6 +712,9 @@ export class IntegrationProviderFactory {
           webhookSecret: secrets.webhookSecret as string | undefined,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(context) as unknown as MeetingRecorderProvider;
+        }
         throw new Error(
           `Unsupported meeting recorder integration: ${context.spec.meta.key}`
         );
@@ -689,6 +734,9 @@ export class IntegrationProviderFactory {
           defaultModel: (context.config as { model?: string }).model,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(context) as unknown as LLMProvider;
+        }
         throw new Error(
           `Unsupported LLM integration: ${context.spec.meta.key}`
         );
@@ -711,6 +759,9 @@ export class IntegrationProviderFactory {
             .embeddingModel,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(context) as unknown as EmbeddingProvider;
+        }
         throw new Error(
           `Unsupported embeddings integration: ${context.spec.meta.key}`
         );
@@ -761,6 +812,9 @@ export class IntegrationProviderFactory {
         });
       }
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(context) as unknown as OpenBankingProvider;
+        }
         throw new Error(
           `Unsupported open banking integration: ${context.spec.meta.key}`
         );

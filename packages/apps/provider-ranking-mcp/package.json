@@ -17,7 +17,7 @@
     "@contractspec/lib.logger": "workspace:*",
     "@contractspec/lib.provider-ranking": "workspace:*",
     "@contractspec/module.provider-ranking": "workspace:*",
-    "@modelcontextprotocol/sdk": "catalog:",
+    "@modelcontextprotocol/sdk": "catalog:ai",
     "zod": "catalog:"
   },
   "devDependencies": {

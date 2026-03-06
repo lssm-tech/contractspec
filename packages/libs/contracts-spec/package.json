@@ -50,6 +50,55 @@
   ],
   "exports": {
     ".": "./src/index.ts",
+    "./acp": "./src/acp/index.ts",
+    "./acp/capabilities": "./src/acp/capabilities/index.ts",
+    "./acp/capabilities/acpTransport.capability": "./src/acp/capabilities/acpTransport.capability.ts",
+    "./acp/capabilities/index": "./src/acp/capabilities/index.ts",
+    "./acp/commands": "./src/acp/commands/index.ts",
+    "./acp/commands/acpFsAccess.command": "./src/acp/commands/acpFsAccess.command.ts",
+    "./acp/commands/acpPromptTurn.command": "./src/acp/commands/acpPromptTurn.command.ts",
+    "./acp/commands/acpSessionInit.command": "./src/acp/commands/acpSessionInit.command.ts",
+    "./acp/commands/acpSessionResume.command": "./src/acp/commands/acpSessionResume.command.ts",
+    "./acp/commands/acpSessionStop.command": "./src/acp/commands/acpSessionStop.command.ts",
+    "./acp/commands/acpTerminalExec.command": "./src/acp/commands/acpTerminalExec.command.ts",
+    "./acp/commands/acpToolCalls.command": "./src/acp/commands/acpToolCalls.command.ts",
+    "./acp/commands/index": "./src/acp/commands/index.ts",
+    "./acp/constants": "./src/acp/constants.ts",
+    "./acp/contracts": "./src/acp/contracts.ts",
+    "./acp/ensure-docblocks": "./src/acp/ensure-docblocks.ts",
+    "./acp/index": "./src/acp/index.ts",
+    "./agent": "./src/agent/index.ts",
+    "./agent/capabilities": "./src/agent/capabilities/index.ts",
+    "./agent/capabilities/agentExecution.capability": "./src/agent/capabilities/agentExecution.capability.ts",
+    "./agent/capabilities/index": "./src/agent/capabilities/index.ts",
+    "./agent/commands": "./src/agent/commands/index.ts",
+    "./agent/commands/agentApprovals.command": "./src/agent/commands/agentApprovals.command.ts",
+    "./agent/commands/agentCancel.command": "./src/agent/commands/agentCancel.command.ts",
+    "./agent/commands/agentRun.command": "./src/agent/commands/agentRun.command.ts",
+    "./agent/commands/index": "./src/agent/commands/index.ts",
+    "./agent/constants": "./src/agent/constants.ts",
+    "./agent/contracts": "./src/agent/contracts.ts",
+    "./agent/ensure-docblocks": "./src/agent/ensure-docblocks.ts",
+    "./agent/events": "./src/agent/events/index.ts",
+    "./agent/events/agentApprovalRequested.event": "./src/agent/events/agentApprovalRequested.event.ts",
+    "./agent/events/agentRunCompleted.event": "./src/agent/events/agentRunCompleted.event.ts",
+    "./agent/events/agentRunFailed.event": "./src/agent/events/agentRunFailed.event.ts",
+    "./agent/events/agentRunStarted.event": "./src/agent/events/agentRunStarted.event.ts",
+    "./agent/events/index": "./src/agent/events/index.ts",
+    "./agent/forms": "./src/agent/forms/index.ts",
+    "./agent/forms/agentRun.form": "./src/agent/forms/agentRun.form.ts",
+    "./agent/forms/index": "./src/agent/forms/index.ts",
+    "./agent/index": "./src/agent/index.ts",
+    "./agent/presentations": "./src/agent/presentations/index.ts",
+    "./agent/presentations/agentRunAudit.presentation": "./src/agent/presentations/agentRunAudit.presentation.ts",
+    "./agent/presentations/index": "./src/agent/presentations/index.ts",
+    "./agent/queries": "./src/agent/queries/index.ts",
+    "./agent/queries/agentArtifacts.query": "./src/agent/queries/agentArtifacts.query.ts",
+    "./agent/queries/agentStatus.query": "./src/agent/queries/agentStatus.query.ts",
+    "./agent/queries/index": "./src/agent/queries/index.ts",
+    "./agent/views": "./src/agent/views/index.ts",
+    "./agent/views/agentRuns.dataView": "./src/agent/views/agentRuns.dataView.ts",
+    "./agent/views/index": "./src/agent/views/index.ts",
     "./app-config": "./src/app-config/index.ts",
     "./app-config/app-config.capability": "./src/app-config/app-config.capability.ts",
     "./app-config/app-config.contracts": "./src/app-config/app-config.contracts.ts",
@@ -72,6 +121,33 @@
     "./capabilities/meeting-recorder": "./src/capabilities/meeting-recorder.ts",
     "./capabilities/openbanking": "./src/capabilities/openbanking.ts",
     "./capabilities/validation": "./src/capabilities/validation.ts",
+    "./context": "./src/context/index.ts",
+    "./context/capabilities": "./src/context/capabilities/index.ts",
+    "./context/capabilities/contextSystem.capability": "./src/context/capabilities/contextSystem.capability.ts",
+    "./context/capabilities/index": "./src/context/capabilities/index.ts",
+    "./context/commands": "./src/context/commands/index.ts",
+    "./context/commands/contextPackSnapshot.command": "./src/context/commands/contextPackSnapshot.command.ts",
+    "./context/commands/index": "./src/context/commands/index.ts",
+    "./context/constants": "./src/context/constants.ts",
+    "./context/contracts": "./src/context/contracts.ts",
+    "./context/ensure-docblocks": "./src/context/ensure-docblocks.ts",
+    "./context/events": "./src/context/events/index.ts",
+    "./context/events/contextSnapshotCreated.event": "./src/context/events/contextSnapshotCreated.event.ts",
+    "./context/events/index": "./src/context/events/index.ts",
+    "./context/forms": "./src/context/forms/index.ts",
+    "./context/forms/contextPackSearch.form": "./src/context/forms/contextPackSearch.form.ts",
+    "./context/forms/index": "./src/context/forms/index.ts",
+    "./context/index": "./src/context/index.ts",
+    "./context/presentations": "./src/context/presentations/index.ts",
+    "./context/presentations/contextSnapshot.presentation": "./src/context/presentations/contextSnapshot.presentation.ts",
+    "./context/presentations/index": "./src/context/presentations/index.ts",
+    "./context/queries": "./src/context/queries/index.ts",
+    "./context/queries/contextPackDescribe.query": "./src/context/queries/contextPackDescribe.query.ts",
+    "./context/queries/contextPackSearch.query": "./src/context/queries/contextPackSearch.query.ts",
+    "./context/queries/index": "./src/context/queries/index.ts",
+    "./context/views": "./src/context/views/index.ts",
+    "./context/views/contextSnapshots.dataView": "./src/context/views/contextSnapshots.dataView.ts",
+    "./context/views/index": "./src/context/views/index.ts",
     "./contract-registry": "./src/contract-registry/index.ts",
     "./contract-registry/index": "./src/contract-registry/index.ts",
     "./contract-registry/schemas": "./src/contract-registry/schemas.ts",
@@ -128,6 +204,23 @@
     "./data-views/runtime": "./src/data-views/runtime.ts",
     "./data-views/spec": "./src/data-views/spec.ts",
     "./data-views/types": "./src/data-views/types.ts",
+    "./database": "./src/database/index.ts",
+    "./database/capabilities": "./src/database/capabilities/index.ts",
+    "./database/capabilities/databaseContext.capability": "./src/database/capabilities/databaseContext.capability.ts",
+    "./database/capabilities/index": "./src/database/capabilities/index.ts",
+    "./database/constants": "./src/database/constants.ts",
+    "./database/contracts": "./src/database/contracts.ts",
+    "./database/ensure-docblocks": "./src/database/ensure-docblocks.ts",
+    "./database/index": "./src/database/index.ts",
+    "./database/queries": "./src/database/queries/index.ts",
+    "./database/queries/databaseDictionaryGet.query": "./src/database/queries/databaseDictionaryGet.query.ts",
+    "./database/queries/databaseMigrationsList.query": "./src/database/queries/databaseMigrationsList.query.ts",
+    "./database/queries/databaseQueryReadonly.query": "./src/database/queries/databaseQueryReadonly.query.ts",
+    "./database/queries/databaseSchemaDescribe.query": "./src/database/queries/databaseSchemaDescribe.query.ts",
+    "./database/queries/index": "./src/database/queries/index.ts",
+    "./database/views": "./src/database/views/index.ts",
+    "./database/views/databaseSchemas.dataView": "./src/database/views/databaseSchemas.dataView.ts",
+    "./database/views/index": "./src/database/views/index.ts",
     "./docs": "./src/docs/index.ts",
     "./docs/accessibility_wcag_compliance_specs.docblock": "./src/docs/accessibility_wcag_compliance_specs.docblock.ts",
     "./docs/capabilities": "./src/docs/capabilities/index.ts",
@@ -159,8 +252,11 @@
     "./docs/queries/index": "./src/docs/queries/index.ts",
     "./docs/registry": "./src/docs/registry.ts",
     "./docs/tech-contracts.docs": "./src/docs/tech-contracts.docs.ts",
+    "./docs/tech/acp/acp-transport.docblock": "./src/docs/tech/acp/acp-transport.docblock.ts",
+    "./docs/tech/agent/agent-execution.docblock": "./src/docs/tech/agent/agent-execution.docblock.ts",
     "./docs/tech/auth/better-auth-nextjs.docblock": "./src/docs/tech/auth/better-auth-nextjs.docblock.ts",
     "./docs/tech/cli.docblock": "./src/docs/tech/cli.docblock.ts",
+    "./docs/tech/context/context-system.docblock": "./src/docs/tech/context/context-system.docblock.ts",
     "./docs/tech/contracts/migrations.docblock": "./src/docs/tech/contracts/migrations.docblock.ts",
     "./docs/tech/contracts/openapi-export.docblock": "./src/docs/tech/contracts/openapi-export.docblock.ts",
     "./docs/tech/contracts/openapi-import.docblock": "./src/docs/tech/contracts/openapi-import.docblock.ts",
@@ -170,11 +266,13 @@
     "./docs/tech/contracts/tests.docblock": "./src/docs/tech/contracts/tests.docblock.ts",
     "./docs/tech/contracts/themes.docblock": "./src/docs/tech/contracts/themes.docblock.ts",
     "./docs/tech/contracts/vertical-pocket-family-office.docblock": "./src/docs/tech/contracts/vertical-pocket-family-office.docblock.ts",
+    "./docs/tech/database/database-context.docblock": "./src/docs/tech/database/database-context.docblock.ts",
     "./docs/tech/docs-system.docblock": "./src/docs/tech/docs-system.docblock.ts",
     "./docs/tech/lifecycle-stage-system.docblock": "./src/docs/tech/lifecycle-stage-system.docblock.ts",
     "./docs/tech/llm/llm-integration.docblock": "./src/docs/tech/llm/llm-integration.docblock.ts",
     "./docs/tech/mcp-endpoints.docblock": "./src/docs/tech/mcp-endpoints.docblock.ts",
     "./docs/tech/presentation-runtime.docblock": "./src/docs/tech/presentation-runtime.docblock.ts",
+    "./docs/tech/provider-ranking/provider-ranking-system.docblock": "./src/docs/tech/provider-ranking/provider-ranking-system.docblock.ts",
     "./docs/tech/report-verification-table.docblock": "./src/docs/tech/report-verification-table.docblock.ts",
     "./docs/tech/schema/README.docblock": "./src/docs/tech/schema/README.docblock.ts",
     "./docs/tech/studio/learning-events.docblock": "./src/docs/tech/studio/learning-events.docblock.ts",
@@ -432,6 +530,40 @@
     "./product-intent/ui-wireframe": "./src/product-intent/ui-wireframe.ts",
     "./prompt": "./src/prompt.ts",
     "./promptRegistry": "./src/promptRegistry.ts",
+    "./provider-ranking": "./src/provider-ranking/index.ts",
+    "./provider-ranking/capabilities": "./src/provider-ranking/capabilities/index.ts",
+    "./provider-ranking/capabilities/index": "./src/provider-ranking/capabilities/index.ts",
+    "./provider-ranking/capabilities/providerRanking.capability": "./src/provider-ranking/capabilities/providerRanking.capability.ts",
+    "./provider-ranking/commands": "./src/provider-ranking/commands/index.ts",
+    "./provider-ranking/commands/benchmarkIngest.command": "./src/provider-ranking/commands/benchmarkIngest.command.ts",
+    "./provider-ranking/commands/benchmarkRunCustom.command": "./src/provider-ranking/commands/benchmarkRunCustom.command.ts",
+    "./provider-ranking/commands/index": "./src/provider-ranking/commands/index.ts",
+    "./provider-ranking/commands/rankingRefresh.command": "./src/provider-ranking/commands/rankingRefresh.command.ts",
+    "./provider-ranking/constants": "./src/provider-ranking/constants.ts",
+    "./provider-ranking/contracts": "./src/provider-ranking/contracts.ts",
+    "./provider-ranking/ensure-docblocks": "./src/provider-ranking/ensure-docblocks.ts",
+    "./provider-ranking/events": "./src/provider-ranking/events/index.ts",
+    "./provider-ranking/events/benchmarkCustomCompleted.event": "./src/provider-ranking/events/benchmarkCustomCompleted.event.ts",
+    "./provider-ranking/events/benchmarkIngested.event": "./src/provider-ranking/events/benchmarkIngested.event.ts",
+    "./provider-ranking/events/index": "./src/provider-ranking/events/index.ts",
+    "./provider-ranking/events/rankingUpdated.event": "./src/provider-ranking/events/rankingUpdated.event.ts",
+    "./provider-ranking/forms": "./src/provider-ranking/forms/index.ts",
+    "./provider-ranking/forms/benchmarkIngest.form": "./src/provider-ranking/forms/benchmarkIngest.form.ts",
+    "./provider-ranking/forms/benchmarkRunCustom.form": "./src/provider-ranking/forms/benchmarkRunCustom.form.ts",
+    "./provider-ranking/forms/index": "./src/provider-ranking/forms/index.ts",
+    "./provider-ranking/index": "./src/provider-ranking/index.ts",
+    "./provider-ranking/presentations": "./src/provider-ranking/presentations/index.ts",
+    "./provider-ranking/presentations/index": "./src/provider-ranking/presentations/index.ts",
+    "./provider-ranking/presentations/modelComparison.presentation": "./src/provider-ranking/presentations/modelComparison.presentation.ts",
+    "./provider-ranking/queries": "./src/provider-ranking/queries/index.ts",
+    "./provider-ranking/queries/benchmarkResultsList.query": "./src/provider-ranking/queries/benchmarkResultsList.query.ts",
+    "./provider-ranking/queries/index": "./src/provider-ranking/queries/index.ts",
+    "./provider-ranking/queries/modelProfileGet.query": "./src/provider-ranking/queries/modelProfileGet.query.ts",
+    "./provider-ranking/queries/providerRankingGet.query": "./src/provider-ranking/queries/providerRankingGet.query.ts",
+    "./provider-ranking/views": "./src/provider-ranking/views/index.ts",
+    "./provider-ranking/views/benchmarkResults.dataView": "./src/provider-ranking/views/benchmarkResults.dataView.ts",
+    "./provider-ranking/views/index": "./src/provider-ranking/views/index.ts",
+    "./provider-ranking/views/providerRankings.dataView": "./src/provider-ranking/views/providerRankings.dataView.ts",
     "./regenerator": "./src/regenerator/index.ts",
     "./regenerator/adapters": "./src/regenerator/adapters.ts",
     "./regenerator/docs/regenerator.docblock": "./src/regenerator/docs/regenerator.docblock.ts",
@@ -504,6 +636,300 @@
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
         "default": "./dist/index.js"
+      },
+      "./acp": {
+        "types": "./dist/acp/index.d.ts",
+        "bun": "./dist/acp/index.js",
+        "node": "./dist/node/acp/index.js",
+        "default": "./dist/acp/index.js"
+      },
+      "./acp/capabilities": {
+        "types": "./dist/acp/capabilities/index.d.ts",
+        "bun": "./dist/acp/capabilities/index.js",
+        "node": "./dist/node/acp/capabilities/index.js",
+        "default": "./dist/acp/capabilities/index.js"
+      },
+      "./acp/capabilities/acpTransport.capability": {
+        "types": "./dist/acp/capabilities/acpTransport.capability.d.ts",
+        "bun": "./dist/acp/capabilities/acpTransport.capability.js",
+        "node": "./dist/node/acp/capabilities/acpTransport.capability.js",
+        "default": "./dist/acp/capabilities/acpTransport.capability.js"
+      },
+      "./acp/capabilities/index": {
+        "types": "./dist/acp/capabilities/index.d.ts",
+        "bun": "./dist/acp/capabilities/index.js",
+        "node": "./dist/node/acp/capabilities/index.js",
+        "default": "./dist/acp/capabilities/index.js"
+      },
+      "./acp/commands": {
+        "types": "./dist/acp/commands/index.d.ts",
+        "bun": "./dist/acp/commands/index.js",
+        "node": "./dist/node/acp/commands/index.js",
+        "default": "./dist/acp/commands/index.js"
+      },
+      "./acp/commands/acpFsAccess.command": {
+        "types": "./dist/acp/commands/acpFsAccess.command.d.ts",
+        "bun": "./dist/acp/commands/acpFsAccess.command.js",
+        "node": "./dist/node/acp/commands/acpFsAccess.command.js",
+        "default": "./dist/acp/commands/acpFsAccess.command.js"
+      },
+      "./acp/commands/acpPromptTurn.command": {
+        "types": "./dist/acp/commands/acpPromptTurn.command.d.ts",
+        "bun": "./dist/acp/commands/acpPromptTurn.command.js",
+        "node": "./dist/node/acp/commands/acpPromptTurn.command.js",
+        "default": "./dist/acp/commands/acpPromptTurn.command.js"
+      },
+      "./acp/commands/acpSessionInit.command": {
+        "types": "./dist/acp/commands/acpSessionInit.command.d.ts",
+        "bun": "./dist/acp/commands/acpSessionInit.command.js",
+        "node": "./dist/node/acp/commands/acpSessionInit.command.js",
+        "default": "./dist/acp/commands/acpSessionInit.command.js"
+      },
+      "./acp/commands/acpSessionResume.command": {
+        "types": "./dist/acp/commands/acpSessionResume.command.d.ts",
+        "bun": "./dist/acp/commands/acpSessionResume.command.js",
+        "node": "./dist/node/acp/commands/acpSessionResume.command.js",
+        "default": "./dist/acp/commands/acpSessionResume.command.js"
+      },
+      "./acp/commands/acpSessionStop.command": {
+        "types": "./dist/acp/commands/acpSessionStop.command.d.ts",
+        "bun": "./dist/acp/commands/acpSessionStop.command.js",
+        "node": "./dist/node/acp/commands/acpSessionStop.command.js",
+        "default": "./dist/acp/commands/acpSessionStop.command.js"
+      },
+      "./acp/commands/acpTerminalExec.command": {
+        "types": "./dist/acp/commands/acpTerminalExec.command.d.ts",
+        "bun": "./dist/acp/commands/acpTerminalExec.command.js",
+        "node": "./dist/node/acp/commands/acpTerminalExec.command.js",
+        "default": "./dist/acp/commands/acpTerminalExec.command.js"
+      },
+      "./acp/commands/acpToolCalls.command": {
+        "types": "./dist/acp/commands/acpToolCalls.command.d.ts",
+        "bun": "./dist/acp/commands/acpToolCalls.command.js",
+        "node": "./dist/node/acp/commands/acpToolCalls.command.js",
+        "default": "./dist/acp/commands/acpToolCalls.command.js"
+      },
+      "./acp/commands/index": {
+        "types": "./dist/acp/commands/index.d.ts",
+        "bun": "./dist/acp/commands/index.js",
+        "node": "./dist/node/acp/commands/index.js",
+        "default": "./dist/acp/commands/index.js"
+      },
+      "./acp/constants": {
+        "types": "./dist/acp/constants.d.ts",
+        "bun": "./dist/acp/constants.js",
+        "node": "./dist/node/acp/constants.js",
+        "default": "./dist/acp/constants.js"
+      },
+      "./acp/contracts": {
+        "types": "./dist/acp/contracts.d.ts",
+        "bun": "./dist/acp/contracts.js",
+        "node": "./dist/node/acp/contracts.js",
+        "default": "./dist/acp/contracts.js"
+      },
+      "./acp/ensure-docblocks": {
+        "types": "./dist/acp/ensure-docblocks.d.ts",
+        "bun": "./dist/acp/ensure-docblocks.js",
+        "node": "./dist/node/acp/ensure-docblocks.js",
+        "default": "./dist/acp/ensure-docblocks.js"
+      },
+      "./acp/index": {
+        "types": "./dist/acp/index.d.ts",
+        "bun": "./dist/acp/index.js",
+        "node": "./dist/node/acp/index.js",
+        "default": "./dist/acp/index.js"
+      },
+      "./agent": {
+        "types": "./dist/agent/index.d.ts",
+        "bun": "./dist/agent/index.js",
+        "node": "./dist/node/agent/index.js",
+        "default": "./dist/agent/index.js"
+      },
+      "./agent/capabilities": {
+        "types": "./dist/agent/capabilities/index.d.ts",
+        "bun": "./dist/agent/capabilities/index.js",
+        "node": "./dist/node/agent/capabilities/index.js",
+        "default": "./dist/agent/capabilities/index.js"
+      },
+      "./agent/capabilities/agentExecution.capability": {
+        "types": "./dist/agent/capabilities/agentExecution.capability.d.ts",
+        "bun": "./dist/agent/capabilities/agentExecution.capability.js",
+        "node": "./dist/node/agent/capabilities/agentExecution.capability.js",
+        "default": "./dist/agent/capabilities/agentExecution.capability.js"
+      },
+      "./agent/capabilities/index": {
+        "types": "./dist/agent/capabilities/index.d.ts",
+        "bun": "./dist/agent/capabilities/index.js",
+        "node": "./dist/node/agent/capabilities/index.js",
+        "default": "./dist/agent/capabilities/index.js"
+      },
+      "./agent/commands": {
+        "types": "./dist/agent/commands/index.d.ts",
+        "bun": "./dist/agent/commands/index.js",
+        "node": "./dist/node/agent/commands/index.js",
+        "default": "./dist/agent/commands/index.js"
+      },
+      "./agent/commands/agentApprovals.command": {
+        "types": "./dist/agent/commands/agentApprovals.command.d.ts",
+        "bun": "./dist/agent/commands/agentApprovals.command.js",
+        "node": "./dist/node/agent/commands/agentApprovals.command.js",
+        "default": "./dist/agent/commands/agentApprovals.command.js"
+      },
+      "./agent/commands/agentCancel.command": {
+        "types": "./dist/agent/commands/agentCancel.command.d.ts",
+        "bun": "./dist/agent/commands/agentCancel.command.js",
+        "node": "./dist/node/agent/commands/agentCancel.command.js",
+        "default": "./dist/agent/commands/agentCancel.command.js"
+      },
+      "./agent/commands/agentRun.command": {
+        "types": "./dist/agent/commands/agentRun.command.d.ts",
+        "bun": "./dist/agent/commands/agentRun.command.js",
+        "node": "./dist/node/agent/commands/agentRun.command.js",
+        "default": "./dist/agent/commands/agentRun.command.js"
+      },
+      "./agent/commands/index": {
+        "types": "./dist/agent/commands/index.d.ts",
+        "bun": "./dist/agent/commands/index.js",
+        "node": "./dist/node/agent/commands/index.js",
+        "default": "./dist/agent/commands/index.js"
+      },
+      "./agent/constants": {
+        "types": "./dist/agent/constants.d.ts",
+        "bun": "./dist/agent/constants.js",
+        "node": "./dist/node/agent/constants.js",
+        "default": "./dist/agent/constants.js"
+      },
+      "./agent/contracts": {
+        "types": "./dist/agent/contracts.d.ts",
+        "bun": "./dist/agent/contracts.js",
+        "node": "./dist/node/agent/contracts.js",
+        "default": "./dist/agent/contracts.js"
+      },
+      "./agent/ensure-docblocks": {
+        "types": "./dist/agent/ensure-docblocks.d.ts",
+        "bun": "./dist/agent/ensure-docblocks.js",
+        "node": "./dist/node/agent/ensure-docblocks.js",
+        "default": "./dist/agent/ensure-docblocks.js"
+      },
+      "./agent/events": {
+        "types": "./dist/agent/events/index.d.ts",
+        "bun": "./dist/agent/events/index.js",
+        "node": "./dist/node/agent/events/index.js",
+        "default": "./dist/agent/events/index.js"
+      },
+      "./agent/events/agentApprovalRequested.event": {
+        "types": "./dist/agent/events/agentApprovalRequested.event.d.ts",
+        "bun": "./dist/agent/events/agentApprovalRequested.event.js",
+        "node": "./dist/node/agent/events/agentApprovalRequested.event.js",
+        "default": "./dist/agent/events/agentApprovalRequested.event.js"
+      },
+      "./agent/events/agentRunCompleted.event": {
+        "types": "./dist/agent/events/agentRunCompleted.event.d.ts",
+        "bun": "./dist/agent/events/agentRunCompleted.event.js",
+        "node": "./dist/node/agent/events/agentRunCompleted.event.js",
+        "default": "./dist/agent/events/agentRunCompleted.event.js"
+      },
+      "./agent/events/agentRunFailed.event": {
+        "types": "./dist/agent/events/agentRunFailed.event.d.ts",
+        "bun": "./dist/agent/events/agentRunFailed.event.js",
+        "node": "./dist/node/agent/events/agentRunFailed.event.js",
+        "default": "./dist/agent/events/agentRunFailed.event.js"
+      },
+      "./agent/events/agentRunStarted.event": {
+        "types": "./dist/agent/events/agentRunStarted.event.d.ts",
+        "bun": "./dist/agent/events/agentRunStarted.event.js",
+        "node": "./dist/node/agent/events/agentRunStarted.event.js",
+        "default": "./dist/agent/events/agentRunStarted.event.js"
+      },
+      "./agent/events/index": {
+        "types": "./dist/agent/events/index.d.ts",
+        "bun": "./dist/agent/events/index.js",
+        "node": "./dist/node/agent/events/index.js",
+        "default": "./dist/agent/events/index.js"
+      },
+      "./agent/forms": {
+        "types": "./dist/agent/forms/index.d.ts",
+        "bun": "./dist/agent/forms/index.js",
+        "node": "./dist/node/agent/forms/index.js",
+        "default": "./dist/agent/forms/index.js"
+      },
+      "./agent/forms/agentRun.form": {
+        "types": "./dist/agent/forms/agentRun.form.d.ts",
+        "bun": "./dist/agent/forms/agentRun.form.js",
+        "node": "./dist/node/agent/forms/agentRun.form.js",
+        "default": "./dist/agent/forms/agentRun.form.js"
+      },
+      "./agent/forms/index": {
+        "types": "./dist/agent/forms/index.d.ts",
+        "bun": "./dist/agent/forms/index.js",
+        "node": "./dist/node/agent/forms/index.js",
+        "default": "./dist/agent/forms/index.js"
+      },
+      "./agent/index": {
+        "types": "./dist/agent/index.d.ts",
+        "bun": "./dist/agent/index.js",
+        "node": "./dist/node/agent/index.js",
+        "default": "./dist/agent/index.js"
+      },
+      "./agent/presentations": {
+        "types": "./dist/agent/presentations/index.d.ts",
+        "bun": "./dist/agent/presentations/index.js",
+        "node": "./dist/node/agent/presentations/index.js",
+        "default": "./dist/agent/presentations/index.js"
+      },
+      "./agent/presentations/agentRunAudit.presentation": {
+        "types": "./dist/agent/presentations/agentRunAudit.presentation.d.ts",
+        "bun": "./dist/agent/presentations/agentRunAudit.presentation.js",
+        "node": "./dist/node/agent/presentations/agentRunAudit.presentation.js",
+        "default": "./dist/agent/presentations/agentRunAudit.presentation.js"
+      },
+      "./agent/presentations/index": {
+        "types": "./dist/agent/presentations/index.d.ts",
+        "bun": "./dist/agent/presentations/index.js",
+        "node": "./dist/node/agent/presentations/index.js",
+        "default": "./dist/agent/presentations/index.js"
+      },
+      "./agent/queries": {
+        "types": "./dist/agent/queries/index.d.ts",
+        "bun": "./dist/agent/queries/index.js",
+        "node": "./dist/node/agent/queries/index.js",
+        "default": "./dist/agent/queries/index.js"
+      },
+      "./agent/queries/agentArtifacts.query": {
+        "types": "./dist/agent/queries/agentArtifacts.query.d.ts",
+        "bun": "./dist/agent/queries/agentArtifacts.query.js",
+        "node": "./dist/node/agent/queries/agentArtifacts.query.js",
+        "default": "./dist/agent/queries/agentArtifacts.query.js"
+      },
+      "./agent/queries/agentStatus.query": {
+        "types": "./dist/agent/queries/agentStatus.query.d.ts",
+        "bun": "./dist/agent/queries/agentStatus.query.js",
+        "node": "./dist/node/agent/queries/agentStatus.query.js",
+        "default": "./dist/agent/queries/agentStatus.query.js"
+      },
+      "./agent/queries/index": {
+        "types": "./dist/agent/queries/index.d.ts",
+        "bun": "./dist/agent/queries/index.js",
+        "node": "./dist/node/agent/queries/index.js",
+        "default": "./dist/agent/queries/index.js"
+      },
+      "./agent/views": {
+        "types": "./dist/agent/views/index.d.ts",
+        "bun": "./dist/agent/views/index.js",
+        "node": "./dist/node/agent/views/index.js",
+        "default": "./dist/agent/views/index.js"
+      },
+      "./agent/views/agentRuns.dataView": {
+        "types": "./dist/agent/views/agentRuns.dataView.d.ts",
+        "bun": "./dist/agent/views/agentRuns.dataView.js",
+        "node": "./dist/node/agent/views/agentRuns.dataView.js",
+        "default": "./dist/agent/views/agentRuns.dataView.js"
+      },
+      "./agent/views/index": {
+        "types": "./dist/agent/views/index.d.ts",
+        "bun": "./dist/agent/views/index.js",
+        "node": "./dist/node/agent/views/index.js",
+        "default": "./dist/agent/views/index.js"
       },
       "./app-config": {
         "types": "./dist/app-config/index.d.ts",
@@ -636,6 +1062,168 @@
         "bun": "./dist/capabilities/validation.js",
         "node": "./dist/node/capabilities/validation.js",
         "default": "./dist/capabilities/validation.js"
+      },
+      "./context": {
+        "types": "./dist/context/index.d.ts",
+        "bun": "./dist/context/index.js",
+        "node": "./dist/node/context/index.js",
+        "default": "./dist/context/index.js"
+      },
+      "./context/capabilities": {
+        "types": "./dist/context/capabilities/index.d.ts",
+        "bun": "./dist/context/capabilities/index.js",
+        "node": "./dist/node/context/capabilities/index.js",
+        "default": "./dist/context/capabilities/index.js"
+      },
+      "./context/capabilities/contextSystem.capability": {
+        "types": "./dist/context/capabilities/contextSystem.capability.d.ts",
+        "bun": "./dist/context/capabilities/contextSystem.capability.js",
+        "node": "./dist/node/context/capabilities/contextSystem.capability.js",
+        "default": "./dist/context/capabilities/contextSystem.capability.js"
+      },
+      "./context/capabilities/index": {
+        "types": "./dist/context/capabilities/index.d.ts",
+        "bun": "./dist/context/capabilities/index.js",
+        "node": "./dist/node/context/capabilities/index.js",
+        "default": "./dist/context/capabilities/index.js"
+      },
+      "./context/commands": {
+        "types": "./dist/context/commands/index.d.ts",
+        "bun": "./dist/context/commands/index.js",
+        "node": "./dist/node/context/commands/index.js",
+        "default": "./dist/context/commands/index.js"
+      },
+      "./context/commands/contextPackSnapshot.command": {
+        "types": "./dist/context/commands/contextPackSnapshot.command.d.ts",
+        "bun": "./dist/context/commands/contextPackSnapshot.command.js",
+        "node": "./dist/node/context/commands/contextPackSnapshot.command.js",
+        "default": "./dist/context/commands/contextPackSnapshot.command.js"
+      },
+      "./context/commands/index": {
+        "types": "./dist/context/commands/index.d.ts",
+        "bun": "./dist/context/commands/index.js",
+        "node": "./dist/node/context/commands/index.js",
+        "default": "./dist/context/commands/index.js"
+      },
+      "./context/constants": {
+        "types": "./dist/context/constants.d.ts",
+        "bun": "./dist/context/constants.js",
+        "node": "./dist/node/context/constants.js",
+        "default": "./dist/context/constants.js"
+      },
+      "./context/contracts": {
+        "types": "./dist/context/contracts.d.ts",
+        "bun": "./dist/context/contracts.js",
+        "node": "./dist/node/context/contracts.js",
+        "default": "./dist/context/contracts.js"
+      },
+      "./context/ensure-docblocks": {
+        "types": "./dist/context/ensure-docblocks.d.ts",
+        "bun": "./dist/context/ensure-docblocks.js",
+        "node": "./dist/node/context/ensure-docblocks.js",
+        "default": "./dist/context/ensure-docblocks.js"
+      },
+      "./context/events": {
+        "types": "./dist/context/events/index.d.ts",
+        "bun": "./dist/context/events/index.js",
+        "node": "./dist/node/context/events/index.js",
+        "default": "./dist/context/events/index.js"
+      },
+      "./context/events/contextSnapshotCreated.event": {
+        "types": "./dist/context/events/contextSnapshotCreated.event.d.ts",
+        "bun": "./dist/context/events/contextSnapshotCreated.event.js",
+        "node": "./dist/node/context/events/contextSnapshotCreated.event.js",
+        "default": "./dist/context/events/contextSnapshotCreated.event.js"
+      },
+      "./context/events/index": {
+        "types": "./dist/context/events/index.d.ts",
+        "bun": "./dist/context/events/index.js",
+        "node": "./dist/node/context/events/index.js",
+        "default": "./dist/context/events/index.js"
+      },
+      "./context/forms": {
+        "types": "./dist/context/forms/index.d.ts",
+        "bun": "./dist/context/forms/index.js",
+        "node": "./dist/node/context/forms/index.js",
+        "default": "./dist/context/forms/index.js"
+      },
+      "./context/forms/contextPackSearch.form": {
+        "types": "./dist/context/forms/contextPackSearch.form.d.ts",
+        "bun": "./dist/context/forms/contextPackSearch.form.js",
+        "node": "./dist/node/context/forms/contextPackSearch.form.js",
+        "default": "./dist/context/forms/contextPackSearch.form.js"
+      },
+      "./context/forms/index": {
+        "types": "./dist/context/forms/index.d.ts",
+        "bun": "./dist/context/forms/index.js",
+        "node": "./dist/node/context/forms/index.js",
+        "default": "./dist/context/forms/index.js"
+      },
+      "./context/index": {
+        "types": "./dist/context/index.d.ts",
+        "bun": "./dist/context/index.js",
+        "node": "./dist/node/context/index.js",
+        "default": "./dist/context/index.js"
+      },
+      "./context/presentations": {
+        "types": "./dist/context/presentations/index.d.ts",
+        "bun": "./dist/context/presentations/index.js",
+        "node": "./dist/node/context/presentations/index.js",
+        "default": "./dist/context/presentations/index.js"
+      },
+      "./context/presentations/contextSnapshot.presentation": {
+        "types": "./dist/context/presentations/contextSnapshot.presentation.d.ts",
+        "bun": "./dist/context/presentations/contextSnapshot.presentation.js",
+        "node": "./dist/node/context/presentations/contextSnapshot.presentation.js",
+        "default": "./dist/context/presentations/contextSnapshot.presentation.js"
+      },
+      "./context/presentations/index": {
+        "types": "./dist/context/presentations/index.d.ts",
+        "bun": "./dist/context/presentations/index.js",
+        "node": "./dist/node/context/presentations/index.js",
+        "default": "./dist/context/presentations/index.js"
+      },
+      "./context/queries": {
+        "types": "./dist/context/queries/index.d.ts",
+        "bun": "./dist/context/queries/index.js",
+        "node": "./dist/node/context/queries/index.js",
+        "default": "./dist/context/queries/index.js"
+      },
+      "./context/queries/contextPackDescribe.query": {
+        "types": "./dist/context/queries/contextPackDescribe.query.d.ts",
+        "bun": "./dist/context/queries/contextPackDescribe.query.js",
+        "node": "./dist/node/context/queries/contextPackDescribe.query.js",
+        "default": "./dist/context/queries/contextPackDescribe.query.js"
+      },
+      "./context/queries/contextPackSearch.query": {
+        "types": "./dist/context/queries/contextPackSearch.query.d.ts",
+        "bun": "./dist/context/queries/contextPackSearch.query.js",
+        "node": "./dist/node/context/queries/contextPackSearch.query.js",
+        "default": "./dist/context/queries/contextPackSearch.query.js"
+      },
+      "./context/queries/index": {
+        "types": "./dist/context/queries/index.d.ts",
+        "bun": "./dist/context/queries/index.js",
+        "node": "./dist/node/context/queries/index.js",
+        "default": "./dist/context/queries/index.js"
+      },
+      "./context/views": {
+        "types": "./dist/context/views/index.d.ts",
+        "bun": "./dist/context/views/index.js",
+        "node": "./dist/node/context/views/index.js",
+        "default": "./dist/context/views/index.js"
+      },
+      "./context/views/contextSnapshots.dataView": {
+        "types": "./dist/context/views/contextSnapshots.dataView.d.ts",
+        "bun": "./dist/context/views/contextSnapshots.dataView.js",
+        "node": "./dist/node/context/views/contextSnapshots.dataView.js",
+        "default": "./dist/context/views/contextSnapshots.dataView.js"
+      },
+      "./context/views/index": {
+        "types": "./dist/context/views/index.d.ts",
+        "bun": "./dist/context/views/index.js",
+        "node": "./dist/node/context/views/index.js",
+        "default": "./dist/context/views/index.js"
       },
       "./contract-registry": {
         "types": "./dist/contract-registry/index.d.ts",
@@ -973,6 +1561,108 @@
         "node": "./dist/node/data-views/types.js",
         "default": "./dist/data-views/types.js"
       },
+      "./database": {
+        "types": "./dist/database/index.d.ts",
+        "bun": "./dist/database/index.js",
+        "node": "./dist/node/database/index.js",
+        "default": "./dist/database/index.js"
+      },
+      "./database/capabilities": {
+        "types": "./dist/database/capabilities/index.d.ts",
+        "bun": "./dist/database/capabilities/index.js",
+        "node": "./dist/node/database/capabilities/index.js",
+        "default": "./dist/database/capabilities/index.js"
+      },
+      "./database/capabilities/databaseContext.capability": {
+        "types": "./dist/database/capabilities/databaseContext.capability.d.ts",
+        "bun": "./dist/database/capabilities/databaseContext.capability.js",
+        "node": "./dist/node/database/capabilities/databaseContext.capability.js",
+        "default": "./dist/database/capabilities/databaseContext.capability.js"
+      },
+      "./database/capabilities/index": {
+        "types": "./dist/database/capabilities/index.d.ts",
+        "bun": "./dist/database/capabilities/index.js",
+        "node": "./dist/node/database/capabilities/index.js",
+        "default": "./dist/database/capabilities/index.js"
+      },
+      "./database/constants": {
+        "types": "./dist/database/constants.d.ts",
+        "bun": "./dist/database/constants.js",
+        "node": "./dist/node/database/constants.js",
+        "default": "./dist/database/constants.js"
+      },
+      "./database/contracts": {
+        "types": "./dist/database/contracts.d.ts",
+        "bun": "./dist/database/contracts.js",
+        "node": "./dist/node/database/contracts.js",
+        "default": "./dist/database/contracts.js"
+      },
+      "./database/ensure-docblocks": {
+        "types": "./dist/database/ensure-docblocks.d.ts",
+        "bun": "./dist/database/ensure-docblocks.js",
+        "node": "./dist/node/database/ensure-docblocks.js",
+        "default": "./dist/database/ensure-docblocks.js"
+      },
+      "./database/index": {
+        "types": "./dist/database/index.d.ts",
+        "bun": "./dist/database/index.js",
+        "node": "./dist/node/database/index.js",
+        "default": "./dist/database/index.js"
+      },
+      "./database/queries": {
+        "types": "./dist/database/queries/index.d.ts",
+        "bun": "./dist/database/queries/index.js",
+        "node": "./dist/node/database/queries/index.js",
+        "default": "./dist/database/queries/index.js"
+      },
+      "./database/queries/databaseDictionaryGet.query": {
+        "types": "./dist/database/queries/databaseDictionaryGet.query.d.ts",
+        "bun": "./dist/database/queries/databaseDictionaryGet.query.js",
+        "node": "./dist/node/database/queries/databaseDictionaryGet.query.js",
+        "default": "./dist/database/queries/databaseDictionaryGet.query.js"
+      },
+      "./database/queries/databaseMigrationsList.query": {
+        "types": "./dist/database/queries/databaseMigrationsList.query.d.ts",
+        "bun": "./dist/database/queries/databaseMigrationsList.query.js",
+        "node": "./dist/node/database/queries/databaseMigrationsList.query.js",
+        "default": "./dist/database/queries/databaseMigrationsList.query.js"
+      },
+      "./database/queries/databaseQueryReadonly.query": {
+        "types": "./dist/database/queries/databaseQueryReadonly.query.d.ts",
+        "bun": "./dist/database/queries/databaseQueryReadonly.query.js",
+        "node": "./dist/node/database/queries/databaseQueryReadonly.query.js",
+        "default": "./dist/database/queries/databaseQueryReadonly.query.js"
+      },
+      "./database/queries/databaseSchemaDescribe.query": {
+        "types": "./dist/database/queries/databaseSchemaDescribe.query.d.ts",
+        "bun": "./dist/database/queries/databaseSchemaDescribe.query.js",
+        "node": "./dist/node/database/queries/databaseSchemaDescribe.query.js",
+        "default": "./dist/database/queries/databaseSchemaDescribe.query.js"
+      },
+      "./database/queries/index": {
+        "types": "./dist/database/queries/index.d.ts",
+        "bun": "./dist/database/queries/index.js",
+        "node": "./dist/node/database/queries/index.js",
+        "default": "./dist/database/queries/index.js"
+      },
+      "./database/views": {
+        "types": "./dist/database/views/index.d.ts",
+        "bun": "./dist/database/views/index.js",
+        "node": "./dist/node/database/views/index.js",
+        "default": "./dist/database/views/index.js"
+      },
+      "./database/views/databaseSchemas.dataView": {
+        "types": "./dist/database/views/databaseSchemas.dataView.d.ts",
+        "bun": "./dist/database/views/databaseSchemas.dataView.js",
+        "node": "./dist/node/database/views/databaseSchemas.dataView.js",
+        "default": "./dist/database/views/databaseSchemas.dataView.js"
+      },
+      "./database/views/index": {
+        "types": "./dist/database/views/index.d.ts",
+        "bun": "./dist/database/views/index.js",
+        "node": "./dist/node/database/views/index.js",
+        "default": "./dist/database/views/index.js"
+      },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
@@ -1159,6 +1849,18 @@
         "node": "./dist/node/docs/tech-contracts.docs.js",
         "default": "./dist/docs/tech-contracts.docs.js"
       },
+      "./docs/tech/acp/acp-transport.docblock": {
+        "types": "./dist/docs/tech/acp/acp-transport.docblock.d.ts",
+        "bun": "./dist/docs/tech/acp/acp-transport.docblock.js",
+        "node": "./dist/node/docs/tech/acp/acp-transport.docblock.js",
+        "default": "./dist/docs/tech/acp/acp-transport.docblock.js"
+      },
+      "./docs/tech/agent/agent-execution.docblock": {
+        "types": "./dist/docs/tech/agent/agent-execution.docblock.d.ts",
+        "bun": "./dist/docs/tech/agent/agent-execution.docblock.js",
+        "node": "./dist/node/docs/tech/agent/agent-execution.docblock.js",
+        "default": "./dist/docs/tech/agent/agent-execution.docblock.js"
+      },
       "./docs/tech/auth/better-auth-nextjs.docblock": {
         "types": "./dist/docs/tech/auth/better-auth-nextjs.docblock.d.ts",
         "bun": "./dist/docs/tech/auth/better-auth-nextjs.docblock.js",
@@ -1170,6 +1872,12 @@
         "bun": "./dist/docs/tech/cli.docblock.js",
         "node": "./dist/node/docs/tech/cli.docblock.js",
         "default": "./dist/docs/tech/cli.docblock.js"
+      },
+      "./docs/tech/context/context-system.docblock": {
+        "types": "./dist/docs/tech/context/context-system.docblock.d.ts",
+        "bun": "./dist/docs/tech/context/context-system.docblock.js",
+        "node": "./dist/node/docs/tech/context/context-system.docblock.js",
+        "default": "./dist/docs/tech/context/context-system.docblock.js"
       },
       "./docs/tech/contracts/migrations.docblock": {
         "types": "./dist/docs/tech/contracts/migrations.docblock.d.ts",
@@ -1225,6 +1933,12 @@
         "node": "./dist/node/docs/tech/contracts/vertical-pocket-family-office.docblock.js",
         "default": "./dist/docs/tech/contracts/vertical-pocket-family-office.docblock.js"
       },
+      "./docs/tech/database/database-context.docblock": {
+        "types": "./dist/docs/tech/database/database-context.docblock.d.ts",
+        "bun": "./dist/docs/tech/database/database-context.docblock.js",
+        "node": "./dist/node/docs/tech/database/database-context.docblock.js",
+        "default": "./dist/docs/tech/database/database-context.docblock.js"
+      },
       "./docs/tech/docs-system.docblock": {
         "types": "./dist/docs/tech/docs-system.docblock.d.ts",
         "bun": "./dist/docs/tech/docs-system.docblock.js",
@@ -1254,6 +1968,12 @@
         "bun": "./dist/docs/tech/presentation-runtime.docblock.js",
         "node": "./dist/node/docs/tech/presentation-runtime.docblock.js",
         "default": "./dist/docs/tech/presentation-runtime.docblock.js"
+      },
+      "./docs/tech/provider-ranking/provider-ranking-system.docblock": {
+        "types": "./dist/docs/tech/provider-ranking/provider-ranking-system.docblock.d.ts",
+        "bun": "./dist/docs/tech/provider-ranking/provider-ranking-system.docblock.js",
+        "node": "./dist/node/docs/tech/provider-ranking/provider-ranking-system.docblock.js",
+        "default": "./dist/docs/tech/provider-ranking/provider-ranking-system.docblock.js"
       },
       "./docs/tech/report-verification-table.docblock": {
         "types": "./dist/docs/tech/report-verification-table.docblock.d.ts",
@@ -2796,6 +3516,210 @@
         "bun": "./dist/promptRegistry.js",
         "node": "./dist/node/promptRegistry.js",
         "default": "./dist/promptRegistry.js"
+      },
+      "./provider-ranking": {
+        "types": "./dist/provider-ranking/index.d.ts",
+        "bun": "./dist/provider-ranking/index.js",
+        "node": "./dist/node/provider-ranking/index.js",
+        "default": "./dist/provider-ranking/index.js"
+      },
+      "./provider-ranking/capabilities": {
+        "types": "./dist/provider-ranking/capabilities/index.d.ts",
+        "bun": "./dist/provider-ranking/capabilities/index.js",
+        "node": "./dist/node/provider-ranking/capabilities/index.js",
+        "default": "./dist/provider-ranking/capabilities/index.js"
+      },
+      "./provider-ranking/capabilities/index": {
+        "types": "./dist/provider-ranking/capabilities/index.d.ts",
+        "bun": "./dist/provider-ranking/capabilities/index.js",
+        "node": "./dist/node/provider-ranking/capabilities/index.js",
+        "default": "./dist/provider-ranking/capabilities/index.js"
+      },
+      "./provider-ranking/capabilities/providerRanking.capability": {
+        "types": "./dist/provider-ranking/capabilities/providerRanking.capability.d.ts",
+        "bun": "./dist/provider-ranking/capabilities/providerRanking.capability.js",
+        "node": "./dist/node/provider-ranking/capabilities/providerRanking.capability.js",
+        "default": "./dist/provider-ranking/capabilities/providerRanking.capability.js"
+      },
+      "./provider-ranking/commands": {
+        "types": "./dist/provider-ranking/commands/index.d.ts",
+        "bun": "./dist/provider-ranking/commands/index.js",
+        "node": "./dist/node/provider-ranking/commands/index.js",
+        "default": "./dist/provider-ranking/commands/index.js"
+      },
+      "./provider-ranking/commands/benchmarkIngest.command": {
+        "types": "./dist/provider-ranking/commands/benchmarkIngest.command.d.ts",
+        "bun": "./dist/provider-ranking/commands/benchmarkIngest.command.js",
+        "node": "./dist/node/provider-ranking/commands/benchmarkIngest.command.js",
+        "default": "./dist/provider-ranking/commands/benchmarkIngest.command.js"
+      },
+      "./provider-ranking/commands/benchmarkRunCustom.command": {
+        "types": "./dist/provider-ranking/commands/benchmarkRunCustom.command.d.ts",
+        "bun": "./dist/provider-ranking/commands/benchmarkRunCustom.command.js",
+        "node": "./dist/node/provider-ranking/commands/benchmarkRunCustom.command.js",
+        "default": "./dist/provider-ranking/commands/benchmarkRunCustom.command.js"
+      },
+      "./provider-ranking/commands/index": {
+        "types": "./dist/provider-ranking/commands/index.d.ts",
+        "bun": "./dist/provider-ranking/commands/index.js",
+        "node": "./dist/node/provider-ranking/commands/index.js",
+        "default": "./dist/provider-ranking/commands/index.js"
+      },
+      "./provider-ranking/commands/rankingRefresh.command": {
+        "types": "./dist/provider-ranking/commands/rankingRefresh.command.d.ts",
+        "bun": "./dist/provider-ranking/commands/rankingRefresh.command.js",
+        "node": "./dist/node/provider-ranking/commands/rankingRefresh.command.js",
+        "default": "./dist/provider-ranking/commands/rankingRefresh.command.js"
+      },
+      "./provider-ranking/constants": {
+        "types": "./dist/provider-ranking/constants.d.ts",
+        "bun": "./dist/provider-ranking/constants.js",
+        "node": "./dist/node/provider-ranking/constants.js",
+        "default": "./dist/provider-ranking/constants.js"
+      },
+      "./provider-ranking/contracts": {
+        "types": "./dist/provider-ranking/contracts.d.ts",
+        "bun": "./dist/provider-ranking/contracts.js",
+        "node": "./dist/node/provider-ranking/contracts.js",
+        "default": "./dist/provider-ranking/contracts.js"
+      },
+      "./provider-ranking/ensure-docblocks": {
+        "types": "./dist/provider-ranking/ensure-docblocks.d.ts",
+        "bun": "./dist/provider-ranking/ensure-docblocks.js",
+        "node": "./dist/node/provider-ranking/ensure-docblocks.js",
+        "default": "./dist/provider-ranking/ensure-docblocks.js"
+      },
+      "./provider-ranking/events": {
+        "types": "./dist/provider-ranking/events/index.d.ts",
+        "bun": "./dist/provider-ranking/events/index.js",
+        "node": "./dist/node/provider-ranking/events/index.js",
+        "default": "./dist/provider-ranking/events/index.js"
+      },
+      "./provider-ranking/events/benchmarkCustomCompleted.event": {
+        "types": "./dist/provider-ranking/events/benchmarkCustomCompleted.event.d.ts",
+        "bun": "./dist/provider-ranking/events/benchmarkCustomCompleted.event.js",
+        "node": "./dist/node/provider-ranking/events/benchmarkCustomCompleted.event.js",
+        "default": "./dist/provider-ranking/events/benchmarkCustomCompleted.event.js"
+      },
+      "./provider-ranking/events/benchmarkIngested.event": {
+        "types": "./dist/provider-ranking/events/benchmarkIngested.event.d.ts",
+        "bun": "./dist/provider-ranking/events/benchmarkIngested.event.js",
+        "node": "./dist/node/provider-ranking/events/benchmarkIngested.event.js",
+        "default": "./dist/provider-ranking/events/benchmarkIngested.event.js"
+      },
+      "./provider-ranking/events/index": {
+        "types": "./dist/provider-ranking/events/index.d.ts",
+        "bun": "./dist/provider-ranking/events/index.js",
+        "node": "./dist/node/provider-ranking/events/index.js",
+        "default": "./dist/provider-ranking/events/index.js"
+      },
+      "./provider-ranking/events/rankingUpdated.event": {
+        "types": "./dist/provider-ranking/events/rankingUpdated.event.d.ts",
+        "bun": "./dist/provider-ranking/events/rankingUpdated.event.js",
+        "node": "./dist/node/provider-ranking/events/rankingUpdated.event.js",
+        "default": "./dist/provider-ranking/events/rankingUpdated.event.js"
+      },
+      "./provider-ranking/forms": {
+        "types": "./dist/provider-ranking/forms/index.d.ts",
+        "bun": "./dist/provider-ranking/forms/index.js",
+        "node": "./dist/node/provider-ranking/forms/index.js",
+        "default": "./dist/provider-ranking/forms/index.js"
+      },
+      "./provider-ranking/forms/benchmarkIngest.form": {
+        "types": "./dist/provider-ranking/forms/benchmarkIngest.form.d.ts",
+        "bun": "./dist/provider-ranking/forms/benchmarkIngest.form.js",
+        "node": "./dist/node/provider-ranking/forms/benchmarkIngest.form.js",
+        "default": "./dist/provider-ranking/forms/benchmarkIngest.form.js"
+      },
+      "./provider-ranking/forms/benchmarkRunCustom.form": {
+        "types": "./dist/provider-ranking/forms/benchmarkRunCustom.form.d.ts",
+        "bun": "./dist/provider-ranking/forms/benchmarkRunCustom.form.js",
+        "node": "./dist/node/provider-ranking/forms/benchmarkRunCustom.form.js",
+        "default": "./dist/provider-ranking/forms/benchmarkRunCustom.form.js"
+      },
+      "./provider-ranking/forms/index": {
+        "types": "./dist/provider-ranking/forms/index.d.ts",
+        "bun": "./dist/provider-ranking/forms/index.js",
+        "node": "./dist/node/provider-ranking/forms/index.js",
+        "default": "./dist/provider-ranking/forms/index.js"
+      },
+      "./provider-ranking/index": {
+        "types": "./dist/provider-ranking/index.d.ts",
+        "bun": "./dist/provider-ranking/index.js",
+        "node": "./dist/node/provider-ranking/index.js",
+        "default": "./dist/provider-ranking/index.js"
+      },
+      "./provider-ranking/presentations": {
+        "types": "./dist/provider-ranking/presentations/index.d.ts",
+        "bun": "./dist/provider-ranking/presentations/index.js",
+        "node": "./dist/node/provider-ranking/presentations/index.js",
+        "default": "./dist/provider-ranking/presentations/index.js"
+      },
+      "./provider-ranking/presentations/index": {
+        "types": "./dist/provider-ranking/presentations/index.d.ts",
+        "bun": "./dist/provider-ranking/presentations/index.js",
+        "node": "./dist/node/provider-ranking/presentations/index.js",
+        "default": "./dist/provider-ranking/presentations/index.js"
+      },
+      "./provider-ranking/presentations/modelComparison.presentation": {
+        "types": "./dist/provider-ranking/presentations/modelComparison.presentation.d.ts",
+        "bun": "./dist/provider-ranking/presentations/modelComparison.presentation.js",
+        "node": "./dist/node/provider-ranking/presentations/modelComparison.presentation.js",
+        "default": "./dist/provider-ranking/presentations/modelComparison.presentation.js"
+      },
+      "./provider-ranking/queries": {
+        "types": "./dist/provider-ranking/queries/index.d.ts",
+        "bun": "./dist/provider-ranking/queries/index.js",
+        "node": "./dist/node/provider-ranking/queries/index.js",
+        "default": "./dist/provider-ranking/queries/index.js"
+      },
+      "./provider-ranking/queries/benchmarkResultsList.query": {
+        "types": "./dist/provider-ranking/queries/benchmarkResultsList.query.d.ts",
+        "bun": "./dist/provider-ranking/queries/benchmarkResultsList.query.js",
+        "node": "./dist/node/provider-ranking/queries/benchmarkResultsList.query.js",
+        "default": "./dist/provider-ranking/queries/benchmarkResultsList.query.js"
+      },
+      "./provider-ranking/queries/index": {
+        "types": "./dist/provider-ranking/queries/index.d.ts",
+        "bun": "./dist/provider-ranking/queries/index.js",
+        "node": "./dist/node/provider-ranking/queries/index.js",
+        "default": "./dist/provider-ranking/queries/index.js"
+      },
+      "./provider-ranking/queries/modelProfileGet.query": {
+        "types": "./dist/provider-ranking/queries/modelProfileGet.query.d.ts",
+        "bun": "./dist/provider-ranking/queries/modelProfileGet.query.js",
+        "node": "./dist/node/provider-ranking/queries/modelProfileGet.query.js",
+        "default": "./dist/provider-ranking/queries/modelProfileGet.query.js"
+      },
+      "./provider-ranking/queries/providerRankingGet.query": {
+        "types": "./dist/provider-ranking/queries/providerRankingGet.query.d.ts",
+        "bun": "./dist/provider-ranking/queries/providerRankingGet.query.js",
+        "node": "./dist/node/provider-ranking/queries/providerRankingGet.query.js",
+        "default": "./dist/provider-ranking/queries/providerRankingGet.query.js"
+      },
+      "./provider-ranking/views": {
+        "types": "./dist/provider-ranking/views/index.d.ts",
+        "bun": "./dist/provider-ranking/views/index.js",
+        "node": "./dist/node/provider-ranking/views/index.js",
+        "default": "./dist/provider-ranking/views/index.js"
+      },
+      "./provider-ranking/views/benchmarkResults.dataView": {
+        "types": "./dist/provider-ranking/views/benchmarkResults.dataView.d.ts",
+        "bun": "./dist/provider-ranking/views/benchmarkResults.dataView.js",
+        "node": "./dist/node/provider-ranking/views/benchmarkResults.dataView.js",
+        "default": "./dist/provider-ranking/views/benchmarkResults.dataView.js"
+      },
+      "./provider-ranking/views/index": {
+        "types": "./dist/provider-ranking/views/index.d.ts",
+        "bun": "./dist/provider-ranking/views/index.js",
+        "node": "./dist/node/provider-ranking/views/index.js",
+        "default": "./dist/provider-ranking/views/index.js"
+      },
+      "./provider-ranking/views/providerRankings.dataView": {
+        "types": "./dist/provider-ranking/views/providerRankings.dataView.d.ts",
+        "bun": "./dist/provider-ranking/views/providerRankings.dataView.js",
+        "node": "./dist/node/provider-ranking/views/providerRankings.dataView.js",
+        "default": "./dist/provider-ranking/views/providerRankings.dataView.js"
       },
       "./regenerator": {
         "types": "./dist/regenerator/index.d.ts",

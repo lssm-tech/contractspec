@@ -15,13 +15,13 @@ export const ConnectionStatusEnum = defineEnum('ConnectionStatus', [
  * Authentication method used by a connection.
  */
 export const AuthTypeEnum = defineEnum('AuthType', [
-  'api-key',
+  'api_key',
   'oauth2',
   'bearer',
   'header',
   'basic',
-  'webhook-signing',
-  'service-account',
+  'webhook_signing',
+  'service_account',
 ]);
 
 /**

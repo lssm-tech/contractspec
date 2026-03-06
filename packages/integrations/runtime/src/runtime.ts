@@ -446,3 +446,21 @@ export function connectionStatusLabel(status: ConnectionStatus): string {
       return 'unknown';
   }
 }
+
+/**
+ * Optional Composio fallback configuration.
+ * When present, the IntegrationProviderFactory will delegate unsupported
+ * integration keys to Composio's 850+ toolkit catalog.
+ */
+export interface ComposioRuntimeConfig {
+  apiKey: string;
+  baseUrl?: string;
+  preferredTransport?: "mcp" | "sdk";
+}
+
+export interface IntegrationRuntimeConfig {
+  secretProvider: SecretProvider;
+  telemetry?: IntegrationTelemetryEmitter;
+  healthStrategy?: HealthRuntimeStrategyOptions;
+  composio?: ComposioRuntimeConfig;
+}

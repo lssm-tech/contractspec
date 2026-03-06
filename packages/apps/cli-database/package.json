@@ -44,6 +44,15 @@
   "exports": {
     ".": "./dist/index.mjs",
     "./cli": "./dist/cli.mjs",
+    "./commands/check": "./dist/commands/check.mjs",
+    "./commands/generate": "./dist/commands/generate.mjs",
+    "./commands/import": "./dist/commands/import.mjs",
+    "./commands/migrate": "./dist/commands/migrate.mjs",
+    "./commands/schema-compose": "./dist/commands/schema-compose.mjs",
+    "./commands/schema-generate": "./dist/commands/schema-generate.mjs",
+    "./commands/seed": "./dist/commands/seed.mjs",
+    "./lib/config": "./dist/lib/config.mjs",
+    "./lib/schema-config": "./dist/lib/schema-config.mjs",
     "./*": "./*"
   },
   "publishConfig": {

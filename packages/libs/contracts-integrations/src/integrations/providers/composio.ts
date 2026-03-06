@@ -1,0 +1,103 @@
+import { StabilityEnum } from "@contractspec/lib.contracts-spec/ownership";
+import { defineIntegration, IntegrationSpecRegistry } from "../spec";
+
+export const composioIntegrationSpec = defineIntegration({
+  meta: {
+    key: "fallback.composio",
+    version: "1.0.0",
+    category: "custom",
+    title: "Composio Universal Fallback",
+    description:
+      "Composio integration platform providing 850+ toolkits as a universal fallback for unsupported provider keys.",
+    domain: "platform",
+    owners: ["platform.integrations"],
+    tags: ["composio", "fallback", "mcp", "universal"],
+    stability: StabilityEnum.Beta,
+  },
+  supportedModes: ["managed", "byok"],
+  transports: [
+    {
+      type: "mcp",
+      transport: "http",
+      toolPrefix: "composio",
+    },
+    {
+      type: "sdk",
+      packageName: "@composio/core",
+      runtime: "universal",
+    },
+  ],
+  preferredTransport: "mcp",
+  supportedAuthMethods: [
+    { type: "api-key", headerName: "X-API-Key" },
+  ],
+  capabilities: {
+    provides: [
+      { key: "integration.fallback", version: "1.0.0" },
+    ],
+  },
+  configSchema: {
+    schema: {
+      type: "object",
+      properties: {
+        baseUrl: {
+          type: "string",
+          description: "Custom Composio API base URL (for self-hosted or enterprise).",
+        },
+        preferredTransport: {
+          type: "string",
+          enum: ["mcp", "sdk"],
+          description: "Preferred transport mode: mcp (default) or sdk (advanced).",
+        },
+        toolkits: {
+          type: "array",
+          items: { type: "string" },
+          description: "Restrict available toolkits (empty = all).",
+        },
+      },
+    },
+    example: {
+      preferredTransport: "mcp",
+      toolkits: ["github", "slack", "gmail"],
+    },
+  },
+  secretSchema: {
+    schema: {
+      type: "object",
+      required: ["apiKey"],
+      properties: {
+        apiKey: {
+          type: "string",
+          description: "Composio API key (COMPOSIO_API_KEY).",
+        },
+      },
+    },
+    example: {
+      apiKey: "comp_***",
+    },
+  },
+  healthCheck: {
+    method: "ping",
+    timeoutMs: 5000,
+  },
+  docsUrl: "https://docs.composio.dev",
+  byokSetup: {
+    setupInstructions:
+      "Sign up at composio.dev, create an API key from the dashboard, and provide it as the apiKey secret.",
+    requiredScopes: [],
+    keyRotationSupported: false,
+    quotaTrackingSupported: true,
+    provisioningSteps: [
+      "Create a Composio account at https://composio.dev",
+      "Navigate to Settings > API Keys",
+      "Generate a new API key",
+      "Store the key as COMPOSIO_API_KEY",
+    ],
+  },
+});
+
+export function registerComposioIntegration(
+  registry: IntegrationSpecRegistry,
+): IntegrationSpecRegistry {
+  return registry.register(composioIntegrationSpec);
+}

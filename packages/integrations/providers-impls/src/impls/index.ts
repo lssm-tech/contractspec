@@ -33,3 +33,8 @@ export * from './fathom-meeting-recorder';
 export * from './health-provider-factory';
 export * from './health/providers';
 export * from './provider-factory';
+export * from './composio-types';
+export * from './composio-mcp';
+export * from './composio-sdk';
+export * from './composio-fallback-resolver';
+export * from './composio-proxies';

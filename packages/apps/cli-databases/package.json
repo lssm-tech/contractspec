@@ -30,6 +30,7 @@
   "exports": {
     ".": "./dist/index.mjs",
     "./cli": "./dist/cli.mjs",
+    "./profile": "./dist/profile.mjs",
     "./*": "./*"
   },
   "publishConfig": {

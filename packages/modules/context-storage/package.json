@@ -38,8 +38,10 @@
   "exports": {
     ".": "./src/index.ts",
     "./entities": "./src/entities/index.ts",
+    "./entities/index": "./src/entities/index.ts",
+    "./pipeline/context-snapshot-pipeline": "./src/pipeline/context-snapshot-pipeline.ts",
     "./storage": "./src/storage/index.ts",
-    "./pipeline": "./src/pipeline/context-snapshot-pipeline.ts"
+    "./storage/index": "./src/storage/index.ts"
   },
   "files": [
     "dist",
@@ -60,17 +62,29 @@
         "node": "./dist/node/entities/index.js",
         "default": "./dist/entities/index.js"
       },
+      "./entities/index": {
+        "types": "./dist/entities/index.d.ts",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.js",
+        "default": "./dist/entities/index.js"
+      },
+      "./pipeline/context-snapshot-pipeline": {
+        "types": "./dist/pipeline/context-snapshot-pipeline.d.ts",
+        "bun": "./dist/pipeline/context-snapshot-pipeline.js",
+        "node": "./dist/node/pipeline/context-snapshot-pipeline.js",
+        "default": "./dist/pipeline/context-snapshot-pipeline.js"
+      },
       "./storage": {
         "types": "./dist/storage/index.d.ts",
         "bun": "./dist/storage/index.js",
         "node": "./dist/node/storage/index.js",
         "default": "./dist/storage/index.js"
       },
-      "./pipeline": {
-        "types": "./dist/pipeline/context-snapshot-pipeline.d.ts",
-        "bun": "./dist/pipeline/context-snapshot-pipeline.js",
-        "node": "./dist/node/pipeline/context-snapshot-pipeline.js",
-        "default": "./dist/pipeline/context-snapshot-pipeline.js"
+      "./storage/index": {
+        "types": "./dist/storage/index.d.ts",
+        "bun": "./dist/storage/index.js",
+        "node": "./dist/node/storage/index.js",
+        "default": "./dist/storage/index.js"
       }
     },
     "registry": "https://registry.npmjs.org/"

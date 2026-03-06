@@ -29,7 +29,7 @@ const BenchmarkResultSummary = new SchemaModel({
     providerKey: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     source: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     dimension: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-    score: { type: ScalarTypeEnum.Float(), isOptional: false },
+    score: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
     measuredAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     ingestedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },

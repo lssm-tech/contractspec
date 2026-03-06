@@ -60,4 +60,5 @@ export * from './fitbit';
 export * from './myfitnesspal';
 export * from './eightsleep';
 export * from './peloton';
+export * from './composio';
 export * from './registry';

@@ -44,6 +44,7 @@ import { registerFitbitIntegration } from './fitbit';
 import { registerMyFitnessPalIntegration } from './myfitnesspal';
 import { registerEightSleepIntegration } from './eightsleep';
 import { registerPelotonIntegration } from './peloton';
+import { registerComposioIntegration } from './composio';
 
 /**
  * Creates a registry containing all IntegrationSpec providers shipped by
@@ -92,6 +93,7 @@ export function createDefaultIntegrationSpecRegistry(): IntegrationSpecRegistry 
   registerMyFitnessPalIntegration(registry);
   registerEightSleepIntegration(registry);
   registerPelotonIntegration(registry);
+  registerComposioIntegration(registry);
 
   return registry;
 }

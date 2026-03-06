@@ -32,11 +32,23 @@ Concrete provider implementations for AI, voice, email, payments, storage, messa
 | `./voice` | ElevenLabs, Fal, Gradium |
 | `./impls/*` | Individual provider modules |
 
+## Composio Fallback
+
+- `ComposioFallbackResolver` is opt-in via `IntegrationProviderFactory({ composioFallback })`.
+- When enabled, every `default:` branch in the factory delegates to Composio before throwing.
+- MCP is the default transport; SDK mode available for tool search and auth management.
+- Domain proxy adapters (`ComposioMessagingProxy`, `ComposioEmailProxy`, etc.) implement existing interfaces.
+- `ComposioGenericProxy` is the catch-all for untyped domains.
+- Session caching: MCP sessions are cached per userId with 30-min TTL.
+- Key mapping: `resolveToolkit()` in `composio-types.ts` maps integration keys to Composio toolkit names.
+
 ## Guardrails
 
 - Every implementation must satisfy a contract from `contracts-integrations`
 - Never import from apps or bundles
 - Secrets must flow through `@contractspec/integration.runtime`; never hard-code credentials
+- Composio fallback is opt-in; existing code paths are unchanged when config is absent
+- Composio proxy adapters must not leak Composio-specific types into domain interfaces
 
 ## Local Commands
 

@@ -207,6 +207,26 @@
         "tsdown": "catalog:build",
       },
     },
+    "packages/apps/provider-ranking-mcp": {
+      "name": "@contractspec/app.provider-ranking-mcp",
+      "version": "1.0.0",
+      "dependencies": {
+        "@contractspec/lib.contracts-runtime-server-mcp": "workspace:*",
+        "@contractspec/lib.contracts-spec": "workspace:*",
+        "@contractspec/lib.logger": "workspace:*",
+        "@contractspec/lib.provider-ranking": "workspace:*",
+        "@contractspec/module.provider-ranking": "workspace:*",
+        "@modelcontextprotocol/sdk": "catalog:ai",
+        "zod": "catalog:",
+      },
+      "devDependencies": {
+        "@contractspec/tool.tsdown": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@types/node": "^25.3.5",
+        "tsdown": "catalog:build",
+        "typescript": "catalog:",
+      },
+    },
     "packages/apps/registry-packs": {
       "name": "@contractspec/app.registry-packs",
       "version": "1.0.0",
@@ -1426,6 +1446,7 @@
         "@ai-sdk/google": "catalog:ai",
         "@ai-sdk/mistral": "catalog:ai",
         "@ai-sdk/openai": "catalog:ai",
+        "@contractspec/lib.provider-ranking": "workspace:*",
         "ai": "catalog:ai",
         "ollama-ai-provider": "catalog:ai",
         "zod": "catalog:",
@@ -1475,6 +1496,7 @@
       "name": "@contractspec/lib.content-gen",
       "version": "3.0.0",
       "dependencies": {
+        "@contractspec/lib.ai-providers": "workspace:*",
         "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
       },
@@ -1717,6 +1739,7 @@
       "version": "3.0.0",
       "dependencies": {
         "@contractspec/lib.ai-agent": "workspace:*",
+        "@contractspec/lib.ai-providers": "workspace:*",
         "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.lifecycle": "workspace:*",
@@ -2403,6 +2426,7 @@
       "name": "@contractspec/lib.video-gen",
       "version": "2.0.0",
       "dependencies": {
+        "@contractspec/lib.ai-providers": "workspace:*",
         "@contractspec/lib.content-gen": "workspace:*",
         "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
@@ -2437,6 +2461,7 @@
       "name": "@contractspec/lib.voice",
       "version": "1.0.0",
       "dependencies": {
+        "@contractspec/lib.ai-providers": "workspace:*",
         "@contractspec/lib.content-gen": "workspace:*",
         "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
@@ -2451,6 +2476,7 @@
       "name": "@contractspec/lib.workflow-composer",
       "version": "3.0.0",
       "dependencies": {
+        "@contractspec/lib.ai-providers": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
         "compare-versions": "^6.1.1",
       },
@@ -2652,6 +2678,20 @@
         "typescript": "catalog:",
       },
     },
+    "packages/modules/provider-ranking": {
+      "name": "@contractspec/module.provider-ranking",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+        "@contractspec/lib.provider-ranking": "workspace:*",
+        "@contractspec/lib.schema": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
     "packages/modules/workspace": {
       "name": "@contractspec/module.workspace",
       "version": "3.0.0",
@@ -2796,6 +2836,7 @@
       "@ai-sdk/mistral": "3.0.24",
       "@ai-sdk/openai": "3.0.41",
       "@ai-sdk/react": "3.0.118",
+      "@modelcontextprotocol/sdk": "^1.27.1",
       "ai": "6.0.116",
       "ollama-ai-provider": "^1.2.0",
     },
@@ -3224,6 +3265,8 @@
 
     "@contractspec/app.cursor-marketplace": ["@contractspec/app.cursor-marketplace@workspace:packages/apps-registry/cursor-marketplace"],
 
+    "@contractspec/app.provider-ranking-mcp": ["@contractspec/app.provider-ranking-mcp@workspace:packages/apps/provider-ranking-mcp"],
+
     "@contractspec/app.registry-packs": ["@contractspec/app.registry-packs@workspace:packages/apps/registry-packs"],
 
     "@contractspec/app.registry-server": ["@contractspec/app.registry-server@workspace:packages/apps/registry-server"],
@@ -3481,6 +3524,8 @@
     "@contractspec/module.notifications": ["@contractspec/module.notifications@workspace:packages/modules/notifications"],
 
     "@contractspec/module.product-intent-core": ["@contractspec/module.product-intent-core@workspace:packages/modules/product-intent-core"],
+
+    "@contractspec/module.provider-ranking": ["@contractspec/module.provider-ranking@workspace:packages/modules/provider-ranking"],
 
     "@contractspec/module.workspace": ["@contractspec/module.workspace@workspace:packages/modules/workspace"],
 

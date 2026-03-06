@@ -41,6 +41,7 @@
       "ai": {
         "ai": "6.0.116",
         "@ai-sdk/mcp": "1.0.25",
+        "@modelcontextprotocol/sdk": "^1.27.1",
         "@ai-sdk/anthropic": "3.0.58",
         "@ai-sdk/google": "3.0.43",
         "@ai-sdk/mistral": "3.0.24",

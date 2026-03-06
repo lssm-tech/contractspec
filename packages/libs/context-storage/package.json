@@ -37,8 +37,8 @@
   },
   "exports": {
     ".": "./src/index.ts",
-    "./store": "./src/store.ts",
     "./in-memory-store": "./src/in-memory-store.ts",
+    "./store": "./src/store.ts",
     "./types": "./src/types.ts"
   },
   "publishConfig": {
@@ -48,24 +48,28 @@
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
+        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
-      },
-      "./store": {
-        "types": "./dist/store.d.ts",
-        "bun": "./dist/store.js",
-        "node": "./dist/node/store.js",
-        "default": "./dist/store.js"
       },
       "./in-memory-store": {
         "types": "./dist/in-memory-store.d.ts",
         "bun": "./dist/in-memory-store.js",
         "node": "./dist/node/in-memory-store.js",
+        "browser": "./dist/browser/in-memory-store.js",
         "default": "./dist/in-memory-store.js"
+      },
+      "./store": {
+        "types": "./dist/store.d.ts",
+        "bun": "./dist/store.js",
+        "node": "./dist/node/store.js",
+        "browser": "./dist/browser/store.js",
+        "default": "./dist/store.js"
       },
       "./types": {
         "types": "./dist/types.d.ts",
         "bun": "./dist/types.js",
         "node": "./dist/node/types.js",
+        "browser": "./dist/browser/types.js",
         "default": "./dist/types.js"
       }
     },

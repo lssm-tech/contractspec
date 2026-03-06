@@ -52,10 +52,10 @@
     "./factory": "./src/factory.ts",
     "./legacy": "./src/legacy.ts",
     "./models": "./src/models.ts",
-    "./types": "./src/types.ts",
-    "./validation": "./src/validation.ts",
     "./selector": "./src/selector.ts",
-    "./selector-types": "./src/selector-types.ts"
+    "./selector-types": "./src/selector-types.ts",
+    "./types": "./src/types.ts",
+    "./validation": "./src/validation.ts"
   },
   "publishConfig": {
     "access": "public",
@@ -88,20 +88,6 @@
         "browser": "./dist/browser/models.js",
         "default": "./dist/models.js"
       },
-      "./types": {
-        "types": "./dist/types.d.ts",
-        "bun": "./dist/types.js",
-        "node": "./dist/node/types.js",
-        "browser": "./dist/browser/types.js",
-        "default": "./dist/types.js"
-      },
-      "./validation": {
-        "types": "./dist/validation.d.ts",
-        "bun": "./dist/validation.js",
-        "node": "./dist/node/validation.js",
-        "browser": "./dist/browser/validation.js",
-        "default": "./dist/validation.js"
-      },
       "./selector": {
         "types": "./dist/selector.d.ts",
         "bun": "./dist/selector.js",
@@ -115,6 +101,20 @@
         "node": "./dist/node/selector-types.js",
         "browser": "./dist/browser/selector-types.js",
         "default": "./dist/selector-types.js"
+      },
+      "./types": {
+        "types": "./dist/types.d.ts",
+        "bun": "./dist/types.js",
+        "node": "./dist/node/types.js",
+        "browser": "./dist/browser/types.js",
+        "default": "./dist/types.js"
+      },
+      "./validation": {
+        "types": "./dist/validation.d.ts",
+        "bun": "./dist/validation.js",
+        "node": "./dist/node/validation.js",
+        "browser": "./dist/browser/validation.js",
+        "default": "./dist/validation.js"
       }
     },
     "registry": "https://registry.npmjs.org/"
