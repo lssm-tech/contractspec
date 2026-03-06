@@ -51,6 +51,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./acp": "./src/acp/index.ts",
+    "./acp/acp.feature": "./src/acp/acp.feature.ts",
     "./acp/capabilities": "./src/acp/capabilities/index.ts",
     "./acp/capabilities/acpTransport.capability": "./src/acp/capabilities/acpTransport.capability.ts",
     "./acp/capabilities/index": "./src/acp/capabilities/index.ts",
@@ -68,6 +69,7 @@
     "./acp/ensure-docblocks": "./src/acp/ensure-docblocks.ts",
     "./acp/index": "./src/acp/index.ts",
     "./agent": "./src/agent/index.ts",
+    "./agent/agent.feature": "./src/agent/agent.feature.ts",
     "./agent/capabilities": "./src/agent/capabilities/index.ts",
     "./agent/capabilities/agentExecution.capability": "./src/agent/capabilities/agentExecution.capability.ts",
     "./agent/capabilities/index": "./src/agent/capabilities/index.ts",
@@ -129,6 +131,7 @@
     "./context/commands/contextPackSnapshot.command": "./src/context/commands/contextPackSnapshot.command.ts",
     "./context/commands/index": "./src/context/commands/index.ts",
     "./context/constants": "./src/context/constants.ts",
+    "./context/context.feature": "./src/context/context.feature.ts",
     "./context/contracts": "./src/context/contracts.ts",
     "./context/ensure-docblocks": "./src/context/ensure-docblocks.ts",
     "./context/events": "./src/context/events/index.ts",
@@ -210,6 +213,7 @@
     "./database/capabilities/index": "./src/database/capabilities/index.ts",
     "./database/constants": "./src/database/constants.ts",
     "./database/contracts": "./src/database/contracts.ts",
+    "./database/database.feature": "./src/database/database.feature.ts",
     "./database/ensure-docblocks": "./src/database/ensure-docblocks.ts",
     "./database/index": "./src/database/index.ts",
     "./database/queries": "./src/database/queries/index.ts",
@@ -232,6 +236,7 @@
     "./docs/commands/index": "./src/docs/commands/index.ts",
     "./docs/constants": "./src/docs/constants.ts",
     "./docs/contracts": "./src/docs/contracts.ts",
+    "./docs/docs.feature": "./src/docs/docs.feature.ts",
     "./docs/ensure-docblocks": "./src/docs/ensure-docblocks.ts",
     "./docs/events": "./src/docs/events/index.ts",
     "./docs/events/docsGenerated.event": "./src/docs/events/docsGenerated.event.ts",
@@ -448,6 +453,7 @@
     "./jobs/memory-queue": "./src/jobs/memory-queue.ts",
     "./jobs/queue": "./src/jobs/queue.ts",
     "./jobs/scaleway-sqs-queue": "./src/jobs/scaleway-sqs-queue.ts",
+    "./jobs/spec": "./src/jobs/spec.ts",
     "./jsonschema": "./src/jsonschema.ts",
     "./knowledge": "./src/knowledge/index.ts",
     "./knowledge/binding": "./src/knowledge/binding.ts",
@@ -555,6 +561,7 @@
     "./provider-ranking/presentations": "./src/provider-ranking/presentations/index.ts",
     "./provider-ranking/presentations/index": "./src/provider-ranking/presentations/index.ts",
     "./provider-ranking/presentations/modelComparison.presentation": "./src/provider-ranking/presentations/modelComparison.presentation.ts",
+    "./provider-ranking/provider-ranking.feature": "./src/provider-ranking/provider-ranking.feature.ts",
     "./provider-ranking/queries": "./src/provider-ranking/queries/index.ts",
     "./provider-ranking/queries/benchmarkResultsList.query": "./src/provider-ranking/queries/benchmarkResultsList.query.ts",
     "./provider-ranking/queries/index": "./src/provider-ranking/queries/index.ts",
@@ -642,6 +649,12 @@
         "bun": "./dist/acp/index.js",
         "node": "./dist/node/acp/index.js",
         "default": "./dist/acp/index.js"
+      },
+      "./acp/acp.feature": {
+        "types": "./dist/acp/acp.feature.d.ts",
+        "bun": "./dist/acp/acp.feature.js",
+        "node": "./dist/node/acp/acp.feature.js",
+        "default": "./dist/acp/acp.feature.js"
       },
       "./acp/capabilities": {
         "types": "./dist/acp/capabilities/index.d.ts",
@@ -744,6 +757,12 @@
         "bun": "./dist/agent/index.js",
         "node": "./dist/node/agent/index.js",
         "default": "./dist/agent/index.js"
+      },
+      "./agent/agent.feature": {
+        "types": "./dist/agent/agent.feature.d.ts",
+        "bun": "./dist/agent/agent.feature.js",
+        "node": "./dist/node/agent/agent.feature.js",
+        "default": "./dist/agent/agent.feature.js"
       },
       "./agent/capabilities": {
         "types": "./dist/agent/capabilities/index.d.ts",
@@ -1110,6 +1129,12 @@
         "bun": "./dist/context/constants.js",
         "node": "./dist/node/context/constants.js",
         "default": "./dist/context/constants.js"
+      },
+      "./context/context.feature": {
+        "types": "./dist/context/context.feature.d.ts",
+        "bun": "./dist/context/context.feature.js",
+        "node": "./dist/node/context/context.feature.js",
+        "default": "./dist/context/context.feature.js"
       },
       "./context/contracts": {
         "types": "./dist/context/contracts.d.ts",
@@ -1597,6 +1622,12 @@
         "node": "./dist/node/database/contracts.js",
         "default": "./dist/database/contracts.js"
       },
+      "./database/database.feature": {
+        "types": "./dist/database/database.feature.d.ts",
+        "bun": "./dist/database/database.feature.js",
+        "node": "./dist/node/database/database.feature.js",
+        "default": "./dist/database/database.feature.js"
+      },
       "./database/ensure-docblocks": {
         "types": "./dist/database/ensure-docblocks.d.ts",
         "bun": "./dist/database/ensure-docblocks.js",
@@ -1728,6 +1759,12 @@
         "bun": "./dist/docs/contracts.js",
         "node": "./dist/node/docs/contracts.js",
         "default": "./dist/docs/contracts.js"
+      },
+      "./docs/docs.feature": {
+        "types": "./dist/docs/docs.feature.d.ts",
+        "bun": "./dist/docs/docs.feature.js",
+        "node": "./dist/node/docs/docs.feature.js",
+        "default": "./dist/docs/docs.feature.js"
       },
       "./docs/ensure-docblocks": {
         "types": "./dist/docs/ensure-docblocks.d.ts",
@@ -3025,6 +3062,12 @@
         "node": "./dist/node/jobs/scaleway-sqs-queue.js",
         "default": "./dist/jobs/scaleway-sqs-queue.js"
       },
+      "./jobs/spec": {
+        "types": "./dist/jobs/spec.d.ts",
+        "bun": "./dist/jobs/spec.js",
+        "node": "./dist/node/jobs/spec.js",
+        "default": "./dist/jobs/spec.js"
+      },
       "./jsonschema": {
         "types": "./dist/jsonschema.d.ts",
         "bun": "./dist/jsonschema.js",
@@ -3666,6 +3709,12 @@
         "bun": "./dist/provider-ranking/presentations/modelComparison.presentation.js",
         "node": "./dist/node/provider-ranking/presentations/modelComparison.presentation.js",
         "default": "./dist/provider-ranking/presentations/modelComparison.presentation.js"
+      },
+      "./provider-ranking/provider-ranking.feature": {
+        "types": "./dist/provider-ranking/provider-ranking.feature.d.ts",
+        "bun": "./dist/provider-ranking/provider-ranking.feature.js",
+        "node": "./dist/node/provider-ranking/provider-ranking.feature.js",
+        "default": "./dist/provider-ranking/provider-ranking.feature.js"
       },
       "./provider-ranking/queries": {
         "types": "./dist/provider-ranking/queries/index.d.ts",

@@ -67,4 +67,13 @@ export const WealthSnapshotFeature = defineFeature({
       { key: 'goals', version: '1.0.0' },
     ],
   },
+
+  telemetry: [{ key: 'wealth-snapshot.telemetry', version: '1.0.0' }],
+
+  docs: [
+    'docs.examples.wealth-snapshot',
+    'docs.examples.wealth-snapshot.goal',
+    'docs.examples.wealth-snapshot.usage',
+    'docs.examples.wealth-snapshot.constraints',
+  ],
 });

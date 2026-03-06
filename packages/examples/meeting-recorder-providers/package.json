@@ -14,7 +14,8 @@
     "./handlers/create-provider": "./src/handlers/create-provider.ts",
     "./handlers/get-transcript": "./src/handlers/get-transcript.ts",
     "./handlers/list-meetings": "./src/handlers/list-meetings.ts",
-    "./handlers/webhook-handler": "./src/handlers/webhook-handler.ts"
+    "./handlers/webhook-handler": "./src/handlers/webhook-handler.ts",
+    "./meeting-recorder-providers.feature": "./src/meeting-recorder-providers.feature.ts"
   },
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
@@ -113,6 +114,13 @@
         "node": "./dist/node/handlers/webhook-handler.js",
         "browser": "./dist/browser/handlers/webhook-handler.js",
         "default": "./dist/handlers/webhook-handler.js"
+      },
+      "./meeting-recorder-providers.feature": {
+        "types": "./dist/meeting-recorder-providers.feature.d.ts",
+        "bun": "./dist/meeting-recorder-providers.feature.js",
+        "node": "./dist/node/meeting-recorder-providers.feature.js",
+        "browser": "./dist/browser/meeting-recorder-providers.feature.js",
+        "default": "./dist/meeting-recorder-providers.feature.js"
       }
     },
     "registry": "https://registry.npmjs.org/"

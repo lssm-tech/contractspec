@@ -4,39 +4,51 @@ import type { ExperimentRef } from '../experiments/spec';
 import type { ImplementationRef } from '../operations/';
 import type { PresentationTarget } from '../presentations/presentations';
 import type { VersionedSpecRef, SpecKeyRef } from '../versioning';
+import type { PolicyRef } from '../policy/spec';
+import type { TranslationRef } from '../translations/spec';
 
 /** Minimal metadata to identify and categorize a feature module. */
 export type FeatureModuleMeta = OwnerShipMeta;
 
-/**
- * Reference to an operation spec.
- * Uses key (OperationSpec.meta.key) and version (OperationSpec.meta.version).
- */
+// ── Versioned spec references ────────────────────────────────────────────────
+
+/** Reference to an operation spec (key + version). */
 export type OpRef = VersionedSpecRef;
 
-/**
- * Reference to an event spec.
- * Uses key (EventSpec.meta.key) and version (EventSpec.meta.version).
- */
+/** Reference to an event spec (key + version). */
 export type EventRef = VersionedSpecRef;
 
-/**
- * Reference to a presentation spec.
- * Uses key (PresentationSpec.meta.key) and version (PresentationSpec.meta.version).
- */
+/** Reference to a presentation spec (key + version). */
 export type PresentationRef = VersionedSpecRef;
 
-/**
- * Reference to a data view spec.
- * Uses key (DataViewSpec.meta.key) and version (DataViewSpec.meta.version).
- */
+/** Reference to a data view spec (key + version). */
 export type DataViewRef = VersionedSpecRef;
 
-/**
- * Reference to a form spec.
- * Uses key (FormSpec.meta.key) and version (FormSpec.meta.version).
- */
+/** Reference to a form spec (key + version). */
 export type FormRef = VersionedSpecRef;
+
+/** Reference to a workflow spec (key + version). */
+export type WorkflowRef = VersionedSpecRef;
+
+/** Reference to a knowledge space spec (key + version). */
+export type KnowledgeRef = VersionedSpecRef;
+
+/** Reference to a telemetry spec (key + version). */
+export type TelemetryRef = VersionedSpecRef;
+
+/** Reference to an integration spec (key + version). */
+export type IntegrationRef = VersionedSpecRef;
+
+/** Reference to a job spec (key + version). */
+export type JobRef = VersionedSpecRef;
+
+/** Reference to a DocBlock by its unique id. */
+export type DocRef = string;
+
+// Re-export imported refs for convenience
+export type { PolicyRef, TranslationRef };
+
+// ── Feature Module Spec ──────────────────────────────────────────────────────
 
 /** Group operations/events/presentations into an installable feature. */
 export interface FeatureModuleSpec {
@@ -77,6 +89,30 @@ export interface FeatureModuleSpec {
 
   /** Forms associated with this feature. */
   forms?: FormRef[];
+
+  /** Workflows orchestrated by this feature. */
+  workflows?: WorkflowRef[];
+
+  /** Knowledge spaces consumed/produced by this feature. */
+  knowledge?: KnowledgeRef[];
+
+  /** Telemetry spec grouping events tracked by this feature. */
+  telemetry?: TelemetryRef[];
+
+  /** Policies governing this feature. */
+  policies?: PolicyRef[];
+
+  /** Integration specs required by this feature. */
+  integrations?: IntegrationRef[];
+
+  /** Background jobs declared by this feature. */
+  jobs?: JobRef[];
+
+  /** Translation specs providing i18n messages for this feature. */
+  translations?: TranslationRef[];
+
+  /** DocBlock IDs documenting this feature. */
+  docs?: DocRef[];
 }
 
 /**

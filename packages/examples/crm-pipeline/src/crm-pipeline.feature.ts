@@ -97,4 +97,13 @@ export const CrmPipelineFeature = defineFeature({
       { key: 'notifications', version: '1.0.0' },
     ],
   },
+
+  telemetry: [{ key: 'crm-pipeline.telemetry', version: '1.0.0' }],
+
+  docs: [
+    'docs.examples.crm-pipeline.goal',
+    'docs.examples.crm-pipeline.usage',
+    'docs.examples.crm-pipeline.reference',
+    'docs.examples.crm-pipeline.constraints',
+  ],
 });

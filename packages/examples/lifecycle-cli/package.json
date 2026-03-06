@@ -10,7 +10,8 @@
     "./docs": "./src/docs/index.ts",
     "./docs/index": "./src/docs/index.ts",
     "./docs/lifecycle-cli.docblock": "./src/docs/lifecycle-cli.docblock.ts",
-    "./example": "./src/example.ts"
+    "./example": "./src/example.ts",
+    "./lifecycle-cli.feature": "./src/lifecycle-cli.feature.ts"
   },
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
@@ -82,6 +83,13 @@
         "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
+      },
+      "./lifecycle-cli.feature": {
+        "types": "./dist/lifecycle-cli.feature.d.ts",
+        "bun": "./dist/lifecycle-cli.feature.js",
+        "node": "./dist/node/lifecycle-cli.feature.js",
+        "browser": "./dist/browser/lifecycle-cli.feature.js",
+        "default": "./dist/lifecycle-cli.feature.js"
       }
     },
     "registry": "https://registry.npmjs.org/"

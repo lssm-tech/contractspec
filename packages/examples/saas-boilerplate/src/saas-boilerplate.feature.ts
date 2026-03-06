@@ -110,4 +110,15 @@ export const SaasBoilerplateFeature = defineFeature({
       { key: 'notifications', version: '1.0.0' },
     ],
   },
+
+  telemetry: [{ key: 'saas-boilerplate.telemetry', version: '1.0.0' }],
+
+  jobs: [{ key: 'saas-boilerplate.job.usage-recording', version: '1.0.0' }],
+
+  docs: [
+    'docs.examples.saas-boilerplate.goal',
+    'docs.examples.saas-boilerplate.usage',
+    'docs.examples.saas-boilerplate.reference',
+    'docs.examples.saas-boilerplate.constraints',
+  ],
 });

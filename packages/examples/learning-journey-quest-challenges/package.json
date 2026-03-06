@@ -10,6 +10,7 @@
     "./docs/index": "./src/docs/index.ts",
     "./docs/quest-challenges.docblock": "./src/docs/quest-challenges.docblock.ts",
     "./example": "./src/example.ts",
+    "./learning-journey-quest-challenges.feature": "./src/learning-journey-quest-challenges.feature.ts",
     "./track": "./src/track.ts"
   },
   "scripts": {
@@ -72,6 +73,13 @@
         "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
+      },
+      "./learning-journey-quest-challenges.feature": {
+        "types": "./dist/learning-journey-quest-challenges.feature.d.ts",
+        "bun": "./dist/learning-journey-quest-challenges.feature.js",
+        "node": "./dist/node/learning-journey-quest-challenges.feature.js",
+        "browser": "./dist/browser/learning-journey-quest-challenges.feature.js",
+        "default": "./dist/learning-journey-quest-challenges.feature.js"
       },
       "./track": {
         "types": "./dist/track.d.ts",

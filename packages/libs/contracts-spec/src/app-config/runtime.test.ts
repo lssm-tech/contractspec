@@ -20,6 +20,7 @@ import {
   type KnowledgeSpaceSpec,
 } from '../knowledge/spec';
 import type { KnowledgeSourceConfig } from '../knowledge/source';
+import { JobSpecRegistry, type JobSpec } from '../jobs/spec';
 import { type Owner, StabilityEnum, type Tag } from '../ownership';
 
 const ownership = {
@@ -297,6 +298,17 @@ function makeKnowledgeSource(
   };
 }
 
+function makeJob(key = 'core.daily-sync'): JobSpec {
+  return {
+    meta: {
+      ...ownership,
+      key,
+      version: '1.0.0',
+    },
+    payload: { schema: {} },
+  };
+}
+
 const blueprint: AppBlueprintSpec = {
   meta: {
     ...ownership,
@@ -342,6 +354,9 @@ const blueprint: AppBlueprintSpec = {
   },
   workflows: {
     onboarding: { key: 'core.onboarding', version: '1.0.0' },
+  },
+  jobs: {
+    dailySync: { key: 'core.daily-sync', version: '1.0.0' },
   },
   policies: [{ key: 'core.policy', version: '1.0.0' }],
   theme: {
@@ -391,6 +406,12 @@ const tenantConfig: TenantAppConfig = {
     {
       slot: 'onboarding',
       pointer: { key: 'core.onboarding.alt', version: '1.0.0' },
+    },
+  ],
+  jobOverrides: [
+    {
+      slot: 'dailySync',
+      pointer: { key: 'core.daily-sync.alt', version: '1.0.0' },
     },
   ],
   additionalPolicies: [{ key: 'core.policy.tenant', version: '1.0.0' }],
@@ -568,6 +589,10 @@ describe('composeAppConfig', () => {
       makeKnowledgeSpace()
     );
     const knowledgeSources = [makeKnowledgeSource()];
+    const jobs = new JobSpecRegistry([
+      makeJob('core.daily-sync'),
+      makeJob('core.daily-sync.alt'),
+    ]);
 
     const composition = composeAppConfig(
       blueprint,
@@ -585,6 +610,7 @@ describe('composeAppConfig', () => {
         integrationConnections,
         knowledgeSpaces,
         knowledgeSources,
+        jobs,
       },
       { strict: false }
     );
@@ -633,6 +659,7 @@ describe('composeAppConfig', () => {
         'feature',
         'dataView',
         'workflow',
+        'job',
         'policy',
         'theme',
         'telemetry',
@@ -693,5 +720,82 @@ describe('composeAppConfig', () => {
     expect(() =>
       composeAppConfig(blueprint, tenantConfig, {}, { strict: true })
     ).toThrow(/missing references/);
+  });
+
+  it('materializes jobs from blueprint and tenant overrides', () => {
+    const capabilities = new CapabilityRegistry()
+      .register(makeCapability())
+      .register(makeCapability('core.tenant-extension', '1.0.0'));
+    const features = new FeatureRegistry()
+      .register(makeFeature())
+      .register(makeFeature('core-shell-optional'));
+    const dataViews = new DataViewRegistry()
+      .register(makeDataView())
+      .register(makeDataView('core.dashboard.alt'));
+    const workflows = new WorkflowRegistry()
+      .register(makeWorkflow())
+      .register(makeWorkflow('core.onboarding.alt'));
+    const policies = new PolicyRegistry().register(makePolicy()).register({
+      meta: {
+        ...ownership,
+        key: 'core.policy.tenant',
+        version: '1.0.0',
+        scope: 'feature',
+      },
+      rules: [
+        {
+          effect: 'allow',
+          actions: ['edit'],
+          resource: { type: 'any' },
+        },
+      ],
+    });
+    const themes = new ThemeRegistry()
+      .register(makeTheme())
+      .register(makeTheme('core.theme.alt'));
+    const telemetry = new TelemetryRegistry()
+      .register(makeTelemetry())
+      .register(makeTelemetry('core.telemetry.alt'));
+    const experiments = new ExperimentRegistry()
+      .register(makeExperiment())
+      .register(makeExperiment('core.experiment.alt'));
+    const integrationSpecs = new IntegrationSpecRegistry().register(
+      makeIntegrationSpec()
+    );
+    const integrationConnections = [makeIntegrationConnection()];
+    const knowledgeSpaces = new KnowledgeSpaceRegistry().register(
+      makeKnowledgeSpace()
+    );
+    const knowledgeSources = [makeKnowledgeSource()];
+    const jobs = new JobSpecRegistry([
+      makeJob('core.daily-sync'),
+      makeJob('core.daily-sync.alt'),
+    ]);
+
+    const composition = composeAppConfig(
+      blueprint,
+      tenantConfig,
+      {
+        capabilities,
+        features,
+        dataViews,
+        workflows,
+        policies,
+        themes,
+        telemetry,
+        experiments,
+        integrationSpecs,
+        integrationConnections,
+        knowledgeSpaces,
+        knowledgeSources,
+        jobs,
+      },
+      { strict: false }
+    );
+
+    expect(composition.jobs.dailySync?.meta.key).toBe('core.daily-sync.alt');
+    expect(composition.resolved.jobs.dailySync?.key).toBe(
+      'core.daily-sync.alt'
+    );
   });
 });

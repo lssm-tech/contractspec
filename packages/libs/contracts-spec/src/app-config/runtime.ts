@@ -90,6 +90,7 @@ export interface ResolvedAppConfig {
   };
   dataViews: Record<string, SpecPointer>;
   workflows: Record<string, SpecPointer>;
+  jobs: Record<string, SpecPointer>;
   policies: PolicyRef[];
   theme?: AppThemeBinding;
   telemetry?: TelemetryBinding;
@@ -113,6 +114,7 @@ export interface AppComposition {
   features: FeatureModuleSpec[];
   dataViews: Record<string, DataViewSpec>;
   workflows: Record<string, WorkflowSpec>;
+  jobs: Record<string, import('../jobs/spec').JobSpec>;
   policies: PolicySpec[];
   theme?: ThemeSpec;
   themeFallbacks: ThemeSpec[];
@@ -132,6 +134,7 @@ export interface MissingReference {
     | 'feature'
     | 'dataView'
     | 'workflow'
+    | 'job'
     | 'policy'
     | 'theme'
     | 'telemetry'
@@ -156,6 +159,7 @@ export interface AppCompositionDeps extends ResolveAppConfigDeps {
   features?: FeatureRegistry;
   dataViews?: DataViewRegistry;
   workflows?: WorkflowRegistry;
+  jobs?: import('../jobs/spec').JobSpecRegistry;
   policies?: PolicyRegistry;
   themes?: ThemeRegistry;
   telemetry?: TelemetryRegistry;
@@ -184,6 +188,7 @@ export function resolveAppConfig(
     blueprint.workflows ?? {},
     tenant.workflowOverrides
   );
+  const jobs = mergeMappings(blueprint.jobs ?? {}, tenant.jobOverrides);
   const policies = mergePolicies(
     blueprint.policies ?? [],
     tenant.additionalPolicies ?? []
@@ -234,6 +239,7 @@ export function resolveAppConfig(
     features,
     dataViews,
     workflows,
+    jobs,
     policies,
     theme,
     telemetry,
@@ -299,6 +305,8 @@ export function composeAppConfig(
     missing
   );
 
+  const jobs = resolvePointerRecord(resolved.jobs, deps.jobs, 'job', missing);
+
   const policies = resolvePolicies(resolved.policies, deps.policies, missing);
 
   const { theme, fallbacks, themeMissing } = resolveThemeBinding(
@@ -332,6 +340,7 @@ export function composeAppConfig(
     features,
     dataViews,
     workflows,
+    jobs,
     policies,
     theme,
     themeFallbacks: fallbacks,
@@ -934,7 +943,7 @@ function resolvePointerRecord<TSpec>(
   registry:
     | { get(name: string, version?: string): TSpec | undefined }
     | undefined,
-  type: 'dataView' | 'workflow',
+  type: 'dataView' | 'workflow' | 'job',
   missing: MissingReference[]
 ): Record<string, TSpec> {
   if (!registry) {

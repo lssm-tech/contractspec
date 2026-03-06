@@ -464,6 +464,13 @@ export const SpecKindSchema: z.ZodType<SpecKind> = z.enum([
   'telemetry',
   'experiment',
   'app-config',
+  'integration',
+  'knowledge',
+  'policy',
+  'form',
+  'capability',
+  'job',
+  'translation',
 ]);
 
 /**

@@ -66,6 +66,7 @@ function buildResolvedConfig(
     features: { include: [], exclude: [] },
     dataViews: {},
     workflows: {},
+    jobs: {},
     policies: [],
     integrations: integration
       ? [

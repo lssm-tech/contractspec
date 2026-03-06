@@ -121,4 +121,13 @@ export const AnalyticsDashboardFeature = defineFeature({
       { key: 'audit-trail', version: '1.0.0' },
     ],
   },
+
+  telemetry: [{ key: 'analytics-dashboard.telemetry', version: '1.0.0' }],
+
+  docs: [
+    'docs.examples.analytics-dashboard',
+    'docs.examples.analytics-dashboard.goal',
+    'docs.examples.analytics-dashboard.usage',
+    'docs.examples.analytics-dashboard.constraints',
+  ],
 });

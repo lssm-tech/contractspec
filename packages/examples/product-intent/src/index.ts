@@ -15,3 +15,4 @@ export {
   resolvePosthogEvidenceOptionsFromEnv,
 } from './posthog-signals';
 export type { PosthogEvidenceOptions } from './posthog-signals';
+export * from './product-intent.feature';

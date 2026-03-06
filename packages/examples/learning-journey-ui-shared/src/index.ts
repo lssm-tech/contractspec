@@ -16,5 +16,6 @@ export type {
   ViewTabsProps,
 } from './types';
 
+export * from './learning-journey-ui-shared.feature';
 export { default as example } from './example';
 import './docs';

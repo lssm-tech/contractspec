@@ -16,6 +16,7 @@
     "./docs/learning-journey-ui-gamified.docblock": "./src/docs/learning-journey-ui-gamified.docblock.ts",
     "./example": "./src/example.ts",
     "./GamifiedMiniApp": "./src/GamifiedMiniApp.tsx",
+    "./learning-journey-ui-gamified.feature": "./src/learning-journey-ui-gamified.feature.ts",
     "./views": "./src/views/index.ts",
     "./views/index": "./src/views/index.ts",
     "./views/Overview": "./src/views/Overview.tsx",
@@ -135,6 +136,13 @@
         "node": "./dist/node/GamifiedMiniApp.js",
         "browser": "./dist/browser/GamifiedMiniApp.js",
         "default": "./dist/GamifiedMiniApp.js"
+      },
+      "./learning-journey-ui-gamified.feature": {
+        "types": "./dist/learning-journey-ui-gamified.feature.d.ts",
+        "bun": "./dist/learning-journey-ui-gamified.feature.js",
+        "node": "./dist/node/learning-journey-ui-gamified.feature.js",
+        "browser": "./dist/browser/learning-journey-ui-gamified.feature.js",
+        "default": "./dist/learning-journey-ui-gamified.feature.js"
       },
       "./views": {
         "types": "./dist/views/index.d.ts",

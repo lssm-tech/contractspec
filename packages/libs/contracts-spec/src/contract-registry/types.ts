@@ -14,7 +14,11 @@ export type ContractRegistryItemType =
   | 'contractspec:telemetry'
   | 'contractspec:experiment'
   | 'contractspec:app-config'
-  | 'contractspec:knowledge';
+  | 'contractspec:knowledge'
+  | 'contractspec:policy'
+  | 'contractspec:capability'
+  | 'contractspec:job'
+  | 'contractspec:translation';
 
 export type JsonSchema = unknown;
 

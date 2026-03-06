@@ -1,5 +1,14 @@
 import type { PresentationSpec } from '../presentations/presentations';
 import type { CapabilityRegistry } from '../capabilities';
+import type { WorkflowRegistry } from '../workflow/spec';
+import type { KnowledgeSpaceRegistry } from '../knowledge/spec';
+import type { TelemetryRegistry } from '../telemetry/spec';
+import type { PolicyRegistry } from '../policy/registry';
+import type { IntegrationSpecRegistry } from '../integrations/spec';
+import type { JobSpecRegistry } from '../jobs/spec';
+import type { TranslationRegistry } from '../translations/registry';
+import type { DataViewRegistry } from '../data-views/registry';
+import type { FormRegistry } from '../forms/forms';
 import type { FeatureModuleSpec } from './types';
 import type { FeatureRegistry } from './registry';
 
@@ -10,6 +19,15 @@ export interface InstallFeatureDeps {
   presentations?: import('../presentations').PresentationRegistry;
   descriptors?: PresentationSpec[];
   capabilities?: CapabilityRegistry;
+  workflows?: WorkflowRegistry;
+  knowledge?: KnowledgeSpaceRegistry;
+  telemetry?: TelemetryRegistry;
+  policies?: PolicyRegistry;
+  integrations?: IntegrationSpecRegistry;
+  jobs?: JobSpecRegistry;
+  translations?: TranslationRegistry;
+  dataViews?: DataViewRegistry;
+  forms?: FormRegistry;
 }
 
 /** Validate and register a feature against optional registries/descriptors. */
@@ -95,6 +113,89 @@ export function installFeature(
       if (!satisfied)
         throw new Error(
           `installFeature: capability requirement not satisfied ${req.key}${req.version ? `.v${req.version}` : ''}`
+        );
+    }
+  }
+  if (deps.dataViews && feature.dataViews) {
+    for (const dv of feature.dataViews) {
+      const spec = deps.dataViews.get(dv.key, dv.version);
+      if (!spec)
+        throw new Error(
+          `installFeature: data view not found ${dv.key}.v${dv.version}`
+        );
+    }
+  }
+  if (deps.forms && feature.forms) {
+    for (const f of feature.forms) {
+      const spec = deps.forms.get(f.key, f.version);
+      if (!spec)
+        throw new Error(
+          `installFeature: form not found ${f.key}.v${f.version}`
+        );
+    }
+  }
+  if (deps.workflows && feature.workflows) {
+    for (const w of feature.workflows) {
+      const spec = deps.workflows.get(w.key, w.version);
+      if (!spec)
+        throw new Error(
+          `installFeature: workflow not found ${w.key}.v${w.version}`
+        );
+    }
+  }
+  if (deps.knowledge && feature.knowledge) {
+    for (const k of feature.knowledge) {
+      const spec = deps.knowledge.get(k.key, k.version);
+      if (!spec)
+        throw new Error(
+          `installFeature: knowledge space not found ${k.key}.v${k.version}`
+        );
+    }
+  }
+  if (deps.telemetry && feature.telemetry) {
+    for (const t of feature.telemetry) {
+      const spec = deps.telemetry.get(t.key, t.version);
+      if (!spec)
+        throw new Error(
+          `installFeature: telemetry spec not found ${t.key}.v${t.version}`
+        );
+    }
+  }
+  if (deps.policies && feature.policies) {
+    for (const p of feature.policies) {
+      const spec = deps.policies.get(p.key, p.version);
+      if (!spec)
+        throw new Error(
+          `installFeature: policy not found ${p.key}.v${p.version}`
+        );
+    }
+  }
+  if (deps.integrations && feature.integrations) {
+    for (const i of feature.integrations) {
+      const spec = deps.integrations.get(i.key, i.version);
+      if (!spec)
+        throw new Error(
+          `installFeature: integration not found ${i.key}.v${i.version}`
+        );
+    }
+  }
+  if (deps.jobs && feature.jobs) {
+    for (const j of feature.jobs) {
+      const spec = deps.jobs.get(j.key, j.version);
+      if (!spec)
+        throw new Error(`installFeature: job not found ${j.key}.v${j.version}`);
+    }
+  }
+  if (deps.translations && feature.translations) {
+    for (const t of feature.translations) {
+      const locales = deps.translations.listLocales(t.key);
+      if (locales.length === 0)
+        throw new Error(
+          `installFeature: translation not found ${t.key}.v${t.version}`
+        );
+      if (t.locale && !locales.includes(t.locale))
+        throw new Error(
+          `installFeature: translation locale ${t.locale} not found for ${t.key}.v${t.version}`
         );
     }
   }

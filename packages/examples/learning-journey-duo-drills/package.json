@@ -10,6 +10,7 @@
     "./docs/duo-drills.docblock": "./src/docs/duo-drills.docblock.ts",
     "./docs/index": "./src/docs/index.ts",
     "./example": "./src/example.ts",
+    "./learning-journey-duo-drills.feature": "./src/learning-journey-duo-drills.feature.ts",
     "./track": "./src/track.ts"
   },
   "scripts": {
@@ -72,6 +73,13 @@
         "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
+      },
+      "./learning-journey-duo-drills.feature": {
+        "types": "./dist/learning-journey-duo-drills.feature.d.ts",
+        "bun": "./dist/learning-journey-duo-drills.feature.js",
+        "node": "./dist/node/learning-journey-duo-drills.feature.js",
+        "browser": "./dist/browser/learning-journey-duo-drills.feature.js",
+        "default": "./dist/learning-journey-duo-drills.feature.js"
       },
       "./track": {
         "types": "./dist/track.d.ts",

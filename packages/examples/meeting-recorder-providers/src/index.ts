@@ -3,5 +3,6 @@ export * from './handlers/list-meetings';
 export * from './handlers/get-transcript';
 export * from './handlers/webhook-handler';
 export * from './connection.sample';
+export * from './meeting-recorder-providers.feature';
 export { default as example } from './example';
 import './docs';

@@ -16,6 +16,7 @@
     "./example": "./src/example.ts",
     "./load-evidence": "./src/load-evidence.ts",
     "./posthog-signals": "./src/posthog-signals.ts",
+    "./product-intent.feature": "./src/product-intent.feature.ts",
     "./script": "./src/script.ts",
     "./sync-actions": "./src/sync-actions.ts"
   },
@@ -72,6 +73,12 @@
         "bun": "./dist/posthog-signals.js",
         "node": "./dist/node/posthog-signals.js",
         "default": "./dist/posthog-signals.js"
+      },
+      "./product-intent.feature": {
+        "types": "./dist/product-intent.feature.d.ts",
+        "bun": "./dist/product-intent.feature.js",
+        "node": "./dist/node/product-intent.feature.js",
+        "default": "./dist/product-intent.feature.js"
       },
       "./script": {
         "types": "./dist/script.d.ts",

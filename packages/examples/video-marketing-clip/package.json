@@ -11,7 +11,8 @@
     "./docs/index": "./src/docs/index.ts",
     "./docs/video-marketing-clip.docblock": "./src/docs/video-marketing-clip.docblock.ts",
     "./example": "./src/example.ts",
-    "./generate-clip": "./src/generate-clip.ts"
+    "./generate-clip": "./src/generate-clip.ts",
+    "./video-marketing-clip.feature": "./src/video-marketing-clip.feature.ts"
   },
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
@@ -89,6 +90,13 @@
         "node": "./dist/node/generate-clip.js",
         "browser": "./dist/browser/generate-clip.js",
         "default": "./dist/generate-clip.js"
+      },
+      "./video-marketing-clip.feature": {
+        "types": "./dist/video-marketing-clip.feature.d.ts",
+        "bun": "./dist/video-marketing-clip.feature.js",
+        "node": "./dist/node/video-marketing-clip.feature.js",
+        "browser": "./dist/browser/video-marketing-clip.feature.js",
+        "default": "./dist/video-marketing-clip.feature.js"
       }
     },
     "registry": "https://registry.npmjs.org/"

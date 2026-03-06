@@ -1,0 +1,24 @@
+import { defineFeature } from '@contractspec/lib.contracts-spec';
+
+export const OpenbankingPowensFeature = defineFeature({
+  meta: {
+    key: 'openbanking-powens',
+    version: '1.0.0',
+    title: 'Open Banking - Powens',
+    description:
+      'Powens open banking OAuth callback and webhook handler patterns',
+    domain: 'integration',
+    owners: ['@examples'],
+    tags: ['openbanking', 'powens', 'oauth', 'webhooks'],
+    stability: 'experimental',
+  },
+
+  integrations: [
+    { key: 'openbanking-powens.integration.powens', version: '1.0.0' },
+  ],
+
+  docs: [
+    'docs.examples.openbanking-powens',
+    'docs.examples.openbanking-powens.usage',
+  ],
+});

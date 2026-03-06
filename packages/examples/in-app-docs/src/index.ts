@@ -7,5 +7,7 @@ export { default as example } from './example';
 // Export UI components
 export * from './ui';
 
+export * from './in-app-docs.feature';
+
 // Import docs to register doc blocks on load
 import './docs';

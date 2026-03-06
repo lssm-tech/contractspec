@@ -56,4 +56,15 @@ export const KbUpdatePipelineFeature = defineFeature({
       { key: 'audit-trail', version: '1.0.0' },
     ],
   },
+
+  knowledge: [{ key: 'kb.knowledge.rules', version: '1.0.0' }],
+
+  telemetry: [{ key: 'kb-pipeline.telemetry', version: '1.0.0' }],
+
+  jobs: [{ key: 'kb-pipeline.job.watch', version: '1.0.0' }],
+
+  docs: [
+    'docs.examples.kb-update-pipeline.goal',
+    'docs.examples.kb-update-pipeline.reference',
+  ],
 });

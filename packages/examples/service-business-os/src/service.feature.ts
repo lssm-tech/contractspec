@@ -69,4 +69,18 @@ export const ServiceBusinessFeature = defineFeature({
       { key: 'invoices', version: '1.0.0' },
     ],
   },
+
+  telemetry: [{ key: 'service-business-os.telemetry', version: '1.0.0' }],
+
+  jobs: [
+    { key: 'service-business-os.job.schedule-dispatch', version: '1.0.0' },
+    { key: 'service-business-os.job.invoice-reminder', version: '1.0.0' },
+  ],
+
+  docs: [
+    'docs.examples.service-business-os',
+    'docs.examples.service-business-os.goal',
+    'docs.examples.service-business-os.usage',
+    'docs.examples.service-business-os.constraints',
+  ],
 });

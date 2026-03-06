@@ -54,4 +54,41 @@ export const PocketFamilyOfficeFeature = defineFeature({
       { key: 'openbanking', version: '1.0.0' },
     ],
   },
+
+  workflows: [
+    { key: 'pfo.workflow.sync-openbanking-accounts', version: '1.0.0' },
+    { key: 'pfo.workflow.sync-openbanking-transactions', version: '1.0.0' },
+    { key: 'pfo.workflow.refresh-openbanking-balances', version: '1.0.0' },
+    { key: 'pfo.workflow.generate-openbanking-overview', version: '1.0.0' },
+    { key: 'pfo.workflow.process-uploaded-document', version: '1.0.0' },
+    { key: 'pfo.workflow.upcoming-payments-reminder', version: '1.0.0' },
+    { key: 'pfo.workflow.generate-financial-summary', version: '1.0.0' },
+    { key: 'pfo.workflow.ingest-email-threads', version: '1.0.0' },
+  ],
+
+  knowledge: [
+    { key: 'knowledge.financial-docs', version: '1.0.0' },
+    { key: 'knowledge.email-threads', version: '1.0.0' },
+    { key: 'knowledge.financial-overview', version: '1.0.0' },
+  ],
+
+  telemetry: [{ key: 'pfo.telemetry', version: '1.0.0' }],
+
+  policies: [{ key: 'pfo.policy.tenancy', version: '1.0.0' }],
+
+  integrations: [
+    { key: 'pfo.integration.openbanking', version: '1.0.0' },
+    { key: 'pfo.integration.llm', version: '1.0.0' },
+  ],
+
+  jobs: [
+    { key: 'pfo.job.doc-processing', version: '1.0.0' },
+    { key: 'pfo.job.reminder-dispatch', version: '1.0.0' },
+  ],
+
+  docs: [
+    'docs.examples.pocket-family-office.goal',
+    'docs.examples.pocket-family-office.usage',
+    'docs.examples.pocket-family-office.reference',
+  ],
 });

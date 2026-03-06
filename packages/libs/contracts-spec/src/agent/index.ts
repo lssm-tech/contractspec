@@ -7,3 +7,4 @@ export * from './forms';
 export * from './views';
 export * from './presentations';
 export * from './contracts';
+export * from './agent.feature';

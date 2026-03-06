@@ -10,6 +10,7 @@ export * from './presentations/index';
 export * from './forms';
 export * from './views';
 export * from './registry';
+export * from './docs.feature';
 export * from './tech-contracts.docs';
 export * from './meta.docs';
 import './accessibility_wcag_compliance_specs.docblock';

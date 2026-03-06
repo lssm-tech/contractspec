@@ -66,4 +66,6 @@ export const LearningJourneyStudioOnboardingFeature = defineFeature({
   capabilities: {
     requires: [{ key: 'identity', version: '1.0.0' }],
   },
+
+  docs: ['docs.learning-journey.studio-onboarding'],
 });

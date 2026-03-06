@@ -12,6 +12,7 @@
     "./docs/index": "./src/docs/index.ts",
     "./docs/integration-stripe.docblock": "./src/docs/integration-stripe.docblock.ts",
     "./example": "./src/example.ts",
+    "./integration-stripe.feature": "./src/integration-stripe.feature.ts",
     "./tenant": "./src/tenant.ts",
     "./workflow": "./src/workflow.ts"
   },
@@ -91,6 +92,13 @@
         "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
+      },
+      "./integration-stripe.feature": {
+        "types": "./dist/integration-stripe.feature.d.ts",
+        "bun": "./dist/integration-stripe.feature.js",
+        "node": "./dist/node/integration-stripe.feature.js",
+        "browser": "./dist/browser/integration-stripe.feature.js",
+        "default": "./dist/integration-stripe.feature.js"
       },
       "./tenant": {
         "types": "./dist/tenant.d.ts",

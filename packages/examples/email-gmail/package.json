@@ -10,6 +10,7 @@
     "./docs": "./src/docs/index.ts",
     "./docs/email-gmail.docblock": "./src/docs/email-gmail.docblock.ts",
     "./docs/index": "./src/docs/index.ts",
+    "./email-gmail.feature": "./src/email-gmail.feature.ts",
     "./example": "./src/example.ts",
     "./inbound": "./src/inbound.ts",
     "./outbound": "./src/outbound.ts",
@@ -77,6 +78,13 @@
         "node": "./dist/node/docs/index.js",
         "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
+      },
+      "./email-gmail.feature": {
+        "types": "./dist/email-gmail.feature.d.ts",
+        "bun": "./dist/email-gmail.feature.js",
+        "node": "./dist/node/email-gmail.feature.js",
+        "browser": "./dist/browser/email-gmail.feature.js",
+        "default": "./dist/email-gmail.feature.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",

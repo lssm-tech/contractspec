@@ -66,7 +66,14 @@ export type SpecKind =
   | 'migration'
   | 'telemetry'
   | 'experiment'
-  | 'app-config';
+  | 'app-config'
+  | 'integration'
+  | 'knowledge'
+  | 'policy'
+  | 'form'
+  | 'capability'
+  | 'job'
+  | 'translation';
 
 export type TestLinkingStrategy =
   | 'target-first' // Use TestSpec.target as primary
