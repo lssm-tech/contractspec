@@ -11,6 +11,10 @@
     "contractspec-internal": {
       "description": "ContractSpec internal endpoint map for managed orchestration workflows.",
       "url": "https://api.contractspec.io/api/mcp/internal"
+    },
+    "contractspec-contracts": {
+      "description": "Contract management: list, read, create, update, delete, validate, and build contract specs.",
+      "url": "https://api.contractspec.io/api/mcp/contracts"
     }
   }
 }

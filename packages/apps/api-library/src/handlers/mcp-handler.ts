@@ -3,21 +3,22 @@ import { appLogger } from '@contractspec/bundle.library/infrastructure/elysia/lo
 import { createDocsMcpHandler } from '@contractspec/bundle.library/application/mcp/docsMcp';
 import { createCliMcpHandler } from '@contractspec/bundle.library/application/mcp/cliMcp';
 import { createInternalMcpHandler } from '@contractspec/bundle.library/application/mcp/internalMcp';
+import { createContractsMcpHandler } from '@contractspec/bundle.library/application/mcp/contractsMcp';
+import { createContractsMcpServices } from './contracts-mcp-services';
+
+const contractsServices = createContractsMcpServices();
 
 export const mcpHandler = new Elysia()
   .use(createDocsMcpHandler('/mcp/docs'))
   .use(createCliMcpHandler('/mcp/cli'))
-  .use(createInternalMcpHandler('/mcp/internal'));
+  .use(createInternalMcpHandler('/mcp/internal'))
+  .use(createContractsMcpHandler('/mcp/contracts', contractsServices));
 
-// Also mount the legacy /api/mcp/docs path (Cursor MCP clients often use /api/* by default).
-// Keep both mounted to avoid breaking existing integrations.
+// Also mount the legacy /api/mcp/* paths (Cursor MCP clients often use /api/* by default).
 mcpHandler.use(createDocsMcpHandler('/api/mcp/docs'));
 mcpHandler.use(createCliMcpHandler('/api/mcp/cli'));
 mcpHandler.use(createInternalMcpHandler('/api/mcp/internal'));
-
-// Also mount the legacy /api/mcp/docs path (Cursor MCP clients often use /api/* by default).
-// Keep both mounted to avoid breaking existing integrations.
-mcpHandler.use(createDocsMcpHandler('/api/mcp/docs'));
+mcpHandler.use(createContractsMcpHandler('/api/mcp/contracts', contractsServices));
 
 appLogger.warn(
   'CLI and internal MCP handlers are disabled in api-library deployment.'

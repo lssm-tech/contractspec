@@ -44,6 +44,8 @@ import { importCommand } from './commands/import/index';
 import { pluginsCommand } from './commands/plugins/index';
 import { actionPrCommand } from './commands/action-pr/index';
 import { actionDriftCommand } from './commands/action-drift/index';
+import { updateCommand } from './commands/update/index';
+import { deleteCommand } from './commands/delete/index';
 
 // Define categories
 const CATEGORY_ESSENTIALS = 'Essentials';
@@ -171,6 +173,8 @@ program.addCommand(withCategory(extractCommand, CATEGORY_ESSENTIALS));
 program.addCommand(withCategory(gapCommand, CATEGORY_ESSENTIALS));
 program.addCommand(withCategory(applyCommand, CATEGORY_ESSENTIALS));
 program.addCommand(withCategory(importCommand, CATEGORY_ESSENTIALS));
+program.addCommand(withCategory(updateCommand, CATEGORY_ESSENTIALS));
+program.addCommand(withCategory(deleteCommand, CATEGORY_ESSENTIALS));
 
 // Development
 program.addCommand(withCategory(watchCommand, CATEGORY_DEVELOPMENT));

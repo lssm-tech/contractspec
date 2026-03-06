@@ -20,15 +20,18 @@
   "exports": {
     ".": "./src/index.ts",
     "./application": "./src/application/index.ts",
-    "./application/index": "./src/application/index.ts",
     "./application/context-storage": "./src/application/context-storage/index.ts",
     "./application/context-storage/index": "./src/application/context-storage/index.ts",
+    "./application/index": "./src/application/index.ts",
     "./application/mcp": "./src/application/mcp/index.ts",
     "./application/mcp/cliMcp": "./src/application/mcp/cliMcp.ts",
     "./application/mcp/common": "./src/application/mcp/common.ts",
     "./application/mcp/docsMcp": "./src/application/mcp/docsMcp.ts",
     "./application/mcp/index": "./src/application/mcp/index.ts",
     "./application/mcp/internalMcp": "./src/application/mcp/internalMcp.ts",
+    "./application/mcp/providerRankingMcp": "./src/application/mcp/providerRankingMcp.ts",
+    "./application/mcp/contractsMcp": "./src/application/mcp/contractsMcp.ts",
+    "./application/mcp/contractsMcpTypes": "./src/application/mcp/contractsMcpTypes.ts",
     "./components/docs": "./src/components/docs/index.ts",
     "./components/docs/advanced": "./src/components/docs/advanced/index.ts",
     "./components/docs/advanced/AdvancedMCPPage": "./src/components/docs/advanced/AdvancedMCPPage.tsx",
@@ -426,12 +429,6 @@
         "node": "./dist/node/application/index.js",
         "default": "./dist/application/index.js"
       },
-      "./application/index": {
-        "types": "./dist/application/index.d.ts",
-        "bun": "./dist/application/index.js",
-        "node": "./dist/node/application/index.js",
-        "default": "./dist/application/index.js"
-      },
       "./application/context-storage": {
         "types": "./dist/application/context-storage/index.d.ts",
         "bun": "./dist/application/context-storage/index.js",
@@ -443,6 +440,12 @@
         "bun": "./dist/application/context-storage/index.js",
         "node": "./dist/node/application/context-storage/index.js",
         "default": "./dist/application/context-storage/index.js"
+      },
+      "./application/index": {
+        "types": "./dist/application/index.d.ts",
+        "bun": "./dist/application/index.js",
+        "node": "./dist/node/application/index.js",
+        "default": "./dist/application/index.js"
       },
       "./application/mcp": {
         "types": "./dist/application/mcp/index.d.ts",
@@ -479,6 +482,12 @@
         "bun": "./dist/application/mcp/internalMcp.js",
         "node": "./dist/node/application/mcp/internalMcp.js",
         "default": "./dist/application/mcp/internalMcp.js"
+      },
+      "./application/mcp/providerRankingMcp": {
+        "types": "./dist/application/mcp/providerRankingMcp.d.ts",
+        "bun": "./dist/application/mcp/providerRankingMcp.js",
+        "node": "./dist/node/application/mcp/providerRankingMcp.js",
+        "default": "./dist/application/mcp/providerRankingMcp.js"
       },
       "./components/docs": {
         "types": "./dist/components/docs/index.d.ts",
