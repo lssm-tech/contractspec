@@ -24,6 +24,8 @@ The factory in `src/impls/provider-factory.ts` supports the following integratio
 | Storage            | `storage.gcs`                | `createObjectStorageProvider`     |
 | LLM                | `ai-llm.mistral`             | `createLlmProvider`               |
 | Embeddings         | `ai-llm.mistral`             | `createEmbeddingProvider`         |
+| Voice (STT)        | `ai-voice-stt.mistral`       | `createSttProvider`               |
+| Voice (Convers.)   | `ai-voice-conv.mistral`      | `createConversationalProvider`    |
 | Voice              | `ai-voice.elevenlabs`        | `createVoiceProvider`             |
 | Voice              | `ai-voice.gradium`           | `createVoiceProvider`             |
 | Voice              | `ai-voice.fal`               | `createVoiceProvider`             |
@@ -35,6 +37,16 @@ The factory in `src/impls/provider-factory.ts` supports the following integratio
 | Meeting Recorder   | `meeting-recorder.tldv`      | `createMeetingRecorderProvider`   |
 | Meeting Recorder   | `meeting-recorder.fireflies` | `createMeetingRecorderProvider`   |
 | Meeting Recorder   | `meeting-recorder.fathom`    | `createMeetingRecorderProvider`   |
+| Health             | `health.openwearables`       | `createHealthProvider`            |
+| Health             | `health.whoop`               | `createHealthProvider`            |
+| Health             | `health.apple-health`        | `createHealthProvider`            |
+| Health             | `health.oura`                | `createHealthProvider`            |
+| Health             | `health.strava`              | `createHealthProvider`            |
+| Health             | `health.garmin`              | `createHealthProvider`            |
+| Health             | `health.fitbit`              | `createHealthProvider`            |
+| Health             | `health.myfitnesspal`        | `createHealthProvider`            |
+| Health             | `health.eightsleep`          | `createHealthProvider`            |
+| Health             | `health.peloton`             | `createHealthProvider`            |
 
 Notes:
 
@@ -139,6 +151,20 @@ Each integration below lists:
 - Functions (embeddings): `embedDocuments`, `embedQuery`
 - Utilities: none
 
+#### `ai-voice-stt.mistral`
+
+- Entry: `MistralSttProvider` (`src/impls/mistral-stt.ts`)
+- Create via factory: `createSttProvider`
+- Functions: `transcribe`
+- Utilities: none
+
+#### `ai-voice-conv.mistral`
+
+- Entry: `MistralConversationalProvider` (`src/impls/mistral-conversational.ts`)
+- Create via factory: `createConversationalProvider`
+- Functions: `startSession`, `listVoices`
+- Utilities: session runtime in `src/impls/mistral-conversational.session.ts`
+
 ### Voice
 
 #### `ai-voice.elevenlabs`
@@ -242,6 +268,35 @@ Each integration below lists:
   - Helpers: `extractItems`, `extractNextCursor`, `mapInvitee`, `matchRecordingId`, `durationSeconds`, `mapTranscriptSegment`, `parseTimestamp` (`src/impls/fathom-meeting-recorder.utils.ts`)
   - Webhook helpers: `normalizeWebhookHeaders`, `normalizeTriggeredFor` (`src/impls/fathom-meeting-recorder.webhooks.ts`)
   - Types: `src/impls/fathom-meeting-recorder.types.ts`
+
+### Health
+
+#### `health.*`
+
+- Entry: health providers + resolver (`src/impls/health/providers.ts`, `src/impls/health-provider-factory.ts`)
+- Create via factory: `IntegrationProviderFactory.createHealthProvider`
+- Functions: `listActivities`, `listWorkouts`, `listSleep`, `listBiometrics`, `listNutrition`, `getConnectionStatus`, `sync*`, `parseWebhook`, `verifyWebhook`
+- Utilities: base transport implementation (`src/impls/health/base-health-provider.ts`)
+
+Transport strategy options in `IntegrationConnection.config`:
+
+- `defaultTransport`: preferred first strategy
+- `strategyOrder`: explicit fallback order across `official-api`, `official-mcp`, `aggregator-api`, `aggregator-mcp`, `unofficial`
+- `allowUnofficial`: gate for unofficial automation connectors
+- `unofficialAllowList`: optional per-provider allow-list for unofficial routing
+- `oauthTokenUrl`: optional OAuth token endpoint override used for refresh-token exchanges
+
+Credential notes:
+
+- Official API providers (`health.whoop`, `health.oura`, `health.strava`, `health.fitbit`) support OAuth refresh with `refreshToken`, `clientId`, and `clientSecret`.
+- Aggregator routes accept either `apiKey` or `accessToken`.
+- Unofficial routes expect MCP transport (`mcpUrl`) with `mcpAccessToken` (or equivalent automation credentials).
+
+Unofficial routing notes:
+
+- Unofficial mode is disabled unless `allowUnofficial` is `true`.
+- When `unofficialAllowList` is set, only listed provider keys are eligible.
+- Current unofficial wrapper targets: `health.myfitnesspal`, `health.eightsleep`, `health.peloton`, `health.garmin`.
 
 ## Recommended flow (factory-first)
 

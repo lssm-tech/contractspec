@@ -40,8 +40,13 @@ const KNOWN_MODEL_PATTERNS: {
   },
   {
     provider: 'Mistral',
-    pattern: /^(mistral(ai)?\/)?(mistral|mixtral|codestral|pixtral)[-.\w]*/i,
-    examples: ['mistral-large', 'mixtral-8x7b'],
+    pattern:
+      /^(mistral(ai)?\/)?(mistral|mixtral|codestral|pixtral|devstral|magistral|voxtral|ministral)[-.\w]*/i,
+    examples: [
+      'mistral-large-latest',
+      'codestral-latest',
+      'devstral-small-latest',
+    ],
   },
   {
     provider: 'Cohere',

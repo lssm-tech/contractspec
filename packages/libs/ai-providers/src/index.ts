@@ -16,6 +16,11 @@ export * from './models';
 // Validation utilities
 export * from './validation';
 
+// Model selector
+export * from './selector-types';
+export { createModelSelector } from './selector';
+export type { ModelSelectorOptions } from './selector';
+
 // Legacy compatibility
 export {
   getAIProvider,

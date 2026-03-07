@@ -220,6 +220,7 @@ describe('validateResolvedConfig', () => {
       features: { include: [], exclude: [] },
       dataViews: {},
       workflows: {},
+      jobs: {},
       policies: [],
       experiments: { catalog: [], active: [], paused: [] },
       featureFlags: [],

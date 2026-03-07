@@ -1,0 +1,13 @@
+---
+description: Enforce compatibility discipline for integration contract and provider changes
+alwaysApply: true
+globs:
+  - "**/*"
+---
+
+Provider changes must preserve client-facing stability.
+
+- Classify integration contract changes before merge.
+- Document migration notes for breaking provider behavior.
+- Validate provider registry wiring and health probes after changes.
+- Keep runtime adapters aligned with declared integration contracts.

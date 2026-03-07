@@ -30,6 +30,17 @@ import { LifecycleEventBridge } from '../events/lifecycle-events';
 export interface LifecycleAssessmentRequest extends LifecycleAssessmentInput {
   tenantId?: string;
   completedMilestones?: string[];
+  /** Preferred transport when the assessment triggers AI provider calls. */
+  transport?: 'rest' | 'mcp' | 'webhook' | 'sdk';
+  /** Preferred auth method when the assessment triggers AI provider calls. */
+  authMethod?:
+    | 'api-key'
+    | 'oauth2'
+    | 'bearer'
+    | 'header'
+    | 'basic'
+    | 'webhook-signing'
+    | 'service-account';
 }
 
 export interface LifecycleAssessmentResponse {

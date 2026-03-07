@@ -1,6 +1,5 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
-
 export const fathomIntegrationSpec = defineIntegration({
   meta: {
     key: 'meeting-recorder.fathom',
@@ -15,6 +14,25 @@ export const fathomIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Experimental,
   },
   supportedModes: ['byok'],
+  transports: [
+    { type: 'rest' },
+    {
+      type: 'webhook',
+      inbound: {
+        signatureHeader: 'x-fathom-signature',
+        signingAlgorithm: 'hmac-sha256',
+      },
+    },
+  ],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    { type: 'api-key' },
+    {
+      type: 'webhook-signing',
+      algorithm: 'hmac-sha256',
+      signatureHeader: 'x-fathom-signature',
+    },
+  ],
   capabilities: {
     provides: [
       { key: 'meeting-recorder.meetings.read', version: '1.0.0' },
@@ -104,6 +122,8 @@ export const fathomIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Generate an API key in Fathom settings and optionally configure webhooks for meeting content readiness.',
+    keyRotationSupported: false,
+    quotaTrackingSupported: false,
   },
 });
 

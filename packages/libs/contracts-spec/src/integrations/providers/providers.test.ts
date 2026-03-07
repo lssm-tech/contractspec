@@ -14,6 +14,15 @@ import {
   registerSupabasePostgresIntegration,
   supabasePostgresIntegrationSpec,
 } from './supabase-postgres';
+import { mistralIntegrationSpec, registerMistralIntegration } from './mistral';
+import {
+  mistralSttIntegrationSpec,
+  registerMistralSttIntegration,
+} from './mistral-stt';
+import {
+  mistralConversationalIntegrationSpec,
+  registerMistralConversationalIntegration,
+} from './mistral-conversational';
 import { linearIntegrationSpec, registerLinearIntegration } from './linear';
 import { jiraIntegrationSpec, registerJiraIntegration } from './jira';
 import { notionIntegrationSpec, registerNotionIntegration } from './notion';
@@ -27,6 +36,22 @@ import { fathomIntegrationSpec, registerFathomIntegration } from './fathom';
 import { gradiumIntegrationSpec, registerGradiumIntegration } from './gradium';
 import { falIntegrationSpec, registerFalIntegration } from './fal';
 import { posthogIntegrationSpec, registerPosthogIntegration } from './posthog';
+import {
+  messagingSlackIntegrationSpec,
+  registerMessagingSlackIntegration,
+} from './messaging-slack';
+import {
+  messagingGithubIntegrationSpec,
+  registerMessagingGithubIntegration,
+} from './messaging-github';
+import {
+  messagingWhatsappMetaIntegrationSpec,
+  registerMessagingWhatsappMetaIntegration,
+} from './messaging-whatsapp-meta';
+import {
+  messagingWhatsappTwilioIntegrationSpec,
+  registerMessagingWhatsappTwilioIntegration,
+} from './messaging-whatsapp-twilio';
 
 describe('integration provider specs', () => {
   it('registers Stripe integration', () => {
@@ -86,6 +111,50 @@ describe('integration provider specs', () => {
     expect(registered?.capabilities.provides).toEqual([
       { key: 'database.sql', version: '1.0.0' },
     ]);
+  });
+
+  it('registers Mistral LLM integration', () => {
+    const registry = registerMistralIntegration(new IntegrationSpecRegistry());
+    const registered = registry.get('ai-llm.mistral', '1.0.0');
+    expect(registered).toBe(mistralIntegrationSpec);
+    expect(registered?.supportedModes).toEqual(['managed', 'byok']);
+    expect(registered?.capabilities.provides).toEqual([
+      { key: 'ai.chat', version: '1.0.0' },
+      { key: 'ai.embeddings', version: '1.0.0' },
+    ]);
+    expect(registered?.secretSchema.schema).toMatchObject({
+      required: ['apiKey'],
+    });
+  });
+
+  it('registers Mistral STT integration', () => {
+    const registry = registerMistralSttIntegration(
+      new IntegrationSpecRegistry()
+    );
+    const registered = registry.get('ai-voice-stt.mistral', '1.0.0');
+    expect(registered).toBe(mistralSttIntegrationSpec);
+    expect(registered?.supportedModes).toEqual(['managed', 'byok']);
+    expect(registered?.capabilities.provides).toEqual([
+      { key: 'ai.voice.stt', version: '1.0.0' },
+    ]);
+    expect(registered?.secretSchema.schema).toMatchObject({
+      required: ['apiKey'],
+    });
+  });
+
+  it('registers Mistral conversational voice integration', () => {
+    const registry = registerMistralConversationalIntegration(
+      new IntegrationSpecRegistry()
+    );
+    const registered = registry.get('ai-voice-conv.mistral', '1.0.0');
+    expect(registered).toBe(mistralConversationalIntegrationSpec);
+    expect(registered?.supportedModes).toEqual(['managed', 'byok']);
+    expect(registered?.capabilities.provides).toEqual([
+      { key: 'ai.voice.conversational', version: '1.0.0' },
+    ]);
+    expect(registered?.secretSchema.schema).toMatchObject({
+      required: ['apiKey'],
+    });
   });
 
   it('registers Linear integration', () => {
@@ -222,6 +291,58 @@ describe('integration provider specs', () => {
     ]);
     expect(registered?.secretSchema.schema).toMatchObject({
       required: ['personalApiKey'],
+    });
+  });
+
+  it('registers Slack messaging integration', () => {
+    const registry = registerMessagingSlackIntegration(
+      new IntegrationSpecRegistry()
+    );
+    const registered = registry.get('messaging.slack', '1.0.0');
+    expect(registered).toBe(messagingSlackIntegrationSpec);
+    expect(registered?.capabilities.provides).toEqual([
+      { key: 'messaging.inbound', version: '1.0.0' },
+      { key: 'messaging.outbound', version: '1.0.0' },
+      { key: 'messaging.interactions', version: '1.0.0' },
+    ]);
+    expect(registered?.secretSchema.schema).toMatchObject({
+      required: ['botToken', 'signingSecret'],
+    });
+  });
+
+  it('registers GitHub messaging integration', () => {
+    const registry = registerMessagingGithubIntegration(
+      new IntegrationSpecRegistry()
+    );
+    const registered = registry.get('messaging.github', '1.0.0');
+    expect(registered).toBe(messagingGithubIntegrationSpec);
+    expect(registered?.secretSchema.schema).toMatchObject({
+      required: ['token', 'webhookSecret'],
+    });
+  });
+
+  it('registers Meta WhatsApp messaging integration', () => {
+    const registry = registerMessagingWhatsappMetaIntegration(
+      new IntegrationSpecRegistry()
+    );
+    const registered = registry.get('messaging.whatsapp.meta', '1.0.0');
+    expect(registered).toBe(messagingWhatsappMetaIntegrationSpec);
+    expect(registered?.configSchema.schema).toMatchObject({
+      required: ['phoneNumberId'],
+    });
+    expect(registered?.secretSchema.schema).toMatchObject({
+      required: ['accessToken', 'appSecret', 'verifyToken'],
+    });
+  });
+
+  it('registers Twilio WhatsApp messaging integration', () => {
+    const registry = registerMessagingWhatsappTwilioIntegration(
+      new IntegrationSpecRegistry()
+    );
+    const registered = registry.get('messaging.whatsapp.twilio', '1.0.0');
+    expect(registered).toBe(messagingWhatsappTwilioIntegrationSpec);
+    expect(registered?.secretSchema.schema).toMatchObject({
+      required: ['accountSid', 'authToken'],
     });
   });
 });

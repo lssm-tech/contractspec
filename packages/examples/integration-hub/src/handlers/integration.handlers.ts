@@ -138,6 +138,45 @@ export interface ListSyncConfigsOutput {
   total: number;
 }
 
+export interface ValidateByokKeyInput {
+  connectionId: string;
+  providerKey: string;
+}
+
+export interface ValidateByokKeyOutput {
+  valid: boolean;
+  provider: string;
+  keyPrefix: string;
+  expiresAt?: string;
+  error?: string;
+}
+
+export interface RefreshOAuth2TokenInput {
+  connectionId: string;
+}
+
+export interface RefreshOAuth2TokenOutput {
+  refreshed: boolean;
+  expiresAt: string;
+  tokenType: string;
+  scopes: string[];
+}
+
+export interface TransportOption {
+  transport: 'rest' | 'mcp' | 'webhook' | 'sdk';
+  supported: boolean;
+  defaultVersion?: string;
+}
+
+export interface GetTransportOptionsInput {
+  integrationId: string;
+}
+
+export interface GetTransportOptionsOutput {
+  integrationId: string;
+  transports: TransportOption[];
+}
+
 // ============ Row Types ============
 
 interface IntegrationRow {
@@ -613,6 +652,82 @@ export function createIntegrationHandlers(db: DatabasePort) {
     return rowToSyncConfig(rows[0]!);
   }
 
+  /**
+   * Validate a BYOK (Bring Your Own Key) key for a connection.
+   * Returns mock validation data to demonstrate the pattern.
+   */
+  async function validateByokKey(
+    input: ValidateByokKeyInput
+  ): Promise<ValidateByokKeyOutput> {
+    const rows = (
+      await db.query(`SELECT * FROM integration_connection WHERE id = ?`, [
+        input.connectionId,
+      ])
+    ).rows as unknown as ConnectionRow[];
+
+    if (!rows[0]) {
+      return {
+        valid: false,
+        provider: 'unknown',
+        keyPrefix: '',
+        error: `Connection ${input.connectionId} not found`,
+      };
+    }
+
+    const keyPrefix = input.providerKey.slice(0, 8);
+    const looksValid = input.providerKey.length >= 16;
+
+    return {
+      valid: looksValid,
+      provider: rows[0].name,
+      keyPrefix: `${keyPrefix}...`,
+      expiresAt: looksValid
+        ? new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString()
+        : undefined,
+      error: looksValid ? undefined : 'Key must be at least 16 characters',
+    };
+  }
+
+  /**
+   * Refresh an OAuth2 token for a connection.
+   * Returns mock token data to demonstrate the pattern.
+   */
+  async function refreshOAuth2Token(
+    input: RefreshOAuth2TokenInput
+  ): Promise<RefreshOAuth2TokenOutput> {
+    const now = new Date().toISOString();
+
+    await db.execute(
+      `UPDATE integration_connection SET updatedAt = ? WHERE id = ?`,
+      [now, input.connectionId]
+    );
+
+    return {
+      refreshed: true,
+      expiresAt: new Date(Date.now() + 3600 * 1000).toISOString(),
+      tokenType: 'Bearer',
+      scopes: ['read', 'write', 'sync'],
+    };
+  }
+
+  /**
+   * List available transport options for an integration.
+   * Returns mock transport data to demonstrate the pattern.
+   */
+  async function getTransportOptions(
+    input: GetTransportOptionsInput
+  ): Promise<GetTransportOptionsOutput> {
+    return {
+      integrationId: input.integrationId,
+      transports: [
+        { transport: 'rest', supported: true, defaultVersion: 'v2' },
+        { transport: 'mcp', supported: true, defaultVersion: 'v1' },
+        { transport: 'webhook', supported: true },
+        { transport: 'sdk', supported: false },
+      ],
+    };
+  }
+
   return {
     listIntegrations,
     createIntegration,
@@ -624,6 +739,9 @@ export function createIntegrationHandlers(db: DatabasePort) {
     mapFields,
     getFieldMappings,
     runSync,
+    validateByokKey,
+    refreshOAuth2Token,
+    getTransportOptions,
   };
 }
 

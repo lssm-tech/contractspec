@@ -291,6 +291,7 @@ export type IntegrationCategoryData =
   | 'email'
   | 'calendar'
   | 'sms'
+  | 'messaging'
   | 'ai-llm'
   | 'ai-voice'
   | 'analytics'

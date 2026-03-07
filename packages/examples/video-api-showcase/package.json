@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.video-api-showcase",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "description": "Generate API documentation videos from contract spec definitions using the ApiOverview composition.",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -11,7 +11,8 @@
     "./docs/index": "./src/docs/index.ts",
     "./docs/video-api-showcase.docblock": "./src/docs/video-api-showcase.docblock.ts",
     "./example": "./src/example.ts",
-    "./sample-specs": "./src/sample-specs.ts"
+    "./sample-specs": "./src/sample-specs.ts",
+    "./video-api-showcase.feature": "./src/video-api-showcase.feature.ts"
   },
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
@@ -89,6 +90,13 @@
         "node": "./dist/node/sample-specs.js",
         "browser": "./dist/browser/sample-specs.js",
         "default": "./dist/sample-specs.js"
+      },
+      "./video-api-showcase.feature": {
+        "types": "./dist/video-api-showcase.feature.d.ts",
+        "bun": "./dist/video-api-showcase.feature.js",
+        "node": "./dist/node/video-api-showcase.feature.js",
+        "browser": "./dist/browser/video-api-showcase.feature.js",
+        "default": "./dist/video-api-showcase.feature.js"
       }
     },
     "registry": "https://registry.npmjs.org/"

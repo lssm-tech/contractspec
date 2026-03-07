@@ -31,4 +31,11 @@ export const VersionedKnowledgeBaseFeature = defineFeature({
   capabilities: {
     requires: [{ key: 'knowledge', version: '1.0.0' }],
   },
+
+  knowledge: [{ key: 'kb.knowledge.rules', version: '1.0.0' }],
+
+  docs: [
+    'docs.examples.versioned-knowledge-base.goal',
+    'docs.examples.versioned-knowledge-base.reference',
+  ],
 });

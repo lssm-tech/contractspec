@@ -1,7 +1,13 @@
 import { describe, expect, test, beforeAll, afterAll } from 'bun:test';
 import { mkdirSync, writeFileSync, rmSync } from 'fs';
 import { join } from 'path';
-import { parseSkills, skillMatchesTarget } from '../../src/features/skills.js';
+import {
+  parseSkills,
+  skillMatchesTarget,
+  serializeSkill,
+  validateAgentSkillsFrontmatter,
+  normalizeImportedSkillMarkdown,
+} from '../../src/features/skills.js';
 
 const TEST_DIR = join(import.meta.dirname, '..', '__fixtures__', 'skills-test');
 
@@ -38,6 +44,20 @@ beforeAll(() => {
     ].join('\n')
   );
 
+  const badNameDir = join(TEST_DIR, 'bad-name');
+  mkdirSync(badNameDir, { recursive: true });
+  writeFileSync(
+    join(badNameDir, 'SKILL.md'),
+    [
+      '---',
+      'name: Bad_Name',
+      'description: "Invalid skill name"',
+      '---',
+      '',
+      'This should fail AgentSkills validation.',
+    ].join('\n')
+  );
+
   // Empty dir (no SKILL.md) — should be skipped
   mkdirSync(join(TEST_DIR, 'empty-skill'), { recursive: true });
 });
@@ -49,7 +69,7 @@ afterAll(() => {
 describe('parseSkills', () => {
   test('parses skill directories with SKILL.md', () => {
     const skills = parseSkills(TEST_DIR, 'test-pack');
-    expect(skills).toHaveLength(2);
+    expect(skills).toHaveLength(3);
   });
 
   test('skips directories without SKILL.md', () => {
@@ -87,5 +107,45 @@ describe('skillMatchesTarget', () => {
     const spec = skills.find((s) => s.name === 'create-spec')!;
     expect(skillMatchesTarget(spec, 'opencode')).toBe(true);
     expect(skillMatchesTarget(spec, 'cursor')).toBe(false);
+  });
+});
+
+describe('AgentSkills compatibility helpers', () => {
+  test('serializeSkill preserves full frontmatter and adds explicit name', () => {
+    const skills = parseSkills(TEST_DIR, 'test-pack');
+    const spec = skills.find((s) => s.name === 'create-spec')!;
+    const serialized = serializeSkill(spec);
+
+    expect(serialized).toContain('name: create-spec');
+    expect(serialized).toContain(
+      'description: Create a new ContractSpec specification'
+    );
+    expect(serialized).toContain(
+      'Create a new spec following the contract-first approach.'
+    );
+  });
+
+  test('validateAgentSkillsFrontmatter reports missing required metadata', () => {
+    const skills = parseSkills(TEST_DIR, 'test-pack');
+    const spec = skills.find((s) => s.name === 'create-spec')!;
+    const errors = validateAgentSkillsFrontmatter(spec);
+
+    expect(errors.some((e) => e.includes('field "name"'))).toBe(true);
+  });
+
+  test('validateAgentSkillsFrontmatter reports invalid skill names', () => {
+    const skills = parseSkills(TEST_DIR, 'test-pack');
+    const bad = skills.find((s) => s.name === 'Bad_Name')!;
+    const errors = validateAgentSkillsFrontmatter(bad);
+
+    expect(errors.some((e) => e.includes('lowercase letters'))).toBe(true);
+  });
+
+  test('normalizeImportedSkillMarkdown injects required metadata', () => {
+    const normalized = normalizeImportedSkillMarkdown('Body only', 'release');
+    expect(normalized.addedDescription).toBe(true);
+    expect(normalized.content).toContain('name: release');
+    expect(normalized.content).toContain('Imported skill: release');
+    expect(normalized.content).toContain('Body only');
   });
 });

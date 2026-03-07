@@ -1,5 +1,41 @@
 # @contractspec/lib.contracts
 
+## 2.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+## 2.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+## 2.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+## 2.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+## 1.70.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+## 1.69.0
+
+### Minor Changes
+
+- fix: tarball packages
+
 ## 1.68.0
 
 ### Minor Changes

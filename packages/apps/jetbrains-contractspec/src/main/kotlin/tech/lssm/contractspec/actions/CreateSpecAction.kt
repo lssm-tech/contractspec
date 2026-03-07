@@ -3,10 +3,15 @@ package tech.lssm.contractspec.actions
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.command.WriteCommandAction
+import com.intellij.openapi.fileChooser.FileChooser
+import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
+import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.ui.ValidationInfo
+import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.ui.components.JBTextField
 import tech.lssm.contractspec.telemetry.TelemetryService
 import tech.lssm.contractspec.util.SpecFileUtil
@@ -45,20 +50,23 @@ class CreateSpecAction : AnAction() {
             val fileName = "${specData.name}.${specData.type}.ts"
             val content = generateSpecContent(specData)
 
-            // For now, just show the content in a message
-            // In a real implementation, this would create the file in the project
+            val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
+            descriptor.title = "Select Directory for Spec File"
+            descriptor.description = "Choose where to create $fileName"
+
+            val chosenDir = FileChooser.chooseFile(descriptor, project, project.baseDir) ?: return
+
+            WriteCommandAction.runWriteCommandAction(project) {
+                val newFile = chosenDir.createChildData(this, fileName)
+                VfsUtil.saveText(newFile, content)
+                FileEditorManager.getInstance(project).openFile(newFile, true)
+            }
+
             Messages.showInfoMessage(
                 project,
-                "Spec creation template generated:\n\n$content",
-                "Spec Template Generated"
+                "Created $fileName in ${chosenDir.path}",
+                "Spec Created"
             )
-
-            // TODO: Actually create the file in the project structure
-            // This would require:
-            // 1. Choosing a directory in the project
-            // 2. Creating the file with the generated content
-            // 3. Opening it in the editor
-
         } catch (e: Exception) {
             Messages.showErrorDialog(
                 project,

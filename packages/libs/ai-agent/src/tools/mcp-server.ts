@@ -118,6 +118,12 @@ export interface AgentMcpServerConfig {
   name?: string;
   /** Optional version override */
   version?: string;
+  /** Auth validation function for incoming MCP requests. */
+  validateAuth?: (
+    headers: Record<string, string>
+  ) => Promise<boolean> | boolean;
+  /** Required auth methods for clients connecting to this MCP server. */
+  requiredAuthMethods?: ('api-key' | 'bearer' | 'oauth2')[];
 }
 
 /**

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.presentation-runtime-react",
-  "version": "24.0.0",
+  "version": "30.0.0",
   "description": "React presentation runtime with workflow components",
   "keywords": [
     "contractspec",
@@ -93,7 +93,7 @@
   },
   "homepage": "https://contractspec.io",
   "devDependencies": {
-    "react-native-css": "^3.0.0",
+    "react-native-css": "^3.0.4",
     "@contractspec/tool.bun": "workspace:*"
   }
 }

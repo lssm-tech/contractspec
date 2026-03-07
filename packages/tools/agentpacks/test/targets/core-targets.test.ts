@@ -82,7 +82,20 @@ beforeAll(() => {
   mkdirSync(join(packDir, 'skills', 'migrate'), { recursive: true });
   writeFileSync(
     join(packDir, 'skills', 'migrate', 'SKILL.md'),
-    "---\nname: migrate\ntargets: ['*']\n---\n\nMigration steps.\n"
+    [
+      '---',
+      'name: migrate',
+      'description: Migration skill',
+      "targets: ['*']",
+      'allowed-tools:',
+      '  - read',
+      'compatibility:',
+      '  cursor: ">=0.50.0"',
+      '---',
+      '',
+      'Migration steps.',
+      '',
+    ].join('\n')
   );
 
   // Hooks
@@ -182,6 +195,20 @@ describe('CursorTarget', () => {
   test('generates MCP in .cursor/mcp.json', () => {
     const result = target.generate(makeOptions());
     expect(result.filesWritten.some((f) => f.includes('mcp.json'))).toBe(true);
+  });
+
+  test('preserves AgentSkills metadata when generating skills', () => {
+    target.generate(makeOptions());
+    const skillPath = join(
+      TEST_DIR,
+      '.cursor',
+      'skills',
+      'migrate',
+      'SKILL.md'
+    );
+    const content = readFileSync(skillPath, 'utf-8');
+    expect(content).toContain('allowed-tools');
+    expect(content).toContain('compatibility');
   });
 });
 

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.content-gen",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "description": "AI-powered content generation for blog, email, and social",
   "keywords": [
     "contractspec",
@@ -33,7 +33,8 @@
   },
   "dependencies": {
     "@contractspec/lib.contracts-spec": "workspace:*",
-    "@contractspec/lib.contracts-integrations": "workspace:*"
+    "@contractspec/lib.contracts-integrations": "workspace:*",
+    "@contractspec/lib.ai-providers": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",

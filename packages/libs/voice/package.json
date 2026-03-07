@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.voice",
-  "version": "0.4.0",
+  "version": "1.3.0",
   "description": "Voice capabilities: TTS, STT, and conversational AI",
   "keywords": [
     "contractspec",
@@ -35,7 +35,8 @@
   "dependencies": {
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.contracts-integrations": "workspace:*",
-    "@contractspec/lib.content-gen": "workspace:*"
+    "@contractspec/lib.content-gen": "workspace:*",
+    "@contractspec/lib.ai-providers": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",

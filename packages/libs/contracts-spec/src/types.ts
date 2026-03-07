@@ -79,7 +79,9 @@ export type ContractSpecType =
   | 'policy'
   | 'test-spec'
   | 'type'
-  | 'knowledge-space';
+  | 'knowledge-space'
+  | 'job'
+  | 'translation';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Policy Decision Types

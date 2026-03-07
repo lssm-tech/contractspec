@@ -4,6 +4,7 @@ import { MockLanguageModelV3 } from 'ai/test';
 import { ContractSpecAgent } from './contract-spec-agent';
 import { agentKey } from '../spec/spec';
 import type { AgentSpec } from '../spec/spec';
+import { createInMemorySessionStore } from '../session/store';
 
 const mockSpec: AgentSpec = {
   meta: {
@@ -20,8 +21,8 @@ const mockSpec: AgentSpec = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mockGenerateResult = (text: string): any => ({
-  finishReason: 'stop',
+const mockGenerateResult = (text: string, finishReason = 'stop'): any => ({
+  finishReason,
   usage: { inputTokens: 10, outputTokens: 20, totalTokens: 30 },
   content: [{ type: 'text', text }],
   warnings: [],
@@ -131,5 +132,42 @@ describe('ContractSpecAgent', () => {
 
     await agent.cleanup();
     expect(agent.id).toBe(agentKey(mockSpec.meta));
+  });
+
+  it('persists session messages and escalates when confidence is below threshold', async () => {
+    const sessionStore = createInMemorySessionStore();
+    const specWithEscalation: AgentSpec = {
+      ...mockSpec,
+      policy: {
+        confidence: {
+          default: 0.2,
+        },
+        escalation: {
+          confidenceThreshold: 0.7,
+          approvalWorkflow: 'approval.workflow.v1',
+        },
+      },
+    };
+
+    const agent = await ContractSpecAgent.create({
+      spec: specWithEscalation,
+      model: new MockLanguageModelV3({
+        doGenerate: async () => mockGenerateResult('Needs review', 'stop'),
+      }),
+      toolHandlers: new Map(),
+      sessionStore,
+    });
+
+    const result = await agent.generate({
+      prompt: 'please continue',
+      options: { sessionId: 'sess-timeout' },
+      maxSteps: 2,
+    });
+
+    expect(result.pendingApproval?.toolName).toBe('approval.workflow.v1');
+
+    const session = await sessionStore.get('sess-timeout');
+    expect(session?.status).toBe('escalated');
+    expect(session?.messages.length).toBe(2);
   });
 });

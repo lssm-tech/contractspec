@@ -60,22 +60,25 @@ function workflowSpec(overrides?: {
 function createRunner(
   spec: WorkflowSpec,
   events: { event: string; payload: unknown }[],
-  options?: Pick<
-    WorkflowRunnerConfig,
-    'appConfigProvider' | 'enforceCapabilities'
+  options?: Partial<
+    Pick<
+      WorkflowRunnerConfig,
+      'appConfigProvider' | 'enforceCapabilities' | 'opExecutor'
+    >
   >
 ) {
   const registry = new WorkflowRegistry();
   registry.register(spec);
   const store = new InMemoryStateStore();
 
-  const opExecutor = vi.fn(
+  const defaultOpExecutor = vi.fn(
     async (op: { key: string }, _input?: unknown, _ctx?: unknown) => {
       if (op.key === 'sigil.start') return { approved: true };
       if (op.key === 'sigil.finish') return { done: true };
       return {};
     }
   );
+  const opExecutor = options?.opExecutor ?? defaultOpExecutor;
 
   const runner = new WorkflowRunner({
     registry,
@@ -86,7 +89,7 @@ function createRunner(
     eventEmitter: (event, payload) => events.push({ event, payload }),
   });
 
-  return { runner, store, opExecutor };
+  return { runner, store, opExecutor: defaultOpExecutor };
 }
 
 function makeResolvedIntegration(
@@ -160,6 +163,7 @@ function makeResolvedConfig(
     features: { include: [], exclude: [] },
     dataViews: {},
     workflows: {},
+    jobs: {},
     policies: [],
     experiments: { catalog: [], active: [], paused: [] },
     featureFlags: [],
@@ -401,5 +405,75 @@ describe('WorkflowRunner', () => {
     expect(events.some(({ event }) => event === 'workflow.cancelled')).toBe(
       true
     );
+  });
+
+  it('pauses on human steps without input and resumes when input is provided', async () => {
+    const events: { event: string; payload: unknown }[] = [];
+    const spec = workflowSpec();
+    const { runner } = createRunner(spec, events);
+
+    const workflowId = await runner.start(spec.meta.key);
+    await runner.executeStep(workflowId); // start -> review
+
+    await runner.executeStep(workflowId); // no input, should pause
+    let state = await runner.getState(workflowId);
+    expect(state.status).toBe('paused');
+    expect(
+      events.some(({ event }) => event === 'workflow.waiting_for_input')
+    ).toBe(true);
+
+    await runner.executeStep(workflowId, { approvedBy: 'human' });
+    state = await runner.getState(workflowId);
+    expect(state.status).toBe('running');
+    expect(state.currentStep).toBe('finish');
+  });
+
+  it('supports explicit pause and resume commands', async () => {
+    const events: { event: string; payload: unknown }[] = [];
+    const spec = workflowSpec();
+    const { runner } = createRunner(spec, events);
+
+    const workflowId = await runner.start(spec.meta.key);
+    await runner.pause(workflowId);
+    let state = await runner.getState(workflowId);
+    expect(state.status).toBe('paused');
+
+    await runner.resume(workflowId);
+    state = await runner.getState(workflowId);
+    expect(state.status).toBe('running');
+    expect(events.some(({ event }) => event === 'workflow.paused')).toBe(true);
+    expect(events.some(({ event }) => event === 'workflow.resumed')).toBe(true);
+  });
+
+  it('fails step execution when timeout is exceeded', async () => {
+    const events: { event: string; payload: unknown }[] = [];
+    const spec = workflowSpec({
+      steps: [
+        {
+          id: 'start',
+          type: 'automation',
+          label: 'Slow Start',
+          timeoutMs: 5,
+          action: { operation: { key: 'sigil.start', version: '1.0.0' } },
+        },
+      ],
+      transitions: [],
+    });
+
+    const { runner } = createRunner(spec, events, {
+      opExecutor: vi.fn(async () => {
+        await new Promise((resolve) => setTimeout(resolve, 20));
+        return { approved: true };
+      }),
+    });
+
+    const workflowId = await runner.start(spec.meta.key);
+
+    await expect(runner.executeStep(workflowId)).rejects.toThrow(/timed out/i);
+
+    const state = await runner.getState(workflowId);
+    expect(state.status).toBe('failed');
+    expect(state.history.length).toBe(1);
+    expect(state.history[0]?.status).toBe('failed');
   });
 });

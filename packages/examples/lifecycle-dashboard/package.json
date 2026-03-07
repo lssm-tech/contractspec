@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.lifecycle-dashboard",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "description": "Lifecycle dashboard example (snippet): how to call lifecycle-managed APIs and render a status card.",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -10,6 +10,7 @@
     "./docs/index": "./src/docs/index.ts",
     "./docs/lifecycle-dashboard.docblock": "./src/docs/lifecycle-dashboard.docblock.ts",
     "./example": "./src/example.ts",
+    "./lifecycle-dashboard.feature": "./src/lifecycle-dashboard.feature.ts",
     "./snippets/page": "./src/snippets/page.ts"
   },
   "scripts": {
@@ -72,6 +73,13 @@
         "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
+      },
+      "./lifecycle-dashboard.feature": {
+        "types": "./dist/lifecycle-dashboard.feature.d.ts",
+        "bun": "./dist/lifecycle-dashboard.feature.js",
+        "node": "./dist/node/lifecycle-dashboard.feature.js",
+        "browser": "./dist/browser/lifecycle-dashboard.feature.js",
+        "default": "./dist/lifecycle-dashboard.feature.js"
       },
       "./snippets/page": {
         "types": "./dist/snippets/page.d.ts",

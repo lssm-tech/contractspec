@@ -2,6 +2,7 @@ import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow';
 import { applyWorkflowExtension } from './injector';
 import type { ComposeParams, WorkflowExtension } from './types';
 import { satisfies } from 'compare-versions';
+import { mergeExtensions } from './merger';
 
 export class WorkflowComposer {
   private readonly extensions: WorkflowExtension[] = [];
@@ -12,14 +13,16 @@ export class WorkflowComposer {
   }
 
   registerMany(extensions: WorkflowExtension[]): this {
-    extensions.forEach((extension) => this.register(extension));
+    extensions.forEach((extension) => {
+      this.register(extension);
+    });
     return this;
   }
 
   compose(params: ComposeParams): WorkflowSpec {
-    const applicable = this.extensions
-      .filter((extension) => matches(params, extension))
-      .sort((a, b) => (a.priority ?? 0) - (b.priority ?? 0));
+    const applicable = mergeExtensions(
+      this.extensions.filter((extension) => matches(params, extension))
+    );
 
     return applicable.reduce(
       (acc, extension) => applyWorkflowExtension(acc, extension),

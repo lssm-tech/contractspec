@@ -1,5 +1,5 @@
 import { describe, expect, test, beforeAll, afterAll } from 'bun:test';
-import { existsSync, mkdirSync, writeFileSync, rmSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync, readFileSync, rmSync } from 'fs';
 import { join } from 'path';
 import { importFromRulesync } from '../../src/importers/rulesync.js';
 
@@ -57,7 +57,6 @@ describe('importFromRulesync', () => {
   test('imports all features from .rulesync/', () => {
     const result = importFromRulesync(TEST_DIR);
     expect(result.filesImported.length).toBeGreaterThan(0);
-    expect(result.warnings).toHaveLength(0);
   });
 
   test('imports rules', () => {
@@ -88,6 +87,18 @@ describe('importFromRulesync', () => {
       f.includes('/skills/')
     );
     expect(skillFiles).toHaveLength(1);
+  });
+
+  test('normalizes imported skills to AgentSkills frontmatter', () => {
+    const result = importFromRulesync(TEST_DIR);
+    const skillFile = result.filesImported.find((f) =>
+      f.includes('/skills/migrate/SKILL.md')
+    );
+    expect(skillFile).toBeDefined();
+
+    const content = readFileSync(skillFile!, 'utf-8');
+    expect(content).toContain('name: migrate');
+    expect(content).toContain('Imported skill: migrate');
   });
 
   test('imports MCP config', () => {

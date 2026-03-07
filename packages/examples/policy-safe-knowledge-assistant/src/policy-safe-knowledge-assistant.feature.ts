@@ -55,4 +55,15 @@ export const PolicySafeKnowledgeAssistantFeature = defineFeature({
       { key: 'learning-journey', version: '1.0.0' },
     ],
   },
+
+  policies: [{ key: 'policy-safe.policy.gate', version: '1.0.0' }],
+
+  knowledge: [{ key: 'policy-safe.knowledge.rules', version: '1.0.0' }],
+
+  jobs: [{ key: 'policy-safe.job.pipeline-watch', version: '1.0.0' }],
+
+  docs: [
+    'docs.examples.policy-safe-knowledge-assistant.goal',
+    'docs.examples.policy-safe-knowledge-assistant.usage',
+  ],
 });

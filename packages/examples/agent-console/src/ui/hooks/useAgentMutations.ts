@@ -9,6 +9,7 @@ import { useCallback, useState } from 'react';
 import { useTemplateRuntime } from '@contractspec/lib.example-shared-ui';
 import type {
   Agent,
+  Run,
   CreateAgentInput,
   UpdateAgentInput,
   AgentHandlers,
@@ -38,6 +39,12 @@ export function useAgentMutations(options: UseAgentMutationsOptions = {}) {
   });
 
   const [updateState, setUpdateState] = useState<MutationState<Agent>>({
+    loading: false,
+    error: null,
+    data: null,
+  });
+
+  const [executeState, setExecuteState] = useState<MutationState<Run>>({
     loading: false,
     error: null,
     data: null,
@@ -121,17 +128,32 @@ export function useAgentMutations(options: UseAgentMutationsOptions = {}) {
   );
 
   /**
-   * Execute an agent (placeholder - needs run handler)
-   * Note: Execute functionality requires adding createRun/executeRun to agent handlers
+   * Execute an agent (creates a queued run).
    */
   const executeAgent = useCallback(
-    async (input: { agentId: string; message: string }): Promise<null> => {
-      // TODO: Implement execute when run creation handler is added to runtime-local
-      console.log('Execute agent:', input);
-      options.onSuccess?.();
-      return null;
+    async (input: {
+      agentId: string;
+      message: string;
+    }): Promise<Run | null> => {
+      setExecuteState({ loading: true, error: null, data: null });
+      try {
+        const result = await agent.executeAgent({
+          agentId: input.agentId,
+          message: input.message,
+          context: { projectId, organizationId: 'demo-org' },
+        });
+        setExecuteState({ loading: false, error: null, data: result });
+        options.onSuccess?.();
+        return result;
+      } catch (err) {
+        const error =
+          err instanceof Error ? err : new Error('Failed to execute agent');
+        setExecuteState({ loading: false, error, data: null });
+        options.onError?.(error);
+        return null;
+      }
     },
-    [options]
+    [agent, projectId, options]
   );
 
   return {
@@ -146,11 +168,13 @@ export function useAgentMutations(options: UseAgentMutationsOptions = {}) {
     // State
     createState,
     updateState,
+    executeState,
 
     // Convenience
-    isLoading: createState.loading || updateState.loading,
+    isLoading:
+      createState.loading || updateState.loading || executeState.loading,
   };
 }
 
 // Re-export types for convenience
-export type { CreateAgentInput, UpdateAgentInput, Agent };
+export type { CreateAgentInput, UpdateAgentInput, Agent, Run };

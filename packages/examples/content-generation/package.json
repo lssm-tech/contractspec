@@ -1,11 +1,12 @@
 {
   "name": "@contractspec/example.content-generation",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "description": "Content generation example using @contractspec/lib.content-gen.",
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./src/index.ts",
+    "./content-generation.feature": "./src/content-generation.feature.ts",
     "./docs": "./src/docs/index.ts",
     "./docs/content-generation.docblock": "./src/docs/content-generation.docblock.ts",
     "./docs/index": "./src/docs/index.ts",
@@ -46,6 +47,13 @@
         "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
+      },
+      "./content-generation.feature": {
+        "types": "./dist/content-generation.feature.d.ts",
+        "bun": "./dist/content-generation.feature.js",
+        "node": "./dist/node/content-generation.feature.js",
+        "browser": "./dist/browser/content-generation.feature.js",
+        "default": "./dist/content-generation.feature.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",

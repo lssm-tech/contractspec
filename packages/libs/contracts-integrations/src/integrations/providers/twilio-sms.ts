@@ -1,6 +1,5 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
-
 export const twilioSmsIntegrationSpec = defineIntegration({
   meta: {
     key: 'sms.twilio',
@@ -15,6 +14,19 @@ export const twilioSmsIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Stable,
   },
   supportedModes: ['managed', 'byok'],
+  transports: [
+    { type: 'rest', baseUrl: 'https://api.twilio.com' },
+    {
+      type: 'webhook',
+      inbound: {
+        signatureHeader: 'x-twilio-signature',
+        signingAlgorithm: 'hmac-sha1',
+      },
+    },
+    { type: 'sdk', packageName: 'twilio', minVersion: '5.0.0' },
+  ],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [{ type: 'basic' }],
   capabilities: {
     provides: [{ key: 'sms.outbound', version: '1.0.0' }],
   },
@@ -65,6 +77,8 @@ export const twilioSmsIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Provide a Twilio account SID, auth token, and verify the outbound sending numbers used by the integration.',
+    keyRotationSupported: true,
+    quotaTrackingSupported: false,
   },
 });
 

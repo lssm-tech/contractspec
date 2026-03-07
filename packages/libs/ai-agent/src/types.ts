@@ -75,6 +75,20 @@ export type AgentFinishReason =
   | 'other'
   | 'unknown';
 
+export type AgentExecutionErrorKind =
+  | 'fatal'
+  | 'retryable'
+  | 'timeout'
+  | 'guard_rejected'
+  | 'policy_blocked';
+
+export interface AgentExecutionError {
+  kind: AgentExecutionErrorKind;
+  message: string;
+  code?: string;
+  retryAfterMs?: number;
+}
+
 export interface AgentEventPayload {
   sessionId: string;
   agentId: string;
@@ -103,6 +117,14 @@ export interface AgentCallOptions {
   metadata?: Record<string, string>;
   /** Locale override for this call */
   locale?: string;
+  /** Model selection context for ranking-driven model routing */
+  selectionContext?: import('@contractspec/lib.ai-providers/selector-types').ModelSelectionContext;
+  /** Transport preference for provider calls. */
+  transport?: 'rest' | 'mcp' | 'sdk';
+  /** Auth method to use for provider calls. */
+  authMethod?: 'api-key' | 'oauth2' | 'bearer';
+  /** Custom auth headers for provider calls. */
+  authHeaders?: Record<string, string>;
 }
 
 // ============================================================================

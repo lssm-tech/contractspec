@@ -1,0 +1,26 @@
+{
+  "name": "contractspec-ai-agent",
+  "version": "1.0.0",
+  "description": "Typed agent orchestration guardrails for @contractspec/lib.ai-agent.",
+  "author": {
+    "name": "ContractSpec Team",
+    "email": "tboutron@lssm.co"
+  },
+  "homepage": "https://contractspec.io",
+  "repository": "https://github.com/lssm-tech/contractspec",
+  "license": "MIT",
+  "keywords": [
+    "contractspec",
+    "ai-agent",
+    "orchestration",
+    "approval",
+    "mcp",
+    "telemetry"
+  ],
+  "logo": "assets/logo.svg",
+  "rules": "rules",
+  "commands": "commands",
+  "agents": "agents",
+  "skills": "skills",
+  "mcpServers": ".mcp.json"
+}

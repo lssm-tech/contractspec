@@ -1,6 +1,5 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
-
 export const granolaIntegrationSpec = defineIntegration({
   meta: {
     key: 'meeting-recorder.granola',
@@ -15,6 +14,9 @@ export const granolaIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Experimental,
   },
   supportedModes: ['byok'],
+  transports: [{ type: 'rest' }, { type: 'mcp', transport: 'http' }],
+  preferredTransport: 'mcp',
+  supportedAuthMethods: [{ type: 'api-key' }, { type: 'bearer' }],
   capabilities: {
     provides: [
       { key: 'meeting-recorder.meetings.read', version: '1.0.0' },
@@ -87,6 +89,8 @@ export const granolaIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Use Granola MCP for browser OAuth access, or configure an Enterprise API key for REST transport.',
+    keyRotationSupported: false,
+    quotaTrackingSupported: false,
   },
 });
 

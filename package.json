@@ -24,10 +24,10 @@
     },
     "catalogs": {
       "build": {
-        "tsdown": "^0.20.3",
+        "tsdown": "^0.21.0",
         "turbo": "^2.7.4",
         "@changesets/cli": "^2.29.7",
-        "postcss": "^8.5",
+        "postcss": "^8.5.8",
         "tailwindcss": "4.2.1",
         "eslint": "^9.39.2",
         "rimraf": "^6.1.3",
@@ -36,16 +36,17 @@
       "testing": {
         "jest": "^30.2.0",
         "@types/jest": "^30.0.0",
-        "storybook": "^10.2.12"
+        "storybook": "^10.2.15"
       },
       "ai": {
-        "ai": "6.0.97",
-        "@ai-sdk/mcp": "1.0.21",
-        "@ai-sdk/anthropic": "3.0.46",
-        "@ai-sdk/google": "3.0.30",
-        "@ai-sdk/mistral": "3.0.20",
-        "@ai-sdk/openai": "3.0.31",
-        "@ai-sdk/react": "3.0.99",
+        "ai": "6.0.116",
+        "@ai-sdk/mcp": "1.0.25",
+        "@modelcontextprotocol/sdk": "^1.27.1",
+        "@ai-sdk/anthropic": "3.0.58",
+        "@ai-sdk/google": "3.0.43",
+        "@ai-sdk/mistral": "3.0.24",
+        "@ai-sdk/openai": "3.0.41",
+        "@ai-sdk/react": "3.0.118",
         "ollama-ai-provider": "^1.2.0"
       }
     }
@@ -61,6 +62,7 @@
     "agentpacks:validate": "bun packages/tools/agentpacks/src/index.ts pack validate",
     "agentpacks:diff": "bun packages/tools/agentpacks/src/index.ts generate --diff",
     "agentpacks:cursor-plugin": "bun packages/tools/agentpacks/src/index.ts export --format cursor-plugin --output dist/cursor-plugins",
+    "plugin:contractspec:validate": "node scripts/validate-contractspec-plugin.mjs",
     "release:version:canary": "node scripts/prepare-dependent-bumps.js && bun changeset version --snapshot canary --verbose && bun update",
     "release:version": "node scripts/prepare-dependent-bumps.js && changeset version --verbose && bun update",
     "release:publish": "node scripts/publish-packages.js",
@@ -89,12 +91,12 @@
     "i18n:check": "bun run scripts/check-i18n-parity.ts"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.8",
+    "@changesets/cli": "^2.30.0",
     "@contractspec/eslint-plugin-design-system": "workspace:*",
     "@eslint/css": "^0.14.1",
     "@eslint/js": "^9.39.3",
     "@eslint/json": "^1.0.1",
-    "@types/bun": "^1.3.9",
+    "@types/bun": "^1.3.10",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.39.3",
     "eslint-config-prettier": "^10.1.8",
@@ -102,7 +104,7 @@
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-react": "^7.37.5",
-    "globals": "^17.3.0",
+    "globals": "^17.4.0",
     "knip": "^5.85.0",
     "memoirist": "^0.4.0",
     "next": "catalog:",
@@ -111,13 +113,13 @@
     "prettier": "3.8.1",
     "prettier-plugin-prisma": "^5.0.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "turbo-ignore": "^2.8.10",
+    "turbo-ignore": "^2.8.14",
     "typescript-eslint": "^8.56.1"
   },
   "dependencies": {
     "react": "catalog:",
     "react-dom": "catalog:",
-    "turbo": "^2.8.10"
+    "turbo": "^2.8.14"
   },
   "config": {
     "commitizen": {
@@ -135,18 +137,17 @@
     "schema": "packages/libs/database/prisma/schema.prisma"
   },
   "overrides": {
-    "ajv": "8.18.0",
+    "@eslint/eslintrc>ajv": "6.12.6",
     "bl": "4.1.0",
     "diff": "8.0.3",
     "esbuild": "0.27.3",
     "nativewind": "5.0.0-preview.2",
-    "expo": "^54.0.0",
+    "expo": "^55",
     "fast-xml-parser": "5.3.6",
     "hono": "4.11.10",
     "lodash": "4.17.23",
-    "minimatch": "10.2.2",
-    "react-native": "0.81.4",
-    "react-native-css": "3.0.0",
+    "react-native": "0.83",
+    "react-native-css": "3.0.4",
     "semver": "7.7.4",
     "tar": "7.5.8",
     "tmp": "0.2.5",

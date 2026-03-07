@@ -1,6 +1,6 @@
 import { like, desc, sql } from 'drizzle-orm';
 import type { Db } from '../db/client.js';
-import { packs, type Pack } from '../db/schema.js';
+import { packs, packVersions, type Pack } from '../db/schema.js';
 
 /**
  * Search parameters.
@@ -104,10 +104,14 @@ export class SearchService {
       .select({ sum: sql<number>`coalesce(sum(${packs.downloads}), 0)` })
       .from(packs);
 
+    const versionCount = await this.db
+      .select({ count: sql<number>`count(*)` })
+      .from(packVersions);
+
     return {
       totalPacks: packCount[0]?.count ?? 0,
       totalDownloads: downloadSum[0]?.sum ?? 0,
-      totalVersions: 0, // TODO: count from pack_versions
+      totalVersions: versionCount[0]?.count ?? 0,
     };
   }
 }

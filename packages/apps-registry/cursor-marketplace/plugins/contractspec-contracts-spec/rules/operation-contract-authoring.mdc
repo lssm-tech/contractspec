@@ -1,0 +1,13 @@
+---
+description: Enforce operation contract authoring standards in @contractspec/lib.contracts-spec
+alwaysApply: true
+globs:
+  - "**/*"
+---
+
+Treat operation contracts as product APIs with strict metadata quality.
+
+- New operations use `defineCommand` or `defineQuery` before handlers.
+- Require `meta.key`, `meta.version`, `description`, `goal`, `context`, `owners`, `tags`, and `stability`.
+- Keep `io.input`, `io.output`, and `io.errors` explicit and typed.
+- Bind handlers through registry wiring and avoid implementation-only endpoint behavior.

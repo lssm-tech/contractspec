@@ -7,6 +7,10 @@ import type {
   TTSProvider,
 } from '../types';
 import type { LLMProvider } from '@contractspec/lib.contracts-integrations/integrations/providers/llm';
+import type {
+  ModelSelector,
+  ModelSelectionContext,
+} from '@contractspec/lib.ai-providers/selector-types';
 
 export interface ConversationConfig {
   voiceId: string;
@@ -52,6 +56,10 @@ export interface ConversationalOptions {
   fallbackSTT?: STTProvider;
   fallbackTTS?: TTSProvider;
   fallbackLLM?: LLMProvider;
+  /** Ranking-driven model selector for dynamic model routing */
+  modelSelector?: ModelSelector;
+  /** Per-call selection context override */
+  selectionContext?: ModelSelectionContext;
 }
 
 export interface ManagedSession {

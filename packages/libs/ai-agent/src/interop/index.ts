@@ -45,6 +45,7 @@
 
 // Types
 export * from './types';
+export * from './runtime-adapters';
 
 // Spec consumer
 export {

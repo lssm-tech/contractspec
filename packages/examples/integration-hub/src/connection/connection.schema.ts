@@ -1,5 +1,9 @@
 import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
-import { ConnectionStatusEnum } from './connection.enum';
+import {
+  AuthTypeEnum,
+  ConnectionStatusEnum,
+  TransportTypeEnum,
+} from './connection.enum';
 
 /**
  * A connection to an external system.
@@ -22,6 +26,10 @@ export const ConnectionModel = defineSchemaModel({
     connectedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     lastHealthCheck: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     healthStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    transport: { type: TransportTypeEnum, isOptional: true },
+    authMethod: { type: AuthTypeEnum, isOptional: true },
+    apiVersion: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    ownershipMode: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
   },
 });
 
@@ -38,5 +46,9 @@ export const CreateConnectionInputModel = defineSchemaModel({
     name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     authType: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     credentials: { type: ScalarTypeEnum.JSON(), isOptional: true },
+    transport: { type: TransportTypeEnum, isOptional: true },
+    authMethod: { type: AuthTypeEnum, isOptional: true },
+    apiVersion: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    ownershipMode: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
   },
 });

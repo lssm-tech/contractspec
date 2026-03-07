@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.learning-journey-ambient-coach",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "description": "Ambient coach learning journey example with contextual tips and follow-up actions.",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -10,6 +10,7 @@
     "./docs/ambient-coach.docblock": "./src/docs/ambient-coach.docblock.ts",
     "./docs/index": "./src/docs/index.ts",
     "./example": "./src/example.ts",
+    "./learning-journey-ambient-coach.feature": "./src/learning-journey-ambient-coach.feature.ts",
     "./track": "./src/track.ts"
   },
   "scripts": {
@@ -72,6 +73,13 @@
         "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
+      },
+      "./learning-journey-ambient-coach.feature": {
+        "types": "./dist/learning-journey-ambient-coach.feature.d.ts",
+        "bun": "./dist/learning-journey-ambient-coach.feature.js",
+        "node": "./dist/node/learning-journey-ambient-coach.feature.js",
+        "browser": "./dist/browser/learning-journey-ambient-coach.feature.js",
+        "default": "./dist/learning-journey-ambient-coach.feature.js"
       },
       "./track": {
         "types": "./dist/track.d.ts",

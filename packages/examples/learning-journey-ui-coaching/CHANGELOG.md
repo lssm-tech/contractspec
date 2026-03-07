@@ -1,5 +1,138 @@
 # @contractspec/example.learning-journey-ui-coaching
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/example.learning-journey-crm-onboarding@3.3.0
+  - @contractspec/example.learning-journey-ambient-coach@3.3.0
+  - @contractspec/example.learning-journey-ui-shared@3.3.0
+  - @contractspec/module.learning-journey@3.3.0
+  - @contractspec/lib.contracts-spec@3.3.0
+  - @contractspec/lib.design-system@3.3.0
+  - @contractspec/lib.ui-kit-web@3.3.0
+
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/example.learning-journey-crm-onboarding@3.2.0
+  - @contractspec/example.learning-journey-ambient-coach@3.2.0
+  - @contractspec/example.learning-journey-ui-shared@3.2.0
+  - @contractspec/module.learning-journey@3.2.0
+  - @contractspec/lib.contracts-spec@3.2.0
+  - @contractspec/lib.design-system@3.2.0
+  - @contractspec/lib.ui-kit-web@3.2.0
+
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies [02c0cc5]
+  - @contractspec/lib.contracts-spec@3.1.1
+  - @contractspec/lib.design-system@3.1.1
+  - @contractspec/example.learning-journey-ambient-coach@3.1.1
+  - @contractspec/example.learning-journey-crm-onboarding@3.1.1
+  - @contractspec/example.learning-journey-ui-shared@3.1.1
+  - @contractspec/module.learning-journey@3.1.1
+
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [f2a4faf]
+- Updated dependencies [28987eb]
+- Updated dependencies [28987eb]
+  - @contractspec/lib.contracts-spec@3.1.0
+  - @contractspec/example.learning-journey-crm-onboarding@3.1.0
+  - @contractspec/example.learning-journey-ambient-coach@3.1.0
+  - @contractspec/example.learning-journey-ui-shared@3.1.0
+  - @contractspec/module.learning-journey@3.1.0
+  - @contractspec/lib.design-system@3.1.0
+  - @contractspec/lib.ui-kit-web@3.1.0
+
+## 3.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- Updated dependencies [7cbdb7f]
+- Updated dependencies [c608804]
+- Updated dependencies [e3bc858]
+- Updated dependencies [b19ae0a]
+- Updated dependencies [aa4a9c9]
+- Updated dependencies [b781ce6]
+  - @contractspec/lib.contracts-spec@3.0.0
+  - @contractspec/example.learning-journey-crm-onboarding@3.0.0
+  - @contractspec/example.learning-journey-ambient-coach@3.0.0
+  - @contractspec/example.learning-journey-ui-shared@3.0.0
+  - @contractspec/module.learning-journey@3.0.0
+  - @contractspec/lib.design-system@3.0.0
+  - @contractspec/lib.ui-kit-web@3.0.0
+
+## 2.9.1
+
+### Patch Changes
+
+- Updated dependencies [4556b80]
+  - @contractspec/lib.contracts-spec@2.10.0
+  - @contractspec/example.learning-journey-ambient-coach@2.9.1
+  - @contractspec/example.learning-journey-crm-onboarding@2.9.1
+  - @contractspec/example.learning-journey-ui-shared@2.9.1
+  - @contractspec/lib.design-system@2.9.1
+  - @contractspec/module.learning-journey@2.9.1
+
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/example.learning-journey-crm-onboarding@2.9.0
+  - @contractspec/example.learning-journey-ambient-coach@2.9.0
+  - @contractspec/example.learning-journey-ui-shared@2.9.0
+  - @contractspec/module.learning-journey@2.9.0
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/lib.design-system@2.9.0
+  - @contractspec/lib.ui-kit-web@2.9.0
+
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/example.learning-journey-ambient-coach@2.8.0
+  - @contractspec/example.learning-journey-crm-onboarding@2.8.0
+  - @contractspec/example.learning-journey-ui-shared@2.8.0
+  - @contractspec/lib.contracts-spec@2.8.0
+  - @contractspec/lib.design-system@2.8.0
+  - @contractspec/lib.ui-kit-web@2.8.0
+  - @contractspec/module.learning-journey@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

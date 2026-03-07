@@ -1,0 +1,13 @@
+---
+description: Enforce contract-first provider modeling in @contractspec/lib.contracts-integrations
+alwaysApply: true
+globs:
+  - "**/*"
+---
+
+Every provider-facing change starts with integration contracts, not adapter code.
+
+- Add or evolve integration specs before provider implementation.
+- Keep capability and feature declarations aligned with exposed provider contracts.
+- Declare request/response boundaries and error contracts explicitly.
+- Avoid runtime behavior that bypasses integration contract definitions.

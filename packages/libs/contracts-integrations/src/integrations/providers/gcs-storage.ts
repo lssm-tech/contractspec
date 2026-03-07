@@ -1,6 +1,5 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
-
 export const gcsStorageIntegrationSpec = defineIntegration({
   meta: {
     key: 'storage.gcs',
@@ -15,6 +14,15 @@ export const gcsStorageIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Beta,
   },
   supportedModes: ['managed', 'byok'],
+  transports: [
+    { type: 'rest', baseUrl: 'https://storage.googleapis.com' },
+    { type: 'sdk', packageName: '@google-cloud/storage', minVersion: '7.0.0' },
+  ],
+  preferredTransport: 'sdk',
+  supportedAuthMethods: [
+    { type: 'service-account', credentialFormat: 'json-key' },
+    { type: 'api-key' },
+  ],
   capabilities: {
     provides: [{ key: 'storage.objects', version: '1.0.0' }],
   },
@@ -72,6 +80,8 @@ export const gcsStorageIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Create a Google Cloud service account with Storage Object Admin role and upload the JSON credentials to the secret store.',
+    keyRotationSupported: false,
+    quotaTrackingSupported: true,
   },
 });
 

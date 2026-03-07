@@ -16,7 +16,12 @@ export type ProviderName =
 /**
  * Legacy provider names (for backwards compatibility)
  */
-export type LegacyProviderName = 'claude' | 'openai' | 'ollama' | 'custom';
+export type LegacyProviderName =
+  | 'claude'
+  | 'openai'
+  | 'ollama'
+  | 'custom'
+  | 'mistral';
 
 /**
  * Provider mode determines how API keys are resolved
@@ -42,6 +47,14 @@ export interface ProviderConfig {
   proxyUrl?: string;
   /** Organization/tenant ID for managed mode */
   organizationId?: string;
+  /** Transport mode for the provider connection. */
+  transport?: 'rest' | 'mcp' | 'sdk';
+  /** Auth method used for this provider connection. */
+  authMethod?: 'api-key' | 'oauth2' | 'bearer';
+  /** Provider API version to target. */
+  apiVersion?: string;
+  /** Custom headers to include in requests. */
+  customHeaders?: Record<string, string>;
 }
 
 /**
@@ -111,6 +124,10 @@ export interface ProviderAvailability {
   available: boolean;
   mode: ProviderMode;
   reason?: string;
+  /** Transports available for this provider. */
+  transports?: ('rest' | 'mcp' | 'sdk')[];
+  /** Auth methods available for this provider. */
+  authMethods?: ('api-key' | 'oauth2' | 'bearer')[];
 }
 
 /**

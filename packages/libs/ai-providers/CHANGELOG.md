@@ -1,5 +1,69 @@
 # @contractspec/lib.ai-providers
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/lib.provider-ranking@0.3.0
+
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/lib.provider-ranking@0.2.0
+
+## 3.1.1
+
+### Patch Changes
+
+- 02c0cc5: Fix lint and build errors across nine packages: remove unused imports and type imports from integration provider files, replace forbidden non-null assertions with proper type narrowing, and resolve TypeScript indexing error for `ColorSchemeName` in the Switch component.
+- Updated dependencies [02c0cc5]
+  - @contractspec/lib.provider-ranking@0.1.1
+
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- @contractspec/lib.provider-ranking@0.1.0
+
+## 3.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Minor Changes
+
+- 7cbdb7f: Make Mistral a first-class provider across contracts, runtime adapters, model catalogs, and CLI provider resolution so teams can run end-to-end Mistral workflows without custom patching.
+
+  Add Mistral STT and conversational contract/runtime coverage plus a new `mistralvibe` agentpacks target, while keeping legacy provider flows backward compatible.
+
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
 ## 2.7.0
 
 ### Minor Changes

@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+import { getChangelogVersions } from '@/lib/changelog';
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_APP_URL || 'https://www.contractspec.io';
@@ -101,7 +102,7 @@ const DOCS_ROUTES = [
   '/docs/studio',
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   const marketingEntries: MetadataRoute.Sitemap = MARKETING_ROUTES.map(
@@ -120,5 +121,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === '/docs' ? 0.9 : 0.7,
   }));
 
-  return [...marketingEntries, ...docsEntries];
+  const changelogVersions = await getChangelogVersions();
+  const changelogVersionEntries: MetadataRoute.Sitemap = changelogVersions.map(
+    (version) => ({
+      url: `${BASE_URL}/changelog/${version}`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    })
+  );
+
+  return [...marketingEntries, ...docsEntries, ...changelogVersionEntries];
 }

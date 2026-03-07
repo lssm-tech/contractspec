@@ -1,6 +1,10 @@
 import type { LanguageModel } from 'ai';
 import { createProvider } from '@contractspec/lib.ai-providers/factory';
 import type { ProviderConfig } from '@contractspec/lib.ai-providers/types';
+import type {
+  ModelSelector,
+  ModelSelectionContext,
+} from '@contractspec/lib.ai-providers/selector-types';
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import type { AgentSpec } from '../spec/spec';
 import type { ToolHandler } from '../types';
@@ -43,13 +47,23 @@ export interface AgentJsonRunnerOptions {
   maxSteps?: number;
   temperature?: number;
   locale?: string;
+  modelSelector?: ModelSelector;
+  selectionContext?: ModelSelectionContext;
 }
 
 export interface AgentJsonRunner {
   generateJson: (prompt: string) => Promise<string>;
 }
 
-function resolveModel(options: AgentJsonRunnerOptions): LanguageModel {
+async function resolveModel(
+  options: AgentJsonRunnerOptions
+): Promise<LanguageModel> {
+  if (options.modelSelector && options.selectionContext) {
+    const { model } = await options.modelSelector.selectAndCreate(
+      options.selectionContext
+    );
+    return model;
+  }
   if (options.model) return options.model;
   if (options.provider) {
     return createProvider(options.provider).getModel();
@@ -101,7 +115,8 @@ function ensureToolHandlers(
 export async function createAgentJsonRunner(
   options: AgentJsonRunnerOptions
 ): Promise<AgentJsonRunner> {
-  const model = applyModelSettings(resolveModel(options), {
+  const resolved = await resolveModel(options);
+  const model = applyModelSettings(resolved, {
     temperature: options.temperature ?? 0,
   });
   const baseSpec = options.spec ?? getDefaultSpec(options.locale);

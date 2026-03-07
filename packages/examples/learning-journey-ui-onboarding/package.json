@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.learning-journey-ui-onboarding",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "description": "Developer onboarding UI with checklists and journey maps.",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -15,6 +15,7 @@
     "./docs/index": "./src/docs/index.ts",
     "./docs/learning-journey-ui-onboarding.docblock": "./src/docs/learning-journey-ui-onboarding.docblock.ts",
     "./example": "./src/example.ts",
+    "./learning-journey-ui-onboarding.feature": "./src/learning-journey-ui-onboarding.feature.ts",
     "./OnboardingMiniApp": "./src/OnboardingMiniApp.tsx",
     "./views": "./src/views/index.ts",
     "./views/index": "./src/views/index.ts",
@@ -129,6 +130,13 @@
         "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
+      },
+      "./learning-journey-ui-onboarding.feature": {
+        "types": "./dist/learning-journey-ui-onboarding.feature.d.ts",
+        "bun": "./dist/learning-journey-ui-onboarding.feature.js",
+        "node": "./dist/node/learning-journey-ui-onboarding.feature.js",
+        "browser": "./dist/browser/learning-journey-ui-onboarding.feature.js",
+        "default": "./dist/learning-journey-ui-onboarding.feature.js"
       },
       "./OnboardingMiniApp": {
         "types": "./dist/OnboardingMiniApp.d.ts",

@@ -34,7 +34,8 @@ bun add -D @contractspec/lib.plugin.example-generator`}
         <ul className="text-muted-foreground space-y-2 text-sm">
           <li>Payments: Stripe</li>
           <li>Email: Postmark, Gmail</li>
-          <li>Voice: ElevenLabs</li>
+          <li>AI: OpenAI, Mistral</li>
+          <li>Voice: ElevenLabs, Mistral</li>
           <li>Vector DB: Qdrant</li>
           <li>Storage: GCS</li>
         </ul>
@@ -45,10 +46,10 @@ bun add -D @contractspec/lib.plugin.example-generator`}
 
       <div className="flex items-center gap-4 pt-4">
         <Link href="/docs/ecosystem/registry" className="btn-primary">
-          Registry resolution <ChevronRight size={16} />
+          Marketplace manifest <ChevronRight size={16} />
         </Link>
         <Link href="/docs/ecosystem/templates" className="btn-ghost">
-          Plugin templates
+          Authoring templates
         </Link>
       </div>
     </div>

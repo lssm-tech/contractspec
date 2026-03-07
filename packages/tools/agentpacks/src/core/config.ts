@@ -11,6 +11,7 @@ export const TARGET_IDS = [
   'cursor',
   'claudecode',
   'codexcli',
+  'mistralvibe',
   'geminicli',
   'copilot',
   'agentsmd',

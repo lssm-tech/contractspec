@@ -3,6 +3,16 @@ import type {
   OpRef,
   EventRef,
   PresentationRef,
+  DataViewRef,
+  FormRef,
+  WorkflowRef,
+  KnowledgeRef,
+  TelemetryRef,
+  IntegrationRef,
+  JobRef,
+  DocRef,
+  PolicyRef,
+  TranslationRef,
   FeatureModuleSpec,
   FeatureModuleMeta,
   FeatureRef,
@@ -29,6 +39,22 @@ describe('PresentationRef', () => {
   it('should define presentation reference', () => {
     const ref: PresentationRef = { key: 'user.profile', version: '1.0.0' };
     expect(ref.key).toBe('user.profile');
+    expect(ref.version).toBe('1.0.0');
+  });
+});
+
+describe('DataViewRef', () => {
+  it('should define data view reference', () => {
+    const ref: DataViewRef = { key: 'dashboard.overview', version: '1.0.0' };
+    expect(ref.key).toBe('dashboard.overview');
+    expect(ref.version).toBe('1.0.0');
+  });
+});
+
+describe('FormRef', () => {
+  it('should define form reference', () => {
+    const ref: FormRef = { key: 'user.profile.edit', version: '1.0.0' };
+    expect(ref.key).toBe('user.profile.edit');
     expect(ref.version).toBe('1.0.0');
   });
 });
@@ -172,5 +198,141 @@ describe('FeatureModuleSpec', () => {
     expect(feature.implementations).toHaveLength(1);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(feature.implementations![0]!.type).toBe('service');
+  });
+
+  it('should support dataViews', () => {
+    const feature = createFeature({
+      dataViews: [
+        { key: 'dashboard.overview', version: '1.0.0' },
+        { key: 'user.list', version: '1.0.0' },
+      ],
+    });
+    expect(feature.dataViews).toHaveLength(2);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(feature.dataViews![0]!.key).toBe('dashboard.overview');
+  });
+
+  it('should support forms', () => {
+    const feature = createFeature({
+      forms: [
+        { key: 'user.profile.edit', version: '1.0.0' },
+        { key: 'settings.general', version: '1.0.0' },
+      ],
+    });
+    expect(feature.forms).toHaveLength(2);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(feature.forms![0]!.key).toBe('user.profile.edit');
+  });
+
+  it('should support workflows', () => {
+    const feature = createFeature({
+      workflows: [{ key: 'onboarding.flow', version: '1.0.0' }],
+    });
+    expect(feature.workflows).toHaveLength(1);
+  });
+
+  it('should support knowledge', () => {
+    const feature = createFeature({
+      knowledge: [{ key: 'docs.canonical', version: '1.0.0' }],
+    });
+    expect(feature.knowledge).toHaveLength(1);
+  });
+
+  it('should support telemetry', () => {
+    const feature = createFeature({
+      telemetry: [{ key: 'payments.telemetry', version: '1.0.0' }],
+    });
+    expect(feature.telemetry).toHaveLength(1);
+  });
+
+  it('should support policies', () => {
+    const feature = createFeature({
+      policies: [{ key: 'payments.access', version: '1.0.0' }],
+    });
+    expect(feature.policies).toHaveLength(1);
+  });
+
+  it('should support integrations', () => {
+    const feature = createFeature({
+      integrations: [{ key: 'stripe', version: '1.0.0' }],
+    });
+    expect(feature.integrations).toHaveLength(1);
+  });
+
+  it('should support jobs', () => {
+    const feature = createFeature({
+      jobs: [{ key: 'payments.reconcile', version: '1.0.0' }],
+    });
+    expect(feature.jobs).toHaveLength(1);
+  });
+
+  it('should support translations', () => {
+    const feature = createFeature({
+      translations: [{ key: 'payments.messages', version: '1.0.0' }],
+    });
+    expect(feature.translations).toHaveLength(1);
+  });
+
+  it('should support docs', () => {
+    const feature = createFeature({
+      docs: ['docs.tech.payments.overview'],
+    });
+    expect(feature.docs).toHaveLength(1);
+  });
+});
+
+describe('WorkflowRef', () => {
+  it('should define workflow reference', () => {
+    const ref: WorkflowRef = { key: 'onboarding.flow', version: '1.0.0' };
+    expect(ref.key).toBe('onboarding.flow');
+  });
+});
+
+describe('KnowledgeRef', () => {
+  it('should define knowledge reference', () => {
+    const ref: KnowledgeRef = { key: 'docs.canonical', version: '1.0.0' };
+    expect(ref.key).toBe('docs.canonical');
+  });
+});
+
+describe('TelemetryRef', () => {
+  it('should define telemetry reference', () => {
+    const ref: TelemetryRef = { key: 'payments.telemetry', version: '1.0.0' };
+    expect(ref.key).toBe('payments.telemetry');
+  });
+});
+
+describe('IntegrationRef', () => {
+  it('should define integration reference', () => {
+    const ref: IntegrationRef = { key: 'stripe', version: '1.0.0' };
+    expect(ref.key).toBe('stripe');
+  });
+});
+
+describe('JobRef', () => {
+  it('should define job reference', () => {
+    const ref: JobRef = { key: 'payments.reconcile', version: '1.0.0' };
+    expect(ref.key).toBe('payments.reconcile');
+  });
+});
+
+describe('DocRef', () => {
+  it('should be a string referencing a DocBlock id', () => {
+    const ref: DocRef = 'docs.tech.payments.overview';
+    expect(ref).toBe('docs.tech.payments.overview');
+  });
+});
+
+describe('PolicyRef', () => {
+  it('should define policy reference', () => {
+    const ref: PolicyRef = { key: 'payments.access', version: '1.0.0' };
+    expect(ref.key).toBe('payments.access');
+  });
+});
+
+describe('TranslationRef', () => {
+  it('should define translation reference', () => {
+    const ref: TranslationRef = { key: 'payments.messages', version: '1.0.0' };
+    expect(ref.key).toBe('payments.messages');
   });
 });

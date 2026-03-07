@@ -1,0 +1,13 @@
+---
+description: Enforce MCP namespace safety and telemetry traceability for @contractspec/lib.ai-agent
+alwaysApply: true
+globs:
+  - "**/*"
+---
+
+MCP-integrated agents must stay collision-safe and auditable.
+
+- Prevent MCP tool collisions with local tool names via prefixes.
+- Capture trace/session/actor/tenant context for every run.
+- Instrument failure paths, not just success paths.
+- Keep logs free of raw secrets or PII.

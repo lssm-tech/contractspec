@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.alpic",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "description": "Alpic MCP and ChatGPT App hosting helpers",
   "keywords": [
     "contractspec",
@@ -32,8 +32,8 @@
   },
   "dependencies": {
     "@contractspec/lib.logger": "workspace:*",
-    "@modelcontextprotocol/sdk": "^1.27.0",
-    "elysia": "^1.4.25",
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "elysia": "^1.4.27",
     "zod": "catalog:"
   },
   "devDependencies": {

@@ -3,6 +3,16 @@ import { installFeature } from './install';
 import { FeatureRegistry } from './registry';
 import type { FeatureModuleSpec } from './types';
 import { CapabilityRegistry, type CapabilitySpec } from '../capabilities';
+import { WorkflowRegistry } from '../workflow/spec';
+import { KnowledgeSpaceRegistry } from '../knowledge/spec';
+import { TelemetryRegistry } from '../telemetry/spec';
+import { PolicyRegistry } from '../policy/registry';
+import { IntegrationSpecRegistry } from '../integrations/spec';
+import { JobSpecRegistry } from '../jobs/spec';
+import { TranslationRegistry } from '../translations/registry';
+import { DataViewRegistry } from '../data-views/registry';
+import { FormRegistry, type FormSpec } from '../forms/forms';
+import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 import { StabilityEnum } from '../ownership';
 
 describe('installFeature', () => {
@@ -234,6 +244,289 @@ describe('installFeature', () => {
       expect(() =>
         installFeature(feature, { features, descriptors })
       ).not.toThrow();
+    });
+  });
+
+  describe('workflow validation', () => {
+    it('should throw when referenced workflow is not registered', () => {
+      const features = new FeatureRegistry();
+      const workflows = new WorkflowRegistry();
+      const feature = createFeature({
+        workflows: [{ key: 'missing.workflow', version: '1.0.0' }],
+      });
+
+      expect(() => installFeature(feature, { features, workflows })).toThrow(
+        /workflow not found/
+      );
+    });
+
+    it('should pass when workflow is registered', () => {
+      const features = new FeatureRegistry();
+      const workflows = new WorkflowRegistry();
+      workflows.register({
+        meta: {
+          key: 'onboarding.flow',
+          version: '1.0.0',
+          title: 'Onboarding',
+          description: 'Onboarding workflow',
+          stability: StabilityEnum.Stable,
+          owners: ['platform.core'],
+          tags: [],
+        },
+        definition: { steps: [], transitions: [] },
+      });
+      const feature = createFeature({
+        workflows: [{ key: 'onboarding.flow', version: '1.0.0' }],
+      });
+
+      expect(() =>
+        installFeature(feature, { features, workflows })
+      ).not.toThrow();
+    });
+  });
+
+  describe('knowledge validation', () => {
+    it('should throw when referenced knowledge space is not registered', () => {
+      const features = new FeatureRegistry();
+      const knowledge = new KnowledgeSpaceRegistry();
+      const feature = createFeature({
+        knowledge: [{ key: 'missing.space', version: '1.0.0' }],
+      });
+
+      expect(() => installFeature(feature, { features, knowledge })).toThrow(
+        /knowledge space not found/
+      );
+    });
+  });
+
+  describe('telemetry validation', () => {
+    it('should throw when referenced telemetry spec is not registered', () => {
+      const features = new FeatureRegistry();
+      const telemetry = new TelemetryRegistry();
+      const feature = createFeature({
+        telemetry: [{ key: 'missing.telemetry', version: '1.0.0' }],
+      });
+
+      expect(() => installFeature(feature, { features, telemetry })).toThrow(
+        /telemetry spec not found/
+      );
+    });
+  });
+
+  describe('policy validation', () => {
+    it('should throw when referenced policy is not registered', () => {
+      const features = new FeatureRegistry();
+      const policies = new PolicyRegistry();
+      const feature = createFeature({
+        policies: [{ key: 'missing.policy', version: '1.0.0' }],
+      });
+
+      expect(() => installFeature(feature, { features, policies })).toThrow(
+        /policy not found/
+      );
+    });
+  });
+
+  describe('integration validation', () => {
+    it('should throw when referenced integration is not registered', () => {
+      const features = new FeatureRegistry();
+      const integrations = new IntegrationSpecRegistry();
+      const feature = createFeature({
+        integrations: [{ key: 'missing.integration', version: '1.0.0' }],
+      });
+
+      expect(() => installFeature(feature, { features, integrations })).toThrow(
+        /integration not found/
+      );
+    });
+  });
+
+  describe('job validation', () => {
+    it('should throw when referenced job is not registered', () => {
+      const features = new FeatureRegistry();
+      const jobs = new JobSpecRegistry();
+      const feature = createFeature({
+        jobs: [{ key: 'missing.job', version: '1.0.0' }],
+      });
+
+      expect(() => installFeature(feature, { features, jobs })).toThrow(
+        /job not found/
+      );
+    });
+
+    it('should pass when job is registered', () => {
+      const features = new FeatureRegistry();
+      const jobs = new JobSpecRegistry();
+      jobs.register({
+        meta: {
+          key: 'payments.reconcile',
+          version: '1.0.0',
+          title: 'Reconcile Payments',
+          description: 'Daily payment reconciliation',
+          stability: StabilityEnum.Stable,
+          owners: ['platform.payments'],
+          tags: [],
+        },
+        payload: { schema: {} },
+      });
+      const feature = createFeature({
+        jobs: [{ key: 'payments.reconcile', version: '1.0.0' }],
+      });
+
+      expect(() => installFeature(feature, { features, jobs })).not.toThrow();
+    });
+  });
+
+  describe('translation validation', () => {
+    it('should throw when referenced translation is not registered', () => {
+      const features = new FeatureRegistry();
+      const translations = new TranslationRegistry();
+      const feature = createFeature({
+        translations: [{ key: 'missing.messages', version: '1.0.0' }],
+      });
+
+      expect(() => installFeature(feature, { features, translations })).toThrow(
+        /translation not found/
+      );
+    });
+
+    it('should pass when translation key has at least one locale registered', () => {
+      const features = new FeatureRegistry();
+      const translations = new TranslationRegistry();
+      translations.register({
+        meta: {
+          key: 'payments.messages',
+          version: '1.0.0',
+          domain: 'payments',
+          owners: ['platform.payments'],
+        },
+        locale: 'en',
+        messages: {
+          'payment.success': { value: 'Payment successful' },
+        },
+      });
+      const feature = createFeature({
+        translations: [{ key: 'payments.messages', version: '1.0.0' }],
+      });
+
+      expect(() =>
+        installFeature(feature, { features, translations })
+      ).not.toThrow();
+    });
+
+    it('should throw when specific locale is not registered', () => {
+      const features = new FeatureRegistry();
+      const translations = new TranslationRegistry();
+      translations.register({
+        meta: {
+          key: 'payments.messages',
+          version: '1.0.0',
+          domain: 'payments',
+          owners: ['platform.payments'],
+        },
+        locale: 'en',
+        messages: {
+          'payment.success': { value: 'Payment successful' },
+        },
+      });
+      const feature = createFeature({
+        translations: [
+          { key: 'payments.messages', version: '1.0.0', locale: 'fr' },
+        ],
+      });
+
+      expect(() => installFeature(feature, { features, translations })).toThrow(
+        /translation locale fr not found/
+      );
+    });
+  });
+
+  describe('dataView validation', () => {
+    it('should throw when referenced data view is not registered', () => {
+      const features = new FeatureRegistry();
+      const dataViews = new DataViewRegistry();
+      const feature = createFeature({
+        dataViews: [{ key: 'missing.view', version: '1.0.0' }],
+      });
+
+      expect(() => installFeature(feature, { features, dataViews })).toThrow(
+        /data view not found/
+      );
+    });
+
+    it('should pass when data view is registered', () => {
+      const features = new FeatureRegistry();
+      const dataViews = new DataViewRegistry();
+      dataViews.register({
+        meta: {
+          key: 'dashboard.overview',
+          version: '1.0.0',
+          title: 'Dashboard Overview',
+          description: 'Main dashboard view',
+          stability: StabilityEnum.Stable,
+          owners: ['platform.core'],
+          tags: [],
+          entity: 'dashboard',
+        },
+        source: {
+          primary: { key: 'core.list', version: '1.0.0' },
+        },
+        view: {
+          kind: 'table',
+          fields: [{ key: 'name', label: 'Name', dataPath: 'name' }],
+        },
+      });
+      const feature = createFeature({
+        dataViews: [{ key: 'dashboard.overview', version: '1.0.0' }],
+      });
+
+      expect(() =>
+        installFeature(feature, { features, dataViews })
+      ).not.toThrow();
+    });
+  });
+
+  describe('form validation', () => {
+    it('should throw when referenced form is not registered', () => {
+      const features = new FeatureRegistry();
+      const forms = new FormRegistry();
+      const feature = createFeature({
+        forms: [{ key: 'missing.form', version: '1.0.0' }],
+      });
+
+      expect(() => installFeature(feature, { features, forms })).toThrow(
+        /form not found/
+      );
+    });
+
+    it('should pass when form is registered', () => {
+      const features = new FeatureRegistry();
+      const forms = new FormRegistry();
+      const model = new SchemaModel({
+        name: 'ProfileModel',
+        fields: {
+          name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+        },
+      });
+      const formSpec: FormSpec<typeof model> = {
+        meta: {
+          key: 'user.profile.edit',
+          version: '1.0.0',
+          title: 'Edit Profile',
+          description: 'User profile edit form',
+          stability: StabilityEnum.Stable,
+          owners: ['platform.core'],
+          tags: [],
+        },
+        model,
+        fields: [],
+      };
+      forms.register(formSpec);
+      const feature = createFeature({
+        forms: [{ key: 'user.profile.edit', version: '1.0.0' }],
+      });
+
+      expect(() => installFeature(feature, { features, forms })).not.toThrow();
     });
   });
 });

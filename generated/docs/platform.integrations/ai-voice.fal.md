@@ -19,7 +19,7 @@ export const falIntegrationSpec = defineIntegration({
   meta: {
     key: 'ai-voice.fal',
     version: '1.0.0',
-    category: 'ai-voice',
+    category: 'ai-voice-tts',
     title: 'Fal Chatterbox Text-to-Speech',
     description:
       'Fal integration for voice synthesis using Chatterbox text-to-speech models.',
@@ -30,7 +30,7 @@ export const falIntegrationSpec = defineIntegration({
   },
   supportedModes: ['byok'],
   capabilities: {
-    provides: [{ key: 'ai.voice.synthesis', version: '1.0.0' }],
+    provides: [{ key: 'ai.voice.tts', version: '1.0.0' }],
   },
   configSchema: {
     schema: {

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.bus",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "description": "Event bus and messaging primitives",
   "keywords": [
     "contractspec",
@@ -35,7 +35,7 @@
     "compare-versions": "^6.1.1"
   },
   "peerDependencies": {
-    "elysia": "^1.4.25",
+    "elysia": "^1.4.27",
     "express": "^5.2.1",
     "next": "16.1.6"
   },

@@ -2,6 +2,7 @@ import { existsSync, readFileSync, copyFileSync, writeFileSync } from 'fs';
 import { resolve, join, basename } from 'path';
 import { parse as parseJsonc } from 'jsonc-parser';
 import { ensureDir, listFiles, listDirs } from '../utils/filesystem.js';
+import { normalizeImportedSkillMarkdown } from '../features/skills.js';
 
 /**
  * Result of a rulesync import operation.
@@ -90,8 +91,16 @@ export function importFromRulesync(
       if (existsSync(skillMd)) {
         const outSkillDir = join(outSkillsDir, skillName);
         ensureDir(outSkillDir);
-        copyFileSync(skillMd, join(outSkillDir, 'SKILL.md'));
-        filesImported.push(join(outSkillDir, 'SKILL.md'));
+        const rawSkill = readFileSync(skillMd, 'utf-8');
+        const normalized = normalizeImportedSkillMarkdown(rawSkill, skillName);
+        const dest = join(outSkillDir, 'SKILL.md');
+        writeFileSync(dest, normalized.content);
+        filesImported.push(dest);
+        if (normalized.addedDescription) {
+          warnings.push(
+            `skills/${skillName}/SKILL.md missing description; added import placeholder.`
+          );
+        }
       }
     }
   }

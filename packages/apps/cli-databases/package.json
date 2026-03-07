@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/app.cli-databases",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "type": "module",
   "bin": {
     "databases": "dist/cli.js"
@@ -30,6 +30,7 @@
   "exports": {
     ".": "./dist/index.mjs",
     "./cli": "./dist/cli.mjs",
+    "./profile": "./dist/profile.mjs",
     "./*": "./*"
   },
   "publishConfig": {

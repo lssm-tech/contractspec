@@ -5,6 +5,26 @@ import type {
 } from '../services/assessment-service';
 import { LifecycleAssessmentService } from '../services/assessment-service';
 
+/** Authenticated caller context attached by middleware. */
+export interface AuthContext {
+  actor: string;
+  authMethod?: string;
+  scopes?: string[];
+}
+
+/** Transport/auth preferences extracted from the request. */
+export interface TransportAuthPreferences {
+  preferredTransport?: 'rest' | 'mcp' | 'webhook' | 'sdk';
+  preferredAuthMethod?:
+    | 'api-key'
+    | 'oauth2'
+    | 'bearer'
+    | 'header'
+    | 'basic'
+    | 'webhook-signing'
+    | 'service-account';
+}
+
 export interface HttpRequest<
   TBody = unknown,
   TParams = Record<string, string>,
@@ -12,6 +32,10 @@ export interface HttpRequest<
   body?: TBody;
   params?: TParams;
   query?: Record<string, string | undefined>;
+  /** Authenticated caller context, populated by auth middleware. */
+  authContext?: AuthContext;
+  /** Transport/auth preferences from the request. */
+  transportPreferences?: TransportAuthPreferences;
 }
 
 export interface HttpResponse<T = Record<string, unknown>> {
@@ -25,7 +49,13 @@ export const createLifecycleHandlers = (
   runAssessment: async (
     req: HttpRequest<LifecycleAssessmentRequest>
   ): Promise<HttpResponse<LifecycleAssessmentResponse>> => {
-    const payload = req.body ?? {};
+    const payload: LifecycleAssessmentRequest = {
+      ...(req.body ?? {}),
+      transport:
+        req.body?.transport ?? req.transportPreferences?.preferredTransport,
+      authMethod:
+        req.body?.authMethod ?? req.transportPreferences?.preferredAuthMethod,
+    };
     const result = await service.runAssessment(payload);
     return { status: 200, body: result };
   },

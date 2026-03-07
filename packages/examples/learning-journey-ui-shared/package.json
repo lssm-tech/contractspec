@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.learning-journey-ui-shared",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "description": "Shared UI components and hooks for learning journey mini-apps.",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -19,6 +19,7 @@
     "./hooks": "./src/hooks/index.ts",
     "./hooks/index": "./src/hooks/index.ts",
     "./hooks/useLearningProgress": "./src/hooks/useLearningProgress.ts",
+    "./learning-journey-ui-shared.feature": "./src/learning-journey-ui-shared.feature.ts",
     "./types": "./src/types.ts"
   },
   "scripts": {
@@ -151,6 +152,13 @@
         "node": "./dist/node/hooks/useLearningProgress.js",
         "browser": "./dist/browser/hooks/useLearningProgress.js",
         "default": "./dist/hooks/useLearningProgress.js"
+      },
+      "./learning-journey-ui-shared.feature": {
+        "types": "./dist/learning-journey-ui-shared.feature.d.ts",
+        "bun": "./dist/learning-journey-ui-shared.feature.js",
+        "node": "./dist/node/learning-journey-ui-shared.feature.js",
+        "browser": "./dist/browser/learning-journey-ui-shared.feature.js",
+        "default": "./dist/learning-journey-ui-shared.feature.js"
       },
       "./types": {
         "types": "./dist/types.d.ts",

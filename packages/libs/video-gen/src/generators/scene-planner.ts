@@ -8,6 +8,10 @@ import type {
   LLMMessage,
   LLMProvider,
 } from '@contractspec/lib.contracts-integrations/integrations/providers/llm';
+import type {
+  ModelSelector,
+  ModelSelectionContext,
+} from '@contractspec/lib.ai-providers/selector-types';
 import type { PlannedScene, ScenePlan, VideoBrief } from '../types';
 import { DEFAULT_FPS } from '../design/layouts';
 import { createVideoGenI18n } from '../i18n';
@@ -19,6 +23,8 @@ export interface ScenePlannerOptions {
   temperature?: number;
   fps?: number;
   locale?: string;
+  modelSelector?: ModelSelector;
+  selectionContext?: ModelSelectionContext;
 }
 
 export class ScenePlanner {
@@ -27,6 +33,8 @@ export class ScenePlanner {
   private readonly temperature: number;
   private readonly fps: number;
   private readonly i18n: VideoGenI18n;
+  private readonly modelSelector?: ModelSelector;
+  private readonly selectionContext?: ModelSelectionContext;
 
   constructor(options?: ScenePlannerOptions) {
     this.llm = options?.llm;
@@ -34,6 +42,8 @@ export class ScenePlanner {
     this.temperature = options?.temperature ?? 0.3;
     this.fps = options?.fps ?? DEFAULT_FPS;
     this.i18n = createVideoGenI18n(options?.locale);
+    this.modelSelector = options?.modelSelector;
+    this.selectionContext = options?.selectionContext;
   }
 
   /**
@@ -159,6 +169,18 @@ export class ScenePlanner {
     };
   }
 
+  private async resolveModel(): Promise<string | undefined> {
+    if (this.model) return this.model;
+    if (this.modelSelector) {
+      const ctx = this.selectionContext ?? {
+        taskDimension: 'reasoning' as const,
+      };
+      const result = await this.modelSelector.select(ctx);
+      return result.modelId;
+    }
+    return undefined;
+  }
+
   // -- LLM-enhanced planning ------------------------------------------------
 
   private async planWithLlm(brief: VideoBrief): Promise<ScenePlan> {
@@ -193,8 +215,9 @@ export class ScenePlanner {
     }
 
     try {
+      const model = await this.resolveModel();
       const response = await this.llm.chat(messages, {
-        model: this.model,
+        model,
         temperature: this.temperature,
         responseFormat: 'json',
       });

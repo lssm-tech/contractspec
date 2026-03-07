@@ -1,28 +1,27 @@
-# lib.contracts-library
+# AI Agent Guide — `@contractspec/lib.contracts-library`
+
+Scope: `packages/libs/contracts-library/*`
 
 Contract definitions for library templates and local runtime.
 
 ## Quick Context
 
-- **Type**: Library (contracts)
+- **Layer**: lib
 - **Consumers**: `bundle.library`
 
-## Exports
+## Public Exports
 
 - `./templates` — Template contracts
 - `./templates/recipes` — Recipe specs
 - `./templates/todos` — Todo specs
 
-## Usage
+## Guardrails
 
-```typescript
-import { RecipeSpec } from '@contractspec/lib.contracts-library/templates/recipes';
-```
+- Template contracts define the shape consumed by bundle.library — breaking changes cascade to all template renderers.
+- Keep contract schemas additive; avoid removing or renaming fields without a migration path.
 
-## Commands
+## Local Commands
 
-```bash
-bun build       # Build library
-bun build:types # Type check
-bun lint        # Lint code
-```
+- Build: `bun run build`
+- Types: `bun run build:types`
+- Lint: `bun run lint`

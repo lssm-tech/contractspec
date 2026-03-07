@@ -178,10 +178,22 @@ export const MODELS: ModelInfo[] = [
     costPerMillion: { input: 2, output: 6 },
   },
   {
+    id: 'mistral-medium-latest',
+    name: 'Mistral Medium',
+    provider: 'mistral',
+    contextWindow: 128000,
+    capabilities: {
+      vision: false,
+      tools: true,
+      reasoning: false,
+      streaming: true,
+    },
+  },
+  {
     id: 'codestral-latest',
     name: 'Codestral',
     provider: 'mistral',
-    contextWindow: 32000,
+    contextWindow: 256000,
     capabilities: {
       vision: false,
       tools: true,
@@ -189,6 +201,42 @@ export const MODELS: ModelInfo[] = [
       streaming: true,
     },
     costPerMillion: { input: 0.2, output: 0.6 },
+  },
+  {
+    id: 'devstral-small-latest',
+    name: 'Devstral Small',
+    provider: 'mistral',
+    contextWindow: 128000,
+    capabilities: {
+      vision: false,
+      tools: true,
+      reasoning: true,
+      streaming: true,
+    },
+  },
+  {
+    id: 'magistral-medium-latest',
+    name: 'Magistral Medium',
+    provider: 'mistral',
+    contextWindow: 128000,
+    capabilities: {
+      vision: false,
+      tools: true,
+      reasoning: true,
+      streaming: true,
+    },
+  },
+  {
+    id: 'pixtral-large-latest',
+    name: 'Pixtral Large',
+    provider: 'mistral',
+    contextWindow: 128000,
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: false,
+      streaming: true,
+    },
   },
   {
     id: 'mistral-small-latest',

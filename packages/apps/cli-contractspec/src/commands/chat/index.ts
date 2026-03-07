@@ -8,7 +8,6 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import ora from 'ora';
 import {
-  createProviderFromEnv,
   createProvider,
   getAvailableProviders,
   type ProviderName,
@@ -17,7 +16,7 @@ import {
   ChatService,
   InMemoryConversationStore,
 } from '@contractspec/module.ai-chat/core';
-import type { Config } from '../../utils/config';
+import { getApiKey, type Config } from '../../utils/config';
 import { input, select } from '@inquirer/prompts';
 
 /**
@@ -59,24 +58,27 @@ async function runChat(
   );
 
   // Determine provider
-  let providerName = options.provider ?? config.aiProvider ?? 'openai';
-
-  // Map legacy provider names
-  if (providerName === 'claude') {
-    providerName = 'anthropic';
-  }
+  const providerName = options.provider ?? config.aiProvider ?? 'openai';
+  const normalizedProvider = normalizeProviderName(providerName);
 
   // Create provider
   const spinner = ora('Connecting to AI provider...').start();
 
   try {
-    const provider = options.apiKey
-      ? createProvider({
-          provider: providerName as ProviderName,
-          model: options.model ?? config.aiModel,
-          apiKey: options.apiKey,
-        })
-      : createProviderFromEnv();
+    const provider = createProvider({
+      provider: normalizedProvider,
+      model: options.model ?? config.aiModel,
+      apiKey: options.apiKey ?? resolveApiKey(providerName, normalizedProvider),
+      baseUrl:
+        normalizedProvider === 'ollama'
+          ? process.env.OLLAMA_BASE_URL
+          : undefined,
+      proxyUrl:
+        providerName === 'custom'
+          ? (config.customEndpoint ?? undefined)
+          : process.env.CONTRACTSPEC_AI_PROXY_URL,
+      organizationId: process.env.CONTRACTSPEC_ORG_ID,
+    });
 
     // Validate provider
     const validation = await provider.validate();
@@ -231,6 +233,59 @@ async function selectProvider(): Promise<{
     provider: providerChoice as ProviderName,
     model: modelChoice,
   };
+}
+
+function normalizeProviderName(provider: string): ProviderName {
+  switch (provider) {
+    case 'claude':
+      return 'anthropic';
+    case 'custom':
+      return 'openai';
+    case 'openai':
+    case 'anthropic':
+    case 'mistral':
+    case 'gemini':
+    case 'ollama':
+      return provider;
+    default:
+      return 'openai';
+  }
+}
+
+function resolveApiKey(
+  requestedProvider: string,
+  normalizedProvider: ProviderName
+): string | undefined {
+  if (requestedProvider === 'claude') {
+    return process.env.ANTHROPIC_API_KEY;
+  }
+
+  if (requestedProvider === 'custom') {
+    return process.env.CONTRACTSPEC_LLM_API_KEY;
+  }
+
+  if (
+    requestedProvider === 'openai' ||
+    requestedProvider === 'ollama' ||
+    requestedProvider === 'mistral'
+  ) {
+    return getApiKey(requestedProvider);
+  }
+
+  switch (normalizedProvider) {
+    case 'anthropic':
+      return process.env.ANTHROPIC_API_KEY;
+    case 'openai':
+      return process.env.OPENAI_API_KEY;
+    case 'mistral':
+      return process.env.MISTRAL_API_KEY;
+    case 'gemini':
+      return process.env.GOOGLE_API_KEY ?? process.env.GEMINI_API_KEY;
+    case 'ollama':
+      return undefined;
+    default:
+      return undefined;
+  }
 }
 
 /**

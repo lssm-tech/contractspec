@@ -1,5 +1,6 @@
 import { resolve } from 'path';
 import chalk from 'chalk';
+import { glob } from 'glob';
 import type { Config } from '../../utils/config';
 import {
   runTestSpecs,
@@ -9,6 +10,9 @@ import {
 } from '@contractspec/bundle.workspace';
 import { loadTypeScriptModule } from '../../utils/module-loader';
 import type { OperationSpec } from '@contractspec/lib.contracts-spec';
+
+const GLOB_CHARS = /[*?{]/;
+const DEFAULT_IGNORES = ['**/node_modules/**', '**/dist/**', '**/.turbo/**'];
 
 interface TestCommandOptions {
   registry?: string;
@@ -28,7 +32,10 @@ export async function testCommand(
   });
 
   if (options.list) {
-    const specs = await listTests([specFile], adapters); // TODO: Support glob expansion if specFile is pattern
+    const specFiles = GLOB_CHARS.test(specFile)
+      ? await glob(specFile, { ignore: DEFAULT_IGNORES })
+      : [specFile];
+    const specs = await listTests(specFiles, adapters);
     if (options.json) {
       console.log(JSON.stringify(specs, null, 2));
     } else {
@@ -117,8 +124,11 @@ export async function testCommand(
   }
 
   // Run tests
+  const resolvedSpecFiles = GLOB_CHARS.test(specFile)
+    ? await glob(specFile, { ignore: DEFAULT_IGNORES })
+    : [specFile];
   const result = await runTestSpecs(
-    [specFile],
+    resolvedSpecFiles,
     {
       registry: options.registry,
       pattern: undefined, // Could add pattern option to CLI later

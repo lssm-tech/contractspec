@@ -1,0 +1,3 @@
+# Agent execution
+
+Defines the core operations, events, and UI surfaces for background agent runs with auditability and approvals.

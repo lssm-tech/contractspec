@@ -1,6 +1,5 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
-
 export const notionIntegrationSpec = defineIntegration({
   meta: {
     key: 'project-management.notion',
@@ -15,6 +14,29 @@ export const notionIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Beta,
   },
   supportedModes: ['managed', 'byok'],
+  transports: [
+    {
+      type: 'rest',
+      baseUrl: 'https://api.notion.com',
+      apiVersionHeader: 'Notion-Version',
+    },
+  ],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    { type: 'bearer' },
+    {
+      type: 'oauth2',
+      grantType: 'authorization_code',
+      authorizationUrl: 'https://api.notion.com/v1/oauth/authorize',
+      tokenUrl: 'https://api.notion.com/v1/oauth/token',
+      scopes: [],
+    },
+  ],
+  versionPolicy: {
+    currentVersion: '2022-06-28',
+    supportedVersions: [{ version: '2022-06-28', status: 'stable' }],
+    versionHeader: 'Notion-Version',
+  },
   capabilities: {
     provides: [{ key: 'project-management.work-items', version: '1.0.0' }],
   },
@@ -87,6 +109,8 @@ export const notionIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Create a Notion internal integration, share the target database/page with it, and store the secret token.',
+    keyRotationSupported: false,
+    quotaTrackingSupported: false,
   },
 });
 

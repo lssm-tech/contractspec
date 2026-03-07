@@ -1,5 +1,97 @@
 # @contractspec/lib.accessibility
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/lib.design-system@3.3.0
+  - @contractspec/lib.ui-kit-web@3.3.0
+  - @contractspec/lib.ui-kit@3.3.0
+
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/lib.design-system@3.2.0
+  - @contractspec/lib.ui-kit-web@3.2.0
+  - @contractspec/lib.ui-kit@3.2.0
+
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies [02c0cc5]
+  - @contractspec/lib.design-system@3.1.1
+  - @contractspec/lib.ui-kit@3.1.1
+
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [28987eb]
+  - @contractspec/lib.design-system@3.1.0
+  - @contractspec/lib.ui-kit-web@3.1.0
+  - @contractspec/lib.ui-kit@3.1.0
+
+## 3.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- Updated dependencies [b781ce6]
+  - @contractspec/lib.design-system@3.0.0
+  - @contractspec/lib.ui-kit-web@3.0.0
+  - @contractspec/lib.ui-kit@3.0.0
+
+## 2.9.1
+
+### Patch Changes
+
+- @contractspec/lib.design-system@2.9.1
+
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.design-system@2.9.0
+  - @contractspec/lib.ui-kit-web@2.9.0
+  - @contractspec/lib.ui-kit@2.9.0
+
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.design-system@2.8.0
+  - @contractspec/lib.ui-kit@2.8.0
+  - @contractspec/lib.ui-kit-web@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

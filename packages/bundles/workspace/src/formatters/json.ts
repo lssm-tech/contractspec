@@ -6,6 +6,7 @@
  */
 
 import type { CICheckResult } from '../services/ci-check/types';
+import type { DriftResult } from '../services/drift';
 
 /**
  * Base interface for all standardized JSON outputs.
@@ -21,6 +22,8 @@ export interface BaseJsonOutput {
 export interface JsonFormatOptions {
   /** Pretty print with indentation. */
   pretty?: boolean;
+  /** Drift detection result to include in the output. */
+  driftResult?: DriftResult;
 }
 
 /**
@@ -63,7 +66,7 @@ export function formatAsJson(
   result: CICheckResult,
   options: JsonFormatOptions = {}
 ): string {
-  const { pretty = true } = options;
+  const { pretty = true, driftResult } = options;
 
   // Map issues to checks
   const checks: CiCheckJson[] = result.issues.map((issue) => ({
@@ -97,8 +100,8 @@ export function formatAsJson(
     schemaVersion: '1.0',
     checks,
     drift: {
-      status: 'none', // TODO: Implement drift detection
-      files: [],
+      status: driftResult?.hasDrift ? 'detected' : 'none',
+      files: driftResult?.files ?? [],
     },
     summary: {
       pass: 0, // Placeholder, calculated properly if we have tracking of passed assertions

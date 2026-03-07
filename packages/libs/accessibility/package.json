@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.accessibility",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "description": "WCAG compliance utilities and validators",
   "keywords": [
     "contractspec",
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
-    "react-native-css": "^3.0.0",
+    "react-native-css": "^3.0.4",
     "typescript": "catalog:",
     "@contractspec/tool.bun": "workspace:*"
   },

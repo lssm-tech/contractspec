@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.example-shared-ui",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
@@ -231,8 +231,8 @@
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.ui-kit-web": "workspace:*",
     "@tanstack/react-query": "^5.90.21",
-    "framer-motion": "^12.34.3",
-    "lucide-react": "^0.575.0",
+    "framer-motion": "^12.35.0",
+    "lucide-react": "^0.577.0",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

@@ -1,5 +1,77 @@
 # @contractspec/app.alpic-mcp
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/bundle.alpic@3.3.0
+  - @contractspec/lib.logger@3.3.0
+
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/bundle.alpic@3.2.0
+  - @contractspec/lib.logger@3.2.0
+
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [28987eb]
+  - @contractspec/bundle.alpic@3.1.0
+  - @contractspec/lib.logger@3.1.0
+
+## 3.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- Updated dependencies [b781ce6]
+  - @contractspec/bundle.alpic@3.0.0
+  - @contractspec/lib.logger@3.0.0
+
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/bundle.alpic@2.9.0
+  - @contractspec/lib.logger@2.9.0
+
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/bundle.alpic@2.8.0
+  - @contractspec/lib.logger@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

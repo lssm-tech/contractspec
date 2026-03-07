@@ -54,13 +54,14 @@ function SwitchNative({
   ref?: React.RefObject<SwitchPrimitives.RootRef>;
 }) {
   const { colorScheme } = useColorScheme();
+  const resolvedScheme = colorScheme === 'dark' ? 'dark' : 'light';
   const translateX = useDerivedValue(() => (props.checked ? 18 : 0));
   const animatedRootStyle = useAnimatedStyle(() => {
     return {
       backgroundColor: interpolateColor(
         translateX.value,
         [0, 18],
-        [RGB_COLORS[colorScheme].input, RGB_COLORS[colorScheme].primary]
+        [RGB_COLORS[resolvedScheme].input, RGB_COLORS[resolvedScheme].primary]
       ),
     };
   });

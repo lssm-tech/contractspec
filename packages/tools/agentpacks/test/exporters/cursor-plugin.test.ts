@@ -50,7 +50,19 @@ beforeAll(() => {
   );
   writeFileSync(
     join(packDir, 'skills', 'release', 'SKILL.md'),
-    '---\nname: release\ndescription: Release flow\n---\n\nRun release workflow.\n'
+    [
+      '---',
+      'name: release',
+      'description: Release flow',
+      'allowed-tools:',
+      '  - read',
+      'compatibility:',
+      '  cursor: ">=0.50.0"',
+      '---',
+      '',
+      'Run release workflow.',
+      '',
+    ].join('\n')
   );
   writeFileSync(
     join(packDir, 'hooks', 'hooks.json'),
@@ -185,5 +197,9 @@ describe('exportCursorPlugin', () => {
 
     const mcp = JSON.parse(readFileSync(mcpFile, 'utf-8'));
     expect(mcp.mcpServers.docs).toBeDefined();
+
+    const skillContent = readFileSync(skillFile, 'utf-8');
+    expect(skillContent).toContain('allowed-tools');
+    expect(skillContent).toContain('compatibility');
   });
 });

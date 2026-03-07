@@ -66,14 +66,26 @@ export type SpecKind =
   | 'migration'
   | 'telemetry'
   | 'experiment'
-  | 'app-config';
+  | 'app-config'
+  | 'integration'
+  | 'knowledge'
+  | 'policy'
+  | 'form'
+  | 'capability'
+  | 'job'
+  | 'translation';
 
 export type TestLinkingStrategy =
   | 'target-first' // Use TestSpec.target as primary
   | 'convention-only' // Only use {specKey}.test naming convention
   | 'both'; // Accept both (default)
 
-export type AgentProvider = 'claude' | 'openai' | 'ollama' | 'custom';
+export type AgentProvider =
+  | 'claude'
+  | 'openai'
+  | 'ollama'
+  | 'mistral'
+  | 'custom';
 
 export type AgentMode =
   | 'simple'
@@ -429,7 +441,7 @@ export interface ContractsrcFileConfig {
  * This is what the application uses at runtime.
  */
 export interface ResolvedContractsrcConfig extends ContractsrcFileConfig {
-  aiProvider: 'claude' | 'openai' | 'ollama' | 'custom';
+  aiProvider: 'claude' | 'openai' | 'ollama' | 'mistral' | 'custom';
   agentMode:
     | 'simple'
     | 'cursor'

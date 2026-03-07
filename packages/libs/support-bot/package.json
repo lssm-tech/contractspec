@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.support-bot",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "description": "AI support bot framework with RAG and ticket management",
   "keywords": [
     "contractspec",
@@ -32,7 +32,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ai-sdk/provider-utils": "^4.0.15",
+    "@ai-sdk/provider-utils": "^4.0.19",
     "@contractspec/lib.ai-agent": "workspace:*",
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.contracts-integrations": "workspace:*",

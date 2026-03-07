@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.observability",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "description": "OpenTelemetry-based observability primitives",
   "keywords": [
     "contractspec",
@@ -53,11 +53,13 @@
     "./metrics/index": "./src/metrics/index.ts",
     "./pipeline/evolution-pipeline": "./src/pipeline/evolution-pipeline.ts",
     "./pipeline/lifecycle-pipeline": "./src/pipeline/lifecycle-pipeline.ts",
+    "./telemetry/model-selection-telemetry": "./src/telemetry/model-selection-telemetry.ts",
     "./telemetry/posthog-baseline-reader": "./src/telemetry/posthog-baseline-reader.ts",
     "./telemetry/posthog-telemetry": "./src/telemetry/posthog-telemetry.ts",
     "./tracing": "./src/tracing/index.ts",
     "./tracing/index": "./src/tracing/index.ts",
-    "./tracing/middleware": "./src/tracing/middleware.ts"
+    "./tracing/middleware": "./src/tracing/middleware.ts",
+    "./tracing/model-selection.span": "./src/tracing/model-selection.span.ts"
   },
   "publishConfig": {
     "access": "public",
@@ -140,6 +142,12 @@
         "node": "./dist/node/pipeline/lifecycle-pipeline.js",
         "default": "./dist/pipeline/lifecycle-pipeline.js"
       },
+      "./telemetry/model-selection-telemetry": {
+        "types": "./dist/telemetry/model-selection-telemetry.d.ts",
+        "bun": "./dist/telemetry/model-selection-telemetry.js",
+        "node": "./dist/node/telemetry/model-selection-telemetry.js",
+        "default": "./dist/telemetry/model-selection-telemetry.js"
+      },
       "./telemetry/posthog-baseline-reader": {
         "types": "./dist/telemetry/posthog-baseline-reader.d.ts",
         "bun": "./dist/telemetry/posthog-baseline-reader.js",
@@ -169,6 +177,12 @@
         "bun": "./dist/tracing/middleware.js",
         "node": "./dist/node/tracing/middleware.js",
         "default": "./dist/tracing/middleware.js"
+      },
+      "./tracing/model-selection.span": {
+        "types": "./dist/tracing/model-selection.span.d.ts",
+        "bun": "./dist/tracing/model-selection.span.js",
+        "node": "./dist/node/tracing/model-selection.span.js",
+        "default": "./dist/tracing/model-selection.span.js"
       }
     },
     "registry": "https://registry.npmjs.org/"

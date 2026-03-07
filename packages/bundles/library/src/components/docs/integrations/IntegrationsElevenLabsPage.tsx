@@ -64,8 +64,8 @@ outputs:
       </div>
 
       <div className="flex items-center gap-4 pt-4">
-        <Link href="/docs/integrations/openai" className="btn-ghost">
-          Previous: OpenAI
+        <Link href="/docs/integrations/mistral" className="btn-ghost">
+          Previous: Mistral
         </Link>
         <Link href="/docs/integrations/qdrant" className="btn-primary">
           Next: Qdrant <ChevronRight size={16} />

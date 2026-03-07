@@ -372,6 +372,159 @@ export class IntegrationCallGuard {
   }
 }
 
+import type {
+  IntegrationTransportConfig,
+  IntegrationTransportType,
+} from './transport';
+import { supportsTransport } from './transport';
+import type { IntegrationAuthConfig, IntegrationAuthType } from './auth';
+import { supportsAuthMethod } from './auth';
+import type { IntegrationVersionPolicy } from './versioning';
+import { resolveApiVersion } from './versioning';
+
+/**
+ * Resolves the best transport to use for a given spec + connection.
+ */
+export interface TransportResolver {
+  resolve(
+    specTransports: IntegrationTransportConfig[],
+    preferredTransport: IntegrationTransportType | undefined,
+    connectionTransport: IntegrationTransportType | undefined
+  ): IntegrationTransportType;
+}
+
+/**
+ * Default transport resolver: connection override > spec preferred > first available.
+ */
+export class DefaultTransportResolver implements TransportResolver {
+  resolve(
+    specTransports: IntegrationTransportConfig[],
+    preferredTransport: IntegrationTransportType | undefined,
+    connectionTransport: IntegrationTransportType | undefined
+  ): IntegrationTransportType {
+    if (
+      connectionTransport &&
+      supportsTransport(specTransports, connectionTransport)
+    ) {
+      return connectionTransport;
+    }
+    if (
+      preferredTransport &&
+      supportsTransport(specTransports, preferredTransport)
+    ) {
+      return preferredTransport;
+    }
+    const firstTransport = specTransports[0];
+    if (firstTransport) {
+      return firstTransport.type;
+    }
+    return 'rest';
+  }
+}
+
+/**
+ * Resolves auth method: connection override > first supported method.
+ */
+export function resolveAuthMethod(
+  specMethods: IntegrationAuthConfig[] | undefined,
+  connectionMethod: IntegrationAuthType | undefined
+): IntegrationAuthType | undefined {
+  if (!specMethods || specMethods.length === 0) return connectionMethod;
+  if (connectionMethod && supportsAuthMethod(specMethods, connectionMethod)) {
+    return connectionMethod;
+  }
+  const firstMethod = specMethods[0];
+  return firstMethod?.type;
+}
+
+/**
+ * Resolve full integration request context: transport, auth, and version.
+ */
+export function resolveIntegrationRequestContext(
+  spec: {
+    transports?: IntegrationTransportConfig[];
+    preferredTransport?: IntegrationTransportType;
+    supportedAuthMethods?: IntegrationAuthConfig[];
+    versionPolicy?: IntegrationVersionPolicy;
+  },
+  connection: {
+    activeTransport?: IntegrationTransportType;
+    authMethod?: IntegrationAuthType;
+    apiVersion?: string;
+  }
+): {
+  transport: IntegrationTransportType;
+  authMethod: IntegrationAuthType | undefined;
+  apiVersion: string | undefined;
+} {
+  const resolver = new DefaultTransportResolver();
+  return {
+    transport: resolver.resolve(
+      spec.transports ?? [],
+      spec.preferredTransport,
+      connection.activeTransport
+    ),
+    authMethod: resolveAuthMethod(
+      spec.supportedAuthMethods,
+      connection.authMethod
+    ),
+    apiVersion: resolveApiVersion(spec.versionPolicy, connection.apiVersion),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Health-domain transport strategy (preserved for backward compatibility)
+// ---------------------------------------------------------------------------
+
+export type HealthTransportStrategy =
+  | 'official-api'
+  | 'official-mcp'
+  | 'aggregator-api'
+  | 'aggregator-mcp'
+  | 'unofficial';
+
+export interface HealthRuntimeStrategyOptions {
+  strategyOrder?: HealthTransportStrategy[];
+  allowUnofficial?: boolean;
+  unofficialAllowList?: string[];
+}
+
+export const DEFAULT_HEALTH_STRATEGY_ORDER: readonly HealthTransportStrategy[] =
+  [
+    'official-api',
+    'official-mcp',
+    'aggregator-api',
+    'aggregator-mcp',
+    'unofficial',
+  ] as const;
+
+export function resolveHealthStrategyOrder(
+  options?: HealthRuntimeStrategyOptions
+): HealthTransportStrategy[] {
+  const ordered =
+    options?.strategyOrder && options.strategyOrder.length > 0
+      ? options.strategyOrder
+      : [...DEFAULT_HEALTH_STRATEGY_ORDER];
+  if (options?.allowUnofficial) {
+    return [...ordered];
+  }
+  return ordered.filter((item) => item !== 'unofficial');
+}
+
+export function isUnofficialHealthProviderAllowed(
+  providerKey: string,
+  options?: HealthRuntimeStrategyOptions
+): boolean {
+  if (!options?.allowUnofficial) return false;
+  if (
+    !options.unofficialAllowList ||
+    options.unofficialAllowList.length === 0
+  ) {
+    return true;
+  }
+  return options.unofficialAllowList.includes(providerKey);
+}
+
 export function ensureConnectionReady(integration: ResolvedIntegration): void {
   const status = integration.connection.status;
   if (status === 'disconnected' || status === 'error') {

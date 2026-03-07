@@ -1,0 +1,13 @@
+---
+description: Enforce approval and escalation guardrails for high-risk AI agent actions
+alwaysApply: true
+globs:
+  - "**/*"
+---
+
+High-risk actions must be human-governed.
+
+- Risky tools require approval (`requiresApproval: true`).
+- Define escalation behavior for low confidence, tool failure, and timeout.
+- Keep ownership and escalation routing explicit.
+- Preserve reversible failure modes for safe rollback.

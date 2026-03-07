@@ -1,5 +1,228 @@
 # @contractspec/bundle.marketing
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/lib.contracts-runtime-client-react@3.3.0
+  - @contractspec/example.analytics-dashboard@3.3.0
+  - @contractspec/example.saas-boilerplate@3.3.0
+  - @contractspec/example.integration-hub@3.3.0
+  - @contractspec/example.workflow-system@3.3.0
+  - @contractspec/example.agent-console@3.3.0
+  - @contractspec/lib.example-shared-ui@3.3.0
+  - @contractspec/example.crm-pipeline@3.3.0
+  - @contractspec/example.marketplace@3.3.0
+  - @contractspec/lib.runtime-sandbox@2.3.0
+  - @contractspec/lib.contracts-spec@3.3.0
+  - @contractspec/lib.design-system@3.3.0
+  - @contractspec/lib.ui-kit-core@3.3.0
+  - @contractspec/module.examples@3.3.0
+  - @contractspec/bundle.library@3.3.0
+  - @contractspec/lib.ui-kit-web@3.3.0
+  - @contractspec/lib.ui-link@3.3.0
+  - @contractspec/lib.logger@3.3.0
+  - @contractspec/lib.email@3.3.0
+
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/lib.contracts-runtime-client-react@3.2.0
+  - @contractspec/example.analytics-dashboard@3.2.0
+  - @contractspec/example.saas-boilerplate@3.2.0
+  - @contractspec/example.integration-hub@3.2.0
+  - @contractspec/example.workflow-system@3.2.0
+  - @contractspec/example.agent-console@3.2.0
+  - @contractspec/lib.example-shared-ui@3.2.0
+  - @contractspec/example.crm-pipeline@3.2.0
+  - @contractspec/example.marketplace@3.2.0
+  - @contractspec/lib.runtime-sandbox@2.2.0
+  - @contractspec/lib.contracts-spec@3.2.0
+  - @contractspec/lib.design-system@3.2.0
+  - @contractspec/lib.ui-kit-core@3.2.0
+  - @contractspec/module.examples@3.2.0
+  - @contractspec/bundle.library@3.2.0
+  - @contractspec/lib.ui-kit-web@3.2.0
+  - @contractspec/lib.ui-link@3.2.0
+  - @contractspec/lib.logger@3.2.0
+  - @contractspec/lib.email@3.2.0
+
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies [02c0cc5]
+- Updated dependencies [f1a249b]
+  - @contractspec/lib.contracts-spec@3.1.1
+  - @contractspec/lib.design-system@3.1.1
+  - @contractspec/bundle.library@3.1.1
+  - @contractspec/example.analytics-dashboard@3.1.1
+  - @contractspec/example.agent-console@3.1.1
+  - @contractspec/example.crm-pipeline@3.1.1
+  - @contractspec/example.integration-hub@3.1.1
+  - @contractspec/example.marketplace@3.1.1
+  - @contractspec/example.saas-boilerplate@3.1.1
+  - @contractspec/example.workflow-system@3.1.1
+  - @contractspec/lib.contracts-runtime-client-react@3.1.1
+  - @contractspec/lib.example-shared-ui@3.1.1
+  - @contractspec/module.examples@3.1.1
+
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [f2a4faf]
+- Updated dependencies [28987eb]
+- Updated dependencies [28987eb]
+  - @contractspec/lib.contracts-spec@3.1.0
+  - @contractspec/lib.contracts-runtime-client-react@3.1.0
+  - @contractspec/example.analytics-dashboard@3.1.0
+  - @contractspec/example.saas-boilerplate@3.1.0
+  - @contractspec/example.integration-hub@3.1.0
+  - @contractspec/example.workflow-system@3.1.0
+  - @contractspec/example.agent-console@3.1.0
+  - @contractspec/lib.example-shared-ui@3.1.0
+  - @contractspec/example.crm-pipeline@3.1.0
+  - @contractspec/example.marketplace@3.1.0
+  - @contractspec/lib.runtime-sandbox@2.1.0
+  - @contractspec/lib.design-system@3.1.0
+  - @contractspec/lib.ui-kit-core@3.1.0
+  - @contractspec/module.examples@3.1.0
+  - @contractspec/bundle.library@3.1.0
+  - @contractspec/lib.ui-kit-web@3.1.0
+  - @contractspec/lib.ui-link@3.1.0
+  - @contractspec/lib.logger@3.1.0
+  - @contractspec/lib.email@3.1.0
+
+## 3.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- Updated dependencies [7cbdb7f]
+- Updated dependencies [0c438ac]
+- Updated dependencies [c608804]
+- Updated dependencies [e3bc858]
+- Updated dependencies [b19ae0a]
+- Updated dependencies [aa4a9c9]
+- Updated dependencies [95c27e4]
+- Updated dependencies [3aa6269]
+- Updated dependencies [b781ce6]
+  - @contractspec/lib.contracts-spec@3.0.0
+  - @contractspec/bundle.library@3.0.0
+  - @contractspec/example.integration-hub@3.0.0
+  - @contractspec/lib.contracts-runtime-client-react@3.0.0
+  - @contractspec/example.analytics-dashboard@3.0.0
+  - @contractspec/example.saas-boilerplate@3.0.0
+  - @contractspec/example.workflow-system@3.0.0
+  - @contractspec/example.agent-console@3.0.0
+  - @contractspec/lib.example-shared-ui@3.0.0
+  - @contractspec/example.crm-pipeline@3.0.0
+  - @contractspec/example.marketplace@3.0.0
+  - @contractspec/lib.runtime-sandbox@2.0.0
+  - @contractspec/lib.design-system@3.0.0
+  - @contractspec/lib.ui-kit-core@3.0.0
+  - @contractspec/module.examples@3.0.0
+  - @contractspec/lib.ui-kit-web@3.0.0
+  - @contractspec/lib.ui-link@3.0.0
+  - @contractspec/lib.logger@3.0.0
+  - @contractspec/lib.email@3.0.0
+
+## 2.9.1
+
+### Patch Changes
+
+- Updated dependencies [4556b80]
+  - @contractspec/lib.contracts-spec@2.10.0
+  - @contractspec/example.integration-hub@2.9.1
+  - @contractspec/bundle.library@2.9.1
+  - @contractspec/example.analytics-dashboard@2.9.1
+  - @contractspec/example.agent-console@2.9.1
+  - @contractspec/example.crm-pipeline@2.9.1
+  - @contractspec/example.marketplace@2.9.1
+  - @contractspec/example.saas-boilerplate@2.9.1
+  - @contractspec/example.workflow-system@2.9.1
+  - @contractspec/lib.contracts-runtime-client-react@2.9.1
+  - @contractspec/lib.design-system@2.9.1
+  - @contractspec/lib.example-shared-ui@2.9.1
+  - @contractspec/module.examples@2.9.1
+
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-runtime-client-react@2.9.0
+  - @contractspec/example.analytics-dashboard@2.9.0
+  - @contractspec/example.saas-boilerplate@2.9.0
+  - @contractspec/example.integration-hub@2.9.0
+  - @contractspec/example.workflow-system@2.9.0
+  - @contractspec/example.agent-console@2.9.0
+  - @contractspec/lib.example-shared-ui@2.9.0
+  - @contractspec/example.crm-pipeline@2.9.0
+  - @contractspec/example.marketplace@2.9.0
+  - @contractspec/lib.runtime-sandbox@1.9.0
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/lib.design-system@2.9.0
+  - @contractspec/lib.ui-kit-core@2.9.0
+  - @contractspec/module.examples@2.9.0
+  - @contractspec/bundle.library@2.9.0
+  - @contractspec/lib.ui-kit-web@2.9.0
+  - @contractspec/lib.ui-link@2.9.0
+  - @contractspec/lib.logger@2.9.0
+  - @contractspec/lib.email@2.9.0
+
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/bundle.library@2.8.0
+  - @contractspec/example.agent-console@2.8.0
+  - @contractspec/example.analytics-dashboard@2.8.0
+  - @contractspec/example.crm-pipeline@2.8.0
+  - @contractspec/example.integration-hub@2.8.0
+  - @contractspec/example.marketplace@2.8.0
+  - @contractspec/example.saas-boilerplate@2.8.0
+  - @contractspec/example.workflow-system@2.8.0
+  - @contractspec/lib.contracts-runtime-client-react@2.8.0
+  - @contractspec/lib.contracts-spec@2.8.0
+  - @contractspec/lib.design-system@2.8.0
+  - @contractspec/lib.email@2.8.0
+  - @contractspec/lib.example-shared-ui@2.8.0
+  - @contractspec/lib.logger@2.8.0
+  - @contractspec/lib.runtime-sandbox@1.8.0
+  - @contractspec/lib.ui-kit-core@2.8.0
+  - @contractspec/lib.ui-kit-web@2.8.0
+  - @contractspec/lib.ui-link@2.8.0
+  - @contractspec/module.examples@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

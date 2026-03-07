@@ -1,0 +1,48 @@
+# @contractspec/module.context-storage
+
+## 0.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+- Updated dependencies [575b316]
+  - @contractspec/lib.contracts-integrations@3.3.0
+  - @contractspec/lib.context-storage@0.3.0
+  - @contractspec/lib.knowledge@3.3.0
+  - @contractspec/lib.schema@3.3.0
+
+## 0.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/lib.contracts-integrations@3.2.0
+  - @contractspec/lib.context-storage@0.2.0
+  - @contractspec/lib.knowledge@3.2.0
+  - @contractspec/lib.schema@3.2.0
+
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [02c0cc5]
+  - @contractspec/lib.contracts-integrations@3.1.1
+  - @contractspec/lib.knowledge@3.1.1
+
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [28987eb]
+  - @contractspec/lib.contracts-integrations@3.1.0
+  - @contractspec/lib.knowledge@3.1.0
+  - @contractspec/lib.schema@3.1.0
+  - @contractspec/lib.context-storage@0.1.0

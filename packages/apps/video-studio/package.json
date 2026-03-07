@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/app.video-studio",
-  "version": "1.48.0",
+  "version": "2.3.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -15,13 +15,13 @@
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.content-gen": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
-    "remotion": "^4.0.428",
-    "@remotion/cli": "^4.0.428",
+    "remotion": "^4.0.434",
+    "@remotion/cli": "^4.0.434",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@remotion/renderer": "^4.0.428",
+    "@remotion/renderer": "^4.0.434",
     "@types/react": "^19.0.0",
     "typescript": "^5.9.3"
   }

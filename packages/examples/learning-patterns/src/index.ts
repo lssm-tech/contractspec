@@ -5,6 +5,7 @@
  */
 export * from './events';
 export * from './tracks';
+export * from './learning-patterns.feature';
 export { default as example } from './example';
 
 import './docs';

@@ -1,4 +1,7 @@
-import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow';
+import {
+  type WorkflowSpec,
+  validateWorkflowSpec,
+} from '@contractspec/lib.contracts-spec/workflow';
 import type { WorkflowExtension, StepInjection } from './types';
 import { validateExtension } from './validator';
 
@@ -35,10 +38,19 @@ export function applyWorkflowExtension(
 
   spec.definition.steps = steps;
   spec.definition.transitions = dedupeTransitions(transitions);
-  spec.meta = {
-    ...spec.meta,
-    version: spec.meta.version,
-  };
+  spec.metadata = mergeRecords(spec.metadata, extension.metadata);
+  spec.annotations = mergeRecords(spec.annotations, extension.annotations);
+
+  const issues = validateWorkflowSpec(spec);
+  const blockingIssues = issues.filter((issue) => issue.level === 'error');
+  if (blockingIssues.length > 0) {
+    throw new Error(
+      `Invalid composed workflow ${spec.meta.key}.v${spec.meta.version}: ${blockingIssues
+        .map((issue) => issue.message)
+        .join('; ')}`
+    );
+  }
+
   return spec;
 }
 
@@ -107,4 +119,18 @@ function dedupeTransitions(
 
 function cloneWorkflowSpec(spec: WorkflowSpec): WorkflowSpec {
   return JSON.parse(JSON.stringify(spec));
+}
+
+function mergeRecords(
+  base: Record<string, unknown> | undefined,
+  patch: Record<string, unknown> | undefined
+): Record<string, unknown> | undefined {
+  if (!base && !patch) {
+    return undefined;
+  }
+
+  return {
+    ...(base ?? {}),
+    ...(patch ?? {}),
+  };
 }

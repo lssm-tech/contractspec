@@ -22,6 +22,10 @@ export {
   type ParsedSkill,
   type SkillFrontmatter,
   parseSkills,
+  buildSkillFrontmatter,
+  serializeSkill,
+  normalizeImportedSkillMarkdown,
+  validateAgentSkillsFrontmatter,
   skillMatchesTarget,
 } from './skills.js';
 export {

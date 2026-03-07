@@ -1,5 +1,7 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+import type { IntegrationTransportConfig } from '../transport';
+import type { IntegrationAuthConfig } from '../auth';
 
 export const googleCalendarIntegrationSpec = defineIntegration({
   meta: {
@@ -15,6 +17,22 @@ export const googleCalendarIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Beta,
   },
   supportedModes: ['managed', 'byok'],
+  transports: [
+    { type: 'rest', baseUrl: 'https://www.googleapis.com/calendar' },
+    { type: 'sdk', packageName: 'googleapis' },
+  ] satisfies IntegrationTransportConfig[],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    {
+      type: 'oauth2',
+      grantType: 'authorization_code',
+      authorizationUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
+      tokenUrl: 'https://oauth2.googleapis.com/token',
+      scopes: ['https://www.googleapis.com/auth/calendar'],
+      pkce: true,
+    },
+    { type: 'service-account', credentialFormat: 'json-key' },
+  ] satisfies IntegrationAuthConfig[],
   capabilities: {
     provides: [{ key: 'calendar.events', version: '1.0.0' }],
   },
@@ -66,6 +84,8 @@ export const googleCalendarIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Create a Google service account with Calendar access and share the target calendars with the service account email.',
+    keyRotationSupported: false,
+    quotaTrackingSupported: false,
   },
 });
 

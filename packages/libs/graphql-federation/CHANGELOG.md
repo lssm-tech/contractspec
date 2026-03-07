@@ -1,5 +1,41 @@
 # @contractspec/lib.graphql-federation
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+## 3.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
 ## 2.7.0
 
 ### Minor Changes

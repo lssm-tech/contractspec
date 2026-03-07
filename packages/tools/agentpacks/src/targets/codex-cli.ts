@@ -6,7 +6,7 @@ import {
   type GenerateResult,
 } from './base-target.js';
 import { ruleMatchesTarget } from '../features/rules.js';
-import { skillMatchesTarget } from '../features/skills.js';
+import { skillMatchesTarget, serializeSkill } from '../features/skills.js';
 import {
   writeGeneratedFile,
   removeIfExists,
@@ -70,7 +70,7 @@ export class CodexCliTarget extends BaseTarget {
         const skillSubDir = join(skillsDir, skill.name);
         ensureDir(skillSubDir);
         const filepath = join(skillSubDir, 'SKILL.md');
-        writeGeneratedFile(filepath, skill.content);
+        writeGeneratedFile(filepath, serializeSkill(skill));
         filesWritten.push(filepath);
       }
     }

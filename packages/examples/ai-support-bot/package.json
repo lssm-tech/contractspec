@@ -1,11 +1,12 @@
 {
   "name": "@contractspec/example.ai-support-bot",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "description": "AI support bot example: classify and resolve a support ticket using @contractspec/lib.support-bot.",
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./src/index.ts",
+    "./ai-support-bot.feature": "./src/ai-support-bot.feature.ts",
     "./docs": "./src/docs/index.ts",
     "./docs/ai-support-bot.docblock": "./src/docs/ai-support-bot.docblock.ts",
     "./docs/index": "./src/docs/index.ts",
@@ -47,6 +48,13 @@
         "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
+      },
+      "./ai-support-bot.feature": {
+        "types": "./dist/ai-support-bot.feature.d.ts",
+        "bun": "./dist/ai-support-bot.feature.js",
+        "node": "./dist/node/ai-support-bot.feature.js",
+        "browser": "./dist/browser/ai-support-bot.feature.js",
+        "default": "./dist/ai-support-bot.feature.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",

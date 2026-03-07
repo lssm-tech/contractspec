@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.learning-journey-ui-coaching",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "description": "Contextual coaching UI with tip cards and engagement tracking.",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -16,6 +16,7 @@
     "./docs/index": "./src/docs/index.ts",
     "./docs/learning-journey-ui-coaching.docblock": "./src/docs/learning-journey-ui-coaching.docblock.ts",
     "./example": "./src/example.ts",
+    "./learning-journey-ui-coaching.feature": "./src/learning-journey-ui-coaching.feature.ts",
     "./views": "./src/views/index.ts",
     "./views/index": "./src/views/index.ts",
     "./views/Overview": "./src/views/Overview.tsx",
@@ -135,6 +136,13 @@
         "node": "./dist/node/example.js",
         "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
+      },
+      "./learning-journey-ui-coaching.feature": {
+        "types": "./dist/learning-journey-ui-coaching.feature.d.ts",
+        "bun": "./dist/learning-journey-ui-coaching.feature.js",
+        "node": "./dist/node/learning-journey-ui-coaching.feature.js",
+        "browser": "./dist/browser/learning-journey-ui-coaching.feature.js",
+        "default": "./dist/learning-journey-ui-coaching.feature.js"
       },
       "./views": {
         "types": "./dist/views/index.d.ts",

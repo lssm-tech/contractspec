@@ -8,6 +8,38 @@ import { createAgentI18n } from '../i18n';
  */
 export type AgentMeta = OwnerShipMeta;
 
+export type AgentRuntimeAdapterKey =
+  | 'langgraph'
+  | 'langchain'
+  | 'workflow-devkit';
+
+export interface AgentRuntimeCapabilities {
+  /** Optional external adapter availability map for runtime interoperability. */
+  adapters?: Partial<Record<AgentRuntimeAdapterKey, boolean>>;
+  /** Whether the agent should persist checkpoints for replay/resume. */
+  checkpointing?: boolean;
+  /** Whether the agent supports external suspend/resume semantics. */
+  suspendResume?: boolean;
+  /** Whether the agent can delegate approvals to external gateways. */
+  approvalGateway?: boolean;
+}
+
+export interface AgentRuntimePorts {
+  /** Symbolic checkpoint store adapter identifier. */
+  checkpointStore?: string;
+  /** Symbolic suspend/resume adapter identifier. */
+  suspension?: string;
+  /** Symbolic retry classifier identifier. */
+  retryClassifier?: string;
+  /** Symbolic approval gateway identifier. */
+  approvalGateway?: string;
+}
+
+export interface AgentRuntimeConfig {
+  capabilities?: AgentRuntimeCapabilities;
+  ports?: AgentRuntimePorts;
+}
+
 /**
  * Configuration for a tool that an agent can use.
  */
@@ -115,6 +147,8 @@ export interface AgentSpec {
   knowledge?: AgentKnowledgeRef[];
   /** Policy configuration */
   policy?: AgentPolicy;
+  /** Runtime adapter and portability config. */
+  runtime?: AgentRuntimeConfig;
   /** Maximum steps per generation (defaults to 10) */
   maxSteps?: number;
 }
@@ -143,6 +177,14 @@ export function defineAgent(spec: AgentSpec): AgentSpec {
   }
   if (!spec.tools?.length) {
     throw new Error(i18n.t('error.agentRequiresTool', { key: spec.meta.key }));
+  }
+
+  for (const [portName, portRef] of Object.entries(spec.runtime?.ports ?? {})) {
+    if (portRef !== undefined && portRef.trim().length === 0) {
+      throw new Error(
+        `Agent ${spec.meta.key} has invalid runtime config: port "${portName}" must not be empty`
+      );
+    }
   }
 
   // Validate tool names are unique

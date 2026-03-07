@@ -1,4 +1,5 @@
 import { anthropic } from '@ai-sdk/anthropic';
+import { mistral } from '@ai-sdk/mistral';
 import { openai } from '@ai-sdk/openai';
 import { ollama } from 'ollama-ai-provider';
 import type { LanguageModel } from 'ai';
@@ -21,6 +22,11 @@ export function getAIProvider(config: Config): LanguageModel {
       return openai(model);
     }
 
+    case 'mistral': {
+      const model = aiModel || 'mistral-large-latest';
+      return mistral(model);
+    }
+
     case 'ollama': {
       const model = aiModel || 'codellama';
       // ollama-ai-provider returns LanguageModelV1, wrap it to satisfy LanguageModel interface
@@ -38,11 +44,6 @@ export function getAIProvider(config: Config): LanguageModel {
       }
 
       const model = aiModel || 'default';
-
-      // For custom endpoints, use openai with environment variable for baseURL
-      // The @ai-sdk/openai package reads from OPENAI_BASE_URL env var
-      // For now, just use the default openai model
-      // TODO: Support custom endpoints properly when needed
       return openai(model);
     }
 
@@ -80,6 +81,13 @@ export async function validateProvider(
       };
     }
 
+    if (aiProvider === 'mistral' && !process.env.MISTRAL_API_KEY) {
+      return {
+        success: false,
+        error: 'MISTRAL_API_KEY environment variable not set',
+      };
+    }
+
     return { success: true };
   } catch (error) {
     return {
@@ -102,6 +110,14 @@ export function getRecommendedModels(provider: Config['aiProvider']): string[] {
       ];
     case 'openai':
       return ['gpt-4o', 'gpt-4-turbo', 'gpt-3.5-turbo'];
+    case 'mistral':
+      return [
+        'mistral-large-latest',
+        'mistral-medium-latest',
+        'mistral-small-latest',
+        'codestral-latest',
+        'devstral-small-latest',
+      ];
     case 'ollama':
       return ['codellama', 'llama3.1', 'mistral', 'deepseek-coder'];
     case 'custom':

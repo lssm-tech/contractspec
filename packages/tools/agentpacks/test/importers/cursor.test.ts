@@ -1,5 +1,5 @@
 import { describe, expect, test, beforeAll, afterAll } from 'bun:test';
-import { existsSync, mkdirSync, writeFileSync, rmSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync, readFileSync, rmSync } from 'fs';
 import { join } from 'path';
 import { importFromCursor } from '../../src/importers/cursor.js';
 
@@ -31,6 +31,13 @@ beforeAll(() => {
   // Commands
   mkdirSync(join(cursorDir, 'commands'), { recursive: true });
   writeFileSync(join(cursorDir, 'commands', 'test.md'), 'Run tests.\n');
+
+  // Skills
+  mkdirSync(join(cursorDir, 'skills', 'release'), { recursive: true });
+  writeFileSync(
+    join(cursorDir, 'skills', 'release', 'SKILL.md'),
+    'Release workflow for imported project.\n'
+  );
 
   // MCP
   writeFileSync(
@@ -73,6 +80,18 @@ describe('importFromCursor', () => {
       f.includes('/commands/')
     );
     expect(cmdFiles).toHaveLength(1);
+  });
+
+  test('imports skills with normalized AgentSkills frontmatter', () => {
+    const result = importFromCursor(TEST_DIR);
+    const skillFile = result.filesImported.find((f) =>
+      f.includes('/skills/release/SKILL.md')
+    );
+    expect(skillFile).toBeDefined();
+
+    const content = readFileSync(skillFile!, 'utf-8');
+    expect(content).toContain('name: release');
+    expect(content).toContain('Imported skill: release');
   });
 
   test('imports MCP', () => {

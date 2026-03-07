@@ -4,15 +4,16 @@ import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 const ecosystemDocBlocks: DocBlock[] = [
   {
     id: 'docs.ecosystem.plugins',
-    title: 'Plugin API',
-    summary: 'Build generators, validators, adapters, and registry resolvers.',
+    title: 'Marketplace plugins',
+    summary:
+      'Focused Cursor marketplace plugins for product and core libraries.',
     kind: 'usage',
     visibility: 'public',
     route: '/docs/ecosystem/plugins',
     tags: ['ecosystem', 'plugins', 'extensions'],
-    body: `# Plugin API
+    body: `# Marketplace plugins
 
-ContractSpec plugins extend the platform with generators, validators, adapters, formatters, and registry resolvers. Define capabilities in code, register them through configuration, and ship reusable packages.`,
+ContractSpec ships a focused Cursor marketplace catalog with plugins for the product and key libraries. Plugin sources live in \`packages/apps-registry/cursor-marketplace/plugins/*\`, while the root manifest at \`.cursor-plugin/marketplace.json\` drives submission.`,
   },
   {
     id: 'docs.ecosystem.integrations',
@@ -28,24 +29,25 @@ Reference integrations demonstrate how to extend ContractSpec with real-world pl
   },
   {
     id: 'docs.ecosystem.templates',
-    title: 'Plugin templates',
-    summary: 'Scaffold new plugins with create-contractspec-plugin.',
+    title: 'Plugin authoring templates',
+    summary:
+      'Author focused plugins with a consistent marketplace-ready layout.',
     kind: 'usage',
     visibility: 'public',
     route: '/docs/ecosystem/templates',
     tags: ['ecosystem', 'templates'],
-    body: '# Plugin templates\n\nUse `create-contractspec-plugin` to scaffold a new plugin package with tests, documentation, and CI wiring.',
+    body: '# Plugin authoring templates\n\nCreate each plugin under `packages/apps-registry/cursor-marketplace/plugins/<plugin-name>/` and include `.cursor-plugin/plugin.json`, `rules/`, `commands/`, `agents/`, `skills/`, and `.mcp.json`.',
   },
 
   {
     id: 'docs.ecosystem.registry',
-    title: 'Registry resolution',
-    summary: 'Discover plugins locally or from remote registries.',
+    title: 'Marketplace manifest',
+    summary: 'Manage and validate root marketplace entries for all plugins.',
     kind: 'usage',
     visibility: 'public',
     route: '/docs/ecosystem/registry',
     tags: ['ecosystem', 'registry'],
-    body: '# Registry resolution\n\nPlugins can be resolved from local workspaces, npm packages, or remote registries. Configure resolution order in `.contractsrc.json` and use registry resolver plugins for custom sources.',
+    body: '# Marketplace manifest\n\nKeep all plugin entries in `.cursor-plugin/marketplace.json` and validate them with `bun run plugin:contractspec:validate` before submission.',
   },
 ];
 

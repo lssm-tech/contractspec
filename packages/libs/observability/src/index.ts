@@ -1,5 +1,14 @@
 export { getTracer, traceAsync, traceSync } from './tracing';
 export {
+  traceModelSelection,
+  type ModelSelectionSpanInput,
+  type ModelSelectionSpanAttributes,
+} from './tracing/model-selection.span';
+export {
+  ModelSelectionTelemetry,
+  type ModelSelectionEventProperties,
+} from './telemetry/model-selection-telemetry';
+export {
   getMeter,
   createCounter,
   createUpDownCounter,

@@ -64,4 +64,13 @@ export const TeamHubFeature = defineFeature({
       { key: 'announcements', version: '1.0.0' },
     ],
   },
+
+  telemetry: [{ key: 'team-hub.telemetry', version: '1.0.0' }],
+
+  docs: [
+    'docs.examples.team-hub',
+    'docs.examples.team-hub.goal',
+    'docs.examples.team-hub.usage',
+    'docs.examples.team-hub.constraints',
+  ],
 });

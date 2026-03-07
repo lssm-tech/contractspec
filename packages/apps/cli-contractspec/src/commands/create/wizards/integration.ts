@@ -24,6 +24,7 @@ const CATEGORY_CHOICES: { name: string; value: IntegrationCategoryData }[] = [
   { name: 'Email', value: 'email' },
   { name: 'Calendar', value: 'calendar' },
   { name: 'SMS', value: 'sms' },
+  { name: 'Messaging', value: 'messaging' },
   { name: 'AI - LLM', value: 'ai-llm' },
   { name: 'AI - Voice', value: 'ai-voice' },
   { name: 'Analytics', value: 'analytics' },

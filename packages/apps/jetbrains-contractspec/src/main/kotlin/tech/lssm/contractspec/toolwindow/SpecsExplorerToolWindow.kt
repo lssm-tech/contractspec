@@ -1,8 +1,11 @@
 package tech.lssm.contractspec.toolwindow
 
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.ui.SimpleToolWindowPanel
+import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.treeStructure.Tree
 import com.intellij.util.ui.tree.TreeUtil
@@ -10,6 +13,8 @@ import tech.lssm.contractspec.bridge.NodeBridgeService
 import tech.lssm.contractspec.settings.ContractSpecSettings
 import tech.lssm.contractspec.util.SpecFileUtil
 import java.awt.BorderLayout
+import javax.swing.DefaultComboBoxModel
+import javax.swing.JComboBox
 import javax.swing.JPanel
 import javax.swing.SwingUtilities
 import javax.swing.tree.DefaultMutableTreeNode
@@ -47,11 +52,18 @@ class SpecsExplorerToolWindow(private val project: Project) {
     fun createComponent(): JPanel {
         val panel = SimpleToolWindowPanel(true, true)
 
-        // Create toolbar with grouping mode selector
         val toolbar = JPanel(BorderLayout())
 
-        // TODO: Add grouping mode selector combo box
-        // For now, just refresh button
+        val modes = SpecFileUtil.getGroupingModes().keys.toTypedArray()
+        val groupingCombo = JComboBox(DefaultComboBoxModel(modes))
+        groupingCombo.selectedItem = settings.specsGroupingMode
+        groupingCombo.addActionListener {
+            val selected = groupingCombo.selectedItem as? String ?: return@addActionListener
+            settings.specsGroupingMode = selected
+            refresh()
+        }
+        toolbar.add(groupingCombo, BorderLayout.WEST)
+
         val refreshButton = com.intellij.ui.components.JBLabel("Refresh")
         refreshButton.addMouseListener(object : java.awt.event.MouseAdapter() {
             override fun mouseClicked(e: java.awt.event.MouseEvent) {
@@ -163,7 +175,25 @@ class SpecsExplorerToolWindow(private val project: Project) {
     }
 
     fun selectGroupingMode() {
-        // TODO: Show grouping mode selection dialog
+        val modesMap = SpecFileUtil.getGroupingModes()
+        val modeKeys = modesMap.keys.toTypedArray()
+        val modeLabels = modesMap.entries.map { "${it.key} — ${it.value}" }.toTypedArray()
+        val currentIndex = modeKeys.indexOf(settings.specsGroupingMode).coerceAtLeast(0)
+
+        val selected = Messages.showEditableChooseDialog(
+            "Select how specs are grouped in the explorer:",
+            "Grouping Mode",
+            Messages.getQuestionIcon(),
+            modeLabels,
+            modeLabels[currentIndex],
+            null
+        ) ?: return
+
+        val selectedIndex = modeLabels.indexOf(selected)
+        if (selectedIndex >= 0) {
+            settings.specsGroupingMode = modeKeys[selectedIndex]
+            refresh()
+        }
     }
 
     fun cycleGroupingMode() {
@@ -192,8 +222,8 @@ class SpecsExplorerToolWindow(private val project: Project) {
         }
 
         fun openFile() {
-            // TODO: Open the file in editor
-            // This would use FileEditorManager to open the virtual file
+            val virtualFile = LocalFileSystem.getInstance().findFileByPath(spec.filePath) ?: return
+            FileEditorManager.getInstance(project).openFile(virtualFile, true)
         }
     }
 }

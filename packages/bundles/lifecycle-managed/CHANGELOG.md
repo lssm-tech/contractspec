@@ -1,5 +1,124 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/module.lifecycle-advisor@3.3.0
+  - @contractspec/module.lifecycle-core@3.3.0
+  - @contractspec/lib.observability@3.3.0
+  - @contractspec/lib.analytics@3.3.0
+  - @contractspec/lib.lifecycle@3.3.0
+  - @contractspec/lib.ai-agent@3.3.0
+
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/module.lifecycle-advisor@3.2.0
+  - @contractspec/module.lifecycle-core@3.2.0
+  - @contractspec/lib.observability@3.2.0
+  - @contractspec/lib.analytics@3.2.0
+  - @contractspec/lib.lifecycle@3.2.0
+  - @contractspec/lib.ai-agent@3.2.0
+
+## 3.1.1
+
+### Patch Changes
+
+- @contractspec/lib.analytics@3.1.1
+- @contractspec/lib.observability@3.1.1
+- @contractspec/lib.ai-agent@3.1.1
+- @contractspec/lib.lifecycle@3.1.1
+- @contractspec/module.lifecycle-advisor@3.1.1
+- @contractspec/module.lifecycle-core@3.1.1
+
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [28987eb]
+- Updated dependencies [28987eb]
+  - @contractspec/lib.ai-agent@3.1.0
+  - @contractspec/module.lifecycle-advisor@3.1.0
+  - @contractspec/module.lifecycle-core@3.1.0
+  - @contractspec/lib.observability@3.1.0
+  - @contractspec/lib.analytics@3.1.0
+  - @contractspec/lib.lifecycle@3.1.0
+
+## 3.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- Updated dependencies [b781ce6]
+  - @contractspec/module.lifecycle-advisor@3.0.0
+  - @contractspec/module.lifecycle-core@3.0.0
+  - @contractspec/lib.observability@3.0.0
+  - @contractspec/lib.analytics@3.0.0
+  - @contractspec/lib.lifecycle@3.0.0
+  - @contractspec/lib.ai-agent@3.0.0
+
+## 2.9.1
+
+### Patch Changes
+
+- @contractspec/lib.analytics@2.9.1
+- @contractspec/lib.observability@2.9.1
+- @contractspec/lib.ai-agent@2.9.1
+- @contractspec/lib.lifecycle@2.9.1
+- @contractspec/module.lifecycle-advisor@2.9.1
+- @contractspec/module.lifecycle-core@2.9.1
+
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/module.lifecycle-advisor@2.9.0
+  - @contractspec/module.lifecycle-core@2.9.0
+  - @contractspec/lib.observability@2.9.0
+  - @contractspec/lib.analytics@2.9.0
+  - @contractspec/lib.lifecycle@2.9.0
+  - @contractspec/lib.ai-agent@2.9.0
+
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.ai-agent@2.8.0
+  - @contractspec/lib.analytics@2.8.0
+  - @contractspec/lib.lifecycle@2.8.0
+  - @contractspec/lib.observability@2.8.0
+  - @contractspec/module.lifecycle-advisor@2.8.0
+  - @contractspec/module.lifecycle-core@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

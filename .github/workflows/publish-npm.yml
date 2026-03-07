@@ -116,7 +116,7 @@ jobs:
         id: vscode-package
         working-directory: packages/apps/vscode-contractspec
         run: |
-          bun run package
+          bunx @vscode/vsce@3.7.1 package --no-dependencies
           VSIX_NAME=$(ls *.vsix | head -1)
           echo "vsix-name=$VSIX_NAME" >> $GITHUB_OUTPUT
           echo "📦 Packaged: $VSIX_NAME"
@@ -128,10 +128,6 @@ jobs:
           VERSION=$(jq -r .version packages/apps/vscode-contractspec/package.json)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Install vsce
-        if: steps.changesets.outputs.hasChangesets == 'false' && steps.non-npm-targets.outputs.publish_vscode == 'true'
-        run: bun add -g @vscode/vsce
-
       - name: Publish VS Code extension to Marketplace
         if: steps.changesets.outputs.hasChangesets == 'false' && steps.non-npm-targets.outputs.publish_vscode == 'true'
         working-directory: packages/apps/vscode-contractspec
@@ -140,7 +136,7 @@ jobs:
         run: |
           VSIX_FILE=$(ls *.vsix | head -1)
           echo "🚀 Publishing $VSIX_FILE to VS Code Marketplace..."
-          vsce publish --packagePath "$VSIX_FILE" --pat "$VSCE_PAT"
+          bunx @vscode/vsce@3.7.1 publish --packagePath "$VSIX_FILE" --pat "$VSCE_PAT"
 
       - name: Publish VS Code extension to Open VSX Registry
         if: steps.changesets.outputs.hasChangesets == 'false' && steps.non-npm-targets.outputs.publish_vscode == 'true' && env.OVSX_PAT != ''

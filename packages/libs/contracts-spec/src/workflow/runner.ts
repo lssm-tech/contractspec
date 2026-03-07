@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto';
 import type {
   GuardCondition,
   Step,
+  WorkflowExecutionErrorKind,
   WorkflowRegistry,
   WorkflowSpec,
 } from './spec';
@@ -103,9 +104,11 @@ export class WorkflowRunner {
     const entryStepId = resolveEntryStepId(spec);
     const now = new Date();
     const workflowId = randomUUID();
+    const traceId = randomUUID();
 
     const state: WorkflowState = {
       workflowId,
+      traceId,
       workflowName: spec.meta.key,
       workflowVersion: spec.meta.version,
       currentStep: entryStepId,
@@ -132,6 +135,7 @@ export class WorkflowRunner {
     await this.config.stateStore.create(state);
     this.emit('workflow.started', {
       workflowId,
+      traceId,
       workflowName: spec.meta.key,
       workflowVersion: spec.meta.version,
       currentStep: entryStepId,
@@ -140,18 +144,53 @@ export class WorkflowRunner {
   }
 
   async executeStep(workflowId: string, input?: unknown): Promise<void> {
-    const state = await this.getStateOrThrow(workflowId);
-    if (isTerminalStatus(state.status)) {
+    const currentState = await this.getStateOrThrow(workflowId);
+    if (isTerminalStatus(currentState.status)) {
       throw new Error(
-        `Workflow ${workflowId} is in terminal status "${state.status}".`
+        `Workflow ${workflowId} is in terminal status "${currentState.status}".`
+      );
+    }
+
+    const state: WorkflowState =
+      currentState.status === 'paused' && input !== undefined
+        ? {
+            ...currentState,
+            status: 'running',
+            updatedAt: new Date(),
+          }
+        : currentState;
+
+    if (state.status === 'paused' && input === undefined) {
+      throw new Error(
+        `Workflow ${workflowId} is paused and requires input to resume.`
       );
     }
 
     const spec = this.getSpec(state.workflowName, state.workflowVersion);
     const step = getCurrentStep(spec, state.currentStep);
+
     const guardOk = await this.evaluateGuard(step, state, input);
     if (!guardOk)
-      throw new Error(`GuardRejected: ${state.workflowName} -> ${step.id}`);
+      throw new WorkflowExecutionError(
+        `GuardRejected: ${state.workflowName} -> ${step.id}`,
+        'guard_rejected'
+      );
+
+    if (step.type === 'human' && input === undefined) {
+      const pausedState: WorkflowState = {
+        ...state,
+        status: 'paused',
+        updatedAt: new Date(),
+      };
+      await this.config.stateStore.update(workflowId, () => pausedState);
+      this.emit('workflow.waiting_for_input', {
+        workflowId,
+        traceId: state.traceId,
+        workflowName: state.workflowName,
+        stepId: step.id,
+      });
+      return;
+    }
 
     const execution: StepExecution = {
       stepId: step.id,
@@ -166,12 +205,17 @@ export class WorkflowRunner {
       history: [...state.history],
     };
 
+    workingState.history.push(execution);
+    workingState.updatedAt = new Date();
+    await this.config.stateStore.update(workflowId, () => workingState);
+
     try {
-      const output = await this.runStepAction(step, workingState, input);
+      const output = await this.executeWithStepTimeout(step, () =>
+        this.runStepAction(step, workingState, input)
+      );
       execution.output = output;
       execution.status = 'completed';
       execution.completedAt = new Date();
-      workingState.history.push(execution);
       workingState.updatedAt = new Date();
 
       if (isRecord(input)) {
@@ -203,18 +247,19 @@ export class WorkflowRunner {
       await this.config.stateStore.update(workflowId, () => workingState);
       this.emit('workflow.step_completed', {
         workflowId,
+        traceId: state.traceId,
         workflowName: state.workflowName,
         stepId: step.id,
         status: workingState.status,
       });
     } catch (error) {
+      const classification = classifyExecutionError(error);
       execution.status = 'failed';
       execution.completedAt = new Date();
-      execution.error = error instanceof Error ? error.message : String(error);
-      workingState.history.push(execution);
+      execution.error = classification.message;
       workingState.updatedAt = new Date();
 
-      if (step.retry) {
+      if (step.retry && classification.retryable) {
         const retries = state.retryCounts?.[step.id] ?? 0;
         if (retries < step.retry.maxAttempts) {
           const backoff = step.retry.backoff ?? 'exponential';
@@ -237,11 +282,13 @@ export class WorkflowRunner {
           await this.config.stateStore.update(workflowId, () => workingState);
           this.emit('workflow.step_retrying', {
             workflowId,
+            traceId: state.traceId,
             workflowName: state.workflowName,
             stepId: step.id,
             attempt: retries + 1,
             delay: cappedDelay,
             error: execution.error,
+            errorKind: classification.kind,
           });
 
           await new Promise((resolve) => setTimeout(resolve, cappedDelay));
@@ -253,9 +300,11 @@ export class WorkflowRunner {
       await this.config.stateStore.update(workflowId, () => workingState);
       this.emit('workflow.step_failed', {
         workflowId,
+        traceId: state.traceId,
         workflowName: state.workflowName,
         stepId: step.id,
         error: execution.error ?? 'unknown',
+        errorKind: classification.kind,
       });
 
       // Trigger compensation if configured
@@ -263,7 +312,11 @@ export class WorkflowRunner {
         await this.rollback(workflowId);
       }
 
-      throw error;
+      if (error instanceof Error) {
+        throw error;
+      }
+
+      throw new Error(classification.message);
     }
   }
 
@@ -275,7 +328,10 @@ export class WorkflowRunner {
       return;
     }
 
-    this.emit('workflow.rollback_started', { workflowId });
+    this.emit('workflow.rollback_started', {
+      workflowId,
+      traceId: state.traceId,
+    });
 
     // Filter history for completed automation steps in reverse order
     const completedSteps = state.history
@@ -322,6 +378,7 @@ export class WorkflowRunner {
 
           this.emit('workflow.compensation_step_completed', {
             workflowId,
+            traceId: state.traceId,
             stepId: execution.stepId,
             compensationOp: compStep.operation.key,
           });
@@ -330,6 +387,7 @@ export class WorkflowRunner {
             error instanceof Error ? error.message : String(error);
           this.emit('workflow.compensation_step_failed', {
             workflowId,
+            traceId: state.traceId,
             stepId: execution.stepId,
             compensationOp: compStep.operation.key,
             error: errorMessage,
@@ -342,11 +400,48 @@ export class WorkflowRunner {
     // We don't change status from 'failed' or 'cancelled' usually,
     // but we might want to mark that rollback was attempted/completed.
     // For now, just emitting events is enough.
-    this.emit('workflow.rollback_completed', { workflowId });
+    this.emit('workflow.rollback_completed', {
+      workflowId,
+      traceId: state.traceId,
+    });
   }
 
   async getState(workflowId: string): Promise<WorkflowState> {
     return this.getStateOrThrow(workflowId);
+  }
+
+  async pause(workflowId: string): Promise<void> {
+    const state = await this.getStateOrThrow(workflowId);
+    if (state.status !== 'running') return;
+
+    const nextState: WorkflowState = {
+      ...state,
+      status: 'paused',
+      updatedAt: new Date(),
+    };
+    await this.config.stateStore.update(workflowId, () => nextState);
+    this.emit('workflow.paused', {
+      workflowId,
+      traceId: state.traceId,
+      workflowName: state.workflowName,
+    });
+  }
+
+  async resume(workflowId: string): Promise<void> {
+    const state = await this.getStateOrThrow(workflowId);
+    if (state.status !== 'paused') return;
+
+    const nextState: WorkflowState = {
+      ...state,
+      status: 'running',
+      updatedAt: new Date(),
+    };
+    await this.config.stateStore.update(workflowId, () => nextState);
+    this.emit('workflow.resumed', {
+      workflowId,
+      traceId: state.traceId,
+      workflowName: state.workflowName,
+    });
   }
 
   async cancel(workflowId: string): Promise<void> {
@@ -361,6 +456,7 @@ export class WorkflowRunner {
     await this.config.stateStore.update(workflowId, () => nextState);
     this.emit('workflow.cancelled', {
       workflowId,
+      traceId: state.traceId,
       workflowName: state.workflowName,
     });
   }
@@ -492,6 +588,37 @@ export class WorkflowRunner {
     return input;
   }
 
+  private async executeWithStepTimeout(
+    step: Step,
+    task: () => Promise<unknown>
+  ): Promise<unknown> {
+    const timeoutMs = step.timeoutMs;
+    if (!timeoutMs || timeoutMs <= 0) {
+      return task();
+    }
+
+    return new Promise<unknown>((resolve, reject) => {
+      const timeoutHandle = setTimeout(() => {
+        reject(
+          new WorkflowExecutionError(
+            `Step "${step.id}" timed out after ${timeoutMs}ms`,
+            'timeout'
+          )
+        );
+      }, timeoutMs);
+
+      task()
+        .then((result) => {
+          clearTimeout(timeoutHandle);
+          resolve(result);
+        })
+        .catch((error) => {
+          clearTimeout(timeoutHandle);
+          reject(error);
+        });
+    });
+  }
+
   private pickNextStepId(
     spec: WorkflowSpec,
     state: WorkflowState,
@@ -588,6 +715,64 @@ export class WorkflowPreFlightError extends Error {
   }
 }
 
+export class WorkflowExecutionError extends Error {
+  constructor(
+    message: string,
+    public readonly kind: WorkflowExecutionErrorKind
+  ) {
+    super(message);
+    this.name = 'WorkflowExecutionError';
+  }
+}
+
 function capabilityKey(ref: CapabilityRef): string {
   return `${ref.key}@${ref.version}`;
+}
+
+function classifyExecutionError(error: unknown): {
+  kind: WorkflowExecutionErrorKind;
+  message: string;
+  retryable: boolean;
+} {
+  if (error instanceof WorkflowExecutionError) {
+    return {
+      kind: error.kind,
+      message: error.message,
+      retryable: error.kind === 'retryable' || error.kind === 'timeout',
+    };
+  }
+
+  const kind = readErrorKind(error);
+  if (kind) {
+    return {
+      kind,
+      message: error instanceof Error ? error.message : String(error),
+      retryable: kind === 'retryable' || kind === 'timeout',
+    };
+  }
+
+  return {
+    kind: 'retryable',
+    message: error instanceof Error ? error.message : String(error),
+    retryable: true,
+  };
+}
+
+function readErrorKind(error: unknown): WorkflowExecutionErrorKind | undefined {
+  if (typeof error !== 'object' || error === null || !('kind' in error)) {
+    return undefined;
+  }
+
+  const kind = (error as { kind?: unknown }).kind;
+  if (
+    kind === 'fatal' ||
+    kind === 'retryable' ||
+    kind === 'timeout' ||
+    kind === 'guard_rejected' ||
+    kind === 'policy_blocked'
+  ) {
+    return kind;
+  }
+
+  return undefined;
 }

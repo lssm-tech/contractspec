@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/bundle.library",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "type": "module",
   "scripts": {
     "clean": "rm -rf dist",
@@ -20,13 +20,20 @@
   "exports": {
     ".": "./src/index.ts",
     "./application": "./src/application/index.ts",
+    "./application/context-storage": "./src/application/context-storage/index.ts",
+    "./application/context-storage/index": "./src/application/context-storage/index.ts",
     "./application/index": "./src/application/index.ts",
     "./application/mcp": "./src/application/mcp/index.ts",
     "./application/mcp/cliMcp": "./src/application/mcp/cliMcp.ts",
     "./application/mcp/common": "./src/application/mcp/common.ts",
+    "./application/mcp/contractsMcp": "./src/application/mcp/contractsMcp.ts",
+    "./application/mcp/contractsMcpResources": "./src/application/mcp/contractsMcpResources.ts",
+    "./application/mcp/contractsMcpTools": "./src/application/mcp/contractsMcpTools.ts",
+    "./application/mcp/contractsMcpTypes": "./src/application/mcp/contractsMcpTypes.ts",
     "./application/mcp/docsMcp": "./src/application/mcp/docsMcp.ts",
     "./application/mcp/index": "./src/application/mcp/index.ts",
     "./application/mcp/internalMcp": "./src/application/mcp/internalMcp.ts",
+    "./application/mcp/providerRankingMcp": "./src/application/mcp/providerRankingMcp.ts",
     "./components/docs": "./src/components/docs/index.ts",
     "./components/docs/advanced": "./src/components/docs/advanced/index.ts",
     "./components/docs/advanced/AdvancedMCPPage": "./src/components/docs/advanced/AdvancedMCPPage.tsx",
@@ -38,6 +45,7 @@
     "./components/docs/advanced/index": "./src/components/docs/advanced/index.ts",
     "./components/docs/architecture": "./src/components/docs/architecture/index.ts",
     "./components/docs/architecture/ArchitectureAppConfigPage": "./src/components/docs/architecture/ArchitectureAppConfigPage.tsx",
+    "./components/docs/architecture/ArchitectureControlPlanePage": "./src/components/docs/architecture/ArchitectureControlPlanePage.tsx",
     "./components/docs/architecture/ArchitectureIntegrationBindingPage": "./src/components/docs/architecture/ArchitectureIntegrationBindingPage.tsx",
     "./components/docs/architecture/ArchitectureKnowledgeBindingPage": "./src/components/docs/architecture/ArchitectureKnowledgeBindingPage.tsx",
     "./components/docs/architecture/ArchitectureMultiTenancyPage": "./src/components/docs/architecture/ArchitectureMultiTenancyPage.tsx",
@@ -94,8 +102,11 @@
     "./components/docs/integrations/index": "./src/components/docs/integrations/index.ts",
     "./components/docs/integrations/IntegrationsCircuitBreakersPage": "./src/components/docs/integrations/IntegrationsCircuitBreakersPage.tsx",
     "./components/docs/integrations/IntegrationsElevenLabsPage": "./src/components/docs/integrations/IntegrationsElevenLabsPage.tsx",
+    "./components/docs/integrations/IntegrationsGithubPage": "./src/components/docs/integrations/IntegrationsGithubPage.tsx",
     "./components/docs/integrations/IntegrationsGmailPage": "./src/components/docs/integrations/IntegrationsGmailPage.tsx",
     "./components/docs/integrations/IntegrationsGoogleCalendarPage": "./src/components/docs/integrations/IntegrationsGoogleCalendarPage.tsx",
+    "./components/docs/integrations/IntegrationsHealthRoutingPage": "./src/components/docs/integrations/IntegrationsHealthRoutingPage.tsx",
+    "./components/docs/integrations/IntegrationsMistralPage": "./src/components/docs/integrations/IntegrationsMistralPage.tsx",
     "./components/docs/integrations/IntegrationsOpenAIPage": "./src/components/docs/integrations/IntegrationsOpenAIPage.tsx",
     "./components/docs/integrations/IntegrationsOverviewPage": "./src/components/docs/integrations/IntegrationsOverviewPage.tsx",
     "./components/docs/integrations/IntegrationsPostmarkPage": "./src/components/docs/integrations/IntegrationsPostmarkPage.tsx",
@@ -103,9 +114,12 @@
     "./components/docs/integrations/IntegrationsQdrantPage": "./src/components/docs/integrations/IntegrationsQdrantPage.tsx",
     "./components/docs/integrations/IntegrationsResendPage": "./src/components/docs/integrations/IntegrationsResendPage.tsx",
     "./components/docs/integrations/IntegrationsS3Page": "./src/components/docs/integrations/IntegrationsS3Page.tsx",
+    "./components/docs/integrations/IntegrationsSlackPage": "./src/components/docs/integrations/IntegrationsSlackPage.tsx",
     "./components/docs/integrations/IntegrationsSpecModelPage": "./src/components/docs/integrations/IntegrationsSpecModelPage.tsx",
     "./components/docs/integrations/IntegrationsStripePage": "./src/components/docs/integrations/IntegrationsStripePage.tsx",
     "./components/docs/integrations/IntegrationsTwilioPage": "./src/components/docs/integrations/IntegrationsTwilioPage.tsx",
+    "./components/docs/integrations/IntegrationsWhatsappMetaPage": "./src/components/docs/integrations/IntegrationsWhatsappMetaPage.tsx",
+    "./components/docs/integrations/IntegrationsWhatsappTwilioPage": "./src/components/docs/integrations/IntegrationsWhatsappTwilioPage.tsx",
     "./components/docs/intent": "./src/components/docs/intent/index.ts",
     "./components/docs/intent/ContractFirstApiPage": "./src/components/docs/intent/ContractFirstApiPage.tsx",
     "./components/docs/intent/DeterministicCodegenPage": "./src/components/docs/intent/DeterministicCodegenPage.tsx",
@@ -365,27 +379,31 @@
     "@apollo/client": "^4.1.6",
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.contracts-library": "workspace:*",
+    "@contractspec/lib.content-gen": "workspace:*",
     "@contractspec/lib.contracts-runtime-server-mcp": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
+    "@contractspec/lib.provider-ranking": "workspace:*",
     "@contractspec/lib.example-shared-ui": "workspace:*",
+    "@contractspec/lib.knowledge": "workspace:*",
     "@contractspec/lib.logger": "workspace:*",
     "@contractspec/lib.runtime-sandbox": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.ui-kit-web": "workspace:*",
     "@contractspec/lib.ui-link": "workspace:*",
+    "@contractspec/module.context-storage": "workspace:*",
     "@contractspec/module.examples": "workspace:*",
     "@dnd-kit/core": "^6.1.0",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@electric-sql/pglite": "^0.3.14",
-    "@scaleway/sdk": "^3.2.1",
-    "@scaleway/sdk-client": "^2.1.0",
+    "@scaleway/sdk": "^3.3.1",
+    "@scaleway/sdk-client": "^2.2.1",
     "drizzle-orm": "^0.45.1",
-    "framer-motion": "^12.34.3",
-    "lucide-react": "^0.575.0",
-    "posthog-js": "^1.353.0",
-    "posthog-node": "^5.25.0",
-    "posthog-react-native": "^4.34.0",
+    "framer-motion": "^12.35.0",
+    "lucide-react": "^0.577.0",
+    "posthog-js": "^1.359.1",
+    "posthog-node": "^5.28.0",
+    "posthog-react-native": "^4.37.1",
     "react-hook-form": "^7.71.2",
     "zod": "catalog:",
     "@contractspec/lib.contracts-integrations": "workspace:*",
@@ -396,7 +414,7 @@
     "@types/react": "~19.2.14",
     "@contractspec/tool.typescript": "workspace:*",
     "typescript": "catalog:",
-    "@types/bun": "~1.3.9",
+    "@types/bun": "~1.3.10",
     "@contractspec/tool.bun": "workspace:*"
   },
   "publishConfig": {
@@ -414,6 +432,18 @@
         "bun": "./dist/application/index.js",
         "node": "./dist/node/application/index.js",
         "default": "./dist/application/index.js"
+      },
+      "./application/context-storage": {
+        "types": "./dist/application/context-storage/index.d.ts",
+        "bun": "./dist/application/context-storage/index.js",
+        "node": "./dist/node/application/context-storage/index.js",
+        "default": "./dist/application/context-storage/index.js"
+      },
+      "./application/context-storage/index": {
+        "types": "./dist/application/context-storage/index.d.ts",
+        "bun": "./dist/application/context-storage/index.js",
+        "node": "./dist/node/application/context-storage/index.js",
+        "default": "./dist/application/context-storage/index.js"
       },
       "./application/index": {
         "types": "./dist/application/index.d.ts",
@@ -439,6 +469,30 @@
         "node": "./dist/node/application/mcp/common.js",
         "default": "./dist/application/mcp/common.js"
       },
+      "./application/mcp/contractsMcp": {
+        "types": "./dist/application/mcp/contractsMcp.d.ts",
+        "bun": "./dist/application/mcp/contractsMcp.js",
+        "node": "./dist/node/application/mcp/contractsMcp.js",
+        "default": "./dist/application/mcp/contractsMcp.js"
+      },
+      "./application/mcp/contractsMcpResources": {
+        "types": "./dist/application/mcp/contractsMcpResources.d.ts",
+        "bun": "./dist/application/mcp/contractsMcpResources.js",
+        "node": "./dist/node/application/mcp/contractsMcpResources.js",
+        "default": "./dist/application/mcp/contractsMcpResources.js"
+      },
+      "./application/mcp/contractsMcpTools": {
+        "types": "./dist/application/mcp/contractsMcpTools.d.ts",
+        "bun": "./dist/application/mcp/contractsMcpTools.js",
+        "node": "./dist/node/application/mcp/contractsMcpTools.js",
+        "default": "./dist/application/mcp/contractsMcpTools.js"
+      },
+      "./application/mcp/contractsMcpTypes": {
+        "types": "./dist/application/mcp/contractsMcpTypes.d.ts",
+        "bun": "./dist/application/mcp/contractsMcpTypes.js",
+        "node": "./dist/node/application/mcp/contractsMcpTypes.js",
+        "default": "./dist/application/mcp/contractsMcpTypes.js"
+      },
       "./application/mcp/docsMcp": {
         "types": "./dist/application/mcp/docsMcp.d.ts",
         "bun": "./dist/application/mcp/docsMcp.js",
@@ -456,6 +510,12 @@
         "bun": "./dist/application/mcp/internalMcp.js",
         "node": "./dist/node/application/mcp/internalMcp.js",
         "default": "./dist/application/mcp/internalMcp.js"
+      },
+      "./application/mcp/providerRankingMcp": {
+        "types": "./dist/application/mcp/providerRankingMcp.d.ts",
+        "bun": "./dist/application/mcp/providerRankingMcp.js",
+        "node": "./dist/node/application/mcp/providerRankingMcp.js",
+        "default": "./dist/application/mcp/providerRankingMcp.js"
       },
       "./components/docs": {
         "types": "./dist/components/docs/index.d.ts",
@@ -522,6 +582,12 @@
         "bun": "./dist/components/docs/architecture/ArchitectureAppConfigPage.js",
         "node": "./dist/node/components/docs/architecture/ArchitectureAppConfigPage.js",
         "default": "./dist/components/docs/architecture/ArchitectureAppConfigPage.js"
+      },
+      "./components/docs/architecture/ArchitectureControlPlanePage": {
+        "types": "./dist/components/docs/architecture/ArchitectureControlPlanePage.d.ts",
+        "bun": "./dist/components/docs/architecture/ArchitectureControlPlanePage.js",
+        "node": "./dist/node/components/docs/architecture/ArchitectureControlPlanePage.js",
+        "default": "./dist/components/docs/architecture/ArchitectureControlPlanePage.js"
       },
       "./components/docs/architecture/ArchitectureIntegrationBindingPage": {
         "types": "./dist/components/docs/architecture/ArchitectureIntegrationBindingPage.d.ts",
@@ -859,6 +925,12 @@
         "node": "./dist/node/components/docs/integrations/IntegrationsElevenLabsPage.js",
         "default": "./dist/components/docs/integrations/IntegrationsElevenLabsPage.js"
       },
+      "./components/docs/integrations/IntegrationsGithubPage": {
+        "types": "./dist/components/docs/integrations/IntegrationsGithubPage.d.ts",
+        "bun": "./dist/components/docs/integrations/IntegrationsGithubPage.js",
+        "node": "./dist/node/components/docs/integrations/IntegrationsGithubPage.js",
+        "default": "./dist/components/docs/integrations/IntegrationsGithubPage.js"
+      },
       "./components/docs/integrations/IntegrationsGmailPage": {
         "types": "./dist/components/docs/integrations/IntegrationsGmailPage.d.ts",
         "bun": "./dist/components/docs/integrations/IntegrationsGmailPage.js",
@@ -870,6 +942,18 @@
         "bun": "./dist/components/docs/integrations/IntegrationsGoogleCalendarPage.js",
         "node": "./dist/node/components/docs/integrations/IntegrationsGoogleCalendarPage.js",
         "default": "./dist/components/docs/integrations/IntegrationsGoogleCalendarPage.js"
+      },
+      "./components/docs/integrations/IntegrationsHealthRoutingPage": {
+        "types": "./dist/components/docs/integrations/IntegrationsHealthRoutingPage.d.ts",
+        "bun": "./dist/components/docs/integrations/IntegrationsHealthRoutingPage.js",
+        "node": "./dist/node/components/docs/integrations/IntegrationsHealthRoutingPage.js",
+        "default": "./dist/components/docs/integrations/IntegrationsHealthRoutingPage.js"
+      },
+      "./components/docs/integrations/IntegrationsMistralPage": {
+        "types": "./dist/components/docs/integrations/IntegrationsMistralPage.d.ts",
+        "bun": "./dist/components/docs/integrations/IntegrationsMistralPage.js",
+        "node": "./dist/node/components/docs/integrations/IntegrationsMistralPage.js",
+        "default": "./dist/components/docs/integrations/IntegrationsMistralPage.js"
       },
       "./components/docs/integrations/IntegrationsOpenAIPage": {
         "types": "./dist/components/docs/integrations/IntegrationsOpenAIPage.d.ts",
@@ -913,6 +997,12 @@
         "node": "./dist/node/components/docs/integrations/IntegrationsS3Page.js",
         "default": "./dist/components/docs/integrations/IntegrationsS3Page.js"
       },
+      "./components/docs/integrations/IntegrationsSlackPage": {
+        "types": "./dist/components/docs/integrations/IntegrationsSlackPage.d.ts",
+        "bun": "./dist/components/docs/integrations/IntegrationsSlackPage.js",
+        "node": "./dist/node/components/docs/integrations/IntegrationsSlackPage.js",
+        "default": "./dist/components/docs/integrations/IntegrationsSlackPage.js"
+      },
       "./components/docs/integrations/IntegrationsSpecModelPage": {
         "types": "./dist/components/docs/integrations/IntegrationsSpecModelPage.d.ts",
         "bun": "./dist/components/docs/integrations/IntegrationsSpecModelPage.js",
@@ -930,6 +1020,18 @@
         "bun": "./dist/components/docs/integrations/IntegrationsTwilioPage.js",
         "node": "./dist/node/components/docs/integrations/IntegrationsTwilioPage.js",
         "default": "./dist/components/docs/integrations/IntegrationsTwilioPage.js"
+      },
+      "./components/docs/integrations/IntegrationsWhatsappMetaPage": {
+        "types": "./dist/components/docs/integrations/IntegrationsWhatsappMetaPage.d.ts",
+        "bun": "./dist/components/docs/integrations/IntegrationsWhatsappMetaPage.js",
+        "node": "./dist/node/components/docs/integrations/IntegrationsWhatsappMetaPage.js",
+        "default": "./dist/components/docs/integrations/IntegrationsWhatsappMetaPage.js"
+      },
+      "./components/docs/integrations/IntegrationsWhatsappTwilioPage": {
+        "types": "./dist/components/docs/integrations/IntegrationsWhatsappTwilioPage.d.ts",
+        "bun": "./dist/components/docs/integrations/IntegrationsWhatsappTwilioPage.js",
+        "node": "./dist/node/components/docs/integrations/IntegrationsWhatsappTwilioPage.js",
+        "default": "./dist/components/docs/integrations/IntegrationsWhatsappTwilioPage.js"
       },
       "./components/docs/intent": {
         "types": "./dist/components/docs/intent/index.d.ts",

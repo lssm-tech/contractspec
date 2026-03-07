@@ -4,6 +4,10 @@ import type {
   GeneratorOptions,
 } from '../types';
 import type { LLMProvider } from '@contractspec/lib.contracts-integrations';
+import type {
+  ModelSelector,
+  ModelSelectionContext,
+} from '@contractspec/lib.ai-providers/selector-types';
 import { createContentGenI18n } from '../i18n';
 import type { ContentGenI18n } from '../i18n';
 
@@ -12,12 +16,16 @@ export class EmailCampaignGenerator {
   private readonly model?: string;
   private readonly temperature: number;
   private readonly i18n: ContentGenI18n;
+  private readonly modelSelector?: ModelSelector;
+  private readonly selectionContext?: ModelSelectionContext;
 
   constructor(options?: GeneratorOptions) {
     this.llm = options?.llm;
     this.model = options?.model;
     this.temperature = options?.temperature ?? 0.6;
     this.i18n = createContentGenI18n(options?.locale);
+    this.modelSelector = options?.modelSelector;
+    this.selectionContext = options?.selectionContext;
   }
 
   async generate(input: EmailCampaignBrief): Promise<EmailDraft> {
@@ -28,10 +36,23 @@ export class EmailCampaignGenerator {
     return this.generateFallback(input);
   }
 
+  private async resolveModel(): Promise<string | undefined> {
+    if (this.model) return this.model;
+    if (this.modelSelector) {
+      const ctx = this.selectionContext ?? {
+        taskDimension: 'reasoning' as const,
+      };
+      const result = await this.modelSelector.select(ctx);
+      return result.modelId;
+    }
+    return undefined;
+  }
+
   private async generateWithLlm(
     input: EmailCampaignBrief
   ): Promise<EmailDraft | null> {
     if (!this.llm) return null;
+    const model = await this.resolveModel();
     const response = await this.llm.chat(
       [
         {
@@ -50,7 +71,7 @@ export class EmailCampaignGenerator {
       ],
       {
         responseFormat: 'json',
-        model: this.model,
+        model,
         temperature: this.temperature,
       }
     );

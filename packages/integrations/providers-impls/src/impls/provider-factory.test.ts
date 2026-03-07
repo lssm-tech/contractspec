@@ -13,6 +13,10 @@ import { IntegrationProviderFactory } from './provider-factory';
 import { StripePaymentsProvider } from './stripe-payments';
 import { PostmarkEmailProvider } from './postmark-email';
 import { TwilioSmsProvider } from './twilio-sms';
+import { SlackMessagingProvider } from './messaging-slack';
+import { GithubMessagingProvider } from './messaging-github';
+import { MetaWhatsappMessagingProvider } from './messaging-whatsapp-meta';
+import { TwilioWhatsappMessagingProvider } from './messaging-whatsapp-twilio';
 import { QdrantVectorProvider } from './qdrant-vector';
 import { SupabaseVectorProvider } from './supabase-vector';
 import { SupabasePostgresProvider } from './supabase-psql';
@@ -22,6 +26,8 @@ import { GradiumVoiceProvider } from './gradium-voice';
 import { FalVoiceProvider } from './fal-voice';
 import { MistralLLMProvider } from './mistral-llm';
 import { MistralEmbeddingProvider } from './mistral-embedding';
+import { MistralSttProvider } from './mistral-stt';
+import { MistralConversationalProvider } from './mistral-conversational';
 import { PowensOpenBankingProvider } from './powens-openbanking';
 import { LinearProjectManagementProvider } from './linear';
 import { JiraProjectManagementProvider } from './jira';
@@ -31,6 +37,13 @@ import { TldvMeetingRecorderProvider } from './tldv-meeting-recorder';
 import { FirefliesMeetingRecorderProvider } from './fireflies-meeting-recorder';
 import { FathomMeetingRecorderProvider } from './fathom-meeting-recorder';
 import { PosthogAnalyticsProvider } from './posthog';
+import {
+  GarminHealthProvider,
+  OpenWearablesHealthProvider,
+  PelotonHealthProvider,
+  UnofficialHealthAutomationProvider,
+  WhoopHealthProvider,
+} from './health/providers';
 
 describe('IntegrationProviderFactory', () => {
   const factory = new IntegrationProviderFactory();
@@ -64,6 +77,54 @@ describe('IntegrationProviderFactory', () => {
       })
     );
     expect(provider).toBeInstanceOf(TwilioSmsProvider);
+  });
+
+  it('creates Slack messaging provider', async () => {
+    const provider = await factory.createMessagingProvider(
+      buildContext({
+        key: 'messaging.slack',
+        config: { defaultChannelId: 'C123' },
+        secret: { botToken: 'xoxb-test', signingSecret: 'secret' },
+      })
+    );
+    expect(provider).toBeInstanceOf(SlackMessagingProvider);
+  });
+
+  it('creates GitHub messaging provider', async () => {
+    const provider = await factory.createMessagingProvider(
+      buildContext({
+        key: 'messaging.github',
+        config: { defaultOwner: 'lssm-tech', defaultRepo: 'contractspec' },
+        secret: { token: 'ghp_test', webhookSecret: 'secret' },
+      })
+    );
+    expect(provider).toBeInstanceOf(GithubMessagingProvider);
+  });
+
+  it('creates Meta WhatsApp messaging provider', async () => {
+    const provider = await factory.createMessagingProvider(
+      buildContext({
+        key: 'messaging.whatsapp.meta',
+        config: { phoneNumberId: '12345' },
+        secret: {
+          accessToken: 'meta-token',
+          appSecret: 'app-secret',
+          verifyToken: 'verify-token',
+        },
+      })
+    );
+    expect(provider).toBeInstanceOf(MetaWhatsappMessagingProvider);
+  });
+
+  it('creates Twilio WhatsApp messaging provider', async () => {
+    const provider = await factory.createMessagingProvider(
+      buildContext({
+        key: 'messaging.whatsapp.twilio',
+        config: { fromNumber: 'whatsapp:+15551234567' },
+        secret: { accountSid: 'AC123', authToken: 'token' },
+      })
+    );
+    expect(provider).toBeInstanceOf(TwilioWhatsappMessagingProvider);
   });
 
   it('creates Qdrant vector store provider', async () => {
@@ -171,6 +232,28 @@ describe('IntegrationProviderFactory', () => {
     expect(embedding).toBeInstanceOf(MistralEmbeddingProvider);
   });
 
+  it('creates Mistral STT provider', async () => {
+    const provider = await factory.createSttProvider(
+      buildContext({
+        key: 'ai-voice-stt.mistral',
+        config: { model: 'voxtral-mini-latest', language: 'en' },
+        secret: { apiKey: 'mistral-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(MistralSttProvider);
+  });
+
+  it('creates Mistral conversational provider', async () => {
+    const provider = await factory.createConversationalProvider(
+      buildContext({
+        key: 'ai-voice-conv.mistral',
+        config: { model: 'mistral-small-latest', defaultVoice: 'default' },
+        secret: { apiKey: 'mistral-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(MistralConversationalProvider);
+  });
+
   it('creates Powens open banking provider', async () => {
     const provider = await factory.createOpenBankingProvider(
       buildContext({
@@ -269,7 +352,75 @@ describe('IntegrationProviderFactory', () => {
     );
     expect(provider).toBeInstanceOf(FathomMeetingRecorderProvider);
   });
+
+  it('creates Whoop health provider with official transport', async () => {
+    const provider = await factory.createHealthProvider(
+      buildContext({
+        key: 'health.whoop',
+        secret: { accessToken: 'whoop-token' },
+      })
+    );
+    expect(provider).toBeInstanceOf(WhoopHealthProvider);
+  });
+
+  it('creates OpenWearables health provider when configured as aggregator', async () => {
+    const provider = await factory.createHealthProvider(
+      buildContext({
+        key: 'health.strava',
+        config: {
+          defaultTransport: 'aggregator-api',
+          strategyOrder: ['aggregator-api', 'official-api'],
+        },
+        secret: { apiKey: 'ow-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(OpenWearablesHealthProvider);
+  });
+
+  it('creates unofficial health provider only when allow-listed', async () => {
+    const provider = await factory.createHealthProvider(
+      buildContext({
+        key: 'health.peloton',
+        config: {
+          mcpUrl: 'https://mcp.example-health.local',
+          defaultTransport: 'unofficial',
+          strategyOrder: ['unofficial', 'aggregator-api'],
+          allowUnofficial: true,
+          unofficialAllowList: ['health.peloton'],
+        },
+        secret: { mcpAccessToken: 'mcp-token' },
+      })
+    );
+    expect(provider).toBeInstanceOf(UnofficialHealthAutomationProvider);
+  });
+
+  it('falls back to aggregator when unofficial transport is blocked', async () => {
+    const provider = await factory.createHealthProvider(
+      buildContext({
+        key: 'health.peloton',
+        config: {
+          defaultTransport: 'unofficial',
+          strategyOrder: ['unofficial', 'aggregator-api'],
+          allowUnofficial: false,
+        },
+        secret: { apiKey: 'ow-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(PelotonHealthProvider);
+  });
+
+  it('falls back from unsupported official Garmin to aggregator transport', async () => {
+    const provider = await factory.createHealthProvider(
+      buildContext({
+        key: 'health.garmin',
+        secret: { apiKey: 'ow-key' },
+      })
+    );
+    expect(provider).toBeInstanceOf(GarminHealthProvider);
+  });
 });
+
+let contextCounter = 0;
 
 function buildContext({
   key,
@@ -301,7 +452,7 @@ function buildContext({
   };
   const connection: IntegrationConnection = {
     meta: {
-      id: `conn-${key}`,
+      id: `conn-${key}-${++contextCounter}`,
       tenantId: 'tenant',
       integrationKey: key,
       integrationVersion: '1.0.0',

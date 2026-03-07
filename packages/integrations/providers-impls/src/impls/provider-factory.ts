@@ -2,6 +2,11 @@ import { Buffer } from 'node:buffer';
 
 import type { IntegrationContext } from '@contractspec/integration.runtime/runtime';
 import type { SecretValue } from '@contractspec/integration.runtime/secrets/provider';
+import type { IntegrationTransportType } from '@contractspec/lib.contracts-integrations/integrations/transport';
+import type { IntegrationAuthType } from '@contractspec/lib.contracts-integrations/integrations/auth';
+import { resolveIntegrationRequestContext } from '@contractspec/lib.contracts-integrations/integrations/runtime';
+import { buildAuthHeaders } from '@contractspec/lib.contracts-integrations/integrations/auth-helpers';
+import { findAuthConfig } from '@contractspec/lib.contracts-integrations/integrations/auth';
 import { MistralLLMProvider } from './mistral-llm';
 import { MistralEmbeddingProvider } from './mistral-embedding';
 import { QdrantVectorProvider } from './qdrant-vector';
@@ -11,9 +16,15 @@ import { GoogleCloudStorageProvider } from './gcs-storage';
 import { StripePaymentsProvider } from './stripe-payments';
 import { PostmarkEmailProvider } from './postmark-email';
 import { TwilioSmsProvider } from './twilio-sms';
+import { SlackMessagingProvider } from './messaging-slack';
+import { GithubMessagingProvider } from './messaging-github';
+import { MetaWhatsappMessagingProvider } from './messaging-whatsapp-meta';
+import { TwilioWhatsappMessagingProvider } from './messaging-whatsapp-twilio';
 import { ElevenLabsVoiceProvider } from './elevenlabs-voice';
 import { GradiumVoiceProvider } from './gradium-voice';
 import { FalVoiceProvider } from './fal-voice';
+import { MistralSttProvider } from './mistral-stt';
+import { MistralConversationalProvider } from './mistral-conversational';
 import { LinearProjectManagementProvider } from './linear';
 import { JiraProjectManagementProvider } from './jira';
 import { NotionProjectManagementProvider } from './notion';
@@ -25,22 +36,78 @@ import { PosthogAnalyticsProvider } from './posthog';
 import type { PaymentsProvider } from '../payments';
 import type { EmailOutboundProvider } from '../email';
 import type { SmsProvider } from '../sms';
+import type { MessagingProvider } from '../messaging';
 import type { VectorStoreProvider } from '../vector-store';
 import type { AnalyticsProvider } from '../analytics';
 import type { DatabaseProvider } from '../database';
 import type { ObjectStorageProvider } from '../storage';
-import type { TTSProvider } from '../voice';
+import type {
+  ConversationalProvider,
+  STTProvider,
+  TTSProvider,
+} from '../voice';
 import type { LLMProvider } from '../llm';
 import type { EmbeddingProvider } from '../embedding';
 import type { OpenBankingProvider } from '../openbanking';
 import type { ProjectManagementProvider } from '../project-management';
 import type { MeetingRecorderProvider } from '../meeting-recorder';
+import type { HealthProvider } from '../health';
 import { PowensOpenBankingProvider } from './powens-openbanking';
 import type { PowensEnvironment } from './powens-client';
+import { createHealthProviderFromContext } from './health-provider-factory';
+import type { ComposioFallbackResolver } from './composio-fallback-resolver';
 
 const SECRET_CACHE = new Map<string, Record<string, unknown>>();
 
+/**
+ * Resolved transport, auth, and version context for a provider invocation.
+ */
+export interface ResolvedProviderContext {
+  transport: IntegrationTransportType;
+  authMethod: IntegrationAuthType | undefined;
+  apiVersion: string | undefined;
+  /** Pre-built auth headers from the resolved auth method and secrets. */
+  authHeaders: Record<string, string>;
+  secrets: Record<string, unknown>;
+}
+
 export class IntegrationProviderFactory {
+  private readonly composioFallback?: ComposioFallbackResolver;
+
+  constructor(options?: { composioFallback?: ComposioFallbackResolver }) {
+    this.composioFallback = options?.composioFallback;
+  }
+  /**
+   * Resolve transport, auth method, API version, and build auth headers
+   * for a given integration context. Consumers can call this directly
+   * for custom wiring or it is used internally by the create* methods.
+   */
+  async resolveProviderContext(
+    context: IntegrationContext
+  ): Promise<ResolvedProviderContext> {
+    const secrets = await this.loadSecrets(context);
+    const { transport, authMethod, apiVersion } =
+      resolveIntegrationRequestContext(context.spec, context.connection);
+
+    let authHeaders: Record<string, string> = {};
+    if (authMethod && context.spec.supportedAuthMethods) {
+      const authConfig = findAuthConfig(
+        context.spec.supportedAuthMethods,
+        authMethod
+      );
+      if (authConfig) {
+        const stringSecrets = Object.fromEntries(
+          Object.entries(secrets)
+            .filter(([, v]) => typeof v === 'string')
+            .map(([k, v]) => [k, v as string])
+        );
+        authHeaders = buildAuthHeaders(authConfig, stringSecrets);
+      }
+    }
+
+    return { transport, authMethod, apiVersion, authHeaders, secrets };
+  }
+
   async createPaymentsProvider(
     context: IntegrationContext
   ): Promise<PaymentsProvider> {
@@ -55,6 +122,9 @@ export class IntegrationProviderFactory {
           ),
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createPaymentsProxy(context);
+        }
         throw new Error(
           `Unsupported payments integration: ${context.spec.meta.key}`
         );
@@ -79,6 +149,9 @@ export class IntegrationProviderFactory {
             .messageStream,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createEmailProxy(context);
+        }
         throw new Error(
           `Unsupported email integration: ${context.spec.meta.key}`
         );
@@ -103,8 +176,88 @@ export class IntegrationProviderFactory {
           fromNumber: (context.config as { fromNumber?: string }).fromNumber,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createMessagingProxy(
+            context
+          ) as unknown as SmsProvider;
+        }
         throw new Error(
           `Unsupported SMS integration: ${context.spec.meta.key}`
+        );
+    }
+  }
+
+  async createMessagingProvider(
+    context: IntegrationContext
+  ): Promise<MessagingProvider> {
+    const secrets = await this.loadSecrets(context);
+    const config = context.config as {
+      defaultChannelId?: string;
+      allowUserMentions?: boolean;
+      defaultOwner?: string;
+      defaultRepo?: string;
+      apiBaseUrl?: string;
+      phoneNumberId?: string;
+      apiVersion?: string;
+      fromNumber?: string;
+    };
+
+    switch (context.spec.meta.key) {
+      case 'messaging.slack':
+        return new SlackMessagingProvider({
+          botToken: requireSecret<string>(
+            secrets,
+            'botToken',
+            'Slack bot token is required'
+          ),
+          defaultChannelId: config?.defaultChannelId,
+          apiBaseUrl: config?.apiBaseUrl,
+        });
+      case 'messaging.github':
+        return new GithubMessagingProvider({
+          token: requireSecret<string>(
+            secrets,
+            'token',
+            'GitHub token is required'
+          ),
+          defaultOwner: config?.defaultOwner,
+          defaultRepo: config?.defaultRepo,
+          apiBaseUrl: config?.apiBaseUrl,
+        });
+      case 'messaging.whatsapp.meta':
+        return new MetaWhatsappMessagingProvider({
+          accessToken: requireSecret<string>(
+            secrets,
+            'accessToken',
+            'Meta WhatsApp access token is required'
+          ),
+          phoneNumberId: requireConfig<string>(
+            context,
+            'phoneNumberId',
+            'Meta WhatsApp phoneNumberId is required'
+          ),
+          apiVersion: config?.apiVersion,
+        });
+      case 'messaging.whatsapp.twilio':
+        return new TwilioWhatsappMessagingProvider({
+          accountSid: requireSecret<string>(
+            secrets,
+            'accountSid',
+            'Twilio account SID is required'
+          ),
+          authToken: requireSecret<string>(
+            secrets,
+            'authToken',
+            'Twilio auth token is required'
+          ),
+          fromNumber: config?.fromNumber,
+        });
+      default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createMessagingProxy(context);
+        }
+        throw new Error(
+          `Unsupported messaging integration: ${context.spec.meta.key}`
         );
     }
   }
@@ -147,6 +300,11 @@ export class IntegrationProviderFactory {
           sslMode: config?.sslMode,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as VectorStoreProvider;
+        }
         throw new Error(
           `Unsupported vector store integration: ${context.spec.meta.key}`
         );
@@ -177,6 +335,11 @@ export class IntegrationProviderFactory {
           ),
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as AnalyticsProvider;
+        }
         throw new Error(
           `Unsupported analytics integration: ${context.spec.meta.key}`
         );
@@ -203,6 +366,11 @@ export class IntegrationProviderFactory {
           sslMode: config?.sslMode,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as DatabaseProvider;
+        }
         throw new Error(
           `Unsupported database integration: ${context.spec.meta.key}`
         );
@@ -228,6 +396,11 @@ export class IntegrationProviderFactory {
               : undefined,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as ObjectStorageProvider;
+        }
         throw new Error(
           `Unsupported storage integration: ${context.spec.meta.key}`
         );
@@ -295,8 +468,85 @@ export class IntegrationProviderFactory {
           pollIntervalMs: config?.pollIntervalMs,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as TTSProvider;
+        }
         throw new Error(
           `Unsupported voice integration: ${context.spec.meta.key}`
+        );
+    }
+  }
+
+  async createSttProvider(context: IntegrationContext): Promise<STTProvider> {
+    const secrets = await this.loadSecrets(context);
+    const config = context.config as {
+      model?: string;
+      language?: string;
+      serverURL?: string;
+    };
+
+    switch (context.spec.meta.key) {
+      case 'ai-voice-stt.mistral':
+        return new MistralSttProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'Mistral API key is required'
+          ),
+          defaultModel: config?.model,
+          defaultLanguage: config?.language,
+          serverURL: config?.serverURL,
+        });
+      default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as STTProvider;
+        }
+        throw new Error(
+          `Unsupported STT integration: ${context.spec.meta.key}`
+        );
+    }
+  }
+
+  async createConversationalProvider(
+    context: IntegrationContext
+  ): Promise<ConversationalProvider> {
+    const secrets = await this.loadSecrets(context);
+    const config = context.config as {
+      model?: string;
+      defaultVoice?: string;
+      serverURL?: string;
+      language?: string;
+    };
+
+    switch (context.spec.meta.key) {
+      case 'ai-voice-conv.mistral':
+        return new MistralConversationalProvider({
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'Mistral API key is required'
+          ),
+          defaultModel: config?.model,
+          defaultVoiceId: config?.defaultVoice,
+          serverURL: config?.serverURL,
+          sttOptions: {
+            defaultModel: config?.model,
+            defaultLanguage: config?.language,
+            serverURL: config?.serverURL,
+          },
+        });
+      default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as ConversationalProvider;
+        }
+        throw new Error(
+          `Unsupported conversational integration: ${context.spec.meta.key}`
         );
     }
   }
@@ -385,6 +635,9 @@ export class IntegrationProviderFactory {
           descriptionProperty: config?.descriptionProperty,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createProjectManagementProxy(context);
+        }
         throw new Error(
           `Unsupported project management integration: ${context.spec.meta.key}`
         );
@@ -470,6 +723,11 @@ export class IntegrationProviderFactory {
           webhookSecret: secrets.webhookSecret as string | undefined,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as MeetingRecorderProvider;
+        }
         throw new Error(
           `Unsupported meeting recorder integration: ${context.spec.meta.key}`
         );
@@ -489,6 +747,11 @@ export class IntegrationProviderFactory {
           defaultModel: (context.config as { model?: string }).model,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as LLMProvider;
+        }
         throw new Error(
           `Unsupported LLM integration: ${context.spec.meta.key}`
         );
@@ -511,6 +774,11 @@ export class IntegrationProviderFactory {
             .embeddingModel,
         });
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as EmbeddingProvider;
+        }
         throw new Error(
           `Unsupported embeddings integration: ${context.spec.meta.key}`
         );
@@ -561,10 +829,22 @@ export class IntegrationProviderFactory {
         });
       }
       default:
+        if (this.composioFallback?.canHandle(context.spec.meta.key)) {
+          return this.composioFallback.createGenericProxy(
+            context
+          ) as unknown as OpenBankingProvider;
+        }
         throw new Error(
           `Unsupported open banking integration: ${context.spec.meta.key}`
         );
     }
+  }
+
+  async createHealthProvider(
+    context: IntegrationContext
+  ): Promise<HealthProvider> {
+    const secrets = await this.loadSecrets(context);
+    return createHealthProviderFromContext(context, secrets);
   }
 
   private async loadSecrets(

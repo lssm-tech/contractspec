@@ -1,5 +1,7 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+import type { IntegrationTransportConfig } from '../transport';
+import type { IntegrationAuthConfig } from '../auth';
 
 export const falImageIntegrationSpec = defineIntegration({
   meta: {
@@ -15,6 +17,14 @@ export const falImageIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Experimental,
   },
   supportedModes: ['byok'],
+  transports: [
+    { type: 'rest', baseUrl: 'https://fal.run' },
+    { type: 'sdk', packageName: '@fal-ai/client' },
+  ] satisfies IntegrationTransportConfig[],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    { type: 'header', headerName: 'Authorization', valuePrefix: 'Key ' },
+  ] satisfies IntegrationAuthConfig[],
   capabilities: {
     provides: [{ key: 'ai.image.generation', version: '1.0.0' }],
   },
@@ -66,6 +76,8 @@ export const falImageIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Create a Fal API key and ensure image generation model access is enabled.',
+    keyRotationSupported: false,
+    quotaTrackingSupported: true,
   },
 });
 

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.evolution",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "description": "AI-powered contract evolution engine",
   "keywords": [
     "contractspec",
@@ -34,6 +34,7 @@
     "ai": "catalog:ai",
     "zod": "catalog:",
     "@contractspec/lib.ai-agent": "workspace:*",
+    "@contractspec/lib.ai-providers": "workspace:*",
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.contracts-integrations": "workspace:*",
     "@contractspec/lib.lifecycle": "workspace:*",

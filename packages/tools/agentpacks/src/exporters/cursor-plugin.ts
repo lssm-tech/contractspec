@@ -14,6 +14,7 @@ import { resolve, join } from 'path';
 import { mkdirSync, writeFileSync } from 'fs';
 import type { LoadedPack } from '../core/pack-loader.js';
 import { resolveHooksForTarget } from '../features/hooks.js';
+import { buildSkillFrontmatter } from '../features/skills.js';
 import { serializeFrontmatter } from '../utils/frontmatter.js';
 import { ensureDir } from '../utils/filesystem.js';
 
@@ -147,12 +148,12 @@ export function exportCursorPlugin(
     for (const skill of pack.skills) {
       const skillSubDir = join(skillsDir, skill.name);
       ensureDir(skillSubDir);
-      const fm: Record<string, unknown> = {
-        name: skill.name,
-        description: skill.meta.description ?? '',
-      };
       const filepath = join(skillSubDir, 'SKILL.md');
-      writeFileSync(filepath, serializeFrontmatter(fm, skill.content));
+      const content = serializeFrontmatter(
+        buildSkillFrontmatter(skill),
+        skill.content
+      );
+      writeFileSync(filepath, content);
       filesWritten.push(filepath);
     }
   }

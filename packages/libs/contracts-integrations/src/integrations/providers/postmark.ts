@@ -1,6 +1,5 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
-
 export const postmarkIntegrationSpec = defineIntegration({
   meta: {
     key: 'email.postmark',
@@ -14,6 +13,20 @@ export const postmarkIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Stable,
   },
   supportedModes: ['managed', 'byok'],
+  transports: [
+    { type: 'rest', baseUrl: 'https://api.postmarkapp.com' },
+    {
+      type: 'webhook',
+      inbound: {
+        signatureHeader: 'x-postmark-signature',
+        signingAlgorithm: 'hmac-sha256',
+      },
+    },
+  ],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    { type: 'header', headerName: 'X-Postmark-Server-Token' },
+  ],
   capabilities: {
     provides: [{ key: 'email.transactional', version: '1.0.0' }],
     requires: [
@@ -72,6 +85,8 @@ export const postmarkIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Create a Postmark server token with outbound send permissions and configure allowed from addresses.',
+    keyRotationSupported: true,
+    quotaTrackingSupported: false,
   },
 });
 

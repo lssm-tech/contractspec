@@ -1,5 +1,83 @@
 # @contractspec/lib.progressive-delivery
 
+## 30.0.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/lib.observability@3.3.0
+
+## 29.0.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/lib.observability@3.2.0
+
+## 28.0.1
+
+### Patch Changes
+
+- @contractspec/lib.observability@3.1.1
+
+## 28.0.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [28987eb]
+  - @contractspec/lib.observability@3.1.0
+
+## 27.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- Updated dependencies [b781ce6]
+  - @contractspec/lib.observability@3.0.0
+
+## 26.0.1
+
+### Patch Changes
+
+- @contractspec/lib.observability@2.9.1
+
+## 26.0.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.observability@2.9.0
+
+## 25.0.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.observability@2.8.0
+
 ## 24.0.0
 
 ### Minor Changes

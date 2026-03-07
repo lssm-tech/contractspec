@@ -1,6 +1,6 @@
 import type { OwnerShipMeta } from '../ownership';
 import type { CapabilityRef } from '../capabilities';
-import type { FeatureRef, FeatureModuleSpec } from '../features';
+import type { FeatureRef } from '../features';
 import type { PolicyRef } from '../policy/spec';
 import type { ThemeRef } from '../themes';
 import type { ExperimentRef } from '../experiments/spec';
@@ -88,6 +88,7 @@ export interface AppBlueprintSpec {
   translationCatalog?: TranslationCatalogPointer;
   dataViews?: Record<string, SpecPointer>;
   workflows?: Record<string, SpecPointer>;
+  jobs?: Record<string, SpecPointer>;
   policies?: PolicyRef[];
   theme?: AppThemeBinding;
   telemetry?: TelemetryBinding;
@@ -163,6 +164,7 @@ export interface TenantAppConfig {
   };
   dataViewOverrides?: TenantSpecOverride[];
   workflowOverrides?: TenantSpecOverride[];
+  jobOverrides?: TenantSpecOverride[];
   additionalPolicies?: PolicyRef[];
   themeOverride?: {
     primary?: ThemeRef | null;
@@ -195,5 +197,5 @@ export interface TenantAppConfig {
 /**
  * Helper to define an AppConfig.
  */
-export const defineAppConfig = (spec: FeatureModuleSpec): FeatureModuleSpec =>
+export const defineAppConfig = (spec: AppBlueprintSpec): AppBlueprintSpec =>
   spec;

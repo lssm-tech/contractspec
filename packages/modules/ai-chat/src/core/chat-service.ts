@@ -30,6 +30,12 @@ export interface ChatServiceConfig {
   maxHistoryMessages?: number;
   /** Callback for usage tracking */
   onUsage?: (usage: { inputTokens: number; outputTokens: number }) => void;
+  /** Transport protocol for provider communication (e.g. "rest", "mcp"). */
+  transport?: string;
+  /** Auth method the provider expects (e.g. "api-key", "oauth2"). */
+  authMethod?: string;
+  /** Extra headers forwarded to the provider for authentication. */
+  authHeaders?: Record<string, string>;
 }
 
 /**

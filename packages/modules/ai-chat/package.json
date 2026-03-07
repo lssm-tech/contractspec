@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.ai-chat",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "description": "AI chat interface module",
   "keywords": [
     "contractspec",
@@ -41,7 +41,7 @@
     "@contractspec/lib.ui-kit-web": "workspace:*",
     "@ai-sdk/react": "catalog:ai",
     "ai": "catalog:ai",
-    "lucide-react": "^0.575.0",
+    "lucide-react": "^0.577.0",
     "react": "catalog:",
     "zod": "catalog:"
   },

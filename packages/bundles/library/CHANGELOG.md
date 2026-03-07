@@ -1,5 +1,222 @@
 # @contractspec/bundle.library
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+- Updated dependencies [575b316]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.3.0
+  - @contractspec/lib.contracts-runtime-server-rest@3.3.0
+  - @contractspec/lib.contracts-runtime-server-mcp@3.3.0
+  - @contractspec/lib.contracts-integrations@3.3.0
+  - @contractspec/module.context-storage@0.3.0
+  - @contractspec/lib.contracts-library@3.3.0
+  - @contractspec/lib.example-shared-ui@3.3.0
+  - @contractspec/lib.provider-ranking@0.3.0
+  - @contractspec/lib.runtime-sandbox@2.3.0
+  - @contractspec/lib.contracts-spec@3.3.0
+  - @contractspec/lib.design-system@3.3.0
+  - @contractspec/lib.content-gen@3.3.0
+  - @contractspec/module.examples@3.3.0
+  - @contractspec/lib.ui-kit-web@3.3.0
+  - @contractspec/lib.knowledge@3.3.0
+  - @contractspec/lib.ui-link@3.3.0
+  - @contractspec/lib.logger@3.3.0
+  - @contractspec/lib.schema@3.3.0
+
+## 3.2.1
+
+### Patch Changes
+
+- Updated dependencies [575b316]
+  - @contractspec/lib.contracts-integrations@3.2.1
+  - @contractspec/lib.content-gen@3.2.1
+  - @contractspec/lib.knowledge@3.2.1
+  - @contractspec/module.context-storage@0.2.1
+  - @contractspec/module.examples@3.2.1
+  - @contractspec/lib.design-system@3.2.1
+  - @contractspec/lib.example-shared-ui@3.2.1
+
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.2.0
+  - @contractspec/lib.contracts-runtime-server-rest@3.2.0
+  - @contractspec/lib.contracts-runtime-server-mcp@3.2.0
+  - @contractspec/lib.contracts-integrations@3.2.0
+  - @contractspec/module.context-storage@0.2.0
+  - @contractspec/lib.contracts-library@3.2.0
+  - @contractspec/lib.example-shared-ui@3.2.0
+  - @contractspec/lib.provider-ranking@0.2.0
+  - @contractspec/lib.runtime-sandbox@2.2.0
+  - @contractspec/lib.contracts-spec@3.2.0
+  - @contractspec/lib.design-system@3.2.0
+  - @contractspec/lib.content-gen@3.2.0
+  - @contractspec/module.examples@3.2.0
+  - @contractspec/lib.ui-kit-web@3.2.0
+  - @contractspec/lib.knowledge@3.2.0
+  - @contractspec/lib.ui-link@3.2.0
+  - @contractspec/lib.logger@3.2.0
+  - @contractspec/lib.schema@3.2.0
+
+## 3.1.1
+
+### Patch Changes
+
+- f1a249b: Regenerate docs-index JSON files to reflect new provider-ranking, ACP, agent, context, and database contract documentation entries produced by the build.
+- Updated dependencies [02c0cc5]
+  - @contractspec/lib.contracts-integrations@3.1.1
+  - @contractspec/lib.contracts-spec@3.1.1
+  - @contractspec/lib.design-system@3.1.1
+  - @contractspec/lib.knowledge@3.1.1
+  - @contractspec/module.context-storage@0.1.2
+  - @contractspec/lib.contracts-library@3.1.1
+  - @contractspec/lib.contracts-runtime-server-graphql@3.1.1
+  - @contractspec/lib.contracts-runtime-server-mcp@3.1.1
+  - @contractspec/lib.contracts-runtime-server-rest@3.1.1
+  - @contractspec/lib.example-shared-ui@3.1.1
+  - @contractspec/module.examples@3.1.1
+
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [f2a4faf]
+- Updated dependencies [28987eb]
+- Updated dependencies [28987eb]
+  - @contractspec/lib.contracts-spec@3.1.0
+  - @contractspec/lib.contracts-runtime-server-graphql@3.1.0
+  - @contractspec/lib.contracts-runtime-server-rest@3.1.0
+  - @contractspec/lib.contracts-runtime-server-mcp@3.1.0
+  - @contractspec/lib.contracts-integrations@3.1.0
+  - @contractspec/lib.contracts-library@3.1.0
+  - @contractspec/lib.example-shared-ui@3.1.0
+  - @contractspec/lib.runtime-sandbox@2.1.0
+  - @contractspec/lib.design-system@3.1.0
+  - @contractspec/module.examples@3.1.0
+  - @contractspec/lib.ui-kit-web@3.1.0
+  - @contractspec/lib.knowledge@3.1.0
+  - @contractspec/lib.ui-link@3.1.0
+  - @contractspec/lib.logger@3.1.0
+  - @contractspec/lib.schema@3.1.0
+  - @contractspec/module.context-storage@0.1.1
+
+## 3.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- 0c438ac: Add architecture docs for the control-plane runtime and link the new page from the architecture overview and docs navigation.
+- 95c27e4: Align ecosystem docs with the Cursor marketplace catalog model by documenting the root `.cursor-plugin/marketplace.json`, package-scoped plugin sources in `packages/apps-registry/cursor-marketplace`, and catalog-wide validation via `bun run plugin:contractspec:validate`.
+
+  Rename ecosystem navigation and docblocks from generic Plugin API and Registry wording to Marketplace Plugins, Authoring Templates, and Marketplace Manifest for consistent docs discoverability.
+
+- 3aa6269: Expand the integrations docs with Mistral, Slack, GitHub, WhatsApp Meta, WhatsApp Twilio, and health transport routing pages.
+
+  Refresh the integrations overview/spec model and docs sidebar links so the new messaging and runtime guidance is discoverable from web-landing.
+
+- Updated dependencies [7cbdb7f]
+- Updated dependencies [c608804]
+- Updated dependencies [e3bc858]
+- Updated dependencies [b19ae0a]
+- Updated dependencies [aa4a9c9]
+- Updated dependencies [b781ce6]
+  - @contractspec/lib.contracts-spec@3.0.0
+  - @contractspec/lib.contracts-integrations@3.0.0
+  - @contractspec/lib.contracts-runtime-server-graphql@3.0.0
+  - @contractspec/lib.contracts-runtime-server-rest@3.0.0
+  - @contractspec/lib.contracts-runtime-server-mcp@3.0.0
+  - @contractspec/lib.contracts-library@3.0.0
+  - @contractspec/lib.example-shared-ui@3.0.0
+  - @contractspec/lib.runtime-sandbox@2.0.0
+  - @contractspec/lib.design-system@3.0.0
+  - @contractspec/module.examples@3.0.0
+  - @contractspec/lib.ui-kit-web@3.0.0
+  - @contractspec/lib.ui-link@3.0.0
+  - @contractspec/lib.logger@3.0.0
+  - @contractspec/lib.schema@3.0.0
+
+## 2.9.1
+
+### Patch Changes
+
+- Updated dependencies [4556b80]
+  - @contractspec/lib.contracts-integrations@2.10.0
+  - @contractspec/lib.contracts-spec@2.10.0
+  - @contractspec/lib.contracts-library@2.9.1
+  - @contractspec/lib.contracts-runtime-server-graphql@2.9.1
+  - @contractspec/lib.contracts-runtime-server-mcp@2.9.1
+  - @contractspec/lib.contracts-runtime-server-rest@2.9.1
+  - @contractspec/lib.design-system@2.9.1
+  - @contractspec/lib.example-shared-ui@2.9.1
+  - @contractspec/module.examples@2.9.1
+
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-runtime-server-graphql@2.9.0
+  - @contractspec/lib.contracts-runtime-server-rest@2.9.0
+  - @contractspec/lib.contracts-runtime-server-mcp@2.9.0
+  - @contractspec/lib.contracts-integrations@2.9.0
+  - @contractspec/lib.contracts-library@2.9.0
+  - @contractspec/lib.example-shared-ui@2.9.0
+  - @contractspec/lib.runtime-sandbox@1.9.0
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/lib.design-system@2.9.0
+  - @contractspec/module.examples@2.9.0
+  - @contractspec/lib.ui-kit-web@2.9.0
+  - @contractspec/lib.ui-link@2.9.0
+  - @contractspec/lib.logger@2.9.0
+  - @contractspec/lib.schema@2.9.0
+
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@2.8.0
+  - @contractspec/lib.contracts-library@2.8.0
+  - @contractspec/lib.contracts-runtime-server-graphql@2.8.0
+  - @contractspec/lib.contracts-runtime-server-mcp@2.8.0
+  - @contractspec/lib.contracts-runtime-server-rest@2.8.0
+  - @contractspec/lib.contracts-spec@2.8.0
+  - @contractspec/lib.design-system@2.8.0
+  - @contractspec/lib.example-shared-ui@2.8.0
+  - @contractspec/lib.logger@2.8.0
+  - @contractspec/lib.runtime-sandbox@1.8.0
+  - @contractspec/lib.schema@2.8.0
+  - @contractspec/lib.ui-kit-web@2.8.0
+  - @contractspec/lib.ui-link@2.8.0
+  - @contractspec/module.examples@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

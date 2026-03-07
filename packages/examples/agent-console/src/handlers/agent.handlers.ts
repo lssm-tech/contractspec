@@ -558,11 +558,45 @@ export function createAgentHandlers(db: DatabasePort) {
     };
   }
 
+  /**
+   * Execute an agent (create a run and queue it).
+   */
+  async function executeAgent(input: {
+    agentId: string;
+    message: string;
+    context?: { projectId: string; organizationId: string };
+  }): Promise<Run> {
+    const agent = await getAgent(input.agentId);
+    if (!agent) throw new Error('AGENT_NOT_FOUND');
+    if (agent.status !== 'ACTIVE') throw new Error('AGENT_NOT_ACTIVE');
+
+    const id = generateId('run');
+    const now = new Date().toISOString();
+    const pid = input.context?.projectId ?? agent.projectId;
+
+    await db.execute(
+      `INSERT INTO agent_run (id, projectId, agentId, status, input, totalTokens, promptTokens, completionTokens, estimatedCostUsd, queuedAt)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [id, pid, input.agentId, 'QUEUED', input.message, 0, 0, 0, 0, now]
+    );
+
+    const rows = (
+      await db.query(
+        `SELECT r.*, a.name as agentName FROM agent_run r LEFT JOIN agent_definition a ON r.agentId = a.id WHERE r.id = ?`,
+        [id]
+      )
+    ).rows as unknown as (RunRow & { agentName: string })[];
+
+    if (!rows[0]) throw new Error('Failed to retrieve created run');
+    return rowToRun(rows[0], rows[0].agentName);
+  }
+
   return {
     listAgents,
     getAgent,
     createAgent,
     updateAgent,
+    executeAgent,
     listTools,
     listRuns,
     getRunMetrics,

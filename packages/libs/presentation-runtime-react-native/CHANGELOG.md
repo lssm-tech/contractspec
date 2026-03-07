@@ -1,5 +1,84 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 30.0.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/lib.presentation-runtime-core@3.3.0
+  - @contractspec/lib.ui-kit@3.3.0
+
+## 29.0.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/lib.presentation-runtime-core@3.2.0
+  - @contractspec/lib.ui-kit@3.2.0
+
+## 28.0.1
+
+### Patch Changes
+
+- Updated dependencies [02c0cc5]
+  - @contractspec/lib.ui-kit@3.1.1
+
+## 28.0.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [28987eb]
+  - @contractspec/lib.presentation-runtime-core@3.1.0
+  - @contractspec/lib.ui-kit@3.1.0
+
+## 27.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- Updated dependencies [b781ce6]
+  - @contractspec/lib.presentation-runtime-core@3.0.0
+  - @contractspec/lib.ui-kit@3.0.0
+
+## 26.0.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@2.9.0
+  - @contractspec/lib.ui-kit@2.9.0
+
+## 25.0.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@2.8.0
+  - @contractspec/lib.ui-kit@2.8.0
+
 ## 24.0.0
 
 ### Minor Changes

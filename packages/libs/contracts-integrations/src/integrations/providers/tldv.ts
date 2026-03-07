@@ -1,6 +1,5 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
-
 export const tldvIntegrationSpec = defineIntegration({
   meta: {
     key: 'meeting-recorder.tldv',
@@ -15,6 +14,25 @@ export const tldvIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Experimental,
   },
   supportedModes: ['byok'],
+  transports: [
+    { type: 'rest' },
+    {
+      type: 'webhook',
+      inbound: {
+        signatureHeader: 'x-tldv-signature',
+        signingAlgorithm: 'hmac-sha256',
+      },
+    },
+  ],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [
+    { type: 'api-key' },
+    {
+      type: 'webhook-signing',
+      algorithm: 'hmac-sha256',
+      signatureHeader: 'x-tldv-signature',
+    },
+  ],
   capabilities: {
     provides: [
       { key: 'meeting-recorder.meetings.read', version: '1.0.0' },
@@ -86,6 +104,8 @@ export const tldvIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Generate a tl;dv API key and optionally configure MeetingReady/TranscriptReady webhooks.',
+    keyRotationSupported: false,
+    quotaTrackingSupported: false,
   },
 });
 

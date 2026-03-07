@@ -2,11 +2,11 @@
  * Provider factory and creation utilities
  */
 import type { LanguageModel } from 'ai';
-import { anthropic } from '@ai-sdk/anthropic';
-import { google } from '@ai-sdk/google';
-import { mistral } from '@ai-sdk/mistral';
-import { openai } from '@ai-sdk/openai';
-import { ollama } from 'ollama-ai-provider';
+import { createAnthropic } from '@ai-sdk/anthropic';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
+import { createMistral } from '@ai-sdk/mistral';
+import { createOpenAI } from '@ai-sdk/openai';
+import { createOllama } from 'ollama-ai-provider';
 import type {
   ModelInfo,
   Provider,
@@ -26,6 +26,10 @@ class BaseProvider implements Provider {
   readonly mode: ProviderMode;
 
   private readonly config: ProviderConfig;
+  private readonly transport: ProviderConfig['transport'];
+  private readonly authMethod: ProviderConfig['authMethod'];
+  private readonly apiVersion: ProviderConfig['apiVersion'];
+  private readonly customHeaders: ProviderConfig['customHeaders'];
   private cachedModel: LanguageModel | null = null;
 
   constructor(config: ProviderConfig) {
@@ -33,6 +37,10 @@ class BaseProvider implements Provider {
     this.model = config.model ?? DEFAULT_MODELS[config.provider];
     this.mode = this.determineMode(config);
     this.config = config;
+    this.transport = config.transport;
+    this.authMethod = config.authMethod;
+    this.apiVersion = config.apiVersion;
+    this.customHeaders = config.customHeaders;
   }
 
   getModel(): LanguageModel {
@@ -82,112 +90,37 @@ class BaseProvider implements Provider {
   }
 
   private createModel(): LanguageModel {
-    const { baseUrl, proxyUrl } = this.config;
+    const { baseUrl, proxyUrl, apiKey } = this.config;
+    const headers = this.customHeaders;
+
+    if (this.name === 'ollama') {
+      const provider = createOllama({ baseURL: baseUrl, headers });
+      return provider(this.model) as unknown as LanguageModel;
+    }
+
+    // Managed mode: all providers route through an OpenAI-compatible proxy
+    if (this.mode === 'managed' && proxyUrl) {
+      const provider = createOpenAI({ baseURL: proxyUrl, apiKey, headers });
+      return provider(this.model);
+    }
 
     switch (this.name) {
-      case 'ollama': {
-        // For Ollama, set the base URL via environment variable
-        const originalBaseUrl = process.env.OLLAMA_BASE_URL;
-        if (baseUrl && baseUrl !== 'http://localhost:11434') {
-          process.env.OLLAMA_BASE_URL = baseUrl;
-        }
-
-        const ollamaModel = ollama(this.model);
-
-        // Restore original environment variable
-        if (originalBaseUrl !== undefined) {
-          process.env.OLLAMA_BASE_URL = originalBaseUrl;
-        } else if (baseUrl && baseUrl !== 'http://localhost:11434') {
-          delete process.env.OLLAMA_BASE_URL;
-        }
-
-        return ollamaModel as unknown as LanguageModel;
+      case 'openai': {
+        const provider = createOpenAI({ apiKey, headers });
+        return provider(this.model);
       }
-
-      case 'openai':
-        if (this.mode === 'managed') {
-          // For managed mode, use proxy URL via environment variable
-          const originalBaseUrl = process.env.OPENAI_BASE_URL;
-          if (proxyUrl) {
-            process.env.OPENAI_BASE_URL = proxyUrl;
-          }
-
-          const model = openai(this.model);
-
-          // Restore original environment variable
-          if (originalBaseUrl !== undefined) {
-            process.env.OPENAI_BASE_URL = originalBaseUrl;
-          } else if (proxyUrl) {
-            delete process.env.OPENAI_BASE_URL;
-          }
-
-          return model;
-        }
-        return openai(this.model);
-
-      case 'anthropic':
-        if (this.mode === 'managed') {
-          // For managed mode with Anthropic, we use the proxy via openai
-          const originalBaseUrl = process.env.OPENAI_BASE_URL;
-          if (proxyUrl) {
-            process.env.OPENAI_BASE_URL = proxyUrl;
-          }
-
-          const model = openai(this.model);
-
-          // Restore original environment variable
-          if (originalBaseUrl !== undefined) {
-            process.env.OPENAI_BASE_URL = originalBaseUrl;
-          } else if (proxyUrl) {
-            delete process.env.OPENAI_BASE_URL;
-          }
-
-          return model;
-        }
-        return anthropic(this.model);
-
-      case 'mistral':
-        if (this.mode === 'managed') {
-          // For managed mode with Mistral, we use the proxy via openai
-          const originalBaseUrl = process.env.OPENAI_BASE_URL;
-          if (proxyUrl) {
-            process.env.OPENAI_BASE_URL = proxyUrl;
-          }
-
-          const model = openai(this.model);
-
-          // Restore original environment variable
-          if (originalBaseUrl !== undefined) {
-            process.env.OPENAI_BASE_URL = originalBaseUrl;
-          } else if (proxyUrl) {
-            delete process.env.OPENAI_BASE_URL;
-          }
-
-          return model;
-        }
-        return mistral(this.model);
-
-      case 'gemini':
-        if (this.mode === 'managed') {
-          // For managed mode with Gemini, we use the proxy via openai
-          const originalBaseUrl = process.env.OPENAI_BASE_URL;
-          if (proxyUrl) {
-            process.env.OPENAI_BASE_URL = proxyUrl;
-          }
-
-          const model = openai(this.model);
-
-          // Restore original environment variable
-          if (originalBaseUrl !== undefined) {
-            process.env.OPENAI_BASE_URL = originalBaseUrl;
-          } else if (proxyUrl) {
-            delete process.env.OPENAI_BASE_URL;
-          }
-
-          return model;
-        }
-        return google(this.model);
-
+      case 'anthropic': {
+        const provider = createAnthropic({ apiKey, headers });
+        return provider(this.model);
+      }
+      case 'mistral': {
+        const provider = createMistral({ apiKey, headers });
+        return provider(this.model);
+      }
+      case 'gemini': {
+        const provider = createGoogleGenerativeAI({ apiKey, headers });
+        return provider(this.model);
+      }
       default:
         throw new Error(`Unknown provider: ${this.name}`);
     }
@@ -292,6 +225,13 @@ export function createProviderFromEnv(): Provider {
       break;
   }
 
+  const transport = process.env.CONTRACTSPEC_AI_TRANSPORT as
+    | 'rest'
+    | 'mcp'
+    | 'sdk'
+    | undefined;
+  const apiVersion = process.env.CONTRACTSPEC_AI_API_VERSION;
+
   return createProvider({
     provider,
     model,
@@ -299,6 +239,8 @@ export function createProviderFromEnv(): Provider {
     baseUrl: process.env.OLLAMA_BASE_URL,
     proxyUrl: process.env.CONTRACTSPEC_AI_PROXY_URL,
     organizationId: process.env.CONTRACTSPEC_ORG_ID,
+    transport,
+    apiVersion,
   });
 }
 
@@ -313,6 +255,8 @@ export function getAvailableProviders(): ProviderAvailability[] {
     provider: 'ollama',
     available: true,
     mode: 'local',
+    transports: ['rest', 'sdk'],
+    authMethods: [],
   });
 
   // OpenAI
@@ -323,6 +267,8 @@ export function getAvailableProviders(): ProviderAvailability[] {
       Boolean(openaiKey) || Boolean(process.env.CONTRACTSPEC_AI_PROXY_URL),
     mode: openaiKey ? 'byok' : 'managed',
     reason: !openaiKey ? 'Set OPENAI_API_KEY for BYOK mode' : undefined,
+    transports: ['rest', 'sdk'],
+    authMethods: ['api-key'],
   });
 
   // Anthropic
@@ -333,6 +279,8 @@ export function getAvailableProviders(): ProviderAvailability[] {
       Boolean(anthropicKey) || Boolean(process.env.CONTRACTSPEC_AI_PROXY_URL),
     mode: anthropicKey ? 'byok' : 'managed',
     reason: !anthropicKey ? 'Set ANTHROPIC_API_KEY for BYOK mode' : undefined,
+    transports: ['rest', 'sdk'],
+    authMethods: ['api-key'],
   });
 
   // Mistral
@@ -343,6 +291,8 @@ export function getAvailableProviders(): ProviderAvailability[] {
       Boolean(mistralKey) || Boolean(process.env.CONTRACTSPEC_AI_PROXY_URL),
     mode: mistralKey ? 'byok' : 'managed',
     reason: !mistralKey ? 'Set MISTRAL_API_KEY for BYOK mode' : undefined,
+    transports: ['rest', 'sdk'],
+    authMethods: ['api-key'],
   });
 
   // Gemini
@@ -353,6 +303,8 @@ export function getAvailableProviders(): ProviderAvailability[] {
       Boolean(geminiKey) || Boolean(process.env.CONTRACTSPEC_AI_PROXY_URL),
     mode: geminiKey ? 'byok' : 'managed',
     reason: !geminiKey ? 'Set GOOGLE_API_KEY for BYOK mode' : undefined,
+    transports: ['rest', 'sdk'],
+    authMethods: ['api-key'],
   });
 
   return providers;

@@ -195,7 +195,8 @@ bun contractspec build src/contracts/mySpec.ts`}
             },
             {
               title: 'Ecosystem',
-              description: 'Plugin API, templates, and integrations',
+              description:
+                'Cursor marketplace plugins, templates, manifest, and integrations',
               href: '/docs/ecosystem/plugins',
             },
             {

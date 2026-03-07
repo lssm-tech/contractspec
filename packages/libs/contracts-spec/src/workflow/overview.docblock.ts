@@ -6,7 +6,7 @@ export const tech_workflows_overview_DocBlocks: DocBlock[] = [
     id: 'docs.tech.workflows.overview',
     title: 'WorkflowSpec Overview',
     summary:
-      'WorkflowSpec provides a declarative, versioned format for long-running flows that mix automation and human review. Specs stay inside `@contractspec/lib.contracts-spec` (`src/workflow/spec.ts`) so the same definition powers runtime execution, documentation, and future generation.',
+      'WorkflowSpec provides a declarative, versioned format for long-running flows that mix automation and human review, including runtime adapter capabilities/ports for checkpointing and suspend-resume orchestration. Specs stay inside `@contractspec/lib.contracts-spec` (`src/workflow/spec.ts`) so the same definition powers runtime execution, documentation, and future generation.',
     kind: 'reference',
     visibility: 'public',
     route: '/docs/tech/workflows/overview',

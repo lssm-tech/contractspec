@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="ContractSpec logo">
+  <rect width="128" height="128" rx="24" fill="#0f172a"/>
+  <path d="M28 38c0-5.523 4.477-10 10-10h52c5.523 0 10 4.477 10 10v52c0 5.523-4.477 10-10 10H38c-5.523 0-10-4.477-10-10V38z" fill="#1d4ed8"/>
+  <path d="M44 52h40v8H44zm0 16h28v8H44z" fill="#ffffff"/>
+  <circle cx="84" cy="72" r="8" fill="#22c55e"/>
+</svg>

@@ -1,5 +1,7 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
+import type { IntegrationTransportConfig } from '../transport';
+import type { IntegrationAuthConfig } from '../auth';
 
 export const gradiumIntegrationSpec = defineIntegration({
   meta: {
@@ -15,6 +17,9 @@ export const gradiumIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Experimental,
   },
   supportedModes: ['byok'],
+  transports: [{ type: 'rest' }] satisfies IntegrationTransportConfig[],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [{ type: 'api-key' }] satisfies IntegrationAuthConfig[],
   capabilities: {
     provides: [{ key: 'ai.voice.tts', version: '1.0.0' }],
   },
@@ -86,6 +91,8 @@ export const gradiumIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Create a Gradium API key, select the target region, and store credentials in your tenant secret provider.',
+    keyRotationSupported: false,
+    quotaTrackingSupported: false,
   },
 });
 

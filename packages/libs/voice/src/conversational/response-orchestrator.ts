@@ -5,7 +5,19 @@ import type {
   ConversationalEvent,
 } from '../types';
 import type { LLMProvider } from '@contractspec/lib.contracts-integrations/integrations/providers/llm';
+import type {
+  ModelSelector,
+  ModelSelectionContext,
+} from '@contractspec/lib.ai-providers/selector-types';
 import type { ConversationConfig } from './types';
+
+export interface ResponseOrchestratorOptions {
+  stt: STTProvider;
+  llm: LLMProvider;
+  tts: TTSProvider;
+  modelSelector?: ModelSelector;
+  selectionContext?: ModelSelectionContext;
+}
 
 /**
  * Orchestrate STT -> LLM -> TTS per conversation turn.
@@ -17,15 +29,34 @@ export class ResponseOrchestrator {
   private readonly stt: STTProvider;
   private readonly llm: LLMProvider;
   private readonly tts: TTSProvider;
+  private readonly modelSelector?: ModelSelector;
+  private readonly selectionContext?: ModelSelectionContext;
   private readonly conversationHistory: {
     role: 'user' | 'assistant';
     content: string;
   }[] = [];
 
-  constructor(stt: STTProvider, llm: LLMProvider, tts: TTSProvider) {
-    this.stt = stt;
-    this.llm = llm;
-    this.tts = tts;
+  constructor(
+    sttOrOptions: STTProvider | ResponseOrchestratorOptions,
+    llm?: LLMProvider,
+    tts?: TTSProvider
+  ) {
+    if ('stt' in sttOrOptions) {
+      this.stt = sttOrOptions.stt;
+      this.llm = sttOrOptions.llm;
+      this.tts = sttOrOptions.tts;
+      this.modelSelector = sttOrOptions.modelSelector;
+      this.selectionContext = sttOrOptions.selectionContext;
+    } else {
+      if (!llm || !tts) {
+        throw new Error(
+          'ResponseOrchestrator requires llm and tts when constructed with positional arguments'
+        );
+      }
+      this.stt = sttOrOptions;
+      this.llm = llm;
+      this.tts = tts;
+    }
   }
 
   /**
@@ -58,6 +89,7 @@ export class ResponseOrchestrator {
     // 2. LLM: Generate response
     this.conversationHistory.push({ role: 'user', content: userText });
 
+    const model = await this.resolveModel(config.llmModel);
     const llmResponse = await this.llm.chat(
       [
         {
@@ -69,7 +101,7 @@ export class ResponseOrchestrator {
           content: [{ type: 'text' as const, text: msg.content }],
         })),
       ],
-      { model: config.llmModel }
+      { model }
     );
 
     const responseText = llmResponse.message.content.find(
@@ -99,6 +131,20 @@ export class ResponseOrchestrator {
       text: agentText,
       timestamp: Date.now(),
     };
+  }
+
+  private async resolveModel(
+    explicitModel?: string
+  ): Promise<string | undefined> {
+    if (explicitModel) return explicitModel;
+    if (this.modelSelector) {
+      const ctx = this.selectionContext ?? {
+        taskDimension: 'reasoning' as const,
+      };
+      const result = await this.modelSelector.select(ctx);
+      return result.modelId;
+    }
+    return undefined;
   }
 
   /** Reset conversation history */

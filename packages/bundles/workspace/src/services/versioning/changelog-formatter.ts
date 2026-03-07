@@ -5,11 +5,17 @@
  * or JSON for programmatic use.
  */
 
+import { dirname, basename } from 'node:path';
 import type {
   ChangelogEntry,
   ChangeEntry,
 } from '@contractspec/lib.contracts-spec';
-import type { VersionAnalyzeResult, ChangelogJsonExport } from './types';
+import type {
+  VersionAnalyzeResult,
+  ChangelogJsonExport,
+  SpecVersionAnalysis,
+  LibraryChangelogJson,
+} from './types';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Keep a Changelog Format
@@ -205,13 +211,78 @@ export function formatChangelogJson(
         },
       ],
     })),
-    libraries: [], // TODO: Group by library
+    libraries: groupSpecsByLibrary(specsNeedingBump, isoDate),
   };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Helpers
 // ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Extract a library/package directory from a spec file path.
+ *
+ * Walks up from the file's directory looking for a `packages/` segment,
+ * then takes the next two segments as the package identity.
+ * Falls back to the parent directory name.
+ */
+function extractLibraryPath(specPath: string): string {
+  const parts = specPath.split('/');
+  const packagesIdx = parts.lastIndexOf('packages');
+  if (packagesIdx >= 0 && packagesIdx + 2 < parts.length) {
+    return parts.slice(0, packagesIdx + 3).join('/');
+  }
+  return dirname(specPath);
+}
+
+const BUMP_RANK: Record<string, number> = { major: 3, minor: 2, patch: 1 };
+
+function groupSpecsByLibrary(
+  specs: SpecVersionAnalysis[],
+  isoDate: string
+): LibraryChangelogJson[] {
+  const groups = new Map<string, SpecVersionAnalysis[]>();
+  for (const spec of specs) {
+    const libPath = extractLibraryPath(spec.specPath);
+    const existing = groups.get(libPath);
+    if (existing) {
+      existing.push(spec);
+    } else {
+      groups.set(libPath, [spec]);
+    }
+  }
+
+  return Array.from(groups.entries()).flatMap(
+    ([libPath, libSpecs]): LibraryChangelogJson[] => {
+      const first = libSpecs[0];
+      if (!first) return [];
+
+      const highestBump = libSpecs.reduce((max, s) => {
+        const rank = BUMP_RANK[s.bumpType] ?? 0;
+        return rank > (BUMP_RANK[max.bumpType] ?? 0) ? s : max;
+      }, first);
+
+      return [
+        {
+          name: basename(libPath),
+          path: libPath,
+          version: highestBump.suggestedVersion,
+          entries: [
+            {
+              version: highestBump.suggestedVersion,
+              date: isoDate,
+              bumpType: highestBump.bumpType,
+              changes: libSpecs.flatMap((s) => s.changes),
+              breakingChanges: libSpecs
+                .flatMap((s) => s.changes)
+                .filter((c) => c.type === 'breaking'),
+            },
+          ],
+        },
+      ];
+    }
+  );
+}
 
 /**
  * Compare versions in descending order (newest first).

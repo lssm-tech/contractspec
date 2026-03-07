@@ -1,6 +1,5 @@
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration, IntegrationSpecRegistry } from '../spec';
-
 export const qdrantIntegrationSpec = defineIntegration({
   meta: {
     key: 'vectordb.qdrant',
@@ -14,6 +13,12 @@ export const qdrantIntegrationSpec = defineIntegration({
     stability: StabilityEnum.Experimental,
   },
   supportedModes: ['managed', 'byok'],
+  transports: [
+    { type: 'rest' },
+    { type: 'sdk', packageName: '@qdrant/js-client-rest' },
+  ],
+  preferredTransport: 'rest',
+  supportedAuthMethods: [{ type: 'api-key' }, { type: 'bearer' }],
   capabilities: {
     provides: [
       { key: 'vector-db.search', version: '1.0.0' },
@@ -77,6 +82,8 @@ export const qdrantIntegrationSpec = defineIntegration({
   byokSetup: {
     setupInstructions:
       'Provide the HTTPS endpoint of your Qdrant cluster and generate an API key with read/write access to the collections that will be managed.',
+    keyRotationSupported: true,
+    quotaTrackingSupported: true,
   },
 });
 

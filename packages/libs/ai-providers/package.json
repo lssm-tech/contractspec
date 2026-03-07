@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.ai-providers",
-  "version": "2.7.0",
+  "version": "3.3.0",
   "description": "Unified AI provider abstraction layer",
   "keywords": [
     "contractspec",
@@ -37,6 +37,7 @@
     "@ai-sdk/google": "catalog:ai",
     "@ai-sdk/mistral": "catalog:ai",
     "@ai-sdk/openai": "catalog:ai",
+    "@contractspec/lib.provider-ranking": "workspace:*",
     "ai": "catalog:ai",
     "ollama-ai-provider": "catalog:ai",
     "zod": "catalog:"
@@ -51,6 +52,8 @@
     "./factory": "./src/factory.ts",
     "./legacy": "./src/legacy.ts",
     "./models": "./src/models.ts",
+    "./selector": "./src/selector.ts",
+    "./selector-types": "./src/selector-types.ts",
     "./types": "./src/types.ts",
     "./validation": "./src/validation.ts"
   },
@@ -84,6 +87,20 @@
         "node": "./dist/node/models.js",
         "browser": "./dist/browser/models.js",
         "default": "./dist/models.js"
+      },
+      "./selector": {
+        "types": "./dist/selector.d.ts",
+        "bun": "./dist/selector.js",
+        "node": "./dist/node/selector.js",
+        "browser": "./dist/browser/selector.js",
+        "default": "./dist/selector.js"
+      },
+      "./selector-types": {
+        "types": "./dist/selector-types.d.ts",
+        "bun": "./dist/selector-types.js",
+        "node": "./dist/node/selector-types.js",
+        "browser": "./dist/browser/selector-types.js",
+        "default": "./dist/selector-types.js"
       },
       "./types": {
         "types": "./dist/types.d.ts",

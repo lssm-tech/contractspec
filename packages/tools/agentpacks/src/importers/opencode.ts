@@ -6,6 +6,7 @@
 import { existsSync, readFileSync, writeFileSync, copyFileSync } from 'fs';
 import { resolve, join, basename } from 'path';
 import { ensureDir, listFiles, listDirs } from '../utils/filesystem.js';
+import { normalizeImportedSkillMarkdown } from '../features/skills.js';
 import type { ImportResult } from './rulesync.js';
 
 /**
@@ -66,8 +67,16 @@ export function importFromOpenCode(
       if (existsSync(skillMd)) {
         const outDir = join(outSkillDir, name);
         ensureDir(outDir);
-        copyFileSync(skillMd, join(outDir, 'SKILL.md'));
-        filesImported.push(join(outDir, 'SKILL.md'));
+        const rawSkill = readFileSync(skillMd, 'utf-8');
+        const normalized = normalizeImportedSkillMarkdown(rawSkill, name);
+        const dest = join(outDir, 'SKILL.md');
+        writeFileSync(dest, normalized.content);
+        filesImported.push(dest);
+        if (normalized.addedDescription) {
+          warnings.push(
+            `skills/${name}/SKILL.md missing description; added import placeholder.`
+          );
+        }
       }
     }
   }

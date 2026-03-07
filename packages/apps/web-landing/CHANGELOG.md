@@ -1,5 +1,253 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/example.policy-safe-knowledge-assistant@3.3.0
+  - @contractspec/example.analytics-dashboard@3.3.0
+  - @contractspec/example.saas-boilerplate@3.3.0
+  - @contractspec/lib.progressive-delivery@30.0.0
+  - @contractspec/example.integration-hub@3.3.0
+  - @contractspec/example.workflow-system@3.3.0
+  - @contractspec/example.agent-console@3.3.0
+  - @contractspec/lib.example-shared-ui@3.3.0
+  - @contractspec/example.crm-pipeline@3.3.0
+  - @contractspec/example.in-app-docs@3.3.0
+  - @contractspec/example.marketplace@3.3.0
+  - @contractspec/lib.contracts-spec@3.3.0
+  - @contractspec/lib.design-system@3.3.0
+  - @contractspec/bundle.marketing@3.3.0
+  - @contractspec/lib.ui-kit-core@3.3.0
+  - @contractspec/module.examples@3.3.0
+  - @contractspec/bundle.library@3.3.0
+  - @contractspec/lib.ui-kit-web@3.3.0
+  - @contractspec/lib.ui-link@3.3.0
+  - @contractspec/lib.ui-kit@3.3.0
+
+## 3.2.0
+
+### Minor Changes
+
+- a281fc5: fix: missing dependencies
+
+### Patch Changes
+
+- Updated dependencies [a281fc5]
+  - @contractspec/example.policy-safe-knowledge-assistant@3.2.0
+  - @contractspec/example.analytics-dashboard@3.2.0
+  - @contractspec/example.saas-boilerplate@3.2.0
+  - @contractspec/lib.progressive-delivery@29.0.0
+  - @contractspec/example.integration-hub@3.2.0
+  - @contractspec/example.workflow-system@3.2.0
+  - @contractspec/example.agent-console@3.2.0
+  - @contractspec/lib.example-shared-ui@3.2.0
+  - @contractspec/example.crm-pipeline@3.2.0
+  - @contractspec/example.in-app-docs@3.2.0
+  - @contractspec/example.marketplace@3.2.0
+  - @contractspec/lib.contracts-spec@3.2.0
+  - @contractspec/lib.design-system@3.2.0
+  - @contractspec/bundle.marketing@3.2.0
+  - @contractspec/lib.ui-kit-core@3.2.0
+  - @contractspec/module.examples@3.2.0
+  - @contractspec/bundle.library@3.2.0
+  - @contractspec/lib.ui-kit-web@3.2.0
+  - @contractspec/lib.ui-link@3.2.0
+  - @contractspec/lib.ui-kit@3.2.0
+
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies [02c0cc5]
+- Updated dependencies [f1a249b]
+  - @contractspec/lib.contracts-spec@3.1.1
+  - @contractspec/lib.design-system@3.1.1
+  - @contractspec/lib.ui-kit@3.1.1
+  - @contractspec/bundle.library@3.1.1
+  - @contractspec/example.analytics-dashboard@3.1.1
+  - @contractspec/bundle.marketing@3.1.1
+  - @contractspec/example.agent-console@3.1.1
+  - @contractspec/example.crm-pipeline@3.1.1
+  - @contractspec/example.in-app-docs@3.1.1
+  - @contractspec/example.integration-hub@3.1.1
+  - @contractspec/example.marketplace@3.1.1
+  - @contractspec/example.policy-safe-knowledge-assistant@3.1.1
+  - @contractspec/example.saas-boilerplate@3.1.1
+  - @contractspec/example.workflow-system@3.1.1
+  - @contractspec/lib.example-shared-ui@3.1.1
+  - @contractspec/module.examples@3.1.1
+  - @contractspec/lib.progressive-delivery@28.0.1
+
+## 3.1.0
+
+### Minor Changes
+
+- 28987eb: chore: upgrade dependencies
+
+### Patch Changes
+
+- Updated dependencies [f2a4faf]
+- Updated dependencies [28987eb]
+- Updated dependencies [28987eb]
+  - @contractspec/lib.contracts-spec@3.1.0
+  - @contractspec/example.policy-safe-knowledge-assistant@3.1.0
+  - @contractspec/example.analytics-dashboard@3.1.0
+  - @contractspec/example.saas-boilerplate@3.1.0
+  - @contractspec/lib.progressive-delivery@28.0.0
+  - @contractspec/example.integration-hub@3.1.0
+  - @contractspec/example.workflow-system@3.1.0
+  - @contractspec/example.agent-console@3.1.0
+  - @contractspec/lib.example-shared-ui@3.1.0
+  - @contractspec/example.crm-pipeline@3.1.0
+  - @contractspec/example.in-app-docs@3.1.0
+  - @contractspec/example.marketplace@3.1.0
+  - @contractspec/lib.design-system@3.1.0
+  - @contractspec/bundle.marketing@3.1.0
+  - @contractspec/lib.ui-kit-core@3.1.0
+  - @contractspec/module.examples@3.1.0
+  - @contractspec/bundle.library@3.1.0
+  - @contractspec/lib.ui-kit-web@3.1.0
+  - @contractspec/lib.ui-link@3.1.0
+  - @contractspec/lib.ui-kit@3.1.0
+
+## 3.0.0
+
+### Major Changes
+
+- b781ce6: feat: improve ai readiness
+
+### Patch Changes
+
+- e3bc858: Fix lint stability across workspaces by pinning ESLint's AJV resolver compatibility and removing an incompatible minimatch override that caused jsx-a11y runtime failures.
+
+  Apply strict-type and lint compliance updates across health contracts and channel runtime code paths, including empty-interface aliases, dynamic env cleanup in integration tests, and normalized array typing with full lint/build/test validation.
+
+- 95c27e4: Align ecosystem docs with the Cursor marketplace catalog model by documenting the root `.cursor-plugin/marketplace.json`, package-scoped plugin sources in `packages/apps-registry/cursor-marketplace`, and catalog-wide validation via `bun run plugin:contractspec:validate`.
+
+  Rename ecosystem navigation and docblocks from generic Plugin API and Registry wording to Marketplace Plugins, Authoring Templates, and Marketplace Manifest for consistent docs discoverability.
+
+- 3aa6269: Expand the integrations docs with Mistral, Slack, GitHub, WhatsApp Meta, WhatsApp Twilio, and health transport routing pages.
+
+  Refresh the integrations overview/spec model and docs sidebar links so the new messaging and runtime guidance is discoverable from web-landing.
+
+- Updated dependencies [7cbdb7f]
+- Updated dependencies [0c438ac]
+- Updated dependencies [c608804]
+- Updated dependencies [e3bc858]
+- Updated dependencies [b19ae0a]
+- Updated dependencies [aa4a9c9]
+- Updated dependencies [95c27e4]
+- Updated dependencies [3aa6269]
+- Updated dependencies [b781ce6]
+  - @contractspec/lib.contracts-spec@3.0.0
+  - @contractspec/bundle.library@3.0.0
+  - @contractspec/example.integration-hub@3.0.0
+  - @contractspec/example.policy-safe-knowledge-assistant@3.0.0
+  - @contractspec/example.analytics-dashboard@3.0.0
+  - @contractspec/example.saas-boilerplate@3.0.0
+  - @contractspec/lib.progressive-delivery@27.0.0
+  - @contractspec/example.workflow-system@3.0.0
+  - @contractspec/example.agent-console@3.0.0
+  - @contractspec/lib.example-shared-ui@3.0.0
+  - @contractspec/example.crm-pipeline@3.0.0
+  - @contractspec/example.in-app-docs@3.0.0
+  - @contractspec/example.marketplace@3.0.0
+  - @contractspec/lib.design-system@3.0.0
+  - @contractspec/bundle.marketing@3.0.0
+  - @contractspec/lib.ui-kit-core@3.0.0
+  - @contractspec/module.examples@3.0.0
+  - @contractspec/lib.ui-kit-web@3.0.0
+  - @contractspec/lib.ui-link@3.0.0
+  - @contractspec/lib.ui-kit@3.0.0
+
+## 2.9.1
+
+### Patch Changes
+
+- Updated dependencies [4556b80]
+  - @contractspec/lib.contracts-spec@2.10.0
+  - @contractspec/example.integration-hub@2.9.1
+  - @contractspec/bundle.library@2.9.1
+  - @contractspec/example.analytics-dashboard@2.9.1
+  - @contractspec/bundle.marketing@2.9.1
+  - @contractspec/example.agent-console@2.9.1
+  - @contractspec/example.crm-pipeline@2.9.1
+  - @contractspec/example.in-app-docs@2.9.1
+  - @contractspec/example.marketplace@2.9.1
+  - @contractspec/example.policy-safe-knowledge-assistant@2.9.1
+  - @contractspec/example.saas-boilerplate@2.9.1
+  - @contractspec/example.workflow-system@2.9.1
+  - @contractspec/lib.design-system@2.9.1
+  - @contractspec/lib.example-shared-ui@2.9.1
+  - @contractspec/module.examples@2.9.1
+  - @contractspec/lib.progressive-delivery@26.0.1
+
+## 2.9.0
+
+### Minor Changes
+
+- fix: minimatch version
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/example.policy-safe-knowledge-assistant@2.9.0
+  - @contractspec/example.analytics-dashboard@2.9.0
+  - @contractspec/example.saas-boilerplate@2.9.0
+  - @contractspec/lib.progressive-delivery@26.0.0
+  - @contractspec/example.integration-hub@2.9.0
+  - @contractspec/example.workflow-system@2.9.0
+  - @contractspec/example.agent-console@2.9.0
+  - @contractspec/lib.example-shared-ui@2.9.0
+  - @contractspec/example.crm-pipeline@2.9.0
+  - @contractspec/example.in-app-docs@2.9.0
+  - @contractspec/example.marketplace@2.9.0
+  - @contractspec/lib.contracts-spec@2.9.0
+  - @contractspec/lib.design-system@2.9.0
+  - @contractspec/bundle.marketing@2.9.0
+  - @contractspec/lib.ui-kit-core@2.9.0
+  - @contractspec/module.examples@2.9.0
+  - @contractspec/bundle.library@2.9.0
+  - @contractspec/lib.ui-kit-web@2.9.0
+  - @contractspec/lib.ui-link@2.9.0
+  - @contractspec/lib.ui-kit@2.9.0
+
+## 2.8.0
+
+### Minor Changes
+
+- fix: tarball packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @contractspec/bundle.library@2.8.0
+  - @contractspec/bundle.marketing@2.8.0
+  - @contractspec/example.agent-console@2.8.0
+  - @contractspec/example.analytics-dashboard@2.8.0
+  - @contractspec/example.crm-pipeline@2.8.0
+  - @contractspec/example.in-app-docs@2.8.0
+  - @contractspec/example.integration-hub@2.8.0
+  - @contractspec/example.marketplace@2.8.0
+  - @contractspec/example.policy-safe-knowledge-assistant@2.8.0
+  - @contractspec/example.saas-boilerplate@2.8.0
+  - @contractspec/example.workflow-system@2.8.0
+  - @contractspec/lib.contracts-spec@2.8.0
+  - @contractspec/lib.design-system@2.8.0
+  - @contractspec/lib.example-shared-ui@2.8.0
+  - @contractspec/lib.progressive-delivery@25.0.0
+  - @contractspec/lib.ui-kit@2.8.0
+  - @contractspec/lib.ui-kit-core@2.8.0
+  - @contractspec/lib.ui-kit-web@2.8.0
+  - @contractspec/lib.ui-link@2.8.0
+  - @contractspec/module.examples@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes

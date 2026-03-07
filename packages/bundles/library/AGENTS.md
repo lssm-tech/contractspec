@@ -1,13 +1,15 @@
-# bundle.library
+# AI Agent Guide — `@contractspec/bundle.library`
+
+Scope: `packages/bundles/library/*`
 
 Shared library bundle with docs, templates, MCP servers, and common components.
 
 ## Quick Context
 
-- **Type**: Bundle (shared business logic)
+- **Layer**: bundle
 - **Consumers**: `app.api-library`, `app.web-landing`, `app.web-studio`
 
-## Key Directories
+## Architecture
 
 - `src/application/mcp/` — MCP server implementations
 - `src/components/docs/` — Documentation pages
@@ -16,18 +18,23 @@ Shared library bundle with docs, templates, MCP servers, and common components.
 - `src/hooks/studio/` — React hooks for GraphQL
 - `src/providers/auth/` — Authentication providers
 
-## Exports
+## Public Exports
 
 Use subpath imports:
+
 ```typescript
-import { ... } from '@contractspec/bundle.library/components/docs';
-import { ... } from '@contractspec/bundle.library/hooks/studio';
+import { ... } from "@contractspec/bundle.library/components/docs";
+import { ... } from "@contractspec/bundle.library/hooks/studio";
 ```
 
-## Commands
+## Guardrails
 
-```bash
-bun build       # Build bundle
-bun build:types # Type check
-bun lint        # Lint code
-```
+- This bundle is consumed by multiple apps — breaking export changes cascade widely.
+- MCP server implementations must stay transport-agnostic (the app layer wires the transport).
+- Keep side effects behind explicit adapters; do not perform I/O at import time.
+
+## Local Commands
+
+- Build: `bun run build`
+- Types: `bun run build:types`
+- Lint: `bun run lint`

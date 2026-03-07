@@ -2,7 +2,6 @@
 
 Website: https://contractspec.io/
 
-
 **Unified AI provider abstraction** for ContractSpec applications.
 
 ## Overview
@@ -15,13 +14,25 @@ This library provides a consistent interface for working with multiple LLM provi
 
 ## Supported Providers
 
-| Provider | Local | BYOK | Managed |
-|----------|-------|------|---------|
-| Ollama | ✅ | - | - |
-| OpenAI | - | ✅ | ✅ |
-| Anthropic | - | ✅ | ✅ |
-| Mistral | - | ✅ | ✅ |
-| Google Gemini | - | ✅ | ✅ |
+| Provider      | Local | BYOK | Managed |
+| ------------- | ----- | ---- | ------- |
+| Ollama        | ✅    | -    | -       |
+| OpenAI        | -     | ✅   | ✅      |
+| Anthropic     | -     | ✅   | ✅      |
+| Mistral       | -     | ✅   | ✅      |
+| Google Gemini | -     | ✅   | ✅      |
+
+### Mistral model presets
+
+The bundled Mistral model catalog includes current families used in ContractSpec flows:
+
+- `mistral-large-latest`
+- `mistral-medium-latest`
+- `mistral-small-latest`
+- `codestral-latest`
+- `devstral-small-latest`
+- `magistral-medium-latest`
+- `pixtral-large-latest`
 
 ## Usage
 
@@ -90,4 +101,3 @@ const model = getAIProvider(config);
 - `validateProvider(config)` - Check if provider is properly configured
 - `getRecommendedModels(provider)` - Get recommended models for a provider
 - `getAvailableProviders()` - List available providers with status
-

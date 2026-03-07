@@ -11,8 +11,10 @@ import * as z from 'zod';
 import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
 import type { AgentSpec } from '../spec/spec';
 import { agentKey } from '../spec/spec';
+import type { ModelSelector } from '@contractspec/lib.ai-providers/selector-types';
 import type {
   AgentCallOptions,
+  AgentExecutionError,
   AgentGenerateParams,
   AgentGenerateResult,
   AgentStreamParams,
@@ -71,6 +73,8 @@ export interface ContractSpecAgentConfig {
   additionalTools?: Record<string, ExecutableTool>;
   /** MCP servers to connect and expose as tools */
   mcpServers?: McpClientConfig[];
+  /** Ranking-driven model selector for dynamic per-call routing */
+  modelSelector?: ModelSelector;
 }
 
 /**
@@ -239,7 +243,14 @@ export class ContractSpecAgent {
           steps: [],
           metadata: params.options?.metadata,
         });
+      } else if (existing.status !== 'running') {
+        await this.config.sessionStore.update(sessionId, { status: 'running' });
       }
+
+      await this.config.sessionStore.appendMessage(sessionId, {
+        role: 'user',
+        content: params.prompt,
+      });
     }
 
     // Build prompt with optional system override
@@ -252,11 +263,17 @@ export class ContractSpecAgent {
       traceId,
       options: params.options,
     });
-    const inner = this.createInnerAgent(model);
+    const effectiveMaxSteps = resolveMaxSteps(
+      params.maxSteps,
+      this.spec.maxSteps
+    );
+    const inner = this.createInnerAgent(model, effectiveMaxSteps);
 
     // AI SDK v6: maxSteps is controlled via stopWhen in agent settings
-    const result = await inner
-      .generate({
+    let result: Awaited<ReturnType<(typeof inner)['generate']>>;
+
+    try {
+      result = await inner.generate({
         prompt,
         abortSignal: params.signal,
         options: {
@@ -265,17 +282,39 @@ export class ContractSpecAgent {
           sessionId,
           metadata: params.options?.metadata,
         },
-      })
-      .finally(() => {
-        this.activeStepContexts.delete(sessionId);
+      });
+    } catch (error) {
+      if (this.config.sessionStore) {
+        await this.config.sessionStore.update(sessionId, {
+          status: 'failed',
+        });
+      }
+      this.activeStepContexts.delete(sessionId);
+      throw error;
+    }
+
+    this.activeStepContexts.delete(sessionId);
+
+    const escalationError = resolveEscalationError(
+      this.spec,
+      result.finishReason
+    );
+
+    // Update session status and persisted messages
+    if (this.config.sessionStore) {
+      await this.config.sessionStore.appendMessage(sessionId, {
+        role: 'assistant',
+        content: result.text,
       });
 
-    // Update session status
-    if (this.config.sessionStore) {
       await this.config.sessionStore.update(sessionId, {
-        status: 'completed',
+        status: escalationError ? 'escalated' : 'completed',
       });
     }
+
+    const session = this.config.sessionStore
+      ? await this.config.sessionStore.get(sessionId)
+      : null;
 
     return {
       text: result.text,
@@ -295,6 +334,19 @@ export class ContractSpecAgent {
       })),
       finishReason: result.finishReason,
       usage: result.usage,
+      session: session ?? undefined,
+      pendingApproval: escalationError
+        ? {
+            toolName:
+              this.spec.policy?.escalation?.approvalWorkflow ??
+              'approval_required',
+            toolCallId: `approval_${sessionId}`,
+            args: {
+              reason: escalationError.message,
+              code: escalationError.code,
+            },
+          }
+        : undefined,
     };
   }
 
@@ -324,7 +376,33 @@ export class ContractSpecAgent {
       traceId,
       options: params.options,
     });
-    const inner = this.createInnerAgent(model);
+    const effectiveMaxSteps = resolveMaxSteps(
+      params.maxSteps,
+      this.spec.maxSteps
+    );
+    const inner = this.createInnerAgent(model, effectiveMaxSteps);
+
+    if (this.config.sessionStore) {
+      const existing = await this.config.sessionStore.get(sessionId);
+      if (!existing) {
+        await this.config.sessionStore.create({
+          sessionId,
+          agentId: this.id,
+          tenantId: params.options?.tenantId,
+          actorId: params.options?.actorId,
+          status: 'running',
+          messages: [],
+          steps: [],
+          metadata: params.options?.metadata,
+        });
+      }
+
+      await this.config.sessionStore.appendMessage(sessionId, {
+        role: 'user',
+        content: params.prompt,
+      });
+      await this.config.sessionStore.update(sessionId, { status: 'running' });
+    }
 
     // AI SDK v6: maxSteps is controlled via stopWhen in agent settings
     // onStepFinish callback is already set in agent construction
@@ -349,6 +427,9 @@ export class ContractSpecAgent {
       ?.sessionId;
     if (sessionId && this.config.sessionStore) {
       await this.config.sessionStore.appendStep(sessionId, step);
+      await this.config.sessionStore.update(sessionId, {
+        status: step.finishReason === 'tool-calls' ? 'waiting' : 'running',
+      });
     }
 
     // 2. Feed telemetry to evolution engine
@@ -387,7 +468,8 @@ export class ContractSpecAgent {
   }
 
   private createInnerAgent(
-    model: LanguageModel
+    model: LanguageModel,
+    maxSteps: number
   ): ToolLoopAgent<
     z.infer<typeof ContractSpecCallOptionsSchema>,
     ToolSet,
@@ -397,7 +479,7 @@ export class ContractSpecAgent {
       model,
       instructions: this.instructions,
       tools: this.tools as ToolSet,
-      stopWhen: stepCountIs(this.spec.maxSteps ?? 10),
+      stopWhen: stepCountIs(maxSteps),
       callOptionsSchema: ContractSpecCallOptionsSchema,
       onStepFinish: async (step: StepResult<ToolSet>) => {
         await this.handleStepFinish(step);
@@ -410,6 +492,13 @@ export class ContractSpecAgent {
     traceId: string;
     options?: AgentCallOptions;
   }): Promise<LanguageModel> {
+    if (this.config.modelSelector && params.options?.selectionContext) {
+      const { model } = await this.config.modelSelector.selectAndCreate(
+        params.options.selectionContext
+      );
+      return model;
+    }
+
     const posthogConfig = this.config.posthogConfig;
     if (!posthogConfig) {
       return this.config.model;
@@ -442,4 +531,62 @@ export class ContractSpecAgent {
       tracingOptions
     );
   }
+}
+
+function resolveMaxSteps(
+  overrideMaxSteps: number | undefined,
+  specMaxSteps?: number
+) {
+  const candidate = overrideMaxSteps ?? specMaxSteps ?? 10;
+  if (!Number.isFinite(candidate)) {
+    return 10;
+  }
+
+  if (candidate < 1) {
+    return 1;
+  }
+
+  return Math.round(candidate);
+}
+
+function resolveEscalationError(
+  spec: AgentSpec,
+  finishReason: string
+): AgentExecutionError | undefined {
+  const escalation = spec.policy?.escalation;
+  if (!escalation) {
+    return undefined;
+  }
+
+  if (escalation.onTimeout && finishReason === 'length') {
+    return {
+      kind: 'timeout',
+      code: 'AGENT_TIMEOUT_ESCALATION',
+      message: 'Agent reached max step budget and requires escalation.',
+    };
+  }
+
+  if (escalation.onToolFailure && finishReason === 'error') {
+    return {
+      kind: 'retryable',
+      code: 'AGENT_TOOL_FAILURE_ESCALATION',
+      message: 'Agent encountered a tool failure and requires escalation.',
+    };
+  }
+
+  const confidenceThreshold = escalation.confidenceThreshold;
+  const defaultConfidence = spec.policy?.confidence?.default;
+  if (
+    confidenceThreshold !== undefined &&
+    defaultConfidence !== undefined &&
+    defaultConfidence < confidenceThreshold
+  ) {
+    return {
+      kind: 'policy_blocked',
+      code: 'AGENT_CONFIDENCE_ESCALATION',
+      message: `Agent default confidence (${defaultConfidence}) is below escalation threshold (${confidenceThreshold}).`,
+    };
+  }
+
+  return undefined;
 }

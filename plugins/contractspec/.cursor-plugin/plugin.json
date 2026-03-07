@@ -1,0 +1,28 @@
+{
+  "name": "contractspec",
+  "version": "1.0.0",
+  "description": "Spec-first contract governance and agent orchestration guardrails for AI-built systems.",
+  "author": {
+    "name": "ContractSpec Team",
+    "email": "tboutron@lssm.co"
+  },
+  "homepage": "https://contractspec.io",
+  "repository": "https://github.com/lssm-tech/contractspec",
+  "license": "MIT",
+  "keywords": [
+    "contractspec",
+    "contracts",
+    "spec-first",
+    "agent-orchestration",
+    "traceability",
+    "guardrails",
+    "mcp",
+    "cursor"
+  ],
+  "logo": "assets/logo.svg",
+  "rules": "rules",
+  "commands": "commands",
+  "agents": "agents",
+  "skills": "skills",
+  "mcpServers": ".mcp.json"
+}

@@ -18,13 +18,19 @@ const navItems: HeaderNavItem[] = [
   { label: 'GitHub', href: 'https://github.com/lssm-tech/contractspec' },
 ];
 
-const langSwitchProps = {
-  value: 'en',
-  options: [{ code: 'en', label: 'EN' }],
-  onChange: () => {
-    // TODO: implement language switch
-  },
-};
+const SUPPORTED_LOCALES = [{ code: 'en', label: 'EN' }] as const;
+
+// Language switch is only shown when multiple locales are available
+const langSwitchProps =
+  SUPPORTED_LOCALES.length > 1
+    ? {
+        value: 'en',
+        options: [...SUPPORTED_LOCALES],
+        onChange: (locale: string) => {
+          captureAnalyticsEvent('locale_switch', { locale, surface: 'header' });
+        },
+      }
+    : undefined;
 
 export default function Header() {
   return (
