@@ -1,5 +1,23 @@
 # Changelog
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+- Updated dependencies [575b316]
+  - @contractspec/lib.contracts-transformers@3.3.0
+  - @contractspec/lib.contracts-spec@3.3.0
+  - @contractspec/bundle.workspace@3.3.0
+  - @contractspec/module.workspace@3.3.0
+  - @contractspec/module.examples@3.3.0
+  - @contractspec/module.ai-chat@3.3.0
+  - @contractspec/lib.ai-agent@3.3.0
+
 ## 3.2.1
 
 ### Patch Changes

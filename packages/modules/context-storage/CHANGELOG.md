@@ -1,5 +1,20 @@
 # @contractspec/module.context-storage
 
+## 0.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+- Updated dependencies [575b316]
+  - @contractspec/lib.contracts-integrations@3.3.0
+  - @contractspec/lib.context-storage@0.3.0
+  - @contractspec/lib.knowledge@3.3.0
+  - @contractspec/lib.schema@3.3.0
+
 ## 0.2.0
 
 ### Minor Changes

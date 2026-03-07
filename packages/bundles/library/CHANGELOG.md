@@ -1,5 +1,34 @@
 # @contractspec/bundle.library
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+- Updated dependencies [575b316]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.3.0
+  - @contractspec/lib.contracts-runtime-server-rest@3.3.0
+  - @contractspec/lib.contracts-runtime-server-mcp@3.3.0
+  - @contractspec/lib.contracts-integrations@3.3.0
+  - @contractspec/module.context-storage@0.3.0
+  - @contractspec/lib.contracts-library@3.3.0
+  - @contractspec/lib.example-shared-ui@3.3.0
+  - @contractspec/lib.provider-ranking@0.3.0
+  - @contractspec/lib.runtime-sandbox@2.3.0
+  - @contractspec/lib.contracts-spec@3.3.0
+  - @contractspec/lib.design-system@3.3.0
+  - @contractspec/lib.content-gen@3.3.0
+  - @contractspec/module.examples@3.3.0
+  - @contractspec/lib.ui-kit-web@3.3.0
+  - @contractspec/lib.knowledge@3.3.0
+  - @contractspec/lib.ui-link@3.3.0
+  - @contractspec/lib.logger@3.3.0
+  - @contractspec/lib.schema@3.3.0
+
 ## 3.2.1
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/module.lifecycle-advisor@3.3.0
+  - @contractspec/module.lifecycle-core@3.3.0
+  - @contractspec/lib.observability@3.3.0
+  - @contractspec/lib.analytics@3.3.0
+  - @contractspec/lib.lifecycle@3.3.0
+  - @contractspec/lib.ai-agent@3.3.0
+
 ## 3.2.0
 
 ### Minor Changes

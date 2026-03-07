@@ -1,5 +1,25 @@
 # @contractspec/bundle.workspace
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- 575b316: Fix lint and build errors: replace forbidden non-null assertion with safe flatMap guard in changelog formatter, and ensure required Record fields survive Partial spread in integration test helpers
+- Updated dependencies [890a0da]
+- Updated dependencies [575b316]
+  - @contractspec/lib.contracts-integrations@3.3.0
+  - @contractspec/lib.contracts-transformers@3.3.0
+  - @contractspec/lib.source-extractors@2.3.0
+  - @contractspec/lib.utils-typescript@3.3.0
+  - @contractspec/lib.contracts-spec@3.3.0
+  - @contractspec/lib.ai-providers@3.3.0
+  - @contractspec/module.workspace@3.3.0
+  - @contractspec/lib.ai-agent@3.3.0
+
 ## 3.2.1
 
 ### Patch Changes

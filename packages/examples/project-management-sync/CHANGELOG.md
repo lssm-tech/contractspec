@@ -1,5 +1,17 @@
 # @contractspec/example.project-management-sync
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/integration.providers-impls@3.3.0
+  - @contractspec/lib.contracts-spec@3.3.0
+
 ## 3.2.0
 
 ### Minor Changes

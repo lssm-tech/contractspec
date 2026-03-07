@@ -1,5 +1,16 @@
 # @contractspec/lib.graphql-prisma
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/lib.schema@3.3.0
+
 ## 3.2.0
 
 ### Minor Changes

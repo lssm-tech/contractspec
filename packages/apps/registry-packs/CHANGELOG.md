@@ -1,5 +1,11 @@
 # @contractspec/app.registry-packs
 
+## 1.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
 ## 1.2.0
 
 ### Minor Changes

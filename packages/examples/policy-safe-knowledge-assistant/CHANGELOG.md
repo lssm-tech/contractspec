@@ -1,5 +1,25 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/example.locale-jurisdiction-gate@3.3.0
+  - @contractspec/example.versioned-knowledge-base@3.3.0
+  - @contractspec/example.kb-update-pipeline@3.3.0
+  - @contractspec/example.learning-patterns@3.3.0
+  - @contractspec/module.learning-journey@3.3.0
+  - @contractspec/lib.example-shared-ui@3.3.0
+  - @contractspec/lib.runtime-sandbox@2.3.0
+  - @contractspec/lib.contracts-spec@3.3.0
+  - @contractspec/lib.design-system@3.3.0
+  - @contractspec/lib.ui-kit-web@3.3.0
+
 ## 3.2.0
 
 ### Minor Changes

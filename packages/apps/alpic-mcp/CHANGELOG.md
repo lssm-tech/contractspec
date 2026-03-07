@@ -1,5 +1,17 @@
 # @contractspec/app.alpic-mcp
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/bundle.alpic@3.3.0
+  - @contractspec/lib.logger@3.3.0
+
 ## 3.2.0
 
 ### Minor Changes

@@ -1,5 +1,20 @@
 # @contractspec/app.provider-ranking-mcp
 
+## 1.2.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/lib.contracts-runtime-server-mcp@3.3.0
+  - @contractspec/module.provider-ranking@0.3.0
+  - @contractspec/lib.provider-ranking@0.3.0
+  - @contractspec/lib.contracts-spec@3.3.0
+  - @contractspec/lib.logger@3.3.0
+
 ## 1.1.0
 
 ### Minor Changes

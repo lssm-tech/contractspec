@@ -1,5 +1,16 @@
 # @contractspec/lib.progressive-delivery
 
+## 30.0.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/lib.observability@3.3.0
+
 ## 29.0.0
 
 ### Minor Changes

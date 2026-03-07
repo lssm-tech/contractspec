@@ -1,5 +1,11 @@
 # @contractspec/lib.contracts
 
+## 2.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
 ## 2.2.0
 
 ### Minor Changes

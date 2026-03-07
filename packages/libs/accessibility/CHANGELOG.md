@@ -1,5 +1,18 @@
 # @contractspec/lib.accessibility
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/lib.design-system@3.3.0
+  - @contractspec/lib.ui-kit-web@3.3.0
+  - @contractspec/lib.ui-kit@3.3.0
+
 ## 3.2.0
 
 ### Minor Changes

@@ -1,5 +1,22 @@
 # @contractspec/example.learning-journey-ui-coaching
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/example.learning-journey-crm-onboarding@3.3.0
+  - @contractspec/example.learning-journey-ambient-coach@3.3.0
+  - @contractspec/example.learning-journey-ui-shared@3.3.0
+  - @contractspec/module.learning-journey@3.3.0
+  - @contractspec/lib.contracts-spec@3.3.0
+  - @contractspec/lib.design-system@3.3.0
+  - @contractspec/lib.ui-kit-web@3.3.0
+
 ## 3.2.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @contractspec/app.cli-databases
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
 ## 3.2.0
 
 ### Minor Changes

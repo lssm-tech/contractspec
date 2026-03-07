@@ -1,5 +1,19 @@
 # @contractspec/example.learning-journey-crm-onboarding
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/module.learning-journey@3.3.0
+  - @contractspec/example.crm-pipeline@3.3.0
+  - @contractspec/lib.contracts-spec@3.3.0
+  - @contractspec/lib.schema@3.3.0
+
 ## 3.2.0
 
 ### Minor Changes

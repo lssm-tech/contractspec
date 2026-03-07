@@ -1,5 +1,24 @@
 # @contractspec/example.saas-boilerplate
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/lib.example-shared-ui@3.3.0
+  - @contractspec/module.notifications@3.3.0
+  - @contractspec/lib.runtime-sandbox@2.3.0
+  - @contractspec/lib.contracts-spec@3.3.0
+  - @contractspec/module.audit-trail@3.3.0
+  - @contractspec/lib.design-system@3.3.0
+  - @contractspec/lib.identity-rbac@3.3.0
+  - @contractspec/lib.schema@3.3.0
+  - @contractspec/lib.jobs@3.3.0
+
 ## 3.2.0
 
 ### Minor Changes

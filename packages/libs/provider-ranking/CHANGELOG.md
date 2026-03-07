@@ -1,5 +1,11 @@
 # @contractspec/lib.provider-ranking
 
+## 0.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
 ## 0.2.0
 
 ### Minor Changes

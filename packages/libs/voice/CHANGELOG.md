@@ -1,5 +1,20 @@
 # @contractspec/lib.voice
 
+## 1.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+- Updated dependencies [575b316]
+  - @contractspec/lib.contracts-integrations@3.3.0
+  - @contractspec/lib.contracts-spec@3.3.0
+  - @contractspec/lib.ai-providers@3.3.0
+  - @contractspec/lib.content-gen@3.3.0
+
 ## 1.2.0
 
 ### Minor Changes

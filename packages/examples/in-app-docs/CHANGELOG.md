@@ -1,5 +1,17 @@
 # @contractspec/example.in-app-docs
 
+## 3.3.0
+
+### Minor Changes
+
+- 890a0da: fix: stability improvements
+
+### Patch Changes
+
+- Updated dependencies [890a0da]
+  - @contractspec/lib.example-shared-ui@3.3.0
+  - @contractspec/lib.contracts-spec@3.3.0
+
 ## 3.2.0
 
 ### Minor Changes
