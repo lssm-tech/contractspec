@@ -1,5 +1,15 @@
 # @contractspec/bundle.workspace
 
+## 3.2.1
+
+### Patch Changes
+
+- 575b316: Fix lint and build errors: replace forbidden non-null assertion with safe flatMap guard in changelog formatter, and ensure required Record fields survive Partial spread in integration test helpers
+- Updated dependencies [575b316]
+  - @contractspec/lib.contracts-integrations@3.2.1
+  - @contractspec/module.workspace@3.2.1
+  - @contractspec/lib.ai-agent@3.2.1
+
 ## 3.2.0
 
 ### Minor Changes

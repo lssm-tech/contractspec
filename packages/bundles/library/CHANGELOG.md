@@ -1,5 +1,18 @@
 # @contractspec/bundle.library
 
+## 3.2.1
+
+### Patch Changes
+
+- Updated dependencies [575b316]
+  - @contractspec/lib.contracts-integrations@3.2.1
+  - @contractspec/lib.content-gen@3.2.1
+  - @contractspec/lib.knowledge@3.2.1
+  - @contractspec/module.context-storage@0.2.1
+  - @contractspec/module.examples@3.2.1
+  - @contractspec/lib.design-system@3.2.1
+  - @contractspec/lib.example-shared-ui@3.2.1
+
 ## 3.2.0
 
 ### Minor Changes
