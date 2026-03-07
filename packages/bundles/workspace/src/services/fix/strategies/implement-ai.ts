@@ -120,22 +120,67 @@ export async function implementAiStrategy(
 
 /**
  * Enrich the generation context with AI-generated content.
+ *
+ * Delegates to AIGenerator when AI config is available, falls back to
+ * heuristic inference from the spec key.
  */
 async function enrichWithAI(
   ctx: SpecGenerationContext,
-  _options: FixOptions,
+  options: FixOptions,
   logger: LoggerAdapter
 ): Promise<SpecGenerationContext> {
-  // TODO: Integrate with existing AIGenerator from services/create/ai-generator.ts
-  // For now, generate reasonable defaults based on the key
-
   logger.info('Generating AI content for spec', {
     key: ctx.key,
     type: ctx.specType,
   });
 
-  const enrichment = inferEnrichmentFromKey(ctx.key, ctx.specType);
+  if (options.aiConfig) {
+    try {
+      const { AIGenerator } = await import('../../create/ai-generator');
+      const config = buildResolvedConfig(options);
+      const generator = new AIGenerator(config);
 
+      const kind = ctx.specType === 'operation' ? 'command' : ctx.specType;
+      const description = `${capitalize(ctx.specType)} for ${ctx.key}`;
+
+      if (ctx.specType === 'operation') {
+        const result = await generator.generateOperationSpec(
+          description,
+          kind as 'command' | 'query'
+        );
+        return {
+          ...ctx,
+          description: result.description,
+          enrichment: {
+            goal: result.goal,
+            context: result.context,
+            owners: result.owners,
+            tags: result.tags,
+          },
+        };
+      }
+
+      if (ctx.specType === 'event') {
+        const result = await generator.generateEventSpec(description);
+        return {
+          ...ctx,
+          description: result.description,
+          enrichment: {
+            goal: `Emit ${ctx.key} event`,
+            context: result.description,
+            owners: ['@team'],
+            tags: result.tags,
+          },
+        };
+      }
+    } catch (aiError) {
+      logger.warn('AIGenerator call failed, falling back to heuristics', {
+        error: aiError instanceof Error ? aiError.message : String(aiError),
+      });
+    }
+  }
+
+  const enrichment = inferEnrichmentFromKey(ctx.key, ctx.specType);
   return {
     ...ctx,
     description: enrichment.description,
@@ -146,6 +191,25 @@ async function enrichWithAI(
       tags: enrichment.tags,
     },
   };
+}
+
+/**
+ * Build a minimal ResolvedContractsrcConfig from FixOptions.aiConfig.
+ */
+function buildResolvedConfig(options: FixOptions) {
+  const ai = options.aiConfig;
+  const providerMap: Record<string, string> = {
+    claude: 'anthropic',
+    openai: 'openai',
+    ollama: 'ollama',
+    custom: 'custom',
+  };
+  return {
+    aiProvider: providerMap[ai?.provider ?? 'openai'] ?? 'openai',
+    aiModel: ai?.model ?? 'gpt-4-turbo',
+    customApiKey: ai?.apiKey ?? '',
+    customEndpoint: ai?.endpoint ?? '',
+  } as import('@contractspec/lib.contracts-spec').ResolvedContractsrcConfig;
 }
 
 /**

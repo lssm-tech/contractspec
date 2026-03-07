@@ -96,9 +96,6 @@ function makeResolvedConfig(
     environment: 'production',
     capabilities: { enabled: [], disabled: [] },
     features: { include: [], exclude: [] },
-    dataViews: {},
-    workflows: {},
-    jobs: {},
     policies: [],
     experiments: { catalog: [], active: [], paused: [] },
     featureFlags: [],
@@ -118,6 +115,9 @@ function makeResolvedConfig(
       domain: 'tenant-1.demo.localhost',
     },
     ...overrides,
+    dataViews: overrides.dataViews ?? {},
+    workflows: overrides.workflows ?? {},
+    jobs: overrides.jobs ?? {},
   };
 }
 
