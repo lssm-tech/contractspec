@@ -1,0 +1,10 @@
+[
+  {
+    "id": "voice-providers/voice-providers",
+    "title": "voice-providers",
+    "summary": "Voice provider integration for TTS synthesis with multiple providers\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: voice, tts, providers, synthesis",
+    "route": "/docs/reference/voice-providers/voice-providers",
+    "source": "generated",
+    "contentPath": "voice-providers/voice-providers.md"
+  }
+]

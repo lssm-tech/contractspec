@@ -1,0 +1,10 @@
+[
+  {
+    "id": "project-management-sync/project-management-sync",
+    "title": "project-management-sync",
+    "summary": "Create work items in Linear, Jira, and Notion from contract definitions\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: project-management, sync, linear, jira, notion",
+    "route": "/docs/reference/project-management-sync/project-management-sync",
+    "source": "generated",
+    "contentPath": "project-management-sync/project-management-sync.md"
+  }
+]

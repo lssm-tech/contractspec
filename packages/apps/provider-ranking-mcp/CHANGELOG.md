@@ -1,5 +1,21 @@
 # @contractspec/app.provider-ranking-mcp
 
+## 1.3.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+
+### Patch Changes
+
+- Updated dependencies [0ee467a]
+- Updated dependencies [56ee8e6]
+  - @contractspec/lib.contracts-runtime-server-mcp@3.4.0
+  - @contractspec/module.provider-ranking@0.4.0
+  - @contractspec/lib.provider-ranking@0.4.0
+  - @contractspec/lib.contracts-spec@3.4.0
+  - @contractspec/lib.logger@3.4.0
+
 ## 1.2.0
 
 ### Minor Changes

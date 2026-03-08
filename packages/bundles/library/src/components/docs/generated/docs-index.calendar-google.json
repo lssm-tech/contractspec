@@ -1,0 +1,10 @@
+[
+  {
+    "id": "calendar-google/calendar-google",
+    "title": "calendar-google",
+    "summary": "Google Calendar integration with OAuth, event listing, and sync\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: calendar, google, integration, oauth",
+    "route": "/docs/reference/calendar-google/calendar-google",
+    "source": "generated",
+    "contentPath": "calendar-google/calendar-google.md"
+  }
+]

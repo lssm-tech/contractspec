@@ -1,5 +1,34 @@
 # @contractspec/bundle.library
 
+## 3.4.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+
+### Patch Changes
+
+- Updated dependencies [0ee467a]
+- Updated dependencies [56ee8e6]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.4.0
+  - @contractspec/lib.contracts-runtime-server-rest@3.4.0
+  - @contractspec/lib.contracts-runtime-server-mcp@3.4.0
+  - @contractspec/lib.contracts-integrations@3.4.0
+  - @contractspec/module.context-storage@0.4.0
+  - @contractspec/lib.contracts-library@3.4.0
+  - @contractspec/lib.example-shared-ui@3.4.0
+  - @contractspec/lib.provider-ranking@0.4.0
+  - @contractspec/lib.runtime-sandbox@2.4.0
+  - @contractspec/lib.contracts-spec@3.4.0
+  - @contractspec/lib.design-system@3.4.0
+  - @contractspec/lib.content-gen@3.4.0
+  - @contractspec/module.examples@3.4.0
+  - @contractspec/lib.ui-kit-web@3.4.0
+  - @contractspec/lib.knowledge@3.4.0
+  - @contractspec/lib.ui-link@3.4.0
+  - @contractspec/lib.logger@3.4.0
+  - @contractspec/lib.schema@3.4.0
+
 ## 3.3.0
 
 ### Minor Changes

@@ -1,0 +1,10 @@
+[
+  {
+    "id": "lifecycle-cli/lifecycle-cli",
+    "title": "lifecycle-cli",
+    "summary": "CLI-based lifecycle assessment using the lifecycle-managed bundle\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: lifecycle, cli, assessment\n- **File**: `packages/examples/lifecycle-cli/src/lifecycle-cli.feature.ts`",
+    "route": "/docs/reference/lifecycle-cli/lifecycle-cli",
+    "source": "generated",
+    "contentPath": "lifecycle-cli/lifecycle-cli.md"
+  }
+]

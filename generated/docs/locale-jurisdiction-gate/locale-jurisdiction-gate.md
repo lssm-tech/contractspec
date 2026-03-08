@@ -56,6 +56,17 @@ export const LocaleJurisdictionGateFeature = defineFeature({
   capabilities: {
     requires: [{ key: 'knowledge', version: '1.0.0' }],
   },
+
+  policies: [{ key: 'locale-jurisdiction-gate.policy.gate', version: '1.0.0' }],
+
+  knowledge: [
+    { key: 'locale-jurisdiction-gate.knowledge.rules', version: '1.0.0' },
+  ],
+
+  docs: [
+    'docs.examples.locale-jurisdiction-gate.goal',
+    'docs.examples.locale-jurisdiction-gate.reference',
+  ],
 });
 
 ```

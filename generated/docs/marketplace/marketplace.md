@@ -233,6 +233,24 @@ export const MarketplaceFeature = defineFeature({
       { key: 'payments', version: '1.0.0' },
     ],
   },
+
+  telemetry: [{ key: 'marketplace.telemetry', version: '1.0.0' }],
+
+  jobs: [
+    { key: 'marketplace.job.order-processing', version: '1.0.0' },
+    { key: 'marketplace.job.payout-settlement', version: '1.0.0' },
+  ],
+
+  translations: [
+    { key: 'marketplace.translations.storefront', version: '1.0.0' },
+  ],
+
+  docs: [
+    'docs.examples.marketplace',
+    'docs.examples.marketplace.goal',
+    'docs.examples.marketplace.usage',
+    'docs.examples.marketplace.constraints',
+  ],
 });
 
 ```

@@ -28,13 +28,13 @@ Tenant app configuration lifecycle management with draft, preview, and publish s
  *
  * Defines the feature module for tenant app configuration lifecycle.
  */
-import { defineAppConfig } from './spec';
+import { defineFeature } from '../features';
 
 /**
  * App Config feature module that bundles tenant configuration
  * lifecycle events for draft, preview, publish, and rollback stages.
  */
-export const AppConfigFeature = defineAppConfig({
+export const AppConfigFeature = defineFeature({
   meta: {
     key: 'app-config',
     version: '1.0.0',

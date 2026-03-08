@@ -171,6 +171,24 @@ export const IntegrationHubFeature = defineFeature({
       { key: 'etl', version: '1.0.0' },
     ],
   },
+
+  integrations: [
+    { key: 'integration-hub.integration.default-connector', version: '1.0.0' },
+  ],
+
+  telemetry: [{ key: 'integration-hub.telemetry', version: '1.0.0' }],
+
+  jobs: [
+    { key: 'integration-hub.job.sync-run', version: '1.0.0' },
+    { key: 'integration-hub.job.health-check', version: '1.0.0' },
+  ],
+
+  docs: [
+    'docs.examples.integration-hub',
+    'docs.examples.integration-hub.goal',
+    'docs.examples.integration-hub.usage',
+    'docs.examples.integration-hub.constraints',
+  ],
 });
 
 ```

@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-03-06T15:57:43.601Z",
-  "total": 901,
+  "generatedAt": "2026-03-08T23:25:43.502Z",
+  "total": 989,
   "version": null,
   "contentRoot": "../../../../../../../generated/docs",
   "chunks": [
@@ -20,6 +20,11 @@
       "total": 13
     },
     {
+      "key": "ai-support-bot",
+      "file": "docs-index.ai-support-bot.json",
+      "total": 1
+    },
+    {
       "key": "analytics-dashboard",
       "file": "docs-index.analytics-dashboard.json",
       "total": 21
@@ -35,9 +40,24 @@
       "total": 6
     },
     {
+      "key": "calendar-google",
+      "file": "docs-index.calendar-google.json",
+      "total": 1
+    },
+    {
+      "key": "content-generation",
+      "file": "docs-index.content-generation.json",
+      "total": 1
+    },
+    {
       "key": "crm-pipeline",
       "file": "docs-index.crm-pipeline.json",
       "total": 20
+    },
+    {
+      "key": "email-gmail",
+      "file": "docs-index.email-gmail.json",
+      "total": 1
     },
     {
       "key": "feature-flags",
@@ -60,9 +80,29 @@
       "total": 39
     },
     {
+      "key": "in-app-docs",
+      "file": "docs-index.in-app-docs.json",
+      "total": 1
+    },
+    {
       "key": "integration-hub",
       "file": "docs-index.integration-hub.json",
       "total": 33
+    },
+    {
+      "key": "integration-posthog",
+      "file": "docs-index.integration-posthog.json",
+      "total": 1
+    },
+    {
+      "key": "integration-stripe",
+      "file": "docs-index.integration-stripe.json",
+      "total": 1
+    },
+    {
+      "key": "integration-supabase",
+      "file": "docs-index.integration-supabase.json",
+      "total": 1
     },
     {
       "key": "jobs",
@@ -75,9 +115,19 @@
       "total": 16
     },
     {
+      "key": "knowledge-canon",
+      "file": "docs-index.knowledge-canon.json",
+      "total": 1
+    },
+    {
       "key": "learning-journey",
       "file": "docs-index.learning-journey.json",
       "total": 27
+    },
+    {
+      "key": "learning-journey-ambient-coach",
+      "file": "docs-index.learning-journey-ambient-coach.json",
+      "total": 1
     },
     {
       "key": "learning-journey-crm-onboarding",
@@ -85,9 +135,19 @@
       "total": 6
     },
     {
+      "key": "learning-journey-duo-drills",
+      "file": "docs-index.learning-journey-duo-drills.json",
+      "total": 1
+    },
+    {
       "key": "learning-journey-platform-tour",
       "file": "docs-index.learning-journey-platform-tour.json",
       "total": 6
+    },
+    {
+      "key": "learning-journey-quest-challenges",
+      "file": "docs-index.learning-journey-quest-challenges.json",
+      "total": 1
     },
     {
       "key": "learning-journey-registry",
@@ -98,6 +158,41 @@
       "key": "learning-journey-studio-onboarding",
       "file": "docs-index.learning-journey-studio-onboarding.json",
       "total": 6
+    },
+    {
+      "key": "learning-journey-ui-coaching",
+      "file": "docs-index.learning-journey-ui-coaching.json",
+      "total": 1
+    },
+    {
+      "key": "learning-journey-ui-gamified",
+      "file": "docs-index.learning-journey-ui-gamified.json",
+      "total": 1
+    },
+    {
+      "key": "learning-journey-ui-onboarding",
+      "file": "docs-index.learning-journey-ui-onboarding.json",
+      "total": 1
+    },
+    {
+      "key": "learning-journey-ui-shared",
+      "file": "docs-index.learning-journey-ui-shared.json",
+      "total": 1
+    },
+    {
+      "key": "learning-patterns",
+      "file": "docs-index.learning-patterns.json",
+      "total": 1
+    },
+    {
+      "key": "lifecycle-cli",
+      "file": "docs-index.lifecycle-cli.json",
+      "total": 1
+    },
+    {
+      "key": "lifecycle-dashboard",
+      "file": "docs-index.lifecycle-dashboard.json",
+      "total": 1
     },
     {
       "key": "locale-jurisdiction-gate",
@@ -115,9 +210,19 @@
       "total": 6
     },
     {
+      "key": "meeting-recorder-providers",
+      "file": "docs-index.meeting-recorder-providers.json",
+      "total": 1
+    },
+    {
       "key": "metrics",
       "file": "docs-index.metrics.json",
       "total": 25
+    },
+    {
+      "key": "minimal",
+      "file": "docs-index.minimal.json",
+      "total": 2
     },
     {
       "key": "notifications",
@@ -130,6 +235,46 @@
       "total": 8
     },
     {
+      "key": "openbanking-powens",
+      "file": "docs-index.openbanking-powens.json",
+      "total": 1
+    },
+    {
+      "key": "opencode-cli",
+      "file": "docs-index.opencode-cli.json",
+      "total": 2
+    },
+    {
+      "key": "personalization",
+      "file": "docs-index.personalization.json",
+      "total": 1
+    },
+    {
+      "key": "platform.acp",
+      "file": "docs-index.platform-acp.json",
+      "total": 9
+    },
+    {
+      "key": "platform.agent",
+      "file": "docs-index.platform-agent.json",
+      "total": 12
+    },
+    {
+      "key": "platform.context",
+      "file": "docs-index.platform-context.json",
+      "total": 7
+    },
+    {
+      "key": "platform.database",
+      "file": "docs-index.platform-database.json",
+      "total": 6
+    },
+    {
+      "key": "platform.docs",
+      "file": "docs-index.platform-docs.json",
+      "total": 10
+    },
+    {
       "key": "platform.integrations",
       "file": "docs-index.platform-integrations.json",
       "total": 40
@@ -140,6 +285,11 @@
       "total": 7
     },
     {
+      "key": "platform.provider-ranking",
+      "file": "docs-index.platform-provider-ranking.json",
+      "total": 12
+    },
+    {
       "key": "pocket-family-office",
       "file": "docs-index.pocket-family-office.json",
       "total": 15
@@ -147,6 +297,16 @@
     {
       "key": "policy-safe-knowledge-assistant",
       "file": "docs-index.policy-safe-knowledge-assistant.json",
+      "total": 1
+    },
+    {
+      "key": "product-intent",
+      "file": "docs-index.product-intent.json",
+      "total": 1
+    },
+    {
+      "key": "project-management-sync",
+      "file": "docs-index.project-management-sync.json",
       "total": 1
     },
     {
@@ -177,7 +337,22 @@
     {
       "key": "video-api-showcase",
       "file": "docs-index.video-api-showcase.json",
-      "total": 3
+      "total": 4
+    },
+    {
+      "key": "video-docs-terminal",
+      "file": "docs-index.video-docs-terminal.json",
+      "total": 1
+    },
+    {
+      "key": "video-marketing-clip",
+      "file": "docs-index.video-marketing-clip.json",
+      "total": 1
+    },
+    {
+      "key": "voice-providers",
+      "file": "docs-index.voice-providers.json",
+      "total": 1
     },
     {
       "key": "wealth-snapshot",

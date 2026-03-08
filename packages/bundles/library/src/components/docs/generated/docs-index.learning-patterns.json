@@ -1,0 +1,10 @@
+[
+  {
+    "id": "learning-patterns/learning-patterns",
+    "title": "learning-patterns",
+    "summary": "Learning archetypes (drills, ambient-coach, quests) via event-driven track specs\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: learning, patterns, archetypes, tracks",
+    "route": "/docs/reference/learning-patterns/learning-patterns",
+    "source": "generated",
+    "contentPath": "learning-patterns/learning-patterns.md"
+  }
+]

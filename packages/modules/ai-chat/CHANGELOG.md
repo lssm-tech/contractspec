@@ -1,5 +1,73 @@
 # @contractspec/module.ai-chat
 
+## 4.0.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+- cb09200: feat(ai-chat): Vercel AI SDK feature parity
+  - Switch from textStream to fullStream; map text-delta, reasoning-delta, source, tool-call, tool-result, tool-error, finish
+  - Replace buildPrompt with buildMessages for CoreMessage[] (streamText/generateText)
+  - Add tools, sendReasoning, sendSources to config; fix usage mapping (inputTokens/completionTokens)
+  - Extend useChat with toolsToToolSet, stream handling for reasoning/source/tool_call/tool_result
+  - Add requireApproval and addToolApprovalResponse for tool approval flow
+  - Enhance ChatMessage: sources (citation links), tool invocations (collapsible), markdown links
+  - Add createChatRoute and createCompletionRoute server route helpers
+  - Re-export useCompletion from @ai-sdk/react
+  - Document AI SDK parity, server routes, streamObject, AI Elements, Voice/Speech in README
+
+### Patch Changes
+
+- 56ee8e6: Bundle spec alignment and i18n support
+
+  **surface-runtime**
+  - Add i18n for OverlayConflictResolver and PatchProposalCard (en, fr, es)
+  - Add locale to ResolvedSurfacePlan; pass through from BundleContext
+  - Export ./i18n with createSurfaceI18n, SURFACE_KEYS
+
+  **personalization**
+  - Add PreferenceDimensions, BundlePreferenceAdapter, ResolvedPreferenceProfile
+  - Align with specs/contractspec_modules_bundle_spec_2026-03-08 (05_personalization_model)
+  - Export ./preference-dimensions
+
+  **contracts-spec**
+  - Add validateBundleRequires for ModuleBundleSpec.requires validation
+  - Document bundle requires alignment in README and AGENTS.md
+
+  **ai-agent**
+  - Document surface-runtime planner tools integration in README
+  - Add optional peer @contractspec/lib.surface-runtime
+
+  **module.ai-chat**
+  - Add UseChatToolDef and optional tools to UseChatOptions (reserved for planner)
+  - Document bundle spec alignment; add optional peer @contractspec/lib.surface-runtime
+
+- Updated dependencies [0ee467a]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+  - @contractspec/lib.surface-runtime@0.2.0
+  - @contractspec/lib.contracts-spec@3.4.0
+  - @contractspec/lib.cost-tracking@3.4.0
+  - @contractspec/lib.design-system@3.4.0
+  - @contractspec/lib.ai-providers@3.4.0
+  - @contractspec/lib.ui-kit-web@3.4.0
+  - @contractspec/lib.ai-agent@4.0.0
+  - @contractspec/lib.metering@3.4.0
+  - @contractspec/lib.schema@3.4.0
+
 ## 3.3.0
 
 ### Minor Changes

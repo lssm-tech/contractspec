@@ -1,5 +1,26 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.4.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+
+### Patch Changes
+
+- Updated dependencies [0ee467a]
+- Updated dependencies [56ee8e6]
+  - @contractspec/example.locale-jurisdiction-gate@3.4.0
+  - @contractspec/example.versioned-knowledge-base@3.4.0
+  - @contractspec/example.kb-update-pipeline@3.4.0
+  - @contractspec/example.learning-patterns@3.4.0
+  - @contractspec/module.learning-journey@3.4.0
+  - @contractspec/lib.example-shared-ui@3.4.0
+  - @contractspec/lib.runtime-sandbox@2.4.0
+  - @contractspec/lib.contracts-spec@3.4.0
+  - @contractspec/lib.design-system@3.4.0
+  - @contractspec/lib.ui-kit-web@3.4.0
+
 ## 3.3.0
 
 ### Minor Changes

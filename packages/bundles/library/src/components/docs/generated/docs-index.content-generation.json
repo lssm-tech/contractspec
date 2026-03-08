@@ -1,0 +1,10 @@
+[
+  {
+    "id": "content-generation/content-generation",
+    "title": "content-generation",
+    "summary": "AI content generation for blog posts, landing pages, emails, and social media\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: content, ai, generation",
+    "route": "/docs/reference/content-generation/content-generation",
+    "source": "generated",
+    "contentPath": "content-generation/content-generation.md"
+  }
+]

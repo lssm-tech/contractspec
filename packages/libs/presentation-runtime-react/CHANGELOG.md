@@ -1,5 +1,20 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 31.0.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+
+### Patch Changes
+
+- Updated dependencies [0ee467a]
+- Updated dependencies [56ee8e6]
+  - @contractspec/lib.presentation-runtime-core@3.4.0
+  - @contractspec/lib.contracts-spec@3.4.0
+  - @contractspec/lib.design-system@3.4.0
+  - @contractspec/lib.ui-kit-web@3.4.0
+
 ## 30.0.0
 
 ### Minor Changes

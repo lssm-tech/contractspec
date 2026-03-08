@@ -1,5 +1,53 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.4.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+
+### Patch Changes
+
+- Updated dependencies [0ee467a]
+- Updated dependencies [cb09200]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+- Updated dependencies [56ee8e6]
+  - @contractspec/example.policy-safe-knowledge-assistant@3.4.0
+  - @contractspec/example.analytics-dashboard@3.4.0
+  - @contractspec/example.saas-boilerplate@3.4.0
+  - @contractspec/lib.progressive-delivery@31.0.0
+  - @contractspec/example.integration-hub@3.4.0
+  - @contractspec/example.workflow-system@3.4.0
+  - @contractspec/example.agent-console@3.4.0
+  - @contractspec/lib.example-shared-ui@3.4.0
+  - @contractspec/example.crm-pipeline@3.4.0
+  - @contractspec/example.in-app-docs@3.4.0
+  - @contractspec/example.marketplace@3.4.0
+  - @contractspec/lib.surface-runtime@0.2.0
+  - @contractspec/lib.contracts-spec@3.4.0
+  - @contractspec/lib.design-system@3.4.0
+  - @contractspec/bundle.marketing@3.4.0
+  - @contractspec/lib.ui-kit-core@3.4.0
+  - @contractspec/module.examples@3.4.0
+  - @contractspec/bundle.library@3.4.0
+  - @contractspec/lib.ui-kit-web@3.4.0
+  - @contractspec/module.ai-chat@4.0.0
+  - @contractspec/lib.ui-link@3.4.0
+  - @contractspec/lib.ui-kit@3.4.0
+
 ## 3.3.0
 
 ### Minor Changes

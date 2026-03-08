@@ -1,5 +1,23 @@
 # @contractspec/lib.video-gen
 
+## 2.4.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+
+### Patch Changes
+
+- Updated dependencies [0ee467a]
+- Updated dependencies [56ee8e6]
+  - @contractspec/lib.contracts-integrations@3.4.0
+  - @contractspec/lib.contracts-spec@3.4.0
+  - @contractspec/lib.design-system@3.4.0
+  - @contractspec/lib.ai-providers@3.4.0
+  - @contractspec/lib.content-gen@3.4.0
+  - @contractspec/lib.image-gen@1.4.0
+  - @contractspec/lib.voice@1.4.0
+
 ## 2.3.0
 
 ### Minor Changes

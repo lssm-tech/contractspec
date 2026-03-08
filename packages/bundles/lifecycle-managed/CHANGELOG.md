@@ -1,5 +1,22 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.4.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+
+### Patch Changes
+
+- Updated dependencies [0ee467a]
+- Updated dependencies [56ee8e6]
+  - @contractspec/module.lifecycle-advisor@3.4.0
+  - @contractspec/module.lifecycle-core@3.4.0
+  - @contractspec/lib.observability@3.4.0
+  - @contractspec/lib.analytics@3.4.0
+  - @contractspec/lib.lifecycle@3.4.0
+  - @contractspec/lib.ai-agent@4.0.0
+
 ## 3.3.0
 
 ### Minor Changes

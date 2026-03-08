@@ -1,0 +1,10 @@
+[
+  {
+    "id": "integration-posthog/integration-posthog",
+    "title": "integration-posthog",
+    "summary": "PostHog analytics integration with event capture, HogQL, and feature flags\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: integration, posthog, analytics, feature-flags",
+    "route": "/docs/reference/integration-posthog/integration-posthog",
+    "source": "generated",
+    "contentPath": "integration-posthog/integration-posthog.md"
+  }
+]
