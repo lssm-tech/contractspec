@@ -2,14 +2,14 @@
 
 - **Created:** 2026-03-08
 - **Status:** Proposal
-- **Package:** `@contractspec/lib.modules-bundle`
-- **Repo Path:** `packages/libs/modules-bundle`
+- **Package:** `@contractspec/lib.surface-runtime` (+ optional `module.surface-assistant` + domain bundles)
+- **Repo Path:** `packages/libs/surface-runtime`
 
 
 ## Recommended package
 
-**Public package name:** `@contractspec/lib.modules-bundle`  
-**Recommended repo path:** `packages/libs/modules-bundle`
+**Public package name:** `@contractspec/lib.surface-runtime`  
+**Recommended repo path:** `packages/libs/surface-runtime`
 
 Alternative repo layout if you insist on matching the phrase “lib/modules/bundle” literally:
 
@@ -46,9 +46,14 @@ Each of those already has a strong, narrower identity.
 - `@contractspec/lib.overlay-engine`
 - `@contractspec/lib.observability`
 - `@contractspec/lib.ai-agent` (or at least interoperate cleanly)
+- `@contractspec/lib.ai-providers` (for planner model selection)
+- `@contractspec/lib.metering` (when AI/chat features are used)
+- `@contractspec/lib.personalization` (or document that preference dimensions are surface-runtime-owned until personalization adopts them)
 
 ### It should interoperate with
 
+- `@contractspec/lib.contracts-runtime-client-react` (feature/form rendering)
+- `@contractspec/lib.presentation-runtime-react` (workflow, list state)
 - personalization
 - data views
 - workflows
@@ -69,7 +74,7 @@ Each of those already has a strong, narrower identity.
 
 ```json
 {
-  "name": "@contractspec/lib.modules-bundle",
+  "name": "@contractspec/lib.surface-runtime",
   "exports": {
     ".": "./dist/index.js",
     "./spec": "./dist/spec/index.js",
@@ -92,7 +97,7 @@ Each of those already has a strong, narrower identity.
 ## Suggested internal folder structure
 
 ```text
-packages/libs/modules-bundle/
+packages/libs/surface-runtime/
   src/
     index.ts
     spec/
@@ -163,6 +168,8 @@ The web runtime should use peer dependencies for:
 - `react-resizable-panels`
 
 For dnd-kit, use a peer dependency plus a local adapter boundary. The exact package line may vary depending on the chosen version in the repo lockfile.
+
+For Phase 4 assistant integration, add peer dependency on `@ai-sdk/react`.
 
 ### Why peers
 

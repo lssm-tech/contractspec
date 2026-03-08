@@ -315,6 +315,7 @@
     "./features/install": "./src/features/install.ts",
     "./features/registry": "./src/features/registry.ts",
     "./features/types": "./src/features/types.ts",
+    "./features/validate-bundle-requires": "./src/features/validate-bundle-requires.ts",
     "./features/validation": "./src/features/validation.ts",
     "./forms": "./src/forms/index.ts",
     "./forms/docs/forms.docblock": "./src/forms/docs/forms.docblock.ts",
@@ -2233,6 +2234,12 @@
         "bun": "./dist/features/types.js",
         "node": "./dist/node/features/types.js",
         "default": "./dist/features/types.js"
+      },
+      "./features/validate-bundle-requires": {
+        "types": "./dist/features/validate-bundle-requires.d.ts",
+        "bun": "./dist/features/validate-bundle-requires.js",
+        "node": "./dist/node/features/validate-bundle-requires.js",
+        "default": "./dist/features/validate-bundle-requires.js"
       },
       "./features/validation": {
         "types": "./dist/features/validation.d.ts",

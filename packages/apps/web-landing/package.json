@@ -55,7 +55,9 @@
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.5.0",
     "tailwindcss-animate": "^1.0.7",
-    "@contractspec/lib.contracts-spec": "workspace:*"
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.surface-runtime": "workspace:*",
+    "@contractspec/module.ai-chat": "workspace:*"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.2.1",

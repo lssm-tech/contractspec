@@ -31,6 +31,10 @@ Stateful AI agent orchestration with type-safe specs, tool execution, knowledge 
 
 These ports are optional by design and keep external runtime dependencies decoupled from core agent contracts.
 
+## Bundle spec / surface-runtime integration
+
+When building planner agents for `@contractspec/lib.surface-runtime`, planner tools (e.g. `propose-patch`) from `@contractspec/lib.surface-runtime/runtime/planner-tools` map to `AgentToolConfig`. Wire `proposePatchToolConfig` into `AgentSpec.tools`; the handler should validate via `validatePatchProposal` and return `SurfacePatchProposal`. Tools from surface-runtime planner-tools are `AgentToolConfig`-compatible.
+
 ## Quickstart
 
 ```ts

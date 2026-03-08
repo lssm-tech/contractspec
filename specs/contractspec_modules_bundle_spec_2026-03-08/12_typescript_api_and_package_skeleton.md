@@ -2,8 +2,8 @@
 
 - **Created:** 2026-03-08
 - **Status:** Proposal
-- **Package:** `@contractspec/lib.modules-bundle`
-- **Repo Path:** `packages/libs/modules-bundle`
+- **Package:** `@contractspec/lib.surface-runtime`
+- **Repo Path:** `packages/libs/surface-runtime`
 
 
 ## Goal
@@ -20,23 +20,23 @@ This spec pack includes a `package-skeleton/` folder with starter files.
 import {
   defineModuleBundle,
   type ModuleBundleSpec,
-} from "@contractspec/lib.modules-bundle/spec";
+} from "@contractspec/lib.surface-runtime/spec";
 
 import {
   resolveBundle,
   applySurfacePatch,
-} from "@contractspec/lib.modules-bundle/runtime";
+} from "@contractspec/lib.surface-runtime/runtime";
 
 import {
   BundleProvider,
   BundleRenderer,
-} from "@contractspec/lib.modules-bundle/react";
+} from "@contractspec/lib.surface-runtime/react";
 ```
 
 ## Example usage
 
 ```ts
-import { defineModuleBundle } from "@contractspec/lib.modules-bundle/spec";
+import { defineModuleBundle } from "@contractspec/lib.surface-runtime/spec";
 
 export const PmWorkbenchBundle = defineModuleBundle({
   meta: {

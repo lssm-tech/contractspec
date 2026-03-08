@@ -2,8 +2,8 @@
 
 - **Created:** 2026-03-08
 - **Status:** Proposal
-- **Package:** `@contractspec/lib.modules-bundle`
-- **Repo Path:** `packages/libs/modules-bundle`
+- **Package:** `@contractspec/lib.surface-runtime` (planner) + `@contractspec/module.ai-chat` (UI)
+- **Repo Path:** `packages/libs/surface-runtime`, `packages/modules/ai-chat`
 
 
 ## Goal
@@ -61,6 +61,12 @@ Creates supported content:
 - draft a decision brief
 - create BlockNote blocks from extracted meeting actions
 - produce a structured follow-up checklist
+
+## Codebase alignment
+
+- **Planner:** Runs via `lib.ai-agent` (ContractSpecAgent, AgentSpec). Tools map to agent tools; patch proposals map to structured tool output.
+- **Chat UI:** Use `@contractspec/module.ai-chat` — `useChat`, `ChatContainer` from `packages/modules/ai-chat`.
+- **Providers:** Use `lib.ai-providers` for model selection and provider config passed to planner.
 
 ## Recommended AI SDK pattern
 

@@ -1,0 +1,160 @@
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
+
+exports[`verification snapshots snapshots density variants at key preference points 1`] = `
+[
+  {
+    "bundleKey": "pm.workbench",
+    "layoutId": "minimal",
+    "layoutRootType": "slot",
+    "preferences": {
+      "control": "standard",
+      "dataDepth": "detailed",
+      "density": "minimal",
+      "guidance": "hints",
+      "media": "text",
+      "narrative": "top-down",
+      "pace": "balanced",
+    },
+    "slotCount": 1,
+    "surfaceId": "issue-workbench",
+  },
+  {
+    "bundleKey": "pm.workbench",
+    "layoutId": "compact",
+    "layoutRootType": "slot",
+    "preferences": {
+      "control": "standard",
+      "dataDepth": "detailed",
+      "density": "compact",
+      "guidance": "hints",
+      "media": "text",
+      "narrative": "top-down",
+      "pace": "balanced",
+    },
+    "slotCount": 1,
+    "surfaceId": "issue-workbench",
+  },
+  {
+    "bundleKey": "pm.workbench",
+    "layoutId": "balanced-three-pane",
+    "layoutRootType": "panel-group",
+    "preferences": {
+      "control": "standard",
+      "dataDepth": "detailed",
+      "density": "standard",
+      "guidance": "hints",
+      "media": "text",
+      "narrative": "top-down",
+      "pace": "balanced",
+    },
+    "slotCount": 2,
+    "surfaceId": "issue-workbench",
+  },
+  {
+    "bundleKey": "pm.workbench",
+    "layoutId": "dense",
+    "layoutRootType": "panel-group",
+    "preferences": {
+      "control": "standard",
+      "dataDepth": "detailed",
+      "density": "dense",
+      "guidance": "hints",
+      "media": "text",
+      "narrative": "top-down",
+      "pace": "balanced",
+    },
+    "slotCount": 2,
+    "surfaceId": "issue-workbench",
+  },
+]
+`;
+
+exports[`verification snapshots snapshots guidance variants 1`] = `
+[
+  {
+    "bundleKey": "pm.workbench",
+    "layoutId": "balanced-three-pane",
+    "layoutRootType": "panel-group",
+    "preferences": {
+      "control": "standard",
+      "dataDepth": "detailed",
+      "density": "standard",
+      "guidance": "none",
+      "media": "text",
+      "narrative": "top-down",
+      "pace": "balanced",
+    },
+    "slotCount": 2,
+    "surfaceId": "issue-workbench",
+  },
+  {
+    "bundleKey": "pm.workbench",
+    "layoutId": "balanced-three-pane",
+    "layoutRootType": "panel-group",
+    "preferences": {
+      "control": "standard",
+      "dataDepth": "detailed",
+      "density": "standard",
+      "guidance": "hints",
+      "media": "text",
+      "narrative": "top-down",
+      "pace": "balanced",
+    },
+    "slotCount": 2,
+    "surfaceId": "issue-workbench",
+  },
+  {
+    "bundleKey": "pm.workbench",
+    "layoutId": "balanced-three-pane",
+    "layoutRootType": "panel-group",
+    "preferences": {
+      "control": "standard",
+      "dataDepth": "detailed",
+      "density": "standard",
+      "guidance": "wizard",
+      "media": "text",
+      "narrative": "top-down",
+      "pace": "balanced",
+    },
+    "slotCount": 2,
+    "surfaceId": "issue-workbench",
+  },
+]
+`;
+
+exports[`verification snapshots snapshots narrative variants 1`] = `
+[
+  {
+    "bundleKey": "pm.workbench",
+    "layoutId": "balanced-three-pane",
+    "layoutRootType": "panel-group",
+    "preferences": {
+      "control": "standard",
+      "dataDepth": "detailed",
+      "density": "standard",
+      "guidance": "hints",
+      "media": "text",
+      "narrative": "top-down",
+      "pace": "balanced",
+    },
+    "slotCount": 2,
+    "surfaceId": "issue-workbench",
+  },
+  {
+    "bundleKey": "pm.workbench",
+    "layoutId": "balanced-three-pane",
+    "layoutRootType": "panel-group",
+    "preferences": {
+      "control": "standard",
+      "dataDepth": "detailed",
+      "density": "standard",
+      "guidance": "hints",
+      "media": "text",
+      "narrative": "bottom-up",
+      "pace": "balanced",
+    },
+    "slotCount": 2,
+    "surfaceId": "issue-workbench",
+  },
+]
+`;

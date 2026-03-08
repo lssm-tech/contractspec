@@ -18,6 +18,10 @@ Core contract declarations, registries, and shared execution primitives — the 
 - `./control-plane`
 - 440+ additional subpath exports (domain contracts, schemas, runtime helpers)
 
+## Bundle Spec Alignment
+
+`FeatureModuleSpec` and `defineFeature` align with `specs/contractspec_modules_bundle_spec_2026-03-08`. Bundle `requires` keys (e.g. `ai-chat`) should match `FeatureModuleSpec.meta.key`. See README "Bundle requires alignment".
+
 ## Guardrails
 
 - **HIGHEST blast radius in the monorepo** — treat every change as a potential breaking change.

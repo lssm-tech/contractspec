@@ -51,6 +51,10 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 - `installOp`: one-call helper to register + bind operation handlers.
 - `makeEmit`: typed helper for declared event emission in handlers.
 
+## Bundle requires alignment
+
+When using `@contractspec/lib.surface-runtime`, bundle specs declare required features via `ModuleBundleSpec.requires` (e.g. `{ key: 'ai-chat', version: '1.0.0' }`). These entries should match `FeatureModuleSpec.meta` from `defineFeature`. Register features (e.g. `AiChatFeature` from `@contractspec/module.ai-chat`) in a `FeatureRegistry` when validating bundle requirements. The bundle runtime can call `registry.get(key)` to verify each required feature exists before resolution.
+
 ## Full contract inventory (explicit map)
 
 <!-- CONTRACT_INVENTORY:START -->

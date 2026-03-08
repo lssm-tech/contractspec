@@ -1,7 +1,7 @@
 {
-  "name": "@contractspec/lib.modules-bundle",
+  "name": "@contractspec/lib.surface-runtime",
   "version": "0.1.0",
-  "description": "AI-native bundle specs and web runtime for adaptive ContractSpec surfaces",
+  "description": "AI-native surface specs and web runtime for adaptive ContractSpec surfaces",
   "type": "module",
   "types": "./dist/index.d.ts",
   "files": ["dist", "README.md"],
@@ -12,9 +12,11 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@contractspec/lib.contracts-spec": "*",
-    "@contractspec/lib.overlay-engine": "*",
-    "@contractspec/lib.observability": "*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.overlay-engine": "workspace:*",
+    "@contractspec/lib.observability": "workspace:*",
+    "@contractspec/lib.ai-agent": "workspace:*",
+    "@contractspec/lib.ai-providers": "workspace:*",
     "ai": "^6.0.0",
     "zod": "^4.0.0"
   },

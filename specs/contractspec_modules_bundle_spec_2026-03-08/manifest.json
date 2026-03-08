@@ -1,8 +1,8 @@
 {
-  "name": "contractspec-modules-bundle-spec-pack",
+  "name": "contractspec-surface-runtime-spec-pack",
   "created": "2026-03-08",
-  "package": "@contractspec/lib.modules-bundle",
-  "repoPath": "packages/libs/modules-bundle",
+  "package": "@contractspec/lib.surface-runtime",
+  "repoPath": "packages/libs/surface-runtime",
   "files": [
     "00_decision_record.md",
     "01_problem_statement_and_design_principles.md",
@@ -42,9 +42,24 @@
     "package-skeleton/src/spec/define-module-bundle.ts",
     "package-skeleton/src/spec/types.ts",
     "package-skeleton/tsconfig.json",
+    "references/codebase_mapping.md",
     "references/current_specs/00_overview.md",
     "references/current_specs/01_deep_customization.md",
     "references/current_specs/01_preference_dimensions.md",
-    "references/external_sources.md"
+    "references/external_sources.md",
+    "implementation_plans/MASTER.md",
+    "implementation_plans/00_foundation.md",
+    "implementation_plans/01_core_bundle.md",
+    "implementation_plans/02_resolution_runtime.md",
+    "implementation_plans/03_personalization.md",
+    "implementation_plans/04_ui_adapters.md",
+    "implementation_plans/05_ai_chat.md",
+    "implementation_plans/06_entity_surfaces.md",
+    "implementation_plans/07_extensions.md",
+    "implementation_plans/08_policy_safety.md",
+    "implementation_plans/09_observability.md",
+    "implementation_plans/10_api_skeleton.md",
+    "implementation_plans/11_rollout.md",
+    "implementation_plans/12_verification.md"
   ]
 }

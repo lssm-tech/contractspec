@@ -1,17 +1,19 @@
-# ContractSpec `lib/modules/bundle` Spec Pack
+# ContractSpec Surface Runtime Spec Pack
 
 - **Created:** 2026-03-08
 - **Status:** Proposal
-- **Package:** `@contractspec/lib.modules-bundle`
-- **Repo Path:** `packages/libs/modules-bundle`
+- **Package:** `@contractspec/lib.surface-runtime` (+ optional `module.surface-assistant` + domain bundles)
+- **Repo Path:** `packages/libs/surface-runtime`
 
 
 ## What this pack is
 
 This spec pack proposes a new web-first ContractSpec library that composes existing ContractSpec primitives into an AI-native, ultra-personalisable, extensible application surface system.
 
-Recommended package name: `@contractspec/lib.modules-bundle`  
-Recommended repo directory: `packages/libs/modules-bundle`
+Recommended package name: `@contractspec/lib.surface-runtime`  
+Recommended repo directory: `packages/libs/surface-runtime`
+
+**Terminology:** A **bundle spec** (ModuleBundleSpec) is a contract type defining a surface (routes, slots, layouts). A **bundle** (architectural) is a domain package in `packages/bundles/` (e.g. bundle.workspace). Avoid overloading "bundle" in prose.
 
 The package is meant to sit above existing ContractSpec primitives such as:
 
@@ -55,7 +57,7 @@ This package fills that gap.
 
 ## What “bundle” means
 
-A **bundle** is a task-domain surface contract. It composes:
+A **bundle spec** (ModuleBundleSpec) is a task-domain surface contract. It composes:
 
 - routes
 - data recipes

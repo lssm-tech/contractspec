@@ -1,4 +1,4 @@
-import { defineModuleBundle } from "@contractspec/lib.modules-bundle/spec";
+import { defineModuleBundle } from "@contractspec/lib.surface-runtime/spec";
 
 export const PmWorkbenchBundle = defineModuleBundle({
   meta: {
@@ -11,6 +11,11 @@ export const PmWorkbenchBundle = defineModuleBundle({
     stability: "experimental",
   },
 
+  requires: [
+    { key: "ai-chat", version: "1.0.0" },
+    { key: "metering", version: "1.0.0" },
+  ],
+
   routes: [
     {
       routeId: "pm-issue",
@@ -18,6 +23,37 @@ export const PmWorkbenchBundle = defineModuleBundle({
       defaultSurface: "issue-workbench",
     },
   ],
+
+  entities: {
+    entityTypes: {
+      "pm.issue": {
+        entityType: "pm.issue",
+        defaultSurfaceId: "issue-workbench",
+        detailBlueprints: ["balanced-three-pane", "dense-ops-mode"],
+        supportedViews: ["minimal-summary", "balanced-detail", "dense-workbench"],
+        sectionsFromSchema: true,
+        fieldsFromSchema: true,
+        relationPanels: ["relations", "meeting-evidence", "decision-trail"],
+      },
+    },
+    fieldKinds: {
+      text: { fieldKind: "text", viewer: "text-viewer", editor: "text-editor" },
+      number: { fieldKind: "number", viewer: "number-viewer", editor: "number-editor" },
+      date: { fieldKind: "date", viewer: "date-viewer", editor: "date-editor" },
+      select: { fieldKind: "select", viewer: "select-viewer", editor: "select-editor" },
+    },
+    sectionKinds: {
+      overview: { sectionKind: "overview", renderer: "section-overview" },
+      details: { sectionKind: "details", renderer: "section-details" },
+      relations: { sectionKind: "relations", renderer: "section-relations" },
+      activity: { sectionKind: "activity", renderer: "section-activity" },
+    },
+    viewKinds: {
+      "minimal-summary": { viewKind: "minimal-summary", renderer: "view-minimal" },
+      "balanced-detail": { viewKind: "balanced-detail", renderer: "view-balanced", defaultLayoutId: "balanced-three-pane" },
+      "dense-workbench": { viewKind: "dense-workbench", renderer: "view-dense", defaultLayoutId: "dense-ops-mode" },
+    },
+  },
 
   surfaces: {
     "issue-workbench": {

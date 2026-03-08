@@ -53,6 +53,8 @@ export interface BundleMeta {
 
 export interface ModuleBundleSpec<C extends BundleContext = BundleContext> {
   meta: BundleMeta;
+  /** Required features (e.g. ai-chat, metering) from contracts-spec defineFeature. */
+  requires?: { key: string; version: string }[];
   routes: BundleRouteSpec<C>[];
   surfaces: Record<string, SurfaceSpec<C>>;
   ai?: BundleAiSpec<C>;

@@ -1,4 +1,4 @@
-# Package Skeleton for `@contractspec/lib.modules-bundle`
+# Package Skeleton for `@contractspec/lib.surface-runtime`
 
 This is a starter scaffold, not a full implementation.
 

@@ -2,8 +2,8 @@
 
 - **Created:** 2026-03-08
 - **Status:** Proposal
-- **Package:** `@contractspec/lib.modules-bundle`
-- **Repo Path:** `packages/libs/modules-bundle`
+- **Package:** `@contractspec/lib.surface-runtime` (+ optional `module.surface-assistant` + domain bundles)
+- **Repo Path:** `packages/libs/surface-runtime`
 
 
 ## Problem statement
@@ -147,6 +147,10 @@ AI should not bypass the design system. It should only compose:
 ### 10. Ejectability matters
 
 Generated or resolved surfaces must remain inspectable and debuggable. The package must remain aligned with ContractSpec’s broader philosophy: standard tech, readable outputs, no prison.
+
+### 11. Respect architectural layers
+
+The spec must respect ContractSpec's lib / module / bundle hierarchy. Infrastructure (types, resolver, runtime) lives in libs. AI planner integration may live in a module. Domain-specific surfaces (PM workbench, etc.) live in bundles. No single package may conflate these layers.
 
 ## Required product qualities
 

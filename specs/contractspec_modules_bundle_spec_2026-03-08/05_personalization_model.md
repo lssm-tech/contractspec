@@ -2,8 +2,8 @@
 
 - **Created:** 2026-03-08
 - **Status:** Proposal
-- **Package:** `@contractspec/lib.modules-bundle`
-- **Repo Path:** `packages/libs/modules-bundle`
+- **Package:** `@contractspec/lib.surface-runtime`
+- **Repo Path:** `packages/libs/surface-runtime`
 
 
 ## Goal
@@ -18,11 +18,13 @@ Integrate the bundle runtime with the existing 7-dimension preference model in a
 
 The 7-dimension model is the canonical personalization grammar for this package.
 
-The bundle package should consume a resolved preference profile and produce concrete UI adaptations from it. It should not invent a second preference system.
+The surface runtime package should consume a resolved preference profile and produce concrete UI adaptations from it. It should not invent a second preference system.
+
+**Preference source:** The 7-dimension model is documented in `references/current_specs/01_preference_dimensions.md`. `lib.personalization` has BehaviorEvent/BehaviorStore but not PreferenceDimensions. Adoption path: surface runtime defines and owns PreferenceDimensions + `BundlePreferenceAdapter` until personalization adopts them, or add a PreferenceDimensions contract to contracts-spec and have personalization implement the store. Use `lib.overlay-engine` for durable layout/overlay persistence (OverlaySpec, merger).
 
 ## The 7 dimensions
 
-The bundle package must respect all 7 dimensions:
+The surface runtime package must respect all 7 dimensions:
 
 1. `guidance`
 2. `density`

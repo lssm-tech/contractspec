@@ -1,0 +1,70 @@
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
+
+exports[`golden harness snapshots pilot route: Pilot route: PM issue workbench, standard density 1`] = `
+{
+  "actionCount": 0,
+  "bindingKeys": [],
+  "bundleKey": "pm.workbench",
+  "commandCount": 0,
+  "fallback": false,
+  "layoutId": "balanced",
+  "layoutRoot": {
+    "slotId": "primary",
+    "type": "slot",
+  },
+  "nodeCount": 0,
+  "reasons": [
+    "density=standard",
+    "layout=balanced",
+    "narrative=top-down",
+    "surface=issue-workbench",
+  ],
+  "surfaceId": "issue-workbench",
+}
+`;
+
+exports[`golden harness snapshots pilot route: Pilot route: PM issue workbench, dense layout 1`] = `
+{
+  "actionCount": 0,
+  "bindingKeys": [],
+  "bundleKey": "pm.workbench",
+  "commandCount": 0,
+  "fallback": false,
+  "layoutId": "dense",
+  "layoutRoot": {
+    "slotId": "primary",
+    "type": "slot",
+  },
+  "nodeCount": 0,
+  "reasons": [
+    "density=dense",
+    "layout=dense",
+    "narrative=top-down",
+    "surface=issue-workbench",
+  ],
+  "surfaceId": "issue-workbench",
+}
+`;
+
+exports[`golden harness snapshots pilot route: Pilot route: mobile device 1`] = `
+{
+  "actionCount": 0,
+  "bindingKeys": [],
+  "bundleKey": "pm.workbench",
+  "commandCount": 0,
+  "fallback": false,
+  "layoutId": "balanced",
+  "layoutRoot": {
+    "slotId": "primary",
+    "type": "slot",
+  },
+  "nodeCount": 0,
+  "reasons": [
+    "density=standard",
+    "layout=balanced",
+    "narrative=top-down",
+    "surface=issue-workbench",
+  ],
+  "surfaceId": "issue-workbench",
+}
+`;

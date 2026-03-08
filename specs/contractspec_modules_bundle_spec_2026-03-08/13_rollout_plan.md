@@ -2,8 +2,8 @@
 
 - **Created:** 2026-03-08
 - **Status:** Proposal
-- **Package:** `@contractspec/lib.modules-bundle`
-- **Repo Path:** `packages/libs/modules-bundle`
+- **Package:** `@contractspec/lib.surface-runtime`
+- **Repo Path:** `packages/libs/surface-runtime`
 
 
 ## Goal

@@ -1,10 +1,10 @@
 # PM Issue Depth, Relations, Custom Fields & Cross-Module Integration
 
-- **Spec:** Extends [03_pm_stack_rebuild_linear_jira_plane.md](../competition_killer_pack/03_pm_stack_rebuild_linear_jira_plane.md)
+- **Spec:** PM workbench surface spec (pilot for surface runtime)
 - **Created:** 2026-03-07
 - **Status:** Active
-- **Root plan:** [IMPLEMENTATION_PLAN_MASTER.md](../competition_killer_pack/IMPLEMENTATION_PLAN_MASTER.md)
-- **Depends on:** Plan 02 (PM Stack), Plan 12 (Knowledge Graph), Plan 13 (Unified Product)
+- **Pilot bundle:** `@contractspec/bundle.workspace` or `@contractspec/bundle.library` (`packages/bundles/workspace`, `packages/bundles/library`)
+- **Surface runtime:** `@contractspec/lib.surface-runtime` (`packages/libs/surface-runtime`)
 
 ---
 

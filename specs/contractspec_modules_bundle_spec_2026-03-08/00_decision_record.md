@@ -2,8 +2,8 @@
 
 - **Created:** 2026-03-08
 - **Status:** Proposal
-- **Package:** `@contractspec/lib.modules-bundle`
-- **Repo Path:** `packages/libs/modules-bundle`
+- **Package:** `@contractspec/lib.surface-runtime` (infrastructure) + optional `@contractspec/module.surface-assistant` (AI planner) + domain bundles
+- **Repo Path:** `packages/libs/surface-runtime` (and `packages/modules/surface-assistant` if adopted)
 
 
 ## Summary
@@ -14,14 +14,28 @@ The target outcome is not just “generated pages”. It is a deterministic and 
 
 ## Decision 1: Create a new package instead of inflating `lib.ui-kit`
 
-**Decision:** Build `@contractspec/lib.modules-bundle` as a distinct package.
+**Decision:** Build `@contractspec/lib.surface-runtime` as a distinct package.
 
 **Why:**
 - `lib.ui-kit` is a primitive/component library, not a runtime surface resolver.
 - The proposed behavior includes layout composition, route-aware planning, dynamic slot resolution, persistence, policy gates, and AI-driven UI adaptation.
 - Mixing all of that into a primitive component package would destroy the package boundary.
 
-**Consequence:** `lib.ui-kit` stays small, reusable, and portable. The new bundle package imports UI kit primitives where useful, but owns orchestration.
+**Consequence:** `lib.ui-kit` stays small, reusable, and portable. The new surface runtime package imports UI kit primitives where useful, but owns orchestration.
+
+## Decision 0: Respect lib / module / bundle architectural hierarchy
+
+**Decision:** Package naming and placement must follow ContractSpec's layered architecture (libs → modules → bundles).
+
+**Why:**
+- `lib.modules-bundle` conflates three distinct layers: lib (infrastructure), module (feature), and bundle (domain).
+- Libs are pure infrastructure with no business logic. Modules are self-contained features. Bundles are domain-specific business logic.
+- The spec's "ModuleBundleSpec" is a **contract type** (surface definition), not an architectural layer.
+
+**Consequence:** Decompose into:
+- **lib.surface-runtime** — Pure infrastructure: types, resolver, runtime, adapters. Lives in `packages/libs/surface-runtime`.
+- **module.surface-assistant** (optional) — AI planner integration: prompt compiler, patch validator, approval flow. Lives in `packages/modules/surface-assistant`. Consumes lib.surface-runtime + lib.ai-agent.
+- **Domain bundles** — PM workbench, schedule workbench, etc. Define their own bundle specs and consume the lib. Example: extend `bundle.workspace` or create `bundle.pm`.
 
 ## Decision 2: Web-first, not universal
 
@@ -65,7 +79,7 @@ The target outcome is not just “generated pages”. It is a deterministic and 
 - Overlay-like persistence creates a stable audit trail and supports rollback.
 - Workspace, team, and user overrides can share a single mechanism.
 
-**Consequence:** The bundle runtime should emit plans, then apply overlays, then apply ephemeral AI suggestions, in that order.
+**Consequence:** The surface runtime should emit plans, then apply overlays, then apply ephemeral AI suggestions, in that order.
 
 ## Decision 6: Entity surfaces must be schema-driven
 
@@ -76,7 +90,7 @@ The target outcome is not just “generated pages”. It is a deterministic and 
 - The number of field kinds, sections, automations, views, and cross-domain links will keep growing.
 - Hardcoding page layouts for every entity type does not scale.
 
-**Consequence:** The bundle package needs first-class entity surface contracts and renderer registries.
+**Consequence:** The surface runtime package needs first-class entity surface contracts and renderer registries.
 
 ## Decision 7: Use adapter boundaries around volatile third-party UI libs
 

@@ -2,17 +2,21 @@
 
 - **Created:** 2026-03-08
 - **Status:** Proposal
-- **Package:** `@contractspec/lib.modules-bundle`
-- **Repo Path:** `packages/libs/modules-bundle`
+- **Package:** `@contractspec/lib.surface-runtime`
+- **Repo Path:** `packages/libs/surface-runtime`
 
 
 ## Goal
 
 Let the system be deeply extensible without losing coherence, safety, or auditability.
 
+## Overlay alignment
+
+Align with `@contractspec/lib.overlay-engine`: SignedOverlaySpec, OverlayTargetRef, OverlayRenderableField. Use overlay-engine merger, runtime, signer APIs for durable overrides.
+
 ## Extension types
 
-The bundle package should support at least these extension families:
+The surface runtime package should support at least these extension families:
 
 - widgets
 - field renderers

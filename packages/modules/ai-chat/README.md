@@ -18,10 +18,15 @@ This module provides a reusable AI chat system that can be integrated into CLI, 
 - **Usage Tracking**: Integrated metering and cost tracking
 - **UI Components**: React components for chat interfaces
 
+## Bundle Spec Alignment (07_ai_native_chat)
+
+This module aligns with `specs/contractspec_modules_bundle_spec_2026-03-08`. `useChat` and `ChatContainer` provide the assistant slot UI for bundle surfaces. `AiChatFeature` (key `ai-chat`, version `1.0.0`) matches `ModuleBundleSpec.requires`. The `tools` option on `UseChatOptions` is reserved for planner integration; full planner tool wiring is deferred.
+
 ## Related Packages
 
 - `@contractspec/lib.ai-providers` — Shared provider abstraction (types, factory, validation)
 - `@contractspec/lib.ai-agent` — Agent orchestration and tool execution
+- `@contractspec/lib.surface-runtime` — Bundle surfaces (optional peer when used in PM workbench)
 
 ## Providers
 

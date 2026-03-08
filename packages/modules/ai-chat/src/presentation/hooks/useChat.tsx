@@ -13,6 +13,13 @@ import {
   type ProviderName,
 } from '@contractspec/lib.ai-providers';
 
+/** Tool definition for planner integration (reserved for bundle spec 07_ai_native_chat). */
+export interface UseChatToolDef {
+  name: string;
+  description?: string;
+  schema?: Record<string, unknown>;
+}
+
 /**
  * Options for useChat hook
  */
@@ -41,6 +48,12 @@ export interface UseChatOptions {
   onError?: (error: Error) => void;
   /** Called when usage is recorded */
   onUsage?: (usage: { inputTokens: number; outputTokens: number }) => void;
+  /**
+   * Tools for planner integration (reserved).
+   * When bundle spec planner wiring is implemented, tools will be passed to streamText.
+   * Use for propose-patch and other surface-runtime planner tools.
+   */
+  tools?: UseChatToolDef[];
 }
 
 /**

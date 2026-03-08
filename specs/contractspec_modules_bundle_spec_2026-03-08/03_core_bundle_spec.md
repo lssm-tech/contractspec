@@ -2,15 +2,15 @@
 
 - **Created:** 2026-03-08
 - **Status:** Proposal
-- **Package:** `@contractspec/lib.modules-bundle`
-- **Repo Path:** `packages/libs/modules-bundle`
+- **Package:** `@contractspec/lib.surface-runtime`
+- **Repo Path:** `packages/libs/surface-runtime`
 
 
 ## Goal
 
-Define the canonical TypeScript shape for a bundle.
+Define the canonical TypeScript shape for a bundle spec (ModuleBundleSpec).
 
-A bundle is the smallest ContractSpec unit that can describe an AI-native product surface end-to-end:
+A bundle spec is the smallest ContractSpec unit that can describe an AI-native product surface end-to-end. It composes or references `FeatureModuleSpec` from contracts-spec (e.g. ai-chat, metering) and declares required features. A bundle spec resolves into a surface plan.
 - routes
 - data
 - layout
@@ -97,6 +97,8 @@ export interface PreferenceDimensions {
 
 export interface ModuleBundleSpec<C extends BundleContext = BundleContext> {
   meta: BundleMeta;
+  /** Required features (e.g. ai-chat, metering) from contracts-spec defineFeature. */
+  requires?: { key: string; version: string }[];
   routes: BundleRouteSpec<C>[];
   surfaces: Record<string, SurfaceSpec<C>>;
   entities?: EntitySurfaceRegistrySpec;
