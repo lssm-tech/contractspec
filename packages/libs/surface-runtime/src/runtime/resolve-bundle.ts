@@ -415,7 +415,10 @@ async function resolveBundleInternal<C extends BundleContext>(
     );
     const appliedOverlays: AppliedOverlayMeta[] = [];
     const conflicts: OverlayConflict[] = [];
-    const seenTargets = new Map<string, { scope: BundleScope; overlayId: string }>();
+    const seenTargets = new Map<
+      string,
+      { scope: BundleScope; overlayId: string }
+    >();
     const conflictKeys = new Set<string>();
 
     for (const scope of scopes) {

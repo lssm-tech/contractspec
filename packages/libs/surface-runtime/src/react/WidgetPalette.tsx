@@ -51,6 +51,8 @@ export function WidgetPalette({
           <li
             key={w.widgetKey}
             data-widget-key={w.widgetKey}
+            role={onInsert ? 'button' : undefined}
+            tabIndex={onInsert ? 0 : undefined}
             style={{
               padding: '8px 12px',
               marginBottom: '4px',
@@ -60,8 +62,16 @@ export function WidgetPalette({
               border: '1px solid var(--border, #e5e7eb)',
             }}
             onClick={
+              onInsert ? () => onInsert(w.widgetKey, 'primary') : undefined
+            }
+            onKeyDown={
               onInsert
-                ? () => onInsert(w.widgetKey, 'primary')
+                ? (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      onInsert(w.widgetKey, 'primary');
+                    }
+                  }
                 : undefined
             }
           >

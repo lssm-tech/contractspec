@@ -36,12 +36,17 @@ describe('validateBundleRequires', () => {
   it('returns invalid when required feature is missing', () => {
     const registry = new FeatureRegistry().register(AiChatFeature);
     const result = validateBundleRequires(
-      [{ key: 'ai-chat', version: '1.0.0' }, { key: 'metering', version: '1.0.0' }],
+      [
+        { key: 'ai-chat', version: '1.0.0' },
+        { key: 'metering', version: '1.0.0' },
+      ],
       registry
     );
     expect(result.valid).toBe(false);
     expect(result.missing).toEqual([{ key: 'metering', version: '1.0.0' }]);
-    expect(result.errors).toContain('Required feature "metering" not found in registry');
+    expect(result.errors).toContain(
+      'Required feature "metering" not found in registry'
+    );
   });
 
   it('reports version mismatch when versions differ', () => {
@@ -51,6 +56,8 @@ describe('validateBundleRequires', () => {
       registry
     );
     expect(result.valid).toBe(false);
-    expect(result.errors.some((e) => e.includes('version mismatch'))).toBe(true);
+    expect(result.errors.some((e) => e.includes('version mismatch'))).toBe(
+      true
+    );
   });
 });

@@ -6,8 +6,16 @@ import {
   BundleRenderer,
 } from '@contractspec/lib.surface-runtime/react';
 import { applySurfacePatch } from '@contractspec/lib.surface-runtime/runtime/apply-surface-patch';
-import { emitPatchApproved, emitPatchRejected } from '@contractspec/lib.surface-runtime/runtime/audit-events';
-import { ChatContainer, ChatMessage, ChatInput, useChat } from '@contractspec/module.ai-chat';
+import {
+  emitPatchApproved,
+  emitPatchRejected,
+} from '@contractspec/lib.surface-runtime/runtime/audit-events';
+import {
+  ChatContainer,
+  ChatMessage,
+  ChatInput,
+  useChat,
+} from '@contractspec/module.ai-chat';
 import type { ResolvedSurfacePlan } from '@contractspec/lib.surface-runtime/runtime/resolve-bundle';
 
 export interface PmWorkbenchClientProps {
@@ -19,7 +27,9 @@ export interface PmWorkbenchClientProps {
  * Assistant slot shows ChatContainer from module.ai-chat.
  * When plan.ai.proposals has items, PatchProposalCard is shown with Accept/Reject.
  */
-export function PmWorkbenchClient({ plan: initialPlan }: PmWorkbenchClientProps) {
+export function PmWorkbenchClient({
+  plan: initialPlan,
+}: PmWorkbenchClientProps) {
   const [plan, setPlan] = useState<ResolvedSurfacePlan>(initialPlan);
 
   const { messages, sendMessage, isLoading } = useChat({
@@ -30,7 +40,10 @@ export function PmWorkbenchClient({ plan: initialPlan }: PmWorkbenchClientProps)
   const auditEmitter = React.useMemo(
     () => ({
       emit: (event: { eventType: string; payload?: unknown }) => {
-        if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+        if (
+          typeof window !== 'undefined' &&
+          process.env.NODE_ENV === 'development'
+        ) {
           console.debug('[surface-audit]', event.eventType, event.payload);
         }
       },
@@ -40,7 +53,9 @@ export function PmWorkbenchClient({ plan: initialPlan }: PmWorkbenchClientProps)
 
   const onPatchAccept = useCallback(
     (proposalId: string) => {
-      const proposal = plan.ai?.proposals?.find((p) => p.proposalId === proposalId);
+      const proposal = plan.ai?.proposals?.find(
+        (p) => p.proposalId === proposalId
+      );
       if (!proposal) return;
       try {
         const { plan: nextPlan } = applySurfacePatch(plan, proposal.ops);
@@ -56,7 +71,9 @@ export function PmWorkbenchClient({ plan: initialPlan }: PmWorkbenchClientProps)
           ai: {
             ...nextPlan.ai,
             proposals:
-              nextPlan.ai?.proposals?.filter((p) => p.proposalId !== proposalId) ?? [],
+              nextPlan.ai?.proposals?.filter(
+                (p) => p.proposalId !== proposalId
+              ) ?? [],
           },
         });
       } catch (err) {
@@ -68,12 +85,17 @@ export function PmWorkbenchClient({ plan: initialPlan }: PmWorkbenchClientProps)
 
   const onOverlayConflictResolve = useCallback(
     (resolution: { targetKey: string; chosenScope: 'A' | 'B' }) => {
-      if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+      if (
+        typeof window !== 'undefined' &&
+        process.env.NODE_ENV === 'development'
+      ) {
         console.debug('[surface-conflict-resolved]', resolution);
       }
       setPlan((prev) => {
         const remaining =
-          prev.overlayConflicts?.filter((c) => c.targetKey !== resolution.targetKey) ?? [];
+          prev.overlayConflicts?.filter(
+            (c) => c.targetKey !== resolution.targetKey
+          ) ?? [];
         return {
           ...prev,
           overlayConflicts: remaining.length > 0 ? remaining : undefined,
@@ -85,7 +107,9 @@ export function PmWorkbenchClient({ plan: initialPlan }: PmWorkbenchClientProps)
 
   const onPatchReject = useCallback(
     (proposalId: string, reason?: string) => {
-      const proposal = plan.ai?.proposals?.find((p) => p.proposalId === proposalId);
+      const proposal = plan.ai?.proposals?.find(
+        (p) => p.proposalId === proposalId
+      );
       if (proposal) {
         emitPatchRejected(auditEmitter, {
           bundleKey: plan.bundleKey,
@@ -101,7 +125,8 @@ export function PmWorkbenchClient({ plan: initialPlan }: PmWorkbenchClientProps)
         ai: {
           ...plan.ai,
           proposals:
-            plan.ai?.proposals?.filter((p) => p.proposalId !== proposalId) ?? [],
+            plan.ai?.proposals?.filter((p) => p.proposalId !== proposalId) ??
+            [],
         },
       });
     },

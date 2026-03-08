@@ -6,12 +6,18 @@
  */
 
 import React from 'react';
-import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import {
+  DndContext,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
 import type { DragEndEvent } from '@dnd-kit/core';
 import type { SurfacePatchOp } from '../spec/types';
 import type { DragDropBundleAdapter } from './interfaces';
 
-let _onPatch: (ops: SurfacePatchOp[]) => void = () => {};
+const noop = (): void => undefined;
+let _onPatch: (ops: SurfacePatchOp[]) => void = noop;
 
 function handleDragEnd(event: DragEndEvent) {
   const { active, over } = event;

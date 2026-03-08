@@ -59,10 +59,8 @@ export function createOverrideStoreWithApprovalGate(
   store: BundleOverrideStore,
   options: ApprovalGateOptions
 ): BundleOverrideStore {
-  const {
-    requireApprovalForWorkspacePatches = false,
-    requestApproval,
-  } = options;
+  const { requireApprovalForWorkspacePatches = false, requestApproval } =
+    options;
 
   return {
     list: store.list.bind(store),

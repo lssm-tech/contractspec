@@ -1,7 +1,31 @@
 /**
  * Main chat orchestration service
  */
-import { generateText, streamText } from 'ai';
+import { generateText, streamText, type ToolSet } from 'ai';
+
+/** Message format compatible with AI SDK streamText/generateText */
+type ModelMessage =
+  | { role: 'user'; content: string }
+  | { role: 'assistant'; content: string }
+  | {
+      role: 'assistant';
+      content: string;
+      toolCalls: {
+        type: 'tool-call';
+        toolCallId: string;
+        toolName: string;
+        args: Record<string, unknown>;
+      }[];
+    }
+  | {
+      role: 'tool';
+      content: {
+        type: 'tool-result';
+        toolCallId: string;
+        toolName: string;
+        output: unknown;
+      }[];
+    };
 import type { Provider as ChatProvider } from '@contractspec/lib.ai-providers';
 import type { WorkspaceContext } from '../context/workspace-context';
 import type { ConversationStore } from './conversation-store';
@@ -9,6 +33,8 @@ import { InMemoryConversationStore } from './conversation-store';
 import type {
   ChatConversation,
   ChatStreamChunk,
+  ChatToolCall,
+  ChatSource,
   SendMessageOptions,
   SendMessageResult,
   StreamMessageResult,
@@ -36,6 +62,12 @@ export interface ChatServiceConfig {
   authMethod?: string;
   /** Extra headers forwarded to the provider for authentication. */
   authHeaders?: Record<string, string>;
+  /** Tools for the model to call (AI SDK ToolSet) */
+  tools?: ToolSet;
+  /** Enable reasoning parts in stream (Deepseek R1, Claude extended thinking) */
+  sendReasoning?: boolean;
+  /** Enable source citations in stream (e.g. Perplexity Sonar) */
+  sendSources?: boolean;
 }
 
 /**
@@ -69,6 +101,9 @@ export class ChatService {
     inputTokens: number;
     outputTokens: number;
   }) => void;
+  private readonly tools?: ToolSet;
+  private readonly sendReasoning: boolean;
+  private readonly sendSources: boolean;
 
   constructor(config: ChatServiceConfig) {
     this.provider = config.provider;
@@ -77,6 +112,9 @@ export class ChatService {
     this.systemPrompt = config.systemPrompt ?? DEFAULT_SYSTEM_PROMPT;
     this.maxHistoryMessages = config.maxHistoryMessages ?? 20;
     this.onUsage = config.onUsage;
+    this.tools = config.tools;
+    this.sendReasoning = config.sendReasoning ?? false;
+    this.sendSources = config.sendSources ?? false;
   }
 
   /**
@@ -109,8 +147,8 @@ export class ChatService {
       attachments: options.attachments,
     });
 
-    // Build prompt from messages
-    const prompt = this.buildPrompt(conversation, options);
+    // Build messages for model
+    const messages = this.buildMessages(conversation, options);
 
     // Get the language model
     const model = this.provider.getModel();
@@ -119,8 +157,11 @@ export class ChatService {
       // Generate response
       const result = await generateText({
         model,
-        prompt,
+        messages: messages as unknown as NonNullable<
+          Parameters<typeof generateText>[0]['messages']
+        >,
         system: this.systemPrompt,
+        tools: this.tools,
       });
 
       // Save assistant message
@@ -193,43 +234,130 @@ export class ChatService {
       status: 'streaming',
     });
 
-    // Build prompt
-    const prompt = this.buildPrompt(conversation, options);
+    // Build messages for model
+    const messages = this.buildMessages(conversation, options);
 
-    // Get the language model
+    // Get the language model and capture for async generator closure
     const model = this.provider.getModel();
+    const systemPrompt = this.systemPrompt;
+    const tools = this.tools;
+    const store = this.store;
+    const onUsage = this.onUsage;
 
-    // Create async generator for streaming
-    const self = {
-      systemPrompt: this.systemPrompt,
-      store: this.store,
-    };
     async function* streamGenerator(): AsyncIterable<ChatStreamChunk> {
       let fullContent = '';
+      let fullReasoning = '';
+      const toolCallsMap = new Map<string, ChatToolCall>();
+      const sources: ChatSource[] = [];
 
       try {
         const result = streamText({
           model,
-          prompt,
-          system: self.systemPrompt,
+          messages: messages as unknown as NonNullable<
+            Parameters<typeof streamText>[0]['messages']
+          >,
+          system: systemPrompt,
+          tools,
         });
 
-        for await (const chunk of result.textStream) {
-          fullContent += chunk;
-          yield { type: 'text', content: chunk };
+        for await (const part of result.fullStream) {
+          if (part.type === 'text-delta') {
+            const text = (part as { text?: string }).text ?? '';
+            if (text) {
+              fullContent += text;
+              yield { type: 'text', content: text };
+            }
+          } else if (part.type === 'reasoning-delta') {
+            const text = (part as { text?: string }).text ?? '';
+            if (text) {
+              fullReasoning += text;
+              yield { type: 'reasoning', content: text };
+            }
+          } else if (part.type === 'source') {
+            const src = part as { id: string; url?: string; title?: string };
+            const source: ChatSource = {
+              id: src.id,
+              title: src.title ?? '',
+              url: src.url,
+              type: 'web',
+            };
+            sources.push(source);
+            yield { type: 'source', source };
+          } else if (part.type === 'tool-call') {
+            const toolCall: ChatToolCall = {
+              id: part.toolCallId,
+              name: part.toolName,
+              args: ((part as { input?: Record<string, unknown> }).input ??
+                {}) as Record<string, unknown>,
+              status: 'running',
+            };
+            toolCallsMap.set(part.toolCallId, toolCall);
+            yield { type: 'tool_call', toolCall };
+          } else if (part.type === 'tool-result') {
+            const tc = toolCallsMap.get(part.toolCallId);
+            if (tc) {
+              tc.result = (part as { output?: unknown }).output;
+              tc.status = 'completed';
+            }
+            yield {
+              type: 'tool_result',
+              toolResult: {
+                toolCallId: part.toolCallId,
+                toolName: part.toolName,
+                result: (part as { output?: unknown }).output,
+              },
+            };
+          } else if (part.type === 'tool-error') {
+            const tc = toolCallsMap.get(
+              (part as { toolCallId: string }).toolCallId
+            );
+            if (tc) {
+              tc.status = 'error';
+              tc.error =
+                (part as { error?: string }).error ?? 'Tool execution failed';
+            }
+          } else if (part.type === 'finish') {
+            const usage = (
+              part as {
+                usage?: { inputTokens?: number; completionTokens?: number };
+              }
+            ).usage;
+            const inputTokens = usage?.inputTokens ?? 0;
+            const outputTokens = usage?.completionTokens ?? 0;
+            await store.updateMessage(conversation.id, assistantMessage.id, {
+              content: fullContent,
+              status: 'completed',
+              reasoning: fullReasoning || undefined,
+              sources: sources.length > 0 ? sources : undefined,
+              toolCalls:
+                toolCallsMap.size > 0
+                  ? Array.from(toolCallsMap.values())
+                  : undefined,
+              usage: usage ? { inputTokens, outputTokens } : undefined,
+            });
+            onUsage?.({ inputTokens, outputTokens });
+            yield {
+              type: 'done',
+              usage: usage ? { inputTokens, outputTokens } : undefined,
+            };
+            return;
+          }
         }
 
-        // Update message with final content
-        await self.store.updateMessage(conversation.id, assistantMessage.id, {
+        // Fallback if finish not received
+        await store.updateMessage(conversation.id, assistantMessage.id, {
           content: fullContent,
           status: 'completed',
+          reasoning: fullReasoning || undefined,
+          sources: sources.length > 0 ? sources : undefined,
+          toolCalls:
+            toolCallsMap.size > 0
+              ? Array.from(toolCallsMap.values())
+              : undefined,
         });
-
-        yield {
-          type: 'done',
-        };
+        yield { type: 'done' };
       } catch (error) {
-        await self.store.updateMessage(conversation.id, assistantMessage.id, {
+        await store.updateMessage(conversation.id, assistantMessage.id, {
           content: fullContent,
           status: 'error',
           error: {
@@ -285,44 +413,64 @@ export class ChatService {
   }
 
   /**
-   * Build prompt string for LLM
+   * Build ModelMessage array for LLM (AI SDK format)
    */
-  private buildPrompt(
+  private buildMessages(
     conversation: ChatConversation,
-    options: SendMessageOptions
-  ): string {
-    let prompt = '';
-
-    // Add conversation history (limited)
+    _options: SendMessageOptions
+  ): ModelMessage[] {
     const historyStart = Math.max(
       0,
       conversation.messages.length - this.maxHistoryMessages
     );
+    const messages: ModelMessage[] = [];
+
     for (let i = historyStart; i < conversation.messages.length; i++) {
       const msg = conversation.messages[i];
       if (!msg) continue;
-      if (msg.role === 'user' || msg.role === 'assistant') {
-        prompt += `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}\n\n`;
+
+      if (msg.role === 'user') {
+        let content = msg.content;
+        if (msg.attachments?.length) {
+          const attachmentInfo = msg.attachments
+            .map((a) => {
+              if (a.type === 'file' || a.type === 'code') {
+                return `\n\n### ${a.name}\n\`\`\`\n${a.content ?? ''}\n\`\`\``;
+              }
+              return `\n\n[Attachment: ${a.name}]`;
+            })
+            .join('');
+          content += attachmentInfo;
+        }
+        messages.push({ role: 'user', content });
+      } else if (msg.role === 'assistant') {
+        if (msg.toolCalls?.length) {
+          messages.push({
+            role: 'assistant',
+            content: msg.content || '',
+            toolCalls: msg.toolCalls.map((tc) => ({
+              type: 'tool-call' as const,
+              toolCallId: tc.id,
+              toolName: tc.name,
+              args: tc.args,
+            })),
+          });
+          messages.push({
+            role: 'tool',
+            content: msg.toolCalls.map((tc) => ({
+              type: 'tool-result' as const,
+              toolCallId: tc.id,
+              toolName: tc.name,
+              output: tc.result,
+            })),
+          });
+        } else {
+          messages.push({ role: 'assistant', content: msg.content });
+        }
       }
     }
 
-    // Add current message with attachments
-    let content = options.content;
-    if (options.attachments?.length) {
-      const attachmentInfo = options.attachments
-        .map((a) => {
-          if (a.type === 'file' || a.type === 'code') {
-            return `\n\n### ${a.name}\n\`\`\`\n${a.content}\n\`\`\``;
-          }
-          return `\n\n[Attachment: ${a.name}]`;
-        })
-        .join('');
-      content += attachmentInfo;
-    }
-
-    prompt += `User: ${content}\n\nAssistant:`;
-
-    return prompt;
+    return messages;
   }
 }
 

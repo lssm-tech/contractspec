@@ -44,11 +44,13 @@ describe('createOverrideStoreWithApprovalGate', () => {
       requireApprovalForWorkspacePatches: true,
       requestApproval: async () => true,
     });
-    const id = await store.save(
-      'workspace',
-      'pm:issue-detail',
-      [{ op: 'insert-node', slotId: 'primary', node: { nodeId: 'n1', kind: 'entity-card' } }]
-    );
+    const id = await store.save('workspace', 'pm:issue-detail', [
+      {
+        op: 'insert-node',
+        slotId: 'primary',
+        node: { nodeId: 'n1', kind: 'entity-card' },
+      },
+    ]);
     expect(id).not.toBe('');
   });
 
@@ -60,7 +62,11 @@ describe('createOverrideStoreWithApprovalGate', () => {
     });
     await expect(
       store.save('workspace', 'pm:issue-detail', [
-        { op: 'insert-node', slotId: 'primary', node: { nodeId: 'n1', kind: 'entity-card' } },
+        {
+          op: 'insert-node',
+          slotId: 'primary',
+          node: { nodeId: 'n1', kind: 'entity-card' },
+        },
       ])
     ).rejects.toThrow('approval required and not granted');
   });

@@ -7,9 +7,12 @@ import type { ReactNode } from 'react';
 
 export default function OperateLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex h-screen w-full flex-col bg-background">
+    <div className="bg-background flex h-screen w-full flex-col">
       <header className="flex shrink-0 items-center gap-4 border-b px-4 py-2">
-        <a href="/" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+        <a
+          href="/"
+          className="text-muted-foreground hover:text-foreground text-sm font-medium"
+        >
           ContractSpec
         </a>
         <span className="text-muted-foreground">/</span>

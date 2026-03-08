@@ -31,7 +31,11 @@ export const PmWorkbenchBundle = defineModuleBundle({
         entityType: 'pm.issue',
         defaultSurfaceId: 'issue-workbench',
         detailBlueprints: ['balanced-three-pane', 'dense-ops-mode'],
-        supportedViews: ['minimal-summary', 'balanced-detail', 'dense-workbench'],
+        supportedViews: [
+          'minimal-summary',
+          'balanced-detail',
+          'dense-workbench',
+        ],
         sectionsFromSchema: true,
         fieldsFromSchema: true,
         relationPanels: ['relations', 'meeting-evidence', 'decision-trail'],
@@ -39,9 +43,17 @@ export const PmWorkbenchBundle = defineModuleBundle({
     },
     fieldKinds: {
       text: { fieldKind: 'text', viewer: 'text-viewer', editor: 'text-editor' },
-      number: { fieldKind: 'number', viewer: 'number-viewer', editor: 'number-editor' },
+      number: {
+        fieldKind: 'number',
+        viewer: 'number-viewer',
+        editor: 'number-editor',
+      },
       date: { fieldKind: 'date', viewer: 'date-viewer', editor: 'date-editor' },
-      select: { fieldKind: 'select', viewer: 'select-viewer', editor: 'select-editor' },
+      select: {
+        fieldKind: 'select',
+        viewer: 'select-viewer',
+        editor: 'select-editor',
+      },
     },
     sectionKinds: {
       overview: { sectionKind: 'overview', renderer: 'section-overview' },
@@ -50,7 +62,10 @@ export const PmWorkbenchBundle = defineModuleBundle({
       activity: { sectionKind: 'activity', renderer: 'section-activity' },
     },
     viewKinds: {
-      'minimal-summary': { viewKind: 'minimal-summary', renderer: 'view-minimal' },
+      'minimal-summary': {
+        viewKind: 'minimal-summary',
+        renderer: 'view-minimal',
+      },
       'balanced-detail': {
         viewKind: 'balanced-detail',
         renderer: 'view-balanced',

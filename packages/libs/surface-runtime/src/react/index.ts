@@ -6,7 +6,10 @@ export {
   type BundleProviderProps,
 } from './BundleProvider';
 export { BundleRenderer, type BundleRendererProps } from './BundleRenderer';
-export { PatchProposalCard, type PatchProposalCardProps } from './PatchProposalCard';
+export {
+  PatchProposalCard,
+  type PatchProposalCardProps,
+} from './PatchProposalCard';
 export { WidgetPalette, type WidgetPaletteProps } from './WidgetPalette';
 export {
   OverlayConflictResolver,

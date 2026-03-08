@@ -1435,11 +1435,13 @@
       },
       "peerDependencies": {
         "@anthropic-ai/claude-agent-sdk": ">=0.1.0",
+        "@contractspec/lib.surface-runtime": "workspace:*",
         "@opencode-ai/sdk": ">=1.0.0",
         "posthog-node": ">=4.0.0",
       },
       "optionalPeers": [
         "@anthropic-ai/claude-agent-sdk",
+        "@contractspec/lib.surface-runtime",
         "@opencode-ai/sdk",
         "posthog-node",
       ],
@@ -2543,8 +2545,12 @@
         "typescript": "catalog:",
       },
       "peerDependencies": {
+        "@contractspec/lib.surface-runtime": "workspace:*",
         "react": ">=19.2.4",
       },
+      "optionalPeers": [
+        "@contractspec/lib.surface-runtime",
+      ],
     },
     "packages/modules/alpic": {
       "name": "@contractspec/module.alpic",

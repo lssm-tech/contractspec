@@ -144,12 +144,24 @@ export interface SendMessageOptions {
 }
 
 /**
- * Streaming chunk from AI response
+ * Streaming chunk from AI response (maps from AI SDK fullStream parts)
  */
 export interface ChatStreamChunk {
-  type: 'text' | 'reasoning' | 'tool_call' | 'source' | 'error' | 'done';
+  type:
+    | 'text'
+    | 'reasoning'
+    | 'tool_call'
+    | 'tool_result'
+    | 'source'
+    | 'error'
+    | 'done';
+  /** Text delta (for type 'text') */
   content?: string;
+  /** Tool call (for type 'tool_call') */
   toolCall?: ChatToolCall;
+  /** Tool result (for type 'tool_result') */
+  toolResult?: { toolCallId: string; toolName: string; result: unknown };
+  /** Source/citation (for type 'source') */
   source?: ChatSource;
   error?: { code: string; message: string };
   usage?: { inputTokens: number; outputTokens: number };

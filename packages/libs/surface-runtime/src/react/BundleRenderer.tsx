@@ -58,19 +58,22 @@ export function BundleRenderer({
     if (assistantSlotId && slotId === assistantSlotId) {
       return (
         <>
-          {proposals && proposals.length > 0 && onPatchAccept && onPatchReject && (
-            <div style={{ marginBottom: '12px' }}>
-              {proposals.map((p) => (
-                <PatchProposalCard
-                  key={p.proposalId}
-                  proposal={p}
-                  onAccept={onPatchAccept}
-                  onReject={onPatchReject}
-                  locale={locale}
-                />
-              ))}
-            </div>
-          )}
+          {proposals &&
+            proposals.length > 0 &&
+            onPatchAccept &&
+            onPatchReject && (
+              <div style={{ marginBottom: '12px' }}>
+                {proposals.map((p) => (
+                  <PatchProposalCard
+                    key={p.proposalId}
+                    proposal={p}
+                    onAccept={onPatchAccept}
+                    onReject={onPatchReject}
+                    locale={locale}
+                  />
+                ))}
+              </div>
+            )}
           {assistantSlotContent}
         </>
       );

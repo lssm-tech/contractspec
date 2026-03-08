@@ -31,7 +31,9 @@ export interface ResolvedPreferenceProfile {
   /** Canonical values after scope merge and constraint resolution. */
   canonical: PreferenceDimensions;
   /** Source scope per dimension (which layer provided the value). */
-  sourceByDimension: Partial<Record<keyof PreferenceDimensions, PreferenceScope>>;
+  sourceByDimension: Partial<
+    Record<keyof PreferenceDimensions, PreferenceScope>
+  >;
   /** Dimensions that were constrained (requested value not applied); value = reason. */
   constrained: Partial<Record<keyof PreferenceDimensions, string>>;
   /** Human-readable notes (e.g. constraint reasons, fallbacks). */

@@ -19,4 +19,5 @@ export const SURFACE_KEYS = {
   'patch.changes': 'patch.changes',
 } as const;
 
-export type SurfaceMessageKey = (typeof SURFACE_KEYS)[keyof typeof SURFACE_KEYS];
+export type SurfaceMessageKey =
+  (typeof SURFACE_KEYS)[keyof typeof SURFACE_KEYS];

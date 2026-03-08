@@ -148,7 +148,8 @@ describe('resolveBundle', () => {
   });
 
   it('selects layout from activeViewId when entity and viewKinds present', async () => {
-    const { PmWorkbenchBundle } = await import('../examples/pm-workbench.bundle');
+    const { PmWorkbenchBundle } =
+      await import('../examples/pm-workbench.bundle');
     const plan = await resolveBundle(PmWorkbenchBundle, {
       tenantId: 't1',
       route: '/operate/pm/issues/123',
