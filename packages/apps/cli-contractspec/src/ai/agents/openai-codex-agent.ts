@@ -30,9 +30,9 @@ export class OpenAICodexAgent implements AgentProvider {
     }
 
     try {
-      // Use o1 for complex generation, gpt-4o for standard
+      // Use o1 for complex generation, gpt-5.4 for standard
       const isComplex = this.isComplexTask(task);
-      const modelName = isComplex ? 'o1' : 'gpt-4o';
+      const modelName = isComplex ? 'o1' : 'gpt-5.4';
       const model = openai(modelName);
 
       const systemPrompt = this.buildSystemPrompt(task);
@@ -73,7 +73,7 @@ export class OpenAICodexAgent implements AgentProvider {
     }
 
     try {
-      const model = openai('gpt-4o');
+      const model = openai('gpt-5.4');
 
       const prompt = `
 Review this code implementation against its specification.

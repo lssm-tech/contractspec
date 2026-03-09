@@ -301,7 +301,7 @@ export interface ClaudeAgentSDKConfig {
   enabled?: boolean;
   /** API key (defaults to ANTHROPIC_API_KEY env var) */
   apiKey?: string;
-  /** Model to use (defaults to claude-sonnet-4-20250514) */
+  /** Model to use (defaults to claude-sonnet-4-6) */
   model?: string;
   /** Enable computer use capabilities */
   computerUse?: boolean;

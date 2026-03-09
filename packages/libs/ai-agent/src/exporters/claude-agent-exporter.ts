@@ -105,7 +105,7 @@ export class ClaudeAgentExporter implements Exporter<
     options: ClaudeAgentExportOptions
   ): ClaudeAgentConfig {
     const config: ClaudeAgentConfig = {
-      model: options.model ?? 'claude-sonnet-4-20250514',
+      model: options.model ?? 'claude-sonnet-4-6',
       system: this.buildSystemPrompt(spec, options),
       tools,
       max_turns: spec.maxSteps ?? 10,

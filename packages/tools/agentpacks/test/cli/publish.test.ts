@@ -54,7 +54,7 @@ describe('runPublish', () => {
     writeFileSync(
       join(secretPack, 'models.json'),
       JSON.stringify({
-        default: 'anthropic/claude-sonnet-4-20250514',
+        default: 'anthropic/claude-sonnet-4-6',
         providers: {
           anthropic: {
             apiKey: 'sk-ant-api03-realkey',

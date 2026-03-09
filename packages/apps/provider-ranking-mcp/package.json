@@ -12,6 +12,7 @@
     "start": "node dist/server.js"
   },
   "dependencies": {
+    "@contractspec/lib.ai-providers": "workspace:*",
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.contracts-runtime-server-mcp": "workspace:*",
     "@contractspec/lib.logger": "workspace:*",

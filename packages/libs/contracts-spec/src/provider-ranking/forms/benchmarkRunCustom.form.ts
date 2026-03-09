@@ -45,7 +45,7 @@ export const BenchmarkRunCustomForm = defineFormSpec({
       kind: 'text',
       name: 'modelId',
       labelI18n: 'Model',
-      placeholderI18n: 'claude-sonnet-4-20250514',
+      placeholderI18n: 'claude-sonnet-4-6',
       required: true,
     },
     {

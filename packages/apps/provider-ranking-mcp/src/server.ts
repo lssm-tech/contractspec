@@ -17,6 +17,7 @@ import {
 import { createMcpServer } from '@contractspec/lib.contracts-runtime-server-mcp/provider-mcp';
 import { PresentationRegistry } from '@contractspec/lib.contracts-spec/presentations';
 import type { ProviderRankingStore } from '@contractspec/lib.provider-ranking/store';
+import { getModelInfo } from '@contractspec/lib.ai-providers/models';
 import { InMemoryProviderRankingStore } from '@contractspec/lib.provider-ranking/in-memory-store';
 import { createDefaultIngesterRegistry } from '@contractspec/lib.provider-ranking/ingesters';
 import {
@@ -194,12 +195,38 @@ function buildResources(): ResourceRegistry {
       input: z.object({ modelId: z.string() }),
       resolve: async ({ modelId }) => {
         const profile = await store.getModelProfile(modelId);
+        if (!profile) {
+          return {
+            uri: `ranking://model/${encodeURIComponent(modelId)}`,
+            mimeType: 'application/json',
+            data: JSON.stringify({ error: 'not_found', modelId }),
+          };
+        }
+        // Enrich with cost from ai-providers when store has none
+        const enriched =
+          profile.costPerMillion == null
+            ? (() => {
+                const info = getModelInfo(profile.modelId);
+                return info?.costPerMillion
+                  ? {
+                      ...profile,
+                      costPerMillion: info.costPerMillion,
+                      displayName: info.name,
+                      contextWindow: info.contextWindow,
+                      capabilities: [
+                        ...(info.capabilities.vision ? ['vision'] : []),
+                        ...(info.capabilities.tools ? ['tools'] : []),
+                        ...(info.capabilities.reasoning ? ['reasoning'] : []),
+                        ...(info.capabilities.streaming ? ['streaming'] : []),
+                      ],
+                    }
+                  : profile;
+              })()
+            : profile;
         return {
           uri: `ranking://model/${encodeURIComponent(modelId)}`,
           mimeType: 'application/json',
-          data: profile
-            ? JSON.stringify(profile, null, 2)
-            : JSON.stringify({ error: 'not_found', modelId }),
+          data: JSON.stringify(enriched, null, 2),
         };
       },
     })

@@ -18,7 +18,7 @@ export function generateContractsrcConfig(options: SetupOptions): object {
   return {
     $schema: 'https://api.contractspec.io/schemas/contractsrc.json',
     aiProvider: 'claude',
-    aiModel: 'claude-sonnet-4-20250514',
+    aiModel: 'claude-sonnet-4-6',
     agentMode: 'claude-code',
     // outputDir is relative to the config file location
     outputDir: './src',

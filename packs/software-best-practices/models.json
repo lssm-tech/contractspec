@@ -1,17 +1,17 @@
 {
-  "default": "anthropic/claude-sonnet-4-5",
+  "default": "anthropic/claude-sonnet-4-6",
   "small": "anthropic/claude-haiku-4-5",
   "agents": {
     "planner": {
-      "model": "anthropic/claude-sonnet-4-5",
+      "model": "anthropic/claude-sonnet-4-6",
       "temperature": 0.2
     },
     "plan-reviewer": {
-      "model": "anthropic/claude-opus-4-5",
+      "model": "anthropic/claude-opus-4-6",
       "temperature": 0.1
     },
     "code-reviewer": {
-      "model": "anthropic/claude-opus-4-5",
+      "model": "anthropic/claude-opus-4-6",
       "temperature": 0.1
     },
     "security-scanner": {
@@ -19,11 +19,11 @@
       "temperature": 0
     },
     "test-writer": {
-      "model": "anthropic/claude-sonnet-4-5",
+      "model": "anthropic/claude-sonnet-4-6",
       "temperature": 0.2
     },
     "documenter": {
-      "model": "anthropic/claude-sonnet-4-5",
+      "model": "anthropic/claude-sonnet-4-6",
       "temperature": 0.3
     },
     "ai-auditor": {
@@ -34,14 +34,14 @@
   "profiles": {
     "balanced": {
       "description": "Balanced quality, latency, and cost for day-to-day delivery",
-      "default": "anthropic/claude-sonnet-4-5",
+      "default": "anthropic/claude-sonnet-4-6",
       "small": "anthropic/claude-haiku-4-5"
     },
     "quality": {
       "extends": "balanced",
       "description": "Maximum reasoning quality for architecture, review, and security work",
-      "default": "anthropic/claude-opus-4-5",
-      "small": "anthropic/claude-sonnet-4-5"
+      "default": "anthropic/claude-opus-4-6",
+      "small": "anthropic/claude-sonnet-4-6"
     },
     "fast": {
       "description": "Low-latency profile for quick triage and lightweight edits",
@@ -50,7 +50,7 @@
     },
     "cursor-demo": {
       "description": "Demo-ready profile for Cursor workshops and marketplace previews",
-      "default": "anthropic/claude-sonnet-4-5",
+      "default": "anthropic/claude-sonnet-4-6",
       "small": "anthropic/claude-haiku-4-5"
     }
   },
@@ -88,11 +88,11 @@
   ],
   "overrides": {
     "cursor": {
-      "default": "anthropic/claude-sonnet-4-5",
+      "default": "anthropic/claude-sonnet-4-6",
       "small": "anthropic/claude-haiku-4-5"
     },
     "opencode": {
-      "default": "anthropic/claude-sonnet-4-5",
+      "default": "anthropic/claude-sonnet-4-6",
       "small": "anthropic/claude-haiku-4-5"
     }
   }

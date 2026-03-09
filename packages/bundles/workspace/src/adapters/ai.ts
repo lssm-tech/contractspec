@@ -15,6 +15,7 @@ import type {
   AiValidationResult,
 } from '../ports/ai';
 import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
+import { DEFAULT_MODELS } from '@contractspec/lib.ai-providers/models';
 
 /**
  * Create a Node.js AI adapter using Vercel AI SDK.
@@ -122,12 +123,12 @@ function getAIProvider(config: ResolvedContractsrcConfig): LanguageModel {
 
   switch (aiProvider) {
     case 'claude': {
-      const model = aiModel ?? 'claude-3-5-sonnet-20241022';
+      const model = aiModel ?? DEFAULT_MODELS.anthropic;
       return anthropic(model);
     }
 
     case 'openai': {
-      const model = aiModel ?? 'gpt-4o';
+      const model = aiModel ?? DEFAULT_MODELS.openai;
       return openai(model);
     }
 

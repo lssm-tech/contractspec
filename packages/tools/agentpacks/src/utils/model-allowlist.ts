@@ -19,19 +19,19 @@ const KNOWN_MODEL_PATTERNS: {
     provider: 'Anthropic',
     pattern:
       /^(anthropic\/)?claude-(opus|sonnet|haiku|instant|3|3\.5|4)[-.\w]*/i,
-    examples: ['claude-sonnet-4-20250514', 'anthropic/claude-opus-4-6'],
+    examples: ['claude-sonnet-4-6', 'anthropic/claude-opus-4-6'],
   },
   {
     provider: 'OpenAI',
     pattern:
-      /^(openai\/)?(gpt-4|gpt-3\.5|o[1-9]|o[1-9]-\w+|chatgpt-4o|gpt-4o)[-.\w]*/i,
-    examples: ['gpt-4o', 'openai/gpt-4-turbo', 'o1-preview'],
+      /^(openai\/)?(gpt-4|gpt-5|gpt-3\.5|o[1-9]|o[1-9]-\w+|chatgpt-4o|gpt-4o)[-.\w]*/i,
+    examples: ['gpt-5.4', 'gpt-5-mini', 'gpt-4o', 'openai/gpt-4-turbo', 'o1-preview'],
   },
   {
     provider: 'Google',
     pattern:
-      /^(google\/)?gemini-(pro|ultra|nano|flash|1\.5|2\.0|2\.5|exp)[-.\w]*/i,
-    examples: ['gemini-2.5-flash', 'google/gemini-pro'],
+      /^(google\/)?gemini-(pro|ultra|nano|flash|1\.5|2\.0|2\.5|3|3\.1|exp)[-.\w]*/i,
+    examples: ['gemini-2.5-flash', 'gemini-3.1-pro-preview', 'google/gemini-pro'],
   },
   {
     provider: 'Meta',
@@ -43,6 +43,8 @@ const KNOWN_MODEL_PATTERNS: {
     pattern:
       /^(mistral(ai)?\/)?(mistral|mixtral|codestral|pixtral|devstral|magistral|voxtral|ministral)[-.\w]*/i,
     examples: [
+      'mistral-large-2512',
+      'devstral-2512',
       'mistral-large-latest',
       'codestral-latest',
       'devstral-small-latest',

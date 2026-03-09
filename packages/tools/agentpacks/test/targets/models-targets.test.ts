@@ -57,26 +57,26 @@ beforeAll(() => {
   mkdirSync(join(packDir, 'agents'), { recursive: true });
   writeFileSync(
     join(packDir, 'agents', 'planner.md'),
-    "---\nname: planner\ntargets: ['*']\nopencode:\n  model: anthropic/claude-sonnet-4-20250514\ncursor:\n  model: anthropic/claude-sonnet-4-20250514\n---\n\nPlanning agent.\n"
+    "---\nname: planner\ntargets: ['*']\nopencode:\n  model: anthropic/claude-sonnet-4-6\ncursor:\n  model: anthropic/claude-sonnet-4-6\n---\n\nPlanning agent.\n"
   );
 
   // Models configuration
   writeFileSync(
     join(packDir, 'models.json'),
     JSON.stringify({
-      default: 'anthropic/claude-sonnet-4-20250514',
+      default: 'anthropic/claude-sonnet-4-6',
       small: 'anthropic/claude-haiku-3.5',
       agents: {
         reviewer: {
-          model: 'anthropic/claude-opus-4-20250514',
+          model: 'anthropic/claude-opus-4-6',
           temperature: 0.3,
         },
       },
       profiles: {
         quality: {
           description: 'Maximum quality',
-          default: 'anthropic/claude-opus-4-20250514',
-          small: 'anthropic/claude-sonnet-4-20250514',
+          default: 'anthropic/claude-opus-4-6',
+          small: 'anthropic/claude-sonnet-4-6',
         },
         budget: {
           description: 'Cost-efficient',
@@ -87,10 +87,10 @@ beforeAll(() => {
       providers: {
         anthropic: {
           models: {
-            'claude-opus-4-20250514': {
+            'claude-opus-4-6': {
               options: { budgetTokens: 10000 },
             },
-            'claude-sonnet-4-20250514': {
+            'claude-sonnet-4-6': {
               options: { budgetTokens: 5000 },
             },
           },
@@ -118,7 +118,7 @@ describe('models feature loaded correctly', () => {
   test('models config is present in merged features', () => {
     expect(mergedFeatures.models).not.toBeNull();
     expect(mergedFeatures.models!.default).toBe(
-      'anthropic/claude-sonnet-4-20250514'
+      'anthropic/claude-sonnet-4-6'
     );
     expect(mergedFeatures.models!.small).toBe('anthropic/claude-haiku-3.5');
   });
@@ -133,7 +133,7 @@ describe('models feature loaded correctly', () => {
     expect(mergedFeatures.models!.agents).toBeDefined();
     expect(mergedFeatures.models!.agents!['reviewer']).toBeDefined();
     expect(mergedFeatures.models!.agents!['reviewer']!.model).toBe(
-      'anthropic/claude-opus-4-20250514'
+      'anthropic/claude-opus-4-6'
     );
   });
 
@@ -156,7 +156,7 @@ describe('OpenCodeTarget — models', () => {
     expect(existsSync(filepath)).toBe(true);
 
     const content = JSON.parse(readFileSync(filepath, 'utf-8'));
-    expect(content.model).toBe('anthropic/claude-sonnet-4-20250514');
+    expect(content.model).toBe('anthropic/claude-sonnet-4-6');
     expect(content.small_model).toBe('anthropic/claude-haiku-3.5');
   });
 
@@ -178,7 +178,7 @@ describe('OpenCodeTarget — models', () => {
     expect(content.agent).toBeDefined();
     expect(content.agent.reviewer).toBeDefined();
     expect(content.agent.reviewer.model).toBe(
-      'anthropic/claude-opus-4-20250514'
+      'anthropic/claude-opus-4-6'
     );
     expect(content.agent.reviewer.temperature).toBe(0.3);
   });
@@ -188,8 +188,8 @@ describe('OpenCodeTarget — models', () => {
     const content = JSON.parse(
       readFileSync(join(TEST_DIR, 'opencode.json'), 'utf-8')
     );
-    expect(content.model).toBe('anthropic/claude-opus-4-20250514');
-    expect(content.small_model).toBe('anthropic/claude-sonnet-4-20250514');
+    expect(content.model).toBe('anthropic/claude-opus-4-6');
+    expect(content.small_model).toBe('anthropic/claude-sonnet-4-6');
   });
 
   test('applies budget profile when modelProfile is set', () => {
@@ -233,7 +233,7 @@ describe('CursorTarget — models', () => {
       join(TEST_DIR, '.cursor', 'rules', 'model-config.mdc'),
       'utf-8'
     );
-    expect(content).toContain('anthropic/claude-sonnet-4-20250514');
+    expect(content).toContain('anthropic/claude-sonnet-4-6');
     expect(content).toContain('anthropic/claude-haiku-3.5');
   });
 
@@ -244,7 +244,7 @@ describe('CursorTarget — models', () => {
       'utf-8'
     );
     expect(content).toContain('reviewer');
-    expect(content).toContain('anthropic/claude-opus-4-20250514');
+    expect(content).toContain('anthropic/claude-opus-4-6');
   });
 });
 
@@ -270,7 +270,7 @@ describe('ClaudeCodeTarget — models', () => {
       join(TEST_DIR, '.claude', 'rules', 'model-config.md'),
       'utf-8'
     );
-    expect(content).toContain('anthropic/claude-sonnet-4-20250514');
+    expect(content).toContain('anthropic/claude-sonnet-4-6');
     expect(content).toContain('Model');
   });
 });

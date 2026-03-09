@@ -10,16 +10,16 @@ import {
 describe('validateModelId', () => {
   describe('known models', () => {
     test('recognizes Anthropic models', () => {
-      expect(validateModelId('claude-sonnet-4-20250514').known).toBe(true);
+      expect(validateModelId('claude-sonnet-4-6').known).toBe(true);
       expect(validateModelId('claude-opus-4-6').known).toBe(true);
       expect(validateModelId('claude-haiku-3-5-20250514').known).toBe(true);
-      expect(validateModelId('anthropic/claude-sonnet-4-20250514').known).toBe(
+      expect(validateModelId('anthropic/claude-sonnet-4-6').known).toBe(
         true
       );
     });
 
     test('recognizes OpenAI models', () => {
-      expect(validateModelId('gpt-4o').known).toBe(true);
+      expect(validateModelId('gpt-5.4').known).toBe(true);
       expect(validateModelId('gpt-4-turbo').known).toBe(true);
       expect(validateModelId('o1-preview').known).toBe(true);
       expect(validateModelId('openai/gpt-4o').known).toBe(true);
@@ -54,7 +54,7 @@ describe('validateModelId', () => {
     });
 
     test('returns provider name for known models', () => {
-      const result = validateModelId('claude-sonnet-4-20250514');
+      const result = validateModelId('claude-sonnet-4-6');
       expect(result.provider).toBe('Anthropic');
     });
   });
@@ -77,8 +77,8 @@ describe('validateModelId', () => {
 describe('scanModelsForUnknownIds', () => {
   test('returns empty for known models', () => {
     const warnings = scanModelsForUnknownIds({
-      default: 'claude-sonnet-4-20250514',
-      small: 'gpt-4o',
+      default: 'claude-sonnet-4-6',
+      small: 'gpt-5.4',
     });
     expect(warnings).toHaveLength(0);
   });
@@ -106,7 +106,7 @@ describe('scanModelsForUnknownIds', () => {
       profiles: {
         premium: {
           default: 'fake-premium-model',
-          small: 'gpt-4o',
+          small: 'gpt-5.4',
         },
       },
     });

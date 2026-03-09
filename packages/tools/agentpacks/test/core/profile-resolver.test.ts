@@ -7,22 +7,22 @@ import {
 import type { ModelsConfig, ModelProfile } from '../../src/features/models.js';
 
 const SAMPLE_CONFIG: ModelsConfig = {
-  default: 'anthropic/claude-sonnet-4-5',
+  default: 'anthropic/claude-sonnet-4-6',
   small: 'anthropic/claude-haiku-4-5',
   agents: {
-    build: { model: 'anthropic/claude-opus-4-5', temperature: 0.3 },
-    plan: { model: 'anthropic/claude-sonnet-4-5', temperature: 0.1 },
+    build: { model: 'anthropic/claude-opus-4-6', temperature: 0.3 },
+    plan: { model: 'anthropic/claude-sonnet-4-6', temperature: 0.1 },
     explore: { model: 'anthropic/claude-haiku-4-5' },
   },
   profiles: {
     quality: {
       description: 'Maximum quality',
-      default: 'anthropic/claude-opus-4-5',
-      small: 'anthropic/claude-sonnet-4-5',
+      default: 'anthropic/claude-opus-4-6',
+      small: 'anthropic/claude-sonnet-4-6',
     },
     budget: {
       description: 'Cost-effective',
-      default: 'anthropic/claude-sonnet-4-5',
+      default: 'anthropic/claude-sonnet-4-6',
       small: 'anthropic/claude-haiku-4-5',
     },
     fast: {
@@ -35,7 +35,7 @@ const SAMPLE_CONFIG: ModelsConfig = {
     anthropic: {
       options: { timeout: 600000 },
       models: {
-        'claude-sonnet-4-5': {
+        'claude-sonnet-4-6': {
           options: { thinking: { type: 'enabled', budgetTokens: 16000 } },
           variants: {
             high: { thinking: { type: 'enabled', budgetTokens: 32000 } },
@@ -49,23 +49,23 @@ const SAMPLE_CONFIG: ModelsConfig = {
     { when: { budget: 'limited' }, use: 'budget' },
   ],
   overrides: {
-    opencode: { default: 'opencode/claude-sonnet-4-5' },
-    cursor: { default: 'cursor:claude-sonnet-4-5' },
+    opencode: { default: 'opencode/claude-sonnet-4-6' },
+    cursor: { default: 'cursor:claude-sonnet-4-6' },
   },
 };
 
 describe('resolveModels', () => {
   test('returns base values with no profile', () => {
     const result = resolveModels(SAMPLE_CONFIG);
-    expect(result.default).toBe('anthropic/claude-sonnet-4-5');
+    expect(result.default).toBe('anthropic/claude-sonnet-4-6');
     expect(result.small).toBe('anthropic/claude-haiku-4-5');
-    expect(result.agents.build.model).toBe('anthropic/claude-opus-4-5');
+    expect(result.agents.build.model).toBe('anthropic/claude-opus-4-6');
   });
 
   test('applies quality profile overlay', () => {
     const result = resolveModels(SAMPLE_CONFIG, 'quality');
-    expect(result.default).toBe('anthropic/claude-opus-4-5');
-    expect(result.small).toBe('anthropic/claude-sonnet-4-5');
+    expect(result.default).toBe('anthropic/claude-opus-4-6');
+    expect(result.small).toBe('anthropic/claude-sonnet-4-6');
     expect(result.activeProfile).toBe('quality');
   });
 
@@ -77,7 +77,7 @@ describe('resolveModels', () => {
 
   test('applies target-specific overrides', () => {
     const result = resolveModels(SAMPLE_CONFIG, undefined, 'opencode');
-    expect(result.default).toBe('opencode/claude-sonnet-4-5');
+    expect(result.default).toBe('opencode/claude-sonnet-4-6');
     // small stays as base
     expect(result.small).toBe('anthropic/claude-haiku-4-5');
   });
@@ -85,19 +85,19 @@ describe('resolveModels', () => {
   test('profile + target override combined', () => {
     const result = resolveModels(SAMPLE_CONFIG, 'quality', 'cursor');
     // Profile sets default to opus, but cursor override overrides to cursor:sonnet
-    expect(result.default).toBe('cursor:claude-sonnet-4-5');
+    expect(result.default).toBe('cursor:claude-sonnet-4-6');
     // Profile sets small to sonnet
-    expect(result.small).toBe('anthropic/claude-sonnet-4-5');
+    expect(result.small).toBe('anthropic/claude-sonnet-4-6');
   });
 
   test('ignores unknown profile gracefully', () => {
     const result = resolveModels(SAMPLE_CONFIG, 'nonexistent');
-    expect(result.default).toBe('anthropic/claude-sonnet-4-5');
+    expect(result.default).toBe('anthropic/claude-sonnet-4-6');
   });
 
   test('ignores unknown target override gracefully', () => {
     const result = resolveModels(SAMPLE_CONFIG, undefined, 'geminicli');
-    expect(result.default).toBe('anthropic/claude-sonnet-4-5');
+    expect(result.default).toBe('anthropic/claude-sonnet-4-6');
   });
 
   test('passes through providers', () => {
@@ -130,7 +130,7 @@ describe('resolveAgentModel', () => {
   test('returns model from resolved agents', () => {
     const resolved = resolveModels(SAMPLE_CONFIG);
     const result = resolveAgentModel(resolved, 'build');
-    expect(result.model).toBe('anthropic/claude-opus-4-5');
+    expect(result.model).toBe('anthropic/claude-opus-4-6');
     expect(result.temperature).toBe(0.3);
   });
 
@@ -147,7 +147,7 @@ describe('resolveAgentModel', () => {
   test('models feature takes precedence over frontmatter', () => {
     const resolved = resolveModels(SAMPLE_CONFIG);
     const result = resolveAgentModel(resolved, 'build', 'should-be-ignored');
-    expect(result.model).toBe('anthropic/claude-opus-4-5');
+    expect(result.model).toBe('anthropic/claude-opus-4-6');
   });
 
   test('returns empty for unknown agent with no frontmatter', () => {
@@ -161,10 +161,10 @@ describe('resolveProfileInheritance', () => {
   const profiles: Record<string, ModelProfile> = {
     base: {
       description: 'Base profile',
-      default: 'claude-sonnet-4-20250514',
+      default: 'claude-sonnet-4-6',
       small: 'claude-haiku-3-5-20250514',
       agents: {
-        build: { model: 'claude-sonnet-4-20250514', temperature: 0.3 },
+        build: { model: 'claude-sonnet-4-6', temperature: 0.3 },
       },
     },
     premium: {
@@ -189,7 +189,7 @@ describe('resolveProfileInheritance', () => {
 
   test('resolves profile without extends', () => {
     const result = resolveProfileInheritance('base', profiles);
-    expect(result.default).toBe('claude-sonnet-4-20250514');
+    expect(result.default).toBe('claude-sonnet-4-6');
     expect(result.small).toBe('claude-haiku-3-5-20250514');
     expect(result.description).toBe('Base profile');
   });
@@ -205,7 +205,7 @@ describe('resolveProfileInheritance', () => {
   test('inherits agents from parent and merges', () => {
     const result = resolveProfileInheritance('premium', profiles);
     // From base
-    expect(result.agents?.build?.model).toBe('claude-sonnet-4-20250514');
+    expect(result.agents?.build?.model).toBe('claude-sonnet-4-6');
     // From premium (child)
     expect(result.agents?.review?.model).toBe('claude-opus-4-6');
   });
@@ -245,7 +245,7 @@ describe('resolveProfileInheritance', () => {
 
   test('works with resolveModels for inherited profiles', () => {
     const config: ModelsConfig = {
-      default: 'claude-sonnet-4-20250514',
+      default: 'claude-sonnet-4-6',
       small: 'claude-haiku-3-5-20250514',
       profiles,
     };

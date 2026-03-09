@@ -27,18 +27,18 @@ const TEST_DIR = join(
 let mergedFeatures: MergedFeatures;
 
 const MODELS_CONFIG = {
-  default: 'anthropic/claude-sonnet-4-20250514',
+  default: 'anthropic/claude-sonnet-4-6',
   small: 'anthropic/claude-haiku-3.5',
   agents: {
-    planner: { model: 'anthropic/claude-sonnet-4-20250514' },
+    planner: { model: 'anthropic/claude-sonnet-4-6' },
   },
   profiles: {
     quality: {
       description: 'Maximum quality',
-      default: 'anthropic/claude-opus-4-20250514',
-      small: 'anthropic/claude-sonnet-4-20250514',
+      default: 'anthropic/claude-opus-4-6',
+      small: 'anthropic/claude-sonnet-4-6',
       agents: {
-        planner: { model: 'anthropic/claude-opus-4-20250514' },
+        planner: { model: 'anthropic/claude-opus-4-6' },
       },
     },
     budget: {
@@ -111,7 +111,7 @@ describe('E2E: model profile switch — OpenCode', () => {
     const oc = JSON.parse(
       readFileSync(join(TEST_DIR, 'opencode.json'), 'utf-8')
     );
-    expect(oc.model).toBe('anthropic/claude-sonnet-4-20250514');
+    expect(oc.model).toBe('anthropic/claude-sonnet-4-6');
     expect(oc.small_model).toBe('anthropic/claude-haiku-3.5');
   });
 
@@ -120,10 +120,10 @@ describe('E2E: model profile switch — OpenCode', () => {
     const oc = JSON.parse(
       readFileSync(join(TEST_DIR, 'opencode.json'), 'utf-8')
     );
-    expect(oc.model).toBe('anthropic/claude-opus-4-20250514');
-    expect(oc.small_model).toBe('anthropic/claude-sonnet-4-20250514');
+    expect(oc.model).toBe('anthropic/claude-opus-4-6');
+    expect(oc.small_model).toBe('anthropic/claude-sonnet-4-6');
     // Agent should also be upgraded
-    expect(oc.agent?.planner?.model).toBe('anthropic/claude-opus-4-20250514');
+    expect(oc.agent?.planner?.model).toBe('anthropic/claude-opus-4-6');
   });
 
   test('budget profile → uses haiku for everything', () => {
@@ -150,7 +150,7 @@ describe('E2E: model profile switch — OpenCode', () => {
     const oc = JSON.parse(
       readFileSync(join(TEST_DIR, 'opencode.json'), 'utf-8')
     );
-    expect(oc.model).toBe('anthropic/claude-sonnet-4-20250514');
+    expect(oc.model).toBe('anthropic/claude-sonnet-4-6');
     expect(oc.small_model).toBe('anthropic/claude-haiku-3.5');
   });
 });
@@ -164,7 +164,7 @@ describe('E2E: model profile switch — Cursor', () => {
       join(TEST_DIR, '.cursor', 'rules', 'model-config.mdc'),
       'utf-8'
     );
-    expect(mdc).toContain('anthropic/claude-sonnet-4-20250514');
+    expect(mdc).toContain('anthropic/claude-sonnet-4-6');
     expect(mdc).toContain('anthropic/claude-haiku-3.5');
   });
 
@@ -174,7 +174,7 @@ describe('E2E: model profile switch — Cursor', () => {
       join(TEST_DIR, '.cursor', 'rules', 'model-config.mdc'),
       'utf-8'
     );
-    expect(mdc).toContain('anthropic/claude-opus-4-20250514');
+    expect(mdc).toContain('anthropic/claude-opus-4-6');
   });
 
   test('budget profile → guidance contains haiku', () => {
@@ -196,7 +196,7 @@ describe('E2E: model profile switch — Claude Code', () => {
       join(TEST_DIR, '.claude', 'rules', 'model-config.md'),
       'utf-8'
     );
-    expect(md).toContain('anthropic/claude-sonnet-4-20250514');
+    expect(md).toContain('anthropic/claude-sonnet-4-6');
   });
 
   test('quality profile → guidance contains opus', () => {
@@ -205,7 +205,7 @@ describe('E2E: model profile switch — Claude Code', () => {
       join(TEST_DIR, '.claude', 'rules', 'model-config.md'),
       'utf-8'
     );
-    expect(md).toContain('anthropic/claude-opus-4-20250514');
+    expect(md).toContain('anthropic/claude-opus-4-6');
   });
 
   test('agents get model metadata in Claude Code output', () => {
@@ -214,7 +214,7 @@ describe('E2E: model profile switch — Claude Code', () => {
     if (existsSync(agentFile)) {
       const content = readFileSync(agentFile, 'utf-8');
       // Should contain model comment
-      expect(content).toContain('claude-opus-4-20250514');
+      expect(content).toContain('claude-opus-4-6');
     }
   });
 });
@@ -242,9 +242,9 @@ describe('E2E: profile consistency across targets', () => {
     );
 
     // All should reference opus for quality profile
-    expect(oc.model).toBe('anthropic/claude-opus-4-20250514');
-    expect(mdc).toContain('anthropic/claude-opus-4-20250514');
-    expect(claudeMd).toContain('anthropic/claude-opus-4-20250514');
+    expect(oc.model).toBe('anthropic/claude-opus-4-6');
+    expect(mdc).toContain('anthropic/claude-opus-4-6');
+    expect(claudeMd).toContain('anthropic/claude-opus-4-6');
   });
 
   test('all targets agree on budget profile default model', () => {
