@@ -1,5 +1,20 @@
 # @contractspec/bundle.workspace
 
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/lib.contracts-integrations@3.4.3
+  - @contractspec/lib.contracts-transformers@3.4.3
+  - @contractspec/lib.source-extractors@2.4.3
+  - @contractspec/lib.utils-typescript@3.4.3
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/lib.ai-providers@3.4.3
+  - @contractspec/module.workspace@3.4.3
+  - @contractspec/lib.ai-agent@4.0.3
+
 ## 3.4.2
 
 ### Patch Changes

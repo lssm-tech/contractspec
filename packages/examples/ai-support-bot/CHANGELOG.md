@@ -1,5 +1,16 @@
 # @contractspec/example.ai-support-bot
 
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/lib.support-bot@3.4.3
+  - @contractspec/lib.knowledge@3.4.3
+  - @contractspec/lib.logger@3.4.3
+
 ## 3.4.2
 
 ### Patch Changes

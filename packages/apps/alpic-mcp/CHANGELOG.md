@@ -1,5 +1,14 @@
 # @contractspec/app.alpic-mcp
 
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/bundle.alpic@3.4.3
+  - @contractspec/lib.logger@3.4.3
+
 ## 3.4.2
 
 ### Patch Changes

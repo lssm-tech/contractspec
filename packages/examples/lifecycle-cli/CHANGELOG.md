@@ -1,5 +1,16 @@
 # @contractspec/example.lifecycle-cli
 
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/bundle.lifecycle-managed@3.4.3
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/lib.lifecycle@3.4.3
+  - @contractspec/lib.logger@3.4.3
+
 ## 3.4.2
 
 ### Patch Changes

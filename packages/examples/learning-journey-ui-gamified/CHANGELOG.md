@@ -1,5 +1,19 @@
 # @contractspec/example.learning-journey-ui-gamified
 
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/example.learning-journey-quest-challenges@3.4.3
+  - @contractspec/example.learning-journey-duo-drills@3.4.3
+  - @contractspec/example.learning-journey-ui-shared@3.4.3
+  - @contractspec/module.learning-journey@3.4.3
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/lib.design-system@3.4.3
+  - @contractspec/lib.ui-kit-web@3.4.3
+
 ## 3.4.2
 
 ### Patch Changes

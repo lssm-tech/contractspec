@@ -1,5 +1,11 @@
 # @contractspec/app.cursor-marketplace
 
+## 1.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+
 ## 1.4.2
 
 ### Patch Changes

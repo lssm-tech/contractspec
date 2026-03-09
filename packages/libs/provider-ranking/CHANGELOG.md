@@ -1,5 +1,11 @@
 # @contractspec/lib.provider-ranking
 
+## 0.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+
 ## 0.4.2
 
 ### Patch Changes

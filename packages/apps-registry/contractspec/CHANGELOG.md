@@ -1,5 +1,13 @@
 # contractspec
 
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/app.cli-contractspec@3.4.3
+
 ## 3.4.2
 
 ### Patch Changes

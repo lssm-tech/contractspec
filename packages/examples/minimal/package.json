@@ -1,6 +1,6 @@
 {
   "name": "contractspec-example-minimal",
-  "version": "2.4.2",
+  "version": "2.4.3",
   "private": true,
   "scripts": {
     "build": "contractspec build src/contracts/user.ts",

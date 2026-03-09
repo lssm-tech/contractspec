@@ -1,5 +1,17 @@
 # @contractspec/example.product-intent
 
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/integration.providers-impls@3.4.3
+  - @contractspec/lib.contracts-integrations@3.4.3
+  - @contractspec/lib.product-intent-utils@3.4.3
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/lib.ai-agent@4.0.3
+
 ## 3.4.2
 
 ### Patch Changes

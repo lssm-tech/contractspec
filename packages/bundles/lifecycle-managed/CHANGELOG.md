@@ -1,5 +1,18 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/module.lifecycle-advisor@3.4.3
+  - @contractspec/module.lifecycle-core@3.4.3
+  - @contractspec/lib.observability@3.4.3
+  - @contractspec/lib.analytics@3.4.3
+  - @contractspec/lib.lifecycle@3.4.3
+  - @contractspec/lib.ai-agent@4.0.3
+
 ## 3.4.2
 
 ### Patch Changes

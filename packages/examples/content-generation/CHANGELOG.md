@@ -1,5 +1,15 @@
 # @contractspec/example.content-generation
 
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/lib.content-gen@3.4.3
+  - @contractspec/lib.logger@3.4.3
+
 ## 3.4.2
 
 ### Patch Changes

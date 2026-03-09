@@ -1,5 +1,17 @@
 # @contractspec/example.wealth-snapshot
 
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/module.notifications@3.4.3
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/module.audit-trail@3.4.3
+  - @contractspec/lib.identity-rbac@3.4.3
+  - @contractspec/lib.schema@3.4.3
+
 ## 3.4.2
 
 ### Patch Changes

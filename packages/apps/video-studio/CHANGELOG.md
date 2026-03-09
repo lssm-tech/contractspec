@@ -1,5 +1,16 @@
 # @contractspec/app.video-studio
 
+## 2.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/lib.design-system@3.4.3
+  - @contractspec/lib.content-gen@3.4.3
+  - @contractspec/lib.video-gen@2.4.3
+
 ## 2.4.2
 
 ### Patch Changes

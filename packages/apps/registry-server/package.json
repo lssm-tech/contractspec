@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/app.registry-server",
-  "version": "3.4.2",
+  "version": "3.4.3",
   "type": "module",
   "module": "src/index.ts",
   "scripts": {

@@ -1,5 +1,16 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 31.0.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/lib.presentation-runtime-core@3.4.3
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/lib.design-system@3.4.3
+  - @contractspec/lib.ui-kit-web@3.4.3
+
 ## 31.0.2
 
 ### Patch Changes

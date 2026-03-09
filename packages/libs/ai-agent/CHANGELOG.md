@@ -1,5 +1,16 @@
 # @contractspec/lib.ai-agent
 
+## 4.0.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/lib.surface-runtime@0.2.3
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/lib.ai-providers@3.4.3
+  - @contractspec/lib.knowledge@3.4.3
+
 ## 4.0.2
 
 ### Patch Changes

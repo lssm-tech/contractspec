@@ -1,5 +1,15 @@
 # @contractspec/lib.surface-runtime
 
+## 0.2.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/lib.overlay-engine@3.4.3
+  - @contractspec/lib.observability@3.4.3
+
 ## 0.2.2
 
 ### Patch Changes

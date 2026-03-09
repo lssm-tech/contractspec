@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 2.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+
 ## 2.4.2
 
 ### Patch Changes

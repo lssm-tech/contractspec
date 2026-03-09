@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.contracts-runtime-server-graphql",
-  "version": "3.4.2",
+  "version": "3.4.3",
   "description": "GraphQL server runtime adapters for ContractSpec contracts",
   "type": "module",
   "types": "./dist/index.d.ts",

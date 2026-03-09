@@ -1,5 +1,11 @@
 # @contractspec/lib.utils-typescript
 
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+
 ## 3.4.2
 
 ### Patch Changes

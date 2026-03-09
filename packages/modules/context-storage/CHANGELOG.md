@@ -1,5 +1,16 @@
 # @contractspec/module.context-storage
 
+## 0.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/lib.contracts-integrations@3.4.3
+  - @contractspec/lib.context-storage@0.4.3
+  - @contractspec/lib.knowledge@3.4.3
+  - @contractspec/lib.schema@3.4.3
+
 ## 0.4.2
 
 ### Patch Changes

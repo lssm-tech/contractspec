@@ -1,5 +1,30 @@
 # @contractspec/bundle.library
 
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.4.3
+  - @contractspec/lib.contracts-runtime-server-rest@3.4.3
+  - @contractspec/lib.contracts-runtime-server-mcp@3.4.3
+  - @contractspec/lib.contracts-integrations@3.4.3
+  - @contractspec/module.context-storage@0.4.3
+  - @contractspec/lib.contracts-library@3.4.3
+  - @contractspec/lib.example-shared-ui@3.4.3
+  - @contractspec/lib.provider-ranking@0.4.3
+  - @contractspec/lib.runtime-sandbox@2.4.3
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/lib.design-system@3.4.3
+  - @contractspec/lib.content-gen@3.4.3
+  - @contractspec/module.examples@3.4.3
+  - @contractspec/lib.ui-kit-web@3.4.3
+  - @contractspec/lib.knowledge@3.4.3
+  - @contractspec/lib.ui-link@3.4.3
+  - @contractspec/lib.logger@3.4.3
+  - @contractspec/lib.schema@3.4.3
+
 ## 3.4.2
 
 ### Patch Changes

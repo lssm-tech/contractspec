@@ -1,5 +1,22 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/example.locale-jurisdiction-gate@3.4.3
+  - @contractspec/example.versioned-knowledge-base@3.4.3
+  - @contractspec/example.kb-update-pipeline@3.4.3
+  - @contractspec/example.learning-patterns@3.4.3
+  - @contractspec/module.learning-journey@3.4.3
+  - @contractspec/lib.example-shared-ui@3.4.3
+  - @contractspec/lib.runtime-sandbox@2.4.3
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/lib.design-system@3.4.3
+  - @contractspec/lib.ui-kit-web@3.4.3
+
 ## 3.4.2
 
 ### Patch Changes

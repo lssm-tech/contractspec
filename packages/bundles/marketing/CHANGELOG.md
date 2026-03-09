@@ -1,5 +1,31 @@
 # @contractspec/bundle.marketing
 
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/lib.contracts-runtime-client-react@3.4.3
+  - @contractspec/example.analytics-dashboard@3.4.3
+  - @contractspec/example.saas-boilerplate@3.4.3
+  - @contractspec/example.integration-hub@3.4.3
+  - @contractspec/example.workflow-system@3.4.3
+  - @contractspec/example.agent-console@3.4.3
+  - @contractspec/lib.example-shared-ui@3.4.3
+  - @contractspec/example.crm-pipeline@3.4.3
+  - @contractspec/example.marketplace@3.4.3
+  - @contractspec/lib.runtime-sandbox@2.4.3
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/lib.design-system@3.4.3
+  - @contractspec/lib.ui-kit-core@3.4.3
+  - @contractspec/module.examples@3.4.3
+  - @contractspec/bundle.library@3.4.3
+  - @contractspec/lib.ui-kit-web@3.4.3
+  - @contractspec/lib.ui-link@3.4.3
+  - @contractspec/lib.logger@3.4.3
+  - @contractspec/lib.email@3.4.3
+
 ## 3.4.2
 
 ### Patch Changes
