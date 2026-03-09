@@ -23,6 +23,7 @@ import type {
   ChatToolCall,
 } from '../../core/message-types';
 import { CodePreview } from './CodePreview';
+import { ToolResultRenderer } from './ToolResultRenderer';
 
 export interface ChatMessageProps {
   message: ChatMessageType;
@@ -41,6 +42,13 @@ export interface ChatMessageProps {
   editable?: boolean;
   /** Called when message is edited */
   onEdit?: (messageId: string, newContent: string) => void | Promise<void>;
+  /** Host-provided renderer for tool results with presentationKey */
+  presentationRenderer?: (key: string, data?: unknown) => React.ReactNode;
+  /** Host-provided renderer for tool results with formKey */
+  formRenderer?: (
+    key: string,
+    defaultValues?: Record<string, unknown>
+  ) => React.ReactNode;
 }
 
 /**
@@ -160,6 +168,8 @@ export function ChatMessage({
   onSelect,
   editable = false,
   onEdit,
+  presentationRenderer,
+  formRenderer,
 }: ChatMessageProps) {
   const [copied, setCopied] = React.useState(false);
 
@@ -424,16 +434,13 @@ export function ChatMessage({
                     </div>
                   )}
                   {tc.result !== undefined && (
-                    <div>
-                      <span className="text-muted-foreground font-medium">
-                        Output:
-                      </span>
-                      <pre className="bg-background mt-1 overflow-x-auto rounded p-2">
-                        {typeof tc.result === 'object'
-                          ? JSON.stringify(tc.result, null, 2)
-                          : String(tc.result)}
-                      </pre>
-                    </div>
+                    <ToolResultRenderer
+                      toolName={tc.name}
+                      result={tc.result}
+                      presentationRenderer={presentationRenderer}
+                      formRenderer={formRenderer}
+                      showRawFallback
+                    />
                   )}
                   {tc.error && (
                     <p className="text-destructive mt-1">{tc.error}</p>

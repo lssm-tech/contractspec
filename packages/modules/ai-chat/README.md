@@ -24,6 +24,9 @@ This module provides a reusable AI chat system that can be integrated into CLI, 
 - **ModelSelector**: Dynamic model selection by task dimension (reasoning vs latency) when using `@contractspec/lib.ai-providers` ModelSelector
 - **Contracts-Spec Context**: Expose agent, data-views, operations, forms, and presentations to the model via `contractsContext`; agent tools can be wired from `AgentToolConfig[]`
 - **Surface-Runtime Integration**: Full support for `@contractspec/lib.surface-runtime` — pass `surfacePlanConfig` to enable `propose-patch` tool; chat can propose layout changes for user approval
+- **Presentation/Form Rendering**: Pass `presentationRenderer` and `formRenderer` to `ChatWithSidebar`; tool results with `presentationKey` or `formKey` render via host-provided components
+- **MCP Tools**: Pass `mcpServers` (from `@contractspec/lib.ai-agent`) to `useChat`; tools from MCP servers are merged into chat tools
+- **Agent Mode**: Pass `agentMode: { agent }` with a `ChatAgentAdapter` (use `createChatAgentAdapter` to wrap `ContractSpecAgent`); chat uses the agent for generation instead of ChatService
 
 ## Bundle Spec Alignment (07_ai_native_chat)
 

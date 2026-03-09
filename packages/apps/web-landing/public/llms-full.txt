@@ -2,7 +2,7 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-03-09T05:31:43.366Z
+Generated: 2026-03-09T05:52:07.604Z
 Packages: 155
 
 ---
@@ -28,6 +28,16 @@ Composable behavior tracking and personalization primitives for ContractSpec app
 - `adapter` – bridges insights into OverlaySpecs or WorkflowComposer extensions.
 
 See `docs/tech/personalization/behavior-tracking.md` for full usage notes.
+
+## Bundle spec / surface-runtime alignment
+
+When using `@contractspec/lib.surface-runtime`, the types in `./preference-dimensions` are the canonical source for preference resolution:
+
+- **`PreferenceDimensions`** — 7-dimension model (guidance, density, dataDepth, control, media, pace, narrative)
+- **`BundlePreferenceAdapter`** — Interface for resolving and persisting preferences; surface-runtime's `resolvePreferenceProfile` consumes adapters implementing this interface
+- **`ResolvedPreferenceProfile`** — Canonical values with source attribution; aligns with surface-runtime's adaptation output
+
+Pass a `BundlePreferenceAdapter` implementation to `resolveBundle` options when integrating personalization with surface-runtime.
 
 
 
@@ -1675,6 +1685,16 @@ When debugging:
 
 - If form fields do not render, verify driver slot coverage for the field kind.
 - If resolver options stay empty, verify `resolverKey` and dependency paths in form contract.
+
+## Surface-runtime slot integration
+
+When using `@contractspec/lib.surface-runtime`, feature and form renderers can fill slots (e.g. `entity-section`, `form`, `entity-field`):
+
+1. **Slot content**: Pass `FeatureRender` output or form components as `slotContent` to `BundleRenderer` for slots that `accepts` include `form` or `entity-section`.
+2. **Field renderer registry**: Register custom field renderers via `@contractspec/lib.surface-runtime/runtime/field-renderer-registry` so entity fields render correctly in surface slots.
+3. **Widget registry**: For `custom-widget` slots, wire your form or feature components through the widget registry.
+
+Example: a slot with `accepts: ['form', 'entity-section']` can render `createFormRenderer(...).render(formSpec)` or `renderFeaturePresentation` output as its content.
 
 ## Split migration from deprecated monolith
 
@@ -3593,6 +3613,16 @@ export function WorkflowPage() {
   );
 }
 ```
+
+## Surface-runtime slot integration
+
+When using `@contractspec/lib.surface-runtime`, workflow components can fill slots:
+
+1. **Slot content**: Pass `WorkflowStepper` or `WorkflowStepRenderer` as `slotContent` to `BundleRenderer` for slots that `accepts` include `workflow-stepper` or a custom widget kind.
+2. **Slot declaration**: In your bundle spec, declare a slot with `accepts: ['custom-widget']` and wire the workflow component as slot content when rendering.
+3. **State**: Use `useWorkflow` in the parent; pass the workflow instance to `WorkflowStepRenderer` so step state is preserved within the surface layout.
+
+Example: a slot with `accepts: ['custom-widget']` can render `<WorkflowStepRenderer workflow={workflow} />` as its content.
 
 
 
@@ -6280,6 +6310,11 @@ This module provides a reusable AI chat system that can be integrated into CLI, 
 - **Thinking Levels**: Select reasoning depth (instant, thinking, extra thinking, max); maps to Anthropic budgetTokens and OpenAI reasoningEffort
 - **Workflow Creation Tools**: Create and modify workflows conversationally via `create_workflow_extension`, `compose_workflow`, and `generate_workflow_spec_code` (requires `@contractspec/lib.workflow-composer`)
 - **ModelSelector**: Dynamic model selection by task dimension (reasoning vs latency) when using `@contractspec/lib.ai-providers` ModelSelector
+- **Contracts-Spec Context**: Expose agent, data-views, operations, forms, and presentations to the model via `contractsContext`; agent tools can be wired from `AgentToolConfig[]`
+- **Surface-Runtime Integration**: Full support for `@contractspec/lib.surface-runtime` — pass `surfacePlanConfig` to enable `propose-patch` tool; chat can propose layout changes for user approval
+- **Presentation/Form Rendering**: Pass `presentationRenderer` and `formRenderer` to `ChatWithSidebar`; tool results with `presentationKey` or `formKey` render via host-provided components
+- **MCP Tools**: Pass `mcpServers` (from `@contractspec/lib.ai-agent`) to `useChat`; tools from MCP servers are merged into chat tools
+- **Agent Mode**: Pass `agentMode: { agent }` with a `ChatAgentAdapter` (use `createChatAgentAdapter` to wrap `ContractSpecAgent`); chat uses the agent for generation instead of ChatService
 
 ## Bundle Spec Alignment (07_ai_native_chat)
 
@@ -6289,8 +6324,8 @@ This module aligns with `specs/contractspec_modules_bundle_spec_2026-03-08`. `us
 
 - `@contractspec/lib.ai-providers` — Shared provider abstraction (types, factory, validation), ModelSelector for dynamic model selection
 - `@contractspec/lib.workflow-composer` — Workflow composition and validation (optional; required for workflow creation tools)
-- `@contractspec/lib.ai-agent` — Agent orchestration and tool execution
-- `@contractspec/lib.surface-runtime` — Bundle surfaces (optional peer when used in PM workbench)
+- `@contractspec/lib.ai-agent` — Agent orchestration and tool execution; `AgentToolConfig` for agent tools
+- `@contractspec/lib.surface-runtime` — Bundle surfaces, planner tools, `AiSdkBundleAdapter`; full integration when used in PM workbench
 
 ## Providers
 
@@ -6500,6 +6535,34 @@ const { completion, complete, isLoading } = useCompletion({
 ```
 
 Use `createCompletionRoute` for the API endpoint (see `createChatRoute` pattern).
+
+### Contracts-Spec Context and Surface-Runtime
+
+Pass `contractsContext` to expose agent, data-views, operations, forms, and presentations to the model. Pass `surfacePlanConfig` when embedding chat in a surface-runtime (e.g. PM workbench) to enable the `propose-patch` tool:
+
+```tsx
+import { ChatWithSidebar } from '@contractspec/module.ai-chat';
+import type { ResolvedSurfacePlan } from '@contractspec/lib.surface-runtime/runtime/resolve-bundle';
+
+function PmWorkbench({ plan }: { plan: ResolvedSurfacePlan }) {
+  const [currentPlan, setPlan] = useState(plan);
+  const onPatchProposal = useCallback((proposal) => {
+    setPlan(prev => ({
+      ...prev,
+      ai: { ...prev.ai, proposals: [...(prev.ai?.proposals ?? []), proposal] },
+    }));
+  }, []);
+
+  return (
+    <ChatWithSidebar
+      surfacePlanConfig={{ plan: currentPlan, onPatchProposal }}
+      systemPrompt="You are a PM workbench assistant. Propose layout changes when helpful."
+    />
+  );
+}
+```
+
+`createAiSdkBundleAdapter` from `@contractspec/module.ai-chat/adapters` implements `AiSdkBundleAdapter` for surface-runtime planner integration.
 
 ### streamObject / generateObject
 

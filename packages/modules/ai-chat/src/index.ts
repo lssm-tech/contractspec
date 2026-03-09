@@ -42,3 +42,7 @@ export {
   createAiSdkBundleAdapter,
   type CreateAiSdkBundleAdapterDeps,
 } from './adapters';
+export {
+  createChatAgentAdapter,
+  type ChatAgentAdapter,
+} from './core/agent-adapter';

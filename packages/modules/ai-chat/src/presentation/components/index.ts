@@ -12,3 +12,10 @@ export { ModelPicker } from './ModelPicker';
 export { ThinkingLevelPicker } from './ThinkingLevelPicker';
 export { ContextIndicator } from './ContextIndicator';
 export { CodePreview } from './CodePreview';
+export {
+  ToolResultRenderer,
+  isPresentationToolResult,
+  isFormToolResult,
+  type PresentationToolResult,
+  type FormToolResult,
+} from './ToolResultRenderer';

@@ -24,6 +24,7 @@ import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow';
 import type { ContractsContextConfig } from '../../core/contracts-context';
 import type { ResolvedSurfacePlan } from '@contractspec/lib.surface-runtime/runtime/resolve-bundle';
 import type { SurfacePatchProposal } from '@contractspec/lib.surface-runtime/spec/types';
+import type { McpClientConfig } from '@contractspec/lib.ai-agent/tools/mcp-client';
 
 /** Tool definition for planner integration (reserved for bundle spec 07_ai_native_chat). */
 export interface UseChatToolDef {
@@ -98,6 +99,12 @@ export interface UseChatOptions {
     plan: ResolvedSurfacePlan;
     onPatchProposal?: (proposal: SurfacePatchProposal) => void;
   };
+  /** MCP server configs: tools from these servers are merged into chat tools */
+  mcpServers?: McpClientConfig[];
+  /** Agent mode: use provided agent instead of ChatService for generation */
+  agentMode?: {
+    agent: import('../../core/agent-adapter').ChatAgentAdapter;
+  };
 }
 
 /**
@@ -167,9 +174,15 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     modelSelector,
     contractsContext,
     surfacePlanConfig,
+    mcpServers,
+    agentMode,
   } = options;
 
   const [messages, setMessages] = React.useState<ChatMessage[]>([]);
+  const [mcpTools, setMcpTools] = React.useState<Record<string, unknown> | null>(
+    null
+  );
+  const mcpCleanupRef = React.useRef<(() => Promise<void>) | null>(null);
   const [conversation, setConversation] =
     React.useState<ChatConversation | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -180,6 +193,38 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
 
   const abortControllerRef = React.useRef<AbortController | null>(null);
   const chatServiceRef = React.useRef<ChatService | null>(null);
+
+  // Load MCP tools when mcpServers is provided
+  React.useEffect(() => {
+    if (!mcpServers?.length) {
+      setMcpTools(null);
+      return;
+    }
+    let cancelled = false;
+    import('@contractspec/lib.ai-agent/tools/mcp-client').then(
+      ({ createMcpToolsets }) => {
+        createMcpToolsets(mcpServers)
+          .then(({ tools, cleanup }) => {
+            if (!cancelled) {
+              setMcpTools(tools as Record<string, unknown>);
+              mcpCleanupRef.current = cleanup;
+            } else {
+              cleanup().catch(() => undefined);
+            }
+          })
+          .catch(() => {
+            if (!cancelled) setMcpTools(null);
+          });
+      }
+    );
+    return () => {
+      cancelled = true;
+      const cleanup = mcpCleanupRef.current;
+      mcpCleanupRef.current = null;
+      if (cleanup) cleanup().catch(() => undefined);
+      setMcpTools(null);
+    };
+  }, [mcpServers]);
 
   // Initialize chat service
   React.useEffect(() => {
@@ -201,6 +246,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
       modelSelector,
       contractsContext,
       surfacePlanConfig,
+      mcpTools: mcpTools as ToolSet | undefined,
     });
   }, [
     provider,
@@ -217,6 +263,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     modelSelector,
     contractsContext,
     surfacePlanConfig,
+    mcpTools,
   ]);
 
   // Load existing conversation
@@ -242,6 +289,95 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
       attachments?: ChatAttachment[],
       opts?: { skipUserAppend?: boolean }
     ) => {
+      if (agentMode?.agent) {
+        // Agent mode: use agent.generate() instead of ChatService
+        setIsLoading(true);
+        setError(null);
+        abortControllerRef.current = new AbortController();
+        try {
+          if (!opts?.skipUserAppend) {
+            const userMessage: ChatMessage = {
+              id: `msg_${Date.now()}`,
+              conversationId: conversationId ?? '',
+              role: 'user',
+              content,
+              status: 'completed',
+              createdAt: new Date(),
+              updatedAt: new Date(),
+              attachments,
+            };
+            setMessages((prev) => [...prev, userMessage]);
+            onSend?.(userMessage);
+          }
+          const result = await agentMode.agent.generate({
+            prompt: content,
+            signal: abortControllerRef.current.signal,
+          });
+          const toolCallsMap = new Map<string, ChatToolCall>();
+          for (const tc of result.toolCalls ?? []) {
+            const tr = result.toolResults?.find((r) => r.toolCallId === tc.toolCallId);
+            toolCallsMap.set(tc.toolCallId, {
+              id: tc.toolCallId,
+              name: tc.toolName,
+              args: ((tc as { args?: unknown }).args ?? {}) as Record<
+                string,
+                unknown
+              >,
+              result: tr?.output,
+              status: 'completed',
+            });
+          }
+          const assistantMessage: ChatMessage = {
+            id: `msg_${Date.now()}_a`,
+            conversationId: conversationId ?? '',
+            role: 'assistant',
+            content: result.text,
+            status: 'completed',
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            toolCalls: toolCallsMap.size
+              ? Array.from(toolCallsMap.values())
+              : undefined,
+            usage: result.usage,
+          };
+          setMessages((prev) => [...prev, assistantMessage]);
+          onResponse?.(assistantMessage);
+          onUsage?.(result.usage ?? { inputTokens: 0, outputTokens: 0 });
+          if (store && !conversationId) {
+            const conv = await store.create({
+              status: 'active',
+              provider: 'agent',
+              model: 'agent',
+              messages: [],
+            });
+            if (!opts?.skipUserAppend) {
+              await store.appendMessage(conv.id, {
+                role: 'user',
+                content,
+                status: 'completed',
+                attachments,
+              });
+            }
+            await store.appendMessage(conv.id, {
+              role: 'assistant',
+              content: result.text,
+              status: 'completed',
+              toolCalls: assistantMessage.toolCalls,
+              usage: result.usage,
+            });
+            const updated = await store.get(conv.id);
+            if (updated) setConversation(updated);
+            setConversationId(conv.id);
+          }
+        } catch (err) {
+          setError(err instanceof Error ? err : new Error(String(err)));
+          onError?.(err instanceof Error ? err : new Error(String(err)));
+        } finally {
+          setIsLoading(false);
+        }
+        return;
+      }
+
       if (!chatServiceRef.current) {
         throw new Error('Chat service not initialized');
       }
@@ -437,7 +573,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
         abortControllerRef.current = null;
       }
     },
-    [conversationId, streaming, onSend, onResponse, onError, messages]
+    [conversationId, streaming, onSend, onResponse, onError, onUsage, messages, agentMode, store]
   );
 
   const clearConversation = React.useCallback(() => {

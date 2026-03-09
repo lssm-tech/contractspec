@@ -30,6 +30,13 @@ export interface ChatWithExportProps {
   thinkingLevel?: ThinkingLevel;
   /** Called when thinking level changes */
   onThinkingLevelChange?: (level: ThinkingLevel) => void;
+  /** Host-provided renderer for tool results with presentationKey */
+  presentationRenderer?: (key: string, data?: unknown) => React.ReactNode;
+  /** Host-provided renderer for tool results with formKey */
+  formRenderer?: (
+    key: string,
+    defaultValues?: Record<string, unknown>
+  ) => React.ReactNode;
 }
 
 /**
@@ -49,6 +56,8 @@ export function ChatWithExport({
   onEditMessage,
   thinkingLevel = 'thinking',
   onThinkingLevelChange,
+  presentationRenderer,
+  formRenderer,
 }: ChatWithExportProps) {
   const messageIds = React.useMemo(
     () => messages.map((m) => m.id),
@@ -102,6 +111,8 @@ export function ChatWithExport({
           onSelect={showMessageSelection ? selection.toggle : undefined}
           editable={msg.role === 'user' && !!onEditMessage}
           onEdit={onEditMessage}
+          presentationRenderer={presentationRenderer}
+          formRenderer={formRenderer}
         />
       ))}
       {children}

@@ -34,6 +34,9 @@ The AI Chat module provides a reusable AI-powered conversational coding assistan
 - **ModelSelector**: Dynamic model selection by task dimension when \`modelSelector\` is provided
 - **Contracts-Spec Context**: Pass \`contractsContext\` to expose agent, data-views, operations, forms, presentations to the model; agent tools from \`AgentToolConfig[]\` are converted to AI SDK tools
 - **Surface-Runtime**: Pass \`surfacePlanConfig\` when embedding in surface-runtime; enables \`propose-patch\` tool for layout proposals; \`createAiSdkBundleAdapter\` implements \`AiSdkBundleAdapter\`
+- **Presentation/Form Rendering**: Pass \`presentationRenderer\` and \`formRenderer\` to \`ChatWithSidebar\`; tool results with \`presentationKey\` or \`formKey\` render via host-provided components
+- **MCP Tools**: Pass \`mcpServers\` (from \`@contractspec/lib.ai-agent\`) to \`useChat\`; tools from MCP servers are merged into chat tools
+- **Agent Mode**: Pass \`agentMode: { agent }\` with a \`ChatAgentAdapter\` (use \`createChatAgentAdapter\` to wrap \`ContractSpecAgent\`); chat uses the agent for generation instead of ChatService
 
 ## Architecture
 

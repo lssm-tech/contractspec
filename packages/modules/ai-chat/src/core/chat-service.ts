@@ -107,6 +107,8 @@ export interface ChatServiceConfig {
     plan: ResolvedSurfacePlan;
     onPatchProposal?: (proposal: import('@contractspec/lib.surface-runtime/spec/types').SurfacePatchProposal) => void;
   };
+  /** MCP tools (from createMcpToolsets); merged when provided */
+  mcpTools?: ToolSet;
 }
 
 /**
@@ -212,6 +214,9 @@ export class ChatService {
         onPatchProposal: surfaceConfig.onPatchProposal,
       });
       merged = { ...merged, ...plannerTools } as ToolSet;
+    }
+    if (config.mcpTools && Object.keys(config.mcpTools).length > 0) {
+      merged = { ...merged, ...config.mcpTools } as ToolSet;
     }
     return Object.keys(merged).length > 0 ? merged : undefined;
   }

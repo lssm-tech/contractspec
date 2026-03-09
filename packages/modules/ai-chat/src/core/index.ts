@@ -13,3 +13,4 @@ export * from './workflow-tools';
 export * from './contracts-context';
 export * from './agent-tools-adapter';
 export * from './surface-planner-tools';
+export * from './agent-adapter';

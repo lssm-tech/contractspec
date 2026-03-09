@@ -19,6 +19,13 @@ export interface ChatWithSidebarProps extends Omit<
   projectId?: string;
   tags?: string[];
   className?: string;
+  /** Host-provided renderer for tool results with presentationKey */
+  presentationRenderer?: (key: string, data?: unknown) => React.ReactNode;
+  /** Host-provided renderer for tool results with formKey */
+  formRenderer?: (
+    key: string,
+    defaultValues?: Record<string, unknown>
+  ) => React.ReactNode;
 }
 
 const defaultStore = createLocalStorageConversationStore();
@@ -33,6 +40,8 @@ export function ChatWithSidebar({
   tags,
   className,
   thinkingLevel: initialThinkingLevel = 'thinking',
+  presentationRenderer,
+  formRenderer,
   ...useChatOptions
 }: ChatWithSidebarProps) {
   const effectiveStore = store;
@@ -95,6 +104,8 @@ export function ChatWithSidebar({
           onEditMessage={editMessage}
           thinkingLevel={thinkingLevel}
           onThinkingLevelChange={setThinkingLevel}
+          presentationRenderer={presentationRenderer}
+          formRenderer={formRenderer}
         >
           <ChatInput
             onSend={(content, att) => sendMessage(content, att)}
