@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.image-gen",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "AI-powered image generation for hero, social, thumbnail, OG, and illustration",
   "keywords": [
     "contractspec",

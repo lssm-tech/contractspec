@@ -1,5 +1,11 @@
 # @contractspec/lib.graphql-core
 
+## 3.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+
 ## 3.5.0
 
 ### Minor Changes

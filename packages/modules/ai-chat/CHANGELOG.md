@@ -1,5 +1,24 @@
 # @contractspec/module.ai-chat
 
+## 4.1.1
+
+### Patch Changes
+
+- 73a7f8d: Refactor agent-adapter types, chat-service, contracts-context, export-formatters, surface-planner-tools, workflow-tools, and presentation components (ChatExportToolbar, ChatSidebar, ChatWithExport, ToolResultRenderer, useChat). Type improvements and code cleanup.
+- dfff0d4: fix: use client within lib surface-runtime
+- Updated dependencies [dfff0d4]
+- Updated dependencies [73a7f8d]
+  - @contractspec/lib.workflow-composer@3.5.1
+  - @contractspec/lib.surface-runtime@0.3.1
+  - @contractspec/lib.contracts-spec@3.5.1
+  - @contractspec/lib.cost-tracking@3.5.1
+  - @contractspec/lib.design-system@3.5.1
+  - @contractspec/lib.ai-providers@3.5.1
+  - @contractspec/lib.ui-kit-web@3.5.1
+  - @contractspec/lib.ai-agent@5.0.1
+  - @contractspec/lib.metering@3.5.1
+  - @contractspec/lib.schema@3.5.1
+
 ## 4.1.0
 
 ### Minor Changes

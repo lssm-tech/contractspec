@@ -1,5 +1,14 @@
 # @contractspec/module.alpic
 
+## 3.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+- 73a7f8d: Update MCP server tools and registerTools in ai-agent, contracts-runtime-server-mcp, and alpic.
+- Updated dependencies [dfff0d4]
+  - @contractspec/lib.logger@3.5.1
+
 ## 3.5.0
 
 ### Minor Changes

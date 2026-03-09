@@ -1,5 +1,37 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+- Updated dependencies [73a7f8d]
+- Updated dependencies [73a7f8d]
+- Updated dependencies [dfff0d4]
+- Updated dependencies [73a7f8d]
+  - @contractspec/module.ai-chat@4.1.1
+  - @contractspec/lib.example-shared-ui@4.0.1
+  - @contractspec/example.policy-safe-knowledge-assistant@3.5.1
+  - @contractspec/example.analytics-dashboard@3.5.1
+  - @contractspec/example.saas-boilerplate@3.5.1
+  - @contractspec/lib.progressive-delivery@32.0.1
+  - @contractspec/example.integration-hub@3.5.1
+  - @contractspec/example.workflow-system@3.5.1
+  - @contractspec/example.agent-console@3.5.1
+  - @contractspec/example.crm-pipeline@3.5.1
+  - @contractspec/example.in-app-docs@3.5.1
+  - @contractspec/example.marketplace@3.5.1
+  - @contractspec/lib.surface-runtime@0.3.1
+  - @contractspec/lib.contracts-spec@3.5.1
+  - @contractspec/lib.design-system@3.5.1
+  - @contractspec/bundle.marketing@3.5.1
+  - @contractspec/lib.ui-kit-core@3.5.1
+  - @contractspec/module.examples@3.5.1
+  - @contractspec/bundle.library@3.5.1
+  - @contractspec/lib.ui-kit-web@3.5.1
+  - @contractspec/lib.ui-link@3.5.1
+  - @contractspec/lib.ui-kit@3.5.1
+
 ## 3.5.0
 
 ### Minor Changes

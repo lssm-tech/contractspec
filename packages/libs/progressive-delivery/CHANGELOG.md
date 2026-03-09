@@ -1,5 +1,13 @@
 # @contractspec/lib.progressive-delivery
 
+## 32.0.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+- Updated dependencies [dfff0d4]
+  - @contractspec/lib.observability@3.5.1
+
 ## 32.0.0
 
 ### Minor Changes

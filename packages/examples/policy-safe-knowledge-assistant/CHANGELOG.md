@@ -1,5 +1,23 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+- Updated dependencies [73a7f8d]
+- Updated dependencies [dfff0d4]
+  - @contractspec/lib.example-shared-ui@4.0.1
+  - @contractspec/example.locale-jurisdiction-gate@3.5.1
+  - @contractspec/example.versioned-knowledge-base@3.5.1
+  - @contractspec/example.kb-update-pipeline@3.5.1
+  - @contractspec/example.learning-patterns@3.5.1
+  - @contractspec/module.learning-journey@3.5.1
+  - @contractspec/lib.runtime-sandbox@2.5.1
+  - @contractspec/lib.contracts-spec@3.5.1
+  - @contractspec/lib.design-system@3.5.1
+  - @contractspec/lib.ui-kit-web@3.5.1
+
 ## 3.5.0
 
 ### Minor Changes

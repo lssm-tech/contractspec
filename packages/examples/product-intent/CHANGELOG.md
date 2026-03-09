@@ -1,5 +1,18 @@
 # @contractspec/example.product-intent
 
+## 3.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+- Updated dependencies [dfff0d4]
+- Updated dependencies [73a7f8d]
+  - @contractspec/integration.providers-impls@3.5.1
+  - @contractspec/lib.contracts-integrations@3.5.1
+  - @contractspec/lib.product-intent-utils@3.5.1
+  - @contractspec/lib.contracts-spec@3.5.1
+  - @contractspec/lib.ai-agent@5.0.1
+
 ## 3.5.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 32.0.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+- Updated dependencies [dfff0d4]
+  - @contractspec/lib.presentation-runtime-core@3.5.1
+  - @contractspec/lib.contracts-spec@3.5.1
+  - @contractspec/lib.design-system@3.5.1
+  - @contractspec/lib.ui-kit-web@3.5.1
+
 ## 32.0.0
 
 ### Minor Changes

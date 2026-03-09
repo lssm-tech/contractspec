@@ -1,5 +1,15 @@
 # @contractspec/example.video-marketing-clip
 
+## 3.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+- Updated dependencies [dfff0d4]
+  - @contractspec/lib.contracts-spec@3.5.1
+  - @contractspec/lib.content-gen@3.5.1
+  - @contractspec/lib.video-gen@2.5.1
+
 ## 3.5.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @contractspec/lib.provider-ranking
 
+## 0.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+
 ## 0.5.0
 
 ### Minor Changes

@@ -1,5 +1,18 @@
 # @contractspec/lib.personalization
 
+## 4.0.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+- Updated dependencies [dfff0d4]
+  - @contractspec/lib.surface-runtime@0.3.1
+  - @contractspec/lib.contracts-spec@3.5.1
+  - @contractspec/lib.overlay-engine@3.5.1
+  - @contractspec/lib.knowledge@3.5.1
+  - @contractspec/lib.schema@3.5.1
+  - @contractspec/lib.bus@3.5.1
+
 ## 4.0.0
 
 ### Minor Changes

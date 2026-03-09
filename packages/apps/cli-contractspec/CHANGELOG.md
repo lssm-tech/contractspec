@@ -1,5 +1,27 @@
 # Changelog
 
+## 3.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+- Updated dependencies [73a7f8d]
+- Updated dependencies [dfff0d4]
+- Updated dependencies [73a7f8d]
+- Updated dependencies [73a7f8d]
+  - @contractspec/module.ai-chat@4.1.1
+  - @contractspec/lib.contracts-integrations@3.5.1
+  - @contractspec/lib.contracts-transformers@3.5.1
+  - @contractspec/lib.contracts-spec@3.5.1
+  - @contractspec/bundle.workspace@3.5.1
+  - @contractspec/lib.ai-providers@3.5.1
+  - @contractspec/module.workspace@3.5.1
+  - @contractspec/module.examples@3.5.1
+  - @contractspec/lib.ai-agent@5.0.1
+  - @contractspec/lib.plugins@3.5.1
+  - @contractspec/lib.testing@3.5.1
+  - @contractspec/lib.schema@3.5.1
+
 ## 3.5.0
 
 ### Minor Changes

@@ -1,5 +1,20 @@
 # @contractspec/app.api-library
 
+## 3.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+- Updated dependencies [dfff0d4]
+- Updated dependencies [73a7f8d]
+- Updated dependencies [73a7f8d]
+  - @contractspec/integration.providers-impls@3.5.1
+  - @contractspec/integration.runtime@3.5.1
+  - @contractspec/lib.contracts-spec@3.5.1
+  - @contractspec/bundle.marketing@3.5.1
+  - @contractspec/bundle.workspace@3.5.1
+  - @contractspec/bundle.library@3.5.1
+
 ## 3.5.0
 
 ### Minor Changes

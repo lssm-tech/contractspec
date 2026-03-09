@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 2.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+
 ## 2.5.0
 
 ### Minor Changes

@@ -1,5 +1,19 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+- Updated dependencies [dfff0d4]
+- Updated dependencies [73a7f8d]
+  - @contractspec/module.lifecycle-advisor@3.5.1
+  - @contractspec/module.lifecycle-core@3.5.1
+  - @contractspec/lib.observability@3.5.1
+  - @contractspec/lib.analytics@3.5.1
+  - @contractspec/lib.lifecycle@3.5.1
+  - @contractspec/lib.ai-agent@5.0.1
+
 ## 3.5.0
 
 ### Minor Changes

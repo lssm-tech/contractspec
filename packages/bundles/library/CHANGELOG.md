@@ -1,5 +1,34 @@
 # @contractspec/bundle.library
 
+## 3.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+- 73a7f8d: Regenerate docs-index files and fix GuideNextjsOneEndpointPage.
+- Updated dependencies [73a7f8d]
+- Updated dependencies [dfff0d4]
+- Updated dependencies [73a7f8d]
+  - @contractspec/lib.example-shared-ui@4.0.1
+  - @contractspec/lib.contracts-runtime-server-graphql@3.5.1
+  - @contractspec/lib.contracts-runtime-server-rest@3.5.1
+  - @contractspec/lib.contracts-runtime-server-mcp@3.5.1
+  - @contractspec/lib.contracts-integrations@3.5.1
+  - @contractspec/module.context-storage@0.5.1
+  - @contractspec/lib.contracts-library@3.5.1
+  - @contractspec/lib.provider-ranking@0.5.1
+  - @contractspec/lib.runtime-sandbox@2.5.1
+  - @contractspec/lib.surface-runtime@0.3.1
+  - @contractspec/lib.contracts-spec@3.5.1
+  - @contractspec/lib.design-system@3.5.1
+  - @contractspec/lib.content-gen@3.5.1
+  - @contractspec/module.examples@3.5.1
+  - @contractspec/lib.ui-kit-web@3.5.1
+  - @contractspec/lib.knowledge@3.5.1
+  - @contractspec/lib.ui-link@3.5.1
+  - @contractspec/lib.logger@3.5.1
+  - @contractspec/lib.schema@3.5.1
+
 ## 3.5.0
 
 ### Minor Changes
