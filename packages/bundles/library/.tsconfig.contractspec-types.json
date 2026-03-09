@@ -1,0 +1,138 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "incremental": false,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "declarationMap": false,
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@contractspec/lib.contracts-spec": [
+        "../../libs/contracts-spec/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/*": [
+        "../../libs/contracts-spec/dist/*"
+      ],
+      "@contractspec/lib.contracts-library": [
+        "../../libs/contracts-library/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-library/*": [
+        "../../libs/contracts-library/dist/*"
+      ],
+      "@contractspec/lib.content-gen": [
+        "../../libs/content-gen/dist/index.d.ts"
+      ],
+      "@contractspec/lib.content-gen/*": [
+        "../../libs/content-gen/dist/*"
+      ],
+      "@contractspec/lib.contracts-runtime-server-mcp": [
+        "../../libs/contracts-runtime-server-mcp/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-mcp/*": [
+        "../../libs/contracts-runtime-server-mcp/dist/*"
+      ],
+      "@contractspec/lib.design-system": [
+        "../../libs/design-system/dist/index.d.ts"
+      ],
+      "@contractspec/lib.design-system/*": [
+        "../../libs/design-system/dist/*"
+      ],
+      "@contractspec/lib.surface-runtime": [
+        "../../libs/surface-runtime/dist/index.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/*": [
+        "../../libs/surface-runtime/dist/*"
+      ],
+      "@contractspec/lib.provider-ranking": [
+        "../../libs/provider-ranking/dist/index.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking/*": [
+        "../../libs/provider-ranking/dist/*"
+      ],
+      "@contractspec/lib.example-shared-ui": [
+        "../../libs/example-shared-ui/dist/index.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/*": [
+        "../../libs/example-shared-ui/dist/*"
+      ],
+      "@contractspec/lib.knowledge": [
+        "../../libs/knowledge/dist/index.d.ts"
+      ],
+      "@contractspec/lib.knowledge/*": [
+        "../../libs/knowledge/dist/*"
+      ],
+      "@contractspec/lib.logger": [
+        "../../libs/logger/dist/index.d.ts"
+      ],
+      "@contractspec/lib.logger/*": [
+        "../../libs/logger/dist/*"
+      ],
+      "@contractspec/lib.runtime-sandbox": [
+        "../../libs/runtime-sandbox/dist/index.d.ts"
+      ],
+      "@contractspec/lib.runtime-sandbox/*": [
+        "../../libs/runtime-sandbox/dist/*"
+      ],
+      "@contractspec/lib.schema": [
+        "../../libs/schema/dist/index.d.ts"
+      ],
+      "@contractspec/lib.schema/*": [
+        "../../libs/schema/dist/*"
+      ],
+      "@contractspec/lib.ui-kit-web": [
+        "../../libs/ui-kit-web/dist/index.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/*": [
+        "../../libs/ui-kit-web/dist/*"
+      ],
+      "@contractspec/lib.ui-link": [
+        "../../libs/ui-link/dist/link.d.ts"
+      ],
+      "@contractspec/lib.ui-link/*": [
+        "../../libs/ui-link/dist/*"
+      ],
+      "@contractspec/lib.ui-link/ui/link": [
+        "../../libs/ui-link/dist/link.d.ts"
+      ],
+      "@contractspec/module.context-storage": [
+        "../../modules/context-storage/dist/index.d.ts"
+      ],
+      "@contractspec/module.context-storage/*": [
+        "../../modules/context-storage/dist/*"
+      ],
+      "@contractspec/module.examples": [
+        "../../modules/examples/dist/index.d.ts"
+      ],
+      "@contractspec/module.examples/*": [
+        "../../modules/examples/dist/*"
+      ],
+      "@contractspec/lib.contracts-integrations": [
+        "../../libs/contracts-integrations/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/*": [
+        "../../libs/contracts-integrations/dist/*"
+      ],
+      "@contractspec/lib.contracts-runtime-server-rest": [
+        "../../libs/contracts-runtime-server-rest/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-rest/*": [
+        "../../libs/contracts-runtime-server-rest/dist/*"
+      ],
+      "@contractspec/lib.contracts-runtime-server-graphql": [
+        "../../libs/contracts-runtime-server-graphql/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-graphql/*": [
+        "../../libs/contracts-runtime-server-graphql/dist/*"
+      ],
+      "@contractspec/tool.typescript/*": [
+        "../../tools/typescript/dist/*"
+      ],
+      "@contractspec/tool.bun/*": [
+        "../../tools/bun/dist/*"
+      ]
+    }
+  }
+}
