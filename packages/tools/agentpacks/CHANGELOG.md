@@ -1,5 +1,11 @@
 # agentpacks
 
+## 1.4.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+
 ## 1.3.0
 
 ### Minor Changes

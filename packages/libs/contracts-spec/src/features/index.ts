@@ -26,6 +26,11 @@ export { installFeature, type InstallFeatureDeps } from './install';
 
 // Validation
 export { validateFeatureTargetsV2 } from './validation';
+export {
+  validateBundleRequires,
+  type ValidateBundleRequiresResult,
+  type BundleRequiresEntry,
+} from './validate-bundle-requires';
 
 // Helpers
 export { defineFeature } from './types';

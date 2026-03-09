@@ -1,5 +1,16 @@
 # @contractspec/lib.ui-link
 
+## 3.4.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+
+### Patch Changes
+
+- Updated dependencies [0ee467a]
+  - @contractspec/lib.ui-kit-core@3.4.0
+
 ## 3.3.0
 
 ### Minor Changes

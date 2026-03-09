@@ -27,6 +27,10 @@ AI agent orchestration with MCP and tool support, providing the core agent runti
 - `./tools`
 - `./types`
 
+## Bundle Spec Alignment
+
+Tools from `@contractspec/lib.surface-runtime/runtime/planner-tools` (e.g. `proposePatchToolConfig`) are `AgentToolConfig`-compatible. See README "Bundle spec / surface-runtime integration".
+
 ## Guardrails
 
 - High blast radius — used by multiple bundles and libs.

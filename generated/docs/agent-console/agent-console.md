@@ -210,6 +210,17 @@ export const AgentConsoleFeature: FeatureModuleSpec = defineFeature({
     ],
     provides: [{ key: 'agent', version: '1.0.0' }],
   },
+
+  telemetry: [{ key: 'agent-console.telemetry', version: '1.0.0' }],
+
+  jobs: [{ key: 'agent-console.job.run-execution', version: '1.0.0' }],
+
+  docs: [
+    'docs.examples.agent-console.goal',
+    'docs.examples.agent-console.usage',
+    'docs.examples.agent-console.reference',
+    'docs.examples.agent-console.constraints',
+  ],
 });
 
 ```

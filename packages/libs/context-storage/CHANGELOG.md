@@ -1,5 +1,11 @@
 # @contractspec/lib.context-storage
 
+## 0.4.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+
 ## 0.3.0
 
 ### Minor Changes

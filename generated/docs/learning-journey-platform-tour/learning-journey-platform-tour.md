@@ -91,6 +91,8 @@ export const LearningJourneyPlatformTourFeature = defineFeature({
   capabilities: {
     requires: [{ key: 'identity', version: '1.0.0' }],
   },
+
+  docs: ['docs.learning-journey.platform-tour'],
 });
 
 ```

@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 2.4.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+
 ## 2.3.0
 
 ### Minor Changes

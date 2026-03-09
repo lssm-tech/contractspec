@@ -1,5 +1,35 @@
 # @contractspec/bundle.marketing
 
+## 3.4.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+
+### Patch Changes
+
+- Updated dependencies [0ee467a]
+- Updated dependencies [56ee8e6]
+  - @contractspec/lib.contracts-runtime-client-react@3.4.0
+  - @contractspec/example.analytics-dashboard@3.4.0
+  - @contractspec/example.saas-boilerplate@3.4.0
+  - @contractspec/example.integration-hub@3.4.0
+  - @contractspec/example.workflow-system@3.4.0
+  - @contractspec/example.agent-console@3.4.0
+  - @contractspec/lib.example-shared-ui@3.4.0
+  - @contractspec/example.crm-pipeline@3.4.0
+  - @contractspec/example.marketplace@3.4.0
+  - @contractspec/lib.runtime-sandbox@2.4.0
+  - @contractspec/lib.contracts-spec@3.4.0
+  - @contractspec/lib.design-system@3.4.0
+  - @contractspec/lib.ui-kit-core@3.4.0
+  - @contractspec/module.examples@3.4.0
+  - @contractspec/bundle.library@3.4.0
+  - @contractspec/lib.ui-kit-web@3.4.0
+  - @contractspec/lib.ui-link@3.4.0
+  - @contractspec/lib.logger@3.4.0
+  - @contractspec/lib.email@3.4.0
+
 ## 3.3.0
 
 ### Minor Changes

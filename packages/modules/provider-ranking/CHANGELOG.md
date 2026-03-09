@@ -1,5 +1,18 @@
 # @contractspec/module.provider-ranking
 
+## 0.4.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+
+### Patch Changes
+
+- Updated dependencies [0ee467a]
+  - @contractspec/lib.contracts-integrations@3.4.0
+  - @contractspec/lib.provider-ranking@0.4.0
+  - @contractspec/lib.schema@3.4.0
+
 ## 0.3.0
 
 ### Minor Changes

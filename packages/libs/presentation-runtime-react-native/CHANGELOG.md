@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 31.0.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+
+### Patch Changes
+
+- Updated dependencies [0ee467a]
+  - @contractspec/lib.presentation-runtime-core@3.4.0
+  - @contractspec/lib.ui-kit@3.4.0
+
 ## 30.0.0
 
 ### Minor Changes

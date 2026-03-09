@@ -1,0 +1,10 @@
+[
+  {
+    "id": "video-docs-terminal/video-docs-terminal",
+    "title": "video-docs-terminal",
+    "summary": "Generate terminal demo videos from CLI walkthroughs with narration\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: video, terminal, docs, tutorial\n- **File**: `packages/examples/video-docs-terminal/src/video-docs-terminal.feature.ts`",
+    "route": "/docs/reference/video-docs-terminal/video-docs-terminal",
+    "source": "generated",
+    "contentPath": "video-docs-terminal/video-docs-terminal.md"
+  }
+]

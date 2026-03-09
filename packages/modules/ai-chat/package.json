@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.ai-chat",
-  "version": "3.3.0",
+  "version": "4.0.0",
   "description": "AI chat interface module",
   "keywords": [
     "contractspec",
@@ -52,7 +52,13 @@
     "@contractspec/tool.bun": "workspace:*"
   },
   "peerDependencies": {
-    "react": ">=19.2.4"
+    "react": ">=19.2.4",
+    "@contractspec/lib.surface-runtime": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@contractspec/lib.surface-runtime": {
+      "optional": true
+    }
   },
   "exports": {
     ".": "./src/index.ts",

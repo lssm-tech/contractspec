@@ -1,5 +1,18 @@
 # @contractspec/lib.accessibility
 
+## 3.4.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+
+### Patch Changes
+
+- Updated dependencies [0ee467a]
+  - @contractspec/lib.design-system@3.4.0
+  - @contractspec/lib.ui-kit-web@3.4.0
+  - @contractspec/lib.ui-kit@3.4.0
+
 ## 3.3.0
 
 ### Minor Changes

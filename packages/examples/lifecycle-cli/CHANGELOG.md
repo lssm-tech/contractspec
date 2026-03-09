@@ -1,5 +1,20 @@
 # @contractspec/example.lifecycle-cli
 
+## 3.4.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+
+### Patch Changes
+
+- Updated dependencies [0ee467a]
+- Updated dependencies [56ee8e6]
+  - @contractspec/bundle.lifecycle-managed@3.4.0
+  - @contractspec/lib.contracts-spec@3.4.0
+  - @contractspec/lib.lifecycle@3.4.0
+  - @contractspec/lib.logger@3.4.0
+
 ## 3.3.0
 
 ### Minor Changes

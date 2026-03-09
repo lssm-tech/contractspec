@@ -1,5 +1,24 @@
 # Changelog
 
+## 3.4.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+
+### Patch Changes
+
+- Updated dependencies [0ee467a]
+- Updated dependencies [cb09200]
+- Updated dependencies [56ee8e6]
+  - @contractspec/lib.contracts-transformers@3.4.0
+  - @contractspec/lib.contracts-spec@3.4.0
+  - @contractspec/bundle.workspace@3.4.0
+  - @contractspec/module.workspace@3.4.0
+  - @contractspec/module.examples@3.4.0
+  - @contractspec/module.ai-chat@4.0.0
+  - @contractspec/lib.ai-agent@4.0.0
+
 ## 3.3.0
 
 ### Minor Changes

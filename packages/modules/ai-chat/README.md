@@ -18,10 +18,15 @@ This module provides a reusable AI chat system that can be integrated into CLI, 
 - **Usage Tracking**: Integrated metering and cost tracking
 - **UI Components**: React components for chat interfaces
 
+## Bundle Spec Alignment (07_ai_native_chat)
+
+This module aligns with `specs/contractspec_modules_bundle_spec_2026-03-08`. `useChat` and `ChatContainer` provide the assistant slot UI for bundle surfaces. `AiChatFeature` (key `ai-chat`, version `1.0.0`) matches `ModuleBundleSpec.requires`. The `tools` option on `UseChatOptions` is wired to `streamText`; use `requireApproval: true` for tools that need user confirmation (requires server route for full support).
+
 ## Related Packages
 
 - `@contractspec/lib.ai-providers` — Shared provider abstraction (types, factory, validation)
 - `@contractspec/lib.ai-agent` — Agent orchestration and tool execution
+- `@contractspec/lib.surface-runtime` — Bundle surfaces (optional peer when used in PM workbench)
 
 ## Providers
 
@@ -93,6 +98,71 @@ function VibeCodingChat() {
   );
 }
 ```
+
+### AI SDK Parity
+
+This module aligns with the [Vercel AI SDK](https://sdk.vercel.ai) and AI Elements feature set:
+
+- **fullStream**: Reasoning, tools, and sources from `streamText` fullStream
+- **Tools**: Pass `tools` to `ChatServiceConfig` or `useChat`; supports `requireApproval` for approval workflow
+- **Message parts**: `ChatMessage` renders reasoning (collapsible), sources (citations), and tool invocations
+- **Markdown**: Inline links and code blocks in message content
+
+### Server Route (Full AI SDK + Tool Approval)
+
+For full AI SDK compatibility including tool approval, use `createChatRoute` with `@ai-sdk/react` useChat:
+
+```ts
+// app/api/chat/route.ts (Next.js App Router)
+import { createChatRoute } from '@contractspec/module.ai-chat/core';
+import { createProvider } from '@contractspec/lib.ai-providers';
+
+const provider = createProvider({
+  provider: 'openai',
+  apiKey: process.env.OPENAI_API_KEY,
+  model: 'gpt-4o',
+});
+
+export const POST = createChatRoute({ provider });
+```
+
+```tsx
+// Client: use @ai-sdk/react useChat with DefaultChatTransport
+import { useChat } from '@ai-sdk/react';
+
+const { messages, sendMessage } = useChat({
+  api: '/api/chat',
+});
+```
+
+The custom `useChat` from this module works with `ChatService` for simple deployments (no tools, no approval). For tools with `requireApproval`, use the server route pattern above.
+
+### Optional AI Elements
+
+Apps can optionally use [AI Elements](https://elements.ai-sdk.dev) for UI. This module does not depend on ai-elements; provide an adapter from `ChatMessage` to `UIMessage` when integrating.
+
+### useCompletion (Non-Chat Completion)
+
+For inline suggestions, single-prompt completion, or other non-conversational use cases:
+
+```tsx
+import { useCompletion } from '@contractspec/module.ai-chat/presentation/hooks';
+// or: import { useCompletion } from '@ai-sdk/react';
+
+const { completion, complete, isLoading } = useCompletion({
+  api: '/api/completion',
+});
+```
+
+Use `createCompletionRoute` for the API endpoint (see `createChatRoute` pattern).
+
+### streamObject / generateObject
+
+For structured output (schema-driven generation), use the AI SDK directly: `streamObject` and `generateObject` from `ai`. This module focuses on chat; add `useObject` or equivalent in a separate module when needed.
+
+### Voice / Speech
+
+Speech Input, Transcription, Voice Selector, and related UI are planned as a separate submodule or feature flag. Track via roadmap.
 
 ## Architecture
 

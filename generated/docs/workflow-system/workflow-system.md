@@ -245,6 +245,24 @@ export const WorkflowSystemFeature = defineFeature({
       { key: 'state-machine', version: '1.0.0' },
     ],
   },
+
+  workflows: [
+    { key: 'workflow-system.workflow.approval-chain', version: '1.0.0' },
+  ],
+
+  telemetry: [{ key: 'workflow-system.telemetry', version: '1.0.0' }],
+
+  jobs: [
+    { key: 'workflow-system.job.instance-timeout', version: '1.0.0' },
+    { key: 'workflow-system.job.escalation', version: '1.0.0' },
+  ],
+
+  docs: [
+    'docs.examples.workflow-system',
+    'docs.examples.workflow-system.goal',
+    'docs.examples.workflow-system.usage',
+    'docs.examples.workflow-system.constraints',
+  ],
 });
 
 ```

@@ -91,6 +91,8 @@ export const LearningJourneyCrmOnboardingFeature = defineFeature({
   capabilities: {
     requires: [{ key: 'identity', version: '1.0.0' }],
   },
+
+  docs: ['docs.learning-journey.crm-onboarding'],
 });
 
 ```

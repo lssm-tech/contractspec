@@ -1,5 +1,19 @@
 # @contractspec/example.video-marketing-clip
 
+## 3.4.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+
+### Patch Changes
+
+- Updated dependencies [0ee467a]
+- Updated dependencies [56ee8e6]
+  - @contractspec/lib.contracts-spec@3.4.0
+  - @contractspec/lib.content-gen@3.4.0
+  - @contractspec/lib.video-gen@2.4.0
+
 ## 3.3.0
 
 ### Minor Changes

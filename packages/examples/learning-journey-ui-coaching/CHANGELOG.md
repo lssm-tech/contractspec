@@ -1,5 +1,23 @@
 # @contractspec/example.learning-journey-ui-coaching
 
+## 3.4.0
+
+### Minor Changes
+
+- 0ee467a: feat: improve ai and customization
+
+### Patch Changes
+
+- Updated dependencies [0ee467a]
+- Updated dependencies [56ee8e6]
+  - @contractspec/example.learning-journey-crm-onboarding@3.4.0
+  - @contractspec/example.learning-journey-ambient-coach@3.4.0
+  - @contractspec/example.learning-journey-ui-shared@3.4.0
+  - @contractspec/module.learning-journey@3.4.0
+  - @contractspec/lib.contracts-spec@3.4.0
+  - @contractspec/lib.design-system@3.4.0
+  - @contractspec/lib.ui-kit-web@3.4.0
+
 ## 3.3.0
 
 ### Minor Changes

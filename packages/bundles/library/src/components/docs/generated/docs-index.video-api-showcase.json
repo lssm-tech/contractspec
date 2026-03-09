@@ -22,5 +22,13 @@
     "route": "/docs/reference/video-api-showcase/sendNotification",
     "source": "generated",
     "contentPath": "video-api-showcase/sendNotification.md"
+  },
+  {
+    "id": "video-api-showcase/video-api-showcase",
+    "title": "video-api-showcase",
+    "summary": "Generate API documentation videos from contract spec metadata\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: video, api, documentation, showcase\n- **File**: `packages/examples/video-api-showcase/src/video-api-showcase.feature.ts`",
+    "route": "/docs/reference/video-api-showcase/video-api-showcase",
+    "source": "generated",
+    "contentPath": "video-api-showcase/video-api-showcase.md"
   }
 ]

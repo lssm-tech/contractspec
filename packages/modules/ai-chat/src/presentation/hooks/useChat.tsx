@@ -1,10 +1,14 @@
 'use client';
 
 import * as React from 'react';
+import { tool, type ToolSet } from 'ai';
+import { z } from 'zod';
 import type {
   ChatAttachment,
   ChatConversation,
   ChatMessage,
+  ChatSource,
+  ChatToolCall,
 } from '../../core/message-types';
 import { ChatService } from '../../core/chat-service';
 import {
@@ -12,6 +16,28 @@ import {
   type ProviderMode,
   type ProviderName,
 } from '@contractspec/lib.ai-providers';
+
+/** Tool definition for planner integration (reserved for bundle spec 07_ai_native_chat). */
+export interface UseChatToolDef {
+  name: string;
+  description?: string;
+  schema?: Record<string, unknown>;
+  /** When true, stream pauses for user approval before tool execution */
+  requireApproval?: boolean;
+}
+
+/** Convert UseChatToolDef to AI SDK ToolSet */
+function toolsToToolSet(defs: UseChatToolDef[]): ToolSet {
+  const result: Record<string, unknown> = {};
+  for (const def of defs) {
+    result[def.name] = tool({
+      description: def.description ?? def.name,
+      inputSchema: z.object({}).passthrough(),
+      execute: async () => ({}),
+    });
+  }
+  return result as ToolSet;
+}
 
 /**
  * Options for useChat hook
@@ -41,6 +67,11 @@ export interface UseChatOptions {
   onError?: (error: Error) => void;
   /** Called when usage is recorded */
   onUsage?: (usage: { inputTokens: number; outputTokens: number }) => void;
+  /**
+   * Tools for the model to call. Passed to streamText.
+   * Use requireApproval: true for tools that need user confirmation.
+   */
+  tools?: UseChatToolDef[];
 }
 
 /**
@@ -68,6 +99,11 @@ export interface UseChatReturn {
   regenerate: () => Promise<void>;
   /** Stop current generation */
   stop: () => void;
+  /**
+   * Add tool approval response when tools have requireApproval.
+   * Required when stream pauses for approval. Full support requires server route.
+   */
+  addToolApprovalResponse?: (toolCallId: string, result: unknown) => void;
 }
 
 /**
@@ -87,6 +123,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     onResponse,
     onError,
     onUsage,
+    tools: toolsDefs,
   } = options;
 
   const [messages, setMessages] = React.useState<ChatMessage[]>([]);
@@ -114,8 +151,18 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
       provider: chatProvider,
       systemPrompt,
       onUsage,
+      tools: toolsDefs?.length ? toolsToToolSet(toolsDefs) : undefined,
     });
-  }, [provider, mode, model, apiKey, proxyUrl, systemPrompt, onUsage]);
+  }, [
+    provider,
+    mode,
+    model,
+    apiKey,
+    proxyUrl,
+    systemPrompt,
+    onUsage,
+    toolsDefs,
+  ]);
 
   // Load existing conversation
   React.useEffect(() => {
@@ -188,12 +235,74 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
 
           // Process stream
           let fullContent = '';
+          let fullReasoning = '';
+          const toolCallsMap = new Map<string, ChatToolCall>();
+          const sources: ChatSource[] = [];
+
           for await (const chunk of result.stream) {
             if (chunk.type === 'text' && chunk.content) {
               fullContent += chunk.content;
               setMessages((prev) =>
                 prev.map((m) =>
-                  m.id === result.messageId ? { ...m, content: fullContent } : m
+                  m.id === result.messageId
+                    ? {
+                        ...m,
+                        content: fullContent,
+                        reasoning: fullReasoning || undefined,
+                        sources: sources.length ? sources : undefined,
+                        toolCalls: toolCallsMap.size
+                          ? Array.from(toolCallsMap.values())
+                          : undefined,
+                      }
+                    : m
+                )
+              );
+            } else if (chunk.type === 'reasoning' && chunk.content) {
+              fullReasoning += chunk.content;
+              setMessages((prev) =>
+                prev.map((m) =>
+                  m.id === result.messageId
+                    ? { ...m, reasoning: fullReasoning }
+                    : m
+                )
+              );
+            } else if (chunk.type === 'source' && chunk.source) {
+              sources.push(chunk.source as ChatSource);
+              setMessages((prev) =>
+                prev.map((m) =>
+                  m.id === result.messageId
+                    ? { ...m, sources: [...sources] }
+                    : m
+                )
+              );
+            } else if (chunk.type === 'tool_call' && chunk.toolCall) {
+              const tc = chunk.toolCall;
+              const chatTc: ChatToolCall = {
+                id: tc.id,
+                name: tc.name,
+                args: tc.args,
+                status: 'running',
+              };
+              toolCallsMap.set(tc.id, chatTc);
+              setMessages((prev) =>
+                prev.map((m) =>
+                  m.id === result.messageId
+                    ? { ...m, toolCalls: Array.from(toolCallsMap.values()) }
+                    : m
+                )
+              );
+            } else if (chunk.type === 'tool_result' && chunk.toolResult) {
+              const tr = chunk.toolResult;
+              const tc = toolCallsMap.get(tr.toolCallId);
+              if (tc) {
+                tc.result = tr.result;
+                tc.status = 'completed';
+              }
+              setMessages((prev) =>
+                prev.map((m) =>
+                  m.id === result.messageId
+                    ? { ...m, toolCalls: Array.from(toolCallsMap.values()) }
+                    : m
                 )
               );
             } else if (chunk.type === 'done') {
@@ -202,6 +311,12 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
                   m.id === result.messageId
                     ? {
                         ...m,
+                        content: fullContent,
+                        reasoning: fullReasoning || undefined,
+                        sources: sources.length ? sources : undefined,
+                        toolCalls: toolCallsMap.size
+                          ? Array.from(toolCallsMap.values())
+                          : undefined,
                         status: 'completed',
                         usage: chunk.usage,
                         updatedAt: new Date(),
@@ -291,6 +406,20 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     setIsLoading(false);
   }, []);
 
+  const addToolApprovalResponse = React.useCallback(
+    (_toolCallId: string, _result: unknown) => {
+      // Tool approval with custom ChatService requires server route.
+      // Use createChatRoute + @ai-sdk/react useChat for full support.
+      throw new Error(
+        `addToolApprovalResponse: Tool approval requires server route with toUIMessageStreamResponse. ` +
+          `Use createChatRoute and @ai-sdk/react useChat for tools with requireApproval.`
+      );
+    },
+    []
+  );
+
+  const hasApprovalTools = toolsDefs?.some((t) => t.requireApproval) ?? false;
+
   return {
     messages,
     conversation,
@@ -301,5 +430,6 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     setConversationId,
     regenerate,
     stop,
+    ...(hasApprovalTools && { addToolApprovalResponse }),
   };
 }

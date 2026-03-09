@@ -1,0 +1,10 @@
+[
+  {
+    "id": "learning-journey-ui-onboarding/learning-journey-ui-onboarding",
+    "title": "learning-journey-ui-onboarding",
+    "summary": "Developer onboarding UI with checklists, journey maps, and step-by-step progress\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: learning, ui, onboarding, checklists",
+    "route": "/docs/reference/learning-journey-ui-onboarding/learning-journey-ui-onboarding",
+    "source": "generated",
+    "contentPath": "learning-journey-ui-onboarding/learning-journey-ui-onboarding.md"
+  }
+]
