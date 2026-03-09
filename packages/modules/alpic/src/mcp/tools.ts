@@ -7,7 +7,7 @@ export interface AlpicMcpToolConfig {
   description?: string;
 }
 
-const defaultToolName = 'alpic.ping';
+const defaultToolName = 'alpic_ping';
 
 export function registerAlpicTools(
   server: McpServer,

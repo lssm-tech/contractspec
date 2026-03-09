@@ -87,7 +87,7 @@ export const ${specVarName} = define${capitalize(kind)}({
   transport: {
     rest: { method: '${kind === 'command' ? 'POST' : 'GET'}' },
     gql: { field: '${name.replace(/\./g, '_')}' },
-    mcp: { toolName: '${name}.v${version}' },
+    mcp: { toolName: '${name.replace(/\./g, '_')}-v${String(version).replace(/\./g, '_')}' },
   },
 
   acceptance: {

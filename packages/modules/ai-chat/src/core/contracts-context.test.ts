@@ -26,9 +26,7 @@ describe('contracts-context', () => {
 
     test('includes data views section when dataViewSpecs provided', () => {
       const result = buildContractsContextPrompt({
-        dataViewSpecs: [
-          { key: 'agent.runs', meta: { title: 'Agent Runs' } },
-        ],
+        dataViewSpecs: [{ key: 'agent.runs', meta: { title: 'Agent Runs' } }],
       });
       expect(result).toContain('### Data views');
       expect(result).toContain('agent.runs');
@@ -61,9 +59,7 @@ describe('contracts-context', () => {
 
     test('includes operations section when operationRefs provided', () => {
       const result = buildContractsContextPrompt({
-        operationRefs: [
-          { key: 'agent.run', version: '1.0.0' },
-        ],
+        operationRefs: [{ key: 'agent.run', version: '1.0.0' }],
       });
       expect(result).toContain('### Operations');
       expect(result).toContain('agent.run@1.0.0');

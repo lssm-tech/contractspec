@@ -179,9 +179,10 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   } = options;
 
   const [messages, setMessages] = React.useState<ChatMessage[]>([]);
-  const [mcpTools, setMcpTools] = React.useState<Record<string, unknown> | null>(
-    null
-  );
+  const [mcpTools, setMcpTools] = React.useState<Record<
+    string,
+    unknown
+  > | null>(null);
   const mcpCleanupRef = React.useRef<(() => Promise<void>) | null>(null);
   const [conversation, setConversation] =
     React.useState<ChatConversation | null>(null);
@@ -315,7 +316,9 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
           });
           const toolCallsMap = new Map<string, ChatToolCall>();
           for (const tc of result.toolCalls ?? []) {
-            const tr = result.toolResults?.find((r) => r.toolCallId === tc.toolCallId);
+            const tr = result.toolResults?.find(
+              (r) => r.toolCallId === tc.toolCallId
+            );
             toolCallsMap.set(tc.toolCallId, {
               id: tc.toolCallId,
               name: tc.toolName,
@@ -573,7 +576,17 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
         abortControllerRef.current = null;
       }
     },
-    [conversationId, streaming, onSend, onResponse, onError, onUsage, messages, agentMode, store]
+    [
+      conversationId,
+      streaming,
+      onSend,
+      onResponse,
+      onError,
+      onUsage,
+      messages,
+      agentMode,
+      store,
+    ]
   );
 
   const clearConversation = React.useCallback(() => {
@@ -614,11 +627,9 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
       const msg = messages.find((m) => m.id === messageId);
       if (!msg || msg.role !== 'user') return;
 
-      await chatServiceRef.current.updateMessage(
-        conversationId,
-        messageId,
-        { content: newContent }
-      );
+      await chatServiceRef.current.updateMessage(conversationId, messageId, {
+        content: newContent,
+      });
       const truncated = await chatServiceRef.current.truncateAfter(
         conversationId,
         messageId

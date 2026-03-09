@@ -31,7 +31,7 @@ export class SpecSuggestionOrchestrator {
         sessionId: session.sessionId,
         agentId: session.agentId,
         tenantId: session.tenantId,
-        toolName: 'evolution.apply_suggestion',
+        toolName: 'evolution_apply_suggestion',
         toolCallId: suggestion.id,
         toolArgs: { suggestionId: suggestion.id },
         reason: approvalReason ?? suggestion.proposal.summary,

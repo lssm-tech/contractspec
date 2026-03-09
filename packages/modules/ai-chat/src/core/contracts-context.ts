@@ -6,27 +6,27 @@ import type { AgentToolConfig } from '@contractspec/lib.ai-agent';
 
 export interface ContractsContextConfig {
   /** Agent specs (for tool schemas, instructions) */
-  agentSpecs?: Array<{ key: string; tools?: AgentToolConfig[] }>;
+  agentSpecs?: { key: string; tools?: AgentToolConfig[] }[];
   /** Data view specs (for query suggestions, filters) */
-  dataViewSpecs?: Array<{
+  dataViewSpecs?: {
     key: string;
     meta: { title?: string };
     source?: unknown;
-  }>;
+  }[];
   /** Form specs (for rendering or generating form configs) */
-  formSpecs?: Array<{
+  formSpecs?: {
     key: string;
     meta: { title?: string };
     fields?: unknown[];
-  }>;
+  }[];
   /** Presentation specs (for rendering tool outputs) */
-  presentationSpecs?: Array<{
+  presentationSpecs?: {
     key: string;
     meta: { title?: string };
     targets?: string[];
-  }>;
+  }[];
   /** Operation refs the chat can invoke via tools */
-  operationRefs?: Array<{ key: string; version: string }>;
+  operationRefs?: { key: string; version: string }[];
 }
 
 /**
@@ -53,8 +53,7 @@ export function buildContractsContextPrompt(
   if (config.agentSpecs?.length) {
     parts.push('\n### Agent tools');
     for (const agent of config.agentSpecs) {
-      const toolNames =
-        agent.tools?.map((t) => t.name).join(', ') ?? 'none';
+      const toolNames = agent.tools?.map((t) => t.name).join(', ') ?? 'none';
       parts.push(`- **${agent.key}**: tools: ${toolNames}`);
     }
   }

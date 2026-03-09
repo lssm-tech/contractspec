@@ -187,10 +187,7 @@ export function ChatExportToolbar({
             Export as JSON (.json)
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem
-            onSelect={() => handleCopy()}
-            disabled={disabled}
-          >
+          <DropdownMenuItem onSelect={() => handleCopy()} disabled={disabled}>
             {copied ? (
               <Check className="h-4 w-4 text-green-500" />
             ) : (

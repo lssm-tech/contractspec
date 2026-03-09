@@ -118,7 +118,7 @@ export const ${specVarName} = ${defineFunc}({
   transport: {
     rest: { method: '${opKind === 'command' ? 'POST' : 'GET'}' },
     gql: { field: '${ctx.key.replace(/\./g, '_')}' },
-    mcp: { toolName: '${ctx.key}.v${ctx.version}' },
+    mcp: { toolName: '${ctx.key.replace(/\./g, '_')}-v${String(ctx.version).replace(/\./g, '_')}' },
   },
 
   acceptance: {

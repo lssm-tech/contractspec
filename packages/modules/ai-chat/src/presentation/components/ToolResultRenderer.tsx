@@ -72,7 +72,7 @@ export function ToolResultRenderer({
     const rendered = presentationRenderer(result.presentationKey, result.data);
     if (rendered != null) {
       return (
-        <div className="mt-2 rounded-md border border-border bg-background/50 p-3">
+        <div className="border-border bg-background/50 mt-2 rounded-md border p-3">
           {rendered}
         </div>
       );
@@ -86,7 +86,7 @@ export function ToolResultRenderer({
     );
     if (rendered != null) {
       return (
-        <div className="mt-2 rounded-md border border-border bg-background/50 p-3">
+        <div className="border-border bg-background/50 mt-2 rounded-md border p-3">
           {rendered}
         </div>
       );

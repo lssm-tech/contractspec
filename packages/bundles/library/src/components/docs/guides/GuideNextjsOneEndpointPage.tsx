@@ -75,7 +75,7 @@ export const HealthcheckQuery = defineQuery({
   transport: {
     rest: { method: "GET" },
     gql: { field: "healthcheck_get" },
-    mcp: { toolName: "healthcheck.get.v1" },
+    mcp: { toolName: "healthcheck_get-v1" },
   },
 });`}
           />
