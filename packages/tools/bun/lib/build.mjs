@@ -5,12 +5,80 @@ import path from 'node:path';
 import { glob } from 'glob';
 import { selectEntriesForTarget } from './config.mjs';
 
+/**
+ * Compute output path for an entry when using [dir]/[name].[ext] naming.
+ * @param {string} entry - Entry path relative to cwd (e.g. "src/index.ts")
+ * @param {string} root - Build root (e.g. "src" or ".")
+ * @returns {string} Output path relative to outdir (e.g. "index.js" or "adapters/dnd.js")
+ */
+function entryToOutputPath(entry, root) {
+  const normalized = entry.replaceAll('\\', '/');
+  const relative = root === '.' ? normalized : path.relative(root, normalized);
+  const dir = path.dirname(relative);
+  const base = path.basename(relative);
+  const ext = base.includes('.') ? base.slice(base.lastIndexOf('.')) : '';
+  const name = ext ? base.slice(0, -ext.length) : base;
+  const outExt = /\.(tsx?|jsx?|mts|cts|mjs|cjs)$/i.test(ext) ? '.js' : ext;
+  const outPath = dir === '.' ? `${name}${outExt}` : `${dir}/${name}${outExt}`;
+  return outPath.replaceAll('\\', '/');
+}
+
+/**
+ * Transpile with noBundle using bun build --outfile per entry.
+ * Workaround for Bun bug: --no-bundle --outdir causes ENOENT (bun#5206).
+ * Using --outfile per entry avoids the bug.
+ */
+async function runTranspileNoBundle({
+  cwd,
+  selectedEntries,
+  root,
+  target,
+  outdir,
+  external,
+}) {
+  for (const entry of selectedEntries) {
+    const outPath = entryToOutputPath(entry, root);
+    const outfile = path.join(outdir, outPath);
+    const args = [
+      'build',
+      entry,
+      '--root',
+      root,
+      '--target',
+      target,
+      '--format',
+      'esm',
+      '--packages',
+      'external',
+      '--no-bundle',
+      '--outfile',
+      outfile,
+    ];
+    for (const item of external) {
+      args.push('--external', item);
+    }
+
+    const subprocess = Bun.spawn(['bun', ...args], {
+      cwd,
+      env: { ...process.env, NODE_ENV: 'production' },
+      stdout: 'inherit',
+      stderr: 'inherit',
+      stdin: 'inherit',
+    });
+    const exitCode = await subprocess.exited;
+    if (exitCode !== 0) {
+      process.exit(exitCode);
+    }
+  }
+}
+
 function buildTranspileArgs({
   selectedEntries,
   root,
   target,
   outdir,
   external,
+  noBundle,
 }) {
   const args = [
     'build',
@@ -28,6 +96,10 @@ function buildTranspileArgs({
     '--entry-naming',
     '[dir]/[name].[ext]',
   ];
+
+  if (noBundle === true) {
+    args.push('--no-bundle');
+  }
 
   for (const item of external) {
     args.push('--external', item);
@@ -216,6 +288,7 @@ export async function runTranspile({
   external,
   targets,
   targetRoots,
+  noBundle,
 }) {
   const requestedTargets = [
     'bun',
@@ -238,6 +311,22 @@ export async function runTranspile({
         : path.join(cwd, 'dist', target);
     await rm(outdir, { recursive: true, force: true });
 
+    console.log(
+      `[contractspec-bun-build] transpile target=${target} root=${root} entries=${selectedEntries.length} noBundle=${noBundle === true}`
+    );
+
+    if (noBundle === true) {
+      await runTranspileNoBundle({
+        cwd,
+        selectedEntries,
+        root,
+        target,
+        outdir,
+        external,
+      });
+      continue;
+    }
+
     const relativeOutdir = path.relative(cwd, outdir).replaceAll('\\', '/');
     const args = buildTranspileArgs({
       selectedEntries,
@@ -245,11 +334,8 @@ export async function runTranspile({
       target,
       outdir: relativeOutdir,
       external,
+      noBundle: false,
     });
-
-    console.log(
-      `[contractspec-bun-build] transpile target=${target} root=${root} entries=${selectedEntries.length}`
-    );
 
     const subprocess = Bun.spawn(['bun', ...args], {
       cwd,
@@ -272,6 +358,7 @@ export async function runDev({
   targets,
   targetRoots,
   allTargets = false,
+  noBundle,
 }) {
   const requestedTargets = allTargets
     ? ['bun', targets.node ? 'node' : null, targets.browser ? 'browser' : null]
@@ -294,6 +381,7 @@ export async function runDev({
       target,
       outdir,
       external,
+      noBundle,
     });
     args.push('--watch');
 

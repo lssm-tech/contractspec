@@ -16,9 +16,11 @@ async function main() {
   const packageJsonPath = path.join(cwd, 'package.json');
   const command = process.argv[2] ?? 'build';
   const allTargets = process.argv.includes('--all-targets');
+  const noBundleCli = process.argv.includes('--no-bundle');
 
   const { config } = await loadUserConfig(cwd);
   const normalizedConfig = await normalizeBuildConfig(cwd, config);
+  const noBundle = normalizedConfig.noBundle || noBundleCli;
   const entries = await resolveEntries(cwd, normalizedConfig.entry);
   const targetRoots = {
     bun: inferBuildRoot(selectEntriesForTarget(entries, 'bun')),
@@ -47,6 +49,7 @@ async function main() {
       external: normalizedConfig.external,
       targets: normalizedConfig.targets,
       targetRoots,
+      noBundle,
     });
     return;
   }
@@ -68,6 +71,7 @@ async function main() {
       targets: normalizedConfig.targets,
       targetRoots,
       allTargets,
+      noBundle,
     });
     return;
   }
@@ -85,6 +89,7 @@ async function main() {
       external: normalizedConfig.external,
       targets: normalizedConfig.targets,
       targetRoots,
+      noBundle,
     });
     await runTypes({
       cwd,

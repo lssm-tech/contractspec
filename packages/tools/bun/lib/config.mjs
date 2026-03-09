@@ -166,6 +166,7 @@ export async function normalizeBuildConfig(cwd, config) {
       Array.isArray(config.entry) && config.entry.length > 0
         ? config.entry
         : DEFAULT_ENTRY,
+    noBundle: config.noBundle === true,
   };
 }
 

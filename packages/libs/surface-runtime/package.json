@@ -21,7 +21,7 @@
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
     "build": "bun run prebuild && bun run build:bundle && bun run build:types",
-    "build:bundle": "contractspec-bun-build transpile",
+    "build:bundle": "contractspec-bun-build transpile && node scripts/fix-use-client-directive.mjs",
     "build:types": "contractspec-bun-build types",
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
