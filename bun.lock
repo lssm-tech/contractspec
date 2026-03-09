@@ -2533,6 +2533,7 @@
         "@contractspec/lib.metering": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
         "@contractspec/lib.ui-kit-web": "workspace:*",
+        "@contractspec/lib.workflow-composer": "workspace:*",
         "ai": "catalog:ai",
         "lucide-react": "^0.577.0",
         "react": "catalog:",

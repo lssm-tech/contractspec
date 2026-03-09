@@ -20,6 +20,8 @@ import {
   type UIMessage,
 } from 'ai';
 import type { Provider as ChatProvider } from '@contractspec/lib.ai-providers';
+import { getProviderOptions } from './thinking-levels';
+import type { ThinkingLevel } from './thinking-levels';
 
 export interface CreateChatRouteOptions {
   /** LLM provider (from createProvider) */
@@ -28,6 +30,8 @@ export interface CreateChatRouteOptions {
   systemPrompt?: string;
   /** Tools for the model */
   tools?: ToolSet;
+  /** Default thinking level (can be overridden by request body) */
+  thinkingLevel?: ThinkingLevel;
 }
 
 const DEFAULT_SYSTEM_PROMPT = `You are a helpful AI assistant.`;
@@ -44,16 +48,21 @@ const DEFAULT_SYSTEM_PROMPT = `You are a helpful AI assistant.`;
 export function createChatRoute(
   options: CreateChatRouteOptions
 ): (req: Request) => Promise<Response> {
-  const { provider, systemPrompt = DEFAULT_SYSTEM_PROMPT, tools } = options;
+  const {
+    provider,
+    systemPrompt = DEFAULT_SYSTEM_PROMPT,
+    tools,
+    thinkingLevel: defaultThinkingLevel,
+  } = options;
 
   return async (req: Request): Promise<Response> => {
     if (req.method !== 'POST') {
       return new Response('Method not allowed', { status: 405 });
     }
 
-    let body: { messages?: unknown[] };
+    let body: { messages?: unknown[]; thinkingLevel?: unknown };
     try {
-      body = (await req.json()) as { messages?: unknown[] };
+      body = (await req.json()) as { messages?: unknown[]; thinkingLevel?: unknown };
     } catch {
       return new Response('Invalid JSON body', { status: 400 });
     }
@@ -63,6 +72,10 @@ export function createChatRoute(
       return new Response('messages array required', { status: 400 });
     }
 
+    const thinkingLevel = (body.thinkingLevel as ThinkingLevel | undefined) ??
+      defaultThinkingLevel;
+    const providerOptions = getProviderOptions(thinkingLevel, provider.name);
+
     const model = provider.getModel();
 
     const result = streamText({
@@ -70,6 +83,10 @@ export function createChatRoute(
       messages: await convertToModelMessages(messages as UIMessage[]),
       system: systemPrompt,
       tools,
+      providerOptions:
+        Object.keys(providerOptions).length > 0
+          ? (providerOptions as Parameters<typeof streamText>[0]['providerOptions'])
+          : undefined,
     });
 
     return result.toUIMessageStreamResponse();

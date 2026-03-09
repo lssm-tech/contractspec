@@ -10,12 +10,7 @@ import {
   emitPatchApproved,
   emitPatchRejected,
 } from '@contractspec/lib.surface-runtime/runtime/audit-events';
-import {
-  ChatContainer,
-  ChatMessage,
-  ChatInput,
-  useChat,
-} from '@contractspec/module.ai-chat';
+import { ChatWithSidebar } from '@contractspec/module.ai-chat';
 import type { ResolvedSurfacePlan } from '@contractspec/lib.surface-runtime/runtime/resolve-bundle';
 
 export interface PmWorkbenchClientProps {
@@ -31,11 +26,6 @@ export function PmWorkbenchClient({
   plan: initialPlan,
 }: PmWorkbenchClientProps) {
   const [plan, setPlan] = useState<ResolvedSurfacePlan>(initialPlan);
-
-  const { messages, sendMessage, isLoading } = useChat({
-    systemPrompt:
-      'You are an assistant for the PM workbench. Help users manage issues, suggest layouts, and propose surface changes.',
-  });
 
   const auditEmitter = React.useMemo(
     () => ({
@@ -133,18 +123,31 @@ export function PmWorkbenchClient({
     [plan]
   );
 
+  const onPatchProposal = useCallback(
+    (proposal: import('@contractspec/lib.surface-runtime/spec/types').SurfacePatchProposal) => {
+      setPlan((prev) => ({
+        ...prev,
+        ai: {
+          ...prev.ai,
+          proposals: [...(prev.ai?.proposals ?? []), proposal],
+        },
+      }));
+    },
+    []
+  );
+
   const assistantContent = (
     <div className="flex h-full flex-col">
-      <ChatContainer className="flex-1">
-        {messages.map((msg) => (
-          <ChatMessage key={msg.id} message={msg} />
-        ))}
-        <ChatInput
-          onSend={(content, att) => sendMessage(content, att)}
-          disabled={isLoading}
-          isLoading={isLoading}
-        />
-      </ChatContainer>
+      <ChatWithSidebar
+        className="flex-1"
+        systemPrompt={
+          'You are an assistant for the PM workbench. Help users manage issues, suggest layouts, and propose surface changes.'
+        }
+        surfacePlanConfig={{
+          plan,
+          onPatchProposal,
+        }}
+      />
     </div>
   );
 

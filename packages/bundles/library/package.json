@@ -34,6 +34,9 @@
     "./application/mcp/index": "./src/application/mcp/index.ts",
     "./application/mcp/internalMcp": "./src/application/mcp/internalMcp.ts",
     "./application/mcp/providerRankingMcp": "./src/application/mcp/providerRankingMcp.ts",
+    "./bundles": "./src/bundles/index.ts",
+    "./bundles/index": "./src/bundles/index.ts",
+    "./bundles/LibraryBundle": "./src/bundles/LibraryBundle.ts",
     "./components/docs": "./src/components/docs/index.ts",
     "./components/docs/advanced": "./src/components/docs/advanced/index.ts",
     "./components/docs/advanced/AdvancedMCPPage": "./src/components/docs/advanced/AdvancedMCPPage.tsx",
@@ -229,6 +232,7 @@
     "./components/shell/index": "./src/components/shell/index.ts",
     "./components/shell/WorkspaceHeader": "./src/components/shell/WorkspaceHeader.tsx",
     "./components/shell/WorkspaceProjectShellLayout": "./src/components/shell/WorkspaceProjectShellLayout.tsx",
+    "./components/shell/WorkspaceShellRenderer": "./src/components/shell/WorkspaceShellRenderer.tsx",
     "./components/shell/WorkspaceSidebar": "./src/components/shell/WorkspaceSidebar.tsx",
     "./components/templates": "./src/components/templates/index.ts",
     "./components/templates/engine": "./src/components/templates/engine/index.ts",
@@ -382,6 +386,7 @@
     "@contractspec/lib.content-gen": "workspace:*",
     "@contractspec/lib.contracts-runtime-server-mcp": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
+    "@contractspec/lib.surface-runtime": "workspace:*",
     "@contractspec/lib.provider-ranking": "workspace:*",
     "@contractspec/lib.example-shared-ui": "workspace:*",
     "@contractspec/lib.knowledge": "workspace:*",
@@ -516,6 +521,24 @@
         "bun": "./dist/application/mcp/providerRankingMcp.js",
         "node": "./dist/node/application/mcp/providerRankingMcp.js",
         "default": "./dist/application/mcp/providerRankingMcp.js"
+      },
+      "./bundles": {
+        "types": "./dist/bundles/index.d.ts",
+        "bun": "./dist/bundles/index.js",
+        "node": "./dist/node/bundles/index.js",
+        "default": "./dist/bundles/index.js"
+      },
+      "./bundles/index": {
+        "types": "./dist/bundles/index.d.ts",
+        "bun": "./dist/bundles/index.js",
+        "node": "./dist/node/bundles/index.js",
+        "default": "./dist/bundles/index.js"
+      },
+      "./bundles/LibraryBundle": {
+        "types": "./dist/bundles/LibraryBundle.d.ts",
+        "bun": "./dist/bundles/LibraryBundle.js",
+        "node": "./dist/node/bundles/LibraryBundle.js",
+        "default": "./dist/bundles/LibraryBundle.js"
       },
       "./components/docs": {
         "types": "./dist/components/docs/index.d.ts",
@@ -1686,6 +1709,12 @@
         "bun": "./dist/components/shell/WorkspaceProjectShellLayout.js",
         "node": "./dist/node/components/shell/WorkspaceProjectShellLayout.js",
         "default": "./dist/components/shell/WorkspaceProjectShellLayout.js"
+      },
+      "./components/shell/WorkspaceShellRenderer": {
+        "types": "./dist/components/shell/WorkspaceShellRenderer.d.ts",
+        "bun": "./dist/components/shell/WorkspaceShellRenderer.js",
+        "node": "./dist/node/components/shell/WorkspaceShellRenderer.js",
+        "default": "./dist/components/shell/WorkspaceShellRenderer.js"
       },
       "./components/shell/WorkspaceSidebar": {
         "types": "./dist/components/shell/WorkspaceSidebar.d.ts",

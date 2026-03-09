@@ -11,11 +11,19 @@ import type {
   ChatToolCall,
 } from '../../core/message-types';
 import { ChatService } from '../../core/chat-service';
+import type { ConversationStore } from '../../core/conversation-store';
+import type { ThinkingLevel } from '../../core/thinking-levels';
 import {
   createProvider,
+  type ModelSelector,
   type ProviderMode,
   type ProviderName,
 } from '@contractspec/lib.ai-providers';
+import type { WorkflowComposer } from '@contractspec/lib.workflow-composer';
+import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow';
+import type { ContractsContextConfig } from '../../core/contracts-context';
+import type { ResolvedSurfacePlan } from '@contractspec/lib.surface-runtime/runtime/resolve-bundle';
+import type { SurfacePatchProposal } from '@contractspec/lib.surface-runtime/spec/types';
 
 /** Tool definition for planner integration (reserved for bundle spec 07_ai_native_chat). */
 export interface UseChatToolDef {
@@ -55,6 +63,8 @@ export interface UseChatOptions {
   proxyUrl?: string;
   /** Initial conversation ID to resume */
   conversationId?: string;
+  /** Optional store for persistence (enables history, fork, edit) */
+  store?: ConversationStore;
   /** System prompt override */
   systemPrompt?: string;
   /** Enable streaming */
@@ -72,6 +82,22 @@ export interface UseChatOptions {
    * Use requireApproval: true for tools that need user confirmation.
    */
   tools?: UseChatToolDef[];
+  /** Thinking level: instant, thinking, extra_thinking, max. Maps to provider reasoning options. */
+  thinkingLevel?: ThinkingLevel;
+  /** Workflow creation tools: base workflows and optional composer */
+  workflowToolsConfig?: {
+    baseWorkflows: WorkflowSpec[];
+    composer?: WorkflowComposer;
+  };
+  /** Optional model selector for dynamic model selection by task dimension */
+  modelSelector?: ModelSelector;
+  /** Contracts-spec context: agent, data-views, operations, forms, presentations */
+  contractsContext?: ContractsContextConfig;
+  /** Surface plan config: enables propose-patch tool when used in surface-runtime */
+  surfacePlanConfig?: {
+    plan: ResolvedSurfacePlan;
+    onPatchProposal?: (proposal: SurfacePatchProposal) => void;
+  };
 }
 
 /**
@@ -89,7 +115,8 @@ export interface UseChatReturn {
   /** Send a message */
   sendMessage: (
     content: string,
-    attachments?: ChatAttachment[]
+    attachments?: ChatAttachment[],
+    options?: { skipUserAppend?: boolean }
   ) => Promise<void>;
   /** Clear conversation and start fresh */
   clearConversation: () => void;
@@ -99,6 +126,16 @@ export interface UseChatReturn {
   regenerate: () => Promise<void>;
   /** Stop current generation */
   stop: () => void;
+  /** Start a new conversation (alias for clearConversation) */
+  createNewConversation: () => void;
+  /** Edit a user message and regenerate from that point */
+  editMessage: (messageId: string, newContent: string) => Promise<void>;
+  /** Fork current conversation, optionally up to a message; returns new conversation ID */
+  forkConversation: (upToMessageId?: string) => Promise<string | null>;
+  /** Update conversation metadata (title, projectId, tags) */
+  updateConversation: (
+    updates: Parameters<ConversationStore['update']>[1]
+  ) => Promise<ChatConversation | null>;
   /**
    * Add tool approval response when tools have requireApproval.
    * Required when stream pauses for approval. Full support requires server route.
@@ -117,6 +154,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     apiKey,
     proxyUrl,
     conversationId: initialConversationId,
+    store,
     systemPrompt,
     streaming = true,
     onSend,
@@ -124,6 +162,11 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     onError,
     onUsage,
     tools: toolsDefs,
+    thinkingLevel,
+    workflowToolsConfig,
+    modelSelector,
+    contractsContext,
+    surfacePlanConfig,
   } = options;
 
   const [messages, setMessages] = React.useState<ChatMessage[]>([]);
@@ -149,9 +192,15 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
 
     chatServiceRef.current = new ChatService({
       provider: chatProvider,
+      store,
       systemPrompt,
       onUsage,
       tools: toolsDefs?.length ? toolsToToolSet(toolsDefs) : undefined,
+      thinkingLevel,
+      workflowToolsConfig,
+      modelSelector,
+      contractsContext,
+      surfacePlanConfig,
     });
   }, [
     provider,
@@ -159,9 +208,15 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     model,
     apiKey,
     proxyUrl,
+    store,
     systemPrompt,
     onUsage,
     toolsDefs,
+    thinkingLevel,
+    workflowToolsConfig,
+    modelSelector,
+    contractsContext,
+    surfacePlanConfig,
   ]);
 
   // Load existing conversation
@@ -182,7 +237,11 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   }, [conversationId]);
 
   const sendMessage = React.useCallback(
-    async (content: string, attachments?: ChatAttachment[]) => {
+    async (
+      content: string,
+      attachments?: ChatAttachment[],
+      opts?: { skipUserAppend?: boolean }
+    ) => {
       if (!chatServiceRef.current) {
         throw new Error('Chat service not initialized');
       }
@@ -194,19 +253,21 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
       abortControllerRef.current = new AbortController();
 
       try {
-        // Add user message immediately
-        const userMessage: ChatMessage = {
-          id: `msg_${Date.now()}`,
-          conversationId: conversationId ?? '',
-          role: 'user',
-          content,
-          status: 'completed',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          attachments,
-        };
-        setMessages((prev) => [...prev, userMessage]);
-        onSend?.(userMessage);
+        // Add user message immediately (skip when regenerating from edit)
+        if (!opts?.skipUserAppend) {
+          const userMessage: ChatMessage = {
+            id: `msg_${Date.now()}`,
+            conversationId: conversationId ?? '',
+            role: 'user',
+            content,
+            status: 'completed',
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            attachments,
+          };
+          setMessages((prev) => [...prev, userMessage]);
+          onSend?.(userMessage);
+        }
 
         if (streaming) {
           // Streaming mode
@@ -214,10 +275,11 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
             conversationId: conversationId ?? undefined,
             content,
             attachments,
+            skipUserAppend: opts?.skipUserAppend,
           });
 
-          // Update conversation ID if new
-          if (!conversationId) {
+          // Update conversation ID if new (skip when regenerating)
+          if (!conversationId && !opts?.skipUserAppend) {
             setConversationId(result.conversationId);
           }
 
@@ -354,6 +416,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
             conversationId: conversationId ?? undefined,
             content,
             attachments,
+            skipUserAppend: opts?.skipUserAppend,
           });
 
           setConversation(result.conversation);
@@ -406,6 +469,70 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     setIsLoading(false);
   }, []);
 
+  const createNewConversation = clearConversation;
+
+  const editMessage = React.useCallback(
+    async (messageId: string, newContent: string) => {
+      if (!chatServiceRef.current || !conversationId) return;
+
+      const msg = messages.find((m) => m.id === messageId);
+      if (!msg || msg.role !== 'user') return;
+
+      await chatServiceRef.current.updateMessage(
+        conversationId,
+        messageId,
+        { content: newContent }
+      );
+      const truncated = await chatServiceRef.current.truncateAfter(
+        conversationId,
+        messageId
+      );
+      if (truncated) {
+        setMessages(truncated.messages);
+      }
+
+      await sendMessage(newContent, undefined, { skipUserAppend: true });
+    },
+    [conversationId, messages, sendMessage]
+  );
+
+  const forkConversation = React.useCallback(
+    async (upToMessageId?: string): Promise<string | null> => {
+      if (!chatServiceRef.current) return null;
+      const idToFork = conversationId ?? conversation?.id;
+      if (!idToFork) return null;
+
+      try {
+        const forked = await chatServiceRef.current.forkConversation(
+          idToFork,
+          upToMessageId
+        );
+        setConversationId(forked.id);
+        setConversation(forked);
+        setMessages(forked.messages);
+        return forked.id;
+      } catch {
+        return null;
+      }
+    },
+    [conversationId, conversation]
+  );
+
+  const updateConversationFn = React.useCallback(
+    async (
+      updates: Parameters<ConversationStore['update']>[1]
+    ): Promise<ChatConversation | null> => {
+      if (!chatServiceRef.current || !conversationId) return null;
+      const updated = await chatServiceRef.current.updateConversation(
+        conversationId,
+        updates
+      );
+      if (updated) setConversation(updated);
+      return updated;
+    },
+    [conversationId]
+  );
+
   const addToolApprovalResponse = React.useCallback(
     (_toolCallId: string, _result: unknown) => {
       // Tool approval with custom ChatService requires server route.
@@ -430,6 +557,10 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     setConversationId,
     regenerate,
     stop,
+    createNewConversation,
+    editMessage,
+    forkConversation,
+    updateConversation: updateConversationFn,
     ...(hasApprovalTools && { addToolApprovalResponse }),
   };
 }

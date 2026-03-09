@@ -12,8 +12,11 @@ import {
   Check,
   ExternalLink,
   Wrench,
+  Pencil,
+  X,
 } from 'lucide-react';
 import { Button } from '@contractspec/lib.design-system';
+import { Checkbox } from '@contractspec/lib.ui-kit-web/ui/checkbox';
 import type {
   ChatMessage as ChatMessageType,
   ChatSource,
@@ -28,6 +31,16 @@ export interface ChatMessageProps {
   showCopy?: boolean;
   /** Show avatar */
   showAvatar?: boolean;
+  /** Enable selection checkbox */
+  selectable?: boolean;
+  /** Whether this message is selected */
+  selected?: boolean;
+  /** Called when selection is toggled */
+  onSelect?: (id: string) => void;
+  /** Enable edit (user messages only) */
+  editable?: boolean;
+  /** Called when message is edited */
+  onEdit?: (messageId: string, newContent: string) => void | Promise<void>;
 }
 
 /**
@@ -142,6 +155,11 @@ export function ChatMessage({
   className,
   showCopy = true,
   showAvatar = true,
+  selectable = false,
+  selected = false,
+  onSelect,
+  editable = false,
+  onEdit,
 }: ChatMessageProps) {
   const [copied, setCopied] = React.useState(false);
 
@@ -155,6 +173,38 @@ export function ChatMessage({
     setTimeout(() => setCopied(false), 2000);
   }, [message.content]);
 
+  const handleSelectChange = React.useCallback(
+    (checked: boolean | 'indeterminate') => {
+      if (checked !== 'indeterminate') onSelect?.(message.id);
+    },
+    [message.id, onSelect]
+  );
+
+  const [isEditing, setIsEditing] = React.useState(false);
+  const [editContent, setEditContent] = React.useState(message.content);
+
+  React.useEffect(() => {
+    setEditContent(message.content);
+  }, [message.content]);
+
+  const handleStartEdit = React.useCallback(() => {
+    setEditContent(message.content);
+    setIsEditing(true);
+  }, [message.content]);
+
+  const handleSaveEdit = React.useCallback(async () => {
+    const trimmed = editContent.trim();
+    if (trimmed !== message.content) {
+      await onEdit?.(message.id, trimmed);
+    }
+    setIsEditing(false);
+  }, [editContent, message.id, message.content, onEdit]);
+
+  const handleCancelEdit = React.useCallback(() => {
+    setEditContent(message.content);
+    setIsEditing(false);
+  }, [message.content]);
+
   return (
     <div
       className={cn(
@@ -163,6 +213,20 @@ export function ChatMessage({
         className
       )}
     >
+      {selectable && (
+        <div
+          className={cn(
+            'flex shrink-0 items-start pt-1',
+            'opacity-0 transition-opacity group-hover:opacity-100'
+          )}
+        >
+          <Checkbox
+            checked={selected}
+            onCheckedChange={handleSelectChange}
+            aria-label={selected ? 'Deselect message' : 'Select message'}
+          />
+        </div>
+      )}
       {showAvatar && (
         <Avatar className="h-8 w-8 shrink-0">
           <AvatarFallback
@@ -201,6 +265,36 @@ export function ChatMessage({
                 <p className="text-muted-foreground text-sm">
                   {message.error.message}
                 </p>
+              </div>
+            </div>
+          ) : isEditing ? (
+            <div className="flex flex-col gap-2">
+              <textarea
+                value={editContent}
+                onChange={(e) => setEditContent(e.target.value)}
+                className="bg-background/50 min-h-[80px] w-full resize-y rounded-md border px-3 py-2 text-sm"
+                rows={4}
+                autoFocus
+              />
+              <div className="flex gap-2">
+                <Button
+                  variant="default"
+                  size="sm"
+                  onPress={handleSaveEdit}
+                  aria-label="Save edit"
+                >
+                  <Check className="h-3 w-3" />
+                  Save
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onPress={handleCancelEdit}
+                  aria-label="Cancel edit"
+                >
+                  <X className="h-3 w-3" />
+                  Cancel
+                </Button>
               </div>
             </div>
           ) : isStreaming && !message.content ? (
@@ -247,6 +341,18 @@ export function ChatMessage({
               ) : (
                 <Copy className="h-3 w-3" />
               )}
+            </Button>
+          )}
+
+          {editable && isUser && !isEditing && (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-6 w-6 p-0"
+              onPress={handleStartEdit}
+              aria-label="Edit message"
+            >
+              <Pencil className="h-3 w-3" />
             </Button>
           )}
         </div>

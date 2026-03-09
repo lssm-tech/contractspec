@@ -32,8 +32,10 @@
   },
   "dependencies": {
     "@contractspec/lib.ai-agent": "workspace:*",
+    "@contractspec/lib.surface-runtime": "workspace:*",
     "@contractspec/lib.ai-providers": "workspace:*",
     "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.workflow-composer": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.metering": "workspace:*",
     "@contractspec/lib.cost-tracking": "workspace:*",
@@ -52,13 +54,7 @@
     "@contractspec/tool.bun": "workspace:*"
   },
   "peerDependencies": {
-    "react": ">=19.2.4",
-    "@contractspec/lib.surface-runtime": "workspace:*"
-  },
-  "peerDependenciesMeta": {
-    "@contractspec/lib.surface-runtime": {
-      "optional": true
-    }
+    "react": ">=19.2.4"
   },
   "exports": {
     ".": "./src/index.ts",
@@ -73,7 +69,9 @@
     "./presentation/hooks/index": "./src/presentation/hooks/index.ts",
     "./presentation/index": "./src/presentation/index.ts",
     "./providers": "./src/providers/index.ts",
-    "./providers/index": "./src/providers/index.ts"
+    "./providers/index": "./src/providers/index.ts",
+    "./adapters": "./src/adapters/index.ts",
+    "./adapters/index": "./src/adapters/index.ts"
   },
   "publishConfig": {
     "access": "public",
