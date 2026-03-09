@@ -1,0 +1,69 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "incremental": false,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "declarationMap": false,
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@contractspec/lib.ai-agent": [
+        "../../libs/ai-agent/dist/index.d.ts"
+      ],
+      "@contractspec/lib.ai-agent/*": [
+        "../../libs/ai-agent/dist/*"
+      ],
+      "@contractspec/lib.ai-providers": [
+        "../../libs/ai-providers/dist/index.d.ts"
+      ],
+      "@contractspec/lib.ai-providers/*": [
+        "../../libs/ai-providers/dist/*"
+      ],
+      "@contractspec/lib.contracts-spec": [
+        "../../libs/contracts-spec/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/*": [
+        "../../libs/contracts-spec/dist/*"
+      ],
+      "@contractspec/lib.contracts-integrations": [
+        "../../libs/contracts-integrations/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/*": [
+        "../../libs/contracts-integrations/dist/*"
+      ],
+      "@contractspec/lib.contracts-transformers": [
+        "../../libs/contracts-transformers/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-transformers/*": [
+        "../../libs/contracts-transformers/dist/*"
+      ],
+      "@contractspec/lib.source-extractors": [
+        "../../libs/source-extractors/dist/index.d.ts"
+      ],
+      "@contractspec/lib.source-extractors/*": [
+        "../../libs/source-extractors/dist/*"
+      ],
+      "@contractspec/module.workspace": [
+        "../../modules/workspace/dist/index.d.ts"
+      ],
+      "@contractspec/module.workspace/*": [
+        "../../modules/workspace/dist/*"
+      ],
+      "@contractspec/lib.utils-typescript": [
+        "../../libs/utils-typescript/dist/index.d.ts"
+      ],
+      "@contractspec/lib.utils-typescript/*": [
+        "../../libs/utils-typescript/dist/*"
+      ],
+      "@contractspec/tool.typescript/*": [
+        "../../tools/typescript/dist/*"
+      ],
+      "@contractspec/tool.bun/*": [
+        "../../tools/bun/dist/*"
+      ]
+    }
+  }
+}

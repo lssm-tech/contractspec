@@ -586,7 +586,6 @@
       },
       "./tools/mcp-client": {
         "types": "./dist/tools/mcp-client.d.ts",
-        "browser": "./dist/tools/mcp-client.browser.js",
         "bun": "./dist/tools/mcp-client.browser.js",
         "node": "./dist/node/tools/mcp-client.js",
         "default": "./dist/tools/mcp-client.browser.js"
