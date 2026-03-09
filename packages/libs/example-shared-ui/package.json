@@ -231,7 +231,7 @@
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.ui-kit-web": "workspace:*",
     "@tanstack/react-query": "^5.90.21",
-    "framer-motion": "^12.35.0",
+    "framer-motion": "^12.35.1",
     "lucide-react": "^0.577.0",
     "react": "catalog:",
     "react-dom": "catalog:"

@@ -399,7 +399,7 @@
     "@scaleway/sdk": "^3.3.1",
     "@scaleway/sdk-client": "^2.2.1",
     "drizzle-orm": "^0.45.1",
-    "framer-motion": "^12.35.0",
+    "framer-motion": "^12.35.1",
     "lucide-react": "^0.577.0",
     "posthog-js": "^1.359.1",
     "posthog-node": "^5.28.0",

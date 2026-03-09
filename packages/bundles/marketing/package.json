@@ -90,7 +90,7 @@
     "@scaleway/sdk": "^3.3.1",
     "@scaleway/sdk-client": "^2.2.1",
     "class-variance-authority": "^0.7.1",
-    "framer-motion": "^12.35.0",
+    "framer-motion": "^12.35.1",
     "lucide-react": "^0.577.0",
     "next": "catalog:",
     "react": "catalog:",
