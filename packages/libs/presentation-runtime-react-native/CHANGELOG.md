@@ -1,5 +1,14 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 31.0.1
+
+### Patch Changes
+
+- 8f47829: fix: circular import issue
+- Updated dependencies [8f47829]
+  - @contractspec/lib.presentation-runtime-core@3.4.1
+  - @contractspec/lib.ui-kit@3.4.1
+
 ## 31.0.0
 
 ### Minor Changes

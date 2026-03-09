@@ -1,5 +1,13 @@
 # @contractspec/lib.ui-link
 
+## 3.4.1
+
+### Patch Changes
+
+- 8f47829: fix: circular import issue
+- Updated dependencies [8f47829]
+  - @contractspec/lib.ui-kit-core@3.4.1
+
 ## 3.4.0
 
 ### Minor Changes

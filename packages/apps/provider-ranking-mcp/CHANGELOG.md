@@ -1,5 +1,17 @@
 # @contractspec/app.provider-ranking-mcp
 
+## 1.3.1
+
+### Patch Changes
+
+- 8f47829: fix: circular import issue
+- Updated dependencies [8f47829]
+  - @contractspec/lib.contracts-runtime-server-mcp@3.4.1
+  - @contractspec/module.provider-ranking@0.4.1
+  - @contractspec/lib.provider-ranking@0.4.1
+  - @contractspec/lib.contracts-spec@3.4.1
+  - @contractspec/lib.logger@3.4.1
+
 ## 1.3.0
 
 ### Minor Changes

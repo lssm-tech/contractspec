@@ -1,5 +1,21 @@
 # @contractspec/module.ai-chat
 
+## 4.0.1
+
+### Patch Changes
+
+- 8f47829: fix: circular import issue
+- Updated dependencies [8f47829]
+  - @contractspec/lib.surface-runtime@0.2.1
+  - @contractspec/lib.contracts-spec@3.4.1
+  - @contractspec/lib.cost-tracking@3.4.1
+  - @contractspec/lib.design-system@3.4.1
+  - @contractspec/lib.ai-providers@3.4.1
+  - @contractspec/lib.ui-kit-web@3.4.1
+  - @contractspec/lib.ai-agent@4.0.1
+  - @contractspec/lib.metering@3.4.1
+  - @contractspec/lib.schema@3.4.1
+
 ## 4.0.0
 
 ### Minor Changes

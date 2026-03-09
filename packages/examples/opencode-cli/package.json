@@ -1,6 +1,6 @@
 {
   "name": "contractspec-example-opencode-cli",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "private": true,
   "scripts": {
     "build": "contractspec build src/contracts/opencode.contracts.ts --agent-mode opencode",

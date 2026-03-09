@@ -1,5 +1,15 @@
 # @contractspec/lib.surface-runtime
 
+## 0.2.1
+
+### Patch Changes
+
+- 8f47829: fix: circular import issue
+- Updated dependencies [8f47829]
+  - @contractspec/lib.contracts-spec@3.4.1
+  - @contractspec/lib.overlay-engine@3.4.1
+  - @contractspec/lib.observability@3.4.1
+
 ## 0.2.0
 
 ### Minor Changes

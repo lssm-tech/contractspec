@@ -1,5 +1,14 @@
 # @contractspec/module.product-intent-core
 
+## 3.4.1
+
+### Patch Changes
+
+- 8f47829: fix: circular import issue
+- Updated dependencies [8f47829]
+  - @contractspec/lib.product-intent-utils@3.4.1
+  - @contractspec/lib.contracts-spec@3.4.1
+
 ## 3.4.0
 
 ### Minor Changes

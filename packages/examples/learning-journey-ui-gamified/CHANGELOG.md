@@ -1,5 +1,19 @@
 # @contractspec/example.learning-journey-ui-gamified
 
+## 3.4.1
+
+### Patch Changes
+
+- 8f47829: fix: circular import issue
+- Updated dependencies [8f47829]
+  - @contractspec/example.learning-journey-quest-challenges@3.4.1
+  - @contractspec/example.learning-journey-duo-drills@3.4.1
+  - @contractspec/example.learning-journey-ui-shared@3.4.1
+  - @contractspec/module.learning-journey@3.4.1
+  - @contractspec/lib.contracts-spec@3.4.1
+  - @contractspec/lib.design-system@3.4.1
+  - @contractspec/lib.ui-kit-web@3.4.1
+
 ## 3.4.0
 
 ### Minor Changes

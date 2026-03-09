@@ -1,5 +1,11 @@
 # @contractspec/lib.context-storage
 
+## 0.4.1
+
+### Patch Changes
+
+- 8f47829: fix: circular import issue
+
 ## 0.4.0
 
 ### Minor Changes

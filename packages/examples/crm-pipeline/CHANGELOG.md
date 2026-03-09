@@ -1,5 +1,21 @@
 # @contractspec/example.crm-pipeline
 
+## 3.4.1
+
+### Patch Changes
+
+- 8f47829: fix: circular import issue
+- Updated dependencies [8f47829]
+  - @contractspec/lib.example-shared-ui@3.4.1
+  - @contractspec/module.notifications@3.4.1
+  - @contractspec/lib.runtime-sandbox@2.4.1
+  - @contractspec/lib.contracts-spec@3.4.1
+  - @contractspec/module.audit-trail@3.4.1
+  - @contractspec/lib.design-system@3.4.1
+  - @contractspec/lib.identity-rbac@3.4.1
+  - @contractspec/lib.ui-kit-web@3.4.1
+  - @contractspec/lib.schema@3.4.1
+
 ## 3.4.0
 
 ### Minor Changes

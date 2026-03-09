@@ -1,5 +1,13 @@
 # @contractspec/lib.ai-providers
 
+## 3.4.1
+
+### Patch Changes
+
+- 8f47829: fix: circular import issue
+- Updated dependencies [8f47829]
+  - @contractspec/lib.provider-ranking@0.4.1
+
 ## 3.4.0
 
 ### Minor Changes

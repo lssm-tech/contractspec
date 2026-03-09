@@ -1,5 +1,22 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.4.1
+
+### Patch Changes
+
+- 8f47829: fix: circular import issue
+- Updated dependencies [8f47829]
+  - @contractspec/example.locale-jurisdiction-gate@3.4.1
+  - @contractspec/example.versioned-knowledge-base@3.4.1
+  - @contractspec/example.kb-update-pipeline@3.4.1
+  - @contractspec/example.learning-patterns@3.4.1
+  - @contractspec/module.learning-journey@3.4.1
+  - @contractspec/lib.example-shared-ui@3.4.1
+  - @contractspec/lib.runtime-sandbox@2.4.1
+  - @contractspec/lib.contracts-spec@3.4.1
+  - @contractspec/lib.design-system@3.4.1
+  - @contractspec/lib.ui-kit-web@3.4.1
+
 ## 3.4.0
 
 ### Minor Changes

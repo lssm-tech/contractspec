@@ -1,5 +1,16 @@
 # @contractspec/lib.voice
 
+## 1.4.1
+
+### Patch Changes
+
+- 8f47829: fix: circular import issue
+- Updated dependencies [8f47829]
+  - @contractspec/lib.contracts-integrations@3.4.1
+  - @contractspec/lib.contracts-spec@3.4.1
+  - @contractspec/lib.ai-providers@3.4.1
+  - @contractspec/lib.content-gen@3.4.1
+
 ## 1.4.0
 
 ### Minor Changes

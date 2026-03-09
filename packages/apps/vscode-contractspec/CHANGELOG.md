@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.4.1
+
+### Patch Changes
+
+- 8f47829: fix: circular import issue
+- Updated dependencies [8f47829]
+  - @contractspec/lib.contracts-transformers@3.4.1
+  - @contractspec/lib.contracts-spec@3.4.1
+  - @contractspec/bundle.workspace@3.4.1
+  - @contractspec/module.workspace@3.4.1
+  - @contractspec/module.examples@3.4.1
+  - @contractspec/module.ai-chat@4.0.1
+  - @contractspec/lib.ai-agent@4.0.1
+
 ## 3.4.0
 
 ### Minor Changes

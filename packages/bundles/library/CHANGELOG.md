@@ -1,5 +1,30 @@
 # @contractspec/bundle.library
 
+## 3.4.1
+
+### Patch Changes
+
+- 8f47829: fix: circular import issue
+- Updated dependencies [8f47829]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.4.1
+  - @contractspec/lib.contracts-runtime-server-rest@3.4.1
+  - @contractspec/lib.contracts-runtime-server-mcp@3.4.1
+  - @contractspec/lib.contracts-integrations@3.4.1
+  - @contractspec/module.context-storage@0.4.1
+  - @contractspec/lib.contracts-library@3.4.1
+  - @contractspec/lib.example-shared-ui@3.4.1
+  - @contractspec/lib.provider-ranking@0.4.1
+  - @contractspec/lib.runtime-sandbox@2.4.1
+  - @contractspec/lib.contracts-spec@3.4.1
+  - @contractspec/lib.design-system@3.4.1
+  - @contractspec/lib.content-gen@3.4.1
+  - @contractspec/module.examples@3.4.1
+  - @contractspec/lib.ui-kit-web@3.4.1
+  - @contractspec/lib.knowledge@3.4.1
+  - @contractspec/lib.ui-link@3.4.1
+  - @contractspec/lib.logger@3.4.1
+  - @contractspec/lib.schema@3.4.1
+
 ## 3.4.0
 
 ### Minor Changes

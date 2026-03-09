@@ -1,5 +1,13 @@
 # @contractspec/lib.progressive-delivery
 
+## 31.0.1
+
+### Patch Changes
+
+- 8f47829: fix: circular import issue
+- Updated dependencies [8f47829]
+  - @contractspec/lib.observability@3.4.1
+
 ## 31.0.0
 
 ### Minor Changes

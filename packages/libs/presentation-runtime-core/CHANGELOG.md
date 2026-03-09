@@ -1,5 +1,11 @@
 # @contractspec/lib.presentation-runtime-core
 
+## 3.4.1
+
+### Patch Changes
+
+- 8f47829: fix: circular import issue
+
 ## 3.4.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 2.4.1
+
+### Patch Changes
+
+- 8f47829: fix: circular import issue
+
 ## 2.4.0
 
 ### Minor Changes
