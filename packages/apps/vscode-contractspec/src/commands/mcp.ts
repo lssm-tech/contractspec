@@ -104,7 +104,7 @@ async function callDocsMcp(
       id: 1,
       method: 'tools/call',
       params: {
-        name: 'docs.search.v1',
+        name: 'docs_search-v1_0_0',
         arguments: {
           query,
         },

@@ -148,7 +148,7 @@ export interface BatchFixRequest {
  * Context for spec generation.
  */
 export interface SpecGenerationContext {
-  /** Spec key (e.g., "docs.search"). */
+  /** Spec key (e.g., "docs_search"). */
   key: string;
   /** Spec version (e.g., "1.0.0"). */
   version: string;

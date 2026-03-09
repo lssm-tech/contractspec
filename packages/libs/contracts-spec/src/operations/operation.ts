@@ -179,7 +179,7 @@ export interface OperationSpec<
       // resource?: string;
     };
     mcp?: {
-      /** Override tool identifier (default: "<name>.v<version>") */
+      /** Override tool identifier (default: "<name>-v<version>" with dots replaced by underscores) */
       toolName?: string;
     };
   };

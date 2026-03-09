@@ -55,7 +55,7 @@ export const DocsIndexOutput = new SchemaModel({
 
 export const DocsIndexQuery = defineQuery({
   meta: {
-    key: 'docs.search',
+    key: 'docs_search',
     title: 'Docs Index',
     version: '1.0.0',
     description: 'Search and filter DocBlocks by query, tag, or visibility.',

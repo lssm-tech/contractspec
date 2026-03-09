@@ -22,7 +22,7 @@ export const DocsFeature = defineFeature({
   operations: [
     { key: 'docs.generate', version: '1.0.0' },
     { key: 'docs.publish', version: '1.0.0' },
-    { key: 'docs.search', version: '1.0.0' },
+    { key: 'docs_search', version: '1.0.0' },
     { key: 'docs.contract.reference', version: '1.0.0' },
   ],
 
@@ -46,5 +46,5 @@ export const DocsFeature = defineFeature({
     { key: 'docs.examples.catalog.view', version: '1.0.0' },
   ],
 
-  forms: [{ key: 'docs.search.form', version: '1.0.0' }],
+  forms: [{ key: 'docs_search.form', version: '1.0.0' }],
 });

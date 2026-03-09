@@ -14,7 +14,7 @@ Generate, publish, search, and reference contract documentation and DocBlocks
 
 - `docs.generate` (v1.0.0)
 - `docs.publish` (v1.0.0)
-- `docs.search` (v1.0.0)
+- `docs_search` (v1.0.0)
 - `docs.contract.reference` (v1.0.0)
 
 ## Events (2)
@@ -54,7 +54,7 @@ export const DocsFeature = defineFeature({
   operations: [
     { key: 'docs.generate', version: '1.0.0' },
     { key: 'docs.publish', version: '1.0.0' },
-    { key: 'docs.search', version: '1.0.0' },
+    { key: 'docs_search', version: '1.0.0' },
     { key: 'docs.contract.reference', version: '1.0.0' },
   ],
 
@@ -78,7 +78,6 @@ export const DocsFeature = defineFeature({
     { key: 'docs.examples.catalog.view', version: '1.0.0' },
   ],
 
-  forms: [{ key: 'docs.search.form', version: '1.0.0' }],
+  forms: [{ key: 'docs_search.form', version: '1.0.0' }],
 });
-
 ```

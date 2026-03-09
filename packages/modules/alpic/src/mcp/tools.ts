@@ -1,5 +1,6 @@
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import * as z from 'zod';
+import { sanitizeMcpName } from '@contractspec/lib.contracts-spec/jsonschema';
 import { alpicAssetPath } from '../assets/paths';
 
 export interface AlpicMcpToolConfig {
@@ -13,7 +14,7 @@ export function registerAlpicTools(
   server: McpServer,
   config: AlpicMcpToolConfig = {}
 ): void {
-  const toolName = config.name ?? defaultToolName;
+  const toolName = sanitizeMcpName(config.name ?? defaultToolName);
   const description =
     config.description ?? 'Ping the MCP server and return basic Alpic info.';
   const inputSchema = z.object({

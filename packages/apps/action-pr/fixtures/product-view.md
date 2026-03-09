@@ -1,3 +1,3 @@
 ## Contract changes
 
-- docs.search updated description string
+- docs_search updated description string

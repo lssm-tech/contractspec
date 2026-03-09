@@ -140,7 +140,7 @@ function buildInternalPrompts() {
   prompts.register(
     definePrompt({
       meta: {
-        key: 'internal.bootstrap',
+        key: 'internal_bootstrap',
         version: '1.0.0',
         title: 'Bootstrap internal ContractSpec agent',
         description:
@@ -184,7 +184,7 @@ function buildInternalOps() {
 
   const describeSpec = defineCommand({
     meta: {
-      key: 'internal.describe',
+      key: 'internal_describe',
       version: '1.0.0',
       stability: 'stable',
       owners: INTERNAL_OWNERS,

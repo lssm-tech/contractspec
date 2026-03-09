@@ -16,7 +16,7 @@ export const DocsFeature: FeatureModuleSpec = {
     stability: 'stable',
   },
   operations: [
-    { key: 'docs.search', version: '1.0.0' },
+    { key: 'docs_search', version: '1.0.0' },
     { key: 'docs.navigate', version: '1.0.0' },
   ],
   events: [
