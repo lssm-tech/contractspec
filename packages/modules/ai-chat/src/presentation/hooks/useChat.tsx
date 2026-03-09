@@ -24,7 +24,7 @@ import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow';
 import type { ContractsContextConfig } from '../../core/contracts-context';
 import type { ResolvedSurfacePlan } from '@contractspec/lib.surface-runtime/runtime/resolve-bundle';
 import type { SurfacePatchProposal } from '@contractspec/lib.surface-runtime/spec/types';
-import type { McpClientConfig } from '@contractspec/lib.ai-agent/tools/mcp-client';
+import type { McpClientConfig } from '@contractspec/lib.ai-agent/tools/mcp-client.browser';
 
 /** Tool definition for planner integration (reserved for bundle spec 07_ai_native_chat). */
 export interface UseChatToolDef {
@@ -202,7 +202,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
       return;
     }
     let cancelled = false;
-    import('@contractspec/lib.ai-agent/tools/mcp-client').then(
+    import('@contractspec/lib.ai-agent/tools/mcp-client.browser').then(
       ({ createMcpToolsets }) => {
         createMcpToolsets(mcpServers)
           .then(({ tools, cleanup }) => {
