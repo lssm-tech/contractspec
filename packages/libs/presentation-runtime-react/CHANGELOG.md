@@ -1,5 +1,22 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 32.0.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- 66c51da: docs(presentation-runtime-react): surface-runtime slot integration
+  - Add README section on workflow components filling slots via slotContent
+
+- Updated dependencies [230bdf6]
+  - @contractspec/lib.presentation-runtime-core@3.5.0
+  - @contractspec/lib.contracts-spec@3.5.0
+  - @contractspec/lib.design-system@3.5.0
+  - @contractspec/lib.ui-kit-web@3.5.0
+
 ## 31.0.3
 
 ### Patch Changes

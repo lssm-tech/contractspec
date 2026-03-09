@@ -1,5 +1,26 @@
 # Changelog
 
+## 3.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- Updated dependencies [66c51da]
+- Updated dependencies [1fa29a0]
+- Updated dependencies [5ee581b]
+- Updated dependencies [c527a4e]
+- Updated dependencies [230bdf6]
+  - @contractspec/module.ai-chat@4.1.0
+  - @contractspec/lib.contracts-transformers@3.5.0
+  - @contractspec/lib.contracts-spec@3.5.0
+  - @contractspec/bundle.workspace@3.5.0
+  - @contractspec/module.workspace@3.5.0
+  - @contractspec/module.examples@3.5.0
+  - @contractspec/lib.ai-agent@5.0.0
+
 ## 3.4.3
 
 ### Patch Changes

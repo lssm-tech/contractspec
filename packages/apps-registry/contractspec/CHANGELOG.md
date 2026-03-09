@@ -1,5 +1,16 @@
 # contractspec
 
+## 3.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- Updated dependencies [230bdf6]
+  - @contractspec/app.cli-contractspec@3.5.0
+
 ## 3.4.3
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @contractspec/lib.accessibility
 
+## 3.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- Updated dependencies [230bdf6]
+  - @contractspec/lib.design-system@3.5.0
+  - @contractspec/lib.ui-kit-web@3.5.0
+  - @contractspec/lib.ui-kit@3.5.0
+
 ## 3.4.3
 
 ### Patch Changes

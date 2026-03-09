@@ -1,5 +1,19 @@
 # @contractspec/example.ai-support-bot
 
+## 3.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- Updated dependencies [230bdf6]
+  - @contractspec/lib.contracts-spec@3.5.0
+  - @contractspec/lib.support-bot@3.5.0
+  - @contractspec/lib.knowledge@3.5.0
+  - @contractspec/lib.logger@3.5.0
+
 ## 3.4.3
 
 ### Patch Changes

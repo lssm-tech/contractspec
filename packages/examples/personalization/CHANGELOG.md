@@ -1,5 +1,21 @@
 # @contractspec/example.personalization
 
+## 3.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- Updated dependencies [66c51da]
+- Updated dependencies [230bdf6]
+  - @contractspec/lib.personalization@4.0.0
+  - @contractspec/lib.workflow-composer@3.5.0
+  - @contractspec/lib.contracts-spec@3.5.0
+  - @contractspec/lib.overlay-engine@3.5.0
+  - @contractspec/lib.logger@3.5.0
+
 ## 3.4.3
 
 ### Patch Changes

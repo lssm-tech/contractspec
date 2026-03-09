@@ -1,5 +1,20 @@
 # @contractspec/lib.support-bot
 
+## 3.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- Updated dependencies [230bdf6]
+  - @contractspec/lib.contracts-integrations@3.5.0
+  - @contractspec/lib.contracts-spec@3.5.0
+  - @contractspec/lib.knowledge@3.5.0
+  - @contractspec/lib.ai-agent@5.0.0
+  - @contractspec/lib.schema@3.5.0
+
 ## 3.4.3
 
 ### Patch Changes

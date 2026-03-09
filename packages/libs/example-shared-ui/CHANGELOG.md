@@ -1,5 +1,25 @@
 # @contractspec/lib.example-shared-ui
 
+## 4.0.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- 66c51da: feat(example-shared-ui): add SpecDrivenTemplateShell, ExampleTemplateBundle, bundles export
+  - Add SpecDrivenTemplateShell component
+  - Add ExampleTemplateBundle and bundles/index
+  - Add optional peer @contractspec/lib.surface-runtime
+
+- Updated dependencies [1fa29a0]
+- Updated dependencies [230bdf6]
+  - @contractspec/lib.surface-runtime@0.3.0
+  - @contractspec/lib.contracts-spec@3.5.0
+  - @contractspec/lib.design-system@3.5.0
+  - @contractspec/lib.ui-kit-web@3.5.0
+
 ## 3.4.3
 
 ### Patch Changes

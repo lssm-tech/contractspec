@@ -1,5 +1,22 @@
 # @contractspec/lib.video-gen
 
+## 2.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- Updated dependencies [230bdf6]
+  - @contractspec/lib.contracts-integrations@3.5.0
+  - @contractspec/lib.contracts-spec@3.5.0
+  - @contractspec/lib.design-system@3.5.0
+  - @contractspec/lib.ai-providers@3.5.0
+  - @contractspec/lib.content-gen@3.5.0
+  - @contractspec/lib.image-gen@1.5.0
+  - @contractspec/lib.voice@1.5.0
+
 ## 2.4.3
 
 ### Patch Changes

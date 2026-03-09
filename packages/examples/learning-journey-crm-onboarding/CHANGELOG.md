@@ -1,5 +1,19 @@
 # @contractspec/example.learning-journey-crm-onboarding
 
+## 3.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- Updated dependencies [230bdf6]
+  - @contractspec/module.learning-journey@3.5.0
+  - @contractspec/example.crm-pipeline@3.5.0
+  - @contractspec/lib.contracts-spec@3.5.0
+  - @contractspec/lib.schema@3.5.0
+
 ## 3.4.3
 
 ### Patch Changes

@@ -1,5 +1,20 @@
 # @contractspec/app.provider-ranking-mcp
 
+## 1.4.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- Updated dependencies [230bdf6]
+  - @contractspec/lib.contracts-runtime-server-mcp@3.5.0
+  - @contractspec/module.provider-ranking@0.5.0
+  - @contractspec/lib.provider-ranking@0.5.0
+  - @contractspec/lib.contracts-spec@3.5.0
+  - @contractspec/lib.logger@3.5.0
+
 ## 1.3.3
 
 ### Patch Changes

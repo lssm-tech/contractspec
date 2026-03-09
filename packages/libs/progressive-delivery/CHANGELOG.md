@@ -1,5 +1,16 @@
 # @contractspec/lib.progressive-delivery
 
+## 32.0.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- Updated dependencies [230bdf6]
+  - @contractspec/lib.observability@3.5.0
+
 ## 31.0.3
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # @contractspec/example.agent-console
 
+## 3.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- Updated dependencies [66c51da]
+- Updated dependencies [230bdf6]
+  - @contractspec/lib.example-shared-ui@4.0.0
+  - @contractspec/lib.runtime-sandbox@2.5.0
+  - @contractspec/lib.contracts-spec@3.5.0
+  - @contractspec/lib.design-system@3.5.0
+  - @contractspec/lib.schema@3.5.0
+
 ## 3.4.3
 
 ### Patch Changes

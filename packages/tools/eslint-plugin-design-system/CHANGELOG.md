@@ -1,5 +1,11 @@
 # @contractspec/eslint-plugin-design-system
 
+## 3.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
 ## 3.4.3
 
 ### Patch Changes

@@ -1,5 +1,22 @@
 # @contractspec/lib.surface-runtime
 
+## 0.3.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- 1fa29a0: feat(surface-runtime): add slotContent prop to BundleRenderer
+  - Allow override content for any slot via slotContent partial record
+  - Render slotContent[slotId] when provided instead of SlotRenderer
+
+- Updated dependencies [230bdf6]
+  - @contractspec/lib.contracts-spec@3.5.0
+  - @contractspec/lib.overlay-engine@3.5.0
+  - @contractspec/lib.observability@3.5.0
+
 ## 0.2.3
 
 ### Patch Changes

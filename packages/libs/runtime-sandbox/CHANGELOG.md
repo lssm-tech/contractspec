@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 2.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
 ## 2.4.3
 
 ### Patch Changes

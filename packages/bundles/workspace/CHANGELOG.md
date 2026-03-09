@@ -1,5 +1,23 @@
 # @contractspec/bundle.workspace
 
+## 3.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- Updated dependencies [230bdf6]
+  - @contractspec/lib.contracts-integrations@3.5.0
+  - @contractspec/lib.contracts-transformers@3.5.0
+  - @contractspec/lib.source-extractors@2.5.0
+  - @contractspec/lib.utils-typescript@3.5.0
+  - @contractspec/lib.contracts-spec@3.5.0
+  - @contractspec/lib.ai-providers@3.5.0
+  - @contractspec/module.workspace@3.5.0
+  - @contractspec/lib.ai-agent@5.0.0
+
 ## 3.4.3
 
 ### Patch Changes

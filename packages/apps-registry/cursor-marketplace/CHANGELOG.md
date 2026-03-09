@@ -1,5 +1,11 @@
 # @contractspec/app.cursor-marketplace
 
+## 1.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
 ## 1.4.3
 
 ### Patch Changes

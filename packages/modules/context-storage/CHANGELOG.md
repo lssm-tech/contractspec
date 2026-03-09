@@ -1,5 +1,19 @@
 # @contractspec/module.context-storage
 
+## 0.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- Updated dependencies [230bdf6]
+  - @contractspec/lib.contracts-integrations@3.5.0
+  - @contractspec/lib.context-storage@0.5.0
+  - @contractspec/lib.knowledge@3.5.0
+  - @contractspec/lib.schema@3.5.0
+
 ## 0.4.3
 
 ### Patch Changes

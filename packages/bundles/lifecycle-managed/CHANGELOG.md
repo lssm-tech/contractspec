@@ -1,5 +1,21 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- Updated dependencies [230bdf6]
+  - @contractspec/module.lifecycle-advisor@3.5.0
+  - @contractspec/module.lifecycle-core@3.5.0
+  - @contractspec/lib.observability@3.5.0
+  - @contractspec/lib.analytics@3.5.0
+  - @contractspec/lib.lifecycle@3.5.0
+  - @contractspec/lib.ai-agent@5.0.0
+
 ## 3.4.3
 
 ### Patch Changes
