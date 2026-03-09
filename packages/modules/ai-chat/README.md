@@ -22,6 +22,8 @@ This module provides a reusable AI chat system that can be integrated into CLI, 
 - **Thinking Levels**: Select reasoning depth (instant, thinking, extra thinking, max); maps to Anthropic budgetTokens and OpenAI reasoningEffort
 - **Workflow Creation Tools**: Create and modify workflows conversationally via `create_workflow_extension`, `compose_workflow`, and `generate_workflow_spec_code` (requires `@contractspec/lib.workflow-composer`)
 - **ModelSelector**: Dynamic model selection by task dimension (reasoning vs latency) when using `@contractspec/lib.ai-providers` ModelSelector
+- **Contracts-Spec Context**: Expose agent, data-views, operations, forms, and presentations to the model via `contractsContext`; agent tools can be wired from `AgentToolConfig[]`
+- **Surface-Runtime Integration**: Full support for `@contractspec/lib.surface-runtime` — pass `surfacePlanConfig` to enable `propose-patch` tool; chat can propose layout changes for user approval
 
 ## Bundle Spec Alignment (07_ai_native_chat)
 
@@ -31,8 +33,8 @@ This module aligns with `specs/contractspec_modules_bundle_spec_2026-03-08`. `us
 
 - `@contractspec/lib.ai-providers` — Shared provider abstraction (types, factory, validation), ModelSelector for dynamic model selection
 - `@contractspec/lib.workflow-composer` — Workflow composition and validation (optional; required for workflow creation tools)
-- `@contractspec/lib.ai-agent` — Agent orchestration and tool execution
-- `@contractspec/lib.surface-runtime` — Bundle surfaces (optional peer when used in PM workbench)
+- `@contractspec/lib.ai-agent` — Agent orchestration and tool execution; `AgentToolConfig` for agent tools
+- `@contractspec/lib.surface-runtime` — Bundle surfaces, planner tools, `AiSdkBundleAdapter`; full integration when used in PM workbench
 
 ## Providers
 
@@ -242,6 +244,34 @@ const { completion, complete, isLoading } = useCompletion({
 ```
 
 Use `createCompletionRoute` for the API endpoint (see `createChatRoute` pattern).
+
+### Contracts-Spec Context and Surface-Runtime
+
+Pass `contractsContext` to expose agent, data-views, operations, forms, and presentations to the model. Pass `surfacePlanConfig` when embedding chat in a surface-runtime (e.g. PM workbench) to enable the `propose-patch` tool:
+
+```tsx
+import { ChatWithSidebar } from '@contractspec/module.ai-chat';
+import type { ResolvedSurfacePlan } from '@contractspec/lib.surface-runtime/runtime/resolve-bundle';
+
+function PmWorkbench({ plan }: { plan: ResolvedSurfacePlan }) {
+  const [currentPlan, setPlan] = useState(plan);
+  const onPatchProposal = useCallback((proposal) => {
+    setPlan(prev => ({
+      ...prev,
+      ai: { ...prev.ai, proposals: [...(prev.ai?.proposals ?? []), proposal] },
+    }));
+  }, []);
+
+  return (
+    <ChatWithSidebar
+      surfacePlanConfig={{ plan: currentPlan, onPatchProposal }}
+      systemPrompt="You are a PM workbench assistant. Propose layout changes when helpful."
+    />
+  );
+}
+```
+
+`createAiSdkBundleAdapter` from `@contractspec/module.ai-chat/adapters` implements `AiSdkBundleAdapter` for surface-runtime planner integration.
 
 ### streamObject / generateObject
 

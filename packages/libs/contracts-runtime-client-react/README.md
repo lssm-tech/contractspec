@@ -139,6 +139,16 @@ When debugging:
 - If form fields do not render, verify driver slot coverage for the field kind.
 - If resolver options stay empty, verify `resolverKey` and dependency paths in form contract.
 
+## Surface-runtime slot integration
+
+When using `@contractspec/lib.surface-runtime`, feature and form renderers can fill slots (e.g. `entity-section`, `form`, `entity-field`):
+
+1. **Slot content**: Pass `FeatureRender` output or form components as `slotContent` to `BundleRenderer` for slots that `accepts` include `form` or `entity-section`.
+2. **Field renderer registry**: Register custom field renderers via `@contractspec/lib.surface-runtime/runtime/field-renderer-registry` so entity fields render correctly in surface slots.
+3. **Widget registry**: For `custom-widget` slots, wire your form or feature components through the widget registry.
+
+Example: a slot with `accepts: ['form', 'entity-section']` can render `createFormRenderer(...).render(formSpec)` or `renderFeaturePresentation` output as its content.
+
 ## Split migration from deprecated monolith
 
 - `@contractspec/lib.contracts/client/react/feature-render` -> `@contractspec/lib.contracts-runtime-client-react/feature-render`

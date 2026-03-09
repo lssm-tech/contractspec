@@ -32,6 +32,8 @@ The AI Chat module provides a reusable AI-powered conversational coding assistan
 - **Thinking Levels**: Choose reasoning depth (instant, thinking, extra thinking, max); maps to Anthropic budgetTokens and OpenAI reasoningEffort
 - **Workflow Creation Tools**: Create and modify workflows via \`create_workflow_extension\`, \`compose_workflow\`, \`generate_workflow_spec_code\` when \`workflowToolsConfig\` is set (requires \`@contractspec/lib.workflow-composer\`)
 - **ModelSelector**: Dynamic model selection by task dimension when \`modelSelector\` is provided
+- **Contracts-Spec Context**: Pass \`contractsContext\` to expose agent, data-views, operations, forms, presentations to the model; agent tools from \`AgentToolConfig[]\` are converted to AI SDK tools
+- **Surface-Runtime**: Pass \`surfacePlanConfig\` when embedding in surface-runtime; enables \`propose-patch\` tool for layout proposals; \`createAiSdkBundleAdapter\` implements \`AiSdkBundleAdapter\`
 
 ## Architecture
 

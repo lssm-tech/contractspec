@@ -1,0 +1,1 @@
+export { ExampleTemplateBundle } from './ExampleTemplateBundle';

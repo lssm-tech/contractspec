@@ -12,6 +12,7 @@ import {
 } from '@contractspec/lib.surface-runtime/runtime/audit-events';
 import { ChatWithSidebar } from '@contractspec/module.ai-chat';
 import type { ResolvedSurfacePlan } from '@contractspec/lib.surface-runtime/runtime/resolve-bundle';
+import type { SurfacePatchProposal } from '@contractspec/lib.surface-runtime/spec/types';
 
 export interface PmWorkbenchClientProps {
   plan: ResolvedSurfacePlan;
@@ -124,7 +125,7 @@ export function PmWorkbenchClient({
   );
 
   const onPatchProposal = useCallback(
-    (proposal: import('@contractspec/lib.surface-runtime/spec/types').SurfacePatchProposal) => {
+    (proposal: SurfacePatchProposal) => {
       setPlan((prev) => ({
         ...prev,
         ai: {

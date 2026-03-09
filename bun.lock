@@ -392,6 +392,7 @@
         "@contractspec/lib.provider-ranking": "workspace:*",
         "@contractspec/lib.runtime-sandbox": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
+        "@contractspec/lib.surface-runtime": "workspace:*",
         "@contractspec/lib.ui-kit-web": "workspace:*",
         "@contractspec/lib.ui-link": "workspace:*",
         "@contractspec/module.context-storage": "workspace:*",
@@ -1787,6 +1788,15 @@
         "eslint": "^9.39.2",
         "typescript": "catalog:",
       },
+      "optionalDependencies": {
+        "@contractspec/lib.surface-runtime": "workspace:*",
+      },
+      "peerDependencies": {
+        "@contractspec/lib.surface-runtime": "workspace:*",
+      },
+      "optionalPeers": [
+        "@contractspec/lib.surface-runtime",
+      ],
     },
     "packages/libs/exporter": {
       "name": "@contractspec/lib.exporter",
@@ -2532,6 +2542,7 @@
         "@contractspec/lib.design-system": "workspace:*",
         "@contractspec/lib.metering": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
+        "@contractspec/lib.surface-runtime": "workspace:*",
         "@contractspec/lib.ui-kit-web": "workspace:*",
         "@contractspec/lib.workflow-composer": "workspace:*",
         "ai": "catalog:ai",
@@ -2546,12 +2557,8 @@
         "typescript": "catalog:",
       },
       "peerDependencies": {
-        "@contractspec/lib.surface-runtime": "workspace:*",
         "react": ">=19.2.4",
       },
-      "optionalPeers": [
-        "@contractspec/lib.surface-runtime",
-      ],
     },
     "packages/modules/alpic": {
       "name": "@contractspec/module.alpic",

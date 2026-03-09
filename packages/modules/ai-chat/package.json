@@ -69,9 +69,7 @@
     "./presentation/hooks/index": "./src/presentation/hooks/index.ts",
     "./presentation/index": "./src/presentation/index.ts",
     "./providers": "./src/providers/index.ts",
-    "./providers/index": "./src/providers/index.ts",
-    "./adapters": "./src/adapters/index.ts",
-    "./adapters/index": "./src/adapters/index.ts"
+    "./providers/index": "./src/providers/index.ts"
   },
   "publishConfig": {
     "access": "public",

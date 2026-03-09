@@ -7,11 +7,8 @@ import { tool, type ToolSet } from 'ai';
 import { z } from 'zod';
 import type { ResolvedSurfacePlan } from '@contractspec/lib.surface-runtime/runtime/resolve-bundle';
 import type { RegionNode } from '@contractspec/lib.surface-runtime/spec/types';
-import {
-  validatePatchProposal,
-  type PatchProposalConstraints,
-  type SurfacePatchOp,
-} from '@contractspec/lib.surface-runtime/spec/validate-surface-patch';
+import { validatePatchProposal, type PatchProposalConstraints } from '@contractspec/lib.surface-runtime/spec/validate-surface-patch';
+import type { SurfacePatchOp } from '@contractspec/lib.surface-runtime/spec/types';
 import { buildSurfacePatchProposal } from '@contractspec/lib.surface-runtime/runtime/planner-tools';
 import type {
   BundleNodeKind,
@@ -103,8 +100,8 @@ const ProposePatchInputSchema = z.object({
           nodeId: z.string(),
           kind: z.string(),
           title: z.string().optional(),
-          props: z.record(z.unknown()).optional(),
-          children: z.array(z.any()).optional(),
+          props: z.record(z.string(), z.unknown()).optional(),
+          children: z.array(z.unknown()).optional(),
         })
         .optional(),
       persistKey: z.string().optional(),

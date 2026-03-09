@@ -18,6 +18,9 @@
   },
   "exports": {
     ".": "./src/index.ts",
+    "./bundles": "./src/bundles/index.ts",
+    "./bundles/MarketingBundle": "./src/bundles/MarketingBundle.ts",
+    "./bundles/index": "./src/bundles/index.ts",
     "./components/marketing": "./src/components/marketing/index.ts",
     "./components/marketing/ChangelogPage": "./src/components/marketing/ChangelogPage.tsx",
     "./components/marketing/CofounderPage": "./src/components/marketing/CofounderPage.tsx",
@@ -67,6 +70,7 @@
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@contractspec/bundle.library": "workspace:*",
+    "@contractspec/lib.surface-runtime": "workspace:*",
     "@contractspec/example.agent-console": "workspace:*",
     "@contractspec/example.analytics-dashboard": "workspace:*",
     "@contractspec/example.crm-pipeline": "workspace:*",
@@ -113,6 +117,27 @@
         "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
+      },
+      "./bundles": {
+        "types": "./dist/bundles/index.d.ts",
+        "bun": "./dist/bundles/index.js",
+        "node": "./dist/node/bundles/index.js",
+        "browser": "./dist/browser/bundles/index.js",
+        "default": "./dist/bundles/index.js"
+      },
+      "./bundles/MarketingBundle": {
+        "types": "./dist/bundles/MarketingBundle.d.ts",
+        "bun": "./dist/bundles/MarketingBundle.js",
+        "node": "./dist/node/bundles/MarketingBundle.js",
+        "browser": "./dist/browser/bundles/MarketingBundle.js",
+        "default": "./dist/bundles/MarketingBundle.js"
+      },
+      "./bundles/index": {
+        "types": "./dist/bundles/index.d.ts",
+        "bun": "./dist/bundles/index.js",
+        "node": "./dist/node/bundles/index.js",
+        "browser": "./dist/browser/bundles/index.js",
+        "default": "./dist/bundles/index.js"
       },
       "./components/marketing": {
         "types": "./dist/components/marketing/index.d.ts",
