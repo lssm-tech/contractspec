@@ -1,5 +1,11 @@
 # @contractspec/lib.context-storage
 
+## 0.4.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+
 ## 0.4.1
 
 ### Patch Changes

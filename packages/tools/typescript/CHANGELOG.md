@@ -1,5 +1,11 @@
 # @contractspec/tool.typescript
 
+## 3.4.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+
 ## 3.4.1
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @contractspec/app.api-library
 
+## 3.4.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+- Updated dependencies [78d56a4]
+  - @contractspec/integration.providers-impls@3.4.2
+  - @contractspec/integration.runtime@3.4.2
+  - @contractspec/lib.contracts-spec@3.4.2
+  - @contractspec/bundle.marketing@3.4.2
+  - @contractspec/bundle.workspace@3.4.2
+  - @contractspec/bundle.library@3.4.2
+
 ## 3.4.1
 
 ### Patch Changes

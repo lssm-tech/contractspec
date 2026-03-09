@@ -1,5 +1,24 @@
 # Changelog
 
+## 3.4.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+- Updated dependencies [78d56a4]
+  - @contractspec/lib.contracts-integrations@3.4.2
+  - @contractspec/lib.contracts-transformers@3.4.2
+  - @contractspec/lib.contracts-spec@3.4.2
+  - @contractspec/bundle.workspace@3.4.2
+  - @contractspec/lib.ai-providers@3.4.2
+  - @contractspec/module.workspace@3.4.2
+  - @contractspec/module.examples@3.4.2
+  - @contractspec/module.ai-chat@4.0.2
+  - @contractspec/lib.ai-agent@4.0.2
+  - @contractspec/lib.plugins@3.4.2
+  - @contractspec/lib.testing@3.4.2
+  - @contractspec/lib.schema@3.4.2
+
 ## 3.4.1
 
 ### Patch Changes

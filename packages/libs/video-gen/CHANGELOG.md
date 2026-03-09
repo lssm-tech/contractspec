@@ -1,5 +1,19 @@
 # @contractspec/lib.video-gen
 
+## 2.4.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+- Updated dependencies [78d56a4]
+  - @contractspec/lib.contracts-integrations@3.4.2
+  - @contractspec/lib.contracts-spec@3.4.2
+  - @contractspec/lib.design-system@3.4.2
+  - @contractspec/lib.ai-providers@3.4.2
+  - @contractspec/lib.content-gen@3.4.2
+  - @contractspec/lib.image-gen@1.4.2
+  - @contractspec/lib.voice@1.4.2
+
 ## 2.4.1
 
 ### Patch Changes

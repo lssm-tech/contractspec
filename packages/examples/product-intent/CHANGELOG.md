@@ -1,5 +1,17 @@
 # @contractspec/example.product-intent
 
+## 3.4.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+- Updated dependencies [78d56a4]
+  - @contractspec/integration.providers-impls@3.4.2
+  - @contractspec/lib.contracts-integrations@3.4.2
+  - @contractspec/lib.product-intent-utils@3.4.2
+  - @contractspec/lib.contracts-spec@3.4.2
+  - @contractspec/lib.ai-agent@4.0.2
+
 ## 3.4.1
 
 ### Patch Changes

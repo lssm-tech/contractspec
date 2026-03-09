@@ -1,5 +1,16 @@
 # @contractspec/lib.ai-agent
 
+## 4.0.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+- Updated dependencies [78d56a4]
+  - @contractspec/lib.surface-runtime@0.2.2
+  - @contractspec/lib.contracts-spec@3.4.2
+  - @contractspec/lib.ai-providers@3.4.2
+  - @contractspec/lib.knowledge@3.4.2
+
 ## 4.0.1
 
 ### Patch Changes

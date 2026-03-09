@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.contracts-runtime-server-rest",
-  "version": "3.4.1",
+  "version": "3.4.2",
   "description": "REST server runtime adapters for ContractSpec contracts",
   "type": "module",
   "types": "./dist/index.d.ts",

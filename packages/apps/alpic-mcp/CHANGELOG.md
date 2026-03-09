@@ -1,5 +1,14 @@
 # @contractspec/app.alpic-mcp
 
+## 3.4.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+- Updated dependencies [78d56a4]
+  - @contractspec/bundle.alpic@3.4.2
+  - @contractspec/lib.logger@3.4.2
+
 ## 3.4.1
 
 ### Patch Changes

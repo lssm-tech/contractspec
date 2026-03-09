@@ -1,5 +1,34 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.4.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+- Updated dependencies [78d56a4]
+  - @contractspec/example.policy-safe-knowledge-assistant@3.4.2
+  - @contractspec/example.analytics-dashboard@3.4.2
+  - @contractspec/example.saas-boilerplate@3.4.2
+  - @contractspec/lib.progressive-delivery@31.0.2
+  - @contractspec/example.integration-hub@3.4.2
+  - @contractspec/example.workflow-system@3.4.2
+  - @contractspec/example.agent-console@3.4.2
+  - @contractspec/lib.example-shared-ui@3.4.2
+  - @contractspec/example.crm-pipeline@3.4.2
+  - @contractspec/example.in-app-docs@3.4.2
+  - @contractspec/example.marketplace@3.4.2
+  - @contractspec/lib.surface-runtime@0.2.2
+  - @contractspec/lib.contracts-spec@3.4.2
+  - @contractspec/lib.design-system@3.4.2
+  - @contractspec/bundle.marketing@3.4.2
+  - @contractspec/lib.ui-kit-core@3.4.2
+  - @contractspec/module.examples@3.4.2
+  - @contractspec/bundle.library@3.4.2
+  - @contractspec/lib.ui-kit-web@3.4.2
+  - @contractspec/module.ai-chat@4.0.2
+  - @contractspec/lib.ui-link@3.4.2
+  - @contractspec/lib.ui-kit@3.4.2
+
 ## 3.4.1
 
 ### Patch Changes

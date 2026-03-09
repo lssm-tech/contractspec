@@ -1,5 +1,17 @@
 # @contractspec/example.marketplace
 
+## 3.4.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+- Updated dependencies [78d56a4]
+  - @contractspec/lib.example-shared-ui@3.4.2
+  - @contractspec/lib.runtime-sandbox@2.4.2
+  - @contractspec/lib.contracts-spec@3.4.2
+  - @contractspec/lib.design-system@3.4.2
+  - @contractspec/lib.schema@3.4.2
+
 ## 3.4.1
 
 ### Patch Changes

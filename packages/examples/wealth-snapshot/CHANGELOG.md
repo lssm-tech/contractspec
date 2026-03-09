@@ -1,5 +1,17 @@
 # @contractspec/example.wealth-snapshot
 
+## 3.4.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+- Updated dependencies [78d56a4]
+  - @contractspec/module.notifications@3.4.2
+  - @contractspec/lib.contracts-spec@3.4.2
+  - @contractspec/module.audit-trail@3.4.2
+  - @contractspec/lib.identity-rbac@3.4.2
+  - @contractspec/lib.schema@3.4.2
+
 ## 3.4.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @contractspec/app.cursor-marketplace
 
+## 1.4.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+
 ## 1.4.1
 
 ### Patch Changes

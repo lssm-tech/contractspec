@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.schema",
-  "version": "3.4.1",
+  "version": "3.4.2",
   "description": "Schema utilities for Zod, JSON Schema, and GraphQL",
   "keywords": [
     "contractspec",
