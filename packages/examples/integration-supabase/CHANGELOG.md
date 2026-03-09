@@ -1,5 +1,16 @@
 # @contractspec/example.integration-supabase
 
+## 3.5.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+- Updated dependencies [b0b4da6]
+  - @contractspec/integration.providers-impls@3.5.3
+  - @contractspec/lib.contracts-integrations@3.5.3
+  - @contractspec/integration.runtime@3.5.3
+  - @contractspec/lib.contracts-spec@3.5.3
+
 ## 3.5.2
 
 ### Patch Changes

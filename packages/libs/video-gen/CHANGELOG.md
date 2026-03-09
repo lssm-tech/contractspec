@@ -1,5 +1,19 @@
 # @contractspec/lib.video-gen
 
+## 2.5.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+- Updated dependencies [b0b4da6]
+  - @contractspec/lib.contracts-integrations@3.5.3
+  - @contractspec/lib.contracts-spec@3.5.3
+  - @contractspec/lib.design-system@3.5.3
+  - @contractspec/lib.ai-providers@3.5.3
+  - @contractspec/lib.content-gen@3.5.3
+  - @contractspec/lib.image-gen@1.5.3
+  - @contractspec/lib.voice@1.5.3
+
 ## 2.5.2
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @contractspec/module.provider-ranking
 
+## 0.5.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+- Updated dependencies [b0b4da6]
+  - @contractspec/lib.contracts-integrations@3.5.3
+  - @contractspec/lib.provider-ranking@0.5.3
+  - @contractspec/lib.schema@3.5.3
+
 ## 0.5.2
 
 ### Patch Changes

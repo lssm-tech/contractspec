@@ -1,5 +1,31 @@
 # @contractspec/bundle.library
 
+## 3.5.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+- Updated dependencies [b0b4da6]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.5.3
+  - @contractspec/lib.contracts-runtime-server-rest@3.5.3
+  - @contractspec/lib.contracts-runtime-server-mcp@3.5.3
+  - @contractspec/lib.contracts-integrations@3.5.3
+  - @contractspec/module.context-storage@0.5.3
+  - @contractspec/lib.contracts-library@3.5.3
+  - @contractspec/lib.example-shared-ui@4.0.3
+  - @contractspec/lib.provider-ranking@0.5.3
+  - @contractspec/lib.runtime-sandbox@2.5.3
+  - @contractspec/lib.surface-runtime@0.3.3
+  - @contractspec/lib.contracts-spec@3.5.3
+  - @contractspec/lib.design-system@3.5.3
+  - @contractspec/lib.content-gen@3.5.3
+  - @contractspec/module.examples@3.5.3
+  - @contractspec/lib.ui-kit-web@3.5.3
+  - @contractspec/lib.knowledge@3.5.3
+  - @contractspec/lib.ui-link@3.5.3
+  - @contractspec/lib.logger@3.5.3
+  - @contractspec/lib.schema@3.5.3
+
 ## 3.5.2
 
 ### Patch Changes

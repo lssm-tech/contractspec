@@ -1,5 +1,25 @@
 # Changelog
 
+## 3.5.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+- Updated dependencies [b0b4da6]
+- Updated dependencies [56ae36d]
+  - @contractspec/lib.contracts-integrations@3.5.3
+  - @contractspec/lib.contracts-transformers@3.5.3
+  - @contractspec/lib.contracts-spec@3.5.3
+  - @contractspec/bundle.workspace@3.5.3
+  - @contractspec/lib.ai-providers@3.5.3
+  - @contractspec/module.workspace@3.5.3
+  - @contractspec/module.examples@3.5.3
+  - @contractspec/module.ai-chat@4.1.3
+  - @contractspec/lib.ai-agent@5.0.3
+  - @contractspec/lib.plugins@3.5.3
+  - @contractspec/lib.testing@3.5.3
+  - @contractspec/lib.schema@3.5.3
+
 ## 3.5.2
 
 ### Patch Changes

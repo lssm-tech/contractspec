@@ -1,5 +1,11 @@
 # @contractspec/lib.ui-kit-core
 
+## 3.5.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+
 ## 3.5.2
 
 ### Patch Changes

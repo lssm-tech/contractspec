@@ -1,5 +1,18 @@
 # @contractspec/lib.personalization
 
+## 4.0.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+- Updated dependencies [b0b4da6]
+  - @contractspec/lib.surface-runtime@0.3.3
+  - @contractspec/lib.contracts-spec@3.5.3
+  - @contractspec/lib.overlay-engine@3.5.3
+  - @contractspec/lib.knowledge@3.5.3
+  - @contractspec/lib.schema@3.5.3
+  - @contractspec/lib.bus@3.5.3
+
 ## 4.0.2
 
 ### Patch Changes

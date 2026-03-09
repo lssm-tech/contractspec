@@ -1,5 +1,18 @@
 # @contractspec/example.analytics-dashboard
 
+## 3.5.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+- Updated dependencies [b0b4da6]
+  - @contractspec/lib.contracts-integrations@3.5.3
+  - @contractspec/lib.example-shared-ui@4.0.3
+  - @contractspec/lib.runtime-sandbox@2.5.3
+  - @contractspec/lib.contracts-spec@3.5.3
+  - @contractspec/lib.design-system@3.5.3
+  - @contractspec/lib.schema@3.5.3
+
 ## 3.5.2
 
 ### Patch Changes

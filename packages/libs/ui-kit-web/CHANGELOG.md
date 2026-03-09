@@ -1,5 +1,13 @@
 # @contractspec/lib.ui-kit-web
 
+## 3.5.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+- Updated dependencies [b0b4da6]
+  - @contractspec/lib.ui-kit-core@3.5.3
+
 ## 3.5.2
 
 ### Patch Changes

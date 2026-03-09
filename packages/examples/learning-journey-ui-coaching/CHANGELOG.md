@@ -1,5 +1,19 @@
 # @contractspec/example.learning-journey-ui-coaching
 
+## 3.5.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+- Updated dependencies [b0b4da6]
+  - @contractspec/example.learning-journey-crm-onboarding@3.5.3
+  - @contractspec/example.learning-journey-ambient-coach@3.5.3
+  - @contractspec/example.learning-journey-ui-shared@3.5.3
+  - @contractspec/module.learning-journey@3.5.3
+  - @contractspec/lib.contracts-spec@3.5.3
+  - @contractspec/lib.design-system@3.5.3
+  - @contractspec/lib.ui-kit-web@3.5.3
+
 ## 3.5.2
 
 ### Patch Changes

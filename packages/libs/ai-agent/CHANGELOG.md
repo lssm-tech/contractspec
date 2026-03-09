@@ -1,5 +1,23 @@
 # @contractspec/lib.ai-agent
 
+## 5.0.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+- 56ae36d: fix: use browser-safe MCP client stub in client bundles
+
+  Next.js Turbopack was resolving to the Node mcp-client (which uses
+  node:child_process) when bundling for the browser, causing build failures.
+  Now useChat explicitly imports mcp-client.browser, and lib.ai-agent exports
+  include an explicit browser condition for tools/mcp-client.
+
+- Updated dependencies [b0b4da6]
+  - @contractspec/lib.surface-runtime@0.3.3
+  - @contractspec/lib.contracts-spec@3.5.3
+  - @contractspec/lib.ai-providers@3.5.3
+  - @contractspec/lib.knowledge@3.5.3
+
 ## 5.0.2
 
 ### Patch Changes

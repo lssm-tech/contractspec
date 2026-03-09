@@ -1,5 +1,21 @@
 # @contractspec/bundle.workspace
 
+## 3.5.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+- Updated dependencies [b0b4da6]
+- Updated dependencies [56ae36d]
+  - @contractspec/lib.contracts-integrations@3.5.3
+  - @contractspec/lib.contracts-transformers@3.5.3
+  - @contractspec/lib.source-extractors@2.5.3
+  - @contractspec/lib.utils-typescript@3.5.3
+  - @contractspec/lib.contracts-spec@3.5.3
+  - @contractspec/lib.ai-providers@3.5.3
+  - @contractspec/module.workspace@3.5.3
+  - @contractspec/lib.ai-agent@5.0.3
+
 ## 3.5.2
 
 ### Patch Changes
