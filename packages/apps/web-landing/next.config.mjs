@@ -78,6 +78,11 @@ const nextConfig = {
         source: '/llms.mdx',
         destination: '/llms.txt',
       },
+      // LLM full guide (all packages aggregated)
+      {
+        source: '/llms-full',
+        destination: '/llms-full.txt',
+      },
       // Subdomain form: llms.<app-domain> → /llms.txt
       {
         source: '/:path*',

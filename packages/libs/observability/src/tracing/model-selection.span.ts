@@ -1,5 +1,5 @@
 import type { Span } from '@opentelemetry/api';
-import { traceAsync } from './index';
+import { traceAsync } from './core';
 
 export interface ModelSelectionSpanAttributes {
   'model.selected': string;

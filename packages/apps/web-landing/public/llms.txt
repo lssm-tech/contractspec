@@ -1,265 +1,59 @@
-# ContractSpec — LLM Guide
+# ContractSpec — LLM Guide (Monorepo Summary)
 
-> Stabilize your AI-generated code. Define contracts once, generate consistent code across API, DB, UI, and events.
+> The deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable. One mega library: contracts, runtime adapters, AI agents, and tooling.
 
 ## What is ContractSpec?
 
-ContractSpec is a **spec-first compiler** for AI-generated software. It provides:
+ContractSpec is a **spec-first compiler** and **mega library** for AI-generated software. Define contracts in TypeScript; generate API, DB, UI, events, and MCP tools. Regenerate safely; invariants enforced; breaking changes caught at compile time.
 
-- **Single Source of Truth**: Define contracts in TypeScript that generate API endpoints, database schemas, UI types, events, and MCP tools
-- **Safe Regeneration**: Update specs, regenerate code—invariants are enforced, breaking changes caught at compile time
-- **Multi-Surface Consistency**: One spec generates REST, GraphQL, Prisma, React components, and AI agent tools
-- **No Lock-in**: Generated code is standard TypeScript you can read, modify, and eject from anytime
+## Monorepo Structure
 
-## Installation
+Layered architecture (dependencies flow down):
 
-```bash
-# Install the CLI
-bun add -D @contractspec/app.cli-contractspec
+**apps → bundles → modules → libs**
 
-# Install core libraries
-bun add @contractspec/lib.contracts @contractspec/lib.schema
-```
+| Layer | Path | Role |
+|-------|------|------|
+| libs | packages/libs/ | Foundation. Infrastructure, contracts, utilities. Zero deps on bundles/apps. |
+| modules | packages/modules/ | Specialized implementations. Self-contained lifecycle/feature modules. |
+| bundles | packages/bundles/ | Domain logic. Models, services, smart UI. Cannot import from apps. |
+| apps | packages/apps/ | Platform adapters. Thin entry points (Next.js, CLI, VSCode). |
+| examples | packages/examples/ | Reference implementations, demos, ready-to-clone use-cases. |
+| tools | packages/tools/ | Build tools, scripts, ESLint/TS configs. |
+| integrations | packages/integrations/ | Runtime adapters (cloud providers, database drivers). |
+| apps-registry | packages/apps-registry/ | Application registry metadata. |
 
-## Core Concepts
+## Entry Points
 
-### Operations (Commands & Queries)
+- **/llms** (this file) — Global monorepo summary
+- **/llms-full.txt** — Full content: all package READMEs aggregated
+- **/llms/[slug]** — Per-package guide. Slug = package name without @contractspec (e.g. lib.ai-agent, bundle.library)
 
-Operations are the primary building blocks. Commands mutate state; queries read state.
+## Package-Specific Guides
 
-```typescript
-import { defineCommand, defineQuery } from '@contractspec/lib.contracts';
-import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+For per-package docs, use /llms/{slug} where slug is the package name without @contractspec:
 
-// Command (write operation)
-export const CreateUser = defineCommand({
-  meta: {
-    name: 'user.create',
-    version: '1.0.0',
-    description: 'Register a new user',
-    goal: 'Onboard users to the platform',
-    context: 'Public registration flow',
-    owners: ['team-auth'],
-    tags: ['auth', 'users'],
-  },
-  io: {
-    input: new SchemaModel({
-      name: 'CreateUserInput',
-      fields: {
-        email: { type: ScalarTypeEnum.Email(), isOptional: false },
-        name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-      },
-    }),
-    output: new SchemaModel({
-      name: 'CreateUserOutput',
-      fields: {
-        id: { type: ScalarTypeEnum.UUID(), isOptional: false },
-      },
-    }),
-    errors: {
-      EMAIL_EXISTS: {
-        description: 'Email already registered',
-        http: 409,
-        when: 'User with this email already exists',
-      },
-    },
-  },
-  policy: {
-    auth: 'anonymous',
-  },
-});
+- lib.ai-agent — AI agent orchestration
+- lib.contracts-spec — Core contracts, registries, policy
+- lib.schema — Schema definitions
+- bundle.library — Shared library, docs, templates
+- bundle.marketing — Marketing pages
+- app.cli-contractspec — CLI
+- app.web-landing — This site
 
-// Query (read operation)
-export const GetUser = defineQuery({
-  meta: {
-    name: 'user.get',
-    version: '1.0.0',
-    description: 'Get user by ID',
-    goal: 'Retrieve user details',
-    context: 'User profile access',
-    owners: ['team-auth'],
-    tags: ['auth', 'users'],
-  },
-  io: {
-    input: new SchemaModel({
-      name: 'GetUserInput',
-      fields: {
-        id: { type: ScalarTypeEnum.UUID(), isOptional: false },
-      },
-    }),
-    output: new SchemaModel({
-      name: 'GetUserOutput',
-      fields: {
-        id: { type: ScalarTypeEnum.UUID(), isOptional: false },
-        email: { type: ScalarTypeEnum.Email(), isOptional: false },
-        name: { type: ScalarTypeEnum.String(), isOptional: false },
-      },
-    }),
-  },
-  policy: {
-    auth: 'user',
-  },
-});
-```
-
-### Events
-
-Events represent things that happened in the system.
-
-```typescript
-import { defineEvent } from '@contractspec/lib.contracts';
-
-export const UserCreated = defineEvent({
-  meta: {
-    key: 'user.created',
-    version: '1.0.0',
-    description: 'Emitted when a new user registers',
-    owners: ['team-auth'],
-    tags: ['auth', 'users'],
-  },
-  payload: new SchemaModel({
-    name: 'UserCreatedPayload',
-    fields: {
-      userId: { type: ScalarTypeEnum.UUID(), isOptional: false },
-      email: { type: ScalarTypeEnum.Email(), isOptional: false },
-      createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
-    },
-  }),
-});
-```
-
-### Schema Types
-
-ContractSpec uses `SchemaModel` with `ScalarTypeEnum` for type-safe schemas:
-
-```typescript
-import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
-
-// Available scalar types
-ScalarTypeEnum.String()           // Basic string
-ScalarTypeEnum.NonEmptyString()   // Non-empty string
-ScalarTypeEnum.Email()            // Email validation
-ScalarTypeEnum.UUID()             // UUID format
-ScalarTypeEnum.Int()              // Integer
-ScalarTypeEnum.Float()            // Float
-ScalarTypeEnum.Boolean()          // Boolean
-ScalarTypeEnum.DateTime()         // ISO datetime
-ScalarTypeEnum.Date()             // Date only
-ScalarTypeEnum.URL()              // URL validation
-ScalarTypeEnum.JSON()             // Arbitrary JSON
-```
-
-## CLI Commands
-
-### Create specs
-
-```bash
-# Interactive wizard
-contractspec create
-
-# With AI assistance
-contractspec create --ai --provider claude
-```
-
-### Build implementations
-
-```bash
-# Generate handlers from specs
-contractspec build src/contracts/user.contracts.ts
-
-# Use Claude Code agent for production quality
-contractspec build src/contracts/user.contracts.ts --agent-mode claude-code
-```
-
-### Validate specs
-
-```bash
-# Validate spec structure
-contractspec validate src/contracts/user.contracts.ts
-
-# Validate implementation against spec
-contractspec validate src/contracts/user.contracts.ts --check-implementation
-```
-
-### Sync all contracts
-
-```bash
-# Build all discovered specs
-contractspec sync
-
-# Preview changes
-contractspec sync --dry-run
-```
-
-### CI/CD integration
-
-```bash
-# Run all validation checks
-contractspec ci
-
-# Output SARIF for GitHub Code Scanning
-contractspec ci --format sarif --output results.sarif
-```
-
-## Runtime Adapters
-
-ContractSpec generates runtime adapters for multiple surfaces:
-
-### REST API (Next.js)
-
-```typescript
-import { makeNextAppHandler } from '@contractspec/lib.contracts/server/rest-next-app';
-
-const handler = makeNextAppHandler(registry, (req) => ({ actor: 'anonymous' }));
-export { handler as GET, handler as POST };
-```
-
-### GraphQL (Pothos)
-
-```typescript
-import { makePothosSchema } from '@contractspec/lib.contracts/server/graphql-pothos';
-
-const schema = makePothosSchema(registry);
-```
-
-### MCP (AI Agents)
-
-```typescript
-import { makeMcpServer } from '@contractspec/lib.contracts/server/provider-mcp';
-
-const server = makeMcpServer(registry);
-```
-
-## Project Structure
-
-Recommended organization:
-
-```
-src/
-├── contracts/
-│   ├── operations/
-│   │   ├── user-create.contracts.ts
-│   │   └── user-get.contracts.ts
-│   ├── events/
-│   │   └── user-created.event.ts
-│   └── presentations/
-│       └── user-profile.presentation.ts
-├── handlers/           # Generated handlers
-├── components/         # Generated UI components
-└── generated/          # Other generated artifacts
-```
+Full index: /llms-full.txt
 
 ## Key Principles
 
-1. **Spec → Implementation**: Always define the contract first, then implement
-2. **Contracts are TypeScript**: No YAML, no DSL—just typed TypeScript
-3. **AI reads specs**: AI agents use contracts as their source of truth
-4. **Safe regeneration**: Regenerate code anytime without breaking invariants
-5. **Incremental adoption**: Start with one module, expand gradually
+1. Spec → Implementation: Define contract first, then implement
+2. AI reads specs: Agents use contracts as source of truth
+3. Safe regeneration: Regenerate anytime without breaking invariants
+4. No lock-in: Standard TypeScript, eject anytime
 
 ## Resources
 
 - Website: https://contractspec.io
-- Documentation: https://contractspec.io/docs
-- npm: https://www.npmjs.com/package/@contractspec/lib.contracts
+- Documentation: https://www.contractspec.io/docs
 - GitHub: https://github.com/lssm-tech/contractspec
+- npm: https://www.npmjs.com/package/@contractspec/lib.contracts
+- Studio: https://www.contractspec.studio

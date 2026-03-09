@@ -41,6 +41,14 @@ bun start
 - 📧 **Email** — Newsletter and Studio signup integration
 - 📊 **Analytics** — PostHog and Vercel Analytics
 
+## Agent and LLM support
+
+- **`/llms`** — Global monorepo summary (also `/llms.txt`, `/llms.md`); static file at `public/llms.txt`
+- **`/llms-full.txt`** — All package READMEs aggregated; run `bun run llms:generate` to regenerate
+- **`/llms/[slug]`** — Per-package guide (e.g. `/llms/lib.ai-agent`); returns README as text/plain
+- **`AGENTS.md`** — AI agent guide with routing, API surfaces, and entry points
+- **MCP** — Docs MCP server at `GET/POST /api/mcp`
+
 ## dependencies
 
 - `@contractspec/bundle.marketing` — Marketing pages and email templates

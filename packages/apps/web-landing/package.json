@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "clean": "rimraf .next dist .turbo",
-    "build": "bun --bun next build",
+    "llms:generate": "bun scripts/generate-llms-full.mjs",
+    "build": "bun run llms:generate && bun --bun next build",
     "build:types": "tsc --noEmit",
     "dev": "bun --bun next dev",
     "lint": "bun run lint:fix",

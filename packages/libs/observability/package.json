@@ -57,6 +57,7 @@
     "./telemetry/posthog-baseline-reader": "./src/telemetry/posthog-baseline-reader.ts",
     "./telemetry/posthog-telemetry": "./src/telemetry/posthog-telemetry.ts",
     "./tracing": "./src/tracing/index.ts",
+    "./tracing/core": "./src/tracing/core.ts",
     "./tracing/index": "./src/tracing/index.ts",
     "./tracing/middleware": "./src/tracing/middleware.ts",
     "./tracing/model-selection.span": "./src/tracing/model-selection.span.ts"
@@ -165,6 +166,12 @@
         "bun": "./dist/tracing/index.js",
         "node": "./dist/node/tracing/index.js",
         "default": "./dist/tracing/index.js"
+      },
+      "./tracing/core": {
+        "types": "./dist/tracing/core.d.ts",
+        "bun": "./dist/tracing/core.js",
+        "node": "./dist/node/tracing/core.js",
+        "default": "./dist/tracing/core.js"
       },
       "./tracing/index": {
         "types": "./dist/tracing/index.d.ts",
