@@ -1,5 +1,33 @@
 # @contractspec/bundle.library
 
+## 3.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- f5d4816: Standardize MCP tool naming from dot notation to underscore notation for MCP protocol compatibility. Update docs, docblocks, and generated indexes accordingly. Path resolver and fixture updates.
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.5.4
+  - @contractspec/lib.contracts-runtime-server-rest@3.5.4
+  - @contractspec/lib.contracts-runtime-server-mcp@3.5.4
+  - @contractspec/lib.contracts-integrations@3.5.4
+  - @contractspec/module.context-storage@0.5.4
+  - @contractspec/lib.contracts-library@3.5.4
+  - @contractspec/lib.example-shared-ui@4.0.4
+  - @contractspec/lib.provider-ranking@0.5.4
+  - @contractspec/lib.runtime-sandbox@2.5.4
+  - @contractspec/lib.surface-runtime@0.3.4
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/lib.design-system@3.5.4
+  - @contractspec/lib.content-gen@3.5.4
+  - @contractspec/module.examples@3.5.4
+  - @contractspec/lib.ui-kit-web@3.5.4
+  - @contractspec/lib.knowledge@3.5.4
+  - @contractspec/lib.ui-link@3.5.4
+  - @contractspec/lib.logger@3.5.4
+  - @contractspec/lib.schema@3.5.4
+
 ## 3.5.3
 
 ### Patch Changes

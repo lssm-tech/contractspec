@@ -1,5 +1,17 @@
 # @contractspec/example.lifecycle-cli
 
+## 3.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/bundle.lifecycle-managed@3.5.4
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/lib.lifecycle@3.5.4
+  - @contractspec/lib.logger@3.5.4
+
 ## 3.5.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @contractspec/app.cursor-marketplace
 
+## 1.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+
 ## 1.5.3
 
 ### Patch Changes

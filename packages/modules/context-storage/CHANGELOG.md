@@ -1,5 +1,16 @@
 # @contractspec/module.context-storage
 
+## 0.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+  - @contractspec/lib.contracts-integrations@3.5.4
+  - @contractspec/lib.context-storage@0.5.4
+  - @contractspec/lib.knowledge@3.5.4
+  - @contractspec/lib.schema@3.5.4
+
 ## 0.5.3
 
 ### Patch Changes

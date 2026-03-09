@@ -1,5 +1,21 @@
 # @contractspec/example.learning-journey-ui-onboarding
 
+## 3.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/example.learning-journey-studio-onboarding@3.5.4
+  - @contractspec/example.learning-journey-platform-tour@3.5.4
+  - @contractspec/example.learning-journey-ui-shared@3.5.4
+  - @contractspec/module.learning-journey@3.5.4
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/lib.design-system@3.5.4
+  - @contractspec/lib.ui-kit-core@3.5.4
+  - @contractspec/lib.ui-kit-web@3.5.4
+
 ## 3.5.3
 
 ### Patch Changes

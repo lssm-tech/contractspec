@@ -1,5 +1,11 @@
 # @contractspec/lib.provider-ranking
 
+## 0.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+
 ## 0.5.3
 
 ### Patch Changes

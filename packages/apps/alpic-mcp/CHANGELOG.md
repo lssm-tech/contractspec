@@ -1,5 +1,14 @@
 # @contractspec/app.alpic-mcp
 
+## 3.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+  - @contractspec/bundle.alpic@3.5.4
+  - @contractspec/lib.logger@3.5.4
+
 ## 3.5.3
 
 ### Patch Changes

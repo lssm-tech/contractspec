@@ -1,5 +1,11 @@
 # @contractspec/lib.cost-tracking
 
+## 3.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+
 ## 3.5.3
 
 ### Patch Changes

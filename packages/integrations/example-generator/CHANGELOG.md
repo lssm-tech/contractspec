@@ -1,5 +1,15 @@
 # @contractspec/integration.example-generator
 
+## 32.0.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/lib.schema@3.5.4
+
 ## 32.0.3
 
 ### Patch Changes

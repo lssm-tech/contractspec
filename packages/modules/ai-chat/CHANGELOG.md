@@ -1,5 +1,23 @@
 # @contractspec/module.ai-chat
 
+## 4.1.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/lib.workflow-composer@3.5.4
+  - @contractspec/lib.surface-runtime@0.3.4
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/lib.cost-tracking@3.5.4
+  - @contractspec/lib.design-system@3.5.4
+  - @contractspec/lib.ai-providers@3.5.4
+  - @contractspec/lib.ui-kit-web@3.5.4
+  - @contractspec/lib.ai-agent@5.0.4
+  - @contractspec/lib.metering@3.5.4
+  - @contractspec/lib.schema@3.5.4
+
 ## 4.1.3
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @contractspec/example.personalization
 
+## 3.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/lib.workflow-composer@3.5.4
+  - @contractspec/lib.personalization@4.0.4
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/lib.overlay-engine@3.5.4
+  - @contractspec/lib.logger@3.5.4
+
 ## 3.5.3
 
 ### Patch Changes

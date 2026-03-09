@@ -1,5 +1,14 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 32.0.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+  - @contractspec/lib.presentation-runtime-core@3.5.4
+  - @contractspec/lib.ui-kit@3.5.4
+
 ## 32.0.3
 
 ### Patch Changes

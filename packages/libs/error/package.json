@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.error",
-  "version": "3.5.3",
+  "version": "3.5.4",
   "description": "Structured error handling and HTTP error utilities",
   "keywords": [
     "contractspec",

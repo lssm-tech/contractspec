@@ -1,5 +1,18 @@
 # @contractspec/lib.ai-agent
 
+## 5.0.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- f5d4816: Standardize MCP tool naming from dot notation to underscore notation for MCP protocol compatibility. Update docs, docblocks, and generated indexes accordingly. Path resolver and fixture updates.
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/lib.surface-runtime@0.3.4
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/lib.ai-providers@3.5.4
+  - @contractspec/lib.knowledge@3.5.4
+
 ## 5.0.3
 
 ### Patch Changes

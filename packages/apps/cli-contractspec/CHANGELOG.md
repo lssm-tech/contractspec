@@ -1,5 +1,25 @@
 # Changelog
 
+## 3.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/lib.contracts-integrations@3.5.4
+  - @contractspec/lib.contracts-transformers@3.5.4
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/bundle.workspace@3.5.4
+  - @contractspec/lib.ai-providers@3.5.4
+  - @contractspec/module.workspace@3.5.4
+  - @contractspec/module.examples@3.5.4
+  - @contractspec/module.ai-chat@4.1.4
+  - @contractspec/lib.ai-agent@5.0.4
+  - @contractspec/lib.plugins@3.5.4
+  - @contractspec/lib.testing@3.5.4
+  - @contractspec/lib.schema@3.5.4
+
 ## 3.5.3
 
 ### Patch Changes

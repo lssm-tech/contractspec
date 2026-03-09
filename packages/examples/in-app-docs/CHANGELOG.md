@@ -1,5 +1,15 @@
 # @contractspec/example.in-app-docs
 
+## 3.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/lib.example-shared-ui@4.0.4
+  - @contractspec/lib.contracts-spec@3.5.4
+
 ## 3.5.3
 
 ### Patch Changes

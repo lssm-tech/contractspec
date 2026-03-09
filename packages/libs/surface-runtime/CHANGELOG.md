@@ -1,5 +1,16 @@
 # @contractspec/lib.surface-runtime
 
+## 0.3.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/lib.overlay-engine@3.5.4
+  - @contractspec/lib.observability@3.5.4
+
 ## 0.3.3
 
 ### Patch Changes

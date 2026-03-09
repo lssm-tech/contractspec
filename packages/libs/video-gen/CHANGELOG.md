@@ -1,5 +1,20 @@
 # @contractspec/lib.video-gen
 
+## 2.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/lib.contracts-integrations@3.5.4
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/lib.design-system@3.5.4
+  - @contractspec/lib.ai-providers@3.5.4
+  - @contractspec/lib.content-gen@3.5.4
+  - @contractspec/lib.image-gen@1.5.4
+  - @contractspec/lib.voice@1.5.4
+
 ## 2.5.3
 
 ### Patch Changes

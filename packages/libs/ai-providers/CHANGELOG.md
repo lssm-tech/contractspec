@@ -1,5 +1,13 @@
 # @contractspec/lib.ai-providers
 
+## 3.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+  - @contractspec/lib.provider-ranking@0.5.4
+
 ## 3.5.3
 
 ### Patch Changes

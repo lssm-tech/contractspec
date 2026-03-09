@@ -1,5 +1,20 @@
 # @contractspec/example.learning-journey-ui-coaching
 
+## 3.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/example.learning-journey-crm-onboarding@3.5.4
+  - @contractspec/example.learning-journey-ambient-coach@3.5.4
+  - @contractspec/example.learning-journey-ui-shared@3.5.4
+  - @contractspec/module.learning-journey@3.5.4
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/lib.design-system@3.5.4
+  - @contractspec/lib.ui-kit-web@3.5.4
+
 ## 3.5.3
 
 ### Patch Changes

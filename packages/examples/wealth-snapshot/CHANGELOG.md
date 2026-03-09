@@ -1,5 +1,18 @@
 # @contractspec/example.wealth-snapshot
 
+## 3.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/module.notifications@3.5.4
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/module.audit-trail@3.5.4
+  - @contractspec/lib.identity-rbac@3.5.4
+  - @contractspec/lib.schema@3.5.4
+
 ## 3.5.3
 
 ### Patch Changes

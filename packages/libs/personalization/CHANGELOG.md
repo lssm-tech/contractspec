@@ -1,5 +1,19 @@
 # @contractspec/lib.personalization
 
+## 4.0.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/lib.surface-runtime@0.3.4
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/lib.overlay-engine@3.5.4
+  - @contractspec/lib.knowledge@3.5.4
+  - @contractspec/lib.schema@3.5.4
+  - @contractspec/lib.bus@3.5.4
+
 ## 4.0.3
 
 ### Patch Changes

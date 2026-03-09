@@ -1,5 +1,18 @@
 # @contractspec/lib.design-system
 
+## 3.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/lib.contracts-runtime-client-react@3.5.4
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/lib.ui-kit-web@3.5.4
+  - @contractspec/lib.ai-agent@5.0.4
+  - @contractspec/lib.ui-kit@3.5.4
+
 ## 3.5.3
 
 ### Patch Changes
