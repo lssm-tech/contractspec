@@ -1,5 +1,13 @@
 # @contractspec/lib.ui-link
 
+## 3.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.ui-kit-core@3.5.2
+
 ## 3.5.1
 
 ### Patch Changes

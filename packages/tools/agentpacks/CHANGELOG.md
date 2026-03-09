@@ -1,5 +1,11 @@
 # agentpacks
 
+## 1.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+
 ## 1.5.1
 
 ### Patch Changes

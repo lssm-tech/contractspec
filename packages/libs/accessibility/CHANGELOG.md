@@ -1,5 +1,15 @@
 # @contractspec/lib.accessibility
 
+## 3.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.design-system@3.5.2
+  - @contractspec/lib.ui-kit-web@3.5.2
+  - @contractspec/lib.ui-kit@3.5.2
+
 ## 3.5.1
 
 ### Patch Changes

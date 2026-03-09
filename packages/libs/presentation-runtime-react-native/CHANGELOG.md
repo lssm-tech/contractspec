@@ -1,5 +1,14 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 32.0.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.presentation-runtime-core@3.5.2
+  - @contractspec/lib.ui-kit@3.5.2
+
 ## 32.0.1
 
 ### Patch Changes

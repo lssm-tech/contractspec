@@ -1,5 +1,14 @@
 # @contractspec/integration.example-generator
 
+## 32.0.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/lib.schema@3.5.2
+
 ## 32.0.1
 
 ### Patch Changes

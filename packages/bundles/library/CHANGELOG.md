@@ -1,5 +1,31 @@
 # @contractspec/bundle.library
 
+## 3.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.5.2
+  - @contractspec/lib.contracts-runtime-server-rest@3.5.2
+  - @contractspec/lib.contracts-runtime-server-mcp@3.5.2
+  - @contractspec/lib.contracts-integrations@3.5.2
+  - @contractspec/module.context-storage@0.5.2
+  - @contractspec/lib.contracts-library@3.5.2
+  - @contractspec/lib.example-shared-ui@4.0.2
+  - @contractspec/lib.provider-ranking@0.5.2
+  - @contractspec/lib.runtime-sandbox@2.5.2
+  - @contractspec/lib.surface-runtime@0.3.2
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/lib.design-system@3.5.2
+  - @contractspec/lib.content-gen@3.5.2
+  - @contractspec/module.examples@3.5.2
+  - @contractspec/lib.ui-kit-web@3.5.2
+  - @contractspec/lib.knowledge@3.5.2
+  - @contractspec/lib.ui-link@3.5.2
+  - @contractspec/lib.logger@3.5.2
+  - @contractspec/lib.schema@3.5.2
+
 ## 3.5.1
 
 ### Patch Changes

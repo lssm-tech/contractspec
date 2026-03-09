@@ -1,5 +1,13 @@
 # @contractspec/lib.progressive-delivery
 
+## 32.0.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.observability@3.5.2
+
 ## 32.0.1
 
 ### Patch Changes

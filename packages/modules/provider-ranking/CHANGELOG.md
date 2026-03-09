@@ -1,5 +1,15 @@
 # @contractspec/module.provider-ranking
 
+## 0.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.contracts-integrations@3.5.2
+  - @contractspec/lib.provider-ranking@0.5.2
+  - @contractspec/lib.schema@3.5.2
+
 ## 0.5.1
 
 ### Patch Changes

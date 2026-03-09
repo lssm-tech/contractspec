@@ -1,5 +1,16 @@
 # @contractspec/example.ai-support-bot
 
+## 3.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/lib.support-bot@3.5.2
+  - @contractspec/lib.knowledge@3.5.2
+  - @contractspec/lib.logger@3.5.2
+
 ## 3.5.1
 
 ### Patch Changes

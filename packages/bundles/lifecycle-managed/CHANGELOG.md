@@ -1,5 +1,18 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/module.lifecycle-advisor@3.5.2
+  - @contractspec/module.lifecycle-core@3.5.2
+  - @contractspec/lib.observability@3.5.2
+  - @contractspec/lib.analytics@3.5.2
+  - @contractspec/lib.lifecycle@3.5.2
+  - @contractspec/lib.ai-agent@5.0.2
+
 ## 3.5.1
 
 ### Patch Changes

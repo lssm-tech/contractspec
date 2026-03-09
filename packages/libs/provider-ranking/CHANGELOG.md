@@ -1,5 +1,11 @@
 # @contractspec/lib.provider-ranking
 
+## 0.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+
 ## 0.5.1
 
 ### Patch Changes

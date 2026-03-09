@@ -1,5 +1,20 @@
 # @contractspec/bundle.workspace
 
+## 3.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.contracts-integrations@3.5.2
+  - @contractspec/lib.contracts-transformers@3.5.2
+  - @contractspec/lib.source-extractors@2.5.2
+  - @contractspec/lib.utils-typescript@3.5.2
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/lib.ai-providers@3.5.2
+  - @contractspec/module.workspace@3.5.2
+  - @contractspec/lib.ai-agent@5.0.2
+
 ## 3.5.1
 
 ### Patch Changes

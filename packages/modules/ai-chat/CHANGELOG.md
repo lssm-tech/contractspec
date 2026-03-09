@@ -1,5 +1,22 @@
 # @contractspec/module.ai-chat
 
+## 4.1.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.workflow-composer@3.5.2
+  - @contractspec/lib.surface-runtime@0.3.2
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/lib.cost-tracking@3.5.2
+  - @contractspec/lib.design-system@3.5.2
+  - @contractspec/lib.ai-providers@3.5.2
+  - @contractspec/lib.ui-kit-web@3.5.2
+  - @contractspec/lib.ai-agent@5.0.2
+  - @contractspec/lib.metering@3.5.2
+  - @contractspec/lib.schema@3.5.2
+
 ## 4.1.1
 
 ### Patch Changes

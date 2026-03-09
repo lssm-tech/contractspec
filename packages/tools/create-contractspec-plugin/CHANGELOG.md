@@ -1,5 +1,14 @@
 # @contractspec/tool.create-contractspec-plugin
 
+## 3.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/lib.schema@3.5.2
+
 ## 3.5.1
 
 ### Patch Changes

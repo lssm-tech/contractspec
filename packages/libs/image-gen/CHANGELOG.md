@@ -1,5 +1,15 @@
 # @contractspec/lib.image-gen
 
+## 1.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.contracts-integrations@3.5.2
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/lib.content-gen@3.5.2
+
 ## 1.5.1
 
 ### Patch Changes

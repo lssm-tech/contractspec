@@ -1,5 +1,50 @@
 # @contractspec/module.examples
 
+## 3.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/example.learning-journey-studio-onboarding@3.5.2
+  - @contractspec/example.learning-journey-quest-challenges@3.5.2
+  - @contractspec/example.learning-journey-crm-onboarding@3.5.2
+  - @contractspec/example.policy-safe-knowledge-assistant@3.5.2
+  - @contractspec/example.learning-journey-ambient-coach@3.5.2
+  - @contractspec/example.learning-journey-platform-tour@3.5.2
+  - @contractspec/example.learning-journey-ui-onboarding@3.5.2
+  - @contractspec/example.learning-journey-ui-coaching@3.5.2
+  - @contractspec/example.learning-journey-ui-gamified@3.5.2
+  - @contractspec/example.learning-journey-duo-drills@3.5.2
+  - @contractspec/example.learning-journey-ui-shared@3.5.2
+  - @contractspec/example.learning-journey-registry@3.5.2
+  - @contractspec/example.locale-jurisdiction-gate@3.5.2
+  - @contractspec/example.versioned-knowledge-base@3.5.2
+  - @contractspec/example.analytics-dashboard@3.5.2
+  - @contractspec/example.lifecycle-dashboard@3.5.2
+  - @contractspec/example.service-business-os@3.5.2
+  - @contractspec/example.content-generation@3.5.2
+  - @contractspec/example.integration-stripe@3.5.2
+  - @contractspec/example.kb-update-pipeline@3.5.2
+  - @contractspec/example.openbanking-powens@3.5.2
+  - @contractspec/example.learning-patterns@3.5.2
+  - @contractspec/example.saas-boilerplate@3.5.2
+  - @contractspec/example.integration-hub@3.5.2
+  - @contractspec/example.knowledge-canon@3.5.2
+  - @contractspec/example.personalization@3.5.2
+  - @contractspec/example.voice-providers@3.5.2
+  - @contractspec/example.wealth-snapshot@3.5.2
+  - @contractspec/example.workflow-system@3.5.2
+  - @contractspec/example.ai-support-bot@3.5.2
+  - @contractspec/example.agent-console@3.5.2
+  - @contractspec/example.lifecycle-cli@3.5.2
+  - @contractspec/lib.example-shared-ui@4.0.2
+  - @contractspec/example.crm-pipeline@3.5.2
+  - @contractspec/example.marketplace@3.5.2
+  - @contractspec/lib.runtime-sandbox@2.5.2
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/example.team-hub@3.5.2
+
 ## 3.5.1
 
 ### Patch Changes

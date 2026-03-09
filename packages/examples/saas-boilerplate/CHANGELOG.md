@@ -1,5 +1,21 @@
 # @contractspec/example.saas-boilerplate
 
+## 3.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.example-shared-ui@4.0.2
+  - @contractspec/module.notifications@3.5.2
+  - @contractspec/lib.runtime-sandbox@2.5.2
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/module.audit-trail@3.5.2
+  - @contractspec/lib.design-system@3.5.2
+  - @contractspec/lib.identity-rbac@3.5.2
+  - @contractspec/lib.schema@3.5.2
+  - @contractspec/lib.jobs@3.5.2
+
 ## 3.5.1
 
 ### Patch Changes

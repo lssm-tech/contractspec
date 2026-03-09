@@ -1,5 +1,15 @@
 # @contractspec/lib.surface-runtime
 
+## 0.3.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/lib.overlay-engine@3.5.2
+  - @contractspec/lib.observability@3.5.2
+
 ## 0.3.1
 
 ### Patch Changes

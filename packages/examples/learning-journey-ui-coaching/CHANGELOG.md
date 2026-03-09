@@ -1,5 +1,19 @@
 # @contractspec/example.learning-journey-ui-coaching
 
+## 3.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/example.learning-journey-crm-onboarding@3.5.2
+  - @contractspec/example.learning-journey-ambient-coach@3.5.2
+  - @contractspec/example.learning-journey-ui-shared@3.5.2
+  - @contractspec/module.learning-journey@3.5.2
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/lib.design-system@3.5.2
+  - @contractspec/lib.ui-kit-web@3.5.2
+
 ## 3.5.1
 
 ### Patch Changes

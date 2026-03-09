@@ -1,5 +1,17 @@
 # @contractspec/example.product-intent
 
+## 3.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/integration.providers-impls@3.5.2
+  - @contractspec/lib.contracts-integrations@3.5.2
+  - @contractspec/lib.product-intent-utils@3.5.2
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/lib.ai-agent@5.0.2
+
 ## 3.5.1
 
 ### Patch Changes

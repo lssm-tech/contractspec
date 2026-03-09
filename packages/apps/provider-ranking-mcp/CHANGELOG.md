@@ -1,5 +1,17 @@
 # @contractspec/app.provider-ranking-mcp
 
+## 1.4.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.contracts-runtime-server-mcp@3.5.2
+  - @contractspec/module.provider-ranking@0.5.2
+  - @contractspec/lib.provider-ranking@0.5.2
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/lib.logger@3.5.2
+
 ## 1.4.1
 
 ### Patch Changes

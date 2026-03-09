@@ -1,5 +1,19 @@
 # @contractspec/lib.video-gen
 
+## 2.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.contracts-integrations@3.5.2
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/lib.design-system@3.5.2
+  - @contractspec/lib.ai-providers@3.5.2
+  - @contractspec/lib.content-gen@3.5.2
+  - @contractspec/lib.image-gen@1.5.2
+  - @contractspec/lib.voice@1.5.2
+
 ## 2.5.1
 
 ### Patch Changes

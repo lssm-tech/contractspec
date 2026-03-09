@@ -1,5 +1,13 @@
 # contractspec-example-opencode-cli
 
+## 2.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.contracts-spec@3.5.2
+
 ## 2.5.1
 
 ### Patch Changes

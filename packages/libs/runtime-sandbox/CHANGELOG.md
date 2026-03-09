@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 2.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+
 ## 2.5.1
 
 ### Patch Changes

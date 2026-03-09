@@ -1,5 +1,16 @@
 # @contractspec/lib.example-shared-ui
 
+## 4.0.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.surface-runtime@0.3.2
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/lib.design-system@3.5.2
+  - @contractspec/lib.ui-kit-web@3.5.2
+
 ## 4.0.1
 
 ### Patch Changes

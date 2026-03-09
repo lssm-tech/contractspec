@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.service-business-os",
-  "version": "3.5.1",
+  "version": "3.5.2",
   "description": "Service Business OS example (clients, quotes, jobs, invoices) for ContractSpec",
   "types": "./dist/index.d.ts",
   "type": "module",

@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.contracts-transformers@3.5.2
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/bundle.workspace@3.5.2
+  - @contractspec/module.workspace@3.5.2
+  - @contractspec/module.examples@3.5.2
+  - @contractspec/module.ai-chat@4.1.2
+  - @contractspec/lib.ai-agent@5.0.2
+
 ## 3.5.1
 
 ### Patch Changes
