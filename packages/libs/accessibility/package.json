@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.accessibility",
-  "version": "3.5.4",
+  "version": "3.5.5",
   "description": "WCAG compliance utilities and validators",
   "keywords": [
     "contractspec",

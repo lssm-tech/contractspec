@@ -1,5 +1,20 @@
 # @contractspec/lib.video-gen
 
+## 2.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [27b77db]
+- Updated dependencies [693eedd]
+  - @contractspec/lib.ai-providers@3.5.5
+  - @contractspec/lib.contracts-spec@3.5.5
+  - @contractspec/lib.contracts-integrations@3.5.5
+  - @contractspec/lib.design-system@3.5.5
+  - @contractspec/lib.content-gen@3.5.5
+  - @contractspec/lib.image-gen@1.5.5
+  - @contractspec/lib.voice@1.5.5
+
 ## 2.5.4
 
 ### Patch Changes

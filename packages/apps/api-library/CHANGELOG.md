@@ -1,5 +1,19 @@
 # @contractspec/app.api-library
 
+## 3.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [27b77db]
+- Updated dependencies [693eedd]
+  - @contractspec/lib.contracts-spec@3.5.5
+  - @contractspec/bundle.workspace@3.5.5
+  - @contractspec/bundle.library@3.5.5
+  - @contractspec/integration.providers-impls@3.5.5
+  - @contractspec/integration.runtime@3.5.5
+  - @contractspec/bundle.marketing@3.5.5
+
 ## 3.5.4
 
 ### Patch Changes

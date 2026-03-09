@@ -1,5 +1,19 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [27b77db]
+- Updated dependencies [693eedd]
+  - @contractspec/lib.ai-agent@5.0.5
+  - @contractspec/module.lifecycle-advisor@3.5.5
+  - @contractspec/module.lifecycle-core@3.5.5
+  - @contractspec/lib.observability@3.5.5
+  - @contractspec/lib.analytics@3.5.5
+  - @contractspec/lib.lifecycle@3.5.5
+
 ## 3.5.4
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # contractspec
 
+## 3.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [27b77db]
+- Updated dependencies [693eedd]
+  - @contractspec/app.cli-contractspec@3.5.5
+
 ## 3.5.4
 
 ### Patch Changes

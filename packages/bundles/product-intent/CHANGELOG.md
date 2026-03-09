@@ -1,5 +1,15 @@
 # @contractspec/bundle.product-intent
 
+## 3.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [27b77db]
+- Updated dependencies [693eedd]
+  - @contractspec/lib.contracts-spec@3.5.5
+  - @contractspec/module.product-intent-core@3.5.5
+
 ## 3.5.4
 
 ### Patch Changes

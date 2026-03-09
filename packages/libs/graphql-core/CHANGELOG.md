@@ -1,5 +1,11 @@
 # @contractspec/lib.graphql-core
 
+## 3.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+
 ## 3.5.4
 
 ### Patch Changes

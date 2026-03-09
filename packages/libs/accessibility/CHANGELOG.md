@@ -1,5 +1,15 @@
 # @contractspec/lib.accessibility
 
+## 3.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [693eedd]
+  - @contractspec/lib.design-system@3.5.5
+  - @contractspec/lib.ui-kit-web@3.5.5
+  - @contractspec/lib.ui-kit@3.5.5
+
 ## 3.5.4
 
 ### Patch Changes

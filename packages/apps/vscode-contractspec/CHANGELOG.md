@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [27b77db]
+- Updated dependencies [693eedd]
+  - @contractspec/lib.contracts-spec@3.5.5
+  - @contractspec/lib.ai-agent@5.0.5
+  - @contractspec/bundle.workspace@3.5.5
+  - @contractspec/lib.contracts-transformers@3.5.5
+  - @contractspec/module.workspace@3.5.5
+  - @contractspec/module.examples@3.5.5
+  - @contractspec/module.ai-chat@4.1.5
+
 ## 3.5.4
 
 ### Patch Changes

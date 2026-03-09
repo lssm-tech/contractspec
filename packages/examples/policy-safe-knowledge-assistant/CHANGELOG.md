@@ -1,5 +1,23 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [27b77db]
+- Updated dependencies [693eedd]
+  - @contractspec/lib.contracts-spec@3.5.5
+  - @contractspec/example.locale-jurisdiction-gate@3.5.5
+  - @contractspec/example.versioned-knowledge-base@3.5.5
+  - @contractspec/example.kb-update-pipeline@3.5.5
+  - @contractspec/example.learning-patterns@3.5.5
+  - @contractspec/module.learning-journey@3.5.5
+  - @contractspec/lib.example-shared-ui@4.0.5
+  - @contractspec/lib.runtime-sandbox@2.5.5
+  - @contractspec/lib.design-system@3.5.5
+  - @contractspec/lib.ui-kit-web@3.5.5
+
 ## 3.5.4
 
 ### Patch Changes

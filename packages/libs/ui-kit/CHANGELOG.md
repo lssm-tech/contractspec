@@ -1,5 +1,13 @@
 # @contractspec/lib.ui-kit
 
+## 3.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [693eedd]
+  - @contractspec/lib.ui-kit-core@3.5.5
+
 ## 3.5.4
 
 ### Patch Changes

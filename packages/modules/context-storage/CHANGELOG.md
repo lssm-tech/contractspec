@@ -1,5 +1,16 @@
 # @contractspec/module.context-storage
 
+## 0.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [693eedd]
+  - @contractspec/lib.contracts-integrations@3.5.5
+  - @contractspec/lib.context-storage@0.5.5
+  - @contractspec/lib.knowledge@3.5.5
+  - @contractspec/lib.schema@3.5.5
+
 ## 0.5.4
 
 ### Patch Changes

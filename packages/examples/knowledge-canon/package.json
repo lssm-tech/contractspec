@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.knowledge-canon",
-  "version": "3.5.4",
+  "version": "3.5.5",
   "description": "Knowledge example – Product Canon space (blueprint + tenant config + source sample + runtime helper).",
   "type": "module",
   "types": "./dist/index.d.ts",

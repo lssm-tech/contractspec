@@ -1,5 +1,11 @@
 # @contractspec/lib.contracts
 
+## 2.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+
 ## 2.5.4
 
 ### Patch Changes

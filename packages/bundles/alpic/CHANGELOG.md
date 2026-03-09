@@ -1,5 +1,13 @@
 # @contractspec/bundle.alpic
 
+## 3.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [693eedd]
+  - @contractspec/module.alpic@3.5.5
+
 ## 3.5.4
 
 ### Patch Changes

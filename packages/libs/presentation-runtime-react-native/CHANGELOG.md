@@ -1,5 +1,14 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 32.0.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [693eedd]
+  - @contractspec/lib.presentation-runtime-core@3.5.5
+  - @contractspec/lib.ui-kit@3.5.5
+
 ## 32.0.4
 
 ### Patch Changes

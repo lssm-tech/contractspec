@@ -1,5 +1,35 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [27b77db]
+- Updated dependencies [693eedd]
+  - @contractspec/lib.contracts-spec@3.5.5
+  - @contractspec/bundle.library@3.5.5
+  - @contractspec/example.agent-console@3.5.5
+  - @contractspec/example.policy-safe-knowledge-assistant@3.5.5
+  - @contractspec/example.analytics-dashboard@3.5.5
+  - @contractspec/example.saas-boilerplate@3.5.5
+  - @contractspec/lib.progressive-delivery@32.0.5
+  - @contractspec/example.integration-hub@3.5.5
+  - @contractspec/example.workflow-system@3.5.5
+  - @contractspec/lib.example-shared-ui@4.0.5
+  - @contractspec/example.crm-pipeline@3.5.5
+  - @contractspec/example.in-app-docs@3.5.5
+  - @contractspec/example.marketplace@3.5.5
+  - @contractspec/lib.surface-runtime@0.3.5
+  - @contractspec/lib.design-system@3.5.5
+  - @contractspec/bundle.marketing@3.5.5
+  - @contractspec/lib.ui-kit-core@3.5.5
+  - @contractspec/module.examples@3.5.5
+  - @contractspec/lib.ui-kit-web@3.5.5
+  - @contractspec/module.ai-chat@4.1.5
+  - @contractspec/lib.ui-link@3.5.5
+  - @contractspec/lib.ui-kit@3.5.5
+
 ## 3.5.4
 
 ### Patch Changes

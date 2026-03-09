@@ -1,5 +1,16 @@
 # @contractspec/lib.surface-runtime
 
+## 0.3.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [27b77db]
+- Updated dependencies [693eedd]
+  - @contractspec/lib.contracts-spec@3.5.5
+  - @contractspec/lib.overlay-engine@3.5.5
+  - @contractspec/lib.observability@3.5.5
+
 ## 0.3.4
 
 ### Patch Changes

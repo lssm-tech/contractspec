@@ -1,5 +1,11 @@
 # @contractspec/lib.context-storage
 
+## 0.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+
 ## 0.5.4
 
 ### Patch Changes
