@@ -26,8 +26,8 @@ Layered architecture (dependencies flow down):
 ## Entry Points
 
 - **/llms** (this file) — Global monorepo summary
-- **/llms-full.txt** — Full content: all package READMEs aggregated
-- **/llms/[slug]** — Per-package guide. Slug = package name without @contractspec (e.g. lib.ai-agent, bundle.library)
+- **/llms-full.txt** — Full content: all package READMEs aggregated. Note: Large file; agents may truncate. For specific packages, use /llms/[slug] instead.
+- **/llms/[slug]** — Per-package guide. Slug = package name without @contractspec (e.g. lib.ai-agent, bundle.library). Recommended for agent fetches.
 
 ## Package-Specific Guides
 

@@ -83,6 +83,11 @@ const nextConfig = {
         source: '/llms-full',
         destination: '/llms-full.txt',
       },
+      // Docs subpath discovery (Agent-Friendly Documentation Spec)
+      {
+        source: '/docs/llms.txt',
+        destination: '/llms.txt',
+      },
       // Subdomain form: llms.<app-domain> → /llms.txt
       {
         source: '/:path*',

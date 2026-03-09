@@ -4,6 +4,9 @@ import { getChangelogVersions } from '@/lib/changelog';
 const BASE_URL =
   process.env.NEXT_PUBLIC_APP_URL || 'https://www.contractspec.io';
 
+// LLM/agent discovery (Agent-Friendly Documentation Spec)
+const LLM_ROUTES = ['/llms', '/llms.txt', '/llms-full.txt', '/docs/llms.txt'];
+
 // Marketing/Landing pages
 const MARKETING_ROUTES = [
   '',
@@ -121,6 +124,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: route === '/docs' ? 0.9 : 0.7,
   }));
 
+  const llmEntries: MetadataRoute.Sitemap = LLM_ROUTES.map((route) => ({
+    url: `${BASE_URL}${route}`,
+    lastModified: now,
+    changeFrequency: 'weekly',
+    priority: 0.8,
+  }));
+
   const changelogVersions = await getChangelogVersions();
   const changelogVersionEntries: MetadataRoute.Sitemap = changelogVersions.map(
     (version) => ({
@@ -131,5 +141,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   );
 
-  return [...marketingEntries, ...docsEntries, ...changelogVersionEntries];
+  return [
+    ...marketingEntries,
+    ...docsEntries,
+    ...llmEntries,
+    ...changelogVersionEntries,
+  ];
 }

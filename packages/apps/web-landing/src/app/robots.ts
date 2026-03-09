@@ -8,6 +8,13 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
         disallow: ['/sandbox/'],
       },
+      // AI crawlers: explicit allow for discoverability
+      { userAgent: 'GPTBot', allow: '/' },
+      { userAgent: 'ChatGPT-User', allow: '/' },
+      { userAgent: 'ClaudeBot', allow: '/' },
+      { userAgent: 'anthropic-ai', allow: '/' },
+      { userAgent: 'Google-Extended', allow: '/' },
+      { userAgent: 'PerplexityBot', allow: '/' },
     ],
     sitemap: 'https://www.contractspec.io/sitemap.xml',
   };
