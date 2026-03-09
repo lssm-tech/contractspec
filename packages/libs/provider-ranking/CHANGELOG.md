@@ -1,5 +1,23 @@
 # @contractspec/lib.provider-ranking
 
+## 0.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+## 0.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+
+## 0.4.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+
 ## 0.4.1
 
 ### Patch Changes

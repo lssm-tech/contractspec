@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/integration.providers-impls",
-  "version": "3.4.1",
+  "version": "3.5.0",
   "description": "Integration provider implementations for email, payments, storage, and more",
   "keywords": [
     "contractspec",
@@ -49,7 +49,7 @@
     "googleapis": "^171.4.0",
     "postgres": "^3.4.8",
     "postmark": "^4.0.7",
-    "stripe": "^20.4.0",
+    "stripe": "^20.4.1",
     "twilio": "^5.12.2",
     "@composio/core": "latest",
     "zod": "catalog:"

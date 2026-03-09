@@ -1,5 +1,29 @@
 # @contractspec/tool.bun
 
+## 3.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- c527a4e: Fix jsxDEV runtime error in ai-chat module
+  - Add bunfig.toml to ai-chat with `jsx = "react-jsx"` to work around Bun v1.3+ regression (oven-sh/bun#23959)
+  - Pass NODE_ENV=production when spawning bun build in runTranspile for monorepo-wide safeguard
+
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+
+## 3.4.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+
 ## 3.4.1
 
 ### Patch Changes

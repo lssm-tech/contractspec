@@ -177,7 +177,9 @@ export function ChatInput({
         <div className="relative flex-1">
           <Textarea
             value={content}
-            onChange={(e) => setContent(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+              setContent(e.target.value)
+            }
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
             disabled={disabled}

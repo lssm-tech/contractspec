@@ -12,14 +12,18 @@ import {
   Check,
   ExternalLink,
   Wrench,
+  Pencil,
+  X,
 } from 'lucide-react';
 import { Button } from '@contractspec/lib.design-system';
+import { Checkbox } from '@contractspec/lib.ui-kit-web/ui/checkbox';
 import type {
   ChatMessage as ChatMessageType,
   ChatSource,
   ChatToolCall,
 } from '../../core/message-types';
 import { CodePreview } from './CodePreview';
+import { ToolResultRenderer } from './ToolResultRenderer';
 
 export interface ChatMessageProps {
   message: ChatMessageType;
@@ -28,6 +32,23 @@ export interface ChatMessageProps {
   showCopy?: boolean;
   /** Show avatar */
   showAvatar?: boolean;
+  /** Enable selection checkbox */
+  selectable?: boolean;
+  /** Whether this message is selected */
+  selected?: boolean;
+  /** Called when selection is toggled */
+  onSelect?: (id: string) => void;
+  /** Enable edit (user messages only) */
+  editable?: boolean;
+  /** Called when message is edited */
+  onEdit?: (messageId: string, newContent: string) => void | Promise<void>;
+  /** Host-provided renderer for tool results with presentationKey */
+  presentationRenderer?: (key: string, data?: unknown) => React.ReactNode;
+  /** Host-provided renderer for tool results with formKey */
+  formRenderer?: (
+    key: string,
+    defaultValues?: Record<string, unknown>
+  ) => React.ReactNode;
 }
 
 /**
@@ -142,6 +163,13 @@ export function ChatMessage({
   className,
   showCopy = true,
   showAvatar = true,
+  selectable = false,
+  selected = false,
+  onSelect,
+  editable = false,
+  onEdit,
+  presentationRenderer,
+  formRenderer,
 }: ChatMessageProps) {
   const [copied, setCopied] = React.useState(false);
 
@@ -155,6 +183,38 @@ export function ChatMessage({
     setTimeout(() => setCopied(false), 2000);
   }, [message.content]);
 
+  const handleSelectChange = React.useCallback(
+    (checked: boolean | 'indeterminate') => {
+      if (checked !== 'indeterminate') onSelect?.(message.id);
+    },
+    [message.id, onSelect]
+  );
+
+  const [isEditing, setIsEditing] = React.useState(false);
+  const [editContent, setEditContent] = React.useState(message.content);
+
+  React.useEffect(() => {
+    setEditContent(message.content);
+  }, [message.content]);
+
+  const handleStartEdit = React.useCallback(() => {
+    setEditContent(message.content);
+    setIsEditing(true);
+  }, [message.content]);
+
+  const handleSaveEdit = React.useCallback(async () => {
+    const trimmed = editContent.trim();
+    if (trimmed !== message.content) {
+      await onEdit?.(message.id, trimmed);
+    }
+    setIsEditing(false);
+  }, [editContent, message.id, message.content, onEdit]);
+
+  const handleCancelEdit = React.useCallback(() => {
+    setEditContent(message.content);
+    setIsEditing(false);
+  }, [message.content]);
+
   return (
     <div
       className={cn(
@@ -163,6 +223,20 @@ export function ChatMessage({
         className
       )}
     >
+      {selectable && (
+        <div
+          className={cn(
+            'flex shrink-0 items-start pt-1',
+            'opacity-0 transition-opacity group-hover:opacity-100'
+          )}
+        >
+          <Checkbox
+            checked={selected}
+            onCheckedChange={handleSelectChange}
+            aria-label={selected ? 'Deselect message' : 'Select message'}
+          />
+        </div>
+      )}
       {showAvatar && (
         <Avatar className="h-8 w-8 shrink-0">
           <AvatarFallback
@@ -201,6 +275,36 @@ export function ChatMessage({
                 <p className="text-muted-foreground text-sm">
                   {message.error.message}
                 </p>
+              </div>
+            </div>
+          ) : isEditing ? (
+            <div className="flex flex-col gap-2">
+              <textarea
+                value={editContent}
+                onChange={(e) => setEditContent(e.target.value)}
+                className="bg-background/50 min-h-[80px] w-full resize-y rounded-md border px-3 py-2 text-sm"
+                rows={4}
+                autoFocus
+              />
+              <div className="flex gap-2">
+                <Button
+                  variant="default"
+                  size="sm"
+                  onPress={handleSaveEdit}
+                  aria-label="Save edit"
+                >
+                  <Check className="h-3 w-3" />
+                  Save
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onPress={handleCancelEdit}
+                  aria-label="Cancel edit"
+                >
+                  <X className="h-3 w-3" />
+                  Cancel
+                </Button>
               </div>
             </div>
           ) : isStreaming && !message.content ? (
@@ -247,6 +351,18 @@ export function ChatMessage({
               ) : (
                 <Copy className="h-3 w-3" />
               )}
+            </Button>
+          )}
+
+          {editable && isUser && !isEditing && (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-6 w-6 p-0"
+              onPress={handleStartEdit}
+              aria-label="Edit message"
+            >
+              <Pencil className="h-3 w-3" />
             </Button>
           )}
         </div>
@@ -318,16 +434,13 @@ export function ChatMessage({
                     </div>
                   )}
                   {tc.result !== undefined && (
-                    <div>
-                      <span className="text-muted-foreground font-medium">
-                        Output:
-                      </span>
-                      <pre className="bg-background mt-1 overflow-x-auto rounded p-2">
-                        {typeof tc.result === 'object'
-                          ? JSON.stringify(tc.result, null, 2)
-                          : String(tc.result)}
-                      </pre>
-                    </div>
+                    <ToolResultRenderer
+                      toolName={tc.name}
+                      result={tc.result}
+                      presentationRenderer={presentationRenderer}
+                      formRenderer={formRenderer}
+                      showRawFallback
+                    />
                   )}
                   {tc.error && (
                     <p className="text-destructive mt-1">{tc.error}</p>

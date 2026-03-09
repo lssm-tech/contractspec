@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/app.web-landing",
-  "version": "3.4.1",
+  "version": "3.5.0",
   "private": true,
   "scripts": {
     "clean": "rimraf .next dist .turbo",
@@ -52,7 +52,7 @@
     "react-hook-form": "^7.71.2",
     "react-native-css": "^3.0.4",
     "resend": "^6.9.3",
-    "shiki": "^4.0.1",
+    "shiki": "^4.0.2",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.5.0",
     "tailwindcss-animate": "^1.0.7",

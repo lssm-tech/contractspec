@@ -9,6 +9,8 @@ export interface ChatContainerProps {
   className?: string;
   /** Show scroll-to-bottom button when scrolled up */
   showScrollButton?: boolean;
+  /** Optional header content (e.g. export toolbar) */
+  headerContent?: React.ReactNode;
 }
 
 /**
@@ -18,6 +20,7 @@ export function ChatContainer({
   children,
   className,
   showScrollButton = true,
+  headerContent,
 }: ChatContainerProps) {
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const [showScrollDown, setShowScrollDown] = React.useState(false);
@@ -61,6 +64,11 @@ export function ChatContainer({
 
   return (
     <div className={cn('relative flex flex-1 flex-col', className)}>
+      {headerContent && (
+        <div className="border-border flex shrink-0 items-center justify-end gap-2 border-b px-4 py-2">
+          {headerContent}
+        </div>
+      )}
       <ScrollArea ref={scrollRef} className="flex-1" onScroll={handleScroll}>
         <div className="flex flex-col gap-4 p-4">{children}</div>
       </ScrollArea>

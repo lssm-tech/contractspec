@@ -1,5 +1,49 @@
 # @contractspec/app.api-library
 
+## 3.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- Updated dependencies [1fa29a0]
+- Updated dependencies [66c51da]
+- Updated dependencies [230bdf6]
+  - @contractspec/bundle.library@3.5.0
+  - @contractspec/bundle.marketing@3.5.0
+  - @contractspec/integration.providers-impls@3.5.0
+  - @contractspec/integration.runtime@3.5.0
+  - @contractspec/lib.contracts-spec@3.5.0
+  - @contractspec/bundle.workspace@3.5.0
+
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/integration.providers-impls@3.4.3
+  - @contractspec/integration.runtime@3.4.3
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/bundle.marketing@3.4.3
+  - @contractspec/bundle.workspace@3.4.3
+  - @contractspec/bundle.library@3.4.3
+
+## 3.4.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+- Updated dependencies [78d56a4]
+  - @contractspec/integration.providers-impls@3.4.2
+  - @contractspec/integration.runtime@3.4.2
+  - @contractspec/lib.contracts-spec@3.4.2
+  - @contractspec/bundle.marketing@3.4.2
+  - @contractspec/bundle.workspace@3.4.2
+  - @contractspec/bundle.library@3.4.2
+
 ## 3.4.1
 
 ### Patch Changes

@@ -253,6 +253,7 @@ export async function runTranspile({
 
     const subprocess = Bun.spawn(['bun', ...args], {
       cwd,
+      env: { ...process.env, NODE_ENV: 'production' },
       stdout: 'inherit',
       stderr: 'inherit',
       stdin: 'inherit',

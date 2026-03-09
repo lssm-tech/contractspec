@@ -1,5 +1,95 @@
 # @contractspec/bundle.marketing
 
+## 3.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- 66c51da: feat(bundle.marketing): add MarketingBundle, bundles export
+  - Add MarketingBundle and bundles/index for surface-runtime composition
+  - Add @contractspec/lib.surface-runtime dependency
+
+- Updated dependencies [1fa29a0]
+- Updated dependencies [66c51da]
+- Updated dependencies [66c51da]
+- Updated dependencies [1fa29a0]
+- Updated dependencies [230bdf6]
+  - @contractspec/bundle.library@3.5.0
+  - @contractspec/lib.contracts-runtime-client-react@3.5.0
+  - @contractspec/lib.example-shared-ui@4.0.0
+  - @contractspec/lib.surface-runtime@0.3.0
+  - @contractspec/example.analytics-dashboard@3.5.0
+  - @contractspec/example.saas-boilerplate@3.5.0
+  - @contractspec/example.integration-hub@3.5.0
+  - @contractspec/example.workflow-system@3.5.0
+  - @contractspec/example.agent-console@3.5.0
+  - @contractspec/example.crm-pipeline@3.5.0
+  - @contractspec/example.marketplace@3.5.0
+  - @contractspec/lib.runtime-sandbox@2.5.0
+  - @contractspec/lib.contracts-spec@3.5.0
+  - @contractspec/lib.design-system@3.5.0
+  - @contractspec/lib.ui-kit-core@3.5.0
+  - @contractspec/module.examples@3.5.0
+  - @contractspec/lib.ui-kit-web@3.5.0
+  - @contractspec/lib.ui-link@3.5.0
+  - @contractspec/lib.logger@3.5.0
+  - @contractspec/lib.email@3.5.0
+
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/lib.contracts-runtime-client-react@3.4.3
+  - @contractspec/example.analytics-dashboard@3.4.3
+  - @contractspec/example.saas-boilerplate@3.4.3
+  - @contractspec/example.integration-hub@3.4.3
+  - @contractspec/example.workflow-system@3.4.3
+  - @contractspec/example.agent-console@3.4.3
+  - @contractspec/lib.example-shared-ui@3.4.3
+  - @contractspec/example.crm-pipeline@3.4.3
+  - @contractspec/example.marketplace@3.4.3
+  - @contractspec/lib.runtime-sandbox@2.4.3
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/lib.design-system@3.4.3
+  - @contractspec/lib.ui-kit-core@3.4.3
+  - @contractspec/module.examples@3.4.3
+  - @contractspec/bundle.library@3.4.3
+  - @contractspec/lib.ui-kit-web@3.4.3
+  - @contractspec/lib.ui-link@3.4.3
+  - @contractspec/lib.logger@3.4.3
+  - @contractspec/lib.email@3.4.3
+
+## 3.4.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+- Updated dependencies [78d56a4]
+  - @contractspec/lib.contracts-runtime-client-react@3.4.2
+  - @contractspec/example.analytics-dashboard@3.4.2
+  - @contractspec/example.saas-boilerplate@3.4.2
+  - @contractspec/example.integration-hub@3.4.2
+  - @contractspec/example.workflow-system@3.4.2
+  - @contractspec/example.agent-console@3.4.2
+  - @contractspec/lib.example-shared-ui@3.4.2
+  - @contractspec/example.crm-pipeline@3.4.2
+  - @contractspec/example.marketplace@3.4.2
+  - @contractspec/lib.runtime-sandbox@2.4.2
+  - @contractspec/lib.contracts-spec@3.4.2
+  - @contractspec/lib.design-system@3.4.2
+  - @contractspec/lib.ui-kit-core@3.4.2
+  - @contractspec/module.examples@3.4.2
+  - @contractspec/bundle.library@3.4.2
+  - @contractspec/lib.ui-kit-web@3.4.2
+  - @contractspec/lib.ui-link@3.4.2
+  - @contractspec/lib.logger@3.4.2
+  - @contractspec/lib.email@3.4.2
+
 ## 3.4.1
 
 ### Patch Changes

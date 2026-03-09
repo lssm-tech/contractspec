@@ -26,12 +26,35 @@ type ModelMessage =
         output: unknown;
       }[];
     };
-import type { Provider as ChatProvider } from '@contractspec/lib.ai-providers';
+import type {
+  Provider as ChatProvider,
+  ProviderName,
+} from '@contractspec/lib.ai-providers';
+import type { ModelSelector } from '@contractspec/lib.ai-providers/selector-types';
+import type { WorkflowComposer } from '@contractspec/lib.workflow-composer';
+import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow';
 import type { WorkspaceContext } from '../context/workspace-context';
 import type { ConversationStore } from './conversation-store';
 import { InMemoryConversationStore } from './conversation-store';
+import {
+  getProviderOptions,
+  type ThinkingLevel,
+} from './thinking-levels';
+import { createWorkflowTools } from './workflow-tools';
+import {
+  buildContractsContextPrompt,
+  type ContractsContextConfig,
+} from './contracts-context';
+import { agentToolConfigsToToolSet } from './agent-tools-adapter';
+import {
+  createSurfacePlannerTools,
+  buildPlannerPromptInput,
+} from './surface-planner-tools';
+import { compilePlannerPrompt } from '@contractspec/lib.surface-runtime/runtime/planner-prompt';
+import type { ResolvedSurfacePlan } from '@contractspec/lib.surface-runtime/runtime/resolve-bundle';
 import type {
   ChatConversation,
+  ChatMessage,
   ChatStreamChunk,
   ChatToolCall,
   ChatSource,
@@ -64,10 +87,28 @@ export interface ChatServiceConfig {
   authHeaders?: Record<string, string>;
   /** Tools for the model to call (AI SDK ToolSet) */
   tools?: ToolSet;
+  /** Thinking level: instant, thinking, extra_thinking, max. Maps to provider reasoning options. */
+  thinkingLevel?: ThinkingLevel;
   /** Enable reasoning parts in stream (Deepseek R1, Claude extended thinking) */
   sendReasoning?: boolean;
   /** Enable source citations in stream (e.g. Perplexity Sonar) */
   sendSources?: boolean;
+  /** Workflow creation tools: base workflows and optional composer */
+  workflowToolsConfig?: {
+    baseWorkflows: WorkflowSpec[];
+    composer?: WorkflowComposer;
+  };
+  /** Optional model selector for dynamic model selection by task dimension */
+  modelSelector?: ModelSelector;
+  /** Contracts-spec context: agent, data-views, operations, forms, presentations */
+  contractsContext?: ContractsContextConfig;
+  /** Surface plan config: enables propose-patch tool when used in surface-runtime */
+  surfacePlanConfig?: {
+    plan: ResolvedSurfacePlan;
+    onPatchProposal?: (proposal: import('@contractspec/lib.surface-runtime/spec/types').SurfacePatchProposal) => void;
+  };
+  /** MCP tools (from createMcpToolsets); merged when provided */
+  mcpTools?: ToolSet;
 }
 
 /**
@@ -88,6 +129,10 @@ Guidelines:
 - Ask clarifying questions when the user's intent is unclear
 - When suggesting code changes, explain the rationale`;
 
+const WORKFLOW_TOOLS_PROMPT = `
+
+Workflow creation: You can create and modify workflows. Use create_workflow_extension when the user asks to add steps, change a workflow, or create a tenant-specific extension. Use compose_workflow to apply extensions to a base workflow. Use generate_workflow_spec_code to output TypeScript for the user to save.`;
+
 /**
  * Main chat service for AI-powered conversations
  */
@@ -102,19 +147,102 @@ export class ChatService {
     outputTokens: number;
   }) => void;
   private readonly tools?: ToolSet;
+  private readonly thinkingLevel?: ThinkingLevel;
   private readonly sendReasoning: boolean;
   private readonly sendSources: boolean;
+  private readonly modelSelector?: ModelSelector;
 
   constructor(config: ChatServiceConfig) {
     this.provider = config.provider;
     this.context = config.context;
     this.store = config.store ?? new InMemoryConversationStore();
-    this.systemPrompt = config.systemPrompt ?? DEFAULT_SYSTEM_PROMPT;
+    this.systemPrompt = this.buildSystemPrompt(config);
     this.maxHistoryMessages = config.maxHistoryMessages ?? 20;
     this.onUsage = config.onUsage;
-    this.tools = config.tools;
-    this.sendReasoning = config.sendReasoning ?? false;
+    this.tools = this.mergeTools(config);
+    this.thinkingLevel = config.thinkingLevel;
+    this.modelSelector = config.modelSelector;
+    this.sendReasoning =
+      config.sendReasoning ??
+      (config.thinkingLevel != null && config.thinkingLevel !== 'instant');
     this.sendSources = config.sendSources ?? false;
+  }
+
+  private buildSystemPrompt(config: ChatServiceConfig): string {
+    let base = config.systemPrompt ?? DEFAULT_SYSTEM_PROMPT;
+    if (config.workflowToolsConfig?.baseWorkflows?.length) {
+      base += WORKFLOW_TOOLS_PROMPT;
+    }
+    const contractsPrompt = buildContractsContextPrompt(
+      config.contractsContext ?? {}
+    );
+    if (contractsPrompt) {
+      base += contractsPrompt;
+    }
+    if (config.surfacePlanConfig?.plan) {
+      const plannerInput = buildPlannerPromptInput(config.surfacePlanConfig.plan);
+      base += '\n\n' + compilePlannerPrompt(plannerInput);
+    }
+    return base;
+  }
+
+  private mergeTools(config: ChatServiceConfig): ToolSet | undefined {
+    let merged: ToolSet = config.tools ?? {};
+    const wfConfig = config.workflowToolsConfig;
+    if (wfConfig?.baseWorkflows?.length) {
+      const workflowTools = createWorkflowTools({
+        baseWorkflows: wfConfig.baseWorkflows,
+        composer: wfConfig.composer,
+      });
+      merged = { ...merged, ...workflowTools } as ToolSet;
+    }
+    const contractsCtx = config.contractsContext;
+    if (contractsCtx?.agentSpecs?.length) {
+      const allTools: import('@contractspec/lib.ai-agent').AgentToolConfig[] = [];
+      for (const agent of contractsCtx.agentSpecs) {
+        if (agent.tools?.length) allTools.push(...agent.tools);
+      }
+      if (allTools.length > 0) {
+        const agentTools = agentToolConfigsToToolSet(allTools);
+        merged = { ...merged, ...agentTools } as ToolSet;
+      }
+    }
+    const surfaceConfig = config.surfacePlanConfig;
+    if (surfaceConfig?.plan) {
+      const plannerTools = createSurfacePlannerTools({
+        plan: surfaceConfig.plan,
+        onPatchProposal: surfaceConfig.onPatchProposal,
+      });
+      merged = { ...merged, ...plannerTools } as ToolSet;
+    }
+    if (config.mcpTools && Object.keys(config.mcpTools).length > 0) {
+      merged = { ...merged, ...config.mcpTools } as ToolSet;
+    }
+    return Object.keys(merged).length > 0 ? merged : undefined;
+  }
+
+  private async resolveModel(): Promise<{
+    model: ReturnType<ChatProvider['getModel']>;
+    providerName: string;
+  }> {
+    if (this.modelSelector) {
+      const dimension = this.thinkingLevelToDimension(this.thinkingLevel);
+      const { model, selection } = await this.modelSelector.selectAndCreate({
+        taskDimension: dimension,
+      });
+      return { model, providerName: selection.providerKey };
+    }
+    return {
+      model: this.provider.getModel(),
+      providerName: this.provider.name,
+    };
+  }
+
+  private thinkingLevelToDimension(
+    level: ThinkingLevel | undefined
+  ): 'reasoning' | 'latency' {
+    if (!level || level === 'instant') return 'latency';
+    return 'reasoning';
   }
 
   /**
@@ -139,19 +267,28 @@ export class ChatService {
       });
     }
 
-    // Add user message
-    await this.store.appendMessage(conversation.id, {
-      role: 'user',
-      content: options.content,
-      status: 'completed',
-      attachments: options.attachments,
-    });
+    // Add user message (skip when regenerating from edit)
+    if (!options.skipUserAppend) {
+      await this.store.appendMessage(conversation.id, {
+        role: 'user',
+        content: options.content,
+        status: 'completed',
+        attachments: options.attachments,
+      });
+    }
+
+    conversation = (await this.store.get(conversation.id)) ?? conversation;
 
     // Build messages for model
     const messages = this.buildMessages(conversation, options);
 
-    // Get the language model
-    const model = this.provider.getModel();
+    // Get the language model (from provider or modelSelector)
+    const { model, providerName } = await this.resolveModel();
+
+    const providerOptions = getProviderOptions(
+      this.thinkingLevel,
+      providerName as ProviderName
+    );
 
     try {
       // Generate response
@@ -162,6 +299,10 @@ export class ChatService {
         >,
         system: this.systemPrompt,
         tools: this.tools,
+        providerOptions:
+          Object.keys(providerOptions).length > 0
+            ? (providerOptions as Parameters<typeof generateText>[0]['providerOptions'])
+            : undefined,
       });
 
       // Save assistant message
@@ -219,13 +360,18 @@ export class ChatService {
       });
     }
 
-    // Add user message
-    await this.store.appendMessage(conversation.id, {
-      role: 'user',
-      content: options.content,
-      status: 'completed',
-      attachments: options.attachments,
-    });
+    // Add user message (skip when regenerating from edit)
+    if (!options.skipUserAppend) {
+      await this.store.appendMessage(conversation.id, {
+        role: 'user',
+        content: options.content,
+        status: 'completed',
+        attachments: options.attachments,
+      });
+    }
+
+    // Refresh conversation after optional append
+    conversation = (await this.store.get(conversation.id)) ?? conversation;
 
     // Create placeholder for assistant message
     const assistantMessage = await this.store.appendMessage(conversation.id, {
@@ -237,12 +383,16 @@ export class ChatService {
     // Build messages for model
     const messages = this.buildMessages(conversation, options);
 
-    // Get the language model and capture for async generator closure
-    const model = this.provider.getModel();
+    // Get the language model (from provider or modelSelector) and capture for async generator closure
+    const { model, providerName } = await this.resolveModel();
     const systemPrompt = this.systemPrompt;
     const tools = this.tools;
     const store = this.store;
     const onUsage = this.onUsage;
+    const streamProviderOptions = getProviderOptions(
+      this.thinkingLevel,
+      providerName as ProviderName
+    );
 
     async function* streamGenerator(): AsyncIterable<ChatStreamChunk> {
       let fullContent = '';
@@ -258,6 +408,12 @@ export class ChatService {
           >,
           system: systemPrompt,
           tools,
+          providerOptions:
+            Object.keys(streamProviderOptions).length > 0
+              ? (streamProviderOptions as Parameters<
+                  typeof streamText
+                >[0]['providerOptions'])
+              : undefined,
         });
 
         for await (const part of result.fullStream) {
@@ -396,6 +552,8 @@ export class ChatService {
    * List conversations
    */
   async listConversations(options?: {
+    projectId?: string;
+    tags?: string[];
     limit?: number;
     offset?: number;
   }): Promise<ChatConversation[]> {
@@ -403,6 +561,47 @@ export class ChatService {
       status: 'active',
       ...options,
     });
+  }
+
+  /**
+   * Update conversation properties (title, project, tags, etc.)
+   */
+  async updateConversation(
+    conversationId: string,
+    updates: Parameters<ConversationStore['update']>[1]
+  ): Promise<ChatConversation | null> {
+    return this.store.update(conversationId, updates);
+  }
+
+  /**
+   * Fork a conversation, optionally up to a specific message
+   */
+  async forkConversation(
+    conversationId: string,
+    upToMessageId?: string
+  ): Promise<ChatConversation> {
+    return this.store.fork(conversationId, upToMessageId);
+  }
+
+  /**
+   * Update a message in a conversation
+   */
+  async updateMessage(
+    conversationId: string,
+    messageId: string,
+    updates: Partial<ChatMessage>
+  ): Promise<ChatMessage | null> {
+    return this.store.updateMessage(conversationId, messageId, updates);
+  }
+
+  /**
+   * Truncate messages after the given message (for edit/regenerate)
+   */
+  async truncateAfter(
+    conversationId: string,
+    messageId: string
+  ): Promise<ChatConversation | null> {
+    return this.store.truncateAfter(conversationId, messageId);
   }
 
   /**

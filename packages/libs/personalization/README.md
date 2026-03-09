@@ -14,6 +14,16 @@ Composable behavior tracking and personalization primitives for ContractSpec app
 
 See `docs/tech/personalization/behavior-tracking.md` for full usage notes.
 
+## Bundle spec / surface-runtime alignment
+
+When using `@contractspec/lib.surface-runtime`, the types in `./preference-dimensions` are the canonical source for preference resolution:
+
+- **`PreferenceDimensions`** — 7-dimension model (guidance, density, dataDepth, control, media, pace, narrative)
+- **`BundlePreferenceAdapter`** — Interface for resolving and persisting preferences; surface-runtime's `resolvePreferenceProfile` consumes adapters implementing this interface
+- **`ResolvedPreferenceProfile`** — Canonical values with source attribution; aligns with surface-runtime's adaptation output
+
+Pass a `BundlePreferenceAdapter` implementation to `resolveBundle` options when integrating personalization with surface-runtime.
+
 
 
 

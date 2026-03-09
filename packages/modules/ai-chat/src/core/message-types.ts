@@ -126,6 +126,12 @@ export interface ChatConversation {
   // Summary for context
   summary?: string;
 
+  // Organization
+  projectId?: string;
+  projectName?: string;
+  tags?: string[];
+  forkedFromId?: string;
+
   // Metadata
   metadata?: Record<string, unknown>;
 }
@@ -141,6 +147,8 @@ export interface SendMessageOptions {
   maxTokens?: number;
   temperature?: number;
   stream?: boolean;
+  /** When true, do not append user message (for edit/regenerate flow) */
+  skipUserAppend?: boolean;
 }
 
 /**

@@ -27,6 +27,16 @@ The AI Chat module provides a reusable AI-powered conversational coding assistan
 - **Full Workspace Context**: Access specs, files, and codebase for context-aware assistance
 - **Streaming Responses**: Real-time token streaming
 - **Usage Tracking**: Integrated metering and cost tracking
+- **Export**: Export conversations to Markdown (.md), Plain Text (.txt), or JSON (.json); select one or many messages for partial export
+- **Conversation Management**: New conversation, history sidebar, fork, edit messages, organize with projects and tags
+- **Thinking Levels**: Choose reasoning depth (instant, thinking, extra thinking, max); maps to Anthropic budgetTokens and OpenAI reasoningEffort
+- **Workflow Creation Tools**: Create and modify workflows via \`create_workflow_extension\`, \`compose_workflow\`, \`generate_workflow_spec_code\` when \`workflowToolsConfig\` is set (requires \`@contractspec/lib.workflow-composer\`)
+- **ModelSelector**: Dynamic model selection by task dimension when \`modelSelector\` is provided
+- **Contracts-Spec Context**: Pass \`contractsContext\` to expose agent, data-views, operations, forms, presentations to the model; agent tools from \`AgentToolConfig[]\` are converted to AI SDK tools
+- **Surface-Runtime**: Pass \`surfacePlanConfig\` when embedding in surface-runtime; enables \`propose-patch\` tool for layout proposals; \`createAiSdkBundleAdapter\` implements \`AiSdkBundleAdapter\`
+- **Presentation/Form Rendering**: Pass \`presentationRenderer\` and \`formRenderer\` to \`ChatWithSidebar\`; tool results with \`presentationKey\` or \`formKey\` render via host-provided components
+- **MCP Tools**: Pass \`mcpServers\` (from \`@contractspec/lib.ai-agent\`) to \`useChat\`; tools from MCP servers are merged into chat tools
+- **Agent Mode**: Pass \`agentMode: { agent }\` with a \`ChatAgentAdapter\` (use \`createChatAgentAdapter\` to wrap \`ContractSpecAgent\`); chat uses the agent for generation instead of ChatService
 
 ## Architecture
 
@@ -60,22 +70,43 @@ const result = await chatService.send({
 ### React Integration
 
 \`\`\`tsx
-import { useChat, ChatContainer, ChatMessage, ChatInput } from '@contractspec/module.ai-chat';
+import { useChat, ChatWithExport, ChatInput } from '@contractspec/module.ai-chat';
 
 function Chat() {
-  const { messages, sendMessage, isLoading } = useChat({
+  const { messages, conversation, sendMessage, isLoading } = useChat({
     provider: 'anthropic',
     mode: 'managed',
   });
 
   return (
-    <ChatContainer>
-      {messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
+    <ChatWithExport messages={messages} conversation={conversation}>
       <ChatInput onSend={sendMessage} isLoading={isLoading} />
-    </ChatContainer>
+    </ChatWithExport>
   );
 }
 \`\`\`
+
+\`ChatWithExport\` provides an export toolbar (Markdown, TXT, JSON, copy to clipboard) and message selection. Use \`ChatContainer\` + \`ChatMessage\` for basic chat without export.
+
+### Full Chat with Sidebar
+
+\`\`\`tsx
+import { ChatWithSidebar } from '@contractspec/module.ai-chat';
+
+function FullChat() {
+  return <ChatWithSidebar systemPrompt="You are a helpful assistant." />;
+}
+\`\`\`
+
+\`ChatWithSidebar\` includes conversation history (LocalStorage), New/Fork, message edit, project/tags organization, and a **Thinking Level** picker (instant, thinking, extra thinking, max). The thinking level controls provider-specific reasoning options (e.g. Anthropic extended thinking budget, OpenAI reasoning effort).
+
+### Workflow Creation Tools
+
+Pass \`workflowToolsConfig: { baseWorkflows, composer? }\` to \`ChatService\` or \`useChat\` to enable workflow creation tools. The model can then call \`create_workflow_extension\`, \`compose_workflow\`, and \`generate_workflow_spec_code\` when users ask to add steps or modify workflows. Export \`createWorkflowTools\` from \`@contractspec/module.ai-chat/core\` for manual wiring.
+
+### ModelSelector
+
+Pass \`modelSelector\` (from \`@contractspec/lib.ai-providers\`) to \`ChatService\` or \`useChat\` for dynamic model selection by task dimension (reasoning vs latency), driven by thinking level.
 
 ## Surface Integration
 

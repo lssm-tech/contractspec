@@ -29,7 +29,16 @@ export interface ConversationStore {
   update(
     conversationId: string,
     updates: Partial<
-      Pick<ChatConversation, 'title' | 'status' | 'summary' | 'metadata'>
+      Pick<
+        ChatConversation,
+        | 'title'
+        | 'status'
+        | 'summary'
+        | 'metadata'
+        | 'projectId'
+        | 'projectName'
+        | 'tags'
+      >
     >
   ): Promise<ChatConversation | null>;
 
@@ -63,9 +72,27 @@ export interface ConversationStore {
    */
   list(options?: {
     status?: ConversationStatus;
+    projectId?: string;
+    tags?: string[];
     limit?: number;
     offset?: number;
   }): Promise<ChatConversation[]>;
+
+  /**
+   * Fork a conversation, optionally up to a specific message
+   */
+  fork(
+    conversationId: string,
+    upToMessageId?: string
+  ): Promise<ChatConversation>;
+
+  /**
+   * Remove all messages after the given message (for edit/regenerate flow)
+   */
+  truncateAfter(
+    conversationId: string,
+    messageId: string
+  ): Promise<ChatConversation | null>;
 
   /**
    * Search conversations by content
@@ -107,7 +134,16 @@ export class InMemoryConversationStore implements ConversationStore {
   async update(
     conversationId: string,
     updates: Partial<
-      Pick<ChatConversation, 'title' | 'status' | 'summary' | 'metadata'>
+      Pick<
+        ChatConversation,
+        | 'title'
+        | 'status'
+        | 'summary'
+        | 'metadata'
+        | 'projectId'
+        | 'projectName'
+        | 'tags'
+      >
     >
   ): Promise<ChatConversation | null> {
     const conversation = this.conversations.get(conversationId);
@@ -180,6 +216,8 @@ export class InMemoryConversationStore implements ConversationStore {
 
   async list(options?: {
     status?: ConversationStatus;
+    projectId?: string;
+    tags?: string[];
     limit?: number;
     offset?: number;
   }): Promise<ChatConversation[]> {
@@ -188,6 +226,15 @@ export class InMemoryConversationStore implements ConversationStore {
     if (options?.status) {
       results = results.filter((c) => c.status === options.status);
     }
+    if (options?.projectId) {
+      results = results.filter((c) => c.projectId === options.projectId);
+    }
+    if (options?.tags && options.tags.length > 0) {
+      const tagSet = new Set(options.tags);
+      results = results.filter(
+        (c) => c.tags && c.tags.some((t) => tagSet.has(t))
+      );
+    }
 
     // Sort by updatedAt descending
     results.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
@@ -195,6 +242,66 @@ export class InMemoryConversationStore implements ConversationStore {
     const offset = options?.offset ?? 0;
     const limit = options?.limit ?? 100;
     return results.slice(offset, offset + limit);
+  }
+
+  async fork(
+    conversationId: string,
+    upToMessageId?: string
+  ): Promise<ChatConversation> {
+    const source = this.conversations.get(conversationId);
+    if (!source) {
+      throw new Error(`Conversation ${conversationId} not found`);
+    }
+
+    let messagesToCopy = source.messages;
+    if (upToMessageId) {
+      const idx = source.messages.findIndex((m) => m.id === upToMessageId);
+      if (idx === -1) {
+        throw new Error(`Message ${upToMessageId} not found`);
+      }
+      messagesToCopy = source.messages.slice(0, idx + 1);
+    }
+
+    const now = new Date();
+    const forkedMessages: ChatMessage[] = messagesToCopy.map((m) => ({
+      ...m,
+      id: generateId('msg'),
+      conversationId: '', // will be set after create
+      createdAt: new Date(m.createdAt),
+      updatedAt: new Date(m.updatedAt),
+    }));
+
+    const forked: ChatConversation = {
+      ...source,
+      id: generateId('conv'),
+      title: source.title ? `${source.title} (fork)` : undefined,
+      forkedFromId: source.id,
+      createdAt: now,
+      updatedAt: now,
+      messages: forkedMessages,
+    };
+
+    for (const m of forked.messages) {
+      (m as ChatMessage).conversationId = forked.id;
+    }
+
+    this.conversations.set(forked.id, forked);
+    return forked;
+  }
+
+  async truncateAfter(
+    conversationId: string,
+    messageId: string
+  ): Promise<ChatConversation | null> {
+    const conv = this.conversations.get(conversationId);
+    if (!conv) return null;
+
+    const idx = conv.messages.findIndex((m) => m.id === messageId);
+    if (idx === -1) return null;
+
+    conv.messages = conv.messages.slice(0, idx + 1);
+    conv.updatedAt = new Date();
+    return conv;
   }
 
   async search(query: string, limit = 20): Promise<ChatConversation[]> {

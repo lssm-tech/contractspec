@@ -1,5 +1,35 @@
 # @contractspec/module.product-intent-core
 
+## 3.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- Updated dependencies [230bdf6]
+  - @contractspec/lib.product-intent-utils@3.5.0
+  - @contractspec/lib.contracts-spec@3.5.0
+
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/lib.product-intent-utils@3.4.3
+  - @contractspec/lib.contracts-spec@3.4.3
+
+## 3.4.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+- Updated dependencies [78d56a4]
+  - @contractspec/lib.product-intent-utils@3.4.2
+  - @contractspec/lib.contracts-spec@3.4.2
+
 ## 3.4.1
 
 ### Patch Changes

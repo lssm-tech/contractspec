@@ -1,5 +1,84 @@
 # @contractspec/module.ai-chat
 
+## 4.1.0
+
+### Minor Changes
+
+- 1fa29a0: feat(ai-chat): export, conversation management, thinking levels, workflow tools
+  - Export: ChatWithExport, ChatExportToolbar — Markdown, TXT, JSON, copy; select messages for partial export
+  - Conversation management: ChatWithSidebar, useConversations, useMessageSelection — history, new, fork, edit, projects/tags
+  - Thinking levels: ThinkingLevelPicker, thinkingLevel option — instant, thinking, extra_thinking, max (Anthropic budgetTokens, OpenAI reasoningEffort)
+  - Workflow creation tools: createWorkflowTools, workflowToolsConfig — create_workflow_extension, compose_workflow, generate_workflow_spec_code (requires @contractspec/lib.workflow-composer)
+  - ModelSelector: modelSelector option for dynamic model selection by task dimension
+  - Local storage: createLocalStorageConversationStore for persisted conversations
+  - surface-runtime: moved from optional peer to direct dependency
+
+- 5ee581b: feat(ai-chat): presentation/form rendering, MCP tools, agent mode
+  - **Presentation/Form rendering**: Host-driven `presentationRenderer` and `formRenderer` for tool results with `presentationKey` or `formKey`; `ToolResultRenderer` component
+  - **MCP tools**: `mcpServers` option on `useChat`; tools from `createMcpToolsets` merged into chat; cleanup on unmount
+  - **Agent mode**: `agentMode: { agent }` with `ChatAgentAdapter`; `createChatAgentAdapter` to wrap `ContractSpecAgent`; chat uses agent for generation instead of ChatService
+  - Exports: `ToolResultRenderer`, `isPresentationToolResult`, `isFormToolResult`, `createChatAgentAdapter`, `ChatAgentAdapter`
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- 66c51da: feat(ai-chat): contracts context, surface-runtime integration, adapter fixes
+  - Contracts-Spec context: contractsContext exposes agent, data-views, operations, forms, presentations; AgentToolConfig[] for agent tools
+  - Surface-runtime: surfacePlanConfig enables propose-patch tool; createAiSdkBundleAdapter for planner integration
+  - agent-tools-adapter: simplify schema handling, remove jsonSchemaToZodSafe dependency
+  - surface-planner-tools: fix imports, improve zod schema typing
+  - ChatInput: explicit onChange type for Textarea
+
+- c527a4e: Fix jsxDEV runtime error in ai-chat module
+  - Add bunfig.toml to ai-chat with `jsx = "react-jsx"` to work around Bun v1.3+ regression (oven-sh/bun#23959)
+  - Pass NODE_ENV=production when spawning bun build in runTranspile for monorepo-wide safeguard
+
+- Updated dependencies [1fa29a0]
+- Updated dependencies [230bdf6]
+  - @contractspec/lib.surface-runtime@0.3.0
+  - @contractspec/lib.workflow-composer@3.5.0
+  - @contractspec/lib.contracts-spec@3.5.0
+  - @contractspec/lib.cost-tracking@3.5.0
+  - @contractspec/lib.design-system@3.5.0
+  - @contractspec/lib.ai-providers@3.5.0
+  - @contractspec/lib.ui-kit-web@3.5.0
+  - @contractspec/lib.ai-agent@5.0.0
+  - @contractspec/lib.metering@3.5.0
+  - @contractspec/lib.schema@3.5.0
+
+## 4.0.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/lib.surface-runtime@0.2.3
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/lib.cost-tracking@3.4.3
+  - @contractspec/lib.design-system@3.4.3
+  - @contractspec/lib.ai-providers@3.4.3
+  - @contractspec/lib.ui-kit-web@3.4.3
+  - @contractspec/lib.ai-agent@4.0.3
+  - @contractspec/lib.metering@3.4.3
+  - @contractspec/lib.schema@3.4.3
+
+## 4.0.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+- Updated dependencies [78d56a4]
+  - @contractspec/lib.surface-runtime@0.2.2
+  - @contractspec/lib.contracts-spec@3.4.2
+  - @contractspec/lib.cost-tracking@3.4.2
+  - @contractspec/lib.design-system@3.4.2
+  - @contractspec/lib.ai-providers@3.4.2
+  - @contractspec/lib.ui-kit-web@3.4.2
+  - @contractspec/lib.ai-agent@4.0.2
+  - @contractspec/lib.metering@3.4.2
+  - @contractspec/lib.schema@3.4.2
+
 ## 4.0.1
 
 ### Patch Changes

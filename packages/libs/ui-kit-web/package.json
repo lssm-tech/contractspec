@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.ui-kit-web",
-  "version": "3.4.1",
+  "version": "3.5.0",
   "description": "Web UI components with Radix primitives",
   "keywords": [
     "contractspec",
@@ -71,7 +71,7 @@
     "radix-ui": "^1.4.3",
     "react-day-picker": "^9.14.0",
     "react-hook-form": "^7.71.2",
-    "react-resizable-panels": "^4.7.1",
+    "react-resizable-panels": "^4.7.2",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.5.0",
     "vaul": "^1.1.2"

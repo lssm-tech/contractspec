@@ -1,5 +1,50 @@
 # @contractspec/lib.personalization
 
+## 4.0.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- 66c51da: docs(personalization): surface-runtime alignment, optional peer
+  - Add README section on Bundle spec / surface-runtime alignment
+  - Add optional peer @contractspec/lib.surface-runtime
+
+- Updated dependencies [1fa29a0]
+- Updated dependencies [230bdf6]
+  - @contractspec/lib.surface-runtime@0.3.0
+  - @contractspec/lib.contracts-spec@3.5.0
+  - @contractspec/lib.overlay-engine@3.5.0
+  - @contractspec/lib.knowledge@3.5.0
+  - @contractspec/lib.schema@3.5.0
+  - @contractspec/lib.bus@3.5.0
+
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/lib.overlay-engine@3.4.3
+  - @contractspec/lib.knowledge@3.4.3
+  - @contractspec/lib.schema@3.4.3
+  - @contractspec/lib.bus@3.4.3
+
+## 3.4.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+- Updated dependencies [78d56a4]
+  - @contractspec/lib.contracts-spec@3.4.2
+  - @contractspec/lib.overlay-engine@3.4.2
+  - @contractspec/lib.knowledge@3.4.2
+  - @contractspec/lib.schema@3.4.2
+  - @contractspec/lib.bus@3.4.2
+
 ## 3.4.1
 
 ### Patch Changes

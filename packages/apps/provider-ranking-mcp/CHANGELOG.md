@@ -1,5 +1,44 @@
 # @contractspec/app.provider-ranking-mcp
 
+## 1.4.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- Updated dependencies [230bdf6]
+  - @contractspec/lib.contracts-runtime-server-mcp@3.5.0
+  - @contractspec/module.provider-ranking@0.5.0
+  - @contractspec/lib.provider-ranking@0.5.0
+  - @contractspec/lib.contracts-spec@3.5.0
+  - @contractspec/lib.logger@3.5.0
+
+## 1.3.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/lib.contracts-runtime-server-mcp@3.4.3
+  - @contractspec/module.provider-ranking@0.4.3
+  - @contractspec/lib.provider-ranking@0.4.3
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/lib.logger@3.4.3
+
+## 1.3.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+- Updated dependencies [78d56a4]
+  - @contractspec/lib.contracts-runtime-server-mcp@3.4.2
+  - @contractspec/module.provider-ranking@0.4.2
+  - @contractspec/lib.provider-ranking@0.4.2
+  - @contractspec/lib.contracts-spec@3.4.2
+  - @contractspec/lib.logger@3.4.2
+
 ## 1.3.1
 
 ### Patch Changes

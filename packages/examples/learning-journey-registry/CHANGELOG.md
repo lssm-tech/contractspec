@@ -1,5 +1,65 @@
 # @contractspec/example.learning-journey-registry
 
+## 3.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- Updated dependencies [230bdf6]
+  - @contractspec/example.learning-journey-studio-onboarding@3.5.0
+  - @contractspec/example.learning-journey-quest-challenges@3.5.0
+  - @contractspec/example.learning-journey-crm-onboarding@3.5.0
+  - @contractspec/example.learning-journey-ambient-coach@3.5.0
+  - @contractspec/example.learning-journey-platform-tour@3.5.0
+  - @contractspec/example.learning-journey-ui-onboarding@3.5.0
+  - @contractspec/example.learning-journey-ui-coaching@3.5.0
+  - @contractspec/example.learning-journey-ui-gamified@3.5.0
+  - @contractspec/example.learning-journey-duo-drills@3.5.0
+  - @contractspec/example.learning-journey-ui-shared@3.5.0
+  - @contractspec/module.learning-journey@3.5.0
+  - @contractspec/lib.contracts-spec@3.5.0
+
+## 3.4.3
+
+### Patch Changes
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/example.learning-journey-studio-onboarding@3.4.3
+  - @contractspec/example.learning-journey-quest-challenges@3.4.3
+  - @contractspec/example.learning-journey-crm-onboarding@3.4.3
+  - @contractspec/example.learning-journey-ambient-coach@3.4.3
+  - @contractspec/example.learning-journey-platform-tour@3.4.3
+  - @contractspec/example.learning-journey-ui-onboarding@3.4.3
+  - @contractspec/example.learning-journey-ui-coaching@3.4.3
+  - @contractspec/example.learning-journey-ui-gamified@3.4.3
+  - @contractspec/example.learning-journey-duo-drills@3.4.3
+  - @contractspec/example.learning-journey-ui-shared@3.4.3
+  - @contractspec/module.learning-journey@3.4.3
+  - @contractspec/lib.contracts-spec@3.4.3
+
+## 3.4.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+- Updated dependencies [78d56a4]
+  - @contractspec/example.learning-journey-studio-onboarding@3.4.2
+  - @contractspec/example.learning-journey-quest-challenges@3.4.2
+  - @contractspec/example.learning-journey-crm-onboarding@3.4.2
+  - @contractspec/example.learning-journey-ambient-coach@3.4.2
+  - @contractspec/example.learning-journey-platform-tour@3.4.2
+  - @contractspec/example.learning-journey-ui-onboarding@3.4.2
+  - @contractspec/example.learning-journey-ui-coaching@3.4.2
+  - @contractspec/example.learning-journey-ui-gamified@3.4.2
+  - @contractspec/example.learning-journey-duo-drills@3.4.2
+  - @contractspec/example.learning-journey-ui-shared@3.4.2
+  - @contractspec/module.learning-journey@3.4.2
+  - @contractspec/lib.contracts-spec@3.4.2
+
 ## 3.4.1
 
 ### Patch Changes

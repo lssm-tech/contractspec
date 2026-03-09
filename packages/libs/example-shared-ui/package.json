@@ -1,9 +1,12 @@
 {
   "name": "@contractspec/lib.example-shared-ui",
-  "version": "3.4.1",
+  "version": "4.0.0",
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
+    "./bundles": "./src/bundles/index.ts",
+    "./bundles/ExampleTemplateBundle": "./src/bundles/ExampleTemplateBundle.ts",
+    "./bundles/index": "./src/bundles/index.ts",
     "./EvolutionDashboard": "./src/EvolutionDashboard.tsx",
     "./EvolutionSidebar": "./src/EvolutionSidebar.tsx",
     "./hooks": "./src/hooks/index.ts",
@@ -22,6 +25,7 @@
     "./OverlayContextProvider": "./src/OverlayContextProvider.tsx",
     "./PersonalizationInsights": "./src/PersonalizationInsights.tsx",
     "./SaveToStudioButton": "./src/SaveToStudioButton.tsx",
+    "./SpecDrivenTemplateShell": "./src/SpecDrivenTemplateShell.tsx",
     "./SpecEditorPanel": "./src/SpecEditorPanel.tsx",
     "./TemplateShell": "./src/TemplateShell.tsx",
     "./utils": "./src/utils/index.ts",
@@ -54,6 +58,27 @@
         "node": "./dist/node/index.js",
         "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
+      },
+      "./bundles": {
+        "types": "./dist/bundles/index.d.ts",
+        "bun": "./dist/bundles/index.js",
+        "node": "./dist/node/bundles/index.js",
+        "browser": "./dist/browser/bundles/index.js",
+        "default": "./dist/bundles/index.js"
+      },
+      "./bundles/ExampleTemplateBundle": {
+        "types": "./dist/bundles/ExampleTemplateBundle.d.ts",
+        "bun": "./dist/bundles/ExampleTemplateBundle.js",
+        "node": "./dist/node/bundles/ExampleTemplateBundle.js",
+        "browser": "./dist/browser/bundles/ExampleTemplateBundle.js",
+        "default": "./dist/bundles/ExampleTemplateBundle.js"
+      },
+      "./bundles/index": {
+        "types": "./dist/bundles/index.d.ts",
+        "bun": "./dist/bundles/index.js",
+        "node": "./dist/node/bundles/index.js",
+        "browser": "./dist/browser/bundles/index.js",
+        "default": "./dist/bundles/index.js"
       },
       "./EvolutionDashboard": {
         "types": "./dist/EvolutionDashboard.d.ts",
@@ -181,6 +206,13 @@
         "browser": "./dist/browser/SaveToStudioButton.js",
         "default": "./dist/SaveToStudioButton.js"
       },
+      "./SpecDrivenTemplateShell": {
+        "types": "./dist/SpecDrivenTemplateShell.d.ts",
+        "bun": "./dist/SpecDrivenTemplateShell.js",
+        "node": "./dist/node/SpecDrivenTemplateShell.js",
+        "browser": "./dist/browser/SpecDrivenTemplateShell.js",
+        "default": "./dist/SpecDrivenTemplateShell.js"
+      },
       "./SpecEditorPanel": {
         "types": "./dist/SpecEditorPanel.d.ts",
         "bun": "./dist/SpecEditorPanel.js",
@@ -225,16 +257,27 @@
       }
     }
   },
+  "peerDependencies": {
+    "@contractspec/lib.surface-runtime": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@contractspec/lib.surface-runtime": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "@apollo/client": "^4.1.6",
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.ui-kit-web": "workspace:*",
     "@tanstack/react-query": "^5.90.21",
-    "framer-motion": "^12.35.0",
+    "framer-motion": "^12.35.1",
     "lucide-react": "^0.577.0",
     "react": "catalog:",
     "react-dom": "catalog:"
+  },
+  "optionalDependencies": {
+    "@contractspec/lib.surface-runtime": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",

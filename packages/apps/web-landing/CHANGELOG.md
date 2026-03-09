@@ -1,5 +1,113 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.5.0
+
+### Minor Changes
+
+- 230bdf6: feat: ai-chat wireing
+
+### Patch Changes
+
+- 66c51da: chore(web-landing): PmWorkbenchClient update
+- 1fa29a0: chore(web-landing): update PmWorkbenchClient, regenerate llms-full.txt
+- Updated dependencies [66c51da]
+- Updated dependencies [1fa29a0]
+- Updated dependencies [5ee581b]
+- Updated dependencies [1fa29a0]
+- Updated dependencies [66c51da]
+- Updated dependencies [66c51da]
+- Updated dependencies [c527a4e]
+- Updated dependencies [1fa29a0]
+- Updated dependencies [230bdf6]
+  - @contractspec/module.ai-chat@4.1.0
+  - @contractspec/bundle.library@3.5.0
+  - @contractspec/bundle.marketing@3.5.0
+  - @contractspec/lib.example-shared-ui@4.0.0
+  - @contractspec/lib.surface-runtime@0.3.0
+  - @contractspec/example.policy-safe-knowledge-assistant@3.5.0
+  - @contractspec/example.analytics-dashboard@3.5.0
+  - @contractspec/example.saas-boilerplate@3.5.0
+  - @contractspec/lib.progressive-delivery@32.0.0
+  - @contractspec/example.integration-hub@3.5.0
+  - @contractspec/example.workflow-system@3.5.0
+  - @contractspec/example.agent-console@3.5.0
+  - @contractspec/example.crm-pipeline@3.5.0
+  - @contractspec/example.in-app-docs@3.5.0
+  - @contractspec/example.marketplace@3.5.0
+  - @contractspec/lib.contracts-spec@3.5.0
+  - @contractspec/lib.design-system@3.5.0
+  - @contractspec/lib.ui-kit-core@3.5.0
+  - @contractspec/module.examples@3.5.0
+  - @contractspec/lib.ui-kit-web@3.5.0
+  - @contractspec/lib.ui-link@3.5.0
+  - @contractspec/lib.ui-kit@3.5.0
+
+## 3.4.3
+
+### Patch Changes
+
+- e367e98: feat(web-landing): implement Agent-Friendly Documentation Spec recommendations
+  - Add llms-txt-directive blockquote on docs pages pointing to /llms.txt
+  - Add /docs/llms.txt rewrite for docs subpath discovery
+  - Add llms-full truncation note in llms.txt; recommend /llms/[slug] for agent fetches
+  - Add explicit AI crawler rules to robots.ts (GPTBot, ClaudeBot, PerplexityBot, etc.)
+  - Add /llms, /llms.txt, /llms-full.txt, /docs/llms.txt to sitemap
+  - Update AGENTS.md with new entry points and standards compliance
+
+- 5f7c617: feat: improve ai docs
+- Updated dependencies [5f7c617]
+  - @contractspec/example.policy-safe-knowledge-assistant@3.4.3
+  - @contractspec/example.analytics-dashboard@3.4.3
+  - @contractspec/example.saas-boilerplate@3.4.3
+  - @contractspec/lib.progressive-delivery@31.0.3
+  - @contractspec/example.integration-hub@3.4.3
+  - @contractspec/example.workflow-system@3.4.3
+  - @contractspec/example.agent-console@3.4.3
+  - @contractspec/lib.example-shared-ui@3.4.3
+  - @contractspec/example.crm-pipeline@3.4.3
+  - @contractspec/example.in-app-docs@3.4.3
+  - @contractspec/example.marketplace@3.4.3
+  - @contractspec/lib.surface-runtime@0.2.3
+  - @contractspec/lib.contracts-spec@3.4.3
+  - @contractspec/lib.design-system@3.4.3
+  - @contractspec/bundle.marketing@3.4.3
+  - @contractspec/lib.ui-kit-core@3.4.3
+  - @contractspec/module.examples@3.4.3
+  - @contractspec/bundle.library@3.4.3
+  - @contractspec/lib.ui-kit-web@3.4.3
+  - @contractspec/module.ai-chat@4.0.3
+  - @contractspec/lib.ui-link@3.4.3
+  - @contractspec/lib.ui-kit@3.4.3
+
+## 3.4.2
+
+### Patch Changes
+
+- 78d56a4: fix: release workflow
+- Updated dependencies [78d56a4]
+  - @contractspec/example.policy-safe-knowledge-assistant@3.4.2
+  - @contractspec/example.analytics-dashboard@3.4.2
+  - @contractspec/example.saas-boilerplate@3.4.2
+  - @contractspec/lib.progressive-delivery@31.0.2
+  - @contractspec/example.integration-hub@3.4.2
+  - @contractspec/example.workflow-system@3.4.2
+  - @contractspec/example.agent-console@3.4.2
+  - @contractspec/lib.example-shared-ui@3.4.2
+  - @contractspec/example.crm-pipeline@3.4.2
+  - @contractspec/example.in-app-docs@3.4.2
+  - @contractspec/example.marketplace@3.4.2
+  - @contractspec/lib.surface-runtime@0.2.2
+  - @contractspec/lib.contracts-spec@3.4.2
+  - @contractspec/lib.design-system@3.4.2
+  - @contractspec/bundle.marketing@3.4.2
+  - @contractspec/lib.ui-kit-core@3.4.2
+  - @contractspec/module.examples@3.4.2
+  - @contractspec/bundle.library@3.4.2
+  - @contractspec/lib.ui-kit-web@3.4.2
+  - @contractspec/module.ai-chat@4.0.2
+  - @contractspec/lib.ui-link@3.4.2
+  - @contractspec/lib.ui-kit@3.4.2
+
 ## 3.4.1
 
 ### Patch Changes

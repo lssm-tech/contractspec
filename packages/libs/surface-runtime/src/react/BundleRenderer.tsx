@@ -15,6 +15,8 @@ export interface BundleRendererProps {
   assistantSlotId?: string;
   /** Content for the assistant slot (e.g. ChatContainer with useChat). */
   assistantSlotContent?: React.ReactNode;
+  /** Override content for any slot. When provided, renders this instead of SlotRenderer for the given slotId. */
+  slotContent?: Partial<Record<string, React.ReactNode>>;
   /** Called when user accepts a patch proposal. Caller should apply patch and update plan. */
   onPatchAccept?: (proposalId: string) => void;
   /** Called when user rejects a patch proposal. Caller should remove from proposals and emit audit. */
@@ -34,6 +36,7 @@ export interface BundleRendererProps {
 export function BundleRenderer({
   assistantSlotId,
   assistantSlotContent,
+  slotContent,
   onPatchAccept,
   onPatchReject,
   onOverlayConflictResolve,
@@ -55,6 +58,9 @@ export function BundleRenderer({
   const locale = plan.locale;
 
   const renderSlot = (slotId: string, slotCtx: RenderContext) => {
+    if (slotContent && slotId in slotContent && slotContent[slotId] != null) {
+      return slotContent[slotId];
+    }
     if (assistantSlotId && slotId === assistantSlotId) {
       return (
         <>

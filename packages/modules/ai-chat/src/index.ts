@@ -26,5 +26,23 @@ export {
   ChatContainer,
   ChatMessage as ChatMessageComponent,
   ChatInput,
+  ChatExportToolbar,
+  ChatWithExport,
+  ChatSidebar,
+  ChatWithSidebar,
+  ThinkingLevelPicker,
 } from './presentation/components';
-export { useChat, useProviders } from './presentation/hooks';
+export {
+  useChat,
+  useProviders,
+  useMessageSelection,
+  useConversations,
+} from './presentation/hooks';
+export {
+  createAiSdkBundleAdapter,
+  type CreateAiSdkBundleAdapterDeps,
+} from './adapters';
+export {
+  createChatAgentAdapter,
+  type ChatAgentAdapter,
+} from './core/agent-adapter';
