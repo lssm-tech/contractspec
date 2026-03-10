@@ -1,5 +1,23 @@
 # @contractspec/app.provider-ranking-mcp
 
+## 1.5.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+
+### Patch Changes
+
+- Updated dependencies [6e3fe40]
+- Updated dependencies [ea320ea]
+- Updated dependencies [9d55d95]
+  - @contractspec/lib.contracts-spec@3.6.0
+  - @contractspec/lib.contracts-runtime-server-mcp@3.6.0
+  - @contractspec/module.provider-ranking@0.6.0
+  - @contractspec/lib.provider-ranking@0.6.0
+  - @contractspec/lib.ai-providers@3.6.0
+  - @contractspec/lib.logger@3.6.0
+
 ## 1.4.5
 
 ### Patch Changes

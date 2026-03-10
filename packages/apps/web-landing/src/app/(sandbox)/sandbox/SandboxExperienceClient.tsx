@@ -140,6 +140,14 @@ const AnalyticsDashboard = dynamic(
   { ssr: false }
 );
 
+const AiChatAssistantDashboard = dynamic(
+  () =>
+    import('@contractspec/example.ai-chat-assistant').then(
+      (m) => m.AiChatAssistantDashboard
+    ),
+  { ssr: false }
+);
+
 const PolicySafeKnowledgeAssistantDashboard = dynamic(
   () =>
     import('@contractspec/example.policy-safe-knowledge-assistant').then(
@@ -224,6 +232,8 @@ export default function SandboxExperienceClient() {
         return <IntegrationDashboard />;
       case 'analytics-dashboard':
         return <AnalyticsDashboard />;
+      case 'ai-chat-assistant':
+        return <AiChatAssistantDashboard />;
       case 'policy-safe-knowledge-assistant':
         return <PolicySafeKnowledgeAssistantDashboard />;
       default:

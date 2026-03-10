@@ -9,6 +9,10 @@ import { createLocalStorageConversationStore } from '../../core/local-storage-co
 import { type ConversationStore } from '../../core/conversation-store';
 import type { ThinkingLevel } from '../../core/thinking-levels';
 import type { UseChatOptions } from '../hooks/useChat';
+import type {
+  ChatMessageComponents,
+  SuggestionComponents,
+} from './component-types';
 
 export interface ChatWithSidebarProps extends Omit<
   UseChatOptions,
@@ -26,6 +30,16 @@ export interface ChatWithSidebarProps extends Omit<
     key: string,
     defaultValues?: Record<string, unknown>
   ) => React.ReactNode;
+  /** Host-provided renderer for tool results with dataViewKey */
+  dataViewRenderer?: (key: string, items?: unknown[]) => React.ReactNode;
+  /** Override components for ChatMessage */
+  components?: ChatMessageComponents;
+  /** Clickable suggestion chips */
+  suggestions?: string[];
+  /** Override Suggestion components */
+  suggestionComponents?: SuggestionComponents;
+  /** Show suggestions when chat has messages (default false) */
+  showSuggestionsWhenEmpty?: boolean;
 }
 
 const defaultStore = createLocalStorageConversationStore();
@@ -42,6 +56,11 @@ export function ChatWithSidebar({
   thinkingLevel: initialThinkingLevel = 'thinking',
   presentationRenderer,
   formRenderer,
+  dataViewRenderer,
+  components,
+  suggestions,
+  suggestionComponents,
+  showSuggestionsWhenEmpty = false,
   ...useChatOptions
 }: ChatWithSidebarProps) {
   const effectiveStore = store;
@@ -75,6 +94,13 @@ export function ChatWithSidebar({
     [setConversationId]
   );
 
+  const handleSuggestionClick = React.useCallback(
+    (suggestion: string) => {
+      sendMessage(suggestion);
+    },
+    [sendMessage]
+  );
+
   return (
     <div className={className ?? 'flex h-full w-full'}>
       <ChatSidebar
@@ -106,6 +132,12 @@ export function ChatWithSidebar({
           onThinkingLevelChange={setThinkingLevel}
           presentationRenderer={presentationRenderer}
           formRenderer={formRenderer}
+          dataViewRenderer={dataViewRenderer}
+          components={components}
+          suggestions={suggestions}
+          onSuggestionClick={handleSuggestionClick}
+          suggestionComponents={suggestionComponents}
+          showSuggestionsWhenEmpty={showSuggestionsWhenEmpty}
         >
           <ChatInput
             onSend={(content, att) => sendMessage(content, att)}

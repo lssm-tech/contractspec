@@ -1,5 +1,38 @@
 # @contractspec/bundle.library
 
+## 3.6.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+
+### Patch Changes
+
+- Updated dependencies [6e3fe40]
+- Updated dependencies [44b46cd]
+- Updated dependencies [ea320ea]
+- Updated dependencies [9d55d95]
+  - @contractspec/lib.contracts-spec@3.6.0
+  - @contractspec/module.examples@3.6.0
+  - @contractspec/lib.contracts-runtime-server-graphql@3.6.0
+  - @contractspec/lib.contracts-runtime-server-rest@3.6.0
+  - @contractspec/lib.contracts-runtime-server-mcp@3.6.0
+  - @contractspec/lib.contracts-integrations@3.6.0
+  - @contractspec/module.context-storage@0.6.0
+  - @contractspec/lib.contracts-library@3.6.0
+  - @contractspec/lib.example-shared-ui@5.0.0
+  - @contractspec/lib.provider-ranking@0.6.0
+  - @contractspec/lib.runtime-sandbox@2.6.0
+  - @contractspec/lib.surface-runtime@0.4.0
+  - @contractspec/lib.design-system@3.6.0
+  - @contractspec/lib.ai-providers@3.6.0
+  - @contractspec/lib.content-gen@3.6.0
+  - @contractspec/lib.ui-kit-web@3.6.0
+  - @contractspec/lib.knowledge@3.6.0
+  - @contractspec/lib.ui-link@3.6.0
+  - @contractspec/lib.logger@3.6.0
+  - @contractspec/lib.schema@3.6.0
+
 ## 3.5.5
 
 ### Patch Changes

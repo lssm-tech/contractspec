@@ -1,5 +1,25 @@
 # @contractspec/bundle.workspace
 
+## 3.6.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+
+### Patch Changes
+
+- Updated dependencies [6e3fe40]
+- Updated dependencies [ea320ea]
+- Updated dependencies [9d55d95]
+  - @contractspec/lib.ai-agent@6.0.0
+  - @contractspec/lib.contracts-spec@3.6.0
+  - @contractspec/lib.contracts-integrations@3.6.0
+  - @contractspec/lib.contracts-transformers@3.6.0
+  - @contractspec/lib.source-extractors@2.6.0
+  - @contractspec/lib.utils-typescript@3.6.0
+  - @contractspec/lib.ai-providers@3.6.0
+  - @contractspec/module.workspace@3.6.0
+
 ## 3.5.5
 
 ### Patch Changes

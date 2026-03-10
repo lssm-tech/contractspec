@@ -22,8 +22,7 @@ import type {
 export type { ShellSelect, ShellSelectOption, ShellModuleItem };
 
 export interface WorkspaceShellRendererProps
-  extends WorkspaceSidebarProps,
-    WorkspaceHeaderProps {
+  extends WorkspaceSidebarProps, WorkspaceHeaderProps {
   plan: ResolvedSurfacePlan;
   assistant?: React.ReactNode;
   children: React.ReactNode;
@@ -72,7 +71,9 @@ export function WorkspaceShellRenderer({
         sidebarFooter={sidebarFooter}
       />
     ),
-    primary: <main className={className ? `m-4 ${className}` : 'm-4'}>{children}</main>,
+    primary: (
+      <main className={className ? `m-4 ${className}` : 'm-4'}>{children}</main>
+    ),
   };
   if (assistant != null) {
     slotContent.assistant = assistant;

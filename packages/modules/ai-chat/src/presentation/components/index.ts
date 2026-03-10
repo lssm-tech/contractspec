@@ -12,10 +12,25 @@ export { ModelPicker } from './ModelPicker';
 export { ThinkingLevelPicker } from './ThinkingLevelPicker';
 export { ContextIndicator } from './ContextIndicator';
 export { CodePreview } from './CodePreview';
+export { Reasoning, ReasoningTrigger, ReasoningContent } from './Reasoning';
+export { Sources, SourcesTrigger, SourcesContent, Source } from './Sources';
+export { Suggestions, Suggestion } from './Suggestion';
+export {
+  ChainOfThought,
+  ChainOfThoughtHeader,
+  ChainOfThoughtStep,
+  ChainOfThoughtContent,
+} from './ChainOfThought';
+export type {
+  ChatMessageComponents,
+  SuggestionComponents,
+} from './component-types';
 export {
   ToolResultRenderer,
   isPresentationToolResult,
   isFormToolResult,
+  isDataViewToolResult,
   type PresentationToolResult,
   type FormToolResult,
+  type DataViewToolResult,
 } from './ToolResultRenderer';

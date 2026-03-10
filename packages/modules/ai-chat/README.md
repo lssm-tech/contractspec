@@ -162,7 +162,10 @@ For full AI SDK compatibility including tool approval, use `createChatRoute` wit
 
 ```ts
 // app/api/chat/route.ts (Next.js App Router)
-import { createChatRoute } from '@contractspec/module.ai-chat/core';
+import {
+  createChatRoute,
+  CHAT_ROUTE_MAX_DURATION,
+} from '@contractspec/module.ai-chat/core';
 import { createProvider } from '@contractspec/lib.ai-providers';
 
 const provider = createProvider({
@@ -172,7 +175,10 @@ const provider = createProvider({
 });
 
 export const POST = createChatRoute({ provider });
+export const maxDuration = CHAT_ROUTE_MAX_DURATION;
 ```
+
+`maxDuration` is required for long-running streaming on Vercel/serverless. The route sends sources and reasoning by default (AI Elements parity). Override with `sendSources` and `sendReasoning` in options. Use `getModel` to support a model picker from the request body.
 
 ```tsx
 // Client: use @ai-sdk/react useChat with DefaultChatTransport
@@ -229,9 +235,29 @@ const chatService = new ChatService({
 // based on thinking level when modelSelector is set
 ```
 
-### Optional AI Elements
+### AI Elements-Style Components
 
-Apps can optionally use [AI Elements](https://elements.ai-sdk.dev) for UI. This module does not depend on ai-elements; provide an adapter from `ChatMessage` to `UIMessage` when integrating.
+The module includes native implementations of [Reasoning](https://elements.ai-sdk.dev/components/reasoning), [Sources](https://elements.ai-sdk.dev/components/sources), [Suggestion](https://elements.ai-sdk.dev/components/suggestion), and [Chain of Thought](https://elements.ai-sdk.dev/components/chain-of-thought) patterns. Pass `components` to `ChatMessage` or `ChatWithExport` to override with ai-elements when installed:
+
+```tsx
+import { ChatWithSidebar, type ChatMessageComponents } from '@contractspec/module.ai-chat';
+// When using ai-elements: import { Reasoning, Sources, ... } from '@/components/ai-elements/...';
+
+<ChatWithSidebar
+  components={{
+    Reasoning: AiElementsReasoning,
+    Sources: AiElementsSources,
+    SourcesTrigger: AiElementsSourcesTrigger,
+    Source: AiElementsSource,
+    ChainOfThought: AiElementsChainOfThought,
+    ChainOfThoughtStep: AiElementsChainOfThoughtStep,
+  }}
+  suggestions={['Explain how X works', 'What is Y?']}
+  showSuggestionsWhenEmpty
+/>
+```
+
+Use `suggestions` and `onSuggestionClick` for clickable prompt chips. Apps can optionally use [AI Elements](https://elements.ai-sdk.dev) for enhanced UI; provide an adapter from `ChatMessage` to `UIMessage` when integrating.
 
 ### useCompletion (Non-Chat Completion)
 

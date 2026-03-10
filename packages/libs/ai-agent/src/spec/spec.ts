@@ -1,4 +1,9 @@
 import type { OwnerShipMeta } from '@contractspec/lib.contracts-spec/ownership';
+import type {
+  DataViewRef,
+  FormRef,
+  PresentationRef,
+} from '@contractspec/lib.contracts-spec/features';
 import type { KnowledgeCategory } from '@contractspec/lib.contracts-spec/knowledge/spec';
 import type { PolicyRef } from '@contractspec/lib.contracts-spec/policy/spec';
 import { createAgentI18n } from '../i18n';
@@ -41,14 +46,52 @@ export interface AgentRuntimeConfig {
 }
 
 /**
+ * Reference to a ContractSpec operation that backs an agent tool.
+ * When set, the tool is a projection of the operation (one contract → REST, GraphQL, MCP, agent).
+ */
+export interface OperationRef {
+  /** Operation key (e.g., "knowledge.search") */
+  key: string;
+  /** Optional specific version; defaults to latest when omitted */
+  version?: string;
+}
+
+/**
+ * Reference to a subagent that backs an agent tool.
+ * When set, the tool delegates to the subagent; mutually exclusive with operationRef and manual handler.
+ */
+export interface SubagentRef {
+  /** Subagent identifier (resolved from subagent registry) */
+  agentId: string;
+  /** Whether to extract summary for toModelOutput (default: true) */
+  toModelSummary?: boolean;
+  /**
+   * Pass full conversation history to subagent (opt-in).
+   * Defeats context isolation; use sparingly. Requires subagent to support generate({ messages }).
+   * Streaming is disabled when history is passed.
+   */
+  passConversationHistory?: boolean;
+}
+
+/**
  * Configuration for a tool that an agent can use.
  */
 export interface AgentToolConfig {
   /** Tool name (unique within the agent) */
   name: string;
+  /**
+   * Reference to a ContractSpec operation. When set, the tool is backed by the operation:
+   * schema and handler are derived from the operation; no manual handler needed.
+   */
+  operationRef?: OperationRef;
+  /**
+   * Reference to a subagent. When set, the tool delegates to the subagent.
+   * Mutually exclusive with operationRef; requires subagentRegistry in agent config.
+   */
+  subagentRef?: SubagentRef;
   /** Human-readable description for the LLM */
   description?: string;
-  /** JSON Schema fragment for tool parameters */
+  /** JSON Schema fragment for tool parameters (fallback when no operationRef) */
   schema?: Record<string, unknown>;
   /** Optional cooldown in milliseconds between invocations */
   cooldownMs?: number;
@@ -60,6 +103,21 @@ export interface AgentToolConfig {
   requiresApproval?: boolean;
   /** Optional policy guard that must evaluate to allow the tool call */
   policy?: PolicyRef;
+  /**
+   * When set, wrap raw output as { presentationKey, data } for ToolResultRenderer.
+   * At most one of outputPresentation, outputForm, outputDataView per tool.
+   */
+  outputPresentation?: PresentationRef;
+  /**
+   * When set, wrap raw output as { formKey, defaultValues } for ToolResultRenderer.
+   * At most one of outputPresentation, outputForm, outputDataView per tool.
+   */
+  outputForm?: FormRef;
+  /**
+   * When set, wrap raw output as { dataViewKey, items } for ToolResultRenderer.
+   * At most one of outputPresentation, outputForm, outputDataView per tool.
+   */
+  outputDataView?: DataViewRef;
 }
 
 /**
@@ -90,6 +148,21 @@ export interface AgentMemoryConfig {
   summaryTrigger?: number;
   /** Whether to persist to long-term storage */
   persistLongTerm?: boolean;
+}
+
+/**
+ * Memory tools config — model-accessible CRUD (Anthropic memory, custom).
+ * Distinct from AgentMemoryConfig (session summarization).
+ *
+ * @see https://ai-sdk.dev/docs/agents/memory
+ */
+export interface AgentMemoryToolsConfig {
+  /** Provider: anthropic uses memory_20250818; custom uses operationRef. */
+  provider: 'anthropic' | 'custom';
+  /** Storage adapter key when using knowledge-backed storage (e.g. ephemeral space) */
+  storageAdapter?: string;
+  /** Ephemeral KnowledgeSpaceSpec key when using knowledge-backed storage */
+  spaceKey?: string;
 }
 
 /**
@@ -143,6 +216,8 @@ export interface AgentSpec {
   tools: AgentToolConfig[];
   /** Memory/session configuration */
   memory?: AgentMemoryConfig;
+  /** Memory tools (model-accessible CRUD) — Anthropic or custom operation-backed */
+  memoryTools?: AgentMemoryToolsConfig;
   /** Knowledge spaces the agent can access */
   knowledge?: AgentKnowledgeRef[];
   /** Policy configuration */
@@ -199,6 +274,25 @@ export function defineAgent(spec: AgentSpec): AgentSpec {
       );
     }
     toolNames.add(tool.name);
+
+    // subagentRef and operationRef are mutually exclusive
+    if (tool.subagentRef && tool.operationRef) {
+      throw new Error(
+        `Agent ${spec.meta.key} tool "${tool.name}" cannot have both subagentRef and operationRef. Use one.`
+      );
+    }
+
+    // At most one output rendering ref per tool
+    const outputRefCount = [
+      tool.outputPresentation,
+      tool.outputForm,
+      tool.outputDataView,
+    ].filter(Boolean).length;
+    if (outputRefCount > 1) {
+      throw new Error(
+        `Agent ${spec.meta.key} tool "${tool.name}" has multiple output refs (outputPresentation, outputForm, outputDataView). Use at most one.`
+      );
+    }
   }
 
   return Object.freeze(spec);

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.integration-hub",
-  "version": "3.5.5",
+  "version": "3.6.0",
   "description": "Integration Hub example with sync engine and field mappings for ContractSpec",
   "types": "./dist/index.d.ts",
   "type": "module",
@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@contractspec/lib.ai-agent": "workspace:*",
+    "@contractspec/module.ai-chat": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.example-shared-ui": "workspace:*",
@@ -80,6 +81,7 @@
     "./ui/hooks/useIntegrationData": "./src/ui/hooks/useIntegrationData.ts",
     "./ui/index": "./src/ui/index.ts",
     "./ui/IntegrationDashboard": "./src/ui/IntegrationDashboard.tsx",
+    "./ui/IntegrationHubChat": "./src/ui/IntegrationHubChat.tsx",
     "./ui/renderers": "./src/ui/renderers/index.ts",
     "./ui/renderers/index": "./src/ui/renderers/index.ts",
     "./ui/renderers/integration.markdown": "./src/ui/renderers/integration.markdown.ts"
@@ -342,6 +344,12 @@
         "bun": "./dist/ui/IntegrationDashboard.js",
         "node": "./dist/node/ui/IntegrationDashboard.js",
         "default": "./dist/ui/IntegrationDashboard.js"
+      },
+      "./ui/IntegrationHubChat": {
+        "types": "./dist/ui/IntegrationHubChat.d.ts",
+        "bun": "./dist/ui/IntegrationHubChat.js",
+        "node": "./dist/node/ui/IntegrationHubChat.js",
+        "default": "./dist/ui/IntegrationHubChat.js"
       },
       "./ui/renderers": {
         "types": "./dist/ui/renderers/index.d.ts",

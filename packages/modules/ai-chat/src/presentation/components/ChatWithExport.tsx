@@ -6,11 +6,16 @@ import { ChatMessage } from './ChatMessage';
 import { ChatExportToolbar } from './ChatExportToolbar';
 import { ThinkingLevelPicker } from './ThinkingLevelPicker';
 import { useMessageSelection } from '../hooks/useMessageSelection';
+import { Suggestions, Suggestion } from './Suggestion';
 import type {
   ChatMessage as ChatMessageType,
   ChatConversation,
 } from '../../core/message-types';
 import type { ThinkingLevel } from '../../core/thinking-levels';
+import type {
+  ChatMessageComponents,
+  SuggestionComponents,
+} from './component-types';
 
 export interface ChatWithExportProps {
   messages: ChatMessageType[];
@@ -40,6 +45,18 @@ export interface ChatWithExportProps {
     key: string,
     defaultValues?: Record<string, unknown>
   ) => React.ReactNode;
+  /** Host-provided renderer for tool results with dataViewKey */
+  dataViewRenderer?: (key: string, items?: unknown[]) => React.ReactNode;
+  /** Override components for ChatMessage (Reasoning, Sources, ChainOfThought) */
+  components?: ChatMessageComponents;
+  /** Clickable suggestion chips (e.g. empty state) */
+  suggestions?: string[];
+  /** Called when a suggestion is clicked */
+  onSuggestionClick?: (suggestion: string) => void;
+  /** Override Suggestion components */
+  suggestionComponents?: SuggestionComponents;
+  /** Show suggestions when no messages (default true when suggestions provided) */
+  showSuggestionsWhenEmpty?: boolean;
 }
 
 /**
@@ -61,19 +78,30 @@ export function ChatWithExport({
   onThinkingLevelChange,
   presentationRenderer,
   formRenderer,
+  dataViewRenderer,
+  components,
+  suggestions,
+  onSuggestionClick,
+  suggestionComponents: suggestionComps,
+  showSuggestionsWhenEmpty = true,
 }: ChatWithExportProps) {
   const messageIds = React.useMemo(() => messages.map((m) => m.id), [messages]);
   const selection = useMessageSelection(messageIds);
+
+  const showSuggestions =
+    suggestions &&
+    suggestions.length > 0 &&
+    (messages.length === 0 || showSuggestionsWhenEmpty);
 
   const hasToolbar = showExport || showMessageSelection;
   const hasPicker = Boolean(onThinkingLevelChange);
   const headerContent =
     hasPicker || hasToolbar ? (
       <>
-        {hasPicker && (
+        {hasPicker && onThinkingLevelChange && (
           <ThinkingLevelPicker
             value={thinkingLevel}
-            onChange={onThinkingLevelChange!}
+            onChange={onThinkingLevelChange}
             compact
           />
         )}
@@ -113,8 +141,39 @@ export function ChatWithExport({
           onEdit={onEditMessage}
           presentationRenderer={presentationRenderer}
           formRenderer={formRenderer}
+          dataViewRenderer={dataViewRenderer}
+          components={components}
         />
       ))}
+      {showSuggestions &&
+        (() => {
+          const SuggestionsComp = suggestionComps?.Suggestions;
+          const SuggestionComp = suggestionComps?.Suggestion;
+          if (SuggestionsComp && SuggestionComp) {
+            return (
+              <SuggestionsComp>
+                {suggestions.map((s) => (
+                  <SuggestionComp
+                    key={s}
+                    suggestion={s}
+                    onClick={onSuggestionClick}
+                  />
+                ))}
+              </SuggestionsComp>
+            );
+          }
+          return (
+            <Suggestions className="mb-4">
+              {suggestions.map((s) => (
+                <Suggestion
+                  key={s}
+                  suggestion={s}
+                  onClick={onSuggestionClick}
+                />
+              ))}
+            </Suggestions>
+          );
+        })()}
       {children}
     </ChatContainer>
   );

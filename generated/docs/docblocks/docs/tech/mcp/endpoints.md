@@ -7,7 +7,6 @@ Three dedicated MCP servers keep AI agents efficient and scoped:
 - **Internal MCP**: `/api/mcp/internal` — internal routing hints, playbook, and example registry access. Tool: `internal_describe`.
 
 ### Usage notes
-
 - Transports are HTTP POST (streamable HTTP); SSE is disabled.
 - Resources are namespaced (`docs://*`, `cli://*`, `internal://*`) and are read-only.
 - Internal MCP also exposes the examples registry via `examples://*` resources:
@@ -17,7 +16,6 @@ Three dedicated MCP servers keep AI agents efficient and scoped:
 - GraphQL remains at `/graphql`; health at `/health`.
 
 ### Alpic hosting
-
 - Alpic exposes MCP at `/` (SSE + Streamable HTTP) and `/mcp` (Streamable HTTP).
 - Static UI assets are served at `/assets` from repo `/assets` or build output `dist/assets`.
 - Use the `ALPIC_HOST` environment variable to build absolute asset URLs.

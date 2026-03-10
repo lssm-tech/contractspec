@@ -1,5 +1,18 @@
 # @contractspec/example.knowledge-canon
 
+## 3.6.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+
+### Patch Changes
+
+- Updated dependencies [6e3fe40]
+- Updated dependencies [ea320ea]
+- Updated dependencies [9d55d95]
+  - @contractspec/lib.contracts-spec@3.6.0
+
 ## 3.5.5
 
 ### Patch Changes

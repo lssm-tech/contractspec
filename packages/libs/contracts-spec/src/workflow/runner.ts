@@ -754,7 +754,7 @@ function classifyExecutionError(error: unknown): {
   return {
     kind: 'retryable',
     message: error instanceof Error ? error.message : String(error),
-    retryable: true,
+    retryable: false,
   };
 }
 

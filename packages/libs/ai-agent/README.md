@@ -31,6 +31,47 @@ Stateful AI agent orchestration with type-safe specs, tool execution, knowledge 
 
 These ports are optional by design and keep external runtime dependencies decoupled from core agent contracts.
 
+## Operations as Tools
+
+**Preferred pattern:** One contract → multiple surfaces. Reference a ContractSpec operation in your agent; the tool handler and input schema are derived automatically.
+
+```ts
+import { defineAgent } from '@contractspec/lib.ai-agent';
+import { defineQuery } from '@contractspec/lib.contracts-spec';
+import { OperationSpecRegistry } from '@contractspec/lib.contracts-spec';
+import { createAgentFactory } from '@contractspec/lib.ai-agent/agent/agent-factory';
+
+// 1. Define operation (existing pattern)
+const SearchKnowledgeQuery = defineQuery({
+  meta: { key: 'knowledge.search', version: '1.0.0', owners: ['@platform'], goal: '...', context: '...' },
+  io: { input: SearchInputModel, output: SearchOutputModel },
+});
+
+// 2. Register and bind handler
+const ops = new OperationSpecRegistry().register(SearchKnowledgeQuery).bind(SearchKnowledgeQuery, handler);
+
+// 3. Reference in agent
+const agent = defineAgent({
+  meta: { key: 'support.bot', version: '1.0.0', owners: ['@platform'] },
+  instructions: 'Resolve support tickets.',
+  tools: [
+    { name: 'search_knowledge', operationRef: { key: 'knowledge.search', version: '1.0.0' }, automationSafe: true },
+  ],
+});
+
+// 4. Create factory with operationRegistry
+const factory = createAgentFactory({
+  defaultModel,
+  registry: agentRegistry,
+  toolHandlers: new Map(),
+  operationRegistry: ops,
+});
+```
+
+**Output rendering:** When tool output should render via PresentationSpec, FormSpec, or DataViewSpec, add `outputPresentation`, `outputForm`, or `outputDataView` to `AgentToolConfig` (at most one per tool). The tool adapter wraps raw output as `{ presentationKey, data }`, `{ formKey, defaultValues }`, or `{ dataViewKey, items }` for `ToolResultRenderer`. OperationSpec can also declare these refs; when the tool has no output refs, the operation's refs are used as fallback.
+
+**Fallback (inline tools):** When the tool is not an operation (LLM subcalls, external APIs), use inline `AgentToolConfig` with `schema` and a manual handler in `toolHandlers`.
+
 ## Bundle spec / surface-runtime integration
 
 When building planner agents for `@contractspec/lib.surface-runtime`, planner tools (e.g. `propose-patch`) from `@contractspec/lib.surface-runtime/runtime/planner-tools` map to `AgentToolConfig`. Wire `proposePatchToolConfig` into `AgentSpec.tools`; the handler should validate via `validatePatchProposal` and return `SurfacePatchProposal`. Tools from surface-runtime planner-tools are `AgentToolConfig`-compatible.

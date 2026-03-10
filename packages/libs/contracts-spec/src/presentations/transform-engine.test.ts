@@ -60,4 +60,21 @@ describe('TransformEngine', () => {
     });
     await expect(engine.render('application/json', bad)).rejects.toThrow();
   });
+
+  it('applyPii does not throw on circular reference in data', async () => {
+    const engine = registerBasicValidation(
+      registerDefaultReactRenderer(createDefaultTransformEngine())
+    );
+    const desc = mk({ policy: { pii: ['meta.key'] } });
+    // Create circular reference: desc.meta.self points back to desc
+    (desc.meta as unknown as Record<string, unknown>).self = desc;
+
+    // Should not throw; falls back to original object when JSON.stringify fails
+    const result = await engine.render<{
+      mimeType: 'application/json';
+      body: string;
+    }>('application/json', desc);
+    expect(result.mimeType).toBe('application/json');
+    expect(result.body).toBeDefined();
+  });
 });

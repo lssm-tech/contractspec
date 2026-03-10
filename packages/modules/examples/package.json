@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.examples",
-  "version": "3.5.5",
+  "version": "3.6.0",
   "description": "Example contract specifications collection",
   "keywords": [
     "contractspec",
@@ -33,6 +33,7 @@
   "dependencies": {
     "@apollo/client": "^4.1.6",
     "@contractspec/example.agent-console": "workspace:*",
+    "@contractspec/example.ai-chat-assistant": "workspace:*",
     "@contractspec/example.ai-support-bot": "workspace:*",
     "@contractspec/example.analytics-dashboard": "workspace:*",
     "@contractspec/example.content-generation": "workspace:*",

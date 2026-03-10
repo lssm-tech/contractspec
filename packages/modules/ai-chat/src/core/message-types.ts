@@ -47,6 +47,10 @@ export interface ChatToolCall {
   result?: unknown;
   status: 'pending' | 'running' | 'completed' | 'error';
   error?: string;
+  /** When true, result is streaming (preliminary) */
+  preliminary?: boolean;
+  /** Nested UIMessage parts (subagent output) */
+  nestedParts?: unknown[];
 }
 
 /**

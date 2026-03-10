@@ -1,5 +1,11 @@
 # @contractspec/eslint-plugin-design-system
 
+## 3.6.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+
 ## 3.5.5
 
 ### Patch Changes

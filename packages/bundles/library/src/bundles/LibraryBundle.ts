@@ -138,13 +138,11 @@ export const LibraryBundle = defineModuleBundle({
             'Can select compact, balanced, or dense layouts for docs and templates.',
           dataDepth:
             'Controls content depth, pagination size, and inline expansion.',
-          control:
-            'Shows advanced commands and raw config only when allowed.',
+          control: 'Shows advanced commands and raw config only when allowed.',
           media:
             'Supports text-first docs, visual templates, and hybrid modes.',
           pace: 'Maps to motion tokens and confirmation behavior.',
-          narrative:
-            'Can order summary before or after detail sections.',
+          narrative: 'Can order summary before or after detail sections.',
         },
       },
     },

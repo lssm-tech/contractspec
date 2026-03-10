@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-03-09T05:57:57.674Z",
-  "total": 989,
+  "generatedAt": "2026-03-10T10:12:08.433Z",
+  "total": 995,
   "version": null,
   "contentRoot": "../../../../../../../generated/docs",
   "chunks": [
     {
       "key": "_common",
       "file": "docs-index._common.json",
-      "total": 180
+      "total": 184
     },
     {
       "key": "agent-console",
@@ -18,6 +18,11 @@
       "key": "ai-chat",
       "file": "docs-index.ai-chat.json",
       "total": 13
+    },
+    {
+      "key": "ai-chat-assistant",
+      "file": "docs-index.ai-chat-assistant.json",
+      "total": 1
     },
     {
       "key": "ai-support-bot",
@@ -272,7 +277,7 @@
     {
       "key": "platform.docs",
       "file": "docs-index.platform-docs.json",
-      "total": 10
+      "total": 11
     },
     {
       "key": "platform.integrations",

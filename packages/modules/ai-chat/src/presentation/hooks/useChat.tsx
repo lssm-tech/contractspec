@@ -597,10 +597,15 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   }, []);
 
   const regenerate = React.useCallback(async () => {
-    // Find the last user message
-    const lastUserMessageIndex = messages.findLastIndex(
-      (m) => m.role === 'user'
-    );
+    // Find the last user message (ES2022-compatible: findLastIndex is ES2023+)
+    let lastUserMessageIndex = -1;
+    for (let i = messages.length - 1; i >= 0; i--) {
+      const m: ChatMessage | undefined = messages[i];
+      if (m?.role === 'user') {
+        lastUserMessageIndex = i;
+        break;
+      }
+    }
     if (lastUserMessageIndex === -1) return;
 
     const lastUserMessage = messages[lastUserMessageIndex];

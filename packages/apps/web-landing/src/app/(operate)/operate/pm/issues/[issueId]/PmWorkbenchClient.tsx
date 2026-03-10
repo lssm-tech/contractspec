@@ -124,18 +124,15 @@ export function PmWorkbenchClient({
     [plan]
   );
 
-  const onPatchProposal = useCallback(
-    (proposal: SurfacePatchProposal) => {
-      setPlan((prev) => ({
-        ...prev,
-        ai: {
-          ...prev.ai,
-          proposals: [...(prev.ai?.proposals ?? []), proposal],
-        },
-      }));
-    },
-    []
-  );
+  const onPatchProposal = useCallback((proposal: SurfacePatchProposal) => {
+    setPlan((prev) => ({
+      ...prev,
+      ai: {
+        ...prev.ai,
+        proposals: [...(prev.ai?.proposals ?? []), proposal],
+      },
+    }));
+  }, []);
 
   const assistantContent = (
     <div className="flex h-full flex-col">

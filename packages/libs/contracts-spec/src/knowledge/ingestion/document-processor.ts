@@ -1,4 +1,5 @@
 import { Buffer } from 'node:buffer';
+import { safeParseJson } from '../../utils/safe-json';
 
 export interface RawDocument {
   id: string;
@@ -69,21 +70,19 @@ export class DocumentProcessor {
     document: RawDocument
   ): Promise<DocumentFragment[]> {
     const text = Buffer.from(document.data).toString('utf-8');
-    try {
-      const json = JSON.parse(text);
-      return [
-        {
-          id: `${document.id}:0`,
-          documentId: document.id,
-          text: JSON.stringify(json, null, 2),
-          metadata: {
-            ...document.metadata,
-            contentType: 'application/json',
-          },
+    const parsed = safeParseJson(text);
+    if (!parsed.ok) return this.extractText(document);
+    const json = parsed.data;
+    return [
+      {
+        id: `${document.id}:0`,
+        documentId: document.id,
+        text: JSON.stringify(json, null, 2),
+        metadata: {
+          ...document.metadata,
+          contentType: 'application/json',
         },
-      ];
-    } catch {
-      return this.extractText(document);
-    }
+      },
+    ];
   }
 }

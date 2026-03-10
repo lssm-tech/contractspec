@@ -254,6 +254,8 @@ export interface HandlerCtx {
   rateLimit?: RateLimiter;
   /** Telemetry tracker for metrics and events. */
   telemetry?: TelemetryTracker;
+  /** Optional callback when telemetry tracking fails (best-effort; errors are swallowed by default). */
+  onTelemetryError?: (err: unknown) => void;
   /** Event publisher for domain events (outbox/bus). */
   eventPublisher?: EventPublisher;
   /** Secret provider for secure credential access. */

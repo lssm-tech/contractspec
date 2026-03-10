@@ -8,6 +8,29 @@
  */
 import type { AgentToolConfig } from '../spec/spec';
 import type { ToolHandler, ToolExecutionContext } from '../types';
+
+/** Resolve tool handler result (Promise, value, or AsyncGenerator) to string. */
+async function resolveToolResult(
+  result: Promise<unknown> | unknown | AsyncGenerator<unknown>
+): Promise<string> {
+  const resolved = await result;
+  if (
+    typeof resolved === 'object' &&
+    resolved !== null &&
+    typeof (resolved as AsyncGenerator<unknown>).next === 'function' &&
+    typeof (resolved as AsyncGenerator<unknown>)[Symbol.asyncIterator] ===
+      'function'
+  ) {
+    let last: unknown;
+    for await (const value of resolved as AsyncGenerator<unknown>) {
+      last = value;
+    }
+    return typeof last === 'string' ? last : JSON.stringify(last ?? '');
+  }
+  return typeof resolved === 'string'
+    ? resolved
+    : JSON.stringify(resolved ?? '');
+}
 import type {
   ToolConsumer,
   ToolConsumerConfig,
@@ -112,7 +135,7 @@ class MCPToolServer implements ToolServer {
       signal: context?.signal,
     };
 
-    return await tool.handler(args, fullContext);
+    return resolveToolResult(tool.handler(args, fullContext));
   }
 
   /**
@@ -323,7 +346,7 @@ export class ContractSpecToolConsumer implements ToolConsumer {
       signal: context?.signal,
     };
 
-    return await tool.handler(args, fullContext);
+    return resolveToolResult(tool.handler(args, fullContext));
   }
 
   /**

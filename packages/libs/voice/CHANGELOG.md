@@ -1,5 +1,21 @@
 # @contractspec/lib.voice
 
+## 1.6.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+
+### Patch Changes
+
+- Updated dependencies [6e3fe40]
+- Updated dependencies [ea320ea]
+- Updated dependencies [9d55d95]
+  - @contractspec/lib.contracts-spec@3.6.0
+  - @contractspec/lib.contracts-integrations@3.6.0
+  - @contractspec/lib.ai-providers@3.6.0
+  - @contractspec/lib.content-gen@3.6.0
+
 ## 1.5.5
 
 ### Patch Changes

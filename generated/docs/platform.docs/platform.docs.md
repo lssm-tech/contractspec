@@ -80,4 +80,5 @@ export const DocsFeature = defineFeature({
 
   forms: [{ key: 'docs_search.form', version: '1.0.0' }],
 });
+
 ```

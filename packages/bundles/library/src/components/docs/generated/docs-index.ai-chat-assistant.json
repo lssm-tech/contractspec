@@ -1,0 +1,10 @@
+[
+  {
+    "id": "ai-chat-assistant/assistant.search",
+    "title": "assistant.search",
+    "summary": "Search for content within the assistant context.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @example.ai-chat-assistant\n- **Tags**: assistant, search, chat",
+    "route": "/docs/reference/ai-chat-assistant/assistant.search",
+    "source": "generated",
+    "contentPath": "ai-chat-assistant/assistant.search.md"
+  }
+]

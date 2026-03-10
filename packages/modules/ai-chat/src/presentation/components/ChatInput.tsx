@@ -4,8 +4,18 @@ import * as React from 'react';
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import { Textarea } from '@contractspec/lib.design-system';
 import { Button } from '@contractspec/lib.design-system';
-import { Send, Paperclip, X, Loader2, FileText, Code } from 'lucide-react';
+import {
+  Send,
+  Paperclip,
+  X,
+  Loader2,
+  FileText,
+  Code,
+  ImageIcon,
+} from 'lucide-react';
 import type { ChatAttachment } from '../../core/message-types';
+
+const DEFAULT_MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5MB
 
 export interface ChatInputProps {
   /** Called when a message is sent */
@@ -22,11 +32,65 @@ export interface ChatInputProps {
   showAttachments?: boolean;
   /** Max attachments allowed */
   maxAttachments?: number;
+  /** Max file size in bytes (default 5MB). Files exceeding this are rejected. */
+  maxFileSizeBytes?: number;
 }
 
 /**
  * Chat input component with attachment support
  */
+const CODE_EXTENSIONS = [
+  'ts',
+  'tsx',
+  'js',
+  'jsx',
+  'py',
+  'go',
+  'rs',
+  'java',
+  'json',
+  'md',
+  'txt',
+  'yaml',
+  'yml',
+];
+
+function readFileAsContent(
+  file: File
+): Promise<{ content: string; type: 'file' | 'image' | 'code' }> {
+  const extension = file.name.split('.').pop()?.toLowerCase() ?? '';
+  const isCode = CODE_EXTENSIONS.includes(extension);
+  const isImage = file.type.startsWith('image/');
+
+  if (isImage) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result;
+        resolve({
+          content:
+            typeof result === 'string'
+              ? result
+              : new TextDecoder().decode(result ?? new ArrayBuffer(0)),
+          type: 'image',
+        });
+      };
+      reader.onerror = () => reject(new Error('Could not read file'));
+      reader.readAsDataURL(file);
+    });
+  }
+
+  return file
+    .text()
+    .then((content) => ({
+      content,
+      type: (isCode ? 'code' : 'file') as 'file' | 'image' | 'code',
+    }))
+    .catch(() => {
+      throw new Error('Could not read file');
+    });
+}
+
 export function ChatInput({
   onSend,
   disabled = false,
@@ -35,9 +99,11 @@ export function ChatInput({
   className,
   showAttachments = true,
   maxAttachments = 5,
+  maxFileSizeBytes = DEFAULT_MAX_FILE_SIZE_BYTES,
 }: ChatInputProps) {
   const [content, setContent] = React.useState('');
   const [attachments, setAttachments] = React.useState<ChatAttachment[]>([]);
+  const [fileError, setFileError] = React.useState<string | null>(null);
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -51,6 +117,7 @@ export function ChatInput({
       onSend(content.trim(), attachments.length > 0 ? attachments : undefined);
       setContent('');
       setAttachments([]);
+      setFileError(null);
 
       // Focus back on textarea
       textareaRef.current?.focus();
@@ -74,40 +141,48 @@ export function ChatInput({
       const files = e.target.files;
       if (!files) return;
 
+      setFileError(null);
       const newAttachments: ChatAttachment[] = [];
+      const errors: string[] = [];
 
       for (const file of Array.from(files)) {
-        if (attachments.length + newAttachments.length >= maxAttachments) break;
+        if (attachments.length + newAttachments.length >= maxAttachments) {
+          errors.push(`Maximum ${maxAttachments} attachments allowed`);
+          break;
+        }
 
-        const content = await file.text();
-        const extension = file.name.split('.').pop()?.toLowerCase() ?? '';
-        const isCode = [
-          'ts',
-          'tsx',
-          'js',
-          'jsx',
-          'py',
-          'go',
-          'rs',
-          'java',
-        ].includes(extension);
+        if (file.size > maxFileSizeBytes) {
+          errors.push(
+            `${file.name} exceeds ${Math.round(maxFileSizeBytes / 1024 / 1024)}MB limit`
+          );
+          continue;
+        }
 
-        newAttachments.push({
-          id: `att_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`,
-          type: isCode ? 'code' : 'file',
-          name: file.name,
-          content,
-          mimeType: file.type,
-          size: file.size,
-        });
+        try {
+          const { content: fileContent, type } = await readFileAsContent(file);
+          newAttachments.push({
+            id: `att_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`,
+            type,
+            name: file.name,
+            content: fileContent,
+            mimeType: file.type,
+            size: file.size,
+          });
+        } catch {
+          errors.push(`Could not read ${file.name}`);
+        }
       }
 
-      setAttachments((prev) => [...prev, ...newAttachments]);
+      if (errors.length > 0) {
+        setFileError(errors[0] ?? 'Could not add file');
+      }
+      if (newAttachments.length > 0) {
+        setAttachments((prev) => [...prev, ...newAttachments]);
+      }
 
-      // Reset file input
       e.target.value = '';
     },
-    [attachments.length, maxAttachments]
+    [attachments.length, maxAttachments, maxFileSizeBytes]
   );
 
   const removeAttachment = React.useCallback((id: string) => {
@@ -129,6 +204,8 @@ export function ChatInput({
             >
               {attachment.type === 'code' ? (
                 <Code className="h-3.5 w-3.5" />
+              ) : attachment.type === 'image' ? (
+                <ImageIcon className="h-3.5 w-3.5" />
               ) : (
                 <FileText className="h-3.5 w-3.5" />
               )}
@@ -146,6 +223,12 @@ export function ChatInput({
         </div>
       )}
 
+      {fileError && (
+        <p className="text-destructive text-xs" role="alert">
+          {fileError}
+        </p>
+      )}
+
       {/* Input form */}
       <form onSubmit={handleSubmit} className="flex items-end gap-2">
         {/* Attachment button */}
@@ -155,7 +238,7 @@ export function ChatInput({
               ref={fileInputRef}
               type="file"
               multiple
-              accept=".ts,.tsx,.js,.jsx,.json,.md,.txt,.py,.go,.rs,.java,.yaml,.yml"
+              accept=".ts,.tsx,.js,.jsx,.json,.md,.txt,.py,.go,.rs,.java,.yaml,.yml,image/*"
               onChange={handleFileSelect}
               className="hidden"
               aria-label="Attach files"

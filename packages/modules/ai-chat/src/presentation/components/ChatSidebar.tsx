@@ -85,7 +85,11 @@ function ConversationItem({
           )}
         </p>
       </div>
-      <span onClick={(e) => e.stopPropagation()}>
+      <span
+        role="group"
+        onClick={(e) => e.stopPropagation()}
+        onKeyDown={(e) => e.stopPropagation()}
+      >
         <Button
           variant="ghost"
           size="sm"
@@ -116,8 +120,12 @@ export function ChatSidebar({
   onUpdateConversation,
   selectedConversation,
 }: ChatSidebarProps) {
-  const { conversations, isLoading, refresh, deleteConversation } =
-    useConversations({ store, projectId, tags, limit });
+  const { conversations, isLoading, deleteConversation } = useConversations({
+    store,
+    projectId,
+    tags,
+    limit,
+  });
 
   const handleDelete = React.useCallback(
     async (id: string) => {

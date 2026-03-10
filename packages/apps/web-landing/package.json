@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/app.web-landing",
-  "version": "3.5.5",
+  "version": "3.6.0",
   "private": true,
   "scripts": {
     "clean": "rimraf .next dist .turbo",
@@ -27,6 +27,7 @@
     "@contractspec/example.saas-boilerplate": "workspace:*",
     "@contractspec/example.crm-pipeline": "workspace:*",
     "@contractspec/example.agent-console": "workspace:*",
+    "@contractspec/example.ai-chat-assistant": "workspace:*",
     "@contractspec/example.workflow-system": "workspace:*",
     "@contractspec/example.marketplace": "workspace:*",
     "@contractspec/example.integration-hub": "workspace:*",
@@ -58,7 +59,8 @@
     "tailwindcss-animate": "^1.0.7",
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.surface-runtime": "workspace:*",
-    "@contractspec/module.ai-chat": "workspace:*"
+    "@contractspec/module.ai-chat": "workspace:*",
+    "@contractspec/lib.ai-providers": "workspace:*"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.2.1",

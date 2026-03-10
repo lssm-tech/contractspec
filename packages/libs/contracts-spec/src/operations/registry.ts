@@ -128,8 +128,10 @@ export class OperationSpecRegistry extends SpecContractRegistry<
     }
     if (!handler) throw new Error(`No handler bound for ${handlerKey}`);
 
-    // 1) Validate input
-    const parsedInput = spec.io.input?.getZod().parse(rawInput);
+    // 1) Validate input (pass rawInput through when no input schema)
+    const parsedInput = spec.io.input
+      ? spec.io.input.getZod().parse(rawInput)
+      : rawInput;
 
     // 2) Policy enforcement
     if (ctx.decide) {
@@ -235,8 +237,9 @@ export class OperationSpecRegistry extends SpecContractRegistry<
             metadata: ctx.traceId ? { traceId: ctx.traceId } : undefined,
           }
         );
-      } catch (_error) {
+      } catch (error) {
         // Best-effort telemetry: swallow errors to avoid breaking the handler.
+        ctx.onTelemetryError?.(error);
       }
     };
 

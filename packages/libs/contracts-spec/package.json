@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.contracts-spec",
-  "version": "3.5.5",
+  "version": "3.6.0",
   "description": "Spec definitions and registries for ContractSpec",
   "keywords": [
     "contractspec",
@@ -609,6 +609,7 @@
     "./translations/tenant": "./src/translations/tenant.ts",
     "./translations/validation": "./src/translations/validation.ts",
     "./types": "./src/types.ts",
+    "./utils/safe-json": "./src/utils/safe-json.ts",
     "./versioning": "./src/versioning/index.ts",
     "./versioning/index": "./src/versioning/index.ts",
     "./versioning/refs": "./src/versioning/refs.ts",
@@ -3998,6 +3999,12 @@
         "bun": "./dist/types.js",
         "node": "./dist/node/types.js",
         "default": "./dist/types.js"
+      },
+      "./utils/safe-json": {
+        "types": "./dist/utils/safe-json.d.ts",
+        "bun": "./dist/utils/safe-json.js",
+        "node": "./dist/node/utils/safe-json.js",
+        "default": "./dist/utils/safe-json.js"
       },
       "./versioning": {
         "types": "./dist/versioning/index.d.ts",
