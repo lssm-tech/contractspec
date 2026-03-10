@@ -1,5 +1,47 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.6.0
+
+### Minor Changes
+
+- 44b46cd: feat(examples): full AI chat example with MCP, reasoning, and contracts
+  - **example.ai-chat-assistant**: New focused template with ChatWithSidebar, assistant.search contract, mock handlers, and sandbox
+  - **integration-hub**: Add Chat tab with IntegrationHubChat (reasoning, CoT, sources, suggestions, optional MCP)
+  - **web-landing**: Add /api/chat route (createChatRoute), wire both examples in sandbox
+  - **module.examples**: Register ai-chat-assistant in builtins
+
+- ea320ea: feat: ai-chat tooling
+
+### Patch Changes
+
+- Updated dependencies [44b46cd]
+- Updated dependencies [ea320ea]
+- Updated dependencies [9d55d95]
+  - @contractspec/example.ai-chat-assistant@3.6.0
+  - @contractspec/example.integration-hub@3.6.0
+  - @contractspec/module.examples@3.6.0
+  - @contractspec/example.policy-safe-knowledge-assistant@3.6.0
+  - @contractspec/example.analytics-dashboard@3.6.0
+  - @contractspec/example.saas-boilerplate@3.6.0
+  - @contractspec/lib.progressive-delivery@33.0.0
+  - @contractspec/example.workflow-system@3.6.0
+  - @contractspec/example.agent-console@3.6.0
+  - @contractspec/lib.example-shared-ui@5.0.0
+  - @contractspec/example.crm-pipeline@3.6.0
+  - @contractspec/example.in-app-docs@3.6.0
+  - @contractspec/example.marketplace@3.6.0
+  - @contractspec/lib.surface-runtime@0.4.0
+  - @contractspec/lib.contracts-spec@3.6.0
+  - @contractspec/lib.design-system@3.6.0
+  - @contractspec/bundle.marketing@3.6.0
+  - @contractspec/lib.ai-providers@3.6.0
+  - @contractspec/lib.ui-kit-core@3.6.0
+  - @contractspec/bundle.library@3.6.0
+  - @contractspec/lib.ui-kit-web@3.6.0
+  - @contractspec/module.ai-chat@4.2.0
+  - @contractspec/lib.ui-link@3.6.0
+  - @contractspec/lib.ui-kit@3.6.0
+
 ## 3.5.5
 
 ### Patch Changes

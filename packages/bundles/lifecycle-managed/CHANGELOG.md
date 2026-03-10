@@ -1,5 +1,22 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.6.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+
+### Patch Changes
+
+- Updated dependencies [ea320ea]
+- Updated dependencies [9d55d95]
+  - @contractspec/module.lifecycle-advisor@3.6.0
+  - @contractspec/module.lifecycle-core@3.6.0
+  - @contractspec/lib.observability@3.6.0
+  - @contractspec/lib.analytics@3.6.0
+  - @contractspec/lib.lifecycle@3.6.0
+  - @contractspec/lib.ai-agent@6.0.0
+
 ## 3.5.5
 
 ### Patch Changes

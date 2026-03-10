@@ -1,5 +1,22 @@
 # @contractspec/lib.personalization
 
+## 5.0.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+
+### Patch Changes
+
+- Updated dependencies [ea320ea]
+- Updated dependencies [9d55d95]
+  - @contractspec/lib.surface-runtime@0.4.0
+  - @contractspec/lib.contracts-spec@3.6.0
+  - @contractspec/lib.overlay-engine@3.6.0
+  - @contractspec/lib.knowledge@3.6.0
+  - @contractspec/lib.schema@3.6.0
+  - @contractspec/lib.bus@3.6.0
+
 ## 4.0.5
 
 ### Patch Changes

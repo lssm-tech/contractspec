@@ -1,5 +1,20 @@
 # @contractspec/app.video-studio
 
+## 2.6.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+
+### Patch Changes
+
+- Updated dependencies [ea320ea]
+- Updated dependencies [9d55d95]
+  - @contractspec/lib.contracts-spec@3.6.0
+  - @contractspec/lib.design-system@3.6.0
+  - @contractspec/lib.content-gen@3.6.0
+  - @contractspec/lib.video-gen@2.6.0
+
 ## 2.5.5
 
 ### Patch Changes

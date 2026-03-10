@@ -1,5 +1,62 @@
 # @contractspec/module.examples
 
+## 3.6.0
+
+### Minor Changes
+
+- 44b46cd: feat(examples): full AI chat example with MCP, reasoning, and contracts
+  - **example.ai-chat-assistant**: New focused template with ChatWithSidebar, assistant.search contract, mock handlers, and sandbox
+  - **integration-hub**: Add Chat tab with IntegrationHubChat (reasoning, CoT, sources, suggestions, optional MCP)
+  - **web-landing**: Add /api/chat route (createChatRoute), wire both examples in sandbox
+  - **module.examples**: Register ai-chat-assistant in builtins
+
+- ea320ea: feat: ai-chat tooling
+
+### Patch Changes
+
+- Updated dependencies [44b46cd]
+- Updated dependencies [ea320ea]
+- Updated dependencies [9d55d95]
+  - @contractspec/example.ai-chat-assistant@3.6.0
+  - @contractspec/example.integration-hub@3.6.0
+  - @contractspec/example.learning-journey-studio-onboarding@3.6.0
+  - @contractspec/example.learning-journey-quest-challenges@3.6.0
+  - @contractspec/example.learning-journey-crm-onboarding@3.6.0
+  - @contractspec/example.policy-safe-knowledge-assistant@3.6.0
+  - @contractspec/example.learning-journey-ambient-coach@3.6.0
+  - @contractspec/example.learning-journey-platform-tour@3.6.0
+  - @contractspec/example.learning-journey-ui-onboarding@3.6.0
+  - @contractspec/example.learning-journey-ui-coaching@3.6.0
+  - @contractspec/example.learning-journey-ui-gamified@3.6.0
+  - @contractspec/example.learning-journey-duo-drills@3.6.0
+  - @contractspec/example.learning-journey-ui-shared@3.6.0
+  - @contractspec/example.learning-journey-registry@3.6.0
+  - @contractspec/example.locale-jurisdiction-gate@3.6.0
+  - @contractspec/example.versioned-knowledge-base@3.6.0
+  - @contractspec/example.analytics-dashboard@3.6.0
+  - @contractspec/example.lifecycle-dashboard@3.6.0
+  - @contractspec/example.service-business-os@3.6.0
+  - @contractspec/example.content-generation@3.6.0
+  - @contractspec/example.integration-stripe@3.6.0
+  - @contractspec/example.kb-update-pipeline@3.6.0
+  - @contractspec/example.openbanking-powens@3.6.0
+  - @contractspec/example.learning-patterns@3.6.0
+  - @contractspec/example.saas-boilerplate@3.6.0
+  - @contractspec/example.knowledge-canon@3.6.0
+  - @contractspec/example.personalization@3.6.0
+  - @contractspec/example.voice-providers@3.6.0
+  - @contractspec/example.wealth-snapshot@3.6.0
+  - @contractspec/example.workflow-system@3.6.0
+  - @contractspec/example.ai-support-bot@3.6.0
+  - @contractspec/example.agent-console@3.6.0
+  - @contractspec/example.lifecycle-cli@3.6.0
+  - @contractspec/lib.example-shared-ui@5.0.0
+  - @contractspec/example.crm-pipeline@3.6.0
+  - @contractspec/example.marketplace@3.6.0
+  - @contractspec/lib.runtime-sandbox@2.6.0
+  - @contractspec/lib.contracts-spec@3.6.0
+  - @contractspec/example.team-hub@3.6.0
+
 ## 3.5.5
 
 ### Patch Changes

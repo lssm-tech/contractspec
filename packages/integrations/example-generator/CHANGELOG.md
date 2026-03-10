@@ -1,5 +1,18 @@
 # @contractspec/integration.example-generator
 
+## 33.0.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+
+### Patch Changes
+
+- Updated dependencies [ea320ea]
+- Updated dependencies [9d55d95]
+  - @contractspec/lib.contracts-spec@3.6.0
+  - @contractspec/lib.schema@3.6.0
+
 ## 32.0.5
 
 ### Patch Changes

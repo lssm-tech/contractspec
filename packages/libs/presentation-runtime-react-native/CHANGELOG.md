@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 33.0.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+
+### Patch Changes
+
+- Updated dependencies [ea320ea]
+  - @contractspec/lib.presentation-runtime-core@3.6.0
+  - @contractspec/lib.ui-kit@3.6.0
+
 ## 32.0.5
 
 ### Patch Changes
