@@ -2,22 +2,22 @@
  * Browser-safe stub for mcp-client. MCP stdio/process spawning cannot run in browser.
  * Use this when bundling for client; the real implementation runs only on Node.
  */
-import type { Tool } from "ai";
+import type { Tool } from 'ai';
 
-export type McpTransportType = "stdio" | "sse" | "http";
+export type McpTransportType = 'stdio' | 'sse' | 'http';
 
 interface McpClientBaseConfig {
   name: string;
   toolPrefix?: string;
   clientName?: string;
   clientVersion?: string;
-  authMethod?: "api-key" | "oauth2" | "bearer";
+  authMethod?: 'api-key' | 'oauth2' | 'bearer';
   authHeaders?: Record<string, string>;
   apiVersion?: string;
 }
 
 export interface McpStdioClientConfig extends McpClientBaseConfig {
-  transport?: "stdio";
+  transport?: 'stdio';
   command: string;
   args?: string[];
   env?: Record<string, string>;
@@ -25,7 +25,7 @@ export interface McpStdioClientConfig extends McpClientBaseConfig {
 }
 
 export interface McpRemoteClientConfig extends McpClientBaseConfig {
-  transport: "sse" | "http";
+  transport: 'sse' | 'http';
   url: string;
   headers?: Record<string, string>;
   authProvider?: unknown;
@@ -42,7 +42,7 @@ export interface McpClientResult {
 }
 
 export interface CreateMcpToolsetsOptions {
-  onNameCollision?: "overwrite" | "error";
+  onNameCollision?: 'overwrite' | 'error';
 }
 
 /**
@@ -53,7 +53,9 @@ export async function mcpServerToTools(
 ): Promise<McpClientResult> {
   return {
     tools: {},
-    cleanup: async () => {},
+    cleanup: async () => {
+      /* Browser stub: no cleanup needed */
+    },
     serverToolNames: {},
   };
 }
@@ -67,7 +69,9 @@ export async function createMcpToolsets(
 ): Promise<McpClientResult> {
   return {
     tools: {},
-    cleanup: async () => {},
+    cleanup: async () => {
+      /* Browser stub: no cleanup needed */
+    },
     serverToolNames: {},
   };
 }

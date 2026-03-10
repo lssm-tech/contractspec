@@ -6,10 +6,7 @@ import type { AiSdkBundleAdapter } from '@contractspec/lib.surface-runtime/adapt
 import type { ResolvedSurfacePlan } from '@contractspec/lib.surface-runtime/runtime/resolve-bundle';
 import type { SurfacePatchProposal } from '@contractspec/lib.surface-runtime/spec/types';
 import { ChatService } from '../core/chat-service';
-import {
-  createSurfacePlannerTools,
-  buildPlannerPromptInput,
-} from '../core/surface-planner-tools';
+import { buildPlannerPromptInput } from '../core/surface-planner-tools';
 import { compilePlannerPrompt } from '@contractspec/lib.surface-runtime/runtime/planner-prompt';
 import type { Provider as ChatProvider } from '@contractspec/lib.ai-providers';
 

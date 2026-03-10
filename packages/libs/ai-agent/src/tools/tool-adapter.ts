@@ -78,9 +78,7 @@ export function specToolToAISDKTool(
           raw,
           operationSpec
         );
-        return typeof wrapped === 'string'
-          ? wrapped
-          : JSON.stringify(wrapped);
+        return typeof wrapped === 'string' ? wrapped : JSON.stringify(wrapped);
       } finally {
         dispose();
         lastInvocationAt = Date.now();

@@ -3,7 +3,10 @@ import { mistral } from '@ai-sdk/mistral';
 import { openai } from '@ai-sdk/openai';
 import { ollama } from 'ollama-ai-provider';
 import type { LanguageModel } from 'ai';
-import { DEFAULT_MODELS, getModelsForProvider } from '@contractspec/lib.ai-providers/models';
+import {
+  DEFAULT_MODELS,
+  getModelsForProvider,
+} from '@contractspec/lib.ai-providers/models';
 import type { Config } from '../utils/config';
 
 /**

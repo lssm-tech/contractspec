@@ -22,7 +22,7 @@ export default function DocsShellClient({
         <main className="flex-1 overflow-hidden">
           <div className="mx-auto px-4 py-8 md:px-8">
             <blockquote
-              className="mb-4 border-l-2 border-muted-foreground/50 pl-4 text-sm text-muted-foreground not-italic"
+              className="border-muted-foreground/50 text-muted-foreground mb-4 border-l-2 pl-4 text-sm not-italic"
               cite="https://www.contractspec.io/llms.txt"
             >
               For AI agents: Documentation index at /llms.txt

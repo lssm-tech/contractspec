@@ -445,6 +445,36 @@ describe('WorkflowRunner', () => {
     expect(events.some(({ event }) => event === 'workflow.resumed')).toBe(true);
   });
 
+  it('does not retry when unknown error is thrown (retryable: false default)', async () => {
+    const events: { event: string; payload: unknown }[] = [];
+    const spec = workflowSpec({
+      steps: [
+        {
+          id: 'start',
+          type: 'automation',
+          label: 'Failing Start',
+          action: { operation: { key: 'sigil.start', version: '1.0.0' } },
+          retry: { maxAttempts: 3, delayMs: 10, backoff: 'linear' },
+        },
+      ],
+      transitions: [],
+    });
+
+    const opExecutor = vi.fn(async () => {
+      throw new Error('Unknown validation error');
+    });
+
+    const { runner } = createRunner(spec, events, { opExecutor });
+    const workflowId = await runner.start(spec.meta.key);
+
+    await expect(runner.executeStep(workflowId)).rejects.toThrow(
+      /Unknown validation error/
+    );
+
+    // With retryable: false for unknown errors, opExecutor should be called only once
+    expect(opExecutor).toHaveBeenCalledTimes(1);
+  });
+
   it('fails step execution when timeout is exceeded', async () => {
     const events: { event: string; payload: unknown }[] = [];
     const spec = workflowSpec({

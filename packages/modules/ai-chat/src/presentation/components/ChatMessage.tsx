@@ -208,10 +208,17 @@ export function ChatMessage({
 
   const [isEditing, setIsEditing] = React.useState(false);
   const [editContent, setEditContent] = React.useState(message.content);
+  const editTextareaRef = React.useRef<HTMLTextAreaElement>(null);
 
   React.useEffect(() => {
     setEditContent(message.content);
   }, [message.content]);
+
+  React.useEffect(() => {
+    if (isEditing) {
+      editTextareaRef.current?.focus();
+    }
+  }, [isEditing]);
 
   const handleStartEdit = React.useCallback(() => {
     setEditContent(message.content);
@@ -296,11 +303,12 @@ export function ChatMessage({
           ) : isEditing ? (
             <div className="flex flex-col gap-2">
               <textarea
+                ref={editTextareaRef}
                 value={editContent}
                 onChange={(e) => setEditContent(e.target.value)}
                 className="bg-background/50 min-h-[80px] w-full resize-y rounded-md border px-3 py-2 text-sm"
                 rows={4}
-                autoFocus
+                aria-label="Edit message"
               />
               <div className="flex gap-2">
                 <Button

@@ -1,7 +1,4 @@
-import {
-  createChatRoute,
-  CHAT_ROUTE_MAX_DURATION,
-} from '@contractspec/module.ai-chat/core';
+import { createChatRoute } from '@contractspec/module.ai-chat/core';
 import { createProvider } from '@contractspec/lib.ai-providers';
 
 const provider = createProvider({
@@ -18,4 +15,5 @@ export const POST = createChatRoute({
   sendReasoning: true,
 });
 
-export const maxDuration = CHAT_ROUTE_MAX_DURATION;
+/** Must be a static literal for Next.js 16 segment config validation */
+export const maxDuration = 30;

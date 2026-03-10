@@ -9,11 +9,7 @@ import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';
 import type { TestSpecRef } from '../tests/spec';
 import type { CapabilityRef } from '../capabilities/capabilities';
-import type {
-  PresentationRef,
-  FormRef,
-  DataViewRef,
-} from '../features';
+import type { PresentationRef, FormRef, DataViewRef } from '../features';
 
 /**
  * Distinguishes between state-changing operations (command) and read-only operations (query).

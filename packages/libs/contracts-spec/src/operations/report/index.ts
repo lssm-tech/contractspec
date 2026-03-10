@@ -2,6 +2,7 @@ import type { OperationSpecRegistry } from '../registry';
 import { GetContractVerificationStatusQuery } from './getContractVerificationStatus';
 import { type HandlerForOperationSpec, installOp } from '../../install';
 import type { HandlerCtx } from '../../types';
+import { safeParseJson } from '../../utils/safe-json';
 
 export {
   GetContractVerificationStatusQuery,
@@ -55,7 +56,16 @@ export const getContractVerificationStatusHandler: HandlerForOperationSpec<
       return { contracts: [] };
     }
 
-    const cliOutput = JSON.parse(output) as CLIResult;
+    const parsed = safeParseJson<CLIResult>(output);
+    if (!parsed.ok) {
+      console.error(
+        'Contract verification CLI returned invalid JSON:',
+        output?.slice(0, 200)
+      );
+      return { contracts: [] };
+    }
+    const cliOutput = parsed.data;
+
     const contracts: ContractVerificationStatus[] = [];
 
     for (const spec of cliOutput.results || []) {

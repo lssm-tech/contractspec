@@ -6,6 +6,7 @@ import type {
 import type { ConnectionStatus, IntegrationConnection } from './connection';
 import type { IntegrationSpec } from './spec';
 import type { SecretProvider, SecretValue } from './secrets/provider';
+import { safeParseJson } from '../utils/safe-json';
 
 export interface IntegrationTraceMetadata {
   blueprintName: string;
@@ -265,21 +266,22 @@ export class IntegrationCallGuard {
 
   private parseSecret(secret: SecretValue): Record<string, string> {
     const text = new TextDecoder().decode(secret.data);
-    try {
-      const parsed = JSON.parse(text);
-      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
-        const entries = Object.entries(parsed).filter(
-          ([, value]) =>
-            typeof value === 'string' ||
-            typeof value === 'number' ||
-            typeof value === 'boolean'
-        );
-        return Object.fromEntries(
-          entries.map(([key, value]) => [key, String(value)])
-        );
-      }
-    } catch {
-      // Fall through to raw secret.
+    const parsed = safeParseJson<Record<string, unknown>>(text);
+    if (
+      parsed.ok &&
+      parsed.data &&
+      typeof parsed.data === 'object' &&
+      !Array.isArray(parsed.data)
+    ) {
+      const entries = Object.entries(parsed.data).filter(
+        ([, value]) =>
+          typeof value === 'string' ||
+          typeof value === 'number' ||
+          typeof value === 'boolean'
+      );
+      return Object.fromEntries(
+        entries.map(([key, value]) => [key, String(value)])
+      );
     }
     return { secret: text };
   }

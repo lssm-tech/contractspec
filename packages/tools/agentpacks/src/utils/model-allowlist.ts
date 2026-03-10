@@ -25,13 +25,23 @@ const KNOWN_MODEL_PATTERNS: {
     provider: 'OpenAI',
     pattern:
       /^(openai\/)?(gpt-4|gpt-5|gpt-3\.5|o[1-9]|o[1-9]-\w+|chatgpt-4o|gpt-4o)[-.\w]*/i,
-    examples: ['gpt-5.4', 'gpt-5-mini', 'gpt-4o', 'openai/gpt-4-turbo', 'o1-preview'],
+    examples: [
+      'gpt-5.4',
+      'gpt-5-mini',
+      'gpt-4o',
+      'openai/gpt-4-turbo',
+      'o1-preview',
+    ],
   },
   {
     provider: 'Google',
     pattern:
       /^(google\/)?gemini-(pro|ultra|nano|flash|1\.5|2\.0|2\.5|3|3\.1|exp)[-.\w]*/i,
-    examples: ['gemini-2.5-flash', 'gemini-3.1-pro-preview', 'google/gemini-pro'],
+    examples: [
+      'gemini-2.5-flash',
+      'gemini-3.1-pro-preview',
+      'google/gemini-pro',
+    ],
   },
   {
     provider: 'Meta',

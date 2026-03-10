@@ -221,7 +221,13 @@ export function createDefaultTransformEngine() {
   const engine = new TransformEngine();
 
   const applyPii = (desc: PresentationSpec, obj: unknown) => {
-    const clone = JSON.parse(JSON.stringify(obj));
+    let clone: unknown;
+    try {
+      clone = JSON.parse(JSON.stringify(obj));
+    } catch {
+      // Circular refs or non-serializable: use original (PII redaction may be partial)
+      clone = obj;
+    }
     const paths = desc.policy?.pii ?? [];
     const setAtPath = (root: unknown, path: string) => {
       const segs = path
@@ -305,8 +311,10 @@ export function createDefaultTransformEngine() {
       // BlockNote rendering
       if (desc.source.type === 'blocknotejs') {
         const markdown = blockNoteToMarkdown(desc.source.docJson);
-        const redacted = applyPii(desc, { text: markdown });
-        return { mimeType: 'text/markdown', body: String(redacted.text) };
+        const redacted = applyPii(desc, { text: markdown }) as {
+          text?: string;
+        };
+        return { mimeType: 'text/markdown', body: String(redacted.text ?? '') };
       }
 
       // When data is provided but no schema is available, throw to allow
@@ -349,10 +357,20 @@ export function createDefaultTransformEngine() {
     target: 'application/json',
     async render(desc) {
       const payload = applyPii(desc, { meta: desc.meta, source: desc.source });
-      return {
-        mimeType: 'application/json',
-        body: JSON.stringify(payload, null, 2),
-      };
+      let body: string;
+      try {
+        body = JSON.stringify(payload, null, 2);
+      } catch {
+        body = JSON.stringify(
+          {
+            meta: { key: desc.meta.key, version: desc.meta.version },
+            source: '[non-serializable]',
+          },
+          null,
+          2
+        );
+      }
+      return { mimeType: 'application/json', body };
     },
   });
 
@@ -361,8 +379,17 @@ export function createDefaultTransformEngine() {
     target: 'application/xml',
     async render(desc) {
       const json = applyPii(desc, { meta: desc.meta, source: desc.source });
+      let jsonStr: string;
+      try {
+        jsonStr = JSON.stringify(json);
+      } catch {
+        jsonStr = JSON.stringify({
+          meta: { key: desc.meta.key, version: desc.meta.version },
+          source: '[non-serializable]',
+        });
+      }
       const body = `<presentation name="${desc.meta.key}" version="${desc.meta.version}"><json>${encodeURIComponent(
-        JSON.stringify(json)
+        jsonStr
       )}</json></presentation>`;
       return { mimeType: 'application/xml', body };
     },

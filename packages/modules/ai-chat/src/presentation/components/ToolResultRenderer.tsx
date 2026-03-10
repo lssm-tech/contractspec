@@ -78,7 +78,7 @@ export interface ToolResultRendererProps {
  * Otherwise falls back to raw JSON display.
  */
 export function ToolResultRenderer({
-  toolName,
+  toolName: _toolName,
   result,
   presentationRenderer,
   formRenderer,

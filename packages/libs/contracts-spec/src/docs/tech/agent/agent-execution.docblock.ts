@@ -174,7 +174,8 @@ Presentation surface used to inspect run provenance, tools, approvals, and outpu
   {
     id: 'docs.tech.agent.operations-as-tools',
     title: 'Operations as tools',
-    summary: 'Reference ContractSpec operations as agent tools. One contract → REST, GraphQL, MCP, agent.',
+    summary:
+      'Reference ContractSpec operations as agent tools. One contract → REST, GraphQL, MCP, agent.',
     kind: 'reference',
     visibility: 'public',
     route: '/docs/tech/agent/operations-as-tools',

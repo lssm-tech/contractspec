@@ -2,8 +2,8 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-03-09T18:05:10.408Z
-Packages: 155
+Generated: 2026-03-10T09:19:33.292Z
+Packages: 156
 
 ---
 
@@ -5899,6 +5899,47 @@ Stateful AI agent orchestration with type-safe specs, tool execution, knowledge 
 
 These ports are optional by design and keep external runtime dependencies decoupled from core agent contracts.
 
+## Operations as Tools
+
+**Preferred pattern:** One contract → multiple surfaces. Reference a ContractSpec operation in your agent; the tool handler and input schema are derived automatically.
+
+```ts
+import { defineAgent } from '@contractspec/lib.ai-agent';
+import { defineQuery } from '@contractspec/lib.contracts-spec';
+import { OperationSpecRegistry } from '@contractspec/lib.contracts-spec';
+import { createAgentFactory } from '@contractspec/lib.ai-agent/agent/agent-factory';
+
+// 1. Define operation (existing pattern)
+const SearchKnowledgeQuery = defineQuery({
+  meta: { key: 'knowledge.search', version: '1.0.0', owners: ['@platform'], goal: '...', context: '...' },
+  io: { input: SearchInputModel, output: SearchOutputModel },
+});
+
+// 2. Register and bind handler
+const ops = new OperationSpecRegistry().register(SearchKnowledgeQuery).bind(SearchKnowledgeQuery, handler);
+
+// 3. Reference in agent
+const agent = defineAgent({
+  meta: { key: 'support.bot', version: '1.0.0', owners: ['@platform'] },
+  instructions: 'Resolve support tickets.',
+  tools: [
+    { name: 'search_knowledge', operationRef: { key: 'knowledge.search', version: '1.0.0' }, automationSafe: true },
+  ],
+});
+
+// 4. Create factory with operationRegistry
+const factory = createAgentFactory({
+  defaultModel,
+  registry: agentRegistry,
+  toolHandlers: new Map(),
+  operationRegistry: ops,
+});
+```
+
+**Output rendering:** When tool output should render via PresentationSpec, FormSpec, or DataViewSpec, add `outputPresentation`, `outputForm`, or `outputDataView` to `AgentToolConfig` (at most one per tool). The tool adapter wraps raw output as `{ presentationKey, data }`, `{ formKey, defaultValues }`, or `{ dataViewKey, items }` for `ToolResultRenderer`. OperationSpec can also declare these refs; when the tool has no output refs, the operation's refs are used as fallback.
+
+**Fallback (inline tools):** When the tool is not an operation (LLM subcalls, external APIs), use inline `AgentToolConfig` with `schema` and a manual handler in `toolHandlers`.
+
 ## Bundle spec / surface-runtime integration
 
 When building planner agents for `@contractspec/lib.surface-runtime`, planner tools (e.g. `propose-patch`) from `@contractspec/lib.surface-runtime/runtime/planner-tools` map to `AgentToolConfig`. Wire `proposePatchToolConfig` into `AgentSpec.tools`; the handler should validate via `validatePatchProposal` and return `SurfacePatchProposal`. Tools from surface-runtime planner-tools are `AgentToolConfig`-compatible.
@@ -6450,7 +6491,10 @@ For full AI SDK compatibility including tool approval, use `createChatRoute` wit
 
 ```ts
 // app/api/chat/route.ts (Next.js App Router)
-import { createChatRoute } from '@contractspec/module.ai-chat/core';
+import {
+  createChatRoute,
+  CHAT_ROUTE_MAX_DURATION,
+} from '@contractspec/module.ai-chat/core';
 import { createProvider } from '@contractspec/lib.ai-providers';
 
 const provider = createProvider({
@@ -6460,7 +6504,10 @@ const provider = createProvider({
 });
 
 export const POST = createChatRoute({ provider });
+export const maxDuration = CHAT_ROUTE_MAX_DURATION;
 ```
+
+`maxDuration` is required for long-running streaming on Vercel/serverless. The route sends sources and reasoning by default (AI Elements parity). Override with `sendSources` and `sendReasoning` in options. Use `getModel` to support a model picker from the request body.
 
 ```tsx
 // Client: use @ai-sdk/react useChat with DefaultChatTransport
@@ -6517,9 +6564,29 @@ const chatService = new ChatService({
 // based on thinking level when modelSelector is set
 ```
 
-### Optional AI Elements
+### AI Elements-Style Components
 
-Apps can optionally use [AI Elements](https://elements.ai-sdk.dev) for UI. This module does not depend on ai-elements; provide an adapter from `ChatMessage` to `UIMessage` when integrating.
+The module includes native implementations of [Reasoning](https://elements.ai-sdk.dev/components/reasoning), [Sources](https://elements.ai-sdk.dev/components/sources), [Suggestion](https://elements.ai-sdk.dev/components/suggestion), and [Chain of Thought](https://elements.ai-sdk.dev/components/chain-of-thought) patterns. Pass `components` to `ChatMessage` or `ChatWithExport` to override with ai-elements when installed:
+
+```tsx
+import { ChatWithSidebar, type ChatMessageComponents } from '@contractspec/module.ai-chat';
+// When using ai-elements: import { Reasoning, Sources, ... } from '@/components/ai-elements/...';
+
+<ChatWithSidebar
+  components={{
+    Reasoning: AiElementsReasoning,
+    Sources: AiElementsSources,
+    SourcesTrigger: AiElementsSourcesTrigger,
+    Source: AiElementsSource,
+    ChainOfThought: AiElementsChainOfThought,
+    ChainOfThoughtStep: AiElementsChainOfThoughtStep,
+  }}
+  suggestions={['Explain how X works', 'What is Y?']}
+  showSuggestionsWhenEmpty
+/>
+```
+
+Use `suggestions` and `onSuggestionClick` for clickable prompt chips. Apps can optionally use [AI Elements](https://elements.ai-sdk.dev) for enhanced UI; provide an adapter from `ChatMessage` to `UIMessage` when integrating.
 
 ### useCompletion (Non-Chat Completion)
 
@@ -11892,6 +11959,16 @@ This example is now packaged as `@contractspec/example.lifecycle-dashboard` and 
 
 
 
+
+---
+
+## @contractspec/example.ai-chat-assistant
+
+Description: Focused AI chat assistant template with MCP tools, reasoning, chain of thought, sources, and suggestions.
+Path: packages/examples/ai-chat-assistant
+URL: /llms/example.ai-chat-assistant
+
+(No README.md)
 
 ---
 
