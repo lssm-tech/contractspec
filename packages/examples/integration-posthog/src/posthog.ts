@@ -314,7 +314,7 @@ function buildReadPreview(): Record<string, unknown> {
 function buildMcpPreview(): Record<string, unknown> {
   return {
     url: process.env.POSTHOG_MCP_URL,
-    toolName: process.env.POSTHOG_MCP_TOOL_NAME ?? 'posthog.query',
+    toolName: process.env.POSTHOG_MCP_TOOL_NAME ?? 'posthog_query',
     arguments: parseOptionalJsonEnv('POSTHOG_MCP_TOOL_ARGS', {
       query: buildHogQLQuery(),
     }),

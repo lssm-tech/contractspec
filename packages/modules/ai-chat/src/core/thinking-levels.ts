@@ -7,11 +7,7 @@ import type { ProviderName } from '@contractspec/lib.ai-providers';
 /**
  * Thinking level: controls how much internal reasoning the model performs.
  */
-export type ThinkingLevel =
-  | 'instant'
-  | 'thinking'
-  | 'extra_thinking'
-  | 'max';
+export type ThinkingLevel = 'instant' | 'thinking' | 'extra_thinking' | 'max';
 
 /**
  * Human-readable labels for UI

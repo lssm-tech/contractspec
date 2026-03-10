@@ -5,29 +5,29 @@ Use the following model preferences when working in this project.
 
 ## Default Models
 
-- **Primary model**: anthropic/claude-sonnet-4-5
+- **Primary model**: anthropic/claude-sonnet-4-6
 - **Lightweight tasks** (titles, summaries): anthropic/claude-haiku-4-5
 
 ## Agent Model Assignments
 
 | Agent | Model | Temperature |
 | --- | --- | --- |
-| planner | anthropic/claude-sonnet-4-5 | 0.2 |
-| plan-reviewer | anthropic/claude-opus-4-5 | 0.1 |
-| code-reviewer | anthropic/claude-opus-4-5 | 0.1 |
+| planner | anthropic/claude-sonnet-4-6 | 0.2 |
+| plan-reviewer | anthropic/claude-opus-4-6 | 0.1 |
+| code-reviewer | anthropic/claude-opus-4-6 | 0.1 |
 | security-scanner | openai/o3 | 0 |
-| test-writer | anthropic/claude-sonnet-4-5 | 0.2 |
-| documenter | anthropic/claude-sonnet-4-5 | 0.3 |
+| test-writer | anthropic/claude-sonnet-4-6 | 0.2 |
+| documenter | anthropic/claude-sonnet-4-6 | 0.3 |
 | ai-auditor | openai/o3 | 0 |
 
 ## Available Profiles
 
 | Profile | Description | Default Model |
 | --- | --- | --- |
-| balanced | Balanced quality, latency, and cost for day-to-day delivery | anthropic/claude-sonnet-4-5 |
-| quality | Maximum reasoning quality for architecture, review, and security work | anthropic/claude-opus-4-5 |
+| balanced | Balanced quality, latency, and cost for day-to-day delivery | anthropic/claude-sonnet-4-6 |
+| quality | Maximum reasoning quality for architecture, review, and security work | anthropic/claude-opus-4-6 |
 | fast | Low-latency profile for quick triage and lightweight edits | anthropic/claude-haiku-4-5 |
-| cursor-demo | Demo-ready profile for Cursor workshops and marketplace previews | anthropic/claude-sonnet-4-5 |
+| cursor-demo | Demo-ready profile for Cursor workshops and marketplace previews | anthropic/claude-sonnet-4-6 |
 
 **Active profile**: `balanced`
 

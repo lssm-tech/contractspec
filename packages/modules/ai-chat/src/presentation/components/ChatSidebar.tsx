@@ -71,9 +71,7 @@ function ConversationItem({
       }}
       className={cn(
         'group flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors',
-        selected
-          ? 'bg-accent text-accent-foreground'
-          : 'hover:bg-accent/50'
+        selected ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/50'
       )}
     >
       <MessageSquare className="text-muted-foreground h-4 w-4 shrink-0" />
@@ -235,9 +233,7 @@ function ConversationMeta({
 
   return (
     <div className="border-border shrink-0 border-t p-2">
-      <p className="text-muted-foreground mb-1 text-xs font-medium">
-        Project
-      </p>
+      <p className="text-muted-foreground mb-1 text-xs font-medium">Project</p>
       <input
         type="text"
         value={projectName}

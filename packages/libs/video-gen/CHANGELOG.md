@@ -1,5 +1,77 @@
 # @contractspec/lib.video-gen
 
+## 2.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [27b77db]
+- Updated dependencies [693eedd]
+  - @contractspec/lib.ai-providers@3.5.5
+  - @contractspec/lib.contracts-spec@3.5.5
+  - @contractspec/lib.contracts-integrations@3.5.5
+  - @contractspec/lib.design-system@3.5.5
+  - @contractspec/lib.content-gen@3.5.5
+  - @contractspec/lib.image-gen@1.5.5
+  - @contractspec/lib.voice@1.5.5
+
+## 2.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/lib.contracts-integrations@3.5.4
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/lib.design-system@3.5.4
+  - @contractspec/lib.ai-providers@3.5.4
+  - @contractspec/lib.content-gen@3.5.4
+  - @contractspec/lib.image-gen@1.5.4
+  - @contractspec/lib.voice@1.5.4
+
+## 2.5.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+- Updated dependencies [b0b4da6]
+  - @contractspec/lib.contracts-integrations@3.5.3
+  - @contractspec/lib.contracts-spec@3.5.3
+  - @contractspec/lib.design-system@3.5.3
+  - @contractspec/lib.ai-providers@3.5.3
+  - @contractspec/lib.content-gen@3.5.3
+  - @contractspec/lib.image-gen@1.5.3
+  - @contractspec/lib.voice@1.5.3
+
+## 2.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.contracts-integrations@3.5.2
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/lib.design-system@3.5.2
+  - @contractspec/lib.ai-providers@3.5.2
+  - @contractspec/lib.content-gen@3.5.2
+  - @contractspec/lib.image-gen@1.5.2
+  - @contractspec/lib.voice@1.5.2
+
+## 2.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+- Updated dependencies [dfff0d4]
+  - @contractspec/lib.contracts-integrations@3.5.1
+  - @contractspec/lib.contracts-spec@3.5.1
+  - @contractspec/lib.design-system@3.5.1
+  - @contractspec/lib.ai-providers@3.5.1
+  - @contractspec/lib.content-gen@3.5.1
+  - @contractspec/lib.image-gen@1.5.1
+  - @contractspec/lib.voice@1.5.1
+
 ## 2.5.0
 
 ### Minor Changes

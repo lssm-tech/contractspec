@@ -1,7 +1,7 @@
 {
   "$schema": "https://api.contractspec.io/schemas/contractsrc.json",
   "aiProvider": "claude",
-  "aiModel": "claude-sonnet-4-20250514",
+  "aiModel": "claude-sonnet-4-6",
   "agentMode": "claude-code",
   "outputDir": "./src",
   "conventions": {

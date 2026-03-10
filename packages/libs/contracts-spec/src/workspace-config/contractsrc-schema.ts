@@ -399,8 +399,8 @@ export const ClaudeAgentSDKConfigSchema: z.ZodType<ClaudeAgentSDKConfig> =
     enabled: z.boolean().default(false).optional(),
     /** API key (defaults to ANTHROPIC_API_KEY env var) */
     apiKey: z.string().optional(),
-    /** Model to use (defaults to claude-sonnet-4-20250514) */
-    model: z.string().default('claude-sonnet-4-20250514').optional(),
+    /** Model to use (defaults to claude-sonnet-4-6) */
+    model: z.string().default('claude-sonnet-4-6').optional(),
     /** Enable computer use capabilities */
     computerUse: z.boolean().default(false).optional(),
     /** Enable extended thinking mode */

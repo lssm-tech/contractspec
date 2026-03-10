@@ -142,7 +142,7 @@ describe('defaultMcpTool', () => {
   });
 
   it('should handle deeply nested namespaces', () => {
-    expect(defaultMcpTool('cli.suggestCommand', '1.0.0')).toBe(
+    expect(defaultMcpTool('cli_suggestCommand', '1.0.0')).toBe(
       'cli_suggestCommand-v1_0_0'
     );
   });

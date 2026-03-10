@@ -27,17 +27,16 @@ function toSerializable(conv: ChatConversation): Record<string, unknown> {
   };
 }
 
-function fromSerializable(
-  raw: Record<string, unknown>
-): ChatConversation {
-  const messages = (raw.messages as Record<string, unknown>[])?.map(
-    (m) =>
-      ({
-        ...m,
-        createdAt: new Date(m.createdAt as string),
-        updatedAt: new Date(m.updatedAt as string),
-      }) as ChatMessage
-  ) ?? [];
+function fromSerializable(raw: Record<string, unknown>): ChatConversation {
+  const messages =
+    (raw.messages as Record<string, unknown>[])?.map(
+      (m) =>
+        ({
+          ...m,
+          createdAt: new Date(m.createdAt as string),
+          updatedAt: new Date(m.updatedAt as string),
+        }) as ChatMessage
+    ) ?? [];
   return {
     ...raw,
     createdAt: new Date(raw.createdAt as string),

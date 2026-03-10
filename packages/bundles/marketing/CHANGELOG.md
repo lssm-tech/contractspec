@@ -1,5 +1,144 @@
 # @contractspec/bundle.marketing
 
+## 3.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [27b77db]
+- Updated dependencies [693eedd]
+  - @contractspec/lib.contracts-spec@3.5.5
+  - @contractspec/bundle.library@3.5.5
+  - @contractspec/example.agent-console@3.5.5
+  - @contractspec/lib.contracts-runtime-client-react@3.5.5
+  - @contractspec/example.analytics-dashboard@3.5.5
+  - @contractspec/example.saas-boilerplate@3.5.5
+  - @contractspec/example.integration-hub@3.5.5
+  - @contractspec/example.workflow-system@3.5.5
+  - @contractspec/lib.example-shared-ui@4.0.5
+  - @contractspec/example.crm-pipeline@3.5.5
+  - @contractspec/example.marketplace@3.5.5
+  - @contractspec/lib.runtime-sandbox@2.5.5
+  - @contractspec/lib.surface-runtime@0.3.5
+  - @contractspec/lib.design-system@3.5.5
+  - @contractspec/lib.ui-kit-core@3.5.5
+  - @contractspec/module.examples@3.5.5
+  - @contractspec/lib.ui-kit-web@3.5.5
+  - @contractspec/lib.ui-link@3.5.5
+  - @contractspec/lib.logger@3.5.5
+  - @contractspec/lib.email@3.5.5
+
+## 3.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/lib.contracts-runtime-client-react@3.5.4
+  - @contractspec/example.analytics-dashboard@3.5.4
+  - @contractspec/example.saas-boilerplate@3.5.4
+  - @contractspec/example.integration-hub@3.5.4
+  - @contractspec/example.workflow-system@3.5.4
+  - @contractspec/example.agent-console@3.5.4
+  - @contractspec/lib.example-shared-ui@4.0.4
+  - @contractspec/example.crm-pipeline@3.5.4
+  - @contractspec/example.marketplace@3.5.4
+  - @contractspec/lib.runtime-sandbox@2.5.4
+  - @contractspec/lib.surface-runtime@0.3.4
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/lib.design-system@3.5.4
+  - @contractspec/lib.ui-kit-core@3.5.4
+  - @contractspec/module.examples@3.5.4
+  - @contractspec/bundle.library@3.5.4
+  - @contractspec/lib.ui-kit-web@3.5.4
+  - @contractspec/lib.ui-link@3.5.4
+  - @contractspec/lib.logger@3.5.4
+  - @contractspec/lib.email@3.5.4
+
+## 3.5.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+- Updated dependencies [b0b4da6]
+  - @contractspec/lib.contracts-runtime-client-react@3.5.3
+  - @contractspec/example.analytics-dashboard@3.5.3
+  - @contractspec/example.saas-boilerplate@3.5.3
+  - @contractspec/example.integration-hub@3.5.3
+  - @contractspec/example.workflow-system@3.5.3
+  - @contractspec/example.agent-console@3.5.3
+  - @contractspec/lib.example-shared-ui@4.0.3
+  - @contractspec/example.crm-pipeline@3.5.3
+  - @contractspec/example.marketplace@3.5.3
+  - @contractspec/lib.runtime-sandbox@2.5.3
+  - @contractspec/lib.surface-runtime@0.3.3
+  - @contractspec/lib.contracts-spec@3.5.3
+  - @contractspec/lib.design-system@3.5.3
+  - @contractspec/lib.ui-kit-core@3.5.3
+  - @contractspec/module.examples@3.5.3
+  - @contractspec/bundle.library@3.5.3
+  - @contractspec/lib.ui-kit-web@3.5.3
+  - @contractspec/lib.ui-link@3.5.3
+  - @contractspec/lib.logger@3.5.3
+  - @contractspec/lib.email@3.5.3
+
+## 3.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.contracts-runtime-client-react@3.5.2
+  - @contractspec/example.analytics-dashboard@3.5.2
+  - @contractspec/example.saas-boilerplate@3.5.2
+  - @contractspec/example.integration-hub@3.5.2
+  - @contractspec/example.workflow-system@3.5.2
+  - @contractspec/example.agent-console@3.5.2
+  - @contractspec/lib.example-shared-ui@4.0.2
+  - @contractspec/example.crm-pipeline@3.5.2
+  - @contractspec/example.marketplace@3.5.2
+  - @contractspec/lib.runtime-sandbox@2.5.2
+  - @contractspec/lib.surface-runtime@0.3.2
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/lib.design-system@3.5.2
+  - @contractspec/lib.ui-kit-core@3.5.2
+  - @contractspec/module.examples@3.5.2
+  - @contractspec/bundle.library@3.5.2
+  - @contractspec/lib.ui-kit-web@3.5.2
+  - @contractspec/lib.ui-link@3.5.2
+  - @contractspec/lib.logger@3.5.2
+  - @contractspec/lib.email@3.5.2
+
+## 3.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+- Updated dependencies [73a7f8d]
+- Updated dependencies [dfff0d4]
+- Updated dependencies [73a7f8d]
+  - @contractspec/lib.example-shared-ui@4.0.1
+  - @contractspec/lib.contracts-runtime-client-react@3.5.1
+  - @contractspec/example.analytics-dashboard@3.5.1
+  - @contractspec/example.saas-boilerplate@3.5.1
+  - @contractspec/example.integration-hub@3.5.1
+  - @contractspec/example.workflow-system@3.5.1
+  - @contractspec/example.agent-console@3.5.1
+  - @contractspec/example.crm-pipeline@3.5.1
+  - @contractspec/example.marketplace@3.5.1
+  - @contractspec/lib.runtime-sandbox@2.5.1
+  - @contractspec/lib.surface-runtime@0.3.1
+  - @contractspec/lib.contracts-spec@3.5.1
+  - @contractspec/lib.design-system@3.5.1
+  - @contractspec/lib.ui-kit-core@3.5.1
+  - @contractspec/module.examples@3.5.1
+  - @contractspec/bundle.library@3.5.1
+  - @contractspec/lib.ui-kit-web@3.5.1
+  - @contractspec/lib.ui-link@3.5.1
+  - @contractspec/lib.logger@3.5.1
+  - @contractspec/lib.email@3.5.1
+
 ## 3.5.0
 
 ### Minor Changes

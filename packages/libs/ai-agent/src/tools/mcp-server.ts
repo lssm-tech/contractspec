@@ -4,6 +4,7 @@ import type { AgentSpec } from '../spec/spec';
 import type { ContractSpecAgent } from '../agent/contract-spec-agent';
 import { jsonSchemaToZodSafe } from '../schema/json-schema-to-zod';
 import { createAgentI18n } from '../i18n';
+import { sanitizeMcpName } from '@contractspec/lib.contracts-spec/jsonschema';
 
 /**
  * Generate an MCP server that exposes a ContractSpec agent as a tool.
@@ -37,7 +38,7 @@ export function agentToMcpServer(
 
   // Expose agent as a conversational tool using registerTool
   server.registerTool(
-    spec.meta.key,
+    sanitizeMcpName(spec.meta.key),
     {
       description:
         spec.description ??
@@ -76,7 +77,7 @@ export function agentToMcpServer(
       : z.object({});
 
     server.registerTool(
-      `${spec.meta.key}.${toolConfig.name}`,
+      sanitizeMcpName(`${spec.meta.key}.${toolConfig.name}`),
       {
         description:
           toolConfig.description ??

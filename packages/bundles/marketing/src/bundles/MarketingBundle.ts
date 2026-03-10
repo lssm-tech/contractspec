@@ -84,8 +84,7 @@ export const MarketingBundle = defineModuleBundle({
         dimensions: {
           guidance:
             'Can reveal product tour, feature highlights, and contextual CTAs.',
-          density:
-            'Can select compact hero or detailed multi-section layouts.',
+          density: 'Can select compact hero or detailed multi-section layouts.',
           dataDepth: 'Controls section depth and inline expansion.',
           control: 'Shows advanced navigation when allowed.',
           media: 'Supports text-first, visual hero, and hybrid modes.',
@@ -139,8 +138,7 @@ export const MarketingBundle = defineModuleBundle({
           control: 'Shows filters and sort when allowed.',
           media: 'Supports card grid, list, and preview modes.',
           pace: 'Maps to modal and transition behavior.',
-          narrative:
-            'Can order featured templates before or after full list.',
+          narrative: 'Can order featured templates before or after full list.',
         },
       },
     },
@@ -186,8 +184,7 @@ export const MarketingBundle = defineModuleBundle({
           control: 'Shows filters and version navigation when allowed.',
           media: 'Supports text-first and code-highlight modes.',
           pace: 'Maps to scroll and expand behavior.',
-          narrative:
-            'Can order newest-first or oldest-first chronology.',
+          narrative: 'Can order newest-first or oldest-first chronology.',
         },
       },
     },
@@ -233,8 +230,7 @@ export const MarketingBundle = defineModuleBundle({
           control: 'Shows pricing and plan details when allowed.',
           media: 'Supports text-first and visual feature modes.',
           pace: 'Maps to section transitions.',
-          narrative:
-            'Can order value prop before or after feature details.',
+          narrative: 'Can order value prop before or after feature details.',
         },
       },
     },
@@ -280,8 +276,7 @@ export const MarketingBundle = defineModuleBundle({
           control: 'Shows additional contact options when allowed.',
           media: 'Supports text-first form and hybrid modes.',
           pace: 'Maps to validation and submit feedback.',
-          narrative:
-            'Can order form before or after contact info.',
+          narrative: 'Can order form before or after contact info.',
         },
       },
     },

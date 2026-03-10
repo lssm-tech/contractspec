@@ -107,7 +107,7 @@ describe('alpic MCP registration', () => {
     registerAlpicTools(server as unknown as McpServer);
 
     expect(server.tools).toHaveLength(1);
-    expect(server.tools[0]?.name).toBe('alpic.ping');
+    expect(server.tools[0]?.name).toBe('alpic_ping');
 
     const result = await server.tools[0]?.handler({ message: 'hello' });
     const payload = JSON.parse(result?.content[0]?.text || '') as {

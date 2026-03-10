@@ -144,12 +144,12 @@
     "contentPath": "unknown/docs.reference.page.md"
   },
   {
-    "id": "unknown/docs.search",
-    "title": "docs.search",
+    "id": "unknown/docs_search",
+    "title": "docs_search",
     "summary": "Search and filter DocBlocks by query, tag, or visibility.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: search, index\n- **File**: `packages/libs/contracts-spec/src/docs/queries/docsIndex.query.ts`",
-    "route": "/docs/reference/unknown/docs.search",
+    "route": "/docs/reference/unknown/docs_search",
     "source": "generated",
-    "contentPath": "unknown/docs.search.md"
+    "contentPath": "unknown/docs_search.md"
   },
   {
     "id": "unknown/docs.system",

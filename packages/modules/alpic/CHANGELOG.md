@@ -1,5 +1,51 @@
 # @contractspec/module.alpic
 
+## 3.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [27b77db]
+- Updated dependencies [693eedd]
+  - @contractspec/lib.contracts-spec@3.5.5
+  - @contractspec/lib.logger@3.5.5
+
+## 3.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- f5d4816: Standardize MCP tool naming from dot notation to underscore notation for MCP protocol compatibility. Update docs, docblocks, and generated indexes accordingly. Path resolver and fixture updates.
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/lib.logger@3.5.4
+
+## 3.5.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+- Updated dependencies [b0b4da6]
+  - @contractspec/lib.logger@3.5.3
+
+## 3.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.logger@3.5.2
+
+## 3.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+- 73a7f8d: Update MCP server tools and registerTools in ai-agent, contracts-runtime-server-mcp, and alpic.
+- Updated dependencies [dfff0d4]
+  - @contractspec/lib.logger@3.5.1
+
 ## 3.5.0
 
 ### Minor Changes

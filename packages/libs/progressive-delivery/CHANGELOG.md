@@ -1,5 +1,45 @@
 # @contractspec/lib.progressive-delivery
 
+## 32.0.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [693eedd]
+  - @contractspec/lib.observability@3.5.5
+
+## 32.0.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+  - @contractspec/lib.observability@3.5.4
+
+## 32.0.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+- Updated dependencies [b0b4da6]
+  - @contractspec/lib.observability@3.5.3
+
+## 32.0.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.observability@3.5.2
+
+## 32.0.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+- Updated dependencies [dfff0d4]
+  - @contractspec/lib.observability@3.5.1
+
 ## 32.0.0
 
 ### Minor Changes

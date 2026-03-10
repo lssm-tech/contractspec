@@ -28,18 +28,27 @@ const MODEL_PROVIDERS = [
   {
     value: 'openai',
     label: 'OpenAI',
-    models: ['gpt-4o', 'gpt-4-turbo', 'gpt-3.5-turbo'],
+    models: ['gpt-5.4', 'gpt-5-mini', 'gpt-4o', 'gpt-4-turbo', 'gpt-3.5-turbo'],
   },
   {
     value: 'anthropic',
     label: 'Anthropic',
-    models: ['claude-3-opus', 'claude-3-sonnet', 'claude-3-haiku'],
+    models: ['claude-sonnet-4-6', 'claude-opus-4-6', 'claude-haiku-4-5'],
   },
-  { value: 'google', label: 'Google', models: ['gemini-pro', 'gemini-ultra'] },
+  {
+    value: 'google',
+    label: 'Google',
+    models: ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-pro', 'gemini-ultra'],
+  },
   {
     value: 'mistral',
     label: 'Mistral',
-    models: ['mistral-large', 'mistral-medium', 'mistral-small'],
+    models: [
+      'mistral-large-2512',
+      'mistral-large-latest',
+      'mistral-medium-latest',
+      'mistral-small-latest',
+    ],
   },
 ] as const;
 
@@ -54,7 +63,7 @@ export function CreateAgentModal({
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [modelProvider, setModelProvider] = useState<ModelProvider>('openai');
-  const [modelName, setModelName] = useState('gpt-4o');
+  const [modelName, setModelName] = useState('gpt-5.4');
   const [systemPrompt, setSystemPrompt] = useState('');
   const [error, setError] = useState<string | null>(null);
 
@@ -85,7 +94,7 @@ export function CreateAgentModal({
       setName('');
       setDescription('');
       setModelProvider('openai');
-      setModelName('gpt-4o');
+      setModelName('gpt-5.4');
       setSystemPrompt('');
       onClose();
     } catch (err) {

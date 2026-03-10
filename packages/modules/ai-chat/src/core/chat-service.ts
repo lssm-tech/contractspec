@@ -36,10 +36,7 @@ import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow';
 import type { WorkspaceContext } from '../context/workspace-context';
 import type { ConversationStore } from './conversation-store';
 import { InMemoryConversationStore } from './conversation-store';
-import {
-  getProviderOptions,
-  type ThinkingLevel,
-} from './thinking-levels';
+import { getProviderOptions, type ThinkingLevel } from './thinking-levels';
 import { createWorkflowTools } from './workflow-tools';
 import {
   buildContractsContextPrompt,
@@ -105,7 +102,9 @@ export interface ChatServiceConfig {
   /** Surface plan config: enables propose-patch tool when used in surface-runtime */
   surfacePlanConfig?: {
     plan: ResolvedSurfacePlan;
-    onPatchProposal?: (proposal: import('@contractspec/lib.surface-runtime/spec/types').SurfacePatchProposal) => void;
+    onPatchProposal?: (
+      proposal: import('@contractspec/lib.surface-runtime/spec/types').SurfacePatchProposal
+    ) => void;
   };
   /** MCP tools (from createMcpToolsets); merged when provided */
   mcpTools?: ToolSet;
@@ -180,7 +179,9 @@ export class ChatService {
       base += contractsPrompt;
     }
     if (config.surfacePlanConfig?.plan) {
-      const plannerInput = buildPlannerPromptInput(config.surfacePlanConfig.plan);
+      const plannerInput = buildPlannerPromptInput(
+        config.surfacePlanConfig.plan
+      );
       base += '\n\n' + compilePlannerPrompt(plannerInput);
     }
     return base;
@@ -198,7 +199,8 @@ export class ChatService {
     }
     const contractsCtx = config.contractsContext;
     if (contractsCtx?.agentSpecs?.length) {
-      const allTools: import('@contractspec/lib.ai-agent').AgentToolConfig[] = [];
+      const allTools: import('@contractspec/lib.ai-agent').AgentToolConfig[] =
+        [];
       for (const agent of contractsCtx.agentSpecs) {
         if (agent.tools?.length) allTools.push(...agent.tools);
       }
@@ -301,7 +303,9 @@ export class ChatService {
         tools: this.tools,
         providerOptions:
           Object.keys(providerOptions).length > 0
-            ? (providerOptions as Parameters<typeof generateText>[0]['providerOptions'])
+            ? (providerOptions as Parameters<
+                typeof generateText
+              >[0]['providerOptions'])
             : undefined,
       });
 

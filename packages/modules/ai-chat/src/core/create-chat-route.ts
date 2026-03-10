@@ -62,7 +62,10 @@ export function createChatRoute(
 
     let body: { messages?: unknown[]; thinkingLevel?: unknown };
     try {
-      body = (await req.json()) as { messages?: unknown[]; thinkingLevel?: unknown };
+      body = (await req.json()) as {
+        messages?: unknown[];
+        thinkingLevel?: unknown;
+      };
     } catch {
       return new Response('Invalid JSON body', { status: 400 });
     }
@@ -72,8 +75,8 @@ export function createChatRoute(
       return new Response('messages array required', { status: 400 });
     }
 
-    const thinkingLevel = (body.thinkingLevel as ThinkingLevel | undefined) ??
-      defaultThinkingLevel;
+    const thinkingLevel =
+      (body.thinkingLevel as ThinkingLevel | undefined) ?? defaultThinkingLevel;
     const providerOptions = getProviderOptions(thinkingLevel, provider.name);
 
     const model = provider.getModel();
@@ -85,7 +88,9 @@ export function createChatRoute(
       tools,
       providerOptions:
         Object.keys(providerOptions).length > 0
-          ? (providerOptions as Parameters<typeof streamText>[0]['providerOptions'])
+          ? (providerOptions as Parameters<
+              typeof streamText
+            >[0]['providerOptions'])
           : undefined,
     });
 

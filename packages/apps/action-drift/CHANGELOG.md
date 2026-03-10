@@ -1,5 +1,53 @@
 # Changelog
 
+## 2.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [27b77db]
+- Updated dependencies [693eedd]
+  - @contractspec/lib.contracts-spec@3.5.5
+  - @contractspec/bundle.workspace@3.5.5
+
+## 2.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/bundle.workspace@3.5.4
+
+## 2.5.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+- Updated dependencies [b0b4da6]
+  - @contractspec/lib.contracts-spec@3.5.3
+  - @contractspec/bundle.workspace@3.5.3
+
+## 2.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/bundle.workspace@3.5.2
+
+## 2.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+- Updated dependencies [dfff0d4]
+- Updated dependencies [73a7f8d]
+  - @contractspec/lib.contracts-spec@3.5.1
+  - @contractspec/bundle.workspace@3.5.1
+
 ## 2.5.0
 
 ### Minor Changes

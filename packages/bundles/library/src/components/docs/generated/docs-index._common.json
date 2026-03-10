@@ -560,12 +560,12 @@
     "contentPath": "_common/docs.reference.page.md"
   },
   {
-    "id": "_common/docs.search",
-    "title": "docs.search",
+    "id": "_common/docs_search",
+    "title": "docs_search",
     "summary": "Search and filter DocBlocks by query, tag, or visibility.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: search, index\n- **File**: `packages/libs/contracts-spec/src/docs/queries/docsIndex.query.ts`",
-    "route": "/docs/reference/_common/docs.search",
+    "route": "/docs/reference/_common/docs_search",
     "source": "generated",
-    "contentPath": "_common/docs.search.md"
+    "contentPath": "_common/docs_search.md"
   },
   {
     "id": "_common/docs.system",

@@ -1,5 +1,35 @@
 # @contractspec/lib.schema
 
+## 3.5.5
+
+### Patch Changes
+
+- 693eedd: chore: improve ai models
+
+## 3.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+
+## 3.5.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+
+## 3.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+
+## 3.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+
 ## 3.5.0
 
 ### Minor Changes

@@ -23,7 +23,7 @@ The result is a consistent docs surface across CLI, web, and MCP.
 ## Key surfaces
 
 - Generation: \`docs.generate\`
-- Index/search: \`docs.search\`
+- Index/search: \`docs_search\`
 - Contract reference: \`docs.contract.reference\`
 - Publish: \`docs.publish\`
 `,
@@ -61,7 +61,7 @@ The docs index is the canonical list of DocBlocks exposed to UI and MCP surfaces
 
 ## Query
 
-- Operation: \`docs.search\`
+- Operation: \`docs_search\`
 - Filters: query, tag, kind, visibility
 `,
   },

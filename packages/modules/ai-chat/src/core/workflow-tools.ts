@@ -67,9 +67,7 @@ export interface WorkflowToolsConfig {
  * Create AI SDK tools for workflow creation.
  * Tools: create_workflow_extension, compose_workflow, generate_workflow_spec_code.
  */
-export function createWorkflowTools(
-  config: WorkflowToolsConfig
-): ToolSet {
+export function createWorkflowTools(config: WorkflowToolsConfig): ToolSet {
   const { baseWorkflows, composer } = config;
   const baseByKey = new Map(baseWorkflows.map((b) => [b.meta.key, b]));
 
@@ -209,7 +207,12 @@ export function createWorkflowTools(
 
       const stepsCode = steps
         .map(
-          (s: { id: string; type: string; label: string; description?: string }) =>
+          (s: {
+            id: string;
+            type: string;
+            label: string;
+            description?: string;
+          }) =>
             `    {
       id: '${s.id}',
       type: '${s.type}',

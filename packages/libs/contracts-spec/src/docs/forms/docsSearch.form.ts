@@ -20,7 +20,7 @@ const DocsSearchFormModel = new SchemaModel({
 
 export const DocsSearchForm = defineFormSpec({
   meta: {
-    key: 'docs.search.form',
+    key: 'docs_search.form',
     title: 'Docs Search',
     version: '1.0.0',
     description: 'Search form for documentation discovery.',

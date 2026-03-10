@@ -3,6 +3,7 @@ import { mistral } from '@ai-sdk/mistral';
 import { openai } from '@ai-sdk/openai';
 import { ollama } from 'ollama-ai-provider';
 import type { LanguageModel } from 'ai';
+import { DEFAULT_MODELS, getModelsForProvider } from '@contractspec/lib.ai-providers/models';
 import type { Config } from '../utils/config';
 
 /**
@@ -13,17 +14,17 @@ export function getAIProvider(config: Config): LanguageModel {
 
   switch (aiProvider) {
     case 'claude': {
-      const model = aiModel || 'claude-3-5-sonnet-20241022';
+      const model = aiModel || DEFAULT_MODELS.anthropic;
       return anthropic(model);
     }
 
     case 'openai': {
-      const model = aiModel || 'gpt-4o';
+      const model = aiModel || DEFAULT_MODELS.openai;
       return openai(model);
     }
 
     case 'mistral': {
-      const model = aiModel || 'mistral-large-latest';
+      const model = aiModel || DEFAULT_MODELS.mistral;
       return mistral(model);
     }
 
@@ -103,21 +104,11 @@ export async function validateProvider(
 export function getRecommendedModels(provider: Config['aiProvider']): string[] {
   switch (provider) {
     case 'claude':
-      return [
-        'claude-3-5-sonnet-20241022',
-        'claude-3-opus-20240229',
-        'claude-3-sonnet-20240229',
-      ];
+      return getModelsForProvider('anthropic').map((m) => m.id);
     case 'openai':
-      return ['gpt-4o', 'gpt-4-turbo', 'gpt-3.5-turbo'];
+      return getModelsForProvider('openai').map((m) => m.id);
     case 'mistral':
-      return [
-        'mistral-large-latest',
-        'mistral-medium-latest',
-        'mistral-small-latest',
-        'codestral-latest',
-        'devstral-small-latest',
-      ];
+      return getModelsForProvider('mistral').map((m) => m.id);
     case 'ollama':
       return ['codellama', 'llama3.1', 'mistral', 'deepseek-coder'];
     case 'custom':

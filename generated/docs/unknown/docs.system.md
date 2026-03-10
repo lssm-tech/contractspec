@@ -41,7 +41,7 @@ export const DocumentationSystemCapability = defineCapability({
     },
     {
       surface: 'operation',
-      key: 'docs.search',
+      key: 'docs_search',
       version: '1.0.0',
       description: 'Index and search DocBlocks.',
     },

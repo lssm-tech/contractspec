@@ -86,7 +86,9 @@ describe('surface-planner-tools', () => {
         opsCount: 1,
       });
       expect(proposals).toHaveLength(1);
-      expect((proposals[0] as { proposalId: string }).proposalId).toBe('prop-1');
+      expect((proposals[0] as { proposalId: string }).proposalId).toBe(
+        'prop-1'
+      );
     });
 
     test('propose-patch returns error for invalid slot', async () => {

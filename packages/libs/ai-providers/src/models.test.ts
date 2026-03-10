@@ -18,6 +18,10 @@ describe('models', () => {
 
     expect(mistralModels).toEqual(
       expect.arrayContaining([
+        'mistral-large-2512',
+        'devstral-2512',
+        'mistral-medium-2508',
+        'mistral-small-2506',
         'mistral-large-latest',
         'mistral-medium-latest',
         'mistral-small-latest',

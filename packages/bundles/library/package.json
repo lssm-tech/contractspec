@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/bundle.library",
-  "version": "3.5.0",
+  "version": "3.5.5",
   "type": "module",
   "scripts": {
     "clean": "rm -rf dist",
@@ -381,6 +381,7 @@
   },
   "dependencies": {
     "@apollo/client": "^4.1.6",
+    "@contractspec/lib.ai-providers": "workspace:*",
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.contracts-library": "workspace:*",
     "@contractspec/lib.content-gen": "workspace:*",

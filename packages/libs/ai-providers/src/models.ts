@@ -8,10 +8,10 @@ import type { ModelInfo, ProviderName } from './types';
  */
 export const DEFAULT_MODELS: Record<ProviderName, string> = {
   ollama: 'llama3.2',
-  openai: 'gpt-4o',
-  anthropic: 'claude-sonnet-4-20250514',
+  openai: 'gpt-5.4',
+  anthropic: 'claude-sonnet-4-6',
   mistral: 'mistral-large-latest',
-  gemini: 'gemini-2.0-flash',
+  gemini: 'gemini-2.5-flash',
 };
 
 /**
@@ -70,6 +70,19 @@ export const MODELS: ModelInfo[] = [
 
   // OpenAI
   {
+    id: 'gpt-5.4',
+    name: 'GPT-5.4',
+    provider: 'openai',
+    contextWindow: 1000000,
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: true,
+      streaming: true,
+    },
+    costPerMillion: { input: 2.5, output: 15 },
+  },
+  {
     id: 'gpt-4o',
     name: 'GPT-4o',
     provider: 'openai',
@@ -121,8 +134,60 @@ export const MODELS: ModelInfo[] = [
     },
     costPerMillion: { input: 3, output: 12 },
   },
+  {
+    id: 'gpt-5-mini',
+    name: 'GPT-5 Mini',
+    provider: 'openai',
+    contextWindow: 400000,
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: false,
+      streaming: true,
+    },
+    costPerMillion: { input: 0.25, output: 2 },
+  },
 
   // Anthropic
+  {
+    id: 'claude-opus-4-6',
+    name: 'Claude Opus 4.6',
+    provider: 'anthropic',
+    contextWindow: 200000,
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: true,
+      streaming: true,
+    },
+    costPerMillion: { input: 5, output: 25 },
+  },
+  {
+    id: 'claude-sonnet-4-6',
+    name: 'Claude Sonnet 4.6',
+    provider: 'anthropic',
+    contextWindow: 200000,
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: true,
+      streaming: true,
+    },
+    costPerMillion: { input: 3, output: 15 },
+  },
+  {
+    id: 'claude-haiku-4-5',
+    name: 'Claude Haiku 4.5',
+    provider: 'anthropic',
+    contextWindow: 200000,
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: false,
+      streaming: true,
+    },
+    costPerMillion: { input: 1, output: 5 },
+  },
   {
     id: 'claude-sonnet-4-20250514',
     name: 'Claude Sonnet 4',
@@ -164,6 +229,57 @@ export const MODELS: ModelInfo[] = [
   },
 
   // Mistral
+  {
+    id: 'mistral-large-2512',
+    name: 'Mistral Large 3',
+    provider: 'mistral',
+    contextWindow: 256000,
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: false,
+      streaming: true,
+    },
+    costPerMillion: { input: 0.5, output: 1.5 },
+  },
+  {
+    id: 'devstral-2512',
+    name: 'Devstral 2',
+    provider: 'mistral',
+    contextWindow: 256000,
+    capabilities: {
+      vision: false,
+      tools: true,
+      reasoning: true,
+      streaming: true,
+    },
+    costPerMillion: { input: 0.4, output: 2 },
+  },
+  {
+    id: 'mistral-medium-2508',
+    name: 'Mistral Medium 3.1',
+    provider: 'mistral',
+    contextWindow: 128000,
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: false,
+      streaming: true,
+    },
+    costPerMillion: { input: 0.4, output: 2 },
+  },
+  {
+    id: 'mistral-small-2506',
+    name: 'Mistral Small 3.2',
+    provider: 'mistral',
+    contextWindow: 128000,
+    capabilities: {
+      vision: false,
+      tools: true,
+      reasoning: false,
+      streaming: true,
+    },
+  },
   {
     id: 'mistral-large-latest',
     name: 'Mistral Large',
@@ -291,6 +407,42 @@ export const MODELS: ModelInfo[] = [
       streaming: true,
     },
     costPerMillion: { input: 0.15, output: 0.6 },
+  },
+  {
+    id: 'gemini-3.1-pro-preview',
+    name: 'Gemini 3.1 Pro',
+    provider: 'gemini',
+    contextWindow: 1000000,
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: true,
+      streaming: true,
+    },
+  },
+  {
+    id: 'gemini-3.1-flash-lite-preview',
+    name: 'Gemini 3.1 Flash-Lite',
+    provider: 'gemini',
+    contextWindow: 1000000,
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: true,
+      streaming: true,
+    },
+  },
+  {
+    id: 'gemini-3-flash-preview',
+    name: 'Gemini 3 Flash',
+    provider: 'gemini',
+    contextWindow: 1000000,
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: false,
+      streaming: true,
+    },
   },
 ];
 

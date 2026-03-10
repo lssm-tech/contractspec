@@ -84,11 +84,11 @@ function buildPath(baseDir: string, key: string, specType: string): string {
   // Convert key to file name
   // Logic:
   // - If key matches spec type (e.g. "billing" for a billing op), keep it simple
-  // - Replace dots with dashes? Or keep dots? User mentioned "docs.search" -> "search.ts" or "search.operation.ts"
+  // - Replace dots with dashes? Or keep dots? User mentioned "docs_search" -> "search.ts" or "search.operation.ts"
   // Let's try to be smart: if key namespace matches package/domain, simplify.
 
   // Simple for now: normalized key
-  // "docs.search" -> "docs-search"
+  // "docs_search" -> "docs-search"
   // "search" -> "search"
   const fileName = key.replace(/\./g, '-').toLowerCase();
 

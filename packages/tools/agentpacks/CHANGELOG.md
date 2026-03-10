@@ -1,5 +1,43 @@
 # agentpacks
 
+## 1.5.5
+
+### Patch Changes
+
+- 27b77db: feat(ai-models): add latest models and align defaults
+  - Add claude-opus-4-6, claude-sonnet-4-6, claude-haiku-4-5, gpt-5.4, gpt-5-mini
+  - Add mistral-large-2512, mistral-medium-2508, mistral-small-2506, devstral-2512
+  - Add gemini-3.1-pro-preview, gemini-3.1-flash-lite-preview, gemini-3-flash-preview
+  - Fix GPT-5.4 cost and context window; update default models to claude-sonnet-4-6
+  - Enrich provider-ranking MCP with cost from ai-providers when store has none
+  - Update model allowlist for gpt-5 and gemini 3.x; align agentpacks templates
+
+- 693eedd: chore: improve ai models
+
+## 1.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+
+## 1.5.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+
+## 1.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+
+## 1.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+
 ## 1.5.0
 
 ### Minor Changes

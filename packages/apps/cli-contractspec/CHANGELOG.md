@@ -1,5 +1,114 @@
 # Changelog
 
+## 3.5.5
+
+### Patch Changes
+
+- 27b77db: feat(ai-models): add latest models and align defaults
+  - Add claude-opus-4-6, claude-sonnet-4-6, claude-haiku-4-5, gpt-5.4, gpt-5-mini
+  - Add mistral-large-2512, mistral-medium-2508, mistral-small-2506, devstral-2512
+  - Add gemini-3.1-pro-preview, gemini-3.1-flash-lite-preview, gemini-3-flash-preview
+  - Fix GPT-5.4 cost and context window; update default models to claude-sonnet-4-6
+  - Enrich provider-ranking MCP with cost from ai-providers when store has none
+  - Update model allowlist for gpt-5 and gemini 3.x; align agentpacks templates
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [27b77db]
+- Updated dependencies [693eedd]
+  - @contractspec/lib.ai-providers@3.5.5
+  - @contractspec/lib.contracts-spec@3.5.5
+  - @contractspec/lib.ai-agent@5.0.5
+  - @contractspec/bundle.workspace@3.5.5
+  - @contractspec/lib.contracts-integrations@3.5.5
+  - @contractspec/lib.contracts-transformers@3.5.5
+  - @contractspec/module.workspace@3.5.5
+  - @contractspec/module.examples@3.5.5
+  - @contractspec/module.ai-chat@4.1.5
+  - @contractspec/lib.plugins@3.5.5
+  - @contractspec/lib.testing@3.5.5
+  - @contractspec/lib.schema@3.5.5
+
+## 3.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/lib.contracts-integrations@3.5.4
+  - @contractspec/lib.contracts-transformers@3.5.4
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/bundle.workspace@3.5.4
+  - @contractspec/lib.ai-providers@3.5.4
+  - @contractspec/module.workspace@3.5.4
+  - @contractspec/module.examples@3.5.4
+  - @contractspec/module.ai-chat@4.1.4
+  - @contractspec/lib.ai-agent@5.0.4
+  - @contractspec/lib.plugins@3.5.4
+  - @contractspec/lib.testing@3.5.4
+  - @contractspec/lib.schema@3.5.4
+
+## 3.5.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+- Updated dependencies [b0b4da6]
+- Updated dependencies [56ae36d]
+  - @contractspec/lib.contracts-integrations@3.5.3
+  - @contractspec/lib.contracts-transformers@3.5.3
+  - @contractspec/lib.contracts-spec@3.5.3
+  - @contractspec/bundle.workspace@3.5.3
+  - @contractspec/lib.ai-providers@3.5.3
+  - @contractspec/module.workspace@3.5.3
+  - @contractspec/module.examples@3.5.3
+  - @contractspec/module.ai-chat@4.1.3
+  - @contractspec/lib.ai-agent@5.0.3
+  - @contractspec/lib.plugins@3.5.3
+  - @contractspec/lib.testing@3.5.3
+  - @contractspec/lib.schema@3.5.3
+
+## 3.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.contracts-integrations@3.5.2
+  - @contractspec/lib.contracts-transformers@3.5.2
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/bundle.workspace@3.5.2
+  - @contractspec/lib.ai-providers@3.5.2
+  - @contractspec/module.workspace@3.5.2
+  - @contractspec/module.examples@3.5.2
+  - @contractspec/module.ai-chat@4.1.2
+  - @contractspec/lib.ai-agent@5.0.2
+  - @contractspec/lib.plugins@3.5.2
+  - @contractspec/lib.testing@3.5.2
+  - @contractspec/lib.schema@3.5.2
+
+## 3.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+- Updated dependencies [73a7f8d]
+- Updated dependencies [dfff0d4]
+- Updated dependencies [73a7f8d]
+- Updated dependencies [73a7f8d]
+  - @contractspec/module.ai-chat@4.1.1
+  - @contractspec/lib.contracts-integrations@3.5.1
+  - @contractspec/lib.contracts-transformers@3.5.1
+  - @contractspec/lib.contracts-spec@3.5.1
+  - @contractspec/bundle.workspace@3.5.1
+  - @contractspec/lib.ai-providers@3.5.1
+  - @contractspec/module.workspace@3.5.1
+  - @contractspec/module.examples@3.5.1
+  - @contractspec/lib.ai-agent@5.0.1
+  - @contractspec/lib.plugins@3.5.1
+  - @contractspec/lib.testing@3.5.1
+  - @contractspec/lib.schema@3.5.1
+
 ## 3.5.0
 
 ### Minor Changes

@@ -19,6 +19,7 @@ import type {
   ProviderTransportSupport,
   ProviderAuthSupport,
 } from '@contractspec/lib.provider-ranking/types';
+import { getModelInfo } from '@contractspec/lib.ai-providers/models';
 import { InMemoryProviderRankingStore } from '@contractspec/lib.provider-ranking/in-memory-store';
 import { createDefaultIngesterRegistry } from '@contractspec/lib.provider-ranking/ingesters';
 import { computeModelRankings } from '@contractspec/lib.provider-ranking/scoring';
@@ -145,10 +146,31 @@ function buildRankingResources() {
             data: JSON.stringify({ error: 'not_found', modelId }),
           };
         }
+        // Enrich with cost from ai-providers when store has none
+        const enriched =
+          profile.costPerMillion == null
+            ? (() => {
+                const info = getModelInfo(profile.modelId);
+                return info?.costPerMillion
+                  ? {
+                      ...profile,
+                      costPerMillion: info.costPerMillion,
+                      displayName: info.name,
+                      contextWindow: info.contextWindow,
+                      capabilities: [
+                        ...(info.capabilities.vision ? ['vision'] : []),
+                        ...(info.capabilities.tools ? ['tools'] : []),
+                        ...(info.capabilities.reasoning ? ['reasoning'] : []),
+                        ...(info.capabilities.streaming ? ['streaming'] : []),
+                      ],
+                    }
+                  : profile;
+              })()
+            : profile;
         return {
           uri: `ranking://model/${encodeURIComponent(modelId)}`,
           mimeType: 'application/json',
-          data: JSON.stringify(profile, null, 2),
+          data: JSON.stringify(enriched, null, 2),
         };
       },
     })

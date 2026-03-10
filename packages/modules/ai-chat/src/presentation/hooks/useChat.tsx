@@ -24,7 +24,7 @@ import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow';
 import type { ContractsContextConfig } from '../../core/contracts-context';
 import type { ResolvedSurfacePlan } from '@contractspec/lib.surface-runtime/runtime/resolve-bundle';
 import type { SurfacePatchProposal } from '@contractspec/lib.surface-runtime/spec/types';
-import type { McpClientConfig } from '@contractspec/lib.ai-agent/tools/mcp-client';
+import type { McpClientConfig } from '@contractspec/lib.ai-agent/tools/mcp-client.browser';
 
 /** Tool definition for planner integration (reserved for bundle spec 07_ai_native_chat). */
 export interface UseChatToolDef {
@@ -179,9 +179,10 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   } = options;
 
   const [messages, setMessages] = React.useState<ChatMessage[]>([]);
-  const [mcpTools, setMcpTools] = React.useState<Record<string, unknown> | null>(
-    null
-  );
+  const [mcpTools, setMcpTools] = React.useState<Record<
+    string,
+    unknown
+  > | null>(null);
   const mcpCleanupRef = React.useRef<(() => Promise<void>) | null>(null);
   const [conversation, setConversation] =
     React.useState<ChatConversation | null>(null);
@@ -201,7 +202,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
       return;
     }
     let cancelled = false;
-    import('@contractspec/lib.ai-agent/tools/mcp-client').then(
+    import('@contractspec/lib.ai-agent/tools/mcp-client.browser').then(
       ({ createMcpToolsets }) => {
         createMcpToolsets(mcpServers)
           .then(({ tools, cleanup }) => {
@@ -315,7 +316,9 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
           });
           const toolCallsMap = new Map<string, ChatToolCall>();
           for (const tc of result.toolCalls ?? []) {
-            const tr = result.toolResults?.find((r) => r.toolCallId === tc.toolCallId);
+            const tr = result.toolResults?.find(
+              (r) => r.toolCallId === tc.toolCallId
+            );
             toolCallsMap.set(tc.toolCallId, {
               id: tc.toolCallId,
               name: tc.toolName,
@@ -573,7 +576,17 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
         abortControllerRef.current = null;
       }
     },
-    [conversationId, streaming, onSend, onResponse, onError, onUsage, messages, agentMode, store]
+    [
+      conversationId,
+      streaming,
+      onSend,
+      onResponse,
+      onError,
+      onUsage,
+      messages,
+      agentMode,
+      store,
+    ]
   );
 
   const clearConversation = React.useCallback(() => {
@@ -614,11 +627,9 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
       const msg = messages.find((m) => m.id === messageId);
       if (!msg || msg.role !== 'user') return;
 
-      await chatServiceRef.current.updateMessage(
-        conversationId,
-        messageId,
-        { content: newContent }
-      );
+      await chatServiceRef.current.updateMessage(conversationId, messageId, {
+        content: newContent,
+      });
       const truncated = await chatServiceRef.current.truncateAfter(
         conversationId,
         messageId

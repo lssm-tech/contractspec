@@ -144,7 +144,7 @@ describe('ContractSpecAgent', () => {
         },
         escalation: {
           confidenceThreshold: 0.7,
-          approvalWorkflow: 'approval.workflow.v1',
+          approvalWorkflow: 'approval_workflow_v1',
         },
       },
     };
@@ -164,7 +164,7 @@ describe('ContractSpecAgent', () => {
       maxSteps: 2,
     });
 
-    expect(result.pendingApproval?.toolName).toBe('approval.workflow.v1');
+    expect(result.pendingApproval?.toolName).toBe('approval_workflow_v1');
 
     const session = await sessionStore.get('sess-timeout');
     expect(session?.status).toBe('escalated');

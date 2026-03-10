@@ -6,7 +6,10 @@ import { ChatMessage } from './ChatMessage';
 import { ChatExportToolbar } from './ChatExportToolbar';
 import { ThinkingLevelPicker } from './ThinkingLevelPicker';
 import { useMessageSelection } from '../hooks/useMessageSelection';
-import type { ChatMessage as ChatMessageType, ChatConversation } from '../../core/message-types';
+import type {
+  ChatMessage as ChatMessageType,
+  ChatConversation,
+} from '../../core/message-types';
 import type { ThinkingLevel } from '../../core/thinking-levels';
 
 export interface ChatWithExportProps {
@@ -59,10 +62,7 @@ export function ChatWithExport({
   presentationRenderer,
   formRenderer,
 }: ChatWithExportProps) {
-  const messageIds = React.useMemo(
-    () => messages.map((m) => m.id),
-    [messages]
-  );
+  const messageIds = React.useMemo(() => messages.map((m) => m.id), [messages]);
   const selection = useMessageSelection(messageIds);
 
   const hasToolbar = showExport || showMessageSelection;

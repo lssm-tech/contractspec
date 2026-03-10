@@ -23,9 +23,7 @@ function toIsoString(date: Date): string {
 }
 
 /** Serialize a message for JSON export (dates as ISO strings) */
-function messageToJsonSerializable(
-  msg: ChatMessage
-): Record<string, unknown> {
+function messageToJsonSerializable(msg: ChatMessage): Record<string, unknown> {
   return {
     id: msg.id,
     conversationId: msg.conversationId,
@@ -50,9 +48,7 @@ function formatSourcesMarkdown(sources: ChatSource[]): string {
   if (sources.length === 0) return '';
   return (
     '\n\n**Sources:**\n' +
-    sources
-      .map((s) => `- [${s.title}](${s.url ?? '#'})`)
-      .join('\n')
+    sources.map((s) => `- [${s.title}](${s.url ?? '#'})`).join('\n')
   );
 }
 
@@ -61,9 +57,7 @@ function formatSourcesTxt(sources: ChatSource[]): string {
   if (sources.length === 0) return '';
   return (
     '\n\nSources:\n' +
-    sources
-      .map((s) => `- ${s.title}${s.url ? ` - ${s.url}` : ''}`)
-      .join('\n')
+    sources.map((s) => `- ${s.title}${s.url ? ` - ${s.url}` : ''}`).join('\n')
   );
 }
 
@@ -104,7 +98,10 @@ function formatToolCallsTxt(toolCalls: ChatToolCall[]): string {
 }
 
 /** Format usage for display */
-function formatUsage(usage: { inputTokens: number; outputTokens: number }): string {
+function formatUsage(usage: {
+  inputTokens: number;
+  outputTokens: number;
+}): string {
   const total = usage.inputTokens + usage.outputTokens;
   return ` (${total} tokens)`;
 }
@@ -116,7 +113,12 @@ export function formatMessagesAsMarkdown(messages: ChatMessage[]): string {
   const parts: string[] = [];
 
   for (const msg of messages) {
-    const roleLabel = msg.role === 'user' ? 'User' : msg.role === 'assistant' ? 'Assistant' : 'System';
+    const roleLabel =
+      msg.role === 'user'
+        ? 'User'
+        : msg.role === 'assistant'
+          ? 'Assistant'
+          : 'System';
     const header = `## ${roleLabel}`;
     const timestamp = `*${formatTimestamp(msg.createdAt)}*`;
     const usageSuffix = msg.usage ? formatUsage(msg.usage) : '';
@@ -145,7 +147,12 @@ export function formatMessagesAsTxt(messages: ChatMessage[]): string {
   const parts: string[] = [];
 
   for (const msg of messages) {
-    const roleLabel = msg.role === 'user' ? 'User' : msg.role === 'assistant' ? 'Assistant' : 'System';
+    const roleLabel =
+      msg.role === 'user'
+        ? 'User'
+        : msg.role === 'assistant'
+          ? 'Assistant'
+          : 'System';
     const timestamp = `(${formatTimestamp(msg.createdAt)})`;
     const usageSuffix = msg.usage ? formatUsage(msg.usage) : '';
     const header = `[${roleLabel}] ${timestamp}${usageSuffix}\n\n`;

@@ -50,9 +50,7 @@ describe('export-formatters', () => {
 
   describe('formatMessagesAsJson', () => {
     it('serializes messages with ISO dates', () => {
-      const messages: ChatMessage[] = [
-        createMessage({ content: 'JSON test' }),
-      ];
+      const messages: ChatMessage[] = [createMessage({ content: 'JSON test' })];
       const json = formatMessagesAsJson(messages);
       const parsed = JSON.parse(json);
       expect(parsed.messages).toHaveLength(1);

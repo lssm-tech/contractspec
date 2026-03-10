@@ -1,5 +1,8 @@
 import type { ReactNode } from 'react';
-import { BundleProvider, BundleRenderer } from '@contractspec/lib.surface-runtime/react';
+import {
+  BundleProvider,
+  BundleRenderer,
+} from '@contractspec/lib.surface-runtime/react';
 import type { ResolvedSurfacePlan } from '@contractspec/lib.surface-runtime/runtime/resolve-bundle';
 import { LocalDataIndicator } from './LocalDataIndicator';
 import {

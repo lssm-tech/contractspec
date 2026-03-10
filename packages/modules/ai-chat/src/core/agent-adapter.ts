@@ -3,21 +3,18 @@
  * Allows ContractSpecAgent or UnifiedAgent to be used as the chat backend.
  */
 export interface ChatAgentAdapter {
-  generate(params: {
-    prompt: string;
-    signal?: AbortSignal;
-  }): Promise<{
+  generate(params: { prompt: string; signal?: AbortSignal }): Promise<{
     text: string;
-    toolCalls?: Array<{
+    toolCalls?: {
       toolCallId: string;
       toolName: string;
       args: unknown;
-    }>;
-    toolResults?: Array<{
+    }[];
+    toolResults?: {
       toolCallId: string;
       toolName: string;
       output: unknown;
-    }>;
+    }[];
     usage?: { inputTokens: number; outputTokens: number };
   }>;
 }
@@ -33,16 +30,16 @@ export function createChatAgentAdapter(agent: {
     signal?: AbortSignal;
   }): Promise<{
     text: string;
-    toolCalls?: Array<{
+    toolCalls?: {
       toolCallId: string;
       toolName: string;
       args: unknown;
-    }>;
-    toolResults?: Array<{
+    }[];
+    toolResults?: {
       toolCallId: string;
       toolName: string;
       output: unknown;
-    }>;
+    }[];
     usage?: { inputTokens: number; outputTokens: number };
   }>;
 }): ChatAgentAdapter {

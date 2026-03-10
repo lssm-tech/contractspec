@@ -7,7 +7,10 @@ import { tool, type ToolSet } from 'ai';
 import { z } from 'zod';
 import type { ResolvedSurfacePlan } from '@contractspec/lib.surface-runtime/runtime/resolve-bundle';
 import type { RegionNode } from '@contractspec/lib.surface-runtime/spec/types';
-import { validatePatchProposal, type PatchProposalConstraints } from '@contractspec/lib.surface-runtime/spec/validate-surface-patch';
+import {
+  validatePatchProposal,
+  type PatchProposalConstraints,
+} from '@contractspec/lib.surface-runtime/spec/validate-surface-patch';
 import type { SurfacePatchOp } from '@contractspec/lib.surface-runtime/spec/types';
 import { buildSurfacePatchProposal } from '@contractspec/lib.surface-runtime/runtime/planner-tools';
 import type {
@@ -65,12 +68,15 @@ function collectSlotIdsFromRegion(node: RegionNode): string[] {
   return ids;
 }
 
-function deriveConstraints(plan: ResolvedSurfacePlan): PatchProposalConstraints {
+function deriveConstraints(
+  plan: ResolvedSurfacePlan
+): PatchProposalConstraints {
   const slotIds = collectSlotIdsFromRegion(plan.layoutRoot);
   const uniqueSlots = [...new Set(slotIds)];
   return {
     allowedOps: VALID_OPS,
-    allowedSlots: uniqueSlots.length > 0 ? uniqueSlots : ['assistant', 'primary'],
+    allowedSlots:
+      uniqueSlots.length > 0 ? uniqueSlots : ['assistant', 'primary'],
     allowedNodeKinds: DEFAULT_NODE_KINDS,
   };
 }
@@ -133,17 +139,14 @@ export function createSurfacePlannerTools(
   config: SurfacePlannerToolsConfig
 ): ToolSet {
   const { plan, constraints, onPatchProposal } = config;
-  const resolvedConstraints =
-    constraints ?? deriveConstraints(plan);
+  const resolvedConstraints = constraints ?? deriveConstraints(plan);
 
   const proposePatchTool = tool({
     description:
       'Propose surface patches (layout changes, node insertions, etc.) for user approval. ' +
       'Only use allowed ops, slots, and node kinds from the planner context.',
     inputSchema: ProposePatchInputSchema,
-    execute: async (
-      input: z.infer<typeof ProposePatchInputSchema>
-    ) => {
+    execute: async (input: z.infer<typeof ProposePatchInputSchema>) => {
       const ops = input.ops as SurfacePatchOp[];
       try {
         validatePatchProposal(ops, resolvedConstraints);
@@ -182,10 +185,14 @@ export function buildPlannerPromptInput(
       title: plan.bundleKey,
     },
     surfaceId: plan.surfaceId,
-    allowedPatchOps: constraints.allowedOps as import('@contractspec/lib.surface-runtime/spec/types').SurfacePatchOp['op'][],
+    allowedPatchOps:
+      constraints.allowedOps as import('@contractspec/lib.surface-runtime/spec/types').SurfacePatchOp['op'][],
     allowedSlots: [...constraints.allowedSlots],
     allowedNodeKinds: [...constraints.allowedNodeKinds],
-    actions: plan.actions.map((a) => ({ actionId: a.actionId, title: a.title })),
+    actions: plan.actions.map((a) => ({
+      actionId: a.actionId,
+      title: a.title,
+    })),
     preferences: {
       guidance: 'hints',
       density: 'standard',

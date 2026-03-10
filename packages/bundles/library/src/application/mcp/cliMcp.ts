@@ -203,7 +203,7 @@ function buildCliOps() {
 
   const suggestSpec = defineCommand({
     meta: {
-      key: 'cli.suggestCommand',
+      key: 'cli_suggestCommand',
       version: '1.0.0',
       stability: 'stable',
       owners: CLI_OWNERS,

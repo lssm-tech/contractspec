@@ -1,5 +1,150 @@
 # @contractspec/bundle.library
 
+## 3.5.5
+
+### Patch Changes
+
+- 27b77db: feat(ai-models): add latest models and align defaults
+  - Add claude-opus-4-6, claude-sonnet-4-6, claude-haiku-4-5, gpt-5.4, gpt-5-mini
+  - Add mistral-large-2512, mistral-medium-2508, mistral-small-2506, devstral-2512
+  - Add gemini-3.1-pro-preview, gemini-3.1-flash-lite-preview, gemini-3-flash-preview
+  - Fix GPT-5.4 cost and context window; update default models to claude-sonnet-4-6
+  - Enrich provider-ranking MCP with cost from ai-providers when store has none
+  - Update model allowlist for gpt-5 and gemini 3.x; align agentpacks templates
+
+- 693eedd: chore: improve ai models
+- Updated dependencies [27b77db]
+- Updated dependencies [693eedd]
+  - @contractspec/lib.ai-providers@3.5.5
+  - @contractspec/lib.contracts-spec@3.5.5
+  - @contractspec/lib.contracts-runtime-server-graphql@3.5.5
+  - @contractspec/lib.contracts-runtime-server-rest@3.5.5
+  - @contractspec/lib.contracts-runtime-server-mcp@3.5.5
+  - @contractspec/lib.contracts-integrations@3.5.5
+  - @contractspec/module.context-storage@0.5.5
+  - @contractspec/lib.contracts-library@3.5.5
+  - @contractspec/lib.example-shared-ui@4.0.5
+  - @contractspec/lib.provider-ranking@0.5.5
+  - @contractspec/lib.runtime-sandbox@2.5.5
+  - @contractspec/lib.surface-runtime@0.3.5
+  - @contractspec/lib.design-system@3.5.5
+  - @contractspec/lib.content-gen@3.5.5
+  - @contractspec/module.examples@3.5.5
+  - @contractspec/lib.ui-kit-web@3.5.5
+  - @contractspec/lib.knowledge@3.5.5
+  - @contractspec/lib.ui-link@3.5.5
+  - @contractspec/lib.logger@3.5.5
+  - @contractspec/lib.schema@3.5.5
+
+## 3.5.4
+
+### Patch Changes
+
+- c585fb1: fix: mcp tooling naming
+- f5d4816: Standardize MCP tool naming from dot notation to underscore notation for MCP protocol compatibility. Update docs, docblocks, and generated indexes accordingly. Path resolver and fixture updates.
+- Updated dependencies [c585fb1]
+- Updated dependencies [f5d4816]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.5.4
+  - @contractspec/lib.contracts-runtime-server-rest@3.5.4
+  - @contractspec/lib.contracts-runtime-server-mcp@3.5.4
+  - @contractspec/lib.contracts-integrations@3.5.4
+  - @contractspec/module.context-storage@0.5.4
+  - @contractspec/lib.contracts-library@3.5.4
+  - @contractspec/lib.example-shared-ui@4.0.4
+  - @contractspec/lib.provider-ranking@0.5.4
+  - @contractspec/lib.runtime-sandbox@2.5.4
+  - @contractspec/lib.surface-runtime@0.3.4
+  - @contractspec/lib.contracts-spec@3.5.4
+  - @contractspec/lib.design-system@3.5.4
+  - @contractspec/lib.content-gen@3.5.4
+  - @contractspec/module.examples@3.5.4
+  - @contractspec/lib.ui-kit-web@3.5.4
+  - @contractspec/lib.knowledge@3.5.4
+  - @contractspec/lib.ui-link@3.5.4
+  - @contractspec/lib.logger@3.5.4
+  - @contractspec/lib.schema@3.5.4
+
+## 3.5.3
+
+### Patch Changes
+
+- b0b4da6: fix: release
+- Updated dependencies [b0b4da6]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.5.3
+  - @contractspec/lib.contracts-runtime-server-rest@3.5.3
+  - @contractspec/lib.contracts-runtime-server-mcp@3.5.3
+  - @contractspec/lib.contracts-integrations@3.5.3
+  - @contractspec/module.context-storage@0.5.3
+  - @contractspec/lib.contracts-library@3.5.3
+  - @contractspec/lib.example-shared-ui@4.0.3
+  - @contractspec/lib.provider-ranking@0.5.3
+  - @contractspec/lib.runtime-sandbox@2.5.3
+  - @contractspec/lib.surface-runtime@0.3.3
+  - @contractspec/lib.contracts-spec@3.5.3
+  - @contractspec/lib.design-system@3.5.3
+  - @contractspec/lib.content-gen@3.5.3
+  - @contractspec/module.examples@3.5.3
+  - @contractspec/lib.ui-kit-web@3.5.3
+  - @contractspec/lib.knowledge@3.5.3
+  - @contractspec/lib.ui-link@3.5.3
+  - @contractspec/lib.logger@3.5.3
+  - @contractspec/lib.schema@3.5.3
+
+## 3.5.2
+
+### Patch Changes
+
+- 18df977: fix: release workflow
+- Updated dependencies [18df977]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.5.2
+  - @contractspec/lib.contracts-runtime-server-rest@3.5.2
+  - @contractspec/lib.contracts-runtime-server-mcp@3.5.2
+  - @contractspec/lib.contracts-integrations@3.5.2
+  - @contractspec/module.context-storage@0.5.2
+  - @contractspec/lib.contracts-library@3.5.2
+  - @contractspec/lib.example-shared-ui@4.0.2
+  - @contractspec/lib.provider-ranking@0.5.2
+  - @contractspec/lib.runtime-sandbox@2.5.2
+  - @contractspec/lib.surface-runtime@0.3.2
+  - @contractspec/lib.contracts-spec@3.5.2
+  - @contractspec/lib.design-system@3.5.2
+  - @contractspec/lib.content-gen@3.5.2
+  - @contractspec/module.examples@3.5.2
+  - @contractspec/lib.ui-kit-web@3.5.2
+  - @contractspec/lib.knowledge@3.5.2
+  - @contractspec/lib.ui-link@3.5.2
+  - @contractspec/lib.logger@3.5.2
+  - @contractspec/lib.schema@3.5.2
+
+## 3.5.1
+
+### Patch Changes
+
+- dfff0d4: fix: use client within lib surface-runtime
+- 73a7f8d: Regenerate docs-index files and fix GuideNextjsOneEndpointPage.
+- Updated dependencies [73a7f8d]
+- Updated dependencies [dfff0d4]
+- Updated dependencies [73a7f8d]
+  - @contractspec/lib.example-shared-ui@4.0.1
+  - @contractspec/lib.contracts-runtime-server-graphql@3.5.1
+  - @contractspec/lib.contracts-runtime-server-rest@3.5.1
+  - @contractspec/lib.contracts-runtime-server-mcp@3.5.1
+  - @contractspec/lib.contracts-integrations@3.5.1
+  - @contractspec/module.context-storage@0.5.1
+  - @contractspec/lib.contracts-library@3.5.1
+  - @contractspec/lib.provider-ranking@0.5.1
+  - @contractspec/lib.runtime-sandbox@2.5.1
+  - @contractspec/lib.surface-runtime@0.3.1
+  - @contractspec/lib.contracts-spec@3.5.1
+  - @contractspec/lib.design-system@3.5.1
+  - @contractspec/lib.content-gen@3.5.1
+  - @contractspec/module.examples@3.5.1
+  - @contractspec/lib.ui-kit-web@3.5.1
+  - @contractspec/lib.knowledge@3.5.1
+  - @contractspec/lib.ui-link@3.5.1
+  - @contractspec/lib.logger@3.5.1
+  - @contractspec/lib.schema@3.5.1
+
 ## 3.5.0
 
 ### Minor Changes
