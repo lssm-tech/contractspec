@@ -15,14 +15,18 @@ describe('specToolToAISDKTool', () => {
       }
     );
 
-    if (!tool.execute) {
+    const execute = tool.execute;
+    if (!execute) {
       throw new Error('Tool execute handler is missing');
     }
 
-    await tool.execute({}, { toolCallId: 'call-1', messages: [] });
+    // Consume async generator to complete first invocation
+    for await (const _ of execute({}, { toolCallId: 'call-1', messages: [] })) {}
 
     await expect(
-      tool.execute({}, { toolCallId: 'call-2', messages: [] })
+      (async () => {
+        for await (const _ of execute({}, { toolCallId: 'call-2', messages: [] })) {}
+      })()
     ).rejects.toMatchObject({
       code: 'TOOL_COOLDOWN_ACTIVE',
     });
@@ -44,12 +48,15 @@ describe('specToolToAISDKTool', () => {
       }
     );
 
-    if (!tool.execute) {
+    const execute = tool.execute;
+    if (!execute) {
       throw new Error('Tool execute handler is missing');
     }
 
     await expect(
-      tool.execute({}, { toolCallId: 'call-timeout', messages: [] })
+      (async () => {
+        for await (const _ of execute({}, { toolCallId: 'call-timeout', messages: [] })) {}
+      })()
     ).rejects.toMatchObject({
       code: 'TOOL_EXECUTION_TIMEOUT',
     });

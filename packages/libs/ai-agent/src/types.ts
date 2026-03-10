@@ -151,8 +151,10 @@ export interface AgentSessionState {
 // ============================================================================
 
 export interface AgentGenerateParams {
-  /** User prompt or message */
-  prompt: string;
+  /** User prompt (required when messages is not provided) */
+  prompt?: string;
+  /** Full conversation history (for subagent passConversationHistory; when set, prompt is ignored) */
+  messages?: Array<{ role: string; content: string | unknown[] }>;
   /** System prompt override (appended to agent instructions) */
   systemOverride?: string;
   /** Runtime context options */
@@ -217,11 +219,12 @@ export interface ToolExecutionContext {
 
 /**
  * Handler function for a tool.
+ * May return a Promise (single result) or AsyncGenerator (streaming preliminary results).
  */
 export type ToolHandler<TInput = unknown, TOutput = string> = (
   input: TInput,
   context: ToolExecutionContext
-) => Promise<TOutput>;
+) => Promise<TOutput> | TOutput | AsyncGenerator<TOutput>;
 
 // ============================================================================
 // Telemetry Types (for Evolution integration)

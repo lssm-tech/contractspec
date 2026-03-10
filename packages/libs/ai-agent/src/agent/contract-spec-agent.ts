@@ -21,8 +21,13 @@ import type {
   AgentStreamParams,
   ToolHandler,
 } from '../types';
-import { specToolsToAISDKTools } from '../tools/tool-adapter';
+import {
+  specToolsToAISDKTools,
+  type SubagentRegistry,
+} from '../tools/tool-adapter';
 import { createKnowledgeQueryTool } from '../tools/knowledge-tool';
+import { createAnthropicMemoryTool } from '../tools/memory-tools';
+import type { AgentMemoryStore } from '../tools/agent-memory-store';
 import { createMcpToolsets, type McpClientConfig } from '../tools/mcp-client';
 import { injectStaticKnowledge } from '../knowledge/injector';
 import { type AgentSessionStore, generateSessionId } from '../session/store';
@@ -74,6 +79,10 @@ export interface ContractSpecAgentConfig {
   };
   /** Additional AI SDK tools (e.g., from MCP servers) */
   additionalTools?: Record<string, ExecutableTool>;
+  /** Registry for subagent-backed tools (subagentRef) */
+  subagentRegistry?: SubagentRegistry;
+  /** Storage for memory tools (when memoryTools.provider is anthropic) */
+  agentMemoryStore?: AgentMemoryStore;
   /** MCP servers to connect and expose as tools */
   mcpServers?: McpClientConfig[];
   /** Ranking-driven model selector for dynamic per-call routing */
@@ -154,9 +163,10 @@ export class ContractSpecAgent {
         effectiveConfig.spec.tools,
         effectiveConfig.toolHandlers,
         { agentId: agentKey(effectiveConfig.spec.meta) },
-        effectiveConfig.operationRegistry
-          ? { operationRegistry: effectiveConfig.operationRegistry }
-          : undefined
+        {
+          operationRegistry: effectiveConfig.operationRegistry,
+          subagentRegistry: effectiveConfig.subagentRegistry,
+        }
       );
 
       // 3. Add dynamic knowledge query tool
@@ -167,10 +177,20 @@ export class ContractSpecAgent {
           )
         : null;
 
+      // 3b. Add memory tool when memoryTools.provider is anthropic
+      const memoryTool =
+        effectiveConfig.spec.memoryTools?.provider === 'anthropic' &&
+        effectiveConfig.agentMemoryStore
+          ? createAnthropicMemoryTool(effectiveConfig.agentMemoryStore)
+          : null;
+
       // 4. Ensure MCP tools do not silently override spec or built-in tools
       const reservedToolNames = new Set(Object.keys(specTools));
       if (knowledgeTool) {
         reservedToolNames.add('query_knowledge');
+      }
+      if (memoryTool) {
+        reservedToolNames.add('memory');
       }
 
       const conflictingMcpTools = Object.keys(mcpToolset?.tools ?? {}).filter(
@@ -187,6 +207,7 @@ export class ContractSpecAgent {
       const tools: Record<string, ExecutableTool> = {
         ...specTools,
         ...(knowledgeTool ? { query_knowledge: knowledgeTool } : {}),
+        ...(memoryTool ? { memory: memoryTool } : {}),
         ...(mcpToolset?.tools ?? {}),
         ...(effectiveConfig.additionalTools ?? {}),
       };
@@ -235,8 +256,8 @@ export class ContractSpecAgent {
       stepStartedAt: new Date(),
     });
 
-    // Ensure session exists
-    if (this.config.sessionStore) {
+    // Ensure session exists (skip when using messages - subagent passConversationHistory path)
+    if (this.config.sessionStore && !params.messages?.length) {
       const existing = await this.config.sessionStore.get(sessionId);
       if (!existing) {
         await this.config.sessionStore.create({
@@ -255,14 +276,9 @@ export class ContractSpecAgent {
 
       await this.config.sessionStore.appendMessage(sessionId, {
         role: 'user',
-        content: params.prompt,
+        content: params.prompt ?? '',
       });
     }
-
-    // Build prompt with optional system override
-    const prompt = params.systemOverride
-      ? `${this.instructions}\n\n${params.systemOverride}\n\n${params.prompt}`
-      : params.prompt;
 
     const model = await this.resolveModelForCall({
       sessionId,
@@ -275,20 +291,35 @@ export class ContractSpecAgent {
     );
     const inner = this.createInnerAgent(model, effectiveMaxSteps);
 
+    const generateOptions = {
+      abortSignal: params.signal,
+      options: {
+        tenantId: params.options?.tenantId,
+        actorId: params.options?.actorId,
+        sessionId,
+        metadata: params.options?.metadata,
+      },
+    };
+
     // AI SDK v6: maxSteps is controlled via stopWhen in agent settings
     let result: Awaited<ReturnType<(typeof inner)['generate']>>;
 
     try {
-      result = await inner.generate({
-        prompt,
-        abortSignal: params.signal,
-        options: {
-          tenantId: params.options?.tenantId,
-          actorId: params.options?.actorId,
-          sessionId,
-          metadata: params.options?.metadata,
-        },
-      });
+      if (params.messages && params.messages.length > 0) {
+        result = await inner.generate({
+          messages: params.messages as import('ai').ModelMessage[],
+          ...generateOptions,
+        });
+      } else {
+        const prompt =
+          params.systemOverride && params.prompt
+            ? `${this.instructions}\n\n${params.systemOverride}\n\n${params.prompt}`
+            : params.prompt ?? '';
+        result = await inner.generate({
+          prompt,
+          ...generateOptions,
+        });
+      }
     } catch (error) {
       if (this.config.sessionStore) {
         await this.config.sessionStore.update(sessionId, {
@@ -373,9 +404,10 @@ export class ContractSpecAgent {
       stepStartedAt: new Date(),
     });
 
-    const prompt = params.systemOverride
-      ? `${this.instructions}\n\n${params.systemOverride}\n\n${params.prompt}`
-      : params.prompt;
+    const prompt =
+      params.systemOverride && params.prompt
+        ? `${this.instructions}\n\n${params.systemOverride}\n\n${params.prompt}`
+        : params.prompt ?? '';
 
     const model = await this.resolveModelForCall({
       sessionId,
@@ -405,7 +437,7 @@ export class ContractSpecAgent {
 
       await this.config.sessionStore.appendMessage(sessionId, {
         role: 'user',
-        content: params.prompt,
+        content: prompt,
       });
       await this.config.sessionStore.update(sessionId, { status: 'running' });
     }

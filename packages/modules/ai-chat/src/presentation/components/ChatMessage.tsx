@@ -464,10 +464,19 @@ export function ChatMessage({
                       }
                       status={toolStatusToCotStatus(tc.status)}
                     >
-                      {tc.result !== undefined && (
+                      {tc.preliminary && tc.status === 'running' && (
+                        <p className="text-muted-foreground mt-1 text-xs">
+                          Running…
+                        </p>
+                      )}
+                      {(tc.result !== undefined || tc.nestedParts?.length) && (
                         <ToolResultRenderer
                           toolName={tc.name}
-                          result={tc.result}
+                          result={
+                            tc.nestedParts?.length
+                              ? { parts: tc.nestedParts }
+                              : tc.result
+                          }
                           presentationRenderer={presentationRenderer}
                           formRenderer={formRenderer}
                           dataViewRenderer={dataViewRenderer}
@@ -519,10 +528,19 @@ export function ChatMessage({
                           </pre>
                         </div>
                       )}
-                      {tc.result !== undefined && (
+                      {tc.preliminary && tc.status === 'running' && (
+                        <p className="text-muted-foreground mt-1 text-xs">
+                          Running…
+                        </p>
+                      )}
+                      {(tc.result !== undefined || tc.nestedParts?.length) && (
                         <ToolResultRenderer
                           toolName={tc.name}
-                          result={tc.result}
+                          result={
+                            tc.nestedParts?.length
+                              ? { parts: tc.nestedParts }
+                              : tc.result
+                          }
                           presentationRenderer={presentationRenderer}
                           formRenderer={formRenderer}
                           dataViewRenderer={dataViewRenderer}

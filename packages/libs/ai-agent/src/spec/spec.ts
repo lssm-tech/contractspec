@@ -57,6 +57,23 @@ export interface OperationRef {
 }
 
 /**
+ * Reference to a subagent that backs an agent tool.
+ * When set, the tool delegates to the subagent; mutually exclusive with operationRef and manual handler.
+ */
+export interface SubagentRef {
+  /** Subagent identifier (resolved from subagent registry) */
+  agentId: string;
+  /** Whether to extract summary for toModelOutput (default: true) */
+  toModelSummary?: boolean;
+  /**
+   * Pass full conversation history to subagent (opt-in).
+   * Defeats context isolation; use sparingly. Requires subagent to support generate({ messages }).
+   * Streaming is disabled when history is passed.
+   */
+  passConversationHistory?: boolean;
+}
+
+/**
  * Configuration for a tool that an agent can use.
  */
 export interface AgentToolConfig {
@@ -67,6 +84,11 @@ export interface AgentToolConfig {
    * schema and handler are derived from the operation; no manual handler needed.
    */
   operationRef?: OperationRef;
+  /**
+   * Reference to a subagent. When set, the tool delegates to the subagent.
+   * Mutually exclusive with operationRef; requires subagentRegistry in agent config.
+   */
+  subagentRef?: SubagentRef;
   /** Human-readable description for the LLM */
   description?: string;
   /** JSON Schema fragment for tool parameters (fallback when no operationRef) */
@@ -129,6 +151,21 @@ export interface AgentMemoryConfig {
 }
 
 /**
+ * Memory tools config — model-accessible CRUD (Anthropic memory, custom).
+ * Distinct from AgentMemoryConfig (session summarization).
+ *
+ * @see https://ai-sdk.dev/docs/agents/memory
+ */
+export interface AgentMemoryToolsConfig {
+  /** Provider: anthropic uses memory_20250818; custom uses operationRef. */
+  provider: 'anthropic' | 'custom';
+  /** Storage adapter key when using knowledge-backed storage (e.g. ephemeral space) */
+  storageAdapter?: string;
+  /** Ephemeral KnowledgeSpaceSpec key when using knowledge-backed storage */
+  spaceKey?: string;
+}
+
+/**
  * Confidence policy for agent responses.
  */
 export interface AgentConfidencePolicy {
@@ -179,6 +216,8 @@ export interface AgentSpec {
   tools: AgentToolConfig[];
   /** Memory/session configuration */
   memory?: AgentMemoryConfig;
+  /** Memory tools (model-accessible CRUD) — Anthropic or custom operation-backed */
+  memoryTools?: AgentMemoryToolsConfig;
   /** Knowledge spaces the agent can access */
   knowledge?: AgentKnowledgeRef[];
   /** Policy configuration */
@@ -235,6 +274,13 @@ export function defineAgent(spec: AgentSpec): AgentSpec {
       );
     }
     toolNames.add(tool.name);
+
+    // subagentRef and operationRef are mutually exclusive
+    if (tool.subagentRef && tool.operationRef) {
+      throw new Error(
+        `Agent ${spec.meta.key} tool "${tool.name}" cannot have both subagentRef and operationRef. Use one.`
+      );
+    }
 
     // At most one output rendering ref per tool
     const outputRefCount = [

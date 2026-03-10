@@ -202,6 +202,111 @@ When the tool is not an operation (LLM subcalls, external APIs), use inline \`Ag
 See \`@contractspec/lib.ai-agent\` README for full examples.
 `,
   },
+  {
+    id: 'docs.tech.agent.subagents',
+    title: 'Subagents',
+    summary: 'Delegate tasks to subagents with streaming and toModelOutput.',
+    kind: 'reference',
+    visibility: 'public',
+    route: '/docs/tech/agent/subagents',
+    tags: ['agent', 'subagents', 'delegation'],
+    body: `# Subagents
+
+Agents can delegate work to subagents via \`subagentRef\` on \`AgentToolConfig\`. The main agent acts as an orchestrator; subagent tools act as workers.
+
+## Usage
+
+1. Register subagents in \`subagentRegistry\` (Map of agentId → ToolLoopAgent).
+2. In \`AgentSpec.tools\`, add \`{ name: 'research', subagentRef: { agentId: 'research-agent', toModelSummary: true } }\`.
+3. Pass \`subagentRegistry\` to \`ContractSpecAgent.create\` or \`createAgentFactory\`.
+
+## Streaming
+
+Subagent tools use \`createSubagentTool\` which streams \`UIMessage\` parts back to the orchestrator. The tool adapter supports \`AsyncGenerator\` handlers for preliminary results.
+
+## Passing conversation history
+
+Opt-in via \`passConversationHistory: true\` on \`SubagentRef\`. Defeats context isolation; use sparingly. Requires the subagent to support \`generate({ messages })\` (e.g. ToolLoopAgent, ContractSpecAgent). Streaming is disabled when history is passed.
+
+## Execution model
+
+The model may invoke multiple subagent tools in a single turn. Tool calls are executed sequentially by the agent loop (not truly parallel). For parallel execution, the model would need to call tools in separate turns or use a different orchestration pattern.
+
+## Caveats
+
+Subagent tools cannot use \`needsApproval\`. \`requiresApproval\` and \`automationSafe\` on \`AgentToolConfig\` are ignored when \`subagentRef\` is set (AI SDK limitation).
+
+## References
+
+- [AI SDK Subagents](https://ai-sdk.dev/docs/agents/subagents)
+- [AI SDK Workflows (orchestrator-worker)](https://ai-sdk.dev/docs/agents/workflows#orchestrator-worker)
+`,
+  },
+  {
+    id: 'docs.tech.agent.memory-tools',
+    title: 'Memory tools',
+    summary: 'Model-accessible CRUD for agent memory (Anthropic, custom).',
+    kind: 'reference',
+    visibility: 'public',
+    route: '/docs/tech/agent/memory-tools',
+    tags: ['agent', 'memory', 'tools'],
+    body: `# Memory tools
+
+Memory tools let the model store and recall information across conversations. Distinct from \`AgentMemoryManager\` (session summarization).
+
+## Anthropic memory
+
+When using Anthropic models, set \`memoryTools: { provider: 'anthropic' }\` in \`AgentSpec\` and provide \`agentMemoryStore\` to \`ContractSpecAgent.create\`. The tool uses \`anthropic.tools.memory_20250818\` with commands: view, create, str_replace, insert, delete, rename.
+
+## Storage backends
+
+- \`InMemoryAgentMemoryStore\` — for development and testing.
+- Ephemeral knowledge space — when using knowledge-backed storage, set \`memoryTools.spaceKey\` to an ephemeral \`KnowledgeSpaceSpec\` key. Configure \`KnowledgeAccessGuard\` with \`disallowWriteCategories: ['external']\` to allow ephemeral writes.
+
+## Custom memory (operation-backed)
+
+For \`provider: 'custom'\`, define operations \`memory.view\`, \`memory.create\`, etc. and add tools via \`operationRef\`. Handlers use \`AgentMemoryStore\` or \`EphemeralKnowledgeBackend\`.
+
+## Optional memory providers
+
+These are optional add-ons; no first-class \`AgentSpec\` fields. Consumers add them to agent tools or model.
+
+- **Mem0** (\`@mem0/vercel-ai-provider\`): Wraps any LLM with memory. Use \`createMem0()\` and pass as model. [Mem0 provider docs](https://ai-sdk.dev/providers/community-providers/mem0).
+- **Hindsight** (\`@vectorize-io/hindsight-ai-sdk\`): Tools \`retain\`, \`recall\`, \`reflect\`, etc. Use \`createHindsightTools()\` and add to agent tools. [Hindsight provider docs](https://ai-sdk.dev/providers/community-providers/hindsight).
+
+## References
+
+- [AI SDK Memory](https://ai-sdk.dev/docs/agents/memory)
+- [Anthropic Memory Tool](https://console.anthropic.com/docs/en/agents-and-tools/tool-use/memory-tool)
+`,
+  },
+  {
+    id: 'docs.tech.agent.workflow-integration',
+    title: 'Workflow-agent integration',
+    summary: 'Orchestrator-worker, workflow steps as agent ops, evaluator pattern.',
+    kind: 'reference',
+    visibility: 'public',
+    route: '/docs/tech/agent/workflow-integration',
+    tags: ['agent', 'workflow', 'orchestrator'],
+    body: `# Workflow-agent integration
+
+## Orchestrator-worker
+
+Main agent + subagent tools = orchestrator-worker. The model decides when to call subagent tools; no spec change needed.
+
+## Workflow steps as agent ops
+
+Workflow steps use \`StepAction.operation\` (OpRef). An operation can be agent-backed: define \`agent.run\` that invokes \`ContractSpecAgent\`; \`WorkflowRunner\` executes it as a step via \`opExecutor\`.
+
+## Evaluator-optimizer
+
+Implement an evaluator tool that returns structured feedback. The orchestrator can retry or adjust based on the feedback. See [AI SDK Workflows](https://ai-sdk.dev/docs/agents/workflows#evaluator-optimizer).
+
+## References
+
+- [AI SDK Workflows](https://ai-sdk.dev/docs/agents/workflows)
+`,
+  },
 ];
 
 registerDocBlocks(tech_agent_execution_DocBlocks);

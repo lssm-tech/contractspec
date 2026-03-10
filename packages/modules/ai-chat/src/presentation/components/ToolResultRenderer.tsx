@@ -2,6 +2,21 @@
 
 import * as React from 'react';
 
+/** UIMessage-like shape (subagent output with parts) */
+export interface UIMessageLike {
+  parts?: unknown[];
+}
+
+/** Type guard for UIMessage-like (nested subagent output) */
+export function isUIMessageLike(result: unknown): result is UIMessageLike {
+  return (
+    typeof result === 'object' &&
+    result !== null &&
+    'parts' in result &&
+    Array.isArray((result as UIMessageLike).parts)
+  );
+}
+
 /** Tool result shape for presentation rendering */
 export interface PresentationToolResult {
   presentationKey: string;
@@ -70,6 +85,100 @@ export interface ToolResultRendererProps {
   dataViewRenderer?: (key: string, items?: unknown[]) => React.ReactNode;
   /** Fallback: render raw JSON when no custom renderer */
   showRawFallback?: boolean;
+  /** Render nested UIMessage (subagent output) recursively */
+  renderNestedUIMessage?: boolean;
+}
+
+/** Render a single UIMessage part (text or tool with nested output) */
+function UIMessagePartRenderer({
+  part,
+  presentationRenderer,
+  formRenderer,
+  dataViewRenderer,
+  depth = 0,
+}: {
+  part: unknown;
+  presentationRenderer?: (key: string, data?: unknown) => React.ReactNode;
+  formRenderer?: (
+    key: string,
+    defaultValues?: Record<string, unknown>
+  ) => React.ReactNode;
+  dataViewRenderer?: (key: string, items?: unknown[]) => React.ReactNode;
+  depth?: number;
+}): React.ReactNode {
+  if (part === null || part === undefined) return null;
+  const p = part as Record<string, unknown>;
+
+  if (p.type === 'text' && typeof p.text === 'string') {
+    return (
+      <p key={depth} className="whitespace-pre-wrap text-sm">
+        {p.text}
+      </p>
+    );
+  }
+
+  if (p.type && String(p.type).startsWith('tool-') && p.output) {
+    const output = p.output as unknown;
+    if (isUIMessageLike(output)) {
+      return (
+        <div key={depth} className="ml-2 border-l-2 border-border pl-2">
+          <UIMessagePartsRenderer
+            parts={output.parts ?? []}
+            presentationRenderer={presentationRenderer}
+            formRenderer={formRenderer}
+            dataViewRenderer={dataViewRenderer}
+            depth={depth + 1}
+          />
+        </div>
+      );
+    }
+    return (
+      <pre
+        key={depth}
+        className="bg-background overflow-x-auto rounded p-2 text-xs"
+      >
+        {typeof output === 'object'
+          ? JSON.stringify(output, null, 2)
+          : String(output)}
+      </pre>
+    );
+  }
+
+  return null;
+}
+
+/** Render UIMessage parts (subagent output) */
+function UIMessagePartsRenderer({
+  parts,
+  presentationRenderer,
+  formRenderer,
+  dataViewRenderer,
+  depth = 0,
+}: {
+  parts: unknown[];
+  presentationRenderer?: (key: string, data?: unknown) => React.ReactNode;
+  formRenderer?: (
+    key: string,
+    defaultValues?: Record<string, unknown>
+  ) => React.ReactNode;
+  dataViewRenderer?: (key: string, items?: unknown[]) => React.ReactNode;
+  depth?: number;
+}): React.ReactNode {
+  if (parts.length === 0) return null;
+  return (
+    <div className="space-y-2">
+      {parts.map((part, i) => (
+        <UIMessagePartRenderer
+          key={`${depth}-${i}`}
+          part={part}
+          presentationRenderer={presentationRenderer}
+          formRenderer={formRenderer}
+          dataViewRenderer={dataViewRenderer}
+          depth={depth}
+        />
+      ))}
+    </div>
+  );
 }
 
 /**
@@ -84,9 +193,27 @@ export function ToolResultRenderer({
   formRenderer,
   dataViewRenderer,
   showRawFallback = true,
+  renderNestedUIMessage = true,
 }: ToolResultRendererProps) {
   if (result === undefined || result === null) {
     return null;
+  }
+
+  if (
+    renderNestedUIMessage &&
+    isUIMessageLike(result) &&
+    (result.parts?.length ?? 0) > 0
+  ) {
+    return (
+      <div className="border-border bg-background/50 mt-2 rounded-md border p-3">
+        <UIMessagePartsRenderer
+          parts={result.parts}
+          presentationRenderer={presentationRenderer}
+          formRenderer={formRenderer}
+          dataViewRenderer={dataViewRenderer}
+        />
+      </div>
+    );
   }
 
   if (isPresentationToolResult(result) && presentationRenderer) {

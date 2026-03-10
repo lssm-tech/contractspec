@@ -8,6 +8,7 @@ import type { ToolExecutionContext, ToolHandler } from '../types';
 import { jsonSchemaToZodSafe } from '../schema/json-schema-to-zod';
 import { createAgentI18n } from '../i18n';
 import { createOperationToolHandler } from './operation-tool-handler';
+import { createSubagentTool, type SubagentLike } from './subagent-tool';
 
 /**
  * Convert ContractSpec AgentToolConfig to AI SDK CoreTool.
@@ -18,6 +19,18 @@ import { createOperationToolHandler } from './operation-tool-handler';
  * @param effectiveInputSchema - Optional Zod schema override (e.g., from operation io.input)
  * @returns AI SDK CoreTool
  */
+/** Check if value is an AsyncGenerator (for streaming preliminary results). */
+function isAsyncGenerator<T>(
+  value: unknown
+): value is AsyncGenerator<T, void, unknown> {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    typeof (value as AsyncGenerator<T>).next === 'function' &&
+    typeof (value as AsyncGenerator<T>)[Symbol.asyncIterator] === 'function'
+  );
+}
+
 export function specToolToAISDKTool(
   specTool: AgentToolConfig,
   handler: ToolHandler,
@@ -31,13 +44,26 @@ export function specToolToAISDKTool(
   const inputSchema =
     effectiveInputSchema ?? jsonSchemaToZodSafe(specTool.schema);
 
+  const buildContext = (signal?: AbortSignal) => ({
+    agentId: context.agentId ?? 'unknown',
+    sessionId: context.sessionId ?? 'unknown',
+    tenantId: context.tenantId,
+    actorId: context.actorId,
+    locale: context.locale,
+    metadata: context.metadata,
+    signal,
+  });
+
   return tool({
     description: specTool.description ?? specTool.name,
     // AI SDK v6 uses inputSchema instead of parameters
     inputSchema,
     // AI SDK v6 native approval support
     needsApproval: specTool.requiresApproval ?? !specTool.automationSafe,
-    execute: async (input) => {
+    execute: async function* (
+      input,
+      options?: { abortSignal?: AbortSignal }
+    ): AsyncGenerator<unknown> {
       const now = Date.now();
       const cooldownMs = normalizeDuration(specTool.cooldownMs);
       if (cooldownMs && lastInvocationAt !== undefined) {
@@ -53,32 +79,39 @@ export function specToolToAISDKTool(
       }
 
       const timeoutMs = normalizeDuration(specTool.timeoutMs);
-      const { signal, dispose } = createTimeoutSignal(
-        context.signal,
+      const signal = options?.abortSignal ?? context.signal;
+      const { signal: timeoutSignal, dispose } = createTimeoutSignal(
+        signal,
         timeoutMs
       );
 
       try {
-        const execution = handler(input, {
-          agentId: context.agentId ?? 'unknown',
-          sessionId: context.sessionId ?? 'unknown',
-          tenantId: context.tenantId,
-          actorId: context.actorId,
-          locale: context.locale,
-          metadata: context.metadata,
-          signal,
-        });
+        const execution = handler(input, buildContext(timeoutSignal));
 
-        const raw = timeoutMs
-          ? await withTimeout(execution, timeoutMs, specTool.name)
-          : await execution;
-
-        const wrapped = wrapToolOutputForRendering(
-          specTool,
-          raw,
-          operationSpec
-        );
-        return typeof wrapped === 'string' ? wrapped : JSON.stringify(wrapped);
+        if (isAsyncGenerator(execution)) {
+          for await (const raw of execution) {
+            const wrapped = wrapToolOutputForRendering(
+              specTool,
+              raw,
+              operationSpec
+            );
+            yield typeof wrapped === 'string' ? wrapped : wrapped;
+          }
+        } else {
+          const raw = timeoutMs
+            ? await withTimeout(
+                Promise.resolve(execution) as Promise<unknown>,
+                timeoutMs,
+                specTool.name
+              )
+            : await Promise.resolve(execution);
+          const wrapped = wrapToolOutputForRendering(
+            specTool,
+            raw,
+            operationSpec
+          );
+          yield typeof wrapped === 'string' ? wrapped : wrapped;
+        }
       } finally {
         dispose();
         lastInvocationAt = Date.now();
@@ -88,11 +121,18 @@ export function specToolToAISDKTool(
 }
 
 /**
+ * Registry for resolving subagents by agentId.
+ */
+export type SubagentRegistry = Map<string, SubagentLike>;
+
+/**
  * Options for specToolsToAISDKTools.
  */
 export interface SpecToolsToAISDKToolsOptions {
   /** Optional OperationSpecRegistry for operation-backed tools (operationRef) */
   operationRegistry?: OperationSpecRegistry;
+  /** Optional registry for subagent-backed tools (subagentRef) */
+  subagentRegistry?: SubagentRegistry;
 }
 
 /**
@@ -117,6 +157,32 @@ export function specToolsToAISDKTools(
   const tools: Record<string, Tool<any, any>> = {};
 
   for (const specTool of specTools) {
+    if (specTool.subagentRef && options?.subagentRegistry) {
+      const subagent = options.subagentRegistry.get(specTool.subagentRef.agentId);
+      if (!subagent) {
+        throw new Error(
+          `Subagent not found: ${specTool.subagentRef.agentId}. Register it in subagentRegistry.`
+        );
+      }
+      if (
+        specTool.requiresApproval === true ||
+        specTool.automationSafe === false
+      ) {
+        console.warn(
+          `[ContractSpec] Subagent tool "${specTool.name}" cannot use needsApproval. ` +
+            `requiresApproval and automationSafe are ignored for subagent tools (AI SDK limitation). ` +
+            `See https://ai-sdk.dev/docs/agents/subagents#no-tool-approvals-in-subagents`
+        );
+      }
+      tools[specTool.name] = createSubagentTool({
+        subagent,
+        description: specTool.description ?? specTool.name,
+        toModelSummary: specTool.subagentRef.toModelSummary ?? true,
+        passConversationHistory: specTool.subagentRef.passConversationHistory,
+      });
+      continue;
+    }
+
     let handler: ToolHandler;
     let effectiveInputSchema: z.ZodType | undefined;
     let op: AnyOperationSpec | undefined;
@@ -139,6 +205,11 @@ export function specToolsToAISDKTools(
     } else {
       const manualHandler = handlers.get(specTool.name);
       if (!manualHandler) {
+        if (specTool.subagentRef) {
+          throw new Error(
+            `Subagent tool "${specTool.name}" requires subagentRegistry. Pass subagentRegistry in ContractSpecAgentConfig.`
+          );
+        }
         throw new Error(
           createAgentI18n(context.locale).t('error.missingToolHandler', {
             name: specTool.name,
@@ -174,10 +245,13 @@ export function createToolHandler<TInput = unknown, TOutput = string>(
   handler: (
     input: TInput,
     context: ToolExecutionContext
-  ) => Promise<TOutput> | TOutput
+  ) => Promise<TOutput> | TOutput | AsyncGenerator<TOutput>
 ): ToolHandler<TInput, TOutput> {
-  return async (input, context) => {
-    return handler(input as TInput, context);
+  return (input, context) => {
+    return handler(input as TInput, context) as
+      | Promise<TOutput>
+      | TOutput
+      | AsyncGenerator<TOutput>;
   };
 }
 
