@@ -1,9 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { tool, type Tool } from 'ai';
+import * as z from 'zod';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
+import type { AnyOperationSpec } from '@contractspec/lib.contracts-spec/operations/operation';
 import type { AgentToolConfig } from '../spec/spec';
 import type { ToolExecutionContext, ToolHandler } from '../types';
 import { jsonSchemaToZodSafe } from '../schema/json-schema-to-zod';
 import { createAgentI18n } from '../i18n';
+import { createOperationToolHandler } from './operation-tool-handler';
 
 /**
  * Convert ContractSpec AgentToolConfig to AI SDK CoreTool.
@@ -11,19 +15,26 @@ import { createAgentI18n } from '../i18n';
  * @param specTool - The tool configuration from AgentSpec
  * @param handler - The handler function for the tool
  * @param context - Partial context to inject into handler calls
+ * @param effectiveInputSchema - Optional Zod schema override (e.g., from operation io.input)
  * @returns AI SDK CoreTool
  */
 export function specToolToAISDKTool(
   specTool: AgentToolConfig,
   handler: ToolHandler,
-  context: Partial<ToolExecutionContext> = {}
+  context: Partial<ToolExecutionContext> = {},
+  effectiveInputSchema?: z.ZodType,
+  /** Optional operation spec for output ref fallback when specTool has no output refs */
+  operationSpec?: AnyOperationSpec
 ): Tool<any, any> {
   let lastInvocationAt: number | undefined;
+
+  const inputSchema =
+    effectiveInputSchema ?? jsonSchemaToZodSafe(specTool.schema);
 
   return tool({
     description: specTool.description ?? specTool.name,
     // AI SDK v6 uses inputSchema instead of parameters
-    inputSchema: jsonSchemaToZodSafe(specTool.schema),
+    inputSchema,
     // AI SDK v6 native approval support
     needsApproval: specTool.requiresApproval ?? !specTool.automationSafe,
     execute: async (input) => {
@@ -58,11 +69,18 @@ export function specToolToAISDKTool(
           signal,
         });
 
-        const result = timeoutMs
+        const raw = timeoutMs
           ? await withTimeout(execution, timeoutMs, specTool.name)
           : await execution;
 
-        return typeof result === 'string' ? result : JSON.stringify(result);
+        const wrapped = wrapToolOutputForRendering(
+          specTool,
+          raw,
+          operationSpec
+        );
+        return typeof wrapped === 'string'
+          ? wrapped
+          : JSON.stringify(wrapped);
       } finally {
         dispose();
         lastInvocationAt = Date.now();
@@ -72,31 +90,73 @@ export function specToolToAISDKTool(
 }
 
 /**
+ * Options for specToolsToAISDKTools.
+ */
+export interface SpecToolsToAISDKToolsOptions {
+  /** Optional OperationSpecRegistry for operation-backed tools (operationRef) */
+  operationRegistry?: OperationSpecRegistry;
+}
+
+/**
  * Convert multiple ContractSpec tool configs to AI SDK tools.
  *
+ * When a tool has operationRef and operationRegistry is provided, the handler
+ * and input schema are derived from the operation. Otherwise, handlers must
+ * be supplied for each tool.
+ *
  * @param specTools - Array of tool configurations
- * @param handlers - Map of tool name to handler function
+ * @param handlers - Map of tool name to handler function (for inline tools)
  * @param context - Partial context to inject into handler calls
+ * @param options - Optional operationRegistry for operation-backed tools
  * @returns Record of AI SDK tools keyed by name
  */
 export function specToolsToAISDKTools(
   specTools: AgentToolConfig[],
   handlers: Map<string, ToolHandler>,
-  context: Partial<ToolExecutionContext> = {}
+  context: Partial<ToolExecutionContext> = {},
+  options?: SpecToolsToAISDKToolsOptions
 ): Record<string, Tool<any, any>> {
   const tools: Record<string, Tool<any, any>> = {};
 
   for (const specTool of specTools) {
-    const handler = handlers.get(specTool.name);
-    if (!handler) {
-      throw new Error(
-        createAgentI18n(context.locale).t('error.missingToolHandler', {
-          name: specTool.name,
-        })
+    let handler: ToolHandler;
+    let effectiveInputSchema: z.ZodType | undefined;
+    let op: AnyOperationSpec | undefined;
+
+    if (specTool.operationRef && options?.operationRegistry) {
+      op = options.operationRegistry.get(
+        specTool.operationRef.key,
+        specTool.operationRef.version
       );
+      if (!op) {
+        throw new Error(
+          `Operation not found: ${specTool.operationRef.key}${specTool.operationRef.version ? `.v${specTool.operationRef.version}` : ''}`
+        );
+      }
+      handler = createOperationToolHandler(
+        options.operationRegistry,
+        specTool.operationRef
+      );
+      effectiveInputSchema = op.io.input?.getZod?.() as z.ZodType | undefined;
+    } else {
+      const manualHandler = handlers.get(specTool.name);
+      if (!manualHandler) {
+        throw new Error(
+          createAgentI18n(context.locale).t('error.missingToolHandler', {
+            name: specTool.name,
+          })
+        );
+      }
+      handler = manualHandler;
     }
 
-    tools[specTool.name] = specToolToAISDKTool(specTool, handler, context);
+    tools[specTool.name] = specToolToAISDKTool(
+      specTool,
+      handler,
+      context,
+      effectiveInputSchema,
+      op
+    );
   }
 
   return tools;
@@ -138,6 +198,44 @@ export function buildToolHandlers(
   handlersObj: Record<string, ToolHandler>
 ): Map<string, ToolHandler> {
   return new Map(Object.entries(handlersObj));
+}
+
+/**
+ * Wrap raw tool output for ToolResultRenderer when output refs are set.
+ * Falls back to operation spec output refs when AgentToolConfig has none.
+ */
+function wrapToolOutputForRendering(
+  specTool: AgentToolConfig,
+  result: unknown,
+  operationSpec?: AnyOperationSpec
+): unknown {
+  const presentation =
+    specTool.outputPresentation ?? operationSpec?.outputPresentation;
+  const form = specTool.outputForm ?? operationSpec?.outputForm;
+  const dataView = specTool.outputDataView ?? operationSpec?.outputDataView;
+
+  if (presentation) {
+    return {
+      presentationKey: presentation.key,
+      data: result,
+    };
+  }
+  if (form) {
+    return {
+      formKey: form.key,
+      defaultValues:
+        typeof result === 'object' && result !== null
+          ? (result as Record<string, unknown>)
+          : {},
+    };
+  }
+  if (dataView) {
+    return {
+      dataViewKey: dataView.key,
+      items: Array.isArray(result) ? result : result != null ? [result] : [],
+    };
+  }
+  return result;
 }
 
 function normalizeDuration(value: number | undefined): number | undefined {

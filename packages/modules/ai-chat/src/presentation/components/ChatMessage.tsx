@@ -10,7 +10,6 @@ import {
   AlertCircle,
   Copy,
   Check,
-  ExternalLink,
   Wrench,
   Pencil,
   X,
@@ -22,8 +21,11 @@ import type {
   ChatSource,
   ChatToolCall,
 } from '../../core/message-types';
+import type { ChatMessageComponents } from './component-types';
 import { CodePreview } from './CodePreview';
 import { ToolResultRenderer } from './ToolResultRenderer';
+import { Reasoning, ReasoningTrigger, ReasoningContent } from './Reasoning';
+import { Sources, SourcesTrigger, SourcesContent, Source } from './Sources';
 
 export interface ChatMessageProps {
   message: ChatMessageType;
@@ -49,6 +51,10 @@ export interface ChatMessageProps {
     key: string,
     defaultValues?: Record<string, unknown>
   ) => React.ReactNode;
+  /** Host-provided renderer for tool results with dataViewKey */
+  dataViewRenderer?: (key: string, items?: unknown[]) => React.ReactNode;
+  /** Override components (e.g. from ai-elements) for Reasoning, Sources, ChainOfThought */
+  components?: ChatMessageComponents;
 }
 
 /**
@@ -158,6 +164,14 @@ function MessageContent({ content }: { content: string }) {
 /**
  * Chat message component
  */
+function toolStatusToCotStatus(
+  status: ChatToolCall['status']
+): 'complete' | 'active' | 'pending' {
+  if (status === 'completed') return 'complete';
+  if (status === 'running') return 'active';
+  return 'pending';
+}
+
 export function ChatMessage({
   message,
   className,
@@ -170,6 +184,8 @@ export function ChatMessage({
   onEdit,
   presentationRenderer,
   formRenderer,
+  dataViewRenderer,
+  components: comps,
 }: ChatMessageProps) {
   const [copied, setCopied] = React.useState(false);
 
@@ -368,88 +384,152 @@ export function ChatMessage({
         </div>
 
         {/* Reasoning (for models that support it) */}
-        {message.reasoning && (
-          <details className="text-muted-foreground mt-2 text-sm">
-            <summary className="cursor-pointer hover:underline">
-              View reasoning
-            </summary>
-            <div className="bg-muted mt-1 rounded-md p-2">
-              <p className="whitespace-pre-wrap">{message.reasoning}</p>
-            </div>
-          </details>
-        )}
+        {message.reasoning &&
+          (comps?.Reasoning ? (
+            <comps.Reasoning isStreaming={isStreaming && !!message.reasoning}>
+              {message.reasoning}
+            </comps.Reasoning>
+          ) : (
+            <Reasoning
+              isStreaming={isStreaming && !!message.reasoning}
+              className="mt-2"
+            >
+              <ReasoningTrigger isStreaming={isStreaming} />
+              <ReasoningContent>{message.reasoning}</ReasoningContent>
+            </Reasoning>
+          ))}
 
         {/* Sources / citations */}
-        {message.sources && message.sources.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-2">
-            {message.sources.map((source: ChatSource) => (
-              <a
-                key={source.id}
-                href={source.url ?? '#'}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground bg-muted inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs transition-colors"
-              >
-                <ExternalLink className="h-3 w-3" />
-                {source.title || source.url || source.id}
-              </a>
-            ))}
-          </div>
-        )}
-
-        {/* Tool invocations */}
-        {message.toolCalls && message.toolCalls.length > 0 && (
-          <div className="mt-2 space-y-2">
-            {message.toolCalls.map((tc: ChatToolCall) => (
-              <details
-                key={tc.id}
-                className="bg-muted border-border rounded-md border"
-              >
-                <summary className="flex cursor-pointer items-center gap-2 px-3 py-2 text-sm font-medium">
-                  <Wrench className="text-muted-foreground h-4 w-4" />
-                  {tc.name}
-                  <span
-                    className={cn(
-                      'ml-auto rounded px-1.5 py-0.5 text-xs',
-                      tc.status === 'completed' &&
-                        'bg-green-500/20 text-green-700 dark:text-green-400',
-                      tc.status === 'error' &&
-                        'bg-destructive/20 text-destructive',
-                      tc.status === 'running' &&
-                        'bg-blue-500/20 text-blue-700 dark:text-blue-400'
-                    )}
-                  >
-                    {tc.status}
-                  </span>
-                </summary>
-                <div className="border-border border-t px-3 py-2 text-xs">
-                  {Object.keys(tc.args).length > 0 && (
-                    <div className="mb-2">
-                      <span className="text-muted-foreground font-medium">
-                        Input:
-                      </span>
-                      <pre className="bg-background mt-1 overflow-x-auto rounded p-2">
-                        {JSON.stringify(tc.args, null, 2)}
-                      </pre>
-                    </div>
-                  )}
-                  {tc.result !== undefined && (
-                    <ToolResultRenderer
-                      toolName={tc.name}
-                      result={tc.result}
-                      presentationRenderer={presentationRenderer}
-                      formRenderer={formRenderer}
-                      showRawFallback
+        {message.sources &&
+          message.sources.length > 0 &&
+          (() => {
+            const SourcesComp = comps?.Sources;
+            const SourcesTriggerComp = comps?.SourcesTrigger;
+            const SourceComp = comps?.Source;
+            if (SourcesComp && SourcesTriggerComp && SourceComp) {
+              return (
+                <SourcesComp>
+                  <SourcesTriggerComp count={message.sources.length} />
+                  {message.sources.map((source: ChatSource) => (
+                    <SourceComp
+                      key={source.id}
+                      href={source.url ?? '#'}
+                      title={source.title || source.url || source.id}
                     />
-                  )}
-                  {tc.error && (
-                    <p className="text-destructive mt-1">{tc.error}</p>
-                  )}
-                </div>
-              </details>
-            ))}
-          </div>
-        )}
+                  ))}
+                </SourcesComp>
+              );
+            }
+            return (
+              <Sources className="mt-2">
+                <SourcesTrigger count={message.sources.length} />
+                <SourcesContent>
+                  {message.sources.map((source: ChatSource) => (
+                    <Source
+                      key={source.id}
+                      href={source.url ?? '#'}
+                      title={source.title || source.url || source.id}
+                    />
+                  ))}
+                </SourcesContent>
+              </Sources>
+            );
+          })()}
+
+        {/* Tool invocations (ChainOfThought when override provided, else details) */}
+        {message.toolCalls &&
+          message.toolCalls.length > 0 &&
+          (() => {
+            const CotComp = comps?.ChainOfThought;
+            const CotStepComp = comps?.ChainOfThoughtStep;
+            if (CotComp && CotStepComp) {
+              return (
+                <CotComp defaultOpen={false} className="mt-2">
+                  {message.toolCalls.map((tc: ChatToolCall) => (
+                    <CotStepComp
+                      key={tc.id}
+                      label={tc.name}
+                      description={
+                        Object.keys(tc.args).length > 0
+                          ? `Input: ${JSON.stringify(tc.args)}`
+                          : undefined
+                      }
+                      status={toolStatusToCotStatus(tc.status)}
+                    >
+                      {tc.result !== undefined && (
+                        <ToolResultRenderer
+                          toolName={tc.name}
+                          result={tc.result}
+                          presentationRenderer={presentationRenderer}
+                          formRenderer={formRenderer}
+                          dataViewRenderer={dataViewRenderer}
+                          showRawFallback
+                        />
+                      )}
+                      {tc.error && (
+                        <p className="text-destructive mt-1 text-xs">
+                          {tc.error}
+                        </p>
+                      )}
+                    </CotStepComp>
+                  ))}
+                </CotComp>
+              );
+            }
+            return (
+              <div className="mt-2 space-y-2">
+                {message.toolCalls.map((tc: ChatToolCall) => (
+                  <details
+                    key={tc.id}
+                    className="bg-muted border-border rounded-md border"
+                  >
+                    <summary className="flex cursor-pointer items-center gap-2 px-3 py-2 text-sm font-medium">
+                      <Wrench className="text-muted-foreground h-4 w-4" />
+                      {tc.name}
+                      <span
+                        className={cn(
+                          'ml-auto rounded px-1.5 py-0.5 text-xs',
+                          tc.status === 'completed' &&
+                            'bg-green-500/20 text-green-700 dark:text-green-400',
+                          tc.status === 'error' &&
+                            'bg-destructive/20 text-destructive',
+                          tc.status === 'running' &&
+                            'bg-blue-500/20 text-blue-700 dark:text-blue-400'
+                        )}
+                      >
+                        {tc.status}
+                      </span>
+                    </summary>
+                    <div className="border-border border-t px-3 py-2 text-xs">
+                      {Object.keys(tc.args).length > 0 && (
+                        <div className="mb-2">
+                          <span className="text-muted-foreground font-medium">
+                            Input:
+                          </span>
+                          <pre className="bg-background mt-1 overflow-x-auto rounded p-2">
+                            {JSON.stringify(tc.args, null, 2)}
+                          </pre>
+                        </div>
+                      )}
+                      {tc.result !== undefined && (
+                        <ToolResultRenderer
+                          toolName={tc.name}
+                          result={tc.result}
+                          presentationRenderer={presentationRenderer}
+                          formRenderer={formRenderer}
+                          dataViewRenderer={dataViewRenderer}
+                          showRawFallback
+                        />
+                      )}
+                      {tc.error && (
+                        <p className="text-destructive mt-1">{tc.error}</p>
+                      )}
+                    </div>
+                  </details>
+                ))}
+              </div>
+            );
+          })()}
       </div>
     </div>
   );

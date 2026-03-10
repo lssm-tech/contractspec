@@ -1,6 +1,7 @@
 import type { LanguageModel, Tool } from 'ai';
 import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
 import type { ModelSelector } from '@contractspec/lib.ai-providers/selector-types';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
 import type { AgentSpec } from '../spec/spec';
 import type { AgentRegistry } from '../spec/registry';
 import type { ToolHandler } from '../types';
@@ -23,6 +24,8 @@ export interface AgentFactoryConfig {
   registry: AgentRegistry;
   /** Global tool handlers map */
   toolHandlers: Map<string, ToolHandler>;
+  /** Optional OperationSpecRegistry for operation-backed tools (operationRef) */
+  operationRegistry?: OperationSpecRegistry;
   /** Optional knowledge retriever */
   knowledgeRetriever?: KnowledgeRetriever;
   /** Optional session store */
@@ -53,6 +56,8 @@ export interface CreateAgentOptions {
   additionalTools?: Record<string, Tool<unknown, unknown>>;
   /** MCP servers for this instance */
   mcpServers?: McpClientConfig[];
+  /** Override OperationSpecRegistry for operation-backed tools */
+  operationRegistry?: OperationSpecRegistry;
 }
 
 /**
@@ -132,6 +137,8 @@ export class AgentFactory {
       spec,
       model: options?.model ?? this.config.defaultModel,
       toolHandlers: mergedHandlers,
+      operationRegistry:
+        options?.operationRegistry ?? this.config.operationRegistry,
       knowledgeRetriever: this.config.knowledgeRetriever,
       sessionStore: this.config.sessionStore,
       telemetryCollector: this.config.telemetryCollector,

@@ -9,6 +9,11 @@ import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';
 import type { TestSpecRef } from '../tests/spec';
 import type { CapabilityRef } from '../capabilities/capabilities';
+import type {
+  PresentationRef,
+  FormRef,
+  DataViewRef,
+} from '../features';
 
 /**
  * Distinguishes between state-changing operations (command) and read-only operations (query).
@@ -201,6 +206,16 @@ export interface OperationSpec<
    * Used for tracking and verifying that this spec is correctly implemented.
    */
   implementations?: ImplementationRef[];
+
+  /**
+   * Optional: when this op is used as agent tool, render output with this presentation.
+   * At most one of outputPresentation, outputForm, outputDataView.
+   */
+  outputPresentation?: PresentationRef;
+  /** Optional: when this op is used as agent tool, render output as form */
+  outputForm?: FormRef;
+  /** Optional: when this op is used as agent tool, render output as data view */
+  outputDataView?: DataViewRef;
 }
 
 export type AnyOperationSpec = OperationSpec<

@@ -9,6 +9,7 @@ import {
 import { randomUUID } from 'node:crypto';
 import * as z from 'zod';
 import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
 import type { AgentSpec } from '../spec/spec';
 import { agentKey } from '../spec/spec';
 import type { ModelSelector } from '@contractspec/lib.ai-providers/selector-types';
@@ -58,6 +59,8 @@ export interface ContractSpecAgentConfig {
   model: LanguageModel;
   /** Map of tool name to handler function */
   toolHandlers: Map<string, ToolHandler>;
+  /** Optional OperationSpecRegistry for operation-backed tools (operationRef) */
+  operationRegistry?: OperationSpecRegistry;
   /** Optional knowledge retriever for RAG */
   knowledgeRetriever?: KnowledgeRetriever;
   /** Optional session store for persistence */
@@ -150,7 +153,10 @@ export class ContractSpecAgent {
       const specTools = specToolsToAISDKTools(
         effectiveConfig.spec.tools,
         effectiveConfig.toolHandlers,
-        { agentId: agentKey(effectiveConfig.spec.meta) }
+        { agentId: agentKey(effectiveConfig.spec.meta) },
+        effectiveConfig.operationRegistry
+          ? { operationRegistry: effectiveConfig.operationRegistry }
+          : undefined
       );
 
       // 3. Add dynamic knowledge query tool

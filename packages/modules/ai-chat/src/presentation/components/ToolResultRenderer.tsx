@@ -14,6 +14,12 @@ export interface FormToolResult {
   defaultValues?: Record<string, unknown>;
 }
 
+/** Tool result shape for data view rendering */
+export interface DataViewToolResult {
+  dataViewKey: string;
+  items?: unknown[];
+}
+
 /** Type guard for presentation tool result */
 export function isPresentationToolResult(
   result: unknown
@@ -36,6 +42,18 @@ export function isFormToolResult(result: unknown): result is FormToolResult {
   );
 }
 
+/** Type guard for data view tool result */
+export function isDataViewToolResult(
+  result: unknown
+): result is DataViewToolResult {
+  return (
+    typeof result === 'object' &&
+    result !== null &&
+    'dataViewKey' in result &&
+    typeof (result as DataViewToolResult).dataViewKey === 'string'
+  );
+}
+
 export interface ToolResultRendererProps {
   /** Tool name */
   toolName: string;
@@ -48,13 +66,15 @@ export interface ToolResultRendererProps {
     key: string,
     defaultValues?: Record<string, unknown>
   ) => React.ReactNode;
+  /** Host-provided data view renderer */
+  dataViewRenderer?: (key: string, items?: unknown[]) => React.ReactNode;
   /** Fallback: render raw JSON when no custom renderer */
   showRawFallback?: boolean;
 }
 
 /**
- * Renders tool results with optional host-driven presentation or form components.
- * When result has presentationKey/formKey and host provides a renderer, uses it.
+ * Renders tool results with optional host-driven presentation, form, or data view components.
+ * When result has presentationKey/formKey/dataViewKey and host provides a renderer, uses it.
  * Otherwise falls back to raw JSON display.
  */
 export function ToolResultRenderer({
@@ -62,6 +82,7 @@ export function ToolResultRenderer({
   result,
   presentationRenderer,
   formRenderer,
+  dataViewRenderer,
   showRawFallback = true,
 }: ToolResultRendererProps) {
   if (result === undefined || result === null) {
@@ -84,6 +105,17 @@ export function ToolResultRenderer({
       result.formKey,
       result.defaultValues as Record<string, unknown> | undefined
     );
+    if (rendered != null) {
+      return (
+        <div className="border-border bg-background/50 mt-2 rounded-md border p-3">
+          {rendered}
+        </div>
+      );
+    }
+  }
+
+  if (isDataViewToolResult(result) && dataViewRenderer) {
+    const rendered = dataViewRenderer(result.dataViewKey, result.items);
     if (rendered != null) {
       return (
         <div className="border-border bg-background/50 mt-2 rounded-md border p-3">

@@ -22,7 +22,7 @@ AI chat interface module providing conversational UI components, hooks, and prov
 
 ## Key Capabilities
 
-- **Presentation/Form rendering**: Pass `presentationRenderer` and `formRenderer` to `ChatWithSidebar`; tool results with `presentationKey` or `formKey` render via host-provided components
+- **Presentation/Form/DataView rendering**: Pass `presentationRenderer`, `formRenderer`, and `dataViewRenderer` to `ChatWithSidebar`; tool results with `presentationKey`, `formKey`, or `dataViewKey` render via host-provided components
 - **MCP tools**: Pass `mcpServers` (McpClientConfig[]) to `useChat`; tools from MCP servers are merged into chat tools
 - **Agent mode**: Pass `agentMode: { agent: ChatAgentAdapter }`; use `createChatAgentAdapter` to wrap `ContractSpecAgent`; chat uses agent for generation instead of ChatService
 - **Contracts context**: `contractsContext` exposes agent, data-views, operations, forms, presentations

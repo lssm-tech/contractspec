@@ -1,4 +1,9 @@
 import type { OwnerShipMeta } from '@contractspec/lib.contracts-spec/ownership';
+import type {
+  DataViewRef,
+  FormRef,
+  PresentationRef,
+} from '@contractspec/lib.contracts-spec/features';
 import type { KnowledgeCategory } from '@contractspec/lib.contracts-spec/knowledge/spec';
 import type { PolicyRef } from '@contractspec/lib.contracts-spec/policy/spec';
 import { createAgentI18n } from '../i18n';
@@ -41,14 +46,30 @@ export interface AgentRuntimeConfig {
 }
 
 /**
+ * Reference to a ContractSpec operation that backs an agent tool.
+ * When set, the tool is a projection of the operation (one contract → REST, GraphQL, MCP, agent).
+ */
+export interface OperationRef {
+  /** Operation key (e.g., "knowledge.search") */
+  key: string;
+  /** Optional specific version; defaults to latest when omitted */
+  version?: string;
+}
+
+/**
  * Configuration for a tool that an agent can use.
  */
 export interface AgentToolConfig {
   /** Tool name (unique within the agent) */
   name: string;
+  /**
+   * Reference to a ContractSpec operation. When set, the tool is backed by the operation:
+   * schema and handler are derived from the operation; no manual handler needed.
+   */
+  operationRef?: OperationRef;
   /** Human-readable description for the LLM */
   description?: string;
-  /** JSON Schema fragment for tool parameters */
+  /** JSON Schema fragment for tool parameters (fallback when no operationRef) */
   schema?: Record<string, unknown>;
   /** Optional cooldown in milliseconds between invocations */
   cooldownMs?: number;
@@ -60,6 +81,21 @@ export interface AgentToolConfig {
   requiresApproval?: boolean;
   /** Optional policy guard that must evaluate to allow the tool call */
   policy?: PolicyRef;
+  /**
+   * When set, wrap raw output as { presentationKey, data } for ToolResultRenderer.
+   * At most one of outputPresentation, outputForm, outputDataView per tool.
+   */
+  outputPresentation?: PresentationRef;
+  /**
+   * When set, wrap raw output as { formKey, defaultValues } for ToolResultRenderer.
+   * At most one of outputPresentation, outputForm, outputDataView per tool.
+   */
+  outputForm?: FormRef;
+  /**
+   * When set, wrap raw output as { dataViewKey, items } for ToolResultRenderer.
+   * At most one of outputPresentation, outputForm, outputDataView per tool.
+   */
+  outputDataView?: DataViewRef;
 }
 
 /**
@@ -199,6 +235,18 @@ export function defineAgent(spec: AgentSpec): AgentSpec {
       );
     }
     toolNames.add(tool.name);
+
+    // At most one output rendering ref per tool
+    const outputRefCount = [
+      tool.outputPresentation,
+      tool.outputForm,
+      tool.outputDataView,
+    ].filter(Boolean).length;
+    if (outputRefCount > 1) {
+      throw new Error(
+        `Agent ${spec.meta.key} tool "${tool.name}" has multiple output refs (outputPresentation, outputForm, outputDataView). Use at most one.`
+      );
+    }
   }
 
   return Object.freeze(spec);

@@ -100,6 +100,14 @@ function FullChat() {
 
 \`ChatWithSidebar\` includes conversation history (LocalStorage), New/Fork, message edit, project/tags organization, and a **Thinking Level** picker (instant, thinking, extra thinking, max). The thinking level controls provider-specific reasoning options (e.g. Anthropic extended thinking budget, OpenAI reasoning effort).
 
+### Server Route (createChatRoute)
+
+Use \`createChatRoute\` for full AI SDK parity with \`@ai-sdk/react\` useChat. Export \`CHAT_ROUTE_MAX_DURATION\` as \`maxDuration\` for Vercel/serverless. Options: \`sendSources\` (default true), \`sendReasoning\` (default true when thinking level is set), \`getModel\` (model picker from request body).
+
+### AI Elements-Style Components
+
+Native implementations of Reasoning, Sources, Suggestion, and ChainOfThought. Pass \`components\` (ChatMessageComponents) to \`ChatMessage\` or \`ChatWithExport\` to override with ai-elements. Use \`suggestions\` and \`onSuggestionClick\` for clickable prompt chips; \`showSuggestionsWhenEmpty\` controls visibility when the chat has messages.
+
 ### Workflow Creation Tools
 
 Pass \`workflowToolsConfig: { baseWorkflows, composer? }\` to \`ChatService\` or \`useChat\` to enable workflow creation tools. The model can then call \`create_workflow_extension\`, \`compose_workflow\`, and \`generate_workflow_spec_code\` when users ask to add steps or modify workflows. Export \`createWorkflowTools\` from \`@contractspec/module.ai-chat/core\` for manual wiring.

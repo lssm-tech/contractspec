@@ -152,6 +152,7 @@
     "./tools/mcp-client-helpers": "./src/tools/mcp-client-helpers.ts",
     "./tools/mcp-client.browser": "./src/tools/mcp-client.browser.ts",
     "./tools/mcp-server": "./src/tools/mcp-server.ts",
+    "./tools/operation-tool-handler": "./src/tools/operation-tool-handler.ts",
     "./tools/tool-adapter": "./src/tools/tool-adapter.ts",
     "./types": "./src/types.ts"
   },
@@ -606,6 +607,12 @@
         "bun": "./dist/tools/mcp-server.js",
         "node": "./dist/node/tools/mcp-server.js",
         "default": "./dist/tools/mcp-server.js"
+      },
+      "./tools/operation-tool-handler": {
+        "types": "./dist/tools/operation-tool-handler.d.ts",
+        "bun": "./dist/tools/operation-tool-handler.js",
+        "node": "./dist/node/tools/operation-tool-handler.js",
+        "default": "./dist/tools/operation-tool-handler.js"
       },
       "./tools/tool-adapter": {
         "types": "./dist/tools/tool-adapter.d.ts",
