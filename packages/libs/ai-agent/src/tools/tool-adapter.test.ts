@@ -21,11 +21,18 @@ describe('specToolToAISDKTool', () => {
     }
 
     // Consume async generator to complete first invocation
-    for await (const _ of execute({}, { toolCallId: 'call-1', messages: [] })) {}
+    for await (const _ of execute({}, { toolCallId: 'call-1', messages: [] })) {
+      void _;
+    }
 
     await expect(
       (async () => {
-        for await (const _ of execute({}, { toolCallId: 'call-2', messages: [] })) {}
+        for await (const _ of execute(
+          {},
+          { toolCallId: 'call-2', messages: [] }
+        )) {
+          void _;
+        }
       })()
     ).rejects.toMatchObject({
       code: 'TOOL_COOLDOWN_ACTIVE',
@@ -55,7 +62,12 @@ describe('specToolToAISDKTool', () => {
 
     await expect(
       (async () => {
-        for await (const _ of execute({}, { toolCallId: 'call-timeout', messages: [] })) {}
+        for await (const _ of execute(
+          {},
+          { toolCallId: 'call-timeout', messages: [] }
+        )) {
+          void _;
+        }
       })()
     ).rejects.toMatchObject({
       code: 'TOOL_EXECUTION_TIMEOUT',

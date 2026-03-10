@@ -314,7 +314,7 @@ export class ContractSpecAgent {
         const prompt =
           params.systemOverride && params.prompt
             ? `${this.instructions}\n\n${params.systemOverride}\n\n${params.prompt}`
-            : params.prompt ?? '';
+            : (params.prompt ?? '');
         result = await inner.generate({
           prompt,
           ...generateOptions,
@@ -407,7 +407,7 @@ export class ContractSpecAgent {
     const prompt =
       params.systemOverride && params.prompt
         ? `${this.instructions}\n\n${params.systemOverride}\n\n${params.prompt}`
-        : params.prompt ?? '';
+        : (params.prompt ?? '');
 
     const model = await this.resolveModelForCall({
       sessionId,

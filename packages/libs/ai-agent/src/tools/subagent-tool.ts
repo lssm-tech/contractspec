@@ -11,15 +11,12 @@ import { z } from 'zod';
 
 /** Subagent interface compatible with ToolLoopAgent stream. */
 export interface SubagentLike {
-  stream(params: {
-    prompt: string;
-    abortSignal?: AbortSignal;
-  }): Promise<{
+  stream(params: { prompt: string; abortSignal?: AbortSignal }): Promise<{
     toUIMessageStream(): AsyncIterable<unknown> | ReadableStream<unknown>;
   }>;
   /** Optional: for passConversationHistory; when present, used instead of stream when messages are passed */
   generate?(params: {
-    messages: Array<{ role: string; content: string | unknown[] }>;
+    messages: { role: string; content: string | unknown[] }[];
     abortSignal?: AbortSignal;
   }): Promise<{ text: string }>;
 }
@@ -99,7 +96,7 @@ export function createSubagentTool(
     input: Record<string, unknown>,
     options?: {
       abortSignal?: AbortSignal;
-      messages?: Array<{ role: string; content: string | unknown[] }>;
+      messages?: { role: string; content: string | unknown[] }[];
     }
   ): AsyncGenerator<unknown> {
     const task = String(input[taskParam] ?? input.task ?? '');
@@ -142,7 +139,7 @@ export function createSubagentTool(
       toModelOutput: ({
         output,
       }: {
-        output?: { parts?: Array<{ type?: string; text?: string }> };
+        output?: { parts?: { type?: string; text?: string }[] };
       }) => {
         const parts = output?.parts;
         if (!Array.isArray(parts)) {

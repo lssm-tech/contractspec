@@ -18,7 +18,8 @@ export class InMemoryAgentMemoryStore implements AgentMemoryStore {
 
   async view(path: string, viewRange?: [number, number]): Promise<string> {
     validateMemoryPath(path);
-    const normalized = path.replace(/\/+/g, '/').replace(/\/$/, '') || '/memories';
+    const normalized =
+      path.replace(/\/+/g, '/').replace(/\/$/, '') || '/memories';
 
     if (this.isDirectory(normalized)) {
       return this.listDirectory(normalized);
@@ -123,7 +124,8 @@ export class InMemoryAgentMemoryStore implements AgentMemoryStore {
     validateMemoryPath(path);
     const normalized = path.replace(/\/+/g, '/');
     if (this.isDirectory(normalized)) {
-      const prefix = normalized === '/memories' ? '/memories/' : `${normalized}/`;
+      const prefix =
+        normalized === '/memories' ? '/memories/' : `${normalized}/`;
       for (const key of this.store.keys()) {
         if (key.startsWith(prefix) || key === normalized) {
           this.store.delete(key);
@@ -155,14 +157,15 @@ export class InMemoryAgentMemoryStore implements AgentMemoryStore {
       const newPrefix = `${newNorm}/`;
       for (const [k, v] of entries) {
         this.store.delete(k);
-        const newKey = k === oldNorm ? newNorm : newPrefix + k.slice(oldPrefix.length);
+        const newKey =
+          k === oldNorm ? newNorm : newPrefix + k.slice(oldPrefix.length);
         this.store.set(newKey, v);
       }
     } else {
-      if (!this.store.has(oldNorm)) {
+      const content = this.store.get(oldNorm);
+      if (content === undefined) {
         return `Error: The path ${oldPath} does not exist`;
       }
-      const content = this.store.get(oldNorm)!;
       this.store.delete(oldNorm);
       this.ensureParentDir(newNorm);
       this.store.set(newNorm, content);
@@ -198,8 +201,7 @@ export class InMemoryAgentMemoryStore implements AgentMemoryStore {
   }
 
   private listDirectory(path: string): string {
-    const prefix =
-      path === '/memories' ? '/memories/' : `${path}/`;
+    const prefix = path === '/memories' ? '/memories/' : `${path}/`;
     const seen = new Set<string>();
     const entries: { path: string; size: number }[] = [];
 
@@ -217,7 +219,8 @@ export class InMemoryAgentMemoryStore implements AgentMemoryStore {
       const rel = key.slice(prefix.length);
       const first = rel.split('/')[0];
       if (!first || first.startsWith('.') || first === 'node_modules') continue;
-      const fullPath = path === '/memories' ? `/memories/${first}` : `${path}/${first}`;
+      const fullPath =
+        path === '/memories' ? `/memories/${first}` : `${path}/${first}`;
       if (seen.has(fullPath)) continue;
       seen.add(fullPath);
 

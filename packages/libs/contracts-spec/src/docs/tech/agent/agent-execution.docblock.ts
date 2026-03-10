@@ -283,7 +283,8 @@ These are optional add-ons; no first-class \`AgentSpec\` fields. Consumers add t
   {
     id: 'docs.tech.agent.workflow-integration',
     title: 'Workflow-agent integration',
-    summary: 'Orchestrator-worker, workflow steps as agent ops, evaluator pattern.',
+    summary:
+      'Orchestrator-worker, workflow steps as agent ops, evaluator pattern.',
     kind: 'reference',
     visibility: 'public',
     route: '/docs/tech/agent/workflow-integration',

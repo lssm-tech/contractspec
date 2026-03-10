@@ -12,24 +12,32 @@ describe('InMemoryAgentMemoryStore', () => {
     it('accepts valid paths under /memories', () => {
       expect(() => validateMemoryPath('/memories')).not.toThrow();
       expect(() => validateMemoryPath('/memories/notes.txt')).not.toThrow();
-      expect(() => validateMemoryPath('/memories/subdir/file.txt')).not.toThrow();
+      expect(() =>
+        validateMemoryPath('/memories/subdir/file.txt')
+      ).not.toThrow();
     });
 
     it('rejects paths outside /memories', () => {
-      expect(() => validateMemoryPath('/etc/passwd')).toThrow(/Invalid memory path/);
+      expect(() => validateMemoryPath('/etc/passwd')).toThrow(
+        /Invalid memory path/
+      );
       expect(() => validateMemoryPath('/other')).toThrow(/Invalid memory path/);
     });
 
     it('rejects traversal sequences', () => {
-      expect(() => validateMemoryPath('/memories/../etc')).toThrow(/Invalid memory path/);
-      expect(() => validateMemoryPath('/memories/..')).toThrow(/Invalid memory path/);
+      expect(() => validateMemoryPath('/memories/../etc')).toThrow(
+        /Invalid memory path/
+      );
+      expect(() => validateMemoryPath('/memories/..')).toThrow(
+        /Invalid memory path/
+      );
     });
   });
 
   describe('view', () => {
     it('returns directory listing for /memories when empty', async () => {
       const result = await store.view('/memories');
-      expect(result).toContain('Here\'re the files and directories');
+      expect(result).toContain("Here're the files and directories");
       expect(result).toContain('/memories');
     });
 

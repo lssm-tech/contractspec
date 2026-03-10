@@ -1,5 +1,26 @@
 # @contractspec/example.saas-boilerplate
 
+## 3.6.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+
+### Patch Changes
+
+- Updated dependencies [6e3fe40]
+- Updated dependencies [ea320ea]
+- Updated dependencies [9d55d95]
+  - @contractspec/lib.contracts-spec@3.6.0
+  - @contractspec/lib.example-shared-ui@5.0.0
+  - @contractspec/module.notifications@3.6.0
+  - @contractspec/lib.runtime-sandbox@2.6.0
+  - @contractspec/module.audit-trail@3.6.0
+  - @contractspec/lib.design-system@3.6.0
+  - @contractspec/lib.identity-rbac@3.6.0
+  - @contractspec/lib.schema@3.6.0
+  - @contractspec/lib.jobs@3.6.0
+
 ## 3.5.5
 
 ### Patch Changes

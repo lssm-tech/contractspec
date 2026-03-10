@@ -560,12 +560,12 @@
     "contentPath": "_common/docs.reference.page.md"
   },
   {
-    "id": "_common/docs_search",
+    "id": "_common/docs.search",
     "title": "docs_search",
     "summary": "Search and filter DocBlocks by query, tag, or visibility.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: search, index\n- **File**: `packages/libs/contracts-spec/src/docs/queries/docsIndex.query.ts`",
-    "route": "/docs/reference/_common/docs_search",
+    "route": "/docs/reference/_common/docs.search",
     "source": "generated",
-    "contentPath": "_common/docs_search.md"
+    "contentPath": "_common/docs.search.md"
   },
   {
     "id": "_common/docs.system",
@@ -742,7 +742,9 @@
     "route": "/docs/accessibility_wcag_compliance_specs",
     "source": "docblock",
     "contentPath": "docblocks/docs/accessibility_wcag_compliance_specs.md",
-    "tags": ["accessibility_wcag_compliance_specs"],
+    "tags": [
+      "accessibility_wcag_compliance_specs"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -753,7 +755,10 @@
     "route": "/docs/meta/docblocks-process",
     "source": "docblock",
     "contentPath": "docblocks/docs/meta/docblocks-process.md",
-    "tags": ["docs", "process"],
+    "tags": [
+      "docs",
+      "process"
+    ],
     "kind": "reference",
     "visibility": "mixed"
   },
@@ -764,7 +769,10 @@
     "route": "/docs/tech/acp/fs/access",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/acp/fs/access.md",
-    "tags": ["acp", "filesystem"],
+    "tags": [
+      "acp",
+      "filesystem"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -775,7 +783,10 @@
     "route": "/docs/tech/acp/prompt/turn",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/acp/prompt/turn.md",
-    "tags": ["acp", "prompt"],
+    "tags": [
+      "acp",
+      "prompt"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -786,7 +797,10 @@
     "route": "/docs/tech/acp/session/init",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/acp/session/init.md",
-    "tags": ["acp", "session"],
+    "tags": [
+      "acp",
+      "session"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -797,7 +811,10 @@
     "route": "/docs/tech/acp/session/resume",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/acp/session/resume.md",
-    "tags": ["acp", "session"],
+    "tags": [
+      "acp",
+      "session"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -808,7 +825,10 @@
     "route": "/docs/tech/acp/session/stop",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/acp/session/stop.md",
-    "tags": ["acp", "session"],
+    "tags": [
+      "acp",
+      "session"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -819,7 +839,10 @@
     "route": "/docs/tech/acp/terminal/exec",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/acp/terminal/exec.md",
-    "tags": ["acp", "terminal"],
+    "tags": [
+      "acp",
+      "terminal"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -830,7 +853,10 @@
     "route": "/docs/tech/acp/tool/calls",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/acp/tool/calls.md",
-    "tags": ["acp", "tools"],
+    "tags": [
+      "acp",
+      "tools"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -841,7 +867,10 @@
     "route": "/docs/tech/acp/transport",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/acp/transport.md",
-    "tags": ["acp", "transport"],
+    "tags": [
+      "acp",
+      "transport"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -852,7 +881,11 @@
     "route": "/docs/tech/agent/approval/requested",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/agent/approval/requested.md",
-    "tags": ["agent", "event", "approval"],
+    "tags": [
+      "agent",
+      "event",
+      "approval"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -863,7 +896,10 @@
     "route": "/docs/tech/agent/approvals",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/agent/approvals.md",
-    "tags": ["agent", "approval"],
+    "tags": [
+      "agent",
+      "approval"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -874,7 +910,10 @@
     "route": "/docs/tech/agent/artifacts",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/agent/artifacts.md",
-    "tags": ["agent", "artifacts"],
+    "tags": [
+      "agent",
+      "artifacts"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -885,7 +924,10 @@
     "route": "/docs/tech/agent/cancel",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/agent/cancel.md",
-    "tags": ["agent", "cancel"],
+    "tags": [
+      "agent",
+      "cancel"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -896,7 +938,40 @@
     "route": "/docs/tech/agent/execution",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/agent/execution.md",
-    "tags": ["agent", "execution"],
+    "tags": [
+      "agent",
+      "execution"
+    ],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.agent.memory-tools",
+    "title": "Memory tools",
+    "summary": "Model-accessible CRUD for agent memory (Anthropic, custom).",
+    "route": "/docs/tech/agent/memory-tools",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/agent/memory-tools.md",
+    "tags": [
+      "agent",
+      "memory",
+      "tools"
+    ],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.agent.operations-as-tools",
+    "title": "Operations as tools",
+    "summary": "Reference ContractSpec operations as agent tools. One contract → REST, GraphQL, MCP, agent.",
+    "route": "/docs/tech/agent/operations-as-tools",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/agent/operations-as-tools.md",
+    "tags": [
+      "agent",
+      "tools",
+      "operations"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -907,7 +982,10 @@
     "route": "/docs/tech/agent/run",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/agent/run.md",
-    "tags": ["agent", "run"],
+    "tags": [
+      "agent",
+      "run"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -918,7 +996,11 @@
     "route": "/docs/tech/agent/run/audit",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/agent/run/audit.md",
-    "tags": ["agent", "presentation", "audit"],
+    "tags": [
+      "agent",
+      "presentation",
+      "audit"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -929,7 +1011,10 @@
     "route": "/docs/tech/agent/run/completed",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/agent/run/completed.md",
-    "tags": ["agent", "event"],
+    "tags": [
+      "agent",
+      "event"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -940,7 +1025,10 @@
     "route": "/docs/tech/agent/run/failed",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/agent/run/failed.md",
-    "tags": ["agent", "event"],
+    "tags": [
+      "agent",
+      "event"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -951,7 +1039,10 @@
     "route": "/docs/tech/agent/run/form",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/agent/run/form.md",
-    "tags": ["agent", "form"],
+    "tags": [
+      "agent",
+      "form"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -962,7 +1053,10 @@
     "route": "/docs/tech/agent/run/index",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/agent/run/index.md",
-    "tags": ["agent", "data-view"],
+    "tags": [
+      "agent",
+      "data-view"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -973,7 +1067,10 @@
     "route": "/docs/tech/agent/run/started",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/agent/run/started.md",
-    "tags": ["agent", "event"],
+    "tags": [
+      "agent",
+      "event"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -984,7 +1081,40 @@
     "route": "/docs/tech/agent/status",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/agent/status.md",
-    "tags": ["agent", "status"],
+    "tags": [
+      "agent",
+      "status"
+    ],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.agent.subagents",
+    "title": "Subagents",
+    "summary": "Delegate tasks to subagents with streaming and toModelOutput.",
+    "route": "/docs/tech/agent/subagents",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/agent/subagents.md",
+    "tags": [
+      "agent",
+      "subagents",
+      "delegation"
+    ],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.agent.workflow-integration",
+    "title": "Workflow-agent integration",
+    "summary": "Orchestrator-worker, workflow steps as agent ops, evaluator pattern.",
+    "route": "/docs/tech/agent/workflow-integration",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/agent/workflow-integration.md",
+    "tags": [
+      "agent",
+      "workflow",
+      "orchestrator"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -995,7 +1125,14 @@
     "route": "/docs/tech/auth/better-auth-nextjs",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/auth/better-auth-nextjs.md",
-    "tags": ["auth", "better-auth", "nextjs", "cookies", "proxy", "hmr"],
+    "tags": [
+      "auth",
+      "better-auth",
+      "nextjs",
+      "cookies",
+      "proxy",
+      "hmr"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1006,10 +1143,16 @@
     "route": "/docs/tech/cli/contractspec",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/cli/contractspec.md",
-    "tags": ["cli", "tooling", "reference"],
+    "tags": [
+      "cli",
+      "tooling",
+      "reference"
+    ],
     "kind": "reference",
     "visibility": "public",
-    "owners": ["@contractspec/app.cli-contractspec"]
+    "owners": [
+      "@contractspec/app.cli-contractspec"
+    ]
   },
   {
     "id": "docs.tech.context.pack.describe",
@@ -1018,7 +1161,11 @@
     "route": "/docs/tech/context/pack/describe",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/context/pack/describe.md",
-    "tags": ["context", "pack", "describe"],
+    "tags": [
+      "context",
+      "pack",
+      "describe"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1029,7 +1176,11 @@
     "route": "/docs/tech/context/pack/search",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/context/pack/search.md",
-    "tags": ["context", "pack", "search"],
+    "tags": [
+      "context",
+      "pack",
+      "search"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1040,7 +1191,11 @@
     "route": "/docs/tech/context/pack/search-form",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/context/pack/search/form.md",
-    "tags": ["context", "form", "search"],
+    "tags": [
+      "context",
+      "form",
+      "search"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1051,7 +1206,11 @@
     "route": "/docs/tech/context/pack/snapshot",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/context/pack/snapshot.md",
-    "tags": ["context", "snapshot", "create"],
+    "tags": [
+      "context",
+      "snapshot",
+      "create"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1062,7 +1221,11 @@
     "route": "/docs/tech/context/snapshot/created",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/context/snapshot/created.md",
-    "tags": ["context", "snapshot", "event"],
+    "tags": [
+      "context",
+      "snapshot",
+      "event"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1073,7 +1236,11 @@
     "route": "/docs/tech/context/snapshot/index",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/context/snapshot/index.md",
-    "tags": ["context", "snapshot", "data-view"],
+    "tags": [
+      "context",
+      "snapshot",
+      "data-view"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1084,7 +1251,11 @@
     "route": "/docs/tech/context/snapshot/presentation",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/context/snapshot/presentation.md",
-    "tags": ["context", "presentation", "snapshot"],
+    "tags": [
+      "context",
+      "presentation",
+      "snapshot"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1095,7 +1266,11 @@
     "route": "/docs/tech/context/system",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/context/system.md",
-    "tags": ["context", "system", "snapshot"],
+    "tags": [
+      "context",
+      "system",
+      "snapshot"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1106,7 +1281,11 @@
     "route": "/docs/tech/contracts/openapi-export",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/contracts/openapi-export.md",
-    "tags": ["contracts", "openapi", "rest"],
+    "tags": [
+      "contracts",
+      "openapi",
+      "rest"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1117,7 +1296,12 @@
     "route": "/docs/tech/contracts/openapi-import",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/contracts/openapi-import.md",
-    "tags": ["contracts", "openapi", "import", "codegen"],
+    "tags": [
+      "contracts",
+      "openapi",
+      "import",
+      "codegen"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1128,7 +1312,11 @@
     "route": "/docs/tech/contracts/presentations",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/contracts/presentations.md",
-    "tags": ["presentations", "docs", "mcp"],
+    "tags": [
+      "presentations",
+      "docs",
+      "mcp"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1139,7 +1327,11 @@
     "route": "/docs/tech/contracts/README",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/contracts/README.md",
-    "tags": ["tech", "contracts", "README"],
+    "tags": [
+      "tech",
+      "contracts",
+      "README"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1150,7 +1342,11 @@
     "route": "/docs/tech/contracts/workspace-config",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/contracts/workspace-config.md",
-    "tags": ["tech", "contracts", "config"],
+    "tags": [
+      "tech",
+      "contracts",
+      "config"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1161,7 +1357,10 @@
     "route": "/docs/tech/database/context",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/database/context.md",
-    "tags": ["database", "context"],
+    "tags": [
+      "database",
+      "context"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1172,7 +1371,10 @@
     "route": "/docs/tech/database/dictionary/get",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/database/dictionary/get.md",
-    "tags": ["database", "dictionary"],
+    "tags": [
+      "database",
+      "dictionary"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1183,7 +1385,10 @@
     "route": "/docs/tech/database/migrations/list",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/database/migrations/list.md",
-    "tags": ["database", "migrations"],
+    "tags": [
+      "database",
+      "migrations"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1194,7 +1399,11 @@
     "route": "/docs/tech/database/query/readonly",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/database/query/readonly.md",
-    "tags": ["database", "query", "readonly"],
+    "tags": [
+      "database",
+      "query",
+      "readonly"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1205,7 +1414,10 @@
     "route": "/docs/tech/database/schema/describe",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/database/schema/describe.md",
-    "tags": ["database", "schema"],
+    "tags": [
+      "database",
+      "schema"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1216,7 +1428,10 @@
     "route": "/docs/tech/database/schema/index",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/database/schema/index.md",
-    "tags": ["database", "data-view"],
+    "tags": [
+      "database",
+      "data-view"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1227,7 +1442,10 @@
     "route": "/docs/tech/docs/examples",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/docs-examples.md",
-    "tags": ["docs", "examples"],
+    "tags": [
+      "docs",
+      "examples"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1238,7 +1456,11 @@
     "route": "/docs/tech/docs/generator",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/docs-generator.md",
-    "tags": ["docs", "generator", "cli"],
+    "tags": [
+      "docs",
+      "generator",
+      "cli"
+    ],
     "kind": "how",
     "visibility": "public"
   },
@@ -1249,7 +1471,10 @@
     "route": "/docs/tech/docs/publish",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/docs-publish.md",
-    "tags": ["docs", "publish"],
+    "tags": [
+      "docs",
+      "publish"
+    ],
     "kind": "how",
     "visibility": "public"
   },
@@ -1260,7 +1485,10 @@
     "route": "/docs/tech/docs/reference",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/docs-reference.md",
-    "tags": ["docs", "reference"],
+    "tags": [
+      "docs",
+      "reference"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1271,7 +1499,10 @@
     "route": "/docs/tech/docs/search",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/docs-search.md",
-    "tags": ["docs", "search"],
+    "tags": [
+      "docs",
+      "search"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1282,7 +1513,11 @@
     "route": "/docs/tech/docs/system",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/docs-system.md",
-    "tags": ["docs", "system", "contracts"],
+    "tags": [
+      "docs",
+      "system",
+      "contracts"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1293,7 +1528,10 @@
     "route": "/docs/tech/lifecycle-stage-system",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/lifecycle-stage-system.md",
-    "tags": ["tech", "lifecycle-stage-system"],
+    "tags": [
+      "tech",
+      "lifecycle-stage-system"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1304,7 +1542,13 @@
     "route": "/docs/tech/llm/agent-adapters",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/llm/agent-adapters.md",
-    "tags": ["llm", "agents", "claude", "cursor", "mcp"],
+    "tags": [
+      "llm",
+      "agents",
+      "claude",
+      "cursor",
+      "mcp"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1315,7 +1559,11 @@
     "route": "/docs/tech/llm/export-formats",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/llm/export-formats.md",
-    "tags": ["llm", "export", "markdown"],
+    "tags": [
+      "llm",
+      "export",
+      "markdown"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1326,7 +1574,13 @@
     "route": "/docs/tech/llm/overview",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/llm/overview.md",
-    "tags": ["llm", "ai", "export", "guide", "verify"],
+    "tags": [
+      "llm",
+      "ai",
+      "export",
+      "guide",
+      "verify"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1337,7 +1591,12 @@
     "route": "/docs/tech/llm/verification",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/llm/verification.md",
-    "tags": ["llm", "verify", "validation", "testing"],
+    "tags": [
+      "llm",
+      "verify",
+      "validation",
+      "testing"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1348,7 +1607,12 @@
     "route": "/docs/tech/mcp/endpoints",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/mcp/endpoints.md",
-    "tags": ["mcp", "docs", "cli", "internal"],
+    "tags": [
+      "mcp",
+      "docs",
+      "cli",
+      "internal"
+    ],
     "kind": "reference",
     "visibility": "mixed"
   },
@@ -1359,7 +1623,10 @@
     "route": "/docs/tech/presentation-runtime",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/presentation-runtime.md",
-    "tags": ["tech", "presentation-runtime"],
+    "tags": [
+      "tech",
+      "presentation-runtime"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1370,7 +1637,12 @@
     "route": "/docs/tech/provider-ranking/benchmark/custom/completed",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/provider-ranking/benchmark/custom/completed.md",
-    "tags": ["ai", "ranking", "event", "custom"],
+    "tags": [
+      "ai",
+      "ranking",
+      "event",
+      "custom"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1381,7 +1653,11 @@
     "route": "/docs/tech/provider-ranking/benchmark/ingest",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/provider-ranking/benchmark/ingest.md",
-    "tags": ["ai", "ranking", "ingest"],
+    "tags": [
+      "ai",
+      "ranking",
+      "ingest"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1392,7 +1668,11 @@
     "route": "/docs/tech/provider-ranking/benchmark/ingest/form",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/provider-ranking/benchmark/ingest/form.md",
-    "tags": ["ai", "ranking", "form"],
+    "tags": [
+      "ai",
+      "ranking",
+      "form"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1403,7 +1683,11 @@
     "route": "/docs/tech/provider-ranking/benchmark/ingested",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/provider-ranking/benchmark/ingested.md",
-    "tags": ["ai", "ranking", "event"],
+    "tags": [
+      "ai",
+      "ranking",
+      "event"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1414,7 +1698,11 @@
     "route": "/docs/tech/provider-ranking/benchmark/results/index",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/provider-ranking/benchmark/results/index.md",
-    "tags": ["ai", "ranking", "data-view"],
+    "tags": [
+      "ai",
+      "ranking",
+      "data-view"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1425,7 +1713,11 @@
     "route": "/docs/tech/provider-ranking/benchmark/results/list",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/provider-ranking/benchmark/results/list.md",
-    "tags": ["ai", "ranking", "results"],
+    "tags": [
+      "ai",
+      "ranking",
+      "results"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1436,7 +1728,12 @@
     "route": "/docs/tech/provider-ranking/benchmark/run-custom",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/provider-ranking/benchmark/run-custom.md",
-    "tags": ["ai", "ranking", "custom", "eval"],
+    "tags": [
+      "ai",
+      "ranking",
+      "custom",
+      "eval"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1447,7 +1744,11 @@
     "route": "/docs/tech/provider-ranking/benchmark/run-custom/form",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/provider-ranking/benchmark/run-custom/form.md",
-    "tags": ["ai", "ranking", "form"],
+    "tags": [
+      "ai",
+      "ranking",
+      "form"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1458,7 +1759,12 @@
     "route": "/docs/tech/provider-ranking/model/comparison",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/provider-ranking/model/comparison.md",
-    "tags": ["ai", "ranking", "presentation", "comparison"],
+    "tags": [
+      "ai",
+      "ranking",
+      "presentation",
+      "comparison"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1469,7 +1775,12 @@
     "route": "/docs/tech/provider-ranking/model/profile/get",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/provider-ranking/model/profile/get.md",
-    "tags": ["ai", "ranking", "model", "profile"],
+    "tags": [
+      "ai",
+      "ranking",
+      "model",
+      "profile"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1480,7 +1791,11 @@
     "route": "/docs/tech/provider-ranking/ranking/get",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/provider-ranking/ranking/get.md",
-    "tags": ["ai", "ranking", "leaderboard"],
+    "tags": [
+      "ai",
+      "ranking",
+      "leaderboard"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1491,7 +1806,11 @@
     "route": "/docs/tech/provider-ranking/ranking/index",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/provider-ranking/ranking/index.md",
-    "tags": ["ai", "ranking", "data-view"],
+    "tags": [
+      "ai",
+      "ranking",
+      "data-view"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1502,7 +1821,11 @@
     "route": "/docs/tech/provider-ranking/ranking/refresh",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/provider-ranking/ranking/refresh.md",
-    "tags": ["ai", "ranking", "refresh"],
+    "tags": [
+      "ai",
+      "ranking",
+      "refresh"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1513,7 +1836,11 @@
     "route": "/docs/tech/provider-ranking/ranking/updated",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/provider-ranking/ranking/updated.md",
-    "tags": ["ai", "ranking", "event"],
+    "tags": [
+      "ai",
+      "ranking",
+      "event"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1524,7 +1851,11 @@
     "route": "/docs/tech/provider-ranking/system",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/provider-ranking/system.md",
-    "tags": ["ai", "ranking", "benchmark"],
+    "tags": [
+      "ai",
+      "ranking",
+      "benchmark"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1535,10 +1866,17 @@
     "route": "/docs/tech/report/verification-table",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/report-verification-table.md",
-    "tags": ["report", "drift", "verification", "impact"],
+    "tags": [
+      "report",
+      "drift",
+      "verification",
+      "impact"
+    ],
     "kind": "how",
     "visibility": "public",
-    "owners": ["platform.core"]
+    "owners": [
+      "platform.core"
+    ]
   },
   {
     "id": "docs.tech.schema.README",
@@ -1547,7 +1885,11 @@
     "route": "/docs/tech/schema/README",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/schema/README.md",
-    "tags": ["tech", "schema", "README"],
+    "tags": [
+      "tech",
+      "schema",
+      "README"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1558,7 +1900,13 @@
     "route": "/docs/tech/studio/learning-events",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/studio/learning-events.md",
-    "tags": ["studio", "learning", "events", "analytics", "sandbox"],
+    "tags": [
+      "studio",
+      "learning",
+      "events",
+      "analytics",
+      "sandbox"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1587,7 +1935,13 @@
     "route": "/docs/tech/studio/platform-admin-panel",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/studio/platform-admin-panel.md",
-    "tags": ["studio", "admin", "multi-tenancy", "integrations", "better-auth"],
+    "tags": [
+      "studio",
+      "admin",
+      "multi-tenancy",
+      "integrations",
+      "better-auth"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1598,7 +1952,13 @@
     "route": "/docs/tech/studio/project-access-teams",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/studio/project-access-teams.md",
-    "tags": ["studio", "projects", "teams", "rbac", "access-control"],
+    "tags": [
+      "studio",
+      "projects",
+      "teams",
+      "rbac",
+      "access-control"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1609,7 +1969,13 @@
     "route": "/docs/tech/studio/project-routing",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/studio/project-routing.md",
-    "tags": ["studio", "routing", "projects", "slug", "redirects"],
+    "tags": [
+      "studio",
+      "routing",
+      "projects",
+      "slug",
+      "redirects"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1620,7 +1986,12 @@
     "route": "/docs/tech/studio/sandbox-unlogged",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/studio/sandbox/unlogged.md",
-    "tags": ["studio", "sandbox", "privacy", "analytics"],
+    "tags": [
+      "studio",
+      "sandbox",
+      "privacy",
+      "analytics"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1631,7 +2002,13 @@
     "route": "/docs/tech/studio/team-invitations",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/studio/team-invitations.md",
-    "tags": ["studio", "teams", "invitations", "access-control", "onboarding"],
+    "tags": [
+      "studio",
+      "teams",
+      "invitations",
+      "access-control",
+      "onboarding"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1642,7 +2019,13 @@
     "route": "/docs/tech/studio/workspace-ops",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/studio/workspace_ops.md",
-    "tags": ["studio", "repo", "workspace", "validate", "diff"],
+    "tags": [
+      "studio",
+      "repo",
+      "workspace",
+      "validate",
+      "diff"
+    ],
     "kind": "reference",
     "visibility": "mixed"
   },
@@ -1653,7 +2036,13 @@
     "route": "/docs/tech/studio/workspaces",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/studio/workspaces.md",
-    "tags": ["studio", "projects", "teams", "rbac", "environments"],
+    "tags": [
+      "studio",
+      "projects",
+      "teams",
+      "rbac",
+      "environments"
+    ],
     "kind": "reference",
     "visibility": "mixed"
   },
@@ -1664,7 +2053,11 @@
     "route": "/docs/tech/telemetry/hybrid",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/telemetry/hybrid.md",
-    "tags": ["telemetry", "architecture", "posthog"],
+    "tags": [
+      "telemetry",
+      "architecture",
+      "posthog"
+    ],
     "kind": "usage",
     "visibility": "internal"
   },
@@ -1675,7 +2068,12 @@
     "route": "/docs/tech/telemetry/ingest",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/telemetry/ingest.md",
-    "tags": ["telemetry", "api", "posthog", "analytics"],
+    "tags": [
+      "telemetry",
+      "api",
+      "posthog",
+      "analytics"
+    ],
     "kind": "reference",
     "visibility": "internal"
   },
@@ -1686,7 +2084,12 @@
     "route": "/docs/tech/vscode/extension",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/vscode/extension.md",
-    "tags": ["vscode", "extension", "tooling", "dx"],
+    "tags": [
+      "vscode",
+      "extension",
+      "tooling",
+      "dx"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1697,7 +2100,11 @@
     "route": "/docs/tech/vscode/snippets",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/vscode/snippets.md",
-    "tags": ["vscode", "snippets", "dx"],
+    "tags": [
+      "vscode",
+      "snippets",
+      "dx"
+    ],
     "kind": "reference",
     "visibility": "public"
   },
@@ -1708,7 +2115,11 @@
     "route": "/docs/tech/workflows/overview",
     "source": "docblock",
     "contentPath": "docblocks/docs/tech/workflows/overview.md",
-    "tags": ["tech", "workflows", "overview"],
+    "tags": [
+      "tech",
+      "workflows",
+      "overview"
+    ],
     "kind": "reference",
     "visibility": "public"
   }

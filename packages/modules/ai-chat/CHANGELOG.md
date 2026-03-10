@@ -1,5 +1,41 @@
 # @contractspec/module.ai-chat
 
+## 4.2.0
+
+### Minor Changes
+
+- 6e3fe40: feat(agents): agentic workflows — subagents, memory tools, and next steps
+  - **Subagents**: `createSubagentTool`, async generator execute, `SubagentRef`, streaming + toModelOutput
+  - **Memory tools**: `AgentMemoryStore`, `InMemoryAgentMemoryStore`, `createAnthropicMemoryTool`, `memoryTools` + `agentMemoryStore` config
+  - **needsApproval**: Validation warning when subagent has requiresApproval/automationSafe (AI SDK limitation)
+  - **passConversationHistory**: Opt-in `SubagentRef.passConversationHistory`; subagent `generate({ messages })` support
+  - **DocBlocks**: Subagent caveats, execution model, Mem0/Hindsight optional add-ons; knowledge agent memory
+  - **ai-chat**: `preliminary`/`nestedParts` on ChatToolCall; UIMessagePartRenderer for nested subagent output
+
+- ea320ea: feat: ai-chat tooling
+- 9d55d95: feat(tools): backend operations + frontend rendering support
+  - **AgentToolConfig**: Add `outputPresentation`, `outputForm`, `outputDataView` for declarative tool output rendering (at most one per tool)
+  - **Tool adapter**: Wrap raw tool output as `{ presentationKey, data }`, `{ formKey, defaultValues }`, or `{ dataViewKey, items }` for ToolResultRenderer
+  - **OperationSpec**: Optional `outputPresentation`, `outputForm`, `outputDataView`; tool adapter falls back to operation refs when AgentToolConfig has none
+  - **ToolResultRenderer**: Add DataViewSpec support via `dataViewRenderer` prop, `DataViewToolResult`, `isDataViewToolResult`
+  - **Chat components**: Thread `dataViewRenderer` through ChatMessage, ChatWithExport, ChatWithSidebar
+
+### Patch Changes
+
+- Updated dependencies [6e3fe40]
+- Updated dependencies [ea320ea]
+- Updated dependencies [9d55d95]
+  - @contractspec/lib.ai-agent@6.0.0
+  - @contractspec/lib.contracts-spec@3.6.0
+  - @contractspec/lib.workflow-composer@3.6.0
+  - @contractspec/lib.surface-runtime@0.4.0
+  - @contractspec/lib.cost-tracking@3.6.0
+  - @contractspec/lib.design-system@3.6.0
+  - @contractspec/lib.ai-providers@3.6.0
+  - @contractspec/lib.ui-kit-web@3.6.0
+  - @contractspec/lib.metering@3.6.0
+  - @contractspec/lib.schema@3.6.0
+
 ## 4.1.5
 
 ### Patch Changes

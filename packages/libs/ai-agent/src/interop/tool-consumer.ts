@@ -27,7 +27,9 @@ async function resolveToolResult(
     }
     return typeof last === 'string' ? last : JSON.stringify(last ?? '');
   }
-  return typeof resolved === 'string' ? resolved : JSON.stringify(resolved ?? '');
+  return typeof resolved === 'string'
+    ? resolved
+    : JSON.stringify(resolved ?? '');
 }
 import type {
   ToolConsumer,

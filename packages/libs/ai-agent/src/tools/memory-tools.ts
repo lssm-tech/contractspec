@@ -35,10 +35,7 @@ export function createAnthropicMemoryTool(store: AgentMemoryStore): Tool {
     execute: async (action: AnthropicMemoryAction) => {
       switch (action.command) {
         case 'view':
-          return store.view(
-            action.path ?? '/memories',
-            action.view_range
-          );
+          return store.view(action.path ?? '/memories', action.view_range);
         case 'create':
           return store.create(
             action.path ?? '/memories/untitled',

@@ -111,7 +111,7 @@ function UIMessagePartRenderer({
 
   if (p.type === 'text' && typeof p.text === 'string') {
     return (
-      <p key={depth} className="whitespace-pre-wrap text-sm">
+      <p key={depth} className="text-sm whitespace-pre-wrap">
         {p.text}
       </p>
     );
@@ -121,7 +121,7 @@ function UIMessagePartRenderer({
     const output = p.output as unknown;
     if (isUIMessageLike(output)) {
       return (
-        <div key={depth} className="ml-2 border-l-2 border-border pl-2">
+        <div key={depth} className="border-border ml-2 border-l-2 pl-2">
           <UIMessagePartsRenderer
             parts={output.parts ?? []}
             presentationRenderer={presentationRenderer}
@@ -207,7 +207,7 @@ export function ToolResultRenderer({
     return (
       <div className="border-border bg-background/50 mt-2 rounded-md border p-3">
         <UIMessagePartsRenderer
-          parts={result.parts}
+          parts={result.parts ?? []}
           presentationRenderer={presentationRenderer}
           formRenderer={formRenderer}
           dataViewRenderer={dataViewRenderer}

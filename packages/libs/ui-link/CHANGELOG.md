@@ -1,5 +1,16 @@
 # @contractspec/lib.ui-link
 
+## 3.6.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+
+### Patch Changes
+
+- Updated dependencies [ea320ea]
+  - @contractspec/lib.ui-kit-core@3.6.0
+
 ## 3.5.5
 
 ### Patch Changes

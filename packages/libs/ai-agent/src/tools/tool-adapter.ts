@@ -158,7 +158,9 @@ export function specToolsToAISDKTools(
 
   for (const specTool of specTools) {
     if (specTool.subagentRef && options?.subagentRegistry) {
-      const subagent = options.subagentRegistry.get(specTool.subagentRef.agentId);
+      const subagent = options.subagentRegistry.get(
+        specTool.subagentRef.agentId
+      );
       if (!subagent) {
         throw new Error(
           `Subagent not found: ${specTool.subagentRef.agentId}. Register it in subagentRegistry.`
