@@ -1,5 +1,11 @@
 # @contractspec/lib.contracts
 
+## 2.6.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+
 ## 2.5.5
 
 ### Patch Changes

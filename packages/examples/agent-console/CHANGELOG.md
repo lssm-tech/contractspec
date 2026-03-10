@@ -1,5 +1,21 @@
 # @contractspec/example.agent-console
 
+## 3.6.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+
+### Patch Changes
+
+- Updated dependencies [ea320ea]
+- Updated dependencies [9d55d95]
+  - @contractspec/lib.example-shared-ui@5.0.0
+  - @contractspec/lib.runtime-sandbox@2.6.0
+  - @contractspec/lib.contracts-spec@3.6.0
+  - @contractspec/lib.design-system@3.6.0
+  - @contractspec/lib.schema@3.6.0
+
 ## 3.5.5
 
 ### Patch Changes

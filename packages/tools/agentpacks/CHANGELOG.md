@@ -1,5 +1,11 @@
 # agentpacks
 
+## 1.6.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+
 ## 1.5.5
 
 ### Patch Changes

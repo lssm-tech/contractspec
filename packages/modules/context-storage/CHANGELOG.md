@@ -1,5 +1,19 @@
 # @contractspec/module.context-storage
 
+## 0.6.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+
+### Patch Changes
+
+- Updated dependencies [ea320ea]
+  - @contractspec/lib.contracts-integrations@3.6.0
+  - @contractspec/lib.context-storage@0.6.0
+  - @contractspec/lib.knowledge@3.6.0
+  - @contractspec/lib.schema@3.6.0
+
 ## 0.5.5
 
 ### Patch Changes

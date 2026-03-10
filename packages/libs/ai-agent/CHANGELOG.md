@@ -1,5 +1,26 @@
 # @contractspec/lib.ai-agent
 
+## 6.0.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+- 9d55d95: feat(tools): backend operations + frontend rendering support
+  - **AgentToolConfig**: Add `outputPresentation`, `outputForm`, `outputDataView` for declarative tool output rendering (at most one per tool)
+  - **Tool adapter**: Wrap raw tool output as `{ presentationKey, data }`, `{ formKey, defaultValues }`, or `{ dataViewKey, items }` for ToolResultRenderer
+  - **OperationSpec**: Optional `outputPresentation`, `outputForm`, `outputDataView`; tool adapter falls back to operation refs when AgentToolConfig has none
+  - **ToolResultRenderer**: Add DataViewSpec support via `dataViewRenderer` prop, `DataViewToolResult`, `isDataViewToolResult`
+  - **Chat components**: Thread `dataViewRenderer` through ChatMessage, ChatWithExport, ChatWithSidebar
+
+### Patch Changes
+
+- Updated dependencies [ea320ea]
+- Updated dependencies [9d55d95]
+  - @contractspec/lib.surface-runtime@0.4.0
+  - @contractspec/lib.contracts-spec@3.6.0
+  - @contractspec/lib.ai-providers@3.6.0
+  - @contractspec/lib.knowledge@3.6.0
+
 ## 5.0.5
 
 ### Patch Changes

@@ -1,5 +1,37 @@
 # @contractspec/bundle.marketing
 
+## 3.6.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+
+### Patch Changes
+
+- Updated dependencies [44b46cd]
+- Updated dependencies [ea320ea]
+- Updated dependencies [9d55d95]
+  - @contractspec/example.integration-hub@3.6.0
+  - @contractspec/module.examples@3.6.0
+  - @contractspec/lib.contracts-runtime-client-react@3.6.0
+  - @contractspec/example.analytics-dashboard@3.6.0
+  - @contractspec/example.saas-boilerplate@3.6.0
+  - @contractspec/example.workflow-system@3.6.0
+  - @contractspec/example.agent-console@3.6.0
+  - @contractspec/lib.example-shared-ui@5.0.0
+  - @contractspec/example.crm-pipeline@3.6.0
+  - @contractspec/example.marketplace@3.6.0
+  - @contractspec/lib.runtime-sandbox@2.6.0
+  - @contractspec/lib.surface-runtime@0.4.0
+  - @contractspec/lib.contracts-spec@3.6.0
+  - @contractspec/lib.design-system@3.6.0
+  - @contractspec/lib.ui-kit-core@3.6.0
+  - @contractspec/bundle.library@3.6.0
+  - @contractspec/lib.ui-kit-web@3.6.0
+  - @contractspec/lib.ui-link@3.6.0
+  - @contractspec/lib.logger@3.6.0
+  - @contractspec/lib.email@3.6.0
+
 ## 3.5.5
 
 ### Patch Changes

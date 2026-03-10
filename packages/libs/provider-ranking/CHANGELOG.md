@@ -1,5 +1,11 @@
 # @contractspec/lib.provider-ranking
 
+## 0.6.0
+
+### Minor Changes
+
+- ea320ea: feat: ai-chat tooling
+
 ## 0.5.5
 
 ### Patch Changes
