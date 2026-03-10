@@ -2,6 +2,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts-spec/examples/type
 
 // Import manifests ONLY via the side-effect-free `/example` entrypoints.
 import AgentConsole from '@contractspec/example.agent-console/example';
+import AiChatAssistant from '@contractspec/example.ai-chat-assistant/example';
 import AiSupportBot from '@contractspec/example.ai-support-bot/example';
 import AnalyticsDashboard from '@contractspec/example.analytics-dashboard/example';
 import ContentGeneration from '@contractspec/example.content-generation/example';
@@ -39,6 +40,7 @@ import WorkflowSystem from '@contractspec/example.workflow-system/example';
 
 export const EXAMPLE_REGISTRY: readonly ExampleSpec[] = [
   AgentConsole,
+  AiChatAssistant,
   AiSupportBot,
   AnalyticsDashboard,
   ContentGeneration,

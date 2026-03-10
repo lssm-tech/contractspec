@@ -15,8 +15,9 @@ import {
   StatCardGroup,
 } from '@contractspec/lib.design-system';
 import { useIntegrationData } from './hooks/useIntegrationData';
+import { IntegrationHubChat } from './IntegrationHubChat';
 
-type Tab = 'integrations' | 'connections' | 'syncs';
+type Tab = 'integrations' | 'connections' | 'syncs' | 'chat';
 
 const STATUS_COLORS: Record<string, string> = {
   ACTIVE:
@@ -58,6 +59,7 @@ export function IntegrationDashboard() {
     { id: 'integrations', label: 'Integrations', icon: '🔌' },
     { id: 'connections', label: 'Connections', icon: '🔗' },
     { id: 'syncs', label: 'Sync Configs', icon: '🔄' },
+    { id: 'chat', label: 'Chat', icon: '💬' },
   ];
 
   if (loading) {
@@ -212,6 +214,19 @@ export function IntegrationDashboard() {
               </tbody>
             </table>
           </div>
+        )}
+
+        {activeTab === 'chat' && (
+          <IntegrationHubChat
+            proxyUrl="/api/chat"
+            thinkingLevel="thinking"
+            suggestions={[
+              'List my integrations',
+              'Show sync status',
+              'Add a connection',
+            ]}
+            className="min-h-[400px]"
+          />
         )}
 
         {activeTab === 'syncs' && (

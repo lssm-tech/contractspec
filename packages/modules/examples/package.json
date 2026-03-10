@@ -33,6 +33,7 @@
   "dependencies": {
     "@apollo/client": "^4.1.6",
     "@contractspec/example.agent-console": "workspace:*",
+    "@contractspec/example.ai-chat-assistant": "workspace:*",
     "@contractspec/example.ai-support-bot": "workspace:*",
     "@contractspec/example.analytics-dashboard": "workspace:*",
     "@contractspec/example.content-generation": "workspace:*",
