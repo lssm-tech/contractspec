@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/app.registry-packs",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "type": "module",
   "module": "src/index.ts",
   "scripts": {

@@ -1,5 +1,21 @@
 # @contractspec/app.provider-ranking-mcp
 
+## 1.6.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.0
+  - @contractspec/module.provider-ranking@0.7.0
+  - @contractspec/lib.provider-ranking@0.7.0
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/lib.ai-providers@3.7.0
+  - @contractspec/lib.logger@3.7.0
+
 ## 1.5.0
 
 ### Minor Changes

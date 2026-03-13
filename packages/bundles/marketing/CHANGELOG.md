@@ -1,5 +1,35 @@
 # @contractspec/bundle.marketing
 
+## 3.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/lib.contracts-runtime-client-react@3.7.0
+  - @contractspec/example.analytics-dashboard@3.7.0
+  - @contractspec/example.saas-boilerplate@3.7.0
+  - @contractspec/example.integration-hub@3.7.0
+  - @contractspec/example.workflow-system@3.7.0
+  - @contractspec/example.agent-console@3.7.0
+  - @contractspec/lib.example-shared-ui@6.0.0
+  - @contractspec/example.crm-pipeline@3.7.0
+  - @contractspec/example.marketplace@3.7.0
+  - @contractspec/lib.runtime-sandbox@2.7.0
+  - @contractspec/lib.surface-runtime@0.5.0
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/lib.design-system@3.7.0
+  - @contractspec/lib.ui-kit-core@3.7.0
+  - @contractspec/module.examples@3.7.0
+  - @contractspec/bundle.library@3.7.0
+  - @contractspec/lib.ui-kit-web@3.7.0
+  - @contractspec/lib.ui-link@3.7.0
+  - @contractspec/lib.logger@3.7.0
+  - @contractspec/lib.email@3.7.0
+
 ## 3.6.0
 
 ### Minor Changes

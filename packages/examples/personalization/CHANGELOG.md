@@ -1,5 +1,20 @@
 # @contractspec/example.personalization
 
+## 3.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/lib.workflow-composer@3.7.0
+  - @contractspec/lib.personalization@6.0.0
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/lib.overlay-engine@3.7.0
+  - @contractspec/lib.logger@3.7.0
+
 ## 3.6.0
 
 ### Minor Changes

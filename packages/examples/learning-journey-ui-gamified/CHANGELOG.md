@@ -1,5 +1,22 @@
 # @contractspec/example.learning-journey-ui-gamified
 
+## 3.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/example.learning-journey-quest-challenges@3.7.0
+  - @contractspec/example.learning-journey-duo-drills@3.7.0
+  - @contractspec/example.learning-journey-ui-shared@3.7.0
+  - @contractspec/module.learning-journey@3.7.0
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/lib.design-system@3.7.0
+  - @contractspec/lib.ui-kit-web@3.7.0
+
 ## 3.6.0
 
 ### Minor Changes

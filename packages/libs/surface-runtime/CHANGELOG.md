@@ -1,5 +1,18 @@
 # @contractspec/lib.surface-runtime
 
+## 0.5.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/lib.overlay-engine@3.7.0
+  - @contractspec/lib.observability@3.7.0
+
 ## 0.4.0
 
 ### Minor Changes

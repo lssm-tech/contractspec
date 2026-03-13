@@ -1,5 +1,27 @@
 # Changelog
 
+## 3.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/lib.contracts-integrations@3.7.0
+  - @contractspec/lib.contracts-transformers@3.7.0
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/bundle.workspace@3.7.0
+  - @contractspec/lib.ai-providers@3.7.0
+  - @contractspec/module.workspace@3.7.0
+  - @contractspec/module.examples@3.7.0
+  - @contractspec/module.ai-chat@4.3.0
+  - @contractspec/lib.ai-agent@7.0.0
+  - @contractspec/lib.plugins@3.7.0
+  - @contractspec/lib.testing@3.7.0
+  - @contractspec/lib.schema@3.7.0
+
 ## 3.6.0
 
 ### Minor Changes

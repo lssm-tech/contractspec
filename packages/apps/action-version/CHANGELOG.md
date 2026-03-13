@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 2.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
 ## 2.6.0
 
 ### Minor Changes

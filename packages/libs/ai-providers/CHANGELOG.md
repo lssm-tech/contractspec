@@ -1,5 +1,16 @@
 # @contractspec/lib.ai-providers
 
+## 3.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/lib.provider-ranking@0.7.0
+
 ## 3.6.0
 
 ### Minor Changes

@@ -1,5 +1,27 @@
 # @contractspec/example.learning-journey-registry
 
+## 3.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/example.learning-journey-studio-onboarding@3.7.0
+  - @contractspec/example.learning-journey-quest-challenges@3.7.0
+  - @contractspec/example.learning-journey-crm-onboarding@3.7.0
+  - @contractspec/example.learning-journey-ambient-coach@3.7.0
+  - @contractspec/example.learning-journey-platform-tour@3.7.0
+  - @contractspec/example.learning-journey-ui-onboarding@3.7.0
+  - @contractspec/example.learning-journey-ui-coaching@3.7.0
+  - @contractspec/example.learning-journey-ui-gamified@3.7.0
+  - @contractspec/example.learning-journey-duo-drills@3.7.0
+  - @contractspec/example.learning-journey-ui-shared@3.7.0
+  - @contractspec/module.learning-journey@3.7.0
+  - @contractspec/lib.contracts-spec@3.7.0
+
 ## 3.6.0
 
 ### Minor Changes

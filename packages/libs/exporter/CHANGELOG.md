@@ -1,5 +1,11 @@
 # @contractspec/lib.exporter
 
+## 3.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
 ## 3.6.0
 
 ### Minor Changes

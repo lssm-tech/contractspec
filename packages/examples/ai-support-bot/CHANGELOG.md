@@ -1,5 +1,19 @@
 # @contractspec/example.ai-support-bot
 
+## 3.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/lib.support-bot@3.7.0
+  - @contractspec/lib.knowledge@3.7.0
+  - @contractspec/lib.logger@3.7.0
+
 ## 3.6.0
 
 ### Minor Changes

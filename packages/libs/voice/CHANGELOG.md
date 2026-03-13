@@ -1,5 +1,19 @@
 # @contractspec/lib.voice
 
+## 1.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/lib.contracts-integrations@3.7.0
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/lib.ai-providers@3.7.0
+  - @contractspec/lib.content-gen@3.7.0
+
 ## 1.6.0
 
 ### Minor Changes

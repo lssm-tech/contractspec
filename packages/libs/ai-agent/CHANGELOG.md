@@ -1,5 +1,19 @@
 # @contractspec/lib.ai-agent
 
+## 7.0.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/lib.surface-runtime@0.5.0
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/lib.ai-providers@3.7.0
+  - @contractspec/lib.knowledge@3.7.0
+
 ## 6.0.0
 
 ### Minor Changes

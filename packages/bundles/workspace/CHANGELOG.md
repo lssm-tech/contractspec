@@ -1,5 +1,23 @@
 # @contractspec/bundle.workspace
 
+## 3.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/lib.contracts-integrations@3.7.0
+  - @contractspec/lib.contracts-transformers@3.7.0
+  - @contractspec/lib.source-extractors@2.7.0
+  - @contractspec/lib.utils-typescript@3.7.0
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/lib.ai-providers@3.7.0
+  - @contractspec/module.workspace@3.7.0
+  - @contractspec/lib.ai-agent@7.0.0
+
 ## 3.6.0
 
 ### Minor Changes

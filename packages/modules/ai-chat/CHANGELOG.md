@@ -1,5 +1,25 @@
 # @contractspec/module.ai-chat
 
+## 4.3.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/lib.workflow-composer@3.7.0
+  - @contractspec/lib.surface-runtime@0.5.0
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/lib.cost-tracking@3.7.0
+  - @contractspec/lib.design-system@3.7.0
+  - @contractspec/lib.ai-providers@3.7.0
+  - @contractspec/lib.ui-kit-web@3.7.0
+  - @contractspec/lib.ai-agent@7.0.0
+  - @contractspec/lib.metering@3.7.0
+  - @contractspec/lib.schema@3.7.0
+
 ## 4.2.0
 
 ### Minor Changes

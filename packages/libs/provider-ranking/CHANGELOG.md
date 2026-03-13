@@ -1,5 +1,11 @@
 # @contractspec/lib.provider-ranking
 
+## 0.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
 ## 0.6.0
 
 ### Minor Changes

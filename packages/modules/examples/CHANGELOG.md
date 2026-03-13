@@ -1,5 +1,54 @@
 # @contractspec/module.examples
 
+## 3.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/example.learning-journey-studio-onboarding@3.7.0
+  - @contractspec/example.learning-journey-quest-challenges@3.7.0
+  - @contractspec/example.learning-journey-crm-onboarding@3.7.0
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.0
+  - @contractspec/example.learning-journey-ambient-coach@3.7.0
+  - @contractspec/example.learning-journey-platform-tour@3.7.0
+  - @contractspec/example.learning-journey-ui-onboarding@3.7.0
+  - @contractspec/example.learning-journey-ui-coaching@3.7.0
+  - @contractspec/example.learning-journey-ui-gamified@3.7.0
+  - @contractspec/example.learning-journey-duo-drills@3.7.0
+  - @contractspec/example.learning-journey-ui-shared@3.7.0
+  - @contractspec/example.learning-journey-registry@3.7.0
+  - @contractspec/example.locale-jurisdiction-gate@3.7.0
+  - @contractspec/example.versioned-knowledge-base@3.7.0
+  - @contractspec/example.analytics-dashboard@3.7.0
+  - @contractspec/example.lifecycle-dashboard@3.7.0
+  - @contractspec/example.service-business-os@3.7.0
+  - @contractspec/example.content-generation@3.7.0
+  - @contractspec/example.integration-stripe@3.7.0
+  - @contractspec/example.kb-update-pipeline@3.7.0
+  - @contractspec/example.openbanking-powens@3.7.0
+  - @contractspec/example.ai-chat-assistant@3.7.0
+  - @contractspec/example.learning-patterns@3.7.0
+  - @contractspec/example.saas-boilerplate@3.7.0
+  - @contractspec/example.integration-hub@3.7.0
+  - @contractspec/example.knowledge-canon@3.7.0
+  - @contractspec/example.personalization@3.7.0
+  - @contractspec/example.voice-providers@3.7.0
+  - @contractspec/example.wealth-snapshot@3.7.0
+  - @contractspec/example.workflow-system@3.7.0
+  - @contractspec/example.ai-support-bot@3.7.0
+  - @contractspec/example.agent-console@3.7.0
+  - @contractspec/example.lifecycle-cli@3.7.0
+  - @contractspec/lib.example-shared-ui@6.0.0
+  - @contractspec/example.crm-pipeline@3.7.0
+  - @contractspec/example.marketplace@3.7.0
+  - @contractspec/lib.runtime-sandbox@2.7.0
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/example.team-hub@3.7.0
+
 ## 3.6.0
 
 ### Minor Changes

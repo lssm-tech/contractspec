@@ -1,5 +1,17 @@
 # @contractspec/integration.example-generator
 
+## 34.0.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/lib.schema@3.7.0
+
 ## 33.0.0
 
 ### Minor Changes
