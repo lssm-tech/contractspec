@@ -231,10 +231,11 @@ export const CreateUser = defineCommand({
 
 ### AI & Evolution
 
-| npm                                                                                                                                      | Package                                                            | Description                                     |
-| ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | ----------------------------------------------- |
-| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.ai-agent)](https://www.npmjs.com/package/@contractspec/lib.ai-agent)   | [`@contractspec/lib.ai-agent`](packages/libs/ai-agent/README.md)   | AI agent orchestration with contract governance |
-| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.evolution)](https://www.npmjs.com/package/@contractspec/lib.evolution) | [`@contractspec/lib.evolution`](packages/libs/evolution/README.md) | Auto-evolution and safe regeneration            |
+| npm                                                                                                                                        | Package                                                              | Description                                     |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------- | ----------------------------------------------- |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.ai-agent)](https://www.npmjs.com/package/@contractspec/lib.ai-agent)     | [`@contractspec/lib.ai-agent`](packages/libs/ai-agent/README.md)     | AI agent orchestration with contract governance |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/module.ai-chat)](https://www.npmjs.com/package/@contractspec/module.ai-chat) | [`@contractspec/module.ai-chat`](packages/modules/ai-chat/README.md) | Reusable AI chat system                         |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.evolution)](https://www.npmjs.com/package/@contractspec/lib.evolution)   | [`@contractspec/lib.evolution`](packages/libs/evolution/README.md)   | Auto-evolution and safe regeneration            |
 
 ### Testing & Quality
 

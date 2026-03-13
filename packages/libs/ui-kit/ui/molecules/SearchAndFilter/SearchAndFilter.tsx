@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { View } from 'react-native';
 import { ChevronDown, ChevronUp, Filter } from 'lucide-react';
 import { Button } from '../../button';
+import { Text } from '../../text';
 import {
   Collapsible,
   CollapsibleContent,
@@ -29,10 +31,8 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   // On mobile, show collapsible by default; on desktop, always show filters
   const shouldUseCollapsible = collapsible && hasFilters;
 
-  console.log('SearchAndFilter', { filters });
-
   const FilterComponents = () => (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <View className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
       {filters.map((filter) => (
         <FilterSelect
           key={filter.key}
@@ -45,14 +45,14 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
           className="min-w-0"
         />
       ))}
-    </div>
+    </View>
   );
 
   return (
-    <div className={`space-y-4 ${className}`}>
+    <View className={`flex flex-col gap-4 ${className}`}>
       {/* Search - Always visible */}
-      <div className="flex flex-col gap-4 sm:flex-row">
-        <div className="flex-1">
+      <View className="flex flex-col gap-4 sm:flex-row">
+        <View className="flex-1">
           <SearchInput
             value={searchValue}
             onChange={onSearchChange}
@@ -60,7 +60,7 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
             disabled={disabled || isLoading}
             className="w-full"
           />
-        </div>
+        </View>
 
         {/* Filter toggle for mobile */}
         {shouldUseCollapsible && (
@@ -78,9 +78,9 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
                 <Filter className="mr-2 h-4 w-4" />
                 Filtres
                 {activeFiltersCount > 0 && (
-                  <span className="bg-primary text-primary-foreground ml-2 flex h-5 w-5 items-center justify-center rounded-full text-sm">
+                  <Text className="bg-primary text-primary-foreground ml-2 flex h-5 w-5 items-center justify-center rounded-full text-sm">
                     {activeFiltersCount}
-                  </span>
+                  </Text>
                 )}
                 {isCollapsed ? (
                   <ChevronDown className="ml-2 h-4 w-4" />
@@ -94,21 +94,21 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
             </CollapsibleContent>
           </Collapsible>
         )}
-      </div>
+      </View>
 
       {/* Filters - Always visible on desktop, collapsible on mobile */}
       {hasFilters && (
-        <div className="hidden sm:block">
+        <View className="hidden sm:flex">
           <FilterComponents />
-        </div>
+        </View>
       )}
 
       {/* Active filters summary */}
       {activeFiltersCount > 0 && (
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-muted-foreground text-base">
+        <View className="flex flex-wrap items-center gap-2">
+          <Text className="text-muted-foreground text-base">
             Filtres actifs:
-          </span>
+          </Text>
           {filters
             .filter((f) => f.value)
             .map((filter) => {
@@ -125,12 +125,12 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
                   className="h-7 px-2 text-sm"
                 >
                   {filter.label}: {selectedOption?.label}
-                  <span className="ml-1">×</span>
+                  <Text className="ml-1">×</Text>
                 </Button>
               );
             })}
-        </div>
+        </View>
       )}
-    </div>
+    </View>
   );
 };

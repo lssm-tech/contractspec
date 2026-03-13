@@ -1,6 +1,13 @@
 import type { ReactNode } from 'react';
 import type { FilterOption } from '../../atoms/FilterSelect';
 import type { UseListStateReturn } from '../../useListState';
+
+/** Injectable link component for navigation. Pass Next.js Link (web) or expo-router Link (mobile). */
+export type ListPageLinkComponent = React.ComponentType<{
+  href: string;
+  children: ReactNode;
+}>;
+
 export interface ListPageFilter {
   key: string;
   label: string;
@@ -47,4 +54,7 @@ export interface ListPageProps<T = unknown> {
   // Customization
   className?: string;
   itemClassName?: string;
+
+  /** Required when primaryAction.href is used. Pass Next.js Link (web) or expo-router Link (mobile). */
+  linkComponent?: ListPageLinkComponent;
 }

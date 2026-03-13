@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { View } from 'react-native';
 import { Skeleton } from '../skeleton';
 
 interface Props {
@@ -13,10 +14,10 @@ export function SkeletonList({
   itemClassName = '',
 }: Props) {
   return (
-    <div className={`space-y-3 ${className}`}>
+    <View className={`flex flex-col gap-3 ${className}`}>
       {Array.from({ length: count }).map((_, i) => (
         <Skeleton key={i} className={`h-20 rounded-md ${itemClassName}`} />
       ))}
-    </div>
+    </View>
   );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import { View } from 'react-native';
 import { AlertTriangle, Loader2, Plus, RefreshCcw } from 'lucide-react';
 import { Button } from '../../button';
 import { Card, CardContent } from '../../card';
@@ -7,6 +7,8 @@ import { VStack, HStack } from '../../stack';
 import { Separator } from '../../separator';
 import { SearchAndFilter } from '../../molecules/SearchAndFilter';
 import { Pagination } from '../../atoms/Pagination';
+import { Text } from '../../text';
+import { P } from '../../typography';
 import type { ListPageProps } from './types';
 import type { FilterOption } from '../../atoms/FilterSelect/types';
 
@@ -31,7 +33,9 @@ export function ListPage<T>({
   renderStats,
   className = '',
   itemClassName = '',
+  linkComponent,
 }: ListPageProps<T>) {
+  const LinkComponent = linkComponent;
   const {
     searchQuery,
     setSearchQuery,
@@ -51,26 +55,26 @@ export function ListPage<T>({
           header
         ) : (
           <VStack className="gap-1">
-            <h1 className="text-2xl font-bold md:text-3xl">{title}</h1>
+            <Text className="text-2xl font-bold md:text-3xl">{title}</Text>
             {description && (
-              <p className="text-muted-foreground text-base">{description}</p>
+              <P className="text-muted-foreground text-base">{description}</P>
             )}
           </VStack>
         )}
 
-        <div className="flex min-h-[400px] items-center justify-center">
+        <View className="flex min-h-[400px] items-center justify-center">
           <Card>
             <CardContent className="flex items-center gap-4 p-6">
               <Loader2 className="text-primary h-8 w-8 animate-spin" />
-              <div>
-                <h3 className="font-medium">Chargement...</h3>
-                <p className="text-muted-foreground text-base">
+              <View>
+                <Text className="font-medium">Chargement...</Text>
+                <P className="text-muted-foreground text-base">
                   Récupération des données en cours
-                </p>
-              </div>
+                </P>
+              </View>
             </CardContent>
           </Card>
-        </div>
+        </View>
       </VStack>
     );
   }
@@ -83,23 +87,23 @@ export function ListPage<T>({
           header
         ) : (
           <VStack className="gap-1">
-            <h1 className="text-2xl font-bold md:text-3xl">{title}</h1>
+            <Text className="text-2xl font-bold md:text-3xl">{title}</Text>
             {description && (
-              <p className="text-muted-foreground text-base">{description}</p>
+              <P className="text-muted-foreground text-base">{description}</P>
             )}
           </VStack>
         )}
 
-        <div className="flex min-h-[400px] items-center justify-center">
+        <View className="flex min-h-[400px] items-center justify-center">
           <Card>
             <CardContent className="flex flex-col items-center gap-4 p-6 text-center">
               <AlertTriangle className="text-destructive h-12 w-12" />
-              <div>
-                <h3 className="font-medium">Erreur de chargement</h3>
-                <p className="text-muted-foreground text-base">
+              <View>
+                <Text className="font-medium">Erreur de chargement</Text>
+                <P className="text-muted-foreground text-base">
                   {error.message || 'Une erreur est survenue'}
-                </p>
-              </div>
+                </P>
+              </View>
               {onRefresh && (
                 <Button onPress={onRefresh} variant="outline" size="sm">
                   <RefreshCcw className="mr-2 h-4 w-4" />
@@ -108,7 +112,7 @@ export function ListPage<T>({
               )}
             </CardContent>
           </Card>
-        </div>
+        </View>
       </VStack>
     );
   }
@@ -144,7 +148,7 @@ export function ListPage<T>({
             {(isLoading || isFetching) && (
               <div className="text-muted-foreground flex items-center gap-2 text-base">
                 <Loader2 className="h-4 w-4 animate-spin" />
-                <span className="hidden sm:inline">Mise à jour...</span>
+                <Text className="hidden sm:inline">Mise à jour...</Text>
               </div>
             )}
 
@@ -159,29 +163,41 @@ export function ListPage<T>({
                 <RefreshCcw
                   className={`mr-2 h-4 w-4 ${isLoading || isFetching ? 'animate-spin' : ''}`}
                 />
-                <span className="hidden sm:inline">Rafraîchir</span>
+                <Text className="hidden sm:inline">Rafraîchir</Text>
               </Button>
             )}
 
             {primaryAction && (
               <>
                 {primaryAction.href ? (
-                  <Link href={primaryAction.href}>
-                    <Button>
+                  LinkComponent ? (
+                    <LinkComponent href={primaryAction.href}>
+                      <Button>
+                        {primaryAction.icon || (
+                          <Plus className="mr-2 h-4 w-4" />
+                        )}
+                        <Text className="hidden sm:inline">
+                          {primaryAction.label}
+                        </Text>
+                        <Text className="sm:hidden">Nouveau</Text>
+                      </Button>
+                    </LinkComponent>
+                  ) : (
+                    <Button onPress={primaryAction.onClick ?? undefined}>
                       {primaryAction.icon || <Plus className="mr-2 h-4 w-4" />}
-                      <span className="hidden sm:inline">
+                      <Text className="hidden sm:inline">
                         {primaryAction.label}
-                      </span>
-                      <span className="sm:hidden">Nouveau</span>
+                      </Text>
+                      <Text className="sm:hidden">Nouveau</Text>
                     </Button>
-                  </Link>
+                  )
                 ) : (
                   <Button onPress={primaryAction.onClick}>
                     {primaryAction.icon || <Plus className="mr-2 h-4 w-4" />}
-                    <span className="hidden sm:inline">
+                    <Text className="hidden sm:inline">
                       {primaryAction.label}
-                    </span>
-                    <span className="sm:hidden">Nouveau</span>
+                    </Text>
+                    <Text className="sm:hidden">Nouveau</Text>
                   </Button>
                 )}
               </>
@@ -214,30 +230,39 @@ export function ListPage<T>({
         ) : (
           <Card>
             <CardContent className="flex flex-col items-center gap-4 p-8 text-center">
-              <div className="bg-muted flex h-12 w-12 items-center justify-center rounded-full">
-                <div className="bg-muted-foreground/20 h-6 w-6 rounded-full" />
-              </div>
-              <div>
-                <h3 className="font-medium">Aucun élément trouvé</h3>
-                <p className="text-muted-foreground text-base">
+              <View className="bg-muted flex h-12 w-12 items-center justify-center rounded-full">
+                <View className="bg-muted-foreground/20 h-6 w-6 rounded-full" />
+              </View>
+              <View>
+                <Text className="font-medium">Aucun élément trouvé</Text>
+                <P className="text-muted-foreground text-base">
                   {searchQuery || Object.values(filterValues).some((v) => v)
                     ? 'Essayez de modifier vos critères de recherche'
                     : 'Commencez par créer votre premier élément'}
-                </p>
-              </div>
+                </P>
+              </View>
               {primaryAction &&
                 !searchQuery &&
                 !Object.values(filterValues).some((v) => v) && (
                   <>
                     {primaryAction.href ? (
-                      <Link href={primaryAction.href}>
-                        <Button>
+                      LinkComponent ? (
+                        <LinkComponent href={primaryAction.href}>
+                          <Button>
+                            {primaryAction.icon || (
+                              <Plus className="mr-2 h-4 w-4" />
+                            )}
+                            {primaryAction.label}
+                          </Button>
+                        </LinkComponent>
+                      ) : (
+                        <Button onPress={primaryAction.onClick ?? undefined}>
                           {primaryAction.icon || (
                             <Plus className="mr-2 h-4 w-4" />
                           )}
                           {primaryAction.label}
                         </Button>
-                      </Link>
+                      )
                     ) : (
                       <Button onPress={primaryAction.onClick}>
                         {primaryAction.icon || (
@@ -254,9 +279,9 @@ export function ListPage<T>({
       ) : (
         <>
           {/* Items List */}
-          <div className={`space-y-4 ${itemClassName}`}>
+          <View className={`space-y-4 ${itemClassName}`}>
             {items.map((item, index) => renderItem(item, index))}
-          </div>
+          </View>
 
           {/* Pagination */}
           {totalPages > 1 && (

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { VStack } from '../stack';
+import { Text } from '../text';
 
 export function UserStoryCard({
   title,
@@ -12,12 +13,12 @@ export function UserStoryCard({
 }) {
   return (
     <VStack className="rounded-lg border p-4" gap="sm">
-      <div className="text-lg font-semibold">{title}</div>
-      {body && <div className="text-muted-foreground text-base">{body}</div>}
+      <Text className="text-lg font-semibold">{title}</Text>
+      {body && <Text className="text-muted-foreground text-base">{body}</Text>}
       {outcome && (
-        <div className="text-base">
-          <span className="font-medium">Outcome:</span> {outcome}
-        </div>
+        <Text className="text-base">
+          <Text className="font-medium">Outcome:</Text> {outcome}
+        </Text>
       )}
     </VStack>
   );

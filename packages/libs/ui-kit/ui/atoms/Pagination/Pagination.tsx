@@ -29,8 +29,9 @@ export const Pagination: React.FC<PaginationProps> = ({
   showItemsPerPage = true,
   itemsPerPageOptions = [10, 25, 50, 100],
 }) => {
-  const startItem = (currentPage - 1) * itemsPerPage + 1;
-  const endItem = Math.min(currentPage * itemsPerPage, totalItems);
+  const startItem = totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
+  const endItem =
+    totalItems === 0 ? 0 : Math.min(currentPage * itemsPerPage, totalItems);
 
   const canGoPrevious = currentPage > 1 && !disabled;
   const canGoNext = currentPage < totalPages && !disabled;
@@ -167,9 +168,12 @@ export const Pagination: React.FC<PaginationProps> = ({
               value: itemsPerPage.toString(),
               label: itemsPerPage.toString(),
             }}
-            onValueChange={(value) =>
-              onItemsPerPageChange(parseInt(value?.value || ''))
-            }
+            onValueChange={(value) => {
+              const parsed = parseInt(value?.value ?? '', 10);
+              if (!Number.isNaN(parsed)) {
+                onItemsPerPageChange(parsed);
+              }
+            }}
             disabled={disabled}
           >
             <SelectTrigger className="h-8 w-16">

@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { View } from 'react-native';
+import { Text } from '../text';
+import { P } from '../typography';
 import { cn } from '../utils';
 
 export interface FeatureItem {
@@ -23,20 +26,22 @@ export function FeatureGrid({
         ? 'md:grid-cols-2'
         : 'md:grid-cols-3';
   return (
-    <section className={cn('mx-auto max-w-6xl py-12', className)}>
-      <div className={cn('grid grid-cols-1 gap-6', gridCols)}>
+    <View className={cn('mx-auto max-w-6xl py-12', className)}>
+      <View
+        className={cn('flex flex-col gap-6 md:flex-row md:flex-wrap', gridCols)}
+      >
         {items.map((it, idx) => (
-          <div key={idx} className="rounded-lg border p-6">
-            {it.icon && <div className="text-primary mb-3">{it.icon}</div>}
-            <h3 className="text-lg font-semibold">{it.title}</h3>
+          <View key={idx} className="flex-1 rounded-lg border p-6">
+            {it.icon && <View className="text-primary mb-3">{it.icon}</View>}
+            <Text className="text-lg font-semibold">{it.title}</Text>
             {it.description && (
-              <p className="text-muted-foreground mt-2 text-base">
+              <P className="text-muted-foreground mt-2 text-base">
                 {it.description}
-              </p>
+              </P>
             )}
-          </div>
+          </View>
         ))}
-      </div>
-    </section>
+      </View>
+    </View>
   );
 }

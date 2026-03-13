@@ -1,5 +1,8 @@
 import * as React from 'react';
+import { View } from 'react-native';
 import { Button } from '../button';
+import { Text } from '../text';
+import { P } from '../typography';
 import { cn } from '../utils';
 import { Link } from 'expo-router';
 
@@ -17,15 +20,17 @@ export function Hero({
   className?: string;
 }) {
   return (
-    <section className={cn('mx-auto max-w-4xl py-16 text-center', className)}>
-      <h1 className="text-4xl font-bold tracking-tight md:text-5xl">{title}</h1>
+    <View className={cn('mx-auto max-w-4xl py-16', className)}>
+      <Text className="text-4xl font-bold tracking-tight md:text-5xl">
+        {title}
+      </Text>
       {subtitle && (
-        <p className="text-muted-foreground mt-4 text-lg md:text-xl">
+        <P className="text-muted-foreground mt-4 text-lg md:text-xl">
           {subtitle}
-        </p>
+        </P>
       )}
       {(primaryCta || secondaryCta) && (
-        <div className="mt-8 flex items-center justify-center gap-3">
+        <View className="mt-8 flex flex-row items-center justify-center gap-3">
           {primaryCta &&
             (primaryCta.href ? (
               <Button size="lg">
@@ -50,8 +55,8 @@ export function Hero({
                 {secondaryCta.label}
               </Button>
             ))}
-        </div>
+        </View>
       )}
-    </section>
+    </View>
   );
 }

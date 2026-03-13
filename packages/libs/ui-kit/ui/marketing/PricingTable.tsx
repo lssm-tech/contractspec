@@ -1,5 +1,8 @@
 import * as React from 'react';
+import { View } from 'react-native';
 import { Button } from '../button';
+import { Text } from '../text';
+import { P } from '../typography';
 import { cn } from '../utils';
 import { Link } from 'expo-router';
 
@@ -20,35 +23,35 @@ export function PricingTable({
   className?: string;
 }) {
   return (
-    <section className={cn('mx-auto max-w-6xl py-12', className)}>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+    <View className={cn('mx-auto max-w-6xl py-12', className)}>
+      <View className="flex flex-col gap-6 md:flex-row md:flex-wrap">
         {tiers.map((t, idx) => (
-          <div
+          <View
             key={idx}
             className={cn(
-              'flex flex-col rounded-lg border p-6',
+              'flex flex-1 flex-col rounded-lg border p-6',
               t.highlighted && 'border-primary shadow-lg'
             )}
           >
-            <div className="text-muted-foreground mb-2 text-base font-medium">
+            <Text className="text-muted-foreground mb-2 text-base font-medium">
               {t.name}
-            </div>
-            <div className="text-3xl font-semibold">{t.price}</div>
+            </Text>
+            <Text className="text-3xl font-semibold">{t.price}</Text>
             {t.tagline && (
-              <div className="text-muted-foreground mt-1 text-base">
+              <Text className="text-muted-foreground mt-1 text-base">
                 {t.tagline}
-              </div>
+              </Text>
             )}
-            <ul className="mt-4 space-y-2 text-base">
+            <View className="mt-4 flex flex-col gap-2">
               {t.features.map((f, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <span className="bg-primary mt-1 h-1.5 w-1.5 rounded-full" />
-                  <span>{f}</span>
-                </li>
+                <View key={i} className="flex flex-row items-start gap-2">
+                  <View className="bg-primary mt-1 h-1.5 w-1.5 rounded-full" />
+                  <Text className="text-base">{f}</Text>
+                </View>
               ))}
-            </ul>
+            </View>
             {t.cta && (
-              <div className="mt-6">
+              <View className="mt-6">
                 {t.cta.href ? (
                   <Button className="w-full">
                     <Link href={t.cta.href}>{t.cta.label}</Link>
@@ -58,15 +61,15 @@ export function PricingTable({
                     {t.cta.label}
                   </Button>
                 )}
-              </div>
+              </View>
             )}
-          </div>
+          </View>
         ))}
-      </div>
-      <p className="text-muted-foreground mt-6 text-center text-base">
+      </View>
+      <P className="text-muted-foreground mt-6 text-center text-base">
         Usage-based tiers inspired by generous free allowances and per-unit
         pricing.
-      </p>
-    </section>
+      </P>
+    </View>
   );
 }

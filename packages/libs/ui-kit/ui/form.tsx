@@ -3,6 +3,7 @@
 import * as React from 'react';
 import * as Slot from '@rn-primitives/slot';
 import { View as RNView } from 'react-native';
+import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import {
   Controller,
   type ControllerProps,
@@ -13,8 +14,8 @@ import {
   useFormState,
 } from 'react-hook-form';
 
-import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import { Label } from './label';
+import { P } from './typography';
 
 export { zodResolver } from '@hookform/resolvers/zod';
 export { useForm, type UseFormReturn, useFieldArray } from 'react-hook-form';
@@ -46,17 +47,18 @@ const FormField = <
 };
 
 const useFormField = () => {
+  const fallbackId = React.useId();
   const fieldContext = React.useContext(FormFieldContext);
   const itemContext = React.useContext(FormItemContext);
   const { getFieldState } = useFormContext();
-  const formState = useFormState({ name: fieldContext.name });
-  const fieldState = getFieldState(fieldContext.name, formState);
 
-  if (!fieldContext) {
+  if (!fieldContext?.name) {
     throw new Error('useFormField should be used within <FormField>');
   }
 
-  const { id } = itemContext;
+  const formState = useFormState({ name: fieldContext.name });
+  const fieldState = getFieldState(fieldContext.name, formState);
+  const id = itemContext?.id ?? fallbackId;
 
   return {
     id,
@@ -76,14 +78,17 @@ const FormItemContext = React.createContext<FormItemContextValue>(
   {} as FormItemContextValue
 );
 
-function FormItem({ className, ...props }: React.ComponentProps<'div'>) {
+function FormItem({
+  className,
+  ...props
+}: React.ComponentProps<typeof RNView>) {
   const id = React.useId();
 
   return (
     <FormItemContext.Provider value={{ id }}>
-      <div
+      <RNView
         data-slot="form-item"
-        className={cn('grid gap-2', className)}
+        className={cn('flex flex-col gap-2', className)}
         {...props}
       />
     </FormItemContext.Provider>
@@ -132,20 +137,23 @@ function FormControl({
   );
 }
 
-function FormDescription({ className, ...props }: React.ComponentProps<'p'>) {
+function FormDescription({
+  className,
+  ...props
+}: React.ComponentProps<typeof P>) {
   const { formDescriptionId } = useFormField();
 
   return (
-    <p
+    <P
       data-slot="form-description"
-      id={formDescriptionId}
+      nativeID={formDescriptionId}
       className={cn('text-muted-foreground text-sm', className)}
       {...props}
     />
   );
 }
 
-function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
+function FormMessage({ className, ...props }: React.ComponentProps<typeof P>) {
   const { error, formMessageId } = useFormField();
   const body = error ? String(error?.message ?? '') : props.children;
 
@@ -154,14 +162,14 @@ function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
   }
 
   return (
-    <p
+    <P
       data-slot="form-message"
-      id={formMessageId}
+      nativeID={formMessageId}
       className={cn('text-destructive text-sm', className)}
       {...props}
     >
       {body}
-    </p>
+    </P>
   );
 }
 

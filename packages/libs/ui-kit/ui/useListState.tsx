@@ -5,7 +5,6 @@ export interface UseListStateOptions {
   initialFilters?: Record<string, string>;
   initialPage?: number;
   initialItemsPerPage?: number;
-  debounceMs?: number;
 }
 
 export interface UseListStateReturn {

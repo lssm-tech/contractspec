@@ -77,6 +77,7 @@
     "dev:video": "turbo run dev --filter=\"@contractspec/app.video-*\"",
     "dev:web": "turbo run dev --filter=\"@contractspec/app.web-*\"",
     "dev:api": "turbo run dev --filter=\"@contractspec/app.api-*\"",
+    "dev:mobile": "turbo run dev --filter=\"@contractspec/app.expo-demo\"",
     "dev:not-apps": "turbo watch build --filter=\"!@contractspec/app.*\"",
     "build": "turbo run build",
     "build:web": "turbo run build --filter=\"@contractspec/app.web-*\"",

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { VStack, HStack } from '../stack';
+import { Text } from '../text';
 import { Button } from '../button';
+import { Link } from 'expo-router';
 
 export function UseCaseCard({
   title,
@@ -17,17 +19,17 @@ export function UseCaseCard({
 }) {
   return (
     <VStack className="rounded-lg border p-4" gap="sm">
-      <div className="text-lg font-semibold">{title}</div>
+      <Text className="text-lg font-semibold">{title}</Text>
       {summary && (
-        <div className="text-muted-foreground text-base">{summary}</div>
+        <Text className="text-muted-foreground text-base">{summary}</Text>
       )}
       {ctaHref && (
         <HStack>
-          <a href={ctaHref} onClick={onCtaClick}>
-            <Button size="sm" variant="outline">
+          <Link href={ctaHref}>
+            <Button size="sm" variant="outline" onPress={onCtaClick}>
               {ctaLabel}
             </Button>
-          </a>
+          </Link>
         </HStack>
       )}
     </VStack>

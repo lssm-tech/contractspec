@@ -2,8 +2,8 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-03-10T10:09:26.324Z
-Packages: 156
+Generated: 2026-03-13T12:01:03.399Z
+Packages: 157
 
 ---
 
@@ -8652,6 +8652,16 @@ src/
 - [`@contractspec/bundle.marketing`](../../bundles/marketing/README.md) — Marketing bundle
 - [`@contractspec/app.web-studio`](../web-studio/README.md) — Studio web app
 
+
+---
+
+## @contractspec/app.expo-demo
+
+Description: Minimal Expo React Native app - Task List demo for ContractSpec mobile runtime
+Path: packages/apps/expo-demo
+URL: /llms/app.expo-demo
+
+(No README.md)
 
 ---
 

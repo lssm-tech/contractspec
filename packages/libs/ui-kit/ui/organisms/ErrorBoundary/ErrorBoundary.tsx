@@ -1,9 +1,11 @@
 'use client';
 
 import React from 'react';
-// import * as Sentry from '@sentry/nextjs';
+import { Platform, View } from 'react-native';
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 import { Button } from '../../button';
+import { Text } from '../../text';
+import { P } from '../../typography';
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -30,57 +32,63 @@ const DefaultErrorFallback: React.FC<ErrorFallbackProps> = ({
 }) => {
   const isDevelopment = process.env.NODE_ENV === 'development';
 
+  const goHome = () => {
+    if (Platform.OS === 'web' && typeof window !== 'undefined') {
+      window.location.href = '/';
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-w-md rounded-lg bg-white p-6 text-center shadow-lg">
-        <div className="mb-4 flex justify-center">
+    <View className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
+      <View className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+        <View className="mb-4 flex justify-center">
           <AlertTriangle className="h-12 w-12 text-red-500" />
-        </div>
+        </View>
 
-        <h1 className="mb-2 text-2xl font-semibold text-gray-900">
+        <Text className="mb-2 text-2xl font-semibold text-gray-900">
           Une erreur s'est produite
-        </h1>
+        </Text>
 
-        <p className="mb-6 text-gray-600">
+        <P className="mb-6 text-gray-600">
           Nous nous excusons pour ce désagrément. Notre équipe a été notifiée et
           travaille à résoudre le problème.
-        </p>
+        </P>
 
         {isDevelopment && (
-          <div className="mb-6 rounded-md bg-red-50 p-4 text-left">
-            <p className="mb-2 text-base font-medium text-red-800">
+          <View className="mb-6 rounded-md bg-red-50 p-4">
+            <P className="mb-2 text-base font-medium text-red-800">
               Erreur de développement:
-            </p>
-            <p className="font-mono text-sm break-all text-red-700">
+            </P>
+            <Text className="font-mono text-sm break-all text-red-700">
               {error.message}
-            </p>
+            </Text>
             {errorId && (
-              <p className="mt-2 text-sm text-red-600">ID: {errorId}</p>
+              <P className="mt-2 text-sm text-red-600">ID: {errorId}</P>
             )}
-          </div>
+          </View>
         )}
 
-        <div className="flex flex-col justify-center gap-3 sm:flex-row">
+        <View className="flex flex-col justify-center gap-3 sm:flex-row">
           <Button onPress={resetError} className="flex items-center gap-2">
             <RefreshCw className="h-4 w-4" />
             Réessayer
           </Button>
 
           <Button
-            onPress={() => (window.location.href = '/')}
+            onPress={goHome}
             variant="secondary"
             className="flex items-center gap-2"
           >
             <Home className="h-4 w-4" />
             Accueil
           </Button>
-        </div>
+        </View>
 
         {!isDevelopment && errorId && (
-          <p className="mt-4 text-sm text-gray-500">Code d'erreur: {errorId}</p>
+          <P className="mt-4 text-sm text-gray-500">Code d'erreur: {errorId}</P>
         )}
-      </div>
-    </div>
+      </View>
+    </View>
   );
 };
 
@@ -106,7 +114,7 @@ export class ErrorBoundary extends React.Component<
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // Generate unique error ID
-    const errorId = `err_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const errorId = `err_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
 
     // Log to Sentry with additional context
     // Sentry.withScope((scope) => {

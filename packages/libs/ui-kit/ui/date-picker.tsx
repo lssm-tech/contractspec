@@ -80,8 +80,7 @@ export function DatePicker({
           mode="date"
           display={Platform.OS === 'ios' ? 'inline' : 'default'}
           onChange={handleChange}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          {...(pickerProps as any)}
+          {...pickerProps}
         />
       )}
     </View>
