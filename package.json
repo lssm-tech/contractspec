@@ -16,8 +16,8 @@
       "packages/apps-registry/*"
     ],
     "catalog": {
-      "react": "19.2.4",
-      "react-dom": "19.2.4",
+      "react": "19.2.0",
+      "react-dom": "19.2.0",
       "next": "16.1.6",
       "zod": "^4.3.5",
       "typescript": "^5.9.3"
@@ -147,7 +147,7 @@
     "fast-xml-parser": "5.3.6",
     "hono": "4.11.10",
     "lodash": "4.17.23",
-    "react-native": "0.83",
+    "react-native": "0.83.2",
     "react-native-css": "3.0.4",
     "semver": "7.7.4",
     "tar": "7.5.8",
