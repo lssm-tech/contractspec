@@ -173,14 +173,24 @@ export async function normalizeBuildConfig(cwd, config) {
 export function selectEntriesForTarget(entries, target) {
   if (target === 'node') {
     return entries.filter(
-      (entry) => !entry.includes('.browser.') && !entry.includes('.web.')
+      (entry) =>
+        !entry.includes('.browser.') &&
+        !entry.includes('.web.') &&
+        !entry.includes('.native.')
     );
   }
 
   if (target === 'browser') {
     return entries.filter(
-      (entry) => !entry.includes('.node.') && !entry.includes('.bun.')
+      (entry) =>
+        !entry.includes('.node.') &&
+        !entry.includes('.bun.') &&
+        !entry.includes('.native.')
     );
+  }
+
+  if (target === 'native') {
+    return entries.filter((entry) => entry.includes('.native.'));
   }
 
   return entries.filter((entry) => !entry.includes('.native.'));

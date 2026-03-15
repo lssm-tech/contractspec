@@ -1,6 +1,14 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
 const PLATFORM_SUFFIXES = ['bun', 'node', 'browser', 'web', 'native'];
+const CONDITION_KEYS = [
+  'types',
+  'browser',
+  'react-native',
+  'bun',
+  'node',
+  'default',
+];
 
 function removeExtension(relativePath) {
   return relativePath.replace(/\.[^/.]+$/, '');
@@ -89,14 +97,26 @@ function toSourcePath(sourceRelativePath) {
   return `./${sourceRelativePath}`;
 }
 
+function pickTypesVariant(variants) {
+  return (
+    variants.base ??
+    variants.bun ??
+    variants.node ??
+    variants.browser ??
+    variants.web ??
+    variants.native ??
+    null
+  );
+}
+
 function pickVariant(variants, mode) {
   if (mode === 'bun') {
     return (
       variants.bun ??
       variants.node ??
+      variants.base ??
       variants.browser ??
       variants.web ??
-      variants.base ??
       null
     );
   }
@@ -109,53 +129,88 @@ function pickVariant(variants, mode) {
     return variants.browser ?? variants.web ?? variants.base ?? null;
   }
 
+  if (mode === 'react-native') {
+    return variants.native ?? null;
+  }
+
   return (
-    variants.base ??
     variants.bun ??
     variants.node ??
+    variants.base ??
     variants.browser ??
     variants.web ??
     null
   );
 }
 
-function buildPublishExportEntry(variants, targets, targetRoots) {
-  const typesSource = pickVariant(variants, 'default');
-  const bunSource = pickVariant(variants, 'bun');
-  const nodeSource = targets.node ? pickVariant(variants, 'node') : null;
-  const browserSource = targets.browser
-    ? pickVariant(variants, 'browser')
-    : null;
-  const defaultSource = bunSource ?? nodeSource ?? browserSource ?? typesSource;
-
+function createConditionMap(values) {
   const entry = {};
 
-  if (typesSource) {
-    entry.types = toOutputPath(typesSource, 'types', targetRoots);
+  for (const key of CONDITION_KEYS) {
+    const value = values[key];
+    if (typeof value === 'string' && value.length > 0) {
+      entry[key] = value;
+    }
   }
 
-  if (bunSource) {
-    entry.bun = toOutputPath(bunSource, 'bun', targetRoots);
-  }
-
-  if (nodeSource) {
-    entry.node = toOutputPath(nodeSource, 'node', targetRoots);
-  }
-
-  if (browserSource) {
-    entry.browser = toOutputPath(browserSource, 'browser', targetRoots);
-  }
-
-  if (defaultSource) {
-    entry.default = toOutputPath(defaultSource, 'bun', targetRoots);
-  }
-
-  return entry;
+  return Object.keys(entry).length > 0 ? entry : null;
 }
 
-function buildDevExportEntry(variants) {
-  const source = pickVariant(variants, 'default');
-  return source ? toSourcePath(source) : null;
+function hasNonBaseVariant(variants) {
+  return Object.keys(variants).some((key) => key !== 'base');
+}
+
+function buildDevCanonicalExportEntry(variants) {
+  if (!hasNonBaseVariant(variants) && typeof variants.base === 'string') {
+    return toSourcePath(variants.base);
+  }
+
+  const typesSource = pickTypesVariant(variants);
+  const browserSource =
+    variants.browser || variants.web ? pickVariant(variants, 'browser') : null;
+  const nativeSource = pickVariant(variants, 'react-native');
+  const bunSource = variants.bun ?? null;
+  const nodeSource = variants.node ?? null;
+  const defaultSource = pickVariant(variants, 'default');
+
+  return createConditionMap({
+    types: typesSource ? toSourcePath(typesSource) : null,
+    browser: browserSource ? toSourcePath(browserSource) : null,
+    'react-native': nativeSource ? toSourcePath(nativeSource) : null,
+    bun: bunSource ? toSourcePath(bunSource) : null,
+    node: nodeSource ? toSourcePath(nodeSource) : null,
+    default: defaultSource ? toSourcePath(defaultSource) : null,
+  });
+}
+
+function buildPublishExportEntry(variants, targets, targetRoots, options = {}) {
+  const typesSource = pickTypesVariant(variants);
+  const bunSource = pickVariant(variants, 'bun');
+  const nodeSource = targets.node ? pickVariant(variants, 'node') : null;
+  const browserSource = targets.browser ? pickVariant(variants, 'browser') : null;
+  const nativeSource = pickVariant(variants, 'react-native');
+  const defaultSource =
+    pickVariant(variants, 'default') ??
+    (options.allowNativeDefault === true ? nativeSource : null);
+  const defaultTarget =
+    options.allowNativeDefault === true && defaultSource === nativeSource
+      ? 'native'
+      : 'bun';
+
+  return createConditionMap({
+    types: typesSource ? toOutputPath(typesSource, 'types', targetRoots) : null,
+    browser: browserSource
+      ? toOutputPath(browserSource, 'browser', targetRoots)
+      : null,
+    'react-native': nativeSource
+      ? toOutputPath(nativeSource, 'native', targetRoots)
+      : null,
+    bun: bunSource ? toOutputPath(bunSource, 'bun', targetRoots) : null,
+    node: nodeSource ? toOutputPath(nodeSource, 'node', targetRoots) : null,
+    default: defaultSource
+      ? toOutputPath(defaultSource, defaultTarget, targetRoots)
+      : null,
+  });
 }
 
 function sortExportMap(exportMap) {
@@ -174,8 +229,8 @@ function sortExportMap(exportMap) {
   return sorted;
 }
 
-function buildExportMaps(entries, targets, targetRoots) {
-  const variantsByKey = new Map();
+export function buildExportMaps(entries, targets, targetRoots) {
+  const descriptors = new Map();
 
   for (const entry of entries) {
     const withoutExtension = removeExtension(entry);
@@ -183,37 +238,59 @@ function buildExportMaps(entries, targets, targetRoots) {
     const canonicalKey = toExportKey(pathWithoutSuffix);
     const exactKey = toExactExportKey(withoutExtension);
 
-    for (const key of [canonicalKey, exactKey]) {
-      if (!variantsByKey.has(key)) {
-        variantsByKey.set(key, {});
-      }
-
-      const variants = variantsByKey.get(key);
-      if (!variants[suffix]) {
-        variants[suffix] = entry;
-      }
+    if (!descriptors.has(canonicalKey)) {
+      descriptors.set(canonicalKey, {
+        kind: 'canonical',
+        variants: {},
+      });
     }
-  }
 
-  if (!variantsByKey.has('.') && entries.length === 1) {
-    const singleEntry = entries[0];
-    const { suffix } = stripPlatformSuffix(removeExtension(singleEntry));
-    variantsByKey.set('.', { [suffix]: singleEntry });
+    const canonicalDescriptor = descriptors.get(canonicalKey);
+    if (!canonicalDescriptor.variants[suffix]) {
+      canonicalDescriptor.variants[suffix] = entry;
+    }
+
+    if (suffix !== 'base' && !descriptors.has(exactKey)) {
+      descriptors.set(exactKey, {
+        kind: 'exact',
+        suffix,
+        source: entry,
+      });
+    }
   }
 
   const devExports = {};
   const publishExports = {};
-  for (const [key, variants] of variantsByKey.entries()) {
-    const devExportEntry = buildDevExportEntry(variants);
-    if (devExportEntry) {
-      devExports[key] = devExportEntry;
+
+  for (const [key, descriptor] of descriptors.entries()) {
+    if (descriptor.kind === 'canonical') {
+      const devExportEntry = buildDevCanonicalExportEntry(descriptor.variants);
+      if (devExportEntry) {
+        devExports[key] = devExportEntry;
+      }
+
+      const publishExportEntry = buildPublishExportEntry(
+        descriptor.variants,
+        targets,
+        targetRoots
+      );
+      if (publishExportEntry) {
+        publishExports[key] = publishExportEntry;
+      }
+      continue;
     }
 
-    publishExports[key] = buildPublishExportEntry(
-      variants,
+    devExports[key] = toSourcePath(descriptor.source);
+
+    const publishExportEntry = buildPublishExportEntry(
+      { [descriptor.suffix]: descriptor.source },
       targets,
-      targetRoots
+      targetRoots,
+      { allowNativeDefault: descriptor.suffix === 'native' }
     );
+    if (publishExportEntry) {
+      publishExports[key] = publishExportEntry;
+    }
   }
 
   return {

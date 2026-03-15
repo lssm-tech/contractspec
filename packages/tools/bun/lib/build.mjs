@@ -5,6 +5,24 @@ import path from 'node:path';
 import { glob } from 'glob';
 import { selectEntriesForTarget } from './config.mjs';
 
+const BUN_EXECUTABLE = process.execPath || 'bun';
+
+function getOutputDir(cwd, target) {
+  if (target === 'bun') {
+    return path.join(cwd, 'dist');
+  }
+
+  return path.join(cwd, 'dist', target);
+}
+
+function getBuildTarget(target) {
+  if (target === 'native') {
+    return 'browser';
+  }
+
+  return target;
+}
+
 /**
  * Compute output path for an entry when using [dir]/[name].[ext] naming.
  * @param {string} entry - Entry path relative to cwd (e.g. "src/index.ts")
@@ -45,7 +63,7 @@ async function runTranspileNoBundle({
       '--root',
       root,
       '--target',
-      target,
+      getBuildTarget(target),
       '--format',
       'esm',
       '--packages',
@@ -58,7 +76,7 @@ async function runTranspileNoBundle({
       args.push('--external', item);
     }
 
-    const subprocess = Bun.spawn(['bun', ...args], {
+    const subprocess = Bun.spawn([BUN_EXECUTABLE, ...args], {
       cwd,
       env: { ...process.env, NODE_ENV: 'production' },
       stdout: 'inherit',
@@ -86,7 +104,7 @@ function buildTranspileArgs({
     '--root',
     root,
     '--target',
-    target,
+    getBuildTarget(target),
     '--format',
     'esm',
     '--packages',
@@ -294,6 +312,7 @@ export async function runTranspile({
     'bun',
     targets.node ? 'node' : null,
     targets.browser ? 'browser' : null,
+    selectEntriesForTarget(entries, 'native').length > 0 ? 'native' : null,
   ].filter(Boolean);
 
   for (const target of requestedTargets) {
@@ -305,10 +324,7 @@ export async function runTranspile({
 
     const root = targetRoots?.[target] ?? '.';
 
-    const outdir =
-      target === 'bun'
-        ? path.join(cwd, 'dist')
-        : path.join(cwd, 'dist', target);
+    const outdir = getOutputDir(cwd, target);
     await rm(outdir, { recursive: true, force: true });
 
     console.log(
@@ -337,7 +353,7 @@ export async function runTranspile({
       noBundle: false,
     });
 
-    const subprocess = Bun.spawn(['bun', ...args], {
+    const subprocess = Bun.spawn([BUN_EXECUTABLE, ...args], {
       cwd,
       env: { ...process.env, NODE_ENV: 'production' },
       stdout: 'inherit',
@@ -361,7 +377,12 @@ export async function runDev({
   noBundle,
 }) {
   const requestedTargets = allTargets
-    ? ['bun', targets.node ? 'node' : null, targets.browser ? 'browser' : null]
+    ? [
+        'bun',
+        targets.node ? 'node' : null,
+        targets.browser ? 'browser' : null,
+        selectEntriesForTarget(entries, 'native').length > 0 ? 'native' : null,
+      ]
     : ['bun'];
   const selectedTargets = requestedTargets.filter(Boolean);
   const subprocesses = [];
@@ -385,7 +406,7 @@ export async function runDev({
     });
     args.push('--watch');
 
-    const subprocess = Bun.spawn(['bun', ...args], {
+    const subprocess = Bun.spawn([BUN_EXECUTABLE, ...args], {
       cwd,
       stdout: 'inherit',
       stderr: 'inherit',
@@ -431,12 +452,15 @@ export async function runTypes({
     `${JSON.stringify(tempConfig, null, 2)}\n`,
     'utf8'
   );
-  const subprocess = Bun.spawn(['bunx', 'tsc', '--project', tempTsConfigPath], {
-    cwd,
-    stdout: 'inherit',
-    stderr: 'inherit',
-    stdin: 'inherit',
-  });
+  const subprocess = Bun.spawn(
+    [BUN_EXECUTABLE, 'x', 'tsc', '--project', tempTsConfigPath],
+    {
+      cwd,
+      stdout: 'inherit',
+      stderr: 'inherit',
+      stdin: 'inherit',
+    }
+  );
   const exitCode = await subprocess.exited;
   await unlink(tempTsConfigPath).catch(() => undefined);
 

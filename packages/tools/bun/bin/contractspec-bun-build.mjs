@@ -1,6 +1,7 @@
 #!/usr/bin/env bun
 
 import path from 'node:path';
+import { formatUsage, parseCliArgs } from '../lib/cli.mjs';
 import {
   inferBuildRoot,
   loadUserConfig,
@@ -12,11 +13,25 @@ import { rewritePackageExports } from '../lib/exports.mjs';
 import { runDev, runTranspile, runTypes } from '../lib/build.mjs';
 
 async function main() {
+  const cli = parseCliArgs(process.argv.slice(2));
+
+  if (cli.help) {
+    console.log(formatUsage());
+    return;
+  }
+
+  if (!cli.ok) {
+    console.error(cli.error);
+    console.error('');
+    console.error(formatUsage());
+    process.exit(1);
+  }
+
   const cwd = process.cwd();
   const packageJsonPath = path.join(cwd, 'package.json');
-  const command = process.argv[2] ?? 'build';
-  const allTargets = process.argv.includes('--all-targets');
-  const noBundleCli = process.argv.includes('--no-bundle');
+  const command = cli.command;
+  const allTargets = cli.allTargets;
+  const noBundleCli = cli.noBundle;
 
   const { config } = await loadUserConfig(cwd);
   const normalizedConfig = await normalizeBuildConfig(cwd, config);
@@ -30,6 +45,7 @@ async function main() {
     browser: normalizedConfig.targets.browser
       ? inferBuildRoot(selectEntriesForTarget(entries, 'browser'))
       : '.',
+    native: inferBuildRoot(selectEntriesForTarget(entries, 'native')),
   };
 
   if (command === 'prebuild') {
@@ -98,9 +114,6 @@ async function main() {
     });
     return;
   }
-
-  console.error(`Unknown contractspec-bun-build command: ${command}`);
-  process.exit(1);
 }
 
 await main();
