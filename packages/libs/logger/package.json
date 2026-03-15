@@ -47,18 +47,37 @@
     "README.md"
   ],
   "exports": {
-    ".": "./src/index.ts",
-    "./context": "./src/context.ts",
+    ".": {
+      "types": "./src/index.ts",
+      "browser": "./src/index.browser.ts",
+      "default": "./src/index.ts"
+    },
+    "./context": {
+      "types": "./src/context.ts",
+      "browser": "./src/context.browser.ts",
+      "node": "./src/context.node.ts",
+      "default": "./src/context.node.ts"
+    },
     "./context.browser": "./src/context.browser.ts",
     "./context.node": "./src/context.node.ts",
     "./elysia-plugin": "./src/elysia-plugin.ts",
     "./formatters": "./src/formatters.ts",
     "./index.browser": "./src/index.browser.ts",
-    "./logger": "./src/logger.ts",
+    "./logger": {
+      "types": "./src/logger.ts",
+      "browser": "./src/logger.browser.ts",
+      "node": "./src/logger.node.ts",
+      "default": "./src/logger.node.ts"
+    },
     "./logger.browser": "./src/logger.browser.ts",
     "./logger.node": "./src/logger.node.ts",
     "./timer": "./src/timer.ts",
-    "./tracer": "./src/tracer.ts",
+    "./tracer": {
+      "types": "./src/tracer.ts",
+      "browser": "./src/tracer.browser.ts",
+      "node": "./src/tracer.node.ts",
+      "default": "./src/tracer.node.ts"
+    },
     "./tracer.browser": "./src/tracer.browser.ts",
     "./tracer.node": "./src/tracer.node.ts",
     "./types": "./src/types.ts"
@@ -68,9 +87,9 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
-        "bun": "./dist/index.browser.js",
+        "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "default": "./dist/index.browser.js"
+        "default": "./dist/index.js"
       },
       "./context": {
         "types": "./dist/context.d.ts",

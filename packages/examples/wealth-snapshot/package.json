@@ -33,18 +33,13 @@
   "exports": {
     ".": "./src/index.ts",
     "./docs": "./src/docs/index.ts",
-    "./docs/index": "./src/docs/index.ts",
     "./docs/wealth-snapshot.docblock": "./src/docs/wealth-snapshot.docblock.ts",
     "./entities": "./src/entities/index.ts",
-    "./entities/index": "./src/entities/index.ts",
     "./events": "./src/events.ts",
     "./example": "./src/example.ts",
     "./handlers": "./src/handlers/index.ts",
-    "./handlers/index": "./src/handlers/index.ts",
     "./operations": "./src/operations/index.ts",
-    "./operations/index": "./src/operations/index.ts",
     "./presentations": "./src/presentations.ts",
-    "./presentations/index": "./src/presentations/index.ts",
     "./wealth-snapshot.capability": "./src/wealth-snapshot.capability.ts",
     "./wealth-snapshot.feature": "./src/wealth-snapshot.feature.ts"
   },
@@ -57,114 +52,79 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
+        "browser": "./dist/browser/docs/index.js",
         "bun": "./dist/docs/index.js",
         "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/index": {
-        "types": "./dist/docs/index.d.ts",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/wealth-snapshot.docblock": {
         "types": "./dist/docs/wealth-snapshot.docblock.d.ts",
+        "browser": "./dist/browser/docs/wealth-snapshot.docblock.js",
         "bun": "./dist/docs/wealth-snapshot.docblock.js",
         "node": "./dist/node/docs/wealth-snapshot.docblock.js",
-        "browser": "./dist/browser/docs/wealth-snapshot.docblock.js",
         "default": "./dist/docs/wealth-snapshot.docblock.js"
       },
       "./entities": {
         "types": "./dist/entities/index.d.ts",
+        "browser": "./dist/browser/entities/index.js",
         "bun": "./dist/entities/index.js",
         "node": "./dist/node/entities/index.js",
-        "browser": "./dist/browser/entities/index.js",
-        "default": "./dist/entities/index.js"
-      },
-      "./entities/index": {
-        "types": "./dist/entities/index.d.ts",
-        "bun": "./dist/entities/index.js",
-        "node": "./dist/node/entities/index.js",
-        "browser": "./dist/browser/entities/index.js",
         "default": "./dist/entities/index.js"
       },
       "./events": {
         "types": "./dist/events.d.ts",
+        "browser": "./dist/browser/events.js",
         "bun": "./dist/events.js",
         "node": "./dist/node/events.js",
-        "browser": "./dist/browser/events.js",
         "default": "./dist/events.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
+        "browser": "./dist/browser/example.js",
         "bun": "./dist/example.js",
         "node": "./dist/node/example.js",
-        "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./handlers": {
         "types": "./dist/handlers/index.d.ts",
+        "browser": "./dist/browser/handlers/index.js",
         "bun": "./dist/handlers/index.js",
         "node": "./dist/node/handlers/index.js",
-        "browser": "./dist/browser/handlers/index.js",
-        "default": "./dist/handlers/index.js"
-      },
-      "./handlers/index": {
-        "types": "./dist/handlers/index.d.ts",
-        "bun": "./dist/handlers/index.js",
-        "node": "./dist/node/handlers/index.js",
-        "browser": "./dist/browser/handlers/index.js",
         "default": "./dist/handlers/index.js"
       },
       "./operations": {
         "types": "./dist/operations/index.d.ts",
+        "browser": "./dist/browser/operations/index.js",
         "bun": "./dist/operations/index.js",
         "node": "./dist/node/operations/index.js",
-        "browser": "./dist/browser/operations/index.js",
-        "default": "./dist/operations/index.js"
-      },
-      "./operations/index": {
-        "types": "./dist/operations/index.d.ts",
-        "bun": "./dist/operations/index.js",
-        "node": "./dist/node/operations/index.js",
-        "browser": "./dist/browser/operations/index.js",
         "default": "./dist/operations/index.js"
       },
       "./presentations": {
         "types": "./dist/presentations.d.ts",
+        "browser": "./dist/browser/presentations.js",
         "bun": "./dist/presentations.js",
         "node": "./dist/node/presentations.js",
-        "browser": "./dist/browser/presentations.js",
         "default": "./dist/presentations.js"
-      },
-      "./presentations/index": {
-        "types": "./dist/presentations/index.d.ts",
-        "bun": "./dist/presentations/index.js",
-        "node": "./dist/node/presentations/index.js",
-        "browser": "./dist/browser/presentations/index.js",
-        "default": "./dist/presentations/index.js"
       },
       "./wealth-snapshot.capability": {
         "types": "./dist/wealth-snapshot.capability.d.ts",
+        "browser": "./dist/browser/wealth-snapshot.capability.js",
         "bun": "./dist/wealth-snapshot.capability.js",
         "node": "./dist/node/wealth-snapshot.capability.js",
-        "browser": "./dist/browser/wealth-snapshot.capability.js",
         "default": "./dist/wealth-snapshot.capability.js"
       },
       "./wealth-snapshot.feature": {
         "types": "./dist/wealth-snapshot.feature.d.ts",
+        "browser": "./dist/browser/wealth-snapshot.feature.js",
         "bun": "./dist/wealth-snapshot.feature.js",
         "node": "./dist/node/wealth-snapshot.feature.js",
-        "browser": "./dist/browser/wealth-snapshot.feature.js",
         "default": "./dist/wealth-snapshot.feature.js"
       }
     },

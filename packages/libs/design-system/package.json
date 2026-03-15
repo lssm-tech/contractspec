@@ -72,8 +72,8 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
-        "bun": "./dist/index.js",
         "browser": "./dist/browser/index.js",
+        "bun": "./dist/index.js",
         "default": "./dist/index.js"
       }
     },

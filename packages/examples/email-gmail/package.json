@@ -9,7 +9,6 @@
     "./auth": "./src/auth.ts",
     "./docs": "./src/docs/index.ts",
     "./docs/email-gmail.docblock": "./src/docs/email-gmail.docblock.ts",
-    "./docs/index": "./src/docs/index.ts",
     "./email-gmail.feature": "./src/email-gmail.feature.ts",
     "./example": "./src/example.ts",
     "./inbound": "./src/inbound.ts",
@@ -46,72 +45,65 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./auth": {
         "types": "./dist/auth.d.ts",
+        "browser": "./dist/browser/auth.js",
         "bun": "./dist/auth.js",
         "node": "./dist/node/auth.js",
-        "browser": "./dist/browser/auth.js",
         "default": "./dist/auth.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
+        "browser": "./dist/browser/docs/index.js",
         "bun": "./dist/docs/index.js",
         "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/email-gmail.docblock": {
         "types": "./dist/docs/email-gmail.docblock.d.ts",
+        "browser": "./dist/browser/docs/email-gmail.docblock.js",
         "bun": "./dist/docs/email-gmail.docblock.js",
         "node": "./dist/node/docs/email-gmail.docblock.js",
-        "browser": "./dist/browser/docs/email-gmail.docblock.js",
         "default": "./dist/docs/email-gmail.docblock.js"
-      },
-      "./docs/index": {
-        "types": "./dist/docs/index.d.ts",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
-        "default": "./dist/docs/index.js"
       },
       "./email-gmail.feature": {
         "types": "./dist/email-gmail.feature.d.ts",
+        "browser": "./dist/browser/email-gmail.feature.js",
         "bun": "./dist/email-gmail.feature.js",
         "node": "./dist/node/email-gmail.feature.js",
-        "browser": "./dist/browser/email-gmail.feature.js",
         "default": "./dist/email-gmail.feature.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
+        "browser": "./dist/browser/example.js",
         "bun": "./dist/example.js",
         "node": "./dist/node/example.js",
-        "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./inbound": {
         "types": "./dist/inbound.d.ts",
+        "browser": "./dist/browser/inbound.js",
         "bun": "./dist/inbound.js",
         "node": "./dist/node/inbound.js",
-        "browser": "./dist/browser/inbound.js",
         "default": "./dist/inbound.js"
       },
       "./outbound": {
         "types": "./dist/outbound.d.ts",
+        "browser": "./dist/browser/outbound.js",
         "bun": "./dist/outbound.js",
         "node": "./dist/node/outbound.js",
-        "browser": "./dist/browser/outbound.js",
         "default": "./dist/outbound.js"
       },
       "./run": {
         "types": "./dist/run.d.ts",
+        "browser": "./dist/browser/run.js",
         "bun": "./dist/run.js",
         "node": "./dist/node/run.js",
-        "browser": "./dist/browser/run.js",
         "default": "./dist/run.js"
       }
     },

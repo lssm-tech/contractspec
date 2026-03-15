@@ -59,51 +59,51 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./auditableBus": {
         "types": "./dist/auditableBus.d.ts",
+        "browser": "./dist/browser/auditableBus.js",
         "bun": "./dist/auditableBus.js",
         "node": "./dist/node/auditableBus.js",
-        "browser": "./dist/browser/auditableBus.js",
         "default": "./dist/auditableBus.js"
       },
       "./eventBus": {
         "types": "./dist/eventBus.d.ts",
+        "browser": "./dist/browser/eventBus.js",
         "bun": "./dist/eventBus.js",
         "node": "./dist/node/eventBus.js",
-        "browser": "./dist/browser/eventBus.js",
         "default": "./dist/eventBus.js"
       },
       "./filtering": {
         "types": "./dist/filtering.d.ts",
+        "browser": "./dist/browser/filtering.js",
         "bun": "./dist/filtering.js",
         "node": "./dist/node/filtering.js",
-        "browser": "./dist/browser/filtering.js",
         "default": "./dist/filtering.js"
       },
       "./inMemoryBus": {
         "types": "./dist/inMemoryBus.d.ts",
+        "browser": "./dist/browser/inMemoryBus.js",
         "bun": "./dist/inMemoryBus.js",
         "node": "./dist/node/inMemoryBus.js",
-        "browser": "./dist/browser/inMemoryBus.js",
         "default": "./dist/inMemoryBus.js"
       },
       "./metadata": {
         "types": "./dist/metadata.d.ts",
+        "browser": "./dist/browser/metadata.js",
         "bun": "./dist/metadata.js",
         "node": "./dist/node/metadata.js",
-        "browser": "./dist/browser/metadata.js",
         "default": "./dist/metadata.js"
       },
       "./subscriber": {
         "types": "./dist/subscriber.d.ts",
+        "browser": "./dist/browser/subscriber.js",
         "bun": "./dist/subscriber.js",
         "node": "./dist/node/subscriber.js",
-        "browser": "./dist/browser/subscriber.js",
         "default": "./dist/subscriber.js"
       }
     },

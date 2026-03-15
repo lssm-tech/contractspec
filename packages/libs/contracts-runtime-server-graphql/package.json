@@ -51,16 +51,16 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./graphql-pothos": {
         "types": "./dist/graphql-pothos.d.ts",
+        "browser": "./dist/browser/graphql-pothos.js",
         "bun": "./dist/graphql-pothos.js",
         "node": "./dist/node/graphql-pothos.js",
-        "browser": "./dist/browser/graphql-pothos.js",
         "default": "./dist/graphql-pothos.js"
       }
     }

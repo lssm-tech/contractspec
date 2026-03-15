@@ -51,14 +51,14 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
-        "bun": "./dist/index.js",
         "browser": "./dist/browser/index.js",
+        "bun": "./dist/index.js",
         "default": "./dist/index.js"
       },
       "./nativewind-env.d": {
         "types": "./dist/nativewind-env.d.d.ts",
-        "bun": "./dist/nativewind-env.d.js",
         "browser": "./dist/browser/nativewind-env.d.js",
+        "bun": "./dist/nativewind-env.d.js",
         "default": "./dist/nativewind-env.d.js"
       }
     },

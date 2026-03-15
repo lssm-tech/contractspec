@@ -38,13 +38,10 @@
   "exports": {
     ".": "./src/index.ts",
     "./entities": "./src/entities/index.ts",
-    "./entities/index": "./src/entities/index.ts",
     "./pipeline": "./src/pipeline/index.ts",
-    "./pipeline/index": "./src/pipeline/index.ts",
     "./pipeline/ingestion-pipeline": "./src/pipeline/ingestion-pipeline.ts",
     "./pipeline/ranking-pipeline": "./src/pipeline/ranking-pipeline.ts",
-    "./storage": "./src/storage/index.ts",
-    "./storage/index": "./src/storage/index.ts"
+    "./storage": "./src/storage/index.ts"
   },
   "files": [
     "dist",
@@ -55,65 +52,44 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./entities": {
         "types": "./dist/entities/index.d.ts",
+        "browser": "./dist/browser/entities/index.js",
         "bun": "./dist/entities/index.js",
         "node": "./dist/node/entities/index.js",
-        "browser": "./dist/browser/entities/index.js",
-        "default": "./dist/entities/index.js"
-      },
-      "./entities/index": {
-        "types": "./dist/entities/index.d.ts",
-        "bun": "./dist/entities/index.js",
-        "node": "./dist/node/entities/index.js",
-        "browser": "./dist/browser/entities/index.js",
         "default": "./dist/entities/index.js"
       },
       "./pipeline": {
         "types": "./dist/pipeline/index.d.ts",
+        "browser": "./dist/browser/pipeline/index.js",
         "bun": "./dist/pipeline/index.js",
         "node": "./dist/node/pipeline/index.js",
-        "browser": "./dist/browser/pipeline/index.js",
-        "default": "./dist/pipeline/index.js"
-      },
-      "./pipeline/index": {
-        "types": "./dist/pipeline/index.d.ts",
-        "bun": "./dist/pipeline/index.js",
-        "node": "./dist/node/pipeline/index.js",
-        "browser": "./dist/browser/pipeline/index.js",
         "default": "./dist/pipeline/index.js"
       },
       "./pipeline/ingestion-pipeline": {
         "types": "./dist/pipeline/ingestion-pipeline.d.ts",
+        "browser": "./dist/browser/pipeline/ingestion-pipeline.js",
         "bun": "./dist/pipeline/ingestion-pipeline.js",
         "node": "./dist/node/pipeline/ingestion-pipeline.js",
-        "browser": "./dist/browser/pipeline/ingestion-pipeline.js",
         "default": "./dist/pipeline/ingestion-pipeline.js"
       },
       "./pipeline/ranking-pipeline": {
         "types": "./dist/pipeline/ranking-pipeline.d.ts",
+        "browser": "./dist/browser/pipeline/ranking-pipeline.js",
         "bun": "./dist/pipeline/ranking-pipeline.js",
         "node": "./dist/node/pipeline/ranking-pipeline.js",
-        "browser": "./dist/browser/pipeline/ranking-pipeline.js",
         "default": "./dist/pipeline/ranking-pipeline.js"
       },
       "./storage": {
         "types": "./dist/storage/index.d.ts",
+        "browser": "./dist/browser/storage/index.js",
         "bun": "./dist/storage/index.js",
         "node": "./dist/node/storage/index.js",
-        "browser": "./dist/browser/storage/index.js",
-        "default": "./dist/storage/index.js"
-      },
-      "./storage/index": {
-        "types": "./dist/storage/index.d.ts",
-        "bun": "./dist/storage/index.js",
-        "node": "./dist/node/storage/index.js",
-        "browser": "./dist/browser/storage/index.js",
         "default": "./dist/storage/index.js"
       }
     },

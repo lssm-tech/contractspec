@@ -32,34 +32,24 @@
     "./client": "./src/client/index.ts",
     "./client/client.operations": "./src/client/client.operations.ts",
     "./client/client.schema": "./src/client/client.schema.ts",
-    "./client/index": "./src/client/index.ts",
     "./docs": "./src/docs/index.ts",
-    "./docs/index": "./src/docs/index.ts",
     "./docs/service-business-os.docblock": "./src/docs/service-business-os.docblock.ts",
     "./entities": "./src/entities/index.ts",
-    "./entities/index": "./src/entities/index.ts",
     "./events": "./src/events.ts",
     "./example": "./src/example.ts",
     "./handlers": "./src/handlers/index.ts",
-    "./handlers/index": "./src/handlers/index.ts",
     "./invoice": "./src/invoice/index.ts",
-    "./invoice/index": "./src/invoice/index.ts",
     "./invoice/invoice.operations": "./src/invoice/invoice.operations.ts",
     "./invoice/invoice.schema": "./src/invoice/invoice.schema.ts",
     "./job": "./src/job/index.ts",
-    "./job/index": "./src/job/index.ts",
     "./job/job.operations": "./src/job/job.operations.ts",
     "./job/job.schema": "./src/job/job.schema.ts",
     "./operations": "./src/operations/index.ts",
-    "./operations/index": "./src/operations/index.ts",
     "./payment": "./src/payment/index.ts",
-    "./payment/index": "./src/payment/index.ts",
     "./payment/payment.operations": "./src/payment/payment.operations.ts",
     "./payment/payment.schema": "./src/payment/payment.schema.ts",
     "./presentations": "./src/presentations.ts",
-    "./presentations/index": "./src/presentations/index.ts",
     "./quote": "./src/quote/index.ts",
-    "./quote/index": "./src/quote/index.ts",
     "./quote/quote.operations": "./src/quote/quote.operations.ts",
     "./quote/quote.schema": "./src/quote/quote.schema.ts",
     "./service-business-os.capability": "./src/service-business-os.capability.ts",
@@ -74,254 +64,184 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./client": {
         "types": "./dist/client/index.d.ts",
+        "browser": "./dist/browser/client/index.js",
         "bun": "./dist/client/index.js",
         "node": "./dist/node/client/index.js",
-        "browser": "./dist/browser/client/index.js",
         "default": "./dist/client/index.js"
       },
       "./client/client.operations": {
         "types": "./dist/client/client.operations.d.ts",
+        "browser": "./dist/browser/client/client.operations.js",
         "bun": "./dist/client/client.operations.js",
         "node": "./dist/node/client/client.operations.js",
-        "browser": "./dist/browser/client/client.operations.js",
         "default": "./dist/client/client.operations.js"
       },
       "./client/client.schema": {
         "types": "./dist/client/client.schema.d.ts",
+        "browser": "./dist/browser/client/client.schema.js",
         "bun": "./dist/client/client.schema.js",
         "node": "./dist/node/client/client.schema.js",
-        "browser": "./dist/browser/client/client.schema.js",
         "default": "./dist/client/client.schema.js"
-      },
-      "./client/index": {
-        "types": "./dist/client/index.d.ts",
-        "bun": "./dist/client/index.js",
-        "node": "./dist/node/client/index.js",
-        "browser": "./dist/browser/client/index.js",
-        "default": "./dist/client/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
+        "browser": "./dist/browser/docs/index.js",
         "bun": "./dist/docs/index.js",
         "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/index": {
-        "types": "./dist/docs/index.d.ts",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/service-business-os.docblock": {
         "types": "./dist/docs/service-business-os.docblock.d.ts",
+        "browser": "./dist/browser/docs/service-business-os.docblock.js",
         "bun": "./dist/docs/service-business-os.docblock.js",
         "node": "./dist/node/docs/service-business-os.docblock.js",
-        "browser": "./dist/browser/docs/service-business-os.docblock.js",
         "default": "./dist/docs/service-business-os.docblock.js"
       },
       "./entities": {
         "types": "./dist/entities/index.d.ts",
+        "browser": "./dist/browser/entities/index.js",
         "bun": "./dist/entities/index.js",
         "node": "./dist/node/entities/index.js",
-        "browser": "./dist/browser/entities/index.js",
-        "default": "./dist/entities/index.js"
-      },
-      "./entities/index": {
-        "types": "./dist/entities/index.d.ts",
-        "bun": "./dist/entities/index.js",
-        "node": "./dist/node/entities/index.js",
-        "browser": "./dist/browser/entities/index.js",
         "default": "./dist/entities/index.js"
       },
       "./events": {
         "types": "./dist/events.d.ts",
+        "browser": "./dist/browser/events.js",
         "bun": "./dist/events.js",
         "node": "./dist/node/events.js",
-        "browser": "./dist/browser/events.js",
         "default": "./dist/events.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
+        "browser": "./dist/browser/example.js",
         "bun": "./dist/example.js",
         "node": "./dist/node/example.js",
-        "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./handlers": {
         "types": "./dist/handlers/index.d.ts",
+        "browser": "./dist/browser/handlers/index.js",
         "bun": "./dist/handlers/index.js",
         "node": "./dist/node/handlers/index.js",
-        "browser": "./dist/browser/handlers/index.js",
-        "default": "./dist/handlers/index.js"
-      },
-      "./handlers/index": {
-        "types": "./dist/handlers/index.d.ts",
-        "bun": "./dist/handlers/index.js",
-        "node": "./dist/node/handlers/index.js",
-        "browser": "./dist/browser/handlers/index.js",
         "default": "./dist/handlers/index.js"
       },
       "./invoice": {
         "types": "./dist/invoice/index.d.ts",
+        "browser": "./dist/browser/invoice/index.js",
         "bun": "./dist/invoice/index.js",
         "node": "./dist/node/invoice/index.js",
-        "browser": "./dist/browser/invoice/index.js",
-        "default": "./dist/invoice/index.js"
-      },
-      "./invoice/index": {
-        "types": "./dist/invoice/index.d.ts",
-        "bun": "./dist/invoice/index.js",
-        "node": "./dist/node/invoice/index.js",
-        "browser": "./dist/browser/invoice/index.js",
         "default": "./dist/invoice/index.js"
       },
       "./invoice/invoice.operations": {
         "types": "./dist/invoice/invoice.operations.d.ts",
+        "browser": "./dist/browser/invoice/invoice.operations.js",
         "bun": "./dist/invoice/invoice.operations.js",
         "node": "./dist/node/invoice/invoice.operations.js",
-        "browser": "./dist/browser/invoice/invoice.operations.js",
         "default": "./dist/invoice/invoice.operations.js"
       },
       "./invoice/invoice.schema": {
         "types": "./dist/invoice/invoice.schema.d.ts",
+        "browser": "./dist/browser/invoice/invoice.schema.js",
         "bun": "./dist/invoice/invoice.schema.js",
         "node": "./dist/node/invoice/invoice.schema.js",
-        "browser": "./dist/browser/invoice/invoice.schema.js",
         "default": "./dist/invoice/invoice.schema.js"
       },
       "./job": {
         "types": "./dist/job/index.d.ts",
+        "browser": "./dist/browser/job/index.js",
         "bun": "./dist/job/index.js",
         "node": "./dist/node/job/index.js",
-        "browser": "./dist/browser/job/index.js",
-        "default": "./dist/job/index.js"
-      },
-      "./job/index": {
-        "types": "./dist/job/index.d.ts",
-        "bun": "./dist/job/index.js",
-        "node": "./dist/node/job/index.js",
-        "browser": "./dist/browser/job/index.js",
         "default": "./dist/job/index.js"
       },
       "./job/job.operations": {
         "types": "./dist/job/job.operations.d.ts",
+        "browser": "./dist/browser/job/job.operations.js",
         "bun": "./dist/job/job.operations.js",
         "node": "./dist/node/job/job.operations.js",
-        "browser": "./dist/browser/job/job.operations.js",
         "default": "./dist/job/job.operations.js"
       },
       "./job/job.schema": {
         "types": "./dist/job/job.schema.d.ts",
+        "browser": "./dist/browser/job/job.schema.js",
         "bun": "./dist/job/job.schema.js",
         "node": "./dist/node/job/job.schema.js",
-        "browser": "./dist/browser/job/job.schema.js",
         "default": "./dist/job/job.schema.js"
       },
       "./operations": {
         "types": "./dist/operations/index.d.ts",
+        "browser": "./dist/browser/operations/index.js",
         "bun": "./dist/operations/index.js",
         "node": "./dist/node/operations/index.js",
-        "browser": "./dist/browser/operations/index.js",
-        "default": "./dist/operations/index.js"
-      },
-      "./operations/index": {
-        "types": "./dist/operations/index.d.ts",
-        "bun": "./dist/operations/index.js",
-        "node": "./dist/node/operations/index.js",
-        "browser": "./dist/browser/operations/index.js",
         "default": "./dist/operations/index.js"
       },
       "./payment": {
         "types": "./dist/payment/index.d.ts",
+        "browser": "./dist/browser/payment/index.js",
         "bun": "./dist/payment/index.js",
         "node": "./dist/node/payment/index.js",
-        "browser": "./dist/browser/payment/index.js",
-        "default": "./dist/payment/index.js"
-      },
-      "./payment/index": {
-        "types": "./dist/payment/index.d.ts",
-        "bun": "./dist/payment/index.js",
-        "node": "./dist/node/payment/index.js",
-        "browser": "./dist/browser/payment/index.js",
         "default": "./dist/payment/index.js"
       },
       "./payment/payment.operations": {
         "types": "./dist/payment/payment.operations.d.ts",
+        "browser": "./dist/browser/payment/payment.operations.js",
         "bun": "./dist/payment/payment.operations.js",
         "node": "./dist/node/payment/payment.operations.js",
-        "browser": "./dist/browser/payment/payment.operations.js",
         "default": "./dist/payment/payment.operations.js"
       },
       "./payment/payment.schema": {
         "types": "./dist/payment/payment.schema.d.ts",
+        "browser": "./dist/browser/payment/payment.schema.js",
         "bun": "./dist/payment/payment.schema.js",
         "node": "./dist/node/payment/payment.schema.js",
-        "browser": "./dist/browser/payment/payment.schema.js",
         "default": "./dist/payment/payment.schema.js"
       },
       "./presentations": {
         "types": "./dist/presentations.d.ts",
+        "browser": "./dist/browser/presentations.js",
         "bun": "./dist/presentations.js",
         "node": "./dist/node/presentations.js",
-        "browser": "./dist/browser/presentations.js",
         "default": "./dist/presentations.js"
-      },
-      "./presentations/index": {
-        "types": "./dist/presentations/index.d.ts",
-        "bun": "./dist/presentations/index.js",
-        "node": "./dist/node/presentations/index.js",
-        "browser": "./dist/browser/presentations/index.js",
-        "default": "./dist/presentations/index.js"
       },
       "./quote": {
         "types": "./dist/quote/index.d.ts",
+        "browser": "./dist/browser/quote/index.js",
         "bun": "./dist/quote/index.js",
         "node": "./dist/node/quote/index.js",
-        "browser": "./dist/browser/quote/index.js",
-        "default": "./dist/quote/index.js"
-      },
-      "./quote/index": {
-        "types": "./dist/quote/index.d.ts",
-        "bun": "./dist/quote/index.js",
-        "node": "./dist/node/quote/index.js",
-        "browser": "./dist/browser/quote/index.js",
         "default": "./dist/quote/index.js"
       },
       "./quote/quote.operations": {
         "types": "./dist/quote/quote.operations.d.ts",
+        "browser": "./dist/browser/quote/quote.operations.js",
         "bun": "./dist/quote/quote.operations.js",
         "node": "./dist/node/quote/quote.operations.js",
-        "browser": "./dist/browser/quote/quote.operations.js",
         "default": "./dist/quote/quote.operations.js"
       },
       "./quote/quote.schema": {
         "types": "./dist/quote/quote.schema.d.ts",
+        "browser": "./dist/browser/quote/quote.schema.js",
         "bun": "./dist/quote/quote.schema.js",
         "node": "./dist/node/quote/quote.schema.js",
-        "browser": "./dist/browser/quote/quote.schema.js",
         "default": "./dist/quote/quote.schema.js"
       },
       "./service-business-os.capability": {
         "types": "./dist/service-business-os.capability.d.ts",
+        "browser": "./dist/browser/service-business-os.capability.js",
         "bun": "./dist/service-business-os.capability.js",
         "node": "./dist/node/service-business-os.capability.js",
-        "browser": "./dist/browser/service-business-os.capability.js",
         "default": "./dist/service-business-os.capability.js"
       },
       "./service.feature": {
         "types": "./dist/service.feature.d.ts",
+        "browser": "./dist/browser/service.feature.js",
         "bun": "./dist/service.feature.js",
         "node": "./dist/node/service.feature.js",
-        "browser": "./dist/browser/service.feature.js",
         "default": "./dist/service.feature.js"
       }
     },

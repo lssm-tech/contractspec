@@ -7,7 +7,6 @@
   "exports": {
     ".": "./src/index.ts",
     "./docs": "./src/docs/index.ts",
-    "./docs/index": "./src/docs/index.ts",
     "./docs/openbanking-powens.docblock": "./src/docs/openbanking-powens.docblock.ts",
     "./example": "./src/example.ts",
     "./handlers/oauth-callback": "./src/handlers/oauth-callback.ts",
@@ -48,12 +47,6 @@
         "default": "./dist/index.js"
       },
       "./docs": {
-        "types": "./dist/docs/index.d.ts",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
         "node": "./dist/node/docs/index.js",

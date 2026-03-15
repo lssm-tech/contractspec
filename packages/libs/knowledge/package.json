@@ -43,14 +43,11 @@
     ".": "./src/index.ts",
     "./access": "./src/access/index.ts",
     "./access/guard": "./src/access/guard.ts",
-    "./access/index": "./src/access/index.ts",
     "./i18n": "./src/i18n/index.ts",
     "./i18n/catalogs": "./src/i18n/catalogs/index.ts",
     "./i18n/catalogs/en": "./src/i18n/catalogs/en.ts",
     "./i18n/catalogs/es": "./src/i18n/catalogs/es.ts",
     "./i18n/catalogs/fr": "./src/i18n/catalogs/fr.ts",
-    "./i18n/catalogs/index": "./src/i18n/catalogs/index.ts",
-    "./i18n/index": "./src/i18n/index.ts",
     "./i18n/keys": "./src/i18n/keys.ts",
     "./i18n/locale": "./src/i18n/locale.ts",
     "./i18n/messages": "./src/i18n/messages.ts",
@@ -58,14 +55,11 @@
     "./ingestion/document-processor": "./src/ingestion/document-processor.ts",
     "./ingestion/embedding-service": "./src/ingestion/embedding-service.ts",
     "./ingestion/gmail-adapter": "./src/ingestion/gmail-adapter.ts",
-    "./ingestion/index": "./src/ingestion/index.ts",
     "./ingestion/storage-adapter": "./src/ingestion/storage-adapter.ts",
     "./ingestion/vector-indexer": "./src/ingestion/vector-indexer.ts",
     "./query": "./src/query/index.ts",
-    "./query/index": "./src/query/index.ts",
     "./query/service": "./src/query/service.ts",
     "./retriever": "./src/retriever/index.ts",
-    "./retriever/index": "./src/retriever/index.ts",
     "./retriever/interface": "./src/retriever/interface.ts",
     "./retriever/static-retriever": "./src/retriever/static-retriever.ts",
     "./retriever/vector-retriever": "./src/retriever/vector-retriever.ts",
@@ -91,12 +85,6 @@
         "bun": "./dist/access/guard.js",
         "node": "./dist/node/access/guard.js",
         "default": "./dist/access/guard.js"
-      },
-      "./access/index": {
-        "types": "./dist/access/index.d.ts",
-        "bun": "./dist/access/index.js",
-        "node": "./dist/node/access/index.js",
-        "default": "./dist/access/index.js"
       },
       "./i18n": {
         "types": "./dist/i18n/index.d.ts",
@@ -127,18 +115,6 @@
         "bun": "./dist/i18n/catalogs/fr.js",
         "node": "./dist/node/i18n/catalogs/fr.js",
         "default": "./dist/i18n/catalogs/fr.js"
-      },
-      "./i18n/catalogs/index": {
-        "types": "./dist/i18n/catalogs/index.d.ts",
-        "bun": "./dist/i18n/catalogs/index.js",
-        "node": "./dist/node/i18n/catalogs/index.js",
-        "default": "./dist/i18n/catalogs/index.js"
-      },
-      "./i18n/index": {
-        "types": "./dist/i18n/index.d.ts",
-        "bun": "./dist/i18n/index.js",
-        "node": "./dist/node/i18n/index.js",
-        "default": "./dist/i18n/index.js"
       },
       "./i18n/keys": {
         "types": "./dist/i18n/keys.d.ts",
@@ -182,12 +158,6 @@
         "node": "./dist/node/ingestion/gmail-adapter.js",
         "default": "./dist/ingestion/gmail-adapter.js"
       },
-      "./ingestion/index": {
-        "types": "./dist/ingestion/index.d.ts",
-        "bun": "./dist/ingestion/index.js",
-        "node": "./dist/node/ingestion/index.js",
-        "default": "./dist/ingestion/index.js"
-      },
       "./ingestion/storage-adapter": {
         "types": "./dist/ingestion/storage-adapter.d.ts",
         "bun": "./dist/ingestion/storage-adapter.js",
@@ -206,12 +176,6 @@
         "node": "./dist/node/query/index.js",
         "default": "./dist/query/index.js"
       },
-      "./query/index": {
-        "types": "./dist/query/index.d.ts",
-        "bun": "./dist/query/index.js",
-        "node": "./dist/node/query/index.js",
-        "default": "./dist/query/index.js"
-      },
       "./query/service": {
         "types": "./dist/query/service.d.ts",
         "bun": "./dist/query/service.js",
@@ -219,12 +183,6 @@
         "default": "./dist/query/service.js"
       },
       "./retriever": {
-        "types": "./dist/retriever/index.d.ts",
-        "bun": "./dist/retriever/index.js",
-        "node": "./dist/node/retriever/index.js",
-        "default": "./dist/retriever/index.js"
-      },
-      "./retriever/index": {
         "types": "./dist/retriever/index.d.ts",
         "bun": "./dist/retriever/index.js",
         "node": "./dist/node/retriever/index.js",

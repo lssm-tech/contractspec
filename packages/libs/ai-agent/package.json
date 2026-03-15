@@ -81,15 +81,12 @@
     "./agent": "./src/agent/index.ts",
     "./agent/agent-factory": "./src/agent/agent-factory.ts",
     "./agent/contract-spec-agent": "./src/agent/contract-spec-agent.ts",
-    "./agent/index": "./src/agent/index.ts",
     "./agent/json-runner": "./src/agent/json-runner.ts",
     "./agent/unified-agent": "./src/agent/unified-agent.ts",
     "./approval": "./src/approval/index.ts",
-    "./approval/index": "./src/approval/index.ts",
     "./approval/workflow": "./src/approval/workflow.ts",
     "./exporters": "./src/exporters/index.ts",
     "./exporters/claude-agent-exporter": "./src/exporters/claude-agent-exporter.ts",
-    "./exporters/index": "./src/exporters/index.ts",
     "./exporters/opencode-exporter": "./src/exporters/opencode-exporter.ts",
     "./exporters/types": "./src/exporters/types.ts",
     "./i18n": "./src/i18n/index.ts",
@@ -97,60 +94,51 @@
     "./i18n/catalogs/en": "./src/i18n/catalogs/en.ts",
     "./i18n/catalogs/es": "./src/i18n/catalogs/es.ts",
     "./i18n/catalogs/fr": "./src/i18n/catalogs/fr.ts",
-    "./i18n/catalogs/index": "./src/i18n/catalogs/index.ts",
-    "./i18n/index": "./src/i18n/index.ts",
     "./i18n/keys": "./src/i18n/keys.ts",
     "./i18n/locale": "./src/i18n/locale.ts",
     "./i18n/messages": "./src/i18n/messages.ts",
     "./interop": "./src/interop/index.ts",
-    "./interop/index": "./src/interop/index.ts",
     "./interop/runtime-adapters": "./src/interop/runtime-adapters.ts",
     "./interop/spec-consumer": "./src/interop/spec-consumer.ts",
     "./interop/tool-consumer": "./src/interop/tool-consumer.ts",
     "./interop/types": "./src/interop/types.ts",
     "./knowledge": "./src/knowledge/index.ts",
-    "./knowledge/index": "./src/knowledge/index.ts",
     "./knowledge/injector": "./src/knowledge/injector.ts",
     "./memory": "./src/memory/index.ts",
     "./memory/in-memory": "./src/memory/in-memory.ts",
-    "./memory/index": "./src/memory/index.ts",
     "./memory/manager": "./src/memory/manager.ts",
     "./providers": "./src/providers/index.ts",
     "./providers/claude-agent-sdk": "./src/providers/claude-agent-sdk/index.ts",
     "./providers/claude-agent-sdk/adapter": "./src/providers/claude-agent-sdk/adapter.ts",
-    "./providers/claude-agent-sdk/index": "./src/providers/claude-agent-sdk/index.ts",
     "./providers/claude-agent-sdk/session-bridge": "./src/providers/claude-agent-sdk/session-bridge.ts",
     "./providers/claude-agent-sdk/tool-bridge": "./src/providers/claude-agent-sdk/tool-bridge.ts",
-    "./providers/index": "./src/providers/index.ts",
     "./providers/opencode-sdk": "./src/providers/opencode-sdk/index.ts",
     "./providers/opencode-sdk/adapter": "./src/providers/opencode-sdk/adapter.ts",
     "./providers/opencode-sdk/agent-bridge": "./src/providers/opencode-sdk/agent-bridge.ts",
-    "./providers/opencode-sdk/index": "./src/providers/opencode-sdk/index.ts",
     "./providers/opencode-sdk/tool-bridge": "./src/providers/opencode-sdk/tool-bridge.ts",
     "./providers/registry": "./src/providers/registry.ts",
     "./providers/types": "./src/providers/types.ts",
     "./schema": "./src/schema/index.ts",
-    "./schema/index": "./src/schema/index.ts",
     "./schema/json-schema-to-zod": "./src/schema/json-schema-to-zod.ts",
     "./schema/schema-output": "./src/schema/schema-output.ts",
     "./session": "./src/session/index.ts",
-    "./session/index": "./src/session/index.ts",
     "./session/store": "./src/session/store.ts",
     "./spec": "./src/spec/index.ts",
-    "./spec/index": "./src/spec/index.ts",
     "./spec/registry": "./src/spec/registry.ts",
     "./spec/spec": "./src/spec/spec.ts",
     "./telemetry": "./src/telemetry/index.ts",
     "./telemetry/adapter": "./src/telemetry/adapter.ts",
-    "./telemetry/index": "./src/telemetry/index.ts",
     "./telemetry/posthog": "./src/telemetry/posthog.ts",
     "./telemetry/posthog-types": "./src/telemetry/posthog-types.ts",
     "./tools": "./src/tools/index.ts",
     "./tools/agent-memory-store": "./src/tools/agent-memory-store.ts",
     "./tools/in-memory-agent-memory-store": "./src/tools/in-memory-agent-memory-store.ts",
-    "./tools/index": "./src/tools/index.ts",
     "./tools/knowledge-tool": "./src/tools/knowledge-tool.ts",
-    "./tools/mcp-client": "./src/tools/mcp-client.ts",
+    "./tools/mcp-client": {
+      "types": "./src/tools/mcp-client.ts",
+      "browser": "./src/tools/mcp-client.browser.ts",
+      "default": "./src/tools/mcp-client.ts"
+    },
     "./tools/mcp-client-helpers": "./src/tools/mcp-client-helpers.ts",
     "./tools/mcp-client.browser": "./src/tools/mcp-client.browser.ts",
     "./tools/mcp-server": "./src/tools/mcp-server.ts",
@@ -187,12 +175,6 @@
         "node": "./dist/node/agent/contract-spec-agent.js",
         "default": "./dist/agent/contract-spec-agent.js"
       },
-      "./agent/index": {
-        "types": "./dist/agent/index.d.ts",
-        "bun": "./dist/agent/index.js",
-        "node": "./dist/node/agent/index.js",
-        "default": "./dist/agent/index.js"
-      },
       "./agent/json-runner": {
         "types": "./dist/agent/json-runner.d.ts",
         "bun": "./dist/agent/json-runner.js",
@@ -206,12 +188,6 @@
         "default": "./dist/agent/unified-agent.js"
       },
       "./approval": {
-        "types": "./dist/approval/index.d.ts",
-        "bun": "./dist/approval/index.js",
-        "node": "./dist/node/approval/index.js",
-        "default": "./dist/approval/index.js"
-      },
-      "./approval/index": {
         "types": "./dist/approval/index.d.ts",
         "bun": "./dist/approval/index.js",
         "node": "./dist/node/approval/index.js",
@@ -234,12 +210,6 @@
         "bun": "./dist/exporters/claude-agent-exporter.js",
         "node": "./dist/node/exporters/claude-agent-exporter.js",
         "default": "./dist/exporters/claude-agent-exporter.js"
-      },
-      "./exporters/index": {
-        "types": "./dist/exporters/index.d.ts",
-        "bun": "./dist/exporters/index.js",
-        "node": "./dist/node/exporters/index.js",
-        "default": "./dist/exporters/index.js"
       },
       "./exporters/opencode-exporter": {
         "types": "./dist/exporters/opencode-exporter.d.ts",
@@ -283,18 +253,6 @@
         "node": "./dist/node/i18n/catalogs/fr.js",
         "default": "./dist/i18n/catalogs/fr.js"
       },
-      "./i18n/catalogs/index": {
-        "types": "./dist/i18n/catalogs/index.d.ts",
-        "bun": "./dist/i18n/catalogs/index.js",
-        "node": "./dist/node/i18n/catalogs/index.js",
-        "default": "./dist/i18n/catalogs/index.js"
-      },
-      "./i18n/index": {
-        "types": "./dist/i18n/index.d.ts",
-        "bun": "./dist/i18n/index.js",
-        "node": "./dist/node/i18n/index.js",
-        "default": "./dist/i18n/index.js"
-      },
       "./i18n/keys": {
         "types": "./dist/i18n/keys.d.ts",
         "bun": "./dist/i18n/keys.js",
@@ -314,12 +272,6 @@
         "default": "./dist/i18n/messages.js"
       },
       "./interop": {
-        "types": "./dist/interop/index.d.ts",
-        "bun": "./dist/interop/index.js",
-        "node": "./dist/node/interop/index.js",
-        "default": "./dist/interop/index.js"
-      },
-      "./interop/index": {
         "types": "./dist/interop/index.d.ts",
         "bun": "./dist/interop/index.js",
         "node": "./dist/node/interop/index.js",
@@ -355,12 +307,6 @@
         "node": "./dist/node/knowledge/index.js",
         "default": "./dist/knowledge/index.js"
       },
-      "./knowledge/index": {
-        "types": "./dist/knowledge/index.d.ts",
-        "bun": "./dist/knowledge/index.js",
-        "node": "./dist/node/knowledge/index.js",
-        "default": "./dist/knowledge/index.js"
-      },
       "./knowledge/injector": {
         "types": "./dist/knowledge/injector.d.ts",
         "bun": "./dist/knowledge/injector.js",
@@ -378,12 +324,6 @@
         "bun": "./dist/memory/in-memory.js",
         "node": "./dist/node/memory/in-memory.js",
         "default": "./dist/memory/in-memory.js"
-      },
-      "./memory/index": {
-        "types": "./dist/memory/index.d.ts",
-        "bun": "./dist/memory/index.js",
-        "node": "./dist/node/memory/index.js",
-        "default": "./dist/memory/index.js"
       },
       "./memory/manager": {
         "types": "./dist/memory/manager.d.ts",
@@ -409,12 +349,6 @@
         "node": "./dist/node/providers/claude-agent-sdk/adapter.js",
         "default": "./dist/providers/claude-agent-sdk/adapter.js"
       },
-      "./providers/claude-agent-sdk/index": {
-        "types": "./dist/providers/claude-agent-sdk/index.d.ts",
-        "bun": "./dist/providers/claude-agent-sdk/index.js",
-        "node": "./dist/node/providers/claude-agent-sdk/index.js",
-        "default": "./dist/providers/claude-agent-sdk/index.js"
-      },
       "./providers/claude-agent-sdk/session-bridge": {
         "types": "./dist/providers/claude-agent-sdk/session-bridge.d.ts",
         "bun": "./dist/providers/claude-agent-sdk/session-bridge.js",
@@ -426,12 +360,6 @@
         "bun": "./dist/providers/claude-agent-sdk/tool-bridge.js",
         "node": "./dist/node/providers/claude-agent-sdk/tool-bridge.js",
         "default": "./dist/providers/claude-agent-sdk/tool-bridge.js"
-      },
-      "./providers/index": {
-        "types": "./dist/providers/index.d.ts",
-        "bun": "./dist/providers/index.js",
-        "node": "./dist/node/providers/index.js",
-        "default": "./dist/providers/index.js"
       },
       "./providers/opencode-sdk": {
         "types": "./dist/providers/opencode-sdk/index.d.ts",
@@ -450,12 +378,6 @@
         "bun": "./dist/providers/opencode-sdk/agent-bridge.js",
         "node": "./dist/node/providers/opencode-sdk/agent-bridge.js",
         "default": "./dist/providers/opencode-sdk/agent-bridge.js"
-      },
-      "./providers/opencode-sdk/index": {
-        "types": "./dist/providers/opencode-sdk/index.d.ts",
-        "bun": "./dist/providers/opencode-sdk/index.js",
-        "node": "./dist/node/providers/opencode-sdk/index.js",
-        "default": "./dist/providers/opencode-sdk/index.js"
       },
       "./providers/opencode-sdk/tool-bridge": {
         "types": "./dist/providers/opencode-sdk/tool-bridge.d.ts",
@@ -481,12 +403,6 @@
         "node": "./dist/node/schema/index.js",
         "default": "./dist/schema/index.js"
       },
-      "./schema/index": {
-        "types": "./dist/schema/index.d.ts",
-        "bun": "./dist/schema/index.js",
-        "node": "./dist/node/schema/index.js",
-        "default": "./dist/schema/index.js"
-      },
       "./schema/json-schema-to-zod": {
         "types": "./dist/schema/json-schema-to-zod.d.ts",
         "bun": "./dist/schema/json-schema-to-zod.js",
@@ -505,12 +421,6 @@
         "node": "./dist/node/session/index.js",
         "default": "./dist/session/index.js"
       },
-      "./session/index": {
-        "types": "./dist/session/index.d.ts",
-        "bun": "./dist/session/index.js",
-        "node": "./dist/node/session/index.js",
-        "default": "./dist/session/index.js"
-      },
       "./session/store": {
         "types": "./dist/session/store.d.ts",
         "bun": "./dist/session/store.js",
@@ -518,12 +428,6 @@
         "default": "./dist/session/store.js"
       },
       "./spec": {
-        "types": "./dist/spec/index.d.ts",
-        "bun": "./dist/spec/index.js",
-        "node": "./dist/node/spec/index.js",
-        "default": "./dist/spec/index.js"
-      },
-      "./spec/index": {
         "types": "./dist/spec/index.d.ts",
         "bun": "./dist/spec/index.js",
         "node": "./dist/node/spec/index.js",
@@ -552,12 +456,6 @@
         "bun": "./dist/telemetry/adapter.js",
         "node": "./dist/node/telemetry/adapter.js",
         "default": "./dist/telemetry/adapter.js"
-      },
-      "./telemetry/index": {
-        "types": "./dist/telemetry/index.d.ts",
-        "bun": "./dist/telemetry/index.js",
-        "node": "./dist/node/telemetry/index.js",
-        "default": "./dist/telemetry/index.js"
       },
       "./telemetry/posthog": {
         "types": "./dist/telemetry/posthog.d.ts",
@@ -589,12 +487,6 @@
         "node": "./dist/node/tools/in-memory-agent-memory-store.js",
         "default": "./dist/tools/in-memory-agent-memory-store.js"
       },
-      "./tools/index": {
-        "types": "./dist/tools/index.d.ts",
-        "bun": "./dist/tools/index.js",
-        "node": "./dist/node/tools/index.js",
-        "default": "./dist/tools/index.js"
-      },
       "./tools/knowledge-tool": {
         "types": "./dist/tools/knowledge-tool.d.ts",
         "bun": "./dist/tools/knowledge-tool.js",
@@ -603,9 +495,9 @@
       },
       "./tools/mcp-client": {
         "types": "./dist/tools/mcp-client.d.ts",
-        "bun": "./dist/tools/mcp-client.browser.js",
+        "bun": "./dist/tools/mcp-client.js",
         "node": "./dist/node/tools/mcp-client.js",
-        "default": "./dist/tools/mcp-client.browser.js"
+        "default": "./dist/tools/mcp-client.js"
       },
       "./tools/mcp-client-helpers": {
         "types": "./dist/tools/mcp-client-helpers.d.ts",

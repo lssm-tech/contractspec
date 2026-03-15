@@ -57,20 +57,17 @@
     "./core/config": "./src/core/config.ts",
     "./core/dependency-resolver": "./src/core/dependency-resolver.ts",
     "./core/feature-merger": "./src/core/feature-merger.ts",
-    "./core/index": "./src/core/index.ts",
     "./core/lockfile": "./src/core/lockfile.ts",
     "./core/metarepo": "./src/core/metarepo.ts",
     "./core/pack-loader": "./src/core/pack-loader.ts",
     "./core/profile-resolver": "./src/core/profile-resolver.ts",
     "./exporters": "./src/exporters/index.ts",
     "./exporters/cursor-plugin": "./src/exporters/cursor-plugin.ts",
-    "./exporters/index": "./src/exporters/index.ts",
     "./features": "./src/features/index.ts",
     "./features/agents": "./src/features/agents.ts",
     "./features/commands": "./src/features/commands.ts",
     "./features/hooks": "./src/features/hooks.ts",
     "./features/ignore": "./src/features/ignore.ts",
-    "./features/index": "./src/features/index.ts",
     "./features/mcp": "./src/features/mcp.ts",
     "./features/models": "./src/features/models.ts",
     "./features/plugins": "./src/features/plugins.ts",
@@ -83,7 +80,6 @@
     "./sources": "./src/sources/index.ts",
     "./sources/git": "./src/sources/git.ts",
     "./sources/git-ref": "./src/sources/git-ref.ts",
-    "./sources/index": "./src/sources/index.ts",
     "./sources/local": "./src/sources/local.ts",
     "./sources/npm": "./src/sources/npm.ts",
     "./sources/npm-ref": "./src/sources/npm-ref.ts",
@@ -99,7 +95,6 @@
     "./targets/cursor": "./src/targets/cursor.ts",
     "./targets/gemini-cli": "./src/targets/gemini-cli.ts",
     "./targets/generic-md-target": "./src/targets/generic-md-target.ts",
-    "./targets/index": "./src/targets/index.ts",
     "./targets/mistral-vibe": "./src/targets/mistral-vibe.ts",
     "./targets/opencode": "./src/targets/opencode.ts",
     "./targets/registry": "./src/targets/registry.ts",
@@ -257,12 +252,6 @@
         "node": "./dist/node/core/feature-merger.js",
         "default": "./dist/core/feature-merger.js"
       },
-      "./core/index": {
-        "types": "./dist/core/index.d.ts",
-        "bun": "./dist/core/index.js",
-        "node": "./dist/node/core/index.js",
-        "default": "./dist/core/index.js"
-      },
       "./core/lockfile": {
         "types": "./dist/core/lockfile.d.ts",
         "bun": "./dist/core/lockfile.js",
@@ -299,12 +288,6 @@
         "node": "./dist/node/exporters/cursor-plugin.js",
         "default": "./dist/exporters/cursor-plugin.js"
       },
-      "./exporters/index": {
-        "types": "./dist/exporters/index.d.ts",
-        "bun": "./dist/exporters/index.js",
-        "node": "./dist/node/exporters/index.js",
-        "default": "./dist/exporters/index.js"
-      },
       "./features": {
         "types": "./dist/features/index.d.ts",
         "bun": "./dist/features/index.js",
@@ -334,12 +317,6 @@
         "bun": "./dist/features/ignore.js",
         "node": "./dist/node/features/ignore.js",
         "default": "./dist/features/ignore.js"
-      },
-      "./features/index": {
-        "types": "./dist/features/index.d.ts",
-        "bun": "./dist/features/index.js",
-        "node": "./dist/node/features/index.js",
-        "default": "./dist/features/index.js"
       },
       "./features/mcp": {
         "types": "./dist/features/mcp.d.ts",
@@ -412,12 +389,6 @@
         "bun": "./dist/sources/git-ref.js",
         "node": "./dist/node/sources/git-ref.js",
         "default": "./dist/sources/git-ref.js"
-      },
-      "./sources/index": {
-        "types": "./dist/sources/index.d.ts",
-        "bun": "./dist/sources/index.js",
-        "node": "./dist/node/sources/index.js",
-        "default": "./dist/sources/index.js"
       },
       "./sources/local": {
         "types": "./dist/sources/local.d.ts",
@@ -508,12 +479,6 @@
         "bun": "./dist/targets/generic-md-target.js",
         "node": "./dist/node/targets/generic-md-target.js",
         "default": "./dist/targets/generic-md-target.js"
-      },
-      "./targets/index": {
-        "types": "./dist/targets/index.d.ts",
-        "bun": "./dist/targets/index.js",
-        "node": "./dist/node/targets/index.js",
-        "default": "./dist/targets/index.js"
       },
       "./targets/mistral-vibe": {
         "types": "./dist/targets/mistral-vibe.d.ts",

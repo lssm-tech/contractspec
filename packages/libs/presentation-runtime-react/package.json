@@ -54,32 +54,32 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
-        "bun": "./dist/index.js",
         "browser": "./dist/browser/index.js",
+        "bun": "./dist/index.js",
         "default": "./dist/index.js"
       },
       "./nativewind-env.d": {
         "types": "./dist/nativewind-env.d.d.ts",
-        "bun": "./dist/nativewind-env.d.js",
         "browser": "./dist/browser/nativewind-env.d.js",
+        "bun": "./dist/nativewind-env.d.js",
         "default": "./dist/nativewind-env.d.js"
       },
       "./useWorkflow": {
         "types": "./dist/useWorkflow.d.ts",
-        "bun": "./dist/useWorkflow.js",
         "browser": "./dist/browser/useWorkflow.js",
+        "bun": "./dist/useWorkflow.js",
         "default": "./dist/useWorkflow.js"
       },
       "./WorkflowStepper": {
         "types": "./dist/WorkflowStepper.d.ts",
-        "bun": "./dist/WorkflowStepper.js",
         "browser": "./dist/browser/WorkflowStepper.js",
+        "bun": "./dist/WorkflowStepper.js",
         "default": "./dist/WorkflowStepper.js"
       },
       "./WorkflowStepRenderer": {
         "types": "./dist/WorkflowStepRenderer.d.ts",
-        "bun": "./dist/WorkflowStepRenderer.js",
         "browser": "./dist/browser/WorkflowStepRenderer.js",
+        "bun": "./dist/WorkflowStepRenderer.js",
         "default": "./dist/WorkflowStepRenderer.js"
       }
     },

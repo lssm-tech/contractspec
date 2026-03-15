@@ -18,6 +18,7 @@
     "eslint": "^9.39.2"
   },
   "devDependencies": {
+    "@isaacs/brace-expansion": "^5.0.1",
     "eslint": "^9.39.2"
   },
   "license": "MIT",

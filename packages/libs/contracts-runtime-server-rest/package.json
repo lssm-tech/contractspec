@@ -53,58 +53,58 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./contracts-adapter-hydration": {
         "types": "./dist/contracts-adapter-hydration.d.ts",
+        "browser": "./dist/browser/contracts-adapter-hydration.js",
         "bun": "./dist/contracts-adapter-hydration.js",
         "node": "./dist/node/contracts-adapter-hydration.js",
-        "browser": "./dist/browser/contracts-adapter-hydration.js",
         "default": "./dist/contracts-adapter-hydration.js"
       },
       "./contracts-adapter-input": {
         "types": "./dist/contracts-adapter-input.d.ts",
+        "browser": "./dist/browser/contracts-adapter-input.js",
         "bun": "./dist/contracts-adapter-input.js",
         "node": "./dist/node/contracts-adapter-input.js",
-        "browser": "./dist/browser/contracts-adapter-input.js",
         "default": "./dist/contracts-adapter-input.js"
       },
       "./rest-elysia": {
         "types": "./dist/rest-elysia.d.ts",
+        "browser": "./dist/browser/rest-elysia.js",
         "bun": "./dist/rest-elysia.js",
         "node": "./dist/node/rest-elysia.js",
-        "browser": "./dist/browser/rest-elysia.js",
         "default": "./dist/rest-elysia.js"
       },
       "./rest-express": {
         "types": "./dist/rest-express.d.ts",
+        "browser": "./dist/browser/rest-express.js",
         "bun": "./dist/rest-express.js",
         "node": "./dist/node/rest-express.js",
-        "browser": "./dist/browser/rest-express.js",
         "default": "./dist/rest-express.js"
       },
       "./rest-generic": {
         "types": "./dist/rest-generic.d.ts",
+        "browser": "./dist/browser/rest-generic.js",
         "bun": "./dist/rest-generic.js",
         "node": "./dist/node/rest-generic.js",
-        "browser": "./dist/browser/rest-generic.js",
         "default": "./dist/rest-generic.js"
       },
       "./rest-next-app": {
         "types": "./dist/rest-next-app.d.ts",
+        "browser": "./dist/browser/rest-next-app.js",
         "bun": "./dist/rest-next-app.js",
         "node": "./dist/node/rest-next-app.js",
-        "browser": "./dist/browser/rest-next-app.js",
         "default": "./dist/rest-next-app.js"
       },
       "./rest-next-pages": {
         "types": "./dist/rest-next-pages.d.ts",
+        "browser": "./dist/browser/rest-next-pages.js",
         "bun": "./dist/rest-next-pages.js",
         "node": "./dist/node/rest-next-pages.js",
-        "browser": "./dist/browser/rest-next-pages.js",
         "default": "./dist/rest-next-pages.js"
       }
     }

@@ -6,7 +6,8 @@
  */
 
 import { existsSync, readFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { tmpdir } from 'node:os';
+import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
 
 /**
  * Supported package managers.
@@ -113,11 +114,27 @@ const MONOREPO_FILES = [
   'rush.json',
 ];
 
+function isWithinDirectory(target: string, directory: string): boolean {
+  const pathFromDirectory = relative(directory, target);
+  return (
+    pathFromDirectory === '' ||
+    (!pathFromDirectory.startsWith('..') && !isAbsolute(pathFromDirectory))
+  );
+}
+
+function getTraversalBoundary(startDir: string): string | undefined {
+  const resolvedStartDir = resolve(startDir);
+  const tempRoot = resolve(tmpdir());
+
+  return isWithinDirectory(resolvedStartDir, tempRoot) ? tempRoot : undefined;
+}
+
 /**
  * Find the nearest directory containing a package.json.
  */
 export function findPackageRoot(startDir: string = process.cwd()): string {
   let current = resolve(startDir);
+  const traversalBoundary = getTraversalBoundary(startDir);
 
   while (true) {
     if (existsSync(join(current, 'package.json'))) {
@@ -126,7 +143,7 @@ export function findPackageRoot(startDir: string = process.cwd()): string {
 
     // Move up to parent
     const parent = dirname(current);
-    if (parent === current) {
+    if (parent === current || current === traversalBoundary) {
       // Reached filesystem root
       break;
     }
@@ -148,6 +165,7 @@ export function findPackageRoot(startDir: string = process.cwd()): string {
 export function findWorkspaceRoot(startDir: string = process.cwd()): string {
   let current = resolve(startDir);
   let lastPackageJson: string | null = null;
+  const traversalBoundary = getTraversalBoundary(startDir);
 
   while (true) {
     // Check for monorepo indicators
@@ -181,7 +199,7 @@ export function findWorkspaceRoot(startDir: string = process.cwd()): string {
 
     // Move up to parent
     const parent = dirname(current);
-    if (parent === current) {
+    if (parent === current || current === traversalBoundary) {
       // Reached filesystem root
       break;
     }
@@ -397,6 +415,7 @@ function checkHasWorkspaces(dir: string): boolean {
  */
 export function findMetaRepoRoot(startDir: string): string | undefined {
   let current = resolve(startDir);
+  const traversalBoundary = getTraversalBoundary(startDir);
 
   while (true) {
     if (existsSync(join(current, '.gitmodules'))) {
@@ -404,7 +423,7 @@ export function findMetaRepoRoot(startDir: string): string | undefined {
     }
 
     const parent = dirname(current);
-    if (parent === current) {
+    if (parent === current || current === traversalBoundary) {
       break;
     }
     current = parent;

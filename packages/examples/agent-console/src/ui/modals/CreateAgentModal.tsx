@@ -38,7 +38,12 @@ const MODEL_PROVIDERS = [
   {
     value: 'google',
     label: 'Google',
-    models: ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-pro', 'gemini-ultra'],
+    models: [
+      'gemini-2.5-flash',
+      'gemini-2.5-pro',
+      'gemini-pro',
+      'gemini-ultra',
+    ],
   },
   {
     value: 'mistral',

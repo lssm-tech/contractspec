@@ -51,30 +51,30 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./appError": {
         "types": "./dist/appError.d.ts",
+        "browser": "./dist/browser/appError.js",
         "bun": "./dist/appError.js",
         "node": "./dist/node/appError.js",
-        "browser": "./dist/browser/appError.js",
         "default": "./dist/appError.js"
       },
       "./codes": {
         "types": "./dist/codes.d.ts",
+        "browser": "./dist/browser/codes.js",
         "bun": "./dist/codes.js",
         "node": "./dist/node/codes.js",
-        "browser": "./dist/browser/codes.js",
         "default": "./dist/codes.js"
       },
       "./http": {
         "types": "./dist/http.d.ts",
+        "browser": "./dist/browser/http.js",
         "bun": "./dist/http.js",
         "node": "./dist/node/http.js",
-        "browser": "./dist/browser/http.js",
         "default": "./dist/http.js"
       }
     },

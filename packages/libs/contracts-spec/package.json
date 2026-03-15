@@ -54,7 +54,6 @@
     "./acp/acp.feature": "./src/acp/acp.feature.ts",
     "./acp/capabilities": "./src/acp/capabilities/index.ts",
     "./acp/capabilities/acpTransport.capability": "./src/acp/capabilities/acpTransport.capability.ts",
-    "./acp/capabilities/index": "./src/acp/capabilities/index.ts",
     "./acp/commands": "./src/acp/commands/index.ts",
     "./acp/commands/acpFsAccess.command": "./src/acp/commands/acpFsAccess.command.ts",
     "./acp/commands/acpPromptTurn.command": "./src/acp/commands/acpPromptTurn.command.ts",
@@ -63,21 +62,17 @@
     "./acp/commands/acpSessionStop.command": "./src/acp/commands/acpSessionStop.command.ts",
     "./acp/commands/acpTerminalExec.command": "./src/acp/commands/acpTerminalExec.command.ts",
     "./acp/commands/acpToolCalls.command": "./src/acp/commands/acpToolCalls.command.ts",
-    "./acp/commands/index": "./src/acp/commands/index.ts",
     "./acp/constants": "./src/acp/constants.ts",
     "./acp/contracts": "./src/acp/contracts.ts",
     "./acp/ensure-docblocks": "./src/acp/ensure-docblocks.ts",
-    "./acp/index": "./src/acp/index.ts",
     "./agent": "./src/agent/index.ts",
     "./agent/agent.feature": "./src/agent/agent.feature.ts",
     "./agent/capabilities": "./src/agent/capabilities/index.ts",
     "./agent/capabilities/agentExecution.capability": "./src/agent/capabilities/agentExecution.capability.ts",
-    "./agent/capabilities/index": "./src/agent/capabilities/index.ts",
     "./agent/commands": "./src/agent/commands/index.ts",
     "./agent/commands/agentApprovals.command": "./src/agent/commands/agentApprovals.command.ts",
     "./agent/commands/agentCancel.command": "./src/agent/commands/agentCancel.command.ts",
     "./agent/commands/agentRun.command": "./src/agent/commands/agentRun.command.ts",
-    "./agent/commands/index": "./src/agent/commands/index.ts",
     "./agent/constants": "./src/agent/constants.ts",
     "./agent/contracts": "./src/agent/contracts.ts",
     "./agent/ensure-docblocks": "./src/agent/ensure-docblocks.ts",
@@ -86,21 +81,15 @@
     "./agent/events/agentRunCompleted.event": "./src/agent/events/agentRunCompleted.event.ts",
     "./agent/events/agentRunFailed.event": "./src/agent/events/agentRunFailed.event.ts",
     "./agent/events/agentRunStarted.event": "./src/agent/events/agentRunStarted.event.ts",
-    "./agent/events/index": "./src/agent/events/index.ts",
     "./agent/forms": "./src/agent/forms/index.ts",
     "./agent/forms/agentRun.form": "./src/agent/forms/agentRun.form.ts",
-    "./agent/forms/index": "./src/agent/forms/index.ts",
-    "./agent/index": "./src/agent/index.ts",
     "./agent/presentations": "./src/agent/presentations/index.ts",
     "./agent/presentations/agentRunAudit.presentation": "./src/agent/presentations/agentRunAudit.presentation.ts",
-    "./agent/presentations/index": "./src/agent/presentations/index.ts",
     "./agent/queries": "./src/agent/queries/index.ts",
     "./agent/queries/agentArtifacts.query": "./src/agent/queries/agentArtifacts.query.ts",
     "./agent/queries/agentStatus.query": "./src/agent/queries/agentStatus.query.ts",
-    "./agent/queries/index": "./src/agent/queries/index.ts",
     "./agent/views": "./src/agent/views/index.ts",
     "./agent/views/agentRuns.dataView": "./src/agent/views/agentRuns.dataView.ts",
-    "./agent/views/index": "./src/agent/views/index.ts",
     "./app-config": "./src/app-config/index.ts",
     "./app-config/app-config.capability": "./src/app-config/app-config.capability.ts",
     "./app-config/app-config.contracts": "./src/app-config/app-config.contracts.ts",
@@ -108,7 +97,6 @@
     "./app-config/branding": "./src/app-config/branding.ts",
     "./app-config/docs/app-config.docblock": "./src/app-config/docs/app-config.docblock.ts",
     "./app-config/events": "./src/app-config/events.ts",
-    "./app-config/index": "./src/app-config/index.ts",
     "./app-config/lifecycle": "./src/app-config/lifecycle.ts",
     "./app-config/lifecycle-contracts": "./src/app-config/lifecycle-contracts.ts",
     "./app-config/runtime": "./src/app-config/runtime.ts",
@@ -119,40 +107,30 @@
     "./capabilities/context": "./src/capabilities/context.ts",
     "./capabilities/docs/capabilities.docblock": "./src/capabilities/docs/capabilities.docblock.ts",
     "./capabilities/guards": "./src/capabilities/guards.ts",
-    "./capabilities/index": "./src/capabilities/index.ts",
     "./capabilities/meeting-recorder": "./src/capabilities/meeting-recorder.ts",
     "./capabilities/openbanking": "./src/capabilities/openbanking.ts",
     "./capabilities/validation": "./src/capabilities/validation.ts",
     "./context": "./src/context/index.ts",
     "./context/capabilities": "./src/context/capabilities/index.ts",
     "./context/capabilities/contextSystem.capability": "./src/context/capabilities/contextSystem.capability.ts",
-    "./context/capabilities/index": "./src/context/capabilities/index.ts",
     "./context/commands": "./src/context/commands/index.ts",
     "./context/commands/contextPackSnapshot.command": "./src/context/commands/contextPackSnapshot.command.ts",
-    "./context/commands/index": "./src/context/commands/index.ts",
     "./context/constants": "./src/context/constants.ts",
     "./context/context.feature": "./src/context/context.feature.ts",
     "./context/contracts": "./src/context/contracts.ts",
     "./context/ensure-docblocks": "./src/context/ensure-docblocks.ts",
     "./context/events": "./src/context/events/index.ts",
     "./context/events/contextSnapshotCreated.event": "./src/context/events/contextSnapshotCreated.event.ts",
-    "./context/events/index": "./src/context/events/index.ts",
     "./context/forms": "./src/context/forms/index.ts",
     "./context/forms/contextPackSearch.form": "./src/context/forms/contextPackSearch.form.ts",
-    "./context/forms/index": "./src/context/forms/index.ts",
-    "./context/index": "./src/context/index.ts",
     "./context/presentations": "./src/context/presentations/index.ts",
     "./context/presentations/contextSnapshot.presentation": "./src/context/presentations/contextSnapshot.presentation.ts",
-    "./context/presentations/index": "./src/context/presentations/index.ts",
     "./context/queries": "./src/context/queries/index.ts",
     "./context/queries/contextPackDescribe.query": "./src/context/queries/contextPackDescribe.query.ts",
     "./context/queries/contextPackSearch.query": "./src/context/queries/contextPackSearch.query.ts",
-    "./context/queries/index": "./src/context/queries/index.ts",
     "./context/views": "./src/context/views/index.ts",
     "./context/views/contextSnapshots.dataView": "./src/context/views/contextSnapshots.dataView.ts",
-    "./context/views/index": "./src/context/views/index.ts",
     "./contract-registry": "./src/contract-registry/index.ts",
-    "./contract-registry/index": "./src/contract-registry/index.ts",
     "./contract-registry/schemas": "./src/contract-registry/schemas.ts",
     "./contract-registry/types": "./src/contract-registry/types.ts",
     "./control-plane": "./src/control-plane/index.ts",
@@ -162,7 +140,6 @@
     "./control-plane/capabilities/controlPlaneChannelRuntime.capability": "./src/control-plane/capabilities/controlPlaneChannelRuntime.capability.ts",
     "./control-plane/capabilities/controlPlaneCore.capability": "./src/control-plane/capabilities/controlPlaneCore.capability.ts",
     "./control-plane/capabilities/controlPlaneSkillRegistry.capability": "./src/control-plane/capabilities/controlPlaneSkillRegistry.capability.ts",
-    "./control-plane/capabilities/index": "./src/control-plane/capabilities/index.ts",
     "./control-plane/commands": "./src/control-plane/commands/index.ts",
     "./control-plane/commands/controlPlaneExecutionApprove.command": "./src/control-plane/commands/controlPlaneExecutionApprove.command.ts",
     "./control-plane/commands/controlPlaneExecutionCancel.command": "./src/control-plane/commands/controlPlaneExecutionCancel.command.ts",
@@ -173,7 +150,6 @@
     "./control-plane/commands/controlPlanePlanVerify.command": "./src/control-plane/commands/controlPlanePlanVerify.command.ts",
     "./control-plane/commands/controlPlaneSkillDisable.command": "./src/control-plane/commands/controlPlaneSkillDisable.command.ts",
     "./control-plane/commands/controlPlaneSkillInstall.command": "./src/control-plane/commands/controlPlaneSkillInstall.command.ts",
-    "./control-plane/commands/index": "./src/control-plane/commands/index.ts",
     "./control-plane/constants": "./src/control-plane/constants.ts",
     "./control-plane/contracts": "./src/control-plane/contracts.ts",
     "./control-plane/events": "./src/control-plane/events/index.ts",
@@ -187,8 +163,6 @@
     "./control-plane/events/controlPlanePlanRejected.event": "./src/control-plane/events/controlPlanePlanRejected.event.ts",
     "./control-plane/events/controlPlaneSkillInstalled.event": "./src/control-plane/events/controlPlaneSkillInstalled.event.ts",
     "./control-plane/events/controlPlaneSkillRejected.event": "./src/control-plane/events/controlPlaneSkillRejected.event.ts",
-    "./control-plane/events/index": "./src/control-plane/events/index.ts",
-    "./control-plane/index": "./src/control-plane/index.ts",
     "./control-plane/queries": "./src/control-plane/queries/index.ts",
     "./control-plane/queries/controlPlaneExecutionGet.query": "./src/control-plane/queries/controlPlaneExecutionGet.query.ts",
     "./control-plane/queries/controlPlaneExecutionList.query": "./src/control-plane/queries/controlPlaneExecutionList.query.ts",
@@ -196,11 +170,9 @@
     "./control-plane/queries/controlPlaneSkillList.query": "./src/control-plane/queries/controlPlaneSkillList.query.ts",
     "./control-plane/queries/controlPlaneSkillVerify.query": "./src/control-plane/queries/controlPlaneSkillVerify.query.ts",
     "./control-plane/queries/controlPlaneTraceGet.query": "./src/control-plane/queries/controlPlaneTraceGet.query.ts",
-    "./control-plane/queries/index": "./src/control-plane/queries/index.ts",
     "./data-views": "./src/data-views/index.ts",
     "./data-views/data-views": "./src/data-views/data-views.ts",
     "./data-views/docs/data-views.docblock": "./src/data-views/docs/data-views.docblock.ts",
-    "./data-views/index": "./src/data-views/index.ts",
     "./data-views/query-generator": "./src/data-views/query-generator.ts",
     "./data-views/registry": "./src/data-views/registry.ts",
     "./data-views/report/contractVerificationTable": "./src/data-views/report/contractVerificationTable.ts",
@@ -210,30 +182,24 @@
     "./database": "./src/database/index.ts",
     "./database/capabilities": "./src/database/capabilities/index.ts",
     "./database/capabilities/databaseContext.capability": "./src/database/capabilities/databaseContext.capability.ts",
-    "./database/capabilities/index": "./src/database/capabilities/index.ts",
     "./database/constants": "./src/database/constants.ts",
     "./database/contracts": "./src/database/contracts.ts",
     "./database/database.feature": "./src/database/database.feature.ts",
     "./database/ensure-docblocks": "./src/database/ensure-docblocks.ts",
-    "./database/index": "./src/database/index.ts",
     "./database/queries": "./src/database/queries/index.ts",
     "./database/queries/databaseDictionaryGet.query": "./src/database/queries/databaseDictionaryGet.query.ts",
     "./database/queries/databaseMigrationsList.query": "./src/database/queries/databaseMigrationsList.query.ts",
     "./database/queries/databaseQueryReadonly.query": "./src/database/queries/databaseQueryReadonly.query.ts",
     "./database/queries/databaseSchemaDescribe.query": "./src/database/queries/databaseSchemaDescribe.query.ts",
-    "./database/queries/index": "./src/database/queries/index.ts",
     "./database/views": "./src/database/views/index.ts",
     "./database/views/databaseSchemas.dataView": "./src/database/views/databaseSchemas.dataView.ts",
-    "./database/views/index": "./src/database/views/index.ts",
     "./docs": "./src/docs/index.ts",
     "./docs/accessibility_wcag_compliance_specs.docblock": "./src/docs/accessibility_wcag_compliance_specs.docblock.ts",
     "./docs/capabilities": "./src/docs/capabilities/index.ts",
     "./docs/capabilities/documentationSystem.capability": "./src/docs/capabilities/documentationSystem.capability.ts",
-    "./docs/capabilities/index": "./src/docs/capabilities/index.ts",
     "./docs/commands": "./src/docs/commands/index.ts",
     "./docs/commands/docsGenerate.command": "./src/docs/commands/docsGenerate.command.ts",
     "./docs/commands/docsPublish.command": "./src/docs/commands/docsPublish.command.ts",
-    "./docs/commands/index": "./src/docs/commands/index.ts",
     "./docs/constants": "./src/docs/constants.ts",
     "./docs/contracts": "./src/docs/contracts.ts",
     "./docs/docs.feature": "./src/docs/docs.feature.ts",
@@ -241,20 +207,15 @@
     "./docs/events": "./src/docs/events/index.ts",
     "./docs/events/docsGenerated.event": "./src/docs/events/docsGenerated.event.ts",
     "./docs/events/docsPublished.event": "./src/docs/events/docsPublished.event.ts",
-    "./docs/events/index": "./src/docs/events/index.ts",
     "./docs/forms": "./src/docs/forms/index.ts",
     "./docs/forms/docsSearch.form": "./src/docs/forms/docsSearch.form.ts",
-    "./docs/forms/index": "./src/docs/forms/index.ts",
-    "./docs/index": "./src/docs/index.ts",
     "./docs/meta.docs": "./src/docs/meta.docs.ts",
     "./docs/presentations": "./src/docs/presentations.ts",
     "./docs/presentations/docsLayout.presentation": "./src/docs/presentations/docsLayout.presentation.ts",
     "./docs/presentations/docsReferencePage.presentation": "./src/docs/presentations/docsReferencePage.presentation.ts",
-    "./docs/presentations/index": "./src/docs/presentations/index.ts",
     "./docs/queries": "./src/docs/queries/index.ts",
     "./docs/queries/contractReference.query": "./src/docs/queries/contractReference.query.ts",
     "./docs/queries/docsIndex.query": "./src/docs/queries/docsIndex.query.ts",
-    "./docs/queries/index": "./src/docs/queries/index.ts",
     "./docs/registry": "./src/docs/registry.ts",
     "./docs/tech-contracts.docs": "./src/docs/tech-contracts.docs.ts",
     "./docs/tech/acp/acp-transport.docblock": "./src/docs/tech/acp/acp-transport.docblock.ts",
@@ -296,12 +257,10 @@
     "./docs/views/contractReference.dataView": "./src/docs/views/contractReference.dataView.ts",
     "./docs/views/docsIndex.dataView": "./src/docs/views/docsIndex.dataView.ts",
     "./docs/views/exampleCatalog.dataView": "./src/docs/views/exampleCatalog.dataView.ts",
-    "./docs/views/index": "./src/docs/views/index.ts",
     "./events": "./src/events.ts",
     "./examples": "./src/examples/index.ts",
     "./examples/define": "./src/examples/define.ts",
     "./examples/docs/examples.docblock": "./src/examples/docs/examples.docblock.ts",
-    "./examples/index": "./src/examples/index.ts",
     "./examples/registry": "./src/examples/registry.ts",
     "./examples/schema": "./src/examples/schema.ts",
     "./examples/types": "./src/examples/types.ts",
@@ -311,7 +270,6 @@
     "./experiments/spec": "./src/experiments/spec.ts",
     "./experiments/spec-resolver": "./src/experiments/spec-resolver.ts",
     "./features": "./src/features/index.ts",
-    "./features/index": "./src/features/index.ts",
     "./features/install": "./src/features/install.ts",
     "./features/registry": "./src/features/registry.ts",
     "./features/types": "./src/features/types.ts",
@@ -320,7 +278,6 @@
     "./forms": "./src/forms/index.ts",
     "./forms/docs/forms.docblock": "./src/forms/docs/forms.docblock.ts",
     "./forms/forms": "./src/forms/forms.ts",
-    "./forms/index": "./src/forms/index.ts",
     "./install": "./src/install.ts",
     "./integrations": "./src/integrations/index.ts",
     "./integrations/binding": "./src/integrations/binding.ts",
@@ -330,7 +287,6 @@
     "./integrations/health/contracts": "./src/integrations/health/contracts/index.ts",
     "./integrations/health/contracts/activities": "./src/integrations/health/contracts/activities.ts",
     "./integrations/health/contracts/biometrics": "./src/integrations/health/contracts/biometrics.ts",
-    "./integrations/health/contracts/index": "./src/integrations/health/contracts/index.ts",
     "./integrations/health/contracts/nutrition": "./src/integrations/health/contracts/nutrition.ts",
     "./integrations/health/contracts/sleep": "./src/integrations/health/contracts/sleep.ts",
     "./integrations/health/contracts/webhooks": "./src/integrations/health/contracts/webhooks.ts",
@@ -340,11 +296,9 @@
     "./integrations/health/health.feature": "./src/integrations/health/health.feature.ts",
     "./integrations/health/models": "./src/integrations/health/models.ts",
     "./integrations/health/telemetry": "./src/integrations/health/telemetry.ts",
-    "./integrations/index": "./src/integrations/index.ts",
     "./integrations/integrations.capability": "./src/integrations/integrations.capability.ts",
     "./integrations/integrations.feature": "./src/integrations/integrations.feature.ts",
     "./integrations/meeting-recorder/contracts": "./src/integrations/meeting-recorder/contracts/index.ts",
-    "./integrations/meeting-recorder/contracts/index": "./src/integrations/meeting-recorder/contracts/index.ts",
     "./integrations/meeting-recorder/contracts/meetings": "./src/integrations/meeting-recorder/contracts/meetings.ts",
     "./integrations/meeting-recorder/contracts/transcripts": "./src/integrations/meeting-recorder/contracts/transcripts.ts",
     "./integrations/meeting-recorder/contracts/webhooks": "./src/integrations/meeting-recorder/contracts/webhooks.ts",
@@ -355,7 +309,6 @@
     "./integrations/openbanking/contracts": "./src/integrations/openbanking/contracts/index.ts",
     "./integrations/openbanking/contracts/accounts": "./src/integrations/openbanking/contracts/accounts.ts",
     "./integrations/openbanking/contracts/balances": "./src/integrations/openbanking/contracts/balances.ts",
-    "./integrations/openbanking/contracts/index": "./src/integrations/openbanking/contracts/index.ts",
     "./integrations/openbanking/contracts/transactions": "./src/integrations/openbanking/contracts/transactions.ts",
     "./integrations/openbanking/guards": "./src/integrations/openbanking/guards.ts",
     "./integrations/openbanking/models": "./src/integrations/openbanking/models.ts",
@@ -389,7 +342,6 @@
     "./integrations/providers/health": "./src/integrations/providers/health.ts",
     "./integrations/providers/health-provider-shared": "./src/integrations/providers/health-provider-shared.ts",
     "./integrations/providers/image": "./src/integrations/providers/image.ts",
-    "./integrations/providers/index": "./src/integrations/providers/index.ts",
     "./integrations/providers/jira": "./src/integrations/providers/jira.ts",
     "./integrations/providers/linear": "./src/integrations/providers/linear.ts",
     "./integrations/providers/llm": "./src/integrations/providers/llm.ts",
@@ -436,7 +388,6 @@
     "./integrations/secrets/aws-secret-manager": "./src/integrations/secrets/aws-secret-manager.ts",
     "./integrations/secrets/env-secret-provider": "./src/integrations/secrets/env-secret-provider.ts",
     "./integrations/secrets/gcp-secret-manager": "./src/integrations/secrets/gcp-secret-manager.ts",
-    "./integrations/secrets/index": "./src/integrations/secrets/index.ts",
     "./integrations/secrets/manager": "./src/integrations/secrets/manager.ts",
     "./integrations/secrets/provider": "./src/integrations/secrets/provider.ts",
     "./integrations/secrets/scaleway-secret-manager": "./src/integrations/secrets/scaleway-secret-manager.ts",
@@ -447,10 +398,8 @@
     "./jobs/gcp-pubsub": "./src/jobs/gcp-pubsub.ts",
     "./jobs/handlers": "./src/jobs/handlers/index.ts",
     "./jobs/handlers/gmail-sync-handler": "./src/jobs/handlers/gmail-sync-handler.ts",
-    "./jobs/handlers/index": "./src/jobs/handlers/index.ts",
     "./jobs/handlers/ping-handler": "./src/jobs/handlers/ping-handler.ts",
     "./jobs/handlers/storage-document-handler": "./src/jobs/handlers/storage-document-handler.ts",
-    "./jobs/index": "./src/jobs/index.ts",
     "./jobs/memory-queue": "./src/jobs/memory-queue.ts",
     "./jobs/queue": "./src/jobs/queue.ts",
     "./jobs/scaleway-sqs-queue": "./src/jobs/scaleway-sqs-queue.ts",
@@ -459,19 +408,16 @@
     "./knowledge": "./src/knowledge/index.ts",
     "./knowledge/binding": "./src/knowledge/binding.ts",
     "./knowledge/docs/knowledge.docblock": "./src/knowledge/docs/knowledge.docblock.ts",
-    "./knowledge/index": "./src/knowledge/index.ts",
     "./knowledge/ingestion": "./src/knowledge/ingestion/index.ts",
     "./knowledge/ingestion/document-processor": "./src/knowledge/ingestion/document-processor.ts",
     "./knowledge/ingestion/embedding-service": "./src/knowledge/ingestion/embedding-service.ts",
     "./knowledge/ingestion/gmail-adapter": "./src/knowledge/ingestion/gmail-adapter.ts",
-    "./knowledge/ingestion/index": "./src/knowledge/ingestion/index.ts",
     "./knowledge/ingestion/storage-adapter": "./src/knowledge/ingestion/storage-adapter.ts",
     "./knowledge/ingestion/vector-indexer": "./src/knowledge/ingestion/vector-indexer.ts",
     "./knowledge/knowledge.capability": "./src/knowledge/knowledge.capability.ts",
     "./knowledge/knowledge.feature": "./src/knowledge/knowledge.feature.ts",
     "./knowledge/operations": "./src/knowledge/operations.ts",
     "./knowledge/query": "./src/knowledge/query/index.ts",
-    "./knowledge/query/index": "./src/knowledge/query/index.ts",
     "./knowledge/query/service": "./src/knowledge/query/service.ts",
     "./knowledge/runtime": "./src/knowledge/runtime.ts",
     "./knowledge/source": "./src/knowledge/source.ts",
@@ -479,14 +425,12 @@
     "./knowledge/spaces/email-threads": "./src/knowledge/spaces/email-threads.ts",
     "./knowledge/spaces/financial-docs": "./src/knowledge/spaces/financial-docs.ts",
     "./knowledge/spaces/financial-overview": "./src/knowledge/spaces/financial-overview.ts",
-    "./knowledge/spaces/index": "./src/knowledge/spaces/index.ts",
     "./knowledge/spaces/product-canon": "./src/knowledge/spaces/product-canon.ts",
     "./knowledge/spaces/support-faq": "./src/knowledge/spaces/support-faq.ts",
     "./knowledge/spaces/uploaded-docs": "./src/knowledge/spaces/uploaded-docs.ts",
     "./knowledge/spec": "./src/knowledge/spec.ts",
     "./llm": "./src/llm/index.ts",
     "./llm/exporters": "./src/llm/exporters.ts",
-    "./llm/index": "./src/llm/index.ts",
     "./llm/prompts": "./src/llm/prompts.ts",
     "./llm/types": "./src/llm/types.ts",
     "./markdown": "./src/markdown.ts",
@@ -495,26 +439,22 @@
     "./onboarding-base": "./src/onboarding-base.ts",
     "./openapi": "./src/openapi.ts",
     "./operations": "./src/operations/index.ts",
-    "./operations/index": "./src/operations/index.ts",
     "./operations/operation": "./src/operations/operation.ts",
     "./operations/registry": "./src/operations/registry.ts",
     "./operations/report": "./src/operations/report/index.ts",
     "./operations/report/getContractVerificationStatus": "./src/operations/report/getContractVerificationStatus.ts",
-    "./operations/report/index": "./src/operations/report/index.ts",
     "./ownership": "./src/ownership.ts",
     "./policy": "./src/policy/index.ts",
     "./policy/context": "./src/policy/context.ts",
     "./policy/docs/policy.docblock": "./src/policy/docs/policy.docblock.ts",
     "./policy/engine": "./src/policy/engine.ts",
     "./policy/guards": "./src/policy/guards.ts",
-    "./policy/index": "./src/policy/index.ts",
     "./policy/opa-adapter": "./src/policy/opa-adapter.ts",
     "./policy/registry": "./src/policy/registry.ts",
     "./policy/spec": "./src/policy/spec.ts",
     "./policy/validation": "./src/policy/validation.ts",
     "./presentations": "./src/presentations/index.ts",
     "./presentations/docs/presentations-conventions.docblock": "./src/presentations/docs/presentations-conventions.docblock.ts",
-    "./presentations/index": "./src/presentations/index.ts",
     "./presentations/presentations": "./src/presentations/presentations.ts",
     "./presentations/registry": "./src/presentations/registry.ts",
     "./presentations/transform-engine": "./src/presentations/transform-engine.ts",
@@ -524,7 +464,6 @@
     "./product-intent/evidence": "./src/product-intent/evidence.ts",
     "./product-intent/findings": "./src/product-intent/findings.ts",
     "./product-intent/impact-report": "./src/product-intent/impact-report.ts",
-    "./product-intent/index": "./src/product-intent/index.ts",
     "./product-intent/insights": "./src/product-intent/insights.ts",
     "./product-intent/opportunity-brief": "./src/product-intent/opportunity-brief.ts",
     "./product-intent/problems": "./src/product-intent/problems.ts",
@@ -539,12 +478,10 @@
     "./promptRegistry": "./src/promptRegistry.ts",
     "./provider-ranking": "./src/provider-ranking/index.ts",
     "./provider-ranking/capabilities": "./src/provider-ranking/capabilities/index.ts",
-    "./provider-ranking/capabilities/index": "./src/provider-ranking/capabilities/index.ts",
     "./provider-ranking/capabilities/providerRanking.capability": "./src/provider-ranking/capabilities/providerRanking.capability.ts",
     "./provider-ranking/commands": "./src/provider-ranking/commands/index.ts",
     "./provider-ranking/commands/benchmarkIngest.command": "./src/provider-ranking/commands/benchmarkIngest.command.ts",
     "./provider-ranking/commands/benchmarkRunCustom.command": "./src/provider-ranking/commands/benchmarkRunCustom.command.ts",
-    "./provider-ranking/commands/index": "./src/provider-ranking/commands/index.ts",
     "./provider-ranking/commands/rankingRefresh.command": "./src/provider-ranking/commands/rankingRefresh.command.ts",
     "./provider-ranking/constants": "./src/provider-ranking/constants.ts",
     "./provider-ranking/contracts": "./src/provider-ranking/contracts.ts",
@@ -552,31 +489,24 @@
     "./provider-ranking/events": "./src/provider-ranking/events/index.ts",
     "./provider-ranking/events/benchmarkCustomCompleted.event": "./src/provider-ranking/events/benchmarkCustomCompleted.event.ts",
     "./provider-ranking/events/benchmarkIngested.event": "./src/provider-ranking/events/benchmarkIngested.event.ts",
-    "./provider-ranking/events/index": "./src/provider-ranking/events/index.ts",
     "./provider-ranking/events/rankingUpdated.event": "./src/provider-ranking/events/rankingUpdated.event.ts",
     "./provider-ranking/forms": "./src/provider-ranking/forms/index.ts",
     "./provider-ranking/forms/benchmarkIngest.form": "./src/provider-ranking/forms/benchmarkIngest.form.ts",
     "./provider-ranking/forms/benchmarkRunCustom.form": "./src/provider-ranking/forms/benchmarkRunCustom.form.ts",
-    "./provider-ranking/forms/index": "./src/provider-ranking/forms/index.ts",
-    "./provider-ranking/index": "./src/provider-ranking/index.ts",
     "./provider-ranking/presentations": "./src/provider-ranking/presentations/index.ts",
-    "./provider-ranking/presentations/index": "./src/provider-ranking/presentations/index.ts",
     "./provider-ranking/presentations/modelComparison.presentation": "./src/provider-ranking/presentations/modelComparison.presentation.ts",
     "./provider-ranking/provider-ranking.feature": "./src/provider-ranking/provider-ranking.feature.ts",
     "./provider-ranking/queries": "./src/provider-ranking/queries/index.ts",
     "./provider-ranking/queries/benchmarkResultsList.query": "./src/provider-ranking/queries/benchmarkResultsList.query.ts",
-    "./provider-ranking/queries/index": "./src/provider-ranking/queries/index.ts",
     "./provider-ranking/queries/modelProfileGet.query": "./src/provider-ranking/queries/modelProfileGet.query.ts",
     "./provider-ranking/queries/providerRankingGet.query": "./src/provider-ranking/queries/providerRankingGet.query.ts",
     "./provider-ranking/views": "./src/provider-ranking/views/index.ts",
     "./provider-ranking/views/benchmarkResults.dataView": "./src/provider-ranking/views/benchmarkResults.dataView.ts",
-    "./provider-ranking/views/index": "./src/provider-ranking/views/index.ts",
     "./provider-ranking/views/providerRankings.dataView": "./src/provider-ranking/views/providerRankings.dataView.ts",
     "./regenerator": "./src/regenerator/index.ts",
     "./regenerator/adapters": "./src/regenerator/adapters.ts",
     "./regenerator/docs/regenerator.docblock": "./src/regenerator/docs/regenerator.docblock.ts",
     "./regenerator/executor": "./src/regenerator/executor.ts",
-    "./regenerator/index": "./src/regenerator/index.ts",
     "./regenerator/service": "./src/regenerator/service.ts",
     "./regenerator/sinks": "./src/regenerator/sinks.ts",
     "./regenerator/types": "./src/regenerator/types.ts",
@@ -586,24 +516,20 @@
     "./resources": "./src/resources.ts",
     "./schema-to-markdown": "./src/schema-to-markdown.ts",
     "./serialization": "./src/serialization/index.ts",
-    "./serialization/index": "./src/serialization/index.ts",
     "./serialization/serializers": "./src/serialization/serializers.ts",
     "./serialization/types": "./src/serialization/types.ts",
     "./telemetry": "./src/telemetry/index.ts",
     "./telemetry/anomaly": "./src/telemetry/anomaly.ts",
     "./telemetry/docs/telemetry.docblock": "./src/telemetry/docs/telemetry.docblock.ts",
-    "./telemetry/index": "./src/telemetry/index.ts",
     "./telemetry/spec": "./src/telemetry/spec.ts",
     "./telemetry/tracker": "./src/telemetry/tracker.ts",
     "./tests": "./src/tests/index.ts",
-    "./tests/index": "./src/tests/index.ts",
     "./tests/runner": "./src/tests/runner.ts",
     "./tests/spec": "./src/tests/spec.ts",
     "./themes": "./src/themes.ts",
     "./translations": "./src/translations/index.ts",
     "./translations/catalog": "./src/translations/catalog.ts",
     "./translations/i18n-factory": "./src/translations/i18n-factory.ts",
-    "./translations/index": "./src/translations/index.ts",
     "./translations/registry": "./src/translations/registry.ts",
     "./translations/spec": "./src/translations/spec.ts",
     "./translations/tenant": "./src/translations/tenant.ts",
@@ -611,7 +537,6 @@
     "./types": "./src/types.ts",
     "./utils/safe-json": "./src/utils/safe-json.ts",
     "./versioning": "./src/versioning/index.ts",
-    "./versioning/index": "./src/versioning/index.ts",
     "./versioning/refs": "./src/versioning/refs.ts",
     "./versioning/types": "./src/versioning/types.ts",
     "./versioning/utils": "./src/versioning/utils.ts",
@@ -619,11 +544,9 @@
     "./workflow/adapters": "./src/workflow/adapters/index.ts",
     "./workflow/adapters/db-adapter": "./src/workflow/adapters/db-adapter.ts",
     "./workflow/adapters/file-adapter": "./src/workflow/adapters/file-adapter.ts",
-    "./workflow/adapters/index": "./src/workflow/adapters/index.ts",
     "./workflow/adapters/memory-store": "./src/workflow/adapters/memory-store.ts",
     "./workflow/context": "./src/workflow/context.ts",
     "./workflow/expression": "./src/workflow/expression.ts",
-    "./workflow/index": "./src/workflow/index.ts",
     "./workflow/overview.docblock": "./src/workflow/overview.docblock.ts",
     "./workflow/runner": "./src/workflow/runner.ts",
     "./workflow/sla-monitor": "./src/workflow/sla-monitor.ts",
@@ -633,7 +556,6 @@
     "./workspace-config": "./src/workspace-config/index.ts",
     "./workspace-config/contractsrc-schema": "./src/workspace-config/contractsrc-schema.ts",
     "./workspace-config/contractsrc-types": "./src/workspace-config/contractsrc-types.ts",
-    "./workspace-config/index": "./src/workspace-config/index.ts",
     "./workspace-config/workspace-config.docblock": "./src/workspace-config/workspace-config.docblock.ts"
   },
   "publishConfig": {
@@ -669,12 +591,6 @@
         "bun": "./dist/acp/capabilities/acpTransport.capability.js",
         "node": "./dist/node/acp/capabilities/acpTransport.capability.js",
         "default": "./dist/acp/capabilities/acpTransport.capability.js"
-      },
-      "./acp/capabilities/index": {
-        "types": "./dist/acp/capabilities/index.d.ts",
-        "bun": "./dist/acp/capabilities/index.js",
-        "node": "./dist/node/acp/capabilities/index.js",
-        "default": "./dist/acp/capabilities/index.js"
       },
       "./acp/commands": {
         "types": "./dist/acp/commands/index.d.ts",
@@ -724,12 +640,6 @@
         "node": "./dist/node/acp/commands/acpToolCalls.command.js",
         "default": "./dist/acp/commands/acpToolCalls.command.js"
       },
-      "./acp/commands/index": {
-        "types": "./dist/acp/commands/index.d.ts",
-        "bun": "./dist/acp/commands/index.js",
-        "node": "./dist/node/acp/commands/index.js",
-        "default": "./dist/acp/commands/index.js"
-      },
       "./acp/constants": {
         "types": "./dist/acp/constants.d.ts",
         "bun": "./dist/acp/constants.js",
@@ -747,12 +657,6 @@
         "bun": "./dist/acp/ensure-docblocks.js",
         "node": "./dist/node/acp/ensure-docblocks.js",
         "default": "./dist/acp/ensure-docblocks.js"
-      },
-      "./acp/index": {
-        "types": "./dist/acp/index.d.ts",
-        "bun": "./dist/acp/index.js",
-        "node": "./dist/node/acp/index.js",
-        "default": "./dist/acp/index.js"
       },
       "./agent": {
         "types": "./dist/agent/index.d.ts",
@@ -778,12 +682,6 @@
         "node": "./dist/node/agent/capabilities/agentExecution.capability.js",
         "default": "./dist/agent/capabilities/agentExecution.capability.js"
       },
-      "./agent/capabilities/index": {
-        "types": "./dist/agent/capabilities/index.d.ts",
-        "bun": "./dist/agent/capabilities/index.js",
-        "node": "./dist/node/agent/capabilities/index.js",
-        "default": "./dist/agent/capabilities/index.js"
-      },
       "./agent/commands": {
         "types": "./dist/agent/commands/index.d.ts",
         "bun": "./dist/agent/commands/index.js",
@@ -807,12 +705,6 @@
         "bun": "./dist/agent/commands/agentRun.command.js",
         "node": "./dist/node/agent/commands/agentRun.command.js",
         "default": "./dist/agent/commands/agentRun.command.js"
-      },
-      "./agent/commands/index": {
-        "types": "./dist/agent/commands/index.d.ts",
-        "bun": "./dist/agent/commands/index.js",
-        "node": "./dist/node/agent/commands/index.js",
-        "default": "./dist/agent/commands/index.js"
       },
       "./agent/constants": {
         "types": "./dist/agent/constants.d.ts",
@@ -862,12 +754,6 @@
         "node": "./dist/node/agent/events/agentRunStarted.event.js",
         "default": "./dist/agent/events/agentRunStarted.event.js"
       },
-      "./agent/events/index": {
-        "types": "./dist/agent/events/index.d.ts",
-        "bun": "./dist/agent/events/index.js",
-        "node": "./dist/node/agent/events/index.js",
-        "default": "./dist/agent/events/index.js"
-      },
       "./agent/forms": {
         "types": "./dist/agent/forms/index.d.ts",
         "bun": "./dist/agent/forms/index.js",
@@ -880,18 +766,6 @@
         "node": "./dist/node/agent/forms/agentRun.form.js",
         "default": "./dist/agent/forms/agentRun.form.js"
       },
-      "./agent/forms/index": {
-        "types": "./dist/agent/forms/index.d.ts",
-        "bun": "./dist/agent/forms/index.js",
-        "node": "./dist/node/agent/forms/index.js",
-        "default": "./dist/agent/forms/index.js"
-      },
-      "./agent/index": {
-        "types": "./dist/agent/index.d.ts",
-        "bun": "./dist/agent/index.js",
-        "node": "./dist/node/agent/index.js",
-        "default": "./dist/agent/index.js"
-      },
       "./agent/presentations": {
         "types": "./dist/agent/presentations/index.d.ts",
         "bun": "./dist/agent/presentations/index.js",
@@ -903,12 +777,6 @@
         "bun": "./dist/agent/presentations/agentRunAudit.presentation.js",
         "node": "./dist/node/agent/presentations/agentRunAudit.presentation.js",
         "default": "./dist/agent/presentations/agentRunAudit.presentation.js"
-      },
-      "./agent/presentations/index": {
-        "types": "./dist/agent/presentations/index.d.ts",
-        "bun": "./dist/agent/presentations/index.js",
-        "node": "./dist/node/agent/presentations/index.js",
-        "default": "./dist/agent/presentations/index.js"
       },
       "./agent/queries": {
         "types": "./dist/agent/queries/index.d.ts",
@@ -928,12 +796,6 @@
         "node": "./dist/node/agent/queries/agentStatus.query.js",
         "default": "./dist/agent/queries/agentStatus.query.js"
       },
-      "./agent/queries/index": {
-        "types": "./dist/agent/queries/index.d.ts",
-        "bun": "./dist/agent/queries/index.js",
-        "node": "./dist/node/agent/queries/index.js",
-        "default": "./dist/agent/queries/index.js"
-      },
       "./agent/views": {
         "types": "./dist/agent/views/index.d.ts",
         "bun": "./dist/agent/views/index.js",
@@ -945,12 +807,6 @@
         "bun": "./dist/agent/views/agentRuns.dataView.js",
         "node": "./dist/node/agent/views/agentRuns.dataView.js",
         "default": "./dist/agent/views/agentRuns.dataView.js"
-      },
-      "./agent/views/index": {
-        "types": "./dist/agent/views/index.d.ts",
-        "bun": "./dist/agent/views/index.js",
-        "node": "./dist/node/agent/views/index.js",
-        "default": "./dist/agent/views/index.js"
       },
       "./app-config": {
         "types": "./dist/app-config/index.d.ts",
@@ -993,12 +849,6 @@
         "bun": "./dist/app-config/events.js",
         "node": "./dist/node/app-config/events.js",
         "default": "./dist/app-config/events.js"
-      },
-      "./app-config/index": {
-        "types": "./dist/app-config/index.d.ts",
-        "bun": "./dist/app-config/index.js",
-        "node": "./dist/node/app-config/index.js",
-        "default": "./dist/app-config/index.js"
       },
       "./app-config/lifecycle": {
         "types": "./dist/app-config/lifecycle.d.ts",
@@ -1060,12 +910,6 @@
         "node": "./dist/node/capabilities/guards.js",
         "default": "./dist/capabilities/guards.js"
       },
-      "./capabilities/index": {
-        "types": "./dist/capabilities/index.d.ts",
-        "bun": "./dist/capabilities/index.js",
-        "node": "./dist/node/capabilities/index.js",
-        "default": "./dist/capabilities/index.js"
-      },
       "./capabilities/meeting-recorder": {
         "types": "./dist/capabilities/meeting-recorder.d.ts",
         "bun": "./dist/capabilities/meeting-recorder.js",
@@ -1102,12 +946,6 @@
         "node": "./dist/node/context/capabilities/contextSystem.capability.js",
         "default": "./dist/context/capabilities/contextSystem.capability.js"
       },
-      "./context/capabilities/index": {
-        "types": "./dist/context/capabilities/index.d.ts",
-        "bun": "./dist/context/capabilities/index.js",
-        "node": "./dist/node/context/capabilities/index.js",
-        "default": "./dist/context/capabilities/index.js"
-      },
       "./context/commands": {
         "types": "./dist/context/commands/index.d.ts",
         "bun": "./dist/context/commands/index.js",
@@ -1119,12 +957,6 @@
         "bun": "./dist/context/commands/contextPackSnapshot.command.js",
         "node": "./dist/node/context/commands/contextPackSnapshot.command.js",
         "default": "./dist/context/commands/contextPackSnapshot.command.js"
-      },
-      "./context/commands/index": {
-        "types": "./dist/context/commands/index.d.ts",
-        "bun": "./dist/context/commands/index.js",
-        "node": "./dist/node/context/commands/index.js",
-        "default": "./dist/context/commands/index.js"
       },
       "./context/constants": {
         "types": "./dist/context/constants.d.ts",
@@ -1162,12 +994,6 @@
         "node": "./dist/node/context/events/contextSnapshotCreated.event.js",
         "default": "./dist/context/events/contextSnapshotCreated.event.js"
       },
-      "./context/events/index": {
-        "types": "./dist/context/events/index.d.ts",
-        "bun": "./dist/context/events/index.js",
-        "node": "./dist/node/context/events/index.js",
-        "default": "./dist/context/events/index.js"
-      },
       "./context/forms": {
         "types": "./dist/context/forms/index.d.ts",
         "bun": "./dist/context/forms/index.js",
@@ -1180,18 +1006,6 @@
         "node": "./dist/node/context/forms/contextPackSearch.form.js",
         "default": "./dist/context/forms/contextPackSearch.form.js"
       },
-      "./context/forms/index": {
-        "types": "./dist/context/forms/index.d.ts",
-        "bun": "./dist/context/forms/index.js",
-        "node": "./dist/node/context/forms/index.js",
-        "default": "./dist/context/forms/index.js"
-      },
-      "./context/index": {
-        "types": "./dist/context/index.d.ts",
-        "bun": "./dist/context/index.js",
-        "node": "./dist/node/context/index.js",
-        "default": "./dist/context/index.js"
-      },
       "./context/presentations": {
         "types": "./dist/context/presentations/index.d.ts",
         "bun": "./dist/context/presentations/index.js",
@@ -1203,12 +1017,6 @@
         "bun": "./dist/context/presentations/contextSnapshot.presentation.js",
         "node": "./dist/node/context/presentations/contextSnapshot.presentation.js",
         "default": "./dist/context/presentations/contextSnapshot.presentation.js"
-      },
-      "./context/presentations/index": {
-        "types": "./dist/context/presentations/index.d.ts",
-        "bun": "./dist/context/presentations/index.js",
-        "node": "./dist/node/context/presentations/index.js",
-        "default": "./dist/context/presentations/index.js"
       },
       "./context/queries": {
         "types": "./dist/context/queries/index.d.ts",
@@ -1228,12 +1036,6 @@
         "node": "./dist/node/context/queries/contextPackSearch.query.js",
         "default": "./dist/context/queries/contextPackSearch.query.js"
       },
-      "./context/queries/index": {
-        "types": "./dist/context/queries/index.d.ts",
-        "bun": "./dist/context/queries/index.js",
-        "node": "./dist/node/context/queries/index.js",
-        "default": "./dist/context/queries/index.js"
-      },
       "./context/views": {
         "types": "./dist/context/views/index.d.ts",
         "bun": "./dist/context/views/index.js",
@@ -1246,19 +1048,7 @@
         "node": "./dist/node/context/views/contextSnapshots.dataView.js",
         "default": "./dist/context/views/contextSnapshots.dataView.js"
       },
-      "./context/views/index": {
-        "types": "./dist/context/views/index.d.ts",
-        "bun": "./dist/context/views/index.js",
-        "node": "./dist/node/context/views/index.js",
-        "default": "./dist/context/views/index.js"
-      },
       "./contract-registry": {
-        "types": "./dist/contract-registry/index.d.ts",
-        "bun": "./dist/contract-registry/index.js",
-        "node": "./dist/node/contract-registry/index.js",
-        "default": "./dist/contract-registry/index.js"
-      },
-      "./contract-registry/index": {
         "types": "./dist/contract-registry/index.d.ts",
         "bun": "./dist/contract-registry/index.js",
         "node": "./dist/node/contract-registry/index.js",
@@ -1317,12 +1107,6 @@
         "bun": "./dist/control-plane/capabilities/controlPlaneSkillRegistry.capability.js",
         "node": "./dist/node/control-plane/capabilities/controlPlaneSkillRegistry.capability.js",
         "default": "./dist/control-plane/capabilities/controlPlaneSkillRegistry.capability.js"
-      },
-      "./control-plane/capabilities/index": {
-        "types": "./dist/control-plane/capabilities/index.d.ts",
-        "bun": "./dist/control-plane/capabilities/index.js",
-        "node": "./dist/node/control-plane/capabilities/index.js",
-        "default": "./dist/control-plane/capabilities/index.js"
       },
       "./control-plane/commands": {
         "types": "./dist/control-plane/commands/index.d.ts",
@@ -1383,12 +1167,6 @@
         "bun": "./dist/control-plane/commands/controlPlaneSkillInstall.command.js",
         "node": "./dist/node/control-plane/commands/controlPlaneSkillInstall.command.js",
         "default": "./dist/control-plane/commands/controlPlaneSkillInstall.command.js"
-      },
-      "./control-plane/commands/index": {
-        "types": "./dist/control-plane/commands/index.d.ts",
-        "bun": "./dist/control-plane/commands/index.js",
-        "node": "./dist/node/control-plane/commands/index.js",
-        "default": "./dist/control-plane/commands/index.js"
       },
       "./control-plane/constants": {
         "types": "./dist/control-plane/constants.d.ts",
@@ -1468,18 +1246,6 @@
         "node": "./dist/node/control-plane/events/controlPlaneSkillRejected.event.js",
         "default": "./dist/control-plane/events/controlPlaneSkillRejected.event.js"
       },
-      "./control-plane/events/index": {
-        "types": "./dist/control-plane/events/index.d.ts",
-        "bun": "./dist/control-plane/events/index.js",
-        "node": "./dist/node/control-plane/events/index.js",
-        "default": "./dist/control-plane/events/index.js"
-      },
-      "./control-plane/index": {
-        "types": "./dist/control-plane/index.d.ts",
-        "bun": "./dist/control-plane/index.js",
-        "node": "./dist/node/control-plane/index.js",
-        "default": "./dist/control-plane/index.js"
-      },
       "./control-plane/queries": {
         "types": "./dist/control-plane/queries/index.d.ts",
         "bun": "./dist/control-plane/queries/index.js",
@@ -1522,12 +1288,6 @@
         "node": "./dist/node/control-plane/queries/controlPlaneTraceGet.query.js",
         "default": "./dist/control-plane/queries/controlPlaneTraceGet.query.js"
       },
-      "./control-plane/queries/index": {
-        "types": "./dist/control-plane/queries/index.d.ts",
-        "bun": "./dist/control-plane/queries/index.js",
-        "node": "./dist/node/control-plane/queries/index.js",
-        "default": "./dist/control-plane/queries/index.js"
-      },
       "./data-views": {
         "types": "./dist/data-views/index.d.ts",
         "bun": "./dist/data-views/index.js",
@@ -1545,12 +1305,6 @@
         "bun": "./dist/data-views/docs/data-views.docblock.js",
         "node": "./dist/node/data-views/docs/data-views.docblock.js",
         "default": "./dist/data-views/docs/data-views.docblock.js"
-      },
-      "./data-views/index": {
-        "types": "./dist/data-views/index.d.ts",
-        "bun": "./dist/data-views/index.js",
-        "node": "./dist/node/data-views/index.js",
-        "default": "./dist/data-views/index.js"
       },
       "./data-views/query-generator": {
         "types": "./dist/data-views/query-generator.d.ts",
@@ -1606,12 +1360,6 @@
         "node": "./dist/node/database/capabilities/databaseContext.capability.js",
         "default": "./dist/database/capabilities/databaseContext.capability.js"
       },
-      "./database/capabilities/index": {
-        "types": "./dist/database/capabilities/index.d.ts",
-        "bun": "./dist/database/capabilities/index.js",
-        "node": "./dist/node/database/capabilities/index.js",
-        "default": "./dist/database/capabilities/index.js"
-      },
       "./database/constants": {
         "types": "./dist/database/constants.d.ts",
         "bun": "./dist/database/constants.js",
@@ -1635,12 +1383,6 @@
         "bun": "./dist/database/ensure-docblocks.js",
         "node": "./dist/node/database/ensure-docblocks.js",
         "default": "./dist/database/ensure-docblocks.js"
-      },
-      "./database/index": {
-        "types": "./dist/database/index.d.ts",
-        "bun": "./dist/database/index.js",
-        "node": "./dist/node/database/index.js",
-        "default": "./dist/database/index.js"
       },
       "./database/queries": {
         "types": "./dist/database/queries/index.d.ts",
@@ -1672,12 +1414,6 @@
         "node": "./dist/node/database/queries/databaseSchemaDescribe.query.js",
         "default": "./dist/database/queries/databaseSchemaDescribe.query.js"
       },
-      "./database/queries/index": {
-        "types": "./dist/database/queries/index.d.ts",
-        "bun": "./dist/database/queries/index.js",
-        "node": "./dist/node/database/queries/index.js",
-        "default": "./dist/database/queries/index.js"
-      },
       "./database/views": {
         "types": "./dist/database/views/index.d.ts",
         "bun": "./dist/database/views/index.js",
@@ -1689,12 +1425,6 @@
         "bun": "./dist/database/views/databaseSchemas.dataView.js",
         "node": "./dist/node/database/views/databaseSchemas.dataView.js",
         "default": "./dist/database/views/databaseSchemas.dataView.js"
-      },
-      "./database/views/index": {
-        "types": "./dist/database/views/index.d.ts",
-        "bun": "./dist/database/views/index.js",
-        "node": "./dist/node/database/views/index.js",
-        "default": "./dist/database/views/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
@@ -1720,12 +1450,6 @@
         "node": "./dist/node/docs/capabilities/documentationSystem.capability.js",
         "default": "./dist/docs/capabilities/documentationSystem.capability.js"
       },
-      "./docs/capabilities/index": {
-        "types": "./dist/docs/capabilities/index.d.ts",
-        "bun": "./dist/docs/capabilities/index.js",
-        "node": "./dist/node/docs/capabilities/index.js",
-        "default": "./dist/docs/capabilities/index.js"
-      },
       "./docs/commands": {
         "types": "./dist/docs/commands/index.d.ts",
         "bun": "./dist/docs/commands/index.js",
@@ -1743,12 +1467,6 @@
         "bun": "./dist/docs/commands/docsPublish.command.js",
         "node": "./dist/node/docs/commands/docsPublish.command.js",
         "default": "./dist/docs/commands/docsPublish.command.js"
-      },
-      "./docs/commands/index": {
-        "types": "./dist/docs/commands/index.d.ts",
-        "bun": "./dist/docs/commands/index.js",
-        "node": "./dist/node/docs/commands/index.js",
-        "default": "./dist/docs/commands/index.js"
       },
       "./docs/constants": {
         "types": "./dist/docs/constants.d.ts",
@@ -1792,12 +1510,6 @@
         "node": "./dist/node/docs/events/docsPublished.event.js",
         "default": "./dist/docs/events/docsPublished.event.js"
       },
-      "./docs/events/index": {
-        "types": "./dist/docs/events/index.d.ts",
-        "bun": "./dist/docs/events/index.js",
-        "node": "./dist/node/docs/events/index.js",
-        "default": "./dist/docs/events/index.js"
-      },
       "./docs/forms": {
         "types": "./dist/docs/forms/index.d.ts",
         "bun": "./dist/docs/forms/index.js",
@@ -1809,18 +1521,6 @@
         "bun": "./dist/docs/forms/docsSearch.form.js",
         "node": "./dist/node/docs/forms/docsSearch.form.js",
         "default": "./dist/docs/forms/docsSearch.form.js"
-      },
-      "./docs/forms/index": {
-        "types": "./dist/docs/forms/index.d.ts",
-        "bun": "./dist/docs/forms/index.js",
-        "node": "./dist/node/docs/forms/index.js",
-        "default": "./dist/docs/forms/index.js"
-      },
-      "./docs/index": {
-        "types": "./dist/docs/index.d.ts",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "default": "./dist/docs/index.js"
       },
       "./docs/meta.docs": {
         "types": "./dist/docs/meta.docs.d.ts",
@@ -1846,12 +1546,6 @@
         "node": "./dist/node/docs/presentations/docsReferencePage.presentation.js",
         "default": "./dist/docs/presentations/docsReferencePage.presentation.js"
       },
-      "./docs/presentations/index": {
-        "types": "./dist/docs/presentations/index.d.ts",
-        "bun": "./dist/docs/presentations/index.js",
-        "node": "./dist/node/docs/presentations/index.js",
-        "default": "./dist/docs/presentations/index.js"
-      },
       "./docs/queries": {
         "types": "./dist/docs/queries/index.d.ts",
         "bun": "./dist/docs/queries/index.js",
@@ -1869,12 +1563,6 @@
         "bun": "./dist/docs/queries/docsIndex.query.js",
         "node": "./dist/node/docs/queries/docsIndex.query.js",
         "default": "./dist/docs/queries/docsIndex.query.js"
-      },
-      "./docs/queries/index": {
-        "types": "./dist/docs/queries/index.d.ts",
-        "bun": "./dist/docs/queries/index.js",
-        "node": "./dist/node/docs/queries/index.js",
-        "default": "./dist/docs/queries/index.js"
       },
       "./docs/registry": {
         "types": "./dist/docs/registry.d.ts",
@@ -2122,12 +1810,6 @@
         "node": "./dist/node/docs/views/exampleCatalog.dataView.js",
         "default": "./dist/docs/views/exampleCatalog.dataView.js"
       },
-      "./docs/views/index": {
-        "types": "./dist/docs/views/index.d.ts",
-        "bun": "./dist/docs/views/index.js",
-        "node": "./dist/node/docs/views/index.js",
-        "default": "./dist/docs/views/index.js"
-      },
       "./events": {
         "types": "./dist/events.d.ts",
         "bun": "./dist/events.js",
@@ -2151,12 +1833,6 @@
         "bun": "./dist/examples/docs/examples.docblock.js",
         "node": "./dist/node/examples/docs/examples.docblock.js",
         "default": "./dist/examples/docs/examples.docblock.js"
-      },
-      "./examples/index": {
-        "types": "./dist/examples/index.d.ts",
-        "bun": "./dist/examples/index.js",
-        "node": "./dist/node/examples/index.js",
-        "default": "./dist/examples/index.js"
       },
       "./examples/registry": {
         "types": "./dist/examples/registry.d.ts",
@@ -2212,12 +1888,6 @@
         "node": "./dist/node/features/index.js",
         "default": "./dist/features/index.js"
       },
-      "./features/index": {
-        "types": "./dist/features/index.d.ts",
-        "bun": "./dist/features/index.js",
-        "node": "./dist/node/features/index.js",
-        "default": "./dist/features/index.js"
-      },
       "./features/install": {
         "types": "./dist/features/install.d.ts",
         "bun": "./dist/features/install.js",
@@ -2265,12 +1935,6 @@
         "bun": "./dist/forms/forms.js",
         "node": "./dist/node/forms/forms.js",
         "default": "./dist/forms/forms.js"
-      },
-      "./forms/index": {
-        "types": "./dist/forms/index.d.ts",
-        "bun": "./dist/forms/index.js",
-        "node": "./dist/node/forms/index.js",
-        "default": "./dist/forms/index.js"
       },
       "./install": {
         "types": "./dist/install.d.ts",
@@ -2326,12 +1990,6 @@
         "node": "./dist/node/integrations/health/contracts/biometrics.js",
         "default": "./dist/integrations/health/contracts/biometrics.js"
       },
-      "./integrations/health/contracts/index": {
-        "types": "./dist/integrations/health/contracts/index.d.ts",
-        "bun": "./dist/integrations/health/contracts/index.js",
-        "node": "./dist/node/integrations/health/contracts/index.js",
-        "default": "./dist/integrations/health/contracts/index.js"
-      },
       "./integrations/health/contracts/nutrition": {
         "types": "./dist/integrations/health/contracts/nutrition.d.ts",
         "bun": "./dist/integrations/health/contracts/nutrition.js",
@@ -2386,12 +2044,6 @@
         "node": "./dist/node/integrations/health/telemetry.js",
         "default": "./dist/integrations/health/telemetry.js"
       },
-      "./integrations/index": {
-        "types": "./dist/integrations/index.d.ts",
-        "bun": "./dist/integrations/index.js",
-        "node": "./dist/node/integrations/index.js",
-        "default": "./dist/integrations/index.js"
-      },
       "./integrations/integrations.capability": {
         "types": "./dist/integrations/integrations.capability.d.ts",
         "bun": "./dist/integrations/integrations.capability.js",
@@ -2405,12 +2057,6 @@
         "default": "./dist/integrations/integrations.feature.js"
       },
       "./integrations/meeting-recorder/contracts": {
-        "types": "./dist/integrations/meeting-recorder/contracts/index.d.ts",
-        "bun": "./dist/integrations/meeting-recorder/contracts/index.js",
-        "node": "./dist/node/integrations/meeting-recorder/contracts/index.js",
-        "default": "./dist/integrations/meeting-recorder/contracts/index.js"
-      },
-      "./integrations/meeting-recorder/contracts/index": {
         "types": "./dist/integrations/meeting-recorder/contracts/index.d.ts",
         "bun": "./dist/integrations/meeting-recorder/contracts/index.js",
         "node": "./dist/node/integrations/meeting-recorder/contracts/index.js",
@@ -2475,12 +2121,6 @@
         "bun": "./dist/integrations/openbanking/contracts/balances.js",
         "node": "./dist/node/integrations/openbanking/contracts/balances.js",
         "default": "./dist/integrations/openbanking/contracts/balances.js"
-      },
-      "./integrations/openbanking/contracts/index": {
-        "types": "./dist/integrations/openbanking/contracts/index.d.ts",
-        "bun": "./dist/integrations/openbanking/contracts/index.js",
-        "node": "./dist/node/integrations/openbanking/contracts/index.js",
-        "default": "./dist/integrations/openbanking/contracts/index.js"
       },
       "./integrations/openbanking/contracts/transactions": {
         "types": "./dist/integrations/openbanking/contracts/transactions.d.ts",
@@ -2679,12 +2319,6 @@
         "bun": "./dist/integrations/providers/image.js",
         "node": "./dist/node/integrations/providers/image.js",
         "default": "./dist/integrations/providers/image.js"
-      },
-      "./integrations/providers/index": {
-        "types": "./dist/integrations/providers/index.d.ts",
-        "bun": "./dist/integrations/providers/index.js",
-        "node": "./dist/node/integrations/providers/index.js",
-        "default": "./dist/integrations/providers/index.js"
       },
       "./integrations/providers/jira": {
         "types": "./dist/integrations/providers/jira.d.ts",
@@ -2962,12 +2596,6 @@
         "node": "./dist/node/integrations/secrets/gcp-secret-manager.js",
         "default": "./dist/integrations/secrets/gcp-secret-manager.js"
       },
-      "./integrations/secrets/index": {
-        "types": "./dist/integrations/secrets/index.d.ts",
-        "bun": "./dist/integrations/secrets/index.js",
-        "node": "./dist/node/integrations/secrets/index.js",
-        "default": "./dist/integrations/secrets/index.js"
-      },
       "./integrations/secrets/manager": {
         "types": "./dist/integrations/secrets/manager.d.ts",
         "bun": "./dist/integrations/secrets/manager.js",
@@ -3028,12 +2656,6 @@
         "node": "./dist/node/jobs/handlers/gmail-sync-handler.js",
         "default": "./dist/jobs/handlers/gmail-sync-handler.js"
       },
-      "./jobs/handlers/index": {
-        "types": "./dist/jobs/handlers/index.d.ts",
-        "bun": "./dist/jobs/handlers/index.js",
-        "node": "./dist/node/jobs/handlers/index.js",
-        "default": "./dist/jobs/handlers/index.js"
-      },
       "./jobs/handlers/ping-handler": {
         "types": "./dist/jobs/handlers/ping-handler.d.ts",
         "bun": "./dist/jobs/handlers/ping-handler.js",
@@ -3045,12 +2667,6 @@
         "bun": "./dist/jobs/handlers/storage-document-handler.js",
         "node": "./dist/node/jobs/handlers/storage-document-handler.js",
         "default": "./dist/jobs/handlers/storage-document-handler.js"
-      },
-      "./jobs/index": {
-        "types": "./dist/jobs/index.d.ts",
-        "bun": "./dist/jobs/index.js",
-        "node": "./dist/node/jobs/index.js",
-        "default": "./dist/jobs/index.js"
       },
       "./jobs/memory-queue": {
         "types": "./dist/jobs/memory-queue.d.ts",
@@ -3100,12 +2716,6 @@
         "node": "./dist/node/knowledge/docs/knowledge.docblock.js",
         "default": "./dist/knowledge/docs/knowledge.docblock.js"
       },
-      "./knowledge/index": {
-        "types": "./dist/knowledge/index.d.ts",
-        "bun": "./dist/knowledge/index.js",
-        "node": "./dist/node/knowledge/index.js",
-        "default": "./dist/knowledge/index.js"
-      },
       "./knowledge/ingestion": {
         "types": "./dist/knowledge/ingestion/index.d.ts",
         "bun": "./dist/knowledge/ingestion/index.js",
@@ -3129,12 +2739,6 @@
         "bun": "./dist/knowledge/ingestion/gmail-adapter.js",
         "node": "./dist/node/knowledge/ingestion/gmail-adapter.js",
         "default": "./dist/knowledge/ingestion/gmail-adapter.js"
-      },
-      "./knowledge/ingestion/index": {
-        "types": "./dist/knowledge/ingestion/index.d.ts",
-        "bun": "./dist/knowledge/ingestion/index.js",
-        "node": "./dist/node/knowledge/ingestion/index.js",
-        "default": "./dist/knowledge/ingestion/index.js"
       },
       "./knowledge/ingestion/storage-adapter": {
         "types": "./dist/knowledge/ingestion/storage-adapter.d.ts",
@@ -3167,12 +2771,6 @@
         "default": "./dist/knowledge/operations.js"
       },
       "./knowledge/query": {
-        "types": "./dist/knowledge/query/index.d.ts",
-        "bun": "./dist/knowledge/query/index.js",
-        "node": "./dist/node/knowledge/query/index.js",
-        "default": "./dist/knowledge/query/index.js"
-      },
-      "./knowledge/query/index": {
         "types": "./dist/knowledge/query/index.d.ts",
         "bun": "./dist/knowledge/query/index.js",
         "node": "./dist/node/knowledge/query/index.js",
@@ -3220,12 +2818,6 @@
         "node": "./dist/node/knowledge/spaces/financial-overview.js",
         "default": "./dist/knowledge/spaces/financial-overview.js"
       },
-      "./knowledge/spaces/index": {
-        "types": "./dist/knowledge/spaces/index.d.ts",
-        "bun": "./dist/knowledge/spaces/index.js",
-        "node": "./dist/node/knowledge/spaces/index.js",
-        "default": "./dist/knowledge/spaces/index.js"
-      },
       "./knowledge/spaces/product-canon": {
         "types": "./dist/knowledge/spaces/product-canon.d.ts",
         "bun": "./dist/knowledge/spaces/product-canon.js",
@@ -3261,12 +2853,6 @@
         "bun": "./dist/llm/exporters.js",
         "node": "./dist/node/llm/exporters.js",
         "default": "./dist/llm/exporters.js"
-      },
-      "./llm/index": {
-        "types": "./dist/llm/index.d.ts",
-        "bun": "./dist/llm/index.js",
-        "node": "./dist/node/llm/index.js",
-        "default": "./dist/llm/index.js"
       },
       "./llm/prompts": {
         "types": "./dist/llm/prompts.d.ts",
@@ -3316,12 +2902,6 @@
         "node": "./dist/node/operations/index.js",
         "default": "./dist/operations/index.js"
       },
-      "./operations/index": {
-        "types": "./dist/operations/index.d.ts",
-        "bun": "./dist/operations/index.js",
-        "node": "./dist/node/operations/index.js",
-        "default": "./dist/operations/index.js"
-      },
       "./operations/operation": {
         "types": "./dist/operations/operation.d.ts",
         "bun": "./dist/operations/operation.js",
@@ -3345,12 +2925,6 @@
         "bun": "./dist/operations/report/getContractVerificationStatus.js",
         "node": "./dist/node/operations/report/getContractVerificationStatus.js",
         "default": "./dist/operations/report/getContractVerificationStatus.js"
-      },
-      "./operations/report/index": {
-        "types": "./dist/operations/report/index.d.ts",
-        "bun": "./dist/operations/report/index.js",
-        "node": "./dist/node/operations/report/index.js",
-        "default": "./dist/operations/report/index.js"
       },
       "./ownership": {
         "types": "./dist/ownership.d.ts",
@@ -3388,12 +2962,6 @@
         "node": "./dist/node/policy/guards.js",
         "default": "./dist/policy/guards.js"
       },
-      "./policy/index": {
-        "types": "./dist/policy/index.d.ts",
-        "bun": "./dist/policy/index.js",
-        "node": "./dist/node/policy/index.js",
-        "default": "./dist/policy/index.js"
-      },
       "./policy/opa-adapter": {
         "types": "./dist/policy/opa-adapter.d.ts",
         "bun": "./dist/policy/opa-adapter.js",
@@ -3429,12 +2997,6 @@
         "bun": "./dist/presentations/docs/presentations-conventions.docblock.js",
         "node": "./dist/node/presentations/docs/presentations-conventions.docblock.js",
         "default": "./dist/presentations/docs/presentations-conventions.docblock.js"
-      },
-      "./presentations/index": {
-        "types": "./dist/presentations/index.d.ts",
-        "bun": "./dist/presentations/index.js",
-        "node": "./dist/node/presentations/index.js",
-        "default": "./dist/presentations/index.js"
       },
       "./presentations/presentations": {
         "types": "./dist/presentations/presentations.d.ts",
@@ -3489,12 +3051,6 @@
         "bun": "./dist/product-intent/impact-report.js",
         "node": "./dist/node/product-intent/impact-report.js",
         "default": "./dist/product-intent/impact-report.js"
-      },
-      "./product-intent/index": {
-        "types": "./dist/product-intent/index.d.ts",
-        "bun": "./dist/product-intent/index.js",
-        "node": "./dist/node/product-intent/index.js",
-        "default": "./dist/product-intent/index.js"
       },
       "./product-intent/insights": {
         "types": "./dist/product-intent/insights.d.ts",
@@ -3580,12 +3136,6 @@
         "node": "./dist/node/provider-ranking/capabilities/index.js",
         "default": "./dist/provider-ranking/capabilities/index.js"
       },
-      "./provider-ranking/capabilities/index": {
-        "types": "./dist/provider-ranking/capabilities/index.d.ts",
-        "bun": "./dist/provider-ranking/capabilities/index.js",
-        "node": "./dist/node/provider-ranking/capabilities/index.js",
-        "default": "./dist/provider-ranking/capabilities/index.js"
-      },
       "./provider-ranking/capabilities/providerRanking.capability": {
         "types": "./dist/provider-ranking/capabilities/providerRanking.capability.d.ts",
         "bun": "./dist/provider-ranking/capabilities/providerRanking.capability.js",
@@ -3609,12 +3159,6 @@
         "bun": "./dist/provider-ranking/commands/benchmarkRunCustom.command.js",
         "node": "./dist/node/provider-ranking/commands/benchmarkRunCustom.command.js",
         "default": "./dist/provider-ranking/commands/benchmarkRunCustom.command.js"
-      },
-      "./provider-ranking/commands/index": {
-        "types": "./dist/provider-ranking/commands/index.d.ts",
-        "bun": "./dist/provider-ranking/commands/index.js",
-        "node": "./dist/node/provider-ranking/commands/index.js",
-        "default": "./dist/provider-ranking/commands/index.js"
       },
       "./provider-ranking/commands/rankingRefresh.command": {
         "types": "./dist/provider-ranking/commands/rankingRefresh.command.d.ts",
@@ -3658,12 +3202,6 @@
         "node": "./dist/node/provider-ranking/events/benchmarkIngested.event.js",
         "default": "./dist/provider-ranking/events/benchmarkIngested.event.js"
       },
-      "./provider-ranking/events/index": {
-        "types": "./dist/provider-ranking/events/index.d.ts",
-        "bun": "./dist/provider-ranking/events/index.js",
-        "node": "./dist/node/provider-ranking/events/index.js",
-        "default": "./dist/provider-ranking/events/index.js"
-      },
       "./provider-ranking/events/rankingUpdated.event": {
         "types": "./dist/provider-ranking/events/rankingUpdated.event.d.ts",
         "bun": "./dist/provider-ranking/events/rankingUpdated.event.js",
@@ -3688,25 +3226,7 @@
         "node": "./dist/node/provider-ranking/forms/benchmarkRunCustom.form.js",
         "default": "./dist/provider-ranking/forms/benchmarkRunCustom.form.js"
       },
-      "./provider-ranking/forms/index": {
-        "types": "./dist/provider-ranking/forms/index.d.ts",
-        "bun": "./dist/provider-ranking/forms/index.js",
-        "node": "./dist/node/provider-ranking/forms/index.js",
-        "default": "./dist/provider-ranking/forms/index.js"
-      },
-      "./provider-ranking/index": {
-        "types": "./dist/provider-ranking/index.d.ts",
-        "bun": "./dist/provider-ranking/index.js",
-        "node": "./dist/node/provider-ranking/index.js",
-        "default": "./dist/provider-ranking/index.js"
-      },
       "./provider-ranking/presentations": {
-        "types": "./dist/provider-ranking/presentations/index.d.ts",
-        "bun": "./dist/provider-ranking/presentations/index.js",
-        "node": "./dist/node/provider-ranking/presentations/index.js",
-        "default": "./dist/provider-ranking/presentations/index.js"
-      },
-      "./provider-ranking/presentations/index": {
         "types": "./dist/provider-ranking/presentations/index.d.ts",
         "bun": "./dist/provider-ranking/presentations/index.js",
         "node": "./dist/node/provider-ranking/presentations/index.js",
@@ -3736,12 +3256,6 @@
         "node": "./dist/node/provider-ranking/queries/benchmarkResultsList.query.js",
         "default": "./dist/provider-ranking/queries/benchmarkResultsList.query.js"
       },
-      "./provider-ranking/queries/index": {
-        "types": "./dist/provider-ranking/queries/index.d.ts",
-        "bun": "./dist/provider-ranking/queries/index.js",
-        "node": "./dist/node/provider-ranking/queries/index.js",
-        "default": "./dist/provider-ranking/queries/index.js"
-      },
       "./provider-ranking/queries/modelProfileGet.query": {
         "types": "./dist/provider-ranking/queries/modelProfileGet.query.d.ts",
         "bun": "./dist/provider-ranking/queries/modelProfileGet.query.js",
@@ -3765,12 +3279,6 @@
         "bun": "./dist/provider-ranking/views/benchmarkResults.dataView.js",
         "node": "./dist/node/provider-ranking/views/benchmarkResults.dataView.js",
         "default": "./dist/provider-ranking/views/benchmarkResults.dataView.js"
-      },
-      "./provider-ranking/views/index": {
-        "types": "./dist/provider-ranking/views/index.d.ts",
-        "bun": "./dist/provider-ranking/views/index.js",
-        "node": "./dist/node/provider-ranking/views/index.js",
-        "default": "./dist/provider-ranking/views/index.js"
       },
       "./provider-ranking/views/providerRankings.dataView": {
         "types": "./dist/provider-ranking/views/providerRankings.dataView.d.ts",
@@ -3801,12 +3309,6 @@
         "bun": "./dist/regenerator/executor.js",
         "node": "./dist/node/regenerator/executor.js",
         "default": "./dist/regenerator/executor.js"
-      },
-      "./regenerator/index": {
-        "types": "./dist/regenerator/index.d.ts",
-        "bun": "./dist/regenerator/index.js",
-        "node": "./dist/node/regenerator/index.js",
-        "default": "./dist/regenerator/index.js"
       },
       "./regenerator/service": {
         "types": "./dist/regenerator/service.d.ts",
@@ -3862,12 +3364,6 @@
         "node": "./dist/node/serialization/index.js",
         "default": "./dist/serialization/index.js"
       },
-      "./serialization/index": {
-        "types": "./dist/serialization/index.d.ts",
-        "bun": "./dist/serialization/index.js",
-        "node": "./dist/node/serialization/index.js",
-        "default": "./dist/serialization/index.js"
-      },
       "./serialization/serializers": {
         "types": "./dist/serialization/serializers.d.ts",
         "bun": "./dist/serialization/serializers.js",
@@ -3898,12 +3394,6 @@
         "node": "./dist/node/telemetry/docs/telemetry.docblock.js",
         "default": "./dist/telemetry/docs/telemetry.docblock.js"
       },
-      "./telemetry/index": {
-        "types": "./dist/telemetry/index.d.ts",
-        "bun": "./dist/telemetry/index.js",
-        "node": "./dist/node/telemetry/index.js",
-        "default": "./dist/telemetry/index.js"
-      },
       "./telemetry/spec": {
         "types": "./dist/telemetry/spec.d.ts",
         "bun": "./dist/telemetry/spec.js",
@@ -3917,12 +3407,6 @@
         "default": "./dist/telemetry/tracker.js"
       },
       "./tests": {
-        "types": "./dist/tests/index.d.ts",
-        "bun": "./dist/tests/index.js",
-        "node": "./dist/node/tests/index.js",
-        "default": "./dist/tests/index.js"
-      },
-      "./tests/index": {
         "types": "./dist/tests/index.d.ts",
         "bun": "./dist/tests/index.js",
         "node": "./dist/node/tests/index.js",
@@ -3964,12 +3448,6 @@
         "node": "./dist/node/translations/i18n-factory.js",
         "default": "./dist/translations/i18n-factory.js"
       },
-      "./translations/index": {
-        "types": "./dist/translations/index.d.ts",
-        "bun": "./dist/translations/index.js",
-        "node": "./dist/node/translations/index.js",
-        "default": "./dist/translations/index.js"
-      },
       "./translations/registry": {
         "types": "./dist/translations/registry.d.ts",
         "bun": "./dist/translations/registry.js",
@@ -4007,12 +3485,6 @@
         "default": "./dist/utils/safe-json.js"
       },
       "./versioning": {
-        "types": "./dist/versioning/index.d.ts",
-        "bun": "./dist/versioning/index.js",
-        "node": "./dist/node/versioning/index.js",
-        "default": "./dist/versioning/index.js"
-      },
-      "./versioning/index": {
         "types": "./dist/versioning/index.d.ts",
         "bun": "./dist/versioning/index.js",
         "node": "./dist/node/versioning/index.js",
@@ -4060,12 +3532,6 @@
         "node": "./dist/node/workflow/adapters/file-adapter.js",
         "default": "./dist/workflow/adapters/file-adapter.js"
       },
-      "./workflow/adapters/index": {
-        "types": "./dist/workflow/adapters/index.d.ts",
-        "bun": "./dist/workflow/adapters/index.js",
-        "node": "./dist/node/workflow/adapters/index.js",
-        "default": "./dist/workflow/adapters/index.js"
-      },
       "./workflow/adapters/memory-store": {
         "types": "./dist/workflow/adapters/memory-store.d.ts",
         "bun": "./dist/workflow/adapters/memory-store.js",
@@ -4083,12 +3549,6 @@
         "bun": "./dist/workflow/expression.js",
         "node": "./dist/node/workflow/expression.js",
         "default": "./dist/workflow/expression.js"
-      },
-      "./workflow/index": {
-        "types": "./dist/workflow/index.d.ts",
-        "bun": "./dist/workflow/index.js",
-        "node": "./dist/node/workflow/index.js",
-        "default": "./dist/workflow/index.js"
       },
       "./workflow/overview.docblock": {
         "types": "./dist/workflow/overview.docblock.d.ts",
@@ -4143,12 +3603,6 @@
         "bun": "./dist/workspace-config/contractsrc-types.js",
         "node": "./dist/node/workspace-config/contractsrc-types.js",
         "default": "./dist/workspace-config/contractsrc-types.js"
-      },
-      "./workspace-config/index": {
-        "types": "./dist/workspace-config/index.d.ts",
-        "bun": "./dist/workspace-config/index.js",
-        "node": "./dist/node/workspace-config/index.js",
-        "default": "./dist/workspace-config/index.js"
       },
       "./workspace-config/workspace-config.docblock": {
         "types": "./dist/workspace-config/workspace-config.docblock.d.ts",

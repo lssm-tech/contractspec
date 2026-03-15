@@ -9,7 +9,6 @@
     "./agent": "./src/agent.ts",
     "./blueprint": "./src/blueprint.ts",
     "./docs": "./src/docs/index.ts",
-    "./docs/index": "./src/docs/index.ts",
     "./docs/knowledge-canon.docblock": "./src/docs/knowledge-canon.docblock.ts",
     "./example": "./src/example.ts",
     "./knowledge-canon.feature": "./src/knowledge-canon.feature.ts",
@@ -44,72 +43,65 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./agent": {
         "types": "./dist/agent.d.ts",
+        "browser": "./dist/browser/agent.js",
         "bun": "./dist/agent.js",
         "node": "./dist/node/agent.js",
-        "browser": "./dist/browser/agent.js",
         "default": "./dist/agent.js"
       },
       "./blueprint": {
         "types": "./dist/blueprint.d.ts",
+        "browser": "./dist/browser/blueprint.js",
         "bun": "./dist/blueprint.js",
         "node": "./dist/node/blueprint.js",
-        "browser": "./dist/browser/blueprint.js",
         "default": "./dist/blueprint.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
+        "browser": "./dist/browser/docs/index.js",
         "bun": "./dist/docs/index.js",
         "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/index": {
-        "types": "./dist/docs/index.d.ts",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/knowledge-canon.docblock": {
         "types": "./dist/docs/knowledge-canon.docblock.d.ts",
+        "browser": "./dist/browser/docs/knowledge-canon.docblock.js",
         "bun": "./dist/docs/knowledge-canon.docblock.js",
         "node": "./dist/node/docs/knowledge-canon.docblock.js",
-        "browser": "./dist/browser/docs/knowledge-canon.docblock.js",
         "default": "./dist/docs/knowledge-canon.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
+        "browser": "./dist/browser/example.js",
         "bun": "./dist/example.js",
         "node": "./dist/node/example.js",
-        "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./knowledge-canon.feature": {
         "types": "./dist/knowledge-canon.feature.d.ts",
+        "browser": "./dist/browser/knowledge-canon.feature.js",
         "bun": "./dist/knowledge-canon.feature.js",
         "node": "./dist/node/knowledge-canon.feature.js",
-        "browser": "./dist/browser/knowledge-canon.feature.js",
         "default": "./dist/knowledge-canon.feature.js"
       },
       "./source.sample": {
         "types": "./dist/source.sample.d.ts",
+        "browser": "./dist/browser/source.sample.js",
         "bun": "./dist/source.sample.js",
         "node": "./dist/node/source.sample.js",
-        "browser": "./dist/browser/source.sample.js",
         "default": "./dist/source.sample.js"
       },
       "./tenant": {
         "types": "./dist/tenant.d.ts",
+        "browser": "./dist/browser/tenant.js",
         "bun": "./dist/tenant.js",
         "node": "./dist/node/tenant.js",
-        "browser": "./dist/browser/tenant.js",
         "default": "./dist/tenant.js"
       }
     },

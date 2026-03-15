@@ -100,7 +100,6 @@
     "./impls/health/official-health-providers": "./src/impls/health/official-health-providers.ts",
     "./impls/health/provider-normalizers": "./src/impls/health/provider-normalizers.ts",
     "./impls/health/providers": "./src/impls/health/providers.ts",
-    "./impls/index": "./src/impls/index.ts",
     "./impls/jira": "./src/impls/jira.ts",
     "./impls/linear": "./src/impls/linear.ts",
     "./impls/messaging-github": "./src/impls/messaging-github.ts",
@@ -375,12 +374,6 @@
         "bun": "./dist/impls/health/providers.js",
         "node": "./dist/node/impls/health/providers.js",
         "default": "./dist/impls/health/providers.js"
-      },
-      "./impls/index": {
-        "types": "./dist/impls/index.d.ts",
-        "bun": "./dist/impls/index.js",
-        "node": "./dist/node/impls/index.js",
-        "default": "./dist/impls/index.js"
       },
       "./impls/jira": {
         "types": "./dist/impls/jira.d.ts",

@@ -8,7 +8,6 @@
     ".": "./src/index.ts",
     "./build-tutorial": "./src/build-tutorial.ts",
     "./docs": "./src/docs/index.ts",
-    "./docs/index": "./src/docs/index.ts",
     "./docs/video-docs-terminal.docblock": "./src/docs/video-docs-terminal.docblock.ts",
     "./example": "./src/example.ts",
     "./generate-narration": "./src/generate-narration.ts",
@@ -46,65 +45,58 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./build-tutorial": {
         "types": "./dist/build-tutorial.d.ts",
+        "browser": "./dist/browser/build-tutorial.js",
         "bun": "./dist/build-tutorial.js",
         "node": "./dist/node/build-tutorial.js",
-        "browser": "./dist/browser/build-tutorial.js",
         "default": "./dist/build-tutorial.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
+        "browser": "./dist/browser/docs/index.js",
         "bun": "./dist/docs/index.js",
         "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/index": {
-        "types": "./dist/docs/index.d.ts",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/video-docs-terminal.docblock": {
         "types": "./dist/docs/video-docs-terminal.docblock.d.ts",
+        "browser": "./dist/browser/docs/video-docs-terminal.docblock.js",
         "bun": "./dist/docs/video-docs-terminal.docblock.js",
         "node": "./dist/node/docs/video-docs-terminal.docblock.js",
-        "browser": "./dist/browser/docs/video-docs-terminal.docblock.js",
         "default": "./dist/docs/video-docs-terminal.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
+        "browser": "./dist/browser/example.js",
         "bun": "./dist/example.js",
         "node": "./dist/node/example.js",
-        "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./generate-narration": {
         "types": "./dist/generate-narration.d.ts",
+        "browser": "./dist/browser/generate-narration.js",
         "bun": "./dist/generate-narration.js",
         "node": "./dist/node/generate-narration.js",
-        "browser": "./dist/browser/generate-narration.js",
         "default": "./dist/generate-narration.js"
       },
       "./sample-tutorials": {
         "types": "./dist/sample-tutorials.d.ts",
+        "browser": "./dist/browser/sample-tutorials.js",
         "bun": "./dist/sample-tutorials.js",
         "node": "./dist/node/sample-tutorials.js",
-        "browser": "./dist/browser/sample-tutorials.js",
         "default": "./dist/sample-tutorials.js"
       },
       "./video-docs-terminal.feature": {
         "types": "./dist/video-docs-terminal.feature.d.ts",
+        "browser": "./dist/browser/video-docs-terminal.feature.js",
         "bun": "./dist/video-docs-terminal.feature.js",
         "node": "./dist/node/video-docs-terminal.feature.js",
-        "browser": "./dist/browser/video-docs-terminal.feature.js",
         "default": "./dist/video-docs-terminal.feature.js"
       }
     },

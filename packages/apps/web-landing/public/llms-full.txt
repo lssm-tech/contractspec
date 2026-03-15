@@ -2,7 +2,7 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-03-13T12:01:03.399Z
+Generated: 2026-03-15T03:22:11.056Z
 Packages: 157
 
 ---
@@ -8655,16 +8655,6 @@ src/
 
 ---
 
-## @contractspec/app.expo-demo
-
-Description: Minimal Expo React Native app - Task List demo for ContractSpec mobile runtime
-Path: packages/apps/expo-demo
-URL: /llms/app.expo-demo
-
-(No README.md)
-
----
-
 ## @contractspec/action.validation
 
 Description: GitHub Action for running ContractSpec CI checks
@@ -9318,6 +9308,16 @@ jobs:
 | `has-changes`  | `true` if versions need bump |
 | `specs-bumped` | Number of specs needing bump |
 
+
+---
+
+## @contractspec/app.expo-demo
+
+Description: Minimal Expo React Native app - Task List demo for ContractSpec mobile runtime
+Path: packages/apps/mobile-demo
+URL: /llms/app.expo-demo
+
+(No README.md)
 
 ---
 
@@ -12564,11 +12564,18 @@ Shared Bun-based build presets and CLI for ContractSpec workspace packages.
 
 ## Commands
 
+- `contractspec-bun-build help`, `contractspec-bun-build --help`, and `contractspec-bun-build -h` print usage information.
 - `contractspec-bun-build prebuild` regenerates `exports` and `publishConfig.exports`.
 - `contractspec-bun-build transpile` transpiles source with Bun.
 - `contractspec-bun-build types` emits declaration files with `tsc`.
 - `contractspec-bun-build build` runs prebuild + transpile + types.
 - `contractspec-bun-build dev` starts Bun watch mode for configured targets.
+
+## Platform Variants
+
+- `.web.*` files are treated as browser-specific variants and feed canonical `browser` exports.
+- `.native.*` files are treated as React Native variants and feed canonical `react-native` exports.
+- Direct suffixed subpaths like `./foo.web` and `./foo.native` are preserved alongside the canonical export.
 
 
 ---

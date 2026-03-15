@@ -47,7 +47,6 @@
     "./integrations/health/contracts": "./src/integrations/health/contracts/index.ts",
     "./integrations/health/contracts/activities": "./src/integrations/health/contracts/activities.ts",
     "./integrations/health/contracts/biometrics": "./src/integrations/health/contracts/biometrics.ts",
-    "./integrations/health/contracts/index": "./src/integrations/health/contracts/index.ts",
     "./integrations/health/contracts/nutrition": "./src/integrations/health/contracts/nutrition.ts",
     "./integrations/health/contracts/sleep": "./src/integrations/health/contracts/sleep.ts",
     "./integrations/health/contracts/webhooks": "./src/integrations/health/contracts/webhooks.ts",
@@ -57,11 +56,9 @@
     "./integrations/health/health.feature": "./src/integrations/health/health.feature.ts",
     "./integrations/health/models": "./src/integrations/health/models.ts",
     "./integrations/health/telemetry": "./src/integrations/health/telemetry.ts",
-    "./integrations/index": "./src/integrations/index.ts",
     "./integrations/integrations.capability": "./src/integrations/integrations.capability.ts",
     "./integrations/integrations.feature": "./src/integrations/integrations.feature.ts",
     "./integrations/meeting-recorder/contracts": "./src/integrations/meeting-recorder/contracts/index.ts",
-    "./integrations/meeting-recorder/contracts/index": "./src/integrations/meeting-recorder/contracts/index.ts",
     "./integrations/meeting-recorder/contracts/meetings": "./src/integrations/meeting-recorder/contracts/meetings.ts",
     "./integrations/meeting-recorder/contracts/transcripts": "./src/integrations/meeting-recorder/contracts/transcripts.ts",
     "./integrations/meeting-recorder/contracts/webhooks": "./src/integrations/meeting-recorder/contracts/webhooks.ts",
@@ -72,7 +69,6 @@
     "./integrations/openbanking/contracts": "./src/integrations/openbanking/contracts/index.ts",
     "./integrations/openbanking/contracts/accounts": "./src/integrations/openbanking/contracts/accounts.ts",
     "./integrations/openbanking/contracts/balances": "./src/integrations/openbanking/contracts/balances.ts",
-    "./integrations/openbanking/contracts/index": "./src/integrations/openbanking/contracts/index.ts",
     "./integrations/openbanking/contracts/transactions": "./src/integrations/openbanking/contracts/transactions.ts",
     "./integrations/openbanking/guards": "./src/integrations/openbanking/guards.ts",
     "./integrations/openbanking/models": "./src/integrations/openbanking/models.ts",
@@ -107,7 +103,6 @@
     "./integrations/providers/health": "./src/integrations/providers/health.ts",
     "./integrations/providers/health-provider-shared": "./src/integrations/providers/health-provider-shared.ts",
     "./integrations/providers/image": "./src/integrations/providers/image.ts",
-    "./integrations/providers/index": "./src/integrations/providers/index.ts",
     "./integrations/providers/jira": "./src/integrations/providers/jira.ts",
     "./integrations/providers/linear": "./src/integrations/providers/linear.ts",
     "./integrations/providers/llm": "./src/integrations/providers/llm.ts",
@@ -155,7 +150,6 @@
     "./integrations/secrets/aws-secret-manager": "./src/integrations/secrets/aws-secret-manager.ts",
     "./integrations/secrets/env-secret-provider": "./src/integrations/secrets/env-secret-provider.ts",
     "./integrations/secrets/gcp-secret-manager": "./src/integrations/secrets/gcp-secret-manager.ts",
-    "./integrations/secrets/index": "./src/integrations/secrets/index.ts",
     "./integrations/secrets/manager": "./src/integrations/secrets/manager.ts",
     "./integrations/secrets/provider": "./src/integrations/secrets/provider.ts",
     "./integrations/secrets/scaleway-secret-manager": "./src/integrations/secrets/scaleway-secret-manager.ts",
@@ -239,12 +233,6 @@
         "node": "./dist/node/integrations/health/contracts/biometrics.js",
         "default": "./dist/integrations/health/contracts/biometrics.js"
       },
-      "./integrations/health/contracts/index": {
-        "types": "./dist/integrations/health/contracts/index.d.ts",
-        "bun": "./dist/integrations/health/contracts/index.js",
-        "node": "./dist/node/integrations/health/contracts/index.js",
-        "default": "./dist/integrations/health/contracts/index.js"
-      },
       "./integrations/health/contracts/nutrition": {
         "types": "./dist/integrations/health/contracts/nutrition.d.ts",
         "bun": "./dist/integrations/health/contracts/nutrition.js",
@@ -299,12 +287,6 @@
         "node": "./dist/node/integrations/health/telemetry.js",
         "default": "./dist/integrations/health/telemetry.js"
       },
-      "./integrations/index": {
-        "types": "./dist/integrations/index.d.ts",
-        "bun": "./dist/integrations/index.js",
-        "node": "./dist/node/integrations/index.js",
-        "default": "./dist/integrations/index.js"
-      },
       "./integrations/integrations.capability": {
         "types": "./dist/integrations/integrations.capability.d.ts",
         "bun": "./dist/integrations/integrations.capability.js",
@@ -318,12 +300,6 @@
         "default": "./dist/integrations/integrations.feature.js"
       },
       "./integrations/meeting-recorder/contracts": {
-        "types": "./dist/integrations/meeting-recorder/contracts/index.d.ts",
-        "bun": "./dist/integrations/meeting-recorder/contracts/index.js",
-        "node": "./dist/node/integrations/meeting-recorder/contracts/index.js",
-        "default": "./dist/integrations/meeting-recorder/contracts/index.js"
-      },
-      "./integrations/meeting-recorder/contracts/index": {
         "types": "./dist/integrations/meeting-recorder/contracts/index.d.ts",
         "bun": "./dist/integrations/meeting-recorder/contracts/index.js",
         "node": "./dist/node/integrations/meeting-recorder/contracts/index.js",
@@ -388,12 +364,6 @@
         "bun": "./dist/integrations/openbanking/contracts/balances.js",
         "node": "./dist/node/integrations/openbanking/contracts/balances.js",
         "default": "./dist/integrations/openbanking/contracts/balances.js"
-      },
-      "./integrations/openbanking/contracts/index": {
-        "types": "./dist/integrations/openbanking/contracts/index.d.ts",
-        "bun": "./dist/integrations/openbanking/contracts/index.js",
-        "node": "./dist/node/integrations/openbanking/contracts/index.js",
-        "default": "./dist/integrations/openbanking/contracts/index.js"
       },
       "./integrations/openbanking/contracts/transactions": {
         "types": "./dist/integrations/openbanking/contracts/transactions.d.ts",
@@ -598,12 +568,6 @@
         "bun": "./dist/integrations/providers/image.js",
         "node": "./dist/node/integrations/providers/image.js",
         "default": "./dist/integrations/providers/image.js"
-      },
-      "./integrations/providers/index": {
-        "types": "./dist/integrations/providers/index.d.ts",
-        "bun": "./dist/integrations/providers/index.js",
-        "node": "./dist/node/integrations/providers/index.js",
-        "default": "./dist/integrations/providers/index.js"
       },
       "./integrations/providers/jira": {
         "types": "./dist/integrations/providers/jira.d.ts",
@@ -886,12 +850,6 @@
         "bun": "./dist/integrations/secrets/gcp-secret-manager.js",
         "node": "./dist/node/integrations/secrets/gcp-secret-manager.js",
         "default": "./dist/integrations/secrets/gcp-secret-manager.js"
-      },
-      "./integrations/secrets/index": {
-        "types": "./dist/integrations/secrets/index.d.ts",
-        "bun": "./dist/integrations/secrets/index.js",
-        "node": "./dist/node/integrations/secrets/index.js",
-        "default": "./dist/integrations/secrets/index.js"
       },
       "./integrations/secrets/manager": {
         "types": "./dist/integrations/secrets/manager.d.ts",

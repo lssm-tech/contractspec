@@ -4,7 +4,7 @@ import {
   TaskListQuery,
   TaskCreateCommand,
   TaskUpdateStatusCommand,
-} from '@/contracts';
+} from '../contracts';
 import { loadTasksFromStorage, saveTasksToStorage } from './task.storage';
 import type { Task } from './task.types';
 
