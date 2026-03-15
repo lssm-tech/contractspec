@@ -1,5 +1,18 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/module.lifecycle-advisor@3.7.1
+  - @contractspec/module.lifecycle-core@3.7.1
+  - @contractspec/lib.observability@3.7.1
+  - @contractspec/lib.analytics@3.7.1
+  - @contractspec/lib.lifecycle@3.7.1
+  - @contractspec/lib.ai-agent@7.0.1
+
 ## 3.7.0
 
 ### Minor Changes

@@ -1,5 +1,19 @@
 # @contractspec/example.learning-journey-ui-gamified
 
+## 3.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/example.learning-journey-quest-challenges@3.7.1
+  - @contractspec/example.learning-journey-duo-drills@3.7.1
+  - @contractspec/example.learning-journey-ui-shared@3.7.1
+  - @contractspec/module.learning-journey@3.7.1
+  - @contractspec/lib.contracts-spec@3.7.1
+  - @contractspec/lib.design-system@3.7.1
+  - @contractspec/lib.ui-kit-web@3.7.1
+
 ## 3.7.0
 
 ### Minor Changes

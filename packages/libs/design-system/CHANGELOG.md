@@ -1,5 +1,17 @@
 # @contractspec/lib.design-system
 
+## 3.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/lib.contracts-runtime-client-react@3.7.1
+  - @contractspec/lib.contracts-spec@3.7.1
+  - @contractspec/lib.ui-kit-web@3.7.1
+  - @contractspec/lib.ai-agent@7.0.1
+  - @contractspec/lib.ui-kit@3.7.1
+
 ## 3.7.0
 
 ### Minor Changes

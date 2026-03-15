@@ -1,5 +1,32 @@
 # @contractspec/bundle.library
 
+## 3.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.1
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.1
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.1
+  - @contractspec/lib.contracts-integrations@3.7.1
+  - @contractspec/module.context-storage@0.7.1
+  - @contractspec/lib.contracts-library@3.7.1
+  - @contractspec/lib.example-shared-ui@6.0.1
+  - @contractspec/lib.provider-ranking@0.7.1
+  - @contractspec/lib.runtime-sandbox@2.7.1
+  - @contractspec/lib.surface-runtime@0.5.1
+  - @contractspec/lib.contracts-spec@3.7.1
+  - @contractspec/lib.design-system@3.7.1
+  - @contractspec/lib.ai-providers@3.7.1
+  - @contractspec/lib.content-gen@3.7.1
+  - @contractspec/module.examples@3.7.1
+  - @contractspec/lib.ui-kit-web@3.7.1
+  - @contractspec/lib.knowledge@3.7.1
+  - @contractspec/lib.ui-link@3.7.1
+  - @contractspec/lib.logger@3.7.1
+  - @contractspec/lib.schema@3.7.1
+
 ## 3.7.0
 
 ### Minor Changes

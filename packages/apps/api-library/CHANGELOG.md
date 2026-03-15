@@ -1,5 +1,18 @@
 # @contractspec/app.api-library
 
+## 3.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/integration.providers-impls@3.7.1
+  - @contractspec/integration.runtime@3.7.1
+  - @contractspec/lib.contracts-spec@3.7.1
+  - @contractspec/bundle.marketing@3.7.1
+  - @contractspec/bundle.workspace@3.7.1
+  - @contractspec/bundle.library@3.7.1
+
 ## 3.7.0
 
 ### Minor Changes

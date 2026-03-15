@@ -1,5 +1,15 @@
 # @contractspec/module.provider-ranking
 
+## 0.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/lib.contracts-integrations@3.7.1
+  - @contractspec/lib.provider-ranking@0.7.1
+  - @contractspec/lib.schema@3.7.1
+
 ## 0.7.0
 
 ### Minor Changes

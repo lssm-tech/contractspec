@@ -1,5 +1,16 @@
 # @contractspec/example.video-docs-terminal
 
+## 3.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/lib.contracts-integrations@3.7.1
+  - @contractspec/lib.contracts-spec@3.7.1
+  - @contractspec/lib.content-gen@3.7.1
+  - @contractspec/lib.video-gen@2.7.1
+
 ## 3.7.0
 
 ### Minor Changes

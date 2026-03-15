@@ -1,5 +1,21 @@
 # @contractspec/example.saas-boilerplate
 
+## 3.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/lib.example-shared-ui@6.0.1
+  - @contractspec/module.notifications@3.7.1
+  - @contractspec/lib.runtime-sandbox@2.7.1
+  - @contractspec/lib.contracts-spec@3.7.1
+  - @contractspec/module.audit-trail@3.7.1
+  - @contractspec/lib.design-system@3.7.1
+  - @contractspec/lib.identity-rbac@3.7.1
+  - @contractspec/lib.schema@3.7.1
+  - @contractspec/lib.jobs@3.7.1
+
 ## 3.7.0
 
 ### Minor Changes

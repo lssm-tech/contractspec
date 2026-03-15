@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/lib.contracts-transformers@3.7.1
+  - @contractspec/lib.contracts-spec@3.7.1
+  - @contractspec/bundle.workspace@3.7.1
+  - @contractspec/module.workspace@3.7.1
+  - @contractspec/module.examples@3.7.1
+  - @contractspec/module.ai-chat@4.3.1
+  - @contractspec/lib.ai-agent@7.0.1
+
 ## 3.7.0
 
 ### Minor Changes

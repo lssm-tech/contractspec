@@ -1,5 +1,17 @@
 # @contractspec/example.personalization
 
+## 3.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/lib.workflow-composer@3.7.1
+  - @contractspec/lib.personalization@6.0.1
+  - @contractspec/lib.contracts-spec@3.7.1
+  - @contractspec/lib.overlay-engine@3.7.1
+  - @contractspec/lib.logger@3.7.1
+
 ## 3.7.0
 
 ### Minor Changes

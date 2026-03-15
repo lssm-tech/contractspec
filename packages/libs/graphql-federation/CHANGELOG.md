@@ -1,5 +1,11 @@
 # @contractspec/lib.graphql-federation
 
+## 3.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+
 ## 3.7.0
 
 ### Minor Changes

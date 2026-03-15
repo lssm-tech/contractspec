@@ -1,5 +1,11 @@
 # @contractspec/app.cursor-marketplace
 
+## 1.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+
 ## 1.7.0
 
 ### Minor Changes

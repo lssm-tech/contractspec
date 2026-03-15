@@ -1,5 +1,11 @@
 # @contractspec/lib.contracts
 
+## 2.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+
 ## 2.7.0
 
 ### Minor Changes

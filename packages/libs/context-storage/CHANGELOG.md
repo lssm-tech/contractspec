@@ -1,5 +1,11 @@
 # @contractspec/lib.context-storage
 
+## 0.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+
 ## 0.7.0
 
 ### Minor Changes
