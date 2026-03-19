@@ -32,10 +32,20 @@ jobs:
       NODE_OPTIONS: --max-old-space-size=6144
       TURBO_TELEMETRY_DISABLED: 1
       DO_NOT_TRACK: 1
+      NPM_CONFIG_FETCH_RETRIES: 5
+      NPM_CONFIG_FETCH_RETRY_FACTOR: 2
+      NPM_CONFIG_FETCH_RETRY_MINTIMEOUT: 10000
+      NPM_CONFIG_FETCH_RETRY_MAXTIMEOUT: 60000
+      npm_config_fetch_retries: 5
+      npm_config_fetch_retry_factor: 2
+      npm_config_fetch_retry_mintimeout: 10000
+      npm_config_fetch_retry_maxtimeout: 60000
       OVSX_PAT: ${{ secrets.OVSX_PAT }}
       CONTRACTSPEC_RELEASE_DIR: /tmp/contractspec-release-stable
       CONTRACTSPEC_RELEASE_MANIFEST_PATH: /tmp/contractspec-release-stable/release-manifest.json
       CONTRACTSPEC_RELEASE_SMOKE_SUMMARY_PATH: /tmp/contractspec-release-stable/release-smoke.json
+      CONTRACTSPEC_RELEASE_VERIFY_RETRY_COUNT: 3
+      CONTRACTSPEC_RELEASE_VERIFY_RETRY_DELAY_MS: 5000
     steps:
       - name: Checkout
         uses: actions/checkout@v6

@@ -6,6 +6,11 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 
+const DEFAULT_DIST_TAG_RETRY_COUNT = 3;
+const DEFAULT_DIST_TAG_RETRY_DELAY_MS = 5000;
+const RETRYABLE_NPM_ERROR_RE =
+  /ECONNRESET|ETIMEDOUT|EAI_AGAIN|ENOTFOUND|ECONNREFUSED|EHOSTUNREACH|EPIPE|socket hang up|fetch failed|network connectivity|502 Bad Gateway|503 Service Unavailable|504 Gateway Timeout|Invalid response body while trying to fetch/i;
+
 function parseArgs(argv) {
   const options = {
     manifestPath: process.env.CONTRACTSPEC_RELEASE_MANIFEST_PATH,
@@ -53,8 +58,13 @@ function createNpmEnvironment() {
   };
 }
 
-function getDistTags(name, npmEnv) {
-  const result = spawnSync('npm', ['view', name, 'dist-tags', '--json'], {
+function parseInteger(value, fallback) {
+  const parsed = Number.parseInt(`${value ?? ''}`, 10);
+  return Number.isFinite(parsed) && parsed >= 0 ? parsed : fallback;
+}
+
+function readDistTagsOnce(name, npmEnv, runCommand = spawnSync) {
+  const result = runCommand('npm', ['view', name, 'dist-tags', '--json'], {
     encoding: 'utf8',
     env: npmEnv,
     stdio: 'pipe',
@@ -67,6 +77,44 @@ function getDistTags(name, npmEnv) {
   }
 
   return JSON.parse((result.stdout ?? '{}').trim() || '{}');
+}
+
+export function isRetryableNpmError(error) {
+  const message = error instanceof Error ? error.message : String(error);
+  return RETRYABLE_NPM_ERROR_RE.test(message);
+}
+
+export async function getDistTags(name, npmEnv, options = {}) {
+  const retryCount = parseInteger(
+    options.retryCount ?? process.env.CONTRACTSPEC_RELEASE_VERIFY_RETRY_COUNT,
+    DEFAULT_DIST_TAG_RETRY_COUNT
+  );
+  const retryDelayMs = parseInteger(
+    options.retryDelayMs ??
+      process.env.CONTRACTSPEC_RELEASE_VERIFY_RETRY_DELAY_MS,
+    DEFAULT_DIST_TAG_RETRY_DELAY_MS
+  );
+  const sleep =
+    options.sleep ?? ((delayMs) => new Promise((resolve) => setTimeout(resolve, delayMs)));
+  const log = options.log ?? ((message) => console.warn(message));
+  let attempt = 0;
+
+  for (;;) {
+    try {
+      return readDistTagsOnce(name, npmEnv, options.runCommand);
+    } catch (error) {
+      if (!(error instanceof Error) || !isRetryableNpmError(error) || attempt >= retryCount) {
+        throw error;
+      }
+
+      attempt += 1;
+      const delayMs = retryDelayMs * attempt;
+      log(
+        `[release:verify] Transient npm registry error for ${name}; retry ${attempt}/${retryCount} in ${delayMs}ms.`
+      );
+      await sleep(delayMs);
+    }
+  }
 }
 
 function requiresCliSmoke(packages) {
@@ -147,6 +195,16 @@ export async function verifyReleaseManifest(options = {}) {
   }
 
   const npmEnv = createNpmEnvironment();
+  const lookupDistTags =
+    options.getDistTags ??
+    ((name, env) =>
+      getDistTags(name, env, {
+        retryCount: options.retryCount,
+        retryDelayMs: options.retryDelayMs,
+        sleep: options.sleep,
+        log: options.log,
+        runCommand: options.runCommand,
+      }));
   if (requiresCliSmoke(packages)) {
     verifyCliSmoke(manifest);
   }
@@ -162,7 +220,7 @@ export async function verifyReleaseManifest(options = {}) {
   }
 
   for (const entry of packages) {
-    const distTags = getDistTags(entry.name, npmEnv);
+    const distTags = await lookupDistTags(entry.name, npmEnv);
     const actualVersion = distTags[entry.distTag];
     if (actualVersion !== entry.version) {
       throw new Error(
