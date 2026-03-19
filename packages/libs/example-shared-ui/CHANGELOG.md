@@ -1,5 +1,16 @@
 # @contractspec/lib.example-shared-ui
 
+## 6.0.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/lib.surface-runtime@0.5.4
+  - @contractspec/lib.contracts-spec@3.7.4
+  - @contractspec/lib.design-system@3.7.4
+  - @contractspec/lib.ui-kit-web@3.7.4
+
 ## 6.0.3
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.video-gen",
-  "version": "2.7.3",
+  "version": "2.7.4",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -56,6 +56,11 @@
     "@remotion/player": {
       "optional": true
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/video-gen"
   },
   "exports": {
     ".": "./src/index.ts",

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.progressive-delivery",
-  "version": "34.0.3",
+  "version": "34.0.4",
   "type": "module",
   "types": "./dist/index.d.ts",
   "files": [
@@ -20,6 +20,11 @@
     "lint:check": "eslint src",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/progressive-delivery"
   },
   "peerDependencies": {
     "@contractspec/lib.observability": "workspace:*"

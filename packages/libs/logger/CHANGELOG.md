@@ -1,5 +1,11 @@
 # @contractspec/lib.logger
 
+## 3.7.4
+
+### Patch Changes
+
+- fix: release security
+
 ## 3.7.3
 
 ### Patch Changes

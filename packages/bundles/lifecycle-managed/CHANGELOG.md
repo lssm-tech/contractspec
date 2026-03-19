@@ -1,5 +1,18 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/module.lifecycle-advisor@3.7.4
+  - @contractspec/module.lifecycle-core@3.7.4
+  - @contractspec/lib.observability@3.7.4
+  - @contractspec/lib.analytics@3.7.4
+  - @contractspec/lib.lifecycle@3.7.4
+  - @contractspec/lib.ai-agent@7.0.4
+
 ## 3.7.3
 
 ### Patch Changes

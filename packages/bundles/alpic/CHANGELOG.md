@@ -1,5 +1,13 @@
 # @contractspec/bundle.alpic
 
+## 3.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/module.alpic@3.7.4
+
 ## 3.7.3
 
 ### Patch Changes

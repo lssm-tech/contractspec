@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/action.version",
-  "version": "2.7.3",
+  "version": "2.7.4",
   "description": "GitHub Action for ContractSpec version management",
   "main": "action.yml",
   "keywords": [
@@ -15,5 +15,10 @@
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
-  "homepage": "https://contractspec.io"
+  "homepage": "https://contractspec.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/apps/action-version"
+  }
 }

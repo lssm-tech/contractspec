@@ -1,5 +1,13 @@
 # @contractspec/app.cli-database
 
+## 3.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/lib.schema@3.7.4
+
 ## 3.7.3
 
 ### Patch Changes

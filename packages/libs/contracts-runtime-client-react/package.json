@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.contracts-runtime-client-react",
-  "version": "3.7.3",
+  "version": "3.7.4",
   "description": "React runtime adapters for ContractSpec contracts",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -17,6 +17,11 @@
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit",
     "dev": "contractspec-bun-build dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/contract-runtime-client-react"
   },
   "peerDependencies": {
     "@blocknote/core": "^0.47.1",

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.contracts-integrations",
-  "version": "3.7.3",
+  "version": "3.7.4",
   "description": "Integration contract definitions for external services",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -17,6 +17,11 @@
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit",
     "dev": "contractspec-bun-build dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/contract-integrations"
   },
   "dependencies": {
     "@aws-sdk/client-secrets-manager": "^3.1004.0",

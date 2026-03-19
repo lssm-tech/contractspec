@@ -1,5 +1,17 @@
 # @contractspec/example.wealth-snapshot
 
+## 3.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/module.notifications@3.7.4
+  - @contractspec/lib.contracts-spec@3.7.4
+  - @contractspec/module.audit-trail@3.7.4
+  - @contractspec/lib.identity-rbac@3.7.4
+  - @contractspec/lib.schema@3.7.4
+
 ## 3.7.3
 
 ### Patch Changes

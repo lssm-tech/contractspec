@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/lib.contracts-transformers@3.7.4
+  - @contractspec/lib.contracts-spec@3.7.4
+  - @contractspec/bundle.workspace@3.7.4
+  - @contractspec/module.workspace@3.7.4
+  - @contractspec/module.examples@3.7.4
+  - @contractspec/module.ai-chat@4.3.4
+  - @contractspec/lib.ai-agent@7.0.4
+
 ## 3.7.3
 
 ### Patch Changes

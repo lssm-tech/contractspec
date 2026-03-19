@@ -1,5 +1,18 @@
 # @contractspec/example.analytics-dashboard
 
+## 3.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.7.4
+  - @contractspec/lib.example-shared-ui@6.0.4
+  - @contractspec/lib.runtime-sandbox@2.7.4
+  - @contractspec/lib.contracts-spec@3.7.4
+  - @contractspec/lib.design-system@3.7.4
+  - @contractspec/lib.schema@3.7.4
+
 ## 3.7.3
 
 ### Patch Changes

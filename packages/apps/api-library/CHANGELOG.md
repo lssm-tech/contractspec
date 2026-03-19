@@ -1,5 +1,18 @@
 # @contractspec/app.api-library
 
+## 3.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/integration.providers-impls@3.7.4
+  - @contractspec/integration.runtime@3.7.4
+  - @contractspec/lib.contracts-spec@3.7.4
+  - @contractspec/bundle.marketing@3.7.4
+  - @contractspec/bundle.workspace@3.7.4
+  - @contractspec/bundle.library@3.7.4
+
 ## 3.7.3
 
 ### Patch Changes

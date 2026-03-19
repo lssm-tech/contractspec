@@ -1,5 +1,14 @@
 # @contractspec/app.alpic-mcp
 
+## 3.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/bundle.alpic@3.7.4
+  - @contractspec/lib.logger@3.7.4
+
 ## 3.7.3
 
 ### Patch Changes

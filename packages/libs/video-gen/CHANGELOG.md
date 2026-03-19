@@ -1,5 +1,19 @@
 # @contractspec/lib.video-gen
 
+## 2.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.7.4
+  - @contractspec/lib.contracts-spec@3.7.4
+  - @contractspec/lib.design-system@3.7.4
+  - @contractspec/lib.ai-providers@3.7.4
+  - @contractspec/lib.content-gen@3.7.4
+  - @contractspec/lib.image-gen@1.7.4
+  - @contractspec/lib.voice@1.7.4
+
 ## 2.7.3
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.example-shared-ui",
-  "version": "6.0.3",
+  "version": "6.0.4",
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
@@ -44,6 +44,11 @@
     "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/example-shared-ui"
   },
   "publishConfig": {
     "access": "public",

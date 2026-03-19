@@ -1,5 +1,11 @@
 # @contractspec/lib.contracts
 
+## 2.7.4
+
+### Patch Changes
+
+- fix: release security
+
 ## 2.7.3
 
 ### Patch Changes

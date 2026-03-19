@@ -1,5 +1,22 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/example.locale-jurisdiction-gate@3.7.4
+  - @contractspec/example.versioned-knowledge-base@3.7.4
+  - @contractspec/example.kb-update-pipeline@3.7.4
+  - @contractspec/example.learning-patterns@3.7.4
+  - @contractspec/module.learning-journey@3.7.4
+  - @contractspec/lib.example-shared-ui@6.0.4
+  - @contractspec/lib.runtime-sandbox@2.7.4
+  - @contractspec/lib.contracts-spec@3.7.4
+  - @contractspec/lib.design-system@3.7.4
+  - @contractspec/lib.ui-kit-web@3.7.4
+
 ## 3.7.3
 
 ### Patch Changes

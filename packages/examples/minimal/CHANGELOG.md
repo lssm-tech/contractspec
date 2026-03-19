@@ -1,5 +1,13 @@
 # contractspec-example-minimal
 
+## 2.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@3.7.4
+
 ## 2.7.3
 
 ### Patch Changes

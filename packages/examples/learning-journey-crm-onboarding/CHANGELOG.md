@@ -1,5 +1,16 @@
 # @contractspec/example.learning-journey-crm-onboarding
 
+## 3.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/module.learning-journey@3.7.4
+  - @contractspec/example.crm-pipeline@3.7.4
+  - @contractspec/lib.contracts-spec@3.7.4
+  - @contractspec/lib.schema@3.7.4
+
 ## 3.7.3
 
 ### Patch Changes
