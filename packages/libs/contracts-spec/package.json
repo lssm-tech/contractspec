@@ -24,6 +24,7 @@
     "build:types": "contractspec-bun-build types",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit",
+    "test": "bun test",
     "dev": "contractspec-bun-build dev",
     "registry:build": "bun run scripts/build-registry.ts",
     "readme:inventory": "bun run scripts/update-readme-contract-inventory.ts"
@@ -152,6 +153,7 @@
     "./control-plane/commands/controlPlaneSkillInstall.command": "./src/control-plane/commands/controlPlaneSkillInstall.command.ts",
     "./control-plane/constants": "./src/control-plane/constants.ts",
     "./control-plane/contracts": "./src/control-plane/contracts.ts",
+    "./control-plane/control-plane.feature": "./src/control-plane/control-plane.feature.ts",
     "./control-plane/events": "./src/control-plane/events/index.ts",
     "./control-plane/events/controlPlaneExecutionCompleted.event": "./src/control-plane/events/controlPlaneExecutionCompleted.event.ts",
     "./control-plane/events/controlPlaneExecutionFailed.event": "./src/control-plane/events/controlPlaneExecutionFailed.event.ts",
@@ -1179,6 +1181,12 @@
         "bun": "./dist/control-plane/contracts.js",
         "node": "./dist/node/control-plane/contracts.js",
         "default": "./dist/control-plane/contracts.js"
+      },
+      "./control-plane/control-plane.feature": {
+        "types": "./dist/control-plane/control-plane.feature.d.ts",
+        "bun": "./dist/control-plane/control-plane.feature.js",
+        "node": "./dist/node/control-plane/control-plane.feature.js",
+        "default": "./dist/control-plane/control-plane.feature.js"
       },
       "./control-plane/events": {
         "types": "./dist/control-plane/events/index.d.ts",

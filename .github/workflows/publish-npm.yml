@@ -18,10 +18,12 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     environment: Production
     permissions:
       contents: write
       pull-requests: write
+      id-token: write
       issues: read
       packages: write
     env:
@@ -31,6 +33,9 @@ jobs:
       TURBO_TELEMETRY_DISABLED: 1
       DO_NOT_TRACK: 1
       OVSX_PAT: ${{ secrets.OVSX_PAT }}
+      CONTRACTSPEC_RELEASE_DIR: ${{ runner.temp }}/release-stable
+      CONTRACTSPEC_RELEASE_MANIFEST_PATH: ${{ runner.temp }}/release-stable/release-manifest.json
+      CONTRACTSPEC_RELEASE_SMOKE_SUMMARY_PATH: ${{ runner.temp }}/release-stable/release-smoke.json
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -55,7 +60,9 @@ jobs:
         env:
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
           TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-        run: bun run build:not-apps
+        run: |
+          bun run build:not-apps
+          bun turbo run build --filter="@contractspec/app.cli-contractspec"
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
@@ -75,6 +82,21 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
           CONTRACTSPEC_USE_PUBLISH_EXPORTS: 'true'
+
+      - name: Verify npm release manifest
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: node scripts/verify-release-manifest.js --manifest "${{ runner.temp }}/release-stable/release-manifest.json"
+
+      - name: Upload npm release manifest
+        if: always() && steps.changesets.outputs.hasChangesets == 'false'
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-release-manifest-stable
+          path: |
+            ${{ runner.temp }}/release-stable/release-manifest.json
+            ${{ runner.temp }}/release-stable/release-smoke.json
+            ${{ runner.temp }}/release-stable/tarballs/*.tgz
+          retention-days: 90
 
       - name: Determine non-npm publish targets
         if: steps.changesets.outputs.hasChangesets == 'false'

@@ -21,7 +21,7 @@ export async function runDoctorChecks(
   const result = await runDoctor(adapters, {
     workspaceRoot,
     skipAi: true, // Always skip AI in CI
-    categories: ['cli', 'config', 'deps', 'workspace'], // Skip AI and MCP
+    categories: ['cli', 'config', 'deps', 'workspace', 'layers'], // Skip AI and MCP
   });
 
   for (const check of result.checks) {
@@ -31,7 +31,7 @@ export async function runDoctorChecks(
         severity: 'error',
         message: `${check.name}: ${check.message}`,
         category: 'doctor',
-        context: { details: check.details },
+        context: { details: check.details, ...(check.context ?? {}) },
       });
     } else if (check.status === 'warn') {
       issues.push({
@@ -39,7 +39,7 @@ export async function runDoctorChecks(
         severity: 'warning',
         message: `${check.name}: ${check.message}`,
         category: 'doctor',
-        context: { details: check.details },
+        context: { details: check.details, ...(check.context ?? {}) },
       });
     }
   }

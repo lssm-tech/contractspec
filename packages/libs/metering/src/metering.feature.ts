@@ -58,6 +58,7 @@ export const MeteringFeature = defineFeature({
     { key: 'threshold.created', version: '1.0.0' },
     { key: 'threshold.exceeded', version: '1.0.0' },
     { key: 'threshold.approaching', version: '1.0.0' },
+    { key: 'model.selected', version: '1.0.0' },
   ],
 
   // No presentations for this library feature

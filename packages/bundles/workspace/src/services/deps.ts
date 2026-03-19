@@ -51,19 +51,17 @@ export async function analyzeDeps(
     const content = await fs.readFile(file);
     const relativePath = fs.relative('.', file);
 
-    // Prefer explicit meta.name if present; otherwise fall back to filename stem
-    const nameMatch = content.match(/name:\s*['"]([^'"]+)['"]/);
-    const inferredName = nameMatch?.[1]
-      ? nameMatch[1]
-      : fs
-          .basename(file)
-          .replace(/\.[jt]s$/, '')
-          .replace(
-            /\.(contracts|contract|operation|operations|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)$/,
-            ''
-          );
-
-    const finalName = inferredName || 'unknown';
+    // Dependency analysis works on file-level imports, so keep the node naming
+    // aligned with imported file stems instead of matching nested schema "name"
+    // fields, which frequently point at IO models rather than the spec module.
+    const finalName =
+      fs
+        .basename(file)
+        .replace(/\.[jt]s$/, '')
+        .replace(
+          /\.(contracts|contract|command|query|operation|operations|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)$/,
+          ''
+        ) || 'unknown';
     const dependencies = parseImportedSpecNames(content, file);
 
     addContractNode(graph, finalName, relativePath, dependencies);

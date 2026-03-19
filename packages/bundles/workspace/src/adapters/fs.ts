@@ -1,5 +1,7 @@
 export const DEFAULT_SPEC_PATTERNS = [
   // Standard dot-prefixed naming convention
+  '**/*.command.ts',
+  '**/*.query.ts',
   '**/*.operation.ts',
   '**/*.operations.ts',
   '**/*.event.ts',
@@ -20,6 +22,10 @@ export const DEFAULT_SPEC_PATTERNS = [
   // Directory-based patterns (contracts/ and operations/ directories)
   '**/contracts/*.ts',
   '**/contracts/index.ts',
+  '**/commands/*.ts',
+  '**/commands/index.ts',
+  '**/queries/*.ts',
+  '**/queries/index.ts',
   '**/operations/*.ts',
   '**/operations/index.ts',
   // Standalone file patterns (events.ts, presentations.ts)

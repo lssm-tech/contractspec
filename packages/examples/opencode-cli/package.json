@@ -1,13 +1,21 @@
 {
-  "name": "contractspec-example-opencode-cli",
+  "name": "@contractspec/example.opencode-cli",
   "version": "2.7.1",
   "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./contracts/opencode": "./src/contracts/opencode.contracts.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/opencode-cli.docblock": "./src/docs/opencode-cli.docblock.ts",
+    "./example": "./src/example.ts",
+    "./opencode-cli.feature": "./src/opencode-cli.feature.ts"
+  },
   "scripts": {
-    "build": "contractspec build src/contracts/opencode.contracts.ts --agent-mode opencode",
-    "validate": "contractspec validate src/contracts/opencode.contracts.ts --check-implementation --agent-mode opencode"
+    "build": "bun ../../apps/cli-contractspec/src/cli.ts build src/contracts/opencode.contracts.ts --agent-mode opencode",
+    "validate": "bun ../../apps/cli-contractspec/src/cli.ts validate src/contracts/opencode.contracts.ts --check-implementation --agent-mode opencode"
   },
   "devDependencies": {
-    "contractspec": "workspace:*",
     "typescript": "^5.0.0"
   },
   "dependencies": {

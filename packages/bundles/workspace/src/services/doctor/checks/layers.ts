@@ -7,15 +7,21 @@
 import type { FsAdapter } from '../../../ports/fs';
 import type { CheckContext, CheckResult } from '../types';
 import { discoverLayers } from '../../layer-discovery';
+import {
+  getStabilityPolicyPath,
+  isCriticalFeatureKey,
+  loadStabilityPolicy,
+} from '../../stability/policy';
 
 /**
  * Run all layer health checks.
  */
 export async function runLayerChecks(
   fs: FsAdapter,
-  _ctx: CheckContext
+  ctx: CheckContext
 ): Promise<CheckResult[]> {
   const results: CheckResult[] = [];
+  const policy = await loadStabilityPolicy(fs, ctx.workspaceRoot);
 
   // Discover layers
   const discovery = await discoverLayers(
@@ -58,7 +64,7 @@ export async function runLayerChecks(
   results.push(checkHasExamples(discovery.stats.examples));
 
   // Check: Features have owners
-  results.push(checkFeatureOwners(discovery.inventory.features));
+  results.push(checkFeatureOwners(discovery.inventory.features, policy, ctx));
 
   // Check: Examples have valid entrypoints
   results.push(checkExampleEntrypoints(discovery.inventory.examples));
@@ -117,17 +123,33 @@ function checkHasExamples(count: number): CheckResult {
  * Check if features have owners defined.
  */
 function checkFeatureOwners(
-  features: Map<string, { owners?: string[]; filePath: string }>
+  features: Map<
+    string,
+    { owners?: string[]; filePath: string; sourceBlock?: string }
+  >,
+  policy:
+    | Awaited<ReturnType<typeof loadStabilityPolicy>>
+    | undefined,
+  ctx: CheckContext
 ): CheckResult {
   const missingOwners: string[] = [];
+  const criticalMissingOwners: string[] = [];
 
   for (const [key, feature] of features) {
-    if (!feature.owners?.length) {
-      missingOwners.push(key);
+    const hasOwnerMetadata =
+      Boolean(feature.owners?.length) ||
+      /owners\s*:\s*(?!\[\s*\])/.test(feature.sourceBlock ?? '');
+
+    if (!hasOwnerMetadata) {
+      if (isCriticalFeatureKey(key, policy)) {
+        criticalMissingOwners.push(key);
+      } else {
+        missingOwners.push(key);
+      }
     }
   }
 
-  if (missingOwners.length === 0) {
+  if (criticalMissingOwners.length === 0 && missingOwners.length === 0) {
     return {
       category: 'layers',
       name: 'Feature Owners',
@@ -136,15 +158,34 @@ function checkFeatureOwners(
         features.size > 0
           ? 'All features have owners defined'
           : 'No features to check',
+      context:
+        features.size > 0
+          ? {
+              policyPath: policy ? getStabilityPolicyPath(ctx.workspaceRoot) : undefined,
+              criticalMissingFeatures: [],
+              missingFeatures: [],
+            }
+          : undefined,
     };
   }
 
   return {
     category: 'layers',
     name: 'Feature Owners',
-    status: 'warn',
-    message: `${missingOwners.length} feature(s) missing owners`,
-    details: `Features: ${missingOwners.slice(0, 3).join(', ')}${missingOwners.length > 3 ? '...' : ''}`,
+    status: criticalMissingOwners.length > 0 ? 'fail' : 'warn',
+    message:
+      criticalMissingOwners.length > 0
+        ? `${criticalMissingOwners.length} critical feature(s) missing owners`
+        : `${missingOwners.length} feature(s) missing owners`,
+    details:
+      criticalMissingOwners.length > 0
+        ? `Critical features: ${criticalMissingOwners.join(', ')}`
+        : `Features: ${missingOwners.slice(0, 3).join(', ')}${missingOwners.length > 3 ? '...' : ''}`,
+    context: {
+      policyPath: policy ? getStabilityPolicyPath(ctx.workspaceRoot) : undefined,
+      criticalMissingFeatures: criticalMissingOwners,
+      missingFeatures: missingOwners,
+    },
   };
 }
 

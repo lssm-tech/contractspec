@@ -9,24 +9,39 @@ CLI tool for creating, building, and validating contract specifications.
 ## Installation
 
 ```bash
-bun add -D @contractspec/app.cli-contractspec
+bun add -D contractspec
 ```
 
 ## Quick Start
 
+Pick the starting path that matches your project:
+
+### Greenfield
+
 ```bash
-# Create a new contract spec interactively
-contractspec create
-
-# Create with AI assistance
-contractspec create --ai
-
-# Build implementation from spec
-contractspec build src/contracts/mySpec.ts
-
-# Validate a spec
-contractspec validate src/contracts/mySpec.ts
+contractspec quickstart
+contractspec init
+contractspec create --type operation
+contractspec generate
+contractspec ci
 ```
+
+### Brownfield OpenAPI Import
+
+```bash
+contractspec init
+contractspec openapi import path/to/openapi.yaml
+contractspec ci
+```
+
+### Example-First Exploration
+
+```bash
+contractspec examples list
+contractspec examples init crm-pipeline
+```
+
+Use `contractspec doctor` for read-only diagnostics and `contractspec doctor --fix` when you want the CLI to apply available repairs.
 
 ## Commands
 

@@ -7,6 +7,10 @@ export interface SpecDiscoveryOptions {
 const DEFAULT_SPEC_PATTERNS = [
   // Standard dot-prefixed naming convention
   '**/*.contracts.ts',
+  '**/*.command.ts',
+  '**/*.query.ts',
+  '**/*.operation.ts',
+  '**/*.operations.ts',
   '**/*.event.ts',
   '**/*.presentation.ts',
   '**/*.feature.ts',
@@ -25,7 +29,14 @@ const DEFAULT_SPEC_PATTERNS = [
   // Directory-based patterns (contracts/ directory)
   '**/contracts/*.ts',
   '**/contracts/index.ts',
+  '**/commands/*.ts',
+  '**/commands/index.ts',
+  '**/queries/*.ts',
+  '**/queries/index.ts',
+  '**/operations/*.ts',
+  '**/operations/index.ts',
   // Standalone file patterns (events.ts, presentations.ts)
+  '**/operations.ts',
   '**/events.ts',
   '**/presentations.ts',
   // Directory index patterns (/events/index.ts, /presentations/index.ts)

@@ -13,8 +13,13 @@ const example = defineExample({
     owners: ['@platform.core'],
     tags: ['product-intent', 'discovery', 'pm', 'evidence', 'llm'],
   },
+  docs: {
+    rootDocId: 'docs.examples.product-intent',
+    usageDocId: 'docs.examples.product-intent.usage',
+  },
   entrypoints: {
     packageName: '@contractspec/example.product-intent',
+    docs: './docs',
   },
   surfaces: {
     templates: false,

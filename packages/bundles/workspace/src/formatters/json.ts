@@ -30,7 +30,17 @@ export interface JsonFormatOptions {
  * CI JSON output structure (v1.0).
  */
 export interface CiJsonOutput extends BaseJsonOutput {
+  success: boolean;
   checks: CiCheckJson[];
+  categories: {
+    category: string;
+    label: string;
+    passed: boolean;
+    errors: number;
+    warnings: number;
+    notes: number;
+    durationMs: number;
+  }[];
   drift: {
     status: 'none' | 'detected';
     files: string[];
@@ -39,7 +49,11 @@ export interface CiJsonOutput extends BaseJsonOutput {
     pass: number;
     fail: number;
     warn: number;
+    note: number;
     total: number;
+    totalErrors: number;
+    totalWarnings: number;
+    totalNotes: number;
     durationMs: number;
     timestamp: string;
   };
@@ -89,25 +103,37 @@ export function formatAsJson(
   // For v1.0 schema, we focus on list of checks.
 
   // Count stats
+  const pass = result.categories.filter((category) => category.passed).length;
   const fail = result.totalErrors;
   const warn = result.totalWarnings;
-  // Note: "pass" count is harder to derive solely from issues (which are usually negative).
-  // But we can use category results to infer passing checks if we had granular per-check results.
-  // For now, we'll use the issues list. If issues is empty, it's all pass?
-  // Actually, let's map the categories too if they represent high-level checks.
+  const note = result.totalNotes;
 
   const output: CiJsonOutput = {
     schemaVersion: '1.0',
+    success: result.success,
     checks,
+    categories: result.categories.map((category) => ({
+      category: category.category,
+      label: category.label,
+      passed: category.passed,
+      errors: category.errors,
+      warnings: category.warnings,
+      notes: category.notes,
+      durationMs: category.durationMs,
+    })),
     drift: {
       status: driftResult?.hasDrift ? 'detected' : 'none',
       files: driftResult?.files ?? [],
     },
     summary: {
-      pass: 0, // Placeholder, calculated properly if we have tracking of passed assertions
+      pass,
       fail,
       warn,
-      total: fail + warn,
+      note,
+      total: pass + fail + warn + note,
+      totalErrors: result.totalErrors,
+      totalWarnings: result.totalWarnings,
+      totalNotes: result.totalNotes,
       durationMs: result.durationMs,
       timestamp: result.timestamp,
     },

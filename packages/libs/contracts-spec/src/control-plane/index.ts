@@ -4,3 +4,4 @@ export * from './queries';
 export * from './events';
 export * from './capabilities';
 export * from './contracts';
+export * from './control-plane.feature';

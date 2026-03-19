@@ -54,23 +54,60 @@ ContractSpec is a **compiler**, not a platform:
 - ✅ **No proprietary runtime** — eject anytime, keep everything
 - ✅ **Incremental adoption** — start with one module, expand at your pace
 
-## Quick Start: OSS Core
+## Quick Start
+
+Choose one verified starting path. For the public CLI onboarding flows below, use Bun on Linux or macOS.
+
+### Greenfield
 
 ```bash
-# Initialize project
-bunx contractspec init
-
-# Create a spec
+bun add -D contractspec
+contractspec quickstart
+contractspec init
 contractspec create --type operation
-
-# Generate implementation
-contractspec build src/contracts/mySpec.ts
-
-# Validate
-contractspec validate src/contracts/mySpec.ts
+contractspec generate
+contractspec ci
 ```
 
-See the [CLI documentation](packages/apps/cli-contractspec/README.md) for full usage.
+### Brownfield OpenAPI Import
+
+```bash
+bun add -D contractspec
+contractspec init
+contractspec openapi import path/to/openapi.yaml
+contractspec ci
+```
+
+### Example-First Exploration
+
+```bash
+bun add -D contractspec
+contractspec examples list
+contractspec examples init crm-pipeline
+```
+
+See the [CLI documentation](packages/apps/cli-contractspec/README.md) and [tutorials](docs/tutorials) for the maintained onboarding flows.
+
+## Support Matrix
+
+| Area | Supported Path |
+| --- | --- |
+| Package manager | `bun` 1.3.x is first-class for CLI onboarding and daily use |
+| Operating system | Linux and macOS are covered by packaged smoke tests; Windows is not yet a supported CLI onboarding target |
+| Alternate package managers | `npm` and `pnpm` can install libraries, but the `contractspec` CLI onboarding path is not yet certified on them |
+| Greenfield onboarding | `contractspec quickstart` + `contractspec init` |
+| Brownfield onboarding | `contractspec openapi import` |
+| Example exploration | `contractspec examples list` + `contractspec examples init` |
+| CI validation | `contractspec ci` (`--check-drift` optional when generated artifacts are part of the contract) |
+| Diagnostics | `contractspec doctor` (read-only), `contractspec doctor --fix` (repair mode) |
+
+## Trust & Verification
+
+- Published npm packages are shipped from provenance-enabled GitHub Actions runs, and each release run uploads a manifest artifact with package name, version, dist-tag, tarball filename, and SHA256.
+- Run `bun run repo:health` in this repo to reproduce the baseline trust checks locally: doctor, contract CI, and example validation.
+- Verify the published CLI tag with `npm view contractspec dist-tags --json`.
+- Verify a specific published package with `npm view contractspec@<version> dist.tarball dist.integrity --json`.
+- Security disclosure and support expectations are documented in [SECURITY.md](SECURITY.md).
 
 ## GitHub Actions Quickstart
 

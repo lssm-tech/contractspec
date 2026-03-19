@@ -1,0 +1,29 @@
+# Trust and release surfaces
+/.github/workflows/publish-npm.yml @tboutron
+/.github/workflows/publish-canary.yml @tboutron
+/.github/workflows/quickstart-smoke-test.yml @tboutron
+/.github/workflows/security.yml @tboutron
+
+# Release tooling
+/scripts/publish-packages.js @tboutron
+/scripts/verify-release-manifest.js @tboutron
+/scripts/check-security-advisories.js @tboutron
+/scripts/generate-example-registry.ts @tboutron
+
+# Onboarding and security policy
+/README.md @tboutron
+/SECURITY.md @tboutron
+/docs/tutorials/daily-workflow.md @tboutron
+/docs/tutorials/brownfield-openapi-import.md @tboutron
+
+# CLI entrypoints
+/packages/apps/cli-contractspec/src/cli.ts @tboutron
+/packages/apps/cli-contractspec/src/index.ts @tboutron
+/packages/apps/cli-contractspec/src/commands/quickstart/index.ts @tboutron
+/packages/apps/cli-contractspec/src/commands/init/index.ts @tboutron
+/packages/apps/cli-contractspec/src/commands/openapi/** @tboutron
+/packages/apps/cli-contractspec/src/commands/examples/index.ts @tboutron
+/packages/apps/cli-contractspec/src/commands/doctor/index.ts @tboutron
+
+# Example registry generation
+/packages/modules/examples/src/builtins.ts @tboutron

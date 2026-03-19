@@ -83,6 +83,8 @@ export interface CheckResult {
   fix?: FixAction;
   /** Additional details for debugging. */
   details?: string;
+  /** Structured context for machine-readable consumers. */
+  context?: Record<string, unknown>;
 }
 
 /**

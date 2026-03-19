@@ -20,6 +20,7 @@
     "build:node": "bun build --outdir ./dist/node/ --target node --minify --sourcemap ./src/cli.ts",
     "build:all": "bun run build:bun && bun run build:node",
     "build:types": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
     "dev": "bun build ./src/cli.ts --outfile ./dist/cli.js --target node --watch",
     "dev:bun": "bun build ./src/cli.ts --outfile ./dist/cli.bun.js --target bun --watch",
     "clean": "rimraf dist",

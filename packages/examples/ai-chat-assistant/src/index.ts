@@ -7,3 +7,4 @@
 export { AiChatAssistantDashboard } from './ui';
 export { assistantSearch } from './handlers';
 export { AssistantSearchContract } from './contracts';
+export { AiChatAssistantFeature } from './ai-chat-assistant.feature';

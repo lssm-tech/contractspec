@@ -59,6 +59,7 @@ describe('JSON Formatter', () => {
 
     expect(parsed).toEqual({
       schemaVersion: '1.0',
+      success: false,
       checks: [
         {
           name: 'struct-001',
@@ -78,15 +79,39 @@ describe('JSON Formatter', () => {
           line: 20,
         },
       ],
+      categories: [
+        {
+          category: 'structure',
+          label: 'Structure',
+          passed: true,
+          errors: 0,
+          warnings: 0,
+          notes: 0,
+          durationMs: 50,
+        },
+        {
+          category: 'integrity',
+          label: 'Integrity',
+          passed: false,
+          errors: 1,
+          warnings: 1,
+          notes: 0,
+          durationMs: 50,
+        },
+      ],
       drift: {
         status: 'none',
         files: [],
       },
       summary: {
-        pass: 0,
+        pass: 1,
         fail: 1,
         warn: 1,
-        total: 2,
+        note: 0,
+        total: 3,
+        totalErrors: 1,
+        totalWarnings: 1,
+        totalNotes: 0,
         durationMs: 100,
         timestamp: '2025-01-01T00:00:00.000Z',
       },

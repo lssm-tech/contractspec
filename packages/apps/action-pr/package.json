@@ -14,6 +14,9 @@
     "drift",
     "validation"
   ],
+  "scripts": {
+    "test": "bun test"
+  },
   "author": "LSSM",
   "license": "MIT",
   "dependencies": {

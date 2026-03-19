@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
 permissions:
   contents: write
   pull-requests: write
@@ -19,6 +22,9 @@ jobs:
       TURBO_TELEMETRY_DISABLED: 1
       DO_NOT_TRACK: 1
       OVSX_PAT: ${{ secrets.OVSX_PAT }}
+      CONTRACTSPEC_RELEASE_DIR: ${{ runner.temp }}/release-canary
+      CONTRACTSPEC_RELEASE_MANIFEST_PATH: ${{ runner.temp }}/release-canary/release-manifest.json
+      CONTRACTSPEC_RELEASE_SMOKE_SUMMARY_PATH: ${{ runner.temp }}/release-canary/release-smoke.json
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -81,6 +87,20 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
           CONTRACTSPEC_USE_PUBLISH_EXPORTS: 'true'
+
+      - name: Verify npm release manifest
+        run: node scripts/verify-release-manifest.js --manifest "${{ runner.temp }}/release-canary/release-manifest.json"
+
+      - name: Upload npm release manifest
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-release-manifest-canary
+          path: |
+            ${{ runner.temp }}/release-canary/release-manifest.json
+            ${{ runner.temp }}/release-canary/release-smoke.json
+            ${{ runner.temp }}/release-canary/tarballs/*.tgz
+          retention-days: 90
 
       # VS Code Extension Publishing
       # - name: Check if VS Code extension should be published

@@ -6,6 +6,7 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./src/index.ts",
+    "./ai-chat-assistant.feature": "./src/ai-chat-assistant.feature.ts",
     "./contracts": "./src/contracts/index.ts",
     "./contracts/assistant.operation": "./src/contracts/assistant.operation.ts",
     "./docs": "./src/docs/index.ts",
@@ -61,6 +62,13 @@
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
         "default": "./dist/index.js"
+      },
+      "./ai-chat-assistant.feature": {
+        "types": "./dist/ai-chat-assistant.feature.d.ts",
+        "browser": "./dist/browser/ai-chat-assistant.feature.js",
+        "bun": "./dist/ai-chat-assistant.feature.js",
+        "node": "./dist/node/ai-chat-assistant.feature.js",
+        "default": "./dist/ai-chat-assistant.feature.js"
       },
       "./contracts": {
         "types": "./dist/contracts/index.d.ts",

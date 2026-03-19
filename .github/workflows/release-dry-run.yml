@@ -1,0 +1,116 @@
+name: Release Dry Run
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  BUN_VERSION: 1.3.8
+  TURBO_TELEMETRY_DISABLED: 1
+  DO_NOT_TRACK: 1
+  CONTRACTSPEC_USE_PUBLISH_EXPORTS: 'true'
+
+jobs:
+  stable-dry-run:
+    name: Stable Dry Run
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+      CONTRACTSPEC_RELEASE_DIR: ${{ runner.temp }}/release-dry-run-stable
+      CONTRACTSPEC_RELEASE_MANIFEST_PATH: ${{ runner.temp }}/release-dry-run-stable/release-manifest.json
+      CONTRACTSPEC_RELEASE_SMOKE_SUMMARY_PATH: ${{ runner.temp }}/release-dry-run-stable/release-smoke.json
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build publishable packages
+        run: |
+          bun run build:not-apps
+          bun turbo run build --filter="@contractspec/app.cli-contractspec"
+
+      - name: Run stable publish dry-run
+        run: bun run release:publish:dry-run
+
+      - name: Verify release manifest
+        run: node scripts/verify-release-manifest.js --manifest "${{ runner.temp }}/release-dry-run-stable/release-manifest.json" --allow-dry-run
+
+      - name: Upload release manifest artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-dry-run-stable
+          path: |
+            ${{ runner.temp }}/release-dry-run-stable/release-manifest.json
+            ${{ runner.temp }}/release-dry-run-stable/release-smoke.json
+            ${{ runner.temp }}/release-dry-run-stable/tarballs/*.tgz
+          retention-days: 7
+
+  canary-dry-run:
+    name: Canary Dry Run
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+      CONTRACTSPEC_RELEASE_DIR: ${{ runner.temp }}/release-dry-run-canary
+      CONTRACTSPEC_RELEASE_MANIFEST_PATH: ${{ runner.temp }}/release-dry-run-canary/release-manifest.json
+      CONTRACTSPEC_RELEASE_SMOKE_SUMMARY_PATH: ${{ runner.temp }}/release-dry-run-canary/release-smoke.json
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Version packages (canary snapshot)
+        run: bun run release:version:canary
+
+      - name: Build publishable packages
+        run: |
+          bun run build:not-apps
+          bun turbo run build --filter="@contractspec/app.cli-contractspec"
+
+      - name: Run canary publish dry-run
+        run: DRY_RUN=1 NPM_TAG=canary node scripts/publish-packages.js --dry-run --tag canary
+
+      - name: Verify release manifest
+        run: node scripts/verify-release-manifest.js --manifest "${{ runner.temp }}/release-dry-run-canary/release-manifest.json" --allow-dry-run
+
+      - name: Upload release manifest artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-dry-run-canary
+          path: |
+            ${{ runner.temp }}/release-dry-run-canary/release-manifest.json
+            ${{ runner.temp }}/release-dry-run-canary/release-smoke.json
+            ${{ runner.temp }}/release-dry-run-canary/tarballs/*.tgz
+          retention-days: 7

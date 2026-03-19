@@ -6,6 +6,7 @@
 
 import type { FsAdapter } from '../../../ports/fs';
 import type { CheckContext, CheckResult, FixResult } from '../types';
+import { runPackageStabilityChecks } from './package-stability';
 
 /**
  * Common contract directory paths to check.
@@ -35,6 +36,8 @@ export async function runWorkspaceChecks(
 
   // Check output directory (monorepo-aware)
   results.push(await checkOutputDirectory(fs, ctx));
+
+  results.push(...(await runPackageStabilityChecks(fs, ctx)));
 
   return results;
 }
@@ -297,7 +300,10 @@ async function checkOutputDirectory(
     }
 
     const content = await fs.readFile(configInfo.path);
-    const config = JSON.parse(content) as { outputDir?: string };
+    const config = JSON.parse(content) as {
+      outputDir?: string;
+      packages?: string[];
+    };
 
     const outputDir = config.outputDir ?? './src';
     // Resolve outputDir relative to the config file's directory
@@ -317,16 +323,23 @@ async function checkOutputDirectory(
     }
 
     // If default output directory is missing in monorepo root, it's fine
+    const isDefaultWorkspaceOutput =
+      outputDir === './src' || outputDir === 'src';
+    const usesPackageScopedConfig =
+      Array.isArray(config.packages) && config.packages.length > 0;
+
     if (
       ctx.isMonorepo &&
       ctx.packageRoot === ctx.workspaceRoot &&
-      !config.outputDir
+      isDefaultWorkspaceOutput &&
+      (usesPackageScopedConfig || configInfo.level === 'workspace')
     ) {
       return {
         category: 'workspace',
         name: 'Output Directory',
         status: 'pass',
         message: 'Monorepo root detected (using package directories)',
+        details: ctx.verbose ? `Resolved default output to packages via ${configInfo.path}` : undefined,
       };
     }
 

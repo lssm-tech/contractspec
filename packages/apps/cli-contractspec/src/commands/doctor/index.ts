@@ -6,9 +6,9 @@
  */
 
 import { Command } from 'commander';
+import { writeFile } from 'node:fs/promises';
 import chalk from 'chalk';
 import ora from 'ora';
-import { confirm, input, password } from '@inquirer/prompts';
 import {
   ALL_CHECK_CATEGORIES,
   CHECK_CATEGORY_LABELS,
@@ -21,11 +21,9 @@ import {
   isMonorepo,
   runDoctor,
 } from '@contractspec/bundle.workspace';
-import {
-  getOpenApiSources,
-  upsertOpenApiSource,
-} from '../../utils/config-writer';
-import type { OpenApiSourceConfig } from '../../utils/config';
+import { getOpenApiSources } from '../../utils/config-writer';
+
+type DoctorOutputFormat = 'text' | 'json';
 
 /**
  * Parse comma-separated categories.
@@ -55,8 +53,12 @@ export const doctorCommand = new Command('doctor')
   )
   .option('-f, --fix', 'Auto-apply fixes without prompting', false)
   .option('--skip-ai', 'Skip AI provider checks', false)
+  .option('--format <format>', 'Output format: text, json (default: text)', 'text')
+  .option('-o, --output <file>', 'Write results to file')
   .option('-v, --verbose', 'Verbose output', false)
   .action(async (options) => {
+    const outputFormat = (options.format ?? 'text') as DoctorOutputFormat;
+    const isTextOutput = outputFormat === 'text';
     const cwd = process.cwd();
 
     // Detect workspace structure
@@ -65,10 +67,12 @@ export const doctorCommand = new Command('doctor')
     const monorepo = isMonorepo(workspaceRoot);
     const packageName = monorepo ? getPackageName(packageRoot) : undefined;
 
-    console.log(chalk.bold('\n🩺 ContractSpec Doctor\n'));
+    if (isTextOutput) {
+      console.log(chalk.bold('\n🩺 ContractSpec Doctor\n'));
+    }
 
     // Display monorepo context
-    if (monorepo) {
+    if (monorepo && isTextOutput) {
       console.log(chalk.cyan('📦 Monorepo detected'));
       console.log(chalk.gray(`   Workspace root: ${workspaceRoot}`));
       if (packageRoot !== workspaceRoot) {
@@ -95,37 +99,21 @@ export const doctorCommand = new Command('doctor')
       ? checkList.filter((c) => c !== 'ai')
       : checkList;
 
-    console.log(chalk.gray('Checking:'));
-    for (const cat of filteredList) {
-      console.log(`  ${chalk.cyan('•')} ${CHECK_CATEGORY_LABELS[cat]}`);
+    if (isTextOutput) {
+      console.log(chalk.gray('Checking:'));
+      for (const cat of filteredList) {
+        console.log(`  ${chalk.cyan('•')} ${CHECK_CATEGORY_LABELS[cat]}`);
+      }
+      console.log();
     }
-    console.log();
 
-    const spinner = ora('Running health checks...').start();
+    const spinner = isTextOutput
+      ? ora('Running health checks...').start()
+      : null;
 
     try {
       const fs = createNodeFsAdapter(workspaceRoot);
       const logger = createConsoleLoggerAdapter();
-
-      // Pause spinner during prompts if interactive
-      const prompts = options.fix
-        ? undefined
-        : {
-            confirm: async (message: string) => {
-              spinner.stop();
-              const result = await confirm({ message });
-              spinner.start();
-              return result;
-            },
-            input: async (message: string, opts?: { password?: boolean }) => {
-              spinner.stop();
-              const result = opts?.password
-                ? await password({ message, mask: '*' })
-                : await input({ message });
-              spinner.start();
-              return result;
-            },
-          };
 
       const result = await runDoctor(
         { fs, logger },
@@ -135,11 +123,47 @@ export const doctorCommand = new Command('doctor')
           autoFix: options.fix,
           skipAi: options.skipAi,
           verbose: options.verbose,
-        },
-        prompts
+        }
       );
 
-      spinner.stop();
+      spinner?.stop();
+
+      if (!isTextOutput) {
+        const openApiSources = await getOpenApiSources();
+        const output = JSON.stringify(
+          {
+            schemaVersion: '1.0',
+            workspace: {
+              workspaceRoot,
+              packageRoot,
+              isMonorepo: monorepo,
+              packageName,
+            },
+            summary: {
+              passed: result.passed,
+              warnings: result.warnings,
+              failures: result.failures,
+              skipped: result.skipped,
+              healthy: result.healthy,
+            },
+            openApiSources,
+            checks: result.checks,
+          },
+          null,
+          2
+        );
+
+        if (options.output) {
+          await writeFile(options.output, output, 'utf-8');
+        } else {
+          console.log(output);
+        }
+
+        if (!result.healthy) {
+          process.exit(1);
+        }
+        return;
+      }
 
       // Show results grouped by status
       console.log(chalk.bold('\n📋 Results:\n'));
@@ -228,58 +252,11 @@ export const doctorCommand = new Command('doctor')
       const openApiSources = await getOpenApiSources();
       if (openApiSources.length === 0) {
         console.log(chalk.yellow('\n⚠️ No OpenAPI sources configured.'));
-
-        if (!options.fix) {
-          const wantsConfigure = await confirm({
-            message: 'Would you like to configure an OpenAPI source now?',
-          });
-
-          if (wantsConfigure) {
-            const sourceName = await input({
-              message: 'Enter a friendly name for this source:',
-              default: 'api',
-            });
-
-            const sourceUrl = await input({
-              message: 'Enter OpenAPI spec URL or file path:',
-            });
-
-            if (sourceUrl.trim()) {
-              const newSource: OpenApiSourceConfig = {
-                name: sourceName,
-                syncMode: 'sync',
-                schemaFormat: 'contractspec',
-              };
-
-              if (
-                sourceUrl.startsWith('http://') ||
-                sourceUrl.startsWith('https://')
-              ) {
-                newSource.url = sourceUrl;
-              } else {
-                newSource.file = sourceUrl;
-              }
-
-              await upsertOpenApiSource(newSource);
-              console.log(
-                chalk.green(
-                  `\n✅ Saved OpenAPI source '${sourceName}' to .contractsrc.json`
-                )
-              );
-              console.log(
-                chalk.gray(
-                  `   Run ${chalk.cyan('contractspec openapi sync')} to import specs`
-                )
-              );
-            }
-          }
-        } else {
-          console.log(
-            chalk.gray(
-              '   Run ${chalk.cyan("contractspec init")} to configure OpenAPI sources'
-            )
-          );
-        }
+        console.log(
+          chalk.gray(
+            `   Run ${chalk.cyan('contractspec init')} or edit ${chalk.cyan('.contractsrc.json')} to configure OpenAPI sources.`
+          )
+        );
       } else {
         console.log(
           chalk.green(
@@ -296,7 +273,7 @@ export const doctorCommand = new Command('doctor')
         process.exit(1);
       }
     } catch (error) {
-      spinner.fail('Doctor check failed');
+      spinner?.fail('Doctor check failed');
       console.error(
         chalk.red('\n❌ Error:'),
         error instanceof Error ? error.message : String(error)
