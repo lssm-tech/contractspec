@@ -33,9 +33,9 @@ jobs:
       TURBO_TELEMETRY_DISABLED: 1
       DO_NOT_TRACK: 1
       OVSX_PAT: ${{ secrets.OVSX_PAT }}
-      CONTRACTSPEC_RELEASE_DIR: ${{ runner.temp }}/release-stable
-      CONTRACTSPEC_RELEASE_MANIFEST_PATH: ${{ runner.temp }}/release-stable/release-manifest.json
-      CONTRACTSPEC_RELEASE_SMOKE_SUMMARY_PATH: ${{ runner.temp }}/release-stable/release-smoke.json
+      CONTRACTSPEC_RELEASE_DIR: /tmp/contractspec-release-stable
+      CONTRACTSPEC_RELEASE_MANIFEST_PATH: /tmp/contractspec-release-stable/release-manifest.json
+      CONTRACTSPEC_RELEASE_SMOKE_SUMMARY_PATH: /tmp/contractspec-release-stable/release-smoke.json
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -85,7 +85,7 @@ jobs:
 
       - name: Verify npm release manifest
         if: steps.changesets.outputs.hasChangesets == 'false'
-        run: node scripts/verify-release-manifest.js --manifest "${{ runner.temp }}/release-stable/release-manifest.json"
+        run: node scripts/verify-release-manifest.js --manifest "${{ env.CONTRACTSPEC_RELEASE_MANIFEST_PATH }}"
 
       - name: Upload npm release manifest
         if: always() && steps.changesets.outputs.hasChangesets == 'false'
@@ -93,9 +93,9 @@ jobs:
         with:
           name: npm-release-manifest-stable
           path: |
-            ${{ runner.temp }}/release-stable/release-manifest.json
-            ${{ runner.temp }}/release-stable/release-smoke.json
-            ${{ runner.temp }}/release-stable/tarballs/*.tgz
+            ${{ env.CONTRACTSPEC_RELEASE_MANIFEST_PATH }}
+            ${{ env.CONTRACTSPEC_RELEASE_SMOKE_SUMMARY_PATH }}
+            ${{ env.CONTRACTSPEC_RELEASE_DIR }}/tarballs/*.tgz
           retention-days: 90
 
       - name: Determine non-npm publish targets

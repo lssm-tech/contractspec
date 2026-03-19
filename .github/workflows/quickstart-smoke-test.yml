@@ -22,10 +22,10 @@ jobs:
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-      BUN_INSTALL_CACHE_DIR: ${{ runner.temp }}/bun-install-cache
-      TMPDIR: ${{ runner.temp }}
-      TEMP: ${{ runner.temp }}
-      TMP: ${{ runner.temp }}
+      BUN_INSTALL_CACHE_DIR: /tmp/contractspec-bun-install-cache
+      TMPDIR: /tmp
+      TEMP: /tmp
+      TMP: /tmp
     steps:
       - uses: actions/checkout@v6
 
@@ -71,10 +71,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
-      BUN_INSTALL_CACHE_DIR: ${{ runner.temp }}/bun-install-cache
-      TMPDIR: ${{ runner.temp }}
-      TEMP: ${{ runner.temp }}
-      TMP: ${{ runner.temp }}
+      BUN_INSTALL_CACHE_DIR: /tmp/contractspec-bun-install-cache
+      TMPDIR: /tmp
+      TEMP: /tmp
+      TMP: /tmp
     steps:
       - uses: actions/checkout@v6
 
@@ -95,10 +95,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     env:
-      BUN_INSTALL_CACHE_DIR: ${{ runner.temp }}/bun-install-cache
-      TMPDIR: ${{ runner.temp }}
-      TEMP: ${{ runner.temp }}
-      TMP: ${{ runner.temp }}
+      BUN_INSTALL_CACHE_DIR: /tmp/contractspec-bun-install-cache
+      TMPDIR: /tmp
+      TEMP: /tmp
+      TMP: /tmp
     strategy:
       fail-fast: false
       matrix:
