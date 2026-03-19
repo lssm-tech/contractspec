@@ -1,5 +1,24 @@
 # @contractspec/example.learning-journey-registry
 
+## 3.7.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/example.learning-journey-studio-onboarding@3.7.3
+  - @contractspec/example.learning-journey-quest-challenges@3.7.3
+  - @contractspec/example.learning-journey-crm-onboarding@3.7.3
+  - @contractspec/example.learning-journey-ambient-coach@3.7.3
+  - @contractspec/example.learning-journey-platform-tour@3.7.3
+  - @contractspec/example.learning-journey-ui-onboarding@3.7.3
+  - @contractspec/example.learning-journey-ui-coaching@3.7.3
+  - @contractspec/example.learning-journey-ui-gamified@3.7.3
+  - @contractspec/example.learning-journey-duo-drills@3.7.3
+  - @contractspec/example.learning-journey-ui-shared@3.7.3
+  - @contractspec/module.learning-journey@3.7.3
+  - @contractspec/lib.contracts-spec@3.7.3
+
 ## 3.7.2
 
 ### Patch Changes

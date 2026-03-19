@@ -1,5 +1,16 @@
 # @contractspec/example.ai-support-bot
 
+## 3.7.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@3.7.3
+  - @contractspec/lib.support-bot@3.7.3
+  - @contractspec/lib.knowledge@3.7.3
+  - @contractspec/lib.logger@3.7.3
+
 ## 3.7.2
 
 ### Patch Changes

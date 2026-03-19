@@ -1,5 +1,14 @@
 # @contractspec/module.learning-journey
 
+## 3.7.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@3.7.3
+  - @contractspec/lib.schema@3.7.3
+
 ## 3.7.2
 
 ### Patch Changes

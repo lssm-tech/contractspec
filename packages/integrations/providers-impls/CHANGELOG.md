@@ -1,5 +1,15 @@
 # @contractspec/integration.providers-impls
 
+## 3.7.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.7.3
+  - @contractspec/integration.runtime@3.7.3
+  - @contractspec/lib.contracts-spec@3.7.3
+
 ## 3.7.2
 
 ### Patch Changes

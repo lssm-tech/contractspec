@@ -1,5 +1,14 @@
 # @contractspec/lib.workflow-composer
 
+## 3.7.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@3.7.3
+  - @contractspec/lib.ai-providers@3.7.3
+
 ## 3.7.2
 
 ### Patch Changes

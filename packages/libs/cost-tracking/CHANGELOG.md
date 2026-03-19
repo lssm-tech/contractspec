@@ -1,5 +1,11 @@
 # @contractspec/lib.cost-tracking
 
+## 3.7.3
+
+### Patch Changes
+
+- fix: release
+
 ## 3.7.2
 
 ### Patch Changes

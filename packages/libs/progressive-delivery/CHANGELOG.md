@@ -1,5 +1,13 @@
 # @contractspec/lib.progressive-delivery
 
+## 34.0.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.observability@3.7.3
+
 ## 34.0.2
 
 ### Patch Changes

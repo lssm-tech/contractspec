@@ -1,5 +1,14 @@
 # @contractspec/bundle.product-intent
 
+## 3.7.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/module.product-intent-core@3.7.3
+  - @contractspec/lib.contracts-spec@3.7.3
+
 ## 3.7.2
 
 ### Patch Changes

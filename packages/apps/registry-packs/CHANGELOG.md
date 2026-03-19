@@ -1,5 +1,11 @@
 # @contractspec/app.registry-packs
 
+## 1.7.3
+
+### Patch Changes
+
+- fix: release
+
 ## 1.7.2
 
 ### Patch Changes

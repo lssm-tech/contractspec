@@ -1,5 +1,15 @@
 # @contractspec/lib.surface-runtime
 
+## 0.5.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@3.7.3
+  - @contractspec/lib.overlay-engine@3.7.3
+  - @contractspec/lib.observability@3.7.3
+
 ## 0.5.2
 
 ### Patch Changes

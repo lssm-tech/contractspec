@@ -1,5 +1,32 @@
 # @contractspec/bundle.marketing
 
+## 3.7.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-runtime-client-react@3.7.3
+  - @contractspec/example.analytics-dashboard@3.7.3
+  - @contractspec/example.saas-boilerplate@3.7.3
+  - @contractspec/example.integration-hub@3.7.3
+  - @contractspec/example.workflow-system@3.7.3
+  - @contractspec/example.agent-console@3.7.3
+  - @contractspec/lib.example-shared-ui@6.0.3
+  - @contractspec/example.crm-pipeline@3.7.3
+  - @contractspec/example.marketplace@3.7.3
+  - @contractspec/lib.runtime-sandbox@2.7.3
+  - @contractspec/lib.surface-runtime@0.5.3
+  - @contractspec/lib.contracts-spec@3.7.3
+  - @contractspec/lib.design-system@3.7.3
+  - @contractspec/lib.ui-kit-core@3.7.3
+  - @contractspec/module.examples@3.7.3
+  - @contractspec/bundle.library@3.7.3
+  - @contractspec/lib.ui-kit-web@3.7.3
+  - @contractspec/lib.ui-link@3.7.3
+  - @contractspec/lib.logger@3.7.3
+  - @contractspec/lib.email@3.7.3
+
 ## 3.7.2
 
 ### Patch Changes
