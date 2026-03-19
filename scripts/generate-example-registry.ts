@@ -58,10 +58,12 @@ async function discoverWorkspaceExamples(): Promise<ExamplePackageInfo[]> {
     const packageJsonPath = path.join(examplesDir, entry.name, "package.json");
     const pkg = await readJson<{
       name?: string;
+      private?: boolean;
       exports?: Record<string, unknown>;
     }>(packageJsonPath);
 
     if (!pkg?.name?.startsWith("@contractspec/example.")) continue;
+    if (pkg.private === true) continue;
     if (!pkg.exports?.["./example"]) continue;
     if (!pkg.exports?.["./docs"]) continue;
 

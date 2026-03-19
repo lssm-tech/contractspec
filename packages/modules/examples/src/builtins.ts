@@ -33,9 +33,7 @@ import LifecycleDashboard from "@contractspec/example.lifecycle-dashboard/exampl
 import LocaleJurisdictionGate from "@contractspec/example.locale-jurisdiction-gate/example";
 import Marketplace from "@contractspec/example.marketplace/example";
 import MeetingRecorderProviders from "@contractspec/example.meeting-recorder-providers/example";
-import Minimal from "@contractspec/example.minimal/example";
 import OpenbankingPowens from "@contractspec/example.openbanking-powens/example";
-import OpencodeCli from "@contractspec/example.opencode-cli/example";
 import Personalization from "@contractspec/example.personalization/example";
 import PocketFamilyOffice from "@contractspec/example.pocket-family-office/example";
 import PolicySafeKnowledgeAssistant from "@contractspec/example.policy-safe-knowledge-assistant/example";
@@ -85,9 +83,7 @@ export const EXAMPLE_REGISTRY: readonly ExampleSpec[] = [
   LocaleJurisdictionGate,
   Marketplace,
   MeetingRecorderProviders,
-  Minimal,
   OpenbankingPowens,
-  OpencodeCli,
   Personalization,
   PocketFamilyOffice,
   PolicySafeKnowledgeAssistant,

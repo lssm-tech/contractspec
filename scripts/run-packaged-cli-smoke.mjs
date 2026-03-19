@@ -6,6 +6,10 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
+import {
+  buildSmokeInstallManifest,
+  discoverPreparedTarballs,
+} from './packaged-cli-smoke-support.mjs';
 
 function parseArgs(argv) {
   const options = { tarballDir: '', outputPath: '' };
@@ -24,10 +28,6 @@ function parseArgs(argv) {
   }
 
   return options;
-}
-
-function sanitizePackageName(name) {
-  return name.replace(/^@/, '').replace(/\//g, '-');
 }
 
 function run(command, args, options = {}) {
@@ -96,25 +96,16 @@ function createScenarioEnv(cacheDir) {
   };
 }
 
-function writeInstallManifest(workspaceDir, contractspecTarball, cliTarball) {
+function writeInstallManifest(workspaceDir, tarballs) {
+  const manifest = buildSmokeInstallManifest({
+    contractspecTarball: tarballs.contractspec,
+    cliTarball: tarballs.cli,
+    overrideTarballs: tarballs.overrides,
+  });
+
   fs.writeFileSync(
     path.join(workspaceDir, 'package.json'),
-    `${JSON.stringify(
-      {
-        name: 'contractspec-smoke',
-        private: true,
-        version: '0.0.0',
-        devDependencies: {
-          '@contractspec/app.cli-contractspec': `file:${cliTarball}`,
-          contractspec: `file:${contractspecTarball}`,
-        },
-        overrides: {
-          '@contractspec/app.cli-contractspec': `file:${cliTarball}`,
-        },
-      },
-      null,
-      2
-    )}\n`,
+    `${JSON.stringify(manifest, null, 2)}\n`,
     'utf8'
   );
 }
@@ -125,7 +116,7 @@ function runContractspec(workspaceDir, env, args) {
 }
 
 function installContractspec(workspaceDir, env, tarballs) {
-  writeInstallManifest(workspaceDir, tarballs.contractspec, tarballs.cli);
+  writeInstallManifest(workspaceDir, tarballs);
   run('bun', ['install'], { cwd: workspaceDir, env });
 }
 
@@ -284,16 +275,11 @@ function runExamplesScenario(baseDir, env, tarballs) {
 }
 
 export function runPackagedCliSmoke(options = {}) {
+  const repoRoot = path.resolve(options.repoRoot ?? process.cwd());
   const tarballDir = path.resolve(options.tarballDir);
-  const contractspecTarball = fs
-    .readdirSync(tarballDir)
-    .find((file) => file.startsWith(`${sanitizePackageName('contractspec')}-`) && file.endsWith('.tgz'));
-  const cliTarball = fs
-    .readdirSync(tarballDir)
-    .find((file) =>
-      file.startsWith(`${sanitizePackageName('@contractspec/app.cli-contractspec')}-`) &&
-      file.endsWith('.tgz')
-    );
+  const overrideTarballs = discoverPreparedTarballs({ repoRoot, tarballDir });
+  const contractspecTarball = overrideTarballs.contractspec;
+  const cliTarball = overrideTarballs['@contractspec/app.cli-contractspec'];
 
   if (!contractspecTarball || !cliTarball) {
     throw new Error(
@@ -304,15 +290,20 @@ export function runPackagedCliSmoke(options = {}) {
   const smokeRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'contractspec-release-smoke-'));
   const env = createScenarioEnv(smokeRoot);
   const tarballs = {
-    contractspec: path.join(tarballDir, contractspecTarball),
-    cli: path.join(tarballDir, cliTarball),
+    contractspec: contractspecTarball,
+    cli: cliTarball,
+    overrides: overrideTarballs,
   };
 
   const summary = {
     schemaVersion: '1.0',
     generatedAt: new Date().toISOString(),
     tarballDir,
-    tarballs,
+    tarballs: {
+      contractspec: contractspecTarball,
+      cli: cliTarball,
+    },
+    localOverrideCount: Object.keys(overrideTarballs).length,
     scenarios: [
       runQuickstartScenario(smokeRoot, env, tarballs),
       runBrownfieldScenario(smokeRoot, env, tarballs),
