@@ -29,6 +29,11 @@
     "registry:build": "bun run scripts/build-registry.ts",
     "readme:inventory": "bun run scripts/update-readme-contract-inventory.ts"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/contracts-spec"
+  },
   "dependencies": {
     "@blocknote/core": "^0.47.1",
     "@contractspec/lib.schema": "workspace:*",
