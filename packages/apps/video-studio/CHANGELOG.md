@@ -1,5 +1,16 @@
 # @contractspec/app.video-studio
 
+## 2.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/lib.design-system@3.7.5
+  - @contractspec/lib.content-gen@3.7.5
+  - @contractspec/lib.video-gen@2.7.5
+
 ## 2.7.4
 
 ### Patch Changes

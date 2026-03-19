@@ -1,5 +1,16 @@
 # @contractspec/lib.ai-agent
 
+## 7.0.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.surface-runtime@0.5.5
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/lib.ai-providers@3.7.5
+  - @contractspec/lib.knowledge@3.7.5
+
 ## 7.0.4
 
 ### Patch Changes

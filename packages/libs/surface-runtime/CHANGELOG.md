@@ -1,5 +1,15 @@
 # @contractspec/lib.surface-runtime
 
+## 0.5.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/lib.overlay-engine@3.7.5
+  - @contractspec/lib.observability@3.7.5
+
 ## 0.5.4
 
 ### Patch Changes

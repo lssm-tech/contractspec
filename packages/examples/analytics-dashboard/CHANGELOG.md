@@ -1,5 +1,18 @@
 # @contractspec/example.analytics-dashboard
 
+## 3.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.contracts-integrations@3.7.5
+  - @contractspec/lib.example-shared-ui@6.0.5
+  - @contractspec/lib.runtime-sandbox@2.7.5
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/lib.design-system@3.7.5
+  - @contractspec/lib.schema@3.7.5
+
 ## 3.7.4
 
 ### Patch Changes

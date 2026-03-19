@@ -1,5 +1,13 @@
 # @contractspec/lib.progressive-delivery
 
+## 34.0.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.observability@3.7.5
+
 ## 34.0.4
 
 ### Patch Changes

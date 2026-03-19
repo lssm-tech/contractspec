@@ -1,5 +1,13 @@
 # @contractspec/lib.ui-link
 
+## 3.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.ui-kit-core@3.7.5
+
 ## 3.7.4
 
 ### Patch Changes

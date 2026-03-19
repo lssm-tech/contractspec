@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.contracts-transformers@3.7.5
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/bundle.workspace@3.7.5
+  - @contractspec/module.workspace@3.7.5
+  - @contractspec/module.examples@3.7.5
+  - @contractspec/module.ai-chat@4.3.5
+  - @contractspec/lib.ai-agent@7.0.5
+
 ## 3.7.4
 
 ### Patch Changes

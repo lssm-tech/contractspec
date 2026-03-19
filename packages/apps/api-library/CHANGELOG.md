@@ -1,5 +1,18 @@
 # @contractspec/app.api-library
 
+## 3.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/integration.providers-impls@3.7.5
+  - @contractspec/integration.runtime@3.7.5
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/bundle.marketing@3.7.5
+  - @contractspec/bundle.workspace@3.7.5
+  - @contractspec/bundle.library@3.7.5
+
 ## 3.7.4
 
 ### Patch Changes

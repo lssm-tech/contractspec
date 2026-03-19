@@ -1,5 +1,18 @@
 # @contractspec/lib.personalization
 
+## 6.0.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.surface-runtime@0.5.5
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/lib.overlay-engine@3.7.5
+  - @contractspec/lib.knowledge@3.7.5
+  - @contractspec/lib.schema@3.7.5
+  - @contractspec/lib.bus@3.7.5
+
 ## 6.0.4
 
 ### Patch Changes

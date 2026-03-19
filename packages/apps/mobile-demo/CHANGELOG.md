@@ -1,5 +1,18 @@
 # @contractspec/app.expo-demo
 
+## 1.1.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.presentation-runtime-react-native@34.0.5
+  - @contractspec/lib.presentation-runtime-core@3.7.5
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/lib.ui-kit-core@3.7.5
+  - @contractspec/lib.schema@3.7.5
+  - @contractspec/lib.ui-kit@3.7.5
+
 ## 1.1.4
 
 ### Patch Changes

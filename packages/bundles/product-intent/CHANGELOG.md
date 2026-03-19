@@ -1,5 +1,14 @@
 # @contractspec/bundle.product-intent
 
+## 3.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/module.product-intent-core@3.7.5
+  - @contractspec/lib.contracts-spec@3.7.5
+
 ## 3.7.4
 
 ### Patch Changes

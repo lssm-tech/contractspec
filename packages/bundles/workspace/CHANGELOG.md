@@ -1,5 +1,20 @@
 # @contractspec/bundle.workspace
 
+## 3.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.contracts-integrations@3.7.5
+  - @contractspec/lib.contracts-transformers@3.7.5
+  - @contractspec/lib.source-extractors@2.7.5
+  - @contractspec/lib.utils-typescript@3.7.5
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/lib.ai-providers@3.7.5
+  - @contractspec/module.workspace@3.7.5
+  - @contractspec/lib.ai-agent@7.0.5
+
 ## 3.7.4
 
 ### Patch Changes

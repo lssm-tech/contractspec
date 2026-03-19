@@ -1,5 +1,22 @@
 # @contractspec/module.ai-chat
 
+## 4.3.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.workflow-composer@3.7.5
+  - @contractspec/lib.surface-runtime@0.5.5
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/lib.cost-tracking@3.7.5
+  - @contractspec/lib.design-system@3.7.5
+  - @contractspec/lib.ai-providers@3.7.5
+  - @contractspec/lib.ui-kit-web@3.7.5
+  - @contractspec/lib.ai-agent@7.0.5
+  - @contractspec/lib.metering@3.7.5
+  - @contractspec/lib.schema@3.7.5
+
 ## 4.3.4
 
 ### Patch Changes

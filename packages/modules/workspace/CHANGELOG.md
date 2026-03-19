@@ -1,5 +1,15 @@
 # @contractspec/module.workspace
 
+## 3.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.contracts-integrations@3.7.5
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/lib.schema@3.7.5
+
 ## 3.7.4
 
 ### Patch Changes

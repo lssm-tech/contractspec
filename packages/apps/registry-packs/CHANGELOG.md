@@ -1,5 +1,11 @@
 # @contractspec/app.registry-packs
 
+## 1.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+
 ## 1.7.4
 
 ### Patch Changes

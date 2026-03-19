@@ -1,5 +1,11 @@
 # @contractspec/lib.context-storage
 
+## 0.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+
 ## 0.7.4
 
 ### Patch Changes

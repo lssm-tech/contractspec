@@ -1,5 +1,11 @@
 # @contractspec/lib.contracts
 
+## 2.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+
 ## 2.7.4
 
 ### Patch Changes

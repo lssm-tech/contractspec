@@ -1,5 +1,14 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 34.0.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.presentation-runtime-core@3.7.5
+  - @contractspec/lib.ui-kit@3.7.5
+
 ## 34.0.4
 
 ### Patch Changes

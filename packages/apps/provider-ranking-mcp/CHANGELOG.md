@@ -1,5 +1,18 @@
 # @contractspec/app.provider-ranking-mcp
 
+## 1.6.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.5
+  - @contractspec/module.provider-ranking@0.7.5
+  - @contractspec/lib.provider-ranking@0.7.5
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/lib.ai-providers@3.7.5
+  - @contractspec/lib.logger@3.7.5
+
 ## 1.6.4
 
 ### Patch Changes

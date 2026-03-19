@@ -1,5 +1,16 @@
 # @contractspec/module.context-storage
 
+## 0.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.contracts-integrations@3.7.5
+  - @contractspec/lib.context-storage@0.7.5
+  - @contractspec/lib.knowledge@3.7.5
+  - @contractspec/lib.schema@3.7.5
+
 ## 0.7.4
 
 ### Patch Changes
