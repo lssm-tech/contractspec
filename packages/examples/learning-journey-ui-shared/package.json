@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.learning-journey-ui-shared",
-  "version": "3.7.5",
+  "version": "3.7.6",
   "description": "Shared UI components and hooks for learning journey mini-apps.",
   "type": "module",
   "types": "./dist/index.d.ts",

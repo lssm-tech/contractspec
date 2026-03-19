@@ -1,5 +1,15 @@
 # @contractspec/lib.accessibility
 
+## 3.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/lib.design-system@3.7.6
+  - @contractspec/lib.ui-kit-web@3.7.6
+  - @contractspec/lib.ui-kit@3.7.6
+
 ## 3.7.5
 
 ### Patch Changes

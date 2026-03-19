@@ -1,5 +1,36 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.6
+  - @contractspec/example.analytics-dashboard@3.7.6
+  - @contractspec/example.ai-chat-assistant@3.7.6
+  - @contractspec/example.saas-boilerplate@3.7.6
+  - @contractspec/lib.progressive-delivery@34.0.6
+  - @contractspec/example.integration-hub@3.7.6
+  - @contractspec/example.workflow-system@3.7.6
+  - @contractspec/example.agent-console@3.7.6
+  - @contractspec/lib.example-shared-ui@6.0.6
+  - @contractspec/example.crm-pipeline@3.7.6
+  - @contractspec/example.in-app-docs@3.7.6
+  - @contractspec/example.marketplace@3.7.6
+  - @contractspec/lib.surface-runtime@0.5.6
+  - @contractspec/lib.contracts-spec@3.7.6
+  - @contractspec/lib.design-system@3.7.6
+  - @contractspec/bundle.marketing@3.7.6
+  - @contractspec/lib.ai-providers@3.7.6
+  - @contractspec/lib.ui-kit-core@3.7.6
+  - @contractspec/module.examples@3.7.6
+  - @contractspec/bundle.library@3.7.6
+  - @contractspec/lib.ui-kit-web@3.7.6
+  - @contractspec/module.ai-chat@4.3.6
+  - @contractspec/lib.ui-link@3.7.6
+  - @contractspec/lib.ui-kit@3.7.6
+
 ## 3.7.5
 
 ### Patch Changes

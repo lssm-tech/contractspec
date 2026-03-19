@@ -1,5 +1,13 @@
 # @contractspec/lib.ui-kit-web
 
+## 3.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/lib.ui-kit-core@3.7.6
+
 ## 3.7.5
 
 ### Patch Changes

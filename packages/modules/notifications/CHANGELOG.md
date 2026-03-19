@@ -1,5 +1,15 @@
 # @contractspec/module.notifications
 
+## 3.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@3.7.6
+  - @contractspec/lib.schema@3.7.6
+  - @contractspec/lib.bus@3.7.6
+
 ## 3.7.5
 
 ### Patch Changes

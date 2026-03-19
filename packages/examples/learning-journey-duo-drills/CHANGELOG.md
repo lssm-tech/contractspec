@@ -1,5 +1,14 @@
 # @contractspec/example.learning-journey-duo-drills
 
+## 3.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/module.learning-journey@3.7.6
+  - @contractspec/lib.contracts-spec@3.7.6
+
 ## 3.7.5
 
 ### Patch Changes

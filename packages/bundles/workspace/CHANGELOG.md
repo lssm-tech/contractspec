@@ -1,5 +1,20 @@
 # @contractspec/bundle.workspace
 
+## 3.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.7.6
+  - @contractspec/lib.contracts-transformers@3.7.6
+  - @contractspec/lib.source-extractors@2.7.6
+  - @contractspec/lib.utils-typescript@3.7.6
+  - @contractspec/lib.contracts-spec@3.7.6
+  - @contractspec/lib.ai-providers@3.7.6
+  - @contractspec/module.workspace@3.7.6
+  - @contractspec/lib.ai-agent@7.0.6
+
 ## 3.7.5
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # agentpacks
 
+## 1.7.6
+
+### Patch Changes
+
+- fix: release manifest
+
 ## 1.7.5
 
 ### Patch Changes

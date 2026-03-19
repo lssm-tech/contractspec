@@ -1,5 +1,18 @@
 # @contractspec/app.api-library
 
+## 3.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/integration.providers-impls@3.7.6
+  - @contractspec/integration.runtime@3.7.6
+  - @contractspec/lib.contracts-spec@3.7.6
+  - @contractspec/bundle.marketing@3.7.6
+  - @contractspec/bundle.workspace@3.7.6
+  - @contractspec/bundle.library@3.7.6
+
 ## 3.7.5
 
 ### Patch Changes

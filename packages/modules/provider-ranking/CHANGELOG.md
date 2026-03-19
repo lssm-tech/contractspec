@@ -1,5 +1,15 @@
 # @contractspec/module.provider-ranking
 
+## 0.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.7.6
+  - @contractspec/lib.provider-ranking@0.7.6
+  - @contractspec/lib.schema@3.7.6
+
 ## 0.7.5
 
 ### Patch Changes

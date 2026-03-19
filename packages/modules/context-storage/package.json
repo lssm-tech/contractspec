@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.context-storage",
-  "version": "0.7.5",
+  "version": "0.7.6",
   "description": "Context storage module with persistence adapters",
   "keywords": [
     "contractspec",

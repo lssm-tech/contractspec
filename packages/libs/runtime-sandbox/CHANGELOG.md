@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 2.7.6
+
+### Patch Changes
+
+- fix: release manifest
+
 ## 2.7.5
 
 ### Patch Changes

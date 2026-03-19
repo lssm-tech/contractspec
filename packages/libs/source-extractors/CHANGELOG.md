@@ -1,5 +1,14 @@
 # @contractspec/lib.source-extractors
 
+## 2.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@3.7.6
+  - @contractspec/lib.schema@3.7.6
+
 ## 2.7.5
 
 ### Patch Changes

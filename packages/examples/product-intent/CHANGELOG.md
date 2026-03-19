@@ -1,5 +1,17 @@
 # @contractspec/example.product-intent
 
+## 3.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/integration.providers-impls@3.7.6
+  - @contractspec/lib.contracts-integrations@3.7.6
+  - @contractspec/lib.product-intent-utils@3.7.6
+  - @contractspec/lib.contracts-spec@3.7.6
+  - @contractspec/lib.ai-agent@7.0.6
+
 ## 3.7.5
 
 ### Patch Changes

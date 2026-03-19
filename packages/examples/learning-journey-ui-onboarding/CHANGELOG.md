@@ -1,5 +1,20 @@
 # @contractspec/example.learning-journey-ui-onboarding
 
+## 3.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/example.learning-journey-studio-onboarding@3.7.6
+  - @contractspec/example.learning-journey-platform-tour@3.7.6
+  - @contractspec/example.learning-journey-ui-shared@3.7.6
+  - @contractspec/module.learning-journey@3.7.6
+  - @contractspec/lib.contracts-spec@3.7.6
+  - @contractspec/lib.design-system@3.7.6
+  - @contractspec/lib.ui-kit-core@3.7.6
+  - @contractspec/lib.ui-kit-web@3.7.6
+
 ## 3.7.5
 
 ### Patch Changes

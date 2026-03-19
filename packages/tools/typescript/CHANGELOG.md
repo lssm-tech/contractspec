@@ -1,5 +1,11 @@
 # @contractspec/tool.typescript
 
+## 3.7.6
+
+### Patch Changes
+
+- fix: release manifest
+
 ## 3.7.5
 
 ### Patch Changes

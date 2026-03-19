@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@3.7.6
+  - @contractspec/bundle.workspace@3.7.6
+
 ## 2.7.5
 
 ### Patch Changes

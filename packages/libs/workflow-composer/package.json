@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.workflow-composer",
-  "version": "3.7.5",
+  "version": "3.7.6",
   "description": "Tenant-aware workflow composition helpers for ContractSpec.",
   "keywords": [
     "contractspec",

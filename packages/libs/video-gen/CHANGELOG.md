@@ -1,5 +1,19 @@
 # @contractspec/lib.video-gen
 
+## 2.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.7.6
+  - @contractspec/lib.contracts-spec@3.7.6
+  - @contractspec/lib.design-system@3.7.6
+  - @contractspec/lib.ai-providers@3.7.6
+  - @contractspec/lib.content-gen@3.7.6
+  - @contractspec/lib.image-gen@1.7.6
+  - @contractspec/lib.voice@1.7.6
+
 ## 2.7.5
 
 ### Patch Changes

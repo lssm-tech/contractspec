@@ -1,5 +1,13 @@
 # @contractspec/app.cli-database
 
+## 3.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/lib.schema@3.7.6
+
 ## 3.7.5
 
 ### Patch Changes

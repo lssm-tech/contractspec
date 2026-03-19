@@ -1,5 +1,17 @@
 # @contractspec/example.marketplace
 
+## 3.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/lib.example-shared-ui@6.0.6
+  - @contractspec/lib.runtime-sandbox@2.7.6
+  - @contractspec/lib.contracts-spec@3.7.6
+  - @contractspec/lib.design-system@3.7.6
+  - @contractspec/lib.schema@3.7.6
+
 ## 3.7.5
 
 ### Patch Changes
