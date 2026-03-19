@@ -1,5 +1,17 @@
 # @contractspec/lib.ai-agent
 
+## 7.0.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- Updated dependencies [8cd229b]
+- Updated dependencies [04bc555]
+  - @contractspec/lib.surface-runtime@0.5.2
+  - @contractspec/lib.contracts-spec@3.7.2
+  - @contractspec/lib.ai-providers@3.7.2
+  - @contractspec/lib.knowledge@3.7.2
+
 ## 7.0.1
 
 ### Patch Changes

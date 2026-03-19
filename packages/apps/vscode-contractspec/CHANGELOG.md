@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- Updated dependencies [8cd229b]
+- Updated dependencies [04bc555]
+  - @contractspec/lib.contracts-transformers@3.7.2
+  - @contractspec/lib.contracts-spec@3.7.2
+  - @contractspec/bundle.workspace@3.7.2
+  - @contractspec/module.workspace@3.7.2
+  - @contractspec/module.examples@3.7.2
+  - @contractspec/module.ai-chat@4.3.2
+  - @contractspec/lib.ai-agent@7.0.2
+
 ## 3.7.1
 
 ### Patch Changes

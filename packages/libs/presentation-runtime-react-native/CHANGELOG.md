@@ -1,5 +1,14 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 34.0.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- Updated dependencies [8cd229b]
+  - @contractspec/lib.presentation-runtime-core@3.7.2
+  - @contractspec/lib.ui-kit@3.7.2
+
 ## 34.0.1
 
 ### Patch Changes

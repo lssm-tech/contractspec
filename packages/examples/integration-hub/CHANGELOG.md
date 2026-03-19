@@ -1,5 +1,20 @@
 # @contractspec/example.integration-hub
 
+## 3.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- Updated dependencies [8cd229b]
+- Updated dependencies [04bc555]
+  - @contractspec/lib.example-shared-ui@6.0.2
+  - @contractspec/lib.runtime-sandbox@2.7.2
+  - @contractspec/lib.contracts-spec@3.7.2
+  - @contractspec/lib.design-system@3.7.2
+  - @contractspec/module.ai-chat@4.3.2
+  - @contractspec/lib.ai-agent@7.0.2
+  - @contractspec/lib.schema@3.7.2
+
 ## 3.7.1
 
 ### Patch Changes

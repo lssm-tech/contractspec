@@ -1,5 +1,20 @@
 # @contractspec/example.product-intent
 
+## 3.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- 04bc555: Improve contract integrity, example validation, onboarding docs, doctor safety,
+  release verification, packaged smoke testing, and security workflow coverage.
+- Updated dependencies [8cd229b]
+- Updated dependencies [04bc555]
+  - @contractspec/integration.providers-impls@3.7.2
+  - @contractspec/lib.contracts-integrations@3.7.2
+  - @contractspec/lib.product-intent-utils@3.7.2
+  - @contractspec/lib.contracts-spec@3.7.2
+  - @contractspec/lib.ai-agent@7.0.2
+
 ## 3.7.1
 
 ### Patch Changes

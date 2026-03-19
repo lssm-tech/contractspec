@@ -1,5 +1,18 @@
 # @contractspec/example.wealth-snapshot
 
+## 3.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- Updated dependencies [8cd229b]
+- Updated dependencies [04bc555]
+  - @contractspec/module.notifications@3.7.2
+  - @contractspec/lib.contracts-spec@3.7.2
+  - @contractspec/module.audit-trail@3.7.2
+  - @contractspec/lib.identity-rbac@3.7.2
+  - @contractspec/lib.schema@3.7.2
+
 ## 3.7.1
 
 ### Patch Changes

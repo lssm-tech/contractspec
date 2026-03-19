@@ -1,5 +1,17 @@
 # @contractspec/app.video-studio
 
+## 2.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- Updated dependencies [8cd229b]
+- Updated dependencies [04bc555]
+  - @contractspec/lib.contracts-spec@3.7.2
+  - @contractspec/lib.design-system@3.7.2
+  - @contractspec/lib.content-gen@3.7.2
+  - @contractspec/lib.video-gen@2.7.2
+
 ## 2.7.1
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # @contractspec/example.learning-journey-ui-onboarding
 
+## 3.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- Updated dependencies [8cd229b]
+- Updated dependencies [04bc555]
+  - @contractspec/example.learning-journey-studio-onboarding@3.7.2
+  - @contractspec/example.learning-journey-platform-tour@3.7.2
+  - @contractspec/example.learning-journey-ui-shared@3.7.2
+  - @contractspec/module.learning-journey@3.7.2
+  - @contractspec/lib.contracts-spec@3.7.2
+  - @contractspec/lib.design-system@3.7.2
+  - @contractspec/lib.ui-kit-core@3.7.2
+  - @contractspec/lib.ui-kit-web@3.7.2
+
 ## 3.7.1
 
 ### Patch Changes

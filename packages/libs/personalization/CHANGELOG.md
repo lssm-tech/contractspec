@@ -1,5 +1,19 @@
 # @contractspec/lib.personalization
 
+## 6.0.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- Updated dependencies [8cd229b]
+- Updated dependencies [04bc555]
+  - @contractspec/lib.surface-runtime@0.5.2
+  - @contractspec/lib.contracts-spec@3.7.2
+  - @contractspec/lib.overlay-engine@3.7.2
+  - @contractspec/lib.knowledge@3.7.2
+  - @contractspec/lib.schema@3.7.2
+  - @contractspec/lib.bus@3.7.2
+
 ## 6.0.1
 
 ### Patch Changes

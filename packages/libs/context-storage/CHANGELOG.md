@@ -1,5 +1,11 @@
 # @contractspec/lib.context-storage
 
+## 0.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+
 ## 0.7.1
 
 ### Patch Changes

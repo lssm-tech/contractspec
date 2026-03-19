@@ -1,5 +1,11 @@
 # @contractspec/app.cli-databases
 
+## 3.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+
 ## 3.7.1
 
 ### Patch Changes

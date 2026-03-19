@@ -1,5 +1,18 @@
 # @contractspec/lib.metering
 
+## 3.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- 04bc555: Improve contract integrity, example validation, onboarding docs, doctor safety,
+  release verification, packaged smoke testing, and security workflow coverage.
+- Updated dependencies [8cd229b]
+- Updated dependencies [04bc555]
+  - @contractspec/lib.contracts-integrations@3.7.2
+  - @contractspec/lib.contracts-spec@3.7.2
+  - @contractspec/lib.schema@3.7.2
+
 ## 3.7.1
 
 ### Patch Changes

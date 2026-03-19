@@ -1,5 +1,16 @@
 # @contractspec/example.content-generation
 
+## 3.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- Updated dependencies [8cd229b]
+- Updated dependencies [04bc555]
+  - @contractspec/lib.contracts-spec@3.7.2
+  - @contractspec/lib.content-gen@3.7.2
+  - @contractspec/lib.logger@3.7.2
+
 ## 3.7.1
 
 ### Patch Changes

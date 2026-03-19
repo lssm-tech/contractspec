@@ -1,5 +1,16 @@
 # @contractspec/module.context-storage
 
+## 0.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- Updated dependencies [8cd229b]
+  - @contractspec/lib.contracts-integrations@3.7.2
+  - @contractspec/lib.context-storage@0.7.2
+  - @contractspec/lib.knowledge@3.7.2
+  - @contractspec/lib.schema@3.7.2
+
 ## 0.7.1
 
 ### Patch Changes
