@@ -1,5 +1,14 @@
 # @contractspec/integration.example-generator
 
+## 36.0.1
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.schema@3.7.7
+
 ## 34.0.6
 
 ### Patch Changes
@@ -380,6 +389,7 @@
 - 7f3203a: fix: make workspace test runs resilient when packages have no tests
 
   Updates package test scripts to pass cleanly when no matching test files exist:
+
   - Uses `bun test --pass-with-no-tests` in Bun-based packages that currently ship without test files.
   - Uses `jest --passWithNoTests` for the UI kit web package.
   - Adds `.vscode-test.mjs` for `vscode-contractspec` so VS Code extension test runs have an explicit config and stop failing on missing default configuration.

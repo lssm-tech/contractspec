@@ -1,5 +1,14 @@
 # contractspec-example-opencode-cli
 
+## 2.8.1
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.schema@3.7.7
+
 ## 2.7.6
 
 ### Patch Changes

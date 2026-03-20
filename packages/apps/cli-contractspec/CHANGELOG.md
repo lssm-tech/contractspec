@@ -1,5 +1,24 @@
 # Changelog
 
+## 4.1.1
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.8.1
+  - @contractspec/lib.contracts-transformers@3.7.9
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/bundle.workspace@4.0.2
+  - @contractspec/module.workspace@4.0.2
+  - @contractspec/module.examples@3.8.1
+  - @contractspec/module.ai-chat@4.3.9
+  - @contractspec/lib.ai-agent@7.0.9
+  - @contractspec/lib.plugins@3.7.9
+  - @contractspec/lib.testing@3.7.9
+  - @contractspec/lib.ai-providers@3.7.7
+  - @contractspec/lib.schema@3.7.7
+
 ## 3.7.6
 
 ### Patch Changes
@@ -169,6 +188,7 @@
 ### Patch Changes
 
 - 27b77db: feat(ai-models): add latest models and align defaults
+
   - Add claude-opus-4-6, claude-sonnet-4-6, claude-haiku-4-5, gpt-5.4, gpt-5-mini
   - Add mistral-large-2512, mistral-medium-2508, mistral-small-2506, devstral-2512
   - Add gemini-3.1-pro-preview, gemini-3.1-flash-lite-preview, gemini-3-flash-preview
@@ -1352,14 +1372,17 @@
   feat: Contract layers support (features, examples, app-configs)
 
   ### New CLI Commands
+
   - `contractspec list layers` - List all contract layers with filtering
 
   ### Enhanced Commands
+
   - `contractspec ci` - New `layers` check category validates features/examples/config
   - `contractspec doctor` - New `layers` health checks
   - `contractspec integrity` - Now shows layer statistics
 
   ### New APIs
+
   - `discoverLayers()` - Scan workspace for all layer files
   - `scanExampleSource()` - Parse ExampleSpec from source code
   - `isExampleFile()` - Check if file is an example spec

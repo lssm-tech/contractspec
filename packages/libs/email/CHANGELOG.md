@@ -1,5 +1,13 @@
 # @contractspec/lib.email
 
+## 3.7.7
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.logger@3.7.7
+
 ## 3.7.6
 
 ### Patch Changes

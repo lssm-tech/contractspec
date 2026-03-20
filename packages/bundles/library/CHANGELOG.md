@@ -1,5 +1,32 @@
 # @contractspec/bundle.library
 
+## 3.8.1
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.9
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.9
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.9
+  - @contractspec/lib.contracts-integrations@3.8.1
+  - @contractspec/module.context-storage@0.7.9
+  - @contractspec/lib.contracts-library@3.7.9
+  - @contractspec/lib.example-shared-ui@6.0.9
+  - @contractspec/lib.runtime-sandbox@2.7.8
+  - @contractspec/lib.surface-runtime@0.5.9
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.design-system@3.8.2
+  - @contractspec/lib.content-gen@3.7.9
+  - @contractspec/module.examples@3.8.1
+  - @contractspec/lib.ui-kit-web@3.9.1
+  - @contractspec/lib.knowledge@3.7.9
+  - @contractspec/lib.ui-link@3.7.7
+  - @contractspec/lib.ai-providers@3.7.7
+  - @contractspec/lib.logger@3.7.7
+  - @contractspec/lib.provider-ranking@0.7.7
+  - @contractspec/lib.schema@3.7.7
+
 ## 3.7.6
 
 ### Patch Changes
@@ -231,6 +258,7 @@
 ### Patch Changes
 
 - 27b77db: feat(ai-models): add latest models and align defaults
+
   - Add claude-opus-4-6, claude-sonnet-4-6, claude-haiku-4-5, gpt-5.4, gpt-5-mini
   - Add mistral-large-2512, mistral-medium-2508, mistral-small-2506, devstral-2512
   - Add gemini-3.1-pro-preview, gemini-3.1-flash-lite-preview, gemini-3-flash-preview
@@ -380,6 +408,7 @@
 ### Patch Changes
 
 - 1fa29a0: feat(bundle.library): add LibraryBundle, WorkspaceShellRenderer, bundles export
+
   - Add LibraryBundle and bundles/index for workspace shell composition
   - Add WorkspaceShellRenderer component for dynamic slot rendering
   - Add @contractspec/lib.surface-runtime dependency

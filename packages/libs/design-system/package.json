@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.design-system",
-	"version": "3.8.1",
+	"version": "3.8.2",
 	"description": "Design tokens and theming primitives",
 	"keywords": [
 		"contractspec",

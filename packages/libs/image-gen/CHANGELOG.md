@@ -1,5 +1,15 @@
 # @contractspec/lib.image-gen
 
+## 1.7.9
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.8.1
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.content-gen@3.7.9
+
 ## 1.7.6
 
 ### Patch Changes
@@ -333,6 +343,7 @@
 ### Minor Changes
 
 - 4fa3bd4: Add @contractspec/lib.image-gen package for AI-powered image generation
+
   - New `ai-image` IntegrationCategory in both contracts-spec and contracts-integrations
   - New ImageProvider contract with image generation, upscale, and edit interfaces
   - New fal-image and openai-image integration specs

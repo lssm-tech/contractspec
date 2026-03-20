@@ -1,5 +1,14 @@
 # @contractspec/lib.contracts-runtime-server-mcp
 
+## 3.7.9
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.logger@3.7.7
+
 ## 3.7.6
 
 ### Patch Changes

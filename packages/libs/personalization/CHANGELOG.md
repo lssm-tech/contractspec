@@ -1,5 +1,18 @@
 # @contractspec/lib.personalization
 
+## 6.0.9
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.surface-runtime@0.5.9
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.overlay-engine@3.7.9
+  - @contractspec/lib.knowledge@3.7.9
+  - @contractspec/lib.bus@3.7.9
+  - @contractspec/lib.schema@3.7.7
+
 ## 6.0.6
 
 ### Patch Changes
@@ -189,6 +202,7 @@
 ### Patch Changes
 
 - 66c51da: docs(personalization): surface-runtime alignment, optional peer
+
   - Add README section on Bundle spec / surface-runtime alignment
   - Add optional peer @contractspec/lib.surface-runtime
 
@@ -248,24 +262,29 @@
 - 56ee8e6: Bundle spec alignment and i18n support
 
   **surface-runtime**
+
   - Add i18n for OverlayConflictResolver and PatchProposalCard (en, fr, es)
   - Add locale to ResolvedSurfacePlan; pass through from BundleContext
   - Export ./i18n with createSurfaceI18n, SURFACE_KEYS
 
   **personalization**
+
   - Add PreferenceDimensions, BundlePreferenceAdapter, ResolvedPreferenceProfile
   - Align with specs/contractspec_modules_bundle_spec_2026-03-08 (05_personalization_model)
   - Export ./preference-dimensions
 
   **contracts-spec**
+
   - Add validateBundleRequires for ModuleBundleSpec.requires validation
   - Document bundle requires alignment in README and AGENTS.md
 
   **ai-agent**
+
   - Document surface-runtime planner tools integration in README
   - Add optional peer @contractspec/lib.surface-runtime
 
   **module.ai-chat**
+
   - Add UseChatToolDef and optional tools to UseChatOptions (reserved for planner)
   - Document bundle spec alignment; add optional peer @contractspec/lib.surface-runtime
 
@@ -525,6 +544,7 @@
 - 7f3203a: fix: make workspace test runs resilient when packages have no tests
 
   Updates package test scripts to pass cleanly when no matching test files exist:
+
   - Uses `bun test --pass-with-no-tests` in Bun-based packages that currently ship without test files.
   - Uses `jest --passWithNoTests` for the UI kit web package.
   - Adds `.vscode-test.mjs` for `vscode-contractspec` so VS Code extension test runs have an explicit config and stop failing on missing default configuration.
@@ -943,14 +963,17 @@
   feat: Contract layers support (features, examples, app-configs)
 
   ### New CLI Commands
+
   - `contractspec list layers` - List all contract layers with filtering
 
   ### Enhanced Commands
+
   - `contractspec ci` - New `layers` check category validates features/examples/config
   - `contractspec doctor` - New `layers` health checks
   - `contractspec integrity` - Now shows layer statistics
 
   ### New APIs
+
   - `discoverLayers()` - Scan workspace for all layer files
   - `scanExampleSource()` - Parse ExampleSpec from source code
   - `isExampleFile()` - Check if file is an example spec

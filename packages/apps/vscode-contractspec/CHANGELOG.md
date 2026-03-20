@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.7.9
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-transformers@3.7.9
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/bundle.workspace@4.0.2
+  - @contractspec/module.workspace@4.0.2
+  - @contractspec/module.examples@3.8.1
+  - @contractspec/module.ai-chat@4.3.9
+  - @contractspec/lib.ai-agent@7.0.9
+  - @contractspec/lib.ai-providers@3.7.7
+
 ## 3.7.6
 
 ### Patch Changes
@@ -583,6 +598,7 @@
 - 7f3203a: fix: make workspace test runs resilient when packages have no tests
 
   Updates package test scripts to pass cleanly when no matching test files exist:
+
   - Uses `bun test --pass-with-no-tests` in Bun-based packages that currently ship without test files.
   - Uses `jest --passWithNoTests` for the UI kit web package.
   - Adds `.vscode-test.mjs` for `vscode-contractspec` so VS Code extension test runs have an explicit config and stop failing on missing default configuration.
@@ -1050,14 +1066,17 @@
   feat: Contract layers support (features, examples, app-configs)
 
   ### New CLI Commands
+
   - `contractspec list layers` - List all contract layers with filtering
 
   ### Enhanced Commands
+
   - `contractspec ci` - New `layers` check category validates features/examples/config
   - `contractspec doctor` - New `layers` health checks
   - `contractspec integrity` - Now shows layer statistics
 
   ### New APIs
+
   - `discoverLayers()` - Scan workspace for all layer files
   - `scanExampleSource()` - Parse ExampleSpec from source code
   - `isExampleFile()` - Check if file is an example spec
@@ -1305,23 +1324,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Validation Commands**
+
   - `ContractSpec: Validate Current Spec` - Validate the currently open spec file
   - `ContractSpec: Validate All Specs in Workspace` - Validate all spec files in the workspace
 
 - **Build/Scaffold Commands**
+
   - `ContractSpec: Build/Scaffold from Current Spec` - Generate handler/component skeletons from specs
 
 - **Navigation Commands**
+
   - `ContractSpec: List All Specs` - Show all specs in the workspace with quick navigation
   - `ContractSpec: Analyze Spec Dependencies` - Visualize spec dependencies and detect cycles
   - `ContractSpec: Search ContractSpec Docs (MCP)` - Search documentation via MCP
 
 - **Real-time Diagnostics**
+
   - Automatic validation on file open (configurable)
   - Automatic validation on file save (configurable)
   - Inline error and warning markers
 
 - **Code Snippets**
+
   - `contractspec-command` - Create a new command spec
   - `contractspec-query` - Create a new query spec
   - `contractspec-event` - Create a new event spec
@@ -1330,6 +1354,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `contractspec-presentation` - Create a new Presentation spec
 
 - **Telemetry**
+
   - Hybrid telemetry model (direct PostHog or via API)
   - Respects VS Code telemetry settings
   - No PII collection

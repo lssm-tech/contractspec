@@ -1,5 +1,13 @@
 # @contractspec/lib.ui-link
 
+## 3.7.7
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.ui-kit-core@3.7.7
+
 ## 3.7.6
 
 ### Patch Changes
@@ -587,14 +595,17 @@
   feat: Contract layers support (features, examples, app-configs)
 
   ### New CLI Commands
+
   - `contractspec list layers` - List all contract layers with filtering
 
   ### Enhanced Commands
+
   - `contractspec ci` - New `layers` check category validates features/examples/config
   - `contractspec doctor` - New `layers` health checks
   - `contractspec integrity` - Now shows layer statistics
 
   ### New APIs
+
   - `discoverLayers()` - Scan workspace for all layer files
   - `scanExampleSource()` - Parse ExampleSpec from source code
   - `isExampleFile()` - Check if file is an example spec

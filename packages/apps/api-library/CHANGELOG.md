@@ -1,5 +1,18 @@
 # @contractspec/app.api-library
 
+## 3.8.1
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/integration.providers-impls@3.8.1
+  - @contractspec/integration.runtime@3.8.1
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/bundle.marketing@3.8.1
+  - @contractspec/bundle.workspace@4.0.2
+  - @contractspec/bundle.library@3.8.1
+
 ## 3.7.6
 
 ### Patch Changes

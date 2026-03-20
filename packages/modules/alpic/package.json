@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/module.alpic",
-	"version": "3.7.8",
+	"version": "3.7.9",
 	"description": "Alpic MCP and ChatGPT App hosting helpers",
 	"keywords": [
 		"contractspec",

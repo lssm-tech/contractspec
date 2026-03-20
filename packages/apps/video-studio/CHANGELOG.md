@@ -1,5 +1,16 @@
 # @contractspec/app.video-studio
 
+## 2.7.9
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.design-system@3.8.2
+  - @contractspec/lib.content-gen@3.7.9
+  - @contractspec/lib.video-gen@2.7.9
+
 ## 2.7.6
 
 ### Patch Changes
@@ -372,6 +383,7 @@
 ### Patch Changes
 
 - 397b7c0: Switch Remotion CLI from `npx remotion` to `bunx remotionb` for native Bun runtime support.
+
   - update video-studio scripts (`dev`, `render`, `render:all`) to use `bunx remotionb`
   - correct documentation that incorrectly claimed Remotion does not run on Bun
   - document known Bun caveats (`lazyComponent` disabled, SSR scripts may not auto-quit)

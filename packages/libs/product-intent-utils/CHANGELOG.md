@@ -1,5 +1,15 @@
 # @contractspec/lib.product-intent-utils
 
+## 3.7.9
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.8.1
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.schema@3.7.7
+
 ## 3.7.6
 
 ### Patch Changes

@@ -1,5 +1,22 @@
 # @contractspec/module.ai-chat
 
+## 4.3.9
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.workflow-composer@3.7.9
+  - @contractspec/lib.surface-runtime@0.5.9
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.design-system@3.8.2
+  - @contractspec/lib.ui-kit-web@3.9.1
+  - @contractspec/lib.ai-agent@7.0.9
+  - @contractspec/lib.metering@3.7.9
+  - @contractspec/lib.ai-providers@3.7.7
+  - @contractspec/lib.cost-tracking@3.7.7
+  - @contractspec/lib.schema@3.7.7
+
 ## 4.3.6
 
 ### Patch Changes
@@ -128,6 +145,7 @@
 ### Minor Changes
 
 - 6e3fe40: feat(agents): agentic workflows — subagents, memory tools, and next steps
+
   - **Subagents**: `createSubagentTool`, async generator execute, `SubagentRef`, streaming + toModelOutput
   - **Memory tools**: `AgentMemoryStore`, `InMemoryAgentMemoryStore`, `createAnthropicMemoryTool`, `memoryTools` + `agentMemoryStore` config
   - **needsApproval**: Validation warning when subagent has requiresApproval/automationSafe (AI SDK limitation)
@@ -261,6 +279,7 @@
 ### Minor Changes
 
 - 1fa29a0: feat(ai-chat): export, conversation management, thinking levels, workflow tools
+
   - Export: ChatWithExport, ChatExportToolbar — Markdown, TXT, JSON, copy; select messages for partial export
   - Conversation management: ChatWithSidebar, useConversations, useMessageSelection — history, new, fork, edit, projects/tags
   - Thinking levels: ThinkingLevelPicker, thinkingLevel option — instant, thinking, extra_thinking, max (Anthropic budgetTokens, OpenAI reasoningEffort)
@@ -270,6 +289,7 @@
   - surface-runtime: moved from optional peer to direct dependency
 
 - 5ee581b: feat(ai-chat): presentation/form rendering, MCP tools, agent mode
+
   - **Presentation/Form rendering**: Host-driven `presentationRenderer` and `formRenderer` for tool results with `presentationKey` or `formKey`; `ToolResultRenderer` component
   - **MCP tools**: `mcpServers` option on `useChat`; tools from `createMcpToolsets` merged into chat; cleanup on unmount
   - **Agent mode**: `agentMode: { agent }` with `ChatAgentAdapter`; `createChatAgentAdapter` to wrap `ContractSpecAgent`; chat uses agent for generation instead of ChatService
@@ -280,6 +300,7 @@
 ### Patch Changes
 
 - 66c51da: feat(ai-chat): contracts context, surface-runtime integration, adapter fixes
+
   - Contracts-Spec context: contractsContext exposes agent, data-views, operations, forms, presentations; AgentToolConfig[] for agent tools
   - Surface-runtime: surfacePlanConfig enables propose-patch tool; createAiSdkBundleAdapter for planner integration
   - agent-tools-adapter: simplify schema handling, remove jsonSchemaToZodSafe dependency
@@ -287,6 +308,7 @@
   - ChatInput: explicit onChange type for Textarea
 
 - c527a4e: Fix jsxDEV runtime error in ai-chat module
+
   - Add bunfig.toml to ai-chat with `jsx = "react-jsx"` to work around Bun v1.3+ regression (oven-sh/bun#23959)
   - Pass NODE_ENV=production when spawning bun build in runTranspile for monorepo-wide safeguard
 
@@ -372,24 +394,29 @@
 - 56ee8e6: Bundle spec alignment and i18n support
 
   **surface-runtime**
+
   - Add i18n for OverlayConflictResolver and PatchProposalCard (en, fr, es)
   - Add locale to ResolvedSurfacePlan; pass through from BundleContext
   - Export ./i18n with createSurfaceI18n, SURFACE_KEYS
 
   **personalization**
+
   - Add PreferenceDimensions, BundlePreferenceAdapter, ResolvedPreferenceProfile
   - Align with specs/contractspec_modules_bundle_spec_2026-03-08 (05_personalization_model)
   - Export ./preference-dimensions
 
   **contracts-spec**
+
   - Add validateBundleRequires for ModuleBundleSpec.requires validation
   - Document bundle requires alignment in README and AGENTS.md
 
   **ai-agent**
+
   - Document surface-runtime planner tools integration in README
   - Add optional peer @contractspec/lib.surface-runtime
 
   **module.ai-chat**
+
   - Add UseChatToolDef and optional tools to UseChatOptions (reserved for planner)
   - Document bundle spec alignment; add optional peer @contractspec/lib.surface-runtime
 
@@ -1205,14 +1232,17 @@
   feat: Contract layers support (features, examples, app-configs)
 
   ### New CLI Commands
+
   - `contractspec list layers` - List all contract layers with filtering
 
   ### Enhanced Commands
+
   - `contractspec ci` - New `layers` check category validates features/examples/config
   - `contractspec doctor` - New `layers` health checks
   - `contractspec integrity` - Now shows layer statistics
 
   ### New APIs
+
   - `discoverLayers()` - Scan workspace for all layer files
   - `scanExampleSource()` - Parse ExampleSpec from source code
   - `isExampleFile()` - Check if file is an example spec

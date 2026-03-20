@@ -1,5 +1,22 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.7.9
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/example.locale-jurisdiction-gate@3.7.9
+  - @contractspec/example.versioned-knowledge-base@3.7.9
+  - @contractspec/example.kb-update-pipeline@3.7.9
+  - @contractspec/example.learning-patterns@3.7.9
+  - @contractspec/module.learning-journey@3.7.9
+  - @contractspec/lib.example-shared-ui@6.0.9
+  - @contractspec/lib.runtime-sandbox@2.7.8
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.design-system@3.8.2
+  - @contractspec/lib.ui-kit-web@3.9.1
+
 ## 3.7.6
 
 ### Patch Changes
@@ -1183,14 +1200,17 @@
   feat: Contract layers support (features, examples, app-configs)
 
   ### New CLI Commands
+
   - `contractspec list layers` - List all contract layers with filtering
 
   ### Enhanced Commands
+
   - `contractspec ci` - New `layers` check category validates features/examples/config
   - `contractspec doctor` - New `layers` health checks
   - `contractspec integrity` - Now shows layer statistics
 
   ### New APIs
+
   - `discoverLayers()` - Scan workspace for all layer files
   - `scanExampleSource()` - Parse ExampleSpec from source code
   - `isExampleFile()` - Check if file is an example spec

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.lifecycle",
-	"version": "3.7.8",
+	"version": "3.7.9",
 	"description": "Contract lifecycle management primitives",
 	"keywords": [
 		"contractspec",

@@ -1,5 +1,18 @@
 # @contractspec/app.expo-demo
 
+## 1.1.9
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-react-native@35.0.2
+  - @contractspec/lib.presentation-runtime-core@3.8.2
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.ui-kit@3.8.2
+  - @contractspec/lib.schema@3.7.7
+  - @contractspec/lib.ui-kit-core@3.7.7
+
 ## 1.1.6
 
 ### Patch Changes

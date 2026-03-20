@@ -1,5 +1,13 @@
 # contractspec
 
+## 3.7.9
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/app.cli-contractspec@4.1.1
+
 ## 3.7.6
 
 ### Patch Changes
@@ -258,6 +266,7 @@
 - a968f66: Strengthen the canonical agentpacks with Cursor-first lifecycle workflows.
 
   This adds marketplace-readiness guidance, new analysis commands (`/analyze-codebase`, `/impact`), model-profile routing, and updated generated assistant artifacts while keeping canonical packs clearly separated from imported reference packs.
+
   - @contractspec/app.cli-contractspec@2.6.1
 
 ## 2.6.0
@@ -651,14 +660,17 @@
   feat: Contract layers support (features, examples, app-configs)
 
   ### New CLI Commands
+
   - `contractspec list layers` - List all contract layers with filtering
 
   ### Enhanced Commands
+
   - `contractspec ci` - New `layers` check category validates features/examples/config
   - `contractspec doctor` - New `layers` health checks
   - `contractspec integrity` - Now shows layer statistics
 
   ### New APIs
+
   - `discoverLayers()` - Scan workspace for all layer files
   - `scanExampleSource()` - Parse ExampleSpec from source code
   - `isExampleFile()` - Check if file is an example spec

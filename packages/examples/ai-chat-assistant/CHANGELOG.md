@@ -1,5 +1,16 @@
 # @contractspec/example.ai-chat-assistant
 
+## 3.8.1
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/module.ai-chat@4.3.9
+  - @contractspec/lib.ai-agent@7.0.9
+  - @contractspec/lib.schema@3.7.7
+
 ## 3.7.6
 
 ### Patch Changes
@@ -88,6 +99,7 @@
 ### Minor Changes
 
 - 44b46cd: feat(examples): full AI chat example with MCP, reasoning, and contracts
+
   - **example.ai-chat-assistant**: New focused template with ChatWithSidebar, assistant.search contract, mock handlers, and sandbox
   - **integration-hub**: Add Chat tab with IntegrationHubChat (reasoning, CoT, sources, suggestions, optional MCP)
   - **web-landing**: Add /api/chat route (createChatRoute), wire both examples in sandbox

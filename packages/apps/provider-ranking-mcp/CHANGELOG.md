@@ -1,5 +1,18 @@
 # @contractspec/app.provider-ranking-mcp
 
+## 1.6.9
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.9
+  - @contractspec/module.provider-ranking@0.7.9
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.ai-providers@3.7.7
+  - @contractspec/lib.logger@3.7.7
+  - @contractspec/lib.provider-ranking@0.7.7
+
 ## 1.6.6
 
 ### Patch Changes
@@ -118,6 +131,7 @@
 ### Patch Changes
 
 - 27b77db: feat(ai-models): add latest models and align defaults
+
   - Add claude-opus-4-6, claude-sonnet-4-6, claude-haiku-4-5, gpt-5.4, gpt-5-mini
   - Add mistral-large-2512, mistral-medium-2508, mistral-small-2506, devstral-2512
   - Add gemini-3.1-pro-preview, gemini-3.1-flash-lite-preview, gemini-3-flash-preview

@@ -1,5 +1,16 @@
 # @contractspec/lib.voice
 
+## 1.7.9
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.8.1
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.content-gen@3.7.9
+  - @contractspec/lib.ai-providers@3.7.7
+
 ## 1.7.6
 
 ### Patch Changes
@@ -355,6 +366,7 @@
 ### Minor Changes
 
 - 63eee9b: Add @contractspec/lib.voice package for TTS, STT, and conversational voice
+
   - Expanded voice.ts contract with VoiceSynthesizer, Transcriber, and conversational types
   - New deepgram, openai-realtime, and voice-video-sync integration specs (mirrored)
   - Updated elevenlabs, fal, gradium integration specs for voice capabilities

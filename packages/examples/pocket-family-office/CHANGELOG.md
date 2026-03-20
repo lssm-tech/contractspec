@@ -1,5 +1,16 @@
 # @contractspec/example.pocket-family-office
 
+## 3.7.9
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.8.1
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.knowledge@3.7.9
+  - @contractspec/lib.schema@3.7.7
+
 ## 3.7.6
 
 ### Patch Changes
@@ -363,6 +374,7 @@
 ### Patch Changes
 
 - 4d19382: fix: stabilize lint and tests after voice capability migration
+
   - remove strict-lint violations across registry-packs, support-bot, video-gen, and agentpacks
   - align voice provider tests and pocket-family-office blueprint with the `ai.voice.tts` capability key
   - keep agentpacks package exports in sync by exposing `./utils/model-allowlist`
@@ -808,14 +820,17 @@
   feat: Contract layers support (features, examples, app-configs)
 
   ### New CLI Commands
+
   - `contractspec list layers` - List all contract layers with filtering
 
   ### Enhanced Commands
+
   - `contractspec ci` - New `layers` check category validates features/examples/config
   - `contractspec doctor` - New `layers` health checks
   - `contractspec integrity` - Now shows layer statistics
 
   ### New APIs
+
   - `discoverLayers()` - Scan workspace for all layer files
   - `scanExampleSource()` - Parse ExampleSpec from source code
   - `isExampleFile()` - Check if file is an example spec

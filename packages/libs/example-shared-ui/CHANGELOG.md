@@ -1,5 +1,16 @@
 # @contractspec/lib.example-shared-ui
 
+## 6.0.9
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.surface-runtime@0.5.9
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.design-system@3.8.2
+  - @contractspec/lib.ui-kit-web@3.9.1
+
 ## 6.0.6
 
 ### Patch Changes
@@ -164,6 +175,7 @@
 ### Patch Changes
 
 - 66c51da: feat(example-shared-ui): add SpecDrivenTemplateShell, ExampleTemplateBundle, bundles export
+
   - Add SpecDrivenTemplateShell component
   - Add ExampleTemplateBundle and bundles/index
   - Add optional peer @contractspec/lib.surface-runtime
@@ -442,6 +454,7 @@
 - 7f3203a: fix: make workspace test runs resilient when packages have no tests
 
   Updates package test scripts to pass cleanly when no matching test files exist:
+
   - Uses `bun test --pass-with-no-tests` in Bun-based packages that currently ship without test files.
   - Uses `jest --passWithNoTests` for the UI kit web package.
   - Adds `.vscode-test.mjs` for `vscode-contractspec` so VS Code extension test runs have an explicit config and stop failing on missing default configuration.

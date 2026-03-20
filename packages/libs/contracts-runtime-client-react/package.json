@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.contracts-runtime-client-react",
-	"version": "3.7.8",
+	"version": "3.7.9",
 	"description": "React runtime adapters for ContractSpec contracts",
 	"type": "module",
 	"types": "./dist/index.d.ts",

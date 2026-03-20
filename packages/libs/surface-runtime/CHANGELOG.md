@@ -1,5 +1,15 @@
 # @contractspec/lib.surface-runtime
 
+## 0.5.9
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.overlay-engine@3.7.9
+  - @contractspec/lib.observability@3.7.9
+
 ## 0.5.6
 
 ### Patch Changes
@@ -150,6 +160,7 @@
 ### Patch Changes
 
 - 1fa29a0: feat(surface-runtime): add slotContent prop to BundleRenderer
+
   - Allow override content for any slot via slotContent partial record
   - Render slotContent[slotId] when provided instead of SlotRenderer
 
@@ -194,6 +205,7 @@
 
 - 0ee467a: feat: improve ai and customization
 - 56ee8e6: feat(surface-runtime): AI-native chat and generative UI integration (07_ai_native_chat_and_generative_ui)
+
   - Add PlannerResponse, BlockDraft, PatchAuditEvent, PatchAuditPayload, PatchApprovalHandler types
   - Add compilePlannerPrompt for planner system prompt compilation
   - Add proposePatchToolConfig and buildSurfacePatchProposal for ContractSpecAgent integration
@@ -205,6 +217,7 @@
 - 56ee8e6: feat(surface-runtime): entity surface registry and field renderer registry
 
   Implements 06_entity_surfaces plan:
+
   - EntitySurfaceRegistrySpec with entityTypes, fieldKinds, sectionKinds, viewKinds
   - FieldRendererRegistry with core kinds (text, number, date, select, checkbox) and stubs (relation, rollup, formula, people)
   - New BundleNodeKind values: entity-header, entity-summary, entity-activity, entity-relations, etc.
@@ -227,6 +240,7 @@
 ### Patch Changes
 
 - 56ee8e6: feat(surface-runtime): API skeleton Phase 0 — validators, example bundle, adapter lint
+
   - Add validateLayoutSlots: throws when layout references undeclared slot
   - Add validateBundleNodeKinds: returns warnings for node kinds without dedicated renderers
   - Integrate validateLayoutSlots into defineModuleBundle
@@ -237,28 +251,34 @@
 - 56ee8e6: Bundle spec alignment and i18n support
 
   **surface-runtime**
+
   - Add i18n for OverlayConflictResolver and PatchProposalCard (en, fr, es)
   - Add locale to ResolvedSurfacePlan; pass through from BundleContext
   - Export ./i18n with createSurfaceI18n, SURFACE_KEYS
 
   **personalization**
+
   - Add PreferenceDimensions, BundlePreferenceAdapter, ResolvedPreferenceProfile
   - Align with specs/contractspec_modules_bundle_spec_2026-03-08 (05_personalization_model)
   - Export ./preference-dimensions
 
   **contracts-spec**
+
   - Add validateBundleRequires for ModuleBundleSpec.requires validation
   - Document bundle requires alignment in README and AGENTS.md
 
   **ai-agent**
+
   - Document surface-runtime planner tools integration in README
   - Add optional peer @contractspec/lib.surface-runtime
 
   **module.ai-chat**
+
   - Add UseChatToolDef and optional tools to UseChatOptions (reserved for planner)
   - Document bundle spec alignment; add optional peer @contractspec/lib.surface-runtime
 
 - 56ee8e6: Add observability, evals, and metrics for surface runtime
+
   - Integrate with lib.observability: tracing (traceAsync), metrics (resolution_duration_ms, patch_acceptance_rate, policy_denial_count, surface_fallback, missing_renderer), structured logging
   - Add golden-context harness for resolver evals with snapshot tests
   - Add performance budget check (resolver p95 <100ms)

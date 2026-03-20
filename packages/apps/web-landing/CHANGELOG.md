@@ -1,5 +1,38 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.8.1
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.9
+  - @contractspec/example.visualization-showcase@3.9.1
+  - @contractspec/example.analytics-dashboard@3.9.1
+  - @contractspec/example.data-grid-showcase@3.8.1
+  - @contractspec/example.ai-chat-assistant@3.8.1
+  - @contractspec/example.saas-boilerplate@3.8.1
+  - @contractspec/lib.progressive-delivery@34.0.9
+  - @contractspec/example.integration-hub@3.8.1
+  - @contractspec/example.workflow-system@3.8.1
+  - @contractspec/example.agent-console@3.8.1
+  - @contractspec/lib.example-shared-ui@6.0.9
+  - @contractspec/example.crm-pipeline@3.7.9
+  - @contractspec/example.in-app-docs@3.7.9
+  - @contractspec/example.marketplace@3.8.1
+  - @contractspec/lib.surface-runtime@0.5.9
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.design-system@3.8.2
+  - @contractspec/bundle.marketing@3.8.1
+  - @contractspec/module.examples@3.8.1
+  - @contractspec/bundle.library@3.8.1
+  - @contractspec/lib.ui-kit-web@3.9.1
+  - @contractspec/module.ai-chat@4.3.9
+  - @contractspec/lib.ui-link@3.7.7
+  - @contractspec/lib.ui-kit@3.8.2
+  - @contractspec/lib.ai-providers@3.7.7
+  - @contractspec/lib.ui-kit-core@3.7.7
+
 ## 3.7.6
 
 ### Patch Changes
@@ -226,6 +259,7 @@
 ### Minor Changes
 
 - 44b46cd: feat(examples): full AI chat example with MCP, reasoning, and contracts
+
   - **example.ai-chat-assistant**: New focused template with ChatWithSidebar, assistant.search contract, mock handlers, and sandbox
   - **integration-hub**: Add Chat tab with IntegrationHubChat (reasoning, CoT, sources, suggestions, optional MCP)
   - **web-landing**: Add /api/chat route (createChatRoute), wire both examples in sandbox
@@ -462,6 +496,7 @@
 ### Patch Changes
 
 - e367e98: feat(web-landing): implement Agent-Friendly Documentation Spec recommendations
+
   - Add llms-txt-directive blockquote on docs pages pointing to /llms.txt
   - Add /docs/llms.txt rewrite for docs subpath discovery
   - Add llms-full truncation note in llms.txt; recommend /llms/[slug] for agent fetches

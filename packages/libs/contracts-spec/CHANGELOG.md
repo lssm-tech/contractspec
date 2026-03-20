@@ -1,5 +1,13 @@
 # @contractspec/lib.contracts-spec
 
+## 4.1.1
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.schema@3.7.7
+
 ## 3.7.6
 
 ### Patch Changes
@@ -66,6 +74,7 @@
 ### Minor Changes
 
 - 6e3fe40: feat(agents): agentic workflows — subagents, memory tools, and next steps
+
   - **Subagents**: `createSubagentTool`, async generator execute, `SubagentRef`, streaming + toModelOutput
   - **Memory tools**: `AgentMemoryStore`, `InMemoryAgentMemoryStore`, `createAnthropicMemoryTool`, `memoryTools` + `agentMemoryStore` config
   - **needsApproval**: Validation warning when subagent has requiresApproval/automationSafe (AI SDK limitation)
@@ -91,6 +100,7 @@
 ### Patch Changes
 
 - 27b77db: feat(ai-models): add latest models and align defaults
+
   - Add claude-opus-4-6, claude-sonnet-4-6, claude-haiku-4-5, gpt-5.4, gpt-5-mini
   - Add mistral-large-2512, mistral-medium-2508, mistral-small-2506, devstral-2512
   - Add gemini-3.1-pro-preview, gemini-3.1-flash-lite-preview, gemini-3-flash-preview
@@ -181,24 +191,29 @@
 - 56ee8e6: Bundle spec alignment and i18n support
 
   **surface-runtime**
+
   - Add i18n for OverlayConflictResolver and PatchProposalCard (en, fr, es)
   - Add locale to ResolvedSurfacePlan; pass through from BundleContext
   - Export ./i18n with createSurfaceI18n, SURFACE_KEYS
 
   **personalization**
+
   - Add PreferenceDimensions, BundlePreferenceAdapter, ResolvedPreferenceProfile
   - Align with specs/contractspec_modules_bundle_spec_2026-03-08 (05_personalization_model)
   - Export ./preference-dimensions
 
   **contracts-spec**
+
   - Add validateBundleRequires for ModuleBundleSpec.requires validation
   - Document bundle requires alignment in README and AGENTS.md
 
   **ai-agent**
+
   - Document surface-runtime planner tools integration in README
   - Add optional peer @contractspec/lib.surface-runtime
 
   **module.ai-chat**
+
   - Add UseChatToolDef and optional tools to UseChatOptions (reserved for planner)
   - Document bundle spec alignment; add optional peer @contractspec/lib.surface-runtime
 
@@ -339,6 +354,7 @@
 ### Minor Changes
 
 - 4fa3bd4: Add @contractspec/lib.image-gen package for AI-powered image generation
+
   - New `ai-image` IntegrationCategory in both contracts-spec and contracts-integrations
   - New ImageProvider contract with image generation, upscale, and edit interfaces
   - New fal-image and openai-image integration specs
@@ -350,6 +366,7 @@
   - Comprehensive test suite (129 tests across 5 files)
 
 - 63eee9b: Add @contractspec/lib.voice package for TTS, STT, and conversational voice
+
   - Expanded voice.ts contract with VoiceSynthesizer, Transcriber, and conversational types
   - New deepgram, openai-realtime, and voice-video-sync integration specs (mirrored)
   - Updated elevenlabs, fal, gradium integration specs for voice capabilities
@@ -359,6 +376,7 @@
   - Added thumbnail and voiceTimingMap fields to VideoProject contract
 
 - 284cbe2: Add full i18n support across all 10 packages with en/fr/es locales (460 keys total).
+
   - add shared `createI18nFactory<K>()` to `@contractspec/lib.contracts-spec/translations` to eliminate ~1,450 lines of duplicated boilerplate
   - add `src/i18n/` modules to all 10 packages with typed keys, locale resolution, message catalogs (en/fr/es), and completeness tests
   - thread `locale` parameter through public options interfaces and runtime functions in every package

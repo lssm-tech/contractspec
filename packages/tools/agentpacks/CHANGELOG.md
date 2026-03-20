@@ -1,5 +1,11 @@
 # agentpacks
 
+## 1.7.7
+
+### Patch Changes
+
+- fix: release
+
 ## 1.7.6
 
 ### Patch Changes
@@ -53,6 +59,7 @@
 ### Patch Changes
 
 - 27b77db: feat(ai-models): add latest models and align defaults
+
   - Add claude-opus-4-6, claude-sonnet-4-6, claude-haiku-4-5, gpt-5.4, gpt-5-mini
   - Add mistral-large-2512, mistral-medium-2508, mistral-small-2506, devstral-2512
   - Add gemini-3.1-pro-preview, gemini-3.1-flash-lite-preview, gemini-3-flash-preview
@@ -187,6 +194,7 @@
 ### Minor Changes
 
 - f31e457: Phase 3 — Community features for agentpacks registry:
+
   - **Reviews & Ratings**: `reviews` table, GET/POST/DELETE endpoints, one review per user per pack (upsert), cached average_rating + review_count, self-review prevention
   - **Organizations**: `organizations` + `org_members` tables, CRUD + member management routes, role hierarchy (owner > admin > member), `@org/pack-name` scoped name parsing
   - **Quality Scoring**: Automated 0-100 score (README, versions, license, targets, features, tags, repo, homepage, conflicts), GET /packs/:name/quality endpoint with breakdown, badge classification
@@ -197,6 +205,7 @@
 - b6a92f3: Add models feature, pack registry support, and registry CLI commands.
 
   **Models feature** (9th feature type):
+
   - `models.json` pack format with default/small model, profiles, providers, per-agent assignments, and routing rules
   - Profile resolver with target-specific overrides
   - OpenCode target: native `opencode.json` model/provider/agent config
@@ -205,6 +214,7 @@
   - Secret scanning to block credentials in published packs
 
   **Pack registry client**:
+
   - `agentpacks search` — search registry with tag/target/sort filters
   - `agentpacks info <pack>` — detailed pack info and versions
   - `agentpacks publish` — validate, tarball, and upload packs
@@ -213,11 +223,13 @@
   - Registry source resolver with lockfile integration
 
   **Registry server** (`@contractspec/app.registry-packs`):
+
   - Elysia + Drizzle/SQLite API server
   - Pack CRUD, version management, full-text search, download tracking
   - Bearer token auth, local tarball storage
 
 - 4f6f938: Phase 3b — Ecosystem features for agentpacks registry:
+
   - **Dependency Graph**: DependencyService with BFS transitive closure, Mermaid diagram generation, circular dependency detection, GET /packs/:name/dependencies (JSON + Mermaid), GET /packs/:name/dependents (reverse lookup), dependency visualization on pack detail page
   - **Webhooks**: webhooks + webhook_deliveries tables, WebhookService with CRUD + HMAC signing + dispatch + delivery logging, webhook management routes, fire-and-forget dispatch on publish
   - **GitHub App**: GitHubService with HMAC-SHA256 signature verification, auto-publish on release tags, POST /github/webhook endpoint, configurable via GITHUB_WEBHOOK_SECRET + GITHUB_REPO_PACK_MAP
@@ -228,6 +240,7 @@
 - bda7a82: feat(registry-packs,agentpacks): Phase 4 production hardening
 
   **Rate Limiting & Security:**
+
   - In-memory token bucket rate limiter (100 req/min general, 10 req/min publish)
   - 10MB tarball size limit with 413 Payload Too Large response
   - Pack name squatting prevention (reserved names, format validation)
@@ -235,10 +248,12 @@
   - DB migration 0004_deprecation.sql
 
   **E2E Tests:**
+
   - Full publish → search → info → download → deprecate E2E test suite
   - CI pipeline hardened with registry-packs test step
 
   **Pack Versioning Polish:**
+
   - Auto-bump version on publish (version="auto" → patch bump from latest)
   - Model ID allowlist validation (advisory warnings for unknown model IDs)
   - Profile inheritance via `extends` keyword with cycle detection
@@ -249,6 +264,7 @@
 ### Patch Changes
 
 - 1e7ebd0: Hard-cut over ContractSpec workspace agent configuration management to `agentpacks`.
+
   - add CI checks for pack validation and generated-config drift (`agentpacks:validate`, `agentpacks:diff`)
   - remove legacy `.rulesync/` and `rulesync.jsonc` sources from the repository
   - remove legacy `packs/default` fallback after successful soft-cutover validation
@@ -274,6 +290,7 @@
   Introduces `agentpacks`, a pack-based CLI tool that syncs AI agent rules, commands, skills, hooks, plugins, and MCP configs across OpenCode, Cursor, Claude Code, Codex CLI, Gemini CLI, GitHub Copilot, and more.
 
   Key features:
+
   - **Composable packs**: group rules, commands, agents, skills, hooks, plugins, MCP, and ignore patterns into toggleable units
   - **6 target generators**: OpenCode (first-class JS/TS plugin support), Cursor (.mdc rules), Claude Code, Codex CLI, Gemini CLI, GitHub Copilot
   - **Auto AGENTS.md**: universal overview file generated from root rules

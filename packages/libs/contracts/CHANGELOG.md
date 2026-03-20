@@ -1,5 +1,11 @@
 # @contractspec/lib.contracts
 
+## 2.7.7
+
+### Patch Changes
+
+- fix: release
+
 ## 2.7.6
 
 ### Patch Changes
@@ -328,6 +334,7 @@
 ### Minor Changes
 
 - 23e46e9: feat(capabilities): robustify capabilities with bidirectional linking and runtime enforcement
+
   - Add optional `capability` field to OperationSpec, EventSpec, and PresentationSpec for bidirectional linking
   - Add `extends` field to CapabilitySpec for capability inheritance
   - Add registry query methods: getOperationsFor, getEventsFor, getPresentationsFor, getCapabilitiesForOperation/Event/Presentation
@@ -343,6 +350,7 @@
   Phase 2 of the contracts library robustification:
 
   **Policy Module (Phase 2.1):**
+
   - Add `PolicyContext` for runtime RBAC/ABAC enforcement with role/permission checks
   - Add `PolicyViolationError` with detailed violation types
   - Add policy guards: `checkPolicyForOperation`, `assertPolicyForOperation`, `filterOperationsByPolicy`
@@ -353,6 +361,7 @@
   - 128 new tests
 
   **Workflow Module (Phase 2.2):**
+
   - Add `WorkflowContext` interface for state management, transitions, and SLA tracking
   - Add `WorkflowContextError` with typed error categories
   - Add compensation/rollback support hints
@@ -363,6 +372,7 @@
   - 64 new tests
 
   **Translations Module (Phase 2.3):**
+
   - Add full `TranslationSpec` with placeholders, plural rules, and message variants
   - Add `TranslationRegistry` with locale-aware lookup and fallback chains
   - Add `defineTranslation` factory function
@@ -538,14 +548,17 @@
   feat: Contract layers support (features, examples, app-configs)
 
   ### New CLI Commands
+
   - `contractspec list layers` - List all contract layers with filtering
 
   ### Enhanced Commands
+
   - `contractspec ci` - New `layers` check category validates features/examples/config
   - `contractspec doctor` - New `layers` health checks
   - `contractspec integrity` - Now shows layer statistics
 
   ### New APIs
+
   - `discoverLayers()` - Scan workspace for all layer files
   - `scanExampleSource()` - Parse ExampleSpec from source code
   - `isExampleFile()` - Check if file is an example spec

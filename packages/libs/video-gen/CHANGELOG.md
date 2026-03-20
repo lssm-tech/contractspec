@@ -1,5 +1,19 @@
 # @contractspec/lib.video-gen
 
+## 2.7.9
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.8.1
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.design-system@3.8.2
+  - @contractspec/lib.content-gen@3.7.9
+  - @contractspec/lib.image-gen@1.7.9
+  - @contractspec/lib.voice@1.7.9
+  - @contractspec/lib.ai-providers@3.7.7
+
 ## 2.7.6
 
 ### Patch Changes
@@ -446,6 +460,7 @@
 ### Minor Changes
 
 - 4fa3bd4: Add @contractspec/lib.image-gen package for AI-powered image generation
+
   - New `ai-image` IntegrationCategory in both contracts-spec and contracts-integrations
   - New ImageProvider contract with image generation, upscale, and edit interfaces
   - New fal-image and openai-image integration specs
@@ -457,6 +472,7 @@
   - Comprehensive test suite (129 tests across 5 files)
 
 - 63eee9b: Add @contractspec/lib.voice package for TTS, STT, and conversational voice
+
   - Expanded voice.ts contract with VoiceSynthesizer, Transcriber, and conversational types
   - New deepgram, openai-realtime, and voice-video-sync integration specs (mirrored)
   - Updated elevenlabs, fal, gradium integration specs for voice capabilities
@@ -466,6 +482,7 @@
   - Added thumbnail and voiceTimingMap fields to VideoProject contract
 
 - 284cbe2: Add full i18n support across all 10 packages with en/fr/es locales (460 keys total).
+
   - add shared `createI18nFactory<K>()` to `@contractspec/lib.contracts-spec/translations` to eliminate ~1,450 lines of duplicated boilerplate
   - add `src/i18n/` modules to all 10 packages with typed keys, locale resolution, message catalogs (en/fr/es), and completeness tests
   - thread `locale` parameter through public options interfaces and runtime functions in every package
@@ -483,11 +500,13 @@
 ### Patch Changes
 
 - 397b7c0: Switch Remotion CLI from `npx remotion` to `bunx remotionb` for native Bun runtime support.
+
   - update video-studio scripts (`dev`, `render`, `render:all`) to use `bunx remotionb`
   - correct documentation that incorrectly claimed Remotion does not run on Bun
   - document known Bun caveats (`lazyComponent` disabled, SSR scripts may not auto-quit)
 
 - 4d19382: fix: stabilize lint and tests after voice capability migration
+
   - remove strict-lint violations across registry-packs, support-bot, video-gen, and agentpacks
   - align voice provider tests and pocket-family-office blueprint with the `ai.voice.tts` capability key
   - keep agentpacks package exports in sync by exposing `./utils/model-allowlist`

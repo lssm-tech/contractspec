@@ -1,5 +1,15 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 35.0.2
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-react@35.0.2
+  - @contractspec/lib.presentation-runtime-core@3.8.2
+  - @contractspec/lib.ui-kit@3.8.2
+
 ## 34.0.6
 
 ### Patch Changes
@@ -652,14 +662,17 @@
   feat: Contract layers support (features, examples, app-configs)
 
   ### New CLI Commands
+
   - `contractspec list layers` - List all contract layers with filtering
 
   ### Enhanced Commands
+
   - `contractspec ci` - New `layers` check category validates features/examples/config
   - `contractspec doctor` - New `layers` health checks
   - `contractspec integrity` - Now shows layer statistics
 
   ### New APIs
+
   - `discoverLayers()` - Scan workspace for all layer files
   - `scanExampleSource()` - Parse ExampleSpec from source code
   - `isExampleFile()` - Check if file is an example spec

@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 2.7.7
+
+### Patch Changes
+
+- fix: release
+
 ## 2.7.6
 
 ### Patch Changes

@@ -1,5 +1,34 @@
 # @contractspec/bundle.marketing
 
+## 3.8.1
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-runtime-client-react@3.7.9
+  - @contractspec/example.visualization-showcase@3.9.1
+  - @contractspec/example.analytics-dashboard@3.9.1
+  - @contractspec/example.data-grid-showcase@3.8.1
+  - @contractspec/example.saas-boilerplate@3.8.1
+  - @contractspec/example.integration-hub@3.8.1
+  - @contractspec/example.workflow-system@3.8.1
+  - @contractspec/example.agent-console@3.8.1
+  - @contractspec/lib.example-shared-ui@6.0.9
+  - @contractspec/example.crm-pipeline@3.7.9
+  - @contractspec/example.marketplace@3.8.1
+  - @contractspec/lib.runtime-sandbox@2.7.8
+  - @contractspec/lib.surface-runtime@0.5.9
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.design-system@3.8.2
+  - @contractspec/module.examples@3.8.1
+  - @contractspec/bundle.library@3.8.1
+  - @contractspec/lib.ui-kit-web@3.9.1
+  - @contractspec/lib.ui-link@3.7.7
+  - @contractspec/lib.email@3.7.7
+  - @contractspec/lib.logger@3.7.7
+  - @contractspec/lib.ui-kit-core@3.7.7
+
 ## 3.7.6
 
 ### Patch Changes
@@ -374,6 +403,7 @@
 ### Patch Changes
 
 - 66c51da: feat(bundle.marketing): add MarketingBundle, bundles export
+
   - Add MarketingBundle and bundles/index for surface-runtime composition
   - Add @contractspec/lib.surface-runtime dependency
 

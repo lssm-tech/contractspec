@@ -1,5 +1,16 @@
 # @contractspec/example.lifecycle-cli
 
+## 3.7.9
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/bundle.lifecycle-managed@3.7.9
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.lifecycle@3.7.9
+  - @contractspec/lib.logger@3.7.7
+
 ## 3.7.6
 
 ### Patch Changes
@@ -447,6 +458,7 @@
 - 7f3203a: fix: make workspace test runs resilient when packages have no tests
 
   Updates package test scripts to pass cleanly when no matching test files exist:
+
   - Uses `bun test --pass-with-no-tests` in Bun-based packages that currently ship without test files.
   - Uses `jest --passWithNoTests` for the UI kit web package.
   - Adds `.vscode-test.mjs` for `vscode-contractspec` so VS Code extension test runs have an explicit config and stop failing on missing default configuration.
@@ -836,14 +848,17 @@
   feat: Contract layers support (features, examples, app-configs)
 
   ### New CLI Commands
+
   - `contractspec list layers` - List all contract layers with filtering
 
   ### Enhanced Commands
+
   - `contractspec ci` - New `layers` check category validates features/examples/config
   - `contractspec doctor` - New `layers` health checks
   - `contractspec integrity` - Now shows layer statistics
 
   ### New APIs
+
   - `discoverLayers()` - Scan workspace for all layer files
   - `scanExampleSource()` - Parse ExampleSpec from source code
   - `isExampleFile()` - Check if file is an example spec

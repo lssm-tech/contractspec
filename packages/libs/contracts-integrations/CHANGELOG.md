@@ -1,5 +1,14 @@
 # @contractspec/lib.contracts-integrations
 
+## 3.8.1
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.schema@3.7.7
+
 ## 3.7.6
 
 ### Patch Changes
@@ -334,6 +343,7 @@
 ### Minor Changes
 
 - 4fa3bd4: Add @contractspec/lib.image-gen package for AI-powered image generation
+
   - New `ai-image` IntegrationCategory in both contracts-spec and contracts-integrations
   - New ImageProvider contract with image generation, upscale, and edit interfaces
   - New fal-image and openai-image integration specs
@@ -345,6 +355,7 @@
   - Comprehensive test suite (129 tests across 5 files)
 
 - 63eee9b: Add @contractspec/lib.voice package for TTS, STT, and conversational voice
+
   - Expanded voice.ts contract with VoiceSynthesizer, Transcriber, and conversational types
   - New deepgram, openai-realtime, and voice-video-sync integration specs (mirrored)
   - Updated elevenlabs, fal, gradium integration specs for voice capabilities

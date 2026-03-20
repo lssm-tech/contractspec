@@ -1,5 +1,16 @@
 # @contractspec/lib.ai-agent
 
+## 7.0.9
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.surface-runtime@0.5.9
+  - @contractspec/lib.contracts-spec@4.1.1
+  - @contractspec/lib.knowledge@3.7.9
+  - @contractspec/lib.ai-providers@3.7.7
+
 ## 7.0.6
 
 ### Patch Changes
@@ -86,6 +97,7 @@
 ### Minor Changes
 
 - 6e3fe40: feat(agents): agentic workflows — subagents, memory tools, and next steps
+
   - **Subagents**: `createSubagentTool`, async generator execute, `SubagentRef`, streaming + toModelOutput
   - **Memory tools**: `AgentMemoryStore`, `InMemoryAgentMemoryStore`, `createAnthropicMemoryTool`, `memoryTools` + `agentMemoryStore` config
   - **needsApproval**: Validation warning when subagent has requiresApproval/automationSafe (AI SDK limitation)
@@ -116,6 +128,7 @@
 ### Patch Changes
 
 - 27b77db: feat(ai-models): add latest models and align defaults
+
   - Add claude-opus-4-6, claude-sonnet-4-6, claude-haiku-4-5, gpt-5.4, gpt-5-mini
   - Add mistral-large-2512, mistral-medium-2508, mistral-small-2506, devstral-2512
   - Add gemini-3.1-pro-preview, gemini-3.1-flash-lite-preview, gemini-3-flash-preview
@@ -244,24 +257,29 @@
 - 56ee8e6: Bundle spec alignment and i18n support
 
   **surface-runtime**
+
   - Add i18n for OverlayConflictResolver and PatchProposalCard (en, fr, es)
   - Add locale to ResolvedSurfacePlan; pass through from BundleContext
   - Export ./i18n with createSurfaceI18n, SURFACE_KEYS
 
   **personalization**
+
   - Add PreferenceDimensions, BundlePreferenceAdapter, ResolvedPreferenceProfile
   - Align with specs/contractspec_modules_bundle_spec_2026-03-08 (05_personalization_model)
   - Export ./preference-dimensions
 
   **contracts-spec**
+
   - Add validateBundleRequires for ModuleBundleSpec.requires validation
   - Document bundle requires alignment in README and AGENTS.md
 
   **ai-agent**
+
   - Document surface-runtime planner tools integration in README
   - Add optional peer @contractspec/lib.surface-runtime
 
   **module.ai-chat**
+
   - Add UseChatToolDef and optional tools to UseChatOptions (reserved for planner)
   - Document bundle spec alignment; add optional peer @contractspec/lib.surface-runtime
 
@@ -423,6 +441,7 @@
 ### Minor Changes
 
 - 284cbe2: Add full i18n support across all 10 packages with en/fr/es locales (460 keys total).
+
   - add shared `createI18nFactory<K>()` to `@contractspec/lib.contracts-spec/translations` to eliminate ~1,450 lines of duplicated boilerplate
   - add `src/i18n/` modules to all 10 packages with typed keys, locale resolution, message catalogs (en/fr/es), and completeness tests
   - thread `locale` parameter through public options interfaces and runtime functions in every package
@@ -518,10 +537,12 @@
 - 94f3c24: perf: reduce import-time memory usage by slimming root barrels and moving heavy runtime surfaces to explicit subpath entrypoints.
 
   Breaking changes:
+
   - `@contractspec/lib.contracts` root exports are now intentionally minimal; workflow/tests/app-config/regenerator/telemetry/experiments and other heavy modules must be imported from their dedicated subpaths.
   - `@contractspec/lib.ai-agent` root exports are reduced to lightweight surfaces; runtime agent APIs should be imported from package subpaths.
 
   Additional optimizations:
+
   - add schema-level memoization/caching for zod/json-schema conversion paths and scalar factory reuse in `@contractspec/lib.schema`.
   - lower default build memory pressure in `@contractspec/tool.bun` by preferring bun-only dev targets and disabling declaration maps by default for type builds.
 
@@ -541,6 +562,7 @@
 - 064258d: feat: add multi-language (i18n) support for all user-facing strings
 
   Adds full internationalization to the ai-agent package with English, French, and Spanish support:
+
   - **i18n module** (`src/i18n/`): `createAgentI18n(specLocale?, runtimeLocale?)` and `getDefaultI18n()` with `{placeholder}` interpolation, backed by the `TranslationRegistry` from `@contractspec/lib.contracts`
   - **130+ typed message keys** organized by domain: agent prompts, knowledge, tools, interop, errors, exports, approval, and logs
   - **3 complete catalogs**: English (reference), French (formal "vous"), Spanish (formal "usted")
@@ -548,6 +570,7 @@
   - **Spec/type changes**: `locale?: string` added to `AgentSpec`, `AgentCallOptions`, and `AgentSessionState`
 
   All hardcoded strings across the package now go through the i18n system:
+
   - Interop spec/tool consumers (markdown headings, prompt sections, error messages)
   - Provider adapters and tool bridges (Claude Agent SDK, OpenCode SDK)
   - Exporters (Claude Agent, OpenCode markdown/JSON generation, validation)
@@ -559,6 +582,7 @@
 - 064258d: feat: add PostHog LLM Analytics and Evaluations support
 
   Adds PostHog LLM observability to the ai-agent package via two integration approaches:
+
   - **Model wrapping** (`createPostHogTracedModel`): wraps any Vercel AI SDK `LanguageModel` with `@posthog/ai` `withTracing` to automatically capture `$ai_generation` events (tokens, latency, cost, I/O)
   - **TelemetryCollector bridge** (`PostHogTelemetryCollector`): implements the existing `TelemetryCollector` interface to forward `trackAgentStep` data to PostHog
   - **CompositeTelemetryCollector**: fan-out to multiple telemetry collectors simultaneously
@@ -893,14 +917,17 @@
   feat: Contract layers support (features, examples, app-configs)
 
   ### New CLI Commands
+
   - `contractspec list layers` - List all contract layers with filtering
 
   ### Enhanced Commands
+
   - `contractspec ci` - New `layers` check category validates features/examples/config
   - `contractspec doctor` - New `layers` health checks
   - `contractspec integrity` - Now shows layer statistics
 
   ### New APIs
+
   - `discoverLayers()` - Scan workspace for all layer files
   - `scanExampleSource()` - Parse ExampleSpec from source code
   - `isExampleFile()` - Check if file is an example spec
