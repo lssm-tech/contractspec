@@ -237,11 +237,16 @@ export function createCompositeTelemetryCollector(
 // Helpers
 // =============================================================================
 
+const runtimeImport = new Function(
+	'specifier',
+	'return import(specifier)'
+) as (specifier: string) => Promise<unknown>;
+
 async function importPostHogAI(): Promise<{
 	withTracing: (...args: unknown[]) => unknown;
 }> {
 	try {
-		return await (import('@posthog/ai') as Promise<{
+		return await (runtimeImport('@posthog/ai') as Promise<{
 			withTracing: (...args: unknown[]) => unknown;
 		}>);
 	} catch {
@@ -260,10 +265,15 @@ async function resolvePostHogClient(
 	}
 
 	try {
-		const { PostHog } = await import('posthog-node');
+		const { PostHog } = (await runtimeImport('posthog-node')) as {
+			PostHog: new (
+				apiKey: string,
+				options?: { host?: string }
+			) => PostHogClient;
+		};
 		return new PostHog(config.apiKey, {
 			host: config.host ?? 'https://us.i.posthog.com',
-		}) as unknown as PostHogClient;
+		});
 	} catch {
 		throw new Error(createAgentI18n().t('error.telemetry.posthogNodeRequired'));
 	}

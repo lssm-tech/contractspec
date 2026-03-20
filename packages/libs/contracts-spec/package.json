@@ -36,8 +36,12 @@
   },
   "dependencies": {
     "@blocknote/core": "^0.47.1",
+    "@aws-sdk/client-secrets-manager": "^3.1013.0",
+    "@aws-sdk/client-sqs": "^3.1013.0",
     "@contractspec/lib.schema": "workspace:*",
+    "@google-cloud/secret-manager": "^6.1.1",
     "compare-versions": "^6.1.1",
+    "google-gax": "^5.0.6",
     "turndown": "^7.2.2",
     "zod": "catalog:"
   },

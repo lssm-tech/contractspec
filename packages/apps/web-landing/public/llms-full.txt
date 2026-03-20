@@ -2,8 +2,8 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-03-20T02:31:56.598Z
-Packages: 157
+Generated: 2026-03-20T05:35:28.907Z
+Packages: 160
 
 ---
 
@@ -3253,6 +3253,27 @@ export const CreateSpotInput = new SchemaModel({
 ## JSON Schema export
 
 Prefer `getZod()` + `zod-to-json-schema` for consistency. For advanced cases, expose a custom `getJsonSchema()` from `FieldType` or a specialized wrapper.
+
+
+---
+
+## @contractspec/lib.harness
+
+Description: Harness orchestration, policy, evidence, and evaluation runtime.
+Path: packages/libs/harness
+URL: /llms/lib.harness
+
+# @contractspec/lib.harness
+
+Harness orchestration primitives for ContractSpec.
+
+This package provides the mode-agnostic runtime for:
+
+- harness policy classification
+- evidence normalization
+- assertion evaluation
+- replay bundles
+- scenario and suite execution
 
 
 ---
@@ -12320,57 +12341,32 @@ Use this as a reference for wiring voice synthesis into workflows or service han
 
 ---
 
-## @contractspec/eslint-plugin-design-system
+## @contractspec/biome-config
 
-Description: Design-system ESLint rules (prefer-design-system) for LSSM apps
-Path: packages/tools/eslint-plugin-design-system
-URL: /llms/eslint-plugin-design-system
+Description: Biome presets, Grit plugins, and policy manifest for ContractSpec repositories.
+Path: packages/tools/biome-config
+URL: /llms/biome-config
 
-# @contractspec/eslint-plugin-design-system
+# @contractspec/biome-config
 
-Design-system enforcement rules for LSSM apps. Ships:
+Typed ContractSpec policy manifest plus generated Biome presets, Grit plugins,
+and AI-facing rule summaries.
 
-- `prefer-design-system`: auto-rewrites known `@contractspec/lib.ui-kit-web` form/control imports to `@contractspec/lib.design-system` and flags intrinsic layout/form elements
-- `no-intrinsic-typography`: flag raw headings/paragraph/spans; use DS typography primitives
-- `design-import-boundary`: block forbidden design imports (default: native ui-kit in web)
-- `localAllowPatterns` option (prefer-design-system): allow local/relative imports (shadcn-style) to bypass DS replacement so teams can copy/paste components.
+This package is the single source of truth for ContractSpec code guardrails.
 
-`configs.recommended` enables all of the above.
+It currently ships:
 
-Usage:
+- a typed policy manifest for `repo` and `consumer` audiences
+- generated Biome preset strings
+- generated Grit plugin strings
+- generated AI rule summaries
+- published static preset, plugin, and AI-doc artifacts via package exports
 
-```js
-import dsPlugin from '@contractspec/eslint-plugin-design-system';
+The raw preset and plugin artifacts are committed under `presets/`, `plugins/`,
+and `ai/` so downstream tools can scaffold them without executing code.
 
-export default [
-  dsPlugin.configs.recommended,
-  // or customize
-  // {
-  //   plugins: { 'design-system': dsPlugin },
-  //   rules: {
-  //     'design-system/prefer-design-system': [
-  //       'error',
-  //       {
-  //         intrinsicDisallowList: ['div', 'button'],
-  //         localAllowPatterns: ['^\\./components', '^@/components'],
-  //       },
-  //     ],
-  //     'design-system/no-intrinsic-typography': 'error',
-  //     'design-system/design-import-boundary': 'error',
-  //   },
-  // },
-];
-```
-
-
-
-
-
-
-
-
-
-
+When the manifest changes, run `bun run sync:artifacts` in this package to
+refresh the committed outputs.
 
 
 ---
@@ -13139,6 +13135,28 @@ const runtimeConfig: IntegrationRuntimeConfig = {
 ```
 
 See `docs/tech/integrations/composio-fallback.md` for the full architecture.
+
+
+---
+
+## @contractspec/integration.harness-runtime
+
+Description: Runtime adapters for the ContractSpec harness system.
+Path: packages/integrations/harness-runtime
+URL: /llms/integration.harness-runtime
+
+# @contractspec/integration.harness-runtime
+
+Concrete runtime adapters for the ContractSpec harness system.
+
+Included surfaces:
+
+- target resolution
+- in-memory and filesystem artifact stores
+- deterministic browser adapter
+- visual callback adapter
+- sandboxed code-execution adapter
+- MCP tool/resource exposure helpers
 
 
 ---

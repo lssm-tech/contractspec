@@ -31,6 +31,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.presentation-runtime-core": "workspace:*",
     "@contractspec/lib.ui-kit-core": "workspace:*",
     "@hookform/resolvers": "5.2.2",

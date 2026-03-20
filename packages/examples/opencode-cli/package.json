@@ -19,6 +19,7 @@
 		"typescript": "^5.0.0"
 	},
 	"dependencies": {
-		"@contractspec/lib.contracts-spec": "workspace:*"
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.schema": "workspace:*"
 	}
 }

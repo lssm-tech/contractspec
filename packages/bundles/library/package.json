@@ -322,6 +322,7 @@
   },
   "dependencies": {
     "@apollo/client": "^4.1.6",
+    "@modelcontextprotocol/sdk": "catalog:ai",
     "@contractspec/lib.ai-providers": "workspace:*",
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.contracts-library": "workspace:*",
@@ -346,6 +347,7 @@
     "@scaleway/sdk": "^3.4.1",
     "@scaleway/sdk-client": "^2.2.1",
     "drizzle-orm": "^0.45.1",
+    "elysia": "^1.4.28",
     "framer-motion": "^12.38.0",
     "lucide-react": "^0.577.0",
     "posthog-js": "^1.362.0",

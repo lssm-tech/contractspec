@@ -34,7 +34,8 @@
   "peerDependencies": {},
   "dependencies": {
     "@contractspec/lib.contracts-spec": "workspace:*",
-    "@contractspec/lib.contracts-integrations": "workspace:*"
+    "@contractspec/lib.contracts-integrations": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",

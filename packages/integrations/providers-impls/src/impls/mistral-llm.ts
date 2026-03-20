@@ -277,7 +277,9 @@ export class MistralLLMProvider implements LLMProvider {
 		};
 	}
 
-	private toMistralMessage(message: LLMMessage): components.Messages {
+	private toMistralMessage(
+		message: LLMMessage
+	): components.ChatCompletionRequestMessage {
 		const textContent = this.extractText(message.content);
 		const toolCalls = this.extractToolCalls(message);
 

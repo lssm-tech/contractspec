@@ -32,6 +32,7 @@
 	},
 	"dependencies": {
 		"@ai-sdk/anthropic": "catalog:ai",
+		"@ai-sdk/mistral": "catalog:ai",
 		"@ai-sdk/openai": "catalog:ai",
 		"@contractspec/bundle.workspace": "workspace:*",
 		"@contractspec/lib.ai-agent": "workspace:*",
