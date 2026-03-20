@@ -1,5 +1,18 @@
 # @contractspec/app.provider-ranking-mcp
 
+## 1.6.10
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.10
+  - @contractspec/module.provider-ranking@0.7.10
+  - @contractspec/lib.provider-ranking@0.7.8
+  - @contractspec/lib.contracts-spec@4.1.2
+  - @contractspec/lib.ai-providers@3.7.8
+  - @contractspec/lib.logger@3.7.8
+
 ## 1.6.9
 
 ### Patch Changes

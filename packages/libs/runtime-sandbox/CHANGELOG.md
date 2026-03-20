@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 2.7.9
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+
 ## 2.7.8
 
 ### Patch Changes

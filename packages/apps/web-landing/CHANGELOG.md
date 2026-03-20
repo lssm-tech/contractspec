@@ -1,5 +1,38 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.8.2
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.10
+  - @contractspec/example.visualization-showcase@3.9.2
+  - @contractspec/example.analytics-dashboard@3.9.2
+  - @contractspec/example.data-grid-showcase@3.8.2
+  - @contractspec/example.ai-chat-assistant@3.8.2
+  - @contractspec/example.saas-boilerplate@3.8.2
+  - @contractspec/lib.progressive-delivery@34.0.10
+  - @contractspec/example.integration-hub@3.8.2
+  - @contractspec/example.workflow-system@3.8.2
+  - @contractspec/example.agent-console@3.8.2
+  - @contractspec/lib.example-shared-ui@6.0.10
+  - @contractspec/example.crm-pipeline@3.7.10
+  - @contractspec/example.in-app-docs@3.7.10
+  - @contractspec/example.marketplace@3.8.2
+  - @contractspec/lib.surface-runtime@0.5.10
+  - @contractspec/lib.contracts-spec@4.1.2
+  - @contractspec/lib.design-system@3.8.3
+  - @contractspec/bundle.marketing@3.8.2
+  - @contractspec/lib.ai-providers@3.7.8
+  - @contractspec/lib.ui-kit-core@3.7.8
+  - @contractspec/module.examples@3.8.2
+  - @contractspec/bundle.library@3.8.2
+  - @contractspec/lib.ui-kit-web@3.9.2
+  - @contractspec/module.ai-chat@4.3.10
+  - @contractspec/lib.ui-link@3.7.8
+  - @contractspec/lib.ui-kit@3.8.3
+
 ## 3.8.1
 
 ### Patch Changes

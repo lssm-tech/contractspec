@@ -1,5 +1,13 @@
 # @contractspec/app.cli-database
 
+## 3.7.9
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/lib.schema@3.7.8
+
 ## 3.7.8
 
 ### Patch Changes

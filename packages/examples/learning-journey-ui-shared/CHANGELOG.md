@@ -1,5 +1,16 @@
 # @contractspec/example.learning-journey-ui-shared
 
+## 3.7.10
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/module.learning-journey@3.7.10
+  - @contractspec/lib.contracts-spec@4.1.2
+  - @contractspec/lib.design-system@3.8.3
+  - @contractspec/lib.ui-kit-web@3.9.2
+
 ## 3.7.9
 
 ### Patch Changes

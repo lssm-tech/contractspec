@@ -1,5 +1,16 @@
 # @contractspec/lib.voice
 
+## 1.7.10
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/lib.contracts-integrations@3.8.2
+  - @contractspec/lib.contracts-spec@4.1.2
+  - @contractspec/lib.ai-providers@3.7.8
+  - @contractspec/lib.content-gen@3.7.10
+
 ## 1.7.9
 
 ### Patch Changes

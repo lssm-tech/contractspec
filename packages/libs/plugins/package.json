@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.plugins",
-	"version": "3.7.9",
+	"version": "3.7.10",
 	"description": "Plugin API and registry for ContractSpec extensions",
 	"keywords": [
 		"contractspec",

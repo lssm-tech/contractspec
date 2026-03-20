@@ -1,5 +1,16 @@
 # @contractspec/lib.example-shared-ui
 
+## 6.0.10
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/lib.surface-runtime@0.5.10
+  - @contractspec/lib.contracts-spec@4.1.2
+  - @contractspec/lib.design-system@3.8.3
+  - @contractspec/lib.ui-kit-web@3.9.2
+
 ## 6.0.9
 
 ### Patch Changes

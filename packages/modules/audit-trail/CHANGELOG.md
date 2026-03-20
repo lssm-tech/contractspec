@@ -1,5 +1,15 @@
 # @contractspec/module.audit-trail
 
+## 3.7.10
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/lib.contracts-spec@4.1.2
+  - @contractspec/lib.schema@3.7.8
+  - @contractspec/lib.bus@3.7.10
+
 ## 3.7.9
 
 ### Patch Changes

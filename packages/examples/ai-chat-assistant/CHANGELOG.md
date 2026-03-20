@@ -1,5 +1,16 @@
 # @contractspec/example.ai-chat-assistant
 
+## 3.8.2
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/lib.contracts-spec@4.1.2
+  - @contractspec/module.ai-chat@4.3.10
+  - @contractspec/lib.ai-agent@7.0.10
+  - @contractspec/lib.schema@3.7.8
+
 ## 3.8.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @contractspec/lib.context-storage
 
+## 0.7.8
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+
 ## 0.7.7
 
 ### Patch Changes

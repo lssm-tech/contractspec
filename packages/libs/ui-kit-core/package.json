@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.ui-kit-core",
-	"version": "3.7.7",
+	"version": "3.7.8",
 	"description": "Core UI primitives and utilities",
 	"keywords": [
 		"contractspec",

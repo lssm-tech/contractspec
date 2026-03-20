@@ -1,5 +1,13 @@
 # @contractspec/lib.progressive-delivery
 
+## 34.0.10
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/lib.observability@3.7.10
+
 ## 34.0.9
 
 ### Patch Changes

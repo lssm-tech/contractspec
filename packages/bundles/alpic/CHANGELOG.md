@@ -1,5 +1,13 @@
 # @contractspec/bundle.alpic
 
+## 3.7.10
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/module.alpic@3.7.10
+
 ## 3.7.9
 
 ### Patch Changes

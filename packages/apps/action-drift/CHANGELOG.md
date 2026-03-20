@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.7.10
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/lib.contracts-spec@4.1.2
+  - @contractspec/bundle.workspace@4.0.3
+
 ## 2.7.9
 
 ### Patch Changes

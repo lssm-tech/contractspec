@@ -1,5 +1,22 @@
 # @contractspec/module.ai-chat
 
+## 4.3.10
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/lib.workflow-composer@3.7.10
+  - @contractspec/lib.surface-runtime@0.5.10
+  - @contractspec/lib.contracts-spec@4.1.2
+  - @contractspec/lib.cost-tracking@3.7.8
+  - @contractspec/lib.design-system@3.8.3
+  - @contractspec/lib.ai-providers@3.7.8
+  - @contractspec/lib.ui-kit-web@3.9.2
+  - @contractspec/lib.ai-agent@7.0.10
+  - @contractspec/lib.metering@3.7.10
+  - @contractspec/lib.schema@3.7.8
+
 ## 4.3.9
 
 ### Patch Changes

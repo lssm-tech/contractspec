@@ -1,5 +1,13 @@
 # @contractspec/lib.harness
 
+## 0.2.3
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/lib.contracts-spec@4.1.2
+
 ## 0.2.2
 
 ### Patch Changes

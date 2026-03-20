@@ -1,5 +1,15 @@
 # @contractspec/integration.providers-impls
 
+## 3.8.2
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/lib.contracts-integrations@3.8.2
+  - @contractspec/integration.runtime@3.8.2
+  - @contractspec/lib.contracts-spec@4.1.2
+
 ## 3.8.1
 
 ### Patch Changes

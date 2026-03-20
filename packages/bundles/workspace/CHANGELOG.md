@@ -1,5 +1,21 @@
 # @contractspec/bundle.workspace
 
+## 4.0.3
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/lib.contracts-integrations@3.8.2
+  - @contractspec/lib.contracts-transformers@3.7.10
+  - @contractspec/lib.source-extractors@2.7.10
+  - @contractspec/lib.utils-typescript@3.7.8
+  - @contractspec/lib.contracts-spec@4.1.2
+  - @contractspec/biome-config@3.8.2
+  - @contractspec/lib.ai-providers@3.7.8
+  - @contractspec/module.workspace@4.0.3
+  - @contractspec/lib.ai-agent@7.0.10
+
 ## 4.0.2
 
 ### Patch Changes

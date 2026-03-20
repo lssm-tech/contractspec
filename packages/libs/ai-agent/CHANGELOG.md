@@ -1,5 +1,16 @@
 # @contractspec/lib.ai-agent
 
+## 7.0.10
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/lib.surface-runtime@0.5.10
+  - @contractspec/lib.contracts-spec@4.1.2
+  - @contractspec/lib.ai-providers@3.7.8
+  - @contractspec/lib.knowledge@3.7.10
+
 ## 7.0.9
 
 ### Patch Changes

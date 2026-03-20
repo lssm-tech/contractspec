@@ -1,5 +1,15 @@
 # @contractspec/module.provider-ranking
 
+## 0.7.10
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/lib.contracts-integrations@3.8.2
+  - @contractspec/lib.provider-ranking@0.7.8
+  - @contractspec/lib.schema@3.7.8
+
 ## 0.7.9
 
 ### Patch Changes

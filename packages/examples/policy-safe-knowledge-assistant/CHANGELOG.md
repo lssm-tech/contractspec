@@ -1,5 +1,22 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.7.10
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/example.locale-jurisdiction-gate@3.7.10
+  - @contractspec/example.versioned-knowledge-base@3.7.10
+  - @contractspec/example.kb-update-pipeline@3.7.10
+  - @contractspec/example.learning-patterns@3.7.10
+  - @contractspec/module.learning-journey@3.7.10
+  - @contractspec/lib.example-shared-ui@6.0.10
+  - @contractspec/lib.runtime-sandbox@2.7.9
+  - @contractspec/lib.contracts-spec@4.1.2
+  - @contractspec/lib.design-system@3.8.3
+  - @contractspec/lib.ui-kit-web@3.9.2
+
 ## 3.7.9
 
 ### Patch Changes

@@ -1,5 +1,32 @@
 # @contractspec/bundle.library
 
+## 3.8.2
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.10
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.10
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.10
+  - @contractspec/lib.contracts-integrations@3.8.2
+  - @contractspec/module.context-storage@0.7.10
+  - @contractspec/lib.contracts-library@3.7.10
+  - @contractspec/lib.example-shared-ui@6.0.10
+  - @contractspec/lib.provider-ranking@0.7.8
+  - @contractspec/lib.runtime-sandbox@2.7.9
+  - @contractspec/lib.surface-runtime@0.5.10
+  - @contractspec/lib.contracts-spec@4.1.2
+  - @contractspec/lib.design-system@3.8.3
+  - @contractspec/lib.ai-providers@3.7.8
+  - @contractspec/lib.content-gen@3.7.10
+  - @contractspec/module.examples@3.8.2
+  - @contractspec/lib.ui-kit-web@3.9.2
+  - @contractspec/lib.knowledge@3.7.10
+  - @contractspec/lib.ui-link@3.7.8
+  - @contractspec/lib.logger@3.7.8
+  - @contractspec/lib.schema@3.7.8
+
 ## 3.8.1
 
 ### Patch Changes

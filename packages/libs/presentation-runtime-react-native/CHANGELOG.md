@@ -1,5 +1,15 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 35.0.3
+
+### Patch Changes
+
+- 1a44cb6: feat: improve examples to increase coverage of Contracts type
+- Updated dependencies [1a44cb6]
+  - @contractspec/lib.presentation-runtime-react@35.0.3
+  - @contractspec/lib.presentation-runtime-core@3.8.3
+  - @contractspec/lib.ui-kit@3.8.3
+
 ## 35.0.2
 
 ### Patch Changes

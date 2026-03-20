@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/module.product-intent-core",
-	"version": "3.7.9",
+	"version": "3.7.10",
 	"description": "Core product intent orchestration and adapters",
 	"keywords": [
 		"contractspec",
