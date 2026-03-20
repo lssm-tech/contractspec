@@ -1,37 +1,37 @@
+import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
-import { CodeBlock } from '@contractspec/lib.design-system';
 
 export function HelloWorldPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-2">
-        <h1 className="text-4xl font-bold">Your First Operation</h1>
-        <p className="text-muted-foreground text-lg">
-          Build a payment capture operation with policy enforcement in under 10
-          minutes.
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-2">
+				<h1 className="font-bold text-4xl">Your First Operation</h1>
+				<p className="text-lg text-muted-foreground">
+					Build a payment capture operation with policy enforcement in under 10
+					minutes.
+				</p>
+			</div>
 
-      <div className="space-y-6">
-        <div className="space-y-3">
-          <h2 className="text-2xl font-bold">What you'll build</h2>
-          <p className="text-muted-foreground">
-            A real-world payment processing operation that validates input,
-            enforces business rules, integrates with Stripe, and audits every
-            transaction. This is production-ready code, not a toy example.
-          </p>
-        </div>
+			<div className="space-y-6">
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">What you'll build</h2>
+					<p className="text-muted-foreground">
+						A real-world payment processing operation that validates input,
+						enforces business rules, integrates with Stripe, and audits every
+						transaction. This is production-ready code, not a toy example.
+					</p>
+				</div>
 
-        <div className="space-y-3">
-          <h2 className="text-2xl font-bold">1. Define the operation spec</h2>
-          <p className="text-muted-foreground">
-            Create <code>lib/specs/billing/capture-payment.ts</code>:
-          </p>
-          <CodeBlock
-            language="typescript"
-            filename="lib/specs/billing/capture-payment.ts"
-            code={`import { defineCommand } from '@contractspec/lib.contracts-spec';
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">1. Define the operation spec</h2>
+					<p className="text-muted-foreground">
+						Create <code>lib/specs/billing/capture-payment.ts</code>:
+					</p>
+					<CodeBlock
+						language="typescript"
+						filename="lib/specs/billing/capture-payment.ts"
+						code={`import { defineCommand } from '@contractspec/lib.contracts-spec';
 import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 const CapturePaymentInput = new SchemaModel({
@@ -75,18 +75,18 @@ export const CapturePayment = defineCommand({
     ],
   },
 });`}
-          />
-        </div>
+					/>
+				</div>
 
-        <div className="space-y-3">
-          <h2 className="text-2xl font-bold">2. Implement the handler</h2>
-          <p className="text-muted-foreground">
-            Create <code>lib/handlers/billing/capture-payment.ts</code>:
-          </p>
-          <CodeBlock
-            language="typescript"
-            filename="lib/handlers/billing/capture-payment.ts"
-            code={`import { CapturePayment } from '@/lib/specs/billing/capture-payment';
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">2. Implement the handler</h2>
+					<p className="text-muted-foreground">
+						Create <code>lib/handlers/billing/capture-payment.ts</code>:
+					</p>
+					<CodeBlock
+						language="typescript"
+						filename="lib/handlers/billing/capture-payment.ts"
+						code={`import { CapturePayment } from '@/lib/specs/billing/capture-payment';
 import { stripe } from '@/lib/integrations/stripe';
 import { db } from '@/lib/db';
 
@@ -124,29 +124,29 @@ export async function handleCapturePayment(input, ctx) {
     receiptUrl: paymentIntent.charges.data[0]?.receipt_url,
   };
 }`}
-          />
-        </div>
+					/>
+				</div>
 
-        <div className="space-y-3">
-          <h2 className="text-2xl font-bold">3. Register and serve</h2>
-          <p className="text-muted-foreground">
-            Wire it up in <code>lib/registry.ts</code> and{' '}
-            <code>app/api/ops/[...route]/route.ts</code>:
-          </p>
-          <CodeBlock
-            language="typescript"
-            filename="lib/registry.ts"
-            code={`import { OperationSpecRegistry, installOp } from '@contractspec/lib.contracts-spec';
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">3. Register and serve</h2>
+					<p className="text-muted-foreground">
+						Wire it up in <code>lib/registry.ts</code> and{' '}
+						<code>app/api/ops/[...route]/route.ts</code>:
+					</p>
+					<CodeBlock
+						language="typescript"
+						filename="lib/registry.ts"
+						code={`import { OperationSpecRegistry, installOp } from '@contractspec/lib.contracts-spec';
 import { CapturePayment } from './specs/billing/capture-payment';
 import { handleCapturePayment } from './handlers/billing/capture-payment';
 
 export const registry = new OperationSpecRegistry();
 installOp(registry, CapturePayment, handleCapturePayment);`}
-          />
-          <CodeBlock
-            language="typescript"
-            filename="app/api/ops/[...route]/route.ts"
-            code={`import { makeNextAppHandler } from '@contractspec/lib.contracts-runtime-server-rest/rest-next-app';
+					/>
+					<CodeBlock
+						language="typescript"
+						filename="app/api/ops/[...route]/route.ts"
+						code={`import { makeNextAppHandler } from '@contractspec/lib.contracts-runtime-server-rest/rest-next-app';
 import { registry } from '@/lib/registry';
 import { auth } from '@/lib/auth';
 
@@ -156,32 +156,32 @@ const handler = makeNextAppHandler(registry, async (req) => {
 });
 
 export { handler as GET, handler as POST };`}
-          />
-        </div>
+					/>
+				</div>
 
-        <div className="card-subtle space-y-4 p-6">
-          <h3 className="font-bold">What you just built:</h3>
-          <ul className="text-muted-foreground space-y-2 text-sm">
-            <li>
-              Type-safe API endpoint at{' '}
-              <code>/api/ops/billing.capturePayment</code>
-            </li>
-            <li>
-              Automatic input validation (amount must be positive, IDs required)
-            </li>
-            <li>Policy enforcement—only invoice owner can pay</li>
-            <li>Stripe integration with error handling</li>
-            <li>Database transaction with audit trail</li>
-            <li>Same spec works with GraphQL, MCP, or webhooks</li>
-          </ul>
-        </div>
+				<div className="card-subtle space-y-4 p-6">
+					<h3 className="font-bold">What you just built:</h3>
+					<ul className="space-y-2 text-muted-foreground text-sm">
+						<li>
+							Type-safe API endpoint at{' '}
+							<code>/api/ops/billing.capturePayment</code>
+						</li>
+						<li>
+							Automatic input validation (amount must be positive, IDs required)
+						</li>
+						<li>Policy enforcement—only invoice owner can pay</li>
+						<li>Stripe integration with error handling</li>
+						<li>Database transaction with audit trail</li>
+						<li>Same spec works with GraphQL, MCP, or webhooks</li>
+					</ul>
+				</div>
 
-        <div className="flex items-center gap-4 pt-4">
-          <Link href="/docs/getting-started/dataviews" className="btn-primary">
-            Next: Display Data with DataViews <ChevronRight size={16} />
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
+				<div className="flex items-center gap-4 pt-4">
+					<Link href="/docs/getting-started/dataviews" className="btn-primary">
+						Next: Display Data with DataViews <ChevronRight size={16} />
+					</Link>
+				</div>
+			</div>
+		</div>
+	);
 }

@@ -1,52 +1,52 @@
-import {
-  Experimental_Agent as ToolLoopAgent,
-  type LanguageModel,
-  stepCountIs,
-  type StepResult,
-  type Tool,
-  type ToolSet,
-} from 'ai';
 import { randomUUID } from 'node:crypto';
-import * as z from 'zod';
-import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
-import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
-import type { AgentSpec } from '../spec/spec';
-import { agentKey } from '../spec/spec';
 import type { ModelSelector } from '@contractspec/lib.ai-providers/selector-types';
-import type {
-  AgentCallOptions,
-  AgentExecutionError,
-  AgentGenerateParams,
-  AgentGenerateResult,
-  AgentStreamParams,
-  ToolHandler,
-} from '../types';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
+import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
 import {
-  specToolsToAISDKTools,
-  type SubagentRegistry,
-} from '../tools/tool-adapter';
-import { createKnowledgeQueryTool } from '../tools/knowledge-tool';
-import { createAnthropicMemoryTool } from '../tools/memory-tools';
-import type { AgentMemoryStore } from '../tools/agent-memory-store';
-import { createMcpToolsets, type McpClientConfig } from '../tools/mcp-client';
+	type LanguageModel,
+	type StepResult,
+	stepCountIs,
+	type Tool,
+	Experimental_Agent as ToolLoopAgent,
+	type ToolSet,
+} from 'ai';
+import * as z from 'zod';
 import { injectStaticKnowledge } from '../knowledge/injector';
 import { type AgentSessionStore, generateSessionId } from '../session/store';
+import type { AgentSpec } from '../spec/spec';
+import { agentKey } from '../spec/spec';
 import { type TelemetryCollector, trackAgentStep } from '../telemetry/adapter';
 import type {
-  PostHogLLMConfig,
-  PostHogTracingOptions,
+	PostHogLLMConfig,
+	PostHogTracingOptions,
 } from '../telemetry/posthog-types';
+import type { AgentMemoryStore } from '../tools/agent-memory-store';
+import { createKnowledgeQueryTool } from '../tools/knowledge-tool';
+import { createMcpToolsets, type McpClientConfig } from '../tools/mcp-client';
+import { createAnthropicMemoryTool } from '../tools/memory-tools';
+import {
+	type SubagentRegistry,
+	specToolsToAISDKTools,
+} from '../tools/tool-adapter';
+import type {
+	AgentCallOptions,
+	AgentExecutionError,
+	AgentGenerateParams,
+	AgentGenerateResult,
+	AgentStreamParams,
+	ToolHandler,
+} from '../types';
 
 /**
  * Call options schema for AI SDK v6.
  * Maps ContractSpec's tenant/actor system to AI SDK callOptionsSchema.
  */
 const ContractSpecCallOptionsSchema = z.object({
-  tenantId: z.string().optional(),
-  actorId: z.string().optional(),
-  sessionId: z.string().optional(),
-  // Zod v4: z.record() requires both key and value schemas
-  metadata: z.record(z.string(), z.unknown()).optional(),
+	tenantId: z.string().optional(),
+	actorId: z.string().optional(),
+	sessionId: z.string().optional(),
+	// Zod v4: z.record() requires both key and value schemas
+	metadata: z.record(z.string(), z.unknown()).optional(),
 });
 
 /**
@@ -58,35 +58,35 @@ type ExecutableTool = Tool;
  * Configuration for creating a ContractSpecAgent.
  */
 export interface ContractSpecAgentConfig {
-  /** The agent specification */
-  spec: AgentSpec;
-  /** AI SDK language model */
-  model: LanguageModel;
-  /** Map of tool name to handler function */
-  toolHandlers: Map<string, ToolHandler>;
-  /** Optional OperationSpecRegistry for operation-backed tools (operationRef) */
-  operationRegistry?: OperationSpecRegistry;
-  /** Optional knowledge retriever for RAG */
-  knowledgeRetriever?: KnowledgeRetriever;
-  /** Optional session store for persistence */
-  sessionStore?: AgentSessionStore;
-  /** Optional telemetry collector for evolution */
-  telemetryCollector?: TelemetryCollector;
-  /** PostHog LLM Analytics config for automatic $ai_generation event capture */
-  posthogConfig?: PostHogLLMConfig & {
-    /** Per-call tracing overrides (e.g., distinctId from the current user) */
-    tracingOptions?: PostHogTracingOptions;
-  };
-  /** Additional AI SDK tools (e.g., from MCP servers) */
-  additionalTools?: Record<string, ExecutableTool>;
-  /** Registry for subagent-backed tools (subagentRef) */
-  subagentRegistry?: SubagentRegistry;
-  /** Storage for memory tools (when memoryTools.provider is anthropic) */
-  agentMemoryStore?: AgentMemoryStore;
-  /** MCP servers to connect and expose as tools */
-  mcpServers?: McpClientConfig[];
-  /** Ranking-driven model selector for dynamic per-call routing */
-  modelSelector?: ModelSelector;
+	/** The agent specification */
+	spec: AgentSpec;
+	/** AI SDK language model */
+	model: LanguageModel;
+	/** Map of tool name to handler function */
+	toolHandlers: Map<string, ToolHandler>;
+	/** Optional OperationSpecRegistry for operation-backed tools (operationRef) */
+	operationRegistry?: OperationSpecRegistry;
+	/** Optional knowledge retriever for RAG */
+	knowledgeRetriever?: KnowledgeRetriever;
+	/** Optional session store for persistence */
+	sessionStore?: AgentSessionStore;
+	/** Optional telemetry collector for evolution */
+	telemetryCollector?: TelemetryCollector;
+	/** PostHog LLM Analytics config for automatic $ai_generation event capture */
+	posthogConfig?: PostHogLLMConfig & {
+		/** Per-call tracing overrides (e.g., distinctId from the current user) */
+		tracingOptions?: PostHogTracingOptions;
+	};
+	/** Additional AI SDK tools (e.g., from MCP servers) */
+	additionalTools?: Record<string, ExecutableTool>;
+	/** Registry for subagent-backed tools (subagentRef) */
+	subagentRegistry?: SubagentRegistry;
+	/** Storage for memory tools (when memoryTools.provider is anthropic) */
+	agentMemoryStore?: AgentMemoryStore;
+	/** MCP servers to connect and expose as tools */
+	mcpServers?: McpClientConfig[];
+	/** Ranking-driven model selector for dynamic per-call routing */
+	modelSelector?: ModelSelector;
 }
 
 /**
@@ -101,530 +101,530 @@ export interface ContractSpecAgentConfig {
  * - MCP interoperability
  */
 export class ContractSpecAgent {
-  readonly version = 'agent-v1';
-  readonly id: string;
-  readonly spec: AgentSpec;
-  readonly tools: Record<string, ExecutableTool>;
+	readonly version = 'agent-v1';
+	readonly id: string;
+	readonly spec: AgentSpec;
+	readonly tools: Record<string, ExecutableTool>;
 
-  private readonly config: ContractSpecAgentConfig;
-  private instructions: string;
-  private mcpCleanup?: () => Promise<void>;
-  private readonly activeStepContexts = new Map<
-    string,
-    {
-      traceId: string;
-      tenantId?: string;
-      actorId?: string;
-      stepIndex: number;
-      stepStartedAt: Date;
-    }
-  >();
+	private readonly config: ContractSpecAgentConfig;
+	private instructions: string;
+	private mcpCleanup?: () => Promise<void>;
+	private readonly activeStepContexts = new Map<
+		string,
+		{
+			traceId: string;
+			tenantId?: string;
+			actorId?: string;
+			stepIndex: number;
+			stepStartedAt: Date;
+		}
+	>();
 
-  private constructor(
-    config: ContractSpecAgentConfig,
-    instructions: string,
-    tools: Record<string, ExecutableTool>,
-    mcpCleanup?: () => Promise<void>
-  ) {
-    this.config = config;
-    this.spec = config.spec;
-    this.id = agentKey(config.spec.meta);
-    this.tools = tools;
-    this.instructions = instructions;
-    this.mcpCleanup = mcpCleanup;
-  }
+	private constructor(
+		config: ContractSpecAgentConfig,
+		instructions: string,
+		tools: Record<string, ExecutableTool>,
+		mcpCleanup?: () => Promise<void>
+	) {
+		this.config = config;
+		this.spec = config.spec;
+		this.id = agentKey(config.spec.meta);
+		this.tools = tools;
+		this.instructions = instructions;
+		this.mcpCleanup = mcpCleanup;
+	}
 
-  /**
-   * Create a ContractSpecAgent instance.
-   * This is async because knowledge injection may need to fetch static content.
-   */
-  static async create(
-    config: ContractSpecAgentConfig
-  ): Promise<ContractSpecAgent> {
-    const effectiveConfig = config;
-    let mcpToolset: Awaited<ReturnType<typeof createMcpToolsets>> | null = null;
+	/**
+	 * Create a ContractSpecAgent instance.
+	 * This is async because knowledge injection may need to fetch static content.
+	 */
+	static async create(
+		config: ContractSpecAgentConfig
+	): Promise<ContractSpecAgent> {
+		const effectiveConfig = config;
+		let mcpToolset: Awaited<ReturnType<typeof createMcpToolsets>> | null = null;
 
-    if ((effectiveConfig.mcpServers?.length ?? 0) > 0) {
-      mcpToolset = await createMcpToolsets(effectiveConfig.mcpServers ?? [], {
-        onNameCollision: 'error',
-      });
-    }
+		if ((effectiveConfig.mcpServers?.length ?? 0) > 0) {
+			mcpToolset = await createMcpToolsets(effectiveConfig.mcpServers ?? [], {
+				onNameCollision: 'error',
+			});
+		}
 
-    try {
-      // 1. Inject static knowledge into instructions
-      const instructions = await injectStaticKnowledge(
-        effectiveConfig.spec.instructions,
-        effectiveConfig.spec.knowledge ?? [],
-        effectiveConfig.knowledgeRetriever
-      );
+		try {
+			// 1. Inject static knowledge into instructions
+			const instructions = await injectStaticKnowledge(
+				effectiveConfig.spec.instructions,
+				effectiveConfig.spec.knowledge ?? [],
+				effectiveConfig.knowledgeRetriever
+			);
 
-      // 2. Build tools from spec
-      const specTools = specToolsToAISDKTools(
-        effectiveConfig.spec.tools,
-        effectiveConfig.toolHandlers,
-        { agentId: agentKey(effectiveConfig.spec.meta) },
-        {
-          operationRegistry: effectiveConfig.operationRegistry,
-          subagentRegistry: effectiveConfig.subagentRegistry,
-        }
-      );
+			// 2. Build tools from spec
+			const specTools = specToolsToAISDKTools(
+				effectiveConfig.spec.tools,
+				effectiveConfig.toolHandlers,
+				{ agentId: agentKey(effectiveConfig.spec.meta) },
+				{
+					operationRegistry: effectiveConfig.operationRegistry,
+					subagentRegistry: effectiveConfig.subagentRegistry,
+				}
+			);
 
-      // 3. Add dynamic knowledge query tool
-      const knowledgeTool = effectiveConfig.knowledgeRetriever
-        ? createKnowledgeQueryTool(
-            effectiveConfig.knowledgeRetriever,
-            effectiveConfig.spec.knowledge ?? []
-          )
-        : null;
+			// 3. Add dynamic knowledge query tool
+			const knowledgeTool = effectiveConfig.knowledgeRetriever
+				? createKnowledgeQueryTool(
+						effectiveConfig.knowledgeRetriever,
+						effectiveConfig.spec.knowledge ?? []
+					)
+				: null;
 
-      // 3b. Add memory tool when memoryTools.provider is anthropic
-      const memoryTool =
-        effectiveConfig.spec.memoryTools?.provider === 'anthropic' &&
-        effectiveConfig.agentMemoryStore
-          ? createAnthropicMemoryTool(effectiveConfig.agentMemoryStore)
-          : null;
+			// 3b. Add memory tool when memoryTools.provider is anthropic
+			const memoryTool =
+				effectiveConfig.spec.memoryTools?.provider === 'anthropic' &&
+				effectiveConfig.agentMemoryStore
+					? createAnthropicMemoryTool(effectiveConfig.agentMemoryStore)
+					: null;
 
-      // 4. Ensure MCP tools do not silently override spec or built-in tools
-      const reservedToolNames = new Set(Object.keys(specTools));
-      if (knowledgeTool) {
-        reservedToolNames.add('query_knowledge');
-      }
-      if (memoryTool) {
-        reservedToolNames.add('memory');
-      }
+			// 4. Ensure MCP tools do not silently override spec or built-in tools
+			const reservedToolNames = new Set(Object.keys(specTools));
+			if (knowledgeTool) {
+				reservedToolNames.add('query_knowledge');
+			}
+			if (memoryTool) {
+				reservedToolNames.add('memory');
+			}
 
-      const conflictingMcpTools = Object.keys(mcpToolset?.tools ?? {}).filter(
-        (toolName) => reservedToolNames.has(toolName)
-      );
+			const conflictingMcpTools = Object.keys(mcpToolset?.tools ?? {}).filter(
+				(toolName) => reservedToolNames.has(toolName)
+			);
 
-      if (conflictingMcpTools.length > 0) {
-        throw new Error(
-          `MCP tools conflict with agent tools: ${conflictingMcpTools.join(', ')}. Configure MCP toolPrefix values to avoid collisions.`
-        );
-      }
+			if (conflictingMcpTools.length > 0) {
+				throw new Error(
+					`MCP tools conflict with agent tools: ${conflictingMcpTools.join(', ')}. Configure MCP toolPrefix values to avoid collisions.`
+				);
+			}
 
-      // 5. Combine all tools
-      const tools: Record<string, ExecutableTool> = {
-        ...specTools,
-        ...(knowledgeTool ? { query_knowledge: knowledgeTool } : {}),
-        ...(memoryTool ? { memory: memoryTool } : {}),
-        ...(mcpToolset?.tools ?? {}),
-        ...(effectiveConfig.additionalTools ?? {}),
-      };
+			// 5. Combine all tools
+			const tools: Record<string, ExecutableTool> = {
+				...specTools,
+				...(knowledgeTool ? { query_knowledge: knowledgeTool } : {}),
+				...(memoryTool ? { memory: memoryTool } : {}),
+				...(mcpToolset?.tools ?? {}),
+				...(effectiveConfig.additionalTools ?? {}),
+			};
 
-      return new ContractSpecAgent(
-        effectiveConfig,
-        instructions,
-        tools,
-        mcpToolset?.cleanup
-      );
-    } catch (error) {
-      if (mcpToolset) {
-        await mcpToolset.cleanup().catch(() => undefined);
-      }
-      throw error;
-    }
-  }
+			return new ContractSpecAgent(
+				effectiveConfig,
+				instructions,
+				tools,
+				mcpToolset?.cleanup
+			);
+		} catch (error) {
+			if (mcpToolset) {
+				await mcpToolset.cleanup().catch(() => undefined);
+			}
+			throw error;
+		}
+	}
 
-  /**
-   * Cleanup resources held by this agent (e.g., MCP connections).
-   */
-  async cleanup(): Promise<void> {
-    if (!this.mcpCleanup) {
-      return;
-    }
+	/**
+	 * Cleanup resources held by this agent (e.g., MCP connections).
+	 */
+	async cleanup(): Promise<void> {
+		if (!this.mcpCleanup) {
+			return;
+		}
 
-    const cleanup = this.mcpCleanup;
-    this.mcpCleanup = undefined;
-    await cleanup();
-  }
+		const cleanup = this.mcpCleanup;
+		this.mcpCleanup = undefined;
+		await cleanup();
+	}
 
-  /**
-   * Generate a response (non-streaming).
-   */
-  async generate(params: AgentGenerateParams): Promise<AgentGenerateResult> {
-    const sessionId = params.options?.sessionId ?? generateSessionId();
-    const traceId =
-      params.options?.metadata?.['traceId'] ??
-      this.config.posthogConfig?.tracingOptions?.posthogTraceId ??
-      randomUUID();
-    this.activeStepContexts.set(sessionId, {
-      traceId,
-      tenantId: params.options?.tenantId,
-      actorId: params.options?.actorId,
-      stepIndex: 0,
-      stepStartedAt: new Date(),
-    });
+	/**
+	 * Generate a response (non-streaming).
+	 */
+	async generate(params: AgentGenerateParams): Promise<AgentGenerateResult> {
+		const sessionId = params.options?.sessionId ?? generateSessionId();
+		const traceId =
+			params.options?.metadata?.['traceId'] ??
+			this.config.posthogConfig?.tracingOptions?.posthogTraceId ??
+			randomUUID();
+		this.activeStepContexts.set(sessionId, {
+			traceId,
+			tenantId: params.options?.tenantId,
+			actorId: params.options?.actorId,
+			stepIndex: 0,
+			stepStartedAt: new Date(),
+		});
 
-    // Ensure session exists (skip when using messages - subagent passConversationHistory path)
-    if (this.config.sessionStore && !params.messages?.length) {
-      const existing = await this.config.sessionStore.get(sessionId);
-      if (!existing) {
-        await this.config.sessionStore.create({
-          sessionId,
-          agentId: this.id,
-          tenantId: params.options?.tenantId,
-          actorId: params.options?.actorId,
-          status: 'running',
-          messages: [],
-          steps: [],
-          metadata: params.options?.metadata,
-        });
-      } else if (existing.status !== 'running') {
-        await this.config.sessionStore.update(sessionId, { status: 'running' });
-      }
+		// Ensure session exists (skip when using messages - subagent passConversationHistory path)
+		if (this.config.sessionStore && !params.messages?.length) {
+			const existing = await this.config.sessionStore.get(sessionId);
+			if (!existing) {
+				await this.config.sessionStore.create({
+					sessionId,
+					agentId: this.id,
+					tenantId: params.options?.tenantId,
+					actorId: params.options?.actorId,
+					status: 'running',
+					messages: [],
+					steps: [],
+					metadata: params.options?.metadata,
+				});
+			} else if (existing.status !== 'running') {
+				await this.config.sessionStore.update(sessionId, { status: 'running' });
+			}
 
-      await this.config.sessionStore.appendMessage(sessionId, {
-        role: 'user',
-        content: params.prompt ?? '',
-      });
-    }
+			await this.config.sessionStore.appendMessage(sessionId, {
+				role: 'user',
+				content: params.prompt ?? '',
+			});
+		}
 
-    const model = await this.resolveModelForCall({
-      sessionId,
-      traceId,
-      options: params.options,
-    });
-    const effectiveMaxSteps = resolveMaxSteps(
-      params.maxSteps,
-      this.spec.maxSteps
-    );
-    const inner = this.createInnerAgent(model, effectiveMaxSteps);
+		const model = await this.resolveModelForCall({
+			sessionId,
+			traceId,
+			options: params.options,
+		});
+		const effectiveMaxSteps = resolveMaxSteps(
+			params.maxSteps,
+			this.spec.maxSteps
+		);
+		const inner = this.createInnerAgent(model, effectiveMaxSteps);
 
-    const generateOptions = {
-      abortSignal: params.signal,
-      options: {
-        tenantId: params.options?.tenantId,
-        actorId: params.options?.actorId,
-        sessionId,
-        metadata: params.options?.metadata,
-      },
-    };
+		const generateOptions = {
+			abortSignal: params.signal,
+			options: {
+				tenantId: params.options?.tenantId,
+				actorId: params.options?.actorId,
+				sessionId,
+				metadata: params.options?.metadata,
+			},
+		};
 
-    // AI SDK v6: maxSteps is controlled via stopWhen in agent settings
-    let result: Awaited<ReturnType<(typeof inner)['generate']>>;
+		// AI SDK v6: maxSteps is controlled via stopWhen in agent settings
+		let result: Awaited<ReturnType<(typeof inner)['generate']>>;
 
-    try {
-      if (params.messages && params.messages.length > 0) {
-        result = await inner.generate({
-          messages: params.messages as import('ai').ModelMessage[],
-          ...generateOptions,
-        });
-      } else {
-        const prompt =
-          params.systemOverride && params.prompt
-            ? `${this.instructions}\n\n${params.systemOverride}\n\n${params.prompt}`
-            : (params.prompt ?? '');
-        result = await inner.generate({
-          prompt,
-          ...generateOptions,
-        });
-      }
-    } catch (error) {
-      if (this.config.sessionStore) {
-        await this.config.sessionStore.update(sessionId, {
-          status: 'failed',
-        });
-      }
-      this.activeStepContexts.delete(sessionId);
-      throw error;
-    }
+		try {
+			if (params.messages && params.messages.length > 0) {
+				result = await inner.generate({
+					messages: params.messages as import('ai').ModelMessage[],
+					...generateOptions,
+				});
+			} else {
+				const prompt =
+					params.systemOverride && params.prompt
+						? `${this.instructions}\n\n${params.systemOverride}\n\n${params.prompt}`
+						: (params.prompt ?? '');
+				result = await inner.generate({
+					prompt,
+					...generateOptions,
+				});
+			}
+		} catch (error) {
+			if (this.config.sessionStore) {
+				await this.config.sessionStore.update(sessionId, {
+					status: 'failed',
+				});
+			}
+			this.activeStepContexts.delete(sessionId);
+			throw error;
+		}
 
-    this.activeStepContexts.delete(sessionId);
+		this.activeStepContexts.delete(sessionId);
 
-    const escalationError = resolveEscalationError(
-      this.spec,
-      result.finishReason
-    );
+		const escalationError = resolveEscalationError(
+			this.spec,
+			result.finishReason
+		);
 
-    // Update session status and persisted messages
-    if (this.config.sessionStore) {
-      await this.config.sessionStore.appendMessage(sessionId, {
-        role: 'assistant',
-        content: result.text,
-      });
+		// Update session status and persisted messages
+		if (this.config.sessionStore) {
+			await this.config.sessionStore.appendMessage(sessionId, {
+				role: 'assistant',
+				content: result.text,
+			});
 
-      await this.config.sessionStore.update(sessionId, {
-        status: escalationError ? 'escalated' : 'completed',
-      });
-    }
+			await this.config.sessionStore.update(sessionId, {
+				status: escalationError ? 'escalated' : 'completed',
+			});
+		}
 
-    const session = this.config.sessionStore
-      ? await this.config.sessionStore.get(sessionId)
-      : null;
+		const session = this.config.sessionStore
+			? await this.config.sessionStore.get(sessionId)
+			: null;
 
-    return {
-      text: result.text,
-      steps: result.steps,
-      // Map AI SDK types to our simplified types
-      toolCalls: result.toolCalls.map((tc) => ({
-        type: 'tool-call' as const,
-        toolCallId: tc.toolCallId,
-        toolName: tc.toolName,
-        args: 'args' in tc ? tc.args : 'input' in tc ? tc.input : undefined,
-      })),
-      toolResults: result.toolResults.map((tr) => ({
-        type: 'tool-result' as const,
-        toolCallId: tr.toolCallId,
-        toolName: tr.toolName,
-        output: tr.output,
-      })),
-      finishReason: result.finishReason,
-      usage: result.usage,
-      session: session ?? undefined,
-      pendingApproval: escalationError
-        ? {
-            toolName:
-              this.spec.policy?.escalation?.approvalWorkflow ??
-              'approval_required',
-            toolCallId: `approval_${sessionId}`,
-            args: {
-              reason: escalationError.message,
-              code: escalationError.code,
-            },
-          }
-        : undefined,
-    };
-  }
+		return {
+			text: result.text,
+			steps: result.steps,
+			// Map AI SDK types to our simplified types
+			toolCalls: result.toolCalls.map((tc) => ({
+				type: 'tool-call' as const,
+				toolCallId: tc.toolCallId,
+				toolName: tc.toolName,
+				args: 'args' in tc ? tc.args : 'input' in tc ? tc.input : undefined,
+			})),
+			toolResults: result.toolResults.map((tr) => ({
+				type: 'tool-result' as const,
+				toolCallId: tr.toolCallId,
+				toolName: tr.toolName,
+				output: tr.output,
+			})),
+			finishReason: result.finishReason,
+			usage: result.usage,
+			session: session ?? undefined,
+			pendingApproval: escalationError
+				? {
+						toolName:
+							this.spec.policy?.escalation?.approvalWorkflow ??
+							'approval_required',
+						toolCallId: `approval_${sessionId}`,
+						args: {
+							reason: escalationError.message,
+							code: escalationError.code,
+						},
+					}
+				: undefined,
+		};
+	}
 
-  /**
-   * Stream a response with real-time updates.
-   */
-  async stream(params: AgentStreamParams) {
-    const sessionId = params.options?.sessionId ?? generateSessionId();
-    const traceId =
-      params.options?.metadata?.['traceId'] ??
-      this.config.posthogConfig?.tracingOptions?.posthogTraceId ??
-      randomUUID();
-    this.activeStepContexts.set(sessionId, {
-      traceId,
-      tenantId: params.options?.tenantId,
-      actorId: params.options?.actorId,
-      stepIndex: 0,
-      stepStartedAt: new Date(),
-    });
+	/**
+	 * Stream a response with real-time updates.
+	 */
+	async stream(params: AgentStreamParams) {
+		const sessionId = params.options?.sessionId ?? generateSessionId();
+		const traceId =
+			params.options?.metadata?.['traceId'] ??
+			this.config.posthogConfig?.tracingOptions?.posthogTraceId ??
+			randomUUID();
+		this.activeStepContexts.set(sessionId, {
+			traceId,
+			tenantId: params.options?.tenantId,
+			actorId: params.options?.actorId,
+			stepIndex: 0,
+			stepStartedAt: new Date(),
+		});
 
-    const prompt =
-      params.systemOverride && params.prompt
-        ? `${this.instructions}\n\n${params.systemOverride}\n\n${params.prompt}`
-        : (params.prompt ?? '');
+		const prompt =
+			params.systemOverride && params.prompt
+				? `${this.instructions}\n\n${params.systemOverride}\n\n${params.prompt}`
+				: (params.prompt ?? '');
 
-    const model = await this.resolveModelForCall({
-      sessionId,
-      traceId,
-      options: params.options,
-    });
-    const effectiveMaxSteps = resolveMaxSteps(
-      params.maxSteps,
-      this.spec.maxSteps
-    );
-    const inner = this.createInnerAgent(model, effectiveMaxSteps);
+		const model = await this.resolveModelForCall({
+			sessionId,
+			traceId,
+			options: params.options,
+		});
+		const effectiveMaxSteps = resolveMaxSteps(
+			params.maxSteps,
+			this.spec.maxSteps
+		);
+		const inner = this.createInnerAgent(model, effectiveMaxSteps);
 
-    if (this.config.sessionStore) {
-      const existing = await this.config.sessionStore.get(sessionId);
-      if (!existing) {
-        await this.config.sessionStore.create({
-          sessionId,
-          agentId: this.id,
-          tenantId: params.options?.tenantId,
-          actorId: params.options?.actorId,
-          status: 'running',
-          messages: [],
-          steps: [],
-          metadata: params.options?.metadata,
-        });
-      }
+		if (this.config.sessionStore) {
+			const existing = await this.config.sessionStore.get(sessionId);
+			if (!existing) {
+				await this.config.sessionStore.create({
+					sessionId,
+					agentId: this.id,
+					tenantId: params.options?.tenantId,
+					actorId: params.options?.actorId,
+					status: 'running',
+					messages: [],
+					steps: [],
+					metadata: params.options?.metadata,
+				});
+			}
 
-      await this.config.sessionStore.appendMessage(sessionId, {
-        role: 'user',
-        content: prompt,
-      });
-      await this.config.sessionStore.update(sessionId, { status: 'running' });
-    }
+			await this.config.sessionStore.appendMessage(sessionId, {
+				role: 'user',
+				content: prompt,
+			});
+			await this.config.sessionStore.update(sessionId, { status: 'running' });
+		}
 
-    // AI SDK v6: maxSteps is controlled via stopWhen in agent settings
-    // onStepFinish callback is already set in agent construction
-    return inner.stream({
-      prompt,
-      abortSignal: params.signal,
-      options: {
-        tenantId: params.options?.tenantId,
-        actorId: params.options?.actorId,
-        sessionId,
-        metadata: params.options?.metadata,
-      },
-    });
-  }
+		// AI SDK v6: maxSteps is controlled via stopWhen in agent settings
+		// onStepFinish callback is already set in agent construction
+		return inner.stream({
+			prompt,
+			abortSignal: params.signal,
+			options: {
+				tenantId: params.options?.tenantId,
+				actorId: params.options?.actorId,
+				sessionId,
+				metadata: params.options?.metadata,
+			},
+		});
+	}
 
-  /**
-   * Handle step completion for persistence and telemetry.
-   */
-  private async handleStepFinish(step: StepResult<ToolSet>): Promise<void> {
-    // 1. Persist to session store
-    const sessionId = (step as { options?: AgentCallOptions }).options
-      ?.sessionId;
-    if (sessionId && this.config.sessionStore) {
-      await this.config.sessionStore.appendStep(sessionId, step);
-      await this.config.sessionStore.update(sessionId, {
-        status: step.finishReason === 'tool-calls' ? 'waiting' : 'running',
-      });
-    }
+	/**
+	 * Handle step completion for persistence and telemetry.
+	 */
+	private async handleStepFinish(step: StepResult<ToolSet>): Promise<void> {
+		// 1. Persist to session store
+		const sessionId = (step as { options?: AgentCallOptions }).options
+			?.sessionId;
+		if (sessionId && this.config.sessionStore) {
+			await this.config.sessionStore.appendStep(sessionId, step);
+			await this.config.sessionStore.update(sessionId, {
+				status: step.finishReason === 'tool-calls' ? 'waiting' : 'running',
+			});
+		}
 
-    // 2. Feed telemetry to evolution engine
-    if (this.config.telemetryCollector) {
-      const now = new Date();
-      const context = sessionId
-        ? this.activeStepContexts.get(sessionId)
-        : undefined;
-      const stepStartedAt = context?.stepStartedAt ?? now;
-      const durationMs = Math.max(now.getTime() - stepStartedAt.getTime(), 0);
+		// 2. Feed telemetry to evolution engine
+		if (this.config.telemetryCollector) {
+			const now = new Date();
+			const context = sessionId
+				? this.activeStepContexts.get(sessionId)
+				: undefined;
+			const stepStartedAt = context?.stepStartedAt ?? now;
+			const durationMs = Math.max(now.getTime() - stepStartedAt.getTime(), 0);
 
-      if (context) {
-        context.stepIndex += 1;
-        context.stepStartedAt = now;
-      }
+			if (context) {
+				context.stepIndex += 1;
+				context.stepStartedAt = now;
+			}
 
-      await trackAgentStep(
-        this.config.telemetryCollector,
-        this.id,
-        step,
-        durationMs,
-        {
-          sessionId,
-          tenantId: context?.tenantId,
-          actorId: context?.actorId,
-          traceId: context?.traceId,
-          stepIndex: context?.stepIndex,
-          stepStartedAt,
-        }
-      );
+			await trackAgentStep(
+				this.config.telemetryCollector,
+				this.id,
+				step,
+				durationMs,
+				{
+					sessionId,
+					tenantId: context?.tenantId,
+					actorId: context?.actorId,
+					traceId: context?.traceId,
+					stepIndex: context?.stepIndex,
+					stepStartedAt,
+				}
+			);
 
-      if (sessionId && step.finishReason !== 'tool-calls') {
-        this.activeStepContexts.delete(sessionId);
-      }
-    }
-  }
+			if (sessionId && step.finishReason !== 'tool-calls') {
+				this.activeStepContexts.delete(sessionId);
+			}
+		}
+	}
 
-  private createInnerAgent(
-    model: LanguageModel,
-    maxSteps: number
-  ): ToolLoopAgent<
-    z.infer<typeof ContractSpecCallOptionsSchema>,
-    ToolSet,
-    never
-  > {
-    return new ToolLoopAgent({
-      model,
-      instructions: this.instructions,
-      tools: this.tools as ToolSet,
-      stopWhen: stepCountIs(maxSteps),
-      callOptionsSchema: ContractSpecCallOptionsSchema,
-      onStepFinish: async (step: StepResult<ToolSet>) => {
-        await this.handleStepFinish(step);
-      },
-    });
-  }
+	private createInnerAgent(
+		model: LanguageModel,
+		maxSteps: number
+	): ToolLoopAgent<
+		z.infer<typeof ContractSpecCallOptionsSchema>,
+		ToolSet,
+		never
+	> {
+		return new ToolLoopAgent({
+			model,
+			instructions: this.instructions,
+			tools: this.tools as ToolSet,
+			stopWhen: stepCountIs(maxSteps),
+			callOptionsSchema: ContractSpecCallOptionsSchema,
+			onStepFinish: async (step: StepResult<ToolSet>) => {
+				await this.handleStepFinish(step);
+			},
+		});
+	}
 
-  private async resolveModelForCall(params: {
-    sessionId: string;
-    traceId: string;
-    options?: AgentCallOptions;
-  }): Promise<LanguageModel> {
-    if (this.config.modelSelector && params.options?.selectionContext) {
-      const { model } = await this.config.modelSelector.selectAndCreate(
-        params.options.selectionContext
-      );
-      return model;
-    }
+	private async resolveModelForCall(params: {
+		sessionId: string;
+		traceId: string;
+		options?: AgentCallOptions;
+	}): Promise<LanguageModel> {
+		if (this.config.modelSelector && params.options?.selectionContext) {
+			const { model } = await this.config.modelSelector.selectAndCreate(
+				params.options.selectionContext
+			);
+			return model;
+		}
 
-    const posthogConfig = this.config.posthogConfig;
-    if (!posthogConfig) {
-      return this.config.model;
-    }
+		const posthogConfig = this.config.posthogConfig;
+		if (!posthogConfig) {
+			return this.config.model;
+		}
 
-    const mergedProperties: Record<string, unknown> = {
-      ...posthogConfig.defaults?.posthogProperties,
-      ...posthogConfig.tracingOptions?.posthogProperties,
-      $ai_session_id: params.sessionId,
-      contractspec_session_id: params.sessionId,
-      contractspec_trace_id: params.traceId,
-      contractspec_agent_id: this.id,
-      contractspec_tenant_id: params.options?.tenantId,
-      contractspec_actor_id: params.options?.actorId,
-    };
+		const mergedProperties: Record<string, unknown> = {
+			...posthogConfig.defaults?.posthogProperties,
+			...posthogConfig.tracingOptions?.posthogProperties,
+			$ai_session_id: params.sessionId,
+			contractspec_session_id: params.sessionId,
+			contractspec_trace_id: params.traceId,
+			contractspec_agent_id: this.id,
+			contractspec_tenant_id: params.options?.tenantId,
+			contractspec_actor_id: params.options?.actorId,
+		};
 
-    const tracingOptions: PostHogTracingOptions = {
-      ...posthogConfig.tracingOptions,
-      posthogDistinctId:
-        posthogConfig.tracingOptions?.posthogDistinctId ??
-        params.options?.actorId,
-      posthogTraceId: params.traceId,
-      posthogProperties: mergedProperties,
-    };
+		const tracingOptions: PostHogTracingOptions = {
+			...posthogConfig.tracingOptions,
+			posthogDistinctId:
+				posthogConfig.tracingOptions?.posthogDistinctId ??
+				params.options?.actorId,
+			posthogTraceId: params.traceId,
+			posthogProperties: mergedProperties,
+		};
 
-    const { createPostHogTracedModel } = await import('../telemetry/posthog');
-    return createPostHogTracedModel(
-      this.config.model,
-      posthogConfig,
-      tracingOptions
-    );
-  }
+		const { createPostHogTracedModel } = await import('../telemetry/posthog');
+		return createPostHogTracedModel(
+			this.config.model,
+			posthogConfig,
+			tracingOptions
+		);
+	}
 }
 
 function resolveMaxSteps(
-  overrideMaxSteps: number | undefined,
-  specMaxSteps?: number
+	overrideMaxSteps: number | undefined,
+	specMaxSteps?: number
 ) {
-  const candidate = overrideMaxSteps ?? specMaxSteps ?? 10;
-  if (!Number.isFinite(candidate)) {
-    return 10;
-  }
+	const candidate = overrideMaxSteps ?? specMaxSteps ?? 10;
+	if (!Number.isFinite(candidate)) {
+		return 10;
+	}
 
-  if (candidate < 1) {
-    return 1;
-  }
+	if (candidate < 1) {
+		return 1;
+	}
 
-  return Math.round(candidate);
+	return Math.round(candidate);
 }
 
 function resolveEscalationError(
-  spec: AgentSpec,
-  finishReason: string
+	spec: AgentSpec,
+	finishReason: string
 ): AgentExecutionError | undefined {
-  const escalation = spec.policy?.escalation;
-  if (!escalation) {
-    return undefined;
-  }
+	const escalation = spec.policy?.escalation;
+	if (!escalation) {
+		return undefined;
+	}
 
-  if (escalation.onTimeout && finishReason === 'length') {
-    return {
-      kind: 'timeout',
-      code: 'AGENT_TIMEOUT_ESCALATION',
-      message: 'Agent reached max step budget and requires escalation.',
-    };
-  }
+	if (escalation.onTimeout && finishReason === 'length') {
+		return {
+			kind: 'timeout',
+			code: 'AGENT_TIMEOUT_ESCALATION',
+			message: 'Agent reached max step budget and requires escalation.',
+		};
+	}
 
-  if (escalation.onToolFailure && finishReason === 'error') {
-    return {
-      kind: 'retryable',
-      code: 'AGENT_TOOL_FAILURE_ESCALATION',
-      message: 'Agent encountered a tool failure and requires escalation.',
-    };
-  }
+	if (escalation.onToolFailure && finishReason === 'error') {
+		return {
+			kind: 'retryable',
+			code: 'AGENT_TOOL_FAILURE_ESCALATION',
+			message: 'Agent encountered a tool failure and requires escalation.',
+		};
+	}
 
-  const confidenceThreshold = escalation.confidenceThreshold;
-  const defaultConfidence = spec.policy?.confidence?.default;
-  if (
-    confidenceThreshold !== undefined &&
-    defaultConfidence !== undefined &&
-    defaultConfidence < confidenceThreshold
-  ) {
-    return {
-      kind: 'policy_blocked',
-      code: 'AGENT_CONFIDENCE_ESCALATION',
-      message: `Agent default confidence (${defaultConfidence}) is below escalation threshold (${confidenceThreshold}).`,
-    };
-  }
+	const confidenceThreshold = escalation.confidenceThreshold;
+	const defaultConfidence = spec.policy?.confidence?.default;
+	if (
+		confidenceThreshold !== undefined &&
+		defaultConfidence !== undefined &&
+		defaultConfidence < confidenceThreshold
+	) {
+		return {
+			kind: 'policy_blocked',
+			code: 'AGENT_CONFIDENCE_ESCALATION',
+			message: `Agent default confidence (${defaultConfidence}) is below escalation threshold (${confidenceThreshold}).`,
+		};
+	}
 
-  return undefined;
+	return undefined;
 }

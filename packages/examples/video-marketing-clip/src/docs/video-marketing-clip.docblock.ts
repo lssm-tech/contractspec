@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const blocks: DocBlock[] = [
-  {
-    id: 'docs.examples.video-marketing-clip',
-    title: 'Video Marketing Clips (example)',
-    summary:
-      'End-to-end example: generate short-form social clips from content briefs using the deterministic video-gen pipeline.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/examples/video-marketing-clip',
-    tags: ['video', 'marketing', 'social-clip', 'example'],
-    body: `## What this example shows
+	{
+		id: 'docs.examples.video-marketing-clip',
+		title: 'Video Marketing Clips (example)',
+		summary:
+			'End-to-end example: generate short-form social clips from content briefs using the deterministic video-gen pipeline.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/examples/video-marketing-clip',
+		tags: ['video', 'marketing', 'social-clip', 'example'],
+		body: `## What this example shows
 
 - Building a \`VideoBrief\` from a \`ContentBrief\` with format, duration, and style settings.
 - Using \`VideoGenerator\` in fully deterministic mode (no LLM) to produce a \`VideoProject\`.
@@ -30,16 +30,16 @@ const blocks: DocBlock[] = [
 - No LLM or voice provider is needed -- the pipeline is fully deterministic.
 - The example does not render to MP4 (that requires Node.js + \`@remotion/renderer\`). It produces the \`VideoProject\` data structure.
 `,
-  },
-  {
-    id: 'docs.examples.video-marketing-clip.usage',
-    title: 'Video Marketing Clips -- Usage',
-    summary: 'How to generate marketing video projects from content briefs.',
-    kind: 'usage',
-    visibility: 'public',
-    route: '/docs/examples/video-marketing-clip/usage',
-    tags: ['video', 'marketing', 'usage'],
-    body: `## Usage
+	},
+	{
+		id: 'docs.examples.video-marketing-clip.usage',
+		title: 'Video Marketing Clips -- Usage',
+		summary: 'How to generate marketing video projects from content briefs.',
+		kind: 'usage',
+		visibility: 'public',
+		route: '/docs/examples/video-marketing-clip/usage',
+		tags: ['video', 'marketing', 'usage'],
+		body: `## Usage
 
 \`\`\`ts
 import { generateMarketingClip } from "@contractspec/example.video-marketing-clip/generate-clip";
@@ -64,7 +64,7 @@ const portrait = await generateMarketingClip(productLaunchBrief, "portrait");
 - Target duration defaults to ~17 seconds if not specified. Set \`targetDurationSeconds\` for precise control.
 - The generated \`VideoProject\` is a data structure, not a rendered file. Use \`LocalRenderer\` for MP4 output.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(blocks);

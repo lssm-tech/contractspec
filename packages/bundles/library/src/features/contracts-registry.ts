@@ -8,52 +8,52 @@
  */
 
 import {
-  OperationSpecRegistry,
-  type AnyOperationSpec,
-  EventRegistry,
-  type AnyEventSpec,
-  type FormSpec,
+	type AnyEventSpec,
+	type AnyOperationSpec,
+	EventRegistry,
+	type FormSpec,
+	OperationSpecRegistry,
 } from '@contractspec/lib.contracts-spec';
 import {
-  PresentationRegistry,
-  type PresentationSpec,
-} from '@contractspec/lib.contracts-spec/presentations';
-import {
-  DataViewRegistry,
-  type DataViewSpec,
+	DataViewRegistry,
+	type DataViewSpec,
 } from '@contractspec/lib.contracts-spec/data-views';
+import {
+	ContractReferenceDataView,
+	ContractReferenceQuery,
+	DocsGenerateCommand,
+	DocsGeneratedEvent,
+	DocsIndexDataView,
+	DocsIndexQuery,
+	DocsLayoutPresentation,
+	DocsPublishCommand,
+	DocsPublishedEvent,
+	DocsReferencePagePresentation,
+	DocsSearchForm,
+	ExampleCatalogDataView,
+} from '@contractspec/lib.contracts-spec/docs';
 import { FormRegistry } from '@contractspec/lib.contracts-spec/forms';
 import {
-  serializeOperationSpec,
-  serializeEventSpec,
-  serializePresentationSpec,
-  serializeDataViewSpec,
-  serializeFormSpec,
-} from '@contractspec/lib.contracts-spec/serialization';
+	PresentationRegistry,
+	type PresentationSpec,
+} from '@contractspec/lib.contracts-spec/presentations';
 import {
-  ContractReferenceDataView,
-  ContractReferenceQuery,
-  DocsGeneratedEvent,
-  DocsGenerateCommand,
-  DocsIndexDataView,
-  DocsIndexQuery,
-  DocsLayoutPresentation,
-  DocsPublishedEvent,
-  DocsPublishCommand,
-  DocsReferencePagePresentation,
-  DocsSearchForm,
-  ExampleCatalogDataView,
-} from '@contractspec/lib.contracts-spec/docs';
+	serializeDataViewSpec,
+	serializeEventSpec,
+	serializeFormSpec,
+	serializeOperationSpec,
+	serializePresentationSpec,
+} from '@contractspec/lib.contracts-spec/serialization';
 
 // Re-export serialization types from lib.contracts for convenience
 export type {
-  SerializedSchemaModel,
-  SerializedFieldConfig,
-  SerializedOperationSpec,
-  SerializedEventSpec,
-  SerializedPresentationSpec,
-  SerializedDataViewSpec,
-  SerializedFormSpec,
+	SerializedDataViewSpec,
+	SerializedEventSpec,
+	SerializedFieldConfig,
+	SerializedFormSpec,
+	SerializedOperationSpec,
+	SerializedPresentationSpec,
+	SerializedSchemaModel,
 } from '@contractspec/lib.contracts-spec/serialization';
 
 // ============================================================================
@@ -63,27 +63,27 @@ export type {
 let operationRegistry: OperationSpecRegistry | null = null;
 
 export function createContractSpecOperationRegistry(): OperationSpecRegistry {
-  const registry = new OperationSpecRegistry();
-  registry
-    .register(DocsIndexQuery)
-    .register(ContractReferenceQuery)
-    .register(DocsGenerateCommand)
-    .register(DocsPublishCommand);
-  return registry;
+	const registry = new OperationSpecRegistry();
+	registry
+		.register(DocsIndexQuery)
+		.register(ContractReferenceQuery)
+		.register(DocsGenerateCommand)
+		.register(DocsPublishCommand);
+	return registry;
 }
 
 export function getContractSpecOperationRegistry(): OperationSpecRegistry {
-  if (!operationRegistry) {
-    operationRegistry = createContractSpecOperationRegistry();
-  }
-  return operationRegistry;
+	if (!operationRegistry) {
+		operationRegistry = createContractSpecOperationRegistry();
+	}
+	return operationRegistry;
 }
 
 export function resolveOperationSpec(
-  key: string,
-  version?: string
+	key: string,
+	version?: string
 ): AnyOperationSpec | undefined {
-  return getContractSpecOperationRegistry().get(key, version);
+	return getContractSpecOperationRegistry().get(key, version);
 }
 
 // ============================================================================
@@ -93,23 +93,23 @@ export function resolveOperationSpec(
 let eventRegistry: EventRegistry | null = null;
 
 export function createContractSpecEventRegistry(): EventRegistry {
-  const registry = new EventRegistry();
-  registry.register(DocsGeneratedEvent).register(DocsPublishedEvent);
-  return registry;
+	const registry = new EventRegistry();
+	registry.register(DocsGeneratedEvent).register(DocsPublishedEvent);
+	return registry;
 }
 
 export function getContractSpecEventRegistry(): EventRegistry {
-  if (!eventRegistry) {
-    eventRegistry = createContractSpecEventRegistry();
-  }
-  return eventRegistry;
+	if (!eventRegistry) {
+		eventRegistry = createContractSpecEventRegistry();
+	}
+	return eventRegistry;
 }
 
 export function resolveEventSpec(
-  key: string,
-  version?: string
+	key: string,
+	version?: string
 ): AnyEventSpec | undefined {
-  return getContractSpecEventRegistry().get(key, version);
+	return getContractSpecEventRegistry().get(key, version);
 }
 
 // ============================================================================
@@ -119,25 +119,25 @@ export function resolveEventSpec(
 let presentationRegistry: PresentationRegistry | null = null;
 
 export function createContractSpecPresentationRegistry(): PresentationRegistry {
-  const registry = new PresentationRegistry();
-  registry
-    .register(DocsLayoutPresentation)
-    .register(DocsReferencePagePresentation);
-  return registry;
+	const registry = new PresentationRegistry();
+	registry
+		.register(DocsLayoutPresentation)
+		.register(DocsReferencePagePresentation);
+	return registry;
 }
 
 export function getContractSpecPresentationRegistry(): PresentationRegistry {
-  if (!presentationRegistry) {
-    presentationRegistry = createContractSpecPresentationRegistry();
-  }
-  return presentationRegistry;
+	if (!presentationRegistry) {
+		presentationRegistry = createContractSpecPresentationRegistry();
+	}
+	return presentationRegistry;
 }
 
 export function resolvePresentationSpec(
-  key: string,
-  version?: string
+	key: string,
+	version?: string
 ): PresentationSpec | undefined {
-  return getContractSpecPresentationRegistry().get(key, version);
+	return getContractSpecPresentationRegistry().get(key, version);
 }
 
 // ============================================================================
@@ -147,26 +147,26 @@ export function resolvePresentationSpec(
 let dataViewRegistry: DataViewRegistry | null = null;
 
 export function createContractSpecDataViewRegistry(): DataViewRegistry {
-  const registry = new DataViewRegistry();
-  registry
-    .register(DocsIndexDataView)
-    .register(ContractReferenceDataView)
-    .register(ExampleCatalogDataView);
-  return registry;
+	const registry = new DataViewRegistry();
+	registry
+		.register(DocsIndexDataView)
+		.register(ContractReferenceDataView)
+		.register(ExampleCatalogDataView);
+	return registry;
 }
 
 export function getContractSpecDataViewRegistry(): DataViewRegistry {
-  if (!dataViewRegistry) {
-    dataViewRegistry = createContractSpecDataViewRegistry();
-  }
-  return dataViewRegistry;
+	if (!dataViewRegistry) {
+		dataViewRegistry = createContractSpecDataViewRegistry();
+	}
+	return dataViewRegistry;
 }
 
 export function resolveDataViewSpec(
-  key: string,
-  version?: string
+	key: string,
+	version?: string
 ): DataViewSpec | undefined {
-  return getContractSpecDataViewRegistry().get(key, version);
+	return getContractSpecDataViewRegistry().get(key, version);
 }
 
 // ============================================================================
@@ -176,23 +176,23 @@ export function resolveDataViewSpec(
 let formRegistry: FormRegistry | null = null;
 
 export function createContractSpecFormRegistry(): FormRegistry {
-  const registry = new FormRegistry();
-  registry.register(DocsSearchForm);
-  return registry;
+	const registry = new FormRegistry();
+	registry.register(DocsSearchForm);
+	return registry;
 }
 
 export function getContractSpecFormRegistry(): FormRegistry {
-  if (!formRegistry) {
-    formRegistry = createContractSpecFormRegistry();
-  }
-  return formRegistry;
+	if (!formRegistry) {
+		formRegistry = createContractSpecFormRegistry();
+	}
+	return formRegistry;
 }
 
 export function resolveFormSpec(
-  key: string,
-  _version?: string
+	key: string,
+	_version?: string
 ): FormSpec | undefined {
-  return getContractSpecFormRegistry().get(key);
+	return getContractSpecFormRegistry().get(key);
 }
 
 // ============================================================================
@@ -204,43 +204,43 @@ export function resolveFormSpec(
  * Returns a plain JSON-serializable object.
  */
 export function resolveSerializedOperationSpec(key: string, version?: string) {
-  const spec = resolveOperationSpec(key, version);
-  return serializeOperationSpec(spec) ?? undefined;
+	const spec = resolveOperationSpec(key, version);
+	return serializeOperationSpec(spec) ?? undefined;
 }
 
 /**
  * Resolve and serialize an event spec for passing to client components.
  */
 export function resolveSerializedEventSpec(key: string, version?: string) {
-  const spec = resolveEventSpec(key, version);
-  return serializeEventSpec(spec) ?? undefined;
+	const spec = resolveEventSpec(key, version);
+	return serializeEventSpec(spec) ?? undefined;
 }
 
 /**
  * Resolve and serialize a presentation spec for passing to client components.
  */
 export function resolveSerializedPresentationSpec(
-  key: string,
-  version?: string
+	key: string,
+	version?: string
 ) {
-  const spec = resolvePresentationSpec(key, version);
-  return serializePresentationSpec(spec) ?? undefined;
+	const spec = resolvePresentationSpec(key, version);
+	return serializePresentationSpec(spec) ?? undefined;
 }
 
 /**
  * Resolve and serialize a data view spec for passing to client components.
  */
 export function resolveSerializedDataViewSpec(key: string, version?: string) {
-  const spec = resolveDataViewSpec(key, version);
-  return serializeDataViewSpec(spec) ?? undefined;
+	const spec = resolveDataViewSpec(key, version);
+	return serializeDataViewSpec(spec) ?? undefined;
 }
 
 /**
  * Resolve and serialize a form spec for passing to client components.
  */
 export function resolveSerializedFormSpec(key: string, version?: string) {
-  const spec = resolveFormSpec(key, version);
-  return serializeFormSpec(spec) ?? undefined;
+	const spec = resolveFormSpec(key, version);
+	return serializeFormSpec(spec) ?? undefined;
 }
 
 // ============================================================================
@@ -248,29 +248,29 @@ export function resolveSerializedFormSpec(key: string, version?: string) {
 // ============================================================================
 
 export function resetContractSpecOperationRegistry(): void {
-  operationRegistry = null;
+	operationRegistry = null;
 }
 
 export function resetContractSpecEventRegistry(): void {
-  eventRegistry = null;
+	eventRegistry = null;
 }
 
 export function resetContractSpecPresentationRegistry(): void {
-  presentationRegistry = null;
+	presentationRegistry = null;
 }
 
 export function resetContractSpecDataViewRegistry(): void {
-  dataViewRegistry = null;
+	dataViewRegistry = null;
 }
 
 export function resetContractSpecFormRegistry(): void {
-  formRegistry = null;
+	formRegistry = null;
 }
 
 export function resetAllContractSpecRegistries(): void {
-  resetContractSpecOperationRegistry();
-  resetContractSpecEventRegistry();
-  resetContractSpecPresentationRegistry();
-  resetContractSpecDataViewRegistry();
-  resetContractSpecFormRegistry();
+	resetContractSpecOperationRegistry();
+	resetContractSpecEventRegistry();
+	resetContractSpecPresentationRegistry();
+	resetContractSpecDataViewRegistry();
+	resetContractSpecFormRegistry();
 }

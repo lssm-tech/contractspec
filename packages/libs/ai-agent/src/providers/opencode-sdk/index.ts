@@ -18,5 +18,5 @@
  */
 
 export { OpenCodeSDKProvider } from './adapter';
-export * from './tool-bridge';
 export * from './agent-bridge';
+export * from './tool-bridge';

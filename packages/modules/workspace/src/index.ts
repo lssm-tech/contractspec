@@ -5,20 +5,16 @@
  * for ContractSpec workspace operations.
  */
 
-// Types
-export * from './types/index';
-
-// Analysis
-export * from './analysis/index';
-
-// Templates
-export * from './templates/index';
-
 // AI Prompts
 export * from './ai/index';
 
+// Analysis
+export * from './analysis/index';
 // Formatter (code formatting)
 export * from './formatter';
-
 // Formatters (spec to markdown)
 export * from './formatters/index';
+// Templates
+export * from './templates/index';
+// Types
+export * from './types/index';

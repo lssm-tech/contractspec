@@ -1,28 +1,28 @@
-import { ScalarTypeEnum, defineSchemaModel } from '@contractspec/lib.schema';
 import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 // ============ Task Event Payloads ============
 
 const TaskCompletedPayload = defineSchemaModel({
-  name: 'TaskCompletedPayload',
-  description: 'Payload when a task is completed',
-  fields: {
-    taskId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    type: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    assignedTo: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    completedBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    completedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
-  },
+	name: 'TaskCompletedPayload',
+	description: 'Payload when a task is completed',
+	fields: {
+		taskId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+		type: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+		assignedTo: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+		completedBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+		completedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
+	},
 });
 
 export const TaskCompletedEvent = defineEvent({
-  meta: {
-    key: 'task.completed',
-    version: '1.0.0',
-    description: 'A task has been completed.',
-    stability: 'stable',
-    owners: ['@crm-team'],
-    tags: ['task', 'lifecycle'],
-  },
-  payload: TaskCompletedPayload,
+	meta: {
+		key: 'task.completed',
+		version: '1.0.0',
+		description: 'A task has been completed.',
+		stability: 'stable',
+		owners: ['@crm-team'],
+		tags: ['task', 'lifecycle'],
+	},
+	payload: TaskCompletedPayload,
 });

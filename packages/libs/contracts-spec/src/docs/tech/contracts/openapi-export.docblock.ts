@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '../../registry';
 
 export const tech_contracts_openapi_export_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.contracts.openapi-export',
-    title: 'OpenAPI export (OpenAPI 3.1) from OperationSpecRegistry',
-    summary:
-      'Generate a deterministic OpenAPI document from a OperationSpecRegistry using jsonSchemaForSpec + REST transport metadata.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/contracts/openapi-export',
-    tags: ['contracts', 'openapi', 'rest'],
-    body: `## OpenAPI export (OpenAPI 3.1) from OperationSpecRegistry
+	{
+		id: 'docs.tech.contracts.openapi-export',
+		title: 'OpenAPI export (OpenAPI 3.1) from OperationSpecRegistry',
+		summary:
+			'Generate a deterministic OpenAPI document from a OperationSpecRegistry using jsonSchemaForSpec + REST transport metadata.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/contracts/openapi-export',
+		tags: ['contracts', 'openapi', 'rest'],
+		body: `## OpenAPI export (OpenAPI 3.1) from OperationSpecRegistry
 
 ### Purpose
 
@@ -49,7 +49,7 @@ The registry module must export one of:
 - Responses are generated as a basic \`200\` response (plus schemas when available).
 - Query (GET) inputs are currently represented as a JSON request body when an input schema exists.
 - Errors are not yet expanded into OpenAPI responses; that will be added when we standardize error envelopes.`,
-  },
+	},
 ];
 
 registerDocBlocks(tech_contracts_openapi_export_DocBlocks);

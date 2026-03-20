@@ -3,6 +3,6 @@
  */
 
 export {
-  SaasDashboardPresentation,
-  SettingsPanelPresentation,
+	SaasDashboardPresentation,
+	SettingsPanelPresentation,
 } from './dashboard.presentation';

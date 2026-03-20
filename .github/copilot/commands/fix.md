@@ -8,7 +8,7 @@ Automatically fix common issues:
    - Categorize by auto-fixability
 
 2. **Safe auto-fixes** (apply automatically):
-   - Formatting (prettier/eslint --fix)
+   - Formatting and import organization (`biome check --write`)
    - Unused imports removal
    - Missing semicolons
    - Trailing whitespace
@@ -24,12 +24,11 @@ Automatically fix common issues:
 4. **Execution flow** (via turborepo):
    ```bash
    # Step 1: Safe fixes
-   turbo lint -- --fix
-   bun run prettier --write .
+   bun run lint:fix
 
    # Step 2: Report remaining issues
-   turbo build:types
-   turbo lint
+   bun run typecheck
+   bun run lint:check
    ```
 
 5. **Report changes**:

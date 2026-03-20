@@ -12,35 +12,35 @@ export type EmphasisVariant = 'default' | 'subtle' | 'strong';
  * Consumers can extend this with component-specific classes.
  */
 export const dsBaseVariants = cva('', {
-  variants: {
-    size: {
-      sm: '',
-      md: '',
-      lg: '',
-    },
-    density: {
-      compact: '',
-      comfortable: '',
-    },
-    tone: {
-      neutral: '',
-      info: '',
-      success: '',
-      warning: '',
-      danger: '',
-    },
-    emphasis: {
-      default: '',
-      subtle: '',
-      strong: '',
-    },
-  },
-  defaultVariants: {
-    size: 'md',
-    density: 'comfortable',
-    tone: 'neutral',
-    emphasis: 'default',
-  },
+	variants: {
+		size: {
+			sm: '',
+			md: '',
+			lg: '',
+		},
+		density: {
+			compact: '',
+			comfortable: '',
+		},
+		tone: {
+			neutral: '',
+			info: '',
+			success: '',
+			warning: '',
+			danger: '',
+		},
+		emphasis: {
+			default: '',
+			subtle: '',
+			strong: '',
+		},
+	},
+	defaultVariants: {
+		size: 'md',
+		density: 'comfortable',
+		tone: 'neutral',
+		emphasis: 'default',
+	},
 });
 
 export type DSBaseVariantsProps = VariantProps<typeof dsBaseVariants>;

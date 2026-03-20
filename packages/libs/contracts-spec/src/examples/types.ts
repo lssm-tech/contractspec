@@ -1,6 +1,6 @@
-import type { OwnerShipMeta } from '../ownership';
 import type { AppBlueprintSpec, SpecPointer } from '../app-config/spec';
 import type { FeatureModuleSpec, FeatureRef } from '../features';
+import type { OwnerShipMeta } from '../ownership';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Enums and Constants
@@ -8,49 +8,49 @@ import type { FeatureModuleSpec, FeatureRef } from '../features';
 
 /** Kind of example - determines how it's presented in catalogs */
 export type ExampleKind =
-  | 'template' // Full application template
-  | 'workflow' // Workflow automation example
-  | 'integration' // Integration showcase
-  | 'knowledge' // Knowledge base example
-  | 'blueprint' // App blueprint example
-  | 'ui' // UI component showcase
-  | 'script' // CLI/script example
-  | 'library'; // Library/SDK example
+	| 'template' // Full application template
+	| 'workflow' // Workflow automation example
+	| 'integration' // Integration showcase
+	| 'knowledge' // Knowledge base example
+	| 'blueprint' // App blueprint example
+	| 'ui' // UI component showcase
+	| 'script' // CLI/script example
+	| 'library'; // Library/SDK example
 
 export const ExampleKindEnum = {
-  Template: 'template',
-  Workflow: 'workflow',
-  Integration: 'integration',
-  Knowledge: 'knowledge',
-  Blueprint: 'blueprint',
-  UI: 'ui',
-  Script: 'script',
-  Library: 'library',
+	Template: 'template',
+	Workflow: 'workflow',
+	Integration: 'integration',
+	Knowledge: 'knowledge',
+	Blueprint: 'blueprint',
+	UI: 'ui',
+	Script: 'script',
+	Library: 'library',
 } as const;
 
 /** Visibility level for examples */
 export type ExampleVisibility = 'public' | 'internal' | 'experimental';
 
 export const ExampleVisibilityEnum = {
-  Public: 'public',
-  Internal: 'internal',
-  Experimental: 'experimental',
+	Public: 'public',
+	Internal: 'internal',
+	Experimental: 'experimental',
 } as const;
 
 /** Sandbox modes supported by examples */
 export type ExampleSandboxMode =
-  | 'playground' // Interactive code editor
-  | 'specs' // Spec viewer
-  | 'builder' // Visual builder
-  | 'markdown' // Markdown preview
-  | 'evolution'; // AI evolution mode
+	| 'playground' // Interactive code editor
+	| 'specs' // Spec viewer
+	| 'builder' // Visual builder
+	| 'markdown' // Markdown preview
+	| 'evolution'; // AI evolution mode
 
 export const ExampleSandboxModeEnum = {
-  Playground: 'playground',
-  Specs: 'specs',
-  Builder: 'builder',
-  Markdown: 'markdown',
-  Evolution: 'evolution',
+	Playground: 'playground',
+	Specs: 'specs',
+	Builder: 'builder',
+	Markdown: 'markdown',
+	Evolution: 'evolution',
 } as const;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -59,16 +59,16 @@ export const ExampleSandboxModeEnum = {
 
 /** Documentation references for the example */
 export interface ExampleDocumentation {
-  /** Root documentation block ID */
-  rootDocId?: string;
-  /** Goal/purpose documentation */
-  goalDocId?: string;
-  /** Usage/quickstart documentation */
-  usageDocId?: string;
-  /** API/reference documentation */
-  referenceDocId?: string;
-  /** Constraints/limitations documentation */
-  constraintsDocId?: string;
+	/** Root documentation block ID */
+	rootDocId?: string;
+	/** Goal/purpose documentation */
+	goalDocId?: string;
+	/** Usage/quickstart documentation */
+	usageDocId?: string;
+	/** API/reference documentation */
+	referenceDocId?: string;
+	/** Constraints/limitations documentation */
+	constraintsDocId?: string;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -77,32 +77,32 @@ export interface ExampleDocumentation {
 
 /** Surface support configuration for sandbox */
 export interface ExampleSandboxSupport {
-  enabled: boolean;
-  modes: readonly ExampleSandboxMode[];
+	enabled: boolean;
+	modes: readonly ExampleSandboxMode[];
 }
 
 /** Surface support configuration for Studio */
 export interface ExampleStudioSupport {
-  enabled: boolean;
-  /** If true, Studio can create a real project from this example via API. */
-  installable: boolean;
+	enabled: boolean;
+	/** If true, Studio can create a real project from this example via API. */
+	installable: boolean;
 }
 
 /** Surface support configuration for MCP */
 export interface ExampleMcpSupport {
-  enabled: boolean;
+	enabled: boolean;
 }
 
 /** Surface support configuration - where the example can be used */
 export interface ExampleSurfaces {
-  /** Available as a template for new projects */
-  templates: boolean;
-  /** Sandbox/playground support */
-  sandbox: ExampleSandboxSupport;
-  /** ContractSpec Studio support */
-  studio: ExampleStudioSupport;
-  /** MCP (Model Context Protocol) support */
-  mcp: ExampleMcpSupport;
+	/** Available as a template for new projects */
+	templates: boolean;
+	/** Sandbox/playground support */
+	sandbox: ExampleSandboxSupport;
+	/** ContractSpec Studio support */
+	studio: ExampleStudioSupport;
+	/** MCP (Model Context Protocol) support */
+	mcp: ExampleMcpSupport;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -111,22 +111,22 @@ export interface ExampleSurfaces {
 
 /** Package entrypoints for the example - maps to package.json exports */
 export interface ExampleEntrypoints {
-  /** Package name in the workspace (e.g., @contractspec/example.saas-boilerplate) */
-  packageName: string;
-  /** Feature module entrypoint (e.g., ./saas-boilerplate.feature) */
-  feature?: string;
-  /** Blueprint entrypoint (e.g., ./blueprint) */
-  blueprint?: string;
-  /** Presentations entrypoint (e.g., ./presentations) */
-  presentations?: string;
-  /** Contracts/operations entrypoint (e.g., ./contracts) */
-  contracts?: string;
-  /** Handlers entrypoint (e.g., ./handlers) */
-  handlers?: string;
-  /** UI components entrypoint (e.g., ./ui) */
-  ui?: string;
-  /** Documentation entrypoint (e.g., ./docs) */
-  docs?: string;
+	/** Package name in the workspace (e.g., @contractspec/example.saas-boilerplate) */
+	packageName: string;
+	/** Feature module entrypoint (e.g., ./saas-boilerplate.feature) */
+	feature?: string;
+	/** Blueprint entrypoint (e.g., ./blueprint) */
+	blueprint?: string;
+	/** Presentations entrypoint (e.g., ./presentations) */
+	presentations?: string;
+	/** Contracts/operations entrypoint (e.g., ./contracts) */
+	contracts?: string;
+	/** Handlers entrypoint (e.g., ./handlers) */
+	handlers?: string;
+	/** UI components entrypoint (e.g., ./ui) */
+	ui?: string;
+	/** Documentation entrypoint (e.g., ./docs) */
+	docs?: string;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -138,12 +138,12 @@ export interface ExampleEntrypoints {
  * Provides standard spec identification plus example-specific fields.
  */
 export interface ExampleMeta extends OwnerShipMeta {
-  /** Example kind for categorization */
-  kind: ExampleKind;
-  /** Visibility level */
-  visibility: ExampleVisibility;
-  /** Short marketing summary (distinct from technical description) */
-  summary?: string;
+	/** Example kind for categorization */
+	kind: ExampleKind;
+	/** Visibility level */
+	visibility: ExampleVisibility;
+	/** Short marketing summary (distinct from technical description) */
+	summary?: string;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -184,29 +184,29 @@ export interface ExampleMeta extends OwnerShipMeta {
  * ```
  */
 export interface ExampleSpec {
-  /** Example metadata (identification, ownership, categorization) */
-  meta: ExampleMeta;
+	/** Example metadata (identification, ownership, categorization) */
+	meta: ExampleMeta;
 
-  /** Documentation references */
-  docs?: ExampleDocumentation;
+	/** Documentation references */
+	docs?: ExampleDocumentation;
 
-  /** Surface support configuration */
-  surfaces: ExampleSurfaces;
+	/** Surface support configuration */
+	surfaces: ExampleSurfaces;
 
-  /** Package entrypoints */
-  entrypoints: ExampleEntrypoints;
+	/** Package entrypoints */
+	entrypoints: ExampleEntrypoints;
 
-  /**
-   * Inline or referenced AppBlueprintSpec.
-   * Use SpecPointer for external reference to a registered blueprint.
-   */
-  blueprint?: AppBlueprintSpec | SpecPointer;
+	/**
+	 * Inline or referenced AppBlueprintSpec.
+	 * Use SpecPointer for external reference to a registered blueprint.
+	 */
+	blueprint?: AppBlueprintSpec | SpecPointer;
 
-  /**
-   * Features included in this example.
-   * Can be inline FeatureModuleSpec objects or FeatureRef references.
-   */
-  features?: (FeatureModuleSpec | FeatureRef)[];
+	/**
+	 * Features included in this example.
+	 * Can be inline FeatureModuleSpec objects or FeatureRef references.
+	 */
+	features?: (FeatureModuleSpec | FeatureRef)[];
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -215,33 +215,33 @@ export interface ExampleSpec {
 
 /** Check if a blueprint reference is a SpecPointer (external reference) */
 export function isSpecPointer(
-  ref: AppBlueprintSpec | SpecPointer | undefined
+	ref: AppBlueprintSpec | SpecPointer | undefined
 ): ref is SpecPointer {
-  if (!ref) return false;
-  return 'key' in ref && !('meta' in ref);
+	if (!ref) return false;
+	return 'key' in ref && !('meta' in ref);
 }
 
 /** Check if a feature reference is a FeatureRef (external reference) */
 export function isFeatureRef(
-  ref: FeatureModuleSpec | FeatureRef
+	ref: FeatureModuleSpec | FeatureRef
 ): ref is FeatureRef {
-  return 'key' in ref && !('meta' in ref);
+	return 'key' in ref && !('meta' in ref);
 }
 
 /** Check if a value is a valid ExampleKind */
 export function isExampleKind(value: unknown): value is ExampleKind {
-  return (
-    typeof value === 'string' &&
-    Object.values(ExampleKindEnum).includes(value as ExampleKind)
-  );
+	return (
+		typeof value === 'string' &&
+		Object.values(ExampleKindEnum).includes(value as ExampleKind)
+	);
 }
 
 /** Check if a value is a valid ExampleVisibility */
 export function isExampleVisibility(
-  value: unknown
+	value: unknown
 ): value is ExampleVisibility {
-  return (
-    typeof value === 'string' &&
-    Object.values(ExampleVisibilityEnum).includes(value as ExampleVisibility)
-  );
+	return (
+		typeof value === 'string' &&
+		Object.values(ExampleVisibilityEnum).includes(value as ExampleVisibility)
+	);
 }

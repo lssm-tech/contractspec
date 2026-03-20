@@ -1,15 +1,14 @@
-export { VoiceSessionManager } from './voice-session-manager';
-export { TurnDetector } from './turn-detector';
 export { ResponseOrchestrator } from './response-orchestrator';
 export { TranscriptBuilder } from './transcript-builder';
-
+export { TurnDetector } from './turn-detector';
 export type {
-  ConversationConfig,
-  ConversationalTool,
-  ConversationState,
-  ConversationTurn,
-  ConversationalOptions,
-  ManagedSession,
-  ConversationalEvent,
-  ConversationalSessionSummary,
+	ConversationalEvent,
+	ConversationalOptions,
+	ConversationalSessionSummary,
+	ConversationalTool,
+	ConversationConfig,
+	ConversationState,
+	ConversationTurn,
+	ManagedSession,
 } from './types';
+export { VoiceSessionManager } from './voice-session-manager';

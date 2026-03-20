@@ -1,6 +1,6 @@
 export {
-  LoadingSpinner,
-  SkeletonLine,
-  SkeletonCard,
-  SkeletonTable,
+	LoadingSpinner,
+	SkeletonCard,
+	SkeletonLine,
+	SkeletonTable,
 } from './LoadingSpinner';

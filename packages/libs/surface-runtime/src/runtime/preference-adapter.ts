@@ -1,7 +1,7 @@
 import type {
-  BundleContext,
-  BundlePreferenceAdapter,
-  PreferenceDimensions,
+	BundleContext,
+	BundlePreferenceAdapter,
+	PreferenceDimensions,
 } from '../spec/types';
 import { resolvePreferenceProfile } from './resolve-preferences';
 
@@ -10,16 +10,16 @@ import { resolvePreferenceProfile } from './resolve-preferences';
  * Integrate with lib.personalization or lib.overlay-engine for persistence.
  */
 export const defaultPreferenceAdapter: BundlePreferenceAdapter = {
-  async resolve(ctx: BundleContext) {
-    return resolvePreferenceProfile(ctx);
-  },
+	async resolve(ctx: BundleContext) {
+		return resolvePreferenceProfile(ctx);
+	},
 
-  async savePreferencePatch(_args: {
-    actorId: string;
-    workspaceId?: string;
-    patch: Partial<PreferenceDimensions>;
-    scope: 'user' | 'workspace-user' | 'surface';
-  }): Promise<void> {
-    // Stub: no-op. Full impl integrates with overlay-engine for durable storage.
-  },
+	async savePreferencePatch(_args: {
+		actorId: string;
+		workspaceId?: string;
+		patch: Partial<PreferenceDimensions>;
+		scope: 'user' | 'workspace-user' | 'surface';
+	}): Promise<void> {
+		// Stub: no-op. Full impl integrates with overlay-engine for durable storage.
+	},
 };

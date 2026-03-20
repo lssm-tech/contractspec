@@ -1,13 +1,13 @@
 import type { DataViewSpecData } from '../types/spec-types';
-import { toPascalCase, escapeString } from './utils';
+import { escapeString, toPascalCase } from './utils';
 
 export function generateDataViewSpec(data: DataViewSpecData): string {
-  const viewVarName =
-    toPascalCase(data.name.split('.').pop() ?? 'DataView') + 'DataView';
+	const viewVarName =
+		toPascalCase(data.name.split('.').pop() ?? 'DataView') + 'DataView';
 
-  const fields = data.fields
-    .map(
-      (field) => `      {
+	const fields = data.fields
+		.map(
+			(field) => `      {
         key: '${escapeString(field.key)}',
         label: '${escape(field.label)}',
         dataPath: '${escapeString(field.dataPath)}',
@@ -15,20 +15,20 @@ export function generateDataViewSpec(data: DataViewSpecData): string {
         ${field.sortable ? 'sortable: true,' : ''}
         ${field.filterable ? 'filterable: true,' : ''}
       }`
-    )
-    .join(',\n');
+		)
+		.join(',\n');
 
-  const secondaryFields = data.secondaryFields?.length
-    ? `secondaryFields: [${data.secondaryFields
-        .map((key) => `'${escapeString(key)}'`)
-        .join(', ')}],`
-    : '';
+	const secondaryFields = data.secondaryFields?.length
+		? `secondaryFields: [${data.secondaryFields
+				.map((key) => `'${escapeString(key)}'`)
+				.join(', ')}],`
+		: '';
 
-  const itemOperation = data.itemOperation
-    ? `item: { name: '${escapeString(data.itemOperation.name)}', version: ${data.itemOperation.version} },`
-    : '';
+	const itemOperation = data.itemOperation
+		? `item: { name: '${escapeString(data.itemOperation.name)}', version: ${data.itemOperation.version} },`
+		: '';
 
-  return `import type { DataViewSpec } from '@contractspec/lib.contracts-spec/data-views';
+	return `import type { DataViewSpec } from '@contractspec/lib.contracts-spec/data-views';
 
 export const ${viewVarName}: DataViewSpec = {
   meta: {
@@ -37,8 +37,8 @@ export const ${viewVarName}: DataViewSpec = {
     entity: '${escapeString(data.entity)}',
     title: '${escape(data.title)}',
     description: '${escape(
-      data.description || 'Describe the purpose of this data view.'
-    )}',
+			data.description || 'Describe the purpose of this data view.'
+		)}',
     domain: '${escape(data.domain || data.entity)}',
     owners: [${data.owners.map((owner) => `'${escapeString(owner)}'`).join(', ')}],
     tags: [${data.tags.map((tag) => `'${escapeString(tag)}'`).join(', ')}],
@@ -79,5 +79,5 @@ ${fields}
 }
 
 function escape(value: string): string {
-  return value.replace(/'/g, "\\'");
+	return value.replace(/'/g, "\\'");
 }

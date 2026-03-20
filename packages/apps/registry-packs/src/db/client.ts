@@ -1,6 +1,6 @@
+import { Database } from 'bun:sqlite';
 import { mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
-import { Database } from 'bun:sqlite';
 import { drizzle as drizzleSqlite } from 'drizzle-orm/bun-sqlite';
 import { migrate as migrateSqlite } from 'drizzle-orm/bun-sqlite/migrator';
 import * as schema from './schema.js';
@@ -26,21 +26,21 @@ export type Db = ReturnType<typeof drizzleSqlite<typeof schema>>;
 let _db: Db | null = null;
 
 function createSqliteDb(): Db {
-  // Ensure the directory for the SQLite file exists
-  const dbPath = resolve(DATABASE_URL);
-  mkdirSync(dirname(dbPath), { recursive: true });
+	// Ensure the directory for the SQLite file exists
+	const dbPath = resolve(DATABASE_URL);
+	mkdirSync(dirname(dbPath), { recursive: true });
 
-  const sqlite = new Database(dbPath);
-  sqlite.exec('PRAGMA journal_mode = WAL');
-  sqlite.exec('PRAGMA foreign_keys = ON');
+	const sqlite = new Database(dbPath);
+	sqlite.exec('PRAGMA journal_mode = WAL');
+	sqlite.exec('PRAGMA foreign_keys = ON');
 
-  const db = drizzleSqlite(sqlite, { schema });
+	const db = drizzleSqlite(sqlite, { schema });
 
-  // Run pending migrations on startup
-  const migrationsFolder = new URL('./migrations', import.meta.url).pathname;
-  migrateSqlite(db, { migrationsFolder });
+	// Run pending migrations on startup
+	const migrationsFolder = new URL('./migrations', import.meta.url).pathname;
+	migrateSqlite(db, { migrationsFolder });
 
-  return db;
+	return db;
 }
 
 /**
@@ -49,63 +49,64 @@ function createSqliteDb(): Db {
  * Uses connection pooling via pg.Pool.
  */
 async function createPgDb(): Promise<Db> {
-  // Dynamic import to avoid requiring pg when using SQLite
-  const { drizzle: drizzlePg } = await import('drizzle-orm/node-postgres');
-  const { default: pg } = await import('pg');
+	// Dynamic import to avoid requiring pg when using SQLite
+	const { drizzle: drizzlePg } = await import('drizzle-orm/node-postgres');
+	const { default: pg } = await import('pg');
 
-  const pool = new pg.Pool({
-    connectionString: DATABASE_URL,
-    max: Number(process.env.DB_POOL_MAX ?? 10),
-    idleTimeoutMillis: Number(process.env.DB_POOL_IDLE_TIMEOUT ?? 30000),
-    connectionTimeoutMillis: Number(
-      process.env.DB_POOL_CONNECT_TIMEOUT ?? 5000
-    ),
-  });
+	const pool = new pg.Pool({
+		connectionString: DATABASE_URL,
+		max: Number(process.env.DB_POOL_MAX ?? 10),
+		idleTimeoutMillis: Number(process.env.DB_POOL_IDLE_TIMEOUT ?? 30000),
+		connectionTimeoutMillis: Number(
+			process.env.DB_POOL_CONNECT_TIMEOUT ?? 5000
+		),
+	});
 
-  // Import PG schema (same column names, PG-native types)
-  const schemaPg = await import('./schema-pg.js');
-  const db = drizzlePg(pool, { schema: schemaPg });
+	// Import PG schema (same column names, PG-native types)
+	const schemaPg = await import('./schema-pg.js');
+	const db = drizzlePg(pool, { schema: schemaPg });
 
-  // Run PG migrations
-  const { migrate: migratePg } =
-    await import('drizzle-orm/node-postgres/migrator');
-  const migrationsFolder = new URL('./migrations-pg', import.meta.url).pathname;
+	// Run PG migrations
+	const { migrate: migratePg } = await import(
+		'drizzle-orm/node-postgres/migrator'
+	);
+	const migrationsFolder = new URL('./migrations-pg', import.meta.url).pathname;
 
-  try {
-    await migratePg(db, { migrationsFolder });
-  } catch {
-    // migrations-pg folder may not exist yet if PG migrations haven't been generated
-    console.warn(
-      'PostgreSQL migrations folder not found — skipping auto-migrate'
-    );
-  }
+	try {
+		await migratePg(db, { migrationsFolder });
+	} catch {
+		// migrations-pg folder may not exist yet if PG migrations haven't been generated
+		console.warn(
+			'PostgreSQL migrations folder not found — skipping auto-migrate'
+		);
+	}
 
-  // Cast to Db — the Drizzle query builder API is compatible across drivers
-  return db as unknown as Db;
+	// Cast to Db — the Drizzle query builder API is compatible across drivers
+	return db as unknown as Db;
 }
 
 /**
  * Get the active DB driver from environment.
  */
 export function getDriver(): DbDriver {
-  return process.env.DB_DRIVER === 'pg' ? 'pg' : 'sqlite';
+	return process.env.DB_DRIVER === 'pg' ? 'pg' : 'sqlite';
 }
 
 /**
  * Get the database instance (singleton).
  */
 export function getDb(): Db {
-  if (!_db) {
-    if (getDriver() === 'pg') {
-      // For PG, we need async initialization.
-      // In practice, call initDb() at startup before using getDb().
-      throw new Error(
-        'PostgreSQL DB not initialized. Call initDb() at startup.'
-      );
-    }
-    _db = createSqliteDb();
-  }
-  return _db;
+	if (!_db) {
+		if (getDriver() === 'pg') {
+			// For PG, we need async initialization.
+			// In practice, call initDb() at startup before using getDb().
+			throw new Error(
+				'PostgreSQL DB not initialized. Call initDb() at startup.'
+			);
+		}
+		_db = createSqliteDb();
+	}
+	return _db;
 }
 
 /**
@@ -113,20 +114,20 @@ export function getDb(): Db {
  * For SQLite, this is a no-op since getDb() handles lazy init.
  */
 export async function initDb(): Promise<Db> {
-  if (_db) return _db;
+	if (_db) return _db;
 
-  if (getDriver() === 'pg') {
-    _db = await createPgDb();
-  } else {
-    _db = createSqliteDb();
-  }
+	if (getDriver() === 'pg') {
+		_db = await createPgDb();
+	} else {
+		_db = createSqliteDb();
+	}
 
-  return _db;
+	return _db;
 }
 
 /**
  * Override the DB instance (for testing with in-memory databases).
  */
 export function setDb(db: Db): void {
-  _db = db;
+	_db = db;
 }

@@ -4,19 +4,19 @@
 
 export { OrderStatusEnum } from './order.enum';
 export {
-  OrderItemModel,
-  OrderModel,
-  CreateOrderInputModel,
-  UpdateOrderStatusInputModel,
-} from './order.schema';
+	OrderCompletedEvent,
+	OrderCreatedEvent,
+	OrderPaidEvent,
+	OrderShippedEvent,
+	OrderStatusUpdatedEvent,
+} from './order.event';
 export {
-  CreateOrderContract,
-  UpdateOrderStatusContract,
+	CreateOrderContract,
+	UpdateOrderStatusContract,
 } from './order.operations';
 export {
-  OrderCreatedEvent,
-  OrderPaidEvent,
-  OrderStatusUpdatedEvent,
-  OrderShippedEvent,
-  OrderCompletedEvent,
-} from './order.event';
+	CreateOrderInputModel,
+	OrderItemModel,
+	OrderModel,
+	UpdateOrderStatusInputModel,
+} from './order.schema';

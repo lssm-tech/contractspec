@@ -2,15 +2,15 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 export const gettingStartedDocBlocks: DocBlock[] = [
-  {
-    id: 'docs.getting-started.start-here',
-    title: 'Start here',
-    summary: 'Fast onboarding path from install to first generated contract.',
-    kind: 'usage',
-    visibility: 'public',
-    route: '/docs/getting-started/start-here',
-    tags: ['getting-started', 'onboarding'],
-    body: `# Start Here
+	{
+		id: 'docs.getting-started.start-here',
+		title: 'Start here',
+		summary: 'Fast onboarding path from install to first generated contract.',
+		kind: 'usage',
+		visibility: 'public',
+		route: '/docs/getting-started/start-here',
+		tags: ['getting-started', 'onboarding'],
+		body: `# Start Here
 
 Get ContractSpec running quickly and generate your first contract-backed code.
 
@@ -46,16 +46,16 @@ contractspec validate src/contracts/mySpec.ts
 - Install the VS Code extension for inline validation.
 - Review compatibility notes before deploying to production.
 `,
-  },
-  {
-    id: 'docs.getting-started.troubleshooting',
-    title: 'Troubleshooting',
-    summary: 'Resolve common install, spec discovery, and build issues.',
-    kind: 'faq',
-    visibility: 'public',
-    route: '/docs/getting-started/troubleshooting',
-    tags: ['getting-started', 'troubleshooting'],
-    body: `# Troubleshooting
+	},
+	{
+		id: 'docs.getting-started.troubleshooting',
+		title: 'Troubleshooting',
+		summary: 'Resolve common install, spec discovery, and build issues.',
+		kind: 'faq',
+		visibility: 'public',
+		route: '/docs/getting-started/troubleshooting',
+		tags: ['getting-started', 'troubleshooting'],
+		body: `# Troubleshooting
 
 Common issues and quick fixes when getting started with ContractSpec.
 
@@ -87,16 +87,16 @@ contractspec validate src/contracts/mySpec.ts
 - Confirm compatibility requirements (runtime, framework, package manager).
 - Re-run \`contractspec build\` with a clean working tree.
 `,
-  },
-  {
-    id: 'docs.getting-started.compatibility',
-    title: 'Compatibility',
-    summary: 'Supported runtimes, frameworks, package managers, and AI modes.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/getting-started/compatibility',
-    tags: ['getting-started', 'compatibility'],
-    body: `# Compatibility
+	},
+	{
+		id: 'docs.getting-started.compatibility',
+		title: 'Compatibility',
+		summary: 'Supported runtimes, frameworks, package managers, and AI modes.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/getting-started/compatibility',
+		tags: ['getting-started', 'compatibility'],
+		body: `# Compatibility
 
 ContractSpec supports modern TypeScript stacks with spec-first workflows.
 
@@ -130,7 +130,7 @@ ContractSpec supports modern TypeScript stacks with spec-first workflows.
 - PostgreSQL via Prisma
 - Bring your own adapter for other databases
 `,
-  },
+	},
 ];
 
 registerDocBlocks(gettingStartedDocBlocks);

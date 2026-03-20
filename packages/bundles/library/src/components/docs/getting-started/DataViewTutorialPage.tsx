@@ -1,27 +1,27 @@
+import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
-import { CodeBlock } from '@contractspec/lib.design-system';
 
 export function DataViewTutorialPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold">Display Data with DataViews</h1>
-        <p className="text-muted-foreground text-lg">
-          Define a filterable, sortable transaction history view that works
-          across web and mobile without duplicating UI code.
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-4">
+				<h1 className="font-bold text-4xl">Display Data with DataViews</h1>
+				<p className="text-lg text-muted-foreground">
+					Define a filterable, sortable transaction history view that works
+					across web and mobile without duplicating UI code.
+				</p>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">1. Define the underlying query</h2>
-        <p className="text-muted-foreground">
-          First, create a query operation to fetch the data:
-        </p>
-        <CodeBlock
-          language="typescript"
-          filename="lib/specs/billing/list-transactions.ts"
-          code={`import { defineQuery } from '@contractspec/lib.contracts-spec';
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">1. Define the underlying query</h2>
+				<p className="text-muted-foreground">
+					First, create a query operation to fetch the data:
+				</p>
+				<CodeBlock
+					language="typescript"
+					filename="lib/specs/billing/list-transactions.ts"
+					code={`import { defineQuery } from '@contractspec/lib.contracts-spec';
 
 export const ListTransactions = defineQuery({
   meta: {
@@ -35,18 +35,18 @@ export const ListTransactions = defineQuery({
   },
   policy: { auth: 'user' },
 });`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">2. Define the DataView spec</h2>
-        <p className="text-muted-foreground">
-          Wrap your query with presentation metadata:
-        </p>
-        <CodeBlock
-          language="typescript"
-          filename="lib/specs/billing/transaction-history.data-view.ts"
-          code={`import { defineDataView } from '@contractspec/lib.contracts-spec';
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">2. Define the DataView spec</h2>
+				<p className="text-muted-foreground">
+					Wrap your query with presentation metadata:
+				</p>
+				<CodeBlock
+					language="typescript"
+					filename="lib/specs/billing/transaction-history.data-view.ts"
+					code={`import { defineDataView } from '@contractspec/lib.contracts-spec';
 import { ListTransactions } from './list-transactions';
 
 export const TransactionHistory = defineDataView({
@@ -116,18 +116,18 @@ export const TransactionHistory = defineDataView({
     pagination: { pageSize: 25 },
   },
 });`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">3. Render on the frontend</h2>
-        <p className="text-muted-foreground">
-          Use the runtime renderer in your React or React Native app:
-        </p>
-        <CodeBlock
-          language="tsx"
-          filename="app/dashboard/transactions/page.tsx"
-          code={`'use client';
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">3. Render on the frontend</h2>
+				<p className="text-muted-foreground">
+					Use the runtime renderer in your React or React Native app:
+				</p>
+				<CodeBlock
+					language="tsx"
+					filename="app/dashboard/transactions/page.tsx"
+					code={`'use client';
 
 import { DataViewRenderer } from '@contractspec/lib.design-system';
 import { TransactionHistory } from '@/lib/specs/billing/transaction-history.data-view';
@@ -153,28 +153,28 @@ export function TransactionsPage() {
     </div>
   );
 }`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="card-subtle space-y-4 p-6">
-        <h3 className="font-bold">Why DataViews?</h3>
-        <ul className="text-muted-foreground space-y-2 text-sm">
-          <li>Same spec renders on web (React) and mobile (React Native)</li>
-          <li>Filters, sorting, and pagination handled automatically</li>
-          <li>Format rules (currency, dates, badges) applied consistently</li>
-          <li>Export to CSV/PDF using the same spec</li>
-          <li>A/B test different layouts without touching the backend</li>
-        </ul>
-      </div>
+			<div className="card-subtle space-y-4 p-6">
+				<h3 className="font-bold">Why DataViews?</h3>
+				<ul className="space-y-2 text-muted-foreground text-sm">
+					<li>Same spec renders on web (React) and mobile (React Native)</li>
+					<li>Filters, sorting, and pagination handled automatically</li>
+					<li>Format rules (currency, dates, badges) applied consistently</li>
+					<li>Export to CSV/PDF using the same spec</li>
+					<li>A/B test different layouts without touching the backend</li>
+				</ul>
+			</div>
 
-      <div className="flex items-center gap-4 pt-4">
-        <Link href="/docs/libraries/data-views" className="btn-primary">
-          DataView API Reference <ChevronRight size={16} />
-        </Link>
-        <Link href="/docs/specs/workflows" className="btn-ghost">
-          Next: Workflows
-        </Link>
-      </div>
-    </div>
-  );
+			<div className="flex items-center gap-4 pt-4">
+				<Link href="/docs/libraries/data-views" className="btn-primary">
+					DataView API Reference <ChevronRight size={16} />
+				</Link>
+				<Link href="/docs/specs/workflows" className="btn-ghost">
+					Next: Workflows
+				</Link>
+			</div>
+		</div>
+	);
 }

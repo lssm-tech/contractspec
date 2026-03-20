@@ -4,16 +4,16 @@
  * Colocated documentation following the DocBlock pattern.
  */
 
-import type { DocBlock } from '@contractspec/lib.contracts-spec/docs/types';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs/registry';
+import type { DocBlock } from '@contractspec/lib.contracts-spec/docs/types';
 
 export const ImpactDetectionOverviewDoc: DocBlock = {
-  id: 'feature.impact-detection.overview',
-  title: 'Contract Impact Detection',
-  kind: 'goal',
-  visibility: 'public',
-  route: '/docs/features/impact-detection',
-  body: `
+	id: 'feature.impact-detection.overview',
+	title: 'Contract Impact Detection',
+	kind: 'goal',
+	visibility: 'public',
+	route: '/docs/features/impact-detection',
+	body: `
 # Contract Impact Detection
 
 Automated detection and classification of breaking changes in ContractSpec APIs.
@@ -60,16 +60,16 @@ The system consists of three layers:
 2. **Impact Service** (bundle package): Orchestration + Formatters
 3. **Integrations**: CLI command + GitHub Action
   `,
-  tags: ['impact-detection', 'breaking-changes', 'ci-cd'],
+	tags: ['impact-detection', 'breaking-changes', 'ci-cd'],
 };
 
 export const ImpactDetectionRulesDoc: DocBlock = {
-  id: 'feature.impact-detection.rules',
-  title: 'Breaking Change Classification Rules',
-  kind: 'reference',
-  visibility: 'public',
-  route: '/docs/features/impact-detection/rules',
-  body: `
+	id: 'feature.impact-detection.rules',
+	title: 'Breaking Change Classification Rules',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/features/impact-detection/rules',
+	body: `
 # Breaking Change Classification Rules
 
 ## 🔴 Breaking Changes (10 rules)
@@ -103,16 +103,16 @@ export const ImpactDetectionRulesDoc: DocBlock = {
 
 Rules are evaluated in order (breaking → non-breaking → info). The first matching rule determines the severity.
   `,
-  tags: ['impact-detection', 'breaking-changes', 'rules'],
+	tags: ['impact-detection', 'breaking-changes', 'rules'],
 };
 
 export const ImpactDetectionUsageDoc: DocBlock = {
-  id: 'cli.impact',
-  title: 'contractspec impact Command',
-  kind: 'usage',
-  visibility: 'public',
-  route: '/docs/cli/impact',
-  body: `
+	id: 'cli.impact',
+	title: 'contractspec impact Command',
+	kind: 'usage',
+	visibility: 'public',
+	route: '/docs/cli/impact',
+	body: `
 # contractspec impact
 
 Detect breaking and non-breaking contract changes.
@@ -166,11 +166,11 @@ GitHub Check Run payload format for API integration.
 - \`0\` - Success (no breaking changes, or breaking changes allowed)
 - \`1\` - Failure (breaking changes detected with --fail-on-breaking, or error)
   `,
-  tags: ['cli', 'impact-detection'],
+	tags: ['cli', 'impact-detection'],
 };
 
 registerDocBlocks([
-  ImpactDetectionOverviewDoc,
-  ImpactDetectionRulesDoc,
-  ImpactDetectionUsageDoc,
+	ImpactDetectionOverviewDoc,
+	ImpactDetectionRulesDoc,
+	ImpactDetectionUsageDoc,
 ]);

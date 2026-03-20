@@ -1,165 +1,167 @@
 import type {
-  EvidenceArtifact,
-  EvidenceArtifactKind,
-  HarnessActionClass,
-  HarnessAssertionResult,
-  HarnessExecutionMode,
-  HarnessPolicyVerdict,
-  HarnessRunRecord,
-  HarnessScenarioSpec,
-  HarnessStepRecord,
-  HarnessSuiteSpec,
-  HarnessTargetIsolation,
-  HarnessTargetRef,
-} from "@contractspec/lib.contracts-spec";
+	EvidenceArtifact,
+	EvidenceArtifactKind,
+	HarnessActionClass,
+	HarnessAssertionResult,
+	HarnessExecutionMode,
+	HarnessPolicyVerdict,
+	HarnessRunRecord,
+	HarnessScenarioSpec,
+	HarnessStepRecord,
+	HarnessSuiteSpec,
+	HarnessTargetIsolation,
+	HarnessTargetRef,
+} from '@contractspec/lib.contracts-spec';
 
 export interface HarnessExecutionContext {
-  traceId?: string;
-  actorId?: string;
-  workspaceId?: string;
-  controlPlaneExecutionId?: string;
-  controlPlanePlanId?: string;
-  metadata?: Record<string, unknown>;
+	traceId?: string;
+	actorId?: string;
+	workspaceId?: string;
+	controlPlaneExecutionId?: string;
+	controlPlanePlanId?: string;
+	metadata?: Record<string, unknown>;
 }
 
 export interface HarnessTargetResolutionRequest {
-  explicitTargetId?: string;
-  preferredTargets?: HarnessTargetRef["kind"][];
-  isolation?: HarnessTargetIsolation;
-  baseUrl?: string;
-  allowlistedDomains?: string[];
-  metadata?: Record<string, unknown>;
+	explicitTargetId?: string;
+	preferredTargets?: HarnessTargetRef['kind'][];
+	isolation?: HarnessTargetIsolation;
+	baseUrl?: string;
+	allowlistedDomains?: string[];
+	metadata?: Record<string, unknown>;
 }
 
 export interface HarnessTargetResolver {
-  resolve(request: HarnessTargetResolutionRequest): Promise<HarnessTargetRef>;
+	resolve(request: HarnessTargetResolutionRequest): Promise<HarnessTargetRef>;
 }
 
 export interface HarnessStoredArtifact extends EvidenceArtifact {
-  body?: unknown;
+	body?: unknown;
 }
 
 export interface HarnessArtifactQuery {
-  runId?: string;
-  stepId?: string;
-  kind?: EvidenceArtifactKind;
+	runId?: string;
+	stepId?: string;
+	kind?: EvidenceArtifactKind;
 }
 
 export interface HarnessArtifactStore {
-  put(artifact: HarnessStoredArtifact): Promise<HarnessStoredArtifact>;
-  get(artifactId: string): Promise<HarnessStoredArtifact | undefined>;
-  list(query?: HarnessArtifactQuery): Promise<HarnessStoredArtifact[]>;
+	put(artifact: HarnessStoredArtifact): Promise<HarnessStoredArtifact>;
+	get(artifactId: string): Promise<HarnessStoredArtifact | undefined>;
+	list(query?: HarnessArtifactQuery): Promise<HarnessStoredArtifact[]>;
 }
 
 export interface HarnessCapturedArtifact {
-  kind: EvidenceArtifactKind;
-  uri?: string;
-  contentType?: string;
-  body?: unknown;
-  hash?: string;
-  summary?: string;
-  metadata?: Record<string, unknown>;
+	kind: EvidenceArtifactKind;
+	uri?: string;
+	contentType?: string;
+	body?: unknown;
+	hash?: string;
+	summary?: string;
+	metadata?: Record<string, unknown>;
 }
 
 export interface HarnessStepExecutionInput {
-  context: HarnessExecutionContext;
-  scenario: HarnessScenarioSpec;
-  runId: string;
-  step: HarnessScenarioSpec["steps"][number];
-  target: HarnessTargetRef;
+	context: HarnessExecutionContext;
+	scenario: HarnessScenarioSpec;
+	runId: string;
+	step: HarnessScenarioSpec['steps'][number];
+	target: HarnessTargetRef;
 }
 
 export interface HarnessStepExecutionResult {
-  status: "completed" | "blocked" | "failed" | "unsupported";
-  summary?: string;
-  output?: unknown;
-  artifacts?: HarnessCapturedArtifact[];
-  proposedMode?: HarnessExecutionMode;
-  reasons?: string[];
-  metadata?: Record<string, unknown>;
+	status: 'completed' | 'blocked' | 'failed' | 'unsupported';
+	summary?: string;
+	output?: unknown;
+	artifacts?: HarnessCapturedArtifact[];
+	proposedMode?: HarnessExecutionMode;
+	reasons?: string[];
+	metadata?: Record<string, unknown>;
 }
 
 export interface HarnessExecutionAdapter {
-  readonly mode: HarnessExecutionMode;
-  supports(step: HarnessScenarioSpec["steps"][number]): boolean;
-  execute(input: HarnessStepExecutionInput): Promise<HarnessStepExecutionResult>;
+	readonly mode: HarnessExecutionMode;
+	supports(step: HarnessScenarioSpec['steps'][number]): boolean;
+	execute(
+		input: HarnessStepExecutionInput
+	): Promise<HarnessStepExecutionResult>;
 }
 
 export interface HarnessApprovalDecision {
-  approved: boolean;
-  approverId?: string;
-  reason?: string;
+	approved: boolean;
+	approverId?: string;
+	reason?: string;
 }
 
 export interface HarnessApprovalGateway {
-  approve(input: {
-    context: HarnessExecutionContext;
-    runId: string;
-    stepKey: string;
-    actionClass: HarnessActionClass;
-    reasons: string[];
-  }): Promise<HarnessApprovalDecision>;
+	approve(input: {
+		context: HarnessExecutionContext;
+		runId: string;
+		stepKey: string;
+		actionClass: HarnessActionClass;
+		reasons: string[];
+	}): Promise<HarnessApprovalDecision>;
 }
 
 export interface HarnessPolicyDecision {
-  verdict: HarnessPolicyVerdict;
-  requiresApproval: boolean;
-  reasons: string[];
+	verdict: HarnessPolicyVerdict;
+	requiresApproval: boolean;
+	reasons: string[];
 }
 
 export interface HarnessRunScenarioInput {
-  scenario: HarnessScenarioSpec;
-  suiteKey?: string;
-  mode?: HarnessExecutionMode;
-  target?: Partial<HarnessTargetRef>;
-  context?: HarnessExecutionContext;
+	scenario: HarnessScenarioSpec;
+	suiteKey?: string;
+	mode?: HarnessExecutionMode;
+	target?: Partial<HarnessTargetRef>;
+	context?: HarnessExecutionContext;
 }
 
 export interface HarnessRunScenarioResult {
-  run: HarnessRunRecord;
-  artifacts: HarnessStoredArtifact[];
+	run: HarnessRunRecord;
+	artifacts: HarnessStoredArtifact[];
 }
 
 export interface HarnessScenarioEvaluationResult {
-  evaluationId: string;
-  run: HarnessRunRecord;
-  artifacts: HarnessStoredArtifact[];
-  assertions: HarnessAssertionResult[];
-  replayBundleUri?: string;
-  status: "passed" | "failed" | "blocked";
+	evaluationId: string;
+	run: HarnessRunRecord;
+	artifacts: HarnessStoredArtifact[];
+	assertions: HarnessAssertionResult[];
+	replayBundleUri?: string;
+	status: 'passed' | 'failed' | 'blocked';
 }
 
 export interface HarnessSuiteEvaluationSummary {
-  suiteKey: string;
-  totalScenarios: number;
-  passedScenarios: number;
-  failedScenarios: number;
-  blockedScenarios: number;
-  evidenceCount: number;
-  passRate: number;
-  flakeRate: number;
+	suiteKey: string;
+	totalScenarios: number;
+	passedScenarios: number;
+	failedScenarios: number;
+	blockedScenarios: number;
+	evidenceCount: number;
+	passRate: number;
+	flakeRate: number;
 }
 
 export interface HarnessSuiteEvaluationResult {
-  suite: HarnessSuiteSpec;
-  evaluations: HarnessScenarioEvaluationResult[];
-  summary: HarnessSuiteEvaluationSummary;
+	suite: HarnessSuiteSpec;
+	evaluations: HarnessScenarioEvaluationResult[];
+	summary: HarnessSuiteEvaluationSummary;
 }
 
 export interface HarnessReplaySink {
-  save(bundle: unknown): Promise<string | undefined>;
+	save(bundle: unknown): Promise<string | undefined>;
 }
 
 export interface HarnessRunnerOptions {
-  targetResolver: HarnessTargetResolver;
-  adapters: HarnessExecutionAdapter[];
-  artifactStore: HarnessArtifactStore;
-  approvalGateway?: HarnessApprovalGateway;
-  now?: () => Date;
-  idFactory?: () => string;
-  defaultMode?: HarnessExecutionMode;
+	targetResolver: HarnessTargetResolver;
+	adapters: HarnessExecutionAdapter[];
+	artifactStore: HarnessArtifactStore;
+	approvalGateway?: HarnessApprovalGateway;
+	now?: () => Date;
+	idFactory?: () => string;
+	defaultMode?: HarnessExecutionMode;
 }
 
 export interface HarnessRecordedStep extends HarnessStepRecord {
-  output?: unknown;
+	output?: unknown;
 }

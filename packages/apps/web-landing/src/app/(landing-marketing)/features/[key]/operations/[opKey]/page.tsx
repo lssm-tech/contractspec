@@ -1,38 +1,38 @@
-import { notFound } from 'next/navigation';
 import {
-  getContractSpecFeatureRegistry,
-  resolveSerializedOperationSpec,
+	getContractSpecFeatureRegistry,
+	resolveSerializedOperationSpec,
 } from '@contractspec/bundle.library/features';
+import { notFound } from 'next/navigation';
 import { FeatureOperationDetailClient } from '../../../clients';
 
 interface PageProps {
-  params: Promise<{ key: string; opKey: string }>;
+	params: Promise<{ key: string; opKey: string }>;
 }
 
 export default async function FeatureOperationDetailPage({
-  params,
+	params,
 }: PageProps) {
-  const { key, opKey } = await params;
-  const decodedKey = decodeURIComponent(key);
-  const decodedOpKey = decodeURIComponent(opKey);
-  const registry = getContractSpecFeatureRegistry();
-  const feature = registry.get(decodedKey);
+	const { key, opKey } = await params;
+	const decodedKey = decodeURIComponent(key);
+	const decodedOpKey = decodeURIComponent(opKey);
+	const registry = getContractSpecFeatureRegistry();
+	const feature = registry.get(decodedKey);
 
-  if (!feature) {
-    notFound();
-  }
+	if (!feature) {
+		notFound();
+	}
 
-  const operation = feature.operations?.find((op) => op.key === decodedOpKey);
+	const operation = feature.operations?.find((op) => op.key === decodedOpKey);
 
-  // Resolve and serialize the operation spec for client component transfer
-  const spec = resolveSerializedOperationSpec(decodedOpKey, operation?.version);
+	// Resolve and serialize the operation spec for client component transfer
+	const spec = resolveSerializedOperationSpec(decodedOpKey, operation?.version);
 
-  return (
-    <FeatureOperationDetailClient
-      feature={feature}
-      operationKey={decodedOpKey}
-      operation={operation}
-      spec={spec}
-    />
-  );
+	return (
+		<FeatureOperationDetailClient
+			feature={feature}
+			operationKey={decodedOpKey}
+			operation={operation}
+			spec={spec}
+		/>
+	);
 }

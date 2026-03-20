@@ -1,39 +1,39 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 
 export const opsRunbookDocsA: DocBlock[] = [
-  {
-    id: 'docs.ops.anomaly-detection.goal',
-    title: 'Anomaly detection goal',
-    summary: 'Why anomaly detection matters for ops stability.',
-    kind: 'goal',
-    visibility: 'public',
-    route: '/docs/ops/anomaly-detection/goal',
-    tags: ['ops', 'observability'],
-    body: 'Ensure anomalies are detected early to protect latency, error rate, and throughput SLAs; keep rollback hooks ready and audits reproducible.',
-  },
-  {
-    id: 'docs.ops.anomaly-detection.usage',
-    title: 'Anomaly detection usage guide',
-    summary: 'How to run and consume anomaly detection in operations.',
-    kind: 'usage',
-    visibility: 'public',
-    route: '/docs/ops/anomaly-detection/usage',
-    tags: ['ops', 'observability'],
-    body: `- Enable tracing middleware; emit latency/error/throughput samples.
+	{
+		id: 'docs.ops.anomaly-detection.goal',
+		title: 'Anomaly detection goal',
+		summary: 'Why anomaly detection matters for ops stability.',
+		kind: 'goal',
+		visibility: 'public',
+		route: '/docs/ops/anomaly-detection/goal',
+		tags: ['ops', 'observability'],
+		body: 'Ensure anomalies are detected early to protect latency, error rate, and throughput SLAs; keep rollback hooks ready and audits reproducible.',
+	},
+	{
+		id: 'docs.ops.anomaly-detection.usage',
+		title: 'Anomaly detection usage guide',
+		summary: 'How to run and consume anomaly detection in operations.',
+		kind: 'usage',
+		visibility: 'public',
+		route: '/docs/ops/anomaly-detection/usage',
+		tags: ['ops', 'observability'],
+		body: `- Enable tracing middleware; emit latency/error/throughput samples.
 - Configure thresholds per capability when bursty traffic exists.
 - Wire rollback hook in DeploymentCoordinator for error spikes.
 - Export anomaly JSON into incidents; update MetricBaseline post-fix.
 - Run chaos/load checks to validate signals within 30s.`,
-  },
-  {
-    id: 'docs.ops.anomaly-detection.how',
-    title: 'Anomaly detection runbook',
-    summary: 'Step-by-step runbook for anomaly signals and rollback hooks.',
-    kind: 'how',
-    visibility: 'public',
-    route: '/docs/ops/anomaly-detection/how',
-    tags: ['ops', 'observability'],
-    body: `# Anomaly Detection Runbook
+	},
+	{
+		id: 'docs.ops.anomaly-detection.how',
+		title: 'Anomaly detection runbook',
+		summary: 'Step-by-step runbook for anomaly signals and rollback hooks.',
+		kind: 'how',
+		visibility: 'public',
+		route: '/docs/ops/anomaly-detection/how',
+		tags: ['ops', 'observability'],
+		body: `# Anomaly Detection Runbook
 
 ## 1. Pipeline Overview
 1. \`createTracingMiddleware({ onSample })\` emits metric points (latency, errors, throughput).
@@ -61,40 +61,40 @@ export const opsRunbookDocsA: DocBlock[] = [
 ## 5. Testing
 - Use load test harness to inject latency and verify detector emits signals within 30 seconds.
 - Chaos suite should simulate upstream outages to ensure throughput-drop detection fires.`,
-  },
-  {
-    id: 'docs.ops.cost-optimization.goal',
-    title: 'Cost optimization goal',
-    summary: 'Keep spend predictable and actionable for ops and finance.',
-    kind: 'goal',
-    visibility: 'public',
-    route: '/docs/ops/cost-optimization/goal',
-    tags: ['ops', 'cost'],
-    body: 'Align telemetry, budgets, and rollback levers so cost spikes are detected early, communicated clearly, and mitigated without breaking SLAs.',
-  },
-  {
-    id: 'docs.ops.cost-optimization.usage',
-    title: 'Cost optimization usage guide',
-    summary: 'Quick checklist to run cost tracking and optimization.',
-    kind: 'usage',
-    visibility: 'public',
-    route: '/docs/ops/cost-optimization/usage',
-    tags: ['ops', 'cost'],
-    body: `- Emit \`CostSample\` via wrapped DB/HTTP clients; include provider/invoice cost.
+	},
+	{
+		id: 'docs.ops.cost-optimization.goal',
+		title: 'Cost optimization goal',
+		summary: 'Keep spend predictable and actionable for ops and finance.',
+		kind: 'goal',
+		visibility: 'public',
+		route: '/docs/ops/cost-optimization/goal',
+		tags: ['ops', 'cost'],
+		body: 'Align telemetry, budgets, and rollback levers so cost spikes are detected early, communicated clearly, and mitigated without breaking SLAs.',
+	},
+	{
+		id: 'docs.ops.cost-optimization.usage',
+		title: 'Cost optimization usage guide',
+		summary: 'Quick checklist to run cost tracking and optimization.',
+		kind: 'usage',
+		visibility: 'public',
+		route: '/docs/ops/cost-optimization/usage',
+		tags: ['ops', 'cost'],
+		body: `- Emit \`CostSample\` via wrapped DB/HTTP clients; include provider/invoice cost.
 - Batch into \`OperationCost\` every 5m; alert at 80% of monthlyLimit.
 - Nightly run \`OptimizationRecommender.generate\`; push tickets with evidence.
 - Use regional overrides for \`defaultCostModel\` when infra prices differ.
 - Send proactive alerts for ±20% deviations to enterprise tenants.`,
-  },
-  {
-    id: 'docs.ops.cost-optimization.how',
-    title: 'Cost optimization runbook',
-    summary: 'Step-by-step cost tracking, alerting, and communication.',
-    kind: 'how',
-    visibility: 'public',
-    route: '/docs/ops/cost-optimization/how',
-    tags: ['ops', 'cost'],
-    body: `# Cost Tracking & Optimization Runbook
+	},
+	{
+		id: 'docs.ops.cost-optimization.how',
+		title: 'Cost optimization runbook',
+		summary: 'Step-by-step cost tracking, alerting, and communication.',
+		kind: 'how',
+		visibility: 'public',
+		route: '/docs/ops/cost-optimization/how',
+		tags: ['ops', 'cost'],
+		body: `# Cost Tracking & Optimization Runbook
 
 ## 1. Instrumentation
 - Wrap DB client and HTTP adapters to emit \`CostSample\`s to \`CostTracker.recordSample\`.
@@ -117,5 +117,5 @@ export const opsRunbookDocsA: DocBlock[] = [
 ## 5. Customer Communication
 - For enterprise tenants offer proactive alerts when spend deviates ±20% from plan.
 - Connect \`TenantBudget\` alerts to CRM notes so Success teams see when automation saved costs.`,
-  },
+	},
 ];

@@ -1,12 +1,12 @@
+export { createVisualizationModel } from './visualization.model';
 export type {
-  ContractVisualizationAxisModel,
-  ContractVisualizationPoint,
-  ContractVisualizationSeriesModel,
-  ContractVisualizationMetricModel,
-  ContractVisualizationTableAlternative,
-  ContractVisualizationAnnotationModel,
-  ContractVisualizationGeoModel,
-  ContractVisualizationRenderModel,
-} from "./visualization.types";
-export { createVisualizationModel } from "./visualization.model";
-export { formatVisualizationValue } from "./visualization.utils";
+	ContractVisualizationAnnotationModel,
+	ContractVisualizationAxisModel,
+	ContractVisualizationGeoModel,
+	ContractVisualizationMetricModel,
+	ContractVisualizationPoint,
+	ContractVisualizationRenderModel,
+	ContractVisualizationSeriesModel,
+	ContractVisualizationTableAlternative,
+} from './visualization.types';
+export { formatVisualizationValue } from './visualization.utils';

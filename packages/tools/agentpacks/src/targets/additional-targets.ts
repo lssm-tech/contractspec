@@ -9,12 +9,12 @@ import { createGenericMdTarget } from './generic-md-target.js';
  * Config: .cline/rules/*.md, .cline/mcp.json
  */
 export const ClineTarget = createGenericMdTarget({
-  id: 'cline',
-  name: 'Cline',
-  configDir: '.cline',
-  supportedFeatures: ['rules', 'commands', 'mcp', 'ignore'],
-  ignoreFile: '.clineignore',
-  mcpInConfigDir: true,
+	id: 'cline',
+	name: 'Cline',
+	configDir: '.cline',
+	supportedFeatures: ['rules', 'commands', 'mcp', 'ignore'],
+	ignoreFile: '.clineignore',
+	mcpInConfigDir: true,
 });
 
 /**
@@ -22,12 +22,12 @@ export const ClineTarget = createGenericMdTarget({
  * Config: .kilo/rules/*.md
  */
 export const KiloTarget = createGenericMdTarget({
-  id: 'kilo',
-  name: 'Kilo Code',
-  configDir: '.kilo',
-  supportedFeatures: ['rules', 'commands', 'mcp', 'ignore'],
-  ignoreFile: '.kiloignore',
-  mcpInConfigDir: true,
+	id: 'kilo',
+	name: 'Kilo Code',
+	configDir: '.kilo',
+	supportedFeatures: ['rules', 'commands', 'mcp', 'ignore'],
+	ignoreFile: '.kiloignore',
+	mcpInConfigDir: true,
 });
 
 /**
@@ -35,12 +35,12 @@ export const KiloTarget = createGenericMdTarget({
  * Config: .roo/rules/*.md
  */
 export const RooTarget = createGenericMdTarget({
-  id: 'roo',
-  name: 'Roo Code',
-  configDir: '.roo',
-  supportedFeatures: ['rules', 'commands', 'mcp', 'ignore'],
-  ignoreFile: '.rooignore',
-  mcpInConfigDir: true,
+	id: 'roo',
+	name: 'Roo Code',
+	configDir: '.roo',
+	supportedFeatures: ['rules', 'commands', 'mcp', 'ignore'],
+	ignoreFile: '.rooignore',
+	mcpInConfigDir: true,
 });
 
 /**
@@ -48,12 +48,12 @@ export const RooTarget = createGenericMdTarget({
  * Config: .qwencode/rules/*.md
  */
 export const QwenCodeTarget = createGenericMdTarget({
-  id: 'qwencode',
-  name: 'Qwen Code',
-  configDir: '.qwencode',
-  supportedFeatures: ['rules', 'mcp', 'ignore'],
-  ignoreFile: '.qwencodeignore',
-  mcpInConfigDir: true,
+	id: 'qwencode',
+	name: 'Qwen Code',
+	configDir: '.qwencode',
+	supportedFeatures: ['rules', 'mcp', 'ignore'],
+	ignoreFile: '.qwencodeignore',
+	mcpInConfigDir: true,
 });
 
 /**
@@ -61,11 +61,11 @@ export const QwenCodeTarget = createGenericMdTarget({
  * Config: .kiro/rules/*.md
  */
 export const KiroTarget = createGenericMdTarget({
-  id: 'kiro',
-  name: 'Kiro',
-  configDir: '.kiro',
-  supportedFeatures: ['rules', 'mcp'],
-  mcpInConfigDir: true,
+	id: 'kiro',
+	name: 'Kiro',
+	configDir: '.kiro',
+	supportedFeatures: ['rules', 'mcp'],
+	mcpInConfigDir: true,
 });
 
 /**
@@ -73,11 +73,11 @@ export const KiroTarget = createGenericMdTarget({
  * Config: .factorydroid/rules/*.md
  */
 export const FactoryDroidTarget = createGenericMdTarget({
-  id: 'factorydroid',
-  name: 'Factory Droid',
-  configDir: '.factorydroid',
-  supportedFeatures: ['rules', 'mcp'],
-  mcpInConfigDir: true,
+	id: 'factorydroid',
+	name: 'Factory Droid',
+	configDir: '.factorydroid',
+	supportedFeatures: ['rules', 'mcp'],
+	mcpInConfigDir: true,
 });
 
 /**
@@ -85,11 +85,11 @@ export const FactoryDroidTarget = createGenericMdTarget({
  * Config: .antigravity/rules/*.md
  */
 export const AntiGravityTarget = createGenericMdTarget({
-  id: 'antigravity',
-  name: 'AntiGravity',
-  configDir: '.antigravity',
-  supportedFeatures: ['rules', 'mcp'],
-  mcpInConfigDir: true,
+	id: 'antigravity',
+	name: 'AntiGravity',
+	configDir: '.antigravity',
+	supportedFeatures: ['rules', 'mcp'],
+	mcpInConfigDir: true,
 });
 
 /**
@@ -97,11 +97,11 @@ export const AntiGravityTarget = createGenericMdTarget({
  * Config: .junie/rules/*.md
  */
 export const JunieTarget = createGenericMdTarget({
-  id: 'junie',
-  name: 'Junie',
-  configDir: '.junie',
-  supportedFeatures: ['rules', 'mcp'],
-  mcpInConfigDir: true,
+	id: 'junie',
+	name: 'Junie',
+	configDir: '.junie',
+	supportedFeatures: ['rules', 'mcp'],
+	mcpInConfigDir: true,
 });
 
 /**
@@ -109,11 +109,11 @@ export const JunieTarget = createGenericMdTarget({
  * Config: .augmentcode/rules/*.md
  */
 export const AugmentCodeTarget = createGenericMdTarget({
-  id: 'augmentcode',
-  name: 'Augment Code',
-  configDir: '.augmentcode',
-  supportedFeatures: ['rules', 'mcp'],
-  mcpInConfigDir: true,
+	id: 'augmentcode',
+	name: 'Augment Code',
+	configDir: '.augmentcode',
+	supportedFeatures: ['rules', 'mcp'],
+	mcpInConfigDir: true,
 });
 
 /**
@@ -121,12 +121,12 @@ export const AugmentCodeTarget = createGenericMdTarget({
  * Config: .windsurf/rules/*.md, .windsurfrules
  */
 export const WindsurfTarget = createGenericMdTarget({
-  id: 'windsurf',
-  name: 'Windsurf',
-  configDir: '.windsurf',
-  supportedFeatures: ['rules', 'mcp', 'ignore'],
-  ignoreFile: '.windsurfignore',
-  mcpInConfigDir: true,
+	id: 'windsurf',
+	name: 'Windsurf',
+	configDir: '.windsurf',
+	supportedFeatures: ['rules', 'mcp', 'ignore'],
+	ignoreFile: '.windsurfignore',
+	mcpInConfigDir: true,
 });
 
 /**
@@ -134,10 +134,10 @@ export const WindsurfTarget = createGenericMdTarget({
  * Config: .warp/rules/*.md
  */
 export const WarpTarget = createGenericMdTarget({
-  id: 'warp',
-  name: 'Warp',
-  configDir: '.warp',
-  supportedFeatures: ['rules'],
+	id: 'warp',
+	name: 'Warp',
+	configDir: '.warp',
+	supportedFeatures: ['rules'],
 });
 
 /**
@@ -145,11 +145,11 @@ export const WarpTarget = createGenericMdTarget({
  * Config: .replit/rules/*.md
  */
 export const ReplitTarget = createGenericMdTarget({
-  id: 'replit',
-  name: 'Replit Agent',
-  configDir: '.replit',
-  supportedFeatures: ['rules', 'mcp'],
-  mcpInConfigDir: true,
+	id: 'replit',
+	name: 'Replit Agent',
+	configDir: '.replit',
+	supportedFeatures: ['rules', 'mcp'],
+	mcpInConfigDir: true,
 });
 
 /**
@@ -157,9 +157,9 @@ export const ReplitTarget = createGenericMdTarget({
  * Config: .zed/rules/*.md
  */
 export const ZedTarget = createGenericMdTarget({
-  id: 'zed',
-  name: 'Zed',
-  configDir: '.zed',
-  supportedFeatures: ['rules', 'mcp'],
-  mcpInConfigDir: true,
+	id: 'zed',
+	name: 'Zed',
+	configDir: '.zed',
+	supportedFeatures: ['rules', 'mcp'],
+	mcpInConfigDir: true,
 });

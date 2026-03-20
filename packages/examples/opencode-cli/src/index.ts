@@ -1,2 +1,2 @@
-export * from "./opencode-cli.feature";
-export { default as OpencodeCliExample } from "./example";
+export { default as OpencodeCliExample } from './example';
+export * from './opencode-cli.feature';

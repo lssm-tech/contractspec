@@ -1,22 +1,22 @@
 import type { KnowledgeSpaceSpecData, Stability } from '../types/spec-types';
-import { toPascalCase, escapeString } from './utils';
+import { escapeString, toPascalCase } from './utils';
 
 export function generateKnowledgeSpaceSpec(
-  data: KnowledgeSpaceSpecData
+	data: KnowledgeSpaceSpecData
 ): string {
-  const specName = toPascalCase(data.name.split('.').pop() ?? 'KnowledgeSpace');
-  const varName = `${specName}KnowledgeSpace`;
-  const registerFn = `register${specName}KnowledgeSpace`;
+	const specName = toPascalCase(data.name.split('.').pop() ?? 'KnowledgeSpace');
+	const varName = `${specName}KnowledgeSpace`;
+	const registerFn = `register${specName}KnowledgeSpace`;
 
-  const retention = renderRetention(data);
-  const access = renderAccess(data);
-  const indexing = renderIndexing(data);
-  const policyComment =
-    data.policyName && !data.policyVersion
-      ? ` // defaults to latest version`
-      : '';
+	const retention = renderRetention(data);
+	const access = renderAccess(data);
+	const indexing = renderIndexing(data);
+	const policyComment =
+		data.policyName && !data.policyVersion
+			? ` // defaults to latest version`
+			: '';
 
-  return `import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
+	return `import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import type { KnowledgeSpaceSpec } from '@contractspec/lib.contracts-spec/knowledge/spec';
 import type { KnowledgeSpaceRegistry } from '@contractspec/lib.contracts-spec/knowledge/spec';
 
@@ -46,58 +46,58 @@ export function ${registerFn}(registry: KnowledgeSpaceRegistry): KnowledgeSpaceR
 }
 
 function renderRetention(data: KnowledgeSpaceSpecData): string {
-  const ttl =
-    data.retention.ttlDays === null
-      ? 'null'
-      : typeof data.retention.ttlDays === 'number'
-        ? String(data.retention.ttlDays)
-        : 'null';
-  const archive =
-    typeof data.retention.archiveAfterDays === 'number'
-      ? `, archiveAfterDays: ${data.retention.archiveAfterDays}`
-      : '';
-  return `{ ttlDays: ${ttl}${archive} }`;
+	const ttl =
+		data.retention.ttlDays === null
+			? 'null'
+			: typeof data.retention.ttlDays === 'number'
+				? String(data.retention.ttlDays)
+				: 'null';
+	const archive =
+		typeof data.retention.archiveAfterDays === 'number'
+			? `, archiveAfterDays: ${data.retention.archiveAfterDays}`
+			: '';
+	return `{ ttlDays: ${ttl}${archive} }`;
 }
 
 function renderAccess(data: KnowledgeSpaceSpecData): string {
-  const trustLine = `    trustLevel: '${data.trustLevel}',\n`;
-  const automationLine = `    automationWritable: ${data.automationWritable},\n`;
-  return `${trustLine}${automationLine}`;
+	const trustLine = `    trustLevel: '${data.trustLevel}',\n`;
+	const automationLine = `    automationWritable: ${data.automationWritable},\n`;
+	return `${trustLine}${automationLine}`;
 }
 
 function renderIndexing(data: KnowledgeSpaceSpecData): string {
-  const entries: string[] = [];
-  if (data.embeddingModel) {
-    entries.push(`    embeddingModel: '${escape(data.embeddingModel)}'`);
-  }
-  if (typeof data.chunkSize === 'number') {
-    entries.push(`    chunkSize: ${data.chunkSize}`);
-  }
-  if (data.vectorDbIntegration) {
-    entries.push(
-      `    vectorDbIntegration: '${escape(data.vectorDbIntegration)}'`
-    );
-  }
-  if (entries.length === 0) {
-    return '';
-  }
-  return `  indexing: {\n${entries.join(',\n')}\n  },\n`;
+	const entries: string[] = [];
+	if (data.embeddingModel) {
+		entries.push(`    embeddingModel: '${escape(data.embeddingModel)}'`);
+	}
+	if (typeof data.chunkSize === 'number') {
+		entries.push(`    chunkSize: ${data.chunkSize}`);
+	}
+	if (data.vectorDbIntegration) {
+		entries.push(
+			`    vectorDbIntegration: '${escape(data.vectorDbIntegration)}'`
+		);
+	}
+	if (entries.length === 0) {
+		return '';
+	}
+	return `  indexing: {\n${entries.join(',\n')}\n  },\n`;
 }
 
 function stabilityToEnum(stability: Stability): string {
-  switch (stability) {
-    case 'beta':
-      return 'Beta';
-    case 'stable':
-      return 'Stable';
-    case 'deprecated':
-      return 'Deprecated';
-    case 'experimental':
-    default:
-      return 'Experimental';
-  }
+	switch (stability) {
+		case 'beta':
+			return 'Beta';
+		case 'stable':
+			return 'Stable';
+		case 'deprecated':
+			return 'Deprecated';
+		case 'experimental':
+		default:
+			return 'Experimental';
+	}
 }
 
 function escape(value: string): string {
-  return value.replace(/`/g, '\\`').replace(/'/g, "\\'");
+	return value.replace(/`/g, '\\`').replace(/'/g, "\\'");
 }

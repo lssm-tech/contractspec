@@ -1,18 +1,21 @@
-import * as React from "react";
-import type { VisualizationSpec } from "@contractspec/lib.contracts-spec/visualizations";
+import type { VisualizationSpec } from '@contractspec/lib.contracts-spec/visualizations';
 import {
-  createVisualizationModel,
-  type ContractVisualizationRenderModel,
-} from "@contractspec/lib.presentation-runtime-core";
+	type ContractVisualizationRenderModel,
+	createVisualizationModel,
+} from '@contractspec/lib.presentation-runtime-core';
+import * as React from 'react';
 
 export interface UseVisualizationModelOptions {
-  spec: VisualizationSpec;
-  data: unknown;
+	spec: VisualizationSpec;
+	data: unknown;
 }
 
 export function useVisualizationModel({
-  spec,
-  data,
+	spec,
+	data,
 }: UseVisualizationModelOptions): ContractVisualizationRenderModel {
-  return React.useMemo(() => createVisualizationModel(spec, data), [data, spec]);
+	return React.useMemo(
+		() => createVisualizationModel(spec, data),
+		[data, spec]
+	);
 }

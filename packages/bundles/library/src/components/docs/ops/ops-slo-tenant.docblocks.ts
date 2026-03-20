@@ -1,39 +1,39 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 
 export const opsSloTenantDocs: DocBlock[] = [
-  {
-    id: 'docs.ops.slo-management.goal',
-    title: 'SLO management goal',
-    summary: 'Keep availability/latency SLOs observable and enforceable.',
-    kind: 'goal',
-    visibility: 'public',
-    route: '/docs/ops/slo-management/goal',
-    tags: ['ops', 'slo'],
-    body: 'Ensure every capability has a versioned SLO with alerts, burn-rate workflows, and incident cross-links so rollbacks are justified and auditable.',
-  },
-  {
-    id: 'docs.ops.slo-management.usage',
-    title: 'SLO management usage guide',
-    summary: 'Quick checklist for defining and operating SLOs.',
-    kind: 'usage',
-    visibility: 'public',
-    route: '/docs/ops/slo-management/usage',
-    tags: ['ops', 'slo'],
-    body: `- Define \`SLODefinition\` per capability; tag tenant/tier for filtering.
+	{
+		id: 'docs.ops.slo-management.goal',
+		title: 'SLO management goal',
+		summary: 'Keep availability/latency SLOs observable and enforceable.',
+		kind: 'goal',
+		visibility: 'public',
+		route: '/docs/ops/slo-management/goal',
+		tags: ['ops', 'slo'],
+		body: 'Ensure every capability has a versioned SLO with alerts, burn-rate workflows, and incident cross-links so rollbacks are justified and auditable.',
+	},
+	{
+		id: 'docs.ops.slo-management.usage',
+		title: 'SLO management usage guide',
+		summary: 'Quick checklist for defining and operating SLOs.',
+		kind: 'usage',
+		visibility: 'public',
+		route: '/docs/ops/slo-management/usage',
+		tags: ['ops', 'slo'],
+		body: `- Define \`SLODefinition\` per capability; tag tenant/tier for filtering.
 - Deploy \`SLOMonitor\`; pipe incidents to PagerDuty + Ops Slack.
 - Fast burn 14x -> page; slow burn 6x -> create ticket.
 - Use \`SLOSnapshot\` for dashboards; include deployment IDs in incidents.
 - Reset or advance error budgets after resolution when appropriate.`,
-  },
-  {
-    id: 'docs.ops.slo-management.how',
-    title: 'SLO management runbook',
-    summary: 'Detailed runbook for SLO lifecycle and incident handling.',
-    kind: 'how',
-    visibility: 'public',
-    route: '/docs/ops/slo-management/how',
-    tags: ['ops', 'slo'],
-    body: `# SLO Management Runbook
+	},
+	{
+		id: 'docs.ops.slo-management.how',
+		title: 'SLO management runbook',
+		summary: 'Detailed runbook for SLO lifecycle and incident handling.',
+		kind: 'how',
+		visibility: 'public',
+		route: '/docs/ops/slo-management/how',
+		tags: ['ops', 'slo'],
+		body: `# SLO Management Runbook
 
 ## 1. Definition Lifecycle
 1. Create an entry in \`SLODefinition\` via migration or the Ops Console.
@@ -66,41 +66,41 @@ monitor.recordWindow({ good, bad, latencyP99, latencyP95 });
 ## 5. Reporting
 - Weekly summary = AVG burn rate, # incidents, # auto-rollbacks triggered by SLO monitor.
 - Feed \`SLOIncident\` into Growth Agent for customer comms when SLAs impact tenants.`,
-  },
-  {
-    id: 'docs.ops.tenant-customization.goal',
-    title: 'Tenant customization goal',
-    summary:
-      'Let tenants customize overlays/workflows safely with audit and rollback.',
-    kind: 'goal',
-    visibility: 'public',
-    route: '/docs/ops/tenant-customization/goal',
-    tags: ['ops', 'tenant'],
-    body: 'Provide controlled overlays and workflow extensions per tenant with signed assets, versioning, and observability so UI/flow tweaks stay safe and reversible.',
-  },
-  {
-    id: 'docs.ops.tenant-customization.usage',
-    title: 'Tenant customization usage guide',
-    summary: 'Quick steps for onboarding a tenant customization.',
-    kind: 'usage',
-    visibility: 'public',
-    route: '/docs/ops/tenant-customization/usage',
-    tags: ['ops', 'tenant'],
-    body: `- Capture fields to hide/rename and workflow deviations.
+	},
+	{
+		id: 'docs.ops.tenant-customization.goal',
+		title: 'Tenant customization goal',
+		summary:
+			'Let tenants customize overlays/workflows safely with audit and rollback.',
+		kind: 'goal',
+		visibility: 'public',
+		route: '/docs/ops/tenant-customization/goal',
+		tags: ['ops', 'tenant'],
+		body: 'Provide controlled overlays and workflow extensions per tenant with signed assets, versioning, and observability so UI/flow tweaks stay safe and reversible.',
+	},
+	{
+		id: 'docs.ops.tenant-customization.usage',
+		title: 'Tenant customization usage guide',
+		summary: 'Quick steps for onboarding a tenant customization.',
+		kind: 'usage',
+		visibility: 'public',
+		route: '/docs/ops/tenant-customization/usage',
+		tags: ['ops', 'tenant'],
+		body: `- Capture fields to hide/rename and workflow deviations.
 - Build overlay in overlay editor; sign JSON with tenant key.
 - Persist in \`Overlay\` table; register via \`OverlayRegistry\` or admin API.
 - Compose \`WorkflowExtension\`; store alongside overlay metadata.
 - Run sandbox smoke tests; ensure audit logs capture overlay events.`,
-  },
-  {
-    id: 'docs.ops.tenant-customization.how',
-    title: 'Tenant customization runbook',
-    summary: 'Detailed runbook for overlays and workflow extensions.',
-    kind: 'how',
-    visibility: 'public',
-    route: '/docs/ops/tenant-customization/how',
-    tags: ['ops', 'tenant'],
-    body: `# Tenant Customization Runbook
+	},
+	{
+		id: 'docs.ops.tenant-customization.how',
+		title: 'Tenant customization runbook',
+		summary: 'Detailed runbook for overlays and workflow extensions.',
+		kind: 'how',
+		visibility: 'public',
+		route: '/docs/ops/tenant-customization/how',
+		tags: ['ops', 'tenant'],
+		body: `# Tenant Customization Runbook
 
 Phase 4 introduces managed overlays and workflow extensions. Ops teams should follow this flow when onboarding a tenant that requests UI tweaks or workflow changes.
 
@@ -141,5 +141,5 @@ Managed tenants can override lifecycle playbooks without touching database schem
    - Subscribe to \`LifecycleKpiPipeline\` events (see \`@contractspec/bundle.lifecycle-managed\`) to forward stage changes into tenant-specific analytics.
 
 All lifecycle overrides must be versioned alongside the tenant’s overlay and workflow extensions so ops can rollback safely.`,
-  },
+	},
 ];

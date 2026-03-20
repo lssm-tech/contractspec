@@ -1,83 +1,83 @@
 {
-  "name": "@contractspec/lib.contracts-library",
-  "version": "3.7.6",
-  "type": "module",
-  "scripts": {
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "clean": "rm -rf dist",
-    "lint": "bun run lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
-    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
-    "build:bundle": "contractspec-bun-build transpile",
-    "build:types": "contractspec-bun-build types",
-    "prebuild": "contractspec-bun-build prebuild",
-    "typecheck": "tsc --noEmit",
-    "dev": "contractspec-bun-build dev"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/libs/contract-library"
-  },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/",
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "browser": "./dist/browser/index.js",
-        "bun": "./dist/index.js",
-        "node": "./dist/node/index.js",
-        "default": "./dist/index.js"
-      },
-      "./templates": {
-        "types": "./dist/templates/index.d.ts",
-        "browser": "./dist/browser/templates/index.js",
-        "bun": "./dist/templates/index.js",
-        "node": "./dist/node/templates/index.js",
-        "default": "./dist/templates/index.js"
-      },
-      "./templates/messaging": {
-        "types": "./dist/templates/messaging.d.ts",
-        "browser": "./dist/browser/templates/messaging.js",
-        "bun": "./dist/templates/messaging.js",
-        "node": "./dist/node/templates/messaging.js",
-        "default": "./dist/templates/messaging.js"
-      },
-      "./templates/recipes": {
-        "types": "./dist/templates/recipes.d.ts",
-        "browser": "./dist/browser/templates/recipes.js",
-        "bun": "./dist/templates/recipes.js",
-        "node": "./dist/node/templates/recipes.js",
-        "default": "./dist/templates/recipes.js"
-      },
-      "./templates/todos": {
-        "types": "./dist/templates/todos.d.ts",
-        "browser": "./dist/browser/templates/todos.js",
-        "bun": "./dist/templates/todos.js",
-        "node": "./dist/node/templates/todos.js",
-        "default": "./dist/templates/todos.js"
-      }
-    }
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./templates": "./src/templates/index.ts",
-    "./templates/messaging": "./src/templates/messaging.ts",
-    "./templates/recipes": "./src/templates/recipes.ts",
-    "./templates/todos": "./src/templates/todos.ts"
-  },
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "dependencies": {
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*"
-  },
-  "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:",
-    "@contractspec/tool.bun": "workspace:*"
-  }
+	"name": "@contractspec/lib.contracts-library",
+	"version": "3.7.6",
+	"type": "module",
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"clean": "rm -rf dist",
+		"lint": "bun run lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit",
+		"dev": "contractspec-bun-build dev"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/libs/contract-library"
+	},
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./templates": {
+				"types": "./dist/templates/index.d.ts",
+				"browser": "./dist/browser/templates/index.js",
+				"bun": "./dist/templates/index.js",
+				"node": "./dist/node/templates/index.js",
+				"default": "./dist/templates/index.js"
+			},
+			"./templates/messaging": {
+				"types": "./dist/templates/messaging.d.ts",
+				"browser": "./dist/browser/templates/messaging.js",
+				"bun": "./dist/templates/messaging.js",
+				"node": "./dist/node/templates/messaging.js",
+				"default": "./dist/templates/messaging.js"
+			},
+			"./templates/recipes": {
+				"types": "./dist/templates/recipes.d.ts",
+				"browser": "./dist/browser/templates/recipes.js",
+				"bun": "./dist/templates/recipes.js",
+				"node": "./dist/node/templates/recipes.js",
+				"default": "./dist/templates/recipes.js"
+			},
+			"./templates/todos": {
+				"types": "./dist/templates/todos.d.ts",
+				"browser": "./dist/browser/templates/todos.js",
+				"bun": "./dist/templates/todos.js",
+				"node": "./dist/node/templates/todos.js",
+				"default": "./dist/templates/todos.js"
+			}
+		}
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./templates": "./src/templates/index.ts",
+		"./templates/messaging": "./src/templates/messaging.ts",
+		"./templates/recipes": "./src/templates/recipes.ts",
+		"./templates/todos": "./src/templates/todos.ts"
+	},
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.schema": "workspace:*"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@contractspec/tool.bun": "workspace:*"
+	}
 }

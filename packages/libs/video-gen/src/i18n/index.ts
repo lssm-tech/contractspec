@@ -12,34 +12,32 @@
  * ```
  */
 
-// Core i18n API
-export {
-  createVideoGenI18n,
-  getDefaultI18n,
-  resetI18nRegistry,
-} from './messages';
-export type { VideoGenI18n } from './messages';
-
-// Locale utilities
-export {
-  resolveLocale,
-  isSupportedLocale,
-  DEFAULT_LOCALE,
-  SUPPORTED_LOCALES,
-} from './locale';
-export type { SupportedLocale } from './locale';
+// Catalogs
+export { enMessages } from './catalogs/en';
+export { esMessages } from './catalogs/es';
+export { frMessages } from './catalogs/fr';
+export type { VideoGenMessageKey } from './keys';
 
 // Message keys
 export {
-  I18N_KEYS,
-  PROMPT_KEYS,
-  SCRIPT_KEYS,
-  SCENE_KEYS,
-  COMPOSITION_KEYS,
+	COMPOSITION_KEYS,
+	I18N_KEYS,
+	PROMPT_KEYS,
+	SCENE_KEYS,
+	SCRIPT_KEYS,
 } from './keys';
-export type { VideoGenMessageKey } from './keys';
-
-// Catalogs
-export { enMessages } from './catalogs/en';
-export { frMessages } from './catalogs/fr';
-export { esMessages } from './catalogs/es';
+export type { SupportedLocale } from './locale';
+// Locale utilities
+export {
+	DEFAULT_LOCALE,
+	isSupportedLocale,
+	resolveLocale,
+	SUPPORTED_LOCALES,
+} from './locale';
+export type { VideoGenI18n } from './messages';
+// Core i18n API
+export {
+	createVideoGenI18n,
+	getDefaultI18n,
+	resetI18nRegistry,
+} from './messages';

@@ -3,5 +3,5 @@
  */
 
 export function registerTeamHubHandlers() {
-  // Bind contracts to runtime implementations in the host app.
+	// Bind contracts to runtime implementations in the host app.
 }

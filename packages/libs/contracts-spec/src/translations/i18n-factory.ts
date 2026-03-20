@@ -31,19 +31,19 @@ export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
  * Falls back to base language (e.g., `"fr-CA"` -> `"fr"`) when needed.
  */
 export function resolveLocale(
-  optionsLocale?: string,
-  runtimeLocale?: string
+	optionsLocale?: string,
+	runtimeLocale?: string
 ): string {
-  const raw = runtimeLocale ?? optionsLocale ?? DEFAULT_LOCALE;
-  if (isSupportedLocale(raw)) return raw;
-  const base = raw.split('-')[0];
-  if (base && isSupportedLocale(base)) return base;
-  return DEFAULT_LOCALE;
+	const raw = runtimeLocale ?? optionsLocale ?? DEFAULT_LOCALE;
+	if (isSupportedLocale(raw)) return raw;
+	const base = raw.split('-')[0];
+	if (base && isSupportedLocale(base)) return base;
+	return DEFAULT_LOCALE;
 }
 
 /** Check whether a string is a supported locale. */
 export function isSupportedLocale(locale: string): locale is SupportedLocale {
-  return (SUPPORTED_LOCALES as readonly string[]).includes(locale);
+	return (SUPPORTED_LOCALES as readonly string[]).includes(locale);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -58,14 +58,14 @@ export function isSupportedLocale(locale: string): locale is SupportedLocale {
  * string/number substitution.
  */
 export function interpolate(
-  template: string,
-  params?: Record<string, string | number>
+	template: string,
+	params?: Record<string, string | number>
 ): string {
-  if (!params) return template;
-  return template.replace(/\{(\w+)\}/g, (match, key: string) => {
-    if (key in params) return String(params[key]);
-    return match;
-  });
+	if (!params) return template;
+	return template.replace(/\{(\w+)\}/g, (match, key: string) => {
+		if (key in params) return String(params[key]);
+		return match;
+	});
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -78,10 +78,10 @@ export function interpolate(
  * @typeParam K - Union type of valid message keys for the package
  */
 export interface I18nInstance<K extends string = string> {
-  /** Translate a message key with optional placeholder interpolation. */
-  t(key: K | string, params?: Record<string, string | number>): string;
-  /** The effective locale being used. */
-  readonly locale: string;
+	/** Translate a message key with optional placeholder interpolation. */
+	t(key: K | string, params?: Record<string, string | number>): string;
+	/** The effective locale being used. */
+	readonly locale: string;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -90,20 +90,20 @@ export interface I18nInstance<K extends string = string> {
 
 /** Configuration for `createI18nFactory`. */
 export interface I18nFactoryConfig {
-  /** The spec key used to register translations (e.g., `"ai-agent.messages"`). */
-  specKey: string;
-  /** Translation catalogs to register (typically `[en, fr, es]`). */
-  catalogs: TranslationSpec[];
+	/** The spec key used to register translations (e.g., `"ai-agent.messages"`). */
+	specKey: string;
+	/** Translation catalogs to register (typically `[en, fr, es]`). */
+	catalogs: TranslationSpec[];
 }
 
 /** The object returned by `createI18nFactory`. */
 export interface I18nFactory<K extends string = string> {
-  /** Create an i18n instance for a given locale. */
-  create(optionsLocale?: string, runtimeLocale?: string): I18nInstance<K>;
-  /** Create a default (English) i18n instance. */
-  getDefault(): I18nInstance<K>;
-  /** Reset the shared registry (useful for testing). */
-  resetRegistry(): void;
+	/** Create an i18n instance for a given locale. */
+	create(optionsLocale?: string, runtimeLocale?: string): I18nInstance<K>;
+	/** Create a default (English) i18n instance. */
+	getDefault(): I18nInstance<K>;
+	/** Reset the shared registry (useful for testing). */
+	resetRegistry(): void;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -140,39 +140,39 @@ export interface I18nFactory<K extends string = string> {
  * ```
  */
 export function createI18nFactory<K extends string = string>(
-  config: I18nFactoryConfig
+	config: I18nFactoryConfig
 ): I18nFactory<K> {
-  let sharedRegistry: TranslationRegistry | null = null;
+	let sharedRegistry: TranslationRegistry | null = null;
 
-  function getRegistry(): TranslationRegistry {
-    if (!sharedRegistry) {
-      sharedRegistry = new TranslationRegistry(config.catalogs);
-    }
-    return sharedRegistry;
-  }
+	function getRegistry(): TranslationRegistry {
+		if (!sharedRegistry) {
+			sharedRegistry = new TranslationRegistry(config.catalogs);
+		}
+		return sharedRegistry;
+	}
 
-  const factory: I18nFactory<K> = {
-    create(optionsLocale?: string, runtimeLocale?: string): I18nInstance<K> {
-      const locale = resolveLocale(optionsLocale, runtimeLocale);
-      const registry = getRegistry();
+	const factory: I18nFactory<K> = {
+		create(optionsLocale?: string, runtimeLocale?: string): I18nInstance<K> {
+			const locale = resolveLocale(optionsLocale, runtimeLocale);
+			const registry = getRegistry();
 
-      return {
-        locale,
-        t(key: K | string, params?: Record<string, string | number>): string {
-          const raw = registry.getValue(config.specKey, key, locale, key);
-          return interpolate(raw, params);
-        },
-      };
-    },
+			return {
+				locale,
+				t(key: K | string, params?: Record<string, string | number>): string {
+					const raw = registry.getValue(config.specKey, key, locale, key);
+					return interpolate(raw, params);
+				},
+			};
+		},
 
-    getDefault(): I18nInstance<K> {
-      return factory.create(DEFAULT_LOCALE);
-    },
+		getDefault(): I18nInstance<K> {
+			return factory.create(DEFAULT_LOCALE);
+		},
 
-    resetRegistry(): void {
-      sharedRegistry = null;
-    },
-  };
+		resetRegistry(): void {
+			sharedRegistry = null;
+		},
+	};
 
-  return factory;
+	return factory;
 }

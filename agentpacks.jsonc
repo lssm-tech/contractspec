@@ -1,23 +1,23 @@
 {
-  "$schema": "https://unpkg.com/agentpacks/schema.json",
-  "packs": [
-    "./packs/workspace-specific",
-    "./packs/contractspec-rules",
-    "./packs/software-best-practices",
-  ],
-  "disabled": [],
-  "targets": [
-    "cursor",
-    "claudecode",
-    "geminicli",
-    "opencode",
-    "codexcli",
-    "copilot",
-  ],
-  "features": ["*"],
-  "modelProfile": "balanced",
-  "mode": "repo",
-  "baseDirs": ["."],
-  "global": false,
-  "delete": true,
+	"$schema": "https://unpkg.com/agentpacks/schema.json",
+	"packs": [
+		"./packs/workspace-specific",
+		"./packs/contractspec-rules",
+		"./packs/software-best-practices"
+	],
+	"disabled": [],
+	"targets": [
+		"cursor",
+		"claudecode",
+		"geminicli",
+		"opencode",
+		"codexcli",
+		"copilot"
+	],
+	"features": ["*"],
+	"modelProfile": "balanced",
+	"mode": "repo",
+	"baseDirs": ["."],
+	"global": false,
+	"delete": true
 }

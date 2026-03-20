@@ -1,7 +1,7 @@
 import { defineConfig, moduleLibrary } from '@contractspec/tool.bun';
 
 export default defineConfig(() => ({
-  ...moduleLibrary,
-  // entry: ['src'],
-  noBundle: true,
+	...moduleLibrary,
+	// entry: ['src'],
+	noBundle: true,
 }));

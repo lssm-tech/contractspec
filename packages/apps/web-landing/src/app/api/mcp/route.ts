@@ -1,8 +1,8 @@
-import { Elysia } from 'elysia';
 import { createDocsMcpHandler } from '@contractspec/bundle.library/application/mcp/docsMcp';
+import { Elysia } from 'elysia';
 
 const mcpHandler = new Elysia({
-  prefix: '/api',
+	prefix: '/api',
 }).use(createDocsMcpHandler('/docs'));
 
 export const GET = mcpHandler.handle;

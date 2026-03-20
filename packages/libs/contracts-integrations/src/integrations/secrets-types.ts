@@ -4,13 +4,13 @@
  */
 
 export interface SecretValue {
-  data: Uint8Array;
-  version?: string;
-  metadata?: Record<string, string>;
+	data: Uint8Array;
+	version?: string;
+	metadata?: Record<string, string>;
 }
 
 export interface SecretProvider {
-  id: string;
-  canHandle(reference: string): boolean;
-  getSecret(reference: string): Promise<SecretValue>;
+	id: string;
+	canHandle(reference: string): boolean;
+	getSecret(reference: string): Promise<SecretValue>;
 }

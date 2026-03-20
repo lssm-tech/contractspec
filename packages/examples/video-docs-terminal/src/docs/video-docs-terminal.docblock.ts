@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const blocks: DocBlock[] = [
-  {
-    id: 'docs.examples.video-docs-terminal',
-    title: 'Video Docs Terminal (example)',
-    summary:
-      'Generate terminal demo videos from CLI walkthroughs using the TerminalDemo composition and ScriptGenerator.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/examples/video-docs-terminal',
-    tags: ['video', 'documentation', 'terminal', 'cli', 'example'],
-    body: `## What this example shows
+	{
+		id: 'docs.examples.video-docs-terminal',
+		title: 'Video Docs Terminal (example)',
+		summary:
+			'Generate terminal demo videos from CLI walkthroughs using the TerminalDemo composition and ScriptGenerator.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/examples/video-docs-terminal',
+		tags: ['video', 'documentation', 'terminal', 'cli', 'example'],
+		body: `## What this example shows
 
 - Defining CLI tutorials as structured \`CliTutorial\` objects with \`TerminalLine\` arrays.
 - Building single-scene and multi-scene \`VideoProject\` instances using the \`TerminalDemo\` composition.
@@ -31,17 +31,17 @@ const blocks: DocBlock[] = [
 - Each tutorial maps to one \`TerminalDemo\` scene in the final video project.
 - The example produces the \`VideoProject\` data structure, not rendered MP4. Use \`LocalRenderer\` for final output.
 `,
-  },
-  {
-    id: 'docs.examples.video-docs-terminal.usage',
-    title: 'Video Docs Terminal -- Usage',
-    summary:
-      'How to generate terminal demo videos and narration from CLI tutorials.',
-    kind: 'usage',
-    visibility: 'public',
-    route: '/docs/examples/video-docs-terminal/usage',
-    tags: ['video', 'terminal', 'usage'],
-    body: `## Usage
+	},
+	{
+		id: 'docs.examples.video-docs-terminal.usage',
+		title: 'Video Docs Terminal -- Usage',
+		summary:
+			'How to generate terminal demo videos and narration from CLI tutorials.',
+		kind: 'usage',
+		visibility: 'public',
+		route: '/docs/examples/video-docs-terminal/usage',
+		tags: ['video', 'terminal', 'usage'],
+		body: `## Usage
 
 ### Build a single tutorial video
 
@@ -87,7 +87,7 @@ console.log(narration.estimatedDurationSeconds); // ~12s
 - The \`summary\` field is displayed as a call-out after the terminal completes -- keep it to one sentence.
 - Use \`"technical"\` narration style for documentation videos and \`"professional"\` for marketing.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(blocks);

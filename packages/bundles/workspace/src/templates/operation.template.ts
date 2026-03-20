@@ -4,25 +4,25 @@ import type { OperationSpecData } from '../types';
  * Generate operation spec TypeScript code
  */
 export function generateOperationSpec(data: OperationSpecData): string {
-  const {
-    name,
-    version,
-    kind,
-    description,
-    goal,
-    context,
-    stability,
-    owners,
-    tags,
-    auth,
-    flags,
-  } = data;
+	const {
+		name,
+		version,
+		kind,
+		description,
+		goal,
+		context,
+		stability,
+		owners,
+		tags,
+		auth,
+		flags,
+	} = data;
 
-  const specVarName = toPascalCase(name.split('.').pop() || 'Unknown') + 'Spec';
-  const inputSchemaName = specVarName.replace('Spec', 'Input');
-  const outputSchemaName = specVarName.replace('Spec', 'Output');
+	const specVarName = toPascalCase(name.split('.').pop() || 'Unknown') + 'Spec';
+	const inputSchemaName = specVarName.replace('Spec', 'Input');
+	const outputSchemaName = specVarName.replace('Spec', 'Output');
 
-  return `import { define${capitalize(kind)} } from '@contractspec/lib.contracts-spec';
+	return `import { define${capitalize(kind)} } from '@contractspec/lib.contracts-spec';
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 
 // TODO: Define input schema
@@ -112,9 +112,9 @@ export const ${specVarName} = define${capitalize(kind)}({
 }
 
 function capitalize(str: string): string {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+	return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 function toPascalCase(str: string): string {
-  return str.split(/[-_.]/).map(capitalize).join('');
+	return str.split(/[-_.]/).map(capitalize).join('');
 }

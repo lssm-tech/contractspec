@@ -1,3 +1,3 @@
 export * from './adapter';
-export * from './posthog-types';
 export * from './posthog';
+export * from './posthog-types';

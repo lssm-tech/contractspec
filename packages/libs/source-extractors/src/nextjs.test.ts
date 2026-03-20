@@ -2,7 +2,7 @@
  * Unit tests for Next.js API extractor.
  */
 
-import { describe, expect, it, beforeEach } from 'bun:test';
+import { beforeEach, describe, expect, it } from 'bun:test';
 import { NextApiExtractor } from './extractors/next-api/extractor';
 import type { ProjectInfo } from './types';
 
@@ -54,128 +54,128 @@ export default async function handler(
 `;
 
 describe('NextApiExtractor', () => {
-  let extractor: NextApiExtractor;
-  let project: ProjectInfo;
+	let extractor: NextApiExtractor;
+	let project: ProjectInfo;
 
-  beforeEach(() => {
-    extractor = new NextApiExtractor();
+	beforeEach(() => {
+		extractor = new NextApiExtractor();
 
-    project = {
-      rootPath: '/test-project',
-      frameworks: [{ id: 'next-api', name: 'Next.js API', confidence: 'high' }],
-    };
-  });
+		project = {
+			rootPath: '/test-project',
+			frameworks: [{ id: 'next-api', name: 'Next.js API', confidence: 'high' }],
+		};
+	});
 
-  describe('App Router', () => {
-    beforeEach(() => {
-      const mockFs = {
-        readFile: async () => APP_ROUTER_FIXTURE,
-        glob: async () => ['app/api/orders/route.ts'],
-        exists: async () => true,
-      };
-      extractor.setFs(mockFs);
-    });
+	describe('App Router', () => {
+		beforeEach(() => {
+			const mockFs = {
+				readFile: async () => APP_ROUTER_FIXTURE,
+				glob: async () => ['app/api/orders/route.ts'],
+				exists: async () => true,
+			};
+			extractor.setFs(mockFs);
+		});
 
-    it('should detect Next.js API projects', async () => {
-      const detected = await extractor.detect(project);
-      expect(detected).toBe(true);
-    });
+		it('should detect Next.js API projects', async () => {
+			const detected = await extractor.detect(project);
+			expect(detected).toBe(true);
+		});
 
-    it('should extract endpoints from App Router', async () => {
-      const result = await extractor.extract(project, {});
+		it('should extract endpoints from App Router', async () => {
+			const result = await extractor.extract(project, {});
 
-      expect(result.success).toBe(true);
-      expect(result.ir).toBeDefined();
-      // App Router may extract different counts depending on pattern matching
-      expect(result.ir?.endpoints.length).toBeGreaterThanOrEqual(0);
-    });
+			expect(result.success).toBe(true);
+			expect(result.ir).toBeDefined();
+			// App Router may extract different counts depending on pattern matching
+			expect(result.ir?.endpoints.length).toBeGreaterThanOrEqual(0);
+		});
 
-    it('should extract GET handlers', async () => {
-      const result = await extractor.extract(project, {});
+		it('should extract GET handlers', async () => {
+			const result = await extractor.extract(project, {});
 
-      // May or may not extract depending on pattern matching
-      expect(result.success).toBe(true);
-    });
+			// May or may not extract depending on pattern matching
+			expect(result.success).toBe(true);
+		});
 
-    it('should extract POST handlers', async () => {
-      const result = await extractor.extract(project, {});
+		it('should extract POST handlers', async () => {
+			const result = await extractor.extract(project, {});
 
-      expect(result.success).toBe(true);
-    });
+			expect(result.success).toBe(true);
+		});
 
-    it('should extract PUT handlers', async () => {
-      const result = await extractor.extract(project, {});
+		it('should extract PUT handlers', async () => {
+			const result = await extractor.extract(project, {});
 
-      expect(result.success).toBe(true);
-    });
+			expect(result.success).toBe(true);
+		});
 
-    it('should extract DELETE handlers', async () => {
-      const result = await extractor.extract(project, {});
+		it('should extract DELETE handlers', async () => {
+			const result = await extractor.extract(project, {});
 
-      expect(result.success).toBe(true);
-    });
+			expect(result.success).toBe(true);
+		});
 
-    it('should assign correct kinds', async () => {
-      const result = await extractor.extract(project, {});
+		it('should assign correct kinds', async () => {
+			const result = await extractor.extract(project, {});
 
-      // If endpoints were extracted, they should have correct kinds
-      expect(result.success).toBe(true);
-      const endpoints = result.ir?.endpoints || [];
-      for (const endpoint of endpoints) {
-        if (endpoint.method === 'GET') {
-          expect(endpoint.kind).toBe('query');
-        } else {
-          expect(endpoint.kind).toBe('command');
-        }
-      }
-    });
-  });
+			// If endpoints were extracted, they should have correct kinds
+			expect(result.success).toBe(true);
+			const endpoints = result.ir?.endpoints || [];
+			for (const endpoint of endpoints) {
+				if (endpoint.method === 'GET') {
+					expect(endpoint.kind).toBe('query');
+				} else {
+					expect(endpoint.kind).toBe('command');
+				}
+			}
+		});
+	});
 
-  describe('Pages Router', () => {
-    beforeEach(() => {
-      const mockFs = {
-        readFile: async () => PAGES_ROUTER_FIXTURE,
-        glob: async () => ['pages/api/users.ts'],
-        exists: async () => true,
-      };
-      extractor.setFs(mockFs);
-    });
+	describe('Pages Router', () => {
+		beforeEach(() => {
+			const mockFs = {
+				readFile: async () => PAGES_ROUTER_FIXTURE,
+				glob: async () => ['pages/api/users.ts'],
+				exists: async () => true,
+			};
+			extractor.setFs(mockFs);
+		});
 
-    it('should extract from Pages Router', async () => {
-      const result = await extractor.extract(project, {});
+		it('should extract from Pages Router', async () => {
+			const result = await extractor.extract(project, {});
 
-      expect(result.success).toBe(true);
-      expect(result.ir).toBeDefined();
-    });
-  });
+			expect(result.success).toBe(true);
+			expect(result.ir).toBeDefined();
+		});
+	});
 
-  describe('Edge Cases', () => {
-    it('should handle empty files gracefully', async () => {
-      const mockFs = {
-        readFile: async () => '',
-        glob: async () => ['app/api/empty/route.ts'],
-        exists: async () => true,
-      };
-      extractor.setFs(mockFs);
+	describe('Edge Cases', () => {
+		it('should handle empty files gracefully', async () => {
+			const mockFs = {
+				readFile: async () => '',
+				glob: async () => ['app/api/empty/route.ts'],
+				exists: async () => true,
+			};
+			extractor.setFs(mockFs);
 
-      const result = await extractor.extract(project, {});
+			const result = await extractor.extract(project, {});
 
-      expect(result.success).toBe(true);
-      expect(result.ir?.endpoints.length).toBe(0);
-    });
+			expect(result.success).toBe(true);
+			expect(result.ir?.endpoints.length).toBe(0);
+		});
 
-    it('should handle files with no exports', async () => {
-      const mockFs = {
-        readFile: async () => 'const x = 1;',
-        glob: async () => ['app/api/noexports/route.ts'],
-        exists: async () => true,
-      };
-      extractor.setFs(mockFs);
+		it('should handle files with no exports', async () => {
+			const mockFs = {
+				readFile: async () => 'const x = 1;',
+				glob: async () => ['app/api/noexports/route.ts'],
+				exists: async () => true,
+			};
+			extractor.setFs(mockFs);
 
-      const result = await extractor.extract(project, {});
+			const result = await extractor.extract(project, {});
 
-      expect(result.success).toBe(true);
-      expect(result.ir?.endpoints.length).toBe(0);
-    });
-  });
+			expect(result.success).toBe(true);
+			expect(result.ir?.endpoints.length).toBe(0);
+		});
+	});
 });

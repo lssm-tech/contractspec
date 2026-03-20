@@ -1,6 +1,6 @@
 import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
-import type { AgentKnowledgeRef } from '../spec/spec';
 import { createAgentI18n } from '../i18n';
+import type { AgentKnowledgeRef } from '../spec/spec';
 
 /**
  * Inject static knowledge into agent instructions.
@@ -15,42 +15,42 @@ import { createAgentI18n } from '../i18n';
  * @returns Instructions with injected knowledge
  */
 export async function injectStaticKnowledge(
-  instructions: string,
-  knowledgeRefs: AgentKnowledgeRef[],
-  retriever?: KnowledgeRetriever,
-  locale?: string
+	instructions: string,
+	knowledgeRefs: AgentKnowledgeRef[],
+	retriever?: KnowledgeRetriever,
+	locale?: string
 ): Promise<string> {
-  if (!retriever) return instructions;
+	if (!retriever) return instructions;
 
-  const requiredRefs = knowledgeRefs.filter((ref) => ref.required);
-  if (requiredRefs.length === 0) return instructions;
+	const requiredRefs = knowledgeRefs.filter((ref) => ref.required);
+	if (requiredRefs.length === 0) return instructions;
 
-  const i18n = createAgentI18n(locale);
+	const i18n = createAgentI18n(locale);
 
-  const blocks: string[] = [];
+	const blocks: string[] = [];
 
-  for (const ref of requiredRefs) {
-    if (!retriever.supportsSpace(ref.key)) {
-      console.warn(i18n.t('log.knowledge.spaceNotAvailable', { key: ref.key }));
-      continue;
-    }
+	for (const ref of requiredRefs) {
+		if (!retriever.supportsSpace(ref.key)) {
+			console.warn(i18n.t('log.knowledge.spaceNotAvailable', { key: ref.key }));
+			continue;
+		}
 
-    try {
-      const content = await retriever.getStatic(ref.key);
-      if (content) {
-        const header = ref.instructions
-          ? `## ${ref.key}\n${ref.instructions}`
-          : `## ${ref.key}`;
-        blocks.push(`${header}\n\n${content}`);
-      }
-    } catch (error) {
-      console.warn(i18n.t('log.knowledge.loadFailed', { key: ref.key }), error);
-    }
-  }
+		try {
+			const content = await retriever.getStatic(ref.key);
+			if (content) {
+				const header = ref.instructions
+					? `## ${ref.key}\n${ref.instructions}`
+					: `## ${ref.key}`;
+				blocks.push(`${header}\n\n${content}`);
+			}
+		} catch (error) {
+			console.warn(i18n.t('log.knowledge.loadFailed', { key: ref.key }), error);
+		}
+	}
 
-  if (blocks.length === 0) return instructions;
+	if (blocks.length === 0) return instructions;
 
-  return `${instructions}
+	return `${instructions}
 
 ---
 
@@ -65,24 +65,24 @@ ${blocks.join('\n\n---\n\n')}`;
  * Create a knowledge injector instance for reuse.
  */
 export function createKnowledgeInjector(
-  retriever?: KnowledgeRetriever,
-  locale?: string
+	retriever?: KnowledgeRetriever,
+	locale?: string
 ) {
-  return {
-    /**
-     * Inject static knowledge into instructions.
-     */
-    inject: (instructions: string, knowledgeRefs: AgentKnowledgeRef[]) =>
-      injectStaticKnowledge(instructions, knowledgeRefs, retriever, locale),
+	return {
+		/**
+		 * Inject static knowledge into instructions.
+		 */
+		inject: (instructions: string, knowledgeRefs: AgentKnowledgeRef[]) =>
+			injectStaticKnowledge(instructions, knowledgeRefs, retriever, locale),
 
-    /**
-     * Check if a knowledge space is available.
-     */
-    hasSpace: (spaceKey: string) => retriever?.supportsSpace(spaceKey) ?? false,
+		/**
+		 * Check if a knowledge space is available.
+		 */
+		hasSpace: (spaceKey: string) => retriever?.supportsSpace(spaceKey) ?? false,
 
-    /**
-     * List available knowledge spaces.
-     */
-    listSpaces: () => retriever?.listSpaces() ?? [],
-  };
+		/**
+		 * List available knowledge spaces.
+		 */
+		listSpaces: () => retriever?.listSpaces() ?? [],
+	};
 }

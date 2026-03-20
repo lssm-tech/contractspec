@@ -4,29 +4,29 @@ import { defineEnum } from '@contractspec/lib.schema';
  * Sync direction enum.
  */
 export const SyncDirectionEnum = defineEnum('SyncDirection', [
-  'INBOUND',
-  'OUTBOUND',
-  'BIDIRECTIONAL',
+	'INBOUND',
+	'OUTBOUND',
+	'BIDIRECTIONAL',
 ]);
 
 /**
  * Sync status enum.
  */
 export const SyncStatusEnum = defineEnum('SyncStatus', [
-  'PENDING',
-  'RUNNING',
-  'COMPLETED',
-  'FAILED',
-  'CANCELLED',
+	'PENDING',
+	'RUNNING',
+	'COMPLETED',
+	'FAILED',
+	'CANCELLED',
 ]);
 
 /**
  * Mapping type enum.
  */
 export const MappingTypeEnum = defineEnum('MappingType', [
-  'DIRECT',
-  'TRANSFORM',
-  'LOOKUP',
-  'CONSTANT',
-  'COMPUTED',
+	'DIRECT',
+	'TRANSFORM',
+	'LOOKUP',
+	'CONSTANT',
+	'COMPUTED',
 ]);

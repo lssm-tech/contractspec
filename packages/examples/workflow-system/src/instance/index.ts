@@ -4,35 +4,33 @@
 
 // Enums
 export { InstanceStatusEnum } from './instance.enum';
-
-// Schema models
+// Events
 export {
-  WorkflowInstanceModel,
-  StartWorkflowInputModel,
-  TransitionInputModel,
-  TransitionResultModel,
-} from './instance.schema';
+	InstanceCancelledEvent,
+	InstanceCompletedEvent,
+	InstanceFailedEvent,
+	InstancePausedEvent,
+	InstanceResumedEvent,
+	InstanceStartedEvent,
+	InstanceTimedOutEvent,
+	StepEnteredEvent,
+	StepExitedEvent,
+} from './instance.event';
 
 // Contracts
 export {
-  StartWorkflowContract,
-  TransitionWorkflowContract,
-  PauseWorkflowContract,
-  ResumeWorkflowContract,
-  CancelWorkflowContract,
-  ListInstancesContract,
-  GetInstanceContract,
+	CancelWorkflowContract,
+	GetInstanceContract,
+	ListInstancesContract,
+	PauseWorkflowContract,
+	ResumeWorkflowContract,
+	StartWorkflowContract,
+	TransitionWorkflowContract,
 } from './instance.operations';
-
-// Events
+// Schema models
 export {
-  InstanceStartedEvent,
-  StepEnteredEvent,
-  StepExitedEvent,
-  InstanceCompletedEvent,
-  InstanceCancelledEvent,
-  InstancePausedEvent,
-  InstanceResumedEvent,
-  InstanceFailedEvent,
-  InstanceTimedOutEvent,
-} from './instance.event';
+	StartWorkflowInputModel,
+	TransitionInputModel,
+	TransitionResultModel,
+	WorkflowInstanceModel,
+} from './instance.schema';

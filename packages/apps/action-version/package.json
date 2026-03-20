@@ -1,24 +1,24 @@
 {
-  "name": "@contractspec/action.version",
-  "version": "2.7.6",
-  "description": "GitHub Action for ContractSpec version management",
-  "main": "action.yml",
-  "keywords": [
-    "github-action",
-    "contractspec",
-    "versioning",
-    "changelog"
-  ],
-  "author": "LSSM",
-  "license": "MIT",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
-    "access": "public"
-  },
-  "homepage": "https://contractspec.io",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/apps/action-version"
-  }
+	"name": "@contractspec/action.version",
+	"version": "2.7.6",
+	"description": "GitHub Action for ContractSpec version management",
+	"main": "action.yml",
+	"keywords": [
+		"github-action",
+		"contractspec",
+		"versioning",
+		"changelog"
+	],
+	"author": "LSSM",
+	"license": "MIT",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/",
+		"access": "public"
+	},
+	"homepage": "https://contractspec.io",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/apps/action-version"
+	}
 }

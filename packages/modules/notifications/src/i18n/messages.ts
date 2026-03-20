@@ -4,17 +4,17 @@
  */
 
 import {
-  createI18nFactory,
-  type I18nInstance,
+	createI18nFactory,
+	type I18nInstance,
 } from '@contractspec/lib.contracts-spec/translations';
 import { enMessages } from './catalogs/en';
-import { frMessages } from './catalogs/fr';
 import { esMessages } from './catalogs/es';
+import { frMessages } from './catalogs/fr';
 import type { NotificationsMessageKey } from './keys';
 
 const factory = createI18nFactory<NotificationsMessageKey>({
-  specKey: 'notifications.messages',
-  catalogs: [enMessages, frMessages, esMessages],
+	specKey: 'notifications.messages',
+	catalogs: [enMessages, frMessages, esMessages],
 });
 
 /** I18n instance type for the notifications package. */

@@ -1,28 +1,28 @@
 import type {
-  LifecycleMilestone,
-  LifecycleStage,
+	LifecycleMilestone,
+	LifecycleStage,
 } from '@contractspec/lib.lifecycle';
-import catalog from '../data/milestones-catalog.json' assert { type: 'json' };
+import catalog from '../data/milestones-catalog.json' with { type: 'json' };
 
 export class LifecycleMilestonePlanner {
-  private readonly milestones: LifecycleMilestone[];
+	private readonly milestones: LifecycleMilestone[];
 
-  constructor(customCatalog?: LifecycleMilestone[]) {
-    this.milestones = customCatalog ?? (catalog as LifecycleMilestone[]);
-  }
+	constructor(customCatalog?: LifecycleMilestone[]) {
+		this.milestones = customCatalog ?? (catalog as LifecycleMilestone[]);
+	}
 
-  getUpcoming(
-    stage: LifecycleStage,
-    completedIds: string[] = [],
-    limit = 5
-  ): LifecycleMilestone[] {
-    const completedSet = new Set(completedIds);
-    return this.milestones
-      .filter(
-        (milestone) =>
-          milestone.stage === stage && !completedSet.has(milestone.id)
-      )
-      .sort((a, b) => a.priority - b.priority)
-      .slice(0, limit);
-  }
+	getUpcoming(
+		stage: LifecycleStage,
+		completedIds: string[] = [],
+		limit = 5
+	): LifecycleMilestone[] {
+		const completedSet = new Set(completedIds);
+		return this.milestones
+			.filter(
+				(milestone) =>
+					milestone.stage === stage && !completedSet.has(milestone.id)
+			)
+			.sort((a, b) => a.priority - b.priority)
+			.slice(0, limit);
+	}
 }

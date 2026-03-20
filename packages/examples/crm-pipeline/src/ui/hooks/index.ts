@@ -1,9 +1,9 @@
 'use client';
 
-export { useDealList, type UseDealListOptions } from './useDealList';
+export { type UseDealListOptions, useDealList } from './useDealList';
 export {
-  useDealMutations,
-  type UseDealMutationsOptions,
+	type UseDealMutationsOptions,
+	useDealMutations,
 } from './useDealMutations';
 
 // Note: For deal types (CreateDealInput, MoveDealInput, etc.), import directly from:

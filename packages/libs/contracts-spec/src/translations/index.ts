@@ -38,26 +38,22 @@
  * ```
  */
 
-// Core types and factory
-export * from './spec';
-
-// Registry
-export * from './registry';
-
-// Validation
-export * from './validation';
-
 // Legacy catalog types (for backwards compatibility)
 // Note: Locale and MessageKey are re-exported from spec.ts, not catalog.ts
 export type {
-  TranslationEntry,
-  TranslationCatalogMeta,
-  PlatformTranslationCatalog,
-  BlueprintTranslationCatalog,
+	BlueprintTranslationCatalog,
+	PlatformTranslationCatalog,
+	TranslationCatalogMeta,
+	TranslationEntry,
 } from './catalog';
+// I18n factory for package-level message helpers
+export * from './i18n-factory';
+// Registry
+export * from './registry';
+// Core types and factory
+export * from './spec';
 
 // Tenant overrides
 export * from './tenant';
-
-// I18n factory for package-level message helpers
-export * from './i18n-factory';
+// Validation
+export * from './validation';

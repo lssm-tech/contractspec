@@ -6,19 +6,19 @@
 import type { ReactNode } from 'react';
 
 export default function OperateLayout({ children }: { children: ReactNode }) {
-  return (
-    <div className="bg-background flex h-screen w-full flex-col">
-      <header className="flex shrink-0 items-center gap-4 border-b px-4 py-2">
-        <a
-          href="/"
-          className="text-muted-foreground hover:text-foreground text-sm font-medium"
-        >
-          ContractSpec
-        </a>
-        <span className="text-muted-foreground">/</span>
-        <span className="text-sm font-medium">Operate</span>
-      </header>
-      <main className="flex min-h-0 flex-1 flex-col">{children}</main>
-    </div>
-  );
+	return (
+		<div className="flex h-screen w-full flex-col bg-background">
+			<header className="flex shrink-0 items-center gap-4 border-b px-4 py-2">
+				<a
+					href="/"
+					className="font-medium text-muted-foreground text-sm hover:text-foreground"
+				>
+					ContractSpec
+				</a>
+				<span className="text-muted-foreground">/</span>
+				<span className="font-medium text-sm">Operate</span>
+			</header>
+			<main className="flex min-h-0 flex-1 flex-col">{children}</main>
+		</div>
+	);
 }

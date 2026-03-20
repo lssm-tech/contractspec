@@ -5,8 +5,8 @@
  * and other non-semantic differences.
  */
 
-import { createHash } from 'crypto';
 import { compareVersions } from 'compare-versions';
+import { createHash } from 'crypto';
 
 /**
  * Normalize a value for deterministic JSON serialization.
@@ -15,71 +15,71 @@ import { compareVersions } from 'compare-versions';
  * - Preserves null values
  */
 export function normalizeValue(value: unknown): unknown {
-  if (value === null || value === undefined) {
-    return value === null ? null : undefined;
-  }
+	if (value === null || value === undefined) {
+		return value === null ? null : undefined;
+	}
 
-  if (Array.isArray(value)) {
-    return value.map(normalizeValue);
-  }
+	if (Array.isArray(value)) {
+		return value.map(normalizeValue);
+	}
 
-  if (typeof value === 'object') {
-    const obj = value as Record<string, unknown>;
-    const sortedKeys = Object.keys(obj).sort();
-    const normalized: Record<string, unknown> = {};
+	if (typeof value === 'object') {
+		const obj = value as Record<string, unknown>;
+		const sortedKeys = Object.keys(obj).sort();
+		const normalized: Record<string, unknown> = {};
 
-    for (const key of sortedKeys) {
-      const normalizedValue = normalizeValue(obj[key]);
-      // Only include defined values
-      if (normalizedValue !== undefined) {
-        normalized[key] = normalizedValue;
-      }
-    }
+		for (const key of sortedKeys) {
+			const normalizedValue = normalizeValue(obj[key]);
+			// Only include defined values
+			if (normalizedValue !== undefined) {
+				normalized[key] = normalizedValue;
+			}
+		}
 
-    return normalized;
-  }
+		return normalized;
+	}
 
-  return value;
+	return value;
 }
 
 /**
  * Serialize a value to deterministic JSON string.
  */
 export function toCanonicalJson(value: unknown): string {
-  return JSON.stringify(normalizeValue(value), null, 0);
+	return JSON.stringify(normalizeValue(value), null, 0);
 }
 
 /**
  * Compute a SHA-256 hash of canonical JSON representation.
  */
 export function computeHash(value: unknown): string {
-  const canonical = toCanonicalJson(value);
-  return createHash('sha256').update(canonical).digest('hex').slice(0, 16);
+	const canonical = toCanonicalJson(value);
+	return createHash('sha256').update(canonical).digest('hex').slice(0, 16);
 }
 
 /**
  * Sort specs by key and version for deterministic ordering.
  */
 export function sortSpecs<T extends { key: string; version: string }>(
-  specs: T[]
+	specs: T[]
 ): T[] {
-  return [...specs].sort((a, b) => {
-    const keyCompare = a.key.localeCompare(b.key);
-    if (keyCompare !== 0) return keyCompare;
-    return compareVersions(a.version, b.version);
-  });
+	return [...specs].sort((a, b) => {
+		const keyCompare = a.key.localeCompare(b.key);
+		if (keyCompare !== 0) return keyCompare;
+		return compareVersions(a.version, b.version);
+	});
 }
 
 /**
  * Sort field snapshots by name for deterministic ordering.
  */
 export function sortFields(
-  fields: Record<string, unknown>
+	fields: Record<string, unknown>
 ): Record<string, unknown> {
-  const sorted: Record<string, unknown> = {};
-  const keys = Object.keys(fields).sort();
-  for (const key of keys) {
-    sorted[key] = fields[key];
-  }
-  return sorted;
+	const sorted: Record<string, unknown> = {};
+	const keys = Object.keys(fields).sort();
+	for (const key of keys) {
+		sorted[key] = fields[key];
+	}
+	return sorted;
 }

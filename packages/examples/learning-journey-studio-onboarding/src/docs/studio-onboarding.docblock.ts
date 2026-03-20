@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec';
 
 const studioOnboardingDocBlocks: DocBlock[] = [
-  {
-    id: 'docs.learning-journey.studio-onboarding',
-    title: 'Learning Journey — Studio Getting Started',
-    summary:
-      'Track that guides a new Studio user through template spawn, spec edit, regeneration, playground, and evolution.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/learning-journey/studio-onboarding',
-    tags: ['learning', 'onboarding', 'studio'],
-    body: `## Track
+	{
+		id: 'docs.learning-journey.studio-onboarding',
+		title: 'Learning Journey — Studio Getting Started',
+		summary:
+			'Track that guides a new Studio user through template spawn, spec edit, regeneration, playground, and evolution.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/learning-journey/studio-onboarding',
+		tags: ['learning', 'onboarding', 'studio'],
+		body: `## Track
 - **Key**: \`studio_getting_started\`
 - **Persona**: new Studio developer, first 30 minutes
 - **Goal**: instantiate template → edit spec → regenerate → play → run evolution
@@ -32,7 +32,7 @@ XP: 20/20/20/20/30 with bonus 25 XP if completed within 48h (streak rule). Badge
   - \`learning.onboarding.getProgress\` to render progress
   - \`learning.onboarding.recordEvent\` to advance from bus events
 - Events should be emitted by Studio surfaces (template creation, spec save, regeneration, playground session start, evolution apply).`,
-  },
+	},
 ];
 
 registerDocBlocks(studioOnboardingDocBlocks);

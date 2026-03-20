@@ -15,110 +15,110 @@ import type { CICheckOptions, CIIssue } from '../types';
  * Run coverage goal enforcement checks.
  */
 export async function runCoverageChecks(
-  adapters: { fs: FsAdapter; logger: LoggerAdapter },
-  specFiles: SpecScanResult[],
-  options: CICheckOptions
+	adapters: { fs: FsAdapter; logger: LoggerAdapter },
+	specFiles: SpecScanResult[],
+	options: CICheckOptions
 ): Promise<CIIssue[]> {
-  const { fs, logger } = adapters;
-  const issues: CIIssue[] = [];
+	const { fs, logger } = adapters;
+	const issues: CIIssue[] = [];
 
-  // Try to find coverage report
-  const coverageDir = options.workspaceRoot
-    ? `${options.workspaceRoot}/coverage`
-    : './coverage';
+	// Try to find coverage report
+	const coverageDir = options.workspaceRoot
+		? `${options.workspaceRoot}/coverage`
+		: './coverage';
 
-  const possiblePaths = [
-    `${coverageDir}/coverage-final.json`,
-    `${coverageDir}/coverage.json`,
-    `${coverageDir}/coverage-summary.json`,
-  ];
+	const possiblePaths = [
+		`${coverageDir}/coverage-final.json`,
+		`${coverageDir}/coverage.json`,
+		`${coverageDir}/coverage-summary.json`,
+	];
 
-  let coverageContent: string | undefined;
-  let coveragePath: string | undefined;
+	let coverageContent: string | undefined;
+	let coveragePath: string | undefined;
 
-  for (const path of possiblePaths) {
-    const exists = await fs.exists(path);
-    if (exists) {
-      coverageContent = await fs.readFile(path);
-      coveragePath = path;
-      break;
-    }
-  }
+	for (const path of possiblePaths) {
+		const exists = await fs.exists(path);
+		if (exists) {
+			coverageContent = await fs.readFile(path);
+			coveragePath = path;
+			break;
+		}
+	}
 
-  if (!coverageContent) {
-    logger.info('No coverage report found, skipping coverage checks');
-    return issues;
-  }
+	if (!coverageContent) {
+		logger.info('No coverage report found, skipping coverage checks');
+		return issues;
+	}
 
-  // Parse coverage report
-  const format = detectFormat(coveragePath ?? 'coverage.json');
-  const parser = createParser(format);
-  const coverageReport = parser.parse(coverageContent);
+	// Parse coverage report
+	const format = detectFormat(coveragePath ?? 'coverage.json');
+	const parser = createParser(format);
+	const coverageReport = parser.parse(coverageContent);
 
-  // Scan for test specs with coverage requirements
-  for (const specFile of specFiles) {
-    if (
-      specFile.specType !== 'test-spec' ||
-      !specFile.key ||
-      !specFile.version ||
-      !specFile.sourceBlock
-    )
-      continue;
+	// Scan for test specs with coverage requirements
+	for (const specFile of specFiles) {
+		if (
+			specFile.specType !== 'test-spec' ||
+			!specFile.key ||
+			!specFile.version ||
+			!specFile.sourceBlock
+		)
+			continue;
 
-    // Extract coverage requirements (simplified - actual extraction would need more parsing)
-    const coverageMatch = specFile.sourceBlock.match(
-      /coverage\s*:\s*\{([^}]+)\}/
-    );
-    if (!coverageMatch || !coverageMatch[1]) continue;
+		// Extract coverage requirements (simplified - actual extraction would need more parsing)
+		const coverageMatch = specFile.sourceBlock.match(
+			/coverage\s*:\s*\{([^}]+)\}/
+		);
+		if (!coverageMatch || !coverageMatch[1]) continue;
 
-    // Parse coverage requirements
-    const coverageBlock = coverageMatch[1];
-    const requirements: Record<string, number> = {};
+		// Parse coverage requirements
+		const coverageBlock = coverageMatch[1];
+		const requirements: Record<string, number> = {};
 
-    const statementsMatch = coverageBlock.match(/statements\s*:\s*(\d+)/);
-    if (statementsMatch && statementsMatch[1])
-      requirements.statements = parseInt(statementsMatch[1], 10);
+		const statementsMatch = coverageBlock.match(/statements\s*:\s*(\d+)/);
+		if (statementsMatch && statementsMatch[1])
+			requirements.statements = parseInt(statementsMatch[1], 10);
 
-    const branchesMatch = coverageBlock.match(/branches\s*:\s*(\d+)/);
-    if (branchesMatch && branchesMatch[1])
-      requirements.branches = parseInt(branchesMatch[1], 10);
+		const branchesMatch = coverageBlock.match(/branches\s*:\s*(\d+)/);
+		if (branchesMatch && branchesMatch[1])
+			requirements.branches = parseInt(branchesMatch[1], 10);
 
-    const functionsMatch = coverageBlock.match(/functions\s*:\s*(\d+)/);
-    if (functionsMatch && functionsMatch[1])
-      requirements.functions = parseInt(functionsMatch[1], 10);
+		const functionsMatch = coverageBlock.match(/functions\s*:\s*(\d+)/);
+		if (functionsMatch && functionsMatch[1])
+			requirements.functions = parseInt(functionsMatch[1], 10);
 
-    const linesMatch = coverageBlock.match(/lines\s*:\s*(\d+)/);
-    if (linesMatch && linesMatch[1])
-      requirements.lines = parseInt(linesMatch[1], 10);
+		const linesMatch = coverageBlock.match(/lines\s*:\s*(\d+)/);
+		if (linesMatch && linesMatch[1])
+			requirements.lines = parseInt(linesMatch[1], 10);
 
-    if (Object.keys(requirements).length === 0) continue;
+		if (Object.keys(requirements).length === 0) continue;
 
-    // Validate coverage against requirements
-    const result = validateCoverage(
-      specFile.key,
-      specFile.version,
-      requirements,
-      coverageReport.total
-    );
+		// Validate coverage against requirements
+		const result = validateCoverage(
+			specFile.key,
+			specFile.version,
+			requirements,
+			coverageReport.total
+		);
 
-    // Report failures as errors
-    for (const failure of result.failures) {
-      issues.push({
-        ruleId: 'coverage-below-threshold',
-        severity: 'error',
-        message: failure.message,
-        category: 'coverage',
-        file: specFile.filePath,
-        context: {
-          specKey: specFile.key,
-          specVersion: specFile.version,
-          metric: failure.metric,
-          required: failure.required,
-          actual: failure.actual,
-        },
-      });
-    }
-  }
+		// Report failures as errors
+		for (const failure of result.failures) {
+			issues.push({
+				ruleId: 'coverage-below-threshold',
+				severity: 'error',
+				message: failure.message,
+				category: 'coverage',
+				file: specFile.filePath,
+				context: {
+					specKey: specFile.key,
+					specVersion: specFile.version,
+					metric: failure.metric,
+					required: failure.required,
+					actual: failure.actual,
+				},
+			});
+		}
+	}
 
-  return issues;
+	return issues;
 }

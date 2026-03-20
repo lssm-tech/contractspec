@@ -3,8 +3,8 @@
  */
 
 export { IntegrationStatusEnum } from './integration.enum';
-export {
-  IntegrationModel,
-  CreateIntegrationInputModel,
-} from './integration.schema';
 export { CreateIntegrationContract } from './integration.operations';
+export {
+	CreateIntegrationInputModel,
+	IntegrationModel,
+} from './integration.schema';

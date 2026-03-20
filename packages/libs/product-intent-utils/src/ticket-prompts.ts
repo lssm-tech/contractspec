@@ -1,10 +1,10 @@
 import { CITATION_RULES, JSON_ONLY_RULES } from './prompts';
 
 export function promptExtractEvidenceFindings(params: {
-  question: string;
-  evidenceJSON: string;
+	question: string;
+	evidenceJSON: string;
 }): string {
-  return `
+	return `
 You are extracting evidence findings grounded in transcript excerpts.
 
 Question:
@@ -37,12 +37,12 @@ ${JSON_ONLY_RULES}
 }
 
 export function promptGroupProblems(params: {
-  question: string;
-  findingsJSON: string;
-  findingIds: string[];
+	question: string;
+	findingsJSON: string;
+	findingIds: string[];
 }): string {
-  const allowed = JSON.stringify({ findingIds: params.findingIds }, null, 2);
-  return `
+	const allowed = JSON.stringify({ findingIds: params.findingIds }, null, 2);
+	return `
 You are grouping evidence findings into problem statements.
 
 Question:
@@ -76,11 +76,11 @@ ${JSON_ONLY_RULES}
 }
 
 export function promptGenerateTickets(params: {
-  question: string;
-  problemsJSON: string;
-  findingsJSON: string;
+	question: string;
+	problemsJSON: string;
+	findingsJSON: string;
 }): string {
-  return `
+	return `
 You are generating implementation tickets grounded in evidence.
 
 Question:
@@ -115,9 +115,9 @@ ${JSON_ONLY_RULES}
 }
 
 export function promptSuggestPatchIntent(params: {
-  ticketJSON: string;
+	ticketJSON: string;
 }): string {
-  return `
+	return `
 You are generating a ContractPatchIntent from an evidence-backed ticket.
 
 Ticket:

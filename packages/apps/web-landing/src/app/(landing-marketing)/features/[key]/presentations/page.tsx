@@ -1,20 +1,20 @@
-import { notFound } from 'next/navigation';
 import { getContractSpecFeatureRegistry } from '@contractspec/bundle.library/features';
 import { FeaturePresentationsTemplate } from '@contractspec/bundle.library/presentation/features';
+import { notFound } from 'next/navigation';
 
 interface PageProps {
-  params: Promise<{ key: string }>;
+	params: Promise<{ key: string }>;
 }
 
 export default async function FeaturePresentationsPage({ params }: PageProps) {
-  const { key } = await params;
-  const decodedKey = decodeURIComponent(key);
-  const registry = getContractSpecFeatureRegistry();
-  const feature = registry.get(decodedKey);
+	const { key } = await params;
+	const decodedKey = decodeURIComponent(key);
+	const registry = getContractSpecFeatureRegistry();
+	const feature = registry.get(decodedKey);
 
-  if (!feature) {
-    notFound();
-  }
+	if (!feature) {
+		notFound();
+	}
 
-  return <FeaturePresentationsTemplate feature={feature} />;
+	return <FeaturePresentationsTemplate feature={feature} />;
 }

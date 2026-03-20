@@ -1,18 +1,13 @@
 // Main dashboard
 export * from './CrmDashboard';
-
+export * from './CrmDealCard';
 // Components
 export * from './CrmPipelineBoard';
-export * from './CrmDealCard';
-
-// Modals
-export * from './modals';
-
 // Hooks
 export * from './hooks';
-
-// Renderers
-export * from './renderers';
-
+// Modals
+export * from './modals';
 // Overlays
 export * from './overlays';
+// Renderers
+export * from './renderers';

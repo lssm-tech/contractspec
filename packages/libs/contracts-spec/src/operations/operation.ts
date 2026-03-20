@@ -2,14 +2,15 @@
  * ContractSpec: a single source of truth describing one operation (command/query).
  * It carries narrative context for humans/agents AND machine-typed input/output/policy.
  */
-import type { EventSpec } from '../events';
+
 import type { AnySchemaModel } from '@contractspec/lib.schema';
-import type { ResourceRefDescriptor } from '../resources';
+import type { CapabilityRef } from '../capabilities/capabilities';
+import type { EventSpec } from '../events';
+import type { DataViewRef, FormRef, PresentationRef } from '../features';
 import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';
+import type { ResourceRefDescriptor } from '../resources';
 import type { TestSpecRef } from '../tests/spec';
-import type { CapabilityRef } from '../capabilities/capabilities';
-import type { PresentationRef, FormRef, DataViewRef } from '../features';
 
 /**
  * Distinguishes between state-changing operations (command) and read-only operations (query).
@@ -20,38 +21,38 @@ export type OpKind = 'command' | 'query';
  * Type of implementation artifact.
  */
 export type ImplementationType =
-  | 'handler'
-  | 'component'
-  | 'form'
-  | 'test'
-  | 'service'
-  | 'hook'
-  | 'other';
+	| 'handler'
+	| 'component'
+	| 'form'
+	| 'test'
+	| 'service'
+	| 'hook'
+	| 'other';
 
 /**
  * Reference to an implementation file for a spec.
  * Used for explicit implementation mapping.
  */
 export interface ImplementationRef {
-  /** Path to implementation file (relative to workspace root) */
-  path: string;
-  /** Type of implementation artifact */
-  type: ImplementationType;
-  /** Optional human-readable description */
-  description?: string;
+	/** Path to implementation file (relative to workspace root) */
+	path: string;
+	/** Type of implementation artifact */
+	type: ImplementationType;
+	/** Optional human-readable description */
+	description?: string;
 }
 
 // preferred: reference a declared event
 export interface EmitDeclRef {
-  ref: EventSpec<AnySchemaModel>['meta'];
-  when: string;
+	ref: EventSpec<AnySchemaModel>['meta'];
+	when: string;
 }
 // inline (fallback)
 export interface EmitDeclInline {
-  key: string;
-  version: string;
-  when: string;
-  payload: AnySchemaModel;
+	key: string;
+	version: string;
+	when: string;
+	payload: AnySchemaModel;
 }
 /**
  * Declaration of an event that an operation may emit.
@@ -61,20 +62,20 @@ export type EmitDecl = EmitDeclRef | EmitDeclInline;
 export const isEmitDeclRef = (e: EmitDecl): e is EmitDeclRef => 'ref' in e;
 
 export interface TelemetryTrigger {
-  event: { key: string; version?: string };
-  properties?: (args: {
-    input: unknown;
-    output?: unknown;
-    error?: unknown;
-  }) => Record<string, unknown>;
+	event: { key: string; version?: string };
+	properties?: (args: {
+		input: unknown;
+		output?: unknown;
+		error?: unknown;
+	}) => Record<string, unknown>;
 }
 
 export interface OperationSpecMeta extends OwnerShipMeta {
-  kind: OpKind;
-  /** Business goal: why this exists */
-  goal: string;
-  /** Background, constraints, scope edges (feeds docs & LLM context) */
-  context: string;
+	kind: OpKind;
+	/** Business goal: why this exists */
+	goal: string;
+	/** Background, constraints, scope edges (feeds docs & LLM context) */
+	context: string;
 }
 
 /**
@@ -85,138 +86,138 @@ export interface OperationSpecMeta extends OwnerShipMeta {
  * @template Events - Tuple of events that this operation may emit.
  */
 export interface OperationSpec<
-  Input extends AnySchemaModel,
-  Output extends AnySchemaModel | ResourceRefDescriptor<boolean>,
-  Events extends readonly EmitDecl[] | undefined =
-    | readonly EmitDecl[]
-    | undefined,
+	Input extends AnySchemaModel,
+	Output extends AnySchemaModel | ResourceRefDescriptor<boolean>,
+	Events extends readonly EmitDecl[] | undefined =
+		| readonly EmitDecl[]
+		| undefined,
 > {
-  meta: OperationSpecMeta;
+	meta: OperationSpecMeta;
 
-  /**
-   * Optional reference to the capability that provides this operation.
-   * Used for bidirectional linking between capabilities and operations.
-   */
-  capability?: CapabilityRef;
+	/**
+	 * Optional reference to the capability that provides this operation.
+	 * Used for bidirectional linking between capabilities and operations.
+	 */
+	capability?: CapabilityRef;
 
-  io: {
-    /** Zod schema for input body payload */
-    input: Input | null;
+	io: {
+		/** Zod schema for input body payload */
+		input: Input | null;
 
-    /** Zod schema for URL path parameters */
-    params?: AnySchemaModel;
+		/** Zod schema for URL path parameters */
+		params?: AnySchemaModel;
 
-    /** Zod schema for query string parameters */
-    query?: AnySchemaModel;
+		/** Zod schema for query string parameters */
+		query?: AnySchemaModel;
 
-    /** Zod schema for HTTP headers */
-    headers?: AnySchemaModel;
+		/** Zod schema for HTTP headers */
+		headers?: AnySchemaModel;
 
-    /** Zod schema for output payload */
-    output: Output;
-    /** Named, typed errors this op may throw (optional) */
-    errors?: Record<
-      string,
-      {
-        description: string;
-        http?: number; // suggested HTTP status if surfaced over REST
-        gqlCode?: string; // suggested GraphQL error code
-        when: string; // human-readable condition
-      }
-    >;
-  };
+		/** Zod schema for output payload */
+		output: Output;
+		/** Named, typed errors this op may throw (optional) */
+		errors?: Record<
+			string,
+			{
+				description: string;
+				http?: number; // suggested HTTP status if surfaced over REST
+				gqlCode?: string; // suggested GraphQL error code
+				when: string; // human-readable condition
+			}
+		>;
+	};
 
-  policy: {
-    /** Minimal auth category allowed to call this op */
-    auth: 'anonymous' | 'user' | 'admin';
-    /** Idempotency hint. Queries default true; commands default false. */
-    idempotent?: boolean;
-    /** Soft rate limit suggestion; adapter enforces via limiter */
-    rateLimit?: { rpm: number; key: 'user' | 'org' | 'global' };
-    /** Feature flags that must be ON for this op to run */
-    flags?: string[];
-    /** Whether a human must approve before action (e.g., risky commands) */
-    escalate?: 'human_review' | null;
-    /** JSONPath-like pointers to redact from logs/prompts */
-    pii?: string[];
-    /** Referenced policy specs governing access */
-    policies?: PolicyRef[];
-    /** Field-level overrides referencing policy specs */
-    fieldPolicies?: {
-      field: string;
-      actions: ('read' | 'write')[];
-      policy?: PolicyRef;
-    }[];
-  };
+	policy: {
+		/** Minimal auth category allowed to call this op */
+		auth: 'anonymous' | 'user' | 'admin';
+		/** Idempotency hint. Queries default true; commands default false. */
+		idempotent?: boolean;
+		/** Soft rate limit suggestion; adapter enforces via limiter */
+		rateLimit?: { rpm: number; key: 'user' | 'org' | 'global' };
+		/** Feature flags that must be ON for this op to run */
+		flags?: string[];
+		/** Whether a human must approve before action (e.g., risky commands) */
+		escalate?: 'human_review' | null;
+		/** JSONPath-like pointers to redact from logs/prompts */
+		pii?: string[];
+		/** Referenced policy specs governing access */
+		policies?: PolicyRef[];
+		/** Field-level overrides referencing policy specs */
+		fieldPolicies?: {
+			field: string;
+			actions: ('read' | 'write')[];
+			policy?: PolicyRef;
+		}[];
+	};
 
-  sideEffects?: {
-    /** Declared events this op may emit; runtime will guard against others */
-    emits?: Events;
-    /** Analytics intents (names); the service decides the sink */
-    analytics?: string[];
-    /** Audit intents (labels); the service decides storage */
-    audit?: string[];
-  };
+	sideEffects?: {
+		/** Declared events this op may emit; runtime will guard against others */
+		emits?: Events;
+		/** Analytics intents (names); the service decides the sink */
+		analytics?: string[];
+		/** Audit intents (labels); the service decides storage */
+		audit?: string[];
+	};
 
-  telemetry?: {
-    success?: TelemetryTrigger;
-    failure?: TelemetryTrigger;
-  };
+	telemetry?: {
+		success?: TelemetryTrigger;
+		failure?: TelemetryTrigger;
+	};
 
-  tests?: TestSpecRef[];
+	tests?: TestSpecRef[];
 
-  transport?: {
-    rest?: {
-      /** Override HTTP method (default: POST for commands, GET for queries) */
-      method?: 'GET' | 'POST';
-      /** Override path (default derived from meta.name/version) */
-      path?: string;
-    };
-    gql?: {
-      /** Override field name (default: dots→underscores + _vN) */
-      field?: string;
-      returns?: string;
-      // byIdField?: string;
-      // resource?: string;
-    };
-    mcp?: {
-      /** Override tool identifier (default: "<name>-v<version>" with dots replaced by underscores) */
-      toolName?: string;
-    };
-  };
+	transport?: {
+		rest?: {
+			/** Override HTTP method (default: POST for commands, GET for queries) */
+			method?: 'GET' | 'POST';
+			/** Override path (default derived from meta.name/version) */
+			path?: string;
+		};
+		gql?: {
+			/** Override field name (default: dots→underscores + _vN) */
+			field?: string;
+			returns?: string;
+			// byIdField?: string;
+			// resource?: string;
+		};
+		mcp?: {
+			/** Override tool identifier (default: "<name>-v<version>" with dots replaced by underscores) */
+			toolName?: string;
+		};
+	};
 
-  acceptance?: {
-    /** Gherkin-lite scenarios for docs & auto tests */
-    scenarios?: {
-      key: string;
-      given: string[];
-      when: string[];
-      then: string[];
-    }[];
-    /** Request/response examples (used for docs & snapshot tests) */
-    examples?: { key: string; input: unknown; output: unknown }[];
-  };
+	acceptance?: {
+		/** Gherkin-lite scenarios for docs & auto tests */
+		scenarios?: {
+			key: string;
+			given: string[];
+			when: string[];
+			then: string[];
+		}[];
+		/** Request/response examples (used for docs & snapshot tests) */
+		examples?: { key: string; input: unknown; output: unknown }[];
+	};
 
-  /**
-   * Explicit implementation file mappings.
-   * Used for tracking and verifying that this spec is correctly implemented.
-   */
-  implementations?: ImplementationRef[];
+	/**
+	 * Explicit implementation file mappings.
+	 * Used for tracking and verifying that this spec is correctly implemented.
+	 */
+	implementations?: ImplementationRef[];
 
-  /**
-   * Optional: when this op is used as agent tool, render output with this presentation.
-   * At most one of outputPresentation, outputForm, outputDataView.
-   */
-  outputPresentation?: PresentationRef;
-  /** Optional: when this op is used as agent tool, render output as form */
-  outputForm?: FormRef;
-  /** Optional: when this op is used as agent tool, render output as data view */
-  outputDataView?: DataViewRef;
+	/**
+	 * Optional: when this op is used as agent tool, render output with this presentation.
+	 * At most one of outputPresentation, outputForm, outputDataView.
+	 */
+	outputPresentation?: PresentationRef;
+	/** Optional: when this op is used as agent tool, render output as form */
+	outputForm?: FormRef;
+	/** Optional: when this op is used as agent tool, render output as data view */
+	outputDataView?: DataViewRef;
 }
 
 export type AnyOperationSpec = OperationSpec<
-  AnySchemaModel,
-  AnySchemaModel | ResourceRefDescriptor<boolean>
+	AnySchemaModel,
+	AnySchemaModel | ResourceRefDescriptor<boolean>
 >;
 
 /**
@@ -224,23 +225,23 @@ export type AnyOperationSpec = OperationSpec<
  * Sets `kind: 'command'` and defaults `idempotent: false`.
  */
 export const defineCommand = <
-  I extends AnySchemaModel,
-  O extends AnySchemaModel | ResourceRefDescriptor<boolean>,
-  E extends readonly EmitDecl[] | undefined = undefined,
+	I extends AnySchemaModel,
+	O extends AnySchemaModel | ResourceRefDescriptor<boolean>,
+	E extends readonly EmitDecl[] | undefined = undefined,
 >(
-  spec: Omit<OperationSpec<I, O, E>, 'meta' | 'policy'> & {
-    meta: Omit<OperationSpec<I, O, E>['meta'], 'kind'>;
-    policy: Omit<OperationSpec<I, O, E>['policy'], 'idempotent'>;
-  }
+	spec: Omit<OperationSpec<I, O, E>, 'meta' | 'policy'> & {
+		meta: Omit<OperationSpec<I, O, E>['meta'], 'kind'>;
+		policy: Omit<OperationSpec<I, O, E>['policy'], 'idempotent'>;
+	}
 ): OperationSpec<I, O, E> => ({
-  ...spec,
-  meta: { ...spec.meta, kind: 'command' as const },
-  policy: {
-    ...spec.policy,
-    idempotent:
-      (spec.policy as never as OperationSpec<never, never, never>)?.['policy']
-        ?.idempotent ?? false,
-  },
+	...spec,
+	meta: { ...spec.meta, kind: 'command' as const },
+	policy: {
+		...spec.policy,
+		idempotent:
+			(spec.policy as never as OperationSpec<never, never, never>)?.['policy']
+				?.idempotent ?? false,
+	},
 });
 
 /**
@@ -248,16 +249,16 @@ export const defineCommand = <
  * Sets `kind: 'query'` and forces `idempotent: true`.
  */
 export const defineQuery = <
-  I extends AnySchemaModel,
-  O extends AnySchemaModel | ResourceRefDescriptor<boolean>,
-  E extends readonly EmitDecl[] | undefined = undefined,
+	I extends AnySchemaModel,
+	O extends AnySchemaModel | ResourceRefDescriptor<boolean>,
+	E extends readonly EmitDecl[] | undefined = undefined,
 >(
-  spec: Omit<OperationSpec<I, O, E>, 'meta' | 'policy'> & {
-    meta: Omit<OperationSpec<I, O, E>['meta'], 'kind'>;
-    policy: Omit<OperationSpec<I, O, E>['policy'], 'idempotent'>;
-  }
+	spec: Omit<OperationSpec<I, O, E>, 'meta' | 'policy'> & {
+		meta: Omit<OperationSpec<I, O, E>['meta'], 'kind'>;
+		policy: Omit<OperationSpec<I, O, E>['policy'], 'idempotent'>;
+	}
 ): OperationSpec<I, O, E> => ({
-  ...spec,
-  meta: { ...spec.meta, kind: 'query' as const },
-  policy: { ...spec.policy, idempotent: true },
+	...spec,
+	meta: { ...spec.meta, kind: 'query' as const },
+	policy: { ...spec.policy, idempotent: true },
 });

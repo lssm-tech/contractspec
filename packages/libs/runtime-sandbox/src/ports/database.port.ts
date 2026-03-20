@@ -1,10 +1,10 @@
 import type {
-  DatabaseInitOptions,
-  DbRow,
-  DbValue,
-  Migration,
-  QueryResult,
-  TransactionContext,
+	DatabaseInitOptions,
+	DbRow,
+	DbValue,
+	Migration,
+	QueryResult,
+	TransactionContext,
 } from '../types/database.types';
 
 /**
@@ -18,59 +18,59 @@ import type {
  * All implementations must be lazy-loadable to avoid bundle bloat.
  */
 export interface DatabasePort {
-  /**
-   * Initialize the database connection and run migrations.
-   */
-  init(options?: DatabaseInitOptions): Promise<void>;
+	/**
+	 * Initialize the database connection and run migrations.
+	 */
+	init(options?: DatabaseInitOptions): Promise<void>;
 
-  /**
-   * Close the database connection and release resources.
-   */
-  close(): Promise<void>;
+	/**
+	 * Close the database connection and release resources.
+	 */
+	close(): Promise<void>;
 
-  /**
-   * Check if the database is initialized.
-   */
-  isInitialized(): boolean;
+	/**
+	 * Check if the database is initialized.
+	 */
+	isInitialized(): boolean;
 
-  /**
-   * Execute a SELECT query and return rows.
-   *
-   * @param sql - SQL query string with $1, $2, etc. placeholders
-   * @param params - Query parameters
-   * @returns Query result with typed rows
-   */
-  query<T = DbRow>(sql: string, params?: DbValue[]): Promise<QueryResult<T>>;
+	/**
+	 * Execute a SELECT query and return rows.
+	 *
+	 * @param sql - SQL query string with $1, $2, etc. placeholders
+	 * @param params - Query parameters
+	 * @returns Query result with typed rows
+	 */
+	query<T = DbRow>(sql: string, params?: DbValue[]): Promise<QueryResult<T>>;
 
-  /**
-   * Execute an INSERT/UPDATE/DELETE statement.
-   *
-   * @param sql - SQL statement with $1, $2, etc. placeholders
-   * @param params - Statement parameters
-   */
-  execute(sql: string, params?: DbValue[]): Promise<void>;
+	/**
+	 * Execute an INSERT/UPDATE/DELETE statement.
+	 *
+	 * @param sql - SQL statement with $1, $2, etc. placeholders
+	 * @param params - Statement parameters
+	 */
+	execute(sql: string, params?: DbValue[]): Promise<void>;
 
-  /**
-   * Run a callback within a database transaction.
-   * Automatically commits on success, rolls back on error.
-   *
-   * @param callback - Function to execute within transaction
-   * @returns Result of the callback
-   */
-  transaction<T>(callback: (ctx: TransactionContext) => Promise<T>): Promise<T>;
+	/**
+	 * Run a callback within a database transaction.
+	 * Automatically commits on success, rolls back on error.
+	 *
+	 * @param callback - Function to execute within transaction
+	 * @returns Result of the callback
+	 */
+	transaction<T>(callback: (ctx: TransactionContext) => Promise<T>): Promise<T>;
 
-  /**
-   * Run schema migrations.
-   *
-   * @param migrations - Array of migrations to apply
-   */
-  migrate(migrations: Migration[]): Promise<void>;
+	/**
+	 * Run schema migrations.
+	 *
+	 * @param migrations - Array of migrations to apply
+	 */
+	migrate(migrations: Migration[]): Promise<void>;
 
-  /**
-   * Export the current database state as a binary blob.
-   * Useful for backup/restore in browser context.
-   */
-  export(): Promise<Uint8Array>;
+	/**
+	 * Export the current database state as a binary blob.
+	 * Useful for backup/restore in browser context.
+	 */
+	export(): Promise<Uint8Array>;
 }
 
 /**
@@ -78,5 +78,5 @@ export interface DatabasePort {
  * Used for lazy-loading adapters.
  */
 export type DatabaseAdapterFactory = (
-  options?: DatabaseInitOptions
+	options?: DatabaseInitOptions
 ) => Promise<DatabasePort>;

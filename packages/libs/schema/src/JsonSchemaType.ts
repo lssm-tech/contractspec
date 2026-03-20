@@ -15,35 +15,35 @@ import type { SchemaModelType } from './SchemaModelType';
  * Supports standard JSON Schema draft-07/2020-12 properties.
  */
 export interface JsonSchemaDefinition {
-  type?: string | string[];
-  properties?: Record<string, JsonSchemaDefinition>;
-  required?: string[];
-  additionalProperties?: boolean | JsonSchemaDefinition;
-  items?: JsonSchemaDefinition | JsonSchemaDefinition[];
-  enum?: unknown[];
-  const?: unknown;
-  oneOf?: JsonSchemaDefinition[];
-  anyOf?: JsonSchemaDefinition[];
-  allOf?: JsonSchemaDefinition[];
-  $ref?: string;
-  title?: string;
-  description?: string;
-  default?: unknown;
-  format?: string;
-  minimum?: number;
-  maximum?: number;
-  minLength?: number;
-  maxLength?: number;
-  pattern?: string;
-  [key: string]: unknown;
+	type?: string | string[];
+	properties?: Record<string, JsonSchemaDefinition>;
+	required?: string[];
+	additionalProperties?: boolean | JsonSchemaDefinition;
+	items?: JsonSchemaDefinition | JsonSchemaDefinition[];
+	enum?: unknown[];
+	const?: unknown;
+	oneOf?: JsonSchemaDefinition[];
+	anyOf?: JsonSchemaDefinition[];
+	allOf?: JsonSchemaDefinition[];
+	$ref?: string;
+	title?: string;
+	description?: string;
+	default?: unknown;
+	format?: string;
+	minimum?: number;
+	maximum?: number;
+	minLength?: number;
+	maxLength?: number;
+	pattern?: string;
+	[key: string]: unknown;
 }
 
 /**
  * Options for JsonSchemaType wrapper.
  */
 export interface JsonSchemaTypeOptions {
-  /** Name for identification */
-  name?: string;
+	/** Name for identification */
+	name?: string;
 }
 
 /**
@@ -64,122 +64,122 @@ export interface JsonSchemaTypeOptions {
  * }, { name: 'CustomFields' });
  * ```
  */
-export class JsonSchemaType implements SchemaModelType<
-  Record<string, unknown>
-> {
-  private readonly jsonSchema: JsonSchemaDefinition;
-  private readonly options: JsonSchemaTypeOptions;
-  private cachedZod?: z.ZodType<Record<string, unknown>>;
+export class JsonSchemaType
+	implements SchemaModelType<Record<string, unknown>>
+{
+	private readonly jsonSchema: JsonSchemaDefinition;
+	private readonly options: JsonSchemaTypeOptions;
+	private cachedZod?: z.ZodType<Record<string, unknown>>;
 
-  constructor(
-    jsonSchema: JsonSchemaDefinition,
-    options: JsonSchemaTypeOptions = {}
-  ) {
-    this.jsonSchema = jsonSchema;
-    this.options = options;
-  }
+	constructor(
+		jsonSchema: JsonSchemaDefinition,
+		options: JsonSchemaTypeOptions = {}
+	) {
+		this.jsonSchema = jsonSchema;
+		this.options = options;
+	}
 
-  /**
-   * Convert JSON Schema to Zod schema for runtime validation.
-   *
-   * Note: This is a simplified conversion. For complex schemas,
-   * consider using a dedicated json-schema-to-zod library.
-   */
-  getZod(): z.ZodType<Record<string, unknown>> {
-    if (this.cachedZod) {
-      return this.cachedZod;
-    }
+	/**
+	 * Convert JSON Schema to Zod schema for runtime validation.
+	 *
+	 * Note: This is a simplified conversion. For complex schemas,
+	 * consider using a dedicated json-schema-to-zod library.
+	 */
+	getZod(): z.ZodType<Record<string, unknown>> {
+		if (this.cachedZod) {
+			return this.cachedZod;
+		}
 
-    // Handle additionalProperties (dictionary/record types)
-    if (this.jsonSchema.additionalProperties !== undefined) {
-      if (this.jsonSchema.additionalProperties === true) {
-        this.cachedZod = z.record(z.string(), z.unknown());
-        return this.cachedZod;
-      }
-      if (typeof this.jsonSchema.additionalProperties === 'object') {
-        // For typed additionalProperties, use union or unknown
-        this.cachedZod = z.record(z.string(), z.unknown());
-        return this.cachedZod;
-      }
-      if (this.jsonSchema.additionalProperties === false) {
-        this.cachedZod = z.object({}).strict();
-        return this.cachedZod;
-      }
-    }
+		// Handle additionalProperties (dictionary/record types)
+		if (this.jsonSchema.additionalProperties !== undefined) {
+			if (this.jsonSchema.additionalProperties === true) {
+				this.cachedZod = z.record(z.string(), z.unknown());
+				return this.cachedZod;
+			}
+			if (typeof this.jsonSchema.additionalProperties === 'object') {
+				// For typed additionalProperties, use union or unknown
+				this.cachedZod = z.record(z.string(), z.unknown());
+				return this.cachedZod;
+			}
+			if (this.jsonSchema.additionalProperties === false) {
+				this.cachedZod = z.object({}).strict();
+				return this.cachedZod;
+			}
+		}
 
-    // Handle explicit properties
-    if (this.jsonSchema.properties) {
-      const shape: Record<string, z.ZodType> = {};
-      const required = new Set(this.jsonSchema.required ?? []);
+		// Handle explicit properties
+		if (this.jsonSchema.properties) {
+			const shape: Record<string, z.ZodType> = {};
+			const required = new Set(this.jsonSchema.required ?? []);
 
-      for (const [key, propSchema] of Object.entries(
-        this.jsonSchema.properties
-      )) {
-        const fieldType = this.convertPropertyToZod(propSchema);
-        shape[key] = required.has(key) ? fieldType : fieldType.optional();
-      }
+			for (const [key, propSchema] of Object.entries(
+				this.jsonSchema.properties
+			)) {
+				const fieldType = this.convertPropertyToZod(propSchema);
+				shape[key] = required.has(key) ? fieldType : fieldType.optional();
+			}
 
-      this.cachedZod = z.object(shape).passthrough();
-      return this.cachedZod;
-    }
+			this.cachedZod = z.object(shape).passthrough();
+			return this.cachedZod;
+		}
 
-    // Default: passthrough object
-    this.cachedZod = z.object({}).passthrough();
-    return this.cachedZod;
-  }
+		// Default: passthrough object
+		this.cachedZod = z.object({}).passthrough();
+		return this.cachedZod;
+	}
 
-  /**
-   * Return the original JSON Schema.
-   */
-  getJsonSchema(): JsonSchemaDefinition {
-    return this.jsonSchema;
-  }
+	/**
+	 * Return the original JSON Schema.
+	 */
+	getJsonSchema(): JsonSchemaDefinition {
+		return this.jsonSchema;
+	}
 
-  /**
-   * Return GraphQL type info.
-   * JSON Schema types map to JSON scalar in GraphQL.
-   */
-  getPothos(): { type: string; name?: string } {
-    return { type: 'JSON', name: this.options.name };
-  }
+	/**
+	 * Return GraphQL type info.
+	 * JSON Schema types map to JSON scalar in GraphQL.
+	 */
+	getPothos(): { type: string; name?: string } {
+		return { type: 'JSON', name: this.options.name };
+	}
 
-  /**
-   * Get the configured name for this schema.
-   */
-  getName(): string | undefined {
-    return this.options.name;
-  }
+	/**
+	 * Get the configured name for this schema.
+	 */
+	getName(): string | undefined {
+		return this.options.name;
+	}
 
-  /**
-   * Convert a single JSON Schema property to Zod.
-   */
-  private convertPropertyToZod(schema: JsonSchemaDefinition): z.ZodType {
-    const type = Array.isArray(schema.type) ? schema.type[0] : schema.type;
+	/**
+	 * Convert a single JSON Schema property to Zod.
+	 */
+	private convertPropertyToZod(schema: JsonSchemaDefinition): z.ZodType {
+		const type = Array.isArray(schema.type) ? schema.type[0] : schema.type;
 
-    switch (type) {
-      case 'string':
-        return z.string();
-      case 'number':
-      case 'integer':
-        return z.number();
-      case 'boolean':
-        return z.boolean();
-      case 'array':
-        if (schema.items && !Array.isArray(schema.items)) {
-          return z.array(this.convertPropertyToZod(schema.items));
-        }
-        return z.array(z.unknown());
-      case 'object':
-        if (schema.properties) {
-          return new JsonSchemaType(schema).getZod();
-        }
-        return z.record(z.string(), z.unknown());
-      case 'null':
-        return z.null();
-      default:
-        return z.unknown();
-    }
-  }
+		switch (type) {
+			case 'string':
+				return z.string();
+			case 'number':
+			case 'integer':
+				return z.number();
+			case 'boolean':
+				return z.boolean();
+			case 'array':
+				if (schema.items && !Array.isArray(schema.items)) {
+					return z.array(this.convertPropertyToZod(schema.items));
+				}
+				return z.array(z.unknown());
+			case 'object':
+				if (schema.properties) {
+					return new JsonSchemaType(schema).getZod();
+				}
+				return z.record(z.string(), z.unknown());
+			case 'null':
+				return z.null();
+			default:
+				return z.unknown();
+		}
+	}
 }
 
 /**
@@ -202,6 +202,6 @@ export class JsonSchemaType implements SchemaModelType<
  * ```
  */
 export const fromJsonSchema = (
-  schema: JsonSchemaDefinition,
-  options?: JsonSchemaTypeOptions
+	schema: JsonSchemaDefinition,
+	options?: JsonSchemaTypeOptions
 ): JsonSchemaType => new JsonSchemaType(schema, options);

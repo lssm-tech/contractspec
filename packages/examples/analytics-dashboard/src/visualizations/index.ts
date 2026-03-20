@@ -1,27 +1,27 @@
 export {
-  AnalyticsVisualizationRefs,
-  AnalyticsVisualizationRegistry,
-  AnalyticsVisualizationSampleData,
-  AnalyticsVisualizationSpecMap,
-  AnalyticsVisualizationSpecs,
-  refOf,
-  visualizationRefKey,
+	AnalyticsVisualizationRefs,
+	AnalyticsVisualizationRegistry,
+	AnalyticsVisualizationSampleData,
+	AnalyticsVisualizationSpecMap,
+	AnalyticsVisualizationSpecs,
+	refOf,
+	visualizationRefKey,
 } from './catalog';
 export {
-  ChannelMixVisualization,
-  EngagementHeatmapVisualization,
-  ConversionFunnelVisualization,
-  AccountCoverageGeoVisualization,
+	AccountCoverageGeoVisualization,
+	ChannelMixVisualization,
+	ConversionFunnelVisualization,
+	EngagementHeatmapVisualization,
 } from './specs.breakdown';
 export {
-  RevenueMetricVisualization,
-  RevenueTrendVisualization,
-  RegionalRevenueVisualization,
-  RetentionAreaVisualization,
-  PipelineScatterVisualization,
+	PipelineScatterVisualization,
+	RegionalRevenueVisualization,
+	RetentionAreaVisualization,
+	RevenueMetricVisualization,
+	RevenueTrendVisualization,
 } from './specs.performance';
 export {
-  createExampleWidgets,
-  resolveAnalyticsWidget,
-  type ResolvedAnalyticsWidget,
+	createExampleWidgets,
+	type ResolvedAnalyticsWidget,
+	resolveAnalyticsWidget,
 } from './widgets';

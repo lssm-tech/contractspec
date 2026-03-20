@@ -3,26 +3,26 @@ import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
 export function LibrariesGrowthPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold">@contractspec/lib.growth</h1>
-        <p className="text-muted-foreground text-lg">
-          Launch experiments without third-party SDKs. Register variants, assign
-          users deterministically, track exposures, and compute significance.
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-4">
+				<h1 className="font-bold text-4xl">@contractspec/lib.growth</h1>
+				<p className="text-lg text-muted-foreground">
+					Launch experiments without third-party SDKs. Register variants, assign
+					users deterministically, track exposures, and compute significance.
+				</p>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Installation</h2>
-        <InstallCommand package="@contractspec/lib.growth" />
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Installation</h2>
+				<InstallCommand package="@contractspec/lib.growth" />
+			</div>
 
-      <div className="space-y-3">
-        <h2 className="text-2xl font-bold">Register + assign</h2>
-        <CodeBlock
-          language="typescript"
-          code={`import { ExperimentRegistry, ExperimentRunner } from '@contractspec/lib.growth/experiments';
+			<div className="space-y-3">
+				<h2 className="font-bold text-2xl">Register + assign</h2>
+				<CodeBlock
+					language="typescript"
+					code={`import { ExperimentRegistry, ExperimentRunner } from '@contractspec/lib.growth/experiments';
 
 const registry = new ExperimentRegistry().register({
   key: 'pricing.cta',
@@ -37,14 +37,14 @@ const registry = new ExperimentRegistry().register({
 
 const runner = new ExperimentRunner();
 const assignment = runner.assign(registry.get('pricing.cta')!, 'user_123');`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="space-y-3">
-        <h2 className="text-2xl font-bold">Track + analyze</h2>
-        <CodeBlock
-          language="typescript"
-          code={`import { ExperimentTracker } from '@contractspec/lib.growth/tracker';
+			<div className="space-y-3">
+				<h2 className="font-bold text-2xl">Track + analyze</h2>
+				<CodeBlock
+					language="typescript"
+					code={`import { ExperimentTracker } from '@contractspec/lib.growth/tracker';
 import { StatsEngine } from '@contractspec/lib.growth/stats';
 
 const tracker = new ExperimentTracker(new InMemoryTrackerStore());
@@ -61,17 +61,17 @@ const stats = new StatsEngine().summarize(
   await tracker.getSamples(assignment.experimentKey, 'demo_booked'),
   'demo_booked'
 );`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="flex items-center gap-4 pt-4">
-        <Link href="/docs/libraries" className="btn-ghost">
-          Back to Libraries
-        </Link>
-        <Link href="/docs/libraries/analytics" className="btn-primary">
-          Next: Analytics <ChevronRight size={16} />
-        </Link>
-      </div>
-    </div>
-  );
+			<div className="flex items-center gap-4 pt-4">
+				<Link href="/docs/libraries" className="btn-ghost">
+					Back to Libraries
+				</Link>
+				<Link href="/docs/libraries/analytics" className="btn-primary">
+					Next: Analytics <ChevronRight size={16} />
+				</Link>
+			</div>
+		</div>
+	);
 }

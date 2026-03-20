@@ -4,42 +4,42 @@ import { defineEnum } from '@contractspec/lib.schema';
  * Workflow status enum.
  */
 export const WorkflowStatusEnum = defineEnum('WorkflowStatus', [
-  'DRAFT',
-  'ACTIVE',
-  'DEPRECATED',
-  'ARCHIVED',
+	'DRAFT',
+	'ACTIVE',
+	'DEPRECATED',
+	'ARCHIVED',
 ]);
 
 /**
  * Trigger type enum.
  */
 export const TriggerTypeEnum = defineEnum('WorkflowTriggerType', [
-  'MANUAL',
-  'EVENT',
-  'SCHEDULED',
-  'API',
+	'MANUAL',
+	'EVENT',
+	'SCHEDULED',
+	'API',
 ]);
 
 /**
  * Step type enum.
  */
 export const StepTypeEnum = defineEnum('StepType', [
-  'START',
-  'APPROVAL',
-  'TASK',
-  'CONDITION',
-  'PARALLEL',
-  'WAIT',
-  'ACTION',
-  'END',
+	'START',
+	'APPROVAL',
+	'TASK',
+	'CONDITION',
+	'PARALLEL',
+	'WAIT',
+	'ACTION',
+	'END',
 ]);
 
 /**
  * Approval mode enum.
  */
 export const ApprovalModeEnum = defineEnum('ApprovalMode', [
-  'ANY',
-  'ALL',
-  'MAJORITY',
-  'SEQUENTIAL',
+	'ANY',
+	'ALL',
+	'MAJORITY',
+	'SEQUENTIAL',
 ]);

@@ -1,4 +1,4 @@
-export * from './posthog';
-export * from './integration-posthog.feature';
 export { default as example } from './example';
+export * from './integration-posthog.feature';
+export * from './posthog';
 import './docs';

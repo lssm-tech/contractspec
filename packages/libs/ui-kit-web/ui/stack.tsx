@@ -1,203 +1,203 @@
-import * as React from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
+import * as React from 'react';
 
 const vStackVariants = cva('flex flex-col', {
-  variants: {
-    gap: {
-      none: 'gap-0',
-      xs: 'gap-1',
-      sm: 'gap-2',
-      md: 'gap-3',
-      lg: 'gap-4',
-      xl: 'gap-6',
-      '2xl': 'gap-8',
-    },
-    align: {
-      start: 'items-start',
-      center: 'items-center',
-      end: 'items-end',
-      stretch: 'items-stretch',
-    },
-    justify: {
-      start: 'justify-start',
-      center: 'justify-center',
-      end: 'justify-end',
-      between: 'justify-between',
-      around: 'justify-around',
-      evenly: 'justify-evenly',
-    },
-  },
-  defaultVariants: {
-    gap: 'md',
-    align: 'stretch',
-    justify: 'start',
-  },
+	variants: {
+		gap: {
+			none: 'gap-0',
+			xs: 'gap-1',
+			sm: 'gap-2',
+			md: 'gap-3',
+			lg: 'gap-4',
+			xl: 'gap-6',
+			'2xl': 'gap-8',
+		},
+		align: {
+			start: 'items-start',
+			center: 'items-center',
+			end: 'items-end',
+			stretch: 'items-stretch',
+		},
+		justify: {
+			start: 'justify-start',
+			center: 'justify-center',
+			end: 'justify-end',
+			between: 'justify-between',
+			around: 'justify-around',
+			evenly: 'justify-evenly',
+		},
+	},
+	defaultVariants: {
+		gap: 'md',
+		align: 'stretch',
+		justify: 'start',
+	},
 });
 
 type VStackProps = React.HTMLAttributes<HTMLDivElement> &
-  VariantProps<typeof vStackVariants> & {
-    as?:
-      | 'div'
-      | 'section'
-      | 'nav'
-      | 'main'
-      | 'header'
-      | 'footer'
-      | 'article'
-      | 'aside';
-    ref?: React.Ref<HTMLDivElement>;
-  };
+	VariantProps<typeof vStackVariants> & {
+		as?:
+			| 'div'
+			| 'section'
+			| 'nav'
+			| 'main'
+			| 'header'
+			| 'footer'
+			| 'article'
+			| 'aside';
+		ref?: React.Ref<HTMLDivElement>;
+	};
 
 function VStack({
-  className,
-  gap,
-  align,
-  justify,
-  as = 'div',
-  ref,
-  ...props
+	className,
+	gap,
+	align,
+	justify,
+	as = 'div',
+	ref,
+	...props
 }: VStackProps) {
-  const Comp = as as React.ElementType;
-  return (
-    <Comp
-      ref={ref}
-      className={cn(vStackVariants({ gap, align, justify }), className)}
-      {...props}
-    />
-  );
+	const Comp = as as React.ElementType;
+	return (
+		<Comp
+			ref={ref}
+			className={cn(vStackVariants({ gap, align, justify }), className)}
+			{...props}
+		/>
+	);
 }
 
 const hStackVariants = cva('flex flex-row', {
-  variants: {
-    gap: {
-      none: 'gap-0',
-      xs: 'gap-1',
-      sm: 'gap-2',
-      md: 'gap-3',
-      lg: 'gap-4',
-      xl: 'gap-6',
-      '2xl': 'gap-8',
-    },
-    align: {
-      start: 'items-start',
-      center: 'items-center',
-      end: 'items-end',
-      stretch: 'items-stretch',
-      baseline: 'items-baseline',
-    },
-    justify: {
-      start: 'justify-start',
-      center: 'justify-center',
-      end: 'justify-end',
-      between: 'justify-between',
-      around: 'justify-around',
-      evenly: 'justify-evenly',
-    },
-    wrap: {
-      nowrap: 'flex-nowrap',
-      wrap: 'flex-wrap',
-      wrapReverse: 'flex-wrap-reverse',
-    },
-  },
-  defaultVariants: {
-    gap: 'md',
-    align: 'center',
-    justify: 'start',
-    wrap: 'wrap',
-  },
+	variants: {
+		gap: {
+			none: 'gap-0',
+			xs: 'gap-1',
+			sm: 'gap-2',
+			md: 'gap-3',
+			lg: 'gap-4',
+			xl: 'gap-6',
+			'2xl': 'gap-8',
+		},
+		align: {
+			start: 'items-start',
+			center: 'items-center',
+			end: 'items-end',
+			stretch: 'items-stretch',
+			baseline: 'items-baseline',
+		},
+		justify: {
+			start: 'justify-start',
+			center: 'justify-center',
+			end: 'justify-end',
+			between: 'justify-between',
+			around: 'justify-around',
+			evenly: 'justify-evenly',
+		},
+		wrap: {
+			nowrap: 'flex-nowrap',
+			wrap: 'flex-wrap',
+			wrapReverse: 'flex-wrap-reverse',
+		},
+	},
+	defaultVariants: {
+		gap: 'md',
+		align: 'center',
+		justify: 'start',
+		wrap: 'wrap',
+	},
 });
 
 type HStackProps = React.HTMLAttributes<HTMLDivElement> &
-  VariantProps<typeof hStackVariants> & {
-    as?: 'div' | 'section' | 'nav' | 'header' | 'footer' | 'article' | 'aside';
-    ref?: React.Ref<HTMLDivElement>;
-  };
+	VariantProps<typeof hStackVariants> & {
+		as?: 'div' | 'section' | 'nav' | 'header' | 'footer' | 'article' | 'aside';
+		ref?: React.Ref<HTMLDivElement>;
+	};
 
 function HStack({
-  className,
-  gap,
-  align,
-  justify,
-  wrap,
-  as = 'div',
-  ref,
-  ...props
+	className,
+	gap,
+	align,
+	justify,
+	wrap,
+	as = 'div',
+	ref,
+	...props
 }: HStackProps) {
-  const Comp = as as React.ElementType;
-  return (
-    <Comp
-      ref={ref}
-      className={cn(hStackVariants({ gap, align, justify, wrap }), className)}
-      {...props}
-    />
-  );
+	const Comp = as as React.ElementType;
+	return (
+		<Comp
+			ref={ref}
+			className={cn(hStackVariants({ gap, align, justify, wrap }), className)}
+			{...props}
+		/>
+	);
 }
 
 const boxVariants = cva('flex flex-row', {
-  variants: {
-    gap: {
-      none: 'gap-0',
-      xs: 'gap-1',
-      sm: 'gap-2',
-      md: 'gap-3',
-      lg: 'gap-4',
-      xl: 'gap-6',
-      '2xl': 'gap-8',
-    },
-    align: {
-      start: 'items-start',
-      center: 'items-center',
-      end: 'items-end',
-      stretch: 'items-stretch',
-      baseline: 'items-baseline',
-    },
-    justify: {
-      start: 'justify-start',
-      center: 'justify-center',
-      end: 'justify-end',
-      between: 'justify-between',
-      around: 'justify-around',
-      evenly: 'justify-evenly',
-    },
-    wrap: {
-      nowrap: 'flex-nowrap',
-      wrap: 'flex-wrap',
-      wrapReverse: 'flex-wrap-reverse',
-    },
-  },
-  defaultVariants: {
-    gap: 'md',
-    align: 'center',
-    justify: 'center',
-    wrap: 'nowrap',
-  },
+	variants: {
+		gap: {
+			none: 'gap-0',
+			xs: 'gap-1',
+			sm: 'gap-2',
+			md: 'gap-3',
+			lg: 'gap-4',
+			xl: 'gap-6',
+			'2xl': 'gap-8',
+		},
+		align: {
+			start: 'items-start',
+			center: 'items-center',
+			end: 'items-end',
+			stretch: 'items-stretch',
+			baseline: 'items-baseline',
+		},
+		justify: {
+			start: 'justify-start',
+			center: 'justify-center',
+			end: 'justify-end',
+			between: 'justify-between',
+			around: 'justify-around',
+			evenly: 'justify-evenly',
+		},
+		wrap: {
+			nowrap: 'flex-nowrap',
+			wrap: 'flex-wrap',
+			wrapReverse: 'flex-wrap-reverse',
+		},
+	},
+	defaultVariants: {
+		gap: 'md',
+		align: 'center',
+		justify: 'center',
+		wrap: 'nowrap',
+	},
 });
 
 type BoxProps = React.HTMLAttributes<HTMLDivElement> &
-  VariantProps<typeof boxVariants> & {
-    as?: 'div' | 'section' | 'nav' | 'header' | 'footer' | 'article' | 'aside';
-    ref?: React.Ref<HTMLDivElement>;
-  };
+	VariantProps<typeof boxVariants> & {
+		as?: 'div' | 'section' | 'nav' | 'header' | 'footer' | 'article' | 'aside';
+		ref?: React.Ref<HTMLDivElement>;
+	};
 
 function Box({
-  className,
-  gap,
-  align,
-  justify,
-  wrap,
-  as = 'div',
-  ref,
-  ...props
+	className,
+	gap,
+	align,
+	justify,
+	wrap,
+	as = 'div',
+	ref,
+	...props
 }: BoxProps) {
-  const Comp = as as React.ElementType;
-  return (
-    <Comp
-      ref={ref}
-      className={cn(boxVariants({ gap, align, justify, wrap }), className)}
-      {...props}
-    />
-  );
+	const Comp = as as React.ElementType;
+	return (
+		<Comp
+			ref={ref}
+			className={cn(boxVariants({ gap, align, justify, wrap }), className)}
+			{...props}
+		/>
+	);
 }
 
-export { VStack, HStack, vStackVariants, hStackVariants, boxVariants, Box };
+export { Box, boxVariants, HStack, hStackVariants, VStack, vStackVariants };

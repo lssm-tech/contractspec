@@ -3,27 +3,27 @@ import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
 export function LibrariesEvolutionPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold">@contractspec/lib.evolution</h1>
-        <p className="text-muted-foreground text-lg">
-          Analyze production telemetry, surface anomalies, and turn them into
-          AI-reviewed spec proposals that can be approved, rolled out, or
-          reverted.
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-4">
+				<h1 className="font-bold text-4xl">@contractspec/lib.evolution</h1>
+				<p className="text-lg text-muted-foreground">
+					Analyze production telemetry, surface anomalies, and turn them into
+					AI-reviewed spec proposals that can be approved, rolled out, or
+					reverted.
+				</p>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Installation</h2>
-        <InstallCommand package="@contractspec/lib.evolution" />
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Installation</h2>
+				<InstallCommand package="@contractspec/lib.evolution" />
+			</div>
 
-      <div className="space-y-3">
-        <h2 className="text-2xl font-bold">From telemetry to intent</h2>
-        <CodeBlock
-          language="typescript"
-          code={`import { SpecAnalyzer } from '@contractspec/lib.evolution/analyzer';
+			<div className="space-y-3">
+				<h2 className="font-bold text-2xl">From telemetry to intent</h2>
+				<CodeBlock
+					language="typescript"
+					code={`import { SpecAnalyzer } from '@contractspec/lib.evolution/analyzer';
 import { EvolutionPipeline } from '@contractspec/lib.observability';
 
 const analyzer = new SpecAnalyzer();
@@ -39,14 +39,14 @@ pipeline.ingest({
   timestamp: new Date(),
   errorCode: 'VALIDATION_FAILED',
 });`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="space-y-3">
-        <h2 className="text-2xl font-bold">Generate & approve suggestions</h2>
-        <CodeBlock
-          language="typescript"
-          code={`import {
+			<div className="space-y-3">
+				<h2 className="font-bold text-2xl">Generate & approve suggestions</h2>
+				<CodeBlock
+					language="typescript"
+					code={`import {
   SpecGenerator,
   SpecSuggestionOrchestrator,
   InMemorySpecSuggestionRepository,
@@ -61,14 +61,14 @@ const suggestion = generator.generateFromIntent(intentPattern, {
 });
 
 await orchestrator.submit(suggestion, sessionState);`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="space-y-3">
-        <h2 className="text-2xl font-bold">Write approved specs back to git</h2>
-        <CodeBlock
-          language="typescript"
-          code={`import { FileSystemSuggestionWriter } from '@contractspec/lib.evolution/approval';
+			<div className="space-y-3">
+				<h2 className="font-bold text-2xl">Write approved specs back to git</h2>
+				<CodeBlock
+					language="typescript"
+					code={`import { FileSystemSuggestionWriter } from '@contractspec/lib.evolution/approval';
 
 const writer = new FileSystemSuggestionWriter({
   outputDir:
@@ -80,37 +80,37 @@ await writer.write({
   status: 'approved',
   approvals: { reviewer: 'ops@contractspec', decidedAt: new Date() },
 });`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        {[
-          {
-            title: 'Approvals by default',
-            description:
-              "Every suggestion flows through @contractspec/lib.ai-agent's ApprovalWorkflow. Tune auto-approval thresholds per environment.",
-          },
-          {
-            title: 'Pluggable storage',
-            description:
-              'Use the Prisma repository in production, in-memory for tests, or stream serialized suggestions into your own queue.',
-          },
-        ].map((card) => (
-          <div key={card.title} className="card-subtle space-y-2 p-4">
-            <h3 className="text-lg font-semibold">{card.title}</h3>
-            <p className="text-muted-foreground text-sm">{card.description}</p>
-          </div>
-        ))}
-      </div>
+			<div className="grid gap-4 md:grid-cols-2">
+				{[
+					{
+						title: 'Approvals by default',
+						description:
+							"Every suggestion flows through @contractspec/lib.ai-agent's ApprovalWorkflow. Tune auto-approval thresholds per environment.",
+					},
+					{
+						title: 'Pluggable storage',
+						description:
+							'Use the Prisma repository in production, in-memory for tests, or stream serialized suggestions into your own queue.',
+					},
+				].map((card) => (
+					<div key={card.title} className="card-subtle space-y-2 p-4">
+						<h3 className="font-semibold text-lg">{card.title}</h3>
+						<p className="text-muted-foreground text-sm">{card.description}</p>
+					</div>
+				))}
+			</div>
 
-      <div className="flex items-center gap-4 pt-4">
-        <Link href="/docs/libraries" className="btn-ghost">
-          Back to Libraries
-        </Link>
-        <Link href="/docs/libraries/observability" className="btn-primary">
-          Next: Observability <ChevronRight size={16} />
-        </Link>
-      </div>
-    </div>
-  );
+			<div className="flex items-center gap-4 pt-4">
+				<Link href="/docs/libraries" className="btn-ghost">
+					Back to Libraries
+				</Link>
+				<Link href="/docs/libraries/observability" className="btn-primary">
+					Next: Observability <ChevronRight size={16} />
+				</Link>
+			</div>
+		</div>
+	);
 }

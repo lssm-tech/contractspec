@@ -7,17 +7,17 @@
  */
 
 import type { AnyOperationSpec } from '../operations';
-import type { AgentPrompt, AgentType, ImplementationPlan } from './types';
 import {
-  operationSpecToAgentPrompt,
-  operationSpecToFullMarkdown,
+	operationSpecToAgentPrompt,
+	operationSpecToFullMarkdown,
 } from './exporters';
+import type { AgentPrompt, AgentType, ImplementationPlan } from './types';
 
 /**
  * System prompts for different agent types.
  */
 export const AGENT_SYSTEM_PROMPTS: Record<AgentType, string> = {
-  'claude-code': `You are an expert TypeScript developer working with ContractSpec, a spec-first development framework.
+	'claude-code': `You are an expert TypeScript developer working with ContractSpec, a spec-first development framework.
 
 Your code follows these principles:
 - Type-safe with comprehensive TypeScript types (no \`any\`)
@@ -35,7 +35,7 @@ When implementing specs:
 
 Generate clean, idiomatic TypeScript that exactly matches the specification.`,
 
-  'cursor-cli': `You are implementing features for a ContractSpec-driven codebase.
+	'cursor-cli': `You are implementing features for a ContractSpec-driven codebase.
 
 ContractSpec is a spec-first framework where specifications define:
 - Operations (commands and queries) with typed I/O
@@ -52,7 +52,7 @@ When working with specs:
 
 Use the project's existing patterns and conventions.`,
 
-  'generic-mcp': `You are a code generation assistant working with ContractSpec specifications.
+	'generic-mcp': `You are a code generation assistant working with ContractSpec specifications.
 
 ContractSpec specs define:
 - meta: name, version, kind (command/query), description, goal, context
@@ -69,20 +69,20 @@ Follow the spec exactly and handle all defined cases.`,
  * Generate an implementation prompt for a specific agent type.
  */
 export function generateImplementationPrompt(
-  spec: AnyOperationSpec,
-  agent: AgentType,
-  options?: {
-    existingCode?: string;
-    targetPath?: string;
-  }
+	spec: AnyOperationSpec,
+	agent: AgentType,
+	options?: {
+		existingCode?: string;
+		targetPath?: string;
+	}
 ): AgentPrompt {
-  const systemPrompt = AGENT_SYSTEM_PROMPTS[agent];
-  const specMarkdown = operationSpecToFullMarkdown(spec);
+	const systemPrompt = AGENT_SYSTEM_PROMPTS[agent];
+	const specMarkdown = operationSpecToFullMarkdown(spec);
 
-  let taskPrompt: string;
+	let taskPrompt: string;
 
-  if (agent === 'claude-code') {
-    taskPrompt = `## Implementation Task
+	if (agent === 'claude-code') {
+		taskPrompt = `## Implementation Task
 
 Implement the following ContractSpec operation:
 
@@ -99,8 +99,8 @@ Generate a complete, production-ready TypeScript implementation that:
 5. Includes JSDoc documentation
 
 Provide ONLY the TypeScript code.`;
-  } else if (agent === 'cursor-cli') {
-    taskPrompt = `Implement this ContractSpec operation.
+	} else if (agent === 'cursor-cli') {
+		taskPrompt = `Implement this ContractSpec operation.
 
 ${specMarkdown}
 
@@ -111,35 +111,35 @@ Requirements:
 - Handle all error cases
 - Emit specified events
 - Follow acceptance scenarios`;
-  } else {
-    taskPrompt = operationSpecToAgentPrompt(spec, {
-      taskType: 'implement',
-      existingCode: options?.existingCode,
-    });
-  }
+	} else {
+		taskPrompt = operationSpecToAgentPrompt(spec, {
+			taskType: 'implement',
+			existingCode: options?.existingCode,
+		});
+	}
 
-  return {
-    agent,
-    systemPrompt,
-    taskPrompt,
-  };
+	return {
+		agent,
+		systemPrompt,
+		taskPrompt,
+	};
 }
 
 /**
  * Generate a test generation prompt.
  */
 export function generateTestPrompt(
-  spec: AnyOperationSpec,
-  agent: AgentType,
-  options?: {
-    implementationCode?: string;
-    testFramework?: 'vitest' | 'jest' | 'bun';
-  }
+	spec: AnyOperationSpec,
+	agent: AgentType,
+	options?: {
+		implementationCode?: string;
+		testFramework?: 'vitest' | 'jest' | 'bun';
+	}
 ): AgentPrompt {
-  const framework = options?.testFramework ?? 'vitest';
-  const specMarkdown = operationSpecToFullMarkdown(spec);
+	const framework = options?.testFramework ?? 'vitest';
+	const specMarkdown = operationSpecToFullMarkdown(spec);
 
-  const taskPrompt = `## Test Generation Task
+	const taskPrompt = `## Test Generation Task
 
 Generate comprehensive tests for this specification:
 
@@ -160,24 +160,24 @@ Use descriptive test names: "should [behavior] when [condition]"
 
 Provide a complete test file.`;
 
-  return {
-    agent,
-    systemPrompt: AGENT_SYSTEM_PROMPTS[agent],
-    taskPrompt,
-  };
+	return {
+		agent,
+		systemPrompt: AGENT_SYSTEM_PROMPTS[agent],
+		taskPrompt,
+	};
 }
 
 /**
  * Generate a code review prompt.
  */
 export function generateReviewPrompt(
-  spec: AnyOperationSpec,
-  agent: AgentType,
-  implementationCode: string
+	spec: AnyOperationSpec,
+	agent: AgentType,
+	implementationCode: string
 ): AgentPrompt {
-  const specMarkdown = operationSpecToFullMarkdown(spec);
+	const specMarkdown = operationSpecToFullMarkdown(spec);
 
-  const taskPrompt = `## Code Review Task
+	const taskPrompt = `## Code Review Task
 
 Review this implementation against its specification:
 
@@ -206,23 +206,23 @@ List improvements and recommendations
 
 Be thorough and precise. Focus on spec compliance first, then code quality.`;
 
-  return {
-    agent,
-    systemPrompt: AGENT_SYSTEM_PROMPTS[agent],
-    taskPrompt,
-  };
+	return {
+		agent,
+		systemPrompt: AGENT_SYSTEM_PROMPTS[agent],
+		taskPrompt,
+	};
 }
 
 /**
  * Generate a verification prompt for AI-powered semantic review.
  */
 export function generateVerificationPrompt(
-  spec: AnyOperationSpec,
-  implementationCode: string
+	spec: AnyOperationSpec,
+	implementationCode: string
 ): AgentPrompt {
-  const specMarkdown = operationSpecToFullMarkdown(spec);
+	const specMarkdown = operationSpecToFullMarkdown(spec);
 
-  const taskPrompt = `## Semantic Verification Task
+	const taskPrompt = `## Semantic Verification Task
 
 Verify that this implementation fulfills the specification's intent.
 
@@ -257,199 +257,199 @@ Analyze and respond with JSON:
 }
 \`\`\``;
 
-  return {
-    agent: 'generic-mcp',
-    taskPrompt,
-  };
+	return {
+		agent: 'generic-mcp',
+		taskPrompt,
+	};
 }
 
 /**
  * Generate a feature implementation plan.
  */
 export function generateImplementationPlan(
-  spec: AnyOperationSpec,
-  options?: {
-    projectRoot?: string;
-    existingFiles?: string[];
-  }
+	spec: AnyOperationSpec,
+	options?: {
+		projectRoot?: string;
+		existingFiles?: string[];
+	}
 ): ImplementationPlan {
-  const m = spec.meta;
+	const m = spec.meta;
 
-  // Suggest file structure based on spec type
-  const fileStructure: ImplementationPlan['fileStructure'] = [];
-  const basePath = options?.projectRoot ?? 'src';
-  const specPath = m.key.replace(/\./g, '/');
+	// Suggest file structure based on spec type
+	const fileStructure: ImplementationPlan['fileStructure'] = [];
+	const basePath = options?.projectRoot ?? 'src';
+	const specPath = m.key.replace(/\./g, '/');
 
-  if (m.kind === 'command' || m.kind === 'query') {
-    fileStructure.push(
-      {
-        path: `${basePath}/${specPath}/handler.ts`,
-        purpose: 'Main handler implementation',
-        type: 'create',
-      },
-      {
-        path: `${basePath}/${specPath}/types.ts`,
-        purpose: 'Type definitions',
-        type: 'create',
-      },
-      {
-        path: `${basePath}/${specPath}/handler.test.ts`,
-        purpose: 'Handler tests',
-        type: 'create',
-      }
-    );
-  }
+	if (m.kind === 'command' || m.kind === 'query') {
+		fileStructure.push(
+			{
+				path: `${basePath}/${specPath}/handler.ts`,
+				purpose: 'Main handler implementation',
+				type: 'create',
+			},
+			{
+				path: `${basePath}/${specPath}/types.ts`,
+				purpose: 'Type definitions',
+				type: 'create',
+			},
+			{
+				path: `${basePath}/${specPath}/handler.test.ts`,
+				purpose: 'Handler tests',
+				type: 'create',
+			}
+		);
+	}
 
-  // Generate implementation steps from acceptance scenarios
-  const steps: ImplementationPlan['steps'] = [];
-  let order = 1;
+	// Generate implementation steps from acceptance scenarios
+	const steps: ImplementationPlan['steps'] = [];
+	let order = 1;
 
-  // Step 1: Types
-  steps.push({
-    order: order++,
-    title: 'Define Types',
-    description:
-      'Create TypeScript types for input, output, and internal data structures',
-    acceptanceCriteria: [
-      'Input type matches spec schema exactly',
-      'Output type matches spec schema exactly',
-      'Error types defined for all error cases',
-    ],
-  });
+	// Step 1: Types
+	steps.push({
+		order: order++,
+		title: 'Define Types',
+		description:
+			'Create TypeScript types for input, output, and internal data structures',
+		acceptanceCriteria: [
+			'Input type matches spec schema exactly',
+			'Output type matches spec schema exactly',
+			'Error types defined for all error cases',
+		],
+	});
 
-  // Step 2: Validation
-  steps.push({
-    order: order++,
-    title: 'Implement Input Validation',
-    description: 'Add validation logic for the input payload',
-    acceptanceCriteria: [
-      'All required fields are validated',
-      'Type constraints are enforced',
-      'Validation errors return appropriate error codes',
-    ],
-  });
+	// Step 2: Validation
+	steps.push({
+		order: order++,
+		title: 'Implement Input Validation',
+		description: 'Add validation logic for the input payload',
+		acceptanceCriteria: [
+			'All required fields are validated',
+			'Type constraints are enforced',
+			'Validation errors return appropriate error codes',
+		],
+	});
 
-  // Step 3: Core logic
-  steps.push({
-    order: order++,
-    title: 'Implement Core Logic',
-    description: 'Implement the main business logic of the operation',
-    acceptanceCriteria: spec.acceptance?.scenarios?.map((s) => s.key) ?? [
-      'Operation completes successfully for valid input',
-    ],
-  });
+	// Step 3: Core logic
+	steps.push({
+		order: order++,
+		title: 'Implement Core Logic',
+		description: 'Implement the main business logic of the operation',
+		acceptanceCriteria: spec.acceptance?.scenarios?.map((s) => s.key) ?? [
+			'Operation completes successfully for valid input',
+		],
+	});
 
-  // Step 4: Error handling
-  if (spec.io.errors && Object.keys(spec.io.errors).length > 0) {
-    steps.push({
-      order: order++,
-      title: 'Implement Error Handling',
-      description: 'Handle all defined error cases',
-      acceptanceCriteria: Object.entries(spec.io.errors).map(
-        ([code, err]) => `Handle ${code}: ${err.when}`
-      ),
-    });
-  }
+	// Step 4: Error handling
+	if (spec.io.errors && Object.keys(spec.io.errors).length > 0) {
+		steps.push({
+			order: order++,
+			title: 'Implement Error Handling',
+			description: 'Handle all defined error cases',
+			acceptanceCriteria: Object.entries(spec.io.errors).map(
+				([code, err]) => `Handle ${code}: ${err.when}`
+			),
+		});
+	}
 
-  // Step 5: Events
-  if (spec.sideEffects?.emits?.length) {
-    steps.push({
-      order: order++,
-      title: 'Implement Event Emission',
-      description: 'Emit events as specified',
-      acceptanceCriteria: spec.sideEffects.emits.map((e) => {
-        if ('ref' in e) {
-          return `Emit ${e.ref.key}.v${e.ref.version} when ${e.when}`;
-        }
-        return `Emit ${e.key}.v${e.version} when ${e.when}`;
-      }),
-    });
-  }
+	// Step 5: Events
+	if (spec.sideEffects?.emits?.length) {
+		steps.push({
+			order: order++,
+			title: 'Implement Event Emission',
+			description: 'Emit events as specified',
+			acceptanceCriteria: spec.sideEffects.emits.map((e) => {
+				if ('ref' in e) {
+					return `Emit ${e.ref.key}.v${e.ref.version} when ${e.when}`;
+				}
+				return `Emit ${e.key}.v${e.version} when ${e.when}`;
+			}),
+		});
+	}
 
-  // Step 6: Tests
-  steps.push({
-    order: order++,
-    title: 'Write Tests',
-    description: 'Create comprehensive test suite',
-    acceptanceCriteria: [
-      'All acceptance scenarios covered',
-      'All error cases tested',
-      'Edge cases handled',
-      'Events verified',
-    ],
-  });
+	// Step 6: Tests
+	steps.push({
+		order: order++,
+		title: 'Write Tests',
+		description: 'Create comprehensive test suite',
+		acceptanceCriteria: [
+			'All acceptance scenarios covered',
+			'All error cases tested',
+			'Edge cases handled',
+			'Events verified',
+		],
+	});
 
-  // Extract constraints
-  const constraints: ImplementationPlan['constraints'] = {
-    policy: [],
-    security: [],
-    pii: [],
-  };
+	// Extract constraints
+	const constraints: ImplementationPlan['constraints'] = {
+		policy: [],
+		security: [],
+		pii: [],
+	};
 
-  constraints.policy.push(`Auth level: ${spec.policy.auth}`);
-  if (spec.policy.idempotent !== undefined) {
-    constraints.policy.push(`Idempotent: ${spec.policy.idempotent}`);
-  }
-  if (spec.policy.rateLimit) {
-    constraints.policy.push(
-      `Rate limit: ${spec.policy.rateLimit.rpm} rpm per ${spec.policy.rateLimit.key}`
-    );
-  }
-  if (spec.policy.flags?.length) {
-    constraints.policy.push(
-      `Feature flags required: ${spec.policy.flags.join(', ')}`
-    );
-  }
-  if (spec.policy.escalate) {
-    constraints.security.push(`Escalation required: ${spec.policy.escalate}`);
-  }
-  if (spec.policy.pii?.length) {
-    constraints.pii = spec.policy.pii;
-  }
+	constraints.policy.push(`Auth level: ${spec.policy.auth}`);
+	if (spec.policy.idempotent !== undefined) {
+		constraints.policy.push(`Idempotent: ${spec.policy.idempotent}`);
+	}
+	if (spec.policy.rateLimit) {
+		constraints.policy.push(
+			`Rate limit: ${spec.policy.rateLimit.rpm} rpm per ${spec.policy.rateLimit.key}`
+		);
+	}
+	if (spec.policy.flags?.length) {
+		constraints.policy.push(
+			`Feature flags required: ${spec.policy.flags.join(', ')}`
+		);
+	}
+	if (spec.policy.escalate) {
+		constraints.security.push(`Escalation required: ${spec.policy.escalate}`);
+	}
+	if (spec.policy.pii?.length) {
+		constraints.pii = spec.policy.pii;
+	}
 
-  // Verification checklist
-  const verificationChecklist = [
-    'Input validation works for all cases',
-    'Output matches expected schema',
-    'All error cases return correct codes',
-    'Events are emitted with correct payloads',
-    'Auth requirements are enforced',
-    'Rate limiting is applied (if applicable)',
-    'PII fields are handled correctly',
-    'All acceptance scenarios pass',
-    'Tests provide adequate coverage',
-  ];
+	// Verification checklist
+	const verificationChecklist = [
+		'Input validation works for all cases',
+		'Output matches expected schema',
+		'All error cases return correct codes',
+		'Events are emitted with correct payloads',
+		'Auth requirements are enforced',
+		'Rate limiting is applied (if applicable)',
+		'PII fields are handled correctly',
+		'All acceptance scenarios pass',
+		'Tests provide adequate coverage',
+	];
 
-  return {
-    target: {
-      type: 'spec',
-      key: m.key,
-      version: m.version,
-    },
-    context: {
-      goal: m.goal,
-      description: m.description,
-      background: m.context,
-    },
-    specMarkdown: operationSpecToFullMarkdown(spec),
-    fileStructure,
-    steps,
-    constraints,
-    verificationChecklist,
-  };
+	return {
+		target: {
+			type: 'spec',
+			key: m.key,
+			version: m.version,
+		},
+		context: {
+			goal: m.goal,
+			description: m.description,
+			background: m.context,
+		},
+		specMarkdown: operationSpecToFullMarkdown(spec),
+		fileStructure,
+		steps,
+		constraints,
+		verificationChecklist,
+	};
 }
 
 /**
  * Format an implementation plan for a specific agent.
  */
 export function formatPlanForAgent(
-  plan: ImplementationPlan,
-  agent: AgentType
+	plan: ImplementationPlan,
+	agent: AgentType
 ): AgentPrompt {
-  let taskPrompt: string;
+	let taskPrompt: string;
 
-  if (agent === 'claude-code') {
-    taskPrompt = `## Implementation Plan: ${plan.target.key}.v${plan.target.version}
+	if (agent === 'claude-code') {
+		taskPrompt = `## Implementation Plan: ${plan.target.key}.v${plan.target.version}
 
 ### Context
 **Goal:** ${plan.context.goal}
@@ -464,16 +464,16 @@ ${plan.fileStructure.map((f) => `- \`${f.path}\` (${f.type}): ${f.purpose}`).joi
 
 ### Implementation Steps
 ${plan.steps
-  .map(
-    (s) => `
+	.map(
+		(s) => `
 #### Step ${s.order}: ${s.title}
 ${s.description}
 
 **Acceptance Criteria:**
 ${s.acceptanceCriteria.map((c) => `- [ ] ${c}`).join('\n')}
 `
-  )
-  .join('\n')}
+	)
+	.join('\n')}
 
 ### Constraints
 ${plan.constraints.policy.length ? `**Policy:**\n${plan.constraints.policy.map((p) => `- ${p}`).join('\n')}\n` : ''}
@@ -484,8 +484,8 @@ ${plan.constraints.pii.length ? `**PII Handling:**\n${plan.constraints.pii.map((
 ${plan.verificationChecklist.map((c) => `- [ ] ${c}`).join('\n')}
 
 Implement this plan step by step.`;
-  } else if (agent === 'cursor-cli') {
-    taskPrompt = `# ${plan.target.key}.v${plan.target.version}
+	} else if (agent === 'cursor-cli') {
+		taskPrompt = `# ${plan.target.key}.v${plan.target.version}
 
 ${plan.context.goal}
 
@@ -497,40 +497,40 @@ ${plan.fileStructure.map((f) => `${f.type}: ${f.path}`).join('\n')}
 
 ## Steps
 ${plan.steps.map((s) => `${s.order}. ${s.title}`).join('\n')}`;
-  } else {
-    taskPrompt = `Implementation plan for ${plan.target.key}.v${plan.target.version}
+	} else {
+		taskPrompt = `Implementation plan for ${plan.target.key}.v${plan.target.version}
 
 ${plan.specMarkdown}
 
 Steps:
 ${plan.steps.map((s) => `${s.order}. ${s.title}: ${s.description}`).join('\n')}`;
-  }
+	}
 
-  return {
-    agent,
-    systemPrompt: AGENT_SYSTEM_PROMPTS[agent],
-    taskPrompt,
-  };
+	return {
+		agent,
+		systemPrompt: AGENT_SYSTEM_PROMPTS[agent],
+		taskPrompt,
+	};
 }
 
 /**
  * Generate a fix violations prompt after verification.
  */
 export function generateFixViolationsPrompt(
-  spec: AnyOperationSpec,
-  implementationCode: string,
-  violations: { message: string; suggestion?: string }[]
+	spec: AnyOperationSpec,
+	implementationCode: string,
+	violations: { message: string; suggestion?: string }[]
 ): AgentPrompt {
-  const specMarkdown = operationSpecToFullMarkdown(spec);
+	const specMarkdown = operationSpecToFullMarkdown(spec);
 
-  const violationsList = violations
-    .map(
-      (v, i) =>
-        `${i + 1}. ${v.message}${v.suggestion ? `\n   Suggestion: ${v.suggestion}` : ''}`
-    )
-    .join('\n');
+	const violationsList = violations
+		.map(
+			(v, i) =>
+				`${i + 1}. ${v.message}${v.suggestion ? `\n   Suggestion: ${v.suggestion}` : ''}`
+		)
+		.join('\n');
 
-  const taskPrompt = `## Fix Specification Violations
+	const taskPrompt = `## Fix Specification Violations
 
 The following implementation has violations against its specification:
 
@@ -548,8 +548,8 @@ ${violationsList}
 Fix ALL violations while maintaining existing functionality.
 Provide the corrected implementation.`;
 
-  return {
-    agent: 'generic-mcp',
-    taskPrompt,
-  };
+	return {
+		agent: 'generic-mcp',
+		taskPrompt,
+	};
 }

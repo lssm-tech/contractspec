@@ -1,7 +1,7 @@
 export type DictionaryFromEnumMapping<
-  Enum,
-  Mapped,
-  Mapping extends Record<keyof Enum, Mapped>,
+	Enum,
+	Mapped,
+	Mapping extends Record<keyof Enum, Mapped>,
 > = {
-  [k in keyof Enum]: Mapping[k];
+	[k in keyof Enum]: Mapping[k];
 };

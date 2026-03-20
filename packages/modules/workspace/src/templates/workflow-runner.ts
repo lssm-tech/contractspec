@@ -1,17 +1,17 @@
 interface RunnerTemplateOptions {
-  exportName: string;
-  specImportPath: string;
-  runnerName: string;
-  workflowName: string;
+	exportName: string;
+	specImportPath: string;
+	runnerName: string;
+	workflowName: string;
 }
 
 export function generateWorkflowRunnerTemplate({
-  exportName,
-  specImportPath,
-  runnerName,
-  workflowName,
+	exportName,
+	specImportPath,
+	runnerName,
+	workflowName,
 }: RunnerTemplateOptions): string {
-  return `import {
+	return `import {
   InMemoryStateStore,
   WorkflowRegistry,
   WorkflowRunner,

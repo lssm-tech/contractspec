@@ -8,10 +8,10 @@
 // ---------------------------------------------------------------------------
 
 import type {
-  RenderConfig,
-  RenderResult,
-  VideoProject,
-  VideoProvider,
+	RenderConfig,
+	RenderResult,
+	VideoProject,
+	VideoProvider,
 } from '@contractspec/lib.contracts-integrations/integrations/providers/video';
 import { getAllFormatVariants } from '../design/layouts';
 import { defaultRenderConfig, resolveRenderConfig } from './config';
@@ -26,118 +26,119 @@ import { defaultRenderConfig, resolveRenderConfig } from './config';
  * ```
  */
 export class LocalRenderer implements VideoProvider {
-  private readonly entryPoint: string;
+	private readonly entryPoint: string;
 
-  constructor(options: { entryPoint: string }) {
-    this.entryPoint = options.entryPoint;
-  }
+	constructor(options: { entryPoint: string }) {
+		this.entryPoint = options.entryPoint;
+	}
 
-  async render(
-    project: VideoProject,
-    config: RenderConfig
-  ): Promise<RenderResult> {
-    const resolved = resolveRenderConfig(config);
+	async render(
+		project: VideoProject,
+		config: RenderConfig
+	): Promise<RenderResult> {
+		const resolved = resolveRenderConfig(config);
 
-    // Dynamically import Remotion packages (Node.js or Bun)
-    const { bundle } = await import('@remotion/bundler');
-    const { renderMedia, selectComposition } =
-      await import('@remotion/renderer');
+		// Dynamically import Remotion packages (Node.js or Bun)
+		const { bundle } = await import('@remotion/bundler');
+		const { renderMedia, selectComposition } = await import(
+			'@remotion/renderer'
+		);
 
-    // Bundle the Remotion project
-    const bundleLocation = await bundle({
-      entryPoint: this.entryPoint,
-    });
+		// Bundle the Remotion project
+		const bundleLocation = await bundle({
+			entryPoint: this.entryPoint,
+		});
 
-    // For single-composition projects, render the first scene's composition
-    // For multi-scene projects, this would use a Sequence-based master composition
-    const firstScene = project.scenes[0];
-    const mainCompositionId =
-      project.scenes.length === 1 && firstScene
-        ? firstScene.compositionId
-        : 'Master';
+		// For single-composition projects, render the first scene's composition
+		// For multi-scene projects, this would use a Sequence-based master composition
+		const firstScene = project.scenes[0];
+		const mainCompositionId =
+			project.scenes.length === 1 && firstScene
+				? firstScene.compositionId
+				: 'Master';
 
-    const composition = await selectComposition({
-      serveUrl: bundleLocation,
-      id: mainCompositionId,
-      inputProps: {
-        project,
-      },
-    });
+		const composition = await selectComposition({
+			serveUrl: bundleLocation,
+			id: mainCompositionId,
+			inputProps: {
+				project,
+			},
+		});
 
-    await renderMedia({
-      composition,
-      serveUrl: bundleLocation,
-      codec: resolved.codec as 'h264' | 'h265',
-      outputLocation: resolved.outputPath,
-      inputProps: { project },
-      ...(resolved.crf && { crf: resolved.crf }),
-      ...(resolved.concurrency && {
-        concurrency: resolved.concurrency,
-      }),
-    });
+		await renderMedia({
+			composition,
+			serveUrl: bundleLocation,
+			codec: resolved.codec as 'h264' | 'h265',
+			outputLocation: resolved.outputPath,
+			inputProps: { project },
+			...(resolved.crf && { crf: resolved.crf }),
+			...(resolved.concurrency && {
+				concurrency: resolved.concurrency,
+			}),
+		});
 
-    const result: RenderResult = {
-      outputPath: resolved.outputPath,
-      format: resolved.outputFormat ?? defaultRenderConfig.outputFormat,
-      codec: resolved.codec ?? defaultRenderConfig.codec,
-      durationSeconds: project.totalDurationInFrames / project.fps,
-      fileSizeBytes: 0, // Would need fs.stat in a real impl
-      dimensions: {
-        width: project.format.width,
-        height: project.format.height,
-      },
-    };
+		const result: RenderResult = {
+			outputPath: resolved.outputPath,
+			format: resolved.outputFormat ?? defaultRenderConfig.outputFormat,
+			codec: resolved.codec ?? defaultRenderConfig.codec,
+			durationSeconds: project.totalDurationInFrames / project.fps,
+			fileSizeBytes: 0, // Would need fs.stat in a real impl
+			dimensions: {
+				width: project.format.width,
+				height: project.format.height,
+			},
+		};
 
-    // Auto-generate format variants if requested
-    if (config.autoVariants) {
-      const variants = getAllFormatVariants().filter(
-        (f) => f.type !== project.format.type
-      );
+		// Auto-generate format variants if requested
+		if (config.autoVariants) {
+			const variants = getAllFormatVariants().filter(
+				(f) => f.type !== project.format.type
+			);
 
-      const variantResults: RenderResult[] = [];
+			const variantResults: RenderResult[] = [];
 
-      for (const variantFormat of variants) {
-        const variantPath = resolved.outputPath.replace(
-          /(\.[^.]+)$/,
-          `-${variantFormat.type}$1`
-        );
+			for (const variantFormat of variants) {
+				const variantPath = resolved.outputPath.replace(
+					/(\.[^.]+)$/,
+					`-${variantFormat.type}$1`
+				);
 
-        const variantProject: VideoProject = {
-          ...project,
-          format: variantFormat,
-        };
+				const variantProject: VideoProject = {
+					...project,
+					format: variantFormat,
+				};
 
-        const variantComposition = await selectComposition({
-          serveUrl: bundleLocation,
-          id: mainCompositionId,
-          inputProps: { project: variantProject },
-        });
+				const variantComposition = await selectComposition({
+					serveUrl: bundleLocation,
+					id: mainCompositionId,
+					inputProps: { project: variantProject },
+				});
 
-        await renderMedia({
-          composition: variantComposition,
-          serveUrl: bundleLocation,
-          codec: resolved.codec as 'h264' | 'h265',
-          outputLocation: variantPath,
-          inputProps: { project: variantProject },
-          ...(resolved.crf && { crf: resolved.crf }),
-        });
+				await renderMedia({
+					composition: variantComposition,
+					serveUrl: bundleLocation,
+					codec: resolved.codec as 'h264' | 'h265',
+					outputLocation: variantPath,
+					inputProps: { project: variantProject },
+					...(resolved.crf && { crf: resolved.crf }),
+				});
 
-        variantResults.push({
-          outputPath: variantPath,
-          format: resolved.outputFormat ?? defaultRenderConfig.outputFormat,
-          codec: resolved.codec ?? defaultRenderConfig.codec,
-          durationSeconds: project.totalDurationInFrames / project.fps,
-          fileSizeBytes: 0,
-          dimensions: {
-            width: variantFormat.width,
-            height: variantFormat.height,
-          },
-        });
-      }
+				variantResults.push({
+					outputPath: variantPath,
+					format: resolved.outputFormat ?? defaultRenderConfig.outputFormat,
+					codec: resolved.codec ?? defaultRenderConfig.codec,
+					durationSeconds: project.totalDurationInFrames / project.fps,
+					fileSizeBytes: 0,
+					dimensions: {
+						width: variantFormat.width,
+						height: variantFormat.height,
+					},
+				});
+			}
 
-      result.variants = variantResults;
-    }
+			result.variants = variantResults;
+		}
 
-    return result;
-  }
+		return result;
+	}
 }

@@ -7,28 +7,28 @@ import Link from '@contractspec/lib.ui-link';
 // };
 
 export function KnowledgeExamplesPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold">Knowledge Examples</h1>
-        <p className="text-muted-foreground">
-          Real-world examples of how different applications use knowledge spaces
-          to power intelligent workflows and agents.
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-4">
+				<h1 className="font-bold text-4xl">Knowledge Examples</h1>
+				<p className="text-muted-foreground">
+					Real-world examples of how different applications use knowledge spaces
+					to power intelligent workflows and agents.
+				</p>
+			</div>
 
-      <div className="space-y-6">
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold">
-            Example 1: ArtisanOS Support Agent
-          </h2>
-          <p className="text-muted-foreground">
-            <strong>Context:</strong> ArtisanOS needs a support agent that can
-            answer product questions using official documentation and learn from
-            past support tickets.
-          </p>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`// Knowledge spaces
+			<div className="space-y-6">
+				<div className="space-y-4">
+					<h2 className="font-bold text-2xl">
+						Example 1: ArtisanOS Support Agent
+					</h2>
+					<p className="text-muted-foreground">
+						<strong>Context:</strong> ArtisanOS needs a support agent that can
+						answer product questions using official documentation and learn from
+						past support tickets.
+					</p>
+					<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
+						<pre>{`// Knowledge spaces
 knowledgeSpaces: [
   {
     id: "product-canon",
@@ -83,19 +83,19 @@ steps:
             Question: $\{input.question}
             Docs: $\{steps.search-canon.output.results}
             History: $\{steps.search-history.output.results}`}</pre>
-          </div>
-        </div>
+					</div>
+				</div>
 
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold">
-            Example 2: HCircle Invoice Generation
-          </h2>
-          <p className="text-muted-foreground">
-            <strong>Context:</strong> HCircle needs to generate invoices using
-            house playbook rules and resident service history.
-          </p>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`// Knowledge spaces
+				<div className="space-y-4">
+					<h2 className="font-bold text-2xl">
+						Example 2: HCircle Invoice Generation
+					</h2>
+					<p className="text-muted-foreground">
+						<strong>Context:</strong> HCircle needs to generate invoices using
+						house playbook rules and resident service history.
+					</p>
+					<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
+						<pre>{`// Knowledge spaces
 knowledgeSpaces: [
   {
     id: "house-playbook",
@@ -142,20 +142,20 @@ steps:
     inputs:
       table: "invoices"
       data: $\{steps.calculate-total.output}`}</pre>
-          </div>
-        </div>
+					</div>
+				</div>
 
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold">
-            Example 3: Multi-tenant SaaS with External Docs
-          </h2>
-          <p className="text-muted-foreground">
-            <strong>Context:</strong> A SaaS platform needs to help users
-            integrate with Stripe, using both internal guides and Stripe's
-            official documentation.
-          </p>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`// Knowledge spaces
+				<div className="space-y-4">
+					<h2 className="font-bold text-2xl">
+						Example 3: Multi-tenant SaaS with External Docs
+					</h2>
+					<p className="text-muted-foreground">
+						<strong>Context:</strong> A SaaS platform needs to help users
+						integrate with Stripe, using both internal guides and Stripe's
+						official documentation.
+					</p>
+					<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
+						<pre>{`// Knowledge spaces
 knowledgeSpaces: [
   {
     id: "integration-guides",
@@ -224,44 +224,44 @@ steps:
             Internal: $\{steps.search-internal-guides.output.results}
             Stripe: $\{steps.search-stripe-docs.output.results}
             Past: $\{steps.search-past-questions.output.results}`}</pre>
-          </div>
-        </div>
-      </div>
+					</div>
+				</div>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Key patterns</h2>
-        <ul className="text-muted-foreground list-inside list-disc space-y-2">
-          <li>
-            <strong>Canonical first</strong> - Always search canonical spaces
-            before operational or external
-          </li>
-          <li>
-            <strong>Category-aware prompts</strong> - Tell the LLM which sources
-            are authoritative vs reference
-          </li>
-          <li>
-            <strong>Multi-space queries</strong> - Combine results from multiple
-            spaces for richer context
-          </li>
-          <li>
-            <strong>Limit results</strong> - Use appropriate limits (3-5) to
-            avoid token overflow
-          </li>
-          <li>
-            <strong>Audit everything</strong> - Log all knowledge queries for
-            debugging and compliance
-          </li>
-        </ul>
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Key patterns</h2>
+				<ul className="list-inside list-disc space-y-2 text-muted-foreground">
+					<li>
+						<strong>Canonical first</strong> - Always search canonical spaces
+						before operational or external
+					</li>
+					<li>
+						<strong>Category-aware prompts</strong> - Tell the LLM which sources
+						are authoritative vs reference
+					</li>
+					<li>
+						<strong>Multi-space queries</strong> - Combine results from multiple
+						spaces for richer context
+					</li>
+					<li>
+						<strong>Limit results</strong> - Use appropriate limits (3-5) to
+						avoid token overflow
+					</li>
+					<li>
+						<strong>Audit everything</strong> - Log all knowledge queries for
+						debugging and compliance
+					</li>
+				</ul>
+			</div>
 
-      <div className="flex items-center gap-4 pt-4">
-        <Link href="/docs/knowledge/sources" className="btn-ghost">
-          Previous: Sources
-        </Link>
-        <Link href="/docs/architecture/knowledge-binding" className="btn-ghost">
-          Knowledge Binding
-        </Link>
-      </div>
-    </div>
-  );
+			<div className="flex items-center gap-4 pt-4">
+				<Link href="/docs/knowledge/sources" className="btn-ghost">
+					Previous: Sources
+				</Link>
+				<Link href="/docs/architecture/knowledge-binding" className="btn-ghost">
+					Knowledge Binding
+				</Link>
+			</div>
+		</div>
+	);
 }

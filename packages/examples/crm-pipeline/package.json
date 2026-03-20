@@ -1,410 +1,410 @@
 {
-  "name": "@contractspec/example.crm-pipeline",
-  "version": "3.7.6",
-  "description": "CRM Pipeline - Contacts, Companies, Deals, Tasks",
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./src/index.ts",
-    "./crm-pipeline.feature": "./src/crm-pipeline.feature.ts",
-    "./deal": "./src/deal/index.ts",
-    "./deal/deal.enum": "./src/deal/deal.enum.ts",
-    "./deal/deal.operation": "./src/deal/deal.operation.ts",
-    "./deal/deal.schema": "./src/deal/deal.schema.ts",
-    "./deal/deal.test-spec": "./src/deal/deal.test-spec.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/crm-pipeline.docblock": "./src/docs/crm-pipeline.docblock.ts",
-    "./entities": "./src/entities/index.ts",
-    "./entities/company.entity": "./src/entities/company.entity.ts",
-    "./entities/contact.entity": "./src/entities/contact.entity.ts",
-    "./entities/deal.entity": "./src/entities/deal.entity.ts",
-    "./entities/task.entity": "./src/entities/task.entity.ts",
-    "./events": "./src/events/index.ts",
-    "./events/contact.event": "./src/events/contact.event.ts",
-    "./events/deal.event": "./src/events/deal.event.ts",
-    "./events/task.event": "./src/events/task.event.ts",
-    "./example": "./src/example.ts",
-    "./handlers": "./src/handlers/index.ts",
-    "./handlers/crm.handlers": "./src/handlers/crm.handlers.ts",
-    "./handlers/deal.handlers": "./src/handlers/deal.handlers.ts",
-    "./handlers/mock-data": "./src/handlers/mock-data.ts",
-    "./operations": "./src/operations/index.ts",
-    "./presentations": "./src/presentations/index.ts",
-    "./presentations/dashboard.presentation": "./src/presentations/dashboard.presentation.ts",
-    "./presentations/pipeline.presentation": "./src/presentations/pipeline.presentation.ts",
-    "./seeders": "./src/seeders/index.ts",
-    "./shared/overlay-types": "./src/shared/overlay-types.ts",
-    "./ui": "./src/ui/index.ts",
-    "./ui/CrmDashboard": "./src/ui/CrmDashboard.tsx",
-    "./ui/CrmDealCard": "./src/ui/CrmDealCard.tsx",
-    "./ui/CrmPipelineBoard": "./src/ui/CrmPipelineBoard.tsx",
-    "./ui/hooks": "./src/ui/hooks/index.ts",
-    "./ui/hooks/useDealList": "./src/ui/hooks/useDealList.ts",
-    "./ui/hooks/useDealMutations": "./src/ui/hooks/useDealMutations.ts",
-    "./ui/modals": "./src/ui/modals/index.ts",
-    "./ui/modals/CreateDealModal": "./src/ui/modals/CreateDealModal.tsx",
-    "./ui/modals/DealActionsModal": "./src/ui/modals/DealActionsModal.tsx",
-    "./ui/overlays": "./src/ui/overlays/index.ts",
-    "./ui/overlays/demo-overlays": "./src/ui/overlays/demo-overlays.ts",
-    "./ui/renderers": "./src/ui/renderers/index.ts",
-    "./ui/renderers/pipeline.markdown": "./src/ui/renderers/pipeline.markdown.ts",
-    "./ui/renderers/pipeline.renderer": "./src/ui/renderers/pipeline.renderer.tsx"
-  },
-  "scripts": {
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
-    "build:bundle": "contractspec-bun-build transpile",
-    "build:types": "contractspec-bun-build types",
-    "dev": "contractspec-bun-build dev",
-    "clean": "rimraf dist .turbo",
-    "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
-    "test": "bun test --pass-with-no-tests",
-    "validate": "contractspec validate \"src/**/*\"",
-    "prebuild": "contractspec-bun-build prebuild",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "@contractspec/lib.design-system": "workspace:*",
-    "@contractspec/lib.example-shared-ui": "workspace:*",
-    "@contractspec/lib.identity-rbac": "workspace:*",
-    "@contractspec/lib.runtime-sandbox": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.ui-kit-web": "workspace:*",
-    "@contractspec/module.audit-trail": "workspace:*",
-    "@contractspec/module.notifications": "workspace:*",
-    "react": "catalog:",
-    "react-dom": "catalog:"
-  },
-  "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.2",
-    "@contractspec/tool.bun": "workspace:*"
-  },
-  "publishConfig": {
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "browser": "./dist/browser/index.js",
-        "bun": "./dist/index.js",
-        "node": "./dist/node/index.js",
-        "default": "./dist/index.js"
-      },
-      "./crm-pipeline.feature": {
-        "types": "./dist/crm-pipeline.feature.d.ts",
-        "browser": "./dist/browser/crm-pipeline.feature.js",
-        "bun": "./dist/crm-pipeline.feature.js",
-        "node": "./dist/node/crm-pipeline.feature.js",
-        "default": "./dist/crm-pipeline.feature.js"
-      },
-      "./deal": {
-        "types": "./dist/deal/index.d.ts",
-        "browser": "./dist/browser/deal/index.js",
-        "bun": "./dist/deal/index.js",
-        "node": "./dist/node/deal/index.js",
-        "default": "./dist/deal/index.js"
-      },
-      "./deal/deal.enum": {
-        "types": "./dist/deal/deal.enum.d.ts",
-        "browser": "./dist/browser/deal/deal.enum.js",
-        "bun": "./dist/deal/deal.enum.js",
-        "node": "./dist/node/deal/deal.enum.js",
-        "default": "./dist/deal/deal.enum.js"
-      },
-      "./deal/deal.operation": {
-        "types": "./dist/deal/deal.operation.d.ts",
-        "browser": "./dist/browser/deal/deal.operation.js",
-        "bun": "./dist/deal/deal.operation.js",
-        "node": "./dist/node/deal/deal.operation.js",
-        "default": "./dist/deal/deal.operation.js"
-      },
-      "./deal/deal.schema": {
-        "types": "./dist/deal/deal.schema.d.ts",
-        "browser": "./dist/browser/deal/deal.schema.js",
-        "bun": "./dist/deal/deal.schema.js",
-        "node": "./dist/node/deal/deal.schema.js",
-        "default": "./dist/deal/deal.schema.js"
-      },
-      "./deal/deal.test-spec": {
-        "types": "./dist/deal/deal.test-spec.d.ts",
-        "browser": "./dist/browser/deal/deal.test-spec.js",
-        "bun": "./dist/deal/deal.test-spec.js",
-        "node": "./dist/node/deal/deal.test-spec.js",
-        "default": "./dist/deal/deal.test-spec.js"
-      },
-      "./docs": {
-        "types": "./dist/docs/index.d.ts",
-        "browser": "./dist/browser/docs/index.js",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/crm-pipeline.docblock": {
-        "types": "./dist/docs/crm-pipeline.docblock.d.ts",
-        "browser": "./dist/browser/docs/crm-pipeline.docblock.js",
-        "bun": "./dist/docs/crm-pipeline.docblock.js",
-        "node": "./dist/node/docs/crm-pipeline.docblock.js",
-        "default": "./dist/docs/crm-pipeline.docblock.js"
-      },
-      "./entities": {
-        "types": "./dist/entities/index.d.ts",
-        "browser": "./dist/browser/entities/index.js",
-        "bun": "./dist/entities/index.js",
-        "node": "./dist/node/entities/index.js",
-        "default": "./dist/entities/index.js"
-      },
-      "./entities/company.entity": {
-        "types": "./dist/entities/company.entity.d.ts",
-        "browser": "./dist/browser/entities/company.entity.js",
-        "bun": "./dist/entities/company.entity.js",
-        "node": "./dist/node/entities/company.entity.js",
-        "default": "./dist/entities/company.entity.js"
-      },
-      "./entities/contact.entity": {
-        "types": "./dist/entities/contact.entity.d.ts",
-        "browser": "./dist/browser/entities/contact.entity.js",
-        "bun": "./dist/entities/contact.entity.js",
-        "node": "./dist/node/entities/contact.entity.js",
-        "default": "./dist/entities/contact.entity.js"
-      },
-      "./entities/deal.entity": {
-        "types": "./dist/entities/deal.entity.d.ts",
-        "browser": "./dist/browser/entities/deal.entity.js",
-        "bun": "./dist/entities/deal.entity.js",
-        "node": "./dist/node/entities/deal.entity.js",
-        "default": "./dist/entities/deal.entity.js"
-      },
-      "./entities/task.entity": {
-        "types": "./dist/entities/task.entity.d.ts",
-        "browser": "./dist/browser/entities/task.entity.js",
-        "bun": "./dist/entities/task.entity.js",
-        "node": "./dist/node/entities/task.entity.js",
-        "default": "./dist/entities/task.entity.js"
-      },
-      "./events": {
-        "types": "./dist/events/index.d.ts",
-        "browser": "./dist/browser/events/index.js",
-        "bun": "./dist/events/index.js",
-        "node": "./dist/node/events/index.js",
-        "default": "./dist/events/index.js"
-      },
-      "./events/contact.event": {
-        "types": "./dist/events/contact.event.d.ts",
-        "browser": "./dist/browser/events/contact.event.js",
-        "bun": "./dist/events/contact.event.js",
-        "node": "./dist/node/events/contact.event.js",
-        "default": "./dist/events/contact.event.js"
-      },
-      "./events/deal.event": {
-        "types": "./dist/events/deal.event.d.ts",
-        "browser": "./dist/browser/events/deal.event.js",
-        "bun": "./dist/events/deal.event.js",
-        "node": "./dist/node/events/deal.event.js",
-        "default": "./dist/events/deal.event.js"
-      },
-      "./events/task.event": {
-        "types": "./dist/events/task.event.d.ts",
-        "browser": "./dist/browser/events/task.event.js",
-        "bun": "./dist/events/task.event.js",
-        "node": "./dist/node/events/task.event.js",
-        "default": "./dist/events/task.event.js"
-      },
-      "./example": {
-        "types": "./dist/example.d.ts",
-        "browser": "./dist/browser/example.js",
-        "bun": "./dist/example.js",
-        "node": "./dist/node/example.js",
-        "default": "./dist/example.js"
-      },
-      "./handlers": {
-        "types": "./dist/handlers/index.d.ts",
-        "browser": "./dist/browser/handlers/index.js",
-        "bun": "./dist/handlers/index.js",
-        "node": "./dist/node/handlers/index.js",
-        "default": "./dist/handlers/index.js"
-      },
-      "./handlers/crm.handlers": {
-        "types": "./dist/handlers/crm.handlers.d.ts",
-        "browser": "./dist/browser/handlers/crm.handlers.js",
-        "bun": "./dist/handlers/crm.handlers.js",
-        "node": "./dist/node/handlers/crm.handlers.js",
-        "default": "./dist/handlers/crm.handlers.js"
-      },
-      "./handlers/deal.handlers": {
-        "types": "./dist/handlers/deal.handlers.d.ts",
-        "browser": "./dist/browser/handlers/deal.handlers.js",
-        "bun": "./dist/handlers/deal.handlers.js",
-        "node": "./dist/node/handlers/deal.handlers.js",
-        "default": "./dist/handlers/deal.handlers.js"
-      },
-      "./handlers/mock-data": {
-        "types": "./dist/handlers/mock-data.d.ts",
-        "browser": "./dist/browser/handlers/mock-data.js",
-        "bun": "./dist/handlers/mock-data.js",
-        "node": "./dist/node/handlers/mock-data.js",
-        "default": "./dist/handlers/mock-data.js"
-      },
-      "./operations": {
-        "types": "./dist/operations/index.d.ts",
-        "browser": "./dist/browser/operations/index.js",
-        "bun": "./dist/operations/index.js",
-        "node": "./dist/node/operations/index.js",
-        "default": "./dist/operations/index.js"
-      },
-      "./presentations": {
-        "types": "./dist/presentations/index.d.ts",
-        "browser": "./dist/browser/presentations/index.js",
-        "bun": "./dist/presentations/index.js",
-        "node": "./dist/node/presentations/index.js",
-        "default": "./dist/presentations/index.js"
-      },
-      "./presentations/dashboard.presentation": {
-        "types": "./dist/presentations/dashboard.presentation.d.ts",
-        "browser": "./dist/browser/presentations/dashboard.presentation.js",
-        "bun": "./dist/presentations/dashboard.presentation.js",
-        "node": "./dist/node/presentations/dashboard.presentation.js",
-        "default": "./dist/presentations/dashboard.presentation.js"
-      },
-      "./presentations/pipeline.presentation": {
-        "types": "./dist/presentations/pipeline.presentation.d.ts",
-        "browser": "./dist/browser/presentations/pipeline.presentation.js",
-        "bun": "./dist/presentations/pipeline.presentation.js",
-        "node": "./dist/node/presentations/pipeline.presentation.js",
-        "default": "./dist/presentations/pipeline.presentation.js"
-      },
-      "./seeders": {
-        "types": "./dist/seeders/index.d.ts",
-        "browser": "./dist/browser/seeders/index.js",
-        "bun": "./dist/seeders/index.js",
-        "node": "./dist/node/seeders/index.js",
-        "default": "./dist/seeders/index.js"
-      },
-      "./shared/overlay-types": {
-        "types": "./dist/shared/overlay-types.d.ts",
-        "browser": "./dist/browser/shared/overlay-types.js",
-        "bun": "./dist/shared/overlay-types.js",
-        "node": "./dist/node/shared/overlay-types.js",
-        "default": "./dist/shared/overlay-types.js"
-      },
-      "./ui": {
-        "types": "./dist/ui/index.d.ts",
-        "browser": "./dist/browser/ui/index.js",
-        "bun": "./dist/ui/index.js",
-        "node": "./dist/node/ui/index.js",
-        "default": "./dist/ui/index.js"
-      },
-      "./ui/CrmDashboard": {
-        "types": "./dist/ui/CrmDashboard.d.ts",
-        "browser": "./dist/browser/ui/CrmDashboard.js",
-        "bun": "./dist/ui/CrmDashboard.js",
-        "node": "./dist/node/ui/CrmDashboard.js",
-        "default": "./dist/ui/CrmDashboard.js"
-      },
-      "./ui/CrmDealCard": {
-        "types": "./dist/ui/CrmDealCard.d.ts",
-        "browser": "./dist/browser/ui/CrmDealCard.js",
-        "bun": "./dist/ui/CrmDealCard.js",
-        "node": "./dist/node/ui/CrmDealCard.js",
-        "default": "./dist/ui/CrmDealCard.js"
-      },
-      "./ui/CrmPipelineBoard": {
-        "types": "./dist/ui/CrmPipelineBoard.d.ts",
-        "browser": "./dist/browser/ui/CrmPipelineBoard.js",
-        "bun": "./dist/ui/CrmPipelineBoard.js",
-        "node": "./dist/node/ui/CrmPipelineBoard.js",
-        "default": "./dist/ui/CrmPipelineBoard.js"
-      },
-      "./ui/hooks": {
-        "types": "./dist/ui/hooks/index.d.ts",
-        "browser": "./dist/browser/ui/hooks/index.js",
-        "bun": "./dist/ui/hooks/index.js",
-        "node": "./dist/node/ui/hooks/index.js",
-        "default": "./dist/ui/hooks/index.js"
-      },
-      "./ui/hooks/useDealList": {
-        "types": "./dist/ui/hooks/useDealList.d.ts",
-        "browser": "./dist/browser/ui/hooks/useDealList.js",
-        "bun": "./dist/ui/hooks/useDealList.js",
-        "node": "./dist/node/ui/hooks/useDealList.js",
-        "default": "./dist/ui/hooks/useDealList.js"
-      },
-      "./ui/hooks/useDealMutations": {
-        "types": "./dist/ui/hooks/useDealMutations.d.ts",
-        "browser": "./dist/browser/ui/hooks/useDealMutations.js",
-        "bun": "./dist/ui/hooks/useDealMutations.js",
-        "node": "./dist/node/ui/hooks/useDealMutations.js",
-        "default": "./dist/ui/hooks/useDealMutations.js"
-      },
-      "./ui/modals": {
-        "types": "./dist/ui/modals/index.d.ts",
-        "browser": "./dist/browser/ui/modals/index.js",
-        "bun": "./dist/ui/modals/index.js",
-        "node": "./dist/node/ui/modals/index.js",
-        "default": "./dist/ui/modals/index.js"
-      },
-      "./ui/modals/CreateDealModal": {
-        "types": "./dist/ui/modals/CreateDealModal.d.ts",
-        "browser": "./dist/browser/ui/modals/CreateDealModal.js",
-        "bun": "./dist/ui/modals/CreateDealModal.js",
-        "node": "./dist/node/ui/modals/CreateDealModal.js",
-        "default": "./dist/ui/modals/CreateDealModal.js"
-      },
-      "./ui/modals/DealActionsModal": {
-        "types": "./dist/ui/modals/DealActionsModal.d.ts",
-        "browser": "./dist/browser/ui/modals/DealActionsModal.js",
-        "bun": "./dist/ui/modals/DealActionsModal.js",
-        "node": "./dist/node/ui/modals/DealActionsModal.js",
-        "default": "./dist/ui/modals/DealActionsModal.js"
-      },
-      "./ui/overlays": {
-        "types": "./dist/ui/overlays/index.d.ts",
-        "browser": "./dist/browser/ui/overlays/index.js",
-        "bun": "./dist/ui/overlays/index.js",
-        "node": "./dist/node/ui/overlays/index.js",
-        "default": "./dist/ui/overlays/index.js"
-      },
-      "./ui/overlays/demo-overlays": {
-        "types": "./dist/ui/overlays/demo-overlays.d.ts",
-        "browser": "./dist/browser/ui/overlays/demo-overlays.js",
-        "bun": "./dist/ui/overlays/demo-overlays.js",
-        "node": "./dist/node/ui/overlays/demo-overlays.js",
-        "default": "./dist/ui/overlays/demo-overlays.js"
-      },
-      "./ui/renderers": {
-        "types": "./dist/ui/renderers/index.d.ts",
-        "browser": "./dist/browser/ui/renderers/index.js",
-        "bun": "./dist/ui/renderers/index.js",
-        "node": "./dist/node/ui/renderers/index.js",
-        "default": "./dist/ui/renderers/index.js"
-      },
-      "./ui/renderers/pipeline.markdown": {
-        "types": "./dist/ui/renderers/pipeline.markdown.d.ts",
-        "browser": "./dist/browser/ui/renderers/pipeline.markdown.js",
-        "bun": "./dist/ui/renderers/pipeline.markdown.js",
-        "node": "./dist/node/ui/renderers/pipeline.markdown.js",
-        "default": "./dist/ui/renderers/pipeline.markdown.js"
-      },
-      "./ui/renderers/pipeline.renderer": {
-        "types": "./dist/ui/renderers/pipeline.renderer.d.ts",
-        "browser": "./dist/browser/ui/renderers/pipeline.renderer.js",
-        "bun": "./dist/ui/renderers/pipeline.renderer.js",
-        "node": "./dist/node/ui/renderers/pipeline.renderer.js",
-        "default": "./dist/ui/renderers/pipeline.renderer.js"
-      }
-    },
-    "registry": "https://registry.npmjs.org/",
-    "access": "public"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/examples/crm-pipeline"
-  },
-  "homepage": "https://contractspec.io"
+	"name": "@contractspec/example.crm-pipeline",
+	"version": "3.7.6",
+	"description": "CRM Pipeline - Contacts, Companies, Deals, Tasks",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./crm-pipeline.feature": "./src/crm-pipeline.feature.ts",
+		"./deal": "./src/deal/index.ts",
+		"./deal/deal.enum": "./src/deal/deal.enum.ts",
+		"./deal/deal.operation": "./src/deal/deal.operation.ts",
+		"./deal/deal.schema": "./src/deal/deal.schema.ts",
+		"./deal/deal.test-spec": "./src/deal/deal.test-spec.ts",
+		"./docs": "./src/docs/index.ts",
+		"./docs/crm-pipeline.docblock": "./src/docs/crm-pipeline.docblock.ts",
+		"./entities": "./src/entities/index.ts",
+		"./entities/company.entity": "./src/entities/company.entity.ts",
+		"./entities/contact.entity": "./src/entities/contact.entity.ts",
+		"./entities/deal.entity": "./src/entities/deal.entity.ts",
+		"./entities/task.entity": "./src/entities/task.entity.ts",
+		"./events": "./src/events/index.ts",
+		"./events/contact.event": "./src/events/contact.event.ts",
+		"./events/deal.event": "./src/events/deal.event.ts",
+		"./events/task.event": "./src/events/task.event.ts",
+		"./example": "./src/example.ts",
+		"./handlers": "./src/handlers/index.ts",
+		"./handlers/crm.handlers": "./src/handlers/crm.handlers.ts",
+		"./handlers/deal.handlers": "./src/handlers/deal.handlers.ts",
+		"./handlers/mock-data": "./src/handlers/mock-data.ts",
+		"./operations": "./src/operations/index.ts",
+		"./presentations": "./src/presentations/index.ts",
+		"./presentations/dashboard.presentation": "./src/presentations/dashboard.presentation.ts",
+		"./presentations/pipeline.presentation": "./src/presentations/pipeline.presentation.ts",
+		"./seeders": "./src/seeders/index.ts",
+		"./shared/overlay-types": "./src/shared/overlay-types.ts",
+		"./ui": "./src/ui/index.ts",
+		"./ui/CrmDashboard": "./src/ui/CrmDashboard.tsx",
+		"./ui/CrmDealCard": "./src/ui/CrmDealCard.tsx",
+		"./ui/CrmPipelineBoard": "./src/ui/CrmPipelineBoard.tsx",
+		"./ui/hooks": "./src/ui/hooks/index.ts",
+		"./ui/hooks/useDealList": "./src/ui/hooks/useDealList.ts",
+		"./ui/hooks/useDealMutations": "./src/ui/hooks/useDealMutations.ts",
+		"./ui/modals": "./src/ui/modals/index.ts",
+		"./ui/modals/CreateDealModal": "./src/ui/modals/CreateDealModal.tsx",
+		"./ui/modals/DealActionsModal": "./src/ui/modals/DealActionsModal.tsx",
+		"./ui/overlays": "./src/ui/overlays/index.ts",
+		"./ui/overlays/demo-overlays": "./src/ui/overlays/demo-overlays.ts",
+		"./ui/renderers": "./src/ui/renderers/index.ts",
+		"./ui/renderers/pipeline.markdown": "./src/ui/renderers/pipeline.markdown.ts",
+		"./ui/renderers/pipeline.renderer": "./src/ui/renderers/pipeline.renderer.tsx"
+	},
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"test": "bun test --pass-with-no-tests",
+		"validate": "contractspec validate \"src/**/*\"",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.design-system": "workspace:*",
+		"@contractspec/lib.example-shared-ui": "workspace:*",
+		"@contractspec/lib.identity-rbac": "workspace:*",
+		"@contractspec/lib.runtime-sandbox": "workspace:*",
+		"@contractspec/lib.schema": "workspace:*",
+		"@contractspec/lib.ui-kit-web": "workspace:*",
+		"@contractspec/module.audit-trail": "workspace:*",
+		"@contractspec/module.notifications": "workspace:*",
+		"react": "catalog:",
+		"react-dom": "catalog:"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@types/react": "^19.2.14",
+		"@types/react-dom": "^19.2.2",
+		"@contractspec/tool.bun": "workspace:*"
+	},
+	"publishConfig": {
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./crm-pipeline.feature": {
+				"types": "./dist/crm-pipeline.feature.d.ts",
+				"browser": "./dist/browser/crm-pipeline.feature.js",
+				"bun": "./dist/crm-pipeline.feature.js",
+				"node": "./dist/node/crm-pipeline.feature.js",
+				"default": "./dist/crm-pipeline.feature.js"
+			},
+			"./deal": {
+				"types": "./dist/deal/index.d.ts",
+				"browser": "./dist/browser/deal/index.js",
+				"bun": "./dist/deal/index.js",
+				"node": "./dist/node/deal/index.js",
+				"default": "./dist/deal/index.js"
+			},
+			"./deal/deal.enum": {
+				"types": "./dist/deal/deal.enum.d.ts",
+				"browser": "./dist/browser/deal/deal.enum.js",
+				"bun": "./dist/deal/deal.enum.js",
+				"node": "./dist/node/deal/deal.enum.js",
+				"default": "./dist/deal/deal.enum.js"
+			},
+			"./deal/deal.operation": {
+				"types": "./dist/deal/deal.operation.d.ts",
+				"browser": "./dist/browser/deal/deal.operation.js",
+				"bun": "./dist/deal/deal.operation.js",
+				"node": "./dist/node/deal/deal.operation.js",
+				"default": "./dist/deal/deal.operation.js"
+			},
+			"./deal/deal.schema": {
+				"types": "./dist/deal/deal.schema.d.ts",
+				"browser": "./dist/browser/deal/deal.schema.js",
+				"bun": "./dist/deal/deal.schema.js",
+				"node": "./dist/node/deal/deal.schema.js",
+				"default": "./dist/deal/deal.schema.js"
+			},
+			"./deal/deal.test-spec": {
+				"types": "./dist/deal/deal.test-spec.d.ts",
+				"browser": "./dist/browser/deal/deal.test-spec.js",
+				"bun": "./dist/deal/deal.test-spec.js",
+				"node": "./dist/node/deal/deal.test-spec.js",
+				"default": "./dist/deal/deal.test-spec.js"
+			},
+			"./docs": {
+				"types": "./dist/docs/index.d.ts",
+				"browser": "./dist/browser/docs/index.js",
+				"bun": "./dist/docs/index.js",
+				"node": "./dist/node/docs/index.js",
+				"default": "./dist/docs/index.js"
+			},
+			"./docs/crm-pipeline.docblock": {
+				"types": "./dist/docs/crm-pipeline.docblock.d.ts",
+				"browser": "./dist/browser/docs/crm-pipeline.docblock.js",
+				"bun": "./dist/docs/crm-pipeline.docblock.js",
+				"node": "./dist/node/docs/crm-pipeline.docblock.js",
+				"default": "./dist/docs/crm-pipeline.docblock.js"
+			},
+			"./entities": {
+				"types": "./dist/entities/index.d.ts",
+				"browser": "./dist/browser/entities/index.js",
+				"bun": "./dist/entities/index.js",
+				"node": "./dist/node/entities/index.js",
+				"default": "./dist/entities/index.js"
+			},
+			"./entities/company.entity": {
+				"types": "./dist/entities/company.entity.d.ts",
+				"browser": "./dist/browser/entities/company.entity.js",
+				"bun": "./dist/entities/company.entity.js",
+				"node": "./dist/node/entities/company.entity.js",
+				"default": "./dist/entities/company.entity.js"
+			},
+			"./entities/contact.entity": {
+				"types": "./dist/entities/contact.entity.d.ts",
+				"browser": "./dist/browser/entities/contact.entity.js",
+				"bun": "./dist/entities/contact.entity.js",
+				"node": "./dist/node/entities/contact.entity.js",
+				"default": "./dist/entities/contact.entity.js"
+			},
+			"./entities/deal.entity": {
+				"types": "./dist/entities/deal.entity.d.ts",
+				"browser": "./dist/browser/entities/deal.entity.js",
+				"bun": "./dist/entities/deal.entity.js",
+				"node": "./dist/node/entities/deal.entity.js",
+				"default": "./dist/entities/deal.entity.js"
+			},
+			"./entities/task.entity": {
+				"types": "./dist/entities/task.entity.d.ts",
+				"browser": "./dist/browser/entities/task.entity.js",
+				"bun": "./dist/entities/task.entity.js",
+				"node": "./dist/node/entities/task.entity.js",
+				"default": "./dist/entities/task.entity.js"
+			},
+			"./events": {
+				"types": "./dist/events/index.d.ts",
+				"browser": "./dist/browser/events/index.js",
+				"bun": "./dist/events/index.js",
+				"node": "./dist/node/events/index.js",
+				"default": "./dist/events/index.js"
+			},
+			"./events/contact.event": {
+				"types": "./dist/events/contact.event.d.ts",
+				"browser": "./dist/browser/events/contact.event.js",
+				"bun": "./dist/events/contact.event.js",
+				"node": "./dist/node/events/contact.event.js",
+				"default": "./dist/events/contact.event.js"
+			},
+			"./events/deal.event": {
+				"types": "./dist/events/deal.event.d.ts",
+				"browser": "./dist/browser/events/deal.event.js",
+				"bun": "./dist/events/deal.event.js",
+				"node": "./dist/node/events/deal.event.js",
+				"default": "./dist/events/deal.event.js"
+			},
+			"./events/task.event": {
+				"types": "./dist/events/task.event.d.ts",
+				"browser": "./dist/browser/events/task.event.js",
+				"bun": "./dist/events/task.event.js",
+				"node": "./dist/node/events/task.event.js",
+				"default": "./dist/events/task.event.js"
+			},
+			"./example": {
+				"types": "./dist/example.d.ts",
+				"browser": "./dist/browser/example.js",
+				"bun": "./dist/example.js",
+				"node": "./dist/node/example.js",
+				"default": "./dist/example.js"
+			},
+			"./handlers": {
+				"types": "./dist/handlers/index.d.ts",
+				"browser": "./dist/browser/handlers/index.js",
+				"bun": "./dist/handlers/index.js",
+				"node": "./dist/node/handlers/index.js",
+				"default": "./dist/handlers/index.js"
+			},
+			"./handlers/crm.handlers": {
+				"types": "./dist/handlers/crm.handlers.d.ts",
+				"browser": "./dist/browser/handlers/crm.handlers.js",
+				"bun": "./dist/handlers/crm.handlers.js",
+				"node": "./dist/node/handlers/crm.handlers.js",
+				"default": "./dist/handlers/crm.handlers.js"
+			},
+			"./handlers/deal.handlers": {
+				"types": "./dist/handlers/deal.handlers.d.ts",
+				"browser": "./dist/browser/handlers/deal.handlers.js",
+				"bun": "./dist/handlers/deal.handlers.js",
+				"node": "./dist/node/handlers/deal.handlers.js",
+				"default": "./dist/handlers/deal.handlers.js"
+			},
+			"./handlers/mock-data": {
+				"types": "./dist/handlers/mock-data.d.ts",
+				"browser": "./dist/browser/handlers/mock-data.js",
+				"bun": "./dist/handlers/mock-data.js",
+				"node": "./dist/node/handlers/mock-data.js",
+				"default": "./dist/handlers/mock-data.js"
+			},
+			"./operations": {
+				"types": "./dist/operations/index.d.ts",
+				"browser": "./dist/browser/operations/index.js",
+				"bun": "./dist/operations/index.js",
+				"node": "./dist/node/operations/index.js",
+				"default": "./dist/operations/index.js"
+			},
+			"./presentations": {
+				"types": "./dist/presentations/index.d.ts",
+				"browser": "./dist/browser/presentations/index.js",
+				"bun": "./dist/presentations/index.js",
+				"node": "./dist/node/presentations/index.js",
+				"default": "./dist/presentations/index.js"
+			},
+			"./presentations/dashboard.presentation": {
+				"types": "./dist/presentations/dashboard.presentation.d.ts",
+				"browser": "./dist/browser/presentations/dashboard.presentation.js",
+				"bun": "./dist/presentations/dashboard.presentation.js",
+				"node": "./dist/node/presentations/dashboard.presentation.js",
+				"default": "./dist/presentations/dashboard.presentation.js"
+			},
+			"./presentations/pipeline.presentation": {
+				"types": "./dist/presentations/pipeline.presentation.d.ts",
+				"browser": "./dist/browser/presentations/pipeline.presentation.js",
+				"bun": "./dist/presentations/pipeline.presentation.js",
+				"node": "./dist/node/presentations/pipeline.presentation.js",
+				"default": "./dist/presentations/pipeline.presentation.js"
+			},
+			"./seeders": {
+				"types": "./dist/seeders/index.d.ts",
+				"browser": "./dist/browser/seeders/index.js",
+				"bun": "./dist/seeders/index.js",
+				"node": "./dist/node/seeders/index.js",
+				"default": "./dist/seeders/index.js"
+			},
+			"./shared/overlay-types": {
+				"types": "./dist/shared/overlay-types.d.ts",
+				"browser": "./dist/browser/shared/overlay-types.js",
+				"bun": "./dist/shared/overlay-types.js",
+				"node": "./dist/node/shared/overlay-types.js",
+				"default": "./dist/shared/overlay-types.js"
+			},
+			"./ui": {
+				"types": "./dist/ui/index.d.ts",
+				"browser": "./dist/browser/ui/index.js",
+				"bun": "./dist/ui/index.js",
+				"node": "./dist/node/ui/index.js",
+				"default": "./dist/ui/index.js"
+			},
+			"./ui/CrmDashboard": {
+				"types": "./dist/ui/CrmDashboard.d.ts",
+				"browser": "./dist/browser/ui/CrmDashboard.js",
+				"bun": "./dist/ui/CrmDashboard.js",
+				"node": "./dist/node/ui/CrmDashboard.js",
+				"default": "./dist/ui/CrmDashboard.js"
+			},
+			"./ui/CrmDealCard": {
+				"types": "./dist/ui/CrmDealCard.d.ts",
+				"browser": "./dist/browser/ui/CrmDealCard.js",
+				"bun": "./dist/ui/CrmDealCard.js",
+				"node": "./dist/node/ui/CrmDealCard.js",
+				"default": "./dist/ui/CrmDealCard.js"
+			},
+			"./ui/CrmPipelineBoard": {
+				"types": "./dist/ui/CrmPipelineBoard.d.ts",
+				"browser": "./dist/browser/ui/CrmPipelineBoard.js",
+				"bun": "./dist/ui/CrmPipelineBoard.js",
+				"node": "./dist/node/ui/CrmPipelineBoard.js",
+				"default": "./dist/ui/CrmPipelineBoard.js"
+			},
+			"./ui/hooks": {
+				"types": "./dist/ui/hooks/index.d.ts",
+				"browser": "./dist/browser/ui/hooks/index.js",
+				"bun": "./dist/ui/hooks/index.js",
+				"node": "./dist/node/ui/hooks/index.js",
+				"default": "./dist/ui/hooks/index.js"
+			},
+			"./ui/hooks/useDealList": {
+				"types": "./dist/ui/hooks/useDealList.d.ts",
+				"browser": "./dist/browser/ui/hooks/useDealList.js",
+				"bun": "./dist/ui/hooks/useDealList.js",
+				"node": "./dist/node/ui/hooks/useDealList.js",
+				"default": "./dist/ui/hooks/useDealList.js"
+			},
+			"./ui/hooks/useDealMutations": {
+				"types": "./dist/ui/hooks/useDealMutations.d.ts",
+				"browser": "./dist/browser/ui/hooks/useDealMutations.js",
+				"bun": "./dist/ui/hooks/useDealMutations.js",
+				"node": "./dist/node/ui/hooks/useDealMutations.js",
+				"default": "./dist/ui/hooks/useDealMutations.js"
+			},
+			"./ui/modals": {
+				"types": "./dist/ui/modals/index.d.ts",
+				"browser": "./dist/browser/ui/modals/index.js",
+				"bun": "./dist/ui/modals/index.js",
+				"node": "./dist/node/ui/modals/index.js",
+				"default": "./dist/ui/modals/index.js"
+			},
+			"./ui/modals/CreateDealModal": {
+				"types": "./dist/ui/modals/CreateDealModal.d.ts",
+				"browser": "./dist/browser/ui/modals/CreateDealModal.js",
+				"bun": "./dist/ui/modals/CreateDealModal.js",
+				"node": "./dist/node/ui/modals/CreateDealModal.js",
+				"default": "./dist/ui/modals/CreateDealModal.js"
+			},
+			"./ui/modals/DealActionsModal": {
+				"types": "./dist/ui/modals/DealActionsModal.d.ts",
+				"browser": "./dist/browser/ui/modals/DealActionsModal.js",
+				"bun": "./dist/ui/modals/DealActionsModal.js",
+				"node": "./dist/node/ui/modals/DealActionsModal.js",
+				"default": "./dist/ui/modals/DealActionsModal.js"
+			},
+			"./ui/overlays": {
+				"types": "./dist/ui/overlays/index.d.ts",
+				"browser": "./dist/browser/ui/overlays/index.js",
+				"bun": "./dist/ui/overlays/index.js",
+				"node": "./dist/node/ui/overlays/index.js",
+				"default": "./dist/ui/overlays/index.js"
+			},
+			"./ui/overlays/demo-overlays": {
+				"types": "./dist/ui/overlays/demo-overlays.d.ts",
+				"browser": "./dist/browser/ui/overlays/demo-overlays.js",
+				"bun": "./dist/ui/overlays/demo-overlays.js",
+				"node": "./dist/node/ui/overlays/demo-overlays.js",
+				"default": "./dist/ui/overlays/demo-overlays.js"
+			},
+			"./ui/renderers": {
+				"types": "./dist/ui/renderers/index.d.ts",
+				"browser": "./dist/browser/ui/renderers/index.js",
+				"bun": "./dist/ui/renderers/index.js",
+				"node": "./dist/node/ui/renderers/index.js",
+				"default": "./dist/ui/renderers/index.js"
+			},
+			"./ui/renderers/pipeline.markdown": {
+				"types": "./dist/ui/renderers/pipeline.markdown.d.ts",
+				"browser": "./dist/browser/ui/renderers/pipeline.markdown.js",
+				"bun": "./dist/ui/renderers/pipeline.markdown.js",
+				"node": "./dist/node/ui/renderers/pipeline.markdown.js",
+				"default": "./dist/ui/renderers/pipeline.markdown.js"
+			},
+			"./ui/renderers/pipeline.renderer": {
+				"types": "./dist/ui/renderers/pipeline.renderer.d.ts",
+				"browser": "./dist/browser/ui/renderers/pipeline.renderer.js",
+				"bun": "./dist/ui/renderers/pipeline.renderer.js",
+				"node": "./dist/node/ui/renderers/pipeline.renderer.js",
+				"default": "./dist/ui/renderers/pipeline.renderer.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/",
+		"access": "public"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/examples/crm-pipeline"
+	},
+	"homepage": "https://contractspec.io"
 }

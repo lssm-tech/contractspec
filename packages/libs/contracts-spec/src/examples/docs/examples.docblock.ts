@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '../../docs/registry';
 
 export const tech_contracts_examples_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.contracts.examples',
-    title: 'Example Specifications',
-    summary:
-      'ExampleSpec defines complete, demonstrable ContractSpec applications.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/contracts/examples',
-    tags: ['tech', 'contracts', 'examples', 'templates'],
-    body: `## Example Specifications
+	{
+		id: 'docs.tech.contracts.examples',
+		title: 'Example Specifications',
+		summary:
+			'ExampleSpec defines complete, demonstrable ContractSpec applications.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/contracts/examples',
+		tags: ['tech', 'contracts', 'examples', 'templates'],
+		body: `## Example Specifications
 
 ExampleSpec is a contract for defining complete, demonstrable ContractSpec applications. Examples integrate with AppBlueprintSpec and FeatureModuleSpec to provide a full application specification.
 
@@ -155,7 +155,7 @@ const example: ExampleSpec = {
 - [App Configuration](file:///docs/tech/contracts/app-config) - AppBlueprintSpec
 - [Features](file:///docs/tech/contracts/features) - FeatureModuleSpec
 `,
-  },
+	},
 ];
 
 registerDocBlocks(tech_contracts_examples_DocBlocks);

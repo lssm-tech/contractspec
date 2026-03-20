@@ -1,10 +1,10 @@
 export type {
-  DocsIndexEntry,
-  DocsIndexManifest,
-  DocsIndexSource,
+	DocsIndexEntry,
+	DocsIndexManifest,
+	DocsIndexSource,
 } from './docs-index.generated';
 export {
-  getDocsIndexManifest,
-  getGeneratedDocById,
-  listGeneratedDocs,
+	getDocsIndexManifest,
+	getGeneratedDocById,
+	listGeneratedDocs,
 } from './loader';

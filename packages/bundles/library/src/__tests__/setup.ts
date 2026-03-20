@@ -3,9 +3,9 @@ import { resetPrismaMock } from './mocks/prisma';
 
 // Reset mocks before each test
 beforeEach(() => {
-  resetPrismaMock();
+	resetPrismaMock();
 });
 
 afterEach(() => {
-  resetPrismaMock();
+	resetPrismaMock();
 });

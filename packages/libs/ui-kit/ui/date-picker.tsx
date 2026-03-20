@@ -1,88 +1,88 @@
-import React, { useMemo, useState } from 'react';
-import { Platform, Pressable, View } from 'react-native';
+import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import type {
-  AndroidNativeProps,
-  IOSNativeProps,
+	AndroidNativeProps,
+	IOSNativeProps,
 } from '@react-native-community/datetimepicker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { cn } from '@contractspec/lib.ui-kit-core/utils';
+import { useMemo, useState } from 'react';
+import { Platform, Pressable, View } from 'react-native';
 import { Text } from './text';
 
 export interface DatePickerProps {
-  value: Date | null;
-  onChange: (date: Date | null) => void;
-  disabled?: boolean;
-  minDate?: Date;
-  maxDate?: Date;
-  placeholder?: string;
-  className?: string;
+	value: Date | null;
+	onChange: (date: Date | null) => void;
+	disabled?: boolean;
+	minDate?: Date;
+	maxDate?: Date;
+	placeholder?: string;
+	className?: string;
 }
 
 function formatDateDisplay(date: Date | null) {
-  if (!date) return '';
-  try {
-    return date.toLocaleDateString(undefined, {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
-    });
-  } catch {
-    return '';
-  }
+	if (!date) return '';
+	try {
+		return date.toLocaleDateString(undefined, {
+			day: '2-digit',
+			month: 'long',
+			year: 'numeric',
+		});
+	} catch {
+		return '';
+	}
 }
 
 export function DatePicker({
-  value,
-  onChange,
-  disabled,
-  minDate,
-  maxDate,
-  placeholder = 'Select date',
-  className,
+	value,
+	onChange,
+	disabled,
+	minDate,
+	maxDate,
+	placeholder = 'Select date',
+	className,
 }: DatePickerProps) {
-  const [show, setShow] = useState(false);
+	const [show, setShow] = useState(false);
 
-  const pickerProps = useMemo<Partial<AndroidNativeProps & IOSNativeProps>>(
-    () => ({
-      minimumDate: minDate,
-      maximumDate: maxDate,
-      timeZoneName: undefined,
-    }),
-    [minDate, maxDate]
-  );
+	const pickerProps = useMemo<Partial<AndroidNativeProps & IOSNativeProps>>(
+		() => ({
+			minimumDate: minDate,
+			maximumDate: maxDate,
+			timeZoneName: undefined,
+		}),
+		[minDate, maxDate]
+	);
 
-  const handleChange = (_event: unknown, selectedDate?: Date | undefined) => {
-    if (Platform.OS !== 'ios') setShow(false);
-    if (selectedDate) {
-      onChange(selectedDate);
-    }
-  };
+	const handleChange = (_event: unknown, selectedDate?: Date | undefined) => {
+		if (Platform.OS !== 'ios') setShow(false);
+		if (selectedDate) {
+			onChange(selectedDate);
+		}
+	};
 
-  return (
-    <View className={cn('w-full', className)}>
-      <Pressable
-        disabled={disabled}
-        onPress={() => setShow(true)}
-        className={cn(
-          'border-input bg-background h-12 flex-row items-center rounded-md border px-3',
-          disabled && 'opacity-50'
-        )}
-      >
-        <Text
-          className={cn('text-foreground text-base', !value && 'opacity-50')}
-        >
-          {value ? formatDateDisplay(value) : placeholder}
-        </Text>
-      </Pressable>
-      {show && (
-        <DateTimePicker
-          value={value ?? new Date()}
-          mode="date"
-          display={Platform.OS === 'ios' ? 'inline' : 'default'}
-          onChange={handleChange}
-          {...pickerProps}
-        />
-      )}
-    </View>
-  );
+	return (
+		<View className={cn('w-full', className)}>
+			<Pressable
+				disabled={disabled}
+				onPress={() => setShow(true)}
+				className={cn(
+					'h-12 flex-row items-center rounded-md border border-input bg-background px-3',
+					disabled && 'opacity-50'
+				)}
+			>
+				<Text
+					className={cn('text-base text-foreground', !value && 'opacity-50')}
+				>
+					{value ? formatDateDisplay(value) : placeholder}
+				</Text>
+			</Pressable>
+			{show && (
+				<DateTimePicker
+					value={value ?? new Date()}
+					mode="date"
+					display={Platform.OS === 'ios' ? 'inline' : 'default'}
+					onChange={handleChange}
+					{...pickerProps}
+				/>
+			)}
+		</View>
+	);
 }

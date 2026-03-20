@@ -1,6 +1,6 @@
 export {
-  useContractTable,
-  type ContractTableController,
-  type ContractTableColumnDef,
-  type UseContractTableOptions,
+	type ContractTableColumnDef,
+	type ContractTableController,
+	type UseContractTableOptions,
+	useContractTable,
 } from '@contractspec/lib.presentation-runtime-react/useContractTable';

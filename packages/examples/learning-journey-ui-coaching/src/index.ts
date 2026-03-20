@@ -1,11 +1,9 @@
 // Main mini-app
 export { CoachingMiniApp } from './CoachingMiniApp';
-
-// Views
-export { Overview, Steps, Progress, Timeline } from './views';
-
 // Components
-export { TipCard, EngagementMeter, TipFeed } from './components';
-export * from './learning-journey-ui-coaching.feature';
+export { EngagementMeter, TipCard, TipFeed } from './components';
 export { default as example } from './example';
+export * from './learning-journey-ui-coaching.feature';
+// Views
+export { Overview, Progress, Steps, Timeline } from './views';
 import './docs';

@@ -1,85 +1,85 @@
 {
-  "name": "@contractspec/lib.presentation-runtime-core",
-  "version": "3.7.6",
-  "description": "Core presentation runtime for contract-driven UIs",
-  "keywords": [
-    "contractspec",
-    "presentation",
-    "runtime",
-    "ui",
-    "core",
-    "typescript"
-  ],
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "sideEffects": false,
-  "scripts": {
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
-    "build:bundle": "contractspec-bun-build transpile",
-    "build:types": "contractspec-bun-build types",
-    "clean": "rimraf dist .turbo",
-    "dev": "contractspec-bun-build dev",
-    "lint": "bun run lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
-    "prebuild": "contractspec-bun-build prebuild",
-    "typecheck": "tsc --noEmit -p tsconfig.json"
-  },
-  "peerDependencies": {
-    "typescript": "^5.9.0"
-  },
-  "dependencies": {
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "echarts": "^6.0.0"
-  },
-  "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:",
-    "@contractspec/tool.bun": "workspace:*"
-  },
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "exports": {
-    ".": "./src/index.ts",
-    "./table": "./src/table.ts",
-    "./visualization": "./src/visualization.ts"
-  },
-  "publishConfig": {
-    "access": "public",
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "browser": "./dist/browser/index.js",
-        "bun": "./dist/index.js",
-        "node": "./dist/node/index.js",
-        "default": "./dist/index.js"
-      },
-      "./table": {
-        "types": "./dist/table.d.ts",
-        "browser": "./dist/browser/table.js",
-        "bun": "./dist/table.js",
-        "node": "./dist/node/table.js",
-        "default": "./dist/table.js"
-      },
-      "./visualization": {
-        "types": "./dist/visualization.d.ts",
-        "browser": "./dist/browser/visualization.js",
-        "bun": "./dist/visualization.js",
-        "node": "./dist/node/visualization.js",
-        "default": "./dist/visualization.js"
-      }
-    },
-    "registry": "https://registry.npmjs.org/"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/libs/presentation-runtime-core"
-  },
-  "homepage": "https://contractspec.io"
+	"name": "@contractspec/lib.presentation-runtime-core",
+	"version": "3.7.6",
+	"description": "Core presentation runtime for contract-driven UIs",
+	"keywords": [
+		"contractspec",
+		"presentation",
+		"runtime",
+		"ui",
+		"core",
+		"typescript"
+	],
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"sideEffects": false,
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"clean": "rimraf dist .turbo",
+		"dev": "contractspec-bun-build dev",
+		"lint": "bun run lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit -p tsconfig.json"
+	},
+	"peerDependencies": {
+		"typescript": "^5.9.0"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"echarts": "^6.0.0"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@contractspec/tool.bun": "workspace:*"
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"exports": {
+		".": "./src/index.ts",
+		"./table": "./src/table.ts",
+		"./visualization": "./src/visualization.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./table": {
+				"types": "./dist/table.d.ts",
+				"browser": "./dist/browser/table.js",
+				"bun": "./dist/table.js",
+				"node": "./dist/node/table.js",
+				"default": "./dist/table.js"
+			},
+			"./visualization": {
+				"types": "./dist/visualization.d.ts",
+				"browser": "./dist/browser/visualization.js",
+				"bun": "./dist/visualization.js",
+				"node": "./dist/node/visualization.js",
+				"default": "./dist/visualization.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/libs/presentation-runtime-core"
+	},
+	"homepage": "https://contractspec.io"
 }

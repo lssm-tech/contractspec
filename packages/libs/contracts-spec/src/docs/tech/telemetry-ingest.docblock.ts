@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '../registry';
 
 export const tech_telemetry_ingest_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.telemetry.ingest',
-    title: 'Telemetry Ingest Endpoint',
-    summary:
-      'Server-side telemetry ingestion for ContractSpec clients (VS Code extension, CLI, etc.).',
-    kind: 'reference',
-    visibility: 'internal',
-    route: '/docs/tech/telemetry/ingest',
-    tags: ['telemetry', 'api', 'posthog', 'analytics'],
-    body: `# Telemetry Ingest Endpoint
+	{
+		id: 'docs.tech.telemetry.ingest',
+		title: 'Telemetry Ingest Endpoint',
+		summary:
+			'Server-side telemetry ingestion for ContractSpec clients (VS Code extension, CLI, etc.).',
+		kind: 'reference',
+		visibility: 'internal',
+		route: '/docs/tech/telemetry/ingest',
+		tags: ['telemetry', 'api', 'posthog', 'analytics'],
+		body: `# Telemetry Ingest Endpoint
 
 The ContractSpec API provides a telemetry ingest endpoint for clients to send product analytics events.
 
@@ -100,17 +100,17 @@ The endpoint requires \`POSTHOG_PROJECT_KEY\` environment variable to be set. If
 |-------|-------------|------------|
 | \`contractspec.api.mcp_request\` | MCP request processed | \`endpoint\`, \`method\`, \`success\`, \`duration_ms\` |
 `,
-  },
-  {
-    id: 'docs.tech.telemetry.hybrid',
-    title: 'Hybrid Telemetry Model',
-    summary:
-      'How ContractSpec clients choose between direct PostHog and API-routed telemetry.',
-    kind: 'usage',
-    visibility: 'internal',
-    route: '/docs/tech/telemetry/hybrid',
-    tags: ['telemetry', 'architecture', 'posthog'],
-    body: `# Hybrid Telemetry Model
+	},
+	{
+		id: 'docs.tech.telemetry.hybrid',
+		title: 'Hybrid Telemetry Model',
+		summary:
+			'How ContractSpec clients choose between direct PostHog and API-routed telemetry.',
+		kind: 'usage',
+		visibility: 'internal',
+		route: '/docs/tech/telemetry/hybrid',
+		tags: ['telemetry', 'architecture', 'posthog'],
+		body: `# Hybrid Telemetry Model
 
 ContractSpec uses a hybrid telemetry model where clients can send events either directly to PostHog or via the API server.
 
@@ -154,7 +154,7 @@ interface TelemetryClient {
 
 This allows future migration without changing client code.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(tech_telemetry_ingest_DocBlocks);

@@ -22,12 +22,12 @@ type TextOutputReturn = ReturnType<typeof Output.text>;
  * @returns AI SDK Output configuration
  */
 export function jsonSchemaToOutput(
-  schema: Record<string, unknown>
+	schema: Record<string, unknown>
 ): ObjectOutputReturn {
-  const zodSchema = jsonSchemaToZod(schema);
-  return Output.object({
-    schema: zodSchema,
-  });
+	const zodSchema = jsonSchemaToZod(schema);
+	return Output.object({
+		schema: zodSchema,
+	});
 }
 
 /**
@@ -37,12 +37,12 @@ export function jsonSchemaToOutput(
  * @returns AI SDK Output configuration
  */
 export function jsonSchemaToArrayOutput(
-  itemSchema: Record<string, unknown>
+	itemSchema: Record<string, unknown>
 ): ArrayOutputReturn {
-  const zodSchema = jsonSchemaToZod(itemSchema);
-  return Output.array({
-    element: zodSchema,
-  });
+	const zodSchema = jsonSchemaToZod(itemSchema);
+	return Output.array({
+		element: zodSchema,
+	});
 }
 
 /**
@@ -52,9 +52,9 @@ export function jsonSchemaToArrayOutput(
  * @returns AI SDK Output configuration
  */
 export function enumToChoiceOutput(choices: string[]): ChoiceOutputReturn {
-  return Output.choice({
-    options: choices as [string, ...string[]],
-  });
+	return Output.choice({
+		options: choices as [string, ...string[]],
+	});
 }
 
 /**
@@ -64,9 +64,9 @@ export function enumToChoiceOutput(choices: string[]): ChoiceOutputReturn {
  * @returns AI SDK Output configuration
  */
 export function zodToOutput<T extends ZodType>(schema: T): ObjectOutputReturn {
-  return Output.object({
-    schema,
-  });
+	return Output.object({
+		schema,
+	});
 }
 
 /**
@@ -75,35 +75,35 @@ export function zodToOutput<T extends ZodType>(schema: T): ObjectOutputReturn {
  * @returns AI SDK Output configuration for text
  */
 export function textOutput(): TextOutputReturn {
-  return Output.text();
+	return Output.text();
 }
 
 /**
  * Output builder that can be used fluently.
  */
 export const SchemaOutput = {
-  /**
-   * Create an object output from JSON Schema.
-   */
-  fromJsonSchema: jsonSchemaToOutput,
+	/**
+	 * Create an object output from JSON Schema.
+	 */
+	fromJsonSchema: jsonSchemaToOutput,
 
-  /**
-   * Create an array output from JSON Schema.
-   */
-  arrayFromJsonSchema: jsonSchemaToArrayOutput,
+	/**
+	 * Create an array output from JSON Schema.
+	 */
+	arrayFromJsonSchema: jsonSchemaToArrayOutput,
 
-  /**
-   * Create a choice output from enum.
-   */
-  fromEnum: enumToChoiceOutput,
+	/**
+	 * Create a choice output from enum.
+	 */
+	fromEnum: enumToChoiceOutput,
 
-  /**
-   * Create an output from Zod schema.
-   */
-  fromZod: zodToOutput,
+	/**
+	 * Create an output from Zod schema.
+	 */
+	fromZod: zodToOutput,
 
-  /**
-   * Create a text output.
-   */
-  text: textOutput,
+	/**
+	 * Create a text output.
+	 */
+	text: textOutput,
 } as const;

@@ -1,6 +1,6 @@
 export { CommandTabs } from './CommandTabs';
 export type {
-  CommandTabsProps,
-  PackageManager,
-  PackageManagerContextValue,
+	CommandTabsProps,
+	PackageManager,
+	PackageManagerContextValue,
 } from './types';

@@ -2,11 +2,11 @@
  * Impact detection service module.
  */
 
-export * from './types';
-export { detectImpact } from './impact-detection-service';
 export {
-  formatPrComment,
-  formatMinimalComment,
-  formatCheckRun,
-  formatJson,
+	formatCheckRun,
+	formatJson,
+	formatMinimalComment,
+	formatPrComment,
 } from './formatters';
+export { detectImpact } from './impact-detection-service';
+export * from './types';

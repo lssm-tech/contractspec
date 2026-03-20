@@ -6,14 +6,14 @@ import type { SchemaModelType } from './SchemaModelType';
  * Note: Runtime validation is limited to 'unknown' (pass-through) as SDL is not parsed at runtime.
  */
 export class GraphQLSchemaType implements SchemaModelType {
-  readonly _isSchemaType = true;
+	readonly _isSchemaType = true;
 
-  constructor(
-    public readonly typeDef: string,
-    public readonly name: string
-  ) {}
+	constructor(
+		public readonly typeDef: string,
+		public readonly name: string
+	) {}
 
-  getZod(): z.ZodType {
-    return z.unknown();
-  }
+	getZod(): z.ZodType {
+		return z.unknown();
+	}
 }

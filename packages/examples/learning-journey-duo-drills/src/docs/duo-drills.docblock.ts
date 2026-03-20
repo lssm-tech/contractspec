@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const duoDrillsDocBlocks: DocBlock[] = [
-  {
-    id: 'docs.learning-journey.duo-drills',
-    title: 'Learning Journey — Duo Drills',
-    summary:
-      'Short drill/SRS example with XP and streak hooks for language, finance, or ContractSpec concept drills.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/learning-journey/duo-drills',
-    tags: ['learning', 'drills', 'srs', 'xp'],
-    body: `## Track
+	{
+		id: 'docs.learning-journey.duo-drills',
+		title: 'Learning Journey — Duo Drills',
+		summary:
+			'Short drill/SRS example with XP and streak hooks for language, finance, or ContractSpec concept drills.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/learning-journey/duo-drills',
+		tags: ['learning', 'drills', 'srs', 'xp'],
+		body: `## Track
 - **Key**: \`drills_language_basics\`
 - **Persona**: learner running quick drills (language/finance/spec concepts)
 - **Goal**: complete first session, maintain high-accuracy sessions, master cards in the first skill
@@ -27,7 +27,7 @@ XP: 20 + 30 + 40. Streak: daily session completion can be used to drive streak r
 - Tracks export from \`@contractspec/example.learning-journey-duo-drills/track\`.
 - Use registry helper \`recordEvent\` to advance steps from drill/session events.
 - SRS mastery events should include payload: \`{ skillId, mastery }\`.`,
-  },
+	},
 ];
 
 registerDocBlocks(duoDrillsDocBlocks);

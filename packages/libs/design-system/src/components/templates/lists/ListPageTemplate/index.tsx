@@ -1,2 +1,2 @@
-export * from './types';
 export * from './index.web';
+export * from './types';

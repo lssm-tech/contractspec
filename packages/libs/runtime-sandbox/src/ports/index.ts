@@ -1,4 +1,4 @@
 export {
-  type DatabaseAdapterFactory,
-  type DatabasePort,
+	type DatabaseAdapterFactory,
+	type DatabasePort,
 } from './database.port';

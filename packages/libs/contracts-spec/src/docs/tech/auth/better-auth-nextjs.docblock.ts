@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '../../registry';
 
 export const tech_auth_better_auth_nextjs_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.auth.better-auth-nextjs',
-    title: 'Better Auth + Next.js integration (ContractSpec)',
-    summary:
-      'How ContractSpec wires Better Auth into Next.js (server config, client singleton, and proxy cookie-only redirects).',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/auth/better-auth-nextjs',
-    tags: ['auth', 'better-auth', 'nextjs', 'cookies', 'proxy', 'hmr'],
-    body: `# Better Auth + Next.js integration (ContractSpec)
+	{
+		id: 'docs.tech.auth.better-auth-nextjs',
+		title: 'Better Auth + Next.js integration (ContractSpec)',
+		summary:
+			'How ContractSpec wires Better Auth into Next.js (server config, client singleton, and proxy cookie-only redirects).',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/auth/better-auth-nextjs',
+		tags: ['auth', 'better-auth', 'nextjs', 'cookies', 'proxy', 'hmr'],
+		body: `# Better Auth + Next.js integration (ContractSpec)
 
 This repo uses Better Auth as the primary auth layer (sessions, organizations, teams, API keys, and OAuth).
 
@@ -69,7 +69,7 @@ The Next.js proxy/middleware is used for **redirect decisions only**. It must no
 
 These checks are intentionally optimistic and should only gate routing. Full authorization must still be enforced on server-side actions/routes and GraphQL resolvers.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(tech_auth_better_auth_nextjs_DocBlocks);

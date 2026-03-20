@@ -1,144 +1,144 @@
 {
-  "$schema": "https://turbo.build/schema.json",
-  "envMode": "strict",
-  "tasks": {
-    "clean": {
-      "cache": false
-    },
-    "test": {},
-    "publish:pkg": {
-      "dependsOn": ["build", "^publish:pkg"],
-      "cache": false,
-      "env": ["NPM_CONFIG_TOKEN", "VSCE_PAT", "OVSX_PAT"]
-    },
-    "publish:pkg:canary": {
-      "dependsOn": ["build", "^publish:pkg:canary"],
-      "cache": false,
-      "env": ["NPM_CONFIG_TOKEN", "VSCE_PAT", "OVSX_PAT"]
-    },
-    "prebuild": {
-      "cache": true,
-      "dependsOn": ["^prebuild"],
-      "outputLogs": "new-only",
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "package.json",
-        "src/**",
-        "tsdown.config.js",
-        "tsdown.config.mjs",
-        "tsdown.config.ts",
-        "tsdown.config.cjs",
-        "bun.config.js",
-        "bun.config.mjs",
-        "bun.config.ts",
-        "bun.config.cjs"
-      ],
-      "outputs": []
-    },
-    "build": {
-      "cache": true,
-      "dependsOn": ["prebuild", "^build"],
-      "outputLogs": "new-only",
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        ".env*",
-        "package.json",
-        "tsdown.config.js",
-        "tsdown.config.mjs",
-        "tsdown.config.ts",
-        "tsdown.config.cjs",
-        "bun.config.js",
-        "bun.config.mjs",
-        "bun.config.ts",
-        "bun.config.cjs",
-        "src/**",
-        "!src/generated/**",
-        "public/**"
-      ],
-      "outputs": [
-        "dist/**",
-        "generated/**",
-        ".next/**",
-        "!.next/cache/**",
-        "src/generated/**",
-        "src/handlers/**"
-      ]
-    },
-    "build:bundle": {
-      "cache": true,
-      "dependsOn": ["prebuild", "^build:bundle"],
-      "outputLogs": "new-only",
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        ".env*",
-        "package.json",
-        "tsdown.config.js",
-        "tsdown.config.mjs",
-        "tsdown.config.ts",
-        "tsdown.config.cjs",
-        "bun.config.js",
-        "bun.config.mjs",
-        "bun.config.ts",
-        "bun.config.cjs",
-        "src/**",
-        "!src/generated/**",
-        "public/**"
-      ],
-      "outputs": [
-        "dist/**",
-        "generated/**",
-        ".next/**",
-        "!.next/cache/**",
-        "src/generated/**",
-        "src/handlers/**"
-      ]
-    },
-    "build:types": {
-      "cache": true,
-      "outputLogs": "new-only",
-      "dependsOn": ["^build:types"],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "public/**",
-        "src/**",
-        "package.json",
-        "tsconfig.json",
-        "tsconfig.build.json",
-        "tsdown.config.js",
-        "tsdown.config.mjs",
-        "tsdown.config.ts",
-        "tsdown.config.cjs",
-        "bun.config.js",
-        "bun.config.mjs",
-        "bun.config.ts",
-        "bun.config.cjs"
-      ],
-      "outputs": ["dist/**/*.d.ts", "dist/**/*.d.ts.map"]
-    },
-    "typecheck": {
-      "cache": true,
-      "outputLogs": "new-only",
-      "dependsOn": ["^typecheck"],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "src/**",
-        "package.json",
-        "tsconfig.json",
-        "tsconfig.build.json"
-      ]
-    },
-    "dev": {
-      "cache": false,
-      "persistent": true
-    },
-    "docs:generate": {
-      "outputLogs": "new-only"
-    },
-    "lint": {
-      "outputLogs": "new-only"
-    },
-    "lint:check": {
-      "outputLogs": "new-only"
-    }
-  }
+	"$schema": "https://turbo.build/schema.json",
+	"envMode": "strict",
+	"tasks": {
+		"clean": {
+			"cache": false
+		},
+		"test": {},
+		"publish:pkg": {
+			"dependsOn": ["build", "^publish:pkg"],
+			"cache": false,
+			"env": ["NPM_CONFIG_TOKEN", "VSCE_PAT", "OVSX_PAT"]
+		},
+		"publish:pkg:canary": {
+			"dependsOn": ["build", "^publish:pkg:canary"],
+			"cache": false,
+			"env": ["NPM_CONFIG_TOKEN", "VSCE_PAT", "OVSX_PAT"]
+		},
+		"prebuild": {
+			"cache": true,
+			"dependsOn": ["^prebuild"],
+			"outputLogs": "new-only",
+			"inputs": [
+				"$TURBO_DEFAULT$",
+				"package.json",
+				"src/**",
+				"tsdown.config.js",
+				"tsdown.config.mjs",
+				"tsdown.config.ts",
+				"tsdown.config.cjs",
+				"bun.config.js",
+				"bun.config.mjs",
+				"bun.config.ts",
+				"bun.config.cjs"
+			],
+			"outputs": []
+		},
+		"build": {
+			"cache": true,
+			"dependsOn": ["prebuild", "^build"],
+			"outputLogs": "new-only",
+			"inputs": [
+				"$TURBO_DEFAULT$",
+				".env*",
+				"package.json",
+				"tsdown.config.js",
+				"tsdown.config.mjs",
+				"tsdown.config.ts",
+				"tsdown.config.cjs",
+				"bun.config.js",
+				"bun.config.mjs",
+				"bun.config.ts",
+				"bun.config.cjs",
+				"src/**",
+				"!src/generated/**",
+				"public/**"
+			],
+			"outputs": [
+				"dist/**",
+				"generated/**",
+				".next/**",
+				"!.next/cache/**",
+				"src/generated/**",
+				"src/handlers/**"
+			]
+		},
+		"build:bundle": {
+			"cache": true,
+			"dependsOn": ["prebuild", "^build:bundle"],
+			"outputLogs": "new-only",
+			"inputs": [
+				"$TURBO_DEFAULT$",
+				".env*",
+				"package.json",
+				"tsdown.config.js",
+				"tsdown.config.mjs",
+				"tsdown.config.ts",
+				"tsdown.config.cjs",
+				"bun.config.js",
+				"bun.config.mjs",
+				"bun.config.ts",
+				"bun.config.cjs",
+				"src/**",
+				"!src/generated/**",
+				"public/**"
+			],
+			"outputs": [
+				"dist/**",
+				"generated/**",
+				".next/**",
+				"!.next/cache/**",
+				"src/generated/**",
+				"src/handlers/**"
+			]
+		},
+		"build:types": {
+			"cache": true,
+			"outputLogs": "new-only",
+			"dependsOn": ["^build:types"],
+			"inputs": [
+				"$TURBO_DEFAULT$",
+				"public/**",
+				"src/**",
+				"package.json",
+				"tsconfig.json",
+				"tsconfig.build.json",
+				"tsdown.config.js",
+				"tsdown.config.mjs",
+				"tsdown.config.ts",
+				"tsdown.config.cjs",
+				"bun.config.js",
+				"bun.config.mjs",
+				"bun.config.ts",
+				"bun.config.cjs"
+			],
+			"outputs": ["dist/**/*.d.ts", "dist/**/*.d.ts.map"]
+		},
+		"typecheck": {
+			"cache": true,
+			"outputLogs": "new-only",
+			"dependsOn": ["^typecheck"],
+			"inputs": [
+				"$TURBO_DEFAULT$",
+				"src/**",
+				"package.json",
+				"tsconfig.json",
+				"tsconfig.build.json"
+			]
+		},
+		"dev": {
+			"cache": false,
+			"persistent": true
+		},
+		"docs:generate": {
+			"outputLogs": "new-only"
+		},
+		"lint": {
+			"outputLogs": "new-only"
+		},
+		"lint:check": {
+			"outputLogs": "new-only"
+		}
+	}
 }

@@ -1,17 +1,17 @@
-import type { DocBlock } from './types';
 import { registerDocBlocks } from './registry';
+import type { DocBlock } from './types';
 
 export const techContractsDocs: DocBlock[] = [
-  {
-    id: 'docs.tech.contracts.presentations',
-    title: 'Presentations — Unified Descriptor & Transform Engine',
-    summary:
-      'How PresentationSpec and TransformEngine keep docs/renderers consistent.',
-    visibility: 'public',
-    route: '/docs/tech/contracts/presentations',
-    kind: 'reference',
-    tags: ['presentations', 'docs', 'mcp'],
-    body: `## Presentations V2 — Unified Descriptor & Transform Engine
+	{
+		id: 'docs.tech.contracts.presentations',
+		title: 'Presentations — Unified Descriptor & Transform Engine',
+		summary:
+			'How PresentationSpec and TransformEngine keep docs/renderers consistent.',
+		visibility: 'public',
+		route: '/docs/tech/contracts/presentations',
+		kind: 'reference',
+		tags: ['presentations', 'docs', 'mcp'],
+		body: `## Presentations V2 — Unified Descriptor & Transform Engine
 
 ### Purpose
 
@@ -87,6 +87,6 @@ PII paths (JSON-like) are redacted from rendered outputs.
 ### React Rendering
 
 Host apps use a \`componentMap\` (e.g., \`'sigil.webauth.tabs' → WebAuthTabs\`) and a BlockNote renderer to turn the React render descriptor into elements.`,
-  },
+	},
 ];
 registerDocBlocks(techContractsDocs);

@@ -14,10 +14,10 @@ import type { SchemaModelType } from './SchemaModelType';
  * Options for ZodSchemaType wrapper.
  */
 export interface ZodSchemaTypeOptions {
-  /** Name for GraphQL/JSON Schema representation */
-  name?: string;
-  /** Description for documentation */
-  description?: string;
+	/** Name for GraphQL/JSON Schema representation */
+	name?: string;
+	/** Description for documentation */
+	description?: string;
 }
 
 /**
@@ -46,58 +46,58 @@ export interface ZodSchemaTypeOptions {
  * });
  * ```
  */
-export class ZodSchemaType<T extends z.ZodType> implements SchemaModelType<
-  z.infer<T>
-> {
-  private readonly schema: T;
-  private readonly options: ZodSchemaTypeOptions;
-  private cachedJsonSchema?: unknown;
+export class ZodSchemaType<T extends z.ZodType>
+	implements SchemaModelType<z.infer<T>>
+{
+	private readonly schema: T;
+	private readonly options: ZodSchemaTypeOptions;
+	private cachedJsonSchema?: unknown;
 
-  constructor(schema: T, options: ZodSchemaTypeOptions = {}) {
-    this.schema = schema;
-    this.options = options;
-  }
+	constructor(schema: T, options: ZodSchemaTypeOptions = {}) {
+		this.schema = schema;
+		this.options = options;
+	}
 
-  /**
-   * Return the wrapped Zod schema.
-   */
-  getZod(): z.ZodType<z.infer<T>> {
-    return this.schema as z.ZodType<z.infer<T>>;
-  }
+	/**
+	 * Return the wrapped Zod schema.
+	 */
+	getZod(): z.ZodType<z.infer<T>> {
+		return this.schema as z.ZodType<z.infer<T>>;
+	}
 
-  /**
-   * Return JSON Schema representation using Zod's toJSONSchema.
-   */
-  getJsonSchema(): unknown {
-    if (this.cachedJsonSchema !== undefined) {
-      return this.cachedJsonSchema;
-    }
+	/**
+	 * Return JSON Schema representation using Zod's toJSONSchema.
+	 */
+	getJsonSchema(): unknown {
+		if (this.cachedJsonSchema !== undefined) {
+			return this.cachedJsonSchema;
+		}
 
-    this.cachedJsonSchema = z.toJSONSchema(this.schema);
-    return this.cachedJsonSchema;
-  }
+		this.cachedJsonSchema = z.toJSONSchema(this.schema);
+		return this.cachedJsonSchema;
+	}
 
-  /**
-   * Return GraphQL type info.
-   * For complex Zod types, defaults to JSON scalar.
-   */
-  getPothos(): { type: string; name?: string } {
-    return { type: 'JSON', name: this.options.name };
-  }
+	/**
+	 * Return GraphQL type info.
+	 * For complex Zod types, defaults to JSON scalar.
+	 */
+	getPothos(): { type: string; name?: string } {
+		return { type: 'JSON', name: this.options.name };
+	}
 
-  /**
-   * Get the configured name for this schema.
-   */
-  getName(): string | undefined {
-    return this.options.name;
-  }
+	/**
+	 * Get the configured name for this schema.
+	 */
+	getName(): string | undefined {
+		return this.options.name;
+	}
 
-  /**
-   * Get the configured description for this schema.
-   */
-  getDescription(): string | undefined {
-    return this.options.description;
-  }
+	/**
+	 * Get the configured description for this schema.
+	 */
+	getDescription(): string | undefined {
+		return this.options.description;
+	}
 }
 
 /**
@@ -120,6 +120,6 @@ export class ZodSchemaType<T extends z.ZodType> implements SchemaModelType<
  * ```
  */
 export const fromZod = <T extends z.ZodType>(
-  schema: T,
-  options?: ZodSchemaTypeOptions
+	schema: T,
+	options?: ZodSchemaTypeOptions
 ): ZodSchemaType<T> => new ZodSchemaType(schema, options);

@@ -1,6 +1,3 @@
 export interface FloatingBundleAdapter {
-  renderAnchoredMenu(args: {
-    anchorId: string;
-    items: unknown[];
-  }): unknown;
+	renderAnchoredMenu(args: { anchorId: string; items: unknown[] }): unknown;
 }

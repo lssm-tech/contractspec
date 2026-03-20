@@ -12,77 +12,105 @@ import type { SetupOptions } from './types';
  * Adapts defaults based on monorepo scope.
  */
 export function generateContractsrcConfig(options: SetupOptions): object {
-  // For package-level config in monorepo, use simpler relative paths
-  const isPackageLevel = options.isMonorepo && options.scope === 'package';
+	// For package-level config in monorepo, use simpler relative paths
+	const isPackageLevel = options.isMonorepo && options.scope === 'package';
 
-  return {
-    $schema: 'https://api.contractspec.io/schemas/contractsrc.json',
-    aiProvider: 'claude',
-    aiModel: 'claude-sonnet-4-6',
-    agentMode: 'claude-code',
-    // outputDir is relative to the config file location
-    outputDir: './src',
-    conventions: {
-      operations: 'contracts/operations',
-      events: 'contracts/events',
-      presentations: 'contracts/presentations',
-      forms: 'contracts/forms',
-      features: 'contracts/features',
-    },
-    defaultOwners: options.defaultOwners ?? ['@team'],
-    defaultTags: [],
-    // Versioning configuration
-    versioning: {
-      autoBump: false,
-      bumpStrategy: 'impact',
-      changelogTiers: ['spec', 'library', 'monorepo'],
-      format: 'keep-a-changelog',
-      commitChanges: false,
-      createTags: false,
-      integrateWithChangesets: true, // Enable changesets integration by default
-    },
-    // Git hooks configuration (Husky compatible)
-    hooks: {
-      'pre-commit': [
-        'contractspec validate **/*.operation.ts',
-        'contractspec integrity check',
-      ],
-    },
-    // Add monorepo hint if at package level
-    ...(isPackageLevel && options.packageName
-      ? { package: options.packageName }
-      : {}),
-  };
+	return {
+		$schema: 'https://api.contractspec.io/schemas/contractsrc.json',
+		aiProvider: 'claude',
+		aiModel: 'claude-sonnet-4-6',
+		agentMode: 'claude-code',
+		// outputDir is relative to the config file location
+		outputDir: './src',
+		conventions: {
+			operations: 'contracts/operations',
+			events: 'contracts/events',
+			presentations: 'contracts/presentations',
+			forms: 'contracts/forms',
+			features: 'contracts/features',
+		},
+		defaultOwners: options.defaultOwners ?? ['@team'],
+		defaultTags: [],
+		formatter: {
+			type: 'biome',
+		},
+		ci: {
+			checks: ['structure', 'integrity', 'deps', 'doctor', 'policy'],
+			failOnWarnings: false,
+			uploadSarif: true,
+		},
+		// Versioning configuration
+		versioning: {
+			autoBump: false,
+			bumpStrategy: 'impact',
+			changelogTiers: ['spec', 'library', 'monorepo'],
+			format: 'keep-a-changelog',
+			commitChanges: false,
+			createTags: false,
+			integrateWithChangesets: true, // Enable changesets integration by default
+		},
+		// Git hooks configuration (Husky compatible)
+		hooks: {
+			'pre-commit': [
+				'contractspec validate **/*.operation.ts',
+				'contractspec integrity check',
+			],
+		},
+		// Add monorepo hint if at package level
+		...(isPackageLevel && options.packageName
+			? { package: options.packageName }
+			: {}),
+	};
 }
 
 /**
  * Generate .vscode/settings.json ContractSpec settings.
  */
 export function generateVscodeSettings(): object {
-  return {
-    'contractspec.validation.enabled': true,
-    'contractspec.validation.validateOnSave': true,
-    'contractspec.validation.validateOnOpen': true,
-    'contractspec.codeLens.enabled': true,
-    'contractspec.diagnostics.showWarnings': true,
-    'contractspec.diagnostics.showHints': true,
-    'contractspec.integrity.enabled': true,
-    'contractspec.integrity.checkOnSave': true,
-  };
+	return {
+		'editor.formatOnSave': true,
+		'editor.defaultFormatter': 'biomejs.biome',
+		'editor.codeActionsOnSave': {
+			'source.organizeImports.biome': 'explicit',
+		},
+		'[javascript]': {
+			'editor.defaultFormatter': 'biomejs.biome',
+		},
+		'[typescript]': {
+			'editor.defaultFormatter': 'biomejs.biome',
+		},
+		'[javascriptreact]': {
+			'editor.defaultFormatter': 'biomejs.biome',
+		},
+		'[typescriptreact]': {
+			'editor.defaultFormatter': 'biomejs.biome',
+		},
+		'[json]': {
+			'editor.defaultFormatter': 'biomejs.biome',
+		},
+		'contractspec.validation.enabled': true,
+		'contractspec.validation.validateOnSave': true,
+		'contractspec.validation.validateOnOpen': true,
+		'contractspec.codeLens.enabled': true,
+		'contractspec.diagnostics.showWarnings': true,
+		'contractspec.diagnostics.showHints': true,
+		'contractspec.integrity.enabled': true,
+		'contractspec.integrity.checkOnSave': true,
+	};
 }
 
 /**
  * Generate .cursor/mcp.json content.
  */
 export function generateCursorMcpConfig(): object {
-  return {
-    mcpServers: {
-      'contractspec-local': {
-        command: 'bunx',
-        args: ['contractspec-mcp'],
-      },
-    },
-  };
+	return {
+		mcpServers: {
+			'contractspec-local': {
+				command: 'bunx',
+				args: ['contractspec-mcp'],
+			},
+		},
+	};
 }
 
 /**
@@ -90,14 +118,14 @@ export function generateCursorMcpConfig(): object {
  * Returns the mcpServers section to merge into claude_desktop_config.json.
  */
 export function generateClaudeMcpConfig(): object {
-  return {
-    mcpServers: {
-      'contractspec-local': {
-        command: 'bunx',
-        args: ['contractspec-mcp'],
-      },
-    },
-  };
+	return {
+		mcpServers: {
+			'contractspec-local': {
+				command: 'bunx',
+				args: ['contractspec-mcp'],
+			},
+		},
+	};
 }
 
 /**
@@ -106,20 +134,20 @@ export function generateClaudeMcpConfig(): object {
  * Adapts paths based on monorepo scope.
  */
 export function generateCursorRules(options: SetupOptions): string {
-  const projectName = options.projectName ?? 'this project';
-  const isPackageLevel = options.isMonorepo && options.scope === 'package';
+	const projectName = options.projectName ?? 'this project';
+	const isPackageLevel = options.isMonorepo && options.scope === 'package';
 
-  // Base contract path depends on scope
-  const basePath =
-    isPackageLevel && options.packageRoot
-      ? `${options.packageRoot.split('/').slice(-2).join('/')}/src/contracts`
-      : 'src/contracts';
+	// Base contract path depends on scope
+	const basePath =
+		isPackageLevel && options.packageRoot
+			? `${options.packageRoot.split('/').slice(-2).join('/')}/src/contracts`
+			: 'src/contracts';
 
-  const monorepoNote = options.isMonorepo
-    ? `\n## Monorepo Structure\n\nThis is a monorepo. Contracts may exist at:\n- Package level: \`packages/*/src/contracts/\`\n- Workspace level: \`src/contracts/\`\n\nCheck the appropriate level based on the feature scope.\n`
-    : '';
+	const monorepoNote = options.isMonorepo
+		? `\n## Monorepo Structure\n\nThis is a monorepo. Contracts may exist at:\n- Package level: \`packages/*/src/contracts/\`\n- Workspace level: \`src/contracts/\`\n\nCheck the appropriate level based on the feature scope.\n`
+		: '';
 
-  return `# ContractSpec Development Rules
+	return `# ContractSpec Development Rules
 
 This project uses ContractSpec for spec-first development. Follow these guidelines when working with AI agents.
 
@@ -178,14 +206,14 @@ defineCommand({
  * Adapts paths and instructions based on monorepo scope.
  */
 export function generateAgentsMd(options: SetupOptions): string {
-  const projectName = options.projectName ?? 'This Project';
-  const isPackageLevel = options.isMonorepo && options.scope === 'package';
+	const projectName = options.projectName ?? 'This Project';
+	const isPackageLevel = options.isMonorepo && options.scope === 'package';
 
-  // Contract path depends on scope
-  const contractPath = 'src/contracts/';
+	// Contract path depends on scope
+	const contractPath = 'src/contracts/';
 
-  const monorepoSection = options.isMonorepo
-    ? `
+	const monorepoSection = options.isMonorepo
+		? `
 ## Monorepo Structure
 
 This is a monorepo. Contracts can exist at multiple levels:
@@ -203,9 +231,9 @@ When adding a contract, consider:
 
 ${isPackageLevel ? `You are working at the **package level**: \`${options.packageName ?? options.packageRoot}\`` : 'You are working at the **workspace level**.'}
 `
-    : '';
+		: '';
 
-  return `# AI Agent Guide
+	return `# AI Agent Guide
 
 This repository uses **ContractSpec** for spec-first development. AI agents should follow these guidelines.
 
@@ -286,16 +314,16 @@ More specific instructions may exist in subdirectories. Check for \`AGENTS.md\` 
  * Get the file path for Claude Desktop config based on platform.
  */
 export function getClaudeDesktopConfigPath(): string {
-  const platform = process.platform;
-  const homeDir = process.env['HOME'] ?? process.env['USERPROFILE'] ?? '';
+	const platform = process.platform;
+	const homeDir = process.env['HOME'] ?? process.env['USERPROFILE'] ?? '';
 
-  switch (platform) {
-    case 'darwin':
-      return `${homeDir}/Library/Application Support/Claude/claude_desktop_config.json`;
-    case 'win32':
-      return `${process.env['APPDATA'] ?? homeDir}/Claude/claude_desktop_config.json`;
-    default:
-      // Linux and others
-      return `${homeDir}/.config/claude/claude_desktop_config.json`;
-  }
+	switch (platform) {
+		case 'darwin':
+			return `${homeDir}/Library/Application Support/Claude/claude_desktop_config.json`;
+		case 'win32':
+			return `${process.env['APPDATA'] ?? homeDir}/Claude/claude_desktop_config.json`;
+		default:
+			// Linux and others
+			return `${homeDir}/.config/claude/claude_desktop_config.json`;
+	}
 }

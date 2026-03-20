@@ -1,6 +1,6 @@
-export * from './workflow';
 export type {
-  ApprovalStatus,
-  ApprovalRequest,
-  ApprovalStore,
+	ApprovalRequest,
+	ApprovalStatus,
+	ApprovalStore,
 } from './workflow';
+export * from './workflow';

@@ -1,20 +1,20 @@
 import type { AnalyticsReader } from '@contractspec/lib.contracts-integrations';
-import type {
-  QueryDefinition,
-  QueryParameters,
-  QueryResult,
-} from '../query-engine';
 import { createPosthogQueryEngine } from '../datasource/posthog-datasource';
+import type {
+	QueryDefinition,
+	QueryParameters,
+	QueryResult,
+} from '../query-engine';
 
 export interface ExecutePosthogQueryInput {
-  definition: QueryDefinition;
-  params: QueryParameters;
-  reader: AnalyticsReader;
+	definition: QueryDefinition;
+	params: QueryParameters;
+	reader: AnalyticsReader;
 }
 
 export async function executePosthogQuery(
-  input: ExecutePosthogQueryInput
+	input: ExecutePosthogQueryInput
 ): Promise<QueryResult> {
-  const engine = createPosthogQueryEngine(input.reader);
-  return engine.execute(input.definition, input.params);
+	const engine = createPosthogQueryEngine(input.reader);
+	return engine.execute(input.definition, input.params);
 }

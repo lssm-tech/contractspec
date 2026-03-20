@@ -25,18 +25,18 @@ import type { DocId } from './docs';
  * - `deprecated`: Scheduled for removal, use alternatives
  */
 export const StabilityEnum = {
-  /** Initial concept, not yet implemented. */
-  Idea: 'idea',
-  /** Currently being built, not ready for use. */
-  InCreation: 'in_creation',
-  /** Working but unstable, may change significantly. */
-  Experimental: 'experimental',
-  /** Feature-complete, seeking feedback before stabilization. */
-  Beta: 'beta',
-  /** Production-ready, follows semantic versioning. */
-  Stable: 'stable',
-  /** Scheduled for removal, use alternatives. */
-  Deprecated: 'deprecated',
+	/** Initial concept, not yet implemented. */
+	Idea: 'idea',
+	/** Currently being built, not ready for use. */
+	InCreation: 'in_creation',
+	/** Working but unstable, may change significantly. */
+	Experimental: 'experimental',
+	/** Feature-complete, seeking feedback before stabilization. */
+	Beta: 'beta',
+	/** Production-ready, follows semantic versioning. */
+	Stable: 'stable',
+	/** Scheduled for removal, use alternatives. */
+	Deprecated: 'deprecated',
 } as const;
 
 /** Stability level for a spec's lifecycle stage. */
@@ -53,20 +53,20 @@ export type Stability = (typeof StabilityEnum)[keyof typeof StabilityEnum];
  * Custom owner strings are also allowed for flexibility.
  */
 export const OwnersEnum = {
-  /** Core platform team. */
-  PlatformCore: 'platform.core',
-  /** Sigil/auth team. */
-  PlatformSigil: 'platform.sigil',
-  /** Marketplace team. */
-  PlatformMarketplace: 'platform.marketplace',
-  /** Messaging/notifications team. */
-  PlatformMessaging: 'platform.messaging',
-  /** Content/CMS team. */
-  PlatformContent: 'platform.content',
-  /** Feature flags team. */
-  PlatformFeatureFlags: 'platform.featureflags',
-  /** Finance/billing team. */
-  PlatformFinance: 'platform.finance',
+	/** Core platform team. */
+	PlatformCore: 'platform.core',
+	/** Sigil/auth team. */
+	PlatformSigil: 'platform.sigil',
+	/** Marketplace team. */
+	PlatformMarketplace: 'platform.marketplace',
+	/** Messaging/notifications team. */
+	PlatformMessaging: 'platform.messaging',
+	/** Content/CMS team. */
+	PlatformContent: 'platform.content',
+	/** Feature flags team. */
+	PlatformFeatureFlags: 'platform.featureflags',
+	/** Finance/billing team. */
+	PlatformFinance: 'platform.finance',
 } as const;
 
 /**
@@ -74,8 +74,8 @@ export const OwnersEnum = {
  * Can be a predefined OwnersEnum value or any custom string.
  */
 export type Owner =
-  | (typeof OwnersEnum)[keyof typeof OwnersEnum]
-  | (string & {});
+	| (typeof OwnersEnum)[keyof typeof OwnersEnum]
+	| (string & {});
 
 /** @deprecated Use OwnersEnum instead. */
 export const Owners = OwnersEnum;
@@ -91,32 +91,32 @@ export const Owners = OwnersEnum;
  * Custom tag strings are also allowed for flexibility.
  */
 export const TagsEnum = {
-  /** Spots/locations domain. */
-  Spots: 'spots',
-  /** Collectivity/community domain. */
-  Collectivity: 'collectivity',
-  /** Marketplace domain. */
-  Marketplace: 'marketplace',
-  /** Seller-related features. */
-  Sellers: 'sellers',
-  /** Authentication features. */
-  Auth: 'auth',
-  /** Login flows. */
-  Login: 'login',
-  /** Signup flows. */
-  Signup: 'signup',
-  /** Onboarding/guides. */
-  Guide: 'guide',
-  /** Documentation. */
-  Docs: 'docs',
-  /** Internationalization. */
-  I18n: 'i18n',
-  /** Incident management. */
-  Incident: 'incident',
-  /** Automation/workflows. */
-  Automation: 'automation',
-  /** Code hygiene/maintenance. */
-  Hygiene: 'hygiene',
+	/** Spots/locations domain. */
+	Spots: 'spots',
+	/** Collectivity/community domain. */
+	Collectivity: 'collectivity',
+	/** Marketplace domain. */
+	Marketplace: 'marketplace',
+	/** Seller-related features. */
+	Sellers: 'sellers',
+	/** Authentication features. */
+	Auth: 'auth',
+	/** Login flows. */
+	Login: 'login',
+	/** Signup flows. */
+	Signup: 'signup',
+	/** Onboarding/guides. */
+	Guide: 'guide',
+	/** Documentation. */
+	Docs: 'docs',
+	/** Internationalization. */
+	I18n: 'i18n',
+	/** Incident management. */
+	Incident: 'incident',
+	/** Automation/workflows. */
+	Automation: 'automation',
+	/** Code hygiene/maintenance. */
+	Hygiene: 'hygiene',
 } as const;
 
 /**
@@ -151,55 +151,55 @@ export const Tags = TagsEnum;
  * ```
  */
 export interface OwnerShipMeta {
-  /**
-   * Semantic version string (e.g., "1.0.0").
-   * Bump for breaking changes according to semver rules.
-   */
-  version: string;
+	/**
+	 * Semantic version string (e.g., "1.0.0").
+	 * Bump for breaking changes according to semver rules.
+	 */
+	version: string;
 
-  /**
-   * Fully-qualified spec key (e.g., "sigil.beginSignup", "user.created").
-   * Must be unique within the spec type.
-   */
-  key: string;
+	/**
+	 * Fully-qualified spec key (e.g., "sigil.beginSignup", "user.created").
+	 * Must be unique within the spec type.
+	 */
+	key: string;
 
-  /**
-   * Human-friendly title (e.g., "Begin Signup").
-   * Used in documentation and UI.
-   */
-  title?: string;
+	/**
+	 * Human-friendly title (e.g., "Begin Signup").
+	 * Used in documentation and UI.
+	 */
+	title?: string;
 
-  /**
-   * Short human-friendly summary of what this spec does.
-   * Should be concise (1-2 sentences).
-   */
-  description: string;
+	/**
+	 * Short human-friendly summary of what this spec does.
+	 * Should be concise (1-2 sentences).
+	 */
+	description: string;
 
-  /**
-   * Business domain this spec belongs to (e.g., "auth", "marketplace").
-   * Used for grouping and discovery.
-   */
-  domain?: string;
+	/**
+	 * Business domain this spec belongs to (e.g., "auth", "marketplace").
+	 * Used for grouping and discovery.
+	 */
+	domain?: string;
 
-  /**
-   * Lifecycle stability marker.
-   * Indicates maturity level and change expectations.
-   */
-  stability: Stability;
+	/**
+	 * Lifecycle stability marker.
+	 * Indicates maturity level and change expectations.
+	 */
+	stability: Stability;
 
-  /**
-   * Team/individual owners responsible for this spec.
-   * Used for CODEOWNERS, on-call routing, and approvals.
-   */
-  owners: Owner[];
+	/**
+	 * Team/individual owners responsible for this spec.
+	 * Used for CODEOWNERS, on-call routing, and approvals.
+	 */
+	owners: Owner[];
 
-  /**
-   * Tags for search, grouping, and documentation navigation.
-   */
-  tags: Tag[];
+	/**
+	 * Tags for search, grouping, and documentation navigation.
+	 */
+	tags: Tag[];
 
-  /**
-   * Associated DocBlock identifiers for documentation linkage.
-   */
-  docId?: DocId[];
+	/**
+	 * Associated DocBlock identifiers for documentation linkage.
+	 */
+	docId?: DocId[];
 }

@@ -2,61 +2,56 @@
  * Exporter module index - re-exports all exporter functions.
  */
 
-// Operations
+// Data Views
 export {
-  exportOperations,
-  generateOperationsRegistry,
-  toOperationId,
-  toSchemaName,
-  toHttpMethod,
-  defaultRestPath,
-  toRestPath,
-  schemaModelToJsonSchema,
-  jsonSchemaForSpec,
-  type OperationsExportResult,
-} from './operations';
+	type ExportedDataView,
+	exportDataViews,
+	generateDataViewsRegistry,
+} from './data-views';
 
 // Events
 export {
-  exportEvents,
-  generateEventsExports,
-  type ExportedEvent,
+	type ExportedEvent,
+	exportEvents,
+	generateEventsExports,
 } from './events';
 
 // Features
 export {
-  exportFeatures,
-  generateFeaturesRegistry,
-  type ExportedFeature,
+	type ExportedFeature,
+	exportFeatures,
+	generateFeaturesRegistry,
 } from './features';
-
+// Forms
+export { type ExportedForm, exportForms, generateFormsRegistry } from './forms';
+// Operations
+export {
+	defaultRestPath,
+	exportOperations,
+	generateOperationsRegistry,
+	jsonSchemaForSpec,
+	type OperationsExportResult,
+	schemaModelToJsonSchema,
+	toHttpMethod,
+	toOperationId,
+	toRestPath,
+	toSchemaName,
+} from './operations';
 // Presentations
 export {
-  exportPresentations,
-  exportPresentationsFromArray,
-  generatePresentationsRegistry,
-  type ExportedPresentation,
+	type ExportedPresentation,
+	exportPresentations,
+	exportPresentationsFromArray,
+	generatePresentationsRegistry,
 } from './presentations';
-
-// Forms
-export { exportForms, generateFormsRegistry, type ExportedForm } from './forms';
-
-// Data Views
-export {
-  exportDataViews,
-  generateDataViewsRegistry,
-  type ExportedDataView,
-} from './data-views';
-
-// Workflows
-export {
-  exportWorkflows,
-  generateWorkflowsRegistry,
-  type ExportedWorkflow,
-} from './workflows';
-
 // Registries
 export {
-  generateRegistryIndex,
-  type RegistryGenerationOptions,
+	generateRegistryIndex,
+	type RegistryGenerationOptions,
 } from './registries';
+// Workflows
+export {
+	type ExportedWorkflow,
+	exportWorkflows,
+	generateWorkflowsRegistry,
+} from './workflows';

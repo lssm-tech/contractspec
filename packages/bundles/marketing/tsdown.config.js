@@ -1,9 +1,9 @@
 import { defineConfig, moduleLibrary } from '@contractspec/tool.bun';
 
 export default defineConfig((options) => ({
-  ...moduleLibrary,
-  exports: {
-    all: true,
-    devExports: true,
-  },
+	...moduleLibrary,
+	exports: {
+		all: true,
+		devExports: true,
+	},
 }));

@@ -1,16 +1,16 @@
-import type { DocBlock } from './types';
 import { registerDocBlocks } from './registry';
+import type { DocBlock } from './types';
 
 export const metaDocs: DocBlock[] = [
-  {
-    id: 'docs.meta.docblocks-process',
-    title: 'DocBlocks process',
-    summary: 'How to author goal/how/usage DocBlocks close to code.',
-    kind: 'reference',
-    visibility: 'mixed',
-    route: '/docs/meta/docblocks-process',
-    tags: ['docs', 'process'],
-    body: `## DocBlocks authoring rules
+	{
+		id: 'docs.meta.docblocks-process',
+		title: 'DocBlocks process',
+		summary: 'How to author goal/how/usage DocBlocks close to code.',
+		kind: 'reference',
+		visibility: 'mixed',
+		route: '/docs/meta/docblocks-process',
+		tags: ['docs', 'process'],
+		body: `## DocBlocks authoring rules
 
 - Colocate docs beside implementation; avoid barrel /docs folders.
 - Split intent:
@@ -23,6 +23,6 @@ export const metaDocs: DocBlock[] = [
 - Add owners/tags/domain/stability when known.
 - For presentations/markdown outputs, rely on TransformEngine via DocRegistry.
 - No sourcePath; DocBlocks are canonical.`,
-  },
+	},
 ];
 registerDocBlocks(metaDocs);

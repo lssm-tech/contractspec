@@ -1,4 +1,4 @@
 export {
-  exportCursorPlugin,
-  type CursorPluginExportResult,
+	type CursorPluginExportResult,
+	exportCursorPlugin,
 } from './cursor-plugin.js';

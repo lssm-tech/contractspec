@@ -16,10 +16,10 @@ Run linting and type checks:
    - Report type errors with file:line references
    - Suggest fixes for common type errors
 
-2. **ESLint check** (via turborepo):
+2. **Biome check** (with the temporary compatibility layer still covering i18n):
 
    ```bash
-   turbo lint
+   bun run lint:check
    ```
 
    - Report lint errors and warnings
@@ -28,7 +28,7 @@ Run linting and type checks:
 3. **Auto-fix** (if `--fix` flag provided):
 
    ```bash
-   turbo lint -- --fix
+   bun run lint:fix
    ```
 
 4. **Analysis**:
@@ -50,9 +50,9 @@ Run linting and type checks:
    Lint Warnings: Z
 
    Top issues:
-     1. no-unused-vars (12 occurrences)
-     2. prefer-const (8 occurrences)
-     3. @typescript-eslint/no-explicit-any (3 occurrences)
+     1. noUnusedVariables (12 occurrences)
+     2. noUnusedImports (8 occurrences)
+     3. policy-contract-first (3 occurrences)
 
    Quick fixes available: Y issues can be auto-fixed with --fix
    ```

@@ -10,7 +10,7 @@ const globalRegistry = new ExampleRegistry();
 
 // Register all builtin examples
 for (const example of BUILTIN_EXAMPLES) {
-  globalRegistry.register(example);
+	globalRegistry.register(example);
 }
 
 /**
@@ -23,19 +23,19 @@ export const EXAMPLE_REGISTRY: readonly ExampleSpec[] = globalRegistry.list();
  * List all registered examples.
  */
 export function listExamples(): readonly ExampleSpec[] {
-  return globalRegistry.list();
+	return globalRegistry.list();
 }
 
 /**
  * Get an example by its key.
  */
 export function getExample(key: string): ExampleSpec | undefined {
-  return globalRegistry.get(key);
+	return globalRegistry.get(key);
 }
 
 /**
  * Search examples by query (matches key, title, description, tags).
  */
 export function searchExamples(query: string): ExampleSpec[] {
-  return globalRegistry.search(query);
+	return globalRegistry.search(query);
 }

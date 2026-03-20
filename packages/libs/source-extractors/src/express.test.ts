@@ -2,9 +2,9 @@
  * Unit tests for Express extractor.
  */
 
-import { describe, expect, it, beforeEach } from 'bun:test';
-import { ExpressExtractor } from './extractors/express/extractor';
+import { beforeEach, describe, expect, it } from 'bun:test';
 import type { ExtractorFsAdapter } from './extractors/base';
+import { ExpressExtractor } from './extractors/express/extractor';
 import type { ProjectInfo } from './types';
 
 const FIXTURE_CONTENT = `
@@ -42,80 +42,80 @@ app.delete('/products/:id', async (req, res) => {
 `;
 
 describe('ExpressExtractor', () => {
-  let extractor: ExpressExtractor;
-  let mockFs: ExtractorFsAdapter;
-  let project: ProjectInfo;
+	let extractor: ExpressExtractor;
+	let mockFs: ExtractorFsAdapter;
+	let project: ProjectInfo;
 
-  beforeEach(() => {
-    extractor = new ExpressExtractor();
+	beforeEach(() => {
+		extractor = new ExpressExtractor();
 
-    mockFs = {
-      readFile: async () => FIXTURE_CONTENT,
-      glob: async () => ['src/products.ts'],
-      exists: async () => true,
-    };
+		mockFs = {
+			readFile: async () => FIXTURE_CONTENT,
+			glob: async () => ['src/products.ts'],
+			exists: async () => true,
+		};
 
-    extractor.setFs(mockFs);
+		extractor.setFs(mockFs);
 
-    project = {
-      rootPath: '/test-project',
-      frameworks: [{ id: 'express', name: 'Express', confidence: 'high' }],
-    };
-  });
+		project = {
+			rootPath: '/test-project',
+			frameworks: [{ id: 'express', name: 'Express', confidence: 'high' }],
+		};
+	});
 
-  it('should detect Express projects', async () => {
-    const detected = await extractor.detect(project);
-    expect(detected).toBe(true);
-  });
+	it('should detect Express projects', async () => {
+		const detected = await extractor.detect(project);
+		expect(detected).toBe(true);
+	});
 
-  it('should extract GET endpoints', async () => {
-    const result = await extractor.extract(project, {});
+	it('should extract GET endpoints', async () => {
+		const result = await extractor.extract(project, {});
 
-    expect(result.success).toBe(true);
-    const getEndpoints =
-      result.ir?.endpoints.filter((e) => e.method === 'GET') || [];
-    expect(getEndpoints.length).toBeGreaterThanOrEqual(1);
-    expect(getEndpoints.length).toBeGreaterThanOrEqual(1);
-  });
+		expect(result.success).toBe(true);
+		const getEndpoints =
+			result.ir?.endpoints.filter((e) => e.method === 'GET') || [];
+		expect(getEndpoints.length).toBeGreaterThanOrEqual(1);
+		expect(getEndpoints.length).toBeGreaterThanOrEqual(1);
+	});
 
-  it('should extract POST endpoints', async () => {
-    const result = await extractor.extract(project, {});
+	it('should extract POST endpoints', async () => {
+		const result = await extractor.extract(project, {});
 
-    const postEndpoints =
-      result.ir?.endpoints.filter((e) => e.method === 'POST') || [];
-    expect(postEndpoints.length).toBeGreaterThanOrEqual(1);
-  });
+		const postEndpoints =
+			result.ir?.endpoints.filter((e) => e.method === 'POST') || [];
+		expect(postEndpoints.length).toBeGreaterThanOrEqual(1);
+	});
 
-  it('should extract PUT endpoints', async () => {
-    const result = await extractor.extract(project, {});
+	it('should extract PUT endpoints', async () => {
+		const result = await extractor.extract(project, {});
 
-    const putEndpoints =
-      result.ir?.endpoints.filter((e) => e.method === 'PUT') || [];
-    expect(putEndpoints.length).toBeGreaterThanOrEqual(1);
-  });
+		const putEndpoints =
+			result.ir?.endpoints.filter((e) => e.method === 'PUT') || [];
+		expect(putEndpoints.length).toBeGreaterThanOrEqual(1);
+	});
 
-  it('should extract DELETE endpoints', async () => {
-    const result = await extractor.extract(project, {});
+	it('should extract DELETE endpoints', async () => {
+		const result = await extractor.extract(project, {});
 
-    const deleteEndpoints =
-      result.ir?.endpoints.filter((e) => e.method === 'DELETE') || [];
-    expect(deleteEndpoints.length).toBeGreaterThanOrEqual(1);
-  });
+		const deleteEndpoints =
+			result.ir?.endpoints.filter((e) => e.method === 'DELETE') || [];
+		expect(deleteEndpoints.length).toBeGreaterThanOrEqual(1);
+	});
 
-  it('should assign command kind to POST/PUT/DELETE', async () => {
-    const result = await extractor.extract(project, {});
+	it('should assign command kind to POST/PUT/DELETE', async () => {
+		const result = await extractor.extract(project, {});
 
-    const postEndpoint = result.ir?.endpoints.find((e) => e.method === 'POST');
-    expect(postEndpoint?.kind).toBe('command');
+		const postEndpoint = result.ir?.endpoints.find((e) => e.method === 'POST');
+		expect(postEndpoint?.kind).toBe('command');
 
-    const putEndpoint = result.ir?.endpoints.find((e) => e.method === 'PUT');
-    expect(putEndpoint?.kind).toBe('command');
-  });
+		const putEndpoint = result.ir?.endpoints.find((e) => e.method === 'PUT');
+		expect(putEndpoint?.kind).toBe('command');
+	});
 
-  it('should assign query kind to GET', async () => {
-    const result = await extractor.extract(project, {});
+	it('should assign query kind to GET', async () => {
+		const result = await extractor.extract(project, {});
 
-    const getEndpoint = result.ir?.endpoints.find((e) => e.method === 'GET');
-    expect(getEndpoint?.kind).toBe('query');
-  });
+		const getEndpoint = result.ir?.endpoints.find((e) => e.method === 'GET');
+		expect(getEndpoint?.kind).toBe('query');
+	});
 });

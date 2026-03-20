@@ -2,17 +2,17 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const imageGenDocBlocks: DocBlock[] = [
-  {
-    id: 'docs.image-gen.overview',
-    title: 'Image Generation Library',
-    summary:
-      'AI-powered image generation for hero, social, thumbnail, OG, and illustration assets.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/image-gen/overview',
-    tags: ['image', 'generation', 'ai', 'content'],
-    owners: ['@contractspec/lib.image-gen'],
-    body: `# Image Generation Library
+	{
+		id: 'docs.image-gen.overview',
+		title: 'Image Generation Library',
+		summary:
+			'AI-powered image generation for hero, social, thumbnail, OG, and illustration assets.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/image-gen/overview',
+		tags: ['image', 'generation', 'ai', 'content'],
+		owners: ['@contractspec/lib.image-gen'],
+		body: `# Image Generation Library
 
 \`@contractspec/lib.image-gen\` provides deterministic and LLM-enhanced image prompt generation
 for content pipelines. It supports multiple purposes (blog hero, social OG, thumbnail, etc.)
@@ -44,7 +44,7 @@ const project = await generator.generate(brief);
 - **PromptBuilder** — constructs deterministic or LLM-enhanced image prompts
 - **Presets** — convenience functions for social, marketing, and video thumbnails
 `,
-  },
+	},
 ];
 
 registerDocBlocks(imageGenDocBlocks);

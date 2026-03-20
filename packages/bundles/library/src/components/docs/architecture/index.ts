@@ -1,6 +1,6 @@
-export { ArchitectureOverviewPage } from './ArchitectureOverviewPage';
 export { ArchitectureAppConfigPage } from './ArchitectureAppConfigPage';
-export { ArchitectureMultiTenancyPage } from './ArchitectureMultiTenancyPage';
+export { ArchitectureControlPlanePage } from './ArchitectureControlPlanePage';
 export { ArchitectureIntegrationBindingPage } from './ArchitectureIntegrationBindingPage';
 export { ArchitectureKnowledgeBindingPage } from './ArchitectureKnowledgeBindingPage';
-export { ArchitectureControlPlanePage } from './ArchitectureControlPlanePage';
+export { ArchitectureMultiTenancyPage } from './ArchitectureMultiTenancyPage';
+export { ArchitectureOverviewPage } from './ArchitectureOverviewPage';

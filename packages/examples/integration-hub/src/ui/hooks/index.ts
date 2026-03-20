@@ -1,6 +1,6 @@
 'use client';
 
 export {
-  useIntegrationData,
-  type IntegrationStats,
+	type IntegrationStats,
+	useIntegrationData,
 } from './useIntegrationData';

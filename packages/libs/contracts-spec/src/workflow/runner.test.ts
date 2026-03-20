@@ -1,509 +1,511 @@
 import { describe, expect, it, vi } from 'bun:test';
-import { WorkflowRegistry, type WorkflowSpec, type Step } from './spec';
-import {
-  WorkflowRunner,
-  WorkflowPreFlightError,
-  type WorkflowRunnerConfig,
-} from './runner';
-import { InMemoryStateStore } from './adapters/memory-store';
-import type { WorkflowState } from './state';
-import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';
-import type { ResolvedAppConfig } from '../app-config/runtime';
-import type { ResolvedIntegration } from '../app-config/runtime';
+import type {
+	ResolvedAppConfig,
+	ResolvedIntegration,
+} from '../app-config/runtime';
 import type { ConnectionStatus } from '../integrations/connection';
+import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';
+import { InMemoryStateStore } from './adapters/memory-store';
+import {
+	WorkflowPreFlightError,
+	WorkflowRunner,
+	type WorkflowRunnerConfig,
+} from './runner';
+import { type Step, WorkflowRegistry, type WorkflowSpec } from './spec';
+import type { WorkflowState } from './state';
 
 function workflowSpec(overrides?: {
-  steps?: Step[];
-  transitions?: WorkflowSpec['definition']['transitions'];
+	steps?: Step[];
+	transitions?: WorkflowSpec['definition']['transitions'];
 }): WorkflowSpec {
-  return {
-    meta: {
-      key: 'sigil.workflow.runner',
-      version: '1.0.0',
-      title: 'Runner Workflow',
-      description: 'Workflow used in runner tests',
-      domain: 'testing',
-      owners: [OwnersEnum.PlatformSigil],
-      tags: [TagsEnum.Auth],
-      stability: StabilityEnum.Experimental,
-    },
-    definition: {
-      entryStepId: 'start',
-      steps: overrides?.steps ?? [
-        {
-          id: 'start',
-          type: 'automation',
-          label: 'Start',
-          action: { operation: { key: 'sigil.start', version: '1.0.0' } },
-        },
-        {
-          id: 'review',
-          type: 'human',
-          label: 'Review',
-          action: { form: { key: 'reviewForm', version: '1.0.0' } },
-        },
-        {
-          id: 'finish',
-          type: 'automation',
-          label: 'Finish',
-          action: { operation: { key: 'sigil.finish', version: '1.0.0' } },
-        },
-      ],
-      transitions: overrides?.transitions ?? [
-        { from: 'start', to: 'review' },
-        { from: 'review', to: 'finish', condition: 'data.approved === true' },
-      ],
-    },
-  };
+	return {
+		meta: {
+			key: 'sigil.workflow.runner',
+			version: '1.0.0',
+			title: 'Runner Workflow',
+			description: 'Workflow used in runner tests',
+			domain: 'testing',
+			owners: [OwnersEnum.PlatformSigil],
+			tags: [TagsEnum.Auth],
+			stability: StabilityEnum.Experimental,
+		},
+		definition: {
+			entryStepId: 'start',
+			steps: overrides?.steps ?? [
+				{
+					id: 'start',
+					type: 'automation',
+					label: 'Start',
+					action: { operation: { key: 'sigil.start', version: '1.0.0' } },
+				},
+				{
+					id: 'review',
+					type: 'human',
+					label: 'Review',
+					action: { form: { key: 'reviewForm', version: '1.0.0' } },
+				},
+				{
+					id: 'finish',
+					type: 'automation',
+					label: 'Finish',
+					action: { operation: { key: 'sigil.finish', version: '1.0.0' } },
+				},
+			],
+			transitions: overrides?.transitions ?? [
+				{ from: 'start', to: 'review' },
+				{ from: 'review', to: 'finish', condition: 'data.approved === true' },
+			],
+		},
+	};
 }
 
 function createRunner(
-  spec: WorkflowSpec,
-  events: { event: string; payload: unknown }[],
-  options?: Partial<
-    Pick<
-      WorkflowRunnerConfig,
-      'appConfigProvider' | 'enforceCapabilities' | 'opExecutor'
-    >
-  >
+	spec: WorkflowSpec,
+	events: { event: string; payload: unknown }[],
+	options?: Partial<
+		Pick<
+			WorkflowRunnerConfig,
+			'appConfigProvider' | 'enforceCapabilities' | 'opExecutor'
+		>
+	>
 ) {
-  const registry = new WorkflowRegistry();
-  registry.register(spec);
-  const store = new InMemoryStateStore();
+	const registry = new WorkflowRegistry();
+	registry.register(spec);
+	const store = new InMemoryStateStore();
 
-  const defaultOpExecutor = vi.fn(
-    async (op: { key: string }, _input?: unknown, _ctx?: unknown) => {
-      if (op.key === 'sigil.start') return { approved: true };
-      if (op.key === 'sigil.finish') return { done: true };
-      return {};
-    }
-  );
-  const opExecutor = options?.opExecutor ?? defaultOpExecutor;
+	const defaultOpExecutor = vi.fn(
+		async (op: { key: string }, _input?: unknown, _ctx?: unknown) => {
+			if (op.key === 'sigil.start') return { approved: true };
+			if (op.key === 'sigil.finish') return { done: true };
+			return {};
+		}
+	);
+	const opExecutor = options?.opExecutor ?? defaultOpExecutor;
 
-  const runner = new WorkflowRunner({
-    registry,
-    stateStore: store,
-    opExecutor,
-    appConfigProvider: options?.appConfigProvider,
-    enforceCapabilities: options?.enforceCapabilities,
-    eventEmitter: (event, payload) => events.push({ event, payload }),
-  });
+	const runner = new WorkflowRunner({
+		registry,
+		stateStore: store,
+		opExecutor,
+		appConfigProvider: options?.appConfigProvider,
+		enforceCapabilities: options?.enforceCapabilities,
+		eventEmitter: (event, payload) => events.push({ event, payload }),
+	});
 
-  return { runner, store, opExecutor: defaultOpExecutor };
+	return { runner, store, opExecutor: defaultOpExecutor };
 }
 
 function makeResolvedIntegration(
-  slotId: string,
-  status: ConnectionStatus = 'connected'
+	slotId: string,
+	status: ConnectionStatus = 'connected'
 ): ResolvedIntegration {
-  const timestamp = new Date().toISOString();
-  return {
-    slot: {
-      slotId,
-      requiredCategory: 'payments',
-      allowedModes: ['managed'],
-      requiredCapabilities: [],
-      required: true,
-      description: 'Required payments provider',
-    },
-    binding: {
-      slotId,
-      connectionId: 'conn-1',
-    },
-    connection: {
-      meta: {
-        id: 'conn-1',
-        tenantId: 'tenant-1',
-        integrationKey: 'payments.stripe',
-        integrationVersion: '1.0.0',
-        label: 'Stripe',
-        environment: 'production',
-        createdAt: timestamp,
-        updatedAt: timestamp,
-      },
-      ownershipMode: 'managed',
-      config: {},
-      secretProvider: 'vault',
-      secretRef: 'vault://tenant-1/conn-1',
-      status,
-    },
-    spec: {
-      meta: {
-        title: 'Stripe',
-        description: 'Stripe integration',
-        domain: 'payments',
-        owners: [OwnersEnum.PlatformSigil],
-        tags: [],
-        stability: StabilityEnum.Experimental,
-        key: 'payments.stripe',
-        version: '1.0.0',
-        category: 'payments',
-      },
-      supportedModes: ['managed'],
-      capabilities: {
-        provides: [],
-      },
-      configSchema: { schema: {} },
-      secretSchema: { schema: {} },
-    },
-  };
+	const timestamp = new Date().toISOString();
+	return {
+		slot: {
+			slotId,
+			requiredCategory: 'payments',
+			allowedModes: ['managed'],
+			requiredCapabilities: [],
+			required: true,
+			description: 'Required payments provider',
+		},
+		binding: {
+			slotId,
+			connectionId: 'conn-1',
+		},
+		connection: {
+			meta: {
+				id: 'conn-1',
+				tenantId: 'tenant-1',
+				integrationKey: 'payments.stripe',
+				integrationVersion: '1.0.0',
+				label: 'Stripe',
+				environment: 'production',
+				createdAt: timestamp,
+				updatedAt: timestamp,
+			},
+			ownershipMode: 'managed',
+			config: {},
+			secretProvider: 'vault',
+			secretRef: 'vault://tenant-1/conn-1',
+			status,
+		},
+		spec: {
+			meta: {
+				title: 'Stripe',
+				description: 'Stripe integration',
+				domain: 'payments',
+				owners: [OwnersEnum.PlatformSigil],
+				tags: [],
+				stability: StabilityEnum.Experimental,
+				key: 'payments.stripe',
+				version: '1.0.0',
+				category: 'payments',
+			},
+			supportedModes: ['managed'],
+			capabilities: {
+				provides: [],
+			},
+			configSchema: { schema: {} },
+			secretSchema: { schema: {} },
+		},
+	};
 }
 
 function makeResolvedConfig(
-  overrides: Partial<ResolvedAppConfig> = {}
+	overrides: Partial<ResolvedAppConfig> = {}
 ): ResolvedAppConfig {
-  return {
-    appId: 'demo-app',
-    tenantId: 'tenant-1',
-    blueprintName: 'demo.blueprint',
-    blueprintVersion: '1.0.0',
-    configVersion: '1.0.0',
-    environment: undefined,
-    capabilities: { enabled: [], disabled: [] },
-    features: { include: [], exclude: [] },
-    dataViews: {},
-    workflows: {},
-    jobs: {},
-    policies: [],
-    experiments: { catalog: [], active: [], paused: [] },
-    featureFlags: [],
-    routes: [],
-    integrations: [],
-    knowledge: [],
-    translation: {
-      defaultLocale: 'en',
-      supportedLocales: ['en'],
-      blueprintCatalog: { key: 'demo.catalog', version: '1.0.0' },
-      tenantOverrides: [],
-    },
-    branding: {
-      appName: 'Demo App',
-      assets: {},
-      colors: { primary: '#000000', secondary: '#ffffff' },
-      domain: 'tenant-1.demo.localhost',
-    },
-    ...overrides,
-  };
+	return {
+		appId: 'demo-app',
+		tenantId: 'tenant-1',
+		blueprintName: 'demo.blueprint',
+		blueprintVersion: '1.0.0',
+		configVersion: '1.0.0',
+		environment: undefined,
+		capabilities: { enabled: [], disabled: [] },
+		features: { include: [], exclude: [] },
+		dataViews: {},
+		workflows: {},
+		jobs: {},
+		policies: [],
+		experiments: { catalog: [], active: [], paused: [] },
+		featureFlags: [],
+		routes: [],
+		integrations: [],
+		knowledge: [],
+		translation: {
+			defaultLocale: 'en',
+			supportedLocales: ['en'],
+			blueprintCatalog: { key: 'demo.catalog', version: '1.0.0' },
+			tenantOverrides: [],
+		},
+		branding: {
+			appName: 'Demo App',
+			assets: {},
+			colors: { primary: '#000000', secondary: '#ffffff' },
+			domain: 'tenant-1.demo.localhost',
+		},
+		...overrides,
+	};
 }
 
 describe('WorkflowRunner', () => {
-  it('executes automation and human steps until completion', async () => {
-    const events: { event: string; payload: unknown }[] = [];
-    const spec = workflowSpec();
-    const { runner, opExecutor } = createRunner(spec, events);
+	it('executes automation and human steps until completion', async () => {
+		const events: { event: string; payload: unknown }[] = [];
+		const spec = workflowSpec();
+		const { runner, opExecutor } = createRunner(spec, events);
 
-    const workflowId = await runner.start(spec.meta.key);
-    expect(events[0]).toMatchObject({ event: 'workflow.started' });
+		const workflowId = await runner.start(spec.meta.key);
+		expect(events[0]).toMatchObject({ event: 'workflow.started' });
 
-    let state = await runner.getState(workflowId);
-    expect(state.currentStep).toBe('start');
-    expect(state.status).toBe('running');
+		let state = await runner.getState(workflowId);
+		expect(state.currentStep).toBe('start');
+		expect(state.status).toBe('running');
 
-    await runner.executeStep(workflowId);
-    state = await runner.getState(workflowId);
-    expect(state.currentStep).toBe('review');
-    expect(state.data.approved).toBe(true);
-    expect(opExecutor).toHaveBeenCalledWith(
-      expect.objectContaining({ key: 'sigil.start' }),
-      undefined,
-      expect.objectContaining({
-        step: expect.objectContaining({ id: 'start' }),
-      })
-    );
+		await runner.executeStep(workflowId);
+		state = await runner.getState(workflowId);
+		expect(state.currentStep).toBe('review');
+		expect(state.data.approved).toBe(true);
+		expect(opExecutor).toHaveBeenCalledWith(
+			expect.objectContaining({ key: 'sigil.start' }),
+			undefined,
+			expect.objectContaining({
+				step: expect.objectContaining({ id: 'start' }),
+			})
+		);
 
-    await runner.executeStep(workflowId, { confirmation: true });
-    state = await runner.getState(workflowId);
-    expect(state.currentStep).toBe('finish');
-    expect(state.data.confirmation).toBe(true);
+		await runner.executeStep(workflowId, { confirmation: true });
+		state = await runner.getState(workflowId);
+		expect(state.currentStep).toBe('finish');
+		expect(state.data.confirmation).toBe(true);
 
-    await runner.executeStep(workflowId);
-    state = await runner.getState(workflowId);
-    expect(state.status).toBe('completed');
-    expect(state.currentStep).toBe('finish');
-    expect(
-      events.some(({ event }) => event === 'workflow.step_completed')
-    ).toBe(true);
-  });
+		await runner.executeStep(workflowId);
+		state = await runner.getState(workflowId);
+		expect(state.status).toBe('completed');
+		expect(state.currentStep).toBe('finish');
+		expect(
+			events.some(({ event }) => event === 'workflow.step_completed')
+		).toBe(true);
+	});
 
-  it('provides resolved app config context to the operation executor', async () => {
-    const events: { event: string; payload: unknown }[] = [];
-    const spec = workflowSpec();
-    const resolvedAppConfig = makeResolvedConfig();
+	it('provides resolved app config context to the operation executor', async () => {
+		const events: { event: string; payload: unknown }[] = [];
+		const spec = workflowSpec();
+		const resolvedAppConfig = makeResolvedConfig();
 
-    const { runner, opExecutor } = createRunner(spec, events, {
-      appConfigProvider: async () => resolvedAppConfig,
-    });
+		const { runner, opExecutor } = createRunner(spec, events, {
+			appConfigProvider: async () => resolvedAppConfig,
+		});
 
-    const workflowId = await runner.start(spec.meta.key);
-    await runner.executeStep(workflowId);
+		const workflowId = await runner.start(spec.meta.key);
+		await runner.executeStep(workflowId);
 
-    const context = opExecutor.mock.calls[0]?.[2] as Record<string, unknown>;
-    expect(context?.resolvedAppConfig).toBe(resolvedAppConfig);
-    expect(context?.integrations).toEqual(resolvedAppConfig.integrations);
-    expect(context?.knowledge).toEqual(resolvedAppConfig.knowledge);
-    expect(context?.branding).toEqual(resolvedAppConfig.branding);
-    expect(context?.translation).toEqual(resolvedAppConfig.translation);
-  });
+		const context = opExecutor.mock.calls[0]?.[2] as Record<string, unknown>;
+		expect(context?.resolvedAppConfig).toBe(resolvedAppConfig);
+		expect(context?.integrations).toEqual(resolvedAppConfig.integrations);
+		expect(context?.knowledge).toEqual(resolvedAppConfig.knowledge);
+		expect(context?.branding).toEqual(resolvedAppConfig.branding);
+		expect(context?.translation).toEqual(resolvedAppConfig.translation);
+	});
 
-  it('invokes capability enforcement hook before executing operation', async () => {
-    const events: { event: string; payload: unknown }[] = [];
-    const spec = workflowSpec();
-    const enforceCapabilities = vi.fn();
+	it('invokes capability enforcement hook before executing operation', async () => {
+		const events: { event: string; payload: unknown }[] = [];
+		const spec = workflowSpec();
+		const enforceCapabilities = vi.fn();
 
-    const { runner } = createRunner(spec, events, { enforceCapabilities });
-    const workflowId = await runner.start(spec.meta.key);
-    await runner.executeStep(workflowId);
+		const { runner } = createRunner(spec, events, { enforceCapabilities });
+		const workflowId = await runner.start(spec.meta.key);
+		await runner.executeStep(workflowId);
 
-    expect(enforceCapabilities).toHaveBeenCalledWith(
-      expect.objectContaining({ key: 'sigil.start' }),
-      expect.objectContaining({
-        step: expect.objectContaining({ id: 'start' }),
-      })
-    );
-  });
+		expect(enforceCapabilities).toHaveBeenCalledWith(
+			expect.objectContaining({ key: 'sigil.start' }),
+			expect.objectContaining({
+				step: expect.objectContaining({ id: 'start' }),
+			})
+		);
+	});
 
-  it('fails to start when a required integration slot is not bound', async () => {
-    const events: { event: string; payload: unknown }[] = [];
-    const spec = workflowSpec({
-      steps: [
-        {
-          id: 'start',
-          type: 'automation',
-          label: 'Start',
-          action: { operation: { key: 'sigil.start', version: '1.0.0' } },
-          requiredIntegrations: ['payments.primary'],
-        },
-      ],
-      transitions: [],
-    });
+	it('fails to start when a required integration slot is not bound', async () => {
+		const events: { event: string; payload: unknown }[] = [];
+		const spec = workflowSpec({
+			steps: [
+				{
+					id: 'start',
+					type: 'automation',
+					label: 'Start',
+					action: { operation: { key: 'sigil.start', version: '1.0.0' } },
+					requiredIntegrations: ['payments.primary'],
+				},
+			],
+			transitions: [],
+		});
 
-    const resolvedConfig = makeResolvedConfig({ integrations: [] });
-    const { runner } = createRunner(spec, events, {
-      appConfigProvider: async () => resolvedConfig,
-    });
+		const resolvedConfig = makeResolvedConfig({ integrations: [] });
+		const { runner } = createRunner(spec, events, {
+			appConfigProvider: async () => resolvedConfig,
+		});
 
-    await expect(runner.start(spec.meta.key)).rejects.toBeInstanceOf(
-      WorkflowPreFlightError
-    );
-  });
+		await expect(runner.start(spec.meta.key)).rejects.toBeInstanceOf(
+			WorkflowPreFlightError
+		);
+	});
 
-  it('fails to start when required capabilities are missing', async () => {
-    const events: { event: string; payload: unknown }[] = [];
-    const spec = workflowSpec({
-      steps: [
-        {
-          id: 'start',
-          type: 'automation',
-          label: 'Start',
-          action: { operation: { key: 'sigil.start', version: '1.0.0' } },
-          requiredCapabilities: [{ key: 'core.sample', version: '1.0.0' }],
-        },
-      ],
-      transitions: [],
-    });
+	it('fails to start when required capabilities are missing', async () => {
+		const events: { event: string; payload: unknown }[] = [];
+		const spec = workflowSpec({
+			steps: [
+				{
+					id: 'start',
+					type: 'automation',
+					label: 'Start',
+					action: { operation: { key: 'sigil.start', version: '1.0.0' } },
+					requiredCapabilities: [{ key: 'core.sample', version: '1.0.0' }],
+				},
+			],
+			transitions: [],
+		});
 
-    const resolvedConfig = makeResolvedConfig({
-      capabilities: { enabled: [], disabled: [] },
-    });
+		const resolvedConfig = makeResolvedConfig({
+			capabilities: { enabled: [], disabled: [] },
+		});
 
-    const { runner } = createRunner(spec, events, {
-      appConfigProvider: async () => resolvedConfig,
-    });
+		const { runner } = createRunner(spec, events, {
+			appConfigProvider: async () => resolvedConfig,
+		});
 
-    await expect(runner.start(spec.meta.key)).rejects.toBeInstanceOf(
-      WorkflowPreFlightError
-    );
-  });
+		await expect(runner.start(spec.meta.key)).rejects.toBeInstanceOf(
+			WorkflowPreFlightError
+		);
+	});
 
-  it('allows workflow start when pre-flight requirements are satisfied', async () => {
-    const events: { event: string; payload: unknown }[] = [];
-    const spec = workflowSpec({
-      steps: [
-        {
-          id: 'start',
-          type: 'automation',
-          label: 'Start',
-          action: { operation: { key: 'sigil.start', version: '1.0.0' } },
-          requiredIntegrations: ['payments.primary'],
-          requiredCapabilities: [{ key: 'core.sample', version: '1.0.0' }],
-        },
-        {
-          id: 'finish',
-          type: 'automation',
-          label: 'Finish',
-          action: { operation: { key: 'sigil.finish', version: '1.0.0' } },
-        },
-      ],
-      transitions: [{ from: 'start', to: 'finish' }],
-    });
+	it('allows workflow start when pre-flight requirements are satisfied', async () => {
+		const events: { event: string; payload: unknown }[] = [];
+		const spec = workflowSpec({
+			steps: [
+				{
+					id: 'start',
+					type: 'automation',
+					label: 'Start',
+					action: { operation: { key: 'sigil.start', version: '1.0.0' } },
+					requiredIntegrations: ['payments.primary'],
+					requiredCapabilities: [{ key: 'core.sample', version: '1.0.0' }],
+				},
+				{
+					id: 'finish',
+					type: 'automation',
+					label: 'Finish',
+					action: { operation: { key: 'sigil.finish', version: '1.0.0' } },
+				},
+			],
+			transitions: [{ from: 'start', to: 'finish' }],
+		});
 
-    const resolvedConfig = makeResolvedConfig({
-      capabilities: {
-        enabled: [{ key: 'core.sample', version: '1.0.0' }],
-        disabled: [],
-      },
-      integrations: [makeResolvedIntegration('payments.primary', 'connected')],
-    });
+		const resolvedConfig = makeResolvedConfig({
+			capabilities: {
+				enabled: [{ key: 'core.sample', version: '1.0.0' }],
+				disabled: [],
+			},
+			integrations: [makeResolvedIntegration('payments.primary', 'connected')],
+		});
 
-    const { runner } = createRunner(spec, events, {
-      appConfigProvider: async () => resolvedConfig,
-    });
+		const { runner } = createRunner(spec, events, {
+			appConfigProvider: async () => resolvedConfig,
+		});
 
-    const workflowId = await runner.start(spec.meta.key);
-    expect(workflowId).toBeTruthy();
-    expect(events[0]).toMatchObject({ event: 'workflow.started' });
-  });
+		const workflowId = await runner.start(spec.meta.key);
+		expect(workflowId).toBeTruthy();
+		expect(events[0]).toMatchObject({ event: 'workflow.started' });
+	});
 
-  it('rejects step execution when guard evaluates to false', async () => {
-    const events: { event: string; payload: unknown }[] = [];
-    const guardedSpec = workflowSpec({
-      steps: [
-        {
-          id: 'start',
-          type: 'automation',
-          label: 'Start',
-          action: { operation: { key: 'sigil.start', version: '1.0.0' } },
-        },
-        {
-          id: 'review',
-          type: 'human',
-          label: 'Review',
-          guard: { type: 'expression', value: 'data.approved === true' },
-          action: { form: { key: 'reviewForm', version: '1.0.0' } },
-        },
-      ],
-      transitions: [{ from: 'start', to: 'review' }],
-    });
+	it('rejects step execution when guard evaluates to false', async () => {
+		const events: { event: string; payload: unknown }[] = [];
+		const guardedSpec = workflowSpec({
+			steps: [
+				{
+					id: 'start',
+					type: 'automation',
+					label: 'Start',
+					action: { operation: { key: 'sigil.start', version: '1.0.0' } },
+				},
+				{
+					id: 'review',
+					type: 'human',
+					label: 'Review',
+					guard: { type: 'expression', value: 'data.approved === true' },
+					action: { form: { key: 'reviewForm', version: '1.0.0' } },
+				},
+			],
+			transitions: [{ from: 'start', to: 'review' }],
+		});
 
-    const { runner, store } = createRunner(guardedSpec, events);
-    const workflowId = await runner.start(guardedSpec.meta.key);
-    await runner.executeStep(workflowId); // start -> review, approved === true
+		const { runner, store } = createRunner(guardedSpec, events);
+		const workflowId = await runner.start(guardedSpec.meta.key);
+		await runner.executeStep(workflowId); // start -> review, approved === true
 
-    // Force guard to fail by removing approval flag.
-    await store.update(workflowId, (current: WorkflowState) => ({
-      ...current,
-      data: {},
-    }));
+		// Force guard to fail by removing approval flag.
+		await store.update(workflowId, (current: WorkflowState) => ({
+			...current,
+			data: {},
+		}));
 
-    await expect(runner.executeStep(workflowId)).rejects.toThrow(
-      /GuardRejected/
-    );
-    const state = await runner.getState(workflowId);
-    expect(state.currentStep).toBe('review');
-    expect(state.status).toBe('running');
-  });
+		await expect(runner.executeStep(workflowId)).rejects.toThrow(
+			/GuardRejected/
+		);
+		const state = await runner.getState(workflowId);
+		expect(state.currentStep).toBe('review');
+		expect(state.status).toBe('running');
+	});
 
-  it('cancels a workflow', async () => {
-    const events: { event: string; payload: unknown }[] = [];
-    const spec = workflowSpec();
-    const { runner } = createRunner(spec, events);
+	it('cancels a workflow', async () => {
+		const events: { event: string; payload: unknown }[] = [];
+		const spec = workflowSpec();
+		const { runner } = createRunner(spec, events);
 
-    const workflowId = await runner.start(spec.meta.key);
-    await runner.cancel(workflowId);
-    const state = await runner.getState(workflowId);
-    expect(state.status).toBe('cancelled');
-    expect(events.some(({ event }) => event === 'workflow.cancelled')).toBe(
-      true
-    );
-  });
+		const workflowId = await runner.start(spec.meta.key);
+		await runner.cancel(workflowId);
+		const state = await runner.getState(workflowId);
+		expect(state.status).toBe('cancelled');
+		expect(events.some(({ event }) => event === 'workflow.cancelled')).toBe(
+			true
+		);
+	});
 
-  it('pauses on human steps without input and resumes when input is provided', async () => {
-    const events: { event: string; payload: unknown }[] = [];
-    const spec = workflowSpec();
-    const { runner } = createRunner(spec, events);
+	it('pauses on human steps without input and resumes when input is provided', async () => {
+		const events: { event: string; payload: unknown }[] = [];
+		const spec = workflowSpec();
+		const { runner } = createRunner(spec, events);
 
-    const workflowId = await runner.start(spec.meta.key);
-    await runner.executeStep(workflowId); // start -> review
+		const workflowId = await runner.start(spec.meta.key);
+		await runner.executeStep(workflowId); // start -> review
 
-    await runner.executeStep(workflowId); // no input, should pause
-    let state = await runner.getState(workflowId);
-    expect(state.status).toBe('paused');
-    expect(
-      events.some(({ event }) => event === 'workflow.waiting_for_input')
-    ).toBe(true);
+		await runner.executeStep(workflowId); // no input, should pause
+		let state = await runner.getState(workflowId);
+		expect(state.status).toBe('paused');
+		expect(
+			events.some(({ event }) => event === 'workflow.waiting_for_input')
+		).toBe(true);
 
-    await runner.executeStep(workflowId, { approvedBy: 'human' });
-    state = await runner.getState(workflowId);
-    expect(state.status).toBe('running');
-    expect(state.currentStep).toBe('finish');
-  });
+		await runner.executeStep(workflowId, { approvedBy: 'human' });
+		state = await runner.getState(workflowId);
+		expect(state.status).toBe('running');
+		expect(state.currentStep).toBe('finish');
+	});
 
-  it('supports explicit pause and resume commands', async () => {
-    const events: { event: string; payload: unknown }[] = [];
-    const spec = workflowSpec();
-    const { runner } = createRunner(spec, events);
+	it('supports explicit pause and resume commands', async () => {
+		const events: { event: string; payload: unknown }[] = [];
+		const spec = workflowSpec();
+		const { runner } = createRunner(spec, events);
 
-    const workflowId = await runner.start(spec.meta.key);
-    await runner.pause(workflowId);
-    let state = await runner.getState(workflowId);
-    expect(state.status).toBe('paused');
+		const workflowId = await runner.start(spec.meta.key);
+		await runner.pause(workflowId);
+		let state = await runner.getState(workflowId);
+		expect(state.status).toBe('paused');
 
-    await runner.resume(workflowId);
-    state = await runner.getState(workflowId);
-    expect(state.status).toBe('running');
-    expect(events.some(({ event }) => event === 'workflow.paused')).toBe(true);
-    expect(events.some(({ event }) => event === 'workflow.resumed')).toBe(true);
-  });
+		await runner.resume(workflowId);
+		state = await runner.getState(workflowId);
+		expect(state.status).toBe('running');
+		expect(events.some(({ event }) => event === 'workflow.paused')).toBe(true);
+		expect(events.some(({ event }) => event === 'workflow.resumed')).toBe(true);
+	});
 
-  it('does not retry when unknown error is thrown (retryable: false default)', async () => {
-    const events: { event: string; payload: unknown }[] = [];
-    const spec = workflowSpec({
-      steps: [
-        {
-          id: 'start',
-          type: 'automation',
-          label: 'Failing Start',
-          action: { operation: { key: 'sigil.start', version: '1.0.0' } },
-          retry: { maxAttempts: 3, delayMs: 10, backoff: 'linear' },
-        },
-      ],
-      transitions: [],
-    });
+	it('does not retry when unknown error is thrown (retryable: false default)', async () => {
+		const events: { event: string; payload: unknown }[] = [];
+		const spec = workflowSpec({
+			steps: [
+				{
+					id: 'start',
+					type: 'automation',
+					label: 'Failing Start',
+					action: { operation: { key: 'sigil.start', version: '1.0.0' } },
+					retry: { maxAttempts: 3, delayMs: 10, backoff: 'linear' },
+				},
+			],
+			transitions: [],
+		});
 
-    const opExecutor = vi.fn(async () => {
-      throw new Error('Unknown validation error');
-    });
+		const opExecutor = vi.fn(async () => {
+			throw new Error('Unknown validation error');
+		});
 
-    const { runner } = createRunner(spec, events, { opExecutor });
-    const workflowId = await runner.start(spec.meta.key);
+		const { runner } = createRunner(spec, events, { opExecutor });
+		const workflowId = await runner.start(spec.meta.key);
 
-    await expect(runner.executeStep(workflowId)).rejects.toThrow(
-      /Unknown validation error/
-    );
+		await expect(runner.executeStep(workflowId)).rejects.toThrow(
+			/Unknown validation error/
+		);
 
-    // With retryable: false for unknown errors, opExecutor should be called only once
-    expect(opExecutor).toHaveBeenCalledTimes(1);
-  });
+		// With retryable: false for unknown errors, opExecutor should be called only once
+		expect(opExecutor).toHaveBeenCalledTimes(1);
+	});
 
-  it('fails step execution when timeout is exceeded', async () => {
-    const events: { event: string; payload: unknown }[] = [];
-    const spec = workflowSpec({
-      steps: [
-        {
-          id: 'start',
-          type: 'automation',
-          label: 'Slow Start',
-          timeoutMs: 5,
-          action: { operation: { key: 'sigil.start', version: '1.0.0' } },
-        },
-      ],
-      transitions: [],
-    });
+	it('fails step execution when timeout is exceeded', async () => {
+		const events: { event: string; payload: unknown }[] = [];
+		const spec = workflowSpec({
+			steps: [
+				{
+					id: 'start',
+					type: 'automation',
+					label: 'Slow Start',
+					timeoutMs: 5,
+					action: { operation: { key: 'sigil.start', version: '1.0.0' } },
+				},
+			],
+			transitions: [],
+		});
 
-    const { runner } = createRunner(spec, events, {
-      opExecutor: vi.fn(async () => {
-        await new Promise((resolve) => setTimeout(resolve, 20));
-        return { approved: true };
-      }),
-    });
+		const { runner } = createRunner(spec, events, {
+			opExecutor: vi.fn(async () => {
+				await new Promise((resolve) => setTimeout(resolve, 20));
+				return { approved: true };
+			}),
+		});
 
-    const workflowId = await runner.start(spec.meta.key);
+		const workflowId = await runner.start(spec.meta.key);
 
-    await expect(runner.executeStep(workflowId)).rejects.toThrow(/timed out/i);
+		await expect(runner.executeStep(workflowId)).rejects.toThrow(/timed out/i);
 
-    const state = await runner.getState(workflowId);
-    expect(state.status).toBe('failed');
-    expect(state.history.length).toBe(1);
-    expect(state.history[0]?.status).toBe('failed');
-  });
+		const state = await runner.getState(workflowId);
+		expect(state.status).toBe('failed');
+		expect(state.history.length).toBe(1);
+		expect(state.history[0]?.status).toBe('failed');
+	});
 });

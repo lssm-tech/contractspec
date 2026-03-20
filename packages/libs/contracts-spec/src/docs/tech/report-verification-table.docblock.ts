@@ -1,18 +1,18 @@
-import type { DocBlock } from '../types';
 import { registerDocBlocks } from '../registry';
+import type { DocBlock } from '../types';
 
 const reportVerificationTableDocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.report-verification-table',
-    title: 'Contract Verification Table',
-    summary: 'How the impact report renders per-contract verification status.',
-    kind: 'how',
-    visibility: 'public',
-    route: '/docs/tech/report/verification-table',
-    tags: ['report', 'drift', 'verification', 'impact'],
-    owners: ['platform.core'],
-    domain: 'report',
-    body: `# Contract Verification Table
+	{
+		id: 'docs.tech.report-verification-table',
+		title: 'Contract Verification Table',
+		summary: 'How the impact report renders per-contract verification status.',
+		kind: 'how',
+		visibility: 'public',
+		route: '/docs/tech/report/verification-table',
+		tags: ['report', 'drift', 'verification', 'impact'],
+		owners: ['platform.core'],
+		domain: 'report',
+		body: `# Contract Verification Table
 
 The impact report includes an optional per-contract verification table that summarises the health of each contract at a glance.
 
@@ -41,7 +41,7 @@ When \`contracts\` is absent from the report JSON, the table is skipped and the 
 - Query: \`report.getContractVerificationStatus\` (v1.0.0)
 - Data view: \`report.contractVerificationTable\` (v1.0.0)
 `,
-  },
+	},
 ];
 
 registerDocBlocks(reportVerificationTableDocBlocks);

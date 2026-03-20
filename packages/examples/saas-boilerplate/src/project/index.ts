@@ -2,65 +2,60 @@
  * Project domain - project management within organizations.
  */
 
-// Enums
-export {
-  ProjectStatusSchemaEnum,
-  ProjectStatusFilterEnum,
-} from './project.enum';
-
-// Schema models
-export {
-  ProjectModel,
-  CreateProjectInputModel,
-  UpdateProjectInputModel,
-  GetProjectInputModel,
-  DeleteProjectInputModel,
-  DeleteProjectOutputModel,
-  ProjectDeletedPayloadModel,
-  ListProjectsInputModel,
-  ListProjectsOutputModel,
-} from './project.schema';
-
-// Contracts
-export {
-  CreateProjectContract,
-  GetProjectContract,
-  UpdateProjectContract,
-  DeleteProjectContract,
-  ListProjectsContract,
-} from './project.operations';
-
-// Events
-export {
-  ProjectCreatedEvent,
-  ProjectUpdatedEvent,
-  ProjectDeletedEvent,
-  ProjectArchivedEvent,
-} from './project.event';
-
 // Entities
 export {
-  ProjectStatusEnum,
-  ProjectEntity,
-  ProjectMemberEntity,
+	ProjectEntity,
+	ProjectMemberEntity,
+	ProjectStatusEnum,
 } from './project.entity';
+// Enums
+export {
+	ProjectStatusFilterEnum,
+	ProjectStatusSchemaEnum,
+} from './project.enum';
+// Events
+export {
+	ProjectArchivedEvent,
+	ProjectCreatedEvent,
+	ProjectDeletedEvent,
+	ProjectUpdatedEvent,
+} from './project.event';
+// Handlers
+export {
+	type CreateProjectInput,
+	type ListProjectsInput,
+	type ListProjectsOutput,
+	mockCreateProjectHandler,
+	mockDeleteProjectHandler,
+	mockGetProjectHandler,
+	mockListProjectsHandler,
+	mockUpdateProjectHandler,
+	type Project,
+	type UpdateProjectInput,
+} from './project.handler';
+// Contracts
+export {
+	CreateProjectContract,
+	DeleteProjectContract,
+	GetProjectContract,
+	ListProjectsContract,
+	UpdateProjectContract,
+} from './project.operations';
 
 // Presentations
 export {
-  ProjectListPresentation,
-  ProjectDetailPresentation,
+	ProjectDetailPresentation,
+	ProjectListPresentation,
 } from './project.presentation';
-
-// Handlers
+// Schema models
 export {
-  mockListProjectsHandler,
-  mockGetProjectHandler,
-  mockCreateProjectHandler,
-  mockUpdateProjectHandler,
-  mockDeleteProjectHandler,
-  type Project,
-  type CreateProjectInput,
-  type UpdateProjectInput,
-  type ListProjectsInput,
-  type ListProjectsOutput,
-} from './project.handler';
+	CreateProjectInputModel,
+	DeleteProjectInputModel,
+	DeleteProjectOutputModel,
+	GetProjectInputModel,
+	ListProjectsInputModel,
+	ListProjectsOutputModel,
+	ProjectDeletedPayloadModel,
+	ProjectModel,
+	UpdateProjectInputModel,
+} from './project.schema';

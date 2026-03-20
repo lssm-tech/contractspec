@@ -20,38 +20,36 @@
  * ```
  */
 
-// Core i18n API
-export {
-  createSupportBotI18n,
-  getDefaultI18n,
-  resetI18nRegistry,
-  interpolate,
-} from './messages';
-export type { SupportBotI18n } from './messages';
-
-// Locale utilities
-export {
-  resolveLocale,
-  isSupportedLocale,
-  DEFAULT_LOCALE,
-  SUPPORTED_LOCALES,
-} from './locale';
-export type { SupportedLocale } from './locale';
+// Catalogs
+export { enMessages } from './catalogs/en';
+export { esMessages } from './catalogs/es';
+export { frMessages } from './catalogs/fr';
+export type { SupportBotMessageKey } from './keys';
 
 // Message keys
 export {
-  I18N_KEYS,
-  PROMPT_KEYS,
-  RESPONDER_KEYS,
-  RESOLVER_KEYS,
-  TOOL_KEYS,
-  ERROR_KEYS,
-  FEEDBACK_KEYS,
-  SPEC_KEYS,
+	ERROR_KEYS,
+	FEEDBACK_KEYS,
+	I18N_KEYS,
+	PROMPT_KEYS,
+	RESOLVER_KEYS,
+	RESPONDER_KEYS,
+	SPEC_KEYS,
+	TOOL_KEYS,
 } from './keys';
-export type { SupportBotMessageKey } from './keys';
-
-// Catalogs
-export { enMessages } from './catalogs/en';
-export { frMessages } from './catalogs/fr';
-export { esMessages } from './catalogs/es';
+export type { SupportedLocale } from './locale';
+// Locale utilities
+export {
+	DEFAULT_LOCALE,
+	isSupportedLocale,
+	resolveLocale,
+	SUPPORTED_LOCALES,
+} from './locale';
+export type { SupportBotI18n } from './messages';
+// Core i18n API
+export {
+	createSupportBotI18n,
+	getDefaultI18n,
+	interpolate,
+	resetI18nRegistry,
+} from './messages';

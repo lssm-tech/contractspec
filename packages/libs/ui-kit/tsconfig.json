@@ -1,14 +1,9 @@
 {
-  "extends": "@contractspec/tool.typescript/react-library.json",
-  "include": [
-    "ui",
-    "index.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
-  "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "."
-  }
+	"extends": "@contractspec/tool.typescript/react-library.json",
+	"include": ["ui", "index.ts"],
+	"exclude": ["node_modules"],
+	"compilerOptions": {
+		"outDir": "dist",
+		"rootDir": "."
+	}
 }

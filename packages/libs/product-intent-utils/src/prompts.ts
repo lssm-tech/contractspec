@@ -9,18 +9,18 @@ import type { EvidenceChunk } from '@contractspec/lib.contracts-spec/product-int
  * Long texts are truncated to a configurable maximum number of characters.
  */
 export function formatEvidenceForModel(
-  chunks: EvidenceChunk[],
-  maxChars = 900
+	chunks: EvidenceChunk[],
+	maxChars = 900
 ): string {
-  const safe = chunks.map((chunk) => ({
-    chunkId: chunk.chunkId,
-    text:
-      chunk.text.length > maxChars
-        ? `${chunk.text.slice(0, maxChars)}...`
-        : chunk.text,
-    meta: chunk.meta ?? {},
-  }));
-  return JSON.stringify({ evidenceChunks: safe }, null, 2);
+	const safe = chunks.map((chunk) => ({
+		chunkId: chunk.chunkId,
+		text:
+			chunk.text.length > maxChars
+				? `${chunk.text.slice(0, maxChars)}...`
+				: chunk.text,
+		meta: chunk.meta ?? {},
+	}));
+	return JSON.stringify({ evidenceChunks: safe }, null, 2);
 }
 
 /**
@@ -52,10 +52,10 @@ CITATION RULES (strict):
  * Prompt for extracting atomic, evidence-grounded insights.
  */
 export function promptExtractInsights(params: {
-  question: string;
-  evidenceJSON: string;
+	question: string;
+	evidenceJSON: string;
 }): string {
-  return `
+	return `
 You are extracting ATOMIC, EVIDENCE-GROUNDED insights to answer a product discovery question.
 
 Question:
@@ -93,16 +93,16 @@ ${JSON_ONLY_RULES}
  * Prompt for synthesizing an opportunity brief from extracted insights.
  */
 export function promptSynthesizeBrief(params: {
-  question: string;
-  insightsJSON: string;
-  allowedChunkIds: string[];
+	question: string;
+	insightsJSON: string;
+	allowedChunkIds: string[];
 }): string {
-  const allowed = JSON.stringify(
-    { allowedChunkIds: params.allowedChunkIds },
-    null,
-    2
-  );
-  return `
+	const allowed = JSON.stringify(
+		{ allowedChunkIds: params.allowedChunkIds },
+		null,
+		2
+	);
+	return `
 You are synthesizing a product opportunity brief that is STRICTLY grounded in evidence.
 
 Question:
@@ -140,10 +140,10 @@ ${JSON_ONLY_RULES}
  * unsupported claims or citation misuse.
  */
 export function promptSkepticCheck(params: {
-  briefJSON: string;
-  evidenceJSON: string;
+	briefJSON: string;
+	evidenceJSON: string;
 }): string {
-  return `
+	return `
 You are auditing a brief for unsupported claims and citation misuse.
 
 Brief:
@@ -174,9 +174,9 @@ ${JSON_ONLY_RULES}
  * Prompt to generate a ContractPatchIntent from an OpportunityBrief.
  */
 export function promptGeneratePatchIntent(params: {
-  briefJSON: string;
+	briefJSON: string;
 }): string {
-  return `
+	return `
 You are generating a ContractPatchIntent from an OpportunityBrief.
 
 OpportunityBrief:
@@ -204,10 +204,10 @@ ${JSON_ONLY_RULES}
  * base spec snippet.
  */
 export function promptGenerateGenericSpecOverlay(params: {
-  baseSpecSnippet: string;
-  patchIntentJSON: string;
+	baseSpecSnippet: string;
+	patchIntentJSON: string;
 }): string {
-  return `
+	return `
 You are generating a GENERIC spec overlay patch based on PatchIntent.
 You must respect the base spec snippet.
 
@@ -238,11 +238,11 @@ ${JSON_ONLY_RULES}
  * optional compiler output.
  */
 export function promptGenerateImpactReport(params: {
-  patchIntentJSON: string;
-  overlayJSON: string;
-  compilerOutputText?: string;
+	patchIntentJSON: string;
+	overlayJSON: string;
+	compilerOutputText?: string;
 }): string {
-  return `
+	return `
 You are generating an Impact Report for a spec patch.
 
 PatchIntent:
@@ -285,12 +285,12 @@ ${JSON_ONLY_RULES}
  * Prompt to generate an agent-ready task pack.
  */
 export function promptGenerateTaskPack(params: {
-  briefJSON: string;
-  patchIntentJSON: string;
-  impactJSON: string;
-  repoContext?: string;
+	briefJSON: string;
+	patchIntentJSON: string;
+	impactJSON: string;
+	repoContext?: string;
 }): string {
-  return `
+	return `
 You are generating an agent-ready Task Pack to implement a product change safely.
 
 Repo context:
@@ -336,12 +336,12 @@ ${JSON_ONLY_RULES}
  * Prompt for generating a wireframe image using a generative API.
  */
 export function promptWireframeImage(params: {
-  screenName: string;
-  device: 'mobile' | 'desktop';
-  currentScreenSummary: string;
-  proposedChanges: string[];
+	screenName: string;
+	device: 'mobile' | 'desktop';
+	currentScreenSummary: string;
+	proposedChanges: string[];
 }): string {
-  return `
+	return `
 Create a minimal grayscale wireframe (${params.device}) for screen: "${params.screenName}".
 
 Style rules:
@@ -365,11 +365,11 @@ Output: a single wireframe image that clearly shows the updated layout.
  * unavailable.
  */
 export function promptWireframeLayoutJSON(params: {
-  screenName: string;
-  device: 'mobile' | 'desktop';
-  proposedChanges: string[];
+	screenName: string;
+	device: 'mobile' | 'desktop';
+	proposedChanges: string[];
 }): string {
-  return `
+	return `
 You are generating a simple UI wireframe layout JSON (NOT an image).
 Screen: "${params.screenName}" (${params.device})
 
@@ -399,11 +399,11 @@ ${JSON_ONLY_RULES}
  * demonstration.
  */
 export function promptGenerateSyntheticInterviews(params: {
-  productContext: string;
-  personas: string[];
-  count: number;
+	productContext: string;
+	personas: string[];
+	count: number;
 }): string {
-  return `
+	return `
 Generate ${params.count} synthetic customer interview transcripts for this product context:
 ${params.productContext}
 

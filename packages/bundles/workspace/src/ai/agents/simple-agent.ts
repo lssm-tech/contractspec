@@ -3,61 +3,61 @@
  * This is the default fallback for basic code generation
  */
 
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 import { generateText } from 'ai';
+import {
+	buildComponentPrompt,
+	buildFormPrompt,
+	buildHandlerPrompt,
+	buildTestPrompt,
+	getCodeGenSystemPrompt,
+} from '../prompts/code-generation';
 import { getAIProvider } from '../providers';
 import type { AgentProvider, AgentResult, AgentTask } from './types';
-import {
-  buildComponentPrompt,
-  buildFormPrompt,
-  buildHandlerPrompt,
-  buildTestPrompt,
-  getCodeGenSystemPrompt,
-} from '../prompts/code-generation';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 
 export class SimpleAgent implements AgentProvider {
-  name = 'simple' as const;
+	name = 'simple' as const;
 
-  constructor(private config: ResolvedContractsrcConfig) {}
+	constructor(private config: ResolvedContractsrcConfig) {}
 
-  canHandle(_task: AgentTask): boolean {
-    // Simple agent can handle all tasks as a fallback
-    return true;
-  }
+	canHandle(_task: AgentTask): boolean {
+		// Simple agent can handle all tasks as a fallback
+		return true;
+	}
 
-  async generate(task: AgentTask): Promise<AgentResult> {
-    try {
-      const model = getAIProvider(this.config);
-      const prompt = this.buildPrompt(task);
+	async generate(task: AgentTask): Promise<AgentResult> {
+		try {
+			const model = getAIProvider(this.config);
+			const prompt = this.buildPrompt(task);
 
-      const result = await generateText({
-        model,
-        prompt,
-        system: getCodeGenSystemPrompt(),
-      });
+			const result = await generateText({
+				model,
+				prompt,
+				system: getCodeGenSystemPrompt(),
+			});
 
-      return {
-        success: true,
-        code: result.text,
-        metadata: {
-          model: this.config.aiModel,
-          provider: this.config.aiProvider,
-          tokens: result.usage,
-        },
-      };
-    } catch (error) {
-      return {
-        success: false,
-        errors: [error instanceof Error ? error.message : String(error)],
-      };
-    }
-  }
+			return {
+				success: true,
+				code: result.text,
+				metadata: {
+					model: this.config.aiModel,
+					provider: this.config.aiProvider,
+					tokens: result.usage,
+				},
+			};
+		} catch (error) {
+			return {
+				success: false,
+				errors: [error instanceof Error ? error.message : String(error)],
+			};
+		}
+	}
 
-  async validate(task: AgentTask): Promise<AgentResult> {
-    try {
-      const model = getAIProvider(this.config);
+	async validate(task: AgentTask): Promise<AgentResult> {
+		try {
+			const model = getAIProvider(this.config);
 
-      const prompt = `
+			const prompt = `
 Review the following implementation against its specification.
 
 Specification:
@@ -73,65 +73,65 @@ Provide a detailed validation report:
 4. Suggestions for improvement
 `;
 
-      const result = await generateText({
-        model,
-        prompt,
-        system:
-          'You are a code review expert. Provide thorough, constructive feedback.',
-      });
+			const result = await generateText({
+				model,
+				prompt,
+				system:
+					'You are a code review expert. Provide thorough, constructive feedback.',
+			});
 
-      // Parse validation result
-      const hasErrors =
-        result.text.toLowerCase().includes('error') ||
-        result.text.toLowerCase().includes('missing') ||
-        result.text.toLowerCase().includes('incorrect');
+			// Parse validation result
+			const hasErrors =
+				result.text.toLowerCase().includes('error') ||
+				result.text.toLowerCase().includes('missing') ||
+				result.text.toLowerCase().includes('incorrect');
 
-      return {
-        success: !hasErrors,
-        code: result.text,
-        warnings: hasErrors
-          ? ['Implementation may not match specification']
-          : [],
-        metadata: {
-          validationType: 'simple-llm',
-        },
-      };
-    } catch (error) {
-      return {
-        success: false,
-        errors: [error instanceof Error ? error.message : String(error)],
-      };
-    }
-  }
+			return {
+				success: !hasErrors,
+				code: result.text,
+				warnings: hasErrors
+					? ['Implementation may not match specification']
+					: [],
+				metadata: {
+					validationType: 'simple-llm',
+				},
+			};
+		} catch (error) {
+			return {
+				success: false,
+				errors: [error instanceof Error ? error.message : String(error)],
+			};
+		}
+	}
 
-  private buildPrompt(task: AgentTask): string {
-    switch (task.type) {
-      case 'generate':
-        // Infer what to generate from spec
-        if (
-          task.specCode.includes('.operation.') ||
-          task.specCode.includes('kind:')
-        ) {
-          return buildHandlerPrompt(task.specCode);
-        } else if (task.specCode.includes('.presentation.')) {
-          return buildComponentPrompt(task.specCode);
-        } else if (task.specCode.includes('.form.')) {
-          return buildFormPrompt(task.specCode);
-        }
-        return `Generate implementation for:\n${task.specCode}`;
+	private buildPrompt(task: AgentTask): string {
+		switch (task.type) {
+			case 'generate':
+				// Infer what to generate from spec
+				if (
+					task.specCode.includes('.operation.') ||
+					task.specCode.includes('kind:')
+				) {
+					return buildHandlerPrompt(task.specCode);
+				} else if (task.specCode.includes('.presentation.')) {
+					return buildComponentPrompt(task.specCode);
+				} else if (task.specCode.includes('.form.')) {
+					return buildFormPrompt(task.specCode);
+				}
+				return `Generate implementation for:\n${task.specCode}`;
 
-      case 'test':
-        return buildTestPrompt(
-          task.specCode,
-          task.existingCode || '',
-          'handler'
-        );
+			case 'test':
+				return buildTestPrompt(
+					task.specCode,
+					task.existingCode || '',
+					'handler'
+				);
 
-      case 'validate':
-        return `Validate this implementation:\n${task.existingCode}`;
+			case 'validate':
+				return `Validate this implementation:\n${task.existingCode}`;
 
-      default:
-        return task.specCode;
-    }
-  }
+			default:
+				return task.specCode;
+		}
+	}
 }

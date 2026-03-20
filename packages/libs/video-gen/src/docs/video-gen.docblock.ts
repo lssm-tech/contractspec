@@ -2,17 +2,17 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const videoGenDocBlocks: DocBlock[] = [
-  {
-    id: 'docs.video-gen.overview',
-    title: 'Video Generation Library',
-    summary:
-      'Programmatic video generation with Remotion -- from content brief to rendered MP4 in a single pipeline.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/video-gen/overview',
-    tags: ['video', 'remotion', 'generation', 'content-pipeline'],
-    owners: ['@contractspec/lib.video-gen'],
-    body: `# Video Generation Library
+	{
+		id: 'docs.video-gen.overview',
+		title: 'Video Generation Library',
+		summary:
+			'Programmatic video generation with Remotion -- from content brief to rendered MP4 in a single pipeline.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/video-gen/overview',
+		tags: ['video', 'remotion', 'generation', 'content-pipeline'],
+		owners: ['@contractspec/lib.video-gen'],
+		body: `# Video Generation Library
 
 \`@contractspec/lib.video-gen\` provides **programmatic video generation** using [Remotion](https://remotion.dev). It follows the same generator pattern as \`@contractspec/lib.content-gen\` and consumes provider contracts from \`@contractspec/lib.contracts-integrations/integrations/providers/video\`.
 
@@ -138,7 +138,7 @@ This matches the content-gen pattern: \`constructor({ llm? })\` -> \`generate(br
 - \`LocalRenderer\` works with Node.js and Bun. On Bun, SSR scripts may not auto-quit (see [Remotion Bun docs](https://www.remotion.dev/docs/bun)).
 - The \`remotion\` entry point is a side-effect module (calls \`registerRoot\`) -- import it only from Remotion Studio or render scripts.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(videoGenDocBlocks);

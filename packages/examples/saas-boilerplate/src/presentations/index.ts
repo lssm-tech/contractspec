@@ -4,33 +4,31 @@
 
 // Billing presentations
 export {
-  SubscriptionPresentation,
-  UsageDashboardPresentation,
+	SubscriptionPresentation,
+	UsageDashboardPresentation,
 } from '../billing/billing.presentation';
-
-// Project presentations
-export {
-  ProjectListPresentation,
-  ProjectDetailPresentation,
-} from '../project/project.presentation';
-
 // Dashboard presentations
 export {
-  SaasDashboardPresentation,
-  SettingsPanelPresentation,
+	SaasDashboardPresentation,
+	SettingsPanelPresentation,
 } from '../dashboard/dashboard.presentation';
+// Project presentations
+export {
+	ProjectDetailPresentation,
+	ProjectListPresentation,
+} from '../project/project.presentation';
 
 // All presentations collection
 export const SaasBoilerplatePresentations = {
-  // Billing
-  SubscriptionPresentation: undefined,
-  UsageDashboardPresentation: undefined,
+	// Billing
+	SubscriptionPresentation: undefined,
+	UsageDashboardPresentation: undefined,
 
-  // Project
-  ProjectListPresentation: undefined,
-  ProjectDetailPresentation: undefined,
+	// Project
+	ProjectListPresentation: undefined,
+	ProjectDetailPresentation: undefined,
 
-  // Dashboard
-  SaasDashboardPresentation: undefined,
-  SettingsPanelPresentation: undefined,
+	// Dashboard
+	SaasDashboardPresentation: undefined,
+	SettingsPanelPresentation: undefined,
 };

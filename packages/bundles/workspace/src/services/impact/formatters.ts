@@ -14,232 +14,232 @@ import type { CheckRunPayload, PrCommentOptions } from './types';
  * Format impact result as a PR comment (markdown).
  */
 export function formatPrComment(
-  result: ImpactResult,
-  options: PrCommentOptions = { template: 'detailed' }
+	result: ImpactResult,
+	options: PrCommentOptions = { template: 'detailed' }
 ): string {
-  const lines: string[] = [];
+	const lines: string[] = [];
 
-  // Header with status
-  lines.push('## 📋 ContractSpec Impact Analysis');
-  lines.push('');
+	// Header with status
+	lines.push('## 📋 ContractSpec Impact Analysis');
+	lines.push('');
 
-  // Status badge
-  if (result.hasBreaking) {
-    lines.push('❌ **Breaking changes detected**');
-  } else if (result.hasNonBreaking) {
-    lines.push('⚠️ **Contract changed (non-breaking)**');
-  } else {
-    lines.push('✅ **No contract impact**');
-  }
-  lines.push('');
+	// Status badge
+	if (result.hasBreaking) {
+		lines.push('❌ **Breaking changes detected**');
+	} else if (result.hasNonBreaking) {
+		lines.push('⚠️ **Contract changed (non-breaking)**');
+	} else {
+		lines.push('✅ **No contract impact**');
+	}
+	lines.push('');
 
-  // Summary
-  if (
-    result.summary.breaking > 0 ||
-    result.summary.nonBreaking > 0 ||
-    result.summary.info > 0
-  ) {
-    lines.push('### Summary');
-    lines.push('');
-    lines.push(`| Type | Count |`);
-    lines.push(`|------|-------|`);
-    if (result.summary.breaking > 0) {
-      lines.push(`| 🔴 Breaking | ${result.summary.breaking} |`);
-    }
-    if (result.summary.nonBreaking > 0) {
-      lines.push(`| 🟡 Non-breaking | ${result.summary.nonBreaking} |`);
-    }
-    if (result.summary.info > 0) {
-      lines.push(`| 🔵 Info | ${result.summary.info} |`);
-    }
-    if (result.summary.added > 0) {
-      lines.push(`| ➕ Added | ${result.summary.added} |`);
-    }
-    if (result.summary.removed > 0) {
-      lines.push(`| ➖ Removed | ${result.summary.removed} |`);
-    }
-    lines.push('');
-  }
+	// Summary
+	if (
+		result.summary.breaking > 0 ||
+		result.summary.nonBreaking > 0 ||
+		result.summary.info > 0
+	) {
+		lines.push('### Summary');
+		lines.push('');
+		lines.push(`| Type | Count |`);
+		lines.push(`|------|-------|`);
+		if (result.summary.breaking > 0) {
+			lines.push(`| 🔴 Breaking | ${result.summary.breaking} |`);
+		}
+		if (result.summary.nonBreaking > 0) {
+			lines.push(`| 🟡 Non-breaking | ${result.summary.nonBreaking} |`);
+		}
+		if (result.summary.info > 0) {
+			lines.push(`| 🔵 Info | ${result.summary.info} |`);
+		}
+		if (result.summary.added > 0) {
+			lines.push(`| ➕ Added | ${result.summary.added} |`);
+		}
+		if (result.summary.removed > 0) {
+			lines.push(`| ➖ Removed | ${result.summary.removed} |`);
+		}
+		lines.push('');
+	}
 
-  // Detailed changes (if detailed template)
-  if (options.template === 'detailed' && result.deltas.length > 0) {
-    lines.push('### Changes');
-    lines.push('');
+	// Detailed changes (if detailed template)
+	if (options.template === 'detailed' && result.deltas.length > 0) {
+		lines.push('### Changes');
+		lines.push('');
 
-    // Group by severity
-    const breaking = result.deltas.filter((d) => d.severity === 'breaking');
-    const nonBreaking = result.deltas.filter(
-      (d) => d.severity === 'non_breaking'
-    );
+		// Group by severity
+		const breaking = result.deltas.filter((d) => d.severity === 'breaking');
+		const nonBreaking = result.deltas.filter(
+			(d) => d.severity === 'non_breaking'
+		);
 
-    if (breaking.length > 0) {
-      lines.push('#### 🔴 Breaking Changes');
-      lines.push('');
-      for (const delta of breaking) {
-        lines.push(`- **${delta.specKey}**: ${delta.description}`);
-      }
-      lines.push('');
-    }
+		if (breaking.length > 0) {
+			lines.push('#### 🔴 Breaking Changes');
+			lines.push('');
+			for (const delta of breaking) {
+				lines.push(`- **${delta.specKey}**: ${delta.description}`);
+			}
+			lines.push('');
+		}
 
-    if (nonBreaking.length > 0) {
-      lines.push('#### 🟡 Non-breaking Changes');
-      lines.push('');
-      for (const delta of nonBreaking) {
-        lines.push(`- **${delta.specKey}**: ${delta.description}`);
-      }
-      lines.push('');
-    }
-  }
+		if (nonBreaking.length > 0) {
+			lines.push('#### 🟡 Non-breaking Changes');
+			lines.push('');
+			for (const delta of nonBreaking) {
+				lines.push(`- **${delta.specKey}**: ${delta.description}`);
+			}
+			lines.push('');
+		}
+	}
 
-  // Added/removed specs
-  if (result.addedSpecs.length > 0) {
-    lines.push('### Added Specs');
-    lines.push('');
-    for (const spec of result.addedSpecs) {
-      lines.push(`- \`${spec.key}\` v${spec.version} (${spec.type})`);
-    }
-    lines.push('');
-  }
+	// Added/removed specs
+	if (result.addedSpecs.length > 0) {
+		lines.push('### Added Specs');
+		lines.push('');
+		for (const spec of result.addedSpecs) {
+			lines.push(`- \`${spec.key}\` v${spec.version} (${spec.type})`);
+		}
+		lines.push('');
+	}
 
-  if (result.removedSpecs.length > 0) {
-    lines.push('### Removed Specs');
-    lines.push('');
-    for (const spec of result.removedSpecs) {
-      lines.push(`- \`${spec.key}\` v${spec.version} (${spec.type})`);
-    }
-    lines.push('');
-  }
+	if (result.removedSpecs.length > 0) {
+		lines.push('### Removed Specs');
+		lines.push('');
+		for (const spec of result.removedSpecs) {
+			lines.push(`- \`${spec.key}\` v${spec.version} (${spec.type})`);
+		}
+		lines.push('');
+	}
 
-  // Drift status (if provided)
-  if (options.drift) {
-    if (options.drift.hasDrift) {
-      lines.push('### ⚠️ Drift Detected');
-      lines.push('');
-      lines.push(
-        'The following generated files are out of sync with their specs:'
-      );
-      lines.push('');
-      for (const file of options.drift.files) {
-        lines.push(`- \`${file}\``);
-      }
-      lines.push('');
-      lines.push('Run `contractspec generate` to regenerate artifacts.');
-      lines.push('');
-    } else {
-      lines.push('### ✅ No Drift Detected');
-      lines.push('');
-    }
-  }
+	// Drift status (if provided)
+	if (options.drift) {
+		if (options.drift.hasDrift) {
+			lines.push('### ⚠️ Drift Detected');
+			lines.push('');
+			lines.push(
+				'The following generated files are out of sync with their specs:'
+			);
+			lines.push('');
+			for (const file of options.drift.files) {
+				lines.push(`- \`${file}\``);
+			}
+			lines.push('');
+			lines.push('Run `contractspec generate` to regenerate artifacts.');
+			lines.push('');
+		} else {
+			lines.push('### ✅ No Drift Detected');
+			lines.push('');
+		}
+	}
 
-  // Footer
-  lines.push('---');
-  lines.push(`*Generated by ContractSpec at ${result.timestamp}*`);
+	// Footer
+	lines.push('---');
+	lines.push(`*Generated by ContractSpec at ${result.timestamp}*`);
 
-  return lines.join('\n');
+	return lines.join('\n');
 }
 
 /**
  * Format impact result for minimal PR comment.
  */
 export function formatMinimalComment(result: ImpactResult): string {
-  if (result.hasBreaking) {
-    return `❌ **Breaking changes detected** (${result.summary.breaking} breaking, ${result.summary.nonBreaking} non-breaking)`;
-  }
-  if (result.hasNonBreaking) {
-    return `⚠️ **Contract changed** (${result.summary.nonBreaking} non-breaking changes)`;
-  }
-  return '✅ **No contract impact**';
+	if (result.hasBreaking) {
+		return `❌ **Breaking changes detected** (${result.summary.breaking} breaking, ${result.summary.nonBreaking} non-breaking)`;
+	}
+	if (result.hasNonBreaking) {
+		return `⚠️ **Contract changed** (${result.summary.nonBreaking} non-breaking changes)`;
+	}
+	return '✅ **No contract impact**';
 }
 
 /**
  * Format impact result as GitHub check run payload.
  */
 export function formatCheckRun(
-  result: ImpactResult,
-  headSha: string,
-  options: { key?: string; failOnBreaking?: boolean } = {}
+	result: ImpactResult,
+	headSha: string,
+	options: { key?: string; failOnBreaking?: boolean } = {}
 ): CheckRunPayload {
-  const name = options.key ?? 'ContractSpec Impact';
-  const failOnBreaking = options.failOnBreaking ?? true;
+	const name = options.key ?? 'ContractSpec Impact';
+	const failOnBreaking = options.failOnBreaking ?? true;
 
-  let conclusion: 'success' | 'failure' | 'neutral';
-  let title: string;
+	let conclusion: 'success' | 'failure' | 'neutral';
+	let title: string;
 
-  if (result.hasBreaking) {
-    conclusion = failOnBreaking ? 'failure' : 'neutral';
-    title = `Breaking changes detected (${result.summary.breaking})`;
-  } else if (result.hasNonBreaking) {
-    conclusion = 'success';
-    title = `Non-breaking changes (${result.summary.nonBreaking})`;
-  } else {
-    conclusion = 'success';
-    title = 'No contract impact';
-  }
+	if (result.hasBreaking) {
+		conclusion = failOnBreaking ? 'failure' : 'neutral';
+		title = `Breaking changes detected (${result.summary.breaking})`;
+	} else if (result.hasNonBreaking) {
+		conclusion = 'success';
+		title = `Non-breaking changes (${result.summary.nonBreaking})`;
+	} else {
+		conclusion = 'success';
+		title = 'No contract impact';
+	}
 
-  const summary = formatMinimalComment(result);
+	const summary = formatMinimalComment(result);
 
-  return {
-    name,
-    headSha,
-    conclusion,
-    title,
-    summary,
-    annotations: result.deltas
-      .filter((d) => d.severity === 'breaking')
-      .slice(0, 50) // GitHub limit
-      .map((d) => ({
-        path: d.path,
-        startLine: 1,
-        endLine: 1,
-        annotationLevel: 'failure' as const,
-        message: d.description,
-        title: `Breaking: ${d.rule}`,
-      })),
-  };
+	return {
+		name,
+		headSha,
+		conclusion,
+		title,
+		summary,
+		annotations: result.deltas
+			.filter((d) => d.severity === 'breaking')
+			.slice(0, 50) // GitHub limit
+			.map((d) => ({
+				path: d.path,
+				startLine: 1,
+				endLine: 1,
+				annotationLevel: 'failure' as const,
+				message: d.description,
+				title: `Breaking: ${d.rule}`,
+			})),
+	};
 }
 
 /**
  * Impact JSON output structure (v1.0).
  */
 export interface ImpactJsonOutput {
-  schemaVersion: string;
-  breaking: boolean;
-  changes: {
-    type: string;
-    path: string;
-    summary: string;
-    severity: 'low' | 'medium' | 'high' | 'breaking';
-  }[];
-  summary: {
-    breaking: number;
-    nonBreaking: number;
-    total: number;
-  };
+	schemaVersion: string;
+	breaking: boolean;
+	changes: {
+		type: string;
+		path: string;
+		summary: string;
+		severity: 'low' | 'medium' | 'high' | 'breaking';
+	}[];
+	summary: {
+		breaking: number;
+		nonBreaking: number;
+		total: number;
+	};
 }
 
 /**
  * Format impact result as JSON (v1.0).
  */
 export function formatJson(result: ImpactResult): string {
-  const output: ImpactJsonOutput = {
-    schemaVersion: '1.0',
-    breaking: result.hasBreaking,
-    changes: result.deltas.map((delta) => ({
-      type: delta.rule,
-      path: delta.specKey, // map specKey to path or keep specKey as path
-      summary: delta.description,
-      severity:
-        delta.severity === 'breaking'
-          ? 'breaking'
-          : delta.severity === 'non_breaking'
-            ? 'medium'
-            : 'low',
-    })),
-    summary: {
-      breaking: result.summary.breaking,
-      nonBreaking: result.summary.nonBreaking,
-      total: result.deltas.length,
-    },
-  };
-  return JSON.stringify(output, null, 2);
+	const output: ImpactJsonOutput = {
+		schemaVersion: '1.0',
+		breaking: result.hasBreaking,
+		changes: result.deltas.map((delta) => ({
+			type: delta.rule,
+			path: delta.specKey, // map specKey to path or keep specKey as path
+			summary: delta.description,
+			severity:
+				delta.severity === 'breaking'
+					? 'breaking'
+					: delta.severity === 'non_breaking'
+						? 'medium'
+						: 'low',
+		})),
+		summary: {
+			breaking: result.summary.breaking,
+			nonBreaking: result.summary.nonBreaking,
+			total: result.deltas.length,
+		},
+	};
+	return JSON.stringify(output, null, 2);
 }

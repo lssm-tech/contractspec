@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const crmOnboardingDocBlocks: DocBlock[] = [
-  {
-    id: 'docs.learning-journey.crm-onboarding',
-    title: 'Learning Journey — CRM First Win',
-    summary:
-      'Onboarding track for the CRM Pipeline example that drives users to first closed-won deal.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/learning-journey/crm-onboarding',
-    tags: ['learning', 'crm', 'onboarding'],
-    body: `## Track
+	{
+		id: 'docs.learning-journey.crm-onboarding',
+		title: 'Learning Journey — CRM First Win',
+		summary:
+			'Onboarding track for the CRM Pipeline example that drives users to first closed-won deal.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/learning-journey/crm-onboarding',
+		tags: ['learning', 'crm', 'onboarding'],
+		body: `## Track
 - **Key**: \`crm_first_win\`
 - **Persona**: CRM adopter
 - **Goal**: From empty CRM to first closed-won deal with follow-up
@@ -34,7 +34,7 @@ XP: 15/20/20/20/30/30 with 25 bonus within 72h. Badge: \`crm_first_win\`.
   - \`learning.onboarding.getProgress\`
   - \`learning.onboarding.recordEvent\` wired from CRM event bus handlers.
 - Surface in CRM dashboard/pipeline UI to guide new users.`,
-  },
+	},
 ];
 
 registerDocBlocks(crmOnboardingDocBlocks);

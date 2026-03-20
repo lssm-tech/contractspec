@@ -1,117 +1,117 @@
 {
-  "name": "@contractspec/example.knowledge-canon",
-  "version": "3.7.6",
-  "description": "Knowledge example – Product Canon space (blueprint + tenant config + source sample + runtime helper).",
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./src/index.ts",
-    "./agent": "./src/agent.ts",
-    "./blueprint": "./src/blueprint.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/knowledge-canon.docblock": "./src/docs/knowledge-canon.docblock.ts",
-    "./example": "./src/example.ts",
-    "./knowledge-canon.feature": "./src/knowledge-canon.feature.ts",
-    "./source.sample": "./src/source.sample.ts",
-    "./tenant": "./src/tenant.ts"
-  },
-  "scripts": {
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
-    "build:bundle": "contractspec-bun-build transpile",
-    "build:types": "contractspec-bun-build types",
-    "dev": "contractspec-bun-build dev",
-    "clean": "rimraf dist .turbo",
-    "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
-    "test": "bun test --pass-with-no-tests",
-    "prebuild": "contractspec-bun-build prebuild",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@contractspec/lib.contracts-spec": "workspace:*"
-  },
-  "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:",
-    "@contractspec/tool.bun": "workspace:*"
-  },
-  "publishConfig": {
-    "access": "public",
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "browser": "./dist/browser/index.js",
-        "bun": "./dist/index.js",
-        "node": "./dist/node/index.js",
-        "default": "./dist/index.js"
-      },
-      "./agent": {
-        "types": "./dist/agent.d.ts",
-        "browser": "./dist/browser/agent.js",
-        "bun": "./dist/agent.js",
-        "node": "./dist/node/agent.js",
-        "default": "./dist/agent.js"
-      },
-      "./blueprint": {
-        "types": "./dist/blueprint.d.ts",
-        "browser": "./dist/browser/blueprint.js",
-        "bun": "./dist/blueprint.js",
-        "node": "./dist/node/blueprint.js",
-        "default": "./dist/blueprint.js"
-      },
-      "./docs": {
-        "types": "./dist/docs/index.d.ts",
-        "browser": "./dist/browser/docs/index.js",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/knowledge-canon.docblock": {
-        "types": "./dist/docs/knowledge-canon.docblock.d.ts",
-        "browser": "./dist/browser/docs/knowledge-canon.docblock.js",
-        "bun": "./dist/docs/knowledge-canon.docblock.js",
-        "node": "./dist/node/docs/knowledge-canon.docblock.js",
-        "default": "./dist/docs/knowledge-canon.docblock.js"
-      },
-      "./example": {
-        "types": "./dist/example.d.ts",
-        "browser": "./dist/browser/example.js",
-        "bun": "./dist/example.js",
-        "node": "./dist/node/example.js",
-        "default": "./dist/example.js"
-      },
-      "./knowledge-canon.feature": {
-        "types": "./dist/knowledge-canon.feature.d.ts",
-        "browser": "./dist/browser/knowledge-canon.feature.js",
-        "bun": "./dist/knowledge-canon.feature.js",
-        "node": "./dist/node/knowledge-canon.feature.js",
-        "default": "./dist/knowledge-canon.feature.js"
-      },
-      "./source.sample": {
-        "types": "./dist/source.sample.d.ts",
-        "browser": "./dist/browser/source.sample.js",
-        "bun": "./dist/source.sample.js",
-        "node": "./dist/node/source.sample.js",
-        "default": "./dist/source.sample.js"
-      },
-      "./tenant": {
-        "types": "./dist/tenant.d.ts",
-        "browser": "./dist/browser/tenant.js",
-        "bun": "./dist/tenant.js",
-        "node": "./dist/node/tenant.js",
-        "default": "./dist/tenant.js"
-      }
-    },
-    "registry": "https://registry.npmjs.org/"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/examples/knowledge-canon"
-  },
-  "homepage": "https://contractspec.io"
+	"name": "@contractspec/example.knowledge-canon",
+	"version": "3.7.6",
+	"description": "Knowledge example – Product Canon space (blueprint + tenant config + source sample + runtime helper).",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./agent": "./src/agent.ts",
+		"./blueprint": "./src/blueprint.ts",
+		"./docs": "./src/docs/index.ts",
+		"./docs/knowledge-canon.docblock": "./src/docs/knowledge-canon.docblock.ts",
+		"./example": "./src/example.ts",
+		"./knowledge-canon.feature": "./src/knowledge-canon.feature.ts",
+		"./source.sample": "./src/source.sample.ts",
+		"./tenant": "./src/tenant.ts"
+	},
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"test": "bun test --pass-with-no-tests",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@contractspec/tool.bun": "workspace:*"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./agent": {
+				"types": "./dist/agent.d.ts",
+				"browser": "./dist/browser/agent.js",
+				"bun": "./dist/agent.js",
+				"node": "./dist/node/agent.js",
+				"default": "./dist/agent.js"
+			},
+			"./blueprint": {
+				"types": "./dist/blueprint.d.ts",
+				"browser": "./dist/browser/blueprint.js",
+				"bun": "./dist/blueprint.js",
+				"node": "./dist/node/blueprint.js",
+				"default": "./dist/blueprint.js"
+			},
+			"./docs": {
+				"types": "./dist/docs/index.d.ts",
+				"browser": "./dist/browser/docs/index.js",
+				"bun": "./dist/docs/index.js",
+				"node": "./dist/node/docs/index.js",
+				"default": "./dist/docs/index.js"
+			},
+			"./docs/knowledge-canon.docblock": {
+				"types": "./dist/docs/knowledge-canon.docblock.d.ts",
+				"browser": "./dist/browser/docs/knowledge-canon.docblock.js",
+				"bun": "./dist/docs/knowledge-canon.docblock.js",
+				"node": "./dist/node/docs/knowledge-canon.docblock.js",
+				"default": "./dist/docs/knowledge-canon.docblock.js"
+			},
+			"./example": {
+				"types": "./dist/example.d.ts",
+				"browser": "./dist/browser/example.js",
+				"bun": "./dist/example.js",
+				"node": "./dist/node/example.js",
+				"default": "./dist/example.js"
+			},
+			"./knowledge-canon.feature": {
+				"types": "./dist/knowledge-canon.feature.d.ts",
+				"browser": "./dist/browser/knowledge-canon.feature.js",
+				"bun": "./dist/knowledge-canon.feature.js",
+				"node": "./dist/node/knowledge-canon.feature.js",
+				"default": "./dist/knowledge-canon.feature.js"
+			},
+			"./source.sample": {
+				"types": "./dist/source.sample.d.ts",
+				"browser": "./dist/browser/source.sample.js",
+				"bun": "./dist/source.sample.js",
+				"node": "./dist/node/source.sample.js",
+				"default": "./dist/source.sample.js"
+			},
+			"./tenant": {
+				"types": "./dist/tenant.d.ts",
+				"browser": "./dist/browser/tenant.js",
+				"bun": "./dist/tenant.js",
+				"node": "./dist/node/tenant.js",
+				"default": "./dist/tenant.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/examples/knowledge-canon"
+	},
+	"homepage": "https://contractspec.io"
 }

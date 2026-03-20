@@ -4,10 +4,10 @@
  */
 
 export {
-  resolutionDurationMs,
-  patchAcceptanceCounter,
-  patchRejectionCounter,
-  policyDenialCounter,
-  surfaceFallbackCounter,
-  missingRendererCounter,
+	missingRendererCounter,
+	patchAcceptanceCounter,
+	patchRejectionCounter,
+	policyDenialCounter,
+	resolutionDurationMs,
+	surfaceFallbackCounter,
 } from './surface-metrics';

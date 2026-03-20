@@ -3,26 +3,26 @@ import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
 export function LibrariesOverlayEnginePage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold">Overlay Engine</h1>
-        <p className="text-muted-foreground text-lg">
-          `@contractspec/lib.overlay-engine` keeps OverlaySpecs typed, signed,
-          and auditable across tenants, roles, users, and devices.
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-4">
+				<h1 className="font-bold text-4xl">Overlay Engine</h1>
+				<p className="text-lg text-muted-foreground">
+					`@contractspec/lib.overlay-engine` keeps OverlaySpecs typed, signed,
+					and auditable across tenants, roles, users, and devices.
+				</p>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Installation</h2>
-        <InstallCommand package="@contractspec/lib.overlay-engine" />
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Installation</h2>
+				<InstallCommand package="@contractspec/lib.overlay-engine" />
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Define + Sign</h2>
-        <CodeBlock
-          language="typescript"
-          code={`import { defineOverlay } from '@contractspec/lib.overlay-engine/spec';
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Define + Sign</h2>
+				<CodeBlock
+					language="typescript"
+					code={`import { defineOverlay } from '@contractspec/lib.overlay-engine/spec';
 import { signOverlay } from '@contractspec/lib.overlay-engine/signer';
 
 const overlay = defineOverlay({
@@ -33,18 +33,18 @@ const overlay = defineOverlay({
 });
 
 const signed = await signOverlay(overlay, privateKeyPem);`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Runtime</h2>
-        <p className="text-muted-foreground">
-          `OverlayRegistry` stores signed overlays with specificity scoring.
-          `OverlayEngine` merges modifications and emits audit events.
-        </p>
-        <CodeBlock
-          language="typescript"
-          code={`const registry = new OverlayRegistry();
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Runtime</h2>
+				<p className="text-muted-foreground">
+					`OverlayRegistry` stores signed overlays with specificity scoring.
+					`OverlayEngine` merges modifications and emits audit events.
+				</p>
+				<CodeBlock
+					language="typescript"
+					code={`const registry = new OverlayRegistry();
 registry.register(signed);
 
 const engine = new OverlayEngine({
@@ -57,34 +57,34 @@ const result = engine.apply({
   capability: 'billing.createOrder',
   tenantId: 'acme',
 });`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">React Hooks</h2>
-        <p className="text-muted-foreground">
-          Render overlays in React/React Native via `useOverlay`.
-        </p>
-        <CodeBlock
-          language="typescript"
-          code={`import { useOverlay } from '@contractspec/lib.overlay-engine/react';
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">React Hooks</h2>
+				<p className="text-muted-foreground">
+					Render overlays in React/React Native via `useOverlay`.
+				</p>
+				<CodeBlock
+					language="typescript"
+					code={`import { useOverlay } from '@contractspec/lib.overlay-engine/react';
 
 const { target } = useOverlay(engine, {
   target: { fields },
   capability: 'billing.createOrder',
   tenantId: 'acme',
 });`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="flex items-center gap-4 pt-4">
-        <Link href="/docs/libraries" className="btn-ghost">
-          Back to Libraries
-        </Link>
-        <Link href="/docs/libraries/workflow-composer" className="btn-primary">
-          Next: Workflow Composer <ChevronRight size={16} />
-        </Link>
-      </div>
-    </div>
-  );
+			<div className="flex items-center gap-4 pt-4">
+				<Link href="/docs/libraries" className="btn-ghost">
+					Back to Libraries
+				</Link>
+				<Link href="/docs/libraries/workflow-composer" className="btn-primary">
+					Next: Workflow Composer <ChevronRight size={16} />
+				</Link>
+			</div>
+		</div>
+	);
 }

@@ -5,24 +5,24 @@
  * interactivity (e.g., navigation).
  */
 
+export {
+	FeatureDataViewDetailClient,
+	type FeatureDataViewDetailClientProps,
+} from './FeatureDataViewDetailClient';
 export { FeatureDiscoveryClient } from './FeatureDiscoveryClient';
 export {
-  FeatureOperationDetailClient,
-  type FeatureOperationDetailClientProps,
-} from './FeatureOperationDetailClient';
-export {
-  FeatureEventDetailClient,
-  type FeatureEventDetailClientProps,
+	FeatureEventDetailClient,
+	type FeatureEventDetailClientProps,
 } from './FeatureEventDetailClient';
 export {
-  FeaturePresentationDetailClient,
-  type FeaturePresentationDetailClientProps,
-} from './FeaturePresentationDetailClient';
-export {
-  FeatureDataViewDetailClient,
-  type FeatureDataViewDetailClientProps,
-} from './FeatureDataViewDetailClient';
-export {
-  FeatureFormDetailClient,
-  type FeatureFormDetailClientProps,
+	FeatureFormDetailClient,
+	type FeatureFormDetailClientProps,
 } from './FeatureFormDetailClient';
+export {
+	FeatureOperationDetailClient,
+	type FeatureOperationDetailClientProps,
+} from './FeatureOperationDetailClient';
+export {
+	FeaturePresentationDetailClient,
+	type FeaturePresentationDetailClientProps,
+} from './FeaturePresentationDetailClient';

@@ -1,1 +1,1 @@
-import "./minimal.docblock";
+import './minimal.docblock';

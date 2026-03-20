@@ -7,13 +7,13 @@
  */
 
 import {
-  signOverlay,
-  verifyOverlaySignature,
-  type SignOverlayOptions,
+	type SignOverlayOptions,
+	signOverlay,
+	verifyOverlaySignature,
 } from '@contractspec/lib.overlay-engine/signer';
 import type {
-  OverlaySpec,
-  SignedOverlaySpec,
+	OverlaySpec,
+	SignedOverlaySpec,
 } from '@contractspec/lib.overlay-engine/spec';
 
 /** Private key for signing (PEM string, Buffer, or crypto.KeyObject). */
@@ -21,14 +21,14 @@ export type OverlaySigningKey = string | Buffer | import('crypto').KeyLike;
 
 /** Sign a workspace overlay for durable persistence. */
 export function signWorkspaceOverlay(
-  spec: OverlaySpec,
-  privateKey: OverlaySigningKey,
-  options?: SignOverlayOptions
+	spec: OverlaySpec,
+	privateKey: OverlaySigningKey,
+	options?: SignOverlayOptions
 ): SignedOverlaySpec {
-  return signOverlay(spec, privateKey, options);
+	return signOverlay(spec, privateKey, options);
 }
 
 /** Verify a signed workspace overlay. */
 export function verifyWorkspaceOverlay(overlay: SignedOverlaySpec): boolean {
-  return verifyOverlaySignature(overlay);
+	return verifyOverlaySignature(overlay);
 }

@@ -2,9 +2,9 @@
  * Unit tests for Hono extractor.
  */
 
-import { describe, expect, it, beforeEach } from 'bun:test';
-import { HonoExtractor } from './extractors/hono/extractor';
+import { beforeEach, describe, expect, it } from 'bun:test';
 import type { ExtractorFsAdapter } from './extractors/base';
+import { HonoExtractor } from './extractors/hono/extractor';
 import type { ProjectInfo } from './types';
 
 const FIXTURE_CONTENT = `
@@ -43,89 +43,89 @@ app.delete('/items/:id', (c) => {
 `;
 
 describe('HonoExtractor', () => {
-  let extractor: HonoExtractor;
-  let mockFs: ExtractorFsAdapter;
-  let project: ProjectInfo;
+	let extractor: HonoExtractor;
+	let mockFs: ExtractorFsAdapter;
+	let project: ProjectInfo;
 
-  beforeEach(() => {
-    extractor = new HonoExtractor();
+	beforeEach(() => {
+		extractor = new HonoExtractor();
 
-    mockFs = {
-      readFile: async () => FIXTURE_CONTENT,
-      glob: async () => ['src/app.ts'],
-      exists: async () => true,
-    };
+		mockFs = {
+			readFile: async () => FIXTURE_CONTENT,
+			glob: async () => ['src/app.ts'],
+			exists: async () => true,
+		};
 
-    extractor.setFs(mockFs);
+		extractor.setFs(mockFs);
 
-    project = {
-      rootPath: '/test-project',
-      frameworks: [{ id: 'hono', name: 'Hono', confidence: 'high' }],
-    };
-  });
+		project = {
+			rootPath: '/test-project',
+			frameworks: [{ id: 'hono', name: 'Hono', confidence: 'high' }],
+		};
+	});
 
-  it('should detect Hono projects', async () => {
-    const detected = await extractor.detect(project);
-    expect(detected).toBe(true);
-  });
+	it('should detect Hono projects', async () => {
+		const detected = await extractor.detect(project);
+		expect(detected).toBe(true);
+	});
 
-  it('should not detect non-Hono projects', async () => {
-    const nonHonoProject: ProjectInfo = {
-      rootPath: '/other-project',
-      frameworks: [{ id: 'express', name: 'Express', confidence: 'high' }],
-    };
-    const detected = await extractor.detect(nonHonoProject);
-    expect(detected).toBe(false);
-  });
+	it('should not detect non-Hono projects', async () => {
+		const nonHonoProject: ProjectInfo = {
+			rootPath: '/other-project',
+			frameworks: [{ id: 'express', name: 'Express', confidence: 'high' }],
+		};
+		const detected = await extractor.detect(nonHonoProject);
+		expect(detected).toBe(false);
+	});
 
-  it('should extract endpoints from routes', async () => {
-    const result = await extractor.extract(project, {});
+	it('should extract endpoints from routes', async () => {
+		const result = await extractor.extract(project, {});
 
-    expect(result.success).toBe(true);
-    expect(result.ir).toBeDefined();
-    expect(result.ir).toBeDefined();
-    expect(result.ir?.endpoints.length).toBeGreaterThan(0);
-  });
+		expect(result.success).toBe(true);
+		expect(result.ir).toBeDefined();
+		expect(result.ir).toBeDefined();
+		expect(result.ir?.endpoints.length).toBeGreaterThan(0);
+	});
 
-  it('should extract all HTTP methods', async () => {
-    const result = await extractor.extract(project, {});
+	it('should extract all HTTP methods', async () => {
+		const result = await extractor.extract(project, {});
 
-    const methods = result.ir?.endpoints.map((e) => e.method) || [];
-    expect(methods).toContain('GET');
-    expect(methods).toContain('POST');
-    expect(methods).toContain('PUT');
-    expect(methods).toContain('DELETE');
-  });
+		const methods = result.ir?.endpoints.map((e) => e.method) || [];
+		expect(methods).toContain('GET');
+		expect(methods).toContain('POST');
+		expect(methods).toContain('PUT');
+		expect(methods).toContain('DELETE');
+	});
 
-  it('should assign query kind to GET endpoints', async () => {
-    const result = await extractor.extract(project, {});
+	it('should assign query kind to GET endpoints', async () => {
+		const result = await extractor.extract(project, {});
 
-    const getEndpoint = result.ir?.endpoints.find((e) => e.method === 'GET');
-    expect(getEndpoint?.kind).toBe('query');
-  });
+		const getEndpoint = result.ir?.endpoints.find((e) => e.method === 'GET');
+		expect(getEndpoint?.kind).toBe('query');
+	});
 
-  it('should assign command kind to mutation endpoints', async () => {
-    const result = await extractor.extract(project, {});
+	it('should assign command kind to mutation endpoints', async () => {
+		const result = await extractor.extract(project, {});
 
-    const postEndpoint = result.ir?.endpoints.find((e) => e.method === 'POST');
-    expect(postEndpoint?.kind).toBe('command');
-  });
+		const postEndpoint = result.ir?.endpoints.find((e) => e.method === 'POST');
+		expect(postEndpoint?.kind).toBe('command');
+	});
 
-  it('should include source location for all endpoints', async () => {
-    const result = await extractor.extract(project, {});
+	it('should include source location for all endpoints', async () => {
+		const result = await extractor.extract(project, {});
 
-    const endpoints = result.ir?.endpoints || [];
-    for (const endpoint of endpoints) {
-      expect(endpoint.source).toBeDefined();
-      expect(endpoint.source.file).toBeDefined();
-    }
-  });
+		const endpoints = result.ir?.endpoints || [];
+		for (const endpoint of endpoints) {
+			expect(endpoint.source).toBeDefined();
+			expect(endpoint.source.file).toBeDefined();
+		}
+	});
 
-  it('should extract correct paths', async () => {
-    const result = await extractor.extract(project, {});
+	it('should extract correct paths', async () => {
+		const result = await extractor.extract(project, {});
 
-    const paths = result.ir?.endpoints.map((e) => e.path) || [];
-    expect(paths).toContain('/items');
-    expect(paths.some((p) => p.includes(':id'))).toBe(true);
-  });
+		const paths = result.ir?.endpoints.map((e) => e.path) || [];
+		expect(paths).toContain('/items');
+		expect(paths.some((p) => p.includes(':id'))).toBe(true);
+	});
 });

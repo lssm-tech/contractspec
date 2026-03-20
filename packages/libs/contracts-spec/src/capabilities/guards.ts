@@ -15,11 +15,11 @@
  * ```
  */
 
+import type { AnyEventSpec } from '../events';
+import type { AnyOperationSpec } from '../operations/operation';
+import type { PresentationSpec } from '../presentations/presentations';
 import type { CapabilityContext } from './context';
 import { CapabilityMissingError } from './context';
-import type { AnyOperationSpec } from '../operations/operation';
-import type { AnyEventSpec } from '../events';
-import type { PresentationSpec } from '../presentations/presentations';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Guard Types
@@ -27,12 +27,12 @@ import type { PresentationSpec } from '../presentations/presentations';
 
 /** Result of a capability guard check. */
 export interface CapabilityGuardResult {
-  /** Whether the guard passed. */
-  allowed: boolean;
-  /** Missing capability if guard failed. */
-  missingCapability?: { key: string; version: string };
-  /** Reason for denial if guard failed. */
-  reason?: string;
+	/** Whether the guard passed. */
+	allowed: boolean;
+	/** Missing capability if guard failed. */
+	missingCapability?: { key: string; version: string };
+	/** Reason for denial if guard failed. */
+	reason?: string;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -55,24 +55,24 @@ export interface CapabilityGuardResult {
  * ```
  */
 export function checkCapabilityForOperation(
-  ctx: CapabilityContext,
-  operation: AnyOperationSpec
+	ctx: CapabilityContext,
+	operation: AnyOperationSpec
 ): CapabilityGuardResult {
-  if (!operation.capability) {
-    // No capability requirement, allow by default
-    return { allowed: true };
-  }
+	if (!operation.capability) {
+		// No capability requirement, allow by default
+		return { allowed: true };
+	}
 
-  const { key, version } = operation.capability;
-  if (ctx.hasCapability(key, version)) {
-    return { allowed: true };
-  }
+	const { key, version } = operation.capability;
+	if (ctx.hasCapability(key, version)) {
+		return { allowed: true };
+	}
 
-  return {
-    allowed: false,
-    missingCapability: { key, version },
-    reason: `Operation "${operation.meta.key}" requires capability "${key}.v${version}"`,
-  };
+	return {
+		allowed: false,
+		missingCapability: { key, version },
+		reason: `Operation "${operation.meta.key}" requires capability "${key}.v${version}"`,
+	};
 }
 
 /**
@@ -92,16 +92,16 @@ export function checkCapabilityForOperation(
  * ```
  */
 export function assertCapabilityForOperation(
-  ctx: CapabilityContext,
-  operation: AnyOperationSpec
+	ctx: CapabilityContext,
+	operation: AnyOperationSpec
 ): void {
-  const result = checkCapabilityForOperation(ctx, operation);
-  if (!result.allowed && result.missingCapability) {
-    throw new CapabilityMissingError(
-      result.missingCapability.key,
-      result.missingCapability.version
-    );
-  }
+	const result = checkCapabilityForOperation(ctx, operation);
+	if (!result.allowed && result.missingCapability) {
+		throw new CapabilityMissingError(
+			result.missingCapability.key,
+			result.missingCapability.version
+		);
+	}
 }
 
 /**
@@ -112,23 +112,23 @@ export function assertCapabilityForOperation(
  * @returns Guard result indicating if event is allowed
  */
 export function checkCapabilityForEvent(
-  ctx: CapabilityContext,
-  event: AnyEventSpec
+	ctx: CapabilityContext,
+	event: AnyEventSpec
 ): CapabilityGuardResult {
-  if (!event.capability) {
-    return { allowed: true };
-  }
+	if (!event.capability) {
+		return { allowed: true };
+	}
 
-  const { key, version } = event.capability;
-  if (ctx.hasCapability(key, version)) {
-    return { allowed: true };
-  }
+	const { key, version } = event.capability;
+	if (ctx.hasCapability(key, version)) {
+		return { allowed: true };
+	}
 
-  return {
-    allowed: false,
-    missingCapability: { key, version },
-    reason: `Event "${event.meta.key}" requires capability "${key}.v${version}"`,
-  };
+	return {
+		allowed: false,
+		missingCapability: { key, version },
+		reason: `Event "${event.meta.key}" requires capability "${key}.v${version}"`,
+	};
 }
 
 /**
@@ -139,16 +139,16 @@ export function checkCapabilityForEvent(
  * @throws {CapabilityMissingError} If capability is not enabled
  */
 export function assertCapabilityForEvent(
-  ctx: CapabilityContext,
-  event: AnyEventSpec
+	ctx: CapabilityContext,
+	event: AnyEventSpec
 ): void {
-  const result = checkCapabilityForEvent(ctx, event);
-  if (!result.allowed && result.missingCapability) {
-    throw new CapabilityMissingError(
-      result.missingCapability.key,
-      result.missingCapability.version
-    );
-  }
+	const result = checkCapabilityForEvent(ctx, event);
+	if (!result.allowed && result.missingCapability) {
+		throw new CapabilityMissingError(
+			result.missingCapability.key,
+			result.missingCapability.version
+		);
+	}
 }
 
 /**
@@ -159,23 +159,23 @@ export function assertCapabilityForEvent(
  * @returns Guard result indicating if presentation is allowed
  */
 export function checkCapabilityForPresentation(
-  ctx: CapabilityContext,
-  presentation: PresentationSpec
+	ctx: CapabilityContext,
+	presentation: PresentationSpec
 ): CapabilityGuardResult {
-  if (!presentation.capability) {
-    return { allowed: true };
-  }
+	if (!presentation.capability) {
+		return { allowed: true };
+	}
 
-  const { key, version } = presentation.capability;
-  if (ctx.hasCapability(key, version)) {
-    return { allowed: true };
-  }
+	const { key, version } = presentation.capability;
+	if (ctx.hasCapability(key, version)) {
+		return { allowed: true };
+	}
 
-  return {
-    allowed: false,
-    missingCapability: { key, version },
-    reason: `Presentation "${presentation.meta.key}" requires capability "${key}.v${version}"`,
-  };
+	return {
+		allowed: false,
+		missingCapability: { key, version },
+		reason: `Presentation "${presentation.meta.key}" requires capability "${key}.v${version}"`,
+	};
 }
 
 /**
@@ -186,16 +186,16 @@ export function checkCapabilityForPresentation(
  * @throws {CapabilityMissingError} If capability is not enabled
  */
 export function assertCapabilityForPresentation(
-  ctx: CapabilityContext,
-  presentation: PresentationSpec
+	ctx: CapabilityContext,
+	presentation: PresentationSpec
 ): void {
-  const result = checkCapabilityForPresentation(ctx, presentation);
-  if (!result.allowed && result.missingCapability) {
-    throw new CapabilityMissingError(
-      result.missingCapability.key,
-      result.missingCapability.version
-    );
-  }
+	const result = checkCapabilityForPresentation(ctx, presentation);
+	if (!result.allowed && result.missingCapability) {
+		throw new CapabilityMissingError(
+			result.missingCapability.key,
+			result.missingCapability.version
+		);
+	}
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -210,12 +210,12 @@ export function assertCapabilityForPresentation(
  * @returns Operations that have their capabilities enabled (or no capability requirement)
  */
 export function filterOperationsByCapability(
-  ctx: CapabilityContext,
-  operations: AnyOperationSpec[]
+	ctx: CapabilityContext,
+	operations: AnyOperationSpec[]
 ): AnyOperationSpec[] {
-  return operations.filter(
-    (op) => checkCapabilityForOperation(ctx, op).allowed
-  );
+	return operations.filter(
+		(op) => checkCapabilityForOperation(ctx, op).allowed
+	);
 }
 
 /**
@@ -226,10 +226,10 @@ export function filterOperationsByCapability(
  * @returns Events that have their capabilities enabled (or no capability requirement)
  */
 export function filterEventsByCapability(
-  ctx: CapabilityContext,
-  events: AnyEventSpec[]
+	ctx: CapabilityContext,
+	events: AnyEventSpec[]
 ): AnyEventSpec[] {
-  return events.filter((ev) => checkCapabilityForEvent(ctx, ev).allowed);
+	return events.filter((ev) => checkCapabilityForEvent(ctx, ev).allowed);
 }
 
 /**
@@ -240,10 +240,10 @@ export function filterEventsByCapability(
  * @returns Presentations that have their capabilities enabled (or no capability requirement)
  */
 export function filterPresentationsByCapability(
-  ctx: CapabilityContext,
-  presentations: PresentationSpec[]
+	ctx: CapabilityContext,
+	presentations: PresentationSpec[]
 ): PresentationSpec[] {
-  return presentations.filter(
-    (pres) => checkCapabilityForPresentation(ctx, pres).allowed
-  );
+	return presentations.filter(
+		(pres) => checkCapabilityForPresentation(ctx, pres).allowed
+	);
 }

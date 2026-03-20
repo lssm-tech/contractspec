@@ -4,46 +4,46 @@ import { importFromOpenApiService } from './openapi/index';
 import type { OpenApiImportServiceResult } from './openapi/types';
 
 export interface ExtractOptions {
-  source: string;
-  outputDir: string;
+	source: string;
+	outputDir: string;
 }
 
 export async function extractContracts(
-  adapters: WorkspaceAdapters,
-  options: ExtractOptions,
-  cwd?: string
+	adapters: WorkspaceAdapters,
+	options: ExtractOptions,
+	cwd?: string
 ): Promise<OpenApiImportServiceResult> {
-  const { fs, logger } = adapters;
-  const { source, outputDir } = options;
+	const { fs, logger } = adapters;
+	const { source, outputDir } = options;
 
-  // Verify source existence
-  // We resolve source relative to CWD if checking locally, or absolute
-  const sourcePath = fs.resolve(cwd ?? process.cwd(), source);
-  if (!(await fs.exists(sourcePath))) {
-    throw new Error(`Source file not found: ${sourcePath}`);
-  }
+	// Verify source existence
+	// We resolve source relative to CWD if checking locally, or absolute
+	const sourcePath = fs.resolve(cwd ?? process.cwd(), source);
+	if (!(await fs.exists(sourcePath))) {
+		throw new Error(`Source file not found: ${sourcePath}`);
+	}
 
-  // Load Base Config
-  const config = await loadWorkspaceConfig(fs, cwd);
+	// Load Base Config
+	const config = await loadWorkspaceConfig(fs, cwd);
 
-  // Override config if needed or pass as options to import service
-  // importFromOpenApiService takes (contractsrcConfig, importOptions, adapters)
-  // We need to merge outputDir override if present.
+	// Override config if needed or pass as options to import service
+	// importFromOpenApiService takes (contractsrcConfig, importOptions, adapters)
+	// We need to merge outputDir override if present.
 
-  const runConfig = {
-    ...config,
-    outputDir: outputDir, // CLI/Option override
-  };
+	const runConfig = {
+		...config,
+		outputDir: outputDir, // CLI/Option override
+	};
 
-  logger.info(`Extracting contracts from ${sourcePath} to ${outputDir}`);
+	logger.info(`Extracting contracts from ${sourcePath} to ${outputDir}`);
 
-  return importFromOpenApiService(
-    runConfig,
-    {
-      source: sourcePath,
-      outputDir: outputDir,
-      dryRun: false,
-    },
-    adapters
-  );
+	return importFromOpenApiService(
+		runConfig,
+		{
+			source: sourcePath,
+			outputDir: outputDir,
+			dryRun: false,
+		},
+		adapters
+	);
 }

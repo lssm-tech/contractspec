@@ -10,8 +10,8 @@ let outputChannel: vscode.OutputChannel | undefined;
  * Create the ContractSpec output channel.
  */
 export function createOutputChannel(): vscode.OutputChannel {
-  outputChannel = vscode.window.createOutputChannel('ContractSpec');
-  return outputChannel;
+	outputChannel = vscode.window.createOutputChannel('ContractSpec');
+	return outputChannel;
 }
 
 /**
@@ -19,8 +19,8 @@ export function createOutputChannel(): vscode.OutputChannel {
  * Must be called after createOutputChannel.
  */
 export function getOutputChannel(): vscode.OutputChannel {
-  if (!outputChannel) {
-    outputChannel = vscode.window.createOutputChannel('ContractSpec');
-  }
-  return outputChannel;
+	if (!outputChannel) {
+		outputChannel = vscode.window.createOutputChannel('ContractSpec');
+	}
+	return outputChannel;
 }

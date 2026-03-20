@@ -1,5 +1,5 @@
 {
-  "id": "analytics-dashboard",
-  "source": "contractspec-studio",
-  "kind": "template"
+	"id": "analytics-dashboard",
+	"source": "contractspec-studio",
+	"kind": "template"
 }

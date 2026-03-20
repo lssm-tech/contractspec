@@ -1,17 +1,17 @@
 'use client';
 
+import type { SerializedFormSpec } from '@contractspec/bundle.library/features';
 import { FeatureFormDetailTemplate } from '@contractspec/bundle.library/presentation/features';
 import type {
-  FeatureModuleSpec,
-  FormRef,
+	FeatureModuleSpec,
+	FormRef,
 } from '@contractspec/lib.contracts-spec/features';
-import type { SerializedFormSpec } from '@contractspec/bundle.library/features';
 
 export interface FeatureFormDetailClientProps {
-  feature: FeatureModuleSpec;
-  formKey: string;
-  form?: FormRef;
-  spec?: SerializedFormSpec;
+	feature: FeatureModuleSpec;
+	formKey: string;
+	form?: FormRef;
+	spec?: SerializedFormSpec;
 }
 
 /**
@@ -19,17 +19,17 @@ export interface FeatureFormDetailClientProps {
  * Handles client-side navigation (back) for the form detail page.
  */
 export function FeatureFormDetailClient({
-  feature,
-  formKey,
-  form,
-  spec,
+	feature,
+	formKey,
+	form,
+	spec,
 }: FeatureFormDetailClientProps) {
-  return (
-    <FeatureFormDetailTemplate
-      feature={feature}
-      formKey={formKey}
-      form={form}
-      spec={spec}
-    />
-  );
+	return (
+		<FeatureFormDetailTemplate
+			feature={feature}
+			formKey={formKey}
+			form={form}
+			spec={spec}
+		/>
+	);
 }

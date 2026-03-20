@@ -1,7 +1,7 @@
 export {
-  assistantSearch,
-  type AssistantSearchInput,
-  type AssistantSearchOutput,
-  type AssistantSearchResult,
-  type AssistantSearchHandler,
+	type AssistantSearchHandler,
+	type AssistantSearchInput,
+	type AssistantSearchOutput,
+	type AssistantSearchResult,
+	assistantSearch,
 } from './assistant.handlers';

@@ -5,9 +5,10 @@
  *   import { getStorage } from './storage/factory.js';
  *   const storage = getStorage();
  */
-import type { PackStorage } from './types.js';
+
 import { LocalStorage } from './local.js';
-import { S3Storage, resolveS3Config } from './s3.js';
+import { resolveS3Config, S3Storage } from './s3.js';
+import type { PackStorage } from './types.js';
 
 export type StorageBackend = 'local' | 's3';
 
@@ -20,36 +21,36 @@ let instance: PackStorage | null = null;
  * Defaults to local filesystem storage.
  */
 export function getStorage(): PackStorage {
-  if (instance) return instance;
+	if (instance) return instance;
 
-  const backend = (process.env.STORAGE_BACKEND ?? 'local') as StorageBackend;
+	const backend = (process.env.STORAGE_BACKEND ?? 'local') as StorageBackend;
 
-  switch (backend) {
-    case 's3': {
-      const config = resolveS3Config();
-      instance = new S3Storage(config);
-      break;
-    }
-    case 'local':
-    default: {
-      instance = new LocalStorage();
-      break;
-    }
-  }
+	switch (backend) {
+		case 's3': {
+			const config = resolveS3Config();
+			instance = new S3Storage(config);
+			break;
+		}
+		case 'local':
+		default: {
+			instance = new LocalStorage();
+			break;
+		}
+	}
 
-  return instance;
+	return instance;
 }
 
 /**
  * Override the storage instance (for testing).
  */
 export function setStorage(storage: PackStorage): void {
-  instance = storage;
+	instance = storage;
 }
 
 /**
  * Reset storage instance (for testing).
  */
 export function resetStorage(): void {
-  instance = null;
+	instance = null;
 }

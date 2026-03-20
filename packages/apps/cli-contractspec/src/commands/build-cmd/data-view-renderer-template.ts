@@ -1,15 +1,15 @@
 export function generateDataViewRendererTemplate({
-  exportName,
-  specImportPath,
-  rendererName,
-  viewKind,
+	exportName,
+	specImportPath,
+	rendererName,
+	viewKind,
 }: {
-  exportName: string;
-  specImportPath: string;
-  rendererName: string;
-  viewKind: string;
+	exportName: string;
+	specImportPath: string;
+	rendererName: string;
+	viewKind: string;
 }) {
-  return `'use client';
+	return `'use client';
 
 import * as React from 'react';
 import { DataViewRenderer } from '@contractspec/lib.design-system';

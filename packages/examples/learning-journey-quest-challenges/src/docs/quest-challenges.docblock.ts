@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const questDocBlocks: DocBlock[] = [
-  {
-    id: 'docs.learning-journey.quest-challenges',
-    title: 'Learning Journey — Quest Challenges',
-    summary:
-      'Time-bound challenge pattern (7-day money reset) with day unlocks and event-driven completion.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/learning-journey/quest-challenges',
-    tags: ['learning', 'quest', 'challenge'],
-    body: `## Track
+	{
+		id: 'docs.learning-journey.quest-challenges',
+		title: 'Learning Journey — Quest Challenges',
+		summary:
+			'Time-bound challenge pattern (7-day money reset) with day unlocks and event-driven completion.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/learning-journey/quest-challenges',
+		tags: ['learning', 'quest', 'challenge'],
+		body: `## Track
 - **Key**: \`money_reset_7day\`
 - **Duration**: 7 days, steps unlock day by day
 
@@ -30,7 +30,7 @@ XP: 15 per day, completion bonus 30 if finished within duration. Optional recap 
 - Exported via \`@contractspec/example.learning-journey-quest-challenges/track\`.
 - Step availability uses \`availability.unlockOnDay\` to gate days.
 - Registry progression handles event matching and XP application.`,
-  },
+	},
 ];
 
 registerDocBlocks(questDocBlocks);

@@ -1,196 +1,184 @@
 {
-  "$schema": "https://json.schemastore.org/package.json",
-  "name": "contractspec",
-  "version": "1.46.2",
-  "description": "The ContractSpec Monorepo. A specification-first framework for building type-safe, AI-native applications.",
-  "type": "module",
-  "workspaces": {
-    "packages": [
-      "packages/tools/*",
-      "packages/libs/*",
-      "packages/integrations/*",
-      "packages/modules/*",
-      "packages/examples/*",
-      "packages/bundles/*",
-      "packages/apps/*",
-      "packages/apps-registry/*"
-    ],
-    "catalog": {
-      "react": "19.2.0",
-      "react-dom": "19.2.0",
-      "next": "16.1.6",
-      "zod": "^4.3.5",
-      "typescript": "^5.9.3"
-    },
-    "catalogs": {
-      "build": {
-        "tsdown": "^0.21.0",
-        "turbo": "^2.7.4",
-        "@changesets/cli": "^2.29.7",
-        "postcss": "^8.5.8",
-        "tailwindcss": "4.2.1",
-        "eslint": "^9.39.2",
-        "rimraf": "^6.1.3",
-        "glob": "^13.0.6"
-      },
-      "testing": {
-        "jest": "^30.2.0",
-        "@types/jest": "^30.0.0",
-        "storybook": "^10.2.16"
-      },
-      "ai": {
-        "ai": "6.0.116",
-        "@ai-sdk/mcp": "1.0.25",
-        "@modelcontextprotocol/sdk": "^1.27.1",
-        "@ai-sdk/anthropic": "3.0.58",
-        "@ai-sdk/google": "3.0.43",
-        "@ai-sdk/mistral": "3.0.24",
-        "@ai-sdk/openai": "3.0.41",
-        "@ai-sdk/react": "3.0.118",
-        "ollama-ai-provider": "^1.2.0"
-      }
-    }
-  },
-  "license": "MIT",
-  "scripts": {
-    "agentpacks:all": "bun packages/tools/agentpacks/src/index.ts generate --targets \"*\" --features \"*\"",
-    "agentpacks:cursor": "bun packages/tools/agentpacks/src/index.ts generate --targets cursor --features \"*\"",
-    "agentpacks:claude": "bun packages/tools/agentpacks/src/index.ts generate --targets claudecode --features \"*\"",
-    "agentpacks:opencode": "bun packages/tools/agentpacks/src/index.ts generate --targets opencode --features \"*\"",
-    "agentpacks:codex": "bun packages/tools/agentpacks/src/index.ts generate --targets codexcli --features \"*\"",
-    "agentpacks:copilot": "bun packages/tools/agentpacks/src/index.ts generate --targets copilot --features \"*\"",
-    "agentpacks:validate": "bun packages/tools/agentpacks/src/index.ts pack validate",
-    "agentpacks:diff": "bun packages/tools/agentpacks/src/index.ts generate --diff",
-    "agentpacks:cursor-plugin": "bun packages/tools/agentpacks/src/index.ts export --format cursor-plugin --output dist/cursor-plugins",
-    "plugin:contractspec:validate": "node scripts/validate-contractspec-plugin.mjs",
-    "examples:sync-registry": "bun scripts/generate-example-registry.ts --write",
-    "examples:validate": "bun packages/apps/cli-contractspec/src/cli.ts examples validate",
-    "repo:health": "bun packages/apps/cli-contractspec/src/cli.ts doctor --checks cli,config,workspace,layers && bun packages/apps/cli-contractspec/src/cli.ts ci --checks structure,integrity,deps --verbose && bun packages/apps/cli-contractspec/src/cli.ts examples validate",
-    "security:advisories": "node scripts/check-security-advisories.js",
-    "release:version:canary": "node scripts/prepare-dependent-bumps.js && bun changeset version --snapshot canary --verbose && bun update",
-    "release:version": "node scripts/prepare-dependent-bumps.js && changeset version --verbose && bun update",
-    "release:publish": "node scripts/publish-packages.js",
-    "release:publish:dry-run": "DRY_RUN=1 node scripts/publish-packages.js --dry-run",
-    "release:publish:canary": "NPM_TAG=canary node scripts/publish-packages.js",
-    "release:publish:canary:dry-run": "bun run release:version:canary && DRY_RUN=1 NPM_TAG=canary node scripts/publish-packages.js --dry-run --tag canary",
-    "release:verify-manifest": "node scripts/verify-release-manifest.js",
-    "knip": "knip",
-    "clean": "turbo run clean",
-    "lint": "turbo run lint",
-    "lint:check": "turbo run lint:check",
-    "lint:fix": "turbo run lint:fix",
-    "docs:generate": "turbo run docs:generate --filter=\"@contractspec/tool.docs-generator\"",
-    "dev": "turbo run dev --filter=\"!@contractspec/app.*\"",
-    "dev:video": "turbo run dev --filter=\"@contractspec/app.video-*\"",
-    "dev:web": "turbo run dev --filter=\"@contractspec/app.web-*\"",
-    "dev:api": "turbo run dev --filter=\"@contractspec/app.api-*\"",
-    "dev:mobile": "turbo run dev --filter=\"@contractspec/app.expo-demo\"",
-    "dev:not-apps": "turbo watch build --filter=\"!@contractspec/app.*\"",
-    "build": "turbo run build",
-    "build:web": "turbo run build --filter=\"@contractspec/app.web-*\"",
-    "build:api": "turbo run build --filter=\"@contractspec/app.api-*\"",
-    "build:worker": "turbo run build --filter=\"@contractspec/app.worker-*\"",
-    "build:server": "turbo run build --filter=\"@contractspec/app.api-*\" --filter=\"@contractspec/app.worker-*\"",
-    "build:types": "bun run typecheck",
-    "typecheck": "turbo run typecheck",
-    "build:not-apps": "turbo run build --filter=\"!@contractspec/app.*\"",
-    "postinstall": "if [ \"$VERCEL\" = \"1\" ] && [ \"$VERCEL_PROJECT_ID\" = \"prj_vk3MvXyU7016PFc8jAer5GlsfUhP\" ]; then bun run --cwd packages/apps/api-library build:bundle; fi",
-    "db:deploy": "turbo run db:deploy",
-    "i18n:check": "bun run scripts/check-i18n-parity.ts"
-  },
-  "devDependencies": {
-    "@changesets/cli": "^2.30.0",
-    "@contractspec/eslint-plugin-design-system": "workspace:*",
-    "@eslint/css": "^0.14.1",
-    "@eslint/js": "^9.39.3",
-    "@eslint/json": "^1.0.1",
-    "@types/bun": "^1.3.10",
-    "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^9.39.3",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-i18next": "^6.1.3",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-prettier": "^5.5.5",
-    "eslint-plugin-react": "^7.37.5",
-    "globals": "^17.4.0",
-    "knip": "^5.86.0",
-    "memoirist": "^0.4.0",
-    "next": "catalog:",
-    "patch-package": "^8.0.1",
-    "postinstall-postinstall": "^2.1.0",
-    "prettier": "3.8.1",
-    "prettier-plugin-prisma": "^5.0.0",
-    "prettier-plugin-tailwindcss": "^0.7.2",
-    "turbo-ignore": "^2.8.14",
-    "typescript-eslint": "^8.56.1"
-  },
-  "dependencies": {
-    "react": "catalog:",
-    "react-dom": "catalog:",
-    "turbo": "^2.8.14"
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  },
-  "release": {
-    "branches": [
-      "main"
-    ]
-  },
-  "author": "Théo Boutron <tboutron@lssm.co>",
-  "packageManager": "bun@1.3.10",
-  "prisma": {
-    "schema": "packages/libs/database/prisma/schema.prisma"
-  },
-  "overrides": {
-    "@eslint/eslintrc>ajv": "6.12.6",
-    "bl": "4.1.0",
-    "diff": "8.0.3",
-    "esbuild": "0.27.3",
-    "nativewind": "5.0.0-preview.2",
-    "expo": "^55",
-    "fast-xml-parser": "5.3.6",
-    "@hono/node-server": "1.19.11",
-    "hono": "4.12.8",
-    "lodash": "4.17.23",
-    "react-native": "0.83.2",
-    "react-native-css": "3.0.4",
-    "semver": "7.7.4",
-    "serialize-javascript": "7.0.4",
-    "tar": "7.5.8",
-    "tmp": "0.2.5",
-    "lightningcss": "1.30.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git"
-  },
-  "homepage": "https://contractspec.io",
-  "bugs": {
-    "url": "https://github.com/lssm-tech/contractspec/issues"
-  },
-  "keywords": [
-    "contractspec",
-    "contracts",
-    "specification",
-    "type-safe",
-    "ai-native",
-    "typescript",
-    "code-generation",
-    "api",
-    "graphql",
-    "rest"
-  ],
-  "files": [
-    "README.md",
-    "LICENSE"
-  ],
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
-    "access": "public",
-    "exports": {}
-  },
-  "exports": {}
+	"$schema": "https://json.schemastore.org/package.json",
+	"name": "contractspec",
+	"version": "1.46.2",
+	"description": "The ContractSpec Monorepo. A specification-first framework for building type-safe, AI-native applications.",
+	"type": "module",
+	"workspaces": {
+		"packages": [
+			"packages/tools/*",
+			"packages/libs/*",
+			"packages/integrations/*",
+			"packages/modules/*",
+			"packages/examples/*",
+			"packages/bundles/*",
+			"packages/apps/*",
+			"packages/apps-registry/*"
+		],
+		"catalog": {
+			"react": "19.2.0",
+			"react-dom": "19.2.0",
+			"next": "16.1.6",
+			"zod": "^4.3.5",
+			"typescript": "^5.9.3"
+		},
+		"catalogs": {
+			"build": {
+				"tsdown": "^0.21.0",
+				"turbo": "^2.7.4",
+				"@changesets/cli": "^2.29.7",
+				"postcss": "^8.5.8",
+				"tailwindcss": "4.2.1",
+				"rimraf": "^6.1.3",
+				"glob": "^13.0.6"
+			},
+			"testing": {
+				"jest": "^30.2.0",
+				"@types/jest": "^30.0.0",
+				"storybook": "^10.2.16"
+			},
+			"ai": {
+				"ai": "6.0.116",
+				"@ai-sdk/mcp": "1.0.25",
+				"@modelcontextprotocol/sdk": "^1.27.1",
+				"@ai-sdk/anthropic": "3.0.58",
+				"@ai-sdk/google": "3.0.43",
+				"@ai-sdk/mistral": "3.0.24",
+				"@ai-sdk/openai": "3.0.41",
+				"@ai-sdk/react": "3.0.118",
+				"ollama-ai-provider": "^1.2.0"
+			}
+		}
+	},
+	"license": "MIT",
+	"scripts": {
+		"agentpacks:all": "bun packages/tools/agentpacks/src/index.ts generate --targets \"*\" --features \"*\"",
+		"agentpacks:cursor": "bun packages/tools/agentpacks/src/index.ts generate --targets cursor --features \"*\"",
+		"agentpacks:claude": "bun packages/tools/agentpacks/src/index.ts generate --targets claudecode --features \"*\"",
+		"agentpacks:opencode": "bun packages/tools/agentpacks/src/index.ts generate --targets opencode --features \"*\"",
+		"agentpacks:codex": "bun packages/tools/agentpacks/src/index.ts generate --targets codexcli --features \"*\"",
+		"agentpacks:copilot": "bun packages/tools/agentpacks/src/index.ts generate --targets copilot --features \"*\"",
+		"agentpacks:validate": "bun packages/tools/agentpacks/src/index.ts pack validate",
+		"agentpacks:diff": "bun packages/tools/agentpacks/src/index.ts generate --diff",
+		"agentpacks:cursor-plugin": "bun packages/tools/agentpacks/src/index.ts export --format cursor-plugin --output dist/cursor-plugins",
+		"plugin:contractspec:validate": "node scripts/validate-contractspec-plugin.mjs",
+		"examples:sync-registry": "bun scripts/generate-example-registry.ts --write",
+		"examples:validate": "bun packages/apps/cli-contractspec/src/cli.ts examples validate",
+		"repo:health": "bun packages/apps/cli-contractspec/src/cli.ts doctor --checks cli,config,workspace,layers && bun packages/apps/cli-contractspec/src/cli.ts ci --checks structure,integrity,deps,policy --verbose && bun packages/apps/cli-contractspec/src/cli.ts examples validate",
+		"security:advisories": "node scripts/check-security-advisories.js",
+		"release:version:canary": "node scripts/prepare-dependent-bumps.js && bun changeset version --snapshot canary --verbose && bun update",
+		"release:version": "node scripts/prepare-dependent-bumps.js && changeset version --verbose && bun update",
+		"release:publish": "node scripts/publish-packages.js",
+		"release:publish:dry-run": "DRY_RUN=1 node scripts/publish-packages.js --dry-run",
+		"release:publish:canary": "NPM_TAG=canary node scripts/publish-packages.js",
+		"release:publish:canary:dry-run": "bun run release:version:canary && DRY_RUN=1 NPM_TAG=canary node scripts/publish-packages.js --dry-run --tag canary",
+		"release:verify-manifest": "node scripts/verify-release-manifest.js",
+		"knip": "knip",
+		"clean": "turbo run clean",
+		"lint": "bun run lint:fix",
+		"lint:check": "biome check .",
+		"lint:fix": "bun run lint:fix:tailwind && biome check --write . && bun run format:prisma",
+		"lint:fix:tailwind": "biome check --write --unsafe --only=nursery/useSortedClasses .",
+		"format:prisma": "bun run --cwd packages/apps/cli-database prisma:format",
+		"docs:generate": "turbo run docs:generate --filter=\"@contractspec/tool.docs-generator\"",
+		"dev": "turbo run dev --filter=\"!@contractspec/app.*\"",
+		"dev:video": "turbo run dev --filter=\"@contractspec/app.video-*\"",
+		"dev:web": "turbo run dev --filter=\"@contractspec/app.web-*\"",
+		"dev:api": "turbo run dev --filter=\"@contractspec/app.api-*\"",
+		"dev:mobile": "turbo run dev --filter=\"@contractspec/app.expo-demo\"",
+		"dev:not-apps": "turbo watch build --filter=\"!@contractspec/app.*\"",
+		"build": "turbo run build",
+		"build:web": "turbo run build --filter=\"@contractspec/app.web-*\"",
+		"build:api": "turbo run build --filter=\"@contractspec/app.api-*\"",
+		"build:worker": "turbo run build --filter=\"@contractspec/app.worker-*\"",
+		"build:server": "turbo run build --filter=\"@contractspec/app.api-*\" --filter=\"@contractspec/app.worker-*\"",
+		"build:types": "bun run typecheck",
+		"typecheck": "turbo run typecheck",
+		"build:not-apps": "turbo run build --filter=\"!@contractspec/app.*\"",
+		"postinstall": "if [ \"$VERCEL\" = \"1\" ] && [ \"$VERCEL_PROJECT_ID\" = \"prj_vk3MvXyU7016PFc8jAer5GlsfUhP\" ]; then bun run --cwd packages/apps/api-library build:bundle; fi",
+		"db:deploy": "turbo run db:deploy",
+		"i18n:check": "bun run scripts/check-i18n-parity.ts"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.3.0",
+		"@changesets/cli": "^2.30.0",
+		"@contractspec/biome-config": "workspace:*",
+		"@types/bun": "^1.3.10",
+		"cz-conventional-changelog": "^3.3.0",
+		"globals": "^17.4.0",
+		"knip": "^5.86.0",
+		"memoirist": "^0.4.0",
+		"next": "catalog:",
+		"patch-package": "^8.0.1",
+		"postinstall-postinstall": "^2.1.0",
+		"turbo-ignore": "^2.8.14"
+	},
+	"dependencies": {
+		"react": "catalog:",
+		"react-dom": "catalog:",
+		"turbo": "^2.8.14"
+	},
+	"config": {
+		"commitizen": {
+			"path": "cz-conventional-changelog"
+		}
+	},
+	"release": {
+		"branches": [
+			"main"
+		]
+	},
+	"author": "Théo Boutron <tboutron@lssm.co>",
+	"packageManager": "bun@1.3.10",
+	"prisma": {
+		"schema": "packages/libs/database/prisma/schema.prisma"
+	},
+	"overrides": {
+		"bl": "4.1.0",
+		"diff": "8.0.3",
+		"esbuild": "0.27.3",
+		"nativewind": "5.0.0-preview.2",
+		"expo": "^55",
+		"fast-xml-parser": "5.3.6",
+		"@hono/node-server": "1.19.11",
+		"hono": "4.12.8",
+		"lodash": "4.17.23",
+		"react-native": "0.83.2",
+		"react-native-css": "3.0.4",
+		"semver": "7.7.4",
+		"serialize-javascript": "7.0.4",
+		"tar": "7.5.8",
+		"tmp": "0.2.5",
+		"lightningcss": "1.30.1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git"
+	},
+	"homepage": "https://contractspec.io",
+	"bugs": {
+		"url": "https://github.com/lssm-tech/contractspec/issues"
+	},
+	"keywords": [
+		"contractspec",
+		"contracts",
+		"specification",
+		"type-safe",
+		"ai-native",
+		"typescript",
+		"code-generation",
+		"api",
+		"graphql",
+		"rest"
+	],
+	"files": [
+		"README.md",
+		"LICENSE"
+	],
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/",
+		"access": "public",
+		"exports": {}
+	},
+	"exports": {}
 }

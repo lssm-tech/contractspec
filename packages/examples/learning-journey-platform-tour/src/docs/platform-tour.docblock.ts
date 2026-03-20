@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const platformTourDocBlocks: DocBlock[] = [
-  {
-    id: 'docs.learning-journey.platform-tour',
-    title: 'Learning Journey — Platform Primitives Tour',
-    summary:
-      'Cross-module tour that touches identity, audit, notifications, jobs, feature flags, files, and metering.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/learning-journey/platform-tour',
-    tags: ['learning', 'platform', 'onboarding'],
-    body: `## Track
+	{
+		id: 'docs.learning-journey.platform-tour',
+		title: 'Learning Journey — Platform Primitives Tour',
+		summary:
+			'Cross-module tour that touches identity, audit, notifications, jobs, feature flags, files, and metering.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/learning-journey/platform-tour',
+		tags: ['learning', 'platform', 'onboarding'],
+		body: `## Track
 - **Key**: \`platform_primitives_tour\`
 - **Persona**: platform developer exploring primitives
 - **Goal**: Touch each cross-cutting module once, event-driven completion
@@ -34,7 +34,7 @@ XP: 20 per step, 20 bonus XP upon completion.
   - \`learning.onboarding.getProgress\`
   - \`learning.onboarding.recordEvent\` wired from each module's event bus handlers.
 - Align event payloads with modules: identity-rbac, audit-trail, notifications, jobs, feature-flags, files, metering.`,
-  },
+	},
 ];
 
 registerDocBlocks(platformTourDocBlocks);

@@ -7,7 +7,7 @@
  * Build prompt for generating handler implementation.
  */
 export function buildHandlerPrompt(specCode: string): string {
-  return `You are a senior TypeScript developer implementing a handler for a contract specification.
+	return `You are a senior TypeScript developer implementing a handler for a contract specification.
 
 Here is the contract spec:
 
@@ -33,7 +33,7 @@ Return only the TypeScript code for the handler function.`;
  * Build prompt for generating React component from presentation spec.
  */
 export function buildComponentPrompt(specCode: string): string {
-  return `You are a senior React developer creating a component for a presentation specification.
+	return `You are a senior React developer creating a component for a presentation specification.
 
 Here is the presentation spec:
 
@@ -59,7 +59,7 @@ Return only the TypeScript/TSX code for the component.`;
  * Build prompt for generating form component.
  */
 export function buildFormPrompt(specCode: string): string {
-  return `You are a senior React developer creating a form component from a form specification.
+	return `You are a senior React developer creating a form component from a form specification.
 
 Here is the form spec:
 
@@ -86,26 +86,26 @@ Return only the TypeScript/TSX code for the form component.`;
  * Build prompt for generating tests.
  */
 export function buildTestPrompt(
-  specCode: string,
-  implementationCode: string,
-  testType: 'handler' | 'component'
+	specCode: string,
+	implementationCode: string,
+	testType: 'handler' | 'component'
 ): string {
-  const testFocus =
-    testType === 'handler'
-      ? `
+	const testFocus =
+		testType === 'handler'
+			? `
   - Test all acceptance scenarios from the spec
   - Test error cases defined in spec.io.errors
   - Verify events are emitted correctly
   - Test input validation
   - Test happy path and edge cases`
-      : `
+			: `
   - Test rendering with various props
   - Test user interactions
   - Test accessibility (a11y)
   - Test responsive behavior
   - Test error states`;
 
-  return `You are a senior developer writing comprehensive tests.
+	return `You are a senior developer writing comprehensive tests.
 
 Spec:
 \`\`\`typescript
@@ -129,7 +129,7 @@ Return only the TypeScript test code.`;
  * System prompt for code generation.
  */
 export function getCodeGenSystemPrompt(): string {
-  return `You are an expert TypeScript developer with deep knowledge of:
+	return `You are an expert TypeScript developer with deep knowledge of:
 - Type-safe API design
 - React and modern hooks
 - Test-driven development

@@ -1,7 +1,7 @@
 export {
-  TaskListQuery,
-  TaskCreateCommand,
-  TaskUpdateStatusCommand,
-  TaskRecord,
+	TaskCreateCommand,
+	TaskListQuery,
+	TaskRecord,
+	TaskUpdateStatusCommand,
 } from './task.contract';
 export { TaskMobileFeature } from './task-mobile.feature';

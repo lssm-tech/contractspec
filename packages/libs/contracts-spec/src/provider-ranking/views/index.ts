@@ -1,2 +1,2 @@
-export * from './providerRankings.dataView';
 export * from './benchmarkResults.dataView';
+export * from './providerRankings.dataView';

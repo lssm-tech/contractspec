@@ -1,119 +1,119 @@
 {
-  "name": "@contractspec/example.product-intent",
-  "version": "3.7.6",
-  "description": "Product intent example: evidence ingestion and prompt-ready outputs.",
-  "keywords": [
-    "contractspec",
-    "product-intent",
-    "pm",
-    "discovery",
-    "example"
-  ],
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./src/index.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/product-intent.docblock": "./src/docs/product-intent.docblock.ts",
-    "./example": "./src/example.ts",
-    "./load-evidence": "./src/load-evidence.ts",
-    "./posthog-signals": "./src/posthog-signals.ts",
-    "./product-intent.feature": "./src/product-intent.feature.ts",
-    "./script": "./src/script.ts",
-    "./sync-actions": "./src/sync-actions.ts"
-  },
-  "scripts": {
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
-    "build:bundle": "contractspec-bun-build transpile",
-    "build:types": "contractspec-bun-build types",
-    "dev": "contractspec-bun-build dev",
-    "clean": "rimraf dist .turbo",
-    "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
-    "test": "bun test",
-    "prebuild": "contractspec-bun-build prebuild",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "@contractspec/lib.contracts-integrations": "workspace:*",
-    "@contractspec/lib.ai-agent": "workspace:*",
-    "@contractspec/lib.product-intent-utils": "workspace:*",
-    "@contractspec/integration.providers-impls": "workspace:*"
-  },
-  "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:",
-    "@contractspec/tool.bun": "workspace:*"
-  },
-  "publishConfig": {
-    "access": "public",
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "bun": "./dist/index.js",
-        "node": "./dist/node/index.js",
-        "default": "./dist/index.js"
-      },
-      "./docs": {
-        "types": "./dist/docs/index.d.ts",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/product-intent.docblock": {
-        "types": "./dist/docs/product-intent.docblock.d.ts",
-        "bun": "./dist/docs/product-intent.docblock.js",
-        "node": "./dist/node/docs/product-intent.docblock.js",
-        "default": "./dist/docs/product-intent.docblock.js"
-      },
-      "./example": {
-        "types": "./dist/example.d.ts",
-        "bun": "./dist/example.js",
-        "node": "./dist/node/example.js",
-        "default": "./dist/example.js"
-      },
-      "./load-evidence": {
-        "types": "./dist/load-evidence.d.ts",
-        "bun": "./dist/load-evidence.js",
-        "node": "./dist/node/load-evidence.js",
-        "default": "./dist/load-evidence.js"
-      },
-      "./posthog-signals": {
-        "types": "./dist/posthog-signals.d.ts",
-        "bun": "./dist/posthog-signals.js",
-        "node": "./dist/node/posthog-signals.js",
-        "default": "./dist/posthog-signals.js"
-      },
-      "./product-intent.feature": {
-        "types": "./dist/product-intent.feature.d.ts",
-        "bun": "./dist/product-intent.feature.js",
-        "node": "./dist/node/product-intent.feature.js",
-        "default": "./dist/product-intent.feature.js"
-      },
-      "./script": {
-        "types": "./dist/script.d.ts",
-        "bun": "./dist/script.js",
-        "node": "./dist/node/script.js",
-        "default": "./dist/script.js"
-      },
-      "./sync-actions": {
-        "types": "./dist/sync-actions.d.ts",
-        "bun": "./dist/sync-actions.js",
-        "node": "./dist/node/sync-actions.js",
-        "default": "./dist/sync-actions.js"
-      }
-    },
-    "registry": "https://registry.npmjs.org/"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/examples/product-intent"
-  },
-  "homepage": "https://contractspec.io"
+	"name": "@contractspec/example.product-intent",
+	"version": "3.7.6",
+	"description": "Product intent example: evidence ingestion and prompt-ready outputs.",
+	"keywords": [
+		"contractspec",
+		"product-intent",
+		"pm",
+		"discovery",
+		"example"
+	],
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./docs": "./src/docs/index.ts",
+		"./docs/product-intent.docblock": "./src/docs/product-intent.docblock.ts",
+		"./example": "./src/example.ts",
+		"./load-evidence": "./src/load-evidence.ts",
+		"./posthog-signals": "./src/posthog-signals.ts",
+		"./product-intent.feature": "./src/product-intent.feature.ts",
+		"./script": "./src/script.ts",
+		"./sync-actions": "./src/sync-actions.ts"
+	},
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"test": "bun test",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.contracts-integrations": "workspace:*",
+		"@contractspec/lib.ai-agent": "workspace:*",
+		"@contractspec/lib.product-intent-utils": "workspace:*",
+		"@contractspec/integration.providers-impls": "workspace:*"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@contractspec/tool.bun": "workspace:*"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./docs": {
+				"types": "./dist/docs/index.d.ts",
+				"bun": "./dist/docs/index.js",
+				"node": "./dist/node/docs/index.js",
+				"default": "./dist/docs/index.js"
+			},
+			"./docs/product-intent.docblock": {
+				"types": "./dist/docs/product-intent.docblock.d.ts",
+				"bun": "./dist/docs/product-intent.docblock.js",
+				"node": "./dist/node/docs/product-intent.docblock.js",
+				"default": "./dist/docs/product-intent.docblock.js"
+			},
+			"./example": {
+				"types": "./dist/example.d.ts",
+				"bun": "./dist/example.js",
+				"node": "./dist/node/example.js",
+				"default": "./dist/example.js"
+			},
+			"./load-evidence": {
+				"types": "./dist/load-evidence.d.ts",
+				"bun": "./dist/load-evidence.js",
+				"node": "./dist/node/load-evidence.js",
+				"default": "./dist/load-evidence.js"
+			},
+			"./posthog-signals": {
+				"types": "./dist/posthog-signals.d.ts",
+				"bun": "./dist/posthog-signals.js",
+				"node": "./dist/node/posthog-signals.js",
+				"default": "./dist/posthog-signals.js"
+			},
+			"./product-intent.feature": {
+				"types": "./dist/product-intent.feature.d.ts",
+				"bun": "./dist/product-intent.feature.js",
+				"node": "./dist/node/product-intent.feature.js",
+				"default": "./dist/product-intent.feature.js"
+			},
+			"./script": {
+				"types": "./dist/script.d.ts",
+				"bun": "./dist/script.js",
+				"node": "./dist/node/script.js",
+				"default": "./dist/script.js"
+			},
+			"./sync-actions": {
+				"types": "./dist/sync-actions.d.ts",
+				"bun": "./dist/sync-actions.js",
+				"node": "./dist/node/sync-actions.js",
+				"default": "./dist/sync-actions.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/examples/product-intent"
+	},
+	"homepage": "https://contractspec.io"
 }

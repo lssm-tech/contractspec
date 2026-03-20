@@ -4,198 +4,199 @@
  * Integrates source extraction into the workspace bundle.
  */
 
-import type { FsAdapter } from '../../ports/fs';
-import type { LoggerAdapter } from '../../ports/logger';
 import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 import {
-  detectFramework,
-  extractFromProject,
-  type ExtractOptions,
-  type ImportIR,
+	detectFramework,
+	type ExtractOptions,
+	extractFromProject,
+	type ImportIR,
 } from '@contractspec/lib.source-extractors';
 import {
-  type ExtractorFsAdapter,
-  registerAllExtractors,
-} from '@contractspec/lib.source-extractors/extractors';
-import {
-  generateOperations,
-  generateRegistry,
-  generateSchemas,
-  type GenerationOptions,
-  type GenerationResult,
+	type GenerationOptions,
+	type GenerationResult,
+	generateOperations,
+	generateRegistry,
+	generateSchemas,
 } from '@contractspec/lib.source-extractors/codegen';
+import {
+	type ExtractorFsAdapter,
+	registerAllExtractors,
+} from '@contractspec/lib.source-extractors/extractors';
 import { dirname, join } from 'path';
+import type { FsAdapter } from '../../ports/fs';
+import type { LoggerAdapter } from '../../ports/logger';
 
 /**
  * Options for the import service.
  */
 export interface ImportServiceOptions {
-  /** Limit extraction to specific paths */
-  scope?: string[];
-  /** Force specific framework */
-  framework?: string;
-  /** Dry run mode - don't write files */
-  dryRun?: boolean;
-  /** Analysis only - extract IR without generating code */
-  analyzeOnly?: boolean;
-  /** Output directory for generated contracts */
-  outputDir?: string;
+	/** Limit extraction to specific paths */
+	scope?: string[];
+	/** Force specific framework */
+	framework?: string;
+	/** Dry run mode - don't write files */
+	dryRun?: boolean;
+	/** Analysis only - extract IR without generating code */
+	analyzeOnly?: boolean;
+	/** Output directory for generated contracts */
+	outputDir?: string;
 }
 
 /**
  * Result of the import service.
  */
 export interface ImportServiceResult {
-  success: boolean;
-  ir?: ImportIR;
-  generation?: GenerationResult;
-  report: string;
-  errors?: string[];
+	success: boolean;
+	ir?: ImportIR;
+	generation?: GenerationResult;
+	report: string;
+	errors?: string[];
 }
 
 /**
  * Adapters needed by the import service.
  */
 export interface ImportServiceAdapters {
-  fs: FsAdapter;
-  logger: LoggerAdapter;
+	fs: FsAdapter;
+	logger: LoggerAdapter;
 }
 
 /**
  * Import contracts from source code.
  */
 export async function importFromSourceService(
-  config: ResolvedContractsrcConfig,
-  options: ImportServiceOptions,
-  adapters: ImportServiceAdapters,
-  cwd?: string
+	config: ResolvedContractsrcConfig,
+	options: ImportServiceOptions,
+	adapters: ImportServiceAdapters,
+	cwd?: string
 ): Promise<ImportServiceResult> {
-  const { fs, logger } = adapters;
-  const rootPath = cwd ?? process.cwd();
+	const { fs, logger } = adapters;
+	const rootPath = cwd ?? process.cwd();
 
-  // Register all extractors
-  registerAllExtractors();
+	// Register all extractors
+	registerAllExtractors();
 
-  logger.info(`Scanning source code in ${rootPath}...`);
+	logger.info(`Scanning source code in ${rootPath}...`);
 
-  // Create adapter bridge
-  const extractorFs: ExtractorFsAdapter = {
-    readFile: (path) => fs.readFile(path),
-    glob: (pattern, opts) => fs.glob({ pattern, cwd: opts?.cwd }),
-    exists: (path) => fs.exists(path),
-  };
+	// Create adapter bridge
+	const extractorFs: ExtractorFsAdapter = {
+		readFile: (path) => fs.readFile(path),
+		glob: (pattern, opts) => fs.glob({ pattern, cwd: opts?.cwd }),
+		exists: (path) => fs.exists(path),
+	};
 
-  // Detect frameworks
-  const project = await detectFramework(rootPath, {
-    readFile: (path) => fs.readFile(path),
-    glob: (pattern) => fs.glob({ pattern }),
-  });
+	// Detect frameworks
+	const project = await detectFramework(rootPath, {
+		readFile: (path) => fs.readFile(path),
+		glob: (pattern) => fs.glob({ pattern }),
+	});
 
-  if (project.frameworks.length === 0) {
-    logger.warn('No supported frameworks detected');
-    return {
-      success: false,
-      report: generateNoFrameworkReport(),
-      errors: ['No supported frameworks detected in project'],
-    };
-  }
+	if (project.frameworks.length === 0) {
+		logger.warn('No supported frameworks detected');
+		return {
+			success: false,
+			report: generateNoFrameworkReport(),
+			errors: ['No supported frameworks detected in project'],
+		};
+	}
 
-  logger.info(
-    `Detected frameworks: ${project.frameworks.map((f) => f.name).join(', ')}`
-  );
+	logger.info(
+		`Detected frameworks: ${project.frameworks.map((f) => f.name).join(', ')}`
+	);
 
-  // Set up extractors with fs adapter
-  const { extractorRegistry } =
-    await import('@contractspec/lib.source-extractors');
-  for (const extractor of extractorRegistry.getAll()) {
-    if ('setFs' in extractor && typeof extractor.setFs === 'function') {
-      extractor.setFs(extractorFs);
-    }
-  }
+	// Set up extractors with fs adapter
+	const { extractorRegistry } = await import(
+		'@contractspec/lib.source-extractors'
+	);
+	for (const extractor of extractorRegistry.getAll()) {
+		if ('setFs' in extractor && typeof extractor.setFs === 'function') {
+			extractor.setFs(extractorFs);
+		}
+	}
 
-  // Extract contracts
-  const extractOptions: ExtractOptions = {
-    scope: options.scope,
-    framework: options.framework,
-  };
+	// Extract contracts
+	const extractOptions: ExtractOptions = {
+		scope: options.scope,
+		framework: options.framework,
+	};
 
-  const extractResult = await extractFromProject(project, extractOptions);
+	const extractResult = await extractFromProject(project, extractOptions);
 
-  if (!extractResult.success || !extractResult.ir) {
-    return {
-      success: false,
-      report: generateErrorReport(extractResult.errors ?? []),
-      errors: extractResult.errors?.map((e) => e.message),
-    };
-  }
+	if (!extractResult.success || !extractResult.ir) {
+		return {
+			success: false,
+			report: generateErrorReport(extractResult.errors ?? []),
+			errors: extractResult.errors?.map((e) => e.message),
+		};
+	}
 
-  const ir = extractResult.ir;
+	const ir = extractResult.ir;
 
-  logger.info(
-    `Extracted ${ir.endpoints.length} endpoints, ${ir.schemas.length} schemas`
-  );
+	logger.info(
+		`Extracted ${ir.endpoints.length} endpoints, ${ir.schemas.length} schemas`
+	);
 
-  // If analyze-only mode, just return the IR
-  if (options.analyzeOnly) {
-    return {
-      success: true,
-      ir,
-      report: generateAnalysisReport(ir),
-    };
-  }
+	// If analyze-only mode, just return the IR
+	if (options.analyzeOnly) {
+		return {
+			success: true,
+			ir,
+			report: generateAnalysisReport(ir),
+		};
+	}
 
-  // Generate code
-  const outputDir = options.outputDir ?? join(config.outputDir, 'generated');
-  const generationOptions: GenerationOptions = {
-    outputDir,
-    defaultAuth: 'user',
-  };
+	// Generate code
+	const outputDir = options.outputDir ?? join(config.outputDir, 'generated');
+	const generationOptions: GenerationOptions = {
+		outputDir,
+		defaultAuth: 'user',
+	};
 
-  const operationFiles = generateOperations(ir, generationOptions);
-  const schemaFiles = generateSchemas(ir, generationOptions);
-  const registryFile = generateRegistry(operationFiles);
+	const operationFiles = generateOperations(ir, generationOptions);
+	const schemaFiles = generateSchemas(ir, generationOptions);
+	const registryFile = generateRegistry(operationFiles);
 
-  const allFiles = [...operationFiles, ...schemaFiles, registryFile];
+	const allFiles = [...operationFiles, ...schemaFiles, registryFile];
 
-  // Write files if not dry-run
-  if (!options.dryRun) {
-    for (const file of allFiles) {
-      const fullPath = join(outputDir, file.path);
-      const dir = dirname(fullPath);
+	// Write files if not dry-run
+	if (!options.dryRun) {
+		for (const file of allFiles) {
+			const fullPath = join(outputDir, file.path);
+			const dir = dirname(fullPath);
 
-      if (!(await fs.exists(dir))) {
-        await fs.mkdir(dir);
-      }
+			if (!(await fs.exists(dir))) {
+				await fs.mkdir(dir);
+			}
 
-      await fs.writeFile(fullPath, file.content);
-      logger.info(`Created: ${fullPath}`);
-    }
-  } else {
-    for (const file of allFiles) {
-      logger.info(`[DRY RUN] Would create: ${join(outputDir, file.path)}`);
-    }
-  }
+			await fs.writeFile(fullPath, file.content);
+			logger.info(`Created: ${fullPath}`);
+		}
+	} else {
+		for (const file of allFiles) {
+			logger.info(`[DRY RUN] Would create: ${join(outputDir, file.path)}`);
+		}
+	}
 
-  const generationResult: GenerationResult = {
-    files: allFiles,
-    operationsGenerated: operationFiles.length,
-    schemasGenerated: schemaFiles.length,
-    warnings: [],
-  };
+	const generationResult: GenerationResult = {
+		files: allFiles,
+		operationsGenerated: operationFiles.length,
+		schemasGenerated: schemaFiles.length,
+		warnings: [],
+	};
 
-  return {
-    success: true,
-    ir,
-    generation: generationResult,
-    report: generateSuccessReport(ir, generationResult, options),
-  };
+	return {
+		success: true,
+		ir,
+		generation: generationResult,
+		report: generateSuccessReport(ir, generationResult, options),
+	};
 }
 
 /**
  * Generate report when no frameworks are detected.
  */
 function generateNoFrameworkReport(): string {
-  return `# Import Report
+	return `# Import Report
 
 ## ❌ No Supported Frameworks Detected
 
@@ -219,7 +220,7 @@ Please ensure your project uses one of these frameworks and has the appropriate 
  * Generate error report.
  */
 function generateErrorReport(errors: { message: string }[]): string {
-  return `# Import Report
+	return `# Import Report
 
 ## ❌ Extraction Failed
 
@@ -231,7 +232,7 @@ ${errors.map((e) => `- ${e.message}`).join('\n')}
  * Generate analysis-only report.
  */
 function generateAnalysisReport(ir: ImportIR): string {
-  return `# Import Analysis Report
+	return `# Import Analysis Report
 
 ## Summary
 
@@ -267,12 +268,12 @@ ${ir.ambiguities.length > 0 ? ir.ambiguities.map((a) => `- ${a.description}`).jo
  * Generate success report.
  */
 function generateSuccessReport(
-  ir: ImportIR,
-  gen: GenerationResult,
-  options: ImportServiceOptions
+	ir: ImportIR,
+	gen: GenerationResult,
+	options: ImportServiceOptions
 ): string {
-  const mode = options.dryRun ? ' (Dry Run)' : '';
-  return `# Import Report${mode}
+	const mode = options.dryRun ? ' (Dry Run)' : '';
+	return `# Import Report${mode}
 
 ## ✅ Import Successful
 

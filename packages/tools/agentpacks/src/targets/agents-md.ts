@@ -1,12 +1,12 @@
 import { resolve } from 'path';
 import type { FeatureId } from '../core/config.js';
-import {
-  BaseTarget,
-  type GenerateOptions,
-  type GenerateResult,
-} from './base-target.js';
 import { getRootRules } from '../features/rules.js';
 import { writeGeneratedFile } from '../utils/filesystem.js';
+import {
+	BaseTarget,
+	type GenerateOptions,
+	type GenerateResult,
+} from './base-target.js';
 
 /**
  * AGENTS.md target generator.
@@ -14,31 +14,31 @@ import { writeGeneratedFile } from '../utils/filesystem.js';
  * This is auto-included and consumed by OpenCode, Codex, and any AGENTS.md-aware tool.
  */
 export class AgentsMdTarget extends BaseTarget {
-  readonly id = 'agentsmd';
-  readonly name = 'AGENTS.md';
+	readonly id = 'agentsmd';
+	readonly name = 'AGENTS.md';
 
-  readonly supportedFeatures: FeatureId[] = ['rules'];
+	readonly supportedFeatures: FeatureId[] = ['rules'];
 
-  generate(options: GenerateOptions): GenerateResult {
-    const { projectRoot, baseDir, features } = options;
-    const root = resolve(projectRoot, baseDir);
-    const filesWritten: string[] = [];
-    const warnings: string[] = [];
+	generate(options: GenerateOptions): GenerateResult {
+		const { projectRoot, baseDir, features } = options;
+		const root = resolve(projectRoot, baseDir);
+		const filesWritten: string[] = [];
+		const warnings: string[] = [];
 
-    const rootRules = getRootRules(features.rules);
+		const rootRules = getRootRules(features.rules);
 
-    if (rootRules.length === 0) {
-      warnings.push('No root rules found. AGENTS.md will not be generated.');
-      return this.createResult(filesWritten, [], warnings);
-    }
+		if (rootRules.length === 0) {
+			warnings.push('No root rules found. AGENTS.md will not be generated.');
+			return this.createResult(filesWritten, [], warnings);
+		}
 
-    const sections = rootRules.map((r) => r.content);
-    const content = sections.join('\n\n');
+		const sections = rootRules.map((r) => r.content);
+		const content = sections.join('\n\n');
 
-    const filepath = resolve(root, 'AGENTS.md');
-    writeGeneratedFile(filepath, content);
-    filesWritten.push(filepath);
+		const filepath = resolve(root, 'AGENTS.md');
+		writeGeneratedFile(filepath, content);
+		filesWritten.push(filepath);
 
-    return this.createResult(filesWritten, [], warnings);
-  }
+		return this.createResult(filesWritten, [], warnings);
+	}
 }

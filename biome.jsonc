@@ -1,0 +1,87 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.4.8/schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"files": {
+		"includes": [
+			"**",
+			"!**/node_modules",
+			"!**/dist",
+			"!**/build",
+			"!**/.next",
+			"!**/.turbo",
+			"!**/coverage"
+		]
+	},
+	"formatter": {
+		"enabled": true,
+		"includes": ["**", "!**/*.prisma"]
+	},
+	"javascript": {
+		"parser": {
+			"unsafeParameterDecoratorsEnabled": true
+		},
+		"formatter": {
+			"quoteStyle": "single",
+			"semicolons": "always",
+			"trailingCommas": "es5",
+			"indentWidth": 2
+		}
+	},
+	"json": {
+		"formatter": {
+			"trailingCommas": "none",
+			"indentWidth": 2
+		}
+	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
+		}
+	},
+	"assist": {
+		"enabled": true,
+		"actions": {
+			"source": {
+				"organizeImports": "on",
+				"noDuplicateClasses": {
+					"level": "on",
+					"options": {
+						"functions": ["cn", "clsx", "cva", "twMerge", "tv"]
+					}
+				}
+			}
+		}
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": false,
+			"a11y": {
+				"noAutofocus": "warn",
+				"noStaticElementInteractions": "warn",
+				"useAltText": "error"
+			},
+			"correctness": {
+				"noUnusedImports": "error",
+				"noUnusedVariables": {
+					"level": "error",
+					"options": {
+						"ignoreRestSiblings": true
+					}
+				}
+			},
+			"nursery": {
+				"useSortedClasses": {
+					"level": "error",
+					"options": {
+						"functions": ["cn", "clsx", "cva", "twMerge", "tv"]
+					}
+				}
+			}
+		}
+	}
+}

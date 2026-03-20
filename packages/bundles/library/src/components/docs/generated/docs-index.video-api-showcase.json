@@ -1,34 +1,34 @@
 [
-  {
-    "id": "video-api-showcase/createUser",
-    "title": "createUser",
-    "summary": "- **Type**: operation (command)\n- **Version**: 1.0.0\n- **File**: `packages/examples/video-api-showcase/src/sample-specs.ts`\n```typescript\nexport const createUser = defineCommand({\nmeta: {\nname: \"CreateUser\",",
-    "route": "/docs/reference/video-api-showcase/createUser",
-    "source": "generated",
-    "contentPath": "video-api-showcase/createUser.md"
-  },
-  {
-    "id": "video-api-showcase/listTransactions",
-    "title": "listTransactions",
-    "summary": "- **Type**: operation (query)\n- **Version**: 1.0.0\n- **File**: `packages/examples/video-api-showcase/src/sample-specs.ts`\n```typescript\nexport const listTransactions = defineQuery({\nmeta: {\nname: \"ListTransactions\",",
-    "route": "/docs/reference/video-api-showcase/listTransactions",
-    "source": "generated",
-    "contentPath": "video-api-showcase/listTransactions.md"
-  },
-  {
-    "id": "video-api-showcase/sendNotification",
-    "title": "sendNotification",
-    "summary": "- **Type**: operation (command)\n- **Version**: 1.0.0\n- **File**: `packages/examples/video-api-showcase/src/sample-specs.ts`\n```typescript\nexport const sendNotification = defineCommand({\nmeta: {\nname: \"SendNotification\",",
-    "route": "/docs/reference/video-api-showcase/sendNotification",
-    "source": "generated",
-    "contentPath": "video-api-showcase/sendNotification.md"
-  },
-  {
-    "id": "video-api-showcase/video-api-showcase",
-    "title": "video-api-showcase",
-    "summary": "Generate API documentation videos from contract spec metadata\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: video, api, documentation, showcase\n- **File**: `packages/examples/video-api-showcase/src/video-api-showcase.feature.ts`",
-    "route": "/docs/reference/video-api-showcase/video-api-showcase",
-    "source": "generated",
-    "contentPath": "video-api-showcase/video-api-showcase.md"
-  }
+	{
+		"id": "video-api-showcase/createUser",
+		"title": "createUser",
+		"summary": "- **Type**: operation (command)\n- **Version**: 1.0.0\n- **File**: `packages/examples/video-api-showcase/src/sample-specs.ts`\n```typescript\nexport const createUser = defineCommand({\nmeta: {\nname: \"CreateUser\",",
+		"route": "/docs/reference/video-api-showcase/createUser",
+		"source": "generated",
+		"contentPath": "video-api-showcase/createUser.md"
+	},
+	{
+		"id": "video-api-showcase/listTransactions",
+		"title": "listTransactions",
+		"summary": "- **Type**: operation (query)\n- **Version**: 1.0.0\n- **File**: `packages/examples/video-api-showcase/src/sample-specs.ts`\n```typescript\nexport const listTransactions = defineQuery({\nmeta: {\nname: \"ListTransactions\",",
+		"route": "/docs/reference/video-api-showcase/listTransactions",
+		"source": "generated",
+		"contentPath": "video-api-showcase/listTransactions.md"
+	},
+	{
+		"id": "video-api-showcase/sendNotification",
+		"title": "sendNotification",
+		"summary": "- **Type**: operation (command)\n- **Version**: 1.0.0\n- **File**: `packages/examples/video-api-showcase/src/sample-specs.ts`\n```typescript\nexport const sendNotification = defineCommand({\nmeta: {\nname: \"SendNotification\",",
+		"route": "/docs/reference/video-api-showcase/sendNotification",
+		"source": "generated",
+		"contentPath": "video-api-showcase/sendNotification.md"
+	},
+	{
+		"id": "video-api-showcase/video-api-showcase",
+		"title": "video-api-showcase",
+		"summary": "Generate API documentation videos from contract spec metadata\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: video, api, documentation, showcase\n- **File**: `packages/examples/video-api-showcase/src/video-api-showcase.feature.ts`",
+		"route": "/docs/reference/video-api-showcase/video-api-showcase",
+		"source": "generated",
+		"contentPath": "video-api-showcase/video-api-showcase.md"
+	}
 ]

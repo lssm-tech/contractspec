@@ -3,32 +3,32 @@ import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
 export function LibrariesPersonalizationPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold">
-          @contractspec/lib.personalization
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          Track field/feature/workflow usage, analyze drop-offs, and convert
-          insights into OverlaySpecs or workflow tweaks.
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-4">
+				<h1 className="font-bold text-4xl">
+					@contractspec/lib.personalization
+				</h1>
+				<p className="text-lg text-muted-foreground">
+					Track field/feature/workflow usage, analyze drop-offs, and convert
+					insights into OverlaySpecs or workflow tweaks.
+				</p>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Installation</h2>
-        <InstallCommand package="@contractspec/lib.personalization" />
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Installation</h2>
+				<InstallCommand package="@contractspec/lib.personalization" />
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Tracker</h2>
-        <p className="text-muted-foreground">
-          Buffer events per tenant/user and emit OpenTelemetry counters
-          automatically.
-        </p>
-        <CodeBlock
-          language="typescript"
-          code={`import { createBehaviorTracker } from '@contractspec/lib.personalization';
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Tracker</h2>
+				<p className="text-muted-foreground">
+					Buffer events per tenant/user and emit OpenTelemetry counters
+					automatically.
+				</p>
+				<CodeBlock
+					language="typescript"
+					code={`import { createBehaviorTracker } from '@contractspec/lib.personalization';
 
 const tracker = createBehaviorTracker({
   store,
@@ -37,50 +37,50 @@ const tracker = createBehaviorTracker({
 
 tracker.trackFieldAccess({ operation: 'billing.createOrder', field: 'items' });
 tracker.trackWorkflowStep({ workflow: 'invoice', step: 'review', status: 'entered' });`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Analyzer</h2>
-        <p className="text-muted-foreground">
-          Summarize events and highlight unused UI, frequent fields, and
-          workflow bottlenecks.
-        </p>
-        <CodeBlock
-          language="typescript"
-          code={`import { BehaviorAnalyzer } from '@contractspec/lib.personalization/analyzer';
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Analyzer</h2>
+				<p className="text-muted-foreground">
+					Summarize events and highlight unused UI, frequent fields, and
+					workflow bottlenecks.
+				</p>
+				<CodeBlock
+					language="typescript"
+					code={`import { BehaviorAnalyzer } from '@contractspec/lib.personalization/analyzer';
 
 const analyzer = new BehaviorAnalyzer(store);
 const insights = await analyzer.analyze({ tenantId: 'acme', userId: 'ops-42' });
 // { unusedFields: ['internalNotes'], workflowBottlenecks: [...] }`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Adapter</h2>
-        <p className="text-muted-foreground">
-          Convert insights into overlays or workflow extension hints.
-        </p>
-        <CodeBlock
-          language="typescript"
-          code={`import { insightsToOverlaySuggestion } from '@contractspec/lib.personalization/adapter';
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Adapter</h2>
+				<p className="text-muted-foreground">
+					Convert insights into overlays or workflow extension hints.
+				</p>
+				<CodeBlock
+					language="typescript"
+					code={`import { insightsToOverlaySuggestion } from '@contractspec/lib.personalization/adapter';
 
 const overlay = insightsToOverlaySuggestion(insights, {
   overlayId: 'acme-order-form',
   tenantId: 'acme',
   capability: 'billing.createOrder',
 });`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="flex items-center gap-4 pt-4">
-        <Link href="/docs/libraries" className="btn-ghost">
-          Back to Libraries
-        </Link>
-        <Link href="/docs/libraries/overlay-engine" className="btn-primary">
-          Next: Overlay Engine <ChevronRight size={16} />
-        </Link>
-      </div>
-    </div>
-  );
+			<div className="flex items-center gap-4 pt-4">
+				<Link href="/docs/libraries" className="btn-ghost">
+					Back to Libraries
+				</Link>
+				<Link href="/docs/libraries/overlay-engine" className="btn-primary">
+					Next: Overlay Engine <ChevronRight size={16} />
+				</Link>
+			</div>
+		</div>
+	);
 }

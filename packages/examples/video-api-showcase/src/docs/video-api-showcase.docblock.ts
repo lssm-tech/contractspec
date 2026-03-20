@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const blocks: DocBlock[] = [
-  {
-    id: 'docs.examples.video-api-showcase',
-    title: 'Video API Showcase (example)',
-    summary:
-      'Spec-driven example: build API overview videos directly from contract spec metadata using manual VideoProject construction.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/examples/video-api-showcase',
-    tags: ['video', 'api', 'spec-driven', 'example'],
-    body: `## What this example shows
+	{
+		id: 'docs.examples.video-api-showcase',
+		title: 'Video API Showcase (example)',
+		summary:
+			'Spec-driven example: build API overview videos directly from contract spec metadata using manual VideoProject construction.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/examples/video-api-showcase',
+		tags: ['video', 'api', 'spec-driven', 'example'],
+		body: `## What this example shows
 
 - Manually constructing a \`VideoProject\` from contract spec metadata (name, method, endpoint, code, outputs).
 - Using the \`ApiOverview\` composition to visualize how a spec generates multiple API surfaces.
@@ -29,17 +29,17 @@ const blocks: DocBlock[] = [
 - This approach is ideal when the video structure is known ahead of time (e.g., always an API overview).
 - For dynamic scene planning from content briefs, use \`VideoGenerator\` instead (see the video-marketing-clip example).
 `,
-  },
-  {
-    id: 'docs.examples.video-api-showcase.usage',
-    title: 'Video API Showcase -- Usage',
-    summary:
-      'How to generate API overview videos from contract spec definitions.',
-    kind: 'usage',
-    visibility: 'public',
-    route: '/docs/examples/video-api-showcase/usage',
-    tags: ['video', 'api', 'usage'],
-    body: `## Usage
+	},
+	{
+		id: 'docs.examples.video-api-showcase.usage',
+		title: 'Video API Showcase -- Usage',
+		summary:
+			'How to generate API overview videos from contract spec definitions.',
+		kind: 'usage',
+		visibility: 'public',
+		route: '/docs/examples/video-api-showcase/usage',
+		tags: ['video', 'api', 'usage'],
+		body: `## Usage
 
 \`\`\`ts
 import { buildApiVideo } from "@contractspec/example.video-api-showcase/build-api-video";
@@ -64,7 +64,7 @@ const custom = buildApiVideo(listTransactionsSpec, {
 - Generated outputs list should contain 3-8 items for optimal visual layout.
 - Tagline should be short (under 40 characters) to fit within the composition frame.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(blocks);

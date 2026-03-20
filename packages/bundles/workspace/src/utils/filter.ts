@@ -2,8 +2,8 @@
  * File filtering utilities.
  */
 
-import micromatch from 'micromatch';
 import type { ContractsrcConfig } from '@contractspec/lib.contracts-spec/workspace-config';
+import micromatch from 'micromatch';
 
 /**
  * Check if a file path matches test file patterns.
@@ -14,16 +14,16 @@ import type { ContractsrcConfig } from '@contractspec/lib.contracts-spec/workspa
  * @param config Optional workspace configuration
  */
 export function isTestFile(
-  filePath: string,
-  config?: ContractsrcConfig
+	filePath: string,
+	config?: ContractsrcConfig
 ): boolean {
-  // Get patterns from config or use defaults
-  // The default from schema is ['**/*.{test,spec}.{ts,js}']
-  const patterns = config?.testing?.testMatch ?? ['**/*.{test,spec}.{ts,js}'];
+	// Get patterns from config or use defaults
+	// The default from schema is ['**/*.{test,spec}.{ts,js}']
+	const patterns = config?.testing?.testMatch ?? ['**/*.{test,spec}.{ts,js}'];
 
-  // Ensure we matched against the basename or relative path correctly
-  // micromatch usually takes the whole path if patterns contain **
-  return micromatch.isMatch(filePath, patterns);
+	// Ensure we matched against the basename or relative path correctly
+	// micromatch usually takes the whole path if patterns contain **
+	return micromatch.isMatch(filePath, patterns);
 }
 
 /**
@@ -35,44 +35,44 @@ export function isTestFile(
  * @param filePath Path to check
  */
 export function isLibraryDefinitionFile(filePath: string): boolean {
-  const allowedPatterns = [
-    '**/libs/contracts/src/app-config/app-config.capability.ts',
-    '**/libs/contracts/src/app-config/app-config.contracts.ts',
-    '**/libs/contracts/src/app-config/app-config.feature.ts',
-    '**/libs/contracts/src/app-config/lifecycle-contracts.ts',
-    '**/libs/contracts/src/app-config/events.ts',
-    '**/libs/contracts-spec/src/app-config/app-config.capability.ts',
-    '**/libs/contracts-spec/src/app-config/app-config.contracts.ts',
-    '**/libs/contracts-spec/src/app-config/app-config.feature.ts',
-    '**/libs/contracts-spec/src/app-config/lifecycle-contracts.ts',
-    '**/libs/contracts-spec/src/app-config/events.ts',
-  ];
-  if (micromatch.isMatch(filePath, allowedPatterns)) {
-    return false;
-  }
+	const allowedPatterns = [
+		'**/libs/contracts/src/app-config/app-config.capability.ts',
+		'**/libs/contracts/src/app-config/app-config.contracts.ts',
+		'**/libs/contracts/src/app-config/app-config.feature.ts',
+		'**/libs/contracts/src/app-config/lifecycle-contracts.ts',
+		'**/libs/contracts/src/app-config/events.ts',
+		'**/libs/contracts-spec/src/app-config/app-config.capability.ts',
+		'**/libs/contracts-spec/src/app-config/app-config.contracts.ts',
+		'**/libs/contracts-spec/src/app-config/app-config.feature.ts',
+		'**/libs/contracts-spec/src/app-config/lifecycle-contracts.ts',
+		'**/libs/contracts-spec/src/app-config/events.ts',
+	];
+	if (micromatch.isMatch(filePath, allowedPatterns)) {
+		return false;
+	}
 
-  // Exclude core library files that define spec types/functions
-  const libraryPatterns = [
-    // Top-level files in libs/contracts/src are mostly library logic
-    '**/libs/contracts/src/*.ts',
-    // Top-level files in libs/contracts-spec/src are mostly library logic
-    '**/libs/contracts-spec/src/*.ts',
-    // These specific subfolders in libs/contracts/src contain library logic, not specs
-    '**/libs/contracts/src/operations/*.ts',
-    '**/libs/contracts/src/presentations/*.ts',
-    '**/libs/contracts/src/contract-registry/*.ts',
-    '**/libs/contracts/src/model-registry/*.ts',
-    '**/libs/contracts/src/registry-utils/*.ts',
-    // These specific subfolders in libs/contracts-spec/src contain library logic, not specs
-    '**/libs/contracts-spec/src/operations/*.ts',
-    '**/libs/contracts-spec/src/presentations/*.ts',
-    '**/libs/contracts-spec/src/contract-registry/*.ts',
-    '**/libs/contracts-spec/src/model-registry/*.ts',
-    '**/libs/contracts-spec/src/registry-utils/*.ts',
-    // These packages are pure library code
-    '**/libs/contracts-transformers/src/**',
-    '**/libs/schema/src/**',
-  ];
+	// Exclude core library files that define spec types/functions
+	const libraryPatterns = [
+		// Top-level files in libs/contracts/src are mostly library logic
+		'**/libs/contracts/src/*.ts',
+		// Top-level files in libs/contracts-spec/src are mostly library logic
+		'**/libs/contracts-spec/src/*.ts',
+		// These specific subfolders in libs/contracts/src contain library logic, not specs
+		'**/libs/contracts/src/operations/*.ts',
+		'**/libs/contracts/src/presentations/*.ts',
+		'**/libs/contracts/src/contract-registry/*.ts',
+		'**/libs/contracts/src/model-registry/*.ts',
+		'**/libs/contracts/src/registry-utils/*.ts',
+		// These specific subfolders in libs/contracts-spec/src contain library logic, not specs
+		'**/libs/contracts-spec/src/operations/*.ts',
+		'**/libs/contracts-spec/src/presentations/*.ts',
+		'**/libs/contracts-spec/src/contract-registry/*.ts',
+		'**/libs/contracts-spec/src/model-registry/*.ts',
+		'**/libs/contracts-spec/src/registry-utils/*.ts',
+		// These packages are pure library code
+		'**/libs/contracts-transformers/src/**',
+		'**/libs/schema/src/**',
+	];
 
-  return micromatch.isMatch(filePath, libraryPatterns);
+	return micromatch.isMatch(filePath, libraryPatterns);
 }

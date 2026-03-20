@@ -1,9 +1,9 @@
 import {
-  createDefaultTransformEngine,
-  registerBasicValidation,
-  registerDefaultReactRenderer,
-  registerReactToMarkdownRenderer,
-  type TransformEngine,
+	createDefaultTransformEngine,
+	registerBasicValidation,
+	registerDefaultReactRenderer,
+	registerReactToMarkdownRenderer,
+	type TransformEngine,
 } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
 import { componentMap } from './registry';
 import type { ComponentMap } from './types';
@@ -13,22 +13,22 @@ import type { ComponentMap } from './types';
  * Includes React and Markdown renderers with component map registration.
  */
 export function createPresentationEngine(
-  customComponentMap?: ComponentMap
+	customComponentMap?: ComponentMap
 ): TransformEngine {
-  const engine = createDefaultTransformEngine();
+	const engine = createDefaultTransformEngine();
 
-  // Register React renderer
-  registerDefaultReactRenderer(engine);
+	// Register React renderer
+	registerDefaultReactRenderer(engine);
 
-  // Register basic validation
-  registerBasicValidation(engine);
+	// Register basic validation
+	registerBasicValidation(engine);
 
-  // Register React-to-markdown renderer with component map
-  // This enables rendering React components to markdown for LLM consumption
-  const mapToUse = customComponentMap ?? componentMap;
-  registerReactToMarkdownRenderer(engine, mapToUse);
+	// Register React-to-markdown renderer with component map
+	// This enables rendering React components to markdown for LLM consumption
+	const mapToUse = customComponentMap ?? componentMap;
+	registerReactToMarkdownRenderer(engine, mapToUse);
 
-  return engine;
+	return engine;
 }
 
 /**

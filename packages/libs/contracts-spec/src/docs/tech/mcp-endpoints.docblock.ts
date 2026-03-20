@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '../registry';
 
 export const tech_mcp_endpoints_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.mcp.endpoints',
-    title: 'ContractSpec MCP endpoints',
-    summary:
-      'Dedicated MCP servers for docs, CLI usage, and internal development.',
-    kind: 'reference',
-    visibility: 'mixed',
-    route: '/docs/tech/mcp/endpoints',
-    tags: ['mcp', 'docs', 'cli', 'internal'],
-    body: `# ContractSpec MCP endpoints
+	{
+		id: 'docs.tech.mcp.endpoints',
+		title: 'ContractSpec MCP endpoints',
+		summary:
+			'Dedicated MCP servers for docs, CLI usage, and internal development.',
+		kind: 'reference',
+		visibility: 'mixed',
+		route: '/docs/tech/mcp/endpoints',
+		tags: ['mcp', 'docs', 'cli', 'internal'],
+		body: `# ContractSpec MCP endpoints
 
 Three dedicated MCP servers keep AI agents efficient and scoped:
 
@@ -33,7 +33,7 @@ Three dedicated MCP servers keep AI agents efficient and scoped:
 - Static UI assets are served at \`/assets\` from repo \`/assets\` or build output \`dist/assets\`.
 - Use the \`ALPIC_HOST\` environment variable to build absolute asset URLs.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(tech_mcp_endpoints_DocBlocks);

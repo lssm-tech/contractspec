@@ -1,46 +1,46 @@
 import type { IntegrationSpecData } from '../types/spec-types';
-import { toPascalCase } from './utils';
 import {
-  escape,
-  renderByokSetup,
-  renderConfigExample,
-  renderConfigSchema,
-  renderConstraints,
-  renderProvides,
-  renderRequires,
-  renderSecretExample,
-  renderSecretSchema,
-  stabilityToEnum,
+	escape,
+	renderByokSetup,
+	renderConfigExample,
+	renderConfigSchema,
+	renderConstraints,
+	renderProvides,
+	renderRequires,
+	renderSecretExample,
+	renderSecretSchema,
+	stabilityToEnum,
 } from './integration-utils';
+import { toPascalCase } from './utils';
 
 export function generateIntegrationSpec(data: IntegrationSpecData): string {
-  const specName = toPascalCase(data.name.split('.').pop() ?? 'Integration');
-  const varName = `${specName}IntegrationSpec`;
-  const registerFn = `register${specName}Integration`;
+	const specName = toPascalCase(data.name.split('.').pop() ?? 'Integration');
+	const varName = `${specName}IntegrationSpec`;
+	const registerFn = `register${specName}Integration`;
 
-  const supportedModes = data.supportedModes.length
-    ? data.supportedModes
-    : ['managed'];
-  const supportedModesLine = supportedModes
-    .map((mode) => `'${mode}'`)
-    .join(', ');
+	const supportedModes = data.supportedModes.length
+		? data.supportedModes
+		: ['managed'];
+	const supportedModesLine = supportedModes
+		.map((mode) => `'${mode}'`)
+		.join(', ');
 
-  const provides = renderProvides(data);
-  const requires = renderRequires(data);
+	const provides = renderProvides(data);
+	const requires = renderRequires(data);
 
-  const configSchema = renderConfigSchema(data.configFields);
-  const configExample = renderConfigExample(data.configFields);
-  const secretSchema = renderSecretSchema(data.secretFields);
-  const secretExample = renderSecretExample(data.secretFields);
-  const docsUrl = data.docsUrl ? `  docsUrl: '${escape(data.docsUrl)}',\n` : '';
-  const constraints = renderConstraints(data.rateLimitRpm, data.rateLimitRph);
-  const byokSetup = renderByokSetup(
-    supportedModes,
-    data.byokSetupInstructions,
-    data.byokRequiredScopes
-  );
+	const configSchema = renderConfigSchema(data.configFields);
+	const configExample = renderConfigExample(data.configFields);
+	const secretSchema = renderSecretSchema(data.secretFields);
+	const secretExample = renderSecretExample(data.secretFields);
+	const docsUrl = data.docsUrl ? `  docsUrl: '${escape(data.docsUrl)}',\n` : '';
+	const constraints = renderConstraints(data.rateLimitRpm, data.rateLimitRph);
+	const byokSetup = renderByokSetup(
+		supportedModes,
+		data.byokSetupInstructions,
+		data.byokRequiredScopes
+	);
 
-  return `import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
+	return `import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import { defineIntegration } from '@contractspec/lib.contracts-integrations';
 import type { IntegrationSpecRegistry } from '@contractspec/lib.contracts-integrations';
 

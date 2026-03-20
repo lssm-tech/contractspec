@@ -1,15 +1,15 @@
 import type {
-  LifecycleAxes,
-  LifecycleMetricSnapshot,
-  LifecycleSignal,
+	LifecycleAxes,
+	LifecycleMetricSnapshot,
+	LifecycleSignal,
 } from '@contractspec/lib.lifecycle';
 
 export interface AnalyticsAdapterResult {
-  metrics?: LifecycleMetricSnapshot;
-  signals?: LifecycleSignal[];
-  axes?: Partial<LifecycleAxes>;
+	metrics?: LifecycleMetricSnapshot;
+	signals?: LifecycleSignal[];
+	axes?: Partial<LifecycleAxes>;
 }
 
 export interface AnalyticsAdapter {
-  fetch(): Promise<AnalyticsAdapterResult>;
+	fetch(): Promise<AnalyticsAdapterResult>;
 }

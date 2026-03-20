@@ -4,18 +4,17 @@
  * Demonstrates a complete integration platform with connections and sync.
  */
 
+export * from './connection';
+export {
+	createIntegrationHandlers,
+	type IntegrationHandlers,
+} from './handlers/integration.handlers';
 // Domain exports
 export * from './integration';
-export * from './connection';
+// MCP example exports
+export * from './mcp-example';
 export * from './sync';
-export {
-  createIntegrationHandlers,
-  type IntegrationHandlers,
-} from './handlers/integration.handlers';
-export * from './ui';
 
 // Sync engine exports
 export * from './sync-engine';
-
-// MCP example exports
-export * from './mcp-example';
+export * from './ui';

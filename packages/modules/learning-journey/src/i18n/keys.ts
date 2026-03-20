@@ -7,16 +7,16 @@
  */
 
 export const XP_SOURCE_KEYS = {
-  'xp.source.base': 'xp.source.base',
-  'xp.source.scoreBonus': 'xp.source.scoreBonus',
-  'xp.source.perfectScore': 'xp.source.perfectScore',
-  'xp.source.firstAttempt': 'xp.source.firstAttempt',
-  'xp.source.retryPenalty': 'xp.source.retryPenalty',
-  'xp.source.streakBonus': 'xp.source.streakBonus',
+	'xp.source.base': 'xp.source.base',
+	'xp.source.scoreBonus': 'xp.source.scoreBonus',
+	'xp.source.perfectScore': 'xp.source.perfectScore',
+	'xp.source.firstAttempt': 'xp.source.firstAttempt',
+	'xp.source.retryPenalty': 'xp.source.retryPenalty',
+	'xp.source.streakBonus': 'xp.source.streakBonus',
 } as const;
 
 export const I18N_KEYS = {
-  ...XP_SOURCE_KEYS,
+	...XP_SOURCE_KEYS,
 } as const;
 
 /** Union type of all valid learning-journey i18n keys */

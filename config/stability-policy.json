@@ -1,25 +1,22 @@
 {
-  "version": 1,
-  "criticalPackages": [
-    "packages/apps/cli-contractspec",
-    "packages/modules/workspace",
-    "packages/modules/ai-chat",
-    "packages/libs/contracts-spec",
-    "packages/libs/schema",
-    "packages/libs/contracts-transformers",
-    "packages/libs/testing"
-  ],
-  "criticalFeatureKeys": [
-    "platform.acp",
-    "platform.agent",
-    "platform.context",
-    "platform.control-plane",
-    "platform.database",
-    "platform.docs",
-    "platform.provider-ranking"
-  ],
-  "smokePackages": [
-    "contractspec",
-    "@contractspec/app.cli-contractspec"
-  ]
+	"version": 1,
+	"criticalPackages": [
+		"packages/apps/cli-contractspec",
+		"packages/modules/workspace",
+		"packages/modules/ai-chat",
+		"packages/libs/contracts-spec",
+		"packages/libs/schema",
+		"packages/libs/contracts-transformers",
+		"packages/libs/testing"
+	],
+	"criticalFeatureKeys": [
+		"platform.acp",
+		"platform.agent",
+		"platform.context",
+		"platform.control-plane",
+		"platform.database",
+		"platform.docs",
+		"platform.provider-ranking"
+	],
+	"smokePackages": ["contractspec", "@contractspec/app.cli-contractspec"]
 }

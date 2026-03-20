@@ -1,79 +1,78 @@
 // User-related entities
-export {
-  UserEntity,
-  SessionEntity,
-  AccountEntity,
-  VerificationEntity,
-} from './user';
 
 // Organization-related entities
 export {
-  OrganizationTypeEnum,
-  OrganizationEntity,
-  MemberEntity,
-  InvitationEntity,
-  TeamEntity,
-  TeamMemberEntity,
+	InvitationEntity,
+	MemberEntity,
+	OrganizationEntity,
+	OrganizationTypeEnum,
+	TeamEntity,
+	TeamMemberEntity,
 } from './organization';
-
 // RBAC entities
 export {
-  RoleEntity,
-  PermissionEntity,
-  PolicyBindingEntity,
-  ApiKeyEntity,
-  PasskeyEntity,
+	ApiKeyEntity,
+	PasskeyEntity,
+	PermissionEntity,
+	PolicyBindingEntity,
+	RoleEntity,
 } from './rbac';
-
-// Re-export all entities as a module contribution
-import {
-  UserEntity,
-  SessionEntity,
-  AccountEntity,
-  VerificationEntity,
+export {
+	AccountEntity,
+	SessionEntity,
+	UserEntity,
+	VerificationEntity,
 } from './user';
+
+import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
 import {
-  OrganizationTypeEnum,
-  OrganizationEntity,
-  MemberEntity,
-  InvitationEntity,
-  TeamEntity,
-  TeamMemberEntity,
+	InvitationEntity,
+	MemberEntity,
+	OrganizationEntity,
+	OrganizationTypeEnum,
+	TeamEntity,
+	TeamMemberEntity,
 } from './organization';
 import {
-  RoleEntity,
-  PermissionEntity,
-  PolicyBindingEntity,
-  ApiKeyEntity,
-  PasskeyEntity,
+	ApiKeyEntity,
+	PasskeyEntity,
+	PermissionEntity,
+	PolicyBindingEntity,
+	RoleEntity,
 } from './rbac';
-import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
+// Re-export all entities as a module contribution
+import {
+	AccountEntity,
+	SessionEntity,
+	UserEntity,
+	VerificationEntity,
+} from './user';
 
 /**
  * All identity-rbac entities for schema composition.
  */
 export const identityRbacEntities = [
-  UserEntity,
-  SessionEntity,
-  AccountEntity,
-  VerificationEntity,
-  OrganizationEntity,
-  MemberEntity,
-  InvitationEntity,
-  TeamEntity,
-  TeamMemberEntity,
-  RoleEntity,
-  PermissionEntity,
-  PolicyBindingEntity,
-  ApiKeyEntity,
-  PasskeyEntity,
+	UserEntity,
+	SessionEntity,
+	AccountEntity,
+	VerificationEntity,
+	OrganizationEntity,
+	MemberEntity,
+	InvitationEntity,
+	TeamEntity,
+	TeamMemberEntity,
+	RoleEntity,
+	PermissionEntity,
+	PolicyBindingEntity,
+	ApiKeyEntity,
+	PasskeyEntity,
 ];
 
 /**
  * Module schema contribution for identity-rbac.
  */
 export const identityRbacSchemaContribution: ModuleSchemaContribution = {
-  moduleId: '@contractspec/lib.identity-rbac',
-  entities: identityRbacEntities,
-  enums: [OrganizationTypeEnum],
+	moduleId: '@contractspec/lib.identity-rbac',
+	entities: identityRbacEntities,
+	enums: [OrganizationTypeEnum],
 };

@@ -12,6 +12,6 @@ export type ComponentMap = Record<string, React.ComponentType<any>>;
  * Route-to-presentation mapping.
  */
 export interface RoutePresentation {
-  route: string;
-  descriptor: PresentationSpec;
+	route: string;
+	descriptor: PresentationSpec;
 }

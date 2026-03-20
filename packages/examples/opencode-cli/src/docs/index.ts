@@ -1,1 +1,1 @@
-import "./opencode-cli.docblock";
+import './opencode-cli.docblock';

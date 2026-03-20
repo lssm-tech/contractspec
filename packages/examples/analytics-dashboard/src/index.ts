@@ -6,11 +6,10 @@
 
 // Domain exports
 export * from './dashboard.feature';
-export * from './query';
+export * from './datasource/posthog-datasource';
 export * from './handlers/analytics.handlers';
-export * from './ui';
-export * from './visualizations';
-
+export * from './query';
 // Query engine exports
 export * from './query-engine';
-export * from './datasource/posthog-datasource';
+export * from './ui';
+export * from './visualizations';

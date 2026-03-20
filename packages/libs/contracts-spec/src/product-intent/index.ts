@@ -5,11 +5,11 @@
  * module rather than pulling pieces from different packages.
  */
 
-// Core contracts layer exports
-export * from './types';
 export * from './findings';
-export * from './spec';
 export * from './problems';
 export * from './registry';
 export * from './runtime';
+export * from './spec';
 export * from './tickets';
+// Core contracts layer exports
+export * from './types';

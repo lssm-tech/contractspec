@@ -4,18 +4,15 @@ export * from './AgentDashboard';
 // Backward-compatible exports
 export * from './AgentRunList';
 export * from './AgentToolRegistry';
-
-// View components
-export * from './views';
-
-// Modals
-export * from './modals';
-
 // Data hooks
 export * from './hooks';
 
-// Renderers
-export * from './renderers';
-
+// Modals
+export * from './modals';
 // Overlays
 export * from './overlays';
+
+// Renderers
+export * from './renderers';
+// View components
+export * from './views';

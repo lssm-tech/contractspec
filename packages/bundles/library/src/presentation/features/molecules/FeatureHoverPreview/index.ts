@@ -1,4 +1,4 @@
 export {
-  FeatureHoverPreview,
-  type FeatureHoverPreviewProps,
+	FeatureHoverPreview,
+	type FeatureHoverPreviewProps,
 } from './FeatureHoverPreview';

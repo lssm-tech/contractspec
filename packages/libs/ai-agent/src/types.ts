@@ -1,4 +1,5 @@
 import type { LanguageModelUsage, ModelMessage, StepResult, ToolSet } from 'ai';
+
 export type { LanguageModelUsage };
 
 // ============================================================================
@@ -10,10 +11,10 @@ export type { LanguageModelUsage };
  * Compatible with AI SDK v6 TypedToolCall.
  */
 export interface ToolCallInfo {
-  type: 'tool-call';
-  toolCallId: string;
-  toolName: string;
-  args: unknown;
+	type: 'tool-call';
+	toolCallId: string;
+	toolName: string;
+	args: unknown;
 }
 
 /**
@@ -21,10 +22,10 @@ export interface ToolCallInfo {
  * Compatible with AI SDK v6 TypedToolResult.
  */
 export interface ToolResultInfo {
-  type: 'tool-result';
-  toolCallId: string;
-  toolName: string;
-  output: unknown;
+	type: 'tool-result';
+	toolCallId: string;
+	toolName: string;
+	output: unknown;
 }
 
 // ============================================================================
@@ -36,9 +37,9 @@ export interface ToolResultInfo {
  * Used for session memory tracking.
  */
 export interface AgentMessage {
-  role: 'user' | 'assistant' | 'system' | 'tool';
-  content: string | { type: string; text?: string; [key: string]: unknown }[];
-  metadata?: Record<string, string>;
+	role: 'user' | 'assistant' | 'system' | 'tool';
+	content: string | { type: string; text?: string; [key: string]: unknown }[];
+	metadata?: Record<string, string>;
 }
 
 // ============================================================================
@@ -46,56 +47,56 @@ export interface AgentMessage {
 // ============================================================================
 
 export type AgentStatus =
-  | 'idle'
-  | 'running'
-  | 'waiting'
-  | 'completed'
-  | 'failed'
-  | 'escalated';
+	| 'idle'
+	| 'running'
+	| 'waiting'
+	| 'completed'
+	| 'failed'
+	| 'escalated';
 
 export type AgentEventName =
-  | 'agent.session.created'
-  | 'agent.session.updated'
-  | 'agent.step.started'
-  | 'agent.step.completed'
-  | 'agent.tool.called'
-  | 'agent.tool.completed'
-  | 'agent.tool.failed'
-  | 'agent.tool.approval_requested'
-  | 'agent.escalated'
-  | 'agent.completed'
-  | 'agent.failed';
+	| 'agent.session.created'
+	| 'agent.session.updated'
+	| 'agent.step.started'
+	| 'agent.step.completed'
+	| 'agent.tool.called'
+	| 'agent.tool.completed'
+	| 'agent.tool.failed'
+	| 'agent.tool.approval_requested'
+	| 'agent.escalated'
+	| 'agent.completed'
+	| 'agent.failed';
 
 export type AgentFinishReason =
-  | 'stop'
-  | 'tool-calls'
-  | 'length'
-  | 'content-filter'
-  | 'error'
-  | 'other'
-  | 'unknown';
+	| 'stop'
+	| 'tool-calls'
+	| 'length'
+	| 'content-filter'
+	| 'error'
+	| 'other'
+	| 'unknown';
 
 export type AgentExecutionErrorKind =
-  | 'fatal'
-  | 'retryable'
-  | 'timeout'
-  | 'guard_rejected'
-  | 'policy_blocked';
+	| 'fatal'
+	| 'retryable'
+	| 'timeout'
+	| 'guard_rejected'
+	| 'policy_blocked';
 
 export interface AgentExecutionError {
-  kind: AgentExecutionErrorKind;
-  message: string;
-  code?: string;
-  retryAfterMs?: number;
+	kind: AgentExecutionErrorKind;
+	message: string;
+	code?: string;
+	retryAfterMs?: number;
 }
 
 export interface AgentEventPayload {
-  sessionId: string;
-  agentId: string;
-  tenantId?: string;
-  stepIndex?: number;
-  toolName?: string;
-  metadata?: Record<string, unknown>;
+	sessionId: string;
+	agentId: string;
+	tenantId?: string;
+	stepIndex?: number;
+	toolName?: string;
+	metadata?: Record<string, unknown>;
 }
 
 // ============================================================================
@@ -107,24 +108,24 @@ export interface AgentEventPayload {
  * Maps to ContractSpec's tenant/actor system.
  */
 export interface AgentCallOptions {
-  /** Tenant scoping for guardrails and data isolation */
-  tenantId?: string;
-  /** Unique end-user identifier (for personalization) */
-  actorId?: string;
-  /** Session to resume; new session created when omitted */
-  sessionId?: string;
-  /** Arbitrary metadata forwarded to events and tool handlers */
-  metadata?: Record<string, string>;
-  /** Locale override for this call */
-  locale?: string;
-  /** Model selection context for ranking-driven model routing */
-  selectionContext?: import('@contractspec/lib.ai-providers/selector-types').ModelSelectionContext;
-  /** Transport preference for provider calls. */
-  transport?: 'rest' | 'mcp' | 'sdk';
-  /** Auth method to use for provider calls. */
-  authMethod?: 'api-key' | 'oauth2' | 'bearer';
-  /** Custom auth headers for provider calls. */
-  authHeaders?: Record<string, string>;
+	/** Tenant scoping for guardrails and data isolation */
+	tenantId?: string;
+	/** Unique end-user identifier (for personalization) */
+	actorId?: string;
+	/** Session to resume; new session created when omitted */
+	sessionId?: string;
+	/** Arbitrary metadata forwarded to events and tool handlers */
+	metadata?: Record<string, string>;
+	/** Locale override for this call */
+	locale?: string;
+	/** Model selection context for ranking-driven model routing */
+	selectionContext?: import('@contractspec/lib.ai-providers/selector-types').ModelSelectionContext;
+	/** Transport preference for provider calls. */
+	transport?: 'rest' | 'mcp' | 'sdk';
+	/** Auth method to use for provider calls. */
+	authMethod?: 'api-key' | 'oauth2' | 'bearer';
+	/** Custom auth headers for provider calls. */
+	authHeaders?: Record<string, string>;
 }
 
 // ============================================================================
@@ -132,18 +133,18 @@ export interface AgentCallOptions {
 // ============================================================================
 
 export interface AgentSessionState {
-  sessionId: string;
-  agentId: string;
-  tenantId?: string;
-  actorId?: string;
-  /** Active locale for this session */
-  locale?: string;
-  status: AgentStatus;
-  messages: ModelMessage[];
-  steps: StepResult<ToolSet>[];
-  createdAt: Date;
-  updatedAt: Date;
-  metadata?: Record<string, string>;
+	sessionId: string;
+	agentId: string;
+	tenantId?: string;
+	actorId?: string;
+	/** Active locale for this session */
+	locale?: string;
+	status: AgentStatus;
+	messages: ModelMessage[];
+	steps: StepResult<ToolSet>[];
+	createdAt: Date;
+	updatedAt: Date;
+	metadata?: Record<string, string>;
 }
 
 // ============================================================================
@@ -151,23 +152,23 @@ export interface AgentSessionState {
 // ============================================================================
 
 export interface AgentGenerateParams {
-  /** User prompt (required when messages is not provided) */
-  prompt?: string;
-  /** Full conversation history (for subagent passConversationHistory; when set, prompt is ignored) */
-  messages?: { role: string; content: string | unknown[] }[];
-  /** System prompt override (appended to agent instructions) */
-  systemOverride?: string;
-  /** Runtime context options */
-  options?: AgentCallOptions;
-  /** Maximum number of steps/iterations */
-  maxSteps?: number;
-  /** Abort signal for cancellation */
-  signal?: AbortSignal;
+	/** User prompt (required when messages is not provided) */
+	prompt?: string;
+	/** Full conversation history (for subagent passConversationHistory; when set, prompt is ignored) */
+	messages?: { role: string; content: string | unknown[] }[];
+	/** System prompt override (appended to agent instructions) */
+	systemOverride?: string;
+	/** Runtime context options */
+	options?: AgentCallOptions;
+	/** Maximum number of steps/iterations */
+	maxSteps?: number;
+	/** Abort signal for cancellation */
+	signal?: AbortSignal;
 }
 
 export interface AgentStreamParams extends AgentGenerateParams {
-  /** Called when a step completes */
-  onStepFinish?: (step: StepResult<ToolSet>) => void | Promise<void>;
+	/** Called when a step completes */
+	onStepFinish?: (step: StepResult<ToolSet>) => void | Promise<void>;
 }
 
 // ============================================================================
@@ -175,28 +176,28 @@ export interface AgentStreamParams extends AgentGenerateParams {
 // ============================================================================
 
 export interface AgentGenerateResult<TOutput = string> {
-  /** The final text response */
-  text: string;
-  /** Structured output if configured */
-  output?: TOutput;
-  /** All steps taken during generation */
-  steps: StepResult<ToolSet>[];
-  /** All tool calls made during generation */
-  toolCalls: ToolCallInfo[];
-  /** All tool results */
-  toolResults: ToolResultInfo[];
-  /** Reason generation finished */
-  finishReason: AgentFinishReason;
-  /** Token usage statistics */
-  usage?: LanguageModelUsage;
-  /** Updated session state */
-  session?: AgentSessionState;
-  /** Whether approval is pending for a tool call */
-  pendingApproval?: {
-    toolName: string;
-    toolCallId: string;
-    args: unknown;
-  };
+	/** The final text response */
+	text: string;
+	/** Structured output if configured */
+	output?: TOutput;
+	/** All steps taken during generation */
+	steps: StepResult<ToolSet>[];
+	/** All tool calls made during generation */
+	toolCalls: ToolCallInfo[];
+	/** All tool results */
+	toolResults: ToolResultInfo[];
+	/** Reason generation finished */
+	finishReason: AgentFinishReason;
+	/** Token usage statistics */
+	usage?: LanguageModelUsage;
+	/** Updated session state */
+	session?: AgentSessionState;
+	/** Whether approval is pending for a tool call */
+	pendingApproval?: {
+		toolName: string;
+		toolCallId: string;
+		args: unknown;
+	};
 }
 
 // ============================================================================
@@ -207,14 +208,14 @@ export interface AgentGenerateResult<TOutput = string> {
  * Context provided to tool handlers during execution.
  */
 export interface ToolExecutionContext {
-  agentId: string;
-  sessionId: string;
-  tenantId?: string;
-  actorId?: string;
-  /** Locale for i18n (BCP 47). Falls back to 'en' when unset. */
-  locale?: string;
-  metadata?: Record<string, string>;
-  signal?: AbortSignal;
+	agentId: string;
+	sessionId: string;
+	tenantId?: string;
+	actorId?: string;
+	/** Locale for i18n (BCP 47). Falls back to 'en' when unset. */
+	locale?: string;
+	metadata?: Record<string, string>;
+	signal?: AbortSignal;
 }
 
 /**
@@ -222,8 +223,8 @@ export interface ToolExecutionContext {
  * May return a Promise (single result) or AsyncGenerator (streaming preliminary results).
  */
 export type ToolHandler<TInput = unknown, TOutput = string> = (
-  input: TInput,
-  context: ToolExecutionContext
+	input: TInput,
+	context: ToolExecutionContext
 ) => Promise<TOutput> | TOutput | AsyncGenerator<TOutput>;
 
 // ============================================================================
@@ -231,17 +232,17 @@ export type ToolHandler<TInput = unknown, TOutput = string> = (
 // ============================================================================
 
 export interface AgentStepMetrics {
-  agentId: string;
-  stepIndex: number;
-  toolCalls: {
-    toolName: string;
-    durationMs?: number;
-    success: boolean;
-    error?: string;
-  }[];
-  finishReason: string;
-  usage?: LanguageModelUsage;
-  timestamp: Date;
+	agentId: string;
+	stepIndex: number;
+	toolCalls: {
+		toolName: string;
+		durationMs?: number;
+		success: boolean;
+		error?: string;
+	}[];
+	finishReason: string;
+	usage?: LanguageModelUsage;
+	timestamp: Date;
 }
 
 // ============================================================================
@@ -249,6 +250,6 @@ export interface AgentStepMetrics {
 // ============================================================================
 
 export type AgentEventEmitter = (
-  event: AgentEventName,
-  payload: AgentEventPayload
+	event: AgentEventName,
+	payload: AgentEventPayload
 ) => void | Promise<void>;

@@ -1,80 +1,80 @@
 import {
-  definePresentation,
-  StabilityEnum,
+	definePresentation,
+	StabilityEnum,
 } from '@contractspec/lib.contracts-spec';
 import { DashboardModel } from './dashboard.schema';
 
 export const DashboardsListPresentation = definePresentation({
-  meta: {
-    key: 'analytics.dashboard.viewList',
-    version: '1.0.0',
-    title: 'Dashboards List',
-    description: 'List of analytics dashboards',
-    domain: 'analytics',
-    owners: ['@analytics-dashboard'],
-    tags: ['analytics', 'dashboards', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Show users available analytics dashboards.',
-    context: 'The main dashboard management view.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'DashboardsList',
-    props: DashboardModel,
-  },
-  targets: ['react', 'markdown', 'application/json'],
-  policy: {
-    flags: ['analytics.dashboards.enabled'],
-  },
+	meta: {
+		key: 'analytics.dashboard.viewList',
+		version: '1.0.0',
+		title: 'Dashboards List',
+		description: 'List of analytics dashboards',
+		domain: 'analytics',
+		owners: ['@analytics-dashboard'],
+		tags: ['analytics', 'dashboards', 'list'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Show users available analytics dashboards.',
+		context: 'The main dashboard management view.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'DashboardsList',
+		props: DashboardModel,
+	},
+	targets: ['react', 'markdown', 'application/json'],
+	policy: {
+		flags: ['analytics.dashboards.enabled'],
+	},
 });
 
 export const DashboardViewPresentation = definePresentation({
-  meta: {
-    key: 'analytics.dashboard.view',
-    version: '1.0.0',
-    title: 'Dashboard View',
-    description: 'View a single dashboard with widgets',
-    domain: 'analytics',
-    owners: ['@analytics-dashboard'],
-    tags: ['analytics', 'dashboard', 'view'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Render a dashboard with its visualizations and data.',
-    context: 'The interactive viewing interface.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'DashboardView',
-    props: DashboardModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['analytics.dashboards.enabled'],
-  },
+	meta: {
+		key: 'analytics.dashboard.view',
+		version: '1.0.0',
+		title: 'Dashboard View',
+		description: 'View a single dashboard with widgets',
+		domain: 'analytics',
+		owners: ['@analytics-dashboard'],
+		tags: ['analytics', 'dashboard', 'view'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Render a dashboard with its visualizations and data.',
+		context: 'The interactive viewing interface.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'DashboardView',
+		props: DashboardModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['analytics.dashboards.enabled'],
+	},
 });
 
 export const DashboardEditorPresentation = definePresentation({
-  meta: {
-    key: 'analytics.dashboard.editor',
-    version: '1.0.0',
-    title: 'Dashboard Editor',
-    description: 'Edit dashboard configuration and widgets',
-    domain: 'analytics',
-    owners: ['@analytics-dashboard'],
-    tags: ['analytics', 'dashboard', 'editor'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Configure dashboard layout and widget settings.',
-    context: 'Management tool for analysts.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'DashboardEditor',
-    props: DashboardModel,
-  },
-  targets: ['react'],
-  policy: {
-    flags: ['analytics.dashboards.enabled'],
-  },
+	meta: {
+		key: 'analytics.dashboard.editor',
+		version: '1.0.0',
+		title: 'Dashboard Editor',
+		description: 'Edit dashboard configuration and widgets',
+		domain: 'analytics',
+		owners: ['@analytics-dashboard'],
+		tags: ['analytics', 'dashboard', 'editor'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Configure dashboard layout and widget settings.',
+		context: 'Management tool for analysts.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'DashboardEditor',
+		props: DashboardModel,
+	},
+	targets: ['react'],
+	policy: {
+		flags: ['analytics.dashboards.enabled'],
+	},
 });

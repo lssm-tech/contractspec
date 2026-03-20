@@ -6,9 +6,9 @@
 
 export * from './types';
 export {
-  analyzeUpgrades,
-  applyConfigUpgrades,
-  getPackageUpgradeCommand,
-  getDefaultVersioningConfig,
-  getDefaultHooksConfig,
+	analyzeUpgrades,
+	applyConfigUpgrades,
+	getDefaultHooksConfig,
+	getDefaultVersioningConfig,
+	getPackageUpgradeCommand,
 } from './upgrade-service';

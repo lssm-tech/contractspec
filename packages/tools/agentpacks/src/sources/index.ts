@@ -1,33 +1,28 @@
-export { resolveLocalPack, isLocalPackRef } from './local.js';
-
 export {
-  type GitSourceRef,
-  parseGitSourceRef,
-  isGitPackRef,
-  gitSourceKey,
-} from './git-ref.js';
-
-export {
-  resolveGitRef,
-  fetchGitDirectory,
-  fetchGitFile,
-  installGitSource,
+	fetchGitDirectory,
+	fetchGitFile,
+	installGitSource,
+	resolveGitRef,
 } from './git.js';
 
 export {
-  type NpmSourceRef,
-  parseNpmSourceRef,
-  isNpmPackRef,
-  npmSourceKey,
-} from './npm-ref.js';
-
-export { resolveNpmVersion, installNpmSource } from './npm.js';
-
+	type GitSourceRef,
+	gitSourceKey,
+	isGitPackRef,
+	parseGitSourceRef,
+} from './git-ref.js';
+export { isLocalPackRef, resolveLocalPack } from './local.js';
+export { installNpmSource, resolveNpmVersion } from './npm.js';
 export {
-  type RegistrySourceRef,
-  parseRegistrySourceRef,
-  isRegistryPackRef,
-  registrySourceKey,
-} from './registry-ref.js';
-
+	isNpmPackRef,
+	type NpmSourceRef,
+	npmSourceKey,
+	parseNpmSourceRef,
+} from './npm-ref.js';
 export { installRegistrySource } from './registry.js';
+export {
+	isRegistryPackRef,
+	parseRegistrySourceRef,
+	type RegistrySourceRef,
+	registrySourceKey,
+} from './registry-ref.js';

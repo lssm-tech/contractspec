@@ -1,70 +1,70 @@
+import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import * as React from 'react';
 import { Button, type ButtonProps } from './button';
-import { cn } from '@contractspec/lib.ui-kit-core/utils';
 
 export type CtaProps = Omit<ButtonProps, 'onClick'> & {
-  capture?: (cta: string) => void;
-  ctaName?: string;
-  as?: 'button' | 'a';
-  href?: string;
-  onClick?: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>;
-  children?: React.ReactNode;
-  ref?: React.Ref<HTMLButtonElement | HTMLAnchorElement>;
+	capture?: (cta: string) => void;
+	ctaName?: string;
+	as?: 'button' | 'a';
+	href?: string;
+	onClick?: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>;
+	children?: React.ReactNode;
+	ref?: React.Ref<HTMLButtonElement | HTMLAnchorElement>;
 };
 
 export function Cta({
-  capture,
-  ctaName,
-  className,
-  as = 'button',
-  href,
-  onClick,
-  size = 'lg',
-  children,
-  ref,
-  ...props
+	capture,
+	ctaName,
+	className,
+	as = 'button',
+	href,
+	onClick,
+	size = 'lg',
+	children,
+	ref,
+	...props
 }: CtaProps) {
-  const handleClick: React.MouseEventHandler<
-    HTMLButtonElement | HTMLAnchorElement
-  > = (e) => {
-    if (ctaName && capture) {
-      try {
-        capture(ctaName);
-      } catch {
-        // ignore
-      }
-    }
-    onClick?.(e);
-  };
+	const handleClick: React.MouseEventHandler<
+		HTMLButtonElement | HTMLAnchorElement
+	> = (e) => {
+		if (ctaName && capture) {
+			try {
+				capture(ctaName);
+			} catch {
+				// ignore
+			}
+		}
+		onClick?.(e);
+	};
 
-  if (as === 'a') {
-    return (
-      <Button
-        asChild
-        size={size}
-        className={cn('min-h-[44px]', className)}
-        {...props}
-      >
-        <a
-          href={href}
-          onClick={handleClick}
-          ref={ref as React.Ref<HTMLAnchorElement>}
-        >
-          {children}
-        </a>
-      </Button>
-    );
-  }
+	if (as === 'a') {
+		return (
+			<Button
+				asChild
+				size={size}
+				className={cn('min-h-[44px]', className)}
+				{...props}
+			>
+				<a
+					href={href}
+					onClick={handleClick}
+					ref={ref as React.Ref<HTMLAnchorElement>}
+				>
+					{children}
+				</a>
+			</Button>
+		);
+	}
 
-  return (
-    <Button
-      size={size}
-      className={cn('min-h-[44px]', className)}
-      onClick={handleClick as React.MouseEventHandler<HTMLButtonElement>}
-      ref={ref as React.Ref<HTMLButtonElement>}
-      {...props}
-    >
-      {children}
-    </Button>
-  );
+	return (
+		<Button
+			size={size}
+			className={cn('min-h-[44px]', className)}
+			onClick={handleClick as React.MouseEventHandler<HTMLButtonElement>}
+			ref={ref as React.Ref<HTMLButtonElement>}
+			{...props}
+		>
+			{children}
+		</Button>
+	);
 }

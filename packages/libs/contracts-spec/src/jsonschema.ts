@@ -1,30 +1,31 @@
 /**
  * Convert zod I/O to JSON Schema so adapters can generate OpenAPI/MCP.
  */
-import type { OperationSpec } from './operations';
+
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 import z from 'zod';
+import type { OperationSpec } from './operations';
 
 export function jsonSchemaForSpec(
-  spec: OperationSpec<AnySchemaModel, AnySchemaModel>
+	spec: OperationSpec<AnySchemaModel, AnySchemaModel>
 ) {
-  return {
-    input: spec.io.input ? z.toJSONSchema(spec.io.input.getZod()) : null,
-    output: spec.io.output ? z.toJSONSchema(spec.io.output.getZod()) : null,
-    meta: {
-      name: spec.meta.key,
-      version: spec.meta.version,
-      kind: spec.meta.kind,
-      description: spec.meta.description,
-      tags: spec.meta.tags ?? [],
-      stability: spec.meta.stability ?? 'stable',
-    },
-  };
+	return {
+		input: spec.io.input ? z.toJSONSchema(spec.io.input.getZod()) : null,
+		output: spec.io.output ? z.toJSONSchema(spec.io.output.getZod()) : null,
+		meta: {
+			name: spec.meta.key,
+			version: spec.meta.version,
+			kind: spec.meta.kind,
+			description: spec.meta.description,
+			tags: spec.meta.tags ?? [],
+			stability: spec.meta.stability ?? 'stable',
+		},
+	};
 }
 
 /** Helper to derive default REST path */
 export function defaultRestPath(name: string, version: string) {
-  return `/${name.replace(/\./g, '/')}/v${version}`;
+	return `/${name.replace(/\./g, '/')}/v${version}`;
 }
 
 /**
@@ -33,10 +34,10 @@ export function defaultRestPath(name: string, version: string) {
  * While MCP spec allows dots, some clients validate against stricter patterns.
  */
 export function sanitizeMcpName(name: string): string {
-  // Replace dots with underscores
-  const sanitized = name.replace(/\./g, '_');
-  // Truncate to 64 characters if needed
-  return sanitized.slice(0, 64);
+	// Replace dots with underscores
+	const sanitized = name.replace(/\./g, '_');
+	// Truncate to 64 characters if needed
+	return sanitized.slice(0, 64);
 }
 
 /**
@@ -45,9 +46,9 @@ export function sanitizeMcpName(name: string): string {
  * While MCP spec allows dots, some clients validate against stricter patterns.
  */
 export function defaultMcpTool(name: string, version: string) {
-  const safeName = name.replace(/\./g, '_');
-  const safeVersion = version.replace(/\./g, '_');
-  return `${safeName}-v${safeVersion}`;
+	const safeName = name.replace(/\./g, '_');
+	const safeVersion = version.replace(/\./g, '_');
+	return `${safeName}-v${safeVersion}`;
 }
 
 /**
@@ -55,10 +56,10 @@ export function defaultMcpTool(name: string, version: string) {
  * Replaces dots with underscores for maximum client compatibility.
  */
 export function defaultMcpPrompt(key: string): string {
-  return sanitizeMcpName(key);
+	return sanitizeMcpName(key);
 }
 
 /** Helper to derive default GraphQL field name */
 export function defaultGqlField(name: string, version: string) {
-  return `${name.replace(/\./g, '_')}_v${version}`;
+	return `${name.replace(/\./g, '_')}_v${version}`;
 }

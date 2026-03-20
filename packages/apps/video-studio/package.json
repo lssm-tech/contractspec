@@ -1,28 +1,28 @@
 {
-  "name": "@contractspec/app.video-studio",
-  "version": "2.7.6",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "dev": "bunx remotionb studio src/index.ts",
-    "build": "echo 'No build step needed for Remotion Studio'",
-    "render": "bunx remotionb render src/index.ts",
-    "render:all": "bunx remotionb render src/index.ts ApiOverview out/api-overview.mp4 && bunx remotionb render src/index.ts SocialClip out/social-clip.mp4 && bunx remotionb render src/index.ts SocialClipSquare out/social-clip-square.mp4 && bunx remotionb render src/index.ts SocialClipPortrait out/social-clip-portrait.mp4 && bunx remotionb render src/index.ts TerminalDemo out/terminal-demo.mp4",
-    "clean": "rimraf out .turbo"
-  },
-  "dependencies": {
-    "@contractspec/lib.video-gen": "workspace:*",
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "@contractspec/lib.content-gen": "workspace:*",
-    "@contractspec/lib.design-system": "workspace:*",
-    "remotion": "^4.0.434",
-    "@remotion/cli": "^4.0.434",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
-  },
-  "devDependencies": {
-    "@remotion/renderer": "^4.0.434",
-    "@types/react": "^19.0.0",
-    "typescript": "^5.9.3"
-  }
+	"name": "@contractspec/app.video-studio",
+	"version": "2.7.6",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "bunx remotionb studio src/index.ts",
+		"build": "echo 'No build step needed for Remotion Studio'",
+		"render": "bunx remotionb render src/index.ts",
+		"render:all": "bunx remotionb render src/index.ts ApiOverview out/api-overview.mp4 && bunx remotionb render src/index.ts SocialClip out/social-clip.mp4 && bunx remotionb render src/index.ts SocialClipSquare out/social-clip-square.mp4 && bunx remotionb render src/index.ts SocialClipPortrait out/social-clip-portrait.mp4 && bunx remotionb render src/index.ts TerminalDemo out/terminal-demo.mp4",
+		"clean": "rimraf out .turbo"
+	},
+	"dependencies": {
+		"@contractspec/lib.video-gen": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.content-gen": "workspace:*",
+		"@contractspec/lib.design-system": "workspace:*",
+		"remotion": "^4.0.434",
+		"@remotion/cli": "^4.0.434",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
+	},
+	"devDependencies": {
+		"@remotion/renderer": "^4.0.434",
+		"@types/react": "^19.0.0",
+		"typescript": "^5.9.3"
+	}
 }

@@ -1,136 +1,136 @@
 import SchemaBuilder, { type SchemaTypes } from '@pothos/core';
-import PrismaPlugin, { type PrismaClient } from '@pothos/plugin-prisma';
 import ComplexityPlugin from '@pothos/plugin-complexity';
 import DataloaderPlugin from '@pothos/plugin-dataloader';
+import PrismaPlugin, { type PrismaClient } from '@pothos/plugin-prisma';
 import RelayPlugin from '@pothos/plugin-relay';
 import TracingPlugin, {
-  isRootField,
-  wrapResolver,
+	isRootField,
+	wrapResolver,
 } from '@pothos/plugin-tracing';
 import '@pothos/plugin-prisma';
 import '@pothos/plugin-relay';
 import '@pothos/plugin-complexity';
-import { GeoJSONResolver } from 'graphql-scalars';
 import { ScalarTypeEnum } from '@contractspec/lib.schema';
+import { GeoJSONResolver } from 'graphql-scalars';
 
 export interface PrismaBuilderOptions {
-  complexity?: {
-    defaultComplexity?: number;
-    defaultListMultiplier?: number;
-  };
-  tracing?: {
-    enableByDefault?: boolean;
-    onResolved?: (
-      parentType: string,
-      fieldName: string,
-      durationMs: number
-    ) => void;
-  };
-  federation?: boolean;
-  prisma: {
-    client: PrismaClient;
-    dmmf?: {
-      datamodel: unknown;
-    };
-    exposeDescriptions?: boolean;
-    filterConnectionTotalCount?: boolean;
-    onUnusedQuery?: 'warn' | null;
-  };
+	complexity?: {
+		defaultComplexity?: number;
+		defaultListMultiplier?: number;
+	};
+	tracing?: {
+		enableByDefault?: boolean;
+		onResolved?: (
+			parentType: string,
+			fieldName: string,
+			durationMs: number
+		) => void;
+	};
+	federation?: boolean;
+	prisma: {
+		client: PrismaClient;
+		dmmf?: {
+			datamodel: unknown;
+		};
+		exposeDescriptions?: boolean;
+		filterConnectionTotalCount?: boolean;
+		onUnusedQuery?: 'warn' | null;
+	};
 }
 
 export function createPrismaSchemaBuilder<
-  C extends object,
-  PT extends {} | undefined,
-  Objects extends object = object,
-  Scalars extends object = object,
+	C extends object,
+	PT extends {} | undefined,
+	Objects extends object = object,
+	Scalars extends object = object,
 >(options: PrismaBuilderOptions) {
-  const debugBuilder =
-    process.env.CONTRACTSPEC_DEBUG_GRAPHQL_BUILDER === 'true';
-  // const plugins: (keyof PothosSchemaTypes.Plugins<SchemaTypes>)[] = [
-  const plugins = [
-    RelayPlugin,
-    ComplexityPlugin,
-    TracingPlugin,
-    DataloaderPlugin,
-    PrismaPlugin,
-  ] satisfies (keyof PothosSchemaTypes.Plugins<SchemaTypes>)[];
-  // if (options.federation) plugins.push(FederationPlugin);
+	const debugBuilder =
+		process.env.CONTRACTSPEC_DEBUG_GRAPHQL_BUILDER === 'true';
+	// const plugins: (keyof PothosSchemaTypes.Plugins<SchemaTypes>)[] = [
+	const plugins = [
+		RelayPlugin,
+		ComplexityPlugin,
+		TracingPlugin,
+		DataloaderPlugin,
+		PrismaPlugin,
+	] satisfies (keyof PothosSchemaTypes.Plugins<SchemaTypes>)[];
+	// if (options.federation) plugins.push(FederationPlugin);
 
-  const builder = new SchemaBuilder<{
-    DefaultInputFieldRequiredness: true;
-    PrismaTypes: PT;
-    Context: C;
-    Objects: Objects;
-    Scalars: {
-      JSON: { Input: unknown; Output: unknown };
-      Date: { Input: Date; Output: Date };
-      EmailAddress: { Input: string; Output: string };
-      Locale: { Input: string; Output: string };
-      URL: { Input: string; Output: string };
-      GeoJSON: { Input: string; Output: string };
-    } & Scalars;
-    ObjectType: { CommunityRule: { id: string } };
-  }>({
-    defaultInputFieldRequiredness: true,
-    plugins,
-    relay: {},
-    prisma: {
-      client: options.prisma.client,
-      // ...(options.prisma.dmmf ? { dmmf: options.prisma.dmmf as any } : {}),
-      dmmf: (options.prisma.dmmf as any) || {},
-      exposeDescriptions: options.prisma.exposeDescriptions ?? true,
-      filterConnectionTotalCount:
-        options.prisma.filterConnectionTotalCount ?? true,
-      onUnusedQuery: options.prisma.onUnusedQuery ?? null,
-    },
-    complexity: {
-      defaultComplexity: options.complexity?.defaultComplexity ?? 1,
-      defaultListMultiplier: options.complexity?.defaultListMultiplier ?? 10,
-    },
-    tracing: {
-      default: (cfg) =>
-        (options.tracing?.enableByDefault ?? true) ? isRootField(cfg) : false,
-      wrap: (resolver, _opts, cfg) =>
-        wrapResolver(resolver, (_err, dur) => {
-          options.tracing?.onResolved?.(cfg.parentType, cfg.name, dur);
-        }),
-    },
-  });
+	const builder = new SchemaBuilder<{
+		DefaultInputFieldRequiredness: true;
+		PrismaTypes: PT;
+		Context: C;
+		Objects: Objects;
+		Scalars: {
+			JSON: { Input: unknown; Output: unknown };
+			Date: { Input: Date; Output: Date };
+			EmailAddress: { Input: string; Output: string };
+			Locale: { Input: string; Output: string };
+			URL: { Input: string; Output: string };
+			GeoJSON: { Input: string; Output: string };
+		} & Scalars;
+		ObjectType: { CommunityRule: { id: string } };
+	}>({
+		defaultInputFieldRequiredness: true,
+		plugins,
+		relay: {},
+		prisma: {
+			client: options.prisma.client,
+			// ...(options.prisma.dmmf ? { dmmf: options.prisma.dmmf as any } : {}),
+			dmmf: (options.prisma.dmmf as any) || {},
+			exposeDescriptions: options.prisma.exposeDescriptions ?? true,
+			filterConnectionTotalCount:
+				options.prisma.filterConnectionTotalCount ?? true,
+			onUnusedQuery: options.prisma.onUnusedQuery ?? null,
+		},
+		complexity: {
+			defaultComplexity: options.complexity?.defaultComplexity ?? 1,
+			defaultListMultiplier: options.complexity?.defaultListMultiplier ?? 10,
+		},
+		tracing: {
+			default: (cfg) =>
+				(options.tracing?.enableByDefault ?? true) ? isRootField(cfg) : false,
+			wrap: (resolver, _opts, cfg) =>
+				wrapResolver(resolver, (_err, dur) => {
+					options.tracing?.onResolved?.(cfg.parentType, cfg.name, dur);
+				}),
+		},
+	});
 
-  if (debugBuilder) {
-    console.log('[graphql-prisma] initializing schema builder');
-  }
+	if (debugBuilder) {
+		console.log('[graphql-prisma] initializing schema builder');
+	}
 
-  Object.entries(ScalarTypeEnum).forEach(([name, type]) => {
-    if (['ID', 'Boolean'].includes(name)) {
-      return;
-    }
-    if (typeof type !== 'function') {
-      throw new Error(
-        `ScalarTypeEnum entry "${name}" must be a function but received ${typeof type}`
-      );
-    }
-    if (debugBuilder) {
-      console.log(`[graphql-prisma] registering scalar ${name}`);
-    }
-    builder.addScalarType(name as any, type());
-  });
-  builder.addScalarType('GeoJSON', GeoJSONResolver);
+	Object.entries(ScalarTypeEnum).forEach(([name, type]) => {
+		if (['ID', 'Boolean'].includes(name)) {
+			return;
+		}
+		if (typeof type !== 'function') {
+			throw new Error(
+				`ScalarTypeEnum entry "${name}" must be a function but received ${typeof type}`
+			);
+		}
+		if (debugBuilder) {
+			console.log(`[graphql-prisma] registering scalar ${name}`);
+		}
+		builder.addScalarType(name as any, type());
+	});
+	builder.addScalarType('GeoJSON', GeoJSONResolver);
 
-  builder.queryType({
-    fields: (t) => ({}),
-  });
+	builder.queryType({
+		fields: (t) => ({}),
+	});
 
-  // Mutation Type (reduced, moved fields into modules)
-  builder.mutationType({
-    fields: (t) => ({}),
-  });
+	// Mutation Type (reduced, moved fields into modules)
+	builder.mutationType({
+		fields: (t) => ({}),
+	});
 
-  if (debugBuilder) {
-    console.log('[graphql-prisma] schema builder ready');
-  }
+	if (debugBuilder) {
+		console.log('[graphql-prisma] schema builder ready');
+	}
 
-  return builder;
+	return builder;
 }
 
 // export async function loadDmmfFromClient(
@@ -176,18 +176,18 @@ export function createPrismaSchemaBuilder<
 
 // Tracing helper that integrates with a logger-like object
 export interface LoggerLike {
-  info: (msg: string, meta?: unknown) => void;
+	info: (msg: string, meta?: unknown) => void;
 }
 export function createLoggerTracing(logger: LoggerLike, opLabel = 'gql.field') {
-  return {
-    enableByDefault: true,
-    onResolved: (
-      parentType: string,
-      fieldName: string,
-      durationMs: number,
-      ...others: any[]
-    ) => {
-      // logger.info(opLabel, { parentType, fieldName, durationMs, others });
-    },
-  } as PrismaBuilderOptions['tracing'];
+	return {
+		enableByDefault: true,
+		onResolved: (
+			parentType: string,
+			fieldName: string,
+			durationMs: number,
+			...others: any[]
+		) => {
+			// logger.info(opLabel, { parentType, fieldName, durationMs, others });
+		},
+	} as PrismaBuilderOptions['tracing'];
 }

@@ -18,36 +18,34 @@
  * ```
  */
 
-// Core i18n API
-export {
-  createLifecycleI18n,
-  getDefaultI18n,
-  resetI18nRegistry,
-} from './messages';
-export type { LifecycleI18n } from './messages';
-
-// Locale utilities
-export {
-  resolveLocale,
-  isSupportedLocale,
-  DEFAULT_LOCALE,
-  SUPPORTED_LOCALES,
-} from './locale';
-export type { SupportedLocale } from './locale';
+// Catalogs
+export { enMessages } from './catalogs/en';
+export { esMessages } from './catalogs/es';
+export { frMessages } from './catalogs/fr';
+export type { LifecycleMessageKey } from './keys';
 
 // Message keys
 export {
-  I18N_KEYS,
-  STAGE_NAME_KEYS,
-  STAGE_QUESTION_KEYS,
-  STAGE_SIGNAL_KEYS,
-  STAGE_TRAP_KEYS,
-  STAGE_FOCUS_KEYS,
-  FORMATTER_KEYS,
+	FORMATTER_KEYS,
+	I18N_KEYS,
+	STAGE_FOCUS_KEYS,
+	STAGE_NAME_KEYS,
+	STAGE_QUESTION_KEYS,
+	STAGE_SIGNAL_KEYS,
+	STAGE_TRAP_KEYS,
 } from './keys';
-export type { LifecycleMessageKey } from './keys';
-
-// Catalogs
-export { enMessages } from './catalogs/en';
-export { frMessages } from './catalogs/fr';
-export { esMessages } from './catalogs/es';
+export type { SupportedLocale } from './locale';
+// Locale utilities
+export {
+	DEFAULT_LOCALE,
+	isSupportedLocale,
+	resolveLocale,
+	SUPPORTED_LOCALES,
+} from './locale';
+export type { LifecycleI18n } from './messages';
+// Core i18n API
+export {
+	createLifecycleI18n,
+	getDefaultI18n,
+	resetI18nRegistry,
+} from './messages';

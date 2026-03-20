@@ -5,22 +5,20 @@
  */
 
 export {
-  importFromSourceService,
-  type ImportServiceOptions,
-  type ImportServiceResult,
-  type ImportServiceAdapters,
+	type ImportServiceAdapters,
+	type ImportServiceOptions,
+	type ImportServiceResult,
+	importFromSourceService,
 } from './import-service';
-
 export {
-  verifyImportedContracts,
-  type VerifyOptions as ImportVerifyOptions,
-  type VerifyResult as ImportVerifyResult,
-  type EndpointVerification,
-  type VerificationIssue as ImportVerificationIssue,
-} from './verify-service';
-
-export {
-  generateMarkdownReport,
-  generateCliReport,
-  type ReportOptions,
+	generateCliReport,
+	generateMarkdownReport,
+	type ReportOptions,
 } from './report-service';
+export {
+	type EndpointVerification,
+	type VerificationIssue as ImportVerificationIssue,
+	type VerifyOptions as ImportVerifyOptions,
+	type VerifyResult as ImportVerifyResult,
+	verifyImportedContracts,
+} from './verify-service';

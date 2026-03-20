@@ -8,27 +8,27 @@
  * decoupled from bundle.workspace — the app layer provides real impls.
  */
 
-import { createMcpElysiaHandler } from './common';
 import { appLogger } from '../../infrastructure/elysia/logger';
-import { buildContractsOps } from './contractsMcpTools';
+import { createMcpElysiaHandler } from './common';
 import {
-  buildContractsResources,
-  buildContractsPrompts,
+	buildContractsPrompts,
+	buildContractsResources,
 } from './contractsMcpResources';
+import { buildContractsOps } from './contractsMcpTools';
 import type { ContractsMcpServices } from './contractsMcpTypes';
 
-export type { ContractsMcpServices, ContractInfo } from './contractsMcpTypes';
+export type { ContractInfo, ContractsMcpServices } from './contractsMcpTypes';
 
 export function createContractsMcpHandler(
-  path = '/api/mcp/contracts',
-  services: ContractsMcpServices
+	path = '/api/mcp/contracts',
+	services: ContractsMcpServices
 ) {
-  return createMcpElysiaHandler({
-    logger: appLogger,
-    path,
-    serverName: 'contractspec-contracts-mcp',
-    ops: buildContractsOps(services),
-    resources: buildContractsResources(services),
-    prompts: buildContractsPrompts(),
-  });
+	return createMcpElysiaHandler({
+		logger: appLogger,
+		path,
+		serverName: 'contractspec-contracts-mcp',
+		ops: buildContractsOps(services),
+		resources: buildContractsResources(services),
+		prompts: buildContractsPrompts(),
+	});
 }

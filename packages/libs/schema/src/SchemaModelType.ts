@@ -29,23 +29,23 @@ export type SchemaFormat = 'contractspec' | 'zod' | 'json-schema' | 'graphql';
  * ```
  */
 export interface SchemaModelType<T = unknown> {
-  /**
-   * Return the Zod schema for runtime validation.
-   * This is the primary method - all schema types must provide Zod conversion.
-   */
-  getZod(): z.ZodType<T>;
+	/**
+	 * Return the Zod schema for runtime validation.
+	 * This is the primary method - all schema types must provide Zod conversion.
+	 */
+	getZod(): z.ZodType<T>;
 
-  /**
-   * Return GraphQL type info for Pothos/GraphQL integration.
-   * Optional - types without GraphQL representation return undefined.
-   */
-  getPothos?(): unknown;
+	/**
+	 * Return GraphQL type info for Pothos/GraphQL integration.
+	 * Optional - types without GraphQL representation return undefined.
+	 */
+	getPothos?(): unknown;
 
-  /**
-   * Return JSON Schema representation.
-   * Optional - types without JSON Schema representation return undefined.
-   */
-  getJsonSchema?(): unknown;
+	/**
+	 * Return JSON Schema representation.
+	 * Optional - types without JSON Schema representation return undefined.
+	 */
+	getJsonSchema?(): unknown;
 }
 
 /**
@@ -62,12 +62,12 @@ export interface SchemaModelType<T = unknown> {
  * ```
  */
 export function isSchemaType(value: unknown): value is SchemaModelType {
-  return (
-    value !== null &&
-    typeof value === 'object' &&
-    'getZod' in value &&
-    typeof (value as SchemaModelType).getZod === 'function'
-  );
+	return (
+		value !== null &&
+		typeof value === 'object' &&
+		'getZod' in value &&
+		typeof (value as SchemaModelType).getZod === 'function'
+	);
 }
 
 /**

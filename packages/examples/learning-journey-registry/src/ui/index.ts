@@ -1,5 +1,5 @@
 export {
-  LearningMiniApp,
-  isLearningTemplate,
-  getLearningTemplateIds,
+	getLearningTemplateIds,
+	isLearningTemplate,
+	LearningMiniApp,
 } from './LearningMiniApp';
