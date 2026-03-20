@@ -7,7 +7,7 @@ Website: https://contractspec.io
 ## What This Demonstrates
 
 - Agent entity with lifecycle (create, configure, execute).
-- Canonical `agent`, `harness-scenario`, and `harness-suite` example exports for deterministic proof coverage.
+- Canonical `agent` example exports plus business-oriented `harness-scenario` and `harness-suite` proof coverage.
 - Run tracking with status enums and event-driven state transitions.
 - Tool registry with typed schemas and operation handlers.
 - Presentation layer with React UI components, hooks, modals, overlays, and a server-mode shared `DataTable` for run history.

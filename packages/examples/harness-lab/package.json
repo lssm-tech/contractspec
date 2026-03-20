@@ -1,0 +1,161 @@
+{
+	"name": "@contractspec/example.harness-lab",
+	"version": "3.7.10",
+	"description": "Focused harness example for ContractSpec scenarios, suites, orchestration, and runtime adapters.",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./docs": "./src/docs/index.ts",
+		"./docs/harness-lab.docblock": "./src/docs/harness-lab.docblock.ts",
+		"./example": "./src/example.ts",
+		"./harness-lab.feature": "./src/harness-lab.feature.ts",
+		"./runtime": "./src/runtime/index.ts",
+		"./runtime/browserFixtureServer": "./src/runtime/browserFixtureServer.ts",
+		"./runtime/createHarnessLabEvaluationTools": "./src/runtime/createHarnessLabEvaluationTools.ts",
+		"./runtime/runBrowserEvaluation": "./src/runtime/runBrowserEvaluation.ts",
+		"./runtime/runSandboxEvaluation": "./src/runtime/runSandboxEvaluation.ts",
+		"./scenarios": "./src/scenarios/index.ts",
+		"./scenarios/harnessLabBrowser.scenario": "./src/scenarios/harnessLabBrowser.scenario.ts",
+		"./scenarios/harnessLabSandbox.scenario": "./src/scenarios/harnessLabSandbox.scenario.ts",
+		"./suite": "./src/suite/index.ts",
+		"./suite/harnessLabDualMode.suite": "./src/suite/harnessLabDualMode.suite.ts"
+	},
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"test": "bun test",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/integration.harness-runtime": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.harness": "workspace:*"
+	},
+	"peerDependencies": {
+		"playwright": "^1.54.0"
+	},
+	"peerDependenciesMeta": {
+		"playwright": {
+			"optional": true
+		}
+	},
+	"devDependencies": {
+		"@contractspec/tool.bun": "workspace:*",
+		"@contractspec/tool.typescript": "workspace:*",
+		"playwright": "^1.54.0",
+		"typescript": "catalog:"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./docs": {
+				"types": "./dist/docs/index.d.ts",
+				"bun": "./dist/docs/index.js",
+				"node": "./dist/node/docs/index.js",
+				"default": "./dist/docs/index.js"
+			},
+			"./docs/harness-lab.docblock": {
+				"types": "./dist/docs/harness-lab.docblock.d.ts",
+				"bun": "./dist/docs/harness-lab.docblock.js",
+				"node": "./dist/node/docs/harness-lab.docblock.js",
+				"default": "./dist/docs/harness-lab.docblock.js"
+			},
+			"./example": {
+				"types": "./dist/example.d.ts",
+				"bun": "./dist/example.js",
+				"node": "./dist/node/example.js",
+				"default": "./dist/example.js"
+			},
+			"./harness-lab.feature": {
+				"types": "./dist/harness-lab.feature.d.ts",
+				"bun": "./dist/harness-lab.feature.js",
+				"node": "./dist/node/harness-lab.feature.js",
+				"default": "./dist/harness-lab.feature.js"
+			},
+			"./runtime": {
+				"types": "./dist/runtime/index.d.ts",
+				"bun": "./dist/runtime/index.js",
+				"node": "./dist/node/runtime/index.js",
+				"default": "./dist/runtime/index.js"
+			},
+			"./runtime/browserFixtureServer": {
+				"types": "./dist/runtime/browserFixtureServer.d.ts",
+				"bun": "./dist/runtime/browserFixtureServer.js",
+				"node": "./dist/node/runtime/browserFixtureServer.js",
+				"default": "./dist/runtime/browserFixtureServer.js"
+			},
+			"./runtime/createHarnessLabEvaluationTools": {
+				"types": "./dist/runtime/createHarnessLabEvaluationTools.d.ts",
+				"bun": "./dist/runtime/createHarnessLabEvaluationTools.js",
+				"node": "./dist/node/runtime/createHarnessLabEvaluationTools.js",
+				"default": "./dist/runtime/createHarnessLabEvaluationTools.js"
+			},
+			"./runtime/runBrowserEvaluation": {
+				"types": "./dist/runtime/runBrowserEvaluation.d.ts",
+				"bun": "./dist/runtime/runBrowserEvaluation.js",
+				"node": "./dist/node/runtime/runBrowserEvaluation.js",
+				"default": "./dist/runtime/runBrowserEvaluation.js"
+			},
+			"./runtime/runSandboxEvaluation": {
+				"types": "./dist/runtime/runSandboxEvaluation.d.ts",
+				"bun": "./dist/runtime/runSandboxEvaluation.js",
+				"node": "./dist/node/runtime/runSandboxEvaluation.js",
+				"default": "./dist/runtime/runSandboxEvaluation.js"
+			},
+			"./scenarios": {
+				"types": "./dist/scenarios/index.d.ts",
+				"bun": "./dist/scenarios/index.js",
+				"node": "./dist/node/scenarios/index.js",
+				"default": "./dist/scenarios/index.js"
+			},
+			"./scenarios/harnessLabBrowser.scenario": {
+				"types": "./dist/scenarios/harnessLabBrowser.scenario.d.ts",
+				"bun": "./dist/scenarios/harnessLabBrowser.scenario.js",
+				"node": "./dist/node/scenarios/harnessLabBrowser.scenario.js",
+				"default": "./dist/scenarios/harnessLabBrowser.scenario.js"
+			},
+			"./scenarios/harnessLabSandbox.scenario": {
+				"types": "./dist/scenarios/harnessLabSandbox.scenario.d.ts",
+				"bun": "./dist/scenarios/harnessLabSandbox.scenario.js",
+				"node": "./dist/node/scenarios/harnessLabSandbox.scenario.js",
+				"default": "./dist/scenarios/harnessLabSandbox.scenario.js"
+			},
+			"./suite": {
+				"types": "./dist/suite/index.d.ts",
+				"bun": "./dist/suite/index.js",
+				"node": "./dist/node/suite/index.js",
+				"default": "./dist/suite/index.js"
+			},
+			"./suite/harnessLabDualMode.suite": {
+				"types": "./dist/suite/harnessLabDualMode.suite.d.ts",
+				"bun": "./dist/suite/harnessLabDualMode.suite.js",
+				"node": "./dist/node/suite/harnessLabDualMode.suite.js",
+				"default": "./dist/suite/harnessLabDualMode.suite.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/examples/harness-lab"
+	},
+	"homepage": "https://contractspec.io"
+}
