@@ -10,6 +10,7 @@
 		"./docs": "./src/docs/index.ts",
 		"./docs/content-generation.docblock": "./src/docs/content-generation.docblock.ts",
 		"./example": "./src/example.ts",
+		"./example.d": "./src/example.d.ts",
 		"./generate": "./src/generate.ts"
 	},
 	"scripts": {
@@ -74,6 +75,13 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
+			},
+			"./example.d": {
+				"types": "./dist/example.d.d.ts",
+				"browser": "./dist/browser/example.d.js",
+				"bun": "./dist/example.d.js",
+				"node": "./dist/node/example.d.js",
+				"default": "./dist/example.d.js"
 			},
 			"./generate": {
 				"types": "./dist/generate.d.ts",

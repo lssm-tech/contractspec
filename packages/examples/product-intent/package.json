@@ -16,6 +16,7 @@
 		"./docs": "./src/docs/index.ts",
 		"./docs/product-intent.docblock": "./src/docs/product-intent.docblock.ts",
 		"./example": "./src/example.ts",
+		"./example.d": "./src/example.d.ts",
 		"./load-evidence": "./src/load-evidence.ts",
 		"./posthog-signals": "./src/posthog-signals.ts",
 		"./product-intent.feature": "./src/product-intent.feature.ts",
@@ -76,6 +77,12 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
+			},
+			"./example.d": {
+				"types": "./dist/example.d.d.ts",
+				"bun": "./dist/example.d.js",
+				"node": "./dist/node/example.d.js",
+				"default": "./dist/example.d.js"
 			},
 			"./load-evidence": {
 				"types": "./dist/load-evidence.d.ts",

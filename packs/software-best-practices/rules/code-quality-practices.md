@@ -287,13 +287,13 @@ export function calculatePortfolioValue(
 
 ```bash
 # Linting
-bun run lint
+bun run lint:check
 
 # Tests
-bun test
+bun x turbo run test
 
 # Type checking
-bun run tsc --noEmit
+bun run typecheck
 ```
 
 ### CI/CD Pipeline

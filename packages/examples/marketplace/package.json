@@ -45,6 +45,7 @@
 		"./entities/review": "./src/entities/review.ts",
 		"./entities/store": "./src/entities/store.ts",
 		"./example": "./src/example.ts",
+		"./example.d": "./src/example.d.ts",
 		"./handlers": "./src/handlers/index.ts",
 		"./handlers/marketplace.handlers": "./src/handlers/marketplace.handlers.ts",
 		"./marketplace.capability": "./src/marketplace.capability.ts",
@@ -88,7 +89,9 @@
 		"./ui/MarketplaceDashboard.visualizations": "./src/ui/MarketplaceDashboard.visualizations.tsx",
 		"./ui/renderers": "./src/ui/renderers/index.ts",
 		"./ui/renderers/marketplace.markdown": "./src/ui/renderers/marketplace.markdown.ts",
-		"./visualizations": "./src/visualizations/index.ts"
+		"./visualizations": "./src/visualizations/index.ts",
+		"./visualizations/catalog": "./src/visualizations/catalog.ts",
+		"./visualizations/selectors": "./src/visualizations/selectors.ts"
 	},
 	"files": [
 		"dist",
@@ -166,6 +169,13 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
+			},
+			"./example.d": {
+				"types": "./dist/example.d.d.ts",
+				"browser": "./dist/browser/example.d.js",
+				"bun": "./dist/example.d.js",
+				"node": "./dist/node/example.d.js",
+				"default": "./dist/example.d.js"
 			},
 			"./handlers": {
 				"types": "./dist/handlers/index.d.ts",
@@ -474,6 +484,20 @@
 				"bun": "./dist/visualizations/index.js",
 				"node": "./dist/node/visualizations/index.js",
 				"default": "./dist/visualizations/index.js"
+			},
+			"./visualizations/catalog": {
+				"types": "./dist/visualizations/catalog.d.ts",
+				"browser": "./dist/browser/visualizations/catalog.js",
+				"bun": "./dist/visualizations/catalog.js",
+				"node": "./dist/node/visualizations/catalog.js",
+				"default": "./dist/visualizations/catalog.js"
+			},
+			"./visualizations/selectors": {
+				"types": "./dist/visualizations/selectors.d.ts",
+				"browser": "./dist/browser/visualizations/selectors.js",
+				"bun": "./dist/visualizations/selectors.js",
+				"node": "./dist/node/visualizations/selectors.js",
+				"default": "./dist/visualizations/selectors.js"
 			}
 		},
 		"registry": "https://registry.npmjs.org/"

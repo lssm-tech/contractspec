@@ -9,6 +9,7 @@
 		"./docs": "./src/docs/index.ts",
 		"./docs/integration-posthog.docblock": "./src/docs/integration-posthog.docblock.ts",
 		"./example": "./src/example.ts",
+		"./example.d": "./src/example.d.ts",
 		"./integration-posthog.feature": "./src/integration-posthog.feature.ts",
 		"./posthog": "./src/posthog.ts",
 		"./run": "./src/run.ts"
@@ -67,6 +68,13 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
+			},
+			"./example.d": {
+				"types": "./dist/example.d.d.ts",
+				"browser": "./dist/browser/example.d.js",
+				"bun": "./dist/example.d.js",
+				"node": "./dist/node/example.d.js",
+				"default": "./dist/example.d.js"
 			},
 			"./integration-posthog.feature": {
 				"types": "./dist/integration-posthog.feature.d.ts",

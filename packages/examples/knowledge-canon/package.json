@@ -11,6 +11,7 @@
 		"./docs": "./src/docs/index.ts",
 		"./docs/knowledge-canon.docblock": "./src/docs/knowledge-canon.docblock.ts",
 		"./example": "./src/example.ts",
+		"./example.d": "./src/example.d.ts",
 		"./knowledge-canon.feature": "./src/knowledge-canon.feature.ts",
 		"./source.sample": "./src/source.sample.ts",
 		"./tenant": "./src/tenant.ts"
@@ -82,6 +83,13 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
+			},
+			"./example.d": {
+				"types": "./dist/example.d.d.ts",
+				"browser": "./dist/browser/example.d.js",
+				"bun": "./dist/example.d.js",
+				"node": "./dist/node/example.d.js",
+				"default": "./dist/example.d.js"
 			},
 			"./knowledge-canon.feature": {
 				"types": "./dist/knowledge-canon.feature.d.ts",

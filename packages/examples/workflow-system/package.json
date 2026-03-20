@@ -51,6 +51,7 @@
 		"./entities/step": "./src/entities/step.ts",
 		"./entities/workflow": "./src/entities/workflow.ts",
 		"./example": "./src/example.ts",
+		"./example.d": "./src/example.d.ts",
 		"./handlers": "./src/handlers/index.ts",
 		"./handlers/workflow.handlers": "./src/handlers/workflow.handlers.ts",
 		"./instance": "./src/instance/index.ts",
@@ -72,9 +73,11 @@
 		"./ui/hooks/useWorkflowList": "./src/ui/hooks/useWorkflowList.ts",
 		"./ui/renderers": "./src/ui/renderers/index.ts",
 		"./ui/renderers/workflow.markdown": "./src/ui/renderers/workflow.markdown.ts",
-		"./ui/WorkflowDashboard.visualizations": "./src/ui/WorkflowDashboard.visualizations.tsx",
 		"./ui/WorkflowDashboard": "./src/ui/WorkflowDashboard.tsx",
+		"./ui/WorkflowDashboard.visualizations": "./src/ui/WorkflowDashboard.visualizations.tsx",
 		"./visualizations": "./src/visualizations/index.ts",
+		"./visualizations/catalog": "./src/visualizations/catalog.ts",
+		"./visualizations/selectors": "./src/visualizations/selectors.ts",
 		"./workflow": "./src/workflow/index.ts",
 		"./workflow-system.capability": "./src/workflow-system.capability.ts",
 		"./workflow-system.feature": "./src/workflow-system.feature.ts",
@@ -180,6 +183,12 @@
 				"browser": "./dist/browser/example.js",
 				"bun": "./dist/example.js",
 				"default": "./dist/example.js"
+			},
+			"./example.d": {
+				"types": "./dist/example.d.d.ts",
+				"browser": "./dist/browser/example.d.js",
+				"bun": "./dist/example.d.js",
+				"default": "./dist/example.d.js"
 			},
 			"./handlers": {
 				"types": "./dist/handlers/index.d.ts",
@@ -307,23 +316,35 @@
 				"bun": "./dist/ui/renderers/workflow.markdown.js",
 				"default": "./dist/ui/renderers/workflow.markdown.js"
 			},
-			"./ui/WorkflowDashboard.visualizations": {
-				"types": "./dist/ui/WorkflowDashboard.visualizations.d.ts",
-				"browser": "./dist/browser/ui/WorkflowDashboard.visualizations.js",
-				"bun": "./dist/ui/WorkflowDashboard.visualizations.js",
-				"default": "./dist/ui/WorkflowDashboard.visualizations.js"
-			},
 			"./ui/WorkflowDashboard": {
 				"types": "./dist/ui/WorkflowDashboard.d.ts",
 				"browser": "./dist/browser/ui/WorkflowDashboard.js",
 				"bun": "./dist/ui/WorkflowDashboard.js",
 				"default": "./dist/ui/WorkflowDashboard.js"
 			},
+			"./ui/WorkflowDashboard.visualizations": {
+				"types": "./dist/ui/WorkflowDashboard.visualizations.d.ts",
+				"browser": "./dist/browser/ui/WorkflowDashboard.visualizations.js",
+				"bun": "./dist/ui/WorkflowDashboard.visualizations.js",
+				"default": "./dist/ui/WorkflowDashboard.visualizations.js"
+			},
 			"./visualizations": {
 				"types": "./dist/visualizations/index.d.ts",
 				"browser": "./dist/browser/visualizations/index.js",
 				"bun": "./dist/visualizations/index.js",
 				"default": "./dist/visualizations/index.js"
+			},
+			"./visualizations/catalog": {
+				"types": "./dist/visualizations/catalog.d.ts",
+				"browser": "./dist/browser/visualizations/catalog.js",
+				"bun": "./dist/visualizations/catalog.js",
+				"default": "./dist/visualizations/catalog.js"
+			},
+			"./visualizations/selectors": {
+				"types": "./dist/visualizations/selectors.d.ts",
+				"browser": "./dist/browser/visualizations/selectors.js",
+				"bun": "./dist/visualizations/selectors.js",
+				"default": "./dist/visualizations/selectors.js"
 			},
 			"./workflow": {
 				"types": "./dist/workflow/index.d.ts",

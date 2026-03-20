@@ -1,79 +1,671 @@
 # @contractspec/lib.contracts-spec
 
-**Foundational contract declarations, registries, capabilities, and shared execution primitives for ContractSpec.**
+Core contract declarations, registries, and shared execution primitives for ContractSpec.
 
-## What It Provides
+Website: https://contractspec.io/
 
-- Defines the core spec model used by nearly every package in the monorepo.
-- Publishes capability, contract, registry, control-plane, ACP, and agent-facing contract surfaces.
-- Recently expanded with harness-related contract surfaces and richer AI-native runtime capabilities.
-- `src/docs/` contains docblocks and documentation-facing exports.
+## Why this package exists
+
+`@contractspec/lib.contracts-spec` is the foundation of the split from `@contractspec/lib.contracts`.
+
+It gives you one place to define behavior before implementation:
+
+1. Declare specs (operations, events, forms, resources, policies).
+2. Bind handlers.
+3. Project the same contracts into REST, GraphQL, MCP, and React runtimes.
+
+This spec-first flow improves determinism, regeneration safety, and multi-surface consistency.
+
+## Package boundary (important)
+
+Use this package for:
+
+- Contract declarations (`defineCommand`, `defineQuery`, `defineEvent`, `defineResourceTemplate`, etc.).
+- Core registries (`OperationSpecRegistry`, `EventRegistry`, `FormRegistry`, `ResourceRegistry`).
+- Shared execution/runtime-neutral types (`HandlerCtx`, policy decision types, telemetry trigger types).
+- Contract installation helpers (`installOp`, `op`, `makeEmit`).
+
+Do not use this package for framework adapters:
+
+- REST adapters -> `@contractspec/lib.contracts-runtime-server-rest`
+- GraphQL adapters -> `@contractspec/lib.contracts-runtime-server-graphql`
+- MCP adapters -> `@contractspec/lib.contracts-runtime-server-mcp`
+- React runtime rendering -> `@contractspec/lib.contracts-runtime-client-react`
+- Integration provider/secret catalogs -> `@contractspec/lib.contracts-integrations`
 
 ## Installation
 
-`npm install @contractspec/lib.contracts-spec`
+```bash
+npm install @contractspec/lib.contracts-spec @contractspec/lib.schema
+# or
+bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
+```
 
-or
+## Core concepts
 
-`bun add @contractspec/lib.contracts-spec`
+- `defineCommand` / `defineQuery`: typed operation specs with metadata, I/O schema, policy, transport hints, and side effects.
+- `OperationSpecRegistry`: registers specs, binds handlers, and executes with validation/policy/event guards.
+- `defineEvent` + `EventRegistry`: typed event contracts and lookup.
+- `defineResourceTemplate` + `ResourceRegistry`: URI-template-based resource contracts.
+- `FormRegistry`: contract-first form declarations consumed by UI runtimes.
+- `installOp`: one-call helper to register + bind operation handlers.
+- `makeEmit`: typed helper for declared event emission in handlers.
 
-## Usage
+## Bundle requires alignment
 
-Import the root entrypoint from `@contractspec/lib.contracts-spec`, or choose a documented subpath when you only need one part of the package surface.
+When using `@contractspec/lib.surface-runtime`, bundle specs declare required features via `ModuleBundleSpec.requires` (e.g. `{ key: 'ai-chat', version: '1.0.0' }`). These entries should match `FeatureModuleSpec.meta` from `defineFeature`. Register features (e.g. `AiChatFeature` from `@contractspec/module.ai-chat`) in a `FeatureRegistry` when validating bundle requirements. The bundle runtime can call `registry.get(key)` to verify each required feature exists before resolution.
 
-## Architecture
+## Full contract inventory (explicit map)
 
-- `src/index.ts` is the root barrel for the public contract surface.
-- The package is organized as many domain-specific subtrees exporting capabilities, commands, models, registries, and shared runtime helpers.
-- High-volume subpath exports are intentional so consumers can depend on narrow contract surfaces without pulling the whole tree.
-- `src/events.ts` is package-level event definitions.
-- `src/types.ts` is shared public type definitions.
+<!-- CONTRACT_INVENTORY:START -->
 
-## Public Entry Points
+The package currently exposes **444 subpath exports**. This map is auto-generated for high-context navigation and AI grounding.
 
-- Exports the root barrel plus hundreds of domain-specific subpath exports for ACP, agent, control-plane, capabilities, commands, registries, and shared helpers.
-- Export `.` resolves through `./src/index.ts`.
-- Export `./acp` resolves through `./src/acp/index.ts`.
-- Export `./acp/acp.feature` resolves through `./src/acp/acp.feature.ts`.
-- Export `./acp/capabilities` resolves through `./src/acp/capabilities/index.ts`.
-- Export `./acp/capabilities/acpTransport.capability` resolves through `./src/acp/capabilities/acpTransport.capability.ts`.
-- Export `./acp/commands` resolves through `./src/acp/commands/index.ts`.
-- Export `./acp/commands/acpFsAccess.command` resolves through `./src/acp/commands/acpFsAccess.command.ts`.
-- Export `./acp/commands/acpPromptTurn.command` resolves through `./src/acp/commands/acpPromptTurn.command.ts`.
-- Export `./acp/commands/acpSessionInit.command` resolves through `./src/acp/commands/acpSessionInit.command.ts`.
-- Export `./acp/commands/acpSessionResume.command` resolves through `./src/acp/commands/acpSessionResume.command.ts`.
-- The package publishes 549 total export subpaths; keep docs aligned with `package.json`.
+> Auto-generated by `bun run readme:inventory` (`scripts/update-readme-contract-inventory.ts`). Do not edit this section manually.
 
-## Local Commands
+### 1) Registry-level contract types (semantic model)
 
-- `bun run dev` — contractspec-bun-build dev
-- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
-- `bun run test` — bun test
-- `bun run lint` — bun run lint:fix
-- `bun run lint:check` — biome check .
-- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
-- `bun run typecheck` — tsc --noEmit
-- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
-- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
-- `bun run clean` — rm -rf dist
-- `bun run build:bundle` — contractspec-bun-build transpile
-- `bun run build:types` — contractspec-bun-build types
-- `bun run prebuild` — contractspec-bun-build prebuild
-- `bun run registry:build` — bun run scripts/build-registry.ts
-- `bun run readme:inventory` — bun run scripts/update-readme-contract-inventory.ts
+From `src/types.ts`, `ContractSpecType` currently includes:
 
-## Recent Updates
+- `agent`
+- `app-config`
+- `capability`
+- `data-view`
+- `event`
+- `example`
+- `experiment`
+- `feature`
+- `form`
+- `integration`[types.ts](src/types.ts)
+- `knowledge`
+- `knowledge-space`
+- `migration`
+- `operation`
+- `policy`
+- `presentation`
+- `product-intent`
+- `telemetry`
+- `test-spec`
+- `theme`
+- `type`
+- `workflow`
 
-- Replace eslint+prettier by biomejs to optimize speed.
-- Add a first-class harness system for controlled inspection, testing, evaluation, and proof generation.
-- Add data visualization capabilities.
-- Add table capabilities.
-- Stability.
-- Agentic workflows — subagents, memory tools, and next steps.
+### 2) Export/file artifact kinds (suffix-based)
 
-## Notes
+These are the concrete contract artifact kinds visible in package exports:
 
-- **HIGHEST blast radius in the monorepo** — treat every change as a potential breaking change.
-- Contract type definitions are public API; do not alter shapes without a migration plan.
-- Registry interfaces must stay backward-compatible.
-- Do not edit `dist/` directly.
+- `.capability` (12)
+- `.feature` (6)
+- `.command` (11)
+- `.event` (12)
+- `.query` (8)
+- `.form` (1)
+- `.presentation` (2)
+- `.dataView` (3)
+- `.docs` (2)
+- `.contracts` (1)
+- `.docblock` (44)
+
+### 3) Category -> kinds matrix
+
+- `app-config`: `capability(1)`, `feature(1)`, `contracts(1)`, `docblock(1)`, `plain(9)`
+- `capabilities`: `docblock(1)`, `plain(8)`
+- `contract-registry`: `plain(4)`
+- `control-plane`: `capability(5)`, `command(9)`, `event(10)`, `query(6)`, `plain(12)`
+- `data-views`: `docblock(1)`, `plain(9)`
+- `docs`: `capability(1)`, `command(2)`, `event(2)`, `query(2)`, `form(1)`, `presentation(2)`, `dataView(3)`, `docs(2)`, `docblock(30)`, `plain(21)`
+- `events`: `plain(1)`
+- `examples`: `docblock(1)`, `plain(7)`
+- `experiments`: `docblock(1)`, `plain(3)`
+- `features`: `plain(6)`
+- `forms`: `docblock(1)`, `plain(3)`
+- `install`: `plain(1)`
+- `integrations`: `capability(4)`, `feature(4)`, `docblock(1)`, `plain(110)`
+- `jobs`: `plain(13)`
+- `jsonschema`: `plain(1)`
+- `knowledge`: `capability(1)`, `feature(1)`, `docblock(1)`, `plain(25)`
+- `llm`: `plain(5)`
+- `markdown`: `plain(1)`
+- `migrations`: `plain(1)`
+- `model-registry`: `plain(1)`
+- `onboarding-base`: `plain(1)`
+- `openapi`: `plain(1)`
+- `operations`: `plain(7)`
+- `ownership`: `plain(1)`
+- `policy`: `docblock(1)`, `plain(9)`
+- `presentations`: `docblock(1)`, `plain(5)`
+- `product-intent`: `plain(17)`
+- `prompt`: `plain(1)`
+- `promptRegistry`: `plain(1)`
+- `regenerator`: `docblock(1)`, `plain(8)`
+- `registry`: `plain(1)`
+- `registry-utils`: `plain(1)`
+- `resources`: `plain(1)`
+- `schema-to-markdown`: `plain(1)`
+- `serialization`: `plain(4)`
+- `telemetry`: `docblock(1)`, `plain(5)`
+- `tests`: `plain(4)`
+- `themes`: `plain(1)`
+- `translations`: `plain(8)`
+- `types`: `plain(1)`
+- `versioning`: `plain(5)`
+- `workflow`: `docblock(1)`, `plain(14)`
+- `workspace-config`: `docblock(1)`, `plain(4)`
+
+### 4) Fully enumerated named contracts by category
+
+#### app-config
+
+- Capabilities (1):
+    - `app-config/app-config.capability`
+- Features (1):
+    - `app-config/app-config.feature`
+- Contracts artifacts (1):
+    - `app-config/app-config.contracts`
+- DocBlocks (1):
+    - `app-config/docs/app-config.docblock`
+- Plain exports (non-suffix artifacts): `9`
+
+#### capabilities
+
+- DocBlocks (1):
+    - `capabilities/docs/capabilities.docblock`
+- Plain exports (non-suffix artifacts): `8`
+
+#### contract-registry
+
+- Plain exports (non-suffix artifacts): `4`
+
+#### control-plane
+
+- Capabilities (5):
+    - `control-plane/capabilities/controlPlaneApproval.capability`
+    - `control-plane/capabilities/controlPlaneAudit.capability`
+    - `control-plane/capabilities/controlPlaneChannelRuntime.capability`
+    - `control-plane/capabilities/controlPlaneCore.capability`
+    - `control-plane/capabilities/controlPlaneSkillRegistry.capability`
+- Commands (9):
+    - `control-plane/commands/controlPlaneExecutionApprove.command`
+    - `control-plane/commands/controlPlaneExecutionCancel.command`
+    - `control-plane/commands/controlPlaneExecutionReject.command`
+    - `control-plane/commands/controlPlaneExecutionStart.command`
+    - `control-plane/commands/controlPlaneIntentSubmit.command`
+    - `control-plane/commands/controlPlanePlanCompile.command`
+    - `control-plane/commands/controlPlanePlanVerify.command`
+    - `control-plane/commands/controlPlaneSkillDisable.command`
+    - `control-plane/commands/controlPlaneSkillInstall.command`
+- Events (10):
+    - `control-plane/events/controlPlaneExecutionCompleted.event`
+    - `control-plane/events/controlPlaneExecutionFailed.event`
+    - `control-plane/events/controlPlaneExecutionStepBlocked.event`
+    - `control-plane/events/controlPlaneExecutionStepCompleted.event`
+    - `control-plane/events/controlPlaneExecutionStepStarted.event`
+    - `control-plane/events/controlPlaneIntentReceived.event`
+    - `control-plane/events/controlPlanePlanCompiled.event`
+    - `control-plane/events/controlPlanePlanRejected.event`
+    - `control-plane/events/controlPlaneSkillInstalled.event`
+    - `control-plane/events/controlPlaneSkillRejected.event`
+- Queries (6):
+    - `control-plane/queries/controlPlaneExecutionGet.query`
+    - `control-plane/queries/controlPlaneExecutionList.query`
+    - `control-plane/queries/controlPlanePolicyExplain.query`
+    - `control-plane/queries/controlPlaneSkillList.query`
+    - `control-plane/queries/controlPlaneSkillVerify.query`
+    - `control-plane/queries/controlPlaneTraceGet.query`
+- Plain exports (non-suffix artifacts): `12`
+
+#### data-views
+
+- DocBlocks (1):
+    - `data-views/docs/data-views.docblock`
+- Plain exports (non-suffix artifacts): `9`
+
+#### docs
+
+- Capabilities (1):
+    - `docs/capabilities/documentationSystem.capability`
+- Commands (2):
+    - `docs/commands/docsGenerate.command`
+    - `docs/commands/docsPublish.command`
+- Events (2):
+    - `docs/events/docsGenerated.event`
+    - `docs/events/docsPublished.event`
+- Queries (2):
+    - `docs/queries/contractReference.query`
+    - `docs/queries/docsIndex.query`
+- Forms (1):
+    - `docs/forms/docsSearch.form`
+- Presentations (2):
+    - `docs/presentations/docsLayout.presentation`
+    - `docs/presentations/docsReferencePage.presentation`
+- Data views (3):
+    - `docs/views/contractReference.dataView`
+    - `docs/views/docsIndex.dataView`
+    - `docs/views/exampleCatalog.dataView`
+- Docs contracts (2):
+    - `docs/meta.docs`
+    - `docs/tech-contracts.docs`
+- DocBlocks (30):
+    - `docs/accessibility_wcag_compliance_specs.docblock`
+    - `docs/tech/auth/better-auth-nextjs.docblock`
+    - `docs/tech/cli.docblock`
+    - `docs/tech/contracts/migrations.docblock`
+    - `docs/tech/contracts/openapi-export.docblock`
+    - `docs/tech/contracts/openapi-import.docblock`
+    - `docs/tech/contracts/ops-to-presentation-linking.docblock`
+    - `docs/tech/contracts/overlays.docblock`
+    - `docs/tech/contracts/README.docblock`
+    - `docs/tech/contracts/tests.docblock`
+    - `docs/tech/contracts/themes.docblock`
+    - `docs/tech/contracts/vertical-pocket-family-office.docblock`
+    - `docs/tech/docs-system.docblock`
+    - `docs/tech/lifecycle-stage-system.docblock`
+    - `docs/tech/llm/llm-integration.docblock`
+    - `docs/tech/mcp-endpoints.docblock`
+    - `docs/tech/presentation-runtime.docblock`
+    - `docs/tech/report-verification-table.docblock`
+    - `docs/tech/schema/README.docblock`
+    - `docs/tech/studio/learning-events.docblock`
+    - `docs/tech/studio/learning-journeys.docblock`
+    - `docs/tech/studio/platform-admin-panel.docblock`
+    - `docs/tech/studio/project-access-teams.docblock`
+    - `docs/tech/studio/project-routing.docblock`
+    - `docs/tech/studio/sandbox-unlogged.docblock`
+    - `docs/tech/studio/team-invitations.docblock`
+    - `docs/tech/studio/workspace-ops.docblock`
+    - `docs/tech/studio/workspaces.docblock`
+    - `docs/tech/telemetry-ingest.docblock`
+    - `docs/tech/vscode-extension.docblock`
+- Plain exports (non-suffix artifacts): `21`
+
+#### events
+
+- Plain exports (non-suffix artifacts): `1`
+
+#### examples
+
+- DocBlocks (1):
+    - `examples/docs/examples.docblock`
+- Plain exports (non-suffix artifacts): `7`
+
+#### experiments
+
+- DocBlocks (1):
+    - `experiments/docs/experiments.docblock`
+- Plain exports (non-suffix artifacts): `3`
+
+#### features
+
+- Plain exports (non-suffix artifacts): `6`
+
+#### forms
+
+- DocBlocks (1):
+    - `forms/docs/forms.docblock`
+- Plain exports (non-suffix artifacts): `3`
+
+#### install
+
+- Plain exports (non-suffix artifacts): `1`
+
+#### integrations
+
+- Capabilities (4):
+    - `integrations/health/health.capability`
+    - `integrations/integrations.capability`
+    - `integrations/meeting-recorder/meeting-recorder.capability`
+    - `integrations/openbanking/openbanking.capability`
+- Features (4):
+    - `integrations/health/health.feature`
+    - `integrations/integrations.feature`
+    - `integrations/meeting-recorder/meeting-recorder.feature`
+    - `integrations/openbanking/openbanking.feature`
+- DocBlocks (1):
+    - `integrations/docs/integrations.docblock`
+- Plain exports (non-suffix artifacts): `110`
+
+#### jobs
+
+- Plain exports (non-suffix artifacts): `13`
+
+#### jsonschema
+
+- Plain exports (non-suffix artifacts): `1`
+
+#### knowledge
+
+- Capabilities (1):
+    - `knowledge/knowledge.capability`
+- Features (1):
+    - `knowledge/knowledge.feature`
+- DocBlocks (1):
+    - `knowledge/docs/knowledge.docblock`
+- Plain exports (non-suffix artifacts): `25`
+
+#### llm
+
+- Plain exports (non-suffix artifacts): `5`
+
+#### markdown
+
+- Plain exports (non-suffix artifacts): `1`
+
+#### migrations
+
+- Plain exports (non-suffix artifacts): `1`
+
+#### model-registry
+
+- Plain exports (non-suffix artifacts): `1`
+
+#### onboarding-base
+
+- Plain exports (non-suffix artifacts): `1`
+
+#### openapi
+
+- Plain exports (non-suffix artifacts): `1`
+
+#### operations
+
+- Plain exports (non-suffix artifacts): `7`
+
+#### ownership
+
+- Plain exports (non-suffix artifacts): `1`
+
+#### policy
+
+- DocBlocks (1):
+    - `policy/docs/policy.docblock`
+- Plain exports (non-suffix artifacts): `9`
+
+#### presentations
+
+- DocBlocks (1):
+    - `presentations/docs/presentations-conventions.docblock`
+- Plain exports (non-suffix artifacts): `5`
+
+#### product-intent
+
+- Plain exports (non-suffix artifacts): `17`
+
+#### prompt
+
+- Plain exports (non-suffix artifacts): `1`
+
+#### promptRegistry
+
+- Plain exports (non-suffix artifacts): `1`
+
+#### regenerator
+
+- DocBlocks (1):
+    - `regenerator/docs/regenerator.docblock`
+- Plain exports (non-suffix artifacts): `8`
+
+#### registry
+
+- Plain exports (non-suffix artifacts): `1`
+
+#### registry-utils
+
+- Plain exports (non-suffix artifacts): `1`
+
+#### resources
+
+- Plain exports (non-suffix artifacts): `1`
+
+#### schema-to-markdown
+
+- Plain exports (non-suffix artifacts): `1`
+
+#### serialization
+
+- Plain exports (non-suffix artifacts): `4`
+
+#### telemetry
+
+- DocBlocks (1):
+    - `telemetry/docs/telemetry.docblock`
+- Plain exports (non-suffix artifacts): `5`
+
+#### tests
+
+- Plain exports (non-suffix artifacts): `4`
+
+#### themes
+
+- Plain exports (non-suffix artifacts): `1`
+
+#### translations
+
+- Plain exports (non-suffix artifacts): `8`
+
+#### types
+
+- Plain exports (non-suffix artifacts): `1`
+
+#### versioning
+
+- Plain exports (non-suffix artifacts): `5`
+
+#### workflow
+
+- DocBlocks (1):
+    - `workflow/overview.docblock`
+- Plain exports (non-suffix artifacts): `14`
+
+#### workspace-config
+
+- DocBlocks (1):
+    - `workspace-config/workspace-config.docblock`
+- Plain exports (non-suffix artifacts): `4`
+
+### 5) DocBlock coverage map (for AI context retrieval)
+
+`*.docblock` exports are narrative/architecture assets and are high-value context for retrieval pipelines.
+
+- `app-config`: 1
+- `capabilities`: 1
+- `data-views`: 1
+- `docs`: 30
+- `examples`: 1
+- `experiments`: 1
+- `forms`: 1
+- `integrations`: 1
+- `knowledge`: 1
+- `policy`: 1
+- `presentations`: 1
+- `regenerator`: 1
+- `telemetry`: 1
+- `workflow`: 1
+- `workspace-config`: 1
+
+<!-- CONTRACT_INVENTORY:END -->
+
+## End-to-end quick start
+
+### 1) Define schema models and specs
+
+```ts
+import { SchemaModel, ScalarTypeEnum } from "@contractspec/lib.schema";
+import {
+  defineCommand,
+  defineEvent,
+  defineQuery,
+} from "@contractspec/lib.contracts-spec";
+
+const WorkspaceInput = new SchemaModel({
+  name: "WorkspaceInput",
+  fields: {
+    workspaceId: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
+  },
+});
+
+const WorkspaceOutput = new SchemaModel({
+  name: "WorkspaceOutput",
+  fields: {
+    workspaceId: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
+    name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
+  },
+});
+
+const WorkspaceCreatedPayload = new SchemaModel({
+  name: "WorkspaceCreatedPayload",
+  fields: {
+    workspaceId: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
+  },
+});
+
+export const WorkspaceCreated = defineEvent({
+  meta: {
+    key: "workspace.created",
+    version: "1.0.0",
+    title: "Workspace created",
+    description: "Emitted after a workspace is created.",
+    stability: "stable",
+    owners: ["platform.core"],
+    tags: ["workspace", "event"],
+  },
+  payload: WorkspaceCreatedPayload,
+});
+
+export const GetWorkspace = defineQuery({
+  meta: {
+    key: "workspace.get",
+    version: "1.0.0",
+    title: "Get workspace",
+    description: "Returns workspace metadata for the current tenant.",
+    goal: "Expose read-only workspace state to the UI.",
+    context: "Used by dashboard bootstrap.",
+    stability: "stable",
+    owners: ["platform.core"],
+    tags: ["workspace", "query"],
+  },
+  io: { input: WorkspaceInput, output: WorkspaceOutput },
+  policy: { auth: "user" },
+});
+
+export const CreateWorkspace = defineCommand({
+  meta: {
+    key: "workspace.create",
+    version: "1.0.0",
+    title: "Create workspace",
+    description: "Creates a new workspace.",
+    goal: "Provision a workspace for a tenant.",
+    context: "Triggered by onboarding flows.",
+    stability: "stable",
+    owners: ["platform.core"],
+    tags: ["workspace", "command"],
+  },
+  io: { input: WorkspaceInput, output: WorkspaceOutput },
+  policy: { auth: "admin" },
+  sideEffects: {
+    emits: [{ ref: WorkspaceCreated.meta, when: "after_create" }] as const,
+  },
+});
+```
+
+### 2) Register specs and bind handlers
+
+```ts
+import {
+  EventRegistry,
+  installOp,
+  makeEmit,
+  OperationSpecRegistry,
+} from "@contractspec/lib.contracts-spec";
+import {
+  CreateWorkspace,
+  GetWorkspace,
+  WorkspaceCreated,
+} from "./workspace.spec";
+
+export const events = new EventRegistry().register(WorkspaceCreated);
+export const operations = new OperationSpecRegistry();
+
+installOp(operations, GetWorkspace, async (input) => ({
+  workspaceId: input.workspaceId,
+  name: "Acme Workspace",
+}));
+
+installOp(operations, CreateWorkspace, async (input, ctx) => {
+  const result = {
+    workspaceId: input.workspaceId,
+    name: "Acme Workspace",
+  };
+
+  const emit = makeEmit(CreateWorkspace, ctx);
+  await emit.ref(WorkspaceCreated, { workspaceId: input.workspaceId });
+  return result;
+});
+```
+
+### 3) Execute from runtime context
+
+```ts
+import type { HandlerCtx } from "@contractspec/lib.contracts-spec";
+import { operations, events } from "./registry";
+
+const ctx: HandlerCtx = {
+  actor: "admin",
+  channel: "web",
+  eventSpecResolver: events,
+  eventPublisher: async (envelope) => {
+    console.log("published", envelope.key, envelope.version);
+  },
+};
+
+const output = await operations.execute(
+  "workspace.create",
+  "1.0.0",
+  { workspaceId: "wk_123" },
+  ctx
+);
+
+console.log(output);
+```
+
+## Execution behavior (why this is AI-friendly)
+
+`OperationSpecRegistry.execute(...)` runs predictable steps:
+
+1. Resolve spec/version.
+2. Parse input.
+3. Apply policy hooks when provided (`ctx.decide`, `ctx.rateLimit`).
+4. Guard event emission against declared side effects.
+5. Execute handler.
+6. Parse output when output is a schema model.
+7. Emit telemetry when configured.
+
+This deterministic contract -> runtime flow is a strong base for code generation and AI-driven refactors.
+
+## AI assistant guidance
+
+When writing code:
+
+- Start here when asked to "add a new operation/event/form/resource contract".
+- Keep `meta.key` stable and increment versions for behavior changes.
+- Define spec first, then bind handler, then expose transport.
+
+When reading code:
+
+- Treat `<meta.key, meta.version>` as the canonical identity.
+- Expect one operation contract to project into multiple transports.
+
+## Split migration from deprecated monolith
+
+- `@contractspec/lib.contracts` -> `@contractspec/lib.contracts-spec`
+- `@contractspec/lib.contracts/operations/*` -> `@contractspec/lib.contracts-spec/operations/*`
+- `@contractspec/lib.contracts/events` -> `@contractspec/lib.contracts-spec/events`
+- `@contractspec/lib.contracts/resources` -> `@contractspec/lib.contracts-spec/resources`
+- `@contractspec/lib.contracts/forms/*` -> `@contractspec/lib.contracts-spec/forms/*`
+
+Runtime packages moved out:
+
+- REST runtime -> `@contractspec/lib.contracts-runtime-server-rest`
+- GraphQL runtime -> `@contractspec/lib.contracts-runtime-server-graphql`
+- MCP runtime -> `@contractspec/lib.contracts-runtime-server-mcp`
+- React runtime -> `@contractspec/lib.contracts-runtime-client-react`
+- Integration contracts -> `@contractspec/lib.contracts-integrations`

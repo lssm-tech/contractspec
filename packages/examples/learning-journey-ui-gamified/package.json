@@ -13,6 +13,7 @@
 		"./docs": "./src/docs/index.ts",
 		"./docs/learning-journey-ui-gamified.docblock": "./src/docs/learning-journey-ui-gamified.docblock.ts",
 		"./example": "./src/example.ts",
+		"./example.d": "./src/example.d.ts",
 		"./GamifiedMiniApp": "./src/GamifiedMiniApp.tsx",
 		"./learning-journey-ui-gamified.feature": "./src/learning-journey-ui-gamified.feature.ts",
 		"./views": "./src/views/index.ts",
@@ -112,6 +113,13 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
+			},
+			"./example.d": {
+				"types": "./dist/example.d.d.ts",
+				"browser": "./dist/browser/example.d.js",
+				"bun": "./dist/example.d.js",
+				"node": "./dist/node/example.d.js",
+				"default": "./dist/example.d.js"
 			},
 			"./GamifiedMiniApp": {
 				"types": "./dist/GamifiedMiniApp.d.ts",

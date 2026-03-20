@@ -5,7 +5,7 @@ import {
 	getExample,
 	listExamples,
 	searchExamples,
-} from '@contractspec/module.examples/registry';
+} from '@contractspec/module.examples';
 import chalk from 'chalk';
 import { Command } from 'commander';
 import {

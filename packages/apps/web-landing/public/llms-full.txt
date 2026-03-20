@@ -2,7 +2,7 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-03-20T16:22:57.323Z
+Generated: 2026-03-20T19:24:06.303Z
 Packages: 163
 
 ---
@@ -11960,7 +11960,7 @@ bunx agentpacks --help
 
 ## Recent Updates
 
-- Replace eslint+prettier by biomejs to optimize speed.
+- Use the Biome-only lint and formatting workflow in pack guidance and generated targets.
 - Vnext ai-native.
 - Add latest models and align defaults.
 - Harden AgentSkills compatibility in agentpacks.

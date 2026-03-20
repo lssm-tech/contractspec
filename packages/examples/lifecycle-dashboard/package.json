@@ -9,6 +9,7 @@
 		"./docs": "./src/docs/index.ts",
 		"./docs/lifecycle-dashboard.docblock": "./src/docs/lifecycle-dashboard.docblock.ts",
 		"./example": "./src/example.ts",
+		"./example.d": "./src/example.d.ts",
 		"./lifecycle-dashboard.feature": "./src/lifecycle-dashboard.feature.ts",
 		"./snippets/page": "./src/snippets/page.ts"
 	},
@@ -65,6 +66,13 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
+			},
+			"./example.d": {
+				"types": "./dist/example.d.d.ts",
+				"browser": "./dist/browser/example.d.js",
+				"bun": "./dist/example.d.js",
+				"node": "./dist/node/example.d.js",
+				"default": "./dist/example.d.js"
 			},
 			"./lifecycle-dashboard.feature": {
 				"types": "./dist/lifecycle-dashboard.feature.d.ts",

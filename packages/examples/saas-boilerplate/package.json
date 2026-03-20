@@ -19,6 +19,7 @@
 		"./docs": "./src/docs/index.ts",
 		"./docs/saas-boilerplate.docblock": "./src/docs/saas-boilerplate.docblock.ts",
 		"./example": "./src/example.ts",
+		"./example.d": "./src/example.d.ts",
 		"./handlers": "./src/handlers/index.ts",
 		"./handlers/saas.handlers": "./src/handlers/saas.handlers.ts",
 		"./presentations": "./src/presentations/index.ts",
@@ -54,7 +55,9 @@
 		"./ui/SaasDashboard.visualizations": "./src/ui/SaasDashboard.visualizations.tsx",
 		"./ui/SaasProjectList": "./src/ui/SaasProjectList.tsx",
 		"./ui/SaasSettingsPanel": "./src/ui/SaasSettingsPanel.tsx",
-		"./visualizations": "./src/visualizations/index.ts"
+		"./visualizations": "./src/visualizations/index.ts",
+		"./visualizations/catalog": "./src/visualizations/catalog.ts",
+		"./visualizations/selectors": "./src/visualizations/selectors.ts"
 	},
 	"scripts": {
 		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
@@ -190,6 +193,13 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
+			},
+			"./example.d": {
+				"types": "./dist/example.d.d.ts",
+				"browser": "./dist/browser/example.d.js",
+				"bun": "./dist/example.d.js",
+				"node": "./dist/node/example.d.js",
+				"default": "./dist/example.d.js"
 			},
 			"./handlers": {
 				"types": "./dist/handlers/index.d.ts",
@@ -429,6 +439,13 @@
 				"node": "./dist/node/ui/SaasProjectList.js",
 				"default": "./dist/ui/SaasProjectList.js"
 			},
+			"./ui/SaasSettingsPanel": {
+				"types": "./dist/ui/SaasSettingsPanel.d.ts",
+				"browser": "./dist/browser/ui/SaasSettingsPanel.js",
+				"bun": "./dist/ui/SaasSettingsPanel.js",
+				"node": "./dist/node/ui/SaasSettingsPanel.js",
+				"default": "./dist/ui/SaasSettingsPanel.js"
+			},
 			"./visualizations": {
 				"types": "./dist/visualizations/index.d.ts",
 				"browser": "./dist/browser/visualizations/index.js",
@@ -436,12 +453,19 @@
 				"node": "./dist/node/visualizations/index.js",
 				"default": "./dist/visualizations/index.js"
 			},
-			"./ui/SaasSettingsPanel": {
-				"types": "./dist/ui/SaasSettingsPanel.d.ts",
-				"browser": "./dist/browser/ui/SaasSettingsPanel.js",
-				"bun": "./dist/ui/SaasSettingsPanel.js",
-				"node": "./dist/node/ui/SaasSettingsPanel.js",
-				"default": "./dist/ui/SaasSettingsPanel.js"
+			"./visualizations/catalog": {
+				"types": "./dist/visualizations/catalog.d.ts",
+				"browser": "./dist/browser/visualizations/catalog.js",
+				"bun": "./dist/visualizations/catalog.js",
+				"node": "./dist/node/visualizations/catalog.js",
+				"default": "./dist/visualizations/catalog.js"
+			},
+			"./visualizations/selectors": {
+				"types": "./dist/visualizations/selectors.d.ts",
+				"browser": "./dist/browser/visualizations/selectors.js",
+				"bun": "./dist/visualizations/selectors.js",
+				"node": "./dist/node/visualizations/selectors.js",
+				"default": "./dist/visualizations/selectors.js"
 			}
 		},
 		"registry": "https://registry.npmjs.org/",

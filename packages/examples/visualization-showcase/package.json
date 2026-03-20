@@ -9,12 +9,30 @@
 		"./docs": "./src/docs/index.ts",
 		"./docs/visualization-showcase.docblock": "./src/docs/visualization-showcase.docblock.ts",
 		"./example": "./src/example.ts",
+		"./example.d": "./src/example.d.ts",
 		"./ui": "./src/ui/index.ts",
-		"./ui/VisualizationShowcase": "./src/ui/VisualizationShowcase.tsx",
+		"./ui/index.d": "./src/ui/index.d.ts",
 		"./ui/renderers": "./src/ui/renderers/index.ts",
+		"./ui/renderers/index.d": "./src/ui/renderers/index.d.ts",
 		"./ui/renderers/visualization-showcase.markdown": "./src/ui/renderers/visualization-showcase.markdown.ts",
+		"./ui/renderers/visualization-showcase.markdown.d": "./src/ui/renderers/visualization-showcase.markdown.d.ts",
+		"./ui/VisualizationShowcase": "./src/ui/VisualizationShowcase.tsx",
+		"./ui/VisualizationShowcase.d": "./src/ui/VisualizationShowcase.d.ts",
 		"./visualization-showcase.feature": "./src/visualization-showcase.feature.ts",
-		"./visualizations": "./src/visualizations/index.ts"
+		"./visualizations": "./src/visualizations/index.ts",
+		"./visualizations/data": "./src/visualizations/data.ts",
+		"./visualizations/data.d": "./src/visualizations/data.d.ts",
+		"./visualizations/index.d": "./src/visualizations/index.d.ts",
+		"./visualizations/registry": "./src/visualizations/registry.ts",
+		"./visualizations/registry.d": "./src/visualizations/registry.d.ts",
+		"./visualizations/sections": "./src/visualizations/sections.ts",
+		"./visualizations/sections.d": "./src/visualizations/sections.d.ts",
+		"./visualizations/specs.breakdown": "./src/visualizations/specs.breakdown.ts",
+		"./visualizations/specs.breakdown.d": "./src/visualizations/specs.breakdown.d.ts",
+		"./visualizations/specs.cartesian": "./src/visualizations/specs.cartesian.ts",
+		"./visualizations/specs.cartesian.d": "./src/visualizations/specs.cartesian.d.ts",
+		"./visualizations/specs.metric": "./src/visualizations/specs.metric.ts",
+		"./visualizations/specs.metric.d": "./src/visualizations/specs.metric.d.ts"
 	},
 	"scripts": {
 		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
@@ -79,6 +97,13 @@
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
 			},
+			"./example.d": {
+				"types": "./dist/example.d.d.ts",
+				"browser": "./dist/browser/example.d.js",
+				"bun": "./dist/example.d.js",
+				"node": "./dist/node/example.d.js",
+				"default": "./dist/example.d.js"
+			},
 			"./ui": {
 				"types": "./dist/ui/index.d.ts",
 				"browser": "./dist/browser/ui/index.js",
@@ -86,12 +111,12 @@
 				"node": "./dist/node/ui/index.js",
 				"default": "./dist/ui/index.js"
 			},
-			"./ui/VisualizationShowcase": {
-				"types": "./dist/ui/VisualizationShowcase.d.ts",
-				"browser": "./dist/browser/ui/VisualizationShowcase.js",
-				"bun": "./dist/ui/VisualizationShowcase.js",
-				"node": "./dist/node/ui/VisualizationShowcase.js",
-				"default": "./dist/ui/VisualizationShowcase.js"
+			"./ui/index.d": {
+				"types": "./dist/ui/index.d.d.ts",
+				"browser": "./dist/browser/ui/index.d.js",
+				"bun": "./dist/ui/index.d.js",
+				"node": "./dist/node/ui/index.d.js",
+				"default": "./dist/ui/index.d.js"
 			},
 			"./ui/renderers": {
 				"types": "./dist/ui/renderers/index.d.ts",
@@ -100,12 +125,40 @@
 				"node": "./dist/node/ui/renderers/index.js",
 				"default": "./dist/ui/renderers/index.js"
 			},
+			"./ui/renderers/index.d": {
+				"types": "./dist/ui/renderers/index.d.d.ts",
+				"browser": "./dist/browser/ui/renderers/index.d.js",
+				"bun": "./dist/ui/renderers/index.d.js",
+				"node": "./dist/node/ui/renderers/index.d.js",
+				"default": "./dist/ui/renderers/index.d.js"
+			},
 			"./ui/renderers/visualization-showcase.markdown": {
 				"types": "./dist/ui/renderers/visualization-showcase.markdown.d.ts",
 				"browser": "./dist/browser/ui/renderers/visualization-showcase.markdown.js",
 				"bun": "./dist/ui/renderers/visualization-showcase.markdown.js",
 				"node": "./dist/node/ui/renderers/visualization-showcase.markdown.js",
 				"default": "./dist/ui/renderers/visualization-showcase.markdown.js"
+			},
+			"./ui/renderers/visualization-showcase.markdown.d": {
+				"types": "./dist/ui/renderers/visualization-showcase.markdown.d.d.ts",
+				"browser": "./dist/browser/ui/renderers/visualization-showcase.markdown.d.js",
+				"bun": "./dist/ui/renderers/visualization-showcase.markdown.d.js",
+				"node": "./dist/node/ui/renderers/visualization-showcase.markdown.d.js",
+				"default": "./dist/ui/renderers/visualization-showcase.markdown.d.js"
+			},
+			"./ui/VisualizationShowcase": {
+				"types": "./dist/ui/VisualizationShowcase.d.ts",
+				"browser": "./dist/browser/ui/VisualizationShowcase.js",
+				"bun": "./dist/ui/VisualizationShowcase.js",
+				"node": "./dist/node/ui/VisualizationShowcase.js",
+				"default": "./dist/ui/VisualizationShowcase.js"
+			},
+			"./ui/VisualizationShowcase.d": {
+				"types": "./dist/ui/VisualizationShowcase.d.d.ts",
+				"browser": "./dist/browser/ui/VisualizationShowcase.d.js",
+				"bun": "./dist/ui/VisualizationShowcase.d.js",
+				"node": "./dist/node/ui/VisualizationShowcase.d.js",
+				"default": "./dist/ui/VisualizationShowcase.d.js"
 			},
 			"./visualization-showcase.feature": {
 				"types": "./dist/visualization-showcase.feature.d.ts",
@@ -120,6 +173,97 @@
 				"bun": "./dist/visualizations/index.js",
 				"node": "./dist/node/visualizations/index.js",
 				"default": "./dist/visualizations/index.js"
+			},
+			"./visualizations/data": {
+				"types": "./dist/visualizations/data.d.ts",
+				"browser": "./dist/browser/visualizations/data.js",
+				"bun": "./dist/visualizations/data.js",
+				"node": "./dist/node/visualizations/data.js",
+				"default": "./dist/visualizations/data.js"
+			},
+			"./visualizations/data.d": {
+				"types": "./dist/visualizations/data.d.d.ts",
+				"browser": "./dist/browser/visualizations/data.d.js",
+				"bun": "./dist/visualizations/data.d.js",
+				"node": "./dist/node/visualizations/data.d.js",
+				"default": "./dist/visualizations/data.d.js"
+			},
+			"./visualizations/index.d": {
+				"types": "./dist/visualizations/index.d.d.ts",
+				"browser": "./dist/browser/visualizations/index.d.js",
+				"bun": "./dist/visualizations/index.d.js",
+				"node": "./dist/node/visualizations/index.d.js",
+				"default": "./dist/visualizations/index.d.js"
+			},
+			"./visualizations/registry": {
+				"types": "./dist/visualizations/registry.d.ts",
+				"browser": "./dist/browser/visualizations/registry.js",
+				"bun": "./dist/visualizations/registry.js",
+				"node": "./dist/node/visualizations/registry.js",
+				"default": "./dist/visualizations/registry.js"
+			},
+			"./visualizations/registry.d": {
+				"types": "./dist/visualizations/registry.d.d.ts",
+				"browser": "./dist/browser/visualizations/registry.d.js",
+				"bun": "./dist/visualizations/registry.d.js",
+				"node": "./dist/node/visualizations/registry.d.js",
+				"default": "./dist/visualizations/registry.d.js"
+			},
+			"./visualizations/sections": {
+				"types": "./dist/visualizations/sections.d.ts",
+				"browser": "./dist/browser/visualizations/sections.js",
+				"bun": "./dist/visualizations/sections.js",
+				"node": "./dist/node/visualizations/sections.js",
+				"default": "./dist/visualizations/sections.js"
+			},
+			"./visualizations/sections.d": {
+				"types": "./dist/visualizations/sections.d.d.ts",
+				"browser": "./dist/browser/visualizations/sections.d.js",
+				"bun": "./dist/visualizations/sections.d.js",
+				"node": "./dist/node/visualizations/sections.d.js",
+				"default": "./dist/visualizations/sections.d.js"
+			},
+			"./visualizations/specs.breakdown": {
+				"types": "./dist/visualizations/specs.breakdown.d.ts",
+				"browser": "./dist/browser/visualizations/specs.breakdown.js",
+				"bun": "./dist/visualizations/specs.breakdown.js",
+				"node": "./dist/node/visualizations/specs.breakdown.js",
+				"default": "./dist/visualizations/specs.breakdown.js"
+			},
+			"./visualizations/specs.breakdown.d": {
+				"types": "./dist/visualizations/specs.breakdown.d.d.ts",
+				"browser": "./dist/browser/visualizations/specs.breakdown.d.js",
+				"bun": "./dist/visualizations/specs.breakdown.d.js",
+				"node": "./dist/node/visualizations/specs.breakdown.d.js",
+				"default": "./dist/visualizations/specs.breakdown.d.js"
+			},
+			"./visualizations/specs.cartesian": {
+				"types": "./dist/visualizations/specs.cartesian.d.ts",
+				"browser": "./dist/browser/visualizations/specs.cartesian.js",
+				"bun": "./dist/visualizations/specs.cartesian.js",
+				"node": "./dist/node/visualizations/specs.cartesian.js",
+				"default": "./dist/visualizations/specs.cartesian.js"
+			},
+			"./visualizations/specs.cartesian.d": {
+				"types": "./dist/visualizations/specs.cartesian.d.d.ts",
+				"browser": "./dist/browser/visualizations/specs.cartesian.d.js",
+				"bun": "./dist/visualizations/specs.cartesian.d.js",
+				"node": "./dist/node/visualizations/specs.cartesian.d.js",
+				"default": "./dist/visualizations/specs.cartesian.d.js"
+			},
+			"./visualizations/specs.metric": {
+				"types": "./dist/visualizations/specs.metric.d.ts",
+				"browser": "./dist/browser/visualizations/specs.metric.js",
+				"bun": "./dist/visualizations/specs.metric.js",
+				"node": "./dist/node/visualizations/specs.metric.js",
+				"default": "./dist/visualizations/specs.metric.js"
+			},
+			"./visualizations/specs.metric.d": {
+				"types": "./dist/visualizations/specs.metric.d.d.ts",
+				"browser": "./dist/browser/visualizations/specs.metric.d.js",
+				"bun": "./dist/visualizations/specs.metric.d.js",
+				"node": "./dist/node/visualizations/specs.metric.d.js",
+				"default": "./dist/visualizations/specs.metric.d.js"
 			}
 		},
 		"registry": "https://registry.npmjs.org/"

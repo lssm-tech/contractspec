@@ -12,6 +12,7 @@
 		"./entities/models": "./src/entities/models.ts",
 		"./events": "./src/events.ts",
 		"./example": "./src/example.ts",
+		"./example.d": "./src/example.d.ts",
 		"./handlers": "./src/handlers/index.ts",
 		"./handlers/demo.handlers": "./src/handlers/demo.handlers.ts",
 		"./locale-jurisdiction-gate.feature": "./src/locale-jurisdiction-gate.feature.ts",
@@ -96,6 +97,13 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
+			},
+			"./example.d": {
+				"types": "./dist/example.d.d.ts",
+				"browser": "./dist/browser/example.d.js",
+				"bun": "./dist/example.d.js",
+				"node": "./dist/node/example.d.js",
+				"default": "./dist/example.d.js"
 			},
 			"./handlers": {
 				"types": "./dist/handlers/index.d.ts",

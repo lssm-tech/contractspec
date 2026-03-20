@@ -10,6 +10,7 @@
 		"./docs": "./src/docs/index.ts",
 		"./docs/video-api-showcase.docblock": "./src/docs/video-api-showcase.docblock.ts",
 		"./example": "./src/example.ts",
+		"./example.d": "./src/example.d.ts",
 		"./sample-specs": "./src/sample-specs.ts",
 		"./video-api-showcase.feature": "./src/video-api-showcase.feature.ts"
 	},
@@ -75,6 +76,13 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
+			},
+			"./example.d": {
+				"types": "./dist/example.d.d.ts",
+				"browser": "./dist/browser/example.d.js",
+				"bun": "./dist/example.d.js",
+				"node": "./dist/node/example.d.js",
+				"default": "./dist/example.d.js"
 			},
 			"./sample-specs": {
 				"types": "./dist/sample-specs.d.ts",

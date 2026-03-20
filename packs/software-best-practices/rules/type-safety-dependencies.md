@@ -303,7 +303,7 @@ bun outdated
 bun update
 
 # Run tests after updates
-bun test
+bun x turbo run test
 
 # Check for security vulnerabilities
 bun audit
@@ -346,7 +346,7 @@ bun audit
 
 ```bash
 # Type checking
-bun run tsc --noEmit
+bun run typecheck
 
 # Dependency audit
 bun audit
@@ -422,4 +422,3 @@ bun audit
 - See `code-splitting.md` for file size limits and splitting strategies
 - See `package-architecture.md` for dependency flow rules
 - See root `tsconfig.json` for TypeScript configuration baseline
-

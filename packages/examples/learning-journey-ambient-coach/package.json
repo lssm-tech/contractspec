@@ -9,6 +9,7 @@
 		"./docs": "./src/docs/index.ts",
 		"./docs/ambient-coach.docblock": "./src/docs/ambient-coach.docblock.ts",
 		"./example": "./src/example.ts",
+		"./example.d": "./src/example.d.ts",
 		"./learning-journey-ambient-coach.feature": "./src/learning-journey-ambient-coach.feature.ts",
 		"./track": "./src/track.ts"
 	},
@@ -65,6 +66,13 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
+			},
+			"./example.d": {
+				"types": "./dist/example.d.d.ts",
+				"browser": "./dist/browser/example.d.js",
+				"bun": "./dist/example.d.js",
+				"node": "./dist/node/example.d.js",
+				"default": "./dist/example.d.js"
 			},
 			"./learning-journey-ambient-coach.feature": {
 				"types": "./dist/learning-journey-ambient-coach.feature.d.ts",

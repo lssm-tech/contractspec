@@ -58,7 +58,7 @@ const CrmDashboard = dynamic(
 
 const DataGridShowcase = dynamic(
 	() =>
-		import('../../../../../examples/data-grid-showcase/src/ui').then(
+		import('@contractspec/example.data-grid-showcase/ui').then(
 			(mod) => mod.DataGridShowcase
 		),
 	{ ssr: false, loading: () => <LoadingSpinner /> }
@@ -66,7 +66,7 @@ const DataGridShowcase = dynamic(
 
 const VisualizationShowcase = dynamic(
 	() =>
-		import('../../../../../examples/visualization-showcase/src/ui').then(
+		import('@contractspec/example.visualization-showcase/ui').then(
 			(mod) => mod.VisualizationShowcase
 		),
 	{ ssr: false, loading: () => <LoadingSpinner /> }

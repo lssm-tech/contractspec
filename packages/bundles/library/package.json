@@ -65,6 +65,8 @@
 		"./components/docs/ecosystem/TemplatesPage": "./src/components/docs/ecosystem/TemplatesPage.tsx",
 		"./components/docs/examples": "./src/components/docs/examples/index.ts",
 		"./components/docs/examples/DocsExamplesPage": "./src/components/docs/examples/DocsExamplesPage.tsx",
+		"./components/docs/examples/exampleShowcaseData": "./src/components/docs/examples/exampleShowcaseData.ts",
+		"./components/docs/examples/ExampleShowcasePage": "./src/components/docs/examples/ExampleShowcasePage.tsx",
 		"./components/docs/generated": "./src/components/docs/generated/index.ts",
 		"./components/docs/generated/docs-index.generated": "./src/components/docs/generated/docs-index.generated.ts",
 		"./components/docs/generated/loader": "./src/components/docs/generated/loader.ts",
@@ -657,6 +659,18 @@
 				"bun": "./dist/components/docs/examples/DocsExamplesPage.js",
 				"node": "./dist/node/components/docs/examples/DocsExamplesPage.js",
 				"default": "./dist/components/docs/examples/DocsExamplesPage.js"
+			},
+			"./components/docs/examples/exampleShowcaseData": {
+				"types": "./dist/components/docs/examples/exampleShowcaseData.d.ts",
+				"bun": "./dist/components/docs/examples/exampleShowcaseData.js",
+				"node": "./dist/node/components/docs/examples/exampleShowcaseData.js",
+				"default": "./dist/components/docs/examples/exampleShowcaseData.js"
+			},
+			"./components/docs/examples/ExampleShowcasePage": {
+				"types": "./dist/components/docs/examples/ExampleShowcasePage.d.ts",
+				"bun": "./dist/components/docs/examples/ExampleShowcasePage.js",
+				"node": "./dist/node/components/docs/examples/ExampleShowcasePage.js",
+				"default": "./dist/components/docs/examples/ExampleShowcasePage.js"
 			},
 			"./components/docs/generated": {
 				"types": "./dist/components/docs/generated/index.d.ts",

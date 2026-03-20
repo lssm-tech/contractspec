@@ -39,6 +39,7 @@ import {
 	saasBillingMarkdownRenderer,
 	saasDashboardMarkdownRenderer,
 } from '@contractspec/example.saas-boilerplate';
+import { visualizationShowcaseMarkdownRenderer } from '@contractspec/example.visualization-showcase/ui/renderers';
 import {
 	workflowDashboardMarkdownRenderer,
 	workflowDefinitionListMarkdownRenderer,
@@ -50,7 +51,6 @@ import {
 	registerDefaultReactRenderer,
 	type TransformEngine,
 } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
-import { visualizationShowcaseMarkdownRenderer } from '../../../../examples/visualization-showcase/src/ui/renderers';
 
 /**
  * Create a TransformEngine configured for template rendering

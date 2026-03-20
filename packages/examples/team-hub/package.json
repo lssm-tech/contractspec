@@ -37,6 +37,7 @@
 		"./entities": "./src/entities/index.ts",
 		"./events": "./src/events.ts",
 		"./example": "./src/example.ts",
+		"./example.d": "./src/example.d.ts",
 		"./handlers": "./src/handlers/index.ts",
 		"./presentations": "./src/presentations.ts",
 		"./presentations/team-hub.presentation": "./src/presentations/team-hub.presentation.ts",
@@ -121,6 +122,13 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
+			},
+			"./example.d": {
+				"types": "./dist/example.d.d.ts",
+				"browser": "./dist/browser/example.d.js",
+				"bun": "./dist/example.d.js",
+				"node": "./dist/node/example.d.js",
+				"default": "./dist/example.d.js"
 			},
 			"./handlers": {
 				"types": "./dist/handlers/index.d.ts",
