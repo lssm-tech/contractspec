@@ -1,147 +1,147 @@
 {
-	"name": "@contractspec/lib.metering",
-	"version": "3.7.6",
-	"description": "Usage metering and billing core module for ContractSpec applications",
-	"keywords": [
-		"contractspec",
-		"metering",
-		"billing",
-		"usage",
-		"saas",
-		"typescript"
-	],
-	"types": "./dist/index.d.ts",
-	"type": "module",
-	"scripts": {
-		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-		"publish:pkg:canary": "bun publish:pkg --tag canary",
-		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
-		"build:bundle": "contractspec-bun-build transpile",
-		"build:types": "contractspec-bun-build types",
-		"dev": "contractspec-bun-build dev",
-		"clean": "rimraf dist .turbo",
-		"lint": "bun lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
-		"prebuild": "contractspec-bun-build prebuild",
-		"typecheck": "tsc --noEmit"
-	},
-	"dependencies": {
-		"@contractspec/lib.schema": "workspace:*",
-		"@contractspec/lib.contracts-spec": "workspace:*",
-		"@contractspec/lib.contracts-integrations": "workspace:*",
-		"zod": "catalog:"
-	},
-	"devDependencies": {
-		"@contractspec/tool.typescript": "workspace:*",
-		"typescript": "catalog:",
-		"@contractspec/tool.bun": "workspace:*"
-	},
-	"exports": {
-		".": "./src/index.ts",
-		"./aggregation": "./src/aggregation/index.ts",
-		"./analytics/posthog-metering": "./src/analytics/posthog-metering.ts",
-		"./analytics/posthog-metering-reader": "./src/analytics/posthog-metering-reader.ts",
-		"./contracts": "./src/contracts/index.ts",
-		"./docs": "./src/docs/index.ts",
-		"./docs/metering.docblock": "./src/docs/metering.docblock.ts",
-		"./entities": "./src/entities/index.ts",
-		"./events": "./src/events.ts",
-		"./metering.capability": "./src/metering.capability.ts",
-		"./metering.feature": "./src/metering.feature.ts"
-	},
-	"files": [
-		"dist",
-		"README.md"
-	],
-	"publishConfig": {
-		"access": "public",
-		"exports": {
-			".": {
-				"types": "./dist/index.d.ts",
-				"browser": "./dist/browser/index.js",
-				"bun": "./dist/index.js",
-				"node": "./dist/node/index.js",
-				"default": "./dist/index.js"
-			},
-			"./aggregation": {
-				"types": "./dist/aggregation/index.d.ts",
-				"browser": "./dist/browser/aggregation/index.js",
-				"bun": "./dist/aggregation/index.js",
-				"node": "./dist/node/aggregation/index.js",
-				"default": "./dist/aggregation/index.js"
-			},
-			"./analytics/posthog-metering": {
-				"types": "./dist/analytics/posthog-metering.d.ts",
-				"browser": "./dist/browser/analytics/posthog-metering.js",
-				"bun": "./dist/analytics/posthog-metering.js",
-				"node": "./dist/node/analytics/posthog-metering.js",
-				"default": "./dist/analytics/posthog-metering.js"
-			},
-			"./analytics/posthog-metering-reader": {
-				"types": "./dist/analytics/posthog-metering-reader.d.ts",
-				"browser": "./dist/browser/analytics/posthog-metering-reader.js",
-				"bun": "./dist/analytics/posthog-metering-reader.js",
-				"node": "./dist/node/analytics/posthog-metering-reader.js",
-				"default": "./dist/analytics/posthog-metering-reader.js"
-			},
-			"./contracts": {
-				"types": "./dist/contracts/index.d.ts",
-				"browser": "./dist/browser/contracts/index.js",
-				"bun": "./dist/contracts/index.js",
-				"node": "./dist/node/contracts/index.js",
-				"default": "./dist/contracts/index.js"
-			},
-			"./docs": {
-				"types": "./dist/docs/index.d.ts",
-				"browser": "./dist/browser/docs/index.js",
-				"bun": "./dist/docs/index.js",
-				"node": "./dist/node/docs/index.js",
-				"default": "./dist/docs/index.js"
-			},
-			"./docs/metering.docblock": {
-				"types": "./dist/docs/metering.docblock.d.ts",
-				"browser": "./dist/browser/docs/metering.docblock.js",
-				"bun": "./dist/docs/metering.docblock.js",
-				"node": "./dist/node/docs/metering.docblock.js",
-				"default": "./dist/docs/metering.docblock.js"
-			},
-			"./entities": {
-				"types": "./dist/entities/index.d.ts",
-				"browser": "./dist/browser/entities/index.js",
-				"bun": "./dist/entities/index.js",
-				"node": "./dist/node/entities/index.js",
-				"default": "./dist/entities/index.js"
-			},
-			"./events": {
-				"types": "./dist/events.d.ts",
-				"browser": "./dist/browser/events.js",
-				"bun": "./dist/events.js",
-				"node": "./dist/node/events.js",
-				"default": "./dist/events.js"
-			},
-			"./metering.capability": {
-				"types": "./dist/metering.capability.d.ts",
-				"browser": "./dist/browser/metering.capability.js",
-				"bun": "./dist/metering.capability.js",
-				"node": "./dist/node/metering.capability.js",
-				"default": "./dist/metering.capability.js"
-			},
-			"./metering.feature": {
-				"types": "./dist/metering.feature.d.ts",
-				"browser": "./dist/browser/metering.feature.js",
-				"bun": "./dist/metering.feature.js",
-				"node": "./dist/node/metering.feature.js",
-				"default": "./dist/metering.feature.js"
-			}
-		},
-		"registry": "https://registry.npmjs.org/"
-	},
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/lssm-tech/contractspec.git",
-		"directory": "packages/libs/metering"
-	},
-	"homepage": "https://contractspec.io"
+  "name": "@contractspec/lib.metering",
+  "version": "3.7.6",
+  "description": "Usage metering and billing core module for ContractSpec applications",
+  "keywords": [
+    "contractspec",
+    "metering",
+    "billing",
+    "usage",
+    "saas",
+    "typescript"
+  ],
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.contracts-integrations": "workspace:*",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./aggregation": "./src/aggregation/index.ts",
+    "./analytics/posthog-metering": "./src/analytics/posthog-metering.ts",
+    "./analytics/posthog-metering-reader": "./src/analytics/posthog-metering-reader.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/metering.docblock": "./src/docs/metering.docblock.ts",
+    "./entities": "./src/entities/index.ts",
+    "./events": "./src/events.ts",
+    "./metering.capability": "./src/metering.capability.ts",
+    "./metering.feature": "./src/metering.feature.ts"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.js",
+        "default": "./dist/index.js"
+      },
+      "./aggregation": {
+        "types": "./dist/aggregation/index.d.ts",
+        "browser": "./dist/browser/aggregation/index.js",
+        "bun": "./dist/aggregation/index.js",
+        "node": "./dist/node/aggregation/index.js",
+        "default": "./dist/aggregation/index.js"
+      },
+      "./analytics/posthog-metering": {
+        "types": "./dist/analytics/posthog-metering.d.ts",
+        "browser": "./dist/browser/analytics/posthog-metering.js",
+        "bun": "./dist/analytics/posthog-metering.js",
+        "node": "./dist/node/analytics/posthog-metering.js",
+        "default": "./dist/analytics/posthog-metering.js"
+      },
+      "./analytics/posthog-metering-reader": {
+        "types": "./dist/analytics/posthog-metering-reader.d.ts",
+        "browser": "./dist/browser/analytics/posthog-metering-reader.js",
+        "bun": "./dist/analytics/posthog-metering-reader.js",
+        "node": "./dist/node/analytics/posthog-metering-reader.js",
+        "default": "./dist/analytics/posthog-metering-reader.js"
+      },
+      "./contracts": {
+        "types": "./dist/contracts/index.d.ts",
+        "browser": "./dist/browser/contracts/index.js",
+        "bun": "./dist/contracts/index.js",
+        "node": "./dist/node/contracts/index.js",
+        "default": "./dist/contracts/index.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "browser": "./dist/browser/docs/index.js",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/metering.docblock": {
+        "types": "./dist/docs/metering.docblock.d.ts",
+        "browser": "./dist/browser/docs/metering.docblock.js",
+        "bun": "./dist/docs/metering.docblock.js",
+        "node": "./dist/node/docs/metering.docblock.js",
+        "default": "./dist/docs/metering.docblock.js"
+      },
+      "./entities": {
+        "types": "./dist/entities/index.d.ts",
+        "browser": "./dist/browser/entities/index.js",
+        "bun": "./dist/entities/index.js",
+        "node": "./dist/node/entities/index.js",
+        "default": "./dist/entities/index.js"
+      },
+      "./events": {
+        "types": "./dist/events.d.ts",
+        "browser": "./dist/browser/events.js",
+        "bun": "./dist/events.js",
+        "node": "./dist/node/events.js",
+        "default": "./dist/events.js"
+      },
+      "./metering.capability": {
+        "types": "./dist/metering.capability.d.ts",
+        "browser": "./dist/browser/metering.capability.js",
+        "bun": "./dist/metering.capability.js",
+        "node": "./dist/node/metering.capability.js",
+        "default": "./dist/metering.capability.js"
+      },
+      "./metering.feature": {
+        "types": "./dist/metering.feature.d.ts",
+        "browser": "./dist/browser/metering.feature.js",
+        "bun": "./dist/metering.feature.js",
+        "node": "./dist/node/metering.feature.js",
+        "default": "./dist/metering.feature.js"
+      }
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/metering"
+  },
+  "homepage": "https://contractspec.io"
 }

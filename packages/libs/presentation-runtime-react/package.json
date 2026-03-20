@@ -1,141 +1,141 @@
 {
-	"name": "@contractspec/lib.presentation-runtime-react",
-	"version": "34.0.6",
-	"description": "React presentation runtime with workflow components",
-	"keywords": [
-		"contractspec",
-		"presentation",
-		"react",
-		"workflow",
-		"ui",
-		"typescript"
-	],
-	"type": "module",
-	"types": "./dist/index.d.ts",
-	"sideEffects": false,
-	"scripts": {
-		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-		"publish:pkg:canary": "bun publish:pkg --tag canary",
-		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
-		"build:bundle": "contractspec-bun-build transpile",
-		"build:types": "contractspec-bun-build types",
-		"dev": "contractspec-bun-build dev",
-		"lint": "bun run lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
-		"prebuild": "contractspec-bun-build prebuild",
-		"typecheck": "tsc --noEmit -p tsconfig.json"
-	},
-	"peerDependencies": {
-		"react": "^19.2.0",
-		"react-hook-form": "^7.70.0",
-		"zod": "^4.3.5",
-		"@contractspec/lib.presentation-runtime-core": "workspace:*"
-	},
-	"dependencies": {
-		"@tanstack/react-table": "^8.21.3",
-		"@contractspec/lib.presentation-runtime-core": "workspace:*",
-		"@contractspec/lib.contracts-spec": "workspace:*",
-		"@contractspec/lib.ui-kit-web": "workspace:*"
-	},
-	"files": [
-		"dist",
-		"README.md"
-	],
-	"exports": {
-		".": "./src/index.ts",
-		"./nativewind-env.d": "./src/nativewind-env.d.ts",
-		"./table.types": "./src/table.types.ts",
-		"./table.utils": "./src/table.utils.ts",
-		"./useContractTable": "./src/useContractTable.tsx",
-		"./useContractTable.models": "./src/useContractTable.models.tsx",
-		"./useDataViewTable": "./src/useDataViewTable.tsx",
-		"./useVisualizationModel": "./src/useVisualizationModel.ts",
-		"./useWorkflow": "./src/useWorkflow.ts",
-		"./WorkflowStepper": "./src/WorkflowStepper.tsx",
-		"./WorkflowStepRenderer": "./src/WorkflowStepRenderer.tsx"
-	},
-	"publishConfig": {
-		"access": "public",
-		"exports": {
-			".": {
-				"types": "./dist/index.d.ts",
-				"browser": "./dist/browser/index.js",
-				"bun": "./dist/index.js",
-				"default": "./dist/index.js"
-			},
-			"./nativewind-env.d": {
-				"types": "./dist/nativewind-env.d.d.ts",
-				"browser": "./dist/browser/nativewind-env.d.js",
-				"bun": "./dist/nativewind-env.d.js",
-				"default": "./dist/nativewind-env.d.js"
-			},
-			"./table.types": {
-				"types": "./dist/table.types.d.ts",
-				"browser": "./dist/browser/table.types.js",
-				"bun": "./dist/table.types.js",
-				"default": "./dist/table.types.js"
-			},
-			"./table.utils": {
-				"types": "./dist/table.utils.d.ts",
-				"browser": "./dist/browser/table.utils.js",
-				"bun": "./dist/table.utils.js",
-				"default": "./dist/table.utils.js"
-			},
-			"./useContractTable": {
-				"types": "./dist/useContractTable.d.ts",
-				"browser": "./dist/browser/useContractTable.js",
-				"bun": "./dist/useContractTable.js",
-				"default": "./dist/useContractTable.js"
-			},
-			"./useContractTable.models": {
-				"types": "./dist/useContractTable.models.d.ts",
-				"browser": "./dist/browser/useContractTable.models.js",
-				"bun": "./dist/useContractTable.models.js",
-				"default": "./dist/useContractTable.models.js"
-			},
-			"./useDataViewTable": {
-				"types": "./dist/useDataViewTable.d.ts",
-				"browser": "./dist/browser/useDataViewTable.js",
-				"bun": "./dist/useDataViewTable.js",
-				"default": "./dist/useDataViewTable.js"
-			},
-			"./useVisualizationModel": {
-				"types": "./dist/useVisualizationModel.d.ts",
-				"browser": "./dist/browser/useVisualizationModel.js",
-				"bun": "./dist/useVisualizationModel.js",
-				"default": "./dist/useVisualizationModel.js"
-			},
-			"./useWorkflow": {
-				"types": "./dist/useWorkflow.d.ts",
-				"browser": "./dist/browser/useWorkflow.js",
-				"bun": "./dist/useWorkflow.js",
-				"default": "./dist/useWorkflow.js"
-			},
-			"./WorkflowStepper": {
-				"types": "./dist/WorkflowStepper.d.ts",
-				"browser": "./dist/browser/WorkflowStepper.js",
-				"bun": "./dist/WorkflowStepper.js",
-				"default": "./dist/WorkflowStepper.js"
-			},
-			"./WorkflowStepRenderer": {
-				"types": "./dist/WorkflowStepRenderer.d.ts",
-				"browser": "./dist/browser/WorkflowStepRenderer.js",
-				"bun": "./dist/WorkflowStepRenderer.js",
-				"default": "./dist/WorkflowStepRenderer.js"
-			}
-		},
-		"registry": "https://registry.npmjs.org/"
-	},
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/lssm-tech/contractspec.git",
-		"directory": "packages/libs/presentation-runtime-react"
-	},
-	"homepage": "https://contractspec.io",
-	"devDependencies": {
-		"react-native-css": "^3.0.4",
-		"@contractspec/tool.bun": "workspace:*"
-	}
+  "name": "@contractspec/lib.presentation-runtime-react",
+  "version": "34.0.6",
+  "description": "React presentation runtime with workflow components",
+  "keywords": [
+    "contractspec",
+    "presentation",
+    "react",
+    "workflow",
+    "ui",
+    "typescript"
+  ],
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
+    "lint": "bun run lint:fix",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "peerDependencies": {
+    "react": "^19.2.0",
+    "react-hook-form": "^7.70.0",
+    "zod": "^4.3.5",
+    "@contractspec/lib.presentation-runtime-core": "workspace:*"
+  },
+  "dependencies": {
+    "@tanstack/react-table": "^8.21.3",
+    "@contractspec/lib.presentation-runtime-core": "workspace:*",
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.ui-kit-web": "workspace:*"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./nativewind-env.d": "./src/nativewind-env.d.ts",
+    "./table.types": "./src/table.types.ts",
+    "./table.utils": "./src/table.utils.ts",
+    "./useContractTable": "./src/useContractTable.tsx",
+    "./useContractTable.models": "./src/useContractTable.models.tsx",
+    "./useDataViewTable": "./src/useDataViewTable.tsx",
+    "./useVisualizationModel": "./src/useVisualizationModel.ts",
+    "./useWorkflow": "./src/useWorkflow.ts",
+    "./WorkflowStepper": "./src/WorkflowStepper.tsx",
+    "./WorkflowStepRenderer": "./src/WorkflowStepRenderer.tsx"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
+        "bun": "./dist/index.js",
+        "default": "./dist/index.js"
+      },
+      "./nativewind-env.d": {
+        "types": "./dist/nativewind-env.d.d.ts",
+        "browser": "./dist/browser/nativewind-env.d.js",
+        "bun": "./dist/nativewind-env.d.js",
+        "default": "./dist/nativewind-env.d.js"
+      },
+      "./table.types": {
+        "types": "./dist/table.types.d.ts",
+        "browser": "./dist/browser/table.types.js",
+        "bun": "./dist/table.types.js",
+        "default": "./dist/table.types.js"
+      },
+      "./table.utils": {
+        "types": "./dist/table.utils.d.ts",
+        "browser": "./dist/browser/table.utils.js",
+        "bun": "./dist/table.utils.js",
+        "default": "./dist/table.utils.js"
+      },
+      "./useContractTable": {
+        "types": "./dist/useContractTable.d.ts",
+        "browser": "./dist/browser/useContractTable.js",
+        "bun": "./dist/useContractTable.js",
+        "default": "./dist/useContractTable.js"
+      },
+      "./useContractTable.models": {
+        "types": "./dist/useContractTable.models.d.ts",
+        "browser": "./dist/browser/useContractTable.models.js",
+        "bun": "./dist/useContractTable.models.js",
+        "default": "./dist/useContractTable.models.js"
+      },
+      "./useDataViewTable": {
+        "types": "./dist/useDataViewTable.d.ts",
+        "browser": "./dist/browser/useDataViewTable.js",
+        "bun": "./dist/useDataViewTable.js",
+        "default": "./dist/useDataViewTable.js"
+      },
+      "./useVisualizationModel": {
+        "types": "./dist/useVisualizationModel.d.ts",
+        "browser": "./dist/browser/useVisualizationModel.js",
+        "bun": "./dist/useVisualizationModel.js",
+        "default": "./dist/useVisualizationModel.js"
+      },
+      "./useWorkflow": {
+        "types": "./dist/useWorkflow.d.ts",
+        "browser": "./dist/browser/useWorkflow.js",
+        "bun": "./dist/useWorkflow.js",
+        "default": "./dist/useWorkflow.js"
+      },
+      "./WorkflowStepper": {
+        "types": "./dist/WorkflowStepper.d.ts",
+        "browser": "./dist/browser/WorkflowStepper.js",
+        "bun": "./dist/WorkflowStepper.js",
+        "default": "./dist/WorkflowStepper.js"
+      },
+      "./WorkflowStepRenderer": {
+        "types": "./dist/WorkflowStepRenderer.d.ts",
+        "browser": "./dist/browser/WorkflowStepRenderer.js",
+        "bun": "./dist/WorkflowStepRenderer.js",
+        "default": "./dist/WorkflowStepRenderer.js"
+      }
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/presentation-runtime-react"
+  },
+  "homepage": "https://contractspec.io",
+  "devDependencies": {
+    "react-native-css": "^3.0.4",
+    "@contractspec/tool.bun": "workspace:*"
+  }
 }

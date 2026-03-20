@@ -1,504 +1,504 @@
 {
-	"name": "@contractspec/lib.surface-runtime",
-	"version": "0.5.6",
-	"description": "AI-native surface specs and web runtime for adaptive ContractSpec surfaces",
-	"keywords": [
-		"contractspec",
-		"surface",
-		"runtime",
-		"bundle",
-		"ai-native",
-		"personalization",
-		"typescript"
-	],
-	"type": "module",
-	"types": "./dist/index.d.ts",
-	"files": [
-		"dist",
-		"README.md"
-	],
-	"scripts": {
-		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-		"publish:pkg:canary": "bun publish:pkg --tag canary",
-		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
-		"build:bundle": "contractspec-bun-build transpile && node scripts/fix-use-client-directive.mjs",
-		"build:types": "contractspec-bun-build types",
-		"dev": "contractspec-bun-build dev",
-		"clean": "rimraf dist .turbo",
-		"lint": "bun lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
-		"lint:adapters": "node scripts/lint-adapters.mjs",
-		"test": "bun test --pass-with-no-tests",
-		"test:evals": "bun test src/evals/",
-		"prebuild": "contractspec-bun-build prebuild",
-		"typecheck": "tsc --noEmit"
-	},
-	"dependencies": {
-		"@contractspec/lib.contracts-spec": "workspace:*",
-		"@contractspec/lib.overlay-engine": "workspace:*",
-		"@contractspec/lib.observability": "workspace:*",
-		"zod": "catalog:"
-	},
-	"peerDependencies": {
-		"react": "^18.0.0 || ^19.0.0",
-		"react-dom": "^18.0.0 || ^19.0.0",
-		"@dnd-kit/core": "*"
-	},
-	"peerDependenciesMeta": {
-		"react": {
-			"optional": true
-		},
-		"react-dom": {
-			"optional": true
-		},
-		"@dnd-kit/core": {
-			"optional": true
-		}
-	},
-	"devDependencies": {
-		"@contractspec/tool.typescript": "workspace:*",
-		"@dnd-kit/core": "^6.3.1",
-		"typescript": "catalog:",
-		"@contractspec/tool.bun": "workspace:*"
-	},
-	"exports": {
-		".": "./src/index.ts",
-		"./adapters": "./src/adapters/index.ts",
-		"./adapters/ai-sdk-stub": "./src/adapters/ai-sdk-stub.ts",
-		"./adapters/blocknote-stub": "./src/adapters/blocknote-stub.tsx",
-		"./adapters/dnd-kit-adapter": "./src/adapters/dnd-kit-adapter.tsx",
-		"./adapters/dnd-kit-stub": "./src/adapters/dnd-kit-stub.ts",
-		"./adapters/floating-ui-stub": "./src/adapters/floating-ui-stub.tsx",
-		"./adapters/interfaces": "./src/adapters/interfaces.ts",
-		"./adapters/motion-stub": "./src/adapters/motion-stub.ts",
-		"./adapters/resizable-panels-stub": "./src/adapters/resizable-panels-stub.tsx",
-		"./evals/golden-context": "./src/evals/golden-context.ts",
-		"./evals/golden-harness": "./src/evals/golden-harness.ts",
-		"./examples/pm-workbench.bundle": "./src/examples/pm-workbench.bundle.ts",
-		"./i18n": "./src/i18n/index.ts",
-		"./i18n/catalogs": "./src/i18n/catalogs/index.ts",
-		"./i18n/catalogs/en": "./src/i18n/catalogs/en.ts",
-		"./i18n/catalogs/es": "./src/i18n/catalogs/es.ts",
-		"./i18n/catalogs/fr": "./src/i18n/catalogs/fr.ts",
-		"./i18n/keys": "./src/i18n/keys.ts",
-		"./i18n/messages": "./src/i18n/messages.ts",
-		"./react": "./src/react/index.ts",
-		"./react/BundleProvider": "./src/react/BundleProvider.tsx",
-		"./react/BundleRenderer": "./src/react/BundleRenderer.tsx",
-		"./react/OverlayConflictResolver": "./src/react/OverlayConflictResolver.tsx",
-		"./react/PatchProposalCard": "./src/react/PatchProposalCard.tsx",
-		"./react/RegionRenderer": "./src/react/RegionRenderer.tsx",
-		"./react/SlotRenderer": "./src/react/SlotRenderer.tsx",
-		"./react/WidgetPalette": "./src/react/WidgetPalette.tsx",
-		"./runtime": "./src/runtime/index.ts",
-		"./runtime/apply-surface-patch": "./src/runtime/apply-surface-patch.ts",
-		"./runtime/audit-events": "./src/runtime/audit-events.ts",
-		"./runtime/build-context": "./src/runtime/build-context.ts",
-		"./runtime/extension-registry": "./src/runtime/extension-registry.ts",
-		"./runtime/field-renderer-registry": "./src/runtime/field-renderer-registry.ts",
-		"./runtime/overlay-alignment": "./src/runtime/overlay-alignment.ts",
-		"./runtime/overlay-signer": "./src/runtime/overlay-signer.ts",
-		"./runtime/override-store": "./src/runtime/override-store.ts",
-		"./runtime/planner-prompt": "./src/runtime/planner-prompt.ts",
-		"./runtime/planner-tools": "./src/runtime/planner-tools.ts",
-		"./runtime/policy-eval": "./src/runtime/policy-eval.ts",
-		"./runtime/preference-adapter": "./src/runtime/preference-adapter.ts",
-		"./runtime/resolve-bundle": "./src/runtime/resolve-bundle.ts",
-		"./runtime/resolve-preferences": "./src/runtime/resolve-preferences.ts",
-		"./runtime/rollback": "./src/runtime/rollback.ts",
-		"./runtime/widget-registry": "./src/runtime/widget-registry.ts",
-		"./spec": "./src/spec/index.ts",
-		"./spec/define-module-bundle": "./src/spec/define-module-bundle.ts",
-		"./spec/types": "./src/spec/types.ts",
-		"./spec/validate-bundle": "./src/spec/validate-bundle.ts",
-		"./spec/validate-surface-patch": "./src/spec/validate-surface-patch.ts",
-		"./spec/verification-snapshot-types": "./src/spec/verification-snapshot-types.ts",
-		"./telemetry": "./src/telemetry/index.ts",
-		"./telemetry/surface-metrics": "./src/telemetry/surface-metrics.ts"
-	},
-	"publishConfig": {
-		"access": "public",
-		"exports": {
-			".": {
-				"types": "./dist/index.d.ts",
-				"browser": "./dist/browser/index.js",
-				"bun": "./dist/index.js",
-				"node": "./dist/node/index.js",
-				"default": "./dist/index.js"
-			},
-			"./adapters": {
-				"types": "./dist/adapters/index.d.ts",
-				"browser": "./dist/browser/adapters/index.js",
-				"bun": "./dist/adapters/index.js",
-				"node": "./dist/node/adapters/index.js",
-				"default": "./dist/adapters/index.js"
-			},
-			"./adapters/ai-sdk-stub": {
-				"types": "./dist/adapters/ai-sdk-stub.d.ts",
-				"browser": "./dist/browser/adapters/ai-sdk-stub.js",
-				"bun": "./dist/adapters/ai-sdk-stub.js",
-				"node": "./dist/node/adapters/ai-sdk-stub.js",
-				"default": "./dist/adapters/ai-sdk-stub.js"
-			},
-			"./adapters/blocknote-stub": {
-				"types": "./dist/adapters/blocknote-stub.d.ts",
-				"browser": "./dist/browser/adapters/blocknote-stub.js",
-				"bun": "./dist/adapters/blocknote-stub.js",
-				"node": "./dist/node/adapters/blocknote-stub.js",
-				"default": "./dist/adapters/blocknote-stub.js"
-			},
-			"./adapters/dnd-kit-adapter": {
-				"types": "./dist/adapters/dnd-kit-adapter.d.ts",
-				"browser": "./dist/browser/adapters/dnd-kit-adapter.js",
-				"bun": "./dist/adapters/dnd-kit-adapter.js",
-				"node": "./dist/node/adapters/dnd-kit-adapter.js",
-				"default": "./dist/adapters/dnd-kit-adapter.js"
-			},
-			"./adapters/dnd-kit-stub": {
-				"types": "./dist/adapters/dnd-kit-stub.d.ts",
-				"browser": "./dist/browser/adapters/dnd-kit-stub.js",
-				"bun": "./dist/adapters/dnd-kit-stub.js",
-				"node": "./dist/node/adapters/dnd-kit-stub.js",
-				"default": "./dist/adapters/dnd-kit-stub.js"
-			},
-			"./adapters/floating-ui-stub": {
-				"types": "./dist/adapters/floating-ui-stub.d.ts",
-				"browser": "./dist/browser/adapters/floating-ui-stub.js",
-				"bun": "./dist/adapters/floating-ui-stub.js",
-				"node": "./dist/node/adapters/floating-ui-stub.js",
-				"default": "./dist/adapters/floating-ui-stub.js"
-			},
-			"./adapters/interfaces": {
-				"types": "./dist/adapters/interfaces.d.ts",
-				"browser": "./dist/browser/adapters/interfaces.js",
-				"bun": "./dist/adapters/interfaces.js",
-				"node": "./dist/node/adapters/interfaces.js",
-				"default": "./dist/adapters/interfaces.js"
-			},
-			"./adapters/motion-stub": {
-				"types": "./dist/adapters/motion-stub.d.ts",
-				"browser": "./dist/browser/adapters/motion-stub.js",
-				"bun": "./dist/adapters/motion-stub.js",
-				"node": "./dist/node/adapters/motion-stub.js",
-				"default": "./dist/adapters/motion-stub.js"
-			},
-			"./adapters/resizable-panels-stub": {
-				"types": "./dist/adapters/resizable-panels-stub.d.ts",
-				"browser": "./dist/browser/adapters/resizable-panels-stub.js",
-				"bun": "./dist/adapters/resizable-panels-stub.js",
-				"node": "./dist/node/adapters/resizable-panels-stub.js",
-				"default": "./dist/adapters/resizable-panels-stub.js"
-			},
-			"./evals/golden-context": {
-				"types": "./dist/evals/golden-context.d.ts",
-				"browser": "./dist/browser/evals/golden-context.js",
-				"bun": "./dist/evals/golden-context.js",
-				"node": "./dist/node/evals/golden-context.js",
-				"default": "./dist/evals/golden-context.js"
-			},
-			"./evals/golden-harness": {
-				"types": "./dist/evals/golden-harness.d.ts",
-				"browser": "./dist/browser/evals/golden-harness.js",
-				"bun": "./dist/evals/golden-harness.js",
-				"node": "./dist/node/evals/golden-harness.js",
-				"default": "./dist/evals/golden-harness.js"
-			},
-			"./examples/pm-workbench.bundle": {
-				"types": "./dist/examples/pm-workbench.bundle.d.ts",
-				"browser": "./dist/browser/examples/pm-workbench.bundle.js",
-				"bun": "./dist/examples/pm-workbench.bundle.js",
-				"node": "./dist/node/examples/pm-workbench.bundle.js",
-				"default": "./dist/examples/pm-workbench.bundle.js"
-			},
-			"./i18n": {
-				"types": "./dist/i18n/index.d.ts",
-				"browser": "./dist/browser/i18n/index.js",
-				"bun": "./dist/i18n/index.js",
-				"node": "./dist/node/i18n/index.js",
-				"default": "./dist/i18n/index.js"
-			},
-			"./i18n/catalogs": {
-				"types": "./dist/i18n/catalogs/index.d.ts",
-				"browser": "./dist/browser/i18n/catalogs/index.js",
-				"bun": "./dist/i18n/catalogs/index.js",
-				"node": "./dist/node/i18n/catalogs/index.js",
-				"default": "./dist/i18n/catalogs/index.js"
-			},
-			"./i18n/catalogs/en": {
-				"types": "./dist/i18n/catalogs/en.d.ts",
-				"browser": "./dist/browser/i18n/catalogs/en.js",
-				"bun": "./dist/i18n/catalogs/en.js",
-				"node": "./dist/node/i18n/catalogs/en.js",
-				"default": "./dist/i18n/catalogs/en.js"
-			},
-			"./i18n/catalogs/es": {
-				"types": "./dist/i18n/catalogs/es.d.ts",
-				"browser": "./dist/browser/i18n/catalogs/es.js",
-				"bun": "./dist/i18n/catalogs/es.js",
-				"node": "./dist/node/i18n/catalogs/es.js",
-				"default": "./dist/i18n/catalogs/es.js"
-			},
-			"./i18n/catalogs/fr": {
-				"types": "./dist/i18n/catalogs/fr.d.ts",
-				"browser": "./dist/browser/i18n/catalogs/fr.js",
-				"bun": "./dist/i18n/catalogs/fr.js",
-				"node": "./dist/node/i18n/catalogs/fr.js",
-				"default": "./dist/i18n/catalogs/fr.js"
-			},
-			"./i18n/keys": {
-				"types": "./dist/i18n/keys.d.ts",
-				"browser": "./dist/browser/i18n/keys.js",
-				"bun": "./dist/i18n/keys.js",
-				"node": "./dist/node/i18n/keys.js",
-				"default": "./dist/i18n/keys.js"
-			},
-			"./i18n/messages": {
-				"types": "./dist/i18n/messages.d.ts",
-				"browser": "./dist/browser/i18n/messages.js",
-				"bun": "./dist/i18n/messages.js",
-				"node": "./dist/node/i18n/messages.js",
-				"default": "./dist/i18n/messages.js"
-			},
-			"./react": {
-				"types": "./dist/react/index.d.ts",
-				"browser": "./dist/browser/react/index.js",
-				"bun": "./dist/react/index.js",
-				"node": "./dist/node/react/index.js",
-				"default": "./dist/react/index.js"
-			},
-			"./react/BundleProvider": {
-				"types": "./dist/react/BundleProvider.d.ts",
-				"browser": "./dist/browser/react/BundleProvider.js",
-				"bun": "./dist/react/BundleProvider.js",
-				"node": "./dist/node/react/BundleProvider.js",
-				"default": "./dist/react/BundleProvider.js"
-			},
-			"./react/BundleRenderer": {
-				"types": "./dist/react/BundleRenderer.d.ts",
-				"browser": "./dist/browser/react/BundleRenderer.js",
-				"bun": "./dist/react/BundleRenderer.js",
-				"node": "./dist/node/react/BundleRenderer.js",
-				"default": "./dist/react/BundleRenderer.js"
-			},
-			"./react/OverlayConflictResolver": {
-				"types": "./dist/react/OverlayConflictResolver.d.ts",
-				"browser": "./dist/browser/react/OverlayConflictResolver.js",
-				"bun": "./dist/react/OverlayConflictResolver.js",
-				"node": "./dist/node/react/OverlayConflictResolver.js",
-				"default": "./dist/react/OverlayConflictResolver.js"
-			},
-			"./react/PatchProposalCard": {
-				"types": "./dist/react/PatchProposalCard.d.ts",
-				"browser": "./dist/browser/react/PatchProposalCard.js",
-				"bun": "./dist/react/PatchProposalCard.js",
-				"node": "./dist/node/react/PatchProposalCard.js",
-				"default": "./dist/react/PatchProposalCard.js"
-			},
-			"./react/RegionRenderer": {
-				"types": "./dist/react/RegionRenderer.d.ts",
-				"browser": "./dist/browser/react/RegionRenderer.js",
-				"bun": "./dist/react/RegionRenderer.js",
-				"node": "./dist/node/react/RegionRenderer.js",
-				"default": "./dist/react/RegionRenderer.js"
-			},
-			"./react/SlotRenderer": {
-				"types": "./dist/react/SlotRenderer.d.ts",
-				"browser": "./dist/browser/react/SlotRenderer.js",
-				"bun": "./dist/react/SlotRenderer.js",
-				"node": "./dist/node/react/SlotRenderer.js",
-				"default": "./dist/react/SlotRenderer.js"
-			},
-			"./react/WidgetPalette": {
-				"types": "./dist/react/WidgetPalette.d.ts",
-				"browser": "./dist/browser/react/WidgetPalette.js",
-				"bun": "./dist/react/WidgetPalette.js",
-				"node": "./dist/node/react/WidgetPalette.js",
-				"default": "./dist/react/WidgetPalette.js"
-			},
-			"./runtime": {
-				"types": "./dist/runtime/index.d.ts",
-				"browser": "./dist/browser/runtime/index.js",
-				"bun": "./dist/runtime/index.js",
-				"node": "./dist/node/runtime/index.js",
-				"default": "./dist/runtime/index.js"
-			},
-			"./runtime/apply-surface-patch": {
-				"types": "./dist/runtime/apply-surface-patch.d.ts",
-				"browser": "./dist/browser/runtime/apply-surface-patch.js",
-				"bun": "./dist/runtime/apply-surface-patch.js",
-				"node": "./dist/node/runtime/apply-surface-patch.js",
-				"default": "./dist/runtime/apply-surface-patch.js"
-			},
-			"./runtime/audit-events": {
-				"types": "./dist/runtime/audit-events.d.ts",
-				"browser": "./dist/browser/runtime/audit-events.js",
-				"bun": "./dist/runtime/audit-events.js",
-				"node": "./dist/node/runtime/audit-events.js",
-				"default": "./dist/runtime/audit-events.js"
-			},
-			"./runtime/build-context": {
-				"types": "./dist/runtime/build-context.d.ts",
-				"browser": "./dist/browser/runtime/build-context.js",
-				"bun": "./dist/runtime/build-context.js",
-				"node": "./dist/node/runtime/build-context.js",
-				"default": "./dist/runtime/build-context.js"
-			},
-			"./runtime/extension-registry": {
-				"types": "./dist/runtime/extension-registry.d.ts",
-				"browser": "./dist/browser/runtime/extension-registry.js",
-				"bun": "./dist/runtime/extension-registry.js",
-				"node": "./dist/node/runtime/extension-registry.js",
-				"default": "./dist/runtime/extension-registry.js"
-			},
-			"./runtime/field-renderer-registry": {
-				"types": "./dist/runtime/field-renderer-registry.d.ts",
-				"browser": "./dist/browser/runtime/field-renderer-registry.js",
-				"bun": "./dist/runtime/field-renderer-registry.js",
-				"node": "./dist/node/runtime/field-renderer-registry.js",
-				"default": "./dist/runtime/field-renderer-registry.js"
-			},
-			"./runtime/overlay-alignment": {
-				"types": "./dist/runtime/overlay-alignment.d.ts",
-				"browser": "./dist/browser/runtime/overlay-alignment.js",
-				"bun": "./dist/runtime/overlay-alignment.js",
-				"node": "./dist/node/runtime/overlay-alignment.js",
-				"default": "./dist/runtime/overlay-alignment.js"
-			},
-			"./runtime/overlay-signer": {
-				"types": "./dist/runtime/overlay-signer.d.ts",
-				"browser": "./dist/browser/runtime/overlay-signer.js",
-				"bun": "./dist/runtime/overlay-signer.js",
-				"node": "./dist/node/runtime/overlay-signer.js",
-				"default": "./dist/runtime/overlay-signer.js"
-			},
-			"./runtime/override-store": {
-				"types": "./dist/runtime/override-store.d.ts",
-				"browser": "./dist/browser/runtime/override-store.js",
-				"bun": "./dist/runtime/override-store.js",
-				"node": "./dist/node/runtime/override-store.js",
-				"default": "./dist/runtime/override-store.js"
-			},
-			"./runtime/planner-prompt": {
-				"types": "./dist/runtime/planner-prompt.d.ts",
-				"browser": "./dist/browser/runtime/planner-prompt.js",
-				"bun": "./dist/runtime/planner-prompt.js",
-				"node": "./dist/node/runtime/planner-prompt.js",
-				"default": "./dist/runtime/planner-prompt.js"
-			},
-			"./runtime/planner-tools": {
-				"types": "./dist/runtime/planner-tools.d.ts",
-				"browser": "./dist/browser/runtime/planner-tools.js",
-				"bun": "./dist/runtime/planner-tools.js",
-				"node": "./dist/node/runtime/planner-tools.js",
-				"default": "./dist/runtime/planner-tools.js"
-			},
-			"./runtime/policy-eval": {
-				"types": "./dist/runtime/policy-eval.d.ts",
-				"browser": "./dist/browser/runtime/policy-eval.js",
-				"bun": "./dist/runtime/policy-eval.js",
-				"node": "./dist/node/runtime/policy-eval.js",
-				"default": "./dist/runtime/policy-eval.js"
-			},
-			"./runtime/preference-adapter": {
-				"types": "./dist/runtime/preference-adapter.d.ts",
-				"browser": "./dist/browser/runtime/preference-adapter.js",
-				"bun": "./dist/runtime/preference-adapter.js",
-				"node": "./dist/node/runtime/preference-adapter.js",
-				"default": "./dist/runtime/preference-adapter.js"
-			},
-			"./runtime/resolve-bundle": {
-				"types": "./dist/runtime/resolve-bundle.d.ts",
-				"browser": "./dist/browser/runtime/resolve-bundle.js",
-				"bun": "./dist/runtime/resolve-bundle.js",
-				"node": "./dist/node/runtime/resolve-bundle.js",
-				"default": "./dist/runtime/resolve-bundle.js"
-			},
-			"./runtime/resolve-preferences": {
-				"types": "./dist/runtime/resolve-preferences.d.ts",
-				"browser": "./dist/browser/runtime/resolve-preferences.js",
-				"bun": "./dist/runtime/resolve-preferences.js",
-				"node": "./dist/node/runtime/resolve-preferences.js",
-				"default": "./dist/runtime/resolve-preferences.js"
-			},
-			"./runtime/rollback": {
-				"types": "./dist/runtime/rollback.d.ts",
-				"browser": "./dist/browser/runtime/rollback.js",
-				"bun": "./dist/runtime/rollback.js",
-				"node": "./dist/node/runtime/rollback.js",
-				"default": "./dist/runtime/rollback.js"
-			},
-			"./runtime/widget-registry": {
-				"types": "./dist/runtime/widget-registry.d.ts",
-				"browser": "./dist/browser/runtime/widget-registry.js",
-				"bun": "./dist/runtime/widget-registry.js",
-				"node": "./dist/node/runtime/widget-registry.js",
-				"default": "./dist/runtime/widget-registry.js"
-			},
-			"./spec": {
-				"types": "./dist/spec/index.d.ts",
-				"browser": "./dist/browser/spec/index.js",
-				"bun": "./dist/spec/index.js",
-				"node": "./dist/node/spec/index.js",
-				"default": "./dist/spec/index.js"
-			},
-			"./spec/define-module-bundle": {
-				"types": "./dist/spec/define-module-bundle.d.ts",
-				"browser": "./dist/browser/spec/define-module-bundle.js",
-				"bun": "./dist/spec/define-module-bundle.js",
-				"node": "./dist/node/spec/define-module-bundle.js",
-				"default": "./dist/spec/define-module-bundle.js"
-			},
-			"./spec/types": {
-				"types": "./dist/spec/types.d.ts",
-				"browser": "./dist/browser/spec/types.js",
-				"bun": "./dist/spec/types.js",
-				"node": "./dist/node/spec/types.js",
-				"default": "./dist/spec/types.js"
-			},
-			"./spec/validate-bundle": {
-				"types": "./dist/spec/validate-bundle.d.ts",
-				"browser": "./dist/browser/spec/validate-bundle.js",
-				"bun": "./dist/spec/validate-bundle.js",
-				"node": "./dist/node/spec/validate-bundle.js",
-				"default": "./dist/spec/validate-bundle.js"
-			},
-			"./spec/validate-surface-patch": {
-				"types": "./dist/spec/validate-surface-patch.d.ts",
-				"browser": "./dist/browser/spec/validate-surface-patch.js",
-				"bun": "./dist/spec/validate-surface-patch.js",
-				"node": "./dist/node/spec/validate-surface-patch.js",
-				"default": "./dist/spec/validate-surface-patch.js"
-			},
-			"./spec/verification-snapshot-types": {
-				"types": "./dist/spec/verification-snapshot-types.d.ts",
-				"browser": "./dist/browser/spec/verification-snapshot-types.js",
-				"bun": "./dist/spec/verification-snapshot-types.js",
-				"node": "./dist/node/spec/verification-snapshot-types.js",
-				"default": "./dist/spec/verification-snapshot-types.js"
-			},
-			"./telemetry": {
-				"types": "./dist/telemetry/index.d.ts",
-				"browser": "./dist/browser/telemetry/index.js",
-				"bun": "./dist/telemetry/index.js",
-				"node": "./dist/node/telemetry/index.js",
-				"default": "./dist/telemetry/index.js"
-			},
-			"./telemetry/surface-metrics": {
-				"types": "./dist/telemetry/surface-metrics.d.ts",
-				"browser": "./dist/browser/telemetry/surface-metrics.js",
-				"bun": "./dist/telemetry/surface-metrics.js",
-				"node": "./dist/node/telemetry/surface-metrics.js",
-				"default": "./dist/telemetry/surface-metrics.js"
-			}
-		},
-		"registry": "https://registry.npmjs.org/"
-	},
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/lssm-tech/contractspec.git",
-		"directory": "packages/libs/surface-runtime"
-	},
-	"homepage": "https://contractspec.io"
+  "name": "@contractspec/lib.surface-runtime",
+  "version": "0.5.6",
+  "description": "AI-native surface specs and web runtime for adaptive ContractSpec surfaces",
+  "keywords": [
+    "contractspec",
+    "surface",
+    "runtime",
+    "bundle",
+    "ai-native",
+    "personalization",
+    "typescript"
+  ],
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile && node scripts/fix-use-client-directive.mjs",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
+    "lint:adapters": "node scripts/lint-adapters.mjs",
+    "test": "bun test --pass-with-no-tests",
+    "test:evals": "bun test src/evals/",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.overlay-engine": "workspace:*",
+    "@contractspec/lib.observability": "workspace:*",
+    "zod": "catalog:"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "@dnd-kit/core": "*"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "@dnd-kit/core": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "@dnd-kit/core": "^6.3.1",
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./adapters": "./src/adapters/index.ts",
+    "./adapters/ai-sdk-stub": "./src/adapters/ai-sdk-stub.ts",
+    "./adapters/blocknote-stub": "./src/adapters/blocknote-stub.tsx",
+    "./adapters/dnd-kit-adapter": "./src/adapters/dnd-kit-adapter.tsx",
+    "./adapters/dnd-kit-stub": "./src/adapters/dnd-kit-stub.ts",
+    "./adapters/floating-ui-stub": "./src/adapters/floating-ui-stub.tsx",
+    "./adapters/interfaces": "./src/adapters/interfaces.ts",
+    "./adapters/motion-stub": "./src/adapters/motion-stub.ts",
+    "./adapters/resizable-panels-stub": "./src/adapters/resizable-panels-stub.tsx",
+    "./evals/golden-context": "./src/evals/golden-context.ts",
+    "./evals/golden-harness": "./src/evals/golden-harness.ts",
+    "./examples/pm-workbench.bundle": "./src/examples/pm-workbench.bundle.ts",
+    "./i18n": "./src/i18n/index.ts",
+    "./i18n/catalogs": "./src/i18n/catalogs/index.ts",
+    "./i18n/catalogs/en": "./src/i18n/catalogs/en.ts",
+    "./i18n/catalogs/es": "./src/i18n/catalogs/es.ts",
+    "./i18n/catalogs/fr": "./src/i18n/catalogs/fr.ts",
+    "./i18n/keys": "./src/i18n/keys.ts",
+    "./i18n/messages": "./src/i18n/messages.ts",
+    "./react": "./src/react/index.ts",
+    "./react/BundleProvider": "./src/react/BundleProvider.tsx",
+    "./react/BundleRenderer": "./src/react/BundleRenderer.tsx",
+    "./react/OverlayConflictResolver": "./src/react/OverlayConflictResolver.tsx",
+    "./react/PatchProposalCard": "./src/react/PatchProposalCard.tsx",
+    "./react/RegionRenderer": "./src/react/RegionRenderer.tsx",
+    "./react/SlotRenderer": "./src/react/SlotRenderer.tsx",
+    "./react/WidgetPalette": "./src/react/WidgetPalette.tsx",
+    "./runtime": "./src/runtime/index.ts",
+    "./runtime/apply-surface-patch": "./src/runtime/apply-surface-patch.ts",
+    "./runtime/audit-events": "./src/runtime/audit-events.ts",
+    "./runtime/build-context": "./src/runtime/build-context.ts",
+    "./runtime/extension-registry": "./src/runtime/extension-registry.ts",
+    "./runtime/field-renderer-registry": "./src/runtime/field-renderer-registry.ts",
+    "./runtime/overlay-alignment": "./src/runtime/overlay-alignment.ts",
+    "./runtime/overlay-signer": "./src/runtime/overlay-signer.ts",
+    "./runtime/override-store": "./src/runtime/override-store.ts",
+    "./runtime/planner-prompt": "./src/runtime/planner-prompt.ts",
+    "./runtime/planner-tools": "./src/runtime/planner-tools.ts",
+    "./runtime/policy-eval": "./src/runtime/policy-eval.ts",
+    "./runtime/preference-adapter": "./src/runtime/preference-adapter.ts",
+    "./runtime/resolve-bundle": "./src/runtime/resolve-bundle.ts",
+    "./runtime/resolve-preferences": "./src/runtime/resolve-preferences.ts",
+    "./runtime/rollback": "./src/runtime/rollback.ts",
+    "./runtime/widget-registry": "./src/runtime/widget-registry.ts",
+    "./spec": "./src/spec/index.ts",
+    "./spec/define-module-bundle": "./src/spec/define-module-bundle.ts",
+    "./spec/types": "./src/spec/types.ts",
+    "./spec/validate-bundle": "./src/spec/validate-bundle.ts",
+    "./spec/validate-surface-patch": "./src/spec/validate-surface-patch.ts",
+    "./spec/verification-snapshot-types": "./src/spec/verification-snapshot-types.ts",
+    "./telemetry": "./src/telemetry/index.ts",
+    "./telemetry/surface-metrics": "./src/telemetry/surface-metrics.ts"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.js",
+        "default": "./dist/index.js"
+      },
+      "./adapters": {
+        "types": "./dist/adapters/index.d.ts",
+        "browser": "./dist/browser/adapters/index.js",
+        "bun": "./dist/adapters/index.js",
+        "node": "./dist/node/adapters/index.js",
+        "default": "./dist/adapters/index.js"
+      },
+      "./adapters/ai-sdk-stub": {
+        "types": "./dist/adapters/ai-sdk-stub.d.ts",
+        "browser": "./dist/browser/adapters/ai-sdk-stub.js",
+        "bun": "./dist/adapters/ai-sdk-stub.js",
+        "node": "./dist/node/adapters/ai-sdk-stub.js",
+        "default": "./dist/adapters/ai-sdk-stub.js"
+      },
+      "./adapters/blocknote-stub": {
+        "types": "./dist/adapters/blocknote-stub.d.ts",
+        "browser": "./dist/browser/adapters/blocknote-stub.js",
+        "bun": "./dist/adapters/blocknote-stub.js",
+        "node": "./dist/node/adapters/blocknote-stub.js",
+        "default": "./dist/adapters/blocknote-stub.js"
+      },
+      "./adapters/dnd-kit-adapter": {
+        "types": "./dist/adapters/dnd-kit-adapter.d.ts",
+        "browser": "./dist/browser/adapters/dnd-kit-adapter.js",
+        "bun": "./dist/adapters/dnd-kit-adapter.js",
+        "node": "./dist/node/adapters/dnd-kit-adapter.js",
+        "default": "./dist/adapters/dnd-kit-adapter.js"
+      },
+      "./adapters/dnd-kit-stub": {
+        "types": "./dist/adapters/dnd-kit-stub.d.ts",
+        "browser": "./dist/browser/adapters/dnd-kit-stub.js",
+        "bun": "./dist/adapters/dnd-kit-stub.js",
+        "node": "./dist/node/adapters/dnd-kit-stub.js",
+        "default": "./dist/adapters/dnd-kit-stub.js"
+      },
+      "./adapters/floating-ui-stub": {
+        "types": "./dist/adapters/floating-ui-stub.d.ts",
+        "browser": "./dist/browser/adapters/floating-ui-stub.js",
+        "bun": "./dist/adapters/floating-ui-stub.js",
+        "node": "./dist/node/adapters/floating-ui-stub.js",
+        "default": "./dist/adapters/floating-ui-stub.js"
+      },
+      "./adapters/interfaces": {
+        "types": "./dist/adapters/interfaces.d.ts",
+        "browser": "./dist/browser/adapters/interfaces.js",
+        "bun": "./dist/adapters/interfaces.js",
+        "node": "./dist/node/adapters/interfaces.js",
+        "default": "./dist/adapters/interfaces.js"
+      },
+      "./adapters/motion-stub": {
+        "types": "./dist/adapters/motion-stub.d.ts",
+        "browser": "./dist/browser/adapters/motion-stub.js",
+        "bun": "./dist/adapters/motion-stub.js",
+        "node": "./dist/node/adapters/motion-stub.js",
+        "default": "./dist/adapters/motion-stub.js"
+      },
+      "./adapters/resizable-panels-stub": {
+        "types": "./dist/adapters/resizable-panels-stub.d.ts",
+        "browser": "./dist/browser/adapters/resizable-panels-stub.js",
+        "bun": "./dist/adapters/resizable-panels-stub.js",
+        "node": "./dist/node/adapters/resizable-panels-stub.js",
+        "default": "./dist/adapters/resizable-panels-stub.js"
+      },
+      "./evals/golden-context": {
+        "types": "./dist/evals/golden-context.d.ts",
+        "browser": "./dist/browser/evals/golden-context.js",
+        "bun": "./dist/evals/golden-context.js",
+        "node": "./dist/node/evals/golden-context.js",
+        "default": "./dist/evals/golden-context.js"
+      },
+      "./evals/golden-harness": {
+        "types": "./dist/evals/golden-harness.d.ts",
+        "browser": "./dist/browser/evals/golden-harness.js",
+        "bun": "./dist/evals/golden-harness.js",
+        "node": "./dist/node/evals/golden-harness.js",
+        "default": "./dist/evals/golden-harness.js"
+      },
+      "./examples/pm-workbench.bundle": {
+        "types": "./dist/examples/pm-workbench.bundle.d.ts",
+        "browser": "./dist/browser/examples/pm-workbench.bundle.js",
+        "bun": "./dist/examples/pm-workbench.bundle.js",
+        "node": "./dist/node/examples/pm-workbench.bundle.js",
+        "default": "./dist/examples/pm-workbench.bundle.js"
+      },
+      "./i18n": {
+        "types": "./dist/i18n/index.d.ts",
+        "browser": "./dist/browser/i18n/index.js",
+        "bun": "./dist/i18n/index.js",
+        "node": "./dist/node/i18n/index.js",
+        "default": "./dist/i18n/index.js"
+      },
+      "./i18n/catalogs": {
+        "types": "./dist/i18n/catalogs/index.d.ts",
+        "browser": "./dist/browser/i18n/catalogs/index.js",
+        "bun": "./dist/i18n/catalogs/index.js",
+        "node": "./dist/node/i18n/catalogs/index.js",
+        "default": "./dist/i18n/catalogs/index.js"
+      },
+      "./i18n/catalogs/en": {
+        "types": "./dist/i18n/catalogs/en.d.ts",
+        "browser": "./dist/browser/i18n/catalogs/en.js",
+        "bun": "./dist/i18n/catalogs/en.js",
+        "node": "./dist/node/i18n/catalogs/en.js",
+        "default": "./dist/i18n/catalogs/en.js"
+      },
+      "./i18n/catalogs/es": {
+        "types": "./dist/i18n/catalogs/es.d.ts",
+        "browser": "./dist/browser/i18n/catalogs/es.js",
+        "bun": "./dist/i18n/catalogs/es.js",
+        "node": "./dist/node/i18n/catalogs/es.js",
+        "default": "./dist/i18n/catalogs/es.js"
+      },
+      "./i18n/catalogs/fr": {
+        "types": "./dist/i18n/catalogs/fr.d.ts",
+        "browser": "./dist/browser/i18n/catalogs/fr.js",
+        "bun": "./dist/i18n/catalogs/fr.js",
+        "node": "./dist/node/i18n/catalogs/fr.js",
+        "default": "./dist/i18n/catalogs/fr.js"
+      },
+      "./i18n/keys": {
+        "types": "./dist/i18n/keys.d.ts",
+        "browser": "./dist/browser/i18n/keys.js",
+        "bun": "./dist/i18n/keys.js",
+        "node": "./dist/node/i18n/keys.js",
+        "default": "./dist/i18n/keys.js"
+      },
+      "./i18n/messages": {
+        "types": "./dist/i18n/messages.d.ts",
+        "browser": "./dist/browser/i18n/messages.js",
+        "bun": "./dist/i18n/messages.js",
+        "node": "./dist/node/i18n/messages.js",
+        "default": "./dist/i18n/messages.js"
+      },
+      "./react": {
+        "types": "./dist/react/index.d.ts",
+        "browser": "./dist/browser/react/index.js",
+        "bun": "./dist/react/index.js",
+        "node": "./dist/node/react/index.js",
+        "default": "./dist/react/index.js"
+      },
+      "./react/BundleProvider": {
+        "types": "./dist/react/BundleProvider.d.ts",
+        "browser": "./dist/browser/react/BundleProvider.js",
+        "bun": "./dist/react/BundleProvider.js",
+        "node": "./dist/node/react/BundleProvider.js",
+        "default": "./dist/react/BundleProvider.js"
+      },
+      "./react/BundleRenderer": {
+        "types": "./dist/react/BundleRenderer.d.ts",
+        "browser": "./dist/browser/react/BundleRenderer.js",
+        "bun": "./dist/react/BundleRenderer.js",
+        "node": "./dist/node/react/BundleRenderer.js",
+        "default": "./dist/react/BundleRenderer.js"
+      },
+      "./react/OverlayConflictResolver": {
+        "types": "./dist/react/OverlayConflictResolver.d.ts",
+        "browser": "./dist/browser/react/OverlayConflictResolver.js",
+        "bun": "./dist/react/OverlayConflictResolver.js",
+        "node": "./dist/node/react/OverlayConflictResolver.js",
+        "default": "./dist/react/OverlayConflictResolver.js"
+      },
+      "./react/PatchProposalCard": {
+        "types": "./dist/react/PatchProposalCard.d.ts",
+        "browser": "./dist/browser/react/PatchProposalCard.js",
+        "bun": "./dist/react/PatchProposalCard.js",
+        "node": "./dist/node/react/PatchProposalCard.js",
+        "default": "./dist/react/PatchProposalCard.js"
+      },
+      "./react/RegionRenderer": {
+        "types": "./dist/react/RegionRenderer.d.ts",
+        "browser": "./dist/browser/react/RegionRenderer.js",
+        "bun": "./dist/react/RegionRenderer.js",
+        "node": "./dist/node/react/RegionRenderer.js",
+        "default": "./dist/react/RegionRenderer.js"
+      },
+      "./react/SlotRenderer": {
+        "types": "./dist/react/SlotRenderer.d.ts",
+        "browser": "./dist/browser/react/SlotRenderer.js",
+        "bun": "./dist/react/SlotRenderer.js",
+        "node": "./dist/node/react/SlotRenderer.js",
+        "default": "./dist/react/SlotRenderer.js"
+      },
+      "./react/WidgetPalette": {
+        "types": "./dist/react/WidgetPalette.d.ts",
+        "browser": "./dist/browser/react/WidgetPalette.js",
+        "bun": "./dist/react/WidgetPalette.js",
+        "node": "./dist/node/react/WidgetPalette.js",
+        "default": "./dist/react/WidgetPalette.js"
+      },
+      "./runtime": {
+        "types": "./dist/runtime/index.d.ts",
+        "browser": "./dist/browser/runtime/index.js",
+        "bun": "./dist/runtime/index.js",
+        "node": "./dist/node/runtime/index.js",
+        "default": "./dist/runtime/index.js"
+      },
+      "./runtime/apply-surface-patch": {
+        "types": "./dist/runtime/apply-surface-patch.d.ts",
+        "browser": "./dist/browser/runtime/apply-surface-patch.js",
+        "bun": "./dist/runtime/apply-surface-patch.js",
+        "node": "./dist/node/runtime/apply-surface-patch.js",
+        "default": "./dist/runtime/apply-surface-patch.js"
+      },
+      "./runtime/audit-events": {
+        "types": "./dist/runtime/audit-events.d.ts",
+        "browser": "./dist/browser/runtime/audit-events.js",
+        "bun": "./dist/runtime/audit-events.js",
+        "node": "./dist/node/runtime/audit-events.js",
+        "default": "./dist/runtime/audit-events.js"
+      },
+      "./runtime/build-context": {
+        "types": "./dist/runtime/build-context.d.ts",
+        "browser": "./dist/browser/runtime/build-context.js",
+        "bun": "./dist/runtime/build-context.js",
+        "node": "./dist/node/runtime/build-context.js",
+        "default": "./dist/runtime/build-context.js"
+      },
+      "./runtime/extension-registry": {
+        "types": "./dist/runtime/extension-registry.d.ts",
+        "browser": "./dist/browser/runtime/extension-registry.js",
+        "bun": "./dist/runtime/extension-registry.js",
+        "node": "./dist/node/runtime/extension-registry.js",
+        "default": "./dist/runtime/extension-registry.js"
+      },
+      "./runtime/field-renderer-registry": {
+        "types": "./dist/runtime/field-renderer-registry.d.ts",
+        "browser": "./dist/browser/runtime/field-renderer-registry.js",
+        "bun": "./dist/runtime/field-renderer-registry.js",
+        "node": "./dist/node/runtime/field-renderer-registry.js",
+        "default": "./dist/runtime/field-renderer-registry.js"
+      },
+      "./runtime/overlay-alignment": {
+        "types": "./dist/runtime/overlay-alignment.d.ts",
+        "browser": "./dist/browser/runtime/overlay-alignment.js",
+        "bun": "./dist/runtime/overlay-alignment.js",
+        "node": "./dist/node/runtime/overlay-alignment.js",
+        "default": "./dist/runtime/overlay-alignment.js"
+      },
+      "./runtime/overlay-signer": {
+        "types": "./dist/runtime/overlay-signer.d.ts",
+        "browser": "./dist/browser/runtime/overlay-signer.js",
+        "bun": "./dist/runtime/overlay-signer.js",
+        "node": "./dist/node/runtime/overlay-signer.js",
+        "default": "./dist/runtime/overlay-signer.js"
+      },
+      "./runtime/override-store": {
+        "types": "./dist/runtime/override-store.d.ts",
+        "browser": "./dist/browser/runtime/override-store.js",
+        "bun": "./dist/runtime/override-store.js",
+        "node": "./dist/node/runtime/override-store.js",
+        "default": "./dist/runtime/override-store.js"
+      },
+      "./runtime/planner-prompt": {
+        "types": "./dist/runtime/planner-prompt.d.ts",
+        "browser": "./dist/browser/runtime/planner-prompt.js",
+        "bun": "./dist/runtime/planner-prompt.js",
+        "node": "./dist/node/runtime/planner-prompt.js",
+        "default": "./dist/runtime/planner-prompt.js"
+      },
+      "./runtime/planner-tools": {
+        "types": "./dist/runtime/planner-tools.d.ts",
+        "browser": "./dist/browser/runtime/planner-tools.js",
+        "bun": "./dist/runtime/planner-tools.js",
+        "node": "./dist/node/runtime/planner-tools.js",
+        "default": "./dist/runtime/planner-tools.js"
+      },
+      "./runtime/policy-eval": {
+        "types": "./dist/runtime/policy-eval.d.ts",
+        "browser": "./dist/browser/runtime/policy-eval.js",
+        "bun": "./dist/runtime/policy-eval.js",
+        "node": "./dist/node/runtime/policy-eval.js",
+        "default": "./dist/runtime/policy-eval.js"
+      },
+      "./runtime/preference-adapter": {
+        "types": "./dist/runtime/preference-adapter.d.ts",
+        "browser": "./dist/browser/runtime/preference-adapter.js",
+        "bun": "./dist/runtime/preference-adapter.js",
+        "node": "./dist/node/runtime/preference-adapter.js",
+        "default": "./dist/runtime/preference-adapter.js"
+      },
+      "./runtime/resolve-bundle": {
+        "types": "./dist/runtime/resolve-bundle.d.ts",
+        "browser": "./dist/browser/runtime/resolve-bundle.js",
+        "bun": "./dist/runtime/resolve-bundle.js",
+        "node": "./dist/node/runtime/resolve-bundle.js",
+        "default": "./dist/runtime/resolve-bundle.js"
+      },
+      "./runtime/resolve-preferences": {
+        "types": "./dist/runtime/resolve-preferences.d.ts",
+        "browser": "./dist/browser/runtime/resolve-preferences.js",
+        "bun": "./dist/runtime/resolve-preferences.js",
+        "node": "./dist/node/runtime/resolve-preferences.js",
+        "default": "./dist/runtime/resolve-preferences.js"
+      },
+      "./runtime/rollback": {
+        "types": "./dist/runtime/rollback.d.ts",
+        "browser": "./dist/browser/runtime/rollback.js",
+        "bun": "./dist/runtime/rollback.js",
+        "node": "./dist/node/runtime/rollback.js",
+        "default": "./dist/runtime/rollback.js"
+      },
+      "./runtime/widget-registry": {
+        "types": "./dist/runtime/widget-registry.d.ts",
+        "browser": "./dist/browser/runtime/widget-registry.js",
+        "bun": "./dist/runtime/widget-registry.js",
+        "node": "./dist/node/runtime/widget-registry.js",
+        "default": "./dist/runtime/widget-registry.js"
+      },
+      "./spec": {
+        "types": "./dist/spec/index.d.ts",
+        "browser": "./dist/browser/spec/index.js",
+        "bun": "./dist/spec/index.js",
+        "node": "./dist/node/spec/index.js",
+        "default": "./dist/spec/index.js"
+      },
+      "./spec/define-module-bundle": {
+        "types": "./dist/spec/define-module-bundle.d.ts",
+        "browser": "./dist/browser/spec/define-module-bundle.js",
+        "bun": "./dist/spec/define-module-bundle.js",
+        "node": "./dist/node/spec/define-module-bundle.js",
+        "default": "./dist/spec/define-module-bundle.js"
+      },
+      "./spec/types": {
+        "types": "./dist/spec/types.d.ts",
+        "browser": "./dist/browser/spec/types.js",
+        "bun": "./dist/spec/types.js",
+        "node": "./dist/node/spec/types.js",
+        "default": "./dist/spec/types.js"
+      },
+      "./spec/validate-bundle": {
+        "types": "./dist/spec/validate-bundle.d.ts",
+        "browser": "./dist/browser/spec/validate-bundle.js",
+        "bun": "./dist/spec/validate-bundle.js",
+        "node": "./dist/node/spec/validate-bundle.js",
+        "default": "./dist/spec/validate-bundle.js"
+      },
+      "./spec/validate-surface-patch": {
+        "types": "./dist/spec/validate-surface-patch.d.ts",
+        "browser": "./dist/browser/spec/validate-surface-patch.js",
+        "bun": "./dist/spec/validate-surface-patch.js",
+        "node": "./dist/node/spec/validate-surface-patch.js",
+        "default": "./dist/spec/validate-surface-patch.js"
+      },
+      "./spec/verification-snapshot-types": {
+        "types": "./dist/spec/verification-snapshot-types.d.ts",
+        "browser": "./dist/browser/spec/verification-snapshot-types.js",
+        "bun": "./dist/spec/verification-snapshot-types.js",
+        "node": "./dist/node/spec/verification-snapshot-types.js",
+        "default": "./dist/spec/verification-snapshot-types.js"
+      },
+      "./telemetry": {
+        "types": "./dist/telemetry/index.d.ts",
+        "browser": "./dist/browser/telemetry/index.js",
+        "bun": "./dist/telemetry/index.js",
+        "node": "./dist/node/telemetry/index.js",
+        "default": "./dist/telemetry/index.js"
+      },
+      "./telemetry/surface-metrics": {
+        "types": "./dist/telemetry/surface-metrics.d.ts",
+        "browser": "./dist/browser/telemetry/surface-metrics.js",
+        "bun": "./dist/telemetry/surface-metrics.js",
+        "node": "./dist/node/telemetry/surface-metrics.js",
+        "default": "./dist/telemetry/surface-metrics.js"
+      }
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/surface-runtime"
+  },
+  "homepage": "https://contractspec.io"
 }

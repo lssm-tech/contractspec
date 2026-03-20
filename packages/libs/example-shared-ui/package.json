@@ -1,271 +1,271 @@
 {
-	"name": "@contractspec/lib.example-shared-ui",
-	"version": "6.0.6",
-	"type": "module",
-	"exports": {
-		".": "./src/index.ts",
-		"./bundles": "./src/bundles/index.ts",
-		"./bundles/ExampleTemplateBundle": "./src/bundles/ExampleTemplateBundle.ts",
-		"./EvolutionDashboard": "./src/EvolutionDashboard.tsx",
-		"./EvolutionSidebar": "./src/EvolutionSidebar.tsx",
-		"./hooks": "./src/hooks/index.ts",
-		"./hooks/useBehaviorTracking": "./src/hooks/useBehaviorTracking.ts",
-		"./hooks/useEvolution": "./src/hooks/useEvolution.ts",
-		"./hooks/useRegistryTemplates": "./src/hooks/useRegistryTemplates.ts",
-		"./hooks/useSpecContent": "./src/hooks/useSpecContent.ts",
-		"./hooks/useWorkflowComposer": "./src/hooks/useWorkflowComposer.ts",
-		"./lib/component-registry": "./src/lib/component-registry.tsx",
-		"./lib/runtime-context": "./src/lib/runtime-context.tsx",
-		"./lib/types": "./src/lib/types.ts",
-		"./LocalDataIndicator": "./src/LocalDataIndicator.tsx",
-		"./MarkdownView": "./src/MarkdownView.tsx",
-		"./overlay-types": "./src/overlay-types.ts",
-		"./OverlayContextProvider": "./src/OverlayContextProvider.tsx",
-		"./PersonalizationInsights": "./src/PersonalizationInsights.tsx",
-		"./SaveToStudioButton": "./src/SaveToStudioButton.tsx",
-		"./SpecDrivenTemplateShell": "./src/SpecDrivenTemplateShell.tsx",
-		"./SpecEditorPanel": "./src/SpecEditorPanel.tsx",
-		"./TemplateShell": "./src/TemplateShell.tsx",
-		"./utils": "./src/utils/index.ts",
-		"./utils/fetchPresentationData": "./src/utils/fetchPresentationData.ts",
-		"./utils/generateSpecFromTemplate": "./src/utils/generateSpecFromTemplate.ts"
-	},
-	"scripts": {
-		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-		"publish:pkg:canary": "bun publish:pkg --tag canary",
-		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
-		"build:bundle": "contractspec-bun-build transpile",
-		"build:types": "contractspec-bun-build types",
-		"dev": "contractspec-bun-build dev",
-		"clean": "rimraf dist .turbo",
-		"lint": "bun lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
-		"test": "bun test --pass-with-no-tests",
-		"prebuild": "contractspec-bun-build prebuild",
-		"typecheck": "tsc --noEmit"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/lssm-tech/contractspec.git",
-		"directory": "packages/libs/example-shared-ui"
-	},
-	"publishConfig": {
-		"access": "public",
-		"registry": "https://registry.npmjs.org/",
-		"exports": {
-			".": {
-				"types": "./dist/index.d.ts",
-				"browser": "./dist/browser/index.js",
-				"bun": "./dist/index.js",
-				"node": "./dist/node/index.js",
-				"default": "./dist/index.js"
-			},
-			"./bundles": {
-				"types": "./dist/bundles/index.d.ts",
-				"browser": "./dist/browser/bundles/index.js",
-				"bun": "./dist/bundles/index.js",
-				"node": "./dist/node/bundles/index.js",
-				"default": "./dist/bundles/index.js"
-			},
-			"./bundles/ExampleTemplateBundle": {
-				"types": "./dist/bundles/ExampleTemplateBundle.d.ts",
-				"browser": "./dist/browser/bundles/ExampleTemplateBundle.js",
-				"bun": "./dist/bundles/ExampleTemplateBundle.js",
-				"node": "./dist/node/bundles/ExampleTemplateBundle.js",
-				"default": "./dist/bundles/ExampleTemplateBundle.js"
-			},
-			"./EvolutionDashboard": {
-				"types": "./dist/EvolutionDashboard.d.ts",
-				"browser": "./dist/browser/EvolutionDashboard.js",
-				"bun": "./dist/EvolutionDashboard.js",
-				"node": "./dist/node/EvolutionDashboard.js",
-				"default": "./dist/EvolutionDashboard.js"
-			},
-			"./EvolutionSidebar": {
-				"types": "./dist/EvolutionSidebar.d.ts",
-				"browser": "./dist/browser/EvolutionSidebar.js",
-				"bun": "./dist/EvolutionSidebar.js",
-				"node": "./dist/node/EvolutionSidebar.js",
-				"default": "./dist/EvolutionSidebar.js"
-			},
-			"./hooks": {
-				"types": "./dist/hooks/index.d.ts",
-				"browser": "./dist/browser/hooks/index.js",
-				"bun": "./dist/hooks/index.js",
-				"node": "./dist/node/hooks/index.js",
-				"default": "./dist/hooks/index.js"
-			},
-			"./hooks/useBehaviorTracking": {
-				"types": "./dist/hooks/useBehaviorTracking.d.ts",
-				"browser": "./dist/browser/hooks/useBehaviorTracking.js",
-				"bun": "./dist/hooks/useBehaviorTracking.js",
-				"node": "./dist/node/hooks/useBehaviorTracking.js",
-				"default": "./dist/hooks/useBehaviorTracking.js"
-			},
-			"./hooks/useEvolution": {
-				"types": "./dist/hooks/useEvolution.d.ts",
-				"browser": "./dist/browser/hooks/useEvolution.js",
-				"bun": "./dist/hooks/useEvolution.js",
-				"node": "./dist/node/hooks/useEvolution.js",
-				"default": "./dist/hooks/useEvolution.js"
-			},
-			"./hooks/useRegistryTemplates": {
-				"types": "./dist/hooks/useRegistryTemplates.d.ts",
-				"browser": "./dist/browser/hooks/useRegistryTemplates.js",
-				"bun": "./dist/hooks/useRegistryTemplates.js",
-				"node": "./dist/node/hooks/useRegistryTemplates.js",
-				"default": "./dist/hooks/useRegistryTemplates.js"
-			},
-			"./hooks/useSpecContent": {
-				"types": "./dist/hooks/useSpecContent.d.ts",
-				"browser": "./dist/browser/hooks/useSpecContent.js",
-				"bun": "./dist/hooks/useSpecContent.js",
-				"node": "./dist/node/hooks/useSpecContent.js",
-				"default": "./dist/hooks/useSpecContent.js"
-			},
-			"./hooks/useWorkflowComposer": {
-				"types": "./dist/hooks/useWorkflowComposer.d.ts",
-				"browser": "./dist/browser/hooks/useWorkflowComposer.js",
-				"bun": "./dist/hooks/useWorkflowComposer.js",
-				"node": "./dist/node/hooks/useWorkflowComposer.js",
-				"default": "./dist/hooks/useWorkflowComposer.js"
-			},
-			"./lib/component-registry": {
-				"types": "./dist/lib/component-registry.d.ts",
-				"browser": "./dist/browser/lib/component-registry.js",
-				"bun": "./dist/lib/component-registry.js",
-				"node": "./dist/node/lib/component-registry.js",
-				"default": "./dist/lib/component-registry.js"
-			},
-			"./lib/runtime-context": {
-				"types": "./dist/lib/runtime-context.d.ts",
-				"browser": "./dist/browser/lib/runtime-context.js",
-				"bun": "./dist/lib/runtime-context.js",
-				"node": "./dist/node/lib/runtime-context.js",
-				"default": "./dist/lib/runtime-context.js"
-			},
-			"./lib/types": {
-				"types": "./dist/lib/types.d.ts",
-				"browser": "./dist/browser/lib/types.js",
-				"bun": "./dist/lib/types.js",
-				"node": "./dist/node/lib/types.js",
-				"default": "./dist/lib/types.js"
-			},
-			"./LocalDataIndicator": {
-				"types": "./dist/LocalDataIndicator.d.ts",
-				"browser": "./dist/browser/LocalDataIndicator.js",
-				"bun": "./dist/LocalDataIndicator.js",
-				"node": "./dist/node/LocalDataIndicator.js",
-				"default": "./dist/LocalDataIndicator.js"
-			},
-			"./MarkdownView": {
-				"types": "./dist/MarkdownView.d.ts",
-				"browser": "./dist/browser/MarkdownView.js",
-				"bun": "./dist/MarkdownView.js",
-				"node": "./dist/node/MarkdownView.js",
-				"default": "./dist/MarkdownView.js"
-			},
-			"./overlay-types": {
-				"types": "./dist/overlay-types.d.ts",
-				"browser": "./dist/browser/overlay-types.js",
-				"bun": "./dist/overlay-types.js",
-				"node": "./dist/node/overlay-types.js",
-				"default": "./dist/overlay-types.js"
-			},
-			"./OverlayContextProvider": {
-				"types": "./dist/OverlayContextProvider.d.ts",
-				"browser": "./dist/browser/OverlayContextProvider.js",
-				"bun": "./dist/OverlayContextProvider.js",
-				"node": "./dist/node/OverlayContextProvider.js",
-				"default": "./dist/OverlayContextProvider.js"
-			},
-			"./PersonalizationInsights": {
-				"types": "./dist/PersonalizationInsights.d.ts",
-				"browser": "./dist/browser/PersonalizationInsights.js",
-				"bun": "./dist/PersonalizationInsights.js",
-				"node": "./dist/node/PersonalizationInsights.js",
-				"default": "./dist/PersonalizationInsights.js"
-			},
-			"./SaveToStudioButton": {
-				"types": "./dist/SaveToStudioButton.d.ts",
-				"browser": "./dist/browser/SaveToStudioButton.js",
-				"bun": "./dist/SaveToStudioButton.js",
-				"node": "./dist/node/SaveToStudioButton.js",
-				"default": "./dist/SaveToStudioButton.js"
-			},
-			"./SpecDrivenTemplateShell": {
-				"types": "./dist/SpecDrivenTemplateShell.d.ts",
-				"browser": "./dist/browser/SpecDrivenTemplateShell.js",
-				"bun": "./dist/SpecDrivenTemplateShell.js",
-				"node": "./dist/node/SpecDrivenTemplateShell.js",
-				"default": "./dist/SpecDrivenTemplateShell.js"
-			},
-			"./SpecEditorPanel": {
-				"types": "./dist/SpecEditorPanel.d.ts",
-				"browser": "./dist/browser/SpecEditorPanel.js",
-				"bun": "./dist/SpecEditorPanel.js",
-				"node": "./dist/node/SpecEditorPanel.js",
-				"default": "./dist/SpecEditorPanel.js"
-			},
-			"./TemplateShell": {
-				"types": "./dist/TemplateShell.d.ts",
-				"browser": "./dist/browser/TemplateShell.js",
-				"bun": "./dist/TemplateShell.js",
-				"node": "./dist/node/TemplateShell.js",
-				"default": "./dist/TemplateShell.js"
-			},
-			"./utils": {
-				"types": "./dist/utils/index.d.ts",
-				"browser": "./dist/browser/utils/index.js",
-				"bun": "./dist/utils/index.js",
-				"node": "./dist/node/utils/index.js",
-				"default": "./dist/utils/index.js"
-			},
-			"./utils/fetchPresentationData": {
-				"types": "./dist/utils/fetchPresentationData.d.ts",
-				"browser": "./dist/browser/utils/fetchPresentationData.js",
-				"bun": "./dist/utils/fetchPresentationData.js",
-				"node": "./dist/node/utils/fetchPresentationData.js",
-				"default": "./dist/utils/fetchPresentationData.js"
-			},
-			"./utils/generateSpecFromTemplate": {
-				"types": "./dist/utils/generateSpecFromTemplate.d.ts",
-				"browser": "./dist/browser/utils/generateSpecFromTemplate.js",
-				"bun": "./dist/utils/generateSpecFromTemplate.js",
-				"node": "./dist/node/utils/generateSpecFromTemplate.js",
-				"default": "./dist/utils/generateSpecFromTemplate.js"
-			}
-		}
-	},
-	"peerDependencies": {
-		"@contractspec/lib.surface-runtime": "workspace:*"
-	},
-	"peerDependenciesMeta": {
-		"@contractspec/lib.surface-runtime": {
-			"optional": true
-		}
-	},
-	"dependencies": {
-		"@apollo/client": "^4.1.6",
-		"@contractspec/lib.contracts-spec": "workspace:*",
-		"@contractspec/lib.design-system": "workspace:*",
-		"@contractspec/lib.ui-kit-web": "workspace:*",
-		"@tanstack/react-query": "^5.90.21",
-		"framer-motion": "^12.35.1",
-		"lucide-react": "^0.577.0",
-		"react": "catalog:",
-		"react-dom": "catalog:"
-	},
-	"optionalDependencies": {
-		"@contractspec/lib.surface-runtime": "workspace:*"
-	},
-	"devDependencies": {
-		"@contractspec/tool.typescript": "workspace:*",
-		"@types/react": "^19.2.14",
-		"@types/react-dom": "^19.2.2",
-		"typescript": "catalog:",
-		"@contractspec/tool.bun": "workspace:*"
-	},
-	"types": "./dist/index.d.ts"
+  "name": "@contractspec/lib.example-shared-ui",
+  "version": "6.0.6",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./bundles": "./src/bundles/index.ts",
+    "./bundles/ExampleTemplateBundle": "./src/bundles/ExampleTemplateBundle.ts",
+    "./EvolutionDashboard": "./src/EvolutionDashboard.tsx",
+    "./EvolutionSidebar": "./src/EvolutionSidebar.tsx",
+    "./hooks": "./src/hooks/index.ts",
+    "./hooks/useBehaviorTracking": "./src/hooks/useBehaviorTracking.ts",
+    "./hooks/useEvolution": "./src/hooks/useEvolution.ts",
+    "./hooks/useRegistryTemplates": "./src/hooks/useRegistryTemplates.ts",
+    "./hooks/useSpecContent": "./src/hooks/useSpecContent.ts",
+    "./hooks/useWorkflowComposer": "./src/hooks/useWorkflowComposer.ts",
+    "./lib/component-registry": "./src/lib/component-registry.tsx",
+    "./lib/runtime-context": "./src/lib/runtime-context.tsx",
+    "./lib/types": "./src/lib/types.ts",
+    "./LocalDataIndicator": "./src/LocalDataIndicator.tsx",
+    "./MarkdownView": "./src/MarkdownView.tsx",
+    "./overlay-types": "./src/overlay-types.ts",
+    "./OverlayContextProvider": "./src/OverlayContextProvider.tsx",
+    "./PersonalizationInsights": "./src/PersonalizationInsights.tsx",
+    "./SaveToStudioButton": "./src/SaveToStudioButton.tsx",
+    "./SpecDrivenTemplateShell": "./src/SpecDrivenTemplateShell.tsx",
+    "./SpecEditorPanel": "./src/SpecEditorPanel.tsx",
+    "./TemplateShell": "./src/TemplateShell.tsx",
+    "./utils": "./src/utils/index.ts",
+    "./utils/fetchPresentationData": "./src/utils/fetchPresentationData.ts",
+    "./utils/generateSpecFromTemplate": "./src/utils/generateSpecFromTemplate.ts"
+  },
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
+    "test": "bun test --pass-with-no-tests",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/example-shared-ui"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.js",
+        "default": "./dist/index.js"
+      },
+      "./bundles": {
+        "types": "./dist/bundles/index.d.ts",
+        "browser": "./dist/browser/bundles/index.js",
+        "bun": "./dist/bundles/index.js",
+        "node": "./dist/node/bundles/index.js",
+        "default": "./dist/bundles/index.js"
+      },
+      "./bundles/ExampleTemplateBundle": {
+        "types": "./dist/bundles/ExampleTemplateBundle.d.ts",
+        "browser": "./dist/browser/bundles/ExampleTemplateBundle.js",
+        "bun": "./dist/bundles/ExampleTemplateBundle.js",
+        "node": "./dist/node/bundles/ExampleTemplateBundle.js",
+        "default": "./dist/bundles/ExampleTemplateBundle.js"
+      },
+      "./EvolutionDashboard": {
+        "types": "./dist/EvolutionDashboard.d.ts",
+        "browser": "./dist/browser/EvolutionDashboard.js",
+        "bun": "./dist/EvolutionDashboard.js",
+        "node": "./dist/node/EvolutionDashboard.js",
+        "default": "./dist/EvolutionDashboard.js"
+      },
+      "./EvolutionSidebar": {
+        "types": "./dist/EvolutionSidebar.d.ts",
+        "browser": "./dist/browser/EvolutionSidebar.js",
+        "bun": "./dist/EvolutionSidebar.js",
+        "node": "./dist/node/EvolutionSidebar.js",
+        "default": "./dist/EvolutionSidebar.js"
+      },
+      "./hooks": {
+        "types": "./dist/hooks/index.d.ts",
+        "browser": "./dist/browser/hooks/index.js",
+        "bun": "./dist/hooks/index.js",
+        "node": "./dist/node/hooks/index.js",
+        "default": "./dist/hooks/index.js"
+      },
+      "./hooks/useBehaviorTracking": {
+        "types": "./dist/hooks/useBehaviorTracking.d.ts",
+        "browser": "./dist/browser/hooks/useBehaviorTracking.js",
+        "bun": "./dist/hooks/useBehaviorTracking.js",
+        "node": "./dist/node/hooks/useBehaviorTracking.js",
+        "default": "./dist/hooks/useBehaviorTracking.js"
+      },
+      "./hooks/useEvolution": {
+        "types": "./dist/hooks/useEvolution.d.ts",
+        "browser": "./dist/browser/hooks/useEvolution.js",
+        "bun": "./dist/hooks/useEvolution.js",
+        "node": "./dist/node/hooks/useEvolution.js",
+        "default": "./dist/hooks/useEvolution.js"
+      },
+      "./hooks/useRegistryTemplates": {
+        "types": "./dist/hooks/useRegistryTemplates.d.ts",
+        "browser": "./dist/browser/hooks/useRegistryTemplates.js",
+        "bun": "./dist/hooks/useRegistryTemplates.js",
+        "node": "./dist/node/hooks/useRegistryTemplates.js",
+        "default": "./dist/hooks/useRegistryTemplates.js"
+      },
+      "./hooks/useSpecContent": {
+        "types": "./dist/hooks/useSpecContent.d.ts",
+        "browser": "./dist/browser/hooks/useSpecContent.js",
+        "bun": "./dist/hooks/useSpecContent.js",
+        "node": "./dist/node/hooks/useSpecContent.js",
+        "default": "./dist/hooks/useSpecContent.js"
+      },
+      "./hooks/useWorkflowComposer": {
+        "types": "./dist/hooks/useWorkflowComposer.d.ts",
+        "browser": "./dist/browser/hooks/useWorkflowComposer.js",
+        "bun": "./dist/hooks/useWorkflowComposer.js",
+        "node": "./dist/node/hooks/useWorkflowComposer.js",
+        "default": "./dist/hooks/useWorkflowComposer.js"
+      },
+      "./lib/component-registry": {
+        "types": "./dist/lib/component-registry.d.ts",
+        "browser": "./dist/browser/lib/component-registry.js",
+        "bun": "./dist/lib/component-registry.js",
+        "node": "./dist/node/lib/component-registry.js",
+        "default": "./dist/lib/component-registry.js"
+      },
+      "./lib/runtime-context": {
+        "types": "./dist/lib/runtime-context.d.ts",
+        "browser": "./dist/browser/lib/runtime-context.js",
+        "bun": "./dist/lib/runtime-context.js",
+        "node": "./dist/node/lib/runtime-context.js",
+        "default": "./dist/lib/runtime-context.js"
+      },
+      "./lib/types": {
+        "types": "./dist/lib/types.d.ts",
+        "browser": "./dist/browser/lib/types.js",
+        "bun": "./dist/lib/types.js",
+        "node": "./dist/node/lib/types.js",
+        "default": "./dist/lib/types.js"
+      },
+      "./LocalDataIndicator": {
+        "types": "./dist/LocalDataIndicator.d.ts",
+        "browser": "./dist/browser/LocalDataIndicator.js",
+        "bun": "./dist/LocalDataIndicator.js",
+        "node": "./dist/node/LocalDataIndicator.js",
+        "default": "./dist/LocalDataIndicator.js"
+      },
+      "./MarkdownView": {
+        "types": "./dist/MarkdownView.d.ts",
+        "browser": "./dist/browser/MarkdownView.js",
+        "bun": "./dist/MarkdownView.js",
+        "node": "./dist/node/MarkdownView.js",
+        "default": "./dist/MarkdownView.js"
+      },
+      "./overlay-types": {
+        "types": "./dist/overlay-types.d.ts",
+        "browser": "./dist/browser/overlay-types.js",
+        "bun": "./dist/overlay-types.js",
+        "node": "./dist/node/overlay-types.js",
+        "default": "./dist/overlay-types.js"
+      },
+      "./OverlayContextProvider": {
+        "types": "./dist/OverlayContextProvider.d.ts",
+        "browser": "./dist/browser/OverlayContextProvider.js",
+        "bun": "./dist/OverlayContextProvider.js",
+        "node": "./dist/node/OverlayContextProvider.js",
+        "default": "./dist/OverlayContextProvider.js"
+      },
+      "./PersonalizationInsights": {
+        "types": "./dist/PersonalizationInsights.d.ts",
+        "browser": "./dist/browser/PersonalizationInsights.js",
+        "bun": "./dist/PersonalizationInsights.js",
+        "node": "./dist/node/PersonalizationInsights.js",
+        "default": "./dist/PersonalizationInsights.js"
+      },
+      "./SaveToStudioButton": {
+        "types": "./dist/SaveToStudioButton.d.ts",
+        "browser": "./dist/browser/SaveToStudioButton.js",
+        "bun": "./dist/SaveToStudioButton.js",
+        "node": "./dist/node/SaveToStudioButton.js",
+        "default": "./dist/SaveToStudioButton.js"
+      },
+      "./SpecDrivenTemplateShell": {
+        "types": "./dist/SpecDrivenTemplateShell.d.ts",
+        "browser": "./dist/browser/SpecDrivenTemplateShell.js",
+        "bun": "./dist/SpecDrivenTemplateShell.js",
+        "node": "./dist/node/SpecDrivenTemplateShell.js",
+        "default": "./dist/SpecDrivenTemplateShell.js"
+      },
+      "./SpecEditorPanel": {
+        "types": "./dist/SpecEditorPanel.d.ts",
+        "browser": "./dist/browser/SpecEditorPanel.js",
+        "bun": "./dist/SpecEditorPanel.js",
+        "node": "./dist/node/SpecEditorPanel.js",
+        "default": "./dist/SpecEditorPanel.js"
+      },
+      "./TemplateShell": {
+        "types": "./dist/TemplateShell.d.ts",
+        "browser": "./dist/browser/TemplateShell.js",
+        "bun": "./dist/TemplateShell.js",
+        "node": "./dist/node/TemplateShell.js",
+        "default": "./dist/TemplateShell.js"
+      },
+      "./utils": {
+        "types": "./dist/utils/index.d.ts",
+        "browser": "./dist/browser/utils/index.js",
+        "bun": "./dist/utils/index.js",
+        "node": "./dist/node/utils/index.js",
+        "default": "./dist/utils/index.js"
+      },
+      "./utils/fetchPresentationData": {
+        "types": "./dist/utils/fetchPresentationData.d.ts",
+        "browser": "./dist/browser/utils/fetchPresentationData.js",
+        "bun": "./dist/utils/fetchPresentationData.js",
+        "node": "./dist/node/utils/fetchPresentationData.js",
+        "default": "./dist/utils/fetchPresentationData.js"
+      },
+      "./utils/generateSpecFromTemplate": {
+        "types": "./dist/utils/generateSpecFromTemplate.d.ts",
+        "browser": "./dist/browser/utils/generateSpecFromTemplate.js",
+        "bun": "./dist/utils/generateSpecFromTemplate.js",
+        "node": "./dist/node/utils/generateSpecFromTemplate.js",
+        "default": "./dist/utils/generateSpecFromTemplate.js"
+      }
+    }
+  },
+  "peerDependencies": {
+    "@contractspec/lib.surface-runtime": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@contractspec/lib.surface-runtime": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@apollo/client": "^4.1.6",
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.design-system": "workspace:*",
+    "@contractspec/lib.ui-kit-web": "workspace:*",
+    "@tanstack/react-query": "^5.90.21",
+    "framer-motion": "^12.35.1",
+    "lucide-react": "^0.577.0",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "optionalDependencies": {
+    "@contractspec/lib.surface-runtime": "workspace:*"
+  },
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.2",
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
+  },
+  "types": "./dist/index.d.ts"
 }

@@ -1,184 +1,184 @@
 {
-	"name": "@contractspec/lib.logger",
-	"version": "3.7.6",
-	"description": "Comprehensive logging library optimized for Bun with ElysiaJS integration",
-	"keywords": [
-		"contractspec",
-		"logging",
-		"bun",
-		"elysia",
-		"tracing",
-		"performance"
-	],
-	"type": "module",
-	"scripts": {
-		"clean": "rm -rf dist",
-		"lint": "bun run lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
-		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-		"publish:pkg:canary": "bun publish:pkg --tag canary",
-		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
-		"build:bundle": "contractspec-bun-build transpile",
-		"build:types": "contractspec-bun-build types",
-		"dev": "contractspec-bun-build dev",
-		"prebuild": "contractspec-bun-build prebuild",
-		"typecheck": "tsc --noEmit"
-	},
-	"devDependencies": {
-		"@contractspec/tool.typescript": "workspace:*",
-		"typescript": "catalog:",
-		"@contractspec/tool.bun": "workspace:*"
-	},
-	"peerDependencies": {
-		"elysia": ">=1.0.0"
-	},
-	"peerDependenciesMeta": {
-		"elysia": {
-			"optional": true
-		}
-	},
-	"dependencies": {
-		"zone.js": "^0.16.1"
-	},
-	"types": "./dist/index.d.ts",
-	"files": [
-		"dist",
-		"README.md"
-	],
-	"exports": {
-		".": {
-			"types": "./src/index.ts",
-			"browser": "./src/index.browser.ts",
-			"default": "./src/index.ts"
-		},
-		"./context": {
-			"types": "./src/context.ts",
-			"browser": "./src/context.browser.ts",
-			"node": "./src/context.node.ts",
-			"default": "./src/context.node.ts"
-		},
-		"./context.browser": "./src/context.browser.ts",
-		"./context.node": "./src/context.node.ts",
-		"./elysia-plugin": "./src/elysia-plugin.ts",
-		"./formatters": "./src/formatters.ts",
-		"./index.browser": "./src/index.browser.ts",
-		"./logger": {
-			"types": "./src/logger.ts",
-			"browser": "./src/logger.browser.ts",
-			"node": "./src/logger.node.ts",
-			"default": "./src/logger.node.ts"
-		},
-		"./logger.browser": "./src/logger.browser.ts",
-		"./logger.node": "./src/logger.node.ts",
-		"./timer": "./src/timer.ts",
-		"./tracer": {
-			"types": "./src/tracer.ts",
-			"browser": "./src/tracer.browser.ts",
-			"node": "./src/tracer.node.ts",
-			"default": "./src/tracer.node.ts"
-		},
-		"./tracer.browser": "./src/tracer.browser.ts",
-		"./tracer.node": "./src/tracer.node.ts",
-		"./types": "./src/types.ts"
-	},
-	"publishConfig": {
-		"access": "public",
-		"exports": {
-			".": {
-				"types": "./dist/index.d.ts",
-				"bun": "./dist/index.js",
-				"node": "./dist/node/index.js",
-				"default": "./dist/index.js"
-			},
-			"./context": {
-				"types": "./dist/context.d.ts",
-				"bun": "./dist/context.node.js",
-				"node": "./dist/node/context.node.js",
-				"default": "./dist/context.node.js"
-			},
-			"./context.browser": {
-				"types": "./dist/context.browser.d.ts",
-				"bun": "./dist/context.browser.js",
-				"default": "./dist/context.browser.js"
-			},
-			"./context.node": {
-				"types": "./dist/context.node.d.ts",
-				"bun": "./dist/context.node.js",
-				"node": "./dist/node/context.node.js",
-				"default": "./dist/context.node.js"
-			},
-			"./elysia-plugin": {
-				"types": "./dist/elysia-plugin.d.ts",
-				"bun": "./dist/elysia-plugin.js",
-				"node": "./dist/node/elysia-plugin.js",
-				"default": "./dist/elysia-plugin.js"
-			},
-			"./formatters": {
-				"types": "./dist/formatters.d.ts",
-				"bun": "./dist/formatters.js",
-				"node": "./dist/node/formatters.js",
-				"default": "./dist/formatters.js"
-			},
-			"./index.browser": {
-				"types": "./dist/index.browser.d.ts",
-				"bun": "./dist/index.browser.js",
-				"default": "./dist/index.browser.js"
-			},
-			"./logger": {
-				"types": "./dist/logger.d.ts",
-				"bun": "./dist/logger.node.js",
-				"node": "./dist/node/logger.node.js",
-				"default": "./dist/logger.node.js"
-			},
-			"./logger.browser": {
-				"types": "./dist/logger.browser.d.ts",
-				"bun": "./dist/logger.browser.js",
-				"default": "./dist/logger.browser.js"
-			},
-			"./logger.node": {
-				"types": "./dist/logger.node.d.ts",
-				"bun": "./dist/logger.node.js",
-				"node": "./dist/node/logger.node.js",
-				"default": "./dist/logger.node.js"
-			},
-			"./timer": {
-				"types": "./dist/timer.d.ts",
-				"bun": "./dist/timer.js",
-				"node": "./dist/node/timer.js",
-				"default": "./dist/timer.js"
-			},
-			"./tracer": {
-				"types": "./dist/tracer.d.ts",
-				"bun": "./dist/tracer.node.js",
-				"node": "./dist/node/tracer.node.js",
-				"default": "./dist/tracer.node.js"
-			},
-			"./tracer.browser": {
-				"types": "./dist/tracer.browser.d.ts",
-				"bun": "./dist/tracer.browser.js",
-				"default": "./dist/tracer.browser.js"
-			},
-			"./tracer.node": {
-				"types": "./dist/tracer.node.d.ts",
-				"bun": "./dist/tracer.node.js",
-				"node": "./dist/node/tracer.node.js",
-				"default": "./dist/tracer.node.js"
-			},
-			"./types": {
-				"types": "./dist/types.d.ts",
-				"bun": "./dist/types.js",
-				"node": "./dist/node/types.js",
-				"default": "./dist/types.js"
-			}
-		},
-		"registry": "https://registry.npmjs.org/"
-	},
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/lssm-tech/contractspec.git",
-		"directory": "packages/libs/logger"
-	},
-	"homepage": "https://contractspec.io"
+  "name": "@contractspec/lib.logger",
+  "version": "3.7.6",
+  "description": "Comprehensive logging library optimized for Bun with ElysiaJS integration",
+  "keywords": [
+    "contractspec",
+    "logging",
+    "bun",
+    "elysia",
+    "tracing",
+    "performance"
+  ],
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "lint": "bun run lint:fix",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "typescript": "catalog:",
+    "@contractspec/tool.bun": "workspace:*"
+  },
+  "peerDependencies": {
+    "elysia": ">=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "elysia": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "zone.js": "^0.16.1"
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "browser": "./src/index.browser.ts",
+      "default": "./src/index.ts"
+    },
+    "./context": {
+      "types": "./src/context.ts",
+      "browser": "./src/context.browser.ts",
+      "node": "./src/context.node.ts",
+      "default": "./src/context.node.ts"
+    },
+    "./context.browser": "./src/context.browser.ts",
+    "./context.node": "./src/context.node.ts",
+    "./elysia-plugin": "./src/elysia-plugin.ts",
+    "./formatters": "./src/formatters.ts",
+    "./index.browser": "./src/index.browser.ts",
+    "./logger": {
+      "types": "./src/logger.ts",
+      "browser": "./src/logger.browser.ts",
+      "node": "./src/logger.node.ts",
+      "default": "./src/logger.node.ts"
+    },
+    "./logger.browser": "./src/logger.browser.ts",
+    "./logger.node": "./src/logger.node.ts",
+    "./timer": "./src/timer.ts",
+    "./tracer": {
+      "types": "./src/tracer.ts",
+      "browser": "./src/tracer.browser.ts",
+      "node": "./src/tracer.node.ts",
+      "default": "./src/tracer.node.ts"
+    },
+    "./tracer.browser": "./src/tracer.browser.ts",
+    "./tracer.node": "./src/tracer.node.ts",
+    "./types": "./src/types.ts"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.js",
+        "default": "./dist/index.js"
+      },
+      "./context": {
+        "types": "./dist/context.d.ts",
+        "bun": "./dist/context.node.js",
+        "node": "./dist/node/context.node.js",
+        "default": "./dist/context.node.js"
+      },
+      "./context.browser": {
+        "types": "./dist/context.browser.d.ts",
+        "bun": "./dist/context.browser.js",
+        "default": "./dist/context.browser.js"
+      },
+      "./context.node": {
+        "types": "./dist/context.node.d.ts",
+        "bun": "./dist/context.node.js",
+        "node": "./dist/node/context.node.js",
+        "default": "./dist/context.node.js"
+      },
+      "./elysia-plugin": {
+        "types": "./dist/elysia-plugin.d.ts",
+        "bun": "./dist/elysia-plugin.js",
+        "node": "./dist/node/elysia-plugin.js",
+        "default": "./dist/elysia-plugin.js"
+      },
+      "./formatters": {
+        "types": "./dist/formatters.d.ts",
+        "bun": "./dist/formatters.js",
+        "node": "./dist/node/formatters.js",
+        "default": "./dist/formatters.js"
+      },
+      "./index.browser": {
+        "types": "./dist/index.browser.d.ts",
+        "bun": "./dist/index.browser.js",
+        "default": "./dist/index.browser.js"
+      },
+      "./logger": {
+        "types": "./dist/logger.d.ts",
+        "bun": "./dist/logger.node.js",
+        "node": "./dist/node/logger.node.js",
+        "default": "./dist/logger.node.js"
+      },
+      "./logger.browser": {
+        "types": "./dist/logger.browser.d.ts",
+        "bun": "./dist/logger.browser.js",
+        "default": "./dist/logger.browser.js"
+      },
+      "./logger.node": {
+        "types": "./dist/logger.node.d.ts",
+        "bun": "./dist/logger.node.js",
+        "node": "./dist/node/logger.node.js",
+        "default": "./dist/logger.node.js"
+      },
+      "./timer": {
+        "types": "./dist/timer.d.ts",
+        "bun": "./dist/timer.js",
+        "node": "./dist/node/timer.js",
+        "default": "./dist/timer.js"
+      },
+      "./tracer": {
+        "types": "./dist/tracer.d.ts",
+        "bun": "./dist/tracer.node.js",
+        "node": "./dist/node/tracer.node.js",
+        "default": "./dist/tracer.node.js"
+      },
+      "./tracer.browser": {
+        "types": "./dist/tracer.browser.d.ts",
+        "bun": "./dist/tracer.browser.js",
+        "default": "./dist/tracer.browser.js"
+      },
+      "./tracer.node": {
+        "types": "./dist/tracer.node.d.ts",
+        "bun": "./dist/tracer.node.js",
+        "node": "./dist/node/tracer.node.js",
+        "default": "./dist/tracer.node.js"
+      },
+      "./types": {
+        "types": "./dist/types.d.ts",
+        "bun": "./dist/types.js",
+        "node": "./dist/node/types.js",
+        "default": "./dist/types.js"
+      }
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/logger"
+  },
+  "homepage": "https://contractspec.io"
 }
