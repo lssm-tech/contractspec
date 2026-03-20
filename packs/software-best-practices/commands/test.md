@@ -12,13 +12,13 @@ Run tests intelligently based on context:
    - If no path: detect changed files and run related tests
    - Use `git diff --name-only HEAD` to find recently changed files
 
-2. **Run appropriate tests** (via turborepo):
+2. **Run appropriate tests**:
    ```bash
    # All tests across packages
-   turbo test
+   bun x turbo run test
 
    # Specific package
-   turbo test --filter=@contractspec/<package>
+   bun x turbo run test --filter=@contractspec/<package>
 
    # Specific file (use bun directly)
    bun test <path>

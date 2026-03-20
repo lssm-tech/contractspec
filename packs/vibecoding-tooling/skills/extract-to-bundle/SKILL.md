@@ -138,16 +138,16 @@ Run the following checks in order:
 
 ```bash
 # 1. Type check
-turbo build:types
+bun run typecheck
 
 # 2. Lint
-turbo lint
+bun run lint:check
 
 # 3. Tests
-turbo test
+bun x turbo run test
 
 # 4. Build
-turbo build
+bun run build
 ```
 
 Also verify:

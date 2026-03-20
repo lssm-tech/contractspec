@@ -97,9 +97,9 @@ Common change handling:
 
 Run repo-standard checks:
 
-- `bun run build:types`
-- `bun run lint`
-- `bun run test`
+- `bun run typecheck`
+- `bun run lint:check`
+- `bun x turbo run test`
 
 If checks fail, fix or report blockers with file and line references.
 

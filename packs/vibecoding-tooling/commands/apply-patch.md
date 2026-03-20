@@ -26,9 +26,9 @@ Apply a ContractSpec action item end-to-end:
    - Ensure backward compatibility layers are generated for breaking changes
 
 5. **Run quality checks**:
-   - `turbo build:types` - verify type safety
-   - `turbo lint` - check lint rules
-   - `turbo test` - run affected tests
+   - `bun run typecheck` - verify type safety
+   - `bun run lint:check` - check Biome and policy diagnostics
+   - `bun x turbo run test` - run affected tests
    - Report failures with file:line references
 
 6. **Create a draft PR**:

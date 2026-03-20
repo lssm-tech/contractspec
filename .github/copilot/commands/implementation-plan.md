@@ -33,11 +33,11 @@ Execute the implementation plan with full traceability:
 6. **Quality gates**:
    - Run checks required by the plan
    - Default checks when unspecified:
-     - `turbo build:types`
-     - `turbo lint`
-     - `turbo test`
+     - `bun run typecheck`
+     - `bun run lint:check`
+     - `bun x turbo run test`
    - If the repo mandates validation, run `bunx contractspec ci`
-   - Run build verification last: `turbo run build`
+   - Run build verification last: `bun run build`
    - Report failures with file:line references and suggested fixes
 
 7. **Changeset handling**:

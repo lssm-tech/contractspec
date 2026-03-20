@@ -7,40 +7,48 @@ target_path = $ARGUMENTS
 
 Run linting and type checks:
 
-1. **TypeScript check** (via turborepo):
+1. **TypeScript check**:
    ```bash
-   turbo build:types
+   bun run typecheck
    ```
    - Report type errors with file:line references
    - Suggest fixes for common type errors
 
-2. **Biome check** (with the temporary compatibility layer still covering i18n):
+2. **Biome check**:
    ```bash
    bun run lint:check
    ```
    - Report lint errors and warnings
    - Group by rule for easier understanding
 
-3. **Auto-fix** (if `--fix` flag provided):
+3. **I18n parity check** (when user-facing copy, locales, or message registries changed):
+   ```bash
+   bun run i18n:check
+   ```
+   - Report missing locale entries and copy-registry drift
+
+4. **Auto-fix** (if `--fix` flag provided):
    ```bash
    bun run lint:fix
    ```
 
-4. **Analysis**:
+5. **Analysis**:
    - Categorize issues:
      - **Errors**: Must fix before commit
      - **Warnings**: Should fix, but not blocking
      - **Style**: Optional improvements
    - Check for rule violations specific to this project:
-     - `prefer-design-system`: Raw HTML usage
-     - `no-any`: TypeScript any usage
-     - `file-size`: Files over 250 lines
+     - Design-system guardrails (`noRestrictedElements` and generated prefer-design-system diagnostics)
+     - `policy-contract-first`: Implementation shipped without an explicit ContractSpec contract reference
+     - `noUnusedVariables` / `noUnusedImports`
+     - TypeScript strict-mode issues surfaced by `bun run typecheck`
 
-5. **Summary output**:
+6. **Summary output**:
    ```
    Type Errors: X
    Lint Errors: Y
    Lint Warnings: Z
+   I18n Issues: N
 
    Top issues:
      1. noUnusedVariables (12 occurrences)
@@ -50,7 +58,9 @@ Run linting and type checks:
    Quick fixes available: Y issues can be auto-fixed with --fix
    ```
 
-6. **Suggestions**:
+7. **Suggestions**:
    - For `any` types: suggest proper type definitions
    - For unused imports: suggest removal
+   - For raw HTML in app/bundle surfaces: replace with design-system components
+   - For missing contract references: import or reference the owning ContractSpec contract before shipping behavior
    - For large files: suggest splitting strategies

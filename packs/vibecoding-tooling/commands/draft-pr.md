@@ -43,9 +43,9 @@ Open a draft pull request for the current branch:
 
      ## Testing
 
-     - [ ] Types pass (`turbo build:types`)
-     - [ ] Lint passes (`turbo lint`)
-     - [ ] Tests pass (`turbo test`)
+     - [ ] Types pass (`bun run typecheck`)
+     - [ ] Lint passes (`bun run lint:check`)
+     - [ ] Tests pass (`bun x turbo run test`)
 
      ## Code Health
 

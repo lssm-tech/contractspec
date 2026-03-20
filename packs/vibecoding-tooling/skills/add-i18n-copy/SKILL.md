@@ -184,7 +184,8 @@ export const <Feature> = () => {
 
 ### Step 8: Verify
 
-- [ ] TypeScript compiles (`turbo build:types`)
+- [ ] TypeScript compiles (`bun run typecheck`)
+- [ ] I18n parity check passes (`bun run i18n:check`)
 - [ ] All 3 locales populated (en, fr, es)
 - [ ] Getter function has English fallback (`?? COPY.en`)
 - [ ] Copy typed with explicit interface

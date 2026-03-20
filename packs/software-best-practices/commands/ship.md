@@ -12,10 +12,11 @@ Run a shipping flow for the current branch:
    - Summarize branch diff and changed areas.
 
 2. **Mandatory quality gates**:
-   - `turbo build:types`
-   - `turbo lint`
-   - `turbo test`
-   - `turbo run build`
+   - `bun run typecheck`
+   - `bun run lint:check`
+   - `bun x turbo run test`
+   - `bun run build`
+   - `bun run i18n:check` when user-facing copy or locale files changed
 
 3. **Lifecycle completeness checks**:
    - Plan was reviewed (`/review-plan`) for large features.

@@ -68,4 +68,4 @@ When adding new DS primitives:
 Tests/docs:
 
 - Update relevant DocBlocks when behavior or exports change.
-- Ensure ESLint `prefer-design-system` passes; do not suppress without approval.
+- Ensure Biome design-system rules pass (`noRestrictedElements` and generated prefer-design-system diagnostics); do not suppress without approval.

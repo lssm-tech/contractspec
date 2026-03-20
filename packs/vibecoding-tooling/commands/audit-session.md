@@ -14,7 +14,7 @@ Invoke the `session-analyst` subagent to perform a retrospective analysis of the
      - `git diff --stat` for files changed
      - `git log --oneline` for recent commits
      - Any hook warnings emitted during the session (grep for `[agentpacks-hook]` in terminal history if available)
-     - Current lint output (`turbo lint` warnings/errors relevant to changed files)
+     - Current lint output (`bun run lint:check` warnings/errors relevant to changed files)
 
 2. **Catalog all agentpacks assets** for cross-reference:
    - Rules: list all `packs/**/rules/*.md`

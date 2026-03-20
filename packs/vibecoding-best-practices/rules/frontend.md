@@ -164,4 +164,4 @@ Tooling:
 - Use the `migrate-component` skill to convert raw HTML to design system components.
 - Use the `create-feature` skill to scaffold new UI features with analytics hooks from day one.
 - Use the `add-i18n-copy` skill to scaffold new copy files following the established i18n pattern.
-- ESLint: `i18next/no-literal-string` is active as `warn` for `.tsx` files in all three presentation surfaces (web-application, bundles/presentation, web-marketing). See `i18n.md` for details.
+- I18n enforcement is no longer driven by ESLint. Use `bun run i18n:check` plus the `t()` / typed copy-file patterns from `i18n.md`.

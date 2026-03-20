@@ -68,7 +68,7 @@ bunx agentpacks --help
 
 ## Recent Updates
 
-- Replace eslint+prettier by biomejs to optimize speed.
+- Use the Biome-only lint and formatting workflow in pack guidance and generated targets.
 - Vnext ai-native.
 - Add latest models and align defaults.
 - Harden AgentSkills compatibility in agentpacks.

@@ -12,7 +12,7 @@ Automatically fix common issues:
    - Categorize by auto-fixability
 
 2. **Safe auto-fixes** (apply automatically):
-   - Formatting and import organization (`biome check --write`)
+   - Repo-safe fixes through `bun run lint:fix` (Biome writes, Tailwind class sorting, and Prisma formatting where configured)
    - Unused imports removal
    - Missing semicolons
    - Trailing whitespace
@@ -25,15 +25,18 @@ Automatically fix common issues:
    - Deprecated API usage (suggest alternatives)
    - File splitting (when over 250 lines)
 
-4. **Execution flow** (via turborepo):
+4. **Execution flow**:
 
    ```bash
    # Step 1: Safe fixes
    bun run lint:fix
 
    # Step 2: Report remaining issues
-   bun run typecheck
    bun run lint:check
+   bun run typecheck
+
+   # Step 3: If user-facing copy or locale files changed
+   bun run i18n:check
    ```
 
 5. **Report changes**:

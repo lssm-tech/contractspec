@@ -21,7 +21,7 @@ Invoke when:
 
 - A component uses raw HTML elements (div, button, span, etc.)
 - A component needs to adopt design system patterns
-- Lint errors flag `prefer-design-system` violations
+- Lint errors flag raw HTML or design-system policy violations
 
 ## Process
 
@@ -139,7 +139,7 @@ const UserCard = ({ user, onEdit }) => (
 - [ ] Interactions work as before
 - [ ] Loading/error states handled
 - [ ] Tests pass
-- [ ] Lint passes (no prefer-design-system errors)
+- [ ] Lint passes (no raw HTML or design-system policy errors)
 - [ ] Analytics tracking preserved (user interactions still tracked)
 - [ ] Structured logging preserved in hooks (not console.\*)
 - [ ] Component is under 150 lines; split if needed

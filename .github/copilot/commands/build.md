@@ -9,26 +9,25 @@ Build the project or specific package using turborepo:
 
 2. **Pre-build checks**:
    - Verify dependencies are installed (`bun install`)
-   - Check for TypeScript errors (`turbo build:types`)
+   - Check for TypeScript errors (`bun run typecheck`)
 
-3. **Execute build** (via turborepo):
+3. **Execute build**:
    ```bash
    # Specific package
-   turbo build --filter=@contractspec/<package>
+   bun x turbo run build --filter=@contractspec/<package>
 
    # All packages (with caching)
-   turbo build
+   bun run build
 
    # Force rebuild without cache
-   turbo build --force
+   bun x turbo run build --force
    ```
 
-4. **Available turbo tasks**:
-   - `turbo build` - Build all packages
-   - `turbo build:bundle` - Build bundle artifacts
-   - `turbo build:types` - Build TypeScript types only
-   - `turbo test` - Run tests
-   - `turbo lint` - Run linting
+4. **Available commands**:
+   - `bun run build` - Build all packages
+   - `bun run typecheck` - Run TypeScript checks
+   - `bun run lint:check` - Run the Biome pipeline
+   - `bun x turbo run test` - Run tests across packages
 
 5. **Analyze build output**:
    - Report success/failure for each package
@@ -58,7 +57,7 @@ Error in @contractspec/bundle.studio:
 
 Suggestion:
   The package @contractspec/lib.evolution may not be built yet.
-  Try: turbo build --filter=@contractspec/lib.evolution
+  Try: bun x turbo run build --filter=@contractspec/lib.evolution
 
 Total: 2 succeeded, 1 failed
 Cache: 1 hit, 1 miss
