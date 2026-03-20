@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { EmptyState, LoaderBlock } from '@contractspec/lib.design-system';
 import type {
   FormRef,
   Step,
@@ -7,6 +6,8 @@ import type {
   WorkflowState,
   StepExecution,
 } from '@contractspec/lib.contracts-spec/workflow';
+import { LoadingSpinner } from '@contractspec/lib.ui-kit-web/ui/atoms/LoadingSpinner';
+import { EmptyState } from '@contractspec/lib.ui-kit-web/ui/empty-state';
 
 export interface WorkflowStepRendererProps {
   spec: WorkflowSpec;
@@ -52,10 +53,14 @@ export function WorkflowStepRenderer({
     return (
       <div className={className}>
         {loadingFallback ?? (
-          <LoaderBlock
-            label="Loading workflow"
-            description="Fetching workflow state..."
-          />
+          <div className="flex items-center justify-center p-6">
+            <div className="inline-flex items-center gap-3">
+              <LoadingSpinner size="md" />
+              <span className="text-muted-foreground text-base">
+                Fetching workflow state...
+              </span>
+            </div>
+          </div>
         )}
       </div>
     );

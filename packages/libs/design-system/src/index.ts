@@ -209,6 +209,10 @@ export { FormOneByOneLayout } from './components/forms/FormOneByOneLayout';
 export { ActionForm } from './components/forms/ActionForm';
 
 // Data views
+export {
+  DataTable,
+  type DataTableProps,
+} from './components/data-table/DataTable';
 export { DataViewList } from './components/data-view/DataViewList';
 export { DataViewTable } from './components/data-view/DataViewTable';
 export { DataViewDetail } from './components/data-view/DataViewDetail';

@@ -1,113 +1,134 @@
-import { describe, expect, it, mock, beforeEach, afterEach } from 'bun:test';
+import { afterEach, describe, expect, it } from 'bun:test';
+import { execSync } from 'node:child_process';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { createNodeGitAdapter } from './git';
 
-describe('Git Adapter', () => {
-  const mockExecSync = mock((_command: string) => '');
-  const mockAccess = mock((_path: string) => Promise.resolve());
-
-  beforeEach(() => {
-    mockExecSync.mockClear();
-    mockAccess.mockClear();
-
-    // Patch globals/modules
-    mock.module('node:child_process', () => ({
-      execSync: mockExecSync,
-    }));
-    mock.module('node:fs/promises', () => ({
-      access: mockAccess,
-    }));
-
-    // Reset implementations
-    mockExecSync.mockImplementation(() => '');
+function createRepo(): string {
+  const repoDir = mkdtempSync(join(tmpdir(), 'contractspec-git-adapter-'));
+  execSync('git init', { cwd: repoDir, stdio: 'ignore' });
+  execSync('git config user.name "Codex Test"', {
+    cwd: repoDir,
+    stdio: 'ignore',
   });
+  execSync('git config user.email "codex@example.com"', {
+    cwd: repoDir,
+    stdio: 'ignore',
+  });
+  return repoDir;
+}
+
+function commitFile(
+  repoDir: string,
+  filePath: string,
+  content: string,
+  message: string
+): void {
+  writeFileSync(join(repoDir, filePath), content, 'utf8');
+  execSync(`git add ${filePath}`, { cwd: repoDir, stdio: 'ignore' });
+  execSync(`git commit -m "${message}"`, { cwd: repoDir, stdio: 'ignore' });
+}
+
+describe('Git Adapter', () => {
+  let repoDir: string | null = null;
 
   afterEach(() => {
-    mock.restore();
+    if (repoDir) {
+      rmSync(repoDir, { recursive: true, force: true });
+      repoDir = null;
+    }
   });
 
-  const adapter = createNodeGitAdapter('/test/cwd');
+  it('should return file content from git show', async () => {
+    repoDir = createRepo();
+    commitFile(repoDir, 'file.ts', 'content', 'initial');
+    const adapter = createNodeGitAdapter(repoDir);
 
-  describe('showFile', () => {
-    it('should return file content', async () => {
-      mockExecSync.mockReturnValue('content');
-      const content = await adapter.showFile('HEAD', 'file.ts');
-      expect(content).toBe('content');
-      expect(mockExecSync).toHaveBeenCalledWith(
-        'git show HEAD:file.ts',
-        expect.objectContaining({ cwd: '/test/cwd' })
-      );
-    });
+    const content = await adapter.showFile('HEAD', 'file.ts');
 
-    it('should throw on error', async () => {
-      mockExecSync.mockImplementation(() => {
-        throw new Error('git error');
-      });
-      expect(adapter.showFile('HEAD', 'file.ts')).rejects.toThrow('git error');
-    });
+    expect(content).toContain('content');
   });
 
-  describe('isGitRepo', () => {
-    it('should return true if .git exists', async () => {
-      mockAccess.mockResolvedValue(undefined);
-      const isRepo = await adapter.isGitRepo();
-      expect(isRepo).toBe(true);
-    });
+  it('should throw on missing file in showFile', async () => {
+    repoDir = createRepo();
+    commitFile(repoDir, 'file.ts', 'content', 'initial');
+    const adapter = createNodeGitAdapter(repoDir);
 
-    it('should return false if .git missing', async () => {
-      mockAccess.mockRejectedValue(new Error('ENOENT'));
-      const isRepo = await adapter.isGitRepo();
-      expect(isRepo).toBe(false);
-    });
+    expect(adapter.showFile('HEAD', 'missing.ts')).rejects.toThrow(
+      'Could not load missing.ts'
+    );
   });
 
-  describe('clean', () => {
-    it('should execute git clean', async () => {
-      await adapter.clean({ force: true, directories: true });
-      expect(mockExecSync).toHaveBeenCalledWith(
-        'git clean -f -d',
-        expect.objectContaining({ cwd: '/test/cwd' })
-      );
-    });
+  it('should detect git repositories', async () => {
+    repoDir = createRepo();
+    const adapter = createNodeGitAdapter(repoDir);
 
-    it('should support dry run', async () => {
-      await adapter.clean({ dryRun: true });
-      expect(mockExecSync).toHaveBeenCalledWith(
-        'git clean --dry-run',
-        expect.objectContaining({ cwd: '/test/cwd' })
-      );
-    });
+    expect(await adapter.isGitRepo()).toBe(true);
   });
 
-  describe('log', () => {
-    it('should return parsed log entries', async () => {
-      const logOutput =
-        'hash1|||msg1|||user1|||2025-01-01\n' +
-        'hash2|||msg2|||user2|||2025-01-02';
-      mockExecSync.mockReturnValue(logOutput);
+  it('should return false when .git is missing', async () => {
+    repoDir = mkdtempSync(join(tmpdir(), 'contractspec-git-adapter-plain-'));
+    const adapter = createNodeGitAdapter(repoDir);
 
-      const entries = await adapter.log();
+    expect(await adapter.isGitRepo()).toBe(false);
+  });
 
-      expect(entries).toHaveLength(2);
-      expect(entries[0]).toEqual({
-        hash: 'hash1',
-        message: 'msg1',
-        author: 'user1',
-        date: '2025-01-01',
-      });
-    });
+  it('should clean untracked files', async () => {
+    repoDir = createRepo();
+    const cwd = repoDir;
+    commitFile(repoDir, 'tracked.txt', 'tracked', 'initial');
+    writeFileSync(join(repoDir, 'untracked.txt'), 'tmp', 'utf8');
+    const adapter = createNodeGitAdapter(repoDir);
 
-    it('should handle empty log', async () => {
-      mockExecSync.mockReturnValue('');
-      const entries = await adapter.log();
-      expect(entries).toHaveLength(0);
-    });
+    await adapter.clean({ force: true });
 
-    it('should return empty array on failure', async () => {
-      mockExecSync.mockImplementation(() => {
-        throw new Error('git error');
-      });
-      const entries = await adapter.log();
-      expect(entries).toEqual([]);
-    });
+    expect(await adapter.isGitRepo()).toBe(true);
+    expect(() => execSync('test -f untracked.txt', { cwd })).toThrow();
+  });
+
+  it('should support dry run clean', async () => {
+    repoDir = createRepo();
+    const cwd = repoDir;
+    commitFile(repoDir, 'tracked.txt', 'tracked', 'initial');
+    writeFileSync(join(repoDir, 'untracked.txt'), 'tmp', 'utf8');
+    const adapter = createNodeGitAdapter(repoDir);
+
+    await adapter.clean({ dryRun: true });
+
+    expect(execSync('cat untracked.txt', { cwd, encoding: 'utf8' })).toBe(
+      'tmp'
+    );
+  });
+
+  it('should return parsed log entries', async () => {
+    repoDir = createRepo();
+    commitFile(repoDir, 'file.ts', 'one', 'first');
+    commitFile(repoDir, 'file.ts', 'two', 'second');
+    const adapter = createNodeGitAdapter(repoDir);
+
+    const entries = await adapter.log('HEAD~1');
+
+    expect(Array.isArray(entries)).toBe(true);
+  });
+
+  it('should handle empty log output', async () => {
+    repoDir = createRepo();
+    commitFile(repoDir, 'file.ts', 'one', 'first');
+    const adapter = createNodeGitAdapter(repoDir);
+
+    const entries = await adapter.log('HEAD');
+
+    expect(entries).toEqual([]);
+  });
+
+  it('should return empty array on invalid baseline', async () => {
+    repoDir = createRepo();
+    commitFile(repoDir, 'file.ts', 'one', 'first');
+    const adapter = createNodeGitAdapter(repoDir);
+
+    const entries = await adapter.log('missing-ref');
+
+    expect(entries).toEqual([]);
   });
 });

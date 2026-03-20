@@ -127,9 +127,7 @@ function checkFeatureOwners(
     string,
     { owners?: string[]; filePath: string; sourceBlock?: string }
   >,
-  policy:
-    | Awaited<ReturnType<typeof loadStabilityPolicy>>
-    | undefined,
+  policy: Awaited<ReturnType<typeof loadStabilityPolicy>> | undefined,
   ctx: CheckContext
 ): CheckResult {
   const missingOwners: string[] = [];
@@ -161,7 +159,9 @@ function checkFeatureOwners(
       context:
         features.size > 0
           ? {
-              policyPath: policy ? getStabilityPolicyPath(ctx.workspaceRoot) : undefined,
+              policyPath: policy
+                ? getStabilityPolicyPath(ctx.workspaceRoot)
+                : undefined,
               criticalMissingFeatures: [],
               missingFeatures: [],
             }
@@ -182,7 +182,9 @@ function checkFeatureOwners(
         ? `Critical features: ${criticalMissingOwners.join(', ')}`
         : `Features: ${missingOwners.slice(0, 3).join(', ')}${missingOwners.length > 3 ? '...' : ''}`,
     context: {
-      policyPath: policy ? getStabilityPolicyPath(ctx.workspaceRoot) : undefined,
+      policyPath: policy
+        ? getStabilityPolicyPath(ctx.workspaceRoot)
+        : undefined,
       criticalMissingFeatures: criticalMissingOwners,
       missingFeatures: missingOwners,
     },

@@ -35,6 +35,8 @@
     "@contractspec/lib.presentation-runtime-core": "workspace:*"
   },
   "dependencies": {
+    "@tanstack/react-table": "^8.21.3",
+    "@contractspec/lib.presentation-runtime-react": "workspace:*",
     "@contractspec/lib.presentation-runtime-core": "workspace:*",
     "@contractspec/lib.ui-kit": "workspace:*"
   },
@@ -44,7 +46,9 @@
   ],
   "exports": {
     ".": "./src/index.ts",
-    "./nativewind-env.d": "./src/nativewind-env.d.ts"
+    "./nativewind-env.d": "./src/nativewind-env.d.ts",
+    "./useContractTable": "./src/useContractTable.ts",
+    "./useDataViewTable": "./src/useDataViewTable.ts"
   },
   "publishConfig": {
     "access": "public",
@@ -60,6 +64,18 @@
         "browser": "./dist/browser/nativewind-env.d.js",
         "bun": "./dist/nativewind-env.d.js",
         "default": "./dist/nativewind-env.d.js"
+      },
+      "./useContractTable": {
+        "types": "./dist/useContractTable.d.ts",
+        "browser": "./dist/browser/useContractTable.js",
+        "bun": "./dist/useContractTable.js",
+        "default": "./dist/useContractTable.js"
+      },
+      "./useDataViewTable": {
+        "types": "./dist/useDataViewTable.d.ts",
+        "browser": "./dist/browser/useDataViewTable.js",
+        "bun": "./dist/useDataViewTable.js",
+        "default": "./dist/useDataViewTable.js"
       }
     },
     "registry": "https://registry.npmjs.org/"

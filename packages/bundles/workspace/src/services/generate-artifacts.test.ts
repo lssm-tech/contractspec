@@ -1,4 +1,4 @@
-import { describe, expect, it, mock, beforeEach } from 'bun:test';
+import { afterAll, beforeEach, describe, expect, it, mock } from 'bun:test';
 import { generateArtifacts } from './generate-artifacts';
 import type { WorkspaceAdapters } from '../ports/logger';
 
@@ -70,4 +70,8 @@ describe('Generate Artifacts Service', () => {
     expect(result.specsCount).toBe(0);
     expect(result.docsCount).toBe(0);
   });
+});
+
+afterAll(() => {
+  mock.restore();
 });

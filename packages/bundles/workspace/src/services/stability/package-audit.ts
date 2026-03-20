@@ -75,7 +75,9 @@ function toRecord(value: unknown): Record<string, string> {
 
 function usesPassWithNoTests(scripts: Record<string, string>): boolean {
   return Object.entries(scripts).some(([name, command]) => {
-    return name.startsWith('test') && /pass[- ]with[- ]no[- ]tests/i.test(command);
+    return (
+      name.startsWith('test') && /pass[- ]with[- ]no[- ]tests/i.test(command)
+    );
   });
 }
 
@@ -114,7 +116,8 @@ async function discoverPackages(
         hasBuildScript: typeof scripts.build === 'string',
         hasTypecheckScript: typeof scripts.typecheck === 'string',
         hasLintScript:
-          typeof scripts.lint === 'string' || typeof scripts['lint:check'] === 'string',
+          typeof scripts.lint === 'string' ||
+          typeof scripts['lint:check'] === 'string',
         hasTestScript: typeof scripts.test === 'string',
         usesPassWithNoTests: usesPassWithNoTests(scripts),
         testFileCount: testFiles.length,

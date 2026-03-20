@@ -65,9 +65,9 @@ describe('@contractspec/module.examples registry', () => {
       (example) => example.entrypoints.packageName
     );
 
-    expect(packageNames.some((packageName) => privateExamples.has(packageName))).toBe(
-      false
-    );
+    expect(
+      packageNames.some((packageName) => privateExamples.has(packageName))
+    ).toBe(false);
   });
 
   test('package manifest should not depend on private workspace examples', () => {
@@ -76,7 +76,9 @@ describe('@contractspec/module.examples registry', () => {
     const dependencyNames = Object.keys(manifest.dependencies ?? {});
 
     expect(
-      dependencyNames.some((dependencyName) => privateExamples.has(dependencyName))
+      dependencyNames.some((dependencyName) =>
+        privateExamples.has(dependencyName)
+      )
     ).toBe(false);
   });
 });

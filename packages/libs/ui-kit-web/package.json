@@ -31,6 +31,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@contractspec/lib.presentation-runtime-core": "workspace:*",
     "@contractspec/lib.ui-kit-core": "workspace:*",
     "@hookform/resolvers": "5.2.2",
     "@radix-ui/react-accordion": "^1.2.11",
@@ -130,6 +131,8 @@
     "./ui/confirm-dialog": "./ui/confirm-dialog.tsx",
     "./ui/context-menu": "./ui/context-menu.tsx",
     "./ui/cta": "./ui/cta.tsx",
+    "./ui/data-table": "./ui/data-table.tsx",
+    "./ui/data-table.parts": "./ui/data-table.parts.tsx",
     "./ui/date-picker": "./ui/date-picker.tsx",
     "./ui/date-range-picker": "./ui/date-range-picker.tsx",
     "./ui/datetime-picker": "./ui/datetime-picker.tsx",
@@ -394,6 +397,18 @@
         "browser": "./dist/browser/ui/cta.js",
         "bun": "./dist/ui/cta.js",
         "default": "./dist/ui/cta.js"
+      },
+      "./ui/data-table": {
+        "types": "./dist/ui/data-table.d.ts",
+        "browser": "./dist/browser/ui/data-table.js",
+        "bun": "./dist/ui/data-table.js",
+        "default": "./dist/ui/data-table.js"
+      },
+      "./ui/data-table.parts": {
+        "types": "./dist/ui/data-table.parts.d.ts",
+        "browser": "./dist/browser/ui/data-table.parts.js",
+        "bun": "./dist/ui/data-table.parts.js",
+        "default": "./dist/ui/data-table.parts.js"
       },
       "./ui/date-picker": {
         "types": "./dist/ui/date-picker.d.ts",

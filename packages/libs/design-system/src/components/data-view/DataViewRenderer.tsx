@@ -6,18 +6,13 @@ import type {
   DataViewListConfig,
   DataViewSpec,
 } from '@contractspec/lib.contracts-spec/data-views';
+import { Pagination as TablePagination } from '@contractspec/lib.ui-kit-web/ui/atoms/Pagination';
+import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
+import { Text } from '@contractspec/lib.ui-kit-web/ui/text';
 import { DataViewList } from './DataViewList';
 import { DataViewTable } from './DataViewTable';
 import { DataViewDetail } from './DataViewDetail';
 import { FiltersToolbar } from '../molecules/FiltersToolbar';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@contractspec/lib.ui-kit-web/ui/pagination';
 
 export interface DataViewRendererProps {
   spec: DataViewSpec;
@@ -126,7 +121,7 @@ export function DataViewRenderer({
         );
       }
       default:
-        return <div className={className}>Unsupported data view kind</div>;
+        return <Text className={className}>Unsupported data view kind</Text>;
     }
   }, [
     spec,
@@ -152,7 +147,7 @@ export function DataViewRenderer({
   }
 
   return (
-    <div className="space-y-4">
+    <VStack gap="lg">
       {(spec.view.filters?.length || onSearchChange) && (
         <FiltersToolbar
           searchValue={search}
@@ -186,65 +181,19 @@ export function DataViewRenderer({
       {viewContent}
 
       {pagination && pagination.total > 0 && (
-        <div className="py-4">
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (pagination.page > 1) {
-                      onPageChange?.(pagination.page - 1);
-                    }
-                  }}
-                  aria-disabled={pagination.page <= 1}
-                  className={
-                    pagination.page <= 1 ? 'pointer-events-none opacity-50' : ''
-                  }
-                />
-              </PaginationItem>
-
-              {/* Simplified pagination: show current page */}
-              <PaginationItem>
-                <PaginationLink href="#" isActive>
-                  {pagination.page}
-                </PaginationLink>
-              </PaginationItem>
-
-              <PaginationItem>
-                <PaginationNext
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const totalPages = Math.ceil(
-                      pagination.total / pagination.pageSize
-                    );
-                    if (pagination.page < totalPages) {
-                      onPageChange?.(pagination.page + 1);
-                    }
-                  }}
-                  aria-disabled={
-                    pagination.page >=
-                    Math.ceil(pagination.total / pagination.pageSize)
-                  }
-                  className={
-                    pagination.page >=
-                    Math.ceil(pagination.total / pagination.pageSize)
-                      ? 'pointer-events-none opacity-50'
-                      : ''
-                  }
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-          <div className="text-muted-foreground mt-2 text-center text-sm">
-            Page {pagination.page} of{' '}
-            {Math.ceil(pagination.total / pagination.pageSize)} (
-            {pagination.total} items)
-          </div>
-        </div>
+        <TablePagination
+          currentPage={pagination.page}
+          totalPages={Math.ceil(pagination.total / pagination.pageSize)}
+          totalItems={pagination.total}
+          itemsPerPage={pagination.pageSize}
+          onPageChange={(page) => onPageChange?.(page)}
+          onItemsPerPageChange={(pageSize) => {
+            onPageChange?.(1);
+            void pageSize;
+          }}
+          showItemsPerPage={false}
+        />
       )}
-    </div>
+    </VStack>
   );
 }

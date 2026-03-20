@@ -1,4 +1,4 @@
-import { describe, it, expect, mock, beforeEach } from 'bun:test';
+import { beforeEach, describe, expect, it, mock } from 'bun:test';
 import {
   runDoctor,
   formatDoctorSummary,
@@ -21,26 +21,27 @@ const mockFindWorkspaceRoot = mock(() => '/root');
 const mockFindPackageRoot = mock(() => '/root/pkg');
 const mockGetPackageName = mock(() => 'pkg');
 
-mock.module('./checks/index', () => ({
-  runCliChecks: mockRunCliChecks,
-  runConfigChecks: mockRunConfigChecks,
-  runMcpChecks: mockRunMcpChecks,
-  runDepsChecks: mockRunDepsChecks,
-  runWorkspaceChecks: mockRunWorkspaceChecks,
-  runAiChecks: mockRunAiChecks,
-  runLayerChecks: mockRunLayerChecks,
-}));
-
-mock.module('../../adapters/workspace', () => ({
-  findWorkspaceRoot: mockFindWorkspaceRoot,
-  findPackageRoot: mockFindPackageRoot,
-  isMonorepo: mockIsMonorepo,
-  getPackageName: mockGetPackageName,
-}));
-
 describe('Doctor Service', () => {
   let mockFs: FsAdapter;
   let mockLogger: LoggerAdapter;
+
+  const doctorDependencies = {
+    checks: {
+      runCliChecks: mockRunCliChecks,
+      runConfigChecks: mockRunConfigChecks,
+      runMcpChecks: mockRunMcpChecks,
+      runDepsChecks: mockRunDepsChecks,
+      runWorkspaceChecks: mockRunWorkspaceChecks,
+      runAiChecks: mockRunAiChecks,
+      runLayerChecks: mockRunLayerChecks,
+    },
+    workspace: {
+      findWorkspaceRoot: mockFindWorkspaceRoot,
+      findPackageRoot: mockFindPackageRoot,
+      isMonorepo: mockIsMonorepo,
+      getPackageName: mockGetPackageName,
+    },
+  };
 
   beforeEach(() => {
     mockRunCliChecks.mockClear();
@@ -67,7 +68,9 @@ describe('Doctor Service', () => {
   it('should run checks for all categories by default', async () => {
     const result = await runDoctor(
       { fs: mockFs, logger: mockLogger },
-      { workspaceRoot: '/test' }
+      { workspaceRoot: '/test' },
+      undefined,
+      doctorDependencies
     );
 
     expect(result.checks).toEqual([]);
@@ -83,7 +86,9 @@ describe('Doctor Service', () => {
   it('should run checks only for specified categories', async () => {
     await runDoctor(
       { fs: mockFs, logger: mockLogger },
-      { categories: ['cli'], workspaceRoot: '/test' }
+      { categories: ['cli'], workspaceRoot: '/test' },
+      undefined,
+      doctorDependencies
     );
 
     expect(mockRunCliChecks).toHaveBeenCalled();
@@ -93,7 +98,9 @@ describe('Doctor Service', () => {
   it('should skip AI checks if skipAi is true', async () => {
     await runDoctor(
       { fs: mockFs, logger: mockLogger },
-      { skipAi: true, workspaceRoot: '/test' }
+      { skipAi: true, workspaceRoot: '/test' },
+      undefined,
+      doctorDependencies
     );
 
     expect(mockRunAiChecks).not.toHaveBeenCalled();
@@ -114,7 +121,9 @@ describe('Doctor Service', () => {
 
     const result = await runDoctor(
       { fs: mockFs, logger: mockLogger },
-      { autoFix: true, categories: ['cli'], workspaceRoot: '/test' }
+      { autoFix: true, categories: ['cli'], workspaceRoot: '/test' },
+      undefined,
+      doctorDependencies
     );
 
     expect(mockFixApply).toHaveBeenCalled();
@@ -142,7 +151,8 @@ describe('Doctor Service', () => {
     const result = await runDoctor(
       { fs: mockFs, logger: mockLogger },
       { autoFix: false, categories: ['cli'], workspaceRoot: '/test' },
-      { confirm: mockPromptConfirm, input: mock() }
+      { confirm: mockPromptConfirm, input: mock() },
+      doctorDependencies
     );
 
     expect(mockPromptConfirm).toHaveBeenCalled();
@@ -169,7 +179,8 @@ describe('Doctor Service', () => {
     const result = await runDoctor(
       { fs: mockFs, logger: mockLogger },
       { autoFix: false, categories: ['cli'], workspaceRoot: '/test' },
-      { confirm: mockPromptConfirm, input: mock() }
+      { confirm: mockPromptConfirm, input: mock() },
+      doctorDependencies
     );
 
     expect(mockPromptConfirm).toHaveBeenCalled();

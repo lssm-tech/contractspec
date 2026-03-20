@@ -10,6 +10,27 @@ export type ListFetcher<TVars, TItem> = (
   vars: TVars
 ) => Promise<{ items: TItem[]; totalItems?: number; totalPages?: number }>;
 
+export type {
+  ContractTableExecutionMode,
+  ContractTableSelectionMode,
+  ContractTablePinState,
+  ContractTableCellAlign,
+  ContractTableSort,
+  ContractTablePaginationState,
+  ContractTablePinningState,
+  ContractTableVisibilityState,
+  ContractTableSizingState,
+  ContractTableExpandedState,
+  ContractTableRowSelectionState,
+  ContractTableState,
+  ContractTableInitialState,
+  ContractTableColumnRenderModel,
+  ContractTableCellRenderModel,
+  ContractTableRowRenderModel,
+  ContractTableController,
+} from './table';
+export { createEmptyTableState } from './table';
+
 // ---- Framework config helpers (Next / Metro) ----
 export interface NextAliasOptions {
   uiKitWeb?: string; // default '@contractspec/lib.ui-kit-web'

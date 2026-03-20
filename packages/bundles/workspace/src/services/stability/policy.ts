@@ -82,5 +82,7 @@ export function isCriticalFeatureKey(
 }
 
 export function getStabilityPolicyPath(workspaceRoot: string): string {
-  return normalizePath(`${normalizePath(workspaceRoot)}/${STABILITY_POLICY_PATH}`);
+  return normalizePath(
+    `${normalizePath(workspaceRoot)}/${STABILITY_POLICY_PATH}`
+  );
 }

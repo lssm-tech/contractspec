@@ -139,6 +139,39 @@ export interface DataViewTableColumn {
   label?: string;
   width?: 'auto' | 'xs' | 'sm' | 'md' | 'lg';
   align?: 'left' | 'center' | 'right';
+  sortable?: boolean;
+  hideable?: boolean;
+  resizable?: boolean;
+  pinned?: false | 'left' | 'right';
+  defaultWidth?: number;
+  minWidth?: number;
+  maxWidth?: number;
+}
+
+export type DataViewTableExecutionMode = 'client' | 'server';
+
+export type DataViewTableSelectionMode = 'none' | 'single' | 'multiple';
+
+export interface DataViewTableExpansionConfig {
+  fields: string[];
+}
+
+export interface DataViewTableSort {
+  field: string;
+  desc?: boolean;
+}
+
+export interface DataViewTablePinnedColumns {
+  left?: string[];
+  right?: string[];
+}
+
+export interface DataViewTableInitialState {
+  sorting?: DataViewTableSort[];
+  pageSize?: number;
+  hiddenColumns?: string[];
+  pinnedColumns?: DataViewTablePinnedColumns;
+  expandedRowIds?: string[];
 }
 
 /**
@@ -147,6 +180,13 @@ export interface DataViewTableColumn {
 export interface DataViewTableConfig extends DataViewBaseConfig {
   kind: 'table';
   columns?: DataViewTableColumn[];
+  executionMode?: DataViewTableExecutionMode;
+  selection?: DataViewTableSelectionMode;
+  columnVisibility?: boolean;
+  columnResizing?: boolean;
+  columnPinning?: boolean;
+  rowExpansion?: DataViewTableExpansionConfig;
+  initialState?: DataViewTableInitialState;
   rowSelectable?: boolean;
   density?: 'comfortable' | 'compact';
 }

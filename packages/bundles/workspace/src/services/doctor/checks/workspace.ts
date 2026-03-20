@@ -339,7 +339,9 @@ async function checkOutputDirectory(
         name: 'Output Directory',
         status: 'pass',
         message: 'Monorepo root detected (using package directories)',
-        details: ctx.verbose ? `Resolved default output to packages via ${configInfo.path}` : undefined,
+        details: ctx.verbose
+          ? `Resolved default output to packages via ${configInfo.path}`
+          : undefined,
       };
     }
 

@@ -1,17 +1,11 @@
 'use client';
 
 import * as React from 'react';
-import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableHead,
-  TableCell,
-} from '@contractspec/lib.ui-kit-web/ui/table';
-import { useResponsive } from '../../platform/useResponsive';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { useContractTable } from '@contractspec/lib.presentation-runtime-react';
+import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
+import { Text } from '@contractspec/lib.ui-kit-web/ui/text';
+import { DataTable } from '../data-table/DataTable';
 
 export interface TableColumn<T> {
   header: React.ReactNode;
@@ -51,8 +45,31 @@ export function ListTablePage<T>({
   density,
   renderActions,
 }: ListTablePageProps<T>) {
-  const { screen } = useResponsive();
-  const titleSize = screen === 'desktop' ? 'text-3xl' : 'text-2xl';
+  const controller = useContractTable({
+    data: items,
+    columns: [
+      ...columns.map((column, index) => ({
+        id: `column.${index}`,
+        header: column.header,
+        cell: ({ item, rowIndex }: { item: T; rowIndex: number }) =>
+          column.cell(item, rowIndex),
+      })),
+      ...(renderActions
+        ? [
+            {
+              id: 'actions',
+              header: 'Actions',
+              label: 'Actions',
+              canSort: false,
+              canHide: false,
+              canResize: false,
+              cell: ({ item, rowIndex }: { item: T; rowIndex: number }) =>
+                renderActions(item, rowIndex),
+            },
+          ]
+        : []),
+    ],
+  });
 
   return (
     <VStack
@@ -61,42 +78,12 @@ export function ListTablePage<T>({
         .join(' ')}
     >
       <VStack className="gap-1">
-        <h1 className={`${titleSize} font-bold`}>{title}</h1>
+        <Text className="text-2xl font-bold md:text-3xl">{title}</Text>
         {subtitle ? (
-          <p className="text-muted-foreground text-base">{subtitle}</p>
+          <Text className="text-muted-foreground text-base">{subtitle}</Text>
         ) : null}
       </VStack>
-
-      <Table>
-        <TableHeader>
-          <TableRow>
-            {columns.map((col, i) => (
-              <TableHead key={i} className={col.className}>
-                {col.header}
-              </TableHead>
-            ))}
-            {renderActions ? <TableHead /> : null}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {items.map((item, rowIdx) => (
-            <TableRow key={rowIdx}>
-              {columns.map((col, colIdx) => (
-                <TableCell key={colIdx} className={col.className}>
-                  {col.cell(item, rowIdx)}
-                </TableCell>
-              ))}
-              {renderActions ? (
-                <TableCell>
-                  <div className="flex items-center justify-end gap-2">
-                    {renderActions(item, rowIdx)}
-                  </div>
-                </TableCell>
-              ) : null}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      <DataTable controller={controller} />
     </VStack>
   );
 }

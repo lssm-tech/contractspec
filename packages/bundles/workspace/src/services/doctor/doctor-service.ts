@@ -31,6 +31,46 @@ import {
   getPackageName,
 } from '../../adapters/workspace';
 
+interface DoctorCheckRunners {
+  runCliChecks: typeof runCliChecks;
+  runConfigChecks: typeof runConfigChecks;
+  runMcpChecks: typeof runMcpChecks;
+  runDepsChecks: typeof runDepsChecks;
+  runWorkspaceChecks: typeof runWorkspaceChecks;
+  runAiChecks: typeof runAiChecks;
+  runLayerChecks: typeof runLayerChecks;
+}
+
+interface DoctorWorkspaceResolvers {
+  findWorkspaceRoot: typeof findWorkspaceRoot;
+  findPackageRoot: typeof findPackageRoot;
+  isMonorepo: typeof isMonorepo;
+  getPackageName: typeof getPackageName;
+}
+
+interface DoctorDependencies {
+  checks: DoctorCheckRunners;
+  workspace: DoctorWorkspaceResolvers;
+}
+
+const defaultDoctorDependencies: DoctorDependencies = {
+  checks: {
+    runCliChecks,
+    runConfigChecks,
+    runMcpChecks,
+    runDepsChecks,
+    runWorkspaceChecks,
+    runAiChecks,
+    runLayerChecks,
+  },
+  workspace: {
+    findWorkspaceRoot,
+    findPackageRoot,
+    isMonorepo,
+    getPackageName,
+  },
+};
+
 /**
  * Default prompt callbacks that always decline fixes.
  */
@@ -45,16 +85,20 @@ const defaultPrompts: DoctorPromptCallbacks = {
 export async function runDoctor(
   adapters: { fs: FsAdapter; logger: LoggerAdapter },
   options: DoctorOptions,
-  prompts: DoctorPromptCallbacks = defaultPrompts
+  prompts: DoctorPromptCallbacks = defaultPrompts,
+  dependencies: DoctorDependencies = defaultDoctorDependencies
 ): Promise<DoctorResult> {
   const { fs, logger } = adapters;
   const categories = options.categories ?? ALL_CHECK_CATEGORIES;
+  const { checks, workspace } = dependencies;
 
   // Detect monorepo context
-  const workspaceRoot = findWorkspaceRoot(options.workspaceRoot);
-  const packageRoot = findPackageRoot(options.workspaceRoot);
-  const monorepo = isMonorepo(workspaceRoot);
-  const packageName = monorepo ? getPackageName(packageRoot) : undefined;
+  const workspaceRoot = workspace.findWorkspaceRoot(options.workspaceRoot);
+  const packageRoot = workspace.findPackageRoot(options.workspaceRoot);
+  const monorepo = workspace.isMonorepo(workspaceRoot);
+  const packageName = monorepo
+    ? workspace.getPackageName(packageRoot)
+    : undefined;
 
   const ctx: CheckContext = {
     workspaceRoot,
@@ -80,7 +124,13 @@ export async function runDoctor(
 
     logger.info(`Checking ${CHECK_CATEGORY_LABELS[category]}...`);
 
-    const categoryResults = await runCategoryChecks(category, fs, ctx, prompts);
+    const categoryResults = await runCategoryChecks(
+      category,
+      fs,
+      ctx,
+      prompts,
+      checks
+    );
 
     // Apply fixes if enabled
     for (const result of categoryResults) {
@@ -137,23 +187,24 @@ async function runCategoryChecks(
   category: CheckCategory,
   fs: FsAdapter,
   ctx: CheckContext,
-  prompts: DoctorPromptCallbacks
+  prompts: DoctorPromptCallbacks,
+  checks: DoctorCheckRunners
 ): Promise<CheckResult[]> {
   switch (category) {
     case 'cli':
-      return runCliChecks(fs, ctx);
+      return checks.runCliChecks(fs, ctx);
     case 'config':
-      return runConfigChecks(fs, ctx);
+      return checks.runConfigChecks(fs, ctx);
     case 'mcp':
-      return runMcpChecks(fs, ctx);
+      return checks.runMcpChecks(fs, ctx);
     case 'deps':
-      return runDepsChecks(fs, ctx);
+      return checks.runDepsChecks(fs, ctx);
     case 'workspace':
-      return runWorkspaceChecks(fs, ctx);
+      return checks.runWorkspaceChecks(fs, ctx);
     case 'ai':
-      return runAiChecks(fs, ctx, prompts);
+      return checks.runAiChecks(fs, ctx, prompts);
     case 'layers':
-      return runLayerChecks(fs, ctx);
+      return checks.runLayerChecks(fs, ctx);
     default:
       return [];
   }

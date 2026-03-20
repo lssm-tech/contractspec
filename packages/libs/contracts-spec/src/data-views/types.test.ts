@@ -14,6 +14,8 @@ import type {
   DataViewSource,
   DataViewStates,
   DataViewTableConfig,
+  DataViewTableExecutionMode,
+  DataViewTableSelectionMode,
 } from './types';
 
 describe('DataViewKind', () => {
@@ -199,13 +201,43 @@ describe('DataViewConfig', () => {
     const config: DataViewTableConfig = {
       kind: 'table',
       fields: [{ key: 'name', label: 'Name', dataPath: 'name' }],
-      columns: [{ field: 'name', width: 'lg', align: 'left' }],
+      columns: [
+        {
+          field: 'name',
+          width: 'lg',
+          align: 'left',
+          sortable: true,
+          hideable: true,
+          resizable: true,
+          pinned: 'left',
+          defaultWidth: 240,
+          minWidth: 180,
+          maxWidth: 360,
+        },
+      ],
+      executionMode: 'server',
+      selection: 'multiple',
+      columnVisibility: true,
+      columnResizing: true,
+      columnPinning: true,
+      rowExpansion: { fields: ['name'] },
+      initialState: {
+        sorting: [{ field: 'name', desc: true }],
+        pageSize: 50,
+        hiddenColumns: ['archivedAt'],
+        pinnedColumns: { left: ['name'] },
+        expandedRowIds: ['row-1'],
+      },
       rowSelectable: true,
       density: 'compact',
     };
 
     expect(config.kind).toBe('table');
     expect(config.rowSelectable).toBe(true);
+    expect(config.executionMode).toBe('server');
+    expect(config.selection).toBe('multiple');
+    expect(config.rowExpansion?.fields).toContain('name');
+    expect(config.initialState?.pageSize).toBe(50);
   });
 
   it('should support grid config', () => {
@@ -242,5 +274,22 @@ describe('DataViewStates', () => {
     expect(states.empty?.key).toBe('empty.state');
     expect(states.error?.key).toBe('error.state');
     expect(states.loading?.key).toBe('loading.state');
+  });
+});
+
+describe('DataViewTable advanced types', () => {
+  it('should support execution modes', () => {
+    const executionModes: DataViewTableExecutionMode[] = ['client', 'server'];
+    expect(executionModes).toEqual(['client', 'server']);
+  });
+
+  it('should support selection modes', () => {
+    const selectionModes: DataViewTableSelectionMode[] = [
+      'none',
+      'single',
+      'multiple',
+    ];
+    expect(selectionModes).toContain('single');
+    expect(selectionModes).toContain('multiple');
   });
 });

@@ -1,4 +1,4 @@
-import { describe, expect, it, mock, beforeEach } from 'bun:test';
+import { afterAll, beforeEach, describe, expect, it, mock } from 'bun:test';
 import { extractContracts } from './extract';
 import type { WorkspaceAdapters } from '../ports/logger';
 
@@ -51,4 +51,8 @@ describe('Extract Service', () => {
     expect(result.imported).toBe(1);
     expect(mockLogger.info).toHaveBeenCalled();
   });
+});
+
+afterAll(() => {
+  mock.restore();
 });

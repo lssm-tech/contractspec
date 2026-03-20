@@ -47,8 +47,13 @@ describe('runLayerChecks', () => {
         'utf8'
       );
 
-      const checks = await runLayerChecks(createNodeFsAdapter(root), createContext(root));
-      const featureOwners = checks.find((check) => check.name === 'Feature Owners');
+      const checks = await runLayerChecks(
+        createNodeFsAdapter(root),
+        createContext(root)
+      );
+      const featureOwners = checks.find(
+        (check) => check.name === 'Feature Owners'
+      );
 
       expect(featureOwners?.status).toBe('pass');
     } finally {
@@ -87,8 +92,13 @@ describe('runLayerChecks', () => {
         'utf8'
       );
 
-      const checks = await runLayerChecks(createNodeFsAdapter(root), createContext(root));
-      const featureOwners = checks.find((check) => check.name === 'Feature Owners');
+      const checks = await runLayerChecks(
+        createNodeFsAdapter(root),
+        createContext(root)
+      );
+      const featureOwners = checks.find(
+        (check) => check.name === 'Feature Owners'
+      );
 
       expect(featureOwners?.status).toBe('fail');
     } finally {

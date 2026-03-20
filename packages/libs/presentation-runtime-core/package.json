@@ -40,7 +40,8 @@
     "README.md"
   ],
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./table": "./src/table.ts"
   },
   "publishConfig": {
     "access": "public",
@@ -51,6 +52,13 @@
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
         "default": "./dist/index.js"
+      },
+      "./table": {
+        "types": "./dist/table.d.ts",
+        "browser": "./dist/browser/table.js",
+        "bun": "./dist/table.js",
+        "node": "./dist/node/table.js",
+        "default": "./dist/table.js"
       }
     },
     "registry": "https://registry.npmjs.org/"

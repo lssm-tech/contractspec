@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react';
-import type { DefaultValues, Resolver, UseFormReturn } from 'react-hook-form';
-import { useForm } from '@contractspec/lib.ui-kit/ui/form';
+import {
+  useForm,
+  type DefaultValues,
+  type Resolver,
+  type UseFormReturn,
+} from 'react-hook-form';
 import type {
   ListFetcher,
   ListState,
@@ -61,7 +65,7 @@ export function usePresentationController<
     form.reset({ ...(form.getValues() as any), ...(url.state.filters as any) });
   }, [url.state.filters]);
 
-  const submitFilters = form.handleSubmit((values) => {
+  const submitFilters = form.handleSubmit((values: TFilters) => {
     url.setState({ filters: values as TFilters, page: 1 });
   });
 
@@ -186,7 +190,7 @@ export function useListCoordinator<
     form.reset({ ...(form.getValues() as any), ...(url.state.filters as any) });
   }, [url.state.filters]);
 
-  const submitFilters = form.handleSubmit((values) => {
+  const submitFilters = form.handleSubmit((values: TFilters) => {
     url.setState({ filters: values as TFilters, page: 1 });
   });
 
@@ -225,3 +229,14 @@ export function useListCoordinator<
     clearAll,
   } as const;
 }
+
+export {
+  useContractTable,
+  type ContractTableController,
+  type ContractTableColumnDef,
+  type UseContractTableOptions,
+} from '@contractspec/lib.presentation-runtime-react/useContractTable';
+export {
+  useDataViewTable,
+  type UseDataViewTableOptions,
+} from '@contractspec/lib.presentation-runtime-react/useDataViewTable';

@@ -53,7 +53,11 @@ export const doctorCommand = new Command('doctor')
   )
   .option('-f, --fix', 'Auto-apply fixes without prompting', false)
   .option('--skip-ai', 'Skip AI provider checks', false)
-  .option('--format <format>', 'Output format: text, json (default: text)', 'text')
+  .option(
+    '--format <format>',
+    'Output format: text, json (default: text)',
+    'text'
+  )
   .option('-o, --output <file>', 'Write results to file')
   .option('-v, --verbose', 'Verbose output', false)
   .action(async (options) => {

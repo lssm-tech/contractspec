@@ -1,4 +1,4 @@
-import { describe, expect, it, mock } from 'bun:test';
+import { afterAll, describe, expect, it, mock } from 'bun:test';
 import { TestGeneratorService } from './test-generator-service';
 import type { OperationSpec } from '@contractspec/lib.contracts-spec';
 import type { LanguageModel } from 'ai';
@@ -76,4 +76,8 @@ describe('TestGeneratorService', () => {
     expect(service.generateTests(sampleOp)).rejects.toThrow('AI Busy');
     expect(logger.error).toHaveBeenCalled();
   });
+});
+
+afterAll(() => {
+  mock.restore();
 });

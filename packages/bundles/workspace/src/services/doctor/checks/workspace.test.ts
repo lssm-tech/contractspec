@@ -35,7 +35,10 @@ describe('runWorkspaceChecks', () => {
         verbose: false,
       };
 
-      const checks = await runWorkspaceChecks(createNodeFsAdapter(root), context);
+      const checks = await runWorkspaceChecks(
+        createNodeFsAdapter(root),
+        context
+      );
       const outputDirectoryCheck = checks.find(
         (check) => check.name === 'Output Directory'
       );

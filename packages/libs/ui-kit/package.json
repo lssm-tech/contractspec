@@ -28,6 +28,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@contractspec/lib.presentation-runtime-core": "workspace:*",
     "@contractspec/lib.ui-kit-core": "workspace:*",
     "@hookform/resolvers": "^5.2.2",
     "@react-native-async-storage/async-storage": "^2.1.2",
@@ -86,6 +87,7 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-hook-form": "^7.71.2",
+    "react-native-gesture-handler": "^2.29.1",
     "react-native": "0.84.1",
     "react-native-device-info": "^14.1.1",
     "react-native-localize": "^3.7.0",
@@ -134,6 +136,7 @@
     "./ui/collapsible": "./ui/collapsible.tsx",
     "./ui/command": "./ui/command.tsx",
     "./ui/context-menu": "./ui/context-menu.tsx",
+    "./ui/data-table": "./ui/data-table.tsx",
     "./ui/date-picker": "./ui/date-picker.tsx",
     "./ui/date-range-picker": "./ui/date-range-picker.tsx",
     "./ui/datetime-picker": "./ui/datetime-picker.tsx",
@@ -370,6 +373,12 @@
         "browser": "./dist/browser/ui/context-menu.js",
         "bun": "./dist/ui/context-menu.js",
         "default": "./dist/ui/context-menu.js"
+      },
+      "./ui/data-table": {
+        "types": "./dist/ui/data-table.d.ts",
+        "browser": "./dist/browser/ui/data-table.js",
+        "bun": "./dist/ui/data-table.js",
+        "default": "./dist/ui/data-table.js"
       },
       "./ui/date-picker": {
         "types": "./dist/ui/date-picker.d.ts",

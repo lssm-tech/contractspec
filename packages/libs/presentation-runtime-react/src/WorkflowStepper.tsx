@@ -3,7 +3,7 @@ import type {
   WorkflowSpec,
   WorkflowState,
 } from '@contractspec/lib.contracts-spec/workflow';
-import { Stepper } from '@contractspec/lib.design-system';
+import { Stepper } from '@contractspec/lib.ui-kit-web/ui/stepper';
 
 export interface WorkflowStepperProps {
   spec: WorkflowSpec;
