@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.bus",
-  "version": "3.7.6",
+  "version": "3.7.7",
   "description": "Event bus and messaging primitives",
   "keywords": [
     "contractspec",
