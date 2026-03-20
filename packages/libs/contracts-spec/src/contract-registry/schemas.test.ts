@@ -19,6 +19,7 @@ describe('ContractRegistryItemTypeSchema', () => {
       'contractspec:template',
       'contractspec:integration',
       'contractspec:data-view',
+      'contractspec:visualization',
       'contractspec:migration',
       'contractspec:telemetry',
       'contractspec:experiment',

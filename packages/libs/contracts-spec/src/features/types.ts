@@ -24,6 +24,9 @@ export type PresentationRef = VersionedSpecRef;
 /** Reference to a data view spec (key + version). */
 export type DataViewRef = VersionedSpecRef;
 
+/** Reference to a visualization spec (key + version). */
+export type VisualizationRef = VersionedSpecRef;
+
 /** Reference to a form spec (key + version). */
 export type FormRef = VersionedSpecRef;
 
@@ -86,6 +89,9 @@ export interface FeatureModuleSpec {
 
   /** Data views associated with this feature. */
   dataViews?: DataViewRef[];
+
+  /** Visualizations associated with this feature. */
+  visualizations?: VisualizationRef[];
 
   /** Forms associated with this feature. */
   forms?: FormRef[];

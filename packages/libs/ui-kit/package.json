@@ -63,6 +63,7 @@
     "burnt": "^0.13.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "echarts": "^6.0.0",
     "expo": "^55.0.5",
     "expo-application": "~55.0.8",
     "expo-build-properties": "~55.0.9",
@@ -94,6 +95,7 @@
     "react-native-reanimated": "4.2.1",
     "react-native-safe-area-context": "5.6.2",
     "react-native-screens": "4.23.0",
+    "@wuba/react-native-echarts": "^2.0.3",
     "react-native-svg": "15.15.3",
     "react-native-web": "~0.21.2",
     "react-use": "^17.6.0",
@@ -209,7 +211,8 @@
     "./ui/usecases/UserStoryCard": "./ui/usecases/UserStoryCard.tsx",
     "./ui/useColorScheme": "./ui/useColorScheme.tsx",
     "./ui/useListState": "./ui/useListState.tsx",
-    "./ui/utils": "./ui/utils.ts"
+    "./ui/utils": "./ui/utils.ts",
+    "./ui/visualization": "./ui/visualization/index.ts"
   },
   "files": [
     "dist",
@@ -817,6 +820,12 @@
         "browser": "./dist/browser/ui/utils.js",
         "bun": "./dist/ui/utils.js",
         "default": "./dist/ui/utils.js"
+      },
+      "./ui/visualization": {
+        "types": "./dist/ui/visualization/index.d.ts",
+        "browser": "./dist/browser/ui/visualization/index.js",
+        "bun": "./dist/ui/visualization/index.js",
+        "default": "./dist/ui/visualization/index.js"
       }
     },
     "registry": "https://registry.npmjs.org/"

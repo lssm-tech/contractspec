@@ -239,6 +239,7 @@ export { WorkflowStepper } from './WorkflowStepper';
 export { WorkflowStepRenderer } from './WorkflowStepRenderer';
 export { useContractTable } from './useContractTable';
 export { useDataViewTable } from './useDataViewTable';
+export { useVisualizationModel } from "./useVisualizationModel";
 export type {
   ContractTableController,
   ContractTableColumnDef,
@@ -247,3 +248,4 @@ export type {
   UseContractTableOptions,
   UseDataViewTableOptions,
 } from './table.types';
+export type { UseVisualizationModelOptions } from "./useVisualizationModel";

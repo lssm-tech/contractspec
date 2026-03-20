@@ -30,6 +30,10 @@
   "peerDependencies": {
     "typescript": "^5.9.0"
   },
+  "dependencies": {
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "echarts": "^6.0.0"
+  },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
     "typescript": "catalog:",
@@ -41,7 +45,8 @@
   ],
   "exports": {
     ".": "./src/index.ts",
-    "./table": "./src/table.ts"
+    "./table": "./src/table.ts",
+    "./visualization": "./src/visualization.ts"
   },
   "publishConfig": {
     "access": "public",
@@ -59,6 +64,13 @@
         "bun": "./dist/table.js",
         "node": "./dist/node/table.js",
         "default": "./dist/table.js"
+      },
+      "./visualization": {
+        "types": "./dist/visualization.d.ts",
+        "browser": "./dist/browser/visualization.js",
+        "bun": "./dist/visualization.js",
+        "node": "./dist/node/visualization.js",
+        "default": "./dist/visualization.js"
       }
     },
     "registry": "https://registry.npmjs.org/"

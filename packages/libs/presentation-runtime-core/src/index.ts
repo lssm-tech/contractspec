@@ -30,6 +30,21 @@ export type {
   ContractTableController,
 } from './table';
 export { createEmptyTableState } from './table';
+export type {
+  ContractVisualizationAxisModel,
+  ContractVisualizationPoint,
+  ContractVisualizationSeriesModel,
+  ContractVisualizationMetricModel,
+  ContractVisualizationTableAlternative,
+  ContractVisualizationAnnotationModel,
+  ContractVisualizationGeoModel,
+  ContractVisualizationRenderModel,
+} from "./visualization";
+export {
+  createVisualizationModel,
+  formatVisualizationValue,
+} from "./visualization";
+export { buildVisualizationEChartsOption } from "./visualization.echarts";
 
 // ---- Framework config helpers (Next / Metro) ----
 export interface NextAliasOptions {

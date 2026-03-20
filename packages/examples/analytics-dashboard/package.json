@@ -64,6 +64,7 @@
     "./ui/AnalyticsDashboard": "./src/ui/AnalyticsDashboard.tsx",
     "./ui/hooks": "./src/ui/hooks/index.ts",
     "./ui/hooks/useAnalyticsData": "./src/ui/hooks/useAnalyticsData.ts",
+    "./visualizations": "./src/visualizations/index.ts",
     "./ui/renderers": "./src/ui/renderers/index.ts",
     "./ui/renderers/analytics.markdown": "./src/ui/renderers/analytics.markdown.ts"
   },
@@ -269,6 +270,13 @@
         "bun": "./dist/ui/hooks/useAnalyticsData.js",
         "node": "./dist/node/ui/hooks/useAnalyticsData.js",
         "default": "./dist/ui/hooks/useAnalyticsData.js"
+      },
+      "./visualizations": {
+        "types": "./dist/visualizations/index.d.ts",
+        "browser": "./dist/browser/visualizations/index.js",
+        "bun": "./dist/visualizations/index.js",
+        "node": "./dist/node/visualizations/index.js",
+        "default": "./dist/visualizations/index.js"
       },
       "./ui/renderers": {
         "types": "./dist/ui/renderers/index.d.ts",

@@ -5,6 +5,7 @@ export type {
   EventRef,
   PresentationRef,
   DataViewRef,
+  VisualizationRef,
   FormRef,
   WorkflowRef,
   KnowledgeRef,

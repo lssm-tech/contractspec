@@ -50,6 +50,7 @@
     "./useContractTable": "./src/useContractTable.tsx",
     "./useContractTable.models": "./src/useContractTable.models.tsx",
     "./useDataViewTable": "./src/useDataViewTable.tsx",
+    "./useVisualizationModel": "./src/useVisualizationModel.ts",
     "./useWorkflow": "./src/useWorkflow.ts",
     "./WorkflowStepper": "./src/WorkflowStepper.tsx",
     "./WorkflowStepRenderer": "./src/WorkflowStepRenderer.tsx"
@@ -98,6 +99,12 @@
         "browser": "./dist/browser/useDataViewTable.js",
         "bun": "./dist/useDataViewTable.js",
         "default": "./dist/useDataViewTable.js"
+      },
+      "./useVisualizationModel": {
+        "types": "./dist/useVisualizationModel.d.ts",
+        "browser": "./dist/browser/useVisualizationModel.js",
+        "bun": "./dist/useVisualizationModel.js",
+        "default": "./dist/useVisualizationModel.js"
       },
       "./useWorkflow": {
         "types": "./dist/useWorkflow.d.ts",

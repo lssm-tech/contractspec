@@ -217,6 +217,27 @@ export { DataViewList } from './components/data-view/DataViewList';
 export { DataViewTable } from './components/data-view/DataViewTable';
 export { DataViewDetail } from './components/data-view/DataViewDetail';
 export { DataViewRenderer } from './components/data-view/DataViewRenderer';
+export {
+  VisualizationRenderer,
+  type VisualizationRendererProps,
+} from './components/visualization/VisualizationRenderer';
+export {
+  VisualizationCard,
+  type VisualizationCardProps,
+} from './components/visualization/VisualizationCard';
+export {
+  VisualizationGrid,
+  type VisualizationGridProps,
+} from './components/visualization/VisualizationGrid';
+export {
+  ComparisonView,
+  type ComparisonViewProps,
+} from './components/visualization/ComparisonView';
+export {
+  TimelineView,
+  type TimelineViewProps,
+} from './components/visualization/TimelineView';
+export type { VisualizationSurfaceItem } from './components/visualization/types';
 
 // Overlays re-exports (web default; native via Metro alias)
 // Overlays are used directly from ui-kit(s) in apps for now to avoid DTS bundling issues

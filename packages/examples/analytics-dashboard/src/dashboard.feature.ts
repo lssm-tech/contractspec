@@ -9,6 +9,7 @@
  */
 
 import { defineFeature } from '@contractspec/lib.contracts-spec';
+import { AnalyticsVisualizationRefs } from './visualizations';
 
 // ============ Feature Definition ============
 
@@ -65,6 +66,8 @@ export const AnalyticsDashboardFeature = defineFeature({
     { key: 'analytics.query.list', version: '1.0.0' },
     { key: 'analytics.query.builder', version: '1.0.0' },
   ],
+
+  visualizations: [...AnalyticsVisualizationRefs],
 
   // ============ Op-to-Presentation Links ============
   // Links operations to their primary presentations

@@ -8,6 +8,7 @@ import type {
   Widget,
 } from '../../handlers/analytics.handlers';
 import { useTemplateRuntime } from '@contractspec/lib.example-shared-ui';
+import { createExampleWidgets } from '../../visualizations';
 
 export interface AnalyticsStats {
   totalDashboards: number;
@@ -47,7 +48,11 @@ export function useAnalyticsData(projectId = 'local-project') {
         if (first) {
           setSelectedDashboard(first);
           const dashboardWidgets = await analytics.getWidgets(first.id);
-          setWidgets(dashboardWidgets);
+          setWidgets(
+            dashboardWidgets.length > 0
+              ? dashboardWidgets
+              : createExampleWidgets(first.id)
+          );
         }
       }
     } catch (err) {
@@ -67,7 +72,11 @@ export function useAnalyticsData(projectId = 'local-project') {
     async (dashboard: Dashboard) => {
       setSelectedDashboard(dashboard);
       const dashboardWidgets = await analytics.getWidgets(dashboard.id);
-      setWidgets(dashboardWidgets);
+      setWidgets(
+        dashboardWidgets.length > 0
+          ? dashboardWidgets
+          : createExampleWidgets(dashboard.id)
+      );
     },
     [analytics]
   );

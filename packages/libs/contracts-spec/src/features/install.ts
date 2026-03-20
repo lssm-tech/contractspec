@@ -8,6 +8,7 @@ import type { IntegrationSpecRegistry } from '../integrations/spec';
 import type { JobSpecRegistry } from '../jobs/spec';
 import type { TranslationRegistry } from '../translations/registry';
 import type { DataViewRegistry } from '../data-views/registry';
+import type { VisualizationRegistry } from '../visualizations/registry';
 import type { FormRegistry } from '../forms/forms';
 import type { FeatureModuleSpec } from './types';
 import type { FeatureRegistry } from './registry';
@@ -27,6 +28,7 @@ export interface InstallFeatureDeps {
   jobs?: JobSpecRegistry;
   translations?: TranslationRegistry;
   dataViews?: DataViewRegistry;
+  visualizations?: VisualizationRegistry;
   forms?: FormRegistry;
 }
 
@@ -122,6 +124,18 @@ export function installFeature(
       if (!spec)
         throw new Error(
           `installFeature: data view not found ${dv.key}.v${dv.version}`
+        );
+    }
+  }
+  if (deps.visualizations && feature.visualizations) {
+    for (const visualization of feature.visualizations) {
+      const spec = deps.visualizations.get(
+        visualization.key,
+        visualization.version
+      );
+      if (!spec)
+        throw new Error(
+          `installFeature: visualization not found ${visualization.key}.v${visualization.version}`
         );
     }
   }

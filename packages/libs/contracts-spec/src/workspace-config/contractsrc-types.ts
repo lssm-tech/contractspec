@@ -63,6 +63,7 @@ export type SpecKind =
   | 'feature'
   | 'workflow'
   | 'data-view'
+  | 'visualization'
   | 'migration'
   | 'telemetry'
   | 'experiment'

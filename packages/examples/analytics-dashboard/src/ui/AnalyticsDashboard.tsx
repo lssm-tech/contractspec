@@ -6,7 +6,7 @@
  * Interactive dashboard for the analytics-dashboard template.
  * Displays dashboards, widgets, and queries.
  */
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   Button,
   ErrorState,
@@ -14,6 +14,10 @@ import {
   StatCard,
   StatCardGroup,
 } from '@contractspec/lib.design-system';
+import type { ResolvedAnalyticsWidget } from '../visualizations';
+import { resolveAnalyticsWidget } from '../visualizations';
+import { AnalyticsQueriesTable } from './AnalyticsQueriesTable';
+import { AnalyticsWidgetBoard } from './AnalyticsDashboard.widgets';
 import { useAnalyticsData } from './hooks/useAnalyticsData';
 
 type Tab = 'dashboards' | 'queries';
@@ -24,30 +28,6 @@ const STATUS_COLORS: Record<string, string> = {
   DRAFT: 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400',
   ARCHIVED:
     'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
-};
-
-const WIDGET_ICONS: Record<string, string> = {
-  LINE_CHART: '📈',
-  BAR_CHART: '📊',
-  PIE_CHART: '🥧',
-  AREA_CHART: '📉',
-  SCATTER_PLOT: '⚬',
-  METRIC: '🔢',
-  TABLE: '📋',
-  HEATMAP: '🗺️',
-  FUNNEL: '⏬',
-  MAP: '🌍',
-  TEXT: '📝',
-  EMBED: '🔗',
-};
-
-const QUERY_TYPE_COLORS: Record<string, string> = {
-  SQL: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
-  METRIC:
-    'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400',
-  AGGREGATION:
-    'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400',
-  CUSTOM: 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400',
 };
 
 export function AnalyticsDashboard() {
@@ -68,6 +48,15 @@ export function AnalyticsDashboard() {
     { id: 'dashboards', label: 'Dashboards', icon: '📊' },
     { id: 'queries', label: 'Queries', icon: '🔍' },
   ];
+  const resolvedWidgets = useMemo(
+    () =>
+      widgets
+        .map((widget) => resolveAnalyticsWidget(widget))
+        .filter(
+          (widget): widget is ResolvedAnalyticsWidget => Boolean(widget)
+        ),
+    [widgets]
+  );
 
   if (loading) {
     return <LoaderBlock label="Loading Analytics..." />;
@@ -184,102 +173,16 @@ export function AnalyticsDashboard() {
               )}
             </div>
 
-            {/* Widget Grid for Selected Dashboard */}
-            {selectedDashboard && widgets.length > 0 && (
-              <div>
-                <h3 className="mb-4 text-lg font-semibold">
-                  Widgets in "{selectedDashboard.name}"
-                </h3>
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {widgets.map((widget) => (
-                    <div
-                      key={widget.id}
-                      className="border-border bg-card rounded-lg border p-4"
-                    >
-                      <div className="mb-2 flex items-center gap-2">
-                        <span className="text-xl">
-                          {WIDGET_ICONS[widget.type] ?? '📊'}
-                        </span>
-                        <span className="font-medium">{widget.name}</span>
-                      </div>
-                      <div className="text-muted-foreground text-sm">
-                        {widget.type.replace(/_/g, ' ')}
-                      </div>
-                      <div className="text-muted-foreground mt-2 text-xs">
-                        Position: ({widget.gridX}, {widget.gridY}) •{' '}
-                        {widget.gridWidth}x{widget.gridHeight}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+            {selectedDashboard ? (
+              <AnalyticsWidgetBoard
+                dashboardName={selectedDashboard.name}
+                widgets={resolvedWidgets}
+              />
+            ) : null}
           </div>
         )}
 
-        {activeTab === 'queries' && (
-          <div className="border-border rounded-lg border">
-            <table className="w-full">
-              <thead className="border-border bg-muted/30 border-b">
-                <tr>
-                  <th className="px-4 py-3 text-left text-sm font-medium">
-                    Query
-                  </th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">
-                    Type
-                  </th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">
-                    Cache TTL
-                  </th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">
-                    Shared
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-border divide-y">
-                {queries.map((query) => (
-                  <tr key={query.id} className="hover:bg-muted/50">
-                    <td className="px-4 py-3">
-                      <div className="font-medium">{query.name}</div>
-                      <div className="text-muted-foreground text-sm">
-                        {query.description}
-                      </div>
-                    </td>
-                    <td className="px-4 py-3">
-                      <span
-                        className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${QUERY_TYPE_COLORS[query.type] ?? ''}`}
-                      >
-                        {query.type}
-                      </span>
-                    </td>
-                    <td className="text-muted-foreground px-4 py-3 text-sm">
-                      {query.cacheTtlSeconds}s
-                    </td>
-                    <td className="px-4 py-3">
-                      {query.isShared ? (
-                        <span className="text-green-600 dark:text-green-400">
-                          ✓
-                        </span>
-                      ) : (
-                        <span className="text-muted-foreground">—</span>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-                {queries.length === 0 && (
-                  <tr>
-                    <td
-                      colSpan={4}
-                      className="text-muted-foreground px-4 py-8 text-center"
-                    >
-                      No queries saved
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        )}
+        {activeTab === 'queries' && <AnalyticsQueriesTable queries={queries} />}
       </div>
     </div>
   );

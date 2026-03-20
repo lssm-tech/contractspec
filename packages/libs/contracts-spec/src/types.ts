@@ -64,6 +64,7 @@ export type ContractSpecType =
   | 'feature'
   | 'capability'
   | 'data-view'
+  | 'visualization'
   | 'form'
   | 'agent'
   | 'migration'

@@ -178,6 +178,7 @@
     "./control-plane/queries/controlPlaneSkillVerify.query": "./src/control-plane/queries/controlPlaneSkillVerify.query.ts",
     "./control-plane/queries/controlPlaneTraceGet.query": "./src/control-plane/queries/controlPlaneTraceGet.query.ts",
     "./data-views": "./src/data-views/index.ts",
+    "./visualizations": "./src/visualizations/index.ts",
     "./data-views/data-views": "./src/data-views/data-views.ts",
     "./data-views/docs/data-views.docblock": "./src/data-views/docs/data-views.docblock.ts",
     "./data-views/query-generator": "./src/data-views/query-generator.ts",
@@ -1306,6 +1307,12 @@
         "bun": "./dist/data-views/index.js",
         "node": "./dist/node/data-views/index.js",
         "default": "./dist/data-views/index.js"
+      },
+      "./visualizations": {
+        "types": "./dist/visualizations/index.d.ts",
+        "bun": "./dist/visualizations/index.js",
+        "node": "./dist/node/visualizations/index.js",
+        "default": "./dist/visualizations/index.js"
       },
       "./data-views/data-views": {
         "types": "./dist/data-views/data-views.d.ts",

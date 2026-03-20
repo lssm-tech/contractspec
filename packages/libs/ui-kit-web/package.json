@@ -64,6 +64,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
+    "echarts": "^6.0.0",
     "embla-carousel-react": "^8.6.0",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.577.0",
@@ -215,6 +216,7 @@
     "./ui/usecases/UserStoryCard": "./ui/usecases/UserStoryCard.tsx",
     "./ui/useListState": "./ui/useListState.tsx",
     "./ui/utils": "./ui/utils.ts",
+    "./ui/visualization": "./ui/visualization/index.ts",
     "./ui/visually-hidden": "./ui/visually-hidden.tsx"
   },
   "files": [
@@ -901,6 +903,12 @@
         "browser": "./dist/browser/ui/utils.js",
         "bun": "./dist/ui/utils.js",
         "default": "./dist/ui/utils.js"
+      },
+      "./ui/visualization": {
+        "types": "./dist/ui/visualization/index.d.ts",
+        "browser": "./dist/browser/ui/visualization/index.js",
+        "bun": "./dist/ui/visualization/index.js",
+        "default": "./dist/ui/visualization/index.js"
       },
       "./ui/visually-hidden": {
         "types": "./dist/ui/visually-hidden.d.ts",

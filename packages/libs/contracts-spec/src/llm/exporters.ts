@@ -9,11 +9,13 @@ import type { AnyOperationSpec } from '../operations/';
 import { isEmitDeclRef } from '../operations/';
 import type { FeatureModuleSpec } from '../features';
 import type { PresentationSpec } from '../presentations/';
+import type { VisualizationSpec } from '../visualizations';
 import type { EventSpec } from '../events';
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type { DocBlock } from '../docs/types';
 import type { OperationSpecRegistry } from '../operations/registry';
 import type { PresentationRegistry } from '../presentations';
+import type { VisualizationRegistry } from '../visualizations';
 import { jsonSchemaForSpec } from '../jsonschema';
 import type {
   FeatureExportOptions,
@@ -36,6 +38,7 @@ const DEFAULT_FEATURE_OPTIONS: FeatureExportOptions = {
   includeRelatedSpecs: true,
   includeRelatedEvents: true,
   includeRelatedPresentations: true,
+  includeRelatedVisualizations: true,
 };
 
 /**
@@ -436,6 +439,7 @@ export function featureToMarkdown(
   deps?: {
     specs?: OperationSpecRegistry;
     presentations?: PresentationRegistry;
+    visualizations?: VisualizationRegistry;
   },
   options: Partial<FeatureExportOptions> = {}
 ): string {
@@ -532,6 +536,38 @@ export function featureToMarkdown(
     }
   }
 
+  if (feature.visualizations?.length) {
+    lines.push('## Visualizations');
+    lines.push('');
+    lines.push('| Name | Version | Kind |');
+    lines.push('|------|---------|------|');
+    for (const visualization of feature.visualizations) {
+      const spec = deps?.visualizations?.get(
+        visualization.key,
+        visualization.version
+      );
+      lines.push(
+        `| ${visualization.key} | v${visualization.version} | ${spec?.visualization.kind ?? 'unknown'} |`
+      );
+    }
+    lines.push('');
+
+    if (opts.includeRelatedVisualizations && deps?.visualizations) {
+      lines.push('### Visualization Details');
+      lines.push('');
+      for (const visualization of feature.visualizations) {
+        const spec = deps.visualizations.get(
+          visualization.key,
+          visualization.version
+        );
+        if (spec) {
+          lines.push(visualizationToMarkdown(spec));
+          lines.push('');
+        }
+      }
+    }
+  }
+
   // Capabilities
   if (feature.capabilities) {
     if (feature.capabilities.provides?.length) {
@@ -608,6 +644,47 @@ export function presentationToMarkdown(presentation: PresentationSpec): string {
     }
     if (presentation.policy.pii?.length) {
       lines.push(`- **PII Fields:** ${presentation.policy.pii.join(', ')}`);
+    }
+    lines.push('');
+  }
+
+  return lines.join('\n');
+}
+
+export function visualizationToMarkdown(
+  visualization: VisualizationSpec
+): string {
+  const { meta, visualization: config } = visualization;
+  const lines: string[] = [];
+
+  lines.push(`# Visualization: ${meta.key}.v${meta.version}`);
+  lines.push('');
+  lines.push(`> ${meta.description}`);
+  lines.push('');
+  lines.push(`- **Kind:** ${config.kind}`);
+  if ('variant' in config && config.variant) {
+    lines.push(`- **Variant:** ${config.variant}`);
+  }
+  lines.push(`- **Goal:** ${meta.goal}`);
+  lines.push(`- **Context:** ${meta.context}`);
+  lines.push('');
+
+  if (config.dimensions?.length) {
+    lines.push('## Dimensions');
+    lines.push('');
+    for (const dimension of config.dimensions) {
+      lines.push(
+        `- \`${dimension.key}\` (${dimension.type ?? 'category'}) -> ${dimension.dataPath}`
+      );
+    }
+    lines.push('');
+  }
+
+  if (config.measures?.length) {
+    lines.push('## Measures');
+    lines.push('');
+    for (const measure of config.measures) {
+      lines.push(`- \`${measure.key}\` -> ${measure.dataPath}`);
     }
     lines.push('');
   }
@@ -740,6 +817,7 @@ export function exportFeature(
   deps?: {
     specs?: OperationSpecRegistry;
     presentations?: PresentationRegistry;
+    visualizations?: VisualizationRegistry;
   },
   options: Partial<FeatureExportOptions> = {}
 ): FeatureExportResult {
@@ -755,5 +833,7 @@ export function exportFeature(
     includedEvents: feature.events?.map((e) => `${e.key}.v${e.version}`) ?? [],
     includedPresentations:
       feature.presentations?.map((p) => `${p.key}.v${p.version}`) ?? [],
+    includedVisualizations:
+      feature.visualizations?.map((v) => `${v.key}.v${v.version}`) ?? [],
   };
 }

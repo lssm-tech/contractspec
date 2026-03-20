@@ -11,6 +11,7 @@ import { IntegrationSpecRegistry } from '../integrations/spec';
 import { JobSpecRegistry } from '../jobs/spec';
 import { TranslationRegistry } from '../translations/registry';
 import { DataViewRegistry } from '../data-views/registry';
+import { VisualizationRegistry } from '../visualizations/registry';
 import { FormRegistry, type FormSpec } from '../forms/forms';
 import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 import { StabilityEnum } from '../ownership';
@@ -281,6 +282,53 @@ describe('installFeature', () => {
 
       expect(() =>
         installFeature(feature, { features, workflows })
+      ).not.toThrow();
+    });
+  });
+
+  describe('visualization validation', () => {
+    it('should throw when referenced visualization is not registered', () => {
+      const features = new FeatureRegistry();
+      const visualizations = new VisualizationRegistry();
+      const feature = createFeature({
+        visualizations: [{ key: 'analytics.mrr', version: '1.0.0' }],
+      });
+
+      expect(() =>
+        installFeature(feature, { features, visualizations })
+      ).toThrow(/visualization not found/);
+    });
+
+    it('should pass when visualization is registered', () => {
+      const features = new FeatureRegistry();
+      const visualizations = new VisualizationRegistry();
+      visualizations.register({
+        meta: {
+          key: 'analytics.mrr',
+          version: '1.0.0',
+          title: 'MRR',
+          description: 'Monthly recurring revenue',
+          goal: 'Show MRR',
+          context: 'Analytics overview',
+          stability: StabilityEnum.Stable,
+          owners: ['platform.core'],
+          tags: ['analytics'],
+        },
+        source: {
+          primary: { key: 'analytics.query.execute', version: '1.0.0' },
+        },
+        visualization: {
+          kind: 'metric',
+          measures: [{ key: 'mrr', label: 'MRR', dataPath: 'mrr' }],
+          measure: 'mrr',
+        },
+      });
+      const feature = createFeature({
+        visualizations: [{ key: 'analytics.mrr', version: '1.0.0' }],
+      });
+
+      expect(() =>
+        installFeature(feature, { features, visualizations })
       ).not.toThrow();
     });
   });

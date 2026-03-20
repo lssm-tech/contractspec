@@ -14,6 +14,7 @@ export * from './operations';
 export * from './resources';
 export * from './presentations';
 export * from './features';
+export * from './visualizations';
 export * from './ownership';
 export * from './forms';
 export * from './themes';

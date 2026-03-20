@@ -6,6 +6,7 @@
 import type { AnyOperationSpec } from '../operations/';
 import type { FeatureModuleSpec } from '../features';
 import type { PresentationSpec } from '../presentations/presentations';
+import type { VisualizationSpec } from '../visualizations/spec';
 import type { EventSpec } from '../events';
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type { DocBlock } from '../docs/types';
@@ -43,6 +44,8 @@ export interface FeatureExportOptions extends SpecExportOptions {
   includeRelatedEvents?: boolean;
   /** Include related presentations inline */
   includeRelatedPresentations?: boolean;
+  /** Include related visualizations inline */
+  includeRelatedVisualizations?: boolean;
 }
 
 /** Result of spec export */
@@ -76,13 +79,15 @@ export interface FeatureExportResult {
   includedEvents: string[];
   /** Included presentations */
   includedPresentations: string[];
+  /** Included visualizations */
+  includedVisualizations: string[];
 }
 
 /** Implementation plan generated for agents */
 export interface ImplementationPlan {
   /** Feature/spec being implemented */
   target: {
-    type: 'spec' | 'feature' | 'presentation';
+    type: 'spec' | 'feature' | 'presentation' | 'visualization';
     key: string;
     version: string;
   };
@@ -202,7 +207,14 @@ export interface BatchExportOptions extends SpecExportOptions {
   /** Glob pattern to match spec files */
   pattern?: string;
   /** Spec types to include */
-  types?: ('command' | 'query' | 'event' | 'presentation' | 'feature')[];
+  types?: (
+    | 'command'
+    | 'query'
+    | 'event'
+    | 'presentation'
+    | 'visualization'
+    | 'feature'
+  )[];
   /** Output format */
   outputFormat?: 'single' | 'per-spec' | 'per-feature';
 }
@@ -212,5 +224,6 @@ export type ExportableItem =
   | { type: 'spec'; item: AnyOperationSpec }
   | { type: 'feature'; item: FeatureModuleSpec }
   | { type: 'presentation'; item: PresentationSpec }
+  | { type: 'visualization'; item: VisualizationSpec }
   | { type: 'event'; item: EventSpec<AnySchemaModel> }
   | { type: 'doc'; item: DocBlock };
