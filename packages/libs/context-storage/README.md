@@ -1,42 +1,63 @@
 # @contractspec/lib.context-storage
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
 **Context pack and snapshot storage primitives.**
 
-Provides the store interface, domain types, and an in-memory implementation for managing context packs and snapshots. Packs describe curated sets of sources (docblocks, contracts, schemas); snapshots capture point-in-time materializations of those packs.
+## What It Provides
+
+- **Layer**: lib.
+- **Consumers**: module.context-storage.
+- Related ContractSpec packages include `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Related ContractSpec packages include `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Installation
 
-```bash
-bun add @contractspec/lib.context-storage
-```
+`npm install @contractspec/lib.context-storage`
 
-## Exports
+or
 
-- `.` -- Re-exports types, store interface, and in-memory implementation
-- `./store` -- `ContextSnapshotStore` interface (upsertPack, createSnapshot, listPacks, etc.)
-- `./in-memory-store` -- `InMemoryContextSnapshotStore` class
-- `./types` -- Domain types: `ContextPackRecord`, `ContextSnapshotRecord`, `ContextSnapshotItem`, queries, and list results
+`bun add @contractspec/lib.context-storage`
 
 ## Usage
 
-```ts
-import { InMemoryContextSnapshotStore } from "@contractspec/lib.context-storage/in-memory-store";
-import type { ContextPackRecord } from "@contractspec/lib.context-storage/types";
+Import the root entrypoint from `@contractspec/lib.context-storage`, or choose a documented subpath when you only need one part of the package surface.
 
-const store = new InMemoryContextSnapshotStore();
+## Architecture
 
-const pack: ContextPackRecord = {
-  packKey: "onboarding",
-  version: "1.0.0",
-  title: "Onboarding Context Pack",
-  tags: ["getting-started"],
-  createdAt: new Date().toISOString(),
-};
+- `src/in-memory-store.ts` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/store.ts` is part of the package's public or composition surface.
+- `src/types.ts` is shared public type definitions.
 
-await store.upsertPack(pack);
+## Public Entry Points
 
-const result = await store.listPacks({ tag: "getting-started" });
-console.log(result.packs);
-```
+- Export `.` resolves through `./src/index.ts`.
+- Export `./in-memory-store` resolves through `./src/in-memory-store.ts`.
+- Export `./store` resolves through `./src/store.ts`.
+- Export `./types` resolves through `./src/types.ts`.
+
+## Local Commands
+
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test --pass-with-no-tests
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
+
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed.
+- Add AI provider ranking system with ranking-driven model selection.
+
+## Notes
+
+- `Store` interface is the contract boundary for persistence adapters; do not change its shape without updating all adapters.

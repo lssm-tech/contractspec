@@ -1,28 +1,69 @@
 # @contractspec/example.video-marketing-clip
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
-Generate short-form marketing videos from content briefs using the video-gen pipeline.
+**Generate short-form marketing videos from content briefs using the video-gen pipeline.**
 
-This package demonstrates:
+## What This Demonstrates
 
-- End-to-end video generation: `ContentBrief` to `VideoBrief` to `VideoProject` via `VideoGenerator`
-- Multi-format output: landscape (16:9), square (1:1), and portrait (9:16)
-- Generating all three format variants in parallel with `generateAllFormats`
-- Fully deterministic pipeline without LLM or voice provider
+- Marketing clip generation from content briefs.
+- Brief definition pattern for video input.
+- Video-gen pipeline consumption.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/docs/` contains docblocks and documentation-facing exports.
 
-## Quickstart
+## Running Locally
 
-```typescript
-import { generateMarketingClip, generateAllFormats } from "@contractspec/example.video-marketing-clip";
-import { productLaunchBrief } from "@contractspec/example.video-marketing-clip";
+From `packages/examples/video-marketing-clip`:
+- `bun run dev`
+- `bun run build`
+- `bun run test`
+- `bun run typecheck`
 
-// Generate a single landscape clip
-const project = await generateMarketingClip(productLaunchBrief, "landscape");
+## Usage
 
-// Generate all three format variants in parallel
-const formats = await generateAllFormats(productLaunchBrief);
-// formats.landscape, formats.square, formats.portrait
-```
+Use `@contractspec/example.video-marketing-clip` as a reference implementation, or import its exported surfaces into a workspace that composes ContractSpec examples and bundles.
 
-Three sample briefs are included: a product launch ("Ship APIs 10x Faster"), a feature announcement ("Now Generating MCP Tools from Your Specs"), and a case study ("How Acme Corp Cut API Dev Time by 80%"). The scene planner automatically maps brief sections to `SocialClip` compositions.
+## Architecture
+
+- `src/briefs.ts` is part of the package's public or composition surface.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/example.ts` is the runnable example entrypoint.
+- `src/generate-clip.ts` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/video-marketing-clip.feature.ts` defines a feature entrypoint.
+
+## Public Entry Points
+
+- Export `.` resolves through `./src/index.ts`.
+- Export `./briefs` resolves through `./src/briefs.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./docs/video-marketing-clip.docblock` resolves through `./src/docs/video-marketing-clip.docblock.ts`.
+- Export `./example` resolves through `./src/example.ts`.
+- Export `./generate-clip` resolves through `./src/generate-clip.ts`.
+- Export `./video-marketing-clip.feature` resolves through `./src/video-marketing-clip.feature.ts`.
+
+## Local Commands
+
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test --pass-with-no-tests
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
+
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed.
+- Missing contract layers.
+
+## Notes
+
+- Works alongside `@contractspec/lib.content-gen`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.video-gen`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.

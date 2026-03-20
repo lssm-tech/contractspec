@@ -1,37 +1,79 @@
 # @contractspec/lib.video-gen
 
-Website: https://contractspec.io/
+**AI-powered video generation with Remotion: compositions, rendering, and design integration.**
 
-Programmatic video generation using Remotion. Follows the same generator pattern as `@contractspec/lib.content-gen` and consumes contracts from video provider integrations. All generators work deterministically by default -- LLM integration is optional and enhances output when available.
+## What It Provides
 
-## Modules
+- **Layer**: lib.
+- **Consumers**: bundles, video-studio app.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- Related ContractSpec packages include `@contractspec/lib.ai-providers`, `@contractspec/lib.content-gen`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.design-system`, `@contractspec/lib.image-gen`, ...
+- `src/docs/` contains docblocks and documentation-facing exports.
 
-- **Types** -- `VideoBrief`, `VideoGeneratorOptions`, `GeneratedVideo`, `ScenePlan`, `PlannedScene`, plus re-exported contract types (`VideoProject`, `RenderConfig`, `VideoFormat`)
-- **Design** -- Video-specific design tokens extending the design system: color tokens, motion/easing curves, typography scale (1920x1080), and layout safe zones with format variants (landscape/square/portrait)
-- **Compositions** -- Remotion compositions for rendering video scenes:
-  - **Primitives**: `AnimatedText`, `BrandFrame`, `CodeBlock`, `ProgressBar`, `Terminal`, `SceneTransitionWrapper`
-  - **Full**: `ApiOverview` (spec to API surface visualization), `SocialClip` (marketing content, adaptive formats), `TerminalDemo` (CLI walkthrough)
-- **Generators** -- `VideoGenerator` (main orchestrator), `ScenePlanner` (breaks briefs into scenes), `ScriptGenerator` (narration with professional/casual/technical styles)
-- **Renderers** -- `LocalRenderer` wrapping `@remotion/renderer` with quality presets (draft/standard/high)
-- **Player** -- `DemoPlayer` component for embedding in React apps via `@remotion/player`
+## Installation
 
-Deterministic by default: every generator produces consistent output without an LLM. When an LLM is provided via the constructor, generators produce richer, more varied content. On LLM failure, the system falls back to deterministic output automatically.
+`npm install @contractspec/lib.video-gen`
 
-## Quickstart
+or
 
-```typescript
-import { VideoGenerator } from "@contractspec/lib.video-gen/generators";
-import type { VideoBrief } from "@contractspec/lib.video-gen/types";
+`bun add @contractspec/lib.video-gen`
 
-const generator = new VideoGenerator(); // no LLM needed
+## Usage
 
-const brief: VideoBrief = {
-  title: "Ship APIs 10x Faster",
-  summary: "See how ContractSpec generates production-ready APIs from specs.",
-  format: "landscape",
-};
+Import the root entrypoint from `@contractspec/lib.video-gen`, or choose a documented subpath when you only need one part of the package surface.
 
-const project = await generator.generate(brief);
-```
+## Architecture
 
-Compositions are pure React components -- same props always produce the same visual output, with frame-based timing and no side effects.
+- `src/compositions` is part of the package's public or composition surface.
+- `src/design` is part of the package's public or composition surface.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/generators` is part of the package's public or composition surface.
+- `src/i18n` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/player` is part of the package's public or composition surface.
+- `src/types.ts` is shared public type definitions.
+
+## Public Entry Points
+
+- Export `.` resolves through `./src/index.ts`.
+- Export `./compositions` resolves through `./src/compositions/index.ts`.
+- Export `./compositions/api-overview` resolves through `./src/compositions/api-overview.tsx`.
+- Export `./compositions/primitives` resolves through `./src/compositions/primitives/index.ts`.
+- Export `./compositions/primitives/animated-text` resolves through `./src/compositions/primitives/animated-text.tsx`.
+- Export `./compositions/primitives/brand-frame` resolves through `./src/compositions/primitives/brand-frame.tsx`.
+- Export `./compositions/primitives/code-block` resolves through `./src/compositions/primitives/code-block.tsx`.
+- Export `./compositions/primitives/progress-bar` resolves through `./src/compositions/primitives/progress-bar.tsx`.
+- Export `./compositions/primitives/terminal` resolves through `./src/compositions/primitives/terminal.tsx`.
+- Export `./compositions/primitives/transition` resolves through `./src/compositions/primitives/transition.tsx`.
+- The package publishes 42 total export subpaths; keep docs aligned with `package.json`.
+
+## Local Commands
+
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test --pass-with-no-tests
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
+
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed.
+- Resolve lint, build, and type errors across nine packages.
+- Add first-class transport, auth, versioning, and BYOK support across all integrations.
+- Add AI provider ranking system with ranking-driven model selection.
+- Resolve lint/test regressions after voice capability updates.
+- Add @contractspec/lib.voice package for TTS, STT, and conversational voice.
+
+## Notes
+
+- Remotion composition API is version-sensitive — pin and test upgrades carefully.
+- Renderer interface is the adapter boundary — do not leak Remotion internals.
+- Depends on voice, content-gen, image-gen, design-system — coordinate cross-lib changes.

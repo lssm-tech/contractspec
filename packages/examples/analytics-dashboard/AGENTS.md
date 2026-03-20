@@ -1,40 +1,58 @@
-# AI Agent Guide -- `@contractspec/example.analytics-dashboard`
+# AI Agent Guide — `@contractspec/example.analytics-dashboard`
 
 Scope: `packages/examples/analytics-dashboard/*`
 
-Demonstrates an analytics dashboard with configurable widgets, a query engine, and PostHog datasource integration.
+Analytics Dashboard example with widgets and query engine for ContractSpec.
 
 ## Quick Context
 
-- **Layer**: example
-- **Related Packages**: `lib.schema`, `lib.contracts-spec`, `lib.contracts-integrations`, `lib.example-shared-ui`, `lib.design-system`, `lib.runtime-sandbox`
+- Layer: `example`.
+- Package visibility: published package.
+- Primary consumers are example explorers, template authors, and documentation readers.
+- Related packages: `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.design-system`, `@contractspec/lib.example-shared-ui`, `@contractspec/lib.runtime-sandbox`, `@contractspec/lib.schema`, ...
 
-## What This Demonstrates
+## Architecture
 
-- Dashboard feature with presentation, schema, enum, and test-spec
-- Query engine with typed operations and handlers
-- PostHog datasource adapter
-- React UI with hooks, renderers, and markdown output
-- Event definitions for analytics tracking
-- Seeders for demo data
+- `src/dashboard` is part of the package's public or composition surface.
+- `src/dashboard.feature.ts` defines a feature entrypoint.
+- `src/datasource` is part of the package's public or composition surface.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/events.ts` is package-level event definitions.
+- `src/example.ts` is the runnable example entrypoint.
+- `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 
-## Public Exports
+## Public Surface
 
-- `.` -- root barrel
-- `./dashboard` -- dashboard enum, operation, presentation, schema, test-spec
-- `./dashboard.feature` -- feature definition
-- `./query` -- query enum, operation, presentation, schema, test-spec
-- `./query-engine` -- query execution engine
-- `./datasource/posthog-datasource` -- PostHog adapter
-- `./handlers` -- analytics and query handlers
-- `./events` -- event definitions
-- `./seeders` -- demo data
-- `./ui` -- React components, hooks, renderers
-- `./docs` -- DocBlock documentation
-- `./example` -- runnable example entry point
+- Export `.` resolves through `./src/index.ts`.
+- Export `./dashboard` resolves through `./src/dashboard/index.ts`.
+- Export `./dashboard.feature` resolves through `./src/dashboard.feature.ts`.
+- Export `./dashboard/dashboard.enum` resolves through `./src/dashboard/dashboard.enum.ts`.
+- Export `./dashboard/dashboard.operation` resolves through `./src/dashboard/dashboard.operation.ts`.
+- Export `./dashboard/dashboard.presentation` resolves through `./src/dashboard/dashboard.presentation.ts`.
+- Export `./dashboard/dashboard.schema` resolves through `./src/dashboard/dashboard.schema.ts`.
+- Export `./dashboard/dashboard.test-spec` resolves through `./src/dashboard/dashboard.test-spec.ts`.
+- Export `./datasource/posthog-datasource` resolves through `./src/datasource/posthog-datasource.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- The package publishes 37 total export subpaths; keep docs aligned with `package.json`.
+
+## Guardrails
+
+- Keep the example package demonstrative, buildable, and aligned with the exported feature surface.
+- Do not add hidden production assumptions that are not actually implemented in the example.
+- Changes here can affect downstream packages such as `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.design-system`, `@contractspec/lib.example-shared-ui`, `@contractspec/lib.runtime-sandbox`, `@contractspec/lib.schema`, ....
+- Changes here can affect downstream packages such as `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.design-system`, `@contractspec/lib.example-shared-ui`, `@contractspec/lib.runtime-sandbox`, `@contractspec/lib.schema`, ...
 
 ## Local Commands
 
-- Build: `bun run build`
-- Dev: `bun run dev`
-- Typecheck: `bun run typecheck`
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild

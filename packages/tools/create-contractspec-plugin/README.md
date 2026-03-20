@@ -1,68 +1,67 @@
 # @contractspec/tool.create-contractspec-plugin
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
-**Scaffold ContractSpec plugins from templates** -- interactive CLI that generates plugin projects with proper structure, types, and tests.
+**CLI tool for creating ContractSpec plugins from templates.**
+
+## What It Provides
+
+- **Layer**: tool.
+- **Consumers**: plugin authors (via `create-contractspec-plugin` CLI).
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Installation
 
+`npm install @contractspec/tool.create-contractspec-plugin`
+
+or
+
+`bun add @contractspec/tool.create-contractspec-plugin`
+
+## Usage
+
 ```bash
-bun add -g @contractspec/tool.create-contractspec-plugin
+npx create-contractspec-plugin --help
+# or
+bunx create-contractspec-plugin --help
 ```
 
-## Quick Start
+## Architecture
 
-```bash
-# Interactive plugin creation
-create-contractspec-plugin create
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/templates` is part of the package's public or composition surface.
+- `src/utils.ts` is part of the package's public or composition surface.
 
-# Create with options
-create-contractspec-plugin create --name my-plugin --type generator
+## Public Entry Points
 
-# Dry run to preview
-create-contractspec-plugin create --name my-plugin --dry-run
+- Binary `create-contractspec-plugin` points to `./dist/index.js`.
+- Export `.` resolves through `./src/index.ts`.
+- Export `./templates/example-generator` resolves through `./src/templates/example-generator.ts`.
+- Export `./utils` resolves through `./src/utils.ts`.
 
-# List available templates
-create-contractspec-plugin list-templates
-```
+## Local Commands
 
-## Commands
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test --pass-with-no-tests
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-### `create`
+## Recent Updates
 
-Scaffold a new plugin project.
+- Replace eslint+prettier by biomejs to optimize speed.
 
-| Option | Description | Default |
-| --- | --- | --- |
-| `-n, --name <name>` | Plugin name (kebab-case) | interactive |
-| `-t, --type <type>` | Plugin type | `generator` |
-| `-d, --description <desc>` | Plugin description | interactive |
-| `-a, --author <author>` | Author name | git config |
-| `--template <template>` | Template to use | `example-generator` |
-| `--dry-run` | Preview without creating files | `false` |
+## Notes
 
-**Plugin types**: `generator`, `transformer`, `validator`, `event`
-
-### `list-templates`
-
-Show available scaffold templates.
-
-## Exports
-
-- `.` -- CLI entry point and `PluginConfig` types
-- `./templates/example-generator` -- Example generator template definition
-- `./utils` -- Template rendering utilities (`renderTemplate`)
-
-## Generated Structure
-
-```
-my-plugin/
-  src/
-    types/
-    utils/
-    templates/
-  tests/
-  docs/
-  .github/workflows/
-  package.json
-```
+- Template files live in `templates/` -- keep them in sync with the current plugin contract.
+- Do not change interactive prompts without updating the corresponding template variables.
+- Depends on `@contractspec/lib.contracts-spec` and `@contractspec/lib.schema` -- respect their APIs.

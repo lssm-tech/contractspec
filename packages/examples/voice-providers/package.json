@@ -1,127 +1,127 @@
 {
-  "name": "@contractspec/example.voice-providers",
-  "version": "3.7.6",
-  "description": "Voice provider example: Gradium and Fal text-to-speech integration patterns.",
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./src/index.ts",
-    "./connection.sample": "./src/connection.sample.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/voice-providers.docblock": "./src/docs/voice-providers.docblock.ts",
-    "./example": "./src/example.ts",
-    "./handlers/create-provider": "./src/handlers/create-provider.ts",
-    "./handlers/list-voices": "./src/handlers/list-voices.ts",
-    "./handlers/synthesize": "./src/handlers/synthesize.ts",
-    "./run": "./src/run.ts",
-    "./voice-providers.feature": "./src/voice-providers.feature.ts"
-  },
-  "scripts": {
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
-    "build:bundle": "contractspec-bun-build transpile",
-    "build:types": "contractspec-bun-build types",
-    "dev": "contractspec-bun-build dev",
-    "clean": "rimraf dist .turbo",
-    "lint": "bun lint:fix",
-    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-    "lint:check": "biome check .",
-    "test": "bun test --pass-with-no-tests",
-    "prebuild": "contractspec-bun-build prebuild",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@contractspec/integration.providers-impls": "workspace:*",
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "@contractspec/lib.contracts-integrations": "workspace:*"
-  },
-  "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:",
-    "@contractspec/tool.bun": "workspace:*"
-  },
-  "publishConfig": {
-    "access": "public",
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "browser": "./dist/browser/index.js",
-        "bun": "./dist/index.js",
-        "node": "./dist/node/index.js",
-        "default": "./dist/index.js"
-      },
-      "./connection.sample": {
-        "types": "./dist/connection.sample.d.ts",
-        "browser": "./dist/browser/connection.sample.js",
-        "bun": "./dist/connection.sample.js",
-        "node": "./dist/node/connection.sample.js",
-        "default": "./dist/connection.sample.js"
-      },
-      "./docs": {
-        "types": "./dist/docs/index.d.ts",
-        "browser": "./dist/browser/docs/index.js",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/voice-providers.docblock": {
-        "types": "./dist/docs/voice-providers.docblock.d.ts",
-        "browser": "./dist/browser/docs/voice-providers.docblock.js",
-        "bun": "./dist/docs/voice-providers.docblock.js",
-        "node": "./dist/node/docs/voice-providers.docblock.js",
-        "default": "./dist/docs/voice-providers.docblock.js"
-      },
-      "./example": {
-        "types": "./dist/example.d.ts",
-        "browser": "./dist/browser/example.js",
-        "bun": "./dist/example.js",
-        "node": "./dist/node/example.js",
-        "default": "./dist/example.js"
-      },
-      "./handlers/create-provider": {
-        "types": "./dist/handlers/create-provider.d.ts",
-        "browser": "./dist/browser/handlers/create-provider.js",
-        "bun": "./dist/handlers/create-provider.js",
-        "node": "./dist/node/handlers/create-provider.js",
-        "default": "./dist/handlers/create-provider.js"
-      },
-      "./handlers/list-voices": {
-        "types": "./dist/handlers/list-voices.d.ts",
-        "browser": "./dist/browser/handlers/list-voices.js",
-        "bun": "./dist/handlers/list-voices.js",
-        "node": "./dist/node/handlers/list-voices.js",
-        "default": "./dist/handlers/list-voices.js"
-      },
-      "./handlers/synthesize": {
-        "types": "./dist/handlers/synthesize.d.ts",
-        "browser": "./dist/browser/handlers/synthesize.js",
-        "bun": "./dist/handlers/synthesize.js",
-        "node": "./dist/node/handlers/synthesize.js",
-        "default": "./dist/handlers/synthesize.js"
-      },
-      "./run": {
-        "types": "./dist/run.d.ts",
-        "browser": "./dist/browser/run.js",
-        "bun": "./dist/run.js",
-        "node": "./dist/node/run.js",
-        "default": "./dist/run.js"
-      },
-      "./voice-providers.feature": {
-        "types": "./dist/voice-providers.feature.d.ts",
-        "browser": "./dist/browser/voice-providers.feature.js",
-        "bun": "./dist/voice-providers.feature.js",
-        "node": "./dist/node/voice-providers.feature.js",
-        "default": "./dist/voice-providers.feature.js"
-      }
-    },
-    "registry": "https://registry.npmjs.org/"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/examples/voice-providers"
-  },
-  "homepage": "https://contractspec.io"
+	"name": "@contractspec/example.voice-providers",
+	"version": "3.7.6",
+	"description": "Voice provider example: Gradium and Fal text-to-speech integration patterns.",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./connection.sample": "./src/connection.sample.ts",
+		"./docs": "./src/docs/index.ts",
+		"./docs/voice-providers.docblock": "./src/docs/voice-providers.docblock.ts",
+		"./example": "./src/example.ts",
+		"./handlers/create-provider": "./src/handlers/create-provider.ts",
+		"./handlers/list-voices": "./src/handlers/list-voices.ts",
+		"./handlers/synthesize": "./src/handlers/synthesize.ts",
+		"./run": "./src/run.ts",
+		"./voice-providers.feature": "./src/voice-providers.feature.ts"
+	},
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"test": "bun test --pass-with-no-tests",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/integration.providers-impls": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.contracts-integrations": "workspace:*"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@contractspec/tool.bun": "workspace:*"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./connection.sample": {
+				"types": "./dist/connection.sample.d.ts",
+				"browser": "./dist/browser/connection.sample.js",
+				"bun": "./dist/connection.sample.js",
+				"node": "./dist/node/connection.sample.js",
+				"default": "./dist/connection.sample.js"
+			},
+			"./docs": {
+				"types": "./dist/docs/index.d.ts",
+				"browser": "./dist/browser/docs/index.js",
+				"bun": "./dist/docs/index.js",
+				"node": "./dist/node/docs/index.js",
+				"default": "./dist/docs/index.js"
+			},
+			"./docs/voice-providers.docblock": {
+				"types": "./dist/docs/voice-providers.docblock.d.ts",
+				"browser": "./dist/browser/docs/voice-providers.docblock.js",
+				"bun": "./dist/docs/voice-providers.docblock.js",
+				"node": "./dist/node/docs/voice-providers.docblock.js",
+				"default": "./dist/docs/voice-providers.docblock.js"
+			},
+			"./example": {
+				"types": "./dist/example.d.ts",
+				"browser": "./dist/browser/example.js",
+				"bun": "./dist/example.js",
+				"node": "./dist/node/example.js",
+				"default": "./dist/example.js"
+			},
+			"./handlers/create-provider": {
+				"types": "./dist/handlers/create-provider.d.ts",
+				"browser": "./dist/browser/handlers/create-provider.js",
+				"bun": "./dist/handlers/create-provider.js",
+				"node": "./dist/node/handlers/create-provider.js",
+				"default": "./dist/handlers/create-provider.js"
+			},
+			"./handlers/list-voices": {
+				"types": "./dist/handlers/list-voices.d.ts",
+				"browser": "./dist/browser/handlers/list-voices.js",
+				"bun": "./dist/handlers/list-voices.js",
+				"node": "./dist/node/handlers/list-voices.js",
+				"default": "./dist/handlers/list-voices.js"
+			},
+			"./handlers/synthesize": {
+				"types": "./dist/handlers/synthesize.d.ts",
+				"browser": "./dist/browser/handlers/synthesize.js",
+				"bun": "./dist/handlers/synthesize.js",
+				"node": "./dist/node/handlers/synthesize.js",
+				"default": "./dist/handlers/synthesize.js"
+			},
+			"./run": {
+				"types": "./dist/run.d.ts",
+				"browser": "./dist/browser/run.js",
+				"bun": "./dist/run.js",
+				"node": "./dist/node/run.js",
+				"default": "./dist/run.js"
+			},
+			"./voice-providers.feature": {
+				"types": "./dist/voice-providers.feature.d.ts",
+				"browser": "./dist/browser/voice-providers.feature.js",
+				"bun": "./dist/voice-providers.feature.js",
+				"node": "./dist/node/voice-providers.feature.js",
+				"default": "./dist/voice-providers.feature.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/examples/voice-providers"
+	},
+	"homepage": "https://contractspec.io"
 }

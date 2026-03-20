@@ -1,441 +1,441 @@
 {
-  "name": "@contractspec/example.saas-boilerplate",
-  "version": "3.7.6",
-  "description": "SaaS Boilerplate - Users, Orgs, Projects, Billing, Settings",
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./src/index.ts",
-    "./billing": "./src/billing/index.ts",
-    "./billing/billing.entity": "./src/billing/billing.entity.ts",
-    "./billing/billing.enum": "./src/billing/billing.enum.ts",
-    "./billing/billing.event": "./src/billing/billing.event.ts",
-    "./billing/billing.handler": "./src/billing/billing.handler.ts",
-    "./billing/billing.operations": "./src/billing/billing.operations.ts",
-    "./billing/billing.presentation": "./src/billing/billing.presentation.ts",
-    "./billing/billing.schema": "./src/billing/billing.schema.ts",
-    "./dashboard": "./src/dashboard/index.ts",
-    "./dashboard/dashboard.presentation": "./src/dashboard/dashboard.presentation.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/saas-boilerplate.docblock": "./src/docs/saas-boilerplate.docblock.ts",
-    "./example": "./src/example.ts",
-    "./handlers": "./src/handlers/index.ts",
-    "./handlers/saas.handlers": "./src/handlers/saas.handlers.ts",
-    "./presentations": "./src/presentations/index.ts",
-    "./project": "./src/project/index.ts",
-    "./project/project.entity": "./src/project/project.entity.ts",
-    "./project/project.enum": "./src/project/project.enum.ts",
-    "./project/project.event": "./src/project/project.event.ts",
-    "./project/project.handler": "./src/project/project.handler.ts",
-    "./project/project.operations": "./src/project/project.operations.ts",
-    "./project/project.presentation": "./src/project/project.presentation.ts",
-    "./project/project.schema": "./src/project/project.schema.ts",
-    "./saas-boilerplate.feature": "./src/saas-boilerplate.feature.ts",
-    "./seeders": "./src/seeders/index.ts",
-    "./settings": "./src/settings/index.ts",
-    "./settings/settings.entity": "./src/settings/settings.entity.ts",
-    "./settings/settings.enum": "./src/settings/settings.enum.ts",
-    "./shared/mock-data": "./src/shared/mock-data.ts",
-    "./shared/overlay-types": "./src/shared/overlay-types.ts",
-    "./tests/operations.test-spec": "./src/tests/operations.test-spec.ts",
-    "./ui": "./src/ui/index.ts",
-    "./ui/hooks": "./src/ui/hooks/index.ts",
-    "./ui/hooks/useProjectList": "./src/ui/hooks/useProjectList.ts",
-    "./ui/hooks/useProjectMutations": "./src/ui/hooks/useProjectMutations.ts",
-    "./ui/modals": "./src/ui/modals/index.ts",
-    "./ui/modals/CreateProjectModal": "./src/ui/modals/CreateProjectModal.tsx",
-    "./ui/modals/ProjectActionsModal": "./src/ui/modals/ProjectActionsModal.tsx",
-    "./ui/overlays": "./src/ui/overlays/index.ts",
-    "./ui/overlays/demo-overlays": "./src/ui/overlays/demo-overlays.ts",
-    "./ui/renderers": "./src/ui/renderers/index.ts",
-    "./ui/renderers/project-list.markdown": "./src/ui/renderers/project-list.markdown.ts",
-    "./ui/renderers/project-list.renderer": "./src/ui/renderers/project-list.renderer.tsx",
-    "./ui/SaasDashboard": "./src/ui/SaasDashboard.tsx",
-    "./ui/SaasProjectList": "./src/ui/SaasProjectList.tsx",
-    "./ui/SaasSettingsPanel": "./src/ui/SaasSettingsPanel.tsx"
-  },
-  "scripts": {
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
-    "build:bundle": "contractspec-bun-build transpile",
-    "build:types": "contractspec-bun-build types",
-    "dev": "contractspec-bun-build dev",
-    "clean": "rimraf dist .turbo",
-    "lint": "bun lint:fix",
-    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-    "lint:check": "biome check .",
-    "test": "bun test --pass-with-no-tests",
-    "prebuild": "contractspec-bun-build prebuild",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@contractspec/lib.identity-rbac": "workspace:*",
-    "@contractspec/lib.jobs": "workspace:*",
-    "@contractspec/module.audit-trail": "workspace:*",
-    "@contractspec/module.notifications": "workspace:*",
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.example-shared-ui": "workspace:*",
-    "@contractspec/lib.design-system": "workspace:*",
-    "@contractspec/lib.runtime-sandbox": "workspace:*",
-    "react": "catalog:",
-    "react-dom": "catalog:"
-  },
-  "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.2",
-    "@contractspec/tool.bun": "workspace:*"
-  },
-  "publishConfig": {
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "browser": "./dist/browser/index.js",
-        "bun": "./dist/index.js",
-        "node": "./dist/node/index.js",
-        "default": "./dist/index.js"
-      },
-      "./billing": {
-        "types": "./dist/billing/index.d.ts",
-        "browser": "./dist/browser/billing/index.js",
-        "bun": "./dist/billing/index.js",
-        "node": "./dist/node/billing/index.js",
-        "default": "./dist/billing/index.js"
-      },
-      "./billing/billing.entity": {
-        "types": "./dist/billing/billing.entity.d.ts",
-        "browser": "./dist/browser/billing/billing.entity.js",
-        "bun": "./dist/billing/billing.entity.js",
-        "node": "./dist/node/billing/billing.entity.js",
-        "default": "./dist/billing/billing.entity.js"
-      },
-      "./billing/billing.enum": {
-        "types": "./dist/billing/billing.enum.d.ts",
-        "browser": "./dist/browser/billing/billing.enum.js",
-        "bun": "./dist/billing/billing.enum.js",
-        "node": "./dist/node/billing/billing.enum.js",
-        "default": "./dist/billing/billing.enum.js"
-      },
-      "./billing/billing.event": {
-        "types": "./dist/billing/billing.event.d.ts",
-        "browser": "./dist/browser/billing/billing.event.js",
-        "bun": "./dist/billing/billing.event.js",
-        "node": "./dist/node/billing/billing.event.js",
-        "default": "./dist/billing/billing.event.js"
-      },
-      "./billing/billing.handler": {
-        "types": "./dist/billing/billing.handler.d.ts",
-        "browser": "./dist/browser/billing/billing.handler.js",
-        "bun": "./dist/billing/billing.handler.js",
-        "node": "./dist/node/billing/billing.handler.js",
-        "default": "./dist/billing/billing.handler.js"
-      },
-      "./billing/billing.operations": {
-        "types": "./dist/billing/billing.operations.d.ts",
-        "browser": "./dist/browser/billing/billing.operations.js",
-        "bun": "./dist/billing/billing.operations.js",
-        "node": "./dist/node/billing/billing.operations.js",
-        "default": "./dist/billing/billing.operations.js"
-      },
-      "./billing/billing.presentation": {
-        "types": "./dist/billing/billing.presentation.d.ts",
-        "browser": "./dist/browser/billing/billing.presentation.js",
-        "bun": "./dist/billing/billing.presentation.js",
-        "node": "./dist/node/billing/billing.presentation.js",
-        "default": "./dist/billing/billing.presentation.js"
-      },
-      "./billing/billing.schema": {
-        "types": "./dist/billing/billing.schema.d.ts",
-        "browser": "./dist/browser/billing/billing.schema.js",
-        "bun": "./dist/billing/billing.schema.js",
-        "node": "./dist/node/billing/billing.schema.js",
-        "default": "./dist/billing/billing.schema.js"
-      },
-      "./dashboard": {
-        "types": "./dist/dashboard/index.d.ts",
-        "browser": "./dist/browser/dashboard/index.js",
-        "bun": "./dist/dashboard/index.js",
-        "node": "./dist/node/dashboard/index.js",
-        "default": "./dist/dashboard/index.js"
-      },
-      "./dashboard/dashboard.presentation": {
-        "types": "./dist/dashboard/dashboard.presentation.d.ts",
-        "browser": "./dist/browser/dashboard/dashboard.presentation.js",
-        "bun": "./dist/dashboard/dashboard.presentation.js",
-        "node": "./dist/node/dashboard/dashboard.presentation.js",
-        "default": "./dist/dashboard/dashboard.presentation.js"
-      },
-      "./docs": {
-        "types": "./dist/docs/index.d.ts",
-        "browser": "./dist/browser/docs/index.js",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/saas-boilerplate.docblock": {
-        "types": "./dist/docs/saas-boilerplate.docblock.d.ts",
-        "browser": "./dist/browser/docs/saas-boilerplate.docblock.js",
-        "bun": "./dist/docs/saas-boilerplate.docblock.js",
-        "node": "./dist/node/docs/saas-boilerplate.docblock.js",
-        "default": "./dist/docs/saas-boilerplate.docblock.js"
-      },
-      "./example": {
-        "types": "./dist/example.d.ts",
-        "browser": "./dist/browser/example.js",
-        "bun": "./dist/example.js",
-        "node": "./dist/node/example.js",
-        "default": "./dist/example.js"
-      },
-      "./handlers": {
-        "types": "./dist/handlers/index.d.ts",
-        "browser": "./dist/browser/handlers/index.js",
-        "bun": "./dist/handlers/index.js",
-        "node": "./dist/node/handlers/index.js",
-        "default": "./dist/handlers/index.js"
-      },
-      "./handlers/saas.handlers": {
-        "types": "./dist/handlers/saas.handlers.d.ts",
-        "browser": "./dist/browser/handlers/saas.handlers.js",
-        "bun": "./dist/handlers/saas.handlers.js",
-        "node": "./dist/node/handlers/saas.handlers.js",
-        "default": "./dist/handlers/saas.handlers.js"
-      },
-      "./presentations": {
-        "types": "./dist/presentations/index.d.ts",
-        "browser": "./dist/browser/presentations/index.js",
-        "bun": "./dist/presentations/index.js",
-        "node": "./dist/node/presentations/index.js",
-        "default": "./dist/presentations/index.js"
-      },
-      "./project": {
-        "types": "./dist/project/index.d.ts",
-        "browser": "./dist/browser/project/index.js",
-        "bun": "./dist/project/index.js",
-        "node": "./dist/node/project/index.js",
-        "default": "./dist/project/index.js"
-      },
-      "./project/project.entity": {
-        "types": "./dist/project/project.entity.d.ts",
-        "browser": "./dist/browser/project/project.entity.js",
-        "bun": "./dist/project/project.entity.js",
-        "node": "./dist/node/project/project.entity.js",
-        "default": "./dist/project/project.entity.js"
-      },
-      "./project/project.enum": {
-        "types": "./dist/project/project.enum.d.ts",
-        "browser": "./dist/browser/project/project.enum.js",
-        "bun": "./dist/project/project.enum.js",
-        "node": "./dist/node/project/project.enum.js",
-        "default": "./dist/project/project.enum.js"
-      },
-      "./project/project.event": {
-        "types": "./dist/project/project.event.d.ts",
-        "browser": "./dist/browser/project/project.event.js",
-        "bun": "./dist/project/project.event.js",
-        "node": "./dist/node/project/project.event.js",
-        "default": "./dist/project/project.event.js"
-      },
-      "./project/project.handler": {
-        "types": "./dist/project/project.handler.d.ts",
-        "browser": "./dist/browser/project/project.handler.js",
-        "bun": "./dist/project/project.handler.js",
-        "node": "./dist/node/project/project.handler.js",
-        "default": "./dist/project/project.handler.js"
-      },
-      "./project/project.operations": {
-        "types": "./dist/project/project.operations.d.ts",
-        "browser": "./dist/browser/project/project.operations.js",
-        "bun": "./dist/project/project.operations.js",
-        "node": "./dist/node/project/project.operations.js",
-        "default": "./dist/project/project.operations.js"
-      },
-      "./project/project.presentation": {
-        "types": "./dist/project/project.presentation.d.ts",
-        "browser": "./dist/browser/project/project.presentation.js",
-        "bun": "./dist/project/project.presentation.js",
-        "node": "./dist/node/project/project.presentation.js",
-        "default": "./dist/project/project.presentation.js"
-      },
-      "./project/project.schema": {
-        "types": "./dist/project/project.schema.d.ts",
-        "browser": "./dist/browser/project/project.schema.js",
-        "bun": "./dist/project/project.schema.js",
-        "node": "./dist/node/project/project.schema.js",
-        "default": "./dist/project/project.schema.js"
-      },
-      "./saas-boilerplate.feature": {
-        "types": "./dist/saas-boilerplate.feature.d.ts",
-        "browser": "./dist/browser/saas-boilerplate.feature.js",
-        "bun": "./dist/saas-boilerplate.feature.js",
-        "node": "./dist/node/saas-boilerplate.feature.js",
-        "default": "./dist/saas-boilerplate.feature.js"
-      },
-      "./seeders": {
-        "types": "./dist/seeders/index.d.ts",
-        "browser": "./dist/browser/seeders/index.js",
-        "bun": "./dist/seeders/index.js",
-        "node": "./dist/node/seeders/index.js",
-        "default": "./dist/seeders/index.js"
-      },
-      "./settings": {
-        "types": "./dist/settings/index.d.ts",
-        "browser": "./dist/browser/settings/index.js",
-        "bun": "./dist/settings/index.js",
-        "node": "./dist/node/settings/index.js",
-        "default": "./dist/settings/index.js"
-      },
-      "./settings/settings.entity": {
-        "types": "./dist/settings/settings.entity.d.ts",
-        "browser": "./dist/browser/settings/settings.entity.js",
-        "bun": "./dist/settings/settings.entity.js",
-        "node": "./dist/node/settings/settings.entity.js",
-        "default": "./dist/settings/settings.entity.js"
-      },
-      "./settings/settings.enum": {
-        "types": "./dist/settings/settings.enum.d.ts",
-        "browser": "./dist/browser/settings/settings.enum.js",
-        "bun": "./dist/settings/settings.enum.js",
-        "node": "./dist/node/settings/settings.enum.js",
-        "default": "./dist/settings/settings.enum.js"
-      },
-      "./shared/mock-data": {
-        "types": "./dist/shared/mock-data.d.ts",
-        "browser": "./dist/browser/shared/mock-data.js",
-        "bun": "./dist/shared/mock-data.js",
-        "node": "./dist/node/shared/mock-data.js",
-        "default": "./dist/shared/mock-data.js"
-      },
-      "./shared/overlay-types": {
-        "types": "./dist/shared/overlay-types.d.ts",
-        "browser": "./dist/browser/shared/overlay-types.js",
-        "bun": "./dist/shared/overlay-types.js",
-        "node": "./dist/node/shared/overlay-types.js",
-        "default": "./dist/shared/overlay-types.js"
-      },
-      "./tests/operations.test-spec": {
-        "types": "./dist/tests/operations.test-spec.d.ts",
-        "browser": "./dist/browser/tests/operations.test-spec.js",
-        "bun": "./dist/tests/operations.test-spec.js",
-        "node": "./dist/node/tests/operations.test-spec.js",
-        "default": "./dist/tests/operations.test-spec.js"
-      },
-      "./ui": {
-        "types": "./dist/ui/index.d.ts",
-        "browser": "./dist/browser/ui/index.js",
-        "bun": "./dist/ui/index.js",
-        "node": "./dist/node/ui/index.js",
-        "default": "./dist/ui/index.js"
-      },
-      "./ui/hooks": {
-        "types": "./dist/ui/hooks/index.d.ts",
-        "browser": "./dist/browser/ui/hooks/index.js",
-        "bun": "./dist/ui/hooks/index.js",
-        "node": "./dist/node/ui/hooks/index.js",
-        "default": "./dist/ui/hooks/index.js"
-      },
-      "./ui/hooks/useProjectList": {
-        "types": "./dist/ui/hooks/useProjectList.d.ts",
-        "browser": "./dist/browser/ui/hooks/useProjectList.js",
-        "bun": "./dist/ui/hooks/useProjectList.js",
-        "node": "./dist/node/ui/hooks/useProjectList.js",
-        "default": "./dist/ui/hooks/useProjectList.js"
-      },
-      "./ui/hooks/useProjectMutations": {
-        "types": "./dist/ui/hooks/useProjectMutations.d.ts",
-        "browser": "./dist/browser/ui/hooks/useProjectMutations.js",
-        "bun": "./dist/ui/hooks/useProjectMutations.js",
-        "node": "./dist/node/ui/hooks/useProjectMutations.js",
-        "default": "./dist/ui/hooks/useProjectMutations.js"
-      },
-      "./ui/modals": {
-        "types": "./dist/ui/modals/index.d.ts",
-        "browser": "./dist/browser/ui/modals/index.js",
-        "bun": "./dist/ui/modals/index.js",
-        "node": "./dist/node/ui/modals/index.js",
-        "default": "./dist/ui/modals/index.js"
-      },
-      "./ui/modals/CreateProjectModal": {
-        "types": "./dist/ui/modals/CreateProjectModal.d.ts",
-        "browser": "./dist/browser/ui/modals/CreateProjectModal.js",
-        "bun": "./dist/ui/modals/CreateProjectModal.js",
-        "node": "./dist/node/ui/modals/CreateProjectModal.js",
-        "default": "./dist/ui/modals/CreateProjectModal.js"
-      },
-      "./ui/modals/ProjectActionsModal": {
-        "types": "./dist/ui/modals/ProjectActionsModal.d.ts",
-        "browser": "./dist/browser/ui/modals/ProjectActionsModal.js",
-        "bun": "./dist/ui/modals/ProjectActionsModal.js",
-        "node": "./dist/node/ui/modals/ProjectActionsModal.js",
-        "default": "./dist/ui/modals/ProjectActionsModal.js"
-      },
-      "./ui/overlays": {
-        "types": "./dist/ui/overlays/index.d.ts",
-        "browser": "./dist/browser/ui/overlays/index.js",
-        "bun": "./dist/ui/overlays/index.js",
-        "node": "./dist/node/ui/overlays/index.js",
-        "default": "./dist/ui/overlays/index.js"
-      },
-      "./ui/overlays/demo-overlays": {
-        "types": "./dist/ui/overlays/demo-overlays.d.ts",
-        "browser": "./dist/browser/ui/overlays/demo-overlays.js",
-        "bun": "./dist/ui/overlays/demo-overlays.js",
-        "node": "./dist/node/ui/overlays/demo-overlays.js",
-        "default": "./dist/ui/overlays/demo-overlays.js"
-      },
-      "./ui/renderers": {
-        "types": "./dist/ui/renderers/index.d.ts",
-        "browser": "./dist/browser/ui/renderers/index.js",
-        "bun": "./dist/ui/renderers/index.js",
-        "node": "./dist/node/ui/renderers/index.js",
-        "default": "./dist/ui/renderers/index.js"
-      },
-      "./ui/renderers/project-list.markdown": {
-        "types": "./dist/ui/renderers/project-list.markdown.d.ts",
-        "browser": "./dist/browser/ui/renderers/project-list.markdown.js",
-        "bun": "./dist/ui/renderers/project-list.markdown.js",
-        "node": "./dist/node/ui/renderers/project-list.markdown.js",
-        "default": "./dist/ui/renderers/project-list.markdown.js"
-      },
-      "./ui/renderers/project-list.renderer": {
-        "types": "./dist/ui/renderers/project-list.renderer.d.ts",
-        "browser": "./dist/browser/ui/renderers/project-list.renderer.js",
-        "bun": "./dist/ui/renderers/project-list.renderer.js",
-        "node": "./dist/node/ui/renderers/project-list.renderer.js",
-        "default": "./dist/ui/renderers/project-list.renderer.js"
-      },
-      "./ui/SaasDashboard": {
-        "types": "./dist/ui/SaasDashboard.d.ts",
-        "browser": "./dist/browser/ui/SaasDashboard.js",
-        "bun": "./dist/ui/SaasDashboard.js",
-        "node": "./dist/node/ui/SaasDashboard.js",
-        "default": "./dist/ui/SaasDashboard.js"
-      },
-      "./ui/SaasProjectList": {
-        "types": "./dist/ui/SaasProjectList.d.ts",
-        "browser": "./dist/browser/ui/SaasProjectList.js",
-        "bun": "./dist/ui/SaasProjectList.js",
-        "node": "./dist/node/ui/SaasProjectList.js",
-        "default": "./dist/ui/SaasProjectList.js"
-      },
-      "./ui/SaasSettingsPanel": {
-        "types": "./dist/ui/SaasSettingsPanel.d.ts",
-        "browser": "./dist/browser/ui/SaasSettingsPanel.js",
-        "bun": "./dist/ui/SaasSettingsPanel.js",
-        "node": "./dist/node/ui/SaasSettingsPanel.js",
-        "default": "./dist/ui/SaasSettingsPanel.js"
-      }
-    },
-    "registry": "https://registry.npmjs.org/",
-    "access": "public"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/examples/saas-boilerplate"
-  },
-  "homepage": "https://contractspec.io"
+	"name": "@contractspec/example.saas-boilerplate",
+	"version": "3.7.6",
+	"description": "SaaS Boilerplate - Users, Orgs, Projects, Billing, Settings",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./billing": "./src/billing/index.ts",
+		"./billing/billing.entity": "./src/billing/billing.entity.ts",
+		"./billing/billing.enum": "./src/billing/billing.enum.ts",
+		"./billing/billing.event": "./src/billing/billing.event.ts",
+		"./billing/billing.handler": "./src/billing/billing.handler.ts",
+		"./billing/billing.operations": "./src/billing/billing.operations.ts",
+		"./billing/billing.presentation": "./src/billing/billing.presentation.ts",
+		"./billing/billing.schema": "./src/billing/billing.schema.ts",
+		"./dashboard": "./src/dashboard/index.ts",
+		"./dashboard/dashboard.presentation": "./src/dashboard/dashboard.presentation.ts",
+		"./docs": "./src/docs/index.ts",
+		"./docs/saas-boilerplate.docblock": "./src/docs/saas-boilerplate.docblock.ts",
+		"./example": "./src/example.ts",
+		"./handlers": "./src/handlers/index.ts",
+		"./handlers/saas.handlers": "./src/handlers/saas.handlers.ts",
+		"./presentations": "./src/presentations/index.ts",
+		"./project": "./src/project/index.ts",
+		"./project/project.entity": "./src/project/project.entity.ts",
+		"./project/project.enum": "./src/project/project.enum.ts",
+		"./project/project.event": "./src/project/project.event.ts",
+		"./project/project.handler": "./src/project/project.handler.ts",
+		"./project/project.operations": "./src/project/project.operations.ts",
+		"./project/project.presentation": "./src/project/project.presentation.ts",
+		"./project/project.schema": "./src/project/project.schema.ts",
+		"./saas-boilerplate.feature": "./src/saas-boilerplate.feature.ts",
+		"./seeders": "./src/seeders/index.ts",
+		"./settings": "./src/settings/index.ts",
+		"./settings/settings.entity": "./src/settings/settings.entity.ts",
+		"./settings/settings.enum": "./src/settings/settings.enum.ts",
+		"./shared/mock-data": "./src/shared/mock-data.ts",
+		"./shared/overlay-types": "./src/shared/overlay-types.ts",
+		"./tests/operations.test-spec": "./src/tests/operations.test-spec.ts",
+		"./ui": "./src/ui/index.ts",
+		"./ui/hooks": "./src/ui/hooks/index.ts",
+		"./ui/hooks/useProjectList": "./src/ui/hooks/useProjectList.ts",
+		"./ui/hooks/useProjectMutations": "./src/ui/hooks/useProjectMutations.ts",
+		"./ui/modals": "./src/ui/modals/index.ts",
+		"./ui/modals/CreateProjectModal": "./src/ui/modals/CreateProjectModal.tsx",
+		"./ui/modals/ProjectActionsModal": "./src/ui/modals/ProjectActionsModal.tsx",
+		"./ui/overlays": "./src/ui/overlays/index.ts",
+		"./ui/overlays/demo-overlays": "./src/ui/overlays/demo-overlays.ts",
+		"./ui/renderers": "./src/ui/renderers/index.ts",
+		"./ui/renderers/project-list.markdown": "./src/ui/renderers/project-list.markdown.ts",
+		"./ui/renderers/project-list.renderer": "./src/ui/renderers/project-list.renderer.tsx",
+		"./ui/SaasDashboard": "./src/ui/SaasDashboard.tsx",
+		"./ui/SaasProjectList": "./src/ui/SaasProjectList.tsx",
+		"./ui/SaasSettingsPanel": "./src/ui/SaasSettingsPanel.tsx"
+	},
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"test": "bun test --pass-with-no-tests",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.identity-rbac": "workspace:*",
+		"@contractspec/lib.jobs": "workspace:*",
+		"@contractspec/module.audit-trail": "workspace:*",
+		"@contractspec/module.notifications": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.schema": "workspace:*",
+		"@contractspec/lib.example-shared-ui": "workspace:*",
+		"@contractspec/lib.design-system": "workspace:*",
+		"@contractspec/lib.runtime-sandbox": "workspace:*",
+		"react": "catalog:",
+		"react-dom": "catalog:"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@types/react": "^19.2.14",
+		"@types/react-dom": "^19.2.2",
+		"@contractspec/tool.bun": "workspace:*"
+	},
+	"publishConfig": {
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./billing": {
+				"types": "./dist/billing/index.d.ts",
+				"browser": "./dist/browser/billing/index.js",
+				"bun": "./dist/billing/index.js",
+				"node": "./dist/node/billing/index.js",
+				"default": "./dist/billing/index.js"
+			},
+			"./billing/billing.entity": {
+				"types": "./dist/billing/billing.entity.d.ts",
+				"browser": "./dist/browser/billing/billing.entity.js",
+				"bun": "./dist/billing/billing.entity.js",
+				"node": "./dist/node/billing/billing.entity.js",
+				"default": "./dist/billing/billing.entity.js"
+			},
+			"./billing/billing.enum": {
+				"types": "./dist/billing/billing.enum.d.ts",
+				"browser": "./dist/browser/billing/billing.enum.js",
+				"bun": "./dist/billing/billing.enum.js",
+				"node": "./dist/node/billing/billing.enum.js",
+				"default": "./dist/billing/billing.enum.js"
+			},
+			"./billing/billing.event": {
+				"types": "./dist/billing/billing.event.d.ts",
+				"browser": "./dist/browser/billing/billing.event.js",
+				"bun": "./dist/billing/billing.event.js",
+				"node": "./dist/node/billing/billing.event.js",
+				"default": "./dist/billing/billing.event.js"
+			},
+			"./billing/billing.handler": {
+				"types": "./dist/billing/billing.handler.d.ts",
+				"browser": "./dist/browser/billing/billing.handler.js",
+				"bun": "./dist/billing/billing.handler.js",
+				"node": "./dist/node/billing/billing.handler.js",
+				"default": "./dist/billing/billing.handler.js"
+			},
+			"./billing/billing.operations": {
+				"types": "./dist/billing/billing.operations.d.ts",
+				"browser": "./dist/browser/billing/billing.operations.js",
+				"bun": "./dist/billing/billing.operations.js",
+				"node": "./dist/node/billing/billing.operations.js",
+				"default": "./dist/billing/billing.operations.js"
+			},
+			"./billing/billing.presentation": {
+				"types": "./dist/billing/billing.presentation.d.ts",
+				"browser": "./dist/browser/billing/billing.presentation.js",
+				"bun": "./dist/billing/billing.presentation.js",
+				"node": "./dist/node/billing/billing.presentation.js",
+				"default": "./dist/billing/billing.presentation.js"
+			},
+			"./billing/billing.schema": {
+				"types": "./dist/billing/billing.schema.d.ts",
+				"browser": "./dist/browser/billing/billing.schema.js",
+				"bun": "./dist/billing/billing.schema.js",
+				"node": "./dist/node/billing/billing.schema.js",
+				"default": "./dist/billing/billing.schema.js"
+			},
+			"./dashboard": {
+				"types": "./dist/dashboard/index.d.ts",
+				"browser": "./dist/browser/dashboard/index.js",
+				"bun": "./dist/dashboard/index.js",
+				"node": "./dist/node/dashboard/index.js",
+				"default": "./dist/dashboard/index.js"
+			},
+			"./dashboard/dashboard.presentation": {
+				"types": "./dist/dashboard/dashboard.presentation.d.ts",
+				"browser": "./dist/browser/dashboard/dashboard.presentation.js",
+				"bun": "./dist/dashboard/dashboard.presentation.js",
+				"node": "./dist/node/dashboard/dashboard.presentation.js",
+				"default": "./dist/dashboard/dashboard.presentation.js"
+			},
+			"./docs": {
+				"types": "./dist/docs/index.d.ts",
+				"browser": "./dist/browser/docs/index.js",
+				"bun": "./dist/docs/index.js",
+				"node": "./dist/node/docs/index.js",
+				"default": "./dist/docs/index.js"
+			},
+			"./docs/saas-boilerplate.docblock": {
+				"types": "./dist/docs/saas-boilerplate.docblock.d.ts",
+				"browser": "./dist/browser/docs/saas-boilerplate.docblock.js",
+				"bun": "./dist/docs/saas-boilerplate.docblock.js",
+				"node": "./dist/node/docs/saas-boilerplate.docblock.js",
+				"default": "./dist/docs/saas-boilerplate.docblock.js"
+			},
+			"./example": {
+				"types": "./dist/example.d.ts",
+				"browser": "./dist/browser/example.js",
+				"bun": "./dist/example.js",
+				"node": "./dist/node/example.js",
+				"default": "./dist/example.js"
+			},
+			"./handlers": {
+				"types": "./dist/handlers/index.d.ts",
+				"browser": "./dist/browser/handlers/index.js",
+				"bun": "./dist/handlers/index.js",
+				"node": "./dist/node/handlers/index.js",
+				"default": "./dist/handlers/index.js"
+			},
+			"./handlers/saas.handlers": {
+				"types": "./dist/handlers/saas.handlers.d.ts",
+				"browser": "./dist/browser/handlers/saas.handlers.js",
+				"bun": "./dist/handlers/saas.handlers.js",
+				"node": "./dist/node/handlers/saas.handlers.js",
+				"default": "./dist/handlers/saas.handlers.js"
+			},
+			"./presentations": {
+				"types": "./dist/presentations/index.d.ts",
+				"browser": "./dist/browser/presentations/index.js",
+				"bun": "./dist/presentations/index.js",
+				"node": "./dist/node/presentations/index.js",
+				"default": "./dist/presentations/index.js"
+			},
+			"./project": {
+				"types": "./dist/project/index.d.ts",
+				"browser": "./dist/browser/project/index.js",
+				"bun": "./dist/project/index.js",
+				"node": "./dist/node/project/index.js",
+				"default": "./dist/project/index.js"
+			},
+			"./project/project.entity": {
+				"types": "./dist/project/project.entity.d.ts",
+				"browser": "./dist/browser/project/project.entity.js",
+				"bun": "./dist/project/project.entity.js",
+				"node": "./dist/node/project/project.entity.js",
+				"default": "./dist/project/project.entity.js"
+			},
+			"./project/project.enum": {
+				"types": "./dist/project/project.enum.d.ts",
+				"browser": "./dist/browser/project/project.enum.js",
+				"bun": "./dist/project/project.enum.js",
+				"node": "./dist/node/project/project.enum.js",
+				"default": "./dist/project/project.enum.js"
+			},
+			"./project/project.event": {
+				"types": "./dist/project/project.event.d.ts",
+				"browser": "./dist/browser/project/project.event.js",
+				"bun": "./dist/project/project.event.js",
+				"node": "./dist/node/project/project.event.js",
+				"default": "./dist/project/project.event.js"
+			},
+			"./project/project.handler": {
+				"types": "./dist/project/project.handler.d.ts",
+				"browser": "./dist/browser/project/project.handler.js",
+				"bun": "./dist/project/project.handler.js",
+				"node": "./dist/node/project/project.handler.js",
+				"default": "./dist/project/project.handler.js"
+			},
+			"./project/project.operations": {
+				"types": "./dist/project/project.operations.d.ts",
+				"browser": "./dist/browser/project/project.operations.js",
+				"bun": "./dist/project/project.operations.js",
+				"node": "./dist/node/project/project.operations.js",
+				"default": "./dist/project/project.operations.js"
+			},
+			"./project/project.presentation": {
+				"types": "./dist/project/project.presentation.d.ts",
+				"browser": "./dist/browser/project/project.presentation.js",
+				"bun": "./dist/project/project.presentation.js",
+				"node": "./dist/node/project/project.presentation.js",
+				"default": "./dist/project/project.presentation.js"
+			},
+			"./project/project.schema": {
+				"types": "./dist/project/project.schema.d.ts",
+				"browser": "./dist/browser/project/project.schema.js",
+				"bun": "./dist/project/project.schema.js",
+				"node": "./dist/node/project/project.schema.js",
+				"default": "./dist/project/project.schema.js"
+			},
+			"./saas-boilerplate.feature": {
+				"types": "./dist/saas-boilerplate.feature.d.ts",
+				"browser": "./dist/browser/saas-boilerplate.feature.js",
+				"bun": "./dist/saas-boilerplate.feature.js",
+				"node": "./dist/node/saas-boilerplate.feature.js",
+				"default": "./dist/saas-boilerplate.feature.js"
+			},
+			"./seeders": {
+				"types": "./dist/seeders/index.d.ts",
+				"browser": "./dist/browser/seeders/index.js",
+				"bun": "./dist/seeders/index.js",
+				"node": "./dist/node/seeders/index.js",
+				"default": "./dist/seeders/index.js"
+			},
+			"./settings": {
+				"types": "./dist/settings/index.d.ts",
+				"browser": "./dist/browser/settings/index.js",
+				"bun": "./dist/settings/index.js",
+				"node": "./dist/node/settings/index.js",
+				"default": "./dist/settings/index.js"
+			},
+			"./settings/settings.entity": {
+				"types": "./dist/settings/settings.entity.d.ts",
+				"browser": "./dist/browser/settings/settings.entity.js",
+				"bun": "./dist/settings/settings.entity.js",
+				"node": "./dist/node/settings/settings.entity.js",
+				"default": "./dist/settings/settings.entity.js"
+			},
+			"./settings/settings.enum": {
+				"types": "./dist/settings/settings.enum.d.ts",
+				"browser": "./dist/browser/settings/settings.enum.js",
+				"bun": "./dist/settings/settings.enum.js",
+				"node": "./dist/node/settings/settings.enum.js",
+				"default": "./dist/settings/settings.enum.js"
+			},
+			"./shared/mock-data": {
+				"types": "./dist/shared/mock-data.d.ts",
+				"browser": "./dist/browser/shared/mock-data.js",
+				"bun": "./dist/shared/mock-data.js",
+				"node": "./dist/node/shared/mock-data.js",
+				"default": "./dist/shared/mock-data.js"
+			},
+			"./shared/overlay-types": {
+				"types": "./dist/shared/overlay-types.d.ts",
+				"browser": "./dist/browser/shared/overlay-types.js",
+				"bun": "./dist/shared/overlay-types.js",
+				"node": "./dist/node/shared/overlay-types.js",
+				"default": "./dist/shared/overlay-types.js"
+			},
+			"./tests/operations.test-spec": {
+				"types": "./dist/tests/operations.test-spec.d.ts",
+				"browser": "./dist/browser/tests/operations.test-spec.js",
+				"bun": "./dist/tests/operations.test-spec.js",
+				"node": "./dist/node/tests/operations.test-spec.js",
+				"default": "./dist/tests/operations.test-spec.js"
+			},
+			"./ui": {
+				"types": "./dist/ui/index.d.ts",
+				"browser": "./dist/browser/ui/index.js",
+				"bun": "./dist/ui/index.js",
+				"node": "./dist/node/ui/index.js",
+				"default": "./dist/ui/index.js"
+			},
+			"./ui/hooks": {
+				"types": "./dist/ui/hooks/index.d.ts",
+				"browser": "./dist/browser/ui/hooks/index.js",
+				"bun": "./dist/ui/hooks/index.js",
+				"node": "./dist/node/ui/hooks/index.js",
+				"default": "./dist/ui/hooks/index.js"
+			},
+			"./ui/hooks/useProjectList": {
+				"types": "./dist/ui/hooks/useProjectList.d.ts",
+				"browser": "./dist/browser/ui/hooks/useProjectList.js",
+				"bun": "./dist/ui/hooks/useProjectList.js",
+				"node": "./dist/node/ui/hooks/useProjectList.js",
+				"default": "./dist/ui/hooks/useProjectList.js"
+			},
+			"./ui/hooks/useProjectMutations": {
+				"types": "./dist/ui/hooks/useProjectMutations.d.ts",
+				"browser": "./dist/browser/ui/hooks/useProjectMutations.js",
+				"bun": "./dist/ui/hooks/useProjectMutations.js",
+				"node": "./dist/node/ui/hooks/useProjectMutations.js",
+				"default": "./dist/ui/hooks/useProjectMutations.js"
+			},
+			"./ui/modals": {
+				"types": "./dist/ui/modals/index.d.ts",
+				"browser": "./dist/browser/ui/modals/index.js",
+				"bun": "./dist/ui/modals/index.js",
+				"node": "./dist/node/ui/modals/index.js",
+				"default": "./dist/ui/modals/index.js"
+			},
+			"./ui/modals/CreateProjectModal": {
+				"types": "./dist/ui/modals/CreateProjectModal.d.ts",
+				"browser": "./dist/browser/ui/modals/CreateProjectModal.js",
+				"bun": "./dist/ui/modals/CreateProjectModal.js",
+				"node": "./dist/node/ui/modals/CreateProjectModal.js",
+				"default": "./dist/ui/modals/CreateProjectModal.js"
+			},
+			"./ui/modals/ProjectActionsModal": {
+				"types": "./dist/ui/modals/ProjectActionsModal.d.ts",
+				"browser": "./dist/browser/ui/modals/ProjectActionsModal.js",
+				"bun": "./dist/ui/modals/ProjectActionsModal.js",
+				"node": "./dist/node/ui/modals/ProjectActionsModal.js",
+				"default": "./dist/ui/modals/ProjectActionsModal.js"
+			},
+			"./ui/overlays": {
+				"types": "./dist/ui/overlays/index.d.ts",
+				"browser": "./dist/browser/ui/overlays/index.js",
+				"bun": "./dist/ui/overlays/index.js",
+				"node": "./dist/node/ui/overlays/index.js",
+				"default": "./dist/ui/overlays/index.js"
+			},
+			"./ui/overlays/demo-overlays": {
+				"types": "./dist/ui/overlays/demo-overlays.d.ts",
+				"browser": "./dist/browser/ui/overlays/demo-overlays.js",
+				"bun": "./dist/ui/overlays/demo-overlays.js",
+				"node": "./dist/node/ui/overlays/demo-overlays.js",
+				"default": "./dist/ui/overlays/demo-overlays.js"
+			},
+			"./ui/renderers": {
+				"types": "./dist/ui/renderers/index.d.ts",
+				"browser": "./dist/browser/ui/renderers/index.js",
+				"bun": "./dist/ui/renderers/index.js",
+				"node": "./dist/node/ui/renderers/index.js",
+				"default": "./dist/ui/renderers/index.js"
+			},
+			"./ui/renderers/project-list.markdown": {
+				"types": "./dist/ui/renderers/project-list.markdown.d.ts",
+				"browser": "./dist/browser/ui/renderers/project-list.markdown.js",
+				"bun": "./dist/ui/renderers/project-list.markdown.js",
+				"node": "./dist/node/ui/renderers/project-list.markdown.js",
+				"default": "./dist/ui/renderers/project-list.markdown.js"
+			},
+			"./ui/renderers/project-list.renderer": {
+				"types": "./dist/ui/renderers/project-list.renderer.d.ts",
+				"browser": "./dist/browser/ui/renderers/project-list.renderer.js",
+				"bun": "./dist/ui/renderers/project-list.renderer.js",
+				"node": "./dist/node/ui/renderers/project-list.renderer.js",
+				"default": "./dist/ui/renderers/project-list.renderer.js"
+			},
+			"./ui/SaasDashboard": {
+				"types": "./dist/ui/SaasDashboard.d.ts",
+				"browser": "./dist/browser/ui/SaasDashboard.js",
+				"bun": "./dist/ui/SaasDashboard.js",
+				"node": "./dist/node/ui/SaasDashboard.js",
+				"default": "./dist/ui/SaasDashboard.js"
+			},
+			"./ui/SaasProjectList": {
+				"types": "./dist/ui/SaasProjectList.d.ts",
+				"browser": "./dist/browser/ui/SaasProjectList.js",
+				"bun": "./dist/ui/SaasProjectList.js",
+				"node": "./dist/node/ui/SaasProjectList.js",
+				"default": "./dist/ui/SaasProjectList.js"
+			},
+			"./ui/SaasSettingsPanel": {
+				"types": "./dist/ui/SaasSettingsPanel.d.ts",
+				"browser": "./dist/browser/ui/SaasSettingsPanel.js",
+				"bun": "./dist/ui/SaasSettingsPanel.js",
+				"node": "./dist/node/ui/SaasSettingsPanel.js",
+				"default": "./dist/ui/SaasSettingsPanel.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/",
+		"access": "public"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/examples/saas-boilerplate"
+	},
+	"homepage": "https://contractspec.io"
 }

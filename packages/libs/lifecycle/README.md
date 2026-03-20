@@ -1,79 +1,63 @@
 # @contractspec/lib.lifecycle
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Contract lifecycle management primitives.**
 
-Canonical lifecycle vocabulary for ContractSpec. This package exposes stage enums, axis types, signal contracts, milestone/action shapes, and formatting helpers used by the lifecycle modules, bundles, and Studio apps.
+## What It Provides
 
-## Install
+- **Layer**: lib.
+- **Consumers**: analytics, evolution, observability, bundles.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
-```bash
-npm install @contractspec/lib.lifecycle
-```
+## Installation
+
+`npm install @contractspec/lib.lifecycle`
+
+or
+
+`bun add @contractspec/lib.lifecycle`
 
 ## Usage
 
-```ts
-import {
-  LifecycleStage,
-  LIFECYCLE_STAGE_META,
-  LifecycleAssessment,
-  formatStageSummary,
-} from '@contractspec/lib.lifecycle';
+Import the root entrypoint from `@contractspec/lib.lifecycle`, or choose a documented subpath when you only need one part of the package surface.
 
-const assessment: LifecycleAssessment = {
-  stage: LifecycleStage.MvpEarlyTraction,
-  confidence: 0.72,
-  axes: {
-    product: 'MVP',
-    company: 'TinyTeam',
-    capital: 'Seed',
-  },
-  signals: [],
-  gaps: ['Retention', 'Onboarding'],
-};
+## Architecture
 
-const summary = formatStageSummary(assessment.stage, assessment);
-console.log(summary.title); // "Stage 2 · MVP & Early Traction"
-```
+- `src/i18n` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/types` is part of the package's public or composition surface.
+- `src/utils/` contains internal utility functions.
 
-## Contents
+## Public Entry Points
 
-- `LifecycleStage` enum and metadata map (`LIFECYCLE_STAGE_META`)
-- 3-axis definitions: `ProductPhase`, `CompanyPhase`, `CapitalPhase`
-- Signal + metric contracts (sources, quality, payloads)
-- Milestone + action data shapes
-- Formatting helpers (`formatStageSummary`, `summarizeAxes`, `rankStageCandidates`)
+- Export `.` resolves through `./src/index.ts`.
 
-This library intentionally ships no IO logic so it can run in browsers, Node runtimes, and design tools.*** End Patch
+## Local Commands
 
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test --pass-with-no-tests
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
+## Recent Updates
 
+- Replace eslint+prettier by biomejs to optimize speed.
+- Fix small issues.
+- Add full i18n support across all 10 packages (en/fr/es, 460 keys).
 
+## Notes
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Lifecycle stage definitions are shared across the platform — changes are high-impact.
+- Stage transitions must be deterministic; no side effects in transition logic.
+- Consumed by analytics and observability — schema changes affect downstream telemetry.

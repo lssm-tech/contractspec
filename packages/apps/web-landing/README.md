@@ -1,83 +1,64 @@
 # @contractspec/app.web-landing
 
-Marketing landing page and documentation site for ContractSpec.
+**Next.js marketing, documentation, and agent-facing site for ContractSpec and the agentpacks registry.**
 
-## ContractSpec Studio
+## What It Does
 
-Studio is live at https://www.contractspec.studio.
+- Serves marketing pages, docs, registry pages, LLM-friendly endpoints, and operating-workbench surfaces.
+- Aggregates content and reusable UI from `@contractspec/bundle.marketing` and `@contractspec/bundle.library`.
+- Publishes `/llms*` and package-specific agent-friendly documentation endpoints alongside the public site.
+- Related ContractSpec packages include `@contractspec/bundle.library`, `@contractspec/bundle.marketing`, `@contractspec/example.agent-console`, `@contractspec/example.ai-chat-assistant`, `@contractspec/example.analytics-dashboard`, `@contractspec/example.crm-pipeline`, ...
 
-Positioning used across this app:
+## Running Locally
 
-- ContractSpec Studio is the AI-powered product decision engine.
-- It turns product signals into spec-first deliverables.
-- Core loop: Evidence -> Correlation -> Decision -> Change -> Export -> Check -> Notify -> Autopilot.
-
-## Overview
-
-Next.js application providing:
-
-- Marketing landing page
-- Product documentation
-- Pricing and contact pages
-- Template gallery
-- Newsletter signup
+From `packages/apps/web-landing`:
+- `bun run dev`
+- `bun run start`
+- `bun run build`
 
 ## Usage
 
 ```bash
-# Development
-bun dev
-
-# Production build
-bun build
-bun start
+bun run dev
 ```
 
-## Features
+## Architecture
 
-- 🎨 **Modern Design** — Tailwind CSS with animations
-- 📖 **Documentation** — Comprehensive docs pages
-- 🚀 **Templates** — Interactive template gallery
-- 📧 **Email** — Newsletter and Studio signup integration
-- 📊 **Analytics** — PostHog and Vercel Analytics
+- `src/app/` contains Next.js route groups for landing, docs, operate, sandbox, and registry pages.
+- `src/components/` contains app-local UI composition that is not owned by shared bundles.
+- `src/data/` contains static content, registry metadata, and curated content inputs.
+- `src/lib/` contains app-local helpers such as registry API access and page utilities.
 
-## Agent and LLM support
+## Public Entry Points
 
-- **`/llms`** — Global monorepo summary (also `/llms.txt`, `/llms.md`); static file at `public/llms.txt`
-- **`/llms-full.txt`** — All package READMEs aggregated; run `bun run llms:generate` to regenerate
-- **`/llms/[slug]`** — Per-package guide (e.g. `/llms/lib.ai-agent`); returns README as text/plain
-- **`AGENTS.md`** — AI agent guide with routing, API surfaces, and entry points
-- **MCP** — Docs MCP server at `GET/POST /api/mcp`
+- Next.js routes under `/`, `/docs/*`, `/registry/*`, `/operate/*`, `/sandbox`, and `/llms*`.
+- API surfaces include docs MCP integration and generated LLM text endpoints.
+- Primary public surface is the routed application tree under `src/app/`.
 
-## dependencies
+## Local Commands
 
-- `@contractspec/bundle.marketing` — Marketing pages and email templates
-- `@contractspec/bundle.library` — Shared library components
-- `@contractspec/bundle.studio` — Studio components for sandbox
-- `@contractspec/lib.design-system` — Design tokens and atoms
+- `bun run dev` — bun --bun next dev
+- `bun run start` — bun --bun next start
+- `bun run build` — bun run llms:generate && bun --bun next build
+- `bun run lint` — bun run lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run clean` — rimraf .next dist .turbo
+- `bun run llms:generate` — bun scripts/generate-llms-full.mjs
+- `bun run build:types` — tsc --noEmit
 
-## Contributing
+## Recent Updates
 
-This application is a **thin adapter**.
+- Replace eslint+prettier by biomejs to optimize speed.
+- Vnext ai-native.
+- Contracts context, bundle exports, surface-runtime docs.
+- Export, sidebar, workflow tools, slotContent.
+- Implement Agent-Friendly Documentation Spec recommendations.
+- Circular import issue.
 
-- **Want to change the design or content?**
-  - Go to `packages/bundles/marketing` for landing pages.
-  - Go to `packages/bundles/library` for documentation and templates.
-- **Want to change the routing or config?**
-  - Edit this package.
+## Notes
 
-## Package Structure
-
-```
-src/
-├── app/                    # Next.js app router
-│   ├── (landing-marketing)/# Marketing pages
-│   └── (docs)/             # Documentation pages
-├── components/             # Page-specific components
-└── lib/                    # Utilities
-```
-
-## Related Packages
-
-- [`@contractspec/bundle.marketing`](../../bundles/marketing/README.md) — Marketing bundle
-- [`@contractspec/app.web-studio`](../web-studio/README.md) — Studio web app
+- Keep this app thin — page content and components come from `bundle.marketing` and `bundle.library`.
+- No raw HTML — use Design System components.
+- Uses Tailwind CSS v4 with PostCSS — do not introduce competing CSS solutions.
+- Route changes affect SEO and external links; coordinate with marketing.

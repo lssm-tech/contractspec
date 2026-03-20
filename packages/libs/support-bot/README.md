@@ -1,49 +1,75 @@
 # @contractspec/lib.support-bot
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**AI support bot framework with RAG and ticket management.**
 
-Production-ready building blocks for AI-first support desks powered by ContractSpec. The library wires knowledge-grounded responses, ticket classification, auto-resolutions, and performance telemetry into `@contractspec/lib.ai-agent`.
+## What It Provides
 
-## Highlights
+- **Layer**: lib.
+- **Consumers**: bundles.
+- Related ContractSpec packages include `@contractspec/lib.ai-agent`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.knowledge`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, ...
 
-- **TicketClassifier** – fast heuristics + optional LLM validation for category, priority, urgency, and sentiment.
-- **TicketResolver** – multi-space RAG pipeline that cites references and surfaces confidence scores.
-- **AutoResponder** – generates tone-aware replies, adds policy disclaimers, and escalates when risky.
-- **FeedbackLoop** – records outcomes, tunes confidence thresholds, and syncs new knowledge back.
-- **Agent Tools** – helpers to expose the above capabilities as `AgentRunner` tools in one line.
+## Installation
 
-## Quickstart
+`npm install @contractspec/lib.support-bot`
 
-```ts
-import { defineSupportBot, TicketResolver, TicketClassifier, createSupportTools } from '@contractspec/lib.support-bot';
-import { AgentRegistry, AgentRunner, ToolExecutor } from '@contractspec/lib.ai-agent';
+or
 
-const SupportBot = defineSupportBot({
-  base: {
-    meta: { name: 'support.bot', version: '1.0.0', owners: ['team-support'], domain: 'operations' },
-    instructions: 'Resolve support tickets with empathy. Escalate if billing or compliance risk.',
-    tools: [{ name: 'resolve_ticket' }, { name: 'escalate_ticket' }],
-  },
-  escalation: { confidenceThreshold: 0.75 },
-});
+`bun add @contractspec/lib.support-bot`
 
-const resolver = new TicketResolver({ knowledge: knowledgeQueryService });
-const classifier = new TicketClassifier();
-const tools = createSupportTools({ resolver, classifier });
+## Usage
 
-const registry = new AgentRegistry().register(SupportBot);
-const runner = new AgentRunner({
-  registry,
-  llm: mistralProvider,
-  toolExecutor: new ToolExecutor({ tools }),
-});
+Import the root entrypoint from `@contractspec/lib.support-bot`, or choose a documented subpath when you only need one part of the package surface.
 
-const outcome = await runner.run({
-  agent: 'support.bot',
-  input: 'My payout failed yesterday and it is urgent',
-  tenantId: 'acme',
-});
-```
+## Architecture
 
-See `/packages/examples/ai-support-bot` for an end-to-end integration with ticket ingestion, review queues, and analytics.
+- `src/bot` is part of the package's public or composition surface.
+- `src/i18n` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/rag` is part of the package's public or composition surface.
+- `src/spec.ts` is part of the package's public or composition surface.
+- `src/tickets` is part of the package's public or composition surface.
+- `src/types.ts` is shared public type definitions.
+
+## Public Entry Points
+
+- Export `.` resolves through `./src/index.ts`.
+- Export `./bot` resolves through `./src/bot/index.ts`.
+- Export `./bot/auto-responder` resolves through `./src/bot/auto-responder.ts`.
+- Export `./bot/feedback-loop` resolves through `./src/bot/feedback-loop.ts`.
+- Export `./bot/tools` resolves through `./src/bot/tools.ts`.
+- Export `./i18n` resolves through `./src/i18n/index.ts`.
+- Export `./i18n/catalogs` resolves through `./src/i18n/catalogs/index.ts`.
+- Export `./i18n/catalogs/en` resolves through `./src/i18n/catalogs/en.ts`.
+- Export `./i18n/catalogs/es` resolves through `./src/i18n/catalogs/es.ts`.
+- Export `./i18n/catalogs/fr` resolves through `./src/i18n/catalogs/fr.ts`.
+- The package publishes 19 total export subpaths; keep docs aligned with `package.json`.
+
+## Local Commands
+
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test --pass-with-no-tests
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
+
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed.
+- Resolve lint/test regressions after voice capability updates.
+- Add full i18n support across all 10 packages (en/fr/es, 460 keys).
+
+## Notes
+
+- Bot spec interface follows ai-agent patterns — keep aligned with contracts-spec.
+- Ticket schema is shared — changes affect consumers downstream.
+- RAG pipeline must stay compatible with the knowledge lib.

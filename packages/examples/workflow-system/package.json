@@ -1,364 +1,364 @@
 {
-  "name": "@contractspec/example.workflow-system",
-  "version": "3.7.6",
-  "description": "Workflow and approval system example for ContractSpec - State machine with role-based transitions",
-  "types": "./dist/index.d.ts",
-  "type": "module",
-  "scripts": {
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
-    "build:bundle": "contractspec-bun-build transpile",
-    "build:types": "contractspec-bun-build types",
-    "dev": "contractspec-bun-build dev",
-    "clean": "rimraf dist .turbo",
-    "lint": "bun lint:fix",
-    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-    "lint:check": "biome check .",
-    "prebuild": "contractspec-bun-build prebuild",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "@contractspec/lib.example-shared-ui": "workspace:*",
-    "@contractspec/lib.design-system": "workspace:*",
-    "@contractspec/lib.runtime-sandbox": "workspace:*",
-    "react": "catalog:",
-    "react-dom": "catalog:"
-  },
-  "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.2",
-    "@contractspec/tool.bun": "workspace:*"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./approval": "./src/approval/index.ts",
-    "./approval/approval.enum": "./src/approval/approval.enum.ts",
-    "./approval/approval.event": "./src/approval/approval.event.ts",
-    "./approval/approval.handler": "./src/approval/approval.handler.ts",
-    "./approval/approval.operations": "./src/approval/approval.operations.ts",
-    "./approval/approval.schema": "./src/approval/approval.schema.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/workflow-system.docblock": "./src/docs/workflow-system.docblock.ts",
-    "./entities": "./src/entities/index.ts",
-    "./entities/approval": "./src/entities/approval.ts",
-    "./entities/instance": "./src/entities/instance.ts",
-    "./entities/step": "./src/entities/step.ts",
-    "./entities/workflow": "./src/entities/workflow.ts",
-    "./example": "./src/example.ts",
-    "./handlers": "./src/handlers/index.ts",
-    "./handlers/workflow.handlers": "./src/handlers/workflow.handlers.ts",
-    "./instance": "./src/instance/index.ts",
-    "./instance/instance.enum": "./src/instance/instance.enum.ts",
-    "./instance/instance.event": "./src/instance/instance.event.ts",
-    "./instance/instance.handler": "./src/instance/instance.handler.ts",
-    "./instance/instance.operations": "./src/instance/instance.operations.ts",
-    "./instance/instance.schema": "./src/instance/instance.schema.ts",
-    "./presentations": "./src/presentations/index.ts",
-    "./seeders": "./src/seeders/index.ts",
-    "./shared": "./src/shared/index.ts",
-    "./shared/mock-data": "./src/shared/mock-data.ts",
-    "./shared/types": "./src/shared/types.ts",
-    "./state-machine": "./src/state-machine/index.ts",
-    "./tests/operations.test-spec": "./src/tests/operations.test-spec.ts",
-    "./ui": "./src/ui/index.ts",
-    "./ui/hooks": "./src/ui/hooks/index.ts",
-    "./ui/hooks/useWorkflowList": "./src/ui/hooks/useWorkflowList.ts",
-    "./ui/renderers": "./src/ui/renderers/index.ts",
-    "./ui/renderers/workflow.markdown": "./src/ui/renderers/workflow.markdown.ts",
-    "./ui/WorkflowDashboard": "./src/ui/WorkflowDashboard.tsx",
-    "./workflow": "./src/workflow/index.ts",
-    "./workflow-system.capability": "./src/workflow-system.capability.ts",
-    "./workflow-system.feature": "./src/workflow-system.feature.ts",
-    "./workflow/workflow.enum": "./src/workflow/workflow.enum.ts",
-    "./workflow/workflow.event": "./src/workflow/workflow.event.ts",
-    "./workflow/workflow.handler": "./src/workflow/workflow.handler.ts",
-    "./workflow/workflow.operations": "./src/workflow/workflow.operations.ts",
-    "./workflow/workflow.schema": "./src/workflow/workflow.schema.ts"
-  },
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "publishConfig": {
-    "access": "public",
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "browser": "./dist/browser/index.js",
-        "bun": "./dist/index.js",
-        "default": "./dist/index.js"
-      },
-      "./approval": {
-        "types": "./dist/approval/index.d.ts",
-        "browser": "./dist/browser/approval/index.js",
-        "bun": "./dist/approval/index.js",
-        "default": "./dist/approval/index.js"
-      },
-      "./approval/approval.enum": {
-        "types": "./dist/approval/approval.enum.d.ts",
-        "browser": "./dist/browser/approval/approval.enum.js",
-        "bun": "./dist/approval/approval.enum.js",
-        "default": "./dist/approval/approval.enum.js"
-      },
-      "./approval/approval.event": {
-        "types": "./dist/approval/approval.event.d.ts",
-        "browser": "./dist/browser/approval/approval.event.js",
-        "bun": "./dist/approval/approval.event.js",
-        "default": "./dist/approval/approval.event.js"
-      },
-      "./approval/approval.handler": {
-        "types": "./dist/approval/approval.handler.d.ts",
-        "browser": "./dist/browser/approval/approval.handler.js",
-        "bun": "./dist/approval/approval.handler.js",
-        "default": "./dist/approval/approval.handler.js"
-      },
-      "./approval/approval.operations": {
-        "types": "./dist/approval/approval.operations.d.ts",
-        "browser": "./dist/browser/approval/approval.operations.js",
-        "bun": "./dist/approval/approval.operations.js",
-        "default": "./dist/approval/approval.operations.js"
-      },
-      "./approval/approval.schema": {
-        "types": "./dist/approval/approval.schema.d.ts",
-        "browser": "./dist/browser/approval/approval.schema.js",
-        "bun": "./dist/approval/approval.schema.js",
-        "default": "./dist/approval/approval.schema.js"
-      },
-      "./docs": {
-        "types": "./dist/docs/index.d.ts",
-        "browser": "./dist/browser/docs/index.js",
-        "bun": "./dist/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/workflow-system.docblock": {
-        "types": "./dist/docs/workflow-system.docblock.d.ts",
-        "browser": "./dist/browser/docs/workflow-system.docblock.js",
-        "bun": "./dist/docs/workflow-system.docblock.js",
-        "default": "./dist/docs/workflow-system.docblock.js"
-      },
-      "./entities": {
-        "types": "./dist/entities/index.d.ts",
-        "browser": "./dist/browser/entities/index.js",
-        "bun": "./dist/entities/index.js",
-        "default": "./dist/entities/index.js"
-      },
-      "./entities/approval": {
-        "types": "./dist/entities/approval.d.ts",
-        "browser": "./dist/browser/entities/approval.js",
-        "bun": "./dist/entities/approval.js",
-        "default": "./dist/entities/approval.js"
-      },
-      "./entities/instance": {
-        "types": "./dist/entities/instance.d.ts",
-        "browser": "./dist/browser/entities/instance.js",
-        "bun": "./dist/entities/instance.js",
-        "default": "./dist/entities/instance.js"
-      },
-      "./entities/step": {
-        "types": "./dist/entities/step.d.ts",
-        "browser": "./dist/browser/entities/step.js",
-        "bun": "./dist/entities/step.js",
-        "default": "./dist/entities/step.js"
-      },
-      "./entities/workflow": {
-        "types": "./dist/entities/workflow.d.ts",
-        "browser": "./dist/browser/entities/workflow.js",
-        "bun": "./dist/entities/workflow.js",
-        "default": "./dist/entities/workflow.js"
-      },
-      "./example": {
-        "types": "./dist/example.d.ts",
-        "browser": "./dist/browser/example.js",
-        "bun": "./dist/example.js",
-        "default": "./dist/example.js"
-      },
-      "./handlers": {
-        "types": "./dist/handlers/index.d.ts",
-        "browser": "./dist/browser/handlers/index.js",
-        "bun": "./dist/handlers/index.js",
-        "default": "./dist/handlers/index.js"
-      },
-      "./handlers/workflow.handlers": {
-        "types": "./dist/handlers/workflow.handlers.d.ts",
-        "browser": "./dist/browser/handlers/workflow.handlers.js",
-        "bun": "./dist/handlers/workflow.handlers.js",
-        "default": "./dist/handlers/workflow.handlers.js"
-      },
-      "./instance": {
-        "types": "./dist/instance/index.d.ts",
-        "browser": "./dist/browser/instance/index.js",
-        "bun": "./dist/instance/index.js",
-        "default": "./dist/instance/index.js"
-      },
-      "./instance/instance.enum": {
-        "types": "./dist/instance/instance.enum.d.ts",
-        "browser": "./dist/browser/instance/instance.enum.js",
-        "bun": "./dist/instance/instance.enum.js",
-        "default": "./dist/instance/instance.enum.js"
-      },
-      "./instance/instance.event": {
-        "types": "./dist/instance/instance.event.d.ts",
-        "browser": "./dist/browser/instance/instance.event.js",
-        "bun": "./dist/instance/instance.event.js",
-        "default": "./dist/instance/instance.event.js"
-      },
-      "./instance/instance.handler": {
-        "types": "./dist/instance/instance.handler.d.ts",
-        "browser": "./dist/browser/instance/instance.handler.js",
-        "bun": "./dist/instance/instance.handler.js",
-        "default": "./dist/instance/instance.handler.js"
-      },
-      "./instance/instance.operations": {
-        "types": "./dist/instance/instance.operations.d.ts",
-        "browser": "./dist/browser/instance/instance.operations.js",
-        "bun": "./dist/instance/instance.operations.js",
-        "default": "./dist/instance/instance.operations.js"
-      },
-      "./instance/instance.schema": {
-        "types": "./dist/instance/instance.schema.d.ts",
-        "browser": "./dist/browser/instance/instance.schema.js",
-        "bun": "./dist/instance/instance.schema.js",
-        "default": "./dist/instance/instance.schema.js"
-      },
-      "./presentations": {
-        "types": "./dist/presentations/index.d.ts",
-        "browser": "./dist/browser/presentations/index.js",
-        "bun": "./dist/presentations/index.js",
-        "default": "./dist/presentations/index.js"
-      },
-      "./seeders": {
-        "types": "./dist/seeders/index.d.ts",
-        "browser": "./dist/browser/seeders/index.js",
-        "bun": "./dist/seeders/index.js",
-        "default": "./dist/seeders/index.js"
-      },
-      "./shared": {
-        "types": "./dist/shared/index.d.ts",
-        "browser": "./dist/browser/shared/index.js",
-        "bun": "./dist/shared/index.js",
-        "default": "./dist/shared/index.js"
-      },
-      "./shared/mock-data": {
-        "types": "./dist/shared/mock-data.d.ts",
-        "browser": "./dist/browser/shared/mock-data.js",
-        "bun": "./dist/shared/mock-data.js",
-        "default": "./dist/shared/mock-data.js"
-      },
-      "./shared/types": {
-        "types": "./dist/shared/types.d.ts",
-        "browser": "./dist/browser/shared/types.js",
-        "bun": "./dist/shared/types.js",
-        "default": "./dist/shared/types.js"
-      },
-      "./state-machine": {
-        "types": "./dist/state-machine/index.d.ts",
-        "browser": "./dist/browser/state-machine/index.js",
-        "bun": "./dist/state-machine/index.js",
-        "default": "./dist/state-machine/index.js"
-      },
-      "./tests/operations.test-spec": {
-        "types": "./dist/tests/operations.test-spec.d.ts",
-        "browser": "./dist/browser/tests/operations.test-spec.js",
-        "bun": "./dist/tests/operations.test-spec.js",
-        "default": "./dist/tests/operations.test-spec.js"
-      },
-      "./ui": {
-        "types": "./dist/ui/index.d.ts",
-        "browser": "./dist/browser/ui/index.js",
-        "bun": "./dist/ui/index.js",
-        "default": "./dist/ui/index.js"
-      },
-      "./ui/hooks": {
-        "types": "./dist/ui/hooks/index.d.ts",
-        "browser": "./dist/browser/ui/hooks/index.js",
-        "bun": "./dist/ui/hooks/index.js",
-        "default": "./dist/ui/hooks/index.js"
-      },
-      "./ui/hooks/useWorkflowList": {
-        "types": "./dist/ui/hooks/useWorkflowList.d.ts",
-        "browser": "./dist/browser/ui/hooks/useWorkflowList.js",
-        "bun": "./dist/ui/hooks/useWorkflowList.js",
-        "default": "./dist/ui/hooks/useWorkflowList.js"
-      },
-      "./ui/renderers": {
-        "types": "./dist/ui/renderers/index.d.ts",
-        "browser": "./dist/browser/ui/renderers/index.js",
-        "bun": "./dist/ui/renderers/index.js",
-        "default": "./dist/ui/renderers/index.js"
-      },
-      "./ui/renderers/workflow.markdown": {
-        "types": "./dist/ui/renderers/workflow.markdown.d.ts",
-        "browser": "./dist/browser/ui/renderers/workflow.markdown.js",
-        "bun": "./dist/ui/renderers/workflow.markdown.js",
-        "default": "./dist/ui/renderers/workflow.markdown.js"
-      },
-      "./ui/WorkflowDashboard": {
-        "types": "./dist/ui/WorkflowDashboard.d.ts",
-        "browser": "./dist/browser/ui/WorkflowDashboard.js",
-        "bun": "./dist/ui/WorkflowDashboard.js",
-        "default": "./dist/ui/WorkflowDashboard.js"
-      },
-      "./workflow": {
-        "types": "./dist/workflow/index.d.ts",
-        "browser": "./dist/browser/workflow/index.js",
-        "bun": "./dist/workflow/index.js",
-        "default": "./dist/workflow/index.js"
-      },
-      "./workflow-system.capability": {
-        "types": "./dist/workflow-system.capability.d.ts",
-        "browser": "./dist/browser/workflow-system.capability.js",
-        "bun": "./dist/workflow-system.capability.js",
-        "default": "./dist/workflow-system.capability.js"
-      },
-      "./workflow-system.feature": {
-        "types": "./dist/workflow-system.feature.d.ts",
-        "browser": "./dist/browser/workflow-system.feature.js",
-        "bun": "./dist/workflow-system.feature.js",
-        "default": "./dist/workflow-system.feature.js"
-      },
-      "./workflow/workflow.enum": {
-        "types": "./dist/workflow/workflow.enum.d.ts",
-        "browser": "./dist/browser/workflow/workflow.enum.js",
-        "bun": "./dist/workflow/workflow.enum.js",
-        "default": "./dist/workflow/workflow.enum.js"
-      },
-      "./workflow/workflow.event": {
-        "types": "./dist/workflow/workflow.event.d.ts",
-        "browser": "./dist/browser/workflow/workflow.event.js",
-        "bun": "./dist/workflow/workflow.event.js",
-        "default": "./dist/workflow/workflow.event.js"
-      },
-      "./workflow/workflow.handler": {
-        "types": "./dist/workflow/workflow.handler.d.ts",
-        "browser": "./dist/browser/workflow/workflow.handler.js",
-        "bun": "./dist/workflow/workflow.handler.js",
-        "default": "./dist/workflow/workflow.handler.js"
-      },
-      "./workflow/workflow.operations": {
-        "types": "./dist/workflow/workflow.operations.d.ts",
-        "browser": "./dist/browser/workflow/workflow.operations.js",
-        "bun": "./dist/workflow/workflow.operations.js",
-        "default": "./dist/workflow/workflow.operations.js"
-      },
-      "./workflow/workflow.schema": {
-        "types": "./dist/workflow/workflow.schema.d.ts",
-        "browser": "./dist/browser/workflow/workflow.schema.js",
-        "bun": "./dist/workflow/workflow.schema.js",
-        "default": "./dist/workflow/workflow.schema.js"
-      }
-    },
-    "registry": "https://registry.npmjs.org/"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/examples/workflow-system"
-  },
-  "homepage": "https://contractspec.io"
+	"name": "@contractspec/example.workflow-system",
+	"version": "3.7.6",
+	"description": "Workflow and approval system example for ContractSpec - State machine with role-based transitions",
+	"types": "./dist/index.d.ts",
+	"type": "module",
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.schema": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.example-shared-ui": "workspace:*",
+		"@contractspec/lib.design-system": "workspace:*",
+		"@contractspec/lib.runtime-sandbox": "workspace:*",
+		"react": "catalog:",
+		"react-dom": "catalog:"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@types/react": "^19.2.14",
+		"@types/react-dom": "^19.2.2",
+		"@contractspec/tool.bun": "workspace:*"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./approval": "./src/approval/index.ts",
+		"./approval/approval.enum": "./src/approval/approval.enum.ts",
+		"./approval/approval.event": "./src/approval/approval.event.ts",
+		"./approval/approval.handler": "./src/approval/approval.handler.ts",
+		"./approval/approval.operations": "./src/approval/approval.operations.ts",
+		"./approval/approval.schema": "./src/approval/approval.schema.ts",
+		"./docs": "./src/docs/index.ts",
+		"./docs/workflow-system.docblock": "./src/docs/workflow-system.docblock.ts",
+		"./entities": "./src/entities/index.ts",
+		"./entities/approval": "./src/entities/approval.ts",
+		"./entities/instance": "./src/entities/instance.ts",
+		"./entities/step": "./src/entities/step.ts",
+		"./entities/workflow": "./src/entities/workflow.ts",
+		"./example": "./src/example.ts",
+		"./handlers": "./src/handlers/index.ts",
+		"./handlers/workflow.handlers": "./src/handlers/workflow.handlers.ts",
+		"./instance": "./src/instance/index.ts",
+		"./instance/instance.enum": "./src/instance/instance.enum.ts",
+		"./instance/instance.event": "./src/instance/instance.event.ts",
+		"./instance/instance.handler": "./src/instance/instance.handler.ts",
+		"./instance/instance.operations": "./src/instance/instance.operations.ts",
+		"./instance/instance.schema": "./src/instance/instance.schema.ts",
+		"./presentations": "./src/presentations/index.ts",
+		"./seeders": "./src/seeders/index.ts",
+		"./shared": "./src/shared/index.ts",
+		"./shared/mock-data": "./src/shared/mock-data.ts",
+		"./shared/types": "./src/shared/types.ts",
+		"./state-machine": "./src/state-machine/index.ts",
+		"./tests/operations.test-spec": "./src/tests/operations.test-spec.ts",
+		"./ui": "./src/ui/index.ts",
+		"./ui/hooks": "./src/ui/hooks/index.ts",
+		"./ui/hooks/useWorkflowList": "./src/ui/hooks/useWorkflowList.ts",
+		"./ui/renderers": "./src/ui/renderers/index.ts",
+		"./ui/renderers/workflow.markdown": "./src/ui/renderers/workflow.markdown.ts",
+		"./ui/WorkflowDashboard": "./src/ui/WorkflowDashboard.tsx",
+		"./workflow": "./src/workflow/index.ts",
+		"./workflow-system.capability": "./src/workflow-system.capability.ts",
+		"./workflow-system.feature": "./src/workflow-system.feature.ts",
+		"./workflow/workflow.enum": "./src/workflow/workflow.enum.ts",
+		"./workflow/workflow.event": "./src/workflow/workflow.event.ts",
+		"./workflow/workflow.handler": "./src/workflow/workflow.handler.ts",
+		"./workflow/workflow.operations": "./src/workflow/workflow.operations.ts",
+		"./workflow/workflow.schema": "./src/workflow/workflow.schema.ts"
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"default": "./dist/index.js"
+			},
+			"./approval": {
+				"types": "./dist/approval/index.d.ts",
+				"browser": "./dist/browser/approval/index.js",
+				"bun": "./dist/approval/index.js",
+				"default": "./dist/approval/index.js"
+			},
+			"./approval/approval.enum": {
+				"types": "./dist/approval/approval.enum.d.ts",
+				"browser": "./dist/browser/approval/approval.enum.js",
+				"bun": "./dist/approval/approval.enum.js",
+				"default": "./dist/approval/approval.enum.js"
+			},
+			"./approval/approval.event": {
+				"types": "./dist/approval/approval.event.d.ts",
+				"browser": "./dist/browser/approval/approval.event.js",
+				"bun": "./dist/approval/approval.event.js",
+				"default": "./dist/approval/approval.event.js"
+			},
+			"./approval/approval.handler": {
+				"types": "./dist/approval/approval.handler.d.ts",
+				"browser": "./dist/browser/approval/approval.handler.js",
+				"bun": "./dist/approval/approval.handler.js",
+				"default": "./dist/approval/approval.handler.js"
+			},
+			"./approval/approval.operations": {
+				"types": "./dist/approval/approval.operations.d.ts",
+				"browser": "./dist/browser/approval/approval.operations.js",
+				"bun": "./dist/approval/approval.operations.js",
+				"default": "./dist/approval/approval.operations.js"
+			},
+			"./approval/approval.schema": {
+				"types": "./dist/approval/approval.schema.d.ts",
+				"browser": "./dist/browser/approval/approval.schema.js",
+				"bun": "./dist/approval/approval.schema.js",
+				"default": "./dist/approval/approval.schema.js"
+			},
+			"./docs": {
+				"types": "./dist/docs/index.d.ts",
+				"browser": "./dist/browser/docs/index.js",
+				"bun": "./dist/docs/index.js",
+				"default": "./dist/docs/index.js"
+			},
+			"./docs/workflow-system.docblock": {
+				"types": "./dist/docs/workflow-system.docblock.d.ts",
+				"browser": "./dist/browser/docs/workflow-system.docblock.js",
+				"bun": "./dist/docs/workflow-system.docblock.js",
+				"default": "./dist/docs/workflow-system.docblock.js"
+			},
+			"./entities": {
+				"types": "./dist/entities/index.d.ts",
+				"browser": "./dist/browser/entities/index.js",
+				"bun": "./dist/entities/index.js",
+				"default": "./dist/entities/index.js"
+			},
+			"./entities/approval": {
+				"types": "./dist/entities/approval.d.ts",
+				"browser": "./dist/browser/entities/approval.js",
+				"bun": "./dist/entities/approval.js",
+				"default": "./dist/entities/approval.js"
+			},
+			"./entities/instance": {
+				"types": "./dist/entities/instance.d.ts",
+				"browser": "./dist/browser/entities/instance.js",
+				"bun": "./dist/entities/instance.js",
+				"default": "./dist/entities/instance.js"
+			},
+			"./entities/step": {
+				"types": "./dist/entities/step.d.ts",
+				"browser": "./dist/browser/entities/step.js",
+				"bun": "./dist/entities/step.js",
+				"default": "./dist/entities/step.js"
+			},
+			"./entities/workflow": {
+				"types": "./dist/entities/workflow.d.ts",
+				"browser": "./dist/browser/entities/workflow.js",
+				"bun": "./dist/entities/workflow.js",
+				"default": "./dist/entities/workflow.js"
+			},
+			"./example": {
+				"types": "./dist/example.d.ts",
+				"browser": "./dist/browser/example.js",
+				"bun": "./dist/example.js",
+				"default": "./dist/example.js"
+			},
+			"./handlers": {
+				"types": "./dist/handlers/index.d.ts",
+				"browser": "./dist/browser/handlers/index.js",
+				"bun": "./dist/handlers/index.js",
+				"default": "./dist/handlers/index.js"
+			},
+			"./handlers/workflow.handlers": {
+				"types": "./dist/handlers/workflow.handlers.d.ts",
+				"browser": "./dist/browser/handlers/workflow.handlers.js",
+				"bun": "./dist/handlers/workflow.handlers.js",
+				"default": "./dist/handlers/workflow.handlers.js"
+			},
+			"./instance": {
+				"types": "./dist/instance/index.d.ts",
+				"browser": "./dist/browser/instance/index.js",
+				"bun": "./dist/instance/index.js",
+				"default": "./dist/instance/index.js"
+			},
+			"./instance/instance.enum": {
+				"types": "./dist/instance/instance.enum.d.ts",
+				"browser": "./dist/browser/instance/instance.enum.js",
+				"bun": "./dist/instance/instance.enum.js",
+				"default": "./dist/instance/instance.enum.js"
+			},
+			"./instance/instance.event": {
+				"types": "./dist/instance/instance.event.d.ts",
+				"browser": "./dist/browser/instance/instance.event.js",
+				"bun": "./dist/instance/instance.event.js",
+				"default": "./dist/instance/instance.event.js"
+			},
+			"./instance/instance.handler": {
+				"types": "./dist/instance/instance.handler.d.ts",
+				"browser": "./dist/browser/instance/instance.handler.js",
+				"bun": "./dist/instance/instance.handler.js",
+				"default": "./dist/instance/instance.handler.js"
+			},
+			"./instance/instance.operations": {
+				"types": "./dist/instance/instance.operations.d.ts",
+				"browser": "./dist/browser/instance/instance.operations.js",
+				"bun": "./dist/instance/instance.operations.js",
+				"default": "./dist/instance/instance.operations.js"
+			},
+			"./instance/instance.schema": {
+				"types": "./dist/instance/instance.schema.d.ts",
+				"browser": "./dist/browser/instance/instance.schema.js",
+				"bun": "./dist/instance/instance.schema.js",
+				"default": "./dist/instance/instance.schema.js"
+			},
+			"./presentations": {
+				"types": "./dist/presentations/index.d.ts",
+				"browser": "./dist/browser/presentations/index.js",
+				"bun": "./dist/presentations/index.js",
+				"default": "./dist/presentations/index.js"
+			},
+			"./seeders": {
+				"types": "./dist/seeders/index.d.ts",
+				"browser": "./dist/browser/seeders/index.js",
+				"bun": "./dist/seeders/index.js",
+				"default": "./dist/seeders/index.js"
+			},
+			"./shared": {
+				"types": "./dist/shared/index.d.ts",
+				"browser": "./dist/browser/shared/index.js",
+				"bun": "./dist/shared/index.js",
+				"default": "./dist/shared/index.js"
+			},
+			"./shared/mock-data": {
+				"types": "./dist/shared/mock-data.d.ts",
+				"browser": "./dist/browser/shared/mock-data.js",
+				"bun": "./dist/shared/mock-data.js",
+				"default": "./dist/shared/mock-data.js"
+			},
+			"./shared/types": {
+				"types": "./dist/shared/types.d.ts",
+				"browser": "./dist/browser/shared/types.js",
+				"bun": "./dist/shared/types.js",
+				"default": "./dist/shared/types.js"
+			},
+			"./state-machine": {
+				"types": "./dist/state-machine/index.d.ts",
+				"browser": "./dist/browser/state-machine/index.js",
+				"bun": "./dist/state-machine/index.js",
+				"default": "./dist/state-machine/index.js"
+			},
+			"./tests/operations.test-spec": {
+				"types": "./dist/tests/operations.test-spec.d.ts",
+				"browser": "./dist/browser/tests/operations.test-spec.js",
+				"bun": "./dist/tests/operations.test-spec.js",
+				"default": "./dist/tests/operations.test-spec.js"
+			},
+			"./ui": {
+				"types": "./dist/ui/index.d.ts",
+				"browser": "./dist/browser/ui/index.js",
+				"bun": "./dist/ui/index.js",
+				"default": "./dist/ui/index.js"
+			},
+			"./ui/hooks": {
+				"types": "./dist/ui/hooks/index.d.ts",
+				"browser": "./dist/browser/ui/hooks/index.js",
+				"bun": "./dist/ui/hooks/index.js",
+				"default": "./dist/ui/hooks/index.js"
+			},
+			"./ui/hooks/useWorkflowList": {
+				"types": "./dist/ui/hooks/useWorkflowList.d.ts",
+				"browser": "./dist/browser/ui/hooks/useWorkflowList.js",
+				"bun": "./dist/ui/hooks/useWorkflowList.js",
+				"default": "./dist/ui/hooks/useWorkflowList.js"
+			},
+			"./ui/renderers": {
+				"types": "./dist/ui/renderers/index.d.ts",
+				"browser": "./dist/browser/ui/renderers/index.js",
+				"bun": "./dist/ui/renderers/index.js",
+				"default": "./dist/ui/renderers/index.js"
+			},
+			"./ui/renderers/workflow.markdown": {
+				"types": "./dist/ui/renderers/workflow.markdown.d.ts",
+				"browser": "./dist/browser/ui/renderers/workflow.markdown.js",
+				"bun": "./dist/ui/renderers/workflow.markdown.js",
+				"default": "./dist/ui/renderers/workflow.markdown.js"
+			},
+			"./ui/WorkflowDashboard": {
+				"types": "./dist/ui/WorkflowDashboard.d.ts",
+				"browser": "./dist/browser/ui/WorkflowDashboard.js",
+				"bun": "./dist/ui/WorkflowDashboard.js",
+				"default": "./dist/ui/WorkflowDashboard.js"
+			},
+			"./workflow": {
+				"types": "./dist/workflow/index.d.ts",
+				"browser": "./dist/browser/workflow/index.js",
+				"bun": "./dist/workflow/index.js",
+				"default": "./dist/workflow/index.js"
+			},
+			"./workflow-system.capability": {
+				"types": "./dist/workflow-system.capability.d.ts",
+				"browser": "./dist/browser/workflow-system.capability.js",
+				"bun": "./dist/workflow-system.capability.js",
+				"default": "./dist/workflow-system.capability.js"
+			},
+			"./workflow-system.feature": {
+				"types": "./dist/workflow-system.feature.d.ts",
+				"browser": "./dist/browser/workflow-system.feature.js",
+				"bun": "./dist/workflow-system.feature.js",
+				"default": "./dist/workflow-system.feature.js"
+			},
+			"./workflow/workflow.enum": {
+				"types": "./dist/workflow/workflow.enum.d.ts",
+				"browser": "./dist/browser/workflow/workflow.enum.js",
+				"bun": "./dist/workflow/workflow.enum.js",
+				"default": "./dist/workflow/workflow.enum.js"
+			},
+			"./workflow/workflow.event": {
+				"types": "./dist/workflow/workflow.event.d.ts",
+				"browser": "./dist/browser/workflow/workflow.event.js",
+				"bun": "./dist/workflow/workflow.event.js",
+				"default": "./dist/workflow/workflow.event.js"
+			},
+			"./workflow/workflow.handler": {
+				"types": "./dist/workflow/workflow.handler.d.ts",
+				"browser": "./dist/browser/workflow/workflow.handler.js",
+				"bun": "./dist/workflow/workflow.handler.js",
+				"default": "./dist/workflow/workflow.handler.js"
+			},
+			"./workflow/workflow.operations": {
+				"types": "./dist/workflow/workflow.operations.d.ts",
+				"browser": "./dist/browser/workflow/workflow.operations.js",
+				"bun": "./dist/workflow/workflow.operations.js",
+				"default": "./dist/workflow/workflow.operations.js"
+			},
+			"./workflow/workflow.schema": {
+				"types": "./dist/workflow/workflow.schema.d.ts",
+				"browser": "./dist/browser/workflow/workflow.schema.js",
+				"bun": "./dist/workflow/workflow.schema.js",
+				"default": "./dist/workflow/workflow.schema.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/examples/workflow-system"
+	},
+	"homepage": "https://contractspec.io"
 }

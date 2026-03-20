@@ -1,176 +1,176 @@
 {
-  "name": "@contractspec/example.learning-journey-ui-gamified",
-  "version": "3.7.6",
-  "description": "Duolingo-style gamified learning UI for drills and quests.",
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./src/index.ts",
-    "./components": "./src/components/index.ts",
-    "./components/DayCalendar": "./src/components/DayCalendar.tsx",
-    "./components/FlashCard": "./src/components/FlashCard.tsx",
-    "./components/MasteryRing": "./src/components/MasteryRing.tsx",
-    "./docs": "./src/docs/index.ts",
-    "./docs/learning-journey-ui-gamified.docblock": "./src/docs/learning-journey-ui-gamified.docblock.ts",
-    "./example": "./src/example.ts",
-    "./GamifiedMiniApp": "./src/GamifiedMiniApp.tsx",
-    "./learning-journey-ui-gamified.feature": "./src/learning-journey-ui-gamified.feature.ts",
-    "./views": "./src/views/index.ts",
-    "./views/Overview": "./src/views/Overview.tsx",
-    "./views/Progress": "./src/views/Progress.tsx",
-    "./views/Steps": "./src/views/Steps.tsx",
-    "./views/Timeline": "./src/views/Timeline.tsx"
-  },
-  "scripts": {
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
-    "build:bundle": "contractspec-bun-build transpile",
-    "build:types": "contractspec-bun-build types",
-    "dev": "contractspec-bun-build dev",
-    "clean": "rimraf dist .turbo",
-    "lint": "bun lint:fix",
-    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-    "lint:check": "biome check .",
-    "test": "bun test --pass-with-no-tests",
-    "prebuild": "contractspec-bun-build prebuild",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "@contractspec/example.learning-journey-ui-shared": "workspace:*",
-    "@contractspec/example.learning-journey-duo-drills": "workspace:*",
-    "@contractspec/example.learning-journey-quest-challenges": "workspace:*",
-    "@contractspec/module.learning-journey": "workspace:*",
-    "@contractspec/lib.design-system": "workspace:*",
-    "@contractspec/lib.ui-kit-web": "workspace:*",
-    "react": "catalog:"
-  },
-  "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "@types/react": "^19.2.14",
-    "typescript": "catalog:",
-    "@contractspec/tool.bun": "workspace:*"
-  },
-  "peerDependencies": {
-    "react": "^19.2.0"
-  },
-  "publishConfig": {
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "browser": "./dist/browser/index.js",
-        "bun": "./dist/index.js",
-        "node": "./dist/node/index.js",
-        "default": "./dist/index.js"
-      },
-      "./components": {
-        "types": "./dist/components/index.d.ts",
-        "browser": "./dist/browser/components/index.js",
-        "bun": "./dist/components/index.js",
-        "node": "./dist/node/components/index.js",
-        "default": "./dist/components/index.js"
-      },
-      "./components/DayCalendar": {
-        "types": "./dist/components/DayCalendar.d.ts",
-        "browser": "./dist/browser/components/DayCalendar.js",
-        "bun": "./dist/components/DayCalendar.js",
-        "node": "./dist/node/components/DayCalendar.js",
-        "default": "./dist/components/DayCalendar.js"
-      },
-      "./components/FlashCard": {
-        "types": "./dist/components/FlashCard.d.ts",
-        "browser": "./dist/browser/components/FlashCard.js",
-        "bun": "./dist/components/FlashCard.js",
-        "node": "./dist/node/components/FlashCard.js",
-        "default": "./dist/components/FlashCard.js"
-      },
-      "./components/MasteryRing": {
-        "types": "./dist/components/MasteryRing.d.ts",
-        "browser": "./dist/browser/components/MasteryRing.js",
-        "bun": "./dist/components/MasteryRing.js",
-        "node": "./dist/node/components/MasteryRing.js",
-        "default": "./dist/components/MasteryRing.js"
-      },
-      "./docs": {
-        "types": "./dist/docs/index.d.ts",
-        "browser": "./dist/browser/docs/index.js",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/learning-journey-ui-gamified.docblock": {
-        "types": "./dist/docs/learning-journey-ui-gamified.docblock.d.ts",
-        "browser": "./dist/browser/docs/learning-journey-ui-gamified.docblock.js",
-        "bun": "./dist/docs/learning-journey-ui-gamified.docblock.js",
-        "node": "./dist/node/docs/learning-journey-ui-gamified.docblock.js",
-        "default": "./dist/docs/learning-journey-ui-gamified.docblock.js"
-      },
-      "./example": {
-        "types": "./dist/example.d.ts",
-        "browser": "./dist/browser/example.js",
-        "bun": "./dist/example.js",
-        "node": "./dist/node/example.js",
-        "default": "./dist/example.js"
-      },
-      "./GamifiedMiniApp": {
-        "types": "./dist/GamifiedMiniApp.d.ts",
-        "browser": "./dist/browser/GamifiedMiniApp.js",
-        "bun": "./dist/GamifiedMiniApp.js",
-        "node": "./dist/node/GamifiedMiniApp.js",
-        "default": "./dist/GamifiedMiniApp.js"
-      },
-      "./learning-journey-ui-gamified.feature": {
-        "types": "./dist/learning-journey-ui-gamified.feature.d.ts",
-        "browser": "./dist/browser/learning-journey-ui-gamified.feature.js",
-        "bun": "./dist/learning-journey-ui-gamified.feature.js",
-        "node": "./dist/node/learning-journey-ui-gamified.feature.js",
-        "default": "./dist/learning-journey-ui-gamified.feature.js"
-      },
-      "./views": {
-        "types": "./dist/views/index.d.ts",
-        "browser": "./dist/browser/views/index.js",
-        "bun": "./dist/views/index.js",
-        "node": "./dist/node/views/index.js",
-        "default": "./dist/views/index.js"
-      },
-      "./views/Overview": {
-        "types": "./dist/views/Overview.d.ts",
-        "browser": "./dist/browser/views/Overview.js",
-        "bun": "./dist/views/Overview.js",
-        "node": "./dist/node/views/Overview.js",
-        "default": "./dist/views/Overview.js"
-      },
-      "./views/Progress": {
-        "types": "./dist/views/Progress.d.ts",
-        "browser": "./dist/browser/views/Progress.js",
-        "bun": "./dist/views/Progress.js",
-        "node": "./dist/node/views/Progress.js",
-        "default": "./dist/views/Progress.js"
-      },
-      "./views/Steps": {
-        "types": "./dist/views/Steps.d.ts",
-        "browser": "./dist/browser/views/Steps.js",
-        "bun": "./dist/views/Steps.js",
-        "node": "./dist/node/views/Steps.js",
-        "default": "./dist/views/Steps.js"
-      },
-      "./views/Timeline": {
-        "types": "./dist/views/Timeline.d.ts",
-        "browser": "./dist/browser/views/Timeline.js",
-        "bun": "./dist/views/Timeline.js",
-        "node": "./dist/node/views/Timeline.js",
-        "default": "./dist/views/Timeline.js"
-      }
-    },
-    "registry": "https://registry.npmjs.org/",
-    "access": "public"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/examples/learning-journey-ui-gamified"
-  },
-  "homepage": "https://contractspec.io"
+	"name": "@contractspec/example.learning-journey-ui-gamified",
+	"version": "3.7.6",
+	"description": "Duolingo-style gamified learning UI for drills and quests.",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./components": "./src/components/index.ts",
+		"./components/DayCalendar": "./src/components/DayCalendar.tsx",
+		"./components/FlashCard": "./src/components/FlashCard.tsx",
+		"./components/MasteryRing": "./src/components/MasteryRing.tsx",
+		"./docs": "./src/docs/index.ts",
+		"./docs/learning-journey-ui-gamified.docblock": "./src/docs/learning-journey-ui-gamified.docblock.ts",
+		"./example": "./src/example.ts",
+		"./GamifiedMiniApp": "./src/GamifiedMiniApp.tsx",
+		"./learning-journey-ui-gamified.feature": "./src/learning-journey-ui-gamified.feature.ts",
+		"./views": "./src/views/index.ts",
+		"./views/Overview": "./src/views/Overview.tsx",
+		"./views/Progress": "./src/views/Progress.tsx",
+		"./views/Steps": "./src/views/Steps.tsx",
+		"./views/Timeline": "./src/views/Timeline.tsx"
+	},
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"test": "bun test --pass-with-no-tests",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/example.learning-journey-ui-shared": "workspace:*",
+		"@contractspec/example.learning-journey-duo-drills": "workspace:*",
+		"@contractspec/example.learning-journey-quest-challenges": "workspace:*",
+		"@contractspec/module.learning-journey": "workspace:*",
+		"@contractspec/lib.design-system": "workspace:*",
+		"@contractspec/lib.ui-kit-web": "workspace:*",
+		"react": "catalog:"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"@types/react": "^19.2.14",
+		"typescript": "catalog:",
+		"@contractspec/tool.bun": "workspace:*"
+	},
+	"peerDependencies": {
+		"react": "^19.2.0"
+	},
+	"publishConfig": {
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./components": {
+				"types": "./dist/components/index.d.ts",
+				"browser": "./dist/browser/components/index.js",
+				"bun": "./dist/components/index.js",
+				"node": "./dist/node/components/index.js",
+				"default": "./dist/components/index.js"
+			},
+			"./components/DayCalendar": {
+				"types": "./dist/components/DayCalendar.d.ts",
+				"browser": "./dist/browser/components/DayCalendar.js",
+				"bun": "./dist/components/DayCalendar.js",
+				"node": "./dist/node/components/DayCalendar.js",
+				"default": "./dist/components/DayCalendar.js"
+			},
+			"./components/FlashCard": {
+				"types": "./dist/components/FlashCard.d.ts",
+				"browser": "./dist/browser/components/FlashCard.js",
+				"bun": "./dist/components/FlashCard.js",
+				"node": "./dist/node/components/FlashCard.js",
+				"default": "./dist/components/FlashCard.js"
+			},
+			"./components/MasteryRing": {
+				"types": "./dist/components/MasteryRing.d.ts",
+				"browser": "./dist/browser/components/MasteryRing.js",
+				"bun": "./dist/components/MasteryRing.js",
+				"node": "./dist/node/components/MasteryRing.js",
+				"default": "./dist/components/MasteryRing.js"
+			},
+			"./docs": {
+				"types": "./dist/docs/index.d.ts",
+				"browser": "./dist/browser/docs/index.js",
+				"bun": "./dist/docs/index.js",
+				"node": "./dist/node/docs/index.js",
+				"default": "./dist/docs/index.js"
+			},
+			"./docs/learning-journey-ui-gamified.docblock": {
+				"types": "./dist/docs/learning-journey-ui-gamified.docblock.d.ts",
+				"browser": "./dist/browser/docs/learning-journey-ui-gamified.docblock.js",
+				"bun": "./dist/docs/learning-journey-ui-gamified.docblock.js",
+				"node": "./dist/node/docs/learning-journey-ui-gamified.docblock.js",
+				"default": "./dist/docs/learning-journey-ui-gamified.docblock.js"
+			},
+			"./example": {
+				"types": "./dist/example.d.ts",
+				"browser": "./dist/browser/example.js",
+				"bun": "./dist/example.js",
+				"node": "./dist/node/example.js",
+				"default": "./dist/example.js"
+			},
+			"./GamifiedMiniApp": {
+				"types": "./dist/GamifiedMiniApp.d.ts",
+				"browser": "./dist/browser/GamifiedMiniApp.js",
+				"bun": "./dist/GamifiedMiniApp.js",
+				"node": "./dist/node/GamifiedMiniApp.js",
+				"default": "./dist/GamifiedMiniApp.js"
+			},
+			"./learning-journey-ui-gamified.feature": {
+				"types": "./dist/learning-journey-ui-gamified.feature.d.ts",
+				"browser": "./dist/browser/learning-journey-ui-gamified.feature.js",
+				"bun": "./dist/learning-journey-ui-gamified.feature.js",
+				"node": "./dist/node/learning-journey-ui-gamified.feature.js",
+				"default": "./dist/learning-journey-ui-gamified.feature.js"
+			},
+			"./views": {
+				"types": "./dist/views/index.d.ts",
+				"browser": "./dist/browser/views/index.js",
+				"bun": "./dist/views/index.js",
+				"node": "./dist/node/views/index.js",
+				"default": "./dist/views/index.js"
+			},
+			"./views/Overview": {
+				"types": "./dist/views/Overview.d.ts",
+				"browser": "./dist/browser/views/Overview.js",
+				"bun": "./dist/views/Overview.js",
+				"node": "./dist/node/views/Overview.js",
+				"default": "./dist/views/Overview.js"
+			},
+			"./views/Progress": {
+				"types": "./dist/views/Progress.d.ts",
+				"browser": "./dist/browser/views/Progress.js",
+				"bun": "./dist/views/Progress.js",
+				"node": "./dist/node/views/Progress.js",
+				"default": "./dist/views/Progress.js"
+			},
+			"./views/Steps": {
+				"types": "./dist/views/Steps.d.ts",
+				"browser": "./dist/browser/views/Steps.js",
+				"bun": "./dist/views/Steps.js",
+				"node": "./dist/node/views/Steps.js",
+				"default": "./dist/views/Steps.js"
+			},
+			"./views/Timeline": {
+				"types": "./dist/views/Timeline.d.ts",
+				"browser": "./dist/browser/views/Timeline.js",
+				"bun": "./dist/views/Timeline.js",
+				"node": "./dist/node/views/Timeline.js",
+				"default": "./dist/views/Timeline.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/",
+		"access": "public"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/examples/learning-journey-ui-gamified"
+	},
+	"homepage": "https://contractspec.io"
 }

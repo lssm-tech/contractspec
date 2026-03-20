@@ -1,42 +1,62 @@
 # @contractspec/app.api-library
 
-Library API server providing documentation, templates, and MCP server endpoints for ContractSpec.
+**Library API server for ContractSpec documentation, templates, and MCP servers. Thin HTTP layer over `bundle.library`.**
 
-## Overview
+## What It Does
 
-This package provides a lightweight Elysia-based HTTP server that exposes:
-- Documentation and learning resources
-- Template library endpoints
-- MCP (Model Context Protocol) server for AI agent integration
+- This app is a thin HTTP layer — all business logic lives in `bundle.library`.
+- Elysia server with MCP endpoint integration.
+- `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
+- Related ContractSpec packages include `@contractspec/bundle.library`, `@contractspec/bundle.marketing`, `@contractspec/bundle.workspace`, `@contractspec/integration.providers-impls`, `@contractspec/integration.runtime`, `@contractspec/lib.contracts-spec`, ...
+- `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
+
+## Running Locally
+
+From `packages/apps/api-library`:
+- `bun run dev`
+- `bun run start`
+- `bun run build`
 
 ## Usage
 
 ```bash
-# Development
-bun dev
-
-# Production build
-bun build
-bun start
+bun run dev
 ```
 
-## Dependencies
+## Architecture
 
-- `@contractspec/bundle.library` — Core library bundle with docs, templates, and MCP servers
-- `@contractspec/bundle.workspace` — Workspace utilities
-- `@contractspec/lib.contracts-spec` — Contract definitions
+- This app is a thin HTTP layer — all business logic lives in `bundle.library`.
+- Elysia server with MCP endpoint integration.
+- `src/index.ts` is the root public barrel and package entrypoint.
 
-## Package Structure
+## Public Entry Points
 
-```
-src/
-├── handlers/           # HTTP request handlers
-│   └── mcp-handler.ts  # MCP server integration
-├── index.ts            # Entry point
-└── server.ts           # Elysia server setup
-```
+- This package is a deployable application rather than a library with published subpath exports.
 
-## Related Packages
+## Local Commands
 
-- [`@contractspec/bundle.library`](../../bundles/library/README.md) — Business logic and components
-- [`@contractspec/app.api-studio`](../api-studio/README.md) — Studio API server
+- `bun run dev` — bun run --watch src/index.ts
+- `bun run start` — bun run ./dist/index.js
+- `bun run build` — bun run build:types && bun run build:bundle
+- `bun run lint` — bun run lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run clean` — rm -rf dist api/dist
+- `bun run build:bundle` — bun build --target node --packages bundle --outfile dist/index.js src/index.ts && mkdir -p api/dist && cp dist/index.js api/dist/index.js
+- `bun run build:types` — tsc -p ./tsconfig.json --noEmit
+- `bun run postinstall` — if [ "$VERCEL" = "1" ]; then bun run build:bundle; fi
+
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed.
+- Resolve lint, build, and type errors across nine packages.
+- Expose contract management via CLI and MCP.
+- Stabilize lint gate and runtime contract typing.
+- Add ai-native messaging channel runtime.
+- Inline server into index.ts and add Vercel configs.
+
+## Notes
+
+- Keep this app thin — no business logic here; delegate to `bundle.library`.
+- MCP handler changes may affect VS Code extension and CLI consumers.
+- API route changes require coordinating with `app.web-landing` and any external clients.

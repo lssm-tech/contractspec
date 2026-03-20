@@ -1,126 +1,75 @@
 # @contractspec/lib.jobs
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Background jobs and scheduler module for ContractSpec applications.**
 
-Background jobs and scheduler module for ContractSpec applications.
+## What It Provides
 
-## Purpose
-
-Provides a generic system for asynchronous and scheduled work. Supports multiple queue backends (memory, Redis, GCP Cloud Tasks) and cron-like scheduling for recurring jobs.
-
-## Features
-
-- **Job Queue**: Async job processing with retry policies
-- **Scheduler**: Cron-like scheduling for recurring jobs
-- **Multiple Backends**: Memory, Redis, GCP Cloud Tasks, GCP Pub/Sub
-- **Type Safety**: Typed job definitions with Zod schemas
-- **Dead Letter Queue**: Automatic handling of failed jobs
-- **Entity Specs**: Prisma schema generation for job persistence
+- **Layer**: lib.
+- **Consumers**: bundles.
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 
 ## Installation
 
-```bash
-bun add @contractspec/lib.jobs
-```
+`npm install @contractspec/lib.jobs`
+
+or
+
+`bun add @contractspec/lib.jobs`
 
 ## Usage
 
-### Define a Job Type
+Import the root entrypoint from `@contractspec/lib.jobs`, or choose a documented subpath when you only need one part of the package surface.
 
-```typescript
-import { defineJobType } from '@contractspec/lib.jobs';
-import * as z from "zod";
+## Architecture
 
-const SendEmailJob = defineJobType({
-  type: 'email.send',
-  version: '1.0.0',
-  payload: z.object({
-    to: z.string().email(),
-    subject: z.string(),
-    body: z.string(),
-  }),
-  options: {
-    maxRetries: 3,
-    backoffMs: 5000,
-    timeoutMs: 30000,
-  },
-});
-```
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/entities/` contains domain entities and value objects.
+- `src/events.ts` is package-level event definitions.
+- `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/jobs.capability.ts` defines a capability surface.
+- `src/jobs.feature.ts` defines a feature entrypoint.
 
-### Create a Queue
+## Public Entry Points
 
-```typescript
-import { MemoryJobQueue, RedisJobQueue } from '@contractspec/lib.jobs/queue';
+- Export `.` resolves through `./src/index.ts`.
+- Export `./contracts` resolves through `./src/contracts/index.ts`.
+- Export `./entities` resolves through `./src/entities/index.ts`.
+- Export `./events` resolves through `./src/events.ts`.
+- Export `./handlers` resolves through `./src/handlers/index.ts`.
+- Export `./handlers/gmail-sync-handler` resolves through `./src/handlers/gmail-sync-handler.ts`.
+- Export `./handlers/ping-job` resolves through `./src/handlers/ping-job.ts`.
+- Export `./handlers/storage-document-handler` resolves through `./src/handlers/storage-document-handler.ts`.
+- Export `./jobs.capability` resolves through `./src/jobs.capability.ts`.
+- Export `./jobs.feature` resolves through `./src/jobs.feature.ts`.
+- The package publishes 18 total export subpaths; keep docs aligned with `package.json`.
 
-// In-memory for development
-const queue = new MemoryJobQueue();
+## Local Commands
 
-// Redis for production
-const queue = new RedisJobQueue({
-  redis: redisClient,
-  prefix: 'jobs:',
-});
-```
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-### Enqueue and Process Jobs
+## Recent Updates
 
-```typescript
-// Enqueue
-await queue.enqueue('email.send', {
-  to: 'user@example.com',
-  subject: 'Welcome!',
-  body: 'Thanks for signing up.',
-});
+- Replace eslint+prettier by biomejs to optimize speed.
 
-// Register handler
-queue.register('email.send', async (job) => {
-  await sendEmail(job.payload);
-});
+## Notes
 
-// Start processing
-queue.start();
-```
-
-### Schedule Recurring Jobs
-
-```typescript
-import { JobScheduler } from '@contractspec/lib.jobs/scheduler';
-
-const scheduler = new JobScheduler(queue);
-
-// Run daily at midnight
-scheduler.schedule('daily-cleanup', '0 0 * * *', async () => {
-  await cleanupOldRecords();
-});
-
-// Run every 5 minutes
-scheduler.schedule('sync-data', '*/5 * * * *', async () => {
-  await syncExternalData();
-});
-
-scheduler.start();
-```
-
-## Entity Specs (for schema generation)
-
-```typescript
-import { jobsSchemaContribution } from '@contractspec/lib.jobs/entities';
-
-// Use in schema composition
-const config = {
-  modules: [jobsSchemaContribution],
-};
-```
-
-## Events
-
-| Event | Trigger |
-|-------|---------|
-| job.enqueued | Job added to queue |
-| job.started | Job processing started |
-| job.completed | Job finished successfully |
-| job.failed | Job failed after retries |
-| job.retrying | Job is being retried |
-| scheduler.tick | Scheduler checked for due jobs |
-
+- Queue and scheduler interfaces are adapter boundaries — do not leak implementation details.
+- Job entity schema is shared across consumers; changes require migration awareness.
+- Capability contract (`jobs.capability`) is public API — treat as a breaking-change surface.

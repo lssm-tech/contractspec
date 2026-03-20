@@ -2,336 +2,253 @@
 targets:
   - '*'
 root: false
-description: 'Governs package responsibilities, component hierarchy, and dependency flow across the ContractSpec monorepo.'
+description: 'Governs package responsibilities, dependency direction, and UI layering across the ContractSpec monorepo.'
 globs:
   - '**/*'
 cursor:
   alwaysApply: true
-  description: 'Governs package responsibilities, component hierarchy, and dependency flow across the ContractSpec monorepo.'
+  description: 'Governs package responsibilities, dependency direction, and UI layering across the ContractSpec monorepo.'
   globs:
     - '**/*'
 ---
 
-
 # Package Architecture & Dependency Flow
 
-"Code must live in the right layer: Contracts define behavior, libs provide infrastructure, bundles compose business logic, and apps are thin platform adapters. UI is composed from design tokens — never from raw HTML."
+"Put code in the lowest layer that can honestly own it. Libs define primitives, integrations connect them to real runtimes, modules shape feature domains, bundles compose broader product surfaces, and apps stay thin."
 
 ## Core Principles
 
-- **Layered Architecture**: Libs → Bundles → Apps, with clear dependency flow and no circular references.
-- **Spec-First Development**: Contracts and specs live in reusable libraries to enable multi-platform runtime adapters.
-- **Platform Neutrality**: Business logic must be platform-agnostic; apps are thin presentation layers.
-- **Component Hierarchy**: All UI must use design-system components; raw HTML elements are forbidden in application code.
-
----
+- **Spec-first layering**: Contracts and shared execution primitives live in reusable lower layers before product shells and demos.
+- **Downward dependency flow**: Higher layers may depend on lower layers; lower layers must not depend upward on product shells.
+- **Thin apps**: Deployable apps wire transports, routing, and platform concerns around lower-layer behavior.
+- **Explicit runtime bridges**: Provider, browser, sandbox, MCP, and other runtime-specific code belongs in integrations or app shells, not core libs.
+- **Composable UI**: Shared UI primitives live in the design system and UI kits; product bundles and apps should compose them rather than rebuilding them ad hoc.
 
 ## Package Responsibilities
 
-### 1. `packages/libs/` — Shared Infrastructure & Contracts
+### 1. `packages/libs/` — Core Contracts, Runtimes, and Shared Primitives
 
-**Purpose**: Houses shared infrastructure, contracts, utilities, and design system components used across the monorepo.
+**Purpose**: Shared foundations such as contracts, registries, runtimes, agent systems, schema helpers, design primitives, and cross-cutting utilities.
 
-**Key Libraries**:
+**Examples**:
 
-```
+```text
 libs/
-├── contracts/              # Core ContractSpec definitions (defineCommand, defineQuery, OperationSpecRegistry)
-├── ai-agent/               # AI agent orchestration and LLM providers
-├── evolution/              # Auto-evolution engine
-├── schema/                 # Zod-based schema definitions
-├── design-system/          # Shared design tokens and atoms
-├── ui-kit/                 # Cross-platform UI components
-├── ui-kit-web/             # Web-specific UI components
-├── analytics/              # Analytics and tracking
-├── observability/          # Logging, tracing, metrics
-├── multi-tenancy/          # Tenant isolation utilities
-├── progressive-delivery/   # Feature flags and rollouts
-└── utils-typescript/       # TypeScript utilities
+├── contracts-spec/        # Contract declarations, registries, capabilities
+├── contracts-runtime-*/   # REST, GraphQL, MCP, and client runtime adapters
+├── ai-agent/              # Agent runtime, sessions, tools, memory, telemetry
+├── surface-runtime/       # Bundle/spec runtime, planners, patching, React support
+├── harness/               # Evaluation, policy, evidence, replay core
+├── schema/                # Shared schema model and validation primitives
+├── design-system/         # Shared design tokens and components
+├── ui-kit*/               # Cross-platform and platform-specific UI kits
+└── observability/         # Logging, metrics, tracing, analytics helpers
 ```
 
-**What Goes Here**:
+**What goes here**:
 
-- Generic infrastructure with no business logic dependencies
-- Contract definitions and runtime adapters
-- Design system components
-- Pure utilities and type helpers
+- Public contracts, registries, and shared types
+- Runtime primitives that must work across multiple higher-level packages
+- Shared UI, schema, telemetry, and infrastructure helpers
+- Low-level evaluation, orchestration, or policy engines
 
-**What Does NOT Go Here**:
+**What does not go here**:
 
-- Business-specific logic (→ bundles)
-- Platform-specific adapters (→ apps)
-- Application-specific prompts or tools
+- App routing, page shells, or deployment bootstraps
+- Product-specific composition that only makes sense in one app or bundle
+- Provider- or transport-specific glue when it depends on concrete runtimes
 
-**Dev Heuristics**:
-✅ Is this pure infrastructure with no business logic?
-✅ Can this be used by any application without modification?
-✅ Does this have zero dependencies on business bundles?
+### 2. `packages/integrations/` — Concrete Runtime & Provider Bridges
 
----
+**Purpose**: Bridges between generic libs and concrete execution environments, providers, and runtime targets.
 
-### 2. `packages/bundles/contractspec-studio/` — Core Business Logic
+**Examples**:
 
-**Purpose**: Contains domain logic, application services, infrastructure adapters, and reusable UI components for ContractSpec Studio. **Organized by business domain.**
-
-**Structure** (domain-first organization):
-
-```
-contractspec-studio/
-├── src/
-│   ├── domain/                    # Pure business logic
-│   ├── application/               # Application services
-│   │   └── services/              # Auth, etc.
-│   ├── modules/                   # Feature modules by domain
-│   │   ├── studio/                # Visual builder
-│   │   ├── lifecycle/             # Lifecycle management
-│   │   ├── integrations/          # Integration marketplace
-│   │   ├── evolution/             # Auto-evolution
-│   │   ├── knowledge/             # Knowledge sources
-│   │   └── analytics/             # Metrics and tracking
-│   ├── infrastructure/            # Infrastructure adapters
-│   │   ├── graphql/               # GraphQL schema and resolvers
-│   │   ├── elysia/                # HTTP server
-│   │   ├── byok/                  # Encryption
-│   │   └── deployment/            # Deployment orchestration
-│   ├── presentation/              # Reusable UI by domain
-│   │   ├── studio/                # Studio-specific components
-│   │   ├── lifecycle/             # Lifecycle-specific components
-│   │   ├── integrations/          # Integration-specific components
-│   │   └── templates/             # Reusable template components
-│   └── templates/                 # Application templates (todos, recipes, etc.)
+```text
+integrations/
+├── runtime/               # Runtime composition helpers
+├── providers-impls/       # Concrete provider implementations
+├── harness-runtime/       # Browser, sandbox, artifact, MCP harness adapters
+└── example-generator/     # Example generation integration helpers
 ```
 
-**What Goes Here**:
+**What goes here**:
 
-- Domain models and business rules (grouped by domain)
-- Application services and use cases (grouped by domain)
-- Infrastructure adapters (Prisma, GraphQL, external APIs)
-- **ContractSpec-specific UI components** (highest priority in component hierarchy)
-- Feature-specific molecules and organisms (organized by domain)
+- Adapters that bind core libs to concrete runtimes or providers
+- Runtime target resolution and environment-aware wrappers
+- Optional heavier integrations that lower layers should not require directly
 
-**What Does NOT Go Here**:
+**What does not go here**:
 
-- Generic contract definitions (→ libs/contracts)
-- Platform routing, middleware, or deployment config (→ apps)
-- Raw HTML elements (div, button, span, input, etc.)
-- Generic utilities not tied to business domains (→ libs)
+- Foundational contracts and generic orchestration primitives
+- App-specific transport or deployment code
+- Product UI composition
 
-**Dev Heuristics**:
-✅ Can this logic run on web, mobile, and API without changes?
-✅ Is this component reusable across multiple features or screens?
-✅ Does this component compose from the design system, not raw HTML?
-✅ Is this code grouped with related domain concepts, not scattered by file type?
-✅ Does this file belong to a clear business domain (studio, lifecycle, integrations, etc.)?
+### 3. `packages/modules/` — Domain & Feature Modules
 
----
+**Purpose**: Reusable feature/domain packages that compose libs and integrations into coherent product surfaces.
 
-### 3. `packages/apps/` — Platform-Specific Entry Points
+**Examples**:
 
-**Purpose**: Thin adapters for platform-specific concerns (routing, middleware, deployment, native APIs).
-
-**Apps**:
-
-```
-apps/
-├── web-landing/            # Marketing site (Next.js)
-├── overlay-editor/         # Overlay editor (Next.js)
-├── cli-contractspec/          # CLI for contract management
-├── cli-database/           # CLI for database management
-└── cli-databases/          # CLI for multi-database management
-```
-
-**What Goes Here**:
-
-- Next.js routing and API routes
-- Platform-specific middleware (auth, i18n, feature flags)
-- Deployment and build configuration
-- Platform entry points and bootstrapping
-- Page-level composition (importing from bundles)
-
-**What Does NOT Go Here**:
-
-- Business logic (→ bundles)
-- Reusable UI components (→ bundles/presentation)
-- Contract definitions (→ libs/contracts)
-- Data fetching logic (→ bundles/application)
-
-**Dev Heuristics**:
-✅ Is this code specific to Next.js, CLI, or another platform?
-✅ Does this file only wire together logic from bundles and libraries?
-✅ Can this be replaced with a different framework without rewriting business logic?
-
----
-
-### 4. `packages/modules/` — Lifecycle Modules
-
-**Purpose**: Self-contained modules for lifecycle management features.
-
-```
+```text
 modules/
-├── lifecycle-core/         # Core lifecycle definitions
-└── lifecycle-advisor/      # AI-powered lifecycle recommendations
+├── ai-chat/               # Packaged chat feature surface
+├── provider-ranking/      # Ranking orchestration and storage-facing surfaces
+├── learning-journey/      # Learning journey features and track contracts
+├── notifications/         # Notification templates, channels, contracts
+└── workspace/             # Workspace-oriented module composition
 ```
 
----
+**What goes here**:
 
-### 5. `packages/verticals/` — Domain-Specific Implementations
+- Feature-level orchestration and domain-focused public surfaces
+- Capability, feature, entity, storage, and pipeline composition
+- Module-level documentation and reusable entrypoints consumed by bundles/apps
 
-**Purpose**: Complete vertical implementations demonstrating ContractSpec in specific domains.
+**What does not go here**:
 
-```
-verticals/
-└── pocket-family-office/   # Family office automation vertical
-```
+- Generic utilities that could live in libs
+- Final app routing, web pages, or transport bootstraps
+- One-off example/demo logic
 
----
+### 4. `packages/bundles/` — Product Composition Layers
 
-## Component Hierarchy — Forbidden: Raw HTML
+**Purpose**: Higher-level product composition that brings together modules, integrations, and libs for broad product surfaces.
 
-**Rule**: Never use raw HTML elements (`div`, `button`, `span`, `input`, `form`, etc.) directly in application code.
+**Examples**:
 
-**Component Priority** (use the highest available):
-
-1. **ContractSpec-specific components** (`packages/bundles/contractspec-studio/src/presentation/`)
-2. **Design system components** (`@contractspec/lib.design-system`)
-3. **UI kit components** (`@contractspec/lib.ui-kit-web`)
-
-### ✅ Good: Composed from Design System
-
-```tsx
-// In bundles/contractspec-studio/src/presentation/organisms/ProjectForm.tsx
-import { Button } from '@contractspec/lib.design-system';
-import { Input } from '@contractspec/lib.ui-kit-web';
-import { FormContainer } from '../molecules/FormContainer';
-
-export const ProjectForm = ({ onSubmit, isLoading }) => (
-  <FormContainer onSubmit={onSubmit}>
-    <Input label="Project Name" type="text" />
-    <Input label="Description" type="text" />
-    <Button loading={isLoading}>Create Project</Button>
-  </FormContainer>
-);
+```text
+bundles/
+├── workspace/             # CLI/editor/repo workflow composition
+├── library/               # Docs, templates, MCP, and reusable product surfaces
+├── marketing/             # Marketing and website composition
+├── lifecycle-managed/     # Lifecycle-managed composition
+└── product-intent/        # Product-intent composition surfaces
 ```
 
-### ❌ Forbidden: Raw HTML Elements
+**What goes here**:
 
-```tsx
-// NEVER do this in application code
-export const ProjectForm = ({ onSubmit }) => (
-  <div className="form-container">
-    <input type="text" placeholder="Project Name" />
-    <input type="text" placeholder="Description" />
-    <button type="submit">Create Project</button>
-  </div>
-);
+- Product-facing orchestration across multiple modules and libs
+- Reusable presentation composition for apps and websites
+- Bundle-local service layers, composition registries, and high-level exports
+
+**What does not go here**:
+
+- App bootstraps, deployment wrappers, or route-only code
+- Generic primitives that are reusable without product context
+
+### 5. `packages/examples/` — Runnable & Importable Reference Implementations
+
+**Purpose**: Concrete examples that demonstrate how the lower layers are composed in realistic scenarios.
+
+**What goes here**:
+
+- Feature demos, integration examples, mini-apps, and example registries
+- Runnable examples used by docs, templates, and onboarding flows
+- Example-only handlers, demo data, and UI composition
+
+**What does not go here**:
+
+- Foundational production primitives that other packages should depend on directly
+- Cross-repo tooling or canonical product logic
+
+### 6. `packages/apps/` and `packages/apps-registry/` — Deployable Entry Points
+
+**Purpose**: Thin deployable shells such as CLIs, APIs, MCP servers, websites, mobile apps, and registry apps.
+
+**Examples**:
+
+```text
+apps/
+├── cli-contractspec/      # Main CLI
+├── web-landing/           # Next.js marketing/docs/app shell
+├── mobile-demo/           # Expo reference app
+├── provider-ranking-mcp/  # MCP server for provider ranking
+├── registry-packs/        # Agentpacks registry server
+└── registry-server/       # ContractSpec registry server
 ```
 
-### Exception: Creating New Design System Components
+**What goes here**:
 
-Raw HTML is **only allowed** when creating new design system atoms within:
+- Routing, transport startup, framework bootstraps, and deployment wiring
+- Shell-level composition of bundles/modules/libs
+- App-only middleware, startup, and external delivery concerns
 
-- `packages/libs/design-system/src/atoms/`
-- Or when contributing to `@contractspec/lib.ui-kit` or `@contractspec/lib.ui-kit-web`
+**What does not go here**:
 
-These new atoms must:
+- Shared domain rules that multiple apps need
+- Generic provider/runtime bridges that belong in integrations
+- Shared UI composition that belongs in bundles or libs
 
-- Follow the design token system
-- Be fully typed
-- Include proper accessibility attributes
-- Be documented and reviewed
+### 7. `packages/tools/` — Repository and Downstream Tooling
 
----
+**Purpose**: Build, docs, config, generation, and agent-tooling packages used in this repo and by downstream consumers.
+
+**Examples**:
+
+```text
+tools/
+├── agentpacks/            # Pack-based agent config generation
+├── biome-config/          # Typed lint-policy package and generated presets
+├── docs-generator/        # Documentation generation tooling
+├── create-contractspec-plugin/
+└── bun/, tsdown/, typescript/
+```
+
+**What goes here**:
+
+- CLI tooling, config generators, preset packages, repo automation helpers
+- Generated-artifact pipelines and repository-wide build helpers
+
+**What does not go here**:
+
+- Product runtime behavior that belongs in libs/modules/bundles/apps
 
 ## Dependency Flow
 
-**Allowed**:
+**Default direction**:
 
-```
-apps → bundles → libs (contracts, ai-agent, design-system, etc.)
-       ↓
-     No upward dependencies
-```
+```text
+apps/apps-registry
+        ↓
+      bundles
+        ↓
+modules ← integrations
+   ↓         ↓
+        libs
 
-| From         | To            | Allowed? | Notes                                                       |
-| ------------ | ------------- | -------- | ----------------------------------------------------------- |
-| apps         | bundles, libs | ✅       | Apps stay thin; no business logic here.                     |
-| bundles      | libs          | ✅       | Business logic may consume shared infrastructure/contracts. |
-| bundles      | apps          | ❌       | Forbidden upward dependency.                                |
-| libs         | bundles/apps  | ❌       | Shared libs must not depend on business/app code.           |
-| cross-bundle | other bundles | 🚫       | Avoid; extract to shared libs/contracts instead.            |
-
-**Example**:
-
-```
-apps/web-landing
-  └── bundles/contractspec-studio
-        ├── modules/studio           (visual builder)
-        ├── modules/lifecycle        (lifecycle management)
-        └── libs/contracts           (core contract definitions)
+examples may depend on libs, integrations, modules, and bundles
+tools may support every layer, but runtime packages should not depend on apps
 ```
 
-**Forbidden**:
+| From | To | Allowed? | Notes |
+| --- | --- | --- | --- |
+| apps / apps-registry | bundles, modules, integrations, libs | ✅ | Apps stay thin and compose lower layers. |
+| bundles | modules, integrations, libs | ✅ | Bundles compose lower-level surfaces into broader product packages. |
+| modules | integrations, libs | ✅ | Modules build feature/domain surfaces on reusable primitives. |
+| integrations | libs | ✅ | Integrations wrap or bind generic primitives to concrete targets. |
+| examples | bundles, modules, integrations, libs | ✅ | Examples are allowed to demonstrate the stack. |
+| libs | modules, bundles, apps | ❌ | Foundational libs must not depend upward. |
+| integrations | modules, bundles, apps | ❌ | Keep bridges reusable and downward-facing. |
+| modules | bundles, apps | ❌ | Modules should stay reusable outside specific shells. |
+| bundles | apps | ❌ | App shells own delivery concerns. |
 
-- `libs` importing from `bundles`
-- `bundles` importing from `apps`
-- Circular dependencies at any level
+## UI Layering
 
----
+When working on UI, prefer the highest reusable layer that already exists:
 
-## Dev Heuristics — Where Does This Code Go?
+1. **Product-specific reusable composition** in bundles or example-shared packages
+2. **Design-system components** from `@contractspec/lib.design-system`
+3. **UI kit components** from `@contractspec/lib.ui-kit`, `@contractspec/lib.ui-kit-web`, or React Native equivalents
 
-**Generic infrastructure?** → `packages/libs/`
-✅ Is this pure infrastructure without business logic?
-✅ Is this a contract definition, adapter, or utility?
-✅ Does it have zero dependencies on business bundles?
+Use raw platform elements only when you are explicitly building lower-level design-system or UI-kit primitives.
 
-**Business-specific logic?** → `packages/bundles/contractspec-studio/`
-✅ Is this domain logic, a use case, or a data adapter?
-✅ Is this a reusable UI component?
-✅ Can this be shared across platforms?
-✅ Does this belong to a clear business domain (studio, lifecycle, integrations, etc.)?
-✅ Is the file under 250 lines? If not, can it be split?
+## Placement Heuristics
 
-**Platform-specific?** → `packages/apps/`
-✅ Is this Next.js routing, middleware, or deployment config?
-✅ Does this only wire together imports from bundles?
-✅ Is this truly platform-specific and not reusable?
-
-**UI component?** → Check hierarchy
-✅ Does a ContractSpec-specific component already exist?
-✅ Does `@contractspec/lib.design-system` provide this?
-✅ Does `@contractspec/lib.ui-kit-web` provide this?
-✅ Is this component under 150 lines? If not, can it be split?
-✅ Is this component reusable across multiple features?
-❌ Am I about to use a raw `<div>` or `<button>`? → STOP, use or create a design system component.
-
-**Reusable utility?** → Consider extraction
-✅ Is this logic duplicated in 2+ places?
-✅ Can this be used across multiple domains?
-✅ Is this a pure function with no side effects?
-→ Extract to a shared utility in the appropriate layer
-
-**Large file?** → Split immediately
-❌ Is this file over 250 lines?
-❌ Does this component/service have multiple responsibilities?
-❌ Are there nested components defined inline?
-→ Break it down by domain, responsibility, or composition
-
----
-
-## Enforcement Notes
-
-- Raw HTML prohibition is centralized here; see `frontend.md` for accessibility/state handling.
-- **Existing code**: Refactor opportunistically during feature work or dedicated cleanup tasks.
-- **New code**: Must follow these rules from day one.
-- **Code review**: Reviewers should flag violations with reference to this rule.
-- **AI behavior**: AI should refuse to generate raw HTML in application code and suggest design system components.
-
----
-
-## References
-
-- See `code-splitting.md` for file size limits and splitting strategies
-- See `backend.md` for hexagonal architecture within bundles
-- See `frontend.md` for atomic design and component patterns
-- See `contractspec-mission.md` for mission and context guidelines
+- If a package exports shared types, registries, or runtime primitives used across many features, it probably belongs in `libs/`.
+- If the code mainly adapts core behavior to a concrete runtime, provider, browser, sandbox, or protocol target, it probably belongs in `integrations/`.
+- If the package defines a reusable feature/domain surface with contracts, pipelines, entities, and storage/public entrypoints, it probably belongs in `modules/`.
+- If the package composes multiple modules/libs into a broader product surface used by apps, it probably belongs in `bundles/`.
+- If the code is mostly routing, transport startup, or shell composition, it belongs in an app.
+- If the package exists to teach, demo, or validate the stack, it belongs in `examples/`.
+- If it mainly generates config, presets, docs, or repo automation output, it belongs in `tools/`.

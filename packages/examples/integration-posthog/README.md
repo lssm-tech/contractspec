@@ -1,104 +1,71 @@
-### Integration Example - PostHog Analytics
+# @contractspec/example.integration-posthog
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
-This example shows how to use the PostHog AnalyticsProvider implementation to:
+**PostHog analytics integration example: capture events, run HogQL, and manage feature flags.**
 
-- Capture product events and identify users.
-- Run HogQL queries.
-- Perform generic REST API requests (feature flag list/create/delete).
-- Read events, persons, insights, and feature flags.
-- Optionally call a PostHog MCP tool via JSON-RPC.
+## What This Demonstrates
 
-Files included:
+- PostHog event capture and tracking setup.
+- HogQL query execution pattern.
+- Feature flag management via PostHog API.
+- Integration provider pattern with ContractSpec contracts.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/docs/` contains docblocks and documentation-facing exports.
 
-- `example.ts` - example metadata for the catalog.
-- `posthog.ts` - PostHog integration flow and helpers.
-- `run.ts` - runnable entrypoint for the example.
-- `docs/integration-posthog.docblock.ts` - documentation blocks for MCP/docs.
+## Running Locally
 
-Usage:
+From `packages/examples/integration-posthog`:
+- `bun run dev`
+- `bun run build`
+- `bun run test`
+- `bun run typecheck`
 
-```bash
-export CONTRACTSPEC_POSTHOG_MODE="all" # capture | query | request | read | all
-export CONTRACTSPEC_POSTHOG_DRY_RUN="true" # set to false for real calls
-export CONTRACTSPEC_POSTHOG_ALLOW_WRITES="false" # set true to capture/create/delete
+## Usage
 
-export POSTHOG_HOST="https://app.posthog.com" # optional
-export POSTHOG_PROJECT_ID="12345" # required for queries and API requests
-export POSTHOG_PROJECT_API_KEY="phc_..." # required for capture/identify
-export POSTHOG_PERSONAL_API_KEY="phx_..." # required for queries and API requests
+Use `@contractspec/example.integration-posthog` as a reference implementation, or import its exported surfaces into a workspace that composes ContractSpec examples and bundles.
 
-export POSTHOG_MCP_URL="http://localhost:3000/mcp" # optional
-export POSTHOG_MCP_TOOL_NAME="posthog.query" # optional
-export POSTHOG_MCP_TOOL_ARGS='{"query":"select 1"}' # optional JSON
+## Architecture
 
-bun tsx packages/examples/integration-posthog/src/run.ts
-```
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/example.ts` is the runnable example entrypoint.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/integration-posthog.feature.ts` defines a feature entrypoint.
+- `src/posthog.ts` is part of the package's public or composition surface.
+- `src/run.ts` is part of the package's public or composition surface.
 
-Quick run examples:
+## Public Entry Points
 
-Dry-run preview (safe):
+- Export `.` resolves through `./src/index.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./docs/integration-posthog.docblock` resolves through `./src/docs/integration-posthog.docblock.ts`.
+- Export `./example` resolves through `./src/example.ts`.
+- Export `./integration-posthog.feature` resolves through `./src/integration-posthog.feature.ts`.
+- Export `./posthog` resolves through `./src/posthog.ts`.
+- Export `./run` resolves through `./src/run.ts`.
 
-```bash
-export CONTRACTSPEC_POSTHOG_MODE="all"
-export CONTRACTSPEC_POSTHOG_DRY_RUN="true"
-export CONTRACTSPEC_POSTHOG_ALLOW_WRITES="false"
+## Local Commands
 
-bun tsx packages/examples/integration-posthog/src/run.ts
-```
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test --pass-with-no-tests
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-Capture only:
+## Recent Updates
 
-```bash
-export CONTRACTSPEC_POSTHOG_MODE="capture"
-export CONTRACTSPEC_POSTHOG_DRY_RUN="false"
-export CONTRACTSPEC_POSTHOG_ALLOW_WRITES="true"
+- Replace eslint+prettier by biomejs to optimize speed.
+- Add changesets and apply pending fixes.
+- Missing contract layers.
 
-export POSTHOG_PROJECT_API_KEY="phc_..."
+## Notes
 
-bun tsx packages/examples/integration-posthog/src/run.ts
-```
-
-HogQL query:
-
-```bash
-export CONTRACTSPEC_POSTHOG_MODE="query"
-export CONTRACTSPEC_POSTHOG_DRY_RUN="false"
-
-export POSTHOG_PROJECT_ID="12345"
-export POSTHOG_PERSONAL_API_KEY="phx_..."
-
-bun tsx packages/examples/integration-posthog/src/run.ts
-```
-
-Feature flags list/create/delete:
-
-```bash
-export CONTRACTSPEC_POSTHOG_MODE="request"
-export CONTRACTSPEC_POSTHOG_DRY_RUN="false"
-export CONTRACTSPEC_POSTHOG_ALLOW_WRITES="true"
-
-export POSTHOG_PROJECT_ID="12345"
-export POSTHOG_PERSONAL_API_KEY="phx_..."
-
-bun tsx packages/examples/integration-posthog/src/run.ts
-```
-
-Read events/persons/insights/flags:
-
-```bash
-export CONTRACTSPEC_POSTHOG_MODE="read"
-export CONTRACTSPEC_POSTHOG_DRY_RUN="false"
-
-export POSTHOG_PROJECT_ID="12345"
-export POSTHOG_PERSONAL_API_KEY="phx_..."
-
-bun tsx packages/examples/integration-posthog/src/run.ts
-```
-
-Notes:
-
-- HogQL queries and API requests require a PostHog personal API key.
-- Capturing events requires a project API key and `CONTRACTSPEC_POSTHOG_ALLOW_WRITES=true`.
-- Feature flag writes are guarded and auto-cleaned after creation.
+- Works alongside `@contractspec/integration.providers-impls`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.

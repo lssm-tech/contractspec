@@ -1,121 +1,121 @@
 {
-  "name": "@contractspec/lib.files",
-  "version": "3.7.6",
-  "description": "Files, documents and attachments module for ContractSpec applications",
-  "keywords": [
-    "contractspec",
-    "files",
-    "documents",
-    "storage",
-    "attachments",
-    "typescript"
-  ],
-  "types": "./dist/index.d.ts",
-  "type": "module",
-  "scripts": {
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
-    "build:bundle": "contractspec-bun-build transpile",
-    "build:types": "contractspec-bun-build types",
-    "dev": "contractspec-bun-build dev",
-    "clean": "rimraf dist .turbo",
-    "lint": "bun lint:fix",
-    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-    "lint:check": "biome check .",
-    "prebuild": "contractspec-bun-build prebuild",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "zod": "catalog:"
-  },
-  "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:",
-    "@contractspec/tool.bun": "workspace:*"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./contracts": "./src/contracts/index.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/files.docblock": "./src/docs/files.docblock.ts",
-    "./entities": "./src/entities/index.ts",
-    "./events": "./src/events.ts",
-    "./files.capability": "./src/files.capability.ts",
-    "./files.feature": "./src/files.feature.ts",
-    "./storage": "./src/storage/index.ts"
-  },
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "publishConfig": {
-    "access": "public",
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "bun": "./dist/index.js",
-        "node": "./dist/node/index.js",
-        "default": "./dist/index.js"
-      },
-      "./contracts": {
-        "types": "./dist/contracts/index.d.ts",
-        "bun": "./dist/contracts/index.js",
-        "node": "./dist/node/contracts/index.js",
-        "default": "./dist/contracts/index.js"
-      },
-      "./docs": {
-        "types": "./dist/docs/index.d.ts",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/files.docblock": {
-        "types": "./dist/docs/files.docblock.d.ts",
-        "bun": "./dist/docs/files.docblock.js",
-        "node": "./dist/node/docs/files.docblock.js",
-        "default": "./dist/docs/files.docblock.js"
-      },
-      "./entities": {
-        "types": "./dist/entities/index.d.ts",
-        "bun": "./dist/entities/index.js",
-        "node": "./dist/node/entities/index.js",
-        "default": "./dist/entities/index.js"
-      },
-      "./events": {
-        "types": "./dist/events.d.ts",
-        "bun": "./dist/events.js",
-        "node": "./dist/node/events.js",
-        "default": "./dist/events.js"
-      },
-      "./files.capability": {
-        "types": "./dist/files.capability.d.ts",
-        "bun": "./dist/files.capability.js",
-        "node": "./dist/node/files.capability.js",
-        "default": "./dist/files.capability.js"
-      },
-      "./files.feature": {
-        "types": "./dist/files.feature.d.ts",
-        "bun": "./dist/files.feature.js",
-        "node": "./dist/node/files.feature.js",
-        "default": "./dist/files.feature.js"
-      },
-      "./storage": {
-        "types": "./dist/storage/index.d.ts",
-        "bun": "./dist/storage/index.js",
-        "node": "./dist/node/storage/index.js",
-        "default": "./dist/storage/index.js"
-      }
-    },
-    "registry": "https://registry.npmjs.org/"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/libs/files"
-  },
-  "homepage": "https://contractspec.io"
+	"name": "@contractspec/lib.files",
+	"version": "3.7.6",
+	"description": "Files, documents and attachments module for ContractSpec applications",
+	"keywords": [
+		"contractspec",
+		"files",
+		"documents",
+		"storage",
+		"attachments",
+		"typescript"
+	],
+	"types": "./dist/index.d.ts",
+	"type": "module",
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.schema": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@contractspec/tool.bun": "workspace:*"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./contracts": "./src/contracts/index.ts",
+		"./docs": "./src/docs/index.ts",
+		"./docs/files.docblock": "./src/docs/files.docblock.ts",
+		"./entities": "./src/entities/index.ts",
+		"./events": "./src/events.ts",
+		"./files.capability": "./src/files.capability.ts",
+		"./files.feature": "./src/files.feature.ts",
+		"./storage": "./src/storage/index.ts"
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./contracts": {
+				"types": "./dist/contracts/index.d.ts",
+				"bun": "./dist/contracts/index.js",
+				"node": "./dist/node/contracts/index.js",
+				"default": "./dist/contracts/index.js"
+			},
+			"./docs": {
+				"types": "./dist/docs/index.d.ts",
+				"bun": "./dist/docs/index.js",
+				"node": "./dist/node/docs/index.js",
+				"default": "./dist/docs/index.js"
+			},
+			"./docs/files.docblock": {
+				"types": "./dist/docs/files.docblock.d.ts",
+				"bun": "./dist/docs/files.docblock.js",
+				"node": "./dist/node/docs/files.docblock.js",
+				"default": "./dist/docs/files.docblock.js"
+			},
+			"./entities": {
+				"types": "./dist/entities/index.d.ts",
+				"bun": "./dist/entities/index.js",
+				"node": "./dist/node/entities/index.js",
+				"default": "./dist/entities/index.js"
+			},
+			"./events": {
+				"types": "./dist/events.d.ts",
+				"bun": "./dist/events.js",
+				"node": "./dist/node/events.js",
+				"default": "./dist/events.js"
+			},
+			"./files.capability": {
+				"types": "./dist/files.capability.d.ts",
+				"bun": "./dist/files.capability.js",
+				"node": "./dist/node/files.capability.js",
+				"default": "./dist/files.capability.js"
+			},
+			"./files.feature": {
+				"types": "./dist/files.feature.d.ts",
+				"bun": "./dist/files.feature.js",
+				"node": "./dist/node/files.feature.js",
+				"default": "./dist/files.feature.js"
+			},
+			"./storage": {
+				"types": "./dist/storage/index.d.ts",
+				"bun": "./dist/storage/index.js",
+				"node": "./dist/node/storage/index.js",
+				"default": "./dist/storage/index.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/libs/files"
+	},
+	"homepage": "https://contractspec.io"
 }

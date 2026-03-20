@@ -1,119 +1,119 @@
 {
-  "name": "@contractspec/example.email-gmail",
-  "version": "3.7.6",
-  "description": "Gmail integration example: inbound threads and outbound messages.",
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./src/index.ts",
-    "./auth": "./src/auth.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/email-gmail.docblock": "./src/docs/email-gmail.docblock.ts",
-    "./email-gmail.feature": "./src/email-gmail.feature.ts",
-    "./example": "./src/example.ts",
-    "./inbound": "./src/inbound.ts",
-    "./outbound": "./src/outbound.ts",
-    "./run": "./src/run.ts"
-  },
-  "scripts": {
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
-    "build:bundle": "contractspec-bun-build transpile",
-    "build:types": "contractspec-bun-build types",
-    "dev": "contractspec-bun-build dev",
-    "clean": "rimraf dist .turbo",
-    "lint": "bun lint:fix",
-    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-    "lint:check": "biome check .",
-    "test": "bun test --pass-with-no-tests",
-    "prebuild": "contractspec-bun-build prebuild",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@contractspec/integration.providers-impls": "workspace:*",
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "googleapis": "^171.4.0"
-  },
-  "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:",
-    "@contractspec/tool.bun": "workspace:*"
-  },
-  "publishConfig": {
-    "access": "public",
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "browser": "./dist/browser/index.js",
-        "bun": "./dist/index.js",
-        "node": "./dist/node/index.js",
-        "default": "./dist/index.js"
-      },
-      "./auth": {
-        "types": "./dist/auth.d.ts",
-        "browser": "./dist/browser/auth.js",
-        "bun": "./dist/auth.js",
-        "node": "./dist/node/auth.js",
-        "default": "./dist/auth.js"
-      },
-      "./docs": {
-        "types": "./dist/docs/index.d.ts",
-        "browser": "./dist/browser/docs/index.js",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/email-gmail.docblock": {
-        "types": "./dist/docs/email-gmail.docblock.d.ts",
-        "browser": "./dist/browser/docs/email-gmail.docblock.js",
-        "bun": "./dist/docs/email-gmail.docblock.js",
-        "node": "./dist/node/docs/email-gmail.docblock.js",
-        "default": "./dist/docs/email-gmail.docblock.js"
-      },
-      "./email-gmail.feature": {
-        "types": "./dist/email-gmail.feature.d.ts",
-        "browser": "./dist/browser/email-gmail.feature.js",
-        "bun": "./dist/email-gmail.feature.js",
-        "node": "./dist/node/email-gmail.feature.js",
-        "default": "./dist/email-gmail.feature.js"
-      },
-      "./example": {
-        "types": "./dist/example.d.ts",
-        "browser": "./dist/browser/example.js",
-        "bun": "./dist/example.js",
-        "node": "./dist/node/example.js",
-        "default": "./dist/example.js"
-      },
-      "./inbound": {
-        "types": "./dist/inbound.d.ts",
-        "browser": "./dist/browser/inbound.js",
-        "bun": "./dist/inbound.js",
-        "node": "./dist/node/inbound.js",
-        "default": "./dist/inbound.js"
-      },
-      "./outbound": {
-        "types": "./dist/outbound.d.ts",
-        "browser": "./dist/browser/outbound.js",
-        "bun": "./dist/outbound.js",
-        "node": "./dist/node/outbound.js",
-        "default": "./dist/outbound.js"
-      },
-      "./run": {
-        "types": "./dist/run.d.ts",
-        "browser": "./dist/browser/run.js",
-        "bun": "./dist/run.js",
-        "node": "./dist/node/run.js",
-        "default": "./dist/run.js"
-      }
-    },
-    "registry": "https://registry.npmjs.org/"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/examples/email-gmail"
-  },
-  "homepage": "https://contractspec.io"
+	"name": "@contractspec/example.email-gmail",
+	"version": "3.7.6",
+	"description": "Gmail integration example: inbound threads and outbound messages.",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./auth": "./src/auth.ts",
+		"./docs": "./src/docs/index.ts",
+		"./docs/email-gmail.docblock": "./src/docs/email-gmail.docblock.ts",
+		"./email-gmail.feature": "./src/email-gmail.feature.ts",
+		"./example": "./src/example.ts",
+		"./inbound": "./src/inbound.ts",
+		"./outbound": "./src/outbound.ts",
+		"./run": "./src/run.ts"
+	},
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"test": "bun test --pass-with-no-tests",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/integration.providers-impls": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"googleapis": "^171.4.0"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@contractspec/tool.bun": "workspace:*"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./auth": {
+				"types": "./dist/auth.d.ts",
+				"browser": "./dist/browser/auth.js",
+				"bun": "./dist/auth.js",
+				"node": "./dist/node/auth.js",
+				"default": "./dist/auth.js"
+			},
+			"./docs": {
+				"types": "./dist/docs/index.d.ts",
+				"browser": "./dist/browser/docs/index.js",
+				"bun": "./dist/docs/index.js",
+				"node": "./dist/node/docs/index.js",
+				"default": "./dist/docs/index.js"
+			},
+			"./docs/email-gmail.docblock": {
+				"types": "./dist/docs/email-gmail.docblock.d.ts",
+				"browser": "./dist/browser/docs/email-gmail.docblock.js",
+				"bun": "./dist/docs/email-gmail.docblock.js",
+				"node": "./dist/node/docs/email-gmail.docblock.js",
+				"default": "./dist/docs/email-gmail.docblock.js"
+			},
+			"./email-gmail.feature": {
+				"types": "./dist/email-gmail.feature.d.ts",
+				"browser": "./dist/browser/email-gmail.feature.js",
+				"bun": "./dist/email-gmail.feature.js",
+				"node": "./dist/node/email-gmail.feature.js",
+				"default": "./dist/email-gmail.feature.js"
+			},
+			"./example": {
+				"types": "./dist/example.d.ts",
+				"browser": "./dist/browser/example.js",
+				"bun": "./dist/example.js",
+				"node": "./dist/node/example.js",
+				"default": "./dist/example.js"
+			},
+			"./inbound": {
+				"types": "./dist/inbound.d.ts",
+				"browser": "./dist/browser/inbound.js",
+				"bun": "./dist/inbound.js",
+				"node": "./dist/node/inbound.js",
+				"default": "./dist/inbound.js"
+			},
+			"./outbound": {
+				"types": "./dist/outbound.d.ts",
+				"browser": "./dist/browser/outbound.js",
+				"bun": "./dist/outbound.js",
+				"node": "./dist/node/outbound.js",
+				"default": "./dist/outbound.js"
+			},
+			"./run": {
+				"types": "./dist/run.d.ts",
+				"browser": "./dist/browser/run.js",
+				"bun": "./dist/run.js",
+				"node": "./dist/node/run.js",
+				"default": "./dist/run.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/examples/email-gmail"
+	},
+	"homepage": "https://contractspec.io"
 }

@@ -1,95 +1,69 @@
-# ContractSpec Docs Generator
+# @contractspec/tool.docs-generator
 
-CLI tool for generating documentation artifacts from ContractSpec specs and DocBlocks.
+Website: https://contractspec.io
+
+**CLI tool for generating docs artifacts from ContractSpec specs and DocBlocks.**
+
+## What It Provides
+
+- **Layer**: tool.
+- **Consumers**: docs pipeline (`bun run docs:generate`), CI.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+
+## Installation
+
+`npm install @contractspec/tool.docs-generator`
+
+or
+
+`bun add @contractspec/tool.docs-generator`
 
 ## Usage
 
 ```bash
-bunx contractspec-docs generate
+npx contractspec-docs --help
+# or
+bunx contractspec-docs --help
 ```
 
-From the monorepo root:
+## Architecture
 
-```bash
-bun docs:generate
-```
+- `src/fs.ts` is part of the package's public or composition surface.
+- `src/generate.ts` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/markdown.test.ts` is part of the package's public or composition surface.
+- `src/markdown.ts` is part of the package's public or composition surface.
+- `src/types.ts` is shared public type definitions.
 
-## Options
+## Public Entry Points
 
-- `--source <dir>`: Source directory for generated markdown (default: `generated/docs`).
-- `--out <dir>`: Output directory for generated artifacts (default: `packages/bundles/library/src/components/docs/generated`).
-- `--content-root <dir>`: Root directory for docs content (default: `--source`).
-- `--route-prefix <prefix>`: Route prefix for generated reference pages (default: `/docs/reference`).
-- `--version <version>`: Output version subdirectory (e.g., `v1.0.0`).
-- `--no-docblocks`: Skip DocBlocks from the docs registry.
+- Binary `contractspec-docs` points to `./dist/index.js`.
+- Export `.` resolves through `./src/index.ts`.
 
-## Output
+## Local Commands
 
-The generator writes a typed index manifest plus markdown content.
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run docs:generate` — bun src/index.ts generate --source "../../../generated/docs" --out "../../../packages/bundles/library/src/components/docs/generated" --content-root "../../../generated/docs"
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-Note: the `docblocks/` folder under the content root is ignored when scanning
-source markdown to avoid re-indexing DocBlocks on subsequent runs.
+## Recent Updates
 
-Content is stored under `--content-root` (defaults to `--source`). If
-`--version` is provided, both the index and content are nested under that
-version subdirectory.
+- Replace eslint+prettier by biomejs to optimize speed.
 
-If `--version` is provided:
+## Notes
 
-```
-<outDir>/<version>/docs-index.generated.ts
-<outDir>/<version>/docs-index.manifest.json
-<outDir>/<version>/docs-index.*.json
-<contentRoot>/<version>/**/*.md
-```
-
-Without `--version`:
-
-```
-<outDir>/docs-index.generated.ts
-<outDir>/docs-index.manifest.json
-<outDir>/docs-index.*.json
-<contentRoot>/**/*.md
-```
-
-The index contains `docsIndex` entries and `docsIndexMeta`:
-
-```ts
-export type DocsIndexEntry = {
-  id: string;
-  title: string;
-  summary?: string;
-  route?: string;
-  source: "generated" | "docblock";
-  contentPath?: string;
-  tags?: string[];
-  kind?: string;
-  visibility?: string;
-  version?: string;
-  owners?: string[];
-};
-
-export type DocsIndexManifest = {
-  generatedAt: string;
-  total: number;
-  version: string | null;
-  contentRoot: string | null;
-  chunks: { key: string; file: string; total: number }[];
-};
-
-export const DOCS_INDEX_MANIFEST = "docs-index.manifest.json";
-```
-
-## Examples
-
-```bash
-bunx contractspec-docs generate \
-  --source generated/docs \
-  --out packages/bundles/library/src/components/docs/generated \
-  --route-prefix /docs/reference \
-  --version v1.0.0
-```
-
-```bash
-bunx contractspec-docs generate --no-docblocks
-```
+- Output paths are configured via CLI flags -- do not hard-code destination directories.
+- Depends on `@contractspec/lib.contracts-spec` for spec parsing -- changes there may require updates here.
+- The `docs:generate` script references relative paths to `generated/docs` and the library bundle; verify paths if the monorepo structure changes.

@@ -1,155 +1,75 @@
-# SaaS Boilerplate
+# @contractspec/example.saas-boilerplate
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**SaaS Boilerplate - Users, Orgs, Projects, Billing, Settings.**
 
-A complete SaaS starter application demonstrating ContractSpec principles.
+## What This Demonstrates
 
-## What's Included
+- Multi-domain SaaS architecture (billing, project, settings, dashboard).
+- Per-domain entity/enum/event/handler/operations/presentation/schema pattern.
+- React UI with hooks, modals, overlays, renderers, and dashboard.
+- Feature definition, seeders, and test-spec patterns.
+- RBAC, audit trail, and notification module integration.
+- `src/docs/` contains docblocks and documentation-facing exports.
 
-This example showcases a full SaaS application with:
+## Running Locally
 
-- **User Management**: User profiles, authentication, preferences
-- **Organizations**: Multi-tenant workspaces with members and roles
-- **Projects**: Team-scoped projects with CRUD operations
-- **Billing**: Usage tracking and subscription management
-- **Settings**: Application and user settings
-
-## Architecture
-
-```
-saas-boilerplate/
-├── entities/           # Entity specs (generates Prisma schema)
-│   ├── project.ts
-│   ├── settings.ts
-│   └── billing.ts
-├── contracts/          # API contracts (generates GraphQL/REST)
-│   ├── project.ts
-│   └── billing.ts
-├── events/             # Domain events
-│   └── index.ts
-├── schema.config.ts    # Schema composition config
-└── README.md
-```
-
-## Cross-Cutting Modules Used
-
-| Module | Purpose |
-|--------|---------|
-| @contractspec/lib.identity-rbac | User, Org, Member, Role entities |
-| @contractspec/module.audit-trail | Activity logging |
-| @contractspec/module.notifications | User notifications |
-| @contractspec/lib.jobs | Background tasks |
-
-## Entities
-
-### Project
-
-Projects belong to organizations and track team work.
-
-```typescript
-const ProjectEntity = defineEntity({
-  name: 'Project',
-  fields: {
-    id: field.id(),
-    name: field.string(),
-    description: field.string({ isOptional: true }),
-    organizationId: field.foreignKey(),
-    createdBy: field.foreignKey(),
-    status: field.enum('ProjectStatus'),
-    // ...
-  },
-});
-```
-
-### Settings
-
-Application and organization settings.
-
-```typescript
-const SettingsEntity = defineEntity({
-  name: 'Settings',
-  fields: {
-    id: field.id(),
-    key: field.string(),
-    value: field.json(),
-    scope: field.enum('SettingsScope'), // 'app', 'org', 'user'
-    // ...
-  },
-});
-```
-
-### BillingUsage
-
-Track feature usage for billing.
-
-```typescript
-const BillingUsageEntity = defineEntity({
-  name: 'BillingUsage',
-  fields: {
-    id: field.id(),
-    organizationId: field.foreignKey(),
-    feature: field.string(),
-    quantity: field.int(),
-    billingPeriod: field.string(),
-    // ...
-  },
-});
-```
-
-## Contracts
-
-### Project CRUD
-
-- `project.create` - Create a new project
-- `project.get` - Get project by ID
-- `project.update` - Update project
-- `project.delete` - Delete project
-- `project.list` - List org projects
-
-### Billing
-
-- `billing.usage.record` - Record feature usage
-- `billing.usage.get` - Get usage summary
-- `billing.subscription.get` - Get subscription status
-
-## Events
-
-| Event | Description |
-|-------|-------------|
-| project.created | New project created |
-| project.updated | Project modified |
-| project.deleted | Project removed |
-| billing.usage.recorded | Usage tracked |
-| billing.limit.reached | Usage limit hit |
+From `packages/examples/saas-boilerplate`:
+- `bun run dev`
+- `bun run build`
+- `bun run test`
+- `bun run typecheck`
 
 ## Usage
 
-### Generate Schema
+Use `@contractspec/example.saas-boilerplate` as a reference implementation, or import its exported surfaces into a workspace that composes ContractSpec examples and bundles.
 
-```bash
-cd packages/examples/saas-boilerplate
-```
+## Architecture
 
-### Load as Studio Template
+- `src/billing` is part of the package's public or composition surface.
+- `src/dashboard` is part of the package's public or composition surface.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/example.ts` is the runnable example entrypoint.
+- `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/presentations` is part of the package's public or composition surface.
 
-This example is registered in the ContractSpec Studio template registry as `saas-boilerplate`.
+## Public Entry Points
 
-From the Studio UI:
-1. Click "New Project"
-2. Select "SaaS Boilerplate" template
-3. Customize entities and contracts as needed
+- Export `.` resolves through `./src/index.ts`.
+- Export `./billing` resolves through `./src/billing/index.ts`.
+- Export `./billing/billing.entity` resolves through `./src/billing/billing.entity.ts`.
+- Export `./billing/billing.enum` resolves through `./src/billing/billing.enum.ts`.
+- Export `./billing/billing.event` resolves through `./src/billing/billing.event.ts`.
+- Export `./billing/billing.handler` resolves through `./src/billing/billing.handler.ts`.
+- Export `./billing/billing.operations` resolves through `./src/billing/billing.operations.ts`.
+- Export `./billing/billing.presentation` resolves through `./src/billing/billing.presentation.ts`.
+- Export `./billing/billing.schema` resolves through `./src/billing/billing.schema.ts`.
+- Export `./dashboard` resolves through `./src/dashboard/index.ts`.
+- The package publishes 48 total export subpaths; keep docs aligned with `package.json`.
 
-### Clone via Git
+## Local Commands
 
-```bash
-npx degit lssm/contractspec/packages/examples/saas-boilerplate my-saas-app
-```
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test --pass-with-no-tests
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-## Customization Points
+## Recent Updates
 
-1. **Add Custom Entities**: Extend with your domain models
-2. **Modify Billing**: Adapt to your pricing model
-3. **Extend Settings**: Add app-specific configuration
-4. **Add Workflows**: Integrate with @contractspec/lib.jobs for background tasks
+- Replace eslint+prettier by biomejs to optimize speed.
+- Missing contract layers.
 
+## Notes
+
+- Works alongside `@contractspec/lib.contracts-spec`, `@contractspec/lib.design-system`, `@contractspec/lib.example-shared-ui`, `@contractspec/lib.identity-rbac`, `@contractspec/lib.jobs`, ...

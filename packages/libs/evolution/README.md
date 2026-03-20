@@ -1,53 +1,65 @@
 # @contractspec/lib.evolution
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**AI-powered contract evolution engine.**
 
-**Safe regeneration for ContractSpec** — Evolve specs automatically while preserving invariants.
+## What It Provides
 
-Auto-evolution utilities that analyze telemetry, suggest spec improvements, and route changes through approval workflows. Regenerate code safely, one module at a time.
+- **Layer**: lib.
+- **Consumers**: example-shared-ui, bundles.
+- **Key dependencies**: ai-agent, contracts-spec, lifecycle, observability, schema.
+- Related ContractSpec packages include `@contractspec/lib.ai-agent`, `@contractspec/lib.ai-providers`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.lifecycle`, `@contractspec/lib.observability`, ...
 
-## Capabilities:
+## Installation
 
-- Analyze telemetry to find anomalous specs
-- Convert detected intent into spec suggestions
-- Route suggestions through the AI approval workflow
-- Persist approved specs back into the codebase
+`npm install @contractspec/lib.evolution`
 
-> Phase 3 anchor library – pairs with `@contractspec/lib.observability` and `@contractspec/lib.growth`.
+or
+
+`bun add @contractspec/lib.evolution`
 
 ## Usage
 
-```ts
-import {
-  SpecAnalyzer,
-  SpecGenerator,
-  SpecSuggestionOrchestrator,
-} from '@contractspec/lib.evolution';
+Import the root entrypoint from `@contractspec/lib.evolution`, or choose a documented subpath when you only need one part of the package surface.
 
-const analyzer = new SpecAnalyzer();
-const stats = analyzer.analyzeSpecUsage(samples);
-const anomalies = analyzer.detectAnomalies(stats);
+## Architecture
 
-const generator = new SpecGenerator({ getSpec });
-const suggestion = generator.generateFromIntent(anomalies[0]);
+- `src/analyzer` is part of the package's public or composition surface.
+- `src/approval` is part of the package's public or composition surface.
+- `src/generator` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/types.ts` is shared public type definitions.
 
-await orchestrator.submit(suggestion, { agent: 'auto-evolve' });
-```
+## Public Entry Points
 
-See `app/docs/libraries/evolution` in `@contractspec/app.web-contractspec-landing` for full docs.
+- Export `.` resolves through `./src/index.ts`.
 
+## Local Commands
 
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test --pass-with-no-tests
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
+## Recent Updates
 
+- Replace eslint+prettier by biomejs to optimize speed.
+- Add changesets and apply pending fixes.
+- Resolve lint, build, and type errors across nine packages.
+- Add AI provider ranking system with ranking-driven model selection.
 
+## Notes
 
-
-
-
-
-
-
-
-
-
+- Evolution strategies affect contract migration paths; changes can break existing migrations.
+- Depends on multiple core libs — verify compatibility when updating any dependency.
+- Strategy selection logic must remain deterministic and auditable.

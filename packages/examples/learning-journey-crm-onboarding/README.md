@@ -1,42 +1,72 @@
 # @contractspec/example.learning-journey-crm-onboarding
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Learning journey track that onboards users to the CRM pipeline example.**
 
-Learning Journey example that guides a CRM user to first closed-won deal.
+## What This Demonstrates
 
-## Track
+- CRM-specific onboarding track with step-by-step guidance.
+- Feature definition with operations, presentations, and test-specs.
+- Demo handlers for simulated onboarding flow.
+- Cross-example dependency (builds on crm-pipeline).
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 
-- **Key**: `crm_first_win`
-- **Persona**: CRM adopter
-- **XP**: 15/20/20/20/30/30 + 25 bonus
-- **Badge**: `crm_first_win`
+## Running Locally
 
-## Steps & Events
-
-1. `create_pipeline` → `pipeline.created`
-2. `create_contact_and_company` → `contact.created`
-3. `create_first_deal` → `deal.created`
-4. `move_deal_in_pipeline` → `deal.moved`
-5. `close_deal_won` → `deal.won`
-6. `setup_follow_up` → `task.completed` (type: follow_up)
+From `packages/examples/learning-journey-crm-onboarding`:
+- `bun run dev`
+- `bun run build`
+- `bun run typecheck`
 
 ## Usage
 
-- Import track specs:  
-  `import { crmLearningTracks } from '@contractspec/example.learning-journey-crm-onboarding/track'`
-- Contracts/handlers for demos:  
-  `import { GetCrmOnboardingTrack, RecordCrmOnboardingEvent } from '@contractspec/example.learning-journey-crm-onboarding/contracts'`  
-  `import { emitCrmOnboardingEvent } from '@contractspec/example.learning-journey-crm-onboarding/handlers/demo.handlers'`
-- Presentations (react/markdown/json targets):  
-  `import { crmOnboardingPresentations } from '@contractspec/example.learning-journey-crm-onboarding/presentations'`
-- Register via onboarding API:
-  - `learning.onboarding.listTracks`
-  - `learning.onboarding.getProgress`
-  - `learning.onboarding.recordEvent` wired from CRM events
-- Requires CRM pipeline example events to be emitted for completion.
+Use `@contractspec/example.learning-journey-crm-onboarding` as a reference implementation, or import its exported surfaces into a workspace that composes ContractSpec examples and bundles.
 
-## Docs
+## Architecture
 
-- Docblock: `src/docs/crm-onboarding.docblock.ts`
-- Route suggestion: `/docs/learning-journey/crm-onboarding`
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/example.ts` is the runnable example entrypoint.
+- `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/learning-journey-crm-onboarding.feature.ts` defines a feature entrypoint.
+- `src/operations` is part of the package's public or composition surface.
+- `src/presentations` is part of the package's public or composition surface.
+
+## Public Entry Points
+
+- Export `.` resolves through `./src/index.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./docs/crm-onboarding.docblock` resolves through `./src/docs/crm-onboarding.docblock.ts`.
+- Export `./example` resolves through `./src/example.ts`.
+- Export `./handlers/demo.handlers` resolves through `./src/handlers/demo.handlers.ts`.
+- Export `./learning-journey-crm-onboarding.feature` resolves through `./src/learning-journey-crm-onboarding.feature.ts`.
+- Export `./operations` resolves through `./src/operations/index.ts`.
+- Export `./presentations` resolves through `./src/presentations/index.ts`.
+- Export `./tests/operations.test-spec` resolves through `./src/tests/operations.test-spec.ts`.
+- Export `./track` resolves through `./src/track.ts`.
+
+## Local Commands
+
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
+
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed.
+- Missing contract layers.
+
+## Notes
+
+- Works alongside `@contractspec/example.crm-pipeline`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/module.learning-journey`, `@contractspec/tool.bun`, ...

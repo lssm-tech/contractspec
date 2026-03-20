@@ -1,89 +1,74 @@
 # @contractspec/lib.presentation-runtime-react
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**React presentation runtime with workflow components.**
 
-React bindings for ContractSpec presentations (Workflows, DataViews).
+## What It Provides
 
-## Purpose
-
-To render ContractSpec-defined UIs in standard React web applications.
+- **Layer**: lib.
+- **Consumers**: bundles, apps.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.presentation-runtime-core`, `@contractspec/lib.ui-kit-web`, `@contractspec/tool.bun`.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.presentation-runtime-core`, `@contractspec/lib.ui-kit-web`, `@contractspec/tool.bun`.
 
 ## Installation
 
-```bash
-npm install @contractspec/lib.presentation-runtime-react
-# or
-bun add @contractspec/lib.presentation-runtime-react
-```
+`npm install @contractspec/lib.presentation-runtime-react`
 
-## Key Concepts
+or
 
-- **useWorkflow**: Hook to drive a multi-step workflow.
-- **WorkflowStepper**: UI component to show progress.
-- **WorkflowStepRenderer**: Component to render the current step's form or content.
+`bun add @contractspec/lib.presentation-runtime-react`
 
 ## Usage
 
-```tsx
-import {
-  useWorkflow,
-  WorkflowStepRenderer,
-} from '@contractspec/lib.presentation-runtime-react';
-import { MyWorkflowSpec } from './specs';
+Import the root entrypoint from `@contractspec/lib.presentation-runtime-react`, or choose a documented subpath when you only need one part of the package surface.
 
-export function WorkflowPage() {
-  const workflow = useWorkflow(MyWorkflowSpec);
+## Architecture
 
-  return (
-    <div>
-      <WorkflowStepRenderer workflow={workflow} />
-      <button onClick={workflow.next}>Next</button>
-    </div>
-  );
-}
-```
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/nativewind-env.d.ts` is part of the package's public or composition surface.
+- `src/table.types.ts` is part of the package's public or composition surface.
+- `src/table.utils.test.ts` is part of the package's public or composition surface.
+- `src/table.utils.ts` is part of the package's public or composition surface.
+- `src/useContractTable.models.tsx` is part of the package's public or composition surface.
+- `src/useContractTable.tsx` is part of the package's public or composition surface.
 
-## Surface-runtime slot integration
+## Public Entry Points
 
-When using `@contractspec/lib.surface-runtime`, workflow components can fill slots:
+- Export `.` resolves through `./src/index.ts`.
+- Export `./nativewind-env.d` resolves through `./src/nativewind-env.d.ts`.
+- Export `./table.types` resolves through `./src/table.types.ts`.
+- Export `./table.utils` resolves through `./src/table.utils.ts`.
+- Export `./useContractTable` resolves through `./src/useContractTable.tsx`.
+- Export `./useContractTable.models` resolves through `./src/useContractTable.models.tsx`.
+- Export `./useDataViewTable` resolves through `./src/useDataViewTable.tsx`.
+- Export `./useVisualizationModel` resolves through `./src/useVisualizationModel.ts`.
+- Export `./useWorkflow` resolves through `./src/useWorkflow.ts`.
+- Export `./WorkflowStepper` resolves through `./src/WorkflowStepper.tsx`.
+- The package publishes 11 total export subpaths; keep docs aligned with `package.json`.
 
-1. **Slot content**: Pass `WorkflowStepper` or `WorkflowStepRenderer` as `slotContent` to `BundleRenderer` for slots that `accepts` include `workflow-stepper` or a custom widget kind.
-2. **Slot declaration**: In your bundle spec, declare a slot with `accepts: ['custom-widget']` and wire the workflow component as slot content when rendering.
-3. **State**: Use `useWorkflow` in the parent; pass the workflow instance to `WorkflowStepRenderer` so step state is preserved within the surface layout.
+## Local Commands
 
-Example: a slot with `accepts: ['custom-widget']` can render `<WorkflowStepRenderer workflow={workflow} />` as its content.
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun run lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit -p tsconfig.json
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
+## Recent Updates
 
+- Replace eslint+prettier by biomejs to optimize speed.
+- Add data visualization capabilities.
+- Add table capabilities.
 
+## Notes
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Workflow component API is consumed by bundles — breaking changes require coordinated updates.
+- Must stay compatible with presentation-runtime-core interface.
+- Hook signatures (`useWorkflow`) are public API; parameter changes are breaking.

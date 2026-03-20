@@ -1,44 +1,60 @@
-# AI Agent Guide -- `@contractspec/example.integration-hub`
+# AI Agent Guide — `@contractspec/example.integration-hub`
 
 Scope: `packages/examples/integration-hub/*`
 
-Demonstrates an integration hub with sync engine, field mappings, connections, and MCP server support.
+Integration Hub example with sync engine and field mappings for ContractSpec.
 
 ## Quick Context
 
-- **Layer**: example
-- **Related Packages**: `lib.ai-agent`, `lib.schema`, `lib.contracts-spec`, `lib.example-shared-ui`, `lib.design-system`, `lib.runtime-sandbox`
+- Layer: `example`.
+- Package visibility: published package.
+- Primary consumers are example explorers, template authors, and documentation readers.
+- Related packages: `@contractspec/lib.ai-agent`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.design-system`, `@contractspec/lib.example-shared-ui`, `@contractspec/lib.runtime-sandbox`, `@contractspec/lib.schema`, ...
 
-## What This Demonstrates
+## Architecture
 
-- Connection management with typed schemas and enums
-- Integration lifecycle (create, configure, sync)
-- Sync engine with field mapping and status tracking
-- MCP server example for tool integration
-- Capability and feature definition patterns
-- React UI with dashboard, hooks, and markdown renderers
-- Event definitions and operation test-specs
+- `src/connection` is part of the package's public or composition surface.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/events.ts` is package-level event definitions.
+- `src/example.ts` is the runnable example entrypoint.
+- `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/integration` is part of the package's public or composition surface.
 
-## Public Exports
+## Public Surface
 
-- `.` -- root barrel
-- `./connection` -- connection enum, operation, presentation, schema
-- `./integration` -- integration enum, operations, presentation, schema
-- `./integration-hub.capability`, `./integration-hub.feature` -- capability and feature
-- `./sync` -- sync enum, operations, presentation, schema
-- `./sync-engine` -- sync execution engine
-- `./handlers` -- integration handlers
-- `./events` -- event definitions
-- `./seeders` -- demo data
-- `./mcp-example`, `./run-mcp` -- MCP server example
-- `./ui` -- React components, hooks, renderers
-- `./docs` -- DocBlock documentation
-- `./example` -- runnable example entry point
+- Export `.` resolves through `./src/index.ts`.
+- Export `./connection` resolves through `./src/connection/index.ts`.
+- Export `./connection/connection.enum` resolves through `./src/connection/connection.enum.ts`.
+- Export `./connection/connection.operation` resolves through `./src/connection/connection.operation.ts`.
+- Export `./connection/connection.presentation` resolves through `./src/connection/connection.presentation.ts`.
+- Export `./connection/connection.schema` resolves through `./src/connection/connection.schema.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./docs/integration-hub.docblock` resolves through `./src/docs/integration-hub.docblock.ts`.
+- Export `./events` resolves through `./src/events.ts`.
+- Export `./example` resolves through `./src/example.ts`.
+- The package publishes 36 total export subpaths; keep docs aligned with `package.json`.
+
+## Guardrails
+
+- Keep the example package demonstrative, buildable, and aligned with the exported feature surface.
+- Do not add hidden production assumptions that are not actually implemented in the example.
+- Changes here can affect downstream packages such as `@contractspec/lib.ai-agent`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.design-system`, `@contractspec/lib.example-shared-ui`, `@contractspec/lib.runtime-sandbox`, `@contractspec/lib.schema`, ....
+- Changes here can affect downstream packages such as `@contractspec/lib.ai-agent`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.design-system`, `@contractspec/lib.example-shared-ui`, `@contractspec/lib.runtime-sandbox`, `@contractspec/lib.schema`, ...
 
 ## Local Commands
 
-- Build: `bun run build`
-- Dev: `bun run dev`
-- Run MCP: `bun run run:mcp`
-- Validate: `bun run validate`
-- Typecheck: `bun run typecheck`
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run validate` — contractspec validate "src/**/*"
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run run:mcp` — bun tsx src/run-mcp.ts
+- `bun run prebuild` — contractspec-bun-build prebuild

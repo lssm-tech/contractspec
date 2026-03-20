@@ -1,62 +1,35 @@
 # @contractspec/tool.typescript
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
-**Shared TypeScript configuration presets** for the ContractSpec monorepo.
+**Shared TypeScript configuration presets (base, nextjs, react-library) extended by every package's `tsconfig.json` in the monorepo.**
+
+## What It Provides
+
+- **Layer**: tool
+- **Consumers**: all monorepo packages (via `"extends": "@contractspec/tool.typescript/..."`)
 
 ## Installation
 
-```bash
-bun add -D @contractspec/tool.typescript
-```
+`npm install @contractspec/tool.typescript`
 
-## Available Configs
+or
 
-| Config | File | Use Case |
-| --- | --- | --- |
-| Base | `base.json` | Default strict config for all packages |
-| Next.js | `nextjs.json` | Next.js apps with App Router |
-| React Library | `react-library.json` | React component libraries |
+`bun add @contractspec/tool.typescript`
 
-## Usage
+## Local Commands
 
-Extend from your `tsconfig.json`:
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
 
-```json
-{
-  "extends": "@contractspec/tool.typescript/base.json",
-  "compilerOptions": {
-    "outDir": "./dist"
-  },
-  "include": ["src"]
-}
-```
+## Recent Updates
 
-### Next.js App
+- Replace eslint+prettier by biomejs to optimize speed
+- PublishConfig not supported by bun
+- Migrate non-app builds to shared Bun toolchain
 
-```json
-{
-  "extends": "@contractspec/tool.typescript/nextjs.json",
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"]
-}
-```
+## Notes
 
-### React Library
-
-```json
-{
-  "extends": "@contractspec/tool.typescript/react-library.json",
-  "compilerOptions": {
-    "outDir": "./dist"
-  },
-  "include": ["src"]
-}
-```
-
-## Key Settings (base)
-
-- `strict: true` -- all strict checks enabled
-- `module: "Preserve"` -- bundler-compatible module resolution
-- `noUncheckedIndexedAccess: true` -- safer array/object access
-- `verbatimModuleSyntax: true` -- explicit import/export types
-- `target: "esnext"` -- latest ECMAScript features
+- Compiler option changes propagate to every package -- verify with `bun run typecheck` across the repo
+- Do not weaken strict-mode settings (`strict`, `noUncheckedIndexedAccess`, etc.)
+- Adding a new preset file requires documenting which packages should use it

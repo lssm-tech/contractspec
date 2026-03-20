@@ -1,65 +1,66 @@
 # @contractspec/bundle.lifecycle-managed
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Lifecycle management bundle with analytics and AI advisor.**
 
-Lifecycle assessment + guidance managed service for ContractSpec Studio. This bundle wires the lifecycle modules, analytics bridges, and AI advisor agent into a deployable service surface (REST, events, Studio integrations).
+## What It Provides
 
-## Modules
+- **Layer**: bundle.
+- **Consumers**: `examples/lifecycle-cli`.
+- `src/services/` contains business logic services and workflows.
+- Related ContractSpec packages include `@contractspec/lib.ai-agent`, `@contractspec/lib.analytics`, `@contractspec/lib.lifecycle`, `@contractspec/lib.observability`, `@contractspec/module.lifecycle-advisor`, `@contractspec/module.lifecycle-core`, ...
+- `src/services/` contains business logic services and workflows.
 
-- `LifecycleAssessmentService` – orchestrates detection, scoring, guidance, metrics, and managed events.
-- `LifecycleAdvisorAgent` – AI spec definition for conversational lifecycle coaching.
-- `LifecycleEventBridge` – helper to broadcast stage changes + assessment telemetry.
-- REST handlers – HTTP-friendly adapters for serving assessments + playbooks.
+## Installation
+
+`npm install @contractspec/bundle.lifecycle-managed`
+
+or
+
+`bun add @contractspec/bundle.lifecycle-managed`
 
 ## Usage
 
-```ts
-import { LifecycleAssessmentService, createLifecycleHandlers } from '@contractspec/bundle.lifecycle-managed';
+Import the root entrypoint from `@contractspec/bundle.lifecycle-managed`, or choose a documented subpath when you only need one part of the package surface.
 
-const service = new LifecycleAssessmentService({
-  tenantId: 'tenant_123',
-  collectorOptions: {
-    analyticsAdapter,
-    questionnaireAdapter,
-  },
-});
+## Architecture
 
-const handlers = createLifecycleHandlers(service);
+- `src/services/` -- assessment service (lifecycle evaluation logic).
+- `src/agents/` -- AI lifecycle advisor agent.
+- `src/events/` -- lifecycle domain events.
+- `src/api/` -- REST handler adapters.
+- `src/__tests__/` -- unit tests.
+- `src/index.ts` is the root public barrel and package entrypoint.
 
-app.post('/lifecycle/assessments', handlers.runAssessment);
-app.get('/lifecycle/playbooks/:stage', handlers.getPlaybook);
-```
+## Public Entry Points
 
-The bundle stays framework-agnostic: you can mount the handlers on Elysia, Express, Next.js routes, or background jobs.*** End Patch
+- Export `.` resolves through `./src/index.ts`.
 
+## Local Commands
 
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
+## Recent Updates
 
+- Replace eslint+prettier by biomejs to optimize speed.
+- Resolve lint, build, and type errors across nine packages.
+- Add first-class transport, auth, versioning, and BYOK support across all integrations.
 
+## Notes
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Depends on six workspace packages (`lib.ai-agent`, `lib.analytics`, `lib.lifecycle`, `lib.observability`, `module.lifecycle-advisor`, `module.lifecycle-core`); changes to those APIs propagate here.
+- Events must remain serializable for cross-service consumption.
+- Keep REST handlers thin; domain logic belongs in services.

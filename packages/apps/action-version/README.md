@@ -1,47 +1,53 @@
-# ContractSpec Version Manager Action
+# @contractspec/action.version
 
-> Note: This action is now an internal helper. Prefer `packages/apps/action-pr` and `packages/apps/action-drift`.
+Website: https://contractspec.io
 
-Automate versioning and changelogs for your ContractSpec workspace.
+**GitHub Action for automated ContractSpec version management and changelog generation. Handles versioning and release workflows in CI.**
+
+## What It Does
+
+- Standalone action with no workspace dependencies
+- Configured entirely via `action.yml`; no TypeScript source
 
 ## Usage
 
 ```yaml
-name: Release
-
-on:
-  push:
-    branches:
-      - main
-
+name: ContractSpec Version Manager
+on: pull_request
 jobs:
-  version:
+  contractspec:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: ContractSpec Version Bump
-        uses: ./packages/apps/action-version
-        with:
-          mode: bump
-          auto-bump: true
-          create-pr: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: lssm-tech/contractspec/packages/apps/action-version@main
 ```
 
 ## Inputs
 
-| Input          | Description                                 | Default                 |
-| -------------- | ------------------------------------------- | ----------------------- |
-| `mode`         | `analyze` or `bump`                         | `analyze`               |
-| `auto-bump`    | Automatically bump versions based on impact | `false`                 |
-| `create-pr`    | Create a Pull Request with changes          | `false`                 |
-| `pr-branch`    | Branch name for PR                          | `release/next-versions` |
-| `github-token` | GitHub token for PR creation                | `${{ github.token }}`   |
+- `mode` (default: `analyze`) — Action mode: analyze (check only) or bump (apply changes)
+- `auto-bump` (default: `false`) — Whether to automatically applying bumps based on impact analysis
+- `commit-message` (default: `chore(release): bump spec versions [skip ci]`) — Commit message for version bumps
+- `create-pr` (default: `false`) — Create a Pull Request instead of pushing directly
+- `pr-title` (default: `chore(release): version packages`) — Title for the Pull Request
+- `pr-branch` (default: `release/next-versions`) — Branch name for the Pull Request
+- `github-token` (default: `${{ github.token }}`) — GitHub Token for creating PRs
 
 ## Outputs
 
-| Output         | Description                  |
-| -------------- | ---------------------------- |
-| `has-changes`  | `true` if versions need bump |
-| `specs-bumped` | Number of specs needing bump |
+- `has-changes` — Whether changes were detected/applied
+- `specs-bumped` — Number of specs bumped
+
+## Key Files
+
+- `action.yml` — GitHub Action definition (entry point)
+
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed
+- PublishConfig not supported by bun
+- Move automation into actions
+
+## Notes
+
+- Do not change `action.yml` inputs/outputs without updating downstream workflow consumers
+- This is a standalone action — avoid adding workspace dependencies unless necessary

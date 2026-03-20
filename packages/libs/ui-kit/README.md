@@ -1,111 +1,54 @@
 # @contractspec/lib.ui-kit
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Cross-platform UI components for React Native and web surfaces.**
 
-Universal UI components for React Native and Web, built on top of `nativewind` and `@rn-primitives`.
+## What It Provides
 
-## Purpose
-
-To provide a set of high-quality, accessible, and unstyled components that work seamlessly across mobile (React Native) and web (React/Next.js) platforms. This library serves as the foundation for the LSSM design system.
+- **Layer**: lib
+- **Consumers**: accessibility, design-system, presentation-runtime-react-native, bundles
 
 ## Installation
 
-```bash
-npm install @contractspec/lib.ui-kit
-# or
-bun add @contractspec/lib.ui-kit
-```
+`npm install @contractspec/lib.ui-kit`
 
-## Key Concepts
+or
 
-- **Universal**: Components are designed to render natively on iOS/Android and as standard HTML on the web.
-- **Styled with NativeWind**: Uses Tailwind CSS classes for styling, enabling rapid UI development with a familiar syntax.
-- **Accessible Primitives**: Leverages `@rn-primitives` (Radix UI for Native) to ensure accessibility best practices.
-- **Atomic Design**: Exports atoms, molecules, and organisms to build complex UIs.
-
-## Exports
-
-The library exports components via subpaths to allow for tree-shaking and cleaner imports.
-
-### Core UI Components
-
-- `accordion`, `alert-dialog`, `alert`, `aspect-ratio`, `avatar`, `badge`
-- `breadcrumb`, `button`, `card`, `checkbox`, `collapsible`, `command`
-- `context-menu`, `date-picker`, `dialog`, `dropdown-menu`, `form`
-- `hover-card`, `input`, `label`, `menubar`, `navigation-menu`, `popover`
-- `progress`, `radio-group`, `select`, `separator`, `sheet`, `skeleton`
-- `slider`, `switch`, `table`, `tabs`, `textarea`, `toggle-group`, `toggle`, `tooltip`
-
-### Layout & Utilities
-
-- `stack`, `text`, `typography`
-- `useColorScheme`
-
-### Higher-Order Patterns (Molecules/Organisms)
-
-- `marketing/*`: `Hero`, `FeatureGrid`, `PricingTable`
-- `usecases/*`: `UseCaseCard`, `UserStoryCard`
-- `molecules/*`: `SearchAndFilter`, `Autocomplete`
-- `organisms/*`: `ListPage`, `ErrorBoundary`
+`bun add @contractspec/lib.ui-kit`
 
 ## Usage
 
-```tsx
-import { Button } from '@contractspec/lib.ui-kit/ui/button';
-import { Text } from '@contractspec/lib.ui-kit/ui/text';
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from '@contractspec/lib.ui-kit/ui/card';
+Import the root entrypoint from `@contractspec/lib.ui-kit`, or use one of the documented subpaths when you want a narrower surface area.
 
-export function MyComponent() {
-  return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle>Welcome</CardTitle>
-      </CardHeader>
-      <CardContent className="gap-4">
-        <Text>This is a universal component.</Text>
-        <Button onPress={() => console.log('Clicked!')}>Click me</Button>
-      </CardContent>
-    </Card>
-  );
-}
-```
+## Public Entry Points
 
+- `.` — main entry
+- `./ui/*` — individual component exports (many components)
 
+## Local Commands
 
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun run lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rm -rf dist
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
+## Recent Updates
 
+- Replace eslint+prettier by biomejs to optimize speed
+- Add data visualization capabilities
+- Add table capabilities
 
+## Notes
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Component API must stay cross-platform compatible (React Native + web)
+- Depends on ui-kit-core — changes there propagate here
+- Do not introduce web-only or native-only APIs without a platform check

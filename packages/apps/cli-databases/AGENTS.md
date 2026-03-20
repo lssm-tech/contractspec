@@ -1,4 +1,4 @@
-# AI Agent Guide — `cli-databases`
+# AI Agent Guide — `@contractspec/app.cli-databases`
 
 Scope: `packages/apps/cli-databases/*`
 
@@ -6,33 +6,41 @@ CLI orchestrator for multi-database workflows. Coordinates operations across mul
 
 ## Quick Context
 
-- **Layer**: app (CLI)
-- **Consumers**: developers, CI pipelines
+- Layer: `app`.
+- Package visibility: published package.
+- Primary consumers are deployed users, operators, or external clients of this app surface.
+- Related packages: `@contractspec/tool.tsdown`, `@contractspec/tool.typescript`.
 
 ## Architecture
 
-- Lightweight CLI with no workspace bundle dependencies
-- Uses minimist for argument parsing, execa for subprocess execution
-- Delegates per-database work to `cli-database`
+- Lightweight CLI with no workspace bundle dependencies.
+- Uses minimist for argument parsing, execa for subprocess execution.
+- Delegates per-database work to `cli-database`.
+- `src/cli.ts` is the CLI entrypoint.
+- `src/index.ts` is the root public barrel and package entrypoint.
 
-## Key Files
+## Public Surface
 
-- `src/cli.ts` — CLI entry point (binary: `databases`)
-- `src/index.ts` — Library exports
-- `src/profile.ts` — Database profile management
-
-## Public Exports
-
-- `.` → `dist/index.mjs`
-- `./cli` → `dist/cli.mjs`
+- Binary `databases` points to `dist/cli.js`.
+- Export `.` resolves through `./dist/index.mjs`.
+- Export `./cli` resolves through `./dist/cli.mjs`.
+- Export `./profile` resolves through `./dist/profile.mjs`.
+- Export `./*` resolves through `./*`.
 
 ## Guardrails
 
-- Keep this as a thin orchestrator — business logic belongs in `cli-database`
-- Do not change CLI argument signatures without updating docs and CI scripts
+- Keep this as a thin orchestrator — business logic belongs in `cli-database`.
+- Do not change CLI argument signatures without updating docs and CI scripts.
+- Changes here can affect downstream packages such as `@contractspec/tool.tsdown`, `@contractspec/tool.typescript`.
+- Changes here can affect downstream packages such as `@contractspec/tool.tsdown`, `@contractspec/tool.typescript`.
 
 ## Local Commands
 
-- Build: `bun run build`
-- Dev: `bun run dev`
-- Lint: `bun run lint`
+- `bun run dev` — bun run build --watch
+- `bun run build` — tsdown
+- `bun run lint` — bun run lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rm -rf dist

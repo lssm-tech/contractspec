@@ -1,10 +1,11 @@
 engine biome(1.0)
-language js(typescript,jsx)
+language js(typescript, jsx)
 
 `import $imports from $source` where {
-  $source <: or { `"@contractspec/lib.ui-kit-web/ui/button"`, `"@contractspec/lib.ui-kit-web/ui/input"`, `"@contractspec/lib.ui-kit-web/ui/textarea"` },
-  register_diagnostic(
-    span = $source,
-    message = "Consumer applications should import controls from @contractspec/lib.design-system before reaching for ui-kit-web leaf imports. Replace these imports with \"@contractspec/lib.design-system\"."
-  )
+	$source <: or {
+		`"@contractspec/lib.ui-kit-web/ui/button"`,
+		`"@contractspec/lib.ui-kit-web/ui/input"`,
+		`"@contractspec/lib.ui-kit-web/ui/textarea"`
+	},
+	register_diagnostic(span=$source, message="Consumer applications should import controls from @contractspec/lib.design-system before reaching for ui-kit-web leaf imports. Replace these imports with \"@contractspec/lib.design-system\".")
 }

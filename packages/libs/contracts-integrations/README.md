@@ -1,139 +1,71 @@
 # @contractspec/lib.contracts-integrations
 
-Integration contract definitions, provider catalogs, and secret/runtime integration primitives.
+**Integration contract definitions for external services.**
 
-Website: https://contractspec.io/
+## What It Provides
 
-## Why this package exists
-
-`@contractspec/lib.contracts-integrations` is the integration-focused slice split from `@contractspec/lib.contracts`.
-
-It groups everything related to external systems (payments, messaging, health, vector stores, etc.) so projects can depend on integration contracts without pulling all runtime adapters.
-
-## Package boundary (important)
-
-Use this package for:
-
-- Integration metadata contracts (`IntegrationSpec`, `IntegrationSpecRegistry`, `defineIntegration`).
-- Provider catalogs and registration helpers (`createDefaultIntegrationSpecRegistry`).
-- Integration connection operations (`CreateIntegrationConnection`, `TestIntegrationConnection`, ...).
-- Connection/binding data contracts (`IntegrationConnection`, `AppIntegrationBinding`).
-- Secret provider abstraction and implementations (AWS, GCP, Scaleway, env).
-- Integration call reliability utilities (`IntegrationCallGuard`).
-
-Use other packages for:
-
-- Base operation/event/form/policy contract primitives -> `@contractspec/lib.contracts-spec`
-- REST/GraphQL/MCP/React adapters -> runtime split packages
+- **Layer**: lib.
+- **Consumers**: content-gen, image-gen, voice, jobs, metering, analytics, observability, support-bot.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Installation
 
-```bash
-npm install @contractspec/lib.contracts-integrations @contractspec/lib.contracts-spec
-# or
-bun add @contractspec/lib.contracts-integrations @contractspec/lib.contracts-spec
-```
+`npm install @contractspec/lib.contracts-integrations`
 
-## What you get
+or
 
-Top-level exports include:
+`bun add @contractspec/lib.contracts-integrations`
 
-- Integration contracts and registries.
-- Provider domain contracts.
-- Integration connection operations and registration helpers.
+## Usage
 
-Important subpath exports include:
+Import the root entrypoint from `@contractspec/lib.contracts-integrations`, or choose a documented subpath when you only need one part of the package surface.
 
-- `@contractspec/lib.contracts-integrations/integrations/providers/registry`
-- `@contractspec/lib.contracts-integrations/integrations/runtime`
-- `@contractspec/lib.contracts-integrations/integrations/secrets/*`
+## Architecture
 
-## Quick start
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/integrations` is part of the package's public or composition surface.
 
-### 1) Build integration spec and operation registries
+## Public Entry Points
 
-```ts
-import { OperationSpecRegistry } from "@contractspec/lib.contracts-spec";
-import {
-  createDefaultIntegrationSpecRegistry,
-  registerIntegrationContracts,
-} from "@contractspec/lib.contracts-integrations";
+- Export `.` resolves through `./src/index.ts`.
+- Export `./integrations` resolves through `./src/integrations/index.ts`.
+- Export `./integrations/auth` resolves through `./src/integrations/auth.ts`.
+- Export `./integrations/auth-helpers` resolves through `./src/integrations/auth-helpers.ts`.
+- Export `./integrations/binding` resolves through `./src/integrations/binding.ts`.
+- Export `./integrations/byok` resolves through `./src/integrations/byok.ts`.
+- Export `./integrations/connection` resolves through `./src/integrations/connection.ts`.
+- Export `./integrations/docs/integrations.docblock` resolves through `./src/integrations/docs/integrations.docblock.ts`.
+- Export `./integrations/health` resolves through `./src/integrations/health.ts`.
+- Export `./integrations/health/contracts` resolves through `./src/integrations/health/contracts/index.ts`.
+- The package publishes 121 total export subpaths; keep docs aligned with `package.json`.
 
-const integrationSpecs = createDefaultIntegrationSpecRegistry();
-const integrationOps = registerIntegrationContracts(new OperationSpecRegistry());
+## Local Commands
 
-console.log("integration specs", integrationSpecs.count());
-console.log("integration ops", integrationOps.count());
-```
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun run lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rm -rf dist
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-### 2) Compose secret providers with priority
+## Recent Updates
 
-```ts
-import { SecretProviderManager } from "@contractspec/lib.contracts-integrations/integrations/secrets/manager";
-import { EnvSecretProvider } from "@contractspec/lib.contracts-integrations/integrations/secrets/env-secret-provider";
-import { GcpSecretManagerProvider } from "@contractspec/lib.contracts-integrations/integrations/secrets/gcp-secret-manager";
+- Replace eslint+prettier by biomejs to optimize speed.
+- Resolve lint and build errors in workspace bundle and integrations lib.
+- Missing contract layers.
+- Resolve lint, build, and type errors across nine packages.
+- Normalize formatting across contracts-integrations, composio, and observability.
+- Add Composio universal fallback, fix provider-ranking types, and expand package exports.
 
-const secrets = new SecretProviderManager()
-  .register(new EnvSecretProvider(), { priority: 100 })
-  .register(new GcpSecretManagerProvider({ projectId: "my-project" }), {
-    priority: 10,
-  });
+## Notes
 
-console.log(secrets.canHandle("env://OPENAI_API_KEY"));
-```
-
-### 3) Guard provider calls with retries + telemetry hooks
-
-```ts
-import { IntegrationCallGuard } from "@contractspec/lib.contracts-integrations/integrations/runtime";
-import type { ResolvedAppConfig } from "@contractspec/lib.contracts-spec/app-config/runtime";
-
-declare const resolvedConfig: ResolvedAppConfig;
-
-const guard = new IntegrationCallGuard(secrets, {
-  maxAttempts: 3,
-  backoffMs: 250,
-});
-
-const result = await guard.executeWithGuards(
-  "payments-primary",
-  "charge.create",
-  { amount: 2000, currency: "usd" },
-  resolvedConfig,
-  async (connection, secretValues) => {
-    return {
-      provider: connection.meta.integrationKey,
-      apiKeyPresent: Boolean(secretValues.apiKey || secretValues.secret),
-    };
-  }
-);
-
-console.log(result.success, result.metadata.attempts);
-```
-
-## Integration architecture notes
-
-- `IntegrationSpec` describes provider capabilities and configuration/secret schema.
-- `IntegrationConnection` models tenant-specific binding to a provider account.
-- `AppIntegrationBinding` maps app slots/features to actual connections.
-- `IntegrationCallGuard` centralizes resiliency (retry/backoff) and telemetry.
-
-This separation lets you keep provider concerns explicit and testable.
-
-## AI assistant guidance
-
-When generating code:
-
-- Use this package when the task mentions providers, credentials, integrations, or external platform bindings.
-- Prefer modeling with `IntegrationSpec` first, then wire `IntegrationConnection` flows.
-- Use `SecretProviderManager` instead of hardcoding one secret backend.
-
-When reading code:
-
-- Distinguish contract-level definitions (`spec.ts`, `connection.ts`) from runtime execution utilities (`runtime.ts`).
-- Check subpath imports for secret provider implementations.
-
-## Split migration from deprecated monolith
-
-- `@contractspec/lib.contracts/integrations/*` -> `@contractspec/lib.contracts-integrations/integrations/*`
-- Provider contracts and secret abstractions are now isolated from non-integration runtime surfaces
+- High blast radius — integration contracts are consumed by many libs.
+- Provider and secret catalog schemas must stay backward-compatible.
+- Adding a new integration must not break existing subpath imports.

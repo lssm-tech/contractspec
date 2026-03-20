@@ -1,86 +1,78 @@
-# Agent Console Example
+# @contractspec/example.agent-console
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Agent Console example - AI agent orchestration with tools, runs, and logs.**
 
-A ContractSpec example demonstrating AI agent orchestration with tools, runs, and execution logs.
+## What This Demonstrates
 
-## Overview
+- Agent entity with lifecycle (create, configure, execute).
+- Run tracking with status enums and event-driven state transitions.
+- Tool registry with typed schemas and operation handlers.
+- Presentation layer with React UI components, hooks, modals, and overlays.
+- Markdown and React renderers for multi-surface output.
+- Seeders and mock data for demo scenarios.
 
-This example showcases how to build an AI agent management system using ContractSpec's spec-first approach. It includes:
+## Running Locally
 
-- **Tools**: Reusable AI functions/capabilities that agents can invoke
-- **Agents**: AI agent configurations with assigned tools and parameters
-- **Runs**: Execution instances of agents processing user requests
-- **Logs**: Detailed execution logs for debugging and auditing
-
-## Features
-
-- Multi-tenant agent management
-- Tool registry with typed parameters
-- Agent composition with multiple tools
-- Run execution with step-by-step logging
-- Token usage tracking for billing
-- Event-driven architecture for real-time updates
+From `packages/examples/agent-console`:
+- `bun run dev`
+- `bun run build`
+- `bun run test`
+- `bun run typecheck`
 
 ## Usage
 
-```typescript
-import { 
-  ToolEntity, 
-  AgentEntity, 
-  RunEntity,
-  CreateToolCommand,
-  ExecuteAgentCommand 
-} from '@contractspec/example.agent-console';
+Use `@contractspec/example.agent-console` as a reference implementation, or import its exported surfaces into a workspace that composes ContractSpec examples and bundles.
 
-// Define a tool
-const searchTool = {
-  name: 'web-search',
-  description: 'Search the web for information',
-  parameters: {
-    type: 'object',
-    properties: {
-      query: { type: 'string' }
-    }
-  }
-};
+## Architecture
 
-// Create an agent with tools
-const agent = {
-  name: 'Research Assistant',
-  model: 'gpt-4',
-  systemPrompt: 'You are a helpful research assistant.',
-  toolIds: ['tool-web-search', 'tool-summarize']
-};
+- `src/agent` is part of the package's public or composition surface.
+- `src/agent.capability.ts` defines a capability surface.
+- `src/agent.feature.ts` defines a feature entrypoint.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/example.ts` is the runnable example entrypoint.
+- `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
+- `src/index.ts` is the root public barrel and package entrypoint.
 
-// Execute the agent
-const run = await executeAgent({
-  agentId: agent.id,
-  input: { message: 'What are the latest AI developments?' }
-});
-```
+## Public Entry Points
 
-## Entities
+- Export `.` resolves through `./src/index.ts`.
+- Export `./agent` resolves through `./src/agent/index.ts`.
+- Export `./agent.capability` resolves through `./src/agent.capability.ts`.
+- Export `./agent.feature` resolves through `./src/agent.feature.ts`.
+- Export `./agent/agent.entity` resolves through `./src/agent/agent.entity.ts`.
+- Export `./agent/agent.enum` resolves through `./src/agent/agent.enum.ts`.
+- Export `./agent/agent.event` resolves through `./src/agent/agent.event.ts`.
+- Export `./agent/agent.handler` resolves through `./src/agent/agent.handler.ts`.
+- Export `./agent/agent.operation` resolves through `./src/agent/agent.operation.ts`.
+- Export `./agent/agent.presentation` resolves through `./src/agent/agent.presentation.ts`.
+- The package publishes 66 total export subpaths; keep docs aligned with `package.json`.
 
-- `Tool` - AI tool/function definitions
-- `Agent` - Agent configurations
-- `Run` - Agent execution instances
-- `RunStep` - Individual steps within a run
-- `RunLog` - Detailed execution logs
+## Local Commands
 
-## Events
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test --pass-with-no-tests
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-- `AgentCreated` - When a new agent is configured
-- `RunStarted` - When an agent run begins
-- `RunCompleted` - When an agent run finishes
-- `RunFailed` - When an agent run encounters an error
-- `ToolInvoked` - When a tool is called during execution
+## Recent Updates
 
-## Dependencies
+- Replace eslint+prettier by biomejs to optimize speed.
+- Package exports.
+- Add latest models and align defaults.
+- Resolve lint and build errors in workspace bundle and integrations lib.
+- Missing contract layers.
 
-This example builds on the following cross-cutting modules:
+## Notes
 
-- `@contractspec/lib.identity-rbac` - User and organization management
-- `@contractspec/lib.jobs` - Async job processing for long-running agents
-- `@contractspec/module.audit-trail` - Audit logging for compliance
+- Works alongside `@contractspec/lib.contracts-spec`, `@contractspec/lib.design-system`, `@contractspec/lib.example-shared-ui`, `@contractspec/lib.runtime-sandbox`, `@contractspec/lib.schema`, ...

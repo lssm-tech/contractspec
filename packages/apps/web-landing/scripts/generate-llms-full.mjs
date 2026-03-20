@@ -59,8 +59,11 @@ function findPackages() {
 }
 
 function getPackageSlug(pkgName) {
-	if (!pkgName?.startsWith('@contractspec/')) return null;
-	return pkgName.slice('@contractspec/'.length);
+	if (!pkgName) return null;
+	if (pkgName.startsWith('@contractspec/')) {
+		return pkgName.slice('@contractspec/'.length);
+	}
+	return /^[a-z0-9][a-z0-9._-]*$/i.test(pkgName) ? pkgName : null;
 }
 
 function generate() {

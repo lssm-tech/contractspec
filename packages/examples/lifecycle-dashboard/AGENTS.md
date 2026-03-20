@@ -1,29 +1,52 @@
-# AI Agent Guide -- `@contractspec/example.lifecycle-dashboard`
+# AI Agent Guide — `@contractspec/example.lifecycle-dashboard`
 
 Scope: `packages/examples/lifecycle-dashboard/*`
 
-Snippet example showing how to call lifecycle-managed APIs and render a status card.
+Lifecycle dashboard example (snippet): how to call lifecycle-managed APIs and render a status card.
 
 ## Quick Context
 
-- **Layer**: example
-- **Related Packages**: `lib.contracts-spec`
+- Layer: `example`.
+- Package visibility: published package.
+- Primary consumers are example explorers, template authors, and documentation readers.
+- Related packages: `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
-## What This Demonstrates
+## Architecture
 
-- Lifecycle API consumption pattern
-- Status card rendering snippet
-- Minimal dependency footprint for quick integration
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/example.ts` is the runnable example entrypoint.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/lifecycle-dashboard.feature.ts` defines a feature entrypoint.
+- `src/snippets` is part of the package's public or composition surface.
 
-## Public Exports
+## Public Surface
 
-- `.` -- root barrel
-- `./snippets/page` -- page snippet
-- `./docs`, `./example`
+- Export `.` resolves through `./src/index.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./docs/lifecycle-dashboard.docblock` resolves through `./src/docs/lifecycle-dashboard.docblock.ts`.
+- Export `./example` resolves through `./src/example.ts`.
+- Export `./lifecycle-dashboard.feature` resolves through `./src/lifecycle-dashboard.feature.ts`.
+- Export `./snippets/page` resolves through `./src/snippets/page.ts`.
+
+## Guardrails
+
+- Keep the example package demonstrative, buildable, and aligned with the exported feature surface.
+- Do not add hidden production assumptions that are not actually implemented in the example.
+- Changes here can affect downstream packages such as `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Changes here can affect downstream packages such as `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Local Commands
 
-- Build: `bun run build`
-- Dev: `bun run dev`
-- Test: `bun test --pass-with-no-tests`
-- Typecheck: `bun run typecheck`
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test --pass-with-no-tests
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild

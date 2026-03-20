@@ -1,188 +1,188 @@
 {
-  "name": "@contractspec/lib.analytics",
-  "version": "3.7.6",
-  "description": "Product analytics and growth metrics",
-  "keywords": [
-    "contractspec",
-    "analytics",
-    "metrics",
-    "funnel",
-    "cohort",
-    "typescript"
-  ],
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "scripts": {
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
-    "build:bundle": "contractspec-bun-build transpile",
-    "build:types": "contractspec-bun-build types",
-    "dev": "contractspec-bun-build dev",
-    "clean": "rimraf dist .turbo",
-    "lint": "bun lint:fix",
-    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-    "lint:check": "biome check .",
-    "test": "bun test --pass-with-no-tests",
-    "prebuild": "contractspec-bun-build prebuild",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "@contractspec/lib.contracts-integrations": "workspace:*",
-    "@contractspec/lib.lifecycle": "workspace:*",
-    "dayjs": "^1.11.13"
-  },
-  "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:",
-    "@contractspec/tool.bun": "workspace:*"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./churn": "./src/churn/index.ts",
-    "./churn/predictor": "./src/churn/predictor.ts",
-    "./cohort": "./src/cohort/index.ts",
-    "./cohort/tracker": "./src/cohort/tracker.ts",
-    "./funnel": "./src/funnel/index.ts",
-    "./funnel/analyzer": "./src/funnel/analyzer.ts",
-    "./growth": "./src/growth/index.ts",
-    "./growth/hypothesis-generator": "./src/growth/hypothesis-generator.ts",
-    "./lifecycle": "./src/lifecycle/index.ts",
-    "./lifecycle/metric-collectors": "./src/lifecycle/metric-collectors.ts",
-    "./lifecycle/posthog-bridge": "./src/lifecycle/posthog-bridge.ts",
-    "./lifecycle/posthog-metric-source": "./src/lifecycle/posthog-metric-source.ts",
-    "./posthog": "./src/posthog/index.ts",
-    "./posthog/event-source": "./src/posthog/event-source.ts",
-    "./types": "./src/types.ts"
-  },
-  "publishConfig": {
-    "access": "public",
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "browser": "./dist/browser/index.js",
-        "bun": "./dist/index.js",
-        "node": "./dist/node/index.js",
-        "default": "./dist/index.js"
-      },
-      "./churn": {
-        "types": "./dist/churn/index.d.ts",
-        "browser": "./dist/browser/churn/index.js",
-        "bun": "./dist/churn/index.js",
-        "node": "./dist/node/churn/index.js",
-        "default": "./dist/churn/index.js"
-      },
-      "./churn/predictor": {
-        "types": "./dist/churn/predictor.d.ts",
-        "browser": "./dist/browser/churn/predictor.js",
-        "bun": "./dist/churn/predictor.js",
-        "node": "./dist/node/churn/predictor.js",
-        "default": "./dist/churn/predictor.js"
-      },
-      "./cohort": {
-        "types": "./dist/cohort/index.d.ts",
-        "browser": "./dist/browser/cohort/index.js",
-        "bun": "./dist/cohort/index.js",
-        "node": "./dist/node/cohort/index.js",
-        "default": "./dist/cohort/index.js"
-      },
-      "./cohort/tracker": {
-        "types": "./dist/cohort/tracker.d.ts",
-        "browser": "./dist/browser/cohort/tracker.js",
-        "bun": "./dist/cohort/tracker.js",
-        "node": "./dist/node/cohort/tracker.js",
-        "default": "./dist/cohort/tracker.js"
-      },
-      "./funnel": {
-        "types": "./dist/funnel/index.d.ts",
-        "browser": "./dist/browser/funnel/index.js",
-        "bun": "./dist/funnel/index.js",
-        "node": "./dist/node/funnel/index.js",
-        "default": "./dist/funnel/index.js"
-      },
-      "./funnel/analyzer": {
-        "types": "./dist/funnel/analyzer.d.ts",
-        "browser": "./dist/browser/funnel/analyzer.js",
-        "bun": "./dist/funnel/analyzer.js",
-        "node": "./dist/node/funnel/analyzer.js",
-        "default": "./dist/funnel/analyzer.js"
-      },
-      "./growth": {
-        "types": "./dist/growth/index.d.ts",
-        "browser": "./dist/browser/growth/index.js",
-        "bun": "./dist/growth/index.js",
-        "node": "./dist/node/growth/index.js",
-        "default": "./dist/growth/index.js"
-      },
-      "./growth/hypothesis-generator": {
-        "types": "./dist/growth/hypothesis-generator.d.ts",
-        "browser": "./dist/browser/growth/hypothesis-generator.js",
-        "bun": "./dist/growth/hypothesis-generator.js",
-        "node": "./dist/node/growth/hypothesis-generator.js",
-        "default": "./dist/growth/hypothesis-generator.js"
-      },
-      "./lifecycle": {
-        "types": "./dist/lifecycle/index.d.ts",
-        "browser": "./dist/browser/lifecycle/index.js",
-        "bun": "./dist/lifecycle/index.js",
-        "node": "./dist/node/lifecycle/index.js",
-        "default": "./dist/lifecycle/index.js"
-      },
-      "./lifecycle/metric-collectors": {
-        "types": "./dist/lifecycle/metric-collectors.d.ts",
-        "browser": "./dist/browser/lifecycle/metric-collectors.js",
-        "bun": "./dist/lifecycle/metric-collectors.js",
-        "node": "./dist/node/lifecycle/metric-collectors.js",
-        "default": "./dist/lifecycle/metric-collectors.js"
-      },
-      "./lifecycle/posthog-bridge": {
-        "types": "./dist/lifecycle/posthog-bridge.d.ts",
-        "browser": "./dist/browser/lifecycle/posthog-bridge.js",
-        "bun": "./dist/lifecycle/posthog-bridge.js",
-        "node": "./dist/node/lifecycle/posthog-bridge.js",
-        "default": "./dist/lifecycle/posthog-bridge.js"
-      },
-      "./lifecycle/posthog-metric-source": {
-        "types": "./dist/lifecycle/posthog-metric-source.d.ts",
-        "browser": "./dist/browser/lifecycle/posthog-metric-source.js",
-        "bun": "./dist/lifecycle/posthog-metric-source.js",
-        "node": "./dist/node/lifecycle/posthog-metric-source.js",
-        "default": "./dist/lifecycle/posthog-metric-source.js"
-      },
-      "./posthog": {
-        "types": "./dist/posthog/index.d.ts",
-        "browser": "./dist/browser/posthog/index.js",
-        "bun": "./dist/posthog/index.js",
-        "node": "./dist/node/posthog/index.js",
-        "default": "./dist/posthog/index.js"
-      },
-      "./posthog/event-source": {
-        "types": "./dist/posthog/event-source.d.ts",
-        "browser": "./dist/browser/posthog/event-source.js",
-        "bun": "./dist/posthog/event-source.js",
-        "node": "./dist/node/posthog/event-source.js",
-        "default": "./dist/posthog/event-source.js"
-      },
-      "./types": {
-        "types": "./dist/types.d.ts",
-        "browser": "./dist/browser/types.js",
-        "bun": "./dist/types.js",
-        "node": "./dist/node/types.js",
-        "default": "./dist/types.js"
-      }
-    },
-    "registry": "https://registry.npmjs.org/"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/libs/analytics"
-  },
-  "homepage": "https://contractspec.io"
+	"name": "@contractspec/lib.analytics",
+	"version": "3.7.6",
+	"description": "Product analytics and growth metrics",
+	"keywords": [
+		"contractspec",
+		"analytics",
+		"metrics",
+		"funnel",
+		"cohort",
+		"typescript"
+	],
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"test": "bun test --pass-with-no-tests",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.contracts-integrations": "workspace:*",
+		"@contractspec/lib.lifecycle": "workspace:*",
+		"dayjs": "^1.11.13"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@contractspec/tool.bun": "workspace:*"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./churn": "./src/churn/index.ts",
+		"./churn/predictor": "./src/churn/predictor.ts",
+		"./cohort": "./src/cohort/index.ts",
+		"./cohort/tracker": "./src/cohort/tracker.ts",
+		"./funnel": "./src/funnel/index.ts",
+		"./funnel/analyzer": "./src/funnel/analyzer.ts",
+		"./growth": "./src/growth/index.ts",
+		"./growth/hypothesis-generator": "./src/growth/hypothesis-generator.ts",
+		"./lifecycle": "./src/lifecycle/index.ts",
+		"./lifecycle/metric-collectors": "./src/lifecycle/metric-collectors.ts",
+		"./lifecycle/posthog-bridge": "./src/lifecycle/posthog-bridge.ts",
+		"./lifecycle/posthog-metric-source": "./src/lifecycle/posthog-metric-source.ts",
+		"./posthog": "./src/posthog/index.ts",
+		"./posthog/event-source": "./src/posthog/event-source.ts",
+		"./types": "./src/types.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./churn": {
+				"types": "./dist/churn/index.d.ts",
+				"browser": "./dist/browser/churn/index.js",
+				"bun": "./dist/churn/index.js",
+				"node": "./dist/node/churn/index.js",
+				"default": "./dist/churn/index.js"
+			},
+			"./churn/predictor": {
+				"types": "./dist/churn/predictor.d.ts",
+				"browser": "./dist/browser/churn/predictor.js",
+				"bun": "./dist/churn/predictor.js",
+				"node": "./dist/node/churn/predictor.js",
+				"default": "./dist/churn/predictor.js"
+			},
+			"./cohort": {
+				"types": "./dist/cohort/index.d.ts",
+				"browser": "./dist/browser/cohort/index.js",
+				"bun": "./dist/cohort/index.js",
+				"node": "./dist/node/cohort/index.js",
+				"default": "./dist/cohort/index.js"
+			},
+			"./cohort/tracker": {
+				"types": "./dist/cohort/tracker.d.ts",
+				"browser": "./dist/browser/cohort/tracker.js",
+				"bun": "./dist/cohort/tracker.js",
+				"node": "./dist/node/cohort/tracker.js",
+				"default": "./dist/cohort/tracker.js"
+			},
+			"./funnel": {
+				"types": "./dist/funnel/index.d.ts",
+				"browser": "./dist/browser/funnel/index.js",
+				"bun": "./dist/funnel/index.js",
+				"node": "./dist/node/funnel/index.js",
+				"default": "./dist/funnel/index.js"
+			},
+			"./funnel/analyzer": {
+				"types": "./dist/funnel/analyzer.d.ts",
+				"browser": "./dist/browser/funnel/analyzer.js",
+				"bun": "./dist/funnel/analyzer.js",
+				"node": "./dist/node/funnel/analyzer.js",
+				"default": "./dist/funnel/analyzer.js"
+			},
+			"./growth": {
+				"types": "./dist/growth/index.d.ts",
+				"browser": "./dist/browser/growth/index.js",
+				"bun": "./dist/growth/index.js",
+				"node": "./dist/node/growth/index.js",
+				"default": "./dist/growth/index.js"
+			},
+			"./growth/hypothesis-generator": {
+				"types": "./dist/growth/hypothesis-generator.d.ts",
+				"browser": "./dist/browser/growth/hypothesis-generator.js",
+				"bun": "./dist/growth/hypothesis-generator.js",
+				"node": "./dist/node/growth/hypothesis-generator.js",
+				"default": "./dist/growth/hypothesis-generator.js"
+			},
+			"./lifecycle": {
+				"types": "./dist/lifecycle/index.d.ts",
+				"browser": "./dist/browser/lifecycle/index.js",
+				"bun": "./dist/lifecycle/index.js",
+				"node": "./dist/node/lifecycle/index.js",
+				"default": "./dist/lifecycle/index.js"
+			},
+			"./lifecycle/metric-collectors": {
+				"types": "./dist/lifecycle/metric-collectors.d.ts",
+				"browser": "./dist/browser/lifecycle/metric-collectors.js",
+				"bun": "./dist/lifecycle/metric-collectors.js",
+				"node": "./dist/node/lifecycle/metric-collectors.js",
+				"default": "./dist/lifecycle/metric-collectors.js"
+			},
+			"./lifecycle/posthog-bridge": {
+				"types": "./dist/lifecycle/posthog-bridge.d.ts",
+				"browser": "./dist/browser/lifecycle/posthog-bridge.js",
+				"bun": "./dist/lifecycle/posthog-bridge.js",
+				"node": "./dist/node/lifecycle/posthog-bridge.js",
+				"default": "./dist/lifecycle/posthog-bridge.js"
+			},
+			"./lifecycle/posthog-metric-source": {
+				"types": "./dist/lifecycle/posthog-metric-source.d.ts",
+				"browser": "./dist/browser/lifecycle/posthog-metric-source.js",
+				"bun": "./dist/lifecycle/posthog-metric-source.js",
+				"node": "./dist/node/lifecycle/posthog-metric-source.js",
+				"default": "./dist/lifecycle/posthog-metric-source.js"
+			},
+			"./posthog": {
+				"types": "./dist/posthog/index.d.ts",
+				"browser": "./dist/browser/posthog/index.js",
+				"bun": "./dist/posthog/index.js",
+				"node": "./dist/node/posthog/index.js",
+				"default": "./dist/posthog/index.js"
+			},
+			"./posthog/event-source": {
+				"types": "./dist/posthog/event-source.d.ts",
+				"browser": "./dist/browser/posthog/event-source.js",
+				"bun": "./dist/posthog/event-source.js",
+				"node": "./dist/node/posthog/event-source.js",
+				"default": "./dist/posthog/event-source.js"
+			},
+			"./types": {
+				"types": "./dist/types.d.ts",
+				"browser": "./dist/browser/types.js",
+				"bun": "./dist/types.js",
+				"node": "./dist/node/types.js",
+				"default": "./dist/types.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/libs/analytics"
+	},
+	"homepage": "https://contractspec.io"
 }

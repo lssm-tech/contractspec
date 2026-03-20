@@ -1,259 +1,259 @@
 {
-  "name": "@contractspec/integration.runtime",
-  "version": "3.7.6",
-  "description": "Runtime integration with secret management",
-  "keywords": [
-    "contractspec",
-    "integration",
-    "runtime",
-    "secrets",
-    "typescript"
-  ],
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "scripts": {
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
-    "build:bundle": "contractspec-bun-build transpile",
-    "build:types": "contractspec-bun-build types",
-    "dev": "contractspec-bun-build dev",
-    "clean": "rimraf dist .turbo",
-    "lint": "bun lint:fix",
-    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-    "lint:check": "biome check .",
-    "test": "bun test --pass-with-no-tests",
-    "prebuild": "contractspec-bun-build prebuild",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "@contractspec/lib.contracts-integrations": "workspace:*",
-    "@contractspec/lib.logger": "workspace:*",
-    "@google-cloud/secret-manager": "^6.1.1",
-    "google-gax": "^5.0.0"
-  },
-  "optionalDependencies": {
-    "pg": "^8.20.0"
-  },
-  "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:",
-    "@contractspec/tool.bun": "workspace:*"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./channel": "./src/channel/index.ts",
-    "./channel/dispatcher": "./src/channel/dispatcher.ts",
-    "./channel/github": "./src/channel/github.ts",
-    "./channel/memory-store": "./src/channel/memory-store.ts",
-    "./channel/policy": "./src/channel/policy.ts",
-    "./channel/postgres-queries": "./src/channel/postgres-queries.ts",
-    "./channel/postgres-schema": "./src/channel/postgres-schema.ts",
-    "./channel/postgres-store": "./src/channel/postgres-store.ts",
-    "./channel/replay-fixtures": "./src/channel/replay-fixtures.ts",
-    "./channel/service": "./src/channel/service.ts",
-    "./channel/slack": "./src/channel/slack.ts",
-    "./channel/store": "./src/channel/store.ts",
-    "./channel/telemetry": "./src/channel/telemetry.ts",
-    "./channel/types": "./src/channel/types.ts",
-    "./channel/whatsapp-meta": "./src/channel/whatsapp-meta.ts",
-    "./channel/whatsapp-twilio": "./src/channel/whatsapp-twilio.ts",
-    "./health": "./src/health.ts",
-    "./runtime": "./src/runtime.ts",
-    "./secrets": "./src/secrets/index.ts",
-    "./secrets/env-secret-provider": "./src/secrets/env-secret-provider.ts",
-    "./secrets/gcp-secret-manager": "./src/secrets/gcp-secret-manager.ts",
-    "./secrets/manager": "./src/secrets/manager.ts",
-    "./secrets/provider": "./src/secrets/provider.ts",
-    "./transport": "./src/transport/index.ts",
-    "./transport/auth-resolver": "./src/transport/auth-resolver.ts",
-    "./transport/transport-factory": "./src/transport/transport-factory.ts",
-    "./transport/version-negotiator": "./src/transport/version-negotiator.ts"
-  },
-  "publishConfig": {
-    "access": "public",
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "bun": "./dist/index.js",
-        "node": "./dist/node/index.js",
-        "default": "./dist/index.js"
-      },
-      "./channel": {
-        "types": "./dist/channel/index.d.ts",
-        "bun": "./dist/channel/index.js",
-        "node": "./dist/node/channel/index.js",
-        "default": "./dist/channel/index.js"
-      },
-      "./channel/dispatcher": {
-        "types": "./dist/channel/dispatcher.d.ts",
-        "bun": "./dist/channel/dispatcher.js",
-        "node": "./dist/node/channel/dispatcher.js",
-        "default": "./dist/channel/dispatcher.js"
-      },
-      "./channel/github": {
-        "types": "./dist/channel/github.d.ts",
-        "bun": "./dist/channel/github.js",
-        "node": "./dist/node/channel/github.js",
-        "default": "./dist/channel/github.js"
-      },
-      "./channel/memory-store": {
-        "types": "./dist/channel/memory-store.d.ts",
-        "bun": "./dist/channel/memory-store.js",
-        "node": "./dist/node/channel/memory-store.js",
-        "default": "./dist/channel/memory-store.js"
-      },
-      "./channel/policy": {
-        "types": "./dist/channel/policy.d.ts",
-        "bun": "./dist/channel/policy.js",
-        "node": "./dist/node/channel/policy.js",
-        "default": "./dist/channel/policy.js"
-      },
-      "./channel/postgres-queries": {
-        "types": "./dist/channel/postgres-queries.d.ts",
-        "bun": "./dist/channel/postgres-queries.js",
-        "node": "./dist/node/channel/postgres-queries.js",
-        "default": "./dist/channel/postgres-queries.js"
-      },
-      "./channel/postgres-schema": {
-        "types": "./dist/channel/postgres-schema.d.ts",
-        "bun": "./dist/channel/postgres-schema.js",
-        "node": "./dist/node/channel/postgres-schema.js",
-        "default": "./dist/channel/postgres-schema.js"
-      },
-      "./channel/postgres-store": {
-        "types": "./dist/channel/postgres-store.d.ts",
-        "bun": "./dist/channel/postgres-store.js",
-        "node": "./dist/node/channel/postgres-store.js",
-        "default": "./dist/channel/postgres-store.js"
-      },
-      "./channel/replay-fixtures": {
-        "types": "./dist/channel/replay-fixtures.d.ts",
-        "bun": "./dist/channel/replay-fixtures.js",
-        "node": "./dist/node/channel/replay-fixtures.js",
-        "default": "./dist/channel/replay-fixtures.js"
-      },
-      "./channel/service": {
-        "types": "./dist/channel/service.d.ts",
-        "bun": "./dist/channel/service.js",
-        "node": "./dist/node/channel/service.js",
-        "default": "./dist/channel/service.js"
-      },
-      "./channel/slack": {
-        "types": "./dist/channel/slack.d.ts",
-        "bun": "./dist/channel/slack.js",
-        "node": "./dist/node/channel/slack.js",
-        "default": "./dist/channel/slack.js"
-      },
-      "./channel/store": {
-        "types": "./dist/channel/store.d.ts",
-        "bun": "./dist/channel/store.js",
-        "node": "./dist/node/channel/store.js",
-        "default": "./dist/channel/store.js"
-      },
-      "./channel/telemetry": {
-        "types": "./dist/channel/telemetry.d.ts",
-        "bun": "./dist/channel/telemetry.js",
-        "node": "./dist/node/channel/telemetry.js",
-        "default": "./dist/channel/telemetry.js"
-      },
-      "./channel/types": {
-        "types": "./dist/channel/types.d.ts",
-        "bun": "./dist/channel/types.js",
-        "node": "./dist/node/channel/types.js",
-        "default": "./dist/channel/types.js"
-      },
-      "./channel/whatsapp-meta": {
-        "types": "./dist/channel/whatsapp-meta.d.ts",
-        "bun": "./dist/channel/whatsapp-meta.js",
-        "node": "./dist/node/channel/whatsapp-meta.js",
-        "default": "./dist/channel/whatsapp-meta.js"
-      },
-      "./channel/whatsapp-twilio": {
-        "types": "./dist/channel/whatsapp-twilio.d.ts",
-        "bun": "./dist/channel/whatsapp-twilio.js",
-        "node": "./dist/node/channel/whatsapp-twilio.js",
-        "default": "./dist/channel/whatsapp-twilio.js"
-      },
-      "./health": {
-        "types": "./dist/health.d.ts",
-        "bun": "./dist/health.js",
-        "node": "./dist/node/health.js",
-        "default": "./dist/health.js"
-      },
-      "./runtime": {
-        "types": "./dist/runtime.d.ts",
-        "bun": "./dist/runtime.js",
-        "node": "./dist/node/runtime.js",
-        "default": "./dist/runtime.js"
-      },
-      "./secrets": {
-        "types": "./dist/secrets/index.d.ts",
-        "bun": "./dist/secrets/index.js",
-        "node": "./dist/node/secrets/index.js",
-        "default": "./dist/secrets/index.js"
-      },
-      "./secrets/env-secret-provider": {
-        "types": "./dist/secrets/env-secret-provider.d.ts",
-        "bun": "./dist/secrets/env-secret-provider.js",
-        "node": "./dist/node/secrets/env-secret-provider.js",
-        "default": "./dist/secrets/env-secret-provider.js"
-      },
-      "./secrets/gcp-secret-manager": {
-        "types": "./dist/secrets/gcp-secret-manager.d.ts",
-        "bun": "./dist/secrets/gcp-secret-manager.js",
-        "node": "./dist/node/secrets/gcp-secret-manager.js",
-        "default": "./dist/secrets/gcp-secret-manager.js"
-      },
-      "./secrets/manager": {
-        "types": "./dist/secrets/manager.d.ts",
-        "bun": "./dist/secrets/manager.js",
-        "node": "./dist/node/secrets/manager.js",
-        "default": "./dist/secrets/manager.js"
-      },
-      "./secrets/provider": {
-        "types": "./dist/secrets/provider.d.ts",
-        "bun": "./dist/secrets/provider.js",
-        "node": "./dist/node/secrets/provider.js",
-        "default": "./dist/secrets/provider.js"
-      },
-      "./transport": {
-        "types": "./dist/transport/index.d.ts",
-        "bun": "./dist/transport/index.js",
-        "node": "./dist/node/transport/index.js",
-        "default": "./dist/transport/index.js"
-      },
-      "./transport/auth-resolver": {
-        "types": "./dist/transport/auth-resolver.d.ts",
-        "bun": "./dist/transport/auth-resolver.js",
-        "node": "./dist/node/transport/auth-resolver.js",
-        "default": "./dist/transport/auth-resolver.js"
-      },
-      "./transport/transport-factory": {
-        "types": "./dist/transport/transport-factory.d.ts",
-        "bun": "./dist/transport/transport-factory.js",
-        "node": "./dist/node/transport/transport-factory.js",
-        "default": "./dist/transport/transport-factory.js"
-      },
-      "./transport/version-negotiator": {
-        "types": "./dist/transport/version-negotiator.d.ts",
-        "bun": "./dist/transport/version-negotiator.js",
-        "node": "./dist/node/transport/version-negotiator.js",
-        "default": "./dist/transport/version-negotiator.js"
-      }
-    },
-    "registry": "https://registry.npmjs.org/"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/integrations/runtime"
-  },
-  "homepage": "https://contractspec.io"
+	"name": "@contractspec/integration.runtime",
+	"version": "3.7.6",
+	"description": "Runtime integration with secret management",
+	"keywords": [
+		"contractspec",
+		"integration",
+		"runtime",
+		"secrets",
+		"typescript"
+	],
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"test": "bun test --pass-with-no-tests",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.contracts-integrations": "workspace:*",
+		"@contractspec/lib.logger": "workspace:*",
+		"@google-cloud/secret-manager": "^6.1.1",
+		"google-gax": "^5.0.0"
+	},
+	"optionalDependencies": {
+		"pg": "^8.20.0"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@contractspec/tool.bun": "workspace:*"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./channel": "./src/channel/index.ts",
+		"./channel/dispatcher": "./src/channel/dispatcher.ts",
+		"./channel/github": "./src/channel/github.ts",
+		"./channel/memory-store": "./src/channel/memory-store.ts",
+		"./channel/policy": "./src/channel/policy.ts",
+		"./channel/postgres-queries": "./src/channel/postgres-queries.ts",
+		"./channel/postgres-schema": "./src/channel/postgres-schema.ts",
+		"./channel/postgres-store": "./src/channel/postgres-store.ts",
+		"./channel/replay-fixtures": "./src/channel/replay-fixtures.ts",
+		"./channel/service": "./src/channel/service.ts",
+		"./channel/slack": "./src/channel/slack.ts",
+		"./channel/store": "./src/channel/store.ts",
+		"./channel/telemetry": "./src/channel/telemetry.ts",
+		"./channel/types": "./src/channel/types.ts",
+		"./channel/whatsapp-meta": "./src/channel/whatsapp-meta.ts",
+		"./channel/whatsapp-twilio": "./src/channel/whatsapp-twilio.ts",
+		"./health": "./src/health.ts",
+		"./runtime": "./src/runtime.ts",
+		"./secrets": "./src/secrets/index.ts",
+		"./secrets/env-secret-provider": "./src/secrets/env-secret-provider.ts",
+		"./secrets/gcp-secret-manager": "./src/secrets/gcp-secret-manager.ts",
+		"./secrets/manager": "./src/secrets/manager.ts",
+		"./secrets/provider": "./src/secrets/provider.ts",
+		"./transport": "./src/transport/index.ts",
+		"./transport/auth-resolver": "./src/transport/auth-resolver.ts",
+		"./transport/transport-factory": "./src/transport/transport-factory.ts",
+		"./transport/version-negotiator": "./src/transport/version-negotiator.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./channel": {
+				"types": "./dist/channel/index.d.ts",
+				"bun": "./dist/channel/index.js",
+				"node": "./dist/node/channel/index.js",
+				"default": "./dist/channel/index.js"
+			},
+			"./channel/dispatcher": {
+				"types": "./dist/channel/dispatcher.d.ts",
+				"bun": "./dist/channel/dispatcher.js",
+				"node": "./dist/node/channel/dispatcher.js",
+				"default": "./dist/channel/dispatcher.js"
+			},
+			"./channel/github": {
+				"types": "./dist/channel/github.d.ts",
+				"bun": "./dist/channel/github.js",
+				"node": "./dist/node/channel/github.js",
+				"default": "./dist/channel/github.js"
+			},
+			"./channel/memory-store": {
+				"types": "./dist/channel/memory-store.d.ts",
+				"bun": "./dist/channel/memory-store.js",
+				"node": "./dist/node/channel/memory-store.js",
+				"default": "./dist/channel/memory-store.js"
+			},
+			"./channel/policy": {
+				"types": "./dist/channel/policy.d.ts",
+				"bun": "./dist/channel/policy.js",
+				"node": "./dist/node/channel/policy.js",
+				"default": "./dist/channel/policy.js"
+			},
+			"./channel/postgres-queries": {
+				"types": "./dist/channel/postgres-queries.d.ts",
+				"bun": "./dist/channel/postgres-queries.js",
+				"node": "./dist/node/channel/postgres-queries.js",
+				"default": "./dist/channel/postgres-queries.js"
+			},
+			"./channel/postgres-schema": {
+				"types": "./dist/channel/postgres-schema.d.ts",
+				"bun": "./dist/channel/postgres-schema.js",
+				"node": "./dist/node/channel/postgres-schema.js",
+				"default": "./dist/channel/postgres-schema.js"
+			},
+			"./channel/postgres-store": {
+				"types": "./dist/channel/postgres-store.d.ts",
+				"bun": "./dist/channel/postgres-store.js",
+				"node": "./dist/node/channel/postgres-store.js",
+				"default": "./dist/channel/postgres-store.js"
+			},
+			"./channel/replay-fixtures": {
+				"types": "./dist/channel/replay-fixtures.d.ts",
+				"bun": "./dist/channel/replay-fixtures.js",
+				"node": "./dist/node/channel/replay-fixtures.js",
+				"default": "./dist/channel/replay-fixtures.js"
+			},
+			"./channel/service": {
+				"types": "./dist/channel/service.d.ts",
+				"bun": "./dist/channel/service.js",
+				"node": "./dist/node/channel/service.js",
+				"default": "./dist/channel/service.js"
+			},
+			"./channel/slack": {
+				"types": "./dist/channel/slack.d.ts",
+				"bun": "./dist/channel/slack.js",
+				"node": "./dist/node/channel/slack.js",
+				"default": "./dist/channel/slack.js"
+			},
+			"./channel/store": {
+				"types": "./dist/channel/store.d.ts",
+				"bun": "./dist/channel/store.js",
+				"node": "./dist/node/channel/store.js",
+				"default": "./dist/channel/store.js"
+			},
+			"./channel/telemetry": {
+				"types": "./dist/channel/telemetry.d.ts",
+				"bun": "./dist/channel/telemetry.js",
+				"node": "./dist/node/channel/telemetry.js",
+				"default": "./dist/channel/telemetry.js"
+			},
+			"./channel/types": {
+				"types": "./dist/channel/types.d.ts",
+				"bun": "./dist/channel/types.js",
+				"node": "./dist/node/channel/types.js",
+				"default": "./dist/channel/types.js"
+			},
+			"./channel/whatsapp-meta": {
+				"types": "./dist/channel/whatsapp-meta.d.ts",
+				"bun": "./dist/channel/whatsapp-meta.js",
+				"node": "./dist/node/channel/whatsapp-meta.js",
+				"default": "./dist/channel/whatsapp-meta.js"
+			},
+			"./channel/whatsapp-twilio": {
+				"types": "./dist/channel/whatsapp-twilio.d.ts",
+				"bun": "./dist/channel/whatsapp-twilio.js",
+				"node": "./dist/node/channel/whatsapp-twilio.js",
+				"default": "./dist/channel/whatsapp-twilio.js"
+			},
+			"./health": {
+				"types": "./dist/health.d.ts",
+				"bun": "./dist/health.js",
+				"node": "./dist/node/health.js",
+				"default": "./dist/health.js"
+			},
+			"./runtime": {
+				"types": "./dist/runtime.d.ts",
+				"bun": "./dist/runtime.js",
+				"node": "./dist/node/runtime.js",
+				"default": "./dist/runtime.js"
+			},
+			"./secrets": {
+				"types": "./dist/secrets/index.d.ts",
+				"bun": "./dist/secrets/index.js",
+				"node": "./dist/node/secrets/index.js",
+				"default": "./dist/secrets/index.js"
+			},
+			"./secrets/env-secret-provider": {
+				"types": "./dist/secrets/env-secret-provider.d.ts",
+				"bun": "./dist/secrets/env-secret-provider.js",
+				"node": "./dist/node/secrets/env-secret-provider.js",
+				"default": "./dist/secrets/env-secret-provider.js"
+			},
+			"./secrets/gcp-secret-manager": {
+				"types": "./dist/secrets/gcp-secret-manager.d.ts",
+				"bun": "./dist/secrets/gcp-secret-manager.js",
+				"node": "./dist/node/secrets/gcp-secret-manager.js",
+				"default": "./dist/secrets/gcp-secret-manager.js"
+			},
+			"./secrets/manager": {
+				"types": "./dist/secrets/manager.d.ts",
+				"bun": "./dist/secrets/manager.js",
+				"node": "./dist/node/secrets/manager.js",
+				"default": "./dist/secrets/manager.js"
+			},
+			"./secrets/provider": {
+				"types": "./dist/secrets/provider.d.ts",
+				"bun": "./dist/secrets/provider.js",
+				"node": "./dist/node/secrets/provider.js",
+				"default": "./dist/secrets/provider.js"
+			},
+			"./transport": {
+				"types": "./dist/transport/index.d.ts",
+				"bun": "./dist/transport/index.js",
+				"node": "./dist/node/transport/index.js",
+				"default": "./dist/transport/index.js"
+			},
+			"./transport/auth-resolver": {
+				"types": "./dist/transport/auth-resolver.d.ts",
+				"bun": "./dist/transport/auth-resolver.js",
+				"node": "./dist/node/transport/auth-resolver.js",
+				"default": "./dist/transport/auth-resolver.js"
+			},
+			"./transport/transport-factory": {
+				"types": "./dist/transport/transport-factory.d.ts",
+				"bun": "./dist/transport/transport-factory.js",
+				"node": "./dist/node/transport/transport-factory.js",
+				"default": "./dist/transport/transport-factory.js"
+			},
+			"./transport/version-negotiator": {
+				"types": "./dist/transport/version-negotiator.d.ts",
+				"bun": "./dist/transport/version-negotiator.js",
+				"node": "./dist/node/transport/version-negotiator.js",
+				"default": "./dist/transport/version-negotiator.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/integrations/runtime"
+	},
+	"homepage": "https://contractspec.io"
 }

@@ -1,41 +1,69 @@
 # @contractspec/example.learning-journey-duo-drills
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Drill-based learning journey example with SRS, XP, and streak hooks.**
 
-Drill-based learning journey example that demonstrates short SRS-driven drills, XP, and streak hooks. Tracks are defined in `src/track.ts` and can be reused for language, finance, or ContractSpec concept drills.
+## What This Demonstrates
 
-## What it shows
+- Drill-based learning track with SRS scheduling.
+- XP and streak gamification hooks.
+- Lightweight track + example pattern.
+- Integration with the learning-journey module.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/docs/` contains docblocks and documentation-facing exports.
 
-- Event-driven steps (`drill.session.completed`, `drill.card.mastered`)
-- Count-based completion (reach accuracy threshold across multiple sessions)
-- SRS mastery-based completion (master N cards in a skill)
-- XP per card/session and daily streak (via registry progress logic)
+## Running Locally
 
-## How to run
+From `packages/examples/learning-journey-duo-drills`:
+- `bun run dev`
+- `bun run build`
+- `bun run test`
+- `bun run typecheck`
 
-1. Build dependencies: `bun install`
-2. Run tests: `bun test packages/examples/learning-journey-duo-drills`
-3. Use the registry helper to emit events:
+## Usage
 
-```ts
-import {
-  recordEvent,
-  getProgress,
-} from '@contractspec/example.learning-journey-registry/api';
-import { drillTracks } from '@contractspec/example.learning-journey-duo-drills/track';
+Use `@contractspec/example.learning-journey-duo-drills` as a reference implementation, or import its exported surfaces into a workspace that composes ContractSpec examples and bundles.
 
-recordEvent({
-  name: 'drill.session.completed',
-  learnerId: 'u1',
-  payload: { accuracyBucket: 'high' },
-});
-// ...
-const progress = getProgress('drills_language_basics', 'u1');
-```
+## Architecture
 
-## Adapting
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/example.ts` is the runnable example entrypoint.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/learning-journey-duo-drills.feature.ts` defines a feature entrypoint.
+- `src/track.test.ts` is part of the package's public or composition surface.
+- `src/track.ts` is part of the package's public or composition surface.
 
-- Swap skills/cards to represent language vocab, budgeting basics, or ContractSpec concepts.
-- Tune count thresholds, mastery requirements, and XP rewards per step.
-- Wire real drill events into the registry or your own progression handler.
+## Public Entry Points
+
+- Export `.` resolves through `./src/index.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./docs/duo-drills.docblock` resolves through `./src/docs/duo-drills.docblock.ts`.
+- Export `./example` resolves through `./src/example.ts`.
+- Export `./learning-journey-duo-drills.feature` resolves through `./src/learning-journey-duo-drills.feature.ts`.
+- Export `./track` resolves through `./src/track.ts`.
+
+## Local Commands
+
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
+
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed.
+- Missing contract layers.
+
+## Notes
+
+- Works alongside `@contractspec/lib.contracts-spec`, `@contractspec/module.learning-journey`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.

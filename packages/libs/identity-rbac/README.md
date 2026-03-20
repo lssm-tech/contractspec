@@ -1,102 +1,74 @@
 # @contractspec/lib.identity-rbac
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Identity, Organizations, and RBAC module for ContractSpec applications.**
 
-Identity, Organizations, and Role-Based Access Control (RBAC) module for ContractSpec applications.
+## What It Provides
 
-## Purpose
-
-Provides a reusable identity and authorization foundation for multi-tenant, multi-role applications. This module follows the spec-first approach where entity definitions generate database schemas.
-
-## Features
-
-- **User Management**: User profiles, authentication accounts, sessions
-- **Organizations**: Multi-tenant organization support with slugs, metadata
-- **Memberships**: Role-based organization membership (owner, admin, member)
-- **RBAC**: Roles, permissions, and policy bindings
-- **Teams**: Optional team grouping within organizations
-- **Events**: Domain events for user/org lifecycle changes
+- **Layer**: lib.
+- **Consumers**: bundles, apps.
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
 
 ## Installation
 
-```bash
-bun add @contractspec/lib.identity-rbac
-```
+`npm install @contractspec/lib.identity-rbac`
+
+or
+
+`bun add @contractspec/lib.identity-rbac`
 
 ## Usage
 
-### Entity Specs (for schema generation)
+Import the root entrypoint from `@contractspec/lib.identity-rbac`, or choose a documented subpath when you only need one part of the package surface.
 
-```typescript
-import { UserEntity, OrganizationEntity, MemberEntity } from '@contractspec/lib.identity-rbac/entities';
+## Architecture
 
-// Use in schema composition
-const contribution = {
-  moduleId: '@contractspec/lib.identity-rbac',
-  entities: [UserEntity, OrganizationEntity, MemberEntity, ...],
-};
-```
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/entities/` contains domain entities and value objects.
+- `src/events.ts` is package-level event definitions.
+- `src/identity-rbac.capability.ts` defines a capability surface.
+- `src/identity-rbac.feature.ts` defines a feature entrypoint.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/policies` is part of the package's public or composition surface.
 
-### Contracts (for API generation)
+## Public Entry Points
 
-```typescript
-import { 
-  CreateUserContract,
-  InviteToOrgContract,
-  AssignRoleContract 
-} from '@contractspec/lib.identity-rbac/contracts';
-```
+- Export `.` resolves through `./src/index.ts`.
+- Export `./contracts` resolves through `./src/contracts/index.ts`.
+- Export `./contracts/organization` resolves through `./src/contracts/organization.ts`.
+- Export `./contracts/rbac` resolves through `./src/contracts/rbac.ts`.
+- Export `./contracts/user` resolves through `./src/contracts/user.ts`.
+- Export `./entities` resolves through `./src/entities/index.ts`.
+- Export `./entities/organization` resolves through `./src/entities/organization.ts`.
+- Export `./entities/rbac` resolves through `./src/entities/rbac.ts`.
+- Export `./entities/user` resolves through `./src/entities/user.ts`.
+- Export `./events` resolves through `./src/events.ts`.
+- The package publishes 14 total export subpaths; keep docs aligned with `package.json`.
 
-### Policies (for authorization)
+## Local Commands
 
-```typescript
-import { RBACPolicyEngine, Permission } from '@contractspec/lib.identity-rbac/policies';
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-const engine = new RBACPolicyEngine();
-const canManage = await engine.checkPermission({
-  userId: 'user-123',
-  orgId: 'org-456',
-  permission: Permission.MANAGE_MEMBERS,
-});
-```
+## Recent Updates
 
-### Events
+- Replace eslint+prettier by biomejs to optimize speed.
 
-```typescript
-import { UserCreatedEvent, OrgMemberAddedEvent } from '@contractspec/lib.identity-rbac/events';
+## Notes
 
-bus.subscribe(UserCreatedEvent, async (event) => {
-  // Handle user creation
-});
-```
-
-## Entity Overview
-
-| Entity | Description |
-|--------|-------------|
-| User | Platform user with profile and auth |
-| Organization | Tenant/company grouping |
-| Member | User's membership in an organization |
-| Role | Named set of permissions |
-| Permission | Atomic access right |
-| PolicyBinding | Binds roles to principals |
-| Team | Optional team within organization |
-
-## Schemas
-
-All entities are defined in the `lssm_sigil` PostgreSQL schema for isolation.
-
-## Events
-
-| Event | Trigger |
-|-------|---------|
-| user.created | New user registered |
-| user.updated | User profile changed |
-| user.deleted | User account removed |
-| org.created | New organization created |
-| org.member.added | User joined organization |
-| org.member.removed | User left organization |
-| role.assigned | Role assigned to user/org |
-| role.revoked | Role removed from user/org |
-
+- **Security-critical** — RBAC policies control access across the platform.
+- Role and permission schemas must stay backward-compatible; removals are breaking.
+- Capability contract is public API; policy evaluation must be deterministic.

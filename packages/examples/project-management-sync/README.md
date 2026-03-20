@@ -1,35 +1,69 @@
-### Integration Example - Project Management Sync
+# @contractspec/example.project-management-sync
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
-This example shows how to create work items in Linear, Jira Cloud, and Notion using the project-management providers.
+**Project management sync example: Linear, Jira, and Notion work item creation.**
 
-Files included:
+## What This Demonstrates
 
-- `example.ts` – example metadata for the catalog.
-- `sync.ts` – helper to build sample work items and sync them to a provider.
-- `docs/project-management-sync.docblock.ts` – documentation blocks for MCP/docs.
+- Multi-provider sync pattern (Linear, Jira, Notion).
+- Work item creation from contract definitions.
+- Run script for one-shot execution.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/docs/` contains docblocks and documentation-facing exports.
 
-Usage:
+## Running Locally
 
-```bash
-export CONTRACTSPEC_PM_PROVIDER="linear" # linear | jira | notion
-export CONTRACTSPEC_PM_DRY_RUN="true"    # set to false to create real items
+From `packages/examples/project-management-sync`:
+- `bun run dev`
+- `bun run build`
+- `bun run test`
+- `bun run typecheck`
 
-# Linear
-export LINEAR_API_KEY="your_key"
-export LINEAR_TEAM_ID="team_id"
+## Usage
 
-# Jira Cloud
-# export JIRA_SITE_URL="https://acme.atlassian.net"
-# export JIRA_EMAIL="user@acme.com"
-# export JIRA_API_TOKEN="jira_token"
-# export JIRA_PROJECT_KEY="PM"
+Use `@contractspec/example.project-management-sync` as a reference implementation, or import its exported surfaces into a workspace that composes ContractSpec examples and bundles.
 
-# Notion
-# export NOTION_API_KEY="secret"
-# export NOTION_DATABASE_ID="database_id"
-# export NOTION_SUMMARY_PARENT_PAGE_ID="parent_page_id" # optional
+## Architecture
 
-bun tsx packages/examples/project-management-sync/src/run.ts
-```
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/example.ts` is the runnable example entrypoint.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/project-management-sync.feature.ts` defines a feature entrypoint.
+- `src/run.ts` is part of the package's public or composition surface.
+- `src/sync.ts` is part of the package's public or composition surface.
+
+## Public Entry Points
+
+- Export `.` resolves through `./src/index.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./docs/project-management-sync.docblock` resolves through `./src/docs/project-management-sync.docblock.ts`.
+- Export `./example` resolves through `./src/example.ts`.
+- Export `./project-management-sync.feature` resolves through `./src/project-management-sync.feature.ts`.
+- Export `./run` resolves through `./src/run.ts`.
+- Export `./sync` resolves through `./src/sync.ts`.
+
+## Local Commands
+
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test --pass-with-no-tests
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
+
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed.
+- Missing contract layers.
+
+## Notes
+
+- Works alongside `@contractspec/integration.providers-impls`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.

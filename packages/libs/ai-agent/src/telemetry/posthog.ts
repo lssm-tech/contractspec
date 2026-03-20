@@ -237,10 +237,9 @@ export function createCompositeTelemetryCollector(
 // Helpers
 // =============================================================================
 
-const runtimeImport = new Function(
-	'specifier',
-	'return import(specifier)'
-) as (specifier: string) => Promise<unknown>;
+const runtimeImport = new Function('specifier', 'return import(specifier)') as (
+	specifier: string
+) => Promise<unknown>;
 
 async function importPostHogAI(): Promise<{
 	withTracing: (...args: unknown[]) => unknown;

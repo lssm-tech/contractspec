@@ -101,6 +101,14 @@ See the [CLI documentation](packages/apps/cli-contractspec/README.md) and [tutor
 | CI validation | `contractspec ci` (`--check-drift` optional when generated artifacts are part of the contract) |
 | Diagnostics | `contractspec doctor` (read-only), `contractspec doctor --fix` (repair mode) |
 
+## First-Class Surfaces
+
+- **Contracts and generation**: `@contractspec/lib.contracts-spec`, the main CLI, and runtime adapters for REST, GraphQL, MCP, and React.
+- **Agent and chat runtime**: `@contractspec/lib.ai-agent` and `@contractspec/module.ai-chat` for tool-aware, MCP-aware, agent-governed experiences.
+- **Harness and evaluation**: `@contractspec/lib.harness` and `@contractspec/integration.harness-runtime` for controlled inspection, replay, evaluation, and proof-oriented workflows.
+- **Ranking and MCP operations**: provider-ranking module and MCP surfaces for ingesting benchmarks, refreshing rankings, and serving leaderboards.
+- **Docs, registry, and Studio**: the public docs/web app, the agentpacks registry surfaces, and ContractSpec Studio's trusted operating loop.
+
 ## Trust & Verification
 
 - Published npm packages are shipped from provenance-enabled GitHub Actions runs, and each release run uploads a manifest artifact with package name, version, dist-tag, tarball filename, and SHA256.
@@ -184,29 +192,27 @@ Notes: add `pull-requests: write` permissions for PR comments, and add `contents
 
 ## ContractSpec Studio
 
-[ContractSpec Studio](https://www.contractspec.studio) is the AI-powered product decision engine built on top of ContractSpec.
+[ContractSpec Studio](https://www.contractspec.studio) is the AI-native operating system built on top of ContractSpec.
 
-It turns product signals into spec-first deliverables through a deterministic loop:
+It starts with one trusted product loop for certified live signals, reviewed drafts, supervised exports, and scheduled checks:
 
 ```text
-Evidence -> Correlation -> Decision -> Change -> Export -> Check -> Notify -> Autopilot
+Activate -> Connect -> Draft -> Review -> Export -> Check
 ```
 
-- **Evidence**: Ingest product signals from meetings, support, analytics, code, docs, and Slack.
-- **Correlation**: Cluster evidence into scored patterns using hybrid heuristics + AI signatures.
-- **Decision**: Create evidence-backed focus briefs with citation chains and clear constraints.
-- **Change**: Compile patch intents into spec diffs, impact reports, and task packs.
-- **Export**: Push execution-ready outputs to Linear, Jira, Notion, and GitHub.
-- **Check + Autopilot**: Verify outcomes, feed learning dividends back into evidence, and automate safely with policy gates.
+- **Operate**: Run the trusted loop with certified connectors, reviewed work drafts, guarded exports, and follow-up checks.
+- **Explore**: Scan any company's public signals to generate Spec Packs, Drift Registers, competitive analysis, and other structured deliverables.
+- **Current certified wedge**: Sandbox activation, PostHog, Slack, GitHub, Linear, and Notion.
+- **Governance first**: Self-serve workspaces stay draft-only before export, with policy gates, audit trails, retention controls, and no autopilot code push, PR merge, or deployment in v0.
 
-`contractspec` is the grammar and compiler. Studio is the IDE and decision platform that runs on top of it.
+`contractspec` is the grammar and compiler. Studio is the operating layer that runs on top of it across web, API, and MCP surfaces.
 
 [**Try Studio**](https://www.contractspec.studio)
 
 ## Example Contract
 
 ```typescript
-import { defineCommand } from '@contractspec/lib.contracts';
+import { defineCommand } from '@contractspec/lib.contracts-spec';
 import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 const UserInput = new SchemaModel({
@@ -260,12 +266,6 @@ export const CreateUser = defineCommand({
 | [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.contracts-runtime-server-graphql)](https://www.npmjs.com/package/@contractspec/lib.contracts-runtime-server-graphql) | [`@contractspec/lib.contracts-runtime-server-graphql`](packages/libs/contracts-runtime-server-graphql/README.md) | GraphQL runtime adapter (`graphql-pothos`)                                     |
 | [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.contracts-runtime-server-mcp)](https://www.npmjs.com/package/@contractspec/lib.contracts-runtime-server-mcp)         | [`@contractspec/lib.contracts-runtime-server-mcp`](packages/libs/contracts-runtime-server-mcp/README.md)         | MCP runtime adapter (`provider-mcp` + MCP registrars)                          |
 
-### Legacy Package
-
-| npm                                                                                                                                      | Package                                                                         | Description                                                            |
-| ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.contracts)](https://www.npmjs.com/package/@contractspec/lib.contracts) | [`@contractspec/lib.contracts` (deprecated)](packages/libs/contracts/README.md) | Deprecated monolith kept as migration marker; use split packages above |
-
 ### AI & Evolution
 
 | npm                                                                                                                                        | Package                                                              | Description                                     |
@@ -274,12 +274,27 @@ export const CreateUser = defineCommand({
 | [![npm downloads](https://img.shields.io/npm/dt/@contractspec/module.ai-chat)](https://www.npmjs.com/package/@contractspec/module.ai-chat) | [`@contractspec/module.ai-chat`](packages/modules/ai-chat/README.md) | Reusable AI chat system                         |
 | [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.evolution)](https://www.npmjs.com/package/@contractspec/lib.evolution)   | [`@contractspec/lib.evolution`](packages/libs/evolution/README.md)   | Auto-evolution and safe regeneration            |
 
+### Runtime, MCP & Evaluation
+
+| npm                                                                                                                                                                   | Package                                                                                              | Description                                                                     |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.harness)](https://www.npmjs.com/package/@contractspec/lib.harness)                                 | [`@contractspec/lib.harness`](packages/libs/harness/README.md)                                       | Harness orchestration, evidence, policy, replay, and evaluation runtime         |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/integration.harness-runtime)](https://www.npmjs.com/package/@contractspec/integration.harness-runtime) | [`@contractspec/integration.harness-runtime`](packages/integrations/harness-runtime/README.md)       | Runtime adapters for browser, sandbox, artifact, and MCP-backed harness targets |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/module.provider-ranking)](https://www.npmjs.com/package/@contractspec/module.provider-ranking)         | [`@contractspec/module.provider-ranking`](packages/modules/provider-ranking/README.md)               | Ranking pipelines, storage, and orchestration for provider benchmark data        |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/app.provider-ranking-mcp)](https://www.npmjs.com/package/@contractspec/app.provider-ranking-mcp)       | [`@contractspec/app.provider-ranking-mcp`](packages/apps/provider-ranking-mcp/README.md)             | MCP server for ranking ingest, refresh, leaderboards, and model-profile queries  |
+
 ### Testing & Quality
 
 | npm                                                                                                                                              | Package                                                                    | Description                                     |
 | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- | ----------------------------------------------- |
 | [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.testing)](https://www.npmjs.com/package/@contractspec/lib.testing)             | [`@contractspec/lib.testing`](packages/libs/testing/README.md)             | Golden tests for safe regeneration verification |
 | [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.observability)](https://www.npmjs.com/package/@contractspec/lib.observability) | [`@contractspec/lib.observability`](packages/libs/observability/README.md) | Tracing, metrics, and structured logging        |
+
+### Legacy Package
+
+| npm                                                                                                                                      | Package                                                                         | Description                                                            |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| [![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.contracts)](https://www.npmjs.com/package/@contractspec/lib.contracts) | [`@contractspec/lib.contracts` (deprecated)](packages/libs/contracts/README.md) | Deprecated monolith kept as migration marker; use split packages above |
 
 ## Who It's For
 
@@ -304,8 +319,7 @@ export const CreateUser = defineCommand({
 ## Learn More
 
 - [Website](https://contractspec.io)
-- [CLI Quick Start](packages/apps/cli-contractspec/QUICK_START.md)
-- [Agent Modes](packages/apps/cli-contractspec/AGENT_MODES.md)
+- [CLI Documentation](packages/apps/cli-contractspec/README.md)
 - [Examples](packages/examples/)
 
 ## License

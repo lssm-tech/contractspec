@@ -1,32 +1,54 @@
-# AI Agent Guide -- `@contractspec/example.integration-posthog`
+# AI Agent Guide — `@contractspec/example.integration-posthog`
 
 Scope: `packages/examples/integration-posthog/*`
 
-Demonstrates PostHog analytics integration for event capture, HogQL queries, and feature flag management.
+PostHog analytics integration example: capture events, run HogQL, and manage feature flags.
 
 ## Quick Context
 
-- **Layer**: example
-- **Related Packages**: `integration.providers-impls`, `lib.contracts-spec`
+- Layer: `example`.
+- Package visibility: published package.
+- Primary consumers are example explorers, template authors, and documentation readers.
+- Related packages: `@contractspec/integration.providers-impls`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
-## What This Demonstrates
+## Architecture
 
-- PostHog event capture and tracking setup
-- HogQL query execution pattern
-- Feature flag management via PostHog API
-- Integration provider pattern with ContractSpec contracts
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/example.ts` is the runnable example entrypoint.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/integration-posthog.feature.ts` defines a feature entrypoint.
+- `src/posthog.ts` is part of the package's public or composition surface.
+- `src/run.ts` is part of the package's public or composition surface.
 
-## Public Exports
+## Public Surface
 
-- `.` -- root barrel
-- `./docs` -- DocBlock documentation
-- `./example` -- runnable example entry point
-- `./posthog` -- PostHog client wiring
-- `./run` -- execution runner
+- Export `.` resolves through `./src/index.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./docs/integration-posthog.docblock` resolves through `./src/docs/integration-posthog.docblock.ts`.
+- Export `./example` resolves through `./src/example.ts`.
+- Export `./integration-posthog.feature` resolves through `./src/integration-posthog.feature.ts`.
+- Export `./posthog` resolves through `./src/posthog.ts`.
+- Export `./run` resolves through `./src/run.ts`.
+
+## Guardrails
+
+- Keep the example package demonstrative, buildable, and aligned with the exported feature surface.
+- Do not add hidden production assumptions that are not actually implemented in the example.
+- Changes here can affect downstream packages such as `@contractspec/integration.providers-impls`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Changes here can affect downstream packages such as `@contractspec/integration.providers-impls`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Local Commands
 
-- Build: `bun run build`
-- Dev: `bun run dev`
-- Test: `bun test`
-- Typecheck: `bun run typecheck`
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test --pass-with-no-tests
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild

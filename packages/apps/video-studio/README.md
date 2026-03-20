@@ -1,34 +1,40 @@
 # @contractspec/app.video-studio
 
-Website: https://contractspec.io/
+**Thin Remotion Studio wrapper. Re-exports the Remotion entry point from `@contractspec/lib.video-gen`.**
 
-Remotion Studio entry point for previewing and rendering ContractSpec video compositions.
+## What It Does
 
-This app is a thin wrapper around `@contractspec/lib.video-gen` -- it provides the Remotion Studio environment for live preview and CLI rendering. All compositions, generators, and design tokens live in the library; this package only registers them with Remotion.
+- **Layer**: app (Remotion Studio)
+- **Consumers**: internal — video preview and rendering
 
-## Quick Start
+## Running Locally
 
-> Uses `remotionb` CLI for Bun runtime support. See [Remotion Bun docs](https://www.remotion.dev/docs/bun) for known caveats (`lazyComponent` disabled, SSR scripts may not auto-quit).
+From `packages/apps/video-studio`:
+- `bun run dev`
+- `bun run build`
+
+## Usage
 
 ```bash
-# Start Remotion Studio for live preview
-pnpm dev
-
-# Render a specific composition
-pnpm render
-
-# Render all compositions to out/
-pnpm render:all
+bun run dev
 ```
 
-## Compositions
+## Local Commands
 
-| ID                 | Dimensions | Duration | Description                         |
-| ------------------ | ---------- | -------- | ----------------------------------- |
-| ApiOverview        | 1920x1080  | 15s      | API surface visualization from spec |
-| SocialClip         | 1920x1080  | 10s      | Landscape marketing clip            |
-| SocialClipSquare   | 1080x1080  | 10s      | Square marketing clip               |
-| SocialClipPortrait | 1080x1920  | 10s      | Portrait marketing clip             |
-| TerminalDemo       | 1920x1080  | 20s      | CLI walkthrough animation           |
+- `bun run dev` — bunx remotionb studio src/index.ts
+- `bun run build` — echo 'No build step needed for Remotion Studio'
+- `bun run clean` — rimraf out .turbo
+- `bun run render` — bunx remotionb render src/index.ts
+- `bun run render:all` — bunx remotionb render src/index.ts ApiOverview out/api-overview.mp4 && bunx remotionb render src/index.ts SocialClip out/social-clip.mp4 && bunx remotionb render src/index.ts SocialClipSquare out/social-clip-square.mp4 && bunx remotionb render src/index.ts SocialClipPortrait out/social-clip-portrait.mp4 && bunx remotionb render src/index.ts TerminalDemo out/terminal-demo.mp4
 
-All compositions are defined in `@contractspec/lib.video-gen` -- do not add compositions directly to this package.
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed
+- Improve agentpacks
+- Switch Remotion CLI to bunx remotionb for Bun runtime support
+
+## Notes
+
+- Do NOT add compositions here. All compositions live in `@contractspec/lib.video-gen`.
+- This package exists solely to provide a Remotion Studio entry point.
+- Uses `remotionb` CLI for Bun runtime support. Known caveat: SSR scripts may not auto-quit (see [Remotion Bun docs](https://www.remotion.dev/docs/bun)).

@@ -1,385 +1,77 @@
 # @contractspec/module.ai-chat
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**AI chat module with context, core runtime, presentation components, hooks, providers, and agent-aware workflows.**
 
-**ContractSpec Vibe Coding Chat** — AI-powered conversational coding assistant for ContractSpec.
+## What It Provides
 
-## Overview
+- Provides the packaged chat feature layer used by examples and higher-level applications.
+- Supports MCP tools, provider integration, presentation rendering, forms, and agent-mode workflows.
+- Acts as the main composition layer between the low-level agent runtime and user-facing chat UIs.
+- `src/adapters/` contains runtime, provider, or environment-specific adapters.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/presentation/` contains presentation-layer components and renderers.
 
-This module provides a reusable AI chat system that can be integrated into CLI, VSCode extension, and ContractSpec Studio. It supports multiple LLM providers with full workspace context for vibe coding.
+## Installation
 
-## Features
+`npm install @contractspec/module.ai-chat`
 
-- **Multi-Provider Support**: OpenAI, Anthropic, Mistral, Google Gemini, and local Ollama
-- **Three Provider Modes**: Local (Ollama), BYOK (Bring Your Own Key), Managed (API proxy)
-- **Full Workspace Context**: Access specs, files, and codebase for context-aware assistance
-- **Streaming Responses**: Real-time token streaming for responsive UX
-- **Usage Tracking**: Integrated metering and cost tracking
-- **UI Components**: React components for chat interfaces
-- **Export**: Export conversations to Markdown, TXT, or JSON; select one or many messages for export
-- **Conversation Management**: New conversation, history sidebar, fork, edit messages, organize with projects and tags
-- **Thinking Levels**: Select reasoning depth (instant, thinking, extra thinking, max); maps to Anthropic budgetTokens and OpenAI reasoningEffort
-- **Workflow Creation Tools**: Create and modify workflows conversationally via `create_workflow_extension`, `compose_workflow`, and `generate_workflow_spec_code` (requires `@contractspec/lib.workflow-composer`)
-- **ModelSelector**: Dynamic model selection by task dimension (reasoning vs latency) when using `@contractspec/lib.ai-providers` ModelSelector
-- **Contracts-Spec Context**: Expose agent, data-views, operations, forms, and presentations to the model via `contractsContext`; agent tools can be wired from `AgentToolConfig[]`
-- **Surface-Runtime Integration**: Full support for `@contractspec/lib.surface-runtime` — pass `surfacePlanConfig` to enable `propose-patch` tool; chat can propose layout changes for user approval
-- **Presentation/Form Rendering**: Pass `presentationRenderer` and `formRenderer` to `ChatWithSidebar`; tool results with `presentationKey` or `formKey` render via host-provided components
-- **MCP Tools**: Pass `mcpServers` (from `@contractspec/lib.ai-agent`) to `useChat`; tools from MCP servers are merged into chat tools
-- **Agent Mode**: Pass `agentMode: { agent }` with a `ChatAgentAdapter` (use `createChatAgentAdapter` to wrap `ContractSpecAgent`); chat uses the agent for generation instead of ChatService
+or
 
-## Bundle Spec Alignment (07_ai_native_chat)
-
-This module aligns with `specs/contractspec_modules_bundle_spec_2026-03-08`. `useChat` and `ChatContainer` provide the assistant slot UI for bundle surfaces. `AiChatFeature` (key `ai-chat`, version `1.0.0`) matches `ModuleBundleSpec.requires`. The `tools` option on `UseChatOptions` is wired to `streamText`; use `requireApproval: true` for tools that need user confirmation (requires server route for full support).
-
-## Related Packages
-
-- `@contractspec/lib.ai-providers` — Shared provider abstraction (types, factory, validation), ModelSelector for dynamic model selection
-- `@contractspec/lib.workflow-composer` — Workflow composition and validation (optional; required for workflow creation tools)
-- `@contractspec/lib.ai-agent` — Agent orchestration and tool execution; `AgentToolConfig` for agent tools
-- `@contractspec/lib.surface-runtime` — Bundle surfaces, planner tools, `AiSdkBundleAdapter`; full integration when used in PM workbench
-
-## Providers
-
-| Provider | Local | BYOK | Managed |
-|----------|-------|------|---------|
-| Ollama | ✅ | - | - |
-| OpenAI | - | ✅ | ✅ |
-| Anthropic | - | ✅ | ✅ |
-| Mistral | - | ✅ | ✅ |
-| Google Gemini | - | ✅ | ✅ |
+`bun add @contractspec/module.ai-chat`
 
 ## Usage
 
-### Basic Chat
-
-```typescript
-import { createProvider } from '@contractspec/lib.ai-providers';
-import { ChatService } from '@contractspec/module.ai-chat';
-
-const provider = createProvider({
-  provider: 'openai',
-  apiKey: process.env.OPENAI_API_KEY,
-  model: 'gpt-4o',
-});
-
-const chatService = new ChatService({ provider });
-
-const response = await chatService.send({
-  content: 'Help me create a new API endpoint',
-});
-```
-
-### With Workspace Context
-
-```typescript
-import { createProvider } from '@contractspec/lib.ai-providers';
-import { ChatService, WorkspaceContext } from '@contractspec/module.ai-chat';
-
-const context = await WorkspaceContext.fromPath('/path/to/project');
-const provider = createProvider({ provider: 'anthropic', proxyUrl: '/api/chat' });
-
-const chatService = new ChatService({ provider, context });
-
-// The chat now has access to specs, files, and can suggest code changes
-const response = await chatService.send({
-  content: 'Add validation to the user.create command',
-});
-```
-
-### React Components
-
-**With export and message selection** (recommended):
-
-```tsx
-import { ChatWithExport, ChatInput, useChat } from '@contractspec/module.ai-chat';
-
-function VibeCodingChat() {
-  const { messages, conversation, sendMessage, isLoading } = useChat({
-    provider: 'openai',
-    mode: 'managed',
-  });
-
-  return (
-    <ChatWithExport messages={messages} conversation={conversation}>
-      <ChatInput onSend={sendMessage} disabled={isLoading} />
-    </ChatWithExport>
-  );
-}
-```
-
-`ChatWithExport` provides an export toolbar (Markdown, TXT, JSON, copy to clipboard) and message selection checkboxes. Select messages to export only those, or export all when none are selected.
-
-**With sidebar (history, new, fork, edit, project/tags)**:
-
-```tsx
-import { ChatWithSidebar } from '@contractspec/module.ai-chat';
-
-function FullChat() {
-  return (
-    <ChatWithSidebar
-      systemPrompt="You are a helpful assistant."
-    />
-  );
-}
-```
-
-`ChatWithSidebar` includes a conversation history sidebar (LocalStorage-persisted), New/Fork buttons, message edit, project/tags organization, and a **Thinking Level** picker (instant, thinking, extra thinking, max). Uses `createLocalStorageConversationStore()` by default.
-
-**Basic (no export)**:
-
-```tsx
-import { ChatContainer, ChatMessage, ChatInput } from '@contractspec/module.ai-chat/presentation/components';
-import { useChat } from '@contractspec/module.ai-chat/presentation/hooks';
-
-function BasicChat() {
-  const { messages, sendMessage, isLoading } = useChat();
-
-  return (
-    <ChatContainer>
-      {messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
-      <ChatInput onSend={sendMessage} disabled={isLoading} />
-    </ChatContainer>
-  );
-}
-```
-
-### AI SDK Parity
-
-This module aligns with the [Vercel AI SDK](https://sdk.vercel.ai) and AI Elements feature set:
-
-- **fullStream**: Reasoning, tools, and sources from `streamText` fullStream
-- **Thinking Levels**: `thinkingLevel` option (instant, thinking, extra_thinking, max) maps to Anthropic `budgetTokens` and OpenAI `reasoningEffort`; `ThinkingLevelPicker` in `ChatWithSidebar`
-- **Tools**: Pass `tools` to `ChatServiceConfig` or `useChat`; supports `requireApproval` for approval workflow; optional `workflowToolsConfig` adds workflow creation tools
-- **Message parts**: `ChatMessage` renders reasoning (collapsible), sources (citations), and tool invocations
-- **Markdown**: Inline links and code blocks in message content
-- **Export**: `ChatWithExport` and `ChatExportToolbar` support Markdown (.md), Plain Text (.txt), and JSON (.json); select messages for partial export or export all
-- **Conversation Management**: `ChatWithSidebar` provides history, new conversation, fork, edit messages; `useChat` exposes `createNewConversation`, `editMessage`, `forkConversation`, `updateConversation`; `useConversations` for listing; `createLocalStorageConversationStore()` for persistence
-
-### Server Route (Full AI SDK + Tool Approval)
-
-For full AI SDK compatibility including tool approval, use `createChatRoute` with `@ai-sdk/react` useChat:
-
-```ts
-// app/api/chat/route.ts (Next.js App Router)
-import {
-  createChatRoute,
-  CHAT_ROUTE_MAX_DURATION,
-} from '@contractspec/module.ai-chat/core';
-import { createProvider } from '@contractspec/lib.ai-providers';
-
-const provider = createProvider({
-  provider: 'openai',
-  apiKey: process.env.OPENAI_API_KEY,
-  model: 'gpt-4o',
-});
-
-export const POST = createChatRoute({ provider });
-export const maxDuration = CHAT_ROUTE_MAX_DURATION;
-```
-
-`maxDuration` is required for long-running streaming on Vercel/serverless. The route sends sources and reasoning by default (AI Elements parity). Override with `sendSources` and `sendReasoning` in options. Use `getModel` to support a model picker from the request body.
-
-```tsx
-// Client: use @ai-sdk/react useChat with DefaultChatTransport
-import { useChat } from '@ai-sdk/react';
-
-const { messages, sendMessage } = useChat({
-  api: '/api/chat',
-});
-```
-
-The custom `useChat` from this module works with `ChatService` for simple deployments (no tools, no approval). For tools with `requireApproval`, use the server route pattern above.
-
-### Workflow Creation Tools
-
-When `workflowToolsConfig` is provided, the chat can create and modify workflows via AI SDK tools:
-
-```typescript
-import { ChatService, createWorkflowTools } from '@contractspec/module.ai-chat';
-import { WorkflowComposer } from '@contractspec/lib.workflow-composer';
-import { createProvider } from '@contractspec/lib.ai-providers';
-
-const baseWorkflows = [/* your WorkflowSpec[] */];
-const provider = createProvider({ provider: 'anthropic', model: 'claude-sonnet-4' });
-
-const chatService = new ChatService({
-  provider,
-  workflowToolsConfig: {
-    baseWorkflows,
-    composer: new WorkflowComposer(),
-  },
-});
-
-// User can say: "Add a legal review step after validate-invoice"
-// The model will call create_workflow_extension, compose_workflow, generate_workflow_spec_code
-```
-
-Tools: `create_workflow_extension` (validate extensions), `compose_workflow` (apply extensions to base), `generate_workflow_spec_code` (output TypeScript). Export `createWorkflowTools(baseWorkflows, composer)` for manual wiring.
-
-### ModelSelector (Dynamic Model Selection)
-
-Use `modelSelector` to pick models by task dimension (e.g. reasoning vs latency):
-
-```typescript
-import { createModelSelector } from '@contractspec/lib.ai-providers';
-import { ChatService } from '@contractspec/module.ai-chat';
-
-const modelSelector = createModelSelector(/* ranking config */);
-const chatService = new ChatService({
-  provider: createProvider({ /* ... */ }),
-  modelSelector,
-});
-
-// ChatService will call modelSelector.selectAndCreate({ taskDimension: 'reasoning' | 'latency' })
-// based on thinking level when modelSelector is set
-```
-
-### AI Elements-Style Components
-
-The module includes native implementations of [Reasoning](https://elements.ai-sdk.dev/components/reasoning), [Sources](https://elements.ai-sdk.dev/components/sources), [Suggestion](https://elements.ai-sdk.dev/components/suggestion), and [Chain of Thought](https://elements.ai-sdk.dev/components/chain-of-thought) patterns. Pass `components` to `ChatMessage` or `ChatWithExport` to override with ai-elements when installed:
-
-```tsx
-import { ChatWithSidebar, type ChatMessageComponents } from '@contractspec/module.ai-chat';
-// When using ai-elements: import { Reasoning, Sources, ... } from '@/components/ai-elements/...';
-
-<ChatWithSidebar
-  components={{
-    Reasoning: AiElementsReasoning,
-    Sources: AiElementsSources,
-    SourcesTrigger: AiElementsSourcesTrigger,
-    Source: AiElementsSource,
-    ChainOfThought: AiElementsChainOfThought,
-    ChainOfThoughtStep: AiElementsChainOfThoughtStep,
-  }}
-  suggestions={['Explain how X works', 'What is Y?']}
-  showSuggestionsWhenEmpty
-/>
-```
-
-Use `suggestions` and `onSuggestionClick` for clickable prompt chips. Apps can optionally use [AI Elements](https://elements.ai-sdk.dev) for enhanced UI; provide an adapter from `ChatMessage` to `UIMessage` when integrating.
-
-### useCompletion (Non-Chat Completion)
-
-For inline suggestions, single-prompt completion, or other non-conversational use cases:
-
-```tsx
-import { useCompletion } from '@contractspec/module.ai-chat/presentation/hooks';
-// or: import { useCompletion } from '@ai-sdk/react';
-
-const { completion, complete, isLoading } = useCompletion({
-  api: '/api/completion',
-});
-```
-
-Use `createCompletionRoute` for the API endpoint (see `createChatRoute` pattern).
-
-### Contracts-Spec Context and Surface-Runtime
-
-Pass `contractsContext` to expose agent, data-views, operations, forms, and presentations to the model. Pass `surfacePlanConfig` when embedding chat in a surface-runtime (e.g. PM workbench) to enable the `propose-patch` tool:
-
-```tsx
-import { ChatWithSidebar } from '@contractspec/module.ai-chat';
-import type { ResolvedSurfacePlan } from '@contractspec/lib.surface-runtime/runtime/resolve-bundle';
-
-function PmWorkbench({ plan }: { plan: ResolvedSurfacePlan }) {
-  const [currentPlan, setPlan] = useState(plan);
-  const onPatchProposal = useCallback((proposal) => {
-    setPlan(prev => ({
-      ...prev,
-      ai: { ...prev.ai, proposals: [...(prev.ai?.proposals ?? []), proposal] },
-    }));
-  }, []);
-
-  return (
-    <ChatWithSidebar
-      surfacePlanConfig={{ plan: currentPlan, onPatchProposal }}
-      systemPrompt="You are a PM workbench assistant. Propose layout changes when helpful."
-    />
-  );
-}
-```
-
-`createAiSdkBundleAdapter` from `@contractspec/module.ai-chat/adapters` implements `AiSdkBundleAdapter` for surface-runtime planner integration.
-
-### streamObject / generateObject
-
-For structured output (schema-driven generation), use the AI SDK directly: `streamObject` and `generateObject` from `ai`. This module focuses on chat; add `useObject` or equivalent in a separate module when needed.
-
-### Voice / Speech
-
-Speech Input, Transcription, Voice Selector, and related UI are planned as a separate submodule or feature flag. Track via roadmap.
+Import the root entrypoint from `@contractspec/module.ai-chat`, or choose a documented subpath when you only need one part of the package surface.
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Consumer Surfaces                        │
-│  ┌─────────┐    ┌──────────────┐    ┌─────────────────┐    │
-│  │   CLI   │    │    VSCode    │    │     Studio      │    │
-│  └────┬────┘    └──────┬───────┘    └────────┬────────┘    │
-└───────┼────────────────┼─────────────────────┼─────────────┘
-        │                │                     │
-        ▼                ▼                     ▼
-┌─────────────────────────────────────────────────────────────┐
-│                  @contractspec/module.ai-chat                       │
-│  ┌────────────┐  ┌──────────────┐  ┌───────────────────┐   │
-│  │ ChatService│  │   Providers  │  │ Workspace Context │   │
-│  │            │  │ (re-exports) │  │                   │   │
-│  └────────────┘  └──────┬───────┘  └───────────────────┘   │
-│                         │                                   │
-│  ┌──────────────────────┼───────────────────────────────┐  │
-│  │              UI Components (React)                    │  │
-│  └──────────────────────────────────────────────────────┘  │
-└─────────────────────────┼───────────────────────────────────┘
-                          │
-        ┌─────────────────┴─────────────────┐
-        ▼                                   ▼
-┌───────────────────┐            ┌──────────────────────────┐
-│ @contractspec/lib.        │            │  @contractspec/lib.ai-agent      │
-│ ai-providers      │            │                          │
-│ ┌───────────────┐ │            │  Agent orchestration,    │
-│ │ Provider      │ │            │  tool execution,         │
-│ │ abstraction   │ │            │  memory framework        │
-│ └───────────────┘ │            └──────────────────────────┘
-│ ┌───────────────┐ │
-│ │ Model info    │ │
-│ │ & validation  │ │
-│ └───────────────┘ │
-└───────────────────┘
-        │
-        ▼
-┌───────────────────┐              ┌──────────────────────────┐
-│  Local Providers  │              │      API Proxy           │
-│  ┌──────────────┐ │              │  ┌──────────────────────┐│
-│  │    Ollama    │ │              │  │  Metering + Costing  ││
-│  └──────────────┘ │              │  └──────────────────────┘│
-└───────────────────┘              │  ┌──────────────────────┐│
-                                   │  │   Cloud Providers    ││
-                                   │  │ OpenAI/Anthropic/etc ││
-                                   │  └──────────────────────┘│
-                                   └──────────────────────────┘
-```
+- `src/context/` contains shared chat providers and contextual runtime state.
+- `src/core/` contains chat orchestration, workflows, and non-UI runtime logic.
+- `src/presentation/` exports UI components and React hooks for embedding the chat experience.
+- `src/providers/` exposes provider bindings and provider-facing integration helpers.
+- Top-level feature, capability, operation, schema, and event files define the module contract surface.
+- `src/ai-chat.capability.ts` defines a capability surface.
 
-## Metrics
+## Public Entry Points
 
-The module tracks the following metrics via `@contractspec/lib.metering`:
+- Exports the root module plus context, core, presentation, presentation/components, presentation/hooks, and providers subpaths.
+- Export `.` resolves through `./src/index.ts`.
+- Export `./context` resolves through `./src/context/index.ts`.
+- Export `./core` resolves through `./src/core/index.ts`.
+- Export `./presentation` resolves through `./src/presentation/index.ts`.
+- Export `./presentation/components` resolves through `./src/presentation/components/index.ts`.
+- Export `./presentation/hooks` resolves through `./src/presentation/hooks/index.ts`.
+- Export `./providers` resolves through `./src/providers/index.ts`.
 
-| Metric | Description |
-|--------|-------------|
-| `ai_chat.messages` | Total chat messages sent |
-| `ai_chat.tokens_input` | Input tokens consumed |
-| `ai_chat.tokens_output` | Output tokens generated |
-| `ai_chat.latency_ms` | Response latency |
-| `ai_chat.errors` | Failed completions |
+## Local Commands
 
-## Feature Flags
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-- `ai_chat.enabled` - Master toggle for the chat feature
-- `ai_chat.managed_keys` - Enable managed key mode (API proxy)
-- `ai_chat.workspace_context` - Enable workspace read/write access
-- `ai_chat.code_execution` - Enable code execution (future)
+## Recent Updates
 
-## License
+- Replace eslint+prettier by biomejs to optimize speed.
+- Agentic workflows — subagents, memory tools, and next steps.
+- Vnext ai-native.
+- Backend operations + frontend rendering support.
+- Use browser-safe MCP client stub in client bundles.
+- Add changesets and apply pending fixes.
 
-MIT
+## Notes
+
+- Depends on `lib.ai-agent`, `lib.ai-providers`, `lib.contracts-spec`, `lib.schema`, `lib.metering`, `lib.cost-tracking`, `lib.surface-runtime`.
+- React peer dependency (>=19.2.4); changes here affect all chat surfaces.
+- Metering and cost-tracking are wired in -- never bypass them.

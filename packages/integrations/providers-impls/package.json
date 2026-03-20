@@ -1,610 +1,610 @@
 {
-  "name": "@contractspec/integration.providers-impls",
-  "version": "3.7.6",
-  "description": "Integration provider implementations for email, payments, storage, and more",
-  "keywords": [
-    "contractspec",
-    "integrations",
-    "providers",
-    "stripe",
-    "twilio",
-    "typescript"
-  ],
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "scripts": {
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
-    "build:bundle": "contractspec-bun-build transpile",
-    "build:types": "contractspec-bun-build types",
-    "dev": "contractspec-bun-build dev",
-    "clean": "rimraf dist .turbo",
-    "lint": "bun lint:fix",
-    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-    "lint:check": "biome check .",
-    "test": "bun test",
-    "prebuild": "contractspec-bun-build prebuild",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "@contractspec/lib.contracts-integrations": "workspace:*",
-    "@contractspec/integration.runtime": "workspace:*",
-    "@elevenlabs/elevenlabs-js": "^2.38.1",
-    "@fal-ai/client": "^1.9.4",
-    "@google-cloud/storage": "^7.19.0",
-    "@linear/sdk": "^78.0.0",
-    "@mistralai/mistralai": "^2.0.0",
-    "@notionhq/client": "^5.14.0",
-    "posthog-node": "^5.28.4",
-    "@qdrant/js-client-rest": "^1.17.0",
-    "@confiture-ai/gradium-sdk-js": "^0.1.1",
-    "drizzle-orm": "^0.45.1",
-    "fathom-typescript": "^0.0.37",
-    "googleapis": "^171.4.0",
-    "postgres": "^3.4.8",
-    "postmark": "^4.0.7",
-    "stripe": "^20.4.1",
-    "twilio": "^5.12.2",
-    "@composio/core": "latest",
-    "zod": "catalog:"
-  },
-  "devDependencies": {
-    "@types/bun": "1.3.11",
-    "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:",
-    "@contractspec/tool.bun": "workspace:*"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./analytics": "./src/analytics.ts",
-    "./calendar": "./src/calendar.ts",
-    "./database": "./src/database.ts",
-    "./email": "./src/email.ts",
-    "./embedding": "./src/embedding.ts",
-    "./health": "./src/health.ts",
-    "./impls": "./src/impls/index.ts",
-    "./impls/async-event-queue": "./src/impls/async-event-queue.ts",
-    "./impls/composio-fallback-resolver": "./src/impls/composio-fallback-resolver.ts",
-    "./impls/composio-mcp": "./src/impls/composio-mcp.ts",
-    "./impls/composio-proxies": "./src/impls/composio-proxies.ts",
-    "./impls/composio-sdk": "./src/impls/composio-sdk.ts",
-    "./impls/composio-types": "./src/impls/composio-types.ts",
-    "./impls/elevenlabs-voice": "./src/impls/elevenlabs-voice.ts",
-    "./impls/fal-voice": "./src/impls/fal-voice.ts",
-    "./impls/fathom-meeting-recorder": "./src/impls/fathom-meeting-recorder.ts",
-    "./impls/fathom-meeting-recorder.mapper": "./src/impls/fathom-meeting-recorder.mapper.ts",
-    "./impls/fathom-meeting-recorder.types": "./src/impls/fathom-meeting-recorder.types.ts",
-    "./impls/fathom-meeting-recorder.utils": "./src/impls/fathom-meeting-recorder.utils.ts",
-    "./impls/fathom-meeting-recorder.webhooks": "./src/impls/fathom-meeting-recorder.webhooks.ts",
-    "./impls/fireflies-meeting-recorder": "./src/impls/fireflies-meeting-recorder.ts",
-    "./impls/fireflies-meeting-recorder.queries": "./src/impls/fireflies-meeting-recorder.queries.ts",
-    "./impls/fireflies-meeting-recorder.types": "./src/impls/fireflies-meeting-recorder.types.ts",
-    "./impls/fireflies-meeting-recorder.utils": "./src/impls/fireflies-meeting-recorder.utils.ts",
-    "./impls/gcs-storage": "./src/impls/gcs-storage.ts",
-    "./impls/gmail-inbound": "./src/impls/gmail-inbound.ts",
-    "./impls/gmail-outbound": "./src/impls/gmail-outbound.ts",
-    "./impls/google-calendar": "./src/impls/google-calendar.ts",
-    "./impls/gradium-voice": "./src/impls/gradium-voice.ts",
-    "./impls/granola-meeting-recorder": "./src/impls/granola-meeting-recorder.ts",
-    "./impls/granola-meeting-recorder.mcp": "./src/impls/granola-meeting-recorder.mcp.ts",
-    "./impls/granola-meeting-recorder.types": "./src/impls/granola-meeting-recorder.types.ts",
-    "./impls/health-provider-factory": "./src/impls/health-provider-factory.ts",
-    "./impls/health/base-health-provider": "./src/impls/health/base-health-provider.ts",
-    "./impls/health/hybrid-health-providers": "./src/impls/health/hybrid-health-providers.ts",
-    "./impls/health/official-health-providers": "./src/impls/health/official-health-providers.ts",
-    "./impls/health/provider-normalizers": "./src/impls/health/provider-normalizers.ts",
-    "./impls/health/providers": "./src/impls/health/providers.ts",
-    "./impls/jira": "./src/impls/jira.ts",
-    "./impls/linear": "./src/impls/linear.ts",
-    "./impls/messaging-github": "./src/impls/messaging-github.ts",
-    "./impls/messaging-slack": "./src/impls/messaging-slack.ts",
-    "./impls/messaging-whatsapp-meta": "./src/impls/messaging-whatsapp-meta.ts",
-    "./impls/messaging-whatsapp-twilio": "./src/impls/messaging-whatsapp-twilio.ts",
-    "./impls/mistral-conversational": "./src/impls/mistral-conversational.ts",
-    "./impls/mistral-conversational.session": "./src/impls/mistral-conversational.session.ts",
-    "./impls/mistral-embedding": "./src/impls/mistral-embedding.ts",
-    "./impls/mistral-llm": "./src/impls/mistral-llm.ts",
-    "./impls/mistral-stt": "./src/impls/mistral-stt.ts",
-    "./impls/notion": "./src/impls/notion.ts",
-    "./impls/posthog": "./src/impls/posthog.ts",
-    "./impls/posthog-reader": "./src/impls/posthog-reader.ts",
-    "./impls/posthog-utils": "./src/impls/posthog-utils.ts",
-    "./impls/postmark-email": "./src/impls/postmark-email.ts",
-    "./impls/powens-client": "./src/impls/powens-client.ts",
-    "./impls/powens-openbanking": "./src/impls/powens-openbanking.ts",
-    "./impls/provider-factory": "./src/impls/provider-factory.ts",
-    "./impls/qdrant-vector": "./src/impls/qdrant-vector.ts",
-    "./impls/stripe-payments": "./src/impls/stripe-payments.ts",
-    "./impls/supabase-psql": "./src/impls/supabase-psql.ts",
-    "./impls/supabase-vector": "./src/impls/supabase-vector.ts",
-    "./impls/tldv-meeting-recorder": "./src/impls/tldv-meeting-recorder.ts",
-    "./impls/twilio-sms": "./src/impls/twilio-sms.ts",
-    "./llm": "./src/llm.ts",
-    "./meeting-recorder": "./src/meeting-recorder.ts",
-    "./messaging": "./src/messaging.ts",
-    "./openbanking": "./src/openbanking.ts",
-    "./payments": "./src/payments.ts",
-    "./project-management": "./src/project-management.ts",
-    "./runtime": "./src/runtime.ts",
-    "./secrets/provider": "./src/secrets/provider.ts",
-    "./sms": "./src/sms.ts",
-    "./storage": "./src/storage.ts",
-    "./vector-store": "./src/vector-store.ts",
-    "./voice": "./src/voice.ts"
-  },
-  "publishConfig": {
-    "access": "public",
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "bun": "./dist/index.js",
-        "node": "./dist/node/index.js",
-        "default": "./dist/index.js"
-      },
-      "./analytics": {
-        "types": "./dist/analytics.d.ts",
-        "bun": "./dist/analytics.js",
-        "node": "./dist/node/analytics.js",
-        "default": "./dist/analytics.js"
-      },
-      "./calendar": {
-        "types": "./dist/calendar.d.ts",
-        "bun": "./dist/calendar.js",
-        "node": "./dist/node/calendar.js",
-        "default": "./dist/calendar.js"
-      },
-      "./database": {
-        "types": "./dist/database.d.ts",
-        "bun": "./dist/database.js",
-        "node": "./dist/node/database.js",
-        "default": "./dist/database.js"
-      },
-      "./email": {
-        "types": "./dist/email.d.ts",
-        "bun": "./dist/email.js",
-        "node": "./dist/node/email.js",
-        "default": "./dist/email.js"
-      },
-      "./embedding": {
-        "types": "./dist/embedding.d.ts",
-        "bun": "./dist/embedding.js",
-        "node": "./dist/node/embedding.js",
-        "default": "./dist/embedding.js"
-      },
-      "./health": {
-        "types": "./dist/health.d.ts",
-        "bun": "./dist/health.js",
-        "node": "./dist/node/health.js",
-        "default": "./dist/health.js"
-      },
-      "./impls": {
-        "types": "./dist/impls/index.d.ts",
-        "bun": "./dist/impls/index.js",
-        "node": "./dist/node/impls/index.js",
-        "default": "./dist/impls/index.js"
-      },
-      "./impls/async-event-queue": {
-        "types": "./dist/impls/async-event-queue.d.ts",
-        "bun": "./dist/impls/async-event-queue.js",
-        "node": "./dist/node/impls/async-event-queue.js",
-        "default": "./dist/impls/async-event-queue.js"
-      },
-      "./impls/composio-fallback-resolver": {
-        "types": "./dist/impls/composio-fallback-resolver.d.ts",
-        "bun": "./dist/impls/composio-fallback-resolver.js",
-        "node": "./dist/node/impls/composio-fallback-resolver.js",
-        "default": "./dist/impls/composio-fallback-resolver.js"
-      },
-      "./impls/composio-mcp": {
-        "types": "./dist/impls/composio-mcp.d.ts",
-        "bun": "./dist/impls/composio-mcp.js",
-        "node": "./dist/node/impls/composio-mcp.js",
-        "default": "./dist/impls/composio-mcp.js"
-      },
-      "./impls/composio-proxies": {
-        "types": "./dist/impls/composio-proxies.d.ts",
-        "bun": "./dist/impls/composio-proxies.js",
-        "node": "./dist/node/impls/composio-proxies.js",
-        "default": "./dist/impls/composio-proxies.js"
-      },
-      "./impls/composio-sdk": {
-        "types": "./dist/impls/composio-sdk.d.ts",
-        "bun": "./dist/impls/composio-sdk.js",
-        "node": "./dist/node/impls/composio-sdk.js",
-        "default": "./dist/impls/composio-sdk.js"
-      },
-      "./impls/composio-types": {
-        "types": "./dist/impls/composio-types.d.ts",
-        "bun": "./dist/impls/composio-types.js",
-        "node": "./dist/node/impls/composio-types.js",
-        "default": "./dist/impls/composio-types.js"
-      },
-      "./impls/elevenlabs-voice": {
-        "types": "./dist/impls/elevenlabs-voice.d.ts",
-        "bun": "./dist/impls/elevenlabs-voice.js",
-        "node": "./dist/node/impls/elevenlabs-voice.js",
-        "default": "./dist/impls/elevenlabs-voice.js"
-      },
-      "./impls/fal-voice": {
-        "types": "./dist/impls/fal-voice.d.ts",
-        "bun": "./dist/impls/fal-voice.js",
-        "node": "./dist/node/impls/fal-voice.js",
-        "default": "./dist/impls/fal-voice.js"
-      },
-      "./impls/fathom-meeting-recorder": {
-        "types": "./dist/impls/fathom-meeting-recorder.d.ts",
-        "bun": "./dist/impls/fathom-meeting-recorder.js",
-        "node": "./dist/node/impls/fathom-meeting-recorder.js",
-        "default": "./dist/impls/fathom-meeting-recorder.js"
-      },
-      "./impls/fathom-meeting-recorder.mapper": {
-        "types": "./dist/impls/fathom-meeting-recorder.mapper.d.ts",
-        "bun": "./dist/impls/fathom-meeting-recorder.mapper.js",
-        "node": "./dist/node/impls/fathom-meeting-recorder.mapper.js",
-        "default": "./dist/impls/fathom-meeting-recorder.mapper.js"
-      },
-      "./impls/fathom-meeting-recorder.types": {
-        "types": "./dist/impls/fathom-meeting-recorder.types.d.ts",
-        "bun": "./dist/impls/fathom-meeting-recorder.types.js",
-        "node": "./dist/node/impls/fathom-meeting-recorder.types.js",
-        "default": "./dist/impls/fathom-meeting-recorder.types.js"
-      },
-      "./impls/fathom-meeting-recorder.utils": {
-        "types": "./dist/impls/fathom-meeting-recorder.utils.d.ts",
-        "bun": "./dist/impls/fathom-meeting-recorder.utils.js",
-        "node": "./dist/node/impls/fathom-meeting-recorder.utils.js",
-        "default": "./dist/impls/fathom-meeting-recorder.utils.js"
-      },
-      "./impls/fathom-meeting-recorder.webhooks": {
-        "types": "./dist/impls/fathom-meeting-recorder.webhooks.d.ts",
-        "bun": "./dist/impls/fathom-meeting-recorder.webhooks.js",
-        "node": "./dist/node/impls/fathom-meeting-recorder.webhooks.js",
-        "default": "./dist/impls/fathom-meeting-recorder.webhooks.js"
-      },
-      "./impls/fireflies-meeting-recorder": {
-        "types": "./dist/impls/fireflies-meeting-recorder.d.ts",
-        "bun": "./dist/impls/fireflies-meeting-recorder.js",
-        "node": "./dist/node/impls/fireflies-meeting-recorder.js",
-        "default": "./dist/impls/fireflies-meeting-recorder.js"
-      },
-      "./impls/fireflies-meeting-recorder.queries": {
-        "types": "./dist/impls/fireflies-meeting-recorder.queries.d.ts",
-        "bun": "./dist/impls/fireflies-meeting-recorder.queries.js",
-        "node": "./dist/node/impls/fireflies-meeting-recorder.queries.js",
-        "default": "./dist/impls/fireflies-meeting-recorder.queries.js"
-      },
-      "./impls/fireflies-meeting-recorder.types": {
-        "types": "./dist/impls/fireflies-meeting-recorder.types.d.ts",
-        "bun": "./dist/impls/fireflies-meeting-recorder.types.js",
-        "node": "./dist/node/impls/fireflies-meeting-recorder.types.js",
-        "default": "./dist/impls/fireflies-meeting-recorder.types.js"
-      },
-      "./impls/fireflies-meeting-recorder.utils": {
-        "types": "./dist/impls/fireflies-meeting-recorder.utils.d.ts",
-        "bun": "./dist/impls/fireflies-meeting-recorder.utils.js",
-        "node": "./dist/node/impls/fireflies-meeting-recorder.utils.js",
-        "default": "./dist/impls/fireflies-meeting-recorder.utils.js"
-      },
-      "./impls/gcs-storage": {
-        "types": "./dist/impls/gcs-storage.d.ts",
-        "bun": "./dist/impls/gcs-storage.js",
-        "node": "./dist/node/impls/gcs-storage.js",
-        "default": "./dist/impls/gcs-storage.js"
-      },
-      "./impls/gmail-inbound": {
-        "types": "./dist/impls/gmail-inbound.d.ts",
-        "bun": "./dist/impls/gmail-inbound.js",
-        "node": "./dist/node/impls/gmail-inbound.js",
-        "default": "./dist/impls/gmail-inbound.js"
-      },
-      "./impls/gmail-outbound": {
-        "types": "./dist/impls/gmail-outbound.d.ts",
-        "bun": "./dist/impls/gmail-outbound.js",
-        "node": "./dist/node/impls/gmail-outbound.js",
-        "default": "./dist/impls/gmail-outbound.js"
-      },
-      "./impls/google-calendar": {
-        "types": "./dist/impls/google-calendar.d.ts",
-        "bun": "./dist/impls/google-calendar.js",
-        "node": "./dist/node/impls/google-calendar.js",
-        "default": "./dist/impls/google-calendar.js"
-      },
-      "./impls/gradium-voice": {
-        "types": "./dist/impls/gradium-voice.d.ts",
-        "bun": "./dist/impls/gradium-voice.js",
-        "node": "./dist/node/impls/gradium-voice.js",
-        "default": "./dist/impls/gradium-voice.js"
-      },
-      "./impls/granola-meeting-recorder": {
-        "types": "./dist/impls/granola-meeting-recorder.d.ts",
-        "bun": "./dist/impls/granola-meeting-recorder.js",
-        "node": "./dist/node/impls/granola-meeting-recorder.js",
-        "default": "./dist/impls/granola-meeting-recorder.js"
-      },
-      "./impls/granola-meeting-recorder.mcp": {
-        "types": "./dist/impls/granola-meeting-recorder.mcp.d.ts",
-        "bun": "./dist/impls/granola-meeting-recorder.mcp.js",
-        "node": "./dist/node/impls/granola-meeting-recorder.mcp.js",
-        "default": "./dist/impls/granola-meeting-recorder.mcp.js"
-      },
-      "./impls/granola-meeting-recorder.types": {
-        "types": "./dist/impls/granola-meeting-recorder.types.d.ts",
-        "bun": "./dist/impls/granola-meeting-recorder.types.js",
-        "node": "./dist/node/impls/granola-meeting-recorder.types.js",
-        "default": "./dist/impls/granola-meeting-recorder.types.js"
-      },
-      "./impls/health-provider-factory": {
-        "types": "./dist/impls/health-provider-factory.d.ts",
-        "bun": "./dist/impls/health-provider-factory.js",
-        "node": "./dist/node/impls/health-provider-factory.js",
-        "default": "./dist/impls/health-provider-factory.js"
-      },
-      "./impls/health/base-health-provider": {
-        "types": "./dist/impls/health/base-health-provider.d.ts",
-        "bun": "./dist/impls/health/base-health-provider.js",
-        "node": "./dist/node/impls/health/base-health-provider.js",
-        "default": "./dist/impls/health/base-health-provider.js"
-      },
-      "./impls/health/hybrid-health-providers": {
-        "types": "./dist/impls/health/hybrid-health-providers.d.ts",
-        "bun": "./dist/impls/health/hybrid-health-providers.js",
-        "node": "./dist/node/impls/health/hybrid-health-providers.js",
-        "default": "./dist/impls/health/hybrid-health-providers.js"
-      },
-      "./impls/health/official-health-providers": {
-        "types": "./dist/impls/health/official-health-providers.d.ts",
-        "bun": "./dist/impls/health/official-health-providers.js",
-        "node": "./dist/node/impls/health/official-health-providers.js",
-        "default": "./dist/impls/health/official-health-providers.js"
-      },
-      "./impls/health/provider-normalizers": {
-        "types": "./dist/impls/health/provider-normalizers.d.ts",
-        "bun": "./dist/impls/health/provider-normalizers.js",
-        "node": "./dist/node/impls/health/provider-normalizers.js",
-        "default": "./dist/impls/health/provider-normalizers.js"
-      },
-      "./impls/health/providers": {
-        "types": "./dist/impls/health/providers.d.ts",
-        "bun": "./dist/impls/health/providers.js",
-        "node": "./dist/node/impls/health/providers.js",
-        "default": "./dist/impls/health/providers.js"
-      },
-      "./impls/jira": {
-        "types": "./dist/impls/jira.d.ts",
-        "bun": "./dist/impls/jira.js",
-        "node": "./dist/node/impls/jira.js",
-        "default": "./dist/impls/jira.js"
-      },
-      "./impls/linear": {
-        "types": "./dist/impls/linear.d.ts",
-        "bun": "./dist/impls/linear.js",
-        "node": "./dist/node/impls/linear.js",
-        "default": "./dist/impls/linear.js"
-      },
-      "./impls/messaging-github": {
-        "types": "./dist/impls/messaging-github.d.ts",
-        "bun": "./dist/impls/messaging-github.js",
-        "node": "./dist/node/impls/messaging-github.js",
-        "default": "./dist/impls/messaging-github.js"
-      },
-      "./impls/messaging-slack": {
-        "types": "./dist/impls/messaging-slack.d.ts",
-        "bun": "./dist/impls/messaging-slack.js",
-        "node": "./dist/node/impls/messaging-slack.js",
-        "default": "./dist/impls/messaging-slack.js"
-      },
-      "./impls/messaging-whatsapp-meta": {
-        "types": "./dist/impls/messaging-whatsapp-meta.d.ts",
-        "bun": "./dist/impls/messaging-whatsapp-meta.js",
-        "node": "./dist/node/impls/messaging-whatsapp-meta.js",
-        "default": "./dist/impls/messaging-whatsapp-meta.js"
-      },
-      "./impls/messaging-whatsapp-twilio": {
-        "types": "./dist/impls/messaging-whatsapp-twilio.d.ts",
-        "bun": "./dist/impls/messaging-whatsapp-twilio.js",
-        "node": "./dist/node/impls/messaging-whatsapp-twilio.js",
-        "default": "./dist/impls/messaging-whatsapp-twilio.js"
-      },
-      "./impls/mistral-conversational": {
-        "types": "./dist/impls/mistral-conversational.d.ts",
-        "bun": "./dist/impls/mistral-conversational.js",
-        "node": "./dist/node/impls/mistral-conversational.js",
-        "default": "./dist/impls/mistral-conversational.js"
-      },
-      "./impls/mistral-conversational.session": {
-        "types": "./dist/impls/mistral-conversational.session.d.ts",
-        "bun": "./dist/impls/mistral-conversational.session.js",
-        "node": "./dist/node/impls/mistral-conversational.session.js",
-        "default": "./dist/impls/mistral-conversational.session.js"
-      },
-      "./impls/mistral-embedding": {
-        "types": "./dist/impls/mistral-embedding.d.ts",
-        "bun": "./dist/impls/mistral-embedding.js",
-        "node": "./dist/node/impls/mistral-embedding.js",
-        "default": "./dist/impls/mistral-embedding.js"
-      },
-      "./impls/mistral-llm": {
-        "types": "./dist/impls/mistral-llm.d.ts",
-        "bun": "./dist/impls/mistral-llm.js",
-        "node": "./dist/node/impls/mistral-llm.js",
-        "default": "./dist/impls/mistral-llm.js"
-      },
-      "./impls/mistral-stt": {
-        "types": "./dist/impls/mistral-stt.d.ts",
-        "bun": "./dist/impls/mistral-stt.js",
-        "node": "./dist/node/impls/mistral-stt.js",
-        "default": "./dist/impls/mistral-stt.js"
-      },
-      "./impls/notion": {
-        "types": "./dist/impls/notion.d.ts",
-        "bun": "./dist/impls/notion.js",
-        "node": "./dist/node/impls/notion.js",
-        "default": "./dist/impls/notion.js"
-      },
-      "./impls/posthog": {
-        "types": "./dist/impls/posthog.d.ts",
-        "bun": "./dist/impls/posthog.js",
-        "node": "./dist/node/impls/posthog.js",
-        "default": "./dist/impls/posthog.js"
-      },
-      "./impls/posthog-reader": {
-        "types": "./dist/impls/posthog-reader.d.ts",
-        "bun": "./dist/impls/posthog-reader.js",
-        "node": "./dist/node/impls/posthog-reader.js",
-        "default": "./dist/impls/posthog-reader.js"
-      },
-      "./impls/posthog-utils": {
-        "types": "./dist/impls/posthog-utils.d.ts",
-        "bun": "./dist/impls/posthog-utils.js",
-        "node": "./dist/node/impls/posthog-utils.js",
-        "default": "./dist/impls/posthog-utils.js"
-      },
-      "./impls/postmark-email": {
-        "types": "./dist/impls/postmark-email.d.ts",
-        "bun": "./dist/impls/postmark-email.js",
-        "node": "./dist/node/impls/postmark-email.js",
-        "default": "./dist/impls/postmark-email.js"
-      },
-      "./impls/powens-client": {
-        "types": "./dist/impls/powens-client.d.ts",
-        "bun": "./dist/impls/powens-client.js",
-        "node": "./dist/node/impls/powens-client.js",
-        "default": "./dist/impls/powens-client.js"
-      },
-      "./impls/powens-openbanking": {
-        "types": "./dist/impls/powens-openbanking.d.ts",
-        "bun": "./dist/impls/powens-openbanking.js",
-        "node": "./dist/node/impls/powens-openbanking.js",
-        "default": "./dist/impls/powens-openbanking.js"
-      },
-      "./impls/provider-factory": {
-        "types": "./dist/impls/provider-factory.d.ts",
-        "bun": "./dist/impls/provider-factory.js",
-        "node": "./dist/node/impls/provider-factory.js",
-        "default": "./dist/impls/provider-factory.js"
-      },
-      "./impls/qdrant-vector": {
-        "types": "./dist/impls/qdrant-vector.d.ts",
-        "bun": "./dist/impls/qdrant-vector.js",
-        "node": "./dist/node/impls/qdrant-vector.js",
-        "default": "./dist/impls/qdrant-vector.js"
-      },
-      "./impls/stripe-payments": {
-        "types": "./dist/impls/stripe-payments.d.ts",
-        "bun": "./dist/impls/stripe-payments.js",
-        "node": "./dist/node/impls/stripe-payments.js",
-        "default": "./dist/impls/stripe-payments.js"
-      },
-      "./impls/supabase-psql": {
-        "types": "./dist/impls/supabase-psql.d.ts",
-        "bun": "./dist/impls/supabase-psql.js",
-        "node": "./dist/node/impls/supabase-psql.js",
-        "default": "./dist/impls/supabase-psql.js"
-      },
-      "./impls/supabase-vector": {
-        "types": "./dist/impls/supabase-vector.d.ts",
-        "bun": "./dist/impls/supabase-vector.js",
-        "node": "./dist/node/impls/supabase-vector.js",
-        "default": "./dist/impls/supabase-vector.js"
-      },
-      "./impls/tldv-meeting-recorder": {
-        "types": "./dist/impls/tldv-meeting-recorder.d.ts",
-        "bun": "./dist/impls/tldv-meeting-recorder.js",
-        "node": "./dist/node/impls/tldv-meeting-recorder.js",
-        "default": "./dist/impls/tldv-meeting-recorder.js"
-      },
-      "./impls/twilio-sms": {
-        "types": "./dist/impls/twilio-sms.d.ts",
-        "bun": "./dist/impls/twilio-sms.js",
-        "node": "./dist/node/impls/twilio-sms.js",
-        "default": "./dist/impls/twilio-sms.js"
-      },
-      "./llm": {
-        "types": "./dist/llm.d.ts",
-        "bun": "./dist/llm.js",
-        "node": "./dist/node/llm.js",
-        "default": "./dist/llm.js"
-      },
-      "./meeting-recorder": {
-        "types": "./dist/meeting-recorder.d.ts",
-        "bun": "./dist/meeting-recorder.js",
-        "node": "./dist/node/meeting-recorder.js",
-        "default": "./dist/meeting-recorder.js"
-      },
-      "./messaging": {
-        "types": "./dist/messaging.d.ts",
-        "bun": "./dist/messaging.js",
-        "node": "./dist/node/messaging.js",
-        "default": "./dist/messaging.js"
-      },
-      "./openbanking": {
-        "types": "./dist/openbanking.d.ts",
-        "bun": "./dist/openbanking.js",
-        "node": "./dist/node/openbanking.js",
-        "default": "./dist/openbanking.js"
-      },
-      "./payments": {
-        "types": "./dist/payments.d.ts",
-        "bun": "./dist/payments.js",
-        "node": "./dist/node/payments.js",
-        "default": "./dist/payments.js"
-      },
-      "./project-management": {
-        "types": "./dist/project-management.d.ts",
-        "bun": "./dist/project-management.js",
-        "node": "./dist/node/project-management.js",
-        "default": "./dist/project-management.js"
-      },
-      "./runtime": {
-        "types": "./dist/runtime.d.ts",
-        "bun": "./dist/runtime.js",
-        "node": "./dist/node/runtime.js",
-        "default": "./dist/runtime.js"
-      },
-      "./secrets/provider": {
-        "types": "./dist/secrets/provider.d.ts",
-        "bun": "./dist/secrets/provider.js",
-        "node": "./dist/node/secrets/provider.js",
-        "default": "./dist/secrets/provider.js"
-      },
-      "./sms": {
-        "types": "./dist/sms.d.ts",
-        "bun": "./dist/sms.js",
-        "node": "./dist/node/sms.js",
-        "default": "./dist/sms.js"
-      },
-      "./storage": {
-        "types": "./dist/storage.d.ts",
-        "bun": "./dist/storage.js",
-        "node": "./dist/node/storage.js",
-        "default": "./dist/storage.js"
-      },
-      "./vector-store": {
-        "types": "./dist/vector-store.d.ts",
-        "bun": "./dist/vector-store.js",
-        "node": "./dist/node/vector-store.js",
-        "default": "./dist/vector-store.js"
-      },
-      "./voice": {
-        "types": "./dist/voice.d.ts",
-        "bun": "./dist/voice.js",
-        "node": "./dist/node/voice.js",
-        "default": "./dist/voice.js"
-      }
-    },
-    "registry": "https://registry.npmjs.org/"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/integrations/providers-impls"
-  },
-  "homepage": "https://contractspec.io"
+	"name": "@contractspec/integration.providers-impls",
+	"version": "3.7.6",
+	"description": "Integration provider implementations for email, payments, storage, and more",
+	"keywords": [
+		"contractspec",
+		"integrations",
+		"providers",
+		"stripe",
+		"twilio",
+		"typescript"
+	],
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"test": "bun test",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.contracts-integrations": "workspace:*",
+		"@contractspec/integration.runtime": "workspace:*",
+		"@elevenlabs/elevenlabs-js": "^2.38.1",
+		"@fal-ai/client": "^1.9.4",
+		"@google-cloud/storage": "^7.19.0",
+		"@linear/sdk": "^78.0.0",
+		"@mistralai/mistralai": "^2.0.0",
+		"@notionhq/client": "^5.14.0",
+		"posthog-node": "^5.28.4",
+		"@qdrant/js-client-rest": "^1.17.0",
+		"@confiture-ai/gradium-sdk-js": "^0.1.1",
+		"drizzle-orm": "^0.45.1",
+		"fathom-typescript": "^0.0.37",
+		"googleapis": "^171.4.0",
+		"postgres": "^3.4.8",
+		"postmark": "^4.0.7",
+		"stripe": "^20.4.1",
+		"twilio": "^5.12.2",
+		"@composio/core": "latest",
+		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"@types/bun": "1.3.11",
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@contractspec/tool.bun": "workspace:*"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./analytics": "./src/analytics.ts",
+		"./calendar": "./src/calendar.ts",
+		"./database": "./src/database.ts",
+		"./email": "./src/email.ts",
+		"./embedding": "./src/embedding.ts",
+		"./health": "./src/health.ts",
+		"./impls": "./src/impls/index.ts",
+		"./impls/async-event-queue": "./src/impls/async-event-queue.ts",
+		"./impls/composio-fallback-resolver": "./src/impls/composio-fallback-resolver.ts",
+		"./impls/composio-mcp": "./src/impls/composio-mcp.ts",
+		"./impls/composio-proxies": "./src/impls/composio-proxies.ts",
+		"./impls/composio-sdk": "./src/impls/composio-sdk.ts",
+		"./impls/composio-types": "./src/impls/composio-types.ts",
+		"./impls/elevenlabs-voice": "./src/impls/elevenlabs-voice.ts",
+		"./impls/fal-voice": "./src/impls/fal-voice.ts",
+		"./impls/fathom-meeting-recorder": "./src/impls/fathom-meeting-recorder.ts",
+		"./impls/fathom-meeting-recorder.mapper": "./src/impls/fathom-meeting-recorder.mapper.ts",
+		"./impls/fathom-meeting-recorder.types": "./src/impls/fathom-meeting-recorder.types.ts",
+		"./impls/fathom-meeting-recorder.utils": "./src/impls/fathom-meeting-recorder.utils.ts",
+		"./impls/fathom-meeting-recorder.webhooks": "./src/impls/fathom-meeting-recorder.webhooks.ts",
+		"./impls/fireflies-meeting-recorder": "./src/impls/fireflies-meeting-recorder.ts",
+		"./impls/fireflies-meeting-recorder.queries": "./src/impls/fireflies-meeting-recorder.queries.ts",
+		"./impls/fireflies-meeting-recorder.types": "./src/impls/fireflies-meeting-recorder.types.ts",
+		"./impls/fireflies-meeting-recorder.utils": "./src/impls/fireflies-meeting-recorder.utils.ts",
+		"./impls/gcs-storage": "./src/impls/gcs-storage.ts",
+		"./impls/gmail-inbound": "./src/impls/gmail-inbound.ts",
+		"./impls/gmail-outbound": "./src/impls/gmail-outbound.ts",
+		"./impls/google-calendar": "./src/impls/google-calendar.ts",
+		"./impls/gradium-voice": "./src/impls/gradium-voice.ts",
+		"./impls/granola-meeting-recorder": "./src/impls/granola-meeting-recorder.ts",
+		"./impls/granola-meeting-recorder.mcp": "./src/impls/granola-meeting-recorder.mcp.ts",
+		"./impls/granola-meeting-recorder.types": "./src/impls/granola-meeting-recorder.types.ts",
+		"./impls/health-provider-factory": "./src/impls/health-provider-factory.ts",
+		"./impls/health/base-health-provider": "./src/impls/health/base-health-provider.ts",
+		"./impls/health/hybrid-health-providers": "./src/impls/health/hybrid-health-providers.ts",
+		"./impls/health/official-health-providers": "./src/impls/health/official-health-providers.ts",
+		"./impls/health/provider-normalizers": "./src/impls/health/provider-normalizers.ts",
+		"./impls/health/providers": "./src/impls/health/providers.ts",
+		"./impls/jira": "./src/impls/jira.ts",
+		"./impls/linear": "./src/impls/linear.ts",
+		"./impls/messaging-github": "./src/impls/messaging-github.ts",
+		"./impls/messaging-slack": "./src/impls/messaging-slack.ts",
+		"./impls/messaging-whatsapp-meta": "./src/impls/messaging-whatsapp-meta.ts",
+		"./impls/messaging-whatsapp-twilio": "./src/impls/messaging-whatsapp-twilio.ts",
+		"./impls/mistral-conversational": "./src/impls/mistral-conversational.ts",
+		"./impls/mistral-conversational.session": "./src/impls/mistral-conversational.session.ts",
+		"./impls/mistral-embedding": "./src/impls/mistral-embedding.ts",
+		"./impls/mistral-llm": "./src/impls/mistral-llm.ts",
+		"./impls/mistral-stt": "./src/impls/mistral-stt.ts",
+		"./impls/notion": "./src/impls/notion.ts",
+		"./impls/posthog": "./src/impls/posthog.ts",
+		"./impls/posthog-reader": "./src/impls/posthog-reader.ts",
+		"./impls/posthog-utils": "./src/impls/posthog-utils.ts",
+		"./impls/postmark-email": "./src/impls/postmark-email.ts",
+		"./impls/powens-client": "./src/impls/powens-client.ts",
+		"./impls/powens-openbanking": "./src/impls/powens-openbanking.ts",
+		"./impls/provider-factory": "./src/impls/provider-factory.ts",
+		"./impls/qdrant-vector": "./src/impls/qdrant-vector.ts",
+		"./impls/stripe-payments": "./src/impls/stripe-payments.ts",
+		"./impls/supabase-psql": "./src/impls/supabase-psql.ts",
+		"./impls/supabase-vector": "./src/impls/supabase-vector.ts",
+		"./impls/tldv-meeting-recorder": "./src/impls/tldv-meeting-recorder.ts",
+		"./impls/twilio-sms": "./src/impls/twilio-sms.ts",
+		"./llm": "./src/llm.ts",
+		"./meeting-recorder": "./src/meeting-recorder.ts",
+		"./messaging": "./src/messaging.ts",
+		"./openbanking": "./src/openbanking.ts",
+		"./payments": "./src/payments.ts",
+		"./project-management": "./src/project-management.ts",
+		"./runtime": "./src/runtime.ts",
+		"./secrets/provider": "./src/secrets/provider.ts",
+		"./sms": "./src/sms.ts",
+		"./storage": "./src/storage.ts",
+		"./vector-store": "./src/vector-store.ts",
+		"./voice": "./src/voice.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./analytics": {
+				"types": "./dist/analytics.d.ts",
+				"bun": "./dist/analytics.js",
+				"node": "./dist/node/analytics.js",
+				"default": "./dist/analytics.js"
+			},
+			"./calendar": {
+				"types": "./dist/calendar.d.ts",
+				"bun": "./dist/calendar.js",
+				"node": "./dist/node/calendar.js",
+				"default": "./dist/calendar.js"
+			},
+			"./database": {
+				"types": "./dist/database.d.ts",
+				"bun": "./dist/database.js",
+				"node": "./dist/node/database.js",
+				"default": "./dist/database.js"
+			},
+			"./email": {
+				"types": "./dist/email.d.ts",
+				"bun": "./dist/email.js",
+				"node": "./dist/node/email.js",
+				"default": "./dist/email.js"
+			},
+			"./embedding": {
+				"types": "./dist/embedding.d.ts",
+				"bun": "./dist/embedding.js",
+				"node": "./dist/node/embedding.js",
+				"default": "./dist/embedding.js"
+			},
+			"./health": {
+				"types": "./dist/health.d.ts",
+				"bun": "./dist/health.js",
+				"node": "./dist/node/health.js",
+				"default": "./dist/health.js"
+			},
+			"./impls": {
+				"types": "./dist/impls/index.d.ts",
+				"bun": "./dist/impls/index.js",
+				"node": "./dist/node/impls/index.js",
+				"default": "./dist/impls/index.js"
+			},
+			"./impls/async-event-queue": {
+				"types": "./dist/impls/async-event-queue.d.ts",
+				"bun": "./dist/impls/async-event-queue.js",
+				"node": "./dist/node/impls/async-event-queue.js",
+				"default": "./dist/impls/async-event-queue.js"
+			},
+			"./impls/composio-fallback-resolver": {
+				"types": "./dist/impls/composio-fallback-resolver.d.ts",
+				"bun": "./dist/impls/composio-fallback-resolver.js",
+				"node": "./dist/node/impls/composio-fallback-resolver.js",
+				"default": "./dist/impls/composio-fallback-resolver.js"
+			},
+			"./impls/composio-mcp": {
+				"types": "./dist/impls/composio-mcp.d.ts",
+				"bun": "./dist/impls/composio-mcp.js",
+				"node": "./dist/node/impls/composio-mcp.js",
+				"default": "./dist/impls/composio-mcp.js"
+			},
+			"./impls/composio-proxies": {
+				"types": "./dist/impls/composio-proxies.d.ts",
+				"bun": "./dist/impls/composio-proxies.js",
+				"node": "./dist/node/impls/composio-proxies.js",
+				"default": "./dist/impls/composio-proxies.js"
+			},
+			"./impls/composio-sdk": {
+				"types": "./dist/impls/composio-sdk.d.ts",
+				"bun": "./dist/impls/composio-sdk.js",
+				"node": "./dist/node/impls/composio-sdk.js",
+				"default": "./dist/impls/composio-sdk.js"
+			},
+			"./impls/composio-types": {
+				"types": "./dist/impls/composio-types.d.ts",
+				"bun": "./dist/impls/composio-types.js",
+				"node": "./dist/node/impls/composio-types.js",
+				"default": "./dist/impls/composio-types.js"
+			},
+			"./impls/elevenlabs-voice": {
+				"types": "./dist/impls/elevenlabs-voice.d.ts",
+				"bun": "./dist/impls/elevenlabs-voice.js",
+				"node": "./dist/node/impls/elevenlabs-voice.js",
+				"default": "./dist/impls/elevenlabs-voice.js"
+			},
+			"./impls/fal-voice": {
+				"types": "./dist/impls/fal-voice.d.ts",
+				"bun": "./dist/impls/fal-voice.js",
+				"node": "./dist/node/impls/fal-voice.js",
+				"default": "./dist/impls/fal-voice.js"
+			},
+			"./impls/fathom-meeting-recorder": {
+				"types": "./dist/impls/fathom-meeting-recorder.d.ts",
+				"bun": "./dist/impls/fathom-meeting-recorder.js",
+				"node": "./dist/node/impls/fathom-meeting-recorder.js",
+				"default": "./dist/impls/fathom-meeting-recorder.js"
+			},
+			"./impls/fathom-meeting-recorder.mapper": {
+				"types": "./dist/impls/fathom-meeting-recorder.mapper.d.ts",
+				"bun": "./dist/impls/fathom-meeting-recorder.mapper.js",
+				"node": "./dist/node/impls/fathom-meeting-recorder.mapper.js",
+				"default": "./dist/impls/fathom-meeting-recorder.mapper.js"
+			},
+			"./impls/fathom-meeting-recorder.types": {
+				"types": "./dist/impls/fathom-meeting-recorder.types.d.ts",
+				"bun": "./dist/impls/fathom-meeting-recorder.types.js",
+				"node": "./dist/node/impls/fathom-meeting-recorder.types.js",
+				"default": "./dist/impls/fathom-meeting-recorder.types.js"
+			},
+			"./impls/fathom-meeting-recorder.utils": {
+				"types": "./dist/impls/fathom-meeting-recorder.utils.d.ts",
+				"bun": "./dist/impls/fathom-meeting-recorder.utils.js",
+				"node": "./dist/node/impls/fathom-meeting-recorder.utils.js",
+				"default": "./dist/impls/fathom-meeting-recorder.utils.js"
+			},
+			"./impls/fathom-meeting-recorder.webhooks": {
+				"types": "./dist/impls/fathom-meeting-recorder.webhooks.d.ts",
+				"bun": "./dist/impls/fathom-meeting-recorder.webhooks.js",
+				"node": "./dist/node/impls/fathom-meeting-recorder.webhooks.js",
+				"default": "./dist/impls/fathom-meeting-recorder.webhooks.js"
+			},
+			"./impls/fireflies-meeting-recorder": {
+				"types": "./dist/impls/fireflies-meeting-recorder.d.ts",
+				"bun": "./dist/impls/fireflies-meeting-recorder.js",
+				"node": "./dist/node/impls/fireflies-meeting-recorder.js",
+				"default": "./dist/impls/fireflies-meeting-recorder.js"
+			},
+			"./impls/fireflies-meeting-recorder.queries": {
+				"types": "./dist/impls/fireflies-meeting-recorder.queries.d.ts",
+				"bun": "./dist/impls/fireflies-meeting-recorder.queries.js",
+				"node": "./dist/node/impls/fireflies-meeting-recorder.queries.js",
+				"default": "./dist/impls/fireflies-meeting-recorder.queries.js"
+			},
+			"./impls/fireflies-meeting-recorder.types": {
+				"types": "./dist/impls/fireflies-meeting-recorder.types.d.ts",
+				"bun": "./dist/impls/fireflies-meeting-recorder.types.js",
+				"node": "./dist/node/impls/fireflies-meeting-recorder.types.js",
+				"default": "./dist/impls/fireflies-meeting-recorder.types.js"
+			},
+			"./impls/fireflies-meeting-recorder.utils": {
+				"types": "./dist/impls/fireflies-meeting-recorder.utils.d.ts",
+				"bun": "./dist/impls/fireflies-meeting-recorder.utils.js",
+				"node": "./dist/node/impls/fireflies-meeting-recorder.utils.js",
+				"default": "./dist/impls/fireflies-meeting-recorder.utils.js"
+			},
+			"./impls/gcs-storage": {
+				"types": "./dist/impls/gcs-storage.d.ts",
+				"bun": "./dist/impls/gcs-storage.js",
+				"node": "./dist/node/impls/gcs-storage.js",
+				"default": "./dist/impls/gcs-storage.js"
+			},
+			"./impls/gmail-inbound": {
+				"types": "./dist/impls/gmail-inbound.d.ts",
+				"bun": "./dist/impls/gmail-inbound.js",
+				"node": "./dist/node/impls/gmail-inbound.js",
+				"default": "./dist/impls/gmail-inbound.js"
+			},
+			"./impls/gmail-outbound": {
+				"types": "./dist/impls/gmail-outbound.d.ts",
+				"bun": "./dist/impls/gmail-outbound.js",
+				"node": "./dist/node/impls/gmail-outbound.js",
+				"default": "./dist/impls/gmail-outbound.js"
+			},
+			"./impls/google-calendar": {
+				"types": "./dist/impls/google-calendar.d.ts",
+				"bun": "./dist/impls/google-calendar.js",
+				"node": "./dist/node/impls/google-calendar.js",
+				"default": "./dist/impls/google-calendar.js"
+			},
+			"./impls/gradium-voice": {
+				"types": "./dist/impls/gradium-voice.d.ts",
+				"bun": "./dist/impls/gradium-voice.js",
+				"node": "./dist/node/impls/gradium-voice.js",
+				"default": "./dist/impls/gradium-voice.js"
+			},
+			"./impls/granola-meeting-recorder": {
+				"types": "./dist/impls/granola-meeting-recorder.d.ts",
+				"bun": "./dist/impls/granola-meeting-recorder.js",
+				"node": "./dist/node/impls/granola-meeting-recorder.js",
+				"default": "./dist/impls/granola-meeting-recorder.js"
+			},
+			"./impls/granola-meeting-recorder.mcp": {
+				"types": "./dist/impls/granola-meeting-recorder.mcp.d.ts",
+				"bun": "./dist/impls/granola-meeting-recorder.mcp.js",
+				"node": "./dist/node/impls/granola-meeting-recorder.mcp.js",
+				"default": "./dist/impls/granola-meeting-recorder.mcp.js"
+			},
+			"./impls/granola-meeting-recorder.types": {
+				"types": "./dist/impls/granola-meeting-recorder.types.d.ts",
+				"bun": "./dist/impls/granola-meeting-recorder.types.js",
+				"node": "./dist/node/impls/granola-meeting-recorder.types.js",
+				"default": "./dist/impls/granola-meeting-recorder.types.js"
+			},
+			"./impls/health-provider-factory": {
+				"types": "./dist/impls/health-provider-factory.d.ts",
+				"bun": "./dist/impls/health-provider-factory.js",
+				"node": "./dist/node/impls/health-provider-factory.js",
+				"default": "./dist/impls/health-provider-factory.js"
+			},
+			"./impls/health/base-health-provider": {
+				"types": "./dist/impls/health/base-health-provider.d.ts",
+				"bun": "./dist/impls/health/base-health-provider.js",
+				"node": "./dist/node/impls/health/base-health-provider.js",
+				"default": "./dist/impls/health/base-health-provider.js"
+			},
+			"./impls/health/hybrid-health-providers": {
+				"types": "./dist/impls/health/hybrid-health-providers.d.ts",
+				"bun": "./dist/impls/health/hybrid-health-providers.js",
+				"node": "./dist/node/impls/health/hybrid-health-providers.js",
+				"default": "./dist/impls/health/hybrid-health-providers.js"
+			},
+			"./impls/health/official-health-providers": {
+				"types": "./dist/impls/health/official-health-providers.d.ts",
+				"bun": "./dist/impls/health/official-health-providers.js",
+				"node": "./dist/node/impls/health/official-health-providers.js",
+				"default": "./dist/impls/health/official-health-providers.js"
+			},
+			"./impls/health/provider-normalizers": {
+				"types": "./dist/impls/health/provider-normalizers.d.ts",
+				"bun": "./dist/impls/health/provider-normalizers.js",
+				"node": "./dist/node/impls/health/provider-normalizers.js",
+				"default": "./dist/impls/health/provider-normalizers.js"
+			},
+			"./impls/health/providers": {
+				"types": "./dist/impls/health/providers.d.ts",
+				"bun": "./dist/impls/health/providers.js",
+				"node": "./dist/node/impls/health/providers.js",
+				"default": "./dist/impls/health/providers.js"
+			},
+			"./impls/jira": {
+				"types": "./dist/impls/jira.d.ts",
+				"bun": "./dist/impls/jira.js",
+				"node": "./dist/node/impls/jira.js",
+				"default": "./dist/impls/jira.js"
+			},
+			"./impls/linear": {
+				"types": "./dist/impls/linear.d.ts",
+				"bun": "./dist/impls/linear.js",
+				"node": "./dist/node/impls/linear.js",
+				"default": "./dist/impls/linear.js"
+			},
+			"./impls/messaging-github": {
+				"types": "./dist/impls/messaging-github.d.ts",
+				"bun": "./dist/impls/messaging-github.js",
+				"node": "./dist/node/impls/messaging-github.js",
+				"default": "./dist/impls/messaging-github.js"
+			},
+			"./impls/messaging-slack": {
+				"types": "./dist/impls/messaging-slack.d.ts",
+				"bun": "./dist/impls/messaging-slack.js",
+				"node": "./dist/node/impls/messaging-slack.js",
+				"default": "./dist/impls/messaging-slack.js"
+			},
+			"./impls/messaging-whatsapp-meta": {
+				"types": "./dist/impls/messaging-whatsapp-meta.d.ts",
+				"bun": "./dist/impls/messaging-whatsapp-meta.js",
+				"node": "./dist/node/impls/messaging-whatsapp-meta.js",
+				"default": "./dist/impls/messaging-whatsapp-meta.js"
+			},
+			"./impls/messaging-whatsapp-twilio": {
+				"types": "./dist/impls/messaging-whatsapp-twilio.d.ts",
+				"bun": "./dist/impls/messaging-whatsapp-twilio.js",
+				"node": "./dist/node/impls/messaging-whatsapp-twilio.js",
+				"default": "./dist/impls/messaging-whatsapp-twilio.js"
+			},
+			"./impls/mistral-conversational": {
+				"types": "./dist/impls/mistral-conversational.d.ts",
+				"bun": "./dist/impls/mistral-conversational.js",
+				"node": "./dist/node/impls/mistral-conversational.js",
+				"default": "./dist/impls/mistral-conversational.js"
+			},
+			"./impls/mistral-conversational.session": {
+				"types": "./dist/impls/mistral-conversational.session.d.ts",
+				"bun": "./dist/impls/mistral-conversational.session.js",
+				"node": "./dist/node/impls/mistral-conversational.session.js",
+				"default": "./dist/impls/mistral-conversational.session.js"
+			},
+			"./impls/mistral-embedding": {
+				"types": "./dist/impls/mistral-embedding.d.ts",
+				"bun": "./dist/impls/mistral-embedding.js",
+				"node": "./dist/node/impls/mistral-embedding.js",
+				"default": "./dist/impls/mistral-embedding.js"
+			},
+			"./impls/mistral-llm": {
+				"types": "./dist/impls/mistral-llm.d.ts",
+				"bun": "./dist/impls/mistral-llm.js",
+				"node": "./dist/node/impls/mistral-llm.js",
+				"default": "./dist/impls/mistral-llm.js"
+			},
+			"./impls/mistral-stt": {
+				"types": "./dist/impls/mistral-stt.d.ts",
+				"bun": "./dist/impls/mistral-stt.js",
+				"node": "./dist/node/impls/mistral-stt.js",
+				"default": "./dist/impls/mistral-stt.js"
+			},
+			"./impls/notion": {
+				"types": "./dist/impls/notion.d.ts",
+				"bun": "./dist/impls/notion.js",
+				"node": "./dist/node/impls/notion.js",
+				"default": "./dist/impls/notion.js"
+			},
+			"./impls/posthog": {
+				"types": "./dist/impls/posthog.d.ts",
+				"bun": "./dist/impls/posthog.js",
+				"node": "./dist/node/impls/posthog.js",
+				"default": "./dist/impls/posthog.js"
+			},
+			"./impls/posthog-reader": {
+				"types": "./dist/impls/posthog-reader.d.ts",
+				"bun": "./dist/impls/posthog-reader.js",
+				"node": "./dist/node/impls/posthog-reader.js",
+				"default": "./dist/impls/posthog-reader.js"
+			},
+			"./impls/posthog-utils": {
+				"types": "./dist/impls/posthog-utils.d.ts",
+				"bun": "./dist/impls/posthog-utils.js",
+				"node": "./dist/node/impls/posthog-utils.js",
+				"default": "./dist/impls/posthog-utils.js"
+			},
+			"./impls/postmark-email": {
+				"types": "./dist/impls/postmark-email.d.ts",
+				"bun": "./dist/impls/postmark-email.js",
+				"node": "./dist/node/impls/postmark-email.js",
+				"default": "./dist/impls/postmark-email.js"
+			},
+			"./impls/powens-client": {
+				"types": "./dist/impls/powens-client.d.ts",
+				"bun": "./dist/impls/powens-client.js",
+				"node": "./dist/node/impls/powens-client.js",
+				"default": "./dist/impls/powens-client.js"
+			},
+			"./impls/powens-openbanking": {
+				"types": "./dist/impls/powens-openbanking.d.ts",
+				"bun": "./dist/impls/powens-openbanking.js",
+				"node": "./dist/node/impls/powens-openbanking.js",
+				"default": "./dist/impls/powens-openbanking.js"
+			},
+			"./impls/provider-factory": {
+				"types": "./dist/impls/provider-factory.d.ts",
+				"bun": "./dist/impls/provider-factory.js",
+				"node": "./dist/node/impls/provider-factory.js",
+				"default": "./dist/impls/provider-factory.js"
+			},
+			"./impls/qdrant-vector": {
+				"types": "./dist/impls/qdrant-vector.d.ts",
+				"bun": "./dist/impls/qdrant-vector.js",
+				"node": "./dist/node/impls/qdrant-vector.js",
+				"default": "./dist/impls/qdrant-vector.js"
+			},
+			"./impls/stripe-payments": {
+				"types": "./dist/impls/stripe-payments.d.ts",
+				"bun": "./dist/impls/stripe-payments.js",
+				"node": "./dist/node/impls/stripe-payments.js",
+				"default": "./dist/impls/stripe-payments.js"
+			},
+			"./impls/supabase-psql": {
+				"types": "./dist/impls/supabase-psql.d.ts",
+				"bun": "./dist/impls/supabase-psql.js",
+				"node": "./dist/node/impls/supabase-psql.js",
+				"default": "./dist/impls/supabase-psql.js"
+			},
+			"./impls/supabase-vector": {
+				"types": "./dist/impls/supabase-vector.d.ts",
+				"bun": "./dist/impls/supabase-vector.js",
+				"node": "./dist/node/impls/supabase-vector.js",
+				"default": "./dist/impls/supabase-vector.js"
+			},
+			"./impls/tldv-meeting-recorder": {
+				"types": "./dist/impls/tldv-meeting-recorder.d.ts",
+				"bun": "./dist/impls/tldv-meeting-recorder.js",
+				"node": "./dist/node/impls/tldv-meeting-recorder.js",
+				"default": "./dist/impls/tldv-meeting-recorder.js"
+			},
+			"./impls/twilio-sms": {
+				"types": "./dist/impls/twilio-sms.d.ts",
+				"bun": "./dist/impls/twilio-sms.js",
+				"node": "./dist/node/impls/twilio-sms.js",
+				"default": "./dist/impls/twilio-sms.js"
+			},
+			"./llm": {
+				"types": "./dist/llm.d.ts",
+				"bun": "./dist/llm.js",
+				"node": "./dist/node/llm.js",
+				"default": "./dist/llm.js"
+			},
+			"./meeting-recorder": {
+				"types": "./dist/meeting-recorder.d.ts",
+				"bun": "./dist/meeting-recorder.js",
+				"node": "./dist/node/meeting-recorder.js",
+				"default": "./dist/meeting-recorder.js"
+			},
+			"./messaging": {
+				"types": "./dist/messaging.d.ts",
+				"bun": "./dist/messaging.js",
+				"node": "./dist/node/messaging.js",
+				"default": "./dist/messaging.js"
+			},
+			"./openbanking": {
+				"types": "./dist/openbanking.d.ts",
+				"bun": "./dist/openbanking.js",
+				"node": "./dist/node/openbanking.js",
+				"default": "./dist/openbanking.js"
+			},
+			"./payments": {
+				"types": "./dist/payments.d.ts",
+				"bun": "./dist/payments.js",
+				"node": "./dist/node/payments.js",
+				"default": "./dist/payments.js"
+			},
+			"./project-management": {
+				"types": "./dist/project-management.d.ts",
+				"bun": "./dist/project-management.js",
+				"node": "./dist/node/project-management.js",
+				"default": "./dist/project-management.js"
+			},
+			"./runtime": {
+				"types": "./dist/runtime.d.ts",
+				"bun": "./dist/runtime.js",
+				"node": "./dist/node/runtime.js",
+				"default": "./dist/runtime.js"
+			},
+			"./secrets/provider": {
+				"types": "./dist/secrets/provider.d.ts",
+				"bun": "./dist/secrets/provider.js",
+				"node": "./dist/node/secrets/provider.js",
+				"default": "./dist/secrets/provider.js"
+			},
+			"./sms": {
+				"types": "./dist/sms.d.ts",
+				"bun": "./dist/sms.js",
+				"node": "./dist/node/sms.js",
+				"default": "./dist/sms.js"
+			},
+			"./storage": {
+				"types": "./dist/storage.d.ts",
+				"bun": "./dist/storage.js",
+				"node": "./dist/node/storage.js",
+				"default": "./dist/storage.js"
+			},
+			"./vector-store": {
+				"types": "./dist/vector-store.d.ts",
+				"bun": "./dist/vector-store.js",
+				"node": "./dist/node/vector-store.js",
+				"default": "./dist/vector-store.js"
+			},
+			"./voice": {
+				"types": "./dist/voice.d.ts",
+				"bun": "./dist/voice.js",
+				"node": "./dist/node/voice.js",
+				"default": "./dist/voice.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/integrations/providers-impls"
+	},
+	"homepage": "https://contractspec.io"
 }

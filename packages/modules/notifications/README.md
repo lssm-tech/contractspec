@@ -1,121 +1,77 @@
 # @contractspec/module.notifications
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Notification center module for ContractSpec applications.**
 
-Notification center module for ContractSpec applications.
+## What It Provides
 
-## Purpose
-
-Provides a unified notification system supporting multiple delivery channels (email, in-app, push, webhook). Handles notification preferences, templates, and delivery tracking.
-
-## Features
-
-- **Multi-Channel Delivery**: Email, in-app, push notifications, webhooks
-- **User Preferences**: Per-user notification preferences by type and channel
-- **Templates**: Template-based notifications with variable substitution
-- **Delivery Tracking**: Track delivery status and read receipts
-- **Batching**: Digest and batch notifications to reduce noise
+- **Layer**: module.
+- **Consumers**: bundles (library, contractspec-studio), apps (web-landing).
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- Related ContractSpec packages include `@contractspec/lib.bus`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
 
 ## Installation
 
-```bash
-bun add @contractspec/module.notifications
-```
+`npm install @contractspec/module.notifications`
+
+or
+
+`bun add @contractspec/module.notifications`
 
 ## Usage
 
-### Entity Specs (for schema generation)
+Import the root entrypoint from `@contractspec/module.notifications`, or choose a documented subpath when you only need one part of the package surface.
 
-```typescript
-import { notificationsSchemaContribution } from '@contractspec/module.notifications/entities';
+## Architecture
 
-// Use in schema composition
-const config = {
-  modules: [notificationsSchemaContribution],
-};
-```
+- `src/channels` is part of the package's public or composition surface.
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/entities/` contains domain entities and value objects.
+- `src/i18n` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/notifications.capability.ts` defines a capability surface.
+- `src/notifications.feature.ts` defines a feature entrypoint.
 
-### Send Notifications
+## Public Entry Points
 
-```typescript
-import { NotificationService } from '@contractspec/module.notifications';
+- Export `.` resolves through `./src/index.ts`.
+- Export `./channels` resolves through `./src/channels/index.ts`.
+- Export `./contracts` resolves through `./src/contracts/index.ts`.
+- Export `./entities` resolves through `./src/entities/index.ts`.
+- Export `./i18n` resolves through `./src/i18n/index.ts`.
+- Export `./i18n/catalogs` resolves through `./src/i18n/catalogs/index.ts`.
+- Export `./i18n/catalogs/en` resolves through `./src/i18n/catalogs/en.ts`.
+- Export `./i18n/catalogs/es` resolves through `./src/i18n/catalogs/es.ts`.
+- Export `./i18n/catalogs/fr` resolves through `./src/i18n/catalogs/fr.ts`.
+- Export `./i18n/keys` resolves through `./src/i18n/keys.ts`.
+- The package publishes 15 total export subpaths; keep docs aligned with `package.json`.
 
-const service = new NotificationService({
-  channels: {
-    email: emailChannel,
-    inApp: inAppChannel,
-    push: pushChannel,
-  },
-  defaultChannel: 'inApp',
-});
+## Local Commands
 
-// Send a notification
-await service.send({
-  userId: 'user-123',
-  templateId: 'welcome',
-  variables: {
-    name: 'John',
-    actionUrl: 'https://app.example.com/onboarding',
-  },
-  channels: ['email', 'inApp'],
-});
-```
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-### Configure Templates
+## Recent Updates
 
-```typescript
-import { defineTemplate } from '@contractspec/module.notifications/templates';
+- Replace eslint+prettier by biomejs to optimize speed.
+- Fix small issues.
+- Add full i18n support across all 10 packages (en/fr/es, 460 keys).
 
-const welcomeTemplate = defineTemplate({
-  id: 'welcome',
-  name: 'Welcome Email',
-  channels: {
-    email: {
-      subject: 'Welcome to {{appName}}, {{name}}!',
-      body: `
-        <h1>Welcome, {{name}}!</h1>
-        <p>Thanks for joining. Get started by clicking below.</p>
-        <a href="{{actionUrl}}">Get Started</a>
-      `,
-    },
-    inApp: {
-      title: 'Welcome to {{appName}}!',
-      body: 'Click here to complete your profile.',
-      actionUrl: '{{actionUrl}}',
-    },
-  },
-});
-```
+## Notes
 
-### User Preferences
-
-```typescript
-// Get user preferences
-const prefs = await service.getPreferences('user-123');
-
-// Update preferences
-await service.updatePreferences('user-123', {
-  email: { marketing: false, transactional: true },
-  push: { mentions: true, updates: false },
-});
-```
-
-## Entity Overview
-
-| Entity | Description |
-|--------|-------------|
-| Notification | Individual notification instance |
-| NotificationTemplate | Notification templates |
-| NotificationPreference | User notification preferences |
-| DeliveryLog | Delivery attempt tracking |
-
-## Channels
-
-| Channel | Description |
-|---------|-------------|
-| email | Email delivery (SMTP, SendGrid, etc.) |
-| inApp | In-application notifications |
-| push | Push notifications (FCM, APNs) |
-| webhook | Webhook delivery for integrations |
-
+- Depends on `lib.bus` for event dispatch -- channel adapters must not send directly.
+- i18n catalogs must stay in sync across all supported locales (en, es, fr).
+- Templates are the single source for notification content; do not inline message strings.
