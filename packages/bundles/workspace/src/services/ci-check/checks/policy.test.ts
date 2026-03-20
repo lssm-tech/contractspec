@@ -69,12 +69,10 @@ const logger = {
 };
 
 describe('runPolicyChecks', () => {
-	it('flags handler files that do not reference contracts', async () => {
+	it('flags contract-aware routes that do not reference contracts', async () => {
 		const fs = createFs({
-			'src/contracts/user.operation.ts':
-				'defineCommand({ meta: { name: "user.create" } });',
-			'src/handlers/user.handler.ts':
-				'export async function handler() { return null; }',
+			'packages/apps/web-landing/src/app/api/chat/route.ts':
+				'import { createChatRoute } from "@contractspec/module.ai-chat/core";\nexport const POST = createChatRoute({});',
 		});
 
 		const options: CICheckOptions = {
@@ -108,6 +106,132 @@ describe('runPolicyChecks', () => {
 				'defineCommand({ meta: { name: "user.create" } });',
 			'src/handlers/user.handler.ts':
 				'import type { ContractHandler } from "@contractspec/lib.contracts-spec";\nexport const handler: ContractHandler = async () => null;',
+		});
+
+		const options: CICheckOptions = {
+			config: {
+				aiProvider: 'claude',
+				agentMode: 'simple',
+				outputDir: './src',
+				conventions: {
+					models: 'models',
+					operations: 'contracts',
+					events: 'events',
+					presentations: 'presentations',
+					forms: 'forms',
+					groupByFeature: true,
+				},
+				defaultOwners: [],
+				defaultTags: [],
+				schemaFormat: 'contractspec',
+			},
+		};
+
+		const issues = await runPolicyChecks({ fs, logger }, options);
+
+		expect(issues).toHaveLength(0);
+	});
+
+	it('does not flag support files inside contract-aware packages', async () => {
+		const fs = createFs({
+			'packages/examples/demo/src/contracts/demo.operation.ts':
+				'defineCommand({ meta: { name: "demo.run" } });',
+			'packages/examples/demo/src/handlers/task.storage.ts':
+				'export async function saveValue() { return null; }',
+		});
+
+		const options: CICheckOptions = {
+			config: {
+				aiProvider: 'claude',
+				agentMode: 'simple',
+				outputDir: './src',
+				conventions: {
+					models: 'models',
+					operations: 'contracts',
+					events: 'events',
+					presentations: 'presentations',
+					forms: 'forms',
+					groupByFeature: true,
+				},
+				defaultOwners: [],
+				defaultTags: [],
+				schemaFormat: 'contractspec',
+			},
+		};
+
+		const issues = await runPolicyChecks({ fs, logger }, options);
+
+		expect(issues).toHaveLength(0);
+	});
+
+	it('does not flag pure barrel files', async () => {
+		const fs = createFs({
+			'packages/examples/demo/src/contracts/demo.operation.ts':
+				'defineCommand({ meta: { name: "demo.run" } });',
+			'packages/examples/demo/src/handlers/index.ts':
+				"export * from './demo.handler';\nexport { type DemoInput } from './demo.handler';",
+		});
+
+		const options: CICheckOptions = {
+			config: {
+				aiProvider: 'claude',
+				agentMode: 'simple',
+				outputDir: './src',
+				conventions: {
+					models: 'models',
+					operations: 'contracts',
+					events: 'events',
+					presentations: 'presentations',
+					forms: 'forms',
+					groupByFeature: true,
+				},
+				defaultOwners: [],
+				defaultTags: [],
+				schemaFormat: 'contractspec',
+			},
+		};
+
+		const issues = await runPolicyChecks({ fs, logger }, options);
+
+		expect(issues).toHaveLength(0);
+	});
+
+	it('does not flag unrelated routes outside contract-aware packages', async () => {
+		const fs = createFs({
+			'packages/apps/plain-app/src/routes/packs.ts':
+				'import { Elysia } from "elysia";\nexport const routes = new Elysia().get("/", () => "ok");',
+		});
+
+		const options: CICheckOptions = {
+			config: {
+				aiProvider: 'claude',
+				agentMode: 'simple',
+				outputDir: './src',
+				conventions: {
+					models: 'models',
+					operations: 'contracts',
+					events: 'events',
+					presentations: 'presentations',
+					forms: 'forms',
+					groupByFeature: true,
+				},
+				defaultOwners: [],
+				defaultTags: [],
+				schemaFormat: 'contractspec',
+			},
+		};
+
+		const issues = await runPolicyChecks({ fs, logger }, options);
+
+		expect(issues).toHaveLength(0);
+	});
+
+	it('does not flag example runtime handlers without explicit contract context', async () => {
+		const fs = createFs({
+			'packages/examples/demo/src/contracts/demo.operation.ts':
+				'defineCommand({ meta: { name: "demo.run" } });',
+			'packages/examples/demo/src/handlers/demo.handlers.ts':
+				'export async function listItems() { return []; }',
 		});
 
 		const options: CICheckOptions = {

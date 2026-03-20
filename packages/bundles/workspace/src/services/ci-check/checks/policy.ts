@@ -17,7 +17,21 @@ const IMPLEMENTATION_PATH_PATTERN =
 	/(^|\/)(handlers?|routes?|controllers?|api)(\/|$)|\.(handler|handlers|route|routes|controller)\.(ts|tsx)$/i;
 
 const CONTRACT_REFERENCE_PATTERN =
-	/@contractspec\/lib\.contracts(?:-spec|-integrations)?|define(Command|Query|Event|Feature|Presentation|Capability|Form|DataView|Integration)|OperationSpecRegistry|ContractHandler|installOp|contracts\//;
+	/@contractspec\/lib\.contracts(?:-spec|-integrations)?|define(Command|Query|Event|Feature|Presentation|Capability|Form|DataView|Integration)|OperationSpecRegistry|ContractHandler|installOp|contracts\b|['"][^'"]+\.(operation|event|presentation|feature|capability|form|test-spec)(?:\.[tj]sx?)?['"]/;
+
+const CONTRACT_CONTEXT_PATTERN =
+	/@contractspec\/(?:lib\.contracts(?:-spec|-integrations)?|module\.ai-chat|bundle\.library\/application\/mcp|example\.)|['"][^'"]+\.(operation|event|presentation|feature|capability|form|test-spec)(?:\.[tj]sx?)?['"]/;
+
+const SUPPORT_FILE_PATTERN =
+	/(^|\/)(index|types)\.ts$|\.types\.ts$|\.storage\.ts$|(?:^|\/)[^/]*\.(resolver|scheduler)\.ts$|(?:^|\/)[^/]*(factory|resources|mock-data)\.ts$/i;
+
+const FIXTURE_PATH_PATTERN = /(^|\/)(__fixtures__|fixtures)(\/|$)/i;
+
+const WORKSPACE_PACKAGE_ROOT_PATTERN =
+	/^(.*\/packages\/(?:apps|apps-registry|bundles|examples|integrations|libs|modules|tools)\/[^/]+)(?:\/|$)/i;
+
+const PACKAGE_ROOT_POLICY_CONTEXT_PATTERN =
+	/\/packages\/(?:apps|apps-registry|bundles|modules)\//i;
 
 function splitConventionPath(value?: string): string[] {
 	if (!value) {
@@ -61,6 +75,8 @@ function isPolicyCandidate(
 	if (
 		normalized.includes('/node_modules/') ||
 		normalized.includes('/dist/') ||
+		FIXTURE_PATH_PATTERN.test(normalized) ||
+		SUPPORT_FILE_PATTERN.test(normalized) ||
 		normalized.endsWith('.d.ts') ||
 		normalized.endsWith('.test.ts') ||
 		normalized.endsWith('.spec.ts')
@@ -77,6 +93,41 @@ function isPolicyCandidate(
 	}
 
 	return IMPLEMENTATION_PATH_PATTERN.test(normalized);
+}
+
+function getWorkspacePackageRoot(filePath: string): string | null {
+	const normalized = filePath.replaceAll('\\', '/');
+	const match = normalized.match(WORKSPACE_PACKAGE_ROOT_PATTERN);
+	return match?.[1] ?? null;
+}
+
+function isBarrelFile(content: string): boolean {
+	const meaningfulLines = content
+		.split('\n')
+		.map((line) => line.trim())
+		.filter(
+			(line) =>
+				line.length > 0 &&
+				!line.startsWith('//') &&
+				!line.startsWith('/*') &&
+				!line.startsWith('*') &&
+				!line.startsWith('*/')
+		);
+
+	return (
+		meaningfulLines.length > 0 &&
+		meaningfulLines.every(
+			(line) =>
+				line.startsWith('import ') ||
+				line.startsWith('export *') ||
+				line.startsWith('export {') ||
+				line.startsWith('export type {') ||
+				line === "'use client';" ||
+				line === '"use client";' ||
+				line === "'use server';" ||
+				line === '"use server";'
+		)
+	);
 }
 
 function resolvePolicyConfig(
@@ -120,6 +171,11 @@ export async function runPolicyChecks(
 	const specFiles = new Set(
 		scannedSpecs.map((spec) => spec.filePath.replaceAll('\\', '/'))
 	);
+	const packageRootsWithSpecs = new Set(
+		scannedSpecs
+			.map((spec) => getWorkspacePackageRoot(spec.filePath))
+			.filter((root): root is string => Boolean(root))
+	);
 	const sourceFiles = await fs.glob({ pattern: '**/*.{ts,tsx}' });
 
 	for (const file of sourceFiles) {
@@ -129,6 +185,19 @@ export async function runPolicyChecks(
 
 		try {
 			const content = await fs.readFile(file);
+			if (isBarrelFile(content)) {
+				continue;
+			}
+
+			const packageRoot = getWorkspacePackageRoot(file);
+			const hasLocalSpecContext =
+				packageRoot !== null &&
+				PACKAGE_ROOT_POLICY_CONTEXT_PATTERN.test(packageRoot) &&
+				packageRootsWithSpecs.has(packageRoot);
+			if (!hasLocalSpecContext && !CONTRACT_CONTEXT_PATTERN.test(content)) {
+				continue;
+			}
+
 			if (CONTRACT_REFERENCE_PATTERN.test(content)) {
 				continue;
 			}

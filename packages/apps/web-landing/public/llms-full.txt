@@ -2,8 +2,8 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-03-20T10:39:37.451Z
-Packages: 160
+Generated: 2026-03-20T16:22:57.323Z
+Packages: 163
 
 ---
 
@@ -5136,6 +5136,8 @@ Website: https://contractspec.io
 - **Layer**: module.
 - **Consumers**: apps (web-landing, docs), bundles (contractspec-studio).
 - Related ContractSpec packages include `@contractspec/example.agent-console`, `@contractspec/example.ai-chat-assistant`, `@contractspec/example.ai-support-bot`, `@contractspec/example.analytics-dashboard`, `@contractspec/example.calendar-google`, `@contractspec/example.content-generation`, ...
+- `agent-console` is the default autonomous-agent showcase surfaced through `/sandbox`.
+- `data-grid-showcase` is the focused ContractSpec table showcase surfaced through `/sandbox?template=data-grid-showcase`.
 
 ## Installation
 
@@ -5190,6 +5192,8 @@ Import the root entrypoint from `@contractspec/module.examples`, or choose a doc
 - This module is a thin aggregator -- business logic belongs in individual example packages under `packages/examples/`.
 - Adding a new example requires both creating the example package and wiring it as a dependency here.
 - Depends on ~30 example workspace packages; keep the dependency list in sync with `packages/examples/`.
+- The meetup-ready autonomous-agent path is the deterministic `agent-console` sandbox plus its replay proof lane.
+- The shared ContractSpec table stack is demonstrated directly by `data-grid-showcase` and reused in `analytics-dashboard`, `crm-pipeline`, `integration-hub`, and `agent-console`.
 
 
 ---
@@ -8211,7 +8215,7 @@ URL: /llms/example.opencode-cli
 
 - Agent-mode (`--agent-mode opencode`) contract compilation.
 - Implementation checking via `--check-implementation`.
-- Private package pattern (not published).
+- Maintained example package included in the ContractSpec example registry.
 - `src/contracts/` contains contract specs, operations, entities, and registry exports.
 - `src/docs/` contains docblocks and documentation-facing exports.
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
@@ -8220,6 +8224,10 @@ URL: /llms/example.opencode-cli
 
 From `packages/examples/opencode-cli`:
 - `bun run build`
+- `bun run test`
+- `bun run typecheck`
+- `bun run smoke`
+- `bun run preflight`
 
 ## Usage
 
@@ -8247,6 +8255,10 @@ Use `@contractspec/example.opencode-cli` as a reference implementation, or impor
 
 - `bun run build` — bun ../../apps/cli-contractspec/src/cli.ts build src/contracts/opencode.contracts.ts --agent-mode opencode
 - `bun run validate` — bun ../../apps/cli-contractspec/src/cli.ts validate src/contracts/opencode.contracts.ts --check-implementation --agent-mode opencode
+- `bun run typecheck` — tsc --noEmit
+- `bun run test` — bun test
+- `bun run smoke` — bun test src/example.smoke.test.ts
+- `bun run preflight` — bun run build && bun run typecheck && bun run test && bun run validate && bun run smoke
 
 ## Recent Updates
 
@@ -8336,6 +8348,124 @@ Use `@contractspec/example.video-marketing-clip` as a reference implementation, 
 ## Notes
 
 - Works alongside `@contractspec/lib.content-gen`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.video-gen`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+
+
+---
+
+## @contractspec/example.data-grid-showcase
+
+Description: Focused data-grid example for ContractSpec table capabilities
+Path: packages/examples/data-grid-showcase
+URL: /llms/example.data-grid-showcase
+
+# @contractspec/example.data-grid-showcase
+
+Website: https://contractspec.io
+
+**Focused data-grid example for ContractSpec table capabilities.**
+
+## What This Demonstrates
+
+- ContractSpec-native table composition through `useContractTable`, `useDataViewTable`, and the design-system `DataTable`.
+- Client-mode and server-mode table controllers with sorting, pagination, selection, column visibility, resizing, pinning, and row expansion.
+- A declarative `DataViewSpec` table contract that adapts onto the same headless table stack.
+- Sandbox-friendly UI packaging for a focused example instead of a full app template.
+
+## Running Locally
+
+From `packages/examples/data-grid-showcase`:
+- `bun run dev`
+- `bun run build`
+- `bun run test`
+- `bun run typecheck`
+
+## Usage
+
+Use `@contractspec/example.data-grid-showcase` as a focused reference for ContractSpec table primitives, or import its exported contracts and UI into docs, sandboxes, and internal examples.
+
+## Architecture
+
+- `src/contracts/` owns the sample query contract and declarative data view spec.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/example.ts` is the example manifest surfaced by `@contractspec/module.examples`.
+- `src/ui/` contains the table showcase component and demo data/helpers.
+
+## Public Entry Points
+
+- Export `.` resolves through `./src/index.ts`.
+- Export `./contracts` resolves through `./src/contracts/index.ts`.
+- Export `./contracts/data-grid-showcase.data-view` resolves through `./src/contracts/data-grid-showcase.data-view.ts`.
+- Export `./contracts/data-grid-showcase.operation` resolves through `./src/contracts/data-grid-showcase.operation.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./example` resolves through `./src/example.ts`.
+- Export `./ui` resolves through `./src/ui/index.ts`.
+- Export `./ui/DataGridShowcase` resolves through `./src/ui/DataGridShowcase.tsx`.
+
+## Local Commands
+
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+
+## Notes
+
+- This package is intentionally narrow: it exists to showcase the table primitive, not to simulate a full vertical business template.
+- The same table stack is reused by the larger examples in `analytics-dashboard`, `crm-pipeline`, `integration-hub`, and `agent-console`.
+
+
+---
+
+## @contractspec/example.messaging-agent-actions
+
+Description: Safe messaging agent actions example with fixed intents, allowlisted actions, workflow dispatch, and deterministic replies.
+Path: packages/examples/messaging-agent-actions
+URL: /llms/example.messaging-agent-actions
+
+# @contractspec/example.messaging-agent-actions
+
+Safe messaging agent actions example with fixed intents, allowlisted action execution, workflow dispatch, and deterministic confirmation replies.
+
+## What This Demonstrates
+
+- Inbound message normalization for Slack, WhatsApp, Telegram, or any messaging bridge.
+- Fixed intent parsing: `status`, `run action`, and `dispatch workflow`.
+- Allowlisted action and workflow routing instead of arbitrary tool execution.
+- Replayable meetup proof for the canonical status -> action -> workflow walkthrough.
+
+## Running Locally
+
+From `packages/examples/messaging-agent-actions`:
+- `bun run build`
+- `bun run test`
+- `bun run typecheck`
+- `bun run proof`
+- `bun run preflight`
+
+## Usage
+
+Use this package when you need a conservative messaging demo that proves agent actions can stay safe, typed, and reviewable even when messages come from live provider webhooks.
+
+## Public Entry Points
+
+- Export `.` resolves through `./src/index.ts`.
+- Export `./contracts` resolves through `./src/contracts/index.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./example` resolves through `./src/example.ts`.
+- Export `./handlers` resolves through `./src/handlers/index.ts`.
+- Export `./messaging-agent-actions.feature` resolves through `./src/messaging-agent-actions.feature.ts`.
+- Export `./proof/*` resolves through `./src/proof/*.ts`.
+
+## Local Commands
+
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test
+- `bun run typecheck` — tsc --noEmit
+- `bun run proof` — bun ../../../scripts/generate-messaging-agent-actions-meetup-proof.ts
+- `bun run preflight` — bun run build && bun run typecheck && bun run test && bun run proof
 
 
 ---
@@ -8441,6 +8571,7 @@ Website: https://contractspec.io
 - Per-entity schema/enum/event/operations/presentation pattern.
 - Capability and feature definition patterns.
 - React UI with hooks, renderers, and dashboard component.
+- Contract-backed visualizations for order status, category value comparison, and recent order activity.
 - Seeder pattern for demo data.
 - Test-spec for operations validation.
 
@@ -8770,6 +8901,7 @@ Website: https://contractspec.io
 - Multi-entity domain (workflow, instance, approval).
 - Per-entity schema/enum/event/handler/operations pattern.
 - React UI with WorkflowDashboard, hooks, and renderers.
+- Contract-backed visualizations for workflow status, throughput, and workload comparison.
 - Capability and feature definition patterns.
 - Seeder and test-spec patterns.
 
@@ -8778,6 +8910,7 @@ Website: https://contractspec.io
 From `packages/examples/workflow-system`:
 - `bun run dev`
 - `bun run build`
+- `bun run test`
 - `bun run typecheck`
 
 ## Usage
@@ -8822,6 +8955,7 @@ Use `@contractspec/example.workflow-system` as a reference implementation, or im
 - `bun run build:bundle` — contractspec-bun-build transpile
 - `bun run build:types` — contractspec-bun-build types
 - `bun run prebuild` — contractspec-bun-build prebuild
+- `bun run test` — bun test
 
 ## Recent Updates
 
@@ -9185,7 +9319,7 @@ URL: /llms/example.minimal
 
 - Bare-minimum contract definition (user contract).
 - `contractspec build` and `contractspec validate` CLI usage.
-- Private package pattern (not published).
+- Maintained example package included in the ContractSpec example registry.
 - `src/contracts/` contains contract specs, operations, entities, and registry exports.
 - `src/docs/` contains docblocks and documentation-facing exports.
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
@@ -9194,6 +9328,10 @@ URL: /llms/example.minimal
 
 From `packages/examples/minimal`:
 - `bun run build`
+- `bun run test`
+- `bun run typecheck`
+- `bun run smoke`
+- `bun run preflight`
 
 ## Usage
 
@@ -9221,6 +9359,10 @@ Use `@contractspec/example.minimal` as a reference implementation, or import its
 
 - `bun run build` — bun ../../apps/cli-contractspec/src/cli.ts build src/contracts/user.ts
 - `bun run validate` — bun ../../apps/cli-contractspec/src/cli.ts validate src/contracts/user.ts
+- `bun run typecheck` — tsc --noEmit
+- `bun run test` — bun test
+- `bun run smoke` — bun test src/example.smoke.test.ts
+- `bun run preflight` — bun run build && bun run typecheck && bun run test && bun run validate && bun run smoke
 
 ## Recent Updates
 
@@ -9334,9 +9476,34 @@ Website: https://contractspec.io
 - Agent entity with lifecycle (create, configure, execute).
 - Run tracking with status enums and event-driven state transitions.
 - Tool registry with typed schemas and operation handlers.
-- Presentation layer with React UI components, hooks, modals, and overlays.
+- Presentation layer with React UI components, hooks, modals, overlays, and a server-mode shared `DataTable` for run history.
+- Shared table capabilities including sorting, pagination, column visibility toggles, and expandable run diagnostics.
+- Contract-backed visualization surfaces for run status, activity, and duration-vs-token analysis.
+- One deterministic demo runtime shared across React hooks, markdown renderers, and the sandbox runtime.
 - Markdown and React renderers for multi-surface output.
-- Seeders and mock data for demo scenarios.
+- Seeded local data and harness replay proof for offline-safe demo scenarios.
+
+## Canonical Demo Path
+
+- Default sandbox route: `/sandbox`
+- Explicit sandbox route: `/sandbox?template=agent-console`
+- Proof artifact: `packages/examples/agent-console/proofs/agent-console-meetup.replay.json`
+
+The canonical walkthrough is deterministic and local-first:
+1. Load the agent-console sandbox.
+2. Inspect seeded agents, tools, runs, and metrics.
+3. Create an agent.
+4. Activate or pause it.
+5. Execute a run.
+6. Confirm the run and metrics update.
+7. Export or inspect the generated replay proof.
+
+## Runtime Boundaries
+
+- React hooks and the sandbox use `createAgentConsoleDemoHandlers(...)` for the meetup path.
+- Markdown renderers prefer runtime-fetched data and fall back to the same deterministic demo handlers.
+- The demo runtime is intentionally mocked and offline-safe by default.
+- Database-backed `createAgentHandlers(db)` remains available for non-demo runtime wiring.
 
 ## Running Locally
 
@@ -9344,7 +9511,14 @@ From `packages/examples/agent-console`:
 - `bun run dev`
 - `bun run build`
 - `bun run test`
+- `bun run proof`
 - `bun run typecheck`
+- `bun run preflight`
+
+From the repository root:
+- `bun run meetup:agent-console:policy`
+- `bun run meetup:agent-console:proof`
+- `bun run meetup:agent-console:preflight`
 
 ## Usage
 
@@ -9378,7 +9552,9 @@ Use `@contractspec/example.agent-console` as a reference implementation, or impo
 
 - `bun run dev` — contractspec-bun-build dev
 - `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
-- `bun run test` — bun test --pass-with-no-tests
+- `bun run test` — bun test
+- `bun run proof` — bun ../../../scripts/generate-agent-console-meetup-proof.ts
+- `bun run preflight` — bun run build && bun run typecheck && bun run test && bun ../../../scripts/check-agent-console-meetup-policy.ts && bun run proof
 - `bun run lint` — bun lint:fix
 - `bun run lint:check` — biome check .
 - `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
@@ -9392,11 +9568,9 @@ Use `@contractspec/example.agent-console` as a reference implementation, or impo
 
 ## Recent Updates
 
-- Replace eslint+prettier by biomejs to optimize speed.
-- Package exports.
-- Add latest models and align defaults.
-- Resolve lint and build errors in workspace bundle and integrations lib.
-- Missing contract layers.
+- Unified the meetup demo around a single seeded runtime.
+- Added focused handler tests, a sandbox smoke test, and a harness replay proof.
+- Added a slice-scoped meetup preflight instead of relying on the repo-wide policy backlog.
 
 ## Notes
 
@@ -9501,6 +9675,7 @@ Website: https://contractspec.io
 - Multi-domain SaaS architecture (billing, project, settings, dashboard).
 - Per-domain entity/enum/event/handler/operations/presentation/schema pattern.
 - React UI with hooks, modals, overlays, renderers, and dashboard.
+- Contract-backed visualizations for portfolio status, tier mix, usage, and recent project activity.
 - Feature definition, seeders, and test-spec patterns.
 - RBAC, audit trail, and notification module integration.
 - `src/docs/` contains docblocks and documentation-facing exports.
@@ -9991,7 +10166,8 @@ Website: https://contractspec.io
 - Dashboard feature with presentation, schema, enum, and test-spec.
 - Query engine with typed operations and handlers.
 - PostHog datasource adapter.
-- React UI with hooks, renderers, and markdown output.
+- React UI with hooks, renderers, markdown output, and a shared ContractSpec `DataTable` for saved queries.
+- Client-mode table capabilities including sorting, pagination, column visibility, column resizing, pinning, and expandable row details.
 - Event definitions for analytics tracking.
 - Seeders for demo data.
 
@@ -10000,6 +10176,7 @@ Website: https://contractspec.io
 From `packages/examples/analytics-dashboard`:
 - `bun run dev`
 - `bun run build`
+- `bun run test`
 - `bun run typecheck`
 
 ## Usage
@@ -10077,7 +10254,9 @@ Website: https://contractspec.io
 - Sync engine with field mapping and status tracking.
 - MCP server example for tool integration.
 - Capability and feature definition patterns.
-- React UI with dashboard, hooks, and markdown renderers.
+- React UI with dashboard, hooks, markdown renderers, and shared ContractSpec tables for connections and sync configs.
+- Contract-backed visualizations for integration mix, connection health, and sync-state comparison.
+- Client-mode table capabilities including sorting, pagination, column visibility, pinning, resizing, and expanded operational details.
 - Event definitions and operation test-specs.
 
 ## Running Locally
@@ -10085,6 +10264,7 @@ Website: https://contractspec.io
 From `packages/examples/integration-hub`:
 - `bun run dev`
 - `bun run build`
+- `bun run test`
 - `bun run typecheck`
 
 ## Usage
@@ -10387,6 +10567,28 @@ Use `@contractspec/example.learning-journey-quest-challenges` as a reference imp
 ## Notes
 
 - Works alongside `@contractspec/lib.contracts-spec`, `@contractspec/module.learning-journey`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+
+
+---
+
+## @contractspec/example.visualization-showcase
+
+Description: Focused visualization showcase for ContractSpec primitives and design-system wrappers
+Path: packages/examples/visualization-showcase
+URL: /llms/example.visualization-showcase
+
+# Visualization Showcase
+
+`@contractspec/example.visualization-showcase` is the focused reference package for ContractSpec's visualization layer.
+
+It demonstrates:
+
+- Contract-owned `VisualizationSpec` primitives
+- Shared visualization registries and refs
+- Design-system wrappers like `VisualizationCard`, `VisualizationGrid`, `ComparisonView`, and `TimelineView`
+- Markdown summaries for non-React surfaces
+
+Use this package when you want a lightweight, deterministic reference for the visualization contract model without the heavier domain logic of `analytics-dashboard`.
 
 
 ---
@@ -10912,6 +11114,7 @@ From `packages/examples/ai-chat-assistant`:
 - `bun run dev`
 - `bun run build`
 - `bun run test`
+- `bun run smoke`
 - `bun run typecheck`
 
 ## Usage
@@ -10946,7 +11149,8 @@ Use `@contractspec/example.ai-chat-assistant` as a reference implementation, or 
 
 - `bun run dev` — contractspec-bun-build dev
 - `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
-- `bun run test` — bun test --pass-with-no-tests
+- `bun run test` — bun test
+- `bun run smoke` — bun test src/example.smoke.test.ts
 - `bun run lint` — bun run lint:fix
 - `bun run lint:check` — biome check .
 - `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
@@ -11067,7 +11271,8 @@ Website: https://contractspec.io
 - Deal pipeline with stage enums, operations, and test-specs.
 - Event-driven architecture (contact, deal, task events).
 - Presentation layer with dashboard and pipeline views.
-- React UI with pipeline board, deal cards, hooks, modals, overlays, and renderers.
+- React UI with pipeline board, hooks, modals, overlays, renderers, and a server-mode shared `DataTable` for deals.
+- Shared table capabilities including sorting, pagination, multi-row selection, column visibility, pinning, resizing, and expandable deal details.
 - Feature definition and capability pattern.
 - Seeders and mock data.
 

@@ -3,7 +3,11 @@
  *
  * Database-backed handlers for the workflow-system template.
  */
-import type { DatabasePort, DbRow } from '@contractspec/lib.runtime-sandbox';
+import type {
+	DatabasePort,
+	DbRow,
+	DbValue,
+} from '@contractspec/lib.runtime-sandbox';
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { web } from '@contractspec/lib.runtime-sandbox';
 
@@ -232,6 +236,24 @@ function rowToApproval(row: WorkflowApprovalRow): WorkflowApproval {
 // ============ Handler Factory ============
 
 export function createWorkflowHandlers(db: DatabasePort) {
+	function normalizeSql(sql: string) {
+		let placeholderIndex = 0;
+		return sql.replace(/\?/g, () => `$${++placeholderIndex}`);
+	}
+
+	async function queryRows<TRow>(
+		sql: string,
+		params: DbValue[] = []
+	): Promise<TRow[]> {
+		return (
+			await db.query(normalizeSql(sql), params)
+		).rows as unknown as TRow[];
+	}
+
+	async function execute(sql: string, params: DbValue[] = []): Promise<void> {
+		await db.execute(normalizeSql(sql), params);
+	}
+
 	/**
 	 * List workflow definitions
 	 */
@@ -240,7 +262,7 @@ export function createWorkflowHandlers(db: DatabasePort) {
 	): Promise<ListWorkflowDefinitionsOutput> {
 		const { projectId, status, search, limit = 20, offset = 0 } = input;
 
-		let whereClause = 'WHERE projectId = ?';
+		let whereClause = 'WHERE "projectId" = ?';
 		const params: (string | number)[] = [projectId];
 
 		if (status && status !== 'all') {
@@ -253,20 +275,16 @@ export function createWorkflowHandlers(db: DatabasePort) {
 			params.push(`%${search}%`);
 		}
 
-		const countResult = (
-			await db.query(
+		const countResult = await queryRows<DbRow>(
 				`SELECT COUNT(*) as count FROM workflow_definition ${whereClause}`,
-				params
-			)
-		).rows as DbRow[];
+			params
+		);
 		const total = (countResult[0]?.count as number) ?? 0;
 
-		const rows = (
-			await db.query(
-				`SELECT * FROM workflow_definition ${whereClause} ORDER BY updatedAt DESC LIMIT ? OFFSET ?`,
-				[...params, limit, offset]
-			)
-		).rows as unknown as WorkflowDefinitionRow[];
+		const rows = await queryRows<WorkflowDefinitionRow>(
+			`SELECT * FROM workflow_definition ${whereClause} ORDER BY "updatedAt" DESC LIMIT ? OFFSET ?`,
+			[...params, limit, offset]
+		);
 
 		return {
 			definitions: rows.map(rowToDefinition),
@@ -284,8 +302,8 @@ export function createWorkflowHandlers(db: DatabasePort) {
 		const id = generateId('wfdef');
 		const now = new Date().toISOString();
 
-		await db.execute(
-			`INSERT INTO workflow_definition (id, projectId, organizationId, name, description, type, status, createdAt, updatedAt)
+		await execute(
+			`INSERT INTO workflow_definition (id, "projectId", "organizationId", name, description, type, status, "createdAt", "updatedAt")
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
 			[
 				id,
@@ -300,9 +318,10 @@ export function createWorkflowHandlers(db: DatabasePort) {
 			]
 		);
 
-		const rows = (
-			await db.query(`SELECT * FROM workflow_definition WHERE id = ?`, [id])
-		).rows as unknown as WorkflowDefinitionRow[];
+		const rows = await queryRows<WorkflowDefinitionRow>(
+			`SELECT * FROM workflow_definition WHERE id = ?`,
+			[id]
+		);
 
 		return rowToDefinition(rows[0]!);
 	}
@@ -315,16 +334,14 @@ export function createWorkflowHandlers(db: DatabasePort) {
 		const now = new Date().toISOString();
 
 		// Get current max order
-		const maxOrderResult = (
-			await db.query(
-				`SELECT MAX(stepOrder) as maxOrder FROM workflow_step WHERE definitionId = ?`,
-				[input.definitionId]
-			)
-		).rows as DbRow[];
+		const maxOrderResult = await queryRows<DbRow>(
+			`SELECT MAX("stepOrder") as maxOrder FROM workflow_step WHERE "definitionId" = ?`,
+			[input.definitionId]
+		);
 		const nextOrder = ((maxOrderResult[0]?.maxOrder as number) ?? 0) + 1;
 
-		await db.execute(
-			`INSERT INTO workflow_step (id, definitionId, name, description, stepOrder, type, requiredRoles, autoApproveCondition, timeoutHours, createdAt)
+		await execute(
+			`INSERT INTO workflow_step (id, "definitionId", name, description, "stepOrder", type, "requiredRoles", "autoApproveCondition", "timeoutHours", "createdAt")
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
 			[
 				id,
@@ -340,9 +357,10 @@ export function createWorkflowHandlers(db: DatabasePort) {
 			]
 		);
 
-		const rows = (
-			await db.query(`SELECT * FROM workflow_step WHERE id = ?`, [id])
-		).rows as unknown as WorkflowStepRow[];
+		const rows = await queryRows<WorkflowStepRow>(
+			`SELECT * FROM workflow_step WHERE id = ?`,
+			[id]
+		);
 
 		return rowToStep(rows[0]!);
 	}
@@ -351,12 +369,10 @@ export function createWorkflowHandlers(db: DatabasePort) {
 	 * Get steps for a workflow definition
 	 */
 	async function getSteps(definitionId: string): Promise<WorkflowStep[]> {
-		const rows = (
-			await db.query(
-				`SELECT * FROM workflow_step WHERE definitionId = ? ORDER BY stepOrder`,
-				[definitionId]
-			)
-		).rows as unknown as WorkflowStepRow[];
+		const rows = await queryRows<WorkflowStepRow>(
+			`SELECT * FROM workflow_step WHERE "definitionId" = ? ORDER BY "stepOrder"`,
+			[definitionId]
+		);
 
 		return rows.map(rowToStep);
 	}
@@ -376,11 +392,11 @@ export function createWorkflowHandlers(db: DatabasePort) {
 			offset = 0,
 		} = input;
 
-		let whereClause = 'WHERE projectId = ?';
+		let whereClause = 'WHERE "projectId" = ?';
 		const params: (string | number)[] = [projectId];
 
 		if (definitionId) {
-			whereClause += ' AND definitionId = ?';
+			whereClause += ' AND "definitionId" = ?';
 			params.push(definitionId);
 		}
 
@@ -390,24 +406,20 @@ export function createWorkflowHandlers(db: DatabasePort) {
 		}
 
 		if (requestedBy) {
-			whereClause += ' AND requestedBy = ?';
+			whereClause += ' AND "requestedBy" = ?';
 			params.push(requestedBy);
 		}
 
-		const countResult = (
-			await db.query(
-				`SELECT COUNT(*) as count FROM workflow_instance ${whereClause}`,
-				params
-			)
-		).rows as DbRow[];
+		const countResult = await queryRows<DbRow>(
+			`SELECT COUNT(*) as count FROM workflow_instance ${whereClause}`,
+			params
+		);
 		const total = (countResult[0]?.count as number) ?? 0;
 
-		const rows = (
-			await db.query(
-				`SELECT * FROM workflow_instance ${whereClause} ORDER BY startedAt DESC LIMIT ? OFFSET ?`,
-				[...params, limit, offset]
-			)
-		).rows as unknown as WorkflowInstanceRow[];
+		const rows = await queryRows<WorkflowInstanceRow>(
+			`SELECT * FROM workflow_instance ${whereClause} ORDER BY "startedAt" DESC LIMIT ? OFFSET ?`,
+			[...params, limit, offset]
+		);
 
 		return {
 			instances: rows.map(rowToInstance),
@@ -426,17 +438,15 @@ export function createWorkflowHandlers(db: DatabasePort) {
 		const now = new Date().toISOString();
 
 		// Get first step
-		const steps = (
-			await db.query(
-				`SELECT * FROM workflow_step WHERE definitionId = ? ORDER BY stepOrder LIMIT 1`,
-				[input.definitionId]
-			)
-		).rows as unknown as WorkflowStepRow[];
+		const steps = await queryRows<WorkflowStepRow>(
+			`SELECT * FROM workflow_step WHERE "definitionId" = ? ORDER BY "stepOrder" LIMIT 1`,
+			[input.definitionId]
+		);
 
 		const firstStepId = steps[0]?.id ?? null;
 
-		await db.execute(
-			`INSERT INTO workflow_instance (id, projectId, definitionId, status, currentStepId, data, requestedBy, startedAt)
+		await execute(
+			`INSERT INTO workflow_instance (id, "projectId", "definitionId", status, "currentStepId", data, "requestedBy", "startedAt")
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
 			[
 				id,
@@ -452,16 +462,17 @@ export function createWorkflowHandlers(db: DatabasePort) {
 
 		// Create first approval if there's a step
 		if (firstStepId) {
-			await db.execute(
-				`INSERT INTO workflow_approval (id, instanceId, stepId, status, createdAt)
+			await execute(
+				`INSERT INTO workflow_approval (id, "instanceId", "stepId", status, "createdAt")
          VALUES (?, ?, ?, ?, ?)`,
 				[generateId('wfappr'), id, firstStepId, 'PENDING', now]
 			);
 		}
 
-		const rows = (
-			await db.query(`SELECT * FROM workflow_instance WHERE id = ?`, [id])
-		).rows as unknown as WorkflowInstanceRow[];
+		const rows = await queryRows<WorkflowInstanceRow>(
+			`SELECT * FROM workflow_instance WHERE id = ?`,
+			[id]
+		);
 
 		return rowToInstance(rows[0]!);
 	}
@@ -476,11 +487,10 @@ export function createWorkflowHandlers(db: DatabasePort) {
 		const now = new Date().toISOString();
 
 		// Get instance
-		const instances = (
-			await db.query(`SELECT * FROM workflow_instance WHERE id = ?`, [
-				input.instanceId,
-			])
-		).rows as unknown as WorkflowInstanceRow[];
+		const instances = await queryRows<WorkflowInstanceRow>(
+			`SELECT * FROM workflow_instance WHERE id = ?`,
+			[input.instanceId]
+		);
 
 		if (!instances[0]) {
 			throw new Error('NOT_FOUND');
@@ -489,9 +499,9 @@ export function createWorkflowHandlers(db: DatabasePort) {
 		const instance = instances[0];
 
 		// Update current approval
-		await db.execute(
-			`UPDATE workflow_approval SET status = 'APPROVED', actorId = ?, comment = ?, decidedAt = ? 
-       WHERE instanceId = ? AND stepId = ? AND status = 'PENDING'`,
+		await execute(
+			`UPDATE workflow_approval SET status = 'APPROVED', "actorId" = ?, comment = ?, "decidedAt" = ? 
+       WHERE "instanceId" = ? AND "stepId" = ? AND status = 'PENDING'`,
 			[
 				context.actorId,
 				input.comment ?? null,
@@ -502,29 +512,26 @@ export function createWorkflowHandlers(db: DatabasePort) {
 		);
 
 		// Get next step
-		const currentStep = (
-			await db.query(`SELECT * FROM workflow_step WHERE id = ?`, [
-				instance.currentStepId,
-			])
-		).rows as unknown as WorkflowStepRow[];
+		const currentStep = await queryRows<WorkflowStepRow>(
+			`SELECT * FROM workflow_step WHERE id = ?`,
+			[instance.currentStepId]
+		);
 
-		const nextSteps = (
-			await db.query(
-				`SELECT * FROM workflow_step WHERE definitionId = ? AND stepOrder > ? ORDER BY stepOrder LIMIT 1`,
-				[instance.definitionId, currentStep[0]?.stepOrder ?? 0]
-			)
-		).rows as unknown as WorkflowStepRow[];
+		const nextSteps = await queryRows<WorkflowStepRow>(
+			`SELECT * FROM workflow_step WHERE "definitionId" = ? AND "stepOrder" > ? ORDER BY "stepOrder" LIMIT 1`,
+			[instance.definitionId, currentStep[0]?.stepOrder ?? 0]
+		);
 
 		if (nextSteps[0]) {
 			// Move to next step
-			await db.execute(
-				`UPDATE workflow_instance SET currentStepId = ? WHERE id = ?`,
+			await execute(
+				`UPDATE workflow_instance SET "currentStepId" = ? WHERE id = ?`,
 				[nextSteps[0].id, input.instanceId]
 			);
 
 			// Create approval for next step
-			await db.execute(
-				`INSERT INTO workflow_approval (id, instanceId, stepId, status, createdAt)
+			await execute(
+				`INSERT INTO workflow_approval (id, "instanceId", "stepId", status, "createdAt")
          VALUES (?, ?, ?, ?, ?)`,
 				[
 					generateId('wfappr'),
@@ -536,17 +543,16 @@ export function createWorkflowHandlers(db: DatabasePort) {
 			);
 		} else {
 			// Complete workflow
-			await db.execute(
-				`UPDATE workflow_instance SET status = 'COMPLETED', currentStepId = NULL, completedAt = ? WHERE id = ?`,
+			await execute(
+				`UPDATE workflow_instance SET status = 'COMPLETED', "currentStepId" = NULL, "completedAt" = ? WHERE id = ?`,
 				[now, input.instanceId]
 			);
 		}
 
-		const updated = (
-			await db.query(`SELECT * FROM workflow_instance WHERE id = ?`, [
-				input.instanceId,
-			])
-		).rows as unknown as WorkflowInstanceRow[];
+		const updated = await queryRows<WorkflowInstanceRow>(
+			`SELECT * FROM workflow_instance WHERE id = ?`,
+			[input.instanceId]
+		);
 
 		return rowToInstance(updated[0]!);
 	}
@@ -561,20 +567,19 @@ export function createWorkflowHandlers(db: DatabasePort) {
 		const now = new Date().toISOString();
 
 		// Get instance
-		const instances = (
-			await db.query(`SELECT * FROM workflow_instance WHERE id = ?`, [
-				input.instanceId,
-			])
-		).rows as unknown as WorkflowInstanceRow[];
+		const instances = await queryRows<WorkflowInstanceRow>(
+			`SELECT * FROM workflow_instance WHERE id = ?`,
+			[input.instanceId]
+		);
 
 		if (!instances[0]) {
 			throw new Error('NOT_FOUND');
 		}
 
 		// Update current approval
-		await db.execute(
-			`UPDATE workflow_approval SET status = 'REJECTED', actorId = ?, comment = ?, decidedAt = ? 
-       WHERE instanceId = ? AND stepId = ? AND status = 'PENDING'`,
+		await execute(
+			`UPDATE workflow_approval SET status = 'REJECTED', "actorId" = ?, comment = ?, "decidedAt" = ? 
+       WHERE "instanceId" = ? AND "stepId" = ? AND status = 'PENDING'`,
 			[
 				context.actorId,
 				input.reason,
@@ -585,16 +590,15 @@ export function createWorkflowHandlers(db: DatabasePort) {
 		);
 
 		// Reject workflow
-		await db.execute(
-			`UPDATE workflow_instance SET status = 'REJECTED', completedAt = ? WHERE id = ?`,
+		await execute(
+			`UPDATE workflow_instance SET status = 'REJECTED', "completedAt" = ? WHERE id = ?`,
 			[now, input.instanceId]
 		);
 
-		const updated = (
-			await db.query(`SELECT * FROM workflow_instance WHERE id = ?`, [
-				input.instanceId,
-			])
-		).rows as unknown as WorkflowInstanceRow[];
+		const updated = await queryRows<WorkflowInstanceRow>(
+			`SELECT * FROM workflow_instance WHERE id = ?`,
+			[input.instanceId]
+		);
 
 		return rowToInstance(updated[0]!);
 	}
@@ -603,12 +607,10 @@ export function createWorkflowHandlers(db: DatabasePort) {
 	 * Get approvals for an instance
 	 */
 	async function getApprovals(instanceId: string): Promise<WorkflowApproval[]> {
-		const rows = (
-			await db.query(
-				`SELECT * FROM workflow_approval WHERE instanceId = ? ORDER BY createdAt`,
-				[instanceId]
-			)
-		).rows as unknown as WorkflowApprovalRow[];
+		const rows = await queryRows<WorkflowApprovalRow>(
+			`SELECT * FROM workflow_approval WHERE "instanceId" = ? ORDER BY "createdAt"`,
+			[instanceId]
+		);
 
 		return rows.map(rowToApproval);
 	}

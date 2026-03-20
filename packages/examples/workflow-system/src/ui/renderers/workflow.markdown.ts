@@ -2,88 +2,21 @@
  * Markdown renderers for Workflow System presentations
  */
 import type { PresentationRenderer } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
+import {
+	WORKFLOW_SYSTEM_DEMO_DEFINITIONS,
+	WORKFLOW_SYSTEM_DEMO_INSTANCES,
+} from '../../shared/demo-scenario';
+import { createWorkflowVisualizationSections } from '../../visualizations';
 
-// Mock data for workflow rendering
-const mockWorkflowDefinitions = [
-	{
-		id: 'wf-1',
-		name: 'Purchase Approval',
-		type: 'APPROVAL',
-		steps: [
-			{
-				id: 's1',
-				name: 'Manager Review',
-				order: 1,
-				requiredRoles: ['manager'],
-			},
-			{
-				id: 's2',
-				name: 'Finance Review',
-				order: 2,
-				requiredRoles: ['finance'],
-			},
-			{ id: 's3', name: 'Final Approval', order: 3, requiredRoles: ['admin'] },
-		],
-		status: 'ACTIVE',
-	},
-	{
-		id: 'wf-2',
-		name: 'Leave Request',
-		type: 'APPROVAL',
-		steps: [
-			{
-				id: 's1',
-				name: 'Supervisor Approval',
-				order: 1,
-				requiredRoles: ['supervisor'],
-			},
-			{ id: 's2', name: 'HR Review', order: 2, requiredRoles: ['hr'] },
-		],
-		status: 'ACTIVE',
-	},
-	{
-		id: 'wf-3',
-		name: 'Document Review',
-		type: 'SEQUENTIAL',
-		steps: [
-			{ id: 's1', name: 'Author Review', order: 1, requiredRoles: ['author'] },
-			{ id: 's2', name: 'Peer Review', order: 2, requiredRoles: ['reviewer'] },
-			{ id: 's3', name: 'Publish', order: 3, requiredRoles: ['publisher'] },
-		],
-		status: 'DRAFT',
-	},
-];
+const workflowDefinitions = WORKFLOW_SYSTEM_DEMO_DEFINITIONS;
+const workflowInstances = WORKFLOW_SYSTEM_DEMO_INSTANCES;
+const workflowDefinitionById = new Map(
+	workflowDefinitions.map((definition) => [definition.id, definition])
+);
 
-const mockWorkflowInstances = [
-	{
-		id: 'inst-1',
-		definitionId: 'wf-1',
-		definitionName: 'Purchase Approval',
-		status: 'IN_PROGRESS',
-		currentStepId: 's2',
-		startedAt: '2024-01-15T10:00:00Z',
-		requestedBy: 'John Doe',
-	},
-	{
-		id: 'inst-2',
-		definitionId: 'wf-1',
-		definitionName: 'Purchase Approval',
-		status: 'COMPLETED',
-		currentStepId: null,
-		startedAt: '2024-01-10T09:00:00Z',
-		completedAt: '2024-01-12T14:00:00Z',
-		requestedBy: 'Jane Smith',
-	},
-	{
-		id: 'inst-3',
-		definitionId: 'wf-2',
-		definitionName: 'Leave Request',
-		status: 'PENDING',
-		currentStepId: 's1',
-		startedAt: '2024-01-16T08:00:00Z',
-		requestedBy: 'Bob Wilson',
-	},
-];
+function formatDate(value: string) {
+	return new Date(value).toISOString().slice(0, 10);
+}
 
 /**
  * Markdown renderer for Workflow Dashboard
@@ -103,36 +36,44 @@ export const workflowDashboardMarkdownRenderer: PresentationRenderer<{
 			);
 		}
 
-		const definitions = mockWorkflowDefinitions;
-		const instances = mockWorkflowInstances;
+		const definitions = workflowDefinitions;
+		const instances = workflowInstances;
+		const visualizations = createWorkflowVisualizationSections(instances);
 
 		// Calculate stats
 		const activeDefinitions = definitions.filter((d) => d.status === 'ACTIVE');
-		const pendingInstances = instances.filter((i) => i.status === 'PENDING');
-		const inProgressInstances = instances.filter(
-			(i) => i.status === 'IN_PROGRESS'
-		);
-		const completedInstances = instances.filter(
-			(i) => i.status === 'COMPLETED'
+		const awaitingActionInstances = instances.filter(
+			(i) => i.status === 'PENDING' || i.status === 'IN_PROGRESS'
 		);
 
 		const lines: string[] = [
 			'# Workflow Dashboard',
 			'',
-			'> Workflow and approval management overview',
+			'> Seeded workflow and approval overview for the sandbox demo.',
 			'',
 			'## Summary',
 			'',
 			'| Metric | Value |',
 			'|--------|-------|',
 			`| Active Workflows | ${activeDefinitions.length} |`,
-			`| Pending Approvals | ${pendingInstances.length} |`,
-			`| In Progress | ${inProgressInstances.length} |`,
-			`| Completed | ${completedInstances.length} |`,
-			'',
-			'## Active Workflow Definitions',
+			`| Awaiting Action | ${awaitingActionInstances.length} |`,
+			`| Completed | ${instances.filter((i) => i.status === 'COMPLETED').length} |`,
+			`| Rejected | ${instances.filter((i) => i.status === 'REJECTED').length} |`,
 			'',
 		];
+
+		lines.push('## Visualization Overview');
+		lines.push('');
+		for (const item of [
+			...visualizations.primaryItems,
+			...visualizations.comparisonItems,
+		]) {
+			lines.push(`- **${item.title}** via \`${item.spec.meta.key}\``);
+		}
+
+		lines.push('');
+		lines.push('## Active Workflow Definitions');
+		lines.push('');
 
 		if (activeDefinitions.length === 0) {
 			lines.push('_No active workflow definitions._');
@@ -156,9 +97,11 @@ export const workflowDashboardMarkdownRenderer: PresentationRenderer<{
 			lines.push('| Workflow | Requested By | Status | Started |');
 			lines.push('|----------|--------------|--------|---------|');
 			for (const inst of instances.slice(0, 10)) {
-				const startedDate = new Date(inst.startedAt).toLocaleDateString();
+				const startedDate = formatDate(inst.startedAt);
+				const definitionName =
+					workflowDefinitionById.get(inst.definitionId)?.name ?? inst.definitionId;
 				lines.push(
-					`| ${inst.definitionName} | ${inst.requestedBy} | ${inst.status} | ${startedDate} |`
+					`| ${definitionName} | ${inst.requestedBy} | ${inst.status} | ${startedDate} |`
 				);
 			}
 		}
@@ -188,7 +131,7 @@ export const workflowDefinitionListMarkdownRenderer: PresentationRenderer<{
 			);
 		}
 
-		const definitions = mockWorkflowDefinitions;
+		const definitions = workflowDefinitions;
 
 		const lines: string[] = [
 			'# Workflow Definitions',
@@ -207,7 +150,7 @@ export const workflowDefinitionListMarkdownRenderer: PresentationRenderer<{
 
 			for (const step of def.steps) {
 				lines.push(
-					`${step.order}. **${step.name}** - Roles: ${step.requiredRoles.join(', ')}`
+					`${step.stepOrder}. **${step.name}** - Roles: ${step.requiredRoles.join(', ')}`
 				);
 			}
 
@@ -239,24 +182,27 @@ export const workflowInstanceDetailMarkdownRenderer: PresentationRenderer<{
 			);
 		}
 
-		const instance = mockWorkflowInstances[0];
+		const instance =
+			workflowInstances.find((workflowInstance) =>
+				workflowInstance.status === 'IN_PROGRESS'
+			) ?? workflowInstances[0];
 		if (!instance) {
 			return {
 				mimeType: 'text/markdown',
 				body: '# No Workflow Instances\n\nNo workflow instances available.',
 			};
 		}
-		const definition = mockWorkflowDefinitions.find(
+		const definition = workflowDefinitions.find(
 			(d) => d.id === instance.definitionId
 		);
 
 		const lines: string[] = [
-			`# Workflow: ${instance.definitionName}`,
+			`# Workflow: ${definition?.name ?? instance.definitionId}`,
 			'',
 			`**Instance ID:** ${instance.id}`,
 			`**Status:** ${instance.status}`,
 			`**Requested By:** ${instance.requestedBy}`,
-			`**Started:** ${new Date(instance.startedAt).toLocaleString()}`,
+			`**Started:** ${formatDate(instance.startedAt)}`,
 			'',
 			'## Steps Progress',
 			'',
@@ -281,7 +227,7 @@ export const workflowInstanceDetailMarkdownRenderer: PresentationRenderer<{
 		lines.push('## Actions');
 		lines.push('');
 		lines.push('- **Approve** - Move to next step');
-		lines.push('- **Reject** - Reject and return');
+		lines.push('- **Reject** - End the workflow with a rejection outcome');
 		lines.push('- **Delegate** - Assign to another approver');
 
 		return {

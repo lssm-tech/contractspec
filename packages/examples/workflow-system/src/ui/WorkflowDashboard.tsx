@@ -15,6 +15,7 @@ import {
  */
 import { useState } from 'react';
 import { useWorkflowList } from './hooks/useWorkflowList';
+import { WorkflowVisualizationOverview } from './WorkflowDashboard.visualizations';
 
 type Tab = 'definitions' | 'instances';
 
@@ -63,9 +64,7 @@ export function WorkflowDashboard() {
 			{/* Header */}
 			<div className="flex items-center justify-between">
 				<h2 className="font-bold text-2xl">Workflow System</h2>
-				<Button onClick={() => alert('Create workflow modal')}>
-					<span className="mr-2">+</span> New Workflow
-				</Button>
+				<Button onClick={() => void refetch()}>Refresh</Button>
 			</div>
 
 			{/* Stats Row */}
@@ -81,9 +80,9 @@ export function WorkflowDashboard() {
 					hint="total runs"
 				/>
 				<StatCard
-					label="Pending"
-					value={stats.pendingInstances}
-					hint="awaiting action"
+					label="Awaiting Action"
+					value={stats.pendingInstances + stats.inProgressInstances}
+					hint="open approvals"
 				/>
 				<StatCard
 					label="Completed"
@@ -91,6 +90,8 @@ export function WorkflowDashboard() {
 					hint="finished"
 				/>
 			</StatCardGroup>
+
+			<WorkflowVisualizationOverview instances={instances} />
 
 			{/* Navigation Tabs */}
 			<nav className="flex gap-1 rounded-lg bg-muted p-1" role="tablist">

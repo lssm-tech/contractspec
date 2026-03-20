@@ -11,6 +11,7 @@ Website: https://contractspec.io
 - Multi-entity domain (workflow, instance, approval).
 - Per-entity schema/enum/event/handler/operations pattern.
 - React UI with WorkflowDashboard, hooks, and renderers.
+- Contract-backed visualizations for workflow status, throughput, and workload comparison.
 - Capability and feature definition patterns.
 - Seeder and test-spec patterns.
 
@@ -19,6 +20,7 @@ Website: https://contractspec.io
 From `packages/examples/workflow-system`:
 - `bun run dev`
 - `bun run build`
+- `bun run test`
 - `bun run typecheck`
 
 ## Usage
@@ -63,6 +65,7 @@ Use `@contractspec/example.workflow-system` as a reference implementation, or im
 - `bun run build:bundle` — contractspec-bun-build transpile
 - `bun run build:types` — contractspec-bun-build types
 - `bun run prebuild` — contractspec-bun-build prebuild
+- `bun run test` — bun test
 
 ## Recent Updates
 

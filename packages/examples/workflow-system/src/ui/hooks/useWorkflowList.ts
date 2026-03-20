@@ -13,12 +13,16 @@ export interface WorkflowStats {
 	activeDefinitions: number;
 	totalInstances: number;
 	pendingInstances: number;
+	inProgressInstances: number;
 	completedInstances: number;
 	rejectedInstances: number;
 }
 
-export function useWorkflowList(projectId = 'local-project') {
-	const { handlers } = useTemplateRuntime<{ workflow: WorkflowHandlers }>();
+export function useWorkflowList(projectIdOverride?: string) {
+	const { handlers, projectId: runtimeProjectId } = useTemplateRuntime<{
+		workflow: WorkflowHandlers;
+	}>();
+	const projectId = projectIdOverride ?? runtimeProjectId;
 	const workflow = handlers.workflow;
 	const [definitions, setDefinitions] = useState<WorkflowDefinition[]>([]);
 	const [instances, setInstances] = useState<WorkflowInstance[]>([]);
@@ -44,7 +48,7 @@ export function useWorkflowList(projectId = 'local-project') {
 		} finally {
 			setLoading(false);
 		}
-	}, [handlers, projectId]);
+	}, [projectId, workflow]);
 
 	useEffect(() => {
 		fetchData();
@@ -55,6 +59,8 @@ export function useWorkflowList(projectId = 'local-project') {
 		activeDefinitions: definitions.filter((d) => d.status === 'ACTIVE').length,
 		totalInstances: instances.length,
 		pendingInstances: instances.filter((i) => i.status === 'PENDING').length,
+		inProgressInstances: instances.filter((i) => i.status === 'IN_PROGRESS')
+			.length,
 		completedInstances: instances.filter((i) => i.status === 'COMPLETED')
 			.length,
 		rejectedInstances: instances.filter((i) => i.status === 'REJECTED').length,

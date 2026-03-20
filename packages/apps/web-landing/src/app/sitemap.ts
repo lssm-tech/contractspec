@@ -27,6 +27,9 @@ const MARKETING_ROUTES = [
 const DOCS_ROUTES = [
 	'/docs',
 	'/docs/manifesto',
+	'/docs/examples',
+	'/docs/examples/agent-console',
+	'/docs/examples/ai-chat-assistant',
 	// Getting Started
 	'/docs/getting-started/installation',
 	'/docs/getting-started/hello-world',

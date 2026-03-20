@@ -341,19 +341,277 @@ async function seedWorkflowSystem(params: {
 	);
 	if ((existing.rows[0]?.count as number) > 0) return;
 
-	await db.execute(
-		`INSERT INTO workflow_definition (id, "projectId", "organizationId", name, description, type, status)
-     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-		[
-			'wf_1',
-			projectId,
-			'org_demo',
-			'Approval Workflow',
-			'Demo approval workflow',
-			'APPROVAL',
-			'ACTIVE',
-		]
-	);
+	const definitions = [
+		{
+			id: 'wf_expense',
+			name: 'Expense Approval',
+			description: 'Approve non-trivial spend before finance releases budget.',
+			type: 'APPROVAL',
+			status: 'ACTIVE',
+			createdAt: '2026-03-10T09:00:00.000Z',
+			updatedAt: '2026-03-20T08:15:00.000Z',
+			steps: [
+				{
+					id: 'wfstep_expense_manager',
+					name: 'Manager Review',
+					description: 'Validate business value and team budget.',
+					stepOrder: 1,
+					type: 'APPROVAL',
+					requiredRoles: ['manager'],
+					createdAt: '2026-03-10T09:00:00.000Z',
+				},
+				{
+					id: 'wfstep_expense_finance',
+					name: 'Finance Review',
+					description: 'Confirm ledger coding and spending threshold.',
+					stepOrder: 2,
+					type: 'APPROVAL',
+					requiredRoles: ['finance'],
+					createdAt: '2026-03-10T09:10:00.000Z',
+				},
+			],
+		},
+		{
+			id: 'wf_vendor',
+			name: 'Vendor Onboarding',
+			description: 'Sequence security, procurement, and legal before activation.',
+			type: 'SEQUENTIAL',
+			status: 'ACTIVE',
+			createdAt: '2026-03-08T11:00:00.000Z',
+			updatedAt: '2026-03-19T13:10:00.000Z',
+			steps: [
+				{
+					id: 'wfstep_vendor_security',
+					name: 'Security Check',
+					description: 'Review data access and integration scope.',
+					stepOrder: 1,
+					type: 'APPROVAL',
+					requiredRoles: ['security'],
+					createdAt: '2026-03-08T11:00:00.000Z',
+				},
+				{
+					id: 'wfstep_vendor_procurement',
+					name: 'Procurement Check',
+					description: 'Validate pricing, procurement policy, and owner.',
+					stepOrder: 2,
+					type: 'APPROVAL',
+					requiredRoles: ['procurement'],
+					createdAt: '2026-03-08T11:05:00.000Z',
+				},
+				{
+					id: 'wfstep_vendor_legal',
+					name: 'Legal Sign-off',
+					description: 'Approve terms before the vendor goes live.',
+					stepOrder: 3,
+					type: 'APPROVAL',
+					requiredRoles: ['legal'],
+					createdAt: '2026-03-08T11:10:00.000Z',
+				},
+			],
+		},
+		{
+			id: 'wf_policy_exception',
+			name: 'Policy Exception',
+			description:
+				'Escalate a temporary exception through team lead and compliance.',
+			type: 'APPROVAL',
+			status: 'DRAFT',
+			createdAt: '2026-03-15T07:30:00.000Z',
+			updatedAt: '2026-03-18T11:20:00.000Z',
+			steps: [
+				{
+					id: 'wfstep_policy_lead',
+					name: 'Team Lead Review',
+					description: 'Check urgency and expected blast radius.',
+					stepOrder: 1,
+					type: 'APPROVAL',
+					requiredRoles: ['team-lead'],
+					createdAt: '2026-03-15T07:30:00.000Z',
+				},
+				{
+					id: 'wfstep_policy_compliance',
+					name: 'Compliance Review',
+					description: 'Accept or reject the exception request.',
+					stepOrder: 2,
+					type: 'APPROVAL',
+					requiredRoles: ['compliance'],
+					createdAt: '2026-03-15T07:40:00.000Z',
+				},
+			],
+		},
+	] as const;
+
+	const instances = [
+		{
+			id: 'wfinst_expense_open',
+			definitionId: 'wf_expense',
+			status: 'IN_PROGRESS',
+			currentStepId: 'wfstep_expense_finance',
+			data: { amount: 4200, currency: 'EUR', vendor: 'Nimbus AI' },
+			requestedBy: 'sarah@contractspec.io',
+			startedAt: '2026-03-20T08:00:00.000Z',
+			completedAt: null,
+			approvals: [
+				{
+					id: 'wfappr_expense_manager',
+					stepId: 'wfstep_expense_manager',
+					status: 'APPROVED',
+					actorId: 'manager.demo',
+					comment: 'Approved for the Q2 automation budget.',
+					decidedAt: '2026-03-20T08:15:00.000Z',
+					createdAt: '2026-03-20T08:05:00.000Z',
+				},
+				{
+					id: 'wfappr_expense_finance',
+					stepId: 'wfstep_expense_finance',
+					status: 'PENDING',
+					actorId: null,
+					comment: null,
+					decidedAt: null,
+					createdAt: '2026-03-20T08:15:00.000Z',
+				},
+			],
+		},
+		{
+			id: 'wfinst_vendor_done',
+			definitionId: 'wf_vendor',
+			status: 'COMPLETED',
+			currentStepId: null,
+			data: { vendor: 'Acme Cloud', riskTier: 'medium' },
+			requestedBy: 'leo@contractspec.io',
+			startedAt: '2026-03-19T09:30:00.000Z',
+			completedAt: '2026-03-19T13:10:00.000Z',
+			approvals: [
+				{
+					id: 'wfappr_vendor_security',
+					stepId: 'wfstep_vendor_security',
+					status: 'APPROVED',
+					actorId: 'security.demo',
+					comment: 'SOC2 scope is acceptable.',
+					decidedAt: '2026-03-19T10:10:00.000Z',
+					createdAt: '2026-03-19T09:35:00.000Z',
+				},
+				{
+					id: 'wfappr_vendor_procurement',
+					stepId: 'wfstep_vendor_procurement',
+					status: 'APPROVED',
+					actorId: 'procurement.demo',
+					comment: 'Commercial terms match the preferred vendor tier.',
+					decidedAt: '2026-03-19T11:25:00.000Z',
+					createdAt: '2026-03-19T10:15:00.000Z',
+				},
+				{
+					id: 'wfappr_vendor_legal',
+					stepId: 'wfstep_vendor_legal',
+					status: 'APPROVED',
+					actorId: 'legal.demo',
+					comment: 'MSA redlines are complete.',
+					decidedAt: '2026-03-19T13:05:00.000Z',
+					createdAt: '2026-03-19T11:30:00.000Z',
+				},
+			],
+		},
+		{
+			id: 'wfinst_policy_rejected',
+			definitionId: 'wf_policy_exception',
+			status: 'REJECTED',
+			currentStepId: 'wfstep_policy_compliance',
+			data: { policy: 'Model rollout freeze', durationDays: 14 },
+			requestedBy: 'maya@contractspec.io',
+			startedAt: '2026-03-18T10:00:00.000Z',
+			completedAt: '2026-03-18T11:20:00.000Z',
+			approvals: [
+				{
+					id: 'wfappr_policy_lead',
+					stepId: 'wfstep_policy_lead',
+					status: 'APPROVED',
+					actorId: 'lead.demo',
+					comment: 'Escalation justified for the release train.',
+					decidedAt: '2026-03-18T10:30:00.000Z',
+					createdAt: '2026-03-18T10:05:00.000Z',
+				},
+				{
+					id: 'wfappr_policy_compliance',
+					stepId: 'wfstep_policy_compliance',
+					status: 'REJECTED',
+					actorId: 'compliance.demo',
+					comment: 'Exception exceeds the allowed blast radius.',
+					decidedAt: '2026-03-18T11:15:00.000Z',
+					createdAt: '2026-03-18T10:35:00.000Z',
+				},
+			],
+		},
+	] as const;
+
+	for (const definition of definitions) {
+		await db.execute(
+			`INSERT INTO workflow_definition (id, "projectId", "organizationId", name, description, type, status, "createdAt", "updatedAt")
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+			[
+				definition.id,
+				projectId,
+				'org_demo',
+				definition.name,
+				definition.description,
+				definition.type,
+				definition.status,
+				definition.createdAt,
+				definition.updatedAt,
+			]
+		);
+
+		for (const step of definition.steps) {
+			await db.execute(
+				`INSERT INTO workflow_step (id, "definitionId", name, description, "stepOrder", type, "requiredRoles", "createdAt")
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+				[
+					step.id,
+					definition.id,
+					step.name,
+					step.description,
+					step.stepOrder,
+					step.type,
+					JSON.stringify(step.requiredRoles),
+					step.createdAt,
+				]
+			);
+		}
+	}
+
+	for (const instance of instances) {
+		await db.execute(
+			`INSERT INTO workflow_instance (id, "projectId", "definitionId", status, "currentStepId", data, "requestedBy", "startedAt", "completedAt")
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+			[
+				instance.id,
+				projectId,
+				instance.definitionId,
+				instance.status,
+				instance.currentStepId,
+				JSON.stringify(instance.data),
+				instance.requestedBy,
+				instance.startedAt,
+				instance.completedAt,
+			]
+		);
+
+		for (const approval of instance.approvals) {
+			await db.execute(
+				`INSERT INTO workflow_approval (id, "instanceId", "stepId", status, "actorId", comment, "decidedAt", "createdAt")
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+				[
+					approval.id,
+					instance.id,
+					approval.stepId,
+					approval.status,
+					approval.actorId,
+					approval.comment,
+					approval.decidedAt,
+					approval.createdAt,
+				]
+			);
+		}
+	}
 }
 
 async function seedMarketplace(params: {
