@@ -2,6 +2,10 @@ import { describe, expect, test } from 'bun:test';
 import { AgentConsoleFeature } from './agent.feature';
 import example from './example';
 import {
+	AGENT_CONSOLE_MEETUP_PROOF_SCENARIO,
+	AgentConsoleMeetupProofSuite,
+} from './proof';
+import {
 	AGENT_CONSOLE_DEMO_ORGANIZATION_ID,
 	AGENT_CONSOLE_DEMO_PROJECT_ID,
 	createAgentConsoleDemoHandlers,
@@ -16,6 +20,22 @@ describe('@contractspec/example.agent-console', () => {
 		expect(example.surfaces.templates).toBe(true);
 		expect(example.surfaces.sandbox?.enabled).toBe(true);
 		expect(AgentConsoleFeature.meta.key).toBe(example.meta.key);
+	});
+
+	test('exports the canonical harness scenario and suite', () => {
+		expect(AGENT_CONSOLE_MEETUP_PROOF_SCENARIO.meta.key).toBe(
+			'agent-console.meetup.proof'
+		);
+		expect(AgentConsoleMeetupProofSuite.scenarios).toEqual([
+			{
+				scenario: {
+					key: AGENT_CONSOLE_MEETUP_PROOF_SCENARIO.meta.key,
+					version: AGENT_CONSOLE_MEETUP_PROOF_SCENARIO.meta.version,
+				},
+				required: true,
+				weight: 1,
+			},
+		]);
 	});
 
 	test('serves the seeded agent-console happy path', async () => {

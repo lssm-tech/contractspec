@@ -9,7 +9,6 @@
 		"./docs": "./src/docs/index.ts",
 		"./docs/policy-safe-knowledge-assistant.docblock": "./src/docs/policy-safe-knowledge-assistant.docblock.ts",
 		"./example": "./src/example.ts",
-		"./example.d": "./src/example.d.ts",
 		"./handlers": "./src/handlers/index.ts",
 		"./handlers/policy-safe-knowledge-assistant.handlers": "./src/handlers/policy-safe-knowledge-assistant.handlers.ts",
 		"./orchestrator/buildAnswer": "./src/orchestrator/buildAnswer.ts",
@@ -87,13 +86,6 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
-			},
-			"./example.d": {
-				"types": "./dist/example.d.d.ts",
-				"browser": "./dist/browser/example.d.js",
-				"bun": "./dist/example.d.js",
-				"node": "./dist/node/example.d.js",
-				"default": "./dist/example.d.js"
 			},
 			"./handlers": {
 				"types": "./dist/handlers/index.d.ts",

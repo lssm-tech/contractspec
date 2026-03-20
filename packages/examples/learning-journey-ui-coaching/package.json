@@ -14,7 +14,6 @@
 		"./docs": "./src/docs/index.ts",
 		"./docs/learning-journey-ui-coaching.docblock": "./src/docs/learning-journey-ui-coaching.docblock.ts",
 		"./example": "./src/example.ts",
-		"./example.d": "./src/example.d.ts",
 		"./learning-journey-ui-coaching.feature": "./src/learning-journey-ui-coaching.feature.ts",
 		"./views": "./src/views/index.ts",
 		"./views/Overview": "./src/views/Overview.tsx",
@@ -120,13 +119,6 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
-			},
-			"./example.d": {
-				"types": "./dist/example.d.d.ts",
-				"browser": "./dist/browser/example.d.js",
-				"bun": "./dist/example.d.js",
-				"node": "./dist/node/example.d.js",
-				"default": "./dist/example.d.js"
 			},
 			"./learning-journey-ui-coaching.feature": {
 				"types": "./dist/learning-journey-ui-coaching.feature.d.ts",

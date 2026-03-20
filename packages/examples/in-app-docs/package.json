@@ -9,7 +9,6 @@
 		"./docs": "./src/docs/index.ts",
 		"./docs/in-app-docs.docblock": "./src/docs/in-app-docs.docblock.ts",
 		"./example": "./src/example.ts",
-		"./example.d": "./src/example.d.ts",
 		"./in-app-docs.feature": "./src/in-app-docs.feature.ts",
 		"./ui": "./src/ui/index.ts",
 		"./ui/InAppDocsViewer": "./src/ui/InAppDocsViewer.tsx"
@@ -71,13 +70,6 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
-			},
-			"./example.d": {
-				"types": "./dist/example.d.d.ts",
-				"browser": "./dist/browser/example.d.js",
-				"bun": "./dist/example.d.js",
-				"node": "./dist/node/example.d.js",
-				"default": "./dist/example.d.js"
 			},
 			"./in-app-docs.feature": {
 				"types": "./dist/in-app-docs.feature.d.ts",

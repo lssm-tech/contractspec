@@ -12,9 +12,9 @@
 		"./entities/models": "./src/entities/models.ts",
 		"./events": "./src/events.ts",
 		"./example": "./src/example.ts",
-		"./example.d": "./src/example.d.ts",
 		"./handlers": "./src/handlers/index.ts",
 		"./handlers/memory.handlers": "./src/handlers/memory.handlers.ts",
+		"./knowledge-snapshot-publication.migration": "./src/knowledge-snapshot-publication.migration.ts",
 		"./operations": "./src/operations/index.ts",
 		"./operations/kb": "./src/operations/kb.ts",
 		"./versioned-knowledge-base.feature": "./src/versioned-knowledge-base.feature.ts"
@@ -95,13 +95,6 @@
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
 			},
-			"./example.d": {
-				"types": "./dist/example.d.d.ts",
-				"browser": "./dist/browser/example.d.js",
-				"bun": "./dist/example.d.js",
-				"node": "./dist/node/example.d.js",
-				"default": "./dist/example.d.js"
-			},
 			"./handlers": {
 				"types": "./dist/handlers/index.d.ts",
 				"browser": "./dist/browser/handlers/index.js",
@@ -115,6 +108,13 @@
 				"bun": "./dist/handlers/memory.handlers.js",
 				"node": "./dist/node/handlers/memory.handlers.js",
 				"default": "./dist/handlers/memory.handlers.js"
+			},
+			"./knowledge-snapshot-publication.migration": {
+				"types": "./dist/knowledge-snapshot-publication.migration.d.ts",
+				"browser": "./dist/browser/knowledge-snapshot-publication.migration.js",
+				"bun": "./dist/knowledge-snapshot-publication.migration.js",
+				"node": "./dist/node/knowledge-snapshot-publication.migration.js",
+				"default": "./dist/knowledge-snapshot-publication.migration.js"
 			},
 			"./operations": {
 				"types": "./dist/operations/index.d.ts",

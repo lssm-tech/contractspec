@@ -58,8 +58,8 @@
 		"./channel/replay-fixtures": "./src/channel/replay-fixtures.ts",
 		"./channel/service": "./src/channel/service.ts",
 		"./channel/slack": "./src/channel/slack.ts",
-		"./channel/telegram": "./src/channel/telegram.ts",
 		"./channel/store": "./src/channel/store.ts",
+		"./channel/telegram": "./src/channel/telegram.ts",
 		"./channel/telemetry": "./src/channel/telemetry.ts",
 		"./channel/types": "./src/channel/types.ts",
 		"./channel/whatsapp-meta": "./src/channel/whatsapp-meta.ts",
@@ -151,17 +151,17 @@
 				"node": "./dist/node/channel/slack.js",
 				"default": "./dist/channel/slack.js"
 			},
-			"./channel/telegram": {
-				"types": "./dist/channel/telegram.d.ts",
-				"bun": "./dist/channel/telegram.js",
-				"node": "./dist/node/channel/telegram.js",
-				"default": "./dist/channel/telegram.js"
-			},
 			"./channel/store": {
 				"types": "./dist/channel/store.d.ts",
 				"bun": "./dist/channel/store.js",
 				"node": "./dist/node/channel/store.js",
 				"default": "./dist/channel/store.js"
+			},
+			"./channel/telegram": {
+				"types": "./dist/channel/telegram.d.ts",
+				"bun": "./dist/channel/telegram.js",
+				"node": "./dist/node/channel/telegram.js",
+				"default": "./dist/channel/telegram.js"
 			},
 			"./channel/telemetry": {
 				"types": "./dist/channel/telemetry.d.ts",

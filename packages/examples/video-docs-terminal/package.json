@@ -10,7 +10,6 @@
 		"./docs": "./src/docs/index.ts",
 		"./docs/video-docs-terminal.docblock": "./src/docs/video-docs-terminal.docblock.ts",
 		"./example": "./src/example.ts",
-		"./example.d": "./src/example.d.ts",
 		"./generate-narration": "./src/generate-narration.ts",
 		"./sample-tutorials": "./src/sample-tutorials.ts",
 		"./video-docs-terminal.feature": "./src/video-docs-terminal.feature.ts"
@@ -78,13 +77,6 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
-			},
-			"./example.d": {
-				"types": "./dist/example.d.d.ts",
-				"browser": "./dist/browser/example.d.js",
-				"bun": "./dist/example.d.js",
-				"node": "./dist/node/example.d.js",
-				"default": "./dist/example.d.js"
 			},
 			"./generate-narration": {
 				"types": "./dist/generate-narration.d.ts",

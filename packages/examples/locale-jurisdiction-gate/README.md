@@ -6,6 +6,9 @@ Website: https://contractspec.io
 
 ## What This Demonstrates
 
+- Canonical `policy` export via `AssistantGatePolicy`.
+- Canonical `form` export via `AssistantContextForm`.
+- Canonical `translation` exports for `en-US`, `en-GB`, and `fr-FR`.
 - Fail-closed policy guard pattern for AI assistant calls.
 - Entity models for locale/jurisdiction gating.
 - Event-driven policy enforcement.
@@ -31,9 +34,11 @@ Use `@contractspec/example.locale-jurisdiction-gate` as a reference implementati
 - `src/entities/` contains domain entities and value objects.
 - `src/events.ts` is package-level event definitions.
 - `src/example.ts` is the runnable example entrypoint.
+- `src/forms/` contains the exported assistant context form spec.
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/locale-jurisdiction-gate.feature.ts` defines a feature entrypoint.
+- `src/translations/` contains the exported locale catalogs.
 
 ## Public Entry Points
 
@@ -44,10 +49,17 @@ Use `@contractspec/example.locale-jurisdiction-gate` as a reference implementati
 - Export `./entities/models` resolves through `./src/entities/models.ts`.
 - Export `./events` resolves through `./src/events.ts`.
 - Export `./example` resolves through `./src/example.ts`.
+- Export `./forms` resolves through `./src/forms/index.ts`.
+- Export `./forms/assistant-context.form` resolves through `./src/forms/assistant-context.form.ts`.
 - Export `./handlers` resolves through `./src/handlers/index.ts`.
 - Export `./handlers/demo.handlers` resolves through `./src/handlers/demo.handlers.ts`.
 - Export `./locale-jurisdiction-gate.feature` resolves through `./src/locale-jurisdiction-gate.feature.ts`.
-- The package publishes 15 total export subpaths; keep docs aligned with `package.json`.
+- Export `./policy/assistant-gate.policy` resolves through `./src/policy/assistant-gate.policy.ts`.
+- Export `./translations` resolves through `./src/translations/index.ts`.
+- Export `./translations/assistant-gate.en-GB.translation` resolves through `./src/translations/assistant-gate.en-GB.translation.ts`.
+- Export `./translations/assistant-gate.en-US.translation` resolves through `./src/translations/assistant-gate.en-US.translation.ts`.
+- Export `./translations/assistant-gate.fr-FR.translation` resolves through `./src/translations/assistant-gate.fr-FR.translation.ts`.
+- The package publishes 21 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands
 

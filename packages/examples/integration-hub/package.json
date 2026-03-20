@@ -51,7 +51,6 @@
 		"./docs/integration-hub.docblock": "./src/docs/integration-hub.docblock.ts",
 		"./events": "./src/events.ts",
 		"./example": "./src/example.ts",
-		"./example.d": "./src/example.d.ts",
 		"./handlers": "./src/handlers/index.ts",
 		"./handlers/integration.handlers": "./src/handlers/integration.handlers.ts",
 		"./integration": "./src/integration/index.ts",
@@ -153,12 +152,6 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
-			},
-			"./example.d": {
-				"types": "./dist/example.d.d.ts",
-				"bun": "./dist/example.d.js",
-				"node": "./dist/node/example.d.js",
-				"default": "./dist/example.d.js"
 			},
 			"./handlers": {
 				"types": "./dist/handlers/index.d.ts",

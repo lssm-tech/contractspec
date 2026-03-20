@@ -16,9 +16,9 @@
 		"./docs": "./src/docs/index.ts",
 		"./docs/product-intent.docblock": "./src/docs/product-intent.docblock.ts",
 		"./example": "./src/example.ts",
-		"./example.d": "./src/example.d.ts",
 		"./load-evidence": "./src/load-evidence.ts",
 		"./posthog-signals": "./src/posthog-signals.ts",
+		"./product-intent.discovery": "./src/product-intent.discovery.ts",
 		"./product-intent.feature": "./src/product-intent.feature.ts",
 		"./script": "./src/script.ts",
 		"./sync-actions": "./src/sync-actions.ts"
@@ -78,12 +78,6 @@
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
 			},
-			"./example.d": {
-				"types": "./dist/example.d.d.ts",
-				"bun": "./dist/example.d.js",
-				"node": "./dist/node/example.d.js",
-				"default": "./dist/example.d.js"
-			},
 			"./load-evidence": {
 				"types": "./dist/load-evidence.d.ts",
 				"bun": "./dist/load-evidence.js",
@@ -95,6 +89,12 @@
 				"bun": "./dist/posthog-signals.js",
 				"node": "./dist/node/posthog-signals.js",
 				"default": "./dist/posthog-signals.js"
+			},
+			"./product-intent.discovery": {
+				"types": "./dist/product-intent.discovery.d.ts",
+				"bun": "./dist/product-intent.discovery.js",
+				"node": "./dist/node/product-intent.discovery.js",
+				"default": "./dist/product-intent.discovery.js"
 			},
 			"./product-intent.feature": {
 				"types": "./dist/product-intent.feature.d.ts",

@@ -11,8 +11,8 @@
 		"./docs": "./src/docs/index.ts",
 		"./docs/knowledge-canon.docblock": "./src/docs/knowledge-canon.docblock.ts",
 		"./example": "./src/example.ts",
-		"./example.d": "./src/example.d.ts",
 		"./knowledge-canon.feature": "./src/knowledge-canon.feature.ts",
+		"./product-canon.space": "./src/product-canon.space.ts",
 		"./source.sample": "./src/source.sample.ts",
 		"./tenant": "./src/tenant.ts"
 	},
@@ -84,19 +84,19 @@
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
 			},
-			"./example.d": {
-				"types": "./dist/example.d.d.ts",
-				"browser": "./dist/browser/example.d.js",
-				"bun": "./dist/example.d.js",
-				"node": "./dist/node/example.d.js",
-				"default": "./dist/example.d.js"
-			},
 			"./knowledge-canon.feature": {
 				"types": "./dist/knowledge-canon.feature.d.ts",
 				"browser": "./dist/browser/knowledge-canon.feature.js",
 				"bun": "./dist/knowledge-canon.feature.js",
 				"node": "./dist/node/knowledge-canon.feature.js",
 				"default": "./dist/knowledge-canon.feature.js"
+			},
+			"./product-canon.space": {
+				"types": "./dist/product-canon.space.d.ts",
+				"browser": "./dist/browser/product-canon.space.js",
+				"bun": "./dist/product-canon.space.js",
+				"node": "./dist/node/product-canon.space.js",
+				"default": "./dist/product-canon.space.js"
 			},
 			"./source.sample": {
 				"types": "./dist/source.sample.d.ts",

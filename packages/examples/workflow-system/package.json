@@ -51,7 +51,6 @@
 		"./entities/step": "./src/entities/step.ts",
 		"./entities/workflow": "./src/entities/workflow.ts",
 		"./example": "./src/example.ts",
-		"./example.d": "./src/example.d.ts",
 		"./handlers": "./src/handlers/index.ts",
 		"./handlers/workflow.handlers": "./src/handlers/workflow.handlers.ts",
 		"./instance": "./src/instance/index.ts",
@@ -183,12 +182,6 @@
 				"browser": "./dist/browser/example.js",
 				"bun": "./dist/example.js",
 				"default": "./dist/example.js"
-			},
-			"./example.d": {
-				"types": "./dist/example.d.d.ts",
-				"browser": "./dist/browser/example.d.js",
-				"bun": "./dist/example.d.js",
-				"default": "./dist/example.d.js"
 			},
 			"./handlers": {
 				"types": "./dist/handlers/index.d.ts",

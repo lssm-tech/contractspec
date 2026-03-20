@@ -8,10 +8,10 @@ Website: https://contractspec.io
 
 - OAuth callback handler pattern for open banking.
 - Webhook handler for asynchronous bank event ingestion.
+- Canonical `job` export via `PowensSyncDispatchJob`.
 - Provider integration via contracts-integrations.
 - `src/docs/` contains docblocks and documentation-facing exports.
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
-- `src/docs/` contains docblocks and documentation-facing exports.
 
 ## Running Locally
 
@@ -31,6 +31,7 @@ Use `@contractspec/example.openbanking-powens` as a reference implementation, or
 - `src/example.ts` is the runnable example entrypoint.
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 - `src/index.ts` is the root public barrel and package entrypoint.
+- `src/jobs/` contains the exported Powens dispatch job spec.
 - `src/openbanking-powens.feature.ts` defines a feature entrypoint.
 
 ## Public Entry Points
@@ -41,7 +42,10 @@ Use `@contractspec/example.openbanking-powens` as a reference implementation, or
 - Export `./example` resolves through `./src/example.ts`.
 - Export `./handlers/oauth-callback` resolves through `./src/handlers/oauth-callback.ts`.
 - Export `./handlers/webhook-handler` resolves through `./src/handlers/webhook-handler.ts`.
+- Export `./jobs` resolves through `./src/jobs/index.ts`.
+- Export `./jobs/powens-sync-dispatch.job` resolves through `./src/jobs/powens-sync-dispatch.job.ts`.
 - Export `./openbanking-powens.feature` resolves through `./src/openbanking-powens.feature.ts`.
+- The package publishes 8 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands
 

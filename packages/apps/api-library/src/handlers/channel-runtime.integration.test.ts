@@ -2,11 +2,23 @@ import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
 import { createHmac } from 'node:crypto';
 
 import { InMemoryChannelRuntimeStore } from '@contractspec/integration.runtime/channel';
-import app from '../index';
+import { Elysia } from 'elysia';
+import { channelDispatchHandler } from './channel-dispatch-handler';
 import {
 	getChannelRuntimeStoreForTests,
 	resetChannelRuntimeResourcesForTests,
 } from './channel-runtime-resources';
+import { githubWebhookHandler } from './github-webhook-handler';
+import { slackWebhookHandler } from './slack-webhook-handler';
+import { telegramWebhookHandler } from './telegram-webhook-handler';
+import { whatsappWebhookHandler } from './whatsapp-webhook-handler';
+
+const app = new Elysia()
+	.use(slackWebhookHandler)
+	.use(telegramWebhookHandler)
+	.use(githubWebhookHandler)
+	.use(whatsappWebhookHandler)
+	.use(channelDispatchHandler);
 
 const TEST_ENV_KEYS = [
 	'CHANNEL_RUNTIME_STORAGE',

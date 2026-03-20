@@ -10,7 +10,7 @@ Website: https://contractspec.io
 - Financial summary and overview generation workflows.
 - Document processing and email thread ingestion.
 - Capability and feature definition patterns.
-- Telemetry integration.
+- Canonical `telemetry` export via `pocketFamilyOfficeTelemetry`.
 - Sample tenant and connection configuration.
 
 ## Running Locally
@@ -18,6 +18,7 @@ Website: https://contractspec.io
 From `packages/examples/pocket-family-office`:
 - `bun run dev`
 - `bun run build`
+- `bun run test`
 - `bun run typecheck`
 
 ## Usage
@@ -33,6 +34,7 @@ Use `@contractspec/example.pocket-family-office` as a reference implementation, 
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/knowledge` is part of the package's public or composition surface.
 - `src/operations` is part of the package's public or composition surface.
+- `src/telemetry.ts` defines the exported telemetry spec.
 
 ## Public Entry Points
 
@@ -46,12 +48,14 @@ Use `@contractspec/example.pocket-family-office` as a reference implementation, 
 - Export `./operations` resolves through `./src/operations/index.ts`.
 - Export `./pocket-family-office.capability` resolves through `./src/pocket-family-office.capability.ts`.
 - Export `./pocket-family-office.feature` resolves through `./src/pocket-family-office.feature.ts`.
-- The package publishes 21 total export subpaths; keep docs aligned with `package.json`.
+- Export `./telemetry` resolves through `./src/telemetry.ts`.
+- The package publishes 20 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands
 
 - `bun run dev` — contractspec-bun-build dev
 - `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test
 - `bun run lint` — bun lint:fix
 - `bun run lint:check` — biome check .
 - `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .

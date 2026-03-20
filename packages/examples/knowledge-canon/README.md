@@ -6,7 +6,8 @@ Website: https://contractspec.io
 
 ## What This Demonstrates
 
-- Knowledge space blueprint definition.
+- Canonical `knowledge-space` export via `ProductCanonKnowledgeSpace`.
+- Lightweight `app-config` example via `defineAppConfig(...)`.
 - Multi-tenant configuration for knowledge bases.
 - Source sample for content ingestion.
 - Agent helper for knowledge retrieval.
@@ -33,6 +34,7 @@ Use `@contractspec/example.knowledge-canon` as a reference implementation, or im
 - `src/example.ts` is the runnable example entrypoint.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/knowledge-canon.feature.ts` defines a feature entrypoint.
+- `src/product-canon.space.ts` defines the exported knowledge-space spec.
 - `src/source.sample.ts` is part of the package's public or composition surface.
 
 ## Public Entry Points
@@ -44,8 +46,10 @@ Use `@contractspec/example.knowledge-canon` as a reference implementation, or im
 - Export `./docs/knowledge-canon.docblock` resolves through `./src/docs/knowledge-canon.docblock.ts`.
 - Export `./example` resolves through `./src/example.ts`.
 - Export `./knowledge-canon.feature` resolves through `./src/knowledge-canon.feature.ts`.
+- Export `./product-canon.space` resolves through `./src/product-canon.space.ts`.
 - Export `./source.sample` resolves through `./src/source.sample.ts`.
 - Export `./tenant` resolves through `./src/tenant.ts`.
+- The package publishes 9 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands
 

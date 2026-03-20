@@ -8,6 +8,7 @@ Website: https://contractspec.io
 
 - Immutable source and versioned rule management.
 - Snapshot publishing pattern.
+- Canonical `migration` export via `KnowledgeSnapshotPublicationMigration`.
 - Entity models for KB domain.
 - Memory-based handler implementation.
 - Feature definition and event-driven architecture.
@@ -33,6 +34,7 @@ Use `@contractspec/example.versioned-knowledge-base` as a reference implementati
 - `src/example.ts` is the runnable example entrypoint.
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 - `src/index.ts` is the root public barrel and package entrypoint.
+- `src/knowledge-snapshot-publication.migration.ts` defines the exported migration spec.
 - `src/operations` is part of the package's public or composition surface.
 
 ## Public Entry Points
@@ -46,7 +48,10 @@ Use `@contractspec/example.versioned-knowledge-base` as a reference implementati
 - Export `./example` resolves through `./src/example.ts`.
 - Export `./handlers` resolves through `./src/handlers/index.ts`.
 - Export `./handlers/memory.handlers` resolves through `./src/handlers/memory.handlers.ts`.
+- Export `./knowledge-snapshot-publication.migration` resolves through `./src/knowledge-snapshot-publication.migration.ts`.
 - Export `./operations` resolves through `./src/operations/index.ts`.
+- Export `./operations/kb` resolves through `./src/operations/kb.ts`.
+- Export `./versioned-knowledge-base.feature` resolves through `./src/versioned-knowledge-base.feature.ts`.
 - The package publishes 12 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands

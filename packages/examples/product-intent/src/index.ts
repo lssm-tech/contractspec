@@ -15,4 +15,5 @@ export {
 	loadPosthogEvidenceChunks,
 	resolvePosthogEvidenceOptionsFromEnv,
 } from './posthog-signals';
+export * from './product-intent.discovery';
 export * from './product-intent.feature';

@@ -9,7 +9,6 @@
 		"./docs": "./src/docs/index.ts",
 		"./docs/project-management-sync.docblock": "./src/docs/project-management-sync.docblock.ts",
 		"./example": "./src/example.ts",
-		"./example.d": "./src/example.d.ts",
 		"./project-management-sync.feature": "./src/project-management-sync.feature.ts",
 		"./run": "./src/run.ts",
 		"./sync": "./src/sync.ts"
@@ -68,13 +67,6 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
-			},
-			"./example.d": {
-				"types": "./dist/example.d.d.ts",
-				"browser": "./dist/browser/example.d.js",
-				"bun": "./dist/example.d.js",
-				"node": "./dist/node/example.d.js",
-				"default": "./dist/example.d.js"
 			},
 			"./project-management-sync.feature": {
 				"types": "./dist/project-management-sync.feature.d.ts",

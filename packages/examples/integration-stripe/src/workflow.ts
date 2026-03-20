@@ -3,11 +3,11 @@ import {
 	StabilityEnum,
 	TagsEnum,
 } from '@contractspec/lib.contracts-spec/ownership';
-import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow/spec';
+import { defineWorkflow } from '@contractspec/lib.contracts-spec/workflow';
 
-export const collectPaymentWorkflow: WorkflowSpec = {
+export const collectPaymentWorkflow = defineWorkflow({
 	meta: {
-		key: 'artisan.payments.collectPayment',
+		key: 'integration-stripe.workflow.payment',
 		version: '1.0.0',
 		title: 'Collect Card Payment',
 		description:
@@ -50,4 +50,4 @@ export const collectPaymentWorkflow: WorkflowSpec = {
 			{ from: 'charge', to: 'confirm', condition: 'output.success === true' },
 		],
 	},
-};
+});

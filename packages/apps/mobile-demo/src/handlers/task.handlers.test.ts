@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'bun:test';
 import { resetTaskStoreForTesting, taskRegistry } from './task.handlers';
 
 beforeEach(() => {
-	resetTaskStoreForTesting();
+	return resetTaskStoreForTesting();
 });
 
 describe('task.handlers', () => {

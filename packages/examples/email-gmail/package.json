@@ -11,7 +11,6 @@
 		"./docs/email-gmail.docblock": "./src/docs/email-gmail.docblock.ts",
 		"./email-gmail.feature": "./src/email-gmail.feature.ts",
 		"./example": "./src/example.ts",
-		"./example.d": "./src/example.d.ts",
 		"./inbound": "./src/inbound.ts",
 		"./outbound": "./src/outbound.ts",
 		"./run": "./src/run.ts"
@@ -85,13 +84,6 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
-			},
-			"./example.d": {
-				"types": "./dist/example.d.d.ts",
-				"browser": "./dist/browser/example.d.js",
-				"bun": "./dist/example.d.js",
-				"node": "./dist/node/example.d.js",
-				"default": "./dist/example.d.js"
 			},
 			"./inbound": {
 				"types": "./dist/inbound.d.ts",

@@ -1,4 +1,5 @@
 import { defineFeature } from '@contractspec/lib.contracts-spec';
+import { AssistantGatePolicy } from './policy/assistant-gate.policy';
 
 export const LocaleJurisdictionGateFeature = defineFeature({
 	meta: {
@@ -28,7 +29,12 @@ export const LocaleJurisdictionGateFeature = defineFeature({
 		requires: [{ key: 'knowledge', version: '1.0.0' }],
 	},
 
-	policies: [{ key: 'locale-jurisdiction-gate.policy.gate', version: '1.0.0' }],
+	policies: [
+		{
+			key: AssistantGatePolicy.meta.key,
+			version: AssistantGatePolicy.meta.version,
+		},
+	],
 
 	knowledge: [
 		{ key: 'locale-jurisdiction-gate.knowledge.rules', version: '1.0.0' },

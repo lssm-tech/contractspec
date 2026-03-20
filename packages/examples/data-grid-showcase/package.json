@@ -8,25 +8,16 @@
 		".": "./src/index.ts",
 		"./contracts": "./src/contracts/index.ts",
 		"./contracts/data-grid-showcase.data-view": "./src/contracts/data-grid-showcase.data-view.ts",
-		"./contracts/data-grid-showcase.data-view.d": "./src/contracts/data-grid-showcase.data-view.d.ts",
 		"./contracts/data-grid-showcase.operation": "./src/contracts/data-grid-showcase.operation.ts",
-		"./contracts/data-grid-showcase.operation.d": "./src/contracts/data-grid-showcase.operation.d.ts",
 		"./docs": "./src/docs/index.ts",
 		"./docs/data-grid-showcase.docblock": "./src/docs/data-grid-showcase.docblock.ts",
 		"./example": "./src/example.ts",
-		"./example.d": "./src/example.d.ts",
 		"./ui": "./src/ui/index.ts",
 		"./ui/data-grid-showcase.columns": "./src/ui/data-grid-showcase.columns.tsx",
-		"./ui/data-grid-showcase.columns.d": "./src/ui/data-grid-showcase.columns.d.ts",
 		"./ui/data-grid-showcase.data": "./src/ui/data-grid-showcase.data.ts",
-		"./ui/data-grid-showcase.data.d": "./src/ui/data-grid-showcase.data.d.ts",
 		"./ui/data-grid-showcase.parts": "./src/ui/data-grid-showcase.parts.tsx",
-		"./ui/data-grid-showcase.parts.d": "./src/ui/data-grid-showcase.parts.d.ts",
 		"./ui/data-grid-showcase.tables": "./src/ui/data-grid-showcase.tables.tsx",
-		"./ui/data-grid-showcase.tables.d": "./src/ui/data-grid-showcase.tables.d.ts",
-		"./ui/DataGridShowcase": "./src/ui/DataGridShowcase.tsx",
-		"./ui/DataGridShowcase.d": "./src/ui/DataGridShowcase.d.ts",
-		"./ui/index.d": "./src/ui/index.d.ts"
+		"./ui/DataGridShowcase": "./src/ui/DataGridShowcase.tsx"
 	},
 	"scripts": {
 		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
@@ -86,26 +77,12 @@
 				"node": "./dist/node/contracts/data-grid-showcase.data-view.js",
 				"default": "./dist/contracts/data-grid-showcase.data-view.js"
 			},
-			"./contracts/data-grid-showcase.data-view.d": {
-				"types": "./dist/contracts/data-grid-showcase.data-view.d.d.ts",
-				"browser": "./dist/browser/contracts/data-grid-showcase.data-view.d.js",
-				"bun": "./dist/contracts/data-grid-showcase.data-view.d.js",
-				"node": "./dist/node/contracts/data-grid-showcase.data-view.d.js",
-				"default": "./dist/contracts/data-grid-showcase.data-view.d.js"
-			},
 			"./contracts/data-grid-showcase.operation": {
 				"types": "./dist/contracts/data-grid-showcase.operation.d.ts",
 				"browser": "./dist/browser/contracts/data-grid-showcase.operation.js",
 				"bun": "./dist/contracts/data-grid-showcase.operation.js",
 				"node": "./dist/node/contracts/data-grid-showcase.operation.js",
 				"default": "./dist/contracts/data-grid-showcase.operation.js"
-			},
-			"./contracts/data-grid-showcase.operation.d": {
-				"types": "./dist/contracts/data-grid-showcase.operation.d.d.ts",
-				"browser": "./dist/browser/contracts/data-grid-showcase.operation.d.js",
-				"bun": "./dist/contracts/data-grid-showcase.operation.d.js",
-				"node": "./dist/node/contracts/data-grid-showcase.operation.d.js",
-				"default": "./dist/contracts/data-grid-showcase.operation.d.js"
 			},
 			"./docs": {
 				"types": "./dist/docs/index.d.ts",
@@ -128,13 +105,6 @@
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
 			},
-			"./example.d": {
-				"types": "./dist/example.d.d.ts",
-				"browser": "./dist/browser/example.d.js",
-				"bun": "./dist/example.d.js",
-				"node": "./dist/node/example.d.js",
-				"default": "./dist/example.d.js"
-			},
 			"./ui": {
 				"types": "./dist/ui/index.d.ts",
 				"browser": "./dist/browser/ui/index.js",
@@ -149,26 +119,12 @@
 				"node": "./dist/node/ui/data-grid-showcase.columns.js",
 				"default": "./dist/ui/data-grid-showcase.columns.js"
 			},
-			"./ui/data-grid-showcase.columns.d": {
-				"types": "./dist/ui/data-grid-showcase.columns.d.d.ts",
-				"browser": "./dist/browser/ui/data-grid-showcase.columns.d.js",
-				"bun": "./dist/ui/data-grid-showcase.columns.d.js",
-				"node": "./dist/node/ui/data-grid-showcase.columns.d.js",
-				"default": "./dist/ui/data-grid-showcase.columns.d.js"
-			},
 			"./ui/data-grid-showcase.data": {
 				"types": "./dist/ui/data-grid-showcase.data.d.ts",
 				"browser": "./dist/browser/ui/data-grid-showcase.data.js",
 				"bun": "./dist/ui/data-grid-showcase.data.js",
 				"node": "./dist/node/ui/data-grid-showcase.data.js",
 				"default": "./dist/ui/data-grid-showcase.data.js"
-			},
-			"./ui/data-grid-showcase.data.d": {
-				"types": "./dist/ui/data-grid-showcase.data.d.d.ts",
-				"browser": "./dist/browser/ui/data-grid-showcase.data.d.js",
-				"bun": "./dist/ui/data-grid-showcase.data.d.js",
-				"node": "./dist/node/ui/data-grid-showcase.data.d.js",
-				"default": "./dist/ui/data-grid-showcase.data.d.js"
 			},
 			"./ui/data-grid-showcase.parts": {
 				"types": "./dist/ui/data-grid-showcase.parts.d.ts",
@@ -177,13 +133,6 @@
 				"node": "./dist/node/ui/data-grid-showcase.parts.js",
 				"default": "./dist/ui/data-grid-showcase.parts.js"
 			},
-			"./ui/data-grid-showcase.parts.d": {
-				"types": "./dist/ui/data-grid-showcase.parts.d.d.ts",
-				"browser": "./dist/browser/ui/data-grid-showcase.parts.d.js",
-				"bun": "./dist/ui/data-grid-showcase.parts.d.js",
-				"node": "./dist/node/ui/data-grid-showcase.parts.d.js",
-				"default": "./dist/ui/data-grid-showcase.parts.d.js"
-			},
 			"./ui/data-grid-showcase.tables": {
 				"types": "./dist/ui/data-grid-showcase.tables.d.ts",
 				"browser": "./dist/browser/ui/data-grid-showcase.tables.js",
@@ -191,33 +140,12 @@
 				"node": "./dist/node/ui/data-grid-showcase.tables.js",
 				"default": "./dist/ui/data-grid-showcase.tables.js"
 			},
-			"./ui/data-grid-showcase.tables.d": {
-				"types": "./dist/ui/data-grid-showcase.tables.d.d.ts",
-				"browser": "./dist/browser/ui/data-grid-showcase.tables.d.js",
-				"bun": "./dist/ui/data-grid-showcase.tables.d.js",
-				"node": "./dist/node/ui/data-grid-showcase.tables.d.js",
-				"default": "./dist/ui/data-grid-showcase.tables.d.js"
-			},
 			"./ui/DataGridShowcase": {
 				"types": "./dist/ui/DataGridShowcase.d.ts",
 				"browser": "./dist/browser/ui/DataGridShowcase.js",
 				"bun": "./dist/ui/DataGridShowcase.js",
 				"node": "./dist/node/ui/DataGridShowcase.js",
 				"default": "./dist/ui/DataGridShowcase.js"
-			},
-			"./ui/DataGridShowcase.d": {
-				"types": "./dist/ui/DataGridShowcase.d.d.ts",
-				"browser": "./dist/browser/ui/DataGridShowcase.d.js",
-				"bun": "./dist/ui/DataGridShowcase.d.js",
-				"node": "./dist/node/ui/DataGridShowcase.d.js",
-				"default": "./dist/ui/DataGridShowcase.d.js"
-			},
-			"./ui/index.d": {
-				"types": "./dist/ui/index.d.d.ts",
-				"browser": "./dist/browser/ui/index.d.js",
-				"bun": "./dist/ui/index.d.js",
-				"node": "./dist/node/ui/index.d.js",
-				"default": "./dist/ui/index.d.js"
 			}
 		}
 	},

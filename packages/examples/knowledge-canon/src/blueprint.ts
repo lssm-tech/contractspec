@@ -1,11 +1,11 @@
-import type { AppBlueprintSpec } from '@contractspec/lib.contracts-spec/app-config/spec';
+import { defineAppConfig } from '@contractspec/lib.contracts-spec/app-config/spec';
 import {
 	OwnersEnum,
 	StabilityEnum,
 	TagsEnum,
 } from '@contractspec/lib.contracts-spec/ownership';
 
-export const artisanKnowledgeBlueprint: AppBlueprintSpec = {
+export const artisanKnowledgeBlueprint = defineAppConfig({
 	meta: {
 		key: 'artisan.knowledge.product',
 		version: '1.0.0',
@@ -23,4 +23,4 @@ export const artisanKnowledgeBlueprint: AppBlueprintSpec = {
 	},
 	notes:
 		'Workflows and assistants running on this blueprint should bind the Product Canon knowledge space.',
-};
+});

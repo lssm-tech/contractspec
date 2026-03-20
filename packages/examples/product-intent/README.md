@@ -6,11 +6,11 @@ Website: https://contractspec.io
 
 ## What This Demonstrates
 
+- Canonical `product-intent` export via `ProductIntentDiscoverySpec`.
 - Evidence loading and ingestion pipeline.
 - PostHog signal extraction for product analytics.
 - Action synchronization across tools.
 - Script-based execution pattern.
-- `src/docs/` contains docblocks and documentation-facing exports.
 - `src/docs/` contains docblocks and documentation-facing exports.
 
 ## Running Locally
@@ -33,6 +33,7 @@ Use `@contractspec/example.product-intent` as a reference implementation, or imp
 - `src/load-evidence.test.ts` is part of the package's public or composition surface.
 - `src/load-evidence.ts` is part of the package's public or composition surface.
 - `src/posthog-signals.ts` is part of the package's public or composition surface.
+- `src/product-intent.discovery.ts` defines the exported product-intent spec.
 - `src/product-intent.feature.ts` defines a feature entrypoint.
 
 ## Public Entry Points
@@ -43,9 +44,11 @@ Use `@contractspec/example.product-intent` as a reference implementation, or imp
 - Export `./example` resolves through `./src/example.ts`.
 - Export `./load-evidence` resolves through `./src/load-evidence.ts`.
 - Export `./posthog-signals` resolves through `./src/posthog-signals.ts`.
+- Export `./product-intent.discovery` resolves through `./src/product-intent.discovery.ts`.
 - Export `./product-intent.feature` resolves through `./src/product-intent.feature.ts`.
 - Export `./script` resolves through `./src/script.ts`.
 - Export `./sync-actions` resolves through `./src/sync-actions.ts`.
+- The package publishes 9 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands
 

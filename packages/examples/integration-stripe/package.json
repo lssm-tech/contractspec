@@ -11,7 +11,7 @@
 		"./docs": "./src/docs/index.ts",
 		"./docs/integration-stripe.docblock": "./src/docs/integration-stripe.docblock.ts",
 		"./example": "./src/example.ts",
-		"./example.d": "./src/example.d.ts",
+		"./integration": "./src/integration.ts",
 		"./integration-stripe.feature": "./src/integration-stripe.feature.ts",
 		"./tenant": "./src/tenant.ts",
 		"./workflow": "./src/workflow.ts"
@@ -86,12 +86,12 @@
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
 			},
-			"./example.d": {
-				"types": "./dist/example.d.d.ts",
-				"browser": "./dist/browser/example.d.js",
-				"bun": "./dist/example.d.js",
-				"node": "./dist/node/example.d.js",
-				"default": "./dist/example.d.js"
+			"./integration": {
+				"types": "./dist/integration.d.ts",
+				"browser": "./dist/browser/integration.js",
+				"bun": "./dist/integration.js",
+				"node": "./dist/node/integration.js",
+				"default": "./dist/integration.js"
 			},
 			"./integration-stripe.feature": {
 				"types": "./dist/integration-stripe.feature.d.ts",

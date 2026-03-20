@@ -7,6 +7,7 @@ Website: https://contractspec.io
 ## What This Demonstrates
 
 - Agent entity with lifecycle (create, configure, execute).
+- Canonical `agent`, `harness-scenario`, and `harness-suite` example exports for deterministic proof coverage.
 - Run tracking with status enums and event-driven state transitions.
 - Tool registry with typed schemas and operation handlers.
 - Presentation layer with React UI components, hooks, modals, overlays, and a server-mode shared `DataTable` for run history.
@@ -66,6 +67,7 @@ Use `@contractspec/example.agent-console` as a reference implementation, or impo
 - `src/example.ts` is the runnable example entrypoint.
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 - `src/index.ts` is the root public barrel and package entrypoint.
+- `src/proof/` contains the exported meetup proof scenario and suite.
 
 ## Public Entry Points
 
@@ -79,7 +81,10 @@ Use `@contractspec/example.agent-console` as a reference implementation, or impo
 - Export `./agent/agent.handler` resolves through `./src/agent/agent.handler.ts`.
 - Export `./agent/agent.operation` resolves through `./src/agent/agent.operation.ts`.
 - Export `./agent/agent.presentation` resolves through `./src/agent/agent.presentation.ts`.
-- The package publishes 66 total export subpaths; keep docs aligned with `package.json`.
+- Export `./proof` resolves through `./src/proof/index.ts`.
+- Export `./proof/meetup-proof.scenario` resolves through `./src/proof/meetup-proof.scenario.ts`.
+- Export `./proof/meetup-proof.suite` resolves through `./src/proof/meetup-proof.suite.ts`.
+- The package publishes 72 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands
 

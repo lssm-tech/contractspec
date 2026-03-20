@@ -1,0 +1,112 @@
+import { defineFormSpec } from '@contractspec/lib.contracts-spec/forms';
+import {
+	OwnersEnum,
+	StabilityEnum,
+	TagsEnum,
+} from '@contractspec/lib.contracts-spec/ownership';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { AllowedScopeEnum } from '../entities/models';
+
+const AssistantContextFormModel = defineSchemaModel({
+	name: 'AssistantContextFormModel',
+	description:
+		'Form values required before a policy-gated assistant request can be executed.',
+	fields: {
+		locale: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+		jurisdiction: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+		kbSnapshotId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+		allowedScope: { type: AllowedScopeEnum, isOptional: false },
+		question: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+	},
+});
+
+export const AssistantContextForm = defineFormSpec({
+	meta: {
+		key: 'locale-jurisdiction-gate.form.assistant-context',
+		version: '1.0.0',
+		title: 'Assistant Context Gate',
+		description:
+			'Collects the explicit locale, jurisdiction, scope, and knowledge snapshot required by the assistant gate.',
+		domain: 'assistant',
+		owners: [OwnersEnum.PlatformFinance],
+		tags: [TagsEnum.I18n, 'assistant', 'form', 'policy'],
+		stability: StabilityEnum.Experimental,
+	},
+	model: AssistantContextFormModel,
+	fields: [
+		{
+			kind: 'select',
+			name: 'locale',
+			labelI18n: 'assistantGate.locale.label',
+			descriptionI18n: 'assistantGate.locale.description',
+			options: {
+				kind: 'static',
+				options: [
+					{ labelI18n: 'assistantGate.locale.enUs', value: 'en-US' },
+					{ labelI18n: 'assistantGate.locale.enGb', value: 'en-GB' },
+					{ labelI18n: 'assistantGate.locale.frFr', value: 'fr-FR' },
+				],
+			},
+			required: true,
+		},
+		{
+			kind: 'text',
+			name: 'jurisdiction',
+			labelI18n: 'assistantGate.jurisdiction.label',
+			placeholderI18n: 'assistantGate.jurisdiction.placeholder',
+			required: true,
+		},
+		{
+			kind: 'text',
+			name: 'kbSnapshotId',
+			labelI18n: 'assistantGate.kbSnapshotId.label',
+			placeholderI18n: 'assistantGate.kbSnapshotId.placeholder',
+			required: true,
+		},
+		{
+			kind: 'radio',
+			name: 'allowedScope',
+			labelI18n: 'assistantGate.allowedScope.label',
+			options: {
+				kind: 'static',
+				options: [
+					{
+						labelI18n: 'assistantGate.allowedScope.educationOnly',
+						value: 'education_only',
+					},
+					{
+						labelI18n: 'assistantGate.allowedScope.genericInfo',
+						value: 'generic_info',
+					},
+					{
+						labelI18n: 'assistantGate.allowedScope.escalationRequired',
+						value: 'escalation_required',
+					},
+				],
+			},
+			required: true,
+		},
+		{
+			kind: 'textarea',
+			name: 'question',
+			labelI18n: 'assistantGate.question.label',
+			placeholderI18n: 'assistantGate.question.placeholder',
+			required: true,
+		},
+	],
+	actions: [
+		{
+			key: 'submit',
+			labelI18n: 'assistantGate.submit.label',
+			op: { name: 'assistant.answer', version: '1.0.0' },
+		},
+	],
+	policy: {
+		flags: [],
+		pii: ['kbSnapshotId', 'question'],
+	},
+	renderHints: {
+		ui: 'custom',
+		form: 'react-hook-form',
+	},
+});

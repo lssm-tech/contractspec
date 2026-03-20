@@ -5,7 +5,11 @@ import {
 	TaskListQuery,
 	TaskUpdateStatusCommand,
 } from '../contracts';
-import { loadTasksFromStorage, saveTasksToStorage } from './task.storage';
+import {
+	clearTasksFromStorageForTesting,
+	loadTasksFromStorage,
+	saveTasksToStorage,
+} from './task.storage';
 import type { Task } from './task.types';
 
 export type { Task } from './task.types';
@@ -15,10 +19,11 @@ let nextId = 1;
 let hasLoadedFromStorage = false;
 
 /** Resets in-memory store for tests. Do not use in production. */
-export function resetTaskStoreForTesting(): void {
+export async function resetTaskStoreForTesting(): Promise<void> {
 	store.length = 0;
 	nextId = 1;
 	hasLoadedFromStorage = false;
+	await clearTasksFromStorageForTesting();
 }
 
 function generateId(): string {

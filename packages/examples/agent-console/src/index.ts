@@ -24,6 +24,7 @@ export {
 	type AgentHandlers,
 	createAgentHandlers,
 } from './handlers/agent.handlers';
+export * from './proof';
 export * from './run';
 export * from './shared';
 export * from './tool';

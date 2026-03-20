@@ -1,11 +1,12 @@
-import type { AppBlueprintSpec } from '@contractspec/lib.contracts-spec/app-config/spec';
+import { defineAppConfig } from '@contractspec/lib.contracts-spec/app-config/spec';
 import {
 	OwnersEnum,
 	StabilityEnum,
 	TagsEnum,
 } from '@contractspec/lib.contracts-spec/ownership';
+import { collectPaymentWorkflow } from './workflow';
 
-export const artisanStripeBlueprint: AppBlueprintSpec = {
+export const artisanStripeBlueprint = defineAppConfig({
 	meta: {
 		key: 'artisan.payments.stripe',
 		version: '1.0.0',
@@ -52,11 +53,10 @@ export const artisanStripeBlueprint: AppBlueprintSpec = {
 	},
 	workflows: {
 		collectPayment: {
-			key: 'artisan.payments.collectPayment',
-			version: '1.0.0',
+			key: collectPaymentWorkflow.meta.key,
+			version: collectPaymentWorkflow.meta.version,
 		},
 	},
-	policies: [{ key: 'artisan.payments.default', version: '1.0.0' }],
 	notes:
 		'Install this blueprint and pair it with the Stripe integration connection to enable card collection.',
-};
+});

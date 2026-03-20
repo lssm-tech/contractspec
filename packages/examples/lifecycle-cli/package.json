@@ -10,7 +10,6 @@
 		"./docs": "./src/docs/index.ts",
 		"./docs/lifecycle-cli.docblock": "./src/docs/lifecycle-cli.docblock.ts",
 		"./example": "./src/example.ts",
-		"./example.d": "./src/example.d.ts",
 		"./lifecycle-cli.feature": "./src/lifecycle-cli.feature.ts"
 	},
 	"scripts": {
@@ -76,13 +75,6 @@
 				"bun": "./dist/example.js",
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
-			},
-			"./example.d": {
-				"types": "./dist/example.d.d.ts",
-				"browser": "./dist/browser/example.d.js",
-				"bun": "./dist/example.d.js",
-				"node": "./dist/node/example.d.js",
-				"default": "./dist/example.d.js"
 			},
 			"./lifecycle-cli.feature": {
 				"types": "./dist/lifecycle-cli.feature.d.ts",

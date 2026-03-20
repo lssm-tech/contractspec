@@ -6,11 +6,11 @@ Website: https://contractspec.io
 
 ## What This Demonstrates
 
-- Integration blueprint definition for Stripe.
-- Payment workflow with typed steps.
+- Canonical `integration` export via `StripePaymentsIntegrationSpec`.
+- Integration-oriented `app-config` example via `defineAppConfig(...)`.
+- Canonical `workflow` export via `defineWorkflow(...)`.
 - Multi-tenant configuration pattern.
 - Connection sample for credential wiring.
-- `src/docs/` contains docblocks and documentation-facing exports.
 - `src/docs/` contains docblocks and documentation-facing exports.
 
 ## Running Locally
@@ -31,6 +31,7 @@ Use `@contractspec/example.integration-stripe` as a reference implementation, or
 - `src/connection.sample.ts` is part of the package's public or composition surface.
 - `src/docs/` contains docblocks and documentation-facing exports.
 - `src/example.ts` is the runnable example entrypoint.
+- `src/integration.ts` defines the exported integration spec.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/integration-stripe.feature.ts` defines a feature entrypoint.
 - `src/tenant.ts` is part of the package's public or composition surface.
@@ -43,9 +44,11 @@ Use `@contractspec/example.integration-stripe` as a reference implementation, or
 - Export `./docs` resolves through `./src/docs/index.ts`.
 - Export `./docs/integration-stripe.docblock` resolves through `./src/docs/integration-stripe.docblock.ts`.
 - Export `./example` resolves through `./src/example.ts`.
+- Export `./integration` resolves through `./src/integration.ts`.
 - Export `./integration-stripe.feature` resolves through `./src/integration-stripe.feature.ts`.
 - Export `./tenant` resolves through `./src/tenant.ts`.
 - Export `./workflow` resolves through `./src/workflow.ts`.
+- The package publishes 9 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands
 

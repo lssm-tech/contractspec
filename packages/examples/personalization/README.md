@@ -7,10 +7,11 @@ Website: https://contractspec.io
 ## What This Demonstrates
 
 - Behavior tracking integration pattern.
+- Canonical `experiment` export via `PersonalizationExperiment`.
 - Overlay customization via overlay-engine.
+- Canonical `theme` export via `PersonalizationTheme`.
 - Workflow extension via workflow-composer.
 - Multi-lib composition in a single example.
-- `src/docs/` contains docblocks and documentation-facing exports.
 - `src/docs/` contains docblocks and documentation-facing exports.
 
 ## Running Locally
@@ -32,7 +33,9 @@ Use `@contractspec/example.personalization` as a reference implementation, or im
 - `src/example.ts` is the runnable example entrypoint.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/overlay-customization.ts` is part of the package's public or composition surface.
+- `src/personalization.experiment.ts` defines the exported experiment spec.
 - `src/personalization.feature.ts` defines a feature entrypoint.
+- `src/personalization.theme.ts` defines the exported theme spec.
 - `src/workflow-extension.ts` is part of the package's public or composition surface.
 
 ## Public Entry Points
@@ -43,8 +46,11 @@ Use `@contractspec/example.personalization` as a reference implementation, or im
 - Export `./docs/personalization.docblock` resolves through `./src/docs/personalization.docblock.ts`.
 - Export `./example` resolves through `./src/example.ts`.
 - Export `./overlay-customization` resolves through `./src/overlay-customization.ts`.
+- Export `./personalization.experiment` resolves through `./src/personalization.experiment.ts`.
 - Export `./personalization.feature` resolves through `./src/personalization.feature.ts`.
+- Export `./personalization.theme` resolves through `./src/personalization.theme.ts`.
 - Export `./workflow-extension` resolves through `./src/workflow-extension.ts`.
+- The package publishes 9 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands
 

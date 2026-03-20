@@ -12,15 +12,21 @@
 		"./entities/models": "./src/entities/models.ts",
 		"./events": "./src/events.ts",
 		"./example": "./src/example.ts",
-		"./example.d": "./src/example.d.ts",
+		"./forms": "./src/forms/index.ts",
+		"./forms/assistant-context.form": "./src/forms/assistant-context.form.ts",
 		"./handlers": "./src/handlers/index.ts",
 		"./handlers/demo.handlers": "./src/handlers/demo.handlers.ts",
 		"./locale-jurisdiction-gate.feature": "./src/locale-jurisdiction-gate.feature.ts",
 		"./operations": "./src/operations/index.ts",
 		"./operations/assistant": "./src/operations/assistant.ts",
 		"./policy": "./src/policy/index.ts",
+		"./policy/assistant-gate.policy": "./src/policy/assistant-gate.policy.ts",
 		"./policy/guard": "./src/policy/guard.ts",
-		"./policy/types": "./src/policy/types.ts"
+		"./policy/types": "./src/policy/types.ts",
+		"./translations": "./src/translations/index.ts",
+		"./translations/assistant-gate.en-GB.translation": "./src/translations/assistant-gate.en-GB.translation.ts",
+		"./translations/assistant-gate.en-US.translation": "./src/translations/assistant-gate.en-US.translation.ts",
+		"./translations/assistant-gate.fr-FR.translation": "./src/translations/assistant-gate.fr-FR.translation.ts"
 	},
 	"scripts": {
 		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
@@ -98,12 +104,19 @@
 				"node": "./dist/node/example.js",
 				"default": "./dist/example.js"
 			},
-			"./example.d": {
-				"types": "./dist/example.d.d.ts",
-				"browser": "./dist/browser/example.d.js",
-				"bun": "./dist/example.d.js",
-				"node": "./dist/node/example.d.js",
-				"default": "./dist/example.d.js"
+			"./forms": {
+				"types": "./dist/forms/index.d.ts",
+				"browser": "./dist/browser/forms/index.js",
+				"bun": "./dist/forms/index.js",
+				"node": "./dist/node/forms/index.js",
+				"default": "./dist/forms/index.js"
+			},
+			"./forms/assistant-context.form": {
+				"types": "./dist/forms/assistant-context.form.d.ts",
+				"browser": "./dist/browser/forms/assistant-context.form.js",
+				"bun": "./dist/forms/assistant-context.form.js",
+				"node": "./dist/node/forms/assistant-context.form.js",
+				"default": "./dist/forms/assistant-context.form.js"
 			},
 			"./handlers": {
 				"types": "./dist/handlers/index.d.ts",
@@ -147,6 +160,13 @@
 				"node": "./dist/node/policy/index.js",
 				"default": "./dist/policy/index.js"
 			},
+			"./policy/assistant-gate.policy": {
+				"types": "./dist/policy/assistant-gate.policy.d.ts",
+				"browser": "./dist/browser/policy/assistant-gate.policy.js",
+				"bun": "./dist/policy/assistant-gate.policy.js",
+				"node": "./dist/node/policy/assistant-gate.policy.js",
+				"default": "./dist/policy/assistant-gate.policy.js"
+			},
 			"./policy/guard": {
 				"types": "./dist/policy/guard.d.ts",
 				"browser": "./dist/browser/policy/guard.js",
@@ -160,6 +180,34 @@
 				"bun": "./dist/policy/types.js",
 				"node": "./dist/node/policy/types.js",
 				"default": "./dist/policy/types.js"
+			},
+			"./translations": {
+				"types": "./dist/translations/index.d.ts",
+				"browser": "./dist/browser/translations/index.js",
+				"bun": "./dist/translations/index.js",
+				"node": "./dist/node/translations/index.js",
+				"default": "./dist/translations/index.js"
+			},
+			"./translations/assistant-gate.en-GB.translation": {
+				"types": "./dist/translations/assistant-gate.en-GB.translation.d.ts",
+				"browser": "./dist/browser/translations/assistant-gate.en-GB.translation.js",
+				"bun": "./dist/translations/assistant-gate.en-GB.translation.js",
+				"node": "./dist/node/translations/assistant-gate.en-GB.translation.js",
+				"default": "./dist/translations/assistant-gate.en-GB.translation.js"
+			},
+			"./translations/assistant-gate.en-US.translation": {
+				"types": "./dist/translations/assistant-gate.en-US.translation.d.ts",
+				"browser": "./dist/browser/translations/assistant-gate.en-US.translation.js",
+				"bun": "./dist/translations/assistant-gate.en-US.translation.js",
+				"node": "./dist/node/translations/assistant-gate.en-US.translation.js",
+				"default": "./dist/translations/assistant-gate.en-US.translation.js"
+			},
+			"./translations/assistant-gate.fr-FR.translation": {
+				"types": "./dist/translations/assistant-gate.fr-FR.translation.d.ts",
+				"browser": "./dist/browser/translations/assistant-gate.fr-FR.translation.js",
+				"bun": "./dist/translations/assistant-gate.fr-FR.translation.js",
+				"node": "./dist/node/translations/assistant-gate.fr-FR.translation.js",
+				"default": "./dist/translations/assistant-gate.fr-FR.translation.js"
 			}
 		},
 		"registry": "https://registry.npmjs.org/"

@@ -1,4 +1,6 @@
 import { defineFeature } from '@contractspec/lib.contracts-spec';
+import { StripePaymentsIntegrationSpec } from './integration';
+import { collectPaymentWorkflow } from './workflow';
 
 export const IntegrationStripeFeature = defineFeature({
 	meta: {
@@ -14,12 +16,18 @@ export const IntegrationStripeFeature = defineFeature({
 	},
 
 	integrations: [
-		{ key: 'integration-stripe.integration.psp', version: '1.0.0' },
+		{
+			key: StripePaymentsIntegrationSpec.meta.key,
+			version: StripePaymentsIntegrationSpec.meta.version,
+		},
 	],
 
-	workflows: [{ key: 'integration-stripe.workflow.payment', version: '1.0.0' }],
-
-	policies: [{ key: 'integration-stripe.policy.payments', version: '1.0.0' }],
+	workflows: [
+		{
+			key: collectPaymentWorkflow.meta.key,
+			version: collectPaymentWorkflow.meta.version,
+		},
+	],
 
 	docs: [
 		'docs.examples.integration-stripe',

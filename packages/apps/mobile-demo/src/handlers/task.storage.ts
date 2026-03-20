@@ -29,3 +29,11 @@ export async function saveTasksToStorage(tasks: Task[]): Promise<void> {
 		// Persistence is best-effort; app continues without it
 	}
 }
+
+export async function clearTasksFromStorageForTesting(): Promise<void> {
+	try {
+		await AsyncStorage.removeItem(KEY);
+	} catch {
+		// Test resets should not fail because storage cleanup is unavailable
+	}
+}
