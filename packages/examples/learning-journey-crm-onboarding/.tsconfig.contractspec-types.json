@@ -1,0 +1,45 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "incremental": false,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "declarationMap": false,
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@contractspec/lib.contracts-spec": [
+        "../../libs/contracts-spec/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/*": [
+        "../../libs/contracts-spec/dist/*"
+      ],
+      "@contractspec/lib.schema": [
+        "../../libs/schema/dist/index.d.ts"
+      ],
+      "@contractspec/lib.schema/*": [
+        "../../libs/schema/dist/*"
+      ],
+      "@contractspec/module.learning-journey": [
+        "../../modules/learning-journey/dist/index.d.ts"
+      ],
+      "@contractspec/module.learning-journey/*": [
+        "../../modules/learning-journey/dist/*"
+      ],
+      "@contractspec/example.crm-pipeline": [
+        "../crm-pipeline/dist/index.d.ts"
+      ],
+      "@contractspec/example.crm-pipeline/*": [
+        "../crm-pipeline/dist/*"
+      ],
+      "@contractspec/tool.typescript/*": [
+        "../../tools/typescript/dist/*"
+      ],
+      "@contractspec/tool.bun/*": [
+        "../../tools/bun/dist/*"
+      ]
+    }
+  }
+}

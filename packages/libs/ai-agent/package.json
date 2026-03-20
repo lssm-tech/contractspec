@@ -41,7 +41,7 @@
     "@ai-sdk/openai": "catalog:ai",
     "@modelcontextprotocol/sdk": "^1.27.1",
     "@posthog/react": "^1.8.2",
-    "@posthog/ai": "7.9.5",
+    "@posthog/ai": "7.12.1",
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.ai-providers": "workspace:*",
     "@contractspec/lib.knowledge": "workspace:*",

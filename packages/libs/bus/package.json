@@ -35,9 +35,9 @@
     "compare-versions": "^6.1.1"
   },
   "peerDependencies": {
-    "elysia": "^1.4.27",
+    "elysia": "^1.4.28",
     "express": "^5.2.1",
-    "next": "16.1.6"
+    "next": "16.2.0"
   },
   "type": "module",
   "types": "./dist/index.d.ts",

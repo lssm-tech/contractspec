@@ -21,7 +21,7 @@
 		"@contractspec/integration.providers-impls": "workspace:*",
 		"@contractspec/integration.runtime": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
-		"elysia": "^1.4.27",
+		"elysia": "^1.4.28",
 		"pg": "^8.20.0",
 		"zod": "^4.3.5"
 	},
