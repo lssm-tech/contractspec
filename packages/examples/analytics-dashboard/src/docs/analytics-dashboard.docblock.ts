@@ -28,7 +28,7 @@ const analyticsDashboardDocBlocks: DocBlock[] = [
 
 ## UI / Presentations
 
-- Dashboard list, dashboard view, query builder, widget gallery.
+- Dashboard list, dashboard view, query builder, widget gallery, and a shared ContractSpec table for saved queries.
 - Registered under \`analytics-dashboard\` template in Template Registry.
 
 ## Notes
@@ -36,6 +36,7 @@ const analyticsDashboardDocBlocks: DocBlock[] = [
 - Enforce org scoping for multi-tenant isolation.
 - Use Feature Flags for beta widgets; Metering to track query volume.
 - PostHog datasource can back query execution via HogQL for dashboard widgets.
+- The saved-queries table demonstrates client-mode sorting, pagination, visibility, resizing, pinning, and row expansion on the shared table stack.
 `,
 	},
 	{

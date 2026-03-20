@@ -84,7 +84,7 @@ const crmPipelineDocBlocks: DocBlock[] = [
 - deal.created, stage.moved, task.completed, contact.updated.
 
 ## Presentations
-- Pipelines/kanban, deal detail, contact/company profiles, task lists.
+- Pipelines/kanban, deal detail, contact/company profiles, task lists, and a server-mode shared table for the deal list.
 
 ## Notes
 - Stage definitions should be declarative; enforce via spec and regeneration.

@@ -134,6 +134,7 @@ export function ResizeHandle({
 	return (
 		<span
 			role="separator"
+			aria-label={`Resize ${column.label} column`}
 			aria-orientation="vertical"
 			tabIndex={-1}
 			className="absolute inset-y-0 right-0 flex w-3 cursor-col-resize items-center justify-center"
@@ -151,6 +152,7 @@ export function renderHeaderContent<TItem>(
 	if (column.kind === 'selection' && controller.selectionMode === 'multiple') {
 		return (
 			<Checkbox
+				aria-label="Select all rows"
 				checked={
 					controller.allRowsSelected ||
 					(controller.someRowsSelected ? 'indeterminate' : false)
@@ -176,6 +178,7 @@ export function renderCellContent<TItem>(
 	if (cell.kind === 'selection') {
 		return (
 			<Checkbox
+				aria-label={`Select row ${row.id}`}
 				checked={row.isSelected}
 				onCheckedChange={(checked) => row.toggleSelected?.(Boolean(checked))}
 			/>
@@ -187,6 +190,7 @@ export function renderCellContent<TItem>(
 				variant="ghost"
 				size="icon"
 				className="h-7 w-7"
+				aria-label={row.isExpanded ? `Collapse row ${row.id}` : `Expand row ${row.id}`}
 				onClick={() => row.toggleExpanded?.()}
 			>
 				{row.isExpanded ? (

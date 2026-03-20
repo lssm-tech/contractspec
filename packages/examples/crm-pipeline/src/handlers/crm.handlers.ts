@@ -76,6 +76,8 @@ export interface ListDealsInput {
 	search?: string;
 	limit?: number;
 	offset?: number;
+	sortBy?: 'name' | 'value' | 'status' | 'expectedCloseDate' | 'updatedAt';
+	sortDirection?: 'asc' | 'desc';
 }
 
 export interface ListDealsOutput {
@@ -142,6 +144,17 @@ function rowToDeal(row: DealRow): Deal {
 
 // ============ Handler Factory ============
 
+const DEAL_SORT_COLUMNS: Record<
+	NonNullable<ListDealsInput['sortBy']>,
+	string
+> = {
+	name: 'name',
+	value: 'value',
+	status: 'status',
+	expectedCloseDate: 'expectedCloseDate',
+	updatedAt: 'updatedAt',
+};
+
 export function createCrmHandlers(db: DatabasePort) {
 	/**
 	 * List deals with filtering
@@ -156,6 +169,8 @@ export function createCrmHandlers(db: DatabasePort) {
 			search,
 			limit = 20,
 			offset = 0,
+			sortBy = 'value',
+			sortDirection = 'desc',
 		} = input;
 
 		let whereClause = 'WHERE projectId = ?';
@@ -205,9 +220,11 @@ export function createCrmHandlers(db: DatabasePort) {
 		const totalValue = (valueResult[0]?.total as number) ?? 0;
 
 		// Get paginated deals
+		const orderByColumn = DEAL_SORT_COLUMNS[sortBy] ?? DEAL_SORT_COLUMNS.value;
+		const orderByDirection = sortDirection === 'asc' ? 'ASC' : 'DESC';
 		const dealRows = (
 			await db.query(
-				`SELECT * FROM crm_deal ${whereClause} ORDER BY value DESC LIMIT ? OFFSET ?`,
+				`SELECT * FROM crm_deal ${whereClause} ORDER BY ${orderByColumn} ${orderByDirection} LIMIT ? OFFSET ?`,
 				[...params, limit, offset]
 			)
 		).rows as unknown as DealRow[];

@@ -10,7 +10,8 @@ Website: https://contractspec.io
 - Deal pipeline with stage enums, operations, and test-specs.
 - Event-driven architecture (contact, deal, task events).
 - Presentation layer with dashboard and pipeline views.
-- React UI with pipeline board, deal cards, hooks, modals, overlays, and renderers.
+- React UI with pipeline board, hooks, modals, overlays, renderers, and a server-mode shared `DataTable` for deals.
+- Shared table capabilities including sorting, pagination, multi-row selection, column visibility, pinning, resizing, and expandable deal details.
 - Feature definition and capability pattern.
 - Seeders and mock data.
 

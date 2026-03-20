@@ -327,7 +327,7 @@ export async function rewritePackageExports(
 
 	await writeFile(
 		packageJsonPath,
-		`${JSON.stringify(packageJson, null, 2)}\n`,
+		`${JSON.stringify(packageJson, null, '\t')}\n`,
 		'utf8'
 	);
 }

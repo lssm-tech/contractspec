@@ -1,5 +1,6 @@
 'use client';
 
+import type { ContractTableSort } from '@contractspec/lib.presentation-runtime-core';
 import { useTemplateRuntime } from '@contractspec/lib.example-shared-ui';
 /**
  * Hook for fetching and managing deal list data
@@ -24,6 +25,9 @@ export interface UseDealListOptions {
 	status?: 'OPEN' | 'WON' | 'LOST' | 'all';
 	search?: string;
 	limit?: number;
+	pageIndex?: number;
+	pageSize?: number;
+	sorting?: ContractTableSort[];
 }
 
 export function useDealList(options: UseDealListOptions = {}) {
@@ -35,9 +39,14 @@ export function useDealList(options: UseDealListOptions = {}) {
 	const [stages, setStages] = useState<Stage[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<Error | null>(null);
-	const [page, setPage] = useState(1);
+	const [internalPage, setInternalPage] = useState(0);
 
 	const pipelineId = options.pipelineId ?? 'pipeline-1';
+	const pageIndex = options.pageIndex ?? internalPage;
+	const pageSize = options.pageSize ?? options.limit ?? 50;
+	const [sort] = options.sorting ?? [];
+	const sortBy = sort?.id;
+	const sortDirection = sort ? (sort.desc ? 'desc' : 'asc') : undefined;
 
 	const fetchData = useCallback(async () => {
 		setLoading(true);
@@ -51,8 +60,17 @@ export function useDealList(options: UseDealListOptions = {}) {
 					stageId: options.stageId,
 					status: options.status === 'all' ? undefined : options.status,
 					search: options.search,
-					limit: options.limit ?? 50,
-					offset: (page - 1) * (options.limit ?? 50),
+					limit: pageSize,
+					offset: pageIndex * pageSize,
+					sortBy:
+						sortBy === 'name' ||
+						sortBy === 'value' ||
+						sortBy === 'status' ||
+						sortBy === 'expectedCloseDate' ||
+						sortBy === 'updatedAt'
+							? sortBy
+							: undefined,
+					sortDirection,
 				}),
 				crm.getDealsByStage({ projectId, pipelineId }),
 				crm.getPipelineStages({ pipelineId }),
@@ -72,8 +90,10 @@ export function useDealList(options: UseDealListOptions = {}) {
 		options.stageId,
 		options.status,
 		options.search,
-		options.limit,
-		page,
+		pageIndex,
+		pageSize,
+		sortBy,
+		sortDirection,
 	]);
 
 	useEffect(() => {
@@ -105,9 +125,17 @@ export function useDealList(options: UseDealListOptions = {}) {
 		loading,
 		error,
 		stats,
-		page,
+		page: pageIndex + 1,
+		pageIndex,
+		pageSize,
 		refetch: fetchData,
-		nextPage: () => setPage((p) => p + 1),
-		prevPage: () => page > 1 && setPage((p) => p - 1),
+		nextPage:
+			options.pageIndex === undefined
+				? () => setInternalPage((page) => page + 1)
+				: undefined,
+		prevPage:
+			options.pageIndex === undefined
+				? () => pageIndex > 0 && setInternalPage((page) => page - 1)
+				: undefined,
 	};
 }

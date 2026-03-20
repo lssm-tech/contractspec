@@ -4,6 +4,7 @@
  * Defines the feature module for workflow and approval capabilities.
  */
 import { defineFeature } from '@contractspec/lib.contracts-spec';
+import { WorkflowVisualizationRefs } from './visualizations';
 
 /**
  * Workflow System feature module that bundles workflow definition,
@@ -157,6 +158,8 @@ export const WorkflowSystemFeature = defineFeature({
 			targets: ['react', 'markdown'],
 		},
 	],
+
+	visualizations: WorkflowVisualizationRefs,
 
 	// Capability requirements
 	capabilities: {

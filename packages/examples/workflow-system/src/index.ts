@@ -16,5 +16,6 @@ export * from './shared';
 export * from './state-machine';
 export * from './ui';
 // Domain exports
+export * from './visualizations';
 export * from './workflow';
 export * from './workflow-system.feature';

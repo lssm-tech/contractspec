@@ -9,7 +9,8 @@ Website: https://contractspec.io
 - Dashboard feature with presentation, schema, enum, and test-spec.
 - Query engine with typed operations and handlers.
 - PostHog datasource adapter.
-- React UI with hooks, renderers, and markdown output.
+- React UI with hooks, renderers, markdown output, and a shared ContractSpec `DataTable` for saved queries.
+- Client-mode table capabilities including sorting, pagination, column visibility, column resizing, pinning, and expandable row details.
 - Event definitions for analytics tracking.
 - Seeders for demo data.
 
@@ -18,6 +19,7 @@ Website: https://contractspec.io
 From `packages/examples/analytics-dashboard`:
 - `bun run dev`
 - `bun run build`
+- `bun run test`
 - `bun run typecheck`
 
 ## Usage

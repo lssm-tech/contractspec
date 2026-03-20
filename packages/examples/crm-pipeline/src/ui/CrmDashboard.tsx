@@ -31,6 +31,7 @@ import { type Deal, useDealList } from './hooks/useDealList';
 import { useDealMutations } from './hooks/useDealMutations';
 import { CreateDealModal } from './modals/CreateDealModal';
 import { DealActionsModal } from './modals/DealActionsModal';
+import { DealListTab } from './tables/DealListTab';
 
 // type Tab = 'pipeline' | 'list' | 'metrics';
 
@@ -155,7 +156,7 @@ export function CrmDashboard() {
 				</TabsContent>
 
 				<TabsContent value="list" className="min-h-[400px]">
-					<DealListTab data={data} onDealClick={handleDealClick} />
+					<DealListTab onDealClick={handleDealClick} />
 				</TabsContent>
 
 				<TabsContent value="metrics" className="min-h-[400px]">
@@ -195,76 +196,6 @@ export function CrmDashboard() {
 				}}
 				isLoading={mutations.isLoading}
 			/>
-		</div>
-	);
-}
-
-interface DealListTabProps {
-	data: ReturnType<typeof useDealList>['data'];
-	onDealClick?: (dealId: string) => void;
-}
-
-function DealListTab({ data, onDealClick }: DealListTabProps) {
-	if (!data?.deals.length) {
-		return (
-			<div className="flex h-64 items-center justify-center text-muted-foreground">
-				No deals found
-			</div>
-		);
-	}
-
-	return (
-		<div className="rounded-lg border border-border">
-			<table className="w-full">
-				<thead className="border-border border-b bg-muted/30">
-					<tr>
-						<th className="px-4 py-3 text-left font-medium text-sm">Deal</th>
-						<th className="px-4 py-3 text-left font-medium text-sm">Value</th>
-						<th className="px-4 py-3 text-left font-medium text-sm">Status</th>
-						<th className="px-4 py-3 text-left font-medium text-sm">
-							Expected Close
-						</th>
-						<th className="px-4 py-3 text-left font-medium text-sm">Actions</th>
-					</tr>
-				</thead>
-				<tbody className="divide-y divide-border">
-					{data.deals.map((deal: Deal) => (
-						<tr key={deal.id} className="hover:bg-muted/50">
-							<td className="px-4 py-3">
-								<div className="font-medium">{deal.name}</div>
-							</td>
-							<td className="px-4 py-3 font-mono">
-								{formatCurrency(deal.value, deal.currency)}
-							</td>
-							<td className="px-4 py-3">
-								<span
-									className={`inline-flex rounded-full px-2 py-0.5 font-medium text-xs ${
-										deal.status === 'WON'
-											? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-											: deal.status === 'LOST'
-												? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-												: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
-									}`}
-								>
-									{deal.status}
-								</span>
-							</td>
-							<td className="px-4 py-3 text-muted-foreground">
-								{deal.expectedCloseDate?.toLocaleDateString() ?? '-'}
-							</td>
-							<td className="px-4 py-3">
-								<Button
-									variant="ghost"
-									size="sm"
-									onPress={() => onDealClick?.(deal.id)}
-								>
-									Actions
-								</Button>
-							</td>
-						</tr>
-					))}
-				</tbody>
-			</table>
 		</div>
 	);
 }
