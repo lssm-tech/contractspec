@@ -1,256 +1,204 @@
 import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
-import { BookOpen, ChevronRight, Shield, Zap } from 'lucide-react';
+import {
+	ArrowRight,
+	Boxes,
+	FileSearch,
+	ShieldCheck,
+	Waypoints,
+} from 'lucide-react';
+import { getDocsHomeSections, getSecondaryDocsPages } from './docsManifest';
 
-// export const metadata: Metadata = {
-//   title: 'Documentation – ContractSpec',
-//   description:
-//     'Learn to stabilize your AI-generated code. Define contracts, generate consistent code across all surfaces, regenerate safely.',
-//   keywords: [
-//     'documentation',
-//     'guides',
-//     'API reference',
-//     'spec-first compiler',
-//     'AI code stabilization',
-//     'TypeScript',
-//     'contracts',
-//   ],
-//   openGraph: {
-//     title: 'Documentation – ContractSpec',
-//     description:
-//       'Learn to stabilize your AI-generated code with spec-first development.',
-//     url: 'https://contractspec.io/docs',
-//     type: 'website',
-//   },
-//   alternates: {
-//     canonical: 'https://contractspec.io/docs',
-//   },
-// };
+const proofPoints = [
+	{
+		title: 'One system, many surfaces',
+		body: 'Define explicit contracts once, then keep APIs, UI, data, events, and agent-facing surfaces aligned.',
+		icon: Boxes,
+	},
+	{
+		title: 'Incremental adoption',
+		body: 'Start with one endpoint, one workflow, or one unsafe module. You do not need a rewrite to begin.',
+		icon: Waypoints,
+	},
+	{
+		title: 'Operator-grade controls',
+		body: 'Carry policy, auditability, migrations, tracing, and integration boundaries forward with the same system model.',
+		icon: ShieldCheck,
+	},
+];
 
 export function DocsIndexPage() {
+	const sections = getDocsHomeSections();
+	const secondary = getSecondaryDocsPages().slice(0, 6);
+
 	return (
 		<div className="space-y-12">
-			{/* Hero */}
-			<div className="space-y-4">
-				<h1 className="font-bold text-4xl md:text-5xl">Documentation</h1>
-				<p className="max-w-2xl text-lg text-muted-foreground">
-					Stabilize your AI-generated code. Define contracts once, generate
-					consistent code across all surfaces, regenerate safely anytime.
+			<section className="space-y-6">
+				<p className="editorial-kicker">OSS documentation</p>
+				<h1 className="editorial-title max-w-5xl">
+					Build AI-native systems on explicit contracts, then add Studio when
+					you want the operating layer.
+				</h1>
+				<p className="editorial-subtitle">
+					These docs are optimized for OSS adopters first. Learn the contract
+					model, generate and govern surfaces safely, wire integrations, and run
+					the system in production without giving up ownership of your code.
 				</p>
-			</div>
+				<div className="flex flex-wrap gap-3">
+					<Link
+						href="/docs/getting-started/start-here"
+						className="btn-primary text-sm"
+					>
+						Start with OSS <ArrowRight size={16} />
+					</Link>
+					<Link href="/docs/studio" className="btn-ghost text-sm">
+						See what Studio adds
+					</Link>
+				</div>
+			</section>
 
-			{/* Quick Links */}
-			<div className="grid gap-6 md:grid-cols-3">
-				<Link
-					href="/docs/getting-started/installation"
-					className="card-subtle group space-y-3 p-6 transition-colors hover:border-violet-500/50"
-				>
-					<div className="flex items-start justify-between">
-						<div>
-							<h3 className="font-bold text-lg transition-colors group-hover:text-violet-400">
-								Get started
-							</h3>
-							<p className="mt-1 text-muted-foreground text-sm">
-								Install ContractSpec and define your first contract in minutes.
-							</p>
-						</div>
-						<Zap size={20} className="shrink-0 text-violet-400" />
-					</div>
-				</Link>
+			<section className="grid gap-5 md:grid-cols-3">
+				{proofPoints.map((item) => {
+					const Icon = item.icon;
+					return (
+						<article key={item.title} className="editorial-panel space-y-3">
+							<div className="flex items-center gap-3">
+								<div className="rounded-full border border-border/80 bg-background/85 p-2">
+									<Icon size={18} />
+								</div>
+								<h2 className="font-semibold text-xl">{item.title}</h2>
+							</div>
+							<p className="editorial-copy text-sm">{item.body}</p>
+						</article>
+					);
+				})}
+			</section>
 
-				<Link
-					href="/docs/specs/capabilities"
-					className="card-subtle group space-y-3 p-6 transition-colors hover:border-violet-500/50"
-				>
-					<div className="flex items-start justify-between">
-						<div>
-							<h3 className="font-bold text-lg transition-colors group-hover:text-violet-400">
-								Core contracts
-							</h3>
-							<p className="mt-1 text-muted-foreground text-sm">
-								Commands, queries, events, and presentations. The building
-								blocks.
-							</p>
-						</div>
-						<BookOpen size={20} className="shrink-0 text-violet-400" />
-					</div>
-				</Link>
-
-				<Link
-					href="/docs/safety/signing"
-					className="card-subtle group space-y-3 p-6 transition-colors hover:border-violet-500/50"
-				>
-					<div className="flex items-start justify-between">
-						<div>
-							<h3 className="font-bold text-lg transition-colors group-hover:text-violet-400">
-								Safe regeneration
-							</h3>
-							<p className="mt-1 text-muted-foreground text-sm">
-								Golden tests, migrations, signing, and audit trails.
-							</p>
-						</div>
-						<Shield size={20} className="shrink-0 text-violet-400" />
-					</div>
-				</Link>
-
-				<Link
-					href="/docs/studio"
-					className="card-subtle group space-y-3 p-6 transition-colors hover:border-violet-500/50"
-				>
-					<div className="flex items-start justify-between">
-						<div>
-							<h3 className="font-bold text-lg transition-colors group-hover:text-violet-400">
-								Studio
-							</h3>
-							<p className="mt-1 text-muted-foreground text-sm">
-								AI-powered product decision engine for spec-first teams.
-							</p>
-						</div>
-						<Zap size={20} className="shrink-0 text-violet-400" />
-					</div>
-				</Link>
-			</div>
-
-			{/* Quick Start */}
-			<div className="space-y-4">
-				<h2 className="font-bold text-2xl">Quick start</h2>
-				<div className="card-subtle space-y-4 p-6">
-					<p className="text-muted-foreground">
-						Add ContractSpec to your project and define your first contract:
+			<section className="editorial-panel space-y-5">
+				<div className="space-y-2">
+					<p className="editorial-kicker">Quick start</p>
+					<h2 className="editorial-panel-title">Start with one contract</h2>
+					<p className="editorial-copy text-sm">
+						Use the CLI and core libraries to define one explicit capability,
+						generate the surface, and validate the contract boundary before you
+						expand.
 					</p>
-					<CodeBlock
-						language="bash"
-						filename="docs-quick-start"
-						code={`# Install the CLI and core libraries
-bun add -D contractspec
+				</div>
+				<CodeBlock
+					language="bash"
+					filename="docs-quick-start"
+					code={`bun add -D contractspec
 bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 
-# Create your first contract
-bun contractspec create --type operation
+contractspec init
+contractspec create --type operation
+contractspec build src/contracts/mySpec.ts
+contractspec validate src/contracts/mySpec.ts`}
+				/>
+			</section>
 
-# Generate implementation
-bun contractspec build src/contracts/mySpec.ts`}
-					/>
-
-					<div className="flex flex-wrap gap-2">
-						<Link
-							href="/docs/getting-started/installation"
-							className="btn-primary text-sm"
-						>
-							Installation guide <ChevronRight size={16} />
-						</Link>
-						<Link
-							href="/docs/getting-started/hello-world"
-							className="btn-ghost text-sm"
-						>
-							First contract tutorial
-						</Link>
-					</div>
-
-					{/*<Link*/}
-					{/*  href="/docs/libraries/ai-agent"*/}
-					{/*  className="card-subtle group space-y-3 p-6 transition-colors hover:border-violet-500/50"*/}
-					{/*>*/}
-					{/*  <div className="flex items-start justify-between">*/}
-					{/*    <div>*/}
-					{/*      <p className="text-xs font-semibold tracking-[0.2em] text-violet-500 uppercase">*/}
-					{/*        Featured*/}
-					{/*      </p>*/}
-					{/*      <h3 className="text-lg font-bold transition-colors group-hover:text-violet-400">*/}
-					{/*        AI Governance*/}
-					{/*      </h3>*/}
-					{/*      <p className="text-muted-foreground mt-1 text-sm">*/}
-					{/*        Constrain what AI agents can change. Enforce contracts they*/}
-					{/*        must respect. Human-in-the-loop guardrails.*/}
-					{/*      </p>*/}
-					{/*    </div>*/}
-					{/*    <Activity size={20} className="shrink-0 text-violet-400" />*/}
-					{/*  </div>*/}
-					{/*</Link>*/}
+			<section className="space-y-5">
+				<div className="space-y-2">
+					<p className="editorial-kicker">Primary path</p>
+					<h2 className="editorial-panel-title">
+						Move through the system in the right order
+					</h2>
+					<p className="editorial-copy text-sm">
+						Start with onboarding, then learn the model, then build and operate
+						with confidence. The primary docs path is intentionally shorter than
+						the full route inventory.
+					</p>
 				</div>
-			</div>
 
-			{/* Browse All Docs */}
-			<div className="space-y-4">
-				<h2 className="font-bold text-2xl">Browse all documentation</h2>
-				<p className="text-muted-foreground">
-					Use the sidebar or choose a topic to explore spec-first development.
-				</p>
-				<div className="mt-6 grid gap-4 md:grid-cols-2">
-					{[
-						{
-							title: 'Getting Started',
-							description: 'Installation, first contract, and CLI usage',
-							href: '/docs/getting-started/installation',
-						},
-						{
-							title: 'Guides',
-							description: 'Runnable adoption scenarios with examples',
-							href: '/docs/guides',
-						},
-						{
-							title: 'Intent Pages',
-							description: 'SEO-optimized pages for specific developer needs',
-							href: '/docs/intent',
-						},
-						{
-							title: 'Ecosystem',
-							description:
-								'Cursor marketplace plugins, templates, manifest, and integrations',
-							href: '/docs/ecosystem/plugins',
-						},
-						{
-							title: 'Core Contracts',
-							description:
-								'Commands, queries, events, presentations, workflows',
-							href: '/docs/specs/capabilities',
-						},
-						{
-							title: 'Safe Regeneration',
-							description: 'Signing, migrations, golden tests, compliance',
-							href: '/docs/safety/signing',
-						},
-						{
-							title: 'Multi-Surface Output',
-							description: 'REST, GraphQL, Prisma, MCP tools, React',
-							href: '/docs/advanced/renderers',
-						},
-						{
-							title: 'Libraries',
-							description: 'Core runtime libraries and utilities',
-							href: '/docs/libraries',
-						},
-						{
-							title: 'AI Governance',
-							description: 'Agents, contract enforcement, approval workflows',
-							href: '/docs/libraries/ai-agent',
-						},
-						{
-							title: 'Architecture',
-							description: 'Multi-tenancy, integrations, knowledge sources',
-							href: '/docs/architecture',
-						},
-						{
-							title: 'Manifesto',
-							description: 'Our philosophy: compiler not prison',
-							href: '/docs/manifesto',
-						},
-					].map((topic, i) => (
-						<Link
-							key={i}
-							href={topic.href}
-							className="card-subtle group p-4 transition-colors hover:border-violet-500/50"
-						>
-							<h3 className="font-bold transition-colors group-hover:text-violet-400">
-								{topic.title}
-							</h3>
-							<p className="mt-1 text-muted-foreground text-sm">
-								{topic.description}
-							</p>
-						</Link>
+				<div className="grid gap-5 lg:grid-cols-2">
+					{sections.map((section) => (
+						<article key={section.key} className="editorial-panel space-y-4">
+							<div>
+								<p className="editorial-kicker">{section.title}</p>
+								<h3 className="mt-2 font-serif text-3xl tracking-[-0.03em]">
+									{section.title}
+								</h3>
+								<p className="mt-3 text-muted-foreground text-sm leading-7">
+									{section.description}
+								</p>
+							</div>
+							<div className="space-y-3">
+								{section.featured.map((page) => (
+									<Link
+										key={page.href}
+										href={page.href}
+										className="flex items-start justify-between gap-4 rounded-[22px] border border-border/70 bg-background/70 p-4 transition-colors hover:border-[color:rgb(162_79_42_/_0.45)]"
+									>
+										<div>
+											<h4 className="font-semibold text-base">{page.title}</h4>
+											<p className="mt-1 text-muted-foreground text-sm leading-6">
+												{page.description}
+											</p>
+										</div>
+										<ArrowRight className="mt-1 shrink-0" size={16} />
+									</Link>
+								))}
+							</div>
+						</article>
 					))}
 				</div>
-			</div>
+			</section>
+
+			<section className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
+				<article className="editorial-panel space-y-4">
+					<div className="space-y-2">
+						<p className="editorial-kicker">Reference and evidence</p>
+						<h2 className="editorial-panel-title">
+							Use generated docs and examples as proof, not just narrative copy
+						</h2>
+						<p className="editorial-copy text-sm">
+							The reference index and example catalog stay close to the repo
+							truth. Use them when you need exact public surfaces, not just the
+							explanatory layer.
+						</p>
+					</div>
+					<div className="grid gap-4 md:grid-cols-2">
+						<Link href="/docs/reference" className="docs-footer-link">
+							<div className="flex items-center gap-2 text-muted-foreground text-sm">
+								<FileSearch size={16} />
+								<span>Reference index</span>
+							</div>
+							<p className="text-muted-foreground text-sm">
+								Search generated contract docs, versions, tags, and visibility
+								metadata.
+							</p>
+						</Link>
+						<Link href="/docs/examples" className="docs-footer-link">
+							<div className="flex items-center gap-2 text-muted-foreground text-sm">
+								<Boxes size={16} />
+								<span>Examples</span>
+							</div>
+							<p className="text-muted-foreground text-sm">
+								Browse runnable examples and follow the reference routes back to
+								their source artifacts.
+							</p>
+						</Link>
+					</div>
+				</article>
+
+				<article className="editorial-panel space-y-4">
+					<div className="space-y-2">
+						<p className="editorial-kicker">Secondary reading</p>
+						<h2 className="editorial-panel-title">Why ContractSpec</h2>
+						<p className="editorial-copy text-sm">
+							Positioning, comparisons, and philosophy remain available, but
+							they no longer define the main docs path.
+						</p>
+					</div>
+					<div className="flex flex-wrap gap-2">
+						{secondary.map((page) => (
+							<Link key={page.href} href={page.href} className="docs-chip-link">
+								{page.title}
+							</Link>
+						))}
+					</div>
+				</article>
+			</section>
 		</div>
 	);
 }

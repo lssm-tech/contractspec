@@ -98,10 +98,11 @@ export function DocsReferenceIndexClient({
 	return (
 		<VStack gap="xl">
 			<VStack gap="sm">
-				<H1>Contract Reference</H1>
+				<H1>Reference</H1>
 				<Muted>
-					Auto-generated reference docs for operations, events, forms, data
-					views, and presentations.
+					Generated reference material for public contract surfaces, versions,
+					owners, and example-backed implementations. Use this when you need the
+					repo truth, not just the narrative docs layer.
 				</Muted>
 			</VStack>
 

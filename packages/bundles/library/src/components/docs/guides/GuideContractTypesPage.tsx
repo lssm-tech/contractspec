@@ -43,7 +43,7 @@ export function GuideContractTypesPage() {
 				<h1 className="font-bold text-4xl">Contract Types Overview</h1>
 				<p className="text-lg text-muted-foreground">
 					Learn about the different contract types in ContractSpec and when to
-					use each one for spec-first development.
+					use each one when you are making the system boundary explicit.
 				</p>
 			</div>
 

@@ -8,10 +8,10 @@ interface StudioPromptProps {
 }
 
 export function StudioPrompt({
-	title = 'Want to turn product signals into spec-first deliverables?',
-	body = 'ContractSpec Studio ingests evidence from meetings, support, analytics, docs, and code, then compiles decisions into spec diffs and task packs.',
-	ctaLabel = 'Try Studio',
-	href = 'https://www.contractspec.studio',
+	title = 'Need the operating layer on top of OSS ContractSpec?',
+	body = 'ContractSpec Studio helps teams turn evidence into proposed spec changes, governed delivery loops, and execution-ready task packs while keeping the open contract system as the source of truth.',
+	ctaLabel = 'See what Studio adds',
+	href = 'https://www.contractspec.studio/docs',
 }: StudioPromptProps) {
 	return (
 		<div className="card-subtle space-y-3 p-6">

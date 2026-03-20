@@ -56,6 +56,7 @@
 		"./components/docs/comparison/ComparisonWindmillPage": "./src/components/docs/comparison/ComparisonWindmillPage.tsx",
 		"./components/docs/comparison/ComparisonWorkflowEnginesPage": "./src/components/docs/comparison/ComparisonWorkflowEnginesPage.tsx",
 		"./components/docs/DocsIndexPage": "./src/components/docs/DocsIndexPage.tsx",
+		"./components/docs/docsManifest": "./src/components/docs/docsManifest.ts",
 		"./components/docs/ecosystem": "./src/components/docs/ecosystem/index.ts",
 		"./components/docs/ecosystem/ecosystem.docblocks": "./src/components/docs/ecosystem/ecosystem.docblocks.ts",
 		"./components/docs/ecosystem/IntegrationsPage": "./src/components/docs/ecosystem/IntegrationsPage.tsx",
@@ -602,6 +603,12 @@
 				"bun": "./dist/components/docs/DocsIndexPage.js",
 				"node": "./dist/node/components/docs/DocsIndexPage.js",
 				"default": "./dist/components/docs/DocsIndexPage.js"
+			},
+			"./components/docs/docsManifest": {
+				"types": "./dist/components/docs/docsManifest.d.ts",
+				"bun": "./dist/components/docs/docsManifest.js",
+				"node": "./dist/node/components/docs/docsManifest.js",
+				"default": "./dist/components/docs/docsManifest.js"
 			},
 			"./components/docs/ecosystem": {
 				"types": "./dist/components/docs/ecosystem/index.d.ts",

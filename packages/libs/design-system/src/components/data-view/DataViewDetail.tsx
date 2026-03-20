@@ -5,9 +5,9 @@ import type {
 	DataViewField,
 	DataViewSpec,
 } from '@contractspec/lib.contracts-spec/data-views';
-import { MarkdownRenderer } from '@contractspec/lib.example-shared-ui';
 import * as React from 'react';
 import { cn } from '../../lib/utils';
+import { MarkdownRenderer } from '../molecules/MarkdownRenderer';
 import { DataViewFormattedValue, getAtPath } from './utils';
 
 export interface DataViewDetailProps {

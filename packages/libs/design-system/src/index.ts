@@ -131,6 +131,10 @@ export {
 } from './components/molecules/InstallCommand';
 export { LangSwitch } from './components/molecules/LangSwitch';
 export { LoaderBlock } from './components/molecules/LoaderBlock';
+export {
+	MarkdownRenderer,
+	type MarkdownRendererProps,
+} from './components/molecules/MarkdownRenderer';
 // Molecules
 export { NavMain } from './components/molecules/NavMain';
 export { NavUser } from './components/molecules/NavUser';

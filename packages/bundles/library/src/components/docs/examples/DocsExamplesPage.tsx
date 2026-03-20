@@ -51,8 +51,9 @@ export function DocsExamplesPage() {
 			<VStack gap="sm">
 				<H1>Examples</H1>
 				<Muted>
-					Curated examples and templates you can explore in the sandbox or use
-					as reference implementations.
+					Reference implementations for real ContractSpec surfaces. Use them to
+					study adoption patterns, inspect generated artifacts, and validate the
+					OSS workflow against runnable systems.
 				</Muted>
 			</VStack>
 

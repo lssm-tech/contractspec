@@ -1,3 +1,4 @@
+export { MarkdownRenderer } from '@contractspec/lib.design-system';
 export * from './EvolutionDashboard';
 export * from './EvolutionSidebar';
 export * from './hooks';

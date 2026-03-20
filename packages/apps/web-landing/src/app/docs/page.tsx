@@ -1,29 +1,6 @@
 import { DocsIndexPage } from '@contractspec/bundle.library/components/docs/DocsIndexPage';
-import type { Metadata } from 'next';
+import { docsPageMetadata } from '@/app/docs/docsMetadata';
 
-export const metadata: Metadata = {
-	title: 'Documentation – ContractSpec',
-	description:
-		'Learn to stabilize your AI-generated code. Define contracts, generate consistent code across all surfaces, regenerate safely.',
-	keywords: [
-		'documentation',
-		'guides',
-		'API reference',
-		'open spec system',
-		'AI code stabilization',
-		'TypeScript',
-		'contracts',
-	],
-	openGraph: {
-		title: 'Documentation – ContractSpec',
-		description:
-			'Learn to stabilize your AI-generated code with spec-first development.',
-		url: 'https://www.contractspec.io/docs',
-		type: 'website',
-	},
-	alternates: {
-		canonical: 'https://www.contractspec.io/docs',
-	},
-};
+export const metadata = docsPageMetadata('/docs');
 
 export default DocsIndexPage;

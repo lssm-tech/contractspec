@@ -1,7 +1,7 @@
 'use client';
 
 import type { DataViewFieldFormat } from '@contractspec/lib.contracts-spec/data-views/types';
-import { MarkdownRenderer } from '@contractspec/lib.example-shared-ui';
+import { MarkdownRenderer } from '../molecules/MarkdownRenderer';
 
 export function getAtPath(
 	source: Record<string, unknown> | undefined,

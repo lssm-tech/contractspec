@@ -1,3 +1,4 @@
+import { getDocsPageByHref } from '@contractspec/bundle.library/components/docs/docsManifest';
 import { cn } from '@contractspec/lib.ui-kit-core';
 import {
 	Collapsible,
@@ -27,7 +28,10 @@ import {
 import { AnvilIcon, BookOpenIcon, HouseIcon, Minus, Plus } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
-import { docsSections } from '@/components/docs-sidebar-nav';
+import {
+	docsSecondarySections,
+	docsSections,
+} from '@/components/docs-sidebar-nav';
 import packageJson from '../../../package.json';
 
 // This is sample data.
@@ -48,20 +52,30 @@ export function DocsNavSidebar({
 }: React.ComponentProps<typeof Sidebar>) {
 	const pathname = usePathname();
 	const { isMobile } = useSidebar();
+	const activePage = getDocsPageByHref(pathname);
 
 	const isItemActive = (href?: string) =>
 		typeof href === 'string' && pathname === href;
 
 	const activeSectionIndex = data.navMain.findIndex((section) => {
-		return (
-			isItemActive(section.href) ||
-			section.items.some((item) => isItemActive(item.href))
-		);
+		return section.items.some((item) => isItemActive(item.href));
 	});
 
 	return (
 		<Sidebar {...props}>
 			<SidebarHeader>
+				<div className="rounded-[24px] border border-sidebar-border/80 bg-sidebar-primary/8 p-4">
+					<p className="font-mono text-[11px] text-[color:var(--rust)] uppercase tracking-[0.24em]">
+						ContractSpec docs
+					</p>
+					<h2 className="mt-2 font-serif text-2xl tracking-[-0.03em]">
+						Open system docs
+					</h2>
+					<p className="mt-2 text-sidebar-foreground/75 text-sm leading-6">
+						Build on the OSS foundation first. Use Studio when you want the
+						operating layer on top.
+					</p>
+				</div>
 				<SidebarMenu>
 					<DropdownMenu>
 						<SidebarMenuItem>
@@ -72,8 +86,8 @@ export function DocsNavSidebar({
 											<BookOpenIcon className="size-4" />
 										</div>
 										<div className="flex flex-col gap-0.5 leading-none">
-											<span className="font-medium">Library Documentation</span>
-											<span className="">v{packageJson.version}</span>
+											<span className="font-medium">OSS reference</span>
+											<span>v{packageJson.version}</span>
 										</div>
 									</a>
 								</SidebarMenuButton>
@@ -102,6 +116,15 @@ export function DocsNavSidebar({
 
 			<SidebarContent>
 				<SidebarGroup>
+					<div className="mb-3 px-2">
+						<p className="font-mono text-[11px] text-sidebar-foreground/55 uppercase tracking-[0.2em]">
+							Primary docs
+						</p>
+						<p className="mt-1 text-sidebar-foreground/70 text-xs leading-5">
+							{activePage?.description ??
+								'Start with the open system, then drill into build, operate, integration, and reference paths.'}
+						</p>
+					</div>
 					<SidebarMenu>
 						{data.navMain.map((section, idx) => (
 							<Collapsible
@@ -110,49 +133,77 @@ export function DocsNavSidebar({
 								className="group/collapsible"
 							>
 								<SidebarMenuItem>
-									{section.items?.length ? (
-										<React.Fragment key={section.title}>
-											<CollapsibleTrigger asChild>
-												<SidebarMenuButton>
-													{section.title}{' '}
-													<Plus className="ml-auto group-data-[state=open]/collapsible:hidden" />
-													<Minus className="ml-auto group-data-[state=closed]/collapsible:hidden" />
-												</SidebarMenuButton>
-											</CollapsibleTrigger>
-											<CollapsibleContent>
-												<SidebarMenuSub>
-													{section.items.map((sectionItem) => (
-														<SidebarMenuSubItem key={sectionItem.title}>
-															<SidebarMenuSubButton
-																asChild
-																isActive={isItemActive(sectionItem.href)}
-																className={cn({
-																	'text-primary': isItemActive(
-																		sectionItem.href
-																	),
-																})}
-															>
-																<a href={sectionItem.href}>
-																	{sectionItem.title}
-																</a>
-															</SidebarMenuSubButton>
-														</SidebarMenuSubItem>
-													))}
-												</SidebarMenuSub>
-											</CollapsibleContent>
-										</React.Fragment>
-									) : (
-										<SidebarMenuButton key={section.title}>
-											<a
-												href={section.href}
-												className={cn({
-													'text-primary': isItemActive(section.href),
-												})}
-											>
+									<React.Fragment key={section.title}>
+										<CollapsibleTrigger asChild>
+											<SidebarMenuButton>
 												{section.title}
-											</a>
+												<Plus className="ml-auto group-data-[state=open]/collapsible:hidden" />
+												<Minus className="ml-auto group-data-[state=closed]/collapsible:hidden" />
+											</SidebarMenuButton>
+										</CollapsibleTrigger>
+										<CollapsibleContent>
+											<SidebarMenuSub>
+												{section.items.map((sectionItem) => (
+													<SidebarMenuSubItem key={sectionItem.title}>
+														<SidebarMenuSubButton
+															asChild
+															isActive={isItemActive(sectionItem.href)}
+															className={cn({
+																'text-primary': isItemActive(sectionItem.href),
+															})}
+														>
+															<a href={sectionItem.href}>{sectionItem.title}</a>
+														</SidebarMenuSubButton>
+													</SidebarMenuSubItem>
+												))}
+											</SidebarMenuSub>
+										</CollapsibleContent>
+									</React.Fragment>
+								</SidebarMenuItem>
+							</Collapsible>
+						))}
+					</SidebarMenu>
+				</SidebarGroup>
+
+				<SidebarGroup>
+					<div className="mb-3 px-2">
+						<p className="font-mono text-[11px] text-sidebar-foreground/55 uppercase tracking-[0.2em]">
+							Secondary reading
+						</p>
+						<p className="mt-1 text-sidebar-foreground/70 text-xs leading-5">
+							Philosophy, comparisons, and educational pages that support the
+							main OSS path without replacing it.
+						</p>
+					</div>
+
+					<SidebarMenu>
+						{docsSecondarySections.map((section) => (
+							<Collapsible key={section.key} className="group/collapsible">
+								<SidebarMenuItem>
+									<CollapsibleTrigger asChild>
+										<SidebarMenuButton>
+											{section.title}
+											<Plus className="ml-auto group-data-[state=open]/collapsible:hidden" />
+											<Minus className="ml-auto group-data-[state=closed]/collapsible:hidden" />
 										</SidebarMenuButton>
-									)}
+									</CollapsibleTrigger>
+									<CollapsibleContent>
+										<SidebarMenuSub>
+											{section.items.map((item) => (
+												<SidebarMenuSubItem key={item.title}>
+													<SidebarMenuSubButton
+														asChild
+														isActive={isItemActive(item.href)}
+														className={cn({
+															'text-primary': isItemActive(item.href),
+														})}
+													>
+														<a href={item.href}>{item.title}</a>
+													</SidebarMenuSubButton>
+												</SidebarMenuSubItem>
+											))}
+										</SidebarMenuSub>
+									</CollapsibleContent>
 								</SidebarMenuItem>
 							</Collapsible>
 						))}

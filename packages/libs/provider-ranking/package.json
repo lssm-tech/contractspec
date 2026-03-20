@@ -1,206 +1,206 @@
 {
-	"name": "@contractspec/lib.provider-ranking",
-	"version": "0.7.6",
-	"description": "AI provider ranking: benchmark ingestion, scoring, and model comparison",
-	"keywords": [
-		"contractspec",
-		"ai",
-		"ranking",
-		"benchmark",
-		"llm"
-	],
-	"type": "module",
-	"types": "./dist/index.d.ts",
-	"files": [
-		"dist",
-		"README.md"
-	],
-	"scripts": {
-		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-		"publish:pkg:canary": "bun publish:pkg --tag canary",
-		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
-		"build:bundle": "contractspec-bun-build transpile",
-		"build:types": "contractspec-bun-build types",
-		"dev": "contractspec-bun-build dev",
-		"clean": "rimraf dist .turbo",
-		"lint": "bun lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
-		"test": "bun test --pass-with-no-tests",
-		"prebuild": "contractspec-bun-build prebuild",
-		"typecheck": "tsc --noEmit"
-	},
-	"dependencies": {},
-	"devDependencies": {
-		"@contractspec/tool.typescript": "workspace:*",
-		"@contractspec/tool.bun": "workspace:*",
-		"typescript": "catalog:"
-	},
-	"exports": {
-		".": "./src/index.ts",
-		"./eval": "./src/eval/index.ts",
-		"./eval/runner": "./src/eval/runner.ts",
-		"./eval/types": "./src/eval/types.ts",
-		"./in-memory-store": "./src/in-memory-store.ts",
-		"./ingesters": "./src/ingesters/index.ts",
-		"./ingesters/artificial-analysis": "./src/ingesters/artificial-analysis.ts",
-		"./ingesters/chatbot-arena": "./src/ingesters/chatbot-arena.ts",
-		"./ingesters/fetch-utils": "./src/ingesters/fetch-utils.ts",
-		"./ingesters/open-llm-leaderboard": "./src/ingesters/open-llm-leaderboard.ts",
-		"./ingesters/registry": "./src/ingesters/registry.ts",
-		"./ingesters/swe-bench": "./src/ingesters/swe-bench.ts",
-		"./ingesters/types": "./src/ingesters/types.ts",
-		"./scoring": "./src/scoring/index.ts",
-		"./scoring/composite-scorer": "./src/scoring/composite-scorer.ts",
-		"./scoring/dimension-weights": "./src/scoring/dimension-weights.ts",
-		"./scoring/normalizer": "./src/scoring/normalizer.ts",
-		"./store": "./src/store.ts",
-		"./types": "./src/types.ts"
-	},
-	"publishConfig": {
-		"access": "public",
-		"exports": {
-			".": {
-				"types": "./dist/index.d.ts",
-				"browser": "./dist/browser/index.js",
-				"bun": "./dist/index.js",
-				"node": "./dist/node/index.js",
-				"default": "./dist/index.js"
-			},
-			"./eval": {
-				"types": "./dist/eval/index.d.ts",
-				"browser": "./dist/browser/eval/index.js",
-				"bun": "./dist/eval/index.js",
-				"node": "./dist/node/eval/index.js",
-				"default": "./dist/eval/index.js"
-			},
-			"./eval/runner": {
-				"types": "./dist/eval/runner.d.ts",
-				"browser": "./dist/browser/eval/runner.js",
-				"bun": "./dist/eval/runner.js",
-				"node": "./dist/node/eval/runner.js",
-				"default": "./dist/eval/runner.js"
-			},
-			"./eval/types": {
-				"types": "./dist/eval/types.d.ts",
-				"browser": "./dist/browser/eval/types.js",
-				"bun": "./dist/eval/types.js",
-				"node": "./dist/node/eval/types.js",
-				"default": "./dist/eval/types.js"
-			},
-			"./in-memory-store": {
-				"types": "./dist/in-memory-store.d.ts",
-				"browser": "./dist/browser/in-memory-store.js",
-				"bun": "./dist/in-memory-store.js",
-				"node": "./dist/node/in-memory-store.js",
-				"default": "./dist/in-memory-store.js"
-			},
-			"./ingesters": {
-				"types": "./dist/ingesters/index.d.ts",
-				"browser": "./dist/browser/ingesters/index.js",
-				"bun": "./dist/ingesters/index.js",
-				"node": "./dist/node/ingesters/index.js",
-				"default": "./dist/ingesters/index.js"
-			},
-			"./ingesters/artificial-analysis": {
-				"types": "./dist/ingesters/artificial-analysis.d.ts",
-				"browser": "./dist/browser/ingesters/artificial-analysis.js",
-				"bun": "./dist/ingesters/artificial-analysis.js",
-				"node": "./dist/node/ingesters/artificial-analysis.js",
-				"default": "./dist/ingesters/artificial-analysis.js"
-			},
-			"./ingesters/chatbot-arena": {
-				"types": "./dist/ingesters/chatbot-arena.d.ts",
-				"browser": "./dist/browser/ingesters/chatbot-arena.js",
-				"bun": "./dist/ingesters/chatbot-arena.js",
-				"node": "./dist/node/ingesters/chatbot-arena.js",
-				"default": "./dist/ingesters/chatbot-arena.js"
-			},
-			"./ingesters/fetch-utils": {
-				"types": "./dist/ingesters/fetch-utils.d.ts",
-				"browser": "./dist/browser/ingesters/fetch-utils.js",
-				"bun": "./dist/ingesters/fetch-utils.js",
-				"node": "./dist/node/ingesters/fetch-utils.js",
-				"default": "./dist/ingesters/fetch-utils.js"
-			},
-			"./ingesters/open-llm-leaderboard": {
-				"types": "./dist/ingesters/open-llm-leaderboard.d.ts",
-				"browser": "./dist/browser/ingesters/open-llm-leaderboard.js",
-				"bun": "./dist/ingesters/open-llm-leaderboard.js",
-				"node": "./dist/node/ingesters/open-llm-leaderboard.js",
-				"default": "./dist/ingesters/open-llm-leaderboard.js"
-			},
-			"./ingesters/registry": {
-				"types": "./dist/ingesters/registry.d.ts",
-				"browser": "./dist/browser/ingesters/registry.js",
-				"bun": "./dist/ingesters/registry.js",
-				"node": "./dist/node/ingesters/registry.js",
-				"default": "./dist/ingesters/registry.js"
-			},
-			"./ingesters/swe-bench": {
-				"types": "./dist/ingesters/swe-bench.d.ts",
-				"browser": "./dist/browser/ingesters/swe-bench.js",
-				"bun": "./dist/ingesters/swe-bench.js",
-				"node": "./dist/node/ingesters/swe-bench.js",
-				"default": "./dist/ingesters/swe-bench.js"
-			},
-			"./ingesters/types": {
-				"types": "./dist/ingesters/types.d.ts",
-				"browser": "./dist/browser/ingesters/types.js",
-				"bun": "./dist/ingesters/types.js",
-				"node": "./dist/node/ingesters/types.js",
-				"default": "./dist/ingesters/types.js"
-			},
-			"./scoring": {
-				"types": "./dist/scoring/index.d.ts",
-				"browser": "./dist/browser/scoring/index.js",
-				"bun": "./dist/scoring/index.js",
-				"node": "./dist/node/scoring/index.js",
-				"default": "./dist/scoring/index.js"
-			},
-			"./scoring/composite-scorer": {
-				"types": "./dist/scoring/composite-scorer.d.ts",
-				"browser": "./dist/browser/scoring/composite-scorer.js",
-				"bun": "./dist/scoring/composite-scorer.js",
-				"node": "./dist/node/scoring/composite-scorer.js",
-				"default": "./dist/scoring/composite-scorer.js"
-			},
-			"./scoring/dimension-weights": {
-				"types": "./dist/scoring/dimension-weights.d.ts",
-				"browser": "./dist/browser/scoring/dimension-weights.js",
-				"bun": "./dist/scoring/dimension-weights.js",
-				"node": "./dist/node/scoring/dimension-weights.js",
-				"default": "./dist/scoring/dimension-weights.js"
-			},
-			"./scoring/normalizer": {
-				"types": "./dist/scoring/normalizer.d.ts",
-				"browser": "./dist/browser/scoring/normalizer.js",
-				"bun": "./dist/scoring/normalizer.js",
-				"node": "./dist/node/scoring/normalizer.js",
-				"default": "./dist/scoring/normalizer.js"
-			},
-			"./store": {
-				"types": "./dist/store.d.ts",
-				"browser": "./dist/browser/store.js",
-				"bun": "./dist/store.js",
-				"node": "./dist/node/store.js",
-				"default": "./dist/store.js"
-			},
-			"./types": {
-				"types": "./dist/types.d.ts",
-				"browser": "./dist/browser/types.js",
-				"bun": "./dist/types.js",
-				"node": "./dist/node/types.js",
-				"default": "./dist/types.js"
-			}
-		},
-		"registry": "https://registry.npmjs.org/"
-	},
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/lssm-tech/contractspec.git",
-		"directory": "packages/libs/provider-ranking"
-	},
-	"homepage": "https://contractspec.io"
+  "name": "@contractspec/lib.provider-ranking",
+  "version": "0.7.6",
+  "description": "AI provider ranking: benchmark ingestion, scoring, and model comparison",
+  "keywords": [
+    "contractspec",
+    "ai",
+    "ranking",
+    "benchmark",
+    "llm"
+  ],
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
+    "test": "bun test --pass-with-no-tests",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.bun": "workspace:*",
+    "typescript": "catalog:"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./eval": "./src/eval/index.ts",
+    "./eval/runner": "./src/eval/runner.ts",
+    "./eval/types": "./src/eval/types.ts",
+    "./in-memory-store": "./src/in-memory-store.ts",
+    "./ingesters": "./src/ingesters/index.ts",
+    "./ingesters/artificial-analysis": "./src/ingesters/artificial-analysis.ts",
+    "./ingesters/chatbot-arena": "./src/ingesters/chatbot-arena.ts",
+    "./ingesters/fetch-utils": "./src/ingesters/fetch-utils.ts",
+    "./ingesters/open-llm-leaderboard": "./src/ingesters/open-llm-leaderboard.ts",
+    "./ingesters/registry": "./src/ingesters/registry.ts",
+    "./ingesters/swe-bench": "./src/ingesters/swe-bench.ts",
+    "./ingesters/types": "./src/ingesters/types.ts",
+    "./scoring": "./src/scoring/index.ts",
+    "./scoring/composite-scorer": "./src/scoring/composite-scorer.ts",
+    "./scoring/dimension-weights": "./src/scoring/dimension-weights.ts",
+    "./scoring/normalizer": "./src/scoring/normalizer.ts",
+    "./store": "./src/store.ts",
+    "./types": "./src/types.ts"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.js",
+        "default": "./dist/index.js"
+      },
+      "./eval": {
+        "types": "./dist/eval/index.d.ts",
+        "browser": "./dist/browser/eval/index.js",
+        "bun": "./dist/eval/index.js",
+        "node": "./dist/node/eval/index.js",
+        "default": "./dist/eval/index.js"
+      },
+      "./eval/runner": {
+        "types": "./dist/eval/runner.d.ts",
+        "browser": "./dist/browser/eval/runner.js",
+        "bun": "./dist/eval/runner.js",
+        "node": "./dist/node/eval/runner.js",
+        "default": "./dist/eval/runner.js"
+      },
+      "./eval/types": {
+        "types": "./dist/eval/types.d.ts",
+        "browser": "./dist/browser/eval/types.js",
+        "bun": "./dist/eval/types.js",
+        "node": "./dist/node/eval/types.js",
+        "default": "./dist/eval/types.js"
+      },
+      "./in-memory-store": {
+        "types": "./dist/in-memory-store.d.ts",
+        "browser": "./dist/browser/in-memory-store.js",
+        "bun": "./dist/in-memory-store.js",
+        "node": "./dist/node/in-memory-store.js",
+        "default": "./dist/in-memory-store.js"
+      },
+      "./ingesters": {
+        "types": "./dist/ingesters/index.d.ts",
+        "browser": "./dist/browser/ingesters/index.js",
+        "bun": "./dist/ingesters/index.js",
+        "node": "./dist/node/ingesters/index.js",
+        "default": "./dist/ingesters/index.js"
+      },
+      "./ingesters/artificial-analysis": {
+        "types": "./dist/ingesters/artificial-analysis.d.ts",
+        "browser": "./dist/browser/ingesters/artificial-analysis.js",
+        "bun": "./dist/ingesters/artificial-analysis.js",
+        "node": "./dist/node/ingesters/artificial-analysis.js",
+        "default": "./dist/ingesters/artificial-analysis.js"
+      },
+      "./ingesters/chatbot-arena": {
+        "types": "./dist/ingesters/chatbot-arena.d.ts",
+        "browser": "./dist/browser/ingesters/chatbot-arena.js",
+        "bun": "./dist/ingesters/chatbot-arena.js",
+        "node": "./dist/node/ingesters/chatbot-arena.js",
+        "default": "./dist/ingesters/chatbot-arena.js"
+      },
+      "./ingesters/fetch-utils": {
+        "types": "./dist/ingesters/fetch-utils.d.ts",
+        "browser": "./dist/browser/ingesters/fetch-utils.js",
+        "bun": "./dist/ingesters/fetch-utils.js",
+        "node": "./dist/node/ingesters/fetch-utils.js",
+        "default": "./dist/ingesters/fetch-utils.js"
+      },
+      "./ingesters/open-llm-leaderboard": {
+        "types": "./dist/ingesters/open-llm-leaderboard.d.ts",
+        "browser": "./dist/browser/ingesters/open-llm-leaderboard.js",
+        "bun": "./dist/ingesters/open-llm-leaderboard.js",
+        "node": "./dist/node/ingesters/open-llm-leaderboard.js",
+        "default": "./dist/ingesters/open-llm-leaderboard.js"
+      },
+      "./ingesters/registry": {
+        "types": "./dist/ingesters/registry.d.ts",
+        "browser": "./dist/browser/ingesters/registry.js",
+        "bun": "./dist/ingesters/registry.js",
+        "node": "./dist/node/ingesters/registry.js",
+        "default": "./dist/ingesters/registry.js"
+      },
+      "./ingesters/swe-bench": {
+        "types": "./dist/ingesters/swe-bench.d.ts",
+        "browser": "./dist/browser/ingesters/swe-bench.js",
+        "bun": "./dist/ingesters/swe-bench.js",
+        "node": "./dist/node/ingesters/swe-bench.js",
+        "default": "./dist/ingesters/swe-bench.js"
+      },
+      "./ingesters/types": {
+        "types": "./dist/ingesters/types.d.ts",
+        "browser": "./dist/browser/ingesters/types.js",
+        "bun": "./dist/ingesters/types.js",
+        "node": "./dist/node/ingesters/types.js",
+        "default": "./dist/ingesters/types.js"
+      },
+      "./scoring": {
+        "types": "./dist/scoring/index.d.ts",
+        "browser": "./dist/browser/scoring/index.js",
+        "bun": "./dist/scoring/index.js",
+        "node": "./dist/node/scoring/index.js",
+        "default": "./dist/scoring/index.js"
+      },
+      "./scoring/composite-scorer": {
+        "types": "./dist/scoring/composite-scorer.d.ts",
+        "browser": "./dist/browser/scoring/composite-scorer.js",
+        "bun": "./dist/scoring/composite-scorer.js",
+        "node": "./dist/node/scoring/composite-scorer.js",
+        "default": "./dist/scoring/composite-scorer.js"
+      },
+      "./scoring/dimension-weights": {
+        "types": "./dist/scoring/dimension-weights.d.ts",
+        "browser": "./dist/browser/scoring/dimension-weights.js",
+        "bun": "./dist/scoring/dimension-weights.js",
+        "node": "./dist/node/scoring/dimension-weights.js",
+        "default": "./dist/scoring/dimension-weights.js"
+      },
+      "./scoring/normalizer": {
+        "types": "./dist/scoring/normalizer.d.ts",
+        "browser": "./dist/browser/scoring/normalizer.js",
+        "bun": "./dist/scoring/normalizer.js",
+        "node": "./dist/node/scoring/normalizer.js",
+        "default": "./dist/scoring/normalizer.js"
+      },
+      "./store": {
+        "types": "./dist/store.d.ts",
+        "browser": "./dist/browser/store.js",
+        "bun": "./dist/store.js",
+        "node": "./dist/node/store.js",
+        "default": "./dist/store.js"
+      },
+      "./types": {
+        "types": "./dist/types.d.ts",
+        "browser": "./dist/browser/types.js",
+        "bun": "./dist/types.js",
+        "node": "./dist/node/types.js",
+        "default": "./dist/types.js"
+      }
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/provider-ranking"
+  },
+  "homepage": "https://contractspec.io"
 }

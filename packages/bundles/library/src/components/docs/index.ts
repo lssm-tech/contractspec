@@ -8,6 +8,8 @@ export * from './architecture';
 export * from './comparison';
 // Root docs page
 export { DocsIndexPage } from './DocsIndexPage';
+// Docs manifest
+export * from './docsManifest';
 // Ecosystem
 export * from './ecosystem';
 // Examples

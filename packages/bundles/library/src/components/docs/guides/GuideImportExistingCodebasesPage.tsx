@@ -54,8 +54,8 @@ export function GuideImportExistingCodebasesPage() {
 				<h1 className="font-bold text-4xl">Import Existing Codebases</h1>
 				<p className="text-lg text-muted-foreground">
 					Convert your existing API endpoints into ContractSpec contracts.
-					Auto-detect frameworks, extract schemas, and generate spec-first
-					definitions from your code.
+					Auto-detect frameworks, extract schemas, and generate explicit
+					contract definitions from your code.
 				</p>
 			</div>
 
@@ -497,7 +497,7 @@ installOp(registry, CreateUserCommand, async (input) => {
 
 				<StudioPrompt
 					title="Want evidence-driven migration priorities?"
-					body="Studio clusters product signals into scored patterns, then proposes spec-first change cards for the highest-impact areas."
+					body="Studio clusters product signals into scored patterns, then proposes contract changes and execution-ready work for the highest-impact areas."
 				/>
 			</div>
 

@@ -1,121 +1,121 @@
 {
-	"name": "@contractspec/integration.harness-runtime",
-	"version": "0.1.0",
-	"description": "Runtime adapters for the ContractSpec harness system.",
-	"type": "module",
-	"types": "./dist/index.d.ts",
-	"files": [
-		"dist",
-		"README.md"
-	],
-	"scripts": {
-		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-		"publish:pkg:canary": "bun publish:pkg --tag canary",
-		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
-		"build:bundle": "contractspec-bun-build transpile",
-		"build:types": "contractspec-bun-build types",
-		"dev": "contractspec-bun-build dev",
-		"clean": "rimraf dist .turbo",
-		"lint": "bun run lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
-		"test": "bun test --pass-with-no-tests",
-		"prebuild": "contractspec-bun-build prebuild",
-		"typecheck": "tsc --noEmit"
-	},
-	"dependencies": {
-		"@contractspec/lib.contracts-spec": "workspace:*",
-		"@contractspec/lib.harness": "workspace:*"
-	},
-	"peerDependencies": {
-		"playwright": "^1.54.0"
-	},
-	"peerDependenciesMeta": {
-		"playwright": {
-			"optional": true
-		}
-	},
-	"devDependencies": {
-		"@contractspec/tool.bun": "workspace:*",
-		"@contractspec/tool.typescript": "workspace:*",
-		"typescript": "catalog:"
-	},
-	"exports": {
-		".": "./src/index.ts",
-		"./adapters/playwrightBrowserHarnessAdapter": "./src/adapters/playwrightBrowserHarnessAdapter.ts",
-		"./adapters/sandboxedCodeExecutionAdapter": "./src/adapters/sandboxedCodeExecutionAdapter.ts",
-		"./adapters/visualHarnessAdapter": "./src/adapters/visualHarnessAdapter.ts",
-		"./artifacts/filesystemArtifactStore": "./src/artifacts/filesystemArtifactStore.ts",
-		"./artifacts/inMemoryArtifactStore": "./src/artifacts/inMemoryArtifactStore.ts",
-		"./mcp/exposure": "./src/mcp/exposure.ts",
-		"./targets/defaultTargetResolver": "./src/targets/defaultTargetResolver.ts",
-		"./types": "./src/types.ts"
-	},
-	"publishConfig": {
-		"access": "public",
-		"registry": "https://registry.npmjs.org/",
-		"exports": {
-			".": {
-				"types": "./dist/index.d.ts",
-				"bun": "./dist/index.js",
-				"node": "./dist/node/index.js",
-				"default": "./dist/index.js"
-			},
-			"./adapters/playwrightBrowserHarnessAdapter": {
-				"types": "./dist/adapters/playwrightBrowserHarnessAdapter.d.ts",
-				"bun": "./dist/adapters/playwrightBrowserHarnessAdapter.js",
-				"node": "./dist/node/adapters/playwrightBrowserHarnessAdapter.js",
-				"default": "./dist/adapters/playwrightBrowserHarnessAdapter.js"
-			},
-			"./adapters/sandboxedCodeExecutionAdapter": {
-				"types": "./dist/adapters/sandboxedCodeExecutionAdapter.d.ts",
-				"bun": "./dist/adapters/sandboxedCodeExecutionAdapter.js",
-				"node": "./dist/node/adapters/sandboxedCodeExecutionAdapter.js",
-				"default": "./dist/adapters/sandboxedCodeExecutionAdapter.js"
-			},
-			"./adapters/visualHarnessAdapter": {
-				"types": "./dist/adapters/visualHarnessAdapter.d.ts",
-				"bun": "./dist/adapters/visualHarnessAdapter.js",
-				"node": "./dist/node/adapters/visualHarnessAdapter.js",
-				"default": "./dist/adapters/visualHarnessAdapter.js"
-			},
-			"./artifacts/filesystemArtifactStore": {
-				"types": "./dist/artifacts/filesystemArtifactStore.d.ts",
-				"bun": "./dist/artifacts/filesystemArtifactStore.js",
-				"node": "./dist/node/artifacts/filesystemArtifactStore.js",
-				"default": "./dist/artifacts/filesystemArtifactStore.js"
-			},
-			"./artifacts/inMemoryArtifactStore": {
-				"types": "./dist/artifacts/inMemoryArtifactStore.d.ts",
-				"bun": "./dist/artifacts/inMemoryArtifactStore.js",
-				"node": "./dist/node/artifacts/inMemoryArtifactStore.js",
-				"default": "./dist/artifacts/inMemoryArtifactStore.js"
-			},
-			"./mcp/exposure": {
-				"types": "./dist/mcp/exposure.d.ts",
-				"bun": "./dist/mcp/exposure.js",
-				"node": "./dist/node/mcp/exposure.js",
-				"default": "./dist/mcp/exposure.js"
-			},
-			"./targets/defaultTargetResolver": {
-				"types": "./dist/targets/defaultTargetResolver.d.ts",
-				"bun": "./dist/targets/defaultTargetResolver.js",
-				"node": "./dist/node/targets/defaultTargetResolver.js",
-				"default": "./dist/targets/defaultTargetResolver.js"
-			},
-			"./types": {
-				"types": "./dist/types.d.ts",
-				"bun": "./dist/types.js",
-				"node": "./dist/node/types.js",
-				"default": "./dist/types.js"
-			}
-		}
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/lssm-tech/contractspec.git",
-		"directory": "packages/integrations/harness-runtime"
-	},
-	"license": "MIT",
-	"homepage": "https://contractspec.io"
+  "name": "@contractspec/integration.harness-runtime",
+  "version": "0.1.0",
+  "description": "Runtime adapters for the ContractSpec harness system.",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
+    "build:bundle": "contractspec-bun-build transpile",
+    "build:types": "contractspec-bun-build types",
+    "dev": "contractspec-bun-build dev",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun run lint:fix",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
+    "test": "bun test --pass-with-no-tests",
+    "prebuild": "contractspec-bun-build prebuild",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@contractspec/lib.contracts-spec": "workspace:*",
+    "@contractspec/lib.harness": "workspace:*"
+  },
+  "peerDependencies": {
+    "playwright": "^1.54.0"
+  },
+  "peerDependenciesMeta": {
+    "playwright": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@contractspec/tool.bun": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "typescript": "catalog:"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./adapters/playwrightBrowserHarnessAdapter": "./src/adapters/playwrightBrowserHarnessAdapter.ts",
+    "./adapters/sandboxedCodeExecutionAdapter": "./src/adapters/sandboxedCodeExecutionAdapter.ts",
+    "./adapters/visualHarnessAdapter": "./src/adapters/visualHarnessAdapter.ts",
+    "./artifacts/filesystemArtifactStore": "./src/artifacts/filesystemArtifactStore.ts",
+    "./artifacts/inMemoryArtifactStore": "./src/artifacts/inMemoryArtifactStore.ts",
+    "./mcp/exposure": "./src/mcp/exposure.ts",
+    "./targets/defaultTargetResolver": "./src/targets/defaultTargetResolver.ts",
+    "./types": "./src/types.ts"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "bun": "./dist/index.js",
+        "node": "./dist/node/index.js",
+        "default": "./dist/index.js"
+      },
+      "./adapters/playwrightBrowserHarnessAdapter": {
+        "types": "./dist/adapters/playwrightBrowserHarnessAdapter.d.ts",
+        "bun": "./dist/adapters/playwrightBrowserHarnessAdapter.js",
+        "node": "./dist/node/adapters/playwrightBrowserHarnessAdapter.js",
+        "default": "./dist/adapters/playwrightBrowserHarnessAdapter.js"
+      },
+      "./adapters/sandboxedCodeExecutionAdapter": {
+        "types": "./dist/adapters/sandboxedCodeExecutionAdapter.d.ts",
+        "bun": "./dist/adapters/sandboxedCodeExecutionAdapter.js",
+        "node": "./dist/node/adapters/sandboxedCodeExecutionAdapter.js",
+        "default": "./dist/adapters/sandboxedCodeExecutionAdapter.js"
+      },
+      "./adapters/visualHarnessAdapter": {
+        "types": "./dist/adapters/visualHarnessAdapter.d.ts",
+        "bun": "./dist/adapters/visualHarnessAdapter.js",
+        "node": "./dist/node/adapters/visualHarnessAdapter.js",
+        "default": "./dist/adapters/visualHarnessAdapter.js"
+      },
+      "./artifacts/filesystemArtifactStore": {
+        "types": "./dist/artifacts/filesystemArtifactStore.d.ts",
+        "bun": "./dist/artifacts/filesystemArtifactStore.js",
+        "node": "./dist/node/artifacts/filesystemArtifactStore.js",
+        "default": "./dist/artifacts/filesystemArtifactStore.js"
+      },
+      "./artifacts/inMemoryArtifactStore": {
+        "types": "./dist/artifacts/inMemoryArtifactStore.d.ts",
+        "bun": "./dist/artifacts/inMemoryArtifactStore.js",
+        "node": "./dist/node/artifacts/inMemoryArtifactStore.js",
+        "default": "./dist/artifacts/inMemoryArtifactStore.js"
+      },
+      "./mcp/exposure": {
+        "types": "./dist/mcp/exposure.d.ts",
+        "bun": "./dist/mcp/exposure.js",
+        "node": "./dist/node/mcp/exposure.js",
+        "default": "./dist/mcp/exposure.js"
+      },
+      "./targets/defaultTargetResolver": {
+        "types": "./dist/targets/defaultTargetResolver.d.ts",
+        "bun": "./dist/targets/defaultTargetResolver.js",
+        "node": "./dist/node/targets/defaultTargetResolver.js",
+        "default": "./dist/targets/defaultTargetResolver.js"
+      },
+      "./types": {
+        "types": "./dist/types.d.ts",
+        "bun": "./dist/types.js",
+        "node": "./dist/node/types.js",
+        "default": "./dist/types.js"
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/integrations/harness-runtime"
+  },
+  "license": "MIT",
+  "homepage": "https://contractspec.io"
 }

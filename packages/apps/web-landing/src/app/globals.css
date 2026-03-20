@@ -284,6 +284,26 @@
 		@apply mt-2.5 inline-flex h-2 w-2 shrink-0 rounded-full bg-[color:var(--rust)];
 	}
 
+	.docs-shell-note {
+		@apply mb-8 flex flex-col gap-4 rounded-[30px] border border-border/80 bg-card/90 p-5 shadow-[0_18px_60px_rgb(36_26_16_/_0.06)] md:flex-row md:items-start md:justify-between md:p-6;
+	}
+
+	.docs-page-body {
+		@apply rounded-[34px] border border-border/75 bg-[rgb(251_247_240_/_0.82)] p-5 shadow-[0_18px_60px_rgb(36_26_16_/_0.05)] md:p-8;
+	}
+
+	.docs-chip-link {
+		@apply inline-flex items-center rounded-full border border-border/80 bg-background/85 px-3 py-1.5 font-medium text-foreground text-xs transition-colors hover:bg-card;
+	}
+
+	.docs-footer-link {
+		@apply flex flex-col gap-3 rounded-[26px] border border-border/75 bg-card/88 p-5 transition-colors hover:border-[color:rgb(162_79_42_/_0.45)] hover:bg-card;
+	}
+
+	.docs-secondary-strip {
+		@apply flex flex-col gap-4 rounded-[28px] border border-dashed border-border/80 bg-card/70 p-5 md:flex-row md:items-center md:justify-between;
+	}
+
 	.fade-in {
 		animation: fadeIn 0.45s ease-in-out;
 	}

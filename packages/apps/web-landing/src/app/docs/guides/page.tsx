@@ -1,13 +1,6 @@
 import { GuidesIndexPage } from '@contractspec/bundle.library';
-import type { Metadata } from 'next';
+import { docsPageMetadata } from '@/app/docs/docsMetadata';
 
-export const metadata: Metadata = {
-	title: 'Guides - ContractSpec',
-	description:
-		'Hands-on guides with runnable commands and CI-verified examples for ContractSpec adoption.',
-	alternates: {
-		canonical: 'https://www.contractspec.io/docs/guides',
-	},
-};
+export const metadata = docsPageMetadata('/docs/guides');
 
 export default GuidesIndexPage;

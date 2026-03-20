@@ -34,7 +34,7 @@ export function DeveloperToolsPage() {
 			name: 'ContractSpec Studio',
 			href: 'https://www.contractspec.studio',
 			description:
-				'AI-powered product decision engine that turns product signals into spec-first deliverables.',
+				'The operating layer on top of OSS ContractSpec for teams that want evidence-backed decisions, workflow automation, and managed delivery loops.',
 			icon: Layers,
 			status: 'available',
 			highlights: [
@@ -63,8 +63,9 @@ export function DeveloperToolsPage() {
 			<div className="space-y-2">
 				<h1 className="font-bold text-4xl">Developer Tools</h1>
 				<p className="text-lg text-muted-foreground">
-					ContractSpec provides a suite of tools to help you build, validate,
-					and manage your specifications across different environments.
+					Use the OSS toolchain to define contracts, validate changes, inspect
+					generated surfaces, and adopt the system incrementally across
+					different environments.
 				</p>
 			</div>
 

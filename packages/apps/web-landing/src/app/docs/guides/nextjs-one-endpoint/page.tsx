@@ -1,13 +1,6 @@
 import { GuideNextjsOneEndpointPage } from '@contractspec/bundle.library';
-import type { Metadata } from 'next';
+import { docsPageMetadata } from '@/app/docs/docsMetadata';
 
-export const metadata: Metadata = {
-	title: 'Next.js One Endpoint - ContractSpec Guides',
-	description:
-		'Add ContractSpec to an existing Next.js app by wiring one operation end-to-end.',
-	alternates: {
-		canonical: 'https://www.contractspec.io/docs/guides/nextjs-one-endpoint',
-	},
-};
+export const metadata = docsPageMetadata('/docs/guides/nextjs-one-endpoint');
 
 export default GuideNextjsOneEndpointPage;
