@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.visualization-showcase",
-  "version": "3.8.0",
+  "version": "3.9.0",
   "description": "Focused visualization showcase for ContractSpec primitives and design-system wrappers",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -122,8 +122,7 @@
         "default": "./dist/visualizations/index.js"
       }
     },
-    "registry": "https://registry.npmjs.org/",
-    "access": "public"
+    "registry": "https://registry.npmjs.org/"
   },
   "license": "MIT",
   "repository": {

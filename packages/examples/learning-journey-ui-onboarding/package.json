@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.learning-journey-ui-onboarding",
-  "version": "3.7.7",
+  "version": "3.7.8",
   "description": "Developer onboarding UI with checklists and journey maps.",
   "type": "module",
   "types": "./dist/index.d.ts",

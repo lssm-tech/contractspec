@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/tool.docs-generator",
-  "version": "3.7.7",
+  "version": "3.7.8",
   "type": "module",
   "description": "CLI tool for generating docs artifacts from ContractSpec specs and DocBlocks",
   "keywords": [

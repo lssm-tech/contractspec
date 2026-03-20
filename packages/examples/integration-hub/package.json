@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.integration-hub",
-	"version": "3.7.7",
+	"version": "3.8.0",
 	"description": "Integration Hub example with sync engine and field mappings for ContractSpec",
 	"types": "./dist/index.d.ts",
 	"type": "module",
