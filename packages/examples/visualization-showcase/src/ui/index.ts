@@ -1,2 +1,2 @@
-export * from './VisualizationShowcase';
 export * from './renderers';
+export * from './VisualizationShowcase';

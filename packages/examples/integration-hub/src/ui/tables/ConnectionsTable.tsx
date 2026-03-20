@@ -12,7 +12,11 @@ import {
 	StatusBadge,
 } from './integration-table.shared';
 
-export function ConnectionsTable({ connections }: { connections: Connection[] }) {
+export function ConnectionsTable({
+	connections,
+}: {
+	connections: Connection[];
+}) {
 	const controller = useContractTable<Connection>({
 		data: connections,
 		columns: [

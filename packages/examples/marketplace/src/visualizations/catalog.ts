@@ -1,7 +1,16 @@
-import { VisualizationRegistry, defineVisualization } from '@contractspec/lib.contracts-spec/visualizations';
+import {
+	defineVisualization,
+	VisualizationRegistry,
+} from '@contractspec/lib.contracts-spec/visualizations';
 
-const ORDER_LIST_REF = { key: 'marketplace.order.list', version: '1.0.0' } as const;
-const PRODUCT_LIST_REF = { key: 'marketplace.product.list', version: '1.0.0' } as const;
+const ORDER_LIST_REF = {
+	key: 'marketplace.order.list',
+	version: '1.0.0',
+} as const;
+const PRODUCT_LIST_REF = {
+	key: 'marketplace.product.list',
+	version: '1.0.0',
+} as const;
 const META = {
 	version: '1.0.0',
 	domain: 'marketplace',
@@ -24,8 +33,12 @@ export const MarketplaceOrderStatusVisualization = defineVisualization({
 		kind: 'pie',
 		nameDimension: 'status',
 		valueMeasure: 'orders',
-		dimensions: [{ key: 'status', label: 'Status', dataPath: 'status', type: 'category' }],
-		measures: [{ key: 'orders', label: 'Orders', dataPath: 'orders', format: 'number' }],
+		dimensions: [
+			{ key: 'status', label: 'Status', dataPath: 'status', type: 'category' },
+		],
+		measures: [
+			{ key: 'orders', label: 'Orders', dataPath: 'orders', format: 'number' },
+		],
 		table: { caption: 'Order counts by status.' },
 	},
 });
@@ -35,7 +48,8 @@ export const MarketplaceCategoryValueVisualization = defineVisualization({
 		...META,
 		key: 'marketplace.visualization.category-value',
 		title: 'Category Value Comparison',
-		description: 'Catalog value by product category derived from current pricing and stock.',
+		description:
+			'Catalog value by product category derived from current pricing and stock.',
 		goal: 'Compare where the marketplace catalog is concentrated.',
 		context: 'Merchandising overview.',
 	},
@@ -45,8 +59,23 @@ export const MarketplaceCategoryValueVisualization = defineVisualization({
 		variant: 'bar',
 		xDimension: 'category',
 		yMeasures: ['catalogValue'],
-		dimensions: [{ key: 'category', label: 'Category', dataPath: 'category', type: 'category' }],
-		measures: [{ key: 'catalogValue', label: 'Catalog Value', dataPath: 'catalogValue', format: 'currency', color: '#1d4ed8' }],
+		dimensions: [
+			{
+				key: 'category',
+				label: 'Category',
+				dataPath: 'category',
+				type: 'category',
+			},
+		],
+		measures: [
+			{
+				key: 'catalogValue',
+				label: 'Catalog Value',
+				dataPath: 'catalogValue',
+				format: 'currency',
+				color: '#1d4ed8',
+			},
+		],
 		table: { caption: 'Catalog value by product category.' },
 	},
 });
@@ -67,7 +96,15 @@ export const MarketplaceOrderActivityVisualization = defineVisualization({
 		xDimension: 'day',
 		yMeasures: ['orders'],
 		dimensions: [{ key: 'day', label: 'Day', dataPath: 'day', type: 'time' }],
-		measures: [{ key: 'orders', label: 'Orders', dataPath: 'orders', format: 'number', color: '#0f766e' }],
+		measures: [
+			{
+				key: 'orders',
+				label: 'Orders',
+				dataPath: 'orders',
+				format: 'number',
+				color: '#0f766e',
+			},
+		],
 		table: { caption: 'Daily order counts.' },
 	},
 });

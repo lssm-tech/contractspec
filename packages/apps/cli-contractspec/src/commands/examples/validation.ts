@@ -1,8 +1,8 @@
-import * as fs from "node:fs/promises";
-import * as path from "node:path";
-import type { ExampleSpec } from "@contractspec/lib.contracts-spec/examples/types";
+import * as fs from 'node:fs/promises';
+import * as path from 'node:path';
+import type { ExampleSpec } from '@contractspec/lib.contracts-spec/examples/types';
 
-const EXAMPLE_SCRIPT_GRACE_DEADLINE = Date.parse("2026-03-26T00:00:00+01:00");
+const EXAMPLE_SCRIPT_GRACE_DEADLINE = Date.parse('2026-03-26T00:00:00+01:00');
 const EXECUTABLE_TEST_FILE_PATTERN = /\.(test|spec)\.(?:[cm]?[jt]sx?)$/;
 const PROOF_OR_SMOKE_FILE_PATTERN =
 	/(^|\/)(proofs\/.+|src\/proof\/.+|.+\.(proof|smoke)\.(?:test|spec)\.(?:[cm]?[jt]sx?))$/;
@@ -41,7 +41,7 @@ export async function validateWorkspaceExamplesFolder(
 	repoRoot: string,
 	examples: readonly ExampleSpec[]
 ): Promise<WorkspaceExampleFolderCheck[]> {
-	const dir = path.join(repoRoot, "packages", "examples");
+	const dir = path.join(repoRoot, 'packages', 'examples');
 	let entries: string[] = [];
 	try {
 		entries = (await fs.readdir(dir, { withFileTypes: true }))
@@ -52,7 +52,7 @@ export async function validateWorkspaceExamplesFolder(
 			{
 				exampleDir: dir,
 				errors: [
-					"Missing packages/examples folder (run from repo root or pass --repo-root)",
+					'Missing packages/examples folder (run from repo root or pass --repo-root)',
 				],
 				warnings: [],
 			},
@@ -68,14 +68,14 @@ export async function validateWorkspaceExamplesFolder(
 		const exampleDir = path.join(dir, name);
 		const errors: string[] = [];
 		const warnings: string[] = [];
-		const pkgJsonPath = path.join(exampleDir, "package.json");
+		const pkgJsonPath = path.join(exampleDir, 'package.json');
 		const hasPackageJson = await fileExists(pkgJsonPath);
 		if (!hasPackageJson) {
 			results.push({
 				exampleDir,
 				errors: [],
 				warnings: [
-					"skipping non-workspace example folder without package.json",
+					'skipping non-workspace example folder without package.json',
 				],
 			});
 			continue;
@@ -87,31 +87,31 @@ export async function validateWorkspaceExamplesFolder(
 		if (!packageName) {
 			errors.push('package.json missing "name"');
 		}
-		if (packageName && !packageName.startsWith("@contractspec/example.")) {
+		if (packageName && !packageName.startsWith('@contractspec/example.')) {
 			errors.push(
 				`package name must start with "@contractspec/example." (got ${packageName})`
 			);
 		}
-		if (!exportsMap["./example"]) {
+		if (!exportsMap['./example']) {
 			errors.push('package.json must export "./example"');
 		}
-		if (!exportsMap["./docs"]) {
+		if (!exportsMap['./docs']) {
 			errors.push('package.json must export "./docs" (DocBlocks entry)');
 		}
 
-		const srcExample = path.join(exampleDir, "src", "example.ts");
+		const srcExample = path.join(exampleDir, 'src', 'example.ts');
 		if (!(await fileExists(srcExample))) {
-			errors.push("missing src/example.ts");
+			errors.push('missing src/example.ts');
 		}
 
-		const docsIndex = path.join(exampleDir, "src", "docs", "index.ts");
+		const docsIndex = path.join(exampleDir, 'src', 'docs', 'index.ts');
 		if (!(await fileExists(docsIndex))) {
-			errors.push("missing src/docs/index.ts");
+			errors.push('missing src/docs/index.ts');
 		}
 
-		const docblocks = await globDocBlocks(path.join(exampleDir, "src", "docs"));
+		const docblocks = await globDocBlocks(path.join(exampleDir, 'src', 'docs'));
 		if (docblocks.length === 0) {
-			errors.push("missing src/docs/*.docblock.ts");
+			errors.push('missing src/docs/*.docblock.ts');
 		}
 
 		const example = packageName
@@ -119,7 +119,7 @@ export async function validateWorkspaceExamplesFolder(
 			: undefined;
 		if (packageName && !example) {
 			errors.push(
-				"not present in EXAMPLE_REGISTRY (manifest not wired into examples module)"
+				'not present in EXAMPLE_REGISTRY (manifest not wired into examples module)'
 			);
 		}
 
@@ -141,7 +141,7 @@ export async function validateWorkspaceExamplesFolder(
 		results.map((result) => result.packageName).filter(Boolean) as string[]
 	);
 	for (const example of examples) {
-		if (!example.entrypoints.packageName.startsWith("@contractspec/example.")) {
+		if (!example.entrypoints.packageName.startsWith('@contractspec/example.')) {
 			continue;
 		}
 		if (!folderPackageNames.has(example.entrypoints.packageName)) {
@@ -162,32 +162,33 @@ export async function validateWorkspaceExamplesFolder(
 export async function validateGeneratedRegistry(
 	repoRoot: string
 ): Promise<string[]> {
-	const maintainedExamples = await discoverMaintainedWorkspaceExamples(repoRoot);
+	const maintainedExamples =
+		await discoverMaintainedWorkspaceExamples(repoRoot);
 	const expectedRegistry = renderBuiltinsFile(maintainedExamples);
 	const builtinsPath = path.join(
 		repoRoot,
-		"packages",
-		"modules",
-		"examples",
-		"src",
-		"builtins.ts"
+		'packages',
+		'modules',
+		'examples',
+		'src',
+		'builtins.ts'
 	);
-	const builtins = await fs.readFile(builtinsPath, "utf8").catch(() => null);
+	const builtins = await fs.readFile(builtinsPath, 'utf8').catch(() => null);
 
 	const errors: string[] = [];
 
 	if (builtins !== expectedRegistry) {
 		errors.push(
-			"generated builtins.ts is out of date (run `bun scripts/generate-example-registry.ts --write`)"
+			'generated builtins.ts is out of date (run `bun scripts/generate-example-registry.ts --write`)'
 		);
 	}
 
 	const moduleExamplesPackageJson = path.join(
 		repoRoot,
-		"packages",
-		"modules",
-		"examples",
-		"package.json"
+		'packages',
+		'modules',
+		'examples',
+		'package.json'
 	);
 	const modulePackage = await readJson<{
 		dependencies?: Record<string, string>;
@@ -216,8 +217,10 @@ async function validateExampleMaturity(
 	const errors: string[] = [];
 	const warnings: string[] = [];
 
-	const requiredScripts = ["build", "typecheck", "test"] as const;
-	const missingScripts = requiredScripts.filter((scriptName) => !scripts[scriptName]);
+	const requiredScripts = ['build', 'typecheck', 'test'] as const;
+	const missingScripts = requiredScripts.filter(
+		(scriptName) => !scripts[scriptName]
+	);
 	const missingEntrypoints = getMissingEntrypointExports(example, exportsMap);
 	const hasExecutableCoverage =
 		hasTestFiles(signals.files) ||
@@ -226,7 +229,10 @@ async function validateExampleMaturity(
 		Boolean(scripts.smoke) ||
 		Boolean(scripts.preflight);
 
-	if (example.meta.stability === "beta" || example.meta.stability === "stable") {
+	if (
+		example.meta.stability === 'beta' ||
+		example.meta.stability === 'stable'
+	) {
 		for (const scriptName of missingScripts) {
 			errors.push(
 				`${example.meta.stability} examples must define a "${scriptName}" script`
@@ -242,8 +248,8 @@ async function validateExampleMaturity(
 		}
 	}
 
-	if (example.meta.stability === "stable") {
-		if (scripts.test?.includes("--pass-with-no-tests")) {
+	if (example.meta.stability === 'stable') {
+		if (scripts.test?.includes('--pass-with-no-tests')) {
 			errors.push(
 				'stable examples cannot use `--pass-with-no-tests` in the "test" script'
 			);
@@ -254,7 +260,7 @@ async function validateExampleMaturity(
 			!scripts.smoke
 		) {
 			errors.push(
-				"stable examples must include deterministic proof or smoke coverage"
+				'stable examples must include deterministic proof or smoke coverage'
 			);
 		}
 		if (!scripts.preflight) {
@@ -265,17 +271,20 @@ async function validateExampleMaturity(
 		if (
 			!signals.readme ||
 			!DOCUMENTED_PREFLIGHT_PATTERN.test(signals.readme) ||
-			(!signals.readme.toLowerCase().includes("preflight") &&
-				!signals.readme.toLowerCase().includes("runbook"))
+			(!signals.readme.toLowerCase().includes('preflight') &&
+				!signals.readme.toLowerCase().includes('runbook'))
 		) {
 			errors.push(
-				"stable examples must document a runbook or preflight path in README.md"
+				'stable examples must document a runbook or preflight path in README.md'
 			);
 		}
 	}
 
-	if (example.meta.stability === "experimental") {
-		const scriptIssues = collectExperimentalScriptIssues(scripts, signals.files);
+	if (example.meta.stability === 'experimental') {
+		const scriptIssues = collectExperimentalScriptIssues(
+			scripts,
+			signals.files
+		);
 		if (scriptIssues.length > 0) {
 			const target =
 				Date.now() >= EXAMPLE_SCRIPT_GRACE_DEADLINE ? errors : warnings;
@@ -293,14 +302,14 @@ function collectExperimentalScriptIssues(
 	files: string[]
 ): string[] {
 	const issues: string[] = [];
-	for (const scriptName of ["build", "typecheck", "test"] as const) {
+	for (const scriptName of ['build', 'typecheck', 'test'] as const) {
 		if (!scripts[scriptName]) {
 			issues.push(
 				`experimental example is missing a "${scriptName}" script; this stays a warning until March 26, 2026`
 			);
 		}
 	}
-	if (scripts.test?.includes("--pass-with-no-tests") && !hasTestFiles(files)) {
+	if (scripts.test?.includes('--pass-with-no-tests') && !hasTestFiles(files)) {
 		issues.push(
 			'experimental example uses `--pass-with-no-tests` without colocated tests; this stays a warning until March 26, 2026'
 		);
@@ -314,8 +323,10 @@ function getMissingEntrypointExports(
 ): string[] {
 	const missingEntrypoints: string[] = [];
 
-	for (const [entrypointName, exportPath] of Object.entries(example.entrypoints)) {
-		if (entrypointName === "packageName" || !exportPath) {
+	for (const [entrypointName, exportPath] of Object.entries(
+		example.entrypoints
+	)) {
+		if (entrypointName === 'packageName' || !exportPath) {
 			continue;
 		}
 		if (!exportsMap[exportPath]) {
@@ -340,9 +351,9 @@ async function collectExampleSignals(
 	exampleDir: string
 ): Promise<ExamplePackageSignals> {
 	const readme = await fs
-		.readFile(path.join(exampleDir, "README.md"), "utf8")
-		.catch(() => "");
-	const files = await listFilesRecursive(exampleDir, ["src", "proofs"]);
+		.readFile(path.join(exampleDir, 'README.md'), 'utf8')
+		.catch(() => '');
+	const files = await listFilesRecursive(exampleDir, ['src', 'proofs']);
 	return { files, readme };
 }
 
@@ -390,8 +401,10 @@ async function walkFiles(
 async function discoverMaintainedWorkspaceExamples(
 	repoRoot: string
 ): Promise<MaintainedWorkspaceExample[]> {
-	const dir = path.join(repoRoot, "packages", "examples");
-	const entries = await fs.readdir(dir, { withFileTypes: true }).catch(() => []);
+	const dir = path.join(repoRoot, 'packages', 'examples');
+	const entries = await fs
+		.readdir(dir, { withFileTypes: true })
+		.catch(() => []);
 	const results: MaintainedWorkspaceExample[] = [];
 
 	for (const entry of entries) {
@@ -399,17 +412,17 @@ async function discoverMaintainedWorkspaceExamples(
 			continue;
 		}
 
-		const pkgJsonPath = path.join(dir, entry.name, "package.json");
+		const pkgJsonPath = path.join(dir, entry.name, 'package.json');
 		const pkg = await readJson<WorkspaceExamplePackageJson>(pkgJsonPath);
 		const exportsMap = normalizeExports(pkg?.exports);
 
-		if (!pkg?.name?.startsWith("@contractspec/example.")) {
+		if (!pkg?.name?.startsWith('@contractspec/example.')) {
 			continue;
 		}
-		if (!exportsMap["./example"]) {
+		if (!exportsMap['./example']) {
 			continue;
 		}
-		if (!exportsMap["./docs"]) {
+		if (!exportsMap['./docs']) {
 			continue;
 		}
 
@@ -427,8 +440,8 @@ async function discoverMaintainedWorkspaceExamples(
 function renderBuiltinsFile(examples: MaintainedWorkspaceExample[]): string {
 	const lines: string[] = [
 		'import type { ExampleSpec } from "@contractspec/lib.contracts-spec/examples/types";',
-		"",
-		"// Generated by scripts/generate-example-registry.ts. Do not edit manually.",
+		'',
+		'// Generated by scripts/generate-example-registry.ts. Do not edit manually.',
 	];
 
 	for (const example of examples) {
@@ -437,14 +450,14 @@ function renderBuiltinsFile(examples: MaintainedWorkspaceExample[]): string {
 		);
 	}
 
-	lines.push("", "export const EXAMPLE_REGISTRY: readonly ExampleSpec[] = [");
+	lines.push('', 'export const EXAMPLE_REGISTRY: readonly ExampleSpec[] = [');
 
 	for (const example of examples) {
 		lines.push(`  ${toIdentifier(example.directory)},`);
 	}
 
-	lines.push("];", "");
-	return lines.join("\n");
+	lines.push('];', '');
+	return lines.join('\n');
 }
 
 function toIdentifier(value: string): string {
@@ -452,20 +465,20 @@ function toIdentifier(value: string): string {
 		.split(/[^a-zA-Z0-9]+/)
 		.filter(Boolean)
 		.map((segment) => segment.slice(0, 1).toUpperCase() + segment.slice(1))
-		.join("");
+		.join('');
 
 	return /^[0-9]/.test(raw) ? `Example${raw}` : raw;
 }
 
 function normalizeExports(
-	exportsMap: WorkspaceExamplePackageJson["exports"]
+	exportsMap: WorkspaceExamplePackageJson['exports']
 ): Record<string, unknown> {
 	return exportsMap ?? {};
 }
 
 async function readJson<T>(filePath: string): Promise<T | null> {
 	try {
-		const raw = await fs.readFile(filePath, "utf8");
+		const raw = await fs.readFile(filePath, 'utf8');
 		return JSON.parse(raw) as T;
 	} catch {
 		return null;
@@ -485,7 +498,7 @@ async function globDocBlocks(docsDir: string): Promise<string[]> {
 	try {
 		const entries = await fs.readdir(docsDir, { withFileTypes: true });
 		return entries
-			.filter((entry) => entry.isFile() && entry.name.endsWith(".docblock.ts"))
+			.filter((entry) => entry.isFile() && entry.name.endsWith('.docblock.ts'))
 			.map((entry) => entry.name);
 	} catch {
 		return [];

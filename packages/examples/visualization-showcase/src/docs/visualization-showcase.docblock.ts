@@ -30,8 +30,7 @@ Use this example when you want the smallest package that still shows the visuali
 	{
 		id: 'docs.examples.visualization-showcase.goal',
 		title: 'Visualization Showcase Goal',
-		summary:
-			'Why this package exists beside domain-heavy dashboard examples.',
+		summary: 'Why this package exists beside domain-heavy dashboard examples.',
 		kind: 'goal',
 		visibility: 'public',
 		route: '/docs/examples/visualization-showcase/goal',

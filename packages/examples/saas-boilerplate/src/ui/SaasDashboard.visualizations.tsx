@@ -1,6 +1,9 @@
 'use client';
 
-import { VisualizationCard, VisualizationGrid } from '@contractspec/lib.design-system';
+import {
+	VisualizationCard,
+	VisualizationGrid,
+} from '@contractspec/lib.design-system';
 import type { Project } from '../handlers/saas.handlers';
 import { createSaasVisualizationItems } from '../visualizations';
 

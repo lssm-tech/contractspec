@@ -108,8 +108,12 @@ describe('AnalyticsQueriesTable', () => {
 
 		expect(container.textContent).toContain('Saved Queries');
 		expect(container.textContent).toContain('4 queries');
-		expect(container.textContent).toContain('Affichage de 1 à 3 sur 4 résultats');
-		expect(container.querySelector('[aria-label="Expand row query-1"]')).not.toBeNull();
+		expect(container.textContent).toContain(
+			'Affichage de 1 à 3 sur 4 résultats'
+		);
+		expect(
+			container.querySelector('[aria-label="Expand row query-1"]')
+		).not.toBeNull();
 
 		await act(async () => {
 			root.unmount();

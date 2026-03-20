@@ -1,6 +1,10 @@
 'use client';
 
-import { Button, DataTable, LoaderBlock } from '@contractspec/lib.design-system';
+import {
+	Button,
+	DataTable,
+	LoaderBlock,
+} from '@contractspec/lib.design-system';
 import type { ContractTableSort } from '@contractspec/lib.presentation-runtime-core';
 import { useContractTable } from '@contractspec/lib.presentation-runtime-react';
 import { Badge } from '@contractspec/lib.ui-kit-web/ui/badge';
@@ -39,7 +43,10 @@ export interface DealListDataTableProps {
 	sorting: ContractTableSort[];
 	loading?: boolean;
 	onSortingChange: (sorting: ContractTableSort[]) => void;
-	onPaginationChange: (pagination: { pageIndex: number; pageSize: number }) => void;
+	onPaginationChange: (pagination: {
+		pageIndex: number;
+		pageSize: number;
+	}) => void;
 	onDealClick?: (dealId: string) => void;
 }
 

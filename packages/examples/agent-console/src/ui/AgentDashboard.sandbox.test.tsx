@@ -127,12 +127,6 @@ function findButton(container: HTMLElement, label: string) {
 	);
 }
 
-function findExactButton(container: HTMLElement, label: string) {
-	return [...container.getElementsByTagName('button')].find(
-		(element) => element.textContent?.trim() === label
-	);
-}
-
 function findAgentCard(container: HTMLElement, name: string) {
 	return [...container.getElementsByTagName('*')].find(
 		(element) =>
@@ -162,9 +156,10 @@ async function click(element: Element | null | undefined) {
 		throw new Error('Expected clickable element.');
 	}
 	const onPress = getReactProp<(() => void) | undefined>(element, 'onPress');
-	const onClick = getReactProp<
-		((event: MouseEvent) => void) | undefined
-	>(element, 'onClick');
+	const onClick = getReactProp<((event: MouseEvent) => void) | undefined>(
+		element,
+		'onClick'
+	);
 	await act(async () => {
 		if (typeof onPress === 'function') {
 			onPress();
@@ -223,8 +218,9 @@ describe('AgentDashboard sandbox smoke', () => {
 		);
 		await waitFor(
 			() =>
-				container.textContent?.includes('Affichage de 1 à 3 sur 5 résultats') ===
-				true
+				container.textContent?.includes(
+					'Affichage de 1 à 3 sur 5 résultats'
+				) === true
 		);
 
 		expect(container.textContent).toContain('Runs');
@@ -257,8 +253,9 @@ describe('AgentDashboard sandbox smoke', () => {
 		await click(findButton(container, 'Runs'));
 		await waitFor(
 			() =>
-				container.textContent?.includes('Affichage de 1 à 3 sur 5 résultats') ===
-				true
+				container.textContent?.includes(
+					'Affichage de 1 à 3 sur 5 résultats'
+				) === true
 		);
 		await click(findButton(container, 'Agents'));
 		await waitFor(
@@ -273,7 +270,9 @@ describe('AgentDashboard sandbox smoke', () => {
 		);
 		await click(findButton(document.body, 'Activate Agent'));
 		await click(findButton(container, 'Runs'));
-		await waitFor(() => container.textContent?.includes('Run History') === true);
+		await waitFor(
+			() => container.textContent?.includes('Run History') === true
+		);
 		await click(findButton(container, 'Agents'));
 		await waitFor(
 			() =>
@@ -298,8 +297,9 @@ describe('AgentDashboard sandbox smoke', () => {
 		await click(findButton(container, 'Runs'));
 		await waitFor(
 			() =>
-				container.textContent?.includes('Affichage de 1 à 3 sur 6 résultats') ===
-				true
+				container.textContent?.includes(
+					'Affichage de 1 à 3 sur 6 résultats'
+				) === true
 		);
 		await waitFor(
 			() => container.textContent?.includes('Paris Meetup UI Agent') === true

@@ -245,9 +245,8 @@ export function createWorkflowHandlers(db: DatabasePort) {
 		sql: string,
 		params: DbValue[] = []
 	): Promise<TRow[]> {
-		return (
-			await db.query(normalizeSql(sql), params)
-		).rows as unknown as TRow[];
+		return (await db.query(normalizeSql(sql), params))
+			.rows as unknown as TRow[];
 	}
 
 	async function execute(sql: string, params: DbValue[] = []): Promise<void> {
@@ -276,7 +275,7 @@ export function createWorkflowHandlers(db: DatabasePort) {
 		}
 
 		const countResult = await queryRows<DbRow>(
-				`SELECT COUNT(*) as count FROM workflow_definition ${whereClause}`,
+			`SELECT COUNT(*) as count FROM workflow_definition ${whereClause}`,
 			params
 		);
 		const total = (countResult[0]?.count as number) ?? 0;

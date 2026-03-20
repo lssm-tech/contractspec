@@ -1,105 +1,105 @@
 {
-  "name": "@contractspec/lib.harness",
-  "version": "0.2.1",
-  "description": "Harness orchestration, policy, evidence, and evaluation runtime.",
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "scripts": {
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
-    "build:bundle": "contractspec-bun-build transpile",
-    "build:types": "contractspec-bun-build types",
-    "dev": "contractspec-bun-build dev",
-    "clean": "rimraf dist .turbo",
-    "lint": "bun run lint:fix",
-    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-    "lint:check": "biome check .",
-    "test": "bun test --pass-with-no-tests",
-    "prebuild": "contractspec-bun-build prebuild",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@contractspec/lib.contracts-spec": "workspace:*"
-  },
-  "devDependencies": {
-    "@contractspec/tool.bun": "workspace:*",
-    "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./assertions/engine": "./src/assertions/engine.ts",
-    "./evidence/normalizer": "./src/evidence/normalizer.ts",
-    "./orchestration/evaluation-runner": "./src/orchestration/evaluation-runner.ts",
-    "./orchestration/runner": "./src/orchestration/runner.ts",
-    "./policy/classifier": "./src/policy/classifier.ts",
-    "./replay/bundle": "./src/replay/bundle.ts",
-    "./types": "./src/types.ts"
-  },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/",
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "bun": "./dist/index.js",
-        "node": "./dist/node/index.js",
-        "default": "./dist/index.js"
-      },
-      "./assertions/engine": {
-        "types": "./dist/assertions/engine.d.ts",
-        "bun": "./dist/assertions/engine.js",
-        "node": "./dist/node/assertions/engine.js",
-        "default": "./dist/assertions/engine.js"
-      },
-      "./evidence/normalizer": {
-        "types": "./dist/evidence/normalizer.d.ts",
-        "bun": "./dist/evidence/normalizer.js",
-        "node": "./dist/node/evidence/normalizer.js",
-        "default": "./dist/evidence/normalizer.js"
-      },
-      "./orchestration/evaluation-runner": {
-        "types": "./dist/orchestration/evaluation-runner.d.ts",
-        "bun": "./dist/orchestration/evaluation-runner.js",
-        "node": "./dist/node/orchestration/evaluation-runner.js",
-        "default": "./dist/orchestration/evaluation-runner.js"
-      },
-      "./orchestration/runner": {
-        "types": "./dist/orchestration/runner.d.ts",
-        "bun": "./dist/orchestration/runner.js",
-        "node": "./dist/node/orchestration/runner.js",
-        "default": "./dist/orchestration/runner.js"
-      },
-      "./policy/classifier": {
-        "types": "./dist/policy/classifier.d.ts",
-        "bun": "./dist/policy/classifier.js",
-        "node": "./dist/node/policy/classifier.js",
-        "default": "./dist/policy/classifier.js"
-      },
-      "./replay/bundle": {
-        "types": "./dist/replay/bundle.d.ts",
-        "bun": "./dist/replay/bundle.js",
-        "node": "./dist/node/replay/bundle.js",
-        "default": "./dist/replay/bundle.js"
-      },
-      "./types": {
-        "types": "./dist/types.d.ts",
-        "bun": "./dist/types.js",
-        "node": "./dist/node/types.js",
-        "default": "./dist/types.js"
-      }
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/libs/harness"
-  },
-  "license": "MIT",
-  "homepage": "https://contractspec.io"
+	"name": "@contractspec/lib.harness",
+	"version": "0.2.1",
+	"description": "Harness orchestration, policy, evidence, and evaluation runtime.",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun run lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"test": "bun test --pass-with-no-tests",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*"
+	},
+	"devDependencies": {
+		"@contractspec/tool.bun": "workspace:*",
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./assertions/engine": "./src/assertions/engine.ts",
+		"./evidence/normalizer": "./src/evidence/normalizer.ts",
+		"./orchestration/evaluation-runner": "./src/orchestration/evaluation-runner.ts",
+		"./orchestration/runner": "./src/orchestration/runner.ts",
+		"./policy/classifier": "./src/policy/classifier.ts",
+		"./replay/bundle": "./src/replay/bundle.ts",
+		"./types": "./src/types.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./assertions/engine": {
+				"types": "./dist/assertions/engine.d.ts",
+				"bun": "./dist/assertions/engine.js",
+				"node": "./dist/node/assertions/engine.js",
+				"default": "./dist/assertions/engine.js"
+			},
+			"./evidence/normalizer": {
+				"types": "./dist/evidence/normalizer.d.ts",
+				"bun": "./dist/evidence/normalizer.js",
+				"node": "./dist/node/evidence/normalizer.js",
+				"default": "./dist/evidence/normalizer.js"
+			},
+			"./orchestration/evaluation-runner": {
+				"types": "./dist/orchestration/evaluation-runner.d.ts",
+				"bun": "./dist/orchestration/evaluation-runner.js",
+				"node": "./dist/node/orchestration/evaluation-runner.js",
+				"default": "./dist/orchestration/evaluation-runner.js"
+			},
+			"./orchestration/runner": {
+				"types": "./dist/orchestration/runner.d.ts",
+				"bun": "./dist/orchestration/runner.js",
+				"node": "./dist/node/orchestration/runner.js",
+				"default": "./dist/orchestration/runner.js"
+			},
+			"./policy/classifier": {
+				"types": "./dist/policy/classifier.d.ts",
+				"bun": "./dist/policy/classifier.js",
+				"node": "./dist/node/policy/classifier.js",
+				"default": "./dist/policy/classifier.js"
+			},
+			"./replay/bundle": {
+				"types": "./dist/replay/bundle.d.ts",
+				"bun": "./dist/replay/bundle.js",
+				"node": "./dist/node/replay/bundle.js",
+				"default": "./dist/replay/bundle.js"
+			},
+			"./types": {
+				"types": "./dist/types.d.ts",
+				"bun": "./dist/types.js",
+				"node": "./dist/node/types.js",
+				"default": "./dist/types.js"
+			}
+		}
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/libs/harness"
+	},
+	"license": "MIT",
+	"homepage": "https://contractspec.io"
 }

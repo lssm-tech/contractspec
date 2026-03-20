@@ -99,7 +99,8 @@ export const workflowDashboardMarkdownRenderer: PresentationRenderer<{
 			for (const inst of instances.slice(0, 10)) {
 				const startedDate = formatDate(inst.startedAt);
 				const definitionName =
-					workflowDefinitionById.get(inst.definitionId)?.name ?? inst.definitionId;
+					workflowDefinitionById.get(inst.definitionId)?.name ??
+					inst.definitionId;
 				lines.push(
 					`| ${definitionName} | ${inst.requestedBy} | ${inst.status} | ${startedDate} |`
 				);
@@ -183,8 +184,8 @@ export const workflowInstanceDetailMarkdownRenderer: PresentationRenderer<{
 		}
 
 		const instance =
-			workflowInstances.find((workflowInstance) =>
-				workflowInstance.status === 'IN_PROGRESS'
+			workflowInstances.find(
+				(workflowInstance) => workflowInstance.status === 'IN_PROGRESS'
 			) ?? workflowInstances[0];
 		if (!instance) {
 			return {

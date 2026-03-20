@@ -33,8 +33,8 @@ export const VisualizationShowcaseRegistry = new VisualizationRegistry([
 	...VisualizationShowcaseSpecs,
 ]);
 
-export const VisualizationShowcaseRefs = VisualizationShowcaseSpecs.map((spec) =>
-	refOf(spec)
+export const VisualizationShowcaseRefs = VisualizationShowcaseSpecs.map(
+	(spec) => refOf(spec)
 );
 
 export const VisualizationShowcaseSpecMap = new Map(

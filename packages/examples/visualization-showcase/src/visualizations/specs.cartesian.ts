@@ -28,8 +28,18 @@ export const ShowcaseLineVisualization = defineVisualization({
 		variant: 'line',
 		xDimension: 'week',
 		yMeasures: ['throughput'],
-		dimensions: [{ key: 'week', label: 'Week', dataPath: 'week', type: 'category' }],
-		measures: [{ key: 'throughput', label: 'Throughput', dataPath: 'throughput', format: 'number', color: '#0f766e' }],
+		dimensions: [
+			{ key: 'week', label: 'Week', dataPath: 'week', type: 'category' },
+		],
+		measures: [
+			{
+				key: 'throughput',
+				label: 'Throughput',
+				dataPath: 'throughput',
+				format: 'number',
+				color: '#0f766e',
+			},
+		],
 		table: { caption: 'Weekly throughput values.' },
 	},
 });
@@ -49,8 +59,23 @@ export const ShowcaseBarVisualization = defineVisualization({
 		variant: 'bar',
 		xDimension: 'segment',
 		yMeasures: ['revenue'],
-		dimensions: [{ key: 'segment', label: 'Segment', dataPath: 'segment', type: 'category' }],
-		measures: [{ key: 'revenue', label: 'Revenue', dataPath: 'revenue', format: 'currency', color: '#1d4ed8' }],
+		dimensions: [
+			{
+				key: 'segment',
+				label: 'Segment',
+				dataPath: 'segment',
+				type: 'category',
+			},
+		],
+		measures: [
+			{
+				key: 'revenue',
+				label: 'Revenue',
+				dataPath: 'revenue',
+				format: 'currency',
+				color: '#1d4ed8',
+			},
+		],
 		table: { caption: 'Revenue by segment.' },
 	},
 });
@@ -70,8 +95,18 @@ export const ShowcaseAreaVisualization = defineVisualization({
 		variant: 'area',
 		xDimension: 'week',
 		yMeasures: ['retention'],
-		dimensions: [{ key: 'week', label: 'Week', dataPath: 'week', type: 'category' }],
-		measures: [{ key: 'retention', label: 'Retention', dataPath: 'retention', format: 'percentage', color: '#16a34a' }],
+		dimensions: [
+			{ key: 'week', label: 'Week', dataPath: 'week', type: 'category' },
+		],
+		measures: [
+			{
+				key: 'retention',
+				label: 'Retention',
+				dataPath: 'retention',
+				format: 'percentage',
+				color: '#16a34a',
+			},
+		],
 		table: { caption: 'Weekly retention values.' },
 	},
 });
@@ -91,12 +126,38 @@ export const ShowcaseScatterVisualization = defineVisualization({
 		variant: 'scatter',
 		xDimension: 'latencyMs',
 		yMeasures: ['accuracy'],
-		dimensions: [{ key: 'latencyMs', label: 'Latency', dataPath: 'latencyMs', type: 'number' }],
-		measures: [
-			{ key: 'accuracy', label: 'Accuracy', dataPath: 'accuracy', format: 'percentage', color: '#7c3aed' },
-			{ key: 'requests', label: 'Requests', dataPath: 'requests', format: 'number' },
+		dimensions: [
+			{
+				key: 'latencyMs',
+				label: 'Latency',
+				dataPath: 'latencyMs',
+				type: 'number',
+			},
 		],
-		series: [{ key: 'models', label: 'Models', measure: 'accuracy', type: 'scatter', color: '#7c3aed' }],
+		measures: [
+			{
+				key: 'accuracy',
+				label: 'Accuracy',
+				dataPath: 'accuracy',
+				format: 'percentage',
+				color: '#7c3aed',
+			},
+			{
+				key: 'requests',
+				label: 'Requests',
+				dataPath: 'requests',
+				format: 'number',
+			},
+		],
+		series: [
+			{
+				key: 'models',
+				label: 'Models',
+				measure: 'accuracy',
+				type: 'scatter',
+				color: '#7c3aed',
+			},
+		],
 		table: { caption: 'Latency versus accuracy.' },
 	},
 });

@@ -1,4 +1,7 @@
-import { VisualizationRegistry, defineVisualization } from '@contractspec/lib.contracts-spec/visualizations';
+import {
+	defineVisualization,
+	VisualizationRegistry,
+} from '@contractspec/lib.contracts-spec/visualizations';
 
 const RUN_LIST_REF = { key: 'agent.run.list', version: '1.0.0' } as const;
 const META = {
@@ -23,8 +26,12 @@ export const AgentRunStatusVisualization = defineVisualization({
 		kind: 'pie',
 		nameDimension: 'status',
 		valueMeasure: 'runs',
-		dimensions: [{ key: 'status', label: 'Status', dataPath: 'status', type: 'category' }],
-		measures: [{ key: 'runs', label: 'Runs', dataPath: 'runs', format: 'number' }],
+		dimensions: [
+			{ key: 'status', label: 'Status', dataPath: 'status', type: 'category' },
+		],
+		measures: [
+			{ key: 'runs', label: 'Runs', dataPath: 'runs', format: 'number' },
+		],
 		table: { caption: 'Run counts by status.' },
 	},
 });
@@ -45,7 +52,15 @@ export const AgentRunActivityVisualization = defineVisualization({
 		xDimension: 'day',
 		yMeasures: ['runs'],
 		dimensions: [{ key: 'day', label: 'Day', dataPath: 'day', type: 'time' }],
-		measures: [{ key: 'runs', label: 'Runs', dataPath: 'runs', format: 'number', color: '#0f766e' }],
+		measures: [
+			{
+				key: 'runs',
+				label: 'Runs',
+				dataPath: 'runs',
+				format: 'number',
+				color: '#0f766e',
+			},
+		],
 		table: { caption: 'Daily run counts.' },
 	},
 });
@@ -65,12 +80,38 @@ export const AgentRunEfficiencyVisualization = defineVisualization({
 		variant: 'scatter',
 		xDimension: 'totalTokens',
 		yMeasures: ['durationMs'],
-		dimensions: [{ key: 'totalTokens', label: 'Total Tokens', dataPath: 'totalTokens', type: 'number' }],
-		measures: [
-			{ key: 'durationMs', label: 'Duration', dataPath: 'durationMs', format: 'duration', color: '#7c3aed' },
-			{ key: 'estimatedCostUsd', label: 'Cost', dataPath: 'estimatedCostUsd', format: 'currency' },
+		dimensions: [
+			{
+				key: 'totalTokens',
+				label: 'Total Tokens',
+				dataPath: 'totalTokens',
+				type: 'number',
+			},
 		],
-		series: [{ key: 'runs', label: 'Runs', measure: 'durationMs', type: 'scatter', color: '#7c3aed' }],
+		measures: [
+			{
+				key: 'durationMs',
+				label: 'Duration',
+				dataPath: 'durationMs',
+				format: 'duration',
+				color: '#7c3aed',
+			},
+			{
+				key: 'estimatedCostUsd',
+				label: 'Cost',
+				dataPath: 'estimatedCostUsd',
+				format: 'currency',
+			},
+		],
+		series: [
+			{
+				key: 'runs',
+				label: 'Runs',
+				measure: 'durationMs',
+				type: 'scatter',
+				color: '#7c3aed',
+			},
+		],
 		table: { caption: 'Run duration versus token usage.' },
 	},
 });

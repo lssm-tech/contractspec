@@ -25,9 +25,7 @@ export const telegramWebhookHandler = new Elysia().post(
 		const rawBody = await request.text();
 		const verificationResult = verifyTelegramWebhookSecret({
 			expectedSecretToken: secretToken,
-			secretTokenHeader: request.headers.get(
-				'x-telegram-bot-api-secret-token'
-			),
+			secretTokenHeader: request.headers.get('x-telegram-bot-api-secret-token'),
 		});
 
 		if (!verificationResult.valid) {

@@ -12,9 +12,15 @@ import { createSaasVisualizationItems } from '../../visualizations';
 
 type ListProjectsResult = Awaited<ReturnType<typeof mockListProjectsHandler>>;
 type ProjectItem = ListProjectsResult['projects'][number];
-type VisualizationProject = Parameters<typeof createSaasVisualizationItems>[0][number];
+type VisualizationProject = Parameters<
+	typeof createSaasVisualizationItems
+>[0][number];
 
-const PROJECT_TIERS: VisualizationProject['tier'][] = ['FREE', 'PRO', 'ENTERPRISE'];
+const PROJECT_TIERS: VisualizationProject['tier'][] = [
+	'FREE',
+	'PRO',
+	'ENTERPRISE',
+];
 
 function toVisualizationProject(
 	project: ProjectItem,

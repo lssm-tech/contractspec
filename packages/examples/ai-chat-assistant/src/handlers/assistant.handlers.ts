@@ -2,7 +2,7 @@
  * AI Chat Assistant handlers.
  * Mock implementation for sandbox; apps can replace with real search.
  */
-import { AiChatAssistantFeature } from "../ai-chat-assistant.feature";
+import { AiChatAssistantFeature } from '../ai-chat-assistant.feature';
 
 const AI_CHAT_ASSISTANT_HANDLER_FEATURES = [AiChatAssistantFeature] as const;
 void AI_CHAT_ASSISTANT_HANDLER_FEATURES;

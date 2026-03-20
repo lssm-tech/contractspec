@@ -1,1 +1,1 @@
-export * from "./data-grid-showcase.docblock";
+export * from './data-grid-showcase.docblock';

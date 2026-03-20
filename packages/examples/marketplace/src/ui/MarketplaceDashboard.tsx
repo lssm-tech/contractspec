@@ -104,10 +104,7 @@ export function MarketplaceDashboard() {
 				/>
 			</StatCardGroup>
 
-			<MarketplaceVisualizationOverview
-				orders={orders}
-				products={products}
-			/>
+			<MarketplaceVisualizationOverview orders={orders} products={products} />
 
 			{/* Navigation Tabs */}
 			<nav className="flex gap-1 rounded-lg bg-muted p-1" role="tablist">

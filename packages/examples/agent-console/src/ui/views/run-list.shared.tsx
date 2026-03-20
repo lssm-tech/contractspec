@@ -91,7 +91,9 @@ export function RunTableToolbar({
 	totalRuns: number;
 }) {
 	const firstRow = controller.rows[0];
-	const queuedColumn = controller.columns.find((column) => column.id === 'queuedAt');
+	const queuedColumn = controller.columns.find(
+		(column) => column.id === 'queuedAt'
+	);
 	const durationColumn = controller.columns.find(
 		(column) => column.id === 'durationMs'
 	);

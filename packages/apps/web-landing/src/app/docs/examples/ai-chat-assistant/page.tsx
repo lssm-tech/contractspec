@@ -13,8 +13,7 @@ export const metadata: Metadata = {
 		type: 'article',
 	},
 	alternates: {
-		canonical:
-			'https://www.contractspec.io/docs/examples/ai-chat-assistant',
+		canonical: 'https://www.contractspec.io/docs/examples/ai-chat-assistant',
 	},
 };
 

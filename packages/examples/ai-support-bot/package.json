@@ -1,96 +1,96 @@
 {
-  "name": "@contractspec/example.ai-support-bot",
-  "version": "3.7.8",
-  "description": "AI support bot example: classify and resolve a support ticket using @contractspec/lib.support-bot.",
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./src/index.ts",
-    "./ai-support-bot.feature": "./src/ai-support-bot.feature.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/ai-support-bot.docblock": "./src/docs/ai-support-bot.docblock.ts",
-    "./example": "./src/example.ts",
-    "./setup": "./src/setup.ts"
-  },
-  "scripts": {
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
-    "build:bundle": "contractspec-bun-build transpile",
-    "build:types": "contractspec-bun-build types",
-    "dev": "contractspec-bun-build dev",
-    "clean": "rimraf dist .turbo",
-    "lint": "bun lint:fix",
-    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-    "lint:check": "biome check .",
-    "test": "bun test --pass-with-no-tests",
-    "prebuild": "contractspec-bun-build prebuild",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@contractspec/lib.support-bot": "workspace:*",
-    "@contractspec/lib.knowledge": "workspace:*",
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "@contractspec/lib.logger": "workspace:*"
-  },
-  "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:",
-    "@contractspec/tool.bun": "workspace:*"
-  },
-  "publishConfig": {
-    "access": "public",
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "browser": "./dist/browser/index.js",
-        "bun": "./dist/index.js",
-        "node": "./dist/node/index.js",
-        "default": "./dist/index.js"
-      },
-      "./ai-support-bot.feature": {
-        "types": "./dist/ai-support-bot.feature.d.ts",
-        "browser": "./dist/browser/ai-support-bot.feature.js",
-        "bun": "./dist/ai-support-bot.feature.js",
-        "node": "./dist/node/ai-support-bot.feature.js",
-        "default": "./dist/ai-support-bot.feature.js"
-      },
-      "./docs": {
-        "types": "./dist/docs/index.d.ts",
-        "browser": "./dist/browser/docs/index.js",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/ai-support-bot.docblock": {
-        "types": "./dist/docs/ai-support-bot.docblock.d.ts",
-        "browser": "./dist/browser/docs/ai-support-bot.docblock.js",
-        "bun": "./dist/docs/ai-support-bot.docblock.js",
-        "node": "./dist/node/docs/ai-support-bot.docblock.js",
-        "default": "./dist/docs/ai-support-bot.docblock.js"
-      },
-      "./example": {
-        "types": "./dist/example.d.ts",
-        "browser": "./dist/browser/example.js",
-        "bun": "./dist/example.js",
-        "node": "./dist/node/example.js",
-        "default": "./dist/example.js"
-      },
-      "./setup": {
-        "types": "./dist/setup.d.ts",
-        "browser": "./dist/browser/setup.js",
-        "bun": "./dist/setup.js",
-        "node": "./dist/node/setup.js",
-        "default": "./dist/setup.js"
-      }
-    },
-    "registry": "https://registry.npmjs.org/"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/examples/ai-support-bot"
-  },
-  "homepage": "https://contractspec.io"
+	"name": "@contractspec/example.ai-support-bot",
+	"version": "3.7.8",
+	"description": "AI support bot example: classify and resolve a support ticket using @contractspec/lib.support-bot.",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./ai-support-bot.feature": "./src/ai-support-bot.feature.ts",
+		"./docs": "./src/docs/index.ts",
+		"./docs/ai-support-bot.docblock": "./src/docs/ai-support-bot.docblock.ts",
+		"./example": "./src/example.ts",
+		"./setup": "./src/setup.ts"
+	},
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"test": "bun test --pass-with-no-tests",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.support-bot": "workspace:*",
+		"@contractspec/lib.knowledge": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.logger": "workspace:*"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@contractspec/tool.bun": "workspace:*"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./ai-support-bot.feature": {
+				"types": "./dist/ai-support-bot.feature.d.ts",
+				"browser": "./dist/browser/ai-support-bot.feature.js",
+				"bun": "./dist/ai-support-bot.feature.js",
+				"node": "./dist/node/ai-support-bot.feature.js",
+				"default": "./dist/ai-support-bot.feature.js"
+			},
+			"./docs": {
+				"types": "./dist/docs/index.d.ts",
+				"browser": "./dist/browser/docs/index.js",
+				"bun": "./dist/docs/index.js",
+				"node": "./dist/node/docs/index.js",
+				"default": "./dist/docs/index.js"
+			},
+			"./docs/ai-support-bot.docblock": {
+				"types": "./dist/docs/ai-support-bot.docblock.d.ts",
+				"browser": "./dist/browser/docs/ai-support-bot.docblock.js",
+				"bun": "./dist/docs/ai-support-bot.docblock.js",
+				"node": "./dist/node/docs/ai-support-bot.docblock.js",
+				"default": "./dist/docs/ai-support-bot.docblock.js"
+			},
+			"./example": {
+				"types": "./dist/example.d.ts",
+				"browser": "./dist/browser/example.js",
+				"bun": "./dist/example.js",
+				"node": "./dist/node/example.js",
+				"default": "./dist/example.js"
+			},
+			"./setup": {
+				"types": "./dist/setup.d.ts",
+				"browser": "./dist/browser/setup.js",
+				"bun": "./dist/setup.js",
+				"node": "./dist/node/setup.js",
+				"default": "./dist/setup.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/examples/ai-support-bot"
+	},
+	"homepage": "https://contractspec.io"
 }

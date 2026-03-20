@@ -27,7 +27,9 @@ export const ShowcaseMetricVisualization = defineVisualization({
 		kind: 'metric',
 		measure: 'value',
 		comparisonMeasure: 'priorValue',
-		dimensions: [{ key: 'month', label: 'Month', dataPath: 'month', type: 'time' }],
+		dimensions: [
+			{ key: 'month', label: 'Month', dataPath: 'month', type: 'time' },
+		],
 		measures: [
 			{ key: 'value', label: 'Value', dataPath: 'value', format: 'currency' },
 			{

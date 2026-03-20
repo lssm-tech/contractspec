@@ -54,9 +54,7 @@ export function createRunTableColumns(): readonly ContractTableColumnDef<Run>[] 
 			accessorKey: 'status',
 			cell: ({ value }) => {
 				const status =
-					typeof value === 'string'
-						? (value as Run['status'])
-						: 'QUEUED';
+					typeof value === 'string' ? (value as Run['status']) : 'QUEUED';
 				return <StatusChip tone={getStatusTone(status)} label={status} />;
 			},
 			size: 150,

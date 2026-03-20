@@ -1,6 +1,12 @@
-import { VisualizationRegistry, defineVisualization } from '@contractspec/lib.contracts-spec/visualizations';
+import {
+	defineVisualization,
+	VisualizationRegistry,
+} from '@contractspec/lib.contracts-spec/visualizations';
 
-const PROJECT_LIST_REF = { key: 'saas.project.list', version: '1.0.0' } as const;
+const PROJECT_LIST_REF = {
+	key: 'saas.project.list',
+	version: '1.0.0',
+} as const;
 const META = {
 	version: '1.0.0',
 	domain: 'saas',
@@ -24,8 +30,18 @@ export const SaasProjectUsageVisualization = defineVisualization({
 		measure: 'totalProjects',
 		comparisonMeasure: 'projectLimit',
 		measures: [
-			{ key: 'totalProjects', label: 'Projects', dataPath: 'totalProjects', format: 'number' },
-			{ key: 'projectLimit', label: 'Plan Limit', dataPath: 'projectLimit', format: 'number' },
+			{
+				key: 'totalProjects',
+				label: 'Projects',
+				dataPath: 'totalProjects',
+				format: 'number',
+			},
+			{
+				key: 'projectLimit',
+				label: 'Plan Limit',
+				dataPath: 'projectLimit',
+				format: 'number',
+			},
 		],
 		table: { caption: 'Current project count and plan limit.' },
 	},
@@ -45,8 +61,17 @@ export const SaasProjectStatusVisualization = defineVisualization({
 		kind: 'pie',
 		nameDimension: 'status',
 		valueMeasure: 'projects',
-		dimensions: [{ key: 'status', label: 'Status', dataPath: 'status', type: 'category' }],
-		measures: [{ key: 'projects', label: 'Projects', dataPath: 'projects', format: 'number' }],
+		dimensions: [
+			{ key: 'status', label: 'Status', dataPath: 'status', type: 'category' },
+		],
+		measures: [
+			{
+				key: 'projects',
+				label: 'Projects',
+				dataPath: 'projects',
+				format: 'number',
+			},
+		],
 		table: { caption: 'Project counts by status.' },
 	},
 });
@@ -66,8 +91,18 @@ export const SaasProjectTierVisualization = defineVisualization({
 		variant: 'bar',
 		xDimension: 'tier',
 		yMeasures: ['projects'],
-		dimensions: [{ key: 'tier', label: 'Tier', dataPath: 'tier', type: 'category' }],
-		measures: [{ key: 'projects', label: 'Projects', dataPath: 'projects', format: 'number', color: '#1d4ed8' }],
+		dimensions: [
+			{ key: 'tier', label: 'Tier', dataPath: 'tier', type: 'category' },
+		],
+		measures: [
+			{
+				key: 'projects',
+				label: 'Projects',
+				dataPath: 'projects',
+				format: 'number',
+				color: '#1d4ed8',
+			},
+		],
 		table: { caption: 'Project counts by tier.' },
 	},
 });
@@ -88,7 +123,15 @@ export const SaasProjectActivityVisualization = defineVisualization({
 		xDimension: 'day',
 		yMeasures: ['projects'],
 		dimensions: [{ key: 'day', label: 'Day', dataPath: 'day', type: 'time' }],
-		measures: [{ key: 'projects', label: 'Projects', dataPath: 'projects', format: 'number', color: '#0f766e' }],
+		measures: [
+			{
+				key: 'projects',
+				label: 'Projects',
+				dataPath: 'projects',
+				format: 'number',
+				color: '#0f766e',
+			},
+		],
 		table: { caption: 'Daily project creation counts.' },
 	},
 });

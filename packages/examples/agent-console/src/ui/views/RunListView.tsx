@@ -1,9 +1,5 @@
 'use client';
 
-/**
- * Run List View - Shows agent execution runs with shared ContractSpec table primitives
- */
-import type { ContractTableSort } from '@contractspec/lib.presentation-runtime-core';
 import {
 	EmptyState,
 	ErrorState,
@@ -11,10 +7,14 @@ import {
 	StatCard,
 	StatCardGroup,
 } from '@contractspec/lib.design-system';
+/**
+ * Run List View - Shows agent execution runs with shared ContractSpec table primitives
+ */
+import type { ContractTableSort } from '@contractspec/lib.presentation-runtime-core';
 import { useState } from 'react';
 import { useRunList } from '../hooks/useRunList';
-import { formatTokens } from './run-list.shared';
 import { RunDataTable } from './RunDataTable';
+import { formatTokens } from './run-list.shared';
 
 interface RunListViewProps {
 	agentId?: string;

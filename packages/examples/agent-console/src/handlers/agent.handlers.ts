@@ -530,7 +530,9 @@ export function createAgentHandlers(db: DatabasePort) {
 			)
 		).rows as unknown as { count: number }[];
 		const total = countResult[0]?.count ?? 0;
-		const sortColumn = sortBy ? RUN_SORT_COLUMNS[sortBy] : RUN_SORT_COLUMNS.queuedAt;
+		const sortColumn = sortBy
+			? RUN_SORT_COLUMNS[sortBy]
+			: RUN_SORT_COLUMNS.queuedAt;
 		const direction = sortDirection === 'asc' ? 'ASC' : 'DESC';
 
 		const rows = (

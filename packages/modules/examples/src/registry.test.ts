@@ -83,7 +83,9 @@ describe('@contractspec/module.examples registry', () => {
 	});
 
 	test('should include the maintained meetup registry examples', () => {
-		const exampleKeys = new Set([...listExamples()].map((example) => example.meta.key));
+		const exampleKeys = new Set(
+			[...listExamples()].map((example) => example.meta.key)
+		);
 
 		expect(exampleKeys.has('agent-console')).toBe(true);
 		expect(exampleKeys.has('ai-chat-assistant')).toBe(true);

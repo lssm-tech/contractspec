@@ -1,6 +1,6 @@
-import * as React from 'react';
 import { afterEach, beforeAll, describe, expect, test } from 'bun:test';
 import Window from 'happy-dom/lib/window/Window.js';
+import * as React from 'react';
 import { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { MOCK_DEALS } from '../../handlers/mock-data';
@@ -55,7 +55,7 @@ function sortDeals(
 				: sort?.id === 'status'
 					? left.status
 					: sort?.id === 'expectedCloseDate'
-						? left.expectedCloseDate?.toISOString() ?? ''
+						? (left.expectedCloseDate?.toISOString() ?? '')
 						: sort?.id === 'updatedAt'
 							? left.updatedAt.toISOString()
 							: left.value;
@@ -65,7 +65,7 @@ function sortDeals(
 				: sort?.id === 'status'
 					? right.status
 					: sort?.id === 'expectedCloseDate'
-						? right.expectedCloseDate?.toISOString() ?? ''
+						? (right.expectedCloseDate?.toISOString() ?? '')
 						: sort?.id === 'updatedAt'
 							? right.updatedAt.toISOString()
 							: right.value;
@@ -134,11 +134,13 @@ describe('DealListDataTable', () => {
 		expect(container.textContent).toContain('user-1');
 
 		await click(
-			[...container.getElementsByTagName('button')].find((button) =>
-				button.textContent?.trim() === '2'
+			[...container.getElementsByTagName('button')].find(
+				(button) => button.textContent?.trim() === '2'
 			)
 		);
-		expect(container.textContent).toContain('Affichage de 4 à 6 sur 6 résultats');
+		expect(container.textContent).toContain(
+			'Affichage de 4 à 6 sur 6 résultats'
+		);
 
 		await act(async () => {
 			root.unmount();

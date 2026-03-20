@@ -1,6 +1,5 @@
 import type {
 	TemplateCategory,
-	TemplateComplexity,
 	TemplateDefinition,
 	TemplateFilter,
 	TemplateId,

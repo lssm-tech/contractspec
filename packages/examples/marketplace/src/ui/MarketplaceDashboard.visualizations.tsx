@@ -1,6 +1,9 @@
 'use client';
 
-import { VisualizationCard, VisualizationGrid } from '@contractspec/lib.design-system';
+import {
+	VisualizationCard,
+	VisualizationGrid,
+} from '@contractspec/lib.design-system';
 import type { Order, Product } from '../handlers/marketplace.handlers';
 import { createMarketplaceVisualizationItems } from '../visualizations';
 

@@ -1,19 +1,14 @@
 import { ButtonLink, CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
-import { FileCode2, Play, TerminalSquare } from 'lucide-react';
 import { getExample } from '@contractspec/module.examples';
+import { FileCode2, Play, TerminalSquare } from 'lucide-react';
 import { getExampleShowcaseData } from './exampleShowcaseData';
 
 interface ExampleShowcasePageProps {
-	exampleKey:
-		| 'agent-console'
-		| 'ai-chat-assistant'
-		| 'messaging-agent-actions';
+	exampleKey: 'agent-console' | 'ai-chat-assistant' | 'messaging-agent-actions';
 }
 
-export function ExampleShowcasePage({
-	exampleKey,
-}: ExampleShowcasePageProps) {
+export function ExampleShowcasePage({ exampleKey }: ExampleShowcasePageProps) {
 	const showcase = getExampleShowcaseData(exampleKey);
 	const example = getExample(exampleKey);
 
@@ -49,7 +44,8 @@ export function ExampleShowcasePage({
 						<h2 className="font-semibold text-xl">Sandbox preview</h2>
 					</div>
 					<p className="editorial-copy text-sm">
-						Load the same public browser surface used for the prepared live demo.
+						Load the same public browser surface used for the prepared live
+						demo.
 					</p>
 					<ButtonLink href={showcase.sandboxHref} size="sm">
 						Open preview
@@ -80,8 +76,8 @@ export function ExampleShowcasePage({
 						<h2 className="font-semibold text-xl">Package context</h2>
 					</div>
 					<p className="editorial-copy text-sm">
-						Use the agent-facing package page for fast repo orientation, then jump
-						to the source directory.
+						Use the agent-facing package page for fast repo orientation, then
+						jump to the source directory.
 					</p>
 					<p className="rounded-[18px] border border-border/70 bg-background/75 px-4 py-3 font-mono text-sm">
 						{packageName}

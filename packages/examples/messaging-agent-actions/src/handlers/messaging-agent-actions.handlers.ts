@@ -1,7 +1,7 @@
-import type { HandlerForOperationSpec } from "@contractspec/lib.contracts-spec";
-import { ProcessMessagingAgentAction } from "../contracts/process-message.operation";
+import type { HandlerForOperationSpec } from '@contractspec/lib.contracts-spec';
+import { ProcessMessagingAgentAction } from '../contracts/process-message.operation';
 
-export type MessagingIntent = "status" | "run_action" | "dispatch_workflow";
+export type MessagingIntent = 'status' | 'run_action' | 'dispatch_workflow';
 
 export interface AllowedMessagingAction {
 	key: string;
@@ -36,40 +36,44 @@ const TOOLISH_REQUEST_PATTERN = /\b(run|exec|execute|command|shell|tool)\b/i;
 
 const DEFAULT_ALLOWED_ACTIONS: readonly AllowedMessagingAction[] = [
 	{
-		key: "refresh-agent-console-proof",
-		description: "Regenerate the offline replay artifact for the agent-console demo.",
+		key: 'refresh-agent-console-proof',
+		description:
+			'Regenerate the offline replay artifact for the agent-console demo.',
 		confirmation:
-			"Queued the allowlisted proof refresh for the agent-console replay bundle.",
+			'Queued the allowlisted proof refresh for the agent-console replay bundle.',
 	},
 	{
-		key: "sync-provider-health",
-		description: "Refresh the cached provider health snapshot used in the demo.",
+		key: 'sync-provider-health',
+		description:
+			'Refresh the cached provider health snapshot used in the demo.',
 		confirmation:
-			"Queued the allowlisted provider health sync for the messaging demo.",
+			'Queued the allowlisted provider health sync for the messaging demo.',
 	},
 ] as const;
 
 const DEFAULT_ALLOWED_WORKFLOWS: readonly AllowedMessagingWorkflow[] = [
 	{
-		key: "incident-triage",
-		description: "Route an inbound issue through the triage workflow.",
+		key: 'incident-triage',
+		description: 'Route an inbound issue through the triage workflow.',
 		confirmation:
-			"Dispatched the allowlisted incident-triage workflow for operator review.",
+			'Dispatched the allowlisted incident-triage workflow for operator review.',
 	},
 	{
-		key: "customer-follow-up",
-		description: "Trigger a customer follow-up workflow with a human approval step.",
+		key: 'customer-follow-up',
+		description:
+			'Trigger a customer follow-up workflow with a human approval step.',
 		confirmation:
-			"Dispatched the allowlisted customer-follow-up workflow for human approval.",
+			'Dispatched the allowlisted customer-follow-up workflow for human approval.',
 	},
 ] as const;
 
 const DEFAULT_STATUS_BY_SCOPE: Record<string, string> = {
-	system: "System status is green: ingress healthy, proofs current, and outbound replies enabled.",
-	"agent-console":
-		"Agent Console status is green: seeded runtime healthy and replay proof ready.",
+	system:
+		'System status is green: ingress healthy, proofs current, and outbound replies enabled.',
+	'agent-console':
+		'Agent Console status is green: seeded runtime healthy and replay proof ready.',
 	messaging:
-		"Messaging status is green: Slack, WhatsApp, and Telegram ingress routes are configured for the demo lane.",
+		'Messaging status is green: Slack, WhatsApp, and Telegram ingress routes are configured for the demo lane.',
 };
 
 export function listAllowedMessagingActions(): readonly AllowedMessagingAction[] {
@@ -83,13 +87,13 @@ export function listAllowedMessagingWorkflows(): readonly AllowedMessagingWorkfl
 export function classifyInboundMessage(input: {
 	text: string;
 }): ClassifiedInboundMessage {
-	const normalizedText = input.text.trim().replace(/\s+/g, " ");
+	const normalizedText = input.text.trim().replace(/\s+/g, ' ');
 	const statusMatch = normalizedText.match(STATUS_PATTERN);
 	if (statusMatch) {
 		return {
-			intent: "status",
+			intent: 'status',
 			normalizedText,
-			statusScope: statusMatch[1]?.trim().toLowerCase() || "system",
+			statusScope: statusMatch[1]?.trim().toLowerCase() || 'system',
 			requiresSafetyReminder: false,
 		};
 	}
@@ -97,7 +101,7 @@ export function classifyInboundMessage(input: {
 	const actionMatch = normalizedText.match(RUN_ACTION_PATTERN);
 	if (actionMatch) {
 		return {
-			intent: "run_action",
+			intent: 'run_action',
 			normalizedText,
 			actionKey: actionMatch[1]?.toLowerCase(),
 			requiresSafetyReminder: false,
@@ -107,7 +111,7 @@ export function classifyInboundMessage(input: {
 	const workflowMatch = normalizedText.match(DISPATCH_WORKFLOW_PATTERN);
 	if (workflowMatch) {
 		return {
-			intent: "dispatch_workflow",
+			intent: 'dispatch_workflow',
 			normalizedText,
 			workflowKey: workflowMatch[1]?.toLowerCase(),
 			requiresSafetyReminder: false,
@@ -115,9 +119,9 @@ export function classifyInboundMessage(input: {
 	}
 
 	return {
-		intent: "status",
+		intent: 'status',
 		normalizedText,
-		statusScope: "system",
+		statusScope: 'system',
 		requiresSafetyReminder: TOOLISH_REQUEST_PATTERN.test(normalizedText),
 	};
 }
@@ -136,14 +140,14 @@ export function createMessagingAgentActionsHandlers(): MessagingAgentActionsHand
 		const classified = classifyInboundMessage({ text: input.text });
 		const deliveryChannel = input.provider;
 
-		if (classified.intent === "run_action") {
+		if (classified.intent === 'run_action') {
 			const action = classified.actionKey
 				? actionsByKey.get(classified.actionKey)
 				: undefined;
 			if (!action) {
 				return {
 					intent: classified.intent,
-					replyText: buildSafetyReply("action"),
+					replyText: buildSafetyReply('action'),
 					actionKey: classified.actionKey,
 					deliveryChannel,
 				};
@@ -157,14 +161,14 @@ export function createMessagingAgentActionsHandlers(): MessagingAgentActionsHand
 			};
 		}
 
-		if (classified.intent === "dispatch_workflow") {
+		if (classified.intent === 'dispatch_workflow') {
 			const workflow = classified.workflowKey
 				? workflowsByKey.get(classified.workflowKey)
 				: undefined;
 			if (!workflow) {
 				return {
 					intent: classified.intent,
-					replyText: buildSafetyReply("workflow"),
+					replyText: buildSafetyReply('workflow'),
 					workflowKey: classified.workflowKey,
 					deliveryChannel,
 				};
@@ -178,13 +182,13 @@ export function createMessagingAgentActionsHandlers(): MessagingAgentActionsHand
 			};
 		}
 
-		const statusScope = classified.statusScope ?? "system";
+		const statusScope = classified.statusScope ?? 'system';
 		const statusReply =
 			DEFAULT_STATUS_BY_SCOPE[statusScope] ??
 			DEFAULT_STATUS_BY_SCOPE.system ??
-			"System status is green.";
+			'System status is green.';
 		const replyText = classified.requiresSafetyReminder
-			? `${buildSafetyReply("status")} ${statusReply}`
+			? `${buildSafetyReply('status')} ${statusReply}`
 			: statusReply;
 
 		return {
@@ -200,18 +204,18 @@ export function createMessagingAgentActionsHandlers(): MessagingAgentActionsHand
 	};
 }
 
-function buildSafetyReply(target: "action" | "workflow" | "status"): string {
-	const allowedActions = DEFAULT_ALLOWED_ACTIONS.map((action) => action.key).join(
-		", "
-	);
+function buildSafetyReply(target: 'action' | 'workflow' | 'status'): string {
+	const allowedActions = DEFAULT_ALLOWED_ACTIONS.map(
+		(action) => action.key
+	).join(', ');
 	const allowedWorkflows = DEFAULT_ALLOWED_WORKFLOWS.map(
 		(workflow) => workflow.key
-	).join(", ");
+	).join(', ');
 
-	if (target === "action") {
+	if (target === 'action') {
 		return `That action is not allowlisted. Use \`run action <key>\` with one of: ${allowedActions}.`;
 	}
-	if (target === "workflow") {
+	if (target === 'workflow') {
 		return `That workflow is not allowlisted. Use \`dispatch workflow <key>\` with one of: ${allowedWorkflows}.`;
 	}
 	return `Only fixed intents are enabled here: \`status\`, \`run action <key>\`, or \`dispatch workflow <key>\`.`;

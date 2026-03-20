@@ -1,6 +1,6 @@
+import { AssistantSearchContract } from '@contractspec/example.ai-chat-assistant/contracts/assistant.operation';
 import { createProvider } from '@contractspec/lib.ai-providers';
 import { createChatRoute } from '@contractspec/module.ai-chat/core';
-import { AssistantSearchContract } from '@contractspec/example.ai-chat-assistant/contracts/assistant.operation';
 
 const CHAT_ROUTE_CONTRACTS = [AssistantSearchContract] as const;
 void CHAT_ROUTE_CONTRACTS;

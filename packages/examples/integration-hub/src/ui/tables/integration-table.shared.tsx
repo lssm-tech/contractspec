@@ -1,9 +1,7 @@
 'use client';
 
 import { Button } from '@contractspec/lib.design-system';
-import type {
-	ContractTableController,
-} from '@contractspec/lib.presentation-runtime-react';
+import type { ContractTableController } from '@contractspec/lib.presentation-runtime-react';
 import { Badge } from '@contractspec/lib.ui-kit-web/ui/badge';
 import { HStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import type { ReactNode } from 'react';
@@ -58,7 +56,9 @@ export function IntegrationTableToolbar<TItem>({
 	const toggleColumn = controller.columns.find(
 		(column) => column.id === toggleColumnId
 	);
-	const pinColumn = controller.columns.find((column) => column.id === pinColumnId);
+	const pinColumn = controller.columns.find(
+		(column) => column.id === pinColumnId
+	);
 	const resizeColumn = controller.columns.find(
 		(column) => column.id === resizeColumnId
 	);
@@ -86,7 +86,9 @@ export function IntegrationTableToolbar<TItem>({
 				size="sm"
 				onPress={() => pinColumn?.pin?.(pinTarget)}
 			>
-				{pinColumn?.pinState === 'left' ? `Unpin ${pinLabel}` : `Pin ${pinLabel}`}
+				{pinColumn?.pinState === 'left'
+					? `Unpin ${pinLabel}`
+					: `Pin ${pinLabel}`}
 			</Button>
 			<Button
 				variant="outline"

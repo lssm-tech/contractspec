@@ -1,8 +1,20 @@
-import { VisualizationRegistry, defineVisualization } from '@contractspec/lib.contracts-spec/visualizations';
+import {
+	defineVisualization,
+	VisualizationRegistry,
+} from '@contractspec/lib.contracts-spec/visualizations';
 
-const INTEGRATION_LIST_REF = { key: 'integration.list', version: '1.0.0' } as const;
-const CONNECTION_LIST_REF = { key: 'integration.connection.list', version: '1.0.0' } as const;
-const SYNC_CONFIG_REF = { key: 'integration.syncConfig.list', version: '1.0.0' } as const;
+const INTEGRATION_LIST_REF = {
+	key: 'integration.list',
+	version: '1.0.0',
+} as const;
+const CONNECTION_LIST_REF = {
+	key: 'integration.connection.list',
+	version: '1.0.0',
+} as const;
+const SYNC_CONFIG_REF = {
+	key: 'integration.syncConfig.list',
+	version: '1.0.0',
+} as const;
 const META = {
 	version: '1.0.0',
 	domain: 'integration',
@@ -25,8 +37,12 @@ export const IntegrationTypeVisualization = defineVisualization({
 		kind: 'pie',
 		nameDimension: 'type',
 		valueMeasure: 'count',
-		dimensions: [{ key: 'type', label: 'Type', dataPath: 'type', type: 'category' }],
-		measures: [{ key: 'count', label: 'Count', dataPath: 'count', format: 'number' }],
+		dimensions: [
+			{ key: 'type', label: 'Type', dataPath: 'type', type: 'category' },
+		],
+		measures: [
+			{ key: 'count', label: 'Count', dataPath: 'count', format: 'number' },
+		],
 		table: { caption: 'Integration counts by type.' },
 	},
 });
@@ -46,8 +62,18 @@ export const ConnectionStatusVisualization = defineVisualization({
 		variant: 'bar',
 		xDimension: 'status',
 		yMeasures: ['count'],
-		dimensions: [{ key: 'status', label: 'Status', dataPath: 'status', type: 'category' }],
-		measures: [{ key: 'count', label: 'Connections', dataPath: 'count', format: 'number', color: '#1d4ed8' }],
+		dimensions: [
+			{ key: 'status', label: 'Status', dataPath: 'status', type: 'category' },
+		],
+		measures: [
+			{
+				key: 'count',
+				label: 'Connections',
+				dataPath: 'count',
+				format: 'number',
+				color: '#1d4ed8',
+			},
+		],
 		table: { caption: 'Connection counts by status.' },
 	},
 });
@@ -57,7 +83,8 @@ export const HealthySyncMetricVisualization = defineVisualization({
 		...META,
 		key: 'integration-hub.visualization.sync-healthy',
 		title: 'Healthy Syncs',
-		description: 'Sync configurations currently healthy or recently successful.',
+		description:
+			'Sync configurations currently healthy or recently successful.',
 		goal: 'Summarize healthy synchronization capacity.',
 		context: 'Sync-state comparison.',
 	},
@@ -65,7 +92,9 @@ export const HealthySyncMetricVisualization = defineVisualization({
 	visualization: {
 		kind: 'metric',
 		measure: 'value',
-		measures: [{ key: 'value', label: 'Syncs', dataPath: 'value', format: 'number' }],
+		measures: [
+			{ key: 'value', label: 'Syncs', dataPath: 'value', format: 'number' },
+		],
 		table: { caption: 'Healthy sync count.' },
 	},
 });
@@ -75,7 +104,8 @@ export const AttentionSyncMetricVisualization = defineVisualization({
 		...META,
 		key: 'integration-hub.visualization.sync-attention',
 		title: 'Attention Needed',
-		description: 'Sync configurations paused, failing, or otherwise needing review.',
+		description:
+			'Sync configurations paused, failing, or otherwise needing review.',
 		goal: 'Summarize syncs needing action.',
 		context: 'Sync-state comparison.',
 	},
@@ -83,7 +113,9 @@ export const AttentionSyncMetricVisualization = defineVisualization({
 	visualization: {
 		kind: 'metric',
 		measure: 'value',
-		measures: [{ key: 'value', label: 'Syncs', dataPath: 'value', format: 'number' }],
+		measures: [
+			{ key: 'value', label: 'Syncs', dataPath: 'value', format: 'number' },
+		],
 		table: { caption: 'Syncs requiring attention.' },
 	},
 });

@@ -12,11 +12,14 @@ This roadmap reflects current priorities and is updated as the community ships n
 - **Control plane contract baseline** — Intent, plan, execution, approval, and skill contracts.
 - **Health integration contracts** — Provider routing and health provider strategy.
 - **Docs automation** — Contracts-spec inventory and docs-index regeneration.
+- **Public site + OSS docs repositioning** — Web landing and docs now present ContractSpec as the open spec system for AI-native software, with Studio as the additive operating layer.
+- **Docs IA + shell rewrite** — Manifest-driven OSS-first docs navigation, metadata wiring, reference entrypoints, and new overview pages across the main docs sections.
 - **CI and type-safety hardening** — Lint, build, and type fixes across packages.
 
 ## Now (0-3 months)
 
-- Stabilize ContractSpec OSS onboarding and docs.
+- Deepen docs leaf coverage (integrations, comparisons, intent pages, and operator playbooks).
+- Add search, traversal, and reference UX polish on top of the new docs manifest.
 - Complete control plane runtime (deterministic planner, policy gates, approval flows).
 - Harden CI gating and deterministic diff workflows.
 - Add trust signals (security policy, dependency provenance).

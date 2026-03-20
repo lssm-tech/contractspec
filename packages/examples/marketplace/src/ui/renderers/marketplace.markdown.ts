@@ -205,7 +205,6 @@ export const marketplaceDashboardMarkdownRenderer: PresentationRenderer<{
 		lines.push('');
 		lines.push('| Store | Products | Rating | Status |');
 		lines.push('|-------|----------|--------|--------|');
-		
 
 		for (const store of stores.slice(0, 5)) {
 			lines.push(

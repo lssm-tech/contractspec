@@ -1,8 +1,11 @@
 'use client';
 
-import { VisualizationCard, VisualizationGrid } from '@contractspec/lib.design-system';
-import type { Run } from './hooks/useRunList';
+import {
+	VisualizationCard,
+	VisualizationGrid,
+} from '@contractspec/lib.design-system';
 import { createAgentVisualizationItems } from '../visualizations';
+import type { Run } from './hooks/useRunList';
 
 export function AgentVisualizationOverview({ runs }: { runs: Run[] }) {
 	const items = createAgentVisualizationItems(runs);

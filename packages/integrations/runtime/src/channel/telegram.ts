@@ -1,6 +1,6 @@
-import { timingSafeEqual } from "node:crypto";
+import { timingSafeEqual } from 'node:crypto';
 
-import type { ChannelInboundEvent } from "./types";
+import type { ChannelInboundEvent } from './types';
 
 export interface TelegramWebhookPayload {
 	update_id?: number;
@@ -43,18 +43,18 @@ export function verifyTelegramWebhookSecret(
 	input: TelegramSecretVerificationInput
 ): TelegramSecretVerificationResult {
 	if (!input.secretTokenHeader) {
-		return { valid: false, reason: "missing_secret_token" };
+		return { valid: false, reason: 'missing_secret_token' };
 	}
 
-	const expectedBuffer = Buffer.from(input.expectedSecretToken, "utf8");
-	const providedBuffer = Buffer.from(input.secretTokenHeader, "utf8");
+	const expectedBuffer = Buffer.from(input.expectedSecretToken, 'utf8');
+	const providedBuffer = Buffer.from(input.secretTokenHeader, 'utf8');
 	if (expectedBuffer.length !== providedBuffer.length) {
-		return { valid: false, reason: "secret_length_mismatch" };
+		return { valid: false, reason: 'secret_length_mismatch' };
 	}
 
 	return timingSafeEqual(expectedBuffer, providedBuffer)
 		? { valid: true }
-		: { valid: false, reason: "secret_mismatch" };
+		: { valid: false, reason: 'secret_mismatch' };
 }
 
 export function parseTelegramWebhookPayload(
@@ -88,7 +88,7 @@ export function normalizeTelegramInboundEvent(
 
 	return {
 		workspaceId: input.workspaceId,
-		providerKey: "messaging.telegram",
+		providerKey: 'messaging.telegram',
 		externalEventId,
 		eventType,
 		occurredAt,
@@ -106,9 +106,9 @@ export function normalizeTelegramInboundEvent(
 			externalMessageId: String(message.message_id),
 		},
 		metadata: {
-			chatType: message.chat.type ?? "",
-			chatUsername: message.chat.username ?? "",
-			senderUsername: message.from?.username ?? "",
+			chatType: message.chat.type ?? '',
+			chatUsername: message.chat.username ?? '',
+			senderUsername: message.from?.username ?? '',
 		},
 	};
 }
@@ -117,16 +117,16 @@ function getTelegramMessage(
 	payload: TelegramWebhookPayload
 ): [string, TelegramMessage | undefined] {
 	if (payload.message) {
-		return ["telegram.message", payload.message];
+		return ['telegram.message', payload.message];
 	}
 	if (payload.edited_message) {
-		return ["telegram.edited_message", payload.edited_message];
+		return ['telegram.edited_message', payload.edited_message];
 	}
 	if (payload.channel_post) {
-		return ["telegram.channel_post", payload.channel_post];
+		return ['telegram.channel_post', payload.channel_post];
 	}
 	if (payload.edited_channel_post) {
-		return ["telegram.edited_channel_post", payload.edited_channel_post];
+		return ['telegram.edited_channel_post', payload.edited_channel_post];
 	}
-	return ["telegram.unknown", undefined];
+	return ['telegram.unknown', undefined];
 }

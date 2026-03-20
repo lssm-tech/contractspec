@@ -190,7 +190,9 @@ export function renderCellContent<TItem>(
 				variant="ghost"
 				size="icon"
 				className="h-7 w-7"
-				aria-label={row.isExpanded ? `Collapse row ${row.id}` : `Expand row ${row.id}`}
+				aria-label={
+					row.isExpanded ? `Collapse row ${row.id}` : `Expand row ${row.id}`
+				}
 				onClick={() => row.toggleExpanded?.()}
 			>
 				{row.isExpanded ? (

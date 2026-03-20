@@ -1,7 +1,12 @@
 'use client';
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@contractspec/lib.ui-kit-web/ui/tabs';
 import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
+import {
+	Tabs,
+	TabsContent,
+	TabsList,
+	TabsTrigger,
+} from '@contractspec/lib.ui-kit-web/ui/tabs';
 import {
 	ClientModeTable,
 	DataViewModeTable,

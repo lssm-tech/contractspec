@@ -1,3 +1,4 @@
+import { visualizationRefKey } from './registry';
 import {
 	ShowcaseFunnelVisualization,
 	ShowcaseGeoVisualization,
@@ -11,7 +12,6 @@ import {
 	ShowcaseScatterVisualization,
 } from './specs.cartesian';
 import { ShowcaseMetricVisualization } from './specs.metric';
-import { visualizationRefKey } from './registry';
 
 export const VisualizationShowcaseSampleData: Record<string, unknown> = {
 	[visualizationRefKey(ShowcaseMetricVisualization.meta)]: {

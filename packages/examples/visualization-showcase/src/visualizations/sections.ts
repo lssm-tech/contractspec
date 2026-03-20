@@ -1,3 +1,5 @@
+import { VisualizationShowcaseSampleData } from './data';
+import { visualizationRefKey } from './registry';
 import {
 	ShowcaseFunnelVisualization,
 	ShowcaseGeoVisualization,
@@ -11,8 +13,6 @@ import {
 	ShowcaseScatterVisualization,
 } from './specs.cartesian';
 import { ShowcaseMetricVisualization } from './specs.metric';
-import { VisualizationShowcaseSampleData } from './data';
-import { visualizationRefKey } from './registry';
 
 function sampleDataFor(ref: { key: string; version: string }) {
 	return VisualizationShowcaseSampleData[visualizationRefKey(ref)];

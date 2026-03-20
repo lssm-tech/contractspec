@@ -1,7 +1,7 @@
 import { afterEach, beforeAll, describe, expect, test } from 'bun:test';
 import Window from 'happy-dom/lib/window/Window.js';
-import { act } from 'react';
 import type { ReactNode } from 'react';
+import { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import type {
 	Connection,
@@ -119,7 +119,9 @@ describe('Integration tables', () => {
 		expect(container.textContent).toContain('Connections');
 		expect(container.textContent).toContain('4 total connections');
 		expect(container.textContent).toContain('Show Error Column');
-		expect(container.textContent).toContain('Affichage de 1 à 3 sur 4 résultats');
+		expect(container.textContent).toContain(
+			'Affichage de 1 à 3 sur 4 résultats'
+		);
 	});
 
 	test('sync configs table renders the shared table surface', async () => {

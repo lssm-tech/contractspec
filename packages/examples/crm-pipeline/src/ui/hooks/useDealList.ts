@@ -1,7 +1,7 @@
 'use client';
 
-import type { ContractTableSort } from '@contractspec/lib.presentation-runtime-core';
 import { useTemplateRuntime } from '@contractspec/lib.example-shared-ui';
+import type { ContractTableSort } from '@contractspec/lib.presentation-runtime-core';
 /**
  * Hook for fetching and managing deal list data
  *

@@ -2,15 +2,18 @@
 
 import { DataTable } from '@contractspec/lib.design-system';
 import type { ContractTableSort } from '@contractspec/lib.presentation-runtime-core';
-import { useContractTable, useDataViewTable } from '@contractspec/lib.presentation-runtime-react';
+import {
+	useContractTable,
+	useDataViewTable,
+} from '@contractspec/lib.presentation-runtime-react';
 import * as React from 'react';
 import { DataGridShowcaseDataView } from '../contracts/data-grid-showcase.data-view';
+import { useShowcaseColumns } from './data-grid-showcase.columns';
 import {
 	fetchShowcaseRows,
-	type ShowcaseRow,
 	SHOWCASE_ROWS,
+	type ShowcaseRow,
 } from './data-grid-showcase.data';
-import { useShowcaseColumns } from './data-grid-showcase.columns';
 import {
 	ExpandedRowContent,
 	formatCurrency,

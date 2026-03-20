@@ -109,7 +109,6 @@ export function useRunList(options: UseRunListOptions = {}) {
 			: () => setInternalPageIndex((current) => current + 1),
 		prevPage: hasControlledPagination
 			? undefined
-			: () =>
-					setInternalPageIndex((current) => Math.max(0, current - 1)),
+			: () => setInternalPageIndex((current) => Math.max(0, current - 1)),
 	};
 }

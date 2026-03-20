@@ -2,7 +2,7 @@ import {
 	createMessagingAgentActionsHandlers,
 	listAllowedMessagingActions,
 	listAllowedMessagingWorkflows,
-} from "../handlers";
+} from '../handlers';
 
 export interface MessagingAgentActionsReplayStep {
 	step: string;
@@ -12,7 +12,7 @@ export interface MessagingAgentActionsReplayStep {
 }
 
 export interface MessagingAgentActionsMeetupProof {
-	exampleKey: "messaging-agent-actions";
+	exampleKey: 'messaging-agent-actions';
 	generatedAt: string;
 	allowedActions: string[];
 	allowedWorkflows: string[];
@@ -24,56 +24,56 @@ export async function buildMessagingAgentActionsMeetupProof(): Promise<Messaging
 	const replay = await Promise.all([
 		handlers.processMessage(
 			{
-				provider: "messaging.telegram",
-				senderId: "operator-1",
-				threadId: "thread-status",
-				text: "status messaging",
+				provider: 'messaging.telegram',
+				senderId: 'operator-1',
+				threadId: 'thread-status',
+				text: 'status messaging',
 			},
 			{} as never
 		),
 		handlers.processMessage(
 			{
-				provider: "messaging.slack",
-				senderId: "operator-1",
-				threadId: "thread-action",
-				text: "run action refresh-agent-console-proof",
+				provider: 'messaging.slack',
+				senderId: 'operator-1',
+				threadId: 'thread-action',
+				text: 'run action refresh-agent-console-proof',
 			},
 			{} as never
 		),
 		handlers.processMessage(
 			{
-				provider: "messaging.whatsapp.meta",
-				senderId: "operator-1",
-				threadId: "thread-workflow",
-				text: "dispatch workflow incident-triage",
+				provider: 'messaging.whatsapp.meta',
+				senderId: 'operator-1',
+				threadId: 'thread-workflow',
+				text: 'dispatch workflow incident-triage',
 			},
 			{} as never
 		),
 	]);
 
 	return {
-		exampleKey: "messaging-agent-actions",
-		generatedAt: "2026-03-20T09:00:00.000Z",
+		exampleKey: 'messaging-agent-actions',
+		generatedAt: '2026-03-20T09:00:00.000Z',
 		allowedActions: listAllowedMessagingActions().map((action) => action.key),
 		allowedWorkflows: listAllowedMessagingWorkflows().map(
 			(workflow) => workflow.key
 		),
 		replay: [
 			{
-				step: "status",
-				inboundText: "status messaging",
+				step: 'status',
+				inboundText: 'status messaging',
 				intent: replay[0].intent,
 				replyText: replay[0].replyText,
 			},
 			{
-				step: "run-action",
-				inboundText: "run action refresh-agent-console-proof",
+				step: 'run-action',
+				inboundText: 'run action refresh-agent-console-proof',
 				intent: replay[1].intent,
 				replyText: replay[1].replyText,
 			},
 			{
-				step: "dispatch-workflow",
-				inboundText: "dispatch workflow incident-triage",
+				step: 'dispatch-workflow',
+				inboundText: 'dispatch workflow incident-triage',
 				intent: replay[2].intent,
 				replyText: replay[2].replyText,
 			},

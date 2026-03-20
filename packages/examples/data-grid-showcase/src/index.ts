@@ -1,4 +1,4 @@
-export * from "./contracts";
-export * from "./ui";
-export { default as example } from "./example";
-import "./docs";
+export * from './contracts';
+export { default as example } from './example';
+export * from './ui';
+import './docs';

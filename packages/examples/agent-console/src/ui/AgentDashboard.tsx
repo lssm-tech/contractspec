@@ -17,12 +17,12 @@ import {
  * - ExecuteAgentCommand -> Execute agent via modal
  */
 import { useCallback, useMemo, useState } from 'react';
+import { AgentVisualizationOverview } from './AgentDashboard.visualizations';
 import { type Agent, useAgentList } from './hooks/useAgentList';
 import { useAgentMutations } from './hooks/useAgentMutations';
 import { type RunMetrics, useRunList } from './hooks/useRunList';
 import { AgentActionsModal } from './modals/AgentActionsModal';
 import { CreateAgentModal } from './modals/CreateAgentModal';
-import { AgentVisualizationOverview } from './AgentDashboard.visualizations';
 // import { AgentListView } from './views/AgentListView';
 import { RunListView } from './views/RunListView';
 import { ToolRegistryView } from './views/ToolRegistryView';

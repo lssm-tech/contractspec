@@ -1,1 +1,1 @@
-export * from "./process-message.operation";
+export * from './process-message.operation';

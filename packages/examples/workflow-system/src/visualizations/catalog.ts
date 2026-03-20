@@ -1,6 +1,12 @@
-import { VisualizationRegistry, defineVisualization } from '@contractspec/lib.contracts-spec/visualizations';
+import {
+	defineVisualization,
+	VisualizationRegistry,
+} from '@contractspec/lib.contracts-spec/visualizations';
 
-const INSTANCE_LIST_REF = { key: 'workflow.instance.list', version: '1.0.0' } as const;
+const INSTANCE_LIST_REF = {
+	key: 'workflow.instance.list',
+	version: '1.0.0',
+} as const;
 const META = {
 	version: '1.0.0',
 	domain: 'workflow',
@@ -23,8 +29,17 @@ export const WorkflowInstanceStatusVisualization = defineVisualization({
 		kind: 'pie',
 		nameDimension: 'status',
 		valueMeasure: 'instances',
-		dimensions: [{ key: 'status', label: 'Status', dataPath: 'status', type: 'category' }],
-		measures: [{ key: 'instances', label: 'Instances', dataPath: 'instances', format: 'number' }],
+		dimensions: [
+			{ key: 'status', label: 'Status', dataPath: 'status', type: 'category' },
+		],
+		measures: [
+			{
+				key: 'instances',
+				label: 'Instances',
+				dataPath: 'instances',
+				format: 'number',
+			},
+		],
 		table: { caption: 'Workflow instance counts by status.' },
 	},
 });
@@ -45,7 +60,15 @@ export const WorkflowThroughputVisualization = defineVisualization({
 		xDimension: 'day',
 		yMeasures: ['instances'],
 		dimensions: [{ key: 'day', label: 'Day', dataPath: 'day', type: 'time' }],
-		measures: [{ key: 'instances', label: 'Instances', dataPath: 'instances', format: 'number', color: '#0f766e' }],
+		measures: [
+			{
+				key: 'instances',
+				label: 'Instances',
+				dataPath: 'instances',
+				format: 'number',
+				color: '#0f766e',
+			},
+		],
 		table: { caption: 'Daily workflow instance starts.' },
 	},
 });
@@ -63,7 +86,9 @@ export const WorkflowActiveMetricVisualization = defineVisualization({
 	visualization: {
 		kind: 'metric',
 		measure: 'value',
-		measures: [{ key: 'value', label: 'Instances', dataPath: 'value', format: 'number' }],
+		measures: [
+			{ key: 'value', label: 'Instances', dataPath: 'value', format: 'number' },
+		],
 		table: { caption: 'Active workflow count.' },
 	},
 });
@@ -81,7 +106,9 @@ export const WorkflowCompletedMetricVisualization = defineVisualization({
 	visualization: {
 		kind: 'metric',
 		measure: 'value',
-		measures: [{ key: 'value', label: 'Instances', dataPath: 'value', format: 'number' }],
+		measures: [
+			{ key: 'value', label: 'Instances', dataPath: 'value', format: 'number' },
+		],
 		table: { caption: 'Completed workflow count.' },
 	},
 });
@@ -97,7 +124,9 @@ export const WorkflowVisualizationRegistry = new VisualizationRegistry([
 	...WorkflowVisualizationSpecs,
 ]);
 
-export const WorkflowVisualizationRefs = WorkflowVisualizationSpecs.map((spec) => ({
-	key: spec.meta.key,
-	version: spec.meta.version,
-}));
+export const WorkflowVisualizationRefs = WorkflowVisualizationSpecs.map(
+	(spec) => ({
+		key: spec.meta.key,
+		version: spec.meta.version,
+	})
+);

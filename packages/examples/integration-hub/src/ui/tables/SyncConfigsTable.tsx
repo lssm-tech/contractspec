@@ -11,7 +11,11 @@ import {
 	StatusBadge,
 } from './integration-table.shared';
 
-export function SyncConfigsTable({ syncConfigs }: { syncConfigs: SyncConfig[] }) {
+export function SyncConfigsTable({
+	syncConfigs,
+}: {
+	syncConfigs: SyncConfig[];
+}) {
 	const controller = useContractTable<SyncConfig>({
 		data: syncConfigs,
 		columns: [

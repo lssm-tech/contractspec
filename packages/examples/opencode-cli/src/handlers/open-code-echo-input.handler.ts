@@ -6,10 +6,8 @@ import { OpenCodeEchoInputSpec } from '../contracts/open-code-echo-input.contrac
  */
 export const openCodeEchoInputHandler: HandlerForOperationSpec<
 	typeof OpenCodeEchoInputSpec
-> = async (
-  input
-) => {
-  return {
-    message: input.prompt,
-  };
+> = async (input) => {
+	return {
+		message: input.prompt,
+	};
 };

@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'bun:test';
 import {
-	VisualizationShowcaseRefs,
-	VisualizationShowcaseSpecMap,
-	VisualizationShowcaseSpecs,
 	createVisualizationShowcaseComparisonItems,
 	createVisualizationShowcaseGridItems,
 	createVisualizationShowcaseTimelineItems,
+	VisualizationShowcaseRefs,
+	VisualizationShowcaseSpecMap,
+	VisualizationShowcaseSpecs,
 } from './index';
 
 describe('visualization showcase catalog', () => {

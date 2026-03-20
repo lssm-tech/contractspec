@@ -374,7 +374,8 @@ async function seedWorkflowSystem(params: {
 		{
 			id: 'wf_vendor',
 			name: 'Vendor Onboarding',
-			description: 'Sequence security, procurement, and legal before activation.',
+			description:
+				'Sequence security, procurement, and legal before activation.',
 			type: 'SEQUENTIAL',
 			status: 'ACTIVE',
 			createdAt: '2026-03-08T11:00:00.000Z',

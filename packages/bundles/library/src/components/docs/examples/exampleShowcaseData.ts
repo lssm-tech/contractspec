@@ -1,8 +1,5 @@
 export interface ExampleShowcaseData {
-	key:
-		| 'agent-console'
-		| 'ai-chat-assistant'
-		| 'messaging-agent-actions';
+	key: 'agent-console' | 'ai-chat-assistant' | 'messaging-agent-actions';
 	lead: string;
 	sandboxHref: string;
 	referenceHref: string;
@@ -14,8 +11,7 @@ export interface ExampleShowcaseData {
 const EXAMPLE_SHOWCASES: Record<string, ExampleShowcaseData> = {
 	'agent-console': {
 		key: 'agent-console',
-		lead:
-			'Primary meetup path for autonomous agents: typed tools, agent configs, run history, and execution logs in one regenerable surface.',
+		lead: 'Primary meetup path for autonomous agents: typed tools, agent configs, run history, and execution logs in one regenerable surface.',
 		sandboxHref: '/sandbox?template=agent-console',
 		referenceHref: '/docs/reference/agent-console/agent-console',
 		llmsHref: '/llms/example.agent-console',
@@ -30,8 +26,7 @@ bun run --cwd packages/apps/web-landing dev
 	},
 	'ai-chat-assistant': {
 		key: 'ai-chat-assistant',
-		lead:
-			'Secondary meetup path for MCP-aware assistants: reasoning, sources, suggestions, and a minimal contract-backed search tool.',
+		lead: 'Secondary meetup path for MCP-aware assistants: reasoning, sources, suggestions, and a minimal contract-backed search tool.',
 		sandboxHref: '/sandbox?template=ai-chat-assistant',
 		referenceHref: '/docs/reference/ai-chat-assistant/assistant.search',
 		llmsHref: '/llms/example.ai-chat-assistant',
@@ -46,8 +41,7 @@ bun run --cwd packages/apps/web-landing dev
 	},
 	'messaging-agent-actions': {
 		key: 'messaging-agent-actions',
-		lead:
-			'Live messaging lane for the meetup: inbound Slack, WhatsApp, or Telegram messages route through fixed intents, allowlisted actions, and deterministic confirmations.',
+		lead: 'Live messaging lane for the meetup: inbound Slack, WhatsApp, or Telegram messages route through fixed intents, allowlisted actions, and deterministic confirmations.',
 		sandboxHref: '/sandbox?template=messaging-agent-actions',
 		referenceHref:
 			'/docs/reference/messaging-agent-actions/messaging.agentActions.process',

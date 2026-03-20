@@ -15,10 +15,7 @@ import dynamic from 'next/dynamic';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import type React from 'react';
 import { useEffect, useMemo, useState } from 'react';
-import {
-	buildSandboxHref,
-	resolveSandboxTemplateId,
-} from './sandbox-config';
+import { buildSandboxHref, resolveSandboxTemplateId } from './sandbox-config';
 
 // Studio dependencies removed for public split
 // import {

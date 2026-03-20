@@ -28,8 +28,22 @@ export const ShowcasePieVisualization = defineVisualization({
 		nameDimension: 'channel',
 		valueMeasure: 'sessions',
 		donut: true,
-		dimensions: [{ key: 'channel', label: 'Channel', dataPath: 'channel', type: 'category' }],
-		measures: [{ key: 'sessions', label: 'Sessions', dataPath: 'sessions', format: 'number' }],
+		dimensions: [
+			{
+				key: 'channel',
+				label: 'Channel',
+				dataPath: 'channel',
+				type: 'category',
+			},
+		],
+		measures: [
+			{
+				key: 'sessions',
+				label: 'Sessions',
+				dataPath: 'sessions',
+				format: 'number',
+			},
+		],
 		table: { caption: 'Sessions by channel.' },
 	},
 });
@@ -50,10 +64,17 @@ export const ShowcaseHeatmapVisualization = defineVisualization({
 		yDimension: 'hour',
 		valueMeasure: 'score',
 		dimensions: [
-			{ key: 'weekday', label: 'Weekday', dataPath: 'weekday', type: 'category' },
+			{
+				key: 'weekday',
+				label: 'Weekday',
+				dataPath: 'weekday',
+				type: 'category',
+			},
 			{ key: 'hour', label: 'Hour', dataPath: 'hour', type: 'category' },
 		],
-		measures: [{ key: 'score', label: 'Score', dataPath: 'score', format: 'number' }],
+		measures: [
+			{ key: 'score', label: 'Score', dataPath: 'score', format: 'number' },
+		],
 		table: { caption: 'Engagement score by weekday and hour.' },
 	},
 });
@@ -72,8 +93,12 @@ export const ShowcaseFunnelVisualization = defineVisualization({
 		kind: 'funnel',
 		nameDimension: 'stage',
 		valueMeasure: 'count',
-		dimensions: [{ key: 'stage', label: 'Stage', dataPath: 'stage', type: 'category' }],
-		measures: [{ key: 'count', label: 'Count', dataPath: 'count', format: 'number' }],
+		dimensions: [
+			{ key: 'stage', label: 'Stage', dataPath: 'stage', type: 'category' },
+		],
+		measures: [
+			{ key: 'count', label: 'Count', dataPath: 'count', format: 'number' },
+		],
 		table: { caption: 'Counts by funnel stage.' },
 	},
 });
@@ -98,10 +123,27 @@ export const ShowcaseGeoVisualization = defineVisualization({
 		valueMeasure: 'accounts',
 		dimensions: [
 			{ key: 'city', label: 'City', dataPath: 'city', type: 'geo' },
-			{ key: 'longitude', label: 'Longitude', dataPath: 'longitude', type: 'longitude' },
-			{ key: 'latitude', label: 'Latitude', dataPath: 'latitude', type: 'latitude' },
+			{
+				key: 'longitude',
+				label: 'Longitude',
+				dataPath: 'longitude',
+				type: 'longitude',
+			},
+			{
+				key: 'latitude',
+				label: 'Latitude',
+				dataPath: 'latitude',
+				type: 'latitude',
+			},
 		],
-		measures: [{ key: 'accounts', label: 'Accounts', dataPath: 'accounts', format: 'number' }],
+		measures: [
+			{
+				key: 'accounts',
+				label: 'Accounts',
+				dataPath: 'accounts',
+				format: 'number',
+			},
+		],
 		table: { caption: 'Accounts by city location.' },
 	},
 });

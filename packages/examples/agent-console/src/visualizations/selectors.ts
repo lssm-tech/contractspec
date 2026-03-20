@@ -19,7 +19,10 @@ export function createAgentVisualizationItems(
 
 	for (const run of runs) {
 		statusCounts.set(run.status, (statusCounts.get(run.status) ?? 0) + 1);
-		activityCounts.set(dayKey(run.startedAt ?? run.queuedAt), (activityCounts.get(dayKey(run.startedAt ?? run.queuedAt)) ?? 0) + 1);
+		activityCounts.set(
+			dayKey(run.startedAt ?? run.queuedAt),
+			(activityCounts.get(dayKey(run.startedAt ?? run.queuedAt)) ?? 0) + 1
+		);
 	}
 
 	return [
@@ -33,7 +36,8 @@ export function createAgentVisualizationItems(
 				})),
 			},
 			title: 'Run Status Breakdown',
-			description: 'Completed, failed, running, and cancelled runs in the sample.',
+			description:
+				'Completed, failed, running, and cancelled runs in the sample.',
 			height: 260,
 		},
 		{

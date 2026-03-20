@@ -1,134 +1,134 @@
 {
-  "name": "@contractspec/example.visualization-showcase",
-  "version": "3.9.0",
-  "description": "Focused visualization showcase for ContractSpec primitives and design-system wrappers",
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./src/index.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/visualization-showcase.docblock": "./src/docs/visualization-showcase.docblock.ts",
-    "./example": "./src/example.ts",
-    "./ui": "./src/ui/index.ts",
-    "./ui/VisualizationShowcase": "./src/ui/VisualizationShowcase.tsx",
-    "./ui/renderers": "./src/ui/renderers/index.ts",
-    "./ui/renderers/visualization-showcase.markdown": "./src/ui/renderers/visualization-showcase.markdown.ts",
-    "./visualization-showcase.feature": "./src/visualization-showcase.feature.ts",
-    "./visualizations": "./src/visualizations/index.ts"
-  },
-  "scripts": {
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
-    "build:bundle": "contractspec-bun-build transpile",
-    "build:types": "contractspec-bun-build types",
-    "dev": "contractspec-bun-build dev",
-    "clean": "rimraf dist .turbo",
-    "lint": "bun lint:fix",
-    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-    "lint:check": "biome check .",
-    "test": "bun test",
-    "prebuild": "contractspec-bun-build prebuild",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "@contractspec/lib.design-system": "workspace:*",
-    "react": "catalog:",
-    "react-dom": "catalog:"
-  },
-  "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.2",
-    "@contractspec/tool.bun": "workspace:*"
-  },
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "publishConfig": {
-    "access": "public",
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "browser": "./dist/browser/index.js",
-        "bun": "./dist/index.js",
-        "node": "./dist/node/index.js",
-        "default": "./dist/index.js"
-      },
-      "./docs": {
-        "types": "./dist/docs/index.d.ts",
-        "browser": "./dist/browser/docs/index.js",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/visualization-showcase.docblock": {
-        "types": "./dist/docs/visualization-showcase.docblock.d.ts",
-        "browser": "./dist/browser/docs/visualization-showcase.docblock.js",
-        "bun": "./dist/docs/visualization-showcase.docblock.js",
-        "node": "./dist/node/docs/visualization-showcase.docblock.js",
-        "default": "./dist/docs/visualization-showcase.docblock.js"
-      },
-      "./example": {
-        "types": "./dist/example.d.ts",
-        "browser": "./dist/browser/example.js",
-        "bun": "./dist/example.js",
-        "node": "./dist/node/example.js",
-        "default": "./dist/example.js"
-      },
-      "./ui": {
-        "types": "./dist/ui/index.d.ts",
-        "browser": "./dist/browser/ui/index.js",
-        "bun": "./dist/ui/index.js",
-        "node": "./dist/node/ui/index.js",
-        "default": "./dist/ui/index.js"
-      },
-      "./ui/VisualizationShowcase": {
-        "types": "./dist/ui/VisualizationShowcase.d.ts",
-        "browser": "./dist/browser/ui/VisualizationShowcase.js",
-        "bun": "./dist/ui/VisualizationShowcase.js",
-        "node": "./dist/node/ui/VisualizationShowcase.js",
-        "default": "./dist/ui/VisualizationShowcase.js"
-      },
-      "./ui/renderers": {
-        "types": "./dist/ui/renderers/index.d.ts",
-        "browser": "./dist/browser/ui/renderers/index.js",
-        "bun": "./dist/ui/renderers/index.js",
-        "node": "./dist/node/ui/renderers/index.js",
-        "default": "./dist/ui/renderers/index.js"
-      },
-      "./ui/renderers/visualization-showcase.markdown": {
-        "types": "./dist/ui/renderers/visualization-showcase.markdown.d.ts",
-        "browser": "./dist/browser/ui/renderers/visualization-showcase.markdown.js",
-        "bun": "./dist/ui/renderers/visualization-showcase.markdown.js",
-        "node": "./dist/node/ui/renderers/visualization-showcase.markdown.js",
-        "default": "./dist/ui/renderers/visualization-showcase.markdown.js"
-      },
-      "./visualization-showcase.feature": {
-        "types": "./dist/visualization-showcase.feature.d.ts",
-        "browser": "./dist/browser/visualization-showcase.feature.js",
-        "bun": "./dist/visualization-showcase.feature.js",
-        "node": "./dist/node/visualization-showcase.feature.js",
-        "default": "./dist/visualization-showcase.feature.js"
-      },
-      "./visualizations": {
-        "types": "./dist/visualizations/index.d.ts",
-        "browser": "./dist/browser/visualizations/index.js",
-        "bun": "./dist/visualizations/index.js",
-        "node": "./dist/node/visualizations/index.js",
-        "default": "./dist/visualizations/index.js"
-      }
-    },
-    "registry": "https://registry.npmjs.org/"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/examples/visualization-showcase"
-  },
-  "homepage": "https://contractspec.io"
+	"name": "@contractspec/example.visualization-showcase",
+	"version": "3.9.0",
+	"description": "Focused visualization showcase for ContractSpec primitives and design-system wrappers",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./docs": "./src/docs/index.ts",
+		"./docs/visualization-showcase.docblock": "./src/docs/visualization-showcase.docblock.ts",
+		"./example": "./src/example.ts",
+		"./ui": "./src/ui/index.ts",
+		"./ui/VisualizationShowcase": "./src/ui/VisualizationShowcase.tsx",
+		"./ui/renderers": "./src/ui/renderers/index.ts",
+		"./ui/renderers/visualization-showcase.markdown": "./src/ui/renderers/visualization-showcase.markdown.ts",
+		"./visualization-showcase.feature": "./src/visualization-showcase.feature.ts",
+		"./visualizations": "./src/visualizations/index.ts"
+	},
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"test": "bun test",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.design-system": "workspace:*",
+		"react": "catalog:",
+		"react-dom": "catalog:"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@types/react": "^19.2.14",
+		"@types/react-dom": "^19.2.2",
+		"@contractspec/tool.bun": "workspace:*"
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./docs": {
+				"types": "./dist/docs/index.d.ts",
+				"browser": "./dist/browser/docs/index.js",
+				"bun": "./dist/docs/index.js",
+				"node": "./dist/node/docs/index.js",
+				"default": "./dist/docs/index.js"
+			},
+			"./docs/visualization-showcase.docblock": {
+				"types": "./dist/docs/visualization-showcase.docblock.d.ts",
+				"browser": "./dist/browser/docs/visualization-showcase.docblock.js",
+				"bun": "./dist/docs/visualization-showcase.docblock.js",
+				"node": "./dist/node/docs/visualization-showcase.docblock.js",
+				"default": "./dist/docs/visualization-showcase.docblock.js"
+			},
+			"./example": {
+				"types": "./dist/example.d.ts",
+				"browser": "./dist/browser/example.js",
+				"bun": "./dist/example.js",
+				"node": "./dist/node/example.js",
+				"default": "./dist/example.js"
+			},
+			"./ui": {
+				"types": "./dist/ui/index.d.ts",
+				"browser": "./dist/browser/ui/index.js",
+				"bun": "./dist/ui/index.js",
+				"node": "./dist/node/ui/index.js",
+				"default": "./dist/ui/index.js"
+			},
+			"./ui/VisualizationShowcase": {
+				"types": "./dist/ui/VisualizationShowcase.d.ts",
+				"browser": "./dist/browser/ui/VisualizationShowcase.js",
+				"bun": "./dist/ui/VisualizationShowcase.js",
+				"node": "./dist/node/ui/VisualizationShowcase.js",
+				"default": "./dist/ui/VisualizationShowcase.js"
+			},
+			"./ui/renderers": {
+				"types": "./dist/ui/renderers/index.d.ts",
+				"browser": "./dist/browser/ui/renderers/index.js",
+				"bun": "./dist/ui/renderers/index.js",
+				"node": "./dist/node/ui/renderers/index.js",
+				"default": "./dist/ui/renderers/index.js"
+			},
+			"./ui/renderers/visualization-showcase.markdown": {
+				"types": "./dist/ui/renderers/visualization-showcase.markdown.d.ts",
+				"browser": "./dist/browser/ui/renderers/visualization-showcase.markdown.js",
+				"bun": "./dist/ui/renderers/visualization-showcase.markdown.js",
+				"node": "./dist/node/ui/renderers/visualization-showcase.markdown.js",
+				"default": "./dist/ui/renderers/visualization-showcase.markdown.js"
+			},
+			"./visualization-showcase.feature": {
+				"types": "./dist/visualization-showcase.feature.d.ts",
+				"browser": "./dist/browser/visualization-showcase.feature.js",
+				"bun": "./dist/visualization-showcase.feature.js",
+				"node": "./dist/node/visualization-showcase.feature.js",
+				"default": "./dist/visualization-showcase.feature.js"
+			},
+			"./visualizations": {
+				"types": "./dist/visualizations/index.d.ts",
+				"browser": "./dist/browser/visualizations/index.js",
+				"bun": "./dist/visualizations/index.js",
+				"node": "./dist/node/visualizations/index.js",
+				"default": "./dist/visualizations/index.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/examples/visualization-showcase"
+	},
+	"homepage": "https://contractspec.io"
 }

@@ -7,8 +7,8 @@ import {
 	WORKFLOW_SYSTEM_DEMO_DEFINITIONS,
 	WORKFLOW_SYSTEM_DEMO_PROJECT_ID,
 } from './shared/demo-scenario';
-import { WorkflowSystemFeature } from './workflow-system.feature';
 import { workflowDashboardMarkdownRenderer } from './ui/renderers/workflow.markdown';
+import { WorkflowSystemFeature } from './workflow-system.feature';
 
 describe('@contractspec/example.workflow-system', () => {
 	test('publishes workflow-system example metadata', () => {
@@ -43,9 +43,13 @@ describe('@contractspec/example.workflow-system', () => {
 			expect(definitions.total).toBe(WORKFLOW_SYSTEM_DEMO_DEFINITIONS.length);
 			expect(
 				definitions.definitions.map((definition) => definition.name)
-			).toEqual(expect.arrayContaining(['Expense Approval', 'Vendor Onboarding']));
+			).toEqual(
+				expect.arrayContaining(['Expense Approval', 'Vendor Onboarding'])
+			);
 			expect(
-				instances.instances.some((instance) => instance.status === 'IN_PROGRESS')
+				instances.instances.some(
+					(instance) => instance.status === 'IN_PROGRESS'
+				)
 			).toBe(true);
 			expect(
 				instances.instances.some((instance) => instance.status === 'COMPLETED')

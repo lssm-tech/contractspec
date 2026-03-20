@@ -2,7 +2,7 @@ import type {
 	MessagingProvider,
 	MessagingSendInput,
 	MessagingSendResult,
-} from "../messaging";
+} from '../messaging';
 
 interface TelegramSendResponse {
 	ok?: boolean;
@@ -29,7 +29,7 @@ export class TelegramMessagingProvider implements MessagingProvider {
 	constructor(options: TelegramMessagingProviderOptions) {
 		this.botToken = options.botToken;
 		this.defaultChatId = options.defaultChatId;
-		this.apiBaseUrl = options.apiBaseUrl ?? "https://api.telegram.org";
+		this.apiBaseUrl = options.apiBaseUrl ?? 'https://api.telegram.org';
 	}
 
 	async sendMessage(input: MessagingSendInput): Promise<MessagingSendResult> {
@@ -37,7 +37,7 @@ export class TelegramMessagingProvider implements MessagingProvider {
 			input.channelId ?? input.recipientId ?? this.defaultChatId ?? undefined;
 		if (!chatId) {
 			throw new Error(
-				"Telegram sendMessage requires channelId, recipientId, or defaultChatId."
+				'Telegram sendMessage requires channelId, recipientId, or defaultChatId.'
 			);
 		}
 
@@ -49,9 +49,9 @@ export class TelegramMessagingProvider implements MessagingProvider {
 		const response = await fetch(
 			`${this.apiBaseUrl}/bot${this.botToken}/sendMessage`,
 			{
-				method: "POST",
+				method: 'POST',
 				headers: {
-					"content-type": "application/json",
+					'content-type': 'application/json',
 				},
 				body: JSON.stringify({
 					chat_id: chatId,
@@ -74,7 +74,7 @@ export class TelegramMessagingProvider implements MessagingProvider {
 		return {
 			id: `telegram:${chatId}:${providerMessageId}`,
 			providerMessageId: String(providerMessageId),
-			status: "sent",
+			status: 'sent',
 			sentAt: new Date(),
 			metadata: {
 				chatId: String(body.result?.chat?.id ?? chatId),

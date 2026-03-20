@@ -1,25 +1,25 @@
-import * as fs from "node:fs/promises";
-import * as path from "node:path";
-import { validateExamples } from "@contractspec/lib.contracts-spec/examples/validation";
+import * as fs from 'node:fs/promises';
+import * as path from 'node:path';
+import { validateExamples } from '@contractspec/lib.contracts-spec/examples/validation';
 import {
 	getExample,
 	listExamples,
 	searchExamples,
-} from "@contractspec/module.examples/registry";
-import chalk from "chalk";
-import { Command } from "commander";
+} from '@contractspec/module.examples/registry';
+import chalk from 'chalk';
+import { Command } from 'commander';
 import {
 	validateGeneratedRegistry,
 	validateWorkspaceExamplesFolder,
-} from "./validation";
+} from './validation';
 
-export const examplesCommand = new Command("examples")
-	.description("Browse, inspect, and validate ContractSpec examples")
+export const examplesCommand = new Command('examples')
+	.description('Browse, inspect, and validate ContractSpec examples')
 	.addCommand(
-		new Command("list")
-			.description("List examples")
-			.option("--json", "Output JSON", false)
-			.option("-q, --query <query>", "Filter by query")
+		new Command('list')
+			.description('List examples')
+			.option('--json', 'Output JSON', false)
+			.option('-q, --query <query>', 'Filter by query')
 			.action((options) => {
 				const items = options.query
 					? searchExamples(String(options.query))
@@ -36,10 +36,10 @@ export const examplesCommand = new Command("examples")
 			})
 	)
 	.addCommand(
-		new Command("show")
-			.description("Show a single example manifest")
-			.argument("<key>", "Example key")
-			.option("--json", "Output JSON", true)
+		new Command('show')
+			.description('Show a single example manifest')
+			.argument('<key>', 'Example key')
+			.option('--json', 'Output JSON', true)
 			.action((key: string) => {
 				const example = getExample(key);
 				if (!example) {
@@ -52,14 +52,14 @@ export const examplesCommand = new Command("examples")
 			})
 	)
 	.addCommand(
-		new Command("init")
+		new Command('init')
 			.description(
-				"Write a small workspace stub for an example (manifest + README)"
+				'Write a small workspace stub for an example (manifest + README)'
 			)
-			.argument("<key>", "Example key")
+			.argument('<key>', 'Example key')
 			.option(
-				"-o, --out-dir <dir>",
-				"Output directory (default: ./.contractspec/examples/<key>)"
+				'-o, --out-dir <dir>',
+				'Output directory (default: ./.contractspec/examples/<key>)'
 			)
 			.action(async (key: string, options) => {
 				const example = getExample(key);
@@ -72,27 +72,27 @@ export const examplesCommand = new Command("examples")
 				const base = process.cwd();
 				const outDir = options.outDir
 					? path.resolve(base, String(options.outDir))
-					: path.resolve(base, ".contractspec", "examples", example.meta.key);
+					: path.resolve(base, '.contractspec', 'examples', example.meta.key);
 
 				await fs.mkdir(outDir, { recursive: true });
 				await fs.writeFile(
-					path.join(outDir, "example.json"),
+					path.join(outDir, 'example.json'),
 					JSON.stringify(example, null, 2),
-					"utf8"
+					'utf8'
 				);
 				await fs.writeFile(
-					path.join(outDir, "README.md"),
+					path.join(outDir, 'README.md'),
 					[
 						`# ${example.meta.title}`,
-						"",
+						'',
 						example.meta.summary,
-						"",
+						'',
 						`- id: \`${example.meta.key}\``,
 						`- package: \`${example.entrypoints.packageName}\``,
-						"",
-						"This folder is a lightweight workspace stub that references an example manifest.",
-					].join("\n"),
-					"utf8"
+						'',
+						'This folder is a lightweight workspace stub that references an example manifest.',
+					].join('\n'),
+					'utf8'
 				);
 
 				console.log(
@@ -101,13 +101,13 @@ export const examplesCommand = new Command("examples")
 			})
 	)
 	.addCommand(
-		new Command("validate")
+		new Command('validate')
 			.description(
-				"Validate that example manifests are well-formed and workspace example packages have required exports/docblocks"
+				'Validate that example manifests are well-formed and workspace example packages have required exports/docblocks'
 			)
 			.option(
-				"--repo-root <dir>",
-				"Repository root (default: current working directory)"
+				'--repo-root <dir>',
+				'Repository root (default: current working directory)'
 			)
 			.action(async (options) => {
 				const examples = [...listExamples()];
@@ -126,9 +126,12 @@ export const examplesCommand = new Command("examples")
 
 				const repoRoot = path.resolve(
 					process.cwd(),
-					String(options.repoRoot ?? ".")
+					String(options.repoRoot ?? '.')
 				);
-				const checks = await validateWorkspaceExamplesFolder(repoRoot, examples);
+				const checks = await validateWorkspaceExamplesFolder(
+					repoRoot,
+					examples
+				);
 				const failures = checks.filter((c) => c.errors.length > 0);
 				const warnings = checks.filter((c) => c.warnings.length > 0);
 				const registryErrors = await validateGeneratedRegistry(repoRoot);
@@ -151,7 +154,7 @@ export const examplesCommand = new Command("examples")
 					if (registryErrors.length) {
 						console.error(
 							chalk.red(`
-${path.join(repoRoot, "packages", "modules", "examples")}`)
+${path.join(repoRoot, 'packages', 'modules', 'examples')}`)
 						);
 						for (const error of registryErrors) {
 							console.error(chalk.red(`  - ${error}`));

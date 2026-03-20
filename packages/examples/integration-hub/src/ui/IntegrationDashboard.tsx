@@ -15,8 +15,8 @@ import {
  */
 import { useState } from 'react';
 import { useIntegrationData } from './hooks/useIntegrationData';
-import { IntegrationHubChat } from './IntegrationHubChat';
 import { IntegrationVisualizationOverview } from './IntegrationDashboard.visualizations';
+import { IntegrationHubChat } from './IntegrationHubChat';
 import { ConnectionsTable, SyncConfigsTable } from './tables/IntegrationTables';
 
 type Tab = 'integrations' | 'connections' | 'syncs' | 'chat';

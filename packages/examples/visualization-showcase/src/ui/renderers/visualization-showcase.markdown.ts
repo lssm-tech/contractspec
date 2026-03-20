@@ -1,10 +1,10 @@
 import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
 import type { PresentationRenderer } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
 import {
-	VisualizationShowcaseSpecs,
 	createVisualizationShowcaseComparisonItems,
 	createVisualizationShowcaseGridItems,
 	createVisualizationShowcaseTimelineItems,
+	VisualizationShowcaseSpecs,
 } from '../../visualizations';
 
 export const visualizationShowcaseMarkdownRenderer: PresentationRenderer<{

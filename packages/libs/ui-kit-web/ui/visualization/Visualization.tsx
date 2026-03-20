@@ -70,7 +70,9 @@ function canRenderCanvasCharts(): boolean {
 		return false;
 	}
 	const canvas = document.createElement('canvas');
-	return typeof canvas.getContext === 'function' && canvas.getContext('2d') !== null;
+	return (
+		typeof canvas.getContext === 'function' && canvas.getContext('2d') !== null
+	);
 }
 
 export function Visualization({
