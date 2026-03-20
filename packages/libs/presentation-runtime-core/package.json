@@ -1,133 +1,133 @@
 {
-  "name": "@contractspec/lib.presentation-runtime-core",
-  "version": "3.7.6",
-  "description": "Core presentation runtime for contract-driven UIs",
-  "keywords": [
-    "contractspec",
-    "presentation",
-    "runtime",
-    "ui",
-    "core",
-    "typescript"
-  ],
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "sideEffects": false,
-  "scripts": {
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run prebuild && bun run build:bundle && bun run build:types",
-    "build:bundle": "contractspec-bun-build transpile",
-    "build:types": "contractspec-bun-build types",
-    "clean": "rimraf dist .turbo",
-    "dev": "contractspec-bun-build dev",
-    "lint": "bun run lint:fix",
-    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-    "lint:check": "biome check .",
-    "prebuild": "contractspec-bun-build prebuild",
-    "typecheck": "tsc --noEmit -p tsconfig.json"
-  },
-  "peerDependencies": {
-    "typescript": "^5.9.0"
-  },
-  "dependencies": {
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "echarts": "^6.0.0"
-  },
-  "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:",
-    "@contractspec/tool.bun": "workspace:*"
-  },
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "exports": {
-    ".": "./src/index.ts",
-    "./table": "./src/table.ts",
-    "./visualization": "./src/visualization.ts",
-    "./visualization.echarts": "./src/visualization.echarts.ts",
-    "./visualization.model": "./src/visualization.model.ts",
-    "./visualization.model.builders": "./src/visualization.model.builders.ts",
-    "./visualization.model.helpers": "./src/visualization.model.helpers.ts",
-    "./visualization.types": "./src/visualization.types.ts",
-    "./visualization.utils": "./src/visualization.utils.ts"
-  },
-  "publishConfig": {
-    "access": "public",
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "browser": "./dist/browser/index.js",
-        "bun": "./dist/index.js",
-        "node": "./dist/node/index.js",
-        "default": "./dist/index.js"
-      },
-      "./table": {
-        "types": "./dist/table.d.ts",
-        "browser": "./dist/browser/table.js",
-        "bun": "./dist/table.js",
-        "node": "./dist/node/table.js",
-        "default": "./dist/table.js"
-      },
-      "./visualization": {
-        "types": "./dist/visualization.d.ts",
-        "browser": "./dist/browser/visualization.js",
-        "bun": "./dist/visualization.js",
-        "node": "./dist/node/visualization.js",
-        "default": "./dist/visualization.js"
-      },
-      "./visualization.echarts": {
-        "types": "./dist/visualization.echarts.d.ts",
-        "browser": "./dist/browser/visualization.echarts.js",
-        "bun": "./dist/visualization.echarts.js",
-        "node": "./dist/node/visualization.echarts.js",
-        "default": "./dist/visualization.echarts.js"
-      },
-      "./visualization.model": {
-        "types": "./dist/visualization.model.d.ts",
-        "browser": "./dist/browser/visualization.model.js",
-        "bun": "./dist/visualization.model.js",
-        "node": "./dist/node/visualization.model.js",
-        "default": "./dist/visualization.model.js"
-      },
-      "./visualization.model.builders": {
-        "types": "./dist/visualization.model.builders.d.ts",
-        "browser": "./dist/browser/visualization.model.builders.js",
-        "bun": "./dist/visualization.model.builders.js",
-        "node": "./dist/node/visualization.model.builders.js",
-        "default": "./dist/visualization.model.builders.js"
-      },
-      "./visualization.model.helpers": {
-        "types": "./dist/visualization.model.helpers.d.ts",
-        "browser": "./dist/browser/visualization.model.helpers.js",
-        "bun": "./dist/visualization.model.helpers.js",
-        "node": "./dist/node/visualization.model.helpers.js",
-        "default": "./dist/visualization.model.helpers.js"
-      },
-      "./visualization.types": {
-        "types": "./dist/visualization.types.d.ts",
-        "browser": "./dist/browser/visualization.types.js",
-        "bun": "./dist/visualization.types.js",
-        "node": "./dist/node/visualization.types.js",
-        "default": "./dist/visualization.types.js"
-      },
-      "./visualization.utils": {
-        "types": "./dist/visualization.utils.d.ts",
-        "browser": "./dist/browser/visualization.utils.js",
-        "bun": "./dist/visualization.utils.js",
-        "node": "./dist/node/visualization.utils.js",
-        "default": "./dist/visualization.utils.js"
-      }
-    },
-    "registry": "https://registry.npmjs.org/"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/libs/presentation-runtime-core"
-  },
-  "homepage": "https://contractspec.io"
+	"name": "@contractspec/lib.presentation-runtime-core",
+	"version": "3.7.6",
+	"description": "Core presentation runtime for contract-driven UIs",
+	"keywords": [
+		"contractspec",
+		"presentation",
+		"runtime",
+		"ui",
+		"core",
+		"typescript"
+	],
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"sideEffects": false,
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"clean": "rimraf dist .turbo",
+		"dev": "contractspec-bun-build dev",
+		"lint": "bun run lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit -p tsconfig.json"
+	},
+	"peerDependencies": {
+		"typescript": "^5.9.0"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"echarts": "^6.0.0"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@contractspec/tool.bun": "workspace:*"
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"exports": {
+		".": "./src/index.ts",
+		"./table": "./src/table.ts",
+		"./visualization": "./src/visualization.ts",
+		"./visualization.echarts": "./src/visualization.echarts.ts",
+		"./visualization.model": "./src/visualization.model.ts",
+		"./visualization.model.builders": "./src/visualization.model.builders.ts",
+		"./visualization.model.helpers": "./src/visualization.model.helpers.ts",
+		"./visualization.types": "./src/visualization.types.ts",
+		"./visualization.utils": "./src/visualization.utils.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./table": {
+				"types": "./dist/table.d.ts",
+				"browser": "./dist/browser/table.js",
+				"bun": "./dist/table.js",
+				"node": "./dist/node/table.js",
+				"default": "./dist/table.js"
+			},
+			"./visualization": {
+				"types": "./dist/visualization.d.ts",
+				"browser": "./dist/browser/visualization.js",
+				"bun": "./dist/visualization.js",
+				"node": "./dist/node/visualization.js",
+				"default": "./dist/visualization.js"
+			},
+			"./visualization.echarts": {
+				"types": "./dist/visualization.echarts.d.ts",
+				"browser": "./dist/browser/visualization.echarts.js",
+				"bun": "./dist/visualization.echarts.js",
+				"node": "./dist/node/visualization.echarts.js",
+				"default": "./dist/visualization.echarts.js"
+			},
+			"./visualization.model": {
+				"types": "./dist/visualization.model.d.ts",
+				"browser": "./dist/browser/visualization.model.js",
+				"bun": "./dist/visualization.model.js",
+				"node": "./dist/node/visualization.model.js",
+				"default": "./dist/visualization.model.js"
+			},
+			"./visualization.model.builders": {
+				"types": "./dist/visualization.model.builders.d.ts",
+				"browser": "./dist/browser/visualization.model.builders.js",
+				"bun": "./dist/visualization.model.builders.js",
+				"node": "./dist/node/visualization.model.builders.js",
+				"default": "./dist/visualization.model.builders.js"
+			},
+			"./visualization.model.helpers": {
+				"types": "./dist/visualization.model.helpers.d.ts",
+				"browser": "./dist/browser/visualization.model.helpers.js",
+				"bun": "./dist/visualization.model.helpers.js",
+				"node": "./dist/node/visualization.model.helpers.js",
+				"default": "./dist/visualization.model.helpers.js"
+			},
+			"./visualization.types": {
+				"types": "./dist/visualization.types.d.ts",
+				"browser": "./dist/browser/visualization.types.js",
+				"bun": "./dist/visualization.types.js",
+				"node": "./dist/node/visualization.types.js",
+				"default": "./dist/visualization.types.js"
+			},
+			"./visualization.utils": {
+				"types": "./dist/visualization.utils.d.ts",
+				"browser": "./dist/browser/visualization.utils.js",
+				"bun": "./dist/visualization.utils.js",
+				"node": "./dist/node/visualization.utils.js",
+				"default": "./dist/visualization.utils.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/libs/presentation-runtime-core"
+	},
+	"homepage": "https://contractspec.io"
 }
