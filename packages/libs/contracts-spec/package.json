@@ -485,6 +485,7 @@
     "./prompt": "./src/prompt.ts",
     "./promptRegistry": "./src/promptRegistry.ts",
     "./provider-ranking": "./src/provider-ranking/index.ts",
+    "./harness": "./src/harness/index.ts",
     "./provider-ranking/capabilities": "./src/provider-ranking/capabilities/index.ts",
     "./provider-ranking/capabilities/providerRanking.capability": "./src/provider-ranking/capabilities/providerRanking.capability.ts",
     "./provider-ranking/commands": "./src/provider-ranking/commands/index.ts",
@@ -3143,6 +3144,12 @@
         "bun": "./dist/promptRegistry.js",
         "node": "./dist/node/promptRegistry.js",
         "default": "./dist/promptRegistry.js"
+      },
+      "./harness": {
+        "types": "./dist/harness/index.d.ts",
+        "bun": "./dist/harness/index.js",
+        "node": "./dist/node/harness/index.js",
+        "default": "./dist/harness/index.js"
       },
       "./provider-ranking": {
         "types": "./dist/provider-ranking/index.d.ts",

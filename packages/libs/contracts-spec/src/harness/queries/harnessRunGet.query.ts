@@ -1,0 +1,47 @@
+import { ScalarTypeEnum, SchemaModel } from "@contractspec/lib.schema";
+import { defineQuery } from "../../operations";
+import {
+  HARNESS_DOMAIN,
+  HARNESS_OWNERS,
+  HARNESS_STABILITY,
+  HARNESS_TAGS,
+} from "../constants";
+import { HarnessRunModel } from "../models";
+
+const HarnessRunGetInput = new SchemaModel({
+  name: "HarnessRunGetInput",
+  fields: {
+    runId: { type: ScalarTypeEnum.ID(), isOptional: false },
+  },
+});
+
+const HarnessRunGetOutput = new SchemaModel({
+  name: "HarnessRunGetOutput",
+  fields: {
+    run: { type: HarnessRunModel, isOptional: false },
+  },
+});
+
+export const HarnessRunGetQuery = defineQuery({
+  meta: {
+    key: "harness.run.get",
+    title: "Get Harness Run",
+    version: "1.0.0",
+    description: "Fetch one harness run with step metadata.",
+    goal: "Support audit, debugging, and run tracking.",
+    context: "Used by operator and evaluation surfaces.",
+    domain: HARNESS_DOMAIN,
+    owners: HARNESS_OWNERS,
+    tags: [...HARNESS_TAGS, "run"],
+    stability: HARNESS_STABILITY,
+  },
+  capability: { key: "harness.execution", version: "1.0.0" },
+  io: {
+    input: HarnessRunGetInput,
+    output: HarnessRunGetOutput,
+  },
+  policy: {
+    auth: "user",
+    pii: [],
+  },
+});

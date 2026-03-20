@@ -7,6 +7,7 @@ export * from './database';
 export * from './agent';
 export * from './acp';
 export * from './provider-ranking';
+export * from './harness';
 export * from './install';
 export * from './prompt';
 export * from './promptRegistry';

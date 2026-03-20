@@ -79,6 +79,8 @@ export type ContractSpecType =
   | 'product-intent'
   | 'policy'
   | 'test-spec'
+  | 'harness-scenario'
+  | 'harness-suite'
   | 'type'
   | 'knowledge-space'
   | 'job'

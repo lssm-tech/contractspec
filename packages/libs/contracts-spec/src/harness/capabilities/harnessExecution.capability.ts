@@ -1,0 +1,73 @@
+import { defineCapability } from "../../capabilities";
+import {
+  HARNESS_DOMAIN,
+  HARNESS_OWNERS,
+  HARNESS_STABILITY,
+  HARNESS_TAGS,
+} from "../constants";
+
+export const HarnessExecutionCapability = defineCapability({
+  meta: {
+    key: "harness.execution",
+    version: "1.0.0",
+    kind: "integration",
+    title: "Harness Execution",
+    description: "Run, inspect, and cancel harness sessions.",
+    domain: HARNESS_DOMAIN,
+    owners: HARNESS_OWNERS,
+    tags: [...HARNESS_TAGS, "execution"],
+    stability: HARNESS_STABILITY,
+  },
+  provides: [
+    {
+      surface: "operation",
+      key: "harness.run.start",
+      version: "1.0.0",
+      description: "Start a harness run.",
+    },
+    {
+      surface: "operation",
+      key: "harness.run.cancel",
+      version: "1.0.0",
+      description: "Cancel an active harness run.",
+    },
+    {
+      surface: "operation",
+      key: "harness.run.get",
+      version: "1.0.0",
+      description: "Read one harness run.",
+    },
+    {
+      surface: "event",
+      key: "harness.run.started",
+      version: "1.0.0",
+      description: "Harness run started.",
+    },
+    {
+      surface: "event",
+      key: "harness.run.completed",
+      version: "1.0.0",
+      description: "Harness run completed.",
+    },
+    {
+      surface: "event",
+      key: "harness.run.failed",
+      version: "1.0.0",
+      description: "Harness run failed.",
+    },
+    {
+      surface: "event",
+      key: "harness.step.blocked",
+      version: "1.0.0",
+      description: "Harness step blocked.",
+    },
+  ],
+  requires: [
+    {
+      key: "control-plane.core",
+      version: "1.0.0",
+      optional: true,
+      reason: "Execution links to control-plane plans and trace IDs when present.",
+    },
+  ],
+});
