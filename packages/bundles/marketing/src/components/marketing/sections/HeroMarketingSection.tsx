@@ -26,9 +26,9 @@ export function HeroMarketingSection() {
 					Stabilize your AI-generated code
 				</H1>
 				<Lead className="text-balance text-lg text-muted-foreground md:text-xl">
-					ContractSpec is the compiler that keeps AI-written software coherent,
-					safe, and regenerable. You keep your app. You own the code. One module
-					at a time.
+					ContractSpec is the open spec system that keeps AI-written software
+					coherent, safe, and regenerable. You keep your app. You own the code.
+					One module at a time.
 				</Lead>
 
 				<HStack gap="md" justify="center" wrap="wrap">

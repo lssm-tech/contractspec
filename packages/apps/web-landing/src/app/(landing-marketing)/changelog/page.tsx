@@ -5,11 +5,11 @@ import { getChangelogManifest } from '@/lib/changelog';
 export const metadata: Metadata = {
 	title: 'Changelog | ContractSpec',
 	description:
-		'Latest updates, improvements, and fixes to the ContractSpec platform.',
+		'Latest updates across the ContractSpec open system, from OSS packages to the operating surfaces around them.',
 	openGraph: {
 		title: 'Changelog | ContractSpec',
 		description:
-			'Latest updates, improvements, and fixes to the ContractSpec platform.',
+			'Latest updates across the ContractSpec open system, from OSS packages to the operating surfaces around them.',
 		url: 'https://www.contractspec.io/changelog',
 	},
 	alternates: {

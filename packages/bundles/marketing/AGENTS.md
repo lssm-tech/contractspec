@@ -2,43 +2,34 @@
 
 Scope: `packages/bundles/marketing/*`
 
-Marketing bundle with docs, email templates, and landing page components.
+Marketing composition bundle for the public ContractSpec site: landing narratives, product/pricing/templates pages, support pages, and email-facing marketing helpers.
 
 ## Quick Context
 
-- Layer: `bundle`.
-- Package visibility: published package.
-- Primary consumers are apps and higher-level composed product surfaces.
-- Related packages: `@contractspec/bundle.library`, `@contractspec/example.agent-console`, `@contractspec/example.analytics-dashboard`, `@contractspec/example.crm-pipeline`, `@contractspec/example.integration-hub`, `@contractspec/example.marketplace`, ...
+- Layer: `bundle`
+- Package visibility: published package
+- Primary consumers: `@contractspec/app.web-landing` and other higher-level product surfaces that need the public marketing pages or marketing utilities
+- Main related packages: `@contractspec/app.web-landing`, `@contractspec/bundle.library`, `@contractspec/lib.design-system`
 
 ## Architecture
 
-- `src/components/docs/` — Documentation pages.
-- `src/components/marketing/` — Landing page sections.
-- `src/components/templates/` — Template preview.
-- `src/libs/email/` — Email templates and utilities.
-- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/components/marketing/` owns page-level narratives and marketing composition.
+- `src/components/templates/` owns scenario/template browsing, preview, and template acquisition flows.
+- `src/libs/email/` owns contact, newsletter, and waitlist logic used by marketing surfaces.
+- `src/index.ts` is the root public barrel; keep exported stories stable when they are consumed by app shells.
 
 ## Public Surface
 
-- Export `.` resolves through `./src/index.ts`.
-- Export `./bundles` resolves through `./src/bundles/index.ts`.
-- Export `./bundles/MarketingBundle` resolves through `./src/bundles/MarketingBundle.ts`.
-- Export `./components/marketing` resolves through `./src/components/marketing/index.ts`.
-- Export `./components/marketing/ChangelogPage` resolves through `./src/components/marketing/ChangelogPage.tsx`.
-- Export `./components/marketing/CofounderPage` resolves through `./src/components/marketing/CofounderPage.tsx`.
-- Export `./components/marketing/ContactClient` resolves through `./src/components/marketing/ContactClient.tsx`.
-- Export `./components/marketing/ContributePage` resolves through `./src/components/marketing/ContributePage.tsx`.
-- Export `./components/marketing/DesignPartnerPage` resolves through `./src/components/marketing/DesignPartnerPage.tsx`.
-- Export `./components/marketing/LandingPage` resolves through `./src/components/marketing/LandingPage.tsx`.
-- The package publishes 45 total export subpaths; keep docs aligned with `package.json`.
+- Marketing pages under `./components/marketing/*`
+- Templates surfaces under `./components/templates/*`
+- Email/contact helpers under `./libs/email/*`
 
 ## Guardrails
 
-- Landing page sections are composed by `app.web-landing` — keep component props stable.
-- Email templates must render correctly in major email clients; test with Litmus or equivalent.
-- Do not import from other bundles except through shared lib interfaces.
-- Changes here can affect downstream packages such as `@contractspec/bundle.library`, `@contractspec/example.agent-console`, `@contractspec/example.analytics-dashboard`, `@contractspec/example.crm-pipeline`, `@contractspec/example.integration-hub`, `@contractspec/example.marketplace`, ....
+- This package owns story and composition, not route metadata or the outer app shell; those stay in `@contractspec/app.web-landing`.
+- Public category language matters here. Keep ContractSpec positioned as the open spec system and Studio as the operating product on top.
+- When updating template or marketing flows, preserve the OSS-first -> Studio-second adoption story unless product direction explicitly changes.
+- If you materially change page structure or positioning, update the package README/AGENTS and coordinate with app-level docs and `/llms*`.
 
 ## Local Commands
 

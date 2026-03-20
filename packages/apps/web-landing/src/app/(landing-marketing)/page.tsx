@@ -1,24 +1,24 @@
 import { LandingPage } from '@contractspec/bundle.marketing';
 import type { Metadata } from 'next';
 
+const homeDescription =
+	'ContractSpec is the open spec system for AI-native software. Define explicit contracts, keep every surface aligned, and move into Studio when you want the operating layer on top.';
+
 export const metadata: Metadata = {
-	title: 'ContractSpec: The Regenerative App Engine',
-	description:
-		'ContractSpec turns intents into a customized & personalized, auto-evolutive codebase-policy-safe with signed overlays and one-click rollback.',
+	title: 'ContractSpec | The open spec system for AI-native software',
+	description: homeDescription,
 	keywords: [
-		'regenerative app engine',
-		'auto-evolutive codebase',
-		'personalized software',
-		'policy-safe runtime',
-		'app compiler',
+		'open spec system',
+		'open contract system',
+		'AI-native software',
 		'AI code stabilization',
-		'spec-first development',
+		'safe regeneration',
+		'multi-surface consistency',
 		'TypeScript',
 	],
 	openGraph: {
-		title: 'ContractSpec – The Regenerative App Engine',
-		description:
-			'ContractSpec turns intents into a customized & personalized, auto-evolutive codebase: policy-safe with signed overlays and one-click rollback.',
+		title: 'ContractSpec | The open spec system for AI-native software',
+		description: homeDescription,
 		url: 'https://www.contractspec.io',
 		siteName: 'ContractSpec',
 		images: [
@@ -26,16 +26,15 @@ export const metadata: Metadata = {
 				url: '/api/og',
 				width: 1200,
 				height: 630,
-				alt: 'ContractSpec: The Regenerative App Engine',
+				alt: 'ContractSpec | The open spec system for AI-native software',
 			},
 		],
 		type: 'website',
 	},
 	twitter: {
 		card: 'summary_large_image',
-		title: 'ContractSpec – The Regenerative App Engine',
-		description:
-			'Customized & personalized, auto-evolutive codebase: compiled from intent, enforced by policy.',
+		title: 'ContractSpec | The open spec system for AI-native software',
+		description: homeDescription,
 		images: ['/api/og'],
 	},
 	alternates: {

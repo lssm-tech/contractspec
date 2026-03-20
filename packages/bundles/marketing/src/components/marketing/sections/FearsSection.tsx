@@ -9,7 +9,7 @@ const fears = [
 	},
 	{
 		title: '"Vendor lock-in / losing ownership"',
-		body: "You own the generated code. It's standard TypeScript, standard SQL, standard GraphQL. ContractSpec is a compiler — like TypeScript itself. You can eject anytime.",
+		body: "You own the generated code. It's standard TypeScript, standard SQL, standard GraphQL. ContractSpec stays open and ejectable, so you can leave with the parts you adopted anytime.",
 		icon: Unlock,
 	},
 	{

@@ -7,7 +7,7 @@ globs: ['**/*']
 
 # ContractSpec Codebase
 
-**Mission**: ContractSpec is the deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable.
+**Mission**: ContractSpec is the open spec system for AI-native software: explicit contracts, aligned surfaces, safe regeneration, and an operating layer on top when teams need it.
 
 ## Quick Reference
 

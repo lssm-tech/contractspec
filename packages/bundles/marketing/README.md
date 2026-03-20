@@ -1,47 +1,31 @@
 # @contractspec/bundle.marketing
 
-**Marketing bundle with docs, email templates, and landing page components.**
+**Marketing composition bundle for the public ContractSpec site: landing narratives, product/pricing/templates pages, support pages, and email-facing marketing helpers.**
 
 ## What It Provides
 
-- `src/components/docs/` — Documentation pages.
-- `src/components/marketing/` — Landing page sections.
-- `src/components/templates/` — Template preview.
-- `src/libs/email/` — Email templates and utilities.
-
-## Installation
-
-`npm install @contractspec/bundle.marketing`
-
-or
-
-`bun add @contractspec/bundle.marketing`
-
-## Usage
-
-Import the root entrypoint from `@contractspec/bundle.marketing`, or choose a documented subpath when you only need one part of the package surface.
+- Marketing page bodies consumed by `@contractspec/app.web-landing`
+- Scenario/template browsing surfaces used on `/templates`
+- Support and program pages such as contact, contribute, cofounder, and design-partner
+- Email/contact helpers and marketing-adjacent utilities
 
 ## Architecture
 
-- `src/components/docs/` — Documentation pages.
-- `src/components/marketing/` — Landing page sections.
-- `src/components/templates/` — Template preview.
-- `src/libs/email/` — Email templates and utilities.
-- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/components/marketing/` owns the public marketing narratives, section composition, and page-level stories.
+- `src/components/templates/` owns template browsing, preview, and template-to-CLI/Studio flows.
+- `src/libs/email/` owns contact/newsletter/waitlist actions and helpers used by marketing surfaces.
+- `src/index.ts` is the root public entrypoint.
+
+The important boundary:
+- `bundle.marketing` owns the story and page composition
+- `app.web-landing` owns routing, metadata, OG, shell, and public delivery
 
 ## Public Entry Points
 
-- Export `.` resolves through `./src/index.ts`.
-- Export `./bundles` resolves through `./src/bundles/index.ts`.
-- Export `./bundles/MarketingBundle` resolves through `./src/bundles/MarketingBundle.ts`.
-- Export `./components/marketing` resolves through `./src/components/marketing/index.ts`.
-- Export `./components/marketing/ChangelogPage` resolves through `./src/components/marketing/ChangelogPage.tsx`.
-- Export `./components/marketing/CofounderPage` resolves through `./src/components/marketing/CofounderPage.tsx`.
-- Export `./components/marketing/ContactClient` resolves through `./src/components/marketing/ContactClient.tsx`.
-- Export `./components/marketing/ContributePage` resolves through `./src/components/marketing/ContributePage.tsx`.
-- Export `./components/marketing/DesignPartnerPage` resolves through `./src/components/marketing/DesignPartnerPage.tsx`.
-- Export `./components/marketing/LandingPage` resolves through `./src/components/marketing/LandingPage.tsx`.
-- The package publishes 45 total export subpaths; keep docs aligned with `package.json`.
+- Root export `.` through `src/index.ts`
+- `./components/marketing/*` for landing, product, pricing, contact, contribute, cofounder, and design-partner surfaces
+- `./components/templates/*` for templates browsing and preview surfaces
+- `./libs/email/*` for marketing contact/newsletter/waitlist helpers
 
 ## Local Commands
 
@@ -58,14 +42,8 @@ Import the root entrypoint from `@contractspec/bundle.marketing`, or choose a do
 - `bun run build:types` — contractspec-bun-build types
 - `bun run prebuild` — contractspec-bun-build prebuild
 
-## Recent Updates
-
-- Replace eslint+prettier by biomejs to optimize speed.
-- Vnext ai-native.
-- Contracts context, bundle exports, surface-runtime docs.
-
 ## Notes
 
-- Landing page sections are composed by `app.web-landing` — keep component props stable.
-- Email templates must render correctly in major email clients; test with Litmus or equivalent.
-- Do not import from other bundles except through shared lib interfaces.
+- Keep the bundle focused on page storytelling and marketing interaction flows. Do not move shell/routing concerns here.
+- Public positioning in this package must stay aligned with root docs and `@contractspec/app.web-landing`.
+- If the page story changes materially, update the package docs and the public LLM-facing docs so human-facing and agent-facing descriptions do not drift.

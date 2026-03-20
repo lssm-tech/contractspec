@@ -1,39 +1,31 @@
 # @contractspec/app.web-landing
 
-**Next.js marketing, documentation, and agent-facing site for ContractSpec and the agentpacks registry.**
+**Next.js delivery shell for the public ContractSpec website: marketing, docs, registry pages, `/llms*`, and selected operate/sandbox surfaces.**
 
 ## What It Does
 
-- Serves marketing pages, docs, registry pages, LLM-friendly endpoints, and operating-workbench surfaces.
-- Aggregates content and reusable UI from `@contractspec/bundle.marketing` and `@contractspec/bundle.library`.
-- Publishes `/llms*` and package-specific agent-friendly documentation endpoints alongside the public site.
-- Related ContractSpec packages include `@contractspec/bundle.library`, `@contractspec/bundle.marketing`, `@contractspec/example.agent-console`, `@contractspec/example.ai-chat-assistant`, `@contractspec/example.analytics-dashboard`, `@contractspec/example.crm-pipeline`, ...
-
-## Running Locally
-
-From `packages/apps/web-landing`:
-- `bun run dev`
-- `bun run start`
-- `bun run build`
-
-## Usage
-
-```bash
-bun run dev
-```
+- Owns the app shell, metadata, OG generation, route wrappers, and public site delivery.
+- Publishes the marketing experience while delegating most page-body composition to `@contractspec/bundle.marketing`.
+- Serves docs, registry, sandbox, and operate surfaces while keeping their shared shell consistent with the public brand system.
+- Publishes `/llms`, `/llms.txt`, `/llms-full.txt`, and package-specific `/llms/[slug]` endpoints for agent-friendly repo guidance.
 
 ## Architecture
 
-- `src/app/` contains Next.js route groups for landing, docs, operate, sandbox, and registry pages.
-- `src/components/` contains app-local UI composition that is not owned by shared bundles.
-- `src/data/` contains static content, registry metadata, and curated content inputs.
-- `src/lib/` contains app-local helpers such as registry API access and page utilities.
+- `src/app/` contains route groups for marketing, docs, sandbox, operate, registry, and API endpoints.
+- `src/components/` contains app-local shell concerns such as header, footer, SEO helpers, and local route UI.
+- `public/llms*.txt` contains machine-readable monorepo guidance exposed directly from the site.
+- `scripts/generate-llms-full.mjs` regenerates the public aggregated README corpus used by `/llms-full.txt`.
+
+This package should stay thin:
+- marketing page narratives belong in `@contractspec/bundle.marketing`
+- docs and library composition belong in `@contractspec/bundle.library`
+- shared reusable UI primitives belong in lower layers
 
 ## Public Entry Points
 
-- Next.js routes under `/`, `/docs/*`, `/registry/*`, `/operate/*`, `/sandbox`, and `/llms*`.
-- API surfaces include docs MCP integration and generated LLM text endpoints.
-- Primary public surface is the routed application tree under `src/app/`.
+- Web routes under `/`, `/product`, `/pricing`, `/templates`, `/contact`, `/changelog`, `/docs/*`, `/sandbox`, `/operate/*`, and registry surfaces.
+- Agent-facing discovery surfaces under `/llms`, `/llms.txt`, `/llms-full.txt`, and `/llms/[slug]`.
+- API endpoints under `src/app/api/*`, including OG and MCP/chat-related surfaces used by the public site.
 
 ## Local Commands
 
@@ -47,18 +39,8 @@ bun run dev
 - `bun run llms:generate` — bun scripts/generate-llms-full.mjs
 - `bun run build:types` — tsc --noEmit
 
-## Recent Updates
-
-- Replace eslint+prettier by biomejs to optimize speed.
-- Vnext ai-native.
-- Contracts context, bundle exports, surface-runtime docs.
-- Export, sidebar, workflow tools, slotContent.
-- Implement Agent-Friendly Documentation Spec recommendations.
-- Circular import issue.
-
 ## Notes
 
-- Keep this app thin — page content and components come from `bundle.marketing` and `bundle.library`.
-- No raw HTML — use Design System components.
-- Uses Tailwind CSS v4 with PostCSS — do not introduce competing CSS solutions.
-- Route changes affect SEO and external links; coordinate with marketing.
+- Route changes here affect SEO, external links, and agent-discovery flows; keep URL stability high.
+- Branding changes in this package must stay aligned with root docs, generated root AGENTS content, and `public/llms.txt`.
+- When updating the public shell, verify that docs and `/llms*` remain readable; this package serves more than the marketing homepage.

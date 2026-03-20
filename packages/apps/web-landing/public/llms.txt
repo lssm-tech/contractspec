@@ -1,10 +1,10 @@
 # ContractSpec — LLM Guide (Monorepo Summary)
 
-> The deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable. ContractSpec spans contracts, runtime adapters, agent systems, evaluation harnesses, product bundles, apps, examples, and tooling.
+> ContractSpec is the open spec system for AI-native software. It spans contracts, runtime adapters, agent systems, evaluation harnesses, product bundles, apps, examples, tooling, and the Studio operating layer on top.
 
 ## What is ContractSpec?
 
-ContractSpec is a **spec-first compiler** and **package ecosystem** for AI-native software. You define contracts in TypeScript, then compose runtime adapters, agent tooling, evaluation flows, UI surfaces, and product shells around those contracts. The goal is safe regeneration, multi-surface consistency, and explicit control over AI-written systems.
+ContractSpec is an **open spec system** and **package ecosystem** for AI-native software. You define contracts in TypeScript, then compose runtime adapters, agent tooling, evaluation flows, UI surfaces, and product shells around those contracts. The goal is safe regeneration, multi-surface consistency, explicit control over AI-written systems, and a clean path into Studio when a team wants the operating product on top.
 
 ## Monorepo Structure
 

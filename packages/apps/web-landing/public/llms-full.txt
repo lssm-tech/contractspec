@@ -2,7 +2,7 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-03-20T06:11:27.144Z
+Generated: 2026-03-20T06:51:07.108Z
 Packages: 160
 
 ---
@@ -5894,48 +5894,32 @@ URL: /llms/bundle.marketing
 
 # @contractspec/bundle.marketing
 
-**Marketing bundle with docs, email templates, and landing page components.**
+**Marketing composition bundle for the public ContractSpec site: landing narratives, product/pricing/templates pages, support pages, and email-facing marketing helpers.**
 
 ## What It Provides
 
-- `src/components/docs/` — Documentation pages.
-- `src/components/marketing/` — Landing page sections.
-- `src/components/templates/` — Template preview.
-- `src/libs/email/` — Email templates and utilities.
-
-## Installation
-
-`npm install @contractspec/bundle.marketing`
-
-or
-
-`bun add @contractspec/bundle.marketing`
-
-## Usage
-
-Import the root entrypoint from `@contractspec/bundle.marketing`, or choose a documented subpath when you only need one part of the package surface.
+- Marketing page bodies consumed by `@contractspec/app.web-landing`
+- Scenario/template browsing surfaces used on `/templates`
+- Support and program pages such as contact, contribute, cofounder, and design-partner
+- Email/contact helpers and marketing-adjacent utilities
 
 ## Architecture
 
-- `src/components/docs/` — Documentation pages.
-- `src/components/marketing/` — Landing page sections.
-- `src/components/templates/` — Template preview.
-- `src/libs/email/` — Email templates and utilities.
-- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/components/marketing/` owns the public marketing narratives, section composition, and page-level stories.
+- `src/components/templates/` owns template browsing, preview, and template-to-CLI/Studio flows.
+- `src/libs/email/` owns contact/newsletter/waitlist actions and helpers used by marketing surfaces.
+- `src/index.ts` is the root public entrypoint.
+
+The important boundary:
+- `bundle.marketing` owns the story and page composition
+- `app.web-landing` owns routing, metadata, OG, shell, and public delivery
 
 ## Public Entry Points
 
-- Export `.` resolves through `./src/index.ts`.
-- Export `./bundles` resolves through `./src/bundles/index.ts`.
-- Export `./bundles/MarketingBundle` resolves through `./src/bundles/MarketingBundle.ts`.
-- Export `./components/marketing` resolves through `./src/components/marketing/index.ts`.
-- Export `./components/marketing/ChangelogPage` resolves through `./src/components/marketing/ChangelogPage.tsx`.
-- Export `./components/marketing/CofounderPage` resolves through `./src/components/marketing/CofounderPage.tsx`.
-- Export `./components/marketing/ContactClient` resolves through `./src/components/marketing/ContactClient.tsx`.
-- Export `./components/marketing/ContributePage` resolves through `./src/components/marketing/ContributePage.tsx`.
-- Export `./components/marketing/DesignPartnerPage` resolves through `./src/components/marketing/DesignPartnerPage.tsx`.
-- Export `./components/marketing/LandingPage` resolves through `./src/components/marketing/LandingPage.tsx`.
-- The package publishes 45 total export subpaths; keep docs aligned with `package.json`.
+- Root export `.` through `src/index.ts`
+- `./components/marketing/*` for landing, product, pricing, contact, contribute, cofounder, and design-partner surfaces
+- `./components/templates/*` for templates browsing and preview surfaces
+- `./libs/email/*` for marketing contact/newsletter/waitlist helpers
 
 ## Local Commands
 
@@ -5952,17 +5936,11 @@ Import the root entrypoint from `@contractspec/bundle.marketing`, or choose a do
 - `bun run build:types` — contractspec-bun-build types
 - `bun run prebuild` — contractspec-bun-build prebuild
 
-## Recent Updates
-
-- Replace eslint+prettier by biomejs to optimize speed.
-- Vnext ai-native.
-- Contracts context, bundle exports, surface-runtime docs.
-
 ## Notes
 
-- Landing page sections are composed by `app.web-landing` — keep component props stable.
-- Email templates must render correctly in major email clients; test with Litmus or equivalent.
-- Do not import from other bundles except through shared lib interfaces.
+- Keep the bundle focused on page storytelling and marketing interaction flows. Do not move shell/routing concerns here.
+- Public positioning in this package must stay aligned with root docs and `@contractspec/app.web-landing`.
+- If the page story changes materially, update the package docs and the public LLM-facing docs so human-facing and agent-facing descriptions do not drift.
 
 
 ---
@@ -6418,40 +6396,32 @@ URL: /llms/app.web-landing
 
 # @contractspec/app.web-landing
 
-**Next.js marketing, documentation, and agent-facing site for ContractSpec and the agentpacks registry.**
+**Next.js delivery shell for the public ContractSpec website: marketing, docs, registry pages, `/llms*`, and selected operate/sandbox surfaces.**
 
 ## What It Does
 
-- Serves marketing pages, docs, registry pages, LLM-friendly endpoints, and operating-workbench surfaces.
-- Aggregates content and reusable UI from `@contractspec/bundle.marketing` and `@contractspec/bundle.library`.
-- Publishes `/llms*` and package-specific agent-friendly documentation endpoints alongside the public site.
-- Related ContractSpec packages include `@contractspec/bundle.library`, `@contractspec/bundle.marketing`, `@contractspec/example.agent-console`, `@contractspec/example.ai-chat-assistant`, `@contractspec/example.analytics-dashboard`, `@contractspec/example.crm-pipeline`, ...
-
-## Running Locally
-
-From `packages/apps/web-landing`:
-- `bun run dev`
-- `bun run start`
-- `bun run build`
-
-## Usage
-
-```bash
-bun run dev
-```
+- Owns the app shell, metadata, OG generation, route wrappers, and public site delivery.
+- Publishes the marketing experience while delegating most page-body composition to `@contractspec/bundle.marketing`.
+- Serves docs, registry, sandbox, and operate surfaces while keeping their shared shell consistent with the public brand system.
+- Publishes `/llms`, `/llms.txt`, `/llms-full.txt`, and package-specific `/llms/[slug]` endpoints for agent-friendly repo guidance.
 
 ## Architecture
 
-- `src/app/` contains Next.js route groups for landing, docs, operate, sandbox, and registry pages.
-- `src/components/` contains app-local UI composition that is not owned by shared bundles.
-- `src/data/` contains static content, registry metadata, and curated content inputs.
-- `src/lib/` contains app-local helpers such as registry API access and page utilities.
+- `src/app/` contains route groups for marketing, docs, sandbox, operate, registry, and API endpoints.
+- `src/components/` contains app-local shell concerns such as header, footer, SEO helpers, and local route UI.
+- `public/llms*.txt` contains machine-readable monorepo guidance exposed directly from the site.
+- `scripts/generate-llms-full.mjs` regenerates the public aggregated README corpus used by `/llms-full.txt`.
+
+This package should stay thin:
+- marketing page narratives belong in `@contractspec/bundle.marketing`
+- docs and library composition belong in `@contractspec/bundle.library`
+- shared reusable UI primitives belong in lower layers
 
 ## Public Entry Points
 
-- Next.js routes under `/`, `/docs/*`, `/registry/*`, `/operate/*`, `/sandbox`, and `/llms*`.
-- API surfaces include docs MCP integration and generated LLM text endpoints.
-- Primary public surface is the routed application tree under `src/app/`.
+- Web routes under `/`, `/product`, `/pricing`, `/templates`, `/contact`, `/changelog`, `/docs/*`, `/sandbox`, `/operate/*`, and registry surfaces.
+- Agent-facing discovery surfaces under `/llms`, `/llms.txt`, `/llms-full.txt`, and `/llms/[slug]`.
+- API endpoints under `src/app/api/*`, including OG and MCP/chat-related surfaces used by the public site.
 
 ## Local Commands
 
@@ -6465,21 +6435,11 @@ bun run dev
 - `bun run llms:generate` — bun scripts/generate-llms-full.mjs
 - `bun run build:types` — tsc --noEmit
 
-## Recent Updates
-
-- Replace eslint+prettier by biomejs to optimize speed.
-- Vnext ai-native.
-- Contracts context, bundle exports, surface-runtime docs.
-- Export, sidebar, workflow tools, slotContent.
-- Implement Agent-Friendly Documentation Spec recommendations.
-- Circular import issue.
-
 ## Notes
 
-- Keep this app thin — page content and components come from `bundle.marketing` and `bundle.library`.
-- No raw HTML — use Design System components.
-- Uses Tailwind CSS v4 with PostCSS — do not introduce competing CSS solutions.
-- Route changes affect SEO and external links; coordinate with marketing.
+- Route changes here affect SEO, external links, and agent-discovery flows; keep URL stability high.
+- Branding changes in this package must stay aligned with root docs, generated root AGENTS content, and `public/llms.txt`.
+- When updating the public shell, verify that docs and `/llms*` remain readable; this package serves more than the marketing homepage.
 
 
 ---

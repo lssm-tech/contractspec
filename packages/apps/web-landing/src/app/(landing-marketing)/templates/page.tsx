@@ -5,11 +5,11 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
 	title: 'Templates | ContractSpec',
 	description:
-		'Jumpstart your project with pre-built ContractSpec templates. From SaaS starters to internal tools.',
+		'Explore scenario templates that show how the ContractSpec open system behaves in real products and workflows.',
 	openGraph: {
 		title: 'Templates | ContractSpec',
 		description:
-			'Jumpstart your project with pre-built ContractSpec templates. From SaaS starters to internal tools.',
+			'Explore scenario templates that show how the ContractSpec open system behaves in real products and workflows.',
 		url: 'https://www.contractspec.io/templates',
 	},
 	alternates: {

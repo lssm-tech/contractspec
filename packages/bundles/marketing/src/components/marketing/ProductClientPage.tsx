@@ -4,101 +4,177 @@ import {
 	analyticsEventNames,
 	captureAnalyticsEvent,
 } from '@contractspec/bundle.library/libs/posthog/client';
-import Link from '@contractspec/lib.ui-link';
 import {
-	CheckCircle,
-	ChevronRight,
-	Database,
-	FileCode,
-	GitBranch,
-	Layers,
-	RefreshCw,
-	Shield,
-	Unlock,
-	Zap,
+	ArrowRight,
+	Blocks,
+	Bot,
+	Braces,
+	Captions,
+	CheckCircle2,
+	ClipboardCheck,
+	Layers3,
+	ShieldCheck,
+	Sparkles,
 } from 'lucide-react';
+import Link from 'next/link';
+
+const layers = [
+	{
+		name: 'Contracts and specs',
+		copy: 'The canonical product rules your team wants the system to keep respecting over time.',
+		icon: Braces,
+	},
+	{
+		name: 'Generation and runtime bridges',
+		copy: 'The adapters that turn those rules into API, UI, data, event, MCP, and client-facing surfaces.',
+		icon: Layers3,
+	},
+	{
+		name: 'Harness and proof workflows',
+		copy: 'The inspection, replay, evaluation, and evidence surfaces that tell you whether automation is safe.',
+		icon: ClipboardCheck,
+	},
+	{
+		name: 'Studio operating product',
+		copy: 'The opinionated team workflow for running evidence, drafts, review, exports, and checks on top of the same foundation.',
+		icon: Sparkles,
+	},
+];
+
+const comparison = [
+	{
+		label: 'OSS/Core',
+		points: [
+			'You want explicit contracts, safe regeneration, and standards-first outputs.',
+			'You need to stabilize an existing product incrementally.',
+			'You want the foundation without being forced into a hosted product loop.',
+		],
+	},
+	{
+		label: 'Studio',
+		points: [
+			'You want the operating surface for evidence, drafts, review, exports, and follow-up.',
+			'You want packaged workflows and coordination on top of the same contract system.',
+			'You want the product that absorbs more operational complexity for the team.',
+		],
+	},
+];
+
+const proofs = [
+	{
+		label: 'Explicit contracts, not inferred conventions',
+		icon: ShieldCheck,
+	},
+	{
+		label: 'Standard outputs the team can own and change',
+		icon: Bot,
+	},
+	{
+		label: 'Multi-surface consistency across API, UI, data, and tools',
+		icon: Blocks,
+	},
+	{
+		label: 'Incremental adoption instead of rewrite-only adoption',
+		icon: Captions,
+	},
+];
+
+function trackInstall() {
+	captureAnalyticsEvent(analyticsEventNames.CTA_INSTALL_CLICK, {
+		surface: 'product-hero',
+	});
+}
+
+function trackStudio() {
+	captureAnalyticsEvent(analyticsEventNames.CTA_STUDIO_CLICK, {
+		surface: 'product-hero',
+	});
+}
 
 export const ProductClientPage = () => (
-	<main className="">
-		{/* Hero */}
-		<section className="section-padding hero-gradient relative">
-			<div className="mx-auto max-w-4xl space-y-6 text-center">
-				<h1 className="font-bold text-5xl leading-tight md:text-6xl">
-					Compiler for AI-coded systems
-				</h1>
-				<p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-					Define contracts once. Generate consistent code across API, DB, UI,
-					and events. Regenerate safely anytime. No lock-in.
-				</p>
-				<div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
-					<Link
-						href="/install"
-						onClick={() =>
-							captureAnalyticsEvent(analyticsEventNames.CTA_INSTALL_CLICK, {
-								surface: 'product-hero',
-							})
-						}
-						className="btn-primary inline-flex items-center gap-2"
-					>
-						Install OSS Core <ChevronRight size={16} />
-					</Link>
-					<Link href="/pricing" className="btn-ghost">
-						View pricing
-					</Link>
+	<main>
+		<section className="section-padding hero-gradient border-border/70 border-b">
+			<div className="editorial-shell grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+				<div className="space-y-6">
+					<p className="editorial-kicker">Product overview</p>
+					<h1 className="editorial-title max-w-4xl">
+						An open system for keeping AI-native products coherent.
+					</h1>
+					<p className="editorial-subtitle">
+						ContractSpec is not one narrow generator. It is the explicit layer
+						that lets teams define system behavior, keep multiple surfaces
+						aligned, regenerate safely, and move into Studio when they want the
+						operating product.
+					</p>
+					<div className="flex flex-col gap-3 sm:flex-row">
+						<Link
+							href="/install"
+							className="btn-primary"
+							onClick={trackInstall}
+						>
+							Start with OSS <ArrowRight className="ml-2 h-4 w-4" />
+						</Link>
+						<Link
+							href="https://www.contractspec.studio"
+							className="btn-ghost"
+							onClick={trackStudio}
+						>
+							Explore Studio
+						</Link>
+					</div>
+				</div>
+				<div className="editorial-panel space-y-5">
+					<p className="editorial-kicker">What the category really is</p>
+					<h2 className="editorial-panel-title">
+						Lead with the system, not just the generation step.
+					</h2>
+					<p className="text-muted-foreground text-sm leading-7">
+						Generation matters, but it is not the whole story. The real value is
+						that contracts, runtime adapters, proof surfaces, and the Studio
+						operating loop all remain legible as parts of the same product
+						system.
+					</p>
+					<div className="editorial-divider" />
+					<div className="grid gap-4 md:grid-cols-2">
+						<div className="rounded-[24px] border border-border/70 bg-muted/45 p-4">
+							<p className="editorial-label">Better umbrella</p>
+							<p className="mt-2 font-medium text-sm">
+								Open spec system for AI-native software
+							</p>
+						</div>
+						<div className="rounded-[24px] border border-border/70 bg-muted/45 p-4">
+							<p className="editorial-label">Where “compiler” belongs</p>
+							<p className="mt-2 font-medium text-sm">
+								Inside the technical proof, not as the whole company category
+							</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
 
-		{/* Multi-Surface Consistency */}
-		<section className="section-padding border-border border-b">
-			<div className="mx-auto max-w-4xl space-y-8">
-				<div className="space-y-4">
-					<div className="inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1">
-						<Layers size={16} className="text-blue-400" />
-						<span className="font-medium text-blue-300 text-sm">
-							Multi-Surface Consistency
-						</span>
-					</div>
-					<h2 className="font-bold text-3xl md:text-4xl">
-						One contract, all surfaces in sync
+		<section className="editorial-section">
+			<div className="editorial-shell space-y-8">
+				<div className="max-w-3xl space-y-4">
+					<p className="editorial-kicker">Architecture by layer</p>
+					<h2 className="font-serif text-4xl tracking-[-0.04em] md:text-5xl">
+						Each layer exists to keep the next one from drifting.
 					</h2>
-					<p className="text-lg text-muted-foreground">
-						Stop chasing drift between your API, database, UI, and events. One
-						spec generates all outputs, guaranteed to stay consistent.
+					<p className="editorial-copy">
+						The repo structure already tells the right story: lower layers
+						define explicit behavior, higher layers compose that behavior into
+						working surfaces, and apps stay thin.
 					</p>
 				</div>
-				<div className="grid gap-6 md:grid-cols-2">
-					{[
-						{
-							title: 'REST & GraphQL API',
-							description:
-								'Type-safe endpoints with validation. Standard Express, Hono, Elysia, or Apollo handlers.',
-							icon: Zap,
-						},
-						{
-							title: 'Database Schema',
-							description:
-								'Prisma migrations and types generated from the same spec. Always in sync with your API.',
-							icon: Database,
-						},
-						{
-							title: 'UI Components',
-							description:
-								'React forms and views derived from specs. Validation and types flow through automatically.',
-							icon: FileCode,
-						},
-						{
-							title: 'MCP Tools & Events',
-							description:
-								'AI agent tool definitions and event schemas. Same contract, different surfaces.',
-							icon: GitBranch,
-						},
-					].map((item, i) => (
-						<div key={i} className="card-subtle space-y-4 p-6">
-							<item.icon className="text-blue-400" size={24} />
-							<h3 className="font-bold text-lg">{item.title}</h3>
-							<p className="text-muted-foreground text-sm">
-								{item.description}
+				<div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+					{layers.map((layer) => (
+						<div key={layer.name} className="editorial-panel">
+							<layer.icon className="h-5 w-5 text-[color:var(--rust)]" />
+							<h3 className="mt-5 font-serif text-2xl tracking-[-0.03em]">
+								{layer.name}
+							</h3>
+							<p className="mt-3 text-muted-foreground text-sm leading-7">
+								{layer.copy}
 							</p>
 						</div>
 					))}
@@ -106,284 +182,86 @@ export const ProductClientPage = () => (
 			</div>
 		</section>
 
-		{/* Safe Regeneration */}
-		<section className="section-padding border-border border-b bg-muted/20">
-			<div className="mx-auto max-w-4xl space-y-8">
-				<div className="space-y-4">
-					<div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1">
-						<RefreshCw size={16} className="text-emerald-400" />
-						<span className="font-medium text-emerald-300 text-sm">
-							Safe Regeneration
-						</span>
-					</div>
-					<h2 className="font-bold text-3xl md:text-4xl">
-						Regenerate anytime without fear
-					</h2>
-					<p className="text-lg text-muted-foreground">
-						Contracts enforce invariants. Breaking changes are caught at compile
-						time, not production. Regenerate with confidence.
-					</p>
-				</div>
-				<div className="grid gap-6 md:grid-cols-2">
-					<div className="card-subtle space-y-4 p-6">
-						<h3 className="font-bold">Spec-First Safety</h3>
-						<p className="text-muted-foreground text-sm">
-							AI agents read specs, not implementations. Generated code that
-							violates contracts gets flagged automatically.
-						</p>
-						<ul className="space-y-2 text-muted-foreground text-sm">
-							<li className="flex gap-3">
-								<CheckCircle
-									size={16}
-									className="mt-0.5 flex-shrink-0 text-emerald-400"
-								/>
-								Type-safe from spec to runtime
-							</li>
-							<li className="flex gap-3">
-								<CheckCircle
-									size={16}
-									className="mt-0.5 flex-shrink-0 text-emerald-400"
-								/>
-								Invariants enforced at compile time
-							</li>
-							<li className="flex gap-3">
-								<CheckCircle
-									size={16}
-									className="mt-0.5 flex-shrink-0 text-emerald-400"
-								/>
-								Breaking changes detected early
-							</li>
-						</ul>
-					</div>
-					<div className="card-subtle space-y-4 p-6">
-						<h3 className="font-bold">Version Control Built-in</h3>
-						<p className="text-muted-foreground text-sm">
-							Every spec change is tracked. Roll back to any previous version.
-							Migrations are explicit and reversible.
-						</p>
-						<ul className="space-y-2 text-muted-foreground text-sm">
-							<li className="flex gap-3">
-								<CheckCircle
-									size={16}
-									className="mt-0.5 flex-shrink-0 text-emerald-400"
-								/>
-								Git-native spec history
-							</li>
-							<li className="flex gap-3">
-								<CheckCircle
-									size={16}
-									className="mt-0.5 flex-shrink-0 text-emerald-400"
-								/>
-								Explicit migration paths
-							</li>
-							<li className="flex gap-3">
-								<CheckCircle
-									size={16}
-									className="mt-0.5 flex-shrink-0 text-emerald-400"
-								/>
-								One-click rollback
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		{/* Contract Enforcement */}
-		<section className="section-padding border-border border-b">
-			<div className="mx-auto max-w-4xl space-y-8">
-				<div className="space-y-4">
-					<div className="inline-flex items-center gap-2 rounded-full border border-violet-500/20 bg-violet-500/10 px-3 py-1">
-						<Shield size={16} className="text-violet-400" />
-						<span className="font-medium text-sm text-violet-300">
-							Contract Enforcement
-						</span>
-					</div>
-					<h2 className="font-bold text-3xl md:text-4xl">
-						AI governance that actually works
-					</h2>
-					<p className="text-lg text-muted-foreground">
-						Constrain what AI agents can change. Enforce contracts they must
-						respect. No more hallucinated refactors breaking your system.
-					</p>
-				</div>
-				<div className="card-subtle space-y-6 p-6">
-					<div className="space-y-4">
-						<h3 className="font-bold">How contract enforcement works</h3>
-						<p className="text-muted-foreground text-sm">
-							Contracts define what the system should do. AI-generated code that
-							violates these contracts is automatically flagged and rejected
-							before it can cause damage.
-						</p>
-					</div>
-					<div className="grid gap-4 md:grid-cols-3">
-						{[
-							{
-								title: 'Define',
-								description:
-									'Write specs in TypeScript. Define inputs, outputs, and invariants.',
-							},
-							{
-								title: 'Generate',
-								description:
-									'ContractSpec generates code across all surfaces from your specs.',
-							},
-							{
-								title: 'Enforce',
-								description:
-									"Any code that violates specs is flagged. AI agents can't break contracts.",
-							},
-						].map((step, i) => (
-							<div key={i} className="space-y-2">
-								<div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-500/20">
-									<div className="font-bold text-sm text-violet-400">
-										{i + 1}
-									</div>
-								</div>
-								<h4 className="font-bold text-sm">{step.title}</h4>
-								<p className="text-muted-foreground text-xs">
-									{step.description}
-								</p>
-							</div>
-						))}
-					</div>
-				</div>
-			</div>
-		</section>
-
-		{/* No Lock-in */}
-		<section className="section-padding border-border border-b bg-gradient-to-br from-violet-500/10 via-indigo-500/5 to-blue-500/5">
-			<div className="mx-auto max-w-4xl space-y-8">
-				<div className="space-y-4">
-					<div className="inline-flex items-center gap-2 rounded-full border border-pink-500/20 bg-pink-500/10 px-3 py-1">
-						<Unlock size={16} className="text-pink-400" />
-						<span className="font-medium text-pink-300 text-sm">
-							No Lock-in
-						</span>
-					</div>
-					<h2 className="font-bold text-3xl md:text-4xl">
-						You own everything. Eject anytime.
-					</h2>
-					<p className="text-lg text-muted-foreground">
-						ContractSpec is a compiler, not a prison. The generated code is
-						yours: standard TypeScript, standard SQL, standard GraphQL.
-					</p>
-				</div>
-				<div className="grid gap-6 md:grid-cols-2">
-					<div className="card-subtle space-y-4 p-6">
-						<h3 className="font-bold text-lg">Standard Tech Output</h3>
-						<ul className="space-y-3 text-muted-foreground text-sm">
-							{[
-								'TypeScript you can read and modify',
-								'Prisma migrations you can run manually',
-								'GraphQL schemas you can serve anywhere',
-								'React components with no magic',
-								'REST handlers that work with any framework',
-							].map((item, i) => (
-								<li key={i} className="flex gap-3">
-									<CheckCircle
-										size={16}
-										className="mt-0.5 flex-shrink-0 text-pink-400"
-									/>
-									{item}
+		<section className="editorial-section bg-striped">
+			<div className="editorial-shell grid gap-8 lg:grid-cols-2">
+				{comparison.map((column) => (
+					<div key={column.label} className="editorial-panel">
+						<p className="editorial-kicker">{column.label}</p>
+						<h2 className="mt-3 font-serif text-3xl tracking-[-0.04em]">
+							{column.label === 'OSS/Core'
+								? 'Adopt the open foundation first'
+								: 'Add the operating product when the team is ready'}
+						</h2>
+						<ul className="editorial-list mt-6">
+							{column.points.map((point) => (
+								<li key={point}>
+									<CheckCircle2 className="mt-1.5 h-4 w-4 shrink-0 text-[color:var(--success)]" />
+									<span>{point}</span>
 								</li>
 							))}
 						</ul>
 					</div>
-					<div className="card-subtle space-y-4 p-6">
-						<h3 className="font-bold text-lg">No Proprietary Dependencies</h3>
-						<ul className="space-y-3 text-muted-foreground text-sm">
-							{[
-								'No runtime library required',
-								'No vendor-specific abstractions',
-								'Works with your existing CI/CD',
-								'Eject anytime, keep everything',
-								'Open spec format',
-							].map((item, i) => (
-								<li key={i} className="flex gap-3">
-									<CheckCircle
-										size={16}
-										className="mt-0.5 flex-shrink-0 text-pink-400"
-									/>
-									{item}
-								</li>
-							))}
-						</ul>
-					</div>
-				</div>
-				<div className="pt-4 text-center">
-					<p className="mb-4 text-muted-foreground text-sm">
-						Like TypeScript compiles to JavaScript, ContractSpec compiles to
-						standard code.
-						<br />
-						<span className="font-medium text-violet-400">
-							We're the compiler, not the prison.
-						</span>
+				))}
+			</div>
+		</section>
+
+		<section className="editorial-section">
+			<div className="editorial-shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+				<div className="space-y-4">
+					<p className="editorial-kicker">Proof points</p>
+					<h2 className="font-serif text-4xl tracking-[-0.04em] md:text-5xl">
+						What should feel different after adoption.
+					</h2>
+					<p className="editorial-copy">
+						The point is not just faster output. The point is that regeneration,
+						refactoring, and agent behavior stop feeling opaque because the team
+						has an explicit layer it can inspect and trust.
 					</p>
 				</div>
-			</div>
-		</section>
-
-		{/* Incremental Adoption */}
-		<section className="section-padding border-border border-b">
-			<div className="mx-auto max-w-4xl space-y-8">
-				<h2 className="text-center font-bold text-3xl md:text-4xl">
-					Start small. Expand gradually.
-				</h2>
-				<p className="mx-auto max-w-2xl text-center text-lg text-muted-foreground">
-					You don't rewrite your app. You stabilize one module at a time. Start
-					with one endpoint, prove value, then expand.
-				</p>
-				<div className="grid gap-6 md:grid-cols-3">
-					{[
-						{
-							title: 'Day 1',
-							description:
-								'Pick one API endpoint. Write a spec. See what gets generated.',
-						},
-						{
-							title: 'Week 1',
-							description:
-								'Add a few more specs. Compare generated code to existing code.',
-						},
-						{
-							title: 'Month 1',
-							description:
-								'Migrate a full module. Enjoy multi-surface consistency.',
-						},
-					].map((item, i) => (
-						<div key={i} className="card-subtle space-y-4 p-6 text-center">
-							<div className="font-bold text-2xl text-violet-400">
-								{item.title}
+				<div className="grid gap-5 md:grid-cols-2">
+					{proofs.map((proof) => {
+						const Icon = proof.icon;
+						return (
+							<div key={proof.label} className="editorial-panel">
+								<Icon className="h-5 w-5 text-[color:var(--blue)]" />
+								<p className="mt-5 font-medium text-lg">{proof.label}</p>
 							</div>
-							<p className="text-muted-foreground text-sm">
-								{item.description}
-							</p>
-						</div>
-					))}
+						);
+					})}
 				</div>
 			</div>
 		</section>
 
-		{/* CTA */}
-		<section className="section-padding hero-gradient">
-			<div className="mx-auto max-w-4xl space-y-6 text-center">
-				<h2 className="font-bold text-3xl md:text-4xl">
-					Ready to stabilize your AI-generated code?
-				</h2>
-				<p className="text-lg text-muted-foreground">
-					Start with one module. No big-bang migration. No lock-in.
-				</p>
-				<div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
-					<Link
-						href="/install"
-						className="btn-primary inline-flex items-center gap-2"
-					>
-						Install OSS Core <ChevronRight size={16} />
-					</Link>
-					<Link href="https://www.contractspec.studio" className="btn-ghost">
-						Try Studio
-					</Link>
+		<section className="section-padding">
+			<div className="editorial-shell">
+				<div className="editorial-panel flex flex-col gap-8 rounded-[38px] border-dashed md:flex-row md:items-end md:justify-between">
+					<div className="max-w-3xl space-y-4">
+						<p className="editorial-kicker">Next step</p>
+						<h2 className="font-serif text-4xl tracking-[-0.04em] md:text-5xl">
+							Use the OSS layer when you want control. Use Studio when you want
+							the operating loop.
+						</h2>
+						<p className="editorial-copy">
+							That is the cleanest product split for both technical adopters and
+							teams buying the packaged surface later.
+						</p>
+					</div>
+					<div className="flex flex-col gap-3 sm:flex-row md:flex-col">
+						<Link
+							href="/install"
+							className="btn-primary"
+							onClick={trackInstall}
+						>
+							Start with OSS
+						</Link>
+						<Link
+							href="https://www.contractspec.studio"
+							className="btn-ghost"
+							onClick={trackStudio}
+						>
+							Explore Studio
+						</Link>
+					</div>
 				</div>
 			</div>
 		</section>

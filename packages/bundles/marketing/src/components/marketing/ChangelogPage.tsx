@@ -1,31 +1,3 @@
-// export const metadata: Metadata = {
-//   title: 'Changelog: ContractSpec',
-//   description:
-//     'Updates and releases for ContractSpec. New features, improvements, and breaking changes for the spec-first compiler.',
-//   keywords: [
-//     'changelog',
-//     'updates',
-//     'releases',
-//     'features',
-//     'spec-first compiler',
-//     'AI code stabilization',
-//   ],
-//   openGraph: {
-//     title: 'Changelog: ContractSpec',
-//     description: 'Latest releases and improvements to ContractSpec.',
-//     url: 'https://contractspec.io/changelog',
-//     type: 'website',
-//   },
-//   alternates: {
-//     canonical: 'https://contractspec.io/changelog',
-//   },
-// };
-
-// export const metadata: Metadata = {
-//   title: 'Changelog: ContractSpec',
-//   ...
-// };
-
 export interface ChangelogEntry {
 	version: string;
 	date: string;

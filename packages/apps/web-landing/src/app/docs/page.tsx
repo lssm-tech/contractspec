@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 		'documentation',
 		'guides',
 		'API reference',
-		'spec-first compiler',
+		'open spec system',
 		'AI code stabilization',
 		'TypeScript',
 		'contracts',

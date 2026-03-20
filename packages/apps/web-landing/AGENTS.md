@@ -2,34 +2,35 @@
 
 Scope: `packages/apps/web-landing/*`
 
-Next.js marketing, documentation, and agent-facing site for ContractSpec and the agentpacks registry.
+Next.js delivery shell for the public ContractSpec website: marketing, docs, registry pages, `/llms*`, and selected operate/sandbox surfaces.
 
 ## Quick Context
 
-- Layer: `app`.
-- Package visibility: private workspace package.
-- Primary consumers are deployed users, operators, or external clients of this app surface.
-- Related packages: `@contractspec/bundle.library`, `@contractspec/bundle.marketing`, `@contractspec/example.agent-console`, `@contractspec/example.ai-chat-assistant`, `@contractspec/example.analytics-dashboard`, `@contractspec/example.crm-pipeline`, ...
+- Layer: `app`
+- Package visibility: private workspace package
+- Primary consumers: external web visitors, doc readers, agent clients fetching `/llms*`, and internal/product users hitting selected operate or sandbox routes
+- Main related packages: `@contractspec/bundle.marketing`, `@contractspec/bundle.library`, `@contractspec/lib.design-system`
 
 ## Architecture
 
-- `src/app/` contains Next.js route groups for landing, docs, operate, sandbox, and registry pages.
-- `src/components/` contains app-local UI composition that is not owned by shared bundles.
-- `src/data/` contains static content, registry metadata, and curated content inputs.
-- `src/lib/` contains app-local helpers such as registry API access and page utilities.
+- `src/app/` owns route wrappers, metadata, route grouping, and public API endpoints.
+- `src/components/` owns app-local shell concerns such as header, footer, local SEO helpers, and route-specific composition that should not live in reusable bundles.
+- `public/llms*.txt` is the machine-readable public repo guide; keep it consistent with root docs and package READMEs.
+- `scripts/generate-llms-full.mjs` regenerates the public README corpus for `/llms-full.txt`.
 
 ## Public Surface
 
-- Next.js routes under `/`, `/docs/*`, `/registry/*`, `/operate/*`, `/sandbox`, and `/llms*`.
-- API surfaces include docs MCP integration and generated LLM text endpoints.
-- Primary public surface is the routed application tree under `src/app/`.
+- Public marketing routes including `/`, `/product`, `/pricing`, `/templates`, `/contact`, and `/changelog`
+- Docs, sandbox, registry, and operate routes delivered from the same app shell
+- `/llms`, `/llms.txt`, `/llms-full.txt`, and `/llms/[slug]`
+- API routes under `src/app/api/*`
 
 ## Guardrails
 
-- Keep this app thin; reusable product logic and heavy UI should stay in bundles and libs.
-- Route changes affect SEO, external links, and agent-discovery flows such as `/llms.txt`.
-- Agent-facing documentation endpoints and generated LLM artifacts must stay consistent with package docs.
-- Changes here can affect downstream packages such as `@contractspec/bundle.library`, `@contractspec/bundle.marketing`, `@contractspec/example.agent-console`, `@contractspec/example.ai-chat-assistant`, `@contractspec/example.analytics-dashboard`, `@contractspec/example.crm-pipeline`, ...
+- Keep this app thin. Route wrappers, shell, metadata, and public delivery belong here; reusable marketing narratives belong in `@contractspec/bundle.marketing`.
+- Treat route stability, metadata, OG output, and `/llms*` behavior as public compatibility surfaces.
+- Branding changes here must stay aligned with root `README.md`, root AGENTS source packs, and `public/llms.txt`.
+- When changing the shell or global styles, verify that docs and non-marketing surfaces still render clearly; this app is not only a homepage.
 
 ## Local Commands
 

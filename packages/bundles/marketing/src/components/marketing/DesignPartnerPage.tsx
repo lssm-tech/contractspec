@@ -1,179 +1,141 @@
-import { Button } from '@contractspec/lib.design-system';
-import {
-	ArrowRight,
-	BookOpen,
-	MessageSquare,
-	Rocket,
-	Users,
-} from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-	title: 'Design Partner Getting Started | ContractSpec',
-	description: 'Onboarding and resources for ContractSpec Design Partners.',
+	title: 'Design Partner | ContractSpec',
+	description:
+		'Work directly with the ContractSpec team if you are shaping a live AI-native product or operations workflow.',
 };
+
+const steps = [
+	{
+		title: 'Run the open system against a live problem',
+		copy: 'Bring one workflow or module that already feels risky, inconsistent, or hard to regenerate safely.',
+	},
+	{
+		title: 'Use Studio where packaged coordination helps',
+		copy: 'We focus on the parts of your loop where an operating product materially reduces friction for the team.',
+	},
+	{
+		title: 'Feed real constraints back into the product',
+		copy: 'The partnership is valuable when your live complexity changes what we should build next.',
+	},
+];
 
 export function DesignPartnerPage() {
 	return (
-		<main className="flex grow flex-col">
-			{/* Hero Section */}
-			<section className="section-padding relative overflow-hidden">
-				<div className="container mx-auto max-w-5xl">
-					<div className="mb-12 max-w-3xl">
-						<h1 className="mb-6 font-bold text-4xl tracking-tight sm:text-5xl">
-							Welcome, Design Partner
+		<main>
+			<section className="section-padding hero-gradient border-border/70 border-b">
+				<div className="editorial-shell grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+					<div className="space-y-5">
+						<p className="editorial-kicker">Design partner program</p>
+						<h1 className="editorial-title max-w-4xl">
+							Shape the operating product from real AI-native workflow pressure.
 						</h1>
-						<p className="text-muted-foreground text-xl leading-relaxed">
-							We're thrilled to have you on board. As a Design Partner, you play
-							a critical role in shaping the future of ContractSpec. This hub
-							contains everything you need to get started, collaborate with us,
-							and build your first specifications.
+						<p className="editorial-subtitle">
+							The design partner path is for teams whose complexity is already
+							real: multiple surfaces, live signals, coordination cost, and
+							unsafe regeneration pain. We use that pressure to sharpen both the
+							open foundation and the Studio layer on top.
 						</p>
 					</div>
-				</div>
-			</section>
-
-			{/* Steps Section */}
-			<section className="section-padding bg-white/5">
-				<div className="container mx-auto max-w-5xl">
-					<h2 className="mb-12 font-bold text-3xl">Getting Started</h2>
-
-					<div className="grid gap-12 md:grid-cols-2">
-						{/* Step 1: Access */}
-						<div className="space-y-4">
-							<div className="flex h-12 w-12 items-center justify-center rounded-lg border border-primary/20 bg-primary/10">
-								<Rocket className="h-6 w-6 text-primary" />
-							</div>
-							<h3 className="font-semibold text-xl">1. Access the Studio</h3>
-							<p className="text-muted-foreground">
-								Your account has been enabled with Design Partner privileges.
-								Log in to ContractSpec Studio to run the full loop from evidence
-								to spec-first deliverables with your team.
-							</p>
-							<div className="pt-2">
-								<Button asChild variant="outline">
-									<Link href="https://www.contractspec.studio">
-										Launch Studio <ArrowRight className="ml-2 h-4 w-4" />
-									</Link>
-								</Button>
-							</div>
-						</div>
-
-						{/* Step 2: Communication */}
-						<div className="space-y-4">
-							<div className="flex h-12 w-12 items-center justify-center rounded-lg border border-primary/20 bg-primary/10">
-								<MessageSquare className="h-6 w-6 text-primary" />
-							</div>
-							<h3 className="font-semibold text-xl">
-								2. Join the Conversation
-							</h3>
-							<p className="text-muted-foreground">
-								We've set up a dedicated private channel for real-time feedback
-								and support. Connect with our engineering team and other
-								partners.
-							</p>
-							<div className="pt-2">
-								<Button asChild variant="outline">
-									<Link href="mailto:partners@contractspec.io">
-										Contact Partner Success{' '}
-										<ArrowRight className="ml-2 h-4 w-4" />
-									</Link>
-								</Button>
-							</div>
-						</div>
-
-						{/* Step 3: Documentation */}
-						<div className="space-y-4">
-							<div className="flex h-12 w-12 items-center justify-center rounded-lg border border-primary/20 bg-primary/10">
-								<BookOpen className="h-6 w-6 text-primary" />
-							</div>
-							<h3 className="font-semibold text-xl">
-								3. Explore Documentation
-							</h3>
-							<p className="text-muted-foreground">
-								Dive deep into the core concepts, API references, and
-								architecture guides. Our docs are evolving, and your feedback
-								helps us improve them.
-							</p>
-							<div className="pt-2">
-								<Button asChild variant="outline">
-									<Link href="/docs">
-										Read the Docs <ArrowRight className="ml-2 h-4 w-4" />
-									</Link>
-								</Button>
-							</div>
-						</div>
-
-						{/* Step 4: Sync */}
-						<div className="space-y-4">
-							<div className="flex h-12 w-12 items-center justify-center rounded-lg border border-primary/20 bg-primary/10">
-								<Users className="h-6 w-6 text-primary" />
-							</div>
-							<h3 className="font-semibold text-xl">4. Partner Syncs</h3>
-							<p className="text-muted-foreground">
-								We schedule bi-weekly syncs to review your progress, blockers,
-								and feature requests. Check your calendar invite for the next
-								session.
-							</p>
-						</div>
-					</div>
-				</div>
-			</section>
-
-			{/* Expectations / FAQ */}
-			<section className="section-padding">
-				<div className="container mx-auto max-w-3xl">
-					<h2 className="mb-8 font-bold text-3xl">What to Expect</h2>
-
-					<div className="space-y-8">
-						<div>
-							<h3 className="mb-2 font-semibold text-xl">
-								Fast Iteration Cycles
-							</h3>
-							<p className="text-muted-foreground">
-								We ship updates frequently. You might see UI changes or new
-								capabilities appear weekly. We'll do our best to communicate
-								breaking changes in advance.
-							</p>
-						</div>
-
-						<div>
-							<h3 className="mb-2 font-semibold text-xl">
-								Direct Engineering Access
-							</h3>
-							<p className="text-muted-foreground">
-								You're not talking to support agents; you're talking to the
-								builders. Your feedback goes directly into the issue tracker.
-							</p>
-						</div>
-
-						<div>
-							<h3 className="mb-2 font-semibold text-xl">Input on Roadmap</h3>
-							<p className="text-muted-foreground">
-								Design Partners influence priority. If a feature enables a
-								critical use case for you, let us know—we often reshuffle our
-								sprint to accommodate partner needs.
-							</p>
-						</div>
-					</div>
-				</div>
-			</section>
-
-			{/* Footer CTA */}
-			<section className="section-padding border-white/10 border-t">
-				<div className="container mx-auto max-w-3xl text-center">
-					<h2 className="mb-4 font-bold text-3xl">
-						Have a question right now?
-					</h2>
-					<p className="mb-8 text-muted-foreground">
-						Don't hesitate to reach out. We are here to help you succeed.
-					</p>
-					<Button asChild size="lg">
-						<Link href="mailto:partners@contractspec.io">
-							Email the Founders
+					<div className="editorial-panel space-y-5">
+						<p className="editorial-kicker">Who this is for</p>
+						<ul className="editorial-list">
+							<li>
+								<span className="editorial-list-marker" />
+								<span>
+									Small teams already shipping AI-assisted products or ops
+									loops.
+								</span>
+							</li>
+							<li>
+								<span className="editorial-list-marker" />
+								<span>
+									Builders who want direct access to the product team.
+								</span>
+							</li>
+							<li>
+								<span className="editorial-list-marker" />
+								<span>Teams comfortable shaping a product in motion.</span>
+							</li>
+						</ul>
+						<Link
+							href="mailto:partners@contractspec.io"
+							className="btn-primary"
+						>
+							Contact partner team
 						</Link>
-					</Button>
+					</div>
+				</div>
+			</section>
+
+			<section className="editorial-section">
+				<div className="editorial-shell grid gap-5 md:grid-cols-3">
+					{steps.map((step, index) => (
+						<div key={step.title} className="editorial-panel space-y-4">
+							<div className="flex h-9 w-9 items-center justify-center rounded-full bg-[rgb(162_79_42_/_0.12)] font-mono text-[color:var(--rust)] text-xs">
+								0{index + 1}
+							</div>
+							<h2 className="font-serif text-3xl tracking-[-0.04em]">
+								{step.title}
+							</h2>
+							<p className="text-muted-foreground text-sm leading-7">
+								{step.copy}
+							</p>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<section className="editorial-section bg-striped">
+				<div className="editorial-shell grid gap-8 lg:grid-cols-2">
+					<div className="editorial-panel">
+						<p className="editorial-kicker">What you get</p>
+						<ul className="editorial-list mt-6">
+							<li>
+								<span className="editorial-list-marker" />
+								<span>
+									Direct access to the builders instead of generic support
+									routing.
+								</span>
+							</li>
+							<li>
+								<span className="editorial-list-marker" />
+								<span>
+									Faster feedback cycles around the workflows that matter to
+									you.
+								</span>
+							</li>
+							<li>
+								<span className="editorial-list-marker" />
+								<span>
+									Input into how OSS and Studio packaging should evolve
+									together.
+								</span>
+							</li>
+						</ul>
+					</div>
+					<div className="editorial-panel">
+						<p className="editorial-kicker">How to start</p>
+						<p className="text-muted-foreground text-sm leading-7">
+							Bring one concrete workflow, the current points of drift or
+							instability, and the team context around it. That is enough to
+							tell whether the right next step is open-system adoption, a Studio
+							pilot, or a deeper partnership.
+						</p>
+						<div className="mt-6 flex flex-col gap-3 sm:flex-row">
+							<Link
+								href="https://www.contractspec.studio"
+								className="btn-primary"
+							>
+								Explore Studio
+							</Link>
+							<Link href="/contact" className="btn-ghost">
+								Book a conversation
+							</Link>
+						</div>
+					</div>
 				</div>
 			</section>
 		</main>

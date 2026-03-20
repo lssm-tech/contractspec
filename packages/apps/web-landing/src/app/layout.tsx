@@ -1,24 +1,46 @@
 import type { Metadata } from 'next';
-import { Geist } from 'next/font/google';
+import { IBM_Plex_Mono, Newsreader, Public_Sans } from 'next/font/google';
 import type React from 'react';
 import './globals.css';
 import { QueryProvider } from '@/components/query-provider';
 
-const geist = Geist({ subsets: ['latin'] });
+const displayFont = Newsreader({
+	subsets: ['latin'],
+	variable: '--font-display',
+	display: 'swap',
+});
+
+const bodyFont = Public_Sans({
+	subsets: ['latin'],
+	variable: '--font-body',
+	display: 'swap',
+});
+
+const monoFont = IBM_Plex_Mono({
+	subsets: ['latin'],
+	variable: '--font-mono',
+	display: 'swap',
+	weight: ['400', '500', '600'],
+});
+
+const siteDescription =
+	'The open spec system for AI-native software. Define explicit contracts, keep every surface aligned, and adopt Studio when you want the operating layer on top.';
 
 export const metadata: Metadata = {
-	title: 'ContractSpec: The Regenerative App Engine',
-	description:
-		'ContractSpec turns intents into a customized & personalized, auto-evolutive codebase-policy-safe with signed overlays and one-click rollback.',
+	title: {
+		default: 'ContractSpec | The open spec system for AI-native software',
+		template: '%s | ContractSpec',
+	},
+	description: siteDescription,
 	metadataBase: new URL('https://www.contractspec.io'),
 	keywords: [
-		'regenerative app engine',
-		'auto-evolutive codebase',
-		'personalized software',
-		'policy-safe runtime',
-		'app compiler',
+		'open spec system',
+		'open contract system',
+		'AI-native software',
 		'AI code stabilization',
-		'spec-first development',
+		'safe regeneration',
+		'multi-surface consistency',
+		'contracts',
 		'TypeScript',
 	],
 	authors: [{ name: 'ContractSpec Team' }],
@@ -30,9 +52,8 @@ export const metadata: Metadata = {
 		telephone: false,
 	},
 	openGraph: {
-		title: 'ContractSpec – The Regenerative App Engine',
-		description:
-			'ContractSpec turns intents into a customized & personalized, auto-evolutive codebase: policy-safe with signed overlays and one-click rollback.',
+		title: 'ContractSpec | The open spec system for AI-native software',
+		description: siteDescription,
 		url: 'https://www.contractspec.io',
 		siteName: 'ContractSpec',
 		images: [
@@ -40,7 +61,7 @@ export const metadata: Metadata = {
 				url: '/api/og',
 				width: 1200,
 				height: 630,
-				alt: 'ContractSpec: The Regenerative App Engine',
+				alt: 'ContractSpec | The open spec system for AI-native software',
 			},
 		],
 		type: 'website',
@@ -48,9 +69,8 @@ export const metadata: Metadata = {
 	},
 	twitter: {
 		card: 'summary_large_image',
-		title: 'ContractSpec – The Regenerative App Engine',
-		description:
-			'Customized & personalized, auto-evolutive codebase: compiled from intent, enforced by policy.',
+		title: 'ContractSpec | The open spec system for AI-native software',
+		description: siteDescription,
 		images: ['/api/og'],
 		creator: '@contractspec',
 		site: '@contractspec',
@@ -60,7 +80,7 @@ export const metadata: Metadata = {
 		apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }],
 	},
 	verification: {
-		google: 'google-site-verification-code', // Replace with actual verification code
+		google: 'google-site-verification-code',
 	},
 	alternates: {
 		canonical: 'https://www.contractspec.io',
@@ -77,24 +97,18 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" className="dark">
+		<html lang="en">
 			<head>
 				<meta
 					name="viewport"
 					content="width=device-width, initial-scale=1, maximum-scale=5"
 				/>
-				<meta name="theme-color" content="#0b0f19" />
-				<meta name="color-scheme" content="dark light" />
+				<meta name="theme-color" content="#f7f0e6" />
+				<meta name="color-scheme" content="light" />
 				<link rel="manifest" href="/manifest.json" />
-				<link rel="preconnect" href="https://fonts.googleapis.com" />
-				<link
-					rel="preconnect"
-					href="https://fonts.gstatic.com"
-					crossOrigin=""
-				/>
 			</head>
 			<body
-				className={`${geist.className} flex min-h-screen flex-col antialiased`}
+				className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} flex min-h-screen flex-col`}
 			>
 				<QueryProvider>
 					{children}
@@ -121,7 +135,7 @@ export default function RootLayout({
 										'@id': 'https://www.contractspec.io/#website',
 										url: 'https://www.contractspec.io',
 										name: 'ContractSpec',
-										description: 'The Regenerative App Engine',
+										description: siteDescription,
 										publisher: {
 											'@id': 'https://www.contractspec.io/#organization',
 										},

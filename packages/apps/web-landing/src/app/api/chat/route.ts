@@ -3,7 +3,6 @@ import { createChatRoute } from '@contractspec/module.ai-chat/core';
 
 const provider = createProvider({
 	provider: 'anthropic',
-	mode: 'byok',
 	apiKey: process.env.ANTHROPIC_API_KEY,
 });
 

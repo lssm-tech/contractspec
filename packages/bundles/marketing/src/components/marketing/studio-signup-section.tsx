@@ -1,7 +1,6 @@
 'use client';
 
-import { Button } from '@contractspec/lib.design-system';
-import { ArrowRight, Rocket } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 interface StudioSignupSectionProps {
@@ -19,37 +18,36 @@ export function StudioSignupSection({
 	return (
 		<div
 			id="studio-signup"
-			className={isCompact ? 'space-y-4' : 'card-subtle space-y-6 p-8'}
+			className={`${isCompact ? 'space-y-5 rounded-[28px] border border-border bg-card p-6' : 'editorial-panel space-y-6'}`}
 		>
 			<div className="space-y-4">
-				<div className="inline-flex items-center gap-2 rounded-full border border-violet-500/20 bg-violet-500/10 px-3 py-1">
-					<Rocket size={14} className="text-violet-300" />
-					<span className="font-medium text-sm text-violet-300">
-						ContractSpec Studio
-					</span>
+				<div className="badge">
+					<Sparkles size={14} />
+					Studio on top
 				</div>
-				<h2 className={isCompact ? 'font-bold text-xl' : 'font-bold text-2xl'}>
-					Try ContractSpec Studio
+				<h2
+					className={
+						isCompact
+							? 'font-serif text-3xl tracking-[-0.04em]'
+							: 'font-serif text-4xl tracking-[-0.04em]'
+					}
+				>
+					See the operating layer built on top of the open system.
 				</h2>
-				<p className="text-muted-foreground text-sm">
-					The AI-powered product decision engine that turns product signals into
-					spec-first deliverables.
-				</p>
-				<p className="text-muted-foreground text-xs">
-					Evidence -&gt; Correlation -&gt; Decision -&gt; Change -&gt; Export
-					-&gt; Check -&gt; Notify -&gt; Autopilot
+				<p className="text-muted-foreground text-sm leading-7">
+					Studio packages the workflow for evidence, drafting, review, export,
+					and follow-up. It should feel like the best product built on top of
+					ContractSpec, not a different story.
 				</p>
 			</div>
 
-			<div className="flex flex-col gap-3 sm:flex-row">
-				<Button asChild className="w-full sm:w-auto">
-					<Link href={studioUrl}>
-						Get Started Free <ArrowRight className="ml-2 h-4 w-4" />
-					</Link>
-				</Button>
-				<Button asChild variant="outline" className="w-full sm:w-auto">
-					<Link href={studioDocsUrl}>Read Studio Docs</Link>
-				</Button>
+			<div className="grid gap-3 sm:grid-cols-2">
+				<Link href={studioUrl} className="btn-primary">
+					Explore Studio <ArrowRight className="ml-2 h-4 w-4" />
+				</Link>
+				<Link href={studioDocsUrl} className="btn-ghost">
+					Read Studio docs
+				</Link>
 			</div>
 		</div>
 	);

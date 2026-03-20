@@ -21,7 +21,8 @@ export function CorePositioningSection() {
 					You own the code. It&apos;s standard tech.
 					<br />
 					<Small className="font-semibold text-violet-400">
-						We&apos;re the compiler, not the prison.
+						Start with the open foundation. Adopt the operating layer when it
+						helps.
 					</Small>
 				</Lead>
 				<VStack

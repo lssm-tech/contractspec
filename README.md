@@ -8,7 +8,7 @@ Website: [https://contractspec.io](https://contractspec.io)
 
 **Stabilize your AI-generated code**
 
-The deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable. You keep your app. You own the code. We're the compiler, not the prison.
+The open spec system for AI-native software. Define explicit contracts, keep every surface aligned, regenerate safely, and adopt Studio when you want the operating layer on top.
 
 <p align="center">
   <img src="https://www.contractspec.io/icon.png" alt="ContractSpec Logo" width="300" height="300">
@@ -45,9 +45,9 @@ From a single contract spec:
 | **Client SDK**    | Type-safe API clients               |
 | **UI Components** | React forms and views               |
 
-## No Lock-in
+## Open, Ejectable Foundation
 
-ContractSpec is a **compiler**, not a platform:
+ContractSpec is an **open system**, not a closed platform:
 
 - ✅ Generated code is **standard TypeScript** you can read and modify
 - ✅ Uses **standard tech** (Prisma, GraphQL, Zod, React)
@@ -192,7 +192,7 @@ Notes: add `pull-requests: write` permissions for PR comments, and add `contents
 
 ## ContractSpec Studio
 
-[ContractSpec Studio](https://www.contractspec.studio) is the AI-native operating system built on top of ContractSpec.
+[ContractSpec Studio](https://www.contractspec.studio) is the operating product built on top of ContractSpec.
 
 It starts with one trusted product loop for certified live signals, reviewed drafts, supervised exports, and scheduled checks:
 
@@ -205,7 +205,7 @@ Activate -> Connect -> Draft -> Review -> Export -> Check
 - **Current certified wedge**: Sandbox activation, PostHog, Slack, GitHub, Linear, and Notion.
 - **Governance first**: Self-serve workspaces stay draft-only before export, with policy gates, audit trails, retention controls, and no autopilot code push, PR merge, or deployment in v0.
 
-`contractspec` is the grammar and compiler. Studio is the operating layer that runs on top of it across web, API, and MCP surfaces.
+`contractspec` is the open foundation: contracts, generation, runtimes, harnesses, and agent-facing surfaces. Studio is the operating layer that runs on top of it across web, API, and MCP surfaces.
 
 [**Try Studio**](https://www.contractspec.studio)
 

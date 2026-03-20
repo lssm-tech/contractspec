@@ -278,32 +278,57 @@ export const TemplatesPage = () => {
 
 	return (
 		<TooltipProvider>
-			<main className="">
-				{/* Hero */}
-				<section className="section-padding hero-gradient relative border-border border-b">
-					<div className="mx-auto max-w-4xl space-y-6 text-center">
-						<h1 className="font-bold text-5xl leading-tight md:text-6xl">
-							Recipe templates
-						</h1>
-						<p className="text-lg text-muted-foreground">
-							Ready-to-use, customizable recipes. Policies built in. One-click
-							deploy.
-						</p>
+			<main>
+				<section className="section-padding hero-gradient border-border/70 border-b">
+					<div className="editorial-shell space-y-8">
+						<div className="max-w-4xl space-y-5">
+							<p className="editorial-kicker">Proof through real scenarios</p>
+							<h1 className="editorial-title">
+								Templates that show the open system in practice.
+							</h1>
+							<p className="editorial-subtitle">
+								These scenarios are the fastest way to understand ContractSpec:
+								explicit contracts, aligned surfaces, and an adoption path from
+								OSS exploration into Studio deployment.
+							</p>
+						</div>
+						<div className="editorial-proof-strip">
+							<div className="editorial-stat">
+								<span className="editorial-stat-value">{templates.length}</span>
+								<span className="editorial-label">curated scenarios</span>
+							</div>
+							<div className="editorial-stat">
+								<span className="editorial-stat-value">2</span>
+								<span className="editorial-label">entry paths</span>
+							</div>
+							<div className="editorial-stat">
+								<span className="editorial-stat-value">OSS</span>
+								<span className="editorial-label">first, Studio second</span>
+							</div>
+						</div>
 					</div>
 				</section>
 
-				{/* Search & Filter */}
-				<section className="section-padding border-border border-b">
-					<div className="mx-auto max-w-6xl space-y-6">
-						<div className="flex items-center justify-between gap-3">
-							<div className="text-muted-foreground text-sm">Source:</div>
+				<section className="editorial-section">
+					<div className="editorial-shell space-y-6">
+						<div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+							<div className="max-w-3xl space-y-3">
+								<p className="editorial-kicker">Browse by source</p>
+								<h2 className="font-serif text-4xl tracking-[-0.04em]">
+									Use local scenarios for core proof, then scan the community.
+								</h2>
+								<p className="text-muted-foreground text-sm leading-7">
+									Local templates show the official adoption path. Community
+									templates show where the ecosystem is pushing the system next.
+								</p>
+							</div>
 							<div className="flex gap-2">
 								<button
 									onClick={() => setSource('local')}
 									className={cn(
 										'rounded-full px-4 py-2 font-medium text-sm transition-colors',
 										{
-											'bg-violet-500 text-white': source === 'local',
+											'bg-primary text-primary-foreground': source === 'local',
 											'border border-border bg-card hover:bg-card/80':
 												source !== 'local',
 										}
@@ -317,7 +342,8 @@ export const TemplatesPage = () => {
 									className={cn(
 										'rounded-full px-4 py-2 font-medium text-sm transition-colors',
 										{
-											'bg-violet-500 text-white': source === 'registry',
+											'bg-primary text-primary-foreground':
+												source === 'registry',
 											'border border-border bg-card hover:bg-card/80':
 												source !== 'registry',
 										}
@@ -328,56 +354,62 @@ export const TemplatesPage = () => {
 								</button>
 							</div>
 						</div>
-						<div className="relative">
-							<Search
-								className="absolute top-3 left-3 text-muted-foreground"
-								size={20}
-							/>
-							<input
-								type="text"
-								placeholder="Search templates..."
-								value={search}
-								onChange={(e) => setSearch(e.target.value)}
-								className="w-full rounded-lg border border-border bg-card py-3 pr-4 pl-10 focus:outline-none focus:ring-2 focus:ring-violet-500"
-								aria-label="Search templates"
-							/>
-						</div>
-						<div className="flex flex-wrap gap-2">
-							<button
-								onClick={() => setSelectedTag(null)}
-								className={`rounded-full px-4 py-2 font-medium text-sm transition-colors ${
-									selectedTag === null
-										? 'bg-violet-500 text-white'
-										: 'border border-border bg-card hover:bg-card/80'
-								}`}
-								aria-pressed={selectedTag === null}
-							>
-								All
-							</button>
-							{allTags.map((tag) => (
+						<div className="editorial-panel space-y-5">
+							<div className="relative">
+								<Search
+									className="absolute top-3.5 left-4 text-muted-foreground"
+									size={18}
+								/>
+								<input
+									type="text"
+									placeholder="Search scenarios, industries, or capabilities"
+									value={search}
+									onChange={(e) => setSearch(e.target.value)}
+									className="w-full rounded-full border border-border bg-background px-12 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+									aria-label="Search templates"
+								/>
+							</div>
+							<div className="flex flex-wrap gap-2">
 								<button
-									key={tag}
-									onClick={() => setSelectedTag(tag)}
+									onClick={() => setSelectedTag(null)}
 									className={cn(
-										`rounded-full px-4 py-2 font-medium text-sm transition-colors`,
+										'rounded-full px-4 py-2 font-medium text-sm transition-colors',
 										{
-											'bg-violet-500 text-white': selectedTag === tag,
+											'bg-primary text-primary-foreground':
+												selectedTag === null,
 											'border border-border bg-card hover:bg-card/80':
-												selectedTag !== tag,
+												selectedTag !== null,
 										}
 									)}
-									aria-pressed={selectedTag === tag}
+									aria-pressed={selectedTag === null}
 								>
-									{tag}
+									All
 								</button>
-							))}
+								{allTags.map((tag) => (
+									<button
+										key={tag}
+										onClick={() => setSelectedTag(tag)}
+										className={cn(
+											'rounded-full px-4 py-2 font-medium text-sm transition-colors',
+											{
+												'bg-primary text-primary-foreground':
+													selectedTag === tag,
+												'border border-border bg-card hover:bg-card/80':
+													selectedTag !== tag,
+											}
+										)}
+										aria-pressed={selectedTag === tag}
+									>
+										{tag}
+									</button>
+								))}
+							</div>
 						</div>
 					</div>
 				</section>
 
-				{/* Templates Grid */}
 				<section className="section-padding">
-					<div className="mx-auto max-w-6xl">
+					<div className="editorial-shell">
 						{source === 'registry' ? (
 							registryLoading ? (
 								<div className="py-12 text-center">
@@ -397,10 +429,12 @@ export const TemplatesPage = () => {
 									{registryTemplates.map((t) => (
 										<div
 											key={t.id}
-											className="card-subtle relative flex flex-col space-y-4 p-6 transition-colors hover:border-violet-500/50"
+											className="editorial-panel relative flex flex-col space-y-4 transition-colors hover:border-[color:rgb(162_79_42_/_0.55)]"
 										>
 											<div>
-												<h3 className="font-bold text-lg">{t.name}</h3>
+												<h3 className="font-serif text-2xl tracking-[-0.03em]">
+													{t.name}
+												</h3>
 												<p className="mt-1 text-muted-foreground text-sm">
 													{t.description}
 												</p>
@@ -410,7 +444,7 @@ export const TemplatesPage = () => {
 													{t.tags.map((tag) => (
 														<span
 															key={tag}
-															className="rounded border border-violet-500/20 bg-violet-500/10 px-2 py-1 text-violet-300 text-xs"
+															className="rounded-full border border-border bg-muted px-3 py-1 text-[11px] text-muted-foreground"
 														>
 															{tag}
 														</span>
@@ -477,15 +511,17 @@ export const TemplatesPage = () => {
 								{filtered.map((template, i) => (
 									<div
 										key={i}
-										className="card-subtle relative flex flex-col space-y-4 p-6 transition-colors hover:border-violet-500/50"
+										className="editorial-panel relative flex flex-col space-y-4 transition-colors hover:border-[color:rgb(162_79_42_/_0.55)]"
 									>
 										{'isNew' in template && template.isNew && (
-											<span className="absolute top-3 right-3 rounded-full bg-green-500 px-2 py-0.5 font-semibold text-white text-xs">
+											<span className="absolute top-4 right-4 rounded-full bg-[color:var(--success)] px-2.5 py-1 font-medium text-[11px] text-white uppercase">
 												New
 											</span>
 										)}
 										<div>
-											<h3 className="font-bold text-lg">{template.title}</h3>
+											<h3 className="font-serif text-2xl tracking-[-0.03em]">
+												{template.title}
+											</h3>
 											<p className="mt-1 text-muted-foreground text-sm">
 												{template.description}
 											</p>
@@ -501,7 +537,7 @@ export const TemplatesPage = () => {
 												{template.tags.map((tag) => (
 													<span
 														key={tag}
-														className="rounded border border-violet-500/20 bg-violet-500/10 px-2 py-1 text-violet-300 text-xs"
+														className="rounded-full border border-border bg-muted px-3 py-1 text-[11px] text-muted-foreground"
 													>
 														{tag}
 													</span>
@@ -553,58 +589,64 @@ export const TemplatesPage = () => {
 					</div>
 				</section>
 
-				{/* Extend with Integrations & Knowledge */}
-				<section className="section-padding border-border border-t bg-striped">
-					<div className="mx-auto max-w-6xl space-y-8">
-						<div className="space-y-4 text-center">
-							<h2 className="font-bold text-3xl md:text-4xl">
-								Extend templates with integrations & knowledge
+				<section className="editorial-section bg-striped">
+					<div className="editorial-shell space-y-8">
+						<div className="max-w-3xl space-y-4">
+							<p className="editorial-kicker">From template to real system</p>
+							<h2 className="font-serif text-4xl tracking-[-0.04em] md:text-5xl">
+								Templates become useful when the system can absorb more context.
 							</h2>
-							<p className="mx-auto max-w-2xl text-muted-foreground">
-								Every template can be enhanced with built-in integrations and
-								knowledge spaces. Add payments, email, AI, and structured
-								knowledge without writing integration code.
+							<p className="editorial-copy">
+								Use templates to prove the base flow, then layer integrations,
+								knowledge, and runtime behavior on top without losing the same
+								contract source.
 							</p>
 						</div>
 						<div className="grid gap-6 md:grid-cols-3">
-							<div className="card-subtle space-y-4 p-6">
+							<div className="editorial-panel space-y-4">
 								<div className="text-3xl">💳</div>
-								<h3 className="font-bold">Add Payments</h3>
+								<h3 className="font-serif text-2xl tracking-[-0.03em]">
+									Add payments
+								</h3>
 								<p className="text-muted-foreground text-sm">
 									Connect Stripe to any template for payment processing,
 									subscriptions, and invoicing. Type-safe and policy-enforced.
 								</p>
 								<Link
 									href="/docs/integrations/stripe"
-									className="inline-flex items-center gap-1 text-sm text-violet-400 hover:text-violet-300"
+									className="font-medium text-[color:var(--blue)] text-sm hover:opacity-80"
 								>
 									Learn more →
 								</Link>
 							</div>
-							<div className="card-subtle space-y-4 p-6">
+							<div className="editorial-panel space-y-4">
 								<div className="text-3xl">📧</div>
-								<h3 className="font-bold">Add Notifications</h3>
+								<h3 className="font-serif text-2xl tracking-[-0.03em]">
+									Add notifications
+								</h3>
 								<p className="text-muted-foreground text-sm">
 									Send transactional emails via Postmark or Resend. Process
 									inbound emails with Gmail API. SMS via Twilio.
 								</p>
 								<Link
 									href="/docs/integrations"
-									className="inline-flex items-center gap-1 text-sm text-violet-400 hover:text-violet-300"
+									className="font-medium text-[color:var(--blue)] text-sm hover:opacity-80"
 								>
 									View integrations →
 								</Link>
 							</div>
-							<div className="card-subtle space-y-4 p-6">
+							<div className="editorial-panel space-y-4">
 								<div className="text-3xl">🧠</div>
-								<h3 className="font-bold">Add AI & Knowledge</h3>
+								<h3 className="font-serif text-2xl tracking-[-0.03em]">
+									Add AI and knowledge
+								</h3>
 								<p className="text-muted-foreground text-sm">
 									Power templates with OpenAI, vector search via Qdrant, and
 									structured knowledge spaces for context-aware workflows.
 								</p>
 								<Link
 									href="/docs/knowledge"
-									className="inline-flex items-center gap-1 text-sm text-violet-400 hover:text-violet-300"
+									className="font-medium text-[color:var(--blue)] text-sm hover:opacity-80"
 								>
 									Learn about knowledge →
 								</Link>

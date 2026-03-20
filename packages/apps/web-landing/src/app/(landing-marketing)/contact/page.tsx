@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
 	title: 'Contact Us | ContractSpec',
 	description:
-		"Get in touch with the ContractSpec team. We're here to help you stabilize your AI-generated code and build better software.",
+		'Talk to the ContractSpec team about OSS adoption, Studio evaluation, or AI-native workflows that need explicit control.',
 	keywords: [
 		'contact',
 		'support',
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 	openGraph: {
 		title: 'Contact Us | ContractSpec',
 		description:
-			"Get in touch with the ContractSpec team. We're here to help you stabilize your AI-generated code and build better software.",
+			'Talk to the ContractSpec team about OSS adoption, Studio evaluation, or AI-native workflows that need explicit control.',
 		url: 'https://www.contractspec.io/contact',
 		type: 'website',
 	},
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 		card: 'summary',
 		title: 'Contact Us | ContractSpec',
 		description:
-			"Get in touch with the ContractSpec team. We're here to help you stabilize your AI-generated code.",
+			'Talk to the ContractSpec team about OSS adoption and Studio evaluation.',
 	},
 	alternates: {
 		canonical: 'https://www.contractspec.io/contact',
