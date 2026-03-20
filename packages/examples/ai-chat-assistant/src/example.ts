@@ -9,7 +9,7 @@ const example = defineExample({
 			'Focused template: full ai-chat with reasoning, chain of thought, sources, suggestions, and MCP tools.',
 		kind: 'template',
 		visibility: 'public',
-		stability: 'experimental',
+		stability: 'beta',
 		owners: ['@platform.core'],
 		tags: ['ai', 'chat', 'mcp', 'tools'],
 	},

@@ -6,7 +6,7 @@
 
 - Agent-mode (`--agent-mode opencode`) contract compilation.
 - Implementation checking via `--check-implementation`.
-- Private package pattern (not published).
+- Maintained example package included in the ContractSpec example registry.
 - `src/contracts/` contains contract specs, operations, entities, and registry exports.
 - `src/docs/` contains docblocks and documentation-facing exports.
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
@@ -15,6 +15,10 @@
 
 From `packages/examples/opencode-cli`:
 - `bun run build`
+- `bun run test`
+- `bun run typecheck`
+- `bun run smoke`
+- `bun run preflight`
 
 ## Usage
 
@@ -42,6 +46,10 @@ Use `@contractspec/example.opencode-cli` as a reference implementation, or impor
 
 - `bun run build` — bun ../../apps/cli-contractspec/src/cli.ts build src/contracts/opencode.contracts.ts --agent-mode opencode
 - `bun run validate` — bun ../../apps/cli-contractspec/src/cli.ts validate src/contracts/opencode.contracts.ts --check-implementation --agent-mode opencode
+- `bun run typecheck` — tsc --noEmit
+- `bun run test` — bun test
+- `bun run smoke` — bun test src/example.smoke.test.ts
+- `bun run preflight` — bun run build && bun run typecheck && bun run test && bun run validate && bun run smoke
 
 ## Recent Updates
 

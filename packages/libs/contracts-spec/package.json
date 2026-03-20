@@ -396,6 +396,7 @@
 		"./integrations/providers/messaging": "./src/integrations/providers/messaging.ts",
 		"./integrations/providers/messaging-github": "./src/integrations/providers/messaging-github.ts",
 		"./integrations/providers/messaging-slack": "./src/integrations/providers/messaging-slack.ts",
+		"./integrations/providers/messaging-telegram": "./src/integrations/providers/messaging-telegram.ts",
 		"./integrations/providers/messaging-whatsapp-meta": "./src/integrations/providers/messaging-whatsapp-meta.ts",
 		"./integrations/providers/messaging-whatsapp-twilio": "./src/integrations/providers/messaging-whatsapp-twilio.ts",
 		"./integrations/providers/mistral": "./src/integrations/providers/mistral.ts",
@@ -2634,6 +2635,12 @@
 				"bun": "./dist/integrations/providers/messaging-slack.js",
 				"node": "./dist/node/integrations/providers/messaging-slack.js",
 				"default": "./dist/integrations/providers/messaging-slack.js"
+			},
+			"./integrations/providers/messaging-telegram": {
+				"types": "./dist/integrations/providers/messaging-telegram.d.ts",
+				"bun": "./dist/integrations/providers/messaging-telegram.js",
+				"node": "./dist/node/integrations/providers/messaging-telegram.js",
+				"default": "./dist/integrations/providers/messaging-telegram.js"
 			},
 			"./integrations/providers/messaging-whatsapp-meta": {
 				"types": "./dist/integrations/providers/messaging-whatsapp-meta.d.ts",

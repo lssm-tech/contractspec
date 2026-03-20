@@ -11,7 +11,9 @@ Website: https://contractspec.io
 - Sync engine with field mapping and status tracking.
 - MCP server example for tool integration.
 - Capability and feature definition patterns.
-- React UI with dashboard, hooks, and markdown renderers.
+- React UI with dashboard, hooks, markdown renderers, and shared ContractSpec tables for connections and sync configs.
+- Contract-backed visualizations for integration mix, connection health, and sync-state comparison.
+- Client-mode table capabilities including sorting, pagination, column visibility, pinning, resizing, and expanded operational details.
 - Event definitions and operation test-specs.
 
 ## Running Locally
@@ -19,6 +21,7 @@ Website: https://contractspec.io
 From `packages/examples/integration-hub`:
 - `bun run dev`
 - `bun run build`
+- `bun run test`
 - `bun run typecheck`
 
 ## Usage

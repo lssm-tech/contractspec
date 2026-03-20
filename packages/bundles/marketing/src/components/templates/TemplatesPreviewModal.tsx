@@ -56,6 +56,22 @@ const CrmDashboard = dynamic(
 	{ ssr: false, loading: () => <LoadingSpinner /> }
 );
 
+const DataGridShowcase = dynamic(
+	() =>
+		import('../../../../../examples/data-grid-showcase/src/ui').then(
+			(mod) => mod.DataGridShowcase
+		),
+	{ ssr: false, loading: () => <LoadingSpinner /> }
+);
+
+const VisualizationShowcase = dynamic(
+	() =>
+		import('../../../../../examples/visualization-showcase/src/ui').then(
+			(mod) => mod.VisualizationShowcase
+		),
+	{ ssr: false, loading: () => <LoadingSpinner /> }
+);
+
 const AgentDashboard = dynamic(
 	() =>
 		import('@contractspec/example.agent-console/ui').then(
@@ -92,6 +108,14 @@ const AnalyticsDashboard = dynamic(
 	() =>
 		import('@contractspec/example.analytics-dashboard').then(
 			(mod) => mod.AnalyticsDashboard
+		),
+	{ ssr: false, loading: () => <LoadingSpinner /> }
+);
+
+const AiChatAssistantDashboard = dynamic(
+	() =>
+		import('@contractspec/example.ai-chat-assistant').then(
+			(mod) => mod.AiChatAssistantDashboard
 		),
 	{ ssr: false, loading: () => <LoadingSpinner /> }
 );
@@ -173,6 +197,26 @@ export const TemplatePreviewModal = ({
 						<CrmDashboard />
 					</TemplateShell>
 				);
+			case 'data-grid-showcase':
+				return (
+					<TemplateShell
+						title="Data Grid Showcase"
+						description="Shared ContractSpec table primitives with client, server, and DataView-driven lanes."
+						showSaveAction={false}
+					>
+						<DataGridShowcase />
+					</TemplateShell>
+				);
+			case 'visualization-showcase':
+				return (
+					<TemplateShell
+						title="Visualization Showcase"
+						description="ContractSpec-owned chart primitives rendered through shared visualization contracts and design-system wrappers."
+						showSaveAction={false}
+					>
+						<VisualizationShowcase />
+					</TemplateShell>
+				);
 			case 'agent-console':
 				return (
 					<TemplateShell
@@ -181,6 +225,16 @@ export const TemplatePreviewModal = ({
 						showSaveAction={false}
 					>
 						<AgentDashboard />
+					</TemplateShell>
+				);
+			case 'ai-chat-assistant':
+				return (
+					<TemplateShell
+						title="AI Chat Assistant"
+						description="Focused assistant surface with reasoning, sources, suggestions, and MCP-aware tools."
+						showSaveAction={false}
+					>
+						<AiChatAssistantDashboard />
 					</TemplateShell>
 				);
 			case 'workflow-system':

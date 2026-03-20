@@ -5,13 +5,20 @@
  */
 
 import {
-	type AgentSummary,
-	mockListAgentsHandler,
-} from '@contractspec/example.agent-console/handlers';
+	AGENT_CONSOLE_DEMO_ORGANIZATION_ID,
+	AGENT_CONSOLE_DEMO_PROJECT_ID,
+	createAgentConsoleDemoHandlers,
+} from '@contractspec/example.agent-console/shared';
 import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
 import type { PresentationRenderer } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
 
-type Agent = AgentSummary;
+interface AgentListItem {
+	name: string;
+	description?: string;
+	status: string;
+	modelProvider: string;
+	modelName: string;
+}
 
 /**
  * Markdown renderer for agent-console.agent.list presentation
@@ -22,7 +29,7 @@ export const agentListMarkdownRenderer: PresentationRenderer<{
 	body: string;
 }> = {
 	target: 'markdown',
-	render: async (desc: PresentationSpec) => {
+	render: async (desc: PresentationSpec, ctx) => {
 		// Only handle AgentListView
 		if (
 			desc.source.type !== 'component' ||
@@ -31,12 +38,24 @@ export const agentListMarkdownRenderer: PresentationRenderer<{
 			throw new Error('agentListMarkdownRenderer: not AgentListView');
 		}
 
-		// Fetch data using mock handler
-		const data = await mockListAgentsHandler({
-			organizationId: 'demo-org',
-			limit: 50,
-			offset: 0,
-		});
+		const data: {
+			items: AgentListItem[];
+			total: number;
+			hasMore: boolean;
+		} = Array.isArray(ctx?.data)
+			? {
+					items: ctx.data as AgentListItem[],
+					total: ctx.data.length,
+					hasMore: false,
+				}
+			: await createAgentConsoleDemoHandlers({
+					projectId: AGENT_CONSOLE_DEMO_PROJECT_ID,
+				}).listAgents({
+					projectId: AGENT_CONSOLE_DEMO_PROJECT_ID,
+					organizationId: AGENT_CONSOLE_DEMO_ORGANIZATION_ID,
+					limit: 50,
+					offset: 0,
+				});
 
 		// Generate markdown
 		const lines: string[] = [
@@ -51,7 +70,7 @@ export const agentListMarkdownRenderer: PresentationRenderer<{
 		];
 
 		// Group by status
-		const byStatus: Record<string, Agent[]> = {};
+		const byStatus: Record<string, AgentListItem[]> = {};
 		for (const agent of data.items) {
 			const status = agent.status;
 			if (byStatus[status]) {

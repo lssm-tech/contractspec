@@ -1,17 +1,17 @@
-import { describe, it, expect } from 'bun:test';
-import { OpenCodeEchoInput } from '../handlers/open-code-echo-input';
+import { describe, expect, test } from "bun:test";
+import { openCodeEchoInputHandler } from "./open-code-echo-input.handler";
 
-describe('OpenCodeEchoInput', () => {
-  it('should handle valid input', async () => {
-    // TODO: Implement test
-    expect(true).toBe(true);
-  });
+describe("@contractspec/example.opencode-cli echo handler", () => {
+	test("echoes the prompt deterministically", async () => {
+		const response = await openCodeEchoInputHandler(
+			{
+				prompt: "Hello, OpenCode",
+			},
+			{} as never
+		);
 
-  it('should handle edge cases', async () => {
-    // TODO: Test edge cases
-  });
-
-  it('should handle errors appropriately', async () => {
-    // TODO: Test error scenarios
-  });
+		expect(response).toEqual({
+			message: "Hello, OpenCode",
+		});
+	});
 });

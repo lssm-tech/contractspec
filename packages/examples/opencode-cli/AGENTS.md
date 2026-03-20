@@ -7,7 +7,7 @@ OpenCode CLI example showing agent-mode contract building and validation.
 ## Quick Context
 
 - Layer: `example`.
-- Package visibility: private workspace package.
+- Package visibility: published package.
 - Primary consumers are example explorers, template authors, and documentation readers.
 - Related packages: `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`.
 
@@ -40,3 +40,7 @@ OpenCode CLI example showing agent-mode contract building and validation.
 
 - `bun run build` — bun ../../apps/cli-contractspec/src/cli.ts build src/contracts/opencode.contracts.ts --agent-mode opencode
 - `bun run validate` — bun ../../apps/cli-contractspec/src/cli.ts validate src/contracts/opencode.contracts.ts --check-implementation --agent-mode opencode
+- `bun run typecheck` — tsc --noEmit
+- `bun run test` — bun test
+- `bun run smoke` — bun test src/example.smoke.test.ts
+- `bun run preflight` — bun run build && bun run typecheck && bun run test && bun run validate && bun run smoke

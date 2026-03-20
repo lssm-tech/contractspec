@@ -9,7 +9,7 @@ const example = defineExample({
 			'AI agent ops console: tools, agents, runs, logs, and metrics (spec-first, regenerable).',
 		kind: 'template',
 		visibility: 'public',
-		stability: 'experimental',
+		stability: 'beta',
 		owners: ['@platform.core'],
 		tags: ['ai', 'agents', 'tools', 'orchestration'],
 	},
@@ -21,8 +21,7 @@ const example = defineExample({
 	},
 	entrypoints: {
 		packageName: '@contractspec/example.agent-console',
-		feature: './feature',
-		contracts: './contracts',
+		feature: './agent.feature',
 		presentations: './presentations',
 		handlers: './handlers',
 		docs: './docs',

@@ -21,7 +21,7 @@ export const OpenCodeEchoCommand = defineCommand({
 	meta: {
 		key: 'opencode.example.echo',
 		version: '1.0.0',
-		stability: 'experimental',
+		stability: 'stable',
 		owners: [...OWNERS],
 		tags: ['opencode', 'example', 'echo'],
 		description: 'Echo a prompt for the OpenCode CLI example.',

@@ -28,4 +28,5 @@ export * from './run';
 export * from './shared';
 export * from './tool';
 export * from './ui';
+export * from './visualizations';
 import './docs';

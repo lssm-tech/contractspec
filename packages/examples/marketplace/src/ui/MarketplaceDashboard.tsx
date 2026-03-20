@@ -15,6 +15,7 @@ import {
  */
 import { useState } from 'react';
 import { useMarketplaceData } from './hooks/useMarketplaceData';
+import { MarketplaceVisualizationOverview } from './MarketplaceDashboard.visualizations';
 
 type Tab = 'stores' | 'products' | 'orders';
 
@@ -102,6 +103,11 @@ export function MarketplaceDashboard() {
 					hint="total"
 				/>
 			</StatCardGroup>
+
+			<MarketplaceVisualizationOverview
+				orders={orders}
+				products={products}
+			/>
 
 			{/* Navigation Tabs */}
 			<nav className="flex gap-1 rounded-lg bg-muted p-1" role="tablist">

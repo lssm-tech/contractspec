@@ -81,4 +81,16 @@ describe('@contractspec/module.examples registry', () => {
 			)
 		).toBe(false);
 	});
+
+	test('should include the maintained meetup registry examples', () => {
+		const exampleKeys = new Set([...listExamples()].map((example) => example.meta.key));
+
+		expect(exampleKeys.has('agent-console')).toBe(true);
+		expect(exampleKeys.has('ai-chat-assistant')).toBe(true);
+		expect(exampleKeys.has('data-grid-showcase')).toBe(true);
+		expect(exampleKeys.has('messaging-agent-actions')).toBe(true);
+		expect(exampleKeys.has('minimal')).toBe(true);
+		expect(exampleKeys.has('opencode-cli')).toBe(true);
+		expect(exampleKeys.has('visualization-showcase')).toBe(true);
+	});
 });

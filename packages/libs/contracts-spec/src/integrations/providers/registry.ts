@@ -17,6 +17,7 @@ import { registerJiraIntegration } from './jira';
 import { registerLinearIntegration } from './linear';
 import { registerMessagingGithubIntegration } from './messaging-github';
 import { registerMessagingSlackIntegration } from './messaging-slack';
+import { registerMessagingTelegramIntegration } from './messaging-telegram';
 import { registerMessagingWhatsappMetaIntegration } from './messaging-whatsapp-meta';
 import { registerMessagingWhatsappTwilioIntegration } from './messaging-whatsapp-twilio';
 import { registerMistralIntegration } from './mistral';
@@ -64,6 +65,7 @@ export function createDefaultIntegrationSpecRegistry(): IntegrationSpecRegistry 
 	registerTwilioSmsIntegration(registry);
 	registerMessagingSlackIntegration(registry);
 	registerMessagingGithubIntegration(registry);
+	registerMessagingTelegramIntegration(registry);
 	registerMessagingWhatsappMetaIntegration(registry);
 	registerMessagingWhatsappTwilioIntegration(registry);
 	registerGcsStorageIntegration(registry);

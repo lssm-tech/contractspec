@@ -22,6 +22,7 @@ import { useAgentMutations } from './hooks/useAgentMutations';
 import { type RunMetrics, useRunList } from './hooks/useRunList';
 import { AgentActionsModal } from './modals/AgentActionsModal';
 import { CreateAgentModal } from './modals/CreateAgentModal';
+import { AgentVisualizationOverview } from './AgentDashboard.visualizations';
 // import { AgentListView } from './views/AgentListView';
 import { RunListView } from './views/RunListView';
 import { ToolRegistryView } from './views/ToolRegistryView';
@@ -34,7 +35,7 @@ export function AgentDashboard() {
 	const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
 	const [isAgentActionsOpen, setIsAgentActionsOpen] = useState(false);
 
-	const { metrics, refetch: refetchRuns } = useRunList();
+	const { data: runData, metrics, refetch: refetchRuns } = useRunList();
 	const { refetch: refetchAgents } = useAgentList();
 
 	const mutations = useAgentMutations({
@@ -114,6 +115,8 @@ export function AgentDashboard() {
 					/>
 				))}
 			</StatCardGroup>
+
+			<AgentVisualizationOverview runs={runData?.items ?? []} />
 
 			{/* Navigation Tabs */}
 			<nav className="flex gap-1 rounded-lg bg-muted p-1" role="tablist">

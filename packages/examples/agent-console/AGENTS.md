@@ -46,11 +46,13 @@ Agent Console example - AI agent orchestration with tools, runs, and logs.
 
 - `bun run dev` — contractspec-bun-build dev
 - `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
-- `bun run test` — bun test --pass-with-no-tests
+- `bun run test` — bun test
 - `bun run lint` — bun lint:fix
 - `bun run lint:check` — biome check .
 - `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
 - `bun run typecheck` — tsc --noEmit
+- `bun run proof` — bun ../../../scripts/generate-agent-console-meetup-proof.ts
+- `bun run preflight` — bun run build && bun run typecheck && bun run test && bun ../../../scripts/check-agent-console-meetup-policy.ts && bun run proof
 - `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
 - `bun run publish:pkg:canary` — bun publish:pkg --tag canary
 - `bun run clean` — rimraf dist .turbo

@@ -4,6 +4,7 @@
  * Defines the feature module for the SaaS application foundation.
  */
 import { defineFeature } from '@contractspec/lib.contracts-spec';
+import { SaasVisualizationRefs } from './visualizations';
 
 /**
  * SaaS Boilerplate feature module that bundles project management,
@@ -101,6 +102,8 @@ export const SaasBoilerplateFeature = defineFeature({
 			targets: ['react', 'markdown'],
 		},
 	],
+
+	visualizations: SaasVisualizationRefs,
 
 	// Capability requirements
 	capabilities: {

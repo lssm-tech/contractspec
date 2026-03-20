@@ -1,8 +1,25 @@
 /**
  * Mock handlers for Agent contracts.
  */
+
 import { MOCK_AGENTS } from '../shared/mock-agents';
 import { MOCK_TOOLS } from '../shared/mock-tools';
+import {
+	CreateAgentCommand,
+	GetAgentQuery,
+	ListAgentsQuery,
+	UpdateAgentCommand,
+} from './agent.operation';
+
+const AGENT_HANDLER_CONTRACTS = [
+	CreateAgentCommand,
+	GetAgentQuery,
+	ListAgentsQuery,
+	UpdateAgentCommand,
+] as const;
+void AGENT_HANDLER_CONTRACTS;
+
+let nextMockAgentId = MOCK_AGENTS.length + 1;
 
 export interface ListAgentsInput {
 	organizationId: string;
@@ -152,7 +169,7 @@ export async function mockCreateAgentHandler(input: {
 	);
 	if (exists) throw new Error('SLUG_EXISTS');
 	return {
-		id: `agent-${Date.now()}`,
+		id: `agent-${nextMockAgentId++}`,
 		name: input.name,
 		slug: input.slug,
 		status: 'DRAFT' as const,

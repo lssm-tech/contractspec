@@ -16,6 +16,8 @@ import {
 import { useState } from 'react';
 import { useIntegrationData } from './hooks/useIntegrationData';
 import { IntegrationHubChat } from './IntegrationHubChat';
+import { IntegrationVisualizationOverview } from './IntegrationDashboard.visualizations';
+import { ConnectionsTable, SyncConfigsTable } from './tables/IntegrationTables';
 
 type Tab = 'integrations' | 'connections' | 'syncs' | 'chat';
 
@@ -106,6 +108,12 @@ export function IntegrationDashboard() {
 				/>
 			</StatCardGroup>
 
+			<IntegrationVisualizationOverview
+				connections={connections}
+				integrations={integrations}
+				syncConfigs={syncConfigs}
+			/>
+
 			{/* Navigation Tabs */}
 			<nav className="flex gap-1 rounded-lg bg-muted p-1" role="tablist">
 				{tabs.map((tab) => (
@@ -168,52 +176,7 @@ export function IntegrationDashboard() {
 				)}
 
 				{activeTab === 'connections' && (
-					<div className="rounded-lg border border-border">
-						<table className="w-full">
-							<thead className="border-border border-b bg-muted/30">
-								<tr>
-									<th className="px-4 py-3 text-left font-medium text-sm">
-										Connection
-									</th>
-									<th className="px-4 py-3 text-left font-medium text-sm">
-										Status
-									</th>
-									<th className="px-4 py-3 text-left font-medium text-sm">
-										Last Sync
-									</th>
-								</tr>
-							</thead>
-							<tbody className="divide-y divide-border">
-								{connections.map((conn) => (
-									<tr key={conn.id} className="hover:bg-muted/50">
-										<td className="px-4 py-3">
-											<div className="font-medium">{conn.name}</div>
-										</td>
-										<td className="px-4 py-3">
-											<span
-												className={`inline-flex rounded-full px-2 py-0.5 font-medium text-xs ${STATUS_COLORS[conn.status] ?? ''}`}
-											>
-												{conn.status}
-											</span>
-										</td>
-										<td className="px-4 py-3 text-muted-foreground text-sm">
-											{conn.lastSyncAt?.toLocaleString() ?? 'Never'}
-										</td>
-									</tr>
-								))}
-								{connections.length === 0 && (
-									<tr>
-										<td
-											colSpan={3}
-											className="px-4 py-8 text-center text-muted-foreground"
-										>
-											No connections found
-										</td>
-									</tr>
-								)}
-							</tbody>
-						</table>
-					</div>
+					<ConnectionsTable connections={connections} />
 				)}
 
 				{activeTab === 'chat' && (
@@ -230,59 +193,7 @@ export function IntegrationDashboard() {
 				)}
 
 				{activeTab === 'syncs' && (
-					<div className="rounded-lg border border-border">
-						<table className="w-full">
-							<thead className="border-border border-b bg-muted/30">
-								<tr>
-									<th className="px-4 py-3 text-left font-medium text-sm">
-										Sync Config
-									</th>
-									<th className="px-4 py-3 text-left font-medium text-sm">
-										Frequency
-									</th>
-									<th className="px-4 py-3 text-left font-medium text-sm">
-										Status
-									</th>
-									<th className="px-4 py-3 text-left font-medium text-sm">
-										Records
-									</th>
-								</tr>
-							</thead>
-							<tbody className="divide-y divide-border">
-								{syncConfigs.map((sync) => (
-									<tr key={sync.id} className="hover:bg-muted/50">
-										<td className="px-4 py-3">
-											<div className="font-medium">{sync.name}</div>
-											<div className="text-muted-foreground text-sm">
-												{sync.sourceEntity} → {sync.targetEntity}
-											</div>
-										</td>
-										<td className="px-4 py-3 text-sm">{sync.frequency}</td>
-										<td className="px-4 py-3">
-											<span
-												className={`inline-flex rounded-full px-2 py-0.5 font-medium text-xs ${STATUS_COLORS[sync.status] ?? ''}`}
-											>
-												{sync.status}
-											</span>
-										</td>
-										<td className="px-4 py-3 text-muted-foreground text-sm">
-											{sync.recordsSynced.toLocaleString()}
-										</td>
-									</tr>
-								))}
-								{syncConfigs.length === 0 && (
-									<tr>
-										<td
-											colSpan={4}
-											className="px-4 py-8 text-center text-muted-foreground"
-										>
-											No sync configurations found
-										</td>
-									</tr>
-								)}
-							</tbody>
-						</table>
-					</div>
+					<SyncConfigsTable syncConfigs={syncConfigs} />
 				)}
 			</div>
 		</div>

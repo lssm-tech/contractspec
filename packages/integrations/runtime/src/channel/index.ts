@@ -9,6 +9,7 @@ export * from './service';
 export * from './slack';
 export * from './store';
 export * from './telemetry';
+export * from './telegram';
 export * from './types';
 export * from './whatsapp-meta';
 export * from './whatsapp-twilio';

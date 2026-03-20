@@ -1,6 +1,7 @@
 export type ChannelProviderKey =
 	| 'messaging.slack'
 	| 'messaging.github'
+	| 'messaging.telegram'
 	| 'messaging.whatsapp.meta'
 	| 'messaging.whatsapp.twilio'
 	| (string & {});

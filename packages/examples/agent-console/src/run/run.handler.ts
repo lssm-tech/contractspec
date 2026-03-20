@@ -4,6 +4,22 @@
 
 import { MOCK_AGENTS } from '../shared/mock-agents';
 import { MOCK_RUNS } from '../shared/mock-runs';
+import {
+	CancelRunCommand,
+	ExecuteAgentCommand,
+	GetRunQuery,
+	ListRunsQuery,
+} from './run.operation';
+
+const RUN_HANDLER_CONTRACTS = [
+	CancelRunCommand,
+	ExecuteAgentCommand,
+	GetRunQuery,
+	ListRunsQuery,
+] as const;
+void RUN_HANDLER_CONTRACTS;
+
+let nextMockRunId = MOCK_RUNS.length + 1;
 
 export interface ListRunsInput {
 	organizationId?: string;
@@ -117,7 +133,7 @@ export async function mockExecuteAgentHandler(input: {
 	if (agent.status !== 'ACTIVE') throw new Error('AGENT_NOT_ACTIVE');
 
 	return {
-		runId: `run-${Date.now()}`,
+		runId: `run-${nextMockRunId++}`,
 		status: 'QUEUED' as const,
 		estimatedWaitMs: 500,
 	};

@@ -12,3 +12,4 @@ export * from './review';
 // Domain exports
 export * from './store';
 export * from './ui';
+export * from './visualizations';

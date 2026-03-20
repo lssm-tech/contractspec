@@ -8,12 +8,23 @@ import {
 	mockGetSubscriptionHandler,
 	mockListProjectsHandler,
 } from '../../handlers';
+import { createSaasVisualizationItems } from '../../visualizations';
 
-interface ProjectItem {
-	id: string;
-	name: string;
-	status: string;
-	description?: string;
+type ListProjectsResult = Awaited<ReturnType<typeof mockListProjectsHandler>>;
+type ProjectItem = ListProjectsResult['projects'][number];
+type VisualizationProject = Parameters<typeof createSaasVisualizationItems>[0][number];
+
+const PROJECT_TIERS: VisualizationProject['tier'][] = ['FREE', 'PRO', 'ENTERPRISE'];
+
+function toVisualizationProject(
+	project: ProjectItem,
+	index: number
+): VisualizationProject {
+	return {
+		status: project.status === 'DELETED' ? 'ARCHIVED' : project.status,
+		tier: PROJECT_TIERS[index % PROJECT_TIERS.length] ?? 'FREE',
+		createdAt: project.createdAt,
+	};
 }
 
 /**
@@ -39,11 +50,7 @@ export const projectListMarkdownRenderer: PresentationRenderer<{
 			offset: 0,
 		});
 
-		// The example handler returns 'projects', not 'items'
-		const items =
-			(data as { projects?: ProjectItem[]; items?: ProjectItem[] }).projects ??
-			(data as { items?: ProjectItem[] }).items ??
-			[];
+		const items = data.projects ?? [];
 
 		const lines: string[] = [
 			'# Projects',
@@ -100,12 +107,15 @@ export const saasDashboardMarkdownRenderer: PresentationRenderer<{
 			mockGetSubscriptionHandler(),
 		]);
 
-		const projects =
-			(projectsData as { projects?: ProjectItem[] }).projects ?? [];
+		const projects = projectsData.projects ?? [];
 		const activeProjects = projects.filter((p) => p.status === 'ACTIVE').length;
 		const archivedProjects = projects.filter(
 			(p) => p.status === 'ARCHIVED'
 		).length;
+		const visualizations = createSaasVisualizationItems(
+			projects.map(toVisualizationProject),
+			10
+		);
 
 		const lines: string[] = [
 			'# SaaS Dashboard',
@@ -122,9 +132,17 @@ export const saasDashboardMarkdownRenderer: PresentationRenderer<{
 			`| Subscription Plan | ${subscription.planName} |`,
 			`| Subscription Status | ${subscription.status} |`,
 			'',
-			'## Projects',
-			'',
 		];
+
+		lines.push('## Visualization Overview');
+		lines.push('');
+		for (const item of visualizations) {
+			lines.push(`- **${item.title}** via \`${item.spec.meta.key}\``);
+		}
+
+		lines.push('');
+		lines.push('## Projects');
+		lines.push('');
 
 		if (projects.length === 0) {
 			lines.push('_No projects yet._');

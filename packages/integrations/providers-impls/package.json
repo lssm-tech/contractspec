@@ -104,6 +104,7 @@
     "./impls/linear": "./src/impls/linear.ts",
     "./impls/messaging-github": "./src/impls/messaging-github.ts",
     "./impls/messaging-slack": "./src/impls/messaging-slack.ts",
+    "./impls/messaging-telegram": "./src/impls/messaging-telegram.ts",
     "./impls/messaging-whatsapp-meta": "./src/impls/messaging-whatsapp-meta.ts",
     "./impls/messaging-whatsapp-twilio": "./src/impls/messaging-whatsapp-twilio.ts",
     "./impls/mistral-conversational": "./src/impls/mistral-conversational.ts",
@@ -398,6 +399,12 @@
         "bun": "./dist/impls/messaging-slack.js",
         "node": "./dist/node/impls/messaging-slack.js",
         "default": "./dist/impls/messaging-slack.js"
+      },
+      "./impls/messaging-telegram": {
+        "types": "./dist/impls/messaging-telegram.d.ts",
+        "bun": "./dist/impls/messaging-telegram.js",
+        "node": "./dist/node/impls/messaging-telegram.js",
+        "default": "./dist/impls/messaging-telegram.js"
       },
       "./impls/messaging-whatsapp-meta": {
         "types": "./dist/impls/messaging-whatsapp-meta.d.ts",

@@ -9,6 +9,7 @@ import {
 import { HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { H1, Muted } from '@contractspec/lib.ui-kit-web/ui/typography';
 import { listExamples } from '@contractspec/module.examples';
+import { getExampleShowcaseData } from './exampleShowcaseData';
 
 interface ExampleItem extends Record<string, unknown> {
 	id: string;
@@ -23,6 +24,12 @@ function buildReferenceRoute(key: string) {
 	return `/docs/reference/${key}/${key}`;
 }
 
+function buildDocsRoute(key: string) {
+	return getExampleShowcaseData(key)?.sandboxHref
+		? `/docs/examples/${key}`
+		: buildReferenceRoute(key);
+}
+
 export function DocsExamplesPage() {
 	const items: ExampleItem[] = listExamples()
 		.map((example) => {
@@ -31,7 +38,7 @@ export function DocsExamplesPage() {
 				id: example.meta.key,
 				title,
 				summary: example.meta.summary ?? example.meta.description,
-				route: buildReferenceRoute(example.meta.key),
+				route: buildDocsRoute(example.meta.key),
 				tags: example.meta.tags,
 				sandboxEnabled: example.surfaces.sandbox.enabled,
 			};
@@ -65,7 +72,11 @@ export function DocsExamplesPage() {
 					return (
 						<HStack gap="xs" justify="end">
 							{example.sandboxEnabled ? (
-								<ButtonLink href="/sandbox" size="sm" variant="outline">
+								<ButtonLink
+									href={`/sandbox?template=${example.id}`}
+									size="sm"
+									variant="outline"
+								>
 									Sandbox
 								</ButtonLink>
 							) : null}

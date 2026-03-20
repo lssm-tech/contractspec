@@ -15,11 +15,16 @@ const TEST_ENV_KEYS = [
 	'CHANNEL_ALLOW_UNMAPPED_WORKSPACE',
 	'CHANNEL_WORKSPACE_MAP_SLACK',
 	'CHANNEL_WORKSPACE_MAP_GITHUB',
+	'CHANNEL_WORKSPACE_MAP_TELEGRAM',
 	'CHANNEL_WORKSPACE_MAP_WHATSAPP_META',
 	'CHANNEL_WORKSPACE_MAP_WHATSAPP_TWILIO',
 	'SLACK_SIGNING_SECRET',
 	'SLACK_BOT_TOKEN',
 	'SLACK_DEFAULT_CHANNEL_ID',
+	'TELEGRAM_BOT_TOKEN',
+	'TELEGRAM_WEBHOOK_SECRET_TOKEN',
+	'TELEGRAM_DEFAULT_CHAT_ID',
+	'TELEGRAM_API_BASE_URL',
 	'GITHUB_WEBHOOK_SECRET',
 	'GITHUB_TOKEN',
 	'WHATSAPP_META_APP_SECRET',
@@ -217,6 +222,88 @@ describe('channel runtime integration', () => {
 				headers: {
 					authorization: 'Bearer dispatch-token',
 				},
+			})
+		);
+
+		expect(dispatchResponse.status).toBe(200);
+		const dispatchJson = (await dispatchResponse.json()) as {
+			ok: boolean;
+			summary: { sent: number };
+		};
+		expect(dispatchJson.ok).toBe(true);
+		expect(dispatchJson.summary.sent).toBe(1);
+		expect(Array.from(store.outbox.values())[0]?.status).toBe('sent');
+	});
+
+	it('processes Telegram webhook and dispatches outbound message', async () => {
+		process.env.CHANNEL_WORKSPACE_MAP_TELEGRAM = JSON.stringify({
+			'-1001234567890': 'workspace-telegram',
+		});
+		process.env.TELEGRAM_BOT_TOKEN = '123456789:AA-test';
+		process.env.TELEGRAM_WEBHOOK_SECRET_TOKEN = 'telegram-secret';
+
+		const payload = {
+			update_id: 1001,
+			message: {
+				message_id: 55,
+				date: Math.floor(Date.now() / 1000),
+				text: 'status messaging',
+				chat: {
+					id: -1001234567890,
+					type: 'supergroup',
+					username: 'contractspec_demo',
+				},
+				from: {
+					id: 123456,
+					username: 'tboutron',
+				},
+			},
+		};
+
+		const ingestResponse = await app.handle(
+			new Request('http://localhost/webhooks/telegram/events', {
+				method: 'POST',
+				headers: {
+					'content-type': 'application/json',
+					'x-telegram-bot-api-secret-token': 'telegram-secret',
+				},
+				body: JSON.stringify(payload),
+			})
+		);
+
+		expect(ingestResponse.status).toBe(200);
+		const store =
+			getChannelRuntimeStoreForTests() as InMemoryChannelRuntimeStore;
+		expect(store.outbox.size).toBe(1);
+
+		globalThis.fetch = (async (input: RequestInfo | URL) => {
+			const url = String(input);
+			if (url.includes('/bot123456789:AA-test/sendMessage')) {
+				return new Response(
+					JSON.stringify({
+						ok: true,
+						result: {
+							message_id: 999,
+							chat: { id: -1001234567890 },
+						},
+					}),
+					{
+						status: 200,
+						headers: { 'content-type': 'application/json' },
+					}
+				);
+			}
+			return new Response('{}', { status: 200 });
+		}) as typeof fetch;
+
+		const dispatchResponse = await app.handle(
+			new Request('http://localhost/internal/channel/dispatch', {
+				method: 'POST',
+				headers: {
+					'content-type': 'application/json',
+					'x-channel-dispatch-token': 'dispatch-token',
+				},
+				body: '{}',
 			})
 		);
 

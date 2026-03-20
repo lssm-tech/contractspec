@@ -28,7 +28,7 @@ const integrationHubDocBlocks: DocBlock[] = [
 
 ## UI / Presentations
 
-- Dashboard, integration list, connection detail, sync config editor.
+- Dashboard, integration list, connection detail, sync config editor, and shared ContractSpec tables for connections/sync configs.
 - Templates registered as \`integration-hub\` in Template Registry.
 
 ## Notes
@@ -36,6 +36,7 @@ const integrationHubDocBlocks: DocBlock[] = [
 - Providers remain agnostic; keep mappings declarative for safe regeneration.
 - Seed data includes voice integrations for \`ai-voice.gradium\` and \`ai-voice.fal\`.
 - Feature flags can gate specific providers; metering can track sync volume.
+- The dashboard tables demonstrate client-mode sorting, pagination, visibility, pinning, resizing, and row expansion on the shared table stack.
 `,
 	},
 	{

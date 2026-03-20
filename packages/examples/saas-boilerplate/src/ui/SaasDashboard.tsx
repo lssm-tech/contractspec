@@ -30,6 +30,7 @@ import {
 import { useProjectMutations } from './hooks/useProjectMutations';
 import { CreateProjectModal } from './modals/CreateProjectModal';
 import { ProjectActionsModal } from './modals/ProjectActionsModal';
+import { SaasVisualizationOverview } from './SaasDashboard.visualizations';
 
 type Tab = 'projects' | 'billing' | 'settings';
 
@@ -113,6 +114,13 @@ export function SaasDashboard() {
 						hint={subscription.status}
 					/>
 				</StatCardGroup>
+			)}
+
+			{data && stats && (
+				<SaasVisualizationOverview
+					projectLimit={stats.projectLimit}
+					projects={data.items}
+				/>
 			)}
 
 			{/* Navigation Tabs */}

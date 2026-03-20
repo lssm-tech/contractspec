@@ -10,7 +10,7 @@ export const OpenCodeCliFeature = defineFeature({
 		domain: 'example',
 		owners: ['@contractspec/examples'],
 		tags: ['opencode', 'example', 'cli'],
-		stability: 'experimental',
+		stability: 'stable',
 	},
 
 	operations: [{ key: 'opencode.example.echo', version: '1.0.0' }],

@@ -16,9 +16,9 @@ const PRESENTATIONS_BY_TEMPLATE: Record<string, string[]> = {
 	'crm-pipeline': ['crm-pipeline.dashboard', 'crm-pipeline.deal.pipeline'],
 	'agent-console': [
 		'agent-console.dashboard',
-		'agent-console.agent.list',
+		'agent-console.agent.viewList',
 		'agent-console.run.list',
-		'agent-console.tool.registry',
+		'agent-console.tool.list',
 	],
 	'workflow-system': [
 		'workflow-system.dashboard',
@@ -29,7 +29,6 @@ const PRESENTATIONS_BY_TEMPLATE: Record<string, string[]> = {
 		'marketplace.dashboard',
 		'marketplace.product.catalog',
 		'marketplace.order.list',
-		'marketplace.store.manage',
 	],
 	'integration-hub': [
 		'integration-hub.dashboard',
@@ -41,6 +40,7 @@ const PRESENTATIONS_BY_TEMPLATE: Record<string, string[]> = {
 		'analytics-dashboard.list',
 		'analytics-dashboard.query.builder',
 	],
+	'visualization-showcase': ['visualization-showcase.gallery'],
 	'learning-journey-studio-onboarding': [
 		'learning.journey.track_list',
 		'learning.journey.track_detail',
@@ -72,6 +72,36 @@ const PRESENTATIONS_BY_TEMPLATE: Record<string, string[]> = {
 		'learning.journey.progress_widget',
 	],
 };
+
+const GENERATED_TEMPLATE_REGISTRY: TemplateDefinition[] = listExamples()
+	.filter((example) => example.meta.key !== 'agent-console')
+	.map((example): TemplateDefinition => {
+		const tags = [...(example.meta.tags ?? [])];
+		const category: TemplateCategory =
+			tags.some((tag) => tag.toLowerCase() === 'ai') ||
+			tags.some((tag) => tag.toLowerCase() === 'assistant')
+				? 'ai'
+				: 'business';
+
+		return {
+			id: example.meta.key,
+			name: example.meta.title ?? example.meta.key,
+			description: example.meta.description ?? '',
+			category,
+			complexity: 'beginner',
+			icon: '📦',
+			features: [],
+			tags,
+			schema: { models: [], contracts: [] },
+			components: { list: 'ExampleList', detail: 'ExampleDetail' },
+			preview: {
+				demoUrl: `/sandbox?template=${encodeURIComponent(example.meta.key)}`,
+			},
+			package: example.entrypoints.packageName,
+			presentations: PRESENTATIONS_BY_TEMPLATE[example.meta.key] ?? [],
+			renderTargets: ['react', 'markdown'],
+		};
+	});
 
 export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
 	{
@@ -162,39 +192,43 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
 			quickstart: '/docs/templates/recipe-app-i18n',
 		},
 	},
-	...listExamples().map((example) => {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any -- meta.keywords fallback if tags missing
-		const tags = (example.meta as any).keywords ?? [];
-
-		const category: TemplateCategory =
-			tags.some((t: string) => t.toLowerCase() === 'ai') ||
-			tags.some((t: string) => t.toLowerCase() === 'assistant')
-				? 'ai'
-				: 'business';
-
-		const complexity: TemplateComplexity = 'beginner';
-
-		const icon = '📦';
-
-		return {
-			id: example.meta.key,
-			name: example.meta.title ?? example.meta.key,
-			description: example.meta.description ?? '',
-			category,
-			complexity,
-			icon,
-			features: [],
-			tags: [...tags],
-			schema: { models: [], contracts: [] },
-			components: { list: 'ExampleList', detail: 'ExampleDetail' },
-			preview: {
-				demoUrl: `/sandbox?template=${encodeURIComponent(example.meta.key)}`,
-			},
-			package: example.entrypoints.packageName,
-			presentations: PRESENTATIONS_BY_TEMPLATE[example.meta.key] ?? [],
-			renderTargets: ['react', 'markdown'],
-		} satisfies TemplateDefinition;
-	}),
+	{
+		id: 'agent-console',
+		name: 'Agent Console',
+		description:
+			'Deterministic autonomous-agent walkthrough with seeded agents, tool registry, runs, metrics, and replayable proof.',
+		category: 'ai',
+		complexity: 'intermediate',
+		icon: '🤖',
+		features: [
+			'Seeded autonomous agents',
+			'Tool registry',
+			'Run execution history',
+			'Metrics',
+			'Markdown and React views',
+		],
+		tags: ['ai', 'agents', 'autonomous', 'meetup', 'sandbox'],
+		schema: {
+			models: ['Agent', 'Tool', 'Run'],
+			contracts: [
+				'agent-console.agent.list',
+				'agent-console.agent.create',
+				'agent-console.run.execute',
+			],
+		},
+		components: {
+			list: 'AgentListView',
+			detail: 'RunListView',
+			form: 'CreateAgentModal',
+		},
+		preview: {
+			demoUrl: '/sandbox?template=agent-console',
+		},
+		package: '@contractspec/example.agent-console',
+		presentations: PRESENTATIONS_BY_TEMPLATE['agent-console'] ?? [],
+		renderTargets: ['react', 'markdown'],
+	},
+	...GENERATED_TEMPLATE_REGISTRY,
 ];
 
 export function listTemplates(filter?: TemplateFilter): TemplateDefinition[] {

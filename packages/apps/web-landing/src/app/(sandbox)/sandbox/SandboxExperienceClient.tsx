@@ -12,8 +12,13 @@ import {
 	TerminalSquare,
 } from 'lucide-react';
 import dynamic from 'next/dynamic';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import type React from 'react';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import {
+	buildSandboxHref,
+	resolveSandboxTemplateId,
+} from './sandbox-config';
 
 // Studio dependencies removed for public split
 // import {
@@ -97,6 +102,22 @@ const SaasDashboard = dynamic(
 const CrmDashboard = dynamic(
 	() =>
 		import('@contractspec/example.crm-pipeline').then((m) => m.CrmDashboard),
+	{ ssr: false }
+);
+
+const DataGridShowcase = dynamic(
+	() =>
+		import('../../../../../../examples/data-grid-showcase/src/ui').then(
+			(m) => m.DataGridShowcase
+		),
+	{ ssr: false }
+);
+
+const VisualizationShowcase = dynamic(
+	() =>
+		import('../../../../../../examples/visualization-showcase/src/ui').then(
+			(m) => m.VisualizationShowcase
+		),
 	{ ssr: false }
 );
 
@@ -189,21 +210,71 @@ const MODULES: {
 ];
 
 export default function SandboxExperienceClient() {
+	const router = useRouter();
+	const pathname = usePathname();
+	const searchParams = useSearchParams();
 	const templates = useMemo(() => listTemplates(), []);
 	const examples = useMemo(() => listExamples(), []);
 	const exampleById = useMemo(
 		() => new Map(examples.map((e) => [e.meta.key, e] as const)),
 		[examples]
 	);
+	const templateIds = useMemo(
+		() => new Set(templates.map((template) => template.id)),
+		[templates]
+	);
+	const templateOptions = useMemo(
+		() =>
+			[...templates].sort((left, right) => {
+				if (left.id === 'agent-console') return -1;
+				if (right.id === 'agent-console') return 1;
+				return left.name.localeCompare(right.name);
+			}),
+		[templates]
+	);
+	const templateFromUrl = resolveSandboxTemplateId(
+		searchParams.get('template'),
+		templateIds
+	);
 
-	const [templateId, setTemplateId] = useState<TemplateId>('todos-app');
+	const [templateId, setTemplateId] = useState<TemplateId>(templateFromUrl);
 	const [mode, setMode] = useState<Mode>('playground');
 
-	const allowedModes: readonly Mode[] = useMemo(() => {
-		const example = exampleById.get(templateId);
+	const getAllowedModes = (nextTemplateId: TemplateId): readonly Mode[] => {
+		const example = exampleById.get(nextTemplateId);
 		const exampleModes = example ? example.surfaces.sandbox.modes : CORE_MODES;
 		return Array.from(new Set([...exampleModes, 'learning'] as const));
+	};
+
+	const allowedModes: readonly Mode[] = useMemo(() => {
+		return getAllowedModes(templateId);
 	}, [exampleById, templateId]);
+
+	useEffect(() => {
+		setTemplateId(templateFromUrl);
+	}, [templateFromUrl]);
+
+	useEffect(() => {
+		if (allowedModes.includes(mode)) {
+			return;
+		}
+		setMode(allowedModes[0] ?? 'playground');
+	}, [allowedModes, mode]);
+
+	useEffect(() => {
+		if (templateId === templateFromUrl) {
+			return;
+		}
+		const params = new URLSearchParams(searchParams.toString());
+		if (templateId === 'agent-console') {
+			params.delete('template');
+		} else {
+			params.set('template', templateId);
+		}
+		const query = params.toString();
+		const href = query ? `${pathname}?${query}` : buildSandboxHref(templateId);
+		router.replace(href, { scroll: false });
+	}, [pathname, router, searchParams, templateFromUrl, templateId]);
 
 	const displayName = useMemo(() => {
 		const example = exampleById.get(templateId);
@@ -222,6 +293,10 @@ export default function SandboxExperienceClient() {
 				return <SaasDashboard />;
 			case 'crm-pipeline':
 				return <CrmDashboard />;
+			case 'data-grid-showcase':
+				return <DataGridShowcase />;
+			case 'visualization-showcase':
+				return <VisualizationShowcase />;
 			case 'agent-console':
 				return <AgentDashboard />;
 			case 'workflow-system':
@@ -305,12 +380,13 @@ export default function SandboxExperienceClient() {
 			projectSelect={{
 				label: 'Template',
 				value: templateId,
-				options: templates.map((t) => ({ value: t.id, label: t.name })),
+				options: templateOptions.map((t) => ({ value: t.id, label: t.name })),
 				onChange: (value: string) => {
-					setTemplateId(value as TemplateId);
-					// recordLearningEvent removed
-					if (!allowedModes.includes(mode)) {
-						setMode(allowedModes[0] ?? 'playground');
+					const nextTemplateId = resolveSandboxTemplateId(value, templateIds);
+					setTemplateId(nextTemplateId);
+					const nextModes = getAllowedModes(nextTemplateId);
+					if (!nextModes.includes(mode)) {
+						setMode(nextModes[0] ?? 'playground');
 					}
 				},
 			}}

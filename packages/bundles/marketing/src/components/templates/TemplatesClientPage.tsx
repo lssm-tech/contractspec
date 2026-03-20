@@ -71,6 +71,30 @@ const templates = [
 		docsUrl: '/docs/templates/crm-pipeline',
 	},
 	{
+		id: 'data-grid-showcase',
+		templateId: 'data-grid-showcase' as TemplateId,
+		title: 'Data Grid Showcase',
+		description:
+			'Focused example for ContractSpec headless tables across client, server, and DataView-driven lanes.',
+		tags: ['Ops', 'Business'],
+		capabilities: 'Tables, Sorting, Pagination, Column Controls',
+		isNew: true,
+		previewUrl: '/sandbox?template=data-grid-showcase',
+		docsUrl: '/docs/examples/data-grid-showcase',
+	},
+	{
+		id: 'visualization-showcase',
+		templateId: 'visualization-showcase' as TemplateId,
+		title: 'Visualization Showcase',
+		description:
+			'Canonical ContractSpec example for chart primitives, shared visualization contracts, and opinionated dashboard blocks.',
+		tags: ['Ops', 'Visualization'],
+		capabilities: 'Metrics, Charts, Timelines, Comparisons',
+		isNew: true,
+		previewUrl: '/sandbox?template=visualization-showcase',
+		docsUrl: '/docs/examples/visualization-showcase',
+	},
+	{
 		id: 'agent-console',
 		templateId: 'agent-console' as TemplateId,
 		title: 'AI Agent Console',
@@ -80,7 +104,19 @@ const templates = [
 		capabilities: 'Tools, Agents, Runs, Metrics',
 		isNew: true,
 		previewUrl: '/sandbox?template=agent-console',
-		docsUrl: '/docs/templates/agent-console',
+		docsUrl: '/docs/examples/agent-console',
+	},
+	{
+		id: 'ai-chat-assistant',
+		templateId: 'ai-chat-assistant' as TemplateId,
+		title: 'AI Chat Assistant',
+		description:
+			'Focused assistant template with reasoning, sources, suggestions, and MCP-aware tooling.',
+		tags: ['AI', 'Ops'],
+		capabilities: 'Chat UX, Sources, Suggestions, MCP',
+		isNew: true,
+		previewUrl: '/sandbox?template=ai-chat-assistant',
+		docsUrl: '/docs/examples/ai-chat-assistant',
 	},
 	// ============================================
 	// Phase 2-4 Examples
@@ -95,7 +131,7 @@ const templates = [
 		capabilities: 'Workflows, Approvals, State Machine',
 		isNew: true,
 		previewUrl: '/sandbox?template=workflow-system',
-		docsUrl: '/docs/templates/workflow-system',
+		docsUrl: '/docs/examples/workflow-system',
 	},
 	{
 		id: 'marketplace',

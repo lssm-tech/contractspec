@@ -5,12 +5,12 @@
  */
 
 import {
-	mockListAgentsHandler,
-	mockListRunsHandler,
-	mockListToolsHandler,
-} from '@contractspec/example.agent-console/handlers';
+	type AgentConsoleDashboardData,
+	getFallbackAgentConsoleDashboardData,
+} from '@contractspec/example.agent-console/shared';
 import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
 import type { PresentationRenderer } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
+import { createAgentVisualizationItems } from '../../visualizations';
 
 function formatDuration(ms: number): string {
 	if (ms < 1000) return `${ms}ms`;
@@ -27,7 +27,7 @@ export const agentDashboardMarkdownRenderer: PresentationRenderer<{
 	body: string;
 }> = {
 	target: 'markdown',
-	render: async (desc: PresentationSpec) => {
+	render: async (desc: PresentationSpec, ctx) => {
 		// Only handle AgentConsoleDashboard
 		if (
 			desc.source.type !== 'component' ||
@@ -38,42 +38,28 @@ export const agentDashboardMarkdownRenderer: PresentationRenderer<{
 			);
 		}
 
-		// Fetch all data in parallel
-		const [agentsData, runsData, toolsData] = await Promise.all([
-			mockListAgentsHandler({
-				organizationId: 'demo-org',
-				limit: 100,
-			}),
-			mockListRunsHandler({
-				limit: 100,
-			}),
-			mockListToolsHandler({
-				organizationId: 'demo-org',
-				limit: 100,
-			}),
-		]);
+		const data =
+			(ctx?.data as AgentConsoleDashboardData | undefined) ??
+			(await getFallbackAgentConsoleDashboardData());
 
 		// Calculate stats
-		const activeAgents = agentsData.items.filter(
+		const activeAgents = data.agents.filter(
 			(a) => a.status === 'ACTIVE'
 		).length;
-		const completedRuns = runsData.items.filter(
+		const completedRuns = data.runs.filter(
 			(r) => r.status === 'COMPLETED'
 		).length;
-		const failedRuns = runsData.items.filter(
-			(r) => r.status === 'FAILED'
-		).length;
-		const totalTokens = runsData.items.reduce(
+		const failedRuns = data.runs.filter((r) => r.status === 'FAILED').length;
+		const totalTokens = data.runs.reduce(
 			(sum, r) => sum + (r.totalTokens ?? 0),
 			0
 		);
-		const totalCost = runsData.items.reduce(
+		const totalCost = data.runs.reduce(
 			(sum, r) => sum + (r.estimatedCostUsd ?? 0),
 			0
 		);
-		const activeTools = toolsData.items.filter(
-			(t) => t.status === 'ACTIVE'
-		).length;
+		const activeTools = data.tools.filter((t) => t.status === 'ACTIVE').length;
+		const visualizationItems = createAgentVisualizationItems(data.runs);
 
 		// Build dashboard markdown
 		const lines: string[] = [
@@ -85,14 +71,14 @@ export const agentDashboardMarkdownRenderer: PresentationRenderer<{
 			'',
 			'| Metric | Value |',
 			'|--------|-------|',
-			`| Total Agents | ${agentsData.total} |`,
+			`| Total Agents | ${data.summary.totalAgents} |`,
 			`| Active Agents | ${activeAgents} |`,
-			`| Total Runs | ${runsData.total} |`,
+			`| Total Runs | ${data.summary.totalRuns} |`,
 			`| Completed Runs | ${completedRuns} |`,
 			`| Failed Runs | ${failedRuns} |`,
 			`| Total Tokens | ${totalTokens.toLocaleString()} |`,
 			`| Total Cost | $${totalCost.toFixed(4)} |`,
-			`| Total Tools | ${toolsData.total} |`,
+			`| Total Tools | ${data.summary.totalTools} |`,
 			`| Active Tools | ${activeTools} |`,
 			'',
 			'## Agents',
@@ -100,18 +86,20 @@ export const agentDashboardMarkdownRenderer: PresentationRenderer<{
 		];
 
 		// Agent list
-		if (agentsData.items.length === 0) {
+		if (data.agents.length === 0) {
 			lines.push('_No agents configured._');
 		} else {
 			lines.push('| Agent | Model | Status | Description |');
 			lines.push('|-------|-------|--------|-------------|');
-			for (const agent of agentsData.items.slice(0, 5)) {
+			for (const agent of data.agents.slice(0, 5)) {
 				lines.push(
 					`| ${agent.name} | ${agent.modelProvider}/${agent.modelName} | ${agent.status} | ${agent.description ?? '-'} |`
 				);
 			}
-			if (agentsData.items.length > 5) {
-				lines.push(`| ... | ... | ... | _${agentsData.total - 5} more_ |`);
+			if (data.agents.length > 5) {
+				lines.push(
+					`| ... | ... | ... | _${data.summary.totalAgents - 5} more_ |`
+				);
 			}
 		}
 
@@ -120,21 +108,28 @@ export const agentDashboardMarkdownRenderer: PresentationRenderer<{
 		lines.push('');
 
 		// Recent runs
-		if (runsData.items.length === 0) {
+		if (data.runs.length === 0) {
 			lines.push('_No runs yet._');
 		} else {
 			lines.push('| Run ID | Agent | Status | Duration | Tokens | Cost |');
 			lines.push('|--------|-------|--------|----------|--------|------|');
-			for (const run of runsData.items.slice(0, 5)) {
+			for (const run of data.runs.slice(0, 5)) {
 				lines.push(
 					`| ${run.id.slice(-8)} | ${run.agentName} | ${run.status} | ${run.durationMs ? formatDuration(run.durationMs) : '-'} | ${run.totalTokens ?? 0} | $${(run.estimatedCostUsd ?? 0).toFixed(4)} |`
 				);
 			}
-			if (runsData.items.length > 5) {
+			if (data.runs.length > 5) {
 				lines.push(
-					`| ... | ... | ... | ... | ... | _${runsData.total - 5} more_ |`
+					`| ... | ... | ... | ... | ... | _${data.summary.totalRuns - 5} more_ |`
 				);
 			}
+		}
+
+		lines.push('');
+		lines.push('## Visualization Overview');
+		lines.push('');
+		for (const item of visualizationItems) {
+			lines.push(`- **${item.title}** via \`${item.spec.meta.key}\``);
 		}
 
 		lines.push('');
@@ -142,8 +137,8 @@ export const agentDashboardMarkdownRenderer: PresentationRenderer<{
 		lines.push('');
 
 		// Tool categories
-		const toolsByCategory: Record<string, typeof toolsData.items> = {};
-		for (const tool of toolsData.items) {
+		const toolsByCategory: Record<string, typeof data.tools> = {};
+		for (const tool of data.tools) {
 			const cat = tool.category;
 			if (!toolsByCategory[cat]) toolsByCategory[cat] = [];
 			toolsByCategory[cat].push(tool);

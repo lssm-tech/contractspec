@@ -10,6 +10,7 @@ Website: https://contractspec.io
 - Per-entity schema/enum/event/operations/presentation pattern.
 - Capability and feature definition patterns.
 - React UI with hooks, renderers, and dashboard component.
+- Contract-backed visualizations for order status, category value comparison, and recent order activity.
 - Seeder pattern for demo data.
 - Test-spec for operations validation.
 

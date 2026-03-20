@@ -1,7 +1,6 @@
 {
 	"name": "@contractspec/example.opencode-cli",
 	"version": "2.7.7",
-	"private": true,
 	"type": "module",
 	"exports": {
 		".": "./src/index.ts",
@@ -12,11 +11,17 @@
 		"./opencode-cli.feature": "./src/opencode-cli.feature.ts"
 	},
 	"scripts": {
-		"build": "bun ../../apps/cli-contractspec/src/cli.ts build src/contracts/opencode.contracts.ts --agent-mode opencode",
-		"validate": "bun ../../apps/cli-contractspec/src/cli.ts validate src/contracts/opencode.contracts.ts --check-implementation --agent-mode opencode"
+		"build": "tsc --project tsconfig.json",
+		"scaffold": "bun ../../apps/cli-contractspec/src/cli.ts build src/contracts/opencode.contracts.ts --agent-mode opencode",
+		"validate": "bun ../../apps/cli-contractspec/src/cli.ts validate src/contracts/opencode.contracts.ts --check-implementation --agent-mode opencode",
+		"typecheck": "tsc --noEmit",
+		"test": "bun test",
+		"smoke": "bun test src/example.smoke.test.ts",
+		"preflight": "bun run build && bun run typecheck && bun run test && bun run validate && bun run smoke"
 	},
 	"devDependencies": {
-		"typescript": "^5.0.0"
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:"
 	},
 	"dependencies": {
 		"@contractspec/lib.contracts-spec": "workspace:*",

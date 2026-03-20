@@ -44,6 +44,7 @@ import {
 	workflowDefinitionListMarkdownRenderer,
 	workflowInstanceDetailMarkdownRenderer,
 } from '@contractspec/example.workflow-system';
+import { visualizationShowcaseMarkdownRenderer } from '../../../../examples/visualization-showcase/src/ui/renderers';
 import {
 	createDefaultTransformEngine,
 	registerBasicValidation,
@@ -113,6 +114,9 @@ function registerTemplateRenderers(engine: TransformEngine): void {
 	engine.register(analyticsDashboardMarkdownRenderer);
 	engine.register(dashboardListMarkdownRenderer);
 	engine.register(queryBuilderMarkdownRenderer);
+
+	// Visualization Showcase renderers
+	engine.register(visualizationShowcaseMarkdownRenderer);
 }
 
 /**

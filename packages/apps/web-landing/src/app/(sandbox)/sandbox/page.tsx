@@ -4,9 +4,11 @@ import SandboxExperienceClient from './SandboxExperienceClient';
 export const metadata: Metadata = {
 	title: 'Sandbox – ContractSpec',
 	description:
-		'Explore templates and spec-first workflows in your browser. Fully local runtime, no infrastructure required.',
+		'Explore the deterministic agent-console sandbox and other spec-first templates in your browser. Fully local runtime, no infrastructure required.',
 	keywords: [
 		'sandbox',
+		'agent console',
+		'autonomous agents',
 		'playground',
 		'interactive demo',
 		'templates',
@@ -17,7 +19,7 @@ export const metadata: Metadata = {
 	openGraph: {
 		title: 'Sandbox – ContractSpec',
 		description:
-			'Explore templates and spec-first workflows in your browser. Fully local runtime, no infrastructure required.',
+			'Explore the deterministic agent-console sandbox and other spec-first templates in your browser. Fully local runtime, no infrastructure required.',
 		url: 'https://www.contractspec.io/sandbox',
 		type: 'website',
 	},
@@ -25,7 +27,7 @@ export const metadata: Metadata = {
 		card: 'summary_large_image',
 		title: 'Sandbox – ContractSpec',
 		description:
-			'Explore templates and spec-first workflows in your browser. Fully local runtime, no infrastructure required.',
+			'Explore the deterministic agent-console sandbox and other spec-first templates in your browser. Fully local runtime, no infrastructure required.',
 	},
 	alternates: {
 		canonical: 'https://www.contractspec.io/sandbox',

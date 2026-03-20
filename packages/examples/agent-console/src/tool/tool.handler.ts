@@ -1,7 +1,26 @@
 /**
  * Mock handlers for Tool contracts.
  */
+
 import { MOCK_TOOLS } from '../shared/mock-tools';
+import {
+	CreateToolCommand,
+	GetToolQuery,
+	ListToolsQuery,
+	TestToolCommand,
+	UpdateToolCommand,
+} from './tool.operation';
+
+const TOOL_HANDLER_CONTRACTS = [
+	CreateToolCommand,
+	GetToolQuery,
+	ListToolsQuery,
+	TestToolCommand,
+	UpdateToolCommand,
+] as const;
+void TOOL_HANDLER_CONTRACTS;
+
+let nextMockToolId = MOCK_TOOLS.length + 1;
 
 export interface ListToolsInput {
 	organizationId: string;
@@ -107,7 +126,7 @@ export async function mockCreateToolHandler(input: {
 	);
 	if (exists) throw new Error('SLUG_EXISTS');
 	return {
-		id: `tool-${Date.now()}`,
+		id: `tool-${nextMockToolId++}`,
 		name: input.name,
 		slug: input.slug,
 		status: 'DRAFT' as const,
@@ -142,13 +161,11 @@ export async function mockTestToolHandler(input: {
 	const tool = MOCK_TOOLS.find((t) => t.id === input.toolId);
 	if (!tool) throw new Error('TOOL_NOT_FOUND');
 
-	// Simulate tool execution
-	const startTime = Date.now();
 	await new Promise((resolve) => setTimeout(resolve, 100));
 
 	return {
 		success: true,
 		output: { result: 'Test successful', input: input.testInput },
-		durationMs: Date.now() - startTime,
+		durationMs: 100,
 	};
 }

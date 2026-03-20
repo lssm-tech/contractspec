@@ -51,8 +51,10 @@
     "./ui/renderers/project-list.markdown": "./src/ui/renderers/project-list.markdown.ts",
     "./ui/renderers/project-list.renderer": "./src/ui/renderers/project-list.renderer.tsx",
     "./ui/SaasDashboard": "./src/ui/SaasDashboard.tsx",
+    "./ui/SaasDashboard.visualizations": "./src/ui/SaasDashboard.visualizations.tsx",
     "./ui/SaasProjectList": "./src/ui/SaasProjectList.tsx",
-    "./ui/SaasSettingsPanel": "./src/ui/SaasSettingsPanel.tsx"
+    "./ui/SaasSettingsPanel": "./src/ui/SaasSettingsPanel.tsx",
+    "./visualizations": "./src/visualizations/index.ts"
   },
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
@@ -413,12 +415,26 @@
         "node": "./dist/node/ui/SaasDashboard.js",
         "default": "./dist/ui/SaasDashboard.js"
       },
+      "./ui/SaasDashboard.visualizations": {
+        "types": "./dist/ui/SaasDashboard.visualizations.d.ts",
+        "browser": "./dist/browser/ui/SaasDashboard.visualizations.js",
+        "bun": "./dist/ui/SaasDashboard.visualizations.js",
+        "node": "./dist/node/ui/SaasDashboard.visualizations.js",
+        "default": "./dist/ui/SaasDashboard.visualizations.js"
+      },
       "./ui/SaasProjectList": {
         "types": "./dist/ui/SaasProjectList.d.ts",
         "browser": "./dist/browser/ui/SaasProjectList.js",
         "bun": "./dist/ui/SaasProjectList.js",
         "node": "./dist/node/ui/SaasProjectList.js",
         "default": "./dist/ui/SaasProjectList.js"
+      },
+      "./visualizations": {
+        "types": "./dist/visualizations/index.d.ts",
+        "browser": "./dist/browser/visualizations/index.js",
+        "bun": "./dist/visualizations/index.js",
+        "node": "./dist/node/visualizations/index.js",
+        "default": "./dist/visualizations/index.js"
       },
       "./ui/SaasSettingsPanel": {
         "types": "./dist/ui/SaasSettingsPanel.d.ts",

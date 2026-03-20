@@ -9,7 +9,7 @@ const example = defineExample({
 			'Smallest end-to-end ContractSpec example with one command and one feature.',
 		kind: 'template',
 		visibility: 'public',
-		stability: 'experimental',
+		stability: 'stable',
 		owners: ['@platform.core'],
 		tags: ['minimal', 'quickstart', 'example'],
 		summary: 'Single-command starter for validating the ContractSpec basics.',

@@ -65,6 +65,14 @@ export interface VisualizationProps {
 	onDataPointPress?: VisualizationInteractionHandler;
 }
 
+function canRenderCanvasCharts(): boolean {
+	if (typeof document === 'undefined') {
+		return false;
+	}
+	const canvas = document.createElement('canvas');
+	return typeof canvas.getContext === 'function' && canvas.getContext('2d') !== null;
+}
+
 export function Visualization({
 	model,
 	className,
@@ -78,7 +86,13 @@ export function Visualization({
 	);
 
 	React.useEffect(() => {
-		if (!shouldRenderEChart(model) || !chartRef.current) return;
+		if (
+			!shouldRenderEChart(model) ||
+			!chartRef.current ||
+			!canRenderCanvasCharts()
+		) {
+			return;
+		}
 
 		registerGeoMap(model);
 

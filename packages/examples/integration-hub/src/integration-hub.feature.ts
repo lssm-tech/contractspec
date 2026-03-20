@@ -2,6 +2,7 @@
  * Integration Hub Feature Module Specification
  */
 import { defineFeature } from '@contractspec/lib.contracts-spec';
+import { IntegrationVisualizationRefs } from './visualizations';
 
 export const IntegrationHubFeature = defineFeature({
 	meta: {
@@ -103,6 +104,8 @@ export const IntegrationHubFeature = defineFeature({
 			targets: ['react', 'markdown'],
 		},
 	],
+
+	visualizations: IntegrationVisualizationRefs,
 
 	capabilities: {
 		requires: [

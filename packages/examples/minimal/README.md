@@ -6,7 +6,7 @@
 
 - Bare-minimum contract definition (user contract).
 - `contractspec build` and `contractspec validate` CLI usage.
-- Private package pattern (not published).
+- Maintained example package included in the ContractSpec example registry.
 - `src/contracts/` contains contract specs, operations, entities, and registry exports.
 - `src/docs/` contains docblocks and documentation-facing exports.
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
@@ -15,6 +15,10 @@
 
 From `packages/examples/minimal`:
 - `bun run build`
+- `bun run test`
+- `bun run typecheck`
+- `bun run smoke`
+- `bun run preflight`
 
 ## Usage
 
@@ -42,6 +46,10 @@ Use `@contractspec/example.minimal` as a reference implementation, or import its
 
 - `bun run build` — bun ../../apps/cli-contractspec/src/cli.ts build src/contracts/user.ts
 - `bun run validate` — bun ../../apps/cli-contractspec/src/cli.ts validate src/contracts/user.ts
+- `bun run typecheck` — tsc --noEmit
+- `bun run test` — bun test
+- `bun run smoke` — bun test src/example.smoke.test.ts
+- `bun run preflight` — bun run build && bun run typecheck && bun run test && bun run validate && bun run smoke
 
 ## Recent Updates
 

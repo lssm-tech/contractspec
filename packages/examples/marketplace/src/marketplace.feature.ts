@@ -2,6 +2,7 @@
  * Marketplace Feature Module Specification
  */
 import { defineFeature } from '@contractspec/lib.contracts-spec';
+import { MarketplaceVisualizationRefs } from './visualizations';
 
 /**
  * Marketplace feature module that bundles multi-vendor marketplace
@@ -157,6 +158,8 @@ export const MarketplaceFeature = defineFeature({
 			targets: ['react', 'markdown'],
 		},
 	],
+
+	visualizations: MarketplaceVisualizationRefs,
 
 	capabilities: {
 		requires: [

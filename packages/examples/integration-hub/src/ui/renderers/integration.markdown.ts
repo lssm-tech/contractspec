@@ -2,9 +2,21 @@
  * Markdown renderers for Integration Hub presentations
  */
 import type { PresentationRenderer } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
+import type {
+	Connection,
+	Integration,
+} from '../../handlers/integration.handlers';
+import { createIntegrationVisualizationSections } from '../../visualizations';
 
 // Mock data for integration rendering
-const mockIntegrations = [
+const mockIntegrations: Array<
+	Pick<Integration, 'type'> & {
+		id: string;
+		name: string;
+		status: Integration['status'];
+		connectionCount: number;
+	}
+> = [
 	{
 		id: 'int-1',
 		name: 'Salesforce',
@@ -49,7 +61,15 @@ const mockIntegrations = [
 	},
 ];
 
-const mockConnections = [
+const mockConnections: Array<
+	Pick<Connection, 'status'> & {
+		id: string;
+		integrationId: string;
+		name: string;
+		lastSyncAt: string;
+		error?: string;
+	}
+> = [
 	{
 		id: 'conn-1',
 		integrationId: 'int-1',
@@ -155,6 +175,11 @@ export const integrationDashboardMarkdownRenderer: PresentationRenderer<{
 		const integrations = mockIntegrations;
 		const connections = mockConnections;
 		const syncs = mockSyncConfigs;
+		const visualizations = createIntegrationVisualizationSections(
+			integrations,
+			connections,
+			syncs
+		);
 
 		// Calculate stats
 		const activeIntegrations = integrations.filter(
@@ -185,11 +210,22 @@ export const integrationDashboardMarkdownRenderer: PresentationRenderer<{
 			`| Sync Configs | ${syncs.length} |`,
 			`| Records Synced (24h) | ${totalRecordsSynced.toLocaleString()} |`,
 			'',
-			'## Integrations',
-			'',
-			'| Name | Type | Connections | Status |',
-			'|------|------|-------------|--------|',
 		];
+
+		lines.push('## Visualization Overview');
+		lines.push('');
+		for (const item of [
+			...visualizations.primaryItems,
+			...visualizations.comparisonItems,
+		]) {
+			lines.push(`- **${item.title}** via \`${item.spec.meta.key}\``);
+		}
+
+		lines.push('');
+		lines.push('## Integrations');
+		lines.push('');
+		lines.push('| Name | Type | Connections | Status |');
+		lines.push('|------|------|-------------|--------|');
 
 		for (const integration of integrations) {
 			const statusIcon = integration.status === 'ACTIVE' ? '🟢' : '⚫';

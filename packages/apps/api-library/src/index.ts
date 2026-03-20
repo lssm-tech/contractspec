@@ -7,6 +7,7 @@ import { markdownHandler } from './handlers/markdown-handler';
 import { mcpHandler } from './handlers/mcp-handler';
 import { schemaHandler } from './handlers/schema-handler';
 import { slackWebhookHandler } from './handlers/slack-webhook-handler';
+import { telegramWebhookHandler } from './handlers/telegram-webhook-handler';
 import { whatsappWebhookHandler } from './handlers/whatsapp-webhook-handler';
 
 // const PORT = process.env.PORT || 8081;
@@ -22,6 +23,7 @@ const app = new Elysia()
 			schemas: '/schemas/contractsrc.json',
 			markdown: '/mdx/*',
 			slackWebhook: '/webhooks/slack/events',
+			telegramWebhook: '/webhooks/telegram/events',
 			githubWebhook: '/webhooks/github/events',
 			whatsappMetaWebhook: '/webhooks/whatsapp/meta',
 			whatsappTwilioWebhook: '/webhooks/whatsapp/twilio',
@@ -32,6 +34,7 @@ const app = new Elysia()
 	.use(mcpHandler)
 	.use(schemaHandler)
 	.use(slackWebhookHandler)
+	.use(telegramWebhookHandler)
 	.use(githubWebhookHandler)
 	.use(whatsappWebhookHandler)
 	.use(channelDispatchHandler);

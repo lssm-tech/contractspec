@@ -1,0 +1,159 @@
+{
+	"name": "@contractspec/example.data-grid-showcase",
+	"version": "3.7.7",
+	"description": "Focused data-grid example for ContractSpec table capabilities",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./contracts": "./src/contracts/index.ts",
+		"./contracts/data-grid-showcase.data-view": "./src/contracts/data-grid-showcase.data-view.ts",
+		"./contracts/data-grid-showcase.operation": "./src/contracts/data-grid-showcase.operation.ts",
+		"./docs": "./src/docs/index.ts",
+		"./docs/data-grid-showcase.docblock": "./src/docs/data-grid-showcase.docblock.ts",
+		"./example": "./src/example.ts",
+		"./ui": "./src/ui/index.ts",
+		"./ui/data-grid-showcase.columns": "./src/ui/data-grid-showcase.columns.tsx",
+		"./ui/data-grid-showcase.data": "./src/ui/data-grid-showcase.data.ts",
+		"./ui/data-grid-showcase.parts": "./src/ui/data-grid-showcase.parts.tsx",
+		"./ui/data-grid-showcase.tables": "./src/ui/data-grid-showcase.tables.tsx",
+		"./ui/DataGridShowcase": "./src/ui/DataGridShowcase.tsx"
+	},
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"test": "bun test",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.design-system": "workspace:*",
+		"@contractspec/lib.presentation-runtime-react": "workspace:*",
+		"@contractspec/lib.schema": "workspace:*",
+		"@contractspec/lib.ui-kit-web": "workspace:*",
+		"react": "catalog:",
+		"react-dom": "catalog:",
+		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"@types/react": "^19.2.14",
+		"@types/react-dom": "^19.2.2",
+		"@contractspec/tool.bun": "workspace:*",
+		"happy-dom": "^20.8.4",
+		"typescript": "catalog:"
+	},
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./contracts": {
+				"types": "./dist/contracts/index.d.ts",
+				"browser": "./dist/browser/contracts/index.js",
+				"bun": "./dist/contracts/index.js",
+				"node": "./dist/node/contracts/index.js",
+				"default": "./dist/contracts/index.js"
+			},
+			"./contracts/data-grid-showcase.data-view": {
+				"types": "./dist/contracts/data-grid-showcase.data-view.d.ts",
+				"browser": "./dist/browser/contracts/data-grid-showcase.data-view.js",
+				"bun": "./dist/contracts/data-grid-showcase.data-view.js",
+				"node": "./dist/node/contracts/data-grid-showcase.data-view.js",
+				"default": "./dist/contracts/data-grid-showcase.data-view.js"
+			},
+			"./contracts/data-grid-showcase.operation": {
+				"types": "./dist/contracts/data-grid-showcase.operation.d.ts",
+				"browser": "./dist/browser/contracts/data-grid-showcase.operation.js",
+				"bun": "./dist/contracts/data-grid-showcase.operation.js",
+				"node": "./dist/node/contracts/data-grid-showcase.operation.js",
+				"default": "./dist/contracts/data-grid-showcase.operation.js"
+			},
+			"./docs": {
+				"types": "./dist/docs/index.d.ts",
+				"browser": "./dist/browser/docs/index.js",
+				"bun": "./dist/docs/index.js",
+				"node": "./dist/node/docs/index.js",
+				"default": "./dist/docs/index.js"
+			},
+			"./docs/data-grid-showcase.docblock": {
+				"types": "./dist/docs/data-grid-showcase.docblock.d.ts",
+				"browser": "./dist/browser/docs/data-grid-showcase.docblock.js",
+				"bun": "./dist/docs/data-grid-showcase.docblock.js",
+				"node": "./dist/node/docs/data-grid-showcase.docblock.js",
+				"default": "./dist/docs/data-grid-showcase.docblock.js"
+			},
+			"./example": {
+				"types": "./dist/example.d.ts",
+				"browser": "./dist/browser/example.js",
+				"bun": "./dist/example.js",
+				"node": "./dist/node/example.js",
+				"default": "./dist/example.js"
+			},
+			"./ui": {
+				"types": "./dist/ui/index.d.ts",
+				"browser": "./dist/browser/ui/index.js",
+				"bun": "./dist/ui/index.js",
+				"node": "./dist/node/ui/index.js",
+				"default": "./dist/ui/index.js"
+			},
+			"./ui/data-grid-showcase.columns": {
+				"types": "./dist/ui/data-grid-showcase.columns.d.ts",
+				"browser": "./dist/browser/ui/data-grid-showcase.columns.js",
+				"bun": "./dist/ui/data-grid-showcase.columns.js",
+				"node": "./dist/node/ui/data-grid-showcase.columns.js",
+				"default": "./dist/ui/data-grid-showcase.columns.js"
+			},
+			"./ui/data-grid-showcase.data": {
+				"types": "./dist/ui/data-grid-showcase.data.d.ts",
+				"browser": "./dist/browser/ui/data-grid-showcase.data.js",
+				"bun": "./dist/ui/data-grid-showcase.data.js",
+				"node": "./dist/node/ui/data-grid-showcase.data.js",
+				"default": "./dist/ui/data-grid-showcase.data.js"
+			},
+			"./ui/data-grid-showcase.parts": {
+				"types": "./dist/ui/data-grid-showcase.parts.d.ts",
+				"browser": "./dist/browser/ui/data-grid-showcase.parts.js",
+				"bun": "./dist/ui/data-grid-showcase.parts.js",
+				"node": "./dist/node/ui/data-grid-showcase.parts.js",
+				"default": "./dist/ui/data-grid-showcase.parts.js"
+			},
+			"./ui/data-grid-showcase.tables": {
+				"types": "./dist/ui/data-grid-showcase.tables.d.ts",
+				"browser": "./dist/browser/ui/data-grid-showcase.tables.js",
+				"bun": "./dist/ui/data-grid-showcase.tables.js",
+				"node": "./dist/node/ui/data-grid-showcase.tables.js",
+				"default": "./dist/ui/data-grid-showcase.tables.js"
+			},
+			"./ui/DataGridShowcase": {
+				"types": "./dist/ui/DataGridShowcase.d.ts",
+				"browser": "./dist/browser/ui/DataGridShowcase.js",
+				"bun": "./dist/ui/DataGridShowcase.js",
+				"node": "./dist/node/ui/DataGridShowcase.js",
+				"default": "./dist/ui/DataGridShowcase.js"
+			}
+		}
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/examples/data-grid-showcase"
+	},
+	"homepage": "https://contractspec.io"
+}

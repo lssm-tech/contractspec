@@ -7,8 +7,10 @@ import { type PropsWithChildren, useEffect, useMemo, useState } from 'react';
 const { LocalRuntimeServices } = web;
 
 import {
+	AGENT_CONSOLE_DEMO_ORGANIZATION_ID,
 	type AgentHandlers,
-	createAgentHandlers,
+	createAgentConsoleDemoHandlers,
+	getAgentConsoleDashboardData,
 } from '@contractspec/example.agent-console';
 import {
 	type AnalyticsHandlers,
@@ -49,6 +51,7 @@ import {
 } from '@contractspec/lib.example-shared-ui';
 import { getTemplateEngine } from './engine';
 import { TemplateInstaller } from './installer';
+import { resolveTemplatePresentation } from './presentations';
 import { getTemplate } from './registry';
 
 function logBootstrapFailure(error: unknown) {
@@ -84,7 +87,7 @@ export class TemplateHandlers {
 
 export function TemplateRuntimeProvider({
 	templateId,
-	projectId = 'default-project',
+	projectId = 'local-project',
 	lazy = false,
 	children,
 }: PropsWithChildren<TemplateRuntimeProviderProps>) {
@@ -128,7 +131,7 @@ export function TemplateRuntimeProvider({
 				const handlers = new TemplateHandlers();
 				handlers.crm = createCrmHandlers(runtime.db);
 				handlers.saas = createSaasHandlers(runtime.db);
-				handlers.agent = createAgentHandlers(runtime.db);
+				handlers.agent = createAgentConsoleDemoHandlers({ projectId });
 				handlers.workflow = createWorkflowHandlers(runtime.db);
 				handlers.marketplace = createMarketplaceHandlers(runtime.db);
 				handlers.integration = createIntegrationHandlers(runtime.db);
@@ -233,37 +236,22 @@ export function TemplateRuntimeProvider({
 
 					// Agent Console
 					if (presentationName === 'agent-console.dashboard') {
-						const [agentsResult, runsResult, toolsResult] = await Promise.all([
-							handlers.agent.listAgents({
-								projectId,
-								organizationId: 'demo-org',
-								limit: 10,
-							}),
-							handlers.agent.listRuns({ projectId, limit: 10 }),
-							handlers.agent.listTools({
-								projectId,
-								organizationId: 'demo-org',
-								limit: 10,
-							}),
-						]);
+						const data = await getAgentConsoleDashboardData(handlers.agent, {
+							projectId,
+							organizationId: AGENT_CONSOLE_DEMO_ORGANIZATION_ID,
+						});
 						return {
-							data: {
-								agents: agentsResult.items,
-								runs: runsResult.items,
-								tools: toolsResult.items,
-								summary: {
-									totalAgents: agentsResult.total,
-									totalRuns: runsResult.total,
-									totalTools: toolsResult.total,
-								},
-							},
+							data,
 							metadata: { timestamp: new Date(), source: 'agent-console' },
 						};
 					}
-					if (presentationName === 'agent-console.agent.list') {
+					if (
+						presentationName === 'agent-console.agent.viewList' ||
+						presentationName === 'agent-console.agent.list'
+					) {
 						const result = await handlers.agent.listAgents({
 							projectId,
-							organizationId: 'demo-org',
+							organizationId: AGENT_CONSOLE_DEMO_ORGANIZATION_ID,
 							limit: 50,
 						});
 						return {
@@ -289,10 +277,13 @@ export function TemplateRuntimeProvider({
 							},
 						};
 					}
-					if (presentationName === 'agent-console.tool.registry') {
+					if (
+						presentationName === 'agent-console.tool.list' ||
+						presentationName === 'agent-console.tool.registry'
+					) {
 						const result = await handlers.agent.listTools({
 							projectId,
-							organizationId: 'demo-org',
+							organizationId: AGENT_CONSOLE_DEMO_ORGANIZATION_ID,
 							limit: 50,
 						});
 						return {
@@ -301,6 +292,16 @@ export function TemplateRuntimeProvider({
 								total: result.total,
 								timestamp: new Date(),
 								source: 'agent-console',
+							},
+						};
+					}
+
+					if (presentationName === 'visualization-showcase.gallery') {
+						return {
+							data: null,
+							metadata: {
+								timestamp: new Date(),
+								source: 'visualization-showcase',
 							},
 						};
 					}
@@ -326,6 +327,7 @@ export function TemplateRuntimeProvider({
 						engine,
 						handlers,
 						fetchData,
+						resolvePresentation: resolveTemplatePresentation,
 					});
 				}
 			} catch (err) {

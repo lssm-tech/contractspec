@@ -18,3 +18,4 @@ export * from './sync';
 // Sync engine exports
 export * from './sync-engine';
 export * from './ui';
+export * from './visualizations';

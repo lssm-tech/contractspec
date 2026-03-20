@@ -14,6 +14,7 @@ export * from './project';
 export * from './saas-boilerplate.feature';
 export * from './settings';
 export * from './ui';
+export * from './visualizations';
 
 // Import docs for registration
 import './docs';

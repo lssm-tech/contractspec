@@ -9,6 +9,8 @@ Website: https://contractspec.io
 - **Layer**: module.
 - **Consumers**: apps (web-landing, docs), bundles (contractspec-studio).
 - Related ContractSpec packages include `@contractspec/example.agent-console`, `@contractspec/example.ai-chat-assistant`, `@contractspec/example.ai-support-bot`, `@contractspec/example.analytics-dashboard`, `@contractspec/example.calendar-google`, `@contractspec/example.content-generation`, ...
+- `agent-console` is the default autonomous-agent showcase surfaced through `/sandbox`.
+- `data-grid-showcase` is the focused ContractSpec table showcase surfaced through `/sandbox?template=data-grid-showcase`.
 
 ## Installation
 
@@ -63,3 +65,5 @@ Import the root entrypoint from `@contractspec/module.examples`, or choose a doc
 - This module is a thin aggregator -- business logic belongs in individual example packages under `packages/examples/`.
 - Adding a new example requires both creating the example package and wiring it as a dependency here.
 - Depends on ~30 example workspace packages; keep the dependency list in sync with `packages/examples/`.
+- The meetup-ready autonomous-agent path is the deterministic `agent-console` sandbox plus its replay proof lane.
+- The shared ContractSpec table stack is demonstrated directly by `data-grid-showcase` and reused in `analytics-dashboard`, `crm-pipeline`, `integration-hub`, and `agent-console`.

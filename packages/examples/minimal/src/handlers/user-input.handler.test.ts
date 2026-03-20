@@ -1,17 +1,17 @@
-import { describe, it, expect } from 'bun:test';
-import { UserInput } from '../handlers/user-input';
+import { describe, expect, test } from 'bun:test';
+import { userInputHandler } from './user-input.handler';
 
-describe('UserInput', () => {
-  it('should handle valid input', async () => {
-    // TODO: Implement test
-    expect(true).toBe(true);
-  });
+describe('@contractspec/example.minimal user handler', () => {
+	test('returns the stable user payload shape', async () => {
+		const response = await userInputHandler(
+			{
+				email: 'hello@contractspec.io',
+			},
+			{} as never
+		);
 
-  it('should handle edge cases', async () => {
-    // TODO: Test edge cases
-  });
-
-  it('should handle errors appropriately', async () => {
-    // TODO: Test error scenarios
-  });
+		expect(response).toEqual({
+			email: 'hello@contractspec.io',
+		});
+	});
 });

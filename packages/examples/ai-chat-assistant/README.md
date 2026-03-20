@@ -19,6 +19,7 @@ From `packages/examples/ai-chat-assistant`:
 - `bun run dev`
 - `bun run build`
 - `bun run test`
+- `bun run smoke`
 - `bun run typecheck`
 
 ## Usage
@@ -53,7 +54,8 @@ Use `@contractspec/example.ai-chat-assistant` as a reference implementation, or 
 
 - `bun run dev` — contractspec-bun-build dev
 - `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
-- `bun run test` — bun test --pass-with-no-tests
+- `bun run test` — bun test
+- `bun run smoke` — bun test src/example.smoke.test.ts
 - `bun run lint` — bun run lint:fix
 - `bun run lint:check` — biome check .
 - `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .

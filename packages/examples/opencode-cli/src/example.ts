@@ -9,7 +9,7 @@ const example = defineExample({
 			'CLI-oriented example showing how to validate ContractSpec flows against the OpenCode agent mode.',
 		kind: 'script',
 		visibility: 'public',
-		stability: 'experimental',
+		stability: 'stable',
 		owners: ['@contractspec/examples'],
 		tags: ['opencode', 'cli', 'agent-mode', 'example'],
 		summary:

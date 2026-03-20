@@ -39,6 +39,7 @@ import { JiraProjectManagementProvider } from './jira';
 import { LinearProjectManagementProvider } from './linear';
 import { GithubMessagingProvider } from './messaging-github';
 import { SlackMessagingProvider } from './messaging-slack';
+import { TelegramMessagingProvider } from './messaging-telegram';
 import { MetaWhatsappMessagingProvider } from './messaging-whatsapp-meta';
 import { TwilioWhatsappMessagingProvider } from './messaging-whatsapp-twilio';
 import { MistralConversationalProvider } from './mistral-conversational';
@@ -197,6 +198,7 @@ export class IntegrationProviderFactory {
 			defaultOwner?: string;
 			defaultRepo?: string;
 			apiBaseUrl?: string;
+			defaultChatId?: string;
 			phoneNumberId?: string;
 			apiVersion?: string;
 			fromNumber?: string;
@@ -222,6 +224,16 @@ export class IntegrationProviderFactory {
 					),
 					defaultOwner: config?.defaultOwner,
 					defaultRepo: config?.defaultRepo,
+					apiBaseUrl: config?.apiBaseUrl,
+				});
+			case 'messaging.telegram':
+				return new TelegramMessagingProvider({
+					botToken: requireSecret<string>(
+						secrets,
+						'botToken',
+						'Telegram bot token is required'
+					),
+					defaultChatId: config?.defaultChatId,
 					apiBaseUrl: config?.apiBaseUrl,
 				});
 			case 'messaging.whatsapp.meta':

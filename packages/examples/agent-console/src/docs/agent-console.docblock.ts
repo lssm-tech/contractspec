@@ -30,19 +30,21 @@ const agentConsoleDocBlocks: DocBlock[] = [
 		visibility: 'public',
 		route: '/docs/examples/agent-console/usage',
 		tags: ['ai', 'agents', 'usage'],
-		body: `## Setup
-1) Seed (if available) or create tools and agents; define run configs.
-2) Configure Notifications for run completion/failure; Audit for changes.
+		body: `## Canonical walkthrough
+1) Open the default sandbox route at \`/sandbox\` or \`/sandbox?template=agent-console\`.
+2) Inspect seeded agents, tools, runs, and metrics from the deterministic demo runtime.
+3) Create an agent, activate it, execute a run, and confirm the metrics update.
+4) Generate or inspect the replay proof at \`packages/examples/agent-console/proofs/agent-console-meetup.replay.json\`.
 
 ## Extend & regenerate
-1) Adjust tool schemas (inputs/outputs), agent configs, run metrics in spec.
+1) Adjust tool schemas (inputs/outputs), agent configs, and run metrics in spec.
 2) Regenerate to sync UI/API/events/logs; mark PII paths for run payloads.
-3) Use Feature Flags to gate risky tools or execution policies.
+3) Keep the demo runtime deterministic unless you are explicitly validating live providers.
 
 ## Guardrails
 - Emit events for run lifecycle; store logs with redaction where needed.
 - Enforce tool input validation; avoid unsafe arbitrary code exec in handlers.
-- Keep tenant/user scoping explicit for ops data.`,
+- Keep tenant/user scoping explicit for ops data and keep meetup demos offline-safe by default.`,
 	},
 	{
 		id: 'docs.examples.agent-console.reference',
@@ -63,11 +65,12 @@ const agentConsoleDocBlocks: DocBlock[] = [
 - tool.created, agent.created, run.started/completed/failed, tool.invoked.
 
 ## Presentations
-- Tool registry, agent list/detail, run list/detail, metrics dashboards.
+- Tool registry, agent list/detail, run list/detail, metrics dashboards, and a server-mode shared table for run history.
 
 ## Notes
 - Keep tool schemas explicit; enforce validation in spec.
-- Use Audit Trail for agent/run changes; Notifications for run outcomes.`,
+- Use the seeded demo runtime for sandbox and markdown walkthroughs.
+- Generate a replay bundle before demos or talks so the walkthrough has proof output ready.`,
 	},
 	{
 		id: 'docs.examples.agent-console.constraints',

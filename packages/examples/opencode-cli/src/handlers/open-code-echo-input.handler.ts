@@ -1,26 +1,15 @@
-import type { ContractHandler } from '@contractspec/lib.contracts-spec';
+import type { HandlerForOperationSpec } from '@contractspec/lib.contracts-spec';
 import { OpenCodeEchoInputSpec } from '../contracts/open-code-echo-input.contracts';
 
 /**
  * Handler for OpenCodeEchoInput
  */
-export const openCodeEchoInputHandler: ContractHandler<typeof OpenCodeEchoInputSpec> = async (
-  input,
-  context
+export const openCodeEchoInputHandler: HandlerForOperationSpec<
+	typeof OpenCodeEchoInputSpec
+> = async (
+  input
 ) => {
-  // TODO: Implement command logic
-  
-  try {
-    // 1. Validate prerequisites
-    // 2. Perform business logic
-    // 3. Emit events if needed
-    // 4. Return result
-    
-    return {
-      ok: true,
-    };
-  } catch (error) {
-    // Handle and map errors to spec.io.errors
-    throw error;
-  }
+  return {
+    message: input.prompt,
+  };
 };

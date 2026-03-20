@@ -7,7 +7,7 @@ Minimal ContractSpec example showing the simplest possible contract definition a
 ## Quick Context
 
 - Layer: `example`.
-- Package visibility: private workspace package.
+- Package visibility: published package.
 - Primary consumers are example explorers, template authors, and documentation readers.
 - Related packages: `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`.
 
@@ -40,3 +40,7 @@ Minimal ContractSpec example showing the simplest possible contract definition a
 
 - `bun run build` — bun ../../apps/cli-contractspec/src/cli.ts build src/contracts/user.ts
 - `bun run validate` — bun ../../apps/cli-contractspec/src/cli.ts validate src/contracts/user.ts
+- `bun run typecheck` — tsc --noEmit
+- `bun run test` — bun test
+- `bun run smoke` — bun test src/example.smoke.test.ts
+- `bun run preflight` — bun run build && bun run typecheck && bun run test && bun run validate && bun run smoke

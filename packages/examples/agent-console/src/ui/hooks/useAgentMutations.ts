@@ -15,6 +15,7 @@ import type {
 	Run,
 	UpdateAgentInput,
 } from '../../handlers/agent.handlers';
+import { AGENT_CONSOLE_DEMO_ORGANIZATION_ID } from '../../shared/demo-runtime-seed';
 
 export interface MutationState<T> {
 	loading: boolean;
@@ -25,6 +26,13 @@ export interface MutationState<T> {
 export interface UseAgentMutationsOptions {
 	onSuccess?: () => void;
 	onError?: (error: Error) => void;
+}
+
+function normalizeMutationError(
+	error: unknown,
+	fallbackMessage: string
+): Error {
+	return error instanceof Error ? error : new Error(fallbackMessage);
 }
 
 export function useAgentMutations(options: UseAgentMutationsOptions = {}) {
@@ -60,17 +68,16 @@ export function useAgentMutations(options: UseAgentMutationsOptions = {}) {
 			try {
 				const result = await agent.createAgent(input, {
 					projectId,
-					organizationId: 'demo-org',
+					organizationId: AGENT_CONSOLE_DEMO_ORGANIZATION_ID,
 				});
 				setCreateState({ loading: false, error: null, data: result });
 				options.onSuccess?.();
 				return result;
 			} catch (err) {
-				const error =
-					err instanceof Error ? err : new Error('Failed to create agent');
+				const error = normalizeMutationError(err, 'Failed to create agent');
 				setCreateState({ loading: false, error, data: null });
 				options.onError?.(error);
-				return null;
+				throw error;
 			}
 		},
 		[agent, projectId, options]
@@ -88,11 +95,10 @@ export function useAgentMutations(options: UseAgentMutationsOptions = {}) {
 				options.onSuccess?.();
 				return result;
 			} catch (err) {
-				const error =
-					err instanceof Error ? err : new Error('Failed to update agent');
+				const error = normalizeMutationError(err, 'Failed to update agent');
 				setUpdateState({ loading: false, error, data: null });
 				options.onError?.(error);
-				return null;
+				throw error;
 			}
 		},
 		[agent, options]
@@ -141,17 +147,19 @@ export function useAgentMutations(options: UseAgentMutationsOptions = {}) {
 				const result = await agent.executeAgent({
 					agentId: input.agentId,
 					message: input.message,
-					context: { projectId, organizationId: 'demo-org' },
+					context: {
+						projectId,
+						organizationId: AGENT_CONSOLE_DEMO_ORGANIZATION_ID,
+					},
 				});
 				setExecuteState({ loading: false, error: null, data: result });
 				options.onSuccess?.();
 				return result;
 			} catch (err) {
-				const error =
-					err instanceof Error ? err : new Error('Failed to execute agent');
+				const error = normalizeMutationError(err, 'Failed to execute agent');
 				setExecuteState({ loading: false, error, data: null });
 				options.onError?.(error);
-				return null;
+				throw error;
 			}
 		},
 		[agent, projectId, options]

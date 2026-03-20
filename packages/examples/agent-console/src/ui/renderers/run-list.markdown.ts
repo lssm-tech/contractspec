@@ -4,7 +4,10 @@
  * Uses dynamic import for handlers to ensure correct build order.
  */
 
-import { mockListRunsHandler } from '@contractspec/example.agent-console/handlers';
+import {
+	AGENT_CONSOLE_DEMO_PROJECT_ID,
+	createAgentConsoleDemoHandlers,
+} from '@contractspec/example.agent-console/shared';
 import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
 import type { PresentationRenderer } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
 import type { Run } from '../hooks/useRunList';
@@ -30,7 +33,7 @@ export const runListMarkdownRenderer: PresentationRenderer<{
 	body: string;
 }> = {
 	target: 'markdown',
-	render: async (desc: PresentationSpec) => {
+	render: async (desc: PresentationSpec, ctx) => {
 		// Only handle RunListView
 		if (
 			desc.source.type !== 'component' ||
@@ -39,12 +42,17 @@ export const runListMarkdownRenderer: PresentationRenderer<{
 			throw new Error('runListMarkdownRenderer: not RunListView');
 		}
 
-		// Fetch data using mock handler
-		const data = (await mockListRunsHandler({
-			organizationId: 'demo-org',
-			limit: 20,
-			offset: 0,
-		})) as RunListOutput;
+		const data = (
+			Array.isArray(ctx?.data)
+				? { items: ctx.data as Run[], total: ctx.data.length, hasMore: false }
+				: await createAgentConsoleDemoHandlers({
+						projectId: AGENT_CONSOLE_DEMO_PROJECT_ID,
+					}).listRuns({
+						projectId: AGENT_CONSOLE_DEMO_PROJECT_ID,
+						limit: 20,
+						offset: 0,
+					})
+		) as RunListOutput;
 
 		// Generate markdown
 		const lines: string[] = [

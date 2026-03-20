@@ -5,6 +5,7 @@
  */
 
 import { useTemplateRuntime } from '@contractspec/lib.example-shared-ui';
+import type { ContractTableSort } from '@contractspec/lib.presentation-runtime-core';
 import { useCallback, useEffect, useState } from 'react';
 import type {
 	AgentHandlers,
@@ -22,6 +23,9 @@ export interface UseRunListOptions {
 	agentId?: string;
 	status?: Run['status'] | 'all';
 	limit?: number;
+	pageIndex?: number;
+	pageSize?: number;
+	sorting?: ContractTableSort[];
 }
 
 export function useRunList(options: UseRunListOptions = {}) {
@@ -34,7 +38,11 @@ export function useRunList(options: UseRunListOptions = {}) {
 	const [metrics, setMetrics] = useState<RunMetrics | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<Error | null>(null);
-	const [page, setPage] = useState(1);
+	const [internalPageIndex, setInternalPageIndex] = useState(0);
+
+	const pageSize = options.pageSize ?? options.limit ?? 20;
+	const pageIndex = options.pageIndex ?? internalPageIndex;
+	const [sort] = options.sorting ?? [];
 
 	const fetchData = useCallback(async () => {
 		setLoading(true);
@@ -46,14 +54,21 @@ export function useRunList(options: UseRunListOptions = {}) {
 					projectId,
 					agentId: options.agentId,
 					status: options.status === 'all' ? undefined : options.status,
-					limit: options.limit ?? 20,
-					offset: (page - 1) * (options.limit ?? 20),
+					sortBy: sort?.id as
+						| 'queuedAt'
+						| 'totalTokens'
+						| 'durationMs'
+						| 'estimatedCostUsd'
+						| 'status'
+						| 'agentName'
+						| undefined,
+					sortDirection: sort ? (sort.desc ? 'desc' : 'asc') : undefined,
+					limit: pageSize,
+					offset: pageIndex * pageSize,
 				}),
 				agent.getRunMetrics({
 					projectId,
 					agentId: options.agentId,
-					startDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // 30 days ago
-					endDate: new Date(),
 				}),
 			]);
 			setData(runsResult);
@@ -63,20 +78,38 @@ export function useRunList(options: UseRunListOptions = {}) {
 		} finally {
 			setLoading(false);
 		}
-	}, [agent, projectId, options.agentId, options.status, options.limit, page]);
+	}, [
+		agent,
+		pageIndex,
+		pageSize,
+		projectId,
+		options.agentId,
+		options.status,
+		sort?.desc,
+		sort?.id,
+	]);
 
 	useEffect(() => {
 		fetchData();
 	}, [fetchData]);
+
+	const hasControlledPagination = options.pageIndex !== undefined;
 
 	return {
 		data,
 		metrics,
 		loading,
 		error,
-		page,
+		page: pageIndex + 1,
+		pageIndex,
+		pageSize,
 		refetch: fetchData,
-		nextPage: () => setPage((p) => p + 1),
-		prevPage: () => page > 1 && setPage((p) => p - 1),
+		nextPage: hasControlledPagination
+			? undefined
+			: () => setInternalPageIndex((current) => current + 1),
+		prevPage: hasControlledPagination
+			? undefined
+			: () =>
+					setInternalPageIndex((current) => Math.max(0, current - 1)),
 	};
 }

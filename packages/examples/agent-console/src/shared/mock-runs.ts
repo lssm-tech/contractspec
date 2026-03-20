@@ -5,6 +5,7 @@ export const MOCK_RUNS = [
 	{
 		id: 'run-1',
 		organizationId: 'demo-org',
+		projectId: 'demo-project',
 		agentId: 'agent-1',
 		agentName: 'Customer Support Bot',
 		userId: 'user-1',
@@ -27,6 +28,7 @@ export const MOCK_RUNS = [
 	{
 		id: 'run-2',
 		organizationId: 'demo-org',
+		projectId: 'demo-project',
 		agentId: 'agent-2',
 		agentName: 'Code Review Assistant',
 		userId: 'user-2',
@@ -44,6 +46,7 @@ export const MOCK_RUNS = [
 	{
 		id: 'run-3',
 		organizationId: 'demo-org',
+		projectId: 'demo-project',
 		agentId: 'agent-1',
 		agentName: 'Customer Support Bot',
 		userId: 'user-1',
@@ -65,6 +68,7 @@ export const MOCK_RUNS = [
 	{
 		id: 'run-4',
 		organizationId: 'demo-org',
+		projectId: 'demo-project',
 		agentId: 'agent-3',
 		agentName: 'Data Analyst',
 		userId: 'user-3',
@@ -86,6 +90,7 @@ export const MOCK_RUNS = [
 	{
 		id: 'run-5',
 		organizationId: 'demo-org',
+		projectId: 'demo-project',
 		agentId: 'agent-2',
 		agentName: 'Code Review Assistant',
 		userId: 'user-2',

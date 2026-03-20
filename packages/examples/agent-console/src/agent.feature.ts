@@ -5,6 +5,7 @@
  */
 import type { FeatureModuleSpec } from '@contractspec/lib.contracts-spec';
 import { defineFeature } from '@contractspec/lib.contracts-spec';
+import { AgentVisualizationRefs } from './visualizations';
 
 /**
  * Agent Console feature module that bundles all agent, tool, and run
@@ -134,6 +135,8 @@ export const AgentConsoleFeature: FeatureModuleSpec = defineFeature({
 			targets: ['react', 'markdown', 'application/json'],
 		},
 	],
+
+	visualizations: AgentVisualizationRefs,
 
 	// Capability requirements
 	capabilities: {

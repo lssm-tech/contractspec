@@ -85,8 +85,10 @@
     "./ui/hooks": "./src/ui/hooks/index.ts",
     "./ui/hooks/useMarketplaceData": "./src/ui/hooks/useMarketplaceData.ts",
     "./ui/MarketplaceDashboard": "./src/ui/MarketplaceDashboard.tsx",
+    "./ui/MarketplaceDashboard.visualizations": "./src/ui/MarketplaceDashboard.visualizations.tsx",
     "./ui/renderers": "./src/ui/renderers/index.ts",
-    "./ui/renderers/marketplace.markdown": "./src/ui/renderers/marketplace.markdown.ts"
+    "./ui/renderers/marketplace.markdown": "./src/ui/renderers/marketplace.markdown.ts",
+    "./visualizations": "./src/visualizations/index.ts"
   },
   "files": [
     "dist",
@@ -445,6 +447,13 @@
         "node": "./dist/node/ui/MarketplaceDashboard.js",
         "default": "./dist/ui/MarketplaceDashboard.js"
       },
+      "./ui/MarketplaceDashboard.visualizations": {
+        "types": "./dist/ui/MarketplaceDashboard.visualizations.d.ts",
+        "browser": "./dist/browser/ui/MarketplaceDashboard.visualizations.js",
+        "bun": "./dist/ui/MarketplaceDashboard.visualizations.js",
+        "node": "./dist/node/ui/MarketplaceDashboard.visualizations.js",
+        "default": "./dist/ui/MarketplaceDashboard.visualizations.js"
+      },
       "./ui/renderers": {
         "types": "./dist/ui/renderers/index.d.ts",
         "browser": "./dist/browser/ui/renderers/index.js",
@@ -458,6 +467,13 @@
         "bun": "./dist/ui/renderers/marketplace.markdown.js",
         "node": "./dist/node/ui/renderers/marketplace.markdown.js",
         "default": "./dist/ui/renderers/marketplace.markdown.js"
+      },
+      "./visualizations": {
+        "types": "./dist/visualizations/index.d.ts",
+        "browser": "./dist/browser/visualizations/index.js",
+        "bun": "./dist/visualizations/index.js",
+        "node": "./dist/node/visualizations/index.js",
+        "default": "./dist/visualizations/index.js"
       }
     },
     "registry": "https://registry.npmjs.org/"

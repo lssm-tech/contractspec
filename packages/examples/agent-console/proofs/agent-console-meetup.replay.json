@@ -1,0 +1,220 @@
+{
+	"version": "1",
+	"createdAt": "2026-03-20T09:48:00.000Z",
+	"run": {
+		"runId": "proof-1",
+		"status": "completed",
+		"mode": "code-execution",
+		"scenarioKey": "agent-console.meetup.proof",
+		"target": {
+			"targetId": "sandbox-agent-console",
+			"kind": "sandbox",
+			"isolation": "sandbox",
+			"environment": "local",
+			"baseUrl": "https://sandbox.contractspec.local/agent-console",
+			"allowlistedDomains": ["sandbox.contractspec.local"]
+		},
+		"steps": [
+			{
+				"stepId": "proof-2",
+				"stepKey": "open-dashboard",
+				"runId": "proof-1",
+				"mode": "code-execution",
+				"actionClass": "code-exec-read",
+				"verdict": "autonomous",
+				"requiresApproval": false,
+				"status": "completed",
+				"startedAt": "2026-03-20T09:32:00.000Z",
+				"output": {
+					"agentCount": 4,
+					"runCount": 5,
+					"toolCount": 5
+				},
+				"completedAt": "2026-03-20T09:34:00.000Z",
+				"summary": "Seeded dashboard ready with 4 agents, 5 tools, and 5 runs.",
+				"metadata": {
+					"output": {
+						"agentCount": 4,
+						"runCount": 5,
+						"toolCount": 5
+					}
+				}
+			},
+			{
+				"stepId": "proof-4",
+				"stepKey": "create-agent",
+				"runId": "proof-1",
+				"mode": "code-execution",
+				"actionClass": "code-exec-mutate",
+				"verdict": "assist",
+				"requiresApproval": true,
+				"status": "completed",
+				"startedAt": "2026-03-20T09:35:00.000Z",
+				"output": {
+					"agentId": "agent-meetup-1",
+					"status": "DRAFT"
+				},
+				"completedAt": "2026-03-20T09:37:00.000Z",
+				"summary": "Created Paris Meetup Demo Agent as agent-meetup-1.",
+				"metadata": {
+					"output": {
+						"agentId": "agent-meetup-1",
+						"status": "DRAFT"
+					}
+				}
+			},
+			{
+				"stepId": "proof-6",
+				"stepKey": "activate-agent",
+				"runId": "proof-1",
+				"mode": "code-execution",
+				"actionClass": "code-exec-mutate",
+				"verdict": "assist",
+				"requiresApproval": true,
+				"status": "completed",
+				"startedAt": "2026-03-20T09:38:00.000Z",
+				"output": {
+					"agentId": "agent-meetup-1",
+					"status": "ACTIVE"
+				},
+				"completedAt": "2026-03-20T09:40:00.000Z",
+				"summary": "Activated Paris Meetup Demo Agent.",
+				"metadata": {
+					"output": {
+						"agentId": "agent-meetup-1",
+						"status": "ACTIVE"
+					}
+				}
+			},
+			{
+				"stepId": "proof-8",
+				"stepKey": "execute-agent",
+				"runId": "proof-1",
+				"mode": "code-execution",
+				"actionClass": "code-exec-mutate",
+				"verdict": "assist",
+				"requiresApproval": true,
+				"status": "completed",
+				"startedAt": "2026-03-20T09:41:00.000Z",
+				"output": {
+					"runId": "run-meetup-1",
+					"status": "COMPLETED",
+					"totalTokens": 1028
+				},
+				"completedAt": "2026-03-20T09:43:00.000Z",
+				"summary": "Executed Paris Meetup Demo Agent and completed run-meetup-1.",
+				"metadata": {
+					"output": {
+						"runId": "run-meetup-1",
+						"status": "COMPLETED",
+						"totalTokens": 1028
+					}
+				}
+			},
+			{
+				"stepId": "proof-10",
+				"stepKey": "inspect-dashboard",
+				"runId": "proof-1",
+				"mode": "code-execution",
+				"actionClass": "code-exec-read",
+				"verdict": "autonomous",
+				"requiresApproval": false,
+				"status": "completed",
+				"startedAt": "2026-03-20T09:44:00.000Z",
+				"output": {
+					"agentCount": 5,
+					"runCount": 6,
+					"toolCount": 5,
+					"latestAgentName": "Paris Meetup Demo Agent",
+					"latestRunId": "run-meetup-1",
+					"successRate": 0.6666666666666666
+				},
+				"completedAt": "2026-03-20T09:46:00.000Z",
+				"summary": "Paris Meetup Demo Agent is visible with 5 agents and 6 runs.",
+				"metadata": {
+					"output": {
+						"agentCount": 5,
+						"runCount": 6,
+						"toolCount": 5,
+						"latestAgentName": "Paris Meetup Demo Agent",
+						"latestRunId": "run-meetup-1",
+						"successRate": 0.6666666666666666
+					}
+				}
+			}
+		],
+		"createdAt": "2026-03-20T09:30:00.000Z",
+		"updatedAt": "2026-03-20T09:47:00.000Z",
+		"evidenceCount": 5
+	},
+	"assertions": [
+		{
+			"assertionKey": "captured-step-summaries",
+			"status": "passed"
+		},
+		{
+			"assertionKey": "execution-completed",
+			"status": "passed"
+		},
+		{
+			"assertionKey": "final-summary-mentions-meetup-agent",
+			"status": "passed"
+		},
+		{
+			"assertionKey": "final-dashboard-shape",
+			"status": "passed"
+		}
+	],
+	"artifacts": [
+		{
+			"artifactId": "proof-3",
+			"kind": "step-summary",
+			"runId": "proof-1",
+			"stepId": "proof-2",
+			"uri": "artifact://proof-3",
+			"hash": "815b21629e7e8a82376bd9c47e49192f9c4d5ff3b81bfd23d149b2922834b802",
+			"summary": "Seeded dashboard agents=4 tools=5 runs=5",
+			"createdAt": "2026-03-20T09:33:00.000Z"
+		},
+		{
+			"artifactId": "proof-5",
+			"kind": "step-summary",
+			"runId": "proof-1",
+			"stepId": "proof-4",
+			"uri": "artifact://proof-5",
+			"hash": "6deb2379988765661f26baaddaf5d3dd8d6115097c3f318f257b2f0fd71b8041",
+			"summary": "Created Paris Meetup Demo Agent (agent-meetup-1)",
+			"createdAt": "2026-03-20T09:36:00.000Z"
+		},
+		{
+			"artifactId": "proof-7",
+			"kind": "step-summary",
+			"runId": "proof-1",
+			"stepId": "proof-6",
+			"uri": "artifact://proof-7",
+			"hash": "eedef831df5bd02593572bcd979efbf9155d3aef4b6bba3bb4b5444ba6f59f6a",
+			"summary": "Activated Paris Meetup Demo Agent",
+			"createdAt": "2026-03-20T09:39:00.000Z"
+		},
+		{
+			"artifactId": "proof-9",
+			"kind": "step-summary",
+			"runId": "proof-1",
+			"stepId": "proof-8",
+			"uri": "artifact://proof-9",
+			"hash": "6939940cd8a2219f6387ea2fb1341b33aee5ab2c2b11f6e4755f157c37afa572",
+			"summary": "Completed run-meetup-1 for Paris Meetup Demo Agent",
+			"createdAt": "2026-03-20T09:42:00.000Z"
+		},
+		{
+			"artifactId": "proof-11",
+			"kind": "step-summary",
+			"runId": "proof-1",
+			"stepId": "proof-10",
+			"uri": "artifact://proof-11",
+			"hash": "d62d67ef87eb4dc831ab2bb7cd4ab30bd02b88e832c22f338d89ecdfe425db06",
+			"summary": "Final dashboard agents=5 runs=6",
+			"createdAt": "2026-03-20T09:45:00.000Z"
+		}
+	]
+}

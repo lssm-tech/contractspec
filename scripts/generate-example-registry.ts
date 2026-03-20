@@ -85,7 +85,7 @@ function renderBuiltins(packages: ExamplePackageInfo[]): string {
 
 	for (const pkg of packages) {
 		lines.push(
-			`import ${toIdentifier(pkg.directory)} from \"${pkg.packageName}/example\";`
+			`import ${toIdentifier(pkg.directory)} from \"../../../examples/${pkg.directory}/src/example\";`
 		);
 	}
 

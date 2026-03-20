@@ -12,6 +12,13 @@ export function resolveGithubWorkspaceId(
 	return resolveWorkspaceId('CHANNEL_WORKSPACE_MAP_GITHUB', repositoryFullName);
 }
 
+export function resolveTelegramWorkspaceId(candidates: string[]): string | null {
+	return resolveWorkspaceIdFromCandidates(
+		'CHANNEL_WORKSPACE_MAP_TELEGRAM',
+		candidates
+	);
+}
+
 export function resolveMetaWhatsappWorkspaceId(
 	candidates: string[]
 ): string | null {

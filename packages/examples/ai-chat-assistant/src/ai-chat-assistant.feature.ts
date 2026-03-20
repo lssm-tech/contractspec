@@ -10,7 +10,7 @@ export const AiChatAssistantFeature = defineFeature({
 		domain: 'example',
 		owners: ['@platform.core'],
 		tags: ['ai', 'chat', 'assistant', 'example'],
-		stability: 'experimental',
+		stability: 'beta',
 	},
 
 	operations: [{ key: 'assistant.search', version: '1.0.0' }],

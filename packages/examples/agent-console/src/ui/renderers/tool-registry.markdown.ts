@@ -4,7 +4,11 @@
  * Uses dynamic import for handlers to ensure correct build order.
  */
 
-import { mockListToolsHandler } from '@contractspec/example.agent-console/handlers';
+import {
+	AGENT_CONSOLE_DEMO_ORGANIZATION_ID,
+	AGENT_CONSOLE_DEMO_PROJECT_ID,
+	createAgentConsoleDemoHandlers,
+} from '@contractspec/example.agent-console/shared';
 import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
 import type { PresentationRenderer } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
 
@@ -18,7 +22,7 @@ interface ToolItem {
 }
 
 /**
- * Markdown renderer for agent-console.tool.registry presentation
+ * Markdown renderer for agent-console.tool.list presentation
  * Only handles ToolRegistryView component
  */
 export const toolRegistryMarkdownRenderer: PresentationRenderer<{
@@ -26,7 +30,7 @@ export const toolRegistryMarkdownRenderer: PresentationRenderer<{
 	body: string;
 }> = {
 	target: 'markdown',
-	render: async (desc: PresentationSpec) => {
+	render: async (desc: PresentationSpec, ctx) => {
 		// Only handle ToolRegistryView
 		if (
 			desc.source.type !== 'component' ||
@@ -35,12 +39,20 @@ export const toolRegistryMarkdownRenderer: PresentationRenderer<{
 			throw new Error('toolRegistryMarkdownRenderer: not ToolRegistryView');
 		}
 
-		// Fetch data using mock handler
-		const data = await mockListToolsHandler({
-			organizationId: 'demo-org',
-			limit: 50,
-			offset: 0,
-		});
+		const data = Array.isArray(ctx?.data)
+			? {
+					items: ctx.data as ToolItem[],
+					total: ctx.data.length,
+					hasMore: false,
+				}
+			: await createAgentConsoleDemoHandlers({
+					projectId: AGENT_CONSOLE_DEMO_PROJECT_ID,
+				}).listTools({
+					projectId: AGENT_CONSOLE_DEMO_PROJECT_ID,
+					organizationId: AGENT_CONSOLE_DEMO_ORGANIZATION_ID,
+					limit: 50,
+					offset: 0,
+				});
 
 		// Generate markdown
 		const lines: string[] = [

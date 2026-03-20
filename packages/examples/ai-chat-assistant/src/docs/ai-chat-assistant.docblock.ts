@@ -6,14 +6,15 @@ const aiChatAssistantDocBlocks: DocBlock[] = [
 		id: 'docs.examples.ai-chat-assistant',
 		title: 'AI Chat Assistant',
 		summary:
-			'Focused template: full ai-chat with reasoning, chain of thought, sources, suggestions, and MCP tools.',
+			'Focused assistant template with deterministic sources, curated sandbox docs, and meetup-safe beta coverage.',
 		kind: 'reference',
 		visibility: 'public',
 		route: '/docs/examples/ai-chat-assistant',
 		tags: ['ai', 'chat', 'mcp', 'tools'],
 		body: `## Overview
 
-- AI Chat Assistant with ChatWithSidebar: reasoning, chain of thought, sources, suggestions.
+- AI Chat Assistant with ChatWithSidebar: reasoning, sources, suggestions, and curated demo coverage.
+- Deterministic search-backed handler output so docs and sandbox routes stay stable during live demos.
 - Optional MCP tools (filesystem, etc.) when configured. Browser supports http/sse only.
 - One OperationSpec: \`assistant.search\` for demo; apps can add more.
 
@@ -60,6 +61,7 @@ const aiChatAssistantDocBlocks: DocBlock[] = [
 1) Add @contractspec/module.ai-chat and @contractspec/example.ai-chat-assistant.
 2) Create /api/chat route with createChatRoute (see web-landing).
 3) Render AiChatAssistantDashboard with proxyUrl="/api/chat".
+4) Run \`bun run smoke\` for the deterministic meetup lane before presenting.
 
 ## MCP
 - For browser: use http/sse MCP server configs. stdio returns empty tools.

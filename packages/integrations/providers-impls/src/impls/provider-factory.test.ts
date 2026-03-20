@@ -26,6 +26,7 @@ import { JiraProjectManagementProvider } from './jira';
 import { LinearProjectManagementProvider } from './linear';
 import { GithubMessagingProvider } from './messaging-github';
 import { SlackMessagingProvider } from './messaging-slack';
+import { TelegramMessagingProvider } from './messaging-telegram';
 import { MetaWhatsappMessagingProvider } from './messaging-whatsapp-meta';
 import { TwilioWhatsappMessagingProvider } from './messaging-whatsapp-twilio';
 import { MistralConversationalProvider } from './mistral-conversational';
@@ -98,6 +99,17 @@ describe('IntegrationProviderFactory', () => {
 			})
 		);
 		expect(provider).toBeInstanceOf(GithubMessagingProvider);
+	});
+
+	it('creates Telegram messaging provider', async () => {
+		const provider = await factory.createMessagingProvider(
+			buildContext({
+				key: 'messaging.telegram',
+				config: { defaultChatId: '-1001234567890' },
+				secret: { botToken: '123456789:AA-test', secretToken: 'secret' },
+			})
+		);
+		expect(provider).toBeInstanceOf(TelegramMessagingProvider);
 	});
 
 	it('creates Meta WhatsApp messaging provider', async () => {

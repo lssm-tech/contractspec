@@ -2,6 +2,7 @@ import {
 	GithubMessagingProvider,
 	MetaWhatsappMessagingProvider,
 	SlackMessagingProvider,
+	TelegramMessagingProvider,
 	TwilioWhatsappMessagingProvider,
 } from '@contractspec/integration.providers-impls/impls';
 import type {
@@ -11,6 +12,7 @@ import type {
 
 let slackProvider: SlackMessagingProvider | null | undefined;
 let githubProvider: GithubMessagingProvider | null | undefined;
+let telegramProvider: TelegramMessagingProvider | null | undefined;
 let metaWhatsappProvider: MetaWhatsappMessagingProvider | null | undefined;
 let twilioWhatsappProvider: TwilioWhatsappMessagingProvider | null | undefined;
 
@@ -25,6 +27,10 @@ export async function resolveMessagingSender(
 		case 'messaging.github': {
 			const provider = getGithubProvider();
 			return provider ? toGithubSender(provider) : null;
+		}
+		case 'messaging.telegram': {
+			const provider = getTelegramProvider();
+			return provider ? toTelegramSender(provider) : null;
 		}
 		case 'messaging.whatsapp.meta': {
 			const provider = getMetaWhatsappProvider();
@@ -42,6 +48,7 @@ export async function resolveMessagingSender(
 export function resetSenderResolverForTests(): void {
 	slackProvider = undefined;
 	githubProvider = undefined;
+	telegramProvider = undefined;
 	metaWhatsappProvider = undefined;
 	twilioWhatsappProvider = undefined;
 }
@@ -142,6 +149,39 @@ function toWhatsappSender(provider: {
 	};
 }
 
+function toTelegramSender(provider: {
+	sendMessage(input: {
+		recipientId?: string;
+		channelId?: string;
+		threadId?: string;
+		text: string;
+		markdown?: boolean;
+		metadata?: Record<string, string>;
+	}): Promise<{ providerMessageId?: string }>;
+}): ChannelMessageSender {
+	return {
+		async send(action: ChannelOutboxActionRecord) {
+			const text = toActionText(action);
+			const target = action.target;
+			const response = await provider.sendMessage({
+				channelId:
+					toOptionalString(target.externalChannelId) ??
+					toOptionalString(target.externalThreadId),
+				threadId: toOptionalString(target.externalThreadId),
+				recipientId: toOptionalString(target.externalUserId),
+				text,
+				metadata: {
+					outboxActionId: action.id,
+					decisionId: action.decisionId,
+				},
+			});
+			return {
+				providerMessageId: response.providerMessageId,
+			};
+		},
+	};
+}
+
 function getSlackProvider(): SlackMessagingProvider | null {
 	if (slackProvider !== undefined) return slackProvider;
 	const botToken = process.env.SLACK_BOT_TOKEN;
@@ -171,6 +211,21 @@ function getGithubProvider(): GithubMessagingProvider | null {
 		apiBaseUrl: process.env.GITHUB_API_BASE_URL,
 	});
 	return githubProvider;
+}
+
+function getTelegramProvider(): TelegramMessagingProvider | null {
+	if (telegramProvider !== undefined) return telegramProvider;
+	const botToken = process.env.TELEGRAM_BOT_TOKEN;
+	if (!botToken) {
+		telegramProvider = null;
+		return telegramProvider;
+	}
+	telegramProvider = new TelegramMessagingProvider({
+		botToken,
+		defaultChatId: process.env.TELEGRAM_DEFAULT_CHAT_ID,
+		apiBaseUrl: process.env.TELEGRAM_API_BASE_URL,
+	});
+	return telegramProvider;
 }
 
 function getMetaWhatsappProvider(): MetaWhatsappMessagingProvider | null {

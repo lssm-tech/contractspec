@@ -19,6 +19,10 @@ import {
 	registerMessagingSlackIntegration,
 } from './messaging-slack';
 import {
+	messagingTelegramIntegrationSpec,
+	registerMessagingTelegramIntegration,
+} from './messaging-telegram';
+import {
 	messagingWhatsappMetaIntegrationSpec,
 	registerMessagingWhatsappMetaIntegration,
 } from './messaging-whatsapp-meta';
@@ -318,6 +322,21 @@ describe('integration provider specs', () => {
 		expect(registered).toBe(messagingGithubIntegrationSpec);
 		expect(registered?.secretSchema.schema).toMatchObject({
 			required: ['token', 'webhookSecret'],
+		});
+	});
+
+	it('registers Telegram messaging integration', () => {
+		const registry = registerMessagingTelegramIntegration(
+			new IntegrationSpecRegistry()
+		);
+		const registered = registry.get('messaging.telegram', '1.0.0');
+		expect(registered).toBe(messagingTelegramIntegrationSpec);
+		expect(registered?.capabilities.provides).toEqual([
+			{ key: 'messaging.inbound', version: '1.0.0' },
+			{ key: 'messaging.outbound', version: '1.0.0' },
+		]);
+		expect(registered?.secretSchema.schema).toMatchObject({
+			required: ['botToken', 'secretToken'],
 		});
 	});
 

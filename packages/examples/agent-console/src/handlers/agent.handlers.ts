@@ -3,10 +3,34 @@
  *
  * Database-backed handlers for agent management and runs.
  */
+
 import type { DatabasePort } from '@contractspec/lib.runtime-sandbox';
 import { web } from '@contractspec/lib.runtime-sandbox';
+import {
+	CreateAgentCommand,
+	GetAgentQuery,
+	ListAgentsQuery,
+	UpdateAgentCommand,
+} from '../agent/agent.operation';
+import {
+	ExecuteAgentCommand,
+	GetRunMetricsQuery,
+	ListRunsQuery,
+} from '../run/run.operation';
+import { ListToolsQuery } from '../tool/tool.operation';
 
 const { generateId } = web;
+const RUNTIME_AGENT_HANDLER_CONTRACTS = [
+	CreateAgentCommand,
+	GetAgentQuery,
+	ListAgentsQuery,
+	UpdateAgentCommand,
+	ExecuteAgentCommand,
+	ListToolsQuery,
+	ListRunsQuery,
+	GetRunMetricsQuery,
+] as const;
+void RUNTIME_AGENT_HANDLER_CONTRACTS;
 
 // ============ Types ============
 
@@ -111,6 +135,14 @@ export interface ListRunsInput {
 	organizationId?: string;
 	agentId?: string;
 	status?: Run['status'] | 'all';
+	sortBy?:
+		| 'queuedAt'
+		| 'totalTokens'
+		| 'durationMs'
+		| 'estimatedCostUsd'
+		| 'status'
+		| 'agentName';
+	sortDirection?: 'asc' | 'desc';
 	limit?: number;
 	offset?: number;
 }
@@ -189,6 +221,15 @@ interface RunRow extends Record<string, unknown> {
 	startedAt: string | null;
 	completedAt: string | null;
 }
+
+const RUN_SORT_COLUMNS = {
+	queuedAt: 'r.queuedAt',
+	totalTokens: 'r.totalTokens',
+	durationMs: 'r.durationMs',
+	estimatedCostUsd: 'r.estimatedCostUsd',
+	status: 'r.status',
+	agentName: 'a.name',
+} as const;
 
 function rowToAgent(row: AgentRow): Agent {
 	return {
@@ -459,7 +500,15 @@ export function createAgentHandlers(db: DatabasePort) {
 	 * List runs
 	 */
 	async function listRuns(input: ListRunsInput): Promise<ListRunsOutput> {
-		const { projectId, agentId, status, limit = 20, offset = 0 } = input;
+		const {
+			projectId,
+			agentId,
+			status,
+			sortBy,
+			sortDirection = 'desc',
+			limit = 20,
+			offset = 0,
+		} = input;
 
 		let whereClause = 'WHERE r.projectId = ?';
 		const params: (string | number)[] = [projectId];
@@ -481,6 +530,8 @@ export function createAgentHandlers(db: DatabasePort) {
 			)
 		).rows as unknown as { count: number }[];
 		const total = countResult[0]?.count ?? 0;
+		const sortColumn = sortBy ? RUN_SORT_COLUMNS[sortBy] : RUN_SORT_COLUMNS.queuedAt;
+		const direction = sortDirection === 'asc' ? 'ASC' : 'DESC';
 
 		const rows = (
 			await db.query(
@@ -488,7 +539,7 @@ export function createAgentHandlers(db: DatabasePort) {
        FROM agent_run r 
        LEFT JOIN agent_definition a ON r.agentId = a.id 
        ${whereClause} 
-       ORDER BY r.queuedAt DESC LIMIT ? OFFSET ?`,
+       ORDER BY ${sortColumn} ${direction}, r.queuedAt DESC LIMIT ? OFFSET ?`,
 				[...params, limit, offset]
 			)
 		).rows as unknown as (RunRow & { agentName: string })[];

@@ -2,6 +2,8 @@
  * Markdown renderers for Marketplace presentations
  */
 import type { PresentationRenderer } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
+import type { Order } from '../../handlers/marketplace.handlers';
+import { createMarketplaceVisualizationItems } from '../../visualizations';
 
 // Mock data for marketplace rendering
 const mockStores = [
@@ -33,6 +35,7 @@ const mockProducts = [
 		id: 'prod-1',
 		name: 'Wireless Earbuds',
 		storeId: 'store-1',
+		category: 'Electronics',
 		price: 79.99,
 		currency: 'USD',
 		status: 'ACTIVE',
@@ -42,6 +45,7 @@ const mockProducts = [
 		id: 'prod-2',
 		name: 'Smart Watch',
 		storeId: 'store-1',
+		category: 'Wearables',
 		price: 249.99,
 		currency: 'USD',
 		status: 'ACTIVE',
@@ -51,6 +55,7 @@ const mockProducts = [
 		id: 'prod-3',
 		name: 'Garden Tools Set',
 		storeId: 'store-2',
+		category: 'Garden',
 		price: 89.99,
 		currency: 'USD',
 		status: 'ACTIVE',
@@ -60,6 +65,7 @@ const mockProducts = [
 		id: 'prod-4',
 		name: 'Indoor Plant Kit',
 		storeId: 'store-2',
+		category: 'Garden',
 		price: 45.99,
 		currency: 'USD',
 		status: 'ACTIVE',
@@ -69,6 +75,7 @@ const mockProducts = [
 		id: 'prod-5',
 		name: 'LED Desk Lamp',
 		storeId: 'store-1',
+		category: 'Home Office',
 		price: 34.99,
 		currency: 'USD',
 		status: 'OUT_OF_STOCK',
@@ -76,7 +83,16 @@ const mockProducts = [
 	},
 ];
 
-const mockOrders = [
+const mockOrders: Array<
+	Pick<Order, 'status' | 'total'> & {
+		id: string;
+		storeId: string;
+		customerId: string;
+		currency: string;
+		itemCount: number;
+		createdAt: string;
+	}
+> = [
 	{
 		id: 'ord-1',
 		storeId: 'store-1',
@@ -148,6 +164,10 @@ export const marketplaceDashboardMarkdownRenderer: PresentationRenderer<{
 		const stores = mockStores;
 		const products = mockProducts;
 		const orders = mockOrders;
+		const visualizationItems = createMarketplaceVisualizationItems(
+			products,
+			orders
+		);
 
 		// Calculate stats
 		const activeStores = stores.filter((s) => s.status === 'ACTIVE');
@@ -172,11 +192,20 @@ export const marketplaceDashboardMarkdownRenderer: PresentationRenderer<{
 			`| Total Revenue | ${formatCurrency(totalRevenue)} |`,
 			`| Pending Orders | ${pendingOrders.length} |`,
 			'',
-			'## Top Stores',
+			'## Visualization Overview',
 			'',
-			'| Store | Products | Rating | Status |',
-			'|-------|----------|--------|--------|',
 		];
+
+		for (const item of visualizationItems) {
+			lines.push(`- **${item.title}** via \`${item.spec.meta.key}\``);
+		}
+
+		lines.push('');
+		lines.push('## Top Stores');
+		lines.push('');
+		lines.push('| Store | Products | Rating | Status |');
+		lines.push('|-------|----------|--------|--------|');
+		
 
 		for (const store of stores.slice(0, 5)) {
 			lines.push(
