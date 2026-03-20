@@ -1,4 +1,4 @@
-export { VideoGenerator } from './video-generator';
+export type { ScenePlannerOptions } from './scene-planner';
 
 export { ScenePlanner } from './scene-planner';
-export type { ScenePlannerOptions } from './scene-planner';
+export { VideoGenerator } from './video-generator';

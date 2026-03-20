@@ -2,6 +2,6 @@
  * Cache storage adapters.
  */
 
-export * from './in-memory';
 export * from './filesystem';
+export * from './in-memory';
 export * from './workspace-state';

@@ -1,151 +1,66 @@
 # @contractspec/integration.example-generator
 
-Example plugin for ContractSpec that generates markdown documentation from ContractSpec specifications.
+Website: https://contractspec.io
 
-## Overview
+**Example plugin: Markdown documentation generator for ContractSpec specs.**
 
-This plugin demonstrates how to create a ContractSpec generator plugin. It transforms structured spec definitions into human-readable markdown documentation that can be used for API docs, user guides, or technical specifications.
+## What It Provides
 
-## Features
-
-- 🚀 **Spec-First Generation**: Converts ContractSpec specs to markdown automatically
-- 📝 **Rich Formatting**: Supports tables, lists, and detail views
-- 🔧 **Configurable Output**: Customize formatting, field selection, and styling
-- 📊 **Data Integration**: Works with schema models and instance data
-- 🎯 **Type Safe**: Full TypeScript support with proper type definitions
-- 🧪 **Well Tested**: Comprehensive test suite included
+- **Layer**: integration.
+- **Consumers**: plugin authors, documentation pipelines.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Installation
 
-```bash
-npm install @contractspec/integration.example-generator
-```
+`npm install @contractspec/integration.example-generator`
+
+or
+
+`bun add @contractspec/integration.example-generator`
 
 ## Usage
 
-### Basic Usage
+Import the root entrypoint from `@contractspec/integration.example-generator`, or choose a documented subpath when you only need one part of the package surface.
 
-```typescript
-import { ExampleGeneratorPlugin } from "@contractspec/integration.example-generator";
+## Architecture
 
-const generator = new ExampleGeneratorPlugin({
-  outputDir: "./docs",
-  format: "table", // or "list", "detail", "auto"
-  includeFields: ["id", "name", "description"],
-});
+- `src/config.ts` is part of the package's public or composition surface.
+- `src/generator.ts` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/types.ts` is shared public type definitions.
 
-// Generate markdown from specs
-await generator.generateFromSpec(specPath, outputPath);
-```
+## Public Entry Points
 
-### Advanced Configuration
+- Export `.` resolves through `./src/index.ts`.
+- Export `./config` resolves through `./src/config.ts`.
+- Export `./generator` resolves through `./src/generator.ts`.
+- Export `./types` resolves through `./src/types.ts`.
 
-```typescript
-import { ExampleGeneratorPlugin } from "@contractspec/integration.example-generator";
+## Local Commands
 
-const generator = new ExampleGeneratorPlugin({
-  outputDir: "./docs",
-  format: "auto",
-  title: "API Documentation",
-  description: "Auto-generated API documentation",
-  maxItems: 100,
-  maxDepth: 3,
-  fieldLabels: {
-    id: "ID",
-    createdAt: "Created Date",
-    updatedAt: "Last Modified"
-  },
-  summaryFields: ["id", "name", "status"],
-  excludeFields: ["internalNotes", "metadata"]
-});
-```
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test --pass-with-no-tests
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run test:watch` — bun test --watch
+- `bun run test:coverage` — bun test --coverage
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-## Configuration Options
+## Recent Updates
 
-| Option          | Type                     | Default    | Description                                              |
-| --------------- | ------------------------ | ---------- | -------------------------------------------------------- |
-| `outputDir`     | `string`                 | `"./docs"` | Directory for generated files                            |
-| `format`        | `string`                 | `"auto"`   | Output format: `"table"`, `"list"`, `"detail"`, `"auto"` |
-| `title`         | `string`                 | undefined  | Document title                                           |
-| `description`   | `string`                 | undefined  | Document description                                     |
-| `maxItems`      | `number`                 | `100`      | Maximum items to render in tables                        |
-| `maxDepth`      | `number`                 | `2`        | Maximum nesting depth for objects                        |
-| `includeFields` | `string[]`               | undefined  | Only include these fields                                |
-| `excludeFields` | `string[]`               | `[]`       | Exclude these fields from output                         |
-| `fieldLabels`   | `Record<string, string>` | undefined  | Custom field labels                                      |
-| `summaryFields` | `string[]`               | undefined  | Fields for list summaries                                |
+- Replace eslint+prettier by biomejs to optimize speed.
 
-## Plugin Interface
+## Notes
 
-This plugin implements the ContractSpec generator interface:
-
-```typescript
-interface GeneratorPlugin {
-  readonly id: string;
-  readonly name: string;
-  readonly version: string;
-
-  initialize(config: GeneratorConfig): Promise<void>;
-  generate(spec: SpecDefinition, context: GeneratorContext): Promise<GeneratorResult>;
-  cleanup(): Promise<void>;
-}
-```
-
-## Development
-
-### Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/lssm-tech/contractspec.git
-cd contractspec/packages/libs/plugins/example-generator
-
-# Install dependencies
-bun install
-
-# Run tests
-bun test
-
-# Build the plugin
-bun run build
-```
-
-### Testing
-
-```bash
-# Run all tests
-bun test
-
-# Run tests in watch mode
-bun test:watch
-
-# Run tests with coverage
-bun test:coverage
-```
-
-### Building
-
-```bash
-# Build the plugin
-bun run build
-
-# Build types only
-bun run build:types
-
-# Build bundle only
-bun run build:bundle
-```
-
-## Contributing
-
-We welcome contributions! Please see our [Contributing Guide](../../../CONTRIBUTING.md) for details.
-
-## License
-
-MIT © ContractSpec Team
-
-## Support
-
-- 📖 [Documentation](https://contractspec.io/docs)
-- 🐛 [Issues](https://github.com/lssm-tech/contractspec/issues)
-- 💬 [Discussions](https://github.com/lssm-tech/contractspec/discussions)
+- Do not add business logic; this is a reference plugin.
+- Keep the export surface minimal -- new exports need a clear use-case.
+- Peer-depends on `contracts-spec` and `schema`; do not bundle them.

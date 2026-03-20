@@ -7,31 +7,30 @@
  * @module @contractspec/bundle.workspace/services/agent-guide
  */
 
-// Types
-export type {
-  AgentGuideConfig,
-  GuideOptions,
-  FormatOptions,
-  GuideResult,
-  AgentAdapter,
-} from './types';
+// Adapters
+export {
+	agentAdapters,
+	ClaudeCodeAdapter,
+	CursorCLIAdapter,
+	claudeCodeAdapter,
+	cursorCLIAdapter,
+	GenericMCPAdapter,
+	genericMCPAdapter,
+	getAgentAdapter,
+	listAgentTypes,
+} from './adapters';
 
 // Service
 export {
-  AgentGuideService,
-  createAgentGuideService,
-  agentGuideService,
+	AgentGuideService,
+	agentGuideService,
+	createAgentGuideService,
 } from './agent-guide-service';
-
-// Adapters
-export {
-  ClaudeCodeAdapter,
-  claudeCodeAdapter,
-  CursorCLIAdapter,
-  cursorCLIAdapter,
-  GenericMCPAdapter,
-  genericMCPAdapter,
-  agentAdapters,
-  getAgentAdapter,
-  listAgentTypes,
-} from './adapters';
+// Types
+export type {
+	AgentAdapter,
+	AgentGuideConfig,
+	FormatOptions,
+	GuideOptions,
+	GuideResult,
+} from './types';

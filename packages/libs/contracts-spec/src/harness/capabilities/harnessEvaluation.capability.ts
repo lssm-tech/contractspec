@@ -1,0 +1,41 @@
+import { defineCapability } from '../../capabilities';
+import {
+	HARNESS_DOMAIN,
+	HARNESS_OWNERS,
+	HARNESS_STABILITY,
+	HARNESS_TAGS,
+} from '../constants';
+
+export const HarnessEvaluationCapability = defineCapability({
+	meta: {
+		key: 'harness.evaluation',
+		version: '1.0.0',
+		kind: 'data',
+		title: 'Harness Evaluation',
+		description: 'Run scenario evaluations and inspect assertion outcomes.',
+		domain: HARNESS_DOMAIN,
+		owners: HARNESS_OWNERS,
+		tags: [...HARNESS_TAGS, 'evaluation'],
+		stability: HARNESS_STABILITY,
+	},
+	provides: [
+		{
+			surface: 'operation',
+			key: 'harness.evaluation.run',
+			version: '1.0.0',
+			description: 'Run a harness scenario or suite.',
+		},
+		{
+			surface: 'operation',
+			key: 'harness.evaluation.get',
+			version: '1.0.0',
+			description: 'Read one evaluation result.',
+		},
+		{
+			surface: 'event',
+			key: 'harness.evaluation.completed',
+			version: '1.0.0',
+			description: 'Evaluation completed with assertion results.',
+		},
+	],
+});

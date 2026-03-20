@@ -10,14 +10,14 @@ import type { ComponentMap } from './types';
  * Returns the markdown content as a string.
  */
 export async function renderPresentationToMarkdown(
-  descriptor: PresentationSpec
+	descriptor: PresentationSpec
 ): Promise<string> {
-  const result = await presentationEngine.render<{
-    mimeType: string;
-    body: string;
-  }>('markdown', descriptor);
+	const result = await presentationEngine.render<{
+		mimeType: string;
+		body: string;
+	}>('markdown', descriptor);
 
-  return result.body;
+	return result.body;
 }
 
 /**
@@ -25,24 +25,24 @@ export async function renderPresentationToMarkdown(
  * Returns the React element or null if component not found.
  */
 export async function renderPresentationToReact(
-  descriptor: PresentationSpec,
-  customComponentMap?: ComponentMap
+	descriptor: PresentationSpec,
+	customComponentMap?: ComponentMap
 ): Promise<React.ReactElement | null> {
-  const map = customComponentMap ?? componentMap;
-  const element = await renderFeaturePresentation(
-    presentationEngine,
-    'react',
-    descriptor,
-    {
-      componentMap: map,
-    }
-  );
+	const map = customComponentMap ?? componentMap;
+	const element = await renderFeaturePresentation(
+		presentationEngine,
+		'react',
+		descriptor,
+		{
+			componentMap: map,
+		}
+	);
 
-  if (element && typeof element === 'object' && 'type' in element) {
-    return element as React.ReactElement;
-  }
+	if (element && typeof element === 'object' && 'type' in element) {
+		return element as React.ReactElement;
+	}
 
-  return null;
+	return null;
 }
 
 /**
@@ -50,50 +50,50 @@ export async function renderPresentationToReact(
  * Uses llms. subdomain and .md extension.
  */
 export function getMarkdownUrl(route: string, baseUrl?: string): string {
-  const base = baseUrl ?? 'https://contractspec.io/mdx';
-  const llmsBase = base.replace('contractspec.io', 'llms.contractspec.io');
+	const base = baseUrl ?? 'https://contractspec.io/mdx';
+	const llmsBase = base.replace('contractspec.io', 'llms.contractspec.io');
 
-  // Normalize route
-  const normalizedRoute = route === '/' ? '/' : route.replace(/\/$/, '');
-  return `${llmsBase}${normalizedRoute}`;
+	// Normalize route
+	const normalizedRoute = route === '/' ? '/' : route.replace(/\/$/, '');
+	return `${llmsBase}${normalizedRoute}`;
 
-  // Add .md extension if not root
-  // const path = normalizedRoute === '/' ? '/index.md' : `${normalizedRoute}.md`;
-  // return `${llmsBase}${path}`;
+	// Add .md extension if not root
+	// const path = normalizedRoute === '/' ? '/index.md' : `${normalizedRoute}.md`;
+	// return `${llmsBase}${path}`;
 }
 
 /**
  * Get AI chat URLs for various providers.
  */
 export interface AIChatProvider {
-  name: string;
-  getUrl: (url: string) => string;
+	name: string;
+	getUrl: (url: string) => string;
 }
 
 export const aiChatProviders: AIChatProvider[] = [
-  {
-    name: 'ChatGPT',
-    getUrl: (url: string) =>
-      `https://chatgpt.com/?q=${encodeURIComponent(url)}`,
-  },
-  {
-    name: 'Claude',
-    getUrl: (url: string) =>
-      `https://claude.ai/new?url=${encodeURIComponent(url)}`,
-  },
-  {
-    name: 'Grok',
-    getUrl: (url: string) =>
-      `https://x.com/i/grok?url=${encodeURIComponent(url)}`,
-  },
-  {
-    name: 'Mistral',
-    getUrl: (url: string) =>
-      `https://mistral.ai/chat?url=${encodeURIComponent(url)}`,
-  },
-  {
-    name: 'Perplexity',
-    getUrl: (url: string) =>
-      `https://www.perplexity.ai/?q=${encodeURIComponent(url)}`,
-  },
+	{
+		name: 'ChatGPT',
+		getUrl: (url: string) =>
+			`https://chatgpt.com/?q=${encodeURIComponent(url)}`,
+	},
+	{
+		name: 'Claude',
+		getUrl: (url: string) =>
+			`https://claude.ai/new?url=${encodeURIComponent(url)}`,
+	},
+	{
+		name: 'Grok',
+		getUrl: (url: string) =>
+			`https://x.com/i/grok?url=${encodeURIComponent(url)}`,
+	},
+	{
+		name: 'Mistral',
+		getUrl: (url: string) =>
+			`https://mistral.ai/chat?url=${encodeURIComponent(url)}`,
+	},
+	{
+		name: 'Perplexity',
+		getUrl: (url: string) =>
+			`https://www.perplexity.ai/?q=${encodeURIComponent(url)}`,
+	},
 ];

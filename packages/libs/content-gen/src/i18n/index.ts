@@ -19,36 +19,34 @@
  * ```
  */
 
-// Core i18n API
-export {
-  createContentGenI18n,
-  getDefaultI18n,
-  resetI18nRegistry,
-} from './messages';
-export type { ContentGenI18n } from './messages';
-
-// Locale utilities
-export {
-  resolveLocale,
-  isSupportedLocale,
-  DEFAULT_LOCALE,
-  SUPPORTED_LOCALES,
-} from './locale';
-export type { SupportedLocale } from './locale';
+// Catalogs
+export { enMessages } from './catalogs/en';
+export { esMessages } from './catalogs/es';
+export { frMessages } from './catalogs/fr';
+export type { ContentGenMessageKey } from './keys';
 
 // Message keys
 export {
-  I18N_KEYS,
-  PROMPT_KEYS,
-  BLOG_KEYS,
-  EMAIL_KEYS,
-  LANDING_KEYS,
-  SOCIAL_KEYS,
-  SEO_KEYS,
+	BLOG_KEYS,
+	EMAIL_KEYS,
+	I18N_KEYS,
+	LANDING_KEYS,
+	PROMPT_KEYS,
+	SEO_KEYS,
+	SOCIAL_KEYS,
 } from './keys';
-export type { ContentGenMessageKey } from './keys';
-
-// Catalogs
-export { enMessages } from './catalogs/en';
-export { frMessages } from './catalogs/fr';
-export { esMessages } from './catalogs/es';
+export type { SupportedLocale } from './locale';
+// Locale utilities
+export {
+	DEFAULT_LOCALE,
+	isSupportedLocale,
+	resolveLocale,
+	SUPPORTED_LOCALES,
+} from './locale';
+export type { ContentGenI18n } from './messages';
+// Core i18n API
+export {
+	createContentGenI18n,
+	getDefaultI18n,
+	resetI18nRegistry,
+} from './messages';

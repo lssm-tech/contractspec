@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.source-extractors",
-  "version": "2.6.0",
+  "version": "2.7.7",
   "description": "Extract contract candidates from TypeScript source code across multiple frameworks (NestJS, Express, Fastify, Hono, Elysia, tRPC, Next.js)",
   "keywords": [
     "contractspec",
@@ -23,8 +23,8 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "test": "bun test",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
@@ -47,9 +47,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./codegen": "./src/codegen/index.ts",
-    "./codegen/index": "./src/codegen/index.ts",
     "./extractors": "./src/extractors/index.ts",
-    "./extractors/index": "./src/extractors/index.ts",
     "./types": "./src/types.ts"
   },
   "publishConfig": {
@@ -57,44 +55,30 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./codegen": {
         "types": "./dist/codegen/index.d.ts",
+        "browser": "./dist/browser/codegen/index.js",
         "bun": "./dist/codegen/index.js",
         "node": "./dist/node/codegen/index.js",
-        "browser": "./dist/browser/codegen/index.js",
-        "default": "./dist/codegen/index.js"
-      },
-      "./codegen/index": {
-        "types": "./dist/codegen/index.d.ts",
-        "bun": "./dist/codegen/index.js",
-        "node": "./dist/node/codegen/index.js",
-        "browser": "./dist/browser/codegen/index.js",
         "default": "./dist/codegen/index.js"
       },
       "./extractors": {
         "types": "./dist/extractors/index.d.ts",
+        "browser": "./dist/browser/extractors/index.js",
         "bun": "./dist/extractors/index.js",
         "node": "./dist/node/extractors/index.js",
-        "browser": "./dist/browser/extractors/index.js",
-        "default": "./dist/extractors/index.js"
-      },
-      "./extractors/index": {
-        "types": "./dist/extractors/index.d.ts",
-        "bun": "./dist/extractors/index.js",
-        "node": "./dist/node/extractors/index.js",
-        "browser": "./dist/browser/extractors/index.js",
         "default": "./dist/extractors/index.js"
       },
       "./types": {
         "types": "./dist/types.d.ts",
+        "browser": "./dist/browser/types.js",
         "bun": "./dist/types.js",
         "node": "./dist/node/types.js",
-        "browser": "./dist/browser/types.js",
         "default": "./dist/types.js"
       }
     },

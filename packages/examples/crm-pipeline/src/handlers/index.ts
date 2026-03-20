@@ -5,26 +5,25 @@
  * for use in demos, tests, and the sandbox environment.
  */
 
-// Mock data
-export * from './mock-data';
+// Runtime handlers (PGLite)
+export * from './crm.handlers';
 
 // Deal handlers
 export {
-  mockListDealsHandler,
-  mockCreateDealHandler,
-  mockMoveDealHandler,
-  mockWinDealHandler,
-  mockLoseDealHandler,
-  mockGetDealsByStageHandler,
-  mockGetPipelineStagesHandler,
-  type Deal,
-  type CreateDealInput,
-  type MoveDealInput,
-  type WinDealInput,
-  type LoseDealInput,
-  type ListDealsInput,
-  type ListDealsOutput,
+	type CreateDealInput,
+	type Deal,
+	type ListDealsInput,
+	type ListDealsOutput,
+	type LoseDealInput,
+	type MoveDealInput,
+	mockCreateDealHandler,
+	mockGetDealsByStageHandler,
+	mockGetPipelineStagesHandler,
+	mockListDealsHandler,
+	mockLoseDealHandler,
+	mockMoveDealHandler,
+	mockWinDealHandler,
+	type WinDealInput,
 } from './deal.handlers';
-
-// Runtime handlers (PGLite)
-export * from './crm.handlers';
+// Mock data
+export * from './mock-data';

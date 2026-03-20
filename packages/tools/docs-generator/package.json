@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/tool.docs-generator",
-  "version": "3.6.0",
+  "version": "3.7.7",
   "type": "module",
   "description": "CLI tool for generating docs artifacts from ContractSpec specs and DocBlocks",
   "keywords": [
@@ -19,8 +19,8 @@
     "docs:generate": "bun src/index.ts generate --source \"../../../generated/docs\" --out \"../../../packages/bundles/library/src/components/docs/generated\" --content-root \"../../../generated/docs\"",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "test": "bun test",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit",

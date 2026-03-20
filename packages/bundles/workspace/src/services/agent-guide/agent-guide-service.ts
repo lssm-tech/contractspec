@@ -6,27 +6,27 @@
  */
 
 import type {
-  AnyOperationSpec,
-  OperationSpecRegistry,
-  PresentationRegistry,
+	AnyOperationSpec,
+	OperationSpecRegistry,
+	PresentationRegistry,
 } from '@contractspec/lib.contracts-spec';
 import type { FeatureModuleSpec } from '@contractspec/lib.contracts-spec/features';
 import type {
-  AgentType,
-  ImplementationPlan,
+	AgentType,
+	ImplementationPlan,
 } from '@contractspec/lib.contracts-spec/llm';
 import {
-  featureToMarkdown,
-  generateImplementationPlan,
-  operationSpecToAgentPrompt,
-  operationSpecToFullMarkdown,
+	featureToMarkdown,
+	generateImplementationPlan,
+	operationSpecToAgentPrompt,
+	operationSpecToFullMarkdown,
 } from '@contractspec/lib.contracts-spec/llm';
 import { getAgentAdapter, listAgentTypes } from './adapters';
 import type { AgentGuideConfig, GuideOptions, GuideResult } from './types';
 
 const DEFAULT_CONFIG: AgentGuideConfig = {
-  defaultAgent: 'generic-mcp',
-  verbose: false,
+	defaultAgent: 'generic-mcp',
+	verbose: false,
 };
 
 /**
@@ -35,183 +35,183 @@ const DEFAULT_CONFIG: AgentGuideConfig = {
  * Main service for generating implementation guidance for AI coding agents.
  */
 export class AgentGuideService {
-  private config: AgentGuideConfig;
+	private config: AgentGuideConfig;
 
-  constructor(config: Partial<AgentGuideConfig> = {}) {
-    this.config = { ...DEFAULT_CONFIG, ...config };
-  }
+	constructor(config: Partial<AgentGuideConfig> = {}) {
+		this.config = { ...DEFAULT_CONFIG, ...config };
+	}
 
-  /**
-   * Generate an implementation guide for a spec.
-   */
-  generateGuide(
-    spec: AnyOperationSpec,
-    options: GuideOptions = {}
-  ): GuideResult {
-    const agent = options.agent ?? this.config.defaultAgent;
-    const adapter = getAgentAdapter(agent);
+	/**
+	 * Generate an implementation guide for a spec.
+	 */
+	generateGuide(
+		spec: AnyOperationSpec,
+		options: GuideOptions = {}
+	): GuideResult {
+		const agent = options.agent ?? this.config.defaultAgent;
+		const adapter = getAgentAdapter(agent);
 
-    // Generate the implementation plan
-    const plan = generateImplementationPlan(spec, {
-      projectRoot: this.config.projectRoot,
-      existingFiles: options.targetPath ? [options.targetPath] : undefined,
-    });
+		// Generate the implementation plan
+		const plan = generateImplementationPlan(spec, {
+			projectRoot: this.config.projectRoot,
+			existingFiles: options.targetPath ? [options.targetPath] : undefined,
+		});
 
-    // Format for the target agent
-    const prompt = adapter.formatPlan(plan);
+		// Format for the target agent
+		const prompt = adapter.formatPlan(plan);
 
-    // Generate raw markdown for clipboard/export
-    const markdown = operationSpecToFullMarkdown(spec);
+		// Generate raw markdown for clipboard/export
+		const markdown = operationSpecToFullMarkdown(spec);
 
-    return {
-      plan,
-      prompt,
-      markdown,
-    };
-  }
+		return {
+			plan,
+			prompt,
+			markdown,
+		};
+	}
 
-  /**
-   * Generate a guide for a feature (includes all related specs).
-   */
-  generateFeatureGuide(
-    feature: FeatureModuleSpec,
-    deps: {
-      specs?: OperationSpecRegistry;
-      presentations?: PresentationRegistry;
-    },
-    options: GuideOptions = {}
-  ): GuideResult {
-    const agent = options.agent ?? this.config.defaultAgent;
-    const adapter = getAgentAdapter(agent);
+	/**
+	 * Generate a guide for a feature (includes all related specs).
+	 */
+	generateFeatureGuide(
+		feature: FeatureModuleSpec,
+		deps: {
+			specs?: OperationSpecRegistry;
+			presentations?: PresentationRegistry;
+		},
+		options: GuideOptions = {}
+	): GuideResult {
+		const agent = options.agent ?? this.config.defaultAgent;
+		const adapter = getAgentAdapter(agent);
 
-    // Create a composite plan for the feature
-    const firstOp = feature.operations?.[0];
-    const spec = firstOp
-      ? deps.specs?.get(firstOp.key, firstOp.version)
-      : undefined;
+		// Create a composite plan for the feature
+		const firstOp = feature.operations?.[0];
+		const spec = firstOp
+			? deps.specs?.get(firstOp.key, firstOp.version)
+			: undefined;
 
-    // Generate base plan from first spec or create feature-level plan
-    let plan: ImplementationPlan;
-    if (spec) {
-      plan = generateImplementationPlan(spec, {
-        projectRoot: this.config.projectRoot,
-      });
-      // Override target to indicate it's a feature
-      plan.target = {
-        type: 'feature',
-        key: feature.meta.key,
-        version: '1.0.0',
-      };
-      plan.context.goal = feature.meta.description ?? plan.context.goal;
-    } else {
-      // Create a minimal plan for features without specs
-      plan = {
-        target: {
-          type: 'feature',
-          key: feature.meta.key,
-          version: '1.0.0',
-        },
-        context: {
-          goal:
-            feature.meta.description ?? `Implement feature ${feature.meta.key}`,
-          description: feature.meta.title ?? feature.meta.key,
-          background: '',
-        },
-        specMarkdown: featureToMarkdown(feature, deps),
-        fileStructure: [],
-        steps: [
-          {
-            order: 1,
-            title: 'Implement Feature',
-            description: `Implement the ${feature.meta.key} feature`,
-            acceptanceCriteria: [],
-          },
-        ],
-        constraints: { policy: [], security: [], pii: [] },
-        verificationChecklist: [],
-      };
-    }
+		// Generate base plan from first spec or create feature-level plan
+		let plan: ImplementationPlan;
+		if (spec) {
+			plan = generateImplementationPlan(spec, {
+				projectRoot: this.config.projectRoot,
+			});
+			// Override target to indicate it's a feature
+			plan.target = {
+				type: 'feature',
+				key: feature.meta.key,
+				version: '1.0.0',
+			};
+			plan.context.goal = feature.meta.description ?? plan.context.goal;
+		} else {
+			// Create a minimal plan for features without specs
+			plan = {
+				target: {
+					type: 'feature',
+					key: feature.meta.key,
+					version: '1.0.0',
+				},
+				context: {
+					goal:
+						feature.meta.description ?? `Implement feature ${feature.meta.key}`,
+					description: feature.meta.title ?? feature.meta.key,
+					background: '',
+				},
+				specMarkdown: featureToMarkdown(feature, deps),
+				fileStructure: [],
+				steps: [
+					{
+						order: 1,
+						title: 'Implement Feature',
+						description: `Implement the ${feature.meta.key} feature`,
+						acceptanceCriteria: [],
+					},
+				],
+				constraints: { policy: [], security: [], pii: [] },
+				verificationChecklist: [],
+			};
+		}
 
-    // Enhance spec markdown with full feature context
-    plan.specMarkdown = featureToMarkdown(feature, deps, {
-      format: 'full',
-      includeRelatedSpecs: true,
-      includeRelatedEvents: true,
-      includeRelatedPresentations: true,
-    });
+		// Enhance spec markdown with full feature context
+		plan.specMarkdown = featureToMarkdown(feature, deps, {
+			format: 'full',
+			includeRelatedSpecs: true,
+			includeRelatedEvents: true,
+			includeRelatedPresentations: true,
+		});
 
-    // Add steps for each operation
-    if (feature.operations?.length) {
-      plan.steps = feature.operations.map((op, idx) => ({
-        order: idx + 1,
-        title: `Implement ${op.key}`,
-        description: `Implement operation ${op.key}.v${op.version}`,
-        acceptanceCriteria: [`Operation ${op.key} works as specified`],
-      }));
-    }
+		// Add steps for each operation
+		if (feature.operations?.length) {
+			plan.steps = feature.operations.map((op, idx) => ({
+				order: idx + 1,
+				title: `Implement ${op.key}`,
+				description: `Implement operation ${op.key}.v${op.version}`,
+				acceptanceCriteria: [`Operation ${op.key} works as specified`],
+			}));
+		}
 
-    const prompt = adapter.formatPlan(plan);
-    const markdown = featureToMarkdown(feature, deps);
+		const prompt = adapter.formatPlan(plan);
+		const markdown = featureToMarkdown(feature, deps);
 
-    return {
-      plan,
-      prompt,
-      markdown,
-    };
-  }
+		return {
+			plan,
+			prompt,
+			markdown,
+		};
+	}
 
-  /**
-   * Generate agent-specific configuration (e.g., cursor rules).
-   */
-  generateAgentConfig(
-    spec: AnyOperationSpec,
-    agent?: AgentType
-  ): string | undefined {
-    const adapter = getAgentAdapter(agent ?? this.config.defaultAgent);
-    return adapter.generateConfig?.(spec);
-  }
+	/**
+	 * Generate agent-specific configuration (e.g., cursor rules).
+	 */
+	generateAgentConfig(
+		spec: AnyOperationSpec,
+		agent?: AgentType
+	): string | undefined {
+		const adapter = getAgentAdapter(agent ?? this.config.defaultAgent);
+		return adapter.generateConfig?.(spec);
+	}
 
-  /**
-   * Export a spec in a specific format for an agent.
-   */
-  exportForAgent(
-    spec: AnyOperationSpec,
-    _agent: AgentType,
-    taskType: 'implement' | 'test' | 'refactor' | 'review' = 'implement',
-    existingCode?: string
-  ): string {
-    return operationSpecToAgentPrompt(spec, { taskType, existingCode });
-  }
+	/**
+	 * Export a spec in a specific format for an agent.
+	 */
+	exportForAgent(
+		spec: AnyOperationSpec,
+		_agent: AgentType,
+		taskType: 'implement' | 'test' | 'refactor' | 'review' = 'implement',
+		existingCode?: string
+	): string {
+		return operationSpecToAgentPrompt(spec, { taskType, existingCode });
+	}
 
-  /**
-   * List available agent types.
-   */
-  listAgentTypes(): AgentType[] {
-    return listAgentTypes();
-  }
+	/**
+	 * List available agent types.
+	 */
+	listAgentTypes(): AgentType[] {
+		return listAgentTypes();
+	}
 
-  /**
-   * Get the default agent type.
-   */
-  getDefaultAgent(): AgentType {
-    return this.config.defaultAgent;
-  }
+	/**
+	 * Get the default agent type.
+	 */
+	getDefaultAgent(): AgentType {
+		return this.config.defaultAgent;
+	}
 
-  /**
-   * Update configuration.
-   */
-  configure(config: Partial<AgentGuideConfig>): void {
-    this.config = { ...this.config, ...config };
-  }
+	/**
+	 * Update configuration.
+	 */
+	configure(config: Partial<AgentGuideConfig>): void {
+		this.config = { ...this.config, ...config };
+	}
 }
 
 /**
  * Create a new AgentGuideService instance.
  */
 export function createAgentGuideService(
-  config?: Partial<AgentGuideConfig>
+	config?: Partial<AgentGuideConfig>
 ): AgentGuideService {
-  return new AgentGuideService(config);
+	return new AgentGuideService(config);
 }
 
 /** Default singleton instance */

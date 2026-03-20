@@ -8,30 +8,30 @@ import { ChevronRight } from 'lucide-react';
 // };
 
 export function IntegrationsResendPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold">Resend</h1>
-        <p className="text-muted-foreground">
-          Resend is a modern email API built for developers. It provides a
-          simple, reliable way to send transactional emails with React Email
-          templates.
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-4">
+				<h1 className="font-bold text-4xl">Resend</h1>
+				<p className="text-muted-foreground">
+					Resend is a modern email API built for developers. It provides a
+					simple, reliable way to send transactional emails with React Email
+					templates.
+				</p>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Setup</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`# .env
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Setup</h2>
+				<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
+					<pre>{`# .env
 RESEND_API_KEY=re_...
 RESEND_FROM_EMAIL=onboarding@resend.dev`}</pre>
-        </div>
-      </div>
+				</div>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Sending emails</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`capabilityId: resend-send-email
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Sending emails</h2>
+				<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
+					<pre>{`capabilityId: resend-send-email
 provider:
   type: resend
   operation: sendEmail
@@ -53,26 +53,26 @@ inputs:
 outputs:
   id:
     type: string`}</pre>
-        </div>
-      </div>
+				</div>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Best practices</h2>
-        <ul className="text-muted-foreground list-inside list-disc space-y-2">
-          <li>Use React Email for type-safe templates</li>
-          <li>Verify your domain for better deliverability</li>
-          <li>Monitor email analytics in the Resend dashboard</li>
-        </ul>
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Best practices</h2>
+				<ul className="list-inside list-disc space-y-2 text-muted-foreground">
+					<li>Use React Email for type-safe templates</li>
+					<li>Verify your domain for better deliverability</li>
+					<li>Monitor email analytics in the Resend dashboard</li>
+				</ul>
+			</div>
 
-      <div className="flex items-center gap-4 pt-4">
-        <Link href="/docs/integrations/postmark" className="btn-ghost">
-          Previous: Postmark
-        </Link>
-        <Link href="/docs/integrations/gmail" className="btn-primary">
-          Next: Gmail API <ChevronRight size={16} />
-        </Link>
-      </div>
-    </div>
-  );
+			<div className="flex items-center gap-4 pt-4">
+				<Link href="/docs/integrations/postmark" className="btn-ghost">
+					Previous: Postmark
+				</Link>
+				<Link href="/docs/integrations/gmail" className="btn-primary">
+					Next: Gmail API <ChevronRight size={16} />
+				</Link>
+			</div>
+		</div>
+	);
 }

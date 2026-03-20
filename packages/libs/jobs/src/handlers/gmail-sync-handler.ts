@@ -1,13 +1,13 @@
+import type { EmailThreadListQuery } from '@contractspec/lib.contracts-integrations';
 import type { JobHandler } from '@contractspec/lib.contracts-spec/jobs/queue';
 import type { GmailIngestionAdapter } from '@contractspec/lib.knowledge/ingestion/gmail-adapter';
-import type { EmailThreadListQuery } from '@contractspec/lib.contracts-integrations';
 
 export type GmailSyncJobPayload = EmailThreadListQuery;
 
 export function createGmailSyncHandler(
-  adapter: GmailIngestionAdapter
+	adapter: GmailIngestionAdapter
 ): JobHandler<GmailSyncJobPayload> {
-  return async (job) => {
-    await adapter.syncThreads(job.payload);
-  };
+	return async (job) => {
+		await adapter.syncThreads(job.payload);
+	};
 }

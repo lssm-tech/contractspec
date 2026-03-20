@@ -6,50 +6,50 @@ let schedulerTimer: ReturnType<typeof setInterval> | null = null;
 let dispatchInFlight = false;
 
 export function startChannelDispatchScheduler(): void {
-  const intervalMs = Number.parseInt(
-    process.env.CHANNEL_DISPATCH_INTERVAL_MS ?? '0',
-    10
-  );
-  if (!Number.isFinite(intervalMs) || intervalMs <= 0 || schedulerTimer) {
-    return;
-  }
+	const intervalMs = Number.parseInt(
+		process.env.CHANNEL_DISPATCH_INTERVAL_MS ?? '0',
+		10
+	);
+	if (!Number.isFinite(intervalMs) || intervalMs <= 0 || schedulerTimer) {
+		return;
+	}
 
-  const runDispatch = async () => {
-    if (dispatchInFlight) {
-      return;
-    }
-    dispatchInFlight = true;
-    try {
-      const runtime = await getChannelRuntimeResources();
-      const summary = await runtime.dispatcher.dispatchBatch(
-        resolveMessagingSender
-      );
-      if (summary.claimed > 0) {
-        appLogger.info('channel.dispatch.scheduler.batch', {
-          claimed: summary.claimed,
-          sent: summary.sent,
-          retried: summary.retried,
-          deadLettered: summary.deadLettered,
-        });
-      }
-    } catch (error) {
-      appLogger.error('channel.dispatch.scheduler.failed', {
-        error: error instanceof Error ? error.message : String(error),
-      });
-    } finally {
-      dispatchInFlight = false;
-    }
-  };
+	const runDispatch = async () => {
+		if (dispatchInFlight) {
+			return;
+		}
+		dispatchInFlight = true;
+		try {
+			const runtime = await getChannelRuntimeResources();
+			const summary = await runtime.dispatcher.dispatchBatch(
+				resolveMessagingSender
+			);
+			if (summary.claimed > 0) {
+				appLogger.info('channel.dispatch.scheduler.batch', {
+					claimed: summary.claimed,
+					sent: summary.sent,
+					retried: summary.retried,
+					deadLettered: summary.deadLettered,
+				});
+			}
+		} catch (error) {
+			appLogger.error('channel.dispatch.scheduler.failed', {
+				error: error instanceof Error ? error.message : String(error),
+			});
+		} finally {
+			dispatchInFlight = false;
+		}
+	};
 
-  schedulerTimer = setInterval(() => {
-    void runDispatch();
-  }, intervalMs);
+	schedulerTimer = setInterval(() => {
+		void runDispatch();
+	}, intervalMs);
 
-  if (process.env.CHANNEL_DISPATCH_RUN_ON_START === '1') {
-    void runDispatch();
-  }
+	if (process.env.CHANNEL_DISPATCH_RUN_ON_START === '1') {
+		void runDispatch();
+	}
 
-  appLogger.info('channel.dispatch.scheduler.started', {
-    intervalMs,
-  });
+	appLogger.info('channel.dispatch.scheduler.started', {
+		intervalMs,
+	});
 }

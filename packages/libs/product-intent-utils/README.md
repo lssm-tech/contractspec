@@ -1,41 +1,64 @@
 # @contractspec/lib.product-intent-utils
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
-Utilities for the product-intent workflow: prompt builders, evidence formatting, and strict JSON validators aligned with ContractSpec's product-intent contracts.
+**Prompt builders and validators for product-intent workflows.**
 
-## What it provides
+## What It Provides
 
-- Evidence normalization helpers for LLM prompts.
-- Prompt builders for insights, opportunity briefs, patch intents, impacts, and task packs.
-- Validators that enforce structure, citation correctness, and bounds on model output.
+- **Layer**: lib.
+- **Consumers**: module.product-intent-core, bundles.
+- Related ContractSpec packages include `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Related ContractSpec packages include `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Installation
 
-```bash
-bun add @contractspec/lib.product-intent-utils
-```
+`npm install @contractspec/lib.product-intent-utils`
+
+or
+
+`bun add @contractspec/lib.product-intent-utils`
 
 ## Usage
 
-```ts
-import {
-  formatEvidenceForModel,
-  promptExtractInsights,
-  validateInsightExtraction,
-} from "@contractspec/lib.product-intent-utils";
-import type { EvidenceChunk } from "@contractspec/lib.contracts-spec/product-intent/types";
+Import the root entrypoint from `@contractspec/lib.product-intent-utils`, or choose a documented subpath when you only need one part of the package surface.
 
-const chunks: EvidenceChunk[] = [
-  { chunkId: "INT-001#c_00", text: "...", meta: { persona: "admin" } },
-];
+## Architecture
 
-const evidenceJSON = formatEvidenceForModel(chunks);
-const prompt = promptExtractInsights({
-  question: "How do we improve activation?",
-  evidenceJSON,
-});
+- `src/impact-engine.ts` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/project-management-sync.ts` is part of the package's public or composition surface.
+- `src/prompts.ts` is part of the package's public or composition surface.
+- `src/ticket-pipeline-runner.ts` is part of the package's public or composition surface.
+- `src/ticket-pipeline.ts` is part of the package's public or composition surface.
+- `src/ticket-prompts.ts` is part of the package's public or composition surface.
 
-// modelOutput is the raw JSON string returned by the LLM
-const insights = validateInsightExtraction(modelOutput, chunks);
-```
+## Public Entry Points
+
+- Export `.` resolves through `./src/index.ts`.
+
+## Local Commands
+
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
+
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed.
+
+## Notes
+
+- Prompt templates directly affect AI output quality — test changes against representative inputs.
+- Validation schemas must match contracts-spec definitions; drift causes silent mismatches.
+- Changes here propagate to product-intent-core and all dependent bundles.

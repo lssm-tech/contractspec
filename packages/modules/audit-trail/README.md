@@ -1,113 +1,68 @@
 # @contractspec/module.audit-trail
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Audit trail module for tracking and querying system events.**
 
-Audit trail module for tracking and querying system events in ContractSpec applications.
+## What It Provides
 
-## Purpose
-
-Provides a complete audit logging solution that captures, stores, and queries audit events. Integrates with the event bus to automatically capture domain events and exposes a query API for compliance and debugging.
-
-## Features
-
-- **Event Capture**: Automatic capture of events from the event bus
-- **Persistent Storage**: Multiple storage adapters (Prisma, append-only log)
-- **Rich Querying**: Filter by actor, target, organization, time range
-- **Retention Policies**: Configurable retention and archival
-- **Export**: Export audit logs for compliance reporting
+- **Layer**: module.
+- **Consumers**: bundles (library, contractspec-studio), apps (web-landing).
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- Related ContractSpec packages include `@contractspec/lib.bus`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
 
 ## Installation
 
-```bash
-bun add @contractspec/module.audit-trail
-```
+`npm install @contractspec/module.audit-trail`
+
+or
+
+`bun add @contractspec/module.audit-trail`
 
 ## Usage
 
-### Entity Specs (for schema generation)
+Import the root entrypoint from `@contractspec/module.audit-trail`, or choose a documented subpath when you only need one part of the package surface.
 
-```typescript
-import { auditTrailSchemaContribution } from '@contractspec/module.audit-trail/entities';
+## Architecture
 
-// Use in schema composition
-const config = {
-  modules: [auditTrailSchemaContribution],
-};
-```
+- `src/audit-trail.capability.ts` defines a capability surface.
+- `src/audit-trail.feature.ts` defines a feature entrypoint.
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/entities/` contains domain entities and value objects.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/storage/` contains persistence adapters and storage implementations.
 
-### Set Up Audit Capture
+## Public Entry Points
 
-```typescript
-import { createAuditCapture, PrismaAuditStorage } from '@contractspec/module.audit-trail';
-import { prisma } from './db';
+- Export `.` resolves through `./src/index.ts`.
+- Export `./audit-trail.capability` resolves through `./src/audit-trail.capability.ts`.
+- Export `./audit-trail.feature` resolves through `./src/audit-trail.feature.ts`.
+- Export `./contracts` resolves through `./src/contracts/index.ts`.
+- Export `./entities` resolves through `./src/entities/index.ts`.
+- Export `./storage` resolves through `./src/storage/index.ts`.
 
-// Create storage adapter
-const storage = new PrismaAuditStorage(prisma);
+## Local Commands
 
-// Create audit capture (connects to event bus)
-const auditCapture = createAuditCapture({
-  bus: eventBus,
-  storage,
-  filters: {
-    // Only audit events with audit:true tag or from specific domains
-    domains: ['identity', 'billing', 'security'],
-  },
-});
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-// Start capturing
-auditCapture.start();
-```
+## Recent Updates
 
-### Query Audit Logs
+- Replace eslint+prettier by biomejs to optimize speed.
 
-```typescript
-import { AuditLogService } from '@contractspec/module.audit-trail';
+## Notes
 
-const service = new AuditLogService(storage);
-
-// Query by actor
-const userActions = await service.query({
-  actorId: 'user-123',
-  from: new Date('2024-01-01'),
-  to: new Date(),
-  limit: 100,
-});
-
-// Query by target
-const resourceChanges = await service.query({
-  targetId: 'project-456',
-  eventName: 'project.*',
-});
-
-// Export for compliance
-const report = await service.export({
-  orgId: 'org-789',
-  from: new Date('2024-01-01'),
-  to: new Date('2024-12-31'),
-  format: 'csv',
-});
-```
-
-## Entity Overview
-
-| Entity | Description |
-|--------|-------------|
-| AuditLog | Main audit log entry |
-| AuditLogArchive | Archived logs for retention |
-
-## Retention
-
-Configure retention policies:
-
-```typescript
-const retention = new RetentionPolicy({
-  // Keep detailed logs for 90 days
-  hotRetentionDays: 90,
-  // Archive for 7 years (compliance)
-  archiveRetentionDays: 2555,
-  // Run cleanup daily at 3 AM
-  cleanupSchedule: '0 3 * * *',
-});
-```
-
+- Depends on `lib.bus` for event dispatch -- never emit events outside the bus.
+- Audit records are append-only; mutations or deletions break compliance invariants.
+- Storage adapters must implement the store interface; do not bypass it.

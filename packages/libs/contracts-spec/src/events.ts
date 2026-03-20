@@ -34,10 +34,10 @@
  */
 
 import { type AnySchemaModel } from '@contractspec/lib.schema';
-import type { OwnerShipMeta } from './ownership';
-import type { DocId } from './docs/registry';
-import { SpecContractRegistry } from './registry';
 import type { CapabilityRef } from './capabilities/capabilities';
+import type { DocId } from './docs/registry';
+import type { OwnerShipMeta } from './ownership';
+import { SpecContractRegistry } from './registry';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Event Spec Types
@@ -48,8 +48,8 @@ import type { CapabilityRef } from './capabilities/capabilities';
  * Extends OwnerShipMeta with event-specific documentation.
  */
 export interface EventSpecMeta extends Omit<OwnerShipMeta, 'docId'> {
-  /** Associated DocBlock identifiers for this event. */
-  docId?: DocId[];
+	/** Associated DocBlock identifiers for this event. */
+	docId?: DocId[];
 }
 
 /**
@@ -62,20 +62,20 @@ export interface EventSpecMeta extends Omit<OwnerShipMeta, 'docId'> {
  * @typeParam T - The SchemaModel type defining the event payload structure
  */
 export interface EventSpec<T extends AnySchemaModel> {
-  /** Event metadata including key, version, and ownership. */
-  meta: EventSpecMeta;
-  /**
-   * Optional reference to the capability that provides this event.
-   * Used for bidirectional linking between capabilities and events.
-   */
-  capability?: CapabilityRef;
-  /**
-   * JSON paths to PII fields that should be redacted in logs/exports.
-   * @example ['email', 'user.phone', 'billing.address']
-   */
-  pii?: string[];
-  /** Event payload schema from @contractspec/lib.schema. */
-  payload: T;
+	/** Event metadata including key, version, and ownership. */
+	meta: EventSpecMeta;
+	/**
+	 * Optional reference to the capability that provides this event.
+	 * Used for bidirectional linking between capabilities and events.
+	 */
+	capability?: CapabilityRef;
+	/**
+	 * JSON paths to PII fields that should be redacted in logs/exports.
+	 * @example ['email', 'user.phone', 'billing.address']
+	 */
+	pii?: string[];
+	/** Event payload schema from @contractspec/lib.schema. */
+	payload: T;
 }
 
 /**
@@ -83,7 +83,7 @@ export interface EventSpec<T extends AnySchemaModel> {
  * Useful for collections and registries.
  */
 export type AnyEventSpec<T extends AnySchemaModel = AnySchemaModel> =
-  EventSpec<T>;
+	EventSpec<T>;
 
 /**
  * Identity function to define an event spec with full type inference.
@@ -100,9 +100,9 @@ export type AnyEventSpec<T extends AnySchemaModel = AnySchemaModel> =
  * ```
  */
 export function defineEvent<T extends AnySchemaModel>(
-  e: EventSpec<T>
+	e: EventSpec<T>
 ): EventSpec<T> {
-  return e;
+	return e;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -118,18 +118,18 @@ export function defineEvent<T extends AnySchemaModel>(
  * @typeParam T - The payload type
  */
 export interface EventEnvelope<T> {
-  /** Unique identifier for this event instance (UUID recommended). */
-  id: string;
-  /** ISO 8601 timestamp when the event occurred. */
-  occurredAt: string;
-  /** Trace identifier for correlating across services. */
-  traceId?: string;
-  /** Event key (should match spec.meta.key). */
-  key: string;
-  /** Event version (should match spec.meta.version). */
-  version: string;
-  /** Validated event payload. */
-  payload: T;
+	/** Unique identifier for this event instance (UUID recommended). */
+	id: string;
+	/** ISO 8601 timestamp when the event occurred. */
+	occurredAt: string;
+	/** Trace identifier for correlating across services. */
+	traceId?: string;
+	/** Event key (should match spec.meta.key). */
+	key: string;
+	/** Event version (should match spec.meta.version). */
+	version: string;
+	/** Validated event payload. */
+	payload: T;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -156,7 +156,7 @@ export type EventKey = `${string}.v${string}`;
  * ```
  */
 export const eventKey = (key: string, version: string): EventKey =>
-  `${key}.v${version}`;
+	`${key}.v${version}`;
 
 /**
  * In-memory registry for EventSpec instances.
@@ -165,7 +165,7 @@ export const eventKey = (key: string, version: string): EventKey =>
  * Used by the contracts runtime to validate event emissions.
  */
 export class EventRegistry extends SpecContractRegistry<'event', AnyEventSpec> {
-  public constructor(items?: AnyEventSpec[]) {
-    super('event', items);
-  }
+	public constructor(items?: AnyEventSpec[]) {
+		super('event', items);
+	}
 }

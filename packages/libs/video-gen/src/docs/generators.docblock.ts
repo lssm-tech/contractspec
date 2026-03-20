@@ -2,24 +2,24 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const generatorsDocBlocks: DocBlock[] = [
-  {
-    id: 'docs.video-gen.generators',
-    title: 'Video Generation Pipeline',
-    summary:
-      'VideoGenerator, ScenePlanner, and ScriptGenerator -- from content brief to video project with optional LLM enhancement.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/video-gen/generators',
-    tags: [
-      'video',
-      'generators',
-      'scene-planner',
-      'script-generator',
-      'llm',
-      'content-pipeline',
-    ],
-    owners: ['@contractspec/lib.video-gen'],
-    body: `# Video Generation Pipeline
+	{
+		id: 'docs.video-gen.generators',
+		title: 'Video Generation Pipeline',
+		summary:
+			'VideoGenerator, ScenePlanner, and ScriptGenerator -- from content brief to video project with optional LLM enhancement.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/video-gen/generators',
+		tags: [
+			'video',
+			'generators',
+			'scene-planner',
+			'script-generator',
+			'llm',
+			'content-pipeline',
+		],
+		owners: ['@contractspec/lib.video-gen'],
+		body: `# Video Generation Pipeline
 
 The generators layer converts a \`VideoBrief\` (content brief + video config) into a fully specified \`VideoProject\` (scene graph ready for rendering). It follows the \`@contractspec/lib.content-gen\` pattern: optional LLM, deterministic fallback.
 
@@ -184,7 +184,7 @@ interface PlannedScene {
 - Temperature defaults are conservative (0.3-0.5) for reproducibility.
 - Duration estimates use 150 words/min speaking rate.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(generatorsDocBlocks);

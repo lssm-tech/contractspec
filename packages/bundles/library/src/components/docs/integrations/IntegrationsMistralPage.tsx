@@ -2,30 +2,30 @@ import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
 export function IntegrationsMistralPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold">Mistral</h1>
-        <p className="text-muted-foreground">
-          Integrate Mistral models for chat, reasoning, embeddings,
-          speech-to-text, and conversational voice workflows. ContractSpec ships
-          first-class Mistral support across contracts, provider runtime wiring,
-          and CLI provider selection.
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-4">
+				<h1 className="font-bold text-4xl">Mistral</h1>
+				<p className="text-muted-foreground">
+					Integrate Mistral models for chat, reasoning, embeddings,
+					speech-to-text, and conversational voice workflows. ContractSpec ships
+					first-class Mistral support across contracts, provider runtime wiring,
+					and CLI provider selection.
+				</p>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Setup</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`# .env
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Setup</h2>
+				<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
+					<pre>{`# .env
 MISTRAL_API_KEY=...`}</pre>
-        </div>
-      </div>
+				</div>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Chat and reasoning</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`capabilityId: mistral-chat
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Chat and reasoning</h2>
+				<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
+					<pre>{`capabilityId: mistral-chat
 provider:
   type: mistral
   operation: chatCompletion
@@ -45,13 +45,13 @@ outputs:
     type: string
   usage:
     type: object`}</pre>
-        </div>
-      </div>
+				</div>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Embeddings</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`capabilityId: mistral-embeddings
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Embeddings</h2>
+				<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
+					<pre>{`capabilityId: mistral-embeddings
 provider:
   type: mistral
   operation: createEmbedding
@@ -68,13 +68,13 @@ outputs:
     type: array
     items:
       type: number`}</pre>
-        </div>
-      </div>
+				</div>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Speech-to-Text (Voxtral)</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`capabilityId: mistral-stt
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Speech-to-Text (Voxtral)</h2>
+				<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
+					<pre>{`capabilityId: mistral-stt
 provider:
   type: mistral
   operation: transcribe
@@ -95,39 +95,39 @@ outputs:
     type: array
   language:
     type: string`}</pre>
-        </div>
-      </div>
+				</div>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Conversational voice sessions</h2>
-        <p className="text-muted-foreground">
-          Use the conversational provider for session-based realtime voice flows
-          (turn handling, events, and interruption-safe streaming).
-        </p>
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Conversational voice sessions</h2>
+				<p className="text-muted-foreground">
+					Use the conversational provider for session-based realtime voice flows
+					(turn handling, events, and interruption-safe streaming).
+				</p>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Best practices</h2>
-        <ul className="text-muted-foreground list-inside list-disc space-y-2">
-          <li>
-            Choose model families by workload: coding, reasoning, or speech
-          </li>
-          <li>
-            Persist session IDs for conversational continuity across turns
-          </li>
-          <li>Capture token and latency telemetry for provider-level tuning</li>
-          <li>Set explicit fallbacks for network and rate-limit failures</li>
-        </ul>
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Best practices</h2>
+				<ul className="list-inside list-disc space-y-2 text-muted-foreground">
+					<li>
+						Choose model families by workload: coding, reasoning, or speech
+					</li>
+					<li>
+						Persist session IDs for conversational continuity across turns
+					</li>
+					<li>Capture token and latency telemetry for provider-level tuning</li>
+					<li>Set explicit fallbacks for network and rate-limit failures</li>
+				</ul>
+			</div>
 
-      <div className="flex items-center gap-4 pt-4">
-        <Link href="/docs/integrations/openai" className="btn-ghost">
-          Previous: OpenAI
-        </Link>
-        <Link href="/docs/integrations/elevenlabs" className="btn-primary">
-          Next: ElevenLabs <ChevronRight size={16} />
-        </Link>
-      </div>
-    </div>
-  );
+			<div className="flex items-center gap-4 pt-4">
+				<Link href="/docs/integrations/openai" className="btn-ghost">
+					Previous: OpenAI
+				</Link>
+				<Link href="/docs/integrations/elevenlabs" className="btn-primary">
+					Next: ElevenLabs <ChevronRight size={16} />
+				</Link>
+			</div>
+		</div>
+	);
 }

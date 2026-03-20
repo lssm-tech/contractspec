@@ -8,29 +8,29 @@ import { ChevronRight } from 'lucide-react';
 // };
 
 export function IntegrationsElevenLabsPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold">ElevenLabs</h1>
-        <p className="text-muted-foreground">
-          ElevenLabs provides state-of-the-art text-to-speech and voice cloning
-          technology. Create natural-sounding voiceovers, audiobooks, and voice
-          assistants.
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-4">
+				<h1 className="font-bold text-4xl">ElevenLabs</h1>
+				<p className="text-muted-foreground">
+					ElevenLabs provides state-of-the-art text-to-speech and voice cloning
+					technology. Create natural-sounding voiceovers, audiobooks, and voice
+					assistants.
+				</p>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Setup</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`# .env
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Setup</h2>
+				<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
+					<pre>{`# .env
 ELEVENLABS_API_KEY=...`}</pre>
-        </div>
-      </div>
+				</div>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Text-to-Speech</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`capabilityId: elevenlabs-tts
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Text-to-Speech</h2>
+				<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
+					<pre>{`capabilityId: elevenlabs-tts
 provider:
   type: elevenlabs
   operation: textToSpeech
@@ -50,27 +50,27 @@ outputs:
     type: string
   audioData:
     type: buffer`}</pre>
-        </div>
-      </div>
+				</div>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Use cases</h2>
-        <ul className="text-muted-foreground list-inside list-disc space-y-2">
-          <li>Generate voiceovers for videos</li>
-          <li>Create audio versions of articles</li>
-          <li>Build voice assistants</li>
-          <li>Produce audiobooks</li>
-        </ul>
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Use cases</h2>
+				<ul className="list-inside list-disc space-y-2 text-muted-foreground">
+					<li>Generate voiceovers for videos</li>
+					<li>Create audio versions of articles</li>
+					<li>Build voice assistants</li>
+					<li>Produce audiobooks</li>
+				</ul>
+			</div>
 
-      <div className="flex items-center gap-4 pt-4">
-        <Link href="/docs/integrations/mistral" className="btn-ghost">
-          Previous: Mistral
-        </Link>
-        <Link href="/docs/integrations/qdrant" className="btn-primary">
-          Next: Qdrant <ChevronRight size={16} />
-        </Link>
-      </div>
-    </div>
-  );
+			<div className="flex items-center gap-4 pt-4">
+				<Link href="/docs/integrations/mistral" className="btn-ghost">
+					Previous: Mistral
+				</Link>
+				<Link href="/docs/integrations/qdrant" className="btn-primary">
+					Next: Qdrant <ChevronRight size={16} />
+				</Link>
+			</div>
+		</div>
+	);
 }

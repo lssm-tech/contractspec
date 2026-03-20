@@ -1,59 +1,73 @@
 # ContractSpec — LLM Guide (Monorepo Summary)
 
-> The deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable. One mega library: contracts, runtime adapters, AI agents, and tooling.
+> ContractSpec is the open spec system for AI-native software. It spans contracts, runtime adapters, agent systems, evaluation harnesses, product bundles, apps, examples, tooling, and the Studio operating layer on top.
 
 ## What is ContractSpec?
 
-ContractSpec is a **spec-first compiler** and **mega library** for AI-generated software. Define contracts in TypeScript; generate API, DB, UI, events, and MCP tools. Regenerate safely; invariants enforced; breaking changes caught at compile time.
+ContractSpec is an **open spec system** and **package ecosystem** for AI-native software. You define contracts in TypeScript, then compose runtime adapters, agent tooling, evaluation flows, UI surfaces, and product shells around those contracts. The goal is safe regeneration, multi-surface consistency, explicit control over AI-written systems, and a clean path into Studio when a team wants the operating product on top.
 
 ## Monorepo Structure
 
-Layered architecture (dependencies flow down):
+Dependency flow goes downward:
 
-**apps → bundles → modules → libs**
+**apps/apps-registry → bundles → modules/integrations → libs**
+
+Examples may depend on any lower layer to demonstrate the stack, and tools support the whole repository.
 
 | Layer | Path | Role |
-|-------|------|------|
-| libs | packages/libs/ | Foundation. Infrastructure, contracts, utilities. Zero deps on bundles/apps. |
-| modules | packages/modules/ | Specialized implementations. Self-contained lifecycle/feature modules. |
-| bundles | packages/bundles/ | Domain logic. Models, services, smart UI. Cannot import from apps. |
-| apps | packages/apps/ | Platform adapters. Thin entry points (Next.js, CLI, VSCode). |
-| examples | packages/examples/ | Reference implementations, demos, ready-to-clone use-cases. |
-| tools | packages/tools/ | Build tools, scripts, ESLint/TS configs. |
-| integrations | packages/integrations/ | Runtime adapters (cloud providers, database drivers). |
-| apps-registry | packages/apps-registry/ | Application registry metadata. |
+| --- | --- | --- |
+| libs | packages/libs/ | Foundational contracts, runtimes, agent systems, harness core, schema, UI primitives, and shared utilities. |
+| integrations | packages/integrations/ | Runtime and provider bridges that bind core libs to concrete execution targets. |
+| modules | packages/modules/ | Reusable feature and domain modules such as AI chat, provider ranking, notifications, and learning journeys. |
+| bundles | packages/bundles/ | Higher-level product composition for workspace, docs/library, marketing, and other broad surfaces. |
+| apps | packages/apps/ | Deployable shells such as the CLI, APIs, MCP servers, web apps, and mobile demo. |
+| examples | packages/examples/ | Runnable and importable reference implementations used for docs, onboarding, and validation. |
+| tools | packages/tools/ | Build, docs, lint, config, and agentpacks tooling used by this repo and downstream consumers. |
+| apps-registry | packages/apps-registry/ | Registry-facing app metadata and marketplace surfaces. |
 
-## Entry Points
+## First-Class Surfaces
 
-- **/llms** (this file) — Global monorepo summary
-- **/llms-full.txt** — Full content: all package READMEs aggregated. Note: Large file; agents may truncate. For specific packages, use /llms/[slug] instead.
-- **/llms/[slug]** — Per-package guide. Slug = package name without @contractspec (e.g. lib.ai-agent, bundle.library). Recommended for agent fetches.
+- **Contracts and generation**: `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, and `@contractspec/app.cli-contractspec`.
+- **Runtime adapters**: REST, GraphQL, MCP, and React runtime packages under `packages/libs/contracts-runtime-*`.
+- **Agent systems**: `@contractspec/lib.ai-agent` and `@contractspec/module.ai-chat`.
+- **Harness and evaluation**: `@contractspec/lib.harness` and `@contractspec/integration.harness-runtime`.
+- **Ranking and MCP workflows**: provider-ranking module and MCP server surfaces.
+- **Docs, registry, and Studio**: `bundle.library`, `app.web-landing`, `app.registry-packs`, and ContractSpec Studio messaging/operate surfaces.
 
-## Package-Specific Guides
+## Preferred Entry Points For Agents
 
-For per-package docs, use /llms/{slug} where slug is the package name without @contractspec:
+- **`/llms`** or **`/llms.txt`**: this monorepo summary.
+- **`/llms/[slug]`**: preferred per-package guide. Example slugs: `lib.ai-agent`, `lib.harness`, `module.ai-chat`, `bundle.library`, `app.web-landing`, `app.registry-packs`.
+- **`/llms-full.txt`**: aggregated README corpus for all packages. Large file; use only when broad repository context is necessary.
 
-- lib.ai-agent — AI agent orchestration
-- lib.contracts-spec — Core contracts, registries, policy
-- lib.schema — Schema definitions
-- bundle.library — Shared library, docs, templates
-- bundle.marketing — Marketing pages
-- app.cli-contractspec — CLI
-- app.web-landing — This site
+## Recommended Package Guides
 
-Full index: /llms-full.txt
+- `lib.contracts-spec` — foundational contracts, registries, capabilities, and shared execution primitives
+- `lib.ai-agent` — core agent runtime, tools, sessions, memory, approvals, and telemetry
+- `lib.harness` — harness orchestration, policy, replay, and evidence normalization
+- `integration.harness-runtime` — browser, sandbox, artifact, and MCP-backed harness runtime adapters
+- `module.ai-chat` — packaged AI chat feature surface with presentation and provider bindings
+- `module.provider-ranking` — ranking ingestion, storage, and orchestration layer
+- `bundle.workspace` — CLI/editor/repository workflow composition
+- `bundle.library` — docs, templates, integrations, shell, and MCP composition
+- `app.cli-contractspec` — main CLI for init, generate, doctor, CI, and example flows
+- `app.web-landing` — public docs, marketing, registry, and `/llms*` delivery shell
+- `app.registry-packs` — agentpacks registry API and MCP surface
+- `tool.agentpacks` is exposed as slug `agentpacks` — pack-based agent config generation across Cursor, Codex, Claude Code, Copilot, Gemini, and more
 
 ## Key Principles
 
-1. Spec → Implementation: Define contract first, then implement
-2. AI reads specs: Agents use contracts as source of truth
-3. Safe regeneration: Regenerate anytime without breaking invariants
-4. No lock-in: Standard TypeScript, eject anytime
+1. Define contracts before implementation.
+2. Treat contracts and documented package surfaces as the source of truth for AI agents.
+3. Keep dependency flow downward and apps thin.
+4. Use standard TypeScript and composable packages rather than hidden proprietary runtimes.
+5. Prefer package-local `README.md` and `AGENTS.md` when working inside a specific package.
 
 ## Resources
 
 - Website: https://contractspec.io
 - Documentation: https://www.contractspec.io/docs
 - GitHub: https://github.com/lssm-tech/contractspec
-- npm: https://www.npmjs.com/package/@contractspec/lib.contracts
+- npm CLI package: https://www.npmjs.com/package/contractspec
 - Studio: https://www.contractspec.studio
+- Full package corpus: /llms-full.txt

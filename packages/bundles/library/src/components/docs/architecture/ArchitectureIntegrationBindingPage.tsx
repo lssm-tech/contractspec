@@ -3,51 +3,51 @@ import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
 export function ArchitectureIntegrationBindingPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold">Integration Binding</h1>
-        <p className="text-muted-foreground">
-          Integration binding connects your app's capabilities to external
-          service providers. Each tenant can configure their own integration
-          connections while sharing the same app blueprint.
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-4">
+				<h1 className="font-bold text-4xl">Integration Binding</h1>
+				<p className="text-muted-foreground">
+					Integration binding connects your app's capabilities to external
+					service providers. Each tenant can configure their own integration
+					connections while sharing the same app blueprint.
+				</p>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">How it works</h2>
-        <p className="text-muted-foreground">
-          Integration binding follows a three-layer model:
-        </p>
-        <ol className="text-muted-foreground list-inside list-decimal space-y-3">
-          <li>
-            <strong>IntegrationSpec</strong> (global) - Defines what an
-            integration provides
-          </li>
-          <li>
-            <strong>IntegrationConnection</strong> (per-tenant) - A tenant's
-            configured connection
-          </li>
-          <li>
-            <strong>AppIntegrationBinding</strong> (per-app) - Maps named slots
-            to concrete tenant connections
-          </li>
-        </ol>
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">How it works</h2>
+				<p className="text-muted-foreground">
+					Integration binding follows a three-layer model:
+				</p>
+				<ol className="list-inside list-decimal space-y-3 text-muted-foreground">
+					<li>
+						<strong>IntegrationSpec</strong> (global) - Defines what an
+						integration provides
+					</li>
+					<li>
+						<strong>IntegrationConnection</strong> (per-tenant) - A tenant's
+						configured connection
+					</li>
+					<li>
+						<strong>AppIntegrationBinding</strong> (per-app) - Maps named slots
+						to concrete tenant connections
+					</li>
+				</ol>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Example: Payment processing</h2>
-        <p className="text-muted-foreground">
-          Let's walk through a complete example of binding Stripe for payments.
-        </p>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Example: Payment processing</h2>
+				<p className="text-muted-foreground">
+					Let's walk through a complete example of binding Stripe for payments.
+				</p>
 
-        <div className="space-y-3">
-          <h3 className="text-lg font-semibold">
-            Step 1: Blueprint declares requirement
-          </h3>
-          <CodeBlock
-            language="typescript"
-            code={`// AppBlueprintSpec
+				<div className="space-y-3">
+					<h3 className="font-semibold text-lg">
+						Step 1: Blueprint declares requirement
+					</h3>
+					<CodeBlock
+						language="typescript"
+						code={`// AppBlueprintSpec
 {
   meta: { name: "invoice-app", version: '1.0.0', appId: "invoice" },
   integrationSlots: [
@@ -72,16 +72,16 @@ export function ArchitectureIntegrationBindingPage() {
     colorTokens: { primary: "colors.brand.primary" }
   }
 }`}
-          />
-        </div>
+					/>
+				</div>
 
-        <div className="space-y-3">
-          <h3 className="text-lg font-semibold">
-            Step 2: Tenant creates connection
-          </h3>
-          <CodeBlock
-            language="typescript"
-            code={`// IntegrationConnection
+				<div className="space-y-3">
+					<h3 className="font-semibold text-lg">
+						Step 2: Tenant creates connection
+					</h3>
+					<CodeBlock
+						language="typescript"
+						code={`// IntegrationConnection
 {
   meta: {
     id: "conn_stripe_acme_prod",
@@ -102,16 +102,16 @@ export function ArchitectureIntegrationBindingPage() {
   secretRef: "vault://integrations/acme/conn_stripe_acme_prod",
   status: "active"
 }`}
-          />
-        </div>
+					/>
+				</div>
 
-        <div className="space-y-3">
-          <h3 className="text-lg font-semibold">
-            Step 3: TenantAppConfig binds connection
-          </h3>
-          <CodeBlock
-            language="typescript"
-            code={`// TenantAppConfig
+				<div className="space-y-3">
+					<h3 className="font-semibold text-lg">
+						Step 3: TenantAppConfig binds connection
+					</h3>
+					<CodeBlock
+						language="typescript"
+						code={`// TenantAppConfig
 {
   meta: {
     tenantId: "acme-corp",
@@ -138,16 +138,16 @@ export function ArchitectureIntegrationBindingPage() {
     assets: [{ type: "logo", url: "https://assets.acme.com/logo.svg" }]
   }
 }`}
-          />
-        </div>
+					/>
+				</div>
 
-        <div className="space-y-3">
-          <h3 className="text-lg font-semibold">
-            Step 4: Runtime resolves and executes
-          </h3>
-          <CodeBlock
-            language="typescript"
-            code={`// ResolvedAppConfig (runtime)
+				<div className="space-y-3">
+					<h3 className="font-semibold text-lg">
+						Step 4: Runtime resolves and executes
+					</h3>
+					<CodeBlock
+						language="typescript"
+						code={`// ResolvedAppConfig (runtime)
 {
   integrations: {
     "payments.createPaymentIntent": {
@@ -165,19 +165,19 @@ const result = await executeCapability(
   resolvedConfig
 );
 // → Uses Stripe connection automatically`}
-          />
-        </div>
-      </div>
+					/>
+				</div>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Multi-integration scenarios</h2>
-        <p className="text-muted-foreground">
-          A single app can use multiple integrations across different
-          categories:
-        </p>
-        <CodeBlock
-          language="typescript"
-          code={`integrations: [
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Multi-integration scenarios</h2>
+				<p className="text-muted-foreground">
+					A single app can use multiple integrations across different
+					categories:
+				</p>
+				<CodeBlock
+					language="typescript"
+					code={`integrations: [
   {
     slotId: "payments.primary",
     connectionId: "conn_stripe_prod",
@@ -204,18 +204,18 @@ const result = await executeCapability(
     }
   }
 ]`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Sandbox vs Production</h2>
-        <p className="text-muted-foreground">
-          Tenants typically maintain separate connections for sandbox and
-          production environments:
-        </p>
-        <CodeBlock
-          language="typescript"
-          code={`// Sandbox environment
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Sandbox vs Production</h2>
+				<p className="text-muted-foreground">
+					Tenants typically maintain separate connections for sandbox and
+					production environments:
+				</p>
+				<CodeBlock
+					language="typescript"
+					code={`// Sandbox environment
 {
   meta: { environment: "sandbox", status: "preview" },
   integrations: [
@@ -236,62 +236,62 @@ const result = await executeCapability(
     }
   ]
 }`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Security & validation</h2>
-        <ul className="text-muted-foreground list-inside list-disc space-y-2">
-          <li>
-            Integration connections are validated before binding - health checks
-            ensure connectivity
-          </li>
-          <li>
-            Secrets are never stored in TenantAppConfig - only references to
-            encrypted secrets
-          </li>
-          <li>
-            Policy Decision Point (PDP) enforces which workflows can use which
-            integrations
-          </li>
-          <li>
-            All integration calls are audited with full request/response logging
-          </li>
-          <li>Rate limiting and quotas are enforced per connection</li>
-        </ul>
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Security & validation</h2>
+				<ul className="list-inside list-disc space-y-2 text-muted-foreground">
+					<li>
+						Integration connections are validated before binding - health checks
+						ensure connectivity
+					</li>
+					<li>
+						Secrets are never stored in TenantAppConfig - only references to
+						encrypted secrets
+					</li>
+					<li>
+						Policy Decision Point (PDP) enforces which workflows can use which
+						integrations
+					</li>
+					<li>
+						All integration calls are audited with full request/response logging
+					</li>
+					<li>Rate limiting and quotas are enforced per connection</li>
+				</ul>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Best practices</h2>
-        <ul className="text-muted-foreground list-inside list-disc space-y-2">
-          <li>
-            Use wildcard patterns sparingly in <code>allowedWorkflows</code> -
-            be explicit about access
-          </li>
-          <li>Always maintain separate sandbox and production connections</li>
-          <li>
-            Monitor integration health checks and set up alerts for failures
-          </li>
-          <li>
-            Document the purpose of each integration binding for your team
-          </li>
-          <li>
-            Test integration changes in sandbox before promoting to production
-          </li>
-        </ul>
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Best practices</h2>
+				<ul className="list-inside list-disc space-y-2 text-muted-foreground">
+					<li>
+						Use wildcard patterns sparingly in <code>allowedWorkflows</code> -
+						be explicit about access
+					</li>
+					<li>Always maintain separate sandbox and production connections</li>
+					<li>
+						Monitor integration health checks and set up alerts for failures
+					</li>
+					<li>
+						Document the purpose of each integration binding for your team
+					</li>
+					<li>
+						Test integration changes in sandbox before promoting to production
+					</li>
+				</ul>
+			</div>
 
-      <div className="flex items-center gap-4 pt-4">
-        <Link href="/docs/architecture/app-config" className="btn-ghost">
-          Previous: App Configuration
-        </Link>
-        <Link
-          href="/docs/architecture/knowledge-binding"
-          className="btn-primary"
-        >
-          Knowledge Binding <ChevronRight size={16} />
-        </Link>
-      </div>
-    </div>
-  );
+			<div className="flex items-center gap-4 pt-4">
+				<Link href="/docs/architecture/app-config" className="btn-ghost">
+					Previous: App Configuration
+				</Link>
+				<Link
+					href="/docs/architecture/knowledge-binding"
+					className="btn-primary"
+				>
+					Knowledge Binding <ChevronRight size={16} />
+				</Link>
+			</div>
+		</div>
+	);
 }

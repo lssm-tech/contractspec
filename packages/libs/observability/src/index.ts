@@ -1,61 +1,59 @@
-export { getTracer, traceAsync, traceSync } from './tracing';
+export { AlertManager } from './anomaly/alert-manager';
 export {
-  traceModelSelection,
-  type ModelSelectionSpanInput,
-  type ModelSelectionSpanAttributes,
-} from './tracing/model-selection.span';
-export {
-  ModelSelectionTelemetry,
-  type ModelSelectionEventProperties,
-} from './telemetry/model-selection-telemetry';
-export {
-  getMeter,
-  createCounter,
-  createUpDownCounter,
-  createHistogram,
-  standardMetrics,
-} from './metrics';
-export { Logger, logger } from './logging';
-export {
-  createTracingMiddleware,
-  type TracingMiddlewareOptions,
-} from './tracing/middleware';
-export {
-  IntentAggregator,
-  type IntentAggregatorSnapshot,
-  type TelemetrySample,
-} from './intent/aggregator';
-export {
-  IntentDetector,
-  type IntentSignal,
-  type IntentSignalType,
-} from './intent/detector';
-export {
-  EvolutionPipeline,
-  type EvolutionPipelineEvent,
-  type EvolutionPipelineOptions,
-} from './pipeline/evolution-pipeline';
-export {
-  LifecycleKpiPipeline,
-  type LifecycleKpiPipelineOptions,
-  type LifecyclePipelineEvent,
-} from './pipeline/lifecycle-pipeline';
-export {
-  PosthogTelemetryProvider,
-  type PosthogTelemetryProviderOptions,
-} from './telemetry/posthog-telemetry';
-export { PosthogBaselineReader } from './telemetry/posthog-baseline-reader';
-
-export type { LogLevel, LogEntry } from './logging';
-
+	AnomalyDetector,
+	type AnomalySignal,
+	type AnomalyThresholds,
+} from './anomaly/anomaly-detector';
 export { BaselineCalculator } from './anomaly/baseline-calculator';
 export {
-  AnomalyDetector,
-  type AnomalySignal,
-  type AnomalyThresholds,
-} from './anomaly/anomaly-detector';
-export {
-  RootCauseAnalyzer,
-  type RootCauseAnalysis,
+	type RootCauseAnalysis,
+	RootCauseAnalyzer,
 } from './anomaly/root-cause-analyzer';
-export { AlertManager } from './anomaly/alert-manager';
+export {
+	IntentAggregator,
+	type IntentAggregatorSnapshot,
+	type TelemetrySample,
+} from './intent/aggregator';
+export {
+	IntentDetector,
+	type IntentSignal,
+	type IntentSignalType,
+} from './intent/detector';
+export type { LogEntry, LogLevel } from './logging';
+export { Logger, logger } from './logging';
+export {
+	createCounter,
+	createHistogram,
+	createUpDownCounter,
+	getMeter,
+	standardMetrics,
+} from './metrics';
+export {
+	EvolutionPipeline,
+	type EvolutionPipelineEvent,
+	type EvolutionPipelineOptions,
+} from './pipeline/evolution-pipeline';
+export {
+	LifecycleKpiPipeline,
+	type LifecycleKpiPipelineOptions,
+	type LifecyclePipelineEvent,
+} from './pipeline/lifecycle-pipeline';
+export {
+	type ModelSelectionEventProperties,
+	ModelSelectionTelemetry,
+} from './telemetry/model-selection-telemetry';
+export { PosthogBaselineReader } from './telemetry/posthog-baseline-reader';
+export {
+	PosthogTelemetryProvider,
+	type PosthogTelemetryProviderOptions,
+} from './telemetry/posthog-telemetry';
+export { getTracer, traceAsync, traceSync } from './tracing';
+export {
+	createTracingMiddleware,
+	type TracingMiddlewareOptions,
+} from './tracing/middleware';
+export {
+	type ModelSelectionSpanAttributes,
+	type ModelSelectionSpanInput,
+	traceModelSelection,
+} from './tracing/model-selection.span';

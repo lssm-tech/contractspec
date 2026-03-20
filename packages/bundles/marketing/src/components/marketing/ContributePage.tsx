@@ -1,319 +1,145 @@
-import type { Metadata } from 'next';
+import Link from 'next/link';
 
-export const metadata: Metadata = {
-  title: 'Contribute to ContractSpec',
-  description:
-    'Join the ContractSpec open-source community. Report issues, improve docs, build integrations, and help shape the future of spec-first development.',
-  openGraph: {
-    title: 'Contribute to ContractSpec',
-    description:
-      'Get started contributing in under 3 minutes. Docs, examples, integrations, and more.',
-    url: 'https://contractspec.io/contribute',
-  },
-  alternates: {
-    canonical: 'https://contractspec.io/contribute',
-  },
-};
+const contributionTracks = [
+	{
+		title: 'Contracts and runtime behavior',
+		copy: 'Improve the core system surfaces that keep APIs, UI, data, and tools aligned.',
+	},
+	{
+		title: 'Examples and templates',
+		copy: 'Show how the open system behaves in realistic verticals and team workflows.',
+	},
+	{
+		title: 'Docs and agent-facing guidance',
+		copy: 'Tighten the human and machine-readable guides that explain how the stack actually works.',
+	},
+	{
+		title: 'Integrations and ecosystem',
+		copy: 'Expand the bridges that make the system usable in more real-world environments.',
+	},
+];
 
 export function ContributePage() {
-  return (
-    <main className="flex grow flex-col items-center justify-center">
-      <section className="section-padding">
-        <div className="prose prose-invert mx-auto max-w-2xl">
-          <h1 className="mb-8 text-4xl font-bold">
-            Contribute to ContractSpec
-          </h1>
+	return (
+		<main>
+			<section className="section-padding hero-gradient border-border/70 border-b">
+				<div className="editorial-shell grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+					<div className="space-y-5">
+						<p className="editorial-kicker">Open source</p>
+						<h1 className="editorial-title max-w-4xl">
+							Contribute to the open system, not a black box.
+						</h1>
+						<p className="editorial-subtitle">
+							ContractSpec should stay legible, standards-first, and useful in
+							real workflows. Contributions matter most when they sharpen that
+							clarity instead of adding abstraction for its own sake.
+						</p>
+					</div>
+					<div className="editorial-panel space-y-5">
+						<p className="editorial-kicker">Fastest path</p>
+						<ol className="space-y-4 text-muted-foreground text-sm leading-7">
+							<li>Read the contribution guide and pick a tractable scope.</li>
+							<li>Open a draft PR early so maintainers can steer the work.</li>
+							<li>
+								Ship one clear improvement with tests or validation evidence.
+							</li>
+						</ol>
+						<div className="flex flex-col gap-3 sm:flex-row">
+							<Link
+								href="https://github.com/lssm-tech/contractspec/blob/main/CONTRIBUTING.md"
+								className="btn-primary"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Read CONTRIBUTING
+							</Link>
+							<Link
+								href="https://github.com/lssm-tech/contractspec/issues"
+								className="btn-ghost"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Open issues
+							</Link>
+						</div>
+					</div>
+				</div>
+			</section>
 
-          {/* Quick Start Box */}
-          <div className="not-prose border-border bg-muted/30 mb-12 rounded-lg border p-6">
-            <h2 className="text-foreground mb-4 text-xl font-bold">
-              ⚡ Quick Start — 3 Minutes to Your First Contribution
-            </h2>
-            <ol className="text-muted-foreground list-inside list-decimal space-y-2">
-              <li>
-                Read the{' '}
-                <a
-                  href="https://github.com/contractspec/contractspec/blob/main/CONTRIBUTING.md"
-                  className="text-primary hover:underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  CONTRIBUTING guide
-                </a>
-              </li>
-              <li>
-                Pick a{' '}
-                <a
-                  href="https://github.com/contractspec/contractspec/labels/good%20first%20issue"
-                  className="text-primary hover:underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  good first issue
-                </a>{' '}
-                or{' '}
-                <a
-                  href="https://github.com/contractspec/contractspec/labels/help%20wanted"
-                  className="text-primary hover:underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  help wanted
-                </a>{' '}
-                label
-              </li>
-              <li>Open a draft PR early — we'll guide you from there</li>
-            </ol>
-          </div>
+			<section className="editorial-section">
+				<div className="editorial-shell space-y-8">
+					<div className="max-w-3xl space-y-4">
+						<p className="editorial-kicker">Where contributions matter most</p>
+						<h2 className="font-serif text-4xl tracking-[-0.04em] md:text-5xl">
+							Work on the parts that make the system clearer and safer.
+						</h2>
+					</div>
+					<div className="editorial-grid">
+						{contributionTracks.map((track) => (
+							<div key={track.title} className="editorial-panel">
+								<h3 className="font-serif text-2xl tracking-[-0.03em]">
+									{track.title}
+								</h3>
+								<p className="mt-3 text-muted-foreground text-sm leading-7">
+									{track.copy}
+								</p>
+							</div>
+						))}
+					</div>
+				</div>
+			</section>
 
-          {/* Why Open Source */}
-          <section className="mb-10 space-y-4">
-            <h2 className="text-foreground text-2xl font-bold">
-              Why Open Source?
-            </h2>
-            <ul className="text-muted-foreground list-inside list-disc space-y-2">
-              <li>
-                <strong>Transparency:</strong> You can see exactly how your code
-                is compiled and deployed
-              </li>
-              <li>
-                <strong>Trust:</strong> No black boxes — audit the compiler that
-                shapes your AI-generated code
-              </li>
-              <li>
-                <strong>Faster ecosystem:</strong> Community contributions
-                accelerate adoption and surface real-world edge cases
-              </li>
-              <li>
-                <strong>Community review:</strong> More eyes catch more bugs,
-                and better patterns emerge
-              </li>
-              <li>
-                <strong>No lock-in:</strong> You own your code. The spec is
-                portable.
-              </li>
-            </ul>
-          </section>
-
-          {/* Where to Contribute */}
-          <section className="mb-10 space-y-4">
-            <h2 className="text-foreground text-2xl font-bold">
-              Where to Contribute
-            </h2>
-            <ul className="text-muted-foreground list-inside list-disc space-y-2">
-              <li>
-                <a
-                  href="https://github.com/contractspec"
-                  className="text-primary hover:underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  GitHub Organization
-                </a>{' '}
-                — All repos live here
-              </li>
-              <li>
-                <a
-                  href="https://github.com/contractspec/contractspec"
-                  className="text-primary hover:underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Main Repository
-                </a>{' '}
-                — Core compiler and specs
-              </li>
-              <li>
-                <a
-                  href="https://github.com/contractspec/contractspec/discussions"
-                  className="text-primary hover:underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Discussions
-                </a>{' '}
-                — Questions, ideas, and RFCs
-              </li>
-            </ul>
-          </section>
-
-          {/* Contribution Types */}
-          <section className="mb-10 space-y-4">
-            <h2 className="text-foreground text-2xl font-bold">
-              Ways to Contribute
-            </h2>
-            <div className="text-muted-foreground space-y-3">
-              <p>
-                <strong className="text-foreground">📄 Documentation:</strong>{' '}
-                Fix typos, improve explanations, add missing guides
-              </p>
-              <p>
-                <strong className="text-foreground">
-                  📦 Examples & Templates:
-                </strong>{' '}
-                Build real-world specs for common use cases
-              </p>
-              <p>
-                <strong className="text-foreground">
-                  🔌 Integrations & Adapters:
-                </strong>{' '}
-                Connect ContractSpec to frameworks, databases, and tools
-              </p>
-              <p>
-                <strong className="text-foreground">🐛 Bug Reports:</strong>{' '}
-                File issues with clear reproduction steps — minimal cases help
-                the most
-              </p>
-              <p>
-                <strong className="text-foreground">
-                  🔒 Security Reports:
-                </strong>{' '}
-                Found a vulnerability? See{' '}
-                <a href="#security" className="text-primary hover:underline">
-                  Security
-                </a>{' '}
-                below
-              </p>
-            </div>
-          </section>
-
-          {/* Quality Bar */}
-          <section className="mb-10 space-y-4">
-            <h2 className="text-foreground text-2xl font-bold">Quality Bar</h2>
-            <p className="text-muted-foreground">
-              We keep the bar high so the codebase stays maintainable. Every PR
-              should:
-            </p>
-            <ul className="text-muted-foreground list-inside list-disc space-y-2">
-              <li>
-                <strong>Include tests</strong> — Unit tests for logic,
-                integration tests for adapters
-              </li>
-              <li>
-                <strong>Be fully typed</strong> — No <code>any</code>. Strict
-                TypeScript only.
-              </li>
-              <li>
-                <strong>Stay small</strong> — One concern per PR. Easier to
-                review, faster to merge.
-              </li>
-              <li>
-                <strong>Use clear commit messages</strong> — Describe _what_ and
-                _why_, not just _how_
-              </li>
-            </ul>
-            <div className="bg-muted/20 mt-4 rounded-md p-4">
-              <h3 className="text-foreground mb-2 font-semibold">
-                Spec-First Mindset
-              </h3>
-              <p className="text-muted-foreground text-sm">
-                ContractSpec exists to enforce contracts between humans, AI, and
-                code. When contributing, think spec-first: define the behavior
-                before the implementation. A well-defined spec makes changes
-                safe to regenerate and easy to validate.
-              </p>
-            </div>
-          </section>
-
-          {/* Governance */}
-          <section className="mb-10 space-y-4">
-            <h2 className="text-foreground text-2xl font-bold">
-              Governance & Decision Making
-            </h2>
-            <p className="text-muted-foreground">
-              ContractSpec uses a{' '}
-              <strong className="text-foreground">
-                founder-led maintainer model
-              </strong>
-              :
-            </p>
-            <ul className="text-muted-foreground list-inside list-disc space-y-2">
-              <li>
-                The founder has final say on significant decisions — for now
-              </li>
-              <li>All reasoning is shared publicly in issues or PRs</li>
-              <li>
-                Community input shapes direction; we don't merge in silence
-              </li>
-              <li>
-                This model may evolve as the project matures and trusted
-                maintainers emerge
-              </li>
-            </ul>
-          </section>
-
-          {/* Security */}
-          <section className="mb-10 space-y-4" id="security">
-            <h2 className="text-foreground text-2xl font-bold">Security</h2>
-            <p className="text-muted-foreground">
-              If you discover a security vulnerability, please{' '}
-              <strong className="text-foreground">do not</strong> open a public
-              issue.
-            </p>
-            <p className="text-muted-foreground">
-              Instead, email us at{' '}
-              <a
-                href="mailto:security@contractspec.io"
-                className="text-primary hover:underline"
-              >
-                security@contractspec.io
-              </a>{' '}
-              with:
-            </p>
-            <ul className="text-muted-foreground list-inside list-disc space-y-2">
-              <li>A clear description of the vulnerability</li>
-              <li>Steps to reproduce</li>
-              <li>Potential impact</li>
-            </ul>
-            <p className="text-muted-foreground">
-              We'll acknowledge within 48 hours and work with you to coordinate
-              disclosure.
-            </p>
-          </section>
-
-          {/* Code of Conduct */}
-          <section className="mb-10 space-y-4">
-            <h2 className="text-foreground text-2xl font-bold">
-              Code of Conduct
-            </h2>
-            <p className="text-muted-foreground">
-              We expect all contributors to follow our{' '}
-              <a
-                href="https://github.com/contractspec/contractspec/blob/main/CODE_OF_CONDUCT.md"
-                className="text-primary hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Code of Conduct
-              </a>
-              . Be respectful, constructive, and assume good intent.
-            </p>
-          </section>
-
-          {/* Go Deeper */}
-          <section className="border-border mt-12 space-y-4 border-t pt-8">
-            <h2 className="text-foreground text-2xl font-bold">
-              Want to Go Deeper?
-            </h2>
-            <p className="text-muted-foreground">
-              If you're considering a long-term commitment to ContractSpec —
-              reviewing PRs regularly, shaping roadmap, mentoring new
-              contributors — we'd love to talk.
-            </p>
-            <p className="text-muted-foreground">
-              This isn't a job offer. It's an invitation to help build something
-              meaningful together. Reach out at{' '}
-              <a
-                href="mailto:maintainers@contractspec.io"
-                className="text-primary hover:underline"
-              >
-                maintainers@contractspec.io
-              </a>{' '}
-              and tell us what you'd bring to the table.
-            </p>
-          </section>
-        </div>
-      </section>
-    </main>
-  );
+			<section className="editorial-section bg-striped">
+				<div className="editorial-shell grid gap-8 lg:grid-cols-2">
+					<div className="editorial-panel">
+						<p className="editorial-kicker">Quality bar</p>
+						<h2 className="font-serif text-4xl tracking-[-0.04em]">
+							The contribution should make the repo easier to trust.
+						</h2>
+						<ul className="editorial-list mt-6">
+							<li>
+								<span className="editorial-list-marker" />
+								<span>Use strict TypeScript and keep changes explicit.</span>
+							</li>
+							<li>
+								<span className="editorial-list-marker" />
+								<span>
+									Include tests or other concrete validation where behavior
+									changes.
+								</span>
+							</li>
+							<li>
+								<span className="editorial-list-marker" />
+								<span>Prefer one coherent concern per PR.</span>
+							</li>
+							<li>
+								<span className="editorial-list-marker" />
+								<span>
+									Document the public or agent-facing impact when it exists.
+								</span>
+							</li>
+						</ul>
+					</div>
+					<div className="editorial-panel">
+						<p className="editorial-kicker">Governance and security</p>
+						<h2 className="font-serif text-4xl tracking-[-0.04em]">
+							Clarity first, private disclosure when the issue is sensitive.
+						</h2>
+						<p className="mt-5 text-muted-foreground text-sm leading-7">
+							Architecture and roadmap decisions stay founder-led for now, but
+							the reasoning should stay inspectable in issues, PRs, and docs. If
+							you find a security issue, do not open a public ticket. Use{' '}
+							<Link
+								href="mailto:security@contractspec.io"
+								className="underline"
+							>
+								security@contractspec.io
+							</Link>{' '}
+							instead.
+						</p>
+					</div>
+				</div>
+			</section>
+		</main>
+	);
 }

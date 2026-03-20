@@ -3,15 +3,15 @@
  */
 
 import {
-  addContractNode,
-  buildReverseEdges,
-  type ContractGraph,
-  type ContractNode,
-  createContractGraph,
-  detectCycles,
-  findMissingDependencies,
-  parseImportedSpecNames,
-  toDot,
+	addContractNode,
+	buildReverseEdges,
+	type ContractGraph,
+	type ContractNode,
+	createContractGraph,
+	detectCycles,
+	findMissingDependencies,
+	parseImportedSpecNames,
+	toDot,
 } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../ports/fs';
 
@@ -19,107 +19,105 @@ import type { FsAdapter } from '../ports/fs';
  * Options for dependency analysis.
  */
 export interface AnalyzeDepsOptions {
-  /**
-   * File pattern to search.
-   */
-  pattern?: string;
+	/**
+	 * File pattern to search.
+	 */
+	pattern?: string;
 }
 
 /**
  * Result of dependency analysis.
  */
 export interface AnalyzeDepsResult {
-  graph: ContractGraph;
-  total: number;
-  cycles: string[][];
-  missing: { contract: string; missing: string[] }[];
+	graph: ContractGraph;
+	total: number;
+	cycles: string[][];
+	missing: { contract: string; missing: string[] }[];
 }
 
 /**
  * Analyze contract dependencies.
  */
 export async function analyzeDeps(
-  adapters: { fs: FsAdapter },
-  options: AnalyzeDepsOptions = {}
+	adapters: { fs: FsAdapter },
+	options: AnalyzeDepsOptions = {}
 ): Promise<AnalyzeDepsResult> {
-  const { fs } = adapters;
+	const { fs } = adapters;
 
-  const files = await fs.glob({ pattern: options.pattern });
-  const graph = createContractGraph();
+	const files = await fs.glob({ pattern: options.pattern });
+	const graph = createContractGraph();
 
-  for (const file of files) {
-    const content = await fs.readFile(file);
-    const relativePath = fs.relative('.', file);
+	for (const file of files) {
+		const content = await fs.readFile(file);
+		const relativePath = fs.relative('.', file);
 
-    // Prefer explicit meta.name if present; otherwise fall back to filename stem
-    const nameMatch = content.match(/name:\s*['"]([^'"]+)['"]/);
-    const inferredName = nameMatch?.[1]
-      ? nameMatch[1]
-      : fs
-          .basename(file)
-          .replace(/\.[jt]s$/, '')
-          .replace(
-            /\.(contracts|contract|operation|operations|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)$/,
-            ''
-          );
+		// Dependency analysis works on file-level imports, so keep the node naming
+		// aligned with imported file stems instead of matching nested schema "name"
+		// fields, which frequently point at IO models rather than the spec module.
+		const finalName =
+			fs
+				.basename(file)
+				.replace(/\.[jt]s$/, '')
+				.replace(
+					/\.(contracts|contract|command|query|operation|operations|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)$/,
+					''
+				) || 'unknown';
+		const dependencies = parseImportedSpecNames(content, file);
 
-    const finalName = inferredName || 'unknown';
-    const dependencies = parseImportedSpecNames(content, file);
+		addContractNode(graph, finalName, relativePath, dependencies);
+	}
 
-    addContractNode(graph, finalName, relativePath, dependencies);
-  }
+	buildReverseEdges(graph);
 
-  buildReverseEdges(graph);
+	const cycles = detectCycles(graph);
+	const missing = findMissingDependencies(graph);
 
-  const cycles = detectCycles(graph);
-  const missing = findMissingDependencies(graph);
-
-  return {
-    graph,
-    total: graph.size,
-    cycles,
-    missing,
-  };
+	return {
+		graph,
+		total: graph.size,
+		cycles,
+		missing,
+	};
 }
 
 /**
  * Get contract node by name.
  */
 export function getContractNode(
-  graph: ContractGraph,
-  name: string
+	graph: ContractGraph,
+	name: string
 ): ContractNode | undefined {
-  return graph.get(name);
+	return graph.get(name);
 }
 
 /**
  * Export graph as DOT format.
  */
 export function exportGraphAsDot(graph: ContractGraph): string {
-  return toDot(graph);
+	return toDot(graph);
 }
 
 /**
  * Get graph statistics.
  */
 export function getGraphStats(graph: ContractGraph): {
-  total: number;
-  withDeps: number;
-  withoutDeps: number;
-  used: number;
-  unused: number;
+	total: number;
+	withDeps: number;
+	withoutDeps: number;
+	used: number;
+	unused: number;
 } {
-  const all = Array.from(graph.values());
-  const withDeps = all.filter((c) => c.dependencies.length > 0);
-  const withoutDeps = all.filter((c) => c.dependencies.length === 0);
-  const used = all.filter((c) => c.dependents.length > 0);
-  const unused = all.filter((c) => c.dependents.length === 0);
+	const all = Array.from(graph.values());
+	const withDeps = all.filter((c) => c.dependencies.length > 0);
+	const withoutDeps = all.filter((c) => c.dependencies.length === 0);
+	const used = all.filter((c) => c.dependents.length > 0);
+	const unused = all.filter((c) => c.dependents.length === 0);
 
-  return {
-    total: graph.size,
-    withDeps: withDeps.length,
-    withoutDeps: withoutDeps.length,
-    used: used.length,
-    unused: unused.length,
-  };
+	return {
+		total: graph.size,
+		withDeps: withDeps.length,
+		withoutDeps: withoutDeps.length,
+		used: used.length,
+		unused: unused.length,
+	};
 }

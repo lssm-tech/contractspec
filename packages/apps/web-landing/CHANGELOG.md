@@ -1,5 +1,226 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.6
+  - @contractspec/example.analytics-dashboard@3.7.6
+  - @contractspec/example.ai-chat-assistant@3.7.6
+  - @contractspec/example.saas-boilerplate@3.7.6
+  - @contractspec/lib.progressive-delivery@34.0.6
+  - @contractspec/example.integration-hub@3.7.6
+  - @contractspec/example.workflow-system@3.7.6
+  - @contractspec/example.agent-console@3.7.6
+  - @contractspec/lib.example-shared-ui@6.0.6
+  - @contractspec/example.crm-pipeline@3.7.6
+  - @contractspec/example.in-app-docs@3.7.6
+  - @contractspec/example.marketplace@3.7.6
+  - @contractspec/lib.surface-runtime@0.5.6
+  - @contractspec/lib.contracts-spec@3.7.6
+  - @contractspec/lib.design-system@3.7.6
+  - @contractspec/bundle.marketing@3.7.6
+  - @contractspec/lib.ai-providers@3.7.6
+  - @contractspec/lib.ui-kit-core@3.7.6
+  - @contractspec/module.examples@3.7.6
+  - @contractspec/bundle.library@3.7.6
+  - @contractspec/lib.ui-kit-web@3.7.6
+  - @contractspec/module.ai-chat@4.3.6
+  - @contractspec/lib.ui-link@3.7.6
+  - @contractspec/lib.ui-kit@3.7.6
+
+## 3.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.5
+  - @contractspec/example.analytics-dashboard@3.7.5
+  - @contractspec/example.ai-chat-assistant@3.7.5
+  - @contractspec/example.saas-boilerplate@3.7.5
+  - @contractspec/lib.progressive-delivery@34.0.5
+  - @contractspec/example.integration-hub@3.7.5
+  - @contractspec/example.workflow-system@3.7.5
+  - @contractspec/example.agent-console@3.7.5
+  - @contractspec/lib.example-shared-ui@6.0.5
+  - @contractspec/example.crm-pipeline@3.7.5
+  - @contractspec/example.in-app-docs@3.7.5
+  - @contractspec/example.marketplace@3.7.5
+  - @contractspec/lib.surface-runtime@0.5.5
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/lib.design-system@3.7.5
+  - @contractspec/bundle.marketing@3.7.5
+  - @contractspec/lib.ai-providers@3.7.5
+  - @contractspec/lib.ui-kit-core@3.7.5
+  - @contractspec/module.examples@3.7.5
+  - @contractspec/bundle.library@3.7.5
+  - @contractspec/lib.ui-kit-web@3.7.5
+  - @contractspec/module.ai-chat@4.3.5
+  - @contractspec/lib.ui-link@3.7.5
+  - @contractspec/lib.ui-kit@3.7.5
+
+## 3.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.4
+  - @contractspec/example.analytics-dashboard@3.7.4
+  - @contractspec/example.ai-chat-assistant@3.7.4
+  - @contractspec/example.saas-boilerplate@3.7.4
+  - @contractspec/lib.progressive-delivery@34.0.4
+  - @contractspec/example.integration-hub@3.7.4
+  - @contractspec/example.workflow-system@3.7.4
+  - @contractspec/example.agent-console@3.7.4
+  - @contractspec/lib.example-shared-ui@6.0.4
+  - @contractspec/example.crm-pipeline@3.7.4
+  - @contractspec/example.in-app-docs@3.7.4
+  - @contractspec/example.marketplace@3.7.4
+  - @contractspec/lib.surface-runtime@0.5.4
+  - @contractspec/lib.contracts-spec@3.7.4
+  - @contractspec/lib.design-system@3.7.4
+  - @contractspec/bundle.marketing@3.7.4
+  - @contractspec/lib.ai-providers@3.7.4
+  - @contractspec/lib.ui-kit-core@3.7.4
+  - @contractspec/module.examples@3.7.4
+  - @contractspec/bundle.library@3.7.4
+  - @contractspec/lib.ui-kit-web@3.7.4
+  - @contractspec/module.ai-chat@4.3.4
+  - @contractspec/lib.ui-link@3.7.4
+  - @contractspec/lib.ui-kit@3.7.4
+
+## 3.7.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.3
+  - @contractspec/example.analytics-dashboard@3.7.3
+  - @contractspec/example.ai-chat-assistant@3.7.3
+  - @contractspec/example.saas-boilerplate@3.7.3
+  - @contractspec/lib.progressive-delivery@34.0.3
+  - @contractspec/example.integration-hub@3.7.3
+  - @contractspec/example.workflow-system@3.7.3
+  - @contractspec/example.agent-console@3.7.3
+  - @contractspec/lib.example-shared-ui@6.0.3
+  - @contractspec/example.crm-pipeline@3.7.3
+  - @contractspec/example.in-app-docs@3.7.3
+  - @contractspec/example.marketplace@3.7.3
+  - @contractspec/lib.surface-runtime@0.5.3
+  - @contractspec/lib.contracts-spec@3.7.3
+  - @contractspec/lib.design-system@3.7.3
+  - @contractspec/bundle.marketing@3.7.3
+  - @contractspec/lib.ai-providers@3.7.3
+  - @contractspec/lib.ui-kit-core@3.7.3
+  - @contractspec/module.examples@3.7.3
+  - @contractspec/bundle.library@3.7.3
+  - @contractspec/lib.ui-kit-web@3.7.3
+  - @contractspec/module.ai-chat@4.3.3
+  - @contractspec/lib.ui-link@3.7.3
+  - @contractspec/lib.ui-kit@3.7.3
+
+## 3.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- Updated dependencies [8cd229b]
+- Updated dependencies [04bc555]
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.2
+  - @contractspec/example.analytics-dashboard@3.7.2
+  - @contractspec/example.ai-chat-assistant@3.7.2
+  - @contractspec/example.saas-boilerplate@3.7.2
+  - @contractspec/lib.progressive-delivery@34.0.2
+  - @contractspec/example.integration-hub@3.7.2
+  - @contractspec/example.workflow-system@3.7.2
+  - @contractspec/example.agent-console@3.7.2
+  - @contractspec/lib.example-shared-ui@6.0.2
+  - @contractspec/example.crm-pipeline@3.7.2
+  - @contractspec/example.in-app-docs@3.7.2
+  - @contractspec/example.marketplace@3.7.2
+  - @contractspec/lib.surface-runtime@0.5.2
+  - @contractspec/lib.contracts-spec@3.7.2
+  - @contractspec/lib.design-system@3.7.2
+  - @contractspec/bundle.marketing@3.7.2
+  - @contractspec/lib.ai-providers@3.7.2
+  - @contractspec/lib.ui-kit-core@3.7.2
+  - @contractspec/module.examples@3.7.2
+  - @contractspec/bundle.library@3.7.2
+  - @contractspec/lib.ui-kit-web@3.7.2
+  - @contractspec/module.ai-chat@4.3.2
+  - @contractspec/lib.ui-link@3.7.2
+  - @contractspec/lib.ui-kit@3.7.2
+
+## 3.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.1
+  - @contractspec/example.analytics-dashboard@3.7.1
+  - @contractspec/example.ai-chat-assistant@3.7.1
+  - @contractspec/example.saas-boilerplate@3.7.1
+  - @contractspec/lib.progressive-delivery@34.0.1
+  - @contractspec/example.integration-hub@3.7.1
+  - @contractspec/example.workflow-system@3.7.1
+  - @contractspec/example.agent-console@3.7.1
+  - @contractspec/lib.example-shared-ui@6.0.1
+  - @contractspec/example.crm-pipeline@3.7.1
+  - @contractspec/example.in-app-docs@3.7.1
+  - @contractspec/example.marketplace@3.7.1
+  - @contractspec/lib.surface-runtime@0.5.1
+  - @contractspec/lib.contracts-spec@3.7.1
+  - @contractspec/lib.design-system@3.7.1
+  - @contractspec/bundle.marketing@3.7.1
+  - @contractspec/lib.ai-providers@3.7.1
+  - @contractspec/lib.ui-kit-core@3.7.1
+  - @contractspec/module.examples@3.7.1
+  - @contractspec/bundle.library@3.7.1
+  - @contractspec/lib.ui-kit-web@3.7.1
+  - @contractspec/module.ai-chat@4.3.1
+  - @contractspec/lib.ui-link@3.7.1
+  - @contractspec/lib.ui-kit@3.7.1
+
+## 3.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.0
+  - @contractspec/example.analytics-dashboard@3.7.0
+  - @contractspec/example.ai-chat-assistant@3.7.0
+  - @contractspec/example.saas-boilerplate@3.7.0
+  - @contractspec/lib.progressive-delivery@34.0.0
+  - @contractspec/example.integration-hub@3.7.0
+  - @contractspec/example.workflow-system@3.7.0
+  - @contractspec/example.agent-console@3.7.0
+  - @contractspec/lib.example-shared-ui@6.0.0
+  - @contractspec/example.crm-pipeline@3.7.0
+  - @contractspec/example.in-app-docs@3.7.0
+  - @contractspec/example.marketplace@3.7.0
+  - @contractspec/lib.surface-runtime@0.5.0
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/lib.design-system@3.7.0
+  - @contractspec/bundle.marketing@3.7.0
+  - @contractspec/lib.ai-providers@3.7.0
+  - @contractspec/lib.ui-kit-core@3.7.0
+  - @contractspec/module.examples@3.7.0
+  - @contractspec/bundle.library@3.7.0
+  - @contractspec/lib.ui-kit-web@3.7.0
+  - @contractspec/module.ai-chat@4.3.0
+  - @contractspec/lib.ui-link@3.7.0
+  - @contractspec/lib.ui-kit@3.7.0
+
 ## 3.6.0
 
 ### Minor Changes

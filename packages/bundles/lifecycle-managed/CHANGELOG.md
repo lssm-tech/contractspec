@@ -1,5 +1,99 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/module.lifecycle-advisor@3.7.6
+  - @contractspec/module.lifecycle-core@3.7.6
+  - @contractspec/lib.observability@3.7.6
+  - @contractspec/lib.analytics@3.7.6
+  - @contractspec/lib.lifecycle@3.7.6
+  - @contractspec/lib.ai-agent@7.0.6
+
+## 3.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/module.lifecycle-advisor@3.7.5
+  - @contractspec/module.lifecycle-core@3.7.5
+  - @contractspec/lib.observability@3.7.5
+  - @contractspec/lib.analytics@3.7.5
+  - @contractspec/lib.lifecycle@3.7.5
+  - @contractspec/lib.ai-agent@7.0.5
+
+## 3.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/module.lifecycle-advisor@3.7.4
+  - @contractspec/module.lifecycle-core@3.7.4
+  - @contractspec/lib.observability@3.7.4
+  - @contractspec/lib.analytics@3.7.4
+  - @contractspec/lib.lifecycle@3.7.4
+  - @contractspec/lib.ai-agent@7.0.4
+
+## 3.7.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/module.lifecycle-advisor@3.7.3
+  - @contractspec/module.lifecycle-core@3.7.3
+  - @contractspec/lib.observability@3.7.3
+  - @contractspec/lib.analytics@3.7.3
+  - @contractspec/lib.lifecycle@3.7.3
+  - @contractspec/lib.ai-agent@7.0.3
+
+## 3.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- Updated dependencies [8cd229b]
+  - @contractspec/module.lifecycle-advisor@3.7.2
+  - @contractspec/module.lifecycle-core@3.7.2
+  - @contractspec/lib.observability@3.7.2
+  - @contractspec/lib.analytics@3.7.2
+  - @contractspec/lib.lifecycle@3.7.2
+  - @contractspec/lib.ai-agent@7.0.2
+
+## 3.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/module.lifecycle-advisor@3.7.1
+  - @contractspec/module.lifecycle-core@3.7.1
+  - @contractspec/lib.observability@3.7.1
+  - @contractspec/lib.analytics@3.7.1
+  - @contractspec/lib.lifecycle@3.7.1
+  - @contractspec/lib.ai-agent@7.0.1
+
+## 3.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/module.lifecycle-advisor@3.7.0
+  - @contractspec/module.lifecycle-core@3.7.0
+  - @contractspec/lib.observability@3.7.0
+  - @contractspec/lib.analytics@3.7.0
+  - @contractspec/lib.lifecycle@3.7.0
+  - @contractspec/lib.ai-agent@7.0.0
+
 ## 3.6.0
 
 ### Minor Changes

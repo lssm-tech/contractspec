@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.context-storage",
-  "version": "0.6.0",
+  "version": "0.7.7",
   "description": "Context storage module with persistence adapters",
   "keywords": [
     "contractspec",
@@ -19,8 +19,8 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
@@ -38,10 +38,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./entities": "./src/entities/index.ts",
-    "./entities/index": "./src/entities/index.ts",
     "./pipeline/context-snapshot-pipeline": "./src/pipeline/context-snapshot-pipeline.ts",
-    "./storage": "./src/storage/index.ts",
-    "./storage/index": "./src/storage/index.ts"
+    "./storage": "./src/storage/index.ts"
   },
   "files": [
     "dist",
@@ -62,12 +60,6 @@
         "node": "./dist/node/entities/index.js",
         "default": "./dist/entities/index.js"
       },
-      "./entities/index": {
-        "types": "./dist/entities/index.d.ts",
-        "bun": "./dist/entities/index.js",
-        "node": "./dist/node/entities/index.js",
-        "default": "./dist/entities/index.js"
-      },
       "./pipeline/context-snapshot-pipeline": {
         "types": "./dist/pipeline/context-snapshot-pipeline.d.ts",
         "bun": "./dist/pipeline/context-snapshot-pipeline.js",
@@ -75,12 +67,6 @@
         "default": "./dist/pipeline/context-snapshot-pipeline.js"
       },
       "./storage": {
-        "types": "./dist/storage/index.d.ts",
-        "bun": "./dist/storage/index.js",
-        "node": "./dist/node/storage/index.js",
-        "default": "./dist/storage/index.js"
-      },
-      "./storage/index": {
         "types": "./dist/storage/index.d.ts",
         "bun": "./dist/storage/index.js",
         "node": "./dist/node/storage/index.js",

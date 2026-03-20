@@ -1,0 +1,14 @@
+engine biome(1.0)
+language js(typescript, jsx)
+
+`import $imports from $source` where {
+	$source <: or {
+		`"@contractspec/lib.ui-kit-web/ui/button"`,
+		`"@contractspec/lib.ui-kit-web/ui/input"`,
+		`"@contractspec/lib.ui-kit-web/ui/textarea"`,
+		`"@contractspec/lib.ui-kit-web/ui/card"`,
+		`"@contractspec/lib.ui-kit-web/ui/form"`,
+		`"@contractspec/lib.ui-kit-web/ui/label"`
+	},
+	register_diagnostic(span=$source, message="Prefer @contractspec/lib.design-system over leaf ui-kit-web control imports in application surfaces. Replace these imports with \"@contractspec/lib.design-system\".")
+}

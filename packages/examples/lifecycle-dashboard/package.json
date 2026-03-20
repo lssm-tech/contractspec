@@ -1,13 +1,12 @@
 {
   "name": "@contractspec/example.lifecycle-dashboard",
-  "version": "3.6.0",
+  "version": "3.7.7",
   "description": "Lifecycle dashboard example (snippet): how to call lifecycle-managed APIs and render a status card.",
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./src/index.ts",
     "./docs": "./src/docs/index.ts",
-    "./docs/index": "./src/docs/index.ts",
     "./docs/lifecycle-dashboard.docblock": "./src/docs/lifecycle-dashboard.docblock.ts",
     "./example": "./src/example.ts",
     "./lifecycle-dashboard.feature": "./src/lifecycle-dashboard.feature.ts",
@@ -22,8 +21,8 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
@@ -41,51 +40,44 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
+        "browser": "./dist/browser/docs/index.js",
         "bun": "./dist/docs/index.js",
         "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/index": {
-        "types": "./dist/docs/index.d.ts",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/lifecycle-dashboard.docblock": {
         "types": "./dist/docs/lifecycle-dashboard.docblock.d.ts",
+        "browser": "./dist/browser/docs/lifecycle-dashboard.docblock.js",
         "bun": "./dist/docs/lifecycle-dashboard.docblock.js",
         "node": "./dist/node/docs/lifecycle-dashboard.docblock.js",
-        "browser": "./dist/browser/docs/lifecycle-dashboard.docblock.js",
         "default": "./dist/docs/lifecycle-dashboard.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
+        "browser": "./dist/browser/example.js",
         "bun": "./dist/example.js",
         "node": "./dist/node/example.js",
-        "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./lifecycle-dashboard.feature": {
         "types": "./dist/lifecycle-dashboard.feature.d.ts",
+        "browser": "./dist/browser/lifecycle-dashboard.feature.js",
         "bun": "./dist/lifecycle-dashboard.feature.js",
         "node": "./dist/node/lifecycle-dashboard.feature.js",
-        "browser": "./dist/browser/lifecycle-dashboard.feature.js",
         "default": "./dist/lifecycle-dashboard.feature.js"
       },
       "./snippets/page": {
         "types": "./dist/snippets/page.d.ts",
+        "browser": "./dist/browser/snippets/page.js",
         "bun": "./dist/snippets/page.js",
         "node": "./dist/node/snippets/page.js",
-        "browser": "./dist/browser/snippets/page.js",
         "default": "./dist/snippets/page.js"
       }
     },

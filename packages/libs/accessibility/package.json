@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.accessibility",
-  "version": "3.6.0",
+  "version": "3.7.7",
   "description": "WCAG compliance utilities and validators",
   "keywords": [
     "contractspec",
@@ -19,8 +19,8 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
@@ -36,8 +36,8 @@
     "@contractspec/tool.bun": "workspace:*"
   },
   "peerDependencies": {
-    "react": "19.2.4",
-    "next": "16.1.6"
+    "react": "19.2.0",
+    "next": "16.2.0"
   },
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -62,38 +62,38 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
-        "bun": "./dist/index.js",
         "browser": "./dist/browser/index.js",
+        "bun": "./dist/index.js",
         "default": "./dist/index.js"
       },
       "./AccessibilityPanel": {
         "types": "./dist/AccessibilityPanel.d.ts",
-        "bun": "./dist/AccessibilityPanel.js",
         "browser": "./dist/browser/AccessibilityPanel.js",
+        "bun": "./dist/AccessibilityPanel.js",
         "default": "./dist/AccessibilityPanel.js"
       },
       "./AccessibilityProvider": {
         "types": "./dist/AccessibilityProvider.d.ts",
-        "bun": "./dist/AccessibilityProvider.js",
         "browser": "./dist/browser/AccessibilityProvider.js",
+        "bun": "./dist/AccessibilityProvider.js",
         "default": "./dist/AccessibilityProvider.js"
       },
       "./nativewind-env.d": {
         "types": "./dist/nativewind-env.d.d.ts",
-        "bun": "./dist/nativewind-env.d.js",
         "browser": "./dist/browser/nativewind-env.d.js",
+        "bun": "./dist/nativewind-env.d.js",
         "default": "./dist/nativewind-env.d.js"
       },
       "./next-route-announcer": {
         "types": "./dist/next-route-announcer.d.ts",
-        "bun": "./dist/next-route-announcer.js",
         "browser": "./dist/browser/next-route-announcer.js",
+        "bun": "./dist/next-route-announcer.js",
         "default": "./dist/next-route-announcer.js"
       },
       "./preferences": {
         "types": "./dist/preferences.d.ts",
-        "bun": "./dist/preferences.js",
         "browser": "./dist/browser/preferences.js",
+        "bun": "./dist/preferences.js",
         "default": "./dist/preferences.js"
       }
     },

@@ -1,4 +1,4 @@
 export {
-  FeatureCategoryHeader,
-  type FeatureCategoryHeaderProps,
+	FeatureCategoryHeader,
+	type FeatureCategoryHeaderProps,
 } from './FeatureCategoryHeader';

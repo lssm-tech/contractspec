@@ -4,12 +4,12 @@
  * Provides deterministic snapshot generation for contract comparison.
  */
 
-export * from './types';
 export {
-  normalizeValue,
-  toCanonicalJson,
-  computeHash,
-  sortSpecs,
-  sortFields,
+	computeHash,
+	normalizeValue,
+	sortFields,
+	sortSpecs,
+	toCanonicalJson,
 } from './normalizer';
 export { generateSnapshot } from './snapshot';
+export * from './types';

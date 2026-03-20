@@ -1,5 +1,395 @@
 # @contractspec/module.examples
 
+## 3.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/example.learning-journey-studio-onboarding@3.7.6
+  - @contractspec/example.learning-journey-quest-challenges@3.7.6
+  - @contractspec/example.learning-journey-crm-onboarding@3.7.6
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.6
+  - @contractspec/example.learning-journey-ambient-coach@3.7.6
+  - @contractspec/example.learning-journey-platform-tour@3.7.6
+  - @contractspec/example.learning-journey-ui-onboarding@3.7.6
+  - @contractspec/example.learning-journey-ui-coaching@3.7.6
+  - @contractspec/example.learning-journey-ui-gamified@3.7.6
+  - @contractspec/example.learning-journey-duo-drills@3.7.6
+  - @contractspec/example.learning-journey-ui-shared@3.7.6
+  - @contractspec/example.meeting-recorder-providers@3.7.6
+  - @contractspec/example.learning-journey-registry@3.7.6
+  - @contractspec/example.locale-jurisdiction-gate@3.7.6
+  - @contractspec/example.versioned-knowledge-base@3.7.6
+  - @contractspec/example.project-management-sync@3.7.6
+  - @contractspec/example.integration-supabase@3.7.6
+  - @contractspec/example.pocket-family-office@3.7.6
+  - @contractspec/example.video-marketing-clip@3.7.6
+  - @contractspec/example.analytics-dashboard@3.7.6
+  - @contractspec/example.integration-posthog@3.7.6
+  - @contractspec/example.lifecycle-dashboard@3.7.6
+  - @contractspec/example.service-business-os@3.7.6
+  - @contractspec/example.video-docs-terminal@3.7.6
+  - @contractspec/example.content-generation@3.7.6
+  - @contractspec/example.integration-stripe@3.7.6
+  - @contractspec/example.kb-update-pipeline@3.7.6
+  - @contractspec/example.openbanking-powens@3.7.6
+  - @contractspec/example.video-api-showcase@3.7.6
+  - @contractspec/example.ai-chat-assistant@3.7.6
+  - @contractspec/example.learning-patterns@3.7.6
+  - @contractspec/example.saas-boilerplate@3.7.6
+  - @contractspec/example.calendar-google@3.7.6
+  - @contractspec/example.integration-hub@3.7.6
+  - @contractspec/example.knowledge-canon@3.7.6
+  - @contractspec/example.personalization@3.7.6
+  - @contractspec/example.voice-providers@3.7.6
+  - @contractspec/example.wealth-snapshot@3.7.6
+  - @contractspec/example.workflow-system@3.7.6
+  - @contractspec/example.ai-support-bot@3.7.6
+  - @contractspec/example.product-intent@3.7.6
+  - @contractspec/example.agent-console@3.7.6
+  - @contractspec/example.lifecycle-cli@3.7.6
+  - @contractspec/lib.example-shared-ui@6.0.6
+  - @contractspec/example.crm-pipeline@3.7.6
+  - @contractspec/example.email-gmail@3.7.6
+  - @contractspec/example.in-app-docs@3.7.6
+  - @contractspec/example.marketplace@3.7.6
+  - @contractspec/lib.runtime-sandbox@2.7.6
+  - @contractspec/lib.contracts-spec@3.7.6
+  - @contractspec/example.team-hub@3.7.6
+
+## 3.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/example.learning-journey-studio-onboarding@3.7.5
+  - @contractspec/example.learning-journey-quest-challenges@3.7.5
+  - @contractspec/example.learning-journey-crm-onboarding@3.7.5
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.5
+  - @contractspec/example.learning-journey-ambient-coach@3.7.5
+  - @contractspec/example.learning-journey-platform-tour@3.7.5
+  - @contractspec/example.learning-journey-ui-onboarding@3.7.5
+  - @contractspec/example.learning-journey-ui-coaching@3.7.5
+  - @contractspec/example.learning-journey-ui-gamified@3.7.5
+  - @contractspec/example.learning-journey-duo-drills@3.7.5
+  - @contractspec/example.learning-journey-ui-shared@3.7.5
+  - @contractspec/example.meeting-recorder-providers@3.7.5
+  - @contractspec/example.learning-journey-registry@3.7.5
+  - @contractspec/example.locale-jurisdiction-gate@3.7.5
+  - @contractspec/example.versioned-knowledge-base@3.7.5
+  - @contractspec/example.project-management-sync@3.7.5
+  - @contractspec/example.integration-supabase@3.7.5
+  - @contractspec/example.pocket-family-office@3.7.5
+  - @contractspec/example.video-marketing-clip@3.7.5
+  - @contractspec/example.analytics-dashboard@3.7.5
+  - @contractspec/example.integration-posthog@3.7.5
+  - @contractspec/example.lifecycle-dashboard@3.7.5
+  - @contractspec/example.service-business-os@3.7.5
+  - @contractspec/example.video-docs-terminal@3.7.5
+  - @contractspec/example.content-generation@3.7.5
+  - @contractspec/example.integration-stripe@3.7.5
+  - @contractspec/example.kb-update-pipeline@3.7.5
+  - @contractspec/example.openbanking-powens@3.7.5
+  - @contractspec/example.video-api-showcase@3.7.5
+  - @contractspec/example.ai-chat-assistant@3.7.5
+  - @contractspec/example.learning-patterns@3.7.5
+  - @contractspec/example.saas-boilerplate@3.7.5
+  - @contractspec/example.calendar-google@3.7.5
+  - @contractspec/example.integration-hub@3.7.5
+  - @contractspec/example.knowledge-canon@3.7.5
+  - @contractspec/example.personalization@3.7.5
+  - @contractspec/example.voice-providers@3.7.5
+  - @contractspec/example.wealth-snapshot@3.7.5
+  - @contractspec/example.workflow-system@3.7.5
+  - @contractspec/example.ai-support-bot@3.7.5
+  - @contractspec/example.product-intent@3.7.5
+  - @contractspec/example.agent-console@3.7.5
+  - @contractspec/example.lifecycle-cli@3.7.5
+  - @contractspec/lib.example-shared-ui@6.0.5
+  - @contractspec/example.crm-pipeline@3.7.5
+  - @contractspec/example.email-gmail@3.7.5
+  - @contractspec/example.in-app-docs@3.7.5
+  - @contractspec/example.marketplace@3.7.5
+  - @contractspec/lib.runtime-sandbox@2.7.5
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/example.team-hub@3.7.5
+
+## 3.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/example.learning-journey-studio-onboarding@3.7.4
+  - @contractspec/example.learning-journey-quest-challenges@3.7.4
+  - @contractspec/example.learning-journey-crm-onboarding@3.7.4
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.4
+  - @contractspec/example.learning-journey-ambient-coach@3.7.4
+  - @contractspec/example.learning-journey-platform-tour@3.7.4
+  - @contractspec/example.learning-journey-ui-onboarding@3.7.4
+  - @contractspec/example.learning-journey-ui-coaching@3.7.4
+  - @contractspec/example.learning-journey-ui-gamified@3.7.4
+  - @contractspec/example.learning-journey-duo-drills@3.7.4
+  - @contractspec/example.learning-journey-ui-shared@3.7.4
+  - @contractspec/example.meeting-recorder-providers@3.7.4
+  - @contractspec/example.learning-journey-registry@3.7.4
+  - @contractspec/example.locale-jurisdiction-gate@3.7.4
+  - @contractspec/example.versioned-knowledge-base@3.7.4
+  - @contractspec/example.project-management-sync@3.7.4
+  - @contractspec/example.integration-supabase@3.7.4
+  - @contractspec/example.pocket-family-office@3.7.4
+  - @contractspec/example.video-marketing-clip@3.7.4
+  - @contractspec/example.analytics-dashboard@3.7.4
+  - @contractspec/example.integration-posthog@3.7.4
+  - @contractspec/example.lifecycle-dashboard@3.7.4
+  - @contractspec/example.service-business-os@3.7.4
+  - @contractspec/example.video-docs-terminal@3.7.4
+  - @contractspec/example.content-generation@3.7.4
+  - @contractspec/example.integration-stripe@3.7.4
+  - @contractspec/example.kb-update-pipeline@3.7.4
+  - @contractspec/example.openbanking-powens@3.7.4
+  - @contractspec/example.video-api-showcase@3.7.4
+  - @contractspec/example.ai-chat-assistant@3.7.4
+  - @contractspec/example.learning-patterns@3.7.4
+  - @contractspec/example.saas-boilerplate@3.7.4
+  - @contractspec/example.calendar-google@3.7.4
+  - @contractspec/example.integration-hub@3.7.4
+  - @contractspec/example.knowledge-canon@3.7.4
+  - @contractspec/example.personalization@3.7.4
+  - @contractspec/example.voice-providers@3.7.4
+  - @contractspec/example.wealth-snapshot@3.7.4
+  - @contractspec/example.workflow-system@3.7.4
+  - @contractspec/example.ai-support-bot@3.7.4
+  - @contractspec/example.product-intent@3.7.4
+  - @contractspec/example.agent-console@3.7.4
+  - @contractspec/example.lifecycle-cli@3.7.4
+  - @contractspec/lib.example-shared-ui@6.0.4
+  - @contractspec/example.crm-pipeline@3.7.4
+  - @contractspec/example.email-gmail@3.7.4
+  - @contractspec/example.in-app-docs@3.7.4
+  - @contractspec/example.marketplace@3.7.4
+  - @contractspec/lib.runtime-sandbox@2.7.4
+  - @contractspec/lib.contracts-spec@3.7.4
+  - @contractspec/example.team-hub@3.7.4
+
+## 3.7.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/example.learning-journey-studio-onboarding@3.7.3
+  - @contractspec/example.learning-journey-quest-challenges@3.7.3
+  - @contractspec/example.learning-journey-crm-onboarding@3.7.3
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.3
+  - @contractspec/example.learning-journey-ambient-coach@3.7.3
+  - @contractspec/example.learning-journey-platform-tour@3.7.3
+  - @contractspec/example.learning-journey-ui-onboarding@3.7.3
+  - @contractspec/example.learning-journey-ui-coaching@3.7.3
+  - @contractspec/example.learning-journey-ui-gamified@3.7.3
+  - @contractspec/example.learning-journey-duo-drills@3.7.3
+  - @contractspec/example.learning-journey-ui-shared@3.7.3
+  - @contractspec/example.meeting-recorder-providers@3.7.3
+  - @contractspec/example.learning-journey-registry@3.7.3
+  - @contractspec/example.locale-jurisdiction-gate@3.7.3
+  - @contractspec/example.versioned-knowledge-base@3.7.3
+  - @contractspec/example.project-management-sync@3.7.3
+  - @contractspec/example.integration-supabase@3.7.3
+  - @contractspec/example.pocket-family-office@3.7.3
+  - @contractspec/example.video-marketing-clip@3.7.3
+  - @contractspec/example.analytics-dashboard@3.7.3
+  - @contractspec/example.integration-posthog@3.7.3
+  - @contractspec/example.lifecycle-dashboard@3.7.3
+  - @contractspec/example.service-business-os@3.7.3
+  - @contractspec/example.video-docs-terminal@3.7.3
+  - @contractspec/example.content-generation@3.7.3
+  - @contractspec/example.integration-stripe@3.7.3
+  - @contractspec/example.kb-update-pipeline@3.7.3
+  - @contractspec/example.openbanking-powens@3.7.3
+  - @contractspec/example.video-api-showcase@3.7.3
+  - @contractspec/example.ai-chat-assistant@3.7.3
+  - @contractspec/example.learning-patterns@3.7.3
+  - @contractspec/example.saas-boilerplate@3.7.3
+  - @contractspec/example.calendar-google@3.7.3
+  - @contractspec/example.integration-hub@3.7.3
+  - @contractspec/example.knowledge-canon@3.7.3
+  - @contractspec/example.personalization@3.7.3
+  - @contractspec/example.voice-providers@3.7.3
+  - @contractspec/example.wealth-snapshot@3.7.3
+  - @contractspec/example.workflow-system@3.7.3
+  - @contractspec/example.ai-support-bot@3.7.3
+  - @contractspec/example.product-intent@3.7.3
+  - @contractspec/example.agent-console@3.7.3
+  - @contractspec/example.lifecycle-cli@3.7.3
+  - @contractspec/lib.example-shared-ui@6.0.3
+  - @contractspec/example.crm-pipeline@3.7.3
+  - @contractspec/example.email-gmail@3.7.3
+  - @contractspec/example.in-app-docs@3.7.3
+  - @contractspec/example.marketplace@3.7.3
+  - @contractspec/lib.runtime-sandbox@2.7.3
+  - @contractspec/lib.contracts-spec@3.7.3
+  - @contractspec/example.team-hub@3.7.3
+
+## 3.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- 04bc555: Improve contract integrity, example validation, onboarding docs, doctor safety,
+  release verification, packaged smoke testing, and security workflow coverage.
+- Updated dependencies [8cd229b]
+- Updated dependencies [04bc555]
+  - @contractspec/example.learning-journey-studio-onboarding@3.7.2
+  - @contractspec/example.learning-journey-quest-challenges@3.7.2
+  - @contractspec/example.learning-journey-crm-onboarding@3.7.2
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.2
+  - @contractspec/example.learning-journey-ambient-coach@3.7.2
+  - @contractspec/example.learning-journey-platform-tour@3.7.2
+  - @contractspec/example.learning-journey-ui-onboarding@3.7.2
+  - @contractspec/example.learning-journey-ui-coaching@3.7.2
+  - @contractspec/example.learning-journey-ui-gamified@3.7.2
+  - @contractspec/example.learning-journey-duo-drills@3.7.2
+  - @contractspec/example.learning-journey-ui-shared@3.7.2
+  - @contractspec/example.meeting-recorder-providers@3.7.2
+  - @contractspec/example.learning-journey-registry@3.7.2
+  - @contractspec/example.locale-jurisdiction-gate@3.7.2
+  - @contractspec/example.versioned-knowledge-base@3.7.2
+  - @contractspec/example.project-management-sync@3.7.2
+  - @contractspec/example.integration-supabase@3.7.2
+  - @contractspec/example.pocket-family-office@3.7.2
+  - @contractspec/example.video-marketing-clip@3.7.2
+  - @contractspec/example.analytics-dashboard@3.7.2
+  - @contractspec/example.integration-posthog@3.7.2
+  - @contractspec/example.lifecycle-dashboard@3.7.2
+  - @contractspec/example.service-business-os@3.7.2
+  - @contractspec/example.video-docs-terminal@3.7.2
+  - @contractspec/example.content-generation@3.7.2
+  - @contractspec/example.integration-stripe@3.7.2
+  - @contractspec/example.kb-update-pipeline@3.7.2
+  - @contractspec/example.openbanking-powens@3.7.2
+  - @contractspec/example.video-api-showcase@3.7.2
+  - @contractspec/example.ai-chat-assistant@3.7.2
+  - @contractspec/example.learning-patterns@3.7.2
+  - @contractspec/example.saas-boilerplate@3.7.2
+  - @contractspec/example.calendar-google@3.7.2
+  - @contractspec/example.integration-hub@3.7.2
+  - @contractspec/example.knowledge-canon@3.7.2
+  - @contractspec/example.personalization@3.7.2
+  - @contractspec/example.voice-providers@3.7.2
+  - @contractspec/example.wealth-snapshot@3.7.2
+  - @contractspec/example.workflow-system@3.7.2
+  - @contractspec/example.ai-support-bot@3.7.2
+  - @contractspec/example.product-intent@3.7.2
+  - @contractspec/example.agent-console@3.7.2
+  - @contractspec/example.lifecycle-cli@3.7.2
+  - @contractspec/lib.example-shared-ui@6.0.2
+  - @contractspec/example.crm-pipeline@3.7.2
+  - @contractspec/example.opencode-cli@2.7.2
+  - @contractspec/example.email-gmail@3.7.2
+  - @contractspec/example.in-app-docs@3.7.2
+  - @contractspec/example.marketplace@3.7.2
+  - @contractspec/lib.runtime-sandbox@2.7.2
+  - @contractspec/lib.contracts-spec@3.7.2
+  - @contractspec/example.team-hub@3.7.2
+  - @contractspec/example.minimal@2.7.2
+
+## 3.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/example.learning-journey-studio-onboarding@3.7.1
+  - @contractspec/example.learning-journey-quest-challenges@3.7.1
+  - @contractspec/example.learning-journey-crm-onboarding@3.7.1
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.1
+  - @contractspec/example.learning-journey-ambient-coach@3.7.1
+  - @contractspec/example.learning-journey-platform-tour@3.7.1
+  - @contractspec/example.learning-journey-ui-onboarding@3.7.1
+  - @contractspec/example.learning-journey-ui-coaching@3.7.1
+  - @contractspec/example.learning-journey-ui-gamified@3.7.1
+  - @contractspec/example.learning-journey-duo-drills@3.7.1
+  - @contractspec/example.learning-journey-ui-shared@3.7.1
+  - @contractspec/example.learning-journey-registry@3.7.1
+  - @contractspec/example.locale-jurisdiction-gate@3.7.1
+  - @contractspec/example.versioned-knowledge-base@3.7.1
+  - @contractspec/example.analytics-dashboard@3.7.1
+  - @contractspec/example.lifecycle-dashboard@3.7.1
+  - @contractspec/example.service-business-os@3.7.1
+  - @contractspec/example.content-generation@3.7.1
+  - @contractspec/example.integration-stripe@3.7.1
+  - @contractspec/example.kb-update-pipeline@3.7.1
+  - @contractspec/example.openbanking-powens@3.7.1
+  - @contractspec/example.ai-chat-assistant@3.7.1
+  - @contractspec/example.learning-patterns@3.7.1
+  - @contractspec/example.saas-boilerplate@3.7.1
+  - @contractspec/example.integration-hub@3.7.1
+  - @contractspec/example.knowledge-canon@3.7.1
+  - @contractspec/example.personalization@3.7.1
+  - @contractspec/example.voice-providers@3.7.1
+  - @contractspec/example.wealth-snapshot@3.7.1
+  - @contractspec/example.workflow-system@3.7.1
+  - @contractspec/example.ai-support-bot@3.7.1
+  - @contractspec/example.agent-console@3.7.1
+  - @contractspec/example.lifecycle-cli@3.7.1
+  - @contractspec/lib.example-shared-ui@6.0.1
+  - @contractspec/example.crm-pipeline@3.7.1
+  - @contractspec/example.marketplace@3.7.1
+  - @contractspec/lib.runtime-sandbox@2.7.1
+  - @contractspec/lib.contracts-spec@3.7.1
+  - @contractspec/example.team-hub@3.7.1
+
+## 3.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/example.learning-journey-studio-onboarding@3.7.0
+  - @contractspec/example.learning-journey-quest-challenges@3.7.0
+  - @contractspec/example.learning-journey-crm-onboarding@3.7.0
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.0
+  - @contractspec/example.learning-journey-ambient-coach@3.7.0
+  - @contractspec/example.learning-journey-platform-tour@3.7.0
+  - @contractspec/example.learning-journey-ui-onboarding@3.7.0
+  - @contractspec/example.learning-journey-ui-coaching@3.7.0
+  - @contractspec/example.learning-journey-ui-gamified@3.7.0
+  - @contractspec/example.learning-journey-duo-drills@3.7.0
+  - @contractspec/example.learning-journey-ui-shared@3.7.0
+  - @contractspec/example.learning-journey-registry@3.7.0
+  - @contractspec/example.locale-jurisdiction-gate@3.7.0
+  - @contractspec/example.versioned-knowledge-base@3.7.0
+  - @contractspec/example.analytics-dashboard@3.7.0
+  - @contractspec/example.lifecycle-dashboard@3.7.0
+  - @contractspec/example.service-business-os@3.7.0
+  - @contractspec/example.content-generation@3.7.0
+  - @contractspec/example.integration-stripe@3.7.0
+  - @contractspec/example.kb-update-pipeline@3.7.0
+  - @contractspec/example.openbanking-powens@3.7.0
+  - @contractspec/example.ai-chat-assistant@3.7.0
+  - @contractspec/example.learning-patterns@3.7.0
+  - @contractspec/example.saas-boilerplate@3.7.0
+  - @contractspec/example.integration-hub@3.7.0
+  - @contractspec/example.knowledge-canon@3.7.0
+  - @contractspec/example.personalization@3.7.0
+  - @contractspec/example.voice-providers@3.7.0
+  - @contractspec/example.wealth-snapshot@3.7.0
+  - @contractspec/example.workflow-system@3.7.0
+  - @contractspec/example.ai-support-bot@3.7.0
+  - @contractspec/example.agent-console@3.7.0
+  - @contractspec/example.lifecycle-cli@3.7.0
+  - @contractspec/lib.example-shared-ui@6.0.0
+  - @contractspec/example.crm-pipeline@3.7.0
+  - @contractspec/example.marketplace@3.7.0
+  - @contractspec/lib.runtime-sandbox@2.7.0
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/example.team-hub@3.7.0
+
 ## 3.6.0
 
 ### Minor Changes

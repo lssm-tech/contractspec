@@ -1,83 +1,72 @@
 # @contractspec/bundle.workspace
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Core workspace bundle that powers ContractSpec CLI, validation, code generation, AI workflows, and repository setup.**
 
-Reusable use-cases and services for ContractSpec workspace operations.
+## What It Provides
 
-## Purpose
+- Provides the service layer behind the CLI, editor integrations, drift detection, diagnostics, and setup flows.
+- Owns workspace-oriented AI agents, prompts, templates, fixers, and validation/reporting services.
+- Acts as the main orchestration bundle for repository lifecycle and codegen workflows.
+- `src/adapters/` contains runtime, provider, or environment-specific adapters.
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/services/` contains business logic services and workflows.
 
-This bundle provides platform-agnostic services that can be used by:
+## Installation
 
-- CLI tools (`@contractspec/app.cli-contractspec`)
-- Web applications
-- VS Code extensions
-- API servers
+`npm install @contractspec/bundle.workspace`
 
-## Architecture
+or
 
-```
-bundle.contractspec-workspace
-├── services/          # Use-case implementations
-│   ├── build.ts       # Build deterministic artifacts from specs (templates-first)
-│   ├── validate.ts    # Validate spec structure (and, later, implementation checks)
-│   ├── diff.ts        # Compare specs (semantic diff)
-│   ├── deps.ts        # Analyze dependencies
-│   ├── list.ts        # Discover specs by glob
-│   └── config.ts      # Load + merge workspace config (.contractsrc.json)
-│   ├── sync.ts        # Sync all specs (validate/build across a workspace)
-│   ├── watch.ts       # Watch specs and trigger validate/build
-│   ├── clean.ts       # Safe-by-default cleanup of generated artifacts
-│   ├── test.ts        # Run TestSpec scenarios (pure runner wrapper)
-│   ├── regenerator.ts # Regenerator service wrapper (no module loading)
-│   ├── integrity.ts   # Analyze spec/feature integrity and coverage
-│   ├── layer-discovery.ts # Discover features, examples, app-configs
-│   ├── doctor/        # Health checks and auto-fixes
-│   └── ci-check/      # CI/CD validation checks
-├── adapters/          # Runtime adapters (Node defaults)
-│   ├── fs.ts          # Filesystem operations
-│   ├── git.ts         # Git operations
-│   ├── watcher.ts     # File watching
-│   ├── ai.ts          # AI providers
-│   └── logger.ts      # Logging/progress
-└── ports/             # Adapter interfaces
-    └── index.ts       # Port type definitions
-```
-
-## Design Principles
-
-- **Adapter pattern**: All I/O goes through explicit ports/adapters
-- **Testable**: Services can be tested with mock adapters
-- **Reusable**: Same services work across CLI, web, and extensions
-- **No CLI dependencies**: No `chalk`, `ora`, `commander`, or `inquirer`
+`bun add @contractspec/bundle.workspace`
 
 ## Usage
 
-```typescript
-import {
-  createNodeAdapters,
-  loadWorkspaceConfig,
-  buildSpec,
-} from '@contractspec/bundle.workspace';
+Import the root entrypoint from `@contractspec/bundle.workspace`, or choose a documented subpath when you only need one part of the package surface.
 
-// Create adapters for Node.js runtime
-const adapters = createNodeAdapters();
+## Architecture
 
-// Load workspace config (or use defaults)
-const config = await loadWorkspaceConfig(adapters.fs);
+- `src/services/` contains the core use-cases for build, validate, doctor, diff, setup, examples, and CI flows.
+- `src/adapters/` and `src/ports/` isolate filesystem, git, AI, and workspace integration boundaries.
+- `src/ai/` contains workspace-specific agent definitions, prompts, and model-aware helpers.
+- `src/templates/`, `src/contracts/`, `src/formatters/`, `src.types/`, and `src.utils/` support generated outputs and reporting.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/types.ts` is shared public type definitions.
 
-// Build deterministic artifacts from a spec (templates-first)
-const result = await buildSpec(
-  './my-spec.operation.ts',
-  { fs: adapters.fs, logger: adapters.logger },
-  config
-);
-```
+## Public Entry Points
+
+- Root bundle export with namespaced services, adapters, ports, formatters, templates, contracts, AI helpers, and utilities.
+- Export `.` resolves through `./src/index.ts`.
+
+## Local Commands
+
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
+
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed.
+- Add table capabilities.
+- Stability.
+- Package exports.
+- Add latest models and align defaults.
+- Standardize tool naming to underscore notation.
 
 ## Notes
 
-- `sync` / `watch` accept optional overrides so CLI (or an extension) can inject
-  richer build/validate behavior while reusing the deterministic orchestration.
-- `test` and `regenerator` deliberately avoid TypeScript module loading; callers
-  pass already-loaded specs/contexts/rules/sinks.
-
+- Largest bundle in the monorepo (~280 source files); prefer editing existing services over adding new top-level directories.
+- Adapters must implement port interfaces; no direct infrastructure calls from services.
+- AI agent definitions must stay provider-agnostic via the `ai` SDK abstraction.
+- Template changes affect generated code across all consumers; test thoroughly.

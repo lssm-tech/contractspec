@@ -1,42 +1,55 @@
-# AI Agent Guide -- `@contractspec/module.ai-chat`
+# AI Agent Guide — `@contractspec/module.ai-chat`
 
 Scope: `packages/modules/ai-chat/*`
 
-AI chat interface module providing conversational UI components, hooks, and provider integrations for ContractSpec applications.
+AI chat module with context, core runtime, presentation components, hooks, providers, and agent-aware workflows.
 
 ## Quick Context
 
-- **Layer**: module
-- **Consumers**: bundles (contractspec-studio), apps (web-landing, cli)
+- Layer: `module`.
+- Package visibility: published package.
+- Primary consumers are bundles and apps that compose domain-specific features.
+- Related packages: `@contractspec/lib.ai-agent`, `@contractspec/lib.ai-providers`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.cost-tracking`, `@contractspec/lib.design-system`, `@contractspec/lib.metering`, ...
 
-## Public Exports
+## Architecture
 
-- `.` -- root barrel (entities, types, re-exports)
-- `./context` -- chat context providers and state
-- `./core` -- core chat logic, message handling, agent-adapter, workflow-tools, surface-planner-tools
-- `./presentation` -- full presentation layer barrel
-- `./presentation/components` -- React chat UI components (ChatMessage, ToolResultRenderer, ChatWithSidebar, etc.)
-- `./presentation/hooks` -- React hooks for chat state (useChat with mcpServers, agentMode)
-- `./providers` -- AI provider adapters
-- `./adapters` -- createAiSdkBundleAdapter for surface-runtime
+- `src/context/` contains shared chat providers and contextual runtime state.
+- `src/core/` contains chat orchestration, workflows, and non-UI runtime logic.
+- `src/presentation/` exports UI components and React hooks for embedding the chat experience.
+- `src/providers/` exposes provider bindings and provider-facing integration helpers.
+- Top-level feature, capability, operation, schema, and event files define the module contract surface.
+- `src/ai-chat.capability.ts` defines a capability surface.
 
-## Key Capabilities
+## Public Surface
 
-- **Presentation/Form/DataView rendering**: Pass `presentationRenderer`, `formRenderer`, and `dataViewRenderer` to `ChatWithSidebar`; tool results with `presentationKey`, `formKey`, or `dataViewKey` render via host-provided components
-- **MCP tools**: Pass `mcpServers` (McpClientConfig[]) to `useChat`; tools from MCP servers are merged into chat tools
-- **Agent mode**: Pass `agentMode: { agent: ChatAgentAdapter }`; use `createChatAgentAdapter` to wrap `ContractSpecAgent`; chat uses agent for generation instead of ChatService
-- **Contracts context**: `contractsContext` exposes agent, data-views, operations, forms, presentations
-- **Surface-runtime**: `surfacePlanConfig` enables propose-patch tool; `createAiSdkBundleAdapter` for planner integration
+- Exports the root module plus context, core, presentation, presentation/components, presentation/hooks, and providers subpaths.
+- Export `.` resolves through `./src/index.ts`.
+- Export `./context` resolves through `./src/context/index.ts`.
+- Export `./core` resolves through `./src/core/index.ts`.
+- Export `./presentation` resolves through `./src/presentation/index.ts`.
+- Export `./presentation/components` resolves through `./src/presentation/components/index.ts`.
+- Export `./presentation/hooks` resolves through `./src/presentation/hooks/index.ts`.
+- Export `./providers` resolves through `./src/providers/index.ts`.
 
 ## Guardrails
 
-- Depends on `lib.ai-agent`, `lib.ai-providers`, `lib.contracts-spec`, `lib.schema`, `lib.metering`, `lib.cost-tracking`, `lib.surface-runtime`
-- React peer dependency (>=19.2.4); changes here affect all chat surfaces
-- Metering and cost-tracking are wired in -- never bypass them
+- Keep reusable chat runtime behavior in the module and underlying libs rather than app shells.
+- Presentation, form, and data-view integration points are host contracts; preserve them when evolving tool rendering.
+- MCP and agent-mode flows should stay aligned with `@contractspec/lib.ai-agent` and `@contractspec/lib.surface-runtime`.
+- Changes here can affect downstream packages such as `@contractspec/lib.ai-agent`, `@contractspec/lib.ai-providers`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.cost-tracking`, `@contractspec/lib.design-system`, `@contractspec/lib.metering`, ...
 
 ## Local Commands
 
-- Build: `bun run build`
-- Test: `bun test`
-- Lint: `bun run lint`
-- Dev: `bun run dev`
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild

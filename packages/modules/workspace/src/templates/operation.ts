@@ -4,31 +4,31 @@
  */
 
 import type { OperationSpecData } from '../types/spec-types';
-import { toPascalCase, capitalize } from './utils';
+import { capitalize, toPascalCase } from './utils';
 
 /**
  * Generate operation spec TypeScript code.
  */
 export function generateOperationSpec(data: OperationSpecData): string {
-  const {
-    name,
-    version,
-    kind,
-    description,
-    goal,
-    context,
-    stability,
-    owners,
-    tags,
-    auth,
-    flags,
-  } = data;
+	const {
+		name,
+		version,
+		kind,
+		description,
+		goal,
+		context,
+		stability,
+		owners,
+		tags,
+		auth,
+		flags,
+	} = data;
 
-  const specVarName = toPascalCase(name.split('.').pop() ?? 'Unknown') + 'Spec';
-  const inputSchemaName = specVarName.replace('Spec', 'Input');
-  const outputSchemaName = specVarName.replace('Spec', 'Output');
+	const specVarName = toPascalCase(name.split('.').pop() ?? 'Unknown') + 'Spec';
+	const inputSchemaName = specVarName.replace('Spec', 'Input');
+	const outputSchemaName = specVarName.replace('Spec', 'Output');
 
-  return `import { define${capitalize(kind)} } from '@contractspec/lib.contracts-spec';
+	return `import { define${capitalize(kind)} } from '@contractspec/lib.contracts-spec';
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 
 // TODO: Define input schema

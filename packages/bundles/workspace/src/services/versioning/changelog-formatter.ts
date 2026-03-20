@@ -5,16 +5,16 @@
  * or JSON for programmatic use.
  */
 
-import { dirname, basename } from 'node:path';
+import { basename, dirname } from 'node:path';
 import type {
-  ChangelogEntry,
-  ChangeEntry,
+	ChangeEntry,
+	ChangelogEntry,
 } from '@contractspec/lib.contracts-spec';
 import type {
-  VersionAnalyzeResult,
-  ChangelogJsonExport,
-  SpecVersionAnalysis,
-  LibraryChangelogJson,
+	ChangelogJsonExport,
+	LibraryChangelogJson,
+	SpecVersionAnalysis,
+	VersionAnalyzeResult,
 } from './types';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -27,102 +27,102 @@ import type {
  * @see https://keepachangelog.com/
  */
 export function formatKeepAChangelog(entries: ChangelogEntry[]): string {
-  const lines: string[] = [
-    '# Changelog',
-    '',
-    'All notable changes to this project will be documented in this file.',
-    '',
-    'The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),',
-    'and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).',
-    '',
-  ];
+	const lines: string[] = [
+		'# Changelog',
+		'',
+		'All notable changes to this project will be documented in this file.',
+		'',
+		'The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),',
+		'and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).',
+		'',
+	];
 
-  // Sort entries by version (newest first)
-  const sorted = [...entries].sort((a, b) =>
-    compareVersionsDescending(a.version, b.version)
-  );
+	// Sort entries by version (newest first)
+	const sorted = [...entries].sort((a, b) =>
+		compareVersionsDescending(a.version, b.version)
+	);
 
-  for (const entry of sorted) {
-    lines.push(`## [${entry.version}] - ${entry.date}`);
-    lines.push('');
+	for (const entry of sorted) {
+		lines.push(`## [${entry.version}] - ${entry.date}`);
+		lines.push('');
 
-    // Group changes by type
-    const added = entry.changes.filter((c: ChangeEntry) => c.type === 'added');
-    const changed = entry.changes.filter(
-      (c: ChangeEntry) => c.type === 'changed'
-    );
-    const deprecated = entry.changes.filter(
-      (c: ChangeEntry) => c.type === 'deprecated'
-    );
-    const removed = entry.changes.filter(
-      (c: ChangeEntry) => c.type === 'removed'
-    );
-    const fixed = entry.changes.filter((c: ChangeEntry) => c.type === 'fixed');
-    const security = entry.changes.filter(
-      (c: ChangeEntry) => c.type === 'security'
-    );
-    const breaking =
-      entry.breakingChanges ??
-      entry.changes.filter((c: ChangeEntry) => c.type === 'breaking');
+		// Group changes by type
+		const added = entry.changes.filter((c: ChangeEntry) => c.type === 'added');
+		const changed = entry.changes.filter(
+			(c: ChangeEntry) => c.type === 'changed'
+		);
+		const deprecated = entry.changes.filter(
+			(c: ChangeEntry) => c.type === 'deprecated'
+		);
+		const removed = entry.changes.filter(
+			(c: ChangeEntry) => c.type === 'removed'
+		);
+		const fixed = entry.changes.filter((c: ChangeEntry) => c.type === 'fixed');
+		const security = entry.changes.filter(
+			(c: ChangeEntry) => c.type === 'security'
+		);
+		const breaking =
+			entry.breakingChanges ??
+			entry.changes.filter((c: ChangeEntry) => c.type === 'breaking');
 
-    if (breaking.length > 0) {
-      lines.push('### ⚠️ Breaking Changes');
-      breaking.forEach((c: ChangeEntry) => {
-        lines.push(`- ${c.description}${c.path ? ` (${c.path})` : ''}`);
-      });
-      lines.push('');
-    }
+		if (breaking.length > 0) {
+			lines.push('### ⚠️ Breaking Changes');
+			breaking.forEach((c: ChangeEntry) => {
+				lines.push(`- ${c.description}${c.path ? ` (${c.path})` : ''}`);
+			});
+			lines.push('');
+		}
 
-    if (added.length > 0) {
-      lines.push('### Added');
-      added.forEach((c: ChangeEntry) => {
-        lines.push(`- ${c.description}${c.path ? ` (${c.path})` : ''}`);
-      });
-      lines.push('');
-    }
+		if (added.length > 0) {
+			lines.push('### Added');
+			added.forEach((c: ChangeEntry) => {
+				lines.push(`- ${c.description}${c.path ? ` (${c.path})` : ''}`);
+			});
+			lines.push('');
+		}
 
-    if (changed.length > 0) {
-      lines.push('### Changed');
-      changed.forEach((c: ChangeEntry) => {
-        lines.push(`- ${c.description}${c.path ? ` (${c.path})` : ''}`);
-      });
-      lines.push('');
-    }
+		if (changed.length > 0) {
+			lines.push('### Changed');
+			changed.forEach((c: ChangeEntry) => {
+				lines.push(`- ${c.description}${c.path ? ` (${c.path})` : ''}`);
+			});
+			lines.push('');
+		}
 
-    if (deprecated.length > 0) {
-      lines.push('### Deprecated');
-      deprecated.forEach((c: ChangeEntry) => {
-        lines.push(`- ${c.description}${c.path ? ` (${c.path})` : ''}`);
-      });
-      lines.push('');
-    }
+		if (deprecated.length > 0) {
+			lines.push('### Deprecated');
+			deprecated.forEach((c: ChangeEntry) => {
+				lines.push(`- ${c.description}${c.path ? ` (${c.path})` : ''}`);
+			});
+			lines.push('');
+		}
 
-    if (removed.length > 0) {
-      lines.push('### Removed');
-      removed.forEach((c: ChangeEntry) => {
-        lines.push(`- ${c.description}${c.path ? ` (${c.path})` : ''}`);
-      });
-      lines.push('');
-    }
+		if (removed.length > 0) {
+			lines.push('### Removed');
+			removed.forEach((c: ChangeEntry) => {
+				lines.push(`- ${c.description}${c.path ? ` (${c.path})` : ''}`);
+			});
+			lines.push('');
+		}
 
-    if (fixed.length > 0) {
-      lines.push('### Fixed');
-      fixed.forEach((c: ChangeEntry) => {
-        lines.push(`- ${c.description}${c.path ? ` (${c.path})` : ''}`);
-      });
-      lines.push('');
-    }
+		if (fixed.length > 0) {
+			lines.push('### Fixed');
+			fixed.forEach((c: ChangeEntry) => {
+				lines.push(`- ${c.description}${c.path ? ` (${c.path})` : ''}`);
+			});
+			lines.push('');
+		}
 
-    if (security.length > 0) {
-      lines.push('### Security');
-      security.forEach((c: ChangeEntry) => {
-        lines.push(`- ${c.description}${c.path ? ` (${c.path})` : ''}`);
-      });
-      lines.push('');
-    }
-  }
+		if (security.length > 0) {
+			lines.push('### Security');
+			security.forEach((c: ChangeEntry) => {
+				lines.push(`- ${c.description}${c.path ? ` (${c.path})` : ''}`);
+			});
+			lines.push('');
+		}
+	}
 
-  return lines.join('\n');
+	return lines.join('\n');
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -135,47 +135,47 @@ export function formatKeepAChangelog(entries: ChangelogEntry[]): string {
  * @see https://www.conventionalcommits.org/
  */
 export function formatConventionalChangelog(entries: ChangelogEntry[]): string {
-  const lines: string[] = ['# Changelog', ''];
+	const lines: string[] = ['# Changelog', ''];
 
-  // Sort entries by version (newest first)
-  const sorted = [...entries].sort((a, b) =>
-    compareVersionsDescending(a.version, b.version)
-  );
+	// Sort entries by version (newest first)
+	const sorted = [...entries].sort((a, b) =>
+		compareVersionsDescending(a.version, b.version)
+	);
 
-  for (const entry of sorted) {
-    const bumpLabel =
-      entry.bumpType === 'major'
-        ? '💥 BREAKING RELEASE'
-        : entry.bumpType === 'minor'
-          ? '🚀 Minor Release'
-          : '🔧 Patch Release';
+	for (const entry of sorted) {
+		const bumpLabel =
+			entry.bumpType === 'major'
+				? '💥 BREAKING RELEASE'
+				: entry.bumpType === 'minor'
+					? '🚀 Minor Release'
+					: '🔧 Patch Release';
 
-    lines.push(`## ${entry.version} (${entry.date}) - ${bumpLabel}`);
-    lines.push('');
+		lines.push(`## ${entry.version} (${entry.date}) - ${bumpLabel}`);
+		lines.push('');
 
-    // Map change types to conventional commit types
-    const typeMapping: Record<string, string> = {
-      added: 'feat',
-      changed: 'refactor',
-      fixed: 'fix',
-      removed: 'refactor',
-      deprecated: 'deprecate',
-      breaking: 'feat!',
-      security: 'security',
-    };
+		// Map change types to conventional commit types
+		const typeMapping: Record<string, string> = {
+			added: 'feat',
+			changed: 'refactor',
+			fixed: 'fix',
+			removed: 'refactor',
+			deprecated: 'deprecate',
+			breaking: 'feat!',
+			security: 'security',
+		};
 
-    for (const change of entry.changes) {
-      const type = typeMapping[change.type] ?? 'chore';
-      const scope = change.path ? `(${change.path})` : '';
-      const breakingMarker = change.type === 'breaking' ? '!' : '';
-      lines.push(
-        `- **${type}${scope}${breakingMarker}**: ${change.description}`
-      );
-    }
-    lines.push('');
-  }
+		for (const change of entry.changes) {
+			const type = typeMapping[change.type] ?? 'chore';
+			const scope = change.path ? `(${change.path})` : '';
+			const breakingMarker = change.type === 'breaking' ? '!' : '';
+			lines.push(
+				`- **${type}${scope}${breakingMarker}**: ${change.description}`
+			);
+		}
+		lines.push('');
+	}
 
-  return lines.join('\n');
+	return lines.join('\n');
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -186,33 +186,33 @@ export function formatConventionalChangelog(entries: ChangelogEntry[]): string {
  * Format analysis result as JSON export.
  */
 export function formatChangelogJson(
-  analysis: VersionAnalyzeResult,
-  baseline?: string
+	analysis: VersionAnalyzeResult,
+	baseline?: string
 ): ChangelogJsonExport {
-  const specsNeedingBump = analysis.analyses.filter((a) => a.needsBump);
+	const specsNeedingBump = analysis.analyses.filter((a) => a.needsBump);
 
-  const isoDateTime = new Date().toISOString();
-  const isoDate = isoDateTime.split('T')[0] ?? '';
+	const isoDateTime = new Date().toISOString();
+	const isoDate = isoDateTime.split('T')[0] ?? '';
 
-  return {
-    generatedAt: isoDateTime,
-    baseline,
-    specs: specsNeedingBump.map((spec) => ({
-      key: spec.specKey,
-      version: spec.suggestedVersion,
-      path: spec.specPath,
-      entries: [
-        {
-          version: spec.suggestedVersion,
-          date: isoDate,
-          bumpType: spec.bumpType,
-          changes: spec.changes,
-          breakingChanges: spec.changes.filter((c) => c.type === 'breaking'),
-        },
-      ],
-    })),
-    libraries: groupSpecsByLibrary(specsNeedingBump, isoDate),
-  };
+	return {
+		generatedAt: isoDateTime,
+		baseline,
+		specs: specsNeedingBump.map((spec) => ({
+			key: spec.specKey,
+			version: spec.suggestedVersion,
+			path: spec.specPath,
+			entries: [
+				{
+					version: spec.suggestedVersion,
+					date: isoDate,
+					bumpType: spec.bumpType,
+					changes: spec.changes,
+					breakingChanges: spec.changes.filter((c) => c.type === 'breaking'),
+				},
+			],
+		})),
+		libraries: groupSpecsByLibrary(specsNeedingBump, isoDate),
+	};
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -227,82 +227,82 @@ export function formatChangelogJson(
  * Falls back to the parent directory name.
  */
 function extractLibraryPath(specPath: string): string {
-  const parts = specPath.split('/');
-  const packagesIdx = parts.lastIndexOf('packages');
-  if (packagesIdx >= 0 && packagesIdx + 2 < parts.length) {
-    return parts.slice(0, packagesIdx + 3).join('/');
-  }
-  return dirname(specPath);
+	const parts = specPath.split('/');
+	const packagesIdx = parts.lastIndexOf('packages');
+	if (packagesIdx >= 0 && packagesIdx + 2 < parts.length) {
+		return parts.slice(0, packagesIdx + 3).join('/');
+	}
+	return dirname(specPath);
 }
 
 const BUMP_RANK: Record<string, number> = { major: 3, minor: 2, patch: 1 };
 
 function groupSpecsByLibrary(
-  specs: SpecVersionAnalysis[],
-  isoDate: string
+	specs: SpecVersionAnalysis[],
+	isoDate: string
 ): LibraryChangelogJson[] {
-  const groups = new Map<string, SpecVersionAnalysis[]>();
-  for (const spec of specs) {
-    const libPath = extractLibraryPath(spec.specPath);
-    const existing = groups.get(libPath);
-    if (existing) {
-      existing.push(spec);
-    } else {
-      groups.set(libPath, [spec]);
-    }
-  }
+	const groups = new Map<string, SpecVersionAnalysis[]>();
+	for (const spec of specs) {
+		const libPath = extractLibraryPath(spec.specPath);
+		const existing = groups.get(libPath);
+		if (existing) {
+			existing.push(spec);
+		} else {
+			groups.set(libPath, [spec]);
+		}
+	}
 
-  return Array.from(groups.entries()).flatMap(
-    ([libPath, libSpecs]): LibraryChangelogJson[] => {
-      const first = libSpecs[0];
-      if (!first) return [];
+	return Array.from(groups.entries()).flatMap(
+		([libPath, libSpecs]): LibraryChangelogJson[] => {
+			const first = libSpecs[0];
+			if (!first) return [];
 
-      const highestBump = libSpecs.reduce((max, s) => {
-        const rank = BUMP_RANK[s.bumpType] ?? 0;
-        return rank > (BUMP_RANK[max.bumpType] ?? 0) ? s : max;
-      }, first);
+			const highestBump = libSpecs.reduce((max, s) => {
+				const rank = BUMP_RANK[s.bumpType] ?? 0;
+				return rank > (BUMP_RANK[max.bumpType] ?? 0) ? s : max;
+			}, first);
 
-      return [
-        {
-          name: basename(libPath),
-          path: libPath,
-          version: highestBump.suggestedVersion,
-          entries: [
-            {
-              version: highestBump.suggestedVersion,
-              date: isoDate,
-              bumpType: highestBump.bumpType,
-              changes: libSpecs.flatMap((s) => s.changes),
-              breakingChanges: libSpecs
-                .flatMap((s) => s.changes)
-                .filter((c) => c.type === 'breaking'),
-            },
-          ],
-        },
-      ];
-    }
-  );
+			return [
+				{
+					name: basename(libPath),
+					path: libPath,
+					version: highestBump.suggestedVersion,
+					entries: [
+						{
+							version: highestBump.suggestedVersion,
+							date: isoDate,
+							bumpType: highestBump.bumpType,
+							changes: libSpecs.flatMap((s) => s.changes),
+							breakingChanges: libSpecs
+								.flatMap((s) => s.changes)
+								.filter((c) => c.type === 'breaking'),
+						},
+					],
+				},
+			];
+		}
+	);
 }
 
 /**
  * Compare versions in descending order (newest first).
  */
 function compareVersionsDescending(a: string, b: string): number {
-  const parseVer = (v: string): number[] => {
-    const parts = v.split('.').map((p) => parseInt(p, 10) || 0);
-    return parts;
-  };
+	const parseVer = (v: string): number[] => {
+		const parts = v.split('.').map((p) => parseInt(p, 10) || 0);
+		return parts;
+	};
 
-  const aParts = parseVer(a);
-  const bParts = parseVer(b);
+	const aParts = parseVer(a);
+	const bParts = parseVer(b);
 
-  for (let i = 0; i < 3; i++) {
-    const aVal = aParts[i] ?? 0;
-    const bVal = bParts[i] ?? 0;
-    if (aVal !== bVal) {
-      return bVal - aVal; // Descending
-    }
-  }
+	for (let i = 0; i < 3; i++) {
+		const aVal = aParts[i] ?? 0;
+		const bVal = bParts[i] ?? 0;
+		if (aVal !== bVal) {
+			return bVal - aVal; // Descending
+		}
+	}
 
-  return 0;
+	return 0;
 }

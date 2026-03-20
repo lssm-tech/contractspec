@@ -1,9 +1,9 @@
 export interface MergedPrismaConfig {
-  modules: string[];
+	modules: string[];
 }
 
 export function defineMergedPrismaConfig(
-  config: MergedPrismaConfig
+	config: MergedPrismaConfig
 ): MergedPrismaConfig {
-  return config;
+	return config;
 }

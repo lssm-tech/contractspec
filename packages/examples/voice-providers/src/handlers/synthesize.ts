@@ -1,20 +1,20 @@
 import type {
-  TTSSynthesisInput,
-  TTSSynthesisResult,
+	TTSSynthesisInput,
+	TTSSynthesisResult,
 } from '@contractspec/lib.contracts-integrations';
 
 import {
-  createVoiceProvider,
-  type VoiceProviderFactoryInput,
+	createVoiceProvider,
+	type VoiceProviderFactoryInput,
 } from './create-provider';
 
 export interface SynthesizeVoiceInput extends VoiceProviderFactoryInput {
-  synthesis: TTSSynthesisInput;
+	synthesis: TTSSynthesisInput;
 }
 
 export async function synthesizeVoice(
-  input: SynthesizeVoiceInput
+	input: SynthesizeVoiceInput
 ): Promise<TTSSynthesisResult> {
-  const provider = createVoiceProvider(input);
-  return provider.synthesize(input.synthesis);
+	const provider = createVoiceProvider(input);
+	return provider.synthesize(input.synthesis);
 }

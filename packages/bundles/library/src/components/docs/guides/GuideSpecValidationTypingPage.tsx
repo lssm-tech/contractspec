@@ -4,35 +4,35 @@ import { ChevronRight } from 'lucide-react';
 import { StudioPrompt } from '../shared/StudioPrompt';
 
 export function GuideSpecValidationTypingPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-3">
-        <h1 className="text-4xl font-bold">Spec-driven validation + typing</h1>
-        <p className="text-muted-foreground text-lg">
-          Define a single operation with SchemaModel, generate validation, and
-          keep your existing handler logic.
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-3">
+				<h1 className="font-bold text-4xl">Spec-driven validation + typing</h1>
+				<p className="text-lg text-muted-foreground">
+					Define a single operation with SchemaModel, generate validation, and
+					keep your existing handler logic.
+				</p>
+			</div>
 
-      <div className="card-subtle space-y-4 p-6">
-        <h2 className="text-2xl font-bold">What you'll build</h2>
-        <ul className="text-muted-foreground space-y-2 text-sm">
-          <li>One command spec with explicit input/output models.</li>
-          <li>Validation + typing without rewriting your service layer.</li>
-          <li>Clear acceptance scenarios for regression safety.</li>
-        </ul>
-      </div>
+			<div className="card-subtle space-y-4 p-6">
+				<h2 className="font-bold text-2xl">What you'll build</h2>
+				<ul className="space-y-2 text-muted-foreground text-sm">
+					<li>One command spec with explicit input/output models.</li>
+					<li>Validation + typing without rewriting your service layer.</li>
+					<li>Clear acceptance scenarios for regression safety.</li>
+				</ul>
+			</div>
 
-      <div className="space-y-6">
-        <div className="space-y-3">
-          <h2 className="text-2xl font-bold">1) Define the spec</h2>
-          <p className="text-muted-foreground text-sm">
-            Create <code>src/contracts/contact-create.operation.ts</code>:
-          </p>
-          <CodeBlock
-            language="typescript"
-            filename="src/contracts/contact-create.operation.ts"
-            code={`import { defineCommand } from "@contractspec/lib.contracts-spec/operations";
+			<div className="space-y-6">
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">1) Define the spec</h2>
+					<p className="text-muted-foreground text-sm">
+						Create <code>src/contracts/contact-create.operation.ts</code>:
+					</p>
+					<CodeBlock
+						language="typescript"
+						filename="src/contracts/contact-create.operation.ts"
+						code={`import { defineCommand } from "@contractspec/lib.contracts-spec/operations";
 import { SchemaModel, ScalarTypeEnum } from "@contractspec/lib.schema";
 
 const ContactInput = new SchemaModel({
@@ -79,19 +79,19 @@ export const ContactCreateCommand = defineCommand({
     ],
   },
 });`}
-          />
-        </div>
+					/>
+				</div>
 
-        <div className="space-y-3">
-          <h2 className="text-2xl font-bold">2) Wire the handler</h2>
-          <p className="text-muted-foreground text-sm">
-            Keep your existing code. Just ensure the handler returns the output
-            shape defined above.
-          </p>
-          <CodeBlock
-            language="typescript"
-            filename="src/handlers/contact-create.ts"
-            code={`import { ContactCreateCommand } from "@/contracts/contact-create.operation";
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">2) Wire the handler</h2>
+					<p className="text-muted-foreground text-sm">
+						Keep your existing code. Just ensure the handler returns the output
+						shape defined above.
+					</p>
+					<CodeBlock
+						language="typescript"
+						filename="src/handlers/contact-create.ts"
+						code={`import { ContactCreateCommand } from "@/contracts/contact-create.operation";
  
  export async function handleContactCreate(
    input: (typeof ContactCreateCommand)["io"]["input"],
@@ -104,55 +104,55 @@ export const ContactCreateCommand = defineCommand({
      createdAt: new Date().toISOString(),
    };
  }`}
-          />
-        </div>
+					/>
+				</div>
 
-        <div className="space-y-3">
-          <h2 className="text-2xl font-bold">3) Validate</h2>
-          <CodeBlock
-            language="bash"
-            filename="spec-validation"
-            code={`contractspec validate src/contracts/contact-create.operation.ts`}
-          />
-          <p className="text-muted-foreground text-sm">
-            Expected output: <code>Validation passed</code>.
-          </p>
-        </div>
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">3) Validate</h2>
+					<CodeBlock
+						language="bash"
+						filename="spec-validation"
+						code={`contractspec validate src/contracts/contact-create.operation.ts`}
+					/>
+					<p className="text-muted-foreground text-sm">
+						Expected output: <code>Validation passed</code>.
+					</p>
+				</div>
 
-        <div className="card-subtle space-y-3 p-6">
-          <h3 className="text-lg font-semibold">Example package</h3>
-          <p className="text-muted-foreground text-sm">
-            The CRM Pipeline example includes real specs, handlers, and
-            presentations for contact + deal flows.
-          </p>
-          <CodeBlock
-            language="bash"
-            filename="crm-example"
-            code={`# Build + validate the CRM pipeline example
+				<div className="card-subtle space-y-3 p-6">
+					<h3 className="font-semibold text-lg">Example package</h3>
+					<p className="text-muted-foreground text-sm">
+						The CRM Pipeline example includes real specs, handlers, and
+						presentations for contact + deal flows.
+					</p>
+					<CodeBlock
+						language="bash"
+						filename="crm-example"
+						code={`# Build + validate the CRM pipeline example
 cd packages/examples/crm-pipeline
 bun install
 bun run build
 bun run validate`}
-          />
-        </div>
+					/>
+				</div>
 
-        <StudioPrompt
-          title="Need validation tied to real outcomes?"
-          body="Studio links checks to evidence, focus decisions, and post-release verification so specs evolve with product truth."
-        />
-      </div>
+				<StudioPrompt
+					title="Need validation tied to real outcomes?"
+					body="Studio links checks to evidence, focus decisions, and post-release verification so specs evolve with product truth."
+				/>
+			</div>
 
-      <div className="flex items-center gap-4 pt-4">
-        <Link
-          href="/docs/guides/generate-docs-clients-schemas"
-          className="btn-primary"
-        >
-          Next: Generate docs + clients <ChevronRight size={16} />
-        </Link>
-        <Link href="/docs/guides" className="btn-ghost">
-          Back to guides
-        </Link>
-      </div>
-    </div>
-  );
+			<div className="flex items-center gap-4 pt-4">
+				<Link
+					href="/docs/guides/generate-docs-clients-schemas"
+					className="btn-primary"
+				>
+					Next: Generate docs + clients <ChevronRight size={16} />
+				</Link>
+				<Link href="/docs/guides" className="btn-ghost">
+					Back to guides
+				</Link>
+			</div>
+		</div>
+	);
 }

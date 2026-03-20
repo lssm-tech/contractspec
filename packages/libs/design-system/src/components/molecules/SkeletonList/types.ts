@@ -1,4 +1,4 @@
 export interface SkeletonListProps {
-  count?: number;
-  className?: string;
+	count?: number;
+	className?: string;
 }

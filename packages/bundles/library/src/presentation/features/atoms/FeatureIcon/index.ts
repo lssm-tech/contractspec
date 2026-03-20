@@ -1,5 +1,5 @@
 export {
-  FeatureIcon,
-  getFeatureIconTone,
-  type FeatureIconProps,
+	FeatureIcon,
+	type FeatureIconProps,
+	getFeatureIconTone,
 } from './FeatureIcon';

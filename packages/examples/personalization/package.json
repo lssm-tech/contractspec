@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.personalization",
-  "version": "3.6.0",
+  "version": "3.7.7",
   "description": "Personalization examples: behavior tracking, overlay customization, workflow extension.",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -8,7 +8,6 @@
     ".": "./src/index.ts",
     "./behavior-tracking": "./src/behavior-tracking.ts",
     "./docs": "./src/docs/index.ts",
-    "./docs/index": "./src/docs/index.ts",
     "./docs/personalization.docblock": "./src/docs/personalization.docblock.ts",
     "./example": "./src/example.ts",
     "./overlay-customization": "./src/overlay-customization.ts",
@@ -24,8 +23,8 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
@@ -47,65 +46,58 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./behavior-tracking": {
         "types": "./dist/behavior-tracking.d.ts",
+        "browser": "./dist/browser/behavior-tracking.js",
         "bun": "./dist/behavior-tracking.js",
         "node": "./dist/node/behavior-tracking.js",
-        "browser": "./dist/browser/behavior-tracking.js",
         "default": "./dist/behavior-tracking.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
+        "browser": "./dist/browser/docs/index.js",
         "bun": "./dist/docs/index.js",
         "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/index": {
-        "types": "./dist/docs/index.d.ts",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/personalization.docblock": {
         "types": "./dist/docs/personalization.docblock.d.ts",
+        "browser": "./dist/browser/docs/personalization.docblock.js",
         "bun": "./dist/docs/personalization.docblock.js",
         "node": "./dist/node/docs/personalization.docblock.js",
-        "browser": "./dist/browser/docs/personalization.docblock.js",
         "default": "./dist/docs/personalization.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
+        "browser": "./dist/browser/example.js",
         "bun": "./dist/example.js",
         "node": "./dist/node/example.js",
-        "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./overlay-customization": {
         "types": "./dist/overlay-customization.d.ts",
+        "browser": "./dist/browser/overlay-customization.js",
         "bun": "./dist/overlay-customization.js",
         "node": "./dist/node/overlay-customization.js",
-        "browser": "./dist/browser/overlay-customization.js",
         "default": "./dist/overlay-customization.js"
       },
       "./personalization.feature": {
         "types": "./dist/personalization.feature.d.ts",
+        "browser": "./dist/browser/personalization.feature.js",
         "bun": "./dist/personalization.feature.js",
         "node": "./dist/node/personalization.feature.js",
-        "browser": "./dist/browser/personalization.feature.js",
         "default": "./dist/personalization.feature.js"
       },
       "./workflow-extension": {
         "types": "./dist/workflow-extension.d.ts",
+        "browser": "./dist/browser/workflow-extension.js",
         "bun": "./dist/workflow-extension.js",
         "node": "./dist/node/workflow-extension.js",
-        "browser": "./dist/browser/workflow-extension.js",
         "default": "./dist/workflow-extension.js"
       }
     },

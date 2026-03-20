@@ -1,173 +1,73 @@
 # @contractspec/lib.feature-flags
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Feature flags and experiments module for ContractSpec applications.**
 
-Feature flags and experiments module for ContractSpec applications.
+## What It Provides
 
-## Overview
+- **Layer**: lib.
+- **Consumers**: bundles, apps.
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/docs/` contains docblocks and documentation-facing exports.
 
-This module provides a reusable feature flag and experimentation system that can be used across all ContractSpec applications. It supports:
+## Installation
 
-- **Feature Flags**: Toggle features on/off with targeting rules
-- **Gradual Rollouts**: Roll out features to a percentage of users
-- **Targeting Rules**: Target by org, user, plan, segment, or custom attributes
-- **Experiments**: A/B testing with variants and metrics tracking
-- **Evaluation Logging**: Track flag evaluations for analytics
+`npm install @contractspec/lib.feature-flags`
 
-## Entities
+or
 
-### FeatureFlag
-
-Core feature flag definition.
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id | string | Unique identifier |
-| key | string | Flag key (e.g., `new_dashboard`) |
-| name | string | Human-readable name |
-| description | string | Description of the flag |
-| status | enum | `off`, `on`, `gradual` |
-| defaultValue | boolean/string | Default value when no rules match |
-| variants | json | Variant definitions for multivariate flags |
-| orgId | string | Organization scope (optional) |
-| createdAt | datetime | Creation timestamp |
-| updatedAt | datetime | Last update timestamp |
-
-### FlagTargetingRule
-
-Targeting rules for conditional flag evaluation.
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id | string | Unique identifier |
-| flagId | string | Parent flag |
-| priority | int | Rule priority (lower = higher priority) |
-| attribute | string | Target attribute (org, user, plan, etc.) |
-| operator | enum | `eq`, `neq`, `in`, `nin`, `contains`, `percentage` |
-| value | json | Target value(s) |
-| rolloutPercentage | int | Percentage for gradual rollout |
-| variant | string | Variant to serve (for multivariate) |
-
-### Experiment
-
-A/B test configuration.
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id | string | Unique identifier |
-| key | string | Experiment key |
-| name | string | Human-readable name |
-| flagId | string | Associated feature flag |
-| status | enum | `draft`, `running`, `paused`, `completed` |
-| variants | json | Variant definitions with split ratios |
-| metrics | json | Metrics to track |
-| startedAt | datetime | Experiment start time |
-| endedAt | datetime | Experiment end time |
-
-### FlagEvaluation
-
-Evaluation log for debugging and analytics.
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id | string | Unique identifier |
-| flagKey | string | Evaluated flag key |
-| subjectType | string | Subject type (user, org) |
-| subjectId | string | Subject identifier |
-| result | json | Evaluation result |
-| matchedRuleId | string | Rule that matched (if any) |
-| evaluatedAt | datetime | Evaluation timestamp |
-
-## Contracts
-
-### Commands
-
-- `flag.create` - Create a new feature flag
-- `flag.update` - Update flag configuration
-- `flag.delete` - Delete a feature flag
-- `flag.toggle` - Toggle flag status
-- `rule.create` - Add targeting rule
-- `rule.delete` - Remove targeting rule
-- `experiment.create` - Create an experiment
-- `experiment.start` - Start an experiment
-- `experiment.stop` - Stop an experiment
-
-### Queries
-
-- `flag.get` - Get flag by key
-- `flag.list` - List all flags
-- `flag.evaluate` - Evaluate flag for a subject
-- `experiment.get` - Get experiment details
-- `experiment.results` - Get experiment results
-
-## Events
-
-- `flag.created` - Flag was created
-- `flag.updated` - Flag configuration changed
-- `flag.deleted` - Flag was deleted
-- `flag.toggled` - Flag status changed
-- `experiment.started` - Experiment started
-- `experiment.stopped` - Experiment stopped
-- `flag.evaluated` - Flag was evaluated (for analytics)
+`bun add @contractspec/lib.feature-flags`
 
 ## Usage
 
-```typescript
-import { 
-  FeatureFlagEntity, 
-  EvaluateFlagContract,
-  FlagEvaluator 
-} from '@contractspec/lib.feature-flags';
+Import the root entrypoint from `@contractspec/lib.feature-flags`, or choose a documented subpath when you only need one part of the package surface.
 
-// Create an evaluator
-const evaluator = new FlagEvaluator(flagRepository);
+## Architecture
 
-// Evaluate a flag
-const result = await evaluator.evaluate('new_dashboard', {
-  userId: 'user-123',
-  orgId: 'org-456',
-  plan: 'pro',
-});
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/entities/` contains domain entities and value objects.
+- `src/evaluation` is part of the package's public or composition surface.
+- `src/events.ts` is package-level event definitions.
+- `src/feature-flags.capability.ts` defines a capability surface.
+- `src/feature-flags.feature.ts` defines a feature entrypoint.
 
-if (result.enabled) {
-  // Show new dashboard
-}
-```
+## Public Entry Points
 
-## Integration
+- Export `.` resolves through `./src/index.ts`.
+- Export `./contracts` resolves through `./src/contracts/index.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./docs/feature-flags.docblock` resolves through `./src/docs/feature-flags.docblock.ts`.
+- Export `./entities` resolves through `./src/entities/index.ts`.
+- Export `./evaluation` resolves through `./src/evaluation/index.ts`.
+- Export `./events` resolves through `./src/events.ts`.
+- Export `./feature-flags.capability` resolves through `./src/feature-flags.capability.ts`.
+- Export `./feature-flags.feature` resolves through `./src/feature-flags.feature.ts`.
 
-This module integrates with:
+## Local Commands
 
-- `@contractspec/lib.identity-rbac` - User/org context for targeting
-- `@contractspec/lib.analytics` - Evaluation tracking
-- `@contractspec/module.audit-trail` - Configuration changes
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-## Schema Contribution
+## Recent Updates
 
-```typescript
-import { featureFlagsSchemaContribution } from '@contractspec/lib.feature-flags';
+- Replace eslint+prettier by biomejs to optimize speed.
 
-export const schemaComposition = {
-  modules: [
-    featureFlagsSchemaContribution,
-    // ... other modules
-  ],
-};
-```
+## Notes
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Flag evaluation logic must be deterministic — same input always produces same output.
+- Capability and feature contracts are public API; changes are breaking.
+- Follow the PostHog naming conventions defined in workspace rules for new flag names.

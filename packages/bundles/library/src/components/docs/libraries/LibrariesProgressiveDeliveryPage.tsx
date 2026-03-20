@@ -3,27 +3,27 @@ import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
 export function LibrariesProgressiveDeliveryPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold">Progressive Delivery Library</h1>
-        <p className="text-muted-foreground text-lg">
-          The <code>@contractspec/lib.progressive-delivery</code> package helps
-          you ship new specs with confidence: canary + blue-green strategies,
-          metric guardrails, and rollback hooks in one place.
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-4">
+				<h1 className="font-bold text-4xl">Progressive Delivery Library</h1>
+				<p className="text-lg text-muted-foreground">
+					The <code>@contractspec/lib.progressive-delivery</code> package helps
+					you ship new specs with confidence: canary + blue-green strategies,
+					metric guardrails, and rollback hooks in one place.
+				</p>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Installation</h2>
-        <InstallCommand package="@contractspec/lib.progressive-delivery" />
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Installation</h2>
+				<InstallCommand package="@contractspec/lib.progressive-delivery" />
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Define a Strategy</h2>
-        <CodeBlock
-          language="typescript"
-          code={`import { DeploymentCoordinator, createDefaultCanaryController, TrafficShifter, RollbackManager } from '@contractspec/lib.progressive-delivery';
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Define a Strategy</h2>
+				<CodeBlock
+					language="typescript"
+					code={`import { DeploymentCoordinator, createDefaultCanaryController, TrafficShifter, RollbackManager } from '@contractspec/lib.progressive-delivery';
 
 const strategy = {
   target: { name: 'billing.createInvoice', version: 7 },
@@ -34,14 +34,14 @@ const strategy = {
     latencyP95: 250,
   },
 };`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Run the Coordinator</h2>
-        <CodeBlock
-          language="typescript"
-          code={`const eventBus = new DeploymentEventBus();
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Run the Coordinator</h2>
+				<CodeBlock
+					language="typescript"
+					code={`const eventBus = new DeploymentEventBus();
 const controller = createDefaultCanaryController(strategy, fetchMetrics, eventBus);
 const coordinator = new DeploymentCoordinator({
   strategy,
@@ -53,31 +53,31 @@ const coordinator = new DeploymentCoordinator({
 });
 
 const result = await coordinator.run();`}
-        />
-        <p className="text-muted-foreground text-sm">
-          The coordinator emits <code>stage_started</code>,{' '}
-          <code>stage_failed</code>, and <code>rolled_back</code> events, making
-          it easy to power dashboards or alerting workflows.
-        </p>
-      </div>
+				/>
+				<p className="text-muted-foreground text-sm">
+					The coordinator emits <code>stage_started</code>,{' '}
+					<code>stage_failed</code>, and <code>rolled_back</code> events, making
+					it easy to power dashboards or alerting workflows.
+				</p>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Blue-Green Swap</h2>
-        <p className="text-muted-foreground text-sm">
-          Switch to <code>mode: 'blue-green'</code> to warm up the new stack in
-          parallel and cut over once smoke tests pass. The same guardrails apply
-          before the final swap.
-        </p>
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Blue-Green Swap</h2>
+				<p className="text-muted-foreground text-sm">
+					Switch to <code>mode: 'blue-green'</code> to warm up the new stack in
+					parallel and cut over once smoke tests pass. The same guardrails apply
+					before the final swap.
+				</p>
+			</div>
 
-      <div className="flex items-center gap-4 pt-4">
-        <Link href="/docs/libraries" className="btn-ghost">
-          Back to Libraries
-        </Link>
-        <Link href="/docs/libraries/resilience" className="btn-primary">
-          Next: Resilience <ChevronRight size={16} />
-        </Link>
-      </div>
-    </div>
-  );
+			<div className="flex items-center gap-4 pt-4">
+				<Link href="/docs/libraries" className="btn-ghost">
+					Back to Libraries
+				</Link>
+				<Link href="/docs/libraries/resilience" className="btn-primary">
+					Next: Resilience <ChevronRight size={16} />
+				</Link>
+			</div>
+		</div>
+	);
 }

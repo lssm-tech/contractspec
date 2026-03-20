@@ -1,24 +1,23 @@
-import * as React from 'react';
 import { VStack } from '../stack';
 
 export function UserStoryCard({
-  title,
-  body,
-  outcome,
+	title,
+	body,
+	outcome,
 }: {
-  title: string;
-  body?: string;
-  outcome?: string;
+	title: string;
+	body?: string;
+	outcome?: string;
 }) {
-  return (
-    <VStack className="rounded-lg border p-4" gap="sm">
-      <div className="text-lg font-semibold">{title}</div>
-      {body && <div className="text-muted-foreground text-base">{body}</div>}
-      {outcome && (
-        <div className="text-base">
-          <span className="font-medium">Outcome:</span> {outcome}
-        </div>
-      )}
-    </VStack>
-  );
+	return (
+		<VStack className="rounded-lg border p-4" gap="sm">
+			<div className="font-semibold text-lg">{title}</div>
+			{body && <div className="text-base text-muted-foreground">{body}</div>}
+			{outcome && (
+				<div className="text-base">
+					<span className="font-medium">Outcome:</span> {outcome}
+				</div>
+			)}
+		</VStack>
+	);
 }

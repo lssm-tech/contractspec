@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '../../registry';
 
 export const tech_contracts_vertical_pocket_family_office_DocBlocks: DocBlock[] =
-  [
-    {
-      id: 'docs.tech.contracts.vertical-pocket-family-office',
-      title: 'Pocket Family Office Vertical',
-      summary: 'Pocket Family Office is a ContractSpec reference vertical that',
-      kind: 'reference',
-      visibility: 'public',
-      route: '/docs/tech/contracts/vertical-pocket-family-office',
-      tags: ['tech', 'contracts', 'vertical-pocket-family-office'],
-      body: `# Pocket Family Office Vertical
+	[
+		{
+			id: 'docs.tech.contracts.vertical-pocket-family-office',
+			title: 'Pocket Family Office Vertical',
+			summary: 'Pocket Family Office is a ContractSpec reference vertical that',
+			kind: 'reference',
+			visibility: 'public',
+			route: '/docs/tech/contracts/vertical-pocket-family-office',
+			tags: ['tech', 'contracts', 'vertical-pocket-family-office'],
+			body: `# Pocket Family Office Vertical
 
 Pocket Family Office is a ContractSpec reference vertical that
 demonstrates finance automation atop the integration and knowledge
@@ -117,6 +117,6 @@ tenant-specific IDs/secret references before deploying.
 
 
 `,
-    },
-  ];
+		},
+	];
 registerDocBlocks(tech_contracts_vertical_pocket_family_office_DocBlocks);

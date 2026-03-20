@@ -1,10 +1,10 @@
 import './guides.docblocks';
 
-export { GuidesIndexPage } from './GuidesIndexPage';
+export { GuideCIDiffGatingPage } from './GuideCIDiffGatingPage';
 export { GuideContractTypesPage } from './GuideContractTypesPage';
 export { GuideDocsPipelinePage } from './GuideDocsPipelinePage';
+export { GuideGenerateDocsClientsSchemasPage } from './GuideGenerateDocsClientsSchemasPage';
+export { GuideImportExistingCodebasesPage } from './GuideImportExistingCodebasesPage';
 export { GuideNextjsOneEndpointPage } from './GuideNextjsOneEndpointPage';
 export { GuideSpecValidationTypingPage } from './GuideSpecValidationTypingPage';
-export { GuideGenerateDocsClientsSchemasPage } from './GuideGenerateDocsClientsSchemasPage';
-export { GuideCIDiffGatingPage } from './GuideCIDiffGatingPage';
-export { GuideImportExistingCodebasesPage } from './GuideImportExistingCodebasesPage';
+export { GuidesIndexPage } from './GuidesIndexPage';

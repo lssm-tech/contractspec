@@ -11,34 +11,33 @@
  * @module @contractspec/bundle.workspace/services/verify
  */
 
-// Types
-export type {
-  VerifyConfig,
-  VerifyOptions,
-  VerifyInput,
-  VerifyResult,
-  StructureCheck,
-  BehaviorCheck,
-  AIReviewResult,
-  FieldMapping,
-  FieldMatchType,
-  IntentAlignment,
-  SemanticVerificationResult,
-} from './types';
-
-// Main service
 export {
-  VerifyService,
-  createVerifyService,
-  verifyService,
-} from './verify-service';
+	createQuickAIReview,
+	verifySemanticFields,
+	verifyWithAI,
+	verifyWithAIEnhanced,
+} from './ai-verifier';
+export { verifyBehavior } from './behavior-verifier';
 
 // Individual verifiers (for direct use)
 export { verifyStructure } from './structure-verifier';
-export { verifyBehavior } from './behavior-verifier';
+// Types
+export type {
+	AIReviewResult,
+	BehaviorCheck,
+	FieldMapping,
+	FieldMatchType,
+	IntentAlignment,
+	SemanticVerificationResult,
+	StructureCheck,
+	VerifyConfig,
+	VerifyInput,
+	VerifyOptions,
+	VerifyResult,
+} from './types';
+// Main service
 export {
-  verifyWithAI,
-  createQuickAIReview,
-  verifySemanticFields,
-  verifyWithAIEnhanced,
-} from './ai-verifier';
+	createVerifyService,
+	VerifyService,
+	verifyService,
+} from './verify-service';

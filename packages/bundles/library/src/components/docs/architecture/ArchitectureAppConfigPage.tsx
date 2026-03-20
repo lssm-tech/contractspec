@@ -3,27 +3,27 @@ import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
 export function ArchitectureAppConfigPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold">App Configuration</h1>
-        <p className="text-muted-foreground">
-          ContractSpec uses a three-tier configuration model that separates
-          global app definitions from tenant-specific settings and runtime
-          resolution.
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-4">
+				<h1 className="font-bold text-4xl">App Configuration</h1>
+				<p className="text-muted-foreground">
+					ContractSpec uses a three-tier configuration model that separates
+					global app definitions from tenant-specific settings and runtime
+					resolution.
+				</p>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">AppBlueprintSpec</h2>
-        <p className="text-muted-foreground">
-          The <strong>AppBlueprintSpec</strong> is the global, versioned
-          definition of your application. It contains no tenant-specific
-          information and is stored in version control.
-        </p>
-        <CodeBlock
-          language="typescript"
-          code={`type AppBlueprintSpec = {
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">AppBlueprintSpec</h2>
+				<p className="text-muted-foreground">
+					The <strong>AppBlueprintSpec</strong> is the global, versioned
+					definition of your application. It contains no tenant-specific
+					information and is stored in version control.
+				</p>
+				<CodeBlock
+					language="typescript"
+					code={`type AppBlueprintSpec = {
   id: string;
   version: string;
   name: string;
@@ -61,19 +61,19 @@ export function ArchitectureAppConfigPage() {
   // Schema evolution
   migrations: MigrationSpec[];
 };`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">TenantAppConfig</h2>
-        <p className="text-muted-foreground">
-          The <strong>TenantAppConfig</strong> is the per-tenant,
-          per-environment configuration that customizes how a specific tenant
-          uses the app.
-        </p>
-        <CodeBlock
-          language="typescript"
-          code={`type TenantAppConfig = {
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">TenantAppConfig</h2>
+				<p className="text-muted-foreground">
+					The <strong>TenantAppConfig</strong> is the per-tenant,
+					per-environment configuration that customizes how a specific tenant
+					uses the app.
+				</p>
+				<CodeBlock
+					language="typescript"
+					code={`type TenantAppConfig = {
   tenantId: string;
   blueprintId: string;
   blueprintVersion: string;
@@ -105,18 +105,18 @@ export function ArchitectureAppConfigPage() {
   createdAt: string;
   updatedAt: string;
 };`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">AppIntegrationBinding</h2>
-        <p className="text-muted-foreground">
-          Defines how a tenant connects specific integration instances to
-          satisfy capabilities and workflows.
-        </p>
-        <CodeBlock
-          language="typescript"
-          code={`type AppIntegrationBinding = {
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">AppIntegrationBinding</h2>
+				<p className="text-muted-foreground">
+					Defines how a tenant connects specific integration instances to
+					satisfy capabilities and workflows.
+				</p>
+				<CodeBlock
+					language="typescript"
+					code={`type AppIntegrationBinding = {
   slotId: string;          // References AppIntegrationSlot.slotId
   connectionId: string;    // References IntegrationConnection.meta.id
   scope?: {
@@ -137,17 +137,17 @@ export function ArchitectureAppConfigPage() {
   },
   priority: 1
 }`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">AppKnowledgeBinding</h2>
-        <p className="text-muted-foreground">
-          Defines which knowledge spaces a tenant's app can access and how.
-        </p>
-        <CodeBlock
-          language="typescript"
-          code={`type AppKnowledgeBinding = {
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">AppKnowledgeBinding</h2>
+				<p className="text-muted-foreground">
+					Defines which knowledge spaces a tenant's app can access and how.
+				</p>
+				<CodeBlock
+					language="typescript"
+					code={`type AppKnowledgeBinding = {
   spaceId: string;
   enabled: boolean;
   
@@ -178,19 +178,19 @@ export function ArchitectureAppConfigPage() {
   allowedCategories: ["canonical", "operational"],
   sources: ["src_notion_product_docs", "src_database_schema"]
 }`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">ResolvedAppConfig</h2>
-        <p className="text-muted-foreground">
-          The <strong>ResolvedAppConfig</strong> is the runtime result of
-          merging AppBlueprintSpec with TenantAppConfig. It's computed on-demand
-          and never persisted.
-        </p>
-        <CodeBlock
-          language="typescript"
-          code={`type ResolvedAppConfig = {
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">ResolvedAppConfig</h2>
+				<p className="text-muted-foreground">
+					The <strong>ResolvedAppConfig</strong> is the runtime result of
+					merging AppBlueprintSpec with TenantAppConfig. It's computed on-demand
+					and never persisted.
+				</p>
+				<CodeBlock
+					language="typescript"
+					code={`type ResolvedAppConfig = {
   appId: string;
   tenantId: string;
   blueprintName: string;
@@ -218,69 +218,69 @@ export function ArchitectureAppConfigPage() {
   branding: ResolvedBranding;           // { appName, assets, colors, domain }
   notes?: string;
 };`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Configuration flow</h2>
-        <p className="text-muted-foreground">
-          Here's how configuration flows from definition to runtime:
-        </p>
-        <ol className="text-muted-foreground list-inside list-decimal space-y-3">
-          <li>
-            <strong>Development</strong> - Define AppBlueprintSpec with required
-            integrations and knowledge spaces
-          </li>
-          <li>
-            <strong>Deployment</strong> - Deploy blueprint to environment
-            (sandbox, staging, production)
-          </li>
-          <li>
-            <strong>Tenant Setup</strong> - Create TenantAppConfig with specific
-            integration connections and knowledge sources
-          </li>
-          <li>
-            <strong>Runtime</strong> - Resolve configuration on-demand when
-            tenant accesses the app
-          </li>
-          <li>
-            <strong>Execution</strong> - Use ResolvedAppConfig to execute
-            capabilities, workflows, and enforce policies
-          </li>
-        </ol>
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Configuration flow</h2>
+				<p className="text-muted-foreground">
+					Here's how configuration flows from definition to runtime:
+				</p>
+				<ol className="list-inside list-decimal space-y-3 text-muted-foreground">
+					<li>
+						<strong>Development</strong> - Define AppBlueprintSpec with required
+						integrations and knowledge spaces
+					</li>
+					<li>
+						<strong>Deployment</strong> - Deploy blueprint to environment
+						(sandbox, staging, production)
+					</li>
+					<li>
+						<strong>Tenant Setup</strong> - Create TenantAppConfig with specific
+						integration connections and knowledge sources
+					</li>
+					<li>
+						<strong>Runtime</strong> - Resolve configuration on-demand when
+						tenant accesses the app
+					</li>
+					<li>
+						<strong>Execution</strong> - Use ResolvedAppConfig to execute
+						capabilities, workflows, and enforce policies
+					</li>
+				</ol>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Best practices</h2>
-        <ul className="text-muted-foreground list-inside list-disc space-y-2">
-          <li>
-            Keep AppBlueprintSpec environment-agnostic - no secrets or
-            tenant-specific data
-          </li>
-          <li>
-            Use TenantAppConfig for all tenant-specific settings and connections
-          </li>
-          <li>
-            Cache ResolvedAppConfig per request to avoid repeated resolution
-          </li>
-          <li>Version blueprints carefully - migrations affect all tenants</li>
-          <li>
-            Test blueprint changes in sandbox before promoting to production
-          </li>
-        </ul>
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Best practices</h2>
+				<ul className="list-inside list-disc space-y-2 text-muted-foreground">
+					<li>
+						Keep AppBlueprintSpec environment-agnostic - no secrets or
+						tenant-specific data
+					</li>
+					<li>
+						Use TenantAppConfig for all tenant-specific settings and connections
+					</li>
+					<li>
+						Cache ResolvedAppConfig per request to avoid repeated resolution
+					</li>
+					<li>Version blueprints carefully - migrations affect all tenants</li>
+					<li>
+						Test blueprint changes in sandbox before promoting to production
+					</li>
+				</ul>
+			</div>
 
-      <div className="flex items-center gap-4 pt-4">
-        <Link href="/docs/architecture" className="btn-ghost">
-          Back to Architecture
-        </Link>
-        <Link
-          href="/docs/architecture/integration-binding"
-          className="btn-primary"
-        >
-          Integration Binding <ChevronRight size={16} />
-        </Link>
-      </div>
-    </div>
-  );
+			<div className="flex items-center gap-4 pt-4">
+				<Link href="/docs/architecture" className="btn-ghost">
+					Back to Architecture
+				</Link>
+				<Link
+					href="/docs/architecture/integration-binding"
+					className="btn-primary"
+				>
+					Integration Binding <ChevronRight size={16} />
+				</Link>
+			</div>
+		</div>
+	);
 }

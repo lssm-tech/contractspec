@@ -2,15 +2,15 @@
 // Generate Narration -- Use ScriptGenerator to produce narration for tutorials
 // ---------------------------------------------------------------------------
 
-import { ScriptGenerator } from '@contractspec/lib.video-gen/generators/script-generator';
-import type { NarrationScript } from '@contractspec/lib.video-gen/generators/script-generator';
 import type { NarrationConfig } from '@contractspec/lib.contracts-integrations/integrations/providers/video';
+import type { NarrationScript } from '@contractspec/lib.video-gen/generators/script-generator';
+import { ScriptGenerator } from '@contractspec/lib.video-gen/generators/script-generator';
 import type { CliTutorial } from './sample-tutorials';
 
 /** Options for narration generation. */
 export interface GenerateNarrationOptions {
-  /** Narration style. Default: "technical". */
-  style?: NarrationConfig['style'];
+	/** Narration style. Default: "technical". */
+	style?: NarrationConfig['style'];
 }
 
 /**
@@ -30,13 +30,13 @@ export interface GenerateNarrationOptions {
  * ```
  */
 export async function generateTutorialNarration(
-  tutorial: CliTutorial,
-  options?: GenerateNarrationOptions
+	tutorial: CliTutorial,
+	options?: GenerateNarrationOptions
 ): Promise<NarrationScript> {
-  const generator = new ScriptGenerator();
-  const style = options?.style ?? 'technical';
+	const generator = new ScriptGenerator();
+	const style = options?.style ?? 'technical';
 
-  return generator.generate(tutorial.brief, { enabled: true, style });
+	return generator.generate(tutorial.brief, { enabled: true, style });
 }
 
 /**
@@ -56,15 +56,15 @@ export async function generateTutorialNarration(
  * ```
  */
 export async function generateSuiteNarration(
-  tutorials: CliTutorial[],
-  options?: GenerateNarrationOptions
+	tutorials: CliTutorial[],
+	options?: GenerateNarrationOptions
 ): Promise<Map<string, NarrationScript>> {
-  const results = await Promise.all(
-    tutorials.map(async (tutorial) => {
-      const script = await generateTutorialNarration(tutorial, options);
-      return [tutorial.id, script] as const;
-    })
-  );
+	const results = await Promise.all(
+		tutorials.map(async (tutorial) => {
+			const script = await generateTutorialNarration(tutorial, options);
+			return [tutorial.id, script] as const;
+		})
+	);
 
-  return new Map(results);
+	return new Map(results);
 }

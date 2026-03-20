@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '../../registry';
 
 export const tech_studio_project_routing_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.studio.project-routing',
-    title: 'Studio Project Routing',
-    summary:
-      'Studio uses slugged, project-first routes: /studio/{projectSlug}/* with canonical slug redirects and soft-deleted projects hidden.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/studio/project-routing',
-    tags: ['studio', 'routing', 'projects', 'slug', 'redirects'],
-    body: `# Studio Project Routing
+	{
+		id: 'docs.tech.studio.project-routing',
+		title: 'Studio Project Routing',
+		summary:
+			'Studio uses slugged, project-first routes: /studio/{projectSlug}/* with canonical slug redirects and soft-deleted projects hidden.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/studio/project-routing',
+		tags: ['studio', 'routing', 'projects', 'slug', 'redirects'],
+		body: `# Studio Project Routing
 
 ContractSpec Studio uses a **project-first URL scheme**:
 
@@ -57,7 +57,7 @@ The following project modules are expected under \`/studio/{projectSlug}\`:
 - \`/evolution\` — Evolution sessions (stored as \`EvolutionSession\`).
 - \`/learning\` — Project learning activity.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(tech_studio_project_routing_DocBlocks);

@@ -1,37 +1,37 @@
 'use client';
 
 import {
-  PageHeaderResponsive,
-  Breadcrumbs,
+	Breadcrumbs,
+	PageHeaderResponsive,
 } from '@contractspec/lib.design-system';
 import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
-import type { FeatureListTemplateProps } from '../types';
 import { FeatureDataViewsList } from '../../organisms/FeatureDataViewsList';
+import type { FeatureListTemplateProps } from '../types';
 
 export function FeatureDataViewsTemplate({
-  feature,
-  className,
+	feature,
+	className,
 }: FeatureListTemplateProps) {
-  return (
-    <VStack gap="lg" className={cn('mx-auto w-full max-w-5xl p-6', className)}>
-      <PageHeaderResponsive
-        title="Data Views"
-        subtitle={`Data views defined in ${feature.meta.title ?? feature.meta.key}`}
-        breadcrumb={
-          <Breadcrumbs
-            items={[
-              { label: 'Features', href: '/features' },
-              {
-                label: feature.meta.title || feature.meta.key,
-                href: `/features/${feature.meta.key}`,
-              },
-              { label: 'Data Views' },
-            ]}
-          />
-        }
-      />
-      <FeatureDataViewsList feature={feature} />
-    </VStack>
-  );
+	return (
+		<VStack gap="lg" className={cn('mx-auto w-full max-w-5xl p-6', className)}>
+			<PageHeaderResponsive
+				title="Data Views"
+				subtitle={`Data views defined in ${feature.meta.title ?? feature.meta.key}`}
+				breadcrumb={
+					<Breadcrumbs
+						items={[
+							{ label: 'Features', href: '/features' },
+							{
+								label: feature.meta.title || feature.meta.key,
+								href: `/features/${feature.meta.key}`,
+							},
+							{ label: 'Data Views' },
+						]}
+					/>
+				}
+			/>
+			<FeatureDataViewsList feature={feature} />
+		</VStack>
+	);
 }

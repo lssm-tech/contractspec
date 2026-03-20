@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/bundle.product-intent",
-  "version": "3.6.0",
+  "version": "3.7.7",
   "description": "Product intent bundle with AI runner and evidence retriever",
   "keywords": [
     "contractspec",
@@ -25,8 +25,8 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "test": "bun test",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
@@ -49,9 +49,9 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       }
     },

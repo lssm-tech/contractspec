@@ -5,9 +5,9 @@
  */
 
 export {
-  DEFAULT_LOCALE,
-  SUPPORTED_LOCALES,
-  resolveLocale,
-  isSupportedLocale,
-  type SupportedLocale,
+	DEFAULT_LOCALE,
+	isSupportedLocale,
+	resolveLocale,
+	SUPPORTED_LOCALES,
+	type SupportedLocale,
 } from '@contractspec/lib.contracts-spec/translations';

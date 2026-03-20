@@ -1,0 +1,28 @@
+{
+	"expo": {
+		"name": "ContractSpec Task List",
+		"slug": "contractspec-expo-demo",
+		"version": "1.0.0",
+		"orientation": "portrait",
+		"icon": "./assets/icon.png",
+		"scheme": "contractspec-expo-demo",
+		"userInterfaceStyle": "automatic",
+		"splash": {
+			"image": "./assets/splash-icon.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#ffffff"
+		},
+		"ios": {
+			"supportsTablet": true,
+			"bundleIdentifier": "io.contractspec.expo-demo"
+		},
+		"android": {
+			"adaptiveIcon": {
+				"foregroundImage": "./assets/adaptive-icon.png",
+				"backgroundColor": "#ffffff"
+			},
+			"package": "io.contractspec.expo_demo"
+		},
+		"plugins": ["expo-router"]
+	}
+}

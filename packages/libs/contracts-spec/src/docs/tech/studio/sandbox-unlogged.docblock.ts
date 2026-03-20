@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '../../registry';
 
 export const tech_studio_sandbox_unlogged_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.studio.sandbox.unlogged',
-    title: 'Sandbox (unlogged) vs Studio (authenticated)',
-    summary:
-      'The sandbox is a lightweight, unlogged surface that mirrors Studio navigation without auth or analytics.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/studio/sandbox-unlogged',
-    tags: ['studio', 'sandbox', 'privacy', 'analytics'],
-    body: `## Sandbox guarantees
+	{
+		id: 'docs.tech.studio.sandbox.unlogged',
+		title: 'Sandbox (unlogged) vs Studio (authenticated)',
+		summary:
+			'The sandbox is a lightweight, unlogged surface that mirrors Studio navigation without auth or analytics.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/studio/sandbox-unlogged',
+		tags: ['studio', 'sandbox', 'privacy', 'analytics'],
+		body: `## Sandbox guarantees
 
 - Route: \`/sandbox\`
 - **No auth requirement**
@@ -31,7 +31,7 @@ export const tech_studio_sandbox_unlogged_DocBlocks: DocBlock[] = [
 - Real deployments
 - Organization-scoped integrations (unless explicitly enabled later)
 `,
-  },
+	},
 ];
 
 registerDocBlocks(tech_studio_sandbox_unlogged_DocBlocks);

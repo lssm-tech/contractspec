@@ -1,17 +1,17 @@
-import type { VoiceTimingMap } from '../types';
-import type {
-  TTSBrief,
-  TTSOptions,
-  TTSProject,
-  TTSScript,
-  TTSScriptSegment,
-  VideoTTSBrief,
-} from './types';
-import { PaceAnalyzer } from './pace-analyzer';
-import { EmphasisPlanner } from './emphasis-planner';
-import { SegmentSynthesizer } from './segment-synthesizer';
-import { AudioAssembler } from './audio-assembler';
 import { DurationEstimator } from '../audio/duration-estimator';
+import type { VoiceTimingMap } from '../types';
+import { AudioAssembler } from './audio-assembler';
+import { EmphasisPlanner } from './emphasis-planner';
+import { PaceAnalyzer } from './pace-analyzer';
+import { SegmentSynthesizer } from './segment-synthesizer';
+import type {
+	TTSBrief,
+	TTSOptions,
+	TTSProject,
+	TTSScript,
+	TTSScriptSegment,
+	VideoTTSBrief,
+} from './types';
 
 /**
  * Main TTS orchestrator.
@@ -24,207 +24,207 @@ import { DurationEstimator } from '../audio/duration-estimator';
  * 5. Assemble into final audio + timing map
  */
 export class VoiceSynthesizer {
-  private readonly segmentSynthesizer: SegmentSynthesizer;
-  private readonly emphasisPlanner: EmphasisPlanner;
-  private readonly audioAssembler = new AudioAssembler();
-  private readonly durationEstimator = new DurationEstimator();
-  private readonly paceAnalyzer = new PaceAnalyzer();
-  private readonly options: TTSOptions;
+	private readonly segmentSynthesizer: SegmentSynthesizer;
+	private readonly emphasisPlanner: EmphasisPlanner;
+	private readonly audioAssembler = new AudioAssembler();
+	private readonly durationEstimator = new DurationEstimator();
+	private readonly paceAnalyzer = new PaceAnalyzer();
+	private readonly options: TTSOptions;
 
-  constructor(options: TTSOptions) {
-    this.options = options;
-    this.segmentSynthesizer = new SegmentSynthesizer(options.tts);
-    this.emphasisPlanner = new EmphasisPlanner({
-      llm: options.llm,
-      model: options.model,
-    });
-  }
+	constructor(options: TTSOptions) {
+		this.options = options;
+		this.segmentSynthesizer = new SegmentSynthesizer(options.tts);
+		this.emphasisPlanner = new EmphasisPlanner({
+			llm: options.llm,
+			model: options.model,
+		});
+	}
 
-  /** Standalone TTS from content brief */
-  async synthesize(brief: TTSBrief): Promise<TTSProject> {
-    const script = this.buildScript(brief);
-    return this.executePipeline(script, brief.voice, brief.pacing);
-  }
+	/** Standalone TTS from content brief */
+	async synthesize(brief: TTSBrief): Promise<TTSProject> {
+		const script = this.buildScript(brief);
+		return this.executePipeline(script, brief.voice, brief.pacing);
+	}
 
-  /** Scene-aware TTS for video-gen */
-  async synthesizeForVideo(brief: VideoTTSBrief): Promise<TTSProject> {
-    const script = this.buildScriptFromScenePlan(brief);
-    return this.executePipeline(script, brief.voice, brief.pacing, brief.fps);
-  }
+	/** Scene-aware TTS for video-gen */
+	async synthesizeForVideo(brief: VideoTTSBrief): Promise<TTSProject> {
+		const script = this.buildScriptFromScenePlan(brief);
+		return this.executePipeline(script, brief.voice, brief.pacing, brief.fps);
+	}
 
-  private async executePipeline(
-    script: TTSScript,
-    voice: TTSBrief['voice'],
-    pacing?: TTSBrief['pacing'],
-    fps?: number
-  ): Promise<TTSProject> {
-    const projectId = generateProjectId();
-    const baseRate = pacing?.baseRate ?? 1.0;
+	private async executePipeline(
+		script: TTSScript,
+		voice: TTSBrief['voice'],
+		pacing?: TTSBrief['pacing'],
+		fps?: number
+	): Promise<TTSProject> {
+		const projectId = generateProjectId();
+		const baseRate = pacing?.baseRate ?? 1.0;
 
-    // 1. Analyze pacing
-    const pacingDirectives = await this.emphasisPlanner.plan(
-      script.segments,
-      baseRate
-    );
+		// 1. Analyze pacing
+		const pacingDirectives = await this.emphasisPlanner.plan(
+			script.segments,
+			baseRate
+		);
 
-    // 2. Synthesize segments
-    const synthesized = await this.segmentSynthesizer.synthesizeAll(
-      script.segments,
-      voice,
-      pacingDirectives
-    );
+		// 2. Synthesize segments
+		const synthesized = await this.segmentSynthesizer.synthesizeAll(
+			script.segments,
+			voice,
+			pacingDirectives
+		);
 
-    // 3. Assemble audio
-    const pauseMs = pacing?.segmentPauseMs ?? 500;
-    const assembledAudio = this.audioAssembler.assemble(
-      synthesized,
-      pacingDirectives,
-      pauseMs
-    );
+		// 3. Assemble audio
+		const pauseMs = pacing?.segmentPauseMs ?? 500;
+		const assembledAudio = this.audioAssembler.assemble(
+			synthesized,
+			pacingDirectives,
+			pauseMs
+		);
 
-    // 4. Build timing map
-    const effectiveFps = fps ?? this.options.fps ?? 30;
-    const breathingRoomFactor = pacing?.breathingRoomFactor ?? 1.15;
-    const timingMap = this.buildTimingMap(
-      synthesized,
-      effectiveFps,
-      breathingRoomFactor
-    );
+		// 4. Build timing map
+		const effectiveFps = fps ?? this.options.fps ?? 30;
+		const breathingRoomFactor = pacing?.breathingRoomFactor ?? 1.15;
+		const timingMap = this.buildTimingMap(
+			synthesized,
+			effectiveFps,
+			breathingRoomFactor
+		);
 
-    return {
-      id: projectId,
-      script,
-      pacingDirectives,
-      segments: synthesized,
-      assembledAudio,
-      timingMap,
-    };
-  }
+		return {
+			id: projectId,
+			script,
+			pacingDirectives,
+			segments: synthesized,
+			assembledAudio,
+			timingMap,
+		};
+	}
 
-  private buildScript(brief: TTSBrief): TTSScript {
-    const segments: TTSScriptSegment[] = [];
+	private buildScript(brief: TTSBrief): TTSScript {
+		const segments: TTSScriptSegment[] = [];
 
-    // Intro from title + summary
-    const introText = `${brief.content.title}. ${brief.content.summary}`;
-    segments.push({
-      sceneId: 'intro',
-      text: introText,
-      estimatedDurationSeconds:
-        this.durationEstimator.estimateSeconds(introText),
-      contentType: 'intro',
-    });
+		// Intro from title + summary
+		const introText = `${brief.content.title}. ${brief.content.summary}`;
+		segments.push({
+			sceneId: 'intro',
+			text: introText,
+			estimatedDurationSeconds:
+				this.durationEstimator.estimateSeconds(introText),
+			contentType: 'intro',
+		});
 
-    // Problems
-    if (brief.content.problems.length > 0) {
-      const text = brief.content.problems.join('. ');
-      segments.push({
-        sceneId: 'problems',
-        text,
-        estimatedDurationSeconds: this.durationEstimator.estimateSeconds(text),
-        contentType: 'problem',
-      });
-    }
+		// Problems
+		if (brief.content.problems.length > 0) {
+			const text = brief.content.problems.join('. ');
+			segments.push({
+				sceneId: 'problems',
+				text,
+				estimatedDurationSeconds: this.durationEstimator.estimateSeconds(text),
+				contentType: 'problem',
+			});
+		}
 
-    // Solutions
-    if (brief.content.solutions.length > 0) {
-      const text = brief.content.solutions.join('. ');
-      segments.push({
-        sceneId: 'solutions',
-        text,
-        estimatedDurationSeconds: this.durationEstimator.estimateSeconds(text),
-        contentType: 'solution',
-      });
-    }
+		// Solutions
+		if (brief.content.solutions.length > 0) {
+			const text = brief.content.solutions.join('. ');
+			segments.push({
+				sceneId: 'solutions',
+				text,
+				estimatedDurationSeconds: this.durationEstimator.estimateSeconds(text),
+				contentType: 'solution',
+			});
+		}
 
-    // Metrics
-    if (brief.content.metrics && brief.content.metrics.length > 0) {
-      const text = brief.content.metrics.join('. ');
-      segments.push({
-        sceneId: 'metrics',
-        text,
-        estimatedDurationSeconds: this.durationEstimator.estimateSeconds(text),
-        contentType: 'metric',
-      });
-    }
+		// Metrics
+		if (brief.content.metrics && brief.content.metrics.length > 0) {
+			const text = brief.content.metrics.join('. ');
+			segments.push({
+				sceneId: 'metrics',
+				text,
+				estimatedDurationSeconds: this.durationEstimator.estimateSeconds(text),
+				contentType: 'metric',
+			});
+		}
 
-    // CTA
-    if (brief.content.callToAction) {
-      segments.push({
-        sceneId: 'cta',
-        text: brief.content.callToAction,
-        estimatedDurationSeconds: this.durationEstimator.estimateSeconds(
-          brief.content.callToAction
-        ),
-        contentType: 'cta',
-      });
-    }
+		// CTA
+		if (brief.content.callToAction) {
+			segments.push({
+				sceneId: 'cta',
+				text: brief.content.callToAction,
+				estimatedDurationSeconds: this.durationEstimator.estimateSeconds(
+					brief.content.callToAction
+				),
+				contentType: 'cta',
+			});
+		}
 
-    const fullText = segments.map((s) => s.text).join(' ');
-    const estimatedDurationSeconds = segments.reduce(
-      (sum, s) => sum + s.estimatedDurationSeconds,
-      0
-    );
+		const fullText = segments.map((s) => s.text).join(' ');
+		const estimatedDurationSeconds = segments.reduce(
+			(sum, s) => sum + s.estimatedDurationSeconds,
+			0
+		);
 
-    return { fullText, segments, estimatedDurationSeconds };
-  }
+		return { fullText, segments, estimatedDurationSeconds };
+	}
 
-  private buildScriptFromScenePlan(brief: VideoTTSBrief): TTSScript {
-    const segments: TTSScriptSegment[] = brief.scenePlan.scenes
-      .filter((scene) => scene.narrationText)
-      .map((scene) => {
-        const text = scene.narrationText ?? '';
-        return {
-          sceneId: scene.id,
-          text,
-          estimatedDurationSeconds:
-            this.durationEstimator.estimateSeconds(text),
-          contentType: 'intro' as const,
-        };
-      });
+	private buildScriptFromScenePlan(brief: VideoTTSBrief): TTSScript {
+		const segments: TTSScriptSegment[] = brief.scenePlan.scenes
+			.filter((scene) => scene.narrationText)
+			.map((scene) => {
+				const text = scene.narrationText ?? '';
+				return {
+					sceneId: scene.id,
+					text,
+					estimatedDurationSeconds:
+						this.durationEstimator.estimateSeconds(text),
+					contentType: 'intro' as const,
+				};
+			});
 
-    const fullText = segments.map((s) => s.text).join(' ');
-    const estimatedDurationSeconds = segments.reduce(
-      (sum, s) => sum + s.estimatedDurationSeconds,
-      0
-    );
+		const fullText = segments.map((s) => s.text).join(' ');
+		const estimatedDurationSeconds = segments.reduce(
+			(sum, s) => sum + s.estimatedDurationSeconds,
+			0
+		);
 
-    return { fullText, segments, estimatedDurationSeconds };
-  }
+		return { fullText, segments, estimatedDurationSeconds };
+	}
 
-  private buildTimingMap(
-    segments: {
-      sceneId: string;
-      durationMs: number;
-      wordTimings?: { word: string; startMs: number; endMs: number }[];
-    }[],
-    fps: number,
-    breathingRoomFactor: number
-  ): VoiceTimingMap {
-    const timingSegments = segments.map((seg) => {
-      const durationInFrames = Math.ceil((seg.durationMs / 1000) * fps);
-      return {
-        sceneId: seg.sceneId,
-        durationMs: seg.durationMs,
-        durationInFrames,
-        recommendedSceneDurationInFrames: Math.ceil(
-          durationInFrames * breathingRoomFactor
-        ),
-        wordTimings: seg.wordTimings?.map((wt) => ({
-          word: wt.word,
-          startMs: wt.startMs,
-          endMs: wt.endMs,
-        })),
-      };
-    });
+	private buildTimingMap(
+		segments: {
+			sceneId: string;
+			durationMs: number;
+			wordTimings?: { word: string; startMs: number; endMs: number }[];
+		}[],
+		fps: number,
+		breathingRoomFactor: number
+	): VoiceTimingMap {
+		const timingSegments = segments.map((seg) => {
+			const durationInFrames = Math.ceil((seg.durationMs / 1000) * fps);
+			return {
+				sceneId: seg.sceneId,
+				durationMs: seg.durationMs,
+				durationInFrames,
+				recommendedSceneDurationInFrames: Math.ceil(
+					durationInFrames * breathingRoomFactor
+				),
+				wordTimings: seg.wordTimings?.map((wt) => ({
+					word: wt.word,
+					startMs: wt.startMs,
+					endMs: wt.endMs,
+				})),
+			};
+		});
 
-    const totalDurationMs = segments.reduce((sum, s) => sum + s.durationMs, 0);
+		const totalDurationMs = segments.reduce((sum, s) => sum + s.durationMs, 0);
 
-    return { totalDurationMs, segments: timingSegments, fps };
-  }
+		return { totalDurationMs, segments: timingSegments, fps };
+	}
 }
 
 function generateProjectId(): string {
-  const timestamp = Date.now().toString(36);
-  const random = Math.random().toString(36).slice(2, 8);
-  return `tts_${timestamp}_${random}`;
+	const timestamp = Date.now().toString(36);
+	const random = Math.random().toString(36).slice(2, 8);
+	return `tts_${timestamp}_${random}`;
 }

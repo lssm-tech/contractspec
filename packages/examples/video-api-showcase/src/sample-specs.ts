@@ -7,26 +7,26 @@
  * Maps directly to ApiOverviewProps.
  */
 export interface ApiSpecDefinition {
-  /** Contract spec name (e.g., "CreateUser") */
-  specName: string;
-  /** HTTP method */
-  method: string;
-  /** Endpoint path */
-  endpoint: string;
-  /** Contract spec code snippet */
-  specCode: string;
-  /** Generated output surfaces */
-  generatedOutputs: string[];
+	/** Contract spec name (e.g., "CreateUser") */
+	specName: string;
+	/** HTTP method */
+	method: string;
+	/** Endpoint path */
+	endpoint: string;
+	/** Contract spec code snippet */
+	specCode: string;
+	/** Generated output surfaces */
+	generatedOutputs: string[];
 }
 
 /**
  * CreateUser -- user registration endpoint.
  */
 export const createUserSpec: ApiSpecDefinition = {
-  specName: 'CreateUser',
-  method: 'POST',
-  endpoint: '/api/users',
-  specCode: `export const createUser = defineCommand({
+	specName: 'CreateUser',
+	method: 'POST',
+	endpoint: '/api/users',
+	specCode: `export const createUser = defineCommand({
   meta: {
     name: "CreateUser",
     version: "1.0.0",
@@ -45,24 +45,24 @@ export const createUserSpec: ApiSpecDefinition = {
     }),
   },
 });`,
-  generatedOutputs: [
-    'REST Endpoint',
-    'GraphQL Mutation',
-    'Prisma Model',
-    'TypeScript SDK',
-    'MCP Tool',
-    'OpenAPI Spec',
-  ],
+	generatedOutputs: [
+		'REST Endpoint',
+		'GraphQL Mutation',
+		'Prisma Model',
+		'TypeScript SDK',
+		'MCP Tool',
+		'OpenAPI Spec',
+	],
 };
 
 /**
  * ListTransactions -- financial transaction listing.
  */
 export const listTransactionsSpec: ApiSpecDefinition = {
-  specName: 'ListTransactions',
-  method: 'GET',
-  endpoint: '/api/transactions',
-  specCode: `export const listTransactions = defineQuery({
+	specName: 'ListTransactions',
+	method: 'GET',
+	endpoint: '/api/transactions',
+	specCode: `export const listTransactions = defineQuery({
   meta: {
     name: "ListTransactions",
     version: "1.0.0",
@@ -82,23 +82,23 @@ export const listTransactionsSpec: ApiSpecDefinition = {
     }),
   },
 });`,
-  generatedOutputs: [
-    'REST Endpoint',
-    'GraphQL Query',
-    'Prisma Query',
-    'TypeScript SDK',
-    'OpenAPI Spec',
-  ],
+	generatedOutputs: [
+		'REST Endpoint',
+		'GraphQL Query',
+		'Prisma Query',
+		'TypeScript SDK',
+		'OpenAPI Spec',
+	],
 };
 
 /**
  * SendNotification -- push notification dispatch.
  */
 export const sendNotificationSpec: ApiSpecDefinition = {
-  specName: 'SendNotification',
-  method: 'POST',
-  endpoint: '/api/notifications',
-  specCode: `export const sendNotification = defineCommand({
+	specName: 'SendNotification',
+	method: 'POST',
+	endpoint: '/api/notifications',
+	specCode: `export const sendNotification = defineCommand({
   meta: {
     name: "SendNotification",
     version: "1.0.0",
@@ -118,12 +118,12 @@ export const sendNotificationSpec: ApiSpecDefinition = {
     }),
   },
 });`,
-  generatedOutputs: [
-    'REST Endpoint',
-    'GraphQL Mutation',
-    'TypeScript SDK',
-    'MCP Tool',
-    'OpenAPI Spec',
-    'Event Schema',
-  ],
+	generatedOutputs: [
+		'REST Endpoint',
+		'GraphQL Mutation',
+		'TypeScript SDK',
+		'MCP Tool',
+		'OpenAPI Spec',
+		'Event Schema',
+	],
 };

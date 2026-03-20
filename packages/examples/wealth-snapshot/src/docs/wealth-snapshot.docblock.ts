@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const wealthSnapshotDocBlocks: DocBlock[] = [
-  {
-    id: 'docs.examples.wealth-snapshot',
-    title: 'Wealth Snapshot',
-    summary:
-      'Simple wealth overview with accounts, assets, liabilities, goals, and net-worth snapshots.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/examples/wealth-snapshot',
-    tags: ['finance', 'net-worth', 'goals'],
-    body: `## Features
+	{
+		id: 'docs.examples.wealth-snapshot',
+		title: 'Wealth Snapshot',
+		summary:
+			'Simple wealth overview with accounts, assets, liabilities, goals, and net-worth snapshots.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/examples/wealth-snapshot',
+		tags: ['finance', 'net-worth', 'goals'],
+		body: `## Features
 
 - Accounts with balances/currencies.
 - Assets & liabilities categorized for net worth.
@@ -26,16 +26,16 @@ const wealthSnapshotDocBlocks: DocBlock[] = [
 ## Presentations
 - Dashboard, accounts list, assets list, liabilities list, goals list (React + Markdown targets).
 `,
-  },
-  {
-    id: 'docs.examples.wealth-snapshot.goal',
-    title: 'Wealth Snapshot — Goal',
-    summary: 'Why this personal/household finance template exists.',
-    kind: 'goal',
-    visibility: 'public',
-    route: '/docs/examples/wealth-snapshot/goal',
-    tags: ['finance', 'goal'],
-    body: `## Why it matters
+	},
+	{
+		id: 'docs.examples.wealth-snapshot.goal',
+		title: 'Wealth Snapshot — Goal',
+		summary: 'Why this personal/household finance template exists.',
+		kind: 'goal',
+		visibility: 'public',
+		route: '/docs/examples/wealth-snapshot/goal',
+		tags: ['finance', 'goal'],
+		body: `## Why it matters
 - Provides a regenerable net-worth and goals view without bespoke finance code.
 - Keeps accounts/assets/liabilities/goals consistent across surfaces with PII care.
 
@@ -46,16 +46,16 @@ const wealthSnapshotDocBlocks: DocBlock[] = [
 ## Success criteria
 - Spec changes to assets/liabilities/goals regenerate UI/API/events cleanly.
 - PII and sensitive values are marked and redacted where needed.`,
-  },
-  {
-    id: 'docs.examples.wealth-snapshot.usage',
-    title: 'Wealth Snapshot — Usage',
-    summary: 'How to seed, extend, and regenerate wealth tracking safely.',
-    kind: 'usage',
-    visibility: 'public',
-    route: '/docs/examples/wealth-snapshot/usage',
-    tags: ['finance', 'usage'],
-    body: `## Setup
+	},
+	{
+		id: 'docs.examples.wealth-snapshot.usage',
+		title: 'Wealth Snapshot — Usage',
+		summary: 'How to seed, extend, and regenerate wealth tracking safely.',
+		kind: 'usage',
+		visibility: 'public',
+		route: '/docs/examples/wealth-snapshot/usage',
+		tags: ['finance', 'usage'],
+		body: `## Setup
 1) Seed (if provided) or add accounts/assets/liabilities/goals via UI.
 2) Configure Notifications for goal reminders/threshold alerts; Audit for changes.
 
@@ -68,17 +68,17 @@ const wealthSnapshotDocBlocks: DocBlock[] = [
 - Emit events for asset/liability/goal changes; log in Audit Trail.
 - Redact sensitive identifiers in presentations.
 - Keep calculations (net worth) transparent and driven by spec fields.`,
-  },
-  {
-    id: 'docs.examples.wealth-snapshot.constraints',
-    title: 'Wealth Snapshot — Constraints & Safety',
-    summary:
-      'Internal guardrails for finance data, PII, and regeneration semantics.',
-    kind: 'reference',
-    visibility: 'internal',
-    route: '/docs/examples/wealth-snapshot/constraints',
-    tags: ['finance', 'constraints', 'internal'],
-    body: `## Constraints
+	},
+	{
+		id: 'docs.examples.wealth-snapshot.constraints',
+		title: 'Wealth Snapshot — Constraints & Safety',
+		summary:
+			'Internal guardrails for finance data, PII, and regeneration semantics.',
+		kind: 'reference',
+		visibility: 'internal',
+		route: '/docs/examples/wealth-snapshot/constraints',
+		tags: ['finance', 'constraints', 'internal'],
+		body: `## Constraints
 - Net worth and goal calculations must stay spec-driven; avoid hidden math.
 - Events to emit: asset.created/updated, liability.created/updated, goal.created/updated, snapshot.recorded.
 - Regeneration should not alter currency/unit semantics without explicit spec change.
@@ -91,7 +91,7 @@ const wealthSnapshotDocBlocks: DocBlock[] = [
 - Add fixtures for currency/unit changes and snapshot calculations.
 - Ensure Audit Trail covers all financial mutations; Notifications optional for goals/thresholds.
 - Use Feature Flags for new indicators/alert rules; default safe/off.`,
-  },
+	},
 ];
 
 registerDocBlocks(wealthSnapshotDocBlocks);

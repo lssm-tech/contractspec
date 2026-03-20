@@ -1,5 +1,128 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/example.locale-jurisdiction-gate@3.7.6
+  - @contractspec/example.versioned-knowledge-base@3.7.6
+  - @contractspec/example.kb-update-pipeline@3.7.6
+  - @contractspec/example.learning-patterns@3.7.6
+  - @contractspec/module.learning-journey@3.7.6
+  - @contractspec/lib.example-shared-ui@6.0.6
+  - @contractspec/lib.runtime-sandbox@2.7.6
+  - @contractspec/lib.contracts-spec@3.7.6
+  - @contractspec/lib.design-system@3.7.6
+  - @contractspec/lib.ui-kit-web@3.7.6
+
+## 3.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/example.locale-jurisdiction-gate@3.7.5
+  - @contractspec/example.versioned-knowledge-base@3.7.5
+  - @contractspec/example.kb-update-pipeline@3.7.5
+  - @contractspec/example.learning-patterns@3.7.5
+  - @contractspec/module.learning-journey@3.7.5
+  - @contractspec/lib.example-shared-ui@6.0.5
+  - @contractspec/lib.runtime-sandbox@2.7.5
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/lib.design-system@3.7.5
+  - @contractspec/lib.ui-kit-web@3.7.5
+
+## 3.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/example.locale-jurisdiction-gate@3.7.4
+  - @contractspec/example.versioned-knowledge-base@3.7.4
+  - @contractspec/example.kb-update-pipeline@3.7.4
+  - @contractspec/example.learning-patterns@3.7.4
+  - @contractspec/module.learning-journey@3.7.4
+  - @contractspec/lib.example-shared-ui@6.0.4
+  - @contractspec/lib.runtime-sandbox@2.7.4
+  - @contractspec/lib.contracts-spec@3.7.4
+  - @contractspec/lib.design-system@3.7.4
+  - @contractspec/lib.ui-kit-web@3.7.4
+
+## 3.7.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/example.locale-jurisdiction-gate@3.7.3
+  - @contractspec/example.versioned-knowledge-base@3.7.3
+  - @contractspec/example.kb-update-pipeline@3.7.3
+  - @contractspec/example.learning-patterns@3.7.3
+  - @contractspec/module.learning-journey@3.7.3
+  - @contractspec/lib.example-shared-ui@6.0.3
+  - @contractspec/lib.runtime-sandbox@2.7.3
+  - @contractspec/lib.contracts-spec@3.7.3
+  - @contractspec/lib.design-system@3.7.3
+  - @contractspec/lib.ui-kit-web@3.7.3
+
+## 3.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- Updated dependencies [8cd229b]
+- Updated dependencies [04bc555]
+  - @contractspec/example.locale-jurisdiction-gate@3.7.2
+  - @contractspec/example.versioned-knowledge-base@3.7.2
+  - @contractspec/example.kb-update-pipeline@3.7.2
+  - @contractspec/example.learning-patterns@3.7.2
+  - @contractspec/module.learning-journey@3.7.2
+  - @contractspec/lib.example-shared-ui@6.0.2
+  - @contractspec/lib.runtime-sandbox@2.7.2
+  - @contractspec/lib.contracts-spec@3.7.2
+  - @contractspec/lib.design-system@3.7.2
+  - @contractspec/lib.ui-kit-web@3.7.2
+
+## 3.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/example.locale-jurisdiction-gate@3.7.1
+  - @contractspec/example.versioned-knowledge-base@3.7.1
+  - @contractspec/example.kb-update-pipeline@3.7.1
+  - @contractspec/example.learning-patterns@3.7.1
+  - @contractspec/module.learning-journey@3.7.1
+  - @contractspec/lib.example-shared-ui@6.0.1
+  - @contractspec/lib.runtime-sandbox@2.7.1
+  - @contractspec/lib.contracts-spec@3.7.1
+  - @contractspec/lib.design-system@3.7.1
+  - @contractspec/lib.ui-kit-web@3.7.1
+
+## 3.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/example.locale-jurisdiction-gate@3.7.0
+  - @contractspec/example.versioned-knowledge-base@3.7.0
+  - @contractspec/example.kb-update-pipeline@3.7.0
+  - @contractspec/example.learning-patterns@3.7.0
+  - @contractspec/module.learning-journey@3.7.0
+  - @contractspec/lib.example-shared-ui@6.0.0
+  - @contractspec/lib.runtime-sandbox@2.7.0
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/lib.design-system@3.7.0
+  - @contractspec/lib.ui-kit-web@3.7.0
+
 ## 3.6.0
 
 ### Minor Changes

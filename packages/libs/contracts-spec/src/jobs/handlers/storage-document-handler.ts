@@ -3,24 +3,24 @@ import type { StorageIngestionAdapter } from '../../knowledge/ingestion/storage-
 import type { JobHandler } from '../queue';
 
 export interface StorageDocumentJobPayload {
-  bucket: string;
-  key: string;
+	bucket: string;
+	key: string;
 }
 
 export function createStorageDocumentHandler(
-  storage: ObjectStorageProvider,
-  adapter: StorageIngestionAdapter
+	storage: ObjectStorageProvider,
+	adapter: StorageIngestionAdapter
 ): JobHandler<StorageDocumentJobPayload> {
-  return async (job) => {
-    const object = await storage.getObject({
-      bucket: job.payload.bucket,
-      key: job.payload.key,
-    });
-    if (!object) {
-      throw new Error(
-        `Object ${job.payload.bucket}/${job.payload.key} not found`
-      );
-    }
-    await adapter.ingestObject(object);
-  };
+	return async (job) => {
+		const object = await storage.getObject({
+			bucket: job.payload.bucket,
+			key: job.payload.key,
+		});
+		if (!object) {
+			throw new Error(
+				`Object ${job.payload.bucket}/${job.payload.key} not found`
+			);
+		}
+		await adapter.ingestObject(object);
+	};
 }

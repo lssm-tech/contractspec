@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.contracts-transformers",
-  "version": "3.6.0",
+  "version": "3.7.7",
   "description": "Contract format transformations: import/export between ContractSpec and external formats (OpenAPI, AsyncAPI, etc.)",
   "keywords": [
     "contractspec",
@@ -20,8 +20,8 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "test": "bun test",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
@@ -47,46 +47,30 @@
   "exports": {
     ".": "./src/index.ts",
     "./common": "./src/common/index.ts",
-    "./common/index": "./src/common/index.ts",
-    "./openapi": "./src/openapi/index.ts",
-    "./openapi/index": "./src/openapi/index.ts"
+    "./openapi": "./src/openapi/index.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./common": {
         "types": "./dist/common/index.d.ts",
+        "browser": "./dist/browser/common/index.js",
         "bun": "./dist/common/index.js",
         "node": "./dist/node/common/index.js",
-        "browser": "./dist/browser/common/index.js",
-        "default": "./dist/common/index.js"
-      },
-      "./common/index": {
-        "types": "./dist/common/index.d.ts",
-        "bun": "./dist/common/index.js",
-        "node": "./dist/node/common/index.js",
-        "browser": "./dist/browser/common/index.js",
         "default": "./dist/common/index.js"
       },
       "./openapi": {
         "types": "./dist/openapi/index.d.ts",
+        "browser": "./dist/browser/openapi/index.js",
         "bun": "./dist/openapi/index.js",
         "node": "./dist/node/openapi/index.js",
-        "browser": "./dist/browser/openapi/index.js",
-        "default": "./dist/openapi/index.js"
-      },
-      "./openapi/index": {
-        "types": "./dist/openapi/index.d.ts",
-        "bun": "./dist/openapi/index.js",
-        "node": "./dist/node/openapi/index.js",
-        "browser": "./dist/browser/openapi/index.js",
         "default": "./dist/openapi/index.js"
       }
     },

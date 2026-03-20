@@ -1,6 +1,6 @@
 export { FeatureDiscovery } from './FeatureDiscovery';
 export type {
-  FeatureDiscoveryProps,
-  FeatureViewMode,
-  FeatureGroupBy,
+	FeatureDiscoveryProps,
+	FeatureGroupBy,
+	FeatureViewMode,
 } from './types';

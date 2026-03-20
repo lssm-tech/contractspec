@@ -3,14 +3,14 @@
  */
 
 export {
-  JobModel,
-  ScheduleJobInputModel,
-  CompleteJobInputModel,
-} from './job.schema';
-export {
-  ScheduleJobContract,
-  CompleteJobContract,
-  ListJobsOperation,
-  ListJobsInputModel,
-  ListJobsOutputModel,
+	CompleteJobContract,
+	ListJobsInputModel,
+	ListJobsOperation,
+	ListJobsOutputModel,
+	ScheduleJobContract,
 } from './job.operations';
+export {
+	CompleteJobInputModel,
+	JobModel,
+	ScheduleJobInputModel,
+} from './job.schema';

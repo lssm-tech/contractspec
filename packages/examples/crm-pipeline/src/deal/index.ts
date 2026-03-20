@@ -3,24 +3,22 @@
  */
 
 export { DealStatusEnum, DealStatusFilterEnum } from './deal.enum';
-
 export {
-  DealModel,
-  CreateDealInputModel,
-  MoveDealInputModel,
-  DealMovedPayloadModel,
-  WinDealInputModel,
-  DealWonPayloadModel,
-  LoseDealInputModel,
-  DealLostPayloadModel,
-  ListDealsInputModel,
-  ListDealsOutputModel,
-} from './deal.schema';
-
-export {
-  CreateDealContract,
-  MoveDealContract,
-  WinDealContract,
-  LoseDealContract,
-  ListDealsContract,
+	CreateDealContract,
+	ListDealsContract,
+	LoseDealContract,
+	MoveDealContract,
+	WinDealContract,
 } from './deal.operation';
+export {
+	CreateDealInputModel,
+	DealLostPayloadModel,
+	DealModel,
+	DealMovedPayloadModel,
+	DealWonPayloadModel,
+	ListDealsInputModel,
+	ListDealsOutputModel,
+	LoseDealInputModel,
+	MoveDealInputModel,
+	WinDealInputModel,
+} from './deal.schema';

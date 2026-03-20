@@ -8,26 +8,26 @@ import { ChevronRight } from 'lucide-react';
 // };
 
 export function IntegrationsSpecModelPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold">Integration Spec Model</h1>
-        <p className="text-muted-foreground">
-          Integrations in ContractSpec are defined through typed specifications
-          that declare capabilities, configuration requirements, and connection
-          details. This page covers IntegrationSpec and IntegrationConnection.
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-4">
+				<h1 className="font-bold text-4xl">Integration Spec Model</h1>
+				<p className="text-muted-foreground">
+					Integrations in ContractSpec are defined through typed specifications
+					that declare capabilities, configuration requirements, and connection
+					details. This page covers IntegrationSpec and IntegrationConnection.
+				</p>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">IntegrationSpec</h2>
-        <p className="text-muted-foreground">
-          The <strong>IntegrationSpec</strong> is a global definition of an
-          integration provider. It declares what the integration provides and
-          what it requires.
-        </p>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`type IntegrationSpec = {
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">IntegrationSpec</h2>
+				<p className="text-muted-foreground">
+					The <strong>IntegrationSpec</strong> is a global definition of an
+					integration provider. It declares what the integration provides and
+					what it requires.
+				</p>
+				<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
+					<pre>{`type IntegrationSpec = {
   id: string;
   label: string;
   description: string;
@@ -81,13 +81,13 @@ export function IntegrationsSpecModelPage() {
   createdAt: string;
   updatedAt: string;
 };`}</pre>
-        </div>
-      </div>
+				</div>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Example: Stripe IntegrationSpec</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`{
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Example: Stripe IntegrationSpec</h2>
+				<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
+					<pre>{`{
   id: "stripe",
   label: "Stripe",
   description: "Payment processing and subscription management",
@@ -153,17 +153,17 @@ export function IntegrationsSpecModelPage() {
   setupGuideUrl: "https://stripe.com/docs/keys",
   version: "1.0.0"
 }`}</pre>
-        </div>
-      </div>
+				</div>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">IntegrationConnection</h2>
-        <p className="text-muted-foreground">
-          An <strong>IntegrationConnection</strong> is a per-tenant instance of
-          an integration with configured credentials and environment settings.
-        </p>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`type IntegrationConnection = {
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">IntegrationConnection</h2>
+				<p className="text-muted-foreground">
+					An <strong>IntegrationConnection</strong> is a per-tenant instance of
+					an integration with configured credentials and environment settings.
+				</p>
+				<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
+					<pre>{`type IntegrationConnection = {
   id: string;
   tenantId: string;
   integrationId: string;
@@ -188,15 +188,15 @@ export function IntegrationsSpecModelPage() {
   updatedAt: string;
   createdBy: string;
 };`}</pre>
-        </div>
-      </div>
+				</div>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">
-          Example: Stripe IntegrationConnection
-        </h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`// Production connection
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">
+					Example: Stripe IntegrationConnection
+				</h2>
+				<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
+					<pre>{`// Production connection
 {
   id: "conn_stripe_acme_prod",
   tenantId: "acme-corp",
@@ -231,20 +231,20 @@ export function IntegrationsSpecModelPage() {
   updatedAt: "2025-01-15T10:25:00Z",
   createdBy: "dev@acme.com"
 }`}</pre>
-        </div>
-      </div>
+				</div>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">
-          Example: Messaging IntegrationConnection
-        </h2>
-        <p className="text-muted-foreground">
-          Messaging providers use the same spec + connection model, then route
-          inbound events through the channel runtime for signature validation,
-          idempotent ingestion, policy decisions, and outbox-backed dispatch.
-        </p>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`{
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">
+					Example: Messaging IntegrationConnection
+				</h2>
+				<p className="text-muted-foreground">
+					Messaging providers use the same spec + connection model, then route
+					inbound events through the channel runtime for signature validation,
+					idempotent ingestion, policy decisions, and outbox-backed dispatch.
+				</p>
+				<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
+					<pre>{`{
   id: "conn_slack_acme_prod",
   tenantId: "acme-corp",
   integrationId: "messaging.slack",
@@ -262,17 +262,17 @@ export function IntegrationsSpecModelPage() {
   "botToken": "xoxb-...",
   "signingSecret": "..."
 }`}</pre>
-        </div>
-      </div>
+				</div>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Health transport strategy config</h2>
-        <p className="text-muted-foreground">
-          Health providers support deterministic transport routing and explicit
-          unofficial gating in connection config.
-        </p>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`{
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Health transport strategy config</h2>
+				<p className="text-muted-foreground">
+					Health providers support deterministic transport routing and explicit
+					unofficial gating in connection config.
+				</p>
+				<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
+					<pre>{`{
   "defaultTransport": "official-api",
   "strategyOrder": ["official-api", "aggregator-api", "unofficial"],
   "allowUnofficial": false,
@@ -290,81 +290,81 @@ export function IntegrationsSpecModelPage() {
   "tokenExpiresAt": "2026-02-01T00:00:00.000Z",
   "mcpAccessToken": "..."
 }`}</pre>
-        </div>
-      </div>
+				</div>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Health checks</h2>
-        <p className="text-muted-foreground">
-          IntegrationConnections are periodically health-checked to ensure they
-          remain valid:
-        </p>
-        <ul className="text-muted-foreground list-inside list-disc space-y-2">
-          <li>
-            <strong>API key validation</strong> - Test that credentials are
-            still valid
-          </li>
-          <li>
-            <strong>Connectivity check</strong> - Verify network access to the
-            provider
-          </li>
-          <li>
-            <strong>Permission verification</strong> - Ensure required scopes
-            are granted
-          </li>
-          <li>
-            <strong>Webhook validation</strong> - Test webhook endpoint
-            reachability
-          </li>
-        </ul>
-        <p className="text-muted-foreground">
-          Failed health checks update the connection status to "error" and
-          trigger alerts.
-        </p>
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Health checks</h2>
+				<p className="text-muted-foreground">
+					IntegrationConnections are periodically health-checked to ensure they
+					remain valid:
+				</p>
+				<ul className="list-inside list-disc space-y-2 text-muted-foreground">
+					<li>
+						<strong>API key validation</strong> - Test that credentials are
+						still valid
+					</li>
+					<li>
+						<strong>Connectivity check</strong> - Verify network access to the
+						provider
+					</li>
+					<li>
+						<strong>Permission verification</strong> - Ensure required scopes
+						are granted
+					</li>
+					<li>
+						<strong>Webhook validation</strong> - Test webhook endpoint
+						reachability
+					</li>
+				</ul>
+				<p className="text-muted-foreground">
+					Failed health checks update the connection status to "error" and
+					trigger alerts.
+				</p>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Secret management</h2>
-        <p className="text-muted-foreground">
-          Secrets (API keys, tokens) are never stored in plaintext:
-        </p>
-        <ol className="text-muted-foreground list-inside list-decimal space-y-2">
-          <li>User provides secrets through secure UI or API</li>
-          <li>Secrets are encrypted using tenant-specific keys</li>
-          <li>
-            Encrypted secrets are stored in secure vault (e.g., AWS Secrets
-            Manager)
-          </li>
-          <li>IntegrationConnection stores only a reference (secretRef)</li>
-          <li>At runtime, secrets are decrypted on-demand and never logged</li>
-        </ol>
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Secret management</h2>
+				<p className="text-muted-foreground">
+					Secrets (API keys, tokens) are never stored in plaintext:
+				</p>
+				<ol className="list-inside list-decimal space-y-2 text-muted-foreground">
+					<li>User provides secrets through secure UI or API</li>
+					<li>Secrets are encrypted using tenant-specific keys</li>
+					<li>
+						Encrypted secrets are stored in secure vault (e.g., AWS Secrets
+						Manager)
+					</li>
+					<li>IntegrationConnection stores only a reference (secretRef)</li>
+					<li>At runtime, secrets are decrypted on-demand and never logged</li>
+				</ol>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Best practices</h2>
-        <ul className="text-muted-foreground list-inside list-disc space-y-2">
-          <li>Always maintain separate sandbox and production connections</li>
-          <li>
-            Use descriptive connection IDs that include tenant and environment
-          </li>
-          <li>Monitor health check status and set up alerts for failures</li>
-          <li>Rotate secrets regularly and update secretRef accordingly</li>
-          <li>Document the purpose and ownership of each connection</li>
-          <li>Test connections in sandbox before enabling in production</li>
-        </ul>
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Best practices</h2>
+				<ul className="list-inside list-disc space-y-2 text-muted-foreground">
+					<li>Always maintain separate sandbox and production connections</li>
+					<li>
+						Use descriptive connection IDs that include tenant and environment
+					</li>
+					<li>Monitor health check status and set up alerts for failures</li>
+					<li>Rotate secrets regularly and update secretRef accordingly</li>
+					<li>Document the purpose and ownership of each connection</li>
+					<li>Test connections in sandbox before enabling in production</li>
+				</ul>
+			</div>
 
-      <div className="flex items-center gap-4 pt-4">
-        <Link href="/docs/integrations" className="btn-ghost">
-          Back to Integrations
-        </Link>
-        <Link
-          href="/docs/architecture/integration-binding"
-          className="btn-primary"
-        >
-          Integration Binding <ChevronRight size={16} />
-        </Link>
-      </div>
-    </div>
-  );
+			<div className="flex items-center gap-4 pt-4">
+				<Link href="/docs/integrations" className="btn-ghost">
+					Back to Integrations
+				</Link>
+				<Link
+					href="/docs/architecture/integration-binding"
+					className="btn-primary"
+				>
+					Integration Binding <ChevronRight size={16} />
+				</Link>
+			</div>
+		</div>
+	);
 }

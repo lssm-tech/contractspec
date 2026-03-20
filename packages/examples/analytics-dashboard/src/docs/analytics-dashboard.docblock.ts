@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const analyticsDashboardDocBlocks: DocBlock[] = [
-  {
-    id: 'docs.examples.analytics-dashboard',
-    title: 'Analytics Dashboard',
-    summary:
-      'Multi-tenant analytics with dashboards, widgets, query builder, and scheduled reports built on the Event Bus.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/examples/analytics-dashboard',
-    tags: ['analytics', 'dashboards', 'bi', 'queries'],
-    body: `## Entities
+	{
+		id: 'docs.examples.analytics-dashboard',
+		title: 'Analytics Dashboard',
+		summary:
+			'Multi-tenant analytics with dashboards, widgets, query builder, and scheduled reports built on the Event Bus.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/examples/analytics-dashboard',
+		tags: ['analytics', 'dashboards', 'bi', 'queries'],
+		body: `## Entities
 
 - Dashboard, Widget, Query, Report.
 - Widget/query configs stay declarative for regeneration.
@@ -37,16 +37,16 @@ const analyticsDashboardDocBlocks: DocBlock[] = [
 - Use Feature Flags for beta widgets; Metering to track query volume.
 - PostHog datasource can back query execution via HogQL for dashboard widgets.
 `,
-  },
-  {
-    id: 'docs.examples.analytics-dashboard.goal',
-    title: 'Analytics Dashboard — Goal',
-    summary: 'Why this template matters and what success looks like.',
-    kind: 'goal',
-    visibility: 'public',
-    route: '/docs/examples/analytics-dashboard/goal',
-    tags: ['analytics', 'goal'],
-    body: `## Why it matters
+	},
+	{
+		id: 'docs.examples.analytics-dashboard.goal',
+		title: 'Analytics Dashboard — Goal',
+		summary: 'Why this template matters and what success looks like.',
+		kind: 'goal',
+		visibility: 'public',
+		route: '/docs/examples/analytics-dashboard/goal',
+		tags: ['analytics', 'goal'],
+		body: `## Why it matters
 - Give teams a regenerable analytics workspace that stays in sync with Event Bus, Usage/Metering, and presentations.
 - Avoid dashboard drift by keeping schema-first widgets/queries.
 
@@ -57,16 +57,16 @@ const analyticsDashboardDocBlocks: DocBlock[] = [
 ## Success criteria
 - Dashboards can be regenerated safely from spec changes.
 - Queries/widgets have enforced validation; PII is redacted per policy.`,
-  },
-  {
-    id: 'docs.examples.analytics-dashboard.usage',
-    title: 'Analytics Dashboard — Usage',
-    summary: 'How to seed, extend, and safely regenerate dashboards.',
-    kind: 'usage',
-    visibility: 'public',
-    route: '/docs/examples/analytics-dashboard/usage',
-    tags: ['analytics', 'usage'],
-    body: `## Setup
+	},
+	{
+		id: 'docs.examples.analytics-dashboard.usage',
+		title: 'Analytics Dashboard — Usage',
+		summary: 'How to seed, extend, and safely regenerate dashboards.',
+		kind: 'usage',
+		visibility: 'public',
+		route: '/docs/examples/analytics-dashboard/usage',
+		tags: ['analytics', 'usage'],
+		body: `## Setup
 1) Seed dashboards/widgets (via template registry) to preload sample queries.
 2) Configure org/tenant scope and attach Usage/Metering for cost/sampling controls.
 
@@ -78,16 +78,16 @@ const analyticsDashboardDocBlocks: DocBlock[] = [
 ## Guardrails
 - Keep all query inputs validated; mark PII paths in policy.
 - Use Audit Trail for report deliveries; Notifications for scheduled sends.`,
-  },
-  {
-    id: 'docs.examples.analytics-dashboard.constraints',
-    title: 'Analytics Dashboard — Constraints & Safety',
-    summary: 'Internal guardrails for queries, widgets, and regeneration.',
-    kind: 'reference',
-    visibility: 'internal',
-    route: '/docs/examples/analytics-dashboard/constraints',
-    tags: ['analytics', 'constraints', 'internal'],
-    body: `## Constraints
+	},
+	{
+		id: 'docs.examples.analytics-dashboard.constraints',
+		title: 'Analytics Dashboard — Constraints & Safety',
+		summary: 'Internal guardrails for queries, widgets, and regeneration.',
+		kind: 'reference',
+		visibility: 'internal',
+		route: '/docs/examples/analytics-dashboard/constraints',
+		tags: ['analytics', 'constraints', 'internal'],
+		body: `## Constraints
 - Queries and widgets must declare inputs/validation in spec; no ad-hoc query strings.
 - Regeneration must preserve sampling/windowing semantics; document changes explicitly.
 - Events/usage metrics should remain consistent with Metering/Audit wiring.
@@ -100,7 +100,7 @@ const analyticsDashboardDocBlocks: DocBlock[] = [
 - Add fixtures for widget/query schema changes and scheduled reports.
 - Run regeneration diff when adjusting query builders; ensure UI/markdown targets updated.
 - Confirm feature-flagged widgets default to safe/off for new tenants.`,
-  },
+	},
 ];
 
 registerDocBlocks(analyticsDashboardDocBlocks);

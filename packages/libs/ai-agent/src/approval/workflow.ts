@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
-import type { ToolCallInfo } from '../types';
 import { createAgentI18n } from '../i18n';
+import type { ToolCallInfo } from '../types';
 
 export type ApprovalStatus = 'pending' | 'approved' | 'rejected';
 
@@ -11,143 +11,143 @@ export type ApprovalStatus = 'pending' | 'approved' | 'rejected';
  * will pause and wait for approval before executing the tool.
  */
 export interface ApprovalRequest {
-  /** Unique request ID */
-  id: string;
-  /** Agent session ID */
-  sessionId: string;
-  /** Agent ID */
-  agentId: string;
-  /** Tenant ID for scoping */
-  tenantId?: string;
-  /** Tool name requiring approval */
-  toolName: string;
-  /** Tool call ID from AI SDK */
-  toolCallId: string;
-  /** Tool arguments */
-  toolArgs: unknown;
-  /** Human-readable reason for approval */
-  reason: string;
-  /** When the approval was requested */
-  requestedAt: Date;
-  /** Current status */
-  status: ApprovalStatus;
-  /** Additional context payload */
-  payload?: Record<string, unknown>;
-  /** Who resolved the approval */
-  reviewer?: string;
-  /** When the approval was resolved */
-  resolvedAt?: Date;
-  /** Reviewer notes */
-  notes?: string;
+	/** Unique request ID */
+	id: string;
+	/** Agent session ID */
+	sessionId: string;
+	/** Agent ID */
+	agentId: string;
+	/** Tenant ID for scoping */
+	tenantId?: string;
+	/** Tool name requiring approval */
+	toolName: string;
+	/** Tool call ID from AI SDK */
+	toolCallId: string;
+	/** Tool arguments */
+	toolArgs: unknown;
+	/** Human-readable reason for approval */
+	reason: string;
+	/** When the approval was requested */
+	requestedAt: Date;
+	/** Current status */
+	status: ApprovalStatus;
+	/** Additional context payload */
+	payload?: Record<string, unknown>;
+	/** Who resolved the approval */
+	reviewer?: string;
+	/** When the approval was resolved */
+	resolvedAt?: Date;
+	/** Reviewer notes */
+	notes?: string;
 }
 
 /**
  * Storage interface for approval requests.
  */
 export interface ApprovalStore {
-  create(request: ApprovalRequest): Promise<void>;
-  get(id: string): Promise<ApprovalRequest | null>;
-  getByToolCallId(toolCallId: string): Promise<ApprovalRequest | null>;
-  update(
-    id: string,
-    updates: Partial<Omit<ApprovalRequest, 'id' | 'sessionId'>>
-  ): Promise<void>;
-  list(options?: {
-    status?: ApprovalStatus;
-    agentId?: string;
-    tenantId?: string;
-  }): Promise<ApprovalRequest[]>;
+	create(request: ApprovalRequest): Promise<void>;
+	get(id: string): Promise<ApprovalRequest | null>;
+	getByToolCallId(toolCallId: string): Promise<ApprovalRequest | null>;
+	update(
+		id: string,
+		updates: Partial<Omit<ApprovalRequest, 'id' | 'sessionId'>>
+	): Promise<void>;
+	list(options?: {
+		status?: ApprovalStatus;
+		agentId?: string;
+		tenantId?: string;
+	}): Promise<ApprovalRequest[]>;
 }
 
 export interface InMemoryApprovalStoreOptions {
-  maxItems?: number;
+	maxItems?: number;
 }
 
 /**
  * In-memory approval store for development and testing.
  */
 export class InMemoryApprovalStore implements ApprovalStore {
-  private readonly items = new Map<string, ApprovalRequest>();
-  private readonly maxItems: number;
+	private readonly items = new Map<string, ApprovalRequest>();
+	private readonly maxItems: number;
 
-  constructor(options: InMemoryApprovalStoreOptions = {}) {
-    this.maxItems = options.maxItems ?? 1000;
-  }
+	constructor(options: InMemoryApprovalStoreOptions = {}) {
+		this.maxItems = options.maxItems ?? 1000;
+	}
 
-  async create(request: ApprovalRequest): Promise<void> {
-    this.evictIfNeeded();
-    this.items.set(request.id, request);
-  }
+	async create(request: ApprovalRequest): Promise<void> {
+		this.evictIfNeeded();
+		this.items.set(request.id, request);
+	}
 
-  async get(id: string): Promise<ApprovalRequest | null> {
-    return this.items.get(id) ?? null;
-  }
+	async get(id: string): Promise<ApprovalRequest | null> {
+		return this.items.get(id) ?? null;
+	}
 
-  async getByToolCallId(toolCallId: string): Promise<ApprovalRequest | null> {
-    for (const request of this.items.values()) {
-      if (request.toolCallId === toolCallId) {
-        return request;
-      }
-    }
-    return null;
-  }
+	async getByToolCallId(toolCallId: string): Promise<ApprovalRequest | null> {
+		for (const request of this.items.values()) {
+			if (request.toolCallId === toolCallId) {
+				return request;
+			}
+		}
+		return null;
+	}
 
-  async update(
-    id: string,
-    updates: Partial<Omit<ApprovalRequest, 'id' | 'sessionId'>>
-  ): Promise<void> {
-    const existing = this.items.get(id);
-    if (existing) {
-      this.items.set(id, { ...existing, ...updates });
-    }
-  }
+	async update(
+		id: string,
+		updates: Partial<Omit<ApprovalRequest, 'id' | 'sessionId'>>
+	): Promise<void> {
+		const existing = this.items.get(id);
+		if (existing) {
+			this.items.set(id, { ...existing, ...updates });
+		}
+	}
 
-  async list(options?: {
-    status?: ApprovalStatus;
-    agentId?: string;
-    tenantId?: string;
-  }): Promise<ApprovalRequest[]> {
-    let results = [...this.items.values()];
+	async list(options?: {
+		status?: ApprovalStatus;
+		agentId?: string;
+		tenantId?: string;
+	}): Promise<ApprovalRequest[]> {
+		let results = [...this.items.values()];
 
-    if (options?.status) {
-      results = results.filter((r) => r.status === options.status);
-    }
-    if (options?.agentId) {
-      results = results.filter((r) => r.agentId === options.agentId);
-    }
-    if (options?.tenantId) {
-      results = results.filter((r) => r.tenantId === options.tenantId);
-    }
+		if (options?.status) {
+			results = results.filter((r) => r.status === options.status);
+		}
+		if (options?.agentId) {
+			results = results.filter((r) => r.agentId === options.agentId);
+		}
+		if (options?.tenantId) {
+			results = results.filter((r) => r.tenantId === options.tenantId);
+		}
 
-    return results.sort(
-      (a, b) => b.requestedAt.getTime() - a.requestedAt.getTime()
-    );
-  }
+		return results.sort(
+			(a, b) => b.requestedAt.getTime() - a.requestedAt.getTime()
+		);
+	}
 
-  clear(): void {
-    this.items.clear();
-  }
+	clear(): void {
+		this.items.clear();
+	}
 
-  private evictIfNeeded(): void {
-    if (this.items.size < this.maxItems) {
-      return;
-    }
+	private evictIfNeeded(): void {
+		if (this.items.size < this.maxItems) {
+			return;
+		}
 
-    let oldestId: string | null = null;
-    let oldestTimestamp = Number.POSITIVE_INFINITY;
+		let oldestId: string | null = null;
+		let oldestTimestamp = Number.POSITIVE_INFINITY;
 
-    for (const [id, request] of this.items.entries()) {
-      const ts = request.requestedAt.getTime();
-      if (ts < oldestTimestamp) {
-        oldestTimestamp = ts;
-        oldestId = id;
-      }
-    }
+		for (const [id, request] of this.items.entries()) {
+			const ts = request.requestedAt.getTime();
+			if (ts < oldestTimestamp) {
+				oldestTimestamp = ts;
+				oldestId = id;
+			}
+		}
 
-    if (oldestId) {
-      this.items.delete(oldestId);
-    }
-  }
+		if (oldestId) {
+			this.items.delete(oldestId);
+		}
+	}
 }
 
 /**
@@ -177,143 +177,143 @@ export class InMemoryApprovalStore implements ApprovalStore {
  * ```
  */
 export class ApprovalWorkflow {
-  constructor(
-    private readonly store: ApprovalStore = new InMemoryApprovalStore()
-  ) {}
+	constructor(
+		private readonly store: ApprovalStore = new InMemoryApprovalStore()
+	) {}
 
-  /**
-   * Request approval for a tool execution.
-   */
-  async requestApproval(params: {
-    sessionId: string;
-    agentId: string;
-    tenantId?: string;
-    toolName: string;
-    toolCallId: string;
-    toolArgs: unknown;
-    reason: string;
-    payload?: Record<string, unknown>;
-  }): Promise<ApprovalRequest> {
-    const request: ApprovalRequest = {
-      id: randomUUID(),
-      sessionId: params.sessionId,
-      agentId: params.agentId,
-      tenantId: params.tenantId,
-      toolName: params.toolName,
-      toolCallId: params.toolCallId,
-      toolArgs: params.toolArgs,
-      reason: params.reason,
-      requestedAt: new Date(),
-      status: 'pending',
-      payload: params.payload,
-    };
+	/**
+	 * Request approval for a tool execution.
+	 */
+	async requestApproval(params: {
+		sessionId: string;
+		agentId: string;
+		tenantId?: string;
+		toolName: string;
+		toolCallId: string;
+		toolArgs: unknown;
+		reason: string;
+		payload?: Record<string, unknown>;
+	}): Promise<ApprovalRequest> {
+		const request: ApprovalRequest = {
+			id: randomUUID(),
+			sessionId: params.sessionId,
+			agentId: params.agentId,
+			tenantId: params.tenantId,
+			toolName: params.toolName,
+			toolCallId: params.toolCallId,
+			toolArgs: params.toolArgs,
+			reason: params.reason,
+			requestedAt: new Date(),
+			status: 'pending',
+			payload: params.payload,
+		};
 
-    await this.store.create(request);
-    return request;
-  }
+		await this.store.create(request);
+		return request;
+	}
 
-  /**
-   * Request approval from an AI SDK tool call.
-   */
-  async requestApprovalFromToolCall(
-    toolCall: ToolCallInfo,
-    context: {
-      sessionId: string;
-      agentId: string;
-      tenantId?: string;
-      reason?: string;
-      /** Locale for i18n (BCP 47). Falls back to 'en'. */
-      locale?: string;
-    }
-  ): Promise<ApprovalRequest> {
-    return this.requestApproval({
-      sessionId: context.sessionId,
-      agentId: context.agentId,
-      tenantId: context.tenantId,
-      toolName: toolCall.toolName,
-      toolCallId: toolCall.toolCallId,
-      toolArgs: toolCall.args,
-      reason:
-        context.reason ??
-        createAgentI18n(context.locale).t('approval.toolRequiresApproval', {
-          name: toolCall.toolName,
-        }),
-    });
-  }
+	/**
+	 * Request approval from an AI SDK tool call.
+	 */
+	async requestApprovalFromToolCall(
+		toolCall: ToolCallInfo,
+		context: {
+			sessionId: string;
+			agentId: string;
+			tenantId?: string;
+			reason?: string;
+			/** Locale for i18n (BCP 47). Falls back to 'en'. */
+			locale?: string;
+		}
+	): Promise<ApprovalRequest> {
+		return this.requestApproval({
+			sessionId: context.sessionId,
+			agentId: context.agentId,
+			tenantId: context.tenantId,
+			toolName: toolCall.toolName,
+			toolCallId: toolCall.toolCallId,
+			toolArgs: toolCall.args,
+			reason:
+				context.reason ??
+				createAgentI18n(context.locale).t('approval.toolRequiresApproval', {
+					name: toolCall.toolName,
+				}),
+		});
+	}
 
-  /**
-   * Approve a pending request.
-   */
-  async approve(id: string, reviewer: string, notes?: string): Promise<void> {
-    await this.store.update(id, {
-      status: 'approved',
-      reviewer,
-      resolvedAt: new Date(),
-      notes,
-    });
-  }
+	/**
+	 * Approve a pending request.
+	 */
+	async approve(id: string, reviewer: string, notes?: string): Promise<void> {
+		await this.store.update(id, {
+			status: 'approved',
+			reviewer,
+			resolvedAt: new Date(),
+			notes,
+		});
+	}
 
-  /**
-   * Reject a pending request.
-   */
-  async reject(id: string, reviewer: string, notes?: string): Promise<void> {
-    await this.store.update(id, {
-      status: 'rejected',
-      reviewer,
-      resolvedAt: new Date(),
-      notes,
-    });
-  }
+	/**
+	 * Reject a pending request.
+	 */
+	async reject(id: string, reviewer: string, notes?: string): Promise<void> {
+		await this.store.update(id, {
+			status: 'rejected',
+			reviewer,
+			resolvedAt: new Date(),
+			notes,
+		});
+	}
 
-  /**
-   * Get approval status for a tool call.
-   */
-  async getStatus(toolCallId: string): Promise<ApprovalStatus | null> {
-    const request = await this.store.getByToolCallId(toolCallId);
-    return request?.status ?? null;
-  }
+	/**
+	 * Get approval status for a tool call.
+	 */
+	async getStatus(toolCallId: string): Promise<ApprovalStatus | null> {
+		const request = await this.store.getByToolCallId(toolCallId);
+		return request?.status ?? null;
+	}
 
-  /**
-   * Check if a tool call is approved.
-   */
-  async isApproved(toolCallId: string): Promise<boolean> {
-    const status = await this.getStatus(toolCallId);
-    return status === 'approved';
-  }
+	/**
+	 * Check if a tool call is approved.
+	 */
+	async isApproved(toolCallId: string): Promise<boolean> {
+		const status = await this.getStatus(toolCallId);
+		return status === 'approved';
+	}
 
-  /**
-   * List pending approvals.
-   */
-  async listPending(options?: {
-    agentId?: string;
-    tenantId?: string;
-  }): Promise<ApprovalRequest[]> {
-    return this.store.list({ ...options, status: 'pending' });
-  }
+	/**
+	 * List pending approvals.
+	 */
+	async listPending(options?: {
+		agentId?: string;
+		tenantId?: string;
+	}): Promise<ApprovalRequest[]> {
+		return this.store.list({ ...options, status: 'pending' });
+	}
 
-  /**
-   * Get approval request by ID.
-   */
-  async get(id: string): Promise<ApprovalRequest | null> {
-    return this.store.get(id);
-  }
+	/**
+	 * Get approval request by ID.
+	 */
+	async get(id: string): Promise<ApprovalRequest | null> {
+		return this.store.get(id);
+	}
 }
 
 /**
  * Create an approval workflow instance.
  */
 export function createApprovalWorkflow(
-  store?: ApprovalStore | InMemoryApprovalStoreOptions
+	store?: ApprovalStore | InMemoryApprovalStoreOptions
 ): ApprovalWorkflow {
-  if (
-    store &&
-    typeof store === 'object' &&
-    'create' in store &&
-    typeof store.create === 'function'
-  ) {
-    return new ApprovalWorkflow(store as ApprovalStore);
-  }
+	if (
+		store &&
+		typeof store === 'object' &&
+		'create' in store &&
+		typeof store.create === 'function'
+	) {
+		return new ApprovalWorkflow(store as ApprovalStore);
+	}
 
-  const options = store as InMemoryApprovalStoreOptions | undefined;
-  return new ApprovalWorkflow(new InMemoryApprovalStore(options));
+	const options = store as InMemoryApprovalStoreOptions | undefined;
+	return new ApprovalWorkflow(new InMemoryApprovalStore(options));
 }

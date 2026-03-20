@@ -14,14 +14,14 @@ import type { ToolExecutionContext, ToolHandler } from '../types';
  * Maps ToolExecutionContext (agent runtime) to HandlerCtx (contracts-spec runtime).
  */
 function toolCtxToHandlerCtx(ctx: ToolExecutionContext): HandlerCtx {
-  return {
-    traceId: ctx.metadata?.traceId,
-    organizationId: ctx.tenantId ?? null,
-    userId: ctx.actorId ?? null,
-    actor: ctx.actorId ? 'user' : 'anonymous',
-    channel: 'agent',
-    roles: [],
-  };
+	return {
+		traceId: ctx.metadata?.traceId,
+		organizationId: ctx.tenantId ?? null,
+		userId: ctx.actorId ?? null,
+		actor: ctx.actorId ? 'user' : 'anonymous',
+		channel: 'agent',
+		roles: [],
+	};
 }
 
 /**
@@ -38,20 +38,20 @@ function toolCtxToHandlerCtx(ctx: ToolExecutionContext): HandlerCtx {
  * ```
  */
 export function createOperationToolHandler(
-  registry: OperationSpecRegistry,
-  operationRef: OperationRef
+	registry: OperationSpecRegistry,
+	operationRef: OperationRef
 ): ToolHandler {
-  return (async (
-    input: unknown,
-    context: ToolExecutionContext
-  ): Promise<unknown> => {
-    const handlerCtx = toolCtxToHandlerCtx(context);
-    const result = await registry.execute(
-      operationRef.key,
-      operationRef.version,
-      input ?? {},
-      handlerCtx
-    );
-    return result;
-  }) as ToolHandler;
+	return (async (
+		input: unknown,
+		context: ToolExecutionContext
+	): Promise<unknown> => {
+		const handlerCtx = toolCtxToHandlerCtx(context);
+		const result = await registry.execute(
+			operationRef.key,
+			operationRef.version,
+			input ?? {},
+			handlerCtx
+		);
+		return result;
+	}) as ToolHandler;
 }

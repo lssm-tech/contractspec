@@ -11,12 +11,12 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const TEMPLATE_KEYS = {
-  'template.welcome.name': 'template.welcome.name',
-  'template.welcome.description': 'template.welcome.description',
-  'template.orgInvite.name': 'template.orgInvite.name',
-  'template.orgInvite.description': 'template.orgInvite.description',
-  'template.mention.name': 'template.mention.name',
-  'template.mention.description': 'template.mention.description',
+	'template.welcome.name': 'template.welcome.name',
+	'template.welcome.description': 'template.welcome.description',
+	'template.orgInvite.name': 'template.orgInvite.name',
+	'template.orgInvite.description': 'template.orgInvite.description',
+	'template.mention.name': 'template.mention.name',
+	'template.mention.description': 'template.mention.description',
 } as const;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -24,7 +24,7 @@ export const TEMPLATE_KEYS = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const CHANNEL_KEYS = {
-  'channel.webhook.noUrl': 'channel.webhook.noUrl',
+	'channel.webhook.noUrl': 'channel.webhook.noUrl',
 } as const;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -32,8 +32,8 @@ export const CHANNEL_KEYS = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const I18N_KEYS = {
-  ...TEMPLATE_KEYS,
-  ...CHANNEL_KEYS,
+	...TEMPLATE_KEYS,
+	...CHANNEL_KEYS,
 } as const;
 
 /** Union type of all valid notifications i18n keys */

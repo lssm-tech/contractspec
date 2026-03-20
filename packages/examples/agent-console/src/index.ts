@@ -17,16 +17,15 @@
 
 // Domain exports
 export * from './agent';
-export * from './run';
-export * from './tool';
-export * from './shared';
-export * from './ui';
-export {
-  createAgentHandlers,
-  type AgentHandlers,
-} from './handlers/agent.handlers';
-
 // Feature spec export
 export * from './agent.feature';
 export { default as example } from './example';
+export {
+	type AgentHandlers,
+	createAgentHandlers,
+} from './handlers/agent.handlers';
+export * from './run';
+export * from './shared';
+export * from './tool';
+export * from './ui';
 import './docs';

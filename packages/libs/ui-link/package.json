@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.ui-link",
-  "version": "3.6.0",
+  "version": "3.7.6",
   "description": "Deep linking utilities for navigation",
   "keywords": [
     "contractspec",
@@ -11,7 +11,7 @@
     "typescript"
   ],
   "type": "module",
-  "types": "./dist/link.d.ts",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
@@ -21,8 +21,8 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rm -rf dist",
     "lint": "bun run lint:fix",
-    "lint:fix": "eslint ui --fix",
-    "lint:check": "eslint ui",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
@@ -41,22 +41,22 @@
     "README.md"
   ],
   "exports": {
-    ".": "./ui/link.tsx",
+    ".": "./index.ts",
     "./ui/link": "./ui/link.tsx"
   },
   "publishConfig": {
     "exports": {
       ".": {
-        "types": "./dist/link.d.ts",
-        "bun": "./dist/link.js",
-        "browser": "./dist/browser/link.js",
-        "default": "./dist/link.js"
+        "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
+        "bun": "./dist/index.js",
+        "default": "./dist/index.js"
       },
       "./ui/link": {
-        "types": "./dist/link.d.ts",
-        "bun": "./dist/link.js",
-        "browser": "./dist/browser/link.js",
-        "default": "./dist/link.js"
+        "types": "./dist/ui/link.d.ts",
+        "browser": "./dist/browser/ui/link.js",
+        "bun": "./dist/ui/link.js",
+        "default": "./dist/ui/link.js"
       }
     },
     "registry": "https://registry.npmjs.org/",

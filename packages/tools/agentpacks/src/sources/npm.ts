@@ -1,19 +1,20 @@
 /**
  * npm pack source — registry fetching and local installation.
  */
-import { mkdirSync, existsSync, readdirSync } from 'fs';
-import { resolve, join } from 'path';
+
 import { execSync } from 'child_process';
+import { existsSync, mkdirSync, readdirSync } from 'fs';
+import { join, resolve } from 'path';
 import {
-  type Lockfile,
-  type LockfileSourceEntry,
-  getLockedSource,
-  setLockedSource,
+	getLockedSource,
+	type Lockfile,
+	type LockfileSourceEntry,
+	setLockedSource,
 } from '../core/lockfile.js';
 import {
-  type NpmSourceRef,
-  parseNpmSourceRef,
-  npmSourceKey,
+	type NpmSourceRef,
+	npmSourceKey,
+	parseNpmSourceRef,
 } from './npm-ref.js';
 
 const NPM_REGISTRY = 'https://registry.npmjs.org';
@@ -22,29 +23,29 @@ const NPM_REGISTRY = 'https://registry.npmjs.org';
  * npm registry package version metadata (minimal subset).
  */
 interface NpmVersionMeta {
-  version: string;
-  dist: { tarball: string; integrity?: string };
+	version: string;
+	dist: { tarball: string; integrity?: string };
 }
 
 /**
  * Resolve an npm package version to exact version + tarball URL.
  */
 export async function resolveNpmVersion(
-  parsed: NpmSourceRef
+	parsed: NpmSourceRef
 ): Promise<{ version: string; tarball: string }> {
-  const url = `${NPM_REGISTRY}/${encodeURIComponent(parsed.packageName)}/${parsed.version}`;
-  const res = await fetch(url, {
-    headers: { Accept: 'application/json' },
-  });
+	const url = `${NPM_REGISTRY}/${encodeURIComponent(parsed.packageName)}/${parsed.version}`;
+	const res = await fetch(url, {
+		headers: { Accept: 'application/json' },
+	});
 
-  if (!res.ok) {
-    throw new Error(
-      `Could not resolve npm package "${parsed.packageName}@${parsed.version}": ${res.status}`
-    );
-  }
+	if (!res.ok) {
+		throw new Error(
+			`Could not resolve npm package "${parsed.packageName}@${parsed.version}": ${res.status}`
+		);
+	}
 
-  const data = (await res.json()) as NpmVersionMeta;
-  return { version: data.version, tarball: data.dist.tarball };
+	const data = (await res.json()) as NpmVersionMeta;
+	return { version: data.version, tarball: data.dist.tarball };
 }
 
 /**
@@ -52,50 +53,50 @@ export async function resolveNpmVersion(
  * Falls back to tarball download if npm CLI is unavailable.
  */
 export async function installNpmSource(
-  projectRoot: string,
-  source: string,
-  lockfile: Lockfile,
-  options: { update?: boolean; frozen?: boolean } = {}
+	projectRoot: string,
+	source: string,
+	lockfile: Lockfile,
+	options: { update?: boolean; frozen?: boolean } = {}
 ): Promise<{ installed: string[]; warnings: string[] }> {
-  const parsed = parseNpmSourceRef(source);
-  const sourceKey = npmSourceKey(parsed);
-  const installed: string[] = [];
-  const warnings: string[] = [];
+	const parsed = parseNpmSourceRef(source);
+	const sourceKey = npmSourceKey(parsed);
+	const installed: string[] = [];
+	const warnings: string[] = [];
 
-  const locked = getLockedSource(lockfile, sourceKey);
+	const locked = getLockedSource(lockfile, sourceKey);
 
-  if (options.frozen && !locked) {
-    throw new Error(
-      `Frozen mode: no lockfile entry for source "${sourceKey}".`
-    );
-  }
+	if (options.frozen && !locked) {
+		throw new Error(
+			`Frozen mode: no lockfile entry for source "${sourceKey}".`
+		);
+	}
 
-  // Determine exact version
-  let resolvedVersion: string;
-  if (locked && !options.update) {
-    resolvedVersion = locked.resolvedRef;
-  } else {
-    const resolved = await resolveNpmVersion(parsed);
-    resolvedVersion = resolved.version;
-  }
+	// Determine exact version
+	let resolvedVersion: string;
+	if (locked && !options.update) {
+		resolvedVersion = locked.resolvedRef;
+	} else {
+		const resolved = await resolveNpmVersion(parsed);
+		resolvedVersion = resolved.version;
+	}
 
-  // Extract pack files into .agentpacks/.curated/
-  const curatedDir = resolve(projectRoot, '.agentpacks', '.curated');
-  mkdirSync(curatedDir, { recursive: true });
+	// Extract pack files into .agentpacks/.curated/
+	const curatedDir = resolve(projectRoot, '.agentpacks', '.curated');
+	mkdirSync(curatedDir, { recursive: true });
 
-  extractNpmPack(parsed, resolvedVersion, curatedDir, installed, warnings);
+	extractNpmPack(parsed, resolvedVersion, curatedDir, installed, warnings);
 
-  // Update lockfile
-  const newEntry: LockfileSourceEntry = {
-    requestedRef: parsed.version,
-    resolvedRef: resolvedVersion,
-    resolvedAt: new Date().toISOString(),
-    skills: {},
-    packs: {},
-  };
+	// Update lockfile
+	const newEntry: LockfileSourceEntry = {
+		requestedRef: parsed.version,
+		resolvedRef: resolvedVersion,
+		resolvedAt: new Date().toISOString(),
+		skills: {},
+		packs: {},
+	};
 
-  setLockedSource(lockfile, sourceKey, newEntry);
-  return { installed, warnings };
+	setLockedSource(lockfile, sourceKey, newEntry);
+	return { installed, warnings };
 }
 
 /**
@@ -103,78 +104,78 @@ export async function installNpmSource(
  * Uses npm CLI for reliable extraction.
  */
 function extractNpmPack(
-  parsed: NpmSourceRef,
-  version: string,
-  curatedDir: string,
-  installed: string[],
-  warnings: string[]
+	parsed: NpmSourceRef,
+	version: string,
+	curatedDir: string,
+	installed: string[],
+	warnings: string[]
 ): string {
-  const pkgSpec = `${parsed.packageName}@${version}`;
-  const packName = parsed.packageName.replace(/^@/, '').replace(/\//g, '-');
-  const packOutDir = resolve(curatedDir, packName);
+	const pkgSpec = `${parsed.packageName}@${version}`;
+	const packName = parsed.packageName.replace(/^@/, '').replace(/\//g, '-');
+	const packOutDir = resolve(curatedDir, packName);
 
-  try {
-    // Create a temp dir for the tarball
-    const tmpDir = resolve(curatedDir, '.tmp-npm');
-    mkdirSync(tmpDir, { recursive: true });
+	try {
+		// Create a temp dir for the tarball
+		const tmpDir = resolve(curatedDir, '.tmp-npm');
+		mkdirSync(tmpDir, { recursive: true });
 
-    // Download tarball via npm pack
-    execSync(`npm pack ${pkgSpec} --pack-destination "${tmpDir}"`, {
-      stdio: 'pipe',
-      timeout: 30_000,
-    });
+		// Download tarball via npm pack
+		execSync(`npm pack ${pkgSpec} --pack-destination "${tmpDir}"`, {
+			stdio: 'pipe',
+			timeout: 30_000,
+		});
 
-    // Find the downloaded tarball
-    const tgzFiles = readdirSync(tmpDir).filter((f) => f.endsWith('.tgz'));
+		// Find the downloaded tarball
+		const tgzFiles = readdirSync(tmpDir).filter((f) => f.endsWith('.tgz'));
 
-    if (tgzFiles.length === 0) {
-      warnings.push(`No tarball found for ${pkgSpec}`);
-      return packOutDir;
-    }
+		if (tgzFiles.length === 0) {
+			warnings.push(`No tarball found for ${pkgSpec}`);
+			return packOutDir;
+		}
 
-    const firstTgz = tgzFiles[0];
-    if (!firstTgz) {
-      warnings.push(`No tarball found for ${pkgSpec}`);
-      return packOutDir;
-    }
-    const tgzPath = join(tmpDir, firstTgz);
+		const firstTgz = tgzFiles[0];
+		if (!firstTgz) {
+			warnings.push(`No tarball found for ${pkgSpec}`);
+			return packOutDir;
+		}
+		const tgzPath = join(tmpDir, firstTgz);
 
-    // Extract to pack output directory
-    mkdirSync(packOutDir, { recursive: true });
-    execSync(`tar xzf "${tgzPath}" -C "${packOutDir}" --strip-components=1`, {
-      stdio: 'pipe',
-      timeout: 15_000,
-    });
+		// Extract to pack output directory
+		mkdirSync(packOutDir, { recursive: true });
+		execSync(`tar xzf "${tgzPath}" -C "${packOutDir}" --strip-components=1`, {
+			stdio: 'pipe',
+			timeout: 15_000,
+		});
 
-    // Clean up tmp
-    execSync(`rm -rf "${tmpDir}"`, { stdio: 'pipe' });
+		// Clean up tmp
+		execSync(`rm -rf "${tmpDir}"`, { stdio: 'pipe' });
 
-    // Track installed files
-    const subpath = parsed.path || '';
-    const targetDir = subpath ? join(packOutDir, subpath) : packOutDir;
-    if (existsSync(targetDir)) {
-      collectFiles(targetDir, installed);
-    }
-  } catch (err) {
-    warnings.push(
-      `Failed to extract npm pack ${pkgSpec}: ${err instanceof Error ? err.message : String(err)}`
-    );
-  }
+		// Track installed files
+		const subpath = parsed.path || '';
+		const targetDir = subpath ? join(packOutDir, subpath) : packOutDir;
+		if (existsSync(targetDir)) {
+			collectFiles(targetDir, installed);
+		}
+	} catch (err) {
+		warnings.push(
+			`Failed to extract npm pack ${pkgSpec}: ${err instanceof Error ? err.message : String(err)}`
+		);
+	}
 
-  return packOutDir;
+	return packOutDir;
 }
 
 /**
  * Recursively collect all file paths in a directory.
  */
 function collectFiles(dir: string, out: string[]): void {
-  const entries = readdirSync(dir, { withFileTypes: true });
-  for (const entry of entries) {
-    const full = join(dir, entry.name);
-    if (entry.isDirectory()) {
-      collectFiles(full, out);
-    } else {
-      out.push(full);
-    }
-  }
+	const entries = readdirSync(dir, { withFileTypes: true });
+	for (const entry of entries) {
+		const full = join(dir, entry.name);
+		if (entry.isDirectory()) {
+			collectFiles(full, out);
+		} else {
+			out.push(full);
+		}
+	}
 }

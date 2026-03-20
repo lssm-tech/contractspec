@@ -10,59 +10,59 @@ import { defineFeature } from '@contractspec/lib.contracts-spec';
  * platform-specific tour track operations and presentations.
  */
 export const LearningJourneyPlatformTourFeature = defineFeature({
-  meta: {
-    key: 'learning-journey-platform-tour',
-    version: '1.0.0',
-    title: 'Learning Journey: Platform Tour',
-    description:
-      'Platform primitives tour journey for exploring ContractSpec core features',
-    domain: 'learning-journey',
-    owners: ['@examples.learning-journey.platform-tour'],
-    tags: ['learning', 'platform', 'tour', 'journey'],
-    stability: 'experimental',
-  },
+	meta: {
+		key: 'learning-journey-platform-tour',
+		version: '1.0.0',
+		title: 'Learning Journey: Platform Tour',
+		description:
+			'Platform primitives tour journey for exploring ContractSpec core features',
+		domain: 'learning-journey',
+		owners: ['@examples.learning-journey.platform-tour'],
+		tags: ['learning', 'platform', 'tour', 'journey'],
+		stability: 'experimental',
+	},
 
-  // All contract operations included in this feature
-  operations: [
-    { key: 'learningJourney.platformTour.recordEvent', version: '1.0.0' },
-    { key: 'learningJourney.platformTour.getTrack', version: '1.0.0' },
-  ],
+	// All contract operations included in this feature
+	operations: [
+		{ key: 'learningJourney.platformTour.recordEvent', version: '1.0.0' },
+		{ key: 'learningJourney.platformTour.getTrack', version: '1.0.0' },
+	],
 
-  // Events emitted by this feature
-  events: [],
+	// Events emitted by this feature
+	events: [],
 
-  // Presentations associated with this feature
-  presentations: [
-    { key: 'learning.journey.platform.track', version: '1.0.0' },
-    { key: 'learning.journey.platform.widget', version: '1.0.0' },
-  ],
+	// Presentations associated with this feature
+	presentations: [
+		{ key: 'learning.journey.platform.track', version: '1.0.0' },
+		{ key: 'learning.journey.platform.widget', version: '1.0.0' },
+	],
 
-  // Link operations to their primary presentations
-  opToPresentation: [
-    {
-      op: { key: 'learningJourney.platformTour.getTrack', version: '1.0.0' },
-      pres: { key: 'learning.journey.platform.track', version: '1.0.0' },
-    },
-  ],
+	// Link operations to their primary presentations
+	opToPresentation: [
+		{
+			op: { key: 'learningJourney.platformTour.getTrack', version: '1.0.0' },
+			pres: { key: 'learning.journey.platform.track', version: '1.0.0' },
+		},
+	],
 
-  // Target requirements for multi-surface rendering
-  presentationsTargets: [
-    {
-      key: 'learning.journey.platform.track',
-      version: '1.0.0',
-      targets: ['react', 'markdown', 'application/json'],
-    },
-    {
-      key: 'learning.journey.platform.widget',
-      version: '1.0.0',
-      targets: ['react'],
-    },
-  ],
+	// Target requirements for multi-surface rendering
+	presentationsTargets: [
+		{
+			key: 'learning.journey.platform.track',
+			version: '1.0.0',
+			targets: ['react', 'markdown', 'application/json'],
+		},
+		{
+			key: 'learning.journey.platform.widget',
+			version: '1.0.0',
+			targets: ['react'],
+		},
+	],
 
-  // Capability requirements
-  capabilities: {
-    requires: [{ key: 'identity', version: '1.0.0' }],
-  },
+	// Capability requirements
+	capabilities: {
+		requires: [{ key: 'identity', version: '1.0.0' }],
+	},
 
-  docs: ['docs.learning-journey.platform-tour'],
+	docs: ['docs.learning-journey.platform-tour'],
 });

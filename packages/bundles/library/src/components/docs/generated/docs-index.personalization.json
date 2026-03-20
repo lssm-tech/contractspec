@@ -1,10 +1,10 @@
 [
-  {
-    "id": "personalization/personalization",
-    "title": "personalization",
-    "summary": "Behavior tracking, overlay customization, and workflow extension patterns\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: personalization, behavior, overlay, workflow",
-    "route": "/docs/reference/personalization/personalization",
-    "source": "generated",
-    "contentPath": "personalization/personalization.md"
-  }
+	{
+		"id": "personalization/personalization",
+		"title": "personalization",
+		"summary": "Behavior tracking, overlay customization, and workflow extension patterns\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: personalization, behavior, overlay, workflow",
+		"route": "/docs/reference/personalization/personalization",
+		"source": "generated",
+		"contentPath": "personalization/personalization.md"
+	}
 ]

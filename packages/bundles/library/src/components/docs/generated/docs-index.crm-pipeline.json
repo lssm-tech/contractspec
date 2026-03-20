@@ -1,162 +1,162 @@
 [
-  {
-    "id": "crm-pipeline/contact.created",
-    "title": "contact.created",
-    "summary": "A new contact has been created.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @crm-team\n- **Tags**: contact, created\n- **File**: `packages/examples/crm-pipeline/src/events/contact.event.ts`",
-    "route": "/docs/reference/crm-pipeline/contact.created",
-    "source": "generated",
-    "contentPath": "crm-pipeline/contact.created.md"
-  },
-  {
-    "id": "crm-pipeline/crm-pipeline",
-    "title": "crm-pipeline",
-    "summary": "CRM and sales pipeline management with deals, contacts, and companies\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @crm-team\n- **Tags**: crm, sales, pipeline, deals\n- **File**: `packages/examples/crm-pipeline/src/crm-pipeline.feature.ts`",
-    "route": "/docs/reference/crm-pipeline/crm-pipeline",
-    "source": "generated",
-    "contentPath": "crm-pipeline/crm-pipeline.md"
-  },
-  {
-    "id": "crm-pipeline/crm.dashboard",
-    "title": "crm.dashboard",
-    "summary": "Main CRM dashboard with pipeline overview, deal stats, and activities\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Owners**: @crm-team\n- **Tags**: dashboard, overview\n- **File**: `packages/examples/crm-pipeline/src/presentations/dashboard.presentation.ts`",
-    "route": "/docs/reference/crm-pipeline/crm.dashboard",
-    "source": "generated",
-    "contentPath": "crm-pipeline/crm.dashboard.md"
-  },
-  {
-    "id": "crm-pipeline/crm.deal.card",
-    "title": "crm.deal.card",
-    "summary": "Compact deal card for kanban board display\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Owners**: @crm-team\n- **Tags**: deal, card, kanban\n- **File**: `packages/examples/crm-pipeline/src/presentations/pipeline.presentation.ts`",
-    "route": "/docs/reference/crm-pipeline/crm.deal.card",
-    "source": "generated",
-    "contentPath": "crm-pipeline/crm.deal.card.md"
-  },
-  {
-    "id": "crm-pipeline/crm.deal.create",
-    "title": "crm.deal.create",
-    "summary": "Create a new deal in the pipeline.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @example.crm-pipeline\n- **Tags**: crm, deal, create\n- **File**: `packages/examples/crm-pipeline/src/deal/deal.operation.ts`",
-    "route": "/docs/reference/crm-pipeline/crm.deal.create",
-    "source": "generated",
-    "contentPath": "crm-pipeline/crm.deal.create.md"
-  },
-  {
-    "id": "crm-pipeline/crm.deal.detail",
-    "title": "crm.deal.detail",
-    "summary": "Detailed view of a deal with activities, contacts, and history\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Owners**: @crm-team\n- **Tags**: deal, detail\n- **File**: `packages/examples/crm-pipeline/src/presentations/pipeline.presentation.ts`",
-    "route": "/docs/reference/crm-pipeline/crm.deal.detail",
-    "source": "generated",
-    "contentPath": "crm-pipeline/crm.deal.detail.md"
-  },
-  {
-    "id": "crm-pipeline/crm.deal.list",
-    "title": "crm.deal.list",
-    "summary": "List deals with filters.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @example.crm-pipeline\n- **Tags**: crm, deal, list\n- **File**: `packages/examples/crm-pipeline/src/deal/deal.operation.ts`",
-    "route": "/docs/reference/crm-pipeline/crm.deal.list",
-    "source": "generated",
-    "contentPath": "crm-pipeline/crm.deal.list.md"
-  },
-  {
-    "id": "crm-pipeline/crm.deal.lose",
-    "title": "crm.deal.lose",
-    "summary": "Mark a deal as lost.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @example.crm-pipeline\n- **Tags**: crm, deal, lost\n- **File**: `packages/examples/crm-pipeline/src/deal/deal.operation.ts`",
-    "route": "/docs/reference/crm-pipeline/crm.deal.lose",
-    "source": "generated",
-    "contentPath": "crm-pipeline/crm.deal.lose.md"
-  },
-  {
-    "id": "crm-pipeline/crm.deal.move",
-    "title": "crm.deal.move",
-    "summary": "Move a deal to a different stage.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @example.crm-pipeline\n- **Tags**: crm, deal, move, kanban\n- **File**: `packages/examples/crm-pipeline/src/deal/deal.operation.ts`",
-    "route": "/docs/reference/crm-pipeline/crm.deal.move",
-    "source": "generated",
-    "contentPath": "crm-pipeline/crm.deal.move.md"
-  },
-  {
-    "id": "crm-pipeline/crm.deal.viewList",
-    "title": "crm.deal.viewList",
-    "summary": "List view of deals with value, status, and owner info\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Owners**: @crm-team\n- **Tags**: deal, list\n- **File**: `packages/examples/crm-pipeline/src/presentations/pipeline.presentation.ts`",
-    "route": "/docs/reference/crm-pipeline/crm.deal.viewList",
-    "source": "generated",
-    "contentPath": "crm-pipeline/crm.deal.viewList.md"
-  },
-  {
-    "id": "crm-pipeline/crm.deal.win",
-    "title": "crm.deal.win",
-    "summary": "Mark a deal as won.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @example.crm-pipeline\n- **Tags**: crm, deal, won\n- **File**: `packages/examples/crm-pipeline/src/deal/deal.operation.ts`",
-    "route": "/docs/reference/crm-pipeline/crm.deal.win",
-    "source": "generated",
-    "contentPath": "crm-pipeline/crm.deal.win.md"
-  },
-  {
-    "id": "crm-pipeline/crm.pipeline.kanban",
-    "title": "crm.pipeline.kanban",
-    "summary": "Kanban board view of deals organized by stage\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Owners**: @crm-team\n- **Tags**: pipeline, kanban, deals\n- **File**: `packages/examples/crm-pipeline/src/presentations/pipeline.presentation.ts`",
-    "route": "/docs/reference/crm-pipeline/crm.pipeline.kanban",
-    "source": "generated",
-    "contentPath": "crm-pipeline/crm.pipeline.kanban.md"
-  },
-  {
-    "id": "crm-pipeline/crm.pipeline.metrics",
-    "title": "crm.pipeline.metrics",
-    "summary": "Pipeline metrics and forecasting view\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Owners**: @crm-team\n- **Tags**: pipeline, metrics, forecast\n- **File**: `packages/examples/crm-pipeline/src/presentations/dashboard.presentation.ts`",
-    "route": "/docs/reference/crm-pipeline/crm.pipeline.metrics",
-    "source": "generated",
-    "contentPath": "crm-pipeline/crm.pipeline.metrics.md"
-  },
-  {
-    "id": "crm-pipeline/deal.created",
-    "title": "deal.created",
-    "summary": "A new deal has been created.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @crm-team\n- **Tags**: deal, created\n- **File**: `packages/examples/crm-pipeline/src/events/deal.event.ts`",
-    "route": "/docs/reference/crm-pipeline/deal.created",
-    "source": "generated",
-    "contentPath": "crm-pipeline/deal.created.md"
-  },
-  {
-    "id": "crm-pipeline/deal.lost",
-    "title": "deal.lost",
-    "summary": "A deal has been lost.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @crm-team\n- **Tags**: deal, lost\n- **File**: `packages/examples/crm-pipeline/src/events/deal.event.ts`",
-    "route": "/docs/reference/crm-pipeline/deal.lost",
-    "source": "generated",
-    "contentPath": "crm-pipeline/deal.lost.md"
-  },
-  {
-    "id": "crm-pipeline/deal.moved",
-    "title": "deal.moved",
-    "summary": "A deal has been moved to a different stage.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @crm-team\n- **Tags**: deal, moved\n- **File**: `packages/examples/crm-pipeline/src/events/deal.event.ts`",
-    "route": "/docs/reference/crm-pipeline/deal.moved",
-    "source": "generated",
-    "contentPath": "crm-pipeline/deal.moved.md"
-  },
-  {
-    "id": "crm-pipeline/deal.won",
-    "title": "deal.won",
-    "summary": "A deal has been won.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @crm-team\n- **Tags**: deal, won\n- **File**: `packages/examples/crm-pipeline/src/events/deal.event.ts`",
-    "route": "/docs/reference/crm-pipeline/deal.won",
-    "source": "generated",
-    "contentPath": "crm-pipeline/deal.won.md"
-  },
-  {
-    "id": "crm-pipeline/task.completed",
-    "title": "task.completed",
-    "summary": "A task has been completed.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @crm-team\n- **Tags**: task, lifecycle\n- **File**: `packages/examples/crm-pipeline/src/events/task.event.ts`",
-    "route": "/docs/reference/crm-pipeline/task.completed",
-    "source": "generated",
-    "contentPath": "crm-pipeline/task.completed.md"
-  },
-  {
-    "id": "crm-pipeline/test.crm.deal.list",
-    "title": "test.crm.deal.list",
-    "summary": "Test for listing deals\n- **Type**: test-spec (test-spec)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @example.crm-pipeline\n- **Tags**: test\n- **File**: `packages/examples/crm-pipeline/src/deal/deal.test-spec.ts`",
-    "route": "/docs/reference/crm-pipeline/test.crm.deal.list",
-    "source": "generated",
-    "contentPath": "crm-pipeline/test.crm.deal.list.md"
-  },
-  {
-    "id": "crm-pipeline/test.crm.deal.move",
-    "title": "test.crm.deal.move",
-    "summary": "Test for moving deal\n- **Type**: test-spec (test-spec)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @example.crm-pipeline\n- **Tags**: test\n- **File**: `packages/examples/crm-pipeline/src/deal/deal.test-spec.ts`",
-    "route": "/docs/reference/crm-pipeline/test.crm.deal.move",
-    "source": "generated",
-    "contentPath": "crm-pipeline/test.crm.deal.move.md"
-  }
+	{
+		"id": "crm-pipeline/contact.created",
+		"title": "contact.created",
+		"summary": "A new contact has been created.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @crm-team\n- **Tags**: contact, created\n- **File**: `packages/examples/crm-pipeline/src/events/contact.event.ts`",
+		"route": "/docs/reference/crm-pipeline/contact.created",
+		"source": "generated",
+		"contentPath": "crm-pipeline/contact.created.md"
+	},
+	{
+		"id": "crm-pipeline/crm-pipeline",
+		"title": "crm-pipeline",
+		"summary": "CRM and sales pipeline management with deals, contacts, and companies\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @crm-team\n- **Tags**: crm, sales, pipeline, deals\n- **File**: `packages/examples/crm-pipeline/src/crm-pipeline.feature.ts`",
+		"route": "/docs/reference/crm-pipeline/crm-pipeline",
+		"source": "generated",
+		"contentPath": "crm-pipeline/crm-pipeline.md"
+	},
+	{
+		"id": "crm-pipeline/crm.dashboard",
+		"title": "crm.dashboard",
+		"summary": "Main CRM dashboard with pipeline overview, deal stats, and activities\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Owners**: @crm-team\n- **Tags**: dashboard, overview\n- **File**: `packages/examples/crm-pipeline/src/presentations/dashboard.presentation.ts`",
+		"route": "/docs/reference/crm-pipeline/crm.dashboard",
+		"source": "generated",
+		"contentPath": "crm-pipeline/crm.dashboard.md"
+	},
+	{
+		"id": "crm-pipeline/crm.deal.card",
+		"title": "crm.deal.card",
+		"summary": "Compact deal card for kanban board display\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Owners**: @crm-team\n- **Tags**: deal, card, kanban\n- **File**: `packages/examples/crm-pipeline/src/presentations/pipeline.presentation.ts`",
+		"route": "/docs/reference/crm-pipeline/crm.deal.card",
+		"source": "generated",
+		"contentPath": "crm-pipeline/crm.deal.card.md"
+	},
+	{
+		"id": "crm-pipeline/crm.deal.create",
+		"title": "crm.deal.create",
+		"summary": "Create a new deal in the pipeline.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @example.crm-pipeline\n- **Tags**: crm, deal, create\n- **File**: `packages/examples/crm-pipeline/src/deal/deal.operation.ts`",
+		"route": "/docs/reference/crm-pipeline/crm.deal.create",
+		"source": "generated",
+		"contentPath": "crm-pipeline/crm.deal.create.md"
+	},
+	{
+		"id": "crm-pipeline/crm.deal.detail",
+		"title": "crm.deal.detail",
+		"summary": "Detailed view of a deal with activities, contacts, and history\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Owners**: @crm-team\n- **Tags**: deal, detail\n- **File**: `packages/examples/crm-pipeline/src/presentations/pipeline.presentation.ts`",
+		"route": "/docs/reference/crm-pipeline/crm.deal.detail",
+		"source": "generated",
+		"contentPath": "crm-pipeline/crm.deal.detail.md"
+	},
+	{
+		"id": "crm-pipeline/crm.deal.list",
+		"title": "crm.deal.list",
+		"summary": "List deals with filters.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @example.crm-pipeline\n- **Tags**: crm, deal, list\n- **File**: `packages/examples/crm-pipeline/src/deal/deal.operation.ts`",
+		"route": "/docs/reference/crm-pipeline/crm.deal.list",
+		"source": "generated",
+		"contentPath": "crm-pipeline/crm.deal.list.md"
+	},
+	{
+		"id": "crm-pipeline/crm.deal.lose",
+		"title": "crm.deal.lose",
+		"summary": "Mark a deal as lost.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @example.crm-pipeline\n- **Tags**: crm, deal, lost\n- **File**: `packages/examples/crm-pipeline/src/deal/deal.operation.ts`",
+		"route": "/docs/reference/crm-pipeline/crm.deal.lose",
+		"source": "generated",
+		"contentPath": "crm-pipeline/crm.deal.lose.md"
+	},
+	{
+		"id": "crm-pipeline/crm.deal.move",
+		"title": "crm.deal.move",
+		"summary": "Move a deal to a different stage.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @example.crm-pipeline\n- **Tags**: crm, deal, move, kanban\n- **File**: `packages/examples/crm-pipeline/src/deal/deal.operation.ts`",
+		"route": "/docs/reference/crm-pipeline/crm.deal.move",
+		"source": "generated",
+		"contentPath": "crm-pipeline/crm.deal.move.md"
+	},
+	{
+		"id": "crm-pipeline/crm.deal.viewList",
+		"title": "crm.deal.viewList",
+		"summary": "List view of deals with value, status, and owner info\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Owners**: @crm-team\n- **Tags**: deal, list\n- **File**: `packages/examples/crm-pipeline/src/presentations/pipeline.presentation.ts`",
+		"route": "/docs/reference/crm-pipeline/crm.deal.viewList",
+		"source": "generated",
+		"contentPath": "crm-pipeline/crm.deal.viewList.md"
+	},
+	{
+		"id": "crm-pipeline/crm.deal.win",
+		"title": "crm.deal.win",
+		"summary": "Mark a deal as won.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @example.crm-pipeline\n- **Tags**: crm, deal, won\n- **File**: `packages/examples/crm-pipeline/src/deal/deal.operation.ts`",
+		"route": "/docs/reference/crm-pipeline/crm.deal.win",
+		"source": "generated",
+		"contentPath": "crm-pipeline/crm.deal.win.md"
+	},
+	{
+		"id": "crm-pipeline/crm.pipeline.kanban",
+		"title": "crm.pipeline.kanban",
+		"summary": "Kanban board view of deals organized by stage\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Owners**: @crm-team\n- **Tags**: pipeline, kanban, deals\n- **File**: `packages/examples/crm-pipeline/src/presentations/pipeline.presentation.ts`",
+		"route": "/docs/reference/crm-pipeline/crm.pipeline.kanban",
+		"source": "generated",
+		"contentPath": "crm-pipeline/crm.pipeline.kanban.md"
+	},
+	{
+		"id": "crm-pipeline/crm.pipeline.metrics",
+		"title": "crm.pipeline.metrics",
+		"summary": "Pipeline metrics and forecasting view\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Owners**: @crm-team\n- **Tags**: pipeline, metrics, forecast\n- **File**: `packages/examples/crm-pipeline/src/presentations/dashboard.presentation.ts`",
+		"route": "/docs/reference/crm-pipeline/crm.pipeline.metrics",
+		"source": "generated",
+		"contentPath": "crm-pipeline/crm.pipeline.metrics.md"
+	},
+	{
+		"id": "crm-pipeline/deal.created",
+		"title": "deal.created",
+		"summary": "A new deal has been created.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @crm-team\n- **Tags**: deal, created\n- **File**: `packages/examples/crm-pipeline/src/events/deal.event.ts`",
+		"route": "/docs/reference/crm-pipeline/deal.created",
+		"source": "generated",
+		"contentPath": "crm-pipeline/deal.created.md"
+	},
+	{
+		"id": "crm-pipeline/deal.lost",
+		"title": "deal.lost",
+		"summary": "A deal has been lost.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @crm-team\n- **Tags**: deal, lost\n- **File**: `packages/examples/crm-pipeline/src/events/deal.event.ts`",
+		"route": "/docs/reference/crm-pipeline/deal.lost",
+		"source": "generated",
+		"contentPath": "crm-pipeline/deal.lost.md"
+	},
+	{
+		"id": "crm-pipeline/deal.moved",
+		"title": "deal.moved",
+		"summary": "A deal has been moved to a different stage.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @crm-team\n- **Tags**: deal, moved\n- **File**: `packages/examples/crm-pipeline/src/events/deal.event.ts`",
+		"route": "/docs/reference/crm-pipeline/deal.moved",
+		"source": "generated",
+		"contentPath": "crm-pipeline/deal.moved.md"
+	},
+	{
+		"id": "crm-pipeline/deal.won",
+		"title": "deal.won",
+		"summary": "A deal has been won.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @crm-team\n- **Tags**: deal, won\n- **File**: `packages/examples/crm-pipeline/src/events/deal.event.ts`",
+		"route": "/docs/reference/crm-pipeline/deal.won",
+		"source": "generated",
+		"contentPath": "crm-pipeline/deal.won.md"
+	},
+	{
+		"id": "crm-pipeline/task.completed",
+		"title": "task.completed",
+		"summary": "A task has been completed.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @crm-team\n- **Tags**: task, lifecycle\n- **File**: `packages/examples/crm-pipeline/src/events/task.event.ts`",
+		"route": "/docs/reference/crm-pipeline/task.completed",
+		"source": "generated",
+		"contentPath": "crm-pipeline/task.completed.md"
+	},
+	{
+		"id": "crm-pipeline/test.crm.deal.list",
+		"title": "test.crm.deal.list",
+		"summary": "Test for listing deals\n- **Type**: test-spec (test-spec)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @example.crm-pipeline\n- **Tags**: test\n- **File**: `packages/examples/crm-pipeline/src/deal/deal.test-spec.ts`",
+		"route": "/docs/reference/crm-pipeline/test.crm.deal.list",
+		"source": "generated",
+		"contentPath": "crm-pipeline/test.crm.deal.list.md"
+	},
+	{
+		"id": "crm-pipeline/test.crm.deal.move",
+		"title": "test.crm.deal.move",
+		"summary": "Test for moving deal\n- **Type**: test-spec (test-spec)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @example.crm-pipeline\n- **Tags**: test\n- **File**: `packages/examples/crm-pipeline/src/deal/deal.test-spec.ts`",
+		"route": "/docs/reference/crm-pipeline/test.crm.deal.move",
+		"source": "generated",
+		"contentPath": "crm-pipeline/test.crm.deal.move.md"
+	}
 ]

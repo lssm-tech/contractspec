@@ -2,59 +2,54 @@
  * Tool domain - AI tool definitions and management.
  */
 
-// Enums
-export {
-  ToolCategoryEnum,
-  ToolStatusEnum,
-  ImplementationTypeEnum,
-} from './tool.enum';
-
-// Schema models
-export {
-  ToolModel,
-  ToolSummaryModel,
-  CreateToolInputModel,
-  UpdateToolInputModel,
-} from './tool.schema';
-
-// Contracts
-export {
-  CreateToolCommand,
-  UpdateToolCommand,
-  GetToolQuery,
-  ListToolsQuery,
-  TestToolCommand,
-} from './tool.operation';
-
-// Events
-export {
-  ToolCreatedEvent,
-  ToolUpdatedEvent,
-  ToolStatusChangedEvent,
-} from './tool.event';
-
 // Entities
 export {
-  ToolCategoryEntityEnum,
-  ToolStatusEntityEnum,
-  ImplementationTypeEntityEnum,
-  ToolEntity,
+	ImplementationTypeEntityEnum,
+	ToolCategoryEntityEnum,
+	ToolEntity,
+	ToolStatusEntityEnum,
 } from './tool.entity';
+// Enums
+export {
+	ImplementationTypeEnum,
+	ToolCategoryEnum,
+	ToolStatusEnum,
+} from './tool.enum';
+// Events
+export {
+	ToolCreatedEvent,
+	ToolStatusChangedEvent,
+	ToolUpdatedEvent,
+} from './tool.event';
+// Handlers
+export {
+	type ListToolsInput,
+	type ListToolsOutput,
+	mockCreateToolHandler,
+	mockGetToolHandler,
+	mockListToolsHandler,
+	mockTestToolHandler,
+	mockUpdateToolHandler,
+	type ToolSummary,
+} from './tool.handler';
+// Contracts
+export {
+	CreateToolCommand,
+	GetToolQuery,
+	ListToolsQuery,
+	TestToolCommand,
+	UpdateToolCommand,
+} from './tool.operation';
 
 // Presentations
 export {
-  ToolListPresentation,
-  ToolDetailPresentation,
+	ToolDetailPresentation,
+	ToolListPresentation,
 } from './tool.presentation';
-
-// Handlers
+// Schema models
 export {
-  mockListToolsHandler,
-  mockGetToolHandler,
-  mockCreateToolHandler,
-  mockUpdateToolHandler,
-  mockTestToolHandler,
-  type ListToolsInput,
-  type ToolSummary,
-  type ListToolsOutput,
-} from './tool.handler';
+	CreateToolInputModel,
+	ToolModel,
+	ToolSummaryModel,
+	UpdateToolInputModel,
+} from './tool.schema';

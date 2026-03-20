@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.product-intent",
-  "version": "3.6.0",
+  "version": "3.7.7",
   "description": "Product intent example: evidence ingestion and prompt-ready outputs.",
   "keywords": [
     "contractspec",
@@ -13,6 +13,8 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./src/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/product-intent.docblock": "./src/docs/product-intent.docblock.ts",
     "./example": "./src/example.ts",
     "./load-evidence": "./src/load-evidence.ts",
     "./posthog-signals": "./src/posthog-signals.ts",
@@ -29,13 +31,14 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "test": "bun test",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@contractspec/lib.analytics": "workspace:*",
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.contracts-integrations": "workspace:*",
     "@contractspec/lib.ai-agent": "workspace:*",
@@ -55,6 +58,18 @@
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
         "default": "./dist/index.js"
+      },
+      "./docs": {
+        "types": "./dist/docs/index.d.ts",
+        "bun": "./dist/docs/index.js",
+        "node": "./dist/node/docs/index.js",
+        "default": "./dist/docs/index.js"
+      },
+      "./docs/product-intent.docblock": {
+        "types": "./dist/docs/product-intent.docblock.d.ts",
+        "bun": "./dist/docs/product-intent.docblock.js",
+        "node": "./dist/node/docs/product-intent.docblock.js",
+        "default": "./dist/docs/product-intent.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",

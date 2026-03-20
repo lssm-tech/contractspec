@@ -2,5 +2,5 @@
  * Payment domain - Payment management.
  */
 
-export { PaymentModel, RecordPaymentInputModel } from './payment.schema';
 export { RecordPaymentContract } from './payment.operations';
+export { PaymentModel, RecordPaymentInputModel } from './payment.schema';

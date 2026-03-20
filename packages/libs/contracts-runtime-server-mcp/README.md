@@ -1,106 +1,65 @@
 # @contractspec/lib.contracts-runtime-server-mcp
 
-MCP runtime adapters for projecting ContractSpec registries into an MCP server.
+**MCP server runtime adapters for ContractSpec contracts.**
 
-Website: https://contractspec.io/
+## What It Provides
 
-## Why this package exists
-
-This package is the MCP-specific runtime layer split from `@contractspec/lib.contracts`.
-
-It converts contract registries into MCP capabilities:
-
-- command operations -> MCP tools
-- resource templates -> MCP resources
-- prompt specs -> MCP prompts
-- presentation specs -> MCP resources (optional)
-
-## Package boundary (important)
-
-Use this package for:
-
-- Registering ContractSpec operations/resources/prompts/presentations on an MCP server.
-- Reusing standardized MCP naming and registration behavior.
-
-Do not use this package for:
-
-- Defining operation/event specs (use `@contractspec/lib.contracts-spec`).
-- Owning server transport lifecycle (stdio/http wiring stays in your app using MCP SDK).
+- **Layer**: lib.
+- **Consumers**: bundles, CLI, VS Code extension.
+- `src/mcp/` contains MCP handlers, tools, prompts, and resources.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.logger`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- `src/mcp/` contains MCP handlers, tools, prompts, and resources.
 
 ## Installation
 
-```bash
-npm install @contractspec/lib.contracts-runtime-server-mcp @contractspec/lib.contracts-spec @modelcontextprotocol/sdk
-# or
-bun add @contractspec/lib.contracts-runtime-server-mcp @contractspec/lib.contracts-spec @modelcontextprotocol/sdk
-```
+`npm install @contractspec/lib.contracts-runtime-server-mcp`
 
-## Export map
+or
 
-- Main orchestration:
-  - `createMcpServer`
-- Context typing:
-  - `McpCtxFactories`
-- Fine-grained registration:
-  - `registerMcpTools`
-  - `registerMcpResources`
-  - `registerMcpPrompts`
-  - `registerMcpPresentations`
-- Compatibility alias:
-  - `provider-mcp` (re-exports `createMcpServer`)
+`bun add @contractspec/lib.contracts-runtime-server-mcp`
 
-## Quick start
+## Usage
 
-```ts
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import {
-  OperationSpecRegistry,
-  PromptRegistry,
-  ResourceRegistry,
-} from "@contractspec/lib.contracts-spec";
-import { Logger } from "@contractspec/lib.logger";
-import {
-  createMcpServer,
-  type McpCtxFactories,
-} from "@contractspec/lib.contracts-runtime-server-mcp";
+Import the root entrypoint from `@contractspec/lib.contracts-runtime-server-mcp`, or choose a documented subpath when you only need one part of the package surface.
 
-const server = new McpServer({ name: "contractspec", version: "1.0.0" });
+## Architecture
 
-const operations = new OperationSpecRegistry();
-const resources = new ResourceRegistry();
-const prompts = new PromptRegistry();
-const logger = new Logger();
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/mcp/` contains MCP handlers, tools, prompts, and resources.
+- `src/provider-mcp.ts` is part of the package's public or composition surface.
 
-const ctxFactories: McpCtxFactories = {
-  logger,
-  toolCtx: () => ({ actor: "agent", channel: "agent" }),
-  promptCtx: () => ({ locale: "en" }),
-  resourceCtx: () => ({ locale: "en" }),
-};
+## Public Entry Points
 
-createMcpServer(server, operations, resources, prompts, ctxFactories);
-```
+- Export `.` resolves through `./src/index.ts`.
+- Export `./mcp/createMcpServer` resolves through `./src/mcp/createMcpServer.ts`.
+- Export `./mcp/mcpTypes` resolves through `./src/mcp/mcpTypes.ts`.
+- Export `./mcp/registerPresentations` resolves through `./src/mcp/registerPresentations.ts`.
+- Export `./mcp/registerPrompts` resolves through `./src/mcp/registerPrompts.ts`.
+- Export `./mcp/registerResources` resolves through `./src/mcp/registerResources.ts`.
+- Export `./mcp/registerTools` resolves through `./src/mcp/registerTools.ts`.
+- Export `./provider-mcp` resolves through `./src/provider-mcp.ts`.
 
-## Behavior details
+## Local Commands
 
-- Only command operations are registered as MCP tools.
-- Resource resolvers support both text and binary payloads (binary is returned as base64 blobs).
-- Prompt args are converted to MCP args schema via Zod compatibility helpers.
-- Presentations are optional: if no presentation registry is passed or it is empty, no presentation resources are registered.
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun run lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rm -rf dist
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-## AI assistant guidance
+## Recent Updates
 
-When generating code:
+- Replace eslint+prettier by biomejs to optimize speed.
+- Add changesets and apply pending fixes.
 
-- Use this package after operation/resource/prompt specs already exist in `@contractspec/lib.contracts-spec`.
-- Start with `createMcpServer` for complete wiring, then drop to `registerMcp*` helpers only for custom registration logic.
+## Notes
 
-When debugging:
-
-- If tools are missing, verify operations are commands (`meta.kind === "command"`).
-- If resources are missing, verify `ResourceRegistry` contains templates and URI templates are valid.
-
-## Split migration from deprecated monolith
-
-- `@contractspec/lib.contracts/server/provider-mcp` -> `@contractspec/lib.contracts-runtime-server-mcp/provider-mcp`
-- `@contractspec/lib.contracts/server/mcp/*` -> `@contractspec/lib.contracts-runtime-server-mcp/mcp/*`
+- MCP protocol compliance is critical; transport layer must stay spec-compliant.
+- Do not introduce runtime-specific (Node/browser) dependencies in the transport layer.

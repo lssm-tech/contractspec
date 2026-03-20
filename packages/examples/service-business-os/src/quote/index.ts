@@ -2,9 +2,9 @@
  * Quote domain - Quote/proposal management.
  */
 
+export { AcceptQuoteContract, CreateQuoteContract } from './quote.operations';
 export {
-  QuoteModel,
-  CreateQuoteInputModel,
-  AcceptQuoteInputModel,
+	AcceptQuoteInputModel,
+	CreateQuoteInputModel,
+	QuoteModel,
 } from './quote.schema';
-export { CreateQuoteContract, AcceptQuoteContract } from './quote.operations';

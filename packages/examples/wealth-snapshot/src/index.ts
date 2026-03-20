@@ -1,10 +1,10 @@
 export * from './entities';
-export * from './operations';
 export * from './events';
+export { default as example } from './example';
+export * from './handlers';
+export * from './operations';
 export * from './presentations';
 export * from './wealth-snapshot.feature';
-export * from './handlers';
-export { default as example } from './example';
 import './docs';
 
 import { identityRbacSchemaContribution } from '@contractspec/lib.identity-rbac';
@@ -13,12 +13,12 @@ import { notificationsSchemaContribution } from '@contractspec/module.notificati
 import { wealthSnapshotSchemaContribution } from './entities';
 
 export const schemaComposition = {
-  modules: [
-    identityRbacSchemaContribution,
-    auditTrailSchemaContribution,
-    notificationsSchemaContribution,
-    wealthSnapshotSchemaContribution,
-  ],
-  provider: 'postgresql' as const,
-  outputPath: './prisma/schema/generated.prisma',
+	modules: [
+		identityRbacSchemaContribution,
+		auditTrailSchemaContribution,
+		notificationsSchemaContribution,
+		wealthSnapshotSchemaContribution,
+	],
+	provider: 'postgresql' as const,
+	outputPath: './prisma/schema/generated.prisma',
 };

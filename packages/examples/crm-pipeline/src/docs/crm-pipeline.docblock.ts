@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const crmPipelineDocBlocks: DocBlock[] = [
-  {
-    id: 'docs.examples.crm-pipeline.goal',
-    title: 'CRM Pipeline — Goal',
-    summary:
-      'Deals, stages, contacts, companies, and tasks with auditable stage movement.',
-    kind: 'goal',
-    visibility: 'public',
-    route: '/docs/examples/crm-pipeline/goal',
-    tags: ['crm', 'goal'],
-    body: `## Why it matters
+	{
+		id: 'docs.examples.crm-pipeline.goal',
+		title: 'CRM Pipeline — Goal',
+		summary:
+			'Deals, stages, contacts, companies, and tasks with auditable stage movement.',
+		kind: 'goal',
+		visibility: 'public',
+		route: '/docs/examples/crm-pipeline/goal',
+		tags: ['crm', 'goal'],
+		body: `## Why it matters
 - Regenerable CRM flow for deals/stages without code drift.
 - Ensures stage movement, tasks, and contacts stay aligned across surfaces.
 
@@ -22,16 +22,16 @@ const crmPipelineDocBlocks: DocBlock[] = [
 ## Success criteria
 - Stage/state changes emit events and remain declarative in spec.
 - PII (contacts) is scoped/redacted in presentations.`,
-  },
-  {
-    id: 'docs.examples.crm-pipeline.usage',
-    title: 'CRM Pipeline — Usage',
-    summary: 'How to seed, extend, and regenerate the CRM pipeline.',
-    kind: 'usage',
-    visibility: 'public',
-    route: '/docs/examples/crm-pipeline/usage',
-    tags: ['crm', 'usage'],
-    body: `## Setup
+	},
+	{
+		id: 'docs.examples.crm-pipeline.usage',
+		title: 'CRM Pipeline — Usage',
+		summary: 'How to seed, extend, and regenerate the CRM pipeline.',
+		kind: 'usage',
+		visibility: 'public',
+		route: '/docs/examples/crm-pipeline/usage',
+		tags: ['crm', 'usage'],
+		body: `## Setup
 1) Seed (if available) or create pipeline stages, deals, contacts, companies, tasks.
 2) Configure Notifications for stage changes/tasks; set policy.pii for contact data.
 
@@ -64,17 +64,17 @@ const crmPipelineDocBlocks: DocBlock[] = [
 4) Wire the generated handler into your existing router.
 5) Expand to events and presentations as you add surface areas.
 `,
-  },
-  {
-    id: 'docs.examples.crm-pipeline.reference',
-    title: 'CRM Pipeline — Reference',
-    summary:
-      'Entities, contracts, events, and presentations for the CRM template.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/examples/crm-pipeline',
-    tags: ['crm', 'reference'],
-    body: `## Entities
+	},
+	{
+		id: 'docs.examples.crm-pipeline.reference',
+		title: 'CRM Pipeline — Reference',
+		summary:
+			'Entities, contracts, events, and presentations for the CRM template.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/examples/crm-pipeline',
+		tags: ['crm', 'reference'],
+		body: `## Entities
 - Contact, Company, Deal, Pipeline, Stage, Task.
 
 ## Contracts
@@ -89,17 +89,17 @@ const crmPipelineDocBlocks: DocBlock[] = [
 ## Notes
 - Stage definitions should be declarative; enforce via spec and regeneration.
 - Use Notifications for deal/task updates; Audit Trail for state changes.`,
-  },
-  {
-    id: 'docs.examples.crm-pipeline.constraints',
-    title: 'CRM Pipeline — Constraints & Safety',
-    summary:
-      'Internal guardrails for stages, PII, and regeneration semantics in the CRM template.',
-    kind: 'reference',
-    visibility: 'internal',
-    route: '/docs/examples/crm-pipeline/constraints',
-    tags: ['crm', 'constraints', 'internal'],
-    body: `## Constraints
+	},
+	{
+		id: 'docs.examples.crm-pipeline.constraints',
+		title: 'CRM Pipeline — Constraints & Safety',
+		summary:
+			'Internal guardrails for stages, PII, and regeneration semantics in the CRM template.',
+		kind: 'reference',
+		visibility: 'internal',
+		route: '/docs/examples/crm-pipeline/constraints',
+		tags: ['crm', 'constraints', 'internal'],
+		body: `## Constraints
 - Stage definitions/order must remain declarative; no imperative overrides in code.
 - Events to emit: deal.created, stage.moved, task.completed, contact.updated (minimum).
 - Regeneration should not alter stage semantics without explicit spec change.
@@ -112,7 +112,7 @@ const crmPipelineDocBlocks: DocBlock[] = [
 - Add fixtures for stage move rules and SLA/task changes.
 - Ensure Audit/Notifications remain wired for stage and task events.
 - Use Feature Flags for experimental stages/SLAs; default safe/off.`,
-  },
+	},
 ];
 
 registerDocBlocks(crmPipelineDocBlocks);

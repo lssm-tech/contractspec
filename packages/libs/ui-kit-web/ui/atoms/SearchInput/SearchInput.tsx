@@ -1,55 +1,55 @@
-import React from 'react';
 import { Search, X } from 'lucide-react';
-import { Input } from '../../input';
+import React from 'react';
 import { Button } from '../../button';
+import { Input } from '../../input';
 import type { SearchInputProps } from './types';
 
 export const SearchInput: React.FC<SearchInputProps> = ({
-  value,
-  onChange,
-  placeholder = 'Rechercher...',
-  onClear,
-  disabled = false,
-  className = '',
-  autoFocus = false,
+	value,
+	onChange,
+	placeholder = 'Rechercher...',
+	onClear,
+	disabled = false,
+	className = '',
+	autoFocus = false,
 }) => {
-  const handleClear = () => {
-    onChange('');
-    onClear?.();
-  };
+	const handleClear = () => {
+		onChange('');
+		onClear?.();
+	};
 
-  return (
-    <div className={`relative w-full ${className}`}>
-      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-        <Search className="text-muted-foreground h-4 w-4" />
-      </div>
+	return (
+		<div className={`relative w-full ${className}`}>
+			<div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+				<Search className="h-4 w-4 text-muted-foreground" />
+			</div>
 
-      <Input
-        type="text"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
-        disabled={disabled}
-        // eslint-disable-next-line jsx-a11y/no-autofocus
-        autoFocus={autoFocus}
-        className="pr-10 pl-10"
-      />
+			<Input
+				type="text"
+				value={value}
+				onChange={(e) => onChange(e.target.value)}
+				placeholder={placeholder}
+				disabled={disabled}
+				// eslint-disable-next-line jsx-a11y/no-autofocus
+				autoFocus={autoFocus}
+				className="pr-10 pl-10"
+			/>
 
-      {value && (
-        <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={handleClear}
-            disabled={disabled}
-            className="h-6 w-6 p-0 hover:bg-transparent"
-          >
-            <X className="text-muted-foreground hover:text-foreground h-4 w-4" />
-            <span className="sr-only">Effacer la recherche</span>
-          </Button>
-        </div>
-      )}
-    </div>
-  );
+			{value && (
+				<div className="absolute inset-y-0 right-0 flex items-center pr-3">
+					<Button
+						type="button"
+						variant="ghost"
+						size="sm"
+						onClick={handleClear}
+						disabled={disabled}
+						className="h-6 w-6 p-0 hover:bg-transparent"
+					>
+						<X className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+						<span className="sr-only">Effacer la recherche</span>
+					</Button>
+				</div>
+			)}
+		</div>
+	);
 };

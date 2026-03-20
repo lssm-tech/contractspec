@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const featureFlagsDocBlocks: DocBlock[] = [
-  {
-    id: 'docs.feature-flags.overview',
-    title: 'Feature Flags & Experiments',
-    summary:
-      'Reusable, spec-first feature flag and experiment module with targeting, gradual rollout, multivariate variants, and evaluation logging.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/feature-flags/overview',
-    tags: ['feature-flags', 'experiments', 'progressive-delivery'],
-    body: `## What this module provides
+	{
+		id: 'docs.feature-flags.overview',
+		title: 'Feature Flags & Experiments',
+		summary:
+			'Reusable, spec-first feature flag and experiment module with targeting, gradual rollout, multivariate variants, and evaluation logging.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/feature-flags/overview',
+		tags: ['feature-flags', 'experiments', 'progressive-delivery'],
+		body: `## What this module provides
 
 - **Entities**: FeatureFlag, FlagTargetingRule, Experiment, ExperimentAssignment, FlagEvaluation.
 - **Contracts**: create/update/delete/toggle/list/get flags; create/delete rules; evaluate flags; create/start/stop/get experiments.
@@ -68,7 +68,7 @@ ${'```'},
 - Use org-scoped flags for multi-tenant isolation.
 - Log evaluations only when needed to control volume; prefer sampling for noisy paths.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(featureFlagsDocBlocks);

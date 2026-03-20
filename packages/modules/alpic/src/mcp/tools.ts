@@ -1,41 +1,41 @@
+import { sanitizeMcpName } from '@contractspec/lib.contracts-spec/jsonschema';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import * as z from 'zod';
-import { sanitizeMcpName } from '@contractspec/lib.contracts-spec/jsonschema';
 import { alpicAssetPath } from '../assets/paths';
 
 export interface AlpicMcpToolConfig {
-  name?: string;
-  description?: string;
+	name?: string;
+	description?: string;
 }
 
 const defaultToolName = 'alpic_ping';
 
 export function registerAlpicTools(
-  server: McpServer,
-  config: AlpicMcpToolConfig = {}
+	server: McpServer,
+	config: AlpicMcpToolConfig = {}
 ): void {
-  const toolName = sanitizeMcpName(config.name ?? defaultToolName);
-  const description =
-    config.description ?? 'Ping the MCP server and return basic Alpic info.';
-  const inputSchema = z.object({
-    message: z.string().optional(),
-  });
+	const toolName = sanitizeMcpName(config.name ?? defaultToolName);
+	const description =
+		config.description ?? 'Ping the MCP server and return basic Alpic info.';
+	const inputSchema = z.object({
+		message: z.string().optional(),
+	});
 
-  server.registerTool(toolName, { description, inputSchema }, async (args) => {
-    const payload = {
-      ok: true,
-      message: args.message ?? 'pong',
-      assetsBase: alpicAssetPath(''),
-      timestamp: new Date().toISOString(),
-    };
+	server.registerTool(toolName, { description, inputSchema }, async (args) => {
+		const payload = {
+			ok: true,
+			message: args.message ?? 'pong',
+			assetsBase: alpicAssetPath(''),
+			timestamp: new Date().toISOString(),
+		};
 
-    return {
-      content: [
-        {
-          type: 'text',
-          text: JSON.stringify(payload, null, 2),
-        },
-      ],
-    };
-  });
+		return {
+			content: [
+				{
+					type: 'text',
+					text: JSON.stringify(payload, null, 2),
+				},
+			],
+		};
+	});
 }

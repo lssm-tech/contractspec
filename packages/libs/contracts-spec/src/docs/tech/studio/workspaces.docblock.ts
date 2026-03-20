@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '../../registry';
 
 export const tech_studio_workspaces_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.studio.workspaces',
-    title: 'Studio projects, teams, environments',
-    summary:
-      'Organization-first Studio: projects live under an organization; teams refine access; projects deploy to multiple environments.',
-    kind: 'reference',
-    visibility: 'mixed',
-    route: '/docs/tech/studio/workspaces',
-    tags: ['studio', 'projects', 'teams', 'rbac', 'environments'],
-    body: `## Concepts
+	{
+		id: 'docs.tech.studio.workspaces',
+		title: 'Studio projects, teams, environments',
+		summary:
+			'Organization-first Studio: projects live under an organization; teams refine access; projects deploy to multiple environments.',
+		kind: 'reference',
+		visibility: 'mixed',
+		route: '/docs/tech/studio/workspaces',
+		tags: ['studio', 'projects', 'teams', 'rbac', 'environments'],
+		body: `## Concepts
 
 - **Organization**: the primary grouping boundary for Studio projects.
 - **Project**: one application (specs, overlays, deployments, integrations, evolution, learning).
@@ -52,7 +52,7 @@ Studio and Sandbox both use a shared shell:
 - \`/studio/{projectSlug}/*\`: project modules (canvas/specs/deploy/integrations/evolution/learning).
 - \`/studio/learning\`: learning hub without selecting a project.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(tech_studio_workspaces_DocBlocks);

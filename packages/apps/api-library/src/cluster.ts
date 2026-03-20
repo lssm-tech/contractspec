@@ -3,8 +3,8 @@ import os from 'node:os';
 import process from 'node:process';
 
 if (cluster.isPrimary) {
-  for (let i = 0; i < os.availableParallelism(); i++) cluster.fork();
+	for (let i = 0; i < os.availableParallelism(); i++) cluster.fork();
 } else {
-  await import('./index');
-  console.log(`Worker ${process.pid} started`);
+	await import('./index');
+	console.log(`Worker ${process.pid} started`);
 }

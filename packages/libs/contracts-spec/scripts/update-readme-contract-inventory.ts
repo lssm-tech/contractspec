@@ -4,5 +4,5 @@ import { updateReadmeInventory } from './readme-inventory.ts';
 const result = updateReadmeInventory();
 
 console.log(
-  `readme:inventory updated ${path.join('README.md')} with ${result.exportsCount} exports and ${result.categoryCount} categories.`
+	`readme:inventory updated ${path.join('README.md')} with ${result.exportsCount} exports and ${result.categoryCount} categories.`
 );

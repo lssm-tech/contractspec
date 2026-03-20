@@ -1,7 +1,7 @@
 export * from './blueprint';
-export * from './tenant';
 export * from './connection.sample';
-export * from './runtime.sample';
-export * from './integration-supabase.feature';
 export { default as example } from './example';
+export * from './integration-supabase.feature';
+export * from './runtime.sample';
+export * from './tenant';
 import './docs';

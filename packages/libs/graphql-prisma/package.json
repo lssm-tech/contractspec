@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.graphql-prisma",
-  "version": "3.6.0",
+  "version": "3.7.6",
   "description": "Pothos + Prisma builder factory with injectable client/DMMF",
   "keywords": [
     "contractspec",
@@ -54,9 +54,9 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       }
     },

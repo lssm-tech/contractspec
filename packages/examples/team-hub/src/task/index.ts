@@ -3,14 +3,14 @@
  */
 
 export {
-  TaskModel,
-  CreateTaskInputModel,
-  UpdateTaskStatusInputModel,
-} from './task.schema';
-export {
-  CreateTaskContract,
-  UpdateTaskStatusContract,
-  ListTasksOperation,
-  ListTasksInputModel,
-  ListTasksOutputModel,
+	CreateTaskContract,
+	ListTasksInputModel,
+	ListTasksOperation,
+	ListTasksOutputModel,
+	UpdateTaskStatusContract,
 } from './task.operations';
+export {
+	CreateTaskInputModel,
+	TaskModel,
+	UpdateTaskStatusInputModel,
+} from './task.schema';

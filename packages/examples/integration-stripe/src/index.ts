@@ -1,7 +1,7 @@
 export * from './blueprint';
-export * from './workflow';
-export * from './tenant';
 export * from './connection.sample';
-export * from './integration-stripe.feature';
 export { default as example } from './example';
+export * from './integration-stripe.feature';
+export * from './tenant';
+export * from './workflow';
 import './docs';

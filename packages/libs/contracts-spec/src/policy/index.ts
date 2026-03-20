@@ -1,9 +1,9 @@
-export * from './engine';
-export * from './opa-adapter';
-export * from './spec';
-export * from './registry';
 export * from './context';
+export * from './engine';
 export * from './guards';
+export * from './opa-adapter';
+export * from './registry';
+export * from './spec';
 export * from './validation';
 
 import type { PolicySpec } from './spec';

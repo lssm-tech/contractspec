@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.contracts-runtime-server-graphql",
-  "version": "3.6.0",
+  "version": "3.7.7",
   "description": "GraphQL server runtime adapters for ContractSpec contracts",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -9,14 +9,19 @@
     "publish:pkg:canary": "bun publish:pkg --tag canary",
     "clean": "rm -rf dist",
     "lint": "bun run lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "build": "bun run prebuild && bun run build:bundle && bun run build:types",
     "build:bundle": "contractspec-bun-build transpile",
     "build:types": "contractspec-bun-build types",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit",
     "dev": "contractspec-bun-build dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/contract-runtime-server-graphql"
   },
   "dependencies": {
     "@contractspec/lib.contracts-runtime-server-rest": "workspace:*",
@@ -51,16 +56,16 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./graphql-pothos": {
         "types": "./dist/graphql-pothos.d.ts",
+        "browser": "./dist/browser/graphql-pothos.js",
         "bun": "./dist/graphql-pothos.js",
         "node": "./dist/node/graphql-pothos.js",
-        "browser": "./dist/browser/graphql-pothos.js",
         "default": "./dist/graphql-pothos.js"
       }
     }

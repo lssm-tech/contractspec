@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '../../registry';
 
 export const tech_studio_project_access_teams_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.studio.project-access-teams',
-    title: 'Studio Project Access via Teams',
-    summary:
-      'Projects live under organizations; team sharing refines access with an admin/owner override.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/studio/project-access-teams',
-    tags: ['studio', 'projects', 'teams', 'rbac', 'access-control'],
-    body: `# Studio Project Access via Teams
+	{
+		id: 'docs.tech.studio.project-access-teams',
+		title: 'Studio Project Access via Teams',
+		summary:
+			'Projects live under organizations; team sharing refines access with an admin/owner override.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/studio/project-access-teams',
+		tags: ['studio', 'projects', 'teams', 'rbac', 'access-control'],
+		body: `# Studio Project Access via Teams
 
 Studio access control is **organization-first** with optional **team-based sharing**.
 
@@ -37,7 +37,7 @@ Studio access control is **organization-first** with optional **team-based shari
 
 Payloads and events must avoid secrets/PII. For Sandbox, the model remains local-first and unlogged.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(tech_studio_project_access_teams_DocBlocks);

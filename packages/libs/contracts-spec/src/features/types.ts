@@ -1,11 +1,11 @@
-import type { OwnerShipMeta } from '../ownership';
 import type { CapabilityRef, CapabilityRequirement } from '../capabilities';
 import type { ExperimentRef } from '../experiments/spec';
 import type { ImplementationRef } from '../operations/';
-import type { PresentationTarget } from '../presentations/presentations';
-import type { VersionedSpecRef, SpecKeyRef } from '../versioning';
+import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';
+import type { PresentationTarget } from '../presentations/presentations';
 import type { TranslationRef } from '../translations/spec';
+import type { SpecKeyRef, VersionedSpecRef } from '../versioning';
 
 /** Minimal metadata to identify and categorize a feature module. */
 export type FeatureModuleMeta = OwnerShipMeta;
@@ -23,6 +23,9 @@ export type PresentationRef = VersionedSpecRef;
 
 /** Reference to a data view spec (key + version). */
 export type DataViewRef = VersionedSpecRef;
+
+/** Reference to a visualization spec (key + version). */
+export type VisualizationRef = VersionedSpecRef;
 
 /** Reference to a form spec (key + version). */
 export type FormRef = VersionedSpecRef;
@@ -52,67 +55,70 @@ export type { PolicyRef, TranslationRef };
 
 /** Group operations/events/presentations into an installable feature. */
 export interface FeatureModuleSpec {
-  meta: FeatureModuleMeta;
-  /** Contract operations included in this feature. */
-  operations?: OpRef[];
-  /** Events declared/emitted by this feature. */
-  events?: EventRef[];
-  /** Presentations associated to this feature. */
-  presentations?: PresentationRef[];
-  /** Experiments related to this feature. */
-  experiments?: ExperimentRef[];
-  /** Capability bindings exposed/required by this feature. */
-  capabilities?: {
-    provides?: CapabilityRef[];
-    requires?: CapabilityRequirement[];
-  };
-  /** Optional: link ops to presentations for traceability (e.g., ui for op) */
-  opToPresentation?: { op: OpRef; pres: PresentationRef }[];
-  /** Optional: declare per-presentation target requirements (V2 descriptors) */
-  presentationsTargets?: {
-    /** Presentation key. */
-    key: string;
-    /** Presentation version. */
-    version: string;
-    /** Required targets that must be supported by the descriptor. */
-    targets: PresentationTarget[];
-  }[];
+	meta: FeatureModuleMeta;
+	/** Contract operations included in this feature. */
+	operations?: OpRef[];
+	/** Events declared/emitted by this feature. */
+	events?: EventRef[];
+	/** Presentations associated to this feature. */
+	presentations?: PresentationRef[];
+	/** Experiments related to this feature. */
+	experiments?: ExperimentRef[];
+	/** Capability bindings exposed/required by this feature. */
+	capabilities?: {
+		provides?: CapabilityRef[];
+		requires?: CapabilityRequirement[];
+	};
+	/** Optional: link ops to presentations for traceability (e.g., ui for op) */
+	opToPresentation?: { op: OpRef; pres: PresentationRef }[];
+	/** Optional: declare per-presentation target requirements (V2 descriptors) */
+	presentationsTargets?: {
+		/** Presentation key. */
+		key: string;
+		/** Presentation version. */
+		version: string;
+		/** Required targets that must be supported by the descriptor. */
+		targets: PresentationTarget[];
+	}[];
 
-  /**
-   * Explicit implementation file mappings for the entire feature module.
-   * Used for tracking and verifying that this feature is correctly implemented.
-   */
-  implementations?: ImplementationRef[];
+	/**
+	 * Explicit implementation file mappings for the entire feature module.
+	 * Used for tracking and verifying that this feature is correctly implemented.
+	 */
+	implementations?: ImplementationRef[];
 
-  /** Data views associated with this feature. */
-  dataViews?: DataViewRef[];
+	/** Data views associated with this feature. */
+	dataViews?: DataViewRef[];
 
-  /** Forms associated with this feature. */
-  forms?: FormRef[];
+	/** Visualizations associated with this feature. */
+	visualizations?: VisualizationRef[];
 
-  /** Workflows orchestrated by this feature. */
-  workflows?: WorkflowRef[];
+	/** Forms associated with this feature. */
+	forms?: FormRef[];
 
-  /** Knowledge spaces consumed/produced by this feature. */
-  knowledge?: KnowledgeRef[];
+	/** Workflows orchestrated by this feature. */
+	workflows?: WorkflowRef[];
 
-  /** Telemetry spec grouping events tracked by this feature. */
-  telemetry?: TelemetryRef[];
+	/** Knowledge spaces consumed/produced by this feature. */
+	knowledge?: KnowledgeRef[];
 
-  /** Policies governing this feature. */
-  policies?: PolicyRef[];
+	/** Telemetry spec grouping events tracked by this feature. */
+	telemetry?: TelemetryRef[];
 
-  /** Integration specs required by this feature. */
-  integrations?: IntegrationRef[];
+	/** Policies governing this feature. */
+	policies?: PolicyRef[];
 
-  /** Background jobs declared by this feature. */
-  jobs?: JobRef[];
+	/** Integration specs required by this feature. */
+	integrations?: IntegrationRef[];
 
-  /** Translation specs providing i18n messages for this feature. */
-  translations?: TranslationRef[];
+	/** Background jobs declared by this feature. */
+	jobs?: JobRef[];
 
-  /** DocBlock IDs documenting this feature. */
-  docs?: DocRef[];
+	/** Translation specs providing i18n messages for this feature. */
+	translations?: TranslationRef[];
+
+	/** DocBlock IDs documenting this feature. */
+	docs?: DocRef[];
 }
 
 /**
@@ -125,4 +131,4 @@ export type FeatureRef = SpecKeyRef;
  * Helper to define a Feature.
  */
 export const defineFeature = (spec: FeatureModuleSpec): FeatureModuleSpec =>
-  spec;
+	spec;

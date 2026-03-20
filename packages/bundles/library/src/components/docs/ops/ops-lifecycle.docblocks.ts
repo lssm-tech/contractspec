@@ -1,41 +1,41 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 
 export const opsLifecycleDocs: DocBlock[] = [
-  {
-    id: 'docs.ops.lifecycle-operations.goal',
-    title: 'Lifecycle operations goal',
-    summary:
-      'Keep managed lifecycle assessments timely, auditable, and low-risk per tenant.',
-    kind: 'goal',
-    visibility: 'public',
-    route: '/docs/ops/lifecycle-operations/goal',
-    tags: ['ops', 'lifecycle'],
-    body: 'Operate lifecycle assessments with predictable cadence, clear observability, and reversible customizations so tenants stay aligned to milestones without risking data access.',
-  },
-  {
-    id: 'docs.ops.lifecycle-operations.usage',
-    title: 'Lifecycle operations usage guide',
-    summary: 'Quick checklist for running lifecycle managed ops.',
-    kind: 'usage',
-    visibility: 'public',
-    route: '/docs/ops/lifecycle-operations/usage',
-    tags: ['ops', 'lifecycle'],
-    body: `- Run weekly auto-refresh per tenant; allow manual reruns behind \`LIFECYCLE_DETECTION_ALPHA\`.
+	{
+		id: 'docs.ops.lifecycle-operations.goal',
+		title: 'Lifecycle operations goal',
+		summary:
+			'Keep managed lifecycle assessments timely, auditable, and low-risk per tenant.',
+		kind: 'goal',
+		visibility: 'public',
+		route: '/docs/ops/lifecycle-operations/goal',
+		tags: ['ops', 'lifecycle'],
+		body: 'Operate lifecycle assessments with predictable cadence, clear observability, and reversible customizations so tenants stay aligned to milestones without risking data access.',
+	},
+	{
+		id: 'docs.ops.lifecycle-operations.usage',
+		title: 'Lifecycle operations usage guide',
+		summary: 'Quick checklist for running lifecycle managed ops.',
+		kind: 'usage',
+		visibility: 'public',
+		route: '/docs/ops/lifecycle-operations/usage',
+		tags: ['ops', 'lifecycle'],
+		body: `- Run weekly auto-refresh per tenant; allow manual reruns behind \`LIFECYCLE_DETECTION_ALPHA\`.
 - Publish top 3 actions + milestone checklist to Studio UI; emit lifecycle events.
 - Monitor P95 < 500ms; alert on confidence < 0.5 or stage churn.
 - Version overrides (weights, milestones, playbooks); never edit compiled JS.
 - Log incidents for detection gaps or bad recommendations; gate ceremony output via flag if broken.`,
-  },
-  {
-    id: 'docs.ops.lifecycle-operations.how',
-    title: 'Lifecycle operations runbook',
-    summary:
-      'Full runbook for lifecycle assessments, customization, and alerts.',
-    kind: 'how',
-    visibility: 'public',
-    route: '/docs/ops/lifecycle-operations/how',
-    tags: ['ops', 'lifecycle'],
-    body: `## Lifecycle Operations Runbook (ContractSpec Managed)
+	},
+	{
+		id: 'docs.ops.lifecycle-operations.how',
+		title: 'Lifecycle operations runbook',
+		summary:
+			'Full runbook for lifecycle assessments, customization, and alerts.',
+		kind: 'how',
+		visibility: 'public',
+		route: '/docs/ops/lifecycle-operations/how',
+		tags: ['ops', 'lifecycle'],
+		body: `## Lifecycle Operations Runbook (ContractSpec Managed)
 
 This runbook guides ContractSpec operators who run the lifecycle managed service (bundle + Studio surfaces). It focuses on cadence, monitoring, customization, and escalation without touching tenant-specific databases.
 
@@ -147,5 +147,5 @@ Alert recipients: lifecycle ops squad + product owner.
 - Progressive delivery config for lifecycle feature flags.
 
 Maintain this runbook alongside code changes; every bundle release must document operational impact and flag defaults.`,
-  },
+	},
 ];

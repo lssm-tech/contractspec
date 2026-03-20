@@ -1,46 +1,46 @@
 {
-  "name": "@contractspec/app.provider-ranking-mcp",
-  "version": "1.5.0",
-  "type": "module",
-  "scripts": {
-    "clean": "rm -rf dist",
-    "lint": "bun run lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
-    "build": "tsdown",
-    "dev": "tsdown --watch",
-    "start": "node dist/server.js"
-  },
-  "dependencies": {
-    "@contractspec/lib.ai-providers": "workspace:*",
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "@contractspec/lib.contracts-runtime-server-mcp": "workspace:*",
-    "@contractspec/lib.logger": "workspace:*",
-    "@contractspec/lib.provider-ranking": "workspace:*",
-    "@contractspec/module.provider-ranking": "workspace:*",
-    "@modelcontextprotocol/sdk": "catalog:ai",
-    "zod": "catalog:"
-  },
-  "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
-    "@contractspec/tool.typescript": "workspace:*",
-    "@types/node": "^25.3.5",
-    "tsdown": "catalog:build",
-    "typescript": "catalog:"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/apps/provider-ranking-mcp"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
-    "access": "public"
-  },
-  "exports": {
-    ".": "./dist/index.mjs",
-    "./server": "./dist/server.mjs",
-    "./*": "./*"
-  }
+	"name": "@contractspec/app.provider-ranking-mcp",
+	"version": "1.6.7",
+	"type": "module",
+	"scripts": {
+		"clean": "rm -rf dist",
+		"lint": "bun run lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"build": "tsdown",
+		"dev": "tsdown --watch",
+		"start": "node dist/server.js"
+	},
+	"dependencies": {
+		"@contractspec/lib.ai-providers": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.contracts-runtime-server-mcp": "workspace:*",
+		"@contractspec/lib.logger": "workspace:*",
+		"@contractspec/lib.provider-ranking": "workspace:*",
+		"@contractspec/module.provider-ranking": "workspace:*",
+		"@modelcontextprotocol/sdk": "catalog:ai",
+		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"@contractspec/tool.tsdown": "workspace:*",
+		"@contractspec/tool.typescript": "workspace:*",
+		"@types/node": "^25.3.5",
+		"tsdown": "catalog:build",
+		"typescript": "catalog:"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/apps/provider-ranking-mcp"
+	},
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/",
+		"access": "public"
+	},
+	"exports": {
+		".": "./dist/index.mjs",
+		"./server": "./dist/server.mjs",
+		"./*": "./*"
+	}
 }

@@ -6,115 +6,115 @@
  */
 
 import * as vscode from 'vscode';
+import { FixCodeActionProvider } from './code-actions/fix-provider';
+import { registerFixCommands } from './commands/fix';
 import { registerCommands } from './commands/index';
+import { registerIntegrityCommands } from './commands/integrity';
+import { disposeWatchMode } from './commands/watch';
+import { registerCompletionProviders } from './completion/index';
 import {
-  registerDiagnostics,
-  registerIntegrityDiagnostics,
+	registerDiagnostics,
+	registerIntegrityDiagnostics,
 } from './diagnostics/index';
 import { createTelemetryReporter, TelemetryReporter } from './telemetry/index';
 import { createOutputChannel } from './ui/output-channel';
 import {
-  createWatchStatusBarItem,
-  createWorkspaceStatusBarItem,
-  updateWorkspaceStatus,
+	createWatchStatusBarItem,
+	createWorkspaceStatusBarItem,
+	updateWorkspaceStatus,
 } from './ui/status-bar';
-import { disposeWatchMode } from './commands/watch';
+import { registerFeatureExplorer } from './views/feature-explorer';
 import { registerViews } from './views/index';
 import { registerIntegrityTree } from './views/integrity-tree';
-import { registerFeatureExplorer } from './views/feature-explorer';
-import { registerIntegrityCommands } from './commands/integrity';
 import {
-  formatWorkspaceInfoForDisplay,
-  invalidateWorkspaceCache,
+	formatWorkspaceInfoForDisplay,
+	invalidateWorkspaceCache,
 } from './workspace/adapters';
-import { registerCompletionProviders } from './completion/index';
-import { registerFixCommands } from './commands/fix';
-import { FixCodeActionProvider } from './code-actions/fix-provider';
 
 let telemetryReporter: TelemetryReporter | undefined;
 let workspaceStatusBarItem: vscode.StatusBarItem | undefined;
 
 export async function activate(
-  context: vscode.ExtensionContext
+	context: vscode.ExtensionContext
 ): Promise<void> {
-  const outputChannel = createOutputChannel();
-  context.subscriptions.push(outputChannel);
+	const outputChannel = createOutputChannel();
+	context.subscriptions.push(outputChannel);
 
-  outputChannel.appendLine('ContractSpec extension activating...');
+	outputChannel.appendLine('ContractSpec extension activating...');
 
-  // Initialize telemetry (respects VS Code telemetry settings)
-  telemetryReporter = createTelemetryReporter(context);
-  if (telemetryReporter) {
-    context.subscriptions.push(telemetryReporter);
-    telemetryReporter.sendTelemetryEvent('contractspec.vscode.activated', {
-      version: context.extension.packageJSON.version ?? '0.0.0',
-    });
-  }
+	// Initialize telemetry (respects VS Code telemetry settings)
+	telemetryReporter = createTelemetryReporter(context);
+	if (telemetryReporter) {
+		context.subscriptions.push(telemetryReporter);
+		telemetryReporter.sendTelemetryEvent('contractspec.vscode.activated', {
+			version: context.extension.packageJSON.version ?? '0.0.0',
+		});
+	}
 
-  // Create status bar items
-  const statusBarItem = createWatchStatusBarItem(context);
-  workspaceStatusBarItem = createWorkspaceStatusBarItem(context);
+	// Create status bar items
+	const statusBarItem = createWatchStatusBarItem(context);
+	workspaceStatusBarItem = createWorkspaceStatusBarItem(context);
 
-  // Register views
-  registerViews(context, outputChannel);
+	// Register views
+	registerViews(context, outputChannel);
 
-  // Register integrity views
-  registerIntegrityTree(context);
-  registerFeatureExplorer(context);
+	// Register integrity views
+	registerIntegrityTree(context);
+	registerFeatureExplorer(context);
 
-  // Register diagnostics (validation on open/save)
-  registerDiagnostics(context, outputChannel);
+	// Register diagnostics (validation on open/save)
+	registerDiagnostics(context, outputChannel);
 
-  // Register integrity diagnostics
-  const integrityDiagnostics = registerIntegrityDiagnostics(context);
+	// Register integrity diagnostics
+	const integrityDiagnostics = registerIntegrityDiagnostics(context);
 
-  // Register commands (including workspace info command)
-  registerCommands(context, outputChannel, telemetryReporter, statusBarItem);
+	// Register commands (including workspace info command)
+	registerCommands(context, outputChannel, telemetryReporter, statusBarItem);
 
-  // Register integrity commands
-  registerIntegrityCommands(context, integrityDiagnostics);
+	// Register integrity commands
+	registerIntegrityCommands(context, integrityDiagnostics);
 
-  // Register completion providers for spec names
-  registerCompletionProviders(context);
+	// Register completion providers for spec names
+	registerCompletionProviders(context);
 
-  // Register workspace info command
-  context.subscriptions.push(
-    vscode.commands.registerCommand('contractspec.workspaceInfo', () => {
-      const info = formatWorkspaceInfoForDisplay();
-      vscode.window.showInformationMessage('ContractSpec Workspace Info', {
-        modal: true,
-        detail: info,
-      });
-    })
-  );
+	// Register workspace info command
+	context.subscriptions.push(
+		vscode.commands.registerCommand('contractspec.workspaceInfo', () => {
+			const info = formatWorkspaceInfoForDisplay();
+			vscode.window.showInformationMessage('ContractSpec Workspace Info', {
+				modal: true,
+				detail: info,
+			});
+		})
+	);
 
-  // Register fix command
-  registerFixCommands(context);
+	// Register fix command
+	registerFixCommands(context);
 
-  // Register code action provider for fixes
-  context.subscriptions.push(
-    vscode.languages.registerCodeActionsProvider(
-      { scheme: 'file', language: 'typescript' }, // Adjust selector as needed, or check isSpecFile
-      new FixCodeActionProvider(),
-      {
-        providedCodeActionKinds: FixCodeActionProvider.providedCodeActionKinds,
-      }
-    )
-  );
+	// Register code action provider for fixes
+	context.subscriptions.push(
+		vscode.languages.registerCodeActionsProvider(
+			{ scheme: 'file', language: 'typescript' }, // Adjust selector as needed, or check isSpecFile
+			new FixCodeActionProvider(),
+			{
+				providedCodeActionKinds: FixCodeActionProvider.providedCodeActionKinds,
+			}
+		)
+	);
 
-  context.subscriptions.push(
-    vscode.workspace.onDidChangeWorkspaceFolders(() => {
-      invalidateWorkspaceCache();
-      if (workspaceStatusBarItem) {
-        updateWorkspaceStatus(workspaceStatusBarItem);
-      }
-    })
-  );
+	context.subscriptions.push(
+		vscode.workspace.onDidChangeWorkspaceFolders(() => {
+			invalidateWorkspaceCache();
+			if (workspaceStatusBarItem) {
+				updateWorkspaceStatus(workspaceStatusBarItem);
+			}
+		})
+	);
 
-  outputChannel.appendLine('ContractSpec extension activated');
+	outputChannel.appendLine('ContractSpec extension activated');
 }
 
 export function deactivate(): void {
-  telemetryReporter?.dispose();
-  disposeWatchMode();
+	telemetryReporter?.dispose();
+	disposeWatchMode();
 }

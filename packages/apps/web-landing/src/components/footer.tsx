@@ -1,174 +1,145 @@
+import { Github, Linkedin, Mail } from 'lucide-react';
 import Link from 'next/link';
 import NewsletterSignup from './newsletter-signup';
-import { Github, Linkedin, Mail } from 'lucide-react';
 
-/**
- * VS Code icon component for the footer social section.
- */
-function VSCodeIcon({ size = 20 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-label="VS Code"
-    >
-      <path d="M17.583 2.255L7.8 10.48 3.83 7.58l-.83.51v7.82l.83.51 3.97-2.9 9.783 8.225c.247.18.558.255.867.205l2.5-.5c.37-.075.65-.38.72-.755V3.31c-.07-.375-.35-.68-.72-.755l-2.5-.5a.997.997 0 0 0-.867.2zM18 5.04v13.92l-6.583-5.53 1.166-.98.002-.002L18 8.485V5.04zm0 3.445l-3.417 2.87L18 14.22v-5.735zM6.75 11.5L3 14.1V9.9l3.75 1.6z" />
-    </svg>
-  );
+function FooterColumn({
+	title,
+	links,
+}: {
+	title: string;
+	links: Array<{ href: string; label: string; external?: boolean }>;
+}) {
+	return (
+		<div className="space-y-4">
+			<h3 className="font-medium text-sm uppercase tracking-[0.08em]">
+				{title}
+			</h3>
+			<ul className="space-y-3 text-muted-foreground text-sm">
+				{links.map((link) => (
+					<li key={link.href}>
+						<Link
+							href={link.href}
+							className="hover:text-foreground"
+							target={link.external ? '_blank' : undefined}
+							rel={link.external ? 'noopener noreferrer' : undefined}
+						>
+							{link.label}
+						</Link>
+					</li>
+				))}
+			</ul>
+		</div>
+	);
 }
 
 export default function Footer() {
-  return (
-    <footer className="bg-card border-border border-t">
-      <div className="mx-auto max-w-7xl px-4 py-12 md:px-6 md:py-16 lg:px-8">
-        {/* Newsletter Section */}
-        <div className="border-border mb-12 flex items-center justify-center border-b pb-12">
-          <div className="max-w-md">
-            <NewsletterSignup />
-          </div>
-        </div>
+	return (
+		<footer className="border-border/80 border-t bg-[rgb(251_247_240_/_0.82)]">
+			<div className="editorial-shell px-4 py-14 md:px-6 lg:px-8 lg:py-16">
+				<div className="editorial-proof-strip mb-10 rounded-[36px]">
+					<div className="max-w-2xl space-y-3">
+						<p className="editorial-kicker">Stay close to the roadmap</p>
+						<h2 className="font-serif text-3xl tracking-[-0.04em]">
+							Follow how the open system evolves into the operating product.
+						</h2>
+						<p className="editorial-copy text-sm">
+							Release notes, template drops, Studio updates, and the product
+							thinking behind them.
+						</p>
+					</div>
+					<div className="w-full max-w-md">
+						<NewsletterSignup />
+					</div>
+				</div>
 
-        <div className="mb-8 grid grid-cols-2 gap-8 md:grid-cols-4">
-          <div>
-            <h3 className="mb-4 font-bold">Product</h3>
-            <ul className="text-muted-foreground space-y-2 text-sm">
-              <li>
-                <Link href="/product" className="hover:text-foreground">
-                  How it works
-                </Link>
-              </li>
-              <li>
-                <Link href="/templates" className="hover:text-foreground">
-                  Templates
-                </Link>
-              </li>
-              <li>
-                <Link href="/pricing" className="hover:text-foreground">
-                  Pricing
-                </Link>
-              </li>
-              <li>
-                <Link href="/docs/comparison" className="hover:text-foreground">
-                  Comparison
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="mb-4 font-bold">
-              <Link
-                href="/docs"
-                className="hover:text-primary transition-colors"
-              >
-                Docs
-              </Link>
-            </h3>
-            <ul className="text-muted-foreground space-y-2 text-sm">
-              <li>
-                <Link href="/docs" className="hover:text-foreground">
-                  Getting started
-                </Link>
-              </li>
-              <li>
-                <Link href="/docs/specs" className="hover:text-foreground">
-                  Specs
-                </Link>
-              </li>
-              <li>
-                <Link href="/docs/safety" className="hover:text-foreground">
-                  Safety
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="mb-4 font-bold">Company</h3>
-            <ul className="text-muted-foreground space-y-2 text-sm">
-              <li>
-                <Link href="/changelog" className="hover:text-foreground">
-                  Changelog
-                </Link>
-              </li>
-              <li>
-                <Link href="/docs/manifesto" className="hover:text-foreground">
-                  Manifesto
-                </Link>
-              </li>
-              <li>
-                <Link href="/legal/privacy" className="hover:text-foreground">
-                  Privacy
-                </Link>
-              </li>
-              <li>
-                <Link href="/legal/terms" className="hover:text-foreground">
-                  Terms
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="mb-2 font-bold">
-              <Link
-                href="/install"
-                className="hover:text-primary transition-colors"
-              >
-                Install
-              </Link>
-            </h3>
-            <div className="flex gap-4">
-              <Link
-                href="https://marketplace.visualstudio.com/items?itemName=lssm.vscode-contractspec"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                title="Add to VS Code"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <VSCodeIcon size={20} />
-              </Link>
-            </div>
-            <h3 className="my-2 font-bold">Social</h3>
-            <div className="flex gap-4">
-              <Link
-                href="https://github.com/lssm-tech/contractspec"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Github size={20} />
-              </Link>
-              {/*<a href="#" className="text-muted-foreground hover:text-foreground transition-colors">*/}
-              {/*  <Twitter size={20} />*/}
-              {/*</a>*/}
-              <Link
-                href="https://linkedin.com/company/contractspec"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Linkedin size={20} />
-              </Link>
-              <Link
-                href="mailto:contact@contractspec.io"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Mail size={20} />
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className="border-border flex flex-col items-center justify-between border-t pt-8 md:flex-row">
-          <p className="text-muted-foreground text-sm">
-            Built with ContractSpec © {new Date().getFullYear()}
-          </p>
-          <div className="text-muted-foreground mt-4 flex gap-6 text-sm md:mt-0">
-            <Link href="/legal/privacy" className="hover:text-foreground">
-              Privacy
-            </Link>
-            <Link href="/legal/terms" className="hover:text-foreground">
-              Terms
-            </Link>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
+				<div className="grid gap-10 border-border/80 border-t pt-10 md:grid-cols-[1.2fr_repeat(3,minmax(0,1fr))]">
+					<div className="space-y-5">
+						<p className="editorial-kicker">ContractSpec</p>
+						<h3 className="font-serif text-3xl tracking-[-0.04em]">
+							The open spec system for AI-native software.
+						</h3>
+						<p className="editorial-copy max-w-md text-sm">
+							Start with the OSS foundation when you want explicit contracts,
+							safe regeneration, and multi-surface consistency. Move into Studio
+							when you want the operating layer on top.
+						</p>
+						<div className="flex items-center gap-4 text-muted-foreground">
+							<Link
+								href="https://github.com/lssm-tech/contractspec"
+								className="hover:text-foreground"
+							>
+								<Github size={18} />
+							</Link>
+							<Link
+								href="https://linkedin.com/company/contractspec"
+								className="hover:text-foreground"
+							>
+								<Linkedin size={18} />
+							</Link>
+							<Link
+								href="mailto:contact@contractspec.io"
+								className="hover:text-foreground"
+							>
+								<Mail size={18} />
+							</Link>
+						</div>
+					</div>
+
+					<FooterColumn
+						title="Open system"
+						links={[
+							{ href: '/product', label: 'How it works' },
+							{ href: '/templates', label: 'Templates' },
+							{ href: '/docs', label: 'Documentation' },
+							{
+								href: 'https://github.com/lssm-tech/contractspec',
+								label: 'GitHub',
+								external: true,
+							},
+						]}
+					/>
+					<FooterColumn
+						title="Studio"
+						links={[
+							{
+								href: 'https://www.contractspec.studio',
+								label: 'Open Studio',
+								external: true,
+							},
+							{ href: '/pricing', label: 'Packaging' },
+							{ href: '/design-partner', label: 'Design partner' },
+							{ href: '/contact', label: 'Talk to us' },
+						]}
+					/>
+					<FooterColumn
+						title="Company"
+						links={[
+							{ href: '/changelog', label: 'Changelog' },
+							{ href: '/contribute', label: 'Contribute' },
+							{ href: '/legal/privacy', label: 'Privacy' },
+							{ href: '/legal/terms', label: 'Terms' },
+						]}
+					/>
+				</div>
+
+				<div className="mt-10 flex flex-col gap-3 border-border/80 border-t pt-6 text-muted-foreground text-sm md:flex-row md:items-center md:justify-between">
+					<p>Built with ContractSpec © {new Date().getFullYear()}</p>
+					<div className="flex gap-5">
+						<Link href="/llms.txt" className="hover:text-foreground">
+							LLM guide
+						</Link>
+						<Link href="/install" className="hover:text-foreground">
+							Start with OSS
+						</Link>
+						<Link
+							href="https://www.contractspec.studio"
+							className="hover:text-foreground"
+						>
+							Explore Studio
+						</Link>
+					</div>
+				</div>
+			</div>
+		</footer>
+	);
 }

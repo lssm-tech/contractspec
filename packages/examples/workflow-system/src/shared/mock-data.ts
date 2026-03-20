@@ -4,19 +4,19 @@
  */
 
 import type {
-  WorkflowDefinitionRecord,
-  WorkflowStepRecord,
-  WorkflowInstanceRecord,
-  ApprovalRequestRecord,
+	ApprovalRequestRecord,
+	WorkflowDefinitionRecord,
+	WorkflowInstanceRecord,
+	WorkflowStepRecord,
 } from './types';
 
 export const mockDataStore = {
-  workflows: new Map<string, WorkflowDefinitionRecord>(),
-  steps: new Map<string, WorkflowStepRecord>(),
-  instances: new Map<string, WorkflowInstanceRecord>(),
-  approvals: new Map<string, ApprovalRequestRecord>(),
-  stepExecutions: new Map<
-    string,
-    { id: string; instanceId: string; stepId: string; status: string }
-  >(),
+	workflows: new Map<string, WorkflowDefinitionRecord>(),
+	steps: new Map<string, WorkflowStepRecord>(),
+	instances: new Map<string, WorkflowInstanceRecord>(),
+	approvals: new Map<string, ApprovalRequestRecord>(),
+	stepExecutions: new Map<
+		string,
+		{ id: string; instanceId: string; stepId: string; status: string }
+	>(),
 };

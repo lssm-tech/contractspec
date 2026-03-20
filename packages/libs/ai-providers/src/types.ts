@@ -7,127 +7,127 @@ import type { LanguageModel } from 'ai';
  * Supported AI providers
  */
 export type ProviderName =
-  | 'ollama'
-  | 'openai'
-  | 'anthropic'
-  | 'mistral'
-  | 'gemini';
+	| 'ollama'
+	| 'openai'
+	| 'anthropic'
+	| 'mistral'
+	| 'gemini';
 
 /**
  * Legacy provider names (for backwards compatibility)
  */
 export type LegacyProviderName =
-  | 'claude'
-  | 'openai'
-  | 'ollama'
-  | 'custom'
-  | 'mistral';
+	| 'claude'
+	| 'openai'
+	| 'ollama'
+	| 'custom'
+	| 'mistral';
 
 /**
  * Provider mode determines how API keys are resolved
  */
 export type ProviderMode =
-  | 'local' // Local provider (Ollama only)
-  | 'byok' // Bring Your Own Key
-  | 'managed'; // Managed keys via API proxy
+	| 'local' // Local provider (Ollama only)
+	| 'byok' // Bring Your Own Key
+	| 'managed'; // Managed keys via API proxy
 
 /**
  * Configuration for creating a provider
  */
 export interface ProviderConfig {
-  /** Which provider to use */
-  provider: ProviderName;
-  /** Specific model to use (optional, uses provider default) */
-  model?: string;
-  /** API key for BYOK mode */
-  apiKey?: string;
-  /** Custom base URL (for Ollama or custom endpoints) */
-  baseUrl?: string;
-  /** API proxy URL for managed mode */
-  proxyUrl?: string;
-  /** Organization/tenant ID for managed mode */
-  organizationId?: string;
-  /** Transport mode for the provider connection. */
-  transport?: 'rest' | 'mcp' | 'sdk';
-  /** Auth method used for this provider connection. */
-  authMethod?: 'api-key' | 'oauth2' | 'bearer';
-  /** Provider API version to target. */
-  apiVersion?: string;
-  /** Custom headers to include in requests. */
-  customHeaders?: Record<string, string>;
+	/** Which provider to use */
+	provider: ProviderName;
+	/** Specific model to use (optional, uses provider default) */
+	model?: string;
+	/** API key for BYOK mode */
+	apiKey?: string;
+	/** Custom base URL (for Ollama or custom endpoints) */
+	baseUrl?: string;
+	/** API proxy URL for managed mode */
+	proxyUrl?: string;
+	/** Organization/tenant ID for managed mode */
+	organizationId?: string;
+	/** Transport mode for the provider connection. */
+	transport?: 'rest' | 'mcp' | 'sdk';
+	/** Auth method used for this provider connection. */
+	authMethod?: 'api-key' | 'oauth2' | 'bearer';
+	/** Provider API version to target. */
+	apiVersion?: string;
+	/** Custom headers to include in requests. */
+	customHeaders?: Record<string, string>;
 }
 
 /**
  * Model capability flags
  */
 export interface ModelCapabilities {
-  /** Supports image/vision input */
-  vision: boolean;
-  /** Supports tool/function calling */
-  tools: boolean;
-  /** Supports extended thinking/reasoning */
-  reasoning: boolean;
-  /** Supports streaming */
-  streaming: boolean;
+	/** Supports image/vision input */
+	vision: boolean;
+	/** Supports tool/function calling */
+	tools: boolean;
+	/** Supports extended thinking/reasoning */
+	reasoning: boolean;
+	/** Supports streaming */
+	streaming: boolean;
 }
 
 /**
  * Model information
  */
 export interface ModelInfo {
-  /** Model identifier */
-  id: string;
-  /** Human-readable name */
-  name: string;
-  /** Provider this model belongs to */
-  provider: ProviderName;
-  /** Context window size in tokens */
-  contextWindow: number;
-  /** Model capabilities */
-  capabilities: ModelCapabilities;
-  /** Approximate cost per million tokens (input, output) */
-  costPerMillion?: { input: number; output: number };
+	/** Model identifier */
+	id: string;
+	/** Human-readable name */
+	name: string;
+	/** Provider this model belongs to */
+	provider: ProviderName;
+	/** Context window size in tokens */
+	contextWindow: number;
+	/** Model capabilities */
+	capabilities: ModelCapabilities;
+	/** Approximate cost per million tokens (input, output) */
+	costPerMillion?: { input: number; output: number };
 }
 
 /**
  * AI Provider interface
  */
 export interface Provider {
-  /** Provider name */
-  readonly name: ProviderName;
-  /** Current model ID */
-  readonly model: string;
-  /** Provider mode */
-  readonly mode: ProviderMode;
+	/** Provider name */
+	readonly name: ProviderName;
+	/** Current model ID */
+	readonly model: string;
+	/** Provider mode */
+	readonly mode: ProviderMode;
 
-  /**
-   * Get the underlying AI SDK language model
-   */
-  getModel(): LanguageModel;
+	/**
+	 * Get the underlying AI SDK language model
+	 */
+	getModel(): LanguageModel;
 
-  /**
-   * List available models for this provider
-   */
-  listModels(): Promise<ModelInfo[]>;
+	/**
+	 * List available models for this provider
+	 */
+	listModels(): Promise<ModelInfo[]>;
 
-  /**
-   * Validate the provider configuration/credentials
-   */
-  validate(): Promise<{ valid: boolean; error?: string }>;
+	/**
+	 * Validate the provider configuration/credentials
+	 */
+	validate(): Promise<{ valid: boolean; error?: string }>;
 }
 
 /**
  * Provider availability info
  */
 export interface ProviderAvailability {
-  provider: ProviderName;
-  available: boolean;
-  mode: ProviderMode;
-  reason?: string;
-  /** Transports available for this provider. */
-  transports?: ('rest' | 'mcp' | 'sdk')[];
-  /** Auth methods available for this provider. */
-  authMethods?: ('api-key' | 'oauth2' | 'bearer')[];
+	provider: ProviderName;
+	available: boolean;
+	mode: ProviderMode;
+	reason?: string;
+	/** Transports available for this provider. */
+	transports?: ('rest' | 'mcp' | 'sdk')[];
+	/** Auth methods available for this provider. */
+	authMethods?: ('api-key' | 'oauth2' | 'bearer')[];
 }
 
 /**
@@ -135,7 +135,7 @@ export interface ProviderAvailability {
  * This matches the Config type from contractspec-workspace
  */
 export interface LegacyConfig {
-  aiProvider: LegacyProviderName;
-  aiModel?: string;
-  customEndpoint?: string;
+	aiProvider: LegacyProviderName;
+	aiModel?: string;
+	customEndpoint?: string;
 }

@@ -1,5 +1,128 @@
 # @contractspec/module.ai-chat
 
+## 4.3.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/lib.workflow-composer@3.7.6
+  - @contractspec/lib.surface-runtime@0.5.6
+  - @contractspec/lib.contracts-spec@3.7.6
+  - @contractspec/lib.cost-tracking@3.7.6
+  - @contractspec/lib.design-system@3.7.6
+  - @contractspec/lib.ai-providers@3.7.6
+  - @contractspec/lib.ui-kit-web@3.7.6
+  - @contractspec/lib.ai-agent@7.0.6
+  - @contractspec/lib.metering@3.7.6
+  - @contractspec/lib.schema@3.7.6
+
+## 4.3.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.workflow-composer@3.7.5
+  - @contractspec/lib.surface-runtime@0.5.5
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/lib.cost-tracking@3.7.5
+  - @contractspec/lib.design-system@3.7.5
+  - @contractspec/lib.ai-providers@3.7.5
+  - @contractspec/lib.ui-kit-web@3.7.5
+  - @contractspec/lib.ai-agent@7.0.5
+  - @contractspec/lib.metering@3.7.5
+  - @contractspec/lib.schema@3.7.5
+
+## 4.3.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/lib.workflow-composer@3.7.4
+  - @contractspec/lib.surface-runtime@0.5.4
+  - @contractspec/lib.contracts-spec@3.7.4
+  - @contractspec/lib.cost-tracking@3.7.4
+  - @contractspec/lib.design-system@3.7.4
+  - @contractspec/lib.ai-providers@3.7.4
+  - @contractspec/lib.ui-kit-web@3.7.4
+  - @contractspec/lib.ai-agent@7.0.4
+  - @contractspec/lib.metering@3.7.4
+  - @contractspec/lib.schema@3.7.4
+
+## 4.3.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.workflow-composer@3.7.3
+  - @contractspec/lib.surface-runtime@0.5.3
+  - @contractspec/lib.contracts-spec@3.7.3
+  - @contractspec/lib.cost-tracking@3.7.3
+  - @contractspec/lib.design-system@3.7.3
+  - @contractspec/lib.ai-providers@3.7.3
+  - @contractspec/lib.ui-kit-web@3.7.3
+  - @contractspec/lib.ai-agent@7.0.3
+  - @contractspec/lib.metering@3.7.3
+  - @contractspec/lib.schema@3.7.3
+
+## 4.3.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- Updated dependencies [8cd229b]
+- Updated dependencies [04bc555]
+  - @contractspec/lib.workflow-composer@3.7.2
+  - @contractspec/lib.surface-runtime@0.5.2
+  - @contractspec/lib.contracts-spec@3.7.2
+  - @contractspec/lib.cost-tracking@3.7.2
+  - @contractspec/lib.design-system@3.7.2
+  - @contractspec/lib.ai-providers@3.7.2
+  - @contractspec/lib.ui-kit-web@3.7.2
+  - @contractspec/lib.ai-agent@7.0.2
+  - @contractspec/lib.metering@3.7.2
+  - @contractspec/lib.schema@3.7.2
+
+## 4.3.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/lib.workflow-composer@3.7.1
+  - @contractspec/lib.surface-runtime@0.5.1
+  - @contractspec/lib.contracts-spec@3.7.1
+  - @contractspec/lib.cost-tracking@3.7.1
+  - @contractspec/lib.design-system@3.7.1
+  - @contractspec/lib.ai-providers@3.7.1
+  - @contractspec/lib.ui-kit-web@3.7.1
+  - @contractspec/lib.ai-agent@7.0.1
+  - @contractspec/lib.metering@3.7.1
+  - @contractspec/lib.schema@3.7.1
+
+## 4.3.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/lib.workflow-composer@3.7.0
+  - @contractspec/lib.surface-runtime@0.5.0
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/lib.cost-tracking@3.7.0
+  - @contractspec/lib.design-system@3.7.0
+  - @contractspec/lib.ai-providers@3.7.0
+  - @contractspec/lib.ui-kit-web@3.7.0
+  - @contractspec/lib.ai-agent@7.0.0
+  - @contractspec/lib.metering@3.7.0
+  - @contractspec/lib.schema@3.7.0
+
 ## 4.2.0
 
 ### Minor Changes

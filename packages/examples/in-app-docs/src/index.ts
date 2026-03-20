@@ -3,11 +3,9 @@
 
 // Export example spec
 export { default as example } from './example';
-
+export * from './in-app-docs.feature';
 // Export UI components
 export * from './ui';
-
-export * from './in-app-docs.feature';
 
 // Import docs to register doc blocks on load
 import './docs';

@@ -1,18 +1,15 @@
 // Entity definitions for schema generation
-export * from './entities';
-
-// Contract specifications
-export * from './contracts';
-
-// Storage adapters
-export * from './storage';
-
-// Feature module specification
-export * from './audit-trail.feature';
 
 // Re-export bus audit types for convenience
 export type {
-  AuditRecord,
-  AuditStorage,
-  AuditQueryOptions,
+	AuditQueryOptions,
+	AuditRecord,
+	AuditStorage,
 } from '@contractspec/lib.bus';
+// Feature module specification
+export * from './audit-trail.feature';
+// Contract specifications
+export * from './contracts';
+export * from './entities';
+// Storage adapters
+export * from './storage';

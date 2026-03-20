@@ -4,23 +4,23 @@ import { ErrorCode } from './codes';
  * Map known error codes to HTTP status codes.
  */
 export function httpStatus(code: ErrorCode): number {
-  switch (code) {
-    case ErrorCode.UNAUTHENTICATED:
-      return 401;
-    case ErrorCode.FORBIDDEN:
-    case ErrorCode.POLICY_DENIED:
-      return 403;
-    case ErrorCode.NOT_FOUND:
-      return 404;
-    case ErrorCode.INVALID_INPUT:
-      return 400;
-    case ErrorCode.CONFLICT:
-      return 409;
-    case ErrorCode.RATE_LIMITED:
-      return 429;
-    default:
-      return 500;
-  }
+	switch (code) {
+		case ErrorCode.UNAUTHENTICATED:
+			return 401;
+		case ErrorCode.FORBIDDEN:
+		case ErrorCode.POLICY_DENIED:
+			return 403;
+		case ErrorCode.NOT_FOUND:
+			return 404;
+		case ErrorCode.INVALID_INPUT:
+			return 400;
+		case ErrorCode.CONFLICT:
+			return 409;
+		case ErrorCode.RATE_LIMITED:
+			return 429;
+		default:
+			return 500;
+	}
 }
 
 /**

@@ -1,5 +1,5 @@
 {
-  "id": "agent-console",
-  "source": "contractspec-studio",
-  "kind": "template"
+	"id": "agent-console",
+	"source": "contractspec-studio",
+	"kind": "template"
 }

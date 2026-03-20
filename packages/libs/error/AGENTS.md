@@ -2,30 +2,47 @@
 
 Scope: `packages/libs/error/*`
 
-Structured error handling and HTTP error utilities. Defines the canonical error shape used across the entire stack.
+Structured error handling and HTTP error utilities.
 
 ## Quick Context
 
-- **Layer**: lib
-- **Consumers**: many libs and bundles
+- Layer: `lib`.
+- Package visibility: published package.
+- Primary consumers are other libs, modules, bundles, and apps in the monorepo.
+- Related packages: `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
-## Public Exports
+## Architecture
 
-| Subpath      | Description                |
-| ------------ | -------------------------- |
-| `.`          | Main entry                 |
-| `./appError` | AppError class and factory |
-| `./codes`    | Error code constants       |
-| `./http`     | HTTP status mappings       |
+- `src/appError.ts` is part of the package's public or composition surface.
+- `src/codes.ts` is part of the package's public or composition surface.
+- `src/http.ts` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
+
+## Public Surface
+
+- Export `.` resolves through `./src/index.ts`.
+- Export `./appError` resolves through `./src/appError.ts`.
+- Export `./codes` resolves through `./src/codes.ts`.
+- Export `./http` resolves through `./src/http.ts`.
 
 ## Guardrails
 
 - Error codes are a shared contract — additions are safe, removals or renames are breaking.
 - `AppError` shape must stay stable; downstream serialization depends on it.
 - HTTP status mappings affect all API surfaces; changes require cross-package validation.
+- Changes here can affect downstream packages such as `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Local Commands
 
-- Build: `bun run build`
-- Lint: `bun run lint`
-- Dev: `bun run dev`
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild

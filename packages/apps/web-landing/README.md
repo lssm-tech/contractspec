@@ -1,83 +1,46 @@
 # @contractspec/app.web-landing
 
-Marketing landing page and documentation site for ContractSpec.
+**Next.js delivery shell for the public ContractSpec website: marketing, docs, registry pages, `/llms*`, and selected operate/sandbox surfaces.**
 
-## ContractSpec Studio
+## What It Does
 
-Studio is live at https://www.contractspec.studio.
+- Owns the app shell, metadata, OG generation, route wrappers, and public site delivery.
+- Publishes the marketing experience while delegating most page-body composition to `@contractspec/bundle.marketing`.
+- Serves docs, registry, sandbox, and operate surfaces while keeping their shared shell consistent with the public brand system.
+- Publishes `/llms`, `/llms.txt`, `/llms-full.txt`, and package-specific `/llms/[slug]` endpoints for agent-friendly repo guidance.
 
-Positioning used across this app:
+## Architecture
 
-- ContractSpec Studio is the AI-powered product decision engine.
-- It turns product signals into spec-first deliverables.
-- Core loop: Evidence -> Correlation -> Decision -> Change -> Export -> Check -> Notify -> Autopilot.
+- `src/app/` contains route groups for marketing, docs, sandbox, operate, registry, and API endpoints.
+- `src/components/` contains app-local shell concerns such as header, footer, SEO helpers, and local route UI.
+- `public/llms*.txt` contains machine-readable monorepo guidance exposed directly from the site.
+- `scripts/generate-llms-full.mjs` regenerates the public aggregated README corpus used by `/llms-full.txt`.
 
-## Overview
+This package should stay thin:
+- marketing page narratives belong in `@contractspec/bundle.marketing`
+- docs and library composition belong in `@contractspec/bundle.library`
+- shared reusable UI primitives belong in lower layers
 
-Next.js application providing:
+## Public Entry Points
 
-- Marketing landing page
-- Product documentation
-- Pricing and contact pages
-- Template gallery
-- Newsletter signup
+- Web routes under `/`, `/product`, `/pricing`, `/templates`, `/contact`, `/changelog`, `/docs/*`, `/sandbox`, `/operate/*`, and registry surfaces.
+- Agent-facing discovery surfaces under `/llms`, `/llms.txt`, `/llms-full.txt`, and `/llms/[slug]`.
+- API endpoints under `src/app/api/*`, including OG and MCP/chat-related surfaces used by the public site.
 
-## Usage
+## Local Commands
 
-```bash
-# Development
-bun dev
+- `bun run dev` — bun --bun next dev
+- `bun run start` — bun --bun next start
+- `bun run build` — bun run llms:generate && bun --bun next build
+- `bun run lint` — bun run lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run clean` — rimraf .next dist .turbo
+- `bun run llms:generate` — bun scripts/generate-llms-full.mjs
+- `bun run build:types` — tsc --noEmit
 
-# Production build
-bun build
-bun start
-```
+## Notes
 
-## Features
-
-- 🎨 **Modern Design** — Tailwind CSS with animations
-- 📖 **Documentation** — Comprehensive docs pages
-- 🚀 **Templates** — Interactive template gallery
-- 📧 **Email** — Newsletter and Studio signup integration
-- 📊 **Analytics** — PostHog and Vercel Analytics
-
-## Agent and LLM support
-
-- **`/llms`** — Global monorepo summary (also `/llms.txt`, `/llms.md`); static file at `public/llms.txt`
-- **`/llms-full.txt`** — All package READMEs aggregated; run `bun run llms:generate` to regenerate
-- **`/llms/[slug]`** — Per-package guide (e.g. `/llms/lib.ai-agent`); returns README as text/plain
-- **`AGENTS.md`** — AI agent guide with routing, API surfaces, and entry points
-- **MCP** — Docs MCP server at `GET/POST /api/mcp`
-
-## dependencies
-
-- `@contractspec/bundle.marketing` — Marketing pages and email templates
-- `@contractspec/bundle.library` — Shared library components
-- `@contractspec/bundle.studio` — Studio components for sandbox
-- `@contractspec/lib.design-system` — Design tokens and atoms
-
-## Contributing
-
-This application is a **thin adapter**.
-
-- **Want to change the design or content?**
-  - Go to `packages/bundles/marketing` for landing pages.
-  - Go to `packages/bundles/library` for documentation and templates.
-- **Want to change the routing or config?**
-  - Edit this package.
-
-## Package Structure
-
-```
-src/
-├── app/                    # Next.js app router
-│   ├── (landing-marketing)/# Marketing pages
-│   └── (docs)/             # Documentation pages
-├── components/             # Page-specific components
-└── lib/                    # Utilities
-```
-
-## Related Packages
-
-- [`@contractspec/bundle.marketing`](../../bundles/marketing/README.md) — Marketing bundle
-- [`@contractspec/app.web-studio`](../web-studio/README.md) — Studio web app
+- Route changes here affect SEO, external links, and agent-discovery flows; keep URL stability high.
+- Branding changes in this package must stay aligned with root docs, generated root AGENTS content, and `public/llms.txt`.
+- When updating the public shell, verify that docs and `/llms*` remain readable; this package serves more than the marketing homepage.

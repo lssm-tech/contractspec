@@ -2,11 +2,13 @@
 // Build API Video -- Construct a VideoProject from contract spec metadata
 // ---------------------------------------------------------------------------
 
-import type { VideoProject } from '@contractspec/lib.contracts-integrations/integrations/providers/video';
+import type {
+	RenderConfig,
+	VideoProject,
+} from '@contractspec/lib.contracts-integrations/integrations/providers/video';
 import { VIDEO_FORMATS } from '@contractspec/lib.video-gen/design/layouts';
-import { resolveRenderConfig } from '@contractspec/lib.video-gen/renderers/config';
 import type { QualityPreset } from '@contractspec/lib.video-gen/renderers/config';
-import type { RenderConfig } from '@contractspec/lib.contracts-integrations/integrations/providers/video';
+import { resolveRenderConfig } from '@contractspec/lib.video-gen/renderers/config';
 import type { ApiSpecDefinition } from './sample-specs';
 
 const DEFAULT_FPS = 30;
@@ -14,12 +16,12 @@ const DEFAULT_DURATION_FRAMES = 450; // 15 seconds
 
 /** Options for building an API showcase video. */
 export interface BuildApiVideoOptions {
-  /** Duration in frames. Default: 450 (15s at 30fps). */
-  durationInFrames?: number;
-  /** Tagline shown at the end. */
-  tagline?: string;
-  /** FPS. Default: 30. */
-  fps?: number;
+	/** Duration in frames. Default: 450 (15s at 30fps). */
+	durationInFrames?: number;
+	/** Tagline shown at the end. */
+	tagline?: string;
+	/** FPS. Default: 30. */
+	fps?: number;
 }
 
 /**
@@ -38,33 +40,33 @@ export interface BuildApiVideoOptions {
  * ```
  */
 export function buildApiVideo(
-  spec: ApiSpecDefinition,
-  options?: BuildApiVideoOptions
+	spec: ApiSpecDefinition,
+	options?: BuildApiVideoOptions
 ): VideoProject {
-  const fps = options?.fps ?? DEFAULT_FPS;
-  const durationInFrames = options?.durationInFrames ?? DEFAULT_DURATION_FRAMES;
+	const fps = options?.fps ?? DEFAULT_FPS;
+	const durationInFrames = options?.durationInFrames ?? DEFAULT_DURATION_FRAMES;
 
-  return {
-    id: `api-video-${spec.specName.toLowerCase()}-${Date.now().toString(36)}`,
-    scenes: [
-      {
-        id: 'scene-api-overview',
-        compositionId: 'ApiOverview',
-        props: {
-          specName: spec.specName,
-          method: spec.method,
-          endpoint: spec.endpoint,
-          specCode: spec.specCode,
-          generatedOutputs: spec.generatedOutputs,
-          tagline: options?.tagline ?? 'One spec. Every surface.',
-        },
-        durationInFrames,
-      },
-    ],
-    totalDurationInFrames: durationInFrames,
-    fps,
-    format: VIDEO_FORMATS.landscape,
-  };
+	return {
+		id: `api-video-${spec.specName.toLowerCase()}-${Date.now().toString(36)}`,
+		scenes: [
+			{
+				id: 'scene-api-overview',
+				compositionId: 'ApiOverview',
+				props: {
+					specName: spec.specName,
+					method: spec.method,
+					endpoint: spec.endpoint,
+					specCode: spec.specCode,
+					generatedOutputs: spec.generatedOutputs,
+					tagline: options?.tagline ?? 'One spec. Every surface.',
+				},
+				durationInFrames,
+			},
+		],
+		totalDurationInFrames: durationInFrames,
+		fps,
+		format: VIDEO_FORMATS.landscape,
+	};
 }
 
 /**
@@ -79,10 +81,10 @@ export function buildApiVideo(
  * ```
  */
 export function buildRenderConfig(
-  outputPath: string,
-  preset: QualityPreset = 'standard'
+	outputPath: string,
+	preset: QualityPreset = 'standard'
 ): RenderConfig {
-  return resolveRenderConfig({ outputPath }, preset);
+	return resolveRenderConfig({ outputPath }, preset);
 }
 
 /**
@@ -97,8 +99,8 @@ export function buildRenderConfig(
  * ```
  */
 export function buildApiVideoSuite(
-  specs: ApiSpecDefinition[],
-  options?: BuildApiVideoOptions
+	specs: ApiSpecDefinition[],
+	options?: BuildApiVideoOptions
 ): VideoProject[] {
-  return specs.map((spec) => buildApiVideo(spec, options));
+	return specs.map((spec) => buildApiVideo(spec, options));
 }

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/tool.create-contractspec-plugin",
-  "version": "3.6.0",
+  "version": "3.8.0",
   "type": "module",
   "description": "CLI tool for creating ContractSpec plugins from templates",
   "keywords": [
@@ -20,8 +20,8 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
@@ -42,7 +42,7 @@
   "dependencies": {
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
-    "@inquirer/prompts": "^8.3.0",
+    "@inquirer/prompts": "^8.3.2",
     "zod": "catalog:",
     "commander": "^14.0.3",
     "chalk": "^5.3.0",

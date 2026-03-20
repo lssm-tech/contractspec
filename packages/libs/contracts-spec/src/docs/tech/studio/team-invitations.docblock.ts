@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '../../registry';
 
 export const tech_studio_team_invitations_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.studio.team-invitations',
-    title: 'Studio Teams & Invitations',
-    summary:
-      'Admin-only team management and email invitation flow to join an organization and optionally a team.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/studio/team-invitations',
-    tags: ['studio', 'teams', 'invitations', 'access-control', 'onboarding'],
-    body: `# Studio Teams & Invitations
+	{
+		id: 'docs.tech.studio.team-invitations',
+		title: 'Studio Teams & Invitations',
+		summary:
+			'Admin-only team management and email invitation flow to join an organization and optionally a team.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/studio/team-invitations',
+		tags: ['studio', 'teams', 'invitations', 'access-control', 'onboarding'],
+		body: `# Studio Teams & Invitations
 
 Studio uses **organization membership** as the base access model. Teams are optional and used to refine access to projects.
 
@@ -59,7 +59,7 @@ Acceptance rules:
 - If \`RESEND_API_KEY\` is set, the system attempts to send an email.\n
 - Otherwise, the UI uses the returned \`inviteUrl\` for manual copy/share.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(tech_studio_team_invitations_DocBlocks);

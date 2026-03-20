@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const filesDocBlocks: DocBlock[] = [
-  {
-    id: 'docs.files.attachments',
-    title: 'Files, Versions & Attachments',
-    summary:
-      'Spec-first file management with storage adapters, versioning, presigned URLs, and polymorphic attachments for any entity.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/files/attachments',
-    tags: ['files', 'attachments', 'storage', 'versions'],
-    body: `## Capabilities
+	{
+		id: 'docs.files.attachments',
+		title: 'Files, Versions & Attachments',
+		summary:
+			'Spec-first file management with storage adapters, versioning, presigned URLs, and polymorphic attachments for any entity.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/files/attachments',
+		tags: ['files', 'attachments', 'storage', 'versions'],
+		body: `## Capabilities
 
 - **Entities**: File, FileVersion, Attachment, UploadSession with retention, checksum, ACLs.
 - **Contracts**: upload/update/delete/list/get files; presigned upload/download; version create/list; attach/detach/list attachments.
@@ -62,7 +62,7 @@ ${'```'},
 - Keep \`orgId\` scoped for multi-tenant isolation; prefer presigned URLs for public delivery.
 - Persist checksums for integrity; emit audit + events for access/retention changes.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(filesDocBlocks);

@@ -1,10 +1,9 @@
+export { blogHeroBrief, emailHeaderBrief, landingHeroBrief } from './marketing';
 export {
-  ogImageBrief,
-  twitterCardBrief,
-  instagramSquareBrief,
-  instagramStoryBrief,
+	instagramSquareBrief,
+	instagramStoryBrief,
+	ogImageBrief,
+	twitterCardBrief,
 } from './social';
-
-export { blogHeroBrief, landingHeroBrief, emailHeaderBrief } from './marketing';
 
 export { videoThumbnailBrief, videoThumbnailWideBrief } from './video';

@@ -1,17 +1,15 @@
 // Entity definitions for schema generation
-export * from './entities';
 
 // Contract specifications
 export * from './contracts';
+export * from './entities';
 
 // Domain events
 export * from './events';
-
-// Storage adapters
-export * from './storage';
-
 // Feature module specification
 export * from './files.feature';
+// Storage adapters
+export * from './storage';
 
 // Documentation
 import './docs';

@@ -1,10 +1,10 @@
-export { LandingPage } from './LandingPage';
-export { ProductClientPage } from './ProductClientPage';
-export { PricingClient } from './PricingClient';
-export { ContactClient } from './ContactClient';
 export { ChangelogPage } from './ChangelogPage';
 export { CofounderPage } from './CofounderPage';
+export { ContactClient } from './ContactClient';
 export { ContributePage } from './ContributePage';
 export { DesignPartnerPage } from './DesignPartnerPage';
-export { StudioSignupSection } from './studio-signup-section';
+export { LandingPage } from './LandingPage';
+export { PricingClient } from './PricingClient';
+export { ProductClientPage } from './ProductClientPage';
 export { PricingThinkingModal } from './pricing-thinking-modal';
+export { StudioSignupSection } from './studio-signup-section';

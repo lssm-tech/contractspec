@@ -1,25 +1,25 @@
-import * as React from 'react';
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
+import * as React from 'react';
 
 export function KeyValueList({
-  items,
-  className,
+	items,
+	className,
 }: {
-  items: { key: React.ReactNode; value: React.ReactNode }[];
-  className?: string;
+	items: { key: React.ReactNode; value: React.ReactNode }[];
+	className?: string;
 }) {
-  return (
-    <div className={cn('grid grid-cols-1 gap-2', className)}>
-      {items.map((it, idx) => (
-        <div key={idx} className="flex items-start gap-3">
-          <div className="text-foreground w-40 shrink-0 text-base font-medium">
-            {it.key}
-          </div>
-          <div className="text-muted-foreground flex-1 text-base">
-            {it.value}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
+	return (
+		<div className={cn('grid grid-cols-1 gap-2', className)}>
+			{items.map((it, idx) => (
+				<div key={idx} className="flex items-start gap-3">
+					<div className="w-40 shrink-0 font-medium text-base text-foreground">
+						{it.key}
+					</div>
+					<div className="flex-1 text-base text-muted-foreground">
+						{it.value}
+					</div>
+				</div>
+			))}
+		</div>
+	);
 }

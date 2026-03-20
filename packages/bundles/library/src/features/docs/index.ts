@@ -1,8 +1,8 @@
 export {
-  DocSummaryModel,
-  DocSearchInput,
-  DocSearchOutput,
-  docsSearchSpec,
-  DocsIndexQuery,
-  ContractReferenceQuery,
+	ContractReferenceQuery,
+	DocSearchInput,
+	DocSearchOutput,
+	DocSummaryModel,
+	DocsIndexQuery,
+	docsSearchSpec,
 } from './docs.contracts';

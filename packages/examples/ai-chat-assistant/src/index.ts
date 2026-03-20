@@ -4,6 +4,8 @@
  * Focused AI chat assistant template with MCP tools, reasoning,
  * chain of thought, sources, and suggestions.
  */
-export { AiChatAssistantDashboard } from './ui';
-export { assistantSearch } from './handlers';
+
+export { AiChatAssistantFeature } from './ai-chat-assistant.feature';
 export { AssistantSearchContract } from './contracts';
+export { assistantSearch } from './handlers';
+export { AiChatAssistantDashboard } from './ui';

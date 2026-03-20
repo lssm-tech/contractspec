@@ -1,85 +1,78 @@
 # @contractspec/lib.observability
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**OpenTelemetry-based observability primitives.**
 
-OpenTelemetry integration for tracing, metrics, and structured logging.
+## What It Provides
 
-## Features
-
-- **Distributed Tracing**: Automatic span creation and propagation
-- **Metrics**: Counters, histograms, and gauges
-- **Structured Logging**: JSON logs with trace correlation
+- **Layer**: lib.
+- **Consumers**: evolution, progressive-delivery, bundles.
+- `src/pipeline/` contains pipeline stages and orchestration helpers.
+- Related ContractSpec packages include `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.lifecycle`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- `src/pipeline/` contains pipeline stages and orchestration helpers.
 
 ## Installation
 
-```bash
-npm install @contractspec/lib.observability @opentelemetry/api
-```
+`npm install @contractspec/lib.observability`
 
-## Quick Start
+or
 
-### Tracing
+`bun add @contractspec/lib.observability`
 
-```typescript
-import { traceAsync } from '@contractspec/lib.observability/tracing';
+## Usage
 
-await traceAsync('process_order', async (span) => {
-  span.setAttribute('order_id', order.id);
-  await db.save(order);
-});
-```
+Import the root entrypoint from `@contractspec/lib.observability`, or choose a documented subpath when you only need one part of the package surface.
 
-### Metrics
+## Architecture
 
-```typescript
-import { createCounter } from '@contractspec/lib.observability/metrics';
+- `src/anomaly` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/intent` is part of the package's public or composition surface.
+- `src/logging` is part of the package's public or composition surface.
+- `src/metrics` is part of the package's public or composition surface.
+- `src/pipeline/` contains pipeline stages and orchestration helpers.
+- `src/telemetry` is part of the package's public or composition surface.
 
-const ordersCounter = createCounter('orders_total');
-ordersCounter.add(1, { status: 'success' });
-```
+## Public Entry Points
 
-### Middleware
+- Export `.` resolves through `./src/index.ts`.
+- Export `./anomaly/alert-manager` resolves through `./src/anomaly/alert-manager.ts`.
+- Export `./anomaly/anomaly-detector` resolves through `./src/anomaly/anomaly-detector.ts`.
+- Export `./anomaly/baseline-calculator` resolves through `./src/anomaly/baseline-calculator.ts`.
+- Export `./anomaly/root-cause-analyzer` resolves through `./src/anomaly/root-cause-analyzer.ts`.
+- Export `./intent/aggregator` resolves through `./src/intent/aggregator.ts`.
+- Export `./intent/detector` resolves through `./src/intent/detector.ts`.
+- Export `./logging` resolves through `./src/logging/index.ts`.
+- Export `./metrics` resolves through `./src/metrics/index.ts`.
+- Export `./pipeline/evolution-pipeline` resolves through `./src/pipeline/evolution-pipeline.ts`.
+- The package publishes 18 total export subpaths; keep docs aligned with `package.json`.
 
-```typescript
-import { createTracingMiddleware } from '@contractspec/lib.observability/tracing/middleware';
+## Local Commands
 
-app.use(createTracingMiddleware());
-```
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test --pass-with-no-tests
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-## Documentation
+## Recent Updates
 
-Full docs: https://contractspec.io/docs/libraries/observability
+- Replace eslint+prettier by biomejs to optimize speed.
+- Circular import issue.
+- Normalize formatting across contracts-integrations, composio, and observability.
+- Add AI provider ranking system with ranking-driven model selection.
 
+## Notes
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- OTel span and metric naming conventions must stay consistent across the platform.
+- Pipeline interfaces are adapter boundaries — do not leak vendor-specific details.
+- Anomaly detection thresholds affect alerting; changes require validation.

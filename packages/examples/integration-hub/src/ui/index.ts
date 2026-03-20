@@ -1,7 +1,8 @@
 /**
  * Integration Hub Template Components
  */
-export * from './renderers';
+
+export * from './hooks';
 export { IntegrationDashboard } from './IntegrationDashboard';
 export { IntegrationHubChat } from './IntegrationHubChat';
-export * from './hooks';
+export * from './renderers';

@@ -6,10 +6,9 @@
 
 // Domain exports
 export * from './client';
-export * from './quote';
-export * from './job';
 export * from './invoice';
+export * from './job';
 export * from './payment';
-
 export * from './presentations';
+export * from './quote';
 export * from './service.feature';

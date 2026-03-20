@@ -1,39 +1,39 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 
 export const opsRunbookDocsB: DocBlock[] = [
-  {
-    id: 'docs.ops.profile-settings.goal',
-    title: 'Profile settings goal',
-    summary: 'Keep identity/profile flows reliable and debuggable.',
-    kind: 'goal',
-    visibility: 'public',
-    route: '/docs/ops/profile-settings/goal',
-    tags: ['ops', 'auth'],
-    body: 'Ensure profile linking/unlinking stays stable across FC+ and SMS flows, with clear monitoring and quick recovery steps.',
-  },
-  {
-    id: 'docs.ops.profile-settings.usage',
-    title: 'Profile settings usage guide',
-    summary: 'Quick checklist for profile settings operations.',
-    kind: 'usage',
-    visibility: 'public',
-    route: '/docs/ops/profile-settings/usage',
-    tags: ['ops', 'auth'],
-    body: `- Verify Better Auth config in \`src/lib/auth.ts\`; JWKS for FC+.
+	{
+		id: 'docs.ops.profile-settings.goal',
+		title: 'Profile settings goal',
+		summary: 'Keep identity/profile flows reliable and debuggable.',
+		kind: 'goal',
+		visibility: 'public',
+		route: '/docs/ops/profile-settings/goal',
+		tags: ['ops', 'auth'],
+		body: 'Ensure profile linking/unlinking stays stable across FC+ and SMS flows, with clear monitoring and quick recovery steps.',
+	},
+	{
+		id: 'docs.ops.profile-settings.usage',
+		title: 'Profile settings usage guide',
+		summary: 'Quick checklist for profile settings operations.',
+		kind: 'usage',
+		visibility: 'public',
+		route: '/docs/ops/profile-settings/usage',
+		tags: ['ops', 'auth'],
+		body: `- Verify Better Auth config in \`src/lib/auth.ts\`; JWKS for FC+.
 - Monitor Sentry spans \`profile.*\`; PostHog events connection_linked/unlinked.
 - On unlink failures: check \`/api/auth/connections/unlink\` logs.
 - FC+ issues: validate discovery URL and partner redirects.
 - OTP throttling: confirm SMS service rate limiter is active.`,
-  },
-  {
-    id: 'docs.ops.profile-settings.how',
-    title: 'Profile settings runbook',
-    summary: 'Detailed runbook for profile/settings operations.',
-    kind: 'how',
-    visibility: 'public',
-    route: '/docs/ops/profile-settings/how',
-    tags: ['ops', 'auth'],
-    body: `## Runbook – Profile Settings
+	},
+	{
+		id: 'docs.ops.profile-settings.how',
+		title: 'Profile settings runbook',
+		summary: 'Detailed runbook for profile/settings operations.',
+		kind: 'how',
+		visibility: 'public',
+		route: '/docs/ops/profile-settings/how',
+		tags: ['ops', 'auth'],
+		body: `## Runbook – Profile Settings
 
 ### Feature flags / Env
 
@@ -50,40 +50,40 @@ export const opsRunbookDocsB: DocBlock[] = [
 - Unlink failures → check \`/api/auth/connections/unlink\` logs
 - FC+ link issues → verify discovery URL and partner console redirects
 - Phone OTP rate limit → server-side limiter in SMS service`,
-  },
-  {
-    id: 'docs.ops.progressive-delivery.goal',
-    title: 'Progressive delivery goal',
-    summary: 'Roll out safely with fast rollback and clear guardrails.',
-    kind: 'goal',
-    visibility: 'public',
-    route: '/docs/ops/progressive-delivery/goal',
-    tags: ['ops', 'delivery'],
-    body: 'Use canary/blue-green with metrics guardrails so deployments can be halted or rolled back before customer impact.',
-  },
-  {
-    id: 'docs.ops.progressive-delivery.usage',
-    title: 'Progressive delivery usage guide',
-    summary: 'Quick checklist for canary/blue-green runs.',
-    kind: 'usage',
-    visibility: 'public',
-    route: '/docs/ops/progressive-delivery/usage',
-    tags: ['ops', 'delivery'],
-    body: `- Register \`DeploymentStrategy\`; wire telemetry via observability middleware.
+	},
+	{
+		id: 'docs.ops.progressive-delivery.goal',
+		title: 'Progressive delivery goal',
+		summary: 'Roll out safely with fast rollback and clear guardrails.',
+		kind: 'goal',
+		visibility: 'public',
+		route: '/docs/ops/progressive-delivery/goal',
+		tags: ['ops', 'delivery'],
+		body: 'Use canary/blue-green with metrics guardrails so deployments can be halted or rolled back before customer impact.',
+	},
+	{
+		id: 'docs.ops.progressive-delivery.usage',
+		title: 'Progressive delivery usage guide',
+		summary: 'Quick checklist for canary/blue-green runs.',
+		kind: 'usage',
+		visibility: 'public',
+		route: '/docs/ops/progressive-delivery/usage',
+		tags: ['ops', 'delivery'],
+		body: `- Register \`DeploymentStrategy\`; wire telemetry via observability middleware.
 - Define rollback actions (flag toggle/spec revert/infrastructure swap) in \`RollbackManager\`.
 - Use canary thresholds (err 1%, P99 500ms) or stricter per domain.
 - Pipe stage events to Ops Slack + Ops Console timeline.
 - For blue-green, run smoke tests before swap; freeze old env 24h post-swap.`,
-  },
-  {
-    id: 'docs.ops.progressive-delivery.how',
-    title: 'Progressive delivery runbook',
-    summary: 'Step-by-step for canary and blue-green rollouts.',
-    kind: 'how',
-    visibility: 'public',
-    route: '/docs/ops/progressive-delivery/how',
-    tags: ['ops', 'delivery'],
-    body: `# Progressive Delivery Runbook
+	},
+	{
+		id: 'docs.ops.progressive-delivery.how',
+		title: 'Progressive delivery runbook',
+		summary: 'Step-by-step for canary and blue-green rollouts.',
+		kind: 'how',
+		visibility: 'public',
+		route: '/docs/ops/progressive-delivery/how',
+		tags: ['ops', 'delivery'],
+		body: `# Progressive Delivery Runbook
 
 **Scope**: Contracts runtime deployments running on ContractSpec infrastructure.
 
@@ -128,5 +128,5 @@ thresholds: {
 - \`Deployment\`, \`DeploymentStage\`, and \`RollbackEvent\` tables store the full history.
 - Tag rollbacks with incident ID to keep Ops Console synchronized.
 - Auto-resolve the incident once \`status === 'completed'\` and SLO burn rate returns < 2x.`,
-  },
+	},
 ];

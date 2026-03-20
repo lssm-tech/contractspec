@@ -3,9 +3,9 @@
  * Creates a markdown documentation generator from ContractSpec specs
  */
 export function createExampleGeneratorTemplate() {
-  return {
-    files: {
-      'package.json': `{
+	return {
+		files: {
+			'package.json': `{
   "name": "{{integrationPackageName}}",
   "version": "{{version}}",
   "description": "{{description}}",
@@ -42,9 +42,9 @@ export function createExampleGeneratorTemplate() {
     "typecheck": "tsc --noEmit",
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
-    "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint": "bun run lint:fix",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "test": "bun test",
     "test:watch": "bun test --watch",
     "test:coverage": "bun test --coverage",
@@ -89,7 +89,7 @@ export function createExampleGeneratorTemplate() {
   }
 }`,
 
-      'README.md': `# {{integrationPackageName}}
+			'README.md': `# {{integrationPackageName}}
 
 {{description}}
 
@@ -241,7 +241,7 @@ MIT © {{author}}
 - 🐛 [Issues](https://github.com/lssm-tech/contractspec/issues)
 - 💬 [Discussions](https://github.com/lssm-tech/contractspec/discussions)`,
 
-      'src/index.ts': `/**
+			'src/index.ts': `/**
   * {{integrationPackageName}}
   * {{description}}
 
@@ -251,7 +251,7 @@ export { {{className}} } from "./generator.js";
 export type { {{className}}Config, GeneratorResult } from "./types.js";
 export { defaultConfig } from "./config.js";`,
 
-      'src/types.ts': `import type { AnySchemaModel } from "@contractspec/lib.schema";
+			'src/types.ts': `import type { AnySchemaModel } from "@contractspec/lib.schema";
 import type { SpecDefinition } from "@contractspec/lib.contracts-spec";
 
 /**
@@ -367,7 +367,7 @@ export class GenerationError extends {{className}}Error {
   }
 }`,
 
-      'src/config.ts': `import type { {{className}}Config } from "./types.js";
+			'src/config.ts': `import type { {{className}}Config } from "./types.js";
 
 /**
  * Default configuration for the {{className}} plugin
@@ -411,7 +411,7 @@ export function validateConfig(config: {{className}}Config): void {
   }
 }`,
 
-      'src/generator.ts': `import { existsSync, mkdirSync, writeFileSync } from "fs";
+			'src/generator.ts': `import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { join, dirname } from "path";
 import type { 
   {{className}}Config, 
@@ -582,7 +582,7 @@ export class {{className}} {
   }
 }`,
 
-      'src/utils/test-utils.ts': `
+			'src/utils/test-utils.ts': `
 
 import type { AnySchemaModel } from "@contractspec/lib.schema";
 import type { {{className}}Config } from "../types.js";
@@ -636,7 +636,7 @@ export function createTestConfig(overrides: Partial<Config> = {}): {{className}}
   };
 }`,
 
-      'tests/generator.test.ts': `import { describe, it, expect, beforeEach, afterEach } from "bun:test";
+			'tests/generator.test.ts': `import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { existsSync, unlinkSync, readFileSync } from "fs";
 import { join } from "path";
 import { {{className}}, ConfigurationError, GenerationError } from "../src/generator.js";
@@ -781,7 +781,7 @@ describe("{{className}}", () => {
   });
 });`,
 
-      'tests/utils.test.ts': `import { describe, it, expect } from "bun:test";
+			'tests/utils.test.ts': `import { describe, it, expect } from "bun:test";
 import { createMockSchema, createMockData, createTestConfig } from "../src/utils/test-utils.js";
 import type { {{className}}Config } from "../src/types.js";
 
@@ -851,7 +851,7 @@ describe("Test Utils", () => {
   });
 });`,
 
-      '.github/workflows/ci.yml': `name: CI
+			'.github/workflows/ci.yml': `name: CI
 
 on:
   push:
@@ -930,7 +930,7 @@ jobs:
       env:
         NPM_TOKEN: \${{ secrets.NPM_TOKEN }}`,
 
-      'tests/smoke.test.ts': `import { describe, it, expect, beforeAll, afterAll } from "bun:test";
+			'tests/smoke.test.ts': `import { describe, it, expect, beforeAll, afterAll } from "bun:test";
 import { existsSync, mkdirSync, rmSync } from "fs";
 import { {{className}} } from "../src/generator.js";
 
@@ -1006,20 +1006,37 @@ describe("{{className}} Smoke Test", () => {
   });
 });`,
 
-      '.eslintrc.json': `{
-  "extends": [
-    "@contractspec/eslint-config-typescript"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "rules": {
-    "@typescript-eslint/no-unused-vars": "error",
-    "@typescript-eslint/explicit-function-return-type": "warn",
-    "@typescript-eslint/no-explicit-any": "warn"
+			'biome.jsonc': `{
+  "$schema": "https://biomejs.dev/schemas/2.4.8/schema.json",
+  "formatter": {
+    "enabled": true
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "noUnusedImports": "error",
+        "noUnusedVariables": {
+          "level": "error",
+          "options": {
+            "ignoreRestSiblings": true
+          }
+        }
+      }
+    }
   }
 }`,
 
-      'tsconfig.json': `{
+			'tsconfig.json': `{
   "extends": "@contractspec/tsconfig-base",
   "compilerOptions": {
     "outDir": "./dist",
@@ -1038,14 +1055,14 @@ describe("{{className}} Smoke Test", () => {
   ]
 }`,
 
-      'bun.config.js': `import { defineConfig, nodeLib } from "@contractspec/tool.bun";
+			'bun.config.js': `import { defineConfig, nodeLib } from "@contractspec/tool.bun";
 
 export default defineConfig(() => ({
   ...nodeLib,
   entry: ["src/index.ts"],
 }));`,
 
-      LICENSE: `MIT License
+			LICENSE: `MIT License
 
 Copyright (c) {{currentYear}} {{author}}
 
@@ -1067,14 +1084,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.`,
 
-      'src/templates/index.ts': `/**
+			'src/templates/index.ts': `/**
  * Template registry for the create-contractspec-plugin tool
  */
 
 export { createExampleGeneratorTemplate } from "./example-generator.js";
 export type { Template, TemplateFile } from "./types.js";`,
 
-      'src/templates/types.ts': `/**
+			'src/templates/types.ts': `/**
  * Template types
  */
 
@@ -1091,6 +1108,6 @@ export interface Template {
   devDependencies?: string[];
 }
 `,
-    },
-  };
+		},
+	};
 }

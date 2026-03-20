@@ -2,17 +2,17 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const compositionsDocBlocks: DocBlock[] = [
-  {
-    id: 'docs.video-gen.compositions',
-    title: 'Video Compositions & Primitives',
-    summary:
-      'Remotion composition components and reusable primitives for building programmatic videos.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/video-gen/compositions',
-    tags: ['video', 'remotion', 'compositions', 'primitives', 'react'],
-    owners: ['@contractspec/lib.video-gen'],
-    body: `# Video Compositions & Primitives
+	{
+		id: 'docs.video-gen.compositions',
+		title: 'Video Compositions & Primitives',
+		summary:
+			'Remotion composition components and reusable primitives for building programmatic videos.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/video-gen/compositions',
+		tags: ['video', 'remotion', 'compositions', 'primitives', 'react'],
+		owners: ['@contractspec/lib.video-gen'],
+		body: `# Video Compositions & Primitives
 
 Compositions are React components rendered by Remotion. They use \`useCurrentFrame()\`, \`useVideoConfig()\`, and \`interpolate()\` to produce frame-accurate animations. All compositions must be **deterministic**: same props = same visual output.
 
@@ -179,7 +179,7 @@ import { TerminalDemo } from "@contractspec/lib.video-gen/compositions/terminal-
 - Use \`scaleSafeZone()\` and \`scaleTypography()\` to support multiple formats.
 - All timing should be frame-based (not time-based) for deterministic output.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(compositionsDocBlocks);

@@ -5,58 +5,58 @@
  * enabling contract-first test discovery instead of naming conventions.
  */
 
-import type { SpecLocation, SpecInventory } from '../integrity';
 import type { SpecScanResult } from '@contractspec/module.workspace';
+import type { SpecInventory, SpecLocation } from '../integrity';
 
 /**
  * Test target extracted from a TestSpec.
  * Matches the TestTarget type from @contractspec/lib.contracts-spec.
  */
 export interface ExtractedTestTarget {
-  type: 'operation' | 'workflow';
-  key: string;
-  version?: string;
+	type: 'operation' | 'workflow';
+	key: string;
+	version?: string;
 }
 
 /**
  * Extended spec scan result with test target information.
  */
 export interface TestSpecScanResult extends SpecScanResult {
-  testTarget?: ExtractedTestTarget;
+	testTarget?: ExtractedTestTarget;
 }
 
 /**
  * Bidirectional index mapping between tests and their targets.
  */
 export interface TestToTargetIndex {
-  /**
-   * Map from target spec key (e.g., "my-op.v1.0.0") to set of test spec keys.
-   * A single target can have multiple tests.
-   */
-  targetToTests: Map<string, Set<string>>;
+	/**
+	 * Map from target spec key (e.g., "my-op.v1.0.0") to set of test spec keys.
+	 * A single target can have multiple tests.
+	 */
+	targetToTests: Map<string, Set<string>>;
 
-  /**
-   * Map from test spec key to target key.
-   * Each test targets exactly one spec.
-   */
-  testToTarget: Map<string, string>;
+	/**
+	 * Map from test spec key to target key.
+	 * Each test targets exactly one spec.
+	 */
+	testToTarget: Map<string, string>;
 
-  /**
-   * Tests with targets that don't exist in the inventory.
-   */
-  orphanedTests: string[];
+	/**
+	 * Tests with targets that don't exist in the inventory.
+	 */
+	orphanedTests: string[];
 
-  /**
-   * Tests without a valid target field (legacy naming convention only).
-   */
-  testsWithoutTarget: string[];
+	/**
+	 * Tests without a valid target field (legacy naming convention only).
+	 */
+	testsWithoutTarget: string[];
 }
 
 /**
  * Build a spec key from key and version.
  */
 function makeSpecKey(key: string, version: string): string {
-  return `${key}.v${version}`;
+	return `${key}.v${version}`;
 }
 
 /**
@@ -67,68 +67,68 @@ function makeSpecKey(key: string, version: string): string {
  * @returns Bidirectional index for test-target relationships
  */
 export function buildTestIndex(
-  testSpecScans: TestSpecScanResult[],
-  inventory: SpecInventory
+	testSpecScans: TestSpecScanResult[],
+	inventory: SpecInventory
 ): TestToTargetIndex {
-  const targetToTests = new Map<string, Set<string>>();
-  const testToTarget = new Map<string, string>();
-  const orphanedTests: string[] = [];
-  const testsWithoutTarget: string[] = [];
+	const targetToTests = new Map<string, Set<string>>();
+	const testToTarget = new Map<string, string>();
+	const orphanedTests: string[] = [];
+	const testsWithoutTarget: string[] = [];
 
-  for (const scan of testSpecScans) {
-    if (!scan.key || !scan.version) continue;
+	for (const scan of testSpecScans) {
+		if (!scan.key || !scan.version) continue;
 
-    const testKey = makeSpecKey(scan.key, scan.version);
+		const testKey = makeSpecKey(scan.key, scan.version);
 
-    if (!scan.testTarget) {
-      // Test doesn't have a target field - relies on naming convention
-      testsWithoutTarget.push(testKey);
-      continue;
-    }
+		if (!scan.testTarget) {
+			// Test doesn't have a target field - relies on naming convention
+			testsWithoutTarget.push(testKey);
+			continue;
+		}
 
-    const { type, key, version } = scan.testTarget;
-    const targetVersion = version ?? scan.version; // Default to test's version
-    const targetKey = makeSpecKey(key, targetVersion);
+		const { type, key, version } = scan.testTarget;
+		const targetVersion = version ?? scan.version; // Default to test's version
+		const targetKey = makeSpecKey(key, targetVersion);
 
-    // Validate target exists in inventory
-    const targetMap = getTargetMap(inventory, type);
-    if (!targetMap || !targetMap.has(targetKey)) {
-      orphanedTests.push(testKey);
-      continue;
-    }
+		// Validate target exists in inventory
+		const targetMap = getTargetMap(inventory, type);
+		if (!targetMap || !targetMap.has(targetKey)) {
+			orphanedTests.push(testKey);
+			continue;
+		}
 
-    // Build bidirectional mapping
-    testToTarget.set(testKey, targetKey);
+		// Build bidirectional mapping
+		testToTarget.set(testKey, targetKey);
 
-    if (!targetToTests.has(targetKey)) {
-      targetToTests.set(targetKey, new Set());
-    }
-    targetToTests.get(targetKey)?.add(testKey);
-  }
+		if (!targetToTests.has(targetKey)) {
+			targetToTests.set(targetKey, new Set());
+		}
+		targetToTests.get(targetKey)?.add(testKey);
+	}
 
-  return {
-    targetToTests,
-    testToTarget,
-    orphanedTests,
-    testsWithoutTarget,
-  };
+	return {
+		targetToTests,
+		testToTarget,
+		orphanedTests,
+		testsWithoutTarget,
+	};
 }
 
 /**
  * Get the inventory map for a target type.
  */
 function getTargetMap(
-  inventory: SpecInventory,
-  type: 'operation' | 'workflow'
+	inventory: SpecInventory,
+	type: 'operation' | 'workflow'
 ): Map<string, SpecLocation> | undefined {
-  switch (type) {
-    case 'operation':
-      return inventory.operations;
-    case 'workflow':
-      return inventory.workflows;
-    default:
-      return undefined;
-  }
+	switch (type) {
+		case 'operation':
+			return inventory.operations;
+		case 'workflow':
+			return inventory.workflows;
+		default:
+			return undefined;
+	}
 }
 
 /**
@@ -139,10 +139,10 @@ function getTargetMap(
  * @returns true if at least one TestSpec targets this spec
  */
 export function hasTargetedTest(
-  specKey: string,
-  index: TestToTargetIndex
+	specKey: string,
+	index: TestToTargetIndex
 ): boolean {
-  return index.targetToTests.has(specKey);
+	return index.targetToTests.has(specKey);
 }
 
 /**
@@ -153,11 +153,11 @@ export function hasTargetedTest(
  * @returns Array of test spec keys, empty if none
  */
 export function getTestsForSpec(
-  specKey: string,
-  index: TestToTargetIndex
+	specKey: string,
+	index: TestToTargetIndex
 ): string[] {
-  const tests = index.targetToTests.get(specKey);
-  return tests ? Array.from(tests) : [];
+	const tests = index.targetToTests.get(specKey);
+	return tests ? Array.from(tests) : [];
 }
 
 /**
@@ -168,14 +168,14 @@ export function getTestsForSpec(
  * @returns The target spec key, or undefined if no target
  */
 export function getTargetForTest(
-  testKey: string,
-  index: TestToTargetIndex
+	testKey: string,
+	index: TestToTargetIndex
 ): string | undefined {
-  return index.testToTarget.get(testKey);
+	return index.testToTarget.get(testKey);
 }
 
-export { validateTestRefs } from './test-ref-validator';
 export type {
-  TestRefValidationResult,
-  TestRefValidationOptions,
+	TestRefValidationOptions,
+	TestRefValidationResult,
 } from './test-ref-validator';
+export { validateTestRefs } from './test-ref-validator';

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.workspace",
-  "version": "3.6.0",
+  "version": "4.0.0",
   "description": "Workspace discovery and management module",
   "keywords": [
     "contractspec",
@@ -24,8 +24,8 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "test": "bun test",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"

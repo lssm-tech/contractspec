@@ -1,14 +1,12 @@
 // Entity definitions for schema generation
-export * from './entities';
-
-// Contract specifications
-export * from './contracts';
 
 // Delivery channels
 export * from './channels';
 
-// Template system
-export * from './templates';
-
+// Contract specifications
+export * from './contracts';
+export * from './entities';
 // Feature module specification
 export * from './notifications.feature';
+// Template system
+export * from './templates';

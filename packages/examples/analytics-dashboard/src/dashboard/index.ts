@@ -3,24 +3,22 @@
  */
 
 export {
-  DashboardStatusEnum,
-  WidgetTypeEnum,
-  RefreshIntervalEnum,
+	DashboardStatusEnum,
+	RefreshIntervalEnum,
+	WidgetTypeEnum,
 } from './dashboard.enum';
-
 export {
-  WidgetModel,
-  DashboardModel,
-  CreateDashboardInputModel,
-  AddWidgetInputModel,
-  ListDashboardsInputModel,
-  ListDashboardsOutputModel,
-  GetDashboardInputModel,
-} from './dashboard.schema';
-
-export {
-  CreateDashboardContract,
-  AddWidgetContract,
-  ListDashboardsContract,
-  GetDashboardContract,
+	AddWidgetContract,
+	CreateDashboardContract,
+	GetDashboardContract,
+	ListDashboardsContract,
 } from './dashboard.operation';
+export {
+	AddWidgetInputModel,
+	CreateDashboardInputModel,
+	DashboardModel,
+	GetDashboardInputModel,
+	ListDashboardsInputModel,
+	ListDashboardsOutputModel,
+	WidgetModel,
+} from './dashboard.schema';

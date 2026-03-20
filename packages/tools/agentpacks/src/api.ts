@@ -16,78 +16,73 @@
 
 // Core
 export {
-  type TargetId,
-  type FeatureId,
-  type RepoMode,
-  type PackManifest,
-  type WorkspaceConfig,
-  TARGET_IDS,
-  FEATURE_IDS,
-  REPO_MODES,
-  PackManifestSchema,
-  WorkspaceConfigSchema,
-  loadWorkspaceConfig,
-  loadPackManifest,
-  resolveFeatures,
-  resolveTargets,
+	FEATURE_IDS,
+	type FeatureId,
+	loadPackManifest,
+	loadWorkspaceConfig,
+	type PackManifest,
+	PackManifestSchema,
+	REPO_MODES,
+	type RepoMode,
+	resolveFeatures,
+	resolveTargets,
+	TARGET_IDS,
+	type TargetId,
+	type WorkspaceConfig,
+	WorkspaceConfigSchema,
 } from './core/config.js';
-
-export { PackLoader, type LoadedPack } from './core/pack-loader.js';
+export {
+	type DependencyResolution,
+	resolveDependencies,
+} from './core/dependency-resolver.js';
 export { FeatureMerger, type MergedFeatures } from './core/feature-merger.js';
 export {
-  type Lockfile,
-  loadLockfile,
-  saveLockfile,
-  computeIntegrity,
+	computeIntegrity,
+	type Lockfile,
+	loadLockfile,
+	saveLockfile,
 } from './core/lockfile.js';
+export { type LoadedPack, PackLoader } from './core/pack-loader.js';
 export {
-  type DependencyResolution,
-  resolveDependencies,
-} from './core/dependency-resolver.js';
-export {
-  type ResolvedModels,
-  resolveModels,
-  resolveAgentModel,
+	type ResolvedModels,
+	resolveAgentModel,
+	resolveModels,
 } from './core/profile-resolver.js';
-
+// Exporters
+export {
+	type CursorPluginExportResult,
+	exportCursorPlugin,
+} from './exporters/cursor-plugin.js';
+export { importFromClaudeCode } from './importers/claude-code.js';
+export { importFromCursor } from './importers/cursor.js';
+export { importFromOpenCode } from './importers/opencode.js';
+// Importers
+export { importFromRulesync } from './importers/rulesync.js';
+export { installGitSource } from './sources/git.js';
+export {
+	type GitSourceRef,
+	isGitPackRef,
+	parseGitSourceRef,
+} from './sources/git-ref.js';
 // Sources
 export { isLocalPackRef, resolveLocalPack } from './sources/local.js';
+export { installNpmSource } from './sources/npm.js';
 export {
-  isGitPackRef,
-  parseGitSourceRef,
-  type GitSourceRef,
-} from './sources/git-ref.js';
-export {
-  isNpmPackRef,
-  parseNpmSourceRef,
-  type NpmSourceRef,
+	isNpmPackRef,
+	type NpmSourceRef,
+	parseNpmSourceRef,
 } from './sources/npm-ref.js';
 export {
-  isRegistryPackRef,
-  parseRegistrySourceRef,
-  registrySourceKey,
-  type RegistrySourceRef,
+	isRegistryPackRef,
+	parseRegistrySourceRef,
+	type RegistrySourceRef,
+	registrySourceKey,
 } from './sources/registry-ref.js';
-export { installGitSource } from './sources/git.js';
-export { installNpmSource } from './sources/npm.js';
-
 // Targets
 export { type BaseTarget } from './targets/base-target.js';
 export {
-  getTarget,
-  getAllTargets,
-  getTargets,
-  listTargetIds,
+	getAllTargets,
+	getTarget,
+	getTargets,
+	listTargetIds,
 } from './targets/registry.js';
-
-// Exporters
-export {
-  exportCursorPlugin,
-  type CursorPluginExportResult,
-} from './exporters/cursor-plugin.js';
-
-// Importers
-export { importFromRulesync } from './importers/rulesync.js';
-export { importFromCursor } from './importers/cursor.js';
-export { importFromClaudeCode } from './importers/claude-code.js';
-export { importFromOpenCode } from './importers/opencode.js';

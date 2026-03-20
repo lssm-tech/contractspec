@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '../../registry';
 
 export const tech_studio_learning_events_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.studio.learning-events',
-    title: 'Studio Learning Events',
-    summary:
-      'Studio persists learning/activity events to the database; Sandbox keeps learning local-first and unlogged.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/studio/learning-events',
-    tags: ['studio', 'learning', 'events', 'analytics', 'sandbox'],
-    body: `# Studio Learning Events
+	{
+		id: 'docs.tech.studio.learning-events',
+		title: 'Studio Learning Events',
+		summary:
+			'Studio persists learning/activity events to the database; Sandbox keeps learning local-first and unlogged.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/studio/learning-events',
+		tags: ['studio', 'learning', 'events', 'analytics', 'sandbox'],
+		body: `# Studio Learning Events
 
 Studio emits lightweight **learning/activity events** to support onboarding, ambient coaching, and learning journeys.
 
@@ -38,7 +38,7 @@ Studio emits lightweight **learning/activity events** to support onboarding, amb
 
 These events are intentionally minimal and must avoid PII/secrets in payloads.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(tech_studio_learning_events_DocBlocks);

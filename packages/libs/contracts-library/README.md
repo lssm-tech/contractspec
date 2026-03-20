@@ -1,39 +1,59 @@
 # @contractspec/lib.contracts-library
 
-Contract definitions for the ContractSpec library experience including templates and local runtime.
+**Contract definitions for library templates and local runtime.**
 
-## Overview
+## What It Provides
 
-This library provides contract specs for:
-- Template definitions (todos, recipes)
-- Local runtime operations
-- Library-specific queries and commands
+- **Layer**: lib.
+- **Consumers**: `bundle.library`.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Installation
 
-```bash
-bun add @contractspec/lib.contracts-library
-```
+`npm install @contractspec/lib.contracts-library`
 
-## Exports
+or
 
-- `./templates` — Template contract definitions
-- `./templates/recipes` — Recipe template specs
-- `./templates/todos` — Todo template specs
+`bun add @contractspec/lib.contracts-library`
 
 ## Usage
 
-```typescript
-import { RecipeSpec } from '@contractspec/lib.contracts-library/templates/recipes';
-import { TodoSpec } from '@contractspec/lib.contracts-library/templates/todos';
-```
+Import the root entrypoint from `@contractspec/lib.contracts-library`, or choose a documented subpath when you only need one part of the package surface.
 
-## Dependencies
+## Architecture
 
-- `@contractspec/lib.contracts-spec` — Core contract primitives
-- `@contractspec/lib.schema` — Schema utilities
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/templates` is part of the package's public or composition surface.
 
-## Related Packages
+## Public Entry Points
 
-- [`@contractspec/bundle.library`](../../bundles/library/README.md) — Implementation
-- [`@contractspec/lib.contracts-studio`](../contracts-studio/README.md) — Studio contracts
+- Export `.` resolves through `./src/index.ts`.
+- Export `./templates` resolves through `./src/templates/index.ts`.
+- Export `./templates/messaging` resolves through `./src/templates/messaging.ts`.
+- Export `./templates/recipes` resolves through `./src/templates/recipes.ts`.
+- Export `./templates/todos` resolves through `./src/templates/todos.ts`.
+
+## Local Commands
+
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun run lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rm -rf dist
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
+
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed.
+
+## Notes
+
+- Template contracts define the shape consumed by bundle.library — breaking changes cascade to all template renderers.
+- Keep contract schemas additive; avoid removing or renaming fields without a migration path.

@@ -1,58 +1,44 @@
 // Documentation pages organized by domain
 
+// Advanced
+export * from './advanced';
+// Architecture
+export * from './architecture';
+// Comparison
+export * from './comparison';
 // Root docs page
 export { DocsIndexPage } from './DocsIndexPage';
-
+// Docs manifest
+export * from './docsManifest';
+// Ecosystem
+export * from './ecosystem';
+// Examples
+export * from './examples';
+// Generated reference artifacts
+export * from './generated';
 // Getting Started
 export * from './getting-started';
 
-// Specs
-export * from './specs';
-
-// Libraries
-export * from './libraries';
-
-// Architecture
-export * from './architecture';
-
-// Advanced
-export * from './advanced';
-
-// Safety
-export * from './safety';
-
-// Integrations
-export * from './integrations';
-
 // Guides
 export * from './guides';
-
-// Examples
-export * from './examples';
-
-// Reference
-export * from './reference';
-
-// Generated reference artifacts
-export * from './generated';
-
+// Integrations
+export * from './integrations';
 // Intent Pages
 export * from './intent';
-
-// Ecosystem
-export * from './ecosystem';
-
 // Knowledge
 export * from './knowledge';
-
-// Comparison
-export * from './comparison';
-
-// Ops
-export * from './ops';
-
+// Libraries
+export * from './libraries';
 // Manifesto
 export { ManifestoPage } from './manifesto/ManifestoPage';
+// Ops
+export * from './ops';
+// Reference
+export * from './reference';
+// Safety
+export * from './safety';
+// Specs
+export * from './specs';
 
 // Studio
 export * from './studio';

@@ -1,75 +1,75 @@
+import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
-import { CodeBlock } from '@contractspec/lib.design-system';
 
 export function LibrariesDataBackendPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold">Data & Backend</h1>
-        <p className="text-muted-foreground">
-          A collection of robust, platform-agnostic libraries for building the
-          backend infrastructure of your LSSM applications.
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-4">
+				<h1 className="font-bold text-4xl">Data & Backend</h1>
+				<p className="text-muted-foreground">
+					A collection of robust, platform-agnostic libraries for building the
+					backend infrastructure of your LSSM applications.
+				</p>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Libraries</h2>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Libraries</h2>
 
-        <div className="space-y-6">
-          <div className="card-subtle p-6">
-            <h3 className="text-lg font-bold">
-              @contractspec/app.cli-database
-            </h3>
-            <p className="text-muted-foreground mt-2 text-sm">
-              <strong>Prisma Wrapper & CLI</strong>. Provides a unified way to
-              manage database schemas, migrations, and clients. Includes seeders
-              and factory patterns for testing.
-            </p>
-          </div>
+				<div className="space-y-6">
+					<div className="card-subtle p-6">
+						<h3 className="font-bold text-lg">
+							@contractspec/app.cli-database
+						</h3>
+						<p className="mt-2 text-muted-foreground text-sm">
+							<strong>Prisma Wrapper & CLI</strong>. Provides a unified way to
+							manage database schemas, migrations, and clients. Includes seeders
+							and factory patterns for testing.
+						</p>
+					</div>
 
-          <div className="card-subtle p-6">
-            <h3 className="text-lg font-bold">@contractspec/lib.bus</h3>
-            <p className="text-muted-foreground mt-2 text-sm">
-              <strong>Type-Safe Event Bus</strong>. Decouple your architecture
-              with typed events. Supports in-memory dispatch for monoliths and
-              can be extended for distributed message queues (Redis, SQS).
-            </p>
-          </div>
+					<div className="card-subtle p-6">
+						<h3 className="font-bold text-lg">@contractspec/lib.bus</h3>
+						<p className="mt-2 text-muted-foreground text-sm">
+							<strong>Type-Safe Event Bus</strong>. Decouple your architecture
+							with typed events. Supports in-memory dispatch for monoliths and
+							can be extended for distributed message queues (Redis, SQS).
+						</p>
+					</div>
 
-          <div className="card-subtle p-6">
-            <h3 className="text-lg font-bold">@contractspec/lib.logger</h3>
-            <p className="text-muted-foreground mt-2 text-sm">
-              <strong>High-Performance Logging</strong>. Optimized for Bun and
-              structured JSON output. Includes plugins for ElysiaJS to log HTTP
-              requests automatically.
-            </p>
-          </div>
+					<div className="card-subtle p-6">
+						<h3 className="font-bold text-lg">@contractspec/lib.logger</h3>
+						<p className="mt-2 text-muted-foreground text-sm">
+							<strong>High-Performance Logging</strong>. Optimized for Bun and
+							structured JSON output. Includes plugins for ElysiaJS to log HTTP
+							requests automatically.
+						</p>
+					</div>
 
-          <div className="card-subtle p-6">
-            <h3 className="text-lg font-bold">@contractspec/lib.error</h3>
-            <p className="text-muted-foreground mt-2 text-sm">
-              <strong>Standardized Errors</strong>. Use `AppError` with standard
-              codes (NOT_FOUND, UNAUTHORIZED) to ensure consistent HTTP
-              responses and error handling across services.
-            </p>
-          </div>
+					<div className="card-subtle p-6">
+						<h3 className="font-bold text-lg">@contractspec/lib.error</h3>
+						<p className="mt-2 text-muted-foreground text-sm">
+							<strong>Standardized Errors</strong>. Use `AppError` with standard
+							codes (NOT_FOUND, UNAUTHORIZED) to ensure consistent HTTP
+							responses and error handling across services.
+						</p>
+					</div>
 
-          <div className="card-subtle p-6">
-            <h3 className="text-lg font-bold">@contractspec/lib.exporter</h3>
-            <p className="text-muted-foreground mt-2 text-sm">
-              <strong>Data Export</strong>. Generate CSV and XML files from your
-              data. Platform-agnostic and streaming-friendly.
-            </p>
-          </div>
-        </div>
-      </div>
+					<div className="card-subtle p-6">
+						<h3 className="font-bold text-lg">@contractspec/lib.exporter</h3>
+						<p className="mt-2 text-muted-foreground text-sm">
+							<strong>Data Export</strong>. Generate CSV and XML files from your
+							data. Platform-agnostic and streaming-friendly.
+						</p>
+					</div>
+				</div>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Example: Unified Backend Flow</h2>
-        <CodeBlock
-          language="typescript"
-          code={`import { logger } from '@contractspec/lib.logger';
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Example: Unified Backend Flow</h2>
+				<CodeBlock
+					language="typescript"
+					code={`import { logger } from '@contractspec/lib.logger';
 import { AppError } from '@contractspec/lib.error';
 import { db } from '@contractspec/app.cli-database';
 import { EventBus } from '@contractspec/lib.bus';
@@ -88,17 +88,17 @@ export async function createUser(email: string) {
   
   return user;
 }`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="flex items-center gap-4 pt-4">
-        <Link href="/docs/libraries/runtime" className="btn-primary">
-          Next: Runtime <ChevronRight size={16} />
-        </Link>
-        <Link href="/docs/libraries" className="btn-ghost">
-          Back to Libraries
-        </Link>
-      </div>
-    </div>
-  );
+			<div className="flex items-center gap-4 pt-4">
+				<Link href="/docs/libraries/runtime" className="btn-primary">
+					Next: Runtime <ChevronRight size={16} />
+				</Link>
+				<Link href="/docs/libraries" className="btn-ghost">
+					Back to Libraries
+				</Link>
+			</div>
+		</div>
+	);
 }

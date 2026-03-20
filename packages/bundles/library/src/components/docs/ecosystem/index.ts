@@ -1,6 +1,6 @@
 import './ecosystem.docblocks';
 
-export { EcosystemPluginsPage } from './PluginsPage';
 export { EcosystemIntegrationsPage } from './IntegrationsPage';
-export { EcosystemTemplatesPage } from './TemplatesPage';
+export { EcosystemPluginsPage } from './PluginsPage';
 export { EcosystemRegistryPage } from './RegistryPage';
+export { EcosystemTemplatesPage } from './TemplatesPage';

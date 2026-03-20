@@ -1,5 +1,86 @@
 # @contractspec/lib.ai-agent
 
+## 7.0.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/lib.surface-runtime@0.5.6
+  - @contractspec/lib.contracts-spec@3.7.6
+  - @contractspec/lib.ai-providers@3.7.6
+  - @contractspec/lib.knowledge@3.7.6
+
+## 7.0.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.surface-runtime@0.5.5
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/lib.ai-providers@3.7.5
+  - @contractspec/lib.knowledge@3.7.5
+
+## 7.0.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/lib.surface-runtime@0.5.4
+  - @contractspec/lib.contracts-spec@3.7.4
+  - @contractspec/lib.ai-providers@3.7.4
+  - @contractspec/lib.knowledge@3.7.4
+
+## 7.0.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.surface-runtime@0.5.3
+  - @contractspec/lib.contracts-spec@3.7.3
+  - @contractspec/lib.ai-providers@3.7.3
+  - @contractspec/lib.knowledge@3.7.3
+
+## 7.0.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- Updated dependencies [8cd229b]
+- Updated dependencies [04bc555]
+  - @contractspec/lib.surface-runtime@0.5.2
+  - @contractspec/lib.contracts-spec@3.7.2
+  - @contractspec/lib.ai-providers@3.7.2
+  - @contractspec/lib.knowledge@3.7.2
+
+## 7.0.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/lib.surface-runtime@0.5.1
+  - @contractspec/lib.contracts-spec@3.7.1
+  - @contractspec/lib.ai-providers@3.7.1
+  - @contractspec/lib.knowledge@3.7.1
+
+## 7.0.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/lib.surface-runtime@0.5.0
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/lib.ai-providers@3.7.0
+  - @contractspec/lib.knowledge@3.7.0
+
 ## 6.0.0
 
 ### Minor Changes

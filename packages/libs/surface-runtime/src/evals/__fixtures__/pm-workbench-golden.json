@@ -1,25 +1,25 @@
 {
-  "version": 1,
-  "contexts": [
-    {
-      "description": "Pilot route: PM issue workbench, standard density",
-      "route": "/operate/pm/issues/123",
-      "params": { "issueId": "123" },
-      "preferences": { "density": "standard" },
-      "device": "desktop"
-    },
-    {
-      "description": "Pilot route: PM issue workbench, dense layout",
-      "route": "/operate/pm/issues/456",
-      "params": { "issueId": "456" },
-      "preferences": { "density": "dense" },
-      "device": "desktop"
-    },
-    {
-      "description": "Pilot route: mobile device",
-      "route": "/operate/pm/issues/789",
-      "params": { "issueId": "789" },
-      "device": "mobile"
-    }
-  ]
+	"version": 1,
+	"contexts": [
+		{
+			"description": "Pilot route: PM issue workbench, standard density",
+			"route": "/operate/pm/issues/123",
+			"params": { "issueId": "123" },
+			"preferences": { "density": "standard" },
+			"device": "desktop"
+		},
+		{
+			"description": "Pilot route: PM issue workbench, dense layout",
+			"route": "/operate/pm/issues/456",
+			"params": { "issueId": "456" },
+			"preferences": { "density": "dense" },
+			"device": "desktop"
+		},
+		{
+			"description": "Pilot route: mobile device",
+			"route": "/operate/pm/issues/789",
+			"params": { "issueId": "789" },
+			"device": "mobile"
+		}
+	]
 }

@@ -1,17 +1,10 @@
 {
-  "name": "vibecoding-contractspec-core",
-  "version": "1.0.0",
-  "description": "ContractSpec mission, contracts-first principles, and architecture governance rules",
-  "tags": [
-    "vibecoding",
-    "contractspec",
-    "governance",
-    "rules"
-  ],
-  "dependencies": [],
-  "conflicts": [],
-  "targets": "*",
-  "features": [
-    "rules"
-  ]
+	"name": "vibecoding-contractspec-core",
+	"version": "1.0.0",
+	"description": "ContractSpec mission, contracts-first principles, and architecture governance rules",
+	"tags": ["vibecoding", "contractspec", "governance", "rules"],
+	"dependencies": [],
+	"conflicts": [],
+	"targets": "*",
+	"features": ["rules"]
 }

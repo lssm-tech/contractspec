@@ -1,166 +1,68 @@
 # @contractspec/lib.contracts-runtime-server-rest
 
-REST runtime adapters for exposing ContractSpec operations over HTTP.
+**REST server runtime adapters for ContractSpec contracts.**
 
-Website: https://contractspec.io/
+## What It Provides
 
-## Why this package exists
-
-This package is the REST adapter layer extracted from `@contractspec/lib.contracts`.
-
-It lets you take an `OperationSpecRegistry` and expose it in multiple server environments with consistent behavior:
-
-- framework-agnostic fetch handler
-- Express adapter
-- Elysia adapter
-- Next.js App Router adapter
-- Next.js Pages Router adapter
-
-## Package boundary (important)
-
-Use this package for:
-
-- HTTP transport projection of operation specs.
-- Shared REST concerns (route derivation, input parsing, CORS, error mapping).
-- Helper utilities reused by GraphQL runtime (`contracts-adapter-input`, `contracts-adapter-hydration`).
-
-Do not use this package for:
-
-- Defining operation contracts (use `@contractspec/lib.contracts-spec`).
-- Building GraphQL schema (use `@contractspec/lib.contracts-runtime-server-graphql`).
+- **Layer**: lib.
+- **Consumers**: bundles, all REST apps.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Installation
 
-```bash
-npm install @contractspec/lib.contracts-runtime-server-rest @contractspec/lib.contracts-spec
-# or
-bun add @contractspec/lib.contracts-runtime-server-rest @contractspec/lib.contracts-spec
-```
+`npm install @contractspec/lib.contracts-runtime-server-rest`
 
-Install whichever peer framework you use (`express`, `elysia`, `next`).
+or
 
-## Export map
+`bun add @contractspec/lib.contracts-runtime-server-rest`
 
-- Generic handler:
-  - `createFetchHandler`
-  - `RestOptions`
-- Framework adapters:
-  - `expressRouter`
-  - `elysiaPlugin`
-  - `makeNextAppHandler`
-  - `makeNextPagesHandler`
-- Shared adapter internals:
-  - `createInputTypeBuilder`
-  - `hydrateResourceIfNeeded`
-  - `parseReturns`
+## Usage
 
-## Quick start (framework-agnostic)
+Import the root entrypoint from `@contractspec/lib.contracts-runtime-server-rest`, or choose a documented subpath when you only need one part of the package surface.
 
-```ts
-import { createFetchHandler } from "@contractspec/lib.contracts-runtime-server-rest";
-import type { HandlerCtx } from "@contractspec/lib.contracts-spec";
-import type { OperationSpecRegistry } from "@contractspec/lib.contracts-spec/operations/registry";
+## Architecture
 
-declare const operations: OperationSpecRegistry;
+- `src/contracts-adapter-hydration.ts` is part of the package's public or composition surface.
+- `src/contracts-adapter-input.ts` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/rest-elysia.ts` is part of the package's public or composition surface.
+- `src/rest-express.ts` is part of the package's public or composition surface.
+- `src/rest-generic.ts` is part of the package's public or composition surface.
+- `src/rest-next-app.ts` is part of the package's public or composition surface.
 
-const handler = createFetchHandler(
-  operations,
-  (request): HandlerCtx => ({
-    actor: "user",
-    channel: "web",
-    traceId: request.headers.get("x-trace-id") ?? undefined,
-  }),
-  {
-    basePath: "/api/contracts",
-    cors: true,
-    prettyJson: 2,
-  }
-);
+## Public Entry Points
 
-const response = await handler(
-  new Request("https://example.com/api/contracts/workspace/get/v1.0.0")
-);
-console.log(response.status);
-```
+- Export `.` resolves through `./src/index.ts`.
+- Export `./contracts-adapter-hydration` resolves through `./src/contracts-adapter-hydration.ts`.
+- Export `./contracts-adapter-input` resolves through `./src/contracts-adapter-input.ts`.
+- Export `./rest-elysia` resolves through `./src/rest-elysia.ts`.
+- Export `./rest-express` resolves through `./src/rest-express.ts`.
+- Export `./rest-generic` resolves through `./src/rest-generic.ts`.
+- Export `./rest-next-app` resolves through `./src/rest-next-app.ts`.
+- Export `./rest-next-pages` resolves through `./src/rest-next-pages.ts`.
 
-## Framework examples
+## Local Commands
 
-### Express
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun run lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rm -rf dist
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-```ts
-import express from "express";
-import { expressRouter } from "@contractspec/lib.contracts-runtime-server-rest/rest-express";
+## Recent Updates
 
-declare const operations: import("@contractspec/lib.contracts-spec/operations/registry").OperationSpecRegistry;
+- Replace eslint+prettier by biomejs to optimize speed.
 
-const app = express();
-app.use(express.json());
+## Notes
 
-app.use(
-  expressRouter(
-    express,
-    operations,
-    () => ({ actor: "user", channel: "web" }),
-    { basePath: "/api/contracts", cors: true }
-  )
-);
-```
-
-### Next.js App Router
-
-```ts
-import { makeNextAppHandler } from "@contractspec/lib.contracts-runtime-server-rest/rest-next-app";
-
-declare const operations: import("@contractspec/lib.contracts-spec/operations/registry").OperationSpecRegistry;
-
-const handler = makeNextAppHandler(
-  operations,
-  () => ({ actor: "user", channel: "web" }),
-  { basePath: "/api/contracts" }
-);
-
-export const GET = handler;
-export const POST = handler;
-export const OPTIONS = handler;
-```
-
-## Runtime behavior details
-
-- Default method mapping:
-  - query -> `GET`
-  - command -> `POST`
-- Default path mapping:
-  - `/<operation.key with dots replaced by slashes>/v<version>`
-- GET input parsing:
-  - if `input` query param exists, parse it as JSON
-  - otherwise use query params as flat object
-- POST input parsing:
-  - supports `application/json` and `application/x-www-form-urlencoded`
-- Error mapping defaults:
-  - validation errors -> `400`
-  - `PolicyDenied*` errors -> `403`
-  - unknown errors -> `500`
-  - unsupported content type -> `415`
-
-You can override error serialization using `RestOptions.onError`.
-
-## AI assistant guidance
-
-When generating code:
-
-- Define operation specs first in `@contractspec/lib.contracts-spec`.
-- Start with `createFetchHandler` for deterministic behavior, then choose framework wrappers.
-- Keep `basePath` explicit to avoid route ambiguity in generated handlers.
-
-When debugging:
-
-- If a route is 404, verify operation key/version and derived path.
-- If input parsing fails on GET, check whether caller sends `input=` JSON vs plain query params.
-
-## Split migration from deprecated monolith
-
-- `@contractspec/lib.contracts/server/rest-generic` -> `@contractspec/lib.contracts-runtime-server-rest/rest-generic`
-- `@contractspec/lib.contracts/server/rest-express` -> `@contractspec/lib.contracts-runtime-server-rest/rest-express`
-- `@contractspec/lib.contracts/server/rest-elysia` -> `@contractspec/lib.contracts-runtime-server-rest/rest-elysia`
-- `@contractspec/lib.contracts/server/rest-next-app` -> `@contractspec/lib.contracts-runtime-server-rest/rest-next-app`
-- `@contractspec/lib.contracts/server/rest-next-pages` -> `@contractspec/lib.contracts-runtime-server-rest/rest-next-pages`
+- High blast radius — all REST APIs depend on this package.
+- Framework adapters (Elysia, Express, Next.js) must stay independent of each other.
+- Do not introduce cross-adapter coupling.

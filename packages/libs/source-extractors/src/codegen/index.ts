@@ -6,16 +6,14 @@
 
 // Operation generators
 export { generateOperation, generateOperations } from './operation-gen';
-
+// Registry generators
+export { generateRegistry } from './registry-gen';
 // Schema generators
 export { generateSchema, generateSchemas } from './schema-gen';
 
-// Registry generators
-export { generateRegistry } from './registry-gen';
-
 // Types
 export type {
-  GeneratedFile,
-  GenerationOptions,
-  GenerationResult,
+	GeneratedFile,
+	GenerationOptions,
+	GenerationResult,
 } from './types';

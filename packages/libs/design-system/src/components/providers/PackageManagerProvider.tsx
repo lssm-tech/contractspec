@@ -1,28 +1,28 @@
 'use client';
 
 import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
+	createContext,
+	type ReactNode,
+	useCallback,
+	useContext,
+	useEffect,
+	useState,
 } from 'react';
 import type {
-  PackageManager,
-  PackageManagerContextValue,
+	PackageManager,
+	PackageManagerContextValue,
 } from '../molecules/CommandTabs/types';
 
 const STORAGE_KEY = 'package-manager-preference';
 
 const PackageManagerContext = createContext<PackageManagerContextValue | null>(
-  null
+	null
 );
 
 export interface PackageManagerProviderProps {
-  children: ReactNode;
-  /** Default package manager preference */
-  defaultPreference?: PackageManager;
+	children: ReactNode;
+	/** Default package manager preference */
+	defaultPreference?: PackageManager;
 }
 
 /**
@@ -30,38 +30,38 @@ export interface PackageManagerProviderProps {
  * Wrap your documentation layout with this provider to sync preference across all instances.
  */
 export function PackageManagerProvider({
-  children,
-  defaultPreference = 'bun',
+	children,
+	defaultPreference = 'bun',
 }: PackageManagerProviderProps) {
-  const [preference, setPreferenceState] =
-    useState<PackageManager>(defaultPreference);
+	const [preference, setPreferenceState] =
+		useState<PackageManager>(defaultPreference);
 
-  // Hydrate from localStorage on mount
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY) as PackageManager | null;
-      if (saved && ['bun', 'npm', 'yarn', 'pnpm'].includes(saved)) {
-        setPreferenceState(saved);
-      }
-    } catch {
-      // localStorage not available
-    }
-  }, []);
+	// Hydrate from localStorage on mount
+	useEffect(() => {
+		try {
+			const saved = localStorage.getItem(STORAGE_KEY) as PackageManager | null;
+			if (saved && ['bun', 'npm', 'yarn', 'pnpm'].includes(saved)) {
+				setPreferenceState(saved);
+			}
+		} catch {
+			// localStorage not available
+		}
+	}, []);
 
-  const setPreference = useCallback((pm: PackageManager) => {
-    setPreferenceState(pm);
-    try {
-      localStorage.setItem(STORAGE_KEY, pm);
-    } catch {
-      // localStorage not available
-    }
-  }, []);
+	const setPreference = useCallback((pm: PackageManager) => {
+		setPreferenceState(pm);
+		try {
+			localStorage.setItem(STORAGE_KEY, pm);
+		} catch {
+			// localStorage not available
+		}
+	}, []);
 
-  return (
-    <PackageManagerContext.Provider value={{ preference, setPreference }}>
-      {children}
-    </PackageManagerContext.Provider>
-  );
+	return (
+		<PackageManagerContext.Provider value={{ preference, setPreference }}>
+			{children}
+		</PackageManagerContext.Provider>
+	);
 }
 
 /**
@@ -69,5 +69,5 @@ export function PackageManagerProvider({
  * Returns null if not wrapped in a PackageManagerProvider (components will use local state).
  */
 export function usePackageManager(): PackageManagerContextValue | null {
-  return useContext(PackageManagerContext);
+	return useContext(PackageManagerContext);
 }

@@ -1,5 +1,47 @@
 # @contractspec/lib.error
 
+## 3.7.6
+
+### Patch Changes
+
+- fix: release manifest
+
+## 3.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+
+## 3.7.4
+
+### Patch Changes
+
+- fix: release security
+
+## 3.7.3
+
+### Patch Changes
+
+- fix: release
+
+## 3.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+
+## 3.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+
+## 3.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
 ## 3.6.0
 
 ### Minor Changes

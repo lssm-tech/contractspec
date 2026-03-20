@@ -14,6 +14,6 @@
  * ```
  */
 
+export * from './common';
 // Re-export all modules
 export * from './openapi';
-export * from './common';

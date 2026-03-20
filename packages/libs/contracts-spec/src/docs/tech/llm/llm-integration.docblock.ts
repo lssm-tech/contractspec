@@ -8,16 +8,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '../../registry';
 
 export const tech_llm_integration_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.llm.overview',
-    title: 'LLM Integration Overview',
-    summary:
-      'Export specs to LLM-friendly formats, generate implementation guides, and verify implementations.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/llm/overview',
-    tags: ['llm', 'ai', 'export', 'guide', 'verify'],
-    body: `# LLM Integration
+	{
+		id: 'docs.tech.llm.overview',
+		title: 'LLM Integration Overview',
+		summary:
+			'Export specs to LLM-friendly formats, generate implementation guides, and verify implementations.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/llm/overview',
+		tags: ['llm', 'ai', 'export', 'guide', 'verify'],
+		body: `# LLM Integration
 
 ContractSpec provides first-class LLM integration to bridge specifications and AI coding agents.
 
@@ -106,17 +106,17 @@ const result = await verifyService.verify(mySpec, implementationCode, {
 });
 \`\`\`
 `,
-  },
-  {
-    id: 'docs.tech.llm.export-formats',
-    title: 'LLM Export Formats',
-    summary:
-      'Detailed explanation of the three export formats for LLM consumption.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/llm/export-formats',
-    tags: ['llm', 'export', 'markdown'],
-    body: `# LLM Export Formats
+	},
+	{
+		id: 'docs.tech.llm.export-formats',
+		title: 'LLM Export Formats',
+		summary:
+			'Detailed explanation of the three export formats for LLM consumption.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/llm/export-formats',
+		tags: ['llm', 'export', 'markdown'],
+		body: `# LLM Export Formats
 
 ContractSpec provides three export formats optimized for different LLM use cases.
 
@@ -182,16 +182,16 @@ The prompt format adapts based on task type:
 - **refactor**: Refactoring while maintaining behavior
 - **review**: Code review against spec
 `,
-  },
-  {
-    id: 'docs.tech.llm.agent-adapters',
-    title: 'Agent Adapters',
-    summary: 'Adapters for different AI coding agents (Claude, Cursor, MCP).',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/llm/agent-adapters',
-    tags: ['llm', 'agents', 'claude', 'cursor', 'mcp'],
-    body: `# Agent Adapters
+	},
+	{
+		id: 'docs.tech.llm.agent-adapters',
+		title: 'Agent Adapters',
+		summary: 'Adapters for different AI coding agents (Claude, Cursor, MCP).',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/llm/agent-adapters',
+		tags: ['llm', 'agents', 'claude', 'cursor', 'mcp'],
+		body: `# Agent Adapters
 
 ContractSpec provides specialized adapters for different AI coding agents.
 
@@ -249,16 +249,16 @@ The generic adapter is the default and works across all agents.
 | Cursor CLI | IDE-integrated work | Cursor rules, compact format |
 | Generic MCP | Any MCP agent | Universal compatibility |
 `,
-  },
-  {
-    id: 'docs.tech.llm.verification',
-    title: 'Implementation Verification',
-    summary: 'Tiered verification of implementations against specifications.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/llm/verification',
-    tags: ['llm', 'verify', 'validation', 'testing'],
-    body: `# Implementation Verification
+	},
+	{
+		id: 'docs.tech.llm.verification',
+		title: 'Implementation Verification',
+		summary: 'Tiered verification of implementations against specifications.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/llm/verification',
+		tags: ['llm', 'verify', 'validation', 'testing'],
+		body: `# Implementation Verification
 
 ContractSpec provides tiered verification to check if implementations comply with specs.
 
@@ -337,7 +337,7 @@ Each issue has:
 - **message**: Description of the issue
 - **suggestion**: How to fix it
 `,
-  },
+	},
 ];
 
 registerDocBlocks(tech_llm_integration_DocBlocks);

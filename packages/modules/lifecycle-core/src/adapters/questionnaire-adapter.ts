@@ -1,14 +1,14 @@
 import type {
-  LifecycleAxes,
-  LifecycleSignal,
+	LifecycleAxes,
+	LifecycleSignal,
 } from '@contractspec/lib.lifecycle';
 
 export interface QuestionnaireAdapterResult {
-  axes?: Partial<LifecycleAxes>;
-  signals?: LifecycleSignal[];
-  answers?: Record<string, unknown>;
+	axes?: Partial<LifecycleAxes>;
+	signals?: LifecycleSignal[];
+	answers?: Record<string, unknown>;
 }
 
 export interface QuestionnaireAdapter {
-  fetch(): Promise<QuestionnaireAdapterResult>;
+	fetch(): Promise<QuestionnaireAdapterResult>;
 }

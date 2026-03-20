@@ -2,66 +2,61 @@
  * Agent domain - AI agent configuration and management.
  */
 
-// Enums
-export {
-  AgentStatusEnum,
-  ModelProviderEnum,
-  ToolChoiceEnum,
-} from './agent.enum';
-
-// Schema models
-export {
-  AgentModel,
-  AgentSummaryModel,
-  AgentToolRefModel,
-  AgentWithToolsModel,
-  CreateAgentInputModel,
-  UpdateAgentInputModel,
-} from './agent.schema';
-
-// Contracts
-export {
-  CreateAgentCommand,
-  UpdateAgentCommand,
-  GetAgentQuery,
-  ListAgentsQuery,
-  AssignToolToAgentCommand,
-  RemoveToolFromAgentCommand,
-} from './agent.operation';
-
-// Events
-export {
-  AgentCreatedEvent,
-  AgentUpdatedEvent,
-  AgentToolAssignedEvent,
-  AgentToolRemovedEvent,
-} from './agent.event';
-
 // Entities
 export {
-  AgentStatusEntityEnum,
-  ModelProviderEntityEnum,
-  AgentEntity,
-  AgentToolEntity,
+	AgentEntity,
+	AgentStatusEntityEnum,
+	AgentToolEntity,
+	ModelProviderEntityEnum,
 } from './agent.entity';
+// Enums
+export {
+	AgentStatusEnum,
+	ModelProviderEnum,
+	ToolChoiceEnum,
+} from './agent.enum';
+// Events
+export {
+	AgentCreatedEvent,
+	AgentToolAssignedEvent,
+	AgentToolRemovedEvent,
+	AgentUpdatedEvent,
+} from './agent.event';
+// Handlers
+export {
+	type AgentSummary,
+	type AgentToolRef,
+	type AgentWithTools,
+	type GetAgentInput,
+	type ListAgentsInput,
+	type ListAgentsOutput,
+	mockCreateAgentHandler,
+	mockGetAgentHandler,
+	mockListAgentsHandler,
+	mockUpdateAgentHandler,
+} from './agent.handler';
+// Contracts
+export {
+	AssignToolToAgentCommand,
+	CreateAgentCommand,
+	GetAgentQuery,
+	ListAgentsQuery,
+	RemoveToolFromAgentCommand,
+	UpdateAgentCommand,
+} from './agent.operation';
 
 // Presentations
 export {
-  AgentListPresentation,
-  AgentDetailPresentation,
-  AgentConsoleDashboardPresentation,
+	AgentConsoleDashboardPresentation,
+	AgentDetailPresentation,
+	AgentListPresentation,
 } from './agent.presentation';
-
-// Handlers
+// Schema models
 export {
-  mockListAgentsHandler,
-  mockGetAgentHandler,
-  mockCreateAgentHandler,
-  mockUpdateAgentHandler,
-  type ListAgentsInput,
-  type AgentSummary,
-  type ListAgentsOutput,
-  type GetAgentInput,
-  type AgentToolRef,
-  type AgentWithTools,
-} from './agent.handler';
+	AgentModel,
+	AgentSummaryModel,
+	AgentToolRefModel,
+	AgentWithToolsModel,
+	CreateAgentInputModel,
+	UpdateAgentInputModel,
+} from './agent.schema';

@@ -3,10 +3,10 @@
  */
 
 export { PayoutStatusEnum } from './payout.enum';
-export {
-  PayoutModel,
-  ListPayoutsInputModel,
-  ListPayoutsOutputModel,
-} from './payout.schema';
-export { ListPayoutsContract } from './payout.operations';
 export { PayoutCreatedEvent, PayoutPaidEvent } from './payout.event';
+export { ListPayoutsContract } from './payout.operations';
+export {
+	ListPayoutsInputModel,
+	ListPayoutsOutputModel,
+	PayoutModel,
+} from './payout.schema';

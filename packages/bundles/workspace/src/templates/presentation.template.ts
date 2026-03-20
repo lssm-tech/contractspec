@@ -4,23 +4,23 @@ import type { PresentationSpecData } from '../types';
  * Generate presentation spec TypeScript code
  */
 export function generatePresentationSpec(data: PresentationSpecData): string {
-  const {
-    name,
-    version,
-    description,
-    stability,
-    owners,
-    tags,
-    presentationKind,
-  } = data;
+	const {
+		name,
+		version,
+		description,
+		stability,
+		owners,
+		tags,
+		presentationKind,
+	} = data;
 
-  const varName = toPascalCase(name.replace(/\./g, '_')) + 'Presentation';
+	const varName = toPascalCase(name.replace(/\./g, '_')) + 'Presentation';
 
-  let contentBlock = '';
+	let contentBlock = '';
 
-  switch (presentationKind) {
-    case 'web_component':
-      contentBlock = `  content: {
+	switch (presentationKind) {
+		case 'web_component':
+			contentBlock = `  content: {
     kind: 'web_component',
     framework: 'react',
     componentKey: '${name.replace(/\./g, '_')}',
@@ -35,10 +35,10 @@ export function generatePresentationSpec(data: PresentationSpecData): string {
       // TODO: Define analytics events
     ],
   },`;
-      break;
+			break;
 
-    case 'markdown':
-      contentBlock = `  content: {
+		case 'markdown':
+			contentBlock = `  content: {
     kind: 'markdown',
     content: \`
 # ${description}
@@ -47,10 +47,10 @@ TODO: Add markdown content here
     \`,
     // Or use resourceUri: 'feature://${name}/guide.md'
   },`;
-      break;
+			break;
 
-    case 'data':
-      contentBlock = `  content: {
+		case 'data':
+			contentBlock = `  content: {
     kind: 'data',
     mimeType: 'application/json',
     model: new SchemaModel({
@@ -61,10 +61,10 @@ TODO: Add markdown content here
       },
     }),
   },`;
-      break;
-  }
+			break;
+	}
 
-  return `import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
+	return `import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
 import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 export const ${varName}: PresentationSpec = {
@@ -88,8 +88,8 @@ ${contentBlock}
 }
 
 function toPascalCase(str: string): string {
-  return str
-    .split(/[-_.]/)
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join('');
+	return str
+		.split(/[-_.]/)
+		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+		.join('');
 }

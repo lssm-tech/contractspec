@@ -1,22 +1,22 @@
 import type {
-  STTProvider,
-  TTSProvider,
-  AudioData,
-  ConversationalEvent,
-} from '../types';
+	ModelSelectionContext,
+	ModelSelector,
+} from '@contractspec/lib.ai-providers/selector-types';
 import type { LLMProvider } from '@contractspec/lib.contracts-integrations/integrations/providers/llm';
 import type {
-  ModelSelector,
-  ModelSelectionContext,
-} from '@contractspec/lib.ai-providers/selector-types';
+	AudioData,
+	ConversationalEvent,
+	STTProvider,
+	TTSProvider,
+} from '../types';
 import type { ConversationConfig } from './types';
 
 export interface ResponseOrchestratorOptions {
-  stt: STTProvider;
-  llm: LLMProvider;
-  tts: TTSProvider;
-  modelSelector?: ModelSelector;
-  selectionContext?: ModelSelectionContext;
+	stt: STTProvider;
+	llm: LLMProvider;
+	tts: TTSProvider;
+	modelSelector?: ModelSelector;
+	selectionContext?: ModelSelectionContext;
 }
 
 /**
@@ -26,129 +26,129 @@ export interface ResponseOrchestratorOptions {
  * native bidirectional conversation.
  */
 export class ResponseOrchestrator {
-  private readonly stt: STTProvider;
-  private readonly llm: LLMProvider;
-  private readonly tts: TTSProvider;
-  private readonly modelSelector?: ModelSelector;
-  private readonly selectionContext?: ModelSelectionContext;
-  private readonly conversationHistory: {
-    role: 'user' | 'assistant';
-    content: string;
-  }[] = [];
+	private readonly stt: STTProvider;
+	private readonly llm: LLMProvider;
+	private readonly tts: TTSProvider;
+	private readonly modelSelector?: ModelSelector;
+	private readonly selectionContext?: ModelSelectionContext;
+	private readonly conversationHistory: {
+		role: 'user' | 'assistant';
+		content: string;
+	}[] = [];
 
-  constructor(
-    sttOrOptions: STTProvider | ResponseOrchestratorOptions,
-    llm?: LLMProvider,
-    tts?: TTSProvider
-  ) {
-    if ('stt' in sttOrOptions) {
-      this.stt = sttOrOptions.stt;
-      this.llm = sttOrOptions.llm;
-      this.tts = sttOrOptions.tts;
-      this.modelSelector = sttOrOptions.modelSelector;
-      this.selectionContext = sttOrOptions.selectionContext;
-    } else {
-      if (!llm || !tts) {
-        throw new Error(
-          'ResponseOrchestrator requires llm and tts when constructed with positional arguments'
-        );
-      }
-      this.stt = sttOrOptions;
-      this.llm = llm;
-      this.tts = tts;
-    }
-  }
+	constructor(
+		sttOrOptions: STTProvider | ResponseOrchestratorOptions,
+		llm?: LLMProvider,
+		tts?: TTSProvider
+	) {
+		if ('stt' in sttOrOptions) {
+			this.stt = sttOrOptions.stt;
+			this.llm = sttOrOptions.llm;
+			this.tts = sttOrOptions.tts;
+			this.modelSelector = sttOrOptions.modelSelector;
+			this.selectionContext = sttOrOptions.selectionContext;
+		} else {
+			if (!llm || !tts) {
+				throw new Error(
+					'ResponseOrchestrator requires llm and tts when constructed with positional arguments'
+				);
+			}
+			this.stt = sttOrOptions;
+			this.llm = llm;
+			this.tts = tts;
+		}
+	}
 
-  /**
-   * Process a user's audio turn and generate an agent response.
-   *
-   * @param userAudio - Audio from the user's turn
-   * @param config - Session configuration
-   * @returns Stream of conversational events
-   */
-  async *processUserTurn(
-    userAudio: AudioData,
-    config: ConversationConfig
-  ): AsyncGenerator<ConversationalEvent> {
-    // 1. STT: Convert user audio to text
-    const transcription = await this.stt.transcribe({
-      audio: userAudio,
-      language: config.language,
-      wordTimestamps: false,
-    });
+	/**
+	 * Process a user's audio turn and generate an agent response.
+	 *
+	 * @param userAudio - Audio from the user's turn
+	 * @param config - Session configuration
+	 * @returns Stream of conversational events
+	 */
+	async *processUserTurn(
+		userAudio: AudioData,
+		config: ConversationConfig
+	): AsyncGenerator<ConversationalEvent> {
+		// 1. STT: Convert user audio to text
+		const transcription = await this.stt.transcribe({
+			audio: userAudio,
+			language: config.language,
+			wordTimestamps: false,
+		});
 
-    const userText = transcription.text;
-    yield { type: 'user_speech_ended', transcript: userText };
-    yield {
-      type: 'transcript',
-      role: 'user',
-      text: userText,
-      timestamp: Date.now(),
-    };
+		const userText = transcription.text;
+		yield { type: 'user_speech_ended', transcript: userText };
+		yield {
+			type: 'transcript',
+			role: 'user',
+			text: userText,
+			timestamp: Date.now(),
+		};
 
-    // 2. LLM: Generate response
-    this.conversationHistory.push({ role: 'user', content: userText });
+		// 2. LLM: Generate response
+		this.conversationHistory.push({ role: 'user', content: userText });
 
-    const model = await this.resolveModel(config.llmModel);
-    const llmResponse = await this.llm.chat(
-      [
-        {
-          role: 'system',
-          content: [{ type: 'text', text: config.systemPrompt }],
-        },
-        ...this.conversationHistory.map((msg) => ({
-          role: msg.role as 'user' | 'assistant',
-          content: [{ type: 'text' as const, text: msg.content }],
-        })),
-      ],
-      { model }
-    );
+		const model = await this.resolveModel(config.llmModel);
+		const llmResponse = await this.llm.chat(
+			[
+				{
+					role: 'system',
+					content: [{ type: 'text', text: config.systemPrompt }],
+				},
+				...this.conversationHistory.map((msg) => ({
+					role: msg.role as 'user' | 'assistant',
+					content: [{ type: 'text' as const, text: msg.content }],
+				})),
+			],
+			{ model }
+		);
 
-    const responseText = llmResponse.message.content.find(
-      (p) => p.type === 'text'
-    );
-    const agentText =
-      responseText && responseText.type === 'text'
-        ? responseText.text
-        : 'I apologize, I could not generate a response.';
+		const responseText = llmResponse.message.content.find(
+			(p) => p.type === 'text'
+		);
+		const agentText =
+			responseText && responseText.type === 'text'
+				? responseText.text
+				: 'I apologize, I could not generate a response.';
 
-    this.conversationHistory.push({ role: 'assistant', content: agentText });
-    yield { type: 'agent_speech_started', text: agentText };
+		this.conversationHistory.push({ role: 'assistant', content: agentText });
+		yield { type: 'agent_speech_started', text: agentText };
 
-    // 3. TTS: Synthesize agent response
-    const synthesis = await this.tts.synthesize({
-      text: agentText,
-      voiceId: config.voiceId,
-      language: config.language,
-      format: config.outputFormat,
-    });
+		// 3. TTS: Synthesize agent response
+		const synthesis = await this.tts.synthesize({
+			text: agentText,
+			voiceId: config.voiceId,
+			language: config.language,
+			format: config.outputFormat,
+		});
 
-    yield { type: 'agent_audio', audio: synthesis.audio.data };
-    yield { type: 'agent_speech_ended' };
-    yield {
-      type: 'transcript',
-      role: 'agent',
-      text: agentText,
-      timestamp: Date.now(),
-    };
-  }
+		yield { type: 'agent_audio', audio: synthesis.audio.data };
+		yield { type: 'agent_speech_ended' };
+		yield {
+			type: 'transcript',
+			role: 'agent',
+			text: agentText,
+			timestamp: Date.now(),
+		};
+	}
 
-  private async resolveModel(
-    explicitModel?: string
-  ): Promise<string | undefined> {
-    if (explicitModel) return explicitModel;
-    if (this.modelSelector) {
-      const ctx = this.selectionContext ?? {
-        taskDimension: 'reasoning' as const,
-      };
-      const result = await this.modelSelector.select(ctx);
-      return result.modelId;
-    }
-    return undefined;
-  }
+	private async resolveModel(
+		explicitModel?: string
+	): Promise<string | undefined> {
+		if (explicitModel) return explicitModel;
+		if (this.modelSelector) {
+			const ctx = this.selectionContext ?? {
+				taskDimension: 'reasoning' as const,
+			};
+			const result = await this.modelSelector.select(ctx);
+			return result.modelId;
+		}
+		return undefined;
+	}
 
-  /** Reset conversation history */
-  reset(): void {
-    this.conversationHistory.length = 0;
-  }
+	/** Reset conversation history */
+	reset(): void {
+		this.conversationHistory.length = 0;
+	}
 }

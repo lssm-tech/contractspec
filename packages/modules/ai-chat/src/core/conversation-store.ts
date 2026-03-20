@@ -2,344 +2,344 @@
  * Conversation storage interface and implementations
  */
 import type {
-  ChatConversation,
-  ChatMessage,
-  ConversationStatus,
+	ChatConversation,
+	ChatMessage,
+	ConversationStatus,
 } from './message-types';
 
 /**
  * Interface for conversation persistence
  */
 export interface ConversationStore {
-  /**
-   * Get a conversation by ID
-   */
-  get(conversationId: string): Promise<ChatConversation | null>;
+	/**
+	 * Get a conversation by ID
+	 */
+	get(conversationId: string): Promise<ChatConversation | null>;
 
-  /**
-   * Create a new conversation
-   */
-  create(
-    conversation: Omit<ChatConversation, 'id' | 'createdAt' | 'updatedAt'>
-  ): Promise<ChatConversation>;
+	/**
+	 * Create a new conversation
+	 */
+	create(
+		conversation: Omit<ChatConversation, 'id' | 'createdAt' | 'updatedAt'>
+	): Promise<ChatConversation>;
 
-  /**
-   * Update conversation properties
-   */
-  update(
-    conversationId: string,
-    updates: Partial<
-      Pick<
-        ChatConversation,
-        | 'title'
-        | 'status'
-        | 'summary'
-        | 'metadata'
-        | 'projectId'
-        | 'projectName'
-        | 'tags'
-      >
-    >
-  ): Promise<ChatConversation | null>;
+	/**
+	 * Update conversation properties
+	 */
+	update(
+		conversationId: string,
+		updates: Partial<
+			Pick<
+				ChatConversation,
+				| 'title'
+				| 'status'
+				| 'summary'
+				| 'metadata'
+				| 'projectId'
+				| 'projectName'
+				| 'tags'
+			>
+		>
+	): Promise<ChatConversation | null>;
 
-  /**
-   * Append a message to a conversation
-   */
-  appendMessage(
-    conversationId: string,
-    message: Omit<
-      ChatMessage,
-      'id' | 'conversationId' | 'createdAt' | 'updatedAt'
-    >
-  ): Promise<ChatMessage>;
+	/**
+	 * Append a message to a conversation
+	 */
+	appendMessage(
+		conversationId: string,
+		message: Omit<
+			ChatMessage,
+			'id' | 'conversationId' | 'createdAt' | 'updatedAt'
+		>
+	): Promise<ChatMessage>;
 
-  /**
-   * Update a message in a conversation
-   */
-  updateMessage(
-    conversationId: string,
-    messageId: string,
-    updates: Partial<ChatMessage>
-  ): Promise<ChatMessage | null>;
+	/**
+	 * Update a message in a conversation
+	 */
+	updateMessage(
+		conversationId: string,
+		messageId: string,
+		updates: Partial<ChatMessage>
+	): Promise<ChatMessage | null>;
 
-  /**
-   * Delete a conversation
-   */
-  delete(conversationId: string): Promise<boolean>;
+	/**
+	 * Delete a conversation
+	 */
+	delete(conversationId: string): Promise<boolean>;
 
-  /**
-   * List conversations with optional filters
-   */
-  list(options?: {
-    status?: ConversationStatus;
-    projectId?: string;
-    tags?: string[];
-    limit?: number;
-    offset?: number;
-  }): Promise<ChatConversation[]>;
+	/**
+	 * List conversations with optional filters
+	 */
+	list(options?: {
+		status?: ConversationStatus;
+		projectId?: string;
+		tags?: string[];
+		limit?: number;
+		offset?: number;
+	}): Promise<ChatConversation[]>;
 
-  /**
-   * Fork a conversation, optionally up to a specific message
-   */
-  fork(
-    conversationId: string,
-    upToMessageId?: string
-  ): Promise<ChatConversation>;
+	/**
+	 * Fork a conversation, optionally up to a specific message
+	 */
+	fork(
+		conversationId: string,
+		upToMessageId?: string
+	): Promise<ChatConversation>;
 
-  /**
-   * Remove all messages after the given message (for edit/regenerate flow)
-   */
-  truncateAfter(
-    conversationId: string,
-    messageId: string
-  ): Promise<ChatConversation | null>;
+	/**
+	 * Remove all messages after the given message (for edit/regenerate flow)
+	 */
+	truncateAfter(
+		conversationId: string,
+		messageId: string
+	): Promise<ChatConversation | null>;
 
-  /**
-   * Search conversations by content
-   */
-  search(query: string, limit?: number): Promise<ChatConversation[]>;
+	/**
+	 * Search conversations by content
+	 */
+	search(query: string, limit?: number): Promise<ChatConversation[]>;
 }
 
 /**
  * Generate a unique ID
  */
 function generateId(prefix: string): string {
-  return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
+	return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
 }
 
 /**
  * In-memory conversation store for development and testing
  */
 export class InMemoryConversationStore implements ConversationStore {
-  private readonly conversations = new Map<string, ChatConversation>();
+	private readonly conversations = new Map<string, ChatConversation>();
 
-  async get(conversationId: string): Promise<ChatConversation | null> {
-    return this.conversations.get(conversationId) ?? null;
-  }
+	async get(conversationId: string): Promise<ChatConversation | null> {
+		return this.conversations.get(conversationId) ?? null;
+	}
 
-  async create(
-    conversation: Omit<ChatConversation, 'id' | 'createdAt' | 'updatedAt'>
-  ): Promise<ChatConversation> {
-    const now = new Date();
-    const fullConversation: ChatConversation = {
-      ...conversation,
-      id: generateId('conv'),
-      createdAt: now,
-      updatedAt: now,
-    };
-    this.conversations.set(fullConversation.id, fullConversation);
-    return fullConversation;
-  }
+	async create(
+		conversation: Omit<ChatConversation, 'id' | 'createdAt' | 'updatedAt'>
+	): Promise<ChatConversation> {
+		const now = new Date();
+		const fullConversation: ChatConversation = {
+			...conversation,
+			id: generateId('conv'),
+			createdAt: now,
+			updatedAt: now,
+		};
+		this.conversations.set(fullConversation.id, fullConversation);
+		return fullConversation;
+	}
 
-  async update(
-    conversationId: string,
-    updates: Partial<
-      Pick<
-        ChatConversation,
-        | 'title'
-        | 'status'
-        | 'summary'
-        | 'metadata'
-        | 'projectId'
-        | 'projectName'
-        | 'tags'
-      >
-    >
-  ): Promise<ChatConversation | null> {
-    const conversation = this.conversations.get(conversationId);
-    if (!conversation) return null;
+	async update(
+		conversationId: string,
+		updates: Partial<
+			Pick<
+				ChatConversation,
+				| 'title'
+				| 'status'
+				| 'summary'
+				| 'metadata'
+				| 'projectId'
+				| 'projectName'
+				| 'tags'
+			>
+		>
+	): Promise<ChatConversation | null> {
+		const conversation = this.conversations.get(conversationId);
+		if (!conversation) return null;
 
-    const updated = {
-      ...conversation,
-      ...updates,
-      updatedAt: new Date(),
-    };
-    this.conversations.set(conversationId, updated);
-    return updated;
-  }
+		const updated = {
+			...conversation,
+			...updates,
+			updatedAt: new Date(),
+		};
+		this.conversations.set(conversationId, updated);
+		return updated;
+	}
 
-  async appendMessage(
-    conversationId: string,
-    message: Omit<
-      ChatMessage,
-      'id' | 'conversationId' | 'createdAt' | 'updatedAt'
-    >
-  ): Promise<ChatMessage> {
-    const conversation = this.conversations.get(conversationId);
-    if (!conversation) {
-      throw new Error(`Conversation ${conversationId} not found`);
-    }
+	async appendMessage(
+		conversationId: string,
+		message: Omit<
+			ChatMessage,
+			'id' | 'conversationId' | 'createdAt' | 'updatedAt'
+		>
+	): Promise<ChatMessage> {
+		const conversation = this.conversations.get(conversationId);
+		if (!conversation) {
+			throw new Error(`Conversation ${conversationId} not found`);
+		}
 
-    const now = new Date();
-    const fullMessage: ChatMessage = {
-      ...message,
-      id: generateId('msg'),
-      conversationId,
-      createdAt: now,
-      updatedAt: now,
-    };
+		const now = new Date();
+		const fullMessage: ChatMessage = {
+			...message,
+			id: generateId('msg'),
+			conversationId,
+			createdAt: now,
+			updatedAt: now,
+		};
 
-    conversation.messages.push(fullMessage);
-    conversation.updatedAt = now;
-    return fullMessage;
-  }
+		conversation.messages.push(fullMessage);
+		conversation.updatedAt = now;
+		return fullMessage;
+	}
 
-  async updateMessage(
-    conversationId: string,
-    messageId: string,
-    updates: Partial<ChatMessage>
-  ): Promise<ChatMessage | null> {
-    const conversation = this.conversations.get(conversationId);
-    if (!conversation) return null;
+	async updateMessage(
+		conversationId: string,
+		messageId: string,
+		updates: Partial<ChatMessage>
+	): Promise<ChatMessage | null> {
+		const conversation = this.conversations.get(conversationId);
+		if (!conversation) return null;
 
-    const messageIndex = conversation.messages.findIndex(
-      (m) => m.id === messageId
-    );
-    if (messageIndex === -1) return null;
+		const messageIndex = conversation.messages.findIndex(
+			(m) => m.id === messageId
+		);
+		if (messageIndex === -1) return null;
 
-    const message = conversation.messages[messageIndex];
-    if (!message) return null;
+		const message = conversation.messages[messageIndex];
+		if (!message) return null;
 
-    const updated = {
-      ...message,
-      ...updates,
-      updatedAt: new Date(),
-    };
-    conversation.messages[messageIndex] = updated;
-    conversation.updatedAt = new Date();
-    return updated;
-  }
+		const updated = {
+			...message,
+			...updates,
+			updatedAt: new Date(),
+		};
+		conversation.messages[messageIndex] = updated;
+		conversation.updatedAt = new Date();
+		return updated;
+	}
 
-  async delete(conversationId: string): Promise<boolean> {
-    return this.conversations.delete(conversationId);
-  }
+	async delete(conversationId: string): Promise<boolean> {
+		return this.conversations.delete(conversationId);
+	}
 
-  async list(options?: {
-    status?: ConversationStatus;
-    projectId?: string;
-    tags?: string[];
-    limit?: number;
-    offset?: number;
-  }): Promise<ChatConversation[]> {
-    let results = Array.from(this.conversations.values());
+	async list(options?: {
+		status?: ConversationStatus;
+		projectId?: string;
+		tags?: string[];
+		limit?: number;
+		offset?: number;
+	}): Promise<ChatConversation[]> {
+		let results = Array.from(this.conversations.values());
 
-    if (options?.status) {
-      results = results.filter((c) => c.status === options.status);
-    }
-    if (options?.projectId) {
-      results = results.filter((c) => c.projectId === options.projectId);
-    }
-    if (options?.tags && options.tags.length > 0) {
-      const tagSet = new Set(options.tags);
-      results = results.filter(
-        (c) => c.tags && c.tags.some((t) => tagSet.has(t))
-      );
-    }
+		if (options?.status) {
+			results = results.filter((c) => c.status === options.status);
+		}
+		if (options?.projectId) {
+			results = results.filter((c) => c.projectId === options.projectId);
+		}
+		if (options?.tags && options.tags.length > 0) {
+			const tagSet = new Set(options.tags);
+			results = results.filter(
+				(c) => c.tags && c.tags.some((t) => tagSet.has(t))
+			);
+		}
 
-    // Sort by updatedAt descending
-    results.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
+		// Sort by updatedAt descending
+		results.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
 
-    const offset = options?.offset ?? 0;
-    const limit = options?.limit ?? 100;
-    return results.slice(offset, offset + limit);
-  }
+		const offset = options?.offset ?? 0;
+		const limit = options?.limit ?? 100;
+		return results.slice(offset, offset + limit);
+	}
 
-  async fork(
-    conversationId: string,
-    upToMessageId?: string
-  ): Promise<ChatConversation> {
-    const source = this.conversations.get(conversationId);
-    if (!source) {
-      throw new Error(`Conversation ${conversationId} not found`);
-    }
+	async fork(
+		conversationId: string,
+		upToMessageId?: string
+	): Promise<ChatConversation> {
+		const source = this.conversations.get(conversationId);
+		if (!source) {
+			throw new Error(`Conversation ${conversationId} not found`);
+		}
 
-    let messagesToCopy = source.messages;
-    if (upToMessageId) {
-      const idx = source.messages.findIndex((m) => m.id === upToMessageId);
-      if (idx === -1) {
-        throw new Error(`Message ${upToMessageId} not found`);
-      }
-      messagesToCopy = source.messages.slice(0, idx + 1);
-    }
+		let messagesToCopy = source.messages;
+		if (upToMessageId) {
+			const idx = source.messages.findIndex((m) => m.id === upToMessageId);
+			if (idx === -1) {
+				throw new Error(`Message ${upToMessageId} not found`);
+			}
+			messagesToCopy = source.messages.slice(0, idx + 1);
+		}
 
-    const now = new Date();
-    const forkedMessages: ChatMessage[] = messagesToCopy.map((m) => ({
-      ...m,
-      id: generateId('msg'),
-      conversationId: '', // will be set after create
-      createdAt: new Date(m.createdAt),
-      updatedAt: new Date(m.updatedAt),
-    }));
+		const now = new Date();
+		const forkedMessages: ChatMessage[] = messagesToCopy.map((m) => ({
+			...m,
+			id: generateId('msg'),
+			conversationId: '', // will be set after create
+			createdAt: new Date(m.createdAt),
+			updatedAt: new Date(m.updatedAt),
+		}));
 
-    const forked: ChatConversation = {
-      ...source,
-      id: generateId('conv'),
-      title: source.title ? `${source.title} (fork)` : undefined,
-      forkedFromId: source.id,
-      createdAt: now,
-      updatedAt: now,
-      messages: forkedMessages,
-    };
+		const forked: ChatConversation = {
+			...source,
+			id: generateId('conv'),
+			title: source.title ? `${source.title} (fork)` : undefined,
+			forkedFromId: source.id,
+			createdAt: now,
+			updatedAt: now,
+			messages: forkedMessages,
+		};
 
-    for (const m of forked.messages) {
-      (m as ChatMessage).conversationId = forked.id;
-    }
+		for (const m of forked.messages) {
+			(m as ChatMessage).conversationId = forked.id;
+		}
 
-    this.conversations.set(forked.id, forked);
-    return forked;
-  }
+		this.conversations.set(forked.id, forked);
+		return forked;
+	}
 
-  async truncateAfter(
-    conversationId: string,
-    messageId: string
-  ): Promise<ChatConversation | null> {
-    const conv = this.conversations.get(conversationId);
-    if (!conv) return null;
+	async truncateAfter(
+		conversationId: string,
+		messageId: string
+	): Promise<ChatConversation | null> {
+		const conv = this.conversations.get(conversationId);
+		if (!conv) return null;
 
-    const idx = conv.messages.findIndex((m) => m.id === messageId);
-    if (idx === -1) return null;
+		const idx = conv.messages.findIndex((m) => m.id === messageId);
+		if (idx === -1) return null;
 
-    conv.messages = conv.messages.slice(0, idx + 1);
-    conv.updatedAt = new Date();
-    return conv;
-  }
+		conv.messages = conv.messages.slice(0, idx + 1);
+		conv.updatedAt = new Date();
+		return conv;
+	}
 
-  async search(query: string, limit = 20): Promise<ChatConversation[]> {
-    const lowerQuery = query.toLowerCase();
-    const results: ChatConversation[] = [];
+	async search(query: string, limit = 20): Promise<ChatConversation[]> {
+		const lowerQuery = query.toLowerCase();
+		const results: ChatConversation[] = [];
 
-    for (const conversation of this.conversations.values()) {
-      // Search in title
-      if (conversation.title?.toLowerCase().includes(lowerQuery)) {
-        results.push(conversation);
-        continue;
-      }
+		for (const conversation of this.conversations.values()) {
+			// Search in title
+			if (conversation.title?.toLowerCase().includes(lowerQuery)) {
+				results.push(conversation);
+				continue;
+			}
 
-      // Search in messages
-      const hasMatch = conversation.messages.some((m) =>
-        m.content.toLowerCase().includes(lowerQuery)
-      );
-      if (hasMatch) {
-        results.push(conversation);
-      }
+			// Search in messages
+			const hasMatch = conversation.messages.some((m) =>
+				m.content.toLowerCase().includes(lowerQuery)
+			);
+			if (hasMatch) {
+				results.push(conversation);
+			}
 
-      if (results.length >= limit) break;
-    }
+			if (results.length >= limit) break;
+		}
 
-    return results;
-  }
+		return results;
+	}
 
-  /**
-   * Clear all conversations (for testing)
-   */
-  clear(): void {
-    this.conversations.clear();
-  }
+	/**
+	 * Clear all conversations (for testing)
+	 */
+	clear(): void {
+		this.conversations.clear();
+	}
 }
 
 /**
  * Create an in-memory conversation store
  */
 export function createInMemoryConversationStore(): ConversationStore {
-  return new InMemoryConversationStore();
+	return new InMemoryConversationStore();
 }

@@ -1,28 +1,28 @@
 {
-  "proposalId": "proposal_relations_focus",
-  "source": "assistant",
-  "approvalState": "proposed",
-  "ops": [
-    {
-      "op": "insert-node",
-      "slotId": "inspector",
-      "index": 0,
-      "node": {
-        "nodeId": "relation_graph_1",
-        "kind": "relation-graph",
-        "title": "Dependency Graph",
-        "sourceBinding": {
-          "recipeId": "issue-relations"
-        },
-        "props": {
-          "focus": "blocked-by",
-          "collapsed": false
-        }
-      }
-    },
-    {
-      "op": "set-focus",
-      "targetId": "relation_graph_1"
-    }
-  ]
+	"proposalId": "proposal_relations_focus",
+	"source": "assistant",
+	"approvalState": "proposed",
+	"ops": [
+		{
+			"op": "insert-node",
+			"slotId": "inspector",
+			"index": 0,
+			"node": {
+				"nodeId": "relation_graph_1",
+				"kind": "relation-graph",
+				"title": "Dependency Graph",
+				"sourceBinding": {
+					"recipeId": "issue-relations"
+				},
+				"props": {
+					"focus": "blocked-by",
+					"collapsed": false
+				}
+			}
+		},
+		{
+			"op": "set-focus",
+			"targetId": "relation_graph_1"
+		}
+	]
 }

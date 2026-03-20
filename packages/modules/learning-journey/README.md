@@ -1,200 +1,77 @@
 # @contractspec/module.learning-journey
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Comprehensive learning journey engine - onboarding, LMS, flashcards, gamification, and AI personalization.**
 
-Comprehensive learning journey engine for ContractSpec applications.
+## What It Provides
 
-## Overview
+- **Layer**: module.
+- **Consumers**: bundles (library, contractspec-studio), apps (web-landing).
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/docs/` contains docblocks and documentation-facing exports.
 
-This module provides a complete learning platform engine that supports multiple use cases:
+## Installation
 
-- **Product Onboarding**: Event-driven completion tied to product actions
-- **Learning Management System (LMS)**: Courses, modules, lessons, certifications
-- **Flashcards & Spaced Repetition (SRS)**: SM-2 algorithm for optimal retention
-- **Quizzes & Assessments**: Multiple question types, skill tracking
-- **Gamification**: XP, streaks, achievements, leaderboards (Duolingo-style)
-- **AI-Powered Personalization**: Adaptive paths, recommendations, gap detection
+`npm install @contractspec/module.learning-journey`
 
-## Features
+or
 
-### Core Learning Structure
-
-- **Courses**: Structured learning content with prerequisites and difficulty levels
-- **Modules**: Groups of related lessons within a course
-- **Lessons**: Individual learning units (content, video, interactive, quiz)
-- **Progress Tracking**: Track completion, time spent, scores
-
-### Product Onboarding
-
-- **Onboarding Tracks**: Product-specific onboarding journeys
-- **Event-Driven Completion**: Steps auto-complete when product events fire
-- **Example**: "Create your first project" completes on `ProjectCreated` event
-
-### Flashcards & Spaced Repetition
-
-- **Decks & Cards**: Organize flashcards by topic
-- **SM-2 Algorithm**: Optimized review scheduling
-- **Review Sessions**: Get cards due for review
-- **Retention Metrics**: Track long-term retention
-
-### Quizzes & Assessments
-
-- **Question Types**: Multiple choice, true/false, fill-in-blank, matching
-- **Timed Quizzes**: Optional time limits
-- **Skill Assessment**: Map quiz performance to skills
-
-### Gamification
-
-- **Experience Points (XP)**: Earn XP for completing activities
-- **Streaks**: Maintain daily learning streaks
-- **Achievements**: Unlock achievements for milestones
-- **Leaderboards**: Compete with others (daily/weekly/monthly)
-- **Lives System**: Optional hearts/lives for quiz attempts
-
-### AI Personalization
-
-- **Learner Profiles**: Track learning style, preferences, goals
-- **Skill Maps**: Map proficiency across skills
-- **Adaptive Paths**: Generate personalized learning sequences
-- **Recommendations**: AI-powered content suggestions
-- **Gap Detection**: Identify and address learning gaps
-
-## Entities
-
-### Course Structure
-- `Course`, `Module`, `Lesson`, `LessonContent`
-
-### Learner & Progress
-- `Learner`, `Enrollment`, `LessonProgress`, `ModuleCompletion`, `Certificate`
-
-### Onboarding
-- `OnboardingTrack`, `OnboardingStep`, `OnboardingProgress`
-
-### Flashcards
-- `Deck`, `Card`, `CardReview`, `CardSchedule`
-
-### Quizzes
-- `Quiz`, `Question`, `QuestionOption`, `QuizAttempt`, `SkillAssessment`
-
-### Gamification
-- `Achievement`, `LearnerAchievement`, `Streak`, `DailyGoal`, `LeaderboardEntry`, `Heart`
-
-### AI
-- `LearnerProfile`, `SkillMap`, `LearningPath`, `Recommendation`
-
-## Engines
-
-### Spaced Repetition Engine (SRS)
-
-```typescript
-import { SRSEngine } from '@contractspec/module.learning-journey/engines/srs';
-
-const engine = new SRSEngine();
-const nextReview = engine.calculateNextReview({
-  rating: 'good', // again, hard, good, easy
-  currentInterval: 1,
-  easeFactor: 2.5,
-  repetitions: 3,
-});
-```
-
-### XP Engine
-
-```typescript
-import { XPEngine } from '@contractspec/module.learning-journey/engines/xp';
-
-const engine = new XPEngine();
-const xp = engine.calculate({
-  activity: 'lesson_complete',
-  score: 95,
-  streakBonus: true,
-});
-```
-
-### Streak Engine
-
-```typescript
-import { StreakEngine } from '@contractspec/module.learning-journey/engines/streak';
-
-const engine = new StreakEngine();
-const streak = engine.update({
-  lastActivityAt: new Date('2024-01-14'),
-  currentStreak: 5,
-});
-```
+`bun add @contractspec/module.learning-journey`
 
 ## Usage
 
-```typescript
-import { 
-  CourseEntity,
-  LearnerEntity,
-  SRSEngine,
-} from '@contractspec/module.learning-journey';
+Import the root entrypoint from `@contractspec/module.learning-journey`, or choose a documented subpath when you only need one part of the package surface.
 
-// Enroll learner in course
-await enrollmentService.enroll({
-  learnerId: 'learner-123',
-  courseId: 'course-456',
-});
+## Architecture
 
-// Complete a lesson
-await progressService.completeLesson({
-  learnerId: 'learner-123',
-  lessonId: 'lesson-789',
-  score: 95,
-});
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/engines` is part of the package's public or composition surface.
+- `src/entities/` contains domain entities and value objects.
+- `src/events.ts` is package-level event definitions.
+- `src/i18n` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
 
-// Get flashcards due for review
-const cards = await flashcardService.getDueCards({
-  learnerId: 'learner-123',
-  limit: 20,
-});
+## Public Entry Points
 
-// Submit flashcard review
-await flashcardService.submitReview({
-  learnerId: 'learner-123',
-  cardId: 'card-abc',
-  rating: 'good',
-});
-```
+- Export `.` resolves through `./src/index.ts`.
+- Export `./contracts` resolves through `./src/contracts/index.ts`.
+- Export `./contracts/models` resolves through `./src/contracts/models.ts`.
+- Export `./contracts/onboarding` resolves through `./src/contracts/onboarding.ts`.
+- Export `./contracts/operations` resolves through `./src/contracts/operations.ts`.
+- Export `./contracts/shared` resolves through `./src/contracts/shared.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./docs/learning-journey.docblock` resolves through `./src/docs/learning-journey.docblock.ts`.
+- Export `./engines` resolves through `./src/engines/index.ts`.
+- Export `./engines/srs` resolves through `./src/engines/srs.ts`.
+- The package publishes 32 total export subpaths; keep docs aligned with `package.json`.
 
-## Integration
+## Local Commands
 
-This module integrates with:
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-- `@contractspec/lib.identity-rbac` - Learner identity
-- `@contractspec/lib.files` - Media attachments
-- `@contractspec/lib.jobs` - Scheduled reminders, streak checks
-- `@contractspec/lib.ai-agent` - AI-powered features
-- `@contractspec/module.notifications` - Learning reminders
+## Recent Updates
 
-## Schema Contribution
+- Replace eslint+prettier by biomejs to optimize speed.
+- Add full i18n support across all 10 packages (en/fr/es, 460 keys).
 
-```typescript
-import { learningJourneySchemaContribution } from '@contractspec/module.learning-journey';
+## Notes
 
-export const schemaComposition = {
-  modules: [
-    learningJourneySchemaContribution,
-    // ... other modules
-  ],
-};
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- SRS/streak/XP engines are pure functions -- keep them side-effect-free.
+- i18n catalogs must stay in sync across all supported locales (en, es, fr).
+- Entity schemas are shared with the UI; breaking changes propagate to all learning surfaces.

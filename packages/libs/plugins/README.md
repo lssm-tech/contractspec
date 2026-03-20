@@ -1,63 +1,64 @@
 # @contractspec/lib.plugins
 
-Core plugin API for ContractSpec. Defines plugin interfaces, registry management, and discovery configuration.
+Website: https://contractspec.io
 
-## Overview
+**Plugin API and registry for ContractSpec extensions.**
 
-Use this package to build generator, validator, adapter, formatter, and registry resolver plugins. The core types keep plugin behavior consistent while allowing capability-specific logic.
+## What It Provides
+
+- **Layer**: lib.
+- **Consumers**: bundles, CLI.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Installation
 
-```bash
-bun add @contractspec/lib.plugins
-```
+`npm install @contractspec/lib.plugins`
+
+or
+
+`bun add @contractspec/lib.plugins`
 
 ## Usage
 
-```typescript
-import type { ContractSpecPlugin, PluginContext } from "@contractspec/lib.plugins";
+Import the root entrypoint from `@contractspec/lib.plugins`, or choose a documented subpath when you only need one part of the package surface.
 
-export const MarkdownGeneratorPlugin: ContractSpecPlugin = {
-  meta: {
-    id: "markdown-generator",
-    version: "1.0.0",
-    type: "generator",
-    provides: ["docs"],
-  },
-  register(context: PluginContext) {
-    context.generators.register({
-      id: "markdown",
-      description: "Generate markdown docs",
-      generate: async (specs) => {
-        // Implementation
-      },
-    });
-  },
-};
-```
+## Architecture
 
-## Capabilities
+- `src/config.ts` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/registry.ts` is part of the package's public or composition surface.
+- `src/types.ts` is shared public type definitions.
 
-- **Generators**: Produce code, docs, schemas, or artifacts.
-- **Validators**: Enforce policies and compliance checks.
-- **Adapters**: Integrate frameworks or runtimes.
-- **Formatters**: Post-process generated output.
-- **Registry resolvers**: Resolve plugins from workspace, npm, or remote registries.
+## Public Entry Points
 
-## Registry configuration
+- Export `.` resolves through `./src/index.ts`.
+- Export `./config` resolves through `./src/config.ts`.
+- Export `./registry` resolves through `./src/registry.ts`.
+- Export `./types` resolves through `./src/types.ts`.
 
-```json
-{
-  "plugins": [
-    {
-      "id": "markdown-generator",
-      "package": "@contractspec/plugin.markdown-generator",
-      "capabilities": ["generator"],
-      "options": {
-        "outputDir": "./docs/generated",
-        "format": "table"
-      }
-    }
-  ]
-}
-```
+## Local Commands
+
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test --pass-with-no-tests
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
+
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed.
+
+## Notes
+
+- Plugin interface is a public API contract — breaking changes affect all published plugins.
+- Registry must stay backward-compatible; older plugin manifests must remain loadable.
+- Config schema changes require a migration path for existing plugin configurations.

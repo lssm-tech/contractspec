@@ -3,21 +3,21 @@ import { ChangelogIndexClient } from '@/app/(landing-marketing)/changelog/client
 import { getChangelogManifest } from '@/lib/changelog';
 
 export const metadata: Metadata = {
-  title: 'Changelog | ContractSpec',
-  description:
-    'Latest updates, improvements, and fixes to the ContractSpec platform.',
-  openGraph: {
-    title: 'Changelog | ContractSpec',
-    description:
-      'Latest updates, improvements, and fixes to the ContractSpec platform.',
-    url: 'https://www.contractspec.io/changelog',
-  },
-  alternates: {
-    canonical: 'https://www.contractspec.io/changelog',
-  },
+	title: 'Changelog | ContractSpec',
+	description:
+		'Latest updates across the ContractSpec open system, from OSS packages to the operating surfaces around them.',
+	openGraph: {
+		title: 'Changelog | ContractSpec',
+		description:
+			'Latest updates across the ContractSpec open system, from OSS packages to the operating surfaces around them.',
+		url: 'https://www.contractspec.io/changelog',
+	},
+	alternates: {
+		canonical: 'https://www.contractspec.io/changelog',
+	},
 };
 
 export default async function Page() {
-  const manifest = await getChangelogManifest();
-  return <ChangelogIndexClient manifest={manifest} />;
+	const manifest = await getChangelogManifest();
+	return <ChangelogIndexClient manifest={manifest} />;
 }

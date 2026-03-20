@@ -1,138 +1,138 @@
 [
-  {
-    "id": "jobs/job.cancelled",
-    "title": "job.cancelled",
-    "summary": "A job has been cancelled.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Owners**: @contractspec.libs.jobs\n- **Tags**: job-queue, lifecycle\n- **File**: `packages/libs/jobs/src/events.ts`\n```typescript\nexport const JobCancelledEvent = defineEvent({",
-    "route": "/docs/reference/jobs/job.cancelled",
-    "source": "generated",
-    "contentPath": "jobs/job.cancelled.md"
-  },
-  {
-    "id": "jobs/job.completed",
-    "title": "job.completed",
-    "summary": "A job has completed successfully.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Owners**: @contractspec.libs.jobs\n- **Tags**: job-queue, lifecycle\n- **File**: `packages/libs/jobs/src/events.ts`\n```typescript",
-    "route": "/docs/reference/jobs/job.completed",
-    "source": "generated",
-    "contentPath": "jobs/job.completed.md"
-  },
-  {
-    "id": "jobs/job.dead_lettered",
-    "title": "job.dead_lettered",
-    "summary": "A job has exhausted all retries and moved to dead letter queue.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Owners**: @contractspec.libs.jobs\n- **Tags**: job-queue, lifecycle, error\n- **File**: `packages/libs/jobs/src/events.ts`",
-    "route": "/docs/reference/jobs/job.dead_lettered",
-    "source": "generated",
-    "contentPath": "jobs/job.dead_lettered.md"
-  },
-  {
-    "id": "jobs/job.enqueued",
-    "title": "job.enqueued",
-    "summary": "A job has been added to the queue.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Owners**: @contractspec.libs.jobs\n- **Tags**: job-queue, lifecycle\n- **File**: `packages/libs/jobs/src/events.ts`\n```typescript",
-    "route": "/docs/reference/jobs/job.enqueued",
-    "source": "generated",
-    "contentPath": "jobs/job.enqueued.md"
-  },
-  {
-    "id": "jobs/job.failed",
-    "title": "job.failed",
-    "summary": "A job attempt has failed.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Owners**: @contractspec.libs.jobs\n- **Tags**: job-queue, lifecycle, error\n- **File**: `packages/libs/jobs/src/events.ts`\n```typescript",
-    "route": "/docs/reference/jobs/job.failed",
-    "source": "generated",
-    "contentPath": "jobs/job.failed.md"
-  },
-  {
-    "id": "jobs/job.retrying",
-    "title": "job.retrying",
-    "summary": "A job is being scheduled for retry.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Owners**: @contractspec.libs.jobs\n- **Tags**: job-queue, lifecycle, retry\n- **File**: `packages/libs/jobs/src/events.ts`",
-    "route": "/docs/reference/jobs/job.retrying",
-    "source": "generated",
-    "contentPath": "jobs/job.retrying.md"
-  },
-  {
-    "id": "jobs/job.started",
-    "title": "job.started",
-    "summary": "A job has started processing.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Owners**: @contractspec.libs.jobs\n- **Tags**: job-queue, lifecycle\n- **File**: `packages/libs/jobs/src/events.ts`\n```typescript",
-    "route": "/docs/reference/jobs/job.started",
-    "source": "generated",
-    "contentPath": "jobs/job.started.md"
-  },
-  {
-    "id": "jobs/jobs",
-    "title": "jobs",
-    "summary": "Background job processing, scheduling, and queue management\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @platform.jobs\n- **Tags**: jobs, queue, background, scheduler\n- **File**: `packages/libs/jobs/src/jobs.feature.ts`",
-    "route": "/docs/reference/jobs/jobs",
-    "source": "generated",
-    "contentPath": "jobs/jobs.md"
-  },
-  {
-    "id": "jobs/jobs.cancel",
-    "title": "jobs.cancel",
-    "summary": "Cancel a pending job.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.jobs\n- **Tags**: jobs, cancel\n- **File**: `packages/libs/jobs/src/contracts/index.ts`",
-    "route": "/docs/reference/jobs/jobs.cancel",
-    "source": "generated",
-    "contentPath": "jobs/jobs.cancel.md"
-  },
-  {
-    "id": "jobs/jobs.enqueue",
-    "title": "jobs.enqueue",
-    "summary": "Enqueue a background job for async processing.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.jobs\n- **Tags**: jobs, enqueue\n- **File**: `packages/libs/jobs/src/contracts/index.ts`",
-    "route": "/docs/reference/jobs/jobs.enqueue",
-    "source": "generated",
-    "contentPath": "jobs/jobs.enqueue.md"
-  },
-  {
-    "id": "jobs/jobs.get",
-    "title": "jobs.get",
-    "summary": "Get a job by ID.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.jobs\n- **Tags**: jobs, get\n- **File**: `packages/libs/jobs/src/contracts/index.ts`\nCheck job status and result.",
-    "route": "/docs/reference/jobs/jobs.get",
-    "source": "generated",
-    "contentPath": "jobs/jobs.get.md"
-  },
-  {
-    "id": "jobs/jobs.schedule.create",
-    "title": "jobs.schedule.create",
-    "summary": "Create a scheduled/recurring job.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.jobs\n- **Tags**: jobs, schedule, create\n- **File**: `packages/libs/jobs/src/contracts/index.ts`",
-    "route": "/docs/reference/jobs/jobs.schedule.create",
-    "source": "generated",
-    "contentPath": "jobs/jobs.schedule.create.md"
-  },
-  {
-    "id": "jobs/jobs.schedule.list",
-    "title": "jobs.schedule.list",
-    "summary": "List all scheduled jobs.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.jobs\n- **Tags**: jobs, schedule, list\n- **File**: `packages/libs/jobs/src/contracts/index.ts`",
-    "route": "/docs/reference/jobs/jobs.schedule.list",
-    "source": "generated",
-    "contentPath": "jobs/jobs.schedule.list.md"
-  },
-  {
-    "id": "jobs/jobs.schedule.toggle",
-    "title": "jobs.schedule.toggle",
-    "summary": "Enable or disable a scheduled job.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.jobs\n- **Tags**: jobs, schedule, toggle\n- **File**: `packages/libs/jobs/src/contracts/index.ts`",
-    "route": "/docs/reference/jobs/jobs.schedule.toggle",
-    "source": "generated",
-    "contentPath": "jobs/jobs.schedule.toggle.md"
-  },
-  {
-    "id": "jobs/jobs.stats",
-    "title": "jobs.stats",
-    "summary": "Get job queue statistics.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.jobs\n- **Tags**: jobs, stats, admin\n- **File**: `packages/libs/jobs/src/contracts/index.ts`",
-    "route": "/docs/reference/jobs/jobs.stats",
-    "source": "generated",
-    "contentPath": "jobs/jobs.stats.md"
-  },
-  {
-    "id": "jobs/scheduler",
-    "title": "scheduler",
-    "summary": "Scheduled job execution\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.core\n- **Tags**: scheduler, cron, jobs\n- **File**: `packages/libs/jobs/src/jobs.capability.ts`\n```typescript",
-    "route": "/docs/reference/jobs/scheduler",
-    "source": "generated",
-    "contentPath": "jobs/scheduler.md"
-  },
-  {
-    "id": "jobs/scheduler.job_triggered",
-    "title": "scheduler.job_triggered",
-    "summary": "A scheduled job has been triggered.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Owners**: @contractspec.libs.jobs\n- **Tags**: job-queue, scheduler\n- **File**: `packages/libs/jobs/src/events.ts`\n```typescript",
-    "route": "/docs/reference/jobs/scheduler.job_triggered",
-    "source": "generated",
-    "contentPath": "jobs/scheduler.job_triggered.md"
-  }
+	{
+		"id": "jobs/job.cancelled",
+		"title": "job.cancelled",
+		"summary": "A job has been cancelled.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Owners**: @contractspec.libs.jobs\n- **Tags**: job-queue, lifecycle\n- **File**: `packages/libs/jobs/src/events.ts`\n```typescript\nexport const JobCancelledEvent = defineEvent({",
+		"route": "/docs/reference/jobs/job.cancelled",
+		"source": "generated",
+		"contentPath": "jobs/job.cancelled.md"
+	},
+	{
+		"id": "jobs/job.completed",
+		"title": "job.completed",
+		"summary": "A job has completed successfully.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Owners**: @contractspec.libs.jobs\n- **Tags**: job-queue, lifecycle\n- **File**: `packages/libs/jobs/src/events.ts`\n```typescript",
+		"route": "/docs/reference/jobs/job.completed",
+		"source": "generated",
+		"contentPath": "jobs/job.completed.md"
+	},
+	{
+		"id": "jobs/job.dead_lettered",
+		"title": "job.dead_lettered",
+		"summary": "A job has exhausted all retries and moved to dead letter queue.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Owners**: @contractspec.libs.jobs\n- **Tags**: job-queue, lifecycle, error\n- **File**: `packages/libs/jobs/src/events.ts`",
+		"route": "/docs/reference/jobs/job.dead_lettered",
+		"source": "generated",
+		"contentPath": "jobs/job.dead_lettered.md"
+	},
+	{
+		"id": "jobs/job.enqueued",
+		"title": "job.enqueued",
+		"summary": "A job has been added to the queue.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Owners**: @contractspec.libs.jobs\n- **Tags**: job-queue, lifecycle\n- **File**: `packages/libs/jobs/src/events.ts`\n```typescript",
+		"route": "/docs/reference/jobs/job.enqueued",
+		"source": "generated",
+		"contentPath": "jobs/job.enqueued.md"
+	},
+	{
+		"id": "jobs/job.failed",
+		"title": "job.failed",
+		"summary": "A job attempt has failed.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Owners**: @contractspec.libs.jobs\n- **Tags**: job-queue, lifecycle, error\n- **File**: `packages/libs/jobs/src/events.ts`\n```typescript",
+		"route": "/docs/reference/jobs/job.failed",
+		"source": "generated",
+		"contentPath": "jobs/job.failed.md"
+	},
+	{
+		"id": "jobs/job.retrying",
+		"title": "job.retrying",
+		"summary": "A job is being scheduled for retry.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Owners**: @contractspec.libs.jobs\n- **Tags**: job-queue, lifecycle, retry\n- **File**: `packages/libs/jobs/src/events.ts`",
+		"route": "/docs/reference/jobs/job.retrying",
+		"source": "generated",
+		"contentPath": "jobs/job.retrying.md"
+	},
+	{
+		"id": "jobs/job.started",
+		"title": "job.started",
+		"summary": "A job has started processing.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Owners**: @contractspec.libs.jobs\n- **Tags**: job-queue, lifecycle\n- **File**: `packages/libs/jobs/src/events.ts`\n```typescript",
+		"route": "/docs/reference/jobs/job.started",
+		"source": "generated",
+		"contentPath": "jobs/job.started.md"
+	},
+	{
+		"id": "jobs/jobs",
+		"title": "jobs",
+		"summary": "Background job processing, scheduling, and queue management\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @platform.jobs\n- **Tags**: jobs, queue, background, scheduler\n- **File**: `packages/libs/jobs/src/jobs.feature.ts`",
+		"route": "/docs/reference/jobs/jobs",
+		"source": "generated",
+		"contentPath": "jobs/jobs.md"
+	},
+	{
+		"id": "jobs/jobs.cancel",
+		"title": "jobs.cancel",
+		"summary": "Cancel a pending job.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.jobs\n- **Tags**: jobs, cancel\n- **File**: `packages/libs/jobs/src/contracts/index.ts`",
+		"route": "/docs/reference/jobs/jobs.cancel",
+		"source": "generated",
+		"contentPath": "jobs/jobs.cancel.md"
+	},
+	{
+		"id": "jobs/jobs.enqueue",
+		"title": "jobs.enqueue",
+		"summary": "Enqueue a background job for async processing.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.jobs\n- **Tags**: jobs, enqueue\n- **File**: `packages/libs/jobs/src/contracts/index.ts`",
+		"route": "/docs/reference/jobs/jobs.enqueue",
+		"source": "generated",
+		"contentPath": "jobs/jobs.enqueue.md"
+	},
+	{
+		"id": "jobs/jobs.get",
+		"title": "jobs.get",
+		"summary": "Get a job by ID.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.jobs\n- **Tags**: jobs, get\n- **File**: `packages/libs/jobs/src/contracts/index.ts`\nCheck job status and result.",
+		"route": "/docs/reference/jobs/jobs.get",
+		"source": "generated",
+		"contentPath": "jobs/jobs.get.md"
+	},
+	{
+		"id": "jobs/jobs.schedule.create",
+		"title": "jobs.schedule.create",
+		"summary": "Create a scheduled/recurring job.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.jobs\n- **Tags**: jobs, schedule, create\n- **File**: `packages/libs/jobs/src/contracts/index.ts`",
+		"route": "/docs/reference/jobs/jobs.schedule.create",
+		"source": "generated",
+		"contentPath": "jobs/jobs.schedule.create.md"
+	},
+	{
+		"id": "jobs/jobs.schedule.list",
+		"title": "jobs.schedule.list",
+		"summary": "List all scheduled jobs.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.jobs\n- **Tags**: jobs, schedule, list\n- **File**: `packages/libs/jobs/src/contracts/index.ts`",
+		"route": "/docs/reference/jobs/jobs.schedule.list",
+		"source": "generated",
+		"contentPath": "jobs/jobs.schedule.list.md"
+	},
+	{
+		"id": "jobs/jobs.schedule.toggle",
+		"title": "jobs.schedule.toggle",
+		"summary": "Enable or disable a scheduled job.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.jobs\n- **Tags**: jobs, schedule, toggle\n- **File**: `packages/libs/jobs/src/contracts/index.ts`",
+		"route": "/docs/reference/jobs/jobs.schedule.toggle",
+		"source": "generated",
+		"contentPath": "jobs/jobs.schedule.toggle.md"
+	},
+	{
+		"id": "jobs/jobs.stats",
+		"title": "jobs.stats",
+		"summary": "Get job queue statistics.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: platform.jobs\n- **Tags**: jobs, stats, admin\n- **File**: `packages/libs/jobs/src/contracts/index.ts`",
+		"route": "/docs/reference/jobs/jobs.stats",
+		"source": "generated",
+		"contentPath": "jobs/jobs.stats.md"
+	},
+	{
+		"id": "jobs/scheduler",
+		"title": "scheduler",
+		"summary": "Scheduled job execution\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.core\n- **Tags**: scheduler, cron, jobs\n- **File**: `packages/libs/jobs/src/jobs.capability.ts`\n```typescript",
+		"route": "/docs/reference/jobs/scheduler",
+		"source": "generated",
+		"contentPath": "jobs/scheduler.md"
+	},
+	{
+		"id": "jobs/scheduler.job_triggered",
+		"title": "scheduler.job_triggered",
+		"summary": "A scheduled job has been triggered.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Owners**: @contractspec.libs.jobs\n- **Tags**: job-queue, scheduler\n- **File**: `packages/libs/jobs/src/events.ts`\n```typescript",
+		"route": "/docs/reference/jobs/scheduler.job_triggered",
+		"source": "generated",
+		"contentPath": "jobs/scheduler.job_triggered.md"
+	}
 ]

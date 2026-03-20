@@ -1,12 +1,12 @@
 import type {
-  BenchmarkResult,
-  BenchmarkResultListResult,
-  BenchmarkResultQuery,
-  IngestionRun,
-  ModelProfile,
-  ModelRanking,
-  RankingListResult,
-  RankingQuery,
+	BenchmarkResult,
+	BenchmarkResultListResult,
+	BenchmarkResultQuery,
+	IngestionRun,
+	ModelProfile,
+	ModelRanking,
+	RankingListResult,
+	RankingQuery,
 } from './types';
 
 /**
@@ -16,19 +16,19 @@ import type {
  * adds a Postgres-backed implementation.
  */
 export interface ProviderRankingStore {
-  upsertBenchmarkResult(result: BenchmarkResult): Promise<void>;
-  getBenchmarkResult(id: string): Promise<BenchmarkResult | null>;
-  listBenchmarkResults(
-    query: BenchmarkResultQuery
-  ): Promise<BenchmarkResultListResult>;
+	upsertBenchmarkResult(result: BenchmarkResult): Promise<void>;
+	getBenchmarkResult(id: string): Promise<BenchmarkResult | null>;
+	listBenchmarkResults(
+		query: BenchmarkResultQuery
+	): Promise<BenchmarkResultListResult>;
 
-  upsertModelRanking(ranking: ModelRanking): Promise<void>;
-  getModelRanking(modelId: string): Promise<ModelRanking | null>;
-  listModelRankings(query: RankingQuery): Promise<RankingListResult>;
+	upsertModelRanking(ranking: ModelRanking): Promise<void>;
+	getModelRanking(modelId: string): Promise<ModelRanking | null>;
+	listModelRankings(query: RankingQuery): Promise<RankingListResult>;
 
-  getModelProfile(modelId: string): Promise<ModelProfile | null>;
+	getModelProfile(modelId: string): Promise<ModelProfile | null>;
 
-  createIngestionRun(run: IngestionRun): Promise<void>;
-  updateIngestionRun(id: string, update: Partial<IngestionRun>): Promise<void>;
-  getIngestionRun(id: string): Promise<IngestionRun | null>;
+	createIngestionRun(run: IngestionRun): Promise<void>;
+	updateIngestionRun(id: string, update: Partial<IngestionRun>): Promise<void>;
+	getIngestionRun(id: string): Promise<IngestionRun | null>;
 }

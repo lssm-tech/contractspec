@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.integration-supabase",
-  "version": "3.6.0",
+  "version": "3.7.7",
   "description": "Integration example - Supabase vector store + Postgres database wiring.",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -9,7 +9,6 @@
     "./blueprint": "./src/blueprint.ts",
     "./connection.sample": "./src/connection.sample.ts",
     "./docs": "./src/docs/index.ts",
-    "./docs/index": "./src/docs/index.ts",
     "./docs/integration-supabase.docblock": "./src/docs/integration-supabase.docblock.ts",
     "./example": "./src/example.ts",
     "./integration-supabase.feature": "./src/integration-supabase.feature.ts",
@@ -25,8 +24,8 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
@@ -47,72 +46,65 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./blueprint": {
         "types": "./dist/blueprint.d.ts",
+        "browser": "./dist/browser/blueprint.js",
         "bun": "./dist/blueprint.js",
         "node": "./dist/node/blueprint.js",
-        "browser": "./dist/browser/blueprint.js",
         "default": "./dist/blueprint.js"
       },
       "./connection.sample": {
         "types": "./dist/connection.sample.d.ts",
+        "browser": "./dist/browser/connection.sample.js",
         "bun": "./dist/connection.sample.js",
         "node": "./dist/node/connection.sample.js",
-        "browser": "./dist/browser/connection.sample.js",
         "default": "./dist/connection.sample.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
+        "browser": "./dist/browser/docs/index.js",
         "bun": "./dist/docs/index.js",
         "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/index": {
-        "types": "./dist/docs/index.d.ts",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/integration-supabase.docblock": {
         "types": "./dist/docs/integration-supabase.docblock.d.ts",
+        "browser": "./dist/browser/docs/integration-supabase.docblock.js",
         "bun": "./dist/docs/integration-supabase.docblock.js",
         "node": "./dist/node/docs/integration-supabase.docblock.js",
-        "browser": "./dist/browser/docs/integration-supabase.docblock.js",
         "default": "./dist/docs/integration-supabase.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
+        "browser": "./dist/browser/example.js",
         "bun": "./dist/example.js",
         "node": "./dist/node/example.js",
-        "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./integration-supabase.feature": {
         "types": "./dist/integration-supabase.feature.d.ts",
+        "browser": "./dist/browser/integration-supabase.feature.js",
         "bun": "./dist/integration-supabase.feature.js",
         "node": "./dist/node/integration-supabase.feature.js",
-        "browser": "./dist/browser/integration-supabase.feature.js",
         "default": "./dist/integration-supabase.feature.js"
       },
       "./runtime.sample": {
         "types": "./dist/runtime.sample.d.ts",
+        "browser": "./dist/browser/runtime.sample.js",
         "bun": "./dist/runtime.sample.js",
         "node": "./dist/node/runtime.sample.js",
-        "browser": "./dist/browser/runtime.sample.js",
         "default": "./dist/runtime.sample.js"
       },
       "./tenant": {
         "types": "./dist/tenant.d.ts",
+        "browser": "./dist/browser/tenant.js",
         "bun": "./dist/tenant.js",
         "node": "./dist/node/tenant.js",
-        "browser": "./dist/browser/tenant.js",
         "default": "./dist/tenant.js"
       }
     },

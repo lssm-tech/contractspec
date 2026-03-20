@@ -2,33 +2,33 @@ import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
 export function AdvancedRenderersPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-2">
-        <h1 className="text-4xl font-bold">Custom Renderers</h1>
-        <p className="text-muted-foreground text-lg">
-          ContractSpec ships with React and React Native renderers. You can
-          build custom renderers for any framework.
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-2">
+				<h1 className="font-bold text-4xl">Custom Renderers</h1>
+				<p className="text-lg text-muted-foreground">
+					ContractSpec ships with React and React Native renderers. You can
+					build custom renderers for any framework.
+				</p>
+			</div>
 
-      <div className="space-y-6">
-        <div className="space-y-3">
-          <h2 className="text-2xl font-bold">Overview</h2>
-          <p className="text-muted-foreground">
-            The presentation runtime libraries (
-            <code>@contractspec/lib.presentation-runtime-react</code> and
-            <code>@contractspec/lib.presentation-runtime-react-native</code>)
-            provide hooks and components to render ContractSpec-defined UI like
-            workflows and data views. You can extend these or create custom
-            implementations for other frameworks.
-          </p>
-        </div>
+			<div className="space-y-6">
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">Overview</h2>
+					<p className="text-muted-foreground">
+						The presentation runtime libraries (
+						<code>@contractspec/lib.presentation-runtime-react</code> and
+						<code>@contractspec/lib.presentation-runtime-react-native</code>)
+						provide hooks and components to render ContractSpec-defined UI like
+						workflows and data views. You can extend these or create custom
+						implementations for other frameworks.
+					</p>
+				</div>
 
-        <div className="space-y-3">
-          <h2 className="text-2xl font-bold">Using the React Renderer</h2>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`import { useWorkflow, WorkflowStepRenderer } from '@contractspec/lib.presentation-runtime-react';
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">Using the React Renderer</h2>
+					<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
+						<pre>{`import { useWorkflow, WorkflowStepRenderer } from '@contractspec/lib.presentation-runtime-react';
 import { MyWorkflowSpec } from './specs';
 
 export function WorkflowPage() {
@@ -44,34 +44,34 @@ export function WorkflowPage() {
     </div>
   );
 }`}</pre>
-          </div>
-        </div>
+					</div>
+				</div>
 
-        <div className="space-y-3">
-          <h2 className="text-2xl font-bold">Custom Platform Support</h2>
-          <p className="text-muted-foreground">
-            To support a new platform (e.g., Vue, Svelte), you would:
-          </p>
-          <ol className="text-muted-foreground list-inside list-decimal space-y-2">
-            <li>
-              Implement the core workflow state machine (from{' '}
-              <code>@contractspec/lib.presentation-runtime-core</code>)
-            </li>
-            <li>
-              Create framework-specific hooks/components for step rendering
-            </li>
-            <li>
-              Handle validation and submission via the ContractSpec I/O schemas
-            </li>
-          </ol>
-        </div>
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">Custom Platform Support</h2>
+					<p className="text-muted-foreground">
+						To support a new platform (e.g., Vue, Svelte), you would:
+					</p>
+					<ol className="list-inside list-decimal space-y-2 text-muted-foreground">
+						<li>
+							Implement the core workflow state machine (from{' '}
+							<code>@contractspec/lib.presentation-runtime-core</code>)
+						</li>
+						<li>
+							Create framework-specific hooks/components for step rendering
+						</li>
+						<li>
+							Handle validation and submission via the ContractSpec I/O schemas
+						</li>
+					</ol>
+				</div>
 
-        <div className="flex items-center gap-4 pt-4">
-          <Link href="/docs" className="btn-primary">
-            Back to docs <ChevronRight size={16} />
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
+				<div className="flex items-center gap-4 pt-4">
+					<Link href="/docs" className="btn-primary">
+						Back to docs <ChevronRight size={16} />
+					</Link>
+				</div>
+			</div>
+		</div>
+	);
 }

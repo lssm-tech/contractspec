@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.plugins",
-  "version": "3.6.0",
+  "version": "3.7.7",
   "description": "Plugin API and registry for ContractSpec extensions",
   "keywords": [
     "contractspec",
@@ -23,8 +23,8 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
@@ -55,30 +55,30 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./config": {
         "types": "./dist/config.d.ts",
+        "browser": "./dist/browser/config.js",
         "bun": "./dist/config.js",
         "node": "./dist/node/config.js",
-        "browser": "./dist/browser/config.js",
         "default": "./dist/config.js"
       },
       "./registry": {
         "types": "./dist/registry.d.ts",
+        "browser": "./dist/browser/registry.js",
         "bun": "./dist/registry.js",
         "node": "./dist/node/registry.js",
-        "browser": "./dist/browser/registry.js",
         "default": "./dist/registry.js"
       },
       "./types": {
         "types": "./dist/types.d.ts",
+        "browser": "./dist/browser/types.js",
         "bun": "./dist/types.js",
         "node": "./dist/node/types.js",
-        "browser": "./dist/browser/types.js",
         "default": "./dist/types.js"
       }
     }

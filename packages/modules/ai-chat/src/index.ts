@@ -11,38 +11,37 @@ export { AiChatFeature } from './ai-chat.feature';
 // export * from './core'; // Commented out to avoid ChatMessage duplicate export
 // Instead, import only what is needed from core if necessary, or let other modules import it directly
 
-export * from './presentation';
-export * from './providers';
-export * from './context';
-
-// Specs
-export * from './schema';
-export * from './ai-chat.operations';
-export * from './events'; // Assuming events exists or was added in step 1013 logic
+export {
+	type CreateAiSdkBundleAdapterDeps,
+	createAiSdkBundleAdapter,
+} from './adapters';
 export * from './ai-chat.feature';
+export * from './ai-chat.operations';
+export * from './context';
+export {
+	type ChatAgentAdapter,
+	createChatAgentAdapter,
+} from './core/agent-adapter';
+export * from './events'; // Assuming events exists or was added in step 1013 logic
+export * from './presentation';
 
 // Re-export presentation components (but not message types to avoid conflicts)
 export {
-  ChatContainer,
-  ChatMessage as ChatMessageComponent,
-  ChatInput,
-  ChatExportToolbar,
-  ChatWithExport,
-  ChatSidebar,
-  ChatWithSidebar,
-  ThinkingLevelPicker,
+	ChatContainer,
+	ChatExportToolbar,
+	ChatInput,
+	ChatMessage as ChatMessageComponent,
+	ChatSidebar,
+	ChatWithExport,
+	ChatWithSidebar,
+	ThinkingLevelPicker,
 } from './presentation/components';
 export {
-  useChat,
-  useProviders,
-  useMessageSelection,
-  useConversations,
+	useChat,
+	useConversations,
+	useMessageSelection,
+	useProviders,
 } from './presentation/hooks';
-export {
-  createAiSdkBundleAdapter,
-  type CreateAiSdkBundleAdapterDeps,
-} from './adapters';
-export {
-  createChatAgentAdapter,
-  type ChatAgentAdapter,
-} from './core/agent-adapter';
+export * from './providers';
+// Specs
+export * from './schema';

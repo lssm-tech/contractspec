@@ -1,246 +1,246 @@
-import type {
-  OperationSpecRegistry,
-  PromptRegistry,
-  ResourceRegistry,
-} from '@contractspec/lib.contracts-spec';
-import { PresentationRegistry } from '@contractspec/lib.contracts-spec/presentations';
+import { randomUUID } from 'node:crypto';
+import type { IntegrationAuthType } from '@contractspec/lib.contracts-integrations/integrations';
 import { createMcpServer } from '@contractspec/lib.contracts-runtime-server-mcp/provider-mcp';
+import type {
+	OperationSpecRegistry,
+	PromptRegistry,
+	ResourceRegistry,
+} from '@contractspec/lib.contracts-spec';
 import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
+import { PresentationRegistry } from '@contractspec/lib.contracts-spec/presentations';
+import { Logger } from '@contractspec/lib.logger';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';
 import { Elysia } from 'elysia';
-import { Logger } from '@contractspec/lib.logger';
-import { randomUUID } from 'node:crypto';
-import type { IntegrationAuthType } from '@contractspec/lib.contracts-integrations/integrations';
 
 export interface McpAuthValidationResult {
-  valid: boolean;
-  actor?: string;
-  reason?: string;
+	valid: boolean;
+	actor?: string;
+	reason?: string;
 }
 
 interface McpHttpHandlerConfig {
-  path: string;
-  serverName: string;
-  ops: OperationSpecRegistry;
-  resources: ResourceRegistry;
-  prompts: PromptRegistry;
-  presentations?: PresentationSpec[];
-  logger: Logger;
-  /** Callback to validate auth credentials from the incoming request. */
-  validateAuth?: (request: Request) => Promise<McpAuthValidationResult>;
-  /** Auth methods this MCP handler requires callers to present. */
-  requiredAuthMethods?: IntegrationAuthType[];
+	path: string;
+	serverName: string;
+	ops: OperationSpecRegistry;
+	resources: ResourceRegistry;
+	prompts: PromptRegistry;
+	presentations?: PresentationSpec[];
+	logger: Logger;
+	/** Callback to validate auth credentials from the incoming request. */
+	validateAuth?: (request: Request) => Promise<McpAuthValidationResult>;
+	/** Auth methods this MCP handler requires callers to present. */
+	requiredAuthMethods?: IntegrationAuthType[];
 }
 
 const baseCtx = {
-  actor: 'anonymous' as const,
-  decide: async () => ({ effect: 'allow' as const }),
+	actor: 'anonymous' as const,
+	decide: async () => ({ effect: 'allow' as const }),
 };
 
 interface McpSessionState {
-  server: McpServer;
-  transport: WebStandardStreamableHTTPServerTransport;
+	server: McpServer;
+	transport: WebStandardStreamableHTTPServerTransport;
 }
 
 function createJsonRpcErrorResponse(
-  status: number,
-  code: number,
-  message: string,
-  data?: string
+	status: number,
+	code: number,
+	message: string,
+	data?: string
 ) {
-  return new Response(
-    JSON.stringify({
-      jsonrpc: '2.0',
-      error: {
-        code,
-        message,
-        ...(data ? { data } : {}),
-      },
-      id: null,
-    }),
-    {
-      status,
-      headers: {
-        'content-type': 'application/json',
-      },
-    }
-  );
+	return new Response(
+		JSON.stringify({
+			jsonrpc: '2.0',
+			error: {
+				code,
+				message,
+				...(data ? { data } : {}),
+			},
+			id: null,
+		}),
+		{
+			status,
+			headers: {
+				'content-type': 'application/json',
+			},
+		}
+	);
 }
 
 function createSessionState({
-  logger,
-  serverName,
-  ops,
-  resources,
-  prompts,
-  presentations,
-  stateful,
+	logger,
+	serverName,
+	ops,
+	resources,
+	prompts,
+	presentations,
+	stateful,
 }: McpHttpHandlerConfig & { stateful: boolean }): Promise<McpSessionState> {
-  const server = new McpServer(
-    {
-      name: serverName,
-      version: '1.0.0',
-    },
-    {
-      capabilities: {
-        tools: {},
-        resources: {},
-        prompts: {},
-        logging: {},
-      },
-    }
-  );
+	const server = new McpServer(
+		{
+			name: serverName,
+			version: '1.0.0',
+		},
+		{
+			capabilities: {
+				tools: {},
+				resources: {},
+				prompts: {},
+				logging: {},
+			},
+		}
+	);
 
-  logger.info('Setting up MCP server...');
-  createMcpServer(server, ops, resources, prompts, {
-    logger,
-    toolCtx: () => baseCtx,
-    promptCtx: () => ({ locale: 'en' }),
-    resourceCtx: () => ({ locale: 'en' }),
-    presentations: new PresentationRegistry(presentations),
-  });
+	logger.info('Setting up MCP server...');
+	createMcpServer(server, ops, resources, prompts, {
+		logger,
+		toolCtx: () => baseCtx,
+		promptCtx: () => ({ locale: 'en' }),
+		resourceCtx: () => ({ locale: 'en' }),
+		presentations: new PresentationRegistry(presentations),
+	});
 
-  const transport = new WebStandardStreamableHTTPServerTransport({
-    sessionIdGenerator: stateful ? () => randomUUID() : undefined,
-    enableJsonResponse: true,
-  });
+	const transport = new WebStandardStreamableHTTPServerTransport({
+		sessionIdGenerator: stateful ? () => randomUUID() : undefined,
+		enableJsonResponse: true,
+	});
 
-  return server.connect(transport).then(() => ({ server, transport }));
+	return server.connect(transport).then(() => ({ server, transport }));
 }
 
 async function closeSessionState(state: McpSessionState) {
-  await Promise.allSettled([state.transport.close(), state.server.close()]);
+	await Promise.allSettled([state.transport.close(), state.server.close()]);
 }
 
 function toErrorMessage(error: unknown) {
-  return error instanceof Error
-    ? (error.stack ?? error.message)
-    : String(error);
+	return error instanceof Error
+		? (error.stack ?? error.message)
+		: String(error);
 }
 
 export function createMcpElysiaHandler({
-  logger,
-  path,
-  serverName,
-  ops,
-  resources,
-  prompts,
-  presentations,
-  validateAuth,
-  requiredAuthMethods,
+	logger,
+	path,
+	serverName,
+	ops,
+	resources,
+	prompts,
+	presentations,
+	validateAuth,
+	requiredAuthMethods,
 }: McpHttpHandlerConfig) {
-  logger.info('Setting up MCP handler...', {
-    requiredAuthMethods: requiredAuthMethods ?? [],
-  });
+	logger.info('Setting up MCP handler...', {
+		requiredAuthMethods: requiredAuthMethods ?? [],
+	});
 
-  const isStateful = process.env.CONTRACTSPEC_MCP_STATEFUL === '1';
-  const sessions = new Map<string, McpSessionState>();
+	const isStateful = process.env.CONTRACTSPEC_MCP_STATEFUL === '1';
+	const sessions = new Map<string, McpSessionState>();
 
-  async function handleStateless(request: Request) {
-    const state = await createSessionState({
-      logger,
-      path,
-      serverName,
-      ops,
-      resources,
-      prompts,
-      presentations,
-      stateful: false,
-    });
+	async function handleStateless(request: Request) {
+		const state = await createSessionState({
+			logger,
+			path,
+			serverName,
+			ops,
+			resources,
+			prompts,
+			presentations,
+			stateful: false,
+		});
 
-    try {
-      return await state.transport.handleRequest(request);
-    } finally {
-      await closeSessionState(state);
-    }
-  }
+		try {
+			return await state.transport.handleRequest(request);
+		} finally {
+			await closeSessionState(state);
+		}
+	}
 
-  async function closeSession(sessionId: string) {
-    const state = sessions.get(sessionId);
-    if (!state) return;
-    sessions.delete(sessionId);
-    await closeSessionState(state);
-  }
+	async function closeSession(sessionId: string) {
+		const state = sessions.get(sessionId);
+		if (!state) return;
+		sessions.delete(sessionId);
+		await closeSessionState(state);
+	}
 
-  async function handleStateful(request: Request) {
-    const requestedSessionId = request.headers.get('mcp-session-id');
-    let state: McpSessionState;
-    let createdState = false;
+	async function handleStateful(request: Request) {
+		const requestedSessionId = request.headers.get('mcp-session-id');
+		let state: McpSessionState;
+		let createdState = false;
 
-    if (requestedSessionId) {
-      const existing = sessions.get(requestedSessionId);
-      if (!existing) {
-        return createJsonRpcErrorResponse(404, -32001, 'Session not found');
-      }
-      state = existing;
-    } else {
-      state = await createSessionState({
-        logger,
-        path,
-        serverName,
-        ops,
-        resources,
-        prompts,
-        presentations,
-        stateful: true,
-      });
-      createdState = true;
-    }
+		if (requestedSessionId) {
+			const existing = sessions.get(requestedSessionId);
+			if (!existing) {
+				return createJsonRpcErrorResponse(404, -32001, 'Session not found');
+			}
+			state = existing;
+		} else {
+			state = await createSessionState({
+				logger,
+				path,
+				serverName,
+				ops,
+				resources,
+				prompts,
+				presentations,
+				stateful: true,
+			});
+			createdState = true;
+		}
 
-    try {
-      const response = await state.transport.handleRequest(request);
-      const activeSessionId = state.transport.sessionId;
+		try {
+			const response = await state.transport.handleRequest(request);
+			const activeSessionId = state.transport.sessionId;
 
-      if (activeSessionId && !sessions.has(activeSessionId)) {
-        sessions.set(activeSessionId, state);
-      }
+			if (activeSessionId && !sessions.has(activeSessionId)) {
+				sessions.set(activeSessionId, state);
+			}
 
-      if (request.method === 'DELETE' && activeSessionId) {
-        await closeSession(activeSessionId);
-      } else if (!activeSessionId && createdState) {
-        await closeSessionState(state);
-      }
+			if (request.method === 'DELETE' && activeSessionId) {
+				await closeSession(activeSessionId);
+			} else if (!activeSessionId && createdState) {
+				await closeSessionState(state);
+			}
 
-      return response;
-    } catch (error) {
-      if (createdState) {
-        await closeSessionState(state);
-      }
-      throw error;
-    }
-  }
+			return response;
+		} catch (error) {
+			if (createdState) {
+				await closeSessionState(state);
+			}
+			throw error;
+		}
+	}
 
-  return new Elysia({ name: `mcp-${serverName}` }).all(
-    path,
-    async ({ request }) => {
-      try {
-        if (validateAuth) {
-          const authResult = await validateAuth(request);
-          if (!authResult.valid) {
-            return createJsonRpcErrorResponse(
-              401,
-              -32002,
-              'Authentication failed',
-              authResult.reason
-            );
-          }
-        }
+	return new Elysia({ name: `mcp-${serverName}` }).all(
+		path,
+		async ({ request }) => {
+			try {
+				if (validateAuth) {
+					const authResult = await validateAuth(request);
+					if (!authResult.valid) {
+						return createJsonRpcErrorResponse(
+							401,
+							-32002,
+							'Authentication failed',
+							authResult.reason
+						);
+					}
+				}
 
-        if (isStateful) {
-          return await handleStateful(request);
-        }
+				if (isStateful) {
+					return await handleStateful(request);
+				}
 
-        return await handleStateless(request);
-      } catch (error) {
-        logger.error('Error handling MCP request', {
-          path,
-          method: request.method,
-          error: toErrorMessage(error),
-        });
+				return await handleStateless(request);
+			} catch (error) {
+				logger.error('Error handling MCP request', {
+					path,
+					method: request.method,
+					error: toErrorMessage(error),
+				});
 
-        return createJsonRpcErrorResponse(500, -32000, 'Internal error');
-      }
-    }
-  );
+				return createJsonRpcErrorResponse(500, -32000, 'Internal error');
+			}
+		}
+	);
 }

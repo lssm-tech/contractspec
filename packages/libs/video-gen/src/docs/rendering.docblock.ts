@@ -2,24 +2,24 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const renderingDocBlocks: DocBlock[] = [
-  {
-    id: 'docs.video-gen.rendering',
-    title: 'Video Rendering & Playback',
-    summary:
-      'LocalRenderer for MP4 output, render configuration, quality presets, DemoPlayer for web embedding, and Remotion Studio setup.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/video-gen/rendering',
-    tags: [
-      'video',
-      'rendering',
-      'remotion',
-      'player',
-      'mp4',
-      'quality-presets',
-    ],
-    owners: ['@contractspec/lib.video-gen'],
-    body: `# Video Rendering & Playback
+	{
+		id: 'docs.video-gen.rendering',
+		title: 'Video Rendering & Playback',
+		summary:
+			'LocalRenderer for MP4 output, render configuration, quality presets, DemoPlayer for web embedding, and Remotion Studio setup.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/video-gen/rendering',
+		tags: [
+			'video',
+			'rendering',
+			'remotion',
+			'player',
+			'mp4',
+			'quality-presets',
+		],
+		owners: ['@contractspec/lib.video-gen'],
+		body: `# Video Rendering & Playback
 
 The rendering layer wraps \`@remotion/renderer\` for MP4/WebM output and \`@remotion/player\` for interactive web embedding. It implements the \`VideoProvider\` contract from \`@contractspec/lib.contracts-integrations\`.
 
@@ -194,7 +194,7 @@ All compositions run at 30fps.
 - The \`remotion\` entry point (\`@contractspec/lib.video-gen/remotion\`) is a **side-effect module** that calls \`registerRoot()\`. Only import it from Remotion Studio or render scripts.
 - Use quality presets for consistency: \`draft\` for development, \`standard\` for CI, \`high\` for releases.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(renderingDocBlocks);

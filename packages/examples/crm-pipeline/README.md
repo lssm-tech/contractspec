@@ -1,159 +1,77 @@
-# CRM Pipeline
+# @contractspec/example.crm-pipeline
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
-A complete CRM (Customer Relationship Management) application demonstrating ContractSpec principles.
+**CRM Pipeline - Contacts, Companies, Deals, Tasks.**
 
-## What's Included
+## What This Demonstrates
 
-This example showcases a CRM system with:
+- Multi-entity domain model (Contact, Company, Deal, Task).
+- Deal pipeline with stage enums, operations, and test-specs.
+- Event-driven architecture (contact, deal, task events).
+- Presentation layer with dashboard and pipeline views.
+- React UI with pipeline board, deal cards, hooks, modals, overlays, and renderers.
+- Feature definition and capability pattern.
+- Seeders and mock data.
 
-- **Contacts**: Individual people with contact information
-- **Companies**: Organizations/accounts that contacts belong to
-- **Deals**: Sales opportunities with pipeline stages
-- **Pipelines**: Customizable sales pipelines with stages
-- **Tasks**: Follow-up activities tied to contacts/deals
+## Running Locally
 
-## Architecture
-
-```
-crm-pipeline/
-├── entities/           # Entity specs (generates Prisma schema)
-│   ├── contact.ts
-│   ├── company.ts
-│   ├── deal.ts
-│   ├── pipeline.ts
-│   └── task.ts
-├── contracts/          # API contracts
-│   ├── contact.ts
-│   ├── deal.ts
-│   └── task.ts
-├── events/             # Domain events
-│   └── index.ts
-└── README.md
-```
-
-## Entities
-
-### Contact
-
-```typescript
-const ContactEntity = defineEntity({
-  name: 'Contact',
-  fields: {
-    id: field.id(),
-    firstName: field.string(),
-    lastName: field.string(),
-    email: field.email({ isOptional: true }),
-    phone: field.string({ isOptional: true }),
-    companyId: field.foreignKey({ isOptional: true }),
-    ownerId: field.foreignKey(),
-    // ...
-  },
-});
-```
-
-### Company
-
-```typescript
-const CompanyEntity = defineEntity({
-  name: 'Company',
-  fields: {
-    id: field.id(),
-    name: field.string(),
-    domain: field.string({ isOptional: true }),
-    industry: field.string({ isOptional: true }),
-    size: field.enum('CompanySize'),
-    // ...
-  },
-});
-```
-
-### Deal
-
-```typescript
-const DealEntity = defineEntity({
-  name: 'Deal',
-  fields: {
-    id: field.id(),
-    name: field.string(),
-    value: field.decimal(),
-    currency: field.string(),
-    stageId: field.foreignKey(),
-    contactId: field.foreignKey({ isOptional: true }),
-    companyId: field.foreignKey({ isOptional: true }),
-    // ...
-  },
-});
-```
-
-### Pipeline & Stage
-
-```typescript
-const PipelineEntity = defineEntity({
-  name: 'Pipeline',
-  fields: {
-    id: field.id(),
-    name: field.string(),
-    isDefault: field.boolean(),
-    // ...
-  },
-});
-
-const StageEntity = defineEntity({
-  name: 'Stage',
-  fields: {
-    id: field.id(),
-    name: field.string(),
-    pipelineId: field.foreignKey(),
-    position: field.int(),
-    probability: field.int(), // Win probability %
-    // ...
-  },
-});
-```
-
-## Events
-
-| Event           | Description             |
-| --------------- | ----------------------- |
-| contact.created | New contact added       |
-| deal.created    | New deal created        |
-| deal.moved      | Deal moved to new stage |
-| deal.won        | Deal marked as won      |
-| deal.lost       | Deal marked as lost     |
-| task.completed  | Task marked complete    |
+From `packages/examples/crm-pipeline`:
+- `bun run dev`
+- `bun run build`
+- `bun run test`
+- `bun run typecheck`
 
 ## Usage
 
-### Load as Studio Template
+Use `@contractspec/example.crm-pipeline` as a reference implementation, or import its exported surfaces into a workspace that composes ContractSpec examples and bundles.
 
-This example is registered as `crm-pipeline` in the ContractSpec Studio.
+## Architecture
 
-### Clone via Git
+- `src/crm-pipeline.feature.ts` defines a feature entrypoint.
+- `src/deal` is part of the package's public or composition surface.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/entities/` contains domain entities and value objects.
+- `src/events` is part of the package's public or composition surface.
+- `src/example.ts` is the runnable example entrypoint.
+- `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 
-```bash
-npx degit lssm/contractspec/packages/examples/crm-pipeline my-crm-app
-```
+## Public Entry Points
 
-## Adoption narrative
+- Export `.` resolves through `./src/index.ts`.
+- Export `./crm-pipeline.feature` resolves through `./src/crm-pipeline.feature.ts`.
+- Export `./deal` resolves through `./src/deal/index.ts`.
+- Export `./deal/deal.enum` resolves through `./src/deal/deal.enum.ts`.
+- Export `./deal/deal.operation` resolves through `./src/deal/deal.operation.ts`.
+- Export `./deal/deal.schema` resolves through `./src/deal/deal.schema.ts`.
+- Export `./deal/deal.test-spec` resolves through `./src/deal/deal.test-spec.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./docs/crm-pipeline.docblock` resolves through `./src/docs/crm-pipeline.docblock.ts`.
+- Export `./entities` resolves through `./src/entities/index.ts`.
+- The package publishes 44 total export subpaths; keep docs aligned with `package.json`.
 
-### Before
+## Local Commands
 
-- A CRM app with hand-written data models and handler logic.
-- Pipeline stage rules live in code and drift across UI/API/events.
-- Regeneration is risky because specs and implementations are not aligned.
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test --pass-with-no-tests
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run validate` — contractspec validate "src/**/*"
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-### After
+## Recent Updates
 
-- Contracts define deals, stages, and tasks as the source of truth.
-- Regeneration keeps UI/API/events in sync when stages change.
-- Compliance surfaces (audits, notifications) stay consistent with specs.
+- Replace eslint+prettier by biomejs to optimize speed.
+- Missing contract layers.
 
-### Minimal adoption steps
+## Notes
 
-1. Add ContractSpec CLI and core libraries.
-2. Define one operation (for example, `deal/create`).
-3. Run `contractspec build` to generate handlers and types.
-4. Wire the generated handler into your existing router.
-5. Expand to events and presentations as you add surface areas.
+- Works alongside `@contractspec/lib.contracts-spec`, `@contractspec/lib.design-system`, `@contractspec/lib.example-shared-ui`, `@contractspec/lib.identity-rbac`, `@contractspec/lib.runtime-sandbox`, ...

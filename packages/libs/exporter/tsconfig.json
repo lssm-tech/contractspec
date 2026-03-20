@@ -1,13 +1,11 @@
 {
-  "extends": "@contractspec/tool.typescript/base.json",
-  "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist",
-    "declaration": true,
-    "emitDeclarationOnly": false,
-    "strict": true
-  },
-  "include": ["src/**/*"]
+	"extends": "@contractspec/tool.typescript/base.json",
+	"compilerOptions": {
+		"rootDir": "src",
+		"outDir": "dist",
+		"declaration": true,
+		"emitDeclarationOnly": false,
+		"strict": true
+	},
+	"include": ["src/**/*"]
 }
-
-

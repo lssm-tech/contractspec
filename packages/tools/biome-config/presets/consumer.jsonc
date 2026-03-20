@@ -1,0 +1,84 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.4.8/schema.json",
+	"formatter": {
+		"enabled": true
+	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
+		}
+	},
+	"assist": {
+		"enabled": true,
+		"actions": {
+			"source": {
+				"organizeImports": "on",
+				"noDuplicateClasses": {
+					"level": "on",
+					"options": {
+						"functions": ["cn", "clsx", "cva", "twMerge", "tv"]
+					}
+				}
+			}
+		}
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": false,
+			"correctness": {
+				"noUnusedImports": "error",
+				"noUnusedVariables": {
+					"level": "error",
+					"options": {
+						"ignoreRestSiblings": true
+					}
+				}
+			},
+			"nursery": {
+				"useSortedClasses": {
+					"level": "error",
+					"options": {
+						"functions": ["cn", "clsx", "cva", "twMerge", "tv"]
+					}
+				}
+			}
+		}
+	},
+	"overrides": [
+		{
+			"includes": [
+				"src/**/*.{jsx,tsx}",
+				"app/**/*.{jsx,tsx}",
+				"components/**/*.{jsx,tsx}"
+			],
+			"plugins": ["../plugins/consumer-prefer-design-system.grit"]
+		},
+		{
+			"includes": [
+				"src/**/*.{jsx,tsx}",
+				"app/**/*.{jsx,tsx}",
+				"components/**/*.{jsx,tsx}"
+			],
+			"linter": {
+				"rules": {
+					"correctness": {
+						"noRestrictedElements": {
+							"level": "error",
+							"options": {
+								"elements": {
+									"div": "Prefer ContractSpec layout primitives instead of raw <div>.",
+									"button": "Prefer a ContractSpec button primitive instead of raw <button>.",
+									"input": "Prefer a ContractSpec input primitive instead of raw <input>.",
+									"textarea": "Prefer a ContractSpec textarea primitive instead of raw <textarea>.",
+									"select": "Prefer a ContractSpec select primitive instead of raw <select>.",
+									"form": "Prefer a ContractSpec form primitive instead of raw <form>."
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	]
+}

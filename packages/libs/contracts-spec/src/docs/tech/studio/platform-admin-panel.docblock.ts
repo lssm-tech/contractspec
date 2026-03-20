@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '../../registry';
 
 export const tech_studio_platform_admin_panel_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.studio.platform-admin-panel',
-    title: 'Studio Platform Admin Panel',
-    summary:
-      'How PLATFORM_ADMIN organizations manage tenant orgs and integration connections without session switching.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/studio/platform-admin-panel',
-    tags: ['studio', 'admin', 'multi-tenancy', 'integrations', 'better-auth'],
-    body: `# Studio Platform Admin Panel
+	{
+		id: 'docs.tech.studio.platform-admin-panel',
+		title: 'Studio Platform Admin Panel',
+		summary:
+			'How PLATFORM_ADMIN organizations manage tenant orgs and integration connections without session switching.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/studio/platform-admin-panel',
+		tags: ['studio', 'admin', 'multi-tenancy', 'integrations', 'better-auth'],
+		body: `# Studio Platform Admin Panel
 
 ContractSpec Studio exposes a dedicated **Platform Admin Panel** for users whose **active organization** has:
 
@@ -74,7 +74,7 @@ The platform-admin GraphQL operations are guarded by the active org type and inc
 - Integrations admin service: \`packages/bundles/contractspec-studio/src/modules/platform-integrations/index.ts\`
 - Web route: \`packages/apps/web-landing/src/app/(app-customer)/studio/admin/*\`
 `,
-  },
+	},
 ];
 
 registerDocBlocks(tech_studio_platform_admin_panel_DocBlocks);

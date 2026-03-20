@@ -1,8 +1,8 @@
 import type { StateStore } from '../state';
 
 export interface FileStateStoreOptions {
-  /** Absolute or relative path to the persistence file. */
-  filePath: string;
+	/** Absolute or relative path to the persistence file. */
+	filePath: string;
 }
 
 /**
@@ -10,9 +10,9 @@ export interface FileStateStoreOptions {
  * Implementations should manage locking/concurrency and JSON serialization.
  */
 export function createFileStateStore(
-  _options: FileStateStoreOptions
+	_options: FileStateStoreOptions
 ): StateStore {
-  throw new Error(
-    'File-backed state store adapter not implemented. Provide a custom adapter that satisfies StateStore.'
-  );
+	throw new Error(
+		'File-backed state store adapter not implemented. Provide a custom adapter that satisfies StateStore.'
+	);
 }

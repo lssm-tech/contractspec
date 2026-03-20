@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.design-system",
-  "version": "3.6.0",
+  "version": "3.8.0",
   "description": "Design tokens and theming primitives",
   "keywords": [
     "contractspec",
@@ -20,8 +20,8 @@
     "registry:build": "bun run scripts/build-registry.ts",
     "test": "bun test --pass-with-no-tests",
     "lint": "bun run lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit -p tsconfig.build.json"
   },
@@ -33,6 +33,7 @@
     "@contractspec/lib.ai-agent": "workspace:*",
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.contracts-runtime-client-react": "workspace:*",
+    "@contractspec/lib.presentation-runtime-react": "workspace:*",
     "@contractspec/lib.ui-kit": "workspace:*",
     "@contractspec/lib.ui-kit-web": "workspace:*",
     "@hookform/resolvers": "5.2.2",
@@ -72,8 +73,8 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
-        "bun": "./dist/index.js",
         "browser": "./dist/browser/index.js",
+        "bun": "./dist/index.js",
         "default": "./dist/index.js"
       }
     },

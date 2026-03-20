@@ -1,5 +1,100 @@
 # @contractspec/app.provider-ranking-mcp
 
+## 1.6.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.6
+  - @contractspec/module.provider-ranking@0.7.6
+  - @contractspec/lib.provider-ranking@0.7.6
+  - @contractspec/lib.contracts-spec@3.7.6
+  - @contractspec/lib.ai-providers@3.7.6
+  - @contractspec/lib.logger@3.7.6
+
+## 1.6.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.5
+  - @contractspec/module.provider-ranking@0.7.5
+  - @contractspec/lib.provider-ranking@0.7.5
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/lib.ai-providers@3.7.5
+  - @contractspec/lib.logger@3.7.5
+
+## 1.6.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.4
+  - @contractspec/module.provider-ranking@0.7.4
+  - @contractspec/lib.provider-ranking@0.7.4
+  - @contractspec/lib.contracts-spec@3.7.4
+  - @contractspec/lib.ai-providers@3.7.4
+  - @contractspec/lib.logger@3.7.4
+
+## 1.6.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.3
+  - @contractspec/module.provider-ranking@0.7.3
+  - @contractspec/lib.provider-ranking@0.7.3
+  - @contractspec/lib.contracts-spec@3.7.3
+  - @contractspec/lib.ai-providers@3.7.3
+  - @contractspec/lib.logger@3.7.3
+
+## 1.6.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- Updated dependencies [8cd229b]
+- Updated dependencies [04bc555]
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.2
+  - @contractspec/module.provider-ranking@0.7.2
+  - @contractspec/lib.provider-ranking@0.7.2
+  - @contractspec/lib.contracts-spec@3.7.2
+  - @contractspec/lib.ai-providers@3.7.2
+  - @contractspec/lib.logger@3.7.2
+
+## 1.6.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.1
+  - @contractspec/module.provider-ranking@0.7.1
+  - @contractspec/lib.provider-ranking@0.7.1
+  - @contractspec/lib.contracts-spec@3.7.1
+  - @contractspec/lib.ai-providers@3.7.1
+  - @contractspec/lib.logger@3.7.1
+
+## 1.6.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.0
+  - @contractspec/module.provider-ranking@0.7.0
+  - @contractspec/lib.provider-ranking@0.7.0
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/lib.ai-providers@3.7.0
+  - @contractspec/lib.logger@3.7.0
+
 ## 1.5.0
 
 ### Minor Changes

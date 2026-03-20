@@ -6,72 +6,72 @@
  * - t.* schema definitions
  */
 
-import { BaseExtractor, type ExtractionContext } from '../base';
 import type { EndpointCandidate, HttpMethod } from '../../types';
+import { BaseExtractor, type ExtractionContext } from '../base';
 
 const PATTERNS = {
-  route: /\.(get|post|put|patch|delete)\s*\(\s*['"`]([^'"`]+)['"`]/gi,
-  tSchema: /body:\s*t\.\w+/g,
+	route: /\.(get|post|put|patch|delete)\s*\(\s*['"`]([^'"`]+)['"`]/gi,
+	tSchema: /body:\s*t\.\w+/g,
 };
 
 export class ElysiaExtractor extends BaseExtractor {
-  id = 'elysia';
-  name = 'Elysia Extractor';
-  frameworks = ['elysia'];
-  priority = 15;
+	id = 'elysia';
+	name = 'Elysia Extractor';
+	frameworks = ['elysia'];
+	priority = 15;
 
-  protected async doExtract(ctx: ExtractionContext): Promise<void> {
-    const { project, options, fs } = ctx;
+	protected async doExtract(ctx: ExtractionContext): Promise<void> {
+		const { project, options, fs } = ctx;
 
-    const pattern = options.scope?.length
-      ? options.scope.map((s) => `${s}/**/*.ts`).join(',')
-      : '**/*.ts';
+		const pattern = options.scope?.length
+			? options.scope.map((s) => `${s}/**/*.ts`).join(',')
+			: '**/*.ts';
 
-    const files = await fs.glob(pattern, { cwd: project.rootPath });
-    ctx.ir.stats.filesScanned = files.length;
+		const files = await fs.glob(pattern, { cwd: project.rootPath });
+		ctx.ir.stats.filesScanned = files.length;
 
-    for (const file of files) {
-      if (file.includes('node_modules') || file.includes('.test.')) continue;
+		for (const file of files) {
+			if (file.includes('node_modules') || file.includes('.test.')) continue;
 
-      const fullPath = `${project.rootPath}/${file}`;
-      const content = await fs.readFile(fullPath);
+			const fullPath = `${project.rootPath}/${file}`;
+			const content = await fs.readFile(fullPath);
 
-      if (!content.includes('elysia')) continue;
+			if (!content.includes('elysia')) continue;
 
-      await this.extractRoutes(ctx, file, content);
-    }
-  }
+			await this.extractRoutes(ctx, file, content);
+		}
+	}
 
-  private async extractRoutes(
-    ctx: ExtractionContext,
-    file: string,
-    content: string
-  ): Promise<void> {
-    const matches = [...content.matchAll(PATTERNS.route)];
+	private async extractRoutes(
+		ctx: ExtractionContext,
+		file: string,
+		content: string
+	): Promise<void> {
+		const matches = [...content.matchAll(PATTERNS.route)];
 
-    for (const match of matches) {
-      const method = (match[1]?.toUpperCase() ?? 'GET') as HttpMethod;
-      const path = match[2] ?? '/';
-      const index = match.index ?? 0;
-      const lineNumber = content.slice(0, index).split('\n').length;
+		for (const match of matches) {
+			const method = (match[1]?.toUpperCase() ?? 'GET') as HttpMethod;
+			const path = match[2] ?? '/';
+			const index = match.index ?? 0;
+			const lineNumber = content.slice(0, index).split('\n').length;
 
-      const afterMatch = content.slice(index, index + 500);
-      const hasTSchema = PATTERNS.tSchema.test(afterMatch);
+			const afterMatch = content.slice(index, index + 500);
+			const hasTSchema = PATTERNS.tSchema.test(afterMatch);
 
-      const endpoint: EndpointCandidate = {
-        id: this.generateEndpointId(method, path),
-        method,
-        path,
-        kind: this.methodToOpKind(method),
-        handlerName: 'handler',
-        source: this.createLocation(file, lineNumber, lineNumber + 5),
-        confidence: this.createConfidence(
-          hasTSchema ? 'high' : 'medium',
-          hasTSchema ? 'explicit-schema' : 'decorator-hints'
-        ),
-      };
+			const endpoint: EndpointCandidate = {
+				id: this.generateEndpointId(method, path),
+				method,
+				path,
+				kind: this.methodToOpKind(method),
+				handlerName: 'handler',
+				source: this.createLocation(file, lineNumber, lineNumber + 5),
+				confidence: this.createConfidence(
+					hasTSchema ? 'high' : 'medium',
+					hasTSchema ? 'explicit-schema' : 'decorator-hints'
+				),
+			};
 
-      this.addEndpoint(ctx, endpoint);
-    }
-  }
+			this.addEndpoint(ctx, endpoint);
+		}
+	}
 }

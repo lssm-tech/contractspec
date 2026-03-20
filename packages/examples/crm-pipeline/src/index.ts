@@ -1,14 +1,14 @@
 // CRM Pipeline Example
 // Demonstrates ContractSpec principles for a CRM application
 
+export * from './crm-pipeline.feature';
 export * from './entities';
-export * from './operations';
 export * from './events';
+export { default as example } from './example';
 export * from './handlers';
+export * from './operations';
 export * from './presentations';
 export * from './ui';
-export * from './crm-pipeline.feature';
-export { default as example } from './example';
 import './docs';
 
 // Schema composition configuration
@@ -21,12 +21,12 @@ import { crmPipelineSchemaContribution } from './entities';
  * Complete schema composition for CRM Pipeline.
  */
 export const schemaComposition = {
-  modules: [
-    identityRbacSchemaContribution,
-    auditTrailSchemaContribution,
-    notificationsSchemaContribution,
-    crmPipelineSchemaContribution,
-  ],
-  provider: 'postgresql' as const,
-  outputPath: './prisma/schema/generated.prisma',
+	modules: [
+		identityRbacSchemaContribution,
+		auditTrailSchemaContribution,
+		notificationsSchemaContribution,
+		crmPipelineSchemaContribution,
+	],
+	provider: 'postgresql' as const,
+	outputPath: './prisma/schema/generated.prisma',
 };

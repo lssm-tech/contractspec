@@ -223,7 +223,6 @@ runs:
       with:
         sarif_file: ${{ inputs.working-directory }}/.contractspec-ci/results.sarif
         category: contractspec
-      continue-on-error: true
 
     - name: Upload results as artifact
       if: always()
@@ -235,7 +234,6 @@ runs:
           ${{ inputs.working-directory }}/.contractspec-ci/results.sarif
           ${{ inputs.working-directory }}/.contractspec-ci/impact.json
         retention-days: 30
-      continue-on-error: true
 
     # Impact detection mode
     - name: Run ContractSpec impact detection
@@ -368,7 +366,6 @@ runs:
               body
             });
           }
-      continue-on-error: true
 
     - name: Post PR comment with impact results
       if: inputs.mode == 'impact' && inputs.pr-comment == 'true' && github.event_name == 'pull_request' && always()
@@ -453,4 +450,3 @@ runs:
               body
             });
           }
-      continue-on-error: true

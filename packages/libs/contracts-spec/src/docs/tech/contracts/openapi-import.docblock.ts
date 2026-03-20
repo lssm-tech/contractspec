@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '../../registry';
 
 export const tech_contracts_openapi_import_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.contracts.openapi-import',
-    title: 'OpenAPI Import (OpenAPI 3.1) to ContractSpec',
-    summary:
-      'Import OpenAPI specifications into ContractSpec models, or generate pure Zod/JSON-Schema/GraphQL representations.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/contracts/openapi-import',
-    tags: ['contracts', 'openapi', 'import', 'codegen'],
-    body: `## OpenAPI Import (OpenAPI 3.1)
+	{
+		id: 'docs.tech.contracts.openapi-import',
+		title: 'OpenAPI Import (OpenAPI 3.1) to ContractSpec',
+		summary:
+			'Import OpenAPI specifications into ContractSpec models, or generate pure Zod/JSON-Schema/GraphQL representations.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/contracts/openapi-import',
+		tags: ['contracts', 'openapi', 'import', 'codegen'],
+		body: `## OpenAPI Import (OpenAPI 3.1)
 
 ### Purpose
 
@@ -55,7 +55,7 @@ contractspec openapi import --file api.json --output ./src/zod --schema-format z
 contractspec openapi import --file <path-or-url> --output <dir> [--schema-format <format>]
 \`\`\`
 `,
-  },
+	},
 ];
 
 registerDocBlocks(tech_contracts_openapi_import_DocBlocks);

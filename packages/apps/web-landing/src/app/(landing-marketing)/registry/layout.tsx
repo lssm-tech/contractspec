@@ -7,15 +7,15 @@ import type { Metadata } from 'next';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'agentpacks Registry | ContractSpec',
-  description:
-    'Discover, share, and install agentpacks — reusable AI coding agent configurations for 20+ tools.',
+	title: 'agentpacks Registry | ContractSpec',
+	description:
+		'Discover, share, and install agentpacks — reusable AI coding agent configurations for 20+ tools.',
 };
 
 export default function RegistryLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  return <>{children}</>;
+	return <>{children}</>;
 }

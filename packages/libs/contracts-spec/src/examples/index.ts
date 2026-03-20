@@ -1,62 +1,58 @@
 // Types
-export type {
-  ExampleKind,
-  ExampleVisibility,
-  ExampleSandboxMode,
-  ExampleDocumentation,
-  ExampleSandboxSupport,
-  ExampleStudioSupport,
-  ExampleMcpSupport,
-  ExampleSurfaces,
-  ExampleEntrypoints,
-  ExampleMeta,
-  ExampleSpec,
-} from './types';
 
-export {
-  ExampleKindEnum,
-  ExampleVisibilityEnum,
-  ExampleSandboxModeEnum,
-  isSpecPointer,
-  isFeatureRef,
-  isExampleKind,
-  isExampleVisibility,
-} from './types';
-
-// Schema
-export {
-  ExampleKindSchema,
-  ExampleVisibilitySchema,
-  ExampleSandboxModeSchema,
-  ExampleDocumentationSchema,
-  ExampleSurfacesSchema,
-  ExampleEntrypointsSchema,
-  ExampleMetaSchema,
-  ExampleSpecSchema,
-  parseExampleSpec,
-  safeParseExampleSpec,
-  parseExampleMeta,
-  parseExampleSurfaces,
-  parseExampleEntrypoints,
-  parseExampleDocumentation,
-} from './schema';
-
+export { defineExample } from './define';
 // Registry
 export { ExampleRegistry } from './registry';
 
+// Schema
+export {
+	ExampleDocumentationSchema,
+	ExampleEntrypointsSchema,
+	ExampleKindSchema,
+	ExampleMetaSchema,
+	ExampleSandboxModeSchema,
+	ExampleSpecSchema,
+	ExampleSurfacesSchema,
+	ExampleVisibilitySchema,
+	parseExampleDocumentation,
+	parseExampleEntrypoints,
+	parseExampleMeta,
+	parseExampleSpec,
+	parseExampleSurfaces,
+	safeParseExampleSpec,
+} from './schema';
+export type {
+	ExampleDocumentation,
+	ExampleEntrypoints,
+	ExampleKind,
+	ExampleMcpSupport,
+	ExampleMeta,
+	ExampleSandboxMode,
+	ExampleSandboxSupport,
+	ExampleSpec,
+	ExampleStudioSupport,
+	ExampleSurfaces,
+	ExampleVisibility,
+} from './types';
+export {
+	ExampleKindEnum,
+	ExampleSandboxModeEnum,
+	ExampleVisibilityEnum,
+	isExampleKind,
+	isExampleVisibility,
+	isFeatureRef,
+	isSpecPointer,
+} from './types';
 // Validation
 export type {
-  ExampleValidationError,
-  ExampleValidationWarning,
-  ValidateExamplesResult,
-  ValidateExampleResult,
-  CrossValidationContext,
+	CrossValidationContext,
+	ExampleValidationError,
+	ExampleValidationWarning,
+	ValidateExampleResult,
+	ValidateExamplesResult,
 } from './validation';
-
 export {
-  validateExample,
-  validateExamples,
-  validateExampleReferences,
+	validateExample,
+	validateExampleReferences,
+	validateExamples,
 } from './validation';
-
-export { defineExample } from './define';

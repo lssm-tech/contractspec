@@ -1,41 +1,41 @@
 import type { CapabilityRegistry } from '../capabilities';
 import type { OperationSpecRegistry } from '../operations/registry';
-import {
-  AcpSessionInitCommand,
-  AcpSessionResumeCommand,
-  AcpSessionStopCommand,
-  AcpPromptTurnCommand,
-  AcpToolCallsCommand,
-  AcpTerminalExecCommand,
-  AcpFsAccessCommand,
-} from './commands';
 import { AcpTransportCapability } from './capabilities';
+import {
+	AcpFsAccessCommand,
+	AcpPromptTurnCommand,
+	AcpSessionInitCommand,
+	AcpSessionResumeCommand,
+	AcpSessionStopCommand,
+	AcpTerminalExecCommand,
+	AcpToolCallsCommand,
+} from './commands';
 
 export const acpOperationContracts = {
-  AcpSessionInitCommand,
-  AcpSessionResumeCommand,
-  AcpSessionStopCommand,
-  AcpPromptTurnCommand,
-  AcpToolCallsCommand,
-  AcpTerminalExecCommand,
-  AcpFsAccessCommand,
+	AcpSessionInitCommand,
+	AcpSessionResumeCommand,
+	AcpSessionStopCommand,
+	AcpPromptTurnCommand,
+	AcpToolCallsCommand,
+	AcpTerminalExecCommand,
+	AcpFsAccessCommand,
 };
 
 export const acpCapabilityContracts = {
-  AcpTransportCapability,
+	AcpTransportCapability,
 };
 
 export function registerAcpOperations(registry: OperationSpecRegistry) {
-  return registry
-    .register(AcpSessionInitCommand)
-    .register(AcpSessionResumeCommand)
-    .register(AcpSessionStopCommand)
-    .register(AcpPromptTurnCommand)
-    .register(AcpToolCallsCommand)
-    .register(AcpTerminalExecCommand)
-    .register(AcpFsAccessCommand);
+	return registry
+		.register(AcpSessionInitCommand)
+		.register(AcpSessionResumeCommand)
+		.register(AcpSessionStopCommand)
+		.register(AcpPromptTurnCommand)
+		.register(AcpToolCallsCommand)
+		.register(AcpTerminalExecCommand)
+		.register(AcpFsAccessCommand);
 }
 
 export function registerAcpCapabilities(registry: CapabilityRegistry) {
-  return registry.register(AcpTransportCapability);
+	return registry.register(AcpTransportCapability);
 }

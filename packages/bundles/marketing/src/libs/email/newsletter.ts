@@ -1,35 +1,35 @@
 'use server';
 
 import { getEmailConfig, sendEmail } from './client';
-import { formatMultilineHtml } from './utils';
 import type { SubmitNewsletterResult } from './types';
+import { formatMultilineHtml } from './utils';
 
 const NEWSLETTER_MISSING_CONFIG =
-  'Newsletter service is not configured. Please try again later.';
+	'Newsletter service is not configured. Please try again later.';
 const NEWSLETTER_SEND_ERROR =
-  'Failed to subscribe. Please try again later or contact us directly.';
+	'Failed to subscribe. Please try again later or contact us directly.';
 
 export const subscribeToNewsletter = async (
-  formData: FormData
+	formData: FormData
 ): Promise<SubmitNewsletterResult> => {
-  const email = (formData.get('email') ?? '').toString().trim();
+	const email = (formData.get('email') ?? '').toString().trim();
 
-  if (!email || !email.includes('@')) {
-    return {
-      success: false,
-      text: 'Please enter a valid email address.',
-    };
-  }
+	if (!email || !email.includes('@')) {
+		return {
+			success: false,
+			text: 'Please enter a valid email address.',
+		};
+	}
 
-  const configResult = getEmailConfig();
-  if (!configResult.ok || !configResult.config) {
-    return {
-      success: false,
-      text: configResult.errorMessage ?? NEWSLETTER_MISSING_CONFIG,
-    };
-  }
+	const configResult = getEmailConfig();
+	if (!configResult.ok || !configResult.config) {
+		return {
+			success: false,
+			text: configResult.errorMessage ?? NEWSLETTER_MISSING_CONFIG,
+		};
+	}
 
-  const welcomeText = `
+	const welcomeText = `
 Welcome to ContractSpec!
 
 Thanks for subscribing to our newsletter. You'll receive updates on:
@@ -49,7 +49,7 @@ https://contractspec.io
 Unsubscribe: Reply to this email with "unsubscribe"
   `.trim();
 
-  const welcomeHtml = `
+	const welcomeHtml = `
     <div style="font-family: sans-serif; max-width: 640px; margin: 0 auto;">
       <h1 style="color: #8b5cf6;">Welcome to ContractSpec!</h1>
       <p>Thanks for subscribing to our newsletter. You'll receive updates on:</p>
@@ -72,37 +72,37 @@ Unsubscribe: Reply to this email with "unsubscribe"
     </div>
   `;
 
-  const userSend = await sendEmail(configResult.config, {
-    to: [{ email }],
-    subject: 'Welcome to ContractSpec Newsletter',
-    text: welcomeText,
-    html: welcomeHtml,
-    context: 'newsletter-welcome',
-  });
+	const userSend = await sendEmail(configResult.config, {
+		to: [{ email }],
+		subject: 'Welcome to ContractSpec Newsletter',
+		text: welcomeText,
+		html: welcomeHtml,
+		context: 'newsletter-welcome',
+	});
 
-  if (!userSend.success) {
-    return { success: false, text: NEWSLETTER_SEND_ERROR };
-  }
+	if (!userSend.success) {
+		return { success: false, text: NEWSLETTER_SEND_ERROR };
+	}
 
-  const teamNotificationText = `New newsletter subscription from: ${email}`;
-  const teamNotificationHtml = `
+	const teamNotificationText = `New newsletter subscription from: ${email}`;
+	const teamNotificationHtml = `
     <div style="font-family: sans-serif; max-width: 640px; margin: 0 auto;">
       <p style="margin: 0 0 8px;">New newsletter subscription</p>
       <p style="margin: 0;"><strong>Email:</strong> ${formatMultilineHtml(email)}</p>
     </div>
   `;
 
-  const teamSend = await sendEmail(configResult.config, {
-    to: [configResult.config.teamInbox],
-    subject: `New Newsletter Subscription: ${email}`,
-    text: teamNotificationText,
-    html: teamNotificationHtml,
-    context: 'newsletter-team-notification',
-  });
+	const teamSend = await sendEmail(configResult.config, {
+		to: [configResult.config.teamInbox],
+		subject: `New Newsletter Subscription: ${email}`,
+		text: teamNotificationText,
+		html: teamNotificationHtml,
+		context: 'newsletter-team-notification',
+	});
 
-  if (!teamSend.success) {
-    return { success: false, text: NEWSLETTER_SEND_ERROR };
-  }
+	if (!teamSend.success) {
+		return { success: false, text: NEWSLETTER_SEND_ERROR };
+	}
 
-  return { success: true, text: 'Successfully subscribed!' };
+	return { success: true, text: 'Successfully subscribed!' };
 };

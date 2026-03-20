@@ -1,29 +1,69 @@
 # @contractspec/example.video-api-showcase
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
-Generate API documentation videos from contract spec definitions using the `ApiOverview` composition.
+**Generate API documentation videos from contract spec definitions using the ApiOverview composition.**
 
-This package demonstrates:
+## What This Demonstrates
 
-- Manually constructing a `VideoProject` from spec metadata (name, method, endpoint, code)
-- Mapping API spec definitions to `ApiOverview` composition props
-- Configuring render output with quality presets (draft/standard/high)
-- Batch-building video projects for multiple specs with `buildApiVideoSuite`
+- Video generation pipeline from contract specs.
+- ApiOverview composition pattern.
+- Sample spec definitions for video input.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/docs/` contains docblocks and documentation-facing exports.
 
-## Quickstart
+## Running Locally
 
-```typescript
-import { buildApiVideo, buildRenderConfig } from "@contractspec/example.video-api-showcase";
-import { createUserSpec } from "@contractspec/example.video-api-showcase";
+From `packages/examples/video-api-showcase`:
+- `bun run dev`
+- `bun run build`
+- `bun run test`
+- `bun run typecheck`
 
-// Build a single video project from a spec definition
-const project = buildApiVideo(createUserSpec);
+## Usage
 
-// Configure rendering
-const config = buildRenderConfig("./out/create-user.mp4", "standard");
-```
+Use `@contractspec/example.video-api-showcase` as a reference implementation, or import its exported surfaces into a workspace that composes ContractSpec examples and bundles.
 
-Three sample specs are included: `createUserSpec` (POST /api/users), `listTransactionsSpec` (GET /api/transactions), and `sendNotificationSpec` (POST /api/notifications).
+## Architecture
 
-This example uses manual `VideoProject` construction rather than the `VideoGenerator` pipeline -- ideal when the video structure is known ahead of time.
+- `src/build-api-video.ts` is part of the package's public or composition surface.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/example.ts` is the runnable example entrypoint.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/sample-specs.ts` is part of the package's public or composition surface.
+- `src/video-api-showcase.feature.ts` defines a feature entrypoint.
+
+## Public Entry Points
+
+- Export `.` resolves through `./src/index.ts`.
+- Export `./build-api-video` resolves through `./src/build-api-video.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./docs/video-api-showcase.docblock` resolves through `./src/docs/video-api-showcase.docblock.ts`.
+- Export `./example` resolves through `./src/example.ts`.
+- Export `./sample-specs` resolves through `./src/sample-specs.ts`.
+- Export `./video-api-showcase.feature` resolves through `./src/video-api-showcase.feature.ts`.
+
+## Local Commands
+
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test --pass-with-no-tests
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
+
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed.
+- Missing contract layers.
+
+## Notes
+
+- Works alongside `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.video-gen`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.

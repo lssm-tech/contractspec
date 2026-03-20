@@ -1,193 +1,80 @@
 # @contractspec/example.integration-hub
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
-A comprehensive integration hub example demonstrating ContractSpec principles for data synchronization.
+**Integration Hub example with sync engine and field mappings for ContractSpec.**
 
-## Features
+## What This Demonstrates
 
-- **Multi-Provider Support**: Connect to various external systems (Salesforce, HubSpot, etc.)
-- **Voice Provider Coverage**: Includes seeded examples for `ai-voice.gradium` and `ai-voice.fal`
-- **Analytics Coverage**: Includes seeded examples for PostHog analytics
-- **Bidirectional Sync**: INBOUND, OUTBOUND, or BIDIRECTIONAL data flow
-- **Field Mapping**: Configurable field mappings with transforms
-- **Sync Engine**: Change detection, deduplication, and error handling
-- **Scheduled Sync**: Cron-based scheduled synchronization
-- **Feature Flag Integration**: Control integration availability
-- **Full Audit Trail**: Track all sync operations
-- **MCP-Ready Providers**: Supports provider configs that call remote MCP tools
-- **Health Strategy Routing**: Supports `health.*` providers with official, aggregator, and gated unofficial fallback transports
+- Connection management with typed schemas and enums.
+- Integration lifecycle (create, configure, sync).
+- Sync engine with field mapping and status tracking.
+- MCP server example for tool integration.
+- Capability and feature definition patterns.
+- React UI with dashboard, hooks, and markdown renderers.
+- Event definitions and operation test-specs.
 
-## Entities
+## Running Locally
 
-### Core
-
-- `Integration` - Integration definition
-- `Connection` - Authenticated connection to external system
-- `SyncConfig` - Sync configuration for object pairs
-- `FieldMapping` - Field-level mapping configuration
-
-### Sync Execution
-
-- `SyncRun` - A single sync execution
-- `SyncLog` - Log entries for a sync run
-- `SyncRecord` - Tracks synced records for deduplication
-
-## Contracts
-
-### Integration Management
-
-- `integration.create` - Create a new integration
-- `integration.connection.create` - Create a connection
-
-### Sync Configuration
-
-- `integration.syncConfig.create` - Create sync config
-- `integration.fieldMapping.add` - Add field mapping
-
-### Sync Execution
-
-- `integration.sync.trigger` - Trigger manual sync
-- `integration.syncRun.list` - List sync history
-
-## Field Mapping Types
-
-- **DIRECT**: Direct field copy
-- **TRANSFORM**: Apply transformation expression
-- **LOOKUP**: Lookup from another object
-- **CONSTANT**: Fixed value
-- **COMPUTED**: Computed from multiple fields
-
-## Sync Engine
-
-The sync engine handles:
-
-1. **Change Detection**: Uses checksums to detect changes
-2. **Transformation**: Applies field mappings
-3. **Validation**: Validates required fields
-4. **Deduplication**: Tracks synced records
-
-```typescript
-import { createSyncEngine, BasicFieldTransformer } from '@contractspec/example.integration-hub/sync-engine';
-
-const engine = createSyncEngine();
-
-const result = engine.transformRecord(
-  { id: '123', data: { FirstName: 'John', LastName: 'Doe' } },
-  [
-    { sourceField: 'FirstName', targetField: 'first_name', mappingType: 'DIRECT' },
-    { sourceField: 'LastName', targetField: 'last_name', mappingType: 'TRANSFORM', transformExpression: 'uppercase' },
-  ],
-  context
-);
-// { id: '123', data: { first_name: 'John', last_name: 'DOE' } }
-```
-
-## Transform Expressions
-
-- `uppercase` - Convert to uppercase
-- `lowercase` - Convert to lowercase
-- `trim` - Trim whitespace
-- `default:value` - Set default value
-- `concat:separator` - Join array
-- `split:separator` - Split string
-- `number` - Convert to number
-- `boolean` - Convert to boolean
-- `string` - Convert to string
-
-## Events
-
-- `integration.created` - Integration created
-- `integration.connection.created` - Connection created
-- `integration.connection.statusChanged` - Connection status changed
-- `integration.syncConfig.created` - Sync config created
-- `integration.sync.started` - Sync started
-- `integration.sync.completed` - Sync completed
-- `integration.sync.failed` - Sync failed
-- `integration.record.synced` - Record synced
+From `packages/examples/integration-hub`:
+- `bun run dev`
+- `bun run build`
+- `bun run typecheck`
 
 ## Usage
 
-```typescript
-import {
-  CreateIntegrationContract,
-  CreateSyncConfigContract,
-  TriggerSyncContract,
-  integrationHubSchemaContribution
-} from '@contractspec/example.integration-hub';
+Use `@contractspec/example.integration-hub` as a reference implementation, or import its exported surfaces into a workspace that composes ContractSpec examples and bundles.
 
-// Create integration
-const integration = await executeContract(CreateIntegrationContract, {
-  name: 'Salesforce CRM',
-  slug: 'salesforce-crm',
-  provider: 'salesforce',
-});
+## Architecture
 
-// Create sync config
-const syncConfig = await executeContract(CreateSyncConfigContract, {
-  integrationId: integration.id,
-  connectionId: connection.id,
-  name: 'Contacts Sync',
-  direction: 'BIDIRECTIONAL',
-  sourceObject: 'Contact',
-  targetObject: 'contacts',
-});
+- `src/connection` is part of the package's public or composition surface.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/events.ts` is package-level event definitions.
+- `src/example.ts` is the runnable example entrypoint.
+- `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/integration` is part of the package's public or composition surface.
 
-// Trigger sync
-const run = await executeContract(TriggerSyncContract, {
-  syncConfigId: syncConfig.id,
-});
-```
+## Public Entry Points
 
-## MCP Provider Wiring
+- Export `.` resolves through `./src/index.ts`.
+- Export `./connection` resolves through `./src/connection/index.ts`.
+- Export `./connection/connection.enum` resolves through `./src/connection/connection.enum.ts`.
+- Export `./connection/connection.operation` resolves through `./src/connection/connection.operation.ts`.
+- Export `./connection/connection.presentation` resolves through `./src/connection/connection.presentation.ts`.
+- Export `./connection/connection.schema` resolves through `./src/connection/connection.schema.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./docs/integration-hub.docblock` resolves through `./src/docs/integration-hub.docblock.ts`.
+- Export `./events` resolves through `./src/events.ts`.
+- Export `./example` resolves through `./src/example.ts`.
+- The package publishes 36 total export subpaths; keep docs aligned with `package.json`.
 
-Provider adapters in this workspace can be configured to call MCP endpoints
-(for example `mcpUrl` + headers/tokens on analytics providers, or transport
-selection for meeting recorder providers). This example remains provider-agnostic,
-so MCP transport details stay in provider config rather than contract logic.
+## Local Commands
 
-For health integrations, configure strategy routing at the connection level using
-`defaultTransport`, `strategyOrder`, `allowUnofficial`, `unofficialAllowList`,
-and optionally `oauthTokenUrl` for refresh-token flows.
-This keeps official and aggregator transports deterministic while requiring
-explicit opt-in before unofficial automation routes are used.
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run validate` — contractspec validate "src/**/*"
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run run:mcp` — bun tsx src/run-mcp.ts
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-## Run MCP Example
+## Recent Updates
 
-This package now includes a runnable MCP connectivity example:
-`src/run-mcp.ts`.
+- Replace eslint+prettier by biomejs to optimize speed.
+- Vnext ai-native.
+- Missing contract layers.
+- Resolve lint, build, and type errors across nine packages.
+- Add Composio universal fallback, fix provider-ranking types, and expand package exports.
+- Add first-class transport, auth, versioning, and BYOK support across all integrations.
 
-List MCP tools from a local stdio server (default):
+## Notes
 
-```bash
-export CONTRACTSPEC_INTEGRATION_HUB_MCP_TRANSPORT="stdio"
-export CONTRACTSPEC_INTEGRATION_HUB_MCP_COMMAND="npx"
-export CONTRACTSPEC_INTEGRATION_HUB_MCP_ARGS_JSON='["-y","@modelcontextprotocol/server-filesystem","."]'
-
-bun run --filter @contractspec/example.integration-hub run:mcp
-```
-
-Call a specific MCP tool:
-
-```bash
-export CONTRACTSPEC_INTEGRATION_HUB_MCP_MODE="call"
-export CONTRACTSPEC_INTEGRATION_HUB_MCP_TOOL_NAME="read_file"
-export CONTRACTSPEC_INTEGRATION_HUB_MCP_TOOL_ARGS_JSON='{"path":"README.md"}'
-
-bun run --filter @contractspec/example.integration-hub run:mcp
-```
-
-Remote MCP transport is also supported via:
-
-- `CONTRACTSPEC_INTEGRATION_HUB_MCP_TRANSPORT=http|sse`
-- `CONTRACTSPEC_INTEGRATION_HUB_MCP_URL`
-- `CONTRACTSPEC_INTEGRATION_HUB_MCP_HEADERS_JSON` (optional)
-- `CONTRACTSPEC_INTEGRATION_HUB_MCP_ACCESS_TOKEN` or `..._ACCESS_TOKEN_ENV` (optional)
-
-## Dependencies
-
-- `@contractspec/lib.identity-rbac` - User identity and roles
-- `@contractspec/lib.feature-flags` - Feature flag control
-- `@contractspec/lib.files` - Import/export file handling
-- `@contractspec/lib.jobs` - Background sync jobs
-- `@contractspec/module.audit-trail` - Action auditing
+- Works alongside `@contractspec/lib.ai-agent`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.design-system`, `@contractspec/lib.example-shared-ui`, `@contractspec/lib.runtime-sandbox`, ...

@@ -1,121 +1,121 @@
-import path from 'path';
 import {
-  defaultDocRegistry,
-  type DocBlock,
+	type DocBlock,
+	defaultDocRegistry,
 } from '@contractspec/lib.contracts-spec/docs';
 import {
-  convertSpecToDocBlock,
-  loadSpecFromSource,
-  scanAllSpecsFromSource,
-  scanSpecSource,
-  type SpecScanResult,
+	convertSpecToDocBlock,
+	loadSpecFromSource,
+	type SpecScanResult,
+	scanAllSpecsFromSource,
+	scanSpecSource,
 } from '@contractspec/module.workspace';
+import path from 'path';
 import type { WorkspaceAdapters } from '../../ports/logger';
 import { ModuleResolver } from '../modules/module-resolver';
 
 export interface DocsServiceOptions {
-  outputDir?: string;
-  format?: 'markdown' | 'html' | 'json';
-  rootPath?: string;
+	outputDir?: string;
+	format?: 'markdown' | 'html' | 'json';
+	rootPath?: string;
 }
 
 export interface DocsServiceResult {
-  blocks: DocBlock[];
-  count: number;
+	blocks: DocBlock[];
+	count: number;
 }
 
 /**
  * Generate documentation from spec files.
  */
 export async function generateDocsFromSpecs(
-  specFiles: string[],
-  options: DocsServiceOptions,
-  adapters: WorkspaceAdapters
+	specFiles: string[],
+	options: DocsServiceOptions,
+	adapters: WorkspaceAdapters
 ): Promise<DocsServiceResult> {
-  const { fs, logger } = adapters;
-  const blocks: DocBlock[] = [];
+	const { fs, logger } = adapters;
+	const blocks: DocBlock[] = [];
 
-  logger.info(`Generating docs for ${specFiles.length} files...`);
+	logger.info(`Generating docs for ${specFiles.length} files...`);
 
-  if (options.outputDir) {
-    await fs.mkdir(options.outputDir);
-  }
+	if (options.outputDir) {
+		await fs.mkdir(options.outputDir);
+	}
 
-  // Initialize ModuleResolver
-  const resolver = new ModuleResolver(adapters);
-  // 1. Scan all specs to build the module index
-  const scanResults: SpecScanResult[] = [];
-  for (const file of specFiles) {
-    try {
-      const content = await fs.readFile(file);
-      const results = scanAllSpecsFromSource(content, file);
-      if (results.length > 0) {
-        scanResults.push(...results);
-      } else {
-        // Fallback if no multi-specs found, try single scan logic
-        const single = scanSpecSource(content, file);
-        if (single.specType !== 'unknown') {
-          scanResults.push(single);
-        }
-      }
-    } catch (_err) {
-      // ignore read errors
-    }
-  }
+	// Initialize ModuleResolver
+	const resolver = new ModuleResolver(adapters);
+	// 1. Scan all specs to build the module index
+	const scanResults: SpecScanResult[] = [];
+	for (const file of specFiles) {
+		try {
+			const content = await fs.readFile(file);
+			const results = scanAllSpecsFromSource(content, file);
+			if (results.length > 0) {
+				scanResults.push(...results);
+			} else {
+				// Fallback if no multi-specs found, try single scan logic
+				const single = scanSpecSource(content, file);
+				if (single.specType !== 'unknown') {
+					scanResults.push(single);
+				}
+			}
+		} catch (_err) {
+			// ignore read errors
+		}
+	}
 
-  resolver.initialize(scanResults);
+	resolver.initialize(scanResults);
 
-  for (const file of specFiles) {
-    try {
-      const parsedList = await loadSpecFromSource(file);
+	for (const file of specFiles) {
+		try {
+			const parsedList = await loadSpecFromSource(file);
 
-      if (!parsedList?.length) {
-        logger.warn(`Could not parse spec from ${file}`);
-        continue;
-      }
+			if (!parsedList?.length) {
+				logger.warn(`Could not parse spec from ${file}`);
+				continue;
+			}
 
-      for (const parsed of parsedList) {
-        const block = convertSpecToDocBlock(parsed, {
-          rootPath: options.rootPath,
-        });
-        // Register in global registry
-        defaultDocRegistry.register(block);
-        blocks.push(block);
-        logger.debug(`Generated doc for ${block.id}`);
+			for (const parsed of parsedList) {
+				const block = convertSpecToDocBlock(parsed, {
+					rootPath: options.rootPath,
+				});
+				// Register in global registry
+				defaultDocRegistry.register(block);
+				blocks.push(block);
+				logger.debug(`Generated doc for ${block.id}`);
 
-        if (!options.outputDir) {
-          continue;
-        }
+				if (!options.outputDir) {
+					continue;
+				}
 
-        // Determine grouping based on module resolution
-        const moduleDef = resolver.resolve(file);
-        let targetDir = options.outputDir;
+				// Determine grouping based on module resolution
+				const moduleDef = resolver.resolve(file);
+				let targetDir = options.outputDir;
 
-        if (moduleDef) {
-          targetDir = path.join(options.outputDir, moduleDef.key);
-        } else {
-          targetDir = path.join(options.outputDir, '_common'); // Fallback for root-level specs
-        }
+				if (moduleDef) {
+					targetDir = path.join(options.outputDir, moduleDef.key);
+				} else {
+					targetDir = path.join(options.outputDir, '_common'); // Fallback for root-level specs
+				}
 
-        // Ensure subdirectory exists
-        await fs.mkdir(targetDir);
+				// Ensure subdirectory exists
+				await fs.mkdir(targetDir);
 
-        // Flattened structure: [module]/[docId].md
-        const filename = `${block.id}.md`;
-        const filePath = path.join(targetDir, filename);
-        const generatedContent = `<!-- @generated - This file was generated by ContractSpec. Do not edit manually. -->\n\n${block.body}`;
-        await fs.writeFile(filePath, generatedContent);
-      }
-    } catch (error) {
-      logger.error(
-        `Error processing ${file}: ${error instanceof Error ? error.message : String(error)}`
-      );
-    }
-  }
+				// Flattened structure: [module]/[docId].md
+				const filename = `${block.id}.md`;
+				const filePath = path.join(targetDir, filename);
+				const generatedContent = `<!-- @generated - This file was generated by ContractSpec. Do not edit manually. -->\n\n${block.body}`;
+				await fs.writeFile(filePath, generatedContent);
+			}
+		} catch (error) {
+			logger.error(
+				`Error processing ${file}: ${error instanceof Error ? error.message : String(error)}`
+			);
+		}
+	}
 
-  if (options.outputDir) {
-    logger.info(`Wrote ${blocks.length} doc files to ${options.outputDir}`);
-  }
+	if (options.outputDir) {
+		logger.info(`Wrote ${blocks.length} doc files to ${options.outputDir}`);
+	}
 
-  return { blocks, count: blocks.length };
+	return { blocks, count: blocks.length };
 }

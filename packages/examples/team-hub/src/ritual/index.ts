@@ -3,11 +3,11 @@
  */
 
 export {
-  RitualModel,
-  ScheduleRitualInputModel,
-  LogRitualOccurrenceInputModel,
-} from './ritual.schema';
-export {
-  ScheduleRitualContract,
-  LogRitualOccurrenceContract,
+	LogRitualOccurrenceContract,
+	ScheduleRitualContract,
 } from './ritual.operations';
+export {
+	LogRitualOccurrenceInputModel,
+	RitualModel,
+	ScheduleRitualInputModel,
+} from './ritual.schema';

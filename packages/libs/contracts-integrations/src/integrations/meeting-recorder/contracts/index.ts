@@ -1,35 +1,34 @@
 import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
 import {
-  MeetingRecorderGetMeeting,
-  MeetingRecorderListMeetings,
-  registerMeetingRecorderMeetingContracts,
+	MeetingRecorderGetMeeting,
+	MeetingRecorderListMeetings,
+	registerMeetingRecorderMeetingContracts,
 } from './meetings';
 import {
-  MeetingRecorderGetTranscript,
-  MeetingRecorderSyncTranscript,
-  registerMeetingRecorderTranscriptContracts,
+	MeetingRecorderGetTranscript,
+	MeetingRecorderSyncTranscript,
+	registerMeetingRecorderTranscriptContracts,
 } from './transcripts';
 import {
-  MeetingRecorderWebhookIngest,
-  registerMeetingRecorderWebhookContracts,
+	MeetingRecorderWebhookIngest,
+	registerMeetingRecorderWebhookContracts,
 } from './webhooks';
 
+export * from '../meeting-recorder.feature';
 export {
-  MeetingRecorderGetMeeting,
-  MeetingRecorderListMeetings,
-  MeetingRecorderGetTranscript,
-  MeetingRecorderSyncTranscript,
-  MeetingRecorderWebhookIngest,
+	MeetingRecorderGetMeeting,
+	MeetingRecorderGetTranscript,
+	MeetingRecorderListMeetings,
+	MeetingRecorderSyncTranscript,
+	MeetingRecorderWebhookIngest,
 };
 
-export * from '../meeting-recorder.feature';
-
 export function registerMeetingRecorderContracts(
-  registry: OperationSpecRegistry
+	registry: OperationSpecRegistry
 ): OperationSpecRegistry {
-  return registerMeetingRecorderWebhookContracts(
-    registerMeetingRecorderTranscriptContracts(
-      registerMeetingRecorderMeetingContracts(registry)
-    )
-  );
+	return registerMeetingRecorderWebhookContracts(
+		registerMeetingRecorderTranscriptContracts(
+			registerMeetingRecorderMeetingContracts(registry)
+		)
+	);
 }

@@ -1,13 +1,12 @@
 {
   "name": "@contractspec/example.learning-journey-quest-challenges",
-  "version": "3.6.0",
+  "version": "3.7.7",
   "description": "Time-bound quest/challenge learning journey example.",
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./src/index.ts",
     "./docs": "./src/docs/index.ts",
-    "./docs/index": "./src/docs/index.ts",
     "./docs/quest-challenges.docblock": "./src/docs/quest-challenges.docblock.ts",
     "./example": "./src/example.ts",
     "./learning-journey-quest-challenges.feature": "./src/learning-journey-quest-challenges.feature.ts",
@@ -22,8 +21,8 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "test": "bun test",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
@@ -41,51 +40,44 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
+        "browser": "./dist/browser/docs/index.js",
         "bun": "./dist/docs/index.js",
         "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/index": {
-        "types": "./dist/docs/index.d.ts",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/quest-challenges.docblock": {
         "types": "./dist/docs/quest-challenges.docblock.d.ts",
+        "browser": "./dist/browser/docs/quest-challenges.docblock.js",
         "bun": "./dist/docs/quest-challenges.docblock.js",
         "node": "./dist/node/docs/quest-challenges.docblock.js",
-        "browser": "./dist/browser/docs/quest-challenges.docblock.js",
         "default": "./dist/docs/quest-challenges.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
+        "browser": "./dist/browser/example.js",
         "bun": "./dist/example.js",
         "node": "./dist/node/example.js",
-        "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./learning-journey-quest-challenges.feature": {
         "types": "./dist/learning-journey-quest-challenges.feature.d.ts",
+        "browser": "./dist/browser/learning-journey-quest-challenges.feature.js",
         "bun": "./dist/learning-journey-quest-challenges.feature.js",
         "node": "./dist/node/learning-journey-quest-challenges.feature.js",
-        "browser": "./dist/browser/learning-journey-quest-challenges.feature.js",
         "default": "./dist/learning-journey-quest-challenges.feature.js"
       },
       "./track": {
         "types": "./dist/track.d.ts",
+        "browser": "./dist/browser/track.js",
         "bun": "./dist/track.js",
         "node": "./dist/node/track.js",
-        "browser": "./dist/browser/track.js",
         "default": "./dist/track.js"
       }
     },

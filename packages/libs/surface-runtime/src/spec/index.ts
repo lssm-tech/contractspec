@@ -1,17 +1,17 @@
-export * from './types';
 export { defineModuleBundle } from './define-module-bundle';
-export type {
-  VerificationSnapshotInput,
-  VerificationSnapshotSummary,
-} from './verification-snapshot-types';
+export * from './types';
 export {
-  validateLayoutSlots,
-  validateBundleNodeKinds,
-  type ValidateNodeKindsResult,
+	type ValidateNodeKindsResult,
+	validateBundleNodeKinds,
+	validateLayoutSlots,
 } from './validate-bundle';
 export {
-  validateSurfacePatch,
-  validateSurfacePatchOp,
-  validatePatchProposal,
-  type PatchProposalConstraints,
+	type PatchProposalConstraints,
+	validatePatchProposal,
+	validateSurfacePatch,
+	validateSurfacePatchOp,
 } from './validate-surface-patch';
+export type {
+	VerificationSnapshotInput,
+	VerificationSnapshotSummary,
+} from './verification-snapshot-types';

@@ -7,7 +7,7 @@ globs: ['**/*']
 
 # ContractSpec Codebase
 
-**Mission**: ContractSpec is the deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable.
+**Mission**: ContractSpec is the open spec system for AI-native software: explicit contracts, aligned surfaces, safe regeneration, and an operating layer on top when teams need it.
 
 ## Quick Reference
 
@@ -15,7 +15,7 @@ globs: ['**/*']
 | ------------------ | --------------------------------- | ---------------------------------------------------- |
 | **Contracts**      | `contracts-first.md`              | Spec before implementation                           |
 | Mission & Context  | `contractspec-mission.md`         | Why we exist, who we serve                           |
-| Architecture       | `package-architecture.md`         | libs → bundles → apps                                |
+| Architecture       | `package-architecture.md`         | libs → integrations/modules → bundles → apps         |
 | Code Quality       | `code-quality-practices.md`       | Testing, naming, standards                           |
 | File Organization  | `code-splitting.md`               | Max 250 lines, domain grouping                       |
 | Type Safety        | `type-safety-dependencies.md`     | No `any`, latest deps                                |
@@ -35,6 +35,22 @@ globs: ['**/*']
 4. **Standard Tech**: TypeScript, Zod, no magic abstractions
 5. **Incremental Adoption**: Stabilize one module at a time
 
+## Repository Layout
+
+- **`packages/libs/`**: Foundational contracts, runtimes, agent systems, design system primitives, and shared utilities.
+- **`packages/integrations/`**: Runtime, provider, and environment bridges that connect core libs to concrete execution targets.
+- **`packages/modules/`**: Domain and feature modules that compose libs and integrations into reusable product surfaces.
+- **`packages/bundles/`**: Higher-level product composition for docs, workspace, marketing, and other cross-feature surfaces.
+- **`packages/examples/`**: Runnable or importable reference implementations that demonstrate the package stack in practice.
+- **`packages/apps/`** and **`packages/apps-registry/`**: Deployable shells such as CLIs, MCP servers, APIs, websites, mobile apps, and registry surfaces.
+- **`packages/tools/`**: Build, lint, docs, config, and agentpacks tooling used across the repository and downstream workspaces.
+
+## AGENTS.md Routing
+
+- The root `AGENTS.md` is generated from this overview rule and gives repository-wide guidance.
+- Package-level `AGENTS.md` files are the authoritative local guides for touched packages; always prefer the nearest one when editing code.
+- When the root guide and a package guide differ, follow the more specific package guidance unless it conflicts with higher-priority safety or security rules.
+
 ## Code Style (Enforced)
 
 - **Language**: TypeScript (strict mode)
@@ -45,15 +61,18 @@ globs: ['**/*']
 ## Before You Code
 
 1. Read relevant rules for your change type
-2. Check existing patterns in the codebase
-3. Plan with DocBlocks if adding new features
-4. Run `/ai-audit` to verify decisions
+2. Check the nearest package `README.md` and `AGENTS.md` before changing behavior
+3. Check existing patterns in the codebase
+4. Plan with DocBlocks if adding new features
+5. Run `/ai-audit` to verify decisions
 
 ## AI Agent Guidelines
 
 When working with AI assistants:
 
 - Rules are applied contextually based on file type
+- Treat `package.json`, `src/`, local `README.md`, and local `AGENTS.md` as the source of truth for package behavior
+- MCP schemas, exported subpaths, CLI signatures, and generated artifacts are compatibility surfaces and should be changed deliberately
 - Conflicts resolved by: Security > Compliance > Safety > Quality > UX > Performance
 - All decisions should be traceable and reversible
 - Use `/ai-audit` to verify governance compliance

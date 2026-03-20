@@ -1,20 +1,21 @@
 import type {
-  MeetingRecorderGetTranscriptParams,
-  MeetingTranscriptRecord,
+	MeetingRecorderGetTranscriptParams,
+	MeetingTranscriptRecord,
 } from '@contractspec/lib.contracts-integrations';
 
 import {
-  createMeetingRecorderProvider,
-  type MeetingRecorderProviderFactoryInput,
+	createMeetingRecorderProvider,
+	type MeetingRecorderProviderFactoryInput,
 } from './create-provider';
 
-export interface GetMeetingRecorderTranscriptInput extends MeetingRecorderProviderFactoryInput {
-  params: MeetingRecorderGetTranscriptParams;
+export interface GetMeetingRecorderTranscriptInput
+	extends MeetingRecorderProviderFactoryInput {
+	params: MeetingRecorderGetTranscriptParams;
 }
 
 export async function getMeetingRecorderTranscript(
-  input: GetMeetingRecorderTranscriptInput
+	input: GetMeetingRecorderTranscriptInput
 ): Promise<MeetingTranscriptRecord> {
-  const provider = createMeetingRecorderProvider(input);
-  return provider.getTranscript(input.params);
+	const provider = createMeetingRecorderProvider(input);
+	return provider.getTranscript(input.params);
 }

@@ -10,12 +10,12 @@ export { type DatabaseAdapterFactory, type DatabasePort } from './ports';
 
 // Types
 export {
-  type DatabaseInitOptions,
-  type DbRow,
-  type DbValue,
-  type Migration,
-  type QueryResult,
-  type TransactionContext,
+	type DatabaseInitOptions,
+	type DbRow,
+	type DbValue,
+	type Migration,
+	type QueryResult,
+	type TransactionContext,
 } from './types';
 
 /**
@@ -32,10 +32,10 @@ export {
  * ```
  */
 export async function createPGLiteAdapter(): Promise<
-  import('./ports').DatabasePort
+	import('./ports').DatabasePort
 > {
-  const { PGLiteDatabaseAdapter } = await import('./adapters/pglite');
-  return new PGLiteDatabaseAdapter();
+	const { PGLiteDatabaseAdapter } = await import('./adapters/pglite');
+	return new PGLiteDatabaseAdapter();
 }
 
 export * as web from './web';

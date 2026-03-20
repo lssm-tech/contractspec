@@ -22,12 +22,10 @@
  * ```
  */
 
-// Core types
-export * from './types';
-
 // Provider implementations
 export { ClaudeAgentSDKProvider } from './claude-agent-sdk';
 export { OpenCodeSDKProvider } from './opencode-sdk';
-
 // Re-export utility functions
 export { createProviderRegistry, defaultProviderRegistry } from './registry';
+// Core types
+export * from './types';

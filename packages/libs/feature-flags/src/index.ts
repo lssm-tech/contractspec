@@ -1,14 +1,12 @@
 // Entity definitions for schema generation
-export * from './entities';
 
 // Contract specifications
 export * from './contracts';
-
-// Domain events
-export * from './events';
-
+export * from './entities';
 // Evaluation engine
 export * from './evaluation';
+// Domain events
+export * from './events';
 
 // Feature module specification
 export * from './feature-flags.feature';

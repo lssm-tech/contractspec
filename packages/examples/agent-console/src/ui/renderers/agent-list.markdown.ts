@@ -3,12 +3,13 @@
  *
  * Uses handlers from the agent-console example package.
  */
+
+import {
+	type AgentSummary,
+	mockListAgentsHandler,
+} from '@contractspec/example.agent-console/handlers';
 import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
 import type { PresentationRenderer } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
-import {
-  type AgentSummary,
-  mockListAgentsHandler,
-} from '@contractspec/example.agent-console/handlers';
 
 type Agent = AgentSummary;
 
@@ -17,66 +18,66 @@ type Agent = AgentSummary;
  * Only handles AgentListView component
  */
 export const agentListMarkdownRenderer: PresentationRenderer<{
-  mimeType: string;
-  body: string;
+	mimeType: string;
+	body: string;
 }> = {
-  target: 'markdown',
-  render: async (desc: PresentationSpec) => {
-    // Only handle AgentListView
-    if (
-      desc.source.type !== 'component' ||
-      desc.source.componentKey !== 'AgentListView'
-    ) {
-      throw new Error('agentListMarkdownRenderer: not AgentListView');
-    }
+	target: 'markdown',
+	render: async (desc: PresentationSpec) => {
+		// Only handle AgentListView
+		if (
+			desc.source.type !== 'component' ||
+			desc.source.componentKey !== 'AgentListView'
+		) {
+			throw new Error('agentListMarkdownRenderer: not AgentListView');
+		}
 
-    // Fetch data using mock handler
-    const data = await mockListAgentsHandler({
-      organizationId: 'demo-org',
-      limit: 50,
-      offset: 0,
-    });
+		// Fetch data using mock handler
+		const data = await mockListAgentsHandler({
+			organizationId: 'demo-org',
+			limit: 50,
+			offset: 0,
+		});
 
-    // Generate markdown
-    const lines: string[] = [
-      `# ${desc.meta.description ?? 'Agent List'}`,
-      '',
-      `> ${desc.meta.key} v${desc.meta.version}`,
-      '',
-      `**Total Agents:** ${data.total}`,
-      '',
-      '## Agents',
-      '',
-    ];
+		// Generate markdown
+		const lines: string[] = [
+			`# ${desc.meta.description ?? 'Agent List'}`,
+			'',
+			`> ${desc.meta.key} v${desc.meta.version}`,
+			'',
+			`**Total Agents:** ${data.total}`,
+			'',
+			'## Agents',
+			'',
+		];
 
-    // Group by status
-    const byStatus: Record<string, Agent[]> = {};
-    for (const agent of data.items) {
-      const status = agent.status;
-      if (byStatus[status]) {
-        byStatus[status].push(agent);
-      } else {
-        byStatus[status] = [agent];
-      }
-    }
+		// Group by status
+		const byStatus: Record<string, Agent[]> = {};
+		for (const agent of data.items) {
+			const status = agent.status;
+			if (byStatus[status]) {
+				byStatus[status].push(agent);
+			} else {
+				byStatus[status] = [agent];
+			}
+		}
 
-    for (const [status, agents] of Object.entries(byStatus)) {
-      lines.push(`### ${status} (${agents.length})`);
-      lines.push('');
-      for (const agent of agents) {
-        lines.push(
-          `- **${agent.name}** (${agent.modelProvider}/${agent.modelName})`
-        );
-        if (agent.description) {
-          lines.push(`  > ${agent.description}`);
-        }
-      }
-      lines.push('');
-    }
+		for (const [status, agents] of Object.entries(byStatus)) {
+			lines.push(`### ${status} (${agents.length})`);
+			lines.push('');
+			for (const agent of agents) {
+				lines.push(
+					`- **${agent.name}** (${agent.modelProvider}/${agent.modelName})`
+				);
+				if (agent.description) {
+					lines.push(`  > ${agent.description}`);
+				}
+			}
+			lines.push('');
+		}
 
-    return {
-      mimeType: 'text/markdown',
-      body: lines.join('\n'),
-    };
-  },
+		return {
+			mimeType: 'text/markdown',
+			body: lines.join('\n'),
+		};
+	},
 };

@@ -1,154 +1,75 @@
 # @contractspec/lib.schema
 
-[![npm version](https://img.shields.io/npm/v/@contractspec/lib.schema)](https://www.npmjs.com/package/@contractspec/lib.schema)
-[![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.schema)](https://www.npmjs.com/package/@contractspec/lib.schema)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/lssm-tech/contractspec)
+Website: https://contractspec.io
 
+**Schema utilities for Zod, JSON Schema, and GraphQL.**
 
-Website: https://contractspec.io/
+## What It Provides
 
-
-**Multi-surface consistency starts here** — Define schemas once, export to Zod, GraphQL, and JSON Schema.
-
-A schema dictionary to describe operation I/O once and generate consistent types across all surfaces (API, database, UI). Part of ContractSpec's spec-first approach.
-
-## Exports to:
-
-- zod (runtime validation)
-- Pothos (GraphQL type refs)
-- JSON Schema (via `zod-to-json-schema` or custom `getJsonSchema()` on `FieldType`)
+- **Layer**: lib.
+- **Consumers**: nearly all libs, bundles, and apps.
+- Related ContractSpec packages include `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Related ContractSpec packages include `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Installation
 
-```bash
-npm install @contractspec/lib.schema
-# or
-bun add @contractspec/lib.schema
-```
+`npm install @contractspec/lib.schema`
 
-The package ships only pre-built `dist/` artifacts and type declarations. Import helpers directly, e.g.:
+or
 
-```ts
-import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
-```
-
-## Primitives
-
-- `FieldType<T>` wraps a GraphQLScalarType and carries a zod schema, plus optional JSON Schema definition.
-- `SchemaModel` composes fields into named object models with helpers:
-  - `getZod()` → typed `z.ZodObject` preserving each field's schema and optionality
-  - `getPothosInput()` → builder name for input object
-  - `getPothosInput()` → builder name for input object
-  - `getJsonSchema()` → resolved JSON Schema
-
-### Multi-Format Wrappers
-
-Use existing schema definitions from other libraries:
-- `ZodSchemaType`: Wraps a raw Zod schema (`z.infer` becomes the TS type).
-- `JsonSchemaType`: Wraps a JSON Schema object.
-- `GraphQLSchemaType`: Wraps a GraphQL SDL string.
-
-### Enums
-
-- `EnumType<T>` represents string enums with a single source of truth:
-  - `getZod()` → `z.enum([...])`
-  - `getPothos()` → GraphQL `GraphQLEnumType`
-  - `getJsonSchema()` → `{ type: 'string', enum: [...] }`
-  - Create with `defineEnum('Name', ['A','B'] as const)`
-
-Example
-
-```ts
-import { defineEnum, SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
-
-const Weekday = defineEnum('Weekday', [
-  'MO',
-  'TU',
-  'WE',
-  'TH',
-  'FR',
-  'SA',
-  'SU',
-] as const);
-
-const Rule = new SchemaModel({
-  name: 'Rule',
-  fields: {
-    timezone: { type: ScalarTypeEnum.TimeZone(), isOptional: false },
-    frequency: {
-      type: defineEnum('RecurrenceFrequency', [
-        'DAILY',
-        'WEEKLY',
-        'MONTHLY',
-        'YEARLY',
-      ] as const),
-      isOptional: false,
-    },
-    byWeekday: { type: Weekday, isOptional: true, isArray: true },
-  },
-});
-```
+`bun add @contractspec/lib.schema`
 
 ## Usage
 
-Define fields with `FieldType` and group them into a `SchemaModel`. Adapters (REST/MCP/GraphQL) can consume these to generate appropriate I/O types while preserving a single source of truth.
+Import the root entrypoint from `@contractspec/lib.schema`, or choose a documented subpath when you only need one part of the package surface.
 
-## API Overview
+## Architecture
 
-- **FieldType<TInternal, TExternal = TInternal>**
-  - `getZod()` → zod schema
-  - `getPothos()` → GraphQL scalar type
-  - `getJsonSchema()` → deeply-resolved JSON Schema
-- **EnumType<T>**
-  - Construct via `defineEnum('Name', ['A','B'] as const)`
-  - `getZod()`, `getPothos()`, `getJsonSchema()`
-- **SchemaModel<Fields>**
-  - `getZod()` → typed `z.ZodObject`
-  - `getPothosInput()` → input object name for GraphQL builders
-  - Each field supports `{ isOptional: boolean, isArray?: true }`
+- `src/entity` is part of the package's public or composition surface.
+- `src/EnumType.test.ts` is part of the package's public or composition surface.
+- `src/EnumType.ts` is part of the package's public or composition surface.
+- `src/FieldType.test.ts` is part of the package's public or composition surface.
+- `src/FieldType.ts` is part of the package's public or composition surface.
+- `src/GraphQLSchemaType.test.ts` is part of the package's public or composition surface.
+- `src/GraphQLSchemaType.ts` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
 
-## Patterns & Conventions
+## Public Entry Points
 
-- Name models with PascalCase and suffix with `Input`/`Result` when ambiguous.
-- Use `ScalarTypeEnum` for common scalars: `NonEmptyString`, `Date`, `DateTime`, `Locale`, `TimeZone`, `Latitude`, `Longitude`, `PhoneNumber`, etc.
-- Prefer enums for constrained strings. Reuse enums across input/output models to ensure consistency.
-- Top-level arrays: define a nested model and set `isArray: true` on the field that holds the list, or create a dedicated list model if needed by adapters.
+- Export `.` resolves through `./src/index.ts`.
+- Export `./entity` resolves through `./src/entity/index.ts`.
+- Export `./entity/defineEntity` resolves through `./src/entity/defineEntity.ts`.
+- Export `./entity/generator` resolves through `./src/entity/generator.ts`.
+- Export `./entity/types` resolves through `./src/entity/types.ts`.
+- Export `./EnumType` resolves through `./src/EnumType.ts`.
+- Export `./FieldType` resolves through `./src/FieldType.ts`.
+- Export `./GraphQLSchemaType` resolves through `./src/GraphQLSchemaType.ts`.
+- Export `./JsonSchemaType` resolves through `./src/JsonSchemaType.ts`.
+- Export `./ScalarFactoryCache` resolves through `./src/ScalarFactoryCache.ts`.
+- The package publishes 14 total export subpaths; keep docs aligned with `package.json`.
 
-## Example: Nested models + arrays
+## Local Commands
 
-```ts
-import { ScalarTypeEnum, SchemaModel, defineEnum } from '@contractspec/lib.schema';
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-const Weekday = defineEnum('Weekday', [
-  'MO',
-  'TU',
-  'WE',
-  'TH',
-  'FR',
-  'SA',
-  'SU',
-] as const);
+## Recent Updates
 
-const Address = new SchemaModel({
-  name: 'Address',
-  fields: {
-    city: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-    country: { type: ScalarTypeEnum.CountryCode(), isOptional: false },
-  },
-});
+- Replace eslint+prettier by biomejs to optimize speed.
 
-export const CreateSpotInput = new SchemaModel({
-  name: 'CreateSpotInput',
-  fields: {
-    name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-    latitude: { type: ScalarTypeEnum.Latitude(), isOptional: false },
-    longitude: { type: ScalarTypeEnum.Longitude(), isOptional: false },
-    availabilityWeekdays: { type: Weekday, isOptional: true, isArray: true },
-    address: { type: Address, isOptional: true },
-  },
-});
-```
+## Notes
 
-## JSON Schema export
-
-Prefer `getZod()` + `zod-to-json-schema` for consistency. For advanced cases, expose a custom `getJsonSchema()` from `FieldType` or a specialized wrapper.
+- Preserve multi-surface consistency: Zod, GraphQL, and JSON Schema representations must stay aligned.
+- Prefer additive changes; avoid silently weakening validation or changing scalar semantics.
+- Do not edit `dist/`; source of truth is `src/`.

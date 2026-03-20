@@ -1,101 +1,101 @@
 import type { CapabilityRegistry } from '../capabilities';
+import type { DataViewRegistry } from '../data-views';
 import type { EventRegistry } from '../events';
+import type { FormRegistry } from '../forms';
 import type { OperationSpecRegistry } from '../operations/registry';
 import type { PresentationRegistry } from '../presentations';
-import type { DataViewRegistry } from '../data-views';
-import type { FormRegistry } from '../forms';
+import { ProviderRankingCapability } from './capabilities';
 import {
-  BenchmarkIngestCommand,
-  BenchmarkRunCustomCommand,
-  RankingRefreshCommand,
+	BenchmarkIngestCommand,
+	BenchmarkRunCustomCommand,
+	RankingRefreshCommand,
 } from './commands';
 import {
-  ProviderRankingGetQuery,
-  BenchmarkResultsListQuery,
-  ModelProfileGetQuery,
-} from './queries';
-import {
-  BenchmarkIngestedEvent,
-  BenchmarkCustomCompletedEvent,
-  RankingUpdatedEvent,
+	BenchmarkCustomCompletedEvent,
+	BenchmarkIngestedEvent,
+	RankingUpdatedEvent,
 } from './events';
-import { ProviderRankingCapability } from './capabilities';
-import { ProviderRankingsDataView, BenchmarkResultsDataView } from './views';
 import { BenchmarkIngestForm, BenchmarkRunCustomForm } from './forms';
 import { ModelComparisonPresentation } from './presentations';
+import {
+	BenchmarkResultsListQuery,
+	ModelProfileGetQuery,
+	ProviderRankingGetQuery,
+} from './queries';
+import { BenchmarkResultsDataView, ProviderRankingsDataView } from './views';
 
 export const providerRankingOperationContracts = {
-  BenchmarkIngestCommand,
-  BenchmarkRunCustomCommand,
-  RankingRefreshCommand,
-  ProviderRankingGetQuery,
-  BenchmarkResultsListQuery,
-  ModelProfileGetQuery,
+	BenchmarkIngestCommand,
+	BenchmarkRunCustomCommand,
+	RankingRefreshCommand,
+	ProviderRankingGetQuery,
+	BenchmarkResultsListQuery,
+	ModelProfileGetQuery,
 };
 
 export const providerRankingEventContracts = {
-  BenchmarkIngestedEvent,
-  BenchmarkCustomCompletedEvent,
-  RankingUpdatedEvent,
+	BenchmarkIngestedEvent,
+	BenchmarkCustomCompletedEvent,
+	RankingUpdatedEvent,
 };
 
 export const providerRankingCapabilityContracts = {
-  ProviderRankingCapability,
+	ProviderRankingCapability,
 };
 
 export const providerRankingDataViewContracts = {
-  ProviderRankingsDataView,
-  BenchmarkResultsDataView,
+	ProviderRankingsDataView,
+	BenchmarkResultsDataView,
 };
 
 export const providerRankingFormContracts = {
-  BenchmarkIngestForm,
-  BenchmarkRunCustomForm,
+	BenchmarkIngestForm,
+	BenchmarkRunCustomForm,
 };
 
 export const providerRankingPresentationContracts = {
-  ModelComparisonPresentation,
+	ModelComparisonPresentation,
 };
 
 export function registerProviderRankingOperations(
-  registry: OperationSpecRegistry
+	registry: OperationSpecRegistry
 ) {
-  return registry
-    .register(BenchmarkIngestCommand)
-    .register(BenchmarkRunCustomCommand)
-    .register(RankingRefreshCommand)
-    .register(ProviderRankingGetQuery)
-    .register(BenchmarkResultsListQuery)
-    .register(ModelProfileGetQuery);
+	return registry
+		.register(BenchmarkIngestCommand)
+		.register(BenchmarkRunCustomCommand)
+		.register(RankingRefreshCommand)
+		.register(ProviderRankingGetQuery)
+		.register(BenchmarkResultsListQuery)
+		.register(ModelProfileGetQuery);
 }
 
 export function registerProviderRankingEvents(registry: EventRegistry) {
-  return registry
-    .register(BenchmarkIngestedEvent)
-    .register(BenchmarkCustomCompletedEvent)
-    .register(RankingUpdatedEvent);
+	return registry
+		.register(BenchmarkIngestedEvent)
+		.register(BenchmarkCustomCompletedEvent)
+		.register(RankingUpdatedEvent);
 }
 
 export function registerProviderRankingCapabilities(
-  registry: CapabilityRegistry
+	registry: CapabilityRegistry
 ) {
-  return registry.register(ProviderRankingCapability);
+	return registry.register(ProviderRankingCapability);
 }
 
 export function registerProviderRankingDataViews(registry: DataViewRegistry) {
-  return registry
-    .register(ProviderRankingsDataView)
-    .register(BenchmarkResultsDataView);
+	return registry
+		.register(ProviderRankingsDataView)
+		.register(BenchmarkResultsDataView);
 }
 
 export function registerProviderRankingForms(registry: FormRegistry) {
-  return registry
-    .register(BenchmarkIngestForm)
-    .register(BenchmarkRunCustomForm);
+	return registry
+		.register(BenchmarkIngestForm)
+		.register(BenchmarkRunCustomForm);
 }
 
 export function registerProviderRankingPresentations(
-  registry: PresentationRegistry
+	registry: PresentationRegistry
 ) {
-  return registry.register(ModelComparisonPresentation);
+	return registry.register(ModelComparisonPresentation);
 }

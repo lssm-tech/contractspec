@@ -1,21 +1,20 @@
 // Hooks
-export { useLearningProgress } from './hooks';
 
 // Components
-export { XpBar, StreakCounter, BadgeDisplay, ViewTabs } from './components';
-
-// Types
-export type {
-  LearningView,
-  LearningProgressState,
-  LearningMiniAppProps,
-  LearningViewProps,
-  XpBarProps,
-  StreakCounterProps,
-  BadgeDisplayProps,
-  ViewTabsProps,
-} from './types';
+export { BadgeDisplay, StreakCounter, ViewTabs, XpBar } from './components';
+export { default as example } from './example';
+export { useLearningProgress } from './hooks';
 
 export * from './learning-journey-ui-shared.feature';
-export { default as example } from './example';
+// Types
+export type {
+	BadgeDisplayProps,
+	LearningMiniAppProps,
+	LearningProgressState,
+	LearningView,
+	LearningViewProps,
+	StreakCounterProps,
+	ViewTabsProps,
+	XpBarProps,
+} from './types';
 import './docs';

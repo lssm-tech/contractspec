@@ -1,4 +1,3 @@
-export { IntegrationsOverviewPage } from './IntegrationsOverviewPage';
 export { IntegrationsCircuitBreakersPage } from './IntegrationsCircuitBreakersPage';
 export { IntegrationsElevenLabsPage } from './IntegrationsElevenLabsPage';
 export { IntegrationsGithubPage } from './IntegrationsGithubPage';
@@ -7,6 +6,7 @@ export { IntegrationsGoogleCalendarPage } from './IntegrationsGoogleCalendarPage
 export { IntegrationsHealthRoutingPage } from './IntegrationsHealthRoutingPage';
 export { IntegrationsMistralPage } from './IntegrationsMistralPage';
 export { IntegrationsOpenAIPage } from './IntegrationsOpenAIPage';
+export { IntegrationsOverviewPage } from './IntegrationsOverviewPage';
 export { IntegrationsPostmarkPage } from './IntegrationsPostmarkPage';
 export { IntegrationsPowensPage } from './IntegrationsPowensPage';
 export { IntegrationsQdrantPage } from './IntegrationsQdrantPage';

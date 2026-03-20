@@ -43,21 +43,19 @@
  * ```
  */
 
-// Types
-export * from './types';
 export * from './runtime-adapters';
-
 // Spec consumer
 export {
-  ContractSpecConsumer,
-  createSpecConsumer,
-  createSingleSpecConsumer,
+	ContractSpecConsumer,
+	createSingleSpecConsumer,
+	createSpecConsumer,
 } from './spec-consumer';
-
 // Tool consumer
 export {
-  ContractSpecToolConsumer,
-  createToolConsumer,
-  createToolServer,
-  exportToolsForExternalSDK,
+	ContractSpecToolConsumer,
+	createToolConsumer,
+	createToolServer,
+	exportToolsForExternalSDK,
 } from './tool-consumer';
+// Types
+export * from './types';

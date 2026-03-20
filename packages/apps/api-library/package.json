@@ -1,33 +1,33 @@
 {
-  "name": "@contractspec/app.api-library",
-  "version": "3.6.0",
-  "private": true,
-  "scripts": {
-    "clean": "rm -rf dist api/dist",
-    "lint": "bun run lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
-    "dev": "bun run --watch src/index.ts",
-    "build": "bun run build:types && bun run build:bundle",
-    "build:bundle": "bun build --target node --packages bundle --outfile dist/index.js src/index.ts && mkdir -p api/dist && cp dist/index.js api/dist/index.js",
-    "build:types": "tsc -p ./tsconfig.json --noEmit",
-    "postinstall": "if [ \"$VERCEL\" = \"1\" ]; then bun run build:bundle; fi",
-    "start": "bun run ./dist/index.js"
-  },
-  "dependencies": {
-    "@contractspec/bundle.library": "workspace:*",
-    "@contractspec/bundle.marketing": "workspace:*",
-    "@contractspec/bundle.workspace": "workspace:*",
-    "@contractspec/integration.providers-impls": "workspace:*",
-    "@contractspec/integration.runtime": "workspace:*",
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "elysia": "^1.4.27",
-    "pg": "^8.20.0",
-    "zod": "^4.3.5"
-  },
-  "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "typescript": "catalog:"
-  },
-  "type": "module"
+	"name": "@contractspec/app.api-library",
+	"version": "3.7.7",
+	"private": true,
+	"scripts": {
+		"clean": "rm -rf dist api/dist",
+		"lint": "bun run lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"dev": "bun run --watch src/index.ts",
+		"build": "bun run build:types && bun run build:bundle",
+		"build:bundle": "bun build --target node --packages bundle --outfile dist/index.js src/index.ts && mkdir -p api/dist && cp dist/index.js api/dist/index.js",
+		"build:types": "tsc -p ./tsconfig.json --noEmit",
+		"postinstall": "if [ \"$VERCEL\" = \"1\" ]; then bun run build:bundle; fi",
+		"start": "bun run ./dist/index.js"
+	},
+	"dependencies": {
+		"@contractspec/bundle.library": "workspace:*",
+		"@contractspec/bundle.marketing": "workspace:*",
+		"@contractspec/bundle.workspace": "workspace:*",
+		"@contractspec/integration.providers-impls": "workspace:*",
+		"@contractspec/integration.runtime": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"elysia": "^1.4.28",
+		"pg": "^8.20.0",
+		"zod": "^4.3.5"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:"
+	},
+	"type": "module"
 }

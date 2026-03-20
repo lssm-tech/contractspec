@@ -1,5 +1,107 @@
 # Changelog
 
+## 3.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/lib.contracts-transformers@3.7.6
+  - @contractspec/lib.contracts-spec@3.7.6
+  - @contractspec/bundle.workspace@3.7.6
+  - @contractspec/module.workspace@3.7.6
+  - @contractspec/module.examples@3.7.6
+  - @contractspec/module.ai-chat@4.3.6
+  - @contractspec/lib.ai-agent@7.0.6
+
+## 3.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.contracts-transformers@3.7.5
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/bundle.workspace@3.7.5
+  - @contractspec/module.workspace@3.7.5
+  - @contractspec/module.examples@3.7.5
+  - @contractspec/module.ai-chat@4.3.5
+  - @contractspec/lib.ai-agent@7.0.5
+
+## 3.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/lib.contracts-transformers@3.7.4
+  - @contractspec/lib.contracts-spec@3.7.4
+  - @contractspec/bundle.workspace@3.7.4
+  - @contractspec/module.workspace@3.7.4
+  - @contractspec/module.examples@3.7.4
+  - @contractspec/module.ai-chat@4.3.4
+  - @contractspec/lib.ai-agent@7.0.4
+
+## 3.7.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-transformers@3.7.3
+  - @contractspec/lib.contracts-spec@3.7.3
+  - @contractspec/bundle.workspace@3.7.3
+  - @contractspec/module.workspace@3.7.3
+  - @contractspec/module.examples@3.7.3
+  - @contractspec/module.ai-chat@4.3.3
+  - @contractspec/lib.ai-agent@7.0.3
+
+## 3.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- Updated dependencies [8cd229b]
+- Updated dependencies [04bc555]
+  - @contractspec/lib.contracts-transformers@3.7.2
+  - @contractspec/lib.contracts-spec@3.7.2
+  - @contractspec/bundle.workspace@3.7.2
+  - @contractspec/module.workspace@3.7.2
+  - @contractspec/module.examples@3.7.2
+  - @contractspec/module.ai-chat@4.3.2
+  - @contractspec/lib.ai-agent@7.0.2
+
+## 3.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/lib.contracts-transformers@3.7.1
+  - @contractspec/lib.contracts-spec@3.7.1
+  - @contractspec/bundle.workspace@3.7.1
+  - @contractspec/module.workspace@3.7.1
+  - @contractspec/module.examples@3.7.1
+  - @contractspec/module.ai-chat@4.3.1
+  - @contractspec/lib.ai-agent@7.0.1
+
+## 3.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/lib.contracts-transformers@3.7.0
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/bundle.workspace@3.7.0
+  - @contractspec/module.workspace@3.7.0
+  - @contractspec/module.examples@3.7.0
+  - @contractspec/module.ai-chat@4.3.0
+  - @contractspec/lib.ai-agent@7.0.0
+
 ## 3.6.0
 
 ### Minor Changes

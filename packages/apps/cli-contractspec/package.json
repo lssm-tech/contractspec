@@ -1,83 +1,86 @@
 {
-  "name": "@contractspec/app.cli-contractspec",
-  "version": "3.6.0",
-  "description": "CLI tool for creating, building, and validating contract specifications",
-  "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    "./run": {
-      "bun": "./dist/bun/cli.js",
-      "node": "./dist/node/cli.js",
-      "default": "./dist/node/cli.js"
-    }
-  },
-  "scripts": {
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run build:types && bun run build:all",
-    "build:bun": "bun build --outdir ./dist/bun/ --target bun --minify --sourcemap ./src/cli.ts",
-    "build:node": "bun build --outdir ./dist/node/ --target node --minify --sourcemap ./src/cli.ts",
-    "build:all": "bun run build:bun && bun run build:node",
-    "build:types": "tsc --noEmit",
-    "dev": "bun build ./src/cli.ts --outfile ./dist/cli.js --target node --watch",
-    "dev:bun": "bun build ./src/cli.ts --outfile ./dist/cli.bun.js --target bun --watch",
-    "clean": "rimraf dist",
-    "lint": "eslint src --fix",
-    "test": "bun test",
-    "test:watch": "bun test --watch"
-  },
-  "dependencies": {
-    "@ai-sdk/anthropic": "catalog:ai",
-    "@ai-sdk/openai": "catalog:ai",
-    "@contractspec/bundle.workspace": "workspace:*",
-    "@contractspec/lib.ai-agent": "workspace:*",
-    "@contractspec/lib.ai-providers": "workspace:*",
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "@contractspec/lib.contracts-transformers": "workspace:*",
-    "@contractspec/lib.plugins": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.testing": "workspace:*",
-    "@contractspec/module.ai-chat": "workspace:*",
-    "@contractspec/module.examples": "workspace:*",
-    "@contractspec/module.workspace": "workspace:*",
-    "@inquirer/prompts": "^8.3.0",
-    "ai": "catalog:ai",
-    "chalk": "^5.6.2",
-    "commander": "^14.0.2",
-    "glob": "catalog:build",
-    "js-yaml": "^4.1.1",
-    "ollama-ai-provider": "catalog:ai",
-    "ora": "^9.3.0",
-    "typescript": "catalog:",
-    "zod": "catalog:",
-    "@contractspec/lib.contracts-integrations": "workspace:*"
-  },
-  "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
-    "@contractspec/tool.typescript": "workspace:*",
-    "@types/js-yaml": "^4.0.9",
-    "@types/node": "^25.3.5",
-    "@types/sarif": "^2.1.7",
-    "eslint": "^9.32.2",
-    "rimraf": "catalog:build"
-  },
-  "keywords": [
-    "cli",
-    "contracts",
-    "code-generation",
-    "ai",
-    "typescript"
-  ],
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/apps/cli-contractspec"
-  },
-  "homepage": "https://contractspec.io"
+	"name": "@contractspec/app.cli-contractspec",
+	"version": "4.0.0",
+	"description": "CLI tool for creating, building, and validating contract specifications",
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		"./run": {
+			"bun": "./dist/bun/cli.js",
+			"node": "./dist/node/cli.js",
+			"default": "./dist/node/cli.js"
+		}
+	},
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run build:types && bun run build:all",
+		"build:bun": "bun build --outdir ./dist/bun/ --target bun --minify --sourcemap ./src/cli.ts",
+		"build:node": "bun build --outdir ./dist/node/ --target node --minify --sourcemap ./src/cli.ts",
+		"build:all": "bun run build:bun && bun run build:node",
+		"build:types": "tsc --noEmit",
+		"typecheck": "tsc --noEmit",
+		"dev": "bun build ./src/cli.ts --outfile ./dist/cli.js --target node --watch",
+		"dev:bun": "bun build ./src/cli.ts --outfile ./dist/cli.bun.js --target bun --watch",
+		"clean": "rimraf dist",
+		"lint": "bun run lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"test": "bun test",
+		"test:watch": "bun test --watch"
+	},
+	"dependencies": {
+		"@ai-sdk/anthropic": "catalog:ai",
+		"@ai-sdk/mistral": "catalog:ai",
+		"@ai-sdk/openai": "catalog:ai",
+		"@contractspec/bundle.workspace": "workspace:*",
+		"@contractspec/lib.ai-agent": "workspace:*",
+		"@contractspec/lib.ai-providers": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.contracts-transformers": "workspace:*",
+		"@contractspec/lib.plugins": "workspace:*",
+		"@contractspec/lib.schema": "workspace:*",
+		"@contractspec/lib.testing": "workspace:*",
+		"@contractspec/module.ai-chat": "workspace:*",
+		"@contractspec/module.examples": "workspace:*",
+		"@contractspec/module.workspace": "workspace:*",
+		"@inquirer/prompts": "^8.3.2",
+		"ai": "catalog:ai",
+		"chalk": "^5.6.2",
+		"commander": "^14.0.2",
+		"glob": "catalog:build",
+		"js-yaml": "^4.1.1",
+		"ollama-ai-provider": "catalog:ai",
+		"ora": "^9.3.0",
+		"typescript": "catalog:",
+		"zod": "catalog:",
+		"@contractspec/lib.contracts-integrations": "workspace:*"
+	},
+	"devDependencies": {
+		"@contractspec/tool.tsdown": "workspace:*",
+		"@contractspec/tool.typescript": "workspace:*",
+		"@types/js-yaml": "^4.0.9",
+		"@types/node": "^25.3.5",
+		"@types/sarif": "^2.1.7",
+		"rimraf": "catalog:build"
+	},
+	"keywords": [
+		"cli",
+		"contracts",
+		"code-generation",
+		"ai",
+		"typescript"
+	],
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/apps/cli-contractspec"
+	},
+	"homepage": "https://contractspec.io"
 }

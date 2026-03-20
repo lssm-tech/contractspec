@@ -10,7 +10,7 @@ import manifest from './llms-package-manifest.generated.json';
 const MONOREPO_ROOT_REL = '../../..';
 
 export function resolveReadmePath(slug: string): string | null {
-  const relativePath = (manifest as Record<string, string>)[slug];
-  if (!relativePath) return null;
-  return path.resolve(process.cwd(), MONOREPO_ROOT_REL, relativePath);
+	const relativePath = (manifest as Record<string, string>)[slug];
+	if (!relativePath) return null;
+	return path.resolve(process.cwd(), MONOREPO_ROOT_REL, relativePath);
 }

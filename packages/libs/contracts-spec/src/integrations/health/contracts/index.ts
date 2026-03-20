@@ -1,62 +1,61 @@
 import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
 import {
-  HealthListActivities,
-  HealthSyncActivities,
-  registerHealthActivityContracts,
+	HealthListActivities,
+	HealthSyncActivities,
+	registerHealthActivityContracts,
 } from './activities';
 import {
-  HealthListWorkouts,
-  HealthSyncWorkouts,
-  registerHealthWorkoutContracts,
-} from './workouts';
-import {
-  HealthListSleep,
-  HealthSyncSleep,
-  registerHealthSleepContracts,
-} from './sleep';
-import {
-  HealthListBiometrics,
-  HealthSyncBiometrics,
-  registerHealthBiometricContracts,
+	HealthListBiometrics,
+	HealthSyncBiometrics,
+	registerHealthBiometricContracts,
 } from './biometrics';
 import {
-  HealthListNutrition,
-  HealthSyncNutrition,
-  registerHealthNutritionContracts,
+	HealthListNutrition,
+	HealthSyncNutrition,
+	registerHealthNutritionContracts,
 } from './nutrition';
 import {
-  HealthWebhookIngest,
-  registerHealthWebhookContracts,
+	HealthListSleep,
+	HealthSyncSleep,
+	registerHealthSleepContracts,
+} from './sleep';
+import {
+	HealthWebhookIngest,
+	registerHealthWebhookContracts,
 } from './webhooks';
-
-export {
-  HealthListActivities,
-  HealthSyncActivities,
-  HealthListWorkouts,
-  HealthSyncWorkouts,
-  HealthListSleep,
-  HealthSyncSleep,
-  HealthListBiometrics,
-  HealthSyncBiometrics,
-  HealthListNutrition,
-  HealthSyncNutrition,
-  HealthWebhookIngest,
-};
+import {
+	HealthListWorkouts,
+	HealthSyncWorkouts,
+	registerHealthWorkoutContracts,
+} from './workouts';
 
 export * from '../health.feature';
+export {
+	HealthListActivities,
+	HealthListBiometrics,
+	HealthListNutrition,
+	HealthListSleep,
+	HealthListWorkouts,
+	HealthSyncActivities,
+	HealthSyncBiometrics,
+	HealthSyncNutrition,
+	HealthSyncSleep,
+	HealthSyncWorkouts,
+	HealthWebhookIngest,
+};
 
 export function registerHealthContracts(
-  registry: OperationSpecRegistry
+	registry: OperationSpecRegistry
 ): OperationSpecRegistry {
-  return registerHealthWebhookContracts(
-    registerHealthNutritionContracts(
-      registerHealthBiometricContracts(
-        registerHealthSleepContracts(
-          registerHealthWorkoutContracts(
-            registerHealthActivityContracts(registry)
-          )
-        )
-      )
-    )
-  );
+	return registerHealthWebhookContracts(
+		registerHealthNutritionContracts(
+			registerHealthBiometricContracts(
+				registerHealthSleepContracts(
+					registerHealthWorkoutContracts(
+						registerHealthActivityContracts(registry)
+					)
+				)
+			)
+		)
+	);
 }

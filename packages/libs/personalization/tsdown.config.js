@@ -1,16 +1,6 @@
 import { defineConfig, moduleLibrary } from '@contractspec/tool.bun';
 
 export default defineConfig(() => ({
-  ...moduleLibrary,
-  platform: 'neutral',
+	...moduleLibrary,
+	platform: 'neutral',
 }));
-
-
-
-
-
-
-
-
-
-

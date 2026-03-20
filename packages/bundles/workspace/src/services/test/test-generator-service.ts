@@ -1,15 +1,15 @@
+import type { OperationSpec } from '@contractspec/lib.contracts-spec';
+import {
+	type TestSpec,
+	type TestTarget,
+} from '@contractspec/lib.contracts-spec/tests';
 import type { LanguageModel, LanguageModelUsage } from 'ai';
 import { generateText } from 'ai';
-import {
-  type TestSpec,
-  type TestTarget,
-} from '@contractspec/lib.contracts-spec/tests';
-import type { OperationSpec } from '@contractspec/lib.contracts-spec';
 import type { LoggerAdapter } from '../../ports/logger';
 
 export interface TestGeneratorOptions {
-  model?: LanguageModel;
-  maxScenarios?: number;
+	model?: LanguageModel;
+	maxScenarios?: number;
 }
 
 const SYSTEM_PROMPT = `
@@ -33,24 +33,24 @@ Generate scenarios covering:
 `.trim();
 
 export class TestGeneratorService {
-  constructor(
-    private readonly logger: LoggerAdapter,
-    private readonly defaultModel?: LanguageModel
-  ) {}
+	constructor(
+		private readonly logger: LoggerAdapter,
+		private readonly defaultModel?: LanguageModel
+	) {}
 
-  async generateTests(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    spec: OperationSpec<any, any>, // Use any to satisfy generics for now
-    options: TestGeneratorOptions = {}
-  ): Promise<TestSpec> {
-    const model = options.model ?? this.defaultModel;
-    if (!model) {
-      throw new Error('No AI model provided for test generation');
-    }
+	async generateTests(
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		spec: OperationSpec<any, any>, // Use any to satisfy generics for now
+		options: TestGeneratorOptions = {}
+	): Promise<TestSpec> {
+		const model = options.model ?? this.defaultModel;
+		if (!model) {
+			throw new Error('No AI model provided for test generation');
+		}
 
-    this.logger.info(`Generating tests for operation ${spec.meta.key}...`);
+		this.logger.info(`Generating tests for operation ${spec.meta.key}...`);
 
-    const prompt = `
+		const prompt = `
 Generate a TestSpec for the following Operation:
 
 \`\`\`json
@@ -61,67 +61,67 @@ The output must be a valid JSON object conforming to the TestSpec interface.
 Do not include markdown formatting or explanations, just the JSON.
 `.trim();
 
-    try {
-      const { text, usage } = await generateText({
-        model,
-        system: SYSTEM_PROMPT,
-        prompt,
-      });
+		try {
+			const { text, usage } = await generateText({
+				model,
+				system: SYSTEM_PROMPT,
+				prompt,
+			});
 
-      this.logUsage(usage);
+			this.logUsage(usage);
 
-      const generated = this.parseResponse(text);
-      return this.enrichSpec(generated, spec);
-    } catch (error) {
-      this.logger.error('Failed to generate tests', { error });
-      throw error;
-    }
-  }
+			const generated = this.parseResponse(text);
+			return this.enrichSpec(generated, spec);
+		} catch (error) {
+			this.logger.error('Failed to generate tests', { error });
+			throw error;
+		}
+	}
 
-  private parseResponse(text: string): Partial<TestSpec> {
-    try {
-      // clean markdown code blocks if present
-      const cleaned = text.replace(/```json\n?|\n?```/g, '');
-      return JSON.parse(cleaned);
-    } catch (_e) {
-      throw new Error('Failed to parse AI response as JSON');
-    }
-  }
+	private parseResponse(text: string): Partial<TestSpec> {
+		try {
+			// clean markdown code blocks if present
+			const cleaned = text.replace(/```json\n?|\n?```/g, '');
+			return JSON.parse(cleaned);
+		} catch (_e) {
+			throw new Error('Failed to parse AI response as JSON');
+		}
+	}
 
-  private enrichSpec(
-    generated: Partial<TestSpec>,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    target: OperationSpec<any, any>
-  ): TestSpec {
-    const meta = {
-      key: `${target.meta.key}.test`,
-      version: target.meta.version ?? '0.0.1',
-      owners: target.meta.owners ?? [],
-    };
+	private enrichSpec(
+		generated: Partial<TestSpec>,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		target: OperationSpec<any, any>
+	): TestSpec {
+		const meta = {
+			key: `${target.meta.key}.test`,
+			version: target.meta.version ?? '0.0.1',
+			owners: target.meta.owners ?? [],
+		};
 
-    const targetRef: TestTarget = {
-      type: 'operation',
-      operation: {
-        key: target.meta.key,
-        version: target.meta.version,
-      },
-    };
+		const targetRef: TestTarget = {
+			type: 'operation',
+			operation: {
+				key: target.meta.key,
+				version: target.meta.version,
+			},
+		};
 
-    return {
-      meta,
-      target: targetRef,
-      fixtures: generated.fixtures ?? [],
-      scenarios: generated.scenarios ?? [],
-      coverage: generated.coverage,
-    } as TestSpec;
-  }
+		return {
+			meta,
+			target: targetRef,
+			fixtures: generated.fixtures ?? [],
+			scenarios: generated.scenarios ?? [],
+			coverage: generated.coverage,
+		} as TestSpec;
+	}
 
-  private logUsage(usage: LanguageModelUsage) {
-    // Cast to any to avoid type issues with different AI SDK versions
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const u = usage as any;
-    this.logger.debug(
-      `AI Usage: ${u.promptTokens} prompt + ${u.completionTokens} completion = ${u.totalTokens} total tokens`
-    );
-  }
+	private logUsage(usage: LanguageModelUsage) {
+		// Cast to any to avoid type issues with different AI SDK versions
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const u = usage as any;
+		this.logger.debug(
+			`AI Usage: ${u.promptTokens} prompt + ${u.completionTokens} completion = ${u.totalTokens} total tokens`
+		);
+	}
 }

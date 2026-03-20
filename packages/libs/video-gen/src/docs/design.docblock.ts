@@ -2,17 +2,17 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const designDocBlocks: DocBlock[] = [
-  {
-    id: 'docs.video-gen.design',
-    title: 'Video Design System',
-    summary:
-      'Design tokens, motion primitives, typography scale, and layout system optimized for programmatic video.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/video-gen/design',
-    tags: ['video', 'design-tokens', 'motion', 'typography', 'layout'],
-    owners: ['@contractspec/lib.video-gen'],
-    body: `# Video Design System
+	{
+		id: 'docs.video-gen.design',
+		title: 'Video Design System',
+		summary:
+			'Design tokens, motion primitives, typography scale, and layout system optimized for programmatic video.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/video-gen/design',
+		tags: ['video', 'design-tokens', 'motion', 'typography', 'layout'],
+		owners: ['@contractspec/lib.video-gen'],
+		body: `# Video Design System
 
 The design layer bridges \`@contractspec/lib.design-system\` brand tokens with video-specific extensions for motion, typography, and spatial layout. All values are optimized for 1920x1080 (landscape) and scale proportionally for other formats.
 
@@ -184,7 +184,7 @@ getAllFormatVariants();   // [landscape, square, portrait]
 DEFAULT_FPS;             // 30
 \`\`\`
 `,
-  },
+	},
 ];
 
 registerDocBlocks(designDocBlocks);

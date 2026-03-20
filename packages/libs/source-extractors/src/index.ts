@@ -22,18 +22,14 @@
  * ```
  */
 
-// Core types
-export * from './types';
-
-// Extractor registry and detection
-export * from './registry';
-export * from './detect';
-
-// Main extraction function
-export * from './extract';
-
-// Re-export extractors module
-export * as extractors from './extractors/index';
-
 // Re-export codegen module
 export * as codegen from './codegen/index';
+export * from './detect';
+// Main extraction function
+export * from './extract';
+// Re-export extractors module
+export * as extractors from './extractors/index';
+// Extractor registry and detection
+export * from './registry';
+// Core types
+export * from './types';

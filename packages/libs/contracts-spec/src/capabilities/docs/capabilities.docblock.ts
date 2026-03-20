@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '../../docs/registry';
 
 export const tech_contracts_capabilities_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.contracts.capabilities',
-    title: 'CapabilitySpec Overview',
-    summary:
-      'Capability specs define what a module provides (operations, events, presentations) and requires (dependencies). They enable bidirectional linking, inheritance, runtime enforcement, and automated validation.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/contracts/capabilities',
-    tags: ['tech', 'contracts', 'capabilities'],
-    body: `# CapabilitySpec Overview
+	{
+		id: 'docs.tech.contracts.capabilities',
+		title: 'CapabilitySpec Overview',
+		summary:
+			'Capability specs define what a module provides (operations, events, presentations) and requires (dependencies). They enable bidirectional linking, inheritance, runtime enforcement, and automated validation.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/contracts/capabilities',
+		tags: ['tech', 'contracts', 'capabilities'],
+		body: `# CapabilitySpec Overview
 
 ## Purpose
 
@@ -201,6 +201,6 @@ try {
 - \`assertCapabilityForOperation/Event/Presentation(ctx, spec)\` - Guards
 - \`filterOperationsByCapability(ctx, ops)\` - Filter by enabled capabilities
 `,
-  },
+	},
 ];
 registerDocBlocks(tech_contracts_capabilities_DocBlocks);

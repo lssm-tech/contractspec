@@ -6,35 +6,32 @@
 
 // Re-export core types and functions from shared library
 export {
-  // Types
-  type ProviderName as ChatProviderName,
-  type ProviderMode as ChatProviderMode,
-  type ProviderConfig as ChatProviderConfig,
-  type ModelInfo as ChatModelInfo,
-  type Provider as ChatProvider,
-  type ProviderAvailability,
-  type ModelCapabilities,
-
-  // Factory functions
-  createProvider,
-  createProviderFromEnv,
-  getAvailableProviders,
-
-  // Model utilities
-  DEFAULT_MODELS,
-  MODELS,
-  getModelsForProvider,
-  getModelInfo,
-  getRecommendedModels,
-  getDefaultModel,
-
-  // Validation
-  validateProvider,
-  hasCredentials,
-  getEnvVarName,
-  isOllamaRunning,
-  listOllamaModels,
+	// Factory functions
+	createProvider,
+	createProviderFromEnv,
+	// Model utilities
+	DEFAULT_MODELS,
+	getAvailableProviders,
+	getDefaultModel,
+	getEnvVarName,
+	getModelInfo,
+	getModelsForProvider,
+	getRecommendedModels,
+	hasCredentials,
+	isOllamaRunning,
+	listOllamaModels,
+	MODELS,
+	type ModelCapabilities,
+	type ModelInfo as ChatModelInfo,
+	type Provider as ChatProvider,
+	type ProviderAvailability,
+	type ProviderConfig as ChatProviderConfig,
+	type ProviderMode as ChatProviderMode,
+	// Types
+	type ProviderName as ChatProviderName,
+	// Validation
+	validateProvider,
 } from '@contractspec/lib.ai-providers';
 
 // Chat-specific utilities
-export { supportsLocalMode, isStudioAvailable } from './chat-utilities';
+export { isStudioAvailable, supportsLocalMode } from './chat-utilities';

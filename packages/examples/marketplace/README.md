@@ -1,141 +1,73 @@
 # @contractspec/example.marketplace
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Marketplace example with orders, payouts, and reviews for ContractSpec.**
 
-A comprehensive multi-vendor marketplace example demonstrating ContractSpec principles.
+## What This Demonstrates
 
-## Features
+- Multi-entity domain modeling (order, payout, product, review, store).
+- Per-entity schema/enum/event/operations/presentation pattern.
+- Capability and feature definition patterns.
+- React UI with hooks, renderers, and dashboard component.
+- Seeder pattern for demo data.
+- Test-spec for operations validation.
 
-- **Multi-Vendor Stores**: Seller storefronts with profiles and verification
-- **Product Catalog**: Products with variants, categories, and inventory tracking
-- **Order Management**: Full order lifecycle with status tracking
-- **Payment Processing**: Commission calculation and seller payouts
-- **Reviews & Ratings**: Customer feedback with seller responses
-- **File Attachments**: Product images and media using @contractspec/lib.files
-- **Usage Metering**: Platform analytics using @contractspec/lib.metering
+## Running Locally
 
-## Entities
-
-### Store
-- `Store` - Seller storefront
-- `StoreCategory` - Store categorization
-
-### Product
-- `Product` - Product listing
-- `ProductVariant` - Product variations (size, color)
-- `Category` - Product categorization
-
-### Order
-- `Order` - Purchase transaction
-- `OrderItem` - Items in an order
-- `Refund` - Refund records
-- `RefundItem` - Items being refunded
-
-### Payout
-- `Payout` - Payment to seller
-- `PayoutItem` - Orders in a payout
-- `BankAccount` - Seller payment destination
-- `PayoutSettings` - Payout configuration
-
-### Review
-- `Review` - Customer review
-- `ReviewResponse` - Seller response
-- `ReviewVote` - Helpfulness votes
-- `ReviewReport` - Flagged reviews
-
-## Contracts
-
-### Store Operations
-- `marketplace.store.create` - Create a seller store
-
-### Product Operations
-- `marketplace.product.create` - Create a product
-- `marketplace.product.list` - List/search products
-
-### Order Operations
-- `marketplace.order.create` - Create an order
-- `marketplace.order.updateStatus` - Update order status
-
-### Payout Operations
-- `marketplace.payout.list` - List payouts
-
-### Review Operations
-- `marketplace.review.create` - Create a review
-- `marketplace.review.list` - List reviews
-
-## Events
-
-- Store: `created`, `statusChanged`
-- Product: `created`, `published`, `inventory.updated`
-- Order: `created`, `paid`, `statusUpdated`, `shipped`, `completed`
-- Payout: `created`, `paid`
-- Review: `created`, `responded`
-
-## Commission Model
-
-The marketplace uses a configurable commission model:
-
-```typescript
-// Default 10% commission
-const commission = calculateCommission(orderTotal, 0.1);
-
-// Result:
-{
-  subtotal: 100,
-  platformFee: 10,
-  sellerPayout: 90
-}
-```
+From `packages/examples/marketplace`:
+- `bun run dev`
+- `bun run build`
+- `bun run typecheck`
 
 ## Usage
 
-```typescript
-import { 
-  CreateOrderContract,
-  ListProductsContract,
-  marketplaceSchemaContribution 
-} from '@contractspec/example.marketplace';
+Use `@contractspec/example.marketplace` as a reference implementation, or import its exported surfaces into a workspace that composes ContractSpec examples and bundles.
 
-// List products
-const products = await executeQuery(ListProductsContract, {
-  categoryId: 'electronics',
-  minPrice: 10,
-  maxPrice: 100,
-  limit: 20,
-});
+## Architecture
 
-// Create an order
-const order = await executeContract(CreateOrderContract, {
-  storeId: 'store_123',
-  items: [
-    { productId: 'prod_456', quantity: 2 },
-    { productId: 'prod_789', variantId: 'var_abc', quantity: 1 },
-  ],
-  shippingAddress: { ... },
-});
-```
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/entities/` contains domain entities and value objects.
+- `src/example.ts` is the runnable example entrypoint.
+- `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/marketplace.capability.ts` defines a capability surface.
+- `src/marketplace.feature.ts` defines a feature entrypoint.
 
-## Dependencies
+## Public Entry Points
 
-- `@contractspec/lib.identity-rbac` - User identity and roles
-- `@contractspec/lib.files` - Product images and media
-- `@contractspec/lib.metering` - Usage tracking and analytics
-- `@contractspec/module.audit-trail` - Action auditing
-- `@contractspec/module.notifications` - Order and payout notifications
+- Export `.` resolves through `./src/index.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./docs/marketplace.docblock` resolves through `./src/docs/marketplace.docblock.ts`.
+- Export `./entities` resolves through `./src/entities/index.ts`.
+- Export `./entities/order` resolves through `./src/entities/order.ts`.
+- Export `./entities/payout` resolves through `./src/entities/payout.ts`.
+- Export `./entities/product` resolves through `./src/entities/product.ts`.
+- Export `./entities/review` resolves through `./src/entities/review.ts`.
+- Export `./entities/store` resolves through `./src/entities/store.ts`.
+- Export `./example` resolves through `./src/example.ts`.
+- The package publishes 52 total export subpaths; keep docs aligned with `package.json`.
 
+## Local Commands
 
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
+## Recent Updates
 
+- Replace eslint+prettier by biomejs to optimize speed.
+- Missing contract layers.
 
+## Notes
 
-
-
-
-
-
-
-
-
-
-
+- Works alongside `@contractspec/lib.contracts-spec`, `@contractspec/lib.design-system`, `@contractspec/lib.example-shared-ui`, `@contractspec/lib.runtime-sandbox`, `@contractspec/lib.schema`, ...

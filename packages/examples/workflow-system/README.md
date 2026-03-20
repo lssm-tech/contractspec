@@ -1,124 +1,74 @@
 # @contractspec/example.workflow-system
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Workflow and approval system example for ContractSpec - State machine with role-based transitions.**
 
-A comprehensive workflow and approval system example demonstrating ContractSpec principles.
+## What This Demonstrates
 
-## Features
+- State machine pattern for workflow transitions.
+- Approval flow with role-based access.
+- Multi-entity domain (workflow, instance, approval).
+- Per-entity schema/enum/event/handler/operations pattern.
+- React UI with WorkflowDashboard, hooks, and renderers.
+- Capability and feature definition patterns.
+- Seeder and test-spec patterns.
 
-- **State Machine Engine**: Define workflows as state machines with typed transitions
-- **Role-Based Approvals**: Configure approval chains with multiple modes (ANY, ALL, MAJORITY, SEQUENTIAL)
-- **Delegation**: Allow approvers to delegate to others
-- **Escalation**: Automatic escalation on timeout
-- **Feature Flag Integration**: Control workflow availability via feature flags
-- **Full Audit Trail**: Track all workflow actions and decisions
-- **Multi-Surface Presentations**: React components + Markdown renderers
+## Running Locally
 
-## Entities
-
-### Workflow Definition
-- `WorkflowDefinition` - Blueprint for a workflow
-- `WorkflowStep` - Steps within a workflow (START, APPROVAL, TASK, CONDITION, PARALLEL, WAIT, ACTION, END)
-
-### Workflow Instance
-- `WorkflowInstance` - Running instance of a workflow
-- `StepExecution` - Execution record for each step
-
-### Approval
-- `ApprovalRequest` - Pending approval request
-- `ApprovalComment` - Comments on approvals
-
-## Contracts
-
-### Workflow Definition Management
-- `workflow.definition.create` - Create a new workflow
-- `workflow.definition.update` - Update workflow
-- `workflow.step.add` - Add step to workflow
-- `workflow.definition.publish` - Activate workflow
-- `workflow.definition.list` - List workflows
-- `workflow.definition.get` - Get workflow details
-
-### Workflow Instance Operations
-- `workflow.instance.start` - Start a new workflow
-- `workflow.instance.transition` - Transition to next step
-- `workflow.instance.pause` - Pause workflow
-- `workflow.instance.resume` - Resume workflow
-- `workflow.instance.cancel` - Cancel workflow
-- `workflow.instance.list` - List instances
-- `workflow.instance.get` - Get instance details
-
-### Approval Operations
-- `workflow.approval.decide` - Submit approval decision
-- `workflow.approval.delegate` - Delegate to another user
-- `workflow.approval.comment.add` - Add comment
-- `workflow.approval.list.mine` - List my pending approvals
-- `workflow.approval.get` - Get approval details
-
-## State Machine
-
-The workflow engine uses a state machine model where:
-
-1. Each step defines available actions and their target steps
-2. Transitions are validated against:
-   - Current workflow status
-   - User roles (role-based access control)
-   - Step-specific conditions
-3. Actions trigger events for audit trail and notifications
-
-Example step definition:
-
-```typescript
-{
-  key: 'manager_approval',
-  type: 'APPROVAL',
-  transitions: {
-    approve: 'finance_review',
-    reject: 'rejected',
-    request_changes: 'revision_needed'
-  },
-  approvalMode: 'ANY',
-  approverRoles: ['manager', 'director'],
-  timeoutSeconds: 86400, // 24 hours
-}
-```
-
-## Events
-
-- `workflow.definition.created/updated/published`
-- `workflow.step.added`
-- `workflow.instance.started/completed/cancelled/paused/resumed/failed/timeout`
-- `workflow.step.entered/exited`
-- `workflow.approval.requested/decided/delegated/escalated`
+From `packages/examples/workflow-system`:
+- `bun run dev`
+- `bun run build`
+- `bun run typecheck`
 
 ## Usage
 
-```typescript
-import { 
-  StartWorkflowContract,
-  TransitionWorkflowContract,
-  workflowSystemSchemaContribution 
-} from '@contractspec/example.workflow-system';
+Use `@contractspec/example.workflow-system` as a reference implementation, or import its exported surfaces into a workspace that composes ContractSpec examples and bundles.
 
-// Start a workflow
-const instance = await executeContract(StartWorkflowContract, {
-  workflowKey: 'purchase_approval',
-  contextData: { amount: 5000, vendor: 'ACME Corp' },
-  referenceId: 'PO-12345',
-  referenceType: 'PurchaseOrder',
-});
+## Architecture
 
-// Make a transition
-const result = await executeContract(TransitionWorkflowContract, {
-  instanceId: instance.id,
-  action: 'approve',
-  comment: 'Approved for standard purchase',
-});
-```
+- `src/approval` is part of the package's public or composition surface.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/entities/` contains domain entities and value objects.
+- `src/example.ts` is the runnable example entrypoint.
+- `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/instance` is part of the package's public or composition surface.
 
-## Dependencies
+## Public Entry Points
 
-- `@contractspec/lib.identity-rbac` - User identity and roles
-- `@contractspec/lib.feature-flags` - Feature flag evaluation
-- `@contractspec/module.audit-trail` - Action auditing
-- `@contractspec/module.notifications` - Approval notifications
+- Export `.` resolves through `./src/index.ts`.
+- Export `./approval` resolves through `./src/approval/index.ts`.
+- Export `./approval/approval.enum` resolves through `./src/approval/approval.enum.ts`.
+- Export `./approval/approval.event` resolves through `./src/approval/approval.event.ts`.
+- Export `./approval/approval.handler` resolves through `./src/approval/approval.handler.ts`.
+- Export `./approval/approval.operations` resolves through `./src/approval/approval.operations.ts`.
+- Export `./approval/approval.schema` resolves through `./src/approval/approval.schema.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./docs/workflow-system.docblock` resolves through `./src/docs/workflow-system.docblock.ts`.
+- Export `./entities` resolves through `./src/entities/index.ts`.
+- The package publishes 44 total export subpaths; keep docs aligned with `package.json`.
+
+## Local Commands
+
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
+
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed.
+- Missing contract layers.
+
+## Notes
+
+- Works alongside `@contractspec/lib.contracts-spec`, `@contractspec/lib.design-system`, `@contractspec/lib.example-shared-ui`, `@contractspec/lib.runtime-sandbox`, `@contractspec/lib.schema`, ...

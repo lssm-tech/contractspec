@@ -5,38 +5,38 @@ import type { TemplateDefinition, TemplateId } from '../lib/types';
  * Converts FeatureModuleSpec contracts to TypeScript spec code.
  */
 export function generateSpecFromTemplate(
-  template: TemplateDefinition | null
+	template: TemplateDefinition | null
 ): string {
-  const templateId = template?.id ?? 'unknown';
+	const templateId = template?.id ?? 'unknown';
 
-  if (!template) {
-    return generateDefaultSpec(templateId);
-  }
+	if (!template) {
+		return generateDefaultSpec(templateId);
+	}
 
-  // Generate spec based on template type
-  switch (templateId) {
-    case 'crm-pipeline':
-      return generateCrmPipelineSpec(template.schema.contracts);
-    case 'saas-boilerplate':
-      return generateSaasBoilerplateSpec(template.schema.contracts);
-    case 'agent-console':
-      return generateAgentConsoleSpec(template.schema.contracts);
-    case 'todos-app':
-      return generateTodosSpec(template.schema.contracts);
-    case 'messaging-app':
-      return generateMessagingSpec(template.schema.contracts);
-    case 'recipe-app-i18n':
-      return generateRecipeSpec(template.schema.contracts);
-    default:
-      return generateDefaultSpec(templateId);
-  }
+	// Generate spec based on template type
+	switch (templateId) {
+		case 'crm-pipeline':
+			return generateCrmPipelineSpec(template.schema.contracts);
+		case 'saas-boilerplate':
+			return generateSaasBoilerplateSpec(template.schema.contracts);
+		case 'agent-console':
+			return generateAgentConsoleSpec(template.schema.contracts);
+		case 'todos-app':
+			return generateTodosSpec(template.schema.contracts);
+		case 'messaging-app':
+			return generateMessagingSpec(template.schema.contracts);
+		case 'recipe-app-i18n':
+			return generateRecipeSpec(template.schema.contracts);
+		default:
+			return generateDefaultSpec(templateId);
+	}
 }
 
 /**
  * CRM Pipeline spec
  */
 function generateCrmPipelineSpec(contracts: string[]): string {
-  return `// CRM Pipeline Specs
+	return `// CRM Pipeline Specs
 // Contracts: ${contracts.join(', ')}
 
 contractSpec("crm.deal.updateStage.v1", {
@@ -113,7 +113,7 @@ contractSpec("crm.contact.list.v1", {
  * SaaS Boilerplate spec
  */
 function generateSaasBoilerplateSpec(contracts: string[]): string {
-  return `// SaaS Boilerplate Specs
+	return `// SaaS Boilerplate Specs
 // Contracts: ${contracts.join(', ')}
 
 contractSpec("saas.project.create.v1", {
@@ -184,7 +184,7 @@ contractSpec("saas.settings.update.v1", {
  * Agent Console spec
  */
 function generateAgentConsoleSpec(contracts: string[]): string {
-  return `// Agent Console Specs
+	return `// Agent Console Specs
 // Contracts: ${contracts.join(', ')}
 
 contractSpec("agent.run.execute.v1", {
@@ -258,7 +258,7 @@ contractSpec("agent.agent.create.v1", {
  * Todos App spec
  */
 function generateTodosSpec(contracts: string[]): string {
-  return `// To-dos App Specs
+	return `// To-dos App Specs
 // Contracts: ${contracts.join(', ')}
 
 contractSpec("tasks.board.v1", {
@@ -325,7 +325,7 @@ contractSpec("tasks.complete.v1", {
  * Messaging App spec
  */
 function generateMessagingSpec(contracts: string[]): string {
-  return `// Messaging App Specs
+	return `// Messaging App Specs
 // Contracts: ${contracts.join(', ')}
 
 contractSpec("messaging.send.v1", {
@@ -386,7 +386,7 @@ contractSpec("messaging.read.v1", {
  * Recipe App spec
  */
 function generateRecipeSpec(contracts: string[]): string {
-  return `// Recipe App (i18n) Specs
+	return `// Recipe App (i18n) Specs
 // Contracts: ${contracts.join(', ')}
 
 contractSpec("recipes.lookup.v1", {
@@ -441,7 +441,7 @@ contractSpec("recipes.favorite.toggle.v1", {
  * Default spec for unknown templates
  */
 function generateDefaultSpec(templateId: TemplateId): string {
-  return `// ${templateId} Specs
+	return `// ${templateId} Specs
 
 contractSpec("${templateId}.main.v1", {
   goal: "Main operation for ${templateId}",

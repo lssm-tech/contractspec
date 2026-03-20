@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.video-marketing-clip",
-  "version": "3.6.0",
+  "version": "3.7.7",
   "description": "Generate short-form marketing videos from content briefs using the video-gen pipeline.",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -8,7 +8,6 @@
     ".": "./src/index.ts",
     "./briefs": "./src/briefs.ts",
     "./docs": "./src/docs/index.ts",
-    "./docs/index": "./src/docs/index.ts",
     "./docs/video-marketing-clip.docblock": "./src/docs/video-marketing-clip.docblock.ts",
     "./example": "./src/example.ts",
     "./generate-clip": "./src/generate-clip.ts",
@@ -23,8 +22,8 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
@@ -44,58 +43,51 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./briefs": {
         "types": "./dist/briefs.d.ts",
+        "browser": "./dist/browser/briefs.js",
         "bun": "./dist/briefs.js",
         "node": "./dist/node/briefs.js",
-        "browser": "./dist/browser/briefs.js",
         "default": "./dist/briefs.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
+        "browser": "./dist/browser/docs/index.js",
         "bun": "./dist/docs/index.js",
         "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/index": {
-        "types": "./dist/docs/index.d.ts",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/video-marketing-clip.docblock": {
         "types": "./dist/docs/video-marketing-clip.docblock.d.ts",
+        "browser": "./dist/browser/docs/video-marketing-clip.docblock.js",
         "bun": "./dist/docs/video-marketing-clip.docblock.js",
         "node": "./dist/node/docs/video-marketing-clip.docblock.js",
-        "browser": "./dist/browser/docs/video-marketing-clip.docblock.js",
         "default": "./dist/docs/video-marketing-clip.docblock.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
+        "browser": "./dist/browser/example.js",
         "bun": "./dist/example.js",
         "node": "./dist/node/example.js",
-        "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./generate-clip": {
         "types": "./dist/generate-clip.d.ts",
+        "browser": "./dist/browser/generate-clip.js",
         "bun": "./dist/generate-clip.js",
         "node": "./dist/node/generate-clip.js",
-        "browser": "./dist/browser/generate-clip.js",
         "default": "./dist/generate-clip.js"
       },
       "./video-marketing-clip.feature": {
         "types": "./dist/video-marketing-clip.feature.d.ts",
+        "browser": "./dist/browser/video-marketing-clip.feature.js",
         "bun": "./dist/video-marketing-clip.feature.js",
         "node": "./dist/node/video-marketing-clip.feature.js",
-        "browser": "./dist/browser/video-marketing-clip.feature.js",
         "default": "./dist/video-marketing-clip.feature.js"
       }
     },

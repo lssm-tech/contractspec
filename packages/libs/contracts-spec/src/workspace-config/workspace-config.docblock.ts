@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '../docs/registry';
 
 export const tech_workspace_config_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.contracts.workspace-config',
-    title: 'Workspace Configuration (.contractsrc)',
-    summary:
-      'Configuration-as-code conventions for ContractSpec workspaces (`.contractsrc.json`).',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/contracts/workspace-config',
-    tags: ['tech', 'contracts', 'config'],
-    body: `## Workspace Configuration (.contractsrc)
+	{
+		id: 'docs.tech.contracts.workspace-config',
+		title: 'Workspace Configuration (.contractsrc)',
+		summary:
+			'Configuration-as-code conventions for ContractSpec workspaces (`.contractsrc.json`).',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/contracts/workspace-config',
+		tags: ['tech', 'contracts', 'config'],
+		body: `## Workspace Configuration (.contractsrc)
 
 ContractSpec uses a hierarchical configuration system anchored by \`.contractsrc.json\` files. Configuration loader supports standard rc-file discovery (cosmiconfig).
 
@@ -36,7 +36,7 @@ export interface ContractsrcConfig {
 
 Defined in \`@contractspec/lib.contracts-spec/workspace-config\`.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(tech_workspace_config_DocBlocks);

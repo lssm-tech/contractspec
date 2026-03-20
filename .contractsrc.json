@@ -1,24 +1,32 @@
 {
-  "$schema": "https://api.contractspec.io/schemas/contractsrc.json",
-  "aiProvider": "claude",
-  "aiModel": "claude-sonnet-4-6",
-  "agentMode": "claude-code",
-  "outputDir": "./src",
-  "conventions": {
-    "operations": "interactions/commands|queries",
-    "events": "events",
-    "presentations": "presentations",
-    "forms": "forms",
-    "models": "models",
-    "groupByFeature": true
-  },
-  "defaultOwners": ["@contractspec-core"],
-  "defaultTags": [],
-  "packages": ["packages/modules/*", "packages/libs/*", "packages/apps/*", "packages/examples/*"],
-  "excludePackages": ["packages/apps/cli-*"],
-  "ci": {
-    "checks": ["structure", "integrity", "deps", "doctor"],
-    "uploadSarif": true,
-    "failOnWarnings": false
-  }
+	"$schema": "https://api.contractspec.io/schemas/contractsrc.json",
+	"aiProvider": "claude",
+	"aiModel": "claude-sonnet-4-6",
+	"agentMode": "claude-code",
+	"outputDir": "./src",
+	"conventions": {
+		"operations": "interactions/commands|queries",
+		"events": "events",
+		"presentations": "presentations",
+		"forms": "forms",
+		"models": "models",
+		"groupByFeature": true
+	},
+	"defaultOwners": ["@contractspec-core"],
+	"defaultTags": [],
+	"packages": [
+		"packages/modules/*",
+		"packages/libs/*",
+		"packages/apps/*",
+		"packages/examples/*"
+	],
+	"excludePackages": ["packages/apps/cli-*"],
+	"ci": {
+		"checks": ["structure", "integrity", "deps", "doctor", "policy"],
+		"uploadSarif": true,
+		"failOnWarnings": false
+	},
+	"formatter": {
+		"type": "biome"
+	}
 }

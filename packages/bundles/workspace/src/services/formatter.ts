@@ -8,39 +8,41 @@ import { promisify } from 'node:util';
 const execAsync = promisify(exec);
 
 export interface FormatterOptions {
-  type?: string;
-  cwd?: string;
+	type?: string;
+	cwd?: string;
 }
 
+const FORMATTER_COMMANDS: Record<string, string> = {
+	biome: 'bunx @biomejs/biome format --write',
+	dprint: 'bunx dprint fmt',
+};
+
 /**
- * Format files using the configured formatter (defaulting to prettier).
+ * Format files using the configured formatter (defaulting to Biome).
  */
 export async function formatFiles(
-  files: string[],
-  _configResolver?: unknown,
-  options: FormatterOptions = {}
+	files: string[],
+	_configResolver?: unknown,
+	options: FormatterOptions = {}
 ): Promise<void> {
-  if (files.length === 0) return;
+	if (files.length === 0) return;
 
-  const cwd = options.cwd ?? process.cwd();
+	const cwd = options.cwd ?? process.cwd();
 
-  // Basic implementation: run prettier on the files
-  // We assume prettier is available in the project
+	const formatterCommand =
+		FORMATTER_COMMANDS[options.type ?? 'biome'] ?? FORMATTER_COMMANDS.biome;
 
-  // Group files by chunks to avoid command line length limits
-  const FILE_CHUNK_SIZE = 50;
+	// Group files by chunks to avoid command line length limits
+	const FILE_CHUNK_SIZE = 50;
 
-  for (let i = 0; i < files.length; i += FILE_CHUNK_SIZE) {
-    const chunk = files.slice(i, i + FILE_CHUNK_SIZE);
-    // Quote paths
-    const fileArgs = chunk.map((f) => `"${f}"`).join(' ');
+	for (let i = 0; i < files.length; i += FILE_CHUNK_SIZE) {
+		const chunk = files.slice(i, i + FILE_CHUNK_SIZE);
+		const fileArgs = chunk.map((f) => `"${f}"`).join(' ');
 
-    try {
-      // Try npx prettier first
-      await execAsync(`npx prettier --write ${fileArgs}`, { cwd });
-    } catch (_error) {
-      // Fallback or ignore
-      // console.warn('Prettier formatting failed:', error);
-    }
-  }
+		try {
+			await execAsync(`${formatterCommand} ${fileArgs}`, { cwd });
+		} catch (_error) {
+			// Formatting is best-effort in this utility.
+		}
+	}
 }

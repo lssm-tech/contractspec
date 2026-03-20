@@ -1,57 +1,74 @@
 {
-  "name": "@contractspec/lib.surface-runtime",
-  "version": "0.1.0",
-  "description": "AI-native surface specs and web runtime for adaptive ContractSpec surfaces",
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "files": ["dist", "README.md"],
-  "scripts": {
-    "build": "tsc --noEmit",
-    "dev": "tsc --noEmit --watch",
-    "lint": "eslint src",
-    "test": "bun test"
-  },
-  "dependencies": {
-    "@contractspec/lib.contracts-spec": "workspace:*",
-    "@contractspec/lib.overlay-engine": "workspace:*",
-    "@contractspec/lib.observability": "workspace:*",
-    "@contractspec/lib.ai-agent": "workspace:*",
-    "@contractspec/lib.ai-providers": "workspace:*",
-    "ai": "^6.0.0",
-    "zod": "^4.0.0"
-  },
-  "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0",
-    "react-dom": "^18.0.0 || ^19.0.0",
-    "@blocknote/core": "*",
-    "@blocknote/react": "*",
-    "@floating-ui/react": "*",
-    "@dnd-kit/react": "*",
-    "motion": "*",
-    "react-resizable-panels": "*"
-  },
-  "peerDependenciesMeta": {
-    "@blocknote/core": { "optional": true },
-    "@blocknote/react": { "optional": true },
-    "@floating-ui/react": { "optional": true },
-    "@dnd-kit/react": { "optional": true },
-    "motion": { "optional": true },
-    "react-resizable-panels": { "optional": true }
-  },
-  "exports": {
-    ".": "./dist/index.js",
-    "./spec": "./dist/spec/index.js",
-    "./runtime": "./dist/runtime/index.js",
-    "./react": "./dist/react/index.js",
-    "./registry": "./dist/registry/index.js",
-    "./persistence": "./dist/persistence/index.js",
-    "./ai": "./dist/ai/index.js",
-    "./eval": "./dist/eval/index.js",
-    "./adapters/blocknote": "./dist/adapters/blocknote/index.js",
-    "./adapters/dnd-kit": "./dist/adapters/dnd-kit/index.js",
-    "./adapters/floating-ui": "./dist/adapters/floating-ui/index.js",
-    "./adapters/motion": "./dist/adapters/motion/index.js",
-    "./adapters/resizable-panels": "./dist/adapters/resizable-panels/index.js",
-    "./adapters/ai-sdk": "./dist/adapters/ai-sdk/index.js"
-  }
+	"name": "@contractspec/lib.surface-runtime",
+	"version": "0.1.0",
+	"description": "AI-native surface specs and web runtime for adaptive ContractSpec surfaces",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "tsc --noEmit",
+		"dev": "tsc --noEmit --watch",
+		"lint": "bun run lint:check",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"test": "bun test"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.overlay-engine": "workspace:*",
+		"@contractspec/lib.observability": "workspace:*",
+		"@contractspec/lib.ai-agent": "workspace:*",
+		"@contractspec/lib.ai-providers": "workspace:*",
+		"ai": "^6.0.0",
+		"zod": "^4.0.0"
+	},
+	"peerDependencies": {
+		"react": "^18.0.0 || ^19.0.0",
+		"react-dom": "^18.0.0 || ^19.0.0",
+		"@blocknote/core": "*",
+		"@blocknote/react": "*",
+		"@floating-ui/react": "*",
+		"@dnd-kit/react": "*",
+		"motion": "*",
+		"react-resizable-panels": "*"
+	},
+	"peerDependenciesMeta": {
+		"@blocknote/core": {
+			"optional": true
+		},
+		"@blocknote/react": {
+			"optional": true
+		},
+		"@floating-ui/react": {
+			"optional": true
+		},
+		"@dnd-kit/react": {
+			"optional": true
+		},
+		"motion": {
+			"optional": true
+		},
+		"react-resizable-panels": {
+			"optional": true
+		}
+	},
+	"exports": {
+		".": "./dist/index.js",
+		"./spec": "./dist/spec/index.js",
+		"./runtime": "./dist/runtime/index.js",
+		"./react": "./dist/react/index.js",
+		"./registry": "./dist/registry/index.js",
+		"./persistence": "./dist/persistence/index.js",
+		"./ai": "./dist/ai/index.js",
+		"./eval": "./dist/eval/index.js",
+		"./adapters/blocknote": "./dist/adapters/blocknote/index.js",
+		"./adapters/dnd-kit": "./dist/adapters/dnd-kit/index.js",
+		"./adapters/floating-ui": "./dist/adapters/floating-ui/index.js",
+		"./adapters/motion": "./dist/adapters/motion/index.js",
+		"./adapters/resizable-panels": "./dist/adapters/resizable-panels/index.js",
+		"./adapters/ai-sdk": "./dist/adapters/ai-sdk/index.js"
+	}
 }

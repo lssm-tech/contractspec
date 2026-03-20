@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.evolution",
-  "version": "3.6.0",
+  "version": "3.7.7",
   "description": "AI-powered contract evolution engine",
   "keywords": [
     "contractspec",
@@ -24,8 +24,8 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
@@ -42,7 +42,7 @@
     "@contractspec/lib.schema": "workspace:*"
   },
   "peerDependencies": {
-    "@prisma/client": "7.4.1"
+    "@prisma/client": "7.5.0"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",

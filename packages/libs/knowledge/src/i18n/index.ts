@@ -17,28 +17,26 @@
  * ```
  */
 
-// Core i18n API
-export {
-  createKnowledgeI18n,
-  getDefaultI18n,
-  resetI18nRegistry,
-} from './messages';
-export type { KnowledgeI18n } from './messages';
-
-// Locale utilities
-export {
-  resolveLocale,
-  isSupportedLocale,
-  DEFAULT_LOCALE,
-  SUPPORTED_LOCALES,
-} from './locale';
-export type { SupportedLocale } from './locale';
-
-// Message keys
-export { I18N_KEYS, ACCESS_KEYS, QUERY_KEYS, INGESTION_KEYS } from './keys';
-export type { KnowledgeMessageKey } from './keys';
-
 // Catalogs
 export { enMessages } from './catalogs/en';
-export { frMessages } from './catalogs/fr';
 export { esMessages } from './catalogs/es';
+export { frMessages } from './catalogs/fr';
+export type { KnowledgeMessageKey } from './keys';
+
+// Message keys
+export { ACCESS_KEYS, I18N_KEYS, INGESTION_KEYS, QUERY_KEYS } from './keys';
+export type { SupportedLocale } from './locale';
+// Locale utilities
+export {
+	DEFAULT_LOCALE,
+	isSupportedLocale,
+	resolveLocale,
+	SUPPORTED_LOCALES,
+} from './locale';
+export type { KnowledgeI18n } from './messages';
+// Core i18n API
+export {
+	createKnowledgeI18n,
+	getDefaultI18n,
+	resetI18nRegistry,
+} from './messages';

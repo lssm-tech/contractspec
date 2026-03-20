@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '../registry';
 
 export const tech_vscode_extension_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.vscode.extension',
-    title: 'ContractSpec VS Code Extension',
-    summary:
-      'VS Code extension for spec-first development with validation, scaffolding, and MCP integration.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/vscode/extension',
-    tags: ['vscode', 'extension', 'tooling', 'dx'],
-    body: `# ContractSpec VS Code Extension
+	{
+		id: 'docs.tech.vscode.extension',
+		title: 'ContractSpec VS Code Extension',
+		summary:
+			'VS Code extension for spec-first development with validation, scaffolding, and MCP integration.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/vscode/extension',
+		tags: ['vscode', 'extension', 'tooling', 'dx'],
+		body: `# ContractSpec VS Code Extension
 
 The ContractSpec VS Code extension provides spec-first development tooling directly in your editor.
 
@@ -61,16 +61,16 @@ The extension uses a hybrid telemetry approach:
 
 Telemetry respects VS Code's telemetry settings. No file paths, source code, or PII is collected.
 `,
-  },
-  {
-    id: 'docs.tech.vscode.snippets',
-    title: 'ContractSpec Snippets',
-    summary: 'Code snippets for common ContractSpec patterns in VS Code.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/vscode/snippets',
-    tags: ['vscode', 'snippets', 'dx'],
-    body: `# ContractSpec Snippets
+	},
+	{
+		id: 'docs.tech.vscode.snippets',
+		title: 'ContractSpec Snippets',
+		summary: 'Code snippets for common ContractSpec patterns in VS Code.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/vscode/snippets',
+		tags: ['vscode', 'snippets', 'dx'],
+		body: `# ContractSpec Snippets
 
 The VS Code extension includes snippets for common ContractSpec patterns.
 
@@ -89,7 +89,7 @@ The VS Code extension includes snippets for common ContractSpec patterns.
 
 Type the prefix in a TypeScript file and press Tab to expand the snippet. Tab through the placeholders to fill in your values.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(tech_vscode_extension_DocBlocks);

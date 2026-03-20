@@ -4,45 +4,45 @@
  * Provides an interactive chat panel for vibe coding assistance.
  */
 
-import * as vscode from 'vscode';
-import * as path from 'path';
-import * as fs from 'fs';
+import { loadWorkspaceConfig } from '@contractspec/bundle.workspace';
 import type {
-  ModelInfo,
-  Provider,
-  ProviderMode,
-  ProviderName,
+	ModelInfo,
+	Provider,
+	ProviderMode,
+	ProviderName,
 } from '@contractspec/lib.ai-providers';
 import { getAIProvider } from '@contractspec/lib.ai-providers';
-import {
-  ChatService,
-  InMemoryConversationStore,
-} from '@contractspec/module.ai-chat/core';
-import { getWorkspaceAdapters } from '../workspace/adapters';
-import type { LanguageModel } from 'ai';
 import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
-import { loadWorkspaceConfig } from '@contractspec/bundle.workspace';
+import {
+	ChatService,
+	InMemoryConversationStore,
+} from '@contractspec/module.ai-chat/core';
+import type { LanguageModel } from 'ai';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as vscode from 'vscode';
+import { getWorkspaceAdapters } from '../workspace/adapters';
 
 class WrappedProvider implements Provider {
-  constructor(
-    private _model: LanguageModel,
-    public name: ProviderName
-  ) {}
+	constructor(
+		private _model: LanguageModel,
+		public name: ProviderName
+	) {}
 
-  get model(): string {
-    return (this._model as unknown as { modelId: string }).modelId || 'unknown';
-  }
-  readonly mode: ProviderMode = 'managed';
+	get model(): string {
+		return (this._model as unknown as { modelId: string }).modelId || 'unknown';
+	}
+	readonly mode: ProviderMode = 'managed';
 
-  getModel(): LanguageModel {
-    return this._model;
-  }
-  async listModels(): Promise<ModelInfo[]> {
-    return [];
-  }
-  async validate(): Promise<{ valid: boolean; error?: string }> {
-    return { valid: true };
-  }
+	getModel(): LanguageModel {
+		return this._model;
+	}
+	async listModels(): Promise<ModelInfo[]> {
+		return [];
+	}
+	async validate(): Promise<{ valid: boolean; error?: string }> {
+		return { valid: true };
+	}
 }
 
 /**
@@ -60,202 +60,202 @@ let currentConversationId: string | undefined;
  * Open the chat panel
  */
 export async function openChatPanel(
-  context: vscode.ExtensionContext,
-  outputChannel: vscode.OutputChannel
+	context: vscode.ExtensionContext,
+	outputChannel: vscode.OutputChannel
 ): Promise<void> {
-  // If panel already exists, reveal it
-  if (chatPanel) {
-    chatPanel.reveal(vscode.ViewColumn.Beside);
-    return;
-  }
+	// If panel already exists, reveal it
+	if (chatPanel) {
+		chatPanel.reveal(vscode.ViewColumn.Beside);
+		return;
+	}
 
-  const adapters = getWorkspaceAdapters();
-  const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
+	const adapters = getWorkspaceAdapters();
+	const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
 
-  // Load config to check for AI provider
-  let config: ResolvedContractsrcConfig;
-  try {
-    config = await loadWorkspaceConfig(adapters.fs, workspaceRoot);
-  } catch (error) {
-    vscode.window.showErrorMessage(`Failed to load workspace config: ${error}`);
-    return;
-  }
+	// Load config to check for AI provider
+	let config: ResolvedContractsrcConfig;
+	try {
+		config = await loadWorkspaceConfig(adapters.fs, workspaceRoot);
+	} catch (error) {
+		vscode.window.showErrorMessage(`Failed to load workspace config: ${error}`);
+		return;
+	}
 
-  // Create the panel
-  chatPanel = vscode.window.createWebviewPanel(
-    'contractspecChat',
-    'ContractSpec AI Chat',
-    vscode.ViewColumn.Beside,
-    {
-      enableScripts: true,
-      retainContextWhenHidden: true,
-      localResourceRoots: [context.extensionUri],
-    }
-  );
+	// Create the panel
+	chatPanel = vscode.window.createWebviewPanel(
+		'contractspecChat',
+		'ContractSpec AI Chat',
+		vscode.ViewColumn.Beside,
+		{
+			enableScripts: true,
+			retainContextWhenHidden: true,
+			localResourceRoots: [context.extensionUri],
+		}
+	);
 
-  const currentFile = vscode.window.activeTextEditor?.document.uri.fsPath;
+	const currentFile = vscode.window.activeTextEditor?.document.uri.fsPath;
 
-  // Build context info
-  let contextInfo = '';
-  if (workspaceRoot) {
-    contextInfo += `Workspace: ${path.basename(workspaceRoot)}\n`;
-  }
-  if (currentFile) {
-    contextInfo += `Current file: ${path.relative(workspaceRoot ?? '', currentFile)}\n`;
-  }
+	// Build context info
+	let contextInfo = '';
+	if (workspaceRoot) {
+		contextInfo += `Workspace: ${path.basename(workspaceRoot)}\n`;
+	}
+	if (currentFile) {
+		contextInfo += `Current file: ${path.relative(workspaceRoot ?? '', currentFile)}\n`;
+	}
 
-  // Set the HTML content
-  chatPanel.webview.html = getChatPanelHtml(
-    chatPanel.webview,
-    context.extensionUri,
-    config,
-    contextInfo
-  );
+	// Set the HTML content
+	chatPanel.webview.html = getChatPanelHtml(
+		chatPanel.webview,
+		context.extensionUri,
+		config,
+		contextInfo
+	);
 
-  // Initialize Chat Service
-  const provider = getAIProvider({
-    ...config,
-    customEndpoint: config.customEndpoint || undefined,
-  });
+	// Initialize Chat Service
+	const provider = getAIProvider({
+		...config,
+		customEndpoint: config.customEndpoint || undefined,
+	});
 
-  // Build system prompt with workspace context
-  const systemPrompt = buildSystemPrompt(workspaceRoot);
+	// Build system prompt with workspace context
+	const systemPrompt = buildSystemPrompt(workspaceRoot);
 
-  // Create provider wrapper
-  // We assume 'custom' maps to openai-compatible, others map directly if possible
-  const providerName =
-    config.aiProvider === 'custom'
-      ? 'openai'
-      : (config.aiProvider as ProviderName);
-  const wrappedProvider = new WrappedProvider(provider, providerName);
+	// Create provider wrapper
+	// We assume 'custom' maps to openai-compatible, others map directly if possible
+	const providerName =
+		config.aiProvider === 'custom'
+			? 'openai'
+			: (config.aiProvider as ProviderName);
+	const wrappedProvider = new WrappedProvider(provider, providerName);
 
-  chatService = new ChatService({
-    provider: wrappedProvider,
-    store: new InMemoryConversationStore(),
-    systemPrompt,
-    onUsage: (usage) => {
-      outputChannel.appendLine(
-        `[AI Chat] Tokens: ${usage.inputTokens} in / ${usage.outputTokens} out`
-      );
-    },
-  });
+	chatService = new ChatService({
+		provider: wrappedProvider,
+		store: new InMemoryConversationStore(),
+		systemPrompt,
+		onUsage: (usage) => {
+			outputChannel.appendLine(
+				`[AI Chat] Tokens: ${usage.inputTokens} in / ${usage.outputTokens} out`
+			);
+		},
+	});
 
-  // Reset conversation ID when panel is opened (fresh session)
-  // Or could be persistent if we moved store out of openChatPanel
-  currentConversationId = undefined;
+	// Reset conversation ID when panel is opened (fresh session)
+	// Or could be persistent if we moved store out of openChatPanel
+	currentConversationId = undefined;
 
-  // Handle messages from the webview
-  chatPanel.webview.onDidReceiveMessage(
-    async (message) => {
-      switch (message.type) {
-        case 'send': {
-          if (chatPanel && chatService) {
-            await handleChatMessage(
-              chatPanel,
-              chatService,
-              message.content,
-              outputChannel
-            );
-          }
-          break;
-        }
-        case 'insert': {
-          await insertCodeAtCursor(message.code);
-          break;
-        }
-        case 'copy': {
-          await vscode.env.clipboard.writeText(message.text);
-          vscode.window.showInformationMessage('Copied to clipboard');
-          break;
-        }
-        case 'clear': {
-          currentConversationId = undefined;
-          // Optionally clear store or start fresh
-          break;
-        }
-      }
-    },
-    undefined,
-    context.subscriptions
-  );
+	// Handle messages from the webview
+	chatPanel.webview.onDidReceiveMessage(
+		async (message) => {
+			switch (message.type) {
+				case 'send': {
+					if (chatPanel && chatService) {
+						await handleChatMessage(
+							chatPanel,
+							chatService,
+							message.content,
+							outputChannel
+						);
+					}
+					break;
+				}
+				case 'insert': {
+					await insertCodeAtCursor(message.code);
+					break;
+				}
+				case 'copy': {
+					await vscode.env.clipboard.writeText(message.text);
+					vscode.window.showInformationMessage('Copied to clipboard');
+					break;
+				}
+				case 'clear': {
+					currentConversationId = undefined;
+					// Optionally clear store or start fresh
+					break;
+				}
+			}
+		},
+		undefined,
+		context.subscriptions
+	);
 
-  // Clean up when panel is closed
-  chatPanel.onDidDispose(() => {
-    chatPanel = undefined;
-    chatService = undefined;
-    currentConversationId = undefined;
-  });
+	// Clean up when panel is closed
+	chatPanel.onDidDispose(() => {
+		chatPanel = undefined;
+		chatService = undefined;
+		currentConversationId = undefined;
+	});
 }
 
 /**
  * Handle a chat message from the webview
  */
 async function handleChatMessage(
-  panel: vscode.WebviewPanel,
-  service: ChatService,
-  content: string,
-  outputChannel: vscode.OutputChannel
+	panel: vscode.WebviewPanel,
+	service: ChatService,
+	content: string,
+	outputChannel: vscode.OutputChannel
 ): Promise<void> {
-  try {
-    // Stream response
-    const result = await service.stream({
-      conversationId: currentConversationId,
-      content,
-    });
+	try {
+		// Stream response
+		const result = await service.stream({
+			conversationId: currentConversationId,
+			content,
+		});
 
-    currentConversationId = result.conversationId;
+		currentConversationId = result.conversationId;
 
-    let fullResponse = '';
+		let fullResponse = '';
 
-    for await (const chunk of result.stream) {
-      if (chunk.type === 'text') {
-        // Some providers/wrappers might offer 'text' property directly
-        fullResponse += chunk.content || ''; // Adjust based on strict ChatStreamChunk type
-        panel.webview.postMessage({
-          type: 'chunk',
-          chunk: chunk.content || '',
-          fullText: fullResponse,
-        });
-      }
-      // Handle tool calls or other events if necessary
-    }
+		for await (const chunk of result.stream) {
+			if (chunk.type === 'text') {
+				// Some providers/wrappers might offer 'text' property directly
+				fullResponse += chunk.content || ''; // Adjust based on strict ChatStreamChunk type
+				panel.webview.postMessage({
+					type: 'chunk',
+					chunk: chunk.content || '',
+					fullText: fullResponse,
+				});
+			}
+			// Handle tool calls or other events if necessary
+		}
 
-    // Final message to confirm completion
-    panel.webview.postMessage({
-      type: 'response',
-      content: fullResponse,
-    });
-  } catch (error) {
-    outputChannel.appendLine(
-      `Chat error: ${error instanceof Error ? error.message : String(error)}`
-    );
-    panel.webview.postMessage({
-      type: 'error',
-      error: error instanceof Error ? error.message : String(error),
-    });
-  }
+		// Final message to confirm completion
+		panel.webview.postMessage({
+			type: 'response',
+			content: fullResponse,
+		});
+	} catch (error) {
+		outputChannel.appendLine(
+			`Chat error: ${error instanceof Error ? error.message : String(error)}`
+		);
+		panel.webview.postMessage({
+			type: 'error',
+			error: error instanceof Error ? error.message : String(error),
+		});
+	}
 }
 
 /**
  * Insert code at cursor position
  */
 async function insertCodeAtCursor(code: string): Promise<void> {
-  const editor = vscode.window.activeTextEditor;
-  if (!editor) {
-    vscode.window.showWarningMessage('No active editor to insert code');
-    return;
-  }
+	const editor = vscode.window.activeTextEditor;
+	if (!editor) {
+		vscode.window.showWarningMessage('No active editor to insert code');
+		return;
+	}
 
-  await editor.edit((editBuilder) => {
-    editBuilder.insert(editor.selection.active, code);
-  });
+	await editor.edit((editBuilder) => {
+		editBuilder.insert(editor.selection.active, code);
+	});
 }
 
 /**
  * Build system prompt with workspace context
  */
 function buildSystemPrompt(workspaceRoot: string | undefined): string {
-  let prompt = `You are ContractSpec AI, an expert coding assistant specialized in ContractSpec development.
+	let prompt = `You are ContractSpec AI, an expert coding assistant specialized in ContractSpec development.
 
 Your capabilities:
 - Help users create, modify, and understand ContractSpec specifications
@@ -270,41 +270,41 @@ Guidelines:
 - Use markdown for formatting
 - When showing code, include syntax highlighting with language tags`;
 
-  if (workspaceRoot) {
-    prompt += `\n\nWorkspace: ${path.basename(workspaceRoot)}`;
+	if (workspaceRoot) {
+		prompt += `\n\nWorkspace: ${path.basename(workspaceRoot)}`;
 
-    // Try to read package.json for project info
-    const packageJsonPath = path.join(workspaceRoot, 'package.json');
-    if (fs.existsSync(packageJsonPath)) {
-      try {
-        const packageJson = JSON.parse(
-          fs.readFileSync(packageJsonPath, 'utf-8')
-        );
-        prompt += `\nProject: ${packageJson.name ?? 'unknown'}`;
-        if (packageJson.description) {
-          prompt += `\nDescription: ${packageJson.description}`;
-        }
-      } catch {
-        // Ignore parse errors
-      }
-    }
-  }
+		// Try to read package.json for project info
+		const packageJsonPath = path.join(workspaceRoot, 'package.json');
+		if (fs.existsSync(packageJsonPath)) {
+			try {
+				const packageJson = JSON.parse(
+					fs.readFileSync(packageJsonPath, 'utf-8')
+				);
+				prompt += `\nProject: ${packageJson.name ?? 'unknown'}`;
+				if (packageJson.description) {
+					prompt += `\nDescription: ${packageJson.description}`;
+				}
+			} catch {
+				// Ignore parse errors
+			}
+		}
+	}
 
-  return prompt;
+	return prompt;
 }
 
 /**
  * Get the HTML for the chat panel
  */
 function getChatPanelHtml(
-  _webview: vscode.Webview,
-  _extensionUri: vscode.Uri,
-  config: ResolvedContractsrcConfig,
-  contextInfo: string
+	_webview: vscode.Webview,
+	_extensionUri: vscode.Uri,
+	config: ResolvedContractsrcConfig,
+	contextInfo: string
 ): string {
-  const providerName = config.aiProvider || 'configured';
+	const providerName = config.aiProvider || 'configured';
 
-  return `<!DOCTYPE html>
+	return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -665,19 +665,19 @@ function getChatPanelHtml(
  * Register chat commands
  */
 export function registerChatCommands(
-  context: vscode.ExtensionContext,
-  outputChannel: vscode.OutputChannel,
-  telemetry?: {
-    sendTelemetryEvent: (name: string, props: Record<string, string>) => void;
-  }
+	context: vscode.ExtensionContext,
+	outputChannel: vscode.OutputChannel,
+	telemetry?: {
+		sendTelemetryEvent: (name: string, props: Record<string, string>) => void;
+	}
 ): void {
-  // Open chat panel
-  context.subscriptions.push(
-    vscode.commands.registerCommand('contractspec.chat', async () => {
-      telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
-        command: 'chat',
-      });
-      await openChatPanel(context, outputChannel);
-    })
-  );
+	// Open chat panel
+	context.subscriptions.push(
+		vscode.commands.registerCommand('contractspec.chat', async () => {
+			telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
+				command: 'chat',
+			});
+			await openChatPanel(context, outputChannel);
+		})
+	);
 }

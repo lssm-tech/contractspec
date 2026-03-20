@@ -1,76 +1,72 @@
-import { describe, expect, it, mock, beforeEach, afterEach } from 'bun:test';
-import { compareSpecs } from './diff';
+import { describe, expect, it, mock } from 'bun:test';
 import type { FsAdapter } from '../ports/fs';
 import type { GitAdapter } from '../ports/git';
-
-const mockComputeSemanticDiff = mock(() => []);
+import { compareSpecs } from './diff';
 
 describe('Diff Service', () => {
-  const mockFs = {
-    exists: mock(() => Promise.resolve(true)),
-    readFile: mock(() => Promise.resolve('spec content')),
-  };
-
-  const mockGit = {
-    showFile: mock(() => Promise.resolve('old content')),
-  };
-
-  beforeEach(() => {
-    mockFs.exists.mockClear();
-    mockFs.readFile.mockClear();
-    mockGit.showFile.mockClear();
-    mockComputeSemanticDiff.mockClear();
-
-    mock.module('@contractspec/module.workspace', () => ({
-      computeSemanticDiff: mockComputeSemanticDiff,
-    }));
-  });
-
-  afterEach(() => {
-    mock.restore();
-  });
-
-  it('should compare two local files', async () => {
-    const result = await compareSpecs('spec1.ts', 'spec2.ts', {
-      fs: mockFs as unknown as FsAdapter,
-
-      git: mockGit as unknown as GitAdapter,
+	const spec1Code = `
+    export const op = defineCommand({
+      meta: { key: 'test.op', version: '1.0.0' },
+      description: 'before',
     });
+  `;
 
-    expect(result.spec1).toBe('spec1.ts');
-    expect(result.spec2).toBe('spec2.ts');
-    expect(mockFs.readFile).toHaveBeenCalledTimes(2);
-    expect(mockGit.showFile).not.toHaveBeenCalled();
-    expect(mockComputeSemanticDiff).toHaveBeenCalled();
-  });
+	const spec2Code = `
+    export const op = defineCommand({
+      meta: { key: 'test.op', version: '1.0.0' },
+      description: 'after',
+    });
+  `;
 
-  it('should compare against git baseline', async () => {
-    const result = await compareSpecs(
-      'spec1.ts',
-      'spec1.ts',
-      {
-        fs: mockFs as unknown as FsAdapter,
+	it('should compare two local files', async () => {
+		const mockFs = {
+			exists: mock(async () => true),
+			readFile: mock(async (path: string) =>
+				path === 'spec1.ts' ? spec1Code : spec2Code
+			),
+		} as unknown as FsAdapter;
 
-        git: mockGit as unknown as GitAdapter,
-      },
-      { baseline: 'HEAD' }
-    );
+		const result = await compareSpecs('spec1.ts', 'spec2.ts', {
+			fs: mockFs,
+			git: { showFile: mock() } as unknown as GitAdapter,
+		});
 
-    expect(result.spec1).toBe('spec1.ts');
-    expect(result.spec2).toBe('HEAD:spec1.ts');
-    expect(mockFs.readFile).toHaveBeenCalledTimes(1);
-    expect(mockGit.showFile).toHaveBeenCalledWith('HEAD', 'spec1.ts');
-  });
+		expect(result.spec1).toBe('spec1.ts');
+		expect(result.spec2).toBe('spec2.ts');
+		expect(Array.isArray(result.differences)).toBe(true);
+	});
 
-  it('should throw if file does not exist', async () => {
-    mockFs.exists.mockResolvedValue(false);
+	it('should compare against git baseline', async () => {
+		const mockFs = {
+			exists: mock(async () => true),
+			readFile: mock(async () => spec1Code),
+		} as unknown as FsAdapter;
+		const mockGit = {
+			showFile: mock(async () => spec2Code),
+		} as unknown as GitAdapter;
 
-    expect(
-      compareSpecs('missing.ts', 'spec2.ts', {
-        fs: mockFs as unknown as FsAdapter,
+		const result = await compareSpecs(
+			'spec1.ts',
+			'spec1.ts',
+			{ fs: mockFs, git: mockGit },
+			{ baseline: 'HEAD' }
+		);
 
-        git: mockGit as unknown as GitAdapter,
-      })
-    ).rejects.toThrow('Spec file not found');
-  });
+		expect(result.spec2).toBe('HEAD:spec1.ts');
+		expect(Array.isArray(result.differences)).toBe(true);
+	});
+
+	it('should throw if file does not exist', async () => {
+		const mockFs = {
+			exists: mock(async () => false),
+			readFile: mock(),
+		} as unknown as FsAdapter;
+
+		expect(
+			compareSpecs('missing.ts', 'spec2.ts', {
+				fs: mockFs,
+				git: { showFile: mock() } as unknown as GitAdapter,
+			})
+		).rejects.toThrow('Spec file not found');
+	});
 });

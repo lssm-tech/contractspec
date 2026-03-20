@@ -1,33 +1,43 @@
-@contractspec/tool.tsdown
+# @contractspec/tool.tsdown
 
-Shared tsup config presets for the monorepo.
+Website: https://contractspec.io
 
-Usage in a package:
+**Shared tsdown configuration presets for the ContractSpec monorepo. Packages that use tsdown for bundling import this preset to keep build config consistent.**
 
-1. Add peer dependency tsup if not present
-2. Create `tsup.config.js` extending a preset
+## What It Provides
 
-```js
-// tsup.config.js
-import { defineConfig } from 'tsup';
-import { reactLibrary } from '@contractspec/tool.tsdown';
+- **Layer**: tool
+- **Consumers**: packages using tsdown (typically libs with `tsdown.config.js`)
 
-export default defineConfig((options) => ({
-  ...reactLibrary,
-  entry: ['src'],
-}));
-```
+## Installation
 
-For Node libraries:
+`npm install @contractspec/tool.tsdown`
 
-```js
-import { defineConfig } from 'tsup';
-import { nodeLib } from '@contractspec/tool.tsdown';
+or
 
-export default defineConfig(() => ({
-  ...nodeLib,
-  entry: ['src'],
-}));
-```
+`bun add @contractspec/tool.tsdown`
 
-Override per-package as needed (externals, entry, minify, etc.).
+## Usage
+
+Import the root entrypoint from `@contractspec/tool.tsdown`, or use one of the documented subpaths when you want a narrower surface area.
+
+## Public Entry Points
+
+- `.` — `./index.js`
+
+## Local Commands
+
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed
+- PublishConfig not supported by bun
+- Add examples of integration
+
+## Notes
+
+- Changes affect every tsdown consumer's build output -- test downstream packages before merging
+- Peer-depends on `tsdown ^0.21` -- keep in sync with the workspace catalog version
+- Keep the preset minimal; package-specific overrides belong in each consumer's `tsdown.config.js`

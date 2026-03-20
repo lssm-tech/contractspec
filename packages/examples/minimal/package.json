@@ -1,16 +1,25 @@
 {
-  "name": "contractspec-example-minimal",
-  "version": "2.6.0",
-  "private": true,
-  "scripts": {
-    "build": "contractspec build src/contracts/user.ts",
-    "validate": "contractspec validate src/contracts/user.ts"
-  },
-  "devDependencies": {
-    "contractspec": "workspace:*",
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "@contractspec/lib.contracts-spec": "workspace:*"
-  }
+	"name": "@contractspec/example.minimal",
+	"version": "2.7.7",
+	"private": true,
+	"type": "module",
+	"exports": {
+		".": "./src/index.ts",
+		"./docs": "./src/docs/index.ts",
+		"./docs/minimal.docblock": "./src/docs/minimal.docblock.ts",
+		"./example": "./src/example.ts",
+		"./minimal.feature": "./src/minimal.feature.ts",
+		"./contracts/user": "./src/contracts/user.ts"
+	},
+	"scripts": {
+		"build": "bun ../../apps/cli-contractspec/src/cli.ts build src/contracts/user.ts",
+		"validate": "bun ../../apps/cli-contractspec/src/cli.ts validate src/contracts/user.ts"
+	},
+	"devDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.schema": "workspace:*"
+	}
 }

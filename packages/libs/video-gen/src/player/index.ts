@@ -1,6 +1,6 @@
-export { DemoPlayer } from './demo-player';
 export type {
-  DemoPlayerProps,
-  DemoCompositionId,
-  DemoCompositionProps,
+	DemoCompositionId,
+	DemoCompositionProps,
+	DemoPlayerProps,
 } from './demo-player';
+export { DemoPlayer } from './demo-player';

@@ -3,52 +3,52 @@ import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
 export function ArchitectureKnowledgeBindingPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold">Knowledge Binding</h1>
-        <p className="text-muted-foreground">
-          Knowledge binding connects your app's workflows and agents to
-          structured knowledge spaces. This enables semantic search, RAG
-          (Retrieval-Augmented Generation), and context-aware decision-making.
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-4">
+				<h1 className="font-bold text-4xl">Knowledge Binding</h1>
+				<p className="text-muted-foreground">
+					Knowledge binding connects your app's workflows and agents to
+					structured knowledge spaces. This enables semantic search, RAG
+					(Retrieval-Augmented Generation), and context-aware decision-making.
+				</p>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">How it works</h2>
-        <p className="text-muted-foreground">
-          Knowledge binding follows a three-layer model:
-        </p>
-        <ol className="text-muted-foreground list-inside list-decimal space-y-3">
-          <li>
-            <strong>KnowledgeSpaceSpec</strong> (global) - Defines a logical
-            knowledge domain
-          </li>
-          <li>
-            <strong>KnowledgeSourceConfig</strong> (per-tenant) - Tenant's data
-            sources feeding spaces
-          </li>
-          <li>
-            <strong>AppKnowledgeBinding</strong> (per-app) - Maps spaces to
-            workflows/agents
-          </li>
-        </ol>
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">How it works</h2>
+				<p className="text-muted-foreground">
+					Knowledge binding follows a three-layer model:
+				</p>
+				<ol className="list-inside list-decimal space-y-3 text-muted-foreground">
+					<li>
+						<strong>KnowledgeSpaceSpec</strong> (global) - Defines a logical
+						knowledge domain
+					</li>
+					<li>
+						<strong>KnowledgeSourceConfig</strong> (per-tenant) - Tenant's data
+						sources feeding spaces
+					</li>
+					<li>
+						<strong>AppKnowledgeBinding</strong> (per-app) - Maps spaces to
+						workflows/agents
+					</li>
+				</ol>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Example: Support agent with RAG</h2>
-        <p className="text-muted-foreground">
-          Let's build a support agent that uses canonical product documentation
-          and operational support history.
-        </p>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Example: Support agent with RAG</h2>
+				<p className="text-muted-foreground">
+					Let's build a support agent that uses canonical product documentation
+					and operational support history.
+				</p>
 
-        <div className="space-y-3">
-          <h3 className="text-lg font-semibold">
-            Step 1: Blueprint declares knowledge needs
-          </h3>
-          <CodeBlock
-            language="typescript"
-            code={`// AppBlueprintSpec
+				<div className="space-y-3">
+					<h3 className="font-semibold text-lg">
+						Step 1: Blueprint declares knowledge needs
+					</h3>
+					<CodeBlock
+						language="typescript"
+						code={`// AppBlueprintSpec
 {
   id: "support-app",
   version: "1.0.0",
@@ -73,16 +73,16 @@ export function ArchitectureKnowledgeBindingPage() {
     }
   ]
 }`}
-          />
-        </div>
+					/>
+				</div>
 
-        <div className="space-y-3">
-          <h3 className="text-lg font-semibold">
-            Step 2: Tenant configures sources
-          </h3>
-          <CodeBlock
-            language="typescript"
-            code={`// KnowledgeSourceConfig (per-tenant)
+				<div className="space-y-3">
+					<h3 className="font-semibold text-lg">
+						Step 2: Tenant configures sources
+					</h3>
+					<CodeBlock
+						language="typescript"
+						code={`// KnowledgeSourceConfig (per-tenant)
 [
   {
     id: "src_notion_product_docs",
@@ -112,16 +112,16 @@ export function ArchitectureKnowledgeBindingPage() {
     lastSyncedAt: "2025-01-15T00:00:00Z"
   }
 ]`}
-          />
-        </div>
+					/>
+				</div>
 
-        <div className="space-y-3">
-          <h3 className="text-lg font-semibold">
-            Step 3: TenantAppConfig binds spaces
-          </h3>
-          <CodeBlock
-            language="typescript"
-            code={`// TenantAppConfig
+				<div className="space-y-3">
+					<h3 className="font-semibold text-lg">
+						Step 3: TenantAppConfig binds spaces
+					</h3>
+					<CodeBlock
+						language="typescript"
+						code={`// TenantAppConfig
 {
   tenantId: "acme-corp",
   blueprintId: "support-app",
@@ -158,16 +158,16 @@ export function ArchitectureKnowledgeBindingPage() {
     }
   ]
 }`}
-          />
-        </div>
+					/>
+				</div>
 
-        <div className="space-y-3">
-          <h3 className="text-lg font-semibold">
-            Step 4: Workflow uses knowledge
-          </h3>
-          <CodeBlock
-            language="yaml"
-            code={`// WorkflowSpec
+				<div className="space-y-3">
+					<h3 className="font-semibold text-lg">
+						Step 4: Workflow uses knowledge
+					</h3>
+					<CodeBlock
+						language="yaml"
+						code={`// WorkflowSpec
 workflowId: answer-question
 version: '1.0.0'.0.0
 
@@ -210,72 +210,72 @@ steps:
             
             Support history:
             \${steps.search-support-history.output.results}`}
-          />
-        </div>
-      </div>
+					/>
+				</div>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Category-based access control</h2>
-        <p className="text-muted-foreground">
-          Different knowledge categories have different trust levels and access
-          patterns:
-        </p>
-        <div className="border-border/50 overflow-x-auto rounded-lg border">
-          <table className="w-full text-left text-sm">
-            <thead className="bg-card/50">
-              <tr className="border-border/50 border-b">
-                <th className="px-4 py-3 font-semibold">Category</th>
-                <th className="px-4 py-3 font-semibold">Trust Level</th>
-                <th className="px-4 py-3 font-semibold">Use Cases</th>
-                <th className="px-4 py-3 font-semibold">Policy Impact</th>
-              </tr>
-            </thead>
-            <tbody className="divide-border/50 divide-y">
-              <tr>
-                <td className="px-4 py-3 font-mono text-xs">canonical</td>
-                <td className="px-4 py-3">Highest</td>
-                <td className="px-4 py-3">
-                  Product specs, schemas, official policies
-                </td>
-                <td className="px-4 py-3">Can drive policy decisions</td>
-              </tr>
-              <tr>
-                <td className="px-4 py-3 font-mono text-xs">operational</td>
-                <td className="px-4 py-3">High</td>
-                <td className="px-4 py-3">
-                  Support tickets, sales docs, internal runbooks
-                </td>
-                <td className="px-4 py-3">Can inform decisions</td>
-              </tr>
-              <tr>
-                <td className="px-4 py-3 font-mono text-xs">external</td>
-                <td className="px-4 py-3">Medium</td>
-                <td className="px-4 py-3">
-                  Third-party docs, regulations, PSP guides
-                </td>
-                <td className="px-4 py-3">Reference only, not authoritative</td>
-              </tr>
-              <tr>
-                <td className="px-4 py-3 font-mono text-xs">ephemeral</td>
-                <td className="px-4 py-3">Low</td>
-                <td className="px-4 py-3">
-                  Agent scratchpads, session context, drafts
-                </td>
-                <td className="px-4 py-3">Never used for decisions</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Category-based access control</h2>
+				<p className="text-muted-foreground">
+					Different knowledge categories have different trust levels and access
+					patterns:
+				</p>
+				<div className="overflow-x-auto rounded-lg border border-border/50">
+					<table className="w-full text-left text-sm">
+						<thead className="bg-card/50">
+							<tr className="border-border/50 border-b">
+								<th className="px-4 py-3 font-semibold">Category</th>
+								<th className="px-4 py-3 font-semibold">Trust Level</th>
+								<th className="px-4 py-3 font-semibold">Use Cases</th>
+								<th className="px-4 py-3 font-semibold">Policy Impact</th>
+							</tr>
+						</thead>
+						<tbody className="divide-y divide-border/50">
+							<tr>
+								<td className="px-4 py-3 font-mono text-xs">canonical</td>
+								<td className="px-4 py-3">Highest</td>
+								<td className="px-4 py-3">
+									Product specs, schemas, official policies
+								</td>
+								<td className="px-4 py-3">Can drive policy decisions</td>
+							</tr>
+							<tr>
+								<td className="px-4 py-3 font-mono text-xs">operational</td>
+								<td className="px-4 py-3">High</td>
+								<td className="px-4 py-3">
+									Support tickets, sales docs, internal runbooks
+								</td>
+								<td className="px-4 py-3">Can inform decisions</td>
+							</tr>
+							<tr>
+								<td className="px-4 py-3 font-mono text-xs">external</td>
+								<td className="px-4 py-3">Medium</td>
+								<td className="px-4 py-3">
+									Third-party docs, regulations, PSP guides
+								</td>
+								<td className="px-4 py-3">Reference only, not authoritative</td>
+							</tr>
+							<tr>
+								<td className="px-4 py-3 font-mono text-xs">ephemeral</td>
+								<td className="px-4 py-3">Low</td>
+								<td className="px-4 py-3">
+									Agent scratchpads, session context, drafts
+								</td>
+								<td className="px-4 py-3">Never used for decisions</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Multi-space workflows</h2>
-        <p className="text-muted-foreground">
-          Workflows can query multiple knowledge spaces and combine results:
-        </p>
-        <CodeBlock
-          language="typescript"
-          code={`knowledgeBindings: [
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Multi-space workflows</h2>
+				<p className="text-muted-foreground">
+					Workflows can query multiple knowledge spaces and combine results:
+				</p>
+				<CodeBlock
+					language="typescript"
+					code={`knowledgeBindings: [
   {
     spaceId: "product-canon",
     enabled: true,
@@ -304,66 +304,66 @@ steps:
     sources: ["src_crm_data", "src_past_invoices"]
   }
 ]`}
-        />
-      </div>
+				/>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Security & validation</h2>
-        <ul className="text-muted-foreground list-inside list-disc space-y-2">
-          <li>
-            Knowledge sources are validated before sync - credentials and
-            permissions checked
-          </li>
-          <li>PDP enforces which workflows/agents can access which spaces</li>
-          <li>
-            All knowledge queries are audited with search terms and results
-          </li>
-          <li>
-            Canonical knowledge is immutable once indexed - changes require
-            re-sync
-          </li>
-          <li>
-            Ephemeral knowledge is automatically purged based on retention
-            policies
-          </li>
-        </ul>
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Security & validation</h2>
+				<ul className="list-inside list-disc space-y-2 text-muted-foreground">
+					<li>
+						Knowledge sources are validated before sync - credentials and
+						permissions checked
+					</li>
+					<li>PDP enforces which workflows/agents can access which spaces</li>
+					<li>
+						All knowledge queries are audited with search terms and results
+					</li>
+					<li>
+						Canonical knowledge is immutable once indexed - changes require
+						re-sync
+					</li>
+					<li>
+						Ephemeral knowledge is automatically purged based on retention
+						policies
+					</li>
+				</ul>
+			</div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Best practices</h2>
-        <ul className="text-muted-foreground list-inside list-disc space-y-2">
-          <li>
-            Use canonical spaces for policy-critical decisions, operational for
-            suggestions
-          </li>
-          <li>
-            Never allow workflows to write to canonical spaces - maintain
-            read-only access
-          </li>
-          <li>
-            Set up monitoring for sync failures and stale knowledge sources
-          </li>
-          <li>Document the purpose and trust level of each knowledge space</li>
-          <li>
-            Test knowledge queries in sandbox before promoting to production
-          </li>
-          <li>
-            Use explicit <code>allowedConsumers</code> - avoid wildcard access
-          </li>
-        </ul>
-      </div>
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Best practices</h2>
+				<ul className="list-inside list-disc space-y-2 text-muted-foreground">
+					<li>
+						Use canonical spaces for policy-critical decisions, operational for
+						suggestions
+					</li>
+					<li>
+						Never allow workflows to write to canonical spaces - maintain
+						read-only access
+					</li>
+					<li>
+						Set up monitoring for sync failures and stale knowledge sources
+					</li>
+					<li>Document the purpose and trust level of each knowledge space</li>
+					<li>
+						Test knowledge queries in sandbox before promoting to production
+					</li>
+					<li>
+						Use explicit <code>allowedConsumers</code> - avoid wildcard access
+					</li>
+				</ul>
+			</div>
 
-      <div className="flex items-center gap-4 pt-4">
-        <Link
-          href="/docs/architecture/integration-binding"
-          className="btn-ghost"
-        >
-          Previous: Integration Binding
-        </Link>
-        <Link href="/docs/knowledge" className="btn-primary">
-          Knowledge & Context <ChevronRight size={16} />
-        </Link>
-      </div>
-    </div>
-  );
+			<div className="flex items-center gap-4 pt-4">
+				<Link
+					href="/docs/architecture/integration-binding"
+					className="btn-ghost"
+				>
+					Previous: Integration Binding
+				</Link>
+				<Link href="/docs/knowledge" className="btn-primary">
+					Knowledge & Context <ChevronRight size={16} />
+				</Link>
+			</div>
+		</div>
+	);
 }

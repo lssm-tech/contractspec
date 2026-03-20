@@ -3,35 +3,35 @@ import * as RadioGroupPrimitive from '@rn-primitives/radio-group';
 import { Platform } from 'react-native';
 
 function RadioGroup({
-  className,
-  ...props
+	className,
+	...props
 }: RadioGroupPrimitive.RootProps &
-  React.RefAttributes<RadioGroupPrimitive.RootRef>) {
-  return (
-    <RadioGroupPrimitive.Root className={cn('gap-3', className)} {...props} />
-  );
+	React.RefAttributes<RadioGroupPrimitive.RootRef>) {
+	return (
+		<RadioGroupPrimitive.Root className={cn('gap-3', className)} {...props} />
+	);
 }
 
 function RadioGroupItem({
-  className,
-  ...props
+	className,
+	...props
 }: RadioGroupPrimitive.ItemProps &
-  React.RefAttributes<RadioGroupPrimitive.ItemRef>) {
-  return (
-    <RadioGroupPrimitive.Item
-      className={cn(
-        'border-input dark:bg-input/30 aspect-square size-4 shrink-0 items-center justify-center rounded-full border shadow-2xs shadow-black/5',
-        Platform.select({
-          web: 'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive focus-visible:border-ring focus-visible:ring-ring/50 outline-hidden transition-all focus-visible:ring-[3px] disabled:cursor-not-allowed',
-        }),
-        props.disabled && 'opacity-50',
-        className
-      )}
-      {...props}
-    >
-      <RadioGroupPrimitive.Indicator className="bg-primary size-2 rounded-full" />
-    </RadioGroupPrimitive.Item>
-  );
+	React.RefAttributes<RadioGroupPrimitive.ItemRef>) {
+	return (
+		<RadioGroupPrimitive.Item
+			className={cn(
+				'aspect-square size-4 shrink-0 items-center justify-center rounded-full border border-input shadow-2xs shadow-black/5 dark:bg-input/30',
+				Platform.select({
+					web: 'outline-hidden transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40',
+				}),
+				props.disabled && 'opacity-50',
+				className
+			)}
+			{...props}
+		>
+			<RadioGroupPrimitive.Indicator className="size-2 rounded-full bg-primary" />
+		</RadioGroupPrimitive.Item>
+	);
 }
 
 export { RadioGroup, RadioGroupItem };

@@ -1,54 +1,54 @@
-import type { Metadata } from 'next';
 import { schemaValidationTypescriptBrief } from '@contractspec/bundle.library/components/docs/intent/intent-pages.docblocks';
 import { SeoOptimizer } from '@contractspec/lib.content-gen/seo';
 import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = new SeoOptimizer().optimize(
-  schemaValidationTypescriptBrief
+	schemaValidationTypescriptBrief
 );
 
 export function SchemaValidationTypescriptPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-3">
-        <h1 className="text-4xl font-bold">
-          {schemaValidationTypescriptBrief.title}
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          {schemaValidationTypescriptBrief.summary}
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-3">
+				<h1 className="font-bold text-4xl">
+					{schemaValidationTypescriptBrief.title}
+				</h1>
+				<p className="text-lg text-muted-foreground">
+					{schemaValidationTypescriptBrief.summary}
+				</p>
+			</div>
 
-      <div className="card-subtle space-y-4 p-6">
-        <h2 className="text-2xl font-bold">Validation Pain Points</h2>
-        <ul className="text-muted-foreground space-y-2 text-sm">
-          {schemaValidationTypescriptBrief.problems.map((problem, index) => (
-            <li key={index}>{problem}</li>
-          ))}
-        </ul>
-      </div>
+			<div className="card-subtle space-y-4 p-6">
+				<h2 className="font-bold text-2xl">Validation Pain Points</h2>
+				<ul className="space-y-2 text-muted-foreground text-sm">
+					{schemaValidationTypescriptBrief.problems.map((problem, index) => (
+						<li key={index}>{problem}</li>
+					))}
+				</ul>
+			</div>
 
-      <div className="card-subtle space-y-4 p-6">
-        <h2 className="text-2xl font-bold">Type-safe Solutions</h2>
-        <ul className="text-muted-foreground space-y-2 text-sm">
-          {schemaValidationTypescriptBrief.solutions.map((solution, index) => (
-            <li key={index}>{solution}</li>
-          ))}
-        </ul>
-      </div>
+			<div className="card-subtle space-y-4 p-6">
+				<h2 className="font-bold text-2xl">Type-safe Solutions</h2>
+				<ul className="space-y-2 text-muted-foreground text-sm">
+					{schemaValidationTypescriptBrief.solutions.map((solution, index) => (
+						<li key={index}>{solution}</li>
+					))}
+				</ul>
+			</div>
 
-      <div className="space-y-6">
-        <div className="space-y-3">
-          <h2 className="text-2xl font-bold">Contract Schema</h2>
-          <p className="text-muted-foreground text-sm">
-            Define data models with automatic TypeScript generation.
-          </p>
-          <CodeBlock
-            language="typescript"
-            filename="src/contracts/user.schema.ts"
-            code={`import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+			<div className="space-y-6">
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">Contract Schema</h2>
+					<p className="text-muted-foreground text-sm">
+						Define data models with automatic TypeScript generation.
+					</p>
+					<CodeBlock
+						language="typescript"
+						filename="src/contracts/user.schema.ts"
+						code={`import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 export const UserSchema = new SchemaModel({
   type: 'object',
@@ -91,18 +91,18 @@ export const UserSchema = new SchemaModel({
     description: 'User account information',
   },
 });`}
-          />
-        </div>
+					/>
+				</div>
 
-        <div className="space-y-3">
-          <h2 className="text-2xl font-bold">Generated Types</h2>
-          <p className="text-muted-foreground text-sm">
-            TypeScript types are automatically generated with proper validation.
-          </p>
-          <CodeBlock
-            language="typescript"
-            filename="generated/types/user.ts"
-            code={`// Auto-generated from UserSchema
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">Generated Types</h2>
+					<p className="text-muted-foreground text-sm">
+						TypeScript types are automatically generated with proper validation.
+					</p>
+					<CodeBlock
+						language="typescript"
+						filename="generated/types/user.ts"
+						code={`// Auto-generated from UserSchema
 export interface User {
   id: string;
   email: string;
@@ -128,18 +128,18 @@ export function validateUser(data: unknown): User {
 export function isUser(data: unknown): data is User {
   return UserSchemaZod.safeParse(data).success;
 }`}
-          />
-        </div>
+					/>
+				</div>
 
-        <div className="space-y-3">
-          <h2 className="text-2xl font-bold">Runtime Validation</h2>
-          <p className="text-muted-foreground text-sm">
-            Use generated validation in your API handlers with zero boilerplate.
-          </p>
-          <CodeBlock
-            language="typescript"
-            filename="src/handlers/user-handler.ts"
-            code={`import { validateUser } from '../generated/types/user';
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">Runtime Validation</h2>
+					<p className="text-muted-foreground text-sm">
+						Use generated validation in your API handlers with zero boilerplate.
+					</p>
+					<CodeBlock
+						language="typescript"
+						filename="src/handlers/user-handler.ts"
+						code={`import { validateUser } from '../generated/types/user';
 
 export async function createUserHandler(request: Request) {
   try {
@@ -168,24 +168,24 @@ export async function createUserHandler(request: Request) {
     throw error;
   }
 }`}
-          />
-        </div>
-      </div>
+					/>
+				</div>
+			</div>
 
-      <div className="flex items-center gap-4 pt-4">
-        <Link
-          href="/docs/guides/spec-validation-and-typing"
-          className="btn-primary"
-        >
-          Type Safety Guide <ChevronRight size={16} />
-        </Link>
-        <Link
-          href="/docs/intent/generate-client-from-schema"
-          className="btn-ghost"
-        >
-          Client Generation
-        </Link>
-      </div>
-    </div>
-  );
+			<div className="flex items-center gap-4 pt-4">
+				<Link
+					href="/docs/guides/spec-validation-and-typing"
+					className="btn-primary"
+				>
+					Type Safety Guide <ChevronRight size={16} />
+				</Link>
+				<Link
+					href="/docs/intent/generate-client-from-schema"
+					className="btn-ghost"
+				>
+					Client Generation
+				</Link>
+			</div>
+		</div>
+	);
 }

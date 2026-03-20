@@ -3,23 +3,23 @@
  */
 
 export {
-  SyncDirectionEnum,
-  SyncStatusEnum,
-  MappingTypeEnum,
+	MappingTypeEnum,
+	SyncDirectionEnum,
+	SyncStatusEnum,
 } from './sync.enum';
 export {
-  FieldMappingModel,
-  SyncConfigModel,
-  SyncRunModel,
-  CreateSyncConfigInputModel,
-  AddFieldMappingInputModel,
-  TriggerSyncInputModel,
-  ListSyncRunsInputModel,
-  ListSyncRunsOutputModel,
-} from './sync.schema';
-export {
-  CreateSyncConfigContract,
-  AddFieldMappingContract,
-  TriggerSyncContract,
-  ListSyncRunsContract,
+	AddFieldMappingContract,
+	CreateSyncConfigContract,
+	ListSyncRunsContract,
+	TriggerSyncContract,
 } from './sync.operations';
+export {
+	AddFieldMappingInputModel,
+	CreateSyncConfigInputModel,
+	FieldMappingModel,
+	ListSyncRunsInputModel,
+	ListSyncRunsOutputModel,
+	SyncConfigModel,
+	SyncRunModel,
+	TriggerSyncInputModel,
+} from './sync.schema';

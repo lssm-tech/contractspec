@@ -11,163 +11,117 @@ cursor:
 ---
 # ContractSpec Mission & Context
 
-"AI must understand that ContractSpec is NOT just codegen. It's the deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable. Every decision should reinforce this positioning: we're the safety layer for AI-coded systems."
+"AI must understand that ContractSpec is not just code generation. It is the open spec system for AI-native software: explicit contracts, aligned surfaces, safe regeneration, and an operating layer on top when teams need it. Decisions should reinforce control, legibility, and incremental adoption."
 
 ---
 
 ## Mission Statement
 
-**ContractSpec is the deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable.**
+**ContractSpec is the open spec system for AI-native software.**
+
+It gives teams an explicit layer for contracts, generation, runtimes, harnesses, and agent-facing surfaces, then adds Studio as the operating product on top when the team wants a packaged workflow.
 
 ---
 
 ## How to use this in prompts/specs
 
-- Prepend the mission statement to agent/system prompts when generating or refactoring code.
-- Remind: we are a compiler, not a platform; outputs must stay ejectable, standard tech, and spec-first.
-- Default framing to users: “Stabilize your AI-generated code, one module at a time. You own the code.”
-- Reject approaches that introduce lock-in, hidden runtimes, or magic abstractions.
+- Prepend the mission statement to agent or system prompts when generating or refactoring code.
+- Default framing to users: "Stabilize your AI-generated code, one module at a time. You keep the code. You choose when to adopt more of the product."
+- Remind that the OSS layer stays open, ejectable, and standards-first.
+- Reject approaches that introduce hidden runtimes, lock-in language, or product stories that collapse OSS and Studio into one vague platform.
 
 ## The Problem We Solve
 
-In 2025/2026, "vibe coding" and AI agents generate enormous amounts of code. But they have critical limitations:
+In 2025/2026, teams can generate enormous amounts of software with AI. The failure mode is not raw speed, it is loss of control:
 
-- **They can't enforce invariants** — AI-generated code drifts from business rules over time
-- **They break multi-surface consistency** — API, DB, UI, and events get out of sync
-- **They hallucinate refactors** — AI "improvements" introduce subtle bugs and break contracts
-- **They destroy long-term maintainability** — no source of truth, no safe regeneration path
+- **Implicit rules drift** — business constraints stop living in one explicit place
+- **Surfaces diverge** — API, UI, data, events, and tools stop agreeing with each other
+- **Regeneration becomes dangerous** — every AI rewrite risks introducing hidden contract breaks
+- **Teams lose auditability** — no one can explain what the system is supposed to do or why it changed
 
-**The result:** Teams ship fast initially, then spend months untangling AI-generated spaghetti.
+**The result:** teams ship quickly at first, then lose the ability to evolve safely.
 
 ---
 
 ## Our Role
 
-ContractSpec is the **safety and governance layer for AI-coded systems**:
+ContractSpec is the **explicit control layer for AI-native systems**:
 
-1. **Canonical Source of Truth** — Contracts and specs define what the system _should_ do, not just what it _does_
-2. **Safe Regeneration** — Generate and regenerate code across surfaces (API, DB, UI, events) without breaking invariants
-3. **Multi-Surface Consistency** — One spec, multiple outputs, always in sync
-4. **AI Governance** — Constrain what AI agents can change, enforce contracts they must respect
+1. **Canonical source of truth** — contracts define what the system should do
+2. **Multi-surface consistency** — one explicit layer shapes API, UI, data, events, and tools
+3. **Safe regeneration** — teams can change specs and regenerate without treating every edit as a rewrite gamble
+4. **Operational progression** — teams can stay on OSS/Core or move into Studio when they want the operating product
 
 ---
 
 ## Core Positioning
 
-> **"You keep your app.**
-> **We stabilize it, one module at a time.**
-> **You own the code. It's standard tech.**
-> **We're the compiler, not the prison."**
-
----
+> **You keep your app.**
+> **You keep the code.**
+> **We give the system an explicit source of truth.**
+> **Start with the open foundation. Adopt the operating layer when it helps.**
 
 ## Key Fears We Must Address
 
 ### Fear 1: "I already have an app"
 
-**Reality:** ContractSpec works with existing codebases. You don't start over — you stabilize incrementally, one module at a time. Start with one API endpoint, one data model, one contract.
+**Reality:** ContractSpec is designed for incremental adoption. Start with one module, one contract, or one unstable workflow. Do not force a rewrite story.
 
-### Fear 2: "Vendor lock-in / losing ownership"
+### Fear 2: "I do not want lock-in"
 
-**Reality:** You own the generated code. It's standard TypeScript, standard SQL, standard GraphQL. ContractSpec is a compiler — like TypeScript itself. You can eject at any time and keep everything.
+**Reality:** Outputs stay standard. Contracts, generated code, and runtimes remain inspectable and ejectable. The product story must reinforce this.
 
-### Fear 3: "Adoption cost / learning curve"
+### Fear 3: "This sounds like another AI platform"
 
-**Reality:** Specs are just TypeScript. If you can write `z.object({ name: z.string() })`, you can write a ContractSpec. No new language, no magic DSL, no YAML.
+**Reality:** The OSS layer is the open system. Studio is the operating product on top. Those are related, but not the same thing.
 
-### Fear 4: "Forced migrations / magical runtime"
+### Fear 4: "AI will keep making unsafe changes"
 
-**Reality:** ContractSpec generates plain code you can read, debug, and modify. There's no proprietary runtime you depend on. Migrations are explicit, reversible, and in your control.
-
----
-
-## Target Users (ICP Tiers)
-
-### Tier 1: Priority (Now)
-
-**AI-Native Startups & Technical Founders**
-
-- **Profile:** Solo founders or small teams using Cursor, Copilot, Claude, or AI agents heavily
-- **Pain:** Messy AI-generated backends and frontends, inconsistent APIs, code that's hard to refactor
-- **Need:** A way to stabilize AI-generated code without rewriting it
-
-**Small Teams with AI-Generated Chaos**
-
-- **Profile:** 2-10 person teams that shipped fast with AI and now have tech debt
-- **Pain:** Multiple surfaces out of sync, no source of truth, afraid to touch AI-generated code
-- **Need:** Incremental stabilization, safe regeneration, contracts as guardrails
-
-### Tier 2: Growth (Next)
-
-**AI Dev Agencies**
-
-- **Profile:** Agencies building many projects for clients using AI-assisted development
-- **Pain:** Repeating the same patterns, inconsistent quality across projects, handoff nightmares
-- **Need:** Reusable templates, consistent contracts, professional handoff artifacts
-
-**Scaleups with Compliance/Governance Needs**
-
-- **Profile:** Growing companies that need audit trails, API governance, or regulatory compliance
-- **Pain:** AI-generated code doesn't meet compliance requirements, no audit trail
-- **Need:** Governance layer, change tracking, contract enforcement
-
-### Tier 3: Later (Future)
-
-**Platform Teams / Enterprises**
-
-- **Profile:** Engineering teams standardizing APIs and contracts across large organizations
-- **Pain:** Inconsistent API designs across teams, schema drift, onboarding complexity
-- **Need:** Centralized contract definitions, cross-team consistency, automated compliance
+**Reality:** Specs create explicit boundaries that AI agents and generated code can be checked against before drift spreads across the stack.
 
 ---
 
 ## Principles
 
-### 1. Compiler, Not Prison
+### 1. Open Foundation, Not Closed Platform
 
-ContractSpec is a tool in your toolchain, not a platform you're locked into. Generated code is yours. Standards are industry standards. You can always eject.
+The foundation must stay standards-first, inspectable, and incrementally adoptable. Product value cannot depend on trapping teams in a black box.
 
 ### 2. Incremental Adoption
 
-You don't rewrite your app. You stabilize one module at a time. Start small, prove value, expand gradually.
+Do not force rewrite stories. Teams should be able to stabilize one module at a time and prove value quickly.
 
 ### 3. Spec-First, AI-Safe
 
-Specs are the source of truth. AI agents read specs, not implementations. AI-generated code that violates specs gets flagged and rejected.
+Specs are the source of truth. AI agents and generated code should be evaluated against explicit system rules, not vibes or inferred conventions.
 
 ### 4. Multi-Surface Consistency
 
-One spec generates API endpoints, database schemas, UI types, event definitions, and MCP tools. All surfaces stay in sync because they share the same source.
+Contracts should shape API, UI, data, events, MCP tools, and other operational surfaces from the same explicit layer.
 
 ### 5. Safe Regeneration
 
-You can regenerate code at any time without fear. Specs enforce invariants. Breaking changes are caught at compile time, not runtime.
+Regeneration should feel controlled and reviewable, not magical. Breaking changes must stay explicit and auditable.
 
-### 6. Standard Tech, No Magic
+### 6. Studio as the Operating Product
 
-TypeScript, Zod, Prisma, GraphQL, REST — all standard. No proprietary runtime, no magic. Just a compiler that outputs code you already know.
+Studio is the packaged operating surface built on top of the same system. It should never be positioned like an unrelated product or a bait-and-switch away from OSS.
 
 ---
 
-## Business Model
+## GTM / Business Shape
 
-### Core SaaS
+### OSS/Core
 
-- Per project / per team / per seat pricing
-- Free tier for individual developers and small projects
-- Team tier for collaboration features
+- Technical adopters prove the system in the open
+- The foundation earns trust through clarity, standards, and real workflows
+- The adoption story starts with control, not with forced monetization
 
-### Usage-Based
+### Studio
 
-- Regenerations and spec operations
-- CI/CD integration credits
-- Evolution suggestions and auto-fixes
-
-### Future: Marketplace
-
-- Templates and modules
-- Vertical-specific contract libraries
-- Enterprise custom integrations
+- Teams buy the operating product when it removes coordination and operational drag
+- Studio packages evidence, drafting, review, export, and follow-up on top of the same explicit layer
+- The sale happens after the open foundation has earned the right to matter
 
 ---
 
@@ -175,112 +129,76 @@ TypeScript, Zod, Prisma, GraphQL, REST — all standard. No proprietary runtime,
 
 ### Feature Design
 
-✅ Does this feature help stabilize AI-generated code?
-✅ Does it work with existing codebases (incremental adoption)?
-✅ Does it generate standard, ejectable code?
-✅ Does it enforce contracts across multiple surfaces?
-✅ Can AI agents read and respect this spec?
-❌ Does this feature create lock-in?
-❌ Does this require a full rewrite to adopt?
-❌ Does this introduce proprietary runtime dependencies?
+✅ Does this feature strengthen the explicit system layer?
+✅ Does it help multiple surfaces stay aligned?
+✅ Can a team adopt it incrementally?
+✅ Does it keep outputs inspectable and standard?
+❌ Does it require lock-in to feel valuable?
+❌ Does it blur the line between OSS foundation and Studio operating product?
 
 ### DX & Messaging
 
-✅ Does messaging emphasize "stabilize" not "replace"?
-✅ Is the learning curve minimal (just TypeScript)?
-✅ Is it clear you own the generated code?
-✅ Does the experience feel like a compiler, not a platform?
-❌ Are we using language that implies lock-in?
-❌ Are we hiding the generated code from developers?
+✅ Does messaging emphasize explicit control, stability, and incremental adoption?
+✅ Is it clear what lives in OSS/Core versus Studio?
+✅ Does it avoid calling the whole company a compiler or a generic platform?
+❌ Are we implying that teams must buy Studio to get value?
+❌ Are we hiding generated artifacts or runtime behavior behind product language?
 
 ### AI Safety & Governance
 
-✅ Can this spec be used to validate AI-generated code?
-✅ Does this help AI agents understand system constraints?
-✅ Is contract violation detectable at compile time?
-✅ Are breaking changes explicit and auditable?
-❌ Does this allow AI to bypass contract enforcement?
-❌ Does this make it harder to audit AI-generated changes?
+✅ Can AI-generated changes be validated against explicit contracts?
+✅ Does this make drift easier to detect and reason about?
+✅ Are breaking changes and operational decisions auditable?
+❌ Does this let AI bypass the explicit control layer?
 
 ### Technical Architecture
 
-✅ Is the generated code standard tech (no magic)?
-✅ Can developers read and modify generated code?
-✅ Is ejection possible at any point?
-✅ Does this maintain multi-surface consistency?
-❌ Are we introducing proprietary abstractions?
-❌ Are we making decisions that increase lock-in?
+✅ Is the code standard and inspectable?
+✅ Are apps thin and lower layers reusable?
+✅ Does this preserve the open-system-to-Studio progression?
+❌ Are we introducing proprietary abstractions that weaken the core story?
 
 ---
 
 ## Competitive Differentiation
 
-**We are NOT:**
+**We are not:**
 
-- A code generator you run once and maintain forever (Swagger/OpenAPI codegen)
-- A database-centric tool that forces your architecture (Prisma-first)
-- A no-code platform for non-technical users
-- A proprietary runtime you can't escape
+- a one-shot generator you run once and abandon
+- a closed AI platform that hides its runtime
+- a rewrite-only framework for greenfield demos
 
-**We ARE:**
+**We are:**
 
-- The **compiler** that keeps AI-generated code safe and consistent
-- A **governance layer** for AI-coded systems
-- A **stabilization tool** for existing messy codebases
-- A **contract-first** approach with standard tech outputs
+- an **open spec system** for AI-native software
+- an **explicit control layer** for teams whose systems are starting to drift
+- a **bridge from OSS foundation to operating product** when teams want the packaged loop
 
 ---
 
 ## Key Concepts
 
-### Contracts (Specs)
+### Contracts
 
-The canonical source of truth. Contracts define operations (commands/queries), events, and presentations. AI agents and code generators read contracts to understand system constraints.
+The canonical source of truth. Contracts define operations, events, presentations, policies, and constraints that other surfaces must respect.
 
 ### Multi-Surface Generation
 
-One contract generates multiple outputs:
+One explicit layer can shape multiple surfaces:
 
-- **REST API**: Type-safe endpoints with validation
-- **GraphQL Schema**: Automatically generated resolvers
-- **Database Schema**: Prisma migrations and types
-- **MCP Tools**: AI agent tool definitions
-- **Client SDKs**: Type-safe API clients
+- REST and GraphQL APIs
+- database schema and validation
+- UI presentations and client types
+- MCP tools and agent-facing surfaces
 
 ### Safe Regeneration
 
-The ability to regenerate code at any time without breaking invariants. Specs enforce constraints. Breaking changes are caught early.
+Teams can change specs and regenerate confidently because the system boundaries are explicit and reviewable.
 
 ### Incremental Adoption
 
-You don't rewrite your app. You introduce contracts module by module. Start with one endpoint, one entity, one surface. Expand as you see value.
+Teams start where the pain is real. One module, one workflow, one unstable surface at a time.
 
----
+### Studio
 
-## Messaging Guidelines
-
-### Use This Language
-
-- "Stabilize your AI-generated code"
-- "Compiler for AI-coded systems"
-- "You own the code"
-- "Standard tech, no lock-in"
-- "One module at a time"
-- "Safe regeneration"
-
-### Avoid This Language
-
-- "Platform" (implies lock-in)
-- "Rewrite your app" (implies big-bang adoption)
-- "Our runtime" (implies dependency)
-- "Magic" (implies hidden complexity)
-- "Replace your stack" (implies migration)
-
----
-
-## References
-
-- See `docs/` for detailed technical documentation
-- See `examples/` for implementation patterns
-- See `package-architecture.md` for package structure and dependency rules
-- See `packages/libs/contracts/README.md` for core contract definitions
+The operating product built on top of the same foundation. Studio exists to package the loop, not replace the underlying system story.

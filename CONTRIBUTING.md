@@ -81,8 +81,8 @@ Reusable utilities, contracts, and the design system. (e.g., `contracts`, `desig
 ## 📏 Standards & Conventions
 
 - **Package Manager**: `bun`
-- **Formatting**: `prettier` (handled by CI)
-- **Linting**: `eslint` (handled by CI)
+- **Formatting**: `biome` (handled by CI)
+- **Linting**: `biome` (handled by CI)
 - **Commits**: Conventional Commits (e.g., `feat: ...`, `fix: ...`)
 
 ## ❓ Need Help?

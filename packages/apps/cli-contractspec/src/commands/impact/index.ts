@@ -13,49 +13,49 @@
  * @module commands/impact
  */
 
-import { Command } from 'commander';
 import {
-  createConsoleLoggerAdapter,
-  createNoopLoggerAdapter,
-  createNodeFsAdapter,
-  createNodeGitAdapter,
-  impact,
+	createConsoleLoggerAdapter,
+	createNodeFsAdapter,
+	createNodeGitAdapter,
+	createNoopLoggerAdapter,
+	impact,
 } from '@contractspec/bundle.workspace';
+import { Command } from 'commander';
 
 export type ImpactOutputFormat = 'text' | 'json' | 'markdown' | 'check-run';
 
 export interface ImpactCommandOptions {
-  baseline?: string;
-  format?: ImpactOutputFormat;
-  failOnBreaking?: boolean;
-  pattern?: string;
-  quiet?: boolean;
+	baseline?: string;
+	format?: ImpactOutputFormat;
+	failOnBreaking?: boolean;
+	pattern?: string;
+	quiet?: boolean;
 }
 
 /**
  * Create the impact command.
  */
 export function createImpactCommand(): Command {
-  const command = new Command('impact')
-    .description('Detect breaking and non-breaking contract changes')
-    .option(
-      '-b, --baseline <ref>',
-      'Git ref to compare against (branch, tag, commit)'
-    )
-    .option(
-      '-f, --format <format>',
-      'Output format (text, json, markdown, check-run)',
-      'text'
-    )
-    .option(
-      '--fail-on-breaking',
-      'Exit with error code if breaking changes detected'
-    )
-    .option('-p, --pattern <glob>', 'Glob pattern for spec discovery')
-    .option('-q, --quiet', 'Minimal output')
-    .action(runImpactCommand);
+	const command = new Command('impact')
+		.description('Detect breaking and non-breaking contract changes')
+		.option(
+			'-b, --baseline <ref>',
+			'Git ref to compare against (branch, tag, commit)'
+		)
+		.option(
+			'-f, --format <format>',
+			'Output format (text, json, markdown, check-run)',
+			'text'
+		)
+		.option(
+			'--fail-on-breaking',
+			'Exit with error code if breaking changes detected'
+		)
+		.option('-p, --pattern <glob>', 'Glob pattern for spec discovery')
+		.option('-q, --quiet', 'Minimal output')
+		.action(runImpactCommand);
 
-  return command;
+	return command;
 }
 
 /**
@@ -65,112 +65,112 @@ export function createImpactCommand(): Command {
  * Run the impact command.
  */
 export async function runImpactCommand(
-  options: ImpactCommandOptions
+	options: ImpactCommandOptions
 ): Promise<void> {
-  const fs = createNodeFsAdapter();
-  const git = createNodeGitAdapter();
-  // Use noop logger for machine-readable formats to keep stdout clean
-  const isTextOutput = options.format === 'text' || !options.format;
-  const logger = isTextOutput
-    ? createConsoleLoggerAdapter()
-    : createNoopLoggerAdapter();
+	const fs = createNodeFsAdapter();
+	const git = createNodeGitAdapter();
+	// Use noop logger for machine-readable formats to keep stdout clean
+	const isTextOutput = options.format === 'text' || !options.format;
+	const logger = isTextOutput
+		? createConsoleLoggerAdapter()
+		: createNoopLoggerAdapter();
 
-  try {
-    const result = await impact.detectImpact(
-      { fs, git, logger },
-      {
-        baseline: options.baseline,
-        pattern: options.pattern,
-      }
-    );
+	try {
+		const result = await impact.detectImpact(
+			{ fs, git, logger },
+			{
+				baseline: options.baseline,
+				pattern: options.pattern,
+			}
+		);
 
-    // Format and output result
-    const format = options.format ?? 'text';
-    let output: string;
+		// Format and output result
+		const format = options.format ?? 'text';
+		let output: string;
 
-    switch (format) {
-      case 'json':
-        output = impact.formatJson(result);
-        break;
-      case 'markdown':
-        output = impact.formatPrComment(result, { template: 'detailed' });
-        break;
-      case 'check-run':
-        output = JSON.stringify(
-          impact.formatCheckRun(result, 'HEAD', {
-            failOnBreaking: options.failOnBreaking,
-          }),
-          null,
-          2
-        );
-        break;
-      case 'text':
-      default:
-        output = formatTextOutput(result);
-        break;
-    }
+		switch (format) {
+			case 'json':
+				output = impact.formatJson(result);
+				break;
+			case 'markdown':
+				output = impact.formatPrComment(result, { template: 'detailed' });
+				break;
+			case 'check-run':
+				output = JSON.stringify(
+					impact.formatCheckRun(result, 'HEAD', {
+						failOnBreaking: options.failOnBreaking,
+					}),
+					null,
+					2
+				);
+				break;
+			case 'text':
+			default:
+				output = formatTextOutput(result);
+				break;
+		}
 
-    console.log(output);
+		console.log(output);
 
-    // Exit with error if breaking changes and flag is set
-    if (options.failOnBreaking && result.hasBreaking) {
-      process.exit(1);
-    }
-  } catch (error) {
-    logger.error('Impact detection failed', { error });
-    process.exit(1);
-  }
+		// Exit with error if breaking changes and flag is set
+		if (options.failOnBreaking && result.hasBreaking) {
+			process.exit(1);
+		}
+	} catch (error) {
+		logger.error('Impact detection failed', { error });
+		process.exit(1);
+	}
 }
 
 /**
  * Format result as text output.
  */
 function formatTextOutput(
-  result: Awaited<ReturnType<typeof impact.detectImpact>>
+	result: Awaited<ReturnType<typeof impact.detectImpact>>
 ): string {
-  const lines: string[] = [];
+	const lines: string[] = [];
 
-  // Status
-  if (result.hasBreaking) {
-    lines.push('❌ Breaking changes detected');
-  } else if (result.hasNonBreaking) {
-    lines.push('⚠️  Contract changed (non-breaking)');
-  } else {
-    lines.push('✅ No contract impact');
-  }
-  lines.push('');
+	// Status
+	if (result.hasBreaking) {
+		lines.push('❌ Breaking changes detected');
+	} else if (result.hasNonBreaking) {
+		lines.push('⚠️  Contract changed (non-breaking)');
+	} else {
+		lines.push('✅ No contract impact');
+	}
+	lines.push('');
 
-  // Summary
-  if (result.summary.breaking > 0) {
-    lines.push(`  Breaking:     ${result.summary.breaking}`);
-  }
-  if (result.summary.nonBreaking > 0) {
-    lines.push(`  Non-breaking: ${result.summary.nonBreaking}`);
-  }
-  if (result.summary.added > 0) {
-    lines.push(`  Added:        ${result.summary.added}`);
-  }
-  if (result.summary.removed > 0) {
-    lines.push(`  Removed:      ${result.summary.removed}`);
-  }
+	// Summary
+	if (result.summary.breaking > 0) {
+		lines.push(`  Breaking:     ${result.summary.breaking}`);
+	}
+	if (result.summary.nonBreaking > 0) {
+		lines.push(`  Non-breaking: ${result.summary.nonBreaking}`);
+	}
+	if (result.summary.added > 0) {
+		lines.push(`  Added:        ${result.summary.added}`);
+	}
+	if (result.summary.removed > 0) {
+		lines.push(`  Removed:      ${result.summary.removed}`);
+	}
 
-  // Details
-  if (result.deltas.length > 0) {
-    lines.push('');
-    lines.push('Changes:');
-    for (const delta of result.deltas.slice(0, 20)) {
-      const icon =
-        delta.severity === 'breaking'
-          ? '🔴'
-          : delta.severity === 'non_breaking'
-            ? '🟡'
-            : '🔵';
-      lines.push(`  ${icon} ${delta.specKey}: ${delta.description}`);
-    }
-    if (result.deltas.length > 20) {
-      lines.push(`  ... and ${result.deltas.length - 20} more`);
-    }
-  }
+	// Details
+	if (result.deltas.length > 0) {
+		lines.push('');
+		lines.push('Changes:');
+		for (const delta of result.deltas.slice(0, 20)) {
+			const icon =
+				delta.severity === 'breaking'
+					? '🔴'
+					: delta.severity === 'non_breaking'
+						? '🟡'
+						: '🔵';
+			lines.push(`  ${icon} ${delta.specKey}: ${delta.description}`);
+		}
+		if (result.deltas.length > 20) {
+			lines.push(`  ... and ${result.deltas.length - 20} more`);
+		}
+	}
 
-  return lines.join('\n');
+	return lines.join('\n');
 }

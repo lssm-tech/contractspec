@@ -1,109 +1,54 @@
 # @contractspec/lib.ui-kit-web
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Web UI components built on Radix primitives with design-system token integration.**
 
-Web-specific UI components and primitives for Next.js/React applications, built on top of Radix UI and Tailwind CSS.
+## What It Provides
 
-## Purpose
-
-To provide a comprehensive set of accessible, high-performance UI components specifically optimized for the modern web. While `@contractspec/lib.ui-kit` focuses on universal (native + web) compatibility, this library leverages web-only capabilities like portals, heavy data tables, and mapping libraries.
+- **Layer**: lib
+- **Consumers**: design-system, example-shared-ui, presentation-runtime-react, bundles
 
 ## Installation
 
-```bash
-npm install @contractspec/lib.ui-kit-web
-# or
-bun add @contractspec/lib.ui-kit-web
-```
+`npm install @contractspec/lib.ui-kit-web`
 
-## Key Concepts
+or
 
-- **Radix UI Primitives**: Most components are unstyled accessible wrappers around Radix UI.
-- **Shadcn UI Compatible**: Structure and styling closely follow the popular shadcn/ui patterns, making it easy to adopt and extend.
-- **Web Optimizations**: Includes `SkipLink`, `VisuallyHidden`, and `LiveRegion` for WCAG compliance.
-- **Mapping**: Integrated `maplibre-gl` components for geo-spatial visualizations.
-
-## Exports
-
-### Core UI
-
-- Standard Radix wrappers: `accordion`, `dialog`, `dropdown-menu`, `popover`, `tabs`, etc.
-- Forms: `input`, `select`, `checkbox`, `switch`, `slider`, `radio-group`.
-- Feedback: `toast`, `alert`, `progress`, `skeleton`.
-
-### Web Specifics
-
-- `ui/map/*`: `MapBase`, `MapGeoJsonOverlay`, `MapHeatmapH3`, `MapMarkers`.
-- `ui/resizable`: Resizable panel layouts.
-- `ui/scroll-area`: Custom cross-browser scrollbars.
-- `ui/sonner`: High-performance toast notifications.
-
-### Accessibility
-
-- `ui/skip-link`: For keyboard navigation users.
-- `ui/visually-hidden`: For screen-reader only content.
-- `ui/live-region`: Announce dynamic changes.
-- `ui/route-announcer`: Announce page changes in SPAs.
+`bun add @contractspec/lib.ui-kit-web`
 
 ## Usage
 
-```tsx
-import { Button } from '@contractspec/lib.ui-kit-web/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from '@contractspec/lib.ui-kit-web/ui/dialog';
-import { Input } from '@contractspec/lib.ui-kit-web/ui/input';
+Import the root entrypoint from `@contractspec/lib.ui-kit-web`, or use one of the documented subpaths when you want a narrower surface area.
 
-export function LoginModal() {
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">Login</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <div className="grid gap-4 py-4">
-          <Input id="email" placeholder="Email" />
-          <Button type="submit">Sign in</Button>
-        </div>
-      </DialogContent>
-    </Dialog>
-  );
-}
-```
+## Public Entry Points
 
+- `.` — main entry
+- `./ui/*` — individual component exports (many components)
 
+## Local Commands
 
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — jest --passWithNoTests
+- `bun run lint` — bun run lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rm -rf dist
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
 
+## Recent Updates
 
+- Missing dependencies (thanks to knip)
+- Replace eslint+prettier by biomejs to optimize speed
+- Add data visualization capabilities
 
+## Notes
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Radix primitive wrappers must stay accessible (ARIA, keyboard nav)
+- Component API must align with design-system tokens
+- Do not bypass Radix for custom implementations without justification

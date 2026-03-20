@@ -1,197 +1,73 @@
 # @contractspec/lib.files
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Files, documents and attachments module for ContractSpec applications.**
 
-Files, documents, and attachments module for ContractSpec applications.
+## What It Provides
 
-## Overview
+- **Layer**: lib.
+- **Consumers**: bundles.
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/docs/` contains docblocks and documentation-facing exports.
 
-This module provides a reusable file management system that can be used across all ContractSpec applications. It supports:
+## Installation
 
-- **File Storage**: Upload and manage files with multiple storage backends
-- **Document Versioning**: Track file versions over time
-- **Polymorphic Attachments**: Attach files to any entity type
-- **Access Control**: Control who can upload, view, and delete files
-- **Presigned URLs**: Direct uploads to storage backends
+`npm install @contractspec/lib.files`
 
-## Entities
+or
 
-### File
-
-Core file record.
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id | string | Unique identifier |
-| name | string | Original file name |
-| mimeType | string | MIME type |
-| size | int | File size in bytes |
-| storageProvider | enum | Storage backend (local, s3, etc.) |
-| storagePath | string | Path in storage backend |
-| checksum | string | File checksum (SHA-256) |
-| ownerId | string | User who uploaded |
-| orgId | string | Organization scope |
-| isPublic | boolean | Whether file is publicly accessible |
-| metadata | json | Additional metadata |
-| createdAt | datetime | Upload timestamp |
-| updatedAt | datetime | Last update timestamp |
-
-### FileVersion
-
-Version history for documents.
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id | string | Unique identifier |
-| fileId | string | Parent file |
-| version | int | Version number |
-| size | int | Version size in bytes |
-| storagePath | string | Path in storage |
-| checksum | string | Version checksum |
-| createdBy | string | User who created version |
-| createdAt | datetime | Version timestamp |
-| comment | string | Version comment |
-
-### Attachment
-
-Polymorphic link between files and entities.
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id | string | Unique identifier |
-| fileId | string | Attached file |
-| entityType | string | Target entity type |
-| entityId | string | Target entity ID |
-| attachmentType | string | Type of attachment (document, image, etc.) |
-| order | int | Display order |
-| metadata | json | Attachment-specific metadata |
-| createdAt | datetime | Attachment timestamp |
-
-## Contracts
-
-### Commands
-
-- `file.upload` - Upload a new file
-- `file.update` - Update file metadata
-- `file.delete` - Delete a file
-- `file.createVersion` - Create a new version
-- `attachment.attach` - Attach file to entity
-- `attachment.detach` - Remove attachment
-- `presignedUrl.create` - Get presigned upload URL
-
-### Queries
-
-- `file.get` - Get file by ID
-- `file.list` - List files with filtering
-- `file.getVersions` - Get file version history
-- `file.download` - Get download URL
-- `attachment.list` - List attachments for entity
-
-## Events
-
-- `file.uploaded` - File was uploaded
-- `file.updated` - File metadata changed
-- `file.deleted` - File was deleted
-- `file.version_created` - New version created
-- `attachment.attached` - File attached to entity
-- `attachment.detached` - File detached from entity
-
-## Storage Adapters
-
-### LocalStorageAdapter
-
-For development and testing. Stores files on the local filesystem.
-
-```typescript
-import { LocalStorageAdapter } from '@contractspec/lib.files/storage';
-
-const storage = new LocalStorageAdapter({
-  basePath: './uploads',
-  baseUrl: 'http://localhost:3000/uploads',
-});
-```
-
-### S3StorageAdapter
-
-For production use with AWS S3 or compatible services.
-
-```typescript
-import { S3StorageAdapter } from '@contractspec/lib.files/storage';
-
-const storage = new S3StorageAdapter({
-  bucket: 'my-bucket',
-  region: 'us-east-1',
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-});
-```
+`bun add @contractspec/lib.files`
 
 ## Usage
 
-```typescript
-import { 
-  FileEntity, 
-  UploadFileContract,
-  LocalStorageAdapter 
-} from '@contractspec/lib.files';
+Import the root entrypoint from `@contractspec/lib.files`, or choose a documented subpath when you only need one part of the package surface.
 
-// Upload a file
-const file = await fileService.upload({
-  name: 'document.pdf',
-  mimeType: 'application/pdf',
-  size: 1024,
-  content: buffer,
-  orgId: 'org-123',
-});
+## Architecture
 
-// Attach to an entity
-await attachmentService.attach({
-  fileId: file.id,
-  entityType: 'deal',
-  entityId: 'deal-456',
-  attachmentType: 'contract',
-});
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/entities/` contains domain entities and value objects.
+- `src/events.ts` is package-level event definitions.
+- `src/files.capability.ts` defines a capability surface.
+- `src/files.feature.ts` defines a feature entrypoint.
+- `src/index.ts` is the root public barrel and package entrypoint.
 
-// List attachments
-const attachments = await attachmentService.list({
-  entityType: 'deal',
-  entityId: 'deal-456',
-});
-```
+## Public Entry Points
 
-## Integration
+- Export `.` resolves through `./src/index.ts`.
+- Export `./contracts` resolves through `./src/contracts/index.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./docs/files.docblock` resolves through `./src/docs/files.docblock.ts`.
+- Export `./entities` resolves through `./src/entities/index.ts`.
+- Export `./events` resolves through `./src/events.ts`.
+- Export `./files.capability` resolves through `./src/files.capability.ts`.
+- Export `./files.feature` resolves through `./src/files.feature.ts`.
+- Export `./storage` resolves through `./src/storage/index.ts`.
 
-This module integrates with:
+## Local Commands
 
-- `@contractspec/lib.identity-rbac` - Access control
-- `@contractspec/module.audit-trail` - File operations audit
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-## Schema Contribution
+## Recent Updates
 
-```typescript
-import { filesSchemaContribution } from '@contractspec/lib.files';
+- Replace eslint+prettier by biomejs to optimize speed.
 
-export const schemaComposition = {
-  modules: [
-    filesSchemaContribution,
-    // ... other modules
-  ],
-};
-```
+## Notes
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Storage interface is the adapter boundary — do not couple consumers to a specific storage provider.
+- File entity schema is shared; field changes require migration coordination.
+- Capability contract is public API.

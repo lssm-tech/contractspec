@@ -3,9 +3,9 @@ import type React from 'react';
 export const dynamic = 'force-dynamic';
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  return <>{children}</>;
+	return <>{children}</>;
 }

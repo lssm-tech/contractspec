@@ -1,13 +1,12 @@
 {
   "name": "@contractspec/example.openbanking-powens",
-  "version": "3.6.0",
+  "version": "3.7.7",
   "description": "OpenBanking Powens example: OAuth callback + webhook handler patterns (provider + workflows).",
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./src/index.ts",
     "./docs": "./src/docs/index.ts",
-    "./docs/index": "./src/docs/index.ts",
     "./docs/openbanking-powens.docblock": "./src/docs/openbanking-powens.docblock.ts",
     "./example": "./src/example.ts",
     "./handlers/oauth-callback": "./src/handlers/oauth-callback.ts",
@@ -23,8 +22,8 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
@@ -48,12 +47,6 @@
         "default": "./dist/index.js"
       },
       "./docs": {
-        "types": "./dist/docs/index.d.ts",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
-      "./docs/index": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
         "node": "./dist/node/docs/index.js",

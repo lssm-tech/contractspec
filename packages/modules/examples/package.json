@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.examples",
-  "version": "3.6.0",
+  "version": "3.7.7",
   "description": "Example contract specifications collection",
   "keywords": [
     "contractspec",
@@ -24,10 +24,11 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "test": "bun test",
-    "prebuild": "contractspec-bun-build prebuild",
+    "generate:registry": "bun ../../../scripts/generate-example-registry.ts --write",
+    "prebuild": "bun run generate:registry && contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -36,10 +37,15 @@
     "@contractspec/example.ai-chat-assistant": "workspace:*",
     "@contractspec/example.ai-support-bot": "workspace:*",
     "@contractspec/example.analytics-dashboard": "workspace:*",
+    "@contractspec/example.calendar-google": "workspace:*",
     "@contractspec/example.content-generation": "workspace:*",
     "@contractspec/example.crm-pipeline": "workspace:*",
+    "@contractspec/example.email-gmail": "workspace:*",
+    "@contractspec/example.in-app-docs": "workspace:*",
     "@contractspec/example.integration-hub": "workspace:*",
+    "@contractspec/example.integration-posthog": "workspace:*",
     "@contractspec/example.integration-stripe": "workspace:*",
+    "@contractspec/example.integration-supabase": "workspace:*",
     "@contractspec/example.voice-providers": "workspace:*",
     "@contractspec/example.kb-update-pipeline": "workspace:*",
     "@contractspec/example.knowledge-canon": "workspace:*",
@@ -59,13 +65,20 @@
     "@contractspec/example.lifecycle-dashboard": "workspace:*",
     "@contractspec/example.locale-jurisdiction-gate": "workspace:*",
     "@contractspec/example.marketplace": "workspace:*",
+    "@contractspec/example.meeting-recorder-providers": "workspace:*",
     "@contractspec/example.openbanking-powens": "workspace:*",
     "@contractspec/example.personalization": "workspace:*",
+    "@contractspec/example.pocket-family-office": "workspace:*",
     "@contractspec/example.policy-safe-knowledge-assistant": "workspace:*",
+    "@contractspec/example.product-intent": "workspace:*",
+    "@contractspec/example.project-management-sync": "workspace:*",
     "@contractspec/example.saas-boilerplate": "workspace:*",
     "@contractspec/example.service-business-os": "workspace:*",
     "@contractspec/example.team-hub": "workspace:*",
     "@contractspec/example.versioned-knowledge-base": "workspace:*",
+    "@contractspec/example.video-api-showcase": "workspace:*",
+    "@contractspec/example.video-docs-terminal": "workspace:*",
+    "@contractspec/example.video-marketing-clip": "workspace:*",
     "@contractspec/example.wealth-snapshot": "workspace:*",
     "@contractspec/example.workflow-system": "workspace:*",
     "@contractspec/lib.contracts-spec": "workspace:*",
@@ -88,7 +101,6 @@
         "types": "./dist/index.d.ts",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       }
     },
@@ -98,7 +110,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/modules/contractspec-examples"
+    "directory": "packages/modules/examples"
   },
   "homepage": "https://contractspec.io"
 }

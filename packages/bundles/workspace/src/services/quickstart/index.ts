@@ -5,6 +5,6 @@
  * for ContractSpec to work.
  */
 
-export * from './types';
 export * from './dependencies';
 export * from './quickstart-service';
+export * from './types';

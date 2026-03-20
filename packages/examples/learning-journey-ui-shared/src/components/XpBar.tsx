@@ -5,50 +5,50 @@ import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import type { XpBarProps } from '../types';
 
 const sizeStyles = {
-  sm: 'h-2',
-  md: 'h-3',
-  lg: 'h-4',
+	sm: 'h-2',
+	md: 'h-3',
+	lg: 'h-4',
 };
 
 const labelSizeStyles = {
-  sm: 'text-xs',
-  md: 'text-sm',
-  lg: 'text-base',
+	sm: 'text-xs',
+	md: 'text-sm',
+	lg: 'text-base',
 };
 
 export function XpBar({
-  current,
-  max,
-  level,
-  showLabel = true,
-  size = 'md',
+	current,
+	max,
+	level,
+	showLabel = true,
+	size = 'md',
 }: XpBarProps) {
-  const percentage = max > 0 ? Math.min((current / max) * 100, 100) : 0;
+	const percentage = max > 0 ? Math.min((current / max) * 100, 100) : 0;
 
-  return (
-    <div className="w-full space-y-1">
-      {showLabel && (
-        <div
-          className={cn(
-            'flex items-center justify-between',
-            labelSizeStyles[size]
-          )}
-        >
-          <span className="text-muted-foreground font-medium">
-            {level !== undefined && (
-              <span className="text-primary mr-1">Lvl {level}</span>
-            )}
-            XP
-          </span>
-          <span className="font-semibold">
-            {current.toLocaleString()} / {max.toLocaleString()}
-          </span>
-        </div>
-      )}
-      <Progress
-        value={percentage}
-        className={cn('bg-muted', sizeStyles[size])}
-      />
-    </div>
-  );
+	return (
+		<div className="w-full space-y-1">
+			{showLabel && (
+				<div
+					className={cn(
+						'flex items-center justify-between',
+						labelSizeStyles[size]
+					)}
+				>
+					<span className="font-medium text-muted-foreground">
+						{level !== undefined && (
+							<span className="mr-1 text-primary">Lvl {level}</span>
+						)}
+						XP
+					</span>
+					<span className="font-semibold">
+						{current.toLocaleString()} / {max.toLocaleString()}
+					</span>
+				</div>
+			)}
+			<Progress
+				value={percentage}
+				className={cn('bg-muted', sizeStyles[size])}
+			/>
+		</div>
+	);
 }

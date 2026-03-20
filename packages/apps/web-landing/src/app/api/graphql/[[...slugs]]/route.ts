@@ -1,11 +1,12 @@
 import { Elysia } from 'elysia';
+
 // import { WebStandardAdapter } from 'elysia/adapter/web-standard';
 // Studio GraphQL disabled for public landing app
 // import { mountContractSpecStudioGraphQL } from '@contractspec/bundle.studio/infrastructure';
 
 const app = new Elysia({
-  prefix: '/api',
-  // adapter: WebStandardAdapter,
+	prefix: '/api',
+	// adapter: WebStandardAdapter,
 });
 // .use(mountContractSpecStudioGraphQL());
 

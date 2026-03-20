@@ -1,2 +1,2 @@
 export { ListPage } from './ListPage';
-export type { ListPageProps, ListPageFilter } from './types';
+export type { ListPageFilter, ListPageProps } from './types';

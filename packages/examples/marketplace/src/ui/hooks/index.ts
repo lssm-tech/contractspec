@@ -1,6 +1,6 @@
 'use client';
 
 export {
-  useMarketplaceData,
-  type MarketplaceStats,
+	type MarketplaceStats,
+	useMarketplaceData,
 } from './useMarketplaceData';

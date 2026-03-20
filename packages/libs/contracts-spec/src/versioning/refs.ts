@@ -22,10 +22,10 @@
  * ```
  */
 export interface VersionedSpecRef {
-  /** Unique key identifying the spec (e.g., "auth.login", "user.created"). */
-  key: string;
-  /** Semantic version of the spec (e.g., "1.0.0", "2.1.0"). */
-  version: string;
+	/** Unique key identifying the spec (e.g., "auth.login", "user.created"). */
+	key: string;
+	/** Semantic version of the spec (e.g., "1.0.0", "2.1.0"). */
+	version: string;
 }
 
 /**
@@ -42,10 +42,10 @@ export interface VersionedSpecRef {
  * ```
  */
 export interface OptionalVersionedSpecRef {
-  /** Unique key identifying the spec. */
-  key: string;
-  /** Optional semantic version. When omitted, refers to the latest version. */
-  version?: string;
+	/** Unique key identifying the spec. */
+	key: string;
+	/** Optional semantic version. When omitted, refers to the latest version. */
+	version?: string;
 }
 
 /**
@@ -58,8 +58,8 @@ export interface OptionalVersionedSpecRef {
  * ```
  */
 export interface SpecKeyRef {
-  /** Unique key identifying the spec. */
-  key: string;
+	/** Unique key identifying the spec. */
+	key: string;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -81,16 +81,16 @@ export interface SpecKeyRef {
  * ```
  */
 export function isVersionedSpecRef(ref: unknown): ref is VersionedSpecRef {
-  return (
-    typeof ref === 'object' &&
-    ref !== null &&
-    'key' in ref &&
-    typeof (ref as VersionedSpecRef).key === 'string' &&
-    (ref as VersionedSpecRef).key.length > 0 &&
-    'version' in ref &&
-    typeof (ref as VersionedSpecRef).version === 'string' &&
-    (ref as VersionedSpecRef).version.length > 0
-  );
+	return (
+		typeof ref === 'object' &&
+		ref !== null &&
+		'key' in ref &&
+		typeof (ref as VersionedSpecRef).key === 'string' &&
+		(ref as VersionedSpecRef).key.length > 0 &&
+		'version' in ref &&
+		typeof (ref as VersionedSpecRef).version === 'string' &&
+		(ref as VersionedSpecRef).version.length > 0
+	);
 }
 
 /**
@@ -108,20 +108,20 @@ export function isVersionedSpecRef(ref: unknown): ref is VersionedSpecRef {
  * ```
  */
 export function isOptionalVersionedSpecRef(
-  ref: unknown
+	ref: unknown
 ): ref is OptionalVersionedSpecRef {
-  if (typeof ref !== 'object' || ref === null) return false;
-  if (!('key' in ref)) return false;
-  if (
-    typeof (ref as OptionalVersionedSpecRef).key !== 'string' ||
-    (ref as OptionalVersionedSpecRef).key.length === 0
-  ) {
-    return false;
-  }
-  if ('version' in ref && (ref as OptionalVersionedSpecRef).version != null) {
-    return typeof (ref as OptionalVersionedSpecRef).version === 'string';
-  }
-  return true;
+	if (typeof ref !== 'object' || ref === null) return false;
+	if (!('key' in ref)) return false;
+	if (
+		typeof (ref as OptionalVersionedSpecRef).key !== 'string' ||
+		(ref as OptionalVersionedSpecRef).key.length === 0
+	) {
+		return false;
+	}
+	if ('version' in ref && (ref as OptionalVersionedSpecRef).version != null) {
+		return typeof (ref as OptionalVersionedSpecRef).version === 'string';
+	}
+	return true;
 }
 
 /**
@@ -139,13 +139,13 @@ export function isOptionalVersionedSpecRef(
  * ```
  */
 export function isSpecKeyRef(ref: unknown): ref is SpecKeyRef {
-  return (
-    typeof ref === 'object' &&
-    ref !== null &&
-    'key' in ref &&
-    typeof (ref as SpecKeyRef).key === 'string' &&
-    (ref as SpecKeyRef).key.length > 0
-  );
+	return (
+		typeof ref === 'object' &&
+		ref !== null &&
+		'key' in ref &&
+		typeof (ref as SpecKeyRef).key === 'string' &&
+		(ref as SpecKeyRef).key.length > 0
+	);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -167,16 +167,16 @@ export function isSpecKeyRef(ref: unknown): ref is SpecKeyRef {
  * ```
  */
 export function createVersionedRef(
-  key: string,
-  version: string
+	key: string,
+	version: string
 ): VersionedSpecRef {
-  if (!key || key.trim().length === 0) {
-    throw new Error('Spec key cannot be empty');
-  }
-  if (!version || version.trim().length === 0) {
-    throw new Error('Spec version cannot be empty');
-  }
-  return { key: key.trim(), version: version.trim() };
+	if (!key || key.trim().length === 0) {
+		throw new Error('Spec key cannot be empty');
+	}
+	if (!version || version.trim().length === 0) {
+		throw new Error('Spec version cannot be empty');
+	}
+	return { key: key.trim(), version: version.trim() };
 }
 
 /**
@@ -199,17 +199,17 @@ export function createVersionedRef(
  * ```
  */
 export function createOptionalRef(
-  key: string,
-  version?: string
+	key: string,
+	version?: string
 ): OptionalVersionedSpecRef {
-  if (!key || key.trim().length === 0) {
-    throw new Error('Spec key cannot be empty');
-  }
-  const ref: OptionalVersionedSpecRef = { key: key.trim() };
-  if (version != null && version.trim().length > 0) {
-    ref.version = version.trim();
-  }
-  return ref;
+	if (!key || key.trim().length === 0) {
+		throw new Error('Spec key cannot be empty');
+	}
+	const ref: OptionalVersionedSpecRef = { key: key.trim() };
+	if (version != null && version.trim().length > 0) {
+		ref.version = version.trim();
+	}
+	return ref;
 }
 
 /**
@@ -226,10 +226,10 @@ export function createOptionalRef(
  * ```
  */
 export function createKeyRef(key: string): SpecKeyRef {
-  if (!key || key.trim().length === 0) {
-    throw new Error('Spec key cannot be empty');
-  }
-  return { key: key.trim() };
+	if (!key || key.trim().length === 0) {
+		throw new Error('Spec key cannot be empty');
+	}
+	return { key: key.trim() };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -249,7 +249,7 @@ export function createKeyRef(key: string): SpecKeyRef {
  * ```
  */
 export function formatVersionedRefKey(ref: VersionedSpecRef): string {
-  return `${ref.key}.v${ref.version}`;
+	return `${ref.key}.v${ref.version}`;
 }
 
 /**
@@ -265,12 +265,12 @@ export function formatVersionedRefKey(ref: VersionedSpecRef): string {
  * ```
  */
 export function parseVersionedRefKey(
-  refKey: string
+	refKey: string
 ): VersionedSpecRef | undefined {
-  const match = refKey.match(/^(.+)\.v(\d+\.\d+\.\d+(?:-.+)?)$/);
-  if (!match) return undefined;
-  const key = match[1];
-  const version = match[2];
-  if (!key || !version) return undefined;
-  return { key, version };
+	const match = refKey.match(/^(.+)\.v(\d+\.\d+\.\d+(?:-.+)?)$/);
+	if (!match) return undefined;
+	const key = match[1];
+	const version = match[2];
+	if (!key || !version) return undefined;
+	return { key, version };
 }

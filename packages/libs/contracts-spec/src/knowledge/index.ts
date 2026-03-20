@@ -1,4 +1,4 @@
-export * from './spec';
-export * from './source';
 export * from './binding';
+export * from './source';
 export * from './spaces';
+export * from './spec';

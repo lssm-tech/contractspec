@@ -6,7 +6,7 @@
 import type { DragDropBundleAdapter } from './interfaces';
 
 export const dndKitAdapterStub: DragDropBundleAdapter = {
-  enableSurfaceEditing(_args) {
-    // No-op stub. DnD editing mode in Phase 6.
-  },
+	enableSurfaceEditing(_args) {
+		// No-op stub. DnD editing mode in Phase 6.
+	},
 };

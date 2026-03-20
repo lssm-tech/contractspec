@@ -4,35 +4,33 @@
 
 // Enums
 export {
-  WorkflowStatusEnum,
-  TriggerTypeEnum,
-  StepTypeEnum,
-  ApprovalModeEnum,
+	ApprovalModeEnum,
+	StepTypeEnum,
+	TriggerTypeEnum,
+	WorkflowStatusEnum,
 } from './workflow.enum';
-
-// Schema models
+// Events
 export {
-  WorkflowStepModel,
-  WorkflowDefinitionModel,
-  CreateWorkflowInputModel,
-  UpdateWorkflowInputModel,
-  AddStepInputModel,
-} from './workflow.schema';
+	StepAddedEvent,
+	WorkflowCreatedEvent,
+	WorkflowPublishedEvent,
+	WorkflowUpdatedEvent,
+} from './workflow.event';
 
 // Contracts
 export {
-  CreateWorkflowContract,
-  UpdateWorkflowContract,
-  AddStepContract,
-  PublishWorkflowContract,
-  ListWorkflowsContract,
-  GetWorkflowContract,
+	AddStepContract,
+	CreateWorkflowContract,
+	GetWorkflowContract,
+	ListWorkflowsContract,
+	PublishWorkflowContract,
+	UpdateWorkflowContract,
 } from './workflow.operations';
-
-// Events
+// Schema models
 export {
-  WorkflowCreatedEvent,
-  WorkflowUpdatedEvent,
-  WorkflowPublishedEvent,
-  StepAddedEvent,
-} from './workflow.event';
+	AddStepInputModel,
+	CreateWorkflowInputModel,
+	UpdateWorkflowInputModel,
+	WorkflowDefinitionModel,
+	WorkflowStepModel,
+} from './workflow.schema';

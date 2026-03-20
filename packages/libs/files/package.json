@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.files",
-  "version": "3.6.0",
+  "version": "3.7.7",
   "description": "Files, documents and attachments module for ContractSpec applications",
   "keywords": [
     "contractspec",
@@ -21,8 +21,8 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
   },
@@ -39,17 +39,13 @@
   "exports": {
     ".": "./src/index.ts",
     "./contracts": "./src/contracts/index.ts",
-    "./contracts/index": "./src/contracts/index.ts",
     "./docs": "./src/docs/index.ts",
     "./docs/files.docblock": "./src/docs/files.docblock.ts",
-    "./docs/index": "./src/docs/index.ts",
     "./entities": "./src/entities/index.ts",
-    "./entities/index": "./src/entities/index.ts",
     "./events": "./src/events.ts",
     "./files.capability": "./src/files.capability.ts",
     "./files.feature": "./src/files.feature.ts",
-    "./storage": "./src/storage/index.ts",
-    "./storage/index": "./src/storage/index.ts"
+    "./storage": "./src/storage/index.ts"
   },
   "files": [
     "dist",
@@ -70,12 +66,6 @@
         "node": "./dist/node/contracts/index.js",
         "default": "./dist/contracts/index.js"
       },
-      "./contracts/index": {
-        "types": "./dist/contracts/index.d.ts",
-        "bun": "./dist/contracts/index.js",
-        "node": "./dist/node/contracts/index.js",
-        "default": "./dist/contracts/index.js"
-      },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
         "bun": "./dist/docs/index.js",
@@ -88,19 +78,7 @@
         "node": "./dist/node/docs/files.docblock.js",
         "default": "./dist/docs/files.docblock.js"
       },
-      "./docs/index": {
-        "types": "./dist/docs/index.d.ts",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "default": "./dist/docs/index.js"
-      },
       "./entities": {
-        "types": "./dist/entities/index.d.ts",
-        "bun": "./dist/entities/index.js",
-        "node": "./dist/node/entities/index.js",
-        "default": "./dist/entities/index.js"
-      },
-      "./entities/index": {
         "types": "./dist/entities/index.d.ts",
         "bun": "./dist/entities/index.js",
         "node": "./dist/node/entities/index.js",
@@ -125,12 +103,6 @@
         "default": "./dist/files.feature.js"
       },
       "./storage": {
-        "types": "./dist/storage/index.d.ts",
-        "bun": "./dist/storage/index.js",
-        "node": "./dist/node/storage/index.js",
-        "default": "./dist/storage/index.js"
-      },
-      "./storage/index": {
         "types": "./dist/storage/index.d.ts",
         "bun": "./dist/storage/index.js",
         "node": "./dist/node/storage/index.js",

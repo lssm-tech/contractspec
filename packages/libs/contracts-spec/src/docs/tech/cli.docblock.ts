@@ -1,18 +1,18 @@
-import type { DocBlock } from '../types';
 import { registerDocBlocks } from '../registry';
+import type { DocBlock } from '../types';
 
 export const tech_cli_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.cli.contractspec',
-    title: 'ContractSpec CLI',
-    summary:
-      'The command-line interface for creating, building, and validating contract specifications.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/cli/contractspec',
-    tags: ['cli', 'tooling', 'reference'],
-    owners: ['@contractspec/app.cli-contractspec'],
-    body: `# ContractSpec CLI
+	{
+		id: 'docs.tech.cli.contractspec',
+		title: 'ContractSpec CLI',
+		summary:
+			'The command-line interface for creating, building, and validating contract specifications.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/cli/contractspec',
+		tags: ['cli', 'tooling', 'reference'],
+		owners: ['@contractspec/app.cli-contractspec'],
+		body: `# ContractSpec CLI
 
 The \`@contractspec/app.cli-contractspec\` package provides the command-line interface for the ContractSpec ecosystem.
 
@@ -139,7 +139,7 @@ The CLI is configured via \`.contractsrc.json\` in your project root.
 
 For full documentation, refer to the [package README](https://github.com/contractspec/monorepo/tree/main/packages/apps/cli-contractspec).
 `,
-  },
+	},
 ];
 
 registerDocBlocks(tech_cli_DocBlocks);

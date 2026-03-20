@@ -5,224 +5,267 @@
  */
 
 import type { FsAdapter } from '../../../ports/fs';
-import type { CheckContext, CheckResult } from '../types';
 import { discoverLayers } from '../../layer-discovery';
+import {
+	getStabilityPolicyPath,
+	isCriticalFeatureKey,
+	loadStabilityPolicy,
+} from '../../stability/policy';
+import type { CheckContext, CheckResult } from '../types';
 
 /**
  * Run all layer health checks.
  */
 export async function runLayerChecks(
-  fs: FsAdapter,
-  _ctx: CheckContext
+	fs: FsAdapter,
+	ctx: CheckContext
 ): Promise<CheckResult[]> {
-  const results: CheckResult[] = [];
+	const results: CheckResult[] = [];
+	const policy = await loadStabilityPolicy(fs, ctx.workspaceRoot);
 
-  // Discover layers
-  const discovery = await discoverLayers(
-    {
-      fs,
-      logger: {
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        info: () => {},
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        warn: () => {},
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        error: () => {},
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        debug: () => {},
-        createProgress: () => ({
-          // eslint-disable-next-line @typescript-eslint/no-empty-function
-          start: () => {},
-          // eslint-disable-next-line @typescript-eslint/no-empty-function
-          update: () => {},
-          // eslint-disable-next-line @typescript-eslint/no-empty-function
-          succeed: () => {},
-          // eslint-disable-next-line @typescript-eslint/no-empty-function
-          fail: () => {},
-          // eslint-disable-next-line @typescript-eslint/no-empty-function
-          warn: () => {},
-          // eslint-disable-next-line @typescript-eslint/no-empty-function
-          stop: () => {},
-          // eslint-disable-next-line @typescript-eslint/no-empty-function
-          finish: () => {},
-        }),
-      },
-    },
-    {}
-  );
+	// Discover layers
+	const discovery = await discoverLayers(
+		{
+			fs,
+			logger: {
+				// eslint-disable-next-line @typescript-eslint/no-empty-function
+				info: () => {},
+				// eslint-disable-next-line @typescript-eslint/no-empty-function
+				warn: () => {},
+				// eslint-disable-next-line @typescript-eslint/no-empty-function
+				error: () => {},
+				// eslint-disable-next-line @typescript-eslint/no-empty-function
+				debug: () => {},
+				createProgress: () => ({
+					// eslint-disable-next-line @typescript-eslint/no-empty-function
+					start: () => {},
+					// eslint-disable-next-line @typescript-eslint/no-empty-function
+					update: () => {},
+					// eslint-disable-next-line @typescript-eslint/no-empty-function
+					succeed: () => {},
+					// eslint-disable-next-line @typescript-eslint/no-empty-function
+					fail: () => {},
+					// eslint-disable-next-line @typescript-eslint/no-empty-function
+					warn: () => {},
+					// eslint-disable-next-line @typescript-eslint/no-empty-function
+					stop: () => {},
+					// eslint-disable-next-line @typescript-eslint/no-empty-function
+					finish: () => {},
+				}),
+			},
+		},
+		{}
+	);
 
-  // Check: Has features
-  results.push(checkHasFeatures(discovery.stats.features));
+	// Check: Has features
+	results.push(checkHasFeatures(discovery.stats.features));
 
-  // Check: Has examples
-  results.push(checkHasExamples(discovery.stats.examples));
+	// Check: Has examples
+	results.push(checkHasExamples(discovery.stats.examples));
 
-  // Check: Features have owners
-  results.push(checkFeatureOwners(discovery.inventory.features));
+	// Check: Features have owners
+	results.push(checkFeatureOwners(discovery.inventory.features, policy, ctx));
 
-  // Check: Examples have valid entrypoints
-  results.push(checkExampleEntrypoints(discovery.inventory.examples));
+	// Check: Examples have valid entrypoints
+	results.push(checkExampleEntrypoints(discovery.inventory.examples));
 
-  // Check: Workspace configs are valid
-  results.push(checkWorkspaceConfigs(discovery.inventory.workspaceConfigs));
+	// Check: Workspace configs are valid
+	results.push(checkWorkspaceConfigs(discovery.inventory.workspaceConfigs));
 
-  return results;
+	return results;
 }
 
 /**
  * Check if workspace has features defined.
  */
 function checkHasFeatures(count: number): CheckResult {
-  if (count > 0) {
-    return {
-      category: 'layers',
-      name: 'Features Defined',
-      status: 'pass',
-      message: `Found ${count} feature module(s)`,
-    };
-  }
+	if (count > 0) {
+		return {
+			category: 'layers',
+			name: 'Features Defined',
+			status: 'pass',
+			message: `Found ${count} feature module(s)`,
+		};
+	}
 
-  return {
-    category: 'layers',
-    name: 'Features Defined',
-    status: 'warn',
-    message: 'No feature modules found',
-    details: 'Create a .feature.ts file to organize your specs into features',
-  };
+	return {
+		category: 'layers',
+		name: 'Features Defined',
+		status: 'warn',
+		message: 'No feature modules found',
+		details: 'Create a .feature.ts file to organize your specs into features',
+	};
 }
 
 /**
  * Check if workspace has examples defined.
  */
 function checkHasExamples(count: number): CheckResult {
-  if (count > 0) {
-    return {
-      category: 'layers',
-      name: 'Examples Defined',
-      status: 'pass',
-      message: `Found ${count} example(s)`,
-    };
-  }
+	if (count > 0) {
+		return {
+			category: 'layers',
+			name: 'Examples Defined',
+			status: 'pass',
+			message: `Found ${count} example(s)`,
+		};
+	}
 
-  return {
-    category: 'layers',
-    name: 'Examples Defined',
-    status: 'skip',
-    message: 'No examples found (optional)',
-    details: 'Create an example.ts file to package reusable templates',
-  };
+	return {
+		category: 'layers',
+		name: 'Examples Defined',
+		status: 'skip',
+		message: 'No examples found (optional)',
+		details: 'Create an example.ts file to package reusable templates',
+	};
 }
 
 /**
  * Check if features have owners defined.
  */
 function checkFeatureOwners(
-  features: Map<string, { owners?: string[]; filePath: string }>
+	features: Map<
+		string,
+		{ owners?: string[]; filePath: string; sourceBlock?: string }
+	>,
+	policy: Awaited<ReturnType<typeof loadStabilityPolicy>> | undefined,
+	ctx: CheckContext
 ): CheckResult {
-  const missingOwners: string[] = [];
+	const missingOwners: string[] = [];
+	const criticalMissingOwners: string[] = [];
 
-  for (const [key, feature] of features) {
-    if (!feature.owners?.length) {
-      missingOwners.push(key);
-    }
-  }
+	for (const [key, feature] of features) {
+		const hasOwnerMetadata =
+			Boolean(feature.owners?.length) ||
+			/owners\s*:\s*(?!\[\s*\])/.test(feature.sourceBlock ?? '');
 
-  if (missingOwners.length === 0) {
-    return {
-      category: 'layers',
-      name: 'Feature Owners',
-      status: features.size > 0 ? 'pass' : 'skip',
-      message:
-        features.size > 0
-          ? 'All features have owners defined'
-          : 'No features to check',
-    };
-  }
+		if (!hasOwnerMetadata) {
+			if (isCriticalFeatureKey(key, policy)) {
+				criticalMissingOwners.push(key);
+			} else {
+				missingOwners.push(key);
+			}
+		}
+	}
 
-  return {
-    category: 'layers',
-    name: 'Feature Owners',
-    status: 'warn',
-    message: `${missingOwners.length} feature(s) missing owners`,
-    details: `Features: ${missingOwners.slice(0, 3).join(', ')}${missingOwners.length > 3 ? '...' : ''}`,
-  };
+	if (criticalMissingOwners.length === 0 && missingOwners.length === 0) {
+		return {
+			category: 'layers',
+			name: 'Feature Owners',
+			status: features.size > 0 ? 'pass' : 'skip',
+			message:
+				features.size > 0
+					? 'All features have owners defined'
+					: 'No features to check',
+			context:
+				features.size > 0
+					? {
+							policyPath: policy
+								? getStabilityPolicyPath(ctx.workspaceRoot)
+								: undefined,
+							criticalMissingFeatures: [],
+							missingFeatures: [],
+						}
+					: undefined,
+		};
+	}
+
+	return {
+		category: 'layers',
+		name: 'Feature Owners',
+		status: criticalMissingOwners.length > 0 ? 'fail' : 'warn',
+		message:
+			criticalMissingOwners.length > 0
+				? `${criticalMissingOwners.length} critical feature(s) missing owners`
+				: `${missingOwners.length} feature(s) missing owners`,
+		details:
+			criticalMissingOwners.length > 0
+				? `Critical features: ${criticalMissingOwners.join(', ')}`
+				: `Features: ${missingOwners.slice(0, 3).join(', ')}${missingOwners.length > 3 ? '...' : ''}`,
+		context: {
+			policyPath: policy
+				? getStabilityPolicyPath(ctx.workspaceRoot)
+				: undefined,
+			criticalMissingFeatures: criticalMissingOwners,
+			missingFeatures: missingOwners,
+		},
+	};
 }
 
 /**
  * Check if examples have valid entrypoints.
  */
 function checkExampleEntrypoints(
-  examples: Map<
-    string,
-    { entrypoints: { packageName: string }; filePath: string }
-  >
+	examples: Map<
+		string,
+		{ entrypoints: { packageName: string }; filePath: string }
+	>
 ): CheckResult {
-  const missingPackage: string[] = [];
+	const missingPackage: string[] = [];
 
-  for (const [key, example] of examples) {
-    if (!example.entrypoints.packageName) {
-      missingPackage.push(key);
-    }
-  }
+	for (const [key, example] of examples) {
+		if (!example.entrypoints.packageName) {
+			missingPackage.push(key);
+		}
+	}
 
-  if (missingPackage.length === 0) {
-    return {
-      category: 'layers',
-      name: 'Example Entrypoints',
-      status: examples.size > 0 ? 'pass' : 'skip',
-      message:
-        examples.size > 0
-          ? 'All examples have valid entrypoints'
-          : 'No examples to check',
-    };
-  }
+	if (missingPackage.length === 0) {
+		return {
+			category: 'layers',
+			name: 'Example Entrypoints',
+			status: examples.size > 0 ? 'pass' : 'skip',
+			message:
+				examples.size > 0
+					? 'All examples have valid entrypoints'
+					: 'No examples to check',
+		};
+	}
 
-  return {
-    category: 'layers',
-    name: 'Example Entrypoints',
-    status: 'fail',
-    message: `${missingPackage.length} example(s) missing packageName`,
-    details: `Examples: ${missingPackage.join(', ')}`,
-  };
+	return {
+		category: 'layers',
+		name: 'Example Entrypoints',
+		status: 'fail',
+		message: `${missingPackage.length} example(s) missing packageName`,
+		details: `Examples: ${missingPackage.join(', ')}`,
+	};
 }
 
 /**
  * Check if workspace configs are valid.
  */
 function checkWorkspaceConfigs(
-  configs: Map<string, { valid: boolean; errors: string[]; file: string }>
+	configs: Map<string, { valid: boolean; errors: string[]; file: string }>
 ): CheckResult {
-  const invalid: string[] = [];
+	const invalid: string[] = [];
 
-  for (const [, config] of configs) {
-    if (!config.valid) {
-      invalid.push(config.file);
-    }
-  }
+	for (const [, config] of configs) {
+		if (!config.valid) {
+			invalid.push(config.file);
+		}
+	}
 
-  if (configs.size === 0) {
-    return {
-      category: 'layers',
-      name: 'Workspace Configs',
-      status: 'skip',
-      message: 'No .contractsrc.json files found',
-    };
-  }
+	if (configs.size === 0) {
+		return {
+			category: 'layers',
+			name: 'Workspace Configs',
+			status: 'skip',
+			message: 'No .contractsrc.json files found',
+		};
+	}
 
-  if (invalid.length === 0) {
-    return {
-      category: 'layers',
-      name: 'Workspace Configs',
-      status: 'pass',
-      message: `All ${configs.size} workspace config(s) are valid`,
-    };
-  }
+	if (invalid.length === 0) {
+		return {
+			category: 'layers',
+			name: 'Workspace Configs',
+			status: 'pass',
+			message: `All ${configs.size} workspace config(s) are valid`,
+		};
+	}
 
-  return {
-    category: 'layers',
-    name: 'Workspace Configs',
-    status: 'fail',
-    message: `${invalid.length} workspace config(s) invalid`,
-    details: `Files: ${invalid.join(', ')}`,
-  };
+	return {
+		category: 'layers',
+		name: 'Workspace Configs',
+		status: 'fail',
+		message: `${invalid.length} workspace config(s) invalid`,
+		details: `Files: ${invalid.join(', ')}`,
+	};
 }

@@ -1,132 +1,129 @@
 // Store entities
-export {
-  StoreStatusEnum,
-  StoreTypeEnum,
-  StoreEntity,
-  StoreCategoryEntity,
-} from './store';
-
-// Product entities
-export {
-  ProductStatusEnum,
-  ProductTypeEnum,
-  ProductEntity,
-  ProductVariantEntity,
-  CategoryEntity,
-} from './product';
 
 // Order entities
 export {
-  OrderStatusEnum,
-  PaymentStatusEnum,
-  OrderEntity,
-  OrderItemEntity,
-  RefundEntity,
-  RefundItemEntity,
+	OrderEntity,
+	OrderItemEntity,
+	OrderStatusEnum,
+	PaymentStatusEnum,
+	RefundEntity,
+	RefundItemEntity,
 } from './order';
-
 // Payout entities
 export {
-  PayoutStatusEnum,
-  PayoutScheduleEnum,
-  PayoutEntity,
-  PayoutItemEntity,
-  BankAccountEntity,
-  PayoutSettingsEntity,
+	BankAccountEntity,
+	PayoutEntity,
+	PayoutItemEntity,
+	PayoutScheduleEnum,
+	PayoutSettingsEntity,
+	PayoutStatusEnum,
 } from './payout';
-
+// Product entities
+export {
+	CategoryEntity,
+	ProductEntity,
+	ProductStatusEnum,
+	ProductTypeEnum,
+	ProductVariantEntity,
+} from './product';
 // Review entities
 export {
-  ReviewStatusEnum,
-  ReviewTypeEnum,
-  ReviewEntity,
-  ReviewResponseEntity,
-  ReviewVoteEntity,
-  ReviewReportEntity,
+	ReviewEntity,
+	ReviewReportEntity,
+	ReviewResponseEntity,
+	ReviewStatusEnum,
+	ReviewTypeEnum,
+	ReviewVoteEntity,
 } from './review';
-
-// Schema contribution
-import {
-  StoreStatusEnum,
-  StoreTypeEnum,
-  StoreEntity,
-  StoreCategoryEntity,
+export {
+	StoreCategoryEntity,
+	StoreEntity,
+	StoreStatusEnum,
+	StoreTypeEnum,
 } from './store';
+
+import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
 import {
-  ProductStatusEnum,
-  ProductTypeEnum,
-  ProductEntity,
-  ProductVariantEntity,
-  CategoryEntity,
-} from './product';
-import {
-  OrderStatusEnum,
-  PaymentStatusEnum,
-  OrderEntity,
-  OrderItemEntity,
-  RefundEntity,
-  RefundItemEntity,
+	OrderEntity,
+	OrderItemEntity,
+	OrderStatusEnum,
+	PaymentStatusEnum,
+	RefundEntity,
+	RefundItemEntity,
 } from './order';
 import {
-  PayoutStatusEnum,
-  PayoutScheduleEnum,
-  PayoutEntity,
-  PayoutItemEntity,
-  BankAccountEntity,
-  PayoutSettingsEntity,
+	BankAccountEntity,
+	PayoutEntity,
+	PayoutItemEntity,
+	PayoutScheduleEnum,
+	PayoutSettingsEntity,
+	PayoutStatusEnum,
 } from './payout';
 import {
-  ReviewStatusEnum,
-  ReviewTypeEnum,
-  ReviewEntity,
-  ReviewResponseEntity,
-  ReviewVoteEntity,
-  ReviewReportEntity,
+	CategoryEntity,
+	ProductEntity,
+	ProductStatusEnum,
+	ProductTypeEnum,
+	ProductVariantEntity,
+} from './product';
+import {
+	ReviewEntity,
+	ReviewReportEntity,
+	ReviewResponseEntity,
+	ReviewStatusEnum,
+	ReviewTypeEnum,
+	ReviewVoteEntity,
 } from './review';
-import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
+// Schema contribution
+import {
+	StoreCategoryEntity,
+	StoreEntity,
+	StoreStatusEnum,
+	StoreTypeEnum,
+} from './store';
 
 export const marketplaceEntities = [
-  // Store
-  StoreEntity,
-  StoreCategoryEntity,
+	// Store
+	StoreEntity,
+	StoreCategoryEntity,
 
-  // Product
-  ProductEntity,
-  ProductVariantEntity,
-  CategoryEntity,
+	// Product
+	ProductEntity,
+	ProductVariantEntity,
+	CategoryEntity,
 
-  // Order
-  OrderEntity,
-  OrderItemEntity,
-  RefundEntity,
-  RefundItemEntity,
+	// Order
+	OrderEntity,
+	OrderItemEntity,
+	RefundEntity,
+	RefundItemEntity,
 
-  // Payout
-  PayoutEntity,
-  PayoutItemEntity,
-  BankAccountEntity,
-  PayoutSettingsEntity,
+	// Payout
+	PayoutEntity,
+	PayoutItemEntity,
+	BankAccountEntity,
+	PayoutSettingsEntity,
 
-  // Review
-  ReviewEntity,
-  ReviewResponseEntity,
-  ReviewVoteEntity,
-  ReviewReportEntity,
+	// Review
+	ReviewEntity,
+	ReviewResponseEntity,
+	ReviewVoteEntity,
+	ReviewReportEntity,
 ];
 
 export const marketplaceSchemaContribution: ModuleSchemaContribution = {
-  moduleId: '@contractspec/example.marketplace',
-  entities: marketplaceEntities,
-  enums: [
-    StoreStatusEnum,
-    StoreTypeEnum,
-    ProductStatusEnum,
-    ProductTypeEnum,
-    OrderStatusEnum,
-    PaymentStatusEnum,
-    PayoutStatusEnum,
-    PayoutScheduleEnum,
-    ReviewStatusEnum,
-    ReviewTypeEnum,
-  ],
+	moduleId: '@contractspec/example.marketplace',
+	entities: marketplaceEntities,
+	enums: [
+		StoreStatusEnum,
+		StoreTypeEnum,
+		ProductStatusEnum,
+		ProductTypeEnum,
+		OrderStatusEnum,
+		PaymentStatusEnum,
+		PayoutStatusEnum,
+		PayoutScheduleEnum,
+		ReviewStatusEnum,
+		ReviewTypeEnum,
+	],
 };

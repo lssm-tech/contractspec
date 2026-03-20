@@ -2,23 +2,23 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '../../registry';
 
 export const tech_studio_learning_journeys_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.studio.learning-journeys',
-    title: 'Studio learning journeys (onboarding + coach)',
-    summary:
-      'DB-backed learning journeys tracked per organization: seeded tracks/steps, event-driven progress, XP/streaks, and a Studio coach surface.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/studio/learning-journeys',
-    tags: [
-      'studio',
-      'learning',
-      'onboarding',
-      'journey',
-      'graphql',
-      'database',
-    ],
-    body: `# Studio learning journeys
+	{
+		id: 'docs.tech.studio.learning-journeys',
+		title: 'Studio learning journeys (onboarding + coach)',
+		summary:
+			'DB-backed learning journeys tracked per organization: seeded tracks/steps, event-driven progress, XP/streaks, and a Studio coach surface.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/studio/learning-journeys',
+		tags: [
+			'studio',
+			'learning',
+			'onboarding',
+			'journey',
+			'graphql',
+			'database',
+		],
+		body: `# Studio learning journeys
 
 Studio supports **DB-backed learning journeys** (onboarding tracks + ambient coach tips) that are advanced by **recorded learning events**.
 
@@ -75,7 +75,7 @@ Learning journey progress lives in the \`lssm_learning\` schema:
 - Do not put secrets/PII in \`payload\` fields of learning events.
 - Prefer shallow payload filters (small, stable keys).
 `,
-  },
+	},
 ];
 
 registerDocBlocks(tech_studio_learning_journeys_DocBlocks);

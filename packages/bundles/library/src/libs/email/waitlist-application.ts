@@ -1,51 +1,51 @@
 'use server';
 
 import { getEmailConfig, sendEmail } from './client';
-import { escapeHtml, formatMultilineHtml } from './utils';
 import type { SubmitWaitlistApplicationResult } from './types';
+import { escapeHtml, formatMultilineHtml } from './utils';
 
 const APPLICATION_MISSING_CONFIG =
-  'Waitlist application service is not configured. Please try again later.';
+	'Waitlist application service is not configured. Please try again later.';
 const APPLICATION_SEND_ERROR =
-  'Failed to submit application. Please try again later or contact us directly.';
+	'Failed to submit application. Please try again later or contact us directly.';
 
 export const submitWaitlistApplication = async (
-  formData: FormData
+	formData: FormData
 ): Promise<SubmitWaitlistApplicationResult> => {
-  const email = (formData.get('email') ?? '').toString().trim();
-  const name = (formData.get('name') ?? '').toString().trim();
-  const company = (formData.get('company') ?? '').toString().trim();
-  const role = (formData.get('role') ?? '').toString().trim();
-  const whatBuilding = (formData.get('whatBuilding') ?? '').toString().trim();
-  const whatSolving = (formData.get('whatSolving') ?? '').toString().trim();
-  const teamSize = (formData.get('teamSize') ?? '').toString().trim();
-  const timeline = (formData.get('timeline') ?? '').toString().trim();
-  const openToSessions = formData.get('openToSessions') === 'on';
-  const okayWithCaseStudies = formData.get('okayWithCaseStudies') === 'on';
+	const email = (formData.get('email') ?? '').toString().trim();
+	const name = (formData.get('name') ?? '').toString().trim();
+	const company = (formData.get('company') ?? '').toString().trim();
+	const role = (formData.get('role') ?? '').toString().trim();
+	const whatBuilding = (formData.get('whatBuilding') ?? '').toString().trim();
+	const whatSolving = (formData.get('whatSolving') ?? '').toString().trim();
+	const teamSize = (formData.get('teamSize') ?? '').toString().trim();
+	const timeline = (formData.get('timeline') ?? '').toString().trim();
+	const openToSessions = formData.get('openToSessions') === 'on';
+	const okayWithCaseStudies = formData.get('okayWithCaseStudies') === 'on';
 
-  if (!email || !email.includes('@')) {
-    return {
-      success: false,
-      text: 'Please enter a valid email address.',
-    };
-  }
+	if (!email || !email.includes('@')) {
+		return {
+			success: false,
+			text: 'Please enter a valid email address.',
+		};
+	}
 
-  if (!name || !whatBuilding || !whatSolving) {
-    return {
-      success: false,
-      text: 'Please fill in all required fields.',
-    };
-  }
+	if (!name || !whatBuilding || !whatSolving) {
+		return {
+			success: false,
+			text: 'Please fill in all required fields.',
+		};
+	}
 
-  const configResult = getEmailConfig();
-  if (!configResult.ok || !configResult.config) {
-    return {
-      success: false,
-      text: configResult.errorMessage ?? APPLICATION_MISSING_CONFIG,
-    };
-  }
+	const configResult = getEmailConfig();
+	if (!configResult.ok || !configResult.config) {
+		return {
+			success: false,
+			text: configResult.errorMessage ?? APPLICATION_MISSING_CONFIG,
+		};
+	}
 
-  const applicantText = `
+	const applicantText = `
 You're on the list.
 
 Thanks for applying to the ContractSpec design partner program. We're slowly onboarding design partners in waves. If your use case is a good fit, we'll reach out personally.
@@ -66,7 +66,7 @@ ContractSpec Team
 https://contractspec.io
   `.trim();
 
-  const applicantHtml = `
+	const applicantHtml = `
     <div style="font-family: sans-serif; max-width: 640px; margin: 0 auto;">
       <h1 style="color: #8b5cf6;">You're on the list.</h1>
       <p>Thanks for applying to the ContractSpec design partner program. We're slowly onboarding design partners in waves. If your use case is a good fit, we'll reach out personally.</p>
@@ -90,24 +90,24 @@ https://contractspec.io
     </div>
   `;
 
-  const applicantSend = await sendEmail(configResult.config, {
-    to: [{ email }],
-    subject: "You're on the ContractSpec design partner waitlist!",
-    text: applicantText,
-    html: applicantHtml,
-    context: 'waitlist-application-welcome',
-  });
+	const applicantSend = await sendEmail(configResult.config, {
+		to: [{ email }],
+		subject: "You're on the ContractSpec design partner waitlist!",
+		text: applicantText,
+		html: applicantHtml,
+		context: 'waitlist-application-welcome',
+	});
 
-  if (!applicantSend.success) {
-    return { success: false, text: APPLICATION_SEND_ERROR };
-  }
+	if (!applicantSend.success) {
+		return { success: false, text: APPLICATION_SEND_ERROR };
+	}
 
-  const preferencesText = `
+	const preferencesText = `
 Open to 1:1 product/design sessions: ${openToSessions ? 'Yes' : 'No'}
 Okay with anonymized case studies: ${okayWithCaseStudies ? 'Yes' : 'No'}
   `.trim();
 
-  const teamEmailText = `
+	const teamEmailText = `
 New Design Partner Waitlist Application
 
 Contact Information:
@@ -134,7 +134,7 @@ Preferences:
 Submitted via ContractSpec waitlist application form
   `.trim();
 
-  const teamEmailHtml = `
+	const teamEmailHtml = `
     <div style="font-family: sans-serif; max-width: 720px; margin: 0 auto;">
       <h1 style="color: #8b5cf6;">New Design Partner Waitlist Application</h1>
       <h2 style="color: #8b5cf6; margin: 16px 0 8px;">Contact Information</h2>
@@ -165,21 +165,21 @@ Submitted via ContractSpec waitlist application form
     </div>
   `;
 
-  const teamSend = await sendEmail(configResult.config, {
-    to: [configResult.config.teamInbox],
-    subject: `New Design Partner Application: ${name} (${email})`,
-    text: teamEmailText,
-    html: teamEmailHtml,
-    replyTo: email,
-    context: 'waitlist-application-team-notification',
-  });
+	const teamSend = await sendEmail(configResult.config, {
+		to: [configResult.config.teamInbox],
+		subject: `New Design Partner Application: ${name} (${email})`,
+		text: teamEmailText,
+		html: teamEmailHtml,
+		replyTo: email,
+		context: 'waitlist-application-team-notification',
+	});
 
-  if (!teamSend.success) {
-    return { success: false, text: APPLICATION_SEND_ERROR };
-  }
+	if (!teamSend.success) {
+		return { success: false, text: APPLICATION_SEND_ERROR };
+	}
 
-  return {
-    success: true,
-    text: 'Application submitted successfully!',
-  };
+	return {
+		success: true,
+		text: 'Application submitted successfully!',
+	};
 };

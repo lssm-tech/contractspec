@@ -4,16 +4,16 @@
  */
 
 export const PRICING_EXAMPLES = {
-  free: {
-    regenerationsPerMonth: 200,
-    aiActionsPerMonth: 100,
-    projects: 1,
-  },
-  builder: {
-    regenerationsPerMonthHint: '1,000–2,000+',
-    aiActionsPerMonthHint: '1,000+',
-  },
-  team: {
-    description: 'Higher limits + cheaper per-regen at scale',
-  },
+	free: {
+		regenerationsPerMonth: 200,
+		aiActionsPerMonth: 100,
+		projects: 1,
+	},
+	builder: {
+		regenerationsPerMonthHint: '1,000–2,000+',
+		aiActionsPerMonthHint: '1,000+',
+	},
+	team: {
+		description: 'Higher limits + cheaper per-regen at scale',
+	},
 } as const;

@@ -1,74 +1,75 @@
 {
-  "name": "@contractspec/app.cli-database",
-  "version": "3.6.0",
-  "type": "module",
-  "bin": {
-    "database": "dist/cli.js"
-  },
-  "scripts": {
-    "clean": "rm -rf dist",
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "tsdown",
-    "dev": "bun run build --watch",
-    "lint": "bun run lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
-    "prisma:import": "database import",
-    "prisma:check": "database check",
-    "dbs:generate": "database generate",
-    "dbs:migrate": "database migrate:dev",
-    "dbs:deploy": "database migrate:deploy",
-    "dbs:status": "database migrate:status",
-    "dbs:seed": "database seed",
-    "schema:generate": "database schema:generate",
-    "schema:compose": "database schema:compose"
-  },
-  "dependencies": {
-    "@contractspec/lib.schema": "workspace:*",
-    "prisma": "^7.4.2",
-    "minimist": "^1.2.8",
-    "execa": "^9.6.1"
-  },
-  "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
-    "@types/minimist": "^1.2.5",
-    "tsdown": "catalog:build"
-  },
-  "types": "./dist/index.d.mts",
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "exports": {
-    ".": "./dist/index.mjs",
-    "./cli": "./dist/cli.mjs",
-    "./commands/check": "./dist/commands/check.mjs",
-    "./commands/generate": "./dist/commands/generate.mjs",
-    "./commands/import": "./dist/commands/import.mjs",
-    "./commands/migrate": "./dist/commands/migrate.mjs",
-    "./commands/schema-compose": "./dist/commands/schema-compose.mjs",
-    "./commands/schema-generate": "./dist/commands/schema-generate.mjs",
-    "./commands/seed": "./dist/commands/seed.mjs",
-    "./lib/config": "./dist/lib/config.mjs",
-    "./lib/schema-config": "./dist/lib/schema-config.mjs",
-    "./*": "./*"
-  },
-  "publishConfig": {
-    "access": "public",
-    "exports": {
-      ".": "./dist/index.mjs",
-      "./cli": "./dist/cli.mjs",
-      "./*": "./*"
-    },
-    "registry": "https://registry.npmjs.org/"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/apps/cli-database"
-  },
-  "homepage": "https://contractspec.io"
+	"name": "@contractspec/app.cli-database",
+	"version": "3.7.7",
+	"type": "module",
+	"bin": {
+		"database": "dist/cli.js"
+	},
+	"scripts": {
+		"clean": "rm -rf dist",
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "tsdown",
+		"dev": "bun run build --watch",
+		"lint": "bun run lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"prisma:format": "prisma format",
+		"prisma:import": "database import",
+		"prisma:check": "database check",
+		"dbs:generate": "database generate",
+		"dbs:migrate": "database migrate:dev",
+		"dbs:deploy": "database migrate:deploy",
+		"dbs:status": "database migrate:status",
+		"dbs:seed": "database seed",
+		"schema:generate": "database schema:generate",
+		"schema:compose": "database schema:compose"
+	},
+	"dependencies": {
+		"@contractspec/lib.schema": "workspace:*",
+		"prisma": "^7.4.2",
+		"minimist": "^1.2.8",
+		"execa": "^9.6.1"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"@contractspec/tool.tsdown": "workspace:*",
+		"@types/minimist": "^1.2.5",
+		"tsdown": "catalog:build"
+	},
+	"types": "./dist/index.d.mts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"exports": {
+		".": "./dist/index.mjs",
+		"./cli": "./dist/cli.mjs",
+		"./commands/check": "./dist/commands/check.mjs",
+		"./commands/generate": "./dist/commands/generate.mjs",
+		"./commands/import": "./dist/commands/import.mjs",
+		"./commands/migrate": "./dist/commands/migrate.mjs",
+		"./commands/schema-compose": "./dist/commands/schema-compose.mjs",
+		"./commands/schema-generate": "./dist/commands/schema-generate.mjs",
+		"./commands/seed": "./dist/commands/seed.mjs",
+		"./lib/config": "./dist/lib/config.mjs",
+		"./lib/schema-config": "./dist/lib/schema-config.mjs",
+		"./*": "./*"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": "./dist/index.mjs",
+			"./cli": "./dist/cli.mjs",
+			"./*": "./*"
+		},
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/apps/cli-database"
+	},
+	"homepage": "https://contractspec.io"
 }

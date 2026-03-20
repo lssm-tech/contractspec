@@ -1,58 +1,61 @@
-# AI Agent Guide -- `@contractspec/integration.providers-impls`
+# AI Agent Guide — `@contractspec/integration.providers-impls`
 
 Scope: `packages/integrations/providers-impls/*`
 
-Concrete provider implementations for AI, voice, email, payments, storage, messaging, analytics, and other third-party integrations. Each implementation satisfies a contract interface from `contracts-integrations`.
+Integration provider implementations for email, payments, storage, and more.
 
 ## Quick Context
 
-- **Layer**: integration
-- **Consumers**: bundles, apps, modules that need concrete provider wiring
+- Layer: `integration`.
+- Package visibility: published package.
+- Primary consumers are libs, modules, and apps that need runtime bridges or provider adapters.
+- Related packages: `@contractspec/integration.runtime`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
-## Public Exports
+## Architecture
 
-| Subpath | Purpose |
-| --- | --- |
-| `.` | Main entry (re-exports) |
-| `./analytics` | PostHog analytics |
-| `./calendar` | Google Calendar |
-| `./database` | Supabase / Postgres |
-| `./email` | Postmark email |
-| `./embedding` | Mistral embeddings |
-| `./health` | Health-check providers |
-| `./llm` | Mistral LLM |
-| `./meeting-recorder` | Fathom, Fireflies, Granola, tldv |
-| `./messaging` | Slack, GitHub, WhatsApp |
-| `./openbanking` | Powens open-banking |
-| `./payments` | Stripe payments |
-| `./project-management` | Linear, Jira, Notion |
-| `./sms` | Twilio SMS |
-| `./storage` | GCS storage |
-| `./vector-store` | Qdrant, Supabase vector |
-| `./voice` | ElevenLabs, Fal, Gradium |
-| `./impls/*` | Individual provider modules |
+- `src/analytics.ts` is part of the package's public or composition surface.
+- `src/calendar.ts` is part of the package's public or composition surface.
+- `src/database.ts` is part of the package's public or composition surface.
+- `src/email.ts` is part of the package's public or composition surface.
+- `src/embedding.ts` is part of the package's public or composition surface.
+- `src/health.ts` is part of the package's public or composition surface.
+- `src/impls` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
 
-## Composio Fallback
+## Public Surface
 
-- `ComposioFallbackResolver` is opt-in via `IntegrationProviderFactory({ composioFallback })`.
-- When enabled, every `default:` branch in the factory delegates to Composio before throwing.
-- MCP is the default transport; SDK mode available for tool search and auth management.
-- Domain proxy adapters (`ComposioMessagingProxy`, `ComposioEmailProxy`, etc.) implement existing interfaces.
-- `ComposioGenericProxy` is the catch-all for untyped domains.
-- Session caching: MCP sessions are cached per userId with 30-min TTL.
-- Key mapping: `resolveToolkit()` in `composio-types.ts` maps integration keys to Composio toolkit names.
+- Export `.` resolves through `./src/index.ts`.
+- Export `./analytics` resolves through `./src/analytics.ts`.
+- Export `./calendar` resolves through `./src/calendar.ts`.
+- Export `./database` resolves through `./src/database.ts`.
+- Export `./email` resolves through `./src/email.ts`.
+- Export `./embedding` resolves through `./src/embedding.ts`.
+- Export `./health` resolves through `./src/health.ts`.
+- Export `./impls` resolves through `./src/impls/index.ts`.
+- Export `./impls/async-event-queue` resolves through `./src/impls/async-event-queue.ts`.
+- Export `./impls/composio-fallback-resolver` resolves through `./src/impls/composio-fallback-resolver.ts`.
+- The package publishes 76 total export subpaths; keep docs aligned with `package.json`.
 
 ## Guardrails
 
-- Every implementation must satisfy a contract from `contracts-integrations`
-- Never import from apps or bundles
-- Secrets must flow through `@contractspec/integration.runtime`; never hard-code credentials
-- Composio fallback is opt-in; existing code paths are unchanged when config is absent
-- Composio proxy adapters must not leak Composio-specific types into domain interfaces
+- Every implementation must satisfy a contract from `contracts-integrations`.
+- Never import from apps or bundles.
+- Secrets must flow through `@contractspec/integration.runtime`; never hard-code credentials.
+- Composio fallback is opt-in; existing code paths are unchanged when config is absent.
+- Composio proxy adapters must not leak Composio-specific types into domain interfaces.
 
 ## Local Commands
 
-- Build: `bun run build`
-- Test: `bun test`
-- Lint: `bun run lint`
-- Dev: `bun run dev`
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild

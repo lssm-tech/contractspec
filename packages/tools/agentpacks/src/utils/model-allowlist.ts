@@ -11,83 +11,83 @@
  * Each pattern is a regex that matches valid model IDs for that provider.
  */
 const KNOWN_MODEL_PATTERNS: {
-  provider: string;
-  pattern: RegExp;
-  examples: string[];
+	provider: string;
+	pattern: RegExp;
+	examples: string[];
 }[] = [
-  {
-    provider: 'Anthropic',
-    pattern:
-      /^(anthropic\/)?claude-(opus|sonnet|haiku|instant|3|3\.5|4)[-.\w]*/i,
-    examples: ['claude-sonnet-4-6', 'anthropic/claude-opus-4-6'],
-  },
-  {
-    provider: 'OpenAI',
-    pattern:
-      /^(openai\/)?(gpt-4|gpt-5|gpt-3\.5|o[1-9]|o[1-9]-\w+|chatgpt-4o|gpt-4o)[-.\w]*/i,
-    examples: [
-      'gpt-5.4',
-      'gpt-5-mini',
-      'gpt-4o',
-      'openai/gpt-4-turbo',
-      'o1-preview',
-    ],
-  },
-  {
-    provider: 'Google',
-    pattern:
-      /^(google\/)?gemini-(pro|ultra|nano|flash|1\.5|2\.0|2\.5|3|3\.1|exp)[-.\w]*/i,
-    examples: [
-      'gemini-2.5-flash',
-      'gemini-3.1-pro-preview',
-      'google/gemini-pro',
-    ],
-  },
-  {
-    provider: 'Meta',
-    pattern: /^(meta\/)?(llama|codellama)[-.\w]*/i,
-    examples: ['llama-3.1-70b', 'meta/llama-3-8b'],
-  },
-  {
-    provider: 'Mistral',
-    pattern:
-      /^(mistral(ai)?\/)?(mistral|mixtral|codestral|pixtral|devstral|magistral|voxtral|ministral)[-.\w]*/i,
-    examples: [
-      'mistral-large-2512',
-      'devstral-2512',
-      'mistral-large-latest',
-      'codestral-latest',
-      'devstral-small-latest',
-    ],
-  },
-  {
-    provider: 'Cohere',
-    pattern: /^(cohere\/)?command[-.\w]*/i,
-    examples: ['command-r-plus', 'cohere/command-r'],
-  },
-  {
-    provider: 'DeepSeek',
-    pattern: /^(deepseek\/)?deepseek[-.\w]*/i,
-    examples: ['deepseek-coder', 'deepseek/deepseek-chat'],
-  },
-  {
-    provider: 'Qwen',
-    pattern: /^(qwen\/)?qwen[-.\w]*/i,
-    examples: ['qwen-2.5-72b'],
-  },
-  {
-    provider: 'xAI',
-    pattern: /^(xai\/)?grok[-.\w]*/i,
-    examples: ['grok-2', 'xai/grok-3'],
-  },
+	{
+		provider: 'Anthropic',
+		pattern:
+			/^(anthropic\/)?claude-(opus|sonnet|haiku|instant|3|3\.5|4)[-.\w]*/i,
+		examples: ['claude-sonnet-4-6', 'anthropic/claude-opus-4-6'],
+	},
+	{
+		provider: 'OpenAI',
+		pattern:
+			/^(openai\/)?(gpt-4|gpt-5|gpt-3\.5|o[1-9]|o[1-9]-\w+|chatgpt-4o|gpt-4o)[-.\w]*/i,
+		examples: [
+			'gpt-5.4',
+			'gpt-5-mini',
+			'gpt-4o',
+			'openai/gpt-4-turbo',
+			'o1-preview',
+		],
+	},
+	{
+		provider: 'Google',
+		pattern:
+			/^(google\/)?gemini-(pro|ultra|nano|flash|1\.5|2\.0|2\.5|3|3\.1|exp)[-.\w]*/i,
+		examples: [
+			'gemini-2.5-flash',
+			'gemini-3.1-pro-preview',
+			'google/gemini-pro',
+		],
+	},
+	{
+		provider: 'Meta',
+		pattern: /^(meta\/)?(llama|codellama)[-.\w]*/i,
+		examples: ['llama-3.1-70b', 'meta/llama-3-8b'],
+	},
+	{
+		provider: 'Mistral',
+		pattern:
+			/^(mistral(ai)?\/)?(mistral|mixtral|codestral|pixtral|devstral|magistral|voxtral|ministral)[-.\w]*/i,
+		examples: [
+			'mistral-large-2512',
+			'devstral-2512',
+			'mistral-large-latest',
+			'codestral-latest',
+			'devstral-small-latest',
+		],
+	},
+	{
+		provider: 'Cohere',
+		pattern: /^(cohere\/)?command[-.\w]*/i,
+		examples: ['command-r-plus', 'cohere/command-r'],
+	},
+	{
+		provider: 'DeepSeek',
+		pattern: /^(deepseek\/)?deepseek[-.\w]*/i,
+		examples: ['deepseek-coder', 'deepseek/deepseek-chat'],
+	},
+	{
+		provider: 'Qwen',
+		pattern: /^(qwen\/)?qwen[-.\w]*/i,
+		examples: ['qwen-2.5-72b'],
+	},
+	{
+		provider: 'xAI',
+		pattern: /^(xai\/)?grok[-.\w]*/i,
+		examples: ['grok-2', 'xai/grok-3'],
+	},
 ];
 
 /** Validation result. */
 export interface ModelValidationResult {
-  modelId: string;
-  known: boolean;
-  provider?: string;
-  warning?: string;
+	modelId: string;
+	known: boolean;
+	provider?: string;
+	warning?: string;
 }
 
 /**
@@ -96,29 +96,29 @@ export interface ModelValidationResult {
  * or { known: false, warning } for unknown IDs.
  */
 export function validateModelId(modelId: string): ModelValidationResult {
-  if (!modelId || typeof modelId !== 'string') {
-    return {
-      modelId: modelId ?? '',
-      known: false,
-      warning: 'Empty model ID',
-    };
-  }
+	if (!modelId || typeof modelId !== 'string') {
+		return {
+			modelId: modelId ?? '',
+			known: false,
+			warning: 'Empty model ID',
+		};
+	}
 
-  for (const entry of KNOWN_MODEL_PATTERNS) {
-    if (entry.pattern.test(modelId)) {
-      return {
-        modelId,
-        known: true,
-        provider: entry.provider,
-      };
-    }
-  }
+	for (const entry of KNOWN_MODEL_PATTERNS) {
+		if (entry.pattern.test(modelId)) {
+			return {
+				modelId,
+				known: true,
+				provider: entry.provider,
+			};
+		}
+	}
 
-  return {
-    modelId,
-    known: false,
-    warning: `Unknown model ID "${modelId}" — not in any known provider pattern. This may be a new or custom model.`,
-  };
+	return {
+		modelId,
+		known: false,
+		warning: `Unknown model ID "${modelId}" — not in any known provider pattern. This may be a new or custom model.`,
+	};
 }
 
 /**
@@ -127,54 +127,54 @@ export function validateModelId(modelId: string): ModelValidationResult {
  * These are advisory only — they don't block publish.
  */
 export function scanModelsForUnknownIds(config: {
-  default?: string;
-  small?: string;
-  agents?: Record<string, { model: string }>;
-  profiles?: Record<
-    string,
-    {
-      default?: string;
-      small?: string;
-      agents?: Record<string, { model: string }>;
-    }
-  >;
+	default?: string;
+	small?: string;
+	agents?: Record<string, { model: string }>;
+	profiles?: Record<
+		string,
+		{
+			default?: string;
+			small?: string;
+			agents?: Record<string, { model: string }>;
+		}
+	>;
 }): string[] {
-  const warnings: string[] = [];
-  const checked = new Set<string>();
+	const warnings: string[] = [];
+	const checked = new Set<string>();
 
-  function check(modelId: string | undefined, context: string): void {
-    if (!modelId || checked.has(modelId)) return;
-    checked.add(modelId);
+	function check(modelId: string | undefined, context: string): void {
+		if (!modelId || checked.has(modelId)) return;
+		checked.add(modelId);
 
-    const result = validateModelId(modelId);
-    if (!result.known) {
-      warnings.push(`${context}: ${result.warning}`);
-    }
-  }
+		const result = validateModelId(modelId);
+		if (!result.known) {
+			warnings.push(`${context}: ${result.warning}`);
+		}
+	}
 
-  // Check top-level defaults
-  check(config.default, 'default model');
-  check(config.small, 'small model');
+	// Check top-level defaults
+	check(config.default, 'default model');
+	check(config.small, 'small model');
 
-  // Check agent assignments
-  if (config.agents) {
-    for (const [name, assignment] of Object.entries(config.agents)) {
-      check(assignment.model, `agent "${name}"`);
-    }
-  }
+	// Check agent assignments
+	if (config.agents) {
+		for (const [name, assignment] of Object.entries(config.agents)) {
+			check(assignment.model, `agent "${name}"`);
+		}
+	}
 
-  // Check profiles
-  if (config.profiles) {
-    for (const [profileName, profile] of Object.entries(config.profiles)) {
-      check(profile.default, `profile "${profileName}" default`);
-      check(profile.small, `profile "${profileName}" small`);
-      if (profile.agents) {
-        for (const [name, assignment] of Object.entries(profile.agents)) {
-          check(assignment.model, `profile "${profileName}" agent "${name}"`);
-        }
-      }
-    }
-  }
+	// Check profiles
+	if (config.profiles) {
+		for (const [profileName, profile] of Object.entries(config.profiles)) {
+			check(profile.default, `profile "${profileName}" default`);
+			check(profile.small, `profile "${profileName}" small`);
+			if (profile.agents) {
+				for (const [name, assignment] of Object.entries(profile.agents)) {
+					check(assignment.model, `profile "${profileName}" agent "${name}"`);
+				}
+			}
+		}
+	}
 
-  return warnings;
+	return warnings;
 }

@@ -1,29 +1,31 @@
-# ContractSpec Cursor Marketplace Catalog
+# @contractspec/app.cursor-marketplace
 
-This package is the canonical home for Cursor marketplace plugin assets in this repository.
+Website: https://contractspec.io
 
-## Plugins in this catalog
+**Cursor marketplace catalog containing plugin definitions (rules, commands, agents, skills, assets) for ContractSpec's Cursor IDE integrations.**
 
-- `contractspec` - Product-level spec-first governance and release guardrails.
-- `contractspec-contracts-spec` - Contract model authoring and compatibility discipline for `@contractspec/lib.contracts-spec`.
-- `contractspec-contracts-integrations` - Provider and integration contract governance for `@contractspec/lib.contracts-integrations`.
-- `contractspec-ai-agent` - Typed orchestration, approval, and MCP safety for `@contractspec/lib.ai-agent`.
+## What It Does
 
-## Layout
+- **Layer**: apps-registry
+- **Consumers**: Cursor IDE users, marketplace publishing pipeline
 
-- `plugins/<plugin-name>/` - Cursor plugin sources (`.cursor-plugin/plugin.json`, rules, commands, agents, skills, `.mcp.json`).
-- Root marketplace manifest (`/.cursor-plugin/marketplace.json`) references these plugin paths for submission.
+## Running Locally
 
-## Validation
+From `packages/apps-registry/cursor-marketplace`:
 
-From repository root:
+## Local Commands
 
-```bash
-bun run plugin:contractspec:validate
-```
+- `bun run validate` — node ../../../scripts/validate-contractspec-plugin.mjs
 
-Or from this package directory:
+## Recent Updates
 
-```bash
-bun run validate
-```
+- Replace eslint+prettier by biomejs to optimize speed
+- Expose contract management via CLI and MCP
+- Add Cursor marketplace catalog for core ContractSpec libraries
+
+## Notes
+
+- Each plugin must have a valid `.cursor-plugin/plugin.json`
+- Do not add runtime code; this package contains only declarative metadata
+- Validate changes with `bun run validate` before publishing
+- Logo assets in `assets/` must remain stable (referenced by marketplace)

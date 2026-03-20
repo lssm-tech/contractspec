@@ -1,40 +1,39 @@
 import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
 import {
-  OpenBankingGetAccount,
-  OpenBankingListAccounts,
-  OpenBankingSyncAccounts,
-  registerOpenBankingAccountContracts,
+	OpenBankingGetAccount,
+	OpenBankingListAccounts,
+	OpenBankingSyncAccounts,
+	registerOpenBankingAccountContracts,
 } from './accounts';
 import {
-  OpenBankingListTransactions,
-  OpenBankingSyncTransactions,
-  registerOpenBankingTransactionContracts,
-} from './transactions';
-import {
-  OpenBankingGetBalances,
-  OpenBankingRefreshBalances,
-  registerOpenBankingBalanceContracts,
+	OpenBankingGetBalances,
+	OpenBankingRefreshBalances,
+	registerOpenBankingBalanceContracts,
 } from './balances';
-
-export {
-  OpenBankingGetAccount,
-  OpenBankingListAccounts,
-  OpenBankingSyncAccounts,
-  OpenBankingListTransactions,
-  OpenBankingSyncTransactions,
-  OpenBankingGetBalances,
-  OpenBankingRefreshBalances,
-};
+import {
+	OpenBankingListTransactions,
+	OpenBankingSyncTransactions,
+	registerOpenBankingTransactionContracts,
+} from './transactions';
 
 // Feature module specification
 export * from '../openbanking.feature';
+export {
+	OpenBankingGetAccount,
+	OpenBankingGetBalances,
+	OpenBankingListAccounts,
+	OpenBankingListTransactions,
+	OpenBankingRefreshBalances,
+	OpenBankingSyncAccounts,
+	OpenBankingSyncTransactions,
+};
 
 export function registerOpenBankingContracts(
-  registry: OperationSpecRegistry
+	registry: OperationSpecRegistry
 ): OperationSpecRegistry {
-  return registerOpenBankingBalanceContracts(
-    registerOpenBankingTransactionContracts(
-      registerOpenBankingAccountContracts(registry)
-    )
-  );
+	return registerOpenBankingBalanceContracts(
+		registerOpenBankingTransactionContracts(
+			registerOpenBankingAccountContracts(registry)
+		)
+	);
 }

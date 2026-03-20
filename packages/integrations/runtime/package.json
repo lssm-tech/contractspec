@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/integration.runtime",
-  "version": "3.6.0",
+  "version": "3.7.7",
   "description": "Runtime integration with secret management",
   "keywords": [
     "contractspec",
@@ -24,8 +24,8 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
@@ -50,7 +50,6 @@
     "./channel": "./src/channel/index.ts",
     "./channel/dispatcher": "./src/channel/dispatcher.ts",
     "./channel/github": "./src/channel/github.ts",
-    "./channel/index": "./src/channel/index.ts",
     "./channel/memory-store": "./src/channel/memory-store.ts",
     "./channel/policy": "./src/channel/policy.ts",
     "./channel/postgres-queries": "./src/channel/postgres-queries.ts",
@@ -69,12 +68,10 @@
     "./secrets": "./src/secrets/index.ts",
     "./secrets/env-secret-provider": "./src/secrets/env-secret-provider.ts",
     "./secrets/gcp-secret-manager": "./src/secrets/gcp-secret-manager.ts",
-    "./secrets/index": "./src/secrets/index.ts",
     "./secrets/manager": "./src/secrets/manager.ts",
     "./secrets/provider": "./src/secrets/provider.ts",
     "./transport": "./src/transport/index.ts",
     "./transport/auth-resolver": "./src/transport/auth-resolver.ts",
-    "./transport/index": "./src/transport/index.ts",
     "./transport/transport-factory": "./src/transport/transport-factory.ts",
     "./transport/version-negotiator": "./src/transport/version-negotiator.ts"
   },
@@ -104,12 +101,6 @@
         "bun": "./dist/channel/github.js",
         "node": "./dist/node/channel/github.js",
         "default": "./dist/channel/github.js"
-      },
-      "./channel/index": {
-        "types": "./dist/channel/index.d.ts",
-        "bun": "./dist/channel/index.js",
-        "node": "./dist/node/channel/index.js",
-        "default": "./dist/channel/index.js"
       },
       "./channel/memory-store": {
         "types": "./dist/channel/memory-store.d.ts",
@@ -219,12 +210,6 @@
         "node": "./dist/node/secrets/gcp-secret-manager.js",
         "default": "./dist/secrets/gcp-secret-manager.js"
       },
-      "./secrets/index": {
-        "types": "./dist/secrets/index.d.ts",
-        "bun": "./dist/secrets/index.js",
-        "node": "./dist/node/secrets/index.js",
-        "default": "./dist/secrets/index.js"
-      },
       "./secrets/manager": {
         "types": "./dist/secrets/manager.d.ts",
         "bun": "./dist/secrets/manager.js",
@@ -248,12 +233,6 @@
         "bun": "./dist/transport/auth-resolver.js",
         "node": "./dist/node/transport/auth-resolver.js",
         "default": "./dist/transport/auth-resolver.js"
-      },
-      "./transport/index": {
-        "types": "./dist/transport/index.d.ts",
-        "bun": "./dist/transport/index.js",
-        "node": "./dist/node/transport/index.js",
-        "default": "./dist/transport/index.js"
       },
       "./transport/transport-factory": {
         "types": "./dist/transport/transport-factory.d.ts",

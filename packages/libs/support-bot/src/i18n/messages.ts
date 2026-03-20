@@ -4,19 +4,19 @@
  */
 
 import {
-  createI18nFactory,
-  type I18nInstance,
+	createI18nFactory,
+	type I18nInstance,
 } from '@contractspec/lib.contracts-spec/translations';
 import { enMessages } from './catalogs/en';
-import { frMessages } from './catalogs/fr';
 import { esMessages } from './catalogs/es';
+import { frMessages } from './catalogs/fr';
 import type { SupportBotMessageKey } from './keys';
 
 export { interpolate } from '@contractspec/lib.contracts-spec/translations';
 
 const factory = createI18nFactory<SupportBotMessageKey>({
-  specKey: 'support-bot.messages',
-  catalogs: [enMessages, frMessages, esMessages],
+	specKey: 'support-bot.messages',
+	catalogs: [enMessages, frMessages, esMessages],
 });
 
 /** I18n instance type for the support-bot package. */

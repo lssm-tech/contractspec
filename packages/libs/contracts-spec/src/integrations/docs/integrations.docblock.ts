@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs/registry';
 
 export const tech_contracts_integrations_DocBlocks: DocBlock[] = [
-  {
-    id: 'docs.tech.contracts.integrations',
-    title: 'ContractSpec Integrations',
-    summary:
-      'Provider-agnostic integration contracts: specs, connections, secrets, health checks, and runtime guards.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/tech/contracts/integrations',
-    tags: ['tech', 'contracts', 'integrations'],
-    body: `# ContractSpec Integrations
+	{
+		id: 'docs.tech.contracts.integrations',
+		title: 'ContractSpec Integrations',
+		summary:
+			'Provider-agnostic integration contracts: specs, connections, secrets, health checks, and runtime guards.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/contracts/integrations',
+		tags: ['tech', 'contracts', 'integrations'],
+		body: `# ContractSpec Integrations
 
 This document describes the integration architecture that powers ContractSpec-based apps. It focuses on provider-agnostic contracts, secret management, health checks, and runtime guards.
 
@@ -103,6 +103,6 @@ The manager attempts providers in priority order (environment first, then cloud 
 
 ContractSpec Studio persists tenant \`IntegrationConnection\` records in Postgres (Prisma model \`IntegrationConnection\` in \`@contractspec/lib.database-studio\`) and exposes a platform-admin management surface (see the Studio platform admin panel).
 `,
-  },
+	},
 ];
 registerDocBlocks(tech_contracts_integrations_DocBlocks);

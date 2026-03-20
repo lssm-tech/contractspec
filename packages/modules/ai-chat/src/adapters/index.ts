@@ -2,6 +2,6 @@
  * Adapters for integrating ai-chat with external runtimes.
  */
 export {
-  createAiSdkBundleAdapter,
-  type CreateAiSdkBundleAdapterDeps,
+	type CreateAiSdkBundleAdapterDeps,
+	createAiSdkBundleAdapter,
 } from './ai-sdk-bundle-adapter';

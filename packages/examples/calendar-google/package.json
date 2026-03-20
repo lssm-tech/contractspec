@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.calendar-google",
-  "version": "3.6.0",
+  "version": "3.7.7",
   "description": "Google Calendar integration example: list and create events.",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -9,7 +9,6 @@
     "./calendar-google.feature": "./src/calendar-google.feature.ts",
     "./docs": "./src/docs/index.ts",
     "./docs/calendar-google.docblock": "./src/docs/calendar-google.docblock.ts",
-    "./docs/index": "./src/docs/index.ts",
     "./example": "./src/example.ts",
     "./run": "./src/run.ts",
     "./sync": "./src/sync.ts"
@@ -23,8 +22,8 @@
     "dev": "contractspec-bun-build dev",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
-    "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src",
+    "lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+    "lint:check": "biome check .",
     "test": "bun test --pass-with-no-tests",
     "prebuild": "contractspec-bun-build prebuild",
     "typecheck": "tsc --noEmit"
@@ -44,58 +43,51 @@
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
+        "browser": "./dist/browser/index.js",
         "bun": "./dist/index.js",
         "node": "./dist/node/index.js",
-        "browser": "./dist/browser/index.js",
         "default": "./dist/index.js"
       },
       "./calendar-google.feature": {
         "types": "./dist/calendar-google.feature.d.ts",
+        "browser": "./dist/browser/calendar-google.feature.js",
         "bun": "./dist/calendar-google.feature.js",
         "node": "./dist/node/calendar-google.feature.js",
-        "browser": "./dist/browser/calendar-google.feature.js",
         "default": "./dist/calendar-google.feature.js"
       },
       "./docs": {
         "types": "./dist/docs/index.d.ts",
+        "browser": "./dist/browser/docs/index.js",
         "bun": "./dist/docs/index.js",
         "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
         "default": "./dist/docs/index.js"
       },
       "./docs/calendar-google.docblock": {
         "types": "./dist/docs/calendar-google.docblock.d.ts",
+        "browser": "./dist/browser/docs/calendar-google.docblock.js",
         "bun": "./dist/docs/calendar-google.docblock.js",
         "node": "./dist/node/docs/calendar-google.docblock.js",
-        "browser": "./dist/browser/docs/calendar-google.docblock.js",
         "default": "./dist/docs/calendar-google.docblock.js"
-      },
-      "./docs/index": {
-        "types": "./dist/docs/index.d.ts",
-        "bun": "./dist/docs/index.js",
-        "node": "./dist/node/docs/index.js",
-        "browser": "./dist/browser/docs/index.js",
-        "default": "./dist/docs/index.js"
       },
       "./example": {
         "types": "./dist/example.d.ts",
+        "browser": "./dist/browser/example.js",
         "bun": "./dist/example.js",
         "node": "./dist/node/example.js",
-        "browser": "./dist/browser/example.js",
         "default": "./dist/example.js"
       },
       "./run": {
         "types": "./dist/run.d.ts",
+        "browser": "./dist/browser/run.js",
         "bun": "./dist/run.js",
         "node": "./dist/node/run.js",
-        "browser": "./dist/browser/run.js",
         "default": "./dist/run.js"
       },
       "./sync": {
         "types": "./dist/sync.d.ts",
+        "browser": "./dist/browser/sync.js",
         "bun": "./dist/sync.js",
         "node": "./dist/node/sync.js",
-        "browser": "./dist/browser/sync.js",
         "default": "./dist/sync.js"
       }
     },

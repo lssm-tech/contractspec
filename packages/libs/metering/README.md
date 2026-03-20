@@ -1,198 +1,78 @@
 # @contractspec/lib.metering
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Usage metering and billing core module for ContractSpec applications.**
 
-Usage metering and billing core module for ContractSpec applications.
+## What It Provides
 
-## Overview
+- **Layer**: lib.
+- **Consumers**: bundles.
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/docs/` contains docblocks and documentation-facing exports.
 
-This module provides a reusable metering system that can be used to track usage-based metrics across all ContractSpec applications. It supports:
+## Installation
 
-- **Metric Definitions**: Define what metrics to track
-- **Usage Recording**: Record usage events
-- **Aggregation**: Roll up usage into summaries
-- **Thresholds & Alerts**: Monitor usage against limits
-- **Billing Integration**: Connect usage to billing/plans
+`npm install @contractspec/lib.metering`
 
-## Entities
+or
 
-### MetricDefinition
-
-Defines a trackable metric.
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id | string | Unique identifier |
-| key | string | Metric key (e.g., `api_calls`, `storage_gb`) |
-| name | string | Human-readable name |
-| description | string | Metric description |
-| unit | string | Unit of measurement |
-| aggregationType | enum | How to aggregate (count, sum, avg, max, min) |
-| resetPeriod | enum | When to reset (never, hourly, daily, monthly) |
-| orgId | string | Organization scope (null = global) |
-
-### UsageRecord
-
-Individual usage event.
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id | string | Unique identifier |
-| metricKey | string | Metric being recorded |
-| subjectType | string | Subject type (org, user, project) |
-| subjectId | string | Subject identifier |
-| quantity | decimal | Usage quantity |
-| timestamp | datetime | When usage occurred |
-| metadata | json | Additional context |
-
-### UsageSummary
-
-Pre-aggregated usage summary.
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id | string | Unique identifier |
-| metricKey | string | Metric key |
-| subjectType | string | Subject type |
-| subjectId | string | Subject identifier |
-| periodType | enum | Period type (hourly, daily, monthly) |
-| periodStart | datetime | Period start time |
-| periodEnd | datetime | Period end time |
-| totalQuantity | decimal | Aggregated quantity |
-| recordCount | int | Number of records aggregated |
-
-### UsageThreshold
-
-Threshold configuration for alerts.
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id | string | Unique identifier |
-| metricKey | string | Metric to monitor |
-| subjectType | string | Subject type |
-| subjectId | string | Subject identifier |
-| threshold | decimal | Threshold value |
-| action | enum | Action when exceeded (alert, block, none) |
-| notifyEmails | json | Email addresses to notify |
-
-## Contracts
-
-### Commands
-
-- `metric.define` - Define a new metric
-- `metric.update` - Update metric definition
-- `metric.delete` - Delete a metric
-- `usage.record` - Record a usage event
-- `usage.recordBatch` - Record multiple usage events
-- `threshold.create` - Create a usage threshold
-- `threshold.update` - Update a threshold
-- `threshold.delete` - Delete a threshold
-
-### Queries
-
-- `metric.get` - Get metric definition
-- `metric.list` - List all metrics
-- `usage.get` - Get usage for a subject
-- `usage.getSummary` - Get aggregated usage summary
-- `usage.export` - Export usage data
-- `threshold.list` - List thresholds
-
-## Events
-
-- `metric.defined` - Metric was defined
-- `usage.recorded` - Usage was recorded
-- `usage.aggregated` - Usage was aggregated into summary
-- `threshold.exceeded` - Usage exceeded a threshold
-- `threshold.approaching` - Usage approaching threshold (80%)
+`bun add @contractspec/lib.metering`
 
 ## Usage
 
-```typescript
-import { 
-  MetricDefinitionEntity,
-  RecordUsageContract,
-  UsageAggregator 
-} from '@contractspec/lib.metering';
+Import the root entrypoint from `@contractspec/lib.metering`, or choose a documented subpath when you only need one part of the package surface.
 
-// Define a metric
-await meteringService.defineMetric({
-  key: 'api_calls',
-  name: 'API Calls',
-  unit: 'calls',
-  aggregationType: 'COUNT',
-  resetPeriod: 'MONTHLY',
-});
+## Architecture
 
-// Record usage
-await meteringService.recordUsage({
-  metricKey: 'api_calls',
-  subjectType: 'org',
-  subjectId: 'org-123',
-  quantity: 1,
-});
+- `src/aggregation` is part of the package's public or composition surface.
+- `src/analytics` is part of the package's public or composition surface.
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/entities/` contains domain entities and value objects.
+- `src/events.ts` is package-level event definitions.
+- `src/index.ts` is the root public barrel and package entrypoint.
 
-// Get usage summary
-const summary = await meteringService.getUsageSummary({
-  metricKey: 'api_calls',
-  subjectType: 'org',
-  subjectId: 'org-123',
-  periodType: 'MONTHLY',
-  periodStart: new Date('2024-01-01'),
-});
-```
+## Public Entry Points
 
-## Aggregation
+- Export `.` resolves through `./src/index.ts`.
+- Export `./aggregation` resolves through `./src/aggregation/index.ts`.
+- Export `./analytics/posthog-metering` resolves through `./src/analytics/posthog-metering.ts`.
+- Export `./analytics/posthog-metering-reader` resolves through `./src/analytics/posthog-metering-reader.ts`.
+- Export `./contracts` resolves through `./src/contracts/index.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./docs/metering.docblock` resolves through `./src/docs/metering.docblock.ts`.
+- Export `./entities` resolves through `./src/entities/index.ts`.
+- Export `./events` resolves through `./src/events.ts`.
+- Export `./metering.capability` resolves through `./src/metering.capability.ts`.
+- The package publishes 11 total export subpaths; keep docs aligned with `package.json`.
 
-The module includes an aggregation engine that periodically rolls up usage records:
+## Local Commands
 
-```typescript
-import { UsageAggregator } from '@contractspec/lib.metering/aggregation';
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-const aggregator = new UsageAggregator({
-  storage: usageStorage,
-});
+## Recent Updates
 
-// Run hourly aggregation
-await aggregator.aggregate({
-  periodType: 'HOURLY',
-  periodStart: new Date(),
-});
-```
+- Replace eslint+prettier by biomejs to optimize speed.
+- Stability.
+- Resolve lint, build, and type errors across nine packages.
+- Add AI provider ranking system with ranking-driven model selection.
 
-## Integration
+## Notes
 
-This module integrates with:
-
-- `@contractspec/lib.jobs` - Scheduled aggregation jobs
-- `@contractspec/module.notifications` - Threshold alerts
-- `@contractspec/lib.identity-rbac` - Subject resolution
-
-## Schema Contribution
-
-```typescript
-import { meteringSchemaContribution } from '@contractspec/lib.metering';
-
-export const schemaComposition = {
-  modules: [
-    meteringSchemaContribution,
-    // ... other modules
-  ],
-};
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Aggregation logic must stay deterministic — non-determinism causes billing discrepancies.
+- Billing-related schemas are compliance-sensitive; changes require review.
+- Capability contract (`metering.capability`) is public API — treat as a breaking-change surface.

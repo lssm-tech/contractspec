@@ -3,24 +3,22 @@
  */
 
 // Enums
-export { ApprovalStatusEnum, ApprovalDecisionEnum } from './approval.enum';
-
-// Schema models
-export { ApprovalRequestModel, ApprovalCommentModel } from './approval.schema';
+export { ApprovalDecisionEnum, ApprovalStatusEnum } from './approval.enum';
+// Events
+export {
+	ApprovalDecidedEvent,
+	ApprovalDelegatedEvent,
+	ApprovalEscalatedEvent,
+	ApprovalRequestedEvent,
+} from './approval.event';
 
 // Contracts
 export {
-  SubmitDecisionContract,
-  DelegateApprovalContract,
-  AddApprovalCommentContract,
-  ListMyApprovalsContract,
-  GetApprovalContract,
+	AddApprovalCommentContract,
+	DelegateApprovalContract,
+	GetApprovalContract,
+	ListMyApprovalsContract,
+	SubmitDecisionContract,
 } from './approval.operations';
-
-// Events
-export {
-  ApprovalRequestedEvent,
-  ApprovalDecidedEvent,
-  ApprovalDelegatedEvent,
-  ApprovalEscalatedEvent,
-} from './approval.event';
+// Schema models
+export { ApprovalCommentModel, ApprovalRequestModel } from './approval.schema';

@@ -6,13 +6,13 @@
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 registerDocBlocks([
-  {
-    id: 'ai-chat-overview',
-    title: 'AI Chat Module',
-    kind: 'reference',
-    route: '/docs/tech/ai-chat',
-    visibility: 'public',
-    body: `
+	{
+		id: 'ai-chat-overview',
+		title: 'AI Chat Module',
+		kind: 'reference',
+		route: '/docs/tech/ai-chat',
+		visibility: 'public',
+		body: `
 # AI Chat Module
 
 The AI Chat module provides a reusable AI-powered conversational coding assistant for ContractSpec. It supports multiple LLM providers and can be integrated into CLI, VSCode extension, and ContractSpec Studio.
@@ -122,14 +122,14 @@ Pass \`modelSelector\` (from \`@contractspec/lib.ai-providers\`) to \`ChatServic
 - **VSCode**: Chat webview panel
 - **Studio**: Integrated chat assistant
 `,
-  },
-  {
-    id: 'ai-chat-providers',
-    title: 'AI Chat Providers',
-    kind: 'reference',
-    route: '/docs/tech/ai-chat/providers',
-    visibility: 'public',
-    body: `
+	},
+	{
+		id: 'ai-chat-providers',
+		title: 'AI Chat Providers',
+		kind: 'reference',
+		route: '/docs/tech/ai-chat/providers',
+		visibility: 'public',
+		body: `
 # AI Chat Providers
 
 The AI Chat module supports multiple LLM providers with different deployment modes.
@@ -184,5 +184,5 @@ const anthropicProvider = createProvider({
 });
 \`\`\`
 `,
-  },
+	},
 ]);

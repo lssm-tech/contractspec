@@ -1,5 +1,67 @@
 # contractspec-example-minimal
 
+## 2.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@3.7.6
+
+## 2.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.contracts-spec@3.7.5
+
+## 2.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@3.7.4
+
+## 2.7.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@3.7.3
+
+## 2.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- 04bc555: Improve contract integrity, example validation, onboarding docs, doctor safety,
+  release verification, packaged smoke testing, and security workflow coverage.
+- Updated dependencies [8cd229b]
+- Updated dependencies [04bc555]
+  - @contractspec/lib.contracts-spec@3.7.2
+
+## 2.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/lib.contracts-spec@3.7.1
+
+## 2.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/lib.contracts-spec@3.7.0
+
 ## 2.6.0
 
 ### Minor Changes

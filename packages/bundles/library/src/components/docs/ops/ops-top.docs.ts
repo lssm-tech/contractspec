@@ -1,15 +1,15 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 
 export const opsTopDocs: DocBlock[] = [
-  {
-    id: 'docs.ops.index',
-    title: 'Operations docs index',
-    summary: 'Entry point for operations runbooks and guides.',
-    kind: 'goal',
-    visibility: 'public',
-    route: '/docs/ops',
-    tags: ['ops'],
-    body: `# Operations
+	{
+		id: 'docs.ops.index',
+		title: 'Operations docs index',
+		summary: 'Entry point for operations runbooks and guides.',
+		kind: 'goal',
+		visibility: 'public',
+		route: '/docs/ops',
+		tags: ['ops'],
+		body: `# Operations
 
 Browse runbooks and guides for ops workflows:
 - Anomaly detection (goal/usage/how)
@@ -19,5 +19,5 @@ Browse runbooks and guides for ops workflows:
 - Progressive delivery (goal/usage/how)
 - SLO management (goal/usage/how)
 - Tenant customization (goal/usage/how)`,
-  },
+	},
 ];

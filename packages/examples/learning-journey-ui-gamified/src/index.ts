@@ -1,11 +1,10 @@
 // Main mini-app
-export { GamifiedMiniApp } from './GamifiedMiniApp';
-
-// Views
-export { Overview, Steps, Progress, Timeline } from './views';
 
 // Components
-export { FlashCard, MasteryRing, DayCalendar } from './components';
-export * from './learning-journey-ui-gamified.feature';
+export { DayCalendar, FlashCard, MasteryRing } from './components';
 export { default as example } from './example';
+export { GamifiedMiniApp } from './GamifiedMiniApp';
+export * from './learning-journey-ui-gamified.feature';
+// Views
+export { Overview, Progress, Steps, Timeline } from './views';
 import './docs';

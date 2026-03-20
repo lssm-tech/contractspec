@@ -1,54 +1,54 @@
-import type { Metadata } from 'next';
 import { generateClientFromSchemaBrief } from '@contractspec/bundle.library/components/docs/intent/intent-pages.docblocks';
 import { SeoOptimizer } from '@contractspec/lib.content-gen/seo';
 import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = new SeoOptimizer().optimize(
-  generateClientFromSchemaBrief
+	generateClientFromSchemaBrief
 );
 
 export function GenerateClientFromSchemaPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-3">
-        <h1 className="text-4xl font-bold">
-          {generateClientFromSchemaBrief.title}
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          {generateClientFromSchemaBrief.summary}
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-3">
+				<h1 className="font-bold text-4xl">
+					{generateClientFromSchemaBrief.title}
+				</h1>
+				<p className="text-lg text-muted-foreground">
+					{generateClientFromSchemaBrief.summary}
+				</p>
+			</div>
 
-      <div className="card-subtle space-y-4 p-6">
-        <h2 className="text-2xl font-bold">Client Development Problems</h2>
-        <ul className="text-muted-foreground space-y-2 text-sm">
-          {generateClientFromSchemaBrief.problems.map((problem, index) => (
-            <li key={index}>{problem}</li>
-          ))}
-        </ul>
-      </div>
+			<div className="card-subtle space-y-4 p-6">
+				<h2 className="font-bold text-2xl">Client Development Problems</h2>
+				<ul className="space-y-2 text-muted-foreground text-sm">
+					{generateClientFromSchemaBrief.problems.map((problem, index) => (
+						<li key={index}>{problem}</li>
+					))}
+				</ul>
+			</div>
 
-      <div className="card-subtle space-y-4 p-6">
-        <h2 className="text-2xl font-bold">Automated Solutions</h2>
-        <ul className="text-muted-foreground space-y-2 text-sm">
-          {generateClientFromSchemaBrief.solutions.map((solution, index) => (
-            <li key={index}>{solution}</li>
-          ))}
-        </ul>
-      </div>
+			<div className="card-subtle space-y-4 p-6">
+				<h2 className="font-bold text-2xl">Automated Solutions</h2>
+				<ul className="space-y-2 text-muted-foreground text-sm">
+					{generateClientFromSchemaBrief.solutions.map((solution, index) => (
+						<li key={index}>{solution}</li>
+					))}
+				</ul>
+			</div>
 
-      <div className="space-y-6">
-        <div className="space-y-3">
-          <h2 className="text-2xl font-bold">Contract Definition</h2>
-          <p className="text-muted-foreground text-sm">
-            Define your API contract once, generate clients for any language.
-          </p>
-          <CodeBlock
-            language="typescript"
-            filename="src/contracts/api.contract.ts"
-            code={`import { defineContract } from '@contractspec/lib.contracts-spec';
+			<div className="space-y-6">
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">Contract Definition</h2>
+					<p className="text-muted-foreground text-sm">
+						Define your API contract once, generate clients for any language.
+					</p>
+					<CodeBlock
+						language="typescript"
+						filename="src/contracts/api.contract.ts"
+						code={`import { defineContract } from '@contractspec/lib.contracts-spec';
 import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 export const ApiContract = defineContract({
@@ -119,18 +119,18 @@ export const ApiContract = defineContract({
     tags: ['users', 'authentication'],
   },
 });`}
-          />
-        </div>
+					/>
+				</div>
 
-        <div className="space-y-3">
-          <h2 className="text-2xl font-bold">Generate Multiple Clients</h2>
-          <p className="text-muted-foreground text-sm">
-            Generate type-safe clients for any language from the same contract.
-          </p>
-          <CodeBlock
-            language="bash"
-            filename="generate-clients"
-            code={`# Generate all supported language clients
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">Generate Multiple Clients</h2>
+					<p className="text-muted-foreground text-sm">
+						Generate type-safe clients for any language from the same contract.
+					</p>
+					<CodeBlock
+						language="bash"
+						filename="generate-clients"
+						code={`# Generate all supported language clients
 contractspec generate clients \\
   --contract ./src/contracts/api.contract.ts \\
   --output ./generated/clients \\
@@ -148,22 +148,22 @@ contractspec generate clients \\
 # --with-tests: Generate client test suites
 # --with-docs: Include client documentation
 # --framework: Use specific HTTP client framework`}
-          />
-        </div>
+					/>
+				</div>
 
-        <div className="space-y-3">
-          <h2 className="text-2xl font-bold">Generated Client Examples</h2>
-          <p className="text-muted-foreground text-sm">
-            Each generated client is fully type-safe and idiomatic.
-          </p>
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">Generated Client Examples</h2>
+					<p className="text-muted-foreground text-sm">
+						Each generated client is fully type-safe and idiomatic.
+					</p>
 
-          <div className="space-y-4">
-            <div className="card-subtle p-4">
-              <h4 className="text-lg font-semibold">TypeScript Client</h4>
-              <CodeBlock
-                language="typescript"
-                filename="generated/clients/typescript/index.ts"
-                code={`import { MyAPIClient } from './client';
+					<div className="space-y-4">
+						<div className="card-subtle p-4">
+							<h4 className="font-semibold text-lg">TypeScript Client</h4>
+							<CodeBlock
+								language="typescript"
+								filename="generated/clients/typescript/index.ts"
+								code={`import { MyAPIClient } from './client';
 
 const client = new MyAPIClient({
   baseUrl: 'https://api.example.com',
@@ -184,15 +184,15 @@ const newUser = await client.createUser({
 // Full type inference
 // users: GetUsersResponse
 // newUser: CreateUserResponse`}
-              />
-            </div>
+							/>
+						</div>
 
-            <div className="card-subtle p-4">
-              <h4 className="text-lg font-semibold">Python Client</h4>
-              <CodeBlock
-                language="python"
-                filename="generated/clients/python/index.py"
-                code={`from myapi_client import MyAPIClient
+						<div className="card-subtle p-4">
+							<h4 className="font-semibold text-lg">Python Client</h4>
+							<CodeBlock
+								language="python"
+								filename="generated/clients/python/index.py"
+								code={`from myapi_client import MyAPIClient
 
 client = MyAPIClient(
     base_url='https://api.example.com',
@@ -213,15 +213,15 @@ new_user = await client.create_user(
 # Full type hints
 # users: GetUsersResponse
 # new_user: CreateUserResponse`}
-              />
-            </div>
+							/>
+						</div>
 
-            <div className="card-subtle p-4">
-              <h4 className="text-lg font-semibold">Go Client</h4>
-              <CodeBlock
-                language="go"
-                filename="generated/clients/go/client.go"
-                code={`package main
+						<div className="card-subtle p-4">
+							<h4 className="font-semibold text-lg">Go Client</h4>
+							<CodeBlock
+								language="go"
+								filename="generated/clients/go/client.go"
+								code={`package main
 
 import (
     "context"
@@ -249,20 +249,20 @@ func main() {
     // users: *GetUsersResponse
     // newUser: *CreateUserResponse
 }`}
-              />
-            </div>
-          </div>
-        </div>
+							/>
+						</div>
+					</div>
+				</div>
 
-        <div className="space-y-3">
-          <h2 className="text-2xl font-bold">Advanced Features</h2>
-          <p className="text-muted-foreground text-sm">
-            Generated clients include enterprise-grade features out of the box.
-          </p>
-          <CodeBlock
-            language="typescript"
-            filename="client-features.ts"
-            code={`// Advanced client features
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">Advanced Features</h2>
+					<p className="text-muted-foreground text-sm">
+						Generated clients include enterprise-grade features out of the box.
+					</p>
+					<CodeBlock
+						language="typescript"
+						filename="client-features.ts"
+						code={`// Advanced client features
 const client = new MyAPIClient({
   baseUrl: 'https://api.example.com',
   apiKey: 'your-api-key',
@@ -306,21 +306,21 @@ const user2 = client.getUser({ id: '123' }); // Uses cached result
 const controller = new AbortController();
 const promise = client.getUsers({ page: 1, signal: controller.signal });
 controller.abort(); // Cancels the request`}
-          />
-        </div>
-      </div>
+					/>
+				</div>
+			</div>
 
-      <div className="flex items-center gap-4 pt-4">
-        <Link
-          href="/docs/guides/generate-docs-clients-schemas"
-          className="btn-primary"
-        >
-          Client Generation Guide <ChevronRight size={16} />
-        </Link>
-        <Link href="/docs/intent/contract-first-api" className="btn-ghost">
-          Contract-first API
-        </Link>
-      </div>
-    </div>
-  );
+			<div className="flex items-center gap-4 pt-4">
+				<Link
+					href="/docs/guides/generate-docs-clients-schemas"
+					className="btn-primary"
+				>
+					Client Generation Guide <ChevronRight size={16} />
+				</Link>
+				<Link href="/docs/intent/contract-first-api" className="btn-ghost">
+					Contract-first API
+				</Link>
+			</div>
+		</div>
+	);
 }

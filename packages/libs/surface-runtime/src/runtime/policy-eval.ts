@@ -4,12 +4,12 @@
  */
 
 import type {
-  BundleContext,
-  SurfacePatchOp,
-  BundleAuditEmitter,
+	BundleAuditEmitter,
+	BundleContext,
+	SurfacePatchOp,
 } from '../spec/types';
-import type { PolicyHooks, PatchPolicyEffect } from './resolve-bundle';
 import { emitPolicyDenied } from './audit-events';
+import type { PatchPolicyEffect, PolicyHooks } from './resolve-bundle';
 
 /**
  * Evaluates a patch proposal with policy hooks.
@@ -17,13 +17,13 @@ import { emitPolicyDenied } from './audit-events';
  * When policy hook is absent, returns allow (stub PDP).
  */
 export function evaluatePatchProposalPolicy<C extends BundleContext>(
-  ops: SurfacePatchOp[],
-  ctx: C,
-  policy?: PolicyHooks<C>
+	ops: SurfacePatchOp[],
+	ctx: C,
+	policy?: PolicyHooks<C>
 ): PatchPolicyEffect {
-  const evaluate = policy?.evaluatePatchProposal;
-  if (!evaluate) return 'allow';
-  return evaluate(ops, ctx);
+	const evaluate = policy?.evaluatePatchProposal;
+	if (!evaluate) return 'allow';
+	return evaluate(ops, ctx);
 }
 
 /**
@@ -31,28 +31,28 @@ export function evaluatePatchProposalPolicy<C extends BundleContext>(
  * Call before applying patches. If returns false, do not apply.
  */
 export function evaluateAndEmitPatchPolicy<C extends BundleContext>(
-  ops: SurfacePatchOp[],
-  ctx: C,
-  args: {
-    policy?: PolicyHooks<C>;
-    audit?: BundleAuditEmitter;
-    bundleKey: string;
-    surfaceId?: string;
-    targetId?: string;
-  }
+	ops: SurfacePatchOp[],
+	ctx: C,
+	args: {
+		policy?: PolicyHooks<C>;
+		audit?: BundleAuditEmitter;
+		bundleKey: string;
+		surfaceId?: string;
+		targetId?: string;
+	}
 ): boolean {
-  const effect = evaluatePatchProposalPolicy(ops, ctx, args.policy);
-  if (effect === 'deny') {
-    if (args.audit) {
-      emitPolicyDenied(args.audit, {
-        bundleKey: args.bundleKey,
-        surfaceId: args.surfaceId,
-        targetId: args.targetId ?? 'patch-proposal',
-        reason: 'Policy denied patch proposal',
-        actorId: ctx.actorId,
-      });
-    }
-    return false;
-  }
-  return true;
+	const effect = evaluatePatchProposalPolicy(ops, ctx, args.policy);
+	if (effect === 'deny') {
+		if (args.audit) {
+			emitPolicyDenied(args.audit, {
+				bundleKey: args.bundleKey,
+				surfaceId: args.surfaceId,
+				targetId: args.targetId ?? 'patch-proposal',
+				reason: 'Policy denied patch proposal',
+				actorId: ctx.actorId,
+			});
+		}
+		return false;
+	}
+	return true;
 }

@@ -4,23 +4,21 @@
 
 // Agent presentations
 export {
-  AgentListPresentation,
-  AgentDetailPresentation,
-  AgentConsoleDashboardPresentation,
+	AgentConsoleDashboardPresentation,
+	AgentDetailPresentation,
+	AgentListPresentation,
 } from '../agent/agent.presentation';
-
 // Run presentations
-export {
-  RunListPresentation,
-  RunDetailPresentation,
-} from '../run/run.presentation';
 // Alias: RunMetricsPresentation -> RunDetailPresentation (for backward compatibility)
-export { RunDetailPresentation as RunMetricsPresentation } from '../run/run.presentation';
-
-// Tool presentations
 export {
-  ToolListPresentation,
-  ToolDetailPresentation,
-} from '../tool/tool.presentation';
+	RunDetailPresentation,
+	RunDetailPresentation as RunMetricsPresentation,
+	RunListPresentation,
+} from '../run/run.presentation';
+// Tool presentations
 // Alias: ToolRegistryPresentation -> ToolListPresentation (for backward compatibility)
-export { ToolListPresentation as ToolRegistryPresentation } from '../tool/tool.presentation';
+export {
+	ToolDetailPresentation,
+	ToolListPresentation,
+	ToolListPresentation as ToolRegistryPresentation,
+} from '../tool/tool.presentation';

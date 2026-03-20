@@ -1,8 +1,8 @@
-export type {
-  EvalCase,
-  EvalSuite,
-  EvalCaseResult,
-  EvalRunResult,
-  EvalLLMAdapter,
-} from './types';
 export { EvalRunner } from './runner';
+export type {
+	EvalCase,
+	EvalCaseResult,
+	EvalLLMAdapter,
+	EvalRunResult,
+	EvalSuite,
+} from './types';

@@ -1,2 +1,2 @@
-export * from './docsIndex.query';
 export * from './contractReference.query';
+export * from './docsIndex.query';

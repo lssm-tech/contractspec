@@ -1,20 +1,21 @@
 import type {
-  MeetingRecorderListMeetingsParams,
-  MeetingRecorderListMeetingsResult,
+	MeetingRecorderListMeetingsParams,
+	MeetingRecorderListMeetingsResult,
 } from '@contractspec/lib.contracts-integrations';
 
 import {
-  createMeetingRecorderProvider,
-  type MeetingRecorderProviderFactoryInput,
+	createMeetingRecorderProvider,
+	type MeetingRecorderProviderFactoryInput,
 } from './create-provider';
 
-export interface ListMeetingRecorderMeetingsInput extends MeetingRecorderProviderFactoryInput {
-  params: MeetingRecorderListMeetingsParams;
+export interface ListMeetingRecorderMeetingsInput
+	extends MeetingRecorderProviderFactoryInput {
+	params: MeetingRecorderListMeetingsParams;
 }
 
 export async function listMeetingRecorderMeetings(
-  input: ListMeetingRecorderMeetingsInput
+	input: ListMeetingRecorderMeetingsInput
 ): Promise<MeetingRecorderListMeetingsResult> {
-  const provider = createMeetingRecorderProvider(input);
-  return provider.listMeetings(input.params);
+	const provider = createMeetingRecorderProvider(input);
+	return provider.listMeetings(input.params);
 }

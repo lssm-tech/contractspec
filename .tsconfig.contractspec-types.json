@@ -1,18 +1,18 @@
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "noEmit": false,
-    "incremental": false,
-    "emitDeclarationOnly": true,
-    "declaration": true,
-    "declarationMap": false,
-    "outDir": "dist",
-    "rootDir": ".",
-    "baseUrl": ".",
-    "paths": {
-      "@contractspec/eslint-plugin-design-system/*": [
-        "packages/tools/eslint-plugin-design-system/dist/*"
-      ]
-    }
-  }
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"noEmit": false,
+		"incremental": false,
+		"emitDeclarationOnly": true,
+		"declaration": true,
+		"declarationMap": false,
+		"outDir": "dist",
+		"rootDir": ".",
+		"baseUrl": ".",
+		"paths": {
+			"@contractspec/eslint-plugin-design-system/*": [
+				"packages/tools/eslint-plugin-design-system/dist/*"
+			]
+		}
+	}
 }

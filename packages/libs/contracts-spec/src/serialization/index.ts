@@ -7,5 +7,5 @@
  * the essential data needed for display.
  */
 
-export * from './types';
 export * from './serializers';
+export * from './types';

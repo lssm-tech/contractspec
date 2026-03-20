@@ -1,6 +1,6 @@
 // Marketplace renderers
 export {
-  marketplaceDashboardMarkdownRenderer,
-  productCatalogMarkdownRenderer,
-  orderListMarkdownRenderer,
+	marketplaceDashboardMarkdownRenderer,
+	orderListMarkdownRenderer,
+	productCatalogMarkdownRenderer,
 } from './marketplace.markdown';

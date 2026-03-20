@@ -1,17 +1,17 @@
 import type { LanguageModel } from 'ai';
-import type { TelemetryCollector, OperationMetricSample } from './adapter';
-import type {
-  PostHogClient,
-  PostHogLLMConfig,
-  PostHogTracingOptions,
-} from './posthog-types';
 import { createAgentI18n } from '../i18n';
+import type { OperationMetricSample, TelemetryCollector } from './adapter';
+import type {
+	PostHogClient,
+	PostHogLLMConfig,
+	PostHogTracingOptions,
+} from './posthog-types';
 
 // Re-export types for consumer convenience
 export type {
-  PostHogClient,
-  PostHogLLMConfig,
-  PostHogTracingOptions,
+	PostHogClient,
+	PostHogLLMConfig,
+	PostHogTracingOptions,
 } from './posthog-types';
 
 // =============================================================================
@@ -45,19 +45,19 @@ export type {
  * ```
  */
 export async function createPostHogTracedModel(
-  model: LanguageModel,
-  config: PostHogLLMConfig,
-  overrides?: PostHogTracingOptions
+	model: LanguageModel,
+	config: PostHogLLMConfig,
+	overrides?: PostHogTracingOptions
 ): Promise<LanguageModel> {
-  const { withTracing } = await importPostHogAI();
-  const phClient = await resolvePostHogClient(config);
+	const { withTracing } = await importPostHogAI();
+	const phClient = await resolvePostHogClient(config);
 
-  const tracingOptions: PostHogTracingOptions = {
-    ...config.defaults,
-    ...overrides,
-  };
+	const tracingOptions: PostHogTracingOptions = {
+		...config.defaults,
+		...overrides,
+	};
 
-  return withTracing(model, phClient, tracingOptions) as LanguageModel;
+	return withTracing(model, phClient, tracingOptions) as LanguageModel;
 }
 
 // =============================================================================
@@ -81,119 +81,119 @@ export async function createPostHogTracedModel(
  * ```
  */
 export class PostHogTelemetryCollector implements TelemetryCollector {
-  private phClient: PostHogClient | undefined;
-  private readonly config: PostHogLLMConfig;
-  private initPromise: Promise<PostHogClient> | undefined;
+	private phClient: PostHogClient | undefined;
+	private readonly config: PostHogLLMConfig;
+	private initPromise: Promise<PostHogClient> | undefined;
 
-  constructor(config: PostHogLLMConfig) {
-    this.config = config;
-    this.phClient = config.client;
-  }
+	constructor(config: PostHogLLMConfig) {
+		this.config = config;
+		this.phClient = config.client;
+	}
 
-  async collect(sample: OperationMetricSample): Promise<void> {
-    const client = await this.getClient();
-    const metadata = asRecord(sample.metadata);
-    const distinctId =
-      this.config.defaults?.posthogDistinctId ??
-      asString(metadata['actorId']) ??
-      'system';
-    const traceId =
-      asString(metadata['traceId']) ?? this.config.defaults?.posthogTraceId;
-    const sessionId = asString(metadata['sessionId']);
-    const telemetryEvent = asString(metadata['telemetryEvent']);
-    const event = telemetryEvent === 'span' ? '$ai_span' : '$ai_generation';
-    const tokenUsage = metadata['tokenUsage'];
-    const totalUsage = metadata['totalUsage'];
-    const errorMessage = asString(metadata['errorMessage']);
+	async collect(sample: OperationMetricSample): Promise<void> {
+		const client = await this.getClient();
+		const metadata = asRecord(sample.metadata);
+		const distinctId =
+			this.config.defaults?.posthogDistinctId ??
+			asString(metadata['actorId']) ??
+			'system';
+		const traceId =
+			asString(metadata['traceId']) ?? this.config.defaults?.posthogTraceId;
+		const sessionId = asString(metadata['sessionId']);
+		const telemetryEvent = asString(metadata['telemetryEvent']);
+		const event = telemetryEvent === 'span' ? '$ai_span' : '$ai_generation';
+		const tokenUsage = metadata['tokenUsage'];
+		const totalUsage = metadata['totalUsage'];
+		const errorMessage = asString(metadata['errorMessage']);
 
-    client.capture({
-      distinctId,
-      event,
-      properties: {
-        $ai_model:
-          asString(metadata['responseModelId']) ?? sample.operation.name,
-        $ai_provider: asString(metadata['provider']) ?? 'contractspec',
-        $ai_latency: sample.durationMs / 1000,
-        $ai_is_error: !sample.success,
-        $ai_error: !sample.success ? errorMessage : undefined,
-        $ai_trace_id: traceId,
-        $ai_session_id: sessionId,
-        $ai_span_id: asString(metadata['spanId']),
-        $ai_parent_id: asString(metadata['parentSpanId']),
-        $ai_span_name: asString(metadata['spanName']) ?? sample.operation.name,
-        ...(tokenUsage ? mapTokenUsage(tokenUsage) : {}),
-        ...(totalUsage ? mapTotalUsage(totalUsage) : {}),
-        $ai_http_status: asNumber(metadata['httpStatus']),
-        $ai_request_url: asString(metadata['requestUrl']),
-        $ai_base_url: asString(metadata['baseUrl']),
-        ...this.config.defaults?.posthogProperties,
-        contractspec_operation: sample.operation.name,
-        contractspec_version: sample.operation.version,
-        contractspec_agent_id: asString(metadata['agentId']),
-        contractspec_tenant_id: asString(metadata['tenantId']),
-        contractspec_actor_id: asString(metadata['actorId']),
-        contractspec_step_index: asNumber(metadata['stepIndex']),
-        contractspec_step_started_at: asDateIso(metadata['stepStartedAt']),
-        contractspec_finish_reason: asString(metadata['finishReason']),
-        contractspec_finish_reason_raw: asString(metadata['rawFinishReason']),
-        contractspec_tool_count: asNumber(metadata['toolCallCount']),
-        contractspec_tool_name: asString(metadata['toolName']),
-        contractspec_tool_call_args: metadata['toolCallArgs'],
-        contractspec_tool_result_output: metadata['toolResultOutput'],
-        contractspec_provider_metadata: metadata['providerMetadata'],
-        contractspec_step_warnings: metadata['warnings'],
-        contractspec_response_id: asString(metadata['responseId']),
-        contractspec_response_model_id: asString(metadata['responseModelId']),
-        contractspec_response_timestamp: asDateIso(
-          metadata['responseTimestamp']
-        ),
-        contractspec_response_headers: metadata['responseHeaders'],
-        contractspec_response_body: this.config.defaults?.posthogPrivacyMode
-          ? undefined
-          : metadata['responseBody'],
-        contractspec_response_messages: this.config.defaults?.posthogPrivacyMode
-          ? undefined
-          : metadata['responseMessages'],
-        contractspec_request_headers: metadata['requestHeaders'],
-        contractspec_request_body: this.config.defaults?.posthogPrivacyMode
-          ? undefined
-          : metadata['requestBody'],
-        contractspec_step_text: this.config.defaults?.posthogPrivacyMode
-          ? undefined
-          : metadata['stepText'],
-        contractspec_step_reasoning_text: this.config.defaults
-          ?.posthogPrivacyMode
-          ? undefined
-          : metadata['stepReasoningText'],
-      },
-      groups: this.config.defaults?.posthogGroups,
-    });
-  }
+		client.capture({
+			distinctId,
+			event,
+			properties: {
+				$ai_model:
+					asString(metadata['responseModelId']) ?? sample.operation.name,
+				$ai_provider: asString(metadata['provider']) ?? 'contractspec',
+				$ai_latency: sample.durationMs / 1000,
+				$ai_is_error: !sample.success,
+				$ai_error: !sample.success ? errorMessage : undefined,
+				$ai_trace_id: traceId,
+				$ai_session_id: sessionId,
+				$ai_span_id: asString(metadata['spanId']),
+				$ai_parent_id: asString(metadata['parentSpanId']),
+				$ai_span_name: asString(metadata['spanName']) ?? sample.operation.name,
+				...(tokenUsage ? mapTokenUsage(tokenUsage) : {}),
+				...(totalUsage ? mapTotalUsage(totalUsage) : {}),
+				$ai_http_status: asNumber(metadata['httpStatus']),
+				$ai_request_url: asString(metadata['requestUrl']),
+				$ai_base_url: asString(metadata['baseUrl']),
+				...this.config.defaults?.posthogProperties,
+				contractspec_operation: sample.operation.name,
+				contractspec_version: sample.operation.version,
+				contractspec_agent_id: asString(metadata['agentId']),
+				contractspec_tenant_id: asString(metadata['tenantId']),
+				contractspec_actor_id: asString(metadata['actorId']),
+				contractspec_step_index: asNumber(metadata['stepIndex']),
+				contractspec_step_started_at: asDateIso(metadata['stepStartedAt']),
+				contractspec_finish_reason: asString(metadata['finishReason']),
+				contractspec_finish_reason_raw: asString(metadata['rawFinishReason']),
+				contractspec_tool_count: asNumber(metadata['toolCallCount']),
+				contractspec_tool_name: asString(metadata['toolName']),
+				contractspec_tool_call_args: metadata['toolCallArgs'],
+				contractspec_tool_result_output: metadata['toolResultOutput'],
+				contractspec_provider_metadata: metadata['providerMetadata'],
+				contractspec_step_warnings: metadata['warnings'],
+				contractspec_response_id: asString(metadata['responseId']),
+				contractspec_response_model_id: asString(metadata['responseModelId']),
+				contractspec_response_timestamp: asDateIso(
+					metadata['responseTimestamp']
+				),
+				contractspec_response_headers: metadata['responseHeaders'],
+				contractspec_response_body: this.config.defaults?.posthogPrivacyMode
+					? undefined
+					: metadata['responseBody'],
+				contractspec_response_messages: this.config.defaults?.posthogPrivacyMode
+					? undefined
+					: metadata['responseMessages'],
+				contractspec_request_headers: metadata['requestHeaders'],
+				contractspec_request_body: this.config.defaults?.posthogPrivacyMode
+					? undefined
+					: metadata['requestBody'],
+				contractspec_step_text: this.config.defaults?.posthogPrivacyMode
+					? undefined
+					: metadata['stepText'],
+				contractspec_step_reasoning_text: this.config.defaults
+					?.posthogPrivacyMode
+					? undefined
+					: metadata['stepReasoningText'],
+			},
+			groups: this.config.defaults?.posthogGroups,
+		});
+	}
 
-  /** Shut down the PostHog client (flushes pending events). */
-  async shutdown(): Promise<void> {
-    if (this.phClient?.shutdown) {
-      await this.phClient.shutdown();
-    }
-  }
+	/** Shut down the PostHog client (flushes pending events). */
+	async shutdown(): Promise<void> {
+		if (this.phClient?.shutdown) {
+			await this.phClient.shutdown();
+		}
+	}
 
-  private async getClient(): Promise<PostHogClient> {
-    if (this.phClient) return this.phClient;
-    if (!this.initPromise) {
-      this.initPromise = resolvePostHogClient(this.config).then((client) => {
-        this.phClient = client;
-        return client;
-      });
-    }
-    return this.initPromise;
-  }
+	private async getClient(): Promise<PostHogClient> {
+		if (this.phClient) return this.phClient;
+		if (!this.initPromise) {
+			this.initPromise = resolvePostHogClient(this.config).then((client) => {
+				this.phClient = client;
+				return client;
+			});
+		}
+		return this.initPromise;
+	}
 }
 
 /** Create a PostHog-backed telemetry collector. */
 export function createPostHogTelemetryCollector(
-  config: PostHogLLMConfig
+	config: PostHogLLMConfig
 ): PostHogTelemetryCollector {
-  return new PostHogTelemetryCollector(config);
+	return new PostHogTelemetryCollector(config);
 }
 
 // =============================================================================
@@ -215,121 +215,130 @@ export function createPostHogTelemetryCollector(
  * ```
  */
 export class CompositeTelemetryCollector implements TelemetryCollector {
-  private readonly collectors: TelemetryCollector[];
+	private readonly collectors: TelemetryCollector[];
 
-  constructor(collectors: TelemetryCollector[]) {
-    this.collectors = collectors;
-  }
+	constructor(collectors: TelemetryCollector[]) {
+		this.collectors = collectors;
+	}
 
-  async collect(sample: OperationMetricSample): Promise<void> {
-    await Promise.all(this.collectors.map((c) => c.collect(sample)));
-  }
+	async collect(sample: OperationMetricSample): Promise<void> {
+		await Promise.all(this.collectors.map((c) => c.collect(sample)));
+	}
 }
 
 /** Create a composite telemetry collector. */
 export function createCompositeTelemetryCollector(
-  collectors: TelemetryCollector[]
+	collectors: TelemetryCollector[]
 ): CompositeTelemetryCollector {
-  return new CompositeTelemetryCollector(collectors);
+	return new CompositeTelemetryCollector(collectors);
 }
 
 // =============================================================================
 // Helpers
 // =============================================================================
 
+const runtimeImport = new Function('specifier', 'return import(specifier)') as (
+	specifier: string
+) => Promise<unknown>;
+
 async function importPostHogAI(): Promise<{
-  withTracing: (...args: unknown[]) => unknown;
+	withTracing: (...args: unknown[]) => unknown;
 }> {
-  try {
-    return await (import('@posthog/ai') as Promise<{
-      withTracing: (...args: unknown[]) => unknown;
-    }>);
-  } catch {
-    throw new Error(createAgentI18n().t('error.telemetry.posthogAiRequired'));
-  }
+	try {
+		return await (runtimeImport('@posthog/ai') as Promise<{
+			withTracing: (...args: unknown[]) => unknown;
+		}>);
+	} catch {
+		throw new Error(createAgentI18n().t('error.telemetry.posthogAiRequired'));
+	}
 }
 
 async function resolvePostHogClient(
-  config: PostHogLLMConfig
+	config: PostHogLLMConfig
 ): Promise<PostHogClient> {
-  if (config.client) return config.client;
-  if (!config.apiKey) {
-    throw new Error(
-      createAgentI18n().t('error.telemetry.posthogClientOrKeyRequired')
-    );
-  }
+	if (config.client) return config.client;
+	if (!config.apiKey) {
+		throw new Error(
+			createAgentI18n().t('error.telemetry.posthogClientOrKeyRequired')
+		);
+	}
 
-  try {
-    const { PostHog } = await import('posthog-node');
-    return new PostHog(config.apiKey, {
-      host: config.host ?? 'https://us.i.posthog.com',
-    }) as unknown as PostHogClient;
-  } catch {
-    throw new Error(createAgentI18n().t('error.telemetry.posthogNodeRequired'));
-  }
+	try {
+		const { PostHog } = (await runtimeImport('posthog-node')) as {
+			PostHog: new (
+				apiKey: string,
+				options?: { host?: string }
+			) => PostHogClient;
+		};
+		return new PostHog(config.apiKey, {
+			host: config.host ?? 'https://us.i.posthog.com',
+		});
+	} catch {
+		throw new Error(createAgentI18n().t('error.telemetry.posthogNodeRequired'));
+	}
 }
 
 function mapTokenUsage(
-  usage: unknown
+	usage: unknown
 ): Record<string, number | Record<string, unknown> | undefined> {
-  const usageRecord = asRecord(usage);
-  const inputTokenDetails = asRecord(usageRecord['inputTokenDetails']);
-  const outputTokenDetails = asRecord(usageRecord['outputTokenDetails']);
+	const usageRecord = asRecord(usage);
+	const inputTokenDetails = asRecord(usageRecord['inputTokenDetails']);
+	const outputTokenDetails = asRecord(usageRecord['outputTokenDetails']);
 
-  return {
-    $ai_input_tokens:
-      asNumber(usageRecord['inputTokens']) ??
-      asNumber(usageRecord['promptTokens']),
-    $ai_output_tokens:
-      asNumber(usageRecord['outputTokens']) ??
-      asNumber(usageRecord['completionTokens']),
-    $ai_reasoning_tokens:
-      asNumber(outputTokenDetails['reasoningTokens']) ??
-      asNumber(usageRecord['reasoningTokens']),
-    $ai_cache_read_input_tokens:
-      asNumber(inputTokenDetails['cacheReadTokens']) ??
-      asNumber(usageRecord['cachedInputTokens']),
-    $ai_cache_creation_input_tokens: asNumber(
-      inputTokenDetails['cacheWriteTokens']
-    ),
-    $ai_usage: maybeRecord(usageRecord['raw']) ?? usageRecord,
-  };
+	return {
+		$ai_input_tokens:
+			asNumber(usageRecord['inputTokens']) ??
+			asNumber(usageRecord['promptTokens']),
+		$ai_output_tokens:
+			asNumber(usageRecord['outputTokens']) ??
+			asNumber(usageRecord['completionTokens']),
+		$ai_reasoning_tokens:
+			asNumber(outputTokenDetails['reasoningTokens']) ??
+			asNumber(usageRecord['reasoningTokens']),
+		$ai_cache_read_input_tokens:
+			asNumber(inputTokenDetails['cacheReadTokens']) ??
+			asNumber(usageRecord['cachedInputTokens']),
+		$ai_cache_creation_input_tokens: asNumber(
+			inputTokenDetails['cacheWriteTokens']
+		),
+		$ai_usage: maybeRecord(usageRecord['raw']) ?? usageRecord,
+	};
 }
 
 function mapTotalUsage(
-  usage: unknown
+	usage: unknown
 ): Record<string, number | Record<string, unknown> | undefined> {
-  const usageRecord = asRecord(usage);
-  return {
-    contractspec_total_input_tokens: asNumber(usageRecord['inputTokens']),
-    contractspec_total_output_tokens: asNumber(usageRecord['outputTokens']),
-    contractspec_total_tokens: asNumber(usageRecord['totalTokens']),
-    contractspec_total_usage_raw:
-      maybeRecord(usageRecord['raw']) ?? usageRecord,
-  };
+	const usageRecord = asRecord(usage);
+	return {
+		contractspec_total_input_tokens: asNumber(usageRecord['inputTokens']),
+		contractspec_total_output_tokens: asNumber(usageRecord['outputTokens']),
+		contractspec_total_tokens: asNumber(usageRecord['totalTokens']),
+		contractspec_total_usage_raw:
+			maybeRecord(usageRecord['raw']) ?? usageRecord,
+	};
 }
 
 function asRecord(value: unknown): Record<string, unknown> {
-  return value && typeof value === 'object'
-    ? (value as Record<string, unknown>)
-    : {};
+	return value && typeof value === 'object'
+		? (value as Record<string, unknown>)
+		: {};
 }
 
 function maybeRecord(value: unknown): Record<string, unknown> | undefined {
-  return value && typeof value === 'object'
-    ? (value as Record<string, unknown>)
-    : undefined;
+	return value && typeof value === 'object'
+		? (value as Record<string, unknown>)
+		: undefined;
 }
 
 function asString(value: unknown): string | undefined {
-  return typeof value === 'string' && value.length > 0 ? value : undefined;
+	return typeof value === 'string' && value.length > 0 ? value : undefined;
 }
 
 function asNumber(value: unknown): number | undefined {
-  return typeof value === 'number' ? value : undefined;
+	return typeof value === 'number' ? value : undefined;
 }
 
 function asDateIso(value: unknown): string | undefined {
-  if (value instanceof Date) return value.toISOString();
-  return undefined;
+	if (value instanceof Date) return value.toISOString();
+	return undefined;
 }

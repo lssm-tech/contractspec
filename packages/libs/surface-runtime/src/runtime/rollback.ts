@@ -3,14 +3,14 @@
  * Reverts last N approved patches by applying their inverse ops.
  */
 
-import type { ResolvedSurfacePlan } from './resolve-bundle';
 import type { OverlayApprovalMeta, SurfacePatchOp } from '../spec/types';
 import { applySurfacePatch } from './apply-surface-patch';
+import type { ResolvedSurfacePlan } from './resolve-bundle';
 
 export interface RollbackResult {
-  plan: ResolvedSurfacePlan;
-  revertedCount: number;
-  remainingStack: OverlayApprovalMeta[];
+	plan: ResolvedSurfacePlan;
+	revertedCount: number;
+	remainingStack: OverlayApprovalMeta[];
 }
 
 /**
@@ -23,35 +23,35 @@ export interface RollbackResult {
  * @returns Updated plan, reverted count, and remaining stack
  */
 export function rollbackSurfacePatches(
-  plan: ResolvedSurfacePlan,
-  approvalStack: OverlayApprovalMeta[],
-  count = 1
+	plan: ResolvedSurfacePlan,
+	approvalStack: OverlayApprovalMeta[],
+	count = 1
 ): RollbackResult {
-  if (count <= 0 || approvalStack.length === 0) {
-    return { plan, revertedCount: 0, remainingStack: approvalStack };
-  }
+	if (count <= 0 || approvalStack.length === 0) {
+		return { plan, revertedCount: 0, remainingStack: approvalStack };
+	}
 
-  const toRevert = approvalStack.slice(-count);
-  const remaining = approvalStack.slice(0, -count);
+	const toRevert = approvalStack.slice(-count);
+	const remaining = approvalStack.slice(0, -count);
 
-  const currentPlan = plan;
-  const allInverseOps: SurfacePatchOp[] = [];
+	const currentPlan = plan;
+	const allInverseOps: SurfacePatchOp[] = [];
 
-  for (const meta of toRevert) {
-    if (meta.inverseOps.length > 0) {
-      allInverseOps.push(...meta.inverseOps);
-    }
-  }
+	for (const meta of toRevert) {
+		if (meta.inverseOps.length > 0) {
+			allInverseOps.push(...meta.inverseOps);
+		}
+	}
 
-  if (allInverseOps.length === 0) {
-    return { plan, revertedCount: 0, remainingStack: approvalStack };
-  }
+	if (allInverseOps.length === 0) {
+		return { plan, revertedCount: 0, remainingStack: approvalStack };
+	}
 
-  const result = applySurfacePatch(currentPlan, allInverseOps);
+	const result = applySurfacePatch(currentPlan, allInverseOps);
 
-  return {
-    plan: result.plan,
-    revertedCount: toRevert.length,
-    remainingStack: remaining,
-  };
+	return {
+		plan: result.plan,
+		revertedCount: toRevert.length,
+		remainingStack: remaining,
+	};
 }

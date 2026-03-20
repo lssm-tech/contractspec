@@ -3,21 +3,21 @@
 // ---------------------------------------------------------------------------
 
 import type { ContentBrief } from '@contractspec/lib.content-gen/types';
-import { VideoGenerator } from '@contractspec/lib.video-gen/generators';
 import { VIDEO_FORMATS } from '@contractspec/lib.video-gen/design/layouts';
+import { VideoGenerator } from '@contractspec/lib.video-gen/generators';
 import type {
-  VideoBrief,
-  VideoFormat,
+	VideoBrief,
+	VideoFormat,
+	VideoProject,
 } from '@contractspec/lib.video-gen/types';
-import type { VideoProject } from '@contractspec/lib.video-gen/types';
 
 /** Supported social format keys. */
 export type SocialFormat = 'landscape' | 'square' | 'portrait';
 
 const FORMAT_MAP: Record<SocialFormat, VideoFormat> = {
-  landscape: VIDEO_FORMATS.landscape,
-  square: VIDEO_FORMATS.square,
-  portrait: VIDEO_FORMATS.portrait,
+	landscape: VIDEO_FORMATS.landscape,
+	square: VIDEO_FORMATS.square,
+	portrait: VIDEO_FORMATS.portrait,
 };
 
 /**
@@ -38,19 +38,19 @@ const FORMAT_MAP: Record<SocialFormat, VideoFormat> = {
  * ```
  */
 export async function generateMarketingClip(
-  brief: ContentBrief,
-  format: SocialFormat = 'landscape',
-  targetDurationSeconds?: number
+	brief: ContentBrief,
+	format: SocialFormat = 'landscape',
+	targetDurationSeconds?: number
 ): Promise<VideoProject> {
-  const generator = new VideoGenerator({ fps: 30 });
+	const generator = new VideoGenerator({ fps: 30 });
 
-  const videoBrief: VideoBrief = {
-    content: brief,
-    format: FORMAT_MAP[format],
-    targetDurationSeconds,
-  };
+	const videoBrief: VideoBrief = {
+		content: brief,
+		format: FORMAT_MAP[format],
+		targetDurationSeconds,
+	};
 
-  return generator.generate(videoBrief);
+	return generator.generate(videoBrief);
 }
 
 /**
@@ -66,14 +66,14 @@ export async function generateMarketingClip(
  * ```
  */
 export async function generateAllFormats(
-  brief: ContentBrief,
-  targetDurationSeconds?: number
+	brief: ContentBrief,
+	targetDurationSeconds?: number
 ): Promise<Record<SocialFormat, VideoProject>> {
-  const [landscape, square, portrait] = await Promise.all([
-    generateMarketingClip(brief, 'landscape', targetDurationSeconds),
-    generateMarketingClip(brief, 'square', targetDurationSeconds),
-    generateMarketingClip(brief, 'portrait', targetDurationSeconds),
-  ]);
+	const [landscape, square, portrait] = await Promise.all([
+		generateMarketingClip(brief, 'landscape', targetDurationSeconds),
+		generateMarketingClip(brief, 'square', targetDurationSeconds),
+		generateMarketingClip(brief, 'portrait', targetDurationSeconds),
+	]);
 
-  return { landscape, square, portrait };
+	return { landscape, square, portrait };
 }

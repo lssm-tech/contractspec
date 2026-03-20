@@ -26,5 +26,5 @@
  */
 
 export { ClaudeAgentSDKProvider } from './adapter';
-export * from './tool-bridge';
 export * from './session-bridge';
+export * from './tool-bridge';

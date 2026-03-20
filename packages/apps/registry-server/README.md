@@ -1,42 +1,61 @@
 # @contractspec/app.registry-server
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
-**ContractSpec and LSSM registry HTTP server**
+**ContractSpec registry server. Serves contract specs and metadata over HTTP for IDE plugins, CLI tools, and other consumers.**
 
-Elysia HTTP server that serves registry manifests and items for ContractSpec and LSSM. Static JSON endpoints for manifests and per-item lookups. No database; reads from built registry files.
+## What It Does
 
-## Installation / Running
+- Built with Elysia (Bun HTTP framework).
+- Uses `@contractspec/lib.contracts-spec` for contract definitions.
+- Uses `@contractspec/lib.logger` for structured logging.
+- Separate handlers for ContractSpec and LSSM routes.
+- `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
+- `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 
-From the monorepo root:
+## Running Locally
+
+From `packages/apps/registry-server`:
+- `bun run dev`
+- `bun run start`
+- `bun run build`
+
+## Usage
 
 ```bash
-bun install
-bun run dev --filter=@contractspec/app.registry-server
-```
-
-Or from this directory:
-
-```bash
-bun install
 bun run dev
 ```
 
-Default port: `8090` (override with `PORT`).
+## Architecture
 
-## Entry Point
+- Built with Elysia (Bun HTTP framework).
+- Uses `@contractspec/lib.contracts-spec` for contract definitions.
+- Uses `@contractspec/lib.logger` for structured logging.
+- Separate handlers for ContractSpec and LSSM routes.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/server.ts` is the main server bootstrap entrypoint.
 
-- `src/index.ts` — Imports and runs `src/server.ts`
+## Public Entry Points
 
-## Routes
+- This package is a deployable application rather than a library with published subpath exports.
 
-- `/health`, `/healthz` — Health checks
-- `/` — Root with route listing
-- `/r/lssm.json` — LSSM registry manifest
-- `/r/lssm/:name` — LSSM registry item by name
-- `/r/contractspec.json` — ContractSpec registry manifest
-- `/r/contractspec/:type/:name` — ContractSpec registry item by type and name
+## Local Commands
 
-## Build
+- `bun run dev` — bun run --watch src/server.ts
+- `bun run start` — ./server
+- `bun run build` — bun build --compile --minify-whitespace --minify-syntax --target bun --outfile dist/server src/index.ts
+- `bun run lint` — bun run lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rm -rf dist server
 
-- `bun run build` — Compiles to standalone `dist/server` binary (Bun target)
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed.
+
+## Notes
+
+- API routes are consumed by IDE plugins and CI — do not change paths or response shapes without versioning.
+- Filesystem access must use the `src/utils/` helpers for consistent path resolution.

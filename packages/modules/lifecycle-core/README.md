@@ -1,77 +1,67 @@
 # @contractspec/module.lifecycle-core
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Core lifecycle stage definitions and transitions.**
 
-Signal collection + scoring module for ContractSpec lifecycle assessments. It wraps analytics/questionnaire adapters, applies weighting logic, and produces normalized `LifecycleAssessment` objects.
+## What It Provides
 
-## Features
+- **Layer**: module.
+- **Consumers**: modules (lifecycle-advisor), bundles (library, contractspec-studio), apps (web-landing, cli).
+- `src/adapters/` contains runtime, provider, or environment-specific adapters.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.lifecycle`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- `src/adapters/` contains runtime, provider, or environment-specific adapters.
 
-- Adapter-driven signal collector (analytics, questionnaires, intent logs)
-- Configurable stage scoring weights
-- Milestone planner backed by JSON catalog
-- Lifecycle orchestrator that returns assessments + scorecards
+## Installation
+
+`npm install @contractspec/module.lifecycle-core`
+
+or
+
+`bun add @contractspec/module.lifecycle-core`
 
 ## Usage
 
-```ts
-import {
-  LifecycleOrchestrator,
-  StageSignalCollector,
-  StageScorer,
-  LifecycleMilestonePlanner,
-} from '@contractspec/module.lifecycle-core';
+Import the root entrypoint from `@contractspec/module.lifecycle-core`, or choose a documented subpath when you only need one part of the package surface.
 
-const collector = new StageSignalCollector({
-  analyticsAdapter,
-  questionnaireAdapter,
-});
+## Architecture
 
-const scorer = new StageScorer();
-const planner = new LifecycleMilestonePlanner();
+- `src/adapters/` contains runtime, provider, or environment-specific adapters.
+- `src/collectors` is part of the package's public or composition surface.
+- `src/data/` contains static content, registries, and package-local datasets.
+- `src/i18n` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/orchestrator` is part of the package's public or composition surface.
+- `src/planning` is part of the package's public or composition surface.
 
-const orchestrator = new LifecycleOrchestrator({
-  collector,
-  scorer,
-  planner,
-});
+## Public Entry Points
 
-const assessment = await orchestrator.run({
-  questionnaireAnswers: answers,
-});
+- Export `.` resolves through `./src/index.ts`.
 
-console.log(assessment.stage, assessment.confidence);
-```
+## Local Commands
 
-Adapters are interfaces—you can implement them inside bundles, Studio services, or examples without touching this module.*** End Patch
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
+## Recent Updates
 
+- Replace eslint+prettier by biomejs to optimize speed.
+- Resolve lint/test regressions after voice capability updates.
+- Add full i18n support across all 10 packages (en/fr/es, 460 keys).
 
+## Notes
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Depends on `lib.lifecycle` for foundational types -- this module adds orchestration on top.
+- Stage transition rules are the source of truth; changes here cascade to lifecycle-advisor and all consuming bundles.
+- Stage data in `src/data/` must remain backward-compatible to avoid breaking persisted project states.

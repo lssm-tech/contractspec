@@ -1,54 +1,54 @@
-import type { Metadata } from 'next';
 import { specDrivenDevelopmentBrief } from '@contractspec/bundle.library/components/docs/intent/intent-pages.docblocks';
 import { SeoOptimizer } from '@contractspec/lib.content-gen/seo';
 import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = new SeoOptimizer().optimize(
-  specDrivenDevelopmentBrief
+	specDrivenDevelopmentBrief
 );
 
 export function SpecDrivenDevelopmentPage() {
-  return (
-    <div className="space-y-8">
-      <div className="space-y-3">
-        <h1 className="text-4xl font-bold">
-          {specDrivenDevelopmentBrief.title}
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          {specDrivenDevelopmentBrief.summary}
-        </p>
-      </div>
+	return (
+		<div className="space-y-8">
+			<div className="space-y-3">
+				<h1 className="font-bold text-4xl">
+					{specDrivenDevelopmentBrief.title}
+				</h1>
+				<p className="text-lg text-muted-foreground">
+					{specDrivenDevelopmentBrief.summary}
+				</p>
+			</div>
 
-      <div className="card-subtle space-y-4 p-6">
-        <h2 className="text-2xl font-bold">Why Spec-driven?</h2>
-        <ul className="text-muted-foreground space-y-2 text-sm">
-          {specDrivenDevelopmentBrief.problems.map((problem, index) => (
-            <li key={index}>{problem}</li>
-          ))}
-        </ul>
-      </div>
+			<div className="card-subtle space-y-4 p-6">
+				<h2 className="font-bold text-2xl">Why Spec-driven?</h2>
+				<ul className="space-y-2 text-muted-foreground text-sm">
+					{specDrivenDevelopmentBrief.problems.map((problem, index) => (
+						<li key={index}>{problem}</li>
+					))}
+				</ul>
+			</div>
 
-      <div className="card-subtle space-y-4 p-6">
-        <h2 className="text-2xl font-bold">Benefits</h2>
-        <ul className="text-muted-foreground space-y-2 text-sm">
-          {specDrivenDevelopmentBrief.solutions.map((solution, index) => (
-            <li key={index}>{solution}</li>
-          ))}
-        </ul>
-      </div>
+			<div className="card-subtle space-y-4 p-6">
+				<h2 className="font-bold text-2xl">Benefits</h2>
+				<ul className="space-y-2 text-muted-foreground text-sm">
+					{specDrivenDevelopmentBrief.solutions.map((solution, index) => (
+						<li key={index}>{solution}</li>
+					))}
+				</ul>
+			</div>
 
-      <div className="space-y-6">
-        <div className="space-y-3">
-          <h2 className="text-2xl font-bold">Feature Specification Example</h2>
-          <p className="text-muted-foreground text-sm">
-            Define a complete feature with operations, events, and data models.
-          </p>
-          <CodeBlock
-            language="typescript"
-            filename="src/contracts/user-management.feature.ts"
-            code={`import { defineFeature } from '@contractspec/lib.contracts-spec/features';
+			<div className="space-y-6">
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">Feature Specification Example</h2>
+					<p className="text-muted-foreground text-sm">
+						Define a complete feature with operations, events, and data models.
+					</p>
+					<CodeBlock
+						language="typescript"
+						filename="src/contracts/user-management.feature.ts"
+						code={`import { defineFeature } from '@contractspec/lib.contracts-spec/features';
 import { defineOperation } from '@contractspec/lib.contracts-spec/operations';
 import { defineEvent } from '@contractspec/lib.contracts-spec/events';
 import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
@@ -121,37 +121,37 @@ export const UserManagementFeature = defineFeature({
     description: 'Complete user management with operations and events',
   },
 });`}
-          />
-        </div>
+					/>
+				</div>
 
-        <div className="space-y-3">
-          <h2 className="text-2xl font-bold">
-            Generate Type-safe Implementations
-          </h2>
-          <p className="text-muted-foreground text-sm">
-            Generate validation, types, and API handlers from your feature.
-          </p>
-          <CodeBlock
-            language="bash"
-            filename="generate-from-feature"
-            code={`contractspec generate \\
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">
+						Generate Type-safe Implementations
+					</h2>
+					<p className="text-muted-foreground text-sm">
+						Generate validation, types, and API handlers from your feature.
+					</p>
+					<CodeBlock
+						language="bash"
+						filename="generate-from-feature"
+						code={`contractspec generate \\
   --input ./src/contracts/user-management.feature.ts \\
   --output ./generated/user-management`}
-          />
-        </div>
-      </div>
+					/>
+				</div>
+			</div>
 
-      <div className="flex items-center gap-4 pt-4">
-        <Link
-          href="/docs/guides/spec-validation-and-typing"
-          className="btn-primary"
-        >
-          Type Safety Guide <ChevronRight size={16} />
-        </Link>
-        <Link href="/docs/intent/deterministic-codegen" className="btn-ghost">
-          Deterministic Codegen
-        </Link>
-      </div>
-    </div>
-  );
+			<div className="flex items-center gap-4 pt-4">
+				<Link
+					href="/docs/guides/spec-validation-and-typing"
+					className="btn-primary"
+				>
+					Type Safety Guide <ChevronRight size={16} />
+				</Link>
+				<Link href="/docs/intent/deterministic-codegen" className="btn-ghost">
+					Deterministic Codegen
+				</Link>
+			</div>
+		</div>
+	);
 }

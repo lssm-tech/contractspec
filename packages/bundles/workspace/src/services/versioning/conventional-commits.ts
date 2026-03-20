@@ -13,8 +13,8 @@
  */
 
 import type {
-  VersionBumpType,
-  ChangeEntry,
+	ChangeEntry,
+	VersionBumpType,
 } from '@contractspec/lib.contracts-spec';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -25,20 +25,20 @@ import type {
  * Parsed conventional commit message.
  */
 export interface ConventionalCommit {
-  /** Commit type (feat, fix, chore, etc.) */
-  type: string;
-  /** Optional scope (e.g., auth, api) */
-  scope?: string;
-  /** Whether this is a breaking change */
-  breaking: boolean;
-  /** Commit description */
-  description: string;
-  /** Commit body (optional) */
-  body?: string;
-  /** Breaking change description (if any) */
-  breakingDescription?: string;
-  /** Full original message */
-  raw: string;
+	/** Commit type (feat, fix, chore, etc.) */
+	type: string;
+	/** Optional scope (e.g., auth, api) */
+	scope?: string;
+	/** Whether this is a breaking change */
+	breaking: boolean;
+	/** Commit description */
+	description: string;
+	/** Commit body (optional) */
+	body?: string;
+	/** Breaking change description (if any) */
+	breakingDescription?: string;
+	/** Full original message */
+	raw: string;
 }
 
 /**
@@ -65,17 +65,17 @@ export type CommitTypeBumpMap = Record<string, VersionBumpType | null>;
  * - `build` → null (no version bump)
  */
 export const DEFAULT_COMMIT_TYPE_MAP: CommitTypeBumpMap = {
-  feat: 'minor',
-  fix: 'patch',
-  perf: 'patch',
-  refactor: 'patch',
-  docs: null,
-  style: null,
-  test: null,
-  chore: null,
-  ci: null,
-  build: null,
-  revert: 'patch',
+	feat: 'minor',
+	fix: 'patch',
+	perf: 'patch',
+	refactor: 'patch',
+	docs: null,
+	style: null,
+	test: null,
+	chore: null,
+	ci: null,
+	build: null,
+	revert: 'patch',
 };
 
 /**
@@ -106,49 +106,49 @@ const BREAKING_CHANGE_PATTERN = /^BREAKING[ -]CHANGE:\s*(.+)$/im;
  * @returns Parsed commit or null if not a valid conventional commit
  */
 export function parseConventionalCommit(
-  message: string
+	message: string
 ): ConventionalCommit | null {
-  const lines = message.split('\n');
-  const firstLine = lines[0]?.trim();
+	const lines = message.split('\n');
+	const firstLine = lines[0]?.trim();
 
-  if (!firstLine) {
-    return null;
-  }
+	if (!firstLine) {
+		return null;
+	}
 
-  const match = firstLine.match(CONVENTIONAL_COMMIT_PATTERN);
-  if (!match) {
-    return null;
-  }
+	const match = firstLine.match(CONVENTIONAL_COMMIT_PATTERN);
+	if (!match) {
+		return null;
+	}
 
-  const [, type, scope, breakingIndicator, description] = match;
+	const [, type, scope, breakingIndicator, description] = match;
 
-  if (!type || !description) {
-    return null;
-  }
+	if (!type || !description) {
+		return null;
+	}
 
-  // Extract body (everything after first line)
-  const body = lines.slice(1).join('\n').trim() || undefined;
+	// Extract body (everything after first line)
+	const body = lines.slice(1).join('\n').trim() || undefined;
 
-  // Check for breaking change in body
-  const breakingMatch = body?.match(BREAKING_CHANGE_PATTERN);
-  const breakingDescription = breakingMatch?.[1];
+	// Check for breaking change in body
+	const breakingMatch = body?.match(BREAKING_CHANGE_PATTERN);
+	const breakingDescription = breakingMatch?.[1];
 
-  return {
-    type: type.toLowerCase(),
-    scope: scope?.toLowerCase(),
-    breaking: !!breakingIndicator || !!breakingMatch,
-    description: description.trim(),
-    body,
-    breakingDescription,
-    raw: message,
-  };
+	return {
+		type: type.toLowerCase(),
+		scope: scope?.toLowerCase(),
+		breaking: !!breakingIndicator || !!breakingMatch,
+		description: description.trim(),
+		body,
+		breakingDescription,
+		raw: message,
+	};
 }
 
 /**
  * Check if a commit message follows conventional commit format.
  */
 export function isConventionalCommit(message: string): boolean {
-  return parseConventionalCommit(message) !== null;
+	return parseConventionalCommit(message) !== null;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -163,16 +163,16 @@ export function isConventionalCommit(message: string): boolean {
  * @returns Version bump type or null if no bump needed
  */
 export function getBumpTypeFromCommit(
-  commit: ConventionalCommit,
-  typeMap: CommitTypeBumpMap = DEFAULT_COMMIT_TYPE_MAP
+	commit: ConventionalCommit,
+	typeMap: CommitTypeBumpMap = DEFAULT_COMMIT_TYPE_MAP
 ): VersionBumpType | null {
-  // Breaking changes always trigger major bump
-  if (commit.breaking) {
-    return 'major';
-  }
+	// Breaking changes always trigger major bump
+	if (commit.breaking) {
+		return 'major';
+	}
 
-  // Use type mapping
-  return typeMap[commit.type] ?? null;
+	// Use type mapping
+	return typeMap[commit.type] ?? null;
 }
 
 /**
@@ -183,33 +183,33 @@ export function getBumpTypeFromCommit(
  * @returns Highest version bump type or null if no bump needed
  */
 export function getHighestBumpType(
-  commits: ConventionalCommit[],
-  typeMap: CommitTypeBumpMap = DEFAULT_COMMIT_TYPE_MAP
+	commits: ConventionalCommit[],
+	typeMap: CommitTypeBumpMap = DEFAULT_COMMIT_TYPE_MAP
 ): VersionBumpType | null {
-  const bumpOrder: VersionBumpType[] = ['major', 'minor', 'patch'];
+	const bumpOrder: VersionBumpType[] = ['major', 'minor', 'patch'];
 
-  let highest: VersionBumpType | null = null;
+	let highest: VersionBumpType | null = null;
 
-  for (const commit of commits) {
-    const bumpType = getBumpTypeFromCommit(commit, typeMap);
+	for (const commit of commits) {
+		const bumpType = getBumpTypeFromCommit(commit, typeMap);
 
-    if (!bumpType) continue;
+		if (!bumpType) continue;
 
-    if (!highest) {
-      highest = bumpType;
-      continue;
-    }
+		if (!highest) {
+			highest = bumpType;
+			continue;
+		}
 
-    // Check if this bump is higher precedence
-    const currentIndex = bumpOrder.indexOf(highest);
-    const newIndex = bumpOrder.indexOf(bumpType);
+		// Check if this bump is higher precedence
+		const currentIndex = bumpOrder.indexOf(highest);
+		const newIndex = bumpOrder.indexOf(bumpType);
 
-    if (newIndex < currentIndex) {
-      highest = bumpType;
-    }
-  }
+		if (newIndex < currentIndex) {
+			highest = bumpType;
+		}
+	}
 
-  return highest;
+	return highest;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -223,61 +223,61 @@ export function getHighestBumpType(
  * @returns ChangeEntry for changelog
  */
 export function commitToChangeEntry(commit: ConventionalCommit): ChangeEntry {
-  if (commit.breaking) {
-    return {
-      type: 'breaking',
-      description: commit.breakingDescription ?? commit.description,
-      path: commit.scope,
-    };
-  }
+	if (commit.breaking) {
+		return {
+			type: 'breaking',
+			description: commit.breakingDescription ?? commit.description,
+			path: commit.scope,
+		};
+	}
 
-  switch (commit.type) {
-    case 'feat':
-      return {
-        type: 'added',
-        description: commit.description,
-        path: commit.scope,
-      };
-    case 'fix':
-      return {
-        type: 'fixed',
-        description: commit.description,
-        path: commit.scope,
-      };
-    case 'deprecate':
-      return {
-        type: 'deprecated',
-        description: commit.description,
-        path: commit.scope,
-      };
-    case 'remove':
-      return {
-        type: 'removed',
-        description: commit.description,
-        path: commit.scope,
-      };
-    case 'security':
-      return {
-        type: 'security',
-        description: commit.description,
-        path: commit.scope,
-      };
-    default:
-      return {
-        type: 'changed',
-        description: commit.description,
-        path: commit.scope,
-      };
-  }
+	switch (commit.type) {
+		case 'feat':
+			return {
+				type: 'added',
+				description: commit.description,
+				path: commit.scope,
+			};
+		case 'fix':
+			return {
+				type: 'fixed',
+				description: commit.description,
+				path: commit.scope,
+			};
+		case 'deprecate':
+			return {
+				type: 'deprecated',
+				description: commit.description,
+				path: commit.scope,
+			};
+		case 'remove':
+			return {
+				type: 'removed',
+				description: commit.description,
+				path: commit.scope,
+			};
+		case 'security':
+			return {
+				type: 'security',
+				description: commit.description,
+				path: commit.scope,
+			};
+		default:
+			return {
+				type: 'changed',
+				description: commit.description,
+				path: commit.scope,
+			};
+	}
 }
 
 /**
  * Convert multiple commits to an array of ChangeEntries.
  */
 export function commitsToChangeEntries(
-  commits: ConventionalCommit[]
+	commits: ConventionalCommit[]
 ): ChangeEntry[] {
-  return commits.map(commitToChangeEntry);
+	return commits.map(commitToChangeEntry);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -292,18 +292,18 @@ export function commitsToChangeEntries(
  * @returns Commits matching the scope
  */
 export function filterCommitsByScope(
-  commits: ConventionalCommit[],
-  scope: string
+	commits: ConventionalCommit[],
+	scope: string
 ): ConventionalCommit[] {
-  return commits.filter((c) => c.scope?.toLowerCase() === scope.toLowerCase());
+	return commits.filter((c) => c.scope?.toLowerCase() === scope.toLowerCase());
 }
 
 /**
  * Filter commits that trigger version bumps.
  */
 export function filterBumpableCommits(
-  commits: ConventionalCommit[],
-  typeMap: CommitTypeBumpMap = DEFAULT_COMMIT_TYPE_MAP
+	commits: ConventionalCommit[],
+	typeMap: CommitTypeBumpMap = DEFAULT_COMMIT_TYPE_MAP
 ): ConventionalCommit[] {
-  return commits.filter((c) => getBumpTypeFromCommit(c, typeMap) !== null);
+	return commits.filter((c) => getBumpTypeFromCommit(c, typeMap) !== null);
 }

@@ -1,2 +1,2 @@
-export * from './generateSpecFromTemplate';
 export * from './fetchPresentationData';
+export * from './generateSpecFromTemplate';

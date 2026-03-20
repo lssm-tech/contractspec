@@ -1,86 +1,68 @@
 # @contractspec/lib.source-extractors
 
-Extract contract candidates from TypeScript source code across multiple frameworks.
+Website: https://contractspec.io
 
-## Supported Frameworks
+**Extract contract candidates from TypeScript source code across multiple frameworks (NestJS, Express, Fastify, Hono, Elysia, tRPC, Next.js).**
 
-| Framework | Detection | Routes | Schemas | Status |
-|-----------|-----------|--------|---------|--------|
-| NestJS | ✅ | ✅ | ✅ | Ready |
-| Express | ✅ | ✅ | ✅ | Ready |
-| Fastify | ✅ | ✅ | ✅ | Ready |
-| Hono | ✅ | ✅ | ✅ | Ready |
-| Elysia | ✅ | ✅ | ✅ | Ready |
-| tRPC | ✅ | ✅ | ✅ | Ready |
-| Next.js API | ✅ | ✅ | ✅ | Ready |
-| Zod Schemas | ✅ | N/A | ✅ | Ready |
+## What It Provides
+
+- **Layer**: lib.
+- **Consumers**: CLI, bundles.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Installation
 
-```bash
-bun add @contractspec/lib.source-extractors
-```
+`npm install @contractspec/lib.source-extractors`
+
+or
+
+`bun add @contractspec/lib.source-extractors`
 
 ## Usage
 
-```typescript
-import { detectFramework, extractFromProject } from '@contractspec/lib.source-extractors';
-import { registerAllExtractors } from '@contractspec/lib.source-extractors/extractors';
-import { generateOperations } from '@contractspec/lib.source-extractors/codegen';
+Import the root entrypoint from `@contractspec/lib.source-extractors`, or choose a documented subpath when you only need one part of the package surface.
 
-// Register all built-in extractors
-registerAllExtractors();
+## Architecture
 
-// Detect frameworks in a project
-const project = await detectFramework('./my-project', {
-  readFile: (path) => fs.readFile(path, 'utf-8'),
-  glob: (pattern) => glob(pattern),
-});
+- `src/__fixtures__` is part of the package's public or composition surface.
+- `src/__snapshots__` is part of the package's public or composition surface.
+- `src/codegen` is part of the package's public or composition surface.
+- `src/codegen.test.ts` is part of the package's public or composition surface.
+- `src/detect.test.ts` is part of the package's public or composition surface.
+- `src/detect.ts` is part of the package's public or composition surface.
+- `src/edge-cases.test.ts` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/types.ts` is shared public type definitions.
 
-// Extract contract candidates
-const result = await extractFromProject(project, {
-  scope: ['src/controllers'], // Optional: limit scope
-});
+## Public Entry Points
 
-if (result.success && result.ir) {
-  console.log(`Found ${result.ir.endpoints.length} endpoints`);
-  console.log(`Found ${result.ir.schemas.length} schemas`);
+- Export `.` resolves through `./src/index.ts`.
+- Export `./codegen` resolves through `./src/codegen/index.ts`.
+- Export `./extractors` resolves through `./src/extractors/index.ts`.
+- Export `./types` resolves through `./src/types.ts`.
 
-  // Generate ContractSpec code
-  const files = generateOperations(result.ir, {
-    outputDir: './generated',
-    defaultAuth: 'user',
-  });
-}
-```
+## Local Commands
 
-## IR Schema
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
-The Intermediate Representation (IR) provides a framework-agnostic view of extracted contracts:
+## Recent Updates
 
-```typescript
-interface ImportIR {
-  version: '1.0';
-  extractedAt: string;
-  project: ProjectInfo;
-  endpoints: EndpointCandidate[];
-  schemas: SchemaCandidate[];
-  errors: ErrorCandidate[];
-  events: EventCandidate[];
-  ambiguities: Ambiguity[];
-  stats: { ... };
-}
-```
+- Replace eslint+prettier by biomejs to optimize speed.
 
-## Confidence Levels
+## Notes
 
-Each extracted item has a confidence score:
-
-- **high**: Explicit schema found (Zod, class-validator, JSON Schema)
-- **medium**: TypeScript types or framework decorators present
-- **low**: Inferred from naming conventions or partial information
-- **ambiguous**: Requires manual review
-
-## License
-
-MIT
+- Extractor interface must support multiple frameworks — keep it generic.
+- Codegen output must stay deterministic (same input → same output, always).

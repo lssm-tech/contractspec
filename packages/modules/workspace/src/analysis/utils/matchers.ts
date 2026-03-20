@@ -8,72 +8,72 @@ import type { Stability } from '../../types/spec-types';
  * Escape regex special characters.
  */
 export function escapeRegex(value: string): string {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 /**
  * Match a string field in source code.
  */
 export function matchStringField(code: string, field: string): string | null {
-  const regex = new RegExp(`${escapeRegex(field)}\\s*:\\s*['"]([^'"]+)['"]`);
-  const match = code.match(regex);
-  return match?.[1] ?? null;
+	const regex = new RegExp(`${escapeRegex(field)}\\s*:\\s*['"]([^'"]+)['"]`);
+	const match = code.match(regex);
+	return match?.[1] ?? null;
 }
 
 /**
  * Match a string field within a limited scope.
  */
 export function matchStringFieldIn(code: string, field: string): string | null {
-  return matchStringField(code, field);
+	return matchStringField(code, field);
 }
 
 /**
  * Match a version field which can be a string or number.
  */
 export function matchVersionField(
-  code: string,
-  field: string
+	code: string,
+	field: string
 ): string | undefined {
-  const regex = new RegExp(
-    `${escapeRegex(field)}\\s*:\\s*(?:['"]([^'"]+)['"]|(\\d+(?:\\.\\d+)*))`
-  );
-  const match = code.match(regex);
-  if (match?.[1]) return match[1];
-  if (match?.[2]) return match[2];
-  return undefined;
+	const regex = new RegExp(
+		`${escapeRegex(field)}\\s*:\\s*(?:['"]([^'"]+)['"]|(\\d+(?:\\.\\d+)*))`
+	);
+	const match = code.match(regex);
+	if (match?.[1]) return match[1];
+	if (match?.[2]) return match[2];
+	return undefined;
 }
 
 /**
  * Match a string array field in source code.
  */
 export function matchStringArrayField(
-  code: string,
-  field: string
+	code: string,
+	field: string
 ): string[] | undefined {
-  const regex = new RegExp(`${escapeRegex(field)}\\s*:\\s*\\[([\\s\\S]*?)\\]`);
-  const match = code.match(regex);
-  if (!match?.[1]) return undefined;
+	const regex = new RegExp(`${escapeRegex(field)}\\s*:\\s*\\[([\\s\\S]*?)\\]`);
+	const match = code.match(regex);
+	if (!match?.[1]) return undefined;
 
-  const inner = match[1];
-  const items = Array.from(inner.matchAll(/['"]([^'"]+)['"]/g))
-    .map((m) => m[1])
-    .filter(
-      (value): value is string => typeof value === 'string' && value.length > 0
-    );
+	const inner = match[1];
+	const items = Array.from(inner.matchAll(/['"]([^'"]+)['"]/g))
+		.map((m) => m[1])
+		.filter(
+			(value): value is string => typeof value === 'string' && value.length > 0
+		);
 
-  return items.length > 0 ? items : undefined;
+	return items.length > 0 ? items : undefined;
 }
 
 /**
  * Check if a value is a valid stability.
  */
 export function isStability(value: string | null): value is Stability {
-  return (
-    value === 'experimental' ||
-    value === 'beta' ||
-    value === 'stable' ||
-    value === 'deprecated'
-  );
+	return (
+		value === 'experimental' ||
+		value === 'beta' ||
+		value === 'stable' ||
+		value === 'deprecated'
+	);
 }
 
 /**
@@ -81,43 +81,43 @@ export function isStability(value: string | null): value is Stability {
  * Returns the index of the closing delimiter or -1 if not found.
  */
 export function findMatchingDelimiter(
-  code: string,
-  startIndex: number,
-  openChar: string,
-  closeChar: string
+	code: string,
+	startIndex: number,
+	openChar: string,
+	closeChar: string
 ): number {
-  let depth = 0;
-  let inString = false;
-  let stringChar = '';
+	let depth = 0;
+	let inString = false;
+	let stringChar = '';
 
-  for (let i = startIndex; i < code.length; i++) {
-    const char = code[i];
-    const prevChar = i > 0 ? code[i - 1] : '';
+	for (let i = startIndex; i < code.length; i++) {
+		const char = code[i];
+		const prevChar = i > 0 ? code[i - 1] : '';
 
-    // Handle string literals
-    if ((char === '"' || char === "'" || char === '`') && prevChar !== '\\') {
-      if (!inString) {
-        inString = true;
-        stringChar = char;
-      } else if (char === stringChar) {
-        inString = false;
-      }
-      continue;
-    }
+		// Handle string literals
+		if ((char === '"' || char === "'" || char === '`') && prevChar !== '\\') {
+			if (!inString) {
+				inString = true;
+				stringChar = char;
+			} else if (char === stringChar) {
+				inString = false;
+			}
+			continue;
+		}
 
-    if (inString) continue;
+		if (inString) continue;
 
-    if (char === openChar) {
-      depth++;
-    } else if (char === closeChar) {
-      depth--;
-      if (depth === 0) {
-        return i;
-      }
-    }
-  }
+		if (char === openChar) {
+			depth++;
+		} else if (char === closeChar) {
+			depth--;
+			if (depth === 0) {
+				return i;
+			}
+		}
+	}
 
-  return -1;
+	return -1;
 }
 
 /**
@@ -125,5 +125,5 @@ export function findMatchingDelimiter(
  * Returns the index of the closing brace or -1 if not found.
  */
 export function findMatchingBrace(code: string, startIndex: number): number {
-  return findMatchingDelimiter(code, startIndex, '{', '}');
+	return findMatchingDelimiter(code, startIndex, '{', '}');
 }

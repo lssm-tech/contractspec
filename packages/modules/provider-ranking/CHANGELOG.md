@@ -1,5 +1,78 @@
 # @contractspec/module.provider-ranking
 
+## 0.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.7.6
+  - @contractspec/lib.provider-ranking@0.7.6
+  - @contractspec/lib.schema@3.7.6
+
+## 0.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.contracts-integrations@3.7.5
+  - @contractspec/lib.provider-ranking@0.7.5
+  - @contractspec/lib.schema@3.7.5
+
+## 0.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.7.4
+  - @contractspec/lib.provider-ranking@0.7.4
+  - @contractspec/lib.schema@3.7.4
+
+## 0.7.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.7.3
+  - @contractspec/lib.provider-ranking@0.7.3
+  - @contractspec/lib.schema@3.7.3
+
+## 0.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- Updated dependencies [8cd229b]
+  - @contractspec/lib.contracts-integrations@3.7.2
+  - @contractspec/lib.provider-ranking@0.7.2
+  - @contractspec/lib.schema@3.7.2
+
+## 0.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/lib.contracts-integrations@3.7.1
+  - @contractspec/lib.provider-ranking@0.7.1
+  - @contractspec/lib.schema@3.7.1
+
+## 0.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/lib.contracts-integrations@3.7.0
+  - @contractspec/lib.provider-ranking@0.7.0
+  - @contractspec/lib.schema@3.7.0
+
 ## 0.6.0
 
 ### Minor Changes

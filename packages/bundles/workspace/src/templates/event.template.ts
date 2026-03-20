@@ -4,13 +4,13 @@ import type { EventSpecData } from '../types';
  * Generate event spec TypeScript code
  */
 export function generateEventSpec(data: EventSpecData): string {
-  const { name, version, description, stability, owners, tags, piiFields } =
-    data;
+	const { name, version, description, stability, owners, tags, piiFields } =
+		data;
 
-  const eventVarName = toPascalCase(name.replace(/\./g, '_')) + 'V' + version;
-  const payloadSchemaName = eventVarName + 'Payload';
+	const eventVarName = toPascalCase(name.replace(/\./g, '_')) + 'V' + version;
+	const payloadSchemaName = eventVarName + 'Payload';
 
-  return `import { defineEvent } from '@contractspec/lib.contracts-spec';
+	return `import { defineEvent } from '@contractspec/lib.contracts-spec';
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 
 // TODO: Define event payload schema
@@ -39,8 +39,8 @@ export const ${eventVarName} = defineEvent({
 }
 
 function toPascalCase(str: string): string {
-  return str
-    .split(/[-_.]/)
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join('');
+	return str
+		.split(/[-_.]/)
+		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+		.join('');
 }

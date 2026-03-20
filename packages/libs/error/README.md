@@ -1,83 +1,63 @@
 # @contractspec/lib.error
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Structured error handling and HTTP error utilities.**
 
-Standardized error handling primitives for LSSM applications.
+## What It Provides
 
-## Purpose
-
-To provide a consistent error model across the monorepo, enabling predictable error handling, serialization, and mapping to HTTP status codes and GraphQL errors.
+- **Layer**: lib.
+- **Consumers**: many libs and bundles.
+- Related ContractSpec packages include `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Related ContractSpec packages include `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Installation
 
-```bash
-npm install @contractspec/lib.error
-# or
-bun add @contractspec/lib.error
-```
+`npm install @contractspec/lib.error`
 
-## Key Concepts
+or
 
-- **AppError**: Base class for all application errors, carrying a `code` and optional `meta` data.
-- **Error Codes**: Centralized enum/registry of error codes (e.g., `NOT_FOUND`, `UNAUTHORIZED`).
-- **HTTP Mapping**: Utilities to map error codes to HTTP status codes (e.g., `NOT_FOUND` -> 404).
-
-## Exports
-
-- `AppError`: The base error class.
-- `codes`: Error code definitions.
-- `http`: HTTP status code helpers.
+`bun add @contractspec/lib.error`
 
 ## Usage
 
-```ts
-import { AppError, ErrorCode } from '@contractspec/lib.error';
+Import the root entrypoint from `@contractspec/lib.error`, or choose a documented subpath when you only need one part of the package surface.
 
-// Throwing a known error
-throw new AppError(ErrorCode.NOT_FOUND, 'User not found', { userId: 123 });
+## Architecture
 
-// Catching and handling
-try {
-  // ...
-} catch (err) {
-  if (err instanceof AppError) {
-    console.log(err.code); // 'NOT_FOUND'
-    console.log(err.meta); // { userId: 123 }
-  }
-}
-```
+- `src/appError.ts` is part of the package's public or composition surface.
+- `src/codes.ts` is part of the package's public or composition surface.
+- `src/http.ts` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
 
+## Public Entry Points
 
+- Export `.` resolves through `./src/index.ts`.
+- Export `./appError` resolves through `./src/appError.ts`.
+- Export `./codes` resolves through `./src/codes.ts`.
+- Export `./http` resolves through `./src/http.ts`.
 
+## Local Commands
 
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
+## Recent Updates
 
+- Replace eslint+prettier by biomejs to optimize speed.
 
+## Notes
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Error codes are a shared contract — additions are safe, removals or renames are breaking.
+- `AppError` shape must stay stable; downstream serialization depends on it.
+- HTTP status mappings affect all API surfaces; changes require cross-package validation.

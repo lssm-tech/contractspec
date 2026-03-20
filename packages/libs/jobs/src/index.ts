@@ -1,20 +1,15 @@
 // Entity definitions for schema generation
-export * from './entities';
-
-// Queue implementations
-export * from './queue';
-
-// Job handlers (runtime wiring)
-export * from './handlers';
-
-// Scheduler
-export * from './scheduler';
 
 // Contract specifications
 export * from './contracts';
-
+export * from './entities';
 // Domain events
 export * from './events';
-
+// Job handlers (runtime wiring)
+export * from './handlers';
 // Feature module specification
 export * from './jobs.feature';
+// Queue implementations
+export * from './queue';
+// Scheduler
+export * from './scheduler';

@@ -13,15 +13,15 @@ export type TestDb = ReturnType<typeof drizzle<typeof schema>>;
  * Each call returns an isolated instance.
  */
 export function createTestDb(): TestDb {
-  const sqlite = new Database(':memory:');
-  sqlite.exec('PRAGMA foreign_keys = ON');
+	const sqlite = new Database(':memory:');
+	sqlite.exec('PRAGMA foreign_keys = ON');
 
-  const db = drizzle(sqlite, { schema });
+	const db = drizzle(sqlite, { schema });
 
-  // Run migrations
-  const migrationsFolder = new URL('../src/db/migrations', import.meta.url)
-    .pathname;
-  migrate(db, { migrationsFolder });
+	// Run migrations
+	const migrationsFolder = new URL('../src/db/migrations', import.meta.url)
+		.pathname;
+	migrate(db, { migrationsFolder });
 
-  return db;
+	return db;
 }

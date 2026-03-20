@@ -48,28 +48,28 @@ export type MessageKey = string;
 // ─────────────────────────────────────────────────────────────────────────────
 
 export type PlaceholderType =
-  | 'string'
-  | 'number'
-  | 'date'
-  | 'time'
-  | 'datetime'
-  | 'currency'
-  | 'percent'
-  | 'plural'
-  | 'select'
-  | 'selectordinal';
+	| 'string'
+	| 'number'
+	| 'date'
+	| 'time'
+	| 'datetime'
+	| 'currency'
+	| 'percent'
+	| 'plural'
+	| 'select'
+	| 'selectordinal';
 
 export interface PlaceholderDef {
-  /** Placeholder name (without braces). */
-  name: string;
-  /** Type of the placeholder value. */
-  type: PlaceholderType;
-  /** Format specifier (e.g., 'short', 'long', 'currency'). */
-  format?: string;
-  /** Description for translators. */
-  description?: string;
-  /** Example value for context. */
-  example?: string;
+	/** Placeholder name (without braces). */
+	name: string;
+	/** Type of the placeholder value. */
+	type: PlaceholderType;
+	/** Format specifier (e.g., 'short', 'long', 'currency'). */
+	format?: string;
+	/** Description for translators. */
+	description?: string;
+	/** Example value for context. */
+	example?: string;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -83,15 +83,15 @@ export interface PlaceholderDef {
 export type PluralCategory = 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
 
 export interface PluralRule {
-  category: PluralCategory;
-  value: string;
+	category: PluralCategory;
+	value: string;
 }
 
 export interface PluralRuleSet {
-  /** Name of the plural variable. */
-  variable: string;
-  /** Rules for each plural category. */
-  rules: PluralRule[];
+	/** Name of the plural variable. */
+	variable: string;
+	/** Rules for each plural category. */
+	rules: PluralRule[];
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -101,12 +101,12 @@ export interface PluralRuleSet {
 export type VariantType = 'gender' | 'formality' | 'context';
 
 export interface MessageVariant {
-  /** Type of variant (gender, formality, context). */
-  type: VariantType;
-  /** Variant key (e.g., 'male', 'female', 'formal', 'informal'). */
-  key: string;
-  /** Variant value (the translated message for this variant). */
-  value: string;
+	/** Type of variant (gender, formality, context). */
+	type: VariantType;
+	/** Variant key (e.g., 'male', 'female', 'formal', 'informal'). */
+	key: string;
+	/** Variant value (the translated message for this variant). */
+	value: string;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -114,20 +114,20 @@ export interface MessageVariant {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export interface TranslationMessage {
-  /** The translated value (may use ICU message format). */
-  value: string;
-  /** Description for translators explaining context and usage. */
-  description?: string;
-  /** Usage context to help translators understand where this appears. */
-  context?: string;
-  /** Placeholder definitions for dynamic values. */
-  placeholders?: PlaceholderDef[];
-  /** Variants for gender, formality, or other contextual differences. */
-  variants?: MessageVariant[];
-  /** Maximum character length (hint for UI constraints). */
-  maxLength?: number;
-  /** Tags for categorization and filtering. */
-  tags?: string[];
+	/** The translated value (may use ICU message format). */
+	value: string;
+	/** Description for translators explaining context and usage. */
+	description?: string;
+	/** Usage context to help translators understand where this appears. */
+	context?: string;
+	/** Placeholder definitions for dynamic values. */
+	placeholders?: PlaceholderDef[];
+	/** Variants for gender, formality, or other contextual differences. */
+	variants?: MessageVariant[];
+	/** Maximum character length (hint for UI constraints). */
+	maxLength?: number;
+	/** Tags for categorization and filtering. */
+	tags?: string[];
 }
 
 export type TranslationMessages = Record<MessageKey, TranslationMessage>;
@@ -137,35 +137,35 @@ export type TranslationMessages = Record<MessageKey, TranslationMessage>;
 // ─────────────────────────────────────────────────────────────────────────────
 
 export interface TranslationMeta {
-  /** Unique key for this translation spec. */
-  key: string;
-  /** Semantic version (e.g., "1.0.0"). */
-  version: string;
-  /** Business domain this translation belongs to. */
-  domain: string;
-  /** Description of the translation bundle. */
-  description?: string;
-  /** Owners responsible for this translation spec. */
-  owners: Owner[];
-  /** Stability marker. */
-  stability?: Stability;
-  /** Tags for categorization. */
-  tags?: Tag[];
+	/** Unique key for this translation spec. */
+	key: string;
+	/** Semantic version (e.g., "1.0.0"). */
+	version: string;
+	/** Business domain this translation belongs to. */
+	domain: string;
+	/** Description of the translation bundle. */
+	description?: string;
+	/** Owners responsible for this translation spec. */
+	owners: Owner[];
+	/** Stability marker. */
+	stability?: Stability;
+	/** Tags for categorization. */
+	tags?: Tag[];
 }
 
 export interface TranslationSpec {
-  /** Metadata about this translation spec. */
-  meta: TranslationMeta;
-  /** Primary locale for this translation spec. */
-  locale: Locale;
-  /** Fallback locale when a message is missing. */
-  fallback?: Locale;
-  /** Translation messages keyed by message key. */
-  messages: TranslationMessages;
-  /** Plural rules for the locale. */
-  pluralRules?: PluralRuleSet[];
-  /** Tags for categorization. */
-  tags?: string[];
+	/** Metadata about this translation spec. */
+	meta: TranslationMeta;
+	/** Primary locale for this translation spec. */
+	locale: Locale;
+	/** Fallback locale when a message is missing. */
+	fallback?: Locale;
+	/** Translation messages keyed by message key. */
+	messages: TranslationMessages;
+	/** Plural rules for the locale. */
+	pluralRules?: PluralRuleSet[];
+	/** Tags for categorization. */
+	tags?: string[];
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -173,9 +173,9 @@ export interface TranslationSpec {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export interface TranslationRef {
-  key: string;
-  version: string;
-  locale?: Locale;
+	key: string;
+	version: string;
+	locale?: Locale;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -209,4 +209,4 @@ export interface TranslationRef {
  * ```
  */
 export const defineTranslation = (spec: TranslationSpec): TranslationSpec =>
-  spec;
+	spec;

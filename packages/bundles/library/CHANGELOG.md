@@ -1,5 +1,198 @@
 # @contractspec/bundle.library
 
+## 3.7.6
+
+### Patch Changes
+
+- fix: release manifest
+- Updated dependencies
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.6
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.6
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.6
+  - @contractspec/lib.contracts-integrations@3.7.6
+  - @contractspec/module.context-storage@0.7.6
+  - @contractspec/lib.contracts-library@3.7.6
+  - @contractspec/lib.example-shared-ui@6.0.6
+  - @contractspec/lib.provider-ranking@0.7.6
+  - @contractspec/lib.runtime-sandbox@2.7.6
+  - @contractspec/lib.surface-runtime@0.5.6
+  - @contractspec/lib.contracts-spec@3.7.6
+  - @contractspec/lib.design-system@3.7.6
+  - @contractspec/lib.ai-providers@3.7.6
+  - @contractspec/lib.content-gen@3.7.6
+  - @contractspec/module.examples@3.7.6
+  - @contractspec/lib.ui-kit-web@3.7.6
+  - @contractspec/lib.knowledge@3.7.6
+  - @contractspec/lib.ui-link@3.7.6
+  - @contractspec/lib.logger@3.7.6
+  - @contractspec/lib.schema@3.7.6
+
+## 3.7.5
+
+### Patch Changes
+
+- ecf195a: fix: release security
+- Updated dependencies [ecf195a]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.5
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.5
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.5
+  - @contractspec/lib.contracts-integrations@3.7.5
+  - @contractspec/module.context-storage@0.7.5
+  - @contractspec/lib.contracts-library@3.7.5
+  - @contractspec/lib.example-shared-ui@6.0.5
+  - @contractspec/lib.provider-ranking@0.7.5
+  - @contractspec/lib.runtime-sandbox@2.7.5
+  - @contractspec/lib.surface-runtime@0.5.5
+  - @contractspec/lib.contracts-spec@3.7.5
+  - @contractspec/lib.design-system@3.7.5
+  - @contractspec/lib.ai-providers@3.7.5
+  - @contractspec/lib.content-gen@3.7.5
+  - @contractspec/module.examples@3.7.5
+  - @contractspec/lib.ui-kit-web@3.7.5
+  - @contractspec/lib.knowledge@3.7.5
+  - @contractspec/lib.ui-link@3.7.5
+  - @contractspec/lib.logger@3.7.5
+  - @contractspec/lib.schema@3.7.5
+
+## 3.7.4
+
+### Patch Changes
+
+- fix: release security
+- Updated dependencies
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.4
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.4
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.4
+  - @contractspec/lib.contracts-integrations@3.7.4
+  - @contractspec/module.context-storage@0.7.4
+  - @contractspec/lib.contracts-library@3.7.4
+  - @contractspec/lib.example-shared-ui@6.0.4
+  - @contractspec/lib.provider-ranking@0.7.4
+  - @contractspec/lib.runtime-sandbox@2.7.4
+  - @contractspec/lib.surface-runtime@0.5.4
+  - @contractspec/lib.contracts-spec@3.7.4
+  - @contractspec/lib.design-system@3.7.4
+  - @contractspec/lib.ai-providers@3.7.4
+  - @contractspec/lib.content-gen@3.7.4
+  - @contractspec/module.examples@3.7.4
+  - @contractspec/lib.ui-kit-web@3.7.4
+  - @contractspec/lib.knowledge@3.7.4
+  - @contractspec/lib.ui-link@3.7.4
+  - @contractspec/lib.logger@3.7.4
+  - @contractspec/lib.schema@3.7.4
+
+## 3.7.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.3
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.3
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.3
+  - @contractspec/lib.contracts-integrations@3.7.3
+  - @contractspec/module.context-storage@0.7.3
+  - @contractspec/lib.contracts-library@3.7.3
+  - @contractspec/lib.example-shared-ui@6.0.3
+  - @contractspec/lib.provider-ranking@0.7.3
+  - @contractspec/lib.runtime-sandbox@2.7.3
+  - @contractspec/lib.surface-runtime@0.5.3
+  - @contractspec/lib.contracts-spec@3.7.3
+  - @contractspec/lib.design-system@3.7.3
+  - @contractspec/lib.ai-providers@3.7.3
+  - @contractspec/lib.content-gen@3.7.3
+  - @contractspec/module.examples@3.7.3
+  - @contractspec/lib.ui-kit-web@3.7.3
+  - @contractspec/lib.knowledge@3.7.3
+  - @contractspec/lib.ui-link@3.7.3
+  - @contractspec/lib.logger@3.7.3
+  - @contractspec/lib.schema@3.7.3
+
+## 3.7.2
+
+### Patch Changes
+
+- 8cd229b: fix: release
+- Updated dependencies [8cd229b]
+- Updated dependencies [04bc555]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.2
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.2
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.2
+  - @contractspec/lib.contracts-integrations@3.7.2
+  - @contractspec/module.context-storage@0.7.2
+  - @contractspec/lib.contracts-library@3.7.2
+  - @contractspec/lib.example-shared-ui@6.0.2
+  - @contractspec/lib.provider-ranking@0.7.2
+  - @contractspec/lib.runtime-sandbox@2.7.2
+  - @contractspec/lib.surface-runtime@0.5.2
+  - @contractspec/lib.contracts-spec@3.7.2
+  - @contractspec/lib.design-system@3.7.2
+  - @contractspec/lib.ai-providers@3.7.2
+  - @contractspec/lib.content-gen@3.7.2
+  - @contractspec/module.examples@3.7.2
+  - @contractspec/lib.ui-kit-web@3.7.2
+  - @contractspec/lib.knowledge@3.7.2
+  - @contractspec/lib.ui-link@3.7.2
+  - @contractspec/lib.logger@3.7.2
+  - @contractspec/lib.schema@3.7.2
+
+## 3.7.1
+
+### Patch Changes
+
+- 5eb8626: fix: package exports
+- Updated dependencies [5eb8626]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.1
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.1
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.1
+  - @contractspec/lib.contracts-integrations@3.7.1
+  - @contractspec/module.context-storage@0.7.1
+  - @contractspec/lib.contracts-library@3.7.1
+  - @contractspec/lib.example-shared-ui@6.0.1
+  - @contractspec/lib.provider-ranking@0.7.1
+  - @contractspec/lib.runtime-sandbox@2.7.1
+  - @contractspec/lib.surface-runtime@0.5.1
+  - @contractspec/lib.contracts-spec@3.7.1
+  - @contractspec/lib.design-system@3.7.1
+  - @contractspec/lib.ai-providers@3.7.1
+  - @contractspec/lib.content-gen@3.7.1
+  - @contractspec/module.examples@3.7.1
+  - @contractspec/lib.ui-kit-web@3.7.1
+  - @contractspec/lib.knowledge@3.7.1
+  - @contractspec/lib.ui-link@3.7.1
+  - @contractspec/lib.logger@3.7.1
+  - @contractspec/lib.schema@3.7.1
+
+## 3.7.0
+
+### Minor Changes
+
+- f88df2d: feat: add expo mobile app example
+
+### Patch Changes
+
+- Updated dependencies [f88df2d]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.0
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.0
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.0
+  - @contractspec/lib.contracts-integrations@3.7.0
+  - @contractspec/module.context-storage@0.7.0
+  - @contractspec/lib.contracts-library@3.7.0
+  - @contractspec/lib.example-shared-ui@6.0.0
+  - @contractspec/lib.provider-ranking@0.7.0
+  - @contractspec/lib.runtime-sandbox@2.7.0
+  - @contractspec/lib.surface-runtime@0.5.0
+  - @contractspec/lib.contracts-spec@3.7.0
+  - @contractspec/lib.design-system@3.7.0
+  - @contractspec/lib.ai-providers@3.7.0
+  - @contractspec/lib.content-gen@3.7.0
+  - @contractspec/module.examples@3.7.0
+  - @contractspec/lib.ui-kit-web@3.7.0
+  - @contractspec/lib.knowledge@3.7.0
+  - @contractspec/lib.ui-link@3.7.0
+  - @contractspec/lib.logger@3.7.0
+  - @contractspec/lib.schema@3.7.0
+
 ## 3.6.0
 
 ### Minor Changes

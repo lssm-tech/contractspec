@@ -1,4 +1,4 @@
-# AI Agent Guide -- `contractspec-example-opencode-cli`
+# AI Agent Guide — `@contractspec/example.opencode-cli`
 
 Scope: `packages/examples/opencode-cli/*`
 
@@ -6,20 +6,37 @@ OpenCode CLI example showing agent-mode contract building and validation.
 
 ## Quick Context
 
-- **Layer**: example
-- **Related Packages**: `contractspec` (CLI), `lib.contracts-spec`
+- Layer: `example`.
+- Package visibility: private workspace package.
+- Primary consumers are example explorers, template authors, and documentation readers.
+- Related packages: `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`.
 
-## What This Demonstrates
+## Architecture
 
-- Agent-mode (`--agent-mode opencode`) contract compilation
-- Implementation checking via `--check-implementation`
-- Private package pattern (not published)
+- `src/contracts/` contains contract specs, operations, entities, and registry exports.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/example.ts` is the runnable example entrypoint.
+- `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/opencode-cli.feature.ts` defines a feature entrypoint.
 
-## Public Exports
+## Public Surface
 
-None (private package, run via CLI scripts).
+- Export `.` resolves through `./src/index.ts`.
+- Export `./contracts/opencode` resolves through `./src/contracts/opencode.contracts.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./docs/opencode-cli.docblock` resolves through `./src/docs/opencode-cli.docblock.ts`.
+- Export `./example` resolves through `./src/example.ts`.
+- Export `./opencode-cli.feature` resolves through `./src/opencode-cli.feature.ts`.
+
+## Guardrails
+
+- Keep the example package demonstrative, buildable, and aligned with the exported feature surface.
+- Do not add hidden production assumptions that are not actually implemented in the example.
+- Changes here can affect downstream packages such as `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`.
+- Changes here can affect downstream packages such as `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`.
 
 ## Local Commands
 
-- Build: `contractspec build src/contracts/opencode.contracts.ts --agent-mode opencode`
-- Validate: `contractspec validate src/contracts/opencode.contracts.ts --check-implementation --agent-mode opencode`
+- `bun run build` — bun ../../apps/cli-contractspec/src/cli.ts build src/contracts/opencode.contracts.ts --agent-mode opencode
+- `bun run validate` — bun ../../apps/cli-contractspec/src/cli.ts validate src/contracts/opencode.contracts.ts --check-implementation --agent-mode opencode

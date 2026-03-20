@@ -10,7 +10,7 @@ import type { SemanticVersion, VersionBumpType } from './types';
 
 /** Regex for parsing semantic versions */
 const SEMVER_REGEX =
-  /^(\d+)\.(\d+)\.(\d+)(?:-([a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*))?(?:\+([a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*))?$/;
+	/^(\d+)\.(\d+)\.(\d+)(?:-([a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*))?(?:\+([a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*))?$/;
 
 /**
  * Parse a semantic version string into components.
@@ -23,29 +23,29 @@ const SEMVER_REGEX =
  * parseVersion("2.0.0-beta.1") // { major: 2, minor: 0, patch: 0, prerelease: "beta.1" }
  */
 export function parseVersion(version: string): SemanticVersion | null {
-  const match = version.trim().match(SEMVER_REGEX);
-  if (!match) {
-    return null;
-  }
+	const match = version.trim().match(SEMVER_REGEX);
+	if (!match) {
+		return null;
+	}
 
-  const majorStr = match[1];
-  const minorStr = match[2];
-  const patchStr = match[3];
-  const prerelease = match[4];
-  const build = match[5];
+	const majorStr = match[1];
+	const minorStr = match[2];
+	const patchStr = match[3];
+	const prerelease = match[4];
+	const build = match[5];
 
-  // Type guard: these are guaranteed by the regex, but TypeScript doesn't know
-  if (!majorStr || !minorStr || !patchStr) {
-    return null;
-  }
+	// Type guard: these are guaranteed by the regex, but TypeScript doesn't know
+	if (!majorStr || !minorStr || !patchStr) {
+		return null;
+	}
 
-  return {
-    major: parseInt(majorStr, 10),
-    minor: parseInt(minorStr, 10),
-    patch: parseInt(patchStr, 10),
-    ...(prerelease && { prerelease }),
-    ...(build && { build }),
-  };
+	return {
+		major: parseInt(majorStr, 10),
+		minor: parseInt(minorStr, 10),
+		patch: parseInt(patchStr, 10),
+		...(prerelease && { prerelease }),
+		...(build && { build }),
+	};
 }
 
 /**
@@ -54,11 +54,11 @@ export function parseVersion(version: string): SemanticVersion | null {
  * @throws Error if version is not valid semver
  */
 export function parseVersionStrict(version: string): SemanticVersion {
-  const parsed = parseVersion(version);
-  if (!parsed) {
-    throw new Error(`Invalid semantic version: "${version}"`);
-  }
-  return parsed;
+	const parsed = parseVersion(version);
+	if (!parsed) {
+		throw new Error(`Invalid semantic version: "${version}"`);
+	}
+	return parsed;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -73,17 +73,17 @@ export function parseVersionStrict(version: string): SemanticVersion {
  * formatVersion({ major: 2, minor: 0, patch: 0, prerelease: "beta.1" }) // "2.0.0-beta.1"
  */
 export function formatVersion(version: SemanticVersion): string {
-  let result = `${version.major}.${version.minor}.${version.patch}`;
+	let result = `${version.major}.${version.minor}.${version.patch}`;
 
-  if (version.prerelease) {
-    result += `-${version.prerelease}`;
-  }
+	if (version.prerelease) {
+		result += `-${version.prerelease}`;
+	}
 
-  if (version.build) {
-    result += `+${version.build}`;
-  }
+	if (version.build) {
+		result += `+${version.build}`;
+	}
 
-  return result;
+	return result;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -101,61 +101,61 @@ export function formatVersion(version: SemanticVersion): string {
  * compareVersions("2.0.0", "1.9.9") // 1
  */
 export function compareVersions(a: string, b: string): -1 | 0 | 1 {
-  const versionA = parseVersionStrict(a);
-  const versionB = parseVersionStrict(b);
+	const versionA = parseVersionStrict(a);
+	const versionB = parseVersionStrict(b);
 
-  // Compare major
-  if (versionA.major !== versionB.major) {
-    return versionA.major > versionB.major ? 1 : -1;
-  }
+	// Compare major
+	if (versionA.major !== versionB.major) {
+		return versionA.major > versionB.major ? 1 : -1;
+	}
 
-  // Compare minor
-  if (versionA.minor !== versionB.minor) {
-    return versionA.minor > versionB.minor ? 1 : -1;
-  }
+	// Compare minor
+	if (versionA.minor !== versionB.minor) {
+		return versionA.minor > versionB.minor ? 1 : -1;
+	}
 
-  // Compare patch
-  if (versionA.patch !== versionB.patch) {
-    return versionA.patch > versionB.patch ? 1 : -1;
-  }
+	// Compare patch
+	if (versionA.patch !== versionB.patch) {
+		return versionA.patch > versionB.patch ? 1 : -1;
+	}
 
-  // Compare prerelease (no prerelease > prerelease)
-  if (versionA.prerelease && !versionB.prerelease) {
-    return -1;
-  }
-  if (!versionA.prerelease && versionB.prerelease) {
-    return 1;
-  }
-  if (versionA.prerelease && versionB.prerelease) {
-    return versionA.prerelease < versionB.prerelease
-      ? -1
-      : versionA.prerelease > versionB.prerelease
-        ? 1
-        : 0;
-  }
+	// Compare prerelease (no prerelease > prerelease)
+	if (versionA.prerelease && !versionB.prerelease) {
+		return -1;
+	}
+	if (!versionA.prerelease && versionB.prerelease) {
+		return 1;
+	}
+	if (versionA.prerelease && versionB.prerelease) {
+		return versionA.prerelease < versionB.prerelease
+			? -1
+			: versionA.prerelease > versionB.prerelease
+				? 1
+				: 0;
+	}
 
-  return 0;
+	return 0;
 }
 
 /**
  * Check if version a is greater than version b.
  */
 export function isVersionGreater(a: string, b: string): boolean {
-  return compareVersions(a, b) === 1;
+	return compareVersions(a, b) === 1;
 }
 
 /**
  * Check if version a is less than version b.
  */
 export function isVersionLess(a: string, b: string): boolean {
-  return compareVersions(a, b) === -1;
+	return compareVersions(a, b) === -1;
 }
 
 /**
  * Check if two versions are equal.
  */
 export function isVersionEqual(a: string, b: string): boolean {
-  return compareVersions(a, b) === 0;
+	return compareVersions(a, b) === 0;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -175,33 +175,33 @@ export function isVersionEqual(a: string, b: string): boolean {
  * bumpVersion("1.2.3", "major") // "2.0.0"
  */
 export function bumpVersion(
-  current: string,
-  bumpType: VersionBumpType
+	current: string,
+	bumpType: VersionBumpType
 ): string {
-  const version = parseVersionStrict(current);
+	const version = parseVersionStrict(current);
 
-  switch (bumpType) {
-    case 'major':
-      return formatVersion({
-        major: version.major + 1,
-        minor: 0,
-        patch: 0,
-      });
+	switch (bumpType) {
+		case 'major':
+			return formatVersion({
+				major: version.major + 1,
+				minor: 0,
+				patch: 0,
+			});
 
-    case 'minor':
-      return formatVersion({
-        major: version.major,
-        minor: version.minor + 1,
-        patch: 0,
-      });
+		case 'minor':
+			return formatVersion({
+				major: version.major,
+				minor: version.minor + 1,
+				patch: 0,
+			});
 
-    case 'patch':
-      return formatVersion({
-        major: version.major,
-        minor: version.minor,
-        patch: version.patch + 1,
-      });
-  }
+		case 'patch':
+			return formatVersion({
+				major: version.major,
+				minor: version.minor,
+				patch: version.patch + 1,
+			});
+	}
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -220,45 +220,45 @@ export function bumpVersion(
  * @returns Appropriate bump type
  */
 export function determineBumpType(
-  hasBreaking: boolean,
-  hasNonBreaking: boolean
+	hasBreaking: boolean,
+	hasNonBreaking: boolean
 ): VersionBumpType {
-  if (hasBreaking) {
-    return 'major';
-  }
-  if (hasNonBreaking) {
-    return 'minor';
-  }
-  return 'patch';
+	if (hasBreaking) {
+		return 'major';
+	}
+	if (hasNonBreaking) {
+		return 'minor';
+	}
+	return 'patch';
 }
 
 /**
  * Get sort priority for bump types (higher = more significant).
  */
 export function getBumpTypePriority(bumpType: VersionBumpType): number {
-  switch (bumpType) {
-    case 'major':
-      return 3;
-    case 'minor':
-      return 2;
-    case 'patch':
-      return 1;
-  }
+	switch (bumpType) {
+		case 'major':
+			return 3;
+		case 'minor':
+			return 2;
+		case 'patch':
+			return 1;
+	}
 }
 
 /**
  * Get the most significant bump type from a list.
  */
 export function getMaxBumpType(
-  bumpTypes: VersionBumpType[]
+	bumpTypes: VersionBumpType[]
 ): VersionBumpType | null {
-  if (bumpTypes.length === 0) {
-    return null;
-  }
+	if (bumpTypes.length === 0) {
+		return null;
+	}
 
-  return bumpTypes.reduce((max, current) =>
-    getBumpTypePriority(current) > getBumpTypePriority(max) ? current : max
-  );
+	return bumpTypes.reduce((max, current) =>
+		getBumpTypePriority(current) > getBumpTypePriority(max) ? current : max
+	);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -269,31 +269,31 @@ export function getMaxBumpType(
  * Check if a string is a valid semantic version.
  */
 export function isValidVersion(version: string): boolean {
-  return parseVersion(version) !== null;
+	return parseVersion(version) !== null;
 }
 
 /**
  * Validate a version string, returning validation errors.
  */
 export function validateVersion(version: string): string[] {
-  const errors: string[] = [];
+	const errors: string[] = [];
 
-  if (!version || typeof version !== 'string') {
-    errors.push('Version must be a non-empty string');
-    return errors;
-  }
+	if (!version || typeof version !== 'string') {
+		errors.push('Version must be a non-empty string');
+		return errors;
+	}
 
-  const trimmed = version.trim();
+	const trimmed = version.trim();
 
-  if (trimmed !== version) {
-    errors.push('Version should not have leading or trailing whitespace');
-  }
+	if (trimmed !== version) {
+		errors.push('Version should not have leading or trailing whitespace');
+	}
 
-  if (!parseVersion(trimmed)) {
-    errors.push(
-      `Invalid semantic version format: "${version}". Expected format: MAJOR.MINOR.PATCH[-prerelease][+build]`
-    );
-  }
+	if (!parseVersion(trimmed)) {
+		errors.push(
+			`Invalid semantic version format: "${version}". Expected format: MAJOR.MINOR.PATCH[-prerelease][+build]`
+		);
+	}
 
-  return errors;
+	return errors;
 }

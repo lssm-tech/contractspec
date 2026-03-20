@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
 permissions:
   contents: write
   pull-requests: write
@@ -15,10 +18,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 90
     env:
-      BUN_VERSION: 1.3.8
+      BUN_VERSION: 1.3.11
       TURBO_TELEMETRY_DISABLED: 1
       DO_NOT_TRACK: 1
       OVSX_PAT: ${{ secrets.OVSX_PAT }}
+      CONTRACTSPEC_RELEASE_DIR: /tmp/contractspec-release-canary
+      CONTRACTSPEC_RELEASE_MANIFEST_PATH: /tmp/contractspec-release-canary/release-manifest.json
+      CONTRACTSPEC_RELEASE_SMOKE_SUMMARY_PATH: /tmp/contractspec-release-canary/release-smoke.json
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -81,6 +87,20 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
           CONTRACTSPEC_USE_PUBLISH_EXPORTS: 'true'
+
+      - name: Verify npm release manifest
+        run: node scripts/verify-release-manifest.js --manifest "${{ env.CONTRACTSPEC_RELEASE_MANIFEST_PATH }}"
+
+      - name: Upload npm release manifest
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-release-manifest-canary
+          path: |
+            ${{ env.CONTRACTSPEC_RELEASE_MANIFEST_PATH }}
+            ${{ env.CONTRACTSPEC_RELEASE_SMOKE_SUMMARY_PATH }}
+            ${{ env.CONTRACTSPEC_RELEASE_DIR }}/tarballs/*.tgz
+          retention-days: 90
 
       # VS Code Extension Publishing
       # - name: Check if VS Code extension should be published

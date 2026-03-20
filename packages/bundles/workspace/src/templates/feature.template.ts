@@ -4,30 +4,30 @@
 
 // Basic helper for camelCase
 function toCamelCase(str: string): string {
-  return str.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+	return str.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
 }
 
 export interface FeatureSpecParams {
-  key: string;
-  title: string;
-  description?: string;
-  stability?: 'experimental' | 'alpha' | 'beta' | 'stable' | 'deprecated';
-  owners: string[];
-  tags: string[];
-  display?: string;
-  operations: { name: string; version: string }[];
-  events: { name: string; version: string }[];
-  presentations: { name: string; version: string }[];
-  experiments: { name: string; version: string }[];
+	key: string;
+	title: string;
+	description?: string;
+	stability?: 'experimental' | 'alpha' | 'beta' | 'stable' | 'deprecated';
+	owners: string[];
+	tags: string[];
+	display?: string;
+	operations: { name: string; version: string }[];
+	events: { name: string; version: string }[];
+	presentations: { name: string; version: string }[];
+	experiments: { name: string; version: string }[];
 }
 
 export function generateFeatureSpec(params: FeatureSpecParams): string {
-  const formatRefs = (refs: { name: string; version: string }[]) =>
-    refs
-      .map((r) => `    { name: '${r.name}', version: '${r.version}' },`)
-      .join('\n');
+	const formatRefs = (refs: { name: string; version: string }[]) =>
+		refs
+			.map((r) => `    { name: '${r.name}', version: '${r.version}' },`)
+			.join('\n');
 
-  return `/**
+	return `/**
  * ${params.title} Feature
  * 
  * Auto-generated feature spec.

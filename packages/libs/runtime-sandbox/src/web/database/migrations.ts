@@ -11,10 +11,10 @@ import type { Migration } from '@contractspec/lib.runtime-sandbox';
  * Each migration should be idempotent (CREATE TABLE IF NOT EXISTS).
  */
 export const SANDBOX_MIGRATIONS: Migration[] = [
-  // ============ Todos Template ============
-  {
-    id: '001_template_task_category',
-    sql: `
+	// ============ Todos Template ============
+	{
+		id: '001_template_task_category',
+		sql: `
       CREATE TABLE IF NOT EXISTS template_task_category (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -24,10 +24,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '002_template_task',
-    sql: `
+	},
+	{
+		id: '002_template_task',
+		sql: `
       CREATE TABLE IF NOT EXISTS template_task (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -42,11 +42,11 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  // ============ Messaging Template ============
-  {
-    id: '003_template_conversation',
-    sql: `
+	},
+	// ============ Messaging Template ============
+	{
+		id: '003_template_conversation',
+		sql: `
       CREATE TABLE IF NOT EXISTS template_conversation (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -58,10 +58,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '004_template_conversation_participant',
-    sql: `
+	},
+	{
+		id: '004_template_conversation_participant',
+		sql: `
       CREATE TABLE IF NOT EXISTS template_conversation_participant (
         id TEXT PRIMARY KEY,
         "conversationId" TEXT NOT NULL,
@@ -73,10 +73,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "lastReadAt" TEXT
       );
     `,
-  },
-  {
-    id: '005_template_message',
-    sql: `
+	},
+	{
+		id: '005_template_message',
+		sql: `
       CREATE TABLE IF NOT EXISTS template_message (
         id TEXT PRIMARY KEY,
         "conversationId" TEXT NOT NULL,
@@ -90,11 +90,11 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  // ============ Recipes Template ============
-  {
-    id: '006_template_recipe_category',
-    sql: `
+	},
+	// ============ Recipes Template ============
+	{
+		id: '006_template_recipe_category',
+		sql: `
       CREATE TABLE IF NOT EXISTS template_recipe_category (
         id TEXT PRIMARY KEY,
         "nameEn" TEXT NOT NULL,
@@ -102,10 +102,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         icon TEXT
       );
     `,
-  },
-  {
-    id: '007_template_recipe',
-    sql: `
+	},
+	{
+		id: '007_template_recipe',
+		sql: `
       CREATE TABLE IF NOT EXISTS template_recipe (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -125,10 +125,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '008_template_recipe_ingredient',
-    sql: `
+	},
+	{
+		id: '008_template_recipe_ingredient',
+		sql: `
       CREATE TABLE IF NOT EXISTS template_recipe_ingredient (
         id TEXT PRIMARY KEY,
         "recipeId" TEXT NOT NULL,
@@ -138,10 +138,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         ordering INTEGER DEFAULT 0
       );
     `,
-  },
-  {
-    id: '009_template_recipe_instruction',
-    sql: `
+	},
+	{
+		id: '009_template_recipe_instruction',
+		sql: `
       CREATE TABLE IF NOT EXISTS template_recipe_instruction (
         id TEXT PRIMARY KEY,
         "recipeId" TEXT NOT NULL,
@@ -150,11 +150,11 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         ordering INTEGER DEFAULT 0
       );
     `,
-  },
-  // ============ CRM Template ============
-  {
-    id: '010_crm_pipeline',
-    sql: `
+	},
+	// ============ CRM Template ============
+	{
+		id: '010_crm_pipeline',
+		sql: `
       CREATE TABLE IF NOT EXISTS crm_pipeline (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -163,10 +163,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '011_crm_stage',
-    sql: `
+	},
+	{
+		id: '011_crm_stage',
+		sql: `
       CREATE TABLE IF NOT EXISTS crm_stage (
         id TEXT PRIMARY KEY,
         "pipelineId" TEXT NOT NULL,
@@ -175,10 +175,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '012_crm_deal',
-    sql: `
+	},
+	{
+		id: '012_crm_deal',
+		sql: `
       CREATE TABLE IF NOT EXISTS crm_deal (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -199,10 +199,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '013_crm_company',
-    sql: `
+	},
+	{
+		id: '013_crm_company',
+		sql: `
       CREATE TABLE IF NOT EXISTS crm_company (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -215,10 +215,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '014_crm_contact',
-    sql: `
+	},
+	{
+		id: '014_crm_contact',
+		sql: `
       CREATE TABLE IF NOT EXISTS crm_contact (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -232,11 +232,11 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  // ============ SaaS Template ============
-  {
-    id: '015_saas_project',
-    sql: `
+	},
+	// ============ SaaS Template ============
+	{
+		id: '015_saas_project',
+		sql: `
       CREATE TABLE IF NOT EXISTS saas_project (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -249,10 +249,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '016_saas_subscription',
-    sql: `
+	},
+	{
+		id: '016_saas_subscription',
+		sql: `
       CREATE TABLE IF NOT EXISTS saas_subscription (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -267,10 +267,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '017_saas_usage',
-    sql: `
+	},
+	{
+		id: '017_saas_usage',
+		sql: `
       CREATE TABLE IF NOT EXISTS saas_usage (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -282,11 +282,11 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  // ============ Agent Console Template ============
-  {
-    id: '018_agent_tool',
-    sql: `
+	},
+	// ============ Agent Console Template ============
+	{
+		id: '018_agent_tool',
+		sql: `
       CREATE TABLE IF NOT EXISTS agent_tool (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -303,10 +303,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '019_agent_definition',
-    sql: `
+	},
+	{
+		id: '019_agent_definition',
+		sql: `
       CREATE TABLE IF NOT EXISTS agent_definition (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -323,10 +323,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '020_agent_tool_assignment',
-    sql: `
+	},
+	{
+		id: '020_agent_tool_assignment',
+		sql: `
       CREATE TABLE IF NOT EXISTS agent_tool_assignment (
         id TEXT PRIMARY KEY,
         "agentId" TEXT NOT NULL,
@@ -334,10 +334,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "assignedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '021_agent_run',
-    sql: `
+	},
+	{
+		id: '021_agent_run',
+		sql: `
       CREATE TABLE IF NOT EXISTS agent_run (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -356,10 +356,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "completedAt" TEXT
       );
     `,
-  },
-  {
-    id: '022_agent_run_step',
-    sql: `
+	},
+	{
+		id: '022_agent_run_step',
+		sql: `
       CREATE TABLE IF NOT EXISTS agent_run_step (
         id TEXT PRIMARY KEY,
         "runId" TEXT NOT NULL,
@@ -375,10 +375,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '023_agent_run_log',
-    sql: `
+	},
+	{
+		id: '023_agent_run_log',
+		sql: `
       CREATE TABLE IF NOT EXISTS agent_run_log (
         id TEXT PRIMARY KEY,
         "runId" TEXT NOT NULL,
@@ -388,11 +388,11 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  // ============ Workflow Template ============
-  {
-    id: '024_workflow_definition',
-    sql: `
+	},
+	// ============ Workflow Template ============
+	{
+		id: '024_workflow_definition',
+		sql: `
       CREATE TABLE IF NOT EXISTS workflow_definition (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -405,10 +405,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '025_workflow_step',
-    sql: `
+	},
+	{
+		id: '025_workflow_step',
+		sql: `
       CREATE TABLE IF NOT EXISTS workflow_step (
         id TEXT PRIMARY KEY,
         "definitionId" TEXT NOT NULL,
@@ -422,10 +422,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '026_workflow_instance',
-    sql: `
+	},
+	{
+		id: '026_workflow_instance',
+		sql: `
       CREATE TABLE IF NOT EXISTS workflow_instance (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -438,10 +438,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "completedAt" TEXT
       );
     `,
-  },
-  {
-    id: '027_workflow_approval',
-    sql: `
+	},
+	{
+		id: '027_workflow_approval',
+		sql: `
       CREATE TABLE IF NOT EXISTS workflow_approval (
         id TEXT PRIMARY KEY,
         "instanceId" TEXT NOT NULL,
@@ -453,11 +453,11 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  // ============ Marketplace Template ============
-  {
-    id: '028_marketplace_store',
-    sql: `
+	},
+	// ============ Marketplace Template ============
+	{
+		id: '028_marketplace_store',
+		sql: `
       CREATE TABLE IF NOT EXISTS marketplace_store (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -471,10 +471,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '029_marketplace_product',
-    sql: `
+	},
+	{
+		id: '029_marketplace_product',
+		sql: `
       CREATE TABLE IF NOT EXISTS marketplace_product (
         id TEXT PRIMARY KEY,
         "storeId" TEXT NOT NULL,
@@ -490,10 +490,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '030_marketplace_order',
-    sql: `
+	},
+	{
+		id: '030_marketplace_order',
+		sql: `
       CREATE TABLE IF NOT EXISTS marketplace_order (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -507,10 +507,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '031_marketplace_order_item',
-    sql: `
+	},
+	{
+		id: '031_marketplace_order_item',
+		sql: `
       CREATE TABLE IF NOT EXISTS marketplace_order_item (
         id TEXT PRIMARY KEY,
         "orderId" TEXT NOT NULL,
@@ -520,10 +520,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '032_marketplace_payout',
-    sql: `
+	},
+	{
+		id: '032_marketplace_payout',
+		sql: `
       CREATE TABLE IF NOT EXISTS marketplace_payout (
         id TEXT PRIMARY KEY,
         "storeId" TEXT NOT NULL,
@@ -534,10 +534,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '033_marketplace_review',
-    sql: `
+	},
+	{
+		id: '033_marketplace_review',
+		sql: `
       CREATE TABLE IF NOT EXISTS marketplace_review (
         id TEXT PRIMARY KEY,
         "productId" TEXT NOT NULL,
@@ -548,11 +548,11 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  // ============ Integration Hub Template ============
-  {
-    id: '034_integration',
-    sql: `
+	},
+	// ============ Integration Hub Template ============
+	{
+		id: '034_integration',
+		sql: `
       CREATE TABLE IF NOT EXISTS integration (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -566,10 +566,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '035_integration_connection',
-    sql: `
+	},
+	{
+		id: '035_integration_connection',
+		sql: `
       CREATE TABLE IF NOT EXISTS integration_connection (
         id TEXT PRIMARY KEY,
         "integrationId" TEXT NOT NULL,
@@ -583,10 +583,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '036_integration_sync_config',
-    sql: `
+	},
+	{
+		id: '036_integration_sync_config',
+		sql: `
       CREATE TABLE IF NOT EXISTS integration_sync_config (
         id TEXT PRIMARY KEY,
         "connectionId" TEXT NOT NULL,
@@ -602,10 +602,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '037_integration_field_mapping',
-    sql: `
+	},
+	{
+		id: '037_integration_field_mapping',
+		sql: `
       CREATE TABLE IF NOT EXISTS integration_field_mapping (
         id TEXT PRIMARY KEY,
         "syncConfigId" TEXT NOT NULL,
@@ -616,11 +616,11 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  // ============ Analytics Dashboard Template ============
-  {
-    id: '038_analytics_dashboard',
-    sql: `
+	},
+	// ============ Analytics Dashboard Template ============
+	{
+		id: '038_analytics_dashboard',
+		sql: `
       CREATE TABLE IF NOT EXISTS analytics_dashboard (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -636,10 +636,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '039_analytics_widget',
-    sql: `
+	},
+	{
+		id: '039_analytics_widget',
+		sql: `
       CREATE TABLE IF NOT EXISTS analytics_widget (
         id TEXT PRIMARY KEY,
         "dashboardId" TEXT NOT NULL,
@@ -655,10 +655,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '040_analytics_query',
-    sql: `
+	},
+	{
+		id: '040_analytics_query',
+		sql: `
       CREATE TABLE IF NOT EXISTS analytics_query (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -674,11 +674,11 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  // ============ Policy-Safe Knowledge Assistant Template ============
-  {
-    id: '041_psa_user_context',
-    sql: `
+	},
+	// ============ Policy-Safe Knowledge Assistant Template ============
+	{
+		id: '041_psa_user_context',
+		sql: `
       CREATE TABLE IF NOT EXISTS psa_user_context (
         "projectId" TEXT PRIMARY KEY,
         locale TEXT NOT NULL,
@@ -687,10 +687,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "kbSnapshotId" TEXT
       );
     `,
-  },
-  {
-    id: '042_psa_rule',
-    sql: `
+	},
+	{
+		id: '042_psa_rule',
+		sql: `
       CREATE TABLE IF NOT EXISTS psa_rule (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -698,10 +698,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "topicKey" TEXT NOT NULL
       );
     `,
-  },
-  {
-    id: '043_psa_rule_version',
-    sql: `
+	},
+	{
+		id: '043_psa_rule_version',
+		sql: `
       CREATE TABLE IF NOT EXISTS psa_rule_version (
         id TEXT PRIMARY KEY,
         "ruleId" TEXT NOT NULL,
@@ -716,10 +716,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `,
-  },
-  {
-    id: '044_psa_snapshot',
-    sql: `
+	},
+	{
+		id: '044_psa_snapshot',
+		sql: `
       CREATE TABLE IF NOT EXISTS psa_snapshot (
         id TEXT PRIMARY KEY,
         jurisdiction TEXT NOT NULL,
@@ -728,10 +728,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "publishedAt" TEXT NOT NULL
       );
     `,
-  },
-  {
-    id: '045_psa_change_candidate',
-    sql: `
+	},
+	{
+		id: '045_psa_change_candidate',
+		sql: `
       CREATE TABLE IF NOT EXISTS psa_change_candidate (
         id TEXT PRIMARY KEY,
         "projectId" TEXT NOT NULL,
@@ -742,10 +742,10 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "proposedRuleVersionIdsJson" TEXT NOT NULL
       );
     `,
-  },
-  {
-    id: '046_psa_review_task',
-    sql: `
+	},
+	{
+		id: '046_psa_review_task',
+		sql: `
       CREATE TABLE IF NOT EXISTS psa_review_task (
         id TEXT PRIMARY KEY,
         "changeCandidateId" TEXT NOT NULL,
@@ -756,5 +756,5 @@ export const SANDBOX_MIGRATIONS: Migration[] = [
         "decidedBy" TEXT
       );
     `,
-  },
+	},
 ];

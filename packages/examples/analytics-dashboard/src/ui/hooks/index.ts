@@ -1,3 +1,3 @@
 'use client';
 
-export { useAnalyticsData, type AnalyticsStats } from './useAnalyticsData';
+export { type AnalyticsStats, useAnalyticsData } from './useAnalyticsData';

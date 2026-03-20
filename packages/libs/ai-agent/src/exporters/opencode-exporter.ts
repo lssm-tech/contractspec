@@ -5,18 +5,18 @@
  * @opencode-ai/sdk (JSON config and markdown agent files).
  */
 
+import { createAgentI18n } from '../i18n';
+import { inferAgentType } from '../providers/opencode-sdk/agent-bridge';
+import type { OpenCodeAgentType } from '../providers/types';
 import type { AgentSpec } from '../spec/spec';
 import { agentKey } from '../spec/spec';
 import type {
-  Exporter,
-  OpenCodeAgentJSON,
-  OpenCodeExportOptions,
-  OpenCodeExportResult,
-  OpenCodeToolJSON,
+	Exporter,
+	OpenCodeAgentJSON,
+	OpenCodeExportOptions,
+	OpenCodeExportResult,
+	OpenCodeToolJSON,
 } from './types';
-import type { OpenCodeAgentType } from '../providers/types';
-import { inferAgentType } from '../providers/opencode-sdk/agent-bridge';
-import { createAgentI18n } from '../i18n';
 
 // ============================================================================
 // Exporter Implementation
@@ -25,298 +25,297 @@ import { createAgentI18n } from '../i18n';
 /**
  * OpenCode SDK Exporter.
  */
-export class OpenCodeExporter implements Exporter<
-  OpenCodeExportOptions,
-  OpenCodeExportResult
-> {
-  readonly format = 'opencode' as const;
+export class OpenCodeExporter
+	implements Exporter<OpenCodeExportOptions, OpenCodeExportResult>
+{
+	readonly format = 'opencode' as const;
 
-  /**
-   * Export an AgentSpec to OpenCode SDK format.
-   */
-  export(
-    spec: AgentSpec,
-    options: OpenCodeExportOptions = {}
-  ): OpenCodeExportResult {
-    const jsonConfig = this.buildJsonConfig(spec, options);
-    const markdownConfig = this.generateMarkdown(spec, jsonConfig, options);
+	/**
+	 * Export an AgentSpec to OpenCode SDK format.
+	 */
+	export(
+		spec: AgentSpec,
+		options: OpenCodeExportOptions = {}
+	): OpenCodeExportResult {
+		const jsonConfig = this.buildJsonConfig(spec, options);
+		const markdownConfig = this.generateMarkdown(spec, jsonConfig, options);
 
-    return {
-      jsonConfig,
-      markdownConfig,
-      exportedAt: new Date(),
-      sourceSpec: agentKey(spec.meta),
-    };
-  }
+		return {
+			jsonConfig,
+			markdownConfig,
+			exportedAt: new Date(),
+			sourceSpec: agentKey(spec.meta),
+		};
+	}
 
-  /**
-   * Export multiple specs.
-   */
-  exportMany(
-    specs: AgentSpec[],
-    options: OpenCodeExportOptions = {}
-  ): OpenCodeExportResult[] {
-    return specs.map((spec) => this.export(spec, options));
-  }
+	/**
+	 * Export multiple specs.
+	 */
+	exportMany(
+		specs: AgentSpec[],
+		options: OpenCodeExportOptions = {}
+	): OpenCodeExportResult[] {
+		return specs.map((spec) => this.export(spec, options));
+	}
 
-  /**
-   * Validate that a spec can be exported.
-   */
-  validate(spec: AgentSpec): { valid: boolean; errors: string[] } {
-    const i18n = createAgentI18n(spec.locale);
-    const errors: string[] = [];
+	/**
+	 * Validate that a spec can be exported.
+	 */
+	validate(spec: AgentSpec): { valid: boolean; errors: string[] } {
+		const i18n = createAgentI18n(spec.locale);
+		const errors: string[] = [];
 
-    if (!spec.meta?.key) {
-      errors.push(i18n.t('export.validation.requiresKey'));
-    }
+		if (!spec.meta?.key) {
+			errors.push(i18n.t('export.validation.requiresKey'));
+		}
 
-    if (!spec.instructions) {
-      errors.push(i18n.t('export.validation.requiresInstructions'));
-    }
+		if (!spec.instructions) {
+			errors.push(i18n.t('export.validation.requiresInstructions'));
+		}
 
-    // OpenCode doesn't require tools, but we check for valid tool names
-    for (const tool of spec.tools ?? []) {
-      if (!tool.name) {
-        errors.push(i18n.t('export.validation.toolRequiresName'));
-      }
-      // OpenCode tool names should be valid identifiers
-      if (tool.name && !/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(tool.name)) {
-        errors.push(
-          i18n.t('export.validation.toolInvalidName', { name: tool.name })
-        );
-      }
-    }
+		// OpenCode doesn't require tools, but we check for valid tool names
+		for (const tool of spec.tools ?? []) {
+			if (!tool.name) {
+				errors.push(i18n.t('export.validation.toolRequiresName'));
+			}
+			// OpenCode tool names should be valid identifiers
+			if (tool.name && !/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(tool.name)) {
+				errors.push(
+					i18n.t('export.validation.toolInvalidName', { name: tool.name })
+				);
+			}
+		}
 
-    return { valid: errors.length === 0, errors };
-  }
+		return { valid: errors.length === 0, errors };
+	}
 
-  // ============================================================================
-  // Private Methods
-  // ============================================================================
+	// ============================================================================
+	// Private Methods
+	// ============================================================================
 
-  /**
-   * Build OpenCode agent JSON configuration.
-   */
-  private buildJsonConfig(
-    spec: AgentSpec,
-    options: OpenCodeExportOptions
-  ): OpenCodeAgentJSON {
-    const agentType: OpenCodeAgentType =
-      options.agentType ?? inferAgentType(spec);
+	/**
+	 * Build OpenCode agent JSON configuration.
+	 */
+	private buildJsonConfig(
+		spec: AgentSpec,
+		options: OpenCodeExportOptions
+	): OpenCodeAgentJSON {
+		const agentType: OpenCodeAgentType =
+			options.agentType ?? inferAgentType(spec);
 
-    return {
-      name: spec.meta.key,
-      version: spec.meta.version,
-      description: spec.description,
-      type: agentType,
-      instructions: spec.instructions,
-      tools: this.exportTools(spec),
-      config: {
-        max_steps: options.maxSteps ?? spec.maxSteps ?? 10,
-        temperature: options.temperature ?? 0.7,
-        model: options.model,
-      },
-    };
-  }
+		return {
+			name: spec.meta.key,
+			version: spec.meta.version,
+			description: spec.description,
+			type: agentType,
+			instructions: spec.instructions,
+			tools: this.exportTools(spec),
+			config: {
+				max_steps: options.maxSteps ?? spec.maxSteps ?? 10,
+				temperature: options.temperature ?? 0.7,
+				model: options.model,
+			},
+		};
+	}
 
-  /**
-   * Export tools to OpenCode format.
-   */
-  private exportTools(spec: AgentSpec): OpenCodeToolJSON[] {
-    const i18n = createAgentI18n(spec.locale);
-    return spec.tools.map((tool) => ({
-      name: tool.name,
-      description:
-        tool.description ??
-        i18n.t('tool.fallbackDescription', { name: tool.name }),
-      schema: tool.schema ?? { type: 'object' },
-      requires_approval: tool.requiresApproval ?? !tool.automationSafe,
-    }));
-  }
+	/**
+	 * Export tools to OpenCode format.
+	 */
+	private exportTools(spec: AgentSpec): OpenCodeToolJSON[] {
+		const i18n = createAgentI18n(spec.locale);
+		return spec.tools.map((tool) => ({
+			name: tool.name,
+			description:
+				tool.description ??
+				i18n.t('tool.fallbackDescription', { name: tool.name }),
+			schema: tool.schema ?? { type: 'object' },
+			requires_approval: tool.requiresApproval ?? !tool.automationSafe,
+		}));
+	}
 
-  /**
-   * Generate markdown agent file content.
-   */
-  private generateMarkdown(
-    spec: AgentSpec,
-    jsonConfig: OpenCodeAgentJSON,
-    options: OpenCodeExportOptions
-  ): string {
-    const i18n = createAgentI18n(options.locale ?? spec.locale);
-    const lines: string[] = [];
+	/**
+	 * Generate markdown agent file content.
+	 */
+	private generateMarkdown(
+		spec: AgentSpec,
+		jsonConfig: OpenCodeAgentJSON,
+		options: OpenCodeExportOptions
+	): string {
+		const i18n = createAgentI18n(options.locale ?? spec.locale);
+		const lines: string[] = [];
 
-    // Frontmatter
-    lines.push('---');
-    lines.push(`name: ${jsonConfig.name}`);
-    lines.push(`type: ${jsonConfig.type}`);
+		// Frontmatter
+		lines.push('---');
+		lines.push(`name: ${jsonConfig.name}`);
+		lines.push(`type: ${jsonConfig.type}`);
 
-    if (jsonConfig.version) {
-      lines.push(`version: ${jsonConfig.version}`);
-    }
+		if (jsonConfig.version) {
+			lines.push(`version: ${jsonConfig.version}`);
+		}
 
-    if (jsonConfig.config.model) {
-      lines.push(`model: ${jsonConfig.config.model}`);
-    }
+		if (jsonConfig.config.model) {
+			lines.push(`model: ${jsonConfig.config.model}`);
+		}
 
-    if (jsonConfig.config.temperature !== undefined) {
-      lines.push(`temperature: ${jsonConfig.config.temperature}`);
-    }
+		if (jsonConfig.config.temperature !== undefined) {
+			lines.push(`temperature: ${jsonConfig.config.temperature}`);
+		}
 
-    if (jsonConfig.config.max_steps !== undefined) {
-      lines.push(`max_steps: ${jsonConfig.config.max_steps}`);
-    }
+		if (jsonConfig.config.max_steps !== undefined) {
+			lines.push(`max_steps: ${jsonConfig.config.max_steps}`);
+		}
 
-    // Tool list in frontmatter
-    if (jsonConfig.tools.length > 0) {
-      lines.push('tools:');
-      for (const tool of jsonConfig.tools) {
-        const permission = tool.requires_approval
-          ? ` # ${i18n.t('export.requiresApproval')}`
-          : '';
-        lines.push(`  - ${tool.name}${permission}`);
-      }
-    }
+		// Tool list in frontmatter
+		if (jsonConfig.tools.length > 0) {
+			lines.push('tools:');
+			for (const tool of jsonConfig.tools) {
+				const permission = tool.requires_approval
+					? ` # ${i18n.t('export.requiresApproval')}`
+					: '';
+				lines.push(`  - ${tool.name}${permission}`);
+			}
+		}
 
-    lines.push('---');
-    lines.push('');
+		lines.push('---');
+		lines.push('');
 
-    // Title
-    lines.push(`# ${spec.meta.key}`);
-    lines.push('');
+		// Title
+		lines.push(`# ${spec.meta.key}`);
+		lines.push('');
 
-    // Description
-    if (spec.description) {
-      lines.push(spec.description);
-      lines.push('');
-    }
+		// Description
+		if (spec.description) {
+			lines.push(spec.description);
+			lines.push('');
+		}
 
-    // Agent type explanation
-    lines.push(i18n.t('export.agentType', { type: jsonConfig.type }));
-    lines.push('');
-    lines.push(
-      this.getAgentTypeDescription(
-        jsonConfig.type,
-        options.locale ?? spec.locale
-      )
-    );
-    lines.push('');
+		// Agent type explanation
+		lines.push(i18n.t('export.agentType', { type: jsonConfig.type }));
+		lines.push('');
+		lines.push(
+			this.getAgentTypeDescription(
+				jsonConfig.type,
+				options.locale ?? spec.locale
+			)
+		);
+		lines.push('');
 
-    // Instructions
-    lines.push(i18n.t('export.instructions'));
-    lines.push('');
-    lines.push(spec.instructions);
-    lines.push('');
+		// Instructions
+		lines.push(i18n.t('export.instructions'));
+		lines.push('');
+		lines.push(spec.instructions);
+		lines.push('');
 
-    // Tools section
-    if (spec.tools.length > 0) {
-      lines.push(i18n.t('export.tools'));
-      lines.push('');
-      for (const tool of spec.tools) {
-        const approval = tool.requiresApproval
-          ? ` ${i18n.t('export.requiresApprovalMd')}`
-          : '';
-        const safe =
-          tool.automationSafe === false
-            ? ` ${i18n.t('export.notAutomationSafeMd')}`
-            : '';
-        lines.push(`### ${tool.name}${approval}${safe}`);
-        lines.push('');
-        if (tool.description) {
-          lines.push(tool.description);
-          lines.push('');
-        }
-        if (tool.schema && options.includeComments !== false) {
-          lines.push(i18n.t('export.parameters'));
-          lines.push('');
-          lines.push('```json');
-          lines.push(
-            JSON.stringify(
-              tool.schema,
-              null,
-              options.prettyPrint !== false ? 2 : 0
-            )
-          );
-          lines.push('```');
-          lines.push('');
-        }
-      }
-    }
+		// Tools section
+		if (spec.tools.length > 0) {
+			lines.push(i18n.t('export.tools'));
+			lines.push('');
+			for (const tool of spec.tools) {
+				const approval = tool.requiresApproval
+					? ` ${i18n.t('export.requiresApprovalMd')}`
+					: '';
+				const safe =
+					tool.automationSafe === false
+						? ` ${i18n.t('export.notAutomationSafeMd')}`
+						: '';
+				lines.push(`### ${tool.name}${approval}${safe}`);
+				lines.push('');
+				if (tool.description) {
+					lines.push(tool.description);
+					lines.push('');
+				}
+				if (tool.schema && options.includeComments !== false) {
+					lines.push(i18n.t('export.parameters'));
+					lines.push('');
+					lines.push('```json');
+					lines.push(
+						JSON.stringify(
+							tool.schema,
+							null,
+							options.prettyPrint !== false ? 2 : 0
+						)
+					);
+					lines.push('```');
+					lines.push('');
+				}
+			}
+		}
 
-    // Knowledge sources
-    if (spec.knowledge && spec.knowledge.length > 0) {
-      lines.push(i18n.t('export.knowledgeSources'));
-      lines.push('');
-      for (const k of spec.knowledge) {
-        const required = k.required
-          ? i18n.t('export.required')
-          : i18n.t('export.optional');
-        lines.push(`- **${k.key}** ${required}`);
-        if (k.instructions) {
-          lines.push(`  - ${k.instructions}`);
-        }
-      }
-      lines.push('');
-    }
+		// Knowledge sources
+		if (spec.knowledge && spec.knowledge.length > 0) {
+			lines.push(i18n.t('export.knowledgeSources'));
+			lines.push('');
+			for (const k of spec.knowledge) {
+				const required = k.required
+					? i18n.t('export.required')
+					: i18n.t('export.optional');
+				lines.push(`- **${k.key}** ${required}`);
+				if (k.instructions) {
+					lines.push(`  - ${k.instructions}`);
+				}
+			}
+			lines.push('');
+		}
 
-    // Policy
-    if (spec.policy) {
-      lines.push(i18n.t('export.policy'));
-      lines.push('');
-      if (spec.policy.confidence?.min) {
-        lines.push(
-          i18n.t('export.minConfidence', { min: spec.policy.confidence.min })
-        );
-      }
-      if (spec.policy.escalation) {
-        lines.push(i18n.t('export.escalationPolicyConfigured'));
-      }
-      lines.push('');
-    }
+		// Policy
+		if (spec.policy) {
+			lines.push(i18n.t('export.policy'));
+			lines.push('');
+			if (spec.policy.confidence?.min) {
+				lines.push(
+					i18n.t('export.minConfidence', { min: spec.policy.confidence.min })
+				);
+			}
+			if (spec.policy.escalation) {
+				lines.push(i18n.t('export.escalationPolicyConfigured'));
+			}
+			lines.push('');
+		}
 
-    // Configuration (JSON)
-    lines.push(i18n.t('export.configuration'));
-    lines.push('');
-    lines.push('```json');
-    lines.push(
-      JSON.stringify(
-        jsonConfig.config,
-        null,
-        options.prettyPrint !== false ? 2 : 0
-      )
-    );
-    lines.push('```');
-    lines.push('');
+		// Configuration (JSON)
+		lines.push(i18n.t('export.configuration'));
+		lines.push('');
+		lines.push('```json');
+		lines.push(
+			JSON.stringify(
+				jsonConfig.config,
+				null,
+				options.prettyPrint !== false ? 2 : 0
+			)
+		);
+		lines.push('```');
+		lines.push('');
 
-    // Footer
-    lines.push('---');
-    lines.push('');
-    lines.push(i18n.t('export.generatedFrom', { key: agentKey(spec.meta) }));
-    lines.push(i18n.t('export.exportedAt', { date: new Date().toISOString() }));
+		// Footer
+		lines.push('---');
+		lines.push('');
+		lines.push(i18n.t('export.generatedFrom', { key: agentKey(spec.meta) }));
+		lines.push(i18n.t('export.exportedAt', { date: new Date().toISOString() }));
 
-    return lines.join('\n');
-  }
+		return lines.join('\n');
+	}
 
-  /**
-   * Get description for agent type.
-   */
-  private getAgentTypeDescription(
-    type: OpenCodeAgentType,
-    locale?: string
-  ): string {
-    const i18n = createAgentI18n(locale);
-    switch (type) {
-      case 'build':
-        return i18n.t('export.agentType.build');
-      case 'plan':
-        return i18n.t('export.agentType.plan');
-      case 'general':
-        return i18n.t('export.agentType.general');
-      case 'explore':
-        return i18n.t('export.agentType.explore');
-      default:
-        return '';
-    }
-  }
+	/**
+	 * Get description for agent type.
+	 */
+	private getAgentTypeDescription(
+		type: OpenCodeAgentType,
+		locale?: string
+	): string {
+		const i18n = createAgentI18n(locale);
+		switch (type) {
+			case 'build':
+				return i18n.t('export.agentType.build');
+			case 'plan':
+				return i18n.t('export.agentType.plan');
+			case 'general':
+				return i18n.t('export.agentType.general');
+			case 'explore':
+				return i18n.t('export.agentType.explore');
+			default:
+				return '';
+		}
+	}
 }
 
 // ============================================================================
@@ -327,44 +326,44 @@ export class OpenCodeExporter implements Exporter<
  * Export an AgentSpec to OpenCode SDK format.
  */
 export function exportToOpenCode(
-  spec: AgentSpec,
-  options?: OpenCodeExportOptions
+	spec: AgentSpec,
+	options?: OpenCodeExportOptions
 ): OpenCodeExportResult {
-  const exporter = new OpenCodeExporter();
-  return exporter.export(spec, options);
+	const exporter = new OpenCodeExporter();
+	return exporter.export(spec, options);
 }
 
 /**
  * Generate OpenCode agent markdown from an AgentSpec.
  */
 export function generateOpenCodeMarkdown(
-  spec: AgentSpec,
-  options?: OpenCodeExportOptions
+	spec: AgentSpec,
+	options?: OpenCodeExportOptions
 ): string {
-  const exporter = new OpenCodeExporter();
-  const result = exporter.export(spec, options);
-  return result.markdownConfig;
+	const exporter = new OpenCodeExporter();
+	const result = exporter.export(spec, options);
+	return result.markdownConfig;
 }
 
 /**
  * Generate OpenCode agent JSON from an AgentSpec.
  */
 export function generateOpenCodeJSON(
-  spec: AgentSpec,
-  options?: OpenCodeExportOptions
+	spec: AgentSpec,
+	options?: OpenCodeExportOptions
 ): OpenCodeAgentJSON {
-  const exporter = new OpenCodeExporter();
-  const result = exporter.export(spec, options);
-  return result.jsonConfig;
+	const exporter = new OpenCodeExporter();
+	const result = exporter.export(spec, options);
+	return result.jsonConfig;
 }
 
 /**
  * Validate an AgentSpec for OpenCode SDK export.
  */
 export function validateForOpenCode(spec: AgentSpec): {
-  valid: boolean;
-  errors: string[];
+	valid: boolean;
+	errors: string[];
 } {
-  const exporter = new OpenCodeExporter();
-  return exporter.validate(spec);
+	const exporter = new OpenCodeExporter();
+	return exporter.validate(spec);
 }

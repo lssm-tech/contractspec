@@ -5,10 +5,10 @@
  */
 
 import { Command } from 'commander';
-import { installCommand } from './install';
 import { doctorCommand } from './doctor';
+import { installCommand } from './install';
 
 export const cicdCommand = new Command('cicd')
-  .description('CI/CD workflow management')
-  .addCommand(installCommand)
-  .addCommand(doctorCommand);
+	.description('CI/CD workflow management')
+	.addCommand(installCommand)
+	.addCommand(doctorCommand);

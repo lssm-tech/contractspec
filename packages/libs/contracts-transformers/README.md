@@ -1,95 +1,63 @@
 # @contractspec/lib.contracts-transformers
 
-Website: https://contractspec.io/
+Website: https://contractspec.io
 
+**Contract format transformations: import/export between ContractSpec and external formats (OpenAPI, AsyncAPI, etc.).**
 
-Contract format transformations: bidirectional import/export between ContractSpec and external API specification formats.
+## What It Provides
 
-## Supported Formats
-
-- **OpenAPI 3.x** - Import from and export to OpenAPI specifications (JSON/YAML, URL/file)
+- **Layer**: lib.
+- **Consumers**: `lib.contracts-spec`, bundles, CLI.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Installation
 
-```bash
-bun add @contractspec/lib.contracts-transformers
-```
+`npm install @contractspec/lib.contracts-transformers`
+
+or
+
+`bun add @contractspec/lib.contracts-transformers`
 
 ## Usage
 
-### Export ContractSpec to OpenAPI
-
-```typescript
-import { openApiForRegistry } from '@contractspec/lib.contracts-transformers/openapi';
-import { OperationSpecRegistry } from '@contractspec/lib.contracts-spec';
-
-const registry = new OperationSpecRegistry();
-// ... register your specs ...
-
-const openApiDoc = openApiForRegistry(registry, {
-  title: 'My API',
-  version: '1.0.0',
-  description: 'API generated from ContractSpec',
-  servers: [{ url: 'https://api.example.com' }],
-});
-```
-
-### Import from OpenAPI
-
-```typescript
-import { parseOpenApi, importFromOpenApi } from '@contractspec/lib.contracts-transformers/openapi';
-
-// Parse OpenAPI from file or URL
-const openApiDoc = await parseOpenApi('./api.yaml');
-// Or from URL
-const openApiDoc = await parseOpenApi('https://api.example.com/openapi.json');
-
-// Convert to ContractSpec specs
-const importResult = importFromOpenApi(openApiDoc, {
-  prefix: 'myApi',
-  tags: ['users', 'orders'], // Optional: filter by tags
-  exclude: ['deprecated_endpoint'], // Optional: exclude by operationId
-  schemaFormat: 'contractspec', // Optional: 'contractspec' | 'zod' | 'json-schema' | 'graphql'
-});
-
-// importResult contains generated spec code as strings
-for (const spec of importResult.specs) {
-  console.log(spec.name, spec.code);
-}
-```
-
-### Diff ContractSpec vs OpenAPI
-
-```typescript
-import { diffSpecs } from '@contractspec/lib.contracts-transformers/openapi';
-
-const diffs = diffSpecs(existingSpecs, importedSpecs);
-
-for (const diff of diffs) {
-  console.log(`${diff.operationId}: ${diff.changes.length} changes`);
-  for (const change of diff.changes) {
-    console.log(`  - ${change.path}: ${change.type}`);
-  }
-}
-```
+Import the root entrypoint from `@contractspec/lib.contracts-transformers`, or choose a documented subpath when you only need one part of the package surface.
 
 ## Architecture
 
-This library is organized by format:
+- `src/common` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/openapi` is part of the package's public or composition surface.
 
-- `openapi/` - OpenAPI 3.x transformations
-  - `parser.ts` - Parse OpenAPI from JSON/YAML/URL
-  - `importer.ts` - Convert OpenAPI to ContractSpec
-  - `exporter.ts` - Convert ContractSpec to OpenAPI
-  - `differ.ts` - Diff specs for sync operations
-  - `schema-converter.ts` - JSON Schema <-> SchemaModel conversion
-- `common/` - Shared utilities and types
+## Public Entry Points
 
-## Future Formats
+- Export `.` resolves through `./src/index.ts`.
+- Export `./common` resolves through `./src/common/index.ts`.
+- Export `./openapi` resolves through `./src/openapi/index.ts`.
 
-The library is designed to be extensible for additional formats:
+## Local Commands
 
-- AsyncAPI (event-driven APIs)
-- gRPC/Protobuf
-- GraphQL Schema
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild
 
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed.
+
+## Notes
+
+- Core logic must be pure functions with no I/O.
+- Preserve original transport metadata (path/query/header params) for accurate round-trips.
+- Track provenance — where specs came from — for sync operations.
+- `@contractspec/lib.contracts-spec` re-exports this library for existing consumers; avoid breaking that contract.

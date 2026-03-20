@@ -4,17 +4,17 @@
 
 export { ProductStatusEnum } from './product.enum';
 export {
-  ProductModel,
-  CreateProductInputModel,
-  ListProductsInputModel,
-  ListProductsOutputModel,
-} from './product.schema';
+	InventoryUpdatedEvent,
+	ProductCreatedEvent,
+	ProductPublishedEvent,
+} from './product.event';
 export {
-  CreateProductContract,
-  ListProductsContract,
+	CreateProductContract,
+	ListProductsContract,
 } from './product.operations';
 export {
-  ProductCreatedEvent,
-  ProductPublishedEvent,
-  InventoryUpdatedEvent,
-} from './product.event';
+	CreateProductInputModel,
+	ListProductsInputModel,
+	ListProductsOutputModel,
+	ProductModel,
+} from './product.schema';

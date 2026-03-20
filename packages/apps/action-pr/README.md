@@ -1,50 +1,66 @@
-# ContractSpec PR Action
+# @contractspec/action.pr
 
-Run ContractSpec PR checks (view, impact, validation, drift) with a reusable GitHub Action.
+Website: https://contractspec.io
 
-Website: https://contractspec.io/
+**GitHub Action that runs ContractSpec validation checks on pull requests. Posts drift reports, validation results, and product views as PR comments.**
+
+## What It Does
+
+- Uses `@contractspec/lib.contracts-spec` for contract definitions
+- Uses `@contractspec/bundle.workspace` for workspace analysis
+- Configured via `action.yml`; no `src/` — logic lives in workspace bundle
 
 ## Usage
 
 ```yaml
 name: ContractSpec PR
-
 on: pull_request
-
 jobs:
   contractspec:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
     steps:
       - uses: actions/checkout@v4
-
-      - name: ContractSpec PR checks
-        uses: lssm-tech/contractspec/packages/apps/action-pr@main
-        with:
-          generate-command: 'bun contractspec generate'
+      - uses: lssm-tech/contractspec/packages/apps/action-pr@main
+      with:
+        generate-command: 'bun contractspec generate'
 ```
 
 ## Inputs
 
-| Input               | Description                         | Default               |
-| ------------------- | ----------------------------------- | --------------------- |
-| `package-manager`   | `bun`, `npm`, `pnpm`, `yarn`        | `bun`                 |
-| `working-directory` | Repo root or package path           | `.`                   |
-| `report-mode`       | `summary`, `comment`, `both`, `off` | `summary`             |
-| `enable-drift`      | Run generate + drift check          | `true`                |
-| `fail-on`           | `breaking`, `drift`, `any`, `never` | `any`                 |
-| `generate-command`  | Command to regenerate artifacts     | empty                 |
-| `validate-command`  | Validation command override         | empty                 |
-| `contracts-dir`     | Directory for contract changes      | empty                 |
-| `contracts-glob`    | Glob for contract changes           | empty                 |
-| `token`             | GitHub token for PR comments        | `${{ github.token }}` |
+- `package-manager` (default: `bun`) — Package manager to use (bun|npm|pnpm|yarn)
+- `working-directory` (default: `.`) — Working directory for running commands
+- `report-mode` (default: `summary`) — Report output mode (summary|comment|both|off)
+- `enable-drift` (default: `true`) — Run drift detection after generate
+- `fail-on` (default: `any`) — Fail on breaking, drift, any, or never
+- `generate-command` (default: `bun contractspec generate`) — Command to regenerate artifacts (required when enable-drift=true)
+- `validate-command` — Override validation command
+- `contracts-dir` — Directory containing contract specs
+- `contracts-glob` — Glob pattern for contract specs
+- `token` (default: `${{ github.token }}`) — GitHub token for PR comments
 
 ## Outputs
 
-| Output                     | Description                            |
-| -------------------------- | -------------------------------------- |
-| `drift-detected`           | Whether drift was detected             |
-| `breaking-change-detected` | Whether breaking changes were detected |
-| `validation-failed`        | Whether validation failed              |
+- `drift-detected` — Whether drift was detected
+- `breaking-change-detected` — Whether breaking changes were detected
+- `validation-failed` — Whether validation failed
+
+## Key Files
+
+- `action.yml` — GitHub Action definition
+- `fixtures/` — Test report data and validation fixtures
+- `.contractspec-ci/contracts.json` — CI contract configuration
+
+## Local Commands
+
+- `bun run test` — bun test
+
+## Recent Updates
+
+- Replace eslint+prettier by biomejs to optimize speed
+- Stability
+- Standardize tool naming to underscore notation
+
+## Notes
+
+- Do not change `action.yml` inputs/outputs without updating downstream workflow consumers
+- Fixture files are used for CI testing — keep them valid

@@ -2,16 +2,16 @@ import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const meteringDocBlocks: DocBlock[] = [
-  {
-    id: 'docs.metering.usage',
-    title: 'Usage Metering & Billing Core',
-    summary:
-      'Reusable usage/metering layer with metric definitions, usage ingestion, aggregation, thresholds, and alerts for billing or quotas.',
-    kind: 'reference',
-    visibility: 'public',
-    route: '/docs/metering/usage',
-    tags: ['metering', 'usage', 'billing', 'quotas'],
-    body: `## Capabilities
+	{
+		id: 'docs.metering.usage',
+		title: 'Usage Metering & Billing Core',
+		summary:
+			'Reusable usage/metering layer with metric definitions, usage ingestion, aggregation, thresholds, and alerts for billing or quotas.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/metering/usage',
+		tags: ['metering', 'usage', 'billing', 'quotas'],
+		body: `## Capabilities
 
 - **Entities**: MetricDefinition, UsageRecord, UsageSummary, UsageThreshold, UsageAlert.
 - **Contracts**: define/list metrics; record usage (batch + idempotent); retrieve usage by subject; manage thresholds and alerts.
@@ -59,7 +59,7 @@ ${'```'},
 - Use idempotency keys for external ingestion; avoid PII in metric metadata.
 - Scope by org/user for multi-tenant isolation; emit audit + analytics events on changes.
 `,
-  },
+	},
 ];
 
 registerDocBlocks(meteringDocBlocks);

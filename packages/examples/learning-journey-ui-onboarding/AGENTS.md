@@ -1,33 +1,59 @@
-# AI Agent Guide -- `@contractspec/example.learning-journey-ui-onboarding`
+# AI Agent Guide — `@contractspec/example.learning-journey-ui-onboarding`
 
 Scope: `packages/examples/learning-journey-ui-onboarding/*`
 
-Developer onboarding UI with checklists, journey maps, and step-by-step progress views.
+Developer onboarding UI with checklists and journey maps.
 
 ## Quick Context
 
-- **Layer**: example
-- **Related Packages**: `lib.ui-kit-core`, `lib.contracts-spec`, `lib.design-system`, `lib.ui-kit-web`, `module.learning-journey`, `example.learning-journey-ui-shared`, `example.learning-journey-studio-onboarding`, `example.learning-journey-platform-tour`
+- Layer: `example`.
+- Package visibility: published package.
+- Primary consumers are example explorers, template authors, and documentation readers.
+- Related packages: `@contractspec/example.learning-journey-platform-tour`, `@contractspec/example.learning-journey-studio-onboarding`, `@contractspec/example.learning-journey-ui-shared`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.design-system`, `@contractspec/lib.ui-kit-core`, ...
 
-## What This Demonstrates
+## Architecture
 
-- React-based onboarding mini-app with checklist and journey map components
-- Multi-view layout (Overview, Progress, Steps, Timeline)
-- Shared UI component reuse across learning journey examples
-- DocBlock-driven documentation pattern
+- `src/components/` contains reusable UI components and view composition.
+- `src/docs/` contains docblocks and documentation-facing exports.
+- `src/example.ts` is the runnable example entrypoint.
+- `src/index.ts` is the root public barrel and package entrypoint.
+- `src/learning-journey-ui-onboarding.feature.ts` defines a feature entrypoint.
+- `src/OnboardingMiniApp.tsx` is part of the package's public or composition surface.
+- `src/views/` contains view-level composition.
 
-## Public Exports
+## Public Surface
 
-- `.` -- root barrel
-- `./components` -- CodeSnippet, JourneyMap, StepChecklist
-- `./views` -- Overview, Progress, Steps, Timeline
-- `./OnboardingMiniApp` -- top-level mini-app component
-- `./docs` -- DocBlock documentation
-- `./example` -- runnable example entry
+- Export `.` resolves through `./src/index.ts`.
+- Export `./components` resolves through `./src/components/index.ts`.
+- Export `./components/CodeSnippet` resolves through `./src/components/CodeSnippet.tsx`.
+- Export `./components/JourneyMap` resolves through `./src/components/JourneyMap.tsx`.
+- Export `./components/StepChecklist` resolves through `./src/components/StepChecklist.tsx`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./docs/learning-journey-ui-onboarding.docblock` resolves through `./src/docs/learning-journey-ui-onboarding.docblock.ts`.
+- Export `./example` resolves through `./src/example.ts`.
+- Export `./learning-journey-ui-onboarding.feature` resolves through `./src/learning-journey-ui-onboarding.feature.ts`.
+- Export `./OnboardingMiniApp` resolves through `./src/OnboardingMiniApp.tsx`.
+- The package publishes 15 total export subpaths; keep docs aligned with `package.json`.
+
+## Guardrails
+
+- Keep the example package demonstrative, buildable, and aligned with the exported feature surface.
+- Do not add hidden production assumptions that are not actually implemented in the example.
+- Changes here can affect downstream packages such as `@contractspec/example.learning-journey-platform-tour`, `@contractspec/example.learning-journey-studio-onboarding`, `@contractspec/example.learning-journey-ui-shared`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.design-system`, `@contractspec/lib.ui-kit-core`, ....
+- Changes here can affect downstream packages such as `@contractspec/example.learning-journey-platform-tour`, `@contractspec/example.learning-journey-studio-onboarding`, `@contractspec/example.learning-journey-ui-shared`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.design-system`, `@contractspec/lib.ui-kit-core`, ...
 
 ## Local Commands
 
-- Build: `bun run build`
-- Dev: `bun run dev`
-- Test: `bun test --pass-with-no-tests`
-- Typecheck: `bun run typecheck`
+- `bun run dev` — contractspec-bun-build dev
+- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
+- `bun run test` — bun test --pass-with-no-tests
+- `bun run lint` — bun lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` — tsc --noEmit
+- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
+- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
+- `bun run clean` — rimraf dist .turbo
+- `bun run build:bundle` — contractspec-bun-build transpile
+- `bun run build:types` — contractspec-bun-build types
+- `bun run prebuild` — contractspec-bun-build prebuild

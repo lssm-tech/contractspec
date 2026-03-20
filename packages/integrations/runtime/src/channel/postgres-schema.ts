@@ -1,5 +1,5 @@
 export const CHANNEL_RUNTIME_SCHEMA_STATEMENTS: readonly string[] = [
-  `
+	`
 create table if not exists channel_event_receipts (
   id uuid primary key,
   workspace_id text not null,
@@ -18,7 +18,7 @@ create table if not exists channel_event_receipts (
   unique (workspace_id, provider_key, external_event_id)
 )
 `,
-  `
+	`
 create table if not exists channel_threads (
   id uuid primary key,
   workspace_id text not null,
@@ -33,7 +33,7 @@ create table if not exists channel_threads (
   unique (workspace_id, provider_key, external_thread_id)
 )
 `,
-  `
+	`
 create table if not exists channel_ai_decisions (
   id uuid primary key,
   receipt_id uuid not null references channel_event_receipts (id),
@@ -52,7 +52,7 @@ create table if not exists channel_ai_decisions (
   created_at timestamptz not null default now()
 )
 `,
-  `
+	`
 create table if not exists channel_outbox_actions (
   id uuid primary key,
   workspace_id text not null,
@@ -74,7 +74,7 @@ create table if not exists channel_outbox_actions (
   sent_at timestamptz
 )
 `,
-  `
+	`
 create table if not exists channel_delivery_attempts (
   id bigserial primary key,
   action_id uuid not null references channel_outbox_actions (id),

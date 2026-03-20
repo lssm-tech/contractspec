@@ -1,105 +1,105 @@
-import type { OperationSpecRegistry } from '../registry';
-import { GetContractVerificationStatusQuery } from './getContractVerificationStatus';
 import { type HandlerForOperationSpec, installOp } from '../../install';
 import type { HandlerCtx } from '../../types';
 import { safeParseJson } from '../../utils/safe-json';
+import type { OperationSpecRegistry } from '../registry';
+import { GetContractVerificationStatusQuery } from './getContractVerificationStatus';
 
-export {
-  GetContractVerificationStatusQuery,
-  ContractVerificationStatusModel,
-  GetContractVerificationStatusInput,
-  GetContractVerificationStatusOutput,
-} from './getContractVerificationStatus';
 export { ContractVerificationTableDataView } from '../../data-views/report/contractVerificationTable';
+export {
+	ContractVerificationStatusModel,
+	GetContractVerificationStatusInput,
+	GetContractVerificationStatusOutput,
+	GetContractVerificationStatusQuery,
+} from './getContractVerificationStatus';
 
 // Define the expected output interface
 interface ContractVerificationStatus {
-  name: string;
-  lastVerifiedSha?: string;
-  lastVerifiedDate?: string;
-  surfaces: string[];
-  driftMismatches: number;
+	name: string;
+	lastVerifiedSha?: string;
+	lastVerifiedDate?: string;
+	surfaces: string[];
+	driftMismatches: number;
 }
 
 // CLI output structure
 interface CLIResult {
-  results: {
-    specKey: string;
-    specHash?: string;
-    implementations: {
-      type: string;
-      exists: boolean;
-    }[];
-  }[];
+	results: {
+		specKey: string;
+		specHash?: string;
+		implementations: {
+			type: string;
+			exists: boolean;
+		}[];
+	}[];
 }
 
 export const getContractVerificationStatusHandler: HandlerForOperationSpec<
-  typeof GetContractVerificationStatusQuery
+	typeof GetContractVerificationStatusQuery
 > = async (
-  input: { projectPath: string; baseline?: string },
-  _ctx: HandlerCtx
+	input: { projectPath: string; baseline?: string },
+	_ctx: HandlerCtx
 ) => {
-  try {
-    // Call CLI command to get implementation status
-    // contractspec impl status --format json --all
-    const cmdProcess = Bun.spawn(
-      ['contractspec', 'impl', 'status', '--format', 'json', '--all'],
-      {
-        cwd: input.projectPath,
-      }
-    );
+	try {
+		// Call CLI command to get implementation status
+		// contractspec impl status --format json --all
+		const cmdProcess = Bun.spawn(
+			['contractspec', 'impl', 'status', '--format', 'json', '--all'],
+			{
+				cwd: input.projectPath,
+			}
+		);
 
-    const cmdStdout = await cmdProcess.stdout;
-    const output = await Bun.readableStreamToText(cmdStdout);
+		const cmdStdout = await cmdProcess.stdout;
+		const output = await Bun.readableStreamToText(cmdStdout);
 
-    if (!output) {
-      return { contracts: [] };
-    }
+		if (!output) {
+			return { contracts: [] };
+		}
 
-    const parsed = safeParseJson<CLIResult>(output);
-    if (!parsed.ok) {
-      console.error(
-        'Contract verification CLI returned invalid JSON:',
-        output?.slice(0, 200)
-      );
-      return { contracts: [] };
-    }
-    const cliOutput = parsed.data;
+		const parsed = safeParseJson<CLIResult>(output);
+		if (!parsed.ok) {
+			console.error(
+				'Contract verification CLI returned invalid JSON:',
+				output?.slice(0, 200)
+			);
+			return { contracts: [] };
+		}
+		const cliOutput = parsed.data;
 
-    const contracts: ContractVerificationStatus[] = [];
+		const contracts: ContractVerificationStatus[] = [];
 
-    for (const spec of cliOutput.results || []) {
-      const contract: ContractVerificationStatus = {
-        name: spec.specKey,
-        lastVerifiedSha: spec.specHash,
-        lastVerifiedDate: spec.specHash ? new Date().toISOString() : undefined, // Could be enhanced with git history later
-        surfaces: spec.implementations
-          .filter((impl) => impl.exists)
-          .map((impl) => impl.type),
-        driftMismatches: spec.implementations.filter((impl) => !impl.exists)
-          .length,
-      };
-      contracts.push(contract);
-    }
+		for (const spec of cliOutput.results || []) {
+			const contract: ContractVerificationStatus = {
+				name: spec.specKey,
+				lastVerifiedSha: spec.specHash,
+				lastVerifiedDate: spec.specHash ? new Date().toISOString() : undefined, // Could be enhanced with git history later
+				surfaces: spec.implementations
+					.filter((impl) => impl.exists)
+					.map((impl) => impl.type),
+				driftMismatches: spec.implementations.filter((impl) => !impl.exists)
+					.length,
+			};
+			contracts.push(contract);
+		}
 
-    return { contracts: contracts };
-  } catch (error) {
-    // Log error but return empty array to avoid breaking reports
-    console.error('Failed to get contract verification status:', error);
-    return { contracts: [] };
-  }
+		return { contracts: contracts };
+	} catch (error) {
+		// Log error but return empty array to avoid breaking reports
+		console.error('Failed to get contract verification status:', error);
+		return { contracts: [] };
+	}
 };
 
 /**
  * Register report-related operation contracts in the given registry.
  */
 export function registerReportContracts(
-  registry: OperationSpecRegistry
+	registry: OperationSpecRegistry
 ): OperationSpecRegistry {
-  installOp(
-    registry,
-    GetContractVerificationStatusQuery,
-    getContractVerificationStatusHandler
-  );
-  return registry;
+	installOp(
+		registry,
+		GetContractVerificationStatusQuery,
+		getContractVerificationStatusHandler
+	);
+	return registry;
 }

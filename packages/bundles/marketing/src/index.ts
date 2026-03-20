@@ -4,10 +4,10 @@ export * from './components/templates';
 export { submitContactForm } from './libs/email/contact';
 export { subscribeToNewsletter } from './libs/email/newsletter';
 export type {
-  SubmitContactFormResult,
-  SubmitNewsletterResult,
-  SubmitWaitlistApplicationResult,
-  SubmitWaitlistResult,
+	SubmitContactFormResult,
+	SubmitNewsletterResult,
+	SubmitWaitlistApplicationResult,
+	SubmitWaitlistResult,
 } from './libs/email/types';
 export { joinWaitlist } from './libs/email/waitlist';
 export { submitWaitlistApplication } from './libs/email/waitlist-application';
