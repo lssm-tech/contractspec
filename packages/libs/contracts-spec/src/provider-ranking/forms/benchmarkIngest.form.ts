@@ -1,4 +1,5 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import type { DocBlock } from '../../docs/types';
 import { defineFormSpec } from '../../forms/forms';
 import { docId } from '../../docs/registry';
 import {
@@ -17,6 +18,20 @@ const BenchmarkIngestFormModel = new SchemaModel({
 		toDate: { type: ScalarTypeEnum.DateTime(), isOptional: true },
 	},
 });
+
+export const BenchmarkIngestFormDocBlock = {
+	id: 'docs.tech.provider-ranking.benchmark.ingest.form',
+	title: 'Benchmark ingest form',
+	summary: 'Form specification for triggering benchmark ingestion.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/provider-ranking/benchmark/ingest/form',
+	tags: ['ai', 'ranking', 'form'],
+	body: `# provider-ranking.benchmark.ingest.form
+
+Form surface used by Studio to trigger benchmark data ingestion.
+`,
+} satisfies DocBlock;
 
 export const BenchmarkIngestForm = defineFormSpec({
 	meta: {

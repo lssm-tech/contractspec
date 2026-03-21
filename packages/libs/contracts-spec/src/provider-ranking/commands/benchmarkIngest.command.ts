@@ -1,4 +1,5 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import type { DocBlock } from '../../docs/types';
 import { defineCommand } from '../../operations';
 import { docId } from '../../docs/registry';
 import {
@@ -35,6 +36,20 @@ const BenchmarkIngestOutput = new SchemaModel({
 		ingestedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
 	},
 });
+
+export const BenchmarkIngestDocBlock = {
+	id: 'docs.tech.provider-ranking.benchmark.ingest',
+	title: 'Ingest benchmark data',
+	summary: 'Trigger ingestion of external benchmark data.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/provider-ranking/benchmark/ingest',
+	tags: ['ai', 'ranking', 'ingest'],
+	body: `# provider-ranking.benchmark.ingest
+
+Imports and normalizes benchmark scores from external leaderboards.
+`,
+} satisfies DocBlock;
 
 export const BenchmarkIngestCommand = defineCommand({
 	meta: {

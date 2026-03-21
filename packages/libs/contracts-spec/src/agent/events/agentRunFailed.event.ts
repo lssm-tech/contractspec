@@ -1,4 +1,5 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import type { DocBlock } from '../../docs/types';
 import { defineEvent } from '../../events';
 import { docId } from '../../docs/registry';
 import {
@@ -19,6 +20,20 @@ export const AgentRunFailedPayload = new SchemaModel({
 		contextSnapshotId: { type: ScalarTypeEnum.ID(), isOptional: true },
 	},
 });
+
+export const AgentRunFailedDocBlock = {
+	id: 'docs.tech.agent.run.failed',
+	title: 'Agent run failed event',
+	summary: 'Emitted when an agent run fails.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/agent/run/failed',
+	tags: ['agent', 'event'],
+	body: `# agent.run.failed
+
+Emitted when a run terminates with failure.
+`,
+} satisfies DocBlock;
 
 export const AgentRunFailedEvent = defineEvent({
 	meta: {

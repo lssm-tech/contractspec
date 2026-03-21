@@ -1,7 +1,65 @@
 import type { DataViewRef, FormRef, PresentationRef } from '../features';
+import type { DocBlock } from '../docs/types';
 import type { KnowledgeCategory } from '../knowledge/spec';
 import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';
+
+export const AgentOperationsAsToolsDocBlock = {
+	id: 'docs.tech.agent.operations-as-tools',
+	title: 'Operations as tools',
+	summary:
+		'Reference ContractSpec operations as agent tools. One contract to many surfaces.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/agent/operations-as-tools',
+	tags: ['agent', 'tools', 'operations'],
+	body: `# Operations as tools
+
+Reference ContractSpec operations in \`AgentSpec.tools\` with \`operationRef\` to reuse schemas, handlers, and output bindings across REST, GraphQL, MCP, and agent execution.
+`,
+} satisfies DocBlock;
+
+export const AgentSubagentsDocBlock = {
+	id: 'docs.tech.agent.subagents',
+	title: 'Subagents',
+	summary: 'Delegate tasks to subagents with streaming and isolated context.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/agent/subagents',
+	tags: ['agent', 'subagents', 'delegation'],
+	body: `# Subagents
+
+Subagents let a primary agent delegate bounded work to worker agents while keeping orchestration, summaries, and approval policy in the parent flow.
+`,
+} satisfies DocBlock;
+
+export const AgentMemoryToolsDocBlock = {
+	id: 'docs.tech.agent.memory-tools',
+	title: 'Memory tools',
+	summary: 'Model-accessible CRUD for agent memory and ephemeral knowledge.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/agent/memory-tools',
+	tags: ['agent', 'memory', 'tools'],
+	body: `# Memory tools
+
+Memory tools expose model-facing storage for cross-conversation recall. They are distinct from session summarization and can be backed by Anthropic memory or custom ContractSpec operations.
+`,
+} satisfies DocBlock;
+
+export const AgentWorkflowIntegrationDocBlock = {
+	id: 'docs.tech.agent.workflow-integration',
+	title: 'Workflow-agent integration',
+	summary: 'Patterns for orchestrator-worker, workflow steps, and evaluator loops.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/agent/workflow-integration',
+	tags: ['agent', 'workflow', 'orchestrator'],
+	body: `# Workflow-agent integration
+
+Agents can act as workflow workers, orchestrators, or evaluators. Contract-backed operations keep those integrations explicit and replayable.
+`,
+} satisfies DocBlock;
 
 /**
  * Metadata for an agent specification.

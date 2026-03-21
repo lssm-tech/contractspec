@@ -1,4 +1,5 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import type { DocBlock } from '../../docs/types';
 import { defineQuery } from '../../operations';
 import { docId } from '../../docs/registry';
 import {
@@ -55,6 +56,20 @@ const ProviderRankingGetOutput = new SchemaModel({
 		nextOffset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
 	},
 });
+
+export const ProviderRankingGetDocBlock = {
+	id: 'docs.tech.provider-ranking.ranking.get',
+	title: 'Get provider rankings',
+	summary: 'Get ranked list of providers and models.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/provider-ranking/ranking/get',
+	tags: ['ai', 'ranking', 'leaderboard'],
+	body: `# provider-ranking.ranking.get
+
+Returns a paginated, filterable leaderboard of AI models ranked by composite or per-dimension scores.
+`,
+} satisfies DocBlock;
 
 export const ProviderRankingGetQuery = defineQuery({
 	meta: {

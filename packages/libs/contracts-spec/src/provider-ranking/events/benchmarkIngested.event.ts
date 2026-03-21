@@ -1,4 +1,5 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import type { DocBlock } from '../../docs/types';
 import { defineEvent } from '../../events';
 import { docId } from '../../docs/registry';
 import {
@@ -17,6 +18,20 @@ export const BenchmarkIngestedPayload = new SchemaModel({
 		ingestedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
 	},
 });
+
+export const BenchmarkIngestedDocBlock = {
+	id: 'docs.tech.provider-ranking.benchmark.ingested',
+	title: 'Benchmark ingested event',
+	summary: 'Emitted after external benchmark data is ingested.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/provider-ranking/benchmark/ingested',
+	tags: ['ai', 'ranking', 'event'],
+	body: `# provider-ranking.benchmark.ingested
+
+Emitted when external benchmark data is successfully imported and stored.
+`,
+} satisfies DocBlock;
 
 export const BenchmarkIngestedEvent = defineEvent({
 	meta: {

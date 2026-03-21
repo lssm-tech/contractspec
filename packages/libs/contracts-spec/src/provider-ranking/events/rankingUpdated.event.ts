@@ -1,4 +1,5 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import type { DocBlock } from '../../docs/types';
 import { defineEvent } from '../../events';
 import { docId } from '../../docs/registry';
 import {
@@ -16,6 +17,20 @@ export const RankingUpdatedPayload = new SchemaModel({
 		updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
 	},
 });
+
+export const RankingUpdatedDocBlock = {
+	id: 'docs.tech.provider-ranking.ranking.updated',
+	title: 'Ranking updated event',
+	summary: 'Emitted when composite rankings are recomputed.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/provider-ranking/ranking/updated',
+	tags: ['ai', 'ranking', 'event'],
+	body: `# provider-ranking.ranking.updated
+
+Emitted when the leaderboard is refreshed with new composite scores.
+`,
+} satisfies DocBlock;
 
 export const RankingUpdatedEvent = defineEvent({
 	meta: {

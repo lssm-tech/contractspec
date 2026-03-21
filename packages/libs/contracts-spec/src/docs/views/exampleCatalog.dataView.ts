@@ -1,4 +1,5 @@
 import { defineDataView } from '../../data-views';
+import type { DocBlock } from '../types';
 import {
 	DOCS_DOMAIN,
 	DOCS_OWNERS,
@@ -7,6 +8,20 @@ import {
 } from '../constants';
 import { DocsIndexQuery } from '../queries/docsIndex.query';
 import { docId } from '../registry';
+
+export const ExampleCatalogDocBlock = {
+	id: 'docs.tech.docs-examples',
+	title: 'Examples catalog',
+	summary: 'Document and surface example projects with sandbox support.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/docs/examples',
+	tags: ['docs', 'examples'],
+	body: `# Examples catalog
+
+Examples are registered as ExampleSpecs and surface DocBlocks for discovery, templates, and sandbox entrypoints.
+`,
+} satisfies DocBlock;
 
 export const ExampleCatalogDataView = defineDataView({
 	meta: {

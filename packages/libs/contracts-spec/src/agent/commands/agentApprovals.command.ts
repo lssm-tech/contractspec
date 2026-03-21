@@ -1,4 +1,5 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import type { DocBlock } from '../../docs/types';
 import { defineCommand } from '../../operations';
 import { docId } from '../../docs/registry';
 import {
@@ -26,6 +27,20 @@ const AgentApprovalsOutput = new SchemaModel({
 		resolvedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
 	},
 });
+
+export const AgentApprovalsDocBlock = {
+	id: 'docs.tech.agent.approvals',
+	title: 'Agent approvals',
+	summary: 'Resolve an agent approval request.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/agent/approvals',
+	tags: ['agent', 'approval'],
+	body: `# agent.approvals
+
+Approve or reject a pending agent action.
+`,
+} satisfies DocBlock;
 
 export const AgentApprovalsCommand = defineCommand({
 	meta: {

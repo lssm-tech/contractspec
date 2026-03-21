@@ -1,4 +1,5 @@
 import { defineDataView } from '../../data-views';
+import type { DocBlock } from '../../docs/types';
 import { docId } from '../../docs/registry';
 import {
 	AGENT_DOMAIN,
@@ -7,6 +8,20 @@ import {
 	AGENT_TAGS,
 } from '../constants';
 import { AgentStatusQuery } from '../queries/agentStatus.query';
+
+export const AgentRunsDataViewDocBlock = {
+	id: 'docs.tech.agent.run.index',
+	title: 'Agent run index view',
+	summary: 'Data view for listing agent runs.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/agent/run/index',
+	tags: ['agent', 'data-view'],
+	body: `# agent.run.index
+
+List view over agent runs and their status.
+`,
+} satisfies DocBlock;
 
 export const AgentRunsDataView = defineDataView({
 	meta: {

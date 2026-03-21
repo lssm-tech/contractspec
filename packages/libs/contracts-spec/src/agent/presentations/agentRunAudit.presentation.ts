@@ -1,4 +1,5 @@
 import { definePresentation } from '../../presentations';
+import type { DocBlock } from '../../docs/types';
 import { docId } from '../../docs/registry';
 import {
 	AGENT_DOMAIN,
@@ -6,6 +7,20 @@ import {
 	AGENT_STABILITY,
 	AGENT_TAGS,
 } from '../constants';
+
+export const AgentRunAuditDocBlock = {
+	id: 'docs.tech.agent.run.audit',
+	title: 'Agent run audit presentation',
+	summary: 'Presentation spec for agent run audit views.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/agent/run/audit',
+	tags: ['agent', 'presentation', 'audit'],
+	body: `# agent.run.audit
+
+Presentation surface used to inspect run provenance, tools, approvals, and outputs.
+`,
+} satisfies DocBlock;
 
 export const AgentRunAuditPresentation = definePresentation({
 	meta: {

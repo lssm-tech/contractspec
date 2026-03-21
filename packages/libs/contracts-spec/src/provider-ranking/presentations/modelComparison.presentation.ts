@@ -1,4 +1,5 @@
 import { definePresentation } from '../../presentations';
+import type { DocBlock } from '../../docs/types';
 import { docId } from '../../docs/registry';
 import {
 	PROVIDER_RANKING_DOMAIN,
@@ -6,6 +7,20 @@ import {
 	PROVIDER_RANKING_STABILITY,
 	PROVIDER_RANKING_TAGS,
 } from '../constants';
+
+export const ModelComparisonDocBlock = {
+	id: 'docs.tech.provider-ranking.model.comparison',
+	title: 'Model comparison presentation',
+	summary: 'Presentation spec for side-by-side model comparison.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/provider-ranking/model/comparison',
+	tags: ['ai', 'ranking', 'presentation', 'comparison'],
+	body: `# provider-ranking.model.comparison
+
+Presentation surface for comparing two or more models across all ranking dimensions.
+`,
+} satisfies DocBlock;
 
 export const ModelComparisonPresentation = definePresentation({
 	meta: {

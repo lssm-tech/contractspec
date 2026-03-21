@@ -1,4 +1,5 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import type { DocBlock } from '../../docs/types';
 import { defineQuery } from '../../operations';
 import { docId } from '../../docs/registry';
 import {
@@ -42,6 +43,20 @@ const BenchmarkResultsListOutput = new SchemaModel({
 		nextOffset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
 	},
 });
+
+export const BenchmarkResultsListDocBlock = {
+	id: 'docs.tech.provider-ranking.benchmark.results.list',
+	title: 'List benchmark results',
+	summary: 'List raw benchmark results.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/provider-ranking/benchmark/results/list',
+	tags: ['ai', 'ranking', 'results'],
+	body: `# provider-ranking.benchmark.results.list
+
+Returns individual benchmark data points filterable by source, model, and dimension.
+`,
+} satisfies DocBlock;
 
 export const BenchmarkResultsListQuery = defineQuery({
 	meta: {

@@ -198,15 +198,9 @@ function buildMarkdown(args: {
 
 	lines.push('### 5) DocBlock coverage map (for AI context retrieval)', '');
 	lines.push(
-		'`*.docblock` exports are narrative/architecture assets and are high-value context for retrieval pipelines.',
+		'DocBlocks are authored as same-file exports in their owner modules and loaded through generated manifests, not standalone `*.docblock` package exports.',
 		''
 	);
-	for (const category of categories) {
-		const count = inventory.get(category)?.byKind.get('docblock')?.length ?? 0;
-		if (count > 0) {
-			lines.push(`- \`${category}\`: ${count}`);
-		}
-	}
 
 	return lines.join('\n');
 }

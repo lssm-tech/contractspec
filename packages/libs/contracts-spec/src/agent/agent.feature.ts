@@ -1,10 +1,25 @@
 import { defineFeature } from '../features';
+import type { DocBlock } from '../docs/types';
 import {
 	AGENT_DOMAIN,
 	AGENT_OWNERS,
 	AGENT_STABILITY,
 	AGENT_TAGS,
 } from './constants';
+
+export const AgentExecutionDocBlock = {
+	id: 'docs.tech.agent.execution',
+	title: 'Agent execution',
+	summary: 'Background agent execution, approvals, and artifacts.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/agent/execution',
+	tags: ['agent', 'execution'],
+	body: `# Agent execution
+
+Defines the core operations, events, and UI surfaces for background agent runs with auditability and approvals.
+`,
+} satisfies DocBlock;
 
 export const AgentFeature = defineFeature({
 	meta: {

@@ -1,4 +1,5 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import type { DocBlock } from '../../docs/types';
 import { defineCommand } from '../../operations';
 import { docId } from '../../docs/registry';
 import {
@@ -33,6 +34,20 @@ const AgentRunOutput = new SchemaModel({
 		contextSnapshotId: { type: ScalarTypeEnum.ID(), isOptional: true },
 	},
 });
+
+export const AgentRunDocBlock = {
+	id: 'docs.tech.agent.run',
+	title: 'Run agent',
+	summary: 'Submit a background agent run.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/agent/run',
+	tags: ['agent', 'run'],
+	body: `# agent.run
+
+Creates a new agent run with a context snapshot and execution metadata.
+`,
+} satisfies DocBlock;
 
 export const AgentRunCommand = defineCommand({
 	meta: {

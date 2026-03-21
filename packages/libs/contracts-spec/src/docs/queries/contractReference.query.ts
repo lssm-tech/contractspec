@@ -1,4 +1,5 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import type { DocBlock } from '../types';
 import { defineQuery } from '../../operations';
 import {
 	DOCS_DOMAIN,
@@ -51,6 +52,20 @@ export const ContractReferenceOutput = new SchemaModel({
 		reference: { type: ContractReferenceModel, isOptional: false },
 	},
 });
+
+export const ContractReferenceDocBlock = {
+	id: 'docs.tech.docs-reference',
+	title: 'Contract reference pages',
+	summary: 'Resolve any spec into a docs-ready reference payload.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/docs/reference',
+	tags: ['docs', 'reference'],
+	body: `# Contract reference
+
+Contract reference pages are generated from spec metadata plus schema details and exposed as a docs-ready payload.
+`,
+} satisfies DocBlock;
 
 export const ContractReferenceQuery = defineQuery({
 	meta: {

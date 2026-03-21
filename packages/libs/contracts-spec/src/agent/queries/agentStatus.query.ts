@@ -1,4 +1,5 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import type { DocBlock } from '../../docs/types';
 import { defineQuery } from '../../operations';
 import { docId } from '../../docs/registry';
 import {
@@ -40,6 +41,20 @@ const AgentStatusOutput = new SchemaModel({
 		nextOffset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
 	},
 });
+
+export const AgentStatusDocBlock = {
+	id: 'docs.tech.agent.status',
+	title: 'Agent status',
+	summary: 'Query agent run status.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/agent/status',
+	tags: ['agent', 'status'],
+	body: `# agent.status
+
+Returns status summaries for one or many agent runs.
+`,
+} satisfies DocBlock;
 
 export const AgentStatusQuery = defineQuery({
 	meta: {
