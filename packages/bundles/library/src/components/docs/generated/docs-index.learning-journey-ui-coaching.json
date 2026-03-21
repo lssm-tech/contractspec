@@ -1,10 +1,10 @@
 [
-  {
-    "id": "learning-journey-ui-coaching/learning-journey-ui-coaching",
-    "title": "learning-journey-ui-coaching",
-    "summary": "Coaching UI with tip cards, engagement tracking, and multi-view navigation\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: learning, ui, coaching, tips",
-    "route": "/docs/reference/learning-journey-ui-coaching/learning-journey-ui-coaching",
-    "source": "generated",
-    "contentPath": "learning-journey-ui-coaching/learning-journey-ui-coaching.md"
-  }
+	{
+		"id": "learning-journey-ui-coaching/learning-journey-ui-coaching",
+		"title": "learning-journey-ui-coaching",
+		"summary": "Coaching UI with tip cards, engagement tracking, and multi-view navigation\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: learning, ui, coaching, tips",
+		"route": "/docs/reference/learning-journey-ui-coaching/learning-journey-ui-coaching",
+		"source": "generated",
+		"contentPath": "learning-journey-ui-coaching/learning-journey-ui-coaching.md"
+	}
 ]

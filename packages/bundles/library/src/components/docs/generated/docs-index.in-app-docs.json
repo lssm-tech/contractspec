@@ -1,10 +1,10 @@
 [
-  {
-    "id": "in-app-docs/in-app-docs",
-    "title": "in-app-docs",
-    "summary": "DocBlock-based in-app documentation viewer for non-technical users\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: docs, in-app, viewer\n- **File**: `packages/examples/in-app-docs/src/in-app-docs.feature.ts`",
-    "route": "/docs/reference/in-app-docs/in-app-docs",
-    "source": "generated",
-    "contentPath": "in-app-docs/in-app-docs.md"
-  }
+	{
+		"id": "in-app-docs/in-app-docs",
+		"title": "in-app-docs",
+		"summary": "DocBlock-based in-app documentation viewer for non-technical users\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: docs, in-app, viewer\n- **File**: `packages/examples/in-app-docs/src/in-app-docs.feature.ts`",
+		"route": "/docs/reference/in-app-docs/in-app-docs",
+		"source": "generated",
+		"contentPath": "in-app-docs/in-app-docs.md"
+	}
 ]

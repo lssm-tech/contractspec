@@ -1,98 +1,98 @@
 [
-  {
-    "id": "platform.agent/agent.approval.requested",
-    "title": "agent.approval.requested",
-    "summary": "Emitted when an approval is required for an agent action.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/agent/events/agentApprovalRequested.event.ts`",
-    "route": "/docs/reference/platform.agent/agent.approval.requested",
-    "source": "generated",
-    "contentPath": "platform.agent/agent.approval.requested.md"
-  },
-  {
-    "id": "platform.agent/agent.approvals",
-    "title": "agent.approvals",
-    "summary": "Approve or reject an agent step or run.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/agent/commands/agentApprovals.command.ts`\nProvide governed human-in-the-loop control for risky steps.",
-    "route": "/docs/reference/platform.agent/agent.approvals",
-    "source": "generated",
-    "contentPath": "platform.agent/agent.approvals.md"
-  },
-  {
-    "id": "platform.agent/agent.artifacts",
-    "title": "agent.artifacts",
-    "summary": "List artifacts produced by an agent run.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: artifacts\n- **File**: `packages/libs/contracts-spec/src/agent/queries/agentArtifacts.query.ts`\nProvide traceable outputs for audits and UI surfaces.",
-    "route": "/docs/reference/platform.agent/agent.artifacts",
-    "source": "generated",
-    "contentPath": "platform.agent/agent.artifacts.md"
-  },
-  {
-    "id": "platform.agent/agent.cancel",
-    "title": "agent.cancel",
-    "summary": "Cancel an in-flight agent run.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: run, cancel\n- **File**: `packages/libs/contracts-spec/src/agent/commands/agentCancel.command.ts`\nProvide safe operator control to stop background agents.",
-    "route": "/docs/reference/platform.agent/agent.cancel",
-    "source": "generated",
-    "contentPath": "platform.agent/agent.cancel.md"
-  },
-  {
-    "id": "platform.agent/agent.execution",
-    "title": "agent.execution",
-    "summary": "Background agent execution, approvals, and artifacts.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/agent/capabilities/agentExecution.capability.ts`",
-    "route": "/docs/reference/platform.agent/agent.execution",
-    "source": "generated",
-    "contentPath": "platform.agent/agent.execution.md"
-  },
-  {
-    "id": "platform.agent/agent.run",
-    "title": "agent.run",
-    "summary": "Submit a background agent run with a context snapshot.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: run\n- **File**: `packages/libs/contracts-spec/src/agent/commands/agentRun.command.ts`",
-    "route": "/docs/reference/platform.agent/agent.run",
-    "source": "generated",
-    "contentPath": "platform.agent/agent.run.md"
-  },
-  {
-    "id": "platform.agent/agent.run.audit",
-    "title": "agent.run.audit",
-    "summary": "Audit layout for agent runs and artifacts.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: audit\n- **File**: `packages/libs/contracts-spec/src/agent/presentations/agentRunAudit.presentation.ts`",
-    "route": "/docs/reference/platform.agent/agent.run.audit",
-    "source": "generated",
-    "contentPath": "platform.agent/agent.run.audit.md"
-  },
-  {
-    "id": "platform.agent/agent.run.completed",
-    "title": "agent.run.completed",
-    "summary": "Emitted when an agent run completes successfully.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: run\n- **File**: `packages/libs/contracts-spec/src/agent/events/agentRunCompleted.event.ts`\n```typescript",
-    "route": "/docs/reference/platform.agent/agent.run.completed",
-    "source": "generated",
-    "contentPath": "platform.agent/agent.run.completed.md"
-  },
-  {
-    "id": "platform.agent/agent.run.failed",
-    "title": "agent.run.failed",
-    "summary": "Emitted when an agent run fails.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: run\n- **File**: `packages/libs/contracts-spec/src/agent/events/agentRunFailed.event.ts`\n```typescript\nexport const AgentRunFailedEvent = defineEvent({",
-    "route": "/docs/reference/platform.agent/agent.run.failed",
-    "source": "generated",
-    "contentPath": "platform.agent/agent.run.failed.md"
-  },
-  {
-    "id": "platform.agent/agent.run.started",
-    "title": "agent.run.started",
-    "summary": "Emitted when an agent run starts executing.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: run\n- **File**: `packages/libs/contracts-spec/src/agent/events/agentRunStarted.event.ts`\n```typescript\nexport const AgentRunStartedEvent = defineEvent({",
-    "route": "/docs/reference/platform.agent/agent.run.started",
-    "source": "generated",
-    "contentPath": "platform.agent/agent.run.started.md"
-  },
-  {
-    "id": "platform.agent/agent.status",
-    "title": "agent.status",
-    "summary": "Get status for agent runs.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: status\n- **File**: `packages/libs/contracts-spec/src/agent/queries/agentStatus.query.ts`\nProvide status and progress visibility for background agents.",
-    "route": "/docs/reference/platform.agent/agent.status",
-    "source": "generated",
-    "contentPath": "platform.agent/agent.status.md"
-  },
-  {
-    "id": "platform.agent/platform.agent",
-    "title": "platform.agent",
-    "summary": "Run, cancel, and approve AI agent executions with full audit trail\n- **Type**: feature\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/agent/agent.feature.ts`\n- `agent.run` (v1.0.0)\n- `agent.cancel` (v1.0.0)",
-    "route": "/docs/reference/platform.agent/platform.agent",
-    "source": "generated",
-    "contentPath": "platform.agent/platform.agent.md"
-  }
+	{
+		"id": "platform.agent/agent.approval.requested",
+		"title": "agent.approval.requested",
+		"summary": "Emitted when an approval is required for an agent action.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/agent/events/agentApprovalRequested.event.ts`",
+		"route": "/docs/reference/platform.agent/agent.approval.requested",
+		"source": "generated",
+		"contentPath": "platform.agent/agent.approval.requested.md"
+	},
+	{
+		"id": "platform.agent/agent.approvals",
+		"title": "agent.approvals",
+		"summary": "Approve or reject an agent step or run.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/agent/commands/agentApprovals.command.ts`\nProvide governed human-in-the-loop control for risky steps.",
+		"route": "/docs/reference/platform.agent/agent.approvals",
+		"source": "generated",
+		"contentPath": "platform.agent/agent.approvals.md"
+	},
+	{
+		"id": "platform.agent/agent.artifacts",
+		"title": "agent.artifacts",
+		"summary": "List artifacts produced by an agent run.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: artifacts\n- **File**: `packages/libs/contracts-spec/src/agent/queries/agentArtifacts.query.ts`\nProvide traceable outputs for audits and UI surfaces.",
+		"route": "/docs/reference/platform.agent/agent.artifacts",
+		"source": "generated",
+		"contentPath": "platform.agent/agent.artifacts.md"
+	},
+	{
+		"id": "platform.agent/agent.cancel",
+		"title": "agent.cancel",
+		"summary": "Cancel an in-flight agent run.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: run, cancel\n- **File**: `packages/libs/contracts-spec/src/agent/commands/agentCancel.command.ts`\nProvide safe operator control to stop background agents.",
+		"route": "/docs/reference/platform.agent/agent.cancel",
+		"source": "generated",
+		"contentPath": "platform.agent/agent.cancel.md"
+	},
+	{
+		"id": "platform.agent/agent.execution",
+		"title": "agent.execution",
+		"summary": "Background agent execution, approvals, and artifacts.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/agent/capabilities/agentExecution.capability.ts`",
+		"route": "/docs/reference/platform.agent/agent.execution",
+		"source": "generated",
+		"contentPath": "platform.agent/agent.execution.md"
+	},
+	{
+		"id": "platform.agent/agent.run",
+		"title": "agent.run",
+		"summary": "Submit a background agent run with a context snapshot.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: run\n- **File**: `packages/libs/contracts-spec/src/agent/commands/agentRun.command.ts`",
+		"route": "/docs/reference/platform.agent/agent.run",
+		"source": "generated",
+		"contentPath": "platform.agent/agent.run.md"
+	},
+	{
+		"id": "platform.agent/agent.run.audit",
+		"title": "agent.run.audit",
+		"summary": "Audit layout for agent runs and artifacts.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: audit\n- **File**: `packages/libs/contracts-spec/src/agent/presentations/agentRunAudit.presentation.ts`",
+		"route": "/docs/reference/platform.agent/agent.run.audit",
+		"source": "generated",
+		"contentPath": "platform.agent/agent.run.audit.md"
+	},
+	{
+		"id": "platform.agent/agent.run.completed",
+		"title": "agent.run.completed",
+		"summary": "Emitted when an agent run completes successfully.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: run\n- **File**: `packages/libs/contracts-spec/src/agent/events/agentRunCompleted.event.ts`\n```typescript",
+		"route": "/docs/reference/platform.agent/agent.run.completed",
+		"source": "generated",
+		"contentPath": "platform.agent/agent.run.completed.md"
+	},
+	{
+		"id": "platform.agent/agent.run.failed",
+		"title": "agent.run.failed",
+		"summary": "Emitted when an agent run fails.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: run\n- **File**: `packages/libs/contracts-spec/src/agent/events/agentRunFailed.event.ts`\n```typescript\nexport const AgentRunFailedEvent = defineEvent({",
+		"route": "/docs/reference/platform.agent/agent.run.failed",
+		"source": "generated",
+		"contentPath": "platform.agent/agent.run.failed.md"
+	},
+	{
+		"id": "platform.agent/agent.run.started",
+		"title": "agent.run.started",
+		"summary": "Emitted when an agent run starts executing.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: run\n- **File**: `packages/libs/contracts-spec/src/agent/events/agentRunStarted.event.ts`\n```typescript\nexport const AgentRunStartedEvent = defineEvent({",
+		"route": "/docs/reference/platform.agent/agent.run.started",
+		"source": "generated",
+		"contentPath": "platform.agent/agent.run.started.md"
+	},
+	{
+		"id": "platform.agent/agent.status",
+		"title": "agent.status",
+		"summary": "Get status for agent runs.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: status\n- **File**: `packages/libs/contracts-spec/src/agent/queries/agentStatus.query.ts`\nProvide status and progress visibility for background agents.",
+		"route": "/docs/reference/platform.agent/agent.status",
+		"source": "generated",
+		"contentPath": "platform.agent/agent.status.md"
+	},
+	{
+		"id": "platform.agent/platform.agent",
+		"title": "platform.agent",
+		"summary": "Run, cancel, and approve AI agent executions with full audit trail\n- **Type**: feature\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/agent/agent.feature.ts`\n- `agent.run` (v1.0.0)\n- `agent.cancel` (v1.0.0)",
+		"route": "/docs/reference/platform.agent/platform.agent",
+		"source": "generated",
+		"contentPath": "platform.agent/platform.agent.md"
+	}
 ]

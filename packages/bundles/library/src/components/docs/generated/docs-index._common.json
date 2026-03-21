@@ -1,2126 +1,1759 @@
 [
-  {
-    "id": "_common/acp.fs.access",
-    "title": "acp.fs.access",
-    "summary": "Perform file system access within an ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: filesystem\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpFsAccess.command.ts`",
-    "route": "/docs/reference/_common/acp.fs.access",
-    "source": "generated",
-    "contentPath": "_common/acp.fs.access.md"
-  },
-  {
-    "id": "_common/acp.prompt.turn",
-    "title": "acp.prompt.turn",
-    "summary": "Execute a prompt turn within an ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: prompt\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpPromptTurn.command.ts`\nRun ACP prompt turns with tool calls and structured outputs.",
-    "route": "/docs/reference/_common/acp.prompt.turn",
-    "source": "generated",
-    "contentPath": "_common/acp.prompt.turn.md"
-  },
-  {
-    "id": "_common/acp.session.init",
-    "title": "acp.session.init",
-    "summary": "Initialize a new ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: session\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpSessionInit.command.ts`\nStart a governed ACP session with configured tools and policies.",
-    "route": "/docs/reference/_common/acp.session.init",
-    "source": "generated",
-    "contentPath": "_common/acp.session.init.md"
-  },
-  {
-    "id": "_common/acp.session.resume",
-    "title": "acp.session.resume",
-    "summary": "Resume an existing ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: session\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpSessionResume.command.ts`\nContinue a previously initialized ACP session with full context.",
-    "route": "/docs/reference/_common/acp.session.resume",
-    "source": "generated",
-    "contentPath": "_common/acp.session.resume.md"
-  },
-  {
-    "id": "_common/acp.session.stop",
-    "title": "acp.session.stop",
-    "summary": "Stop an active ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: session\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpSessionStop.command.ts`\nTerminate ACP sessions cleanly with audit trails.",
-    "route": "/docs/reference/_common/acp.session.stop",
-    "source": "generated",
-    "contentPath": "_common/acp.session.stop.md"
-  },
-  {
-    "id": "_common/acp.terminal.exec",
-    "title": "acp.terminal.exec",
-    "summary": "Execute a terminal command within an ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: terminal\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpTerminalExec.command.ts`",
-    "route": "/docs/reference/_common/acp.terminal.exec",
-    "source": "generated",
-    "contentPath": "_common/acp.terminal.exec.md"
-  },
-  {
-    "id": "_common/acp.tool.calls",
-    "title": "acp.tool.calls",
-    "summary": "Execute tool calls within an ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: tools\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpToolCalls.command.ts`\nRun tool calls with safe governance and telemetry.",
-    "route": "/docs/reference/_common/acp.tool.calls",
-    "source": "generated",
-    "contentPath": "_common/acp.tool.calls.md"
-  },
-  {
-    "id": "_common/acp.transport",
-    "title": "acp.transport",
-    "summary": "Agent Client Protocol transport surfaces.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: transport\n- **File**: `packages/libs/contracts-spec/src/acp/capabilities/acpTransport.capability.ts`",
-    "route": "/docs/reference/_common/acp.transport",
-    "source": "generated",
-    "contentPath": "_common/acp.transport.md"
-  },
-  {
-    "id": "_common/agent.approval.requested",
-    "title": "agent.approval.requested",
-    "summary": "Emitted when an approval is required for an agent action.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/agent/events/agentApprovalRequested.event.ts`",
-    "route": "/docs/reference/_common/agent.approval.requested",
-    "source": "generated",
-    "contentPath": "_common/agent.approval.requested.md"
-  },
-  {
-    "id": "_common/agent.approvals",
-    "title": "agent.approvals",
-    "summary": "Approve or reject an agent step or run.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/agent/commands/agentApprovals.command.ts`\nProvide governed human-in-the-loop control for risky steps.",
-    "route": "/docs/reference/_common/agent.approvals",
-    "source": "generated",
-    "contentPath": "_common/agent.approvals.md"
-  },
-  {
-    "id": "_common/agent.artifacts",
-    "title": "agent.artifacts",
-    "summary": "List artifacts produced by an agent run.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: artifacts\n- **File**: `packages/libs/contracts-spec/src/agent/queries/agentArtifacts.query.ts`\nProvide traceable outputs for audits and UI surfaces.",
-    "route": "/docs/reference/_common/agent.artifacts",
-    "source": "generated",
-    "contentPath": "_common/agent.artifacts.md"
-  },
-  {
-    "id": "_common/agent.cancel",
-    "title": "agent.cancel",
-    "summary": "Cancel an in-flight agent run.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: run, cancel\n- **File**: `packages/libs/contracts-spec/src/agent/commands/agentCancel.command.ts`\nProvide safe operator control to stop background agents.",
-    "route": "/docs/reference/_common/agent.cancel",
-    "source": "generated",
-    "contentPath": "_common/agent.cancel.md"
-  },
-  {
-    "id": "_common/agent.execution",
-    "title": "agent.execution",
-    "summary": "Background agent execution, approvals, and artifacts.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/agent/capabilities/agentExecution.capability.ts`",
-    "route": "/docs/reference/_common/agent.execution",
-    "source": "generated",
-    "contentPath": "_common/agent.execution.md"
-  },
-  {
-    "id": "_common/agent.run",
-    "title": "agent.run",
-    "summary": "Submit a background agent run with a context snapshot.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: run\n- **File**: `packages/libs/contracts-spec/src/agent/commands/agentRun.command.ts`",
-    "route": "/docs/reference/_common/agent.run",
-    "source": "generated",
-    "contentPath": "_common/agent.run.md"
-  },
-  {
-    "id": "_common/agent.run.audit",
-    "title": "agent.run.audit",
-    "summary": "Audit layout for agent runs and artifacts.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: audit\n- **File**: `packages/libs/contracts-spec/src/agent/presentations/agentRunAudit.presentation.ts`",
-    "route": "/docs/reference/_common/agent.run.audit",
-    "source": "generated",
-    "contentPath": "_common/agent.run.audit.md"
-  },
-  {
-    "id": "_common/agent.run.completed",
-    "title": "agent.run.completed",
-    "summary": "Emitted when an agent run completes successfully.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: run\n- **File**: `packages/libs/contracts-spec/src/agent/events/agentRunCompleted.event.ts`\n```typescript",
-    "route": "/docs/reference/_common/agent.run.completed",
-    "source": "generated",
-    "contentPath": "_common/agent.run.completed.md"
-  },
-  {
-    "id": "_common/agent.run.failed",
-    "title": "agent.run.failed",
-    "summary": "Emitted when an agent run fails.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: run\n- **File**: `packages/libs/contracts-spec/src/agent/events/agentRunFailed.event.ts`\n```typescript\nexport const AgentRunFailedEvent = defineEvent({",
-    "route": "/docs/reference/_common/agent.run.failed",
-    "source": "generated",
-    "contentPath": "_common/agent.run.failed.md"
-  },
-  {
-    "id": "_common/agent.run.started",
-    "title": "agent.run.started",
-    "summary": "Emitted when an agent run starts executing.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: run\n- **File**: `packages/libs/contracts-spec/src/agent/events/agentRunStarted.event.ts`\n```typescript\nexport const AgentRunStartedEvent = defineEvent({",
-    "route": "/docs/reference/_common/agent.run.started",
-    "source": "generated",
-    "contentPath": "_common/agent.run.started.md"
-  },
-  {
-    "id": "_common/agent.status",
-    "title": "agent.status",
-    "summary": "Get status for agent runs.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: status\n- **File**: `packages/libs/contracts-spec/src/agent/queries/agentStatus.query.ts`\nProvide status and progress visibility for background agents.",
-    "route": "/docs/reference/_common/agent.status",
-    "source": "generated",
-    "contentPath": "_common/agent.status.md"
-  },
-  {
-    "id": "_common/context.pack.describe",
-    "title": "context.pack.describe",
-    "summary": "Describe a context pack and its sources.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: pack, describe\n- **File**: `packages/libs/contracts-spec/src/context/queries/contextPackDescribe.query.ts`",
-    "route": "/docs/reference/_common/context.pack.describe",
-    "source": "generated",
-    "contentPath": "_common/context.pack.describe.md"
-  },
-  {
-    "id": "_common/context.pack.search",
-    "title": "context.pack.search",
-    "summary": "Search and filter context packs and snapshots.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: pack, search\n- **File**: `packages/libs/contracts-spec/src/context/queries/contextPackSearch.query.ts`",
-    "route": "/docs/reference/_common/context.pack.search",
-    "source": "generated",
-    "contentPath": "_common/context.pack.search.md"
-  },
-  {
-    "id": "_common/context.pack.snapshot",
-    "title": "context.pack.snapshot",
-    "summary": "Create an immutable snapshot from a context pack.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: snapshot, create\n- **File**: `packages/libs/contracts-spec/src/context/commands/contextPackSnapshot.command.ts`",
-    "route": "/docs/reference/_common/context.pack.snapshot",
-    "source": "generated",
-    "contentPath": "_common/context.pack.snapshot.md"
-  },
-  {
-    "id": "_common/context.snapshot.created",
-    "title": "context.snapshot.created",
-    "summary": "Emitted when a context snapshot is created.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: snapshot\n- **File**: `packages/libs/contracts-spec/src/context/events/contextSnapshotCreated.event.ts`",
-    "route": "/docs/reference/_common/context.snapshot.created",
-    "source": "generated",
-    "contentPath": "_common/context.snapshot.created.md"
-  },
-  {
-    "id": "_common/context.snapshot.summary",
-    "title": "context.snapshot.summary",
-    "summary": "Summary layout for context snapshots.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: snapshot, summary\n- **File**: `packages/libs/contracts-spec/src/context/presentations/contextSnapshot.presentation.ts`",
-    "route": "/docs/reference/_common/context.snapshot.summary",
-    "source": "generated",
-    "contentPath": "_common/context.snapshot.summary.md"
-  },
-  {
-    "id": "_common/context.system",
-    "title": "context.system",
-    "summary": "Context packs, snapshots, and discovery surfaces.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: system\n- **File**: `packages/libs/contracts-spec/src/context/capabilities/contextSystem.capability.ts`",
-    "route": "/docs/reference/_common/context.system",
-    "source": "generated",
-    "contentPath": "_common/context.system.md"
-  },
-  {
-    "id": "_common/contractspec.docs",
-    "title": "contractspec.docs",
-    "summary": "Comprehensive documentation system for ContractSpec\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @platform.docs\n- **Tags**: documentation, guides, api-reference\n- **File**: `/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/bundles/library/src/features/docs.feature.ts`",
-    "route": "/docs/reference/_common/contractspec.docs",
-    "source": "generated",
-    "contentPath": "_common/contractspec.docs.md"
-  },
-  {
-    "id": "_common/contractspec.mcp",
-    "title": "contractspec.mcp",
-    "summary": "Model Context Protocol server for AI agent integration\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: beta\n- **Owners**: @platform.mcp\n- **Tags**: mcp, ai-agents, tooling\n- **File**: `/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/bundles/library/src/features/mcp.feature.ts`",
-    "route": "/docs/reference/_common/contractspec.mcp",
-    "source": "generated",
-    "contentPath": "_common/contractspec.mcp.md"
-  },
-  {
-    "id": "_common/contractspec.presentations",
-    "title": "contractspec.presentations",
-    "summary": "Cross-platform rendering of contract-driven UI\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: beta\n- **Owners**: @platform.presentations\n- **Tags**: presentations, ui, rendering, cross-platform\n- **File**: `/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/bundles/library/src/features/presentations.feature.ts`",
-    "route": "/docs/reference/_common/contractspec.presentations",
-    "source": "generated",
-    "contentPath": "_common/contractspec.presentations.md"
-  },
-  {
-    "id": "_common/control-plane.approval",
-    "title": "control-plane.approval",
-    "summary": "Human approval and rejection gates for execution steps.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/control-plane/capabilities/controlPlaneApproval.capability.ts`",
-    "route": "/docs/reference/_common/control-plane.approval",
-    "source": "generated",
-    "contentPath": "_common/control-plane.approval.md"
-  },
-  {
-    "id": "_common/control-plane.audit",
-    "title": "control-plane.audit",
-    "summary": "Trace, policy explanation, and replay-grade observability.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: audit\n- **File**: `packages/libs/contracts-spec/src/control-plane/capabilities/controlPlaneAudit.capability.ts`",
-    "route": "/docs/reference/_common/control-plane.audit",
-    "source": "generated",
-    "contentPath": "_common/control-plane.audit.md"
-  },
-  {
-    "id": "_common/control-plane.channel-runtime",
-    "title": "control-plane.channel-runtime",
-    "summary": "Channel-facing runtime surfaces for controlled execution.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: channels\n- **File**: `packages/libs/contracts-spec/src/control-plane/capabilities/controlPlaneChannelRuntime.capability.ts`",
-    "route": "/docs/reference/_common/control-plane.channel-runtime",
-    "source": "generated",
-    "contentPath": "_common/control-plane.channel-runtime.md"
-  },
-  {
-    "id": "_common/control-plane.core",
-    "title": "control-plane.core",
-    "summary": "Core intent, planning, and execution surfaces.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: core\n- **File**: `packages/libs/contracts-spec/src/control-plane/capabilities/controlPlaneCore.capability.ts`",
-    "route": "/docs/reference/_common/control-plane.core",
-    "source": "generated",
-    "contentPath": "_common/control-plane.core.md"
-  },
-  {
-    "id": "_common/control-plane.skill-registry",
-    "title": "control-plane.skill-registry",
-    "summary": "Signed skill lifecycle and compatibility governance.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: skills\n- **File**: `packages/libs/contracts-spec/src/control-plane/capabilities/controlPlaneSkillRegistry.capability.ts`",
-    "route": "/docs/reference/_common/control-plane.skill-registry",
-    "source": "generated",
-    "contentPath": "_common/control-plane.skill-registry.md"
-  },
-  {
-    "id": "_common/controlPlane.execution.approve",
-    "title": "controlPlane.execution.approve",
-    "summary": "Approve a pending execution step for continuation.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionApprove.command.ts`",
-    "route": "/docs/reference/_common/controlPlane.execution.approve",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.execution.approve.md"
-  },
-  {
-    "id": "_common/controlPlane.execution.cancel",
-    "title": "controlPlane.execution.cancel",
-    "summary": "Cancel an execution run and transition to terminal state.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: execution, approval\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionCancel.command.ts`",
-    "route": "/docs/reference/_common/controlPlane.execution.cancel",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.execution.cancel.md"
-  },
-  {
-    "id": "_common/controlPlane.execution.completed",
-    "title": "controlPlane.execution.completed",
-    "summary": "Emitted when an execution run finishes successfully.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneExecutionCompleted.event.ts`",
-    "route": "/docs/reference/_common/controlPlane.execution.completed",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.execution.completed.md"
-  },
-  {
-    "id": "_common/controlPlane.execution.failed",
-    "title": "controlPlane.execution.failed",
-    "summary": "Emitted when an execution run fails.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: execution, failure\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneExecutionFailed.event.ts`",
-    "route": "/docs/reference/_common/controlPlane.execution.failed",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.execution.failed.md"
-  },
-  {
-    "id": "_common/controlPlane.execution.get",
-    "title": "controlPlane.execution.get",
-    "summary": "Fetch the latest state for one execution.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlaneExecutionGet.query.ts`",
-    "route": "/docs/reference/_common/controlPlane.execution.get",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.execution.get.md"
-  },
-  {
-    "id": "_common/controlPlane.execution.list",
-    "title": "controlPlane.execution.list",
-    "summary": "List execution runs with filtering and pagination.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlaneExecutionList.query.ts`",
-    "route": "/docs/reference/_common/controlPlane.execution.list",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.execution.list.md"
-  },
-  {
-    "id": "_common/controlPlane.execution.reject",
-    "title": "controlPlane.execution.reject",
-    "summary": "Reject a pending execution step.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionReject.command.ts`",
-    "route": "/docs/reference/_common/controlPlane.execution.reject",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.execution.reject.md"
-  },
-  {
-    "id": "_common/controlPlane.execution.start",
-    "title": "controlPlane.execution.start",
-    "summary": "Start executing an approved compiled plan.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionStart.command.ts`",
-    "route": "/docs/reference/_common/controlPlane.execution.start",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.execution.start.md"
-  },
-  {
-    "id": "_common/controlPlane.execution.step.blocked",
-    "title": "controlPlane.execution.step.blocked",
-    "summary": "Emitted when policy blocks an execution step.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: execution, blocked\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneExecutionStepBlocked.event.ts`",
-    "route": "/docs/reference/_common/controlPlane.execution.step.blocked",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.execution.step.blocked.md"
-  },
-  {
-    "id": "_common/controlPlane.execution.step.completed",
-    "title": "controlPlane.execution.step.completed",
-    "summary": "Emitted when an execution step completes.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneExecutionStepCompleted.event.ts`",
-    "route": "/docs/reference/_common/controlPlane.execution.step.completed",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.execution.step.completed.md"
-  },
-  {
-    "id": "_common/controlPlane.execution.step.started",
-    "title": "controlPlane.execution.step.started",
-    "summary": "Emitted when an execution step starts.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneExecutionStepStarted.event.ts`",
-    "route": "/docs/reference/_common/controlPlane.execution.step.started",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.execution.step.started.md"
-  },
-  {
-    "id": "_common/controlPlane.intent.received",
-    "title": "controlPlane.intent.received",
-    "summary": "Emitted when a new control plane intent is accepted.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: intent\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneIntentReceived.event.ts`",
-    "route": "/docs/reference/_common/controlPlane.intent.received",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.intent.received.md"
-  },
-  {
-    "id": "_common/controlPlane.intent.submit",
-    "title": "controlPlane.intent.submit",
-    "summary": "Submit a natural-language intent to the control plane.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: intent\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneIntentSubmit.command.ts`",
-    "route": "/docs/reference/_common/controlPlane.intent.submit",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.intent.submit.md"
-  },
-  {
-    "id": "_common/controlPlane.plan.compile",
-    "title": "controlPlane.plan.compile",
-    "summary": "Compile an intent into a deterministic plan DAG.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: plan\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlanePlanCompile.command.ts`",
-    "route": "/docs/reference/_common/controlPlane.plan.compile",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.plan.compile.md"
-  },
-  {
-    "id": "_common/controlPlane.plan.compiled",
-    "title": "controlPlane.plan.compiled",
-    "summary": "Emitted when an intent is compiled into an executable plan.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: plan\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlanePlanCompiled.event.ts`",
-    "route": "/docs/reference/_common/controlPlane.plan.compiled",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.plan.compiled.md"
-  },
-  {
-    "id": "_common/controlPlane.plan.rejected",
-    "title": "controlPlane.plan.rejected",
-    "summary": "Emitted when a plan fails verification or governance checks.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: plan, governance\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlanePlanRejected.event.ts`",
-    "route": "/docs/reference/_common/controlPlane.plan.rejected",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.plan.rejected.md"
-  },
-  {
-    "id": "_common/controlPlane.plan.verify",
-    "title": "controlPlane.plan.verify",
-    "summary": "Run policy and risk validation against a compiled plan.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: plan, governance\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlanePlanVerify.command.ts`",
-    "route": "/docs/reference/_common/controlPlane.plan.verify",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.plan.verify.md"
-  },
-  {
-    "id": "_common/controlPlane.policy.explain",
-    "title": "controlPlane.policy.explain",
-    "summary": "Explain policy outcomes for an execution or step.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: policy, audit\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlanePolicyExplain.query.ts`",
-    "route": "/docs/reference/_common/controlPlane.policy.explain",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.policy.explain.md"
-  },
-  {
-    "id": "_common/controlPlane.skill.disable",
-    "title": "controlPlane.skill.disable",
-    "summary": "Disable an installed skill in the control plane registry.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: skills, governance\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneSkillDisable.command.ts`",
-    "route": "/docs/reference/_common/controlPlane.skill.disable",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.skill.disable.md"
-  },
-  {
-    "id": "_common/controlPlane.skill.install",
-    "title": "controlPlane.skill.install",
-    "summary": "Install a signed skill artifact after verification checks.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: skills\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneSkillInstall.command.ts`",
-    "route": "/docs/reference/_common/controlPlane.skill.install",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.skill.install.md"
-  },
-  {
-    "id": "_common/controlPlane.skill.installed",
-    "title": "controlPlane.skill.installed",
-    "summary": "Emitted when a skill artifact is verified and installed.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: skills\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneSkillInstalled.event.ts`",
-    "route": "/docs/reference/_common/controlPlane.skill.installed",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.skill.installed.md"
-  },
-  {
-    "id": "_common/controlPlane.skill.list",
-    "title": "controlPlane.skill.list",
-    "summary": "List installed and available skill artifacts.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: skills\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlaneSkillList.query.ts`",
-    "route": "/docs/reference/_common/controlPlane.skill.list",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.skill.list.md"
-  },
-  {
-    "id": "_common/controlPlane.skill.rejected",
-    "title": "controlPlane.skill.rejected",
-    "summary": "Emitted when a skill install attempt is rejected.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: skills, governance\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneSkillRejected.event.ts`",
-    "route": "/docs/reference/_common/controlPlane.skill.rejected",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.skill.rejected.md"
-  },
-  {
-    "id": "_common/controlPlane.skill.verify",
-    "title": "controlPlane.skill.verify",
-    "summary": "Verify skill signature and compatibility constraints.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: skills, governance\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlaneSkillVerify.query.ts`",
-    "route": "/docs/reference/_common/controlPlane.skill.verify",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.skill.verify.md"
-  },
-  {
-    "id": "_common/controlPlane.trace.get",
-    "title": "controlPlane.trace.get",
-    "summary": "Return the replayable trace timeline for one execution.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: trace, audit\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlaneTraceGet.query.ts`",
-    "route": "/docs/reference/_common/controlPlane.trace.get",
-    "source": "generated",
-    "contentPath": "_common/controlPlane.trace.get.md"
-  },
-  {
-    "id": "_common/database.context",
-    "title": "database.context",
-    "summary": "Schema, migration, dictionary, and read-only query surfaces.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: context\n- **File**: `packages/libs/contracts-spec/src/database/capabilities/databaseContext.capability.ts`",
-    "route": "/docs/reference/_common/database.context",
-    "source": "generated",
-    "contentPath": "_common/database.context.md"
-  },
-  {
-    "id": "_common/database.dictionary.get",
-    "title": "database.dictionary.get",
-    "summary": "Retrieve a data dictionary entry for a schema field.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: dictionary\n- **File**: `packages/libs/contracts-spec/src/database/queries/databaseDictionaryGet.query.ts`",
-    "route": "/docs/reference/_common/database.dictionary.get",
-    "source": "generated",
-    "contentPath": "_common/database.dictionary.get.md"
-  },
-  {
-    "id": "_common/database.migrations.list",
-    "title": "database.migrations.list",
-    "summary": "List registered database migrations and statuses.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: migrations\n- **File**: `packages/libs/contracts-spec/src/database/queries/databaseMigrationsList.query.ts`",
-    "route": "/docs/reference/_common/database.migrations.list",
-    "source": "generated",
-    "contentPath": "_common/database.migrations.list.md"
-  },
-  {
-    "id": "_common/database.query.readonly",
-    "title": "database.query.readonly",
-    "summary": "Execute a governed read-only query via a data view.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: query, readonly\n- **File**: `packages/libs/contracts-spec/src/database/queries/databaseQueryReadonly.query.ts`",
-    "route": "/docs/reference/_common/database.query.readonly",
-    "source": "generated",
-    "contentPath": "_common/database.query.readonly.md"
-  },
-  {
-    "id": "_common/database.schema.describe",
-    "title": "database.schema.describe",
-    "summary": "Describe database schemas and models with PII indicators.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: describe\n- **File**: `packages/libs/contracts-spec/src/database/queries/databaseSchemaDescribe.query.ts`",
-    "route": "/docs/reference/_common/database.schema.describe",
-    "source": "generated",
-    "contentPath": "_common/database.schema.describe.md"
-  },
-  {
-    "id": "_common/docs.contract.reference",
-    "title": "docs.contract.reference",
-    "summary": "Resolve a contract into a documentation-ready reference.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: reference\n- **File**: `packages/libs/contracts-spec/src/docs/queries/contractReference.query.ts`",
-    "route": "/docs/reference/_common/docs.contract.reference",
-    "source": "generated",
-    "contentPath": "_common/docs.contract.reference.md"
-  },
-  {
-    "id": "_common/docs.generate",
-    "title": "docs.generate",
-    "summary": "Generate documentation artifacts from ContractSpecs.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: generation\n- **File**: `packages/libs/contracts-spec/src/docs/commands/docsGenerate.command.ts`",
-    "route": "/docs/reference/_common/docs.generate",
-    "source": "generated",
-    "contentPath": "_common/docs.generate.md"
-  },
-  {
-    "id": "_common/docs.generated",
-    "title": "docs.generated",
-    "summary": "Emitted when documentation artifacts are generated.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: generation\n- **File**: `packages/libs/contracts-spec/src/docs/events/docsGenerated.event.ts`\n```typescript",
-    "route": "/docs/reference/_common/docs.generated",
-    "source": "generated",
-    "contentPath": "_common/docs.generated.md"
-  },
-  {
-    "id": "_common/docs.layout",
-    "title": "docs.layout",
-    "summary": "Shared layout shell for documentation pages.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: layout\n- **File**: `packages/libs/contracts-spec/src/docs/presentations/docsLayout.presentation.ts`",
-    "route": "/docs/reference/_common/docs.layout",
-    "source": "generated",
-    "contentPath": "_common/docs.layout.md"
-  },
-  {
-    "id": "_common/docs.publish",
-    "title": "docs.publish",
-    "summary": "Publish generated documentation artifacts.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: publish\n- **File**: `packages/libs/contracts-spec/src/docs/commands/docsPublish.command.ts`\nDeploy docs to the public docs surface with consistent versioning.",
-    "route": "/docs/reference/_common/docs.publish",
-    "source": "generated",
-    "contentPath": "_common/docs.publish.md"
-  },
-  {
-    "id": "_common/docs.published",
-    "title": "docs.published",
-    "summary": "Emitted when documentation is published.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: publish\n- **File**: `packages/libs/contracts-spec/src/docs/events/docsPublished.event.ts`\n```typescript\nexport const DocsPublishedEvent = defineEvent({",
-    "route": "/docs/reference/_common/docs.published",
-    "source": "generated",
-    "contentPath": "_common/docs.published.md"
-  },
-  {
-    "id": "_common/docs.reference.page",
-    "title": "docs.reference.page",
-    "summary": "Reference page layout for contract documentation.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: reference\n- **File**: `packages/libs/contracts-spec/src/docs/presentations/docsReferencePage.presentation.ts`",
-    "route": "/docs/reference/_common/docs.reference.page",
-    "source": "generated",
-    "contentPath": "_common/docs.reference.page.md"
-  },
-  {
-    "id": "_common/docs.search",
-    "title": "docs_search",
-    "summary": "Search and filter DocBlocks by query, tag, or visibility.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: search, index\n- **File**: `packages/libs/contracts-spec/src/docs/queries/docsIndex.query.ts`",
-    "route": "/docs/reference/_common/docs.search",
-    "source": "generated",
-    "contentPath": "_common/docs.search.md"
-  },
-  {
-    "id": "_common/docs.system",
-    "title": "docs.system",
-    "summary": "End-to-end docs generation, indexing, and presentation.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: system\n- **File**: `packages/libs/contracts-spec/src/docs/capabilities/documentationSystem.capability.ts`",
-    "route": "/docs/reference/_common/docs.system",
-    "source": "generated",
-    "contentPath": "_common/docs.system.md"
-  },
-  {
-    "id": "_common/init",
-    "title": "init",
-    "summary": "Sets up ContractSpec in a project (config, VSCode settings, etc.)\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @lssm/core\n- **Tags**: cli, setup\n- **File**: `packages/bundles/workspace/src/contracts/operations/init.operation.ts`",
-    "route": "/docs/reference/_common/init",
-    "source": "generated",
-    "contentPath": "_common/init.md"
-  },
-  {
-    "id": "_common/opencode.example.echo",
-    "title": "opencode.example.echo",
-    "summary": "Echo a prompt for the OpenCode CLI example.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @contractspec/examples\n- **Tags**: opencode, example, echo\n- **File**: `packages/examples/opencode-cli/src/contracts/opencode.contracts.ts`",
-    "route": "/docs/reference/_common/opencode.example.echo",
-    "source": "generated",
-    "contentPath": "_common/opencode.example.echo.md"
-  },
-  {
-    "id": "_common/provider-ranking.benchmark.custom.completed",
-    "title": "provider-ranking.benchmark.custom.completed",
-    "summary": "Emitted when a custom benchmark run finishes.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: custom, eval\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/events/benchmarkCustomCompleted.event.ts`",
-    "route": "/docs/reference/_common/provider-ranking.benchmark.custom.completed",
-    "source": "generated",
-    "contentPath": "_common/provider-ranking.benchmark.custom.completed.md"
-  },
-  {
-    "id": "_common/provider-ranking.benchmark.ingest",
-    "title": "provider-ranking.benchmark.ingest",
-    "summary": "Trigger ingestion of external benchmark data from a public source.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: ingest\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/commands/benchmarkIngest.command.ts`",
-    "route": "/docs/reference/_common/provider-ranking.benchmark.ingest",
-    "source": "generated",
-    "contentPath": "_common/provider-ranking.benchmark.ingest.md"
-  },
-  {
-    "id": "_common/provider-ranking.benchmark.ingested",
-    "title": "provider-ranking.benchmark.ingested",
-    "summary": "Emitted after external benchmark data is ingested.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: ingest\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/events/benchmarkIngested.event.ts`",
-    "route": "/docs/reference/_common/provider-ranking.benchmark.ingested",
-    "source": "generated",
-    "contentPath": "_common/provider-ranking.benchmark.ingested.md"
-  },
-  {
-    "id": "_common/provider-ranking.benchmark.results.list",
-    "title": "provider-ranking.benchmark.results.list",
-    "summary": "List raw benchmark results with pagination, filterable by source, model, and dimension.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: results\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/queries/benchmarkResultsList.query.ts`",
-    "route": "/docs/reference/_common/provider-ranking.benchmark.results.list",
-    "source": "generated",
-    "contentPath": "_common/provider-ranking.benchmark.results.list.md"
-  },
-  {
-    "id": "_common/provider-ranking.benchmark.run-custom",
-    "title": "provider-ranking.benchmark.run-custom",
-    "summary": "Launch a custom benchmark evaluation against a specific model.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: custom, eval\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/commands/benchmarkRunCustom.command.ts`",
-    "route": "/docs/reference/_common/provider-ranking.benchmark.run-custom",
-    "source": "generated",
-    "contentPath": "_common/provider-ranking.benchmark.run-custom.md"
-  },
-  {
-    "id": "_common/provider-ranking.model.comparison",
-    "title": "provider-ranking.model.comparison",
-    "summary": "Side-by-side comparison of AI model scores and capabilities.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: comparison\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/presentations/modelComparison.presentation.ts`",
-    "route": "/docs/reference/_common/provider-ranking.model.comparison",
-    "source": "generated",
-    "contentPath": "_common/provider-ranking.model.comparison.md"
-  },
-  {
-    "id": "_common/provider-ranking.model.profile.get",
-    "title": "provider-ranking.model.profile.get",
-    "summary": "Get detailed profile for a single model including all scores, metadata, cost, and capabilities.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: model, profile\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/queries/modelProfileGet.query.ts`",
-    "route": "/docs/reference/_common/provider-ranking.model.profile.get",
-    "source": "generated",
-    "contentPath": "_common/provider-ranking.model.profile.get.md"
-  },
-  {
-    "id": "_common/provider-ranking.ranking.get",
-    "title": "provider-ranking.ranking.get",
-    "summary": "Get ranked list of providers/models with composite scores, filterable by dimension.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: leaderboard\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/queries/providerRankingGet.query.ts`",
-    "route": "/docs/reference/_common/provider-ranking.ranking.get",
-    "source": "generated",
-    "contentPath": "_common/provider-ranking.ranking.get.md"
-  },
-  {
-    "id": "_common/provider-ranking.ranking.refresh",
-    "title": "provider-ranking.ranking.refresh",
-    "summary": "Recompute composite rankings from latest benchmark data.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: refresh\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/commands/rankingRefresh.command.ts`",
-    "route": "/docs/reference/_common/provider-ranking.ranking.refresh",
-    "source": "generated",
-    "contentPath": "_common/provider-ranking.ranking.refresh.md"
-  },
-  {
-    "id": "_common/provider-ranking.ranking.updated",
-    "title": "provider-ranking.ranking.updated",
-    "summary": "Emitted when composite rankings are recomputed.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: refresh\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/events/rankingUpdated.event.ts`",
-    "route": "/docs/reference/_common/provider-ranking.ranking.updated",
-    "source": "generated",
-    "contentPath": "_common/provider-ranking.ranking.updated.md"
-  },
-  {
-    "id": "_common/provider-ranking.system",
-    "title": "provider-ranking.system",
-    "summary": "Benchmark ingestion, scoring, and ranking for AI providers and models.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: system\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/capabilities/providerRanking.capability.ts`",
-    "route": "/docs/reference/_common/provider-ranking.system",
-    "source": "generated",
-    "contentPath": "_common/provider-ranking.system.md"
-  },
-  {
-    "id": "_common/report.getContractVerificationStatus",
-    "title": "report.getContractVerificationStatus",
-    "summary": "Retrieves per-contract verification status for the impact report.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/operations/report/getContractVerificationStatus.ts`",
-    "route": "/docs/reference/_common/report.getContractVerificationStatus",
-    "source": "generated",
-    "contentPath": "_common/report.getContractVerificationStatus.md"
-  },
-  {
-    "id": "_common/template.messaging.core",
-    "title": "template.messaging.core",
-    "summary": "Real-time messaging primitives for template applications, including conversations, participants, and delivery events.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: platform.contractspec-studio",
-    "route": "/docs/reference/_common/template.messaging.core",
-    "source": "generated",
-    "contentPath": "_common/template.messaging.core.md"
-  },
-  {
-    "id": "_common/template.recipes.browse",
-    "title": "template.recipes.browse",
-    "summary": "Internationalized recipe browsing, search, and detail operations for template applications.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: platform.contractspec-studio\n- **Tags**: templates, recipes, i18n, content",
-    "route": "/docs/reference/_common/template.recipes.browse",
-    "source": "generated",
-    "contentPath": "_common/template.recipes.browse.md"
-  },
-  {
-    "id": "_common/template.todos.crud",
-    "title": "template.todos.crud",
-    "summary": "Create, read, update, delete, and toggle template tasks with categories and priorities.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: platform.contractspec-studio\n- **Tags**: templates, todos, productivity",
-    "route": "/docs/reference/_common/template.todos.crud",
-    "source": "generated",
-    "contentPath": "_common/template.todos.crud.md"
-  },
-  {
-    "id": "_common/test",
-    "title": "test",
-    "summary": "Run tests defined in contract specs\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @lssm/core\n- **Tags**: cli, test\n- **File**: `packages/bundles/workspace/src/contracts/operations/test.operation.ts`",
-    "route": "/docs/reference/_common/test",
-    "source": "generated",
-    "contentPath": "_common/test.md"
-  },
-  {
-    "id": "_common/user.create",
-    "title": "user.create",
-    "summary": "Create a new user account with the provided email\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @team\n- **Tags**: user\n- **File**: `packages/examples/minimal/src/contracts/user.ts`",
-    "route": "/docs/reference/_common/user.create",
-    "source": "generated",
-    "contentPath": "_common/user.create.md"
-  },
-  {
-    "id": "_common/validate",
-    "title": "validate",
-    "summary": "Validate a contract spec file structure and optionally its implementation\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @lssm/core\n- **Tags**: cli, validation\n- **File**: `packages/bundles/workspace/src/contracts/operations/validate.operation.ts`",
-    "route": "/docs/reference/_common/validate",
-    "source": "generated",
-    "contentPath": "_common/validate.md"
-  },
-  {
-    "id": "docs.accessibility_wcag_compliance_specs",
-    "title": "Accessibility & WCAG Compliance — **specs.md**",
-    "summary": "> **Goal:** Ship interfaces that are usable by everyone, by default. This spec sets non‑negotiable rules, checklists, and CI gates to meet **WCAG 2.2 AA** (aim for AAA where low‑cost), align with **EN 301 549** (EU), and keep parity on **web (Next.js)** and **mobile (Expo/React Native)**.",
-    "route": "/docs/accessibility_wcag_compliance_specs",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/accessibility_wcag_compliance_specs.md",
-    "tags": [
-      "accessibility_wcag_compliance_specs"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.meta.docblocks-process",
-    "title": "DocBlocks process",
-    "summary": "How to author goal/how/usage DocBlocks close to code.",
-    "route": "/docs/meta/docblocks-process",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/meta/docblocks-process.md",
-    "tags": [
-      "docs",
-      "process"
-    ],
-    "kind": "reference",
-    "visibility": "mixed"
-  },
-  {
-    "id": "docs.tech.acp.fs.access",
-    "title": "ACP file system access",
-    "summary": "Access file system through ACP.",
-    "route": "/docs/tech/acp/fs/access",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/acp/fs/access.md",
-    "tags": [
-      "acp",
-      "filesystem"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.acp.prompt.turn",
-    "title": "ACP prompt turn",
-    "summary": "Execute a prompt turn within a session.",
-    "route": "/docs/tech/acp/prompt/turn",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/acp/prompt/turn.md",
-    "tags": [
-      "acp",
-      "prompt"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.acp.session.init",
-    "title": "ACP session init",
-    "summary": "Initialize a new ACP session.",
-    "route": "/docs/tech/acp/session/init",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/acp/session/init.md",
-    "tags": [
-      "acp",
-      "session"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.acp.session.resume",
-    "title": "ACP session resume",
-    "summary": "Resume an existing ACP session.",
-    "route": "/docs/tech/acp/session/resume",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/acp/session/resume.md",
-    "tags": [
-      "acp",
-      "session"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.acp.session.stop",
-    "title": "ACP session stop",
-    "summary": "Stop an ACP session.",
-    "route": "/docs/tech/acp/session/stop",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/acp/session/stop.md",
-    "tags": [
-      "acp",
-      "session"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.acp.terminal.exec",
-    "title": "ACP terminal exec",
-    "summary": "Execute terminal commands via ACP.",
-    "route": "/docs/tech/acp/terminal/exec",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/acp/terminal/exec.md",
-    "tags": [
-      "acp",
-      "terminal"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.acp.tool.calls",
-    "title": "ACP tool calls",
-    "summary": "Execute ACP tool calls.",
-    "route": "/docs/tech/acp/tool/calls",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/acp/tool/calls.md",
-    "tags": [
-      "acp",
-      "tools"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.acp.transport",
-    "title": "ACP transport",
-    "summary": "Agent Client Protocol transport surfaces.",
-    "route": "/docs/tech/acp/transport",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/acp/transport.md",
-    "tags": [
-      "acp",
-      "transport"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.agent.approval.requested",
-    "title": "Agent approval requested event",
-    "summary": "Emitted when approval is required.",
-    "route": "/docs/tech/agent/approval/requested",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/agent/approval/requested.md",
-    "tags": [
-      "agent",
-      "event",
-      "approval"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.agent.approvals",
-    "title": "Agent approvals",
-    "summary": "Resolve an agent approval request.",
-    "route": "/docs/tech/agent/approvals",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/agent/approvals.md",
-    "tags": [
-      "agent",
-      "approval"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.agent.artifacts",
-    "title": "Agent artifacts",
-    "summary": "List artifacts produced by an agent run.",
-    "route": "/docs/tech/agent/artifacts",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/agent/artifacts.md",
-    "tags": [
-      "agent",
-      "artifacts"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.agent.cancel",
-    "title": "Cancel agent run",
-    "summary": "Cancel an in-flight agent run.",
-    "route": "/docs/tech/agent/cancel",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/agent/cancel.md",
-    "tags": [
-      "agent",
-      "cancel"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.agent.execution",
-    "title": "Agent execution",
-    "summary": "Background agent execution, approvals, and artifacts.",
-    "route": "/docs/tech/agent/execution",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/agent/execution.md",
-    "tags": [
-      "agent",
-      "execution"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.agent.memory-tools",
-    "title": "Memory tools",
-    "summary": "Model-accessible CRUD for agent memory (Anthropic, custom).",
-    "route": "/docs/tech/agent/memory-tools",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/agent/memory-tools.md",
-    "tags": [
-      "agent",
-      "memory",
-      "tools"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.agent.operations-as-tools",
-    "title": "Operations as tools",
-    "summary": "Reference ContractSpec operations as agent tools. One contract → REST, GraphQL, MCP, agent.",
-    "route": "/docs/tech/agent/operations-as-tools",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/agent/operations-as-tools.md",
-    "tags": [
-      "agent",
-      "tools",
-      "operations"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.agent.run",
-    "title": "Run agent",
-    "summary": "Submit a background agent run.",
-    "route": "/docs/tech/agent/run",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/agent/run.md",
-    "tags": [
-      "agent",
-      "run"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.agent.run.audit",
-    "title": "Agent run audit presentation",
-    "summary": "Presentation spec for agent run audit views.",
-    "route": "/docs/tech/agent/run/audit",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/agent/run/audit.md",
-    "tags": [
-      "agent",
-      "presentation",
-      "audit"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.agent.run.completed",
-    "title": "Agent run completed event",
-    "summary": "Emitted when an agent run completes.",
-    "route": "/docs/tech/agent/run/completed",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/agent/run/completed.md",
-    "tags": [
-      "agent",
-      "event"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.agent.run.failed",
-    "title": "Agent run failed event",
-    "summary": "Emitted when an agent run fails.",
-    "route": "/docs/tech/agent/run/failed",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/agent/run/failed.md",
-    "tags": [
-      "agent",
-      "event"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.agent.run.form",
-    "title": "Agent run form",
-    "summary": "Form specification for launching an agent run.",
-    "route": "/docs/tech/agent/run/form",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/agent/run/form.md",
-    "tags": [
-      "agent",
-      "form"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.agent.run.index",
-    "title": "Agent run index view",
-    "summary": "Data view for listing agent runs.",
-    "route": "/docs/tech/agent/run/index",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/agent/run/index.md",
-    "tags": [
-      "agent",
-      "data-view"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.agent.run.started",
-    "title": "Agent run started event",
-    "summary": "Emitted when an agent run starts.",
-    "route": "/docs/tech/agent/run/started",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/agent/run/started.md",
-    "tags": [
-      "agent",
-      "event"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.agent.status",
-    "title": "Agent status",
-    "summary": "Query agent run status.",
-    "route": "/docs/tech/agent/status",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/agent/status.md",
-    "tags": [
-      "agent",
-      "status"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.agent.subagents",
-    "title": "Subagents",
-    "summary": "Delegate tasks to subagents with streaming and toModelOutput.",
-    "route": "/docs/tech/agent/subagents",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/agent/subagents.md",
-    "tags": [
-      "agent",
-      "subagents",
-      "delegation"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.agent.workflow-integration",
-    "title": "Workflow-agent integration",
-    "summary": "Orchestrator-worker, workflow steps as agent ops, evaluator pattern.",
-    "route": "/docs/tech/agent/workflow-integration",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/agent/workflow-integration.md",
-    "tags": [
-      "agent",
-      "workflow",
-      "orchestrator"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.auth.better-auth-nextjs",
-    "title": "Better Auth + Next.js integration (ContractSpec)",
-    "summary": "How ContractSpec wires Better Auth into Next.js (server config, client singleton, and proxy cookie-only redirects).",
-    "route": "/docs/tech/auth/better-auth-nextjs",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/auth/better-auth-nextjs.md",
-    "tags": [
-      "auth",
-      "better-auth",
-      "nextjs",
-      "cookies",
-      "proxy",
-      "hmr"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.cli.contractspec",
-    "title": "ContractSpec CLI",
-    "summary": "The command-line interface for creating, building, and validating contract specifications.",
-    "route": "/docs/tech/cli/contractspec",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/cli/contractspec.md",
-    "tags": [
-      "cli",
-      "tooling",
-      "reference"
-    ],
-    "kind": "reference",
-    "visibility": "public",
-    "owners": [
-      "@contractspec/app.cli-contractspec"
-    ]
-  },
-  {
-    "id": "docs.tech.context.pack.describe",
-    "title": "Describe context pack",
-    "summary": "Describe a context pack and its sources.",
-    "route": "/docs/tech/context/pack/describe",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/context/pack/describe.md",
-    "tags": [
-      "context",
-      "pack",
-      "describe"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.context.pack.search",
-    "title": "Search context packs",
-    "summary": "Search and filter context packs and snapshots.",
-    "route": "/docs/tech/context/pack/search",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/context/pack/search.md",
-    "tags": [
-      "context",
-      "pack",
-      "search"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.context.pack.search.form",
-    "title": "Context pack search form",
-    "summary": "Form used to search context packs in UI surfaces.",
-    "route": "/docs/tech/context/pack/search-form",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/context/pack/search/form.md",
-    "tags": [
-      "context",
-      "form",
-      "search"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.context.pack.snapshot",
-    "title": "Create context snapshot",
-    "summary": "Create an immutable context snapshot from a pack.",
-    "route": "/docs/tech/context/pack/snapshot",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/context/pack/snapshot.md",
-    "tags": [
-      "context",
-      "snapshot",
-      "create"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.context.snapshot.created",
-    "title": "Context snapshot created event",
-    "summary": "Emitted when a context snapshot is created.",
-    "route": "/docs/tech/context/snapshot/created",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/context/snapshot/created.md",
-    "tags": [
-      "context",
-      "snapshot",
-      "event"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.context.snapshot.index",
-    "title": "Context snapshot index view",
-    "summary": "Data view for listing context snapshots.",
-    "route": "/docs/tech/context/snapshot/index",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/context/snapshot/index.md",
-    "tags": [
-      "context",
-      "snapshot",
-      "data-view"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.context.snapshot.presentation",
-    "title": "Context snapshot presentation",
-    "summary": "Presentation spec for snapshot summaries.",
-    "route": "/docs/tech/context/snapshot/presentation",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/context/snapshot/presentation.md",
-    "tags": [
-      "context",
-      "presentation",
-      "snapshot"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.context.system",
-    "title": "Context system",
-    "summary": "Context packs, snapshots, and discovery surfaces.",
-    "route": "/docs/tech/context/system",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/context/system.md",
-    "tags": [
-      "context",
-      "system",
-      "snapshot"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.contracts.openapi-export",
-    "title": "OpenAPI export (OpenAPI 3.1) from OperationSpecRegistry",
-    "summary": "Generate a deterministic OpenAPI document from a OperationSpecRegistry using jsonSchemaForSpec + REST transport metadata.",
-    "route": "/docs/tech/contracts/openapi-export",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/contracts/openapi-export.md",
-    "tags": [
-      "contracts",
-      "openapi",
-      "rest"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.contracts.openapi-import",
-    "title": "OpenAPI Import (OpenAPI 3.1) to ContractSpec",
-    "summary": "Import OpenAPI specifications into ContractSpec models, or generate pure Zod/JSON-Schema/GraphQL representations.",
-    "route": "/docs/tech/contracts/openapi-import",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/contracts/openapi-import.md",
-    "tags": [
-      "contracts",
-      "openapi",
-      "import",
-      "codegen"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.contracts.presentations",
-    "title": "Presentations — Unified Descriptor & Transform Engine",
-    "summary": "How PresentationSpec and TransformEngine keep docs/renderers consistent.",
-    "route": "/docs/tech/contracts/presentations",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/contracts/presentations.md",
-    "tags": [
-      "presentations",
-      "docs",
-      "mcp"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.contracts.README",
-    "title": "Contracts: Specs, Registry, Handlers, Adapters",
-    "summary": "- `packages/lssm/libs/contracts` defines the contracts core (OperationSpecRegistry, OperationSpec, PresentationSpec, install helpers, REST/MCP adapters, ...).",
-    "route": "/docs/tech/contracts/README",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/contracts/README.md",
-    "tags": [
-      "tech",
-      "contracts",
-      "README"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.contracts.workspace-config",
-    "title": "Workspace Configuration (.contractsrc)",
-    "summary": "Configuration-as-code conventions for ContractSpec workspaces (`.contractsrc.json`).",
-    "route": "/docs/tech/contracts/workspace-config",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/contracts/workspace-config.md",
-    "tags": [
-      "tech",
-      "contracts",
-      "config"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.database.context",
-    "title": "Database context",
-    "summary": "Schema, migrations, dictionary, and read-only query surfaces.",
-    "route": "/docs/tech/database/context",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/database/context.md",
-    "tags": [
-      "database",
-      "context"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.database.dictionary.get",
-    "title": "Get data dictionary entry",
-    "summary": "Retrieve a dictionary entry for a schema field.",
-    "route": "/docs/tech/database/dictionary/get",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/database/dictionary/get.md",
-    "tags": [
-      "database",
-      "dictionary"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.database.migrations.list",
-    "title": "List database migrations",
-    "summary": "List migration history for a database.",
-    "route": "/docs/tech/database/migrations/list",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/database/migrations/list.md",
-    "tags": [
-      "database",
-      "migrations"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.database.query.readonly",
-    "title": "Read-only data query",
-    "summary": "Perform a governed read-only query via data views.",
-    "route": "/docs/tech/database/query/readonly",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/database/query/readonly.md",
-    "tags": [
-      "database",
-      "query",
-      "readonly"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.database.schema.describe",
-    "title": "Describe database schema",
-    "summary": "Describe schemas and models with PII signals.",
-    "route": "/docs/tech/database/schema/describe",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/database/schema/describe.md",
-    "tags": [
-      "database",
-      "schema"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.database.schema.index",
-    "title": "Database schema index view",
-    "summary": "Data view for listing schemas and model counts.",
-    "route": "/docs/tech/database/schema/index",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/database/schema/index.md",
-    "tags": [
-      "database",
-      "data-view"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.docs-examples",
-    "title": "Examples catalog",
-    "summary": "Document and surface example projects with sandbox support.",
-    "route": "/docs/tech/docs/examples",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/docs-examples.md",
-    "tags": [
-      "docs",
-      "examples"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.docs-generator",
-    "title": "Docs generator",
-    "summary": "Generate reference docs and metadata from ContractSpecs.",
-    "route": "/docs/tech/docs/generator",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/docs-generator.md",
-    "tags": [
-      "docs",
-      "generator",
-      "cli"
-    ],
-    "kind": "how",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.docs-publish",
-    "title": "Docs publish",
-    "summary": "Publish generated artifacts to the docs host.",
-    "route": "/docs/tech/docs/publish",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/docs-publish.md",
-    "tags": [
-      "docs",
-      "publish"
-    ],
-    "kind": "how",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.docs-reference",
-    "title": "Contract reference pages",
-    "summary": "Resolve any spec into a docs-ready reference payload.",
-    "route": "/docs/tech/docs/reference",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/docs-reference.md",
-    "tags": [
-      "docs",
-      "reference"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.docs-search",
-    "title": "Docs index and search",
-    "summary": "Search DocBlocks by query, tag, kind, or visibility.",
-    "route": "/docs/tech/docs/search",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/docs-search.md",
-    "tags": [
-      "docs",
-      "search"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.docs-system",
-    "title": "Docs system overview",
-    "summary": "How ContractSpec generates, indexes, and presents documentation.",
-    "route": "/docs/tech/docs/system",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/docs-system.md",
-    "tags": [
-      "docs",
-      "system",
-      "contracts"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.lifecycle-stage-system",
-    "title": "ContractSpec Lifecycle Stage System – Technical Design",
-    "summary": "This document describes how ContractSpec implements lifecycle detection and guidance. It covers architecture, module boundaries, scoring heuristics, and integration points so libraries, modules, bundles, and Studio surfaces stay synchronized.",
-    "route": "/docs/tech/lifecycle-stage-system",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/lifecycle-stage-system.md",
-    "tags": [
-      "tech",
-      "lifecycle-stage-system"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.llm.agent-adapters",
-    "title": "Agent Adapters",
-    "summary": "Adapters for different AI coding agents (Claude, Cursor, MCP).",
-    "route": "/docs/tech/llm/agent-adapters",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/llm/agent-adapters.md",
-    "tags": [
-      "llm",
-      "agents",
-      "claude",
-      "cursor",
-      "mcp"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.llm.export-formats",
-    "title": "LLM Export Formats",
-    "summary": "Detailed explanation of the three export formats for LLM consumption.",
-    "route": "/docs/tech/llm/export-formats",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/llm/export-formats.md",
-    "tags": [
-      "llm",
-      "export",
-      "markdown"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.llm.overview",
-    "title": "LLM Integration Overview",
-    "summary": "Export specs to LLM-friendly formats, generate implementation guides, and verify implementations.",
-    "route": "/docs/tech/llm/overview",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/llm/overview.md",
-    "tags": [
-      "llm",
-      "ai",
-      "export",
-      "guide",
-      "verify"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.llm.verification",
-    "title": "Implementation Verification",
-    "summary": "Tiered verification of implementations against specifications.",
-    "route": "/docs/tech/llm/verification",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/llm/verification.md",
-    "tags": [
-      "llm",
-      "verify",
-      "validation",
-      "testing"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.mcp.endpoints",
-    "title": "ContractSpec MCP endpoints",
-    "summary": "Dedicated MCP servers for docs, CLI usage, and internal development.",
-    "route": "/docs/tech/mcp/endpoints",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/mcp/endpoints.md",
-    "tags": [
-      "mcp",
-      "docs",
-      "cli",
-      "internal"
-    ],
-    "kind": "reference",
-    "visibility": "mixed"
-  },
-  {
-    "id": "docs.tech.presentation-runtime",
-    "title": "Presentation Runtime",
-    "summary": "Cross-platform runtime for list pages, presentation flows, and headless ContractSpec tables.",
-    "route": "/docs/tech/presentation-runtime",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/presentation-runtime.md",
-    "tags": [
-      "tech",
-      "presentation-runtime"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.provider-ranking.benchmark.custom.completed",
-    "title": "Custom benchmark completed event",
-    "summary": "Emitted when a custom benchmark run finishes.",
-    "route": "/docs/tech/provider-ranking/benchmark/custom/completed",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/provider-ranking/benchmark/custom/completed.md",
-    "tags": [
-      "ai",
-      "ranking",
-      "event",
-      "custom"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.provider-ranking.benchmark.ingest",
-    "title": "Ingest benchmark data",
-    "summary": "Trigger ingestion of external benchmark data.",
-    "route": "/docs/tech/provider-ranking/benchmark/ingest",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/provider-ranking/benchmark/ingest.md",
-    "tags": [
-      "ai",
-      "ranking",
-      "ingest"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.provider-ranking.benchmark.ingest.form",
-    "title": "Benchmark ingest form",
-    "summary": "Form specification for triggering benchmark ingestion.",
-    "route": "/docs/tech/provider-ranking/benchmark/ingest/form",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/provider-ranking/benchmark/ingest/form.md",
-    "tags": [
-      "ai",
-      "ranking",
-      "form"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.provider-ranking.benchmark.ingested",
-    "title": "Benchmark ingested event",
-    "summary": "Emitted after external benchmark data is ingested.",
-    "route": "/docs/tech/provider-ranking/benchmark/ingested",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/provider-ranking/benchmark/ingested.md",
-    "tags": [
-      "ai",
-      "ranking",
-      "event"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.provider-ranking.benchmark.results.index",
-    "title": "Benchmark results view",
-    "summary": "Data view for raw benchmark results.",
-    "route": "/docs/tech/provider-ranking/benchmark/results/index",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/provider-ranking/benchmark/results/index.md",
-    "tags": [
-      "ai",
-      "ranking",
-      "data-view"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.provider-ranking.benchmark.results.list",
-    "title": "List benchmark results",
-    "summary": "List raw benchmark results.",
-    "route": "/docs/tech/provider-ranking/benchmark/results/list",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/provider-ranking/benchmark/results/list.md",
-    "tags": [
-      "ai",
-      "ranking",
-      "results"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.provider-ranking.benchmark.run-custom",
-    "title": "Run custom benchmark",
-    "summary": "Launch a custom benchmark evaluation against a model.",
-    "route": "/docs/tech/provider-ranking/benchmark/run-custom",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/provider-ranking/benchmark/run-custom.md",
-    "tags": [
-      "ai",
-      "ranking",
-      "custom",
-      "eval"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.provider-ranking.benchmark.run-custom.form",
-    "title": "Custom benchmark form",
-    "summary": "Form specification for launching custom benchmarks.",
-    "route": "/docs/tech/provider-ranking/benchmark/run-custom/form",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/provider-ranking/benchmark/run-custom/form.md",
-    "tags": [
-      "ai",
-      "ranking",
-      "form"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.provider-ranking.model.comparison",
-    "title": "Model comparison presentation",
-    "summary": "Presentation spec for side-by-side model comparison.",
-    "route": "/docs/tech/provider-ranking/model/comparison",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/provider-ranking/model/comparison.md",
-    "tags": [
-      "ai",
-      "ranking",
-      "presentation",
-      "comparison"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.provider-ranking.model.profile.get",
-    "title": "Get model profile",
-    "summary": "Get detailed profile for a single model.",
-    "route": "/docs/tech/provider-ranking/model/profile/get",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/provider-ranking/model/profile/get.md",
-    "tags": [
-      "ai",
-      "ranking",
-      "model",
-      "profile"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.provider-ranking.ranking.get",
-    "title": "Get provider rankings",
-    "summary": "Get ranked list of providers/models.",
-    "route": "/docs/tech/provider-ranking/ranking/get",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/provider-ranking/ranking/get.md",
-    "tags": [
-      "ai",
-      "ranking",
-      "leaderboard"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.provider-ranking.ranking.index",
-    "title": "Provider rankings view",
-    "summary": "Data view for the model leaderboard.",
-    "route": "/docs/tech/provider-ranking/ranking/index",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/provider-ranking/ranking/index.md",
-    "tags": [
-      "ai",
-      "ranking",
-      "data-view"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.provider-ranking.ranking.refresh",
-    "title": "Refresh rankings",
-    "summary": "Recompute composite rankings from latest benchmark data.",
-    "route": "/docs/tech/provider-ranking/ranking/refresh",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/provider-ranking/ranking/refresh.md",
-    "tags": [
-      "ai",
-      "ranking",
-      "refresh"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.provider-ranking.ranking.updated",
-    "title": "Ranking updated event",
-    "summary": "Emitted when composite rankings are recomputed.",
-    "route": "/docs/tech/provider-ranking/ranking/updated",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/provider-ranking/ranking/updated.md",
-    "tags": [
-      "ai",
-      "ranking",
-      "event"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.provider-ranking.system",
-    "title": "AI Provider Ranking",
-    "summary": "Benchmark ingestion, scoring, and ranking for AI providers and models.",
-    "route": "/docs/tech/provider-ranking/system",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/provider-ranking/system.md",
-    "tags": [
-      "ai",
-      "ranking",
-      "benchmark"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.report-verification-table",
-    "title": "Contract Verification Table",
-    "summary": "How the impact report renders per-contract verification status.",
-    "route": "/docs/tech/report/verification-table",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/report-verification-table.md",
-    "tags": [
-      "report",
-      "drift",
-      "verification",
-      "impact"
-    ],
-    "kind": "how",
-    "visibility": "public",
-    "owners": [
-      "platform.core"
-    ]
-  },
-  {
-    "id": "docs.tech.schema.README",
-    "title": "Multi‑File Prisma Schema Conventions (per database)",
-    "summary": "We adopt Prisma multi‑file schema (GA ≥ v6.7) to organize each database’s models by domain and to import core LSSM module schemas locally.",
-    "route": "/docs/tech/schema/README",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/schema/README.md",
-    "tags": [
-      "tech",
-      "schema",
-      "README"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.studio.learning-events",
-    "title": "Studio Learning Events",
-    "summary": "Studio persists learning/activity events to the database; Sandbox keeps learning local-first and unlogged.",
-    "route": "/docs/tech/studio/learning-events",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/studio/learning-events.md",
-    "tags": [
-      "studio",
-      "learning",
-      "events",
-      "analytics",
-      "sandbox"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.studio.learning-journeys",
-    "title": "Studio learning journeys (onboarding + coach)",
-    "summary": "DB-backed learning journeys tracked per organization: seeded tracks/steps, event-driven progress, XP/streaks, and a Studio coach surface.",
-    "route": "/docs/tech/studio/learning-journeys",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/studio/learning-journeys.md",
-    "tags": [
-      "studio",
-      "learning",
-      "onboarding",
-      "journey",
-      "graphql",
-      "database"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.studio.platform-admin-panel",
-    "title": "Studio Platform Admin Panel",
-    "summary": "How PLATFORM_ADMIN organizations manage tenant orgs and integration connections without session switching.",
-    "route": "/docs/tech/studio/platform-admin-panel",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/studio/platform-admin-panel.md",
-    "tags": [
-      "studio",
-      "admin",
-      "multi-tenancy",
-      "integrations",
-      "better-auth"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.studio.project-access-teams",
-    "title": "Studio Project Access via Teams",
-    "summary": "Projects live under organizations; team sharing refines access with an admin/owner override.",
-    "route": "/docs/tech/studio/project-access-teams",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/studio/project-access-teams.md",
-    "tags": [
-      "studio",
-      "projects",
-      "teams",
-      "rbac",
-      "access-control"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.studio.project-routing",
-    "title": "Studio Project Routing",
-    "summary": "Studio uses slugged, project-first routes: /studio/{projectSlug}/* with canonical slug redirects and soft-deleted projects hidden.",
-    "route": "/docs/tech/studio/project-routing",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/studio/project-routing.md",
-    "tags": [
-      "studio",
-      "routing",
-      "projects",
-      "slug",
-      "redirects"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.studio.sandbox.unlogged",
-    "title": "Sandbox (unlogged) vs Studio (authenticated)",
-    "summary": "The sandbox is a lightweight, unlogged surface that mirrors Studio navigation without auth or analytics.",
-    "route": "/docs/tech/studio/sandbox-unlogged",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/studio/sandbox/unlogged.md",
-    "tags": [
-      "studio",
-      "sandbox",
-      "privacy",
-      "analytics"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.studio.team-invitations",
-    "title": "Studio Teams & Invitations",
-    "summary": "Admin-only team management and email invitation flow to join an organization and optionally a team.",
-    "route": "/docs/tech/studio/team-invitations",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/studio/team-invitations.md",
-    "tags": [
-      "studio",
-      "teams",
-      "invitations",
-      "access-control",
-      "onboarding"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.studio.workspace_ops",
-    "title": "Workspace ops (repo-linked): list / validate / deps / diff",
-    "summary": "Read-only repo operations used by Studio to inspect and validate a linked ContractSpec workspace.",
-    "route": "/docs/tech/studio/workspace-ops",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/studio/workspace_ops.md",
-    "tags": [
-      "studio",
-      "repo",
-      "workspace",
-      "validate",
-      "diff"
-    ],
-    "kind": "reference",
-    "visibility": "mixed"
-  },
-  {
-    "id": "docs.tech.studio.workspaces",
-    "title": "Studio projects, teams, environments",
-    "summary": "Organization-first Studio: projects live under an organization; teams refine access; projects deploy to multiple environments.",
-    "route": "/docs/tech/studio/workspaces",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/studio/workspaces.md",
-    "tags": [
-      "studio",
-      "projects",
-      "teams",
-      "rbac",
-      "environments"
-    ],
-    "kind": "reference",
-    "visibility": "mixed"
-  },
-  {
-    "id": "docs.tech.telemetry.hybrid",
-    "title": "Hybrid Telemetry Model",
-    "summary": "How ContractSpec clients choose between direct PostHog and API-routed telemetry.",
-    "route": "/docs/tech/telemetry/hybrid",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/telemetry/hybrid.md",
-    "tags": [
-      "telemetry",
-      "architecture",
-      "posthog"
-    ],
-    "kind": "usage",
-    "visibility": "internal"
-  },
-  {
-    "id": "docs.tech.telemetry.ingest",
-    "title": "Telemetry Ingest Endpoint",
-    "summary": "Server-side telemetry ingestion for ContractSpec clients (VS Code extension, CLI, etc.).",
-    "route": "/docs/tech/telemetry/ingest",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/telemetry/ingest.md",
-    "tags": [
-      "telemetry",
-      "api",
-      "posthog",
-      "analytics"
-    ],
-    "kind": "reference",
-    "visibility": "internal"
-  },
-  {
-    "id": "docs.tech.vscode.extension",
-    "title": "ContractSpec VS Code Extension",
-    "summary": "VS Code extension for spec-first development with validation, scaffolding, and MCP integration.",
-    "route": "/docs/tech/vscode/extension",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/vscode/extension.md",
-    "tags": [
-      "vscode",
-      "extension",
-      "tooling",
-      "dx"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.vscode.snippets",
-    "title": "ContractSpec Snippets",
-    "summary": "Code snippets for common ContractSpec patterns in VS Code.",
-    "route": "/docs/tech/vscode/snippets",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/vscode/snippets.md",
-    "tags": [
-      "vscode",
-      "snippets",
-      "dx"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  },
-  {
-    "id": "docs.tech.workflows.overview",
-    "title": "WorkflowSpec Overview",
-    "summary": "WorkflowSpec provides a declarative, versioned format for long-running flows that mix automation and human review, including runtime adapter capabilities/ports for checkpointing and suspend-resume orchestration. Specs stay inside `@contractspec/lib.contracts-spec` (`src/workflow/spec.ts`) so the same definition powers runtime execution, documentation, and future generation.",
-    "route": "/docs/tech/workflows/overview",
-    "source": "docblock",
-    "contentPath": "docblocks/docs/tech/workflows/overview.md",
-    "tags": [
-      "tech",
-      "workflows",
-      "overview"
-    ],
-    "kind": "reference",
-    "visibility": "public"
-  }
+	{
+		"id": "_common/acp.fs.access",
+		"title": "acp.fs.access",
+		"summary": "Perform file system access within an ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: filesystem\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpFsAccess.command.ts`",
+		"route": "/docs/reference/_common/acp.fs.access",
+		"source": "generated",
+		"contentPath": "_common/acp.fs.access.md"
+	},
+	{
+		"id": "_common/acp.prompt.turn",
+		"title": "acp.prompt.turn",
+		"summary": "Execute a prompt turn within an ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: prompt\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpPromptTurn.command.ts`\nRun ACP prompt turns with tool calls and structured outputs.",
+		"route": "/docs/reference/_common/acp.prompt.turn",
+		"source": "generated",
+		"contentPath": "_common/acp.prompt.turn.md"
+	},
+	{
+		"id": "_common/acp.session.init",
+		"title": "acp.session.init",
+		"summary": "Initialize a new ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: session\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpSessionInit.command.ts`\nStart a governed ACP session with configured tools and policies.",
+		"route": "/docs/reference/_common/acp.session.init",
+		"source": "generated",
+		"contentPath": "_common/acp.session.init.md"
+	},
+	{
+		"id": "_common/acp.session.resume",
+		"title": "acp.session.resume",
+		"summary": "Resume an existing ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: session\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpSessionResume.command.ts`\nContinue a previously initialized ACP session with full context.",
+		"route": "/docs/reference/_common/acp.session.resume",
+		"source": "generated",
+		"contentPath": "_common/acp.session.resume.md"
+	},
+	{
+		"id": "_common/acp.session.stop",
+		"title": "acp.session.stop",
+		"summary": "Stop an active ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: session\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpSessionStop.command.ts`\nTerminate ACP sessions cleanly with audit trails.",
+		"route": "/docs/reference/_common/acp.session.stop",
+		"source": "generated",
+		"contentPath": "_common/acp.session.stop.md"
+	},
+	{
+		"id": "_common/acp.terminal.exec",
+		"title": "acp.terminal.exec",
+		"summary": "Execute a terminal command within an ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: terminal\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpTerminalExec.command.ts`",
+		"route": "/docs/reference/_common/acp.terminal.exec",
+		"source": "generated",
+		"contentPath": "_common/acp.terminal.exec.md"
+	},
+	{
+		"id": "_common/acp.tool.calls",
+		"title": "acp.tool.calls",
+		"summary": "Execute tool calls within an ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: tools\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpToolCalls.command.ts`\nRun tool calls with safe governance and telemetry.",
+		"route": "/docs/reference/_common/acp.tool.calls",
+		"source": "generated",
+		"contentPath": "_common/acp.tool.calls.md"
+	},
+	{
+		"id": "_common/acp.transport",
+		"title": "acp.transport",
+		"summary": "Agent Client Protocol transport surfaces.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: transport\n- **File**: `packages/libs/contracts-spec/src/acp/capabilities/acpTransport.capability.ts`",
+		"route": "/docs/reference/_common/acp.transport",
+		"source": "generated",
+		"contentPath": "_common/acp.transport.md"
+	},
+	{
+		"id": "_common/agent.approval.requested",
+		"title": "agent.approval.requested",
+		"summary": "Emitted when an approval is required for an agent action.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/agent/events/agentApprovalRequested.event.ts`",
+		"route": "/docs/reference/_common/agent.approval.requested",
+		"source": "generated",
+		"contentPath": "_common/agent.approval.requested.md"
+	},
+	{
+		"id": "_common/agent.approvals",
+		"title": "agent.approvals",
+		"summary": "Approve or reject an agent step or run.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/agent/commands/agentApprovals.command.ts`\nProvide governed human-in-the-loop control for risky steps.",
+		"route": "/docs/reference/_common/agent.approvals",
+		"source": "generated",
+		"contentPath": "_common/agent.approvals.md"
+	},
+	{
+		"id": "_common/agent.artifacts",
+		"title": "agent.artifacts",
+		"summary": "List artifacts produced by an agent run.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: artifacts\n- **File**: `packages/libs/contracts-spec/src/agent/queries/agentArtifacts.query.ts`\nProvide traceable outputs for audits and UI surfaces.",
+		"route": "/docs/reference/_common/agent.artifacts",
+		"source": "generated",
+		"contentPath": "_common/agent.artifacts.md"
+	},
+	{
+		"id": "_common/agent.cancel",
+		"title": "agent.cancel",
+		"summary": "Cancel an in-flight agent run.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: run, cancel\n- **File**: `packages/libs/contracts-spec/src/agent/commands/agentCancel.command.ts`\nProvide safe operator control to stop background agents.",
+		"route": "/docs/reference/_common/agent.cancel",
+		"source": "generated",
+		"contentPath": "_common/agent.cancel.md"
+	},
+	{
+		"id": "_common/agent.execution",
+		"title": "agent.execution",
+		"summary": "Background agent execution, approvals, and artifacts.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/agent/capabilities/agentExecution.capability.ts`",
+		"route": "/docs/reference/_common/agent.execution",
+		"source": "generated",
+		"contentPath": "_common/agent.execution.md"
+	},
+	{
+		"id": "_common/agent.run",
+		"title": "agent.run",
+		"summary": "Submit a background agent run with a context snapshot.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: run\n- **File**: `packages/libs/contracts-spec/src/agent/commands/agentRun.command.ts`",
+		"route": "/docs/reference/_common/agent.run",
+		"source": "generated",
+		"contentPath": "_common/agent.run.md"
+	},
+	{
+		"id": "_common/agent.run.audit",
+		"title": "agent.run.audit",
+		"summary": "Audit layout for agent runs and artifacts.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: audit\n- **File**: `packages/libs/contracts-spec/src/agent/presentations/agentRunAudit.presentation.ts`",
+		"route": "/docs/reference/_common/agent.run.audit",
+		"source": "generated",
+		"contentPath": "_common/agent.run.audit.md"
+	},
+	{
+		"id": "_common/agent.run.completed",
+		"title": "agent.run.completed",
+		"summary": "Emitted when an agent run completes successfully.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: run\n- **File**: `packages/libs/contracts-spec/src/agent/events/agentRunCompleted.event.ts`\n```typescript",
+		"route": "/docs/reference/_common/agent.run.completed",
+		"source": "generated",
+		"contentPath": "_common/agent.run.completed.md"
+	},
+	{
+		"id": "_common/agent.run.failed",
+		"title": "agent.run.failed",
+		"summary": "Emitted when an agent run fails.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: run\n- **File**: `packages/libs/contracts-spec/src/agent/events/agentRunFailed.event.ts`\n```typescript\nexport const AgentRunFailedEvent = defineEvent({",
+		"route": "/docs/reference/_common/agent.run.failed",
+		"source": "generated",
+		"contentPath": "_common/agent.run.failed.md"
+	},
+	{
+		"id": "_common/agent.run.started",
+		"title": "agent.run.started",
+		"summary": "Emitted when an agent run starts executing.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: run\n- **File**: `packages/libs/contracts-spec/src/agent/events/agentRunStarted.event.ts`\n```typescript\nexport const AgentRunStartedEvent = defineEvent({",
+		"route": "/docs/reference/_common/agent.run.started",
+		"source": "generated",
+		"contentPath": "_common/agent.run.started.md"
+	},
+	{
+		"id": "_common/agent.status",
+		"title": "agent.status",
+		"summary": "Get status for agent runs.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: status\n- **File**: `packages/libs/contracts-spec/src/agent/queries/agentStatus.query.ts`\nProvide status and progress visibility for background agents.",
+		"route": "/docs/reference/_common/agent.status",
+		"source": "generated",
+		"contentPath": "_common/agent.status.md"
+	},
+	{
+		"id": "_common/context.pack.describe",
+		"title": "context.pack.describe",
+		"summary": "Describe a context pack and its sources.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: pack, describe\n- **File**: `packages/libs/contracts-spec/src/context/queries/contextPackDescribe.query.ts`",
+		"route": "/docs/reference/_common/context.pack.describe",
+		"source": "generated",
+		"contentPath": "_common/context.pack.describe.md"
+	},
+	{
+		"id": "_common/context.pack.search",
+		"title": "context.pack.search",
+		"summary": "Search and filter context packs and snapshots.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: pack, search\n- **File**: `packages/libs/contracts-spec/src/context/queries/contextPackSearch.query.ts`",
+		"route": "/docs/reference/_common/context.pack.search",
+		"source": "generated",
+		"contentPath": "_common/context.pack.search.md"
+	},
+	{
+		"id": "_common/context.pack.snapshot",
+		"title": "context.pack.snapshot",
+		"summary": "Create an immutable snapshot from a context pack.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: snapshot, create\n- **File**: `packages/libs/contracts-spec/src/context/commands/contextPackSnapshot.command.ts`",
+		"route": "/docs/reference/_common/context.pack.snapshot",
+		"source": "generated",
+		"contentPath": "_common/context.pack.snapshot.md"
+	},
+	{
+		"id": "_common/context.snapshot.created",
+		"title": "context.snapshot.created",
+		"summary": "Emitted when a context snapshot is created.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: snapshot\n- **File**: `packages/libs/contracts-spec/src/context/events/contextSnapshotCreated.event.ts`",
+		"route": "/docs/reference/_common/context.snapshot.created",
+		"source": "generated",
+		"contentPath": "_common/context.snapshot.created.md"
+	},
+	{
+		"id": "_common/context.snapshot.summary",
+		"title": "context.snapshot.summary",
+		"summary": "Summary layout for context snapshots.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: snapshot, summary\n- **File**: `packages/libs/contracts-spec/src/context/presentations/contextSnapshot.presentation.ts`",
+		"route": "/docs/reference/_common/context.snapshot.summary",
+		"source": "generated",
+		"contentPath": "_common/context.snapshot.summary.md"
+	},
+	{
+		"id": "_common/context.system",
+		"title": "context.system",
+		"summary": "Context packs, snapshots, and discovery surfaces.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: system\n- **File**: `packages/libs/contracts-spec/src/context/capabilities/contextSystem.capability.ts`",
+		"route": "/docs/reference/_common/context.system",
+		"source": "generated",
+		"contentPath": "_common/context.system.md"
+	},
+	{
+		"id": "_common/contractspec.docs",
+		"title": "contractspec.docs",
+		"summary": "Comprehensive documentation system for ContractSpec\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @platform.docs\n- **Tags**: documentation, guides, api-reference\n- **File**: `/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/bundles/library/src/features/docs.feature.ts`",
+		"route": "/docs/reference/_common/contractspec.docs",
+		"source": "generated",
+		"contentPath": "_common/contractspec.docs.md"
+	},
+	{
+		"id": "_common/contractspec.mcp",
+		"title": "contractspec.mcp",
+		"summary": "Model Context Protocol server for AI agent integration\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: beta\n- **Owners**: @platform.mcp\n- **Tags**: mcp, ai-agents, tooling\n- **File**: `/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/bundles/library/src/features/mcp.feature.ts`",
+		"route": "/docs/reference/_common/contractspec.mcp",
+		"source": "generated",
+		"contentPath": "_common/contractspec.mcp.md"
+	},
+	{
+		"id": "_common/contractspec.presentations",
+		"title": "contractspec.presentations",
+		"summary": "Cross-platform rendering of contract-driven UI\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: beta\n- **Owners**: @platform.presentations\n- **Tags**: presentations, ui, rendering, cross-platform\n- **File**: `/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/bundles/library/src/features/presentations.feature.ts`",
+		"route": "/docs/reference/_common/contractspec.presentations",
+		"source": "generated",
+		"contentPath": "_common/contractspec.presentations.md"
+	},
+	{
+		"id": "_common/control-plane.approval",
+		"title": "control-plane.approval",
+		"summary": "Human approval and rejection gates for execution steps.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/control-plane/capabilities/controlPlaneApproval.capability.ts`",
+		"route": "/docs/reference/_common/control-plane.approval",
+		"source": "generated",
+		"contentPath": "_common/control-plane.approval.md"
+	},
+	{
+		"id": "_common/control-plane.audit",
+		"title": "control-plane.audit",
+		"summary": "Trace, policy explanation, and replay-grade observability.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: audit\n- **File**: `packages/libs/contracts-spec/src/control-plane/capabilities/controlPlaneAudit.capability.ts`",
+		"route": "/docs/reference/_common/control-plane.audit",
+		"source": "generated",
+		"contentPath": "_common/control-plane.audit.md"
+	},
+	{
+		"id": "_common/control-plane.channel-runtime",
+		"title": "control-plane.channel-runtime",
+		"summary": "Channel-facing runtime surfaces for controlled execution.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: channels\n- **File**: `packages/libs/contracts-spec/src/control-plane/capabilities/controlPlaneChannelRuntime.capability.ts`",
+		"route": "/docs/reference/_common/control-plane.channel-runtime",
+		"source": "generated",
+		"contentPath": "_common/control-plane.channel-runtime.md"
+	},
+	{
+		"id": "_common/control-plane.core",
+		"title": "control-plane.core",
+		"summary": "Core intent, planning, and execution surfaces.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: core\n- **File**: `packages/libs/contracts-spec/src/control-plane/capabilities/controlPlaneCore.capability.ts`",
+		"route": "/docs/reference/_common/control-plane.core",
+		"source": "generated",
+		"contentPath": "_common/control-plane.core.md"
+	},
+	{
+		"id": "_common/control-plane.skill-registry",
+		"title": "control-plane.skill-registry",
+		"summary": "Signed skill lifecycle and compatibility governance.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: skills\n- **File**: `packages/libs/contracts-spec/src/control-plane/capabilities/controlPlaneSkillRegistry.capability.ts`",
+		"route": "/docs/reference/_common/control-plane.skill-registry",
+		"source": "generated",
+		"contentPath": "_common/control-plane.skill-registry.md"
+	},
+	{
+		"id": "_common/controlPlane.execution.approve",
+		"title": "controlPlane.execution.approve",
+		"summary": "Approve a pending execution step for continuation.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionApprove.command.ts`",
+		"route": "/docs/reference/_common/controlPlane.execution.approve",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.execution.approve.md"
+	},
+	{
+		"id": "_common/controlPlane.execution.cancel",
+		"title": "controlPlane.execution.cancel",
+		"summary": "Cancel an execution run and transition to terminal state.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: execution, approval\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionCancel.command.ts`",
+		"route": "/docs/reference/_common/controlPlane.execution.cancel",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.execution.cancel.md"
+	},
+	{
+		"id": "_common/controlPlane.execution.completed",
+		"title": "controlPlane.execution.completed",
+		"summary": "Emitted when an execution run finishes successfully.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneExecutionCompleted.event.ts`",
+		"route": "/docs/reference/_common/controlPlane.execution.completed",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.execution.completed.md"
+	},
+	{
+		"id": "_common/controlPlane.execution.failed",
+		"title": "controlPlane.execution.failed",
+		"summary": "Emitted when an execution run fails.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: execution, failure\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneExecutionFailed.event.ts`",
+		"route": "/docs/reference/_common/controlPlane.execution.failed",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.execution.failed.md"
+	},
+	{
+		"id": "_common/controlPlane.execution.get",
+		"title": "controlPlane.execution.get",
+		"summary": "Fetch the latest state for one execution.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlaneExecutionGet.query.ts`",
+		"route": "/docs/reference/_common/controlPlane.execution.get",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.execution.get.md"
+	},
+	{
+		"id": "_common/controlPlane.execution.list",
+		"title": "controlPlane.execution.list",
+		"summary": "List execution runs with filtering and pagination.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlaneExecutionList.query.ts`",
+		"route": "/docs/reference/_common/controlPlane.execution.list",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.execution.list.md"
+	},
+	{
+		"id": "_common/controlPlane.execution.reject",
+		"title": "controlPlane.execution.reject",
+		"summary": "Reject a pending execution step.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionReject.command.ts`",
+		"route": "/docs/reference/_common/controlPlane.execution.reject",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.execution.reject.md"
+	},
+	{
+		"id": "_common/controlPlane.execution.start",
+		"title": "controlPlane.execution.start",
+		"summary": "Start executing an approved compiled plan.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionStart.command.ts`",
+		"route": "/docs/reference/_common/controlPlane.execution.start",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.execution.start.md"
+	},
+	{
+		"id": "_common/controlPlane.execution.step.blocked",
+		"title": "controlPlane.execution.step.blocked",
+		"summary": "Emitted when policy blocks an execution step.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: execution, blocked\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneExecutionStepBlocked.event.ts`",
+		"route": "/docs/reference/_common/controlPlane.execution.step.blocked",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.execution.step.blocked.md"
+	},
+	{
+		"id": "_common/controlPlane.execution.step.completed",
+		"title": "controlPlane.execution.step.completed",
+		"summary": "Emitted when an execution step completes.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneExecutionStepCompleted.event.ts`",
+		"route": "/docs/reference/_common/controlPlane.execution.step.completed",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.execution.step.completed.md"
+	},
+	{
+		"id": "_common/controlPlane.execution.step.started",
+		"title": "controlPlane.execution.step.started",
+		"summary": "Emitted when an execution step starts.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneExecutionStepStarted.event.ts`",
+		"route": "/docs/reference/_common/controlPlane.execution.step.started",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.execution.step.started.md"
+	},
+	{
+		"id": "_common/controlPlane.intent.received",
+		"title": "controlPlane.intent.received",
+		"summary": "Emitted when a new control plane intent is accepted.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: intent\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneIntentReceived.event.ts`",
+		"route": "/docs/reference/_common/controlPlane.intent.received",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.intent.received.md"
+	},
+	{
+		"id": "_common/controlPlane.intent.submit",
+		"title": "controlPlane.intent.submit",
+		"summary": "Submit a natural-language intent to the control plane.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: intent\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneIntentSubmit.command.ts`",
+		"route": "/docs/reference/_common/controlPlane.intent.submit",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.intent.submit.md"
+	},
+	{
+		"id": "_common/controlPlane.plan.compile",
+		"title": "controlPlane.plan.compile",
+		"summary": "Compile an intent into a deterministic plan DAG.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: plan\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlanePlanCompile.command.ts`",
+		"route": "/docs/reference/_common/controlPlane.plan.compile",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.plan.compile.md"
+	},
+	{
+		"id": "_common/controlPlane.plan.compiled",
+		"title": "controlPlane.plan.compiled",
+		"summary": "Emitted when an intent is compiled into an executable plan.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: plan\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlanePlanCompiled.event.ts`",
+		"route": "/docs/reference/_common/controlPlane.plan.compiled",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.plan.compiled.md"
+	},
+	{
+		"id": "_common/controlPlane.plan.rejected",
+		"title": "controlPlane.plan.rejected",
+		"summary": "Emitted when a plan fails verification or governance checks.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: plan, governance\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlanePlanRejected.event.ts`",
+		"route": "/docs/reference/_common/controlPlane.plan.rejected",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.plan.rejected.md"
+	},
+	{
+		"id": "_common/controlPlane.plan.verify",
+		"title": "controlPlane.plan.verify",
+		"summary": "Run policy and risk validation against a compiled plan.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: plan, governance\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlanePlanVerify.command.ts`",
+		"route": "/docs/reference/_common/controlPlane.plan.verify",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.plan.verify.md"
+	},
+	{
+		"id": "_common/controlPlane.policy.explain",
+		"title": "controlPlane.policy.explain",
+		"summary": "Explain policy outcomes for an execution or step.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: policy, audit\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlanePolicyExplain.query.ts`",
+		"route": "/docs/reference/_common/controlPlane.policy.explain",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.policy.explain.md"
+	},
+	{
+		"id": "_common/controlPlane.skill.disable",
+		"title": "controlPlane.skill.disable",
+		"summary": "Disable an installed skill in the control plane registry.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: skills, governance\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneSkillDisable.command.ts`",
+		"route": "/docs/reference/_common/controlPlane.skill.disable",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.skill.disable.md"
+	},
+	{
+		"id": "_common/controlPlane.skill.install",
+		"title": "controlPlane.skill.install",
+		"summary": "Install a signed skill artifact after verification checks.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: skills\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneSkillInstall.command.ts`",
+		"route": "/docs/reference/_common/controlPlane.skill.install",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.skill.install.md"
+	},
+	{
+		"id": "_common/controlPlane.skill.installed",
+		"title": "controlPlane.skill.installed",
+		"summary": "Emitted when a skill artifact is verified and installed.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: skills\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneSkillInstalled.event.ts`",
+		"route": "/docs/reference/_common/controlPlane.skill.installed",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.skill.installed.md"
+	},
+	{
+		"id": "_common/controlPlane.skill.list",
+		"title": "controlPlane.skill.list",
+		"summary": "List installed and available skill artifacts.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: skills\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlaneSkillList.query.ts`",
+		"route": "/docs/reference/_common/controlPlane.skill.list",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.skill.list.md"
+	},
+	{
+		"id": "_common/controlPlane.skill.rejected",
+		"title": "controlPlane.skill.rejected",
+		"summary": "Emitted when a skill install attempt is rejected.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: skills, governance\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneSkillRejected.event.ts`",
+		"route": "/docs/reference/_common/controlPlane.skill.rejected",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.skill.rejected.md"
+	},
+	{
+		"id": "_common/controlPlane.skill.verify",
+		"title": "controlPlane.skill.verify",
+		"summary": "Verify skill signature and compatibility constraints.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: skills, governance\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlaneSkillVerify.query.ts`",
+		"route": "/docs/reference/_common/controlPlane.skill.verify",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.skill.verify.md"
+	},
+	{
+		"id": "_common/controlPlane.trace.get",
+		"title": "controlPlane.trace.get",
+		"summary": "Return the replayable trace timeline for one execution.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: trace, audit\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlaneTraceGet.query.ts`",
+		"route": "/docs/reference/_common/controlPlane.trace.get",
+		"source": "generated",
+		"contentPath": "_common/controlPlane.trace.get.md"
+	},
+	{
+		"id": "_common/database.context",
+		"title": "database.context",
+		"summary": "Schema, migration, dictionary, and read-only query surfaces.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: context\n- **File**: `packages/libs/contracts-spec/src/database/capabilities/databaseContext.capability.ts`",
+		"route": "/docs/reference/_common/database.context",
+		"source": "generated",
+		"contentPath": "_common/database.context.md"
+	},
+	{
+		"id": "_common/database.dictionary.get",
+		"title": "database.dictionary.get",
+		"summary": "Retrieve a data dictionary entry for a schema field.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: dictionary\n- **File**: `packages/libs/contracts-spec/src/database/queries/databaseDictionaryGet.query.ts`",
+		"route": "/docs/reference/_common/database.dictionary.get",
+		"source": "generated",
+		"contentPath": "_common/database.dictionary.get.md"
+	},
+	{
+		"id": "_common/database.migrations.list",
+		"title": "database.migrations.list",
+		"summary": "List registered database migrations and statuses.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: migrations\n- **File**: `packages/libs/contracts-spec/src/database/queries/databaseMigrationsList.query.ts`",
+		"route": "/docs/reference/_common/database.migrations.list",
+		"source": "generated",
+		"contentPath": "_common/database.migrations.list.md"
+	},
+	{
+		"id": "_common/database.query.readonly",
+		"title": "database.query.readonly",
+		"summary": "Execute a governed read-only query via a data view.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: query, readonly\n- **File**: `packages/libs/contracts-spec/src/database/queries/databaseQueryReadonly.query.ts`",
+		"route": "/docs/reference/_common/database.query.readonly",
+		"source": "generated",
+		"contentPath": "_common/database.query.readonly.md"
+	},
+	{
+		"id": "_common/database.schema.describe",
+		"title": "database.schema.describe",
+		"summary": "Describe database schemas and models with PII indicators.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: describe\n- **File**: `packages/libs/contracts-spec/src/database/queries/databaseSchemaDescribe.query.ts`",
+		"route": "/docs/reference/_common/database.schema.describe",
+		"source": "generated",
+		"contentPath": "_common/database.schema.describe.md"
+	},
+	{
+		"id": "_common/docs.contract.reference",
+		"title": "docs.contract.reference",
+		"summary": "Resolve a contract into a documentation-ready reference.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: reference\n- **File**: `packages/libs/contracts-spec/src/docs/queries/contractReference.query.ts`",
+		"route": "/docs/reference/_common/docs.contract.reference",
+		"source": "generated",
+		"contentPath": "_common/docs.contract.reference.md"
+	},
+	{
+		"id": "_common/docs.generate",
+		"title": "docs.generate",
+		"summary": "Generate documentation artifacts from ContractSpecs.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: generation\n- **File**: `packages/libs/contracts-spec/src/docs/commands/docsGenerate.command.ts`",
+		"route": "/docs/reference/_common/docs.generate",
+		"source": "generated",
+		"contentPath": "_common/docs.generate.md"
+	},
+	{
+		"id": "_common/docs.generated",
+		"title": "docs.generated",
+		"summary": "Emitted when documentation artifacts are generated.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: generation\n- **File**: `packages/libs/contracts-spec/src/docs/events/docsGenerated.event.ts`\n```typescript",
+		"route": "/docs/reference/_common/docs.generated",
+		"source": "generated",
+		"contentPath": "_common/docs.generated.md"
+	},
+	{
+		"id": "_common/docs.layout",
+		"title": "docs.layout",
+		"summary": "Shared layout shell for documentation pages.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: layout\n- **File**: `packages/libs/contracts-spec/src/docs/presentations/docsLayout.presentation.ts`",
+		"route": "/docs/reference/_common/docs.layout",
+		"source": "generated",
+		"contentPath": "_common/docs.layout.md"
+	},
+	{
+		"id": "_common/docs.publish",
+		"title": "docs.publish",
+		"summary": "Publish generated documentation artifacts.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: publish\n- **File**: `packages/libs/contracts-spec/src/docs/commands/docsPublish.command.ts`\nDeploy docs to the public docs surface with consistent versioning.",
+		"route": "/docs/reference/_common/docs.publish",
+		"source": "generated",
+		"contentPath": "_common/docs.publish.md"
+	},
+	{
+		"id": "_common/docs.published",
+		"title": "docs.published",
+		"summary": "Emitted when documentation is published.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: publish\n- **File**: `packages/libs/contracts-spec/src/docs/events/docsPublished.event.ts`\n```typescript\nexport const DocsPublishedEvent = defineEvent({",
+		"route": "/docs/reference/_common/docs.published",
+		"source": "generated",
+		"contentPath": "_common/docs.published.md"
+	},
+	{
+		"id": "_common/docs.reference.page",
+		"title": "docs.reference.page",
+		"summary": "Reference page layout for contract documentation.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: reference\n- **File**: `packages/libs/contracts-spec/src/docs/presentations/docsReferencePage.presentation.ts`",
+		"route": "/docs/reference/_common/docs.reference.page",
+		"source": "generated",
+		"contentPath": "_common/docs.reference.page.md"
+	},
+	{
+		"id": "_common/docs.search",
+		"title": "docs_search",
+		"summary": "Search and filter DocBlocks by query, tag, or visibility.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: search, index\n- **File**: `packages/libs/contracts-spec/src/docs/queries/docsIndex.query.ts`",
+		"route": "/docs/reference/_common/docs.search",
+		"source": "generated",
+		"contentPath": "_common/docs.search.md"
+	},
+	{
+		"id": "_common/docs.system",
+		"title": "docs.system",
+		"summary": "End-to-end docs generation, indexing, and presentation.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: system\n- **File**: `packages/libs/contracts-spec/src/docs/capabilities/documentationSystem.capability.ts`",
+		"route": "/docs/reference/_common/docs.system",
+		"source": "generated",
+		"contentPath": "_common/docs.system.md"
+	},
+	{
+		"id": "_common/init",
+		"title": "init",
+		"summary": "Sets up ContractSpec in a project (config, VSCode settings, etc.)\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @lssm/core\n- **Tags**: cli, setup\n- **File**: `packages/bundles/workspace/src/contracts/operations/init.operation.ts`",
+		"route": "/docs/reference/_common/init",
+		"source": "generated",
+		"contentPath": "_common/init.md"
+	},
+	{
+		"id": "_common/opencode.example.echo",
+		"title": "opencode.example.echo",
+		"summary": "Echo a prompt for the OpenCode CLI example.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @contractspec/examples\n- **Tags**: opencode, example, echo\n- **File**: `packages/examples/opencode-cli/src/contracts/opencode.contracts.ts`",
+		"route": "/docs/reference/_common/opencode.example.echo",
+		"source": "generated",
+		"contentPath": "_common/opencode.example.echo.md"
+	},
+	{
+		"id": "_common/provider-ranking.benchmark.custom.completed",
+		"title": "provider-ranking.benchmark.custom.completed",
+		"summary": "Emitted when a custom benchmark run finishes.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: custom, eval\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/events/benchmarkCustomCompleted.event.ts`",
+		"route": "/docs/reference/_common/provider-ranking.benchmark.custom.completed",
+		"source": "generated",
+		"contentPath": "_common/provider-ranking.benchmark.custom.completed.md"
+	},
+	{
+		"id": "_common/provider-ranking.benchmark.ingest",
+		"title": "provider-ranking.benchmark.ingest",
+		"summary": "Trigger ingestion of external benchmark data from a public source.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: ingest\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/commands/benchmarkIngest.command.ts`",
+		"route": "/docs/reference/_common/provider-ranking.benchmark.ingest",
+		"source": "generated",
+		"contentPath": "_common/provider-ranking.benchmark.ingest.md"
+	},
+	{
+		"id": "_common/provider-ranking.benchmark.ingested",
+		"title": "provider-ranking.benchmark.ingested",
+		"summary": "Emitted after external benchmark data is ingested.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: ingest\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/events/benchmarkIngested.event.ts`",
+		"route": "/docs/reference/_common/provider-ranking.benchmark.ingested",
+		"source": "generated",
+		"contentPath": "_common/provider-ranking.benchmark.ingested.md"
+	},
+	{
+		"id": "_common/provider-ranking.benchmark.results.list",
+		"title": "provider-ranking.benchmark.results.list",
+		"summary": "List raw benchmark results with pagination, filterable by source, model, and dimension.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: results\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/queries/benchmarkResultsList.query.ts`",
+		"route": "/docs/reference/_common/provider-ranking.benchmark.results.list",
+		"source": "generated",
+		"contentPath": "_common/provider-ranking.benchmark.results.list.md"
+	},
+	{
+		"id": "_common/provider-ranking.benchmark.run-custom",
+		"title": "provider-ranking.benchmark.run-custom",
+		"summary": "Launch a custom benchmark evaluation against a specific model.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: custom, eval\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/commands/benchmarkRunCustom.command.ts`",
+		"route": "/docs/reference/_common/provider-ranking.benchmark.run-custom",
+		"source": "generated",
+		"contentPath": "_common/provider-ranking.benchmark.run-custom.md"
+	},
+	{
+		"id": "_common/provider-ranking.model.comparison",
+		"title": "provider-ranking.model.comparison",
+		"summary": "Side-by-side comparison of AI model scores and capabilities.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: comparison\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/presentations/modelComparison.presentation.ts`",
+		"route": "/docs/reference/_common/provider-ranking.model.comparison",
+		"source": "generated",
+		"contentPath": "_common/provider-ranking.model.comparison.md"
+	},
+	{
+		"id": "_common/provider-ranking.model.profile.get",
+		"title": "provider-ranking.model.profile.get",
+		"summary": "Get detailed profile for a single model including all scores, metadata, cost, and capabilities.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: model, profile\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/queries/modelProfileGet.query.ts`",
+		"route": "/docs/reference/_common/provider-ranking.model.profile.get",
+		"source": "generated",
+		"contentPath": "_common/provider-ranking.model.profile.get.md"
+	},
+	{
+		"id": "_common/provider-ranking.ranking.get",
+		"title": "provider-ranking.ranking.get",
+		"summary": "Get ranked list of providers/models with composite scores, filterable by dimension.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: leaderboard\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/queries/providerRankingGet.query.ts`",
+		"route": "/docs/reference/_common/provider-ranking.ranking.get",
+		"source": "generated",
+		"contentPath": "_common/provider-ranking.ranking.get.md"
+	},
+	{
+		"id": "_common/provider-ranking.ranking.refresh",
+		"title": "provider-ranking.ranking.refresh",
+		"summary": "Recompute composite rankings from latest benchmark data.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: refresh\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/commands/rankingRefresh.command.ts`",
+		"route": "/docs/reference/_common/provider-ranking.ranking.refresh",
+		"source": "generated",
+		"contentPath": "_common/provider-ranking.ranking.refresh.md"
+	},
+	{
+		"id": "_common/provider-ranking.ranking.updated",
+		"title": "provider-ranking.ranking.updated",
+		"summary": "Emitted when composite rankings are recomputed.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: refresh\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/events/rankingUpdated.event.ts`",
+		"route": "/docs/reference/_common/provider-ranking.ranking.updated",
+		"source": "generated",
+		"contentPath": "_common/provider-ranking.ranking.updated.md"
+	},
+	{
+		"id": "_common/provider-ranking.system",
+		"title": "provider-ranking.system",
+		"summary": "Benchmark ingestion, scoring, and ranking for AI providers and models.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: system\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/capabilities/providerRanking.capability.ts`",
+		"route": "/docs/reference/_common/provider-ranking.system",
+		"source": "generated",
+		"contentPath": "_common/provider-ranking.system.md"
+	},
+	{
+		"id": "_common/report.getContractVerificationStatus",
+		"title": "report.getContractVerificationStatus",
+		"summary": "Retrieves per-contract verification status for the impact report.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/operations/report/getContractVerificationStatus.ts`",
+		"route": "/docs/reference/_common/report.getContractVerificationStatus",
+		"source": "generated",
+		"contentPath": "_common/report.getContractVerificationStatus.md"
+	},
+	{
+		"id": "_common/template.messaging.core",
+		"title": "template.messaging.core",
+		"summary": "Real-time messaging primitives for template applications, including conversations, participants, and delivery events.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: platform.contractspec-studio",
+		"route": "/docs/reference/_common/template.messaging.core",
+		"source": "generated",
+		"contentPath": "_common/template.messaging.core.md"
+	},
+	{
+		"id": "_common/template.recipes.browse",
+		"title": "template.recipes.browse",
+		"summary": "Internationalized recipe browsing, search, and detail operations for template applications.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: platform.contractspec-studio\n- **Tags**: templates, recipes, i18n, content",
+		"route": "/docs/reference/_common/template.recipes.browse",
+		"source": "generated",
+		"contentPath": "_common/template.recipes.browse.md"
+	},
+	{
+		"id": "_common/template.todos.crud",
+		"title": "template.todos.crud",
+		"summary": "Create, read, update, delete, and toggle template tasks with categories and priorities.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: platform.contractspec-studio\n- **Tags**: templates, todos, productivity",
+		"route": "/docs/reference/_common/template.todos.crud",
+		"source": "generated",
+		"contentPath": "_common/template.todos.crud.md"
+	},
+	{
+		"id": "_common/test",
+		"title": "test",
+		"summary": "Run tests defined in contract specs\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @lssm/core\n- **Tags**: cli, test\n- **File**: `packages/bundles/workspace/src/contracts/operations/test.operation.ts`",
+		"route": "/docs/reference/_common/test",
+		"source": "generated",
+		"contentPath": "_common/test.md"
+	},
+	{
+		"id": "_common/user.create",
+		"title": "user.create",
+		"summary": "Create a new user account with the provided email\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @team\n- **Tags**: user\n- **File**: `packages/examples/minimal/src/contracts/user.ts`",
+		"route": "/docs/reference/_common/user.create",
+		"source": "generated",
+		"contentPath": "_common/user.create.md"
+	},
+	{
+		"id": "_common/validate",
+		"title": "validate",
+		"summary": "Validate a contract spec file structure and optionally its implementation\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @lssm/core\n- **Tags**: cli, validation\n- **File**: `packages/bundles/workspace/src/contracts/operations/validate.operation.ts`",
+		"route": "/docs/reference/_common/validate",
+		"source": "generated",
+		"contentPath": "_common/validate.md"
+	},
+	{
+		"id": "docs.accessibility_wcag_compliance_specs",
+		"title": "Accessibility & WCAG Compliance — **specs.md**",
+		"summary": "> **Goal:** Ship interfaces that are usable by everyone, by default. This spec sets non‑negotiable rules, checklists, and CI gates to meet **WCAG 2.2 AA** (aim for AAA where low‑cost), align with **EN 301 549** (EU), and keep parity on **web (Next.js)** and **mobile (Expo/React Native)**.",
+		"route": "/docs/accessibility_wcag_compliance_specs",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/accessibility_wcag_compliance_specs.md",
+		"tags": ["accessibility_wcag_compliance_specs"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.meta.docblocks-process",
+		"title": "DocBlocks process",
+		"summary": "How to author goal/how/usage DocBlocks close to code.",
+		"route": "/docs/meta/docblocks-process",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/meta/docblocks-process.md",
+		"tags": ["docs", "process"],
+		"kind": "reference",
+		"visibility": "mixed"
+	},
+	{
+		"id": "docs.tech.acp.fs.access",
+		"title": "ACP file system access",
+		"summary": "Access file system through ACP.",
+		"route": "/docs/tech/acp/fs/access",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/acp/fs/access.md",
+		"tags": ["acp", "filesystem"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.acp.prompt.turn",
+		"title": "ACP prompt turn",
+		"summary": "Execute a prompt turn within a session.",
+		"route": "/docs/tech/acp/prompt/turn",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/acp/prompt/turn.md",
+		"tags": ["acp", "prompt"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.acp.session.init",
+		"title": "ACP session init",
+		"summary": "Initialize a new ACP session.",
+		"route": "/docs/tech/acp/session/init",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/acp/session/init.md",
+		"tags": ["acp", "session"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.acp.session.resume",
+		"title": "ACP session resume",
+		"summary": "Resume an existing ACP session.",
+		"route": "/docs/tech/acp/session/resume",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/acp/session/resume.md",
+		"tags": ["acp", "session"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.acp.session.stop",
+		"title": "ACP session stop",
+		"summary": "Stop an ACP session.",
+		"route": "/docs/tech/acp/session/stop",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/acp/session/stop.md",
+		"tags": ["acp", "session"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.acp.terminal.exec",
+		"title": "ACP terminal exec",
+		"summary": "Execute terminal commands via ACP.",
+		"route": "/docs/tech/acp/terminal/exec",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/acp/terminal/exec.md",
+		"tags": ["acp", "terminal"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.acp.tool.calls",
+		"title": "ACP tool calls",
+		"summary": "Execute ACP tool calls.",
+		"route": "/docs/tech/acp/tool/calls",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/acp/tool/calls.md",
+		"tags": ["acp", "tools"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.acp.transport",
+		"title": "ACP transport",
+		"summary": "Agent Client Protocol transport surfaces.",
+		"route": "/docs/tech/acp/transport",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/acp/transport.md",
+		"tags": ["acp", "transport"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.agent.approval.requested",
+		"title": "Agent approval requested event",
+		"summary": "Emitted when approval is required.",
+		"route": "/docs/tech/agent/approval/requested",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/agent/approval/requested.md",
+		"tags": ["agent", "event", "approval"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.agent.approvals",
+		"title": "Agent approvals",
+		"summary": "Resolve an agent approval request.",
+		"route": "/docs/tech/agent/approvals",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/agent/approvals.md",
+		"tags": ["agent", "approval"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.agent.artifacts",
+		"title": "Agent artifacts",
+		"summary": "List artifacts produced by an agent run.",
+		"route": "/docs/tech/agent/artifacts",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/agent/artifacts.md",
+		"tags": ["agent", "artifacts"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.agent.cancel",
+		"title": "Cancel agent run",
+		"summary": "Cancel an in-flight agent run.",
+		"route": "/docs/tech/agent/cancel",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/agent/cancel.md",
+		"tags": ["agent", "cancel"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.agent.execution",
+		"title": "Agent execution",
+		"summary": "Background agent execution, approvals, and artifacts.",
+		"route": "/docs/tech/agent/execution",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/agent/execution.md",
+		"tags": ["agent", "execution"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.agent.memory-tools",
+		"title": "Memory tools",
+		"summary": "Model-accessible CRUD for agent memory (Anthropic, custom).",
+		"route": "/docs/tech/agent/memory-tools",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/agent/memory-tools.md",
+		"tags": ["agent", "memory", "tools"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.agent.operations-as-tools",
+		"title": "Operations as tools",
+		"summary": "Reference ContractSpec operations as agent tools. One contract → REST, GraphQL, MCP, agent.",
+		"route": "/docs/tech/agent/operations-as-tools",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/agent/operations-as-tools.md",
+		"tags": ["agent", "tools", "operations"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.agent.run",
+		"title": "Run agent",
+		"summary": "Submit a background agent run.",
+		"route": "/docs/tech/agent/run",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/agent/run.md",
+		"tags": ["agent", "run"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.agent.run.audit",
+		"title": "Agent run audit presentation",
+		"summary": "Presentation spec for agent run audit views.",
+		"route": "/docs/tech/agent/run/audit",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/agent/run/audit.md",
+		"tags": ["agent", "presentation", "audit"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.agent.run.completed",
+		"title": "Agent run completed event",
+		"summary": "Emitted when an agent run completes.",
+		"route": "/docs/tech/agent/run/completed",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/agent/run/completed.md",
+		"tags": ["agent", "event"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.agent.run.failed",
+		"title": "Agent run failed event",
+		"summary": "Emitted when an agent run fails.",
+		"route": "/docs/tech/agent/run/failed",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/agent/run/failed.md",
+		"tags": ["agent", "event"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.agent.run.form",
+		"title": "Agent run form",
+		"summary": "Form specification for launching an agent run.",
+		"route": "/docs/tech/agent/run/form",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/agent/run/form.md",
+		"tags": ["agent", "form"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.agent.run.index",
+		"title": "Agent run index view",
+		"summary": "Data view for listing agent runs.",
+		"route": "/docs/tech/agent/run/index",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/agent/run/index.md",
+		"tags": ["agent", "data-view"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.agent.run.started",
+		"title": "Agent run started event",
+		"summary": "Emitted when an agent run starts.",
+		"route": "/docs/tech/agent/run/started",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/agent/run/started.md",
+		"tags": ["agent", "event"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.agent.status",
+		"title": "Agent status",
+		"summary": "Query agent run status.",
+		"route": "/docs/tech/agent/status",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/agent/status.md",
+		"tags": ["agent", "status"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.agent.subagents",
+		"title": "Subagents",
+		"summary": "Delegate tasks to subagents with streaming and toModelOutput.",
+		"route": "/docs/tech/agent/subagents",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/agent/subagents.md",
+		"tags": ["agent", "subagents", "delegation"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.agent.workflow-integration",
+		"title": "Workflow-agent integration",
+		"summary": "Orchestrator-worker, workflow steps as agent ops, evaluator pattern.",
+		"route": "/docs/tech/agent/workflow-integration",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/agent/workflow-integration.md",
+		"tags": ["agent", "workflow", "orchestrator"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.auth.better-auth-nextjs",
+		"title": "Better Auth + Next.js integration (ContractSpec)",
+		"summary": "How ContractSpec wires Better Auth into Next.js (server config, client singleton, and proxy cookie-only redirects).",
+		"route": "/docs/tech/auth/better-auth-nextjs",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/auth/better-auth-nextjs.md",
+		"tags": ["auth", "better-auth", "nextjs", "cookies", "proxy", "hmr"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.cli.contractspec",
+		"title": "ContractSpec CLI",
+		"summary": "The command-line interface for creating, building, and validating contract specifications.",
+		"route": "/docs/tech/cli/contractspec",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/cli/contractspec.md",
+		"tags": ["cli", "tooling", "reference"],
+		"kind": "reference",
+		"visibility": "public",
+		"owners": ["@contractspec/app.cli-contractspec"]
+	},
+	{
+		"id": "docs.tech.context.pack.describe",
+		"title": "Describe context pack",
+		"summary": "Describe a context pack and its sources.",
+		"route": "/docs/tech/context/pack/describe",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/context/pack/describe.md",
+		"tags": ["context", "pack", "describe"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.context.pack.search",
+		"title": "Search context packs",
+		"summary": "Search and filter context packs and snapshots.",
+		"route": "/docs/tech/context/pack/search",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/context/pack/search.md",
+		"tags": ["context", "pack", "search"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.context.pack.search.form",
+		"title": "Context pack search form",
+		"summary": "Form used to search context packs in UI surfaces.",
+		"route": "/docs/tech/context/pack/search-form",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/context/pack/search/form.md",
+		"tags": ["context", "form", "search"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.context.pack.snapshot",
+		"title": "Create context snapshot",
+		"summary": "Create an immutable context snapshot from a pack.",
+		"route": "/docs/tech/context/pack/snapshot",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/context/pack/snapshot.md",
+		"tags": ["context", "snapshot", "create"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.context.snapshot.created",
+		"title": "Context snapshot created event",
+		"summary": "Emitted when a context snapshot is created.",
+		"route": "/docs/tech/context/snapshot/created",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/context/snapshot/created.md",
+		"tags": ["context", "snapshot", "event"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.context.snapshot.index",
+		"title": "Context snapshot index view",
+		"summary": "Data view for listing context snapshots.",
+		"route": "/docs/tech/context/snapshot/index",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/context/snapshot/index.md",
+		"tags": ["context", "snapshot", "data-view"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.context.snapshot.presentation",
+		"title": "Context snapshot presentation",
+		"summary": "Presentation spec for snapshot summaries.",
+		"route": "/docs/tech/context/snapshot/presentation",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/context/snapshot/presentation.md",
+		"tags": ["context", "presentation", "snapshot"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.context.system",
+		"title": "Context system",
+		"summary": "Context packs, snapshots, and discovery surfaces.",
+		"route": "/docs/tech/context/system",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/context/system.md",
+		"tags": ["context", "system", "snapshot"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.contracts.openapi-export",
+		"title": "OpenAPI export (OpenAPI 3.1) from OperationSpecRegistry",
+		"summary": "Generate a deterministic OpenAPI document from a OperationSpecRegistry using jsonSchemaForSpec + REST transport metadata.",
+		"route": "/docs/tech/contracts/openapi-export",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/contracts/openapi-export.md",
+		"tags": ["contracts", "openapi", "rest"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.contracts.openapi-import",
+		"title": "OpenAPI Import (OpenAPI 3.1) to ContractSpec",
+		"summary": "Import OpenAPI specifications into ContractSpec models, or generate pure Zod/JSON-Schema/GraphQL representations.",
+		"route": "/docs/tech/contracts/openapi-import",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/contracts/openapi-import.md",
+		"tags": ["contracts", "openapi", "import", "codegen"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.contracts.presentations",
+		"title": "Presentations — Unified Descriptor & Transform Engine",
+		"summary": "How PresentationSpec and TransformEngine keep docs/renderers consistent.",
+		"route": "/docs/tech/contracts/presentations",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/contracts/presentations.md",
+		"tags": ["presentations", "docs", "mcp"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.contracts.README",
+		"title": "Contracts: Specs, Registry, Handlers, Adapters",
+		"summary": "- `packages/lssm/libs/contracts` defines the contracts core (OperationSpecRegistry, OperationSpec, PresentationSpec, install helpers, REST/MCP adapters, ...).",
+		"route": "/docs/tech/contracts/README",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/contracts/README.md",
+		"tags": ["tech", "contracts", "README"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.contracts.workspace-config",
+		"title": "Workspace Configuration (.contractsrc)",
+		"summary": "Configuration-as-code conventions for ContractSpec workspaces (`.contractsrc.json`).",
+		"route": "/docs/tech/contracts/workspace-config",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/contracts/workspace-config.md",
+		"tags": ["tech", "contracts", "config"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.database.context",
+		"title": "Database context",
+		"summary": "Schema, migrations, dictionary, and read-only query surfaces.",
+		"route": "/docs/tech/database/context",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/database/context.md",
+		"tags": ["database", "context"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.database.dictionary.get",
+		"title": "Get data dictionary entry",
+		"summary": "Retrieve a dictionary entry for a schema field.",
+		"route": "/docs/tech/database/dictionary/get",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/database/dictionary/get.md",
+		"tags": ["database", "dictionary"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.database.migrations.list",
+		"title": "List database migrations",
+		"summary": "List migration history for a database.",
+		"route": "/docs/tech/database/migrations/list",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/database/migrations/list.md",
+		"tags": ["database", "migrations"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.database.query.readonly",
+		"title": "Read-only data query",
+		"summary": "Perform a governed read-only query via data views.",
+		"route": "/docs/tech/database/query/readonly",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/database/query/readonly.md",
+		"tags": ["database", "query", "readonly"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.database.schema.describe",
+		"title": "Describe database schema",
+		"summary": "Describe schemas and models with PII signals.",
+		"route": "/docs/tech/database/schema/describe",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/database/schema/describe.md",
+		"tags": ["database", "schema"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.database.schema.index",
+		"title": "Database schema index view",
+		"summary": "Data view for listing schemas and model counts.",
+		"route": "/docs/tech/database/schema/index",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/database/schema/index.md",
+		"tags": ["database", "data-view"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.docs-examples",
+		"title": "Examples catalog",
+		"summary": "Document and surface example projects with sandbox support.",
+		"route": "/docs/tech/docs/examples",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/docs-examples.md",
+		"tags": ["docs", "examples"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.docs-generator",
+		"title": "Docs generator",
+		"summary": "Generate reference docs and metadata from ContractSpecs.",
+		"route": "/docs/tech/docs/generator",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/docs-generator.md",
+		"tags": ["docs", "generator", "cli"],
+		"kind": "how",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.docs-publish",
+		"title": "Docs publish",
+		"summary": "Publish generated artifacts to the docs host.",
+		"route": "/docs/tech/docs/publish",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/docs-publish.md",
+		"tags": ["docs", "publish"],
+		"kind": "how",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.docs-reference",
+		"title": "Contract reference pages",
+		"summary": "Resolve any spec into a docs-ready reference payload.",
+		"route": "/docs/tech/docs/reference",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/docs-reference.md",
+		"tags": ["docs", "reference"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.docs-search",
+		"title": "Docs index and search",
+		"summary": "Search DocBlocks by query, tag, kind, or visibility.",
+		"route": "/docs/tech/docs/search",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/docs-search.md",
+		"tags": ["docs", "search"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.docs-system",
+		"title": "Docs system overview",
+		"summary": "How ContractSpec generates, indexes, and presents documentation.",
+		"route": "/docs/tech/docs/system",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/docs-system.md",
+		"tags": ["docs", "system", "contracts"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.lifecycle-stage-system",
+		"title": "ContractSpec Lifecycle Stage System – Technical Design",
+		"summary": "This document describes how ContractSpec implements lifecycle detection and guidance. It covers architecture, module boundaries, scoring heuristics, and integration points so libraries, modules, bundles, and Studio surfaces stay synchronized.",
+		"route": "/docs/tech/lifecycle-stage-system",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/lifecycle-stage-system.md",
+		"tags": ["tech", "lifecycle-stage-system"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.llm.agent-adapters",
+		"title": "Agent Adapters",
+		"summary": "Adapters for different AI coding agents (Claude, Cursor, MCP).",
+		"route": "/docs/tech/llm/agent-adapters",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/llm/agent-adapters.md",
+		"tags": ["llm", "agents", "claude", "cursor", "mcp"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.llm.export-formats",
+		"title": "LLM Export Formats",
+		"summary": "Detailed explanation of the three export formats for LLM consumption.",
+		"route": "/docs/tech/llm/export-formats",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/llm/export-formats.md",
+		"tags": ["llm", "export", "markdown"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.llm.overview",
+		"title": "LLM Integration Overview",
+		"summary": "Export specs to LLM-friendly formats, generate implementation guides, and verify implementations.",
+		"route": "/docs/tech/llm/overview",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/llm/overview.md",
+		"tags": ["llm", "ai", "export", "guide", "verify"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.llm.verification",
+		"title": "Implementation Verification",
+		"summary": "Tiered verification of implementations against specifications.",
+		"route": "/docs/tech/llm/verification",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/llm/verification.md",
+		"tags": ["llm", "verify", "validation", "testing"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.mcp.endpoints",
+		"title": "ContractSpec MCP endpoints",
+		"summary": "Dedicated MCP servers for docs, CLI usage, and internal development.",
+		"route": "/docs/tech/mcp/endpoints",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/mcp/endpoints.md",
+		"tags": ["mcp", "docs", "cli", "internal"],
+		"kind": "reference",
+		"visibility": "mixed"
+	},
+	{
+		"id": "docs.tech.presentation-runtime",
+		"title": "Presentation Runtime",
+		"summary": "Cross-platform runtime for list pages, presentation flows, and headless ContractSpec tables.",
+		"route": "/docs/tech/presentation-runtime",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/presentation-runtime.md",
+		"tags": ["tech", "presentation-runtime"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.provider-ranking.benchmark.custom.completed",
+		"title": "Custom benchmark completed event",
+		"summary": "Emitted when a custom benchmark run finishes.",
+		"route": "/docs/tech/provider-ranking/benchmark/custom/completed",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/provider-ranking/benchmark/custom/completed.md",
+		"tags": ["ai", "ranking", "event", "custom"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.provider-ranking.benchmark.ingest",
+		"title": "Ingest benchmark data",
+		"summary": "Trigger ingestion of external benchmark data.",
+		"route": "/docs/tech/provider-ranking/benchmark/ingest",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/provider-ranking/benchmark/ingest.md",
+		"tags": ["ai", "ranking", "ingest"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.provider-ranking.benchmark.ingest.form",
+		"title": "Benchmark ingest form",
+		"summary": "Form specification for triggering benchmark ingestion.",
+		"route": "/docs/tech/provider-ranking/benchmark/ingest/form",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/provider-ranking/benchmark/ingest/form.md",
+		"tags": ["ai", "ranking", "form"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.provider-ranking.benchmark.ingested",
+		"title": "Benchmark ingested event",
+		"summary": "Emitted after external benchmark data is ingested.",
+		"route": "/docs/tech/provider-ranking/benchmark/ingested",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/provider-ranking/benchmark/ingested.md",
+		"tags": ["ai", "ranking", "event"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.provider-ranking.benchmark.results.index",
+		"title": "Benchmark results view",
+		"summary": "Data view for raw benchmark results.",
+		"route": "/docs/tech/provider-ranking/benchmark/results/index",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/provider-ranking/benchmark/results/index.md",
+		"tags": ["ai", "ranking", "data-view"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.provider-ranking.benchmark.results.list",
+		"title": "List benchmark results",
+		"summary": "List raw benchmark results.",
+		"route": "/docs/tech/provider-ranking/benchmark/results/list",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/provider-ranking/benchmark/results/list.md",
+		"tags": ["ai", "ranking", "results"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.provider-ranking.benchmark.run-custom",
+		"title": "Run custom benchmark",
+		"summary": "Launch a custom benchmark evaluation against a model.",
+		"route": "/docs/tech/provider-ranking/benchmark/run-custom",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/provider-ranking/benchmark/run-custom.md",
+		"tags": ["ai", "ranking", "custom", "eval"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.provider-ranking.benchmark.run-custom.form",
+		"title": "Custom benchmark form",
+		"summary": "Form specification for launching custom benchmarks.",
+		"route": "/docs/tech/provider-ranking/benchmark/run-custom/form",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/provider-ranking/benchmark/run-custom/form.md",
+		"tags": ["ai", "ranking", "form"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.provider-ranking.model.comparison",
+		"title": "Model comparison presentation",
+		"summary": "Presentation spec for side-by-side model comparison.",
+		"route": "/docs/tech/provider-ranking/model/comparison",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/provider-ranking/model/comparison.md",
+		"tags": ["ai", "ranking", "presentation", "comparison"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.provider-ranking.model.profile.get",
+		"title": "Get model profile",
+		"summary": "Get detailed profile for a single model.",
+		"route": "/docs/tech/provider-ranking/model/profile/get",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/provider-ranking/model/profile/get.md",
+		"tags": ["ai", "ranking", "model", "profile"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.provider-ranking.ranking.get",
+		"title": "Get provider rankings",
+		"summary": "Get ranked list of providers/models.",
+		"route": "/docs/tech/provider-ranking/ranking/get",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/provider-ranking/ranking/get.md",
+		"tags": ["ai", "ranking", "leaderboard"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.provider-ranking.ranking.index",
+		"title": "Provider rankings view",
+		"summary": "Data view for the model leaderboard.",
+		"route": "/docs/tech/provider-ranking/ranking/index",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/provider-ranking/ranking/index.md",
+		"tags": ["ai", "ranking", "data-view"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.provider-ranking.ranking.refresh",
+		"title": "Refresh rankings",
+		"summary": "Recompute composite rankings from latest benchmark data.",
+		"route": "/docs/tech/provider-ranking/ranking/refresh",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/provider-ranking/ranking/refresh.md",
+		"tags": ["ai", "ranking", "refresh"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.provider-ranking.ranking.updated",
+		"title": "Ranking updated event",
+		"summary": "Emitted when composite rankings are recomputed.",
+		"route": "/docs/tech/provider-ranking/ranking/updated",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/provider-ranking/ranking/updated.md",
+		"tags": ["ai", "ranking", "event"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.provider-ranking.system",
+		"title": "AI Provider Ranking",
+		"summary": "Benchmark ingestion, scoring, and ranking for AI providers and models.",
+		"route": "/docs/tech/provider-ranking/system",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/provider-ranking/system.md",
+		"tags": ["ai", "ranking", "benchmark"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.report-verification-table",
+		"title": "Contract Verification Table",
+		"summary": "How the impact report renders per-contract verification status.",
+		"route": "/docs/tech/report/verification-table",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/report-verification-table.md",
+		"tags": ["report", "drift", "verification", "impact"],
+		"kind": "how",
+		"visibility": "public",
+		"owners": ["platform.core"]
+	},
+	{
+		"id": "docs.tech.schema.README",
+		"title": "Multi‑File Prisma Schema Conventions (per database)",
+		"summary": "We adopt Prisma multi‑file schema (GA ≥ v6.7) to organize each database’s models by domain and to import core LSSM module schemas locally.",
+		"route": "/docs/tech/schema/README",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/schema/README.md",
+		"tags": ["tech", "schema", "README"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.studio.learning-events",
+		"title": "Studio Learning Events",
+		"summary": "Studio persists learning/activity events to the database; Sandbox keeps learning local-first and unlogged.",
+		"route": "/docs/tech/studio/learning-events",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/studio/learning-events.md",
+		"tags": ["studio", "learning", "events", "analytics", "sandbox"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.studio.learning-journeys",
+		"title": "Studio learning journeys (onboarding + coach)",
+		"summary": "DB-backed learning journeys tracked per organization: seeded tracks/steps, event-driven progress, XP/streaks, and a Studio coach surface.",
+		"route": "/docs/tech/studio/learning-journeys",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/studio/learning-journeys.md",
+		"tags": [
+			"studio",
+			"learning",
+			"onboarding",
+			"journey",
+			"graphql",
+			"database"
+		],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.studio.platform-admin-panel",
+		"title": "Studio Platform Admin Panel",
+		"summary": "How PLATFORM_ADMIN organizations manage tenant orgs and integration connections without session switching.",
+		"route": "/docs/tech/studio/platform-admin-panel",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/studio/platform-admin-panel.md",
+		"tags": ["studio", "admin", "multi-tenancy", "integrations", "better-auth"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.studio.project-access-teams",
+		"title": "Studio Project Access via Teams",
+		"summary": "Projects live under organizations; team sharing refines access with an admin/owner override.",
+		"route": "/docs/tech/studio/project-access-teams",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/studio/project-access-teams.md",
+		"tags": ["studio", "projects", "teams", "rbac", "access-control"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.studio.project-routing",
+		"title": "Studio Project Routing",
+		"summary": "Studio uses slugged, project-first routes: /studio/{projectSlug}/* with canonical slug redirects and soft-deleted projects hidden.",
+		"route": "/docs/tech/studio/project-routing",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/studio/project-routing.md",
+		"tags": ["studio", "routing", "projects", "slug", "redirects"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.studio.sandbox.unlogged",
+		"title": "Sandbox (unlogged) vs Studio (authenticated)",
+		"summary": "The sandbox is a lightweight, unlogged surface that mirrors Studio navigation without auth or analytics.",
+		"route": "/docs/tech/studio/sandbox-unlogged",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/studio/sandbox/unlogged.md",
+		"tags": ["studio", "sandbox", "privacy", "analytics"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.studio.team-invitations",
+		"title": "Studio Teams & Invitations",
+		"summary": "Admin-only team management and email invitation flow to join an organization and optionally a team.",
+		"route": "/docs/tech/studio/team-invitations",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/studio/team-invitations.md",
+		"tags": ["studio", "teams", "invitations", "access-control", "onboarding"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.studio.workspace_ops",
+		"title": "Workspace ops (repo-linked): list / validate / deps / diff",
+		"summary": "Read-only repo operations used by Studio to inspect and validate a linked ContractSpec workspace.",
+		"route": "/docs/tech/studio/workspace-ops",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/studio/workspace_ops.md",
+		"tags": ["studio", "repo", "workspace", "validate", "diff"],
+		"kind": "reference",
+		"visibility": "mixed"
+	},
+	{
+		"id": "docs.tech.studio.workspaces",
+		"title": "Studio projects, teams, environments",
+		"summary": "Organization-first Studio: projects live under an organization; teams refine access; projects deploy to multiple environments.",
+		"route": "/docs/tech/studio/workspaces",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/studio/workspaces.md",
+		"tags": ["studio", "projects", "teams", "rbac", "environments"],
+		"kind": "reference",
+		"visibility": "mixed"
+	},
+	{
+		"id": "docs.tech.telemetry.hybrid",
+		"title": "Hybrid Telemetry Model",
+		"summary": "How ContractSpec clients choose between direct PostHog and API-routed telemetry.",
+		"route": "/docs/tech/telemetry/hybrid",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/telemetry/hybrid.md",
+		"tags": ["telemetry", "architecture", "posthog"],
+		"kind": "usage",
+		"visibility": "internal"
+	},
+	{
+		"id": "docs.tech.telemetry.ingest",
+		"title": "Telemetry Ingest Endpoint",
+		"summary": "Server-side telemetry ingestion for ContractSpec clients (VS Code extension, CLI, etc.).",
+		"route": "/docs/tech/telemetry/ingest",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/telemetry/ingest.md",
+		"tags": ["telemetry", "api", "posthog", "analytics"],
+		"kind": "reference",
+		"visibility": "internal"
+	},
+	{
+		"id": "docs.tech.vscode.extension",
+		"title": "ContractSpec VS Code Extension",
+		"summary": "VS Code extension for spec-first development with validation, scaffolding, and MCP integration.",
+		"route": "/docs/tech/vscode/extension",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/vscode/extension.md",
+		"tags": ["vscode", "extension", "tooling", "dx"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.vscode.snippets",
+		"title": "ContractSpec Snippets",
+		"summary": "Code snippets for common ContractSpec patterns in VS Code.",
+		"route": "/docs/tech/vscode/snippets",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/vscode/snippets.md",
+		"tags": ["vscode", "snippets", "dx"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.workflows.overview",
+		"title": "WorkflowSpec Overview",
+		"summary": "WorkflowSpec provides a declarative, versioned format for long-running flows that mix automation and human review, including runtime adapter capabilities/ports for checkpointing and suspend-resume orchestration. Specs stay inside `@contractspec/lib.contracts-spec` (`src/workflow/spec.ts`) so the same definition powers runtime execution, documentation, and future generation.",
+		"route": "/docs/tech/workflows/overview",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/workflows/overview.md",
+		"tags": ["tech", "workflows", "overview"],
+		"kind": "reference",
+		"visibility": "public"
+	}
 ]
