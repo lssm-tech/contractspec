@@ -1,0 +1,10 @@
+[
+  {
+    "id": "harness-lab/harness-lab",
+    "title": "harness-lab",
+    "summary": "Focused harness example for deterministic sandbox and browser evaluation flows.\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: harness, runtime, evaluation",
+    "route": "/docs/reference/harness-lab/harness-lab",
+    "source": "generated",
+    "contentPath": "harness-lab/harness-lab.md"
+  }
+]
