@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../../registry';
 
 export const tech_contracts_openapi_export_DocBlocks: DocBlock[] = [
 	{
@@ -52,4 +51,3 @@ The registry module must export one of:
 	},
 ];
 
-registerDocBlocks(tech_contracts_openapi_export_DocBlocks);

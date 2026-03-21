@@ -1,6 +1,5 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import { defineCommand } from '../../operations';
-import '../ensure-docblocks';
 import { docId } from '../../docs/registry';
 import {
 	AGENT_DOMAIN,

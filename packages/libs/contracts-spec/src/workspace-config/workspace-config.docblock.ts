@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../docs/registry';
 
 export const tech_workspace_config_DocBlocks: DocBlock[] = [
 	{
@@ -39,4 +38,3 @@ Defined in \`@contractspec/lib.contracts-spec/workspace-config\`.
 	},
 ];
 
-registerDocBlocks(tech_workspace_config_DocBlocks);

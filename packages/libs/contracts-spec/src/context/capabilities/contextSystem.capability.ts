@@ -1,12 +1,26 @@
 import { defineCapability } from '../../capabilities';
-import '../ensure-docblocks';
-import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { docRef } from '../../docs/registry';
 import {
 	CONTEXT_DOMAIN,
 	CONTEXT_OWNERS,
 	CONTEXT_STABILITY,
 	CONTEXT_TAGS,
 } from '../constants';
+
+export const ContextSystemDocBlock = {
+	id: 'docs.tech.context.system',
+	title: 'Context system',
+	summary: 'Context packs, snapshots, and discovery surfaces.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/context/system',
+	tags: ['context', 'system', 'snapshot'],
+	body: `# Context system
+
+The context system defines how ContractSpec bundles DocBlocks, contracts, knowledge spaces, and data views into deterministic snapshots.
+`,
+} satisfies DocBlock;
 
 export const ContextSystemCapability = defineCapability({
 	meta: {
@@ -19,7 +33,7 @@ export const ContextSystemCapability = defineCapability({
 		owners: CONTEXT_OWNERS,
 		tags: [...CONTEXT_TAGS, 'system'],
 		stability: CONTEXT_STABILITY,
-		docId: [docId('docs.tech.context.system')],
+		docId: [docRef(ContextSystemDocBlock.id)],
 	},
 	provides: [
 		{

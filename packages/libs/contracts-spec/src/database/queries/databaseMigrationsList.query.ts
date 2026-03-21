@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import { defineQuery } from '../../operations';
-import '../ensure-docblocks';
-import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { docRef } from '../../docs/registry';
 import {
 	DATABASE_DOMAIN,
 	DATABASE_OWNERS,
@@ -42,6 +42,20 @@ const DatabaseMigrationsListOutput = new SchemaModel({
 	},
 });
 
+export const DatabaseMigrationsListDocBlock = {
+	id: 'docs.tech.database.migrations.list',
+	title: 'List database migrations',
+	summary: 'List migration history for a database.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/database/migrations/list',
+	tags: ['database', 'migrations'],
+	body: `# database.migrations.list
+
+Returns migration registry entries and statuses for auditability.
+`,
+} satisfies DocBlock;
+
 export const DatabaseMigrationsListQuery = defineQuery({
 	meta: {
 		key: 'database.migrations.list',
@@ -54,7 +68,7 @@ export const DatabaseMigrationsListQuery = defineQuery({
 		owners: DATABASE_OWNERS,
 		tags: [...DATABASE_TAGS, 'migrations'],
 		stability: DATABASE_STABILITY,
-		docId: [docId('docs.tech.database.migrations.list')],
+		docId: [docRef(DatabaseMigrationsListDocBlock.id)],
 	},
 	capability: {
 		key: 'database.context',

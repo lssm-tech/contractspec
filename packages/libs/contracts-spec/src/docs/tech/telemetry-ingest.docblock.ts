@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../registry';
 
 export const tech_telemetry_ingest_DocBlocks: DocBlock[] = [
 	{
@@ -157,4 +156,3 @@ This allows future migration without changing client code.
 	},
 ];
 
-registerDocBlocks(tech_telemetry_ingest_DocBlocks);

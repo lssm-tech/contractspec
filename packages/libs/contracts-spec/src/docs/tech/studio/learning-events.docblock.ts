@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../../registry';
 
 export const tech_studio_learning_events_DocBlocks: DocBlock[] = [
 	{
@@ -41,4 +40,3 @@ These events are intentionally minimal and must avoid PII/secrets in payloads.
 	},
 ];
 
-registerDocBlocks(tech_studio_learning_events_DocBlocks);

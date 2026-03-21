@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../../registry';
 
 export const tech_studio_project_routing_DocBlocks: DocBlock[] = [
 	{
@@ -60,4 +59,3 @@ The following project modules are expected under \`/studio/{projectSlug}\`:
 	},
 ];
 
-registerDocBlocks(tech_studio_project_routing_DocBlocks);

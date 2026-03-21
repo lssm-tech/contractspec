@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../../registry';
 
 export const tech_agent_execution_DocBlocks: DocBlock[] = [
 	{
@@ -310,4 +309,3 @@ Implement an evaluator tool that returns structured feedback. The orchestrator c
 	},
 ];
 
-registerDocBlocks(tech_agent_execution_DocBlocks);

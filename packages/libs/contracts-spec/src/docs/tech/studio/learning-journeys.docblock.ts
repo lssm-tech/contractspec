@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../../registry';
 
 export const tech_studio_learning_journeys_DocBlocks: DocBlock[] = [
 	{
@@ -78,4 +77,3 @@ Learning journey progress lives in the \`lssm_learning\` schema:
 	},
 ];
 
-registerDocBlocks(tech_studio_learning_journeys_DocBlocks);

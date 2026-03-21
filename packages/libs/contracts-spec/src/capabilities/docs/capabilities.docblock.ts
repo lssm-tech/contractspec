@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../../docs/registry';
 
 export const tech_contracts_capabilities_DocBlocks: DocBlock[] = [
 	{
@@ -203,4 +202,3 @@ try {
 `,
 	},
 ];
-registerDocBlocks(tech_contracts_capabilities_DocBlocks);

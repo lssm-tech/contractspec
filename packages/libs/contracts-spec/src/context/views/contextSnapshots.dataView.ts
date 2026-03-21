@@ -1,6 +1,6 @@
 import { defineDataView } from '../../data-views';
-import '../ensure-docblocks';
-import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { docRef } from '../../docs/registry';
 import {
 	CONTEXT_DOMAIN,
 	CONTEXT_OWNERS,
@@ -8,6 +8,20 @@ import {
 	CONTEXT_TAGS,
 } from '../constants';
 import { ContextPackSearchQuery } from '../queries/contextPackSearch.query';
+
+export const ContextSnapshotsDataViewDocBlock = {
+	id: 'docs.tech.context.snapshot.index',
+	title: 'Context snapshot index view',
+	summary: 'Data view for listing context snapshots.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/context/snapshot/index',
+	tags: ['context', 'snapshot', 'data-view'],
+	body: `# context.snapshot.index
+
+Provides a list-oriented data view over context packs and snapshot metadata.
+`,
+} satisfies DocBlock;
 
 export const ContextSnapshotsDataView = defineDataView({
 	meta: {
@@ -20,7 +34,7 @@ export const ContextSnapshotsDataView = defineDataView({
 		tags: [...CONTEXT_TAGS, 'snapshot', 'index'],
 		stability: CONTEXT_STABILITY,
 		entity: 'context_snapshot',
-		docId: [docId('docs.tech.context.snapshot.index')],
+		docId: [docRef(ContextSnapshotsDataViewDocBlock.id)],
 	},
 	source: {
 		primary: {

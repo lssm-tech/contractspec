@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../../registry';
 
 export const tech_contracts_vertical_pocket_family_office_DocBlocks: DocBlock[] =
 	[
@@ -119,4 +118,3 @@ tenant-specific IDs/secret references before deploying.
 `,
 		},
 	];
-registerDocBlocks(tech_contracts_vertical_pocket_family_office_DocBlocks);

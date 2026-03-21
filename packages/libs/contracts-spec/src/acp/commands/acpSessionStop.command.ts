@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import { defineCommand } from '../../operations';
-import '../ensure-docblocks';
-import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { docRef } from '../../docs/registry';
 import { ACP_DOMAIN, ACP_OWNERS, ACP_STABILITY, ACP_TAGS } from '../constants';
 
 const AcpSessionStopInput = new SchemaModel({
@@ -21,6 +21,20 @@ const AcpSessionStopOutput = new SchemaModel({
 	},
 });
 
+export const AcpSessionStopDocBlock = {
+	id: 'docs.tech.acp.session.stop',
+	title: 'ACP session stop',
+	summary: 'Stop an ACP session.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/acp/session/stop',
+	tags: ['acp', 'session'],
+	body: `# acp.session.stop
+
+Stops an active ACP session with audit trails.
+`,
+} satisfies DocBlock;
+
 export const AcpSessionStopCommand = defineCommand({
 	meta: {
 		key: 'acp.session.stop',
@@ -33,7 +47,7 @@ export const AcpSessionStopCommand = defineCommand({
 		owners: ACP_OWNERS,
 		tags: [...ACP_TAGS, 'session'],
 		stability: ACP_STABILITY,
-		docId: [docId('docs.tech.acp.session.stop')],
+		docId: [docRef(AcpSessionStopDocBlock.id)],
 	},
 	capability: {
 		key: 'acp.transport',

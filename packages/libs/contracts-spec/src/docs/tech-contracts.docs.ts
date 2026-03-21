@@ -1,4 +1,3 @@
-import { registerDocBlocks } from './registry';
 import type { DocBlock } from './types';
 
 export const techContractsDocs: DocBlock[] = [
@@ -89,4 +88,3 @@ PII paths (JSON-like) are redacted from rendered outputs.
 Host apps use a \`componentMap\` (e.g., \`'sigil.webauth.tabs' → WebAuthTabs\`) and a BlockNote renderer to turn the React render descriptor into elements.`,
 	},
 ];
-registerDocBlocks(techContractsDocs);

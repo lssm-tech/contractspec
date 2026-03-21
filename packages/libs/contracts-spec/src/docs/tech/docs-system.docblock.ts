@@ -1,7 +1,6 @@
-import { registerDocBlocks } from '../registry';
 import type { DocBlock } from '../types';
 
-const docsSystemDocBlocks: DocBlock[] = [
+export const docsSystemDocBlocks: DocBlock[] = [
 	{
 		id: 'docs.tech.docs-system',
 		title: 'Docs system overview',
@@ -116,5 +115,3 @@ Examples are registered as ExampleSpecs and surface DocBlocks for discovery.
 `,
 	},
 ];
-
-registerDocBlocks(docsSystemDocBlocks);

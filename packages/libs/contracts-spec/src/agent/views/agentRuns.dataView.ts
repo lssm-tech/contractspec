@@ -1,5 +1,4 @@
 import { defineDataView } from '../../data-views';
-import '../ensure-docblocks';
 import { docId } from '../../docs/registry';
 import {
 	AGENT_DOMAIN,

@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../../registry';
 
 export const tech_studio_sandbox_unlogged_DocBlocks: DocBlock[] = [
 	{
@@ -34,4 +33,3 @@ export const tech_studio_sandbox_unlogged_DocBlocks: DocBlock[] = [
 	},
 ];
 
-registerDocBlocks(tech_studio_sandbox_unlogged_DocBlocks);

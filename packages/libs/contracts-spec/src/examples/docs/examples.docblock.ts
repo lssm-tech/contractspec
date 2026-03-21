@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../../docs/registry';
 
 export const tech_contracts_examples_DocBlocks: DocBlock[] = [
 	{
@@ -158,4 +157,3 @@ const example: ExampleSpec = {
 	},
 ];
 
-registerDocBlocks(tech_contracts_examples_DocBlocks);

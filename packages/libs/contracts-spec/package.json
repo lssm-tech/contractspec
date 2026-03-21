@@ -22,10 +22,11 @@
 		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
 		"build:bundle": "contractspec-bun-build transpile",
 		"build:types": "contractspec-bun-build types",
-		"prebuild": "contractspec-bun-build prebuild",
+		"prebuild": "bun run docs:manifest && contractspec-bun-build prebuild",
 		"typecheck": "tsc --noEmit",
 		"test": "bun test",
 		"dev": "contractspec-bun-build dev",
+		"docs:manifest": "bun run scripts/build-docblocks-manifest.ts",
 		"registry:build": "bun run scripts/build-registry.ts",
 		"readme:inventory": "bun run scripts/update-readme-contract-inventory.ts"
 	},

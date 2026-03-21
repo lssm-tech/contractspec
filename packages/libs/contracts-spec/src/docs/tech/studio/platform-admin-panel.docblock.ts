@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../../registry';
 
 export const tech_studio_platform_admin_panel_DocBlocks: DocBlock[] = [
 	{
@@ -77,4 +76,3 @@ The platform-admin GraphQL operations are guarded by the active org type and inc
 	},
 ];
 
-registerDocBlocks(tech_studio_platform_admin_panel_DocBlocks);

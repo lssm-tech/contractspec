@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import { defineFormSpec } from '../../forms/forms';
-import '../ensure-docblocks';
-import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { docRef } from '../../docs/registry';
 import {
 	CONTEXT_DOMAIN,
 	CONTEXT_OWNERS,
@@ -19,6 +19,20 @@ const ContextPackSearchFormModel = new SchemaModel({
 	},
 });
 
+export const ContextPackSearchFormDocBlock = {
+	id: 'docs.tech.context.pack.search.form',
+	title: 'Context pack search form',
+	summary: 'Form used to search context packs in UI surfaces.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/context/pack/search-form',
+	tags: ['context', 'form', 'search'],
+	body: `# context.pack.search.form
+
+Form specification for searching context packs by query, tag, or owner.
+`,
+} satisfies DocBlock;
+
 export const ContextPackSearchForm = defineFormSpec({
 	meta: {
 		key: 'context.pack.search.form',
@@ -29,7 +43,7 @@ export const ContextPackSearchForm = defineFormSpec({
 		owners: CONTEXT_OWNERS,
 		tags: [...CONTEXT_TAGS, 'search'],
 		stability: CONTEXT_STABILITY,
-		docId: [docId('docs.tech.context.pack.search.form')],
+		docId: [docRef(ContextPackSearchFormDocBlock.id)],
 	},
 	model: ContextPackSearchFormModel,
 	fields: [

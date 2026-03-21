@@ -1,5 +1,4 @@
 import { defineCapability } from '../../capabilities';
-import '../ensure-docblocks';
 import { docId } from '../../docs/registry';
 import {
 	PROVIDER_RANKING_DOMAIN,

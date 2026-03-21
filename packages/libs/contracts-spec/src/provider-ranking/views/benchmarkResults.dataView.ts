@@ -1,5 +1,4 @@
 import { defineDataView } from '../../data-views';
-import '../ensure-docblocks';
 import { docId } from '../../docs/registry';
 import {
 	PROVIDER_RANKING_DOMAIN,

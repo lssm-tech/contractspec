@@ -1,12 +1,26 @@
 import { defineCapability } from '../../capabilities';
-import '../ensure-docblocks';
-import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { docRef } from '../../docs/registry';
 import {
 	DATABASE_DOMAIN,
 	DATABASE_OWNERS,
 	DATABASE_STABILITY,
 	DATABASE_TAGS,
 } from '../constants';
+
+export const DatabaseContextDocBlock = {
+	id: 'docs.tech.database.context',
+	title: 'Database context',
+	summary: 'Schema, migrations, dictionary, and read-only query surfaces.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/database/context',
+	tags: ['database', 'context'],
+	body: `# Database context
+
+Database context covers schema descriptions, migrations, data dictionary entries, and governed read-only access.
+`,
+} satisfies DocBlock;
 
 export const DatabaseContextCapability = defineCapability({
 	meta: {
@@ -19,7 +33,7 @@ export const DatabaseContextCapability = defineCapability({
 		owners: DATABASE_OWNERS,
 		tags: [...DATABASE_TAGS, 'context'],
 		stability: DATABASE_STABILITY,
-		docId: [docId('docs.tech.database.context')],
+		docId: [docRef(DatabaseContextDocBlock.id)],
 	},
 	provides: [
 		{

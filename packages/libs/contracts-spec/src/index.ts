@@ -26,6 +26,11 @@ export type {
 	DocKind,
 	DocVisibility,
 } from './docs/types';
+export type {
+	DocBlockManifestEntry,
+	PackageDocManifest,
+	WorkspaceDocManifest,
+} from './docs/manifest';
 export * from './events';
 export { defineExample } from './examples/define';
 export { ExampleRegistry } from './examples/registry';

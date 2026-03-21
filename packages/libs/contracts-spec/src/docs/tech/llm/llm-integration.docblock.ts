@@ -5,7 +5,6 @@
  */
 
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../../registry';
 
 export const tech_llm_integration_DocBlocks: DocBlock[] = [
 	{
@@ -340,4 +339,3 @@ Each issue has:
 	},
 ];
 
-registerDocBlocks(tech_llm_integration_DocBlocks);

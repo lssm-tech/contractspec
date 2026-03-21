@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import { defineQuery } from '../../operations';
-import '../ensure-docblocks';
-import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { docRef } from '../../docs/registry';
 import {
 	CONTEXT_DOMAIN,
 	CONTEXT_OWNERS,
@@ -58,6 +58,20 @@ const ContextPackDescribeOutput = new SchemaModel({
 	},
 });
 
+export const ContextPackDescribeDocBlock = {
+	id: 'docs.tech.context.pack.describe',
+	title: 'Describe context pack',
+	summary: 'Describe a context pack and its sources.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/context/pack/describe',
+	tags: ['context', 'pack', 'describe'],
+	body: `# context.pack.describe
+
+Returns a canonical view of a context pack, including sources and ownership metadata.
+`,
+} satisfies DocBlock;
+
 export const ContextPackDescribeQuery = defineQuery({
 	meta: {
 		key: 'context.pack.describe',
@@ -71,7 +85,7 @@ export const ContextPackDescribeQuery = defineQuery({
 		owners: CONTEXT_OWNERS,
 		tags: [...CONTEXT_TAGS, 'pack', 'describe'],
 		stability: CONTEXT_STABILITY,
-		docId: [docId('docs.tech.context.pack.describe')],
+		docId: [docRef(ContextPackDescribeDocBlock.id)],
 	},
 	capability: {
 		key: 'context.system',

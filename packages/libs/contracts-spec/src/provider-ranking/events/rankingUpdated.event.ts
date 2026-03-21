@@ -1,6 +1,5 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import { defineEvent } from '../../events';
-import '../ensure-docblocks';
 import { docId } from '../../docs/registry';
 import {
 	PROVIDER_RANKING_DOMAIN,

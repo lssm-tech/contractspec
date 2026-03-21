@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import { defineEvent } from '../../events';
-import '../ensure-docblocks';
-import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { docRef } from '../../docs/registry';
 import {
 	CONTEXT_DOMAIN,
 	CONTEXT_OWNERS,
@@ -21,6 +21,20 @@ export const ContextSnapshotCreatedPayload = new SchemaModel({
 	},
 });
 
+export const ContextSnapshotCreatedDocBlock = {
+	id: 'docs.tech.context.snapshot.created',
+	title: 'Context snapshot created event',
+	summary: 'Emitted when a context snapshot is created.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/context/snapshot/created',
+	tags: ['context', 'snapshot', 'event'],
+	body: `# context.snapshot.created
+
+Emitted when a new snapshot has been persisted and is ready for use.
+`,
+} satisfies DocBlock;
+
 export const ContextSnapshotCreatedEvent = defineEvent({
 	meta: {
 		key: 'context.snapshot.created',
@@ -30,7 +44,7 @@ export const ContextSnapshotCreatedEvent = defineEvent({
 		owners: CONTEXT_OWNERS,
 		tags: [...CONTEXT_TAGS, 'snapshot'],
 		stability: CONTEXT_STABILITY,
-		docId: [docId('docs.tech.context.snapshot.created')],
+		docId: [docRef(ContextSnapshotCreatedDocBlock.id)],
 	},
 	capability: {
 		key: 'context.system',

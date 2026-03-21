@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../../registry';
 
 export const tech_studio_project_access_teams_DocBlocks: DocBlock[] = [
 	{
@@ -40,4 +39,3 @@ Payloads and events must avoid secrets/PII. For Sandbox, the model remains local
 	},
 ];
 
-registerDocBlocks(tech_studio_project_access_teams_DocBlocks);

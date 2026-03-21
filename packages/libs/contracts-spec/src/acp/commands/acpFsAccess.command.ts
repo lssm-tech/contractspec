@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import { defineCommand } from '../../operations';
-import '../ensure-docblocks';
-import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { docRef } from '../../docs/registry';
 import { ACP_DOMAIN, ACP_OWNERS, ACP_STABILITY, ACP_TAGS } from '../constants';
 
 const AcpFsAccessInput = new SchemaModel({
@@ -22,6 +22,20 @@ const AcpFsAccessOutput = new SchemaModel({
 	},
 });
 
+export const AcpFsAccessDocBlock = {
+	id: 'docs.tech.acp.fs.access',
+	title: 'ACP file system access',
+	summary: 'Access file system through ACP.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/acp/fs/access',
+	tags: ['acp', 'filesystem'],
+	body: `# acp.fs.access
+
+Performs file system access with policy gating.
+`,
+} satisfies DocBlock;
+
 export const AcpFsAccessCommand = defineCommand({
 	meta: {
 		key: 'acp.fs.access',
@@ -34,7 +48,7 @@ export const AcpFsAccessCommand = defineCommand({
 		owners: ACP_OWNERS,
 		tags: [...ACP_TAGS, 'filesystem'],
 		stability: ACP_STABILITY,
-		docId: [docId('docs.tech.acp.fs.access')],
+		docId: [docRef(AcpFsAccessDocBlock.id)],
 	},
 	capability: {
 		key: 'acp.transport',

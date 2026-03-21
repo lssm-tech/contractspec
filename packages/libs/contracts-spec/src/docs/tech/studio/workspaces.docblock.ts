@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../../registry';
 
 export const tech_studio_workspaces_DocBlocks: DocBlock[] = [
 	{
@@ -55,4 +54,3 @@ Studio and Sandbox both use a shared shell:
 	},
 ];
 
-registerDocBlocks(tech_studio_workspaces_DocBlocks);

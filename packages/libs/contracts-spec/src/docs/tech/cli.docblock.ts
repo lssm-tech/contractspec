@@ -1,4 +1,3 @@
-import { registerDocBlocks } from '../registry';
 import type { DocBlock } from '../types';
 
 export const tech_cli_DocBlocks: DocBlock[] = [
@@ -141,5 +140,3 @@ For full documentation, refer to the [package README](https://github.com/contrac
 `,
 	},
 ];
-
-registerDocBlocks(tech_cli_DocBlocks);

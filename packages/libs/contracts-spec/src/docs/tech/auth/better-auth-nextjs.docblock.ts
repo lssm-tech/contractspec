@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../../registry';
 
 export const tech_auth_better_auth_nextjs_DocBlocks: DocBlock[] = [
 	{
@@ -72,4 +71,3 @@ These checks are intentionally optimistic and should only gate routing. Full aut
 	},
 ];
 
-registerDocBlocks(tech_auth_better_auth_nextjs_DocBlocks);

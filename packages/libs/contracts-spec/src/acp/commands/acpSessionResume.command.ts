@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import { defineCommand } from '../../operations';
-import '../ensure-docblocks';
-import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { docRef } from '../../docs/registry';
 import { ACP_DOMAIN, ACP_OWNERS, ACP_STABILITY, ACP_TAGS } from '../constants';
 
 const AcpSessionResumeInput = new SchemaModel({
@@ -19,6 +19,20 @@ const AcpSessionResumeOutput = new SchemaModel({
 	},
 });
 
+export const AcpSessionResumeDocBlock = {
+	id: 'docs.tech.acp.session.resume',
+	title: 'ACP session resume',
+	summary: 'Resume an existing ACP session.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/acp/session/resume',
+	tags: ['acp', 'session'],
+	body: `# acp.session.resume
+
+Resumes a previously initialized ACP session.
+`,
+} satisfies DocBlock;
+
 export const AcpSessionResumeCommand = defineCommand({
 	meta: {
 		key: 'acp.session.resume',
@@ -31,7 +45,7 @@ export const AcpSessionResumeCommand = defineCommand({
 		owners: ACP_OWNERS,
 		tags: [...ACP_TAGS, 'session'],
 		stability: ACP_STABILITY,
-		docId: [docId('docs.tech.acp.session.resume')],
+		docId: [docRef(AcpSessionResumeDocBlock.id)],
 	},
 	capability: {
 		key: 'acp.transport',

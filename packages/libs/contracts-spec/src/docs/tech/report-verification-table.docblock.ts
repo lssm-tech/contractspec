@@ -1,7 +1,6 @@
-import { registerDocBlocks } from '../registry';
 import type { DocBlock } from '../types';
 
-const reportVerificationTableDocBlocks: DocBlock[] = [
+export const reportVerificationTableDocBlocks: DocBlock[] = [
 	{
 		id: 'docs.tech.report-verification-table',
 		title: 'Contract Verification Table',
@@ -43,5 +42,3 @@ When \`contracts\` is absent from the report JSON, the table is skipped and the 
 `,
 	},
 ];
-
-registerDocBlocks(reportVerificationTableDocBlocks);

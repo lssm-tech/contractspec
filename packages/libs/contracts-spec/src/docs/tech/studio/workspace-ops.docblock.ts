@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../../registry';
 
 export const tech_studio_workspace_ops_DocBlocks: DocBlock[] = [
 	{
@@ -40,4 +39,3 @@ These endpoints are **read-only** in v1 and never push to git:
 	},
 ];
 
-registerDocBlocks(tech_studio_workspace_ops_DocBlocks);

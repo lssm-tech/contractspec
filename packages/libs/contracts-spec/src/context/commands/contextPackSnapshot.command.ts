@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import { defineCommand } from '../../operations';
-import '../ensure-docblocks';
-import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { docRef } from '../../docs/registry';
 import {
 	CONTEXT_DOMAIN,
 	CONTEXT_OWNERS,
@@ -33,6 +33,20 @@ const ContextPackSnapshotOutput = new SchemaModel({
 	},
 });
 
+export const ContextPackSnapshotDocBlock = {
+	id: 'docs.tech.context.pack.snapshot',
+	title: 'Create context snapshot',
+	summary: 'Create an immutable context snapshot from a pack.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/context/pack/snapshot',
+	tags: ['context', 'snapshot', 'create'],
+	body: `# context.pack.snapshot
+
+Creates a versioned snapshot that is used as the immutable context for agent execution.
+`,
+} satisfies DocBlock;
+
 export const ContextPackSnapshotCommand = defineCommand({
 	meta: {
 		key: 'context.pack.snapshot',
@@ -46,7 +60,7 @@ export const ContextPackSnapshotCommand = defineCommand({
 		owners: CONTEXT_OWNERS,
 		tags: [...CONTEXT_TAGS, 'snapshot', 'create'],
 		stability: CONTEXT_STABILITY,
-		docId: [docId('docs.tech.context.pack.snapshot')],
+		docId: [docRef(ContextPackSnapshotDocBlock.id)],
 	},
 	capability: {
 		key: 'context.system',

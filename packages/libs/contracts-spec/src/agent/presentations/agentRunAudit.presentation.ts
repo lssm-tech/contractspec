@@ -1,5 +1,4 @@
 import { definePresentation } from '../../presentations';
-import '../ensure-docblocks';
 import { docId } from '../../docs/registry';
 import {
 	AGENT_DOMAIN,

@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../../registry';
 
 export const tech_contracts_openapi_import_DocBlocks: DocBlock[] = [
 	{
@@ -58,4 +57,3 @@ contractspec openapi import --file <path-or-url> --output <dir> [--schema-format
 	},
 ];
 
-registerDocBlocks(tech_contracts_openapi_import_DocBlocks);

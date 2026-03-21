@@ -1,4 +1,3 @@
-import { registerDocBlocks } from './registry';
 import type { DocBlock } from './types';
 
 export const metaDocs: DocBlock[] = [
@@ -25,4 +24,3 @@ export const metaDocs: DocBlock[] = [
 - No sourcePath; DocBlocks are canonical.`,
 	},
 ];
-registerDocBlocks(metaDocs);

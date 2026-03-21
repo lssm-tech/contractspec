@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../registry';
 
 export const tech_vscode_extension_DocBlocks: DocBlock[] = [
 	{
@@ -92,4 +91,3 @@ Type the prefix in a TypeScript file and press Tab to expand the snippet. Tab th
 	},
 ];
 
-registerDocBlocks(tech_vscode_extension_DocBlocks);

@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../../registry';
 
 export const tech_providerRanking_system_DocBlocks: DocBlock[] = [
 	{
@@ -200,4 +199,3 @@ Presentation surface for comparing two or more models across all ranking dimensi
 	},
 ];
 
-registerDocBlocks(tech_providerRanking_system_DocBlocks);

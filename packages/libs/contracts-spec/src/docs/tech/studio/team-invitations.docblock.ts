@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../../registry';
 
 export const tech_studio_team_invitations_DocBlocks: DocBlock[] = [
 	{
@@ -62,4 +61,3 @@ Acceptance rules:
 	},
 ];
 
-registerDocBlocks(tech_studio_team_invitations_DocBlocks);

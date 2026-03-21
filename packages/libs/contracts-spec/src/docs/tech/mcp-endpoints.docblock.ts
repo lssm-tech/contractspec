@@ -1,5 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import { registerDocBlocks } from '../registry';
 
 export const tech_mcp_endpoints_DocBlocks: DocBlock[] = [
 	{
@@ -36,4 +35,3 @@ Three dedicated MCP servers keep AI agents efficient and scoped:
 	},
 ];
 
-registerDocBlocks(tech_mcp_endpoints_DocBlocks);
