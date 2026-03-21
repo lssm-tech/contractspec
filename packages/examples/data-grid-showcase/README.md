@@ -36,6 +36,7 @@ Use `@contractspec/example.data-grid-showcase` as a focused reference for Contra
 - Export `./contracts` resolves through `./src/contracts/index.ts`.
 - Export `./contracts/data-grid-showcase.data-view` resolves through `./src/contracts/data-grid-showcase.data-view.ts`.
 - Export `./contracts/data-grid-showcase.operation` resolves through `./src/contracts/data-grid-showcase.operation.ts`.
+- Export `./data-grid-showcase.feature` resolves through `./src/data-grid-showcase.feature.ts`.
 - Export `./docs` resolves through `./src/docs/index.ts`.
 - Export `./example` resolves through `./src/example.ts`.
 - Export `./ui` resolves through `./src/ui/index.ts`.

@@ -22,6 +22,7 @@ const example = defineExample({
 	},
 	entrypoints: {
 		packageName: '@contractspec/example.data-grid-showcase',
+		feature: './data-grid-showcase.feature',
 		contracts: './contracts',
 		docs: './docs',
 		ui: './ui',

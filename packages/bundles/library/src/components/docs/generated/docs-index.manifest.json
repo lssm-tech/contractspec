@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-03-21T22:27:08.170Z",
-	"total": 1066,
+	"generatedAt": "2026-03-21T22:41:08.515Z",
+	"total": 1068,
 	"version": null,
 	"contentRoot": "../../../../../../../generated/docs",
 	"chunks": [
@@ -72,7 +72,7 @@
 		{
 			"key": "data-grid-showcase",
 			"file": "docs-index.data-grid-showcase.json",
-			"total": 1
+			"total": 2
 		},
 		{
 			"key": "email-gmail",
@@ -397,7 +397,7 @@
 		{
 			"key": "visualization-showcase",
 			"file": "docs-index.visualization-showcase.json",
-			"total": 1
+			"total": 2
 		},
 		{
 			"key": "voice-providers",
