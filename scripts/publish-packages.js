@@ -14,6 +14,10 @@ const RETRYABLE_NPM_ERROR_RE =
 	/ECONNRESET|ETIMEDOUT|EAI_AGAIN|ENOTFOUND|ECONNREFUSED|EHOSTUNREACH|EPIPE|socket hang up|fetch failed|network connectivity|502 Bad Gateway|503 Service Unavailable|504 Gateway Timeout|Invalid response body while trying to fetch/i;
 const DIST_TAG_RETRY_COUNT = 4;
 const DIST_TAG_RETRY_DELAY_MS = 3000;
+const CLI_SMOKE_PACKAGE_NAMES = [
+	'contractspec',
+	'@contractspec/app.cli-contractspec',
+];
 
 function parseBoolean(value) {
 	if (typeof value !== 'string') return false;
@@ -519,20 +523,35 @@ function publishPreparedPackage(preparedPackage, context) {
 
 function shouldRunCliSmoke(preparedPackages) {
 	const names = new Set(preparedPackages.map((pkg) => pkg.name));
-	const hasContractspec = names.has('contractspec');
-	const hasCli = names.has('@contractspec/app.cli-contractspec');
+	return (
+		names.has(CLI_SMOKE_PACKAGE_NAMES[0]) ||
+		names.has(CLI_SMOKE_PACKAGE_NAMES[1])
+	);
+}
 
-	if (!hasContractspec && !hasCli) {
-		return false;
+function getPreparationPackageNames(requestedPackageNames) {
+	const requestedSet = new Set(requestedPackageNames);
+	const needsCliSmoke = CLI_SMOKE_PACKAGE_NAMES.some((name) =>
+		requestedSet.has(name)
+	);
+
+	if (!needsCliSmoke) {
+		return requestedPackageNames;
 	}
 
-	if (!hasContractspec || !hasCli) {
-		throw new Error(
-			'Release includes only one CLI smoke dependency. Both contractspec and @contractspec/app.cli-contractspec tarballs are required.'
+	const preparationPackageNames = [...requestedPackageNames];
+	for (const packageName of CLI_SMOKE_PACKAGE_NAMES) {
+		if (requestedSet.has(packageName)) {
+			continue;
+		}
+
+		preparationPackageNames.push(packageName);
+		console.log(
+			`[publish] Including ${packageName} tarball for CLI smoke coverage; it will not be published unless explicitly requested.`
 		);
 	}
 
-	return true;
+	return preparationPackageNames;
 }
 
 function runCliSmoke(tarballDir, smokeSummaryPath) {
@@ -559,10 +578,12 @@ export async function publishPackages(options = {}) {
 		options.dryRun !== undefined
 			? options.dryRun
 			: parseBoolean(process.env.DRY_RUN);
-	const packageNames =
+	const requestedPackageNames =
 		options.packageNames && options.packageNames.length > 0
 			? options.packageNames
 			: Array.from(packagesByName.keys());
+	const requestedPackageSet = new Set(requestedPackageNames);
+	const packageNames = getPreparationPackageNames(requestedPackageNames);
 	const releaseRoot = path.resolve(
 		options.releaseDir ??
 			process.env.CONTRACTSPEC_RELEASE_DIR ??
@@ -677,6 +698,10 @@ export async function publishPackages(options = {}) {
 	}
 
 	for (const preparedPackage of preparedPackages) {
+		if (!requestedPackageSet.has(preparedPackage.name)) {
+			continue;
+		}
+
 		try {
 			const result = publishPreparedPackage(preparedPackage, {
 				dryRun,
