@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.calendar-google",
-	"version": "3.7.11",
+	"version": "3.7.12",
 	"description": "Google Calendar integration example: list and create events.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

@@ -1,5 +1,17 @@
 # @contractspec/example.calendar-google
 
+## 3.7.12
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies [81256ea]
+- Updated dependencies
+- Updated dependencies [2619dd8]
+- Updated dependencies [81256ea]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/integration.providers-impls@3.8.4
+
 ## 3.7.11
 
 ### Patch Changes

@@ -1,5 +1,43 @@
 # @contractspec/module.ai-chat
 
+## 4.3.12
+
+### Patch Changes
+
+- 81256ea: Split agent definition contracts out of `@contractspec/lib.ai-agent` and make
+  `@contractspec/lib.contracts-spec` the source of truth for agent declaration APIs.
+
+  Major changes:
+
+  - Move `AgentSpec`, `AgentToolConfig`, `AgentPolicy`, `AgentRegistry`,
+    `createAgentRegistry`, `defineAgent`, and related definition-only types into
+    `@contractspec/lib.contracts-spec/agent`.
+  - Add `@contractspec/lib.contracts-spec/agent/spec` and
+    `@contractspec/lib.contracts-spec/agent/registry` export subpaths.
+  - Remove `@contractspec/lib.ai-agent/spec`,
+    `@contractspec/lib.ai-agent/spec/spec`, and
+    `@contractspec/lib.ai-agent/spec/registry`.
+  - Remove the spec layer from the `@contractspec/lib.ai-agent` root barrel so it
+    is runtime-focused.
+
+  Workspace consumers were migrated to import agent-definition contracts from
+  `@contractspec/lib.contracts-spec/agent`, and packages that only needed the
+  contract layer dropped their direct dependency on `@contractspec/lib.ai-agent`.
+
+- Updated dependencies [81256ea]
+- Updated dependencies
+- Updated dependencies [2619dd8]
+- Updated dependencies [6de2f1c]
+- Updated dependencies [81256ea]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/lib.design-system@3.8.5
+  - @contractspec/lib.metering@3.7.12
+  - @contractspec/lib.surface-runtime@0.5.12
+  - @contractspec/lib.ui-kit-web@3.9.4
+  - @contractspec/lib.workflow-composer@3.7.12
+  - @contractspec/lib.schema@3.7.10
+  - @contractspec/lib.ai-agent@8.0.0
+
 ## 4.3.11
 
 ### Patch Changes

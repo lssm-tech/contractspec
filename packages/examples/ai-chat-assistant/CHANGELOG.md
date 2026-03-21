@@ -1,5 +1,19 @@
 # @contractspec/example.ai-chat-assistant
 
+## 3.8.4
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [6de2f1c]
+- Updated dependencies [81256ea]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/lib.schema@3.7.10
+  - @contractspec/lib.ai-agent@8.0.0
+  - @contractspec/module.ai-chat@4.3.12
+
 ## 3.8.3
 
 ### Patch Changes

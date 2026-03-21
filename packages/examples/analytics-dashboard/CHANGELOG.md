@@ -1,5 +1,22 @@
 # @contractspec/example.analytics-dashboard
 
+## 3.9.4
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies [81256ea]
+- Updated dependencies
+- Updated dependencies [2619dd8]
+- Updated dependencies [6de2f1c]
+- Updated dependencies [81256ea]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/lib.presentation-runtime-core@3.9.0
+  - @contractspec/lib.design-system@3.8.5
+  - @contractspec/lib.example-shared-ui@6.0.12
+  - @contractspec/lib.contracts-integrations@3.8.4
+  - @contractspec/lib.schema@3.7.10
+
 ## 3.9.3
 
 ### Patch Changes

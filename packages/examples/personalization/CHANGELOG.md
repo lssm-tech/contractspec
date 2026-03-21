@@ -1,5 +1,19 @@
 # @contractspec/example.personalization
 
+## 3.7.12
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies [81256ea]
+- Updated dependencies
+- Updated dependencies [2619dd8]
+- Updated dependencies [81256ea]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/lib.overlay-engine@3.7.12
+  - @contractspec/lib.personalization@6.0.12
+  - @contractspec/lib.workflow-composer@3.7.12
+
 ## 3.7.11
 
 ### Patch Changes

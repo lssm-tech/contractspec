@@ -1,5 +1,96 @@
 # @contractspec/lib.contracts-spec
 
+## 5.0.0
+
+### Major Changes
+
+- 81256ea: Make `@contractspec/lib.contracts-spec` contract-model only and move concrete
+  runtime and integration code to dedicated packages.
+
+  Major changes:
+
+  - Remove `@contractspec/lib.contracts-spec/presentations/transform-engine`.
+  - Remove all `@contractspec/lib.contracts-spec/integrations*` export paths.
+  - Remove `@contractspec/lib.contracts-spec/jobs/scaleway-sqs-queue`.
+  - Remove provider-type re-exports for email, embedding, LLM, storage, and
+    vector-store surfaces from the `@contractspec/lib.contracts-spec` root
+    barrel.
+  - Keep `PresentationSpec` unchanged while moving transform-engine runtime logic
+    out of the contract package.
+
+  New runtime surfaces:
+
+  - Add `@contractspec/lib.presentation-runtime-core/transform-engine` for the
+    core transform engine, validators, and markdown/json/xml rendering support.
+  - Add `@contractspec/lib.contracts-runtime-client-react/transform-engine` for
+    React render descriptors and React-specific transform-engine helpers.
+  - Update `@contractspec/lib.contracts-runtime-server-mcp` to use the core
+    transform engine without React registration.
+
+  Migration notes:
+
+  - Import integration provider and secret types from
+    `@contractspec/lib.contracts-integrations`.
+  - Import transform-engine core APIs from
+    `@contractspec/lib.presentation-runtime-core/transform-engine`.
+  - Import React-specific transform-engine helpers from
+    `@contractspec/lib.contracts-runtime-client-react/transform-engine`.
+
+- 2619dd8: Break the `contracts-spec` ⇄ `contracts-integrations` build cycle by restoring
+  `@contractspec/lib.contracts-spec` to spec-only surfaces.
+
+  Major changes in `@contractspec/lib.contracts-spec`:
+
+  - Remove runtime knowledge exports under `knowledge/ingestion*`,
+    `knowledge/query*`, and `knowledge/runtime`.
+  - Remove runtime job exports under `jobs/handlers*`,
+    `jobs/gcp-cloud-tasks`, `jobs/gcp-pubsub`, and `jobs/memory-queue`.
+  - Remove the direct dependency on `@contractspec/lib.contracts-integrations`.
+  - Make `app-config` the source of truth for `AppIntegrationBinding`,
+    `IntegrationCategory`, and `IntegrationOwnershipMode`.
+  - Replace remaining integration and secret-provider dependencies with narrow
+    local structural ports for feature install and workflow execution.
+
+  Patch changes:
+
+  - Update `@contractspec/lib.contracts-integrations` to re-export app-config
+    binding and ownership/category types from `@contractspec/lib.contracts-spec`.
+  - Re-export the default transform-engine helpers from
+    `@contractspec/lib.contracts-runtime-client-react/transform-engine`.
+
+  Migration notes:
+
+  - Import knowledge runtime helpers from `@contractspec/lib.knowledge/*`.
+  - Import job handlers and queue adapters from `@contractspec/lib.jobs/*`.
+  - Import app-config binding/category/mode types from
+    `@contractspec/lib.contracts-spec/app-config` if you need the canonical
+    contract source.
+
+- 81256ea: Split agent definition contracts out of `@contractspec/lib.ai-agent` and make
+  `@contractspec/lib.contracts-spec` the source of truth for agent declaration APIs.
+
+  Major changes:
+
+  - Move `AgentSpec`, `AgentToolConfig`, `AgentPolicy`, `AgentRegistry`,
+    `createAgentRegistry`, `defineAgent`, and related definition-only types into
+    `@contractspec/lib.contracts-spec/agent`.
+  - Add `@contractspec/lib.contracts-spec/agent/spec` and
+    `@contractspec/lib.contracts-spec/agent/registry` export subpaths.
+  - Remove `@contractspec/lib.ai-agent/spec`,
+    `@contractspec/lib.ai-agent/spec/spec`, and
+    `@contractspec/lib.ai-agent/spec/registry`.
+  - Remove the spec layer from the `@contractspec/lib.ai-agent` root barrel so it
+    is runtime-focused.
+
+  Workspace consumers were migrated to import agent-definition contracts from
+  `@contractspec/lib.contracts-spec/agent`, and packages that only needed the
+  contract layer dropped their direct dependency on `@contractspec/lib.ai-agent`.
+
+### Patch Changes
+
+- Updated dependencies [6de2f1c]
+  - @contractspec/lib.schema@3.7.10
+
 ## 4.1.3
 
 ### Patch Changes

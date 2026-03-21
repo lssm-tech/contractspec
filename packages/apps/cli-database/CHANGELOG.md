@@ -1,5 +1,13 @@
 # @contractspec/app.cli-database
 
+## 3.7.11
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies [6de2f1c]
+  - @contractspec/lib.schema@3.7.10
+
 ## 3.7.10
 
 ### Patch Changes

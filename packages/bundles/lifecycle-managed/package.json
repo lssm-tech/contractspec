@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/bundle.lifecycle-managed",
-	"version": "3.7.11",
+	"version": "3.7.12",
 	"description": "Lifecycle management bundle with analytics and AI advisor",
 	"keywords": [
 		"contractspec",
