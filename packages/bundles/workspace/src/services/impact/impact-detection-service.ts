@@ -4,6 +4,7 @@
  * Orchestrates contract snapshot generation, diff computation,
  * and impact classification for CI/CD pipelines.
  */
+import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 
 // Note: Using internal imports from the bundle which re-exports from module
 import {
@@ -17,6 +18,49 @@ import type { FsAdapter } from '../../ports/fs';
 import type { GitAdapter } from '../../ports/git';
 import type { LoggerAdapter } from '../../ports/logger';
 import type { ImpactDetectionOptions, ImpactDetectionResult } from './types';
+
+export const ImpactDetectionRulesDocBlock = {
+	id: 'feature.impact-detection.rules',
+	title: 'Breaking Change Classification Rules',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/features/impact-detection/rules',
+	body: `
+# Breaking Change Classification Rules
+
+## 🔴 Breaking Changes (10 rules)
+
+1. **endpoint-removed**: Endpoint/operation was removed
+2. **method-changed**: HTTP method was changed
+3. **path-changed**: HTTP path was changed
+4. **field-removed**: Response field was removed
+5. **field-type-changed**: Field type was changed
+6. **field-made-required**: Optional field became required
+7. **enum-value-removed**: Enum value was removed
+8. **nullable-removed**: Field is no longer nullable
+9. **required-field-added-to-input**: Required field was added to input
+10. **event-payload-field-removed**: Event payload field was removed
+
+## 🟡 Non-Breaking Changes (4 rules)
+
+1. **optional-field-added**: Optional field was added
+2. **endpoint-added**: New endpoint/operation was added
+3. **enum-value-added**: Enum value was added
+4. **field-made-optional**: Required field became optional
+
+## 🔵 Info-Level Changes (4 rules)
+
+1. **stability-changed**: Stability level was changed
+2. **description-changed**: Description was changed
+3. **owners-changed**: Owners were changed
+4. **tags-changed**: Tags were changed
+
+## Rule Evaluation
+
+Rules are evaluated in order (breaking → non-breaking → info). The first matching rule determines the severity.
+  `,
+	tags: ['impact-detection', 'breaking-changes', 'rules'],
+} satisfies DocBlock;
 
 /**
  * Detect the impact of contract changes between baseline and current state.

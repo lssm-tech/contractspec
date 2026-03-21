@@ -103,7 +103,7 @@ export const examplesCommand = new Command('examples')
 	.addCommand(
 		new Command('validate')
 			.description(
-				'Validate that example manifests are well-formed and workspace example packages have required exports/docblocks'
+				'Validate example manifests and enforce same-file DocBlock rules for workspace example packages'
 			)
 			.option(
 				'--repo-root <dir>',

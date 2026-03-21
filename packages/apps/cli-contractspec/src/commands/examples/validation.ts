@@ -1,6 +1,7 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import type { ExampleSpec } from '@contractspec/lib.contracts-spec/examples/types';
+import { buildPackageDocManifest } from '@contractspec/module.workspace';
 
 const EXAMPLE_SCRIPT_GRACE_DEADLINE = Date.parse('2026-03-26T00:00:00+01:00');
 const EXECUTABLE_TEST_FILE_PATTERN = /\.(test|spec)\.(?:[cm]?[jt]sx?)$/;
@@ -96,7 +97,7 @@ export async function validateWorkspaceExamplesFolder(
 			errors.push('package.json must export "./example"');
 		}
 		if (!exportsMap['./docs']) {
-			errors.push('package.json must export "./docs" (DocBlocks entry)');
+			errors.push('package.json must export "./docs" (package docs surface)');
 		}
 
 		const srcExample = path.join(exampleDir, 'src', 'example.ts');
@@ -109,9 +110,17 @@ export async function validateWorkspaceExamplesFolder(
 			errors.push('missing src/docs/index.ts');
 		}
 
-		const docblocks = await globDocBlocks(path.join(exampleDir, 'src', 'docs'));
-		if (docblocks.length === 0) {
-			errors.push('missing src/docs/*.docblock.ts');
+		try {
+			buildPackageDocManifest({
+				packageName: packageName ?? path.basename(exampleDir),
+				srcRoot: path.join(exampleDir, 'src'),
+			});
+		} catch (error) {
+			errors.push(
+				error instanceof Error
+					? error.message
+					: `DocBlock validation failed for ${exampleDir}`
+			);
 		}
 
 		const example = packageName
@@ -491,16 +500,5 @@ async function fileExists(filePath: string): Promise<boolean> {
 		return true;
 	} catch {
 		return false;
-	}
-}
-
-async function globDocBlocks(docsDir: string): Promise<string[]> {
-	try {
-		const entries = await fs.readdir(docsDir, { withFileTypes: true });
-		return entries
-			.filter((entry) => entry.isFile() && entry.name.endsWith('.docblock.ts'))
-			.map((entry) => entry.name);
-	} catch {
-		return [];
 	}
 }

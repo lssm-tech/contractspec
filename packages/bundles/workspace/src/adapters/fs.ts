@@ -52,7 +52,5 @@ export const DEFAULT_FS_IGNORES = [
 	// Code generators and transformers (not actual specs)
 	'**/importer/**',
 	'**/exporter/**',
-	// Documentation blocks (treated separately)
-	'**/docs/**/*.docblock.ts',
 	'**/docs/presentations.ts',
 ];

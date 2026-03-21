@@ -3,6 +3,7 @@
  */
 
 export * from './deps/index';
+export * from './docblocks';
 export * from './diff/index';
 export * from './example-scan';
 export * from './feature-scan';

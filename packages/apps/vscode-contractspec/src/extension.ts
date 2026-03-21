@@ -120,17 +120,16 @@ export function deactivate(): void {
 	disposeWatchMode();
 }
 
-export const tech_vscode_extension_DocBlocks: DocBlock[] = [
-	{
-		id: 'docs.tech.vscode.extension',
-		title: 'ContractSpec VS Code Extension',
-		summary:
-			'VS Code extension for spec-first development with validation, scaffolding, and MCP integration.',
-		kind: 'reference',
-		visibility: 'public',
-		route: '/docs/tech/vscode/extension',
-		tags: ['vscode', 'extension', 'tooling', 'dx'],
-		body: `# ContractSpec VS Code Extension
+export const ContractSpecVSCodeExtensionDocBlock = {
+	id: 'docs.tech.vscode.extension',
+	title: 'ContractSpec VS Code Extension',
+	summary:
+		'VS Code extension for spec-first development with validation, scaffolding, and MCP integration.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/vscode/extension',
+	tags: ['vscode', 'extension', 'tooling', 'dx'],
+	body: `# ContractSpec VS Code Extension
 
 The ContractSpec VS Code extension provides spec-first development tooling directly in your editor.
 
@@ -180,16 +179,17 @@ The extension uses a hybrid telemetry approach:
 
 Telemetry respects VS Code's telemetry settings. No file paths, source code, or PII is collected.
 `,
-	},
-	{
-		id: 'docs.tech.vscode.snippets',
-		title: 'ContractSpec Snippets',
-		summary: 'Code snippets for common ContractSpec patterns in VS Code.',
-		kind: 'reference',
-		visibility: 'public',
-		route: '/docs/tech/vscode/snippets',
-		tags: ['vscode', 'snippets', 'dx'],
-		body: `# ContractSpec Snippets
+} satisfies DocBlock;
+
+export const ContractSpecVSCodeSnippetsDocBlock = {
+	id: 'docs.tech.vscode.snippets',
+	title: 'ContractSpec Snippets',
+	summary: 'Code snippets for common ContractSpec patterns in VS Code.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/vscode/snippets',
+	tags: ['vscode', 'snippets', 'dx'],
+	body: `# ContractSpec Snippets
 
 The VS Code extension includes snippets for common ContractSpec patterns.
 
@@ -200,13 +200,12 @@ The VS Code extension includes snippets for common ContractSpec patterns.
 | \`contractspec-command\` | Create a new command (write operation) |
 | \`contractspec-query\` | Create a new query (read-only operation) |
 | \`contractspec-event\` | Create a new event |
-| \`contractspec-docblock\` | Create a new DocBlock |
+| \`contractspec-docblock\` | Create a same-file DocBlock in the current owner module |
 | \`contractspec-telemetry\` | Create a new TelemetrySpec |
 | \`contractspec-presentation\` | Create a new Presentation |
 
 ## Usage
 
-Type the prefix in a TypeScript file and press Tab to expand the snippet. Tab through the placeholders to fill in your values.
+Type the prefix in the owner TypeScript file and press Tab to expand the snippet. Tab through the placeholders to fill in your values.
 `,
-	},
-];
+} satisfies DocBlock;
