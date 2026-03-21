@@ -16,15 +16,15 @@ A job has exhausted all retries and moved to dead letter queue.
 
 ```typescript
 export const JobDeadLetteredEvent = defineEvent({
-  meta: {
-    key: 'job.dead_lettered',
-    version: '1.0.0',
-    description:
-      'A job has exhausted all retries and moved to dead letter queue.',
-    stability: StabilityEnum.Stable,
-    owners: ['@contractspec.libs.jobs'],
-    tags: ['job-queue', 'lifecycle', 'error'],
-  },
-  payload: JobDeadLetteredPayload,
+	meta: {
+		key: 'job.dead_lettered',
+		version: '1.0.0',
+		description:
+			'A job has exhausted all retries and moved to dead letter queue.',
+		stability: StabilityEnum.Stable,
+		owners: ['@contractspec.libs.jobs'],
+		tags: ['job-queue', 'lifecycle', 'error'],
+	},
+	payload: JobDeadLetteredPayload,
 });
 ```

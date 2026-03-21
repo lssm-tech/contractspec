@@ -25,34 +25,34 @@ Product catalog, search.
 
 ```typescript
 export const ListProductsContract = defineQuery({
-  meta: {
-    key: 'marketplace.product.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.marketplace'],
-    tags: ['marketplace', 'product', 'list'],
-    description: 'List products with filters.',
-    goal: 'Browse products on the marketplace.',
-    context: 'Product catalog, search.',
-  },
-  io: { input: ListProductsInputModel, output: ListProductsOutputModel },
-  policy: { auth: 'anonymous' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'list-products-happy-path',
-        given: ['Products exist'],
-        when: ['User searches for products'],
-        then: ['List of products is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'search-t-shirts',
-        input: { search: 't-shirt', limit: 20 },
-        output: { items: [], total: 50, hasMore: true },
-      },
-    ],
-  },
+	meta: {
+		key: 'marketplace.product.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.marketplace'],
+		tags: ['marketplace', 'product', 'list'],
+		description: 'List products with filters.',
+		goal: 'Browse products on the marketplace.',
+		context: 'Product catalog, search.',
+	},
+	io: { input: ListProductsInputModel, output: ListProductsOutputModel },
+	policy: { auth: 'anonymous' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'list-products-happy-path',
+				given: ['Products exist'],
+				when: ['User searches for products'],
+				then: ['List of products is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'search-t-shirts',
+				input: { search: 't-shirt', limit: 20 },
+				output: { items: [], total: 50, hasMore: true },
+			},
+		],
+	},
 });
 ```

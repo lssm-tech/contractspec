@@ -16,14 +16,14 @@ A streak has been updated.
 
 ```typescript
 export const StreakUpdatedEvent = defineEvent({
-  meta: {
-    key: 'streak.updated',
-    version: '1.0.0',
-    description: 'A streak has been updated.',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'gamification', 'streak'],
-  },
-  payload: StreakUpdatedPayload,
+	meta: {
+		key: 'streak.updated',
+		version: '1.0.0',
+		description: 'A streak has been updated.',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'gamification', 'streak'],
+	},
+	payload: StreakUpdatedPayload,
 });
 ```

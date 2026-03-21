@@ -24,27 +24,27 @@ Displayed on the product detail page.
 
 ```typescript
 export const ReviewListPresentation = definePresentation({
-  meta: {
-    key: 'marketplace.review.viewList',
-    version: '1.0.0',
-    title: 'Review List',
-    description: 'List of product reviews',
-    domain: 'marketplace',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'review', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Show users reviews and ratings for a product.',
-    context: 'Displayed on the product detail page.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'ReviewList',
-    props: ReviewModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['marketplace.reviews.enabled'],
-  },
+	meta: {
+		key: 'marketplace.review.viewList',
+		version: '1.0.0',
+		title: 'Review List',
+		description: 'List of product reviews',
+		domain: 'marketplace',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'review', 'list'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Show users reviews and ratings for a product.',
+		context: 'Displayed on the product detail page.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'ReviewList',
+		props: ReviewModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['marketplace.reviews.enabled'],
+	},
 });
 ```

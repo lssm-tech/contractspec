@@ -17,14 +17,14 @@ An experiment has stopped.
 
 ```typescript
 export const ExperimentStoppedEvent = defineEvent({
-  meta: {
-    key: 'experiment.stopped',
-    version: '1.0.0',
-    description: 'An experiment has stopped.',
-    stability: 'stable',
-    owners: ['@platform.feature-flags'],
-    tags: ['feature-flags', 'experiment', 'stop'],
-  },
-  payload: ExperimentStoppedPayload,
+	meta: {
+		key: 'experiment.stopped',
+		version: '1.0.0',
+		description: 'An experiment has stopped.',
+		stability: 'stable',
+		owners: ['@platform.feature-flags'],
+		tags: ['feature-flags', 'experiment', 'stop'],
+	},
+	payload: ExperimentStoppedPayload,
 });
 ```

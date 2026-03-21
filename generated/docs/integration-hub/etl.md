@@ -16,14 +16,14 @@ Extract, transform, load data pipelines
 
 ```typescript
 export const EtlCapability = defineCapability({
-  meta: {
-    key: 'etl',
-    version: '1.0.0',
-    kind: 'api',
-    stability: StabilityEnum.Experimental,
-    description: 'Extract, transform, load data pipelines',
-    owners: ['platform.core'],
-    tags: ['etl', 'data', 'pipeline'],
-  },
+	meta: {
+		key: 'etl',
+		version: '1.0.0',
+		kind: 'api',
+		stability: StabilityEnum.Experimental,
+		description: 'Extract, transform, load data pipelines',
+		owners: ['platform.core'],
+		tags: ['etl', 'data', 'pipeline'],
+	},
 });
 ```

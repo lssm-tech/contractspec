@@ -22,24 +22,24 @@ Called by the Studio when a tenant customizes labels or copy for their locale.
 
 ```typescript
 export const UpdateTenantTranslationOverridesCommand = defineCommand({
-  meta: {
-    key: 'appConfig.updateTenantTranslations',
-    version: '1.0.0',
-    description: 'Applies tenant-specific translation entries.',
-    owners: [OwnersEnum.PlatformSigil],
-    tags: [TagsEnum.I18n],
-    stability: StabilityEnum.Beta,
-    goal: 'Allow tenants to override selected message keys.',
-    context:
-      'Called by the Studio when a tenant customizes labels or copy for their locale.',
-  },
-  io: {
-    input: UpdateTenantTranslationInput,
-    output: UpdateTenantBrandingOutput,
-  },
-  policy: {
-    auth: 'admin',
-    policies: [{ key: 'platform.app-config.manage', version: '1.0.0' }],
-  },
+	meta: {
+		key: 'appConfig.updateTenantTranslations',
+		version: '1.0.0',
+		description: 'Applies tenant-specific translation entries.',
+		owners: [OwnersEnum.PlatformSigil],
+		tags: [TagsEnum.I18n],
+		stability: StabilityEnum.Beta,
+		goal: 'Allow tenants to override selected message keys.',
+		context:
+			'Called by the Studio when a tenant customizes labels or copy for their locale.',
+	},
+	io: {
+		input: UpdateTenantTranslationInput,
+		output: UpdateTenantBrandingOutput,
+	},
+	policy: {
+		auth: 'admin',
+		policies: [{ key: 'platform.app-config.manage', version: '1.0.0' }],
+	},
 });
 ```

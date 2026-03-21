@@ -25,72 +25,72 @@ Tool builder UI - test panel.
 
 ```typescript
 export const TestToolCommand = defineCommand({
-  meta: {
-    key: 'agent.tool.test',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['tool', 'test'],
-    description: 'Tests a tool with sample input to verify it works correctly.',
-    goal: 'Validate tool configuration before deployment.',
-    context: 'Tool builder UI - test panel.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'TestToolInput',
-      fields: {
-        toolId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-        testInput: { type: ScalarTypeEnum.JSONObject(), isOptional: false },
-      },
-    }),
-    output: defineSchemaModel({
-      name: 'TestToolOutput',
-      fields: {
-        success: { type: ScalarTypeEnum.Boolean(), isOptional: false },
-        output: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
-        error: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-        durationMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-      },
-    }),
-    errors: {
-      TOOL_NOT_FOUND: {
-        description: 'The specified tool does not exist',
-        http: 404,
-        gqlCode: 'TOOL_NOT_FOUND',
-        when: 'Tool ID is invalid',
-      },
-      TOOL_EXECUTION_ERROR: {
-        description: 'Tool execution failed',
-        http: 500,
-        gqlCode: 'TOOL_EXECUTION_ERROR',
-        when: 'Tool returns an error',
-      },
-    },
-  },
-  policy: { auth: 'user' },
-  sideEffects: { audit: ['tool.tested'] },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'test-tool-success',
-        given: ['Tool exists', 'Tool is configured correctly'],
-        when: ['User runs test with valid input'],
-        then: ['Tool executes successfully', 'Output is returned'],
-      },
-      {
-        key: 'test-tool-failure',
-        given: ['Tool exists', 'Tool has configuration error'],
-        when: ['User runs test'],
-        then: ['TOOL_EXECUTION_ERROR is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'test-weather-api',
-        input: { toolId: 'tool-123', testInput: { city: 'Paris' } },
-        output: { success: true, output: { temperature: 22 }, durationMs: 150 },
-      },
-    ],
-  },
+	meta: {
+		key: 'agent.tool.test',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['tool', 'test'],
+		description: 'Tests a tool with sample input to verify it works correctly.',
+		goal: 'Validate tool configuration before deployment.',
+		context: 'Tool builder UI - test panel.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'TestToolInput',
+			fields: {
+				toolId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+				testInput: { type: ScalarTypeEnum.JSONObject(), isOptional: false },
+			},
+		}),
+		output: defineSchemaModel({
+			name: 'TestToolOutput',
+			fields: {
+				success: { type: ScalarTypeEnum.Boolean(), isOptional: false },
+				output: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
+				error: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+				durationMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+			},
+		}),
+		errors: {
+			TOOL_NOT_FOUND: {
+				description: 'The specified tool does not exist',
+				http: 404,
+				gqlCode: 'TOOL_NOT_FOUND',
+				when: 'Tool ID is invalid',
+			},
+			TOOL_EXECUTION_ERROR: {
+				description: 'Tool execution failed',
+				http: 500,
+				gqlCode: 'TOOL_EXECUTION_ERROR',
+				when: 'Tool returns an error',
+			},
+		},
+	},
+	policy: { auth: 'user' },
+	sideEffects: { audit: ['tool.tested'] },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'test-tool-success',
+				given: ['Tool exists', 'Tool is configured correctly'],
+				when: ['User runs test with valid input'],
+				then: ['Tool executes successfully', 'Output is returned'],
+			},
+			{
+				key: 'test-tool-failure',
+				given: ['Tool exists', 'Tool has configuration error'],
+				when: ['User runs test'],
+				then: ['TOOL_EXECUTION_ERROR is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'test-weather-api',
+				input: { toolId: 'tool-123', testInput: { city: 'Paris' } },
+				output: { success: true, output: { temperature: 22 }, durationMs: 150 },
+			},
+		],
+	},
 });
 ```

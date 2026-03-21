@@ -17,14 +17,14 @@ A metric has been defined.
 
 ```typescript
 export const MetricDefinedEvent = defineEvent({
-  meta: {
-    key: 'metric.defined',
-    version: '1.0.0',
-    description: 'A metric has been defined.',
-    stability: 'stable',
-    owners: ['@platform.metering'],
-    tags: ['metering', 'metric'],
-  },
-  payload: MetricDefinedPayload,
+	meta: {
+		key: 'metric.defined',
+		version: '1.0.0',
+		description: 'A metric has been defined.',
+		stability: 'stable',
+		owners: ['@platform.metering'],
+		tags: ['metering', 'metric'],
+	},
+	payload: MetricDefinedPayload,
 });
 ```

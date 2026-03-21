@@ -16,14 +16,14 @@ Third-party integration connections
 
 ```typescript
 export const IntegrationCapability = defineCapability({
-  meta: {
-    key: 'integration',
-    version: '1.0.0',
-    kind: 'integration',
-    stability: StabilityEnum.Experimental,
-    description: 'Third-party integration connections',
-    owners: ['platform.core'],
-    tags: ['integration', 'connections'],
-  },
+	meta: {
+		key: 'integration',
+		version: '1.0.0',
+		kind: 'integration',
+		stability: StabilityEnum.Experimental,
+		description: 'Third-party integration connections',
+		owners: ['platform.core'],
+		tags: ['integration', 'connections'],
+	},
 });
 ```

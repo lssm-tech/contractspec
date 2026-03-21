@@ -17,14 +17,14 @@ Fired when a sync run fails
 
 ```typescript
 export const SyncFailedEvent = defineEvent({
-  meta: {
-    key: 'integration.sync.failed',
-    version: '1.0.0',
-    description: 'Fired when a sync run fails',
-    stability: 'experimental',
-    owners: ['@integration-team'],
-    tags: ['integration', 'sync'],
-  },
-  payload: SyncFailedPayload,
+	meta: {
+		key: 'integration.sync.failed',
+		version: '1.0.0',
+		description: 'Fired when a sync run fails',
+		stability: 'experimental',
+		owners: ['@integration-team'],
+		tags: ['integration', 'sync'],
+	},
+	payload: SyncFailedPayload,
 });
 ```

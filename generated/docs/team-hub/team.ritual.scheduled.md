@@ -17,14 +17,14 @@ A ritual was scheduled.
 
 ```typescript
 export const RitualScheduledEvent = defineEvent({
-  meta: {
-    key: 'team.ritual.scheduled',
-    version: '1.0.0',
-    description: 'A ritual was scheduled.',
-    stability: 'stable',
-    owners: ['@team-hub'],
-    tags: ['team', 'ritual', 'scheduled'],
-  },
-  payload: RitualEventPayload,
+	meta: {
+		key: 'team.ritual.scheduled',
+		version: '1.0.0',
+		description: 'A ritual was scheduled.',
+		stability: 'stable',
+		owners: ['@team-hub'],
+		tags: ['team', 'ritual', 'scheduled'],
+	},
+	payload: RitualEventPayload,
 });
 ```

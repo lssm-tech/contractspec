@@ -25,22 +25,22 @@ Notification settings page.
 
 ```typescript
 export const UpdateNotificationPreferencesContract = defineCommand({
-  meta: {
-    key: 'notifications.preferences.update',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.notifications'],
-    tags: ['notifications', 'preferences', 'update'],
-    description: 'Update notification preferences.',
-    goal: 'Allow user to control notification delivery.',
-    context: 'Notification settings page.',
-  },
-  io: {
-    input: UpdatePreferencesInputModel,
-    output: NotificationPreferenceModel,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'notifications.preferences.update',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.notifications'],
+		tags: ['notifications', 'preferences', 'update'],
+		description: 'Update notification preferences.',
+		goal: 'Allow user to control notification delivery.',
+		context: 'Notification settings page.',
+	},
+	io: {
+		input: UpdatePreferencesInputModel,
+		output: NotificationPreferenceModel,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

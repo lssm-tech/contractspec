@@ -14,18 +14,18 @@ Platform primitives tour track detail
 
 ```typescript
 export const PlatformTourTrackPresentation = definePresentation({
-  meta: {
-    key: 'learning.journey.platform.track',
-    version: '1.0.0',
-    description: 'Platform primitives tour track detail',
-    ...baseMeta,
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'LearningTrackDetail',
-    props: PlatformTourTrackModel,
-  },
-  targets: ['react', 'markdown', 'application/json'],
+	meta: {
+		key: 'learning.journey.platform.track',
+		version: '1.0.0',
+		description: 'Platform primitives tour track detail',
+		...baseMeta,
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'LearningTrackDetail',
+		props: PlatformTourTrackModel,
+	},
+	targets: ['react', 'markdown', 'application/json'],
 });
 ```

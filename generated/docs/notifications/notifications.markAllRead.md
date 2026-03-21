@@ -25,27 +25,27 @@ User clicks
 
 ```typescript
 export const MarkAllNotificationsReadContract = defineCommand({
-  meta: {
-    key: 'notifications.markAllRead',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.notifications'],
-    tags: ['notifications', 'read'],
-    description: 'Mark all notifications as read.',
-    goal: 'Clear notification badge.',
-    context: 'User clicks "mark all as read".',
-  },
-  io: {
-    input: null,
-    output: defineSchemaModel({
-      name: 'MarkAllNotificationsReadOutput',
-      fields: {
-        markedCount: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-      },
-    }),
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'notifications.markAllRead',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.notifications'],
+		tags: ['notifications', 'read'],
+		description: 'Mark all notifications as read.',
+		goal: 'Clear notification badge.',
+		context: 'User clicks "mark all as read".',
+	},
+	io: {
+		input: null,
+		output: defineSchemaModel({
+			name: 'MarkAllNotificationsReadOutput',
+			fields: {
+				markedCount: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+			},
+		}),
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

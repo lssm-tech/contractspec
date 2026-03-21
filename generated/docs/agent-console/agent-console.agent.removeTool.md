@@ -25,49 +25,49 @@ Agent configuration UI - tool management.
 
 ```typescript
 export const RemoveToolFromAgentCommand = defineCommand({
-  meta: {
-    key: 'agent-console.agent.removeTool',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['agent', 'tool', 'remove'],
-    description: 'Removes a tool assignment from an agent.',
-    goal: 'Disable specific tools for an agent.',
-    context: 'Agent configuration UI - tool management.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'RemoveToolFromAgentInput',
-      fields: {
-        agentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-        toolId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      },
-    }),
-    output: defineSchemaModel({
-      name: 'RemoveToolFromAgentOutput',
-      fields: {
-        success: { type: ScalarTypeEnum.Boolean(), isOptional: false },
-      },
-    }),
-  },
-  policy: { auth: 'user' },
-  sideEffects: { audit: ['agent.tool.removed'] },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'remove-tool-happy-path',
-        given: ['Agent exists', 'Tool is assigned to agent'],
-        when: ['User removes tool from agent'],
-        then: ['Tool is unassigned', 'Success is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'remove-basic',
-        input: { agentId: 'agent-123', toolId: 'tool-456' },
-        output: { success: true },
-      },
-    ],
-  },
+	meta: {
+		key: 'agent-console.agent.removeTool',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['agent', 'tool', 'remove'],
+		description: 'Removes a tool assignment from an agent.',
+		goal: 'Disable specific tools for an agent.',
+		context: 'Agent configuration UI - tool management.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'RemoveToolFromAgentInput',
+			fields: {
+				agentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+				toolId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+			},
+		}),
+		output: defineSchemaModel({
+			name: 'RemoveToolFromAgentOutput',
+			fields: {
+				success: { type: ScalarTypeEnum.Boolean(), isOptional: false },
+			},
+		}),
+	},
+	policy: { auth: 'user' },
+	sideEffects: { audit: ['agent.tool.removed'] },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'remove-tool-happy-path',
+				given: ['Agent exists', 'Tool is assigned to agent'],
+				when: ['User removes tool from agent'],
+				then: ['Tool is unassigned', 'Success is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'remove-basic',
+				input: { agentId: 'agent-123', toolId: 'tool-456' },
+				output: { success: true },
+			},
+		],
+	},
 });
 ```

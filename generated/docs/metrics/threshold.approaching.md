@@ -17,14 +17,14 @@ Usage is approaching a threshold.
 
 ```typescript
 export const ThresholdApproachingEvent = defineEvent({
-  meta: {
-    key: 'threshold.approaching',
-    version: '1.0.0',
-    description: 'Usage is approaching a threshold.',
-    stability: 'stable',
-    owners: ['@platform.metering'],
-    tags: ['metering', 'threshold'],
-  },
-  payload: ThresholdApproachingPayload,
+	meta: {
+		key: 'threshold.approaching',
+		version: '1.0.0',
+		description: 'Usage is approaching a threshold.',
+		stability: 'stable',
+		owners: ['@platform.metering'],
+		tags: ['metering', 'threshold'],
+	},
+	payload: ThresholdApproachingPayload,
 });
 ```

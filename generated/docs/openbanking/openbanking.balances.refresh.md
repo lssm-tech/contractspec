@@ -25,62 +25,62 @@ Triggered by scheduled workflows before generating summaries or forecasting cash
 
 ```typescript
 export const OpenBankingRefreshBalances = defineCommand({
-  meta: {
-    key: 'openbanking.balances.refresh',
-    version: '1.0.0',
-    description:
-      'Refresh balances for a bank account via the configured open banking provider.',
-    goal: 'Ensure canonical balance records reflect the latest values from Powens.',
-    context:
-      'Triggered by scheduled workflows before generating summaries or forecasting cashflow.',
-    owners: ['@platform.finance'],
-    tags: ['open-banking', 'powens', 'balances'],
-    stability: 'experimental',
-  },
-  io: {
-    input: OpenBankingRefreshBalancesInput,
-    output: OpenBankingRefreshBalancesOutput,
-  },
-  policy: {
-    auth: 'admin',
-  },
-  telemetry: {
-    success: {
-      event: { key: OPENBANKING_TELEMETRY_EVENTS.balancesRefreshed },
-      properties: ({ input, output }) => {
-        const payload = input as {
-          tenantId?: string;
-          accountId?: string;
-        };
-        const result = output as {
-          balances?: unknown[];
-          refreshedAt?: string;
-        } | null;
-        return {
-          tenantId: payload?.tenantId,
-          accountId: payload?.accountId,
-          refreshedAt: result?.refreshedAt,
-          balanceCount: Array.isArray(result?.balances)
-            ? result?.balances.length
-            : undefined,
-        };
-      },
-    },
-    failure: {
-      event: { key: OPENBANKING_TELEMETRY_EVENTS.balancesRefreshFailed },
-      properties: ({ input, error }) => {
-        const payload = input as {
-          tenantId?: string;
-          accountId?: string;
-        };
-        return {
-          tenantId: payload?.tenantId,
-          accountId: payload?.accountId,
-          error:
-            error instanceof Error ? error.message : String(error ?? 'unknown'),
-        };
-      },
-    },
-  },
+	meta: {
+		key: 'openbanking.balances.refresh',
+		version: '1.0.0',
+		description:
+			'Refresh balances for a bank account via the configured open banking provider.',
+		goal: 'Ensure canonical balance records reflect the latest values from Powens.',
+		context:
+			'Triggered by scheduled workflows before generating summaries or forecasting cashflow.',
+		owners: ['@platform.finance'],
+		tags: ['open-banking', 'powens', 'balances'],
+		stability: 'experimental',
+	},
+	io: {
+		input: OpenBankingRefreshBalancesInput,
+		output: OpenBankingRefreshBalancesOutput,
+	},
+	policy: {
+		auth: 'admin',
+	},
+	telemetry: {
+		success: {
+			event: { key: OPENBANKING_TELEMETRY_EVENTS.balancesRefreshed },
+			properties: ({ input, output }) => {
+				const payload = input as {
+					tenantId?: string;
+					accountId?: string;
+				};
+				const result = output as {
+					balances?: unknown[];
+					refreshedAt?: string;
+				} | null;
+				return {
+					tenantId: payload?.tenantId,
+					accountId: payload?.accountId,
+					refreshedAt: result?.refreshedAt,
+					balanceCount: Array.isArray(result?.balances)
+						? result?.balances.length
+						: undefined,
+				};
+			},
+		},
+		failure: {
+			event: { key: OPENBANKING_TELEMETRY_EVENTS.balancesRefreshFailed },
+			properties: ({ input, error }) => {
+				const payload = input as {
+					tenantId?: string;
+					accountId?: string;
+				};
+				return {
+					tenantId: payload?.tenantId,
+					accountId: payload?.accountId,
+					error:
+						error instanceof Error ? error.message : String(error ?? 'unknown'),
+				};
+			},
+		},
+	},
 });
 ```

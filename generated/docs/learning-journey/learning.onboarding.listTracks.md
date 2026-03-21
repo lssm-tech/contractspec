@@ -24,22 +24,22 @@ Called when showing onboarding/learning journey catalog.
 
 ```typescript
 export const ListOnboardingTracksContract = defineQuery({
-  meta: {
-    key: 'learning.onboarding.listTracks',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'onboarding', 'journey'],
-    description: 'List onboarding tracks available to a learner or product.',
-    goal: 'Expose track catalog for UI/API surfaces.',
-    context: 'Called when showing onboarding/learning journey catalog.',
-  },
-  io: {
-    input: ListOnboardingTracksInput,
-    output: ListOnboardingTracksOutput,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'learning.onboarding.listTracks',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'onboarding', 'journey'],
+		description: 'List onboarding tracks available to a learner or product.',
+		goal: 'Expose track catalog for UI/API surfaces.',
+		context: 'Called when showing onboarding/learning journey catalog.',
+	},
+	io: {
+		input: ListOnboardingTracksInput,
+		output: ListOnboardingTracksOutput,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

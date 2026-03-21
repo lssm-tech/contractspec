@@ -17,14 +17,14 @@ A file has been detached from an entity.
 
 ```typescript
 export const AttachmentDetachedEvent = defineEvent({
-  meta: {
-    key: 'attachment.detached',
-    version: '1.0.0',
-    description: 'A file has been detached from an entity.',
-    stability: 'stable',
-    owners: ['@platform.files'],
-    tags: ['files', 'attachment', 'detach'],
-  },
-  payload: AttachmentDetachedPayload,
+	meta: {
+		key: 'attachment.detached',
+		version: '1.0.0',
+		description: 'A file has been detached from an entity.',
+		stability: 'stable',
+		owners: ['@platform.files'],
+		tags: ['files', 'attachment', 'detach'],
+	},
+	payload: AttachmentDetachedPayload,
 });
 ```

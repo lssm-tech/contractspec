@@ -16,14 +16,14 @@ A learner has completed a course.
 
 ```typescript
 export const CourseCompletedEvent = defineEvent({
-  meta: {
-    key: 'course.completed',
-    version: '1.0.0',
-    description: 'A learner has completed a course.',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'progress', 'course'],
-  },
-  payload: CourseCompletedPayload,
+	meta: {
+		key: 'course.completed',
+		version: '1.0.0',
+		description: 'A learner has completed a course.',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'progress', 'course'],
+	},
+	payload: CourseCompletedPayload,
 });
 ```

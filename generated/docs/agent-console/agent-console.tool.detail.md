@@ -24,25 +24,25 @@ Detailed view of a tool.
 
 ```typescript
 export const ToolDetailPresentation = definePresentation({
-  meta: {
-    key: 'agent-console.tool.detail',
-    version: '1.0.0',
-    title: 'Tool Details',
-    description:
-      'Detailed view of an AI tool with configuration and test panel',
-    goal: 'Allow users to inspect and test a specific tool.',
-    context: 'Detailed view of a tool.',
-    domain: 'agent-console',
-    owners: ['@agent-console-team'],
-    tags: ['tool', 'detail'],
-    stability: StabilityEnum.Experimental,
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'ToolDetailView',
-  },
-  targets: ['react', 'markdown'],
-  policy: { flags: ['agent-console.enabled'] },
+	meta: {
+		key: 'agent-console.tool.detail',
+		version: '1.0.0',
+		title: 'Tool Details',
+		description:
+			'Detailed view of an AI tool with configuration and test panel',
+		goal: 'Allow users to inspect and test a specific tool.',
+		context: 'Detailed view of a tool.',
+		domain: 'agent-console',
+		owners: ['@agent-console-team'],
+		tags: ['tool', 'detail'],
+		stability: StabilityEnum.Experimental,
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'ToolDetailView',
+	},
+	targets: ['react', 'markdown'],
+	policy: { flags: ['agent-console.enabled'] },
 });
 ```

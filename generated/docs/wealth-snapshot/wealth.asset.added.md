@@ -14,14 +14,14 @@ An asset was added or updated.
 
 ```typescript
 export const AssetAddedEvent = defineEvent({
-  meta: {
-    key: 'wealth.asset.added',
-    version: '1.0.0',
-    description: 'An asset was added or updated.',
-    stability: StabilityEnum.Experimental,
-    owners: [],
-    tags: [],
-  },
-  payload: AssetEventPayload,
+	meta: {
+		key: 'wealth.asset.added',
+		version: '1.0.0',
+		description: 'An asset was added or updated.',
+		stability: StabilityEnum.Experimental,
+		owners: [],
+		tags: [],
+	},
+	payload: AssetEventPayload,
 });
 ```

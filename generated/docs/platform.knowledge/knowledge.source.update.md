@@ -25,25 +25,25 @@ Supports editing how a tenant ingests knowledge (e.g., toggling sync cadence).
 
 ```typescript
 export const UpdateKnowledgeSource = defineCommand({
-  meta: {
-    key: 'knowledge.source.update',
-    title: 'Update Knowledge Source',
-    version: '1.0.0',
-    description: 'Update metadata or configuration for a knowledge source.',
-    goal: 'Allow rotation of credentials, sync schedules, and labels.',
-    context:
-      'Supports editing how a tenant ingests knowledge (e.g., toggling sync cadence).',
-    owners: ['@platform.knowledge'],
-    tags: ['knowledge', 'sources'],
-    stability: 'experimental',
-  },
-  io: {
-    input: UpdateKnowledgeSourceInput,
-    output: KnowledgeSourceRecord,
-  },
-  policy: {
-    auth: 'admin',
-    policies: [{ key: 'platform.knowledge.manage', version: '1.0.0' }],
-  },
+	meta: {
+		key: 'knowledge.source.update',
+		title: 'Update Knowledge Source',
+		version: '1.0.0',
+		description: 'Update metadata or configuration for a knowledge source.',
+		goal: 'Allow rotation of credentials, sync schedules, and labels.',
+		context:
+			'Supports editing how a tenant ingests knowledge (e.g., toggling sync cadence).',
+		owners: ['@platform.knowledge'],
+		tags: ['knowledge', 'sources'],
+		stability: 'experimental',
+	},
+	io: {
+		input: UpdateKnowledgeSourceInput,
+		output: KnowledgeSourceRecord,
+	},
+	policy: {
+		auth: 'admin',
+		policies: [{ key: 'platform.knowledge.manage', version: '1.0.0' }],
+	},
 });
 ```

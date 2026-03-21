@@ -17,14 +17,14 @@ A tool was assigned to an agent.
 
 ```typescript
 export const AgentToolAssignedEvent = defineEvent({
-  meta: {
-    key: 'agent-console.agent.toolAssigned',
-    version: '1.0.0',
-    description: 'A tool was assigned to an agent.',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['agent', 'tool', 'assigned'],
-  },
-  payload: AgentToolAssignedPayload,
+	meta: {
+		key: 'agent-console.agent.toolAssigned',
+		version: '1.0.0',
+		description: 'A tool was assigned to an agent.',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['agent', 'tool', 'assigned'],
+	},
+	payload: AgentToolAssignedPayload,
 });
 ```

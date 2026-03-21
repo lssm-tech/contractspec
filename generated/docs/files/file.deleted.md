@@ -17,14 +17,14 @@ A file has been deleted.
 
 ```typescript
 export const FileDeletedEvent = defineEvent({
-  meta: {
-    key: 'file.deleted',
-    version: '1.0.0',
-    description: 'A file has been deleted.',
-    stability: 'stable',
-    owners: ['@platform.files'],
-    tags: ['files', 'delete'],
-  },
-  payload: FileDeletedPayload,
+	meta: {
+		key: 'file.deleted',
+		version: '1.0.0',
+		description: 'A file has been deleted.',
+		stability: 'stable',
+		owners: ['@platform.files'],
+		tags: ['files', 'delete'],
+	},
+	payload: FileDeletedPayload,
 });
 ```

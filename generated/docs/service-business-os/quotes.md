@@ -16,14 +16,14 @@ Quote generation and management for service businesses
 
 ```typescript
 export const QuotesCapability = defineCapability({
-  meta: {
-    key: 'quotes',
-    version: '1.0.0',
-    kind: 'api',
-    stability: StabilityEnum.Experimental,
-    description: 'Quote generation and management for service businesses',
-    owners: ['platform.core'],
-    tags: ['quotes', 'service', 'business'],
-  },
+	meta: {
+		key: 'quotes',
+		version: '1.0.0',
+		kind: 'api',
+		stability: StabilityEnum.Experimental,
+		description: 'Quote generation and management for service businesses',
+		owners: ['platform.core'],
+		tags: ['quotes', 'service', 'business'],
+	},
 });
 ```

@@ -16,14 +16,14 @@ A quiz attempt has been completed.
 
 ```typescript
 export const QuizCompletedEvent = defineEvent({
-  meta: {
-    key: 'quiz.completed',
-    version: '1.0.0',
-    description: 'A quiz attempt has been completed.',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'quiz'],
-  },
-  payload: QuizCompletedPayload,
+	meta: {
+		key: 'quiz.completed',
+		version: '1.0.0',
+		description: 'A quiz attempt has been completed.',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'quiz'],
+	},
+	payload: QuizCompletedPayload,
 });
 ```

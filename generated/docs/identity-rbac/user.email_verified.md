@@ -17,14 +17,14 @@ A user has verified their email address.
 
 ```typescript
 export const UserEmailVerifiedEvent = defineEvent({
-  meta: {
-    key: 'user.email_verified',
-    version: '1.0.0',
-    description: 'A user has verified their email address.',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['user', 'verified', 'identity'],
-  },
-  payload: UserEmailVerifiedPayload,
+	meta: {
+		key: 'user.email_verified',
+		version: '1.0.0',
+		description: 'A user has verified their email address.',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['user', 'verified', 'identity'],
+	},
+	payload: UserEmailVerifiedPayload,
 });
 ```

@@ -25,34 +25,34 @@ Dashboard rendering.
 
 ```typescript
 export const ExecuteQueryContract = defineQuery({
-  meta: {
-    key: 'analytics.query.execute',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.analytics-dashboard'],
-    tags: ['analytics', 'query', 'execute'],
-    description: 'Execute a data query.',
-    goal: 'Fetch data for visualizations.',
-    context: 'Dashboard rendering.',
-  },
-  io: { input: ExecuteQueryInputModel, output: QueryResultModel },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'execute-query-happy-path',
-        given: ['Query exists'],
-        when: ['User executes query with parameters'],
-        then: ['Query results are returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'execute-with-params',
-        input: { queryId: 'query-123', params: { startDate: '2025-01-01' } },
-        output: { columns: ['total'], rows: [{ total: 50000 }], rowCount: 1 },
-      },
-    ],
-  },
+	meta: {
+		key: 'analytics.query.execute',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.analytics-dashboard'],
+		tags: ['analytics', 'query', 'execute'],
+		description: 'Execute a data query.',
+		goal: 'Fetch data for visualizations.',
+		context: 'Dashboard rendering.',
+	},
+	io: { input: ExecuteQueryInputModel, output: QueryResultModel },
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'execute-query-happy-path',
+				given: ['Query exists'],
+				when: ['User executes query with parameters'],
+				then: ['Query results are returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'execute-with-params',
+				input: { queryId: 'query-123', params: { startDate: '2025-01-01' } },
+				output: { columns: ['total'], rows: [{ total: 50000 }], rowCount: 1 },
+			},
+		],
+	},
 });
 ```

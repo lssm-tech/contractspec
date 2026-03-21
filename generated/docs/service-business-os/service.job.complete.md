@@ -25,37 +25,37 @@ Job management.
 
 ```typescript
 export const CompleteJobContract = defineCommand({
-  meta: {
-    key: 'service.job.complete',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@examples.service-business-os'],
-    tags: ['service-business-os', 'job', 'complete'],
-    description: 'Mark a job as complete.',
-    goal: 'Record job completion.',
-    context: 'Job management.',
-  },
-  io: {
-    input: CompleteJobInputModel,
-    output: JobModel,
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'complete-job-happy-path',
-        given: ['Job is scheduled'],
-        when: ['User completes job'],
-        then: ['Job status becomes COMPLETED'],
-      },
-    ],
-    examples: [
-      {
-        key: 'mark-complete',
-        input: { jobId: 'job-456', notes: 'Done successfully' },
-        output: { id: 'job-456', status: 'completed' },
-      },
-    ],
-  },
+	meta: {
+		key: 'service.job.complete',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@examples.service-business-os'],
+		tags: ['service-business-os', 'job', 'complete'],
+		description: 'Mark a job as complete.',
+		goal: 'Record job completion.',
+		context: 'Job management.',
+	},
+	io: {
+		input: CompleteJobInputModel,
+		output: JobModel,
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'complete-job-happy-path',
+				given: ['Job is scheduled'],
+				when: ['User completes job'],
+				then: ['Job status becomes COMPLETED'],
+			},
+		],
+		examples: [
+			{
+				key: 'mark-complete',
+				input: { jobId: 'job-456', notes: 'Done successfully' },
+				output: { id: 'job-456', status: 'completed' },
+			},
+		],
+	},
 });
 ```

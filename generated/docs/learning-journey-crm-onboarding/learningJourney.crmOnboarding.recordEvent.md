@@ -25,21 +25,21 @@ Called by handlers or demo scripts to emit step completion events.
 
 ```typescript
 export const RecordCrmOnboardingEvent = defineCommand({
-  meta: {
-    key: 'learningJourney.crmOnboarding.recordEvent',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['examples.learning-journey.crm-onboarding'],
-    tags: ['learning', 'crm', 'onboarding'],
-    description: 'Record an event to advance CRM onboarding progress.',
-    goal: 'Advance steps via domain events in demo/sandbox contexts.',
-    context:
-      'Called by handlers or demo scripts to emit step completion events.',
-  },
-  io: {
-    input: RecordDemoEventInput,
-    output: SuccessModel,
-  },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'learningJourney.crmOnboarding.recordEvent',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['examples.learning-journey.crm-onboarding'],
+		tags: ['learning', 'crm', 'onboarding'],
+		description: 'Record an event to advance CRM onboarding progress.',
+		goal: 'Advance steps via domain events in demo/sandbox contexts.',
+		context:
+			'Called by handlers or demo scripts to emit step completion events.',
+	},
+	io: {
+		input: RecordDemoEventInput,
+		output: SuccessModel,
+	},
+	policy: { auth: 'user' },
 });
 ```

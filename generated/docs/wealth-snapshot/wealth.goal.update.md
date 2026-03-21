@@ -25,17 +25,17 @@ Periodic update.
 
 ```typescript
 export const UpdateGoalContract = defineCommand({
-  meta: {
-    key: 'wealth.goal.update',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['examples.wealth-snapshot'],
-    tags: ['wealth', 'goal', 'update'],
-    description: 'Update goal progress.',
-    goal: 'Keep progress current.',
-    context: 'Periodic update.',
-  },
-  io: { input: UpdateGoalInput, output: GoalModel },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'wealth.goal.update',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['examples.wealth-snapshot'],
+		tags: ['wealth', 'goal', 'update'],
+		description: 'Update goal progress.',
+		goal: 'Keep progress current.',
+		context: 'Periodic update.',
+	},
+	io: { input: UpdateGoalInput, output: GoalModel },
+	policy: { auth: 'user' },
 });
 ```

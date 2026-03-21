@@ -25,22 +25,22 @@ Called to browse file library.
 
 ```typescript
 export const ListFilesContract = defineQuery({
-  meta: {
-    key: 'file.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.files'],
-    tags: ['files', 'list'],
-    description: 'List files with filtering.',
-    goal: 'Browse uploaded files.',
-    context: 'Called to browse file library.',
-  },
-  io: {
-    input: ListFilesInput,
-    output: ListFilesOutput,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'file.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.files'],
+		tags: ['files', 'list'],
+		description: 'List files with filtering.',
+		goal: 'Browse uploaded files.',
+		context: 'Called to browse file library.',
+	},
+	io: {
+		input: ListFilesInput,
+		output: ListFilesOutput,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

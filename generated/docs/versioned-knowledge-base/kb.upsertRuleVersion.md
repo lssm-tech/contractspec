@@ -25,35 +25,35 @@ Automation or curators propose draft rule versions.
 
 ```typescript
 export const KbUpsertRuleVersionContract = defineCommand({
-  meta: {
-    key: 'kb.upsertRuleVersion',
-    title: 'Upsert Rule Version',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@examples'],
-    tags: ['knowledge', 'rules', 'versioning'],
-    description: 'Create a new draft rule version with source references.',
-    goal: 'Propose curated knowledge updates with traceability.',
-    context: 'Automation or curators propose draft rule versions.',
-  },
-  io: {
-    input: UpsertRuleVersionInput,
-    output: RuleVersionModel,
-    errors: {
-      SOURCE_REFS_REQUIRED: {
-        description: 'Rule version must cite at least one sourceRef',
-        http: 400,
-        gqlCode: 'SOURCE_REFS_REQUIRED',
-        when: 'sourceRefs is empty',
-      },
-      RULE_NOT_FOUND: {
-        description: 'Rule does not exist',
-        http: 404,
-        gqlCode: 'RULE_NOT_FOUND',
-        when: 'ruleId is unknown',
-      },
-    },
-  },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'kb.upsertRuleVersion',
+		title: 'Upsert Rule Version',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@examples'],
+		tags: ['knowledge', 'rules', 'versioning'],
+		description: 'Create a new draft rule version with source references.',
+		goal: 'Propose curated knowledge updates with traceability.',
+		context: 'Automation or curators propose draft rule versions.',
+	},
+	io: {
+		input: UpsertRuleVersionInput,
+		output: RuleVersionModel,
+		errors: {
+			SOURCE_REFS_REQUIRED: {
+				description: 'Rule version must cite at least one sourceRef',
+				http: 400,
+				gqlCode: 'SOURCE_REFS_REQUIRED',
+				when: 'sourceRefs is empty',
+			},
+			RULE_NOT_FOUND: {
+				description: 'Rule does not exist',
+				http: 404,
+				gqlCode: 'RULE_NOT_FOUND',
+				when: 'ruleId is unknown',
+			},
+		},
+	},
+	policy: { auth: 'user' },
 });
 ```

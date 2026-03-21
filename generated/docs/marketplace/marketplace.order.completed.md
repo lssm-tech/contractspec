@@ -17,14 +17,14 @@ An order has been completed.
 
 ```typescript
 export const OrderCompletedEvent = defineEvent({
-  meta: {
-    key: 'marketplace.order.completed',
-    version: '1.0.0',
-    description: 'An order has been completed.',
-    stability: 'experimental',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'order'],
-  },
-  payload: OrderCompletedPayload,
+	meta: {
+		key: 'marketplace.order.completed',
+		version: '1.0.0',
+		description: 'An order has been completed.',
+		stability: 'experimental',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'order'],
+	},
+	payload: OrderCompletedPayload,
 });
 ```

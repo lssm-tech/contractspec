@@ -24,26 +24,26 @@ Operations dashboard for integration hub health.
 
 ```typescript
 export const IntegrationHealthPresentation = definePresentation({
-  meta: {
-    key: 'integration.health',
-    version: '1.0.0',
-    title: 'Integration Health',
-    description: 'Integration health monitoring dashboard',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['integration', 'health', 'monitoring'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Monitor connectivity and error rates for active integrations.',
-    context: 'Operations dashboard for integration hub health.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'IntegrationHealth',
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['integration.monitoring.enabled'],
-  },
+	meta: {
+		key: 'integration.health',
+		version: '1.0.0',
+		title: 'Integration Health',
+		description: 'Integration health monitoring dashboard',
+		domain: 'integration',
+		owners: ['@integration-team'],
+		tags: ['integration', 'health', 'monitoring'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Monitor connectivity and error rates for active integrations.',
+		context: 'Operations dashboard for integration hub health.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'IntegrationHealth',
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['integration.monitoring.enabled'],
+	},
 });
 ```

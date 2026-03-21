@@ -25,22 +25,22 @@ Notification settings page.
 
 ```typescript
 export const GetNotificationPreferencesContract = defineQuery({
-  meta: {
-    key: 'notifications.preferences.get',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.notifications'],
-    tags: ['notifications', 'preferences', 'get'],
-    description: 'Get notification preferences for current user.',
-    goal: 'Show user their notification settings.',
-    context: 'Notification settings page.',
-  },
-  io: {
-    input: null,
-    output: NotificationPreferenceModel,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'notifications.preferences.get',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.notifications'],
+		tags: ['notifications', 'preferences', 'get'],
+		description: 'Get notification preferences for current user.',
+		goal: 'Show user their notification settings.',
+		context: 'Notification settings page.',
+	},
+	io: {
+		input: null,
+		output: NotificationPreferenceModel,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

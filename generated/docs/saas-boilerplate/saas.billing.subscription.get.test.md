@@ -17,29 +17,29 @@ Test for getting subscription
 
 ```typescript
 export const BillingSubscriptionGetTest = defineTestSpec({
-  meta: {
-    key: 'saas.billing.subscription.get.test',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@example.saas-boilerplate'],
-    description: 'Test for getting subscription',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'saas.billing.subscription.get', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'saas.billing.subscription.get' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'saas.billing.subscription.get' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'saas.billing.subscription.get.test',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@example.saas-boilerplate'],
+		description: 'Test for getting subscription',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'saas.billing.subscription.get', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'saas.billing.subscription.get' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'saas.billing.subscription.get' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

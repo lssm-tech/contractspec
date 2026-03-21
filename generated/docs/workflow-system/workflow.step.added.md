@@ -17,14 +17,14 @@ A step has been added to a workflow definition.
 
 ```typescript
 export const StepAddedEvent = defineEvent({
-  meta: {
-    key: 'workflow.step.added',
-    version: '1.0.0',
-    description: 'A step has been added to a workflow definition.',
-    stability: 'stable',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'step', 'added'],
-  },
-  payload: StepAddedPayload,
+	meta: {
+		key: 'workflow.step.added',
+		version: '1.0.0',
+		description: 'A step has been added to a workflow definition.',
+		stability: 'stable',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'step', 'added'],
+	},
+	payload: StepAddedPayload,
 });
 ```

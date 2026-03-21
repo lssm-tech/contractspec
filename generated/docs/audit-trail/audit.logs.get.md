@@ -25,27 +25,27 @@ Log detail view.
 
 ```typescript
 export const GetAuditLogContract = defineQuery({
-  meta: {
-    key: 'audit.logs.get',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.audit-trail'],
-    tags: ['audit', 'logs', 'get'],
-    description: 'Get a specific audit log by ID.',
-    goal: 'View detailed audit log entry.',
-    context: 'Log detail view.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'GetAuditLogInput',
-      fields: {
-        logId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      },
-    }),
-    output: AuditLogModel,
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'audit.logs.get',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.audit-trail'],
+		tags: ['audit', 'logs', 'get'],
+		description: 'Get a specific audit log by ID.',
+		goal: 'View detailed audit log entry.',
+		context: 'Log detail view.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'GetAuditLogInput',
+			fields: {
+				logId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+			},
+		}),
+		output: AuditLogModel,
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

@@ -24,26 +24,26 @@ Billing management
 
 ```typescript
 export const InvoiceListPresentation = definePresentation({
-  meta: {
-    key: 'service-business-os.invoice.list',
-    version: '1.0.0',
-    title: 'Invoice List',
-    description: 'List of invoices with payment status',
-    domain: 'services',
-    owners: ['@service-os'],
-    tags: ['services', 'invoices', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Track invoices and payments',
-    context: 'Billing management',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'InvoiceList',
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['service.invoices.enabled'],
-  },
+	meta: {
+		key: 'service-business-os.invoice.list',
+		version: '1.0.0',
+		title: 'Invoice List',
+		description: 'List of invoices with payment status',
+		domain: 'services',
+		owners: ['@service-os'],
+		tags: ['services', 'invoices', 'list'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Track invoices and payments',
+		context: 'Billing management',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'InvoiceList',
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['service.invoices.enabled'],
+	},
 });
 ```

@@ -14,36 +14,36 @@ A tenant config version was published to production.
 
 ```typescript
 export const ConfigPublishedEvent = defineEvent({
-  meta: {
-    ...lifecycleOwnership,
-    key: 'app_config.published',
-    version: '1.0.0',
-    description: 'A tenant config version was published to production.',
-  },
-  payload: new SchemaModel({
-    name: 'ConfigPublishedPayload',
-    fields: {
-      tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
-      appId: { type: ScalarTypeEnum.ID(), isOptional: false },
-      version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      previousVersion: {
-        type: ScalarTypeEnum.String_unsecure(),
-        isOptional: true,
-      },
-      publishedBy: {
-        type: ScalarTypeEnum.String_unsecure(),
-        isOptional: false,
-      },
-      changeSummary: {
-        type: ScalarTypeEnum.String_unsecure(),
-        isOptional: true,
-      },
-      changedSections: {
-        type: ScalarTypeEnum.String_unsecure(),
-        isOptional: true,
-        isArray: true,
-      },
-    },
-  }),
+	meta: {
+		...lifecycleOwnership,
+		key: 'app_config.published',
+		version: '1.0.0',
+		description: 'A tenant config version was published to production.',
+	},
+	payload: new SchemaModel({
+		name: 'ConfigPublishedPayload',
+		fields: {
+			tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
+			appId: { type: ScalarTypeEnum.ID(), isOptional: false },
+			version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+			previousVersion: {
+				type: ScalarTypeEnum.String_unsecure(),
+				isOptional: true,
+			},
+			publishedBy: {
+				type: ScalarTypeEnum.String_unsecure(),
+				isOptional: false,
+			},
+			changeSummary: {
+				type: ScalarTypeEnum.String_unsecure(),
+				isOptional: true,
+			},
+			changedSections: {
+				type: ScalarTypeEnum.String_unsecure(),
+				isOptional: true,
+				isArray: true,
+			},
+		},
+	}),
 });
 ```

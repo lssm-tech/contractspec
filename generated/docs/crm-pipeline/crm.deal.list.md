@@ -25,39 +25,39 @@ Pipeline view, deal list.
 
 ```typescript
 export const ListDealsContract = defineQuery({
-  meta: {
-    key: 'crm.deal.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.crm-pipeline'],
-    tags: ['crm', 'deal', 'list'],
-    description: 'List deals with filters.',
-    goal: 'Show pipeline, deal lists, dashboards.',
-    context: 'Pipeline view, deal list.',
-  },
-  io: {
-    input: ListDealsInputModel,
-    output: ListDealsOutputModel,
-  },
-  policy: {
-    auth: 'user',
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'list-deals-happy-path',
-        given: ['User has access to deals'],
-        when: ['User lists deals'],
-        then: ['List of deals is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'list-filter-stage',
-        input: { stageId: 'stage-lead', limit: 20 },
-        output: { items: [], total: 5, hasMore: false },
-      },
-    ],
-  },
+	meta: {
+		key: 'crm.deal.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.crm-pipeline'],
+		tags: ['crm', 'deal', 'list'],
+		description: 'List deals with filters.',
+		goal: 'Show pipeline, deal lists, dashboards.',
+		context: 'Pipeline view, deal list.',
+	},
+	io: {
+		input: ListDealsInputModel,
+		output: ListDealsOutputModel,
+	},
+	policy: {
+		auth: 'user',
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'list-deals-happy-path',
+				given: ['User has access to deals'],
+				when: ['User lists deals'],
+				then: ['List of deals is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'list-filter-stage',
+				input: { stageId: 'stage-lead', limit: 20 },
+				output: { items: [], total: 5, hasMore: false },
+			},
+		],
+	},
 });
 ```

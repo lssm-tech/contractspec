@@ -25,72 +25,72 @@ Called from the tool settings UI.
 
 ```typescript
 export const UpdateToolCommand = defineCommand({
-  meta: {
-    key: 'agent.tool.update',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['tool', 'update'],
-    description: 'Updates an existing AI tool definition.',
-    goal: 'Allow users to modify tool settings and configuration.',
-    context: 'Called from the tool settings UI.',
-  },
-  io: {
-    input: UpdateToolInputModel,
-    output: defineSchemaModel({
-      name: 'UpdateToolOutput',
-      fields: {
-        id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-        name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-        status: { type: ToolStatusEnum, isOptional: false },
-        updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
-      },
-    }),
-    errors: {
-      TOOL_NOT_FOUND: {
-        description: 'The specified tool does not exist',
-        http: 404,
-        gqlCode: 'TOOL_NOT_FOUND',
-        when: 'Tool ID is invalid',
-      },
-    },
-  },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'tool.updated',
-        version: '1.0.0',
-        stability: 'stable',
-        owners: ['@agent-console-team'],
-        tags: ['tool', 'updated'],
-        when: 'Tool is updated',
-        payload: ToolSummaryModel,
-      },
-    ],
-    audit: ['tool.updated'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'update-tool-happy-path',
-        given: ['Tool exists', 'User owns the tool'],
-        when: ['User submits updated configuration'],
-        then: ['Tool is updated', 'ToolUpdated event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'update-description',
-        input: { toolId: 'tool-123', description: 'Updated weather API tool' },
-        output: {
-          id: 'tool-123',
-          name: 'Weather API',
-          status: 'draft',
-          updatedAt: '2025-01-01T00:00:00Z',
-        },
-      },
-    ],
-  },
+	meta: {
+		key: 'agent.tool.update',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['tool', 'update'],
+		description: 'Updates an existing AI tool definition.',
+		goal: 'Allow users to modify tool settings and configuration.',
+		context: 'Called from the tool settings UI.',
+	},
+	io: {
+		input: UpdateToolInputModel,
+		output: defineSchemaModel({
+			name: 'UpdateToolOutput',
+			fields: {
+				id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+				name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
+				status: { type: ToolStatusEnum, isOptional: false },
+				updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
+			},
+		}),
+		errors: {
+			TOOL_NOT_FOUND: {
+				description: 'The specified tool does not exist',
+				http: 404,
+				gqlCode: 'TOOL_NOT_FOUND',
+				when: 'Tool ID is invalid',
+			},
+		},
+	},
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'tool.updated',
+				version: '1.0.0',
+				stability: 'stable',
+				owners: ['@agent-console-team'],
+				tags: ['tool', 'updated'],
+				when: 'Tool is updated',
+				payload: ToolSummaryModel,
+			},
+		],
+		audit: ['tool.updated'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'update-tool-happy-path',
+				given: ['Tool exists', 'User owns the tool'],
+				when: ['User submits updated configuration'],
+				then: ['Tool is updated', 'ToolUpdated event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'update-description',
+				input: { toolId: 'tool-123', description: 'Updated weather API tool' },
+				output: {
+					id: 'tool-123',
+					name: 'Weather API',
+					status: 'draft',
+					updatedAt: '2025-01-01T00:00:00Z',
+				},
+			},
+		],
+	},
 });
 ```

@@ -14,17 +14,17 @@ Compact widget for platform tour progress
 
 ```typescript
 export const PlatformTourWidgetPresentation = definePresentation({
-  meta: {
-    key: 'learning.journey.platform.widget',
-    version: '1.0.0',
-    description: 'Compact widget for platform tour progress',
-    ...baseMeta,
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'LearningTrackProgressWidget',
-  },
-  targets: ['react'],
+	meta: {
+		key: 'learning.journey.platform.widget',
+		version: '1.0.0',
+		description: 'Compact widget for platform tour progress',
+		...baseMeta,
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'LearningTrackProgressWidget',
+	},
+	targets: ['react'],
 });
 ```

@@ -24,27 +24,27 @@ Used in the user order history or product page.
 
 ```typescript
 export const ReviewFormPresentation = definePresentation({
-  meta: {
-    key: 'marketplace.review.form',
-    version: '1.0.0',
-    title: 'Review Form',
-    description: 'Form for submitting product reviews',
-    domain: 'marketplace',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'review', 'form'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Enable users to submit their feedback and rating for a purchase.',
-    context: 'Used in the user order history or product page.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'ReviewForm',
-    props: ReviewModel,
-  },
-  targets: ['react'],
-  policy: {
-    flags: ['marketplace.reviews.enabled'],
-  },
+	meta: {
+		key: 'marketplace.review.form',
+		version: '1.0.0',
+		title: 'Review Form',
+		description: 'Form for submitting product reviews',
+		domain: 'marketplace',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'review', 'form'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Enable users to submit their feedback and rating for a purchase.',
+		context: 'Used in the user order history or product page.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'ReviewForm',
+		props: ReviewModel,
+	},
+	targets: ['react'],
+	policy: {
+		flags: ['marketplace.reviews.enabled'],
+	},
 });
 ```

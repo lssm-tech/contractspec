@@ -14,17 +14,17 @@ Compact widget showing progress for active track.
 
 ```typescript
 export const LearningTrackProgressWidgetPresentation = definePresentation({
-  meta: {
-    key: 'learning.journey.progress_widget',
-    version: '1.0.0',
-    description: 'Compact widget showing progress for active track.',
-    ...baseMeta,
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'LearningTrackProgressWidget',
-  },
-  targets: ['react'],
+	meta: {
+		key: 'learning.journey.progress_widget',
+		version: '1.0.0',
+		description: 'Compact widget showing progress for active track.',
+		...baseMeta,
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'LearningTrackProgressWidget',
+	},
+	targets: ['react'],
 });
 ```

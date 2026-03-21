@@ -17,14 +17,14 @@ Fired when a new connection is established
 
 ```typescript
 export const ConnectionCreatedEvent = defineEvent({
-  meta: {
-    key: 'integration.connection.created',
-    version: '1.0.0',
-    description: 'Fired when a new connection is established',
-    stability: 'experimental',
-    owners: ['@integration-team'],
-    tags: ['integration', 'connection'],
-  },
-  payload: ConnectionCreatedPayload,
+	meta: {
+		key: 'integration.connection.created',
+		version: '1.0.0',
+		description: 'Fired when a new connection is established',
+		stability: 'experimental',
+		owners: ['@integration-team'],
+		tags: ['integration', 'connection'],
+	},
+	payload: ConnectionCreatedPayload,
 });
 ```

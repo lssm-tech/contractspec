@@ -24,27 +24,27 @@ Condensed representation used within the Pipeline Kanban board.
 
 ```typescript
 export const DealCardPresentation = definePresentation({
-  meta: {
-    key: 'crm.deal.card',
-    version: '1.0.0',
-    title: 'Deal Card',
-    description: 'Compact deal card for kanban board display',
-    domain: 'crm-pipeline',
-    owners: ['@crm-team'],
-    tags: ['deal', 'card', 'kanban'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Provide a quick overview of deal status in the pipeline view.',
-    context: 'Condensed representation used within the Pipeline Kanban board.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'DealCard',
-    props: DealModel,
-  },
-  targets: ['react'],
-  policy: {
-    flags: ['crm.deals.enabled'],
-  },
+	meta: {
+		key: 'crm.deal.card',
+		version: '1.0.0',
+		title: 'Deal Card',
+		description: 'Compact deal card for kanban board display',
+		domain: 'crm-pipeline',
+		owners: ['@crm-team'],
+		tags: ['deal', 'card', 'kanban'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Provide a quick overview of deal status in the pipeline view.',
+		context: 'Condensed representation used within the Pipeline Kanban board.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'DealCard',
+		props: DealModel,
+	},
+	targets: ['react'],
+	policy: {
+		flags: ['crm.deals.enabled'],
+	},
 });
 ```

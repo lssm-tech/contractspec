@@ -16,14 +16,14 @@ Financial accounts tracking and aggregation
 
 ```typescript
 export const AccountsCapability = defineCapability({
-  meta: {
-    key: 'accounts',
-    version: '1.0.0',
-    kind: 'data',
-    stability: StabilityEnum.Experimental,
-    description: 'Financial accounts tracking and aggregation',
-    owners: ['platform.finance'],
-    tags: ['accounts', 'finance', 'wealth'],
-  },
+	meta: {
+		key: 'accounts',
+		version: '1.0.0',
+		kind: 'data',
+		stability: StabilityEnum.Experimental,
+		description: 'Financial accounts tracking and aggregation',
+		owners: ['platform.finance'],
+		tags: ['accounts', 'finance', 'wealth'],
+	},
 });
 ```

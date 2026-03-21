@@ -15,21 +15,21 @@ Emitted when an agent run completes successfully.
 
 ```typescript
 export const AgentRunCompletedEvent = defineEvent({
-  meta: {
-    key: 'agent.run.completed',
-    version: '1.0.0',
-    description: 'Emitted when an agent run completes successfully.',
-    domain: AGENT_DOMAIN,
-    owners: AGENT_OWNERS,
-    tags: [...AGENT_TAGS, 'run'],
-    stability: AGENT_STABILITY,
-    docId: [docId('docs.tech.agent.run.completed')],
-  },
-  capability: {
-    key: 'agent.execution',
-    version: '1.0.0',
-  },
-  pii: [],
-  payload: AgentRunCompletedPayload,
+	meta: {
+		key: 'agent.run.completed',
+		version: '1.0.0',
+		description: 'Emitted when an agent run completes successfully.',
+		domain: AGENT_DOMAIN,
+		owners: AGENT_OWNERS,
+		tags: [...AGENT_TAGS, 'run'],
+		stability: AGENT_STABILITY,
+		docId: [docId('docs.tech.agent.run.completed')],
+	},
+	capability: {
+		key: 'agent.execution',
+		version: '1.0.0',
+	},
+	pii: [],
+	payload: AgentRunCompletedPayload,
 });
 ```

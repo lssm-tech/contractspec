@@ -24,27 +24,27 @@ Specific approval action
 
 ```typescript
 export const ApprovalDetailPresentation = definePresentation({
-  meta: {
-    key: 'workflow.approval.detail',
-    version: '1.0.0',
-    title: 'Approval Details',
-    description: 'Detailed approval request view with context and actions',
-    domain: 'workflow-system',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'approval', 'detail'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Decision support for an approval request',
-    context: 'Specific approval action',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'ApprovalRequestDetail',
-    props: ApprovalRequestModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['workflow.approvals.enabled'],
-  },
+	meta: {
+		key: 'workflow.approval.detail',
+		version: '1.0.0',
+		title: 'Approval Details',
+		description: 'Detailed approval request view with context and actions',
+		domain: 'workflow-system',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'approval', 'detail'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Decision support for an approval request',
+		context: 'Specific approval action',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'ApprovalRequestDetail',
+		props: ApprovalRequestModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['workflow.approvals.enabled'],
+	},
 });
 ```

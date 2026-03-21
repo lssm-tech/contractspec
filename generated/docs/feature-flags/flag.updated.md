@@ -17,14 +17,14 @@ A feature flag has been updated.
 
 ```typescript
 export const FlagUpdatedEvent = defineEvent({
-  meta: {
-    key: 'flag.updated',
-    version: '1.0.0',
-    description: 'A feature flag has been updated.',
-    stability: 'stable',
-    owners: ['@platform.feature-flags'],
-    tags: ['feature-flags', 'update'],
-  },
-  payload: FlagUpdatedPayload,
+	meta: {
+		key: 'flag.updated',
+		version: '1.0.0',
+		description: 'A feature flag has been updated.',
+		stability: 'stable',
+		owners: ['@platform.feature-flags'],
+		tags: ['feature-flags', 'update'],
+	},
+	payload: FlagUpdatedPayload,
 });
 ```

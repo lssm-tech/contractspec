@@ -25,30 +25,30 @@ Called when removing file from entity.
 
 ```typescript
 export const DetachFileContract = defineCommand({
-  meta: {
-    key: 'attachment.detach',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.files'],
-    tags: ['files', 'attachment', 'detach'],
-    description: 'Detach a file from an entity.',
-    goal: 'Remove a file association.',
-    context: 'Called when removing file from entity.',
-  },
-  io: {
-    input: DetachFileInput,
-    output: SuccessOutput,
-    errors: {
-      ATTACHMENT_NOT_FOUND: {
-        description: 'Attachment does not exist',
-        http: 404,
-        gqlCode: 'ATTACHMENT_NOT_FOUND',
-        when: 'Attachment ID is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'attachment.detach',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.files'],
+		tags: ['files', 'attachment', 'detach'],
+		description: 'Detach a file from an entity.',
+		goal: 'Remove a file association.',
+		context: 'Called when removing file from entity.',
+	},
+	io: {
+		input: DetachFileInput,
+		output: SuccessOutput,
+		errors: {
+			ATTACHMENT_NOT_FOUND: {
+				description: 'Attachment does not exist',
+				http: 404,
+				gqlCode: 'ATTACHMENT_NOT_FOUND',
+				when: 'Attachment ID is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

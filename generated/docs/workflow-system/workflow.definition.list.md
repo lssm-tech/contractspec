@@ -25,63 +25,63 @@ Workflow list, search.
 
 ```typescript
 export const ListWorkflowsContract = defineQuery({
-  meta: {
-    key: 'workflow.definition.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.workflow-system'],
-    tags: ['workflow', 'definition', 'list'],
-    description: 'List workflow definitions with filtering.',
-    goal: 'Browse and search available workflows.',
-    context: 'Workflow list, search.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'ListWorkflowsInput',
-      fields: {
-        status: { type: WorkflowStatusEnum, isOptional: true },
-        search: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-        limit: {
-          type: ScalarTypeEnum.Int_unsecure(),
-          isOptional: true,
-          defaultValue: 20,
-        },
-        offset: {
-          type: ScalarTypeEnum.Int_unsecure(),
-          isOptional: true,
-          defaultValue: 0,
-        },
-      },
-    }),
-    output: defineSchemaModel({
-      name: 'ListWorkflowsOutput',
-      fields: {
-        workflows: {
-          type: WorkflowDefinitionModel,
-          isArray: true,
-          isOptional: false,
-        },
-        total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-      },
-    }),
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'list-workflows-happy-path',
-        given: ['Workflow definitions exist'],
-        when: ['User lists workflows'],
-        then: ['List of workflows is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'list-all',
-        input: { limit: 10 },
-        output: { workflows: [], total: 5 },
-      },
-    ],
-  },
+	meta: {
+		key: 'workflow.definition.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.workflow-system'],
+		tags: ['workflow', 'definition', 'list'],
+		description: 'List workflow definitions with filtering.',
+		goal: 'Browse and search available workflows.',
+		context: 'Workflow list, search.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'ListWorkflowsInput',
+			fields: {
+				status: { type: WorkflowStatusEnum, isOptional: true },
+				search: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+				limit: {
+					type: ScalarTypeEnum.Int_unsecure(),
+					isOptional: true,
+					defaultValue: 20,
+				},
+				offset: {
+					type: ScalarTypeEnum.Int_unsecure(),
+					isOptional: true,
+					defaultValue: 0,
+				},
+			},
+		}),
+		output: defineSchemaModel({
+			name: 'ListWorkflowsOutput',
+			fields: {
+				workflows: {
+					type: WorkflowDefinitionModel,
+					isArray: true,
+					isOptional: false,
+				},
+				total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+			},
+		}),
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'list-workflows-happy-path',
+				given: ['Workflow definitions exist'],
+				when: ['User lists workflows'],
+				then: ['List of workflows is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'list-all',
+				input: { limit: 10 },
+				output: { workflows: [], total: 5 },
+			},
+		],
+	},
 });
 ```

@@ -24,27 +24,27 @@ Management tool for store owners.
 
 ```typescript
 export const ProductEditorPresentation = definePresentation({
-  meta: {
-    key: 'marketplace.product.editor',
-    version: '1.0.0',
-    title: 'Product Editor',
-    description: 'Product editor for sellers',
-    domain: 'marketplace',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'product', 'editor'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Allow sellers to create and modify product listings.',
-    context: 'Management tool for store owners.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'ProductEditor',
-    props: ProductModel,
-  },
-  targets: ['react'],
-  policy: {
-    flags: ['marketplace.seller.enabled'],
-  },
+	meta: {
+		key: 'marketplace.product.editor',
+		version: '1.0.0',
+		title: 'Product Editor',
+		description: 'Product editor for sellers',
+		domain: 'marketplace',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'product', 'editor'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Allow sellers to create and modify product listings.',
+		context: 'Management tool for store owners.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'ProductEditor',
+		props: ProductModel,
+	},
+	targets: ['react'],
+	policy: {
+		flags: ['marketplace.seller.enabled'],
+	},
 });
 ```

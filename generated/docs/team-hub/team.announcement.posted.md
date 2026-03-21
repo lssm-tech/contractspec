@@ -17,14 +17,14 @@ An announcement was posted.
 
 ```typescript
 export const AnnouncementPostedEvent = defineEvent({
-  meta: {
-    key: 'team.announcement.posted',
-    version: '1.0.0',
-    description: 'An announcement was posted.',
-    stability: 'stable',
-    owners: ['@team-hub'],
-    tags: ['team', 'announcement', 'posted'],
-  },
-  payload: AnnouncementPayload,
+	meta: {
+		key: 'team.announcement.posted',
+		version: '1.0.0',
+		description: 'An announcement was posted.',
+		stability: 'stable',
+		owners: ['@team-hub'],
+		tags: ['team', 'announcement', 'posted'],
+	},
+	payload: AnnouncementPayload,
 });
 ```

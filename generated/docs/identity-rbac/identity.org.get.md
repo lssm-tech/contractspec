@@ -25,22 +25,22 @@ Called when viewing organization settings or dashboard.
 
 ```typescript
 export const GetOrgContract = defineQuery({
-  meta: {
-    key: 'identity.org.get',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.identity-rbac'],
-    tags: ['identity', 'org', 'get'],
-    description: 'Get organization details.',
-    goal: 'Retrieve organization information.',
-    context: 'Called when viewing organization settings or dashboard.',
-  },
-  io: {
-    input: GetOrgInputModel,
-    output: OrganizationModel,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'identity.org.get',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.identity-rbac'],
+		tags: ['identity', 'org', 'get'],
+		description: 'Get organization details.',
+		goal: 'Retrieve organization information.',
+		context: 'Called when viewing organization settings or dashboard.',
+	},
+	io: {
+		input: GetOrgInputModel,
+		output: OrganizationModel,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

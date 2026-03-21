@@ -17,55 +17,55 @@ Verifies dashboard creation flow
 
 ```typescript
 export const CreateDashboardTest = defineTestSpec({
-  meta: {
-    key: 'analytics.dashboard.create.test',
-    version: '1.0.0',
-    title: 'Create Dashboard Test',
-    description: 'Verifies dashboard creation flow',
-    owners: ['@example.analytics-dashboard'],
-    tags: ['analytics', 'dashboard', 'test'],
-    stability: 'stable',
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'analytics.dashboard.create', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      description: 'Successfully create a dashboard',
-      when: {
-        operation: { key: 'analytics.dashboard.create', version: '1.0.0' },
-        input: {
-          name: 'Test Dashboard',
-          description: 'Test Description',
-        },
-      },
-      then: [
-        {
-          type: 'expectOutput',
-          match: {
-            name: 'Test Dashboard',
-          },
-        },
-      ],
-    },
-    {
-      key: 'error-invalid-input',
-      description: 'Fail to create dashboard with invalid input',
-      when: {
-        operation: { key: 'analytics.dashboard.create', version: '1.0.0' },
-        input: {
-          name: '',
-        },
-      },
-      then: [
-        {
-          type: 'expectError',
-          messageIncludes: 'VALIDATION_ERROR',
-        },
-      ],
-    },
-  ],
+	meta: {
+		key: 'analytics.dashboard.create.test',
+		version: '1.0.0',
+		title: 'Create Dashboard Test',
+		description: 'Verifies dashboard creation flow',
+		owners: ['@example.analytics-dashboard'],
+		tags: ['analytics', 'dashboard', 'test'],
+		stability: 'stable',
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'analytics.dashboard.create', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			description: 'Successfully create a dashboard',
+			when: {
+				operation: { key: 'analytics.dashboard.create', version: '1.0.0' },
+				input: {
+					name: 'Test Dashboard',
+					description: 'Test Description',
+				},
+			},
+			then: [
+				{
+					type: 'expectOutput',
+					match: {
+						name: 'Test Dashboard',
+					},
+				},
+			],
+		},
+		{
+			key: 'error-invalid-input',
+			description: 'Fail to create dashboard with invalid input',
+			when: {
+				operation: { key: 'analytics.dashboard.create', version: '1.0.0' },
+				input: {
+					name: '',
+				},
+			},
+			then: [
+				{
+					type: 'expectError',
+					messageIncludes: 'VALIDATION_ERROR',
+				},
+			],
+		},
+	],
 });
 ```

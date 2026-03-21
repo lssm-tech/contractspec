@@ -25,30 +25,30 @@ Called to inspect experiment status.
 
 ```typescript
 export const GetExperimentContract = defineQuery({
-  meta: {
-    key: 'experiment.get',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.feature-flags'],
-    tags: ['feature-flags', 'experiment', 'get'],
-    description: 'Get experiment details.',
-    goal: 'View experiment configuration and results.',
-    context: 'Called to inspect experiment status.',
-  },
-  io: {
-    input: GetExperimentInput,
-    output: ExperimentModel,
-    errors: {
-      EXPERIMENT_NOT_FOUND: {
-        description: 'Experiment does not exist',
-        http: 404,
-        gqlCode: 'EXPERIMENT_NOT_FOUND',
-        when: 'Experiment ID is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'experiment.get',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.feature-flags'],
+		tags: ['feature-flags', 'experiment', 'get'],
+		description: 'Get experiment details.',
+		goal: 'View experiment configuration and results.',
+		context: 'Called to inspect experiment status.',
+	},
+	io: {
+		input: GetExperimentInput,
+		output: ExperimentModel,
+		errors: {
+			EXPERIMENT_NOT_FOUND: {
+				description: 'Experiment does not exist',
+				http: 404,
+				gqlCode: 'EXPERIMENT_NOT_FOUND',
+				when: 'Experiment ID is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

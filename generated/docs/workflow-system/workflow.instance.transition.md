@@ -31,64 +31,64 @@ Task completion, approval decisions.
 
 ```typescript
 export const TransitionWorkflowContract = defineCommand({
-  meta: {
-    key: 'workflow.instance.transition',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.workflow-system'],
-    tags: ['workflow', 'instance', 'transition', 'state-machine'],
-    description: 'Transition a workflow instance to the next step.',
-    goal: 'Move workflow forward based on action.',
-    context: 'Task completion, approval decisions.',
-  },
-  io: {
-    input: TransitionInputModel,
-    output: TransitionResultModel,
-  },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'workflow.step.exited',
-        version: '1.0.0',
-        when: 'Step is exited',
-        payload: WorkflowInstanceModel,
-      },
-      {
-        key: 'workflow.step.entered',
-        version: '1.0.0',
-        when: 'New step is entered',
-        payload: WorkflowInstanceModel,
-      },
-      {
-        key: 'workflow.instance.completed',
-        version: '1.0.0',
-        when: 'Workflow reaches end',
-        payload: WorkflowInstanceModel,
-      },
-    ],
-    audit: ['workflow.instance.transitioned'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'transition-workflow-happy-path',
-        given: ['Workflow instance is waiting at step'],
-        when: ['User provides input'],
-        then: ['Instance moves to next step'],
-      },
-    ],
-    examples: [
-      {
-        key: 'complete-task',
-        input: {
-          instanceId: 'inst-456',
-          action: 'complete',
-          data: { approved: true },
-        },
-        output: { success: true, nextStep: 'notify-hr' },
-      },
-    ],
-  },
+	meta: {
+		key: 'workflow.instance.transition',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.workflow-system'],
+		tags: ['workflow', 'instance', 'transition', 'state-machine'],
+		description: 'Transition a workflow instance to the next step.',
+		goal: 'Move workflow forward based on action.',
+		context: 'Task completion, approval decisions.',
+	},
+	io: {
+		input: TransitionInputModel,
+		output: TransitionResultModel,
+	},
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'workflow.step.exited',
+				version: '1.0.0',
+				when: 'Step is exited',
+				payload: WorkflowInstanceModel,
+			},
+			{
+				key: 'workflow.step.entered',
+				version: '1.0.0',
+				when: 'New step is entered',
+				payload: WorkflowInstanceModel,
+			},
+			{
+				key: 'workflow.instance.completed',
+				version: '1.0.0',
+				when: 'Workflow reaches end',
+				payload: WorkflowInstanceModel,
+			},
+		],
+		audit: ['workflow.instance.transitioned'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'transition-workflow-happy-path',
+				given: ['Workflow instance is waiting at step'],
+				when: ['User provides input'],
+				then: ['Instance moves to next step'],
+			},
+		],
+		examples: [
+			{
+				key: 'complete-task',
+				input: {
+					instanceId: 'inst-456',
+					action: 'complete',
+					data: { approved: true },
+				},
+				output: { success: true, nextStep: 'notify-hr' },
+			},
+		],
+	},
 });
 ```

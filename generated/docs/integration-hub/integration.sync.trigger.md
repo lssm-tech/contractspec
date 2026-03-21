@@ -29,45 +29,45 @@ Manual sync or webhook trigger.
 
 ```typescript
 export const TriggerSyncContract = defineCommand({
-  meta: {
-    key: 'integration.sync.trigger',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.integration-hub'],
-    tags: ['integration', 'sync', 'trigger'],
-    description: 'Trigger a manual sync.',
-    goal: 'Start data synchronization.',
-    context: 'Manual sync or webhook trigger.',
-  },
-  io: { input: TriggerSyncInputModel, output: SyncRunModel },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'integration.sync.started',
-        version: '1.0.0',
-        when: 'Sync starts',
-        payload: SyncRunModel,
-      },
-    ],
-    audit: ['integration.sync.triggered'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'trigger-sync-happy-path',
-        given: ['Sync config exists'],
-        when: ['User triggers sync'],
-        then: ['Sync run starts', 'SyncStarted event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'manual-trigger',
-        input: { syncConfigId: 'sync-123' },
-        output: { id: 'run-789', status: 'pending' },
-      },
-    ],
-  },
+	meta: {
+		key: 'integration.sync.trigger',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.integration-hub'],
+		tags: ['integration', 'sync', 'trigger'],
+		description: 'Trigger a manual sync.',
+		goal: 'Start data synchronization.',
+		context: 'Manual sync or webhook trigger.',
+	},
+	io: { input: TriggerSyncInputModel, output: SyncRunModel },
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'integration.sync.started',
+				version: '1.0.0',
+				when: 'Sync starts',
+				payload: SyncRunModel,
+			},
+		],
+		audit: ['integration.sync.triggered'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'trigger-sync-happy-path',
+				given: ['Sync config exists'],
+				when: ['User triggers sync'],
+				then: ['Sync run starts', 'SyncStarted event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'manual-trigger',
+				input: { syncConfigId: 'sync-123' },
+				output: { id: 'run-789', status: 'pending' },
+			},
+		],
+	},
 });
 ```

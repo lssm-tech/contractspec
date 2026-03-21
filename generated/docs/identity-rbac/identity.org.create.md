@@ -29,41 +29,41 @@ Called during onboarding or when creating additional workspaces.
 
 ```typescript
 export const CreateOrgContract = defineCommand({
-  meta: {
-    key: 'identity.org.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.identity-rbac'],
-    tags: ['identity', 'org', 'create'],
-    description: 'Create a new organization.',
-    goal: 'Allow users to create new organizations/workspaces.',
-    context: 'Called during onboarding or when creating additional workspaces.',
-  },
-  io: {
-    input: CreateOrgInputModel,
-    output: OrganizationModel,
-    errors: {
-      SLUG_EXISTS: {
-        description: 'An organization with this slug already exists',
-        http: 409,
-        gqlCode: 'SLUG_EXISTS',
-        when: 'Slug is already taken',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'org.created',
-        version: '1.0.0',
-        when: 'Organization is created',
-        payload: OrganizationModel,
-      },
-    ],
-    audit: ['org.created'],
-  },
+	meta: {
+		key: 'identity.org.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.identity-rbac'],
+		tags: ['identity', 'org', 'create'],
+		description: 'Create a new organization.',
+		goal: 'Allow users to create new organizations/workspaces.',
+		context: 'Called during onboarding or when creating additional workspaces.',
+	},
+	io: {
+		input: CreateOrgInputModel,
+		output: OrganizationModel,
+		errors: {
+			SLUG_EXISTS: {
+				description: 'An organization with this slug already exists',
+				http: 409,
+				gqlCode: 'SLUG_EXISTS',
+				when: 'Slug is already taken',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'org.created',
+				version: '1.0.0',
+				when: 'Organization is created',
+				payload: OrganizationModel,
+			},
+		],
+		audit: ['org.created'],
+	},
 });
 ```

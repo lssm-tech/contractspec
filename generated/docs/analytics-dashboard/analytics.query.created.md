@@ -17,14 +17,14 @@ A query was created.
 
 ```typescript
 export const QueryCreatedEvent = defineEvent({
-  meta: {
-    key: 'analytics.query.created',
-    version: '1.0.0',
-    description: 'A query was created.',
-    stability: 'stable',
-    owners: ['@analytics-team'],
-    tags: ['dashboard'],
-  },
-  payload: QueryEventPayload,
+	meta: {
+		key: 'analytics.query.created',
+		version: '1.0.0',
+		description: 'A query was created.',
+		stability: 'stable',
+		owners: ['@analytics-team'],
+		tags: ['dashboard'],
+	},
+	payload: QueryEventPayload,
 });
 ```

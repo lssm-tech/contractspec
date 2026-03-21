@@ -16,14 +16,14 @@ A job has completed successfully.
 
 ```typescript
 export const JobCompletedEvent = defineEvent({
-  meta: {
-    key: 'job.completed',
-    version: '1.0.0',
-    description: 'A job has completed successfully.',
-    stability: StabilityEnum.Stable,
-    owners: ['@contractspec.libs.jobs'],
-    tags: ['job-queue', 'lifecycle'],
-  },
-  payload: JobCompletedPayload,
+	meta: {
+		key: 'job.completed',
+		version: '1.0.0',
+		description: 'A job has completed successfully.',
+		stability: StabilityEnum.Stable,
+		owners: ['@contractspec.libs.jobs'],
+		tags: ['job-queue', 'lifecycle'],
+	},
+	payload: JobCompletedPayload,
 });
 ```

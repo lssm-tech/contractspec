@@ -17,14 +17,14 @@ A workflow instance has exited a step.
 
 ```typescript
 export const StepExitedEvent = defineEvent({
-  meta: {
-    key: 'workflow.step.exited',
-    version: '1.0.0',
-    description: 'A workflow instance has exited a step.',
-    stability: 'stable',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'step', 'exited'],
-  },
-  payload: StepTransitionPayload,
+	meta: {
+		key: 'workflow.step.exited',
+		version: '1.0.0',
+		description: 'A workflow instance has exited a step.',
+		stability: 'stable',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'step', 'exited'],
+	},
+	payload: StepTransitionPayload,
 });
 ```

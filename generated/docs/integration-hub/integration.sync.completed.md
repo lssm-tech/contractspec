@@ -17,14 +17,14 @@ Fired when a sync run completes successfully
 
 ```typescript
 export const SyncCompletedEvent = defineEvent({
-  meta: {
-    key: 'integration.sync.completed',
-    version: '1.0.0',
-    description: 'Fired when a sync run completes successfully',
-    stability: 'experimental',
-    owners: ['@integration-team'],
-    tags: ['integration', 'sync'],
-  },
-  payload: SyncCompletedPayload,
+	meta: {
+		key: 'integration.sync.completed',
+		version: '1.0.0',
+		description: 'Fired when a sync run completes successfully',
+		stability: 'experimental',
+		owners: ['@integration-team'],
+		tags: ['integration', 'sync'],
+	},
+	payload: SyncCompletedPayload,
 });
 ```

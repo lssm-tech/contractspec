@@ -25,26 +25,26 @@ Triggered manually or by background monitors to confirm provider availability.
 
 ```typescript
 export const TestIntegrationConnection = defineCommand({
-  meta: {
-    key: 'integrations.connection.test',
-    title: 'Test Integration Connection',
-    version: '1.0.0',
-    description:
-      'Run a health check against a configured integration connection.',
-    goal: 'Validate credentials and connectivity for external providers.',
-    context:
-      'Triggered manually or by background monitors to confirm provider availability.',
-    owners: ['@platform.integrations'],
-    tags: ['integration', 'connections'],
-    stability: 'experimental',
-  },
-  io: {
-    input: TestIntegrationConnectionInput,
-    output: TestIntegrationConnectionOutput,
-  },
-  policy: {
-    auth: 'admin',
-    policies: [{ key: 'platform.integration.manage', version: '1.0.0' }],
-  },
+	meta: {
+		key: 'integrations.connection.test',
+		title: 'Test Integration Connection',
+		version: '1.0.0',
+		description:
+			'Run a health check against a configured integration connection.',
+		goal: 'Validate credentials and connectivity for external providers.',
+		context:
+			'Triggered manually or by background monitors to confirm provider availability.',
+		owners: ['@platform.integrations'],
+		tags: ['integration', 'connections'],
+		stability: 'experimental',
+	},
+	io: {
+		input: TestIntegrationConnectionInput,
+		output: TestIntegrationConnectionOutput,
+	},
+	policy: {
+		auth: 'admin',
+		policies: [{ key: 'platform.integration.manage', version: '1.0.0' }],
+	},
 });
 ```

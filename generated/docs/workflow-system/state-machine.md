@@ -16,14 +16,14 @@ State machine orchestration and transitions
 
 ```typescript
 export const StateMachineCapability = defineCapability({
-  meta: {
-    key: 'state-machine',
-    version: '1.0.0',
-    kind: 'api',
-    stability: StabilityEnum.Experimental,
-    description: 'State machine orchestration and transitions',
-    owners: ['platform.core'],
-    tags: ['state-machine', 'workflow'],
-  },
+	meta: {
+		key: 'state-machine',
+		version: '1.0.0',
+		kind: 'api',
+		stability: StabilityEnum.Experimental,
+		description: 'State machine orchestration and transitions',
+		owners: ['platform.core'],
+		tags: ['state-machine', 'workflow'],
+	},
 });
 ```

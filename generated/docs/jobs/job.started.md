@@ -16,14 +16,14 @@ A job has started processing.
 
 ```typescript
 export const JobStartedEvent = defineEvent({
-  meta: {
-    key: 'job.started',
-    version: '1.0.0',
-    description: 'A job has started processing.',
-    stability: StabilityEnum.Stable,
-    owners: ['@contractspec.libs.jobs'],
-    tags: ['job-queue', 'lifecycle'],
-  },
-  payload: JobStartedPayload,
+	meta: {
+		key: 'job.started',
+		version: '1.0.0',
+		description: 'A job has started processing.',
+		stability: StabilityEnum.Stable,
+		owners: ['@contractspec.libs.jobs'],
+		tags: ['job-queue', 'lifecycle'],
+	},
+	payload: JobStartedPayload,
 });
 ```

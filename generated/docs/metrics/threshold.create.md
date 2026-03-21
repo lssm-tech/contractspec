@@ -25,30 +25,30 @@ Called when configuring limits.
 
 ```typescript
 export const CreateThresholdContract = defineCommand({
-  meta: {
-    key: 'threshold.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.metering'],
-    tags: ['metering', 'threshold', 'create'],
-    description: 'Create a usage threshold.',
-    goal: 'Set up usage limits and alerts.',
-    context: 'Called when configuring limits.',
-  },
-  io: {
-    input: CreateThresholdInput,
-    output: UsageThresholdModel,
-    errors: {
-      METRIC_NOT_FOUND: {
-        description: 'Metric does not exist',
-        http: 404,
-        gqlCode: 'METRIC_NOT_FOUND',
-        when: 'Metric key is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'threshold.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.metering'],
+		tags: ['metering', 'threshold', 'create'],
+		description: 'Create a usage threshold.',
+		goal: 'Set up usage limits and alerts.',
+		context: 'Called when configuring limits.',
+	},
+	io: {
+		input: CreateThresholdInput,
+		output: UsageThresholdModel,
+		errors: {
+			METRIC_NOT_FOUND: {
+				description: 'Metric does not exist',
+				http: 404,
+				gqlCode: 'METRIC_NOT_FOUND',
+				when: 'Metric key is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

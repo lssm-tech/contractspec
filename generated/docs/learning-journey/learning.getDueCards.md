@@ -24,22 +24,22 @@ Called when starting a review session.
 
 ```typescript
 export const GetDueCardsContract = defineQuery({
-  meta: {
-    key: 'learning.getDueCards',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'flashcards'],
-    description: 'Get flashcards due for review.',
-    goal: 'Get the next batch of cards to review.',
-    context: 'Called when starting a review session.',
-  },
-  io: {
-    input: GetDueCardsInput,
-    output: GetDueCardsOutput,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'learning.getDueCards',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'flashcards'],
+		description: 'Get flashcards due for review.',
+		goal: 'Get the next batch of cards to review.',
+		context: 'Called when starting a review session.',
+	},
+	io: {
+		input: GetDueCardsInput,
+		output: GetDueCardsOutput,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

@@ -17,14 +17,14 @@ A user has left or been removed from an organization.
 
 ```typescript
 export const OrgMemberRemovedEvent = defineEvent({
-  meta: {
-    key: 'org.member.removed',
-    version: '1.0.0',
-    description: 'A user has left or been removed from an organization.',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['org', 'member', 'removed', 'identity'],
-  },
-  payload: OrgMemberRemovedPayload,
+	meta: {
+		key: 'org.member.removed',
+		version: '1.0.0',
+		description: 'A user has left or been removed from an organization.',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['org', 'member', 'removed', 'identity'],
+	},
+	payload: OrgMemberRemovedPayload,
 });
 ```

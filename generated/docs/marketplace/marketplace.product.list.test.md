@@ -17,29 +17,29 @@ Test for listing products
 
 ```typescript
 export const ProductListTest = defineTestSpec({
-  meta: {
-    key: 'marketplace.product.list.test',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@example.marketplace'],
-    description: 'Test for listing products',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'marketplace.product.list', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'marketplace.product.list' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'marketplace.product.list' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'marketplace.product.list.test',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@example.marketplace'],
+		description: 'Test for listing products',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'marketplace.product.list', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'marketplace.product.list' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'marketplace.product.list' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

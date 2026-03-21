@@ -17,14 +17,14 @@ KB snapshot published.
 
 ```typescript
 export const KbSnapshotPublishedEvent = defineEvent({
-  meta: {
-    key: 'kb.snapshot.published',
-    version: '1.0.0',
-    description: 'KB snapshot published.',
-    stability: 'experimental',
-    owners: ['@examples'],
-    tags: ['knowledge'],
-  },
-  payload: KbSnapshotPublishedPayload,
+	meta: {
+		key: 'kb.snapshot.published',
+		version: '1.0.0',
+		description: 'KB snapshot published.',
+		stability: 'experimental',
+		owners: ['@examples'],
+		tags: ['knowledge'],
+	},
+	payload: KbSnapshotPublishedPayload,
 });
 ```

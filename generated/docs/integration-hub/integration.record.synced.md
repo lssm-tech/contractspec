@@ -17,14 +17,14 @@ Fired when a single record is synced
 
 ```typescript
 export const RecordSyncedEvent = defineEvent({
-  meta: {
-    key: 'integration.record.synced',
-    version: '1.0.0',
-    description: 'Fired when a single record is synced',
-    stability: 'experimental',
-    owners: ['@integration-team'],
-    tags: ['integration', 'sync'],
-  },
-  payload: RecordSyncedPayload,
+	meta: {
+		key: 'integration.record.synced',
+		version: '1.0.0',
+		description: 'Fired when a single record is synced',
+		stability: 'experimental',
+		owners: ['@integration-team'],
+		tags: ['integration', 'sync'],
+	},
+	payload: RecordSyncedPayload,
 });
 ```

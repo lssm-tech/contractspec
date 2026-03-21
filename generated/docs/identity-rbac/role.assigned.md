@@ -17,14 +17,14 @@ A role has been assigned.
 
 ```typescript
 export const RoleAssignedEvent = defineEvent({
-  meta: {
-    key: 'role.assigned',
-    version: '1.0.0',
-    description: 'A role has been assigned.',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['role', 'assigned', 'identity'],
-  },
-  payload: RoleAssignedPayload,
+	meta: {
+		key: 'role.assigned',
+		version: '1.0.0',
+		description: 'A role has been assigned.',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['role', 'assigned', 'identity'],
+	},
+	payload: RoleAssignedPayload,
 });
 ```

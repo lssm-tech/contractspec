@@ -24,23 +24,23 @@ Dashboard widget or dedicated page.
 
 ```typescript
 export const AnnouncementFeedPresentation = definePresentation({
-  meta: {
-    key: 'team-hub.announcement.feed',
-    version: '1.0.0',
-    title: 'Announcement Feed',
-    description: 'Feed of team announcements.',
-    domain: 'team-hub',
-    owners: ['@team-hub'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Broadcast important team news.',
-    context: 'Dashboard widget or dedicated page.',
-    tags: ['announcement', 'feed'],
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'AnnouncementFeed',
-  },
-  targets: ['react'],
+	meta: {
+		key: 'team-hub.announcement.feed',
+		version: '1.0.0',
+		title: 'Announcement Feed',
+		description: 'Feed of team announcements.',
+		domain: 'team-hub',
+		owners: ['@team-hub'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Broadcast important team news.',
+		context: 'Dashboard widget or dedicated page.',
+		tags: ['announcement', 'feed'],
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'AnnouncementFeed',
+	},
+	targets: ['react'],
 });
 ```

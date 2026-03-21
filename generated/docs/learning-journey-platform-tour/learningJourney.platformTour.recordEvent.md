@@ -25,21 +25,21 @@ Called by handlers or demo scripts to emit step completion events.
 
 ```typescript
 export const RecordPlatformTourEvent = defineCommand({
-  meta: {
-    key: 'learningJourney.platformTour.recordEvent',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['examples.learning-journey.platform-tour'],
-    tags: ['learning', 'platform', 'tour'],
-    description: 'Record an event to advance platform tour progress.',
-    goal: 'Advance steps via domain events in demo/sandbox contexts.',
-    context:
-      'Called by handlers or demo scripts to emit step completion events.',
-  },
-  io: {
-    input: RecordDemoEventInput,
-    output: SuccessModel,
-  },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'learningJourney.platformTour.recordEvent',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['examples.learning-journey.platform-tour'],
+		tags: ['learning', 'platform', 'tour'],
+		description: 'Record an event to advance platform tour progress.',
+		goal: 'Advance steps via domain events in demo/sandbox contexts.',
+		context:
+			'Called by handlers or demo scripts to emit step completion events.',
+	},
+	io: {
+		input: RecordDemoEventInput,
+		output: SuccessModel,
+	},
+	policy: { auth: 'user' },
 });
 ```

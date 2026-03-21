@@ -17,14 +17,14 @@ An order status has been updated.
 
 ```typescript
 export const OrderStatusUpdatedEvent = defineEvent({
-  meta: {
-    key: 'marketplace.order.statusUpdated',
-    version: '1.0.0',
-    description: 'An order status has been updated.',
-    stability: 'experimental',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'order'],
-  },
-  payload: OrderStatusUpdatedPayload,
+	meta: {
+		key: 'marketplace.order.statusUpdated',
+		version: '1.0.0',
+		description: 'An order status has been updated.',
+		stability: 'experimental',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'order'],
+	},
+	payload: OrderStatusUpdatedPayload,
 });
 ```

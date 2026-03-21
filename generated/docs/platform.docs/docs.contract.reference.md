@@ -23,31 +23,31 @@ Used by docs generators and UI to render consistent reference pages.
 
 ```typescript
 export const ContractReferenceQuery = defineQuery({
-  meta: {
-    key: 'docs.contract.reference',
-    title: 'Contract Reference',
-    version: '1.0.0',
-    description: 'Resolve a contract into a documentation-ready reference.',
-    goal: 'Expose a canonical reference view for any ContractSpec surface.',
-    context:
-      'Used by docs generators and UI to render consistent reference pages.',
-    domain: DOCS_DOMAIN,
-    owners: DOCS_OWNERS,
-    tags: [...DOCS_TAGS, 'reference'],
-    stability: DOCS_STABILITY,
-    docId: [docId('docs.tech.docs-reference')],
-  },
-  capability: {
-    key: 'docs.system',
-    version: '1.0.0',
-  },
-  io: {
-    input: ContractReferenceInput,
-    output: ContractReferenceOutput,
-  },
-  policy: {
-    auth: 'anonymous',
-    pii: [],
-  },
+	meta: {
+		key: 'docs.contract.reference',
+		title: 'Contract Reference',
+		version: '1.0.0',
+		description: 'Resolve a contract into a documentation-ready reference.',
+		goal: 'Expose a canonical reference view for any ContractSpec surface.',
+		context:
+			'Used by docs generators and UI to render consistent reference pages.',
+		domain: DOCS_DOMAIN,
+		owners: DOCS_OWNERS,
+		tags: [...DOCS_TAGS, 'reference'],
+		stability: DOCS_STABILITY,
+		docId: [docId('docs.tech.docs-reference')],
+	},
+	capability: {
+		key: 'docs.system',
+		version: '1.0.0',
+	},
+	io: {
+		input: ContractReferenceInput,
+		output: ContractReferenceOutput,
+	},
+	policy: {
+		auth: 'anonymous',
+		pii: [],
+	},
 });
 ```

@@ -17,14 +17,14 @@ A tool invocation completed during an agent run.
 
 ```typescript
 export const ToolCompletedEvent = defineEvent({
-  meta: {
-    key: 'agent.run.toolCompleted',
-    version: '1.0.0',
-    description: 'A tool invocation completed during an agent run.',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['run', 'tool', 'completed'],
-  },
-  payload: ToolCompletedPayload,
+	meta: {
+		key: 'agent.run.toolCompleted',
+		version: '1.0.0',
+		description: 'A tool invocation completed during an agent run.',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['run', 'tool', 'completed'],
+	},
+	payload: ToolCompletedPayload,
 });
 ```

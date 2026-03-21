@@ -17,15 +17,15 @@ Assistant answer delivered (must include KB snapshot citations).
 
 ```typescript
 export const AssistantAnswerDeliveredEvent = defineEvent({
-  meta: {
-    key: 'assistant.answer.delivered',
-    version: '1.0.0',
-    description:
-      'Assistant answer delivered (must include KB snapshot citations).',
-    stability: 'experimental',
-    owners: ['@examples'],
-    tags: ['assistant', 'policy', 'delivered'],
-  },
-  payload: AssistantAnswerDeliveredPayload,
+	meta: {
+		key: 'assistant.answer.delivered',
+		version: '1.0.0',
+		description:
+			'Assistant answer delivered (must include KB snapshot citations).',
+		stability: 'experimental',
+		owners: ['@examples'],
+		tags: ['assistant', 'policy', 'delivered'],
+	},
+	payload: AssistantAnswerDeliveredPayload,
 });
 ```

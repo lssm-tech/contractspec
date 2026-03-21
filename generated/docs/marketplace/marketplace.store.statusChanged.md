@@ -17,14 +17,14 @@ A store status has changed.
 
 ```typescript
 export const StoreStatusChangedEvent = defineEvent({
-  meta: {
-    key: 'marketplace.store.statusChanged',
-    version: '1.0.0',
-    description: 'A store status has changed.',
-    stability: 'experimental',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'store'],
-  },
-  payload: StoreStatusChangedPayload,
+	meta: {
+		key: 'marketplace.store.statusChanged',
+		version: '1.0.0',
+		description: 'A store status has changed.',
+		stability: 'experimental',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'store'],
+	},
+	payload: StoreStatusChangedPayload,
 });
 ```

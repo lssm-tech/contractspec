@@ -25,30 +25,30 @@ Called when setting up metering.
 
 ```typescript
 export const DefineMetricContract = defineCommand({
-  meta: {
-    key: 'metric.define',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.metering'],
-    tags: ['metering', 'metric', 'define'],
-    description: 'Define a new usage metric.',
-    goal: 'Create a new metric for tracking usage.',
-    context: 'Called when setting up metering.',
-  },
-  io: {
-    input: DefineMetricInput,
-    output: MetricDefinitionModel,
-    errors: {
-      METRIC_KEY_EXISTS: {
-        description: 'Metric key already exists',
-        http: 409,
-        gqlCode: 'METRIC_KEY_EXISTS',
-        when: 'A metric with this key already exists',
-      },
-    },
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'metric.define',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.metering'],
+		tags: ['metering', 'metric', 'define'],
+		description: 'Define a new usage metric.',
+		goal: 'Create a new metric for tracking usage.',
+		context: 'Called when setting up metering.',
+	},
+	io: {
+		input: DefineMetricInput,
+		output: MetricDefinitionModel,
+		errors: {
+			METRIC_KEY_EXISTS: {
+				description: 'Metric key already exists',
+				http: 409,
+				gqlCode: 'METRIC_KEY_EXISTS',
+				when: 'A metric with this key already exists',
+			},
+		},
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

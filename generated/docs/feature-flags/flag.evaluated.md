@@ -17,14 +17,14 @@ A feature flag has been evaluated.
 
 ```typescript
 export const FlagEvaluatedEvent = defineEvent({
-  meta: {
-    key: 'flag.evaluated',
-    version: '1.0.0',
-    description: 'A feature flag has been evaluated.',
-    stability: 'stable',
-    owners: ['@platform.feature-flags'],
-    tags: ['feature-flags', 'evaluate'],
-  },
-  payload: FlagEvaluatedPayload,
+	meta: {
+		key: 'flag.evaluated',
+		version: '1.0.0',
+		description: 'A feature flag has been evaluated.',
+		stability: 'stable',
+		owners: ['@platform.feature-flags'],
+		tags: ['feature-flags', 'evaluate'],
+	},
+	payload: FlagEvaluatedPayload,
 });
 ```

@@ -24,27 +24,27 @@ Detailed troubleshooting view.
 
 ```typescript
 export const SyncRunDetailPresentation = definePresentation({
-  meta: {
-    key: 'integration.syncRun.detail',
-    version: '1.0.0',
-    title: 'Sync Run Details',
-    description: 'Detailed view of a sync run with logs',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['integration', 'sync', 'run', 'detail'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Show granular details and logs for a specific sync run.',
-    context: 'Detailed troubleshooting view.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'SyncRunDetail',
-    props: SyncRunModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['integration.sync.enabled'],
-  },
+	meta: {
+		key: 'integration.syncRun.detail',
+		version: '1.0.0',
+		title: 'Sync Run Details',
+		description: 'Detailed view of a sync run with logs',
+		domain: 'integration',
+		owners: ['@integration-team'],
+		tags: ['integration', 'sync', 'run', 'detail'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Show granular details and logs for a specific sync run.',
+		context: 'Detailed troubleshooting view.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'SyncRunDetail',
+		props: SyncRunModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['integration.sync.enabled'],
+	},
 });
 ```

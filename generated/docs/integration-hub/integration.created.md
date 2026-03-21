@@ -17,14 +17,14 @@ Fired when a new integration is created
 
 ```typescript
 export const IntegrationCreatedEvent = defineEvent({
-  meta: {
-    key: 'integration.created',
-    version: '1.0.0',
-    description: 'Fired when a new integration is created',
-    stability: 'experimental',
-    owners: ['@integration-team'],
-    tags: ['integration'],
-  },
-  payload: IntegrationCreatedPayload,
+	meta: {
+		key: 'integration.created',
+		version: '1.0.0',
+		description: 'Fired when a new integration is created',
+		stability: 'experimental',
+		owners: ['@integration-team'],
+		tags: ['integration'],
+	},
+	payload: IntegrationCreatedPayload,
 });
 ```

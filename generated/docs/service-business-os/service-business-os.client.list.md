@@ -24,26 +24,26 @@ Client management
 
 ```typescript
 export const ClientListPresentation = definePresentation({
-  meta: {
-    key: 'service-business-os.client.list',
-    version: '1.0.0',
-    title: 'Client List',
-    description: 'List of service clients',
-    domain: 'services',
-    owners: ['@service-os'],
-    tags: ['services', 'clients', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Browse and manage service clients',
-    context: 'Client management',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'ClientList',
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['service.clients.enabled'],
-  },
+	meta: {
+		key: 'service-business-os.client.list',
+		version: '1.0.0',
+		title: 'Client List',
+		description: 'List of service clients',
+		domain: 'services',
+		owners: ['@service-os'],
+		tags: ['services', 'clients', 'list'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Browse and manage service clients',
+		context: 'Client management',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'ClientList',
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['service.clients.enabled'],
+	},
 });
 ```

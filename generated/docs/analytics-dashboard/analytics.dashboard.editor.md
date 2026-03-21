@@ -24,27 +24,27 @@ Management tool for analysts.
 
 ```typescript
 export const DashboardEditorPresentation = definePresentation({
-  meta: {
-    key: 'analytics.dashboard.editor',
-    version: '1.0.0',
-    title: 'Dashboard Editor',
-    description: 'Edit dashboard configuration and widgets',
-    domain: 'analytics',
-    owners: ['@analytics-dashboard'],
-    tags: ['analytics', 'dashboard', 'editor'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Configure dashboard layout and widget settings.',
-    context: 'Management tool for analysts.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'DashboardEditor',
-    props: DashboardModel,
-  },
-  targets: ['react'],
-  policy: {
-    flags: ['analytics.dashboards.enabled'],
-  },
+	meta: {
+		key: 'analytics.dashboard.editor',
+		version: '1.0.0',
+		title: 'Dashboard Editor',
+		description: 'Edit dashboard configuration and widgets',
+		domain: 'analytics',
+		owners: ['@analytics-dashboard'],
+		tags: ['analytics', 'dashboard', 'editor'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Configure dashboard layout and widget settings.',
+		context: 'Management tool for analysts.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'DashboardEditor',
+		props: DashboardModel,
+	},
+	targets: ['react'],
+	policy: {
+		flags: ['analytics.dashboards.enabled'],
+	},
 });
 ```

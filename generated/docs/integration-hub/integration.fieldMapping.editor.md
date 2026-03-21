@@ -24,27 +24,27 @@ Schema mapping tool for data consistency.
 
 ```typescript
 export const FieldMappingEditorPresentation = definePresentation({
-  meta: {
-    key: 'integration.fieldMapping.editor',
-    version: '1.0.0',
-    title: 'Field Mapping Editor',
-    description: 'Visual field mapping editor',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['integration', 'field-mapping', 'editor'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Allow users to map source fields to target fields visually.',
-    context: 'Schema mapping tool for data consistency.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'FieldMappingEditor',
-    props: FieldMappingModel,
-  },
-  targets: ['react'],
-  policy: {
-    flags: ['integration.sync.enabled'],
-  },
+	meta: {
+		key: 'integration.fieldMapping.editor',
+		version: '1.0.0',
+		title: 'Field Mapping Editor',
+		description: 'Visual field mapping editor',
+		domain: 'integration',
+		owners: ['@integration-team'],
+		tags: ['integration', 'field-mapping', 'editor'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Allow users to map source fields to target fields visually.',
+		context: 'Schema mapping tool for data consistency.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'FieldMappingEditor',
+		props: FieldMappingModel,
+	},
+	targets: ['react'],
+	policy: {
+		flags: ['integration.sync.enabled'],
+	},
 });
 ```

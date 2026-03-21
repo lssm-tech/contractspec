@@ -24,26 +24,26 @@ Overview
 
 ```typescript
 export const AssetsListPresentation = definePresentation({
-  meta: {
-    key: 'wealth-snapshot.assets.list',
-    version: '1.0.0',
-    title: 'Assets List',
-    description: 'List of assets with valuations',
-    domain: 'finance',
-    owners: ['@wealth-snapshot'],
-    tags: ['finance', 'assets', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'List assets',
-    context: 'Overview',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'AssetsList',
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['wealth.assets.enabled'],
-  },
+	meta: {
+		key: 'wealth-snapshot.assets.list',
+		version: '1.0.0',
+		title: 'Assets List',
+		description: 'List of assets with valuations',
+		domain: 'finance',
+		owners: ['@wealth-snapshot'],
+		tags: ['finance', 'assets', 'list'],
+		stability: StabilityEnum.Experimental,
+		goal: 'List assets',
+		context: 'Overview',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'AssetsList',
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['wealth.assets.enabled'],
+	},
 });
 ```

@@ -25,30 +25,30 @@ Called to inspect metric details.
 
 ```typescript
 export const GetMetricContract = defineQuery({
-  meta: {
-    key: 'metric.get',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.metering'],
-    tags: ['metering', 'metric', 'get'],
-    description: 'Get a metric by key.',
-    goal: 'Retrieve metric definition.',
-    context: 'Called to inspect metric details.',
-  },
-  io: {
-    input: GetMetricInput,
-    output: MetricDefinitionModel,
-    errors: {
-      METRIC_NOT_FOUND: {
-        description: 'Metric does not exist',
-        http: 404,
-        gqlCode: 'METRIC_NOT_FOUND',
-        when: 'Metric key is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'metric.get',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.metering'],
+		tags: ['metering', 'metric', 'get'],
+		description: 'Get a metric by key.',
+		goal: 'Retrieve metric definition.',
+		context: 'Called to inspect metric details.',
+	},
+	io: {
+		input: GetMetricInput,
+		output: MetricDefinitionModel,
+		errors: {
+			METRIC_NOT_FOUND: {
+				description: 'Metric does not exist',
+				http: 404,
+				gqlCode: 'METRIC_NOT_FOUND',
+				when: 'Metric key is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

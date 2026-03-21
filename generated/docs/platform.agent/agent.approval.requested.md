@@ -15,21 +15,21 @@ Emitted when an approval is required for an agent action.
 
 ```typescript
 export const AgentApprovalRequestedEvent = defineEvent({
-  meta: {
-    key: 'agent.approval.requested',
-    version: '1.0.0',
-    description: 'Emitted when an approval is required for an agent action.',
-    domain: AGENT_DOMAIN,
-    owners: AGENT_OWNERS,
-    tags: [...AGENT_TAGS, 'approval'],
-    stability: AGENT_STABILITY,
-    docId: [docId('docs.tech.agent.approval.requested')],
-  },
-  capability: {
-    key: 'agent.execution',
-    version: '1.0.0',
-  },
-  pii: ['reason'],
-  payload: AgentApprovalRequestedPayload,
+	meta: {
+		key: 'agent.approval.requested',
+		version: '1.0.0',
+		description: 'Emitted when an approval is required for an agent action.',
+		domain: AGENT_DOMAIN,
+		owners: AGENT_OWNERS,
+		tags: [...AGENT_TAGS, 'approval'],
+		stability: AGENT_STABILITY,
+		docId: [docId('docs.tech.agent.approval.requested')],
+	},
+	capability: {
+		key: 'agent.execution',
+		version: '1.0.0',
+	},
+	pii: ['reason'],
+	payload: AgentApprovalRequestedPayload,
 });
 ```

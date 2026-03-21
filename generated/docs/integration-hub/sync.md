@@ -16,14 +16,14 @@ Data synchronization between systems
 
 ```typescript
 export const SyncCapability = defineCapability({
-  meta: {
-    key: 'sync',
-    version: '1.0.0',
-    kind: 'api',
-    stability: StabilityEnum.Experimental,
-    description: 'Data synchronization between systems',
-    owners: ['platform.core'],
-    tags: ['sync', 'data'],
-  },
+	meta: {
+		key: 'sync',
+		version: '1.0.0',
+		kind: 'api',
+		stability: StabilityEnum.Experimental,
+		description: 'Data synchronization between systems',
+		owners: ['platform.core'],
+		tags: ['sync', 'data'],
+	},
 });
 ```

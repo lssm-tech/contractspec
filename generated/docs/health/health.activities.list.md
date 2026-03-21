@@ -25,24 +25,24 @@ Used by analytics dashboards, coaching workflows, and health summaries.
 
 ```typescript
 export const HealthListActivities = defineQuery({
-  meta: {
-    key: 'health.activities.list',
-    version: '1.0.0',
-    description:
-      'List normalized activity entries synced from health integrations.',
-    goal: 'Provide app workflows with canonical activity data across providers and transports.',
-    context:
-      'Used by analytics dashboards, coaching workflows, and health summaries.',
-    owners: ['@platform.integrations'],
-    tags: ['health', 'activities', 'wearables'],
-    stability: 'experimental',
-  },
-  io: {
-    input: HealthListActivitiesInput,
-    output: HealthListActivitiesOutput,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'health.activities.list',
+		version: '1.0.0',
+		description:
+			'List normalized activity entries synced from health integrations.',
+		goal: 'Provide app workflows with canonical activity data across providers and transports.',
+		context:
+			'Used by analytics dashboards, coaching workflows, and health summaries.',
+		owners: ['@platform.integrations'],
+		tags: ['health', 'activities', 'wearables'],
+		stability: 'experimental',
+	},
+	io: {
+		input: HealthListActivitiesInput,
+		output: HealthListActivitiesOutput,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

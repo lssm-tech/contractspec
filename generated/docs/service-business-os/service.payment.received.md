@@ -17,14 +17,14 @@ A payment was recorded.
 
 ```typescript
 export const PaymentReceivedEvent = defineEvent({
-  meta: {
-    key: 'service.payment.received',
-    version: '1.0.0',
-    description: 'A payment was recorded.',
-    stability: 'stable',
-    owners: ['@service-os'],
-    tags: ['service', 'payment', 'received'],
-  },
-  payload: PaymentEventPayload,
+	meta: {
+		key: 'service.payment.received',
+		version: '1.0.0',
+		description: 'A payment was recorded.',
+		stability: 'stable',
+		owners: ['@service-os'],
+		tags: ['service', 'payment', 'received'],
+	},
+	payload: PaymentEventPayload,
 });
 ```

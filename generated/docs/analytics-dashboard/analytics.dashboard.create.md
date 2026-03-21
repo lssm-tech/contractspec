@@ -25,51 +25,51 @@ Dashboard management.
 
 ```typescript
 export const CreateDashboardContract = defineCommand({
-  meta: {
-    key: 'analytics.dashboard.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.analytics-dashboard'],
-    tags: ['analytics', 'dashboard', 'create'],
-    description: 'Create a new analytics dashboard.',
-    goal: 'Allow users to create custom dashboards.',
-    context: 'Dashboard management.',
-  },
-  io: { input: CreateDashboardInputModel, output: DashboardModel },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'analytics.dashboard.created',
-        version: '1.0.0',
-        stability: 'stable',
-        owners: ['@example.analytics-dashboard'],
-        tags: ['analytics', 'dashboard', 'created'],
-        when: 'Dashboard created',
-        payload: DashboardModel,
-      },
-    ],
-    audit: ['analytics.dashboard.created'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'create-dashboard-happy-path',
-        given: ['User is authenticated'],
-        when: ['User submits valid dashboard configuration'],
-        then: ['Dashboard is created', 'DashboardCreated event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'create-basic',
-        input: {
-          name: 'Revenue Dashboard',
-          description: 'Monthly revenue metrics',
-        },
-        output: { id: 'dash-123', name: 'Revenue Dashboard', widgets: [] },
-      },
-    ],
-  },
+	meta: {
+		key: 'analytics.dashboard.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.analytics-dashboard'],
+		tags: ['analytics', 'dashboard', 'create'],
+		description: 'Create a new analytics dashboard.',
+		goal: 'Allow users to create custom dashboards.',
+		context: 'Dashboard management.',
+	},
+	io: { input: CreateDashboardInputModel, output: DashboardModel },
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'analytics.dashboard.created',
+				version: '1.0.0',
+				stability: 'stable',
+				owners: ['@example.analytics-dashboard'],
+				tags: ['analytics', 'dashboard', 'created'],
+				when: 'Dashboard created',
+				payload: DashboardModel,
+			},
+		],
+		audit: ['analytics.dashboard.created'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'create-dashboard-happy-path',
+				given: ['User is authenticated'],
+				when: ['User submits valid dashboard configuration'],
+				then: ['Dashboard is created', 'DashboardCreated event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'create-basic',
+				input: {
+					name: 'Revenue Dashboard',
+					description: 'Monthly revenue metrics',
+				},
+				output: { id: 'dash-123', name: 'Revenue Dashboard', widgets: [] },
+			},
+		],
+	},
 });
 ```

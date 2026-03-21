@@ -17,14 +17,14 @@ A new product has been created.
 
 ```typescript
 export const ProductCreatedEvent = defineEvent({
-  meta: {
-    key: 'marketplace.product.created',
-    version: '1.0.0',
-    description: 'A new product has been created.',
-    stability: 'experimental',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'product'],
-  },
-  payload: ProductCreatedPayload,
+	meta: {
+		key: 'marketplace.product.created',
+		version: '1.0.0',
+		description: 'A new product has been created.',
+		stability: 'experimental',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'product'],
+	},
+	payload: ProductCreatedPayload,
 });
 ```

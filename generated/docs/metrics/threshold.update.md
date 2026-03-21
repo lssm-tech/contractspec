@@ -25,30 +25,30 @@ Called when adjusting limits.
 
 ```typescript
 export const UpdateThresholdContract = defineCommand({
-  meta: {
-    key: 'threshold.update',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.metering'],
-    tags: ['metering', 'threshold', 'update'],
-    description: 'Update a threshold.',
-    goal: 'Modify threshold configuration.',
-    context: 'Called when adjusting limits.',
-  },
-  io: {
-    input: UpdateThresholdInput,
-    output: UsageThresholdModel,
-    errors: {
-      THRESHOLD_NOT_FOUND: {
-        description: 'Threshold does not exist',
-        http: 404,
-        gqlCode: 'THRESHOLD_NOT_FOUND',
-        when: 'Threshold ID is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'threshold.update',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.metering'],
+		tags: ['metering', 'threshold', 'update'],
+		description: 'Update a threshold.',
+		goal: 'Modify threshold configuration.',
+		context: 'Called when adjusting limits.',
+	},
+	io: {
+		input: UpdateThresholdInput,
+		output: UsageThresholdModel,
+		errors: {
+			THRESHOLD_NOT_FOUND: {
+				description: 'Threshold does not exist',
+				http: 404,
+				gqlCode: 'THRESHOLD_NOT_FOUND',
+				when: 'Threshold ID is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

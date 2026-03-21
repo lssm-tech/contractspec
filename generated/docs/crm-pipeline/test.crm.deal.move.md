@@ -17,29 +17,29 @@ Test for moving deal
 
 ```typescript
 export const dealMoveTest = defineTestSpec({
-  meta: {
-    key: 'test.crm.deal.move',
-    version: '1.0.0',
-    owners: ['@example.crm-pipeline'],
-    description: 'Test for moving deal',
-    stability: 'stable',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'crm.deal.move', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'crm.deal.move' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'crm.deal.move' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'test.crm.deal.move',
+		version: '1.0.0',
+		owners: ['@example.crm-pipeline'],
+		description: 'Test for moving deal',
+		stability: 'stable',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'crm.deal.move', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'crm.deal.move' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'crm.deal.move' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

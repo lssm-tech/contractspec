@@ -17,14 +17,14 @@ A space was created.
 
 ```typescript
 export const SpaceCreatedEvent = defineEvent({
-  meta: {
-    key: 'team.space.created',
-    version: '1.0.0',
-    description: 'A space was created.',
-    stability: 'stable',
-    owners: ['@team-hub'],
-    tags: ['team', 'space', 'created'],
-  },
-  payload: SpaceEventPayload,
+	meta: {
+		key: 'team.space.created',
+		version: '1.0.0',
+		description: 'A space was created.',
+		stability: 'stable',
+		owners: ['@team-hub'],
+		tags: ['team', 'space', 'created'],
+	},
+	payload: SpaceEventPayload,
 });
 ```

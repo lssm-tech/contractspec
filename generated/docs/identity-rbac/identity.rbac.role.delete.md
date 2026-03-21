@@ -25,33 +25,33 @@ Role management. Removes all policy bindings using this role.
 
 ```typescript
 export const DeleteRoleContract = defineCommand({
-  meta: {
-    key: 'identity.rbac.role.delete',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['identity', 'rbac', 'role', 'delete'],
-    description: 'Delete an existing role.',
-    goal: 'Allow admins to remove unused roles.',
-    context: 'Role management. Removes all policy bindings using this role.',
-  },
-  io: {
-    input: DeleteRoleInputModel,
-    output: SuccessResultModel,
-    errors: {
-      ROLE_IN_USE: {
-        description: 'Role is still assigned to users or organizations',
-        http: 409,
-        gqlCode: 'ROLE_IN_USE',
-        when: 'Role has active bindings',
-      },
-    },
-  },
-  policy: {
-    auth: 'admin',
-  },
-  sideEffects: {
-    audit: ['role.deleted'],
-  },
+	meta: {
+		key: 'identity.rbac.role.delete',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['identity', 'rbac', 'role', 'delete'],
+		description: 'Delete an existing role.',
+		goal: 'Allow admins to remove unused roles.',
+		context: 'Role management. Removes all policy bindings using this role.',
+	},
+	io: {
+		input: DeleteRoleInputModel,
+		output: SuccessResultModel,
+		errors: {
+			ROLE_IN_USE: {
+				description: 'Role is still assigned to users or organizations',
+				http: 409,
+				gqlCode: 'ROLE_IN_USE',
+				when: 'Role has active bindings',
+			},
+		},
+	},
+	policy: {
+		auth: 'admin',
+	},
+	sideEffects: {
+		audit: ['role.deleted'],
+	},
 });
 ```

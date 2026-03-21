@@ -25,37 +25,37 @@ Task management.
 
 ```typescript
 export const UpdateTaskStatusContract = defineCommand({
-  meta: {
-    key: 'team.task.updateStatus',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@examples.team-hub'],
-    tags: ['team-hub', 'task', 'status'],
-    description: 'Update task status.',
-    goal: 'Track progress.',
-    context: 'Task management.',
-  },
-  io: {
-    input: UpdateTaskStatusInputModel,
-    output: TaskModel,
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'update-status-happy-path',
-        given: ['Task exists'],
-        when: ['User updates status'],
-        then: ['Status is updated'],
-      },
-    ],
-    examples: [
-      {
-        key: 'markup-done',
-        input: { taskId: 'task-456', status: 'done' },
-        output: { id: 'task-456', status: 'done' },
-      },
-    ],
-  },
+	meta: {
+		key: 'team.task.updateStatus',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@examples.team-hub'],
+		tags: ['team-hub', 'task', 'status'],
+		description: 'Update task status.',
+		goal: 'Track progress.',
+		context: 'Task management.',
+	},
+	io: {
+		input: UpdateTaskStatusInputModel,
+		output: TaskModel,
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'update-status-happy-path',
+				given: ['Task exists'],
+				when: ['User updates status'],
+				then: ['Status is updated'],
+			},
+		],
+		examples: [
+			{
+				key: 'markup-done',
+				input: { taskId: 'task-456', status: 'done' },
+				output: { id: 'task-456', status: 'done' },
+			},
+		],
+	},
 });
 ```

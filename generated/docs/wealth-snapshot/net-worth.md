@@ -16,14 +16,14 @@ Net worth visualization and tracking
 
 ```typescript
 export const NetWorthCapability = defineCapability({
-  meta: {
-    key: 'net-worth',
-    version: '1.0.0',
-    kind: 'ui',
-    stability: StabilityEnum.Experimental,
-    description: 'Net worth visualization and tracking',
-    owners: ['platform.finance'],
-    tags: ['net-worth', 'wealth', 'dashboard'],
-  },
+	meta: {
+		key: 'net-worth',
+		version: '1.0.0',
+		kind: 'ui',
+		stability: StabilityEnum.Experimental,
+		description: 'Net worth visualization and tracking',
+		owners: ['platform.finance'],
+		tags: ['net-worth', 'wealth', 'dashboard'],
+	},
 });
 ```

@@ -17,14 +17,14 @@ A new seller store has been created.
 
 ```typescript
 export const StoreCreatedEvent = defineEvent({
-  meta: {
-    key: 'marketplace.store.created',
-    version: '1.0.0',
-    description: 'A new seller store has been created.',
-    stability: 'experimental',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'store'],
-  },
-  payload: StoreCreatedPayload,
+	meta: {
+		key: 'marketplace.store.created',
+		version: '1.0.0',
+		description: 'A new seller store has been created.',
+		stability: 'experimental',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'store'],
+	},
+	payload: StoreCreatedPayload,
 });
 ```

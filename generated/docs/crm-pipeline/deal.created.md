@@ -17,14 +17,14 @@ A new deal has been created.
 
 ```typescript
 export const DealCreatedEvent = defineEvent({
-  meta: {
-    key: 'deal.created',
-    version: '1.0.0',
-    description: 'A new deal has been created.',
-    stability: 'stable',
-    owners: ['@crm-team'],
-    tags: ['deal', 'created'],
-  },
-  payload: DealCreatedPayload,
+	meta: {
+		key: 'deal.created',
+		version: '1.0.0',
+		description: 'A new deal has been created.',
+		stability: 'stable',
+		owners: ['@crm-team'],
+		tags: ['deal', 'created'],
+	},
+	payload: DealCreatedPayload,
 });
 ```

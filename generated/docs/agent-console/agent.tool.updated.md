@@ -17,14 +17,14 @@ An AI tool configuration was updated.
 
 ```typescript
 export const ToolUpdatedEvent = defineEvent({
-  meta: {
-    key: 'agent.tool.updated',
-    version: '1.0.0',
-    description: 'An AI tool configuration was updated.',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['tool', 'updated'],
-  },
-  payload: ToolUpdatedPayload,
+	meta: {
+		key: 'agent.tool.updated',
+		version: '1.0.0',
+		description: 'An AI tool configuration was updated.',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['tool', 'updated'],
+	},
+	payload: ToolUpdatedPayload,
 });
 ```

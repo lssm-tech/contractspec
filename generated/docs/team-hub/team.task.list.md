@@ -25,37 +25,37 @@ Task management
 
 ```typescript
 export const ListTasksOperation = defineQuery({
-  meta: {
-    key: 'team.task.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@examples.team-hub'],
-    tags: ['team-hub', 'task', 'list', 'query'],
-    description: 'List all tasks with filtering',
-    goal: 'Retrieve list of tasks',
-    context: 'Task management',
-  },
-  io: {
-    input: ListTasksInputModel,
-    output: ListTasksOutputModel,
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'list-tasks-happy-path',
-        given: ['Tasks exist'],
-        when: ['User lists tasks'],
-        then: ['List of tasks is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'list-my-tasks',
-        input: { assigneeId: 'user-123', status: 'open', limit: 10 },
-        output: { tasks: [], total: 3 },
-      },
-    ],
-  },
+	meta: {
+		key: 'team.task.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@examples.team-hub'],
+		tags: ['team-hub', 'task', 'list', 'query'],
+		description: 'List all tasks with filtering',
+		goal: 'Retrieve list of tasks',
+		context: 'Task management',
+	},
+	io: {
+		input: ListTasksInputModel,
+		output: ListTasksOutputModel,
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'list-tasks-happy-path',
+				given: ['Tasks exist'],
+				when: ['User lists tasks'],
+				then: ['List of tasks is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'list-my-tasks',
+				input: { assigneeId: 'user-123', status: 'open', limit: 10 },
+				output: { tasks: [], total: 3 },
+			},
+		],
+	},
 });
 ```

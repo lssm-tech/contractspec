@@ -25,29 +25,29 @@ Settings
 
 ```typescript
 export const ListProvidersContract = defineQuery({
-  meta: {
-    key: 'ai-chat.providers.list',
-    version: '1.0.0',
-    owners: ['@ai-team'],
-    stability: 'experimental',
-    description: 'List available AI providers.',
-    tags: ['chat', 'providers'],
-    goal: 'List providers',
-    context: 'Settings',
-  },
-  io: {
-    input: defineSchemaModel({ name: 'VoidInput2', fields: {} }),
-    output: defineSchemaModel({
-      name: 'ProviderList',
-      fields: {
-        providers: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isArray: true,
-          isOptional: false,
-        },
-      },
-    }),
-  },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'ai-chat.providers.list',
+		version: '1.0.0',
+		owners: ['@ai-team'],
+		stability: 'experimental',
+		description: 'List available AI providers.',
+		tags: ['chat', 'providers'],
+		goal: 'List providers',
+		context: 'Settings',
+	},
+	io: {
+		input: defineSchemaModel({ name: 'VoidInput2', fields: {} }),
+		output: defineSchemaModel({
+			name: 'ProviderList',
+			fields: {
+				providers: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isArray: true,
+					isOptional: false,
+				},
+			},
+		}),
+	},
+	policy: { auth: 'user' },
 });
 ```

@@ -17,14 +17,14 @@ An agent generated a message during a run.
 
 ```typescript
 export const MessageGeneratedEvent = defineEvent({
-  meta: {
-    key: 'agent.run.messageGenerated',
-    version: '1.0.0',
-    description: 'An agent generated a message during a run.',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['run', 'message', 'generated'],
-  },
-  payload: MessageGeneratedPayload,
+	meta: {
+		key: 'agent.run.messageGenerated',
+		version: '1.0.0',
+		description: 'An agent generated a message during a run.',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['run', 'message', 'generated'],
+	},
+	payload: MessageGeneratedPayload,
 });
 ```

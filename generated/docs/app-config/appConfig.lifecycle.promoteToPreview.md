@@ -23,29 +23,29 @@ Called when a draft passes initial checks and should be exposed to preview envir
 
 ```typescript
 export const PromoteTenantConfigToPreviewCommand = defineCommand({
-  meta: {
-    key: 'appConfig.lifecycle.promoteToPreview',
-    version: '1.0.0',
-    description: 'Promotes a draft tenant config to preview/testing state.',
-    owners: [OwnersEnum.PlatformSigil],
-    tags: [TagsEnum.Hygiene, 'app-config'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Enable validation and testing of draft configurations.',
-    context:
-      'Called when a draft passes initial checks and should be exposed to preview environments.',
-  },
-  io: {
-    input: PromotePreviewInput,
-    output: PromotePreviewOutput,
-  },
-  policy: LifecyclePolicy,
-  sideEffects: {
-    emits: [
-      {
-        ref: ConfigPromotedToPreviewEvent.meta,
-        when: 'after promotion to preview',
-      },
-    ],
-  },
+	meta: {
+		key: 'appConfig.lifecycle.promoteToPreview',
+		version: '1.0.0',
+		description: 'Promotes a draft tenant config to preview/testing state.',
+		owners: [OwnersEnum.PlatformSigil],
+		tags: [TagsEnum.Hygiene, 'app-config'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Enable validation and testing of draft configurations.',
+		context:
+			'Called when a draft passes initial checks and should be exposed to preview environments.',
+	},
+	io: {
+		input: PromotePreviewInput,
+		output: PromotePreviewOutput,
+	},
+	policy: LifecyclePolicy,
+	sideEffects: {
+		emits: [
+			{
+				ref: ConfigPromotedToPreviewEvent.meta,
+				when: 'after promotion to preview',
+			},
+		],
+	},
 });
 ```

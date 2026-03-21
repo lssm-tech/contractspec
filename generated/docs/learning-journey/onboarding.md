@@ -16,14 +16,14 @@ User onboarding and first-time experience flows
 
 ```typescript
 export const OnboardingCapability = defineCapability({
-  meta: {
-    key: 'onboarding',
-    version: '1.0.0',
-    kind: 'ui',
-    stability: StabilityEnum.Experimental,
-    description: 'User onboarding and first-time experience flows',
-    owners: ['platform.core'],
-    tags: ['onboarding', 'ux', 'ui'],
-  },
+	meta: {
+		key: 'onboarding',
+		version: '1.0.0',
+		kind: 'ui',
+		stability: StabilityEnum.Experimental,
+		description: 'User onboarding and first-time experience flows',
+		owners: ['platform.core'],
+		tags: ['onboarding', 'ux', 'ui'],
+	},
 });
 ```

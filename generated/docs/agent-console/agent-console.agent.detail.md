@@ -24,25 +24,25 @@ Detailed view of an agent.
 
 ```typescript
 export const AgentDetailPresentation = definePresentation({
-  meta: {
-    key: 'agent-console.agent.detail',
-    version: '1.0.0',
-    title: 'Agent Details',
-    description:
-      'Detailed view of an AI agent with configuration, tools, and recent runs',
-    goal: 'Allow users to inspect and configure a specific agent.',
-    context: 'Detailed view of an agent.',
-    domain: 'agent-console',
-    owners: ['@agent-console-team'],
-    tags: ['agent', 'detail'],
-    stability: StabilityEnum.Experimental,
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'AgentDetailView',
-  },
-  targets: ['react', 'markdown'],
-  policy: { flags: ['agent-console.enabled'] },
+	meta: {
+		key: 'agent-console.agent.detail',
+		version: '1.0.0',
+		title: 'Agent Details',
+		description:
+			'Detailed view of an AI agent with configuration, tools, and recent runs',
+		goal: 'Allow users to inspect and configure a specific agent.',
+		context: 'Detailed view of an agent.',
+		domain: 'agent-console',
+		owners: ['@agent-console-team'],
+		tags: ['agent', 'detail'],
+		stability: StabilityEnum.Experimental,
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'AgentDetailView',
+	},
+	targets: ['react', 'markdown'],
+	policy: { flags: ['agent-console.enabled'] },
 });
 ```

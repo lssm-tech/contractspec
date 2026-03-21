@@ -29,51 +29,51 @@ Workflow designer.
 
 ```typescript
 export const UpdateWorkflowContract = defineCommand({
-  meta: {
-    key: 'workflow.definition.update',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.workflow-system'],
-    tags: ['workflow', 'definition', 'update'],
-    description: 'Update an existing workflow definition.',
-    goal: 'Allow users to modify workflow blueprints.',
-    context: 'Workflow designer.',
-  },
-  io: {
-    input: UpdateWorkflowInputModel,
-    output: WorkflowDefinitionModel,
-  },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'workflow.definition.updated',
-        version: '1.0.0',
-        when: 'Workflow is updated',
-        payload: WorkflowDefinitionModel,
-      },
-    ],
-    audit: ['workflow.definition.updated'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'update-workflow-happy-path',
-        given: ['Workflow definition exists'],
-        when: ['User updates definition'],
-        then: [
-          'Definition is updated',
-          'WorkflowDefinitionUpdated event is emitted',
-        ],
-      },
-    ],
-    examples: [
-      {
-        key: 'update-name',
-        input: { workflowId: 'def-123', name: 'New Employee Onboarding' },
-        output: { id: 'def-123', name: 'New Employee Onboarding' },
-      },
-    ],
-  },
+	meta: {
+		key: 'workflow.definition.update',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.workflow-system'],
+		tags: ['workflow', 'definition', 'update'],
+		description: 'Update an existing workflow definition.',
+		goal: 'Allow users to modify workflow blueprints.',
+		context: 'Workflow designer.',
+	},
+	io: {
+		input: UpdateWorkflowInputModel,
+		output: WorkflowDefinitionModel,
+	},
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'workflow.definition.updated',
+				version: '1.0.0',
+				when: 'Workflow is updated',
+				payload: WorkflowDefinitionModel,
+			},
+		],
+		audit: ['workflow.definition.updated'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'update-workflow-happy-path',
+				given: ['Workflow definition exists'],
+				when: ['User updates definition'],
+				then: [
+					'Definition is updated',
+					'WorkflowDefinitionUpdated event is emitted',
+				],
+			},
+		],
+		examples: [
+			{
+				key: 'update-name',
+				input: { workflowId: 'def-123', name: 'New Employee Onboarding' },
+				output: { id: 'def-123', name: 'New Employee Onboarding' },
+			},
+		],
+	},
 });
 ```

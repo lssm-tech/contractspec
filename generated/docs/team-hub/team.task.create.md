@@ -25,37 +25,37 @@ Task management.
 
 ```typescript
 export const CreateTaskContract = defineCommand({
-  meta: {
-    key: 'team.task.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@examples.team-hub'],
-    tags: ['team-hub', 'task', 'create'],
-    description: 'Create a task.',
-    goal: 'Track work.',
-    context: 'Task management.',
-  },
-  io: {
-    input: CreateTaskInputModel,
-    output: TaskModel,
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'create-task-happy-path',
-        given: ['Space exists'],
-        when: ['User creates task'],
-        then: ['Task is created'],
-      },
-    ],
-    examples: [
-      {
-        key: 'create-bug',
-        input: { spaceId: 'space-123', title: 'Fix login bug', type: 'bug' },
-        output: { id: 'task-456', status: 'todo' },
-      },
-    ],
-  },
+	meta: {
+		key: 'team.task.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@examples.team-hub'],
+		tags: ['team-hub', 'task', 'create'],
+		description: 'Create a task.',
+		goal: 'Track work.',
+		context: 'Task management.',
+	},
+	io: {
+		input: CreateTaskInputModel,
+		output: TaskModel,
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'create-task-happy-path',
+				given: ['Space exists'],
+				when: ['User creates task'],
+				then: ['Task is created'],
+			},
+		],
+		examples: [
+			{
+				key: 'create-bug',
+				input: { spaceId: 'space-123', title: 'Fix login bug', type: 'bug' },
+				output: { id: 'task-456', status: 'todo' },
+			},
+		],
+	},
 });
 ```

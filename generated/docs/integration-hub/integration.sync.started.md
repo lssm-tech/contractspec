@@ -17,14 +17,14 @@ Fired when a sync run starts
 
 ```typescript
 export const SyncStartedEvent = defineEvent({
-  meta: {
-    key: 'integration.sync.started',
-    version: '1.0.0',
-    description: 'Fired when a sync run starts',
-    stability: 'experimental',
-    owners: ['@integration-team'],
-    tags: ['integration', 'sync'],
-  },
-  payload: SyncStartedPayload,
+	meta: {
+		key: 'integration.sync.started',
+		version: '1.0.0',
+		description: 'Fired when a sync run starts',
+		stability: 'experimental',
+		owners: ['@integration-team'],
+		tags: ['integration', 'sync'],
+	},
+	payload: SyncStartedPayload,
 });
 ```

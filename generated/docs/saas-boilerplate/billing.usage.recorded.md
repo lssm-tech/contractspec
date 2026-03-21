@@ -17,14 +17,14 @@ Feature usage has been recorded.
 
 ```typescript
 export const UsageRecordedEvent = defineEvent({
-  meta: {
-    key: 'billing.usage.recorded',
-    version: '1.0.0',
-    description: 'Feature usage has been recorded.',
-    stability: 'stable',
-    owners: ['@saas-team'],
-    tags: ['billing', 'usage', 'recorded'],
-  },
-  payload: UsageRecordedPayload,
+	meta: {
+		key: 'billing.usage.recorded',
+		version: '1.0.0',
+		description: 'Feature usage has been recorded.',
+		stability: 'stable',
+		owners: ['@saas-team'],
+		tags: ['billing', 'usage', 'recorded'],
+	},
+	payload: UsageRecordedPayload,
 });
 ```

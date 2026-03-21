@@ -25,34 +25,34 @@ Seller dashboard.
 
 ```typescript
 export const ListPayoutsContract = defineQuery({
-  meta: {
-    key: 'marketplace.payout.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.marketplace'],
-    tags: ['marketplace', 'payout', 'list'],
-    description: 'List payouts for a store.',
-    goal: 'View payout history.',
-    context: 'Seller dashboard.',
-  },
-  io: { input: ListPayoutsInputModel, output: ListPayoutsOutputModel },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'list-payouts-happy-path',
-        given: ['Store has payout history'],
-        when: ['Seller lists payouts'],
-        then: ['List of payouts is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'list-recent',
-        input: { limit: 10, offset: 0 },
-        output: { items: [], total: 5, hasMore: false },
-      },
-    ],
-  },
+	meta: {
+		key: 'marketplace.payout.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.marketplace'],
+		tags: ['marketplace', 'payout', 'list'],
+		description: 'List payouts for a store.',
+		goal: 'View payout history.',
+		context: 'Seller dashboard.',
+	},
+	io: { input: ListPayoutsInputModel, output: ListPayoutsOutputModel },
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'list-payouts-happy-path',
+				given: ['Store has payout history'],
+				when: ['Seller lists payouts'],
+				then: ['List of payouts is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'list-recent',
+				input: { limit: 10, offset: 0 },
+				output: { items: [], total: 5, hasMore: false },
+			},
+		],
+	},
 });
 ```

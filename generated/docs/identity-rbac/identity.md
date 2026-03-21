@@ -16,14 +16,14 @@ User identity and authentication
 
 ```typescript
 export const IdentityCapability = defineCapability({
-  meta: {
-    key: 'identity',
-    version: '1.0.0',
-    kind: 'api',
-    stability: StabilityEnum.Experimental,
-    description: 'User identity and authentication',
-    owners: ['@platform.core'],
-    tags: ['identity', 'auth'],
-  },
+	meta: {
+		key: 'identity',
+		version: '1.0.0',
+		kind: 'api',
+		stability: StabilityEnum.Experimental,
+		description: 'User identity and authentication',
+		owners: ['@platform.core'],
+		tags: ['identity', 'auth'],
+	},
 });
 ```

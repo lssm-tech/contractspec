@@ -17,14 +17,14 @@ A task status changed.
 
 ```typescript
 export const TaskStatusChangedEvent = defineEvent({
-  meta: {
-    key: 'team.task.status_changed',
-    version: '1.0.0',
-    description: 'A task status changed.',
-    stability: 'stable',
-    owners: ['@team-hub'],
-    tags: ['team', 'task', 'status_changed'],
-  },
-  payload: TaskEventPayload,
+	meta: {
+		key: 'team.task.status_changed',
+		version: '1.0.0',
+		description: 'A task status changed.',
+		stability: 'stable',
+		owners: ['@team-hub'],
+		tags: ['team', 'task', 'status_changed'],
+	},
+	payload: TaskEventPayload,
 });
 ```

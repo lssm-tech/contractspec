@@ -24,27 +24,27 @@ The main dashboard management view.
 
 ```typescript
 export const DashboardsListPresentation = definePresentation({
-  meta: {
-    key: 'analytics.dashboard.viewList',
-    version: '1.0.0',
-    title: 'Dashboards List',
-    description: 'List of analytics dashboards',
-    domain: 'analytics',
-    owners: ['@analytics-dashboard'],
-    tags: ['analytics', 'dashboards', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Show users available analytics dashboards.',
-    context: 'The main dashboard management view.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'DashboardsList',
-    props: DashboardModel,
-  },
-  targets: ['react', 'markdown', 'application/json'],
-  policy: {
-    flags: ['analytics.dashboards.enabled'],
-  },
+	meta: {
+		key: 'analytics.dashboard.viewList',
+		version: '1.0.0',
+		title: 'Dashboards List',
+		description: 'List of analytics dashboards',
+		domain: 'analytics',
+		owners: ['@analytics-dashboard'],
+		tags: ['analytics', 'dashboards', 'list'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Show users available analytics dashboards.',
+		context: 'The main dashboard management view.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'DashboardsList',
+		props: DashboardModel,
+	},
+	targets: ['react', 'markdown', 'application/json'],
+	policy: {
+		flags: ['analytics.dashboards.enabled'],
+	},
 });
 ```

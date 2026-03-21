@@ -17,57 +17,57 @@ Verifies query creation flow
 
 ```typescript
 export const CreateQueryTest = defineTestSpec({
-  meta: {
-    key: 'analytics.query.create.test',
-    version: '1.0.0',
-    title: 'Create Query Test',
-    description: 'Verifies query creation flow',
-    owners: ['@example.analytics-dashboard'],
-    tags: ['analytics', 'query', 'test'],
-    stability: 'stable',
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'analytics.query.create', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      description: 'Successfully create a query',
-      when: {
-        operation: { key: 'analytics.query.create', version: '1.0.0' },
-        input: {
-          name: 'Revenue Query',
-          sql: 'SELECT * FROM revenue',
-        },
-      },
-      then: [
-        {
-          type: 'expectOutput',
-          match: {
-            name: 'Revenue Query',
-            type: 'sql',
-          },
-        },
-      ],
-    },
-    {
-      key: 'error-invalid-sql',
-      description: 'Fail with invalid SQL',
-      when: {
-        operation: { key: 'analytics.query.create', version: '1.0.0' },
-        input: {
-          name: 'Bad Query',
-          sql: '',
-        },
-      },
-      then: [
-        {
-          type: 'expectError',
-          messageIncludes: 'VALIDATION_ERROR',
-        },
-      ],
-    },
-  ],
+	meta: {
+		key: 'analytics.query.create.test',
+		version: '1.0.0',
+		title: 'Create Query Test',
+		description: 'Verifies query creation flow',
+		owners: ['@example.analytics-dashboard'],
+		tags: ['analytics', 'query', 'test'],
+		stability: 'stable',
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'analytics.query.create', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			description: 'Successfully create a query',
+			when: {
+				operation: { key: 'analytics.query.create', version: '1.0.0' },
+				input: {
+					name: 'Revenue Query',
+					sql: 'SELECT * FROM revenue',
+				},
+			},
+			then: [
+				{
+					type: 'expectOutput',
+					match: {
+						name: 'Revenue Query',
+						type: 'sql',
+					},
+				},
+			],
+		},
+		{
+			key: 'error-invalid-sql',
+			description: 'Fail with invalid SQL',
+			when: {
+				operation: { key: 'analytics.query.create', version: '1.0.0' },
+				input: {
+					name: 'Bad Query',
+					sql: '',
+				},
+			},
+			then: [
+				{
+					type: 'expectError',
+					messageIncludes: 'VALIDATION_ERROR',
+				},
+			],
+		},
+	],
 });
 ```

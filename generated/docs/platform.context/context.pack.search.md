@@ -23,31 +23,31 @@ Used by Studio and agent surfaces to find relevant context packs and snapshot en
 
 ```typescript
 export const ContextPackSearchQuery = defineQuery({
-  meta: {
-    key: 'context.pack.search',
-    title: 'Search Context Packs',
-    version: '1.0.0',
-    description: 'Search and filter context packs and snapshots.',
-    goal: 'Provide discovery of context packs and their latest snapshots.',
-    context:
-      'Used by Studio and agent surfaces to find relevant context packs and snapshot entries.',
-    domain: CONTEXT_DOMAIN,
-    owners: CONTEXT_OWNERS,
-    tags: [...CONTEXT_TAGS, 'pack', 'search'],
-    stability: CONTEXT_STABILITY,
-    docId: [docId('docs.tech.context.pack.search')],
-  },
-  capability: {
-    key: 'context.system',
-    version: '1.0.0',
-  },
-  io: {
-    input: ContextPackSearchInput,
-    output: ContextPackSearchOutput,
-  },
-  policy: {
-    auth: 'user',
-    pii: [],
-  },
+	meta: {
+		key: 'context.pack.search',
+		title: 'Search Context Packs',
+		version: '1.0.0',
+		description: 'Search and filter context packs and snapshots.',
+		goal: 'Provide discovery of context packs and their latest snapshots.',
+		context:
+			'Used by Studio and agent surfaces to find relevant context packs and snapshot entries.',
+		domain: CONTEXT_DOMAIN,
+		owners: CONTEXT_OWNERS,
+		tags: [...CONTEXT_TAGS, 'pack', 'search'],
+		stability: CONTEXT_STABILITY,
+		docId: [docId('docs.tech.context.pack.search')],
+	},
+	capability: {
+		key: 'context.system',
+		version: '1.0.0',
+	},
+	io: {
+		input: ContextPackSearchInput,
+		output: ContextPackSearchOutput,
+	},
+	policy: {
+		auth: 'user',
+		pii: [],
+	},
 });
 ```

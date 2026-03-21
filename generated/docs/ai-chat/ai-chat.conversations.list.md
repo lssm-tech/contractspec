@@ -25,20 +25,20 @@ Chat History
 
 ```typescript
 export const ListConversationsContract = defineQuery({
-  meta: {
-    key: 'ai-chat.conversations.list',
-    version: '1.0.0',
-    owners: ['@ai-team'],
-    stability: 'experimental',
-    description: 'List user conversations.',
-    tags: ['chat', 'list'],
-    goal: 'List conversations',
-    context: 'Chat History',
-  },
-  io: {
-    input: defineSchemaModel({ name: 'VoidInput', fields: {} }),
-    output: ListConversationsOutputModel,
-  },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'ai-chat.conversations.list',
+		version: '1.0.0',
+		owners: ['@ai-team'],
+		stability: 'experimental',
+		description: 'List user conversations.',
+		tags: ['chat', 'list'],
+		goal: 'List conversations',
+		context: 'Chat History',
+	},
+	io: {
+		input: defineSchemaModel({ name: 'VoidInput', fields: {} }),
+		output: ListConversationsOutputModel,
+	},
+	policy: { auth: 'user' },
 });
 ```

@@ -17,15 +17,15 @@ An AI tool status was changed (activated, deprecated, disabled).
 
 ```typescript
 export const ToolStatusChangedEvent = defineEvent({
-  meta: {
-    key: 'agent.tool.statusChanged',
-    version: '1.0.0',
-    description:
-      'An AI tool status was changed (activated, deprecated, disabled).',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['tool', 'status'],
-  },
-  payload: ToolStatusChangedPayload,
+	meta: {
+		key: 'agent.tool.statusChanged',
+		version: '1.0.0',
+		description:
+			'An AI tool status was changed (activated, deprecated, disabled).',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['tool', 'status'],
+	},
+	payload: ToolStatusChangedPayload,
 });
 ```

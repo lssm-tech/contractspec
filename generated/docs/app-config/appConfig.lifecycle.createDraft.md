@@ -23,29 +23,29 @@ Invoked by the Studio or automation when starting a new configuration run.
 
 ```typescript
 export const CreateTenantConfigDraftCommand = defineCommand({
-  meta: {
-    key: 'appConfig.lifecycle.createDraft',
-    version: '1.0.0',
-    description: 'Creates a new draft tenant config version.',
-    owners: [OwnersEnum.PlatformSigil],
-    tags: [TagsEnum.Hygiene, 'app-config'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Allow operators to start editing a new tenant config version.',
-    context:
-      'Invoked by the Studio or automation when starting a new configuration run.',
-  },
-  io: {
-    input: CreateDraftInput,
-    output: CreateDraftOutput,
-  },
-  policy: LifecyclePolicy,
-  sideEffects: {
-    emits: [
-      {
-        ref: ConfigDraftCreatedEvent.meta,
-        when: 'after successful draft creation',
-      },
-    ],
-  },
+	meta: {
+		key: 'appConfig.lifecycle.createDraft',
+		version: '1.0.0',
+		description: 'Creates a new draft tenant config version.',
+		owners: [OwnersEnum.PlatformSigil],
+		tags: [TagsEnum.Hygiene, 'app-config'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Allow operators to start editing a new tenant config version.',
+		context:
+			'Invoked by the Studio or automation when starting a new configuration run.',
+	},
+	io: {
+		input: CreateDraftInput,
+		output: CreateDraftOutput,
+	},
+	policy: LifecyclePolicy,
+	sideEffects: {
+		emits: [
+			{
+				ref: ConfigDraftCreatedEvent.meta,
+				when: 'after successful draft creation',
+			},
+		],
+	},
 });
 ```

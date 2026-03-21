@@ -25,25 +25,25 @@ Role management in admin settings.
 
 ```typescript
 export const UpdateRoleContract = defineCommand({
-  meta: {
-    key: 'identity.rbac.role.update',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['identity', 'rbac', 'role', 'update'],
-    description: 'Update an existing role.',
-    goal: 'Allow admins to modify role permissions.',
-    context: 'Role management in admin settings.',
-  },
-  io: {
-    input: UpdateRoleInputModel,
-    output: RoleModel,
-  },
-  policy: {
-    auth: 'admin',
-  },
-  sideEffects: {
-    audit: ['role.updated'],
-  },
+	meta: {
+		key: 'identity.rbac.role.update',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['identity', 'rbac', 'role', 'update'],
+		description: 'Update an existing role.',
+		goal: 'Allow admins to modify role permissions.',
+		context: 'Role management in admin settings.',
+	},
+	io: {
+		input: UpdateRoleInputModel,
+		output: RoleModel,
+	},
+	policy: {
+		auth: 'admin',
+	},
+	sideEffects: {
+		audit: ['role.updated'],
+	},
 });
 ```

@@ -25,23 +25,23 @@ Used by agents and dashboards to access the transcript for a selected meeting.
 
 ```typescript
 export const MeetingRecorderGetTranscript = defineQuery({
-  meta: {
-    key: 'meeting-recorder.transcripts.get',
-    version: '1.0.0',
-    description: 'Fetch the transcript for a specific meeting recording.',
-    goal: 'Expose meeting transcripts for downstream knowledge and analytics flows.',
-    context:
-      'Used by agents and dashboards to access the transcript for a selected meeting.',
-    owners: ['@platform.integrations'],
-    tags: ['meeting-recorder', 'transcripts'],
-    stability: 'experimental',
-  },
-  io: {
-    input: MeetingRecorderGetTranscriptInput,
-    output: MeetingTranscriptRecord,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'meeting-recorder.transcripts.get',
+		version: '1.0.0',
+		description: 'Fetch the transcript for a specific meeting recording.',
+		goal: 'Expose meeting transcripts for downstream knowledge and analytics flows.',
+		context:
+			'Used by agents and dashboards to access the transcript for a selected meeting.',
+		owners: ['@platform.integrations'],
+		tags: ['meeting-recorder', 'transcripts'],
+		stability: 'experimental',
+	},
+	io: {
+		input: MeetingRecorderGetTranscriptInput,
+		output: MeetingTranscriptRecord,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

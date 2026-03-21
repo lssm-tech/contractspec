@@ -25,42 +25,42 @@ Ritual management.
 
 ```typescript
 export const ScheduleRitualContract = defineCommand({
-  meta: {
-    key: 'team.ritual.schedule',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@examples.team-hub'],
-    tags: ['team-hub', 'ritual', 'schedule'],
-    description: 'Schedule a recurring ritual.',
-    goal: 'Team ceremonies.',
-    context: 'Ritual management.',
-  },
-  io: {
-    input: ScheduleRitualInputModel,
-    output: RitualModel,
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'schedule-ritual-happy-path',
-        given: ['Space exists'],
-        when: ['User schedules ritual'],
-        then: ['Ritual is scheduled'],
-      },
-    ],
-    examples: [
-      {
-        key: 'schedule-standup',
-        input: {
-          spaceId: 'space-123',
-          name: 'Daily Standup',
-          interval: 'daily',
-          time: '10:00',
-        },
-        output: { id: 'rit-123', status: 'active' },
-      },
-    ],
-  },
+	meta: {
+		key: 'team.ritual.schedule',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@examples.team-hub'],
+		tags: ['team-hub', 'ritual', 'schedule'],
+		description: 'Schedule a recurring ritual.',
+		goal: 'Team ceremonies.',
+		context: 'Ritual management.',
+	},
+	io: {
+		input: ScheduleRitualInputModel,
+		output: RitualModel,
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'schedule-ritual-happy-path',
+				given: ['Space exists'],
+				when: ['User schedules ritual'],
+				then: ['Ritual is scheduled'],
+			},
+		],
+		examples: [
+			{
+				key: 'schedule-standup',
+				input: {
+					spaceId: 'space-123',
+					name: 'Daily Standup',
+					interval: 'daily',
+					time: '10:00',
+				},
+				output: { id: 'rit-123', status: 'active' },
+			},
+		],
+	},
 });
 ```

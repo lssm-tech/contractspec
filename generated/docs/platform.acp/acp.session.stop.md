@@ -23,30 +23,30 @@ Used by ACP clients to stop sessions explicitly.
 
 ```typescript
 export const AcpSessionStopCommand = defineCommand({
-  meta: {
-    key: 'acp.session.stop',
-    title: 'ACP Session Stop',
-    version: '1.0.0',
-    description: 'Stop an active ACP session.',
-    goal: 'Terminate ACP sessions cleanly with audit trails.',
-    context: 'Used by ACP clients to stop sessions explicitly.',
-    domain: ACP_DOMAIN,
-    owners: ACP_OWNERS,
-    tags: [...ACP_TAGS, 'session'],
-    stability: ACP_STABILITY,
-    docId: [docId('docs.tech.acp.session.stop')],
-  },
-  capability: {
-    key: 'acp.transport',
-    version: '1.0.0',
-  },
-  io: {
-    input: AcpSessionStopInput,
-    output: AcpSessionStopOutput,
-  },
-  policy: {
-    auth: 'user',
-    pii: [],
-  },
+	meta: {
+		key: 'acp.session.stop',
+		title: 'ACP Session Stop',
+		version: '1.0.0',
+		description: 'Stop an active ACP session.',
+		goal: 'Terminate ACP sessions cleanly with audit trails.',
+		context: 'Used by ACP clients to stop sessions explicitly.',
+		domain: ACP_DOMAIN,
+		owners: ACP_OWNERS,
+		tags: [...ACP_TAGS, 'session'],
+		stability: ACP_STABILITY,
+		docId: [docId('docs.tech.acp.session.stop')],
+	},
+	capability: {
+		key: 'acp.transport',
+		version: '1.0.0',
+	},
+	io: {
+		input: AcpSessionStopInput,
+		output: AcpSessionStopOutput,
+	},
+	policy: {
+		auth: 'user',
+		pii: [],
+	},
 });
 ```

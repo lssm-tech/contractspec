@@ -23,30 +23,30 @@ Used by reviewers to approve or reject agent actions.
 
 ```typescript
 export const AgentApprovalsCommand = defineCommand({
-  meta: {
-    key: 'agent.approvals',
-    title: 'Resolve Agent Approval',
-    version: '1.0.0',
-    description: 'Approve or reject an agent step or run.',
-    goal: 'Provide governed human-in-the-loop control for risky steps.',
-    context: 'Used by reviewers to approve or reject agent actions.',
-    domain: AGENT_DOMAIN,
-    owners: AGENT_OWNERS,
-    tags: [...AGENT_TAGS, 'approval'],
-    stability: AGENT_STABILITY,
-    docId: [docId('docs.tech.agent.approvals')],
-  },
-  capability: {
-    key: 'agent.execution',
-    version: '1.0.0',
-  },
-  io: {
-    input: AgentApprovalsInput,
-    output: AgentApprovalsOutput,
-  },
-  policy: {
-    auth: 'admin',
-    pii: [],
-  },
+	meta: {
+		key: 'agent.approvals',
+		title: 'Resolve Agent Approval',
+		version: '1.0.0',
+		description: 'Approve or reject an agent step or run.',
+		goal: 'Provide governed human-in-the-loop control for risky steps.',
+		context: 'Used by reviewers to approve or reject agent actions.',
+		domain: AGENT_DOMAIN,
+		owners: AGENT_OWNERS,
+		tags: [...AGENT_TAGS, 'approval'],
+		stability: AGENT_STABILITY,
+		docId: [docId('docs.tech.agent.approvals')],
+	},
+	capability: {
+		key: 'agent.execution',
+		version: '1.0.0',
+	},
+	io: {
+		input: AgentApprovalsInput,
+		output: AgentApprovalsOutput,
+	},
+	policy: {
+		auth: 'admin',
+		pii: [],
+	},
 });
 ```

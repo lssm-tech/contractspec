@@ -17,14 +17,14 @@ A task was created.
 
 ```typescript
 export const TaskCreatedEvent = defineEvent({
-  meta: {
-    key: 'team.task.created',
-    version: '1.0.0',
-    description: 'A task was created.',
-    stability: 'stable',
-    owners: ['@team-hub'],
-    tags: ['team', 'task', 'created'],
-  },
-  payload: TaskEventPayload,
+	meta: {
+		key: 'team.task.created',
+		version: '1.0.0',
+		description: 'A task was created.',
+		stability: 'stable',
+		owners: ['@team-hub'],
+		tags: ['team', 'task', 'created'],
+	},
+	payload: TaskEventPayload,
 });
 ```

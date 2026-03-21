@@ -16,14 +16,14 @@ Financial goal setting and progress tracking
 
 ```typescript
 export const GoalsCapability = defineCapability({
-  meta: {
-    key: 'goals',
-    version: '1.0.0',
-    kind: 'ui',
-    stability: StabilityEnum.Experimental,
-    description: 'Financial goal setting and progress tracking',
-    owners: ['platform.finance'],
-    tags: ['goals', 'planning', 'wealth'],
-  },
+	meta: {
+		key: 'goals',
+		version: '1.0.0',
+		kind: 'ui',
+		stability: StabilityEnum.Experimental,
+		description: 'Financial goal setting and progress tracking',
+		owners: ['platform.finance'],
+		tags: ['goals', 'planning', 'wealth'],
+	},
 });
 ```

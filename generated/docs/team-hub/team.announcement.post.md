@@ -25,41 +25,41 @@ Communication.
 
 ```typescript
 export const PostAnnouncementContract = defineCommand({
-  meta: {
-    key: 'team.announcement.post',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@examples.team-hub'],
-    tags: ['team-hub', 'announcement', 'post'],
-    description: 'Post an announcement.',
-    goal: 'Communicate with team.',
-    context: 'Communication.',
-  },
-  io: {
-    input: PostAnnouncementInputModel,
-    output: AnnouncementModel,
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'post-announcement-happy-path',
-        given: ['User is authenticated'],
-        when: ['User posts an announcement'],
-        then: ['Announcement is posted and distributed'],
-      },
-    ],
-    examples: [
-      {
-        key: 'post-general',
-        input: {
-          spaceId: 'space-123',
-          title: 'New Policy',
-          content: 'Please read...',
-        },
-        output: { id: 'ann-456', status: 'posted' },
-      },
-    ],
-  },
+	meta: {
+		key: 'team.announcement.post',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@examples.team-hub'],
+		tags: ['team-hub', 'announcement', 'post'],
+		description: 'Post an announcement.',
+		goal: 'Communicate with team.',
+		context: 'Communication.',
+	},
+	io: {
+		input: PostAnnouncementInputModel,
+		output: AnnouncementModel,
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'post-announcement-happy-path',
+				given: ['User is authenticated'],
+				when: ['User posts an announcement'],
+				then: ['Announcement is posted and distributed'],
+			},
+		],
+		examples: [
+			{
+				key: 'post-general',
+				input: {
+					spaceId: 'space-123',
+					title: 'New Policy',
+					content: 'Please read...',
+				},
+				output: { id: 'ann-456', status: 'posted' },
+			},
+		],
+	},
 });
 ```

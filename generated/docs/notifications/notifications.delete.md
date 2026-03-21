@@ -25,35 +25,35 @@ User dismisses a notification.
 
 ```typescript
 export const DeleteNotificationContract = defineCommand({
-  meta: {
-    key: 'notifications.delete',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.notifications'],
-    tags: ['notifications', 'delete'],
-    description: 'Delete a notification.',
-    goal: 'Allow user to remove unwanted notifications.',
-    context: 'User dismisses a notification.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'DeleteNotificationInput',
-      fields: {
-        notificationId: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: false,
-        },
-      },
-    }),
-    output: defineSchemaModel({
-      name: 'DeleteNotificationOutput',
-      fields: {
-        success: { type: ScalarTypeEnum.Boolean(), isOptional: false },
-      },
-    }),
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'notifications.delete',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.notifications'],
+		tags: ['notifications', 'delete'],
+		description: 'Delete a notification.',
+		goal: 'Allow user to remove unwanted notifications.',
+		context: 'User dismisses a notification.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'DeleteNotificationInput',
+			fields: {
+				notificationId: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: false,
+				},
+			},
+		}),
+		output: defineSchemaModel({
+			name: 'DeleteNotificationOutput',
+			fields: {
+				success: { type: ScalarTypeEnum.Boolean(), isOptional: false },
+			},
+		}),
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

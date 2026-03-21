@@ -25,36 +25,36 @@ Called when a flag is no longer needed.
 
 ```typescript
 export const DeleteFlagContract = defineCommand({
-  meta: {
-    key: 'flag.delete',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.feature-flags'],
-    tags: ['feature-flags', 'delete'],
-    description: 'Delete a feature flag.',
-    goal: 'Remove a feature flag and all its rules.',
-    context: 'Called when a flag is no longer needed.',
-  },
-  io: {
-    input: DeleteFlagInput,
-    output: SuccessOutput,
-    errors: {
-      FLAG_NOT_FOUND: {
-        description: 'Flag does not exist',
-        http: 404,
-        gqlCode: 'FLAG_NOT_FOUND',
-        when: 'Flag ID is invalid',
-      },
-      FLAG_HAS_ACTIVE_EXPERIMENT: {
-        description: 'Flag has an active experiment',
-        http: 409,
-        gqlCode: 'FLAG_HAS_ACTIVE_EXPERIMENT',
-        when: 'Cannot delete flag with running experiment',
-      },
-    },
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'flag.delete',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.feature-flags'],
+		tags: ['feature-flags', 'delete'],
+		description: 'Delete a feature flag.',
+		goal: 'Remove a feature flag and all its rules.',
+		context: 'Called when a flag is no longer needed.',
+	},
+	io: {
+		input: DeleteFlagInput,
+		output: SuccessOutput,
+		errors: {
+			FLAG_NOT_FOUND: {
+				description: 'Flag does not exist',
+				http: 404,
+				gqlCode: 'FLAG_NOT_FOUND',
+				when: 'Flag ID is invalid',
+			},
+			FLAG_HAS_ACTIVE_EXPERIMENT: {
+				description: 'Flag has an active experiment',
+				http: 409,
+				gqlCode: 'FLAG_HAS_ACTIVE_EXPERIMENT',
+				when: 'Cannot delete flag with running experiment',
+			},
+		},
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

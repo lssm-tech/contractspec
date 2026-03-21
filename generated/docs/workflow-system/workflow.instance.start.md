@@ -30,57 +30,57 @@ Order creation, request submission, etc.
 
 ```typescript
 export const StartWorkflowContract = defineCommand({
-  meta: {
-    key: 'workflow.instance.start',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.workflow-system'],
-    tags: ['workflow', 'instance', 'start'],
-    description: 'Start a new workflow instance.',
-    goal: 'Initiate a workflow for a business process.',
-    context: 'Order creation, request submission, etc.',
-  },
-  io: {
-    input: StartWorkflowInputModel,
-    output: WorkflowInstanceModel,
-  },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'workflow.instance.started',
-        version: '1.0.0',
-        when: 'Workflow starts',
-        payload: WorkflowInstanceModel,
-      },
-      {
-        key: 'workflow.step.entered',
-        version: '1.0.0',
-        when: 'First step entered',
-        payload: WorkflowInstanceModel,
-      },
-    ],
-    audit: ['workflow.instance.started'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'start-workflow-happy-path',
-        given: ['Workflow definition exists'],
-        when: ['User starts workflow'],
-        then: ['Instance is created and started'],
-      },
-    ],
-    examples: [
-      {
-        key: 'start-onboarding',
-        input: {
-          workflowKey: 'onboarding-v1',
-          context: { employeeId: 'emp-123' },
-        },
-        output: { id: 'inst-456', status: 'running' },
-      },
-    ],
-  },
+	meta: {
+		key: 'workflow.instance.start',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.workflow-system'],
+		tags: ['workflow', 'instance', 'start'],
+		description: 'Start a new workflow instance.',
+		goal: 'Initiate a workflow for a business process.',
+		context: 'Order creation, request submission, etc.',
+	},
+	io: {
+		input: StartWorkflowInputModel,
+		output: WorkflowInstanceModel,
+	},
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'workflow.instance.started',
+				version: '1.0.0',
+				when: 'Workflow starts',
+				payload: WorkflowInstanceModel,
+			},
+			{
+				key: 'workflow.step.entered',
+				version: '1.0.0',
+				when: 'First step entered',
+				payload: WorkflowInstanceModel,
+			},
+		],
+		audit: ['workflow.instance.started'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'start-workflow-happy-path',
+				given: ['Workflow definition exists'],
+				when: ['User starts workflow'],
+				then: ['Instance is created and started'],
+			},
+		],
+		examples: [
+			{
+				key: 'start-onboarding',
+				input: {
+					workflowKey: 'onboarding-v1',
+					context: { employeeId: 'emp-123' },
+				},
+				output: { id: 'inst-456', status: 'running' },
+			},
+		],
+	},
 });
 ```

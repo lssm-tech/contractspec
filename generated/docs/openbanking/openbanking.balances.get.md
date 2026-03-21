@@ -25,23 +25,23 @@ Used by Pocket Family Office UI surfaces and automation steps that require balan
 
 ```typescript
 export const OpenBankingGetBalances = defineQuery({
-  meta: {
-    key: 'openbanking.balances.get',
-    version: '1.0.0',
-    description: 'Retrieve the latest cached balances for a bank account.',
-    goal: 'Expose current and available balances required by dashboards and analytics.',
-    context:
-      'Used by Pocket Family Office UI surfaces and automation steps that require balance totals prior to generating summaries.',
-    owners: ['@platform.finance'],
-    tags: ['open-banking', 'powens', 'balances'],
-    stability: 'experimental',
-  },
-  io: {
-    input: OpenBankingGetBalancesInput,
-    output: OpenBankingGetBalancesOutput,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'openbanking.balances.get',
+		version: '1.0.0',
+		description: 'Retrieve the latest cached balances for a bank account.',
+		goal: 'Expose current and available balances required by dashboards and analytics.',
+		context:
+			'Used by Pocket Family Office UI surfaces and automation steps that require balance totals prior to generating summaries.',
+		owners: ['@platform.finance'],
+		tags: ['open-banking', 'powens', 'balances'],
+		stability: 'experimental',
+	},
+	io: {
+		input: OpenBankingGetBalancesInput,
+		output: OpenBankingGetBalancesOutput,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

@@ -25,21 +25,21 @@ Called when an admin uploads/records authoritative sources.
 
 ```typescript
 export const KbIngestSourceContract = defineCommand({
-  meta: {
-    key: 'kb.ingestSource',
-    title: 'Ingest Source',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@examples'],
-    tags: ['knowledge', 'sources', 'ingestion'],
-    description: 'Ingest immutable source document metadata.',
-    goal: 'Store traceable source documents for curated KB.',
-    context: 'Called when an admin uploads/records authoritative sources.',
-  },
-  io: {
-    input: IngestSourceInput,
-    output: SourceDocumentModel,
-  },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'kb.ingestSource',
+		title: 'Ingest Source',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@examples'],
+		tags: ['knowledge', 'sources', 'ingestion'],
+		description: 'Ingest immutable source document metadata.',
+		goal: 'Store traceable source documents for curated KB.',
+		context: 'Called when an admin uploads/records authoritative sources.',
+	},
+	io: {
+		input: IngestSourceInput,
+		output: SourceDocumentModel,
+	},
+	policy: { auth: 'user' },
 });
 ```

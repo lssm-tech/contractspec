@@ -17,14 +17,14 @@ An upload session has completed.
 
 ```typescript
 export const UploadSessionCompletedEvent = defineEvent({
-  meta: {
-    key: 'upload.session_completed',
-    version: '1.0.0',
-    description: 'An upload session has completed.',
-    stability: 'stable',
-    owners: ['@platform.files'],
-    tags: ['files', 'upload', 'session', 'complete'],
-  },
-  payload: UploadSessionCompletedPayload,
+	meta: {
+		key: 'upload.session_completed',
+		version: '1.0.0',
+		description: 'An upload session has completed.',
+		stability: 'stable',
+		owners: ['@platform.files'],
+		tags: ['files', 'upload', 'session', 'complete'],
+	},
+	payload: UploadSessionCompletedPayload,
 });
 ```

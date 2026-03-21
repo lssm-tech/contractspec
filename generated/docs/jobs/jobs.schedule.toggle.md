@@ -25,22 +25,22 @@ Admin control over scheduled tasks.
 
 ```typescript
 export const ToggleScheduledJobContract = defineCommand({
-  meta: {
-    key: 'jobs.schedule.toggle',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.jobs'],
-    tags: ['jobs', 'schedule', 'toggle'],
-    description: 'Enable or disable a scheduled job.',
-    goal: 'Control when recurring tasks run.',
-    context: 'Admin control over scheduled tasks.',
-  },
-  io: {
-    input: ToggleScheduledJobInput,
-    output: ScheduledJobModel,
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'jobs.schedule.toggle',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.jobs'],
+		tags: ['jobs', 'schedule', 'toggle'],
+		description: 'Enable or disable a scheduled job.',
+		goal: 'Control when recurring tasks run.',
+		context: 'Admin control over scheduled tasks.',
+	},
+	io: {
+		input: ToggleScheduledJobInput,
+		output: ScheduledJobModel,
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

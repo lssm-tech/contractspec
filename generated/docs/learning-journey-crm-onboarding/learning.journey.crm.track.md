@@ -14,18 +14,18 @@ CRM first win track detail
 
 ```typescript
 export const CrmOnboardingTrackPresentation = definePresentation({
-  meta: {
-    key: 'learning.journey.crm.track',
-    version: '1.0.0',
-    description: 'CRM first win track detail',
-    ...baseMeta,
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'LearningTrackDetail',
-    props: CrmOnboardingTrackModel,
-  },
-  targets: ['react', 'markdown', 'application/json'],
+	meta: {
+		key: 'learning.journey.crm.track',
+		version: '1.0.0',
+		description: 'CRM first win track detail',
+		...baseMeta,
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'LearningTrackDetail',
+		props: CrmOnboardingTrackModel,
+	},
+	targets: ['react', 'markdown', 'application/json'],
 });
 ```

@@ -25,25 +25,25 @@ Invoked by Ops tooling or monitors when knowledge content must be refreshed or r
 
 ```typescript
 export const TriggerKnowledgeSourceSync = defineCommand({
-  meta: {
-    key: 'knowledge.source.triggerSync',
-    title: 'Trigger Knowledge Source Sync',
-    version: '1.0.0',
-    description: 'Trigger an immediate sync for a knowledge source.',
-    goal: 'Support manual or automated sync retries for knowledge ingestion.',
-    context:
-      'Invoked by Ops tooling or monitors when knowledge content must be refreshed or reprocessed.',
-    owners: ['@platform.knowledge'],
-    tags: ['knowledge', 'sources'],
-    stability: 'experimental',
-  },
-  io: {
-    input: TriggerKnowledgeSyncInput,
-    output: TriggerKnowledgeSyncOutput,
-  },
-  policy: {
-    auth: 'admin',
-    policies: [{ key: 'platform.knowledge.manage', version: '1.0.0' }],
-  },
+	meta: {
+		key: 'knowledge.source.triggerSync',
+		title: 'Trigger Knowledge Source Sync',
+		version: '1.0.0',
+		description: 'Trigger an immediate sync for a knowledge source.',
+		goal: 'Support manual or automated sync retries for knowledge ingestion.',
+		context:
+			'Invoked by Ops tooling or monitors when knowledge content must be refreshed or reprocessed.',
+		owners: ['@platform.knowledge'],
+		tags: ['knowledge', 'sources'],
+		stability: 'experimental',
+	},
+	io: {
+		input: TriggerKnowledgeSyncInput,
+		output: TriggerKnowledgeSyncOutput,
+	},
+	policy: {
+		auth: 'admin',
+		policies: [{ key: 'platform.knowledge.manage', version: '1.0.0' }],
+	},
 });
 ```

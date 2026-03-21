@@ -24,24 +24,24 @@ Detail
 
 ```typescript
 export const KbReviewFormPresentation = definePresentation({
-  meta: {
-    key: 'kb.review.form',
-    version: '1.0.0',
-    title: 'Review Change',
-    description: 'Form to approve or reject a KB change candidate.',
-    domain: 'knowledge',
-    owners: ['@examples'],
-    tags: ['form', 'review'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Review',
-    context: 'Detail',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'ReviewDecisionForm',
-    props: ReviewTaskModel,
-  },
-  targets: ['react'],
+	meta: {
+		key: 'kb.review.form',
+		version: '1.0.0',
+		title: 'Review Change',
+		description: 'Form to approve or reject a KB change candidate.',
+		domain: 'knowledge',
+		owners: ['@examples'],
+		tags: ['form', 'review'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Review',
+		context: 'Detail',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'ReviewDecisionForm',
+		props: ReviewTaskModel,
+	},
+	targets: ['react'],
 });
 ```

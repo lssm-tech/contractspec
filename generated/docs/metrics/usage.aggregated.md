@@ -17,14 +17,14 @@ Usage has been aggregated into a summary.
 
 ```typescript
 export const UsageAggregatedEvent = defineEvent({
-  meta: {
-    key: 'usage.aggregated',
-    version: '1.0.0',
-    description: 'Usage has been aggregated into a summary.',
-    stability: 'stable',
-    owners: ['@platform.metering'],
-    tags: ['metering', 'usage'],
-  },
-  payload: UsageAggregatedPayload,
+	meta: {
+		key: 'usage.aggregated',
+		version: '1.0.0',
+		description: 'Usage has been aggregated into a summary.',
+		stability: 'stable',
+		owners: ['@platform.metering'],
+		tags: ['metering', 'usage'],
+	},
+	payload: UsageAggregatedPayload,
 });
 ```

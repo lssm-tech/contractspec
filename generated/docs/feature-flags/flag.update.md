@@ -25,30 +25,30 @@ Called when adjusting flag settings.
 
 ```typescript
 export const UpdateFlagContract = defineCommand({
-  meta: {
-    key: 'flag.update',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.feature-flags'],
-    tags: ['feature-flags', 'update'],
-    description: 'Update an existing feature flag.',
-    goal: 'Modify flag configuration.',
-    context: 'Called when adjusting flag settings.',
-  },
-  io: {
-    input: UpdateFlagInput,
-    output: FeatureFlagModel,
-    errors: {
-      FLAG_NOT_FOUND: {
-        description: 'Flag does not exist',
-        http: 404,
-        gqlCode: 'FLAG_NOT_FOUND',
-        when: 'Flag ID is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'flag.update',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.feature-flags'],
+		tags: ['feature-flags', 'update'],
+		description: 'Update an existing feature flag.',
+		goal: 'Modify flag configuration.',
+		context: 'Called when adjusting flag settings.',
+	},
+	io: {
+		input: UpdateFlagInput,
+		output: FeatureFlagModel,
+		errors: {
+			FLAG_NOT_FOUND: {
+				description: 'Flag does not exist',
+				http: 404,
+				gqlCode: 'FLAG_NOT_FOUND',
+				when: 'Flag ID is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

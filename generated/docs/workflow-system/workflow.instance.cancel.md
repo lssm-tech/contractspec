@@ -29,60 +29,60 @@ User request, system cancellation.
 
 ```typescript
 export const CancelWorkflowContract = defineCommand({
-  meta: {
-    key: 'workflow.instance.cancel',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.workflow-system'],
-    tags: ['workflow', 'instance', 'cancel'],
-    description: 'Cancel a workflow instance.',
-    goal: 'Terminate workflow without completion.',
-    context: 'User request, system cancellation.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'CancelWorkflowInput',
-      fields: {
-        instanceId: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: false,
-        },
-        reason: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: false,
-        },
-      },
-    }),
-    output: WorkflowInstanceModel,
-  },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'workflow.instance.cancelled',
-        version: '1.0.0',
-        when: 'Workflow is cancelled',
-        payload: WorkflowInstanceModel,
-      },
-    ],
-    audit: ['workflow.instance.cancelled'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'cancel-workflow-happy-path',
-        given: ['Workflow is running'],
-        when: ['User cancels workflow'],
-        then: ['Instance status becomes CANCELLED'],
-      },
-    ],
-    examples: [
-      {
-        key: 'cancel-mistake',
-        input: { instanceId: 'inst-456', reason: 'Created by mistake' },
-        output: { id: 'inst-456', status: 'cancelled' },
-      },
-    ],
-  },
+	meta: {
+		key: 'workflow.instance.cancel',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.workflow-system'],
+		tags: ['workflow', 'instance', 'cancel'],
+		description: 'Cancel a workflow instance.',
+		goal: 'Terminate workflow without completion.',
+		context: 'User request, system cancellation.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'CancelWorkflowInput',
+			fields: {
+				instanceId: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: false,
+				},
+				reason: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: false,
+				},
+			},
+		}),
+		output: WorkflowInstanceModel,
+	},
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'workflow.instance.cancelled',
+				version: '1.0.0',
+				when: 'Workflow is cancelled',
+				payload: WorkflowInstanceModel,
+			},
+		],
+		audit: ['workflow.instance.cancelled'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'cancel-workflow-happy-path',
+				given: ['Workflow is running'],
+				when: ['User cancels workflow'],
+				then: ['Instance status becomes CANCELLED'],
+			},
+		],
+		examples: [
+			{
+				key: 'cancel-mistake',
+				input: { instanceId: 'inst-456', reason: 'Created by mistake' },
+				output: { id: 'inst-456', status: 'cancelled' },
+			},
+		],
+	},
 });
 ```

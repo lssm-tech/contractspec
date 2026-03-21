@@ -17,29 +17,29 @@ Test for listing projects
 
 ```typescript
 export const ProjectListTest = defineTestSpec({
-  meta: {
-    key: 'saas.project.list.test',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@example.saas-boilerplate'],
-    description: 'Test for listing projects',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'saas.project.list', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'saas.project.list' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'saas.project.list' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'saas.project.list.test',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@example.saas-boilerplate'],
+		description: 'Test for listing projects',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'saas.project.list', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'saas.project.list' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'saas.project.list' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

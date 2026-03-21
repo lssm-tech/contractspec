@@ -23,40 +23,40 @@ Used by operators to run proprietary benchmarks and compare models.
 
 ```typescript
 export const BenchmarkRunCustomCommand = defineCommand({
-  meta: {
-    key: 'provider-ranking.benchmark.run-custom',
-    title: 'Run Custom Benchmark',
-    version: '1.0.0',
-    description:
-      'Launch a custom benchmark evaluation against a specific model.',
-    goal: 'Evaluate model performance using internal eval suites.',
-    context:
-      'Used by operators to run proprietary benchmarks and compare models.',
-    domain: PROVIDER_RANKING_DOMAIN,
-    owners: PROVIDER_RANKING_OWNERS,
-    tags: [...PROVIDER_RANKING_TAGS, 'custom', 'eval'],
-    stability: PROVIDER_RANKING_STABILITY,
-    docId: [docId('docs.tech.provider-ranking.benchmark.run-custom')],
-  },
-  capability: {
-    key: 'provider-ranking.system',
-    version: '1.0.0',
-  },
-  io: {
-    input: BenchmarkRunCustomInput,
-    output: BenchmarkRunCustomOutput,
-  },
-  policy: {
-    auth: 'user',
-    pii: [],
-  },
-  sideEffects: {
-    emits: [
-      {
-        ref: BenchmarkCustomCompletedEvent.meta,
-        when: 'Custom benchmark evaluation finishes execution.',
-      },
-    ],
-  },
+	meta: {
+		key: 'provider-ranking.benchmark.run-custom',
+		title: 'Run Custom Benchmark',
+		version: '1.0.0',
+		description:
+			'Launch a custom benchmark evaluation against a specific model.',
+		goal: 'Evaluate model performance using internal eval suites.',
+		context:
+			'Used by operators to run proprietary benchmarks and compare models.',
+		domain: PROVIDER_RANKING_DOMAIN,
+		owners: PROVIDER_RANKING_OWNERS,
+		tags: [...PROVIDER_RANKING_TAGS, 'custom', 'eval'],
+		stability: PROVIDER_RANKING_STABILITY,
+		docId: [docId('docs.tech.provider-ranking.benchmark.run-custom')],
+	},
+	capability: {
+		key: 'provider-ranking.system',
+		version: '1.0.0',
+	},
+	io: {
+		input: BenchmarkRunCustomInput,
+		output: BenchmarkRunCustomOutput,
+	},
+	policy: {
+		auth: 'user',
+		pii: [],
+	},
+	sideEffects: {
+		emits: [
+			{
+				ref: BenchmarkCustomCompletedEvent.meta,
+				when: 'Custom benchmark evaluation finishes execution.',
+			},
+		],
+	},
 });
 ```

@@ -17,14 +17,14 @@ An approval has been requested.
 
 ```typescript
 export const ApprovalRequestedEvent = defineEvent({
-  meta: {
-    key: 'workflow.approval.requested',
-    version: '1.0.0',
-    description: 'An approval has been requested.',
-    stability: 'stable',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'approval', 'requested'],
-  },
-  payload: ApprovalRequestedPayload,
+	meta: {
+		key: 'workflow.approval.requested',
+		version: '1.0.0',
+		description: 'An approval has been requested.',
+		stability: 'stable',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'approval', 'requested'],
+	},
+	payload: ApprovalRequestedPayload,
 });
 ```

@@ -25,25 +25,25 @@ Used by the App Studio and Ops flows to show bindings and health.
 
 ```typescript
 export const ListIntegrationConnections = defineQuery({
-  meta: {
-    key: 'integrations.connection.list',
-    title: 'List Integration Connections',
-    version: '1.0.0',
-    description: 'List integration connections for a tenant.',
-    goal: 'Provide visibility into configured integrations and their status.',
-    context:
-      'Used by the App Studio and Ops flows to show bindings and health.',
-    owners: ['@platform.integrations'],
-    tags: ['integration', 'connections'],
-    stability: 'experimental',
-  },
-  io: {
-    input: ListIntegrationConnectionsInput,
-    output: ListIntegrationConnectionsOutput,
-  },
-  policy: {
-    auth: 'admin',
-    policies: [{ key: 'platform.integration.read', version: '1.0.0' }],
-  },
+	meta: {
+		key: 'integrations.connection.list',
+		title: 'List Integration Connections',
+		version: '1.0.0',
+		description: 'List integration connections for a tenant.',
+		goal: 'Provide visibility into configured integrations and their status.',
+		context:
+			'Used by the App Studio and Ops flows to show bindings and health.',
+		owners: ['@platform.integrations'],
+		tags: ['integration', 'connections'],
+		stability: 'experimental',
+	},
+	io: {
+		input: ListIntegrationConnectionsInput,
+		output: ListIntegrationConnectionsOutput,
+	},
+	policy: {
+		auth: 'admin',
+		policies: [{ key: 'platform.integration.read', version: '1.0.0' }],
+	},
 });
 ```

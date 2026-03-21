@@ -17,14 +17,14 @@ A workflow instance has timed out.
 
 ```typescript
 export const InstanceTimedOutEvent = defineEvent({
-  meta: {
-    key: 'workflow.instance.timedOut',
-    version: '1.0.0',
-    description: 'A workflow instance has timed out.',
-    stability: 'stable',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'instance', 'timeout'],
-  },
-  payload: InstanceEventPayload,
+	meta: {
+		key: 'workflow.instance.timedOut',
+		version: '1.0.0',
+		description: 'A workflow instance has timed out.',
+		stability: 'stable',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'instance', 'timeout'],
+	},
+	payload: InstanceEventPayload,
 });
 ```

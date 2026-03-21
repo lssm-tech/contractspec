@@ -17,15 +17,15 @@ An invitation to join an organization has been sent.
 
 ```typescript
 export const OrgInviteSentEvent = defineEvent({
-  meta: {
-    key: 'org.invite.sent',
-    version: '1.0.0',
-    description: 'An invitation to join an organization has been sent.',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['org', 'invite', 'sent', 'identity'],
-  },
-  pii: ['email'],
-  payload: OrgInviteSentPayload,
+	meta: {
+		key: 'org.invite.sent',
+		version: '1.0.0',
+		description: 'An invitation to join an organization has been sent.',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['org', 'invite', 'sent', 'identity'],
+	},
+	pii: ['email'],
+	payload: OrgInviteSentPayload,
 });
 ```

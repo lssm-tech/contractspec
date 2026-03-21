@@ -17,29 +17,29 @@ Test for creating review
 
 ```typescript
 export const ReviewCreateTest = defineTestSpec({
-  meta: {
-    key: 'marketplace.review.create.test',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@example.marketplace'],
-    description: 'Test for creating review',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'marketplace.review.create', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'marketplace.review.create' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'marketplace.review.create' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'marketplace.review.create.test',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@example.marketplace'],
+		description: 'Test for creating review',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'marketplace.review.create', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'marketplace.review.create' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'marketplace.review.create' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

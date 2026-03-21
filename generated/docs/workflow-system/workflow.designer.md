@@ -24,27 +24,27 @@ Workflow administration and setup
 
 ```typescript
 export const WorkflowDesignerPresentation = definePresentation({
-  meta: {
-    key: 'workflow.designer',
-    version: '1.0.0',
-    title: 'Workflow Designer',
-    description: 'Visual workflow designer with drag-and-drop steps',
-    domain: 'workflow-system',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'designer', 'admin'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Building and modifying workflow definitions',
-    context: 'Workflow administration and setup',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'WorkflowDesigner',
-    props: WorkflowDefinitionModel,
-  },
-  targets: ['react'],
-  policy: {
-    flags: ['workflow.designer.enabled'],
-  },
+	meta: {
+		key: 'workflow.designer',
+		version: '1.0.0',
+		title: 'Workflow Designer',
+		description: 'Visual workflow designer with drag-and-drop steps',
+		domain: 'workflow-system',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'designer', 'admin'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Building and modifying workflow definitions',
+		context: 'Workflow administration and setup',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'WorkflowDesigner',
+		props: WorkflowDefinitionModel,
+	},
+	targets: ['react'],
+	policy: {
+		flags: ['workflow.designer.enabled'],
+	},
 });
 ```

@@ -24,27 +24,27 @@ Product showcase including images, descriptions, and ratings.
 
 ```typescript
 export const ProductDetailPresentation = definePresentation({
-  meta: {
-    key: 'marketplace.product.detail',
-    version: '1.0.0',
-    title: 'Product Details',
-    description: 'Product detail page with images and reviews',
-    domain: 'marketplace',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'product', 'detail'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Provide comprehensive information about a specific product.',
-    context: 'Product showcase including images, descriptions, and ratings.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'ProductDetail',
-    props: ProductModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['marketplace.products.enabled'],
-  },
+	meta: {
+		key: 'marketplace.product.detail',
+		version: '1.0.0',
+		title: 'Product Details',
+		description: 'Product detail page with images and reviews',
+		domain: 'marketplace',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'product', 'detail'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Provide comprehensive information about a specific product.',
+		context: 'Product showcase including images, descriptions, and ratings.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'ProductDetail',
+		props: ProductModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['marketplace.products.enabled'],
+	},
 });
 ```

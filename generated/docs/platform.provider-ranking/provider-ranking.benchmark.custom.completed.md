@@ -15,21 +15,21 @@ Emitted when a custom benchmark run finishes.
 
 ```typescript
 export const BenchmarkCustomCompletedEvent = defineEvent({
-  meta: {
-    key: 'provider-ranking.benchmark.custom.completed',
-    version: '1.0.0',
-    description: 'Emitted when a custom benchmark run finishes.',
-    domain: PROVIDER_RANKING_DOMAIN,
-    owners: PROVIDER_RANKING_OWNERS,
-    tags: [...PROVIDER_RANKING_TAGS, 'custom', 'eval'],
-    stability: PROVIDER_RANKING_STABILITY,
-    docId: [docId('docs.tech.provider-ranking.benchmark.custom.completed')],
-  },
-  capability: {
-    key: 'provider-ranking.system',
-    version: '1.0.0',
-  },
-  pii: [],
-  payload: BenchmarkCustomCompletedPayload,
+	meta: {
+		key: 'provider-ranking.benchmark.custom.completed',
+		version: '1.0.0',
+		description: 'Emitted when a custom benchmark run finishes.',
+		domain: PROVIDER_RANKING_DOMAIN,
+		owners: PROVIDER_RANKING_OWNERS,
+		tags: [...PROVIDER_RANKING_TAGS, 'custom', 'eval'],
+		stability: PROVIDER_RANKING_STABILITY,
+		docId: [docId('docs.tech.provider-ranking.benchmark.custom.completed')],
+	},
+	capability: {
+		key: 'provider-ranking.system',
+		version: '1.0.0',
+	},
+	pii: [],
+	payload: BenchmarkCustomCompletedPayload,
 });
 ```

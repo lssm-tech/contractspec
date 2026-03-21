@@ -23,29 +23,29 @@ Triggered after validation passes and change management approvals are complete.
 
 ```typescript
 export const PublishTenantConfigCommand = defineCommand({
-  meta: {
-    key: 'appConfig.lifecycle.publish',
-    version: '1.0.0',
-    description: 'Publishes a preview tenant config to production.',
-    owners: [OwnersEnum.PlatformSigil],
-    tags: [TagsEnum.Hygiene, 'app-config'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Promote tested configurations to production safely.',
-    context:
-      'Triggered after validation passes and change management approvals are complete.',
-  },
-  io: {
-    input: PublishConfigInput,
-    output: PublishConfigOutput,
-  },
-  policy: LifecyclePolicy,
-  sideEffects: {
-    emits: [
-      {
-        ref: ConfigPublishedEvent.meta,
-        when: 'after publish succeeds',
-      },
-    ],
-  },
+	meta: {
+		key: 'appConfig.lifecycle.publish',
+		version: '1.0.0',
+		description: 'Publishes a preview tenant config to production.',
+		owners: [OwnersEnum.PlatformSigil],
+		tags: [TagsEnum.Hygiene, 'app-config'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Promote tested configurations to production safely.',
+		context:
+			'Triggered after validation passes and change management approvals are complete.',
+	},
+	io: {
+		input: PublishConfigInput,
+		output: PublishConfigOutput,
+	},
+	policy: LifecyclePolicy,
+	sideEffects: {
+		emits: [
+			{
+				ref: ConfigPublishedEvent.meta,
+				when: 'after publish succeeds',
+			},
+		],
+	},
 });
 ```

@@ -17,29 +17,29 @@ Test for getting usage summary
 
 ```typescript
 export const BillingUsageSummaryTest = defineTestSpec({
-  meta: {
-    key: 'saas.billing.usage.summary.test',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@example.saas-boilerplate'],
-    description: 'Test for getting usage summary',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'saas.billing.usage.summary', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'saas.billing.usage.summary' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'saas.billing.usage.summary' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'saas.billing.usage.summary.test',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@example.saas-boilerplate'],
+		description: 'Test for getting usage summary',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'saas.billing.usage.summary', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'saas.billing.usage.summary' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'saas.billing.usage.summary' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

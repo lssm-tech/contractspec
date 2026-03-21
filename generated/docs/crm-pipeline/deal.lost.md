@@ -17,14 +17,14 @@ A deal has been lost.
 
 ```typescript
 export const DealLostEvent = defineEvent({
-  meta: {
-    key: 'deal.lost',
-    version: '1.0.0',
-    description: 'A deal has been lost.',
-    stability: 'stable',
-    owners: ['@crm-team'],
-    tags: ['deal', 'lost'],
-  },
-  payload: DealLostPayload,
+	meta: {
+		key: 'deal.lost',
+		version: '1.0.0',
+		description: 'A deal has been lost.',
+		stability: 'stable',
+		owners: ['@crm-team'],
+		tags: ['deal', 'lost'],
+	},
+	payload: DealLostPayload,
 });
 ```

@@ -23,30 +23,30 @@ Used for live data access with redaction and auditing.
 
 ```typescript
 export const DatabaseQueryReadonlyQuery = defineQuery({
-  meta: {
-    key: 'database.query.readonly',
-    title: 'Read-Only Data Query',
-    version: '1.0.0',
-    description: 'Execute a governed read-only query via a data view.',
-    goal: 'Allow safe, policy-gated data retrieval for agents and operators.',
-    context: 'Used for live data access with redaction and auditing.',
-    domain: DATABASE_DOMAIN,
-    owners: DATABASE_OWNERS,
-    tags: [...DATABASE_TAGS, 'query', 'readonly'],
-    stability: DATABASE_STABILITY,
-    docId: [docId('docs.tech.database.query.readonly')],
-  },
-  capability: {
-    key: 'database.context',
-    version: '1.0.0',
-  },
-  io: {
-    input: DatabaseQueryReadonlyInput,
-    output: DatabaseQueryReadonlyOutput,
-  },
-  policy: {
-    auth: 'admin',
-    pii: ['rows'],
-  },
+	meta: {
+		key: 'database.query.readonly',
+		title: 'Read-Only Data Query',
+		version: '1.0.0',
+		description: 'Execute a governed read-only query via a data view.',
+		goal: 'Allow safe, policy-gated data retrieval for agents and operators.',
+		context: 'Used for live data access with redaction and auditing.',
+		domain: DATABASE_DOMAIN,
+		owners: DATABASE_OWNERS,
+		tags: [...DATABASE_TAGS, 'query', 'readonly'],
+		stability: DATABASE_STABILITY,
+		docId: [docId('docs.tech.database.query.readonly')],
+	},
+	capability: {
+		key: 'database.context',
+		version: '1.0.0',
+	},
+	io: {
+		input: DatabaseQueryReadonlyInput,
+		output: DatabaseQueryReadonlyOutput,
+	},
+	policy: {
+		auth: 'admin',
+		pii: ['rows'],
+	},
 });
 ```

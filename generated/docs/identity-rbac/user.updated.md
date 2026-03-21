@@ -17,14 +17,14 @@ A user profile has been updated.
 
 ```typescript
 export const UserUpdatedEvent = defineEvent({
-  meta: {
-    key: 'user.updated',
-    version: '1.0.0',
-    description: 'A user profile has been updated.',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['user', 'updated', 'identity'],
-  },
-  payload: UserUpdatedPayload,
+	meta: {
+		key: 'user.updated',
+		version: '1.0.0',
+		description: 'A user profile has been updated.',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['user', 'updated', 'identity'],
+	},
+	payload: UserUpdatedPayload,
 });
 ```

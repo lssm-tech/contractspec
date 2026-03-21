@@ -17,29 +17,29 @@ Test for listing my approvals
 
 ```typescript
 export const ApprovalListMineTest = defineTestSpec({
-  meta: {
-    key: 'workflow.approval.list.mine.test',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@example.workflow-system'],
-    description: 'Test for listing my approvals',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'workflow.approval.list.mine', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'workflow.approval.list.mine' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'workflow.approval.list.mine' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'workflow.approval.list.mine.test',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@example.workflow-system'],
+		description: 'Test for listing my approvals',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'workflow.approval.list.mine', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'workflow.approval.list.mine' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'workflow.approval.list.mine' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

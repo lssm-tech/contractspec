@@ -16,14 +16,14 @@ A job has been cancelled.
 
 ```typescript
 export const JobCancelledEvent = defineEvent({
-  meta: {
-    key: 'job.cancelled',
-    version: '1.0.0',
-    description: 'A job has been cancelled.',
-    stability: StabilityEnum.Stable,
-    owners: ['@contractspec.libs.jobs'],
-    tags: ['job-queue', 'lifecycle'],
-  },
-  payload: JobCancelledPayload,
+	meta: {
+		key: 'job.cancelled',
+		version: '1.0.0',
+		description: 'A job has been cancelled.',
+		stability: StabilityEnum.Stable,
+		owners: ['@contractspec.libs.jobs'],
+		tags: ['job-queue', 'lifecycle'],
+	},
+	payload: JobCancelledPayload,
 });
 ```

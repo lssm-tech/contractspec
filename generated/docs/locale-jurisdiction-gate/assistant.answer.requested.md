@@ -17,14 +17,14 @@ Assistant answer requested (policy gate will run).
 
 ```typescript
 export const AssistantAnswerRequestedEvent = defineEvent({
-  meta: {
-    key: 'assistant.answer.requested',
-    version: '1.0.0',
-    description: 'Assistant answer requested (policy gate will run).',
-    stability: 'experimental',
-    owners: ['@examples'],
-    tags: ['assistant', 'policy'],
-  },
-  payload: AssistantAnswerRequestedPayload,
+	meta: {
+		key: 'assistant.answer.requested',
+		version: '1.0.0',
+		description: 'Assistant answer requested (policy gate will run).',
+		stability: 'experimental',
+		owners: ['@examples'],
+		tags: ['assistant', 'policy'],
+	},
+	payload: AssistantAnswerRequestedPayload,
 });
 ```

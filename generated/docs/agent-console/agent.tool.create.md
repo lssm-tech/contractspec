@@ -25,83 +25,83 @@ Called from the tool builder UI when creating a new tool.
 
 ```typescript
 export const CreateToolCommand = defineCommand({
-  meta: {
-    key: 'agent.tool.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['tool', 'create'],
-    description: 'Creates a new AI tool definition.',
-    goal: 'Allow users to define new tools that agents can use.',
-    context: 'Called from the tool builder UI when creating a new tool.',
-  },
-  io: {
-    input: CreateToolInputModel,
-    output: defineSchemaModel({
-      name: 'CreateToolOutput',
-      fields: {
-        id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-        name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-        slug: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-        status: { type: ToolStatusEnum, isOptional: false },
-      },
-    }),
-    errors: {
-      SLUG_EXISTS: {
-        description: 'A tool with this slug already exists in the organization',
-        http: 409,
-        gqlCode: 'SLUG_EXISTS',
-        when: 'Slug is already taken',
-      },
-    },
-  },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'tool.created',
-        version: '1.0.0',
-        stability: 'stable',
-        owners: ['@agent-console-team'],
-        tags: ['tool', 'created'],
-        when: 'Tool is successfully created',
-        payload: ToolSummaryModel,
-      },
-    ],
-    audit: ['tool.created'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'create-tool-happy-path',
-        given: ['User is authenticated', 'Organization exists'],
-        when: ['User submits valid tool configuration'],
-        then: ['New tool is created', 'ToolCreated event is emitted'],
-      },
-      {
-        key: 'create-tool-slug-conflict',
-        given: ['Tool with same slug exists'],
-        when: ['User submits tool with duplicate slug'],
-        then: ['SLUG_EXISTS error is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'create-api-tool',
-        input: {
-          name: 'Weather API',
-          slug: 'weather-api',
-          category: 'api',
-          description: 'Fetches weather data',
-        },
-        output: {
-          id: 'tool-123',
-          name: 'Weather API',
-          slug: 'weather-api',
-          status: 'draft',
-        },
-      },
-    ],
-  },
+	meta: {
+		key: 'agent.tool.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['tool', 'create'],
+		description: 'Creates a new AI tool definition.',
+		goal: 'Allow users to define new tools that agents can use.',
+		context: 'Called from the tool builder UI when creating a new tool.',
+	},
+	io: {
+		input: CreateToolInputModel,
+		output: defineSchemaModel({
+			name: 'CreateToolOutput',
+			fields: {
+				id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+				name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
+				slug: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+				status: { type: ToolStatusEnum, isOptional: false },
+			},
+		}),
+		errors: {
+			SLUG_EXISTS: {
+				description: 'A tool with this slug already exists in the organization',
+				http: 409,
+				gqlCode: 'SLUG_EXISTS',
+				when: 'Slug is already taken',
+			},
+		},
+	},
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'tool.created',
+				version: '1.0.0',
+				stability: 'stable',
+				owners: ['@agent-console-team'],
+				tags: ['tool', 'created'],
+				when: 'Tool is successfully created',
+				payload: ToolSummaryModel,
+			},
+		],
+		audit: ['tool.created'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'create-tool-happy-path',
+				given: ['User is authenticated', 'Organization exists'],
+				when: ['User submits valid tool configuration'],
+				then: ['New tool is created', 'ToolCreated event is emitted'],
+			},
+			{
+				key: 'create-tool-slug-conflict',
+				given: ['Tool with same slug exists'],
+				when: ['User submits tool with duplicate slug'],
+				then: ['SLUG_EXISTS error is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'create-api-tool',
+				input: {
+					name: 'Weather API',
+					slug: 'weather-api',
+					category: 'api',
+					description: 'Fetches weather data',
+				},
+				output: {
+					id: 'tool-123',
+					name: 'Weather API',
+					slug: 'weather-api',
+					status: 'draft',
+				},
+			},
+		],
+	},
 });
 ```

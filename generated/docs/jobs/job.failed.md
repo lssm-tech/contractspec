@@ -16,14 +16,14 @@ A job attempt has failed.
 
 ```typescript
 export const JobFailedEvent = defineEvent({
-  meta: {
-    key: 'job.failed',
-    version: '1.0.0',
-    description: 'A job attempt has failed.',
-    stability: StabilityEnum.Stable,
-    owners: ['@contractspec.libs.jobs'],
-    tags: ['job-queue', 'lifecycle', 'error'],
-  },
-  payload: JobFailedPayload,
+	meta: {
+		key: 'job.failed',
+		version: '1.0.0',
+		description: 'A job attempt has failed.',
+		stability: StabilityEnum.Stable,
+		owners: ['@contractspec.libs.jobs'],
+		tags: ['job-queue', 'lifecycle', 'error'],
+	},
+	payload: JobFailedPayload,
 });
 ```

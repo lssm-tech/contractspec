@@ -23,30 +23,30 @@ Used by Studio to show diffs, files, and run outputs.
 
 ```typescript
 export const AgentArtifactsQuery = defineQuery({
-  meta: {
-    key: 'agent.artifacts',
-    title: 'Agent Run Artifacts',
-    version: '1.0.0',
-    description: 'List artifacts produced by an agent run.',
-    goal: 'Provide traceable outputs for audits and UI surfaces.',
-    context: 'Used by Studio to show diffs, files, and run outputs.',
-    domain: AGENT_DOMAIN,
-    owners: AGENT_OWNERS,
-    tags: [...AGENT_TAGS, 'artifacts'],
-    stability: AGENT_STABILITY,
-    docId: [docId('docs.tech.agent.artifacts')],
-  },
-  capability: {
-    key: 'agent.execution',
-    version: '1.0.0',
-  },
-  io: {
-    input: AgentArtifactsInput,
-    output: AgentArtifactsOutput,
-  },
-  policy: {
-    auth: 'user',
-    pii: [],
-  },
+	meta: {
+		key: 'agent.artifacts',
+		title: 'Agent Run Artifacts',
+		version: '1.0.0',
+		description: 'List artifacts produced by an agent run.',
+		goal: 'Provide traceable outputs for audits and UI surfaces.',
+		context: 'Used by Studio to show diffs, files, and run outputs.',
+		domain: AGENT_DOMAIN,
+		owners: AGENT_OWNERS,
+		tags: [...AGENT_TAGS, 'artifacts'],
+		stability: AGENT_STABILITY,
+		docId: [docId('docs.tech.agent.artifacts')],
+	},
+	capability: {
+		key: 'agent.execution',
+		version: '1.0.0',
+	},
+	io: {
+		input: AgentArtifactsInput,
+		output: AgentArtifactsOutput,
+	},
+	policy: {
+		auth: 'user',
+		pii: [],
+	},
 });
 ```

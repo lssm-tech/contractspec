@@ -25,30 +25,30 @@ Called when removing a metric.
 
 ```typescript
 export const DeleteMetricContract = defineCommand({
-  meta: {
-    key: 'metric.delete',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.metering'],
-    tags: ['metering', 'metric', 'delete'],
-    description: 'Delete a metric definition.',
-    goal: 'Remove a metric and its data.',
-    context: 'Called when removing a metric.',
-  },
-  io: {
-    input: DeleteMetricInput,
-    output: SuccessOutput,
-    errors: {
-      METRIC_NOT_FOUND: {
-        description: 'Metric does not exist',
-        http: 404,
-        gqlCode: 'METRIC_NOT_FOUND',
-        when: 'Metric ID is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'metric.delete',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.metering'],
+		tags: ['metering', 'metric', 'delete'],
+		description: 'Delete a metric definition.',
+		goal: 'Remove a metric and its data.',
+		context: 'Called when removing a metric.',
+	},
+	io: {
+		input: DeleteMetricInput,
+		output: SuccessOutput,
+		errors: {
+			METRIC_NOT_FOUND: {
+				description: 'Metric does not exist',
+				http: 404,
+				gqlCode: 'METRIC_NOT_FOUND',
+				when: 'Metric ID is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

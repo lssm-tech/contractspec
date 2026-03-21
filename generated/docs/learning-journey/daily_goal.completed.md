@@ -16,14 +16,14 @@ A daily goal has been completed.
 
 ```typescript
 export const DailyGoalCompletedEvent = defineEvent({
-  meta: {
-    key: 'daily_goal.completed',
-    version: '1.0.0',
-    description: 'A daily goal has been completed.',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'gamification', 'goal'],
-  },
-  payload: DailyGoalCompletedPayload,
+	meta: {
+		key: 'daily_goal.completed',
+		version: '1.0.0',
+		description: 'A daily goal has been completed.',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'gamification', 'goal'],
+	},
+	payload: DailyGoalCompletedPayload,
 });
 ```

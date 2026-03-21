@@ -17,14 +17,14 @@ A job was scheduled.
 
 ```typescript
 export const JobScheduledEvent = defineEvent({
-  meta: {
-    key: 'service.job.scheduled',
-    version: '1.0.0',
-    description: 'A job was scheduled.',
-    stability: 'stable',
-    owners: ['@service-os'],
-    tags: ['service', 'job', 'scheduled'],
-  },
-  payload: JobEventPayload,
+	meta: {
+		key: 'service.job.scheduled',
+		version: '1.0.0',
+		description: 'A job was scheduled.',
+		stability: 'stable',
+		owners: ['@service-os'],
+		tags: ['service', 'job', 'scheduled'],
+	},
+	payload: JobEventPayload,
 });
 ```

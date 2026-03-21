@@ -17,14 +17,14 @@ Message sent by user
 
 ```typescript
 export const MessageSentEvent = defineEvent({
-  meta: {
-    key: 'ai-chat.message.sent',
-    version: '1.0.0',
-    description: 'Message sent by user',
-    stability: 'stable',
-    owners: ['@ai-chat'],
-    tags: ['ai-chat', 'message', 'sent'],
-  },
-  payload: ChatMessageModel,
+	meta: {
+		key: 'ai-chat.message.sent',
+		version: '1.0.0',
+		description: 'Message sent by user',
+		stability: 'stable',
+		owners: ['@ai-chat'],
+		tags: ['ai-chat', 'message', 'sent'],
+	},
+	payload: ChatMessageModel,
 });
 ```

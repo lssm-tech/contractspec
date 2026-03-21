@@ -17,29 +17,29 @@ Test for listing payouts
 
 ```typescript
 export const PayoutListTest = defineTestSpec({
-  meta: {
-    key: 'marketplace.payout.list.test',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@example.marketplace'],
-    description: 'Test for listing payouts',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'marketplace.payout.list', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'marketplace.payout.list' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'marketplace.payout.list' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'marketplace.payout.list.test',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@example.marketplace'],
+		description: 'Test for listing payouts',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'marketplace.payout.list', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'marketplace.payout.list' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'marketplace.payout.list' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

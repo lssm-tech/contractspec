@@ -17,14 +17,14 @@ An upload session has started.
 
 ```typescript
 export const UploadSessionStartedEvent = defineEvent({
-  meta: {
-    key: 'upload.session_started',
-    version: '1.0.0',
-    description: 'An upload session has started.',
-    stability: 'stable',
-    owners: ['@platform.files'],
-    tags: ['files', 'upload', 'session', 'start'],
-  },
-  payload: UploadSessionStartedPayload,
+	meta: {
+		key: 'upload.session_started',
+		version: '1.0.0',
+		description: 'An upload session has started.',
+		stability: 'stable',
+		owners: ['@platform.files'],
+		tags: ['files', 'upload', 'session', 'start'],
+	},
+	payload: UploadSessionStartedPayload,
 });
 ```

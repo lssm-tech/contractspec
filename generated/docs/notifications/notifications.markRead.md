@@ -25,30 +25,30 @@ User clicks on a notification.
 
 ```typescript
 export const MarkNotificationReadContract = defineCommand({
-  meta: {
-    key: 'notifications.markRead',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.notifications'],
-    tags: ['notifications', 'read'],
-    description: 'Mark a notification as read.',
-    goal: 'Track which notifications user has seen.',
-    context: 'User clicks on a notification.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'MarkNotificationReadInput',
-      fields: {
-        notificationId: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: false,
-        },
-      },
-    }),
-    output: NotificationModel,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'notifications.markRead',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.notifications'],
+		tags: ['notifications', 'read'],
+		description: 'Mark a notification as read.',
+		goal: 'Track which notifications user has seen.',
+		context: 'User clicks on a notification.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'MarkNotificationReadInput',
+			fields: {
+				notificationId: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: false,
+				},
+			},
+		}),
+		output: NotificationModel,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

@@ -24,36 +24,36 @@ Called when a learner finishes a lesson.
 
 ```typescript
 export const CompleteLessonContract = defineCommand({
-  meta: {
-    key: 'learning.completeLesson',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'progress'],
-    description: 'Mark a lesson as completed.',
-    goal: 'Record lesson completion and earn XP.',
-    context: 'Called when a learner finishes a lesson.',
-  },
-  io: {
-    input: CompleteLessonInput,
-    output: SuccessOutput,
-    errors: {
-      LESSON_NOT_FOUND: {
-        description: 'Lesson does not exist',
-        http: 404,
-        gqlCode: 'LESSON_NOT_FOUND',
-        when: 'Lesson ID is invalid',
-      },
-      NOT_ENROLLED: {
-        description: 'Not enrolled in course',
-        http: 403,
-        gqlCode: 'NOT_ENROLLED',
-        when: 'Learner is not enrolled in the course',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'learning.completeLesson',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'progress'],
+		description: 'Mark a lesson as completed.',
+		goal: 'Record lesson completion and earn XP.',
+		context: 'Called when a learner finishes a lesson.',
+	},
+	io: {
+		input: CompleteLessonInput,
+		output: SuccessOutput,
+		errors: {
+			LESSON_NOT_FOUND: {
+				description: 'Lesson does not exist',
+				http: 404,
+				gqlCode: 'LESSON_NOT_FOUND',
+				when: 'Lesson ID is invalid',
+			},
+			NOT_ENROLLED: {
+				description: 'Not enrolled in course',
+				http: 403,
+				gqlCode: 'NOT_ENROLLED',
+				when: 'Learner is not enrolled in the course',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

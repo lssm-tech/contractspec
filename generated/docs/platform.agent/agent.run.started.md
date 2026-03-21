@@ -15,21 +15,21 @@ Emitted when an agent run starts executing.
 
 ```typescript
 export const AgentRunStartedEvent = defineEvent({
-  meta: {
-    key: 'agent.run.started',
-    version: '1.0.0',
-    description: 'Emitted when an agent run starts executing.',
-    domain: AGENT_DOMAIN,
-    owners: AGENT_OWNERS,
-    tags: [...AGENT_TAGS, 'run'],
-    stability: AGENT_STABILITY,
-    docId: [docId('docs.tech.agent.run.started')],
-  },
-  capability: {
-    key: 'agent.execution',
-    version: '1.0.0',
-  },
-  pii: [],
-  payload: AgentRunStartedPayload,
+	meta: {
+		key: 'agent.run.started',
+		version: '1.0.0',
+		description: 'Emitted when an agent run starts executing.',
+		domain: AGENT_DOMAIN,
+		owners: AGENT_OWNERS,
+		tags: [...AGENT_TAGS, 'run'],
+		stability: AGENT_STABILITY,
+		docId: [docId('docs.tech.agent.run.started')],
+	},
+	capability: {
+		key: 'agent.execution',
+		version: '1.0.0',
+	},
+	pii: [],
+	payload: AgentRunStartedPayload,
 });
 ```

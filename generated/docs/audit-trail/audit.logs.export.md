@@ -25,22 +25,22 @@ Compliance reporting, external audits.
 
 ```typescript
 export const ExportAuditLogsContract = defineCommand({
-  meta: {
-    key: 'audit.logs.export',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.audit-trail'],
-    tags: ['audit', 'logs', 'export'],
-    description: 'Export audit logs for compliance reporting.',
-    goal: 'Generate audit reports for compliance.',
-    context: 'Compliance reporting, external audits.',
-  },
-  io: {
-    input: AuditExportInputModel,
-    output: AuditExportOutputModel,
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'audit.logs.export',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.audit-trail'],
+		tags: ['audit', 'logs', 'export'],
+		description: 'Export audit logs for compliance reporting.',
+		goal: 'Generate audit reports for compliance.',
+		context: 'Compliance reporting, external audits.',
+	},
+	io: {
+		input: AuditExportInputModel,
+		output: AuditExportOutputModel,
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

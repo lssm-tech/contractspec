@@ -29,32 +29,32 @@ Called by any service that needs async processing.
 
 ```typescript
 export const EnqueueJobContract = defineCommand({
-  meta: {
-    key: 'jobs.enqueue',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.jobs'],
-    tags: ['jobs', 'enqueue'],
-    description: 'Enqueue a background job for async processing.',
-    goal: 'Allow services to offload work to background processing.',
-    context: 'Called by any service that needs async processing.',
-  },
-  io: {
-    input: EnqueueJobInput,
-    output: JobModel,
-  },
-  policy: {
-    auth: 'user',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'job.enqueued',
-        version: '1.0.0',
-        when: 'Job is enqueued',
-        payload: JobEnqueuedPayload,
-      },
-    ],
-  },
+	meta: {
+		key: 'jobs.enqueue',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.jobs'],
+		tags: ['jobs', 'enqueue'],
+		description: 'Enqueue a background job for async processing.',
+		goal: 'Allow services to offload work to background processing.',
+		context: 'Called by any service that needs async processing.',
+	},
+	io: {
+		input: EnqueueJobInput,
+		output: JobModel,
+	},
+	policy: {
+		auth: 'user',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'job.enqueued',
+				version: '1.0.0',
+				when: 'Job is enqueued',
+				payload: JobEnqueuedPayload,
+			},
+		],
+	},
 });
 ```

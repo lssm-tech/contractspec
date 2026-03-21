@@ -25,37 +25,37 @@ Billing.
 
 ```typescript
 export const RecordPaymentContract = defineCommand({
-  meta: {
-    key: 'service.payment.record',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@examples.service-business-os'],
-    tags: ['service-business-os', 'payment', 'record'],
-    description: 'Record a payment.',
-    goal: 'Track payments.',
-    context: 'Billing.',
-  },
-  io: {
-    input: RecordPaymentInputModel,
-    output: PaymentModel,
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'record-payment-happy-path',
-        given: ['Invoice exists'],
-        when: ['User records payment'],
-        then: ['Payment is recorded'],
-      },
-    ],
-    examples: [
-      {
-        key: 'record-check',
-        input: { invoiceId: 'inv-456', amount: 100, method: 'check' },
-        output: { id: 'pay-123', status: 'completed' },
-      },
-    ],
-  },
+	meta: {
+		key: 'service.payment.record',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@examples.service-business-os'],
+		tags: ['service-business-os', 'payment', 'record'],
+		description: 'Record a payment.',
+		goal: 'Track payments.',
+		context: 'Billing.',
+	},
+	io: {
+		input: RecordPaymentInputModel,
+		output: PaymentModel,
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'record-payment-happy-path',
+				given: ['Invoice exists'],
+				when: ['User records payment'],
+				then: ['Payment is recorded'],
+			},
+		],
+		examples: [
+			{
+				key: 'record-check',
+				input: { invoiceId: 'inv-456', amount: 100, method: 'check' },
+				output: { id: 'pay-123', status: 'completed' },
+			},
+		],
+	},
 });
 ```

@@ -17,50 +17,50 @@ Verifies dashboard retrieval
 
 ```typescript
 export const GetDashboardTest = defineTestSpec({
-  meta: {
-    key: 'analytics.dashboard.get.test',
-    version: '1.0.0',
-    title: 'Get Dashboard Test',
-    description: 'Verifies dashboard retrieval',
-    owners: ['@example.analytics-dashboard'],
-    tags: ['analytics', 'dashboard', 'test'],
-    stability: 'stable',
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'analytics.dashboard.get', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      description: 'Successfully get dashboard',
-      when: {
-        operation: { key: 'analytics.dashboard.get', version: '1.0.0' },
-        input: { dashboardId: 'dash-123' },
-      },
-      then: [
-        {
-          type: 'expectOutput',
-          match: {
-            id: 'dash-123',
-          },
-        },
-      ],
-    },
-    {
-      key: 'error-not-found',
-      description: 'Fail when dashboard not found',
-      when: {
-        operation: { key: 'analytics.dashboard.get', version: '1.0.0' },
-        input: { dashboardId: 'dash-999' },
-      },
-      then: [
-        {
-          type: 'expectError',
-          messageIncludes: 'NOT_FOUND',
-        },
-      ],
-    },
-  ],
+	meta: {
+		key: 'analytics.dashboard.get.test',
+		version: '1.0.0',
+		title: 'Get Dashboard Test',
+		description: 'Verifies dashboard retrieval',
+		owners: ['@example.analytics-dashboard'],
+		tags: ['analytics', 'dashboard', 'test'],
+		stability: 'stable',
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'analytics.dashboard.get', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			description: 'Successfully get dashboard',
+			when: {
+				operation: { key: 'analytics.dashboard.get', version: '1.0.0' },
+				input: { dashboardId: 'dash-123' },
+			},
+			then: [
+				{
+					type: 'expectOutput',
+					match: {
+						id: 'dash-123',
+					},
+				},
+			],
+		},
+		{
+			key: 'error-not-found',
+			description: 'Fail when dashboard not found',
+			when: {
+				operation: { key: 'analytics.dashboard.get', version: '1.0.0' },
+				input: { dashboardId: 'dash-999' },
+			},
+			then: [
+				{
+					type: 'expectError',
+					messageIncludes: 'NOT_FOUND',
+				},
+			],
+		},
+	],
 });
 ```

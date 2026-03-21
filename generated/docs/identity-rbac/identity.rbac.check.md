@@ -25,22 +25,22 @@ Called by other services to verify permissions.
 
 ```typescript
 export const CheckPermissionContract = defineQuery({
-  meta: {
-    key: 'identity.rbac.check',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['identity', 'rbac', 'check', 'permission'],
-    description: 'Check if a user has a specific permission.',
-    goal: 'Authorization check before sensitive operations.',
-    context: 'Called by other services to verify permissions.',
-  },
-  io: {
-    input: CheckPermissionInputModel,
-    output: PermissionCheckResultModel,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'identity.rbac.check',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['identity', 'rbac', 'check', 'permission'],
+		description: 'Check if a user has a specific permission.',
+		goal: 'Authorization check before sensitive operations.',
+		context: 'Called by other services to verify permissions.',
+	},
+	io: {
+		input: CheckPermissionInputModel,
+		output: PermissionCheckResultModel,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

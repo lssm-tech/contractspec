@@ -25,45 +25,45 @@ Instance detail view.
 
 ```typescript
 export const GetInstanceContract = defineQuery({
-  meta: {
-    key: 'workflow.instance.get',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.workflow-system'],
-    tags: ['workflow', 'instance', 'get'],
-    description: 'Get a workflow instance with details.',
-    goal: 'View workflow instance details.',
-    context: 'Instance detail view.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'GetInstanceInput',
-      fields: {
-        instanceId: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: false,
-        },
-      },
-    }),
-    output: WorkflowInstanceModel,
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'get-instance-happy-path',
-        given: ['Instance exists'],
-        when: ['User requests instance details'],
-        then: ['Instance details are returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'get-details',
-        input: { instanceId: 'inst-456' },
-        output: { id: 'inst-456', workflowKey: 'onboarding-v1' },
-      },
-    ],
-  },
+	meta: {
+		key: 'workflow.instance.get',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.workflow-system'],
+		tags: ['workflow', 'instance', 'get'],
+		description: 'Get a workflow instance with details.',
+		goal: 'View workflow instance details.',
+		context: 'Instance detail view.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'GetInstanceInput',
+			fields: {
+				instanceId: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: false,
+				},
+			},
+		}),
+		output: WorkflowInstanceModel,
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'get-instance-happy-path',
+				given: ['Instance exists'],
+				when: ['User requests instance details'],
+				then: ['Instance details are returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'get-details',
+				input: { instanceId: 'inst-456' },
+				output: { id: 'inst-456', workflowKey: 'onboarding-v1' },
+			},
+		],
+	},
 });
 ```

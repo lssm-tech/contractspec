@@ -24,26 +24,26 @@ Dashboard
 
 ```typescript
 export const WealthDashboardPresentation = definePresentation({
-  meta: {
-    key: 'wealth-snapshot.dashboard',
-    version: '1.0.0',
-    title: 'Wealth Dashboard',
-    description: 'Wealth snapshot dashboard with net worth overview',
-    domain: 'finance',
-    owners: ['@wealth-snapshot'],
-    tags: ['finance', 'wealth', 'dashboard'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Overview of wealth',
-    context: 'Dashboard',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'WealthDashboard',
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['wealth.dashboard.enabled'],
-  },
+	meta: {
+		key: 'wealth-snapshot.dashboard',
+		version: '1.0.0',
+		title: 'Wealth Dashboard',
+		description: 'Wealth snapshot dashboard with net worth overview',
+		domain: 'finance',
+		owners: ['@wealth-snapshot'],
+		tags: ['finance', 'wealth', 'dashboard'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Overview of wealth',
+		context: 'Dashboard',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'WealthDashboard',
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['wealth.dashboard.enabled'],
+	},
 });
 ```

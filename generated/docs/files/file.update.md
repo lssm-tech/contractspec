@@ -25,30 +25,30 @@ Called when renaming or updating file metadata.
 
 ```typescript
 export const UpdateFileContract = defineCommand({
-  meta: {
-    key: 'file.update',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.files'],
-    tags: ['files', 'update'],
-    description: 'Update file metadata.',
-    goal: 'Modify file properties without replacing content.',
-    context: 'Called when renaming or updating file metadata.',
-  },
-  io: {
-    input: UpdateFileInput,
-    output: FileModel,
-    errors: {
-      FILE_NOT_FOUND: {
-        description: 'File does not exist',
-        http: 404,
-        gqlCode: 'FILE_NOT_FOUND',
-        when: 'File ID is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'file.update',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.files'],
+		tags: ['files', 'update'],
+		description: 'Update file metadata.',
+		goal: 'Modify file properties without replacing content.',
+		context: 'Called when renaming or updating file metadata.',
+	},
+	io: {
+		input: UpdateFileInput,
+		output: FileModel,
+		errors: {
+			FILE_NOT_FOUND: {
+				description: 'File does not exist',
+				http: 404,
+				gqlCode: 'FILE_NOT_FOUND',
+				when: 'File ID is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

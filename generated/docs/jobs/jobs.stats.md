@@ -25,22 +25,22 @@ Admin dashboard monitoring.
 
 ```typescript
 export const GetQueueStatsContract = defineQuery({
-  meta: {
-    key: 'jobs.stats',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.jobs'],
-    tags: ['jobs', 'stats', 'admin'],
-    description: 'Get job queue statistics.',
-    goal: 'Monitor queue health and backlog.',
-    context: 'Admin dashboard monitoring.',
-  },
-  io: {
-    input: null,
-    output: QueueStatsModel,
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'jobs.stats',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.jobs'],
+		tags: ['jobs', 'stats', 'admin'],
+		description: 'Get job queue statistics.',
+		goal: 'Monitor queue health and backlog.',
+		context: 'Admin dashboard monitoring.',
+	},
+	io: {
+		input: null,
+		output: QueueStatsModel,
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

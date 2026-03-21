@@ -24,27 +24,27 @@ Standard view for deal management and bulk actions.
 
 ```typescript
 export const DealListPresentation = definePresentation({
-  meta: {
-    key: 'crm.deal.viewList',
-    version: '1.0.0',
-    title: 'Deal List',
-    description: 'List view of deals with value, status, and owner info',
-    domain: 'crm-pipeline',
-    owners: ['@crm-team'],
-    tags: ['deal', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Search, filter, and review deal lists.',
-    context: 'Standard view for deal management and bulk actions.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'DealListView',
-    props: DealModel,
-  },
-  targets: ['react', 'markdown', 'application/json'],
-  policy: {
-    flags: ['crm.deals.enabled'],
-  },
+	meta: {
+		key: 'crm.deal.viewList',
+		version: '1.0.0',
+		title: 'Deal List',
+		description: 'List view of deals with value, status, and owner info',
+		domain: 'crm-pipeline',
+		owners: ['@crm-team'],
+		tags: ['deal', 'list'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Search, filter, and review deal lists.',
+		context: 'Standard view for deal management and bulk actions.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'DealListView',
+		props: DealModel,
+	},
+	targets: ['react', 'markdown', 'application/json'],
+	policy: {
+		flags: ['crm.deals.enabled'],
+	},
 });
 ```

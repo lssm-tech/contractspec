@@ -25,30 +25,30 @@ Triggered by background sync jobs and manual refresh actions.
 
 ```typescript
 export const HealthSyncWorkouts = defineCommand({
-  meta: {
-    key: 'health.workouts.sync',
-    version: '1.0.0',
-    description: 'Synchronize workouts from configured health providers.',
-    goal: 'Keep canonical workout records fresh for downstream experiences.',
-    context: 'Triggered by background sync jobs and manual refresh actions.',
-    owners: ['@platform.integrations'],
-    tags: ['health', 'workouts', 'wearables'],
-    stability: 'experimental',
-  },
-  io: {
-    input: HealthSyncWorkoutsInput,
-    output: HealthSyncWorkoutsOutput,
-  },
-  policy: {
-    auth: 'admin',
-  },
-  telemetry: {
-    success: {
-      event: { key: HEALTH_TELEMETRY_EVENTS.workoutsSynced },
-    },
-    failure: {
-      event: { key: HEALTH_TELEMETRY_EVENTS.workoutsSyncFailed },
-    },
-  },
+	meta: {
+		key: 'health.workouts.sync',
+		version: '1.0.0',
+		description: 'Synchronize workouts from configured health providers.',
+		goal: 'Keep canonical workout records fresh for downstream experiences.',
+		context: 'Triggered by background sync jobs and manual refresh actions.',
+		owners: ['@platform.integrations'],
+		tags: ['health', 'workouts', 'wearables'],
+		stability: 'experimental',
+	},
+	io: {
+		input: HealthSyncWorkoutsInput,
+		output: HealthSyncWorkoutsOutput,
+	},
+	policy: {
+		auth: 'admin',
+	},
+	telemetry: {
+		success: {
+			event: { key: HEALTH_TELEMETRY_EVENTS.workoutsSynced },
+		},
+		failure: {
+			event: { key: HEALTH_TELEMETRY_EVENTS.workoutsSyncFailed },
+		},
+	},
 });
 ```

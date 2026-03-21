@@ -17,14 +17,14 @@ A new file version has been created.
 
 ```typescript
 export const FileVersionCreatedEvent = defineEvent({
-  meta: {
-    key: 'file.version_created',
-    version: '1.0.0',
-    description: 'A new file version has been created.',
-    stability: 'stable',
-    owners: ['@platform.files'],
-    tags: ['files', 'version', 'create'],
-  },
-  payload: FileVersionCreatedPayload,
+	meta: {
+		key: 'file.version_created',
+		version: '1.0.0',
+		description: 'A new file version has been created.',
+		stability: 'stable',
+		owners: ['@platform.files'],
+		tags: ['files', 'version', 'create'],
+	},
+	payload: FileVersionCreatedPayload,
 });
 ```

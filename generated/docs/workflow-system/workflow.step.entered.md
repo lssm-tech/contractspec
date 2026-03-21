@@ -17,14 +17,14 @@ A workflow instance has entered a new step.
 
 ```typescript
 export const StepEnteredEvent = defineEvent({
-  meta: {
-    key: 'workflow.step.entered',
-    version: '1.0.0',
-    description: 'A workflow instance has entered a new step.',
-    stability: 'stable',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'step', 'entered'],
-  },
-  payload: StepTransitionPayload,
+	meta: {
+		key: 'workflow.step.entered',
+		version: '1.0.0',
+		description: 'A workflow instance has entered a new step.',
+		stability: 'stable',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'step', 'entered'],
+	},
+	payload: StepTransitionPayload,
 });
 ```

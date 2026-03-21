@@ -15,16 +15,16 @@ Emitted when documentation artifacts are generated.
 
 ```typescript
 export const DocsGeneratedEvent = defineEvent({
-  meta: {
-    key: 'docs.generated',
-    version: '1.0.0',
-    description: 'Emitted when documentation artifacts are generated.',
-    domain: DOCS_DOMAIN,
-    owners: DOCS_OWNERS,
-    tags: [...DOCS_TAGS, 'generation'],
-    stability: DOCS_STABILITY,
-    docId: [docId('docs.tech.docs-generator')],
-  },
-  payload: DocsGeneratedPayload,
+	meta: {
+		key: 'docs.generated',
+		version: '1.0.0',
+		description: 'Emitted when documentation artifacts are generated.',
+		domain: DOCS_DOMAIN,
+		owners: DOCS_OWNERS,
+		tags: [...DOCS_TAGS, 'generation'],
+		stability: DOCS_STABILITY,
+		docId: [docId('docs.tech.docs-generator')],
+	},
+	payload: DocsGeneratedPayload,
 });
 ```

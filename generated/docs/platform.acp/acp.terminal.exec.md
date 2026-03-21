@@ -23,30 +23,30 @@ Used by ACP clients when terminal access is granted.
 
 ```typescript
 export const AcpTerminalExecCommand = defineCommand({
-  meta: {
-    key: 'acp.terminal.exec',
-    title: 'ACP Terminal Exec',
-    version: '1.0.0',
-    description: 'Execute a terminal command within an ACP session.',
-    goal: 'Expose terminal execution with governance and auditing.',
-    context: 'Used by ACP clients when terminal access is granted.',
-    domain: ACP_DOMAIN,
-    owners: ACP_OWNERS,
-    tags: [...ACP_TAGS, 'terminal'],
-    stability: ACP_STABILITY,
-    docId: [docId('docs.tech.acp.terminal.exec')],
-  },
-  capability: {
-    key: 'acp.transport',
-    version: '1.0.0',
-  },
-  io: {
-    input: AcpTerminalExecInput,
-    output: AcpTerminalExecOutput,
-  },
-  policy: {
-    auth: 'admin',
-    pii: [],
-  },
+	meta: {
+		key: 'acp.terminal.exec',
+		title: 'ACP Terminal Exec',
+		version: '1.0.0',
+		description: 'Execute a terminal command within an ACP session.',
+		goal: 'Expose terminal execution with governance and auditing.',
+		context: 'Used by ACP clients when terminal access is granted.',
+		domain: ACP_DOMAIN,
+		owners: ACP_OWNERS,
+		tags: [...ACP_TAGS, 'terminal'],
+		stability: ACP_STABILITY,
+		docId: [docId('docs.tech.acp.terminal.exec')],
+	},
+	capability: {
+		key: 'acp.transport',
+		version: '1.0.0',
+	},
+	io: {
+		input: AcpTerminalExecInput,
+		output: AcpTerminalExecOutput,
+	},
+	policy: {
+		auth: 'admin',
+		pii: [],
+	},
 });
 ```

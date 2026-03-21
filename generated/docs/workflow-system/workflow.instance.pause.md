@@ -29,57 +29,57 @@ Administrative action, emergency stop.
 
 ```typescript
 export const PauseWorkflowContract = defineCommand({
-  meta: {
-    key: 'workflow.instance.pause',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.workflow-system'],
-    tags: ['workflow', 'instance', 'pause'],
-    description: 'Pause a running workflow instance.',
-    goal: 'Temporarily halt workflow execution.',
-    context: 'Administrative action, emergency stop.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'PauseResumeInput',
-      fields: {
-        instanceId: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: false,
-        },
-        reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-      },
-    }),
-    output: WorkflowInstanceModel,
-  },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'workflow.instance.paused',
-        version: '1.0.0',
-        when: 'Workflow is paused',
-        payload: WorkflowInstanceModel,
-      },
-    ],
-    audit: ['workflow.instance.paused'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'pause-workflow-happy-path',
-        given: ['Workflow is running'],
-        when: ['Admin pauses workflow'],
-        then: ['Instance status becomes PAUSED'],
-      },
-    ],
-    examples: [
-      {
-        key: 'pause-maintenance',
-        input: { instanceId: 'inst-456', reason: 'System maintenance' },
-        output: { id: 'inst-456', status: 'paused' },
-      },
-    ],
-  },
+	meta: {
+		key: 'workflow.instance.pause',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.workflow-system'],
+		tags: ['workflow', 'instance', 'pause'],
+		description: 'Pause a running workflow instance.',
+		goal: 'Temporarily halt workflow execution.',
+		context: 'Administrative action, emergency stop.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'PauseResumeInput',
+			fields: {
+				instanceId: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: false,
+				},
+				reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+			},
+		}),
+		output: WorkflowInstanceModel,
+	},
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'workflow.instance.paused',
+				version: '1.0.0',
+				when: 'Workflow is paused',
+				payload: WorkflowInstanceModel,
+			},
+		],
+		audit: ['workflow.instance.paused'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'pause-workflow-happy-path',
+				given: ['Workflow is running'],
+				when: ['Admin pauses workflow'],
+				then: ['Instance status becomes PAUSED'],
+			},
+		],
+		examples: [
+			{
+				key: 'pause-maintenance',
+				input: { instanceId: 'inst-456', reason: 'System maintenance' },
+				output: { id: 'inst-456', status: 'paused' },
+			},
+		],
+	},
 });
 ```

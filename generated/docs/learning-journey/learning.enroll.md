@@ -24,36 +24,36 @@ Called when a learner wants to start a course.
 
 ```typescript
 export const EnrollInCourseContract = defineCommand({
-  meta: {
-    key: 'learning.enroll',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'enrollment'],
-    description: 'Enroll in a course.',
-    goal: 'Start learning a new course.',
-    context: 'Called when a learner wants to start a course.',
-  },
-  io: {
-    input: EnrollInCourseInput,
-    output: EnrollmentModel,
-    errors: {
-      COURSE_NOT_FOUND: {
-        description: 'Course does not exist',
-        http: 404,
-        gqlCode: 'COURSE_NOT_FOUND',
-        when: 'Course ID is invalid',
-      },
-      ALREADY_ENROLLED: {
-        description: 'Already enrolled in course',
-        http: 409,
-        gqlCode: 'ALREADY_ENROLLED',
-        when: 'Learner is already enrolled',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'learning.enroll',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'enrollment'],
+		description: 'Enroll in a course.',
+		goal: 'Start learning a new course.',
+		context: 'Called when a learner wants to start a course.',
+	},
+	io: {
+		input: EnrollInCourseInput,
+		output: EnrollmentModel,
+		errors: {
+			COURSE_NOT_FOUND: {
+				description: 'Course does not exist',
+				http: 404,
+				gqlCode: 'COURSE_NOT_FOUND',
+				when: 'Course ID is invalid',
+			},
+			ALREADY_ENROLLED: {
+				description: 'Already enrolled in course',
+				http: 409,
+				gqlCode: 'ALREADY_ENROLLED',
+				when: 'Learner is already enrolled',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

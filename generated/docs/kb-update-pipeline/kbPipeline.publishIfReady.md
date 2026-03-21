@@ -25,28 +25,28 @@ Called by job or UI to attempt publish.
 
 ```typescript
 export const KbPipelinePublishIfReadyContract = defineCommand({
-  meta: {
-    key: 'kbPipeline.publishIfReady',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@examples'],
-    tags: ['knowledge', 'pipeline', 'publishing'],
-    description: 'Publish snapshot if ready (all approvals satisfied).',
-    goal: 'Prevent publishing until all required approvals exist.',
-    context: 'Called by job or UI to attempt publish.',
-  },
-  io: {
-    input: PublishIfReadyInput,
-    output: PublishIfReadyOutput,
-    errors: {
-      NOT_READY: {
-        description: 'Publishing is blocked because approvals are incomplete',
-        http: 409,
-        gqlCode: 'NOT_READY',
-        when: 'there are open review tasks or unapproved rule versions',
-      },
-    },
-  },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'kbPipeline.publishIfReady',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@examples'],
+		tags: ['knowledge', 'pipeline', 'publishing'],
+		description: 'Publish snapshot if ready (all approvals satisfied).',
+		goal: 'Prevent publishing until all required approvals exist.',
+		context: 'Called by job or UI to attempt publish.',
+	},
+	io: {
+		input: PublishIfReadyInput,
+		output: PublishIfReadyOutput,
+		errors: {
+			NOT_READY: {
+				description: 'Publishing is blocked because approvals are incomplete',
+				http: 409,
+				gqlCode: 'NOT_READY',
+				when: 'there are open review tasks or unapproved rule versions',
+			},
+		},
+	},
+	policy: { auth: 'user' },
 });
 ```

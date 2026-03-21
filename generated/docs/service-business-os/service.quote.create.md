@@ -25,40 +25,40 @@ Quote creation.
 
 ```typescript
 export const CreateQuoteContract = defineCommand({
-  meta: {
-    key: 'service.quote.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@examples.service-business-os'],
-    tags: ['service-business-os', 'quote', 'create'],
-    description: 'Create a quote/proposal.',
-    goal: 'Quote clients.',
-    context: 'Quote creation.',
-  },
-  io: {
-    input: CreateQuoteInputModel,
-    output: QuoteModel,
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'create-quote-happy-path',
-        given: ['Client exists'],
-        when: ['User creates quote'],
-        then: ['Quote is created'],
-      },
-    ],
-    examples: [
-      {
-        key: 'create-proposal',
-        input: {
-          clientId: 'client-123',
-          items: [{ description: 'Project A', price: 5000 }],
-        },
-        output: { id: 'quote-123', status: 'draft', total: 5000 },
-      },
-    ],
-  },
+	meta: {
+		key: 'service.quote.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@examples.service-business-os'],
+		tags: ['service-business-os', 'quote', 'create'],
+		description: 'Create a quote/proposal.',
+		goal: 'Quote clients.',
+		context: 'Quote creation.',
+	},
+	io: {
+		input: CreateQuoteInputModel,
+		output: QuoteModel,
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'create-quote-happy-path',
+				given: ['Client exists'],
+				when: ['User creates quote'],
+				then: ['Quote is created'],
+			},
+		],
+		examples: [
+			{
+				key: 'create-proposal',
+				input: {
+					clientId: 'client-123',
+					items: [{ description: 'Project A', price: 5000 }],
+				},
+				output: { id: 'quote-123', status: 'draft', total: 5000 },
+			},
+		],
+	},
 });
 ```

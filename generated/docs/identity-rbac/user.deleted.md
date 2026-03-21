@@ -17,15 +17,15 @@ A user account has been deleted.
 
 ```typescript
 export const UserDeletedEvent = defineEvent({
-  meta: {
-    key: 'user.deleted',
-    version: '1.0.0',
-    description: 'A user account has been deleted.',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['user', 'deleted', 'identity'],
-  },
-  pii: ['email'],
-  payload: UserDeletedPayload,
+	meta: {
+		key: 'user.deleted',
+		version: '1.0.0',
+		description: 'A user account has been deleted.',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['user', 'deleted', 'identity'],
+	},
+	pii: ['email'],
+	payload: UserDeletedPayload,
 });
 ```

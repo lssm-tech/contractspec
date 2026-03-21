@@ -18,6 +18,8 @@ describe('@contractspec/biome-config', () => {
 	it('generates a repo preset with restricted element enforcement', () => {
 		const preset = generateBiomePreset('repo');
 
+		expect(preset).toContain('"!generated"');
+		expect(preset).toContain('"!generated/**"');
 		expect(preset).toContain('noRestrictedElements');
 		expect(preset).toContain('packages/apps/**/*.{js,jsx,ts,tsx}');
 		expect(preset).toContain('!packages/apps/mobile-demo/**/*.{js,jsx,ts,tsx}');

@@ -17,14 +17,14 @@ A task has been completed.
 
 ```typescript
 export const TaskCompletedEvent = defineEvent({
-  meta: {
-    key: 'task.completed',
-    version: '1.0.0',
-    description: 'A task has been completed.',
-    stability: 'stable',
-    owners: ['@crm-team'],
-    tags: ['task', 'lifecycle'],
-  },
-  payload: TaskCompletedPayload,
+	meta: {
+		key: 'task.completed',
+		version: '1.0.0',
+		description: 'A task has been completed.',
+		stability: 'stable',
+		owners: ['@crm-team'],
+		tags: ['task', 'lifecycle'],
+	},
+	payload: TaskCompletedPayload,
 });
 ```

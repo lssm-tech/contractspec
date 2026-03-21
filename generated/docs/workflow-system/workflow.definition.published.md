@@ -17,14 +17,14 @@ A workflow definition has been published and is now active.
 
 ```typescript
 export const WorkflowPublishedEvent = defineEvent({
-  meta: {
-    key: 'workflow.definition.published',
-    version: '1.0.0',
-    description: 'A workflow definition has been published and is now active.',
-    stability: 'stable',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'definition', 'published'],
-  },
-  payload: WorkflowDefinitionPayload,
+	meta: {
+		key: 'workflow.definition.published',
+		version: '1.0.0',
+		description: 'A workflow definition has been published and is now active.',
+		stability: 'stable',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'definition', 'published'],
+	},
+	payload: WorkflowDefinitionPayload,
 });
 ```

@@ -25,22 +25,22 @@ Admin dashboard, monitoring.
 
 ```typescript
 export const GetAuditStatsContract = defineQuery({
-  meta: {
-    key: 'audit.stats',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.audit-trail'],
-    tags: ['audit', 'stats'],
-    description: 'Get audit log statistics.',
-    goal: 'Monitor audit activity levels.',
-    context: 'Admin dashboard, monitoring.',
-  },
-  io: {
-    input: AuditStatsInputModel,
-    output: AuditStatsOutputModel,
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'audit.stats',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.audit-trail'],
+		tags: ['audit', 'stats'],
+		description: 'Get audit log statistics.',
+		goal: 'Monitor audit activity levels.',
+		context: 'Admin dashboard, monitoring.',
+	},
+	io: {
+		input: AuditStatsInputModel,
+		output: AuditStatsOutputModel,
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

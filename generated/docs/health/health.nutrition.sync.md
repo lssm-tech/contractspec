@@ -25,30 +25,30 @@ Triggered by incremental sync jobs and manual refresh actions.
 
 ```typescript
 export const HealthSyncNutrition = defineCommand({
-  meta: {
-    key: 'health.nutrition.sync',
-    version: '1.0.0',
-    description: 'Synchronize nutrition records from provider sources.',
-    goal: 'Keep canonical nutrition records synchronized across connectors.',
-    context: 'Triggered by incremental sync jobs and manual refresh actions.',
-    owners: ['@platform.integrations'],
-    tags: ['health', 'nutrition', 'wearables'],
-    stability: 'experimental',
-  },
-  io: {
-    input: HealthSyncNutritionInput,
-    output: HealthSyncNutritionOutput,
-  },
-  policy: {
-    auth: 'admin',
-  },
-  telemetry: {
-    success: {
-      event: { key: HEALTH_TELEMETRY_EVENTS.nutritionSynced },
-    },
-    failure: {
-      event: { key: HEALTH_TELEMETRY_EVENTS.nutritionSyncFailed },
-    },
-  },
+	meta: {
+		key: 'health.nutrition.sync',
+		version: '1.0.0',
+		description: 'Synchronize nutrition records from provider sources.',
+		goal: 'Keep canonical nutrition records synchronized across connectors.',
+		context: 'Triggered by incremental sync jobs and manual refresh actions.',
+		owners: ['@platform.integrations'],
+		tags: ['health', 'nutrition', 'wearables'],
+		stability: 'experimental',
+	},
+	io: {
+		input: HealthSyncNutritionInput,
+		output: HealthSyncNutritionOutput,
+	},
+	policy: {
+		auth: 'admin',
+	},
+	telemetry: {
+		success: {
+			event: { key: HEALTH_TELEMETRY_EVENTS.nutritionSynced },
+		},
+		failure: {
+			event: { key: HEALTH_TELEMETRY_EVENTS.nutritionSyncFailed },
+		},
+	},
 });
 ```

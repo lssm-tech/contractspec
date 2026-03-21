@@ -25,36 +25,36 @@ Called when associating files with entities.
 
 ```typescript
 export const AttachFileContract = defineCommand({
-  meta: {
-    key: 'attachment.attach',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.files'],
-    tags: ['files', 'attachment', 'attach'],
-    description: 'Attach a file to an entity.',
-    goal: 'Link a file to a business entity.',
-    context: 'Called when associating files with entities.',
-  },
-  io: {
-    input: AttachFileInput,
-    output: AttachmentModel,
-    errors: {
-      FILE_NOT_FOUND: {
-        description: 'File does not exist',
-        http: 404,
-        gqlCode: 'FILE_NOT_FOUND',
-        when: 'File ID is invalid',
-      },
-      ATTACHMENT_EXISTS: {
-        description: 'Attachment already exists',
-        http: 409,
-        gqlCode: 'ATTACHMENT_EXISTS',
-        when: 'File is already attached to this entity',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'attachment.attach',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.files'],
+		tags: ['files', 'attachment', 'attach'],
+		description: 'Attach a file to an entity.',
+		goal: 'Link a file to a business entity.',
+		context: 'Called when associating files with entities.',
+	},
+	io: {
+		input: AttachFileInput,
+		output: AttachmentModel,
+		errors: {
+			FILE_NOT_FOUND: {
+				description: 'File does not exist',
+				http: 404,
+				gqlCode: 'FILE_NOT_FOUND',
+				when: 'File ID is invalid',
+			},
+			ATTACHMENT_EXISTS: {
+				description: 'Attachment already exists',
+				http: 409,
+				gqlCode: 'ATTACHMENT_EXISTS',
+				when: 'File is already attached to this entity',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

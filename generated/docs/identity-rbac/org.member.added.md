@@ -17,14 +17,14 @@ A user has joined an organization.
 
 ```typescript
 export const OrgMemberAddedEvent = defineEvent({
-  meta: {
-    key: 'org.member.added',
-    version: '1.0.0',
-    description: 'A user has joined an organization.',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['org', 'member', 'added', 'identity'],
-  },
-  payload: OrgMemberAddedPayload,
+	meta: {
+		key: 'org.member.added',
+		version: '1.0.0',
+		description: 'A user has joined an organization.',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['org', 'member', 'added', 'identity'],
+	},
+	payload: OrgMemberAddedPayload,
 });
 ```

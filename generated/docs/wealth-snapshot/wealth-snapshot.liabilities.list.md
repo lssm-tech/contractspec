@@ -24,26 +24,26 @@ Overview
 
 ```typescript
 export const LiabilitiesListPresentation = definePresentation({
-  meta: {
-    key: 'wealth-snapshot.liabilities.list',
-    version: '1.0.0',
-    title: 'Liabilities List',
-    description: 'List of liabilities and debts',
-    domain: 'finance',
-    owners: ['@wealth-snapshot'],
-    tags: ['finance', 'liabilities', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'List liabilities',
-    context: 'Overview',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'LiabilitiesList',
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['wealth.liabilities.enabled'],
-  },
+	meta: {
+		key: 'wealth-snapshot.liabilities.list',
+		version: '1.0.0',
+		title: 'Liabilities List',
+		description: 'List of liabilities and debts',
+		domain: 'finance',
+		owners: ['@wealth-snapshot'],
+		tags: ['finance', 'liabilities', 'list'],
+		stability: StabilityEnum.Experimental,
+		goal: 'List liabilities',
+		context: 'Overview',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'LiabilitiesList',
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['wealth.liabilities.enabled'],
+	},
 });
 ```

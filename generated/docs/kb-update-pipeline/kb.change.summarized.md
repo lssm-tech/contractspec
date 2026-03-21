@@ -14,14 +14,14 @@ KB change summarized.
 
 ```typescript
 export const KbChangeSummarizedEvent = defineEvent({
-  meta: {
-    key: 'kb.change.summarized',
-    version: '1.0.0',
-    description: 'KB change summarized.',
-    stability: StabilityEnum.Experimental,
-    owners: [],
-    tags: [],
-  },
-  payload: KbChangeSummarizedPayload,
+	meta: {
+		key: 'kb.change.summarized',
+		version: '1.0.0',
+		description: 'KB change summarized.',
+		stability: StabilityEnum.Experimental,
+		owners: [],
+		tags: [],
+	},
+	payload: KbChangeSummarizedPayload,
 });
 ```

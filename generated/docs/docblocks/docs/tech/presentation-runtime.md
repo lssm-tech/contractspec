@@ -1,12 +1,12 @@
 ## Presentation Runtime
 
-Cross-platform runtime for list pages and presentation flows.
+Cross-platform runtime for list pages, presentation flows, and headless ContractSpec tables.
 
 ### Packages
 
-- `@contractspec/lib.presentation-runtime-core`: shared types and config helpers
+- `@contractspec/lib.presentation-runtime-core`: shared state/types for URL state, list coordination, and headless table controllers
 - `@contractspec/lib.presentation-runtime-react`: React hooks (web/native-compatible API)
-- `@contractspec/lib.presentation-runtime-react-native`: Native entrypoint (re-exports React API for now)
+- `@contractspec/lib.presentation-runtime-react-native`: Native entrypoint (re-exports the shared React table hooks and keeps native form/list helpers)
 
 ### Next.js config helper
 
@@ -40,9 +40,18 @@ module.exports = withPresentationMetroAliases(config);
 
 - `useListCoordinator`: URL + RHF + derived variables (no fetching)
 - `usePresentationController`: Same plus `fetcher` integration
+- `useContractTable`: headless TanStack-backed controller for sorting, pagination, selection, visibility, pinning, resizing, and expansion
+- `useDataViewTable`: adapter that maps `DataViewSpec` table contracts onto the generic controller
 - `DataViewRenderer` (design-system): render `DataViewSpec` projections (`list`, `table`, `detail`, `grid`) using shared UI atoms
 
-Both accept a `useUrlState` adapter. On web, use `useListUrlState` (design-system) or a Next adapter.
+Both list hooks accept a `useUrlState` adapter. On web, use `useListUrlState` (design-system) or a Next adapter.
+
+### Table layering
+
+- `contracts-spec`: declarative table contract (`DataViewTableConfig`)
+- `presentation-runtime-*`: headless controller state and TanStack integration
+- `ui-kit` / `ui-kit-web`: platform renderers that consume controller output
+- `design-system`: opinionated `DataTable`, `DataViewTable`, `ApprovalQueue`, and `ListTablePage`
 
 ### KYC molecules (bundle)
 

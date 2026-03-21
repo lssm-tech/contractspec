@@ -25,21 +25,21 @@ Assistant queries curated rules from a specific snapshot.
 
 ```typescript
 export const KbSearchContract = defineQuery({
-  meta: {
-    key: 'kb.search',
-    title: 'Search KB',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@examples'],
-    tags: ['knowledge', 'search', 'snapshots'],
-    description: 'Search within a published KB snapshot.',
-    goal: 'Provide scoped retrieval for assistant answers.',
-    context: 'Assistant queries curated rules from a specific snapshot.',
-  },
-  io: {
-    input: SearchKbInput,
-    output: SearchKbOutput,
-  },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'kb.search',
+		title: 'Search KB',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@examples'],
+		tags: ['knowledge', 'search', 'snapshots'],
+		description: 'Search within a published KB snapshot.',
+		goal: 'Provide scoped retrieval for assistant answers.',
+		context: 'Assistant queries curated rules from a specific snapshot.',
+	},
+	io: {
+		input: SearchKbInput,
+		output: SearchKbOutput,
+	},
+	policy: { auth: 'user' },
 });
 ```

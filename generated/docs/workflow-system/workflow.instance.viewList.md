@@ -24,27 +24,27 @@ Operations monitoring
 
 ```typescript
 export const InstanceListPresentation = definePresentation({
-  meta: {
-    key: 'workflow.instance.viewList',
-    version: '1.0.0',
-    title: 'Instance List',
-    description: 'List of workflow instances with status and progress',
-    domain: 'workflow-system',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'instance', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Monitoring active and past workflow executions',
-    context: 'Operations monitoring',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'WorkflowInstanceList',
-    props: WorkflowInstanceModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['workflow.enabled'],
-  },
+	meta: {
+		key: 'workflow.instance.viewList',
+		version: '1.0.0',
+		title: 'Instance List',
+		description: 'List of workflow instances with status and progress',
+		domain: 'workflow-system',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'instance', 'list'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Monitoring active and past workflow executions',
+		context: 'Operations monitoring',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'WorkflowInstanceList',
+		props: WorkflowInstanceModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['workflow.enabled'],
+	},
 });
 ```

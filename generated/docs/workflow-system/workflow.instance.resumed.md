@@ -17,14 +17,14 @@ A workflow instance has been resumed.
 
 ```typescript
 export const InstanceResumedEvent = defineEvent({
-  meta: {
-    key: 'workflow.instance.resumed',
-    version: '1.0.0',
-    description: 'A workflow instance has been resumed.',
-    stability: 'stable',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'instance', 'resumed'],
-  },
-  payload: InstanceEventPayload,
+	meta: {
+		key: 'workflow.instance.resumed',
+		version: '1.0.0',
+		description: 'A workflow instance has been resumed.',
+		stability: 'stable',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'instance', 'resumed'],
+	},
+	payload: InstanceEventPayload,
 });
 ```

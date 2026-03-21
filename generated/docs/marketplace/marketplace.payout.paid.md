@@ -17,14 +17,14 @@ A payout has been sent.
 
 ```typescript
 export const PayoutPaidEvent = defineEvent({
-  meta: {
-    key: 'marketplace.payout.paid',
-    version: '1.0.0',
-    description: 'A payout has been sent.',
-    stability: 'experimental',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'payout'],
-  },
-  payload: PayoutPaidPayload,
+	meta: {
+		key: 'marketplace.payout.paid',
+		version: '1.0.0',
+		description: 'A payout has been sent.',
+		stability: 'experimental',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'payout'],
+	},
+	payload: PayoutPaidPayload,
 });
 ```

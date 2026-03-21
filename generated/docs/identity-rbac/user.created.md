@@ -17,14 +17,14 @@ A new user has been created.
 
 ```typescript
 export const UserCreatedEvent = defineEvent({
-  meta: {
-    key: 'user.created',
-    version: '1.0.0',
-    description: 'A new user has been created.',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['user', 'created', 'identity'],
-  },
-  payload: UserCreatedPayload,
+	meta: {
+		key: 'user.created',
+		version: '1.0.0',
+		description: 'A new user has been created.',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['user', 'created', 'identity'],
+	},
+	payload: UserCreatedPayload,
 });
 ```

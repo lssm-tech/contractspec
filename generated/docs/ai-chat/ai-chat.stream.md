@@ -25,17 +25,17 @@ Chat UI
 
 ```typescript
 export const StreamMessageContract = defineCommand({
-  meta: {
-    key: 'ai-chat.stream',
-    version: '1.0.0',
-    owners: ['@ai-team'],
-    stability: 'experimental',
-    description: 'Stream a message response from the AI chat.',
-    tags: ['chat', 'stream'],
-    goal: 'Stream response',
-    context: 'Chat UI',
-  },
-  io: { input: SendMessageInputModel, output: StreamMessageOutputModel },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'ai-chat.stream',
+		version: '1.0.0',
+		owners: ['@ai-team'],
+		stability: 'experimental',
+		description: 'Stream a message response from the AI chat.',
+		tags: ['chat', 'stream'],
+		goal: 'Stream response',
+		context: 'Chat UI',
+	},
+	io: { input: SendMessageInputModel, output: StreamMessageOutputModel },
+	policy: { auth: 'user' },
 });
 ```

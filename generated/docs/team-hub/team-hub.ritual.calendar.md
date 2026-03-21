@@ -24,23 +24,23 @@ Calendar view.
 
 ```typescript
 export const RitualCalendarPresentation = definePresentation({
-  meta: {
-    key: 'team-hub.ritual.calendar',
-    version: '1.0.0',
-    title: 'Ritual Calendar',
-    description: 'Calendar of team rituals and events.',
-    domain: 'team-hub',
-    owners: ['@team-hub'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Schedule and view team events.',
-    context: 'Calendar view.',
-    tags: ['ritual', 'calendar'],
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'RitualCalendar',
-  },
-  targets: ['react'],
+	meta: {
+		key: 'team-hub.ritual.calendar',
+		version: '1.0.0',
+		title: 'Ritual Calendar',
+		description: 'Calendar of team rituals and events.',
+		domain: 'team-hub',
+		owners: ['@team-hub'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Schedule and view team events.',
+		context: 'Calendar view.',
+		tags: ['ritual', 'calendar'],
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'RitualCalendar',
+	},
+	targets: ['react'],
 });
 ```

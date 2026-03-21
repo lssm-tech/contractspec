@@ -17,14 +17,14 @@ Rule version created (draft).
 
 ```typescript
 export const KbRuleVersionCreatedEvent = defineEvent({
-  meta: {
-    key: 'kb.ruleVersion.created',
-    version: '1.0.0',
-    description: 'Rule version created (draft).',
-    stability: 'experimental',
-    owners: ['@examples'],
-    tags: ['knowledge'],
-  },
-  payload: KbRuleVersionCreatedPayload,
+	meta: {
+		key: 'kb.ruleVersion.created',
+		version: '1.0.0',
+		description: 'Rule version created (draft).',
+		stability: 'experimental',
+		owners: ['@examples'],
+		tags: ['knowledge'],
+	},
+	payload: KbRuleVersionCreatedPayload,
 });
 ```

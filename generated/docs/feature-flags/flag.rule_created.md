@@ -17,14 +17,14 @@ A targeting rule has been created.
 
 ```typescript
 export const RuleCreatedEvent = defineEvent({
-  meta: {
-    key: 'flag.rule_created',
-    version: '1.0.0',
-    description: 'A targeting rule has been created.',
-    stability: 'stable',
-    owners: ['@platform.feature-flags'],
-    tags: ['feature-flags', 'rule', 'create'],
-  },
-  payload: RuleCreatedPayload,
+	meta: {
+		key: 'flag.rule_created',
+		version: '1.0.0',
+		description: 'A targeting rule has been created.',
+		stability: 'stable',
+		owners: ['@platform.feature-flags'],
+		tags: ['feature-flags', 'rule', 'create'],
+	},
+	payload: RuleCreatedPayload,
 });
 ```

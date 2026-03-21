@@ -25,22 +25,22 @@ Called for billing and reporting.
 
 ```typescript
 export const GetUsageSummaryContract = defineQuery({
-  meta: {
-    key: 'usage.getSummary',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.metering'],
-    tags: ['metering', 'usage', 'summary'],
-    description: 'Get aggregated usage summary.',
-    goal: 'View usage totals for billing.',
-    context: 'Called for billing and reporting.',
-  },
-  io: {
-    input: GetUsageSummaryInput,
-    output: GetUsageSummaryOutput,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'usage.getSummary',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.metering'],
+		tags: ['metering', 'usage', 'summary'],
+		description: 'Get aggregated usage summary.',
+		goal: 'View usage totals for billing.',
+		context: 'Called for billing and reporting.',
+	},
+	io: {
+		input: GetUsageSummaryInput,
+		output: GetUsageSummaryOutput,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

@@ -29,58 +29,58 @@ Deal closing flow.
 
 ```typescript
 export const LoseDealContract = defineCommand({
-  meta: {
-    key: 'crm.deal.lose',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.crm-pipeline'],
-    tags: ['crm', 'deal', 'lost'],
-    description: 'Mark a deal as lost.',
-    goal: 'Close a deal as unsuccessful.',
-    context: 'Deal closing flow.',
-  },
-  io: {
-    input: LoseDealInputModel,
-    output: DealModel,
-  },
-  policy: {
-    auth: 'user',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'deal.lost',
-        version: '1.0.0',
-        when: 'Deal is lost',
-        payload: DealLostPayloadModel,
-      },
-    ],
-    audit: ['deal.lost'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'lose-deal-happy-path',
-        given: ['Deal is open'],
-        when: ['User marks deal as lost'],
-        then: ['Deal status becomes LOST', 'DealLost event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'mark-lost',
-        input: {
-          dealId: 'deal-789',
-          reason: 'competitor',
-          note: 'Went with cheaper option',
-        },
-        output: {
-          id: 'deal-789',
-          status: 'lost',
-          closedAt: '2025-01-21T09:00:00Z',
-        },
-      },
-    ],
-  },
+	meta: {
+		key: 'crm.deal.lose',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.crm-pipeline'],
+		tags: ['crm', 'deal', 'lost'],
+		description: 'Mark a deal as lost.',
+		goal: 'Close a deal as unsuccessful.',
+		context: 'Deal closing flow.',
+	},
+	io: {
+		input: LoseDealInputModel,
+		output: DealModel,
+	},
+	policy: {
+		auth: 'user',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'deal.lost',
+				version: '1.0.0',
+				when: 'Deal is lost',
+				payload: DealLostPayloadModel,
+			},
+		],
+		audit: ['deal.lost'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'lose-deal-happy-path',
+				given: ['Deal is open'],
+				when: ['User marks deal as lost'],
+				then: ['Deal status becomes LOST', 'DealLost event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'mark-lost',
+				input: {
+					dealId: 'deal-789',
+					reason: 'competitor',
+					note: 'Went with cheaper option',
+				},
+				output: {
+					id: 'deal-789',
+					status: 'lost',
+					closedAt: '2025-01-21T09:00:00Z',
+				},
+			},
+		],
+	},
 });
 ```

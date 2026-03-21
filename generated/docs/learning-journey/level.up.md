@@ -16,14 +16,14 @@ A learner has leveled up.
 
 ```typescript
 export const LevelUpEvent = defineEvent({
-  meta: {
-    key: 'level.up',
-    version: '1.0.0',
-    description: 'A learner has leveled up.',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'gamification', 'level'],
-  },
-  payload: LevelUpPayload,
+	meta: {
+		key: 'level.up',
+		version: '1.0.0',
+		description: 'A learner has leveled up.',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'gamification', 'level'],
+	},
+	payload: LevelUpPayload,
 });
 ```

@@ -25,32 +25,32 @@ Triggered by scheduled jobs or manual refresh actions to maintain incremental sy
 
 ```typescript
 export const HealthSyncActivities = defineCommand({
-  meta: {
-    key: 'health.activities.sync',
-    version: '1.0.0',
-    description:
-      'Synchronize activity entries from the configured health provider.',
-    goal: 'Keep canonical activity records aligned with upstream provider sources.',
-    context:
-      'Triggered by scheduled jobs or manual refresh actions to maintain incremental sync state.',
-    owners: ['@platform.integrations'],
-    tags: ['health', 'activities', 'wearables'],
-    stability: 'experimental',
-  },
-  io: {
-    input: HealthSyncActivitiesInput,
-    output: HealthSyncActivitiesOutput,
-  },
-  policy: {
-    auth: 'admin',
-  },
-  telemetry: {
-    success: {
-      event: { key: HEALTH_TELEMETRY_EVENTS.activitiesSynced },
-    },
-    failure: {
-      event: { key: HEALTH_TELEMETRY_EVENTS.activitiesSyncFailed },
-    },
-  },
+	meta: {
+		key: 'health.activities.sync',
+		version: '1.0.0',
+		description:
+			'Synchronize activity entries from the configured health provider.',
+		goal: 'Keep canonical activity records aligned with upstream provider sources.',
+		context:
+			'Triggered by scheduled jobs or manual refresh actions to maintain incremental sync state.',
+		owners: ['@platform.integrations'],
+		tags: ['health', 'activities', 'wearables'],
+		stability: 'experimental',
+	},
+	io: {
+		input: HealthSyncActivitiesInput,
+		output: HealthSyncActivitiesOutput,
+	},
+	policy: {
+		auth: 'admin',
+	},
+	telemetry: {
+		success: {
+			event: { key: HEALTH_TELEMETRY_EVENTS.activitiesSynced },
+		},
+		failure: {
+			event: { key: HEALTH_TELEMETRY_EVENTS.activitiesSyncFailed },
+		},
+	},
 });
 ```

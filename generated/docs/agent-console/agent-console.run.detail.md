@@ -24,24 +24,24 @@ Detailed view of an agent run.
 
 ```typescript
 export const RunDetailPresentation = definePresentation({
-  meta: {
-    key: 'agent-console.run.detail',
-    version: '1.0.0',
-    title: 'Run Details',
-    description: 'Detailed view of an agent run with steps, logs, and metrics',
-    goal: 'Allow users to inspect and debug a specific agent run.',
-    context: 'Detailed view of an agent run.',
-    domain: 'agent-console',
-    owners: ['@agent-console-team'],
-    tags: ['run', 'detail'],
-    stability: StabilityEnum.Experimental,
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'RunDetailView',
-  },
-  targets: ['react', 'markdown'],
-  policy: { flags: ['agent-console.enabled'] },
+	meta: {
+		key: 'agent-console.run.detail',
+		version: '1.0.0',
+		title: 'Run Details',
+		description: 'Detailed view of an agent run with steps, logs, and metrics',
+		goal: 'Allow users to inspect and debug a specific agent run.',
+		context: 'Detailed view of an agent run.',
+		domain: 'agent-console',
+		owners: ['@agent-console-team'],
+		tags: ['run', 'detail'],
+		stability: StabilityEnum.Experimental,
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'RunDetailView',
+	},
+	targets: ['react', 'markdown'],
+	policy: { flags: ['agent-console.enabled'] },
 });
 ```

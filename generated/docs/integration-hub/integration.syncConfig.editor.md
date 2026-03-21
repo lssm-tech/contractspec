@@ -24,27 +24,27 @@ Configuration interface for sync jobs.
 
 ```typescript
 export const SyncConfigEditorPresentation = definePresentation({
-  meta: {
-    key: 'integration.syncConfig.editor',
-    version: '1.0.0',
-    title: 'Sync Config Editor',
-    description: 'Editor for sync configuration settings',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['integration', 'sync', 'config', 'editor'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Allow users to configure schedule, filters, and settings for a sync.',
-    context: 'Configuration interface for sync jobs.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'SyncConfigEditor',
-    props: SyncConfigModel,
-  },
-  targets: ['react'],
-  policy: {
-    flags: ['integration.sync.enabled'],
-  },
+	meta: {
+		key: 'integration.syncConfig.editor',
+		version: '1.0.0',
+		title: 'Sync Config Editor',
+		description: 'Editor for sync configuration settings',
+		domain: 'integration',
+		owners: ['@integration-team'],
+		tags: ['integration', 'sync', 'config', 'editor'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Allow users to configure schedule, filters, and settings for a sync.',
+		context: 'Configuration interface for sync jobs.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'SyncConfigEditor',
+		props: SyncConfigModel,
+	},
+	targets: ['react'],
+	policy: {
+		flags: ['integration.sync.enabled'],
+	},
 });
 ```

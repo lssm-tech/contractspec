@@ -25,17 +25,17 @@ Asset onboarding/update.
 
 ```typescript
 export const AddAssetContract = defineCommand({
-  meta: {
-    key: 'wealth.asset.add',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['examples.wealth-snapshot'],
-    tags: ['wealth', 'asset', 'add'],
-    description: 'Add an asset position.',
-    goal: 'Track holdings.',
-    context: 'Asset onboarding/update.',
-  },
-  io: { input: AddAssetInput, output: AssetModel },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'wealth.asset.add',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['examples.wealth-snapshot'],
+		tags: ['wealth', 'asset', 'add'],
+		description: 'Add an asset position.',
+		goal: 'Track holdings.',
+		context: 'Asset onboarding/update.',
+	},
+	io: { input: AddAssetInput, output: AssetModel },
+	policy: { auth: 'user' },
 });
 ```

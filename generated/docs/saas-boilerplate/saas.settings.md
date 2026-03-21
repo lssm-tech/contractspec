@@ -24,26 +24,26 @@ Settings section
 
 ```typescript
 export const SettingsPanelPresentation = definePresentation({
-  meta: {
-    key: 'saas.settings',
-    version: '1.0.0',
-    title: 'Settings Panel',
-    description: 'Organization and user settings panel',
-    domain: 'saas-boilerplate',
-    owners: ['@saas-team'],
-    tags: ['settings', 'config'],
-    stability: StabilityEnum.Beta,
-    goal: 'Configure organization and user settings',
-    context: 'Settings section',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'SettingsPanel',
-  },
-  targets: ['react'],
-  policy: {
-    flags: ['saas.enabled'],
-  },
+	meta: {
+		key: 'saas.settings',
+		version: '1.0.0',
+		title: 'Settings Panel',
+		description: 'Organization and user settings panel',
+		domain: 'saas-boilerplate',
+		owners: ['@saas-team'],
+		tags: ['settings', 'config'],
+		stability: StabilityEnum.Beta,
+		goal: 'Configure organization and user settings',
+		context: 'Settings section',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'SettingsPanel',
+	},
+	targets: ['react'],
+	policy: {
+		flags: ['saas.enabled'],
+	},
 });
 ```

@@ -24,27 +24,27 @@ The landing page for CRM users.
 
 ```typescript
 export const CrmDashboardPresentation = definePresentation({
-  meta: {
-    key: 'crm.dashboard',
-    version: '1.0.0',
-    title: 'CRM Dashboard',
-    description:
-      'Main CRM dashboard with pipeline overview, deal stats, and activities',
-    domain: 'crm-pipeline',
-    owners: ['@crm-team'],
-    tags: ['dashboard', 'overview'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Provide a high-level overview of CRM performance and active deals.',
-    context: 'The landing page for CRM users.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'CrmDashboard',
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['crm.enabled'],
-  },
+	meta: {
+		key: 'crm.dashboard',
+		version: '1.0.0',
+		title: 'CRM Dashboard',
+		description:
+			'Main CRM dashboard with pipeline overview, deal stats, and activities',
+		domain: 'crm-pipeline',
+		owners: ['@crm-team'],
+		tags: ['dashboard', 'overview'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Provide a high-level overview of CRM performance and active deals.',
+		context: 'The landing page for CRM users.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'CrmDashboard',
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['crm.enabled'],
+	},
 });
 ```

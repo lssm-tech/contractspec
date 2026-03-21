@@ -17,14 +17,14 @@ An AI model has been selected via ranking-driven selection.
 
 ```typescript
 export const ModelSelectionEvent = defineEvent({
-  meta: {
-    key: 'model.selected',
-    version: '1.0.0',
-    description: 'An AI model has been selected via ranking-driven selection.',
-    stability: 'experimental',
-    owners: ['@platform.metering'],
-    tags: ['metering', 'ai', 'model-selection'],
-  },
-  payload: ModelSelectionPayload,
+	meta: {
+		key: 'model.selected',
+		version: '1.0.0',
+		description: 'An AI model has been selected via ranking-driven selection.',
+		stability: 'experimental',
+		owners: ['@platform.metering'],
+		tags: ['metering', 'ai', 'model-selection'],
+	},
+	payload: ModelSelectionPayload,
 });
 ```

@@ -17,14 +17,14 @@ A workflow instance has completed.
 
 ```typescript
 export const InstanceCompletedEvent = defineEvent({
-  meta: {
-    key: 'workflow.instance.completed',
-    version: '1.0.0',
-    description: 'A workflow instance has completed.',
-    stability: 'stable',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'instance', 'completed'],
-  },
-  payload: InstanceCompletedPayload,
+	meta: {
+		key: 'workflow.instance.completed',
+		version: '1.0.0',
+		description: 'A workflow instance has completed.',
+		stability: 'stable',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'instance', 'completed'],
+	},
+	payload: InstanceCompletedPayload,
 });
 ```

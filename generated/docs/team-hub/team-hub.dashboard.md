@@ -24,23 +24,23 @@ Landing page for team members.
 
 ```typescript
 export const TeamDashboardPresentation = definePresentation({
-  meta: {
-    key: 'team-hub.dashboard',
-    version: '1.0.0',
-    title: 'Team Dashboard',
-    description: 'Main team hub dashboard.',
-    domain: 'team-hub',
-    owners: ['@team-hub'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Central hub for team activity.',
-    context: 'Landing page for team members.',
-    tags: ['dashboard', 'team'],
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'TeamDashboard',
-  },
-  targets: ['react'],
+	meta: {
+		key: 'team-hub.dashboard',
+		version: '1.0.0',
+		title: 'Team Dashboard',
+		description: 'Main team hub dashboard.',
+		domain: 'team-hub',
+		owners: ['@team-hub'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Central hub for team activity.',
+		context: 'Landing page for team members.',
+		tags: ['dashboard', 'team'],
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'TeamDashboard',
+	},
+	targets: ['react'],
 });
 ```

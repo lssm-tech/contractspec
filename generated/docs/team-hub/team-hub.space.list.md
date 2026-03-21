@@ -24,23 +24,23 @@ Sidebar or spaces hub.
 
 ```typescript
 export const SpaceListPresentation = definePresentation({
-  meta: {
-    key: 'team-hub.space.list',
-    version: '1.0.0',
-    title: 'Space List',
-    description: 'List of team spaces.',
-    domain: 'team-hub',
-    owners: ['@team-hub'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Navigate between team spaces.',
-    context: 'Sidebar or spaces hub.',
-    tags: ['space', 'list'],
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'SpaceList',
-  },
-  targets: ['react'],
+	meta: {
+		key: 'team-hub.space.list',
+		version: '1.0.0',
+		title: 'Space List',
+		description: 'List of team spaces.',
+		domain: 'team-hub',
+		owners: ['@team-hub'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Navigate between team spaces.',
+		context: 'Sidebar or spaces hub.',
+		tags: ['space', 'list'],
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'SpaceList',
+	},
+	targets: ['react'],
 });
 ```

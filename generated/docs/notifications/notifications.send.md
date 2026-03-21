@@ -29,46 +29,46 @@ Called by services when events require user notification.
 
 ```typescript
 export const SendNotificationContract = defineCommand({
-  meta: {
-    key: 'notifications.send',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.notifications'],
-    tags: ['notifications', 'send'],
-    description: 'Send a notification to a user.',
-    goal: 'Deliver notifications across multiple channels.',
-    context: 'Called by services when events require user notification.',
-  },
-  io: {
-    input: SendNotificationInputModel,
-    output: NotificationModel,
-    errors: {
-      USER_NOT_FOUND: {
-        description: 'Target user does not exist',
-        http: 404,
-        gqlCode: 'USER_NOT_FOUND',
-        when: 'User ID is invalid',
-      },
-      TEMPLATE_NOT_FOUND: {
-        description: 'Notification template does not exist',
-        http: 404,
-        gqlCode: 'TEMPLATE_NOT_FOUND',
-        when: 'Template ID is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'notification.sent',
-        version: '1.0.0',
-        when: 'Notification is sent',
-        payload: NotificationModel,
-      },
-    ],
-  },
+	meta: {
+		key: 'notifications.send',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.notifications'],
+		tags: ['notifications', 'send'],
+		description: 'Send a notification to a user.',
+		goal: 'Deliver notifications across multiple channels.',
+		context: 'Called by services when events require user notification.',
+	},
+	io: {
+		input: SendNotificationInputModel,
+		output: NotificationModel,
+		errors: {
+			USER_NOT_FOUND: {
+				description: 'Target user does not exist',
+				http: 404,
+				gqlCode: 'USER_NOT_FOUND',
+				when: 'User ID is invalid',
+			},
+			TEMPLATE_NOT_FOUND: {
+				description: 'Notification template does not exist',
+				http: 404,
+				gqlCode: 'TEMPLATE_NOT_FOUND',
+				when: 'Template ID is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'notification.sent',
+				version: '1.0.0',
+				when: 'Notification is sent',
+				payload: NotificationModel,
+			},
+		],
+	},
 });
 ```

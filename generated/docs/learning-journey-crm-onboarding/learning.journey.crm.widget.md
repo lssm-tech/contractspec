@@ -14,17 +14,17 @@ Compact widget for CRM onboarding progress
 
 ```typescript
 export const CrmOnboardingWidgetPresentation = definePresentation({
-  meta: {
-    key: 'learning.journey.crm.widget',
-    version: '1.0.0',
-    description: 'Compact widget for CRM onboarding progress',
-    ...baseMeta,
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'LearningTrackProgressWidget',
-  },
-  targets: ['react'],
+	meta: {
+		key: 'learning.journey.crm.widget',
+		version: '1.0.0',
+		description: 'Compact widget for CRM onboarding progress',
+		...baseMeta,
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'LearningTrackProgressWidget',
+	},
+	targets: ['react'],
 });
 ```

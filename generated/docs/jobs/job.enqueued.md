@@ -16,14 +16,14 @@ A job has been added to the queue.
 
 ```typescript
 export const JobEnqueuedEvent = defineEvent({
-  meta: {
-    key: 'job.enqueued',
-    version: '1.0.0',
-    description: 'A job has been added to the queue.',
-    stability: StabilityEnum.Stable,
-    owners: ['@contractspec.libs.jobs'],
-    tags: ['job-queue', 'lifecycle'],
-  },
-  payload: JobEnqueuedPayload,
+	meta: {
+		key: 'job.enqueued',
+		version: '1.0.0',
+		description: 'A job has been added to the queue.',
+		stability: StabilityEnum.Stable,
+		owners: ['@contractspec.libs.jobs'],
+		tags: ['job-queue', 'lifecycle'],
+	},
+	payload: JobEnqueuedPayload,
 });
 ```

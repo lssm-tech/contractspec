@@ -25,85 +25,85 @@ Called from the agent builder UI when creating a new agent.
 
 ```typescript
 export const CreateAgentCommand = defineCommand({
-  meta: {
-    key: 'agent-console.agent.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['agent', 'create'],
-    description: 'Creates a new AI agent configuration.',
-    goal: 'Allow users to define new AI agents with specific models and tools.',
-    context: 'Called from the agent builder UI when creating a new agent.',
-  },
-  io: {
-    input: CreateAgentInputModel,
-    output: defineSchemaModel({
-      name: 'CreateAgentOutput',
-      fields: {
-        id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-        name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-        slug: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-        status: { type: AgentStatusEnum, isOptional: false },
-      },
-    }),
-    errors: {
-      SLUG_EXISTS: {
-        description:
-          'An agent with this slug already exists in the organization',
-        http: 409,
-        gqlCode: 'SLUG_EXISTS',
-        when: 'Slug is already taken',
-      },
-    },
-  },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        // name: 'agent.created',
-        // version: '1.0.0',
-        // payload: AgentSummaryModel,
-        ref: AgentCreatedEvent.meta,
-        when: 'Agent is successfully created',
-      },
-    ],
-    audit: ['agent-console.agent.created'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'create-agent-happy-path',
-        given: ['User is authenticated', 'Organization exists'],
-        when: ['User submits valid agent configuration'],
-        then: [
-          'New agent is created with DRAFT status',
-          'AgentCreated event is emitted',
-        ],
-      },
-      {
-        key: 'create-agent-slug-conflict',
-        given: ['User is authenticated', 'Agent with same slug exists'],
-        when: ['User submits agent with duplicate slug'],
-        then: ['SLUG_EXISTS error is returned with 409 status'],
-      },
-    ],
-    examples: [
-      {
-        key: 'basic-create',
-        input: {
-          name: 'Support Assistant',
-          slug: 'support-assistant',
-          modelProvider: 'openai',
-          modelId: 'gpt-4',
-        },
-        output: {
-          id: 'agent-123',
-          name: 'Support Assistant',
-          slug: 'support-assistant',
-          status: 'draft',
-        },
-      },
-    ],
-  },
+	meta: {
+		key: 'agent-console.agent.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['agent', 'create'],
+		description: 'Creates a new AI agent configuration.',
+		goal: 'Allow users to define new AI agents with specific models and tools.',
+		context: 'Called from the agent builder UI when creating a new agent.',
+	},
+	io: {
+		input: CreateAgentInputModel,
+		output: defineSchemaModel({
+			name: 'CreateAgentOutput',
+			fields: {
+				id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+				name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
+				slug: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+				status: { type: AgentStatusEnum, isOptional: false },
+			},
+		}),
+		errors: {
+			SLUG_EXISTS: {
+				description:
+					'An agent with this slug already exists in the organization',
+				http: 409,
+				gqlCode: 'SLUG_EXISTS',
+				when: 'Slug is already taken',
+			},
+		},
+	},
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				// name: 'agent.created',
+				// version: '1.0.0',
+				// payload: AgentSummaryModel,
+				ref: AgentCreatedEvent.meta,
+				when: 'Agent is successfully created',
+			},
+		],
+		audit: ['agent-console.agent.created'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'create-agent-happy-path',
+				given: ['User is authenticated', 'Organization exists'],
+				when: ['User submits valid agent configuration'],
+				then: [
+					'New agent is created with DRAFT status',
+					'AgentCreated event is emitted',
+				],
+			},
+			{
+				key: 'create-agent-slug-conflict',
+				given: ['User is authenticated', 'Agent with same slug exists'],
+				when: ['User submits agent with duplicate slug'],
+				then: ['SLUG_EXISTS error is returned with 409 status'],
+			},
+		],
+		examples: [
+			{
+				key: 'basic-create',
+				input: {
+					name: 'Support Assistant',
+					slug: 'support-assistant',
+					modelProvider: 'openai',
+					modelId: 'gpt-4',
+				},
+				output: {
+					id: 'agent-123',
+					name: 'Support Assistant',
+					slug: 'support-assistant',
+					status: 'draft',
+				},
+			},
+		],
+	},
 });
 ```

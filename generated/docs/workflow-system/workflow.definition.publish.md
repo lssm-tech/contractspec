@@ -29,56 +29,56 @@ Workflow designer, deployment.
 
 ```typescript
 export const PublishWorkflowContract = defineCommand({
-  meta: {
-    key: 'workflow.definition.publish',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.workflow-system'],
-    tags: ['workflow', 'definition', 'publish'],
-    description: 'Publish a workflow definition to make it available for use.',
-    goal: 'Activate workflow for production use.',
-    context: 'Workflow designer, deployment.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'PublishWorkflowInput',
-      fields: {
-        workflowId: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: false,
-        },
-      },
-    }),
-    output: WorkflowDefinitionModel,
-  },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'workflow.definition.published',
-        version: '1.0.0',
-        when: 'Workflow is published',
-        payload: WorkflowDefinitionModel,
-      },
-    ],
-    audit: ['workflow.definition.published'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'publish-workflow-happy-path',
-        given: ['Workflow definition is valid'],
-        when: ['User publishes workflow'],
-        then: ['Workflow becomes active', 'WorkflowPublished event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'publish-onboarding',
-        input: { workflowId: 'def-123' },
-        output: { id: 'def-123', status: 'published' },
-      },
-    ],
-  },
+	meta: {
+		key: 'workflow.definition.publish',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.workflow-system'],
+		tags: ['workflow', 'definition', 'publish'],
+		description: 'Publish a workflow definition to make it available for use.',
+		goal: 'Activate workflow for production use.',
+		context: 'Workflow designer, deployment.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'PublishWorkflowInput',
+			fields: {
+				workflowId: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: false,
+				},
+			},
+		}),
+		output: WorkflowDefinitionModel,
+	},
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'workflow.definition.published',
+				version: '1.0.0',
+				when: 'Workflow is published',
+				payload: WorkflowDefinitionModel,
+			},
+		],
+		audit: ['workflow.definition.published'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'publish-workflow-happy-path',
+				given: ['Workflow definition is valid'],
+				when: ['User publishes workflow'],
+				then: ['Workflow becomes active', 'WorkflowPublished event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'publish-onboarding',
+				input: { workflowId: 'def-123' },
+				output: { id: 'def-123', status: 'published' },
+			},
+		],
+	},
 });
 ```

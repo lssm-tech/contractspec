@@ -25,17 +25,17 @@ Chat UI
 
 ```typescript
 export const SendMessageContract = defineCommand({
-  meta: {
-    key: 'ai-chat.send',
-    version: '1.0.0',
-    owners: ['@ai-team'],
-    stability: 'experimental',
-    description: 'Send a message to the AI chat.',
-    tags: ['chat', 'send'],
-    goal: 'Send message',
-    context: 'Chat UI',
-  },
-  io: { input: SendMessageInputModel, output: SendMessageOutputModel },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'ai-chat.send',
+		version: '1.0.0',
+		owners: ['@ai-team'],
+		stability: 'experimental',
+		description: 'Send a message to the AI chat.',
+		tags: ['chat', 'send'],
+		goal: 'Send message',
+		context: 'Chat UI',
+	},
+	io: { input: SendMessageInputModel, output: SendMessageOutputModel },
+	policy: { auth: 'user' },
 });
 ```

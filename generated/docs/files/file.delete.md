@@ -25,30 +25,30 @@ Called when removing a file permanently.
 
 ```typescript
 export const DeleteFileContract = defineCommand({
-  meta: {
-    key: 'file.delete',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.files'],
-    tags: ['files', 'delete'],
-    description: 'Delete a file.',
-    goal: 'Remove a file and all its versions and attachments.',
-    context: 'Called when removing a file permanently.',
-  },
-  io: {
-    input: DeleteFileInput,
-    output: SuccessOutput,
-    errors: {
-      FILE_NOT_FOUND: {
-        description: 'File does not exist',
-        http: 404,
-        gqlCode: 'FILE_NOT_FOUND',
-        when: 'File ID is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'file.delete',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.files'],
+		tags: ['files', 'delete'],
+		description: 'Delete a file.',
+		goal: 'Remove a file and all its versions and attachments.',
+		context: 'Called when removing a file permanently.',
+	},
+	io: {
+		input: DeleteFileInput,
+		output: SuccessOutput,
+		errors: {
+			FILE_NOT_FOUND: {
+				description: 'File does not exist',
+				http: 404,
+				gqlCode: 'FILE_NOT_FOUND',
+				when: 'File ID is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

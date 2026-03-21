@@ -25,22 +25,22 @@ Called to browse metrics.
 
 ```typescript
 export const ListMetricsContract = defineQuery({
-  meta: {
-    key: 'metric.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.metering'],
-    tags: ['metering', 'metric', 'list'],
-    description: 'List all metrics.',
-    goal: 'View configured metrics.',
-    context: 'Called to browse metrics.',
-  },
-  io: {
-    input: ListMetricsInput,
-    output: ListMetricsOutput,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'metric.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.metering'],
+		tags: ['metering', 'metric', 'list'],
+		description: 'List all metrics.',
+		goal: 'View configured metrics.',
+		context: 'Called to browse metrics.',
+	},
+	io: {
+		input: ListMetricsInput,
+		output: ListMetricsOutput,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

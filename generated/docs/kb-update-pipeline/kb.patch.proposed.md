@@ -14,14 +14,14 @@ KB rule patch proposed (draft versions created).
 
 ```typescript
 export const KbPatchProposedEvent = defineEvent({
-  meta: {
-    key: 'kb.patch.proposed',
-    version: '1.0.0',
-    description: 'KB rule patch proposed (draft versions created).',
-    stability: StabilityEnum.Experimental,
-    owners: [],
-    tags: [],
-  },
-  payload: KbPatchProposedPayload,
+	meta: {
+		key: 'kb.patch.proposed',
+		version: '1.0.0',
+		description: 'KB rule patch proposed (draft versions created).',
+		stability: StabilityEnum.Experimental,
+		owners: [],
+		tags: [],
+	},
+	payload: KbPatchProposedPayload,
 });
 ```

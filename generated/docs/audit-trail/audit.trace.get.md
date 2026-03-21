@@ -25,32 +25,32 @@ Request tracing, debugging.
 
 ```typescript
 export const GetAuditTraceContract = defineQuery({
-  meta: {
-    key: 'audit.trace.get',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.audit-trail'],
-    tags: ['audit', 'trace', 'get'],
-    description: 'Get all audit logs for a trace.',
-    goal: 'View complete request trace for debugging.',
-    context: 'Request tracing, debugging.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'GetAuditTraceInput',
-      fields: {
-        traceId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      },
-    }),
-    output: defineSchemaModel({
-      name: 'GetAuditTraceOutput',
-      fields: {
-        logs: { type: AuditLogModel, isArray: true, isOptional: false },
-      },
-    }),
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'audit.trace.get',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.audit-trail'],
+		tags: ['audit', 'trace', 'get'],
+		description: 'Get all audit logs for a trace.',
+		goal: 'View complete request trace for debugging.',
+		context: 'Request tracing, debugging.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'GetAuditTraceInput',
+			fields: {
+				traceId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+			},
+		}),
+		output: defineSchemaModel({
+			name: 'GetAuditTraceOutput',
+			fields: {
+				logs: { type: AuditLogModel, isArray: true, isOptional: false },
+			},
+		}),
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

@@ -25,39 +25,39 @@ Billing page, usage dashboards.
 
 ```typescript
 export const GetUsageSummaryContract = defineQuery({
-  meta: {
-    key: 'saas.billing.usage.summary',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.saas-boilerplate'],
-    tags: ['saas', 'billing', 'usage'],
-    description: 'Get usage summary for the current billing period.',
-    goal: 'Show usage vs limits.',
-    context: 'Billing page, usage dashboards.',
-  },
-  io: {
-    input: GetUsageSummaryInputModel,
-    output: GetUsageSummaryOutputModel,
-  },
-  policy: {
-    auth: 'user',
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'get-usage-happy-path',
-        given: ['Organization has usage history'],
-        when: ['User requests usage summary'],
-        then: ['Usage metrics are returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'get-current-usage',
-        input: { period: 'current' },
-        output: { features: [{ name: 'api_calls', used: 100, limit: 1000 }] },
-      },
-    ],
-  },
+	meta: {
+		key: 'saas.billing.usage.summary',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.saas-boilerplate'],
+		tags: ['saas', 'billing', 'usage'],
+		description: 'Get usage summary for the current billing period.',
+		goal: 'Show usage vs limits.',
+		context: 'Billing page, usage dashboards.',
+	},
+	io: {
+		input: GetUsageSummaryInputModel,
+		output: GetUsageSummaryOutputModel,
+	},
+	policy: {
+		auth: 'user',
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'get-usage-happy-path',
+				given: ['Organization has usage history'],
+				when: ['User requests usage summary'],
+				then: ['Usage metrics are returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'get-current-usage',
+				input: { period: 'current' },
+				output: { features: [{ name: 'api_calls', used: 100, limit: 1000 }] },
+			},
+		],
+	},
 });
 ```

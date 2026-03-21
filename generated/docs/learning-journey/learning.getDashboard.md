@@ -24,22 +24,22 @@ Called when viewing the learning dashboard.
 
 ```typescript
 export const GetLearnerDashboardContract = defineQuery({
-  meta: {
-    key: 'learning.getDashboard',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'dashboard'],
-    description: 'Get learner dashboard data.',
-    goal: 'Display learner progress and stats.',
-    context: 'Called when viewing the learning dashboard.',
-  },
-  io: {
-    input: GetLearnerDashboardInput,
-    output: LearnerDashboardModel,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'learning.getDashboard',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'dashboard'],
+		description: 'Get learner dashboard data.',
+		goal: 'Display learner progress and stats.',
+		context: 'Called when viewing the learning dashboard.',
+	},
+	io: {
+		input: GetLearnerDashboardInput,
+		output: LearnerDashboardModel,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

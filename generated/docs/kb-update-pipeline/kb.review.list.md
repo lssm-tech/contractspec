@@ -24,24 +24,24 @@ Inbox
 
 ```typescript
 export const KbReviewListPresentation = definePresentation({
-  meta: {
-    key: 'kb.review.list',
-    version: '1.0.0',
-    title: 'Review Tasks',
-    description: 'List of pending review tasks for the current user.',
-    domain: 'knowledge',
-    owners: ['@examples'],
-    tags: ['list', 'review'],
-    stability: StabilityEnum.Experimental,
-    goal: 'List tasks',
-    context: 'Inbox',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'ReviewTaskList',
-    props: ReviewTaskModel,
-  },
-  targets: ['react', 'markdown'],
+	meta: {
+		key: 'kb.review.list',
+		version: '1.0.0',
+		title: 'Review Tasks',
+		description: 'List of pending review tasks for the current user.',
+		domain: 'knowledge',
+		owners: ['@examples'],
+		tags: ['list', 'review'],
+		stability: StabilityEnum.Experimental,
+		goal: 'List tasks',
+		context: 'Inbox',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'ReviewTaskList',
+		props: ReviewTaskModel,
+	},
+	targets: ['react', 'markdown'],
 });
 ```

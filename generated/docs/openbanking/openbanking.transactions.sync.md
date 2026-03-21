@@ -25,64 +25,64 @@ Triggered by scheduled workflows or on-demand actions when activity is expected 
 
 ```typescript
 export const OpenBankingSyncTransactions = defineCommand({
-  meta: {
-    key: 'openbanking.transactions.sync',
-    version: '1.0.0',
-    description:
-      'Synchronise transactions for a bank account by calling the configured open banking provider.',
-    goal: 'Ensure the canonical transaction ledger stays aligned with the external provider.',
-    context:
-      'Triggered by scheduled workflows or on-demand actions when activity is expected on an account.',
-    owners: ['@platform.finance'],
-    tags: ['open-banking', 'powens', 'transactions'],
-    stability: 'experimental',
-  },
-  io: {
-    input: OpenBankingSyncTransactionsInput,
-    output: OpenBankingSyncTransactionsOutput,
-  },
-  policy: {
-    auth: 'admin',
-  },
-  telemetry: {
-    success: {
-      event: { key: OPENBANKING_TELEMETRY_EVENTS.transactionsSynced },
-      properties: ({ input, output }) => {
-        const payload = input as {
-          tenantId?: string;
-          accountId?: string;
-        };
-        const result = output as {
-          synced?: number;
-          failed?: number;
-          earliestSyncedAt?: string;
-          latestSyncedAt?: string;
-        } | null;
-        return {
-          tenantId: payload?.tenantId,
-          accountId: payload?.accountId,
-          synced: result?.synced,
-          failed: result?.failed,
-          earliestSyncedAt: result?.earliestSyncedAt,
-          latestSyncedAt: result?.latestSyncedAt,
-        };
-      },
-    },
-    failure: {
-      event: { key: OPENBANKING_TELEMETRY_EVENTS.transactionsSyncFailed },
-      properties: ({ input, error }) => {
-        const payload = input as {
-          tenantId?: string;
-          accountId?: string;
-        };
-        return {
-          tenantId: payload?.tenantId,
-          accountId: payload?.accountId,
-          error:
-            error instanceof Error ? error.message : String(error ?? 'unknown'),
-        };
-      },
-    },
-  },
+	meta: {
+		key: 'openbanking.transactions.sync',
+		version: '1.0.0',
+		description:
+			'Synchronise transactions for a bank account by calling the configured open banking provider.',
+		goal: 'Ensure the canonical transaction ledger stays aligned with the external provider.',
+		context:
+			'Triggered by scheduled workflows or on-demand actions when activity is expected on an account.',
+		owners: ['@platform.finance'],
+		tags: ['open-banking', 'powens', 'transactions'],
+		stability: 'experimental',
+	},
+	io: {
+		input: OpenBankingSyncTransactionsInput,
+		output: OpenBankingSyncTransactionsOutput,
+	},
+	policy: {
+		auth: 'admin',
+	},
+	telemetry: {
+		success: {
+			event: { key: OPENBANKING_TELEMETRY_EVENTS.transactionsSynced },
+			properties: ({ input, output }) => {
+				const payload = input as {
+					tenantId?: string;
+					accountId?: string;
+				};
+				const result = output as {
+					synced?: number;
+					failed?: number;
+					earliestSyncedAt?: string;
+					latestSyncedAt?: string;
+				} | null;
+				return {
+					tenantId: payload?.tenantId,
+					accountId: payload?.accountId,
+					synced: result?.synced,
+					failed: result?.failed,
+					earliestSyncedAt: result?.earliestSyncedAt,
+					latestSyncedAt: result?.latestSyncedAt,
+				};
+			},
+		},
+		failure: {
+			event: { key: OPENBANKING_TELEMETRY_EVENTS.transactionsSyncFailed },
+			properties: ({ input, error }) => {
+				const payload = input as {
+					tenantId?: string;
+					accountId?: string;
+				};
+				return {
+					tenantId: payload?.tenantId,
+					accountId: payload?.accountId,
+					error:
+						error instanceof Error ? error.message : String(error ?? 'unknown'),
+				};
+			},
+		},
+	},
 });
 ```

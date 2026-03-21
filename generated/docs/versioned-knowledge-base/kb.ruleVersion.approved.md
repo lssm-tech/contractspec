@@ -17,14 +17,14 @@ Rule version approved (human verified).
 
 ```typescript
 export const KbRuleVersionApprovedEvent = defineEvent({
-  meta: {
-    key: 'kb.ruleVersion.approved',
-    version: '1.0.0',
-    description: 'Rule version approved (human verified).',
-    stability: 'experimental',
-    owners: ['@examples'],
-    tags: ['knowledge'],
-  },
-  payload: KbRuleVersionApprovedPayload,
+	meta: {
+		key: 'kb.ruleVersion.approved',
+		version: '1.0.0',
+		description: 'Rule version approved (human verified).',
+		stability: 'experimental',
+		owners: ['@examples'],
+		tags: ['knowledge'],
+	},
+	payload: KbRuleVersionApprovedPayload,
 });
 ```

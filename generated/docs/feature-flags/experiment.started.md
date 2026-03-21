@@ -17,14 +17,14 @@ An experiment has started.
 
 ```typescript
 export const ExperimentStartedEvent = defineEvent({
-  meta: {
-    key: 'experiment.started',
-    version: '1.0.0',
-    description: 'An experiment has started.',
-    stability: 'stable',
-    owners: ['@platform.feature-flags'],
-    tags: ['feature-flags', 'experiment', 'start'],
-  },
-  payload: ExperimentStartedPayload,
+	meta: {
+		key: 'experiment.started',
+		version: '1.0.0',
+		description: 'An experiment has started.',
+		stability: 'stable',
+		owners: ['@platform.feature-flags'],
+		tags: ['feature-flags', 'experiment', 'start'],
+	},
+	payload: ExperimentStartedPayload,
 });
 ```

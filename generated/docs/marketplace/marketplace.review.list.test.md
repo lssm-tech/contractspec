@@ -17,29 +17,29 @@ Test for listing reviews
 
 ```typescript
 export const ReviewListTest = defineTestSpec({
-  meta: {
-    key: 'marketplace.review.list.test',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@example.marketplace'],
-    description: 'Test for listing reviews',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'marketplace.review.list', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'marketplace.review.list' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'marketplace.review.list' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'marketplace.review.list.test',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@example.marketplace'],
+		description: 'Test for listing reviews',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'marketplace.review.list', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'marketplace.review.list' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'marketplace.review.list' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

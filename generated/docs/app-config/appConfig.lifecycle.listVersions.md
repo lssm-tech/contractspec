@@ -23,21 +23,21 @@ Used by the Studio to render history timelines and by automation for change trac
 
 ```typescript
 export const ListTenantConfigVersionsQuery = defineQuery({
-  meta: {
-    key: 'appConfig.lifecycle.listVersions',
-    version: '1.0.0',
-    description: 'Lists all versions of a tenant configuration.',
-    owners: [OwnersEnum.PlatformSigil],
-    tags: ['app-config', TagsEnum.Hygiene],
-    stability: StabilityEnum.Experimental,
-    goal: 'Support lifecycle views and change audit tooling.',
-    context:
-      'Used by the Studio to render history timelines and by automation for change tracking.',
-  },
-  io: {
-    input: ListVersionsInput,
-    output: ListVersionsOutput,
-  },
-  policy: LifecycleReadPolicy,
+	meta: {
+		key: 'appConfig.lifecycle.listVersions',
+		version: '1.0.0',
+		description: 'Lists all versions of a tenant configuration.',
+		owners: [OwnersEnum.PlatformSigil],
+		tags: ['app-config', TagsEnum.Hygiene],
+		stability: StabilityEnum.Experimental,
+		goal: 'Support lifecycle views and change audit tooling.',
+		context:
+			'Used by the Studio to render history timelines and by automation for change tracking.',
+	},
+	io: {
+		input: ListVersionsInput,
+		output: ListVersionsOutput,
+	},
+	policy: LifecycleReadPolicy,
 });
 ```

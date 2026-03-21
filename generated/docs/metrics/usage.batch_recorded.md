@@ -17,14 +17,14 @@ A batch of usage has been recorded.
 
 ```typescript
 export const UsageBatchRecordedEvent = defineEvent({
-  meta: {
-    key: 'usage.batch_recorded',
-    version: '1.0.0',
-    description: 'A batch of usage has been recorded.',
-    stability: 'stable',
-    owners: ['@platform.metering'],
-    tags: ['metering', 'usage'],
-  },
-  payload: UsageBatchRecordedPayload,
+	meta: {
+		key: 'usage.batch_recorded',
+		version: '1.0.0',
+		description: 'A batch of usage has been recorded.',
+		stability: 'stable',
+		owners: ['@platform.metering'],
+		tags: ['metering', 'usage'],
+	},
+	payload: UsageBatchRecordedPayload,
 });
 ```

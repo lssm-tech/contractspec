@@ -25,31 +25,31 @@ Triggered by configured webhook endpoints for official, aggregator, and unoffici
 
 ```typescript
 export const HealthWebhookIngest = defineCommand({
-  meta: {
-    key: 'health.webhooks.ingest',
-    version: '1.0.0',
-    description: 'Ingest and normalize health provider webhook payloads.',
-    goal: 'Allow near-real-time updates for health entities while preserving deterministic ingestion.',
-    context:
-      'Triggered by configured webhook endpoints for official, aggregator, and unofficial connectors.',
-    owners: ['@platform.integrations'],
-    tags: ['health', 'webhooks', 'integrations'],
-    stability: 'experimental',
-  },
-  io: {
-    input: HealthWebhookIngestInput,
-    output: HealthWebhookIngestOutput,
-  },
-  policy: {
-    auth: 'admin',
-  },
-  telemetry: {
-    success: {
-      event: { key: HEALTH_TELEMETRY_EVENTS.webhookReceived },
-    },
-    failure: {
-      event: { key: HEALTH_TELEMETRY_EVENTS.webhookRejected },
-    },
-  },
+	meta: {
+		key: 'health.webhooks.ingest',
+		version: '1.0.0',
+		description: 'Ingest and normalize health provider webhook payloads.',
+		goal: 'Allow near-real-time updates for health entities while preserving deterministic ingestion.',
+		context:
+			'Triggered by configured webhook endpoints for official, aggregator, and unofficial connectors.',
+		owners: ['@platform.integrations'],
+		tags: ['health', 'webhooks', 'integrations'],
+		stability: 'experimental',
+	},
+	io: {
+		input: HealthWebhookIngestInput,
+		output: HealthWebhookIngestOutput,
+	},
+	policy: {
+		auth: 'admin',
+	},
+	telemetry: {
+		success: {
+			event: { key: HEALTH_TELEMETRY_EVENTS.webhookReceived },
+		},
+		failure: {
+			event: { key: HEALTH_TELEMETRY_EVENTS.webhookRejected },
+		},
+	},
 });
 ```

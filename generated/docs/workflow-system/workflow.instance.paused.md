@@ -17,14 +17,14 @@ A workflow instance has been paused.
 
 ```typescript
 export const InstancePausedEvent = defineEvent({
-  meta: {
-    key: 'workflow.instance.paused',
-    version: '1.0.0',
-    description: 'A workflow instance has been paused.',
-    stability: 'stable',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'instance', 'paused'],
-  },
-  payload: InstanceEventPayload,
+	meta: {
+		key: 'workflow.instance.paused',
+		version: '1.0.0',
+		description: 'A workflow instance has been paused.',
+		stability: 'stable',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'instance', 'paused'],
+	},
+	payload: InstanceEventPayload,
 });
 ```

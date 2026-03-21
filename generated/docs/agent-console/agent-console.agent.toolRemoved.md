@@ -17,14 +17,14 @@ A tool was removed from an agent.
 
 ```typescript
 export const AgentToolRemovedEvent = defineEvent({
-  meta: {
-    key: 'agent-console.agent.toolRemoved',
-    version: '1.0.0',
-    description: 'A tool was removed from an agent.',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['agent', 'tool', 'removed'],
-  },
-  payload: AgentToolRemovedPayload,
+	meta: {
+		key: 'agent-console.agent.toolRemoved',
+		version: '1.0.0',
+		description: 'A tool was removed from an agent.',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['agent', 'tool', 'removed'],
+	},
+	payload: AgentToolRemovedPayload,
 });
 ```

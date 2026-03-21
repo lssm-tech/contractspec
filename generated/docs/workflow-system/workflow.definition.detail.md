@@ -24,27 +24,27 @@ Workflow inspection and debugging
 
 ```typescript
 export const WorkflowDetailPresentation = definePresentation({
-  meta: {
-    key: 'workflow.definition.detail',
-    version: '1.0.0',
-    title: 'Workflow Details',
-    description: 'Detailed view of a workflow definition with steps',
-    domain: 'workflow-system',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'detail'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Viewing technical details of a workflow definition',
-    context: 'Workflow inspection and debugging',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'WorkflowDefinitionDetail',
-    props: WorkflowDefinitionModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['workflow.enabled'],
-  },
+	meta: {
+		key: 'workflow.definition.detail',
+		version: '1.0.0',
+		title: 'Workflow Details',
+		description: 'Detailed view of a workflow definition with steps',
+		domain: 'workflow-system',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'detail'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Viewing technical details of a workflow definition',
+		context: 'Workflow inspection and debugging',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'WorkflowDefinitionDetail',
+		props: WorkflowDefinitionModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['workflow.enabled'],
+	},
 });
 ```

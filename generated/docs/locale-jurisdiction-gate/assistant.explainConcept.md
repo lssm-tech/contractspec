@@ -25,22 +25,22 @@ Same constraints as assistant.answer.
 
 ```typescript
 export const AssistantExplainConceptContract = defineCommand({
-  meta: {
-    key: 'assistant.explainConcept',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@examples'],
-    tags: ['assistant', 'policy', 'knowledge', 'concepts'],
-    description:
-      'Explain a concept using a KB snapshot with strict locale/jurisdiction gating.',
-    goal: 'Explain concepts with citations or refuse.',
-    context: 'Same constraints as assistant.answer.',
-  },
-  io: {
-    input: AssistantConceptInput,
-    output: AssistantAnswerIRModel,
-    errors: AssistantAnswerContract.io.errors,
-  },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'assistant.explainConcept',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@examples'],
+		tags: ['assistant', 'policy', 'knowledge', 'concepts'],
+		description:
+			'Explain a concept using a KB snapshot with strict locale/jurisdiction gating.',
+		goal: 'Explain concepts with citations or refuse.',
+		context: 'Same constraints as assistant.answer.',
+	},
+	io: {
+		input: AssistantConceptInput,
+		output: AssistantAnswerIRModel,
+		errors: AssistantAnswerContract.io.errors,
+	},
+	policy: { auth: 'user' },
 });
 ```

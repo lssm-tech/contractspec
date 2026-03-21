@@ -25,17 +25,17 @@ Debt onboarding/update.
 
 ```typescript
 export const AddLiabilityContract = defineCommand({
-  meta: {
-    key: 'wealth.liability.add',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['examples.wealth-snapshot'],
-    tags: ['wealth', 'liability', 'add'],
-    description: 'Add a liability.',
-    goal: 'Track debts.',
-    context: 'Debt onboarding/update.',
-  },
-  io: { input: AddLiabilityInput, output: LiabilityModel },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'wealth.liability.add',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['examples.wealth-snapshot'],
+		tags: ['wealth', 'liability', 'add'],
+		description: 'Add a liability.',
+		goal: 'Track debts.',
+		context: 'Debt onboarding/update.',
+	},
+	io: { input: AddLiabilityInput, output: LiabilityModel },
+	policy: { auth: 'user' },
 });
 ```

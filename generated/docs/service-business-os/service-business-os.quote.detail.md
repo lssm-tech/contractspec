@@ -24,26 +24,26 @@ Quote inspection
 
 ```typescript
 export const QuoteDetailPresentation = definePresentation({
-  meta: {
-    key: 'service-business-os.quote.detail',
-    version: '1.0.0',
-    title: 'Quote Details',
-    description: 'Quote detail with line items',
-    domain: 'services',
-    owners: ['@service-os'],
-    tags: ['services', 'quote', 'detail'],
-    stability: StabilityEnum.Experimental,
-    goal: 'View and edit quote details',
-    context: 'Quote inspection',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'QuoteDetail',
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['service.quotes.enabled'],
-  },
+	meta: {
+		key: 'service-business-os.quote.detail',
+		version: '1.0.0',
+		title: 'Quote Details',
+		description: 'Quote detail with line items',
+		domain: 'services',
+		owners: ['@service-os'],
+		tags: ['services', 'quote', 'detail'],
+		stability: StabilityEnum.Experimental,
+		goal: 'View and edit quote details',
+		context: 'Quote inspection',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'QuoteDetail',
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['service.quotes.enabled'],
+	},
 });
 ```

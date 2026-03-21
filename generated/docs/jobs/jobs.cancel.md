@@ -29,46 +29,46 @@ Only pending jobs can be cancelled.
 
 ```typescript
 export const CancelJobContract = defineCommand({
-  meta: {
-    key: 'jobs.cancel',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.jobs'],
-    tags: ['jobs', 'cancel'],
-    description: 'Cancel a pending job.',
-    goal: 'Allow cancellation of jobs that are no longer needed.',
-    context: 'Only pending jobs can be cancelled.',
-  },
-  io: {
-    input: CancelJobInput,
-    output: CancelJobOutput,
-    errors: {
-      JOB_NOT_FOUND: {
-        description: 'Job does not exist',
-        http: 404,
-        gqlCode: 'JOB_NOT_FOUND',
-        when: 'Job ID is invalid',
-      },
-      JOB_NOT_PENDING: {
-        description: 'Job is not in pending state',
-        http: 409,
-        gqlCode: 'JOB_NOT_PENDING',
-        when: 'Job has already started or completed',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'job.cancelled',
-        version: '1.0.0',
-        when: 'Job is cancelled',
-        payload: JobCancelledPayload,
-      },
-    ],
-  },
+	meta: {
+		key: 'jobs.cancel',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.jobs'],
+		tags: ['jobs', 'cancel'],
+		description: 'Cancel a pending job.',
+		goal: 'Allow cancellation of jobs that are no longer needed.',
+		context: 'Only pending jobs can be cancelled.',
+	},
+	io: {
+		input: CancelJobInput,
+		output: CancelJobOutput,
+		errors: {
+			JOB_NOT_FOUND: {
+				description: 'Job does not exist',
+				http: 404,
+				gqlCode: 'JOB_NOT_FOUND',
+				when: 'Job ID is invalid',
+			},
+			JOB_NOT_PENDING: {
+				description: 'Job is not in pending state',
+				http: 409,
+				gqlCode: 'JOB_NOT_PENDING',
+				when: 'Job has already started or completed',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'job.cancelled',
+				version: '1.0.0',
+				when: 'Job is cancelled',
+				payload: JobCancelledPayload,
+			},
+		],
+	},
 });
 ```

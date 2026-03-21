@@ -25,22 +25,22 @@ Called on app load and after profile updates.
 
 ```typescript
 export const GetCurrentUserContract = defineQuery({
-  meta: {
-    key: 'identity.user.me',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.identity-rbac'],
-    tags: ['identity', 'user', 'profile'],
-    description: 'Get the current authenticated user profile.',
-    goal: 'Retrieve user profile for the authenticated session.',
-    context: 'Called on app load and after profile updates.',
-  },
-  io: {
-    input: null,
-    output: UserProfileModel,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'identity.user.me',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.identity-rbac'],
+		tags: ['identity', 'user', 'profile'],
+		description: 'Get the current authenticated user profile.',
+		goal: 'Retrieve user profile for the authenticated session.',
+		context: 'Called on app load and after profile updates.',
+	},
+	io: {
+		input: null,
+		output: UserProfileModel,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

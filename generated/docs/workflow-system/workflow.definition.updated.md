@@ -17,14 +17,14 @@ A workflow definition has been updated.
 
 ```typescript
 export const WorkflowUpdatedEvent = defineEvent({
-  meta: {
-    key: 'workflow.definition.updated',
-    version: '1.0.0',
-    description: 'A workflow definition has been updated.',
-    stability: 'stable',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'definition', 'updated'],
-  },
-  payload: WorkflowDefinitionPayload,
+	meta: {
+		key: 'workflow.definition.updated',
+		version: '1.0.0',
+		description: 'A workflow definition has been updated.',
+		stability: 'stable',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'definition', 'updated'],
+	},
+	payload: WorkflowDefinitionPayload,
 });
 ```

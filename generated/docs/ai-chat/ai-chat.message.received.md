@@ -17,14 +17,14 @@ Message received from AI
 
 ```typescript
 export const MessageReceivedEvent = defineEvent({
-  meta: {
-    key: 'ai-chat.message.received',
-    version: '1.0.0',
-    description: 'Message received from AI',
-    stability: 'stable',
-    owners: ['@ai-chat'],
-    tags: ['ai-chat', 'message', 'received'],
-  },
-  payload: ChatMessageModel,
+	meta: {
+		key: 'ai-chat.message.received',
+		version: '1.0.0',
+		description: 'Message received from AI',
+		stability: 'stable',
+		owners: ['@ai-chat'],
+		tags: ['ai-chat', 'message', 'received'],
+	},
+	payload: ChatMessageModel,
 });
 ```

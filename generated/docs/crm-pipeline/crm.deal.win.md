@@ -29,58 +29,58 @@ Deal closing flow.
 
 ```typescript
 export const WinDealContract = defineCommand({
-  meta: {
-    key: 'crm.deal.win',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.crm-pipeline'],
-    tags: ['crm', 'deal', 'won'],
-    description: 'Mark a deal as won.',
-    goal: 'Close a deal as successful.',
-    context: 'Deal closing flow.',
-  },
-  io: {
-    input: WinDealInputModel,
-    output: DealModel,
-  },
-  policy: {
-    auth: 'user',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'deal.won',
-        version: '1.0.0',
-        when: 'Deal is won',
-        payload: DealWonPayloadModel,
-      },
-    ],
-    audit: ['deal.won'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'win-deal-happy-path',
-        given: ['Deal is open'],
-        when: ['User marks deal as won'],
-        then: ['Deal status becomes WON', 'DealWon event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'mark-won',
-        input: {
-          dealId: 'deal-789',
-          actualValue: 52000,
-          note: 'Signed contract attached',
-        },
-        output: {
-          id: 'deal-789',
-          status: 'won',
-          closedAt: '2025-01-20T14:30:00Z',
-        },
-      },
-    ],
-  },
+	meta: {
+		key: 'crm.deal.win',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.crm-pipeline'],
+		tags: ['crm', 'deal', 'won'],
+		description: 'Mark a deal as won.',
+		goal: 'Close a deal as successful.',
+		context: 'Deal closing flow.',
+	},
+	io: {
+		input: WinDealInputModel,
+		output: DealModel,
+	},
+	policy: {
+		auth: 'user',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'deal.won',
+				version: '1.0.0',
+				when: 'Deal is won',
+				payload: DealWonPayloadModel,
+			},
+		],
+		audit: ['deal.won'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'win-deal-happy-path',
+				given: ['Deal is open'],
+				when: ['User marks deal as won'],
+				then: ['Deal status becomes WON', 'DealWon event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'mark-won',
+				input: {
+					dealId: 'deal-789',
+					actualValue: 52000,
+					note: 'Signed contract attached',
+				},
+				output: {
+					id: 'deal-789',
+					status: 'won',
+					closedAt: '2025-01-20T14:30:00Z',
+				},
+			},
+		],
+	},
 });
 ```

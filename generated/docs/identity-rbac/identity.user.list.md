@@ -25,22 +25,22 @@ Admin dashboard user management.
 
 ```typescript
 export const ListUsersContract = defineQuery({
-  meta: {
-    key: 'identity.user.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.identity-rbac'],
-    tags: ['identity', 'user', 'admin', 'list'],
-    description: 'List all users (admin only).',
-    goal: 'Allow admins to browse and manage users.',
-    context: 'Admin dashboard user management.',
-  },
-  io: {
-    input: ListUsersInputModel,
-    output: ListUsersOutputModel,
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'identity.user.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.identity-rbac'],
+		tags: ['identity', 'user', 'admin', 'list'],
+		description: 'List all users (admin only).',
+		goal: 'Allow admins to browse and manage users.',
+		context: 'Admin dashboard user management.',
+	},
+	io: {
+		input: ListUsersInputModel,
+		output: ListUsersOutputModel,
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

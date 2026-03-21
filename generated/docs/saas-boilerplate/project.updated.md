@@ -17,14 +17,14 @@ A project has been updated.
 
 ```typescript
 export const ProjectUpdatedEvent = defineEvent({
-  meta: {
-    key: 'project.updated',
-    version: '1.0.0',
-    description: 'A project has been updated.',
-    stability: 'stable',
-    owners: ['@saas-team'],
-    tags: ['project', 'updated'],
-  },
-  payload: ProjectUpdatedPayload,
+	meta: {
+		key: 'project.updated',
+		version: '1.0.0',
+		description: 'A project has been updated.',
+		stability: 'stable',
+		owners: ['@saas-team'],
+		tags: ['project', 'updated'],
+	},
+	payload: ProjectUpdatedPayload,
 });
 ```

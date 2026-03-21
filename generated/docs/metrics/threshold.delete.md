@@ -25,30 +25,30 @@ Called when removing limits.
 
 ```typescript
 export const DeleteThresholdContract = defineCommand({
-  meta: {
-    key: 'threshold.delete',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.metering'],
-    tags: ['metering', 'threshold', 'delete'],
-    description: 'Delete a threshold.',
-    goal: 'Remove a usage threshold.',
-    context: 'Called when removing limits.',
-  },
-  io: {
-    input: DeleteThresholdInput,
-    output: SuccessOutput,
-    errors: {
-      THRESHOLD_NOT_FOUND: {
-        description: 'Threshold does not exist',
-        http: 404,
-        gqlCode: 'THRESHOLD_NOT_FOUND',
-        when: 'Threshold ID is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'threshold.delete',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.metering'],
+		tags: ['metering', 'threshold', 'delete'],
+		description: 'Delete a threshold.',
+		goal: 'Remove a usage threshold.',
+		context: 'Called when removing limits.',
+	},
+	io: {
+		input: DeleteThresholdInput,
+		output: SuccessOutput,
+		errors: {
+			THRESHOLD_NOT_FOUND: {
+				description: 'Threshold does not exist',
+				http: 404,
+				gqlCode: 'THRESHOLD_NOT_FOUND',
+				when: 'Threshold ID is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

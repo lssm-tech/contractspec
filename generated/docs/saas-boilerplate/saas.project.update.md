@@ -29,50 +29,50 @@ Project settings page.
 
 ```typescript
 export const UpdateProjectContract = defineCommand({
-  meta: {
-    key: 'saas.project.update',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['example.saas-boilerplate'],
-    tags: ['saas', 'project', 'update'],
-    description: 'Update project details.',
-    goal: 'Allow project owners/editors to modify project.',
-    context: 'Project settings page.',
-  },
-  io: {
-    input: UpdateProjectInputModel,
-    output: ProjectModel,
-  },
-  policy: {
-    auth: 'user',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'project.updated',
-        version: '1.0.0',
-        when: 'Project is updated',
-        payload: ProjectModel,
-      },
-    ],
-    audit: ['project.updated'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'update-project-happy-path',
-        given: ['Project exists'],
-        when: ['User updates description'],
-        then: ['Project is updated', 'ProjectUpdated event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'update-desc',
-        input: { projectId: 'proj-123', description: 'New description' },
-        output: { id: 'proj-123', description: 'New description' },
-      },
-    ],
-  },
+	meta: {
+		key: 'saas.project.update',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['example.saas-boilerplate'],
+		tags: ['saas', 'project', 'update'],
+		description: 'Update project details.',
+		goal: 'Allow project owners/editors to modify project.',
+		context: 'Project settings page.',
+	},
+	io: {
+		input: UpdateProjectInputModel,
+		output: ProjectModel,
+	},
+	policy: {
+		auth: 'user',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'project.updated',
+				version: '1.0.0',
+				when: 'Project is updated',
+				payload: ProjectModel,
+			},
+		],
+		audit: ['project.updated'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'update-project-happy-path',
+				given: ['Project exists'],
+				when: ['User updates description'],
+				then: ['Project is updated', 'ProjectUpdated event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'update-desc',
+				input: { projectId: 'proj-123', description: 'New description' },
+				output: { id: 'proj-123', description: 'New description' },
+			},
+		],
+	},
 });
 ```

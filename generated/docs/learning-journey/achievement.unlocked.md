@@ -16,14 +16,14 @@ An achievement has been unlocked.
 
 ```typescript
 export const AchievementUnlockedEvent = defineEvent({
-  meta: {
-    key: 'achievement.unlocked',
-    version: '1.0.0',
-    description: 'An achievement has been unlocked.',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'gamification', 'achievement'],
-  },
-  payload: AchievementUnlockedPayload,
+	meta: {
+		key: 'achievement.unlocked',
+		version: '1.0.0',
+		description: 'An achievement has been unlocked.',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'gamification', 'achievement'],
+	},
+	payload: AchievementUnlockedPayload,
 });
 ```

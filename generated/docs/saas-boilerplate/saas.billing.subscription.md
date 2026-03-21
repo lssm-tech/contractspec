@@ -24,27 +24,27 @@ Billing section
 
 ```typescript
 export const SubscriptionPresentation = definePresentation({
-  meta: {
-    key: 'saas.billing.subscription',
-    version: '1.0.0',
-    title: 'Subscription Status',
-    description:
-      'Subscription status with plan info, limits, and current usage',
-    domain: 'saas-boilerplate',
-    owners: ['@saas-team'],
-    tags: ['billing', 'subscription'],
-    stability: StabilityEnum.Beta,
-    goal: 'View subscription plan and status',
-    context: 'Billing section',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'SubscriptionView',
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['saas.billing.enabled'],
-  },
+	meta: {
+		key: 'saas.billing.subscription',
+		version: '1.0.0',
+		title: 'Subscription Status',
+		description:
+			'Subscription status with plan info, limits, and current usage',
+		domain: 'saas-boilerplate',
+		owners: ['@saas-team'],
+		tags: ['billing', 'subscription'],
+		stability: StabilityEnum.Beta,
+		goal: 'View subscription plan and status',
+		context: 'Billing section',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'SubscriptionView',
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['saas.billing.enabled'],
+	},
 });
 ```

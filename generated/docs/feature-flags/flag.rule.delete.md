@@ -25,30 +25,30 @@ Called when removing targeting conditions.
 
 ```typescript
 export const DeleteRuleContract = defineCommand({
-  meta: {
-    key: 'flag.rule.delete',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.feature-flags'],
-    tags: ['feature-flags', 'rule', 'delete'],
-    description: 'Delete a targeting rule.',
-    goal: 'Remove a targeting rule from a flag.',
-    context: 'Called when removing targeting conditions.',
-  },
-  io: {
-    input: DeleteRuleInput,
-    output: SuccessOutput,
-    errors: {
-      RULE_NOT_FOUND: {
-        description: 'Rule does not exist',
-        http: 404,
-        gqlCode: 'RULE_NOT_FOUND',
-        when: 'Rule ID is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'flag.rule.delete',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.feature-flags'],
+		tags: ['feature-flags', 'rule', 'delete'],
+		description: 'Delete a targeting rule.',
+		goal: 'Remove a targeting rule from a flag.',
+		context: 'Called when removing targeting conditions.',
+	},
+	io: {
+		input: DeleteRuleInput,
+		output: SuccessOutput,
+		errors: {
+			RULE_NOT_FOUND: {
+				description: 'Rule does not exist',
+				http: 404,
+				gqlCode: 'RULE_NOT_FOUND',
+				when: 'Rule ID is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

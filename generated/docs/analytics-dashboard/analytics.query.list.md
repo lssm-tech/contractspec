@@ -24,27 +24,27 @@ The library of reusable data definitions.
 
 ```typescript
 export const QueriesListPresentation = definePresentation({
-  meta: {
-    key: 'analytics.query.list',
-    version: '1.0.0',
-    title: 'Queries List',
-    description: 'List of saved queries',
-    domain: 'analytics',
-    owners: ['@analytics-dashboard'],
-    tags: ['analytics', 'queries', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Browse and manage saved data queries.',
-    context: 'The library of reusable data definitions.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'QueriesList',
-    props: QueryModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['analytics.queries.enabled'],
-  },
+	meta: {
+		key: 'analytics.query.list',
+		version: '1.0.0',
+		title: 'Queries List',
+		description: 'List of saved queries',
+		domain: 'analytics',
+		owners: ['@analytics-dashboard'],
+		tags: ['analytics', 'queries', 'list'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Browse and manage saved data queries.',
+		context: 'The library of reusable data definitions.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'QueriesList',
+		props: QueryModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['analytics.queries.enabled'],
+	},
 });
 ```

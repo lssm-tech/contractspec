@@ -25,30 +25,30 @@ Publishing happens after approvals; snapshot is referenced by answers.
 
 ```typescript
 export const KbPublishSnapshotContract = defineCommand({
-  meta: {
-    key: 'kb.publishSnapshot',
-    title: 'Publish Snapshot',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@examples'],
-    tags: ['knowledge', 'snapshots', 'publishing'],
-    description: 'Publish a KB snapshot for a jurisdiction.',
-    goal: 'Create a stable snapshot that assistant answers can cite.',
-    context:
-      'Publishing happens after approvals; snapshot is referenced by answers.',
-  },
-  io: {
-    input: PublishSnapshotInput,
-    output: KBSnapshotModel,
-    errors: {
-      NO_APPROVED_RULES: {
-        description: 'No approved rule versions available to publish',
-        http: 409,
-        gqlCode: 'NO_APPROVED_RULES',
-        when: 'jurisdiction has zero approved rule versions',
-      },
-    },
-  },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'kb.publishSnapshot',
+		title: 'Publish Snapshot',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@examples'],
+		tags: ['knowledge', 'snapshots', 'publishing'],
+		description: 'Publish a KB snapshot for a jurisdiction.',
+		goal: 'Create a stable snapshot that assistant answers can cite.',
+		context:
+			'Publishing happens after approvals; snapshot is referenced by answers.',
+	},
+	io: {
+		input: PublishSnapshotInput,
+		output: KBSnapshotModel,
+		errors: {
+			NO_APPROVED_RULES: {
+				description: 'No approved rule versions available to publish',
+				http: 409,
+				gqlCode: 'NO_APPROVED_RULES',
+				when: 'jurisdiction has zero approved rule versions',
+			},
+		},
+	},
+	policy: { auth: 'user' },
 });
 ```

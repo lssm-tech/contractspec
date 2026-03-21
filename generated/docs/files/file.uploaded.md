@@ -17,14 +17,14 @@ A file has been uploaded.
 
 ```typescript
 export const FileUploadedEvent = defineEvent({
-  meta: {
-    key: 'file.uploaded',
-    version: '1.0.0',
-    description: 'A file has been uploaded.',
-    stability: 'stable',
-    owners: ['@platform.files'],
-    tags: ['files', 'upload'],
-  },
-  payload: FileUploadedPayload,
+	meta: {
+		key: 'file.uploaded',
+		version: '1.0.0',
+		description: 'A file has been uploaded.',
+		stability: 'stable',
+		owners: ['@platform.files'],
+		tags: ['files', 'upload'],
+	},
+	payload: FileUploadedPayload,
 });
 ```

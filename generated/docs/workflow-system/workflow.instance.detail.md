@@ -24,27 +24,27 @@ Case management and troubleshooting
 
 ```typescript
 export const InstanceDetailPresentation = definePresentation({
-  meta: {
-    key: 'workflow.instance.detail',
-    version: '1.0.0',
-    title: 'Instance Details',
-    description: 'Detailed view of a workflow instance with step timeline',
-    domain: 'workflow-system',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'instance', 'detail', 'timeline'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Detailed inspection of a specific workflow instance',
-    context: 'Case management and troubleshooting',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'WorkflowInstanceDetail',
-    props: WorkflowInstanceModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['workflow.enabled'],
-  },
+	meta: {
+		key: 'workflow.instance.detail',
+		version: '1.0.0',
+		title: 'Instance Details',
+		description: 'Detailed view of a workflow instance with step timeline',
+		domain: 'workflow-system',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'instance', 'detail', 'timeline'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Detailed inspection of a specific workflow instance',
+		context: 'Case management and troubleshooting',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'WorkflowInstanceDetail',
+		props: WorkflowInstanceModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['workflow.enabled'],
+	},
 });
 ```

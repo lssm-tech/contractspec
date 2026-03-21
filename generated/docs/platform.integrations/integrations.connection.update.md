@@ -25,26 +25,26 @@ Supports rotating API keys, toggling status, or updating labels for tenant integ
 
 ```typescript
 export const UpdateIntegrationConnection = defineCommand({
-  meta: {
-    key: 'integrations.connection.update',
-    title: 'Update Integration Connection',
-    version: '1.0.0',
-    description:
-      'Update metadata or credentials for an integration connection.',
-    goal: 'Allow secure rotation of credentials and metadata adjustments.',
-    context:
-      'Supports rotating API keys, toggling status, or updating labels for tenant integrations.',
-    owners: ['@platform.integrations'],
-    tags: ['integration', 'connections'],
-    stability: 'experimental',
-  },
-  io: {
-    input: UpdateIntegrationConnectionInput,
-    output: IntegrationConnectionRecord,
-  },
-  policy: {
-    auth: 'admin',
-    policies: [{ key: 'platform.integration.manage', version: '1.0.0' }],
-  },
+	meta: {
+		key: 'integrations.connection.update',
+		title: 'Update Integration Connection',
+		version: '1.0.0',
+		description:
+			'Update metadata or credentials for an integration connection.',
+		goal: 'Allow secure rotation of credentials and metadata adjustments.',
+		context:
+			'Supports rotating API keys, toggling status, or updating labels for tenant integrations.',
+		owners: ['@platform.integrations'],
+		tags: ['integration', 'connections'],
+		stability: 'experimental',
+	},
+	io: {
+		input: UpdateIntegrationConnectionInput,
+		output: IntegrationConnectionRecord,
+	},
+	policy: {
+		auth: 'admin',
+		policies: [{ key: 'platform.integration.manage', version: '1.0.0' }],
+	},
 });
 ```

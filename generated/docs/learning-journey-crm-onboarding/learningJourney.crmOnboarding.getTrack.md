@@ -25,24 +25,24 @@ Called by Studio/Playground to render journey steps.
 
 ```typescript
 export const GetCrmOnboardingTrack = defineQuery({
-  meta: {
-    key: 'learningJourney.crmOnboarding.getTrack',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['examples.learning-journey.crm-onboarding'],
-    tags: ['learning', 'crm', 'onboarding'],
-    description: 'Fetch CRM first win track definition.',
-    goal: 'Expose track metadata to UIs and templates.',
-    context: 'Called by Studio/Playground to render journey steps.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'CrmOnboardingTrackInput',
-      description: 'Track input',
-      fields: {},
-    }),
-    output: TrackResponseModel,
-  },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'learningJourney.crmOnboarding.getTrack',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['examples.learning-journey.crm-onboarding'],
+		tags: ['learning', 'crm', 'onboarding'],
+		description: 'Fetch CRM first win track definition.',
+		goal: 'Expose track metadata to UIs and templates.',
+		context: 'Called by Studio/Playground to render journey steps.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'CrmOnboardingTrackInput',
+			description: 'Track input',
+			fields: {},
+		}),
+		output: TrackResponseModel,
+	},
+	policy: { auth: 'user' },
 });
 ```

@@ -25,30 +25,30 @@ Called to inspect flag details.
 
 ```typescript
 export const GetFlagContract = defineQuery({
-  meta: {
-    key: 'flag.get',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.feature-flags'],
-    tags: ['feature-flags', 'get'],
-    description: 'Get a feature flag by key.',
-    goal: 'Retrieve flag configuration.',
-    context: 'Called to inspect flag details.',
-  },
-  io: {
-    input: GetFlagInput,
-    output: FeatureFlagModel,
-    errors: {
-      FLAG_NOT_FOUND: {
-        description: 'Flag does not exist',
-        http: 404,
-        gqlCode: 'FLAG_NOT_FOUND',
-        when: 'Flag key is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'flag.get',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.feature-flags'],
+		tags: ['feature-flags', 'get'],
+		description: 'Get a feature flag by key.',
+		goal: 'Retrieve flag configuration.',
+		context: 'Called to inspect flag details.',
+	},
+	io: {
+		input: GetFlagInput,
+		output: FeatureFlagModel,
+		errors: {
+			FLAG_NOT_FOUND: {
+				description: 'Flag does not exist',
+				http: 404,
+				gqlCode: 'FLAG_NOT_FOUND',
+				when: 'Flag key is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

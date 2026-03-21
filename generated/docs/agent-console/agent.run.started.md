@@ -17,14 +17,14 @@ An agent run was started.
 
 ```typescript
 export const RunStartedEvent = defineEvent({
-  meta: {
-    key: 'agent.run.started',
-    version: '1.0.0',
-    description: 'An agent run was started.',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['run', 'started'],
-  },
-  payload: RunStartedPayload,
+	meta: {
+		key: 'agent.run.started',
+		version: '1.0.0',
+		description: 'An agent run was started.',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['run', 'started'],
+	},
+	payload: RunStartedPayload,
 });
 ```

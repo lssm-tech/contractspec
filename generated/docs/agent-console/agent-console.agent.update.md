@@ -25,82 +25,82 @@ Called from the agent settings UI.
 
 ```typescript
 export const UpdateAgentCommand = defineCommand({
-  meta: {
-    key: 'agent-console.agent.update',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['agent', 'update'],
-    description: 'Updates an existing AI agent configuration.',
-    goal: 'Allow users to modify agent settings and configuration.',
-    context: 'Called from the agent settings UI.',
-  },
-  io: {
-    input: UpdateAgentInputModel,
-    output: defineSchemaModel({
-      name: 'UpdateAgentOutput',
-      fields: {
-        id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-        name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-        status: { type: AgentStatusEnum, isOptional: false },
-        updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
-      },
-    }),
-    errors: {
-      AGENT_NOT_FOUND: {
-        description: 'The specified agent does not exist',
-        http: 404,
-        gqlCode: 'AGENT_NOT_FOUND',
-        when: 'Agent ID is invalid',
-      },
-    },
-  },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'agent.updated',
-        version: '1.0.0',
-        stability: 'stable',
-        owners: ['@agent-console-team'],
-        tags: ['agent', 'updated'],
-        when: 'Agent is updated',
-        payload: AgentSummaryModel,
-      },
-    ],
-    audit: ['agent.updated'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'update-agent-happy-path',
-        given: ['Agent exists', 'User owns the agent'],
-        when: ['User submits updated configuration'],
-        then: ['Agent is updated', 'AgentUpdated event is emitted'],
-      },
-      {
-        key: 'update-agent-not-found',
-        given: ['Agent does not exist'],
-        when: ['User attempts to update'],
-        then: ['AGENT_NOT_FOUND error is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'update-name',
-        input: {
-          agentId: 'agent-123',
-          name: 'Updated Assistant',
-          systemPrompt: 'You are a helpful assistant.',
-        },
-        output: {
-          id: 'agent-123',
-          name: 'Updated Assistant',
-          status: 'draft',
-          updatedAt: '2025-01-01T00:00:00Z',
-        },
-      },
-    ],
-  },
+	meta: {
+		key: 'agent-console.agent.update',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['agent', 'update'],
+		description: 'Updates an existing AI agent configuration.',
+		goal: 'Allow users to modify agent settings and configuration.',
+		context: 'Called from the agent settings UI.',
+	},
+	io: {
+		input: UpdateAgentInputModel,
+		output: defineSchemaModel({
+			name: 'UpdateAgentOutput',
+			fields: {
+				id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+				name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
+				status: { type: AgentStatusEnum, isOptional: false },
+				updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
+			},
+		}),
+		errors: {
+			AGENT_NOT_FOUND: {
+				description: 'The specified agent does not exist',
+				http: 404,
+				gqlCode: 'AGENT_NOT_FOUND',
+				when: 'Agent ID is invalid',
+			},
+		},
+	},
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'agent.updated',
+				version: '1.0.0',
+				stability: 'stable',
+				owners: ['@agent-console-team'],
+				tags: ['agent', 'updated'],
+				when: 'Agent is updated',
+				payload: AgentSummaryModel,
+			},
+		],
+		audit: ['agent.updated'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'update-agent-happy-path',
+				given: ['Agent exists', 'User owns the agent'],
+				when: ['User submits updated configuration'],
+				then: ['Agent is updated', 'AgentUpdated event is emitted'],
+			},
+			{
+				key: 'update-agent-not-found',
+				given: ['Agent does not exist'],
+				when: ['User attempts to update'],
+				then: ['AGENT_NOT_FOUND error is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'update-name',
+				input: {
+					agentId: 'agent-123',
+					name: 'Updated Assistant',
+					systemPrompt: 'You are a helpful assistant.',
+				},
+				output: {
+					id: 'agent-123',
+					name: 'Updated Assistant',
+					status: 'draft',
+					updatedAt: '2025-01-01T00:00:00Z',
+				},
+			},
+		],
+	},
 });
 ```

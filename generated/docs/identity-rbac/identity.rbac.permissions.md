@@ -25,22 +25,22 @@ UI permission display, debugging.
 
 ```typescript
 export const ListUserPermissionsContract = defineQuery({
-  meta: {
-    key: 'identity.rbac.permissions',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['identity', 'rbac', 'permissions', 'user'],
-    description: 'List all permissions for a user in a context.',
-    goal: 'Show what a user can do in an org.',
-    context: 'UI permission display, debugging.',
-  },
-  io: {
-    input: ListUserPermissionsInputModel,
-    output: ListUserPermissionsOutputModel,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'identity.rbac.permissions',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['identity', 'rbac', 'permissions', 'user'],
+		description: 'List all permissions for a user in a context.',
+		goal: 'Show what a user can do in an org.',
+		context: 'UI permission display, debugging.',
+	},
+	io: {
+		input: ListUserPermissionsInputModel,
+		output: ListUserPermissionsOutputModel,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

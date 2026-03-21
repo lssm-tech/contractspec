@@ -25,36 +25,36 @@ Called when ready to run an A/B test.
 
 ```typescript
 export const StartExperimentContract = defineCommand({
-  meta: {
-    key: 'experiment.start',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.feature-flags'],
-    tags: ['feature-flags', 'experiment', 'start'],
-    description: 'Start an experiment.',
-    goal: 'Begin collecting data for an experiment.',
-    context: 'Called when ready to run an A/B test.',
-  },
-  io: {
-    input: StartExperimentInput,
-    output: ExperimentModel,
-    errors: {
-      EXPERIMENT_NOT_FOUND: {
-        description: 'Experiment does not exist',
-        http: 404,
-        gqlCode: 'EXPERIMENT_NOT_FOUND',
-        when: 'Experiment ID is invalid',
-      },
-      EXPERIMENT_ALREADY_RUNNING: {
-        description: 'Experiment is already running',
-        http: 409,
-        gqlCode: 'EXPERIMENT_ALREADY_RUNNING',
-        when: 'Cannot start an experiment that is already running',
-      },
-    },
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'experiment.start',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.feature-flags'],
+		tags: ['feature-flags', 'experiment', 'start'],
+		description: 'Start an experiment.',
+		goal: 'Begin collecting data for an experiment.',
+		context: 'Called when ready to run an A/B test.',
+	},
+	io: {
+		input: StartExperimentInput,
+		output: ExperimentModel,
+		errors: {
+			EXPERIMENT_NOT_FOUND: {
+				description: 'Experiment does not exist',
+				http: 404,
+				gqlCode: 'EXPERIMENT_NOT_FOUND',
+				when: 'Experiment ID is invalid',
+			},
+			EXPERIMENT_ALREADY_RUNNING: {
+				description: 'Experiment is already running',
+				http: 409,
+				gqlCode: 'EXPERIMENT_ALREADY_RUNNING',
+				when: 'Cannot start an experiment that is already running',
+			},
+		},
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

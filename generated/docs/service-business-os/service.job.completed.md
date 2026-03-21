@@ -17,14 +17,14 @@ A job was completed.
 
 ```typescript
 export const JobCompletedEvent = defineEvent({
-  meta: {
-    key: 'service.job.completed',
-    version: '1.0.0',
-    description: 'A job was completed.',
-    stability: 'stable',
-    owners: ['@service-os'],
-    tags: ['service', 'job', 'completed'],
-  },
-  payload: JobEventPayload,
+	meta: {
+		key: 'service.job.completed',
+		version: '1.0.0',
+		description: 'A job was completed.',
+		stability: 'stable',
+		owners: ['@service-os'],
+		tags: ['service', 'job', 'completed'],
+	},
+	payload: JobEventPayload,
 });
 ```

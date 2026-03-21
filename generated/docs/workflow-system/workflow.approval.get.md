@@ -25,45 +25,45 @@ Approval detail view.
 
 ```typescript
 export const GetApprovalContract = defineQuery({
-  meta: {
-    key: 'workflow.approval.get',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.workflow-system'],
-    tags: ['workflow', 'approval', 'get'],
-    description: 'Get an approval request with details.',
-    goal: 'View approval request details.',
-    context: 'Approval detail view.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'GetApprovalInput',
-      fields: {
-        requestId: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: false,
-        },
-      },
-    }),
-    output: ApprovalRequestModel,
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'get-approval-happy-path',
-        given: ['Approval request exists'],
-        when: ['User requests approval details'],
-        then: ['Approval details are returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'get-basic',
-        input: { requestId: 'req-123' },
-        output: { id: 'req-123', status: 'pending' },
-      },
-    ],
-  },
+	meta: {
+		key: 'workflow.approval.get',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.workflow-system'],
+		tags: ['workflow', 'approval', 'get'],
+		description: 'Get an approval request with details.',
+		goal: 'View approval request details.',
+		context: 'Approval detail view.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'GetApprovalInput',
+			fields: {
+				requestId: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: false,
+				},
+			},
+		}),
+		output: ApprovalRequestModel,
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'get-approval-happy-path',
+				given: ['Approval request exists'],
+				when: ['User requests approval details'],
+				then: ['Approval details are returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'get-basic',
+				input: { requestId: 'req-123' },
+				output: { id: 'req-123', status: 'pending' },
+			},
+		],
+	},
 });
 ```

@@ -23,39 +23,39 @@ Used when launching background agents or when operators want to lock context sta
 
 ```typescript
 export const ContextPackSnapshotCommand = defineCommand({
-  meta: {
-    key: 'context.pack.snapshot',
-    title: 'Create Context Snapshot',
-    version: '1.0.0',
-    description: 'Create an immutable snapshot from a context pack.',
-    goal: 'Persist a versioned, auditable context snapshot for agents.',
-    context:
-      'Used when launching background agents or when operators want to lock context state.',
-    domain: CONTEXT_DOMAIN,
-    owners: CONTEXT_OWNERS,
-    tags: [...CONTEXT_TAGS, 'snapshot', 'create'],
-    stability: CONTEXT_STABILITY,
-    docId: [docId('docs.tech.context.pack.snapshot')],
-  },
-  capability: {
-    key: 'context.system',
-    version: '1.0.0',
-  },
-  io: {
-    input: ContextPackSnapshotInput,
-    output: ContextPackSnapshotOutput,
-  },
-  policy: {
-    auth: 'admin',
-    pii: [],
-  },
-  sideEffects: {
-    emits: [
-      {
-        ref: ContextSnapshotCreatedEvent.meta,
-        when: 'A new snapshot has been created and persisted.',
-      },
-    ],
-  },
+	meta: {
+		key: 'context.pack.snapshot',
+		title: 'Create Context Snapshot',
+		version: '1.0.0',
+		description: 'Create an immutable snapshot from a context pack.',
+		goal: 'Persist a versioned, auditable context snapshot for agents.',
+		context:
+			'Used when launching background agents or when operators want to lock context state.',
+		domain: CONTEXT_DOMAIN,
+		owners: CONTEXT_OWNERS,
+		tags: [...CONTEXT_TAGS, 'snapshot', 'create'],
+		stability: CONTEXT_STABILITY,
+		docId: [docId('docs.tech.context.pack.snapshot')],
+	},
+	capability: {
+		key: 'context.system',
+		version: '1.0.0',
+	},
+	io: {
+		input: ContextPackSnapshotInput,
+		output: ContextPackSnapshotOutput,
+	},
+	policy: {
+		auth: 'admin',
+		pii: [],
+	},
+	sideEffects: {
+		emits: [
+			{
+				ref: ContextSnapshotCreatedEvent.meta,
+				when: 'A new snapshot has been created and persisted.',
+			},
+		],
+	},
 });
 ```

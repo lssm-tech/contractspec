@@ -17,14 +17,14 @@ An invoice was issued.
 
 ```typescript
 export const InvoiceIssuedEvent = defineEvent({
-  meta: {
-    key: 'service.invoice.issued',
-    version: '1.0.0',
-    description: 'An invoice was issued.',
-    stability: 'stable',
-    owners: ['@service-os'],
-    tags: ['service', 'invoice', 'issued'],
-  },
-  payload: InvoiceEventPayload,
+	meta: {
+		key: 'service.invoice.issued',
+		version: '1.0.0',
+		description: 'An invoice was issued.',
+		stability: 'stable',
+		owners: ['@service-os'],
+		tags: ['service', 'invoice', 'issued'],
+	},
+	payload: InvoiceEventPayload,
 });
 ```

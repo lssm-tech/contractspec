@@ -25,33 +25,33 @@ Role management in admin settings.
 
 ```typescript
 export const CreateRoleContract = defineCommand({
-  meta: {
-    key: 'identity.rbac.role.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['identity', 'rbac', 'role', 'create'],
-    description: 'Create a new role with permissions.',
-    goal: 'Allow admins to define custom roles.',
-    context: 'Role management in admin settings.',
-  },
-  io: {
-    input: CreateRoleInputModel,
-    output: RoleModel,
-    errors: {
-      ROLE_EXISTS: {
-        description: 'A role with this name already exists',
-        http: 409,
-        gqlCode: 'ROLE_EXISTS',
-        when: 'Role name is taken',
-      },
-    },
-  },
-  policy: {
-    auth: 'admin',
-  },
-  sideEffects: {
-    audit: ['role.created'],
-  },
+	meta: {
+		key: 'identity.rbac.role.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['identity', 'rbac', 'role', 'create'],
+		description: 'Create a new role with permissions.',
+		goal: 'Allow admins to define custom roles.',
+		context: 'Role management in admin settings.',
+	},
+	io: {
+		input: CreateRoleInputModel,
+		output: RoleModel,
+		errors: {
+			ROLE_EXISTS: {
+				description: 'A role with this name already exists',
+				http: 409,
+				gqlCode: 'ROLE_EXISTS',
+				when: 'Role name is taken',
+			},
+		},
+	},
+	policy: {
+		auth: 'admin',
+	},
+	sideEffects: {
+		audit: ['role.created'],
+	},
 });
 ```

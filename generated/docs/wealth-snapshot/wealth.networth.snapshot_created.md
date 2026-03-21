@@ -14,28 +14,28 @@ A net worth snapshot was generated.
 
 ```typescript
 export const NetWorthSnapshotCreatedEvent = defineEvent({
-  meta: {
-    key: 'wealth.networth.snapshot_created',
-    version: '1.0.0',
-    description: 'A net worth snapshot was generated.',
-    stability: StabilityEnum.Experimental,
-    owners: [],
-    tags: [],
-  },
-  payload: defineSchemaModel({
-    name: 'NetWorthSnapshotEventPayload',
-    description: 'Net worth snapshot payload',
-    fields: {
-      netWorth: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
-      totalAssets: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
-      totalLiabilities: {
-        type: ScalarTypeEnum.Float_unsecure(),
-        isOptional: false,
-      },
-      currency: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      orgId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      asOf: { type: ScalarTypeEnum.DateTime(), isOptional: false },
-    },
-  }),
+	meta: {
+		key: 'wealth.networth.snapshot_created',
+		version: '1.0.0',
+		description: 'A net worth snapshot was generated.',
+		stability: StabilityEnum.Experimental,
+		owners: [],
+		tags: [],
+	},
+	payload: defineSchemaModel({
+		name: 'NetWorthSnapshotEventPayload',
+		description: 'Net worth snapshot payload',
+		fields: {
+			netWorth: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
+			totalAssets: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
+			totalLiabilities: {
+				type: ScalarTypeEnum.Float_unsecure(),
+				isOptional: false,
+			},
+			currency: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+			orgId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+			asOf: { type: ScalarTypeEnum.DateTime(), isOptional: false },
+		},
+	}),
 });
 ```

@@ -25,23 +25,23 @@ Used by webhook handlers to validate and normalize provider webhook events.
 
 ```typescript
 export const MeetingRecorderWebhookIngest = defineCommand({
-  meta: {
-    key: 'meeting-recorder.webhooks.ingest',
-    version: '1.0.0',
-    description: 'Ingest a webhook from a meeting recorder provider.',
-    goal: 'Trigger transcript syncs or downstream workflows without polling.',
-    context:
-      'Used by webhook handlers to validate and normalize provider webhook events.',
-    owners: ['@platform.integrations'],
-    tags: ['meeting-recorder', 'webhooks', 'transcripts'],
-    stability: 'experimental',
-  },
-  io: {
-    input: MeetingRecorderWebhookIngestInput,
-    output: MeetingRecorderWebhookIngestOutput,
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'meeting-recorder.webhooks.ingest',
+		version: '1.0.0',
+		description: 'Ingest a webhook from a meeting recorder provider.',
+		goal: 'Trigger transcript syncs or downstream workflows without polling.',
+		context:
+			'Used by webhook handlers to validate and normalize provider webhook events.',
+		owners: ['@platform.integrations'],
+		tags: ['meeting-recorder', 'webhooks', 'transcripts'],
+		stability: 'experimental',
+	},
+	io: {
+		input: MeetingRecorderWebhookIngestInput,
+		output: MeetingRecorderWebhookIngestOutput,
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

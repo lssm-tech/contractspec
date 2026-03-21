@@ -23,39 +23,39 @@ Used by runtime surfaces to fetch brand assets prior to rendering tenant-specifi
 
 ```typescript
 export const GetResolvedBrandingQuery = defineQuery({
-  meta: {
-    key: 'appConfig.getResolvedBranding',
-    version: '1.0.0',
-    description: 'Returns the resolved branding for a tenant/app/environment.',
-    owners: [OwnersEnum.PlatformSigil],
-    tags: ['branding'],
-    stability: StabilityEnum.Beta,
-    goal: 'Expose hydrated branding assets for rendering UI/email experiences.',
-    context:
-      'Used by runtime surfaces to fetch brand assets prior to rendering tenant-specific experiences.',
-  },
-  io: {
-    input: new SchemaModel({
-      name: 'GetResolvedBrandingInput',
-      fields: {
-        tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
-        appId: { type: ScalarTypeEnum.ID(), isOptional: false },
-        environment: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: true,
-        },
-      },
-    }),
-    output: new SchemaModel({
-      name: 'GetResolvedBrandingOutput',
-      fields: {
-        branding: { type: ScalarTypeEnum.JSONObject(), isOptional: false },
-      },
-    }),
-  },
-  policy: {
-    auth: 'admin',
-    policies: [{ key: 'platform.app-config.read', version: '1.0.0' }],
-  },
+	meta: {
+		key: 'appConfig.getResolvedBranding',
+		version: '1.0.0',
+		description: 'Returns the resolved branding for a tenant/app/environment.',
+		owners: [OwnersEnum.PlatformSigil],
+		tags: ['branding'],
+		stability: StabilityEnum.Beta,
+		goal: 'Expose hydrated branding assets for rendering UI/email experiences.',
+		context:
+			'Used by runtime surfaces to fetch brand assets prior to rendering tenant-specific experiences.',
+	},
+	io: {
+		input: new SchemaModel({
+			name: 'GetResolvedBrandingInput',
+			fields: {
+				tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
+				appId: { type: ScalarTypeEnum.ID(), isOptional: false },
+				environment: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: true,
+				},
+			},
+		}),
+		output: new SchemaModel({
+			name: 'GetResolvedBrandingOutput',
+			fields: {
+				branding: { type: ScalarTypeEnum.JSONObject(), isOptional: false },
+			},
+		}),
+	},
+	policy: {
+		auth: 'admin',
+		policies: [{ key: 'platform.app-config.read', version: '1.0.0' }],
+	},
 });
 ```

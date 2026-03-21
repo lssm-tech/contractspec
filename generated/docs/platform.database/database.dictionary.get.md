@@ -23,30 +23,30 @@ Used by agents to interpret data before retrieval or export.
 
 ```typescript
 export const DatabaseDictionaryGetQuery = defineQuery({
-  meta: {
-    key: 'database.dictionary.get',
-    title: 'Get Data Dictionary Entry',
-    version: '1.0.0',
-    description: 'Retrieve a data dictionary entry for a schema field.',
-    goal: 'Provide semantic context for schema fields and PII handling.',
-    context: 'Used by agents to interpret data before retrieval or export.',
-    domain: DATABASE_DOMAIN,
-    owners: DATABASE_OWNERS,
-    tags: [...DATABASE_TAGS, 'dictionary'],
-    stability: DATABASE_STABILITY,
-    docId: [docId('docs.tech.database.dictionary.get')],
-  },
-  capability: {
-    key: 'database.context',
-    version: '1.0.0',
-  },
-  io: {
-    input: DatabaseDictionaryGetInput,
-    output: DatabaseDictionaryGetOutput,
-  },
-  policy: {
-    auth: 'admin',
-    pii: [],
-  },
+	meta: {
+		key: 'database.dictionary.get',
+		title: 'Get Data Dictionary Entry',
+		version: '1.0.0',
+		description: 'Retrieve a data dictionary entry for a schema field.',
+		goal: 'Provide semantic context for schema fields and PII handling.',
+		context: 'Used by agents to interpret data before retrieval or export.',
+		domain: DATABASE_DOMAIN,
+		owners: DATABASE_OWNERS,
+		tags: [...DATABASE_TAGS, 'dictionary'],
+		stability: DATABASE_STABILITY,
+		docId: [docId('docs.tech.database.dictionary.get')],
+	},
+	capability: {
+		key: 'database.context',
+		version: '1.0.0',
+	},
+	io: {
+		input: DatabaseDictionaryGetInput,
+		output: DatabaseDictionaryGetOutput,
+	},
+	policy: {
+		auth: 'admin',
+		pii: [],
+	},
 });
 ```

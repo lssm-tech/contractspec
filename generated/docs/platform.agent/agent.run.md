@@ -23,39 +23,39 @@ Used by Studio and API clients to launch background agent workflows.
 
 ```typescript
 export const AgentRunCommand = defineCommand({
-  meta: {
-    key: 'agent.run',
-    title: 'Run Agent',
-    version: '1.0.0',
-    description: 'Submit a background agent run with a context snapshot.',
-    goal: 'Start an auditable agent execution with full provenance.',
-    context:
-      'Used by Studio and API clients to launch background agent workflows.',
-    domain: AGENT_DOMAIN,
-    owners: AGENT_OWNERS,
-    tags: [...AGENT_TAGS, 'run'],
-    stability: AGENT_STABILITY,
-    docId: [docId('docs.tech.agent.run')],
-  },
-  capability: {
-    key: 'agent.execution',
-    version: '1.0.0',
-  },
-  io: {
-    input: AgentRunInput,
-    output: AgentRunOutput,
-  },
-  policy: {
-    auth: 'user',
-    pii: ['prompt'],
-  },
-  sideEffects: {
-    emits: [
-      {
-        ref: AgentRunStartedEvent.meta,
-        when: 'A new agent run is created and queued.',
-      },
-    ],
-  },
+	meta: {
+		key: 'agent.run',
+		title: 'Run Agent',
+		version: '1.0.0',
+		description: 'Submit a background agent run with a context snapshot.',
+		goal: 'Start an auditable agent execution with full provenance.',
+		context:
+			'Used by Studio and API clients to launch background agent workflows.',
+		domain: AGENT_DOMAIN,
+		owners: AGENT_OWNERS,
+		tags: [...AGENT_TAGS, 'run'],
+		stability: AGENT_STABILITY,
+		docId: [docId('docs.tech.agent.run')],
+	},
+	capability: {
+		key: 'agent.execution',
+		version: '1.0.0',
+	},
+	io: {
+		input: AgentRunInput,
+		output: AgentRunOutput,
+	},
+	policy: {
+		auth: 'user',
+		pii: ['prompt'],
+	},
+	sideEffects: {
+		emits: [
+			{
+				ref: AgentRunStartedEvent.meta,
+				when: 'A new agent run is created and queued.',
+			},
+		],
+	},
 });
 ```

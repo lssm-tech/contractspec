@@ -29,33 +29,33 @@ Organization settings page.
 
 ```typescript
 export const UpdateOrgContract = defineCommand({
-  meta: {
-    key: 'identity.org.update',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.identity-rbac'],
-    tags: ['identity', 'org', 'update'],
-    description: 'Update organization details.',
-    goal: 'Allow org admins to update organization settings.',
-    context: 'Organization settings page.',
-  },
-  io: {
-    input: UpdateOrgInputModel,
-    output: OrganizationModel,
-  },
-  policy: {
-    auth: 'user',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'org.updated',
-        version: '1.0.0',
-        when: 'Organization is updated',
-        payload: OrganizationModel,
-      },
-    ],
-    audit: ['org.updated'],
-  },
+	meta: {
+		key: 'identity.org.update',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.identity-rbac'],
+		tags: ['identity', 'org', 'update'],
+		description: 'Update organization details.',
+		goal: 'Allow org admins to update organization settings.',
+		context: 'Organization settings page.',
+	},
+	io: {
+		input: UpdateOrgInputModel,
+		output: OrganizationModel,
+	},
+	policy: {
+		auth: 'user',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'org.updated',
+				version: '1.0.0',
+				when: 'Organization is updated',
+				payload: OrganizationModel,
+			},
+		],
+		audit: ['org.updated'],
+	},
 });
 ```

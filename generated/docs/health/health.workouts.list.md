@@ -25,24 +25,24 @@ Used by training plans, progress analytics, and recovery workflows.
 
 ```typescript
 export const HealthListWorkouts = defineQuery({
-  meta: {
-    key: 'health.workouts.list',
-    version: '1.0.0',
-    description:
-      'List normalized workout entries synced from health integrations.',
-    goal: 'Provide canonical workout history across connected providers.',
-    context:
-      'Used by training plans, progress analytics, and recovery workflows.',
-    owners: ['@platform.integrations'],
-    tags: ['health', 'workouts', 'wearables'],
-    stability: 'experimental',
-  },
-  io: {
-    input: HealthListWorkoutsInput,
-    output: HealthListWorkoutsOutput,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'health.workouts.list',
+		version: '1.0.0',
+		description:
+			'List normalized workout entries synced from health integrations.',
+		goal: 'Provide canonical workout history across connected providers.',
+		context:
+			'Used by training plans, progress analytics, and recovery workflows.',
+		owners: ['@platform.integrations'],
+		tags: ['health', 'workouts', 'wearables'],
+		stability: 'experimental',
+	},
+	io: {
+		input: HealthListWorkoutsInput,
+		output: HealthListWorkoutsOutput,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

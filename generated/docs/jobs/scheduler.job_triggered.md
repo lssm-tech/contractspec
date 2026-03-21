@@ -16,14 +16,14 @@ A scheduled job has been triggered.
 
 ```typescript
 export const ScheduledJobTriggeredEvent = defineEvent({
-  meta: {
-    key: 'scheduler.job_triggered',
-    version: '1.0.0',
-    description: 'A scheduled job has been triggered.',
-    stability: StabilityEnum.Stable,
-    owners: ['@contractspec.libs.jobs'],
-    tags: ['job-queue', 'scheduler'],
-  },
-  payload: ScheduledJobTriggeredPayload,
+	meta: {
+		key: 'scheduler.job_triggered',
+		version: '1.0.0',
+		description: 'A scheduled job has been triggered.',
+		stability: StabilityEnum.Stable,
+		owners: ['@contractspec.libs.jobs'],
+		tags: ['job-queue', 'scheduler'],
+	},
+	payload: ScheduledJobTriggeredPayload,
 });
 ```

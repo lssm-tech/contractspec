@@ -17,29 +17,29 @@ Test for listing workflow definitions
 
 ```typescript
 export const DefinitionListTest = defineTestSpec({
-  meta: {
-    key: 'workflow.definition.list.test',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@example.workflow-system'],
-    description: 'Test for listing workflow definitions',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'workflow.definition.list', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'workflow.definition.list' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'workflow.definition.list' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'workflow.definition.list.test',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@example.workflow-system'],
+		description: 'Test for listing workflow definitions',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'workflow.definition.list', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'workflow.definition.list' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'workflow.definition.list' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

@@ -25,22 +25,22 @@ User account management
 
 ```typescript
 export const CreateUser = defineCommand({
-  meta: {
-    key: 'user.create',
-    version: '1.0.0',
-    goal: 'Create a new user account',
-    description: 'Create a new user account with the provided email',
-    owners: ['@team'],
-    tags: ['user'],
-    stability: 'stable',
-    context: 'User account management',
-  },
-  io: {
-    input: UserInput,
-    output: UserInput,
-  },
-  policy: {
-    auth: 'anonymous',
-  },
+	meta: {
+		key: 'user.create',
+		version: '1.0.0',
+		goal: 'Create a new user account',
+		description: 'Create a new user account with the provided email',
+		owners: ['@team'],
+		tags: ['user'],
+		stability: 'stable',
+		context: 'User account management',
+	},
+	io: {
+		input: UserInput,
+		output: UserInput,
+	},
+	policy: {
+		auth: 'anonymous',
+	},
 });
 ```

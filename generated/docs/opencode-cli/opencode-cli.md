@@ -8,7 +8,7 @@ Agent-mode contract building and validation for the OpenCode CLI
 
 - **Type**: feature
 - **Version**: 1.0.0
-- **Stability**: experimental
+- **Stability**: stable
 - **Owners**: @contractspec/examples
 - **Tags**: opencode, example, cli
 - **File**: `packages/examples/opencode-cli/src/opencode-cli.feature.ts`
@@ -20,22 +20,22 @@ Agent-mode contract building and validation for the OpenCode CLI
 ## Source Definition
 
 ```typescript
-import { defineFeature } from "@contractspec/lib.contracts-spec";
+import { defineFeature } from '@contractspec/lib.contracts-spec';
 
 export const OpenCodeCliFeature = defineFeature({
-  meta: {
-    key: "opencode-cli",
-    version: "1.0.0",
-    title: "OpenCode CLI Example",
-    description:
-      "Agent-mode contract building and validation for the OpenCode CLI",
-    domain: "example",
-    owners: ["@contractspec/examples"],
-    tags: ["opencode", "example", "cli"],
-    stability: "experimental",
-  },
+	meta: {
+		key: 'opencode-cli',
+		version: '1.0.0',
+		title: 'OpenCode CLI Example',
+		description:
+			'Agent-mode contract building and validation for the OpenCode CLI',
+		domain: 'example',
+		owners: ['@contractspec/examples'],
+		tags: ['opencode', 'example', 'cli'],
+		stability: 'stable',
+	},
 
-  operations: [{ key: "opencode.example.echo", version: "1.0.0" }],
+	operations: [{ key: 'opencode.example.echo', version: '1.0.0' }],
 });
 
 ```

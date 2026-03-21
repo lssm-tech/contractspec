@@ -25,24 +25,24 @@ Used by Pocket Family Office dashboards and sync workflows to enumerate bank acc
 
 ```typescript
 export const OpenBankingListAccounts = defineQuery({
-  meta: {
-    key: 'openbanking.accounts.list',
-    version: '1.0.0',
-    description:
-      'List bank accounts available to a tenant/user via Powens Open Banking.',
-    goal: 'Provide downstream workflows with the set of accounts accessible via the configured open banking connection.',
-    context:
-      'Used by Pocket Family Office dashboards and sync workflows to enumerate bank accounts prior to syncing balances or transactions.',
-    owners: ['@platform.finance'],
-    tags: ['open-banking', 'powens', 'accounts'],
-    stability: 'experimental',
-  },
-  io: {
-    input: OpenBankingListAccountsInput,
-    output: OpenBankingListAccountsOutput,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'openbanking.accounts.list',
+		version: '1.0.0',
+		description:
+			'List bank accounts available to a tenant/user via Powens Open Banking.',
+		goal: 'Provide downstream workflows with the set of accounts accessible via the configured open banking connection.',
+		context:
+			'Used by Pocket Family Office dashboards and sync workflows to enumerate bank accounts prior to syncing balances or transactions.',
+		owners: ['@platform.finance'],
+		tags: ['open-banking', 'powens', 'accounts'],
+		stability: 'experimental',
+	},
+	io: {
+		input: OpenBankingListAccountsInput,
+		output: OpenBankingListAccountsOutput,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

@@ -17,14 +17,14 @@ An AI agent configuration was updated.
 
 ```typescript
 export const AgentUpdatedEvent = defineEvent({
-  meta: {
-    key: 'agent-console.agent.updated',
-    version: '1.0.0',
-    description: 'An AI agent configuration was updated.',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['agent', 'updated'],
-  },
-  payload: AgentUpdatedPayload,
+	meta: {
+		key: 'agent-console.agent.updated',
+		version: '1.0.0',
+		description: 'An AI agent configuration was updated.',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['agent', 'updated'],
+	},
+	payload: AgentUpdatedPayload,
 });
 ```

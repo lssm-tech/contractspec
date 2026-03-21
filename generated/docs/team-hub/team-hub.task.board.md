@@ -24,23 +24,23 @@ Project management view.
 
 ```typescript
 export const TaskBoardPresentation = definePresentation({
-  meta: {
-    key: 'team-hub.task.board',
-    version: '1.0.0',
-    title: 'Task Board',
-    description: 'Kanban board for team tasks.',
-    domain: 'team-hub',
-    owners: ['@team-hub'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Visualize task progress.',
-    context: 'Project management view.',
-    tags: ['task', 'board'],
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'TaskBoard',
-  },
-  targets: ['react'],
+	meta: {
+		key: 'team-hub.task.board',
+		version: '1.0.0',
+		title: 'Task Board',
+		description: 'Kanban board for team tasks.',
+		domain: 'team-hub',
+		owners: ['@team-hub'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Visualize task progress.',
+		context: 'Project management view.',
+		tags: ['task', 'board'],
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'TaskBoard',
+	},
+	targets: ['react'],
 });
 ```

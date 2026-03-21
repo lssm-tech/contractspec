@@ -29,49 +29,49 @@ Called by services when metered features are used.
 
 ```typescript
 export const RecordUsageContract = defineCommand({
-  meta: {
-    key: 'saas.billing.usage.record',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.saas-boilerplate'],
-    tags: ['saas', 'billing', 'usage'],
-    description: 'Record usage of a metered feature.',
-    goal: 'Track feature usage for billing.',
-    context: 'Called by services when metered features are used.',
-  },
-  io: {
-    input: RecordUsageInputModel,
-    output: RecordUsageOutputModel,
-  },
-  policy: {
-    auth: 'user',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'billing.usage.recorded',
-        version: '1.0.0',
-        when: 'Usage is recorded',
-        payload: UsageRecordedPayloadModel,
-      },
-    ],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'record-usage-happy-path',
-        given: ['Organization exists'],
-        when: ['System records feature usage'],
-        then: ['Usage is recorded'],
-      },
-    ],
-    examples: [
-      {
-        key: 'record-api-call',
-        input: { feature: 'api_calls', quantity: 1, idempotencyKey: 'abc-123' },
-        output: { recorded: true, currentUsage: 100 },
-      },
-    ],
-  },
+	meta: {
+		key: 'saas.billing.usage.record',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.saas-boilerplate'],
+		tags: ['saas', 'billing', 'usage'],
+		description: 'Record usage of a metered feature.',
+		goal: 'Track feature usage for billing.',
+		context: 'Called by services when metered features are used.',
+	},
+	io: {
+		input: RecordUsageInputModel,
+		output: RecordUsageOutputModel,
+	},
+	policy: {
+		auth: 'user',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'billing.usage.recorded',
+				version: '1.0.0',
+				when: 'Usage is recorded',
+				payload: UsageRecordedPayloadModel,
+			},
+		],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'record-usage-happy-path',
+				given: ['Organization exists'],
+				when: ['System records feature usage'],
+				then: ['Usage is recorded'],
+			},
+		],
+		examples: [
+			{
+				key: 'record-api-call',
+				input: { feature: 'api_calls', quantity: 1, idempotencyKey: 'abc-123' },
+				output: { recorded: true, currentUsage: 100 },
+			},
+		],
+	},
 });
 ```

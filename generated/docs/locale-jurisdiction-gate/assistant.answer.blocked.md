@@ -17,14 +17,14 @@ Assistant answer blocked (fail-closed).
 
 ```typescript
 export const AssistantAnswerBlockedEvent = defineEvent({
-  meta: {
-    key: 'assistant.answer.blocked',
-    version: '1.0.0',
-    description: 'Assistant answer blocked (fail-closed).',
-    stability: 'experimental',
-    owners: ['@examples'],
-    tags: ['assistant', 'policy', 'blocked'],
-  },
-  payload: AssistantAnswerBlockedPayload,
+	meta: {
+		key: 'assistant.answer.blocked',
+		version: '1.0.0',
+		description: 'Assistant answer blocked (fail-closed).',
+		stability: 'experimental',
+		owners: ['@examples'],
+		tags: ['assistant', 'policy', 'blocked'],
+	},
+	payload: AssistantAnswerBlockedPayload,
 });
 ```

@@ -17,14 +17,14 @@ A payout has been created.
 
 ```typescript
 export const PayoutCreatedEvent = defineEvent({
-  meta: {
-    key: 'marketplace.payout.created',
-    version: '1.0.0',
-    description: 'A payout has been created.',
-    stability: 'experimental',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'payout'],
-  },
-  payload: PayoutCreatedPayload,
+	meta: {
+		key: 'marketplace.payout.created',
+		version: '1.0.0',
+		description: 'A payout has been created.',
+		stability: 'experimental',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'payout'],
+	},
+	payload: PayoutCreatedPayload,
 });
 ```

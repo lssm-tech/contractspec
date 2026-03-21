@@ -29,50 +29,50 @@ Project settings page.
 
 ```typescript
 export const DeleteProjectContract = defineCommand({
-  meta: {
-    key: 'saas.project.delete',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['example.saas-boilerplate'],
-    tags: ['saas', 'project', 'delete'],
-    description: 'Delete a project (soft delete).',
-    goal: 'Allow project owners to remove projects.',
-    context: 'Project settings page.',
-  },
-  io: {
-    input: DeleteProjectInputModel,
-    output: DeleteProjectOutputModel,
-  },
-  policy: {
-    auth: 'user',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'project.deleted',
-        version: '1.0.0',
-        when: 'Project is deleted',
-        payload: ProjectDeletedPayloadModel,
-      },
-    ],
-    audit: ['project.deleted'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'delete-project-happy-path',
-        given: ['Project exists'],
-        when: ['User deletes project'],
-        then: ['Project is deleted', 'ProjectDeleted event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'delete-existing',
-        input: { projectId: 'proj-123' },
-        output: { success: true },
-      },
-    ],
-  },
+	meta: {
+		key: 'saas.project.delete',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['example.saas-boilerplate'],
+		tags: ['saas', 'project', 'delete'],
+		description: 'Delete a project (soft delete).',
+		goal: 'Allow project owners to remove projects.',
+		context: 'Project settings page.',
+	},
+	io: {
+		input: DeleteProjectInputModel,
+		output: DeleteProjectOutputModel,
+	},
+	policy: {
+		auth: 'user',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'project.deleted',
+				version: '1.0.0',
+				when: 'Project is deleted',
+				payload: ProjectDeletedPayloadModel,
+			},
+		],
+		audit: ['project.deleted'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'delete-project-happy-path',
+				given: ['Project exists'],
+				when: ['User deletes project'],
+				then: ['Project is deleted', 'ProjectDeleted event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'delete-existing',
+				input: { projectId: 'proj-123' },
+				output: { success: true },
+			},
+		],
+	},
 });
 ```

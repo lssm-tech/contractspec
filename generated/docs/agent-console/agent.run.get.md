@@ -25,52 +25,52 @@ Run details page or monitoring.
 
 ```typescript
 export const GetRunQuery = defineQuery({
-  meta: {
-    key: 'agent.run.get',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['run', 'get'],
-    description: 'Retrieves a run by its ID with optional details.',
-    goal: 'View detailed run information.',
-    context: 'Run details page or monitoring.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'GetRunInput',
-      fields: {
-        runId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-        includeSteps: { type: ScalarTypeEnum.Boolean(), isOptional: true },
-        includeLogs: { type: ScalarTypeEnum.Boolean(), isOptional: true },
-      },
-    }),
-    output: RunModel,
-    errors: {
-      RUN_NOT_FOUND: {
-        description: 'The specified run does not exist',
-        http: 404,
-        gqlCode: 'RUN_NOT_FOUND',
-        when: 'Run ID is invalid',
-      },
-    },
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'get-run-happy-path',
-        given: ['Run exists'],
-        when: ['User requests run by ID'],
-        then: ['Run details are returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'get-with-steps',
-        input: { runId: 'run-456', includeSteps: true, includeLogs: false },
-        output: { id: 'run-456', status: 'completed', steps: [] },
-      },
-    ],
-  },
+	meta: {
+		key: 'agent.run.get',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['run', 'get'],
+		description: 'Retrieves a run by its ID with optional details.',
+		goal: 'View detailed run information.',
+		context: 'Run details page or monitoring.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'GetRunInput',
+			fields: {
+				runId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+				includeSteps: { type: ScalarTypeEnum.Boolean(), isOptional: true },
+				includeLogs: { type: ScalarTypeEnum.Boolean(), isOptional: true },
+			},
+		}),
+		output: RunModel,
+		errors: {
+			RUN_NOT_FOUND: {
+				description: 'The specified run does not exist',
+				http: 404,
+				gqlCode: 'RUN_NOT_FOUND',
+				when: 'Run ID is invalid',
+			},
+		},
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'get-run-happy-path',
+				given: ['Run exists'],
+				when: ['User requests run by ID'],
+				then: ['Run details are returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'get-with-steps',
+				input: { runId: 'run-456', includeSteps: true, includeLogs: false },
+				output: { id: 'run-456', status: 'completed', steps: [] },
+			},
+		],
+	},
 });
 ```

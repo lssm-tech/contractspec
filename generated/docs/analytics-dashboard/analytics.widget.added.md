@@ -17,14 +17,14 @@ A widget was added to a dashboard.
 
 ```typescript
 export const WidgetAddedEvent = defineEvent({
-  meta: {
-    key: 'analytics.widget.added',
-    version: '1.0.0',
-    description: 'A widget was added to a dashboard.',
-    stability: 'stable',
-    owners: ['@analytics-team'],
-    tags: ['dashboard'],
-  },
-  payload: WidgetEventPayload,
+	meta: {
+		key: 'analytics.widget.added',
+		version: '1.0.0',
+		description: 'A widget was added to a dashboard.',
+		stability: 'stable',
+		owners: ['@analytics-team'],
+		tags: ['dashboard'],
+	},
+	payload: WidgetEventPayload,
 });
 ```

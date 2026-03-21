@@ -25,25 +25,25 @@ Chat History
 
 ```typescript
 export const DeleteConversationContract = defineCommand({
-  meta: {
-    key: 'ai-chat.conversations.delete',
-    version: '1.0.0',
-    owners: ['@ai-team'],
-    stability: 'experimental',
-    description: 'Delete a conversation.',
-    tags: ['chat', 'delete'],
-    goal: 'Delete conversation',
-    context: 'Chat History',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'DeleteConversationInput',
-      fields: {
-        id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      },
-    }),
-    output: defineSchemaModel({ name: 'VoidOutput', fields: {} }),
-  },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'ai-chat.conversations.delete',
+		version: '1.0.0',
+		owners: ['@ai-team'],
+		stability: 'experimental',
+		description: 'Delete a conversation.',
+		tags: ['chat', 'delete'],
+		goal: 'Delete conversation',
+		context: 'Chat History',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'DeleteConversationInput',
+			fields: {
+				id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+			},
+		}),
+		output: defineSchemaModel({ name: 'VoidOutput', fields: {} }),
+	},
+	policy: { auth: 'user' },
 });
 ```

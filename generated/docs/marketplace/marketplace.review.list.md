@@ -25,34 +25,34 @@ Product page, store page.
 
 ```typescript
 export const ListReviewsContract = defineQuery({
-  meta: {
-    key: 'marketplace.review.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.marketplace'],
-    tags: ['marketplace', 'review', 'list'],
-    description: 'List reviews with filters.',
-    goal: 'Display product/store reviews.',
-    context: 'Product page, store page.',
-  },
-  io: { input: ListReviewsInputModel, output: ListReviewsOutputModel },
-  policy: { auth: 'anonymous' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'list-reviews-happy-path',
-        given: ['Product has reviews'],
-        when: ['User views reviews'],
-        then: ['List of reviews is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'list-product-reviews',
-        input: { productId: 'prod-456', limit: 10 },
-        output: { items: [], total: 10, hasMore: false },
-      },
-    ],
-  },
+	meta: {
+		key: 'marketplace.review.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.marketplace'],
+		tags: ['marketplace', 'review', 'list'],
+		description: 'List reviews with filters.',
+		goal: 'Display product/store reviews.',
+		context: 'Product page, store page.',
+	},
+	io: { input: ListReviewsInputModel, output: ListReviewsOutputModel },
+	policy: { auth: 'anonymous' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'list-reviews-happy-path',
+				given: ['Product has reviews'],
+				when: ['User views reviews'],
+				then: ['List of reviews is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'list-product-reviews',
+				input: { productId: 'prod-456', limit: 10 },
+				output: { items: [], total: 10, hasMore: false },
+			},
+		],
+	},
 });
 ```

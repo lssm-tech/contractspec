@@ -17,29 +17,29 @@ Test for creating sync config
 
 ```typescript
 export const SyncConfigCreateTest = defineTestSpec({
-  meta: {
-    key: 'integration.syncConfig.create.test',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@example.integration-hub'],
-    description: 'Test for creating sync config',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'integration.syncConfig.create', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'integration.syncConfig.create' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'integration.syncConfig.create' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'integration.syncConfig.create.test',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@example.integration-hub'],
+		description: 'Test for creating sync config',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'integration.syncConfig.create', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'integration.syncConfig.create' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'integration.syncConfig.create' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

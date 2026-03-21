@@ -17,14 +17,14 @@ Fired when a connection status changes
 
 ```typescript
 export const ConnectionStatusChangedEvent = defineEvent({
-  meta: {
-    key: 'integration.connection.statusChanged',
-    version: '1.0.0',
-    description: 'Fired when a connection status changes',
-    stability: 'experimental',
-    owners: ['@integration-team'],
-    tags: ['integration', 'connection'],
-  },
-  payload: ConnectionStatusChangedPayload,
+	meta: {
+		key: 'integration.connection.statusChanged',
+		version: '1.0.0',
+		description: 'Fired when a connection status changes',
+		stability: 'experimental',
+		owners: ['@integration-team'],
+		tags: ['integration', 'connection'],
+	},
+	payload: ConnectionStatusChangedPayload,
 });
 ```

@@ -23,30 +23,30 @@ Used by ACP clients for read/write/list operations.
 
 ```typescript
 export const AcpFsAccessCommand = defineCommand({
-  meta: {
-    key: 'acp.fs.access',
-    title: 'ACP File System Access',
-    version: '1.0.0',
-    description: 'Perform file system access within an ACP session.',
-    goal: 'Expose file system access through governed ACP transport.',
-    context: 'Used by ACP clients for read/write/list operations.',
-    domain: ACP_DOMAIN,
-    owners: ACP_OWNERS,
-    tags: [...ACP_TAGS, 'filesystem'],
-    stability: ACP_STABILITY,
-    docId: [docId('docs.tech.acp.fs.access')],
-  },
-  capability: {
-    key: 'acp.transport',
-    version: '1.0.0',
-  },
-  io: {
-    input: AcpFsAccessInput,
-    output: AcpFsAccessOutput,
-  },
-  policy: {
-    auth: 'admin',
-    pii: [],
-  },
+	meta: {
+		key: 'acp.fs.access',
+		title: 'ACP File System Access',
+		version: '1.0.0',
+		description: 'Perform file system access within an ACP session.',
+		goal: 'Expose file system access through governed ACP transport.',
+		context: 'Used by ACP clients for read/write/list operations.',
+		domain: ACP_DOMAIN,
+		owners: ACP_OWNERS,
+		tags: [...ACP_TAGS, 'filesystem'],
+		stability: ACP_STABILITY,
+		docId: [docId('docs.tech.acp.fs.access')],
+	},
+	capability: {
+		key: 'acp.transport',
+		version: '1.0.0',
+	},
+	io: {
+		input: AcpFsAccessInput,
+		output: AcpFsAccessOutput,
+	},
+	policy: {
+		auth: 'admin',
+		pii: [],
+	},
 });
 ```

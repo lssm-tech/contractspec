@@ -25,22 +25,22 @@ Called to display attached files.
 
 ```typescript
 export const ListAttachmentsContract = defineQuery({
-  meta: {
-    key: 'attachment.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.files'],
-    tags: ['files', 'attachment', 'list'],
-    description: 'List attachments for an entity.',
-    goal: 'Get all files attached to an entity.',
-    context: 'Called to display attached files.',
-  },
-  io: {
-    input: ListAttachmentsInput,
-    output: ListAttachmentsOutput,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'attachment.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.files'],
+		tags: ['files', 'attachment', 'list'],
+		description: 'List attachments for an entity.',
+		goal: 'Get all files attached to an entity.',
+		context: 'Called to display attached files.',
+	},
+	io: {
+		input: ListAttachmentsInput,
+		output: ListAttachmentsOutput,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

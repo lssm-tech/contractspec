@@ -17,14 +17,14 @@ A product has been published.
 
 ```typescript
 export const ProductPublishedEvent = defineEvent({
-  meta: {
-    key: 'marketplace.product.published',
-    version: '1.0.0',
-    description: 'A product has been published.',
-    stability: 'experimental',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'product'],
-  },
-  payload: ProductPublishedPayload,
+	meta: {
+		key: 'marketplace.product.published',
+		version: '1.0.0',
+		description: 'A product has been published.',
+		stability: 'experimental',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'product'],
+	},
+	payload: ProductPublishedPayload,
 });
 ```

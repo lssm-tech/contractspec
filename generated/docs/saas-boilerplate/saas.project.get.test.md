@@ -17,29 +17,29 @@ Test for getting project
 
 ```typescript
 export const ProjectGetTest = defineTestSpec({
-  meta: {
-    key: 'saas.project.get.test',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@example.saas-boilerplate'],
-    description: 'Test for getting project',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'saas.project.get', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'saas.project.get' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'saas.project.get' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'saas.project.get.test',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@example.saas-boilerplate'],
+		description: 'Test for getting project',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'saas.project.get', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'saas.project.get' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'saas.project.get' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

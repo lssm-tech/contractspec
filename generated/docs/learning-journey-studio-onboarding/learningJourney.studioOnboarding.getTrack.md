@@ -25,24 +25,24 @@ Called by Studio/Playground to render journey steps.
 
 ```typescript
 export const GetStudioOnboardingTrack = defineQuery({
-  meta: {
-    key: 'learningJourney.studioOnboarding.getTrack',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['examples.learning-journey.studio-onboarding'],
-    tags: ['learning', 'onboarding', 'studio'],
-    description: 'Fetch the Studio onboarding track definition.',
-    goal: 'Expose track metadata to UIs and templates.',
-    context: 'Called by Studio/Playground to render journey steps.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'StudioOnboardingTrackInput',
-      description: 'Track input',
-      fields: {},
-    }),
-    output: TrackResponseModel,
-  },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'learningJourney.studioOnboarding.getTrack',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['examples.learning-journey.studio-onboarding'],
+		tags: ['learning', 'onboarding', 'studio'],
+		description: 'Fetch the Studio onboarding track definition.',
+		goal: 'Expose track metadata to UIs and templates.',
+		context: 'Called by Studio/Playground to render journey steps.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'StudioOnboardingTrackInput',
+			description: 'Track input',
+			fields: {},
+		}),
+		output: TrackResponseModel,
+	},
+	policy: { auth: 'user' },
 });
 ```

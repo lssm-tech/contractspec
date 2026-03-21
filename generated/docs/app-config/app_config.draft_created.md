@@ -14,29 +14,29 @@ A new tenant config draft was created.
 
 ```typescript
 export const ConfigDraftCreatedEvent = defineEvent({
-  meta: {
-    ...lifecycleOwnership,
-    key: 'app_config.draft_created',
-    version: '1.0.0',
-    description: 'A new tenant config draft was created.',
-  },
-  payload: new SchemaModel({
-    name: 'ConfigDraftCreatedPayload',
-    fields: {
-      tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
-      appId: { type: ScalarTypeEnum.ID(), isOptional: false },
-      version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      blueprintName: {
-        type: ScalarTypeEnum.String_unsecure(),
-        isOptional: false,
-      },
-      blueprintVersion: {
-        type: ScalarTypeEnum.String_unsecure(),
-        isOptional: false,
-      },
-      createdBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      clonedFrom: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-    },
-  }),
+	meta: {
+		...lifecycleOwnership,
+		key: 'app_config.draft_created',
+		version: '1.0.0',
+		description: 'A new tenant config draft was created.',
+	},
+	payload: new SchemaModel({
+		name: 'ConfigDraftCreatedPayload',
+		fields: {
+			tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
+			appId: { type: ScalarTypeEnum.ID(), isOptional: false },
+			version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+			blueprintName: {
+				type: ScalarTypeEnum.String_unsecure(),
+				isOptional: false,
+			},
+			blueprintVersion: {
+				type: ScalarTypeEnum.String_unsecure(),
+				isOptional: false,
+			},
+			createdBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+			clonedFrom: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
+		},
+	}),
 });
 ```

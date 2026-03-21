@@ -25,30 +25,30 @@ Called at runtime to check feature availability.
 
 ```typescript
 export const EvaluateFlagContract = defineQuery({
-  meta: {
-    key: 'flag.evaluate',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.feature-flags'],
-    tags: ['feature-flags', 'evaluate'],
-    description: 'Evaluate a feature flag for a given context.',
-    goal: 'Determine if a feature should be enabled.',
-    context: 'Called at runtime to check feature availability.',
-  },
-  io: {
-    input: EvaluateFlagInput,
-    output: EvaluationResultModel,
-    errors: {
-      FLAG_NOT_FOUND: {
-        description: 'Flag does not exist',
-        http: 404,
-        gqlCode: 'FLAG_NOT_FOUND',
-        when: 'Flag key is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'anonymous',
-  },
+	meta: {
+		key: 'flag.evaluate',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.feature-flags'],
+		tags: ['feature-flags', 'evaluate'],
+		description: 'Evaluate a feature flag for a given context.',
+		goal: 'Determine if a feature should be enabled.',
+		context: 'Called at runtime to check feature availability.',
+	},
+	io: {
+		input: EvaluateFlagInput,
+		output: EvaluationResultModel,
+		errors: {
+			FLAG_NOT_FOUND: {
+				description: 'Flag does not exist',
+				http: 404,
+				gqlCode: 'FLAG_NOT_FOUND',
+				when: 'Flag key is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'anonymous',
+	},
 });
 ```

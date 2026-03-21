@@ -24,26 +24,26 @@ Quote management
 
 ```typescript
 export const QuoteListPresentation = definePresentation({
-  meta: {
-    key: 'service-business-os.quote.list',
-    version: '1.0.0',
-    title: 'Quote List',
-    description: 'List of quotes with status',
-    domain: 'services',
-    owners: ['@service-os'],
-    tags: ['services', 'quotes', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Track and manage quotes',
-    context: 'Quote management',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'QuoteList',
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['service.quotes.enabled'],
-  },
+	meta: {
+		key: 'service-business-os.quote.list',
+		version: '1.0.0',
+		title: 'Quote List',
+		description: 'List of quotes with status',
+		domain: 'services',
+		owners: ['@service-os'],
+		tags: ['services', 'quotes', 'list'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Track and manage quotes',
+		context: 'Quote management',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'QuoteList',
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['service.quotes.enabled'],
+	},
 });
 ```

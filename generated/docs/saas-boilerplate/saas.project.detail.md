@@ -24,26 +24,26 @@ Project detail page
 
 ```typescript
 export const ProjectDetailPresentation = definePresentation({
-  meta: {
-    key: 'saas.project.detail',
-    version: '1.0.0',
-    title: 'Project Details',
-    description: 'Detailed view of a project with settings and activity',
-    domain: 'saas-boilerplate',
-    owners: ['@saas-team'],
-    tags: ['project', 'detail'],
-    stability: StabilityEnum.Beta,
-    goal: 'View and edit project details',
-    context: 'Project detail page',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'ProjectDetailView',
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['saas.projects.enabled'],
-  },
+	meta: {
+		key: 'saas.project.detail',
+		version: '1.0.0',
+		title: 'Project Details',
+		description: 'Detailed view of a project with settings and activity',
+		domain: 'saas-boilerplate',
+		owners: ['@saas-team'],
+		tags: ['project', 'detail'],
+		stability: StabilityEnum.Beta,
+		goal: 'View and edit project details',
+		context: 'Project detail page',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'ProjectDetailView',
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['saas.projects.enabled'],
+	},
 });
 ```

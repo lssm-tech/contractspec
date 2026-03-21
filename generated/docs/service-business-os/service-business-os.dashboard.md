@@ -24,26 +24,26 @@ Service home page
 
 ```typescript
 export const ServiceDashboardPresentation = definePresentation({
-  meta: {
-    key: 'service-business-os.dashboard',
-    version: '1.0.0',
-    title: 'Service Dashboard',
-    description: 'Service business dashboard with overview metrics',
-    domain: 'services',
-    owners: ['@service-os'],
-    tags: ['services', 'dashboard'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Overview of service business metrics',
-    context: 'Service home page',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'ServiceDashboard',
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['service.dashboard.enabled'],
-  },
+	meta: {
+		key: 'service-business-os.dashboard',
+		version: '1.0.0',
+		title: 'Service Dashboard',
+		description: 'Service business dashboard with overview metrics',
+		domain: 'services',
+		owners: ['@service-os'],
+		tags: ['services', 'dashboard'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Overview of service business metrics',
+		context: 'Service home page',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'ServiceDashboard',
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['service.dashboard.enabled'],
+	},
 });
 ```

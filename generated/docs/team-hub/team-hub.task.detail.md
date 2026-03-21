@@ -24,23 +24,23 @@ Task modal or page.
 
 ```typescript
 export const TaskDetailPresentation = definePresentation({
-  meta: {
-    key: 'team-hub.task.detail',
-    version: '1.0.0',
-    title: 'Task Detail',
-    description: 'Detailed view of a task.',
-    domain: 'team-hub',
-    owners: ['@team-hub'],
-    stability: StabilityEnum.Experimental,
-    goal: 'View and edit task details.',
-    context: 'Task modal or page.',
-    tags: ['task', 'detail'],
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'TaskDetail',
-  },
-  targets: ['react'],
+	meta: {
+		key: 'team-hub.task.detail',
+		version: '1.0.0',
+		title: 'Task Detail',
+		description: 'Detailed view of a task.',
+		domain: 'team-hub',
+		owners: ['@team-hub'],
+		stability: StabilityEnum.Experimental,
+		goal: 'View and edit task details.',
+		context: 'Task modal or page.',
+		tags: ['task', 'detail'],
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'TaskDetail',
+	},
+	targets: ['react'],
 });
 ```

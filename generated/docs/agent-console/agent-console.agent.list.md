@@ -25,71 +25,71 @@ Agent list/dashboard view.
 
 ```typescript
 export const ListAgentsQuery = defineQuery({
-  meta: {
-    key: 'agent-console.agent.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['agent', 'list'],
-    description: 'Lists agents for an organization with optional filtering.',
-    goal: 'Browse and search available agents.',
-    context: 'Agent list/dashboard view.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'ListAgentsInput',
-      fields: {
-        organizationId: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: false,
-        },
-        status: { type: AgentStatusEnum, isOptional: true },
-        modelProvider: { type: ModelProviderEnum, isOptional: true },
-        search: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-        limit: {
-          type: ScalarTypeEnum.Int_unsecure(),
-          isOptional: true,
-          defaultValue: 20,
-        },
-        offset: {
-          type: ScalarTypeEnum.Int_unsecure(),
-          isOptional: true,
-          defaultValue: 0,
-        },
-      },
-    }),
-    output: defineSchemaModel({
-      name: 'ListAgentsOutput',
-      fields: {
-        items: { type: AgentSummaryModel, isArray: true, isOptional: false },
-        total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-        hasMore: { type: ScalarTypeEnum.Boolean(), isOptional: false },
-      },
-    }),
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'list-agents-happy-path',
-        given: ['Organization has agents'],
-        when: ['User lists agents'],
-        then: ['Paginated list of agents is returned'],
-      },
-      {
-        key: 'list-agents-filter-by-status',
-        given: ['Organization has agents with mixed statuses'],
-        when: ['User filters by status=active'],
-        then: ['Only active agents are returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'list-basic',
-        input: { organizationId: 'org-123', limit: 10, offset: 0 },
-        output: { items: [], total: 0, hasMore: false },
-      },
-    ],
-  },
+	meta: {
+		key: 'agent-console.agent.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['agent', 'list'],
+		description: 'Lists agents for an organization with optional filtering.',
+		goal: 'Browse and search available agents.',
+		context: 'Agent list/dashboard view.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'ListAgentsInput',
+			fields: {
+				organizationId: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: false,
+				},
+				status: { type: AgentStatusEnum, isOptional: true },
+				modelProvider: { type: ModelProviderEnum, isOptional: true },
+				search: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+				limit: {
+					type: ScalarTypeEnum.Int_unsecure(),
+					isOptional: true,
+					defaultValue: 20,
+				},
+				offset: {
+					type: ScalarTypeEnum.Int_unsecure(),
+					isOptional: true,
+					defaultValue: 0,
+				},
+			},
+		}),
+		output: defineSchemaModel({
+			name: 'ListAgentsOutput',
+			fields: {
+				items: { type: AgentSummaryModel, isArray: true, isOptional: false },
+				total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+				hasMore: { type: ScalarTypeEnum.Boolean(), isOptional: false },
+			},
+		}),
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'list-agents-happy-path',
+				given: ['Organization has agents'],
+				when: ['User lists agents'],
+				then: ['Paginated list of agents is returned'],
+			},
+			{
+				key: 'list-agents-filter-by-status',
+				given: ['Organization has agents with mixed statuses'],
+				when: ['User filters by status=active'],
+				then: ['Only active agents are returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'list-basic',
+				input: { organizationId: 'org-123', limit: 10, offset: 0 },
+				output: { items: [], total: 0, hasMore: false },
+			},
+		],
+	},
 });
 ```

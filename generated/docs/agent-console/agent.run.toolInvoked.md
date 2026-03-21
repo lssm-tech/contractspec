@@ -17,14 +17,14 @@ A tool was invoked during an agent run.
 
 ```typescript
 export const ToolInvokedEvent = defineEvent({
-  meta: {
-    key: 'agent.run.toolInvoked',
-    version: '1.0.0',
-    description: 'A tool was invoked during an agent run.',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['run', 'tool', 'invoked'],
-  },
-  payload: ToolInvokedPayload,
+	meta: {
+		key: 'agent.run.toolInvoked',
+		version: '1.0.0',
+		description: 'A tool was invoked during an agent run.',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['run', 'tool', 'invoked'],
+	},
+	payload: ToolInvokedPayload,
 });
 ```

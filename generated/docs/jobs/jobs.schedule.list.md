@@ -25,22 +25,22 @@ Admin dashboard.
 
 ```typescript
 export const ListScheduledJobsContract = defineQuery({
-  meta: {
-    key: 'jobs.schedule.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.jobs'],
-    tags: ['jobs', 'schedule', 'list'],
-    description: 'List all scheduled jobs.',
-    goal: 'View configured recurring tasks.',
-    context: 'Admin dashboard.',
-  },
-  io: {
-    input: null,
-    output: ListScheduledJobsOutput,
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'jobs.schedule.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.jobs'],
+		tags: ['jobs', 'schedule', 'list'],
+		description: 'List all scheduled jobs.',
+		goal: 'View configured recurring tasks.',
+		context: 'Admin dashboard.',
+	},
+	io: {
+		input: null,
+		output: ListScheduledJobsOutput,
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

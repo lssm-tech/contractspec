@@ -17,29 +17,29 @@ Test for getting run
 
 ```typescript
 export const runGetTest = defineTestSpec({
-  meta: {
-    key: 'test.agent.run.get',
-    version: '1.0.0',
-    owners: ['@agent-console-team'],
-    description: 'Test for getting run',
-    stability: 'stable',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'agent.run.get', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'agent.run.get' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'agent.run.get' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'test.agent.run.get',
+		version: '1.0.0',
+		owners: ['@agent-console-team'],
+		description: 'Test for getting run',
+		stability: 'stable',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'agent.run.get', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'agent.run.get' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'agent.run.get' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

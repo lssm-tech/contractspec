@@ -17,20 +17,20 @@ Chat error occurred
 
 ```typescript
 export const ChatErrorEvent = defineEvent({
-  meta: {
-    key: 'ai-chat.error',
-    version: '1.0.0',
-    description: 'Chat error occurred',
-    stability: 'stable',
-    owners: ['@ai-chat'],
-    tags: ['ai-chat', 'error'],
-  },
-  payload: defineSchemaModel({
-    name: 'ChatErrorPayload',
-    fields: {
-      code: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      message: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    },
-  }),
+	meta: {
+		key: 'ai-chat.error',
+		version: '1.0.0',
+		description: 'Chat error occurred',
+		stability: 'stable',
+		owners: ['@ai-chat'],
+		tags: ['ai-chat', 'error'],
+	},
+	payload: defineSchemaModel({
+		name: 'ChatErrorPayload',
+		fields: {
+			code: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+			message: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+		},
+	}),
 });
 ```

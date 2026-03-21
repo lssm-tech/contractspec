@@ -25,47 +25,47 @@ Run details page - steps tab.
 
 ```typescript
 export const GetRunStepsQuery = defineQuery({
-  meta: {
-    key: 'agent.run.getSteps',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['run', 'steps'],
-    description: 'Retrieves all steps for a specific run.',
-    goal: 'View step-by-step execution details.',
-    context: 'Run details page - steps tab.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'GetRunStepsInput',
-      fields: {
-        runId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      },
-    }),
-    output: defineSchemaModel({
-      name: 'GetRunStepsOutput',
-      fields: {
-        steps: { type: RunStepModel, isArray: true, isOptional: false },
-      },
-    }),
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'get-run-steps-happy-path',
-        given: ['Run exists with steps'],
-        when: ['User requests steps'],
-        then: ['Steps list is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'get-steps-basic',
-        input: { runId: 'run-456' },
-        output: { steps: [] },
-      },
-    ],
-  },
+	meta: {
+		key: 'agent.run.getSteps',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['run', 'steps'],
+		description: 'Retrieves all steps for a specific run.',
+		goal: 'View step-by-step execution details.',
+		context: 'Run details page - steps tab.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'GetRunStepsInput',
+			fields: {
+				runId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+			},
+		}),
+		output: defineSchemaModel({
+			name: 'GetRunStepsOutput',
+			fields: {
+				steps: { type: RunStepModel, isArray: true, isOptional: false },
+			},
+		}),
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'get-run-steps-happy-path',
+				given: ['Run exists with steps'],
+				when: ['User requests steps'],
+				then: ['Steps list is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'get-steps-basic',
+				input: { runId: 'run-456' },
+				output: { steps: [] },
+			},
+		],
+	},
 });
 ```

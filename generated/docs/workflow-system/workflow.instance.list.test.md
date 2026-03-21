@@ -17,29 +17,29 @@ Test for listing workflow instances
 
 ```typescript
 export const InstanceListTest = defineTestSpec({
-  meta: {
-    key: 'workflow.instance.list.test',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@example.workflow-system'],
-    description: 'Test for listing workflow instances',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'workflow.instance.list', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'workflow.instance.list' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'workflow.instance.list' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'workflow.instance.list.test',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@example.workflow-system'],
+		description: 'Test for listing workflow instances',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'workflow.instance.list', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'workflow.instance.list' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'workflow.instance.list' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

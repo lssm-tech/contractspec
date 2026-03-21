@@ -17,14 +17,14 @@ A new project has been created.
 
 ```typescript
 export const ProjectCreatedEvent = defineEvent({
-  meta: {
-    key: 'project.created',
-    version: '1.0.0',
-    description: 'A new project has been created.',
-    stability: 'stable',
-    owners: ['@saas-team'],
-    tags: ['project', 'created'],
-  },
-  payload: ProjectCreatedPayload,
+	meta: {
+		key: 'project.created',
+		version: '1.0.0',
+		description: 'A new project has been created.',
+		stability: 'stable',
+		owners: ['@saas-team'],
+		tags: ['project', 'created'],
+	},
+	payload: ProjectCreatedPayload,
 });
 ```

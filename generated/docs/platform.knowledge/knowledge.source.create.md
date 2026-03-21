@@ -25,25 +25,25 @@ Used by Ops and App Studio to configure knowledge ingestion per tenant and space
 
 ```typescript
 export const CreateKnowledgeSource = defineCommand({
-  meta: {
-    key: 'knowledge.source.create',
-    title: 'Create Knowledge Source',
-    version: '1.0.0',
-    description: 'Create a knowledge source binding for a tenant.',
-    goal: 'Onboard a new knowledge ingestion source such as Notion or uploads.',
-    context:
-      'Used by Ops and App Studio to configure knowledge ingestion per tenant and space.',
-    owners: ['@platform.knowledge'],
-    tags: ['knowledge', 'sources'],
-    stability: 'experimental',
-  },
-  io: {
-    input: CreateKnowledgeSourceInput,
-    output: KnowledgeSourceRecord,
-  },
-  policy: {
-    auth: 'admin',
-    policies: [{ key: 'platform.knowledge.manage', version: '1.0.0' }],
-  },
+	meta: {
+		key: 'knowledge.source.create',
+		title: 'Create Knowledge Source',
+		version: '1.0.0',
+		description: 'Create a knowledge source binding for a tenant.',
+		goal: 'Onboard a new knowledge ingestion source such as Notion or uploads.',
+		context:
+			'Used by Ops and App Studio to configure knowledge ingestion per tenant and space.',
+		owners: ['@platform.knowledge'],
+		tags: ['knowledge', 'sources'],
+		stability: 'experimental',
+	},
+	io: {
+		input: CreateKnowledgeSourceInput,
+		output: KnowledgeSourceRecord,
+	},
+	policy: {
+		auth: 'admin',
+		policies: [{ key: 'platform.knowledge.manage', version: '1.0.0' }],
+	},
 });
 ```

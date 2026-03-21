@@ -24,27 +24,27 @@ Management view for data synchronization.
 
 ```typescript
 export const SyncConfigListPresentation = definePresentation({
-  meta: {
-    key: 'integration.syncConfig.list',
-    version: '1.0.0',
-    title: 'Sync Config List',
-    description: 'List of sync configurations',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['integration', 'sync', 'config', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Show users their current sync configurations.',
-    context: 'Management view for data synchronization.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'SyncConfigList',
-    props: SyncConfigModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['integration.sync.enabled'],
-  },
+	meta: {
+		key: 'integration.syncConfig.list',
+		version: '1.0.0',
+		title: 'Sync Config List',
+		description: 'List of sync configurations',
+		domain: 'integration',
+		owners: ['@integration-team'],
+		tags: ['integration', 'sync', 'config', 'list'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Show users their current sync configurations.',
+		context: 'Management view for data synchronization.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'SyncConfigList',
+		props: SyncConfigModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['integration.sync.enabled'],
+	},
 });
 ```

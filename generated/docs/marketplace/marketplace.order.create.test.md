@@ -17,29 +17,29 @@ Test for creating order
 
 ```typescript
 export const OrderCreateTest = defineTestSpec({
-  meta: {
-    key: 'marketplace.order.create.test',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@example.marketplace'],
-    description: 'Test for creating order',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'marketplace.order.create', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'marketplace.order.create' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'marketplace.order.create' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'marketplace.order.create.test',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@example.marketplace'],
+		description: 'Test for creating order',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'marketplace.order.create', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'marketplace.order.create' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'marketplace.order.create' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

@@ -17,14 +17,14 @@ A usage threshold has been created.
 
 ```typescript
 export const ThresholdCreatedEvent = defineEvent({
-  meta: {
-    key: 'threshold.created',
-    version: '1.0.0',
-    description: 'A usage threshold has been created.',
-    stability: 'stable',
-    owners: ['@platform.metering'],
-    tags: ['metering', 'threshold'],
-  },
-  payload: ThresholdCreatedPayload,
+	meta: {
+		key: 'threshold.created',
+		version: '1.0.0',
+		description: 'A usage threshold has been created.',
+		stability: 'stable',
+		owners: ['@platform.metering'],
+		tags: ['metering', 'threshold'],
+	},
+	payload: ThresholdCreatedPayload,
 });
 ```

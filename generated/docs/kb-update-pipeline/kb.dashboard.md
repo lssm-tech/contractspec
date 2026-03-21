@@ -24,24 +24,24 @@ Dashboard
 
 ```typescript
 export const KbDashboardPresentation = definePresentation({
-  meta: {
-    key: 'kb.dashboard',
-    version: '1.0.0',
-    title: 'KB Update Dashboard',
-    description: 'Overview of KB change candidates and review tasks.',
-    domain: 'knowledge',
-    owners: ['@examples'],
-    tags: ['dashboard', 'knowledge'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Visualize status',
-    context: 'Dashboard',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'KbDashboard',
-    props: ChangeCandidateModel, // Simplified props mapping for example
-  },
-  targets: ['react', 'markdown'],
+	meta: {
+		key: 'kb.dashboard',
+		version: '1.0.0',
+		title: 'KB Update Dashboard',
+		description: 'Overview of KB change candidates and review tasks.',
+		domain: 'knowledge',
+		owners: ['@examples'],
+		tags: ['dashboard', 'knowledge'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Visualize status',
+		context: 'Dashboard',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'KbDashboard',
+		props: ChangeCandidateModel, // Simplified props mapping for example
+	},
+	targets: ['react', 'markdown'],
 });
 ```

@@ -22,25 +22,25 @@ Used by backend services or scripts that need translated copy outside the front-
 
 ```typescript
 export const ResolveMessageQuery = defineQuery({
-  meta: {
-    key: 'appConfig.resolveMessage',
-    version: '1.0.0',
-    description:
-      'Resolves a translation key for a tenant in the requested locale.',
-    owners: [OwnersEnum.PlatformSigil],
-    tags: [TagsEnum.I18n],
-    stability: StabilityEnum.Experimental,
-    goal: 'Expose a server-side API for resolving message keys on demand.',
-    context:
-      'Used by backend services or scripts that need translated copy outside the front-end runtime.',
-  },
-  io: {
-    input: MessageResolutionInput,
-    output: MessageResolutionOutput,
-  },
-  policy: {
-    auth: 'admin',
-    policies: [{ key: 'platform.app-config.read', version: '1.0.0' }],
-  },
+	meta: {
+		key: 'appConfig.resolveMessage',
+		version: '1.0.0',
+		description:
+			'Resolves a translation key for a tenant in the requested locale.',
+		owners: [OwnersEnum.PlatformSigil],
+		tags: [TagsEnum.I18n],
+		stability: StabilityEnum.Experimental,
+		goal: 'Expose a server-side API for resolving message keys on demand.',
+		context:
+			'Used by backend services or scripts that need translated copy outside the front-end runtime.',
+	},
+	io: {
+		input: MessageResolutionInput,
+		output: MessageResolutionOutput,
+	},
+	policy: {
+		auth: 'admin',
+		policies: [{ key: 'platform.app-config.read', version: '1.0.0' }],
+	},
 });
 ```

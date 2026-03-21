@@ -25,17 +25,17 @@ Used by chat flows when the user asks for information lookup.
 
 ```typescript
 export const AssistantSearchContract = defineQuery({
-  meta: {
-    key: 'assistant.search',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@example.ai-chat-assistant'],
-    tags: ['assistant', 'search', 'chat'],
-    description: 'Search for content within the assistant context.',
-    goal: 'Allow the AI assistant to search and retrieve relevant information.',
-    context: 'Used by chat flows when the user asks for information lookup.',
-  },
-  io: { input: AssistantSearchInputModel, output: AssistantSearchOutputModel },
-  policy: { auth: 'anonymous' },
+	meta: {
+		key: 'assistant.search',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@example.ai-chat-assistant'],
+		tags: ['assistant', 'search', 'chat'],
+		description: 'Search for content within the assistant context.',
+		goal: 'Allow the AI assistant to search and retrieve relevant information.',
+		context: 'Used by chat flows when the user asks for information lookup.',
+	},
+	io: { input: AssistantSearchInputModel, output: AssistantSearchOutputModel },
+	policy: { auth: 'anonymous' },
 });
 ```

@@ -29,41 +29,41 @@ User/org permission management.
 
 ```typescript
 export const RevokeRoleContract = defineCommand({
-  meta: {
-    key: 'identity.rbac.revoke',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['identity', 'rbac', 'revoke'],
-    description: 'Revoke a role from a user or organization.',
-    goal: 'Remove permissions via role revocation.',
-    context: 'User/org permission management.',
-  },
-  io: {
-    input: RevokeRoleInputModel,
-    output: SuccessResultModel,
-    errors: {
-      BINDING_NOT_FOUND: {
-        description: 'The policy binding does not exist',
-        http: 404,
-        gqlCode: 'BINDING_NOT_FOUND',
-        when: 'Binding ID is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'admin',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'role.revoked',
-        version: '1.0.0',
-        when: 'Role is revoked',
-        payload: BindingIdPayloadModel,
-      },
-    ],
-    audit: ['role.revoked'],
-  },
+	meta: {
+		key: 'identity.rbac.revoke',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['identity', 'rbac', 'revoke'],
+		description: 'Revoke a role from a user or organization.',
+		goal: 'Remove permissions via role revocation.',
+		context: 'User/org permission management.',
+	},
+	io: {
+		input: RevokeRoleInputModel,
+		output: SuccessResultModel,
+		errors: {
+			BINDING_NOT_FOUND: {
+				description: 'The policy binding does not exist',
+				http: 404,
+				gqlCode: 'BINDING_NOT_FOUND',
+				when: 'Binding ID is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'admin',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'role.revoked',
+				version: '1.0.0',
+				when: 'Role is revoked',
+				payload: BindingIdPayloadModel,
+			},
+		],
+		audit: ['role.revoked'],
+	},
 });
 ```

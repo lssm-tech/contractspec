@@ -25,24 +25,24 @@ Used by readiness features, alerts, and trend-based decision workflows.
 
 ```typescript
 export const HealthListBiometrics = defineQuery({
-  meta: {
-    key: 'health.biometrics.list',
-    version: '1.0.0',
-    description:
-      'List normalized biometrics synced from connected health providers.',
-    goal: 'Expose canonical biometrics for health insights and automation.',
-    context:
-      'Used by readiness features, alerts, and trend-based decision workflows.',
-    owners: ['@platform.integrations'],
-    tags: ['health', 'biometrics', 'wearables'],
-    stability: 'experimental',
-  },
-  io: {
-    input: HealthListBiometricsInput,
-    output: HealthListBiometricsOutput,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'health.biometrics.list',
+		version: '1.0.0',
+		description:
+			'List normalized biometrics synced from connected health providers.',
+		goal: 'Expose canonical biometrics for health insights and automation.',
+		context:
+			'Used by readiness features, alerts, and trend-based decision workflows.',
+		owners: ['@platform.integrations'],
+		tags: ['health', 'biometrics', 'wearables'],
+		stability: 'experimental',
+	},
+	io: {
+		input: HealthListBiometricsInput,
+		output: HealthListBiometricsOutput,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

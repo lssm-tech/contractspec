@@ -25,30 +25,30 @@ Called to inspect file details.
 
 ```typescript
 export const GetFileContract = defineQuery({
-  meta: {
-    key: 'file.get',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.files'],
-    tags: ['files', 'get'],
-    description: 'Get a file by ID.',
-    goal: 'Retrieve file metadata.',
-    context: 'Called to inspect file details.',
-  },
-  io: {
-    input: GetFileInput,
-    output: FileModel,
-    errors: {
-      FILE_NOT_FOUND: {
-        description: 'File does not exist',
-        http: 404,
-        gqlCode: 'FILE_NOT_FOUND',
-        when: 'File ID is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'file.get',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.files'],
+		tags: ['files', 'get'],
+		description: 'Get a file by ID.',
+		goal: 'Retrieve file metadata.',
+		context: 'Called to inspect file details.',
+	},
+	io: {
+		input: GetFileInput,
+		output: FileModel,
+		errors: {
+			FILE_NOT_FOUND: {
+				description: 'File does not exist',
+				http: 404,
+				gqlCode: 'FILE_NOT_FOUND',
+				when: 'File ID is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

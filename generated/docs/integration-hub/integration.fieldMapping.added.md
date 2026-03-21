@@ -17,14 +17,14 @@ Fired when a field mapping is added to a sync config
 
 ```typescript
 export const FieldMappingAddedEvent = defineEvent({
-  meta: {
-    key: 'integration.fieldMapping.added',
-    version: '1.0.0',
-    description: 'Fired when a field mapping is added to a sync config',
-    stability: 'experimental',
-    owners: ['@integration-team'],
-    tags: ['integration', 'sync'],
-  },
-  payload: FieldMappingAddedPayload,
+	meta: {
+		key: 'integration.fieldMapping.added',
+		version: '1.0.0',
+		description: 'Fired when a field mapping is added to a sync config',
+		stability: 'experimental',
+		owners: ['@integration-team'],
+		tags: ['integration', 'sync'],
+	},
+	payload: FieldMappingAddedPayload,
 });
 ```

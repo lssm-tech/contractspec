@@ -25,78 +25,78 @@ Dashboard, monitoring.
 
 ```typescript
 export const ListInstancesContract = defineQuery({
-  meta: {
-    key: 'workflow.instance.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.workflow-system'],
-    tags: ['workflow', 'instance', 'list'],
-    description: 'List workflow instances with filtering.',
-    goal: 'Browse and search running workflows.',
-    context: 'Dashboard, monitoring.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'ListInstancesInput',
-      fields: {
-        workflowKey: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: true,
-        },
-        status: { type: InstanceStatusEnum, isOptional: true },
-        referenceType: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: true,
-        },
-        referenceId: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: true,
-        },
-        triggeredBy: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: true,
-        },
-        limit: {
-          type: ScalarTypeEnum.Int_unsecure(),
-          isOptional: true,
-          defaultValue: 20,
-        },
-        offset: {
-          type: ScalarTypeEnum.Int_unsecure(),
-          isOptional: true,
-          defaultValue: 0,
-        },
-      },
-    }),
-    output: defineSchemaModel({
-      name: 'ListInstancesOutput',
-      fields: {
-        instances: {
-          type: WorkflowInstanceModel,
-          isArray: true,
-          isOptional: false,
-        },
-        total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-      },
-    }),
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'list-instances-happy-path',
-        given: ['Workflow instances exist'],
-        when: ['User lists instances'],
-        then: ['List of instances is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'list-running',
-        input: { status: 'running', limit: 10 },
-        output: { instances: [], total: 5 },
-      },
-    ],
-  },
+	meta: {
+		key: 'workflow.instance.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.workflow-system'],
+		tags: ['workflow', 'instance', 'list'],
+		description: 'List workflow instances with filtering.',
+		goal: 'Browse and search running workflows.',
+		context: 'Dashboard, monitoring.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'ListInstancesInput',
+			fields: {
+				workflowKey: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: true,
+				},
+				status: { type: InstanceStatusEnum, isOptional: true },
+				referenceType: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: true,
+				},
+				referenceId: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: true,
+				},
+				triggeredBy: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: true,
+				},
+				limit: {
+					type: ScalarTypeEnum.Int_unsecure(),
+					isOptional: true,
+					defaultValue: 20,
+				},
+				offset: {
+					type: ScalarTypeEnum.Int_unsecure(),
+					isOptional: true,
+					defaultValue: 0,
+				},
+			},
+		}),
+		output: defineSchemaModel({
+			name: 'ListInstancesOutput',
+			fields: {
+				instances: {
+					type: WorkflowInstanceModel,
+					isArray: true,
+					isOptional: false,
+				},
+				total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+			},
+		}),
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'list-instances-happy-path',
+				given: ['Workflow instances exist'],
+				when: ['User lists instances'],
+				then: ['List of instances is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'list-running',
+				input: { status: 'running', limit: 10 },
+				output: { instances: [], total: 5 },
+			},
+		],
+	},
 });
 ```

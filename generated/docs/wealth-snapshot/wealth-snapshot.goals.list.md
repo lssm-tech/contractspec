@@ -24,26 +24,26 @@ Overview
 
 ```typescript
 export const GoalsListPresentation = definePresentation({
-  meta: {
-    key: 'wealth-snapshot.goals.list',
-    version: '1.0.0',
-    title: 'Goals List',
-    description: 'List of financial goals with progress',
-    domain: 'finance',
-    owners: ['@wealth-snapshot'],
-    tags: ['finance', 'goals', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'List goals',
-    context: 'Overview',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'GoalsList',
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['wealth.goals.enabled'],
-  },
+	meta: {
+		key: 'wealth-snapshot.goals.list',
+		version: '1.0.0',
+		title: 'Goals List',
+		description: 'List of financial goals with progress',
+		domain: 'finance',
+		owners: ['@wealth-snapshot'],
+		tags: ['finance', 'goals', 'list'],
+		stability: StabilityEnum.Experimental,
+		goal: 'List goals',
+		context: 'Overview',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'GoalsList',
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['wealth.goals.enabled'],
+	},
 });
 ```

@@ -25,22 +25,22 @@ Called for batch processing.
 
 ```typescript
 export const RecordBatchUsageContract = defineCommand({
-  meta: {
-    key: 'usage.recordBatch',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.metering'],
-    tags: ['metering', 'usage', 'batch'],
-    description: 'Record multiple usage events.',
-    goal: 'Efficiently track bulk usage.',
-    context: 'Called for batch processing.',
-  },
-  io: {
-    input: RecordBatchUsageInput,
-    output: RecordBatchUsageOutput,
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'usage.recordBatch',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.metering'],
+		tags: ['metering', 'usage', 'batch'],
+		description: 'Record multiple usage events.',
+		goal: 'Efficiently track bulk usage.',
+		context: 'Called for batch processing.',
+	},
+	io: {
+		input: RecordBatchUsageInput,
+		output: RecordBatchUsageOutput,
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

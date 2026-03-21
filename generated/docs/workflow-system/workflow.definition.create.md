@@ -29,55 +29,55 @@ Workflow designer, admin panel.
 
 ```typescript
 export const CreateWorkflowContract = defineCommand({
-  meta: {
-    key: 'workflow.definition.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.workflow-system'],
-    tags: ['workflow', 'definition', 'create'],
-    description: 'Create a new workflow definition.',
-    goal: 'Allow users to define new workflow blueprints.',
-    context: 'Workflow designer, admin panel.',
-  },
-  io: {
-    input: CreateWorkflowInputModel,
-    output: WorkflowDefinitionModel,
-  },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'workflow.definition.created',
-        version: '1.0.0',
-        when: 'Workflow is created',
-        payload: WorkflowDefinitionModel,
-      },
-    ],
-    audit: ['workflow.definition.created'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'create-workflow-happy-path',
-        given: ['User is admin'],
-        when: ['User creates new workflow definition'],
-        then: [
-          'Definition is created',
-          'WorkflowDefinitionCreated event is emitted',
-        ],
-      },
-    ],
-    examples: [
-      {
-        key: 'create-onboarding',
-        input: {
-          key: 'onboarding-v1',
-          name: 'Employee Onboarding',
-          version: '1.0.0',
-        },
-        output: { id: 'def-123', status: 'draft' },
-      },
-    ],
-  },
+	meta: {
+		key: 'workflow.definition.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.workflow-system'],
+		tags: ['workflow', 'definition', 'create'],
+		description: 'Create a new workflow definition.',
+		goal: 'Allow users to define new workflow blueprints.',
+		context: 'Workflow designer, admin panel.',
+	},
+	io: {
+		input: CreateWorkflowInputModel,
+		output: WorkflowDefinitionModel,
+	},
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'workflow.definition.created',
+				version: '1.0.0',
+				when: 'Workflow is created',
+				payload: WorkflowDefinitionModel,
+			},
+		],
+		audit: ['workflow.definition.created'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'create-workflow-happy-path',
+				given: ['User is admin'],
+				when: ['User creates new workflow definition'],
+				then: [
+					'Definition is created',
+					'WorkflowDefinitionCreated event is emitted',
+				],
+			},
+		],
+		examples: [
+			{
+				key: 'create-onboarding',
+				input: {
+					key: 'onboarding-v1',
+					name: 'Employee Onboarding',
+					version: '1.0.0',
+				},
+				output: { id: 'def-123', status: 'draft' },
+			},
+		],
+	},
 });
 ```

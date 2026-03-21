@@ -15,16 +15,16 @@ Emitted when documentation is published.
 
 ```typescript
 export const DocsPublishedEvent = defineEvent({
-  meta: {
-    key: 'docs.published',
-    version: '1.0.0',
-    description: 'Emitted when documentation is published.',
-    domain: DOCS_DOMAIN,
-    owners: DOCS_OWNERS,
-    tags: [...DOCS_TAGS, 'publish'],
-    stability: DOCS_STABILITY,
-    docId: [docId('docs.tech.docs-publish')],
-  },
-  payload: DocsPublishedPayload,
+	meta: {
+		key: 'docs.published',
+		version: '1.0.0',
+		description: 'Emitted when documentation is published.',
+		domain: DOCS_DOMAIN,
+		owners: DOCS_OWNERS,
+		tags: [...DOCS_TAGS, 'publish'],
+		stability: DOCS_STABILITY,
+		docId: [docId('docs.tech.docs-publish')],
+	},
+	payload: DocsPublishedPayload,
 });
 ```

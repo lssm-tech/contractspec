@@ -23,31 +23,31 @@ Used by Studio and agents to understand what a pack will include before snapshot
 
 ```typescript
 export const ContextPackDescribeQuery = defineQuery({
-  meta: {
-    key: 'context.pack.describe',
-    title: 'Describe Context Pack',
-    version: '1.0.0',
-    description: 'Describe a context pack and its sources.',
-    goal: 'Provide a canonical view of context pack composition.',
-    context:
-      'Used by Studio and agents to understand what a pack will include before snapshotting.',
-    domain: CONTEXT_DOMAIN,
-    owners: CONTEXT_OWNERS,
-    tags: [...CONTEXT_TAGS, 'pack', 'describe'],
-    stability: CONTEXT_STABILITY,
-    docId: [docId('docs.tech.context.pack.describe')],
-  },
-  capability: {
-    key: 'context.system',
-    version: '1.0.0',
-  },
-  io: {
-    input: ContextPackDescribeInput,
-    output: ContextPackDescribeOutput,
-  },
-  policy: {
-    auth: 'user',
-    pii: [],
-  },
+	meta: {
+		key: 'context.pack.describe',
+		title: 'Describe Context Pack',
+		version: '1.0.0',
+		description: 'Describe a context pack and its sources.',
+		goal: 'Provide a canonical view of context pack composition.',
+		context:
+			'Used by Studio and agents to understand what a pack will include before snapshotting.',
+		domain: CONTEXT_DOMAIN,
+		owners: CONTEXT_OWNERS,
+		tags: [...CONTEXT_TAGS, 'pack', 'describe'],
+		stability: CONTEXT_STABILITY,
+		docId: [docId('docs.tech.context.pack.describe')],
+	},
+	capability: {
+		key: 'context.system',
+		version: '1.0.0',
+	},
+	io: {
+		input: ContextPackDescribeInput,
+		output: ContextPackDescribeOutput,
+	},
+	policy: {
+		auth: 'user',
+		pii: [],
+	},
 });
 ```

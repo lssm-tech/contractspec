@@ -17,14 +17,14 @@ An approval decision has been made.
 
 ```typescript
 export const ApprovalDecidedEvent = defineEvent({
-  meta: {
-    key: 'workflow.approval.decided',
-    version: '1.0.0',
-    description: 'An approval decision has been made.',
-    stability: 'stable',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'approval', 'decided'],
-  },
-  payload: ApprovalDecidedPayload,
+	meta: {
+		key: 'workflow.approval.decided',
+		version: '1.0.0',
+		description: 'An approval decision has been made.',
+		stability: 'stable',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'approval', 'decided'],
+	},
+	payload: ApprovalDecidedPayload,
 });
 ```

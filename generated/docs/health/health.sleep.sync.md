@@ -25,31 +25,31 @@ Triggered by scheduled jobs or manual refresh in health surfaces.
 
 ```typescript
 export const HealthSyncSleep = defineCommand({
-  meta: {
-    key: 'health.sleep.sync',
-    version: '1.0.0',
-    description: 'Synchronize sleep intervals from connected providers.',
-    goal: 'Keep canonical sleep records aligned with upstream provider data.',
-    context:
-      'Triggered by scheduled jobs or manual refresh in health surfaces.',
-    owners: ['@platform.integrations'],
-    tags: ['health', 'sleep', 'wearables'],
-    stability: 'experimental',
-  },
-  io: {
-    input: HealthSyncSleepInput,
-    output: HealthSyncSleepOutput,
-  },
-  policy: {
-    auth: 'admin',
-  },
-  telemetry: {
-    success: {
-      event: { key: HEALTH_TELEMETRY_EVENTS.sleepSynced },
-    },
-    failure: {
-      event: { key: HEALTH_TELEMETRY_EVENTS.sleepSyncFailed },
-    },
-  },
+	meta: {
+		key: 'health.sleep.sync',
+		version: '1.0.0',
+		description: 'Synchronize sleep intervals from connected providers.',
+		goal: 'Keep canonical sleep records aligned with upstream provider data.',
+		context:
+			'Triggered by scheduled jobs or manual refresh in health surfaces.',
+		owners: ['@platform.integrations'],
+		tags: ['health', 'sleep', 'wearables'],
+		stability: 'experimental',
+	},
+	io: {
+		input: HealthSyncSleepInput,
+		output: HealthSyncSleepOutput,
+	},
+	policy: {
+		auth: 'admin',
+	},
+	telemetry: {
+		success: {
+			event: { key: HEALTH_TELEMETRY_EVENTS.sleepSynced },
+		},
+		failure: {
+			event: { key: HEALTH_TELEMETRY_EVENTS.sleepSyncFailed },
+		},
+	},
 });
 ```

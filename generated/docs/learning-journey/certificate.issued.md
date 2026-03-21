@@ -16,14 +16,14 @@ A certificate has been issued.
 
 ```typescript
 export const CertificateIssuedEvent = defineEvent({
-  meta: {
-    key: 'certificate.issued',
-    version: '1.0.0',
-    description: 'A certificate has been issued.',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'certificate'],
-  },
-  payload: CertificateIssuedPayload,
+	meta: {
+		key: 'certificate.issued',
+		version: '1.0.0',
+		description: 'A certificate has been issued.',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'certificate'],
+	},
+	payload: CertificateIssuedPayload,
 });
 ```

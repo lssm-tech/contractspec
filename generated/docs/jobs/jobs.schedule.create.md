@@ -25,22 +25,22 @@ Admin configuration for periodic tasks.
 
 ```typescript
 export const CreateScheduledJobContract = defineCommand({
-  meta: {
-    key: 'jobs.schedule.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.jobs'],
-    tags: ['jobs', 'schedule', 'create'],
-    description: 'Create a scheduled/recurring job.',
-    goal: 'Set up recurring background tasks.',
-    context: 'Admin configuration for periodic tasks.',
-  },
-  io: {
-    input: CreateScheduledJobInput,
-    output: ScheduledJobModel,
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'jobs.schedule.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.jobs'],
+		tags: ['jobs', 'schedule', 'create'],
+		description: 'Create a scheduled/recurring job.',
+		goal: 'Set up recurring background tasks.',
+		context: 'Admin configuration for periodic tasks.',
+	},
+	io: {
+		input: CreateScheduledJobInput,
+		output: ScheduledJobModel,
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

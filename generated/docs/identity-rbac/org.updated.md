@@ -17,14 +17,14 @@ An organization has been updated.
 
 ```typescript
 export const OrgUpdatedEvent = defineEvent({
-  meta: {
-    key: 'org.updated',
-    version: '1.0.0',
-    description: 'An organization has been updated.',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['org', 'updated', 'identity'],
-  },
-  payload: OrgUpdatedPayload,
+	meta: {
+		key: 'org.updated',
+		version: '1.0.0',
+		description: 'An organization has been updated.',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['org', 'updated', 'identity'],
+	},
+	payload: OrgUpdatedPayload,
 });
 ```

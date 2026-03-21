@@ -17,14 +17,14 @@ Subscription status has changed.
 
 ```typescript
 export const SubscriptionChangedEvent = defineEvent({
-  meta: {
-    key: 'billing.subscription.changed',
-    version: '1.0.0',
-    description: 'Subscription status has changed.',
-    stability: 'stable',
-    owners: ['@saas-team'],
-    tags: ['billing', 'subscription', 'changed'],
-  },
-  payload: SubscriptionChangedPayload,
+	meta: {
+		key: 'billing.subscription.changed',
+		version: '1.0.0',
+		description: 'Subscription status has changed.',
+		stability: 'stable',
+		owners: ['@saas-team'],
+		tags: ['billing', 'subscription', 'changed'],
+	},
+	payload: SubscriptionChangedPayload,
 });
 ```

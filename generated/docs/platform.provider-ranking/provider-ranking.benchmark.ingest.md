@@ -23,40 +23,40 @@ Used by operators and scheduled jobs to keep ranking data current.
 
 ```typescript
 export const BenchmarkIngestCommand = defineCommand({
-  meta: {
-    key: 'provider-ranking.benchmark.ingest',
-    title: 'Ingest Benchmark Data',
-    version: '1.0.0',
-    description:
-      'Trigger ingestion of external benchmark data from a public source.',
-    goal: 'Import and normalize benchmark scores from external leaderboards.',
-    context:
-      'Used by operators and scheduled jobs to keep ranking data current.',
-    domain: PROVIDER_RANKING_DOMAIN,
-    owners: PROVIDER_RANKING_OWNERS,
-    tags: [...PROVIDER_RANKING_TAGS, 'ingest'],
-    stability: PROVIDER_RANKING_STABILITY,
-    docId: [docId('docs.tech.provider-ranking.benchmark.ingest')],
-  },
-  capability: {
-    key: 'provider-ranking.system',
-    version: '1.0.0',
-  },
-  io: {
-    input: BenchmarkIngestInput,
-    output: BenchmarkIngestOutput,
-  },
-  policy: {
-    auth: 'user',
-    pii: [],
-  },
-  sideEffects: {
-    emits: [
-      {
-        ref: BenchmarkIngestedEvent.meta,
-        when: 'External benchmark data is successfully ingested and stored.',
-      },
-    ],
-  },
+	meta: {
+		key: 'provider-ranking.benchmark.ingest',
+		title: 'Ingest Benchmark Data',
+		version: '1.0.0',
+		description:
+			'Trigger ingestion of external benchmark data from a public source.',
+		goal: 'Import and normalize benchmark scores from external leaderboards.',
+		context:
+			'Used by operators and scheduled jobs to keep ranking data current.',
+		domain: PROVIDER_RANKING_DOMAIN,
+		owners: PROVIDER_RANKING_OWNERS,
+		tags: [...PROVIDER_RANKING_TAGS, 'ingest'],
+		stability: PROVIDER_RANKING_STABILITY,
+		docId: [docId('docs.tech.provider-ranking.benchmark.ingest')],
+	},
+	capability: {
+		key: 'provider-ranking.system',
+		version: '1.0.0',
+	},
+	io: {
+		input: BenchmarkIngestInput,
+		output: BenchmarkIngestOutput,
+	},
+	policy: {
+		auth: 'user',
+		pii: [],
+	},
+	sideEffects: {
+		emits: [
+			{
+				ref: BenchmarkIngestedEvent.meta,
+				when: 'External benchmark data is successfully ingested and stored.',
+			},
+		],
+	},
 });
 ```

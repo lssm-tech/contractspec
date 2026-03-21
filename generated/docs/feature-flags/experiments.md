@@ -16,14 +16,14 @@ A/B testing and experimentation platform
 
 ```typescript
 export const ExperimentsCapability = defineCapability({
-  meta: {
-    key: 'experiments',
-    version: '1.0.0',
-    kind: 'api',
-    stability: StabilityEnum.Experimental,
-    description: 'A/B testing and experimentation platform',
-    owners: ['@platform.featureflags'],
-    tags: ['experiments', 'ab-testing'],
-  },
+	meta: {
+		key: 'experiments',
+		version: '1.0.0',
+		kind: 'api',
+		stability: StabilityEnum.Experimental,
+		description: 'A/B testing and experimentation platform',
+		owners: ['@platform.featureflags'],
+		tags: ['experiments', 'ab-testing'],
+	},
 });
 ```

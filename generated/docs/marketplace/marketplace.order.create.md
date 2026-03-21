@@ -29,48 +29,48 @@ Checkout flow.
 
 ```typescript
 export const CreateOrderContract = defineCommand({
-  meta: {
-    key: 'marketplace.order.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.marketplace'],
-    tags: ['marketplace', 'order', 'create'],
-    description: 'Create a new order.',
-    goal: 'Allow buyers to purchase products.',
-    context: 'Checkout flow.',
-  },
-  io: { input: CreateOrderInputModel, output: OrderModel },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'marketplace.order.created',
-        version: '1.0.0',
-        when: 'Order is created',
-        payload: OrderModel,
-      },
-    ],
-    audit: ['marketplace.order.created'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'create-order-happy-path',
-        given: ['User is authenticated'],
-        when: ['User creates order with valid items'],
-        then: ['Order is created', 'OrderCreated event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'create-basic-order',
-        input: {
-          storeId: 'store-123',
-          items: [{ productId: 'prod-456', quantity: 1, unitPrice: 100 }],
-        },
-        output: { id: 'order-789', status: 'pending', total: 100 },
-      },
-    ],
-  },
+	meta: {
+		key: 'marketplace.order.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.marketplace'],
+		tags: ['marketplace', 'order', 'create'],
+		description: 'Create a new order.',
+		goal: 'Allow buyers to purchase products.',
+		context: 'Checkout flow.',
+	},
+	io: { input: CreateOrderInputModel, output: OrderModel },
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'marketplace.order.created',
+				version: '1.0.0',
+				when: 'Order is created',
+				payload: OrderModel,
+			},
+		],
+		audit: ['marketplace.order.created'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'create-order-happy-path',
+				given: ['User is authenticated'],
+				when: ['User creates order with valid items'],
+				then: ['Order is created', 'OrderCreated event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'create-basic-order',
+				input: {
+					storeId: 'store-123',
+					items: [{ productId: 'prod-456', quantity: 1, unitPrice: 100 }],
+				},
+				output: { id: 'order-789', status: 'pending', total: 100 },
+			},
+		],
+	},
 });
 ```

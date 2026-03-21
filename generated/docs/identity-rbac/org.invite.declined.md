@@ -17,14 +17,14 @@ An invitation has been declined.
 
 ```typescript
 export const OrgInviteDeclinedEvent = defineEvent({
-  meta: {
-    key: 'org.invite.declined',
-    version: '1.0.0',
-    description: 'An invitation has been declined.',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['org', 'invite', 'declined', 'identity'],
-  },
-  payload: OrgInviteDeclinedPayload,
+	meta: {
+		key: 'org.invite.declined',
+		version: '1.0.0',
+		description: 'An invitation has been declined.',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['org', 'invite', 'declined', 'identity'],
+	},
+	payload: OrgInviteDeclinedPayload,
 });
 ```

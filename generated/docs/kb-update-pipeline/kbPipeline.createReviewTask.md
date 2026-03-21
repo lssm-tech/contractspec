@@ -25,17 +25,17 @@ Called after change detection or manual selection.
 
 ```typescript
 export const KbPipelineCreateReviewTaskContract = defineCommand({
-  meta: {
-    key: 'kbPipeline.createReviewTask',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@examples'],
-    tags: ['knowledge', 'pipeline', 'hitl'],
-    description: 'Create a review task for a detected change.',
-    goal: 'Route work to human verifiers.',
-    context: 'Called after change detection or manual selection.',
-  },
-  io: { input: CreateReviewTaskInput, output: ReviewTaskModel },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'kbPipeline.createReviewTask',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@examples'],
+		tags: ['knowledge', 'pipeline', 'hitl'],
+		description: 'Create a review task for a detected change.',
+		goal: 'Route work to human verifiers.',
+		context: 'Called after change detection or manual selection.',
+	},
+	io: { input: CreateReviewTaskInput, output: ReviewTaskModel },
+	policy: { auth: 'user' },
 });
 ```

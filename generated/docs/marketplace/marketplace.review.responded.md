@@ -17,14 +17,14 @@ A seller has responded to a review.
 
 ```typescript
 export const ReviewRespondedEvent = defineEvent({
-  meta: {
-    key: 'marketplace.review.responded',
-    version: '1.0.0',
-    description: 'A seller has responded to a review.',
-    stability: 'experimental',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'review'],
-  },
-  payload: ReviewRespondedPayload,
+	meta: {
+		key: 'marketplace.review.responded',
+		version: '1.0.0',
+		description: 'A seller has responded to a review.',
+		stability: 'experimental',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'review'],
+	},
+	payload: ReviewRespondedPayload,
 });
 ```

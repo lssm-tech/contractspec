@@ -17,14 +17,14 @@ Usage limit has been reached for a feature.
 
 ```typescript
 export const UsageLimitReachedEvent = defineEvent({
-  meta: {
-    key: 'billing.limit.reached',
-    version: '1.0.0',
-    description: 'Usage limit has been reached for a feature.',
-    stability: 'stable',
-    owners: ['@saas-team'],
-    tags: ['billing', 'limit', 'reached'],
-  },
-  payload: UsageLimitReachedPayload,
+	meta: {
+		key: 'billing.limit.reached',
+		version: '1.0.0',
+		description: 'Usage limit has been reached for a feature.',
+		stability: 'stable',
+		owners: ['@saas-team'],
+		tags: ['billing', 'limit', 'reached'],
+	},
+	payload: UsageLimitReachedPayload,
 });
 ```

@@ -24,27 +24,27 @@ The public landing page for a marketplace seller.
 
 ```typescript
 export const StoreProfilePresentation = definePresentation({
-  meta: {
-    key: 'marketplace.store.profile',
-    version: '1.0.0',
-    title: 'Store Profile',
-    description: 'Public store profile page',
-    domain: 'marketplace',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'store', 'profile'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Showcase a seller store with its products and reputation.',
-    context: 'The public landing page for a marketplace seller.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'StoreProfile',
-    props: StoreModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['marketplace.stores.enabled'],
-  },
+	meta: {
+		key: 'marketplace.store.profile',
+		version: '1.0.0',
+		title: 'Store Profile',
+		description: 'Public store profile page',
+		domain: 'marketplace',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'store', 'profile'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Showcase a seller store with its products and reputation.',
+		context: 'The public landing page for a marketplace seller.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'StoreProfile',
+		props: StoreModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['marketplace.stores.enabled'],
+	},
 });
 ```

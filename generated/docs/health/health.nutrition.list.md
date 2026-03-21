@@ -25,24 +25,24 @@ Used by nutrition reporting, diet workflows, and aggregate health views.
 
 ```typescript
 export const HealthListNutrition = defineQuery({
-  meta: {
-    key: 'health.nutrition.list',
-    version: '1.0.0',
-    description:
-      'List normalized nutrition and hydration records from connected providers.',
-    goal: 'Provide canonical nutrition data for health goals, coaching, and analytics.',
-    context:
-      'Used by nutrition reporting, diet workflows, and aggregate health views.',
-    owners: ['@platform.integrations'],
-    tags: ['health', 'nutrition', 'wearables'],
-    stability: 'experimental',
-  },
-  io: {
-    input: HealthListNutritionInput,
-    output: HealthListNutritionOutput,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'health.nutrition.list',
+		version: '1.0.0',
+		description:
+			'List normalized nutrition and hydration records from connected providers.',
+		goal: 'Provide canonical nutrition data for health goals, coaching, and analytics.',
+		context:
+			'Used by nutrition reporting, diet workflows, and aggregate health views.',
+		owners: ['@platform.integrations'],
+		tags: ['health', 'nutrition', 'wearables'],
+		stability: 'experimental',
+	},
+	io: {
+		input: HealthListNutritionInput,
+		output: HealthListNutritionOutput,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

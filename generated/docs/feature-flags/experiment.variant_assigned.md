@@ -17,14 +17,14 @@ A subject has been assigned to an experiment variant.
 
 ```typescript
 export const VariantAssignedEvent = defineEvent({
-  meta: {
-    key: 'experiment.variant_assigned',
-    version: '1.0.0',
-    description: 'A subject has been assigned to an experiment variant.',
-    stability: 'stable',
-    owners: ['@platform.feature-flags'],
-    tags: ['feature-flags', 'experiment', 'variant'],
-  },
-  payload: VariantAssignedPayload,
+	meta: {
+		key: 'experiment.variant_assigned',
+		version: '1.0.0',
+		description: 'A subject has been assigned to an experiment variant.',
+		stability: 'stable',
+		owners: ['@platform.feature-flags'],
+		tags: ['feature-flags', 'experiment', 'variant'],
+	},
+	payload: VariantAssignedPayload,
 });
 ```

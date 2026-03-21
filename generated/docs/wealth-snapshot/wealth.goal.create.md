@@ -25,17 +25,17 @@ Planning.
 
 ```typescript
 export const CreateGoalContract = defineCommand({
-  meta: {
-    key: 'wealth.goal.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['examples.wealth-snapshot'],
-    tags: ['wealth', 'goal', 'create'],
-    description: 'Create a financial goal.',
-    goal: 'Track progress toward goals.',
-    context: 'Planning.',
-  },
-  io: { input: CreateGoalInput, output: GoalModel },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'wealth.goal.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['examples.wealth-snapshot'],
+		tags: ['wealth', 'goal', 'create'],
+		description: 'Create a financial goal.',
+		goal: 'Track progress toward goals.',
+		context: 'Planning.',
+	},
+	io: { input: CreateGoalInput, output: GoalModel },
+	policy: { auth: 'user' },
 });
 ```

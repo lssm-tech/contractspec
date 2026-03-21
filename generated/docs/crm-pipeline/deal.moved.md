@@ -17,14 +17,14 @@ A deal has been moved to a different stage.
 
 ```typescript
 export const DealMovedEvent = defineEvent({
-  meta: {
-    key: 'deal.moved',
-    version: '1.0.0',
-    description: 'A deal has been moved to a different stage.',
-    stability: 'stable',
-    owners: ['@crm-team'],
-    tags: ['deal', 'moved'],
-  },
-  payload: DealMovedPayload,
+	meta: {
+		key: 'deal.moved',
+		version: '1.0.0',
+		description: 'A deal has been moved to a different stage.',
+		stability: 'stable',
+		owners: ['@crm-team'],
+		tags: ['deal', 'moved'],
+	},
+	payload: DealMovedPayload,
 });
 ```

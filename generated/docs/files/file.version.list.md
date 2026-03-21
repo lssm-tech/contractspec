@@ -25,30 +25,30 @@ Called to browse file history.
 
 ```typescript
 export const GetVersionsContract = defineQuery({
-  meta: {
-    key: 'file.version.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.files'],
-    tags: ['files', 'version', 'list'],
-    description: 'Get file version history.',
-    goal: 'View all versions of a file.',
-    context: 'Called to browse file history.',
-  },
-  io: {
-    input: GetVersionsInput,
-    output: GetVersionsOutput,
-    errors: {
-      FILE_NOT_FOUND: {
-        description: 'File does not exist',
-        http: 404,
-        gqlCode: 'FILE_NOT_FOUND',
-        when: 'File ID is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'file.version.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.files'],
+		tags: ['files', 'version', 'list'],
+		description: 'Get file version history.',
+		goal: 'View all versions of a file.',
+		context: 'Called to browse file history.',
+	},
+	io: {
+		input: GetVersionsInput,
+		output: GetVersionsOutput,
+		errors: {
+			FILE_NOT_FOUND: {
+				description: 'File does not exist',
+				http: 404,
+				gqlCode: 'FILE_NOT_FOUND',
+				when: 'File ID is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

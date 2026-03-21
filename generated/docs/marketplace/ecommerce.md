@@ -16,14 +16,14 @@ E-commerce operations and product catalog
 
 ```typescript
 export const EcommerceCapability = defineCapability({
-  meta: {
-    key: 'ecommerce',
-    version: '1.0.0',
-    kind: 'api',
-    stability: StabilityEnum.Experimental,
-    description: 'E-commerce operations and product catalog',
-    owners: ['platform.marketplace'],
-    tags: ['ecommerce', 'products'],
-  },
+	meta: {
+		key: 'ecommerce',
+		version: '1.0.0',
+		kind: 'api',
+		stability: StabilityEnum.Experimental,
+		description: 'E-commerce operations and product catalog',
+		owners: ['platform.marketplace'],
+		tags: ['ecommerce', 'products'],
+	},
 });
 ```

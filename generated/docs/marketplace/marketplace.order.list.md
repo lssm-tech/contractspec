@@ -24,27 +24,27 @@ Used in the buyer and seller dashboards to track order progress.
 
 ```typescript
 export const OrderListPresentation = definePresentation({
-  meta: {
-    key: 'marketplace.order.list',
-    version: '1.0.0',
-    title: 'Order List',
-    description: 'List of orders with status and tracking',
-    domain: 'marketplace',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'order', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Provide a comprehensive view of all orders for the user.',
-    context: 'Used in the buyer and seller dashboards to track order progress.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'OrderList',
-    props: OrderModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['marketplace.orders.enabled'],
-  },
+	meta: {
+		key: 'marketplace.order.list',
+		version: '1.0.0',
+		title: 'Order List',
+		description: 'List of orders with status and tracking',
+		domain: 'marketplace',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'order', 'list'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Provide a comprehensive view of all orders for the user.',
+		context: 'Used in the buyer and seller dashboards to track order progress.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'OrderList',
+		props: OrderModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['marketplace.orders.enabled'],
+	},
 });
 ```

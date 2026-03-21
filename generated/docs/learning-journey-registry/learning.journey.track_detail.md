@@ -14,17 +14,17 @@ Track detail with steps and progress state.
 
 ```typescript
 export const LearningTrackDetailPresentation = definePresentation({
-  meta: {
-    key: 'learning.journey.track_detail',
-    version: '1.0.0',
-    description: 'Track detail with steps and progress state.',
-    ...baseMeta,
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'LearningTrackDetail',
-  },
-  targets: ['react', 'markdown', 'application/json'],
+	meta: {
+		key: 'learning.journey.track_detail',
+		version: '1.0.0',
+		description: 'Track detail with steps and progress state.',
+		...baseMeta,
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'LearningTrackDetail',
+	},
+	targets: ['react', 'markdown', 'application/json'],
 });
 ```

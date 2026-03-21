@@ -25,34 +25,34 @@ Dashboard listing.
 
 ```typescript
 export const ListDashboardsContract = defineQuery({
-  meta: {
-    key: 'analytics.dashboard.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.analytics-dashboard'],
-    tags: ['analytics', 'dashboard', 'list'],
-    description: 'List dashboards.',
-    goal: 'Browse available dashboards.',
-    context: 'Dashboard listing.',
-  },
-  io: { input: ListDashboardsInputModel, output: ListDashboardsOutputModel },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'list-dashboards-happy-path',
-        given: ['User has dashboards'],
-        when: ['User lists dashboards'],
-        then: ['Paginated list of dashboards is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'list-basic',
-        input: { limit: 10, offset: 0 },
-        output: { items: [], total: 0, hasMore: false },
-      },
-    ],
-  },
+	meta: {
+		key: 'analytics.dashboard.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.analytics-dashboard'],
+		tags: ['analytics', 'dashboard', 'list'],
+		description: 'List dashboards.',
+		goal: 'Browse available dashboards.',
+		context: 'Dashboard listing.',
+	},
+	io: { input: ListDashboardsInputModel, output: ListDashboardsOutputModel },
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'list-dashboards-happy-path',
+				given: ['User has dashboards'],
+				when: ['User lists dashboards'],
+				then: ['Paginated list of dashboards is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'list-basic',
+				input: { limit: 10, offset: 0 },
+				output: { items: [], total: 0, hasMore: false },
+			},
+		],
+	},
 });
 ```

@@ -188,6 +188,9 @@ export function generateBiomePreset(audience: PolicyAudience): string {
 
 	const preset = {
 		$schema: 'https://biomejs.dev/schemas/2.4.8/schema.json',
+		files: {
+			includes: ['**', '!generated', '!generated/**'],
+		},
 		formatter: {
 			enabled: true,
 		},

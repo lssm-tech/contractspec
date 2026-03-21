@@ -25,55 +25,55 @@ Called when viewing tool details or editing.
 
 ```typescript
 export const GetToolQuery = defineQuery({
-  meta: {
-    key: 'agent.tool.get',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['tool', 'get'],
-    description: 'Retrieves a tool by its ID.',
-    goal: 'View detailed tool configuration.',
-    context: 'Called when viewing tool details or editing.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'GetToolInput',
-      fields: {
-        toolId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      },
-    }),
-    output: ToolModel,
-    errors: {
-      TOOL_NOT_FOUND: {
-        description: 'The specified tool does not exist',
-        http: 404,
-        gqlCode: 'TOOL_NOT_FOUND',
-        when: 'Tool ID is invalid',
-      },
-    },
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'get-tool-happy-path',
-        given: ['Tool exists'],
-        when: ['User requests tool by ID'],
-        then: ['Tool details are returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'get-basic',
-        input: { toolId: 'tool-123' },
-        output: {
-          id: 'tool-123',
-          name: 'Weather API',
-          status: 'active',
-          category: 'api',
-        },
-      },
-    ],
-  },
+	meta: {
+		key: 'agent.tool.get',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['tool', 'get'],
+		description: 'Retrieves a tool by its ID.',
+		goal: 'View detailed tool configuration.',
+		context: 'Called when viewing tool details or editing.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'GetToolInput',
+			fields: {
+				toolId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+			},
+		}),
+		output: ToolModel,
+		errors: {
+			TOOL_NOT_FOUND: {
+				description: 'The specified tool does not exist',
+				http: 404,
+				gqlCode: 'TOOL_NOT_FOUND',
+				when: 'Tool ID is invalid',
+			},
+		},
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'get-tool-happy-path',
+				given: ['Tool exists'],
+				when: ['User requests tool by ID'],
+				then: ['Tool details are returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'get-basic',
+				input: { toolId: 'tool-123' },
+				output: {
+					id: 'tool-123',
+					name: 'Weather API',
+					status: 'active',
+					category: 'api',
+				},
+			},
+		],
+	},
 });
 ```

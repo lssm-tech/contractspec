@@ -17,29 +17,29 @@ Test for creating review task
 
 ```typescript
 export const CreateReviewTaskTest = defineTestSpec({
-  meta: {
-    key: 'kbPipeline.createReviewTask.test',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@example.kb-update-pipeline'],
-    description: 'Test for creating review task',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'kbPipeline.createReviewTask', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'kbPipeline.createReviewTask' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'kbPipeline.createReviewTask' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'kbPipeline.createReviewTask.test',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@example.kb-update-pipeline'],
+		description: 'Test for creating review task',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'kbPipeline.createReviewTask', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'kbPipeline.createReviewTask' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'kbPipeline.createReviewTask' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

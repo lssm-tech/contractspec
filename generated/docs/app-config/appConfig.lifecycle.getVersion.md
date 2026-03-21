@@ -23,21 +23,21 @@ Used by automation to fetch config payloads for comparison or export.
 
 ```typescript
 export const GetTenantConfigVersionQuery = defineQuery({
-  meta: {
-    key: 'appConfig.lifecycle.getVersion',
-    version: '1.0.0',
-    description: 'Fetches a single tenant config version by id.',
-    owners: [OwnersEnum.PlatformSigil],
-    tags: ['app-config', TagsEnum.Hygiene],
-    stability: StabilityEnum.Experimental,
-    goal: 'Allow detail drill-down for lifecycle entries.',
-    context:
-      'Used by automation to fetch config payloads for comparison or export.',
-  },
-  io: {
-    input: GetVersionInput,
-    output: GetVersionOutput,
-  },
-  policy: LifecycleReadPolicy,
+	meta: {
+		key: 'appConfig.lifecycle.getVersion',
+		version: '1.0.0',
+		description: 'Fetches a single tenant config version by id.',
+		owners: [OwnersEnum.PlatformSigil],
+		tags: ['app-config', TagsEnum.Hygiene],
+		stability: StabilityEnum.Experimental,
+		goal: 'Allow detail drill-down for lifecycle entries.',
+		context:
+			'Used by automation to fetch config payloads for comparison or export.',
+	},
+	io: {
+		input: GetVersionInput,
+		output: GetVersionOutput,
+	},
+	policy: LifecycleReadPolicy,
 });
 ```

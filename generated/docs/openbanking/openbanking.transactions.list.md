@@ -25,24 +25,24 @@ Used by Pocket Family Office dashboards, reconciliation workflows, and analytics
 
 ```typescript
 export const OpenBankingListTransactions = defineQuery({
-  meta: {
-    key: 'openbanking.transactions.list',
-    version: '1.0.0',
-    description:
-      'List bank transactions that have been normalised into the canonical ledger.',
-    goal: 'Allow downstream analytics and UI surfaces to page through canonical bank transactions.',
-    context:
-      'Used by Pocket Family Office dashboards, reconciliation workflows, and analytics data views.',
-    owners: ['@platform.finance'],
-    tags: ['open-banking', 'powens', 'transactions'],
-    stability: 'experimental',
-  },
-  io: {
-    input: OpenBankingListTransactionsInput,
-    output: OpenBankingListTransactionsOutput,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'openbanking.transactions.list',
+		version: '1.0.0',
+		description:
+			'List bank transactions that have been normalised into the canonical ledger.',
+		goal: 'Allow downstream analytics and UI surfaces to page through canonical bank transactions.',
+		context:
+			'Used by Pocket Family Office dashboards, reconciliation workflows, and analytics data views.',
+		owners: ['@platform.finance'],
+		tags: ['open-banking', 'powens', 'transactions'],
+		stability: 'experimental',
+	},
+	io: {
+		input: OpenBankingListTransactionsInput,
+		output: OpenBankingListTransactionsOutput,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

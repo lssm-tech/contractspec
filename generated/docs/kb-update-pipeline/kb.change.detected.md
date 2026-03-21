@@ -14,14 +14,14 @@ KB source change detected.
 
 ```typescript
 export const KbChangeDetectedEvent = defineEvent({
-  meta: {
-    key: 'kb.change.detected',
-    version: '1.0.0',
-    description: 'KB source change detected.',
-    stability: StabilityEnum.Experimental,
-    owners: [],
-    tags: [],
-  },
-  payload: KbChangeDetectedPayload,
+	meta: {
+		key: 'kb.change.detected',
+		version: '1.0.0',
+		description: 'KB source change detected.',
+		stability: StabilityEnum.Experimental,
+		owners: [],
+		tags: [],
+	},
+	payload: KbChangeDetectedPayload,
 });
 ```

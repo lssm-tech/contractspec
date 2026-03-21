@@ -25,47 +25,47 @@ Project detail page, API calls.
 
 ```typescript
 export const GetProjectContract = defineQuery({
-  meta: {
-    key: 'saas.project.get',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['example.saas-boilerplate'],
-    tags: ['saas', 'project', 'get'],
-    description: 'Get a project by ID.',
-    goal: 'Retrieve project details.',
-    context: 'Project detail page, API calls.',
-  },
-  io: {
-    input: GetProjectInputModel,
-    output: ProjectModel,
-    errors: {
-      NOT_FOUND: {
-        description: 'Project not found',
-        http: 404,
-        gqlCode: 'NOT_FOUND',
-        when: 'Project ID is invalid or user lacks access',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'get-project-happy-path',
-        given: ['Project exists'],
-        when: ['User requests project'],
-        then: ['Project details are returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'get-existing',
-        input: { projectId: 'proj-123' },
-        output: { id: 'proj-123', name: 'Website Redesign' },
-      },
-    ],
-  },
+	meta: {
+		key: 'saas.project.get',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['example.saas-boilerplate'],
+		tags: ['saas', 'project', 'get'],
+		description: 'Get a project by ID.',
+		goal: 'Retrieve project details.',
+		context: 'Project detail page, API calls.',
+	},
+	io: {
+		input: GetProjectInputModel,
+		output: ProjectModel,
+		errors: {
+			NOT_FOUND: {
+				description: 'Project not found',
+				http: 404,
+				gqlCode: 'NOT_FOUND',
+				when: 'Project ID is invalid or user lacks access',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'get-project-happy-path',
+				given: ['Project exists'],
+				when: ['User requests project'],
+				then: ['Project details are returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'get-existing',
+				input: { projectId: 'proj-123' },
+				output: { id: 'proj-123', name: 'Website Redesign' },
+			},
+		],
+	},
 });
 ```

@@ -29,45 +29,45 @@ Post-purchase.
 
 ```typescript
 export const CreateReviewContract = defineCommand({
-  meta: {
-    key: 'marketplace.review.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.marketplace'],
-    tags: ['marketplace', 'review', 'create'],
-    description: 'Create a product/store review.',
-    goal: 'Allow buyers to leave feedback.',
-    context: 'Post-purchase.',
-  },
-  io: { input: CreateReviewInputModel, output: ReviewModel },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'marketplace.review.created',
-        version: '1.0.0',
-        when: 'Review is created',
-        payload: ReviewModel,
-      },
-    ],
-    audit: ['marketplace.review.created'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'create-review-happy-path',
-        given: ['User purchased product'],
-        when: ['User leaves a review'],
-        then: ['Review is created', 'ReviewCreated event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'create-5-star',
-        input: { productId: 'prod-456', rating: 5, comment: 'Great product!' },
-        output: { id: 'rev-789', status: 'published' },
-      },
-    ],
-  },
+	meta: {
+		key: 'marketplace.review.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.marketplace'],
+		tags: ['marketplace', 'review', 'create'],
+		description: 'Create a product/store review.',
+		goal: 'Allow buyers to leave feedback.',
+		context: 'Post-purchase.',
+	},
+	io: { input: CreateReviewInputModel, output: ReviewModel },
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'marketplace.review.created',
+				version: '1.0.0',
+				when: 'Review is created',
+				payload: ReviewModel,
+			},
+		],
+		audit: ['marketplace.review.created'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'create-review-happy-path',
+				given: ['User purchased product'],
+				when: ['User leaves a review'],
+				then: ['Review is created', 'ReviewCreated event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'create-5-star',
+				input: { productId: 'prod-456', rating: 5, comment: 'Great product!' },
+				output: { id: 'rev-789', status: 'published' },
+			},
+		],
+	},
 });
 ```

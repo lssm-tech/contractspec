@@ -25,36 +25,36 @@ Called for large file uploads.
 
 ```typescript
 export const CreatePresignedUrlContract = defineCommand({
-  meta: {
-    key: 'file.presignedUrl.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.files'],
-    tags: ['files', 'presigned', 'upload'],
-    description: 'Create a presigned URL for direct upload.',
-    goal: 'Enable direct-to-storage uploads.',
-    context: 'Called for large file uploads.',
-  },
-  io: {
-    input: CreatePresignedUrlInput,
-    output: PresignedUrlModel,
-    errors: {
-      FILE_TOO_LARGE: {
-        description: 'File exceeds size limit',
-        http: 413,
-        gqlCode: 'FILE_TOO_LARGE',
-        when: 'Requested file size exceeds limit',
-      },
-      INVALID_MIME_TYPE: {
-        description: 'MIME type not allowed',
-        http: 415,
-        gqlCode: 'INVALID_MIME_TYPE',
-        when: 'File type is not in allowed list',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'file.presignedUrl.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.files'],
+		tags: ['files', 'presigned', 'upload'],
+		description: 'Create a presigned URL for direct upload.',
+		goal: 'Enable direct-to-storage uploads.',
+		context: 'Called for large file uploads.',
+	},
+	io: {
+		input: CreatePresignedUrlInput,
+		output: PresignedUrlModel,
+		errors: {
+			FILE_TOO_LARGE: {
+				description: 'File exceeds size limit',
+				http: 413,
+				gqlCode: 'FILE_TOO_LARGE',
+				when: 'Requested file size exceeds limit',
+			},
+			INVALID_MIME_TYPE: {
+				description: 'MIME type not allowed',
+				http: 415,
+				gqlCode: 'INVALID_MIME_TYPE',
+				when: 'File type is not in allowed list',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

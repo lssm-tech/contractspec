@@ -17,14 +17,14 @@ An organization has been deleted.
 
 ```typescript
 export const OrgDeletedEvent = defineEvent({
-  meta: {
-    key: 'org.deleted',
-    version: '1.0.0',
-    description: 'An organization has been deleted.',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['org', 'deleted', 'identity'],
-  },
-  payload: OrgDeletedPayload,
+	meta: {
+		key: 'org.deleted',
+		version: '1.0.0',
+		description: 'An organization has been deleted.',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['org', 'deleted', 'identity'],
+	},
+	payload: OrgDeletedPayload,
 });
 ```

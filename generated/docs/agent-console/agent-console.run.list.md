@@ -24,26 +24,26 @@ Run history dashboard.
 
 ```typescript
 export const RunListPresentation = definePresentation({
-  meta: {
-    key: 'agent-console.run.list',
-    version: '1.0.0',
-    title: 'Run List',
-    description:
-      'List view of agent runs with status, tokens, and duration info',
-    goal: 'Provide an overview of agent execution history and performance.',
-    context: 'Run history dashboard.',
-    domain: 'agent-console',
-    owners: ['@agent-console-team'],
-    tags: ['run', 'list', 'dashboard'],
-    stability: StabilityEnum.Experimental,
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'RunListView',
-    props: RunSummaryModel,
-  },
-  targets: ['react', 'markdown', 'application/json'],
-  policy: { flags: ['agent-console.enabled'] },
+	meta: {
+		key: 'agent-console.run.list',
+		version: '1.0.0',
+		title: 'Run List',
+		description:
+			'List view of agent runs with status, tokens, and duration info',
+		goal: 'Provide an overview of agent execution history and performance.',
+		context: 'Run history dashboard.',
+		domain: 'agent-console',
+		owners: ['@agent-console-team'],
+		tags: ['run', 'list', 'dashboard'],
+		stability: StabilityEnum.Experimental,
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'RunListView',
+		props: RunSummaryModel,
+	},
+	targets: ['react', 'markdown', 'application/json'],
+	policy: { flags: ['agent-console.enabled'] },
 });
 ```

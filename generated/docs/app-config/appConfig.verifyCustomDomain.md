@@ -23,24 +23,24 @@ Triggered after the tenant adds DNS records to verify domain ownership.
 
 ```typescript
 export const VerifyCustomDomainCommand = defineCommand({
-  meta: {
-    key: 'appConfig.verifyCustomDomain',
-    version: '1.0.0',
-    description: 'Validates DNS ownership for tenant custom domains.',
-    owners: [OwnersEnum.PlatformSigil],
-    tags: ['branding'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Confirm tenant-provided domains before activation.',
-    context:
-      'Triggered after the tenant adds DNS records to verify domain ownership.',
-  },
-  io: {
-    input: VerifyCustomDomainInput,
-    output: VerifyCustomDomainOutput,
-  },
-  policy: {
-    auth: 'admin',
-    policies: [{ key: 'platform.app-config.manage', version: '1.0.0' }],
-  },
+	meta: {
+		key: 'appConfig.verifyCustomDomain',
+		version: '1.0.0',
+		description: 'Validates DNS ownership for tenant custom domains.',
+		owners: [OwnersEnum.PlatformSigil],
+		tags: ['branding'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Confirm tenant-provided domains before activation.',
+		context:
+			'Triggered after the tenant adds DNS records to verify domain ownership.',
+	},
+	io: {
+		input: VerifyCustomDomainInput,
+		output: VerifyCustomDomainOutput,
+	},
+	policy: {
+		auth: 'admin',
+		policies: [{ key: 'platform.app-config.manage', version: '1.0.0' }],
+	},
 });
 ```

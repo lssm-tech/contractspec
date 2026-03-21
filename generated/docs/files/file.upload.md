@@ -25,36 +25,36 @@ Called when uploading files directly.
 
 ```typescript
 export const UploadFileContract = defineCommand({
-  meta: {
-    key: 'file.upload',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.files'],
-    tags: ['files', 'upload'],
-    description: 'Upload a new file.',
-    goal: 'Store a file and create a file record.',
-    context: 'Called when uploading files directly.',
-  },
-  io: {
-    input: UploadFileInput,
-    output: FileModel,
-    errors: {
-      FILE_TOO_LARGE: {
-        description: 'File exceeds size limit',
-        http: 413,
-        gqlCode: 'FILE_TOO_LARGE',
-        when: 'File size exceeds configured limit',
-      },
-      INVALID_MIME_TYPE: {
-        description: 'MIME type not allowed',
-        http: 415,
-        gqlCode: 'INVALID_MIME_TYPE',
-        when: 'File type is not in allowed list',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'file.upload',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.files'],
+		tags: ['files', 'upload'],
+		description: 'Upload a new file.',
+		goal: 'Store a file and create a file record.',
+		context: 'Called when uploading files directly.',
+	},
+	io: {
+		input: UploadFileInput,
+		output: FileModel,
+		errors: {
+			FILE_TOO_LARGE: {
+				description: 'File exceeds size limit',
+				http: 413,
+				gqlCode: 'FILE_TOO_LARGE',
+				when: 'File size exceeds configured limit',
+			},
+			INVALID_MIME_TYPE: {
+				description: 'MIME type not allowed',
+				http: 415,
+				gqlCode: 'INVALID_MIME_TYPE',
+				when: 'File type is not in allowed list',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

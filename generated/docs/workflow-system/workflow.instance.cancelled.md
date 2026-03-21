@@ -17,14 +17,14 @@ A workflow instance has been cancelled.
 
 ```typescript
 export const InstanceCancelledEvent = defineEvent({
-  meta: {
-    key: 'workflow.instance.cancelled',
-    version: '1.0.0',
-    description: 'A workflow instance has been cancelled.',
-    stability: 'stable',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'instance', 'cancelled'],
-  },
-  payload: InstanceEventPayload,
+	meta: {
+		key: 'workflow.instance.cancelled',
+		version: '1.0.0',
+		description: 'A workflow instance has been cancelled.',
+		stability: 'stable',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'instance', 'cancelled'],
+	},
+	payload: InstanceEventPayload,
 });
 ```

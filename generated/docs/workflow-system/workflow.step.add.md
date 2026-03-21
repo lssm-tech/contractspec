@@ -29,52 +29,52 @@ Workflow designer.
 
 ```typescript
 export const AddStepContract = defineCommand({
-  meta: {
-    key: 'workflow.step.add',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.workflow-system'],
-    tags: ['workflow', 'step', 'add'],
-    description: 'Add a step to a workflow definition.',
-    goal: 'Build workflow structure step by step.',
-    context: 'Workflow designer.',
-  },
-  io: {
-    input: AddStepInputModel,
-    output: WorkflowStepModel,
-  },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'workflow.step.added',
-        version: '1.0.0',
-        when: 'Step is added',
-        payload: WorkflowStepModel,
-      },
-    ],
-    audit: ['workflow.step.added'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'add-step-happy-path',
-        given: ['Workflow definition exists'],
-        when: ['User adds a step'],
-        then: ['Step is added', 'StepAdded event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'add-approval-step',
-        input: {
-          workflowId: 'def-123',
-          stepKey: 'approve-contract',
-          type: 'approval',
-        },
-        output: { id: 'step-456', key: 'approve-contract' },
-      },
-    ],
-  },
+	meta: {
+		key: 'workflow.step.add',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.workflow-system'],
+		tags: ['workflow', 'step', 'add'],
+		description: 'Add a step to a workflow definition.',
+		goal: 'Build workflow structure step by step.',
+		context: 'Workflow designer.',
+	},
+	io: {
+		input: AddStepInputModel,
+		output: WorkflowStepModel,
+	},
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'workflow.step.added',
+				version: '1.0.0',
+				when: 'Step is added',
+				payload: WorkflowStepModel,
+			},
+		],
+		audit: ['workflow.step.added'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'add-step-happy-path',
+				given: ['Workflow definition exists'],
+				when: ['User adds a step'],
+				then: ['Step is added', 'StepAdded event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'add-approval-step',
+				input: {
+					workflowId: 'def-123',
+					stepKey: 'approve-contract',
+					type: 'approval',
+				},
+				output: { id: 'step-456', key: 'approve-contract' },
+			},
+		],
+	},
 });
 ```

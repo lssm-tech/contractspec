@@ -16,14 +16,14 @@ A job is being scheduled for retry.
 
 ```typescript
 export const JobRetryingEvent = defineEvent({
-  meta: {
-    key: 'job.retrying',
-    version: '1.0.0',
-    description: 'A job is being scheduled for retry.',
-    stability: StabilityEnum.Stable,
-    owners: ['@contractspec.libs.jobs'],
-    tags: ['job-queue', 'lifecycle', 'retry'],
-  },
-  payload: JobRetryingPayload,
+	meta: {
+		key: 'job.retrying',
+		version: '1.0.0',
+		description: 'A job is being scheduled for retry.',
+		stability: StabilityEnum.Stable,
+		owners: ['@contractspec.libs.jobs'],
+		tags: ['job-queue', 'lifecycle', 'retry'],
+	},
+	payload: JobRetryingPayload,
 });
 ```

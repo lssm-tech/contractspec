@@ -17,14 +17,14 @@ A review has been created.
 
 ```typescript
 export const ReviewCreatedEvent = defineEvent({
-  meta: {
-    key: 'marketplace.review.created',
-    version: '1.0.0',
-    description: 'A review has been created.',
-    stability: 'experimental',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'review'],
-  },
-  payload: ReviewCreatedPayload,
+	meta: {
+		key: 'marketplace.review.created',
+		version: '1.0.0',
+		description: 'A review has been created.',
+		stability: 'experimental',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'review'],
+	},
+	payload: ReviewCreatedPayload,
 });
 ```

@@ -25,30 +25,30 @@ Called when user wants to download a file.
 
 ```typescript
 export const GetDownloadUrlContract = defineQuery({
-  meta: {
-    key: 'file.downloadUrl',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.files'],
-    tags: ['files', 'download'],
-    description: 'Get a presigned download URL.',
-    goal: 'Generate a temporary URL for downloading.',
-    context: 'Called when user wants to download a file.',
-  },
-  io: {
-    input: GetDownloadUrlInput,
-    output: PresignedUrlModel,
-    errors: {
-      FILE_NOT_FOUND: {
-        description: 'File does not exist',
-        http: 404,
-        gqlCode: 'FILE_NOT_FOUND',
-        when: 'File ID is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'file.downloadUrl',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.files'],
+		tags: ['files', 'download'],
+		description: 'Get a presigned download URL.',
+		goal: 'Generate a temporary URL for downloading.',
+		context: 'Called when user wants to download a file.',
+	},
+	io: {
+		input: GetDownloadUrlInput,
+		output: PresignedUrlModel,
+		errors: {
+			FILE_NOT_FOUND: {
+				description: 'File does not exist',
+				http: 404,
+				gqlCode: 'FILE_NOT_FOUND',
+				when: 'File ID is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

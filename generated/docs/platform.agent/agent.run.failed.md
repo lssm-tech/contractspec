@@ -15,21 +15,21 @@ Emitted when an agent run fails.
 
 ```typescript
 export const AgentRunFailedEvent = defineEvent({
-  meta: {
-    key: 'agent.run.failed',
-    version: '1.0.0',
-    description: 'Emitted when an agent run fails.',
-    domain: AGENT_DOMAIN,
-    owners: AGENT_OWNERS,
-    tags: [...AGENT_TAGS, 'run'],
-    stability: AGENT_STABILITY,
-    docId: [docId('docs.tech.agent.run.failed')],
-  },
-  capability: {
-    key: 'agent.execution',
-    version: '1.0.0',
-  },
-  pii: ['errorMessage'],
-  payload: AgentRunFailedPayload,
+	meta: {
+		key: 'agent.run.failed',
+		version: '1.0.0',
+		description: 'Emitted when an agent run fails.',
+		domain: AGENT_DOMAIN,
+		owners: AGENT_OWNERS,
+		tags: [...AGENT_TAGS, 'run'],
+		stability: AGENT_STABILITY,
+		docId: [docId('docs.tech.agent.run.failed')],
+	},
+	capability: {
+		key: 'agent.execution',
+		version: '1.0.0',
+	},
+	pii: ['errorMessage'],
+	payload: AgentRunFailedPayload,
 });
 ```

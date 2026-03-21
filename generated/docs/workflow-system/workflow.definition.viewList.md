@@ -24,27 +24,27 @@ Workflow management dashboard
 
 ```typescript
 export const WorkflowListPresentation = definePresentation({
-  meta: {
-    key: 'workflow.definition.viewList',
-    version: '1.0.0',
-    title: 'Workflow List',
-    description: 'List of workflow definitions with status and actions',
-    domain: 'workflow-system',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'list', 'admin'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Overview of all defined workflows',
-    context: 'Workflow management dashboard',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'WorkflowDefinitionList',
-    props: WorkflowDefinitionModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['workflow.enabled'],
-  },
+	meta: {
+		key: 'workflow.definition.viewList',
+		version: '1.0.0',
+		title: 'Workflow List',
+		description: 'List of workflow definitions with status and actions',
+		domain: 'workflow-system',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'list', 'admin'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Overview of all defined workflows',
+		context: 'Workflow management dashboard',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'WorkflowDefinitionList',
+		props: WorkflowDefinitionModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['workflow.enabled'],
+	},
 });
 ```

@@ -23,28 +23,28 @@ Used by web docs surfaces to render DocBlock-based content.
 
 ```typescript
 export const DocsLayoutPresentation = definePresentation({
-  meta: {
-    key: 'docs.layout',
-    title: 'Docs Layout',
-    version: '1.0.0',
-    description: 'Shared layout shell for documentation pages.',
-    goal: 'Provide consistent navigation, layout, and docs UI scaffolding.',
-    context: 'Used by web docs surfaces to render DocBlock-based content.',
-    domain: DOCS_DOMAIN,
-    owners: DOCS_OWNERS,
-    tags: [...DOCS_TAGS, 'layout'],
-    stability: DOCS_STABILITY,
-    docId: [docId('docs.tech.docs-system')],
-  },
-  capability: {
-    key: 'docs.system',
-    version: '1.0.0',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'docsLayout',
-  },
-  targets: ['react'],
+	meta: {
+		key: 'docs.layout',
+		title: 'Docs Layout',
+		version: '1.0.0',
+		description: 'Shared layout shell for documentation pages.',
+		goal: 'Provide consistent navigation, layout, and docs UI scaffolding.',
+		context: 'Used by web docs surfaces to render DocBlock-based content.',
+		domain: DOCS_DOMAIN,
+		owners: DOCS_OWNERS,
+		tags: [...DOCS_TAGS, 'layout'],
+		stability: DOCS_STABILITY,
+		docId: [docId('docs.tech.docs-system')],
+	},
+	capability: {
+		key: 'docs.system',
+		version: '1.0.0',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'docsLayout',
+	},
+	targets: ['react'],
 });
 ```

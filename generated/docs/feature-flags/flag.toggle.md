@@ -25,36 +25,36 @@ Called when turning a feature on or off.
 
 ```typescript
 export const ToggleFlagContract = defineCommand({
-  meta: {
-    key: 'flag.toggle',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.feature-flags'],
-    tags: ['feature-flags', 'toggle'],
-    description: 'Toggle a feature flag status.',
-    goal: 'Quickly enable or disable a feature.',
-    context: 'Called when turning a feature on or off.',
-  },
-  io: {
-    input: ToggleFlagInput,
-    output: FeatureFlagModel,
-    errors: {
-      FLAG_NOT_FOUND: {
-        description: 'Flag does not exist',
-        http: 404,
-        gqlCode: 'FLAG_NOT_FOUND',
-        when: 'Flag ID is invalid',
-      },
-      INVALID_STATUS: {
-        description: 'Invalid status value',
-        http: 400,
-        gqlCode: 'INVALID_STATUS',
-        when: 'Status must be OFF, ON, or GRADUAL',
-      },
-    },
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'flag.toggle',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.feature-flags'],
+		tags: ['feature-flags', 'toggle'],
+		description: 'Toggle a feature flag status.',
+		goal: 'Quickly enable or disable a feature.',
+		context: 'Called when turning a feature on or off.',
+	},
+	io: {
+		input: ToggleFlagInput,
+		output: FeatureFlagModel,
+		errors: {
+			FLAG_NOT_FOUND: {
+				description: 'Flag does not exist',
+				http: 404,
+				gqlCode: 'FLAG_NOT_FOUND',
+				when: 'Flag ID is invalid',
+			},
+			INVALID_STATUS: {
+				description: 'Invalid status value',
+				http: 400,
+				gqlCode: 'INVALID_STATUS',
+				when: 'Status must be OFF, ON, or GRADUAL',
+			},
+		},
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

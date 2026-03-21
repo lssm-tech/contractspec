@@ -24,36 +24,36 @@ Called when reviewing flashcards.
 
 ```typescript
 export const SubmitCardReviewContract = defineCommand({
-  meta: {
-    key: 'learning.submitCardReview',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'flashcards'],
-    description: 'Submit a flashcard review.',
-    goal: 'Record review and update SRS schedule.',
-    context: 'Called when reviewing flashcards.',
-  },
-  io: {
-    input: SubmitCardReviewInput,
-    output: SuccessOutput,
-    errors: {
-      CARD_NOT_FOUND: {
-        description: 'Card does not exist',
-        http: 404,
-        gqlCode: 'CARD_NOT_FOUND',
-        when: 'Card ID is invalid',
-      },
-      INVALID_RATING: {
-        description: 'Invalid rating',
-        http: 400,
-        gqlCode: 'INVALID_RATING',
-        when: 'Rating must be AGAIN, HARD, GOOD, or EASY',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'learning.submitCardReview',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'flashcards'],
+		description: 'Submit a flashcard review.',
+		goal: 'Record review and update SRS schedule.',
+		context: 'Called when reviewing flashcards.',
+	},
+	io: {
+		input: SubmitCardReviewInput,
+		output: SuccessOutput,
+		errors: {
+			CARD_NOT_FOUND: {
+				description: 'Card does not exist',
+				http: 404,
+				gqlCode: 'CARD_NOT_FOUND',
+				when: 'Card ID is invalid',
+			},
+			INVALID_RATING: {
+				description: 'Invalid rating',
+				http: 400,
+				gqlCode: 'INVALID_RATING',
+				when: 'Rating must be AGAIN, HARD, GOOD, or EASY',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

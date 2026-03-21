@@ -29,35 +29,35 @@ Self-service account deletion. Cascades to memberships, sessions, etc.
 
 ```typescript
 export const DeleteUserContract = defineCommand({
-  meta: {
-    key: 'identity.user.delete',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.identity-rbac'],
-    tags: ['identity', 'user', 'delete'],
-    description: 'Delete user account and all associated data.',
-    goal: 'Allow users to delete their account (GDPR compliance).',
-    context:
-      'Self-service account deletion. Cascades to memberships, sessions, etc.',
-  },
-  io: {
-    input: DeleteUserInputModel,
-    output: SuccessResultModel,
-  },
-  policy: {
-    auth: 'user',
-    escalate: 'human_review',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'user.deleted',
-        version: '1.0.0',
-        when: 'User account is deleted',
-        payload: UserDeletedPayloadModel,
-      },
-    ],
-    audit: ['user.deleted'],
-  },
+	meta: {
+		key: 'identity.user.delete',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.identity-rbac'],
+		tags: ['identity', 'user', 'delete'],
+		description: 'Delete user account and all associated data.',
+		goal: 'Allow users to delete their account (GDPR compliance).',
+		context:
+			'Self-service account deletion. Cascades to memberships, sessions, etc.',
+	},
+	io: {
+		input: DeleteUserInputModel,
+		output: SuccessResultModel,
+	},
+	policy: {
+		auth: 'user',
+		escalate: 'human_review',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'user.deleted',
+				version: '1.0.0',
+				when: 'User account is deleted',
+				payload: UserDeletedPayloadModel,
+			},
+		],
+		audit: ['user.deleted'],
+	},
 });
 ```

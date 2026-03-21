@@ -25,36 +25,36 @@ Called when usage occurs.
 
 ```typescript
 export const RecordUsageContract = defineCommand({
-  meta: {
-    key: 'usage.record',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.metering'],
-    tags: ['metering', 'usage', 'record'],
-    description: 'Record a usage event.',
-    goal: 'Track usage for billing and monitoring.',
-    context: 'Called when usage occurs.',
-  },
-  io: {
-    input: RecordUsageInput,
-    output: UsageRecordModel,
-    errors: {
-      METRIC_NOT_FOUND: {
-        description: 'Metric does not exist',
-        http: 404,
-        gqlCode: 'METRIC_NOT_FOUND',
-        when: 'Metric key is invalid',
-      },
-      DUPLICATE_RECORD: {
-        description: 'Record already exists',
-        http: 409,
-        gqlCode: 'DUPLICATE_RECORD',
-        when: 'Idempotency key already used',
-      },
-    },
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'usage.record',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.metering'],
+		tags: ['metering', 'usage', 'record'],
+		description: 'Record a usage event.',
+		goal: 'Track usage for billing and monitoring.',
+		context: 'Called when usage occurs.',
+	},
+	io: {
+		input: RecordUsageInput,
+		output: UsageRecordModel,
+		errors: {
+			METRIC_NOT_FOUND: {
+				description: 'Metric does not exist',
+				http: 404,
+				gqlCode: 'METRIC_NOT_FOUND',
+				when: 'Metric key is invalid',
+			},
+			DUPLICATE_RECORD: {
+				description: 'Record already exists',
+				http: 409,
+				gqlCode: 'DUPLICATE_RECORD',
+				when: 'Idempotency key already used',
+			},
+		},
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

@@ -17,14 +17,14 @@ An invitation has been accepted.
 
 ```typescript
 export const OrgInviteAcceptedEvent = defineEvent({
-  meta: {
-    key: 'org.invite.accepted',
-    version: '1.0.0',
-    description: 'An invitation has been accepted.',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['org', 'invite', 'accepted', 'identity'],
-  },
-  payload: OrgInviteAcceptedPayload,
+	meta: {
+		key: 'org.invite.accepted',
+		version: '1.0.0',
+		description: 'An invitation has been accepted.',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['org', 'invite', 'accepted', 'identity'],
+	},
+	payload: OrgInviteAcceptedPayload,
 });
 ```

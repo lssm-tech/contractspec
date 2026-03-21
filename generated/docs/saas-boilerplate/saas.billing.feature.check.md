@@ -25,39 +25,39 @@ Feature access checks, upgrade prompts.
 
 ```typescript
 export const CheckFeatureAccessContract = defineQuery({
-  meta: {
-    key: 'saas.billing.feature.check',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.saas-boilerplate'],
-    tags: ['saas', 'billing', 'feature'],
-    description: 'Check if organization has access to a feature.',
-    goal: 'Gate features based on plan/usage.',
-    context: 'Feature access checks, upgrade prompts.',
-  },
-  io: {
-    input: CheckFeatureAccessInputModel,
-    output: CheckFeatureAccessOutputModel,
-  },
-  policy: {
-    auth: 'user',
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'check-access-granted',
-        given: ['Organization is on Pro plan'],
-        when: ['User checks access to Pro feature'],
-        then: ['Access is granted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'check-advanced-reports',
-        input: { feature: 'advanced_reports' },
-        output: { hasAccess: true, reason: 'Included in Pro plan' },
-      },
-    ],
-  },
+	meta: {
+		key: 'saas.billing.feature.check',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.saas-boilerplate'],
+		tags: ['saas', 'billing', 'feature'],
+		description: 'Check if organization has access to a feature.',
+		goal: 'Gate features based on plan/usage.',
+		context: 'Feature access checks, upgrade prompts.',
+	},
+	io: {
+		input: CheckFeatureAccessInputModel,
+		output: CheckFeatureAccessOutputModel,
+	},
+	policy: {
+		auth: 'user',
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'check-access-granted',
+				given: ['Organization is on Pro plan'],
+				when: ['User checks access to Pro feature'],
+				then: ['Access is granted'],
+			},
+		],
+		examples: [
+			{
+				key: 'check-advanced-reports',
+				input: { feature: 'advanced_reports' },
+				output: { hasAccess: true, reason: 'Included in Pro plan' },
+			},
+		],
+	},
 });
 ```

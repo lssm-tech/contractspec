@@ -24,26 +24,26 @@ Global navigation or sidebar
 
 ```typescript
 export const PendingApprovalsBadgePresentation = definePresentation({
-  meta: {
-    key: 'workflow.approval.badge',
-    version: '1.0.0',
-    title: 'Pending Approvals Badge',
-    description: 'Badge showing count of pending approvals',
-    domain: 'workflow-system',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'approval', 'badge', 'widget'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Visual notification of pending approvals',
-    context: 'Global navigation or sidebar',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'PendingApprovalsBadge',
-  },
-  targets: ['react'],
-  policy: {
-    flags: ['workflow.approvals.enabled'],
-  },
+	meta: {
+		key: 'workflow.approval.badge',
+		version: '1.0.0',
+		title: 'Pending Approvals Badge',
+		description: 'Badge showing count of pending approvals',
+		domain: 'workflow-system',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'approval', 'badge', 'widget'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Visual notification of pending approvals',
+		context: 'Global navigation or sidebar',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'PendingApprovalsBadge',
+	},
+	targets: ['react'],
+	policy: {
+		flags: ['workflow.approvals.enabled'],
+	},
 });
 ```

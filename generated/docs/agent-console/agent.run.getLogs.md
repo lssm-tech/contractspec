@@ -25,61 +25,61 @@ Run details page - logs tab.
 
 ```typescript
 export const GetRunLogsQuery = defineQuery({
-  meta: {
-    key: 'agent.run.getLogs',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['run', 'logs'],
-    description: 'Retrieves all logs for a specific run.',
-    goal: 'Debug and audit run execution.',
-    context: 'Run details page - logs tab.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'GetRunLogsInput',
-      fields: {
-        runId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-        level: { type: LogLevelEnum, isOptional: true },
-        stepId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-        limit: {
-          type: ScalarTypeEnum.Int_unsecure(),
-          isOptional: true,
-          defaultValue: 100,
-        },
-        offset: {
-          type: ScalarTypeEnum.Int_unsecure(),
-          isOptional: true,
-          defaultValue: 0,
-        },
-      },
-    }),
-    output: defineSchemaModel({
-      name: 'GetRunLogsOutput',
-      fields: {
-        items: { type: RunLogModel, isArray: true, isOptional: false },
-        total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-        hasMore: { type: ScalarTypeEnum.Boolean(), isOptional: false },
-      },
-    }),
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'get-run-logs-happy-path',
-        given: ['Run exists with logs'],
-        when: ['User requests logs'],
-        then: ['Paginated logs list is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'get-logs-filtered',
-        input: { runId: 'run-456', level: 'error', limit: 50 },
-        output: { items: [], total: 0, hasMore: false },
-      },
-    ],
-  },
+	meta: {
+		key: 'agent.run.getLogs',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['run', 'logs'],
+		description: 'Retrieves all logs for a specific run.',
+		goal: 'Debug and audit run execution.',
+		context: 'Run details page - logs tab.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'GetRunLogsInput',
+			fields: {
+				runId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+				level: { type: LogLevelEnum, isOptional: true },
+				stepId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+				limit: {
+					type: ScalarTypeEnum.Int_unsecure(),
+					isOptional: true,
+					defaultValue: 100,
+				},
+				offset: {
+					type: ScalarTypeEnum.Int_unsecure(),
+					isOptional: true,
+					defaultValue: 0,
+				},
+			},
+		}),
+		output: defineSchemaModel({
+			name: 'GetRunLogsOutput',
+			fields: {
+				items: { type: RunLogModel, isArray: true, isOptional: false },
+				total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+				hasMore: { type: ScalarTypeEnum.Boolean(), isOptional: false },
+			},
+		}),
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'get-run-logs-happy-path',
+				given: ['Run exists with logs'],
+				when: ['User requests logs'],
+				then: ['Paginated logs list is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'get-logs-filtered',
+				input: { runId: 'run-456', level: 'error', limit: 50 },
+				output: { items: [], total: 0, hasMore: false },
+			},
+		],
+	},
 });
 ```

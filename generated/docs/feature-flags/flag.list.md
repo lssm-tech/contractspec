@@ -25,22 +25,22 @@ Admin dashboard.
 
 ```typescript
 export const ListFlagsContract = defineQuery({
-  meta: {
-    key: 'flag.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.feature-flags'],
-    tags: ['feature-flags', 'list'],
-    description: 'List all feature flags.',
-    goal: 'View all configured flags.',
-    context: 'Admin dashboard.',
-  },
-  io: {
-    input: ListFlagsInput,
-    output: ListFlagsOutput,
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'flag.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.feature-flags'],
+		tags: ['feature-flags', 'list'],
+		description: 'List all feature flags.',
+		goal: 'View all configured flags.',
+		context: 'Admin dashboard.',
+	},
+	io: {
+		input: ListFlagsInput,
+		output: ListFlagsOutput,
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

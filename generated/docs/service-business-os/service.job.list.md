@@ -25,37 +25,37 @@ Job management
 
 ```typescript
 export const ListJobsOperation = defineQuery({
-  meta: {
-    key: 'service.job.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@examples.service-business-os'],
-    tags: ['service-business-os', 'job', 'list', 'query'],
-    description: 'List all jobs with filtering',
-    goal: 'Retrieve list of jobs',
-    context: 'Job management',
-  },
-  io: {
-    input: ListJobsInputModel,
-    output: ListJobsOutputModel,
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'list-jobs-happy-path',
-        given: ['Jobs exist'],
-        when: ['User lists jobs'],
-        then: ['List of jobs is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'list-active',
-        input: { status: 'scheduled', limit: 10 },
-        output: { jobs: [], total: 5 },
-      },
-    ],
-  },
+	meta: {
+		key: 'service.job.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@examples.service-business-os'],
+		tags: ['service-business-os', 'job', 'list', 'query'],
+		description: 'List all jobs with filtering',
+		goal: 'Retrieve list of jobs',
+		context: 'Job management',
+	},
+	io: {
+		input: ListJobsInputModel,
+		output: ListJobsOutputModel,
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'list-jobs-happy-path',
+				given: ['Jobs exist'],
+				when: ['User lists jobs'],
+				then: ['List of jobs is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'list-active',
+				input: { status: 'scheduled', limit: 10 },
+				output: { jobs: [], total: 5 },
+			},
+		],
+	},
 });
 ```

@@ -17,14 +17,14 @@ A quote was sent to the client.
 
 ```typescript
 export const QuoteSentEvent = defineEvent({
-  meta: {
-    key: 'service.quote.sent',
-    version: '1.0.0',
-    description: 'A quote was sent to the client.',
-    stability: 'stable',
-    owners: ['@service-os'],
-    tags: ['service', 'quote', 'sent'],
-  },
-  payload: QuoteEventPayload,
+	meta: {
+		key: 'service.quote.sent',
+		version: '1.0.0',
+		description: 'A quote was sent to the client.',
+		stability: 'stable',
+		owners: ['@service-os'],
+		tags: ['service', 'quote', 'sent'],
+	},
+	payload: QuoteEventPayload,
 });
 ```

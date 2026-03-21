@@ -17,14 +17,14 @@ A new contact has been created.
 
 ```typescript
 export const ContactCreatedEvent = defineEvent({
-  meta: {
-    key: 'contact.created',
-    version: '1.0.0',
-    description: 'A new contact has been created.',
-    stability: 'stable',
-    owners: ['@crm-team'],
-    tags: ['contact', 'created'],
-  },
-  payload: ContactCreatedPayload,
+	meta: {
+		key: 'contact.created',
+		version: '1.0.0',
+		description: 'A new contact has been created.',
+		stability: 'stable',
+		owners: ['@crm-team'],
+		tags: ['contact', 'created'],
+	},
+	payload: ContactCreatedPayload,
 });
 ```

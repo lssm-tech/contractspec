@@ -17,29 +17,29 @@ Test for listing deals
 
 ```typescript
 export const dealListTest = defineTestSpec({
-  meta: {
-    key: 'test.crm.deal.list',
-    version: '1.0.0',
-    owners: ['@example.crm-pipeline'],
-    description: 'Test for listing deals',
-    stability: 'stable',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'crm.deal.list', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'crm.deal.list' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'crm.deal.list' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'test.crm.deal.list',
+		version: '1.0.0',
+		owners: ['@example.crm-pipeline'],
+		description: 'Test for listing deals',
+		stability: 'stable',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'crm.deal.list', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'crm.deal.list' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'crm.deal.list' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

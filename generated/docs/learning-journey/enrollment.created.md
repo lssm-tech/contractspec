@@ -16,14 +16,14 @@ A learner has enrolled in a course.
 
 ```typescript
 export const EnrollmentCreatedEvent = defineEvent({
-  meta: {
-    key: 'enrollment.created',
-    version: '1.0.0',
-    description: 'A learner has enrolled in a course.',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'enrollment'],
-  },
-  payload: EnrollmentCreatedPayload,
+	meta: {
+		key: 'enrollment.created',
+		version: '1.0.0',
+		description: 'A learner has enrolled in a course.',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'enrollment'],
+	},
+	payload: EnrollmentCreatedPayload,
 });
 ```

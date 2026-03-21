@@ -17,14 +17,14 @@ A workflow instance has failed.
 
 ```typescript
 export const InstanceFailedEvent = defineEvent({
-  meta: {
-    key: 'workflow.instance.failed',
-    version: '1.0.0',
-    description: 'A workflow instance has failed.',
-    stability: 'stable',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'instance', 'failed'],
-  },
-  payload: InstanceEventPayload,
+	meta: {
+		key: 'workflow.instance.failed',
+		version: '1.0.0',
+		description: 'A workflow instance has failed.',
+		stability: 'stable',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'instance', 'failed'],
+	},
+	payload: InstanceEventPayload,
 });
 ```

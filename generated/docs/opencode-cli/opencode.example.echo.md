@@ -8,7 +8,7 @@ Echo a prompt for the OpenCode CLI example.
 
 - **Type**: operation (command)
 - **Version**: 1.0.0
-- **Stability**: experimental
+- **Stability**: stable
 - **Owners**: @contractspec/examples
 - **Tags**: opencode, example, echo
 - **File**: `packages/examples/opencode-cli/src/contracts/opencode.contracts.ts`
@@ -25,37 +25,37 @@ Used by the opencode-cli example package.
 
 ```typescript
 export const OpenCodeEchoCommand = defineCommand({
-  meta: {
-    key: 'opencode.example.echo',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@contractspec/examples'],
-    tags: ['opencode', 'example', 'echo'],
-    description: 'Echo a prompt for the OpenCode CLI example.',
-    goal: 'Demonstrate OpenCode agent mode in the CLI build/validate flow.',
-    context: 'Used by the opencode-cli example package.',
-  },
-  io: {
-    input: OpenCodeEchoInput,
-    output: OpenCodeEchoOutput,
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'echo-prompt',
-        given: ['A user provides a prompt'],
-        when: ['The echo command is invoked'],
-        then: ['The message is returned as-is'],
-      },
-    ],
-    examples: [
-      {
-        key: 'echo-example',
-        input: { prompt: 'Hello, OpenCode' },
-        output: { message: 'Hello, OpenCode' },
-      },
-    ],
-  },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'opencode.example.echo',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@contractspec/examples'],
+		tags: ['opencode', 'example', 'echo'],
+		description: 'Echo a prompt for the OpenCode CLI example.',
+		goal: 'Demonstrate OpenCode agent mode in the CLI build/validate flow.',
+		context: 'Used by the opencode-cli example package.',
+	},
+	io: {
+		input: OpenCodeEchoInput,
+		output: OpenCodeEchoOutput,
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'echo-prompt',
+				given: ['A user provides a prompt'],
+				when: ['The echo command is invoked'],
+				then: ['The message is returned as-is'],
+			},
+		],
+		examples: [
+			{
+				key: 'echo-example',
+				input: { prompt: 'Hello, OpenCode' },
+				output: { message: 'Hello, OpenCode' },
+			},
+		],
+	},
+	policy: { auth: 'user' },
 });
 ```

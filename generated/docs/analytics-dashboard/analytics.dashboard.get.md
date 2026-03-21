@@ -25,34 +25,34 @@ Dashboard view.
 
 ```typescript
 export const GetDashboardContract = defineQuery({
-  meta: {
-    key: 'analytics.dashboard.get',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.analytics-dashboard'],
-    tags: ['analytics', 'dashboard', 'get'],
-    description: 'Get a dashboard with widgets.',
-    goal: 'Load dashboard for viewing.',
-    context: 'Dashboard view.',
-  },
-  io: { input: GetDashboardInputModel, output: DashboardModel },
-  policy: { auth: 'anonymous' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'get-dashboard-happy-path',
-        given: ['Dashboard exists'],
-        when: ['User requests dashboard by ID'],
-        then: ['Dashboard with widgets is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'get-basic',
-        input: { dashboardId: 'dash-123' },
-        output: { id: 'dash-123', name: 'Revenue Dashboard', widgets: [] },
-      },
-    ],
-  },
+	meta: {
+		key: 'analytics.dashboard.get',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.analytics-dashboard'],
+		tags: ['analytics', 'dashboard', 'get'],
+		description: 'Get a dashboard with widgets.',
+		goal: 'Load dashboard for viewing.',
+		context: 'Dashboard view.',
+	},
+	io: { input: GetDashboardInputModel, output: DashboardModel },
+	policy: { auth: 'anonymous' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'get-dashboard-happy-path',
+				given: ['Dashboard exists'],
+				when: ['User requests dashboard by ID'],
+				then: ['Dashboard with widgets is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'get-basic',
+				input: { dashboardId: 'dash-123' },
+				output: { id: 'dash-123', name: 'Revenue Dashboard', widgets: [] },
+			},
+		],
+	},
 });
 ```

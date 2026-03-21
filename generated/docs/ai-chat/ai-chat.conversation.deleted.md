@@ -17,19 +17,19 @@ Conversation deleted
 
 ```typescript
 export const ConversationDeletedEvent = defineEvent({
-  meta: {
-    key: 'ai-chat.conversation.deleted',
-    version: '1.0.0',
-    description: 'Conversation deleted',
-    stability: 'stable',
-    owners: ['@ai-chat'],
-    tags: ['ai-chat', 'conversation', 'deleted'],
-  },
-  payload: defineSchemaModel({
-    name: 'ConversationDeletedPayload',
-    fields: {
-      id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    },
-  }),
+	meta: {
+		key: 'ai-chat.conversation.deleted',
+		version: '1.0.0',
+		description: 'Conversation deleted',
+		stability: 'stable',
+		owners: ['@ai-chat'],
+		tags: ['ai-chat', 'conversation', 'deleted'],
+	},
+	payload: defineSchemaModel({
+		name: 'ConversationDeletedPayload',
+		fields: {
+			id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+		},
+	}),
 });
 ```

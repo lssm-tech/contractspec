@@ -14,32 +14,32 @@ A tenant config was rolled back to a previous version.
 
 ```typescript
 export const ConfigRolledBackEvent = defineEvent({
-  meta: {
-    ...lifecycleOwnership,
-    key: 'app_config.rolled_back',
-    version: '1.0.0',
-    description: 'A tenant config was rolled back to a previous version.',
-  },
-  payload: new SchemaModel({
-    name: 'ConfigRolledBackPayload',
-    fields: {
-      tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
-      appId: { type: ScalarTypeEnum.ID(), isOptional: false },
-      newVersion: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      rolledBackFrom: {
-        type: ScalarTypeEnum.String_unsecure(),
-        isOptional: false,
-      },
-      rolledBackTo: {
-        type: ScalarTypeEnum.String_unsecure(),
-        isOptional: false,
-      },
-      rolledBackBy: {
-        type: ScalarTypeEnum.String_unsecure(),
-        isOptional: false,
-      },
-      reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    },
-  }),
+	meta: {
+		...lifecycleOwnership,
+		key: 'app_config.rolled_back',
+		version: '1.0.0',
+		description: 'A tenant config was rolled back to a previous version.',
+	},
+	payload: new SchemaModel({
+		name: 'ConfigRolledBackPayload',
+		fields: {
+			tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
+			appId: { type: ScalarTypeEnum.ID(), isOptional: false },
+			newVersion: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+			rolledBackFrom: {
+				type: ScalarTypeEnum.String_unsecure(),
+				isOptional: false,
+			},
+			rolledBackTo: {
+				type: ScalarTypeEnum.String_unsecure(),
+				isOptional: false,
+			},
+			rolledBackBy: {
+				type: ScalarTypeEnum.String_unsecure(),
+				isOptional: false,
+			},
+			reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+		},
+	}),
 });
 ```

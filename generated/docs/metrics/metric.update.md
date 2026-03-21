@@ -25,30 +25,30 @@ Called when updating metric settings.
 
 ```typescript
 export const UpdateMetricContract = defineCommand({
-  meta: {
-    key: 'metric.update',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.metering'],
-    tags: ['metering', 'metric', 'update'],
-    description: 'Update a metric definition.',
-    goal: 'Modify metric configuration.',
-    context: 'Called when updating metric settings.',
-  },
-  io: {
-    input: UpdateMetricInput,
-    output: MetricDefinitionModel,
-    errors: {
-      METRIC_NOT_FOUND: {
-        description: 'Metric does not exist',
-        http: 404,
-        gqlCode: 'METRIC_NOT_FOUND',
-        when: 'Metric ID is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'metric.update',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.metering'],
+		tags: ['metering', 'metric', 'update'],
+		description: 'Update a metric definition.',
+		goal: 'Modify metric configuration.',
+		context: 'Called when updating metric settings.',
+	},
+	io: {
+		input: UpdateMetricInput,
+		output: MetricDefinitionModel,
+		errors: {
+			METRIC_NOT_FOUND: {
+				description: 'Metric does not exist',
+				http: 404,
+				gqlCode: 'METRIC_NOT_FOUND',
+				when: 'Metric ID is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

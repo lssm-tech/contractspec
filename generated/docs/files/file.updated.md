@@ -17,14 +17,14 @@ A file has been updated.
 
 ```typescript
 export const FileUpdatedEvent = defineEvent({
-  meta: {
-    key: 'file.updated',
-    version: '1.0.0',
-    description: 'A file has been updated.',
-    stability: 'stable',
-    owners: ['@platform.files'],
-    tags: ['files', 'update'],
-  },
-  payload: FileUpdatedPayload,
+	meta: {
+		key: 'file.updated',
+		version: '1.0.0',
+		description: 'A file has been updated.',
+		stability: 'stable',
+		owners: ['@platform.files'],
+		tags: ['files', 'update'],
+	},
+	payload: FileUpdatedPayload,
 });
 ```

@@ -25,43 +25,43 @@ Billing page, plan upgrade prompts.
 
 ```typescript
 export const GetSubscriptionContract = defineQuery({
-  meta: {
-    key: 'saas.billing.subscription.get',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.saas-boilerplate'],
-    tags: ['saas', 'billing', 'subscription'],
-    description: 'Get organization subscription status.',
-    goal: 'Show current plan and billing status.',
-    context: 'Billing page, plan upgrade prompts.',
-  },
-  io: {
-    input: null,
-    output: SubscriptionModel,
-  },
-  policy: {
-    auth: 'user',
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'get-subscription-happy-path',
-        given: ['Organization has active subscription'],
-        when: ['User requests subscription status'],
-        then: ['Subscription details are returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'get-basic',
-        input: null,
-        output: {
-          plan: 'pro',
-          status: 'active',
-          currentPeriodEnd: '2025-02-01T00:00:00Z',
-        },
-      },
-    ],
-  },
+	meta: {
+		key: 'saas.billing.subscription.get',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.saas-boilerplate'],
+		tags: ['saas', 'billing', 'subscription'],
+		description: 'Get organization subscription status.',
+		goal: 'Show current plan and billing status.',
+		context: 'Billing page, plan upgrade prompts.',
+	},
+	io: {
+		input: null,
+		output: SubscriptionModel,
+	},
+	policy: {
+		auth: 'user',
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'get-subscription-happy-path',
+				given: ['Organization has active subscription'],
+				when: ['User requests subscription status'],
+				then: ['Subscription details are returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'get-basic',
+				input: null,
+				output: {
+					plan: 'pro',
+					status: 'active',
+					currentPeriodEnd: '2025-02-01T00:00:00Z',
+				},
+			},
+		],
+	},
 });
 ```

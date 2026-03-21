@@ -17,14 +17,14 @@ An agent run encountered an error.
 
 ```typescript
 export const RunFailedEvent = defineEvent({
-  meta: {
-    key: 'agent.run.failed',
-    version: '1.0.0',
-    description: 'An agent run encountered an error.',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['run', 'failed'],
-  },
-  payload: RunFailedPayload,
+	meta: {
+		key: 'agent.run.failed',
+		version: '1.0.0',
+		description: 'An agent run encountered an error.',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['run', 'failed'],
+	},
+	payload: RunFailedPayload,
 });
 ```

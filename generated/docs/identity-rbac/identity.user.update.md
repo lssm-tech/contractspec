@@ -29,33 +29,33 @@ Self-service profile updates.
 
 ```typescript
 export const UpdateUserContract = defineCommand({
-  meta: {
-    key: 'identity.user.update',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.identity-rbac'],
-    tags: ['identity', 'user', 'update'],
-    description: 'Update user profile information.',
-    goal: 'Allow users to update their profile.',
-    context: 'Self-service profile updates.',
-  },
-  io: {
-    input: UpdateUserInputModel,
-    output: UserProfileModel,
-  },
-  policy: {
-    auth: 'user',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'user.updated',
-        version: '1.0.0',
-        when: 'User profile is updated',
-        payload: UserProfileModel,
-      },
-    ],
-    audit: ['user.updated'],
-  },
+	meta: {
+		key: 'identity.user.update',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.identity-rbac'],
+		tags: ['identity', 'user', 'update'],
+		description: 'Update user profile information.',
+		goal: 'Allow users to update their profile.',
+		context: 'Self-service profile updates.',
+	},
+	io: {
+		input: UpdateUserInputModel,
+		output: UserProfileModel,
+	},
+	policy: {
+		auth: 'user',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'user.updated',
+				version: '1.0.0',
+				when: 'User profile is updated',
+				payload: UserProfileModel,
+			},
+		],
+		audit: ['user.updated'],
+	},
 });
 ```

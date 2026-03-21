@@ -14,14 +14,14 @@ KB review requested.
 
 ```typescript
 export const KbReviewRequestedEvent = defineEvent({
-  meta: {
-    key: 'kb.review.requested',
-    version: '1.0.0',
-    description: 'KB review requested.',
-    stability: StabilityEnum.Experimental,
-    owners: [],
-    tags: [],
-  },
-  payload: KbReviewRequestedPayload,
+	meta: {
+		key: 'kb.review.requested',
+		version: '1.0.0',
+		description: 'KB review requested.',
+		stability: StabilityEnum.Experimental,
+		owners: [],
+		tags: [],
+	},
+	payload: KbReviewRequestedPayload,
 });
 ```

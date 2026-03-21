@@ -16,14 +16,14 @@ Approval workflows and user decisions
 
 ```typescript
 export const ApprovalCapability = defineCapability({
-  meta: {
-    key: 'approval',
-    version: '1.0.0',
-    kind: 'ui',
-    stability: StabilityEnum.Experimental,
-    description: 'Approval workflows and user decisions',
-    owners: ['platform.core'],
-    tags: ['approval', 'workflow'],
-  },
+	meta: {
+		key: 'approval',
+		version: '1.0.0',
+		kind: 'ui',
+		stability: StabilityEnum.Experimental,
+		description: 'Approval workflows and user decisions',
+		owners: ['platform.core'],
+		tags: ['approval', 'workflow'],
+	},
 });
 ```

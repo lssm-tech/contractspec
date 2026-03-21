@@ -17,14 +17,14 @@ A file has been attached to an entity.
 
 ```typescript
 export const AttachmentAttachedEvent = defineEvent({
-  meta: {
-    key: 'attachment.attached',
-    version: '1.0.0',
-    description: 'A file has been attached to an entity.',
-    stability: 'stable',
-    owners: ['@platform.files'],
-    tags: ['files', 'attachment', 'attach'],
-  },
-  payload: AttachmentAttachedPayload,
+	meta: {
+		key: 'attachment.attached',
+		version: '1.0.0',
+		description: 'A file has been attached to an entity.',
+		stability: 'stable',
+		owners: ['@platform.files'],
+		tags: ['files', 'attachment', 'attach'],
+	},
+	payload: AttachmentAttachedPayload,
 });
 ```

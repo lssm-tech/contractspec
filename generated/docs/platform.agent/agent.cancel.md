@@ -23,30 +23,30 @@ Used when an agent run must be halted or escalated.
 
 ```typescript
 export const AgentCancelCommand = defineCommand({
-  meta: {
-    key: 'agent.cancel',
-    title: 'Cancel Agent Run',
-    version: '1.0.0',
-    description: 'Cancel an in-flight agent run.',
-    goal: 'Provide safe operator control to stop background agents.',
-    context: 'Used when an agent run must be halted or escalated.',
-    domain: AGENT_DOMAIN,
-    owners: AGENT_OWNERS,
-    tags: [...AGENT_TAGS, 'run', 'cancel'],
-    stability: AGENT_STABILITY,
-    docId: [docId('docs.tech.agent.cancel')],
-  },
-  capability: {
-    key: 'agent.execution',
-    version: '1.0.0',
-  },
-  io: {
-    input: AgentCancelInput,
-    output: AgentCancelOutput,
-  },
-  policy: {
-    auth: 'admin',
-    pii: [],
-  },
+	meta: {
+		key: 'agent.cancel',
+		title: 'Cancel Agent Run',
+		version: '1.0.0',
+		description: 'Cancel an in-flight agent run.',
+		goal: 'Provide safe operator control to stop background agents.',
+		context: 'Used when an agent run must be halted or escalated.',
+		domain: AGENT_DOMAIN,
+		owners: AGENT_OWNERS,
+		tags: [...AGENT_TAGS, 'run', 'cancel'],
+		stability: AGENT_STABILITY,
+		docId: [docId('docs.tech.agent.cancel')],
+	},
+	capability: {
+		key: 'agent.execution',
+		version: '1.0.0',
+	},
+	io: {
+		input: AgentCancelInput,
+		output: AgentCancelOutput,
+	},
+	policy: {
+		auth: 'admin',
+		pii: [],
+	},
 });
 ```

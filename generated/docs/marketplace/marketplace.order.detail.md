@@ -24,28 +24,28 @@ Accessed from the order list to see specific items, shipping, and payment detail
 
 ```typescript
 export const OrderDetailPresentation = definePresentation({
-  meta: {
-    key: 'marketplace.order.detail',
-    version: '1.0.0',
-    title: 'Order Details',
-    description: 'Order detail with items and shipping info',
-    domain: 'marketplace',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'order', 'detail'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Display all details of a single order.',
-    context:
-      'Accessed from the order list to see specific items, shipping, and payment details.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'OrderDetail',
-    props: OrderModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['marketplace.orders.enabled'],
-  },
+	meta: {
+		key: 'marketplace.order.detail',
+		version: '1.0.0',
+		title: 'Order Details',
+		description: 'Order detail with items and shipping info',
+		domain: 'marketplace',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'order', 'detail'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Display all details of a single order.',
+		context:
+			'Accessed from the order list to see specific items, shipping, and payment details.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'OrderDetail',
+		props: OrderModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['marketplace.orders.enabled'],
+	},
 });
 ```

@@ -23,31 +23,31 @@ Used by Studio model detail pages and comparison views.
 
 ```typescript
 export const ModelProfileGetQuery = defineQuery({
-  meta: {
-    key: 'provider-ranking.model.profile.get',
-    title: 'Get Model Profile',
-    version: '1.0.0',
-    description:
-      'Get detailed profile for a single model including all scores, metadata, cost, and capabilities.',
-    goal: 'Provide a comprehensive view of a single model for comparison.',
-    context: 'Used by Studio model detail pages and comparison views.',
-    domain: PROVIDER_RANKING_DOMAIN,
-    owners: PROVIDER_RANKING_OWNERS,
-    tags: [...PROVIDER_RANKING_TAGS, 'model', 'profile'],
-    stability: PROVIDER_RANKING_STABILITY,
-    docId: [docId('docs.tech.provider-ranking.model.profile.get')],
-  },
-  capability: {
-    key: 'provider-ranking.system',
-    version: '1.0.0',
-  },
-  io: {
-    input: ModelProfileGetInput,
-    output: ModelProfileOutput,
-  },
-  policy: {
-    auth: 'user',
-    pii: [],
-  },
+	meta: {
+		key: 'provider-ranking.model.profile.get',
+		title: 'Get Model Profile',
+		version: '1.0.0',
+		description:
+			'Get detailed profile for a single model including all scores, metadata, cost, and capabilities.',
+		goal: 'Provide a comprehensive view of a single model for comparison.',
+		context: 'Used by Studio model detail pages and comparison views.',
+		domain: PROVIDER_RANKING_DOMAIN,
+		owners: PROVIDER_RANKING_OWNERS,
+		tags: [...PROVIDER_RANKING_TAGS, 'model', 'profile'],
+		stability: PROVIDER_RANKING_STABILITY,
+		docId: [docId('docs.tech.provider-ranking.model.profile.get')],
+	},
+	capability: {
+		key: 'provider-ranking.system',
+		version: '1.0.0',
+	},
+	io: {
+		input: ModelProfileGetInput,
+		output: ModelProfileOutput,
+	},
+	policy: {
+		auth: 'user',
+		pii: [],
+	},
 });
 ```

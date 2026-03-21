@@ -17,14 +17,14 @@ A quote was accepted.
 
 ```typescript
 export const QuoteAcceptedEvent = defineEvent({
-  meta: {
-    key: 'service.quote.accepted',
-    version: '1.0.0',
-    description: 'A quote was accepted.',
-    stability: 'stable',
-    owners: ['@service-os'],
-    tags: ['service', 'quote', 'accepted'],
-  },
-  payload: QuoteEventPayload,
+	meta: {
+		key: 'service.quote.accepted',
+		version: '1.0.0',
+		description: 'A quote was accepted.',
+		stability: 'stable',
+		owners: ['@service-os'],
+		tags: ['service', 'quote', 'accepted'],
+	},
+	payload: QuoteEventPayload,
 });
 ```

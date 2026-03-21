@@ -17,14 +17,14 @@ A dashboard was created.
 
 ```typescript
 export const DashboardCreatedEvent = defineEvent({
-  meta: {
-    key: 'analytics.dashboard.created',
-    version: '1.0.0',
-    description: 'A dashboard was created.',
-    stability: 'stable',
-    owners: ['@analytics-team'],
-    tags: ['dashboard'],
-  },
-  payload: DashboardEventPayload,
+	meta: {
+		key: 'analytics.dashboard.created',
+		version: '1.0.0',
+		description: 'A dashboard was created.',
+		stability: 'stable',
+		owners: ['@analytics-team'],
+		tags: ['dashboard'],
+	},
+	payload: DashboardEventPayload,
 });
 ```

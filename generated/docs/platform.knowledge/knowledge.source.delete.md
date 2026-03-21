@@ -25,25 +25,25 @@ Ensures ephemeral or external sources can be removed cleanly without leaving res
 
 ```typescript
 export const DeleteKnowledgeSource = defineCommand({
-  meta: {
-    key: 'knowledge.source.delete',
-    title: 'Delete Knowledge Source',
-    version: '1.0.0',
-    description: 'Delete a knowledge source binding for a tenant.',
-    goal: 'Remove obsolete or compromised knowledge ingestion paths.',
-    context:
-      'Ensures ephemeral or external sources can be removed cleanly without leaving residual bindings.',
-    owners: ['@platform.knowledge'],
-    tags: ['knowledge', 'sources'],
-    stability: 'experimental',
-  },
-  io: {
-    input: DeleteKnowledgeSourceInput,
-    output: DeleteKnowledgeSourceOutput,
-  },
-  policy: {
-    auth: 'admin',
-    policies: [{ key: 'platform.knowledge.manage', version: '1.0.0' }],
-  },
+	meta: {
+		key: 'knowledge.source.delete',
+		title: 'Delete Knowledge Source',
+		version: '1.0.0',
+		description: 'Delete a knowledge source binding for a tenant.',
+		goal: 'Remove obsolete or compromised knowledge ingestion paths.',
+		context:
+			'Ensures ephemeral or external sources can be removed cleanly without leaving residual bindings.',
+		owners: ['@platform.knowledge'],
+		tags: ['knowledge', 'sources'],
+		stability: 'experimental',
+	},
+	io: {
+		input: DeleteKnowledgeSourceInput,
+		output: DeleteKnowledgeSourceOutput,
+	},
+	policy: {
+		auth: 'admin',
+		policies: [{ key: 'platform.knowledge.manage', version: '1.0.0' }],
+	},
 });
 ```

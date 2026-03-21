@@ -25,31 +25,31 @@ Dashboard.
 
 ```typescript
 export const GetNetWorthContract = defineQuery({
-  meta: {
-    key: 'wealth.networth.get',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['examples.wealth-snapshot'],
-    tags: ['wealth', 'networth'],
-    description: 'Get net worth snapshots for a period.',
-    goal: 'Render charts and indicators.',
-    context: 'Dashboard.',
-  },
-  io: {
-    input: NetWorthQueryInput,
-    output: defineSchemaModel({
-      name: 'NetWorthQueryOutput',
-      description: 'Snapshots + latest indicators',
-      fields: {
-        snapshots: {
-          type: NetWorthSnapshotModel,
-          isArray: true,
-          isOptional: false,
-        },
-        latest: { type: NetWorthSnapshotModel, isOptional: true },
-      },
-    }),
-  },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'wealth.networth.get',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['examples.wealth-snapshot'],
+		tags: ['wealth', 'networth'],
+		description: 'Get net worth snapshots for a period.',
+		goal: 'Render charts and indicators.',
+		context: 'Dashboard.',
+	},
+	io: {
+		input: NetWorthQueryInput,
+		output: defineSchemaModel({
+			name: 'NetWorthQueryOutput',
+			description: 'Snapshots + latest indicators',
+			fields: {
+				snapshots: {
+					type: NetWorthSnapshotModel,
+					isArray: true,
+					isOptional: false,
+				},
+				latest: { type: NetWorthSnapshotModel, isOptional: true },
+			},
+		}),
+	},
+	policy: { auth: 'user' },
 });
 ```

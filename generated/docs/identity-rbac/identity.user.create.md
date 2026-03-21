@@ -29,41 +29,41 @@ Used during signup flows. May trigger email verification.
 
 ```typescript
 export const CreateUserContract = defineCommand({
-  meta: {
-    key: 'identity.user.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.identity-rbac'],
-    tags: ['identity', 'user', 'create'],
-    description: 'Create a new user account.',
-    goal: 'Register a new user in the system.',
-    context: 'Used during signup flows. May trigger email verification.',
-  },
-  io: {
-    input: CreateUserInputModel,
-    output: UserProfileModel,
-    errors: {
-      EMAIL_EXISTS: {
-        description: 'A user with this email already exists',
-        http: 409,
-        gqlCode: 'EMAIL_EXISTS',
-        when: 'Email is already registered',
-      },
-    },
-  },
-  policy: {
-    auth: 'anonymous',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'user.created',
-        version: '1.0.0',
-        when: 'User is successfully created',
-        payload: UserProfileModel,
-      },
-    ],
-    audit: ['user.created'],
-  },
+	meta: {
+		key: 'identity.user.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.identity-rbac'],
+		tags: ['identity', 'user', 'create'],
+		description: 'Create a new user account.',
+		goal: 'Register a new user in the system.',
+		context: 'Used during signup flows. May trigger email verification.',
+	},
+	io: {
+		input: CreateUserInputModel,
+		output: UserProfileModel,
+		errors: {
+			EMAIL_EXISTS: {
+				description: 'A user with this email already exists',
+				http: 409,
+				gqlCode: 'EMAIL_EXISTS',
+				when: 'Email is already registered',
+			},
+		},
+	},
+	policy: {
+		auth: 'anonymous',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'user.created',
+				version: '1.0.0',
+				when: 'User is successfully created',
+				payload: UserProfileModel,
+			},
+		],
+		audit: ['user.created'],
+	},
 });
 ```

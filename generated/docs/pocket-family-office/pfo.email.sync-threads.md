@@ -23,24 +23,24 @@ Syncs from Gmail integration. Only includes threads matching configured labels.
 
 ```typescript
 export const syncEmailThreadsContract = defineCommand({
-  meta: {
-    key: 'pfo.email.sync-threads',
-    version: '1.0.0',
-    description:
-      'Triggers ingestion of Gmail threads into the operational knowledge space.',
-    goal: 'Keep knowledge base up to date with email communications.',
-    context:
-      'Syncs from Gmail integration. Only includes threads matching configured labels.',
-    owners: [OwnersEnum.PlatformMessaging],
-    tags: ['gmail', 'knowledge', TagsEnum.Automation],
-    stability: StabilityEnum.Beta,
-  },
-  io: {
-    input: SyncEmailThreadsInputModel,
-    output: SyncEmailThreadsOutputModel,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'pfo.email.sync-threads',
+		version: '1.0.0',
+		description:
+			'Triggers ingestion of Gmail threads into the operational knowledge space.',
+		goal: 'Keep knowledge base up to date with email communications.',
+		context:
+			'Syncs from Gmail integration. Only includes threads matching configured labels.',
+		owners: [OwnersEnum.PlatformMessaging],
+		tags: ['gmail', 'knowledge', TagsEnum.Automation],
+		stability: StabilityEnum.Beta,
+	},
+	io: {
+		input: SyncEmailThreadsInputModel,
+		output: SyncEmailThreadsOutputModel,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

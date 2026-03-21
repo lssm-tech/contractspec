@@ -25,52 +25,52 @@ Dashboard editor.
 
 ```typescript
 export const AddWidgetContract = defineCommand({
-  meta: {
-    key: 'analytics.widget.add',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.analytics-dashboard'],
-    tags: ['analytics', 'widget', 'add'],
-    description: 'Add a widget to a dashboard.',
-    goal: 'Allow users to add visualizations.',
-    context: 'Dashboard editor.',
-  },
-  io: { input: AddWidgetInputModel, output: WidgetModel },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'analytics.widget.added',
-        version: '1.0.0',
-        stability: 'stable',
-        owners: ['@example.analytics-dashboard'],
-        tags: ['analytics', 'widget', 'added'],
-        when: 'Widget added',
-        payload: WidgetModel,
-      },
-    ],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'add-widget-happy-path',
-        given: ['Dashboard exists'],
-        when: ['User adds widget to dashboard'],
-        then: ['Widget is created', 'WidgetAdded event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'add-chart-widget',
-        input: {
-          dashboardId: 'dash-123',
-          type: 'chart',
-          queryId: 'query-456',
-          config: { chartType: 'bar' },
-        },
-        output: { id: 'widget-789', type: 'chart', dashboardId: 'dash-123' },
-      },
-    ],
-  },
+	meta: {
+		key: 'analytics.widget.add',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.analytics-dashboard'],
+		tags: ['analytics', 'widget', 'add'],
+		description: 'Add a widget to a dashboard.',
+		goal: 'Allow users to add visualizations.',
+		context: 'Dashboard editor.',
+	},
+	io: { input: AddWidgetInputModel, output: WidgetModel },
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'analytics.widget.added',
+				version: '1.0.0',
+				stability: 'stable',
+				owners: ['@example.analytics-dashboard'],
+				tags: ['analytics', 'widget', 'added'],
+				when: 'Widget added',
+				payload: WidgetModel,
+			},
+		],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'add-widget-happy-path',
+				given: ['Dashboard exists'],
+				when: ['User adds widget to dashboard'],
+				then: ['Widget is created', 'WidgetAdded event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'add-chart-widget',
+				input: {
+					dashboardId: 'dash-123',
+					type: 'chart',
+					queryId: 'query-456',
+					config: { chartType: 'bar' },
+				},
+				output: { id: 'widget-789', type: 'chart', dashboardId: 'dash-123' },
+			},
+		],
+	},
 });
 ```

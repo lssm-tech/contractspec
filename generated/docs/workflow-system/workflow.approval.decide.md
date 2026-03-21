@@ -29,63 +29,63 @@ Approval inbox, workflow detail.
 
 ```typescript
 export const SubmitDecisionContract = defineCommand({
-  meta: {
-    key: 'workflow.approval.decide',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.workflow-system'],
-    tags: ['workflow', 'approval', 'decision'],
-    description: 'Submit an approval decision (approve/reject).',
-    goal: 'Allow approvers to make decisions on requests.',
-    context: 'Approval inbox, workflow detail.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'ApproveRejectInput',
-      fields: {
-        requestId: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: false,
-        },
-        decision: { type: ApprovalDecisionEnum, isOptional: false },
-        comment: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-        data: { type: ScalarTypeEnum.JSON(), isOptional: true },
-      },
-    }),
-    output: ApprovalRequestModel,
-  },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'workflow.approval.decided',
-        version: '1.0.0',
-        when: 'Decision is made',
-        payload: ApprovalRequestModel,
-      },
-    ],
-    audit: ['workflow.approval.decided'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'approve-request-happy-path',
-        given: ['Approval request is pending', 'User is assignee'],
-        when: ['User approves request'],
-        then: ['Request is approved', 'ApprovalDecided event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'approve-basic',
-        input: {
-          requestId: 'req-123',
-          decision: 'approve',
-          comment: 'Looks good',
-        },
-        output: { id: 'req-123', status: 'approved' },
-      },
-    ],
-  },
+	meta: {
+		key: 'workflow.approval.decide',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.workflow-system'],
+		tags: ['workflow', 'approval', 'decision'],
+		description: 'Submit an approval decision (approve/reject).',
+		goal: 'Allow approvers to make decisions on requests.',
+		context: 'Approval inbox, workflow detail.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'ApproveRejectInput',
+			fields: {
+				requestId: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: false,
+				},
+				decision: { type: ApprovalDecisionEnum, isOptional: false },
+				comment: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+				data: { type: ScalarTypeEnum.JSON(), isOptional: true },
+			},
+		}),
+		output: ApprovalRequestModel,
+	},
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'workflow.approval.decided',
+				version: '1.0.0',
+				when: 'Decision is made',
+				payload: ApprovalRequestModel,
+			},
+		],
+		audit: ['workflow.approval.decided'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'approve-request-happy-path',
+				given: ['Approval request is pending', 'User is assignee'],
+				when: ['User approves request'],
+				then: ['Request is approved', 'ApprovalDecided event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'approve-basic',
+				input: {
+					requestId: 'req-123',
+					decision: 'approve',
+					comment: 'Looks good',
+				},
+				output: { id: 'req-123', status: 'approved' },
+			},
+		],
+	},
 });
 ```

@@ -23,31 +23,31 @@ Used by docs surfaces to list and filter DocBlocks without coupling to storage.
 
 ```typescript
 export const DocsIndexQuery = defineQuery({
-  meta: {
-    key: 'docs_search',
-    title: 'Docs Index',
-    version: '1.0.0',
-    description: 'Search and filter DocBlocks by query, tag, or visibility.',
-    goal: 'Provide a consistent index of documentation entries for UI and MCP.',
-    context:
-      'Used by docs surfaces to list and filter DocBlocks without coupling to storage.',
-    domain: DOCS_DOMAIN,
-    owners: DOCS_OWNERS,
-    tags: [...DOCS_TAGS, 'search', 'index'],
-    stability: DOCS_STABILITY,
-    docId: [docId('docs.tech.docs-search')],
-  },
-  capability: {
-    key: 'docs.system',
-    version: '1.0.0',
-  },
-  io: {
-    input: DocsIndexInput,
-    output: DocsIndexOutput,
-  },
-  policy: {
-    auth: 'anonymous',
-    pii: [],
-  },
+	meta: {
+		key: 'docs_search',
+		title: 'Docs Index',
+		version: '1.0.0',
+		description: 'Search and filter DocBlocks by query, tag, or visibility.',
+		goal: 'Provide a consistent index of documentation entries for UI and MCP.',
+		context:
+			'Used by docs surfaces to list and filter DocBlocks without coupling to storage.',
+		domain: DOCS_DOMAIN,
+		owners: DOCS_OWNERS,
+		tags: [...DOCS_TAGS, 'search', 'index'],
+		stability: DOCS_STABILITY,
+		docId: [docId('docs.tech.docs-search')],
+	},
+	capability: {
+		key: 'docs.system',
+		version: '1.0.0',
+	},
+	io: {
+		input: DocsIndexInput,
+		output: DocsIndexOutput,
+	},
+	policy: {
+		auth: 'anonymous',
+		pii: [],
+	},
 });
 ```

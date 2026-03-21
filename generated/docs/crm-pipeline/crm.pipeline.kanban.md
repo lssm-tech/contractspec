@@ -24,27 +24,27 @@ Used in the sales dashboard and management reports.
 
 ```typescript
 export const PipelineKanbanPresentation = definePresentation({
-  meta: {
-    key: 'crm.pipeline.kanban',
-    version: '1.0.0',
-    title: 'Pipeline Kanban',
-    description: 'Kanban board view of deals organized by stage',
-    domain: 'crm-pipeline',
-    owners: ['@crm-team'],
-    tags: ['pipeline', 'kanban', 'deals'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Visualize the sales pipeline status and deal distribution across stages.',
-    context: 'Used in the sales dashboard and management reports.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'PipelineKanbanView',
-    props: DealModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['crm.pipeline.enabled'],
-  },
+	meta: {
+		key: 'crm.pipeline.kanban',
+		version: '1.0.0',
+		title: 'Pipeline Kanban',
+		description: 'Kanban board view of deals organized by stage',
+		domain: 'crm-pipeline',
+		owners: ['@crm-team'],
+		tags: ['pipeline', 'kanban', 'deals'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Visualize the sales pipeline status and deal distribution across stages.',
+		context: 'Used in the sales dashboard and management reports.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'PipelineKanbanView',
+		props: DealModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['crm.pipeline.enabled'],
+	},
 });
 ```

@@ -17,14 +17,14 @@ An experiment has been created.
 
 ```typescript
 export const ExperimentCreatedEvent = defineEvent({
-  meta: {
-    key: 'experiment.created',
-    version: '1.0.0',
-    description: 'An experiment has been created.',
-    stability: 'stable',
-    owners: ['@platform.feature-flags'],
-    tags: ['feature-flags', 'experiment', 'create'],
-  },
-  payload: ExperimentCreatedPayload,
+	meta: {
+		key: 'experiment.created',
+		version: '1.0.0',
+		description: 'An experiment has been created.',
+		stability: 'stable',
+		owners: ['@platform.feature-flags'],
+		tags: ['feature-flags', 'experiment', 'create'],
+	},
+	payload: ExperimentCreatedPayload,
 });
 ```

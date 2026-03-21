@@ -8,6 +8,8 @@
 	"files": {
 		"includes": [
 			"**",
+			"!generated",
+			"!generated/**",
 			"!**/node_modules",
 			"!**/dist",
 			"!**/build",

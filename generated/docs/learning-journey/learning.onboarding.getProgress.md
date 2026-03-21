@@ -24,22 +24,22 @@ Called when rendering a track detail or widget.
 
 ```typescript
 export const GetOnboardingProgressContract = defineQuery({
-  meta: {
-    key: 'learning.onboarding.getProgress',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'onboarding', 'journey'],
-    description: 'Fetch onboarding progress for a specific track.',
-    goal: 'Display learner progress and remaining steps.',
-    context: 'Called when rendering a track detail or widget.',
-  },
-  io: {
-    input: GetOnboardingProgressInput,
-    output: OnboardingProgressModel,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'learning.onboarding.getProgress',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'onboarding', 'journey'],
+		description: 'Fetch onboarding progress for a specific track.',
+		goal: 'Display learner progress and remaining steps.',
+		context: 'Called when rendering a track detail or widget.',
+	},
+	io: {
+		input: GetOnboardingProgressInput,
+		output: OnboardingProgressModel,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

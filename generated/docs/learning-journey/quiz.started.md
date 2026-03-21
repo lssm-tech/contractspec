@@ -16,14 +16,14 @@ A quiz attempt has started.
 
 ```typescript
 export const QuizStartedEvent = defineEvent({
-  meta: {
-    key: 'quiz.started',
-    version: '1.0.0',
-    description: 'A quiz attempt has started.',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'quiz'],
-  },
-  payload: QuizStartedPayload,
+	meta: {
+		key: 'quiz.started',
+		version: '1.0.0',
+		description: 'A quiz attempt has started.',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'quiz'],
+	},
+	payload: QuizStartedPayload,
 });
 ```

@@ -22,20 +22,20 @@ Displayed in the Studio dashboard.
 
 ```typescript
 export const StudioOnboardingTrackPresentation = definePresentation({
-  meta: {
-    key: 'learning.journey.studio.track',
-    version: '1.0.0',
-    description: 'Studio onboarding track detail',
-    goal: 'Visualize the onboarding track for the user.',
-    context: 'Displayed in the Studio dashboard.',
-    ...baseMeta,
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'LearningTrackDetail',
-    props: StudioOnboardingTrackModel,
-  },
-  targets: ['react', 'markdown', 'application/json'],
+	meta: {
+		key: 'learning.journey.studio.track',
+		version: '1.0.0',
+		description: 'Studio onboarding track detail',
+		goal: 'Visualize the onboarding track for the user.',
+		context: 'Displayed in the Studio dashboard.',
+		...baseMeta,
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'LearningTrackDetail',
+		props: StudioOnboardingTrackModel,
+	},
+	targets: ['react', 'markdown', 'application/json'],
 });
 ```

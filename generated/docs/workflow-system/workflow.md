@@ -16,14 +16,14 @@ Workflow definitions and orchestration
 
 ```typescript
 export const WorkflowCapability = defineCapability({
-  meta: {
-    key: 'workflow',
-    version: '1.0.0',
-    kind: 'api',
-    stability: StabilityEnum.Experimental,
-    description: 'Workflow definitions and orchestration',
-    owners: ['platform.core'],
-    tags: ['workflow', 'automation'],
-  },
+	meta: {
+		key: 'workflow',
+		version: '1.0.0',
+		kind: 'api',
+		stability: StabilityEnum.Experimental,
+		description: 'Workflow definitions and orchestration',
+		owners: ['platform.core'],
+		tags: ['workflow', 'automation'],
+	},
 });
 ```

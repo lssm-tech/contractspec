@@ -16,14 +16,14 @@ XP has been earned.
 
 ```typescript
 export const XpEarnedEvent = defineEvent({
-  meta: {
-    key: 'xp.earned',
-    version: '1.0.0',
-    description: 'XP has been earned.',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'gamification', 'xp'],
-  },
-  payload: XpEarnedPayload,
+	meta: {
+		key: 'xp.earned',
+		version: '1.0.0',
+		description: 'XP has been earned.',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'gamification', 'xp'],
+	},
+	payload: XpEarnedPayload,
 });
 ```

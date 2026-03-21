@@ -24,27 +24,27 @@ Main dashboard
 
 ```typescript
 export const SaasDashboardPresentation = definePresentation({
-  meta: {
-    key: 'saas.dashboard',
-    version: '1.0.0',
-    title: 'SaaS Dashboard',
-    description:
-      'Main SaaS dashboard with project overview, usage stats, and quick actions',
-    domain: 'saas-boilerplate',
-    owners: ['@saas-team'],
-    tags: ['dashboard', 'overview'],
-    stability: StabilityEnum.Beta,
-    goal: 'Overview of SaaS activity and metrics',
-    context: 'Main dashboard',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'SaasDashboard',
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['saas.enabled'],
-  },
+	meta: {
+		key: 'saas.dashboard',
+		version: '1.0.0',
+		title: 'SaaS Dashboard',
+		description:
+			'Main SaaS dashboard with project overview, usage stats, and quick actions',
+		domain: 'saas-boilerplate',
+		owners: ['@saas-team'],
+		tags: ['dashboard', 'overview'],
+		stability: StabilityEnum.Beta,
+		goal: 'Overview of SaaS activity and metrics',
+		context: 'Main dashboard',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'SaasDashboard',
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['saas.enabled'],
+	},
 });
 ```

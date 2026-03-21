@@ -17,14 +17,14 @@ A new organization has been created.
 
 ```typescript
 export const OrgCreatedEvent = defineEvent({
-  meta: {
-    key: 'org.created',
-    version: '1.0.0',
-    description: 'A new organization has been created.',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['org', 'created', 'identity'],
-  },
-  payload: OrgCreatedPayload,
+	meta: {
+		key: 'org.created',
+		version: '1.0.0',
+		description: 'A new organization has been created.',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['org', 'created', 'identity'],
+	},
+	payload: OrgCreatedPayload,
 });
 ```

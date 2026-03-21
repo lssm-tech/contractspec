@@ -25,51 +25,51 @@ Query builder.
 
 ```typescript
 export const CreateQueryContract = defineCommand({
-  meta: {
-    key: 'analytics.query.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.analytics-dashboard'],
-    tags: ['analytics', 'query', 'create'],
-    description: 'Create a data query.',
-    goal: 'Define reusable data queries.',
-    context: 'Query builder.',
-  },
-  io: { input: CreateQueryInputModel, output: QueryModel },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'analytics.query.created',
-        version: '1.0.0',
-        stability: 'stable',
-        owners: ['@example.analytics-dashboard'],
-        tags: ['analytics', 'query', 'created'],
-        when: 'Query created',
-        payload: QueryModel,
-      },
-    ],
-    audit: ['analytics.query.created'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'create-query-happy-path',
-        given: ['User is authenticated'],
-        when: ['User submits valid query definition'],
-        then: ['Query is created', 'QueryCreated event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'create-sql-query',
-        input: {
-          name: 'Monthly Revenue',
-          sql: 'SELECT SUM(amount) FROM orders WHERE date >= :startDate',
-        },
-        output: { id: 'query-123', name: 'Monthly Revenue', type: 'sql' },
-      },
-    ],
-  },
+	meta: {
+		key: 'analytics.query.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.analytics-dashboard'],
+		tags: ['analytics', 'query', 'create'],
+		description: 'Create a data query.',
+		goal: 'Define reusable data queries.',
+		context: 'Query builder.',
+	},
+	io: { input: CreateQueryInputModel, output: QueryModel },
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'analytics.query.created',
+				version: '1.0.0',
+				stability: 'stable',
+				owners: ['@example.analytics-dashboard'],
+				tags: ['analytics', 'query', 'created'],
+				when: 'Query created',
+				payload: QueryModel,
+			},
+		],
+		audit: ['analytics.query.created'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'create-query-happy-path',
+				given: ['User is authenticated'],
+				when: ['User submits valid query definition'],
+				then: ['Query is created', 'QueryCreated event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'create-sql-query',
+				input: {
+					name: 'Monthly Revenue',
+					sql: 'SELECT SUM(amount) FROM orders WHERE date >= :startDate',
+				},
+				output: { id: 'query-123', name: 'Monthly Revenue', type: 'sql' },
+			},
+		],
+	},
 });
 ```

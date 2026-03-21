@@ -16,14 +16,14 @@ A course has been published.
 
 ```typescript
 export const CoursePublishedEvent = defineEvent({
-  meta: {
-    key: 'course.published',
-    version: '1.0.0',
-    description: 'A course has been published.',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'course'],
-  },
-  payload: CoursePublishedPayload,
+	meta: {
+		key: 'course.published',
+		version: '1.0.0',
+		description: 'A course has been published.',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'course'],
+	},
+	payload: CoursePublishedPayload,
 });
 ```

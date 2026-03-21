@@ -25,22 +25,22 @@ Role assignment UI.
 
 ```typescript
 export const ListRolesContract = defineQuery({
-  meta: {
-    key: 'identity.rbac.role.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['identity', 'rbac', 'role', 'list'],
-    description: 'List all available roles.',
-    goal: 'Show available roles for assignment.',
-    context: 'Role assignment UI.',
-  },
-  io: {
-    input: null,
-    output: ListRolesOutputModel,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'identity.rbac.role.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['identity', 'rbac', 'role', 'list'],
+		description: 'List all available roles.',
+		goal: 'Show available roles for assignment.',
+		context: 'Role assignment UI.',
+	},
+	io: {
+		input: null,
+		output: ListRolesOutputModel,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

@@ -25,22 +25,22 @@ Called to analyze usage.
 
 ```typescript
 export const GetUsageContract = defineQuery({
-  meta: {
-    key: 'usage.get',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.metering'],
-    tags: ['metering', 'usage', 'get'],
-    description: 'Get usage records for a subject.',
-    goal: 'View detailed usage history.',
-    context: 'Called to analyze usage.',
-  },
-  io: {
-    input: GetUsageInput,
-    output: GetUsageOutput,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'usage.get',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.metering'],
+		tags: ['metering', 'usage', 'get'],
+		description: 'Get usage records for a subject.',
+		goal: 'View detailed usage history.',
+		context: 'Called to analyze usage.',
+	},
+	io: {
+		input: GetUsageInput,
+		output: GetUsageOutput,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

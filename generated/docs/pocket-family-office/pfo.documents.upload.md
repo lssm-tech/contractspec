@@ -23,29 +23,29 @@ Part of the finance domain. Documents are uploaded to object storage and then pr
 
 ```typescript
 export const uploadDocumentContract = defineCommand({
-  meta: {
-    key: 'pfo.documents.upload',
-    version: '1.0.0',
-    description:
-      'Stores an object in tenant storage and schedules ingestion into the knowledge base.',
-    goal: 'Allow users to ingest financial documents for processing.',
-    context:
-      'Part of the finance domain. Documents are uploaded to object storage and then processed by the ingestion pipeline.',
-    owners: [OwnersEnum.PlatformFinance],
-    tags: ['documents', 'ingestion', TagsEnum.Guide],
-    stability: StabilityEnum.Experimental,
-  },
-  io: {
-    input: UploadDocumentInputModel,
-    output: UploadDocumentOutputModel,
-  },
-  policy: {
-    auth: 'user',
-    rateLimit: {
-      rpm: 30, // 30 points per 60s approx, simplified to rpm
-      key: 'user',
-    },
-  },
-  // Telemetry events removed as new spec does not support 'events' list in telemetry block
+	meta: {
+		key: 'pfo.documents.upload',
+		version: '1.0.0',
+		description:
+			'Stores an object in tenant storage and schedules ingestion into the knowledge base.',
+		goal: 'Allow users to ingest financial documents for processing.',
+		context:
+			'Part of the finance domain. Documents are uploaded to object storage and then processed by the ingestion pipeline.',
+		owners: [OwnersEnum.PlatformFinance],
+		tags: ['documents', 'ingestion', TagsEnum.Guide],
+		stability: StabilityEnum.Experimental,
+	},
+	io: {
+		input: UploadDocumentInputModel,
+		output: UploadDocumentOutputModel,
+	},
+	policy: {
+		auth: 'user',
+		rateLimit: {
+			rpm: 30, // 30 points per 60s approx, simplified to rpm
+			key: 'user',
+		},
+	},
+	// Telemetry events removed as new spec does not support 'events' list in telemetry block
 });
 ```

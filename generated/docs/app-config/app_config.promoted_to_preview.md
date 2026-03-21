@@ -14,25 +14,25 @@ A tenant config draft was promoted to preview.
 
 ```typescript
 export const ConfigPromotedToPreviewEvent = defineEvent({
-  meta: {
-    ...lifecycleOwnership,
-    key: 'app_config.promoted_to_preview',
-    version: '1.0.0',
-    description: 'A tenant config draft was promoted to preview.',
-  },
-  payload: new SchemaModel({
-    name: 'ConfigPromotedToPreviewPayload',
-    fields: {
-      tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
-      appId: { type: ScalarTypeEnum.ID(), isOptional: false },
-      version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      promotedBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      warnings: {
-        type: ScalarTypeEnum.String_unsecure(),
-        isOptional: true,
-        isArray: true,
-      },
-    },
-  }),
+	meta: {
+		...lifecycleOwnership,
+		key: 'app_config.promoted_to_preview',
+		version: '1.0.0',
+		description: 'A tenant config draft was promoted to preview.',
+	},
+	payload: new SchemaModel({
+		name: 'ConfigPromotedToPreviewPayload',
+		fields: {
+			tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
+			appId: { type: ScalarTypeEnum.ID(), isOptional: false },
+			version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+			promotedBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+			warnings: {
+				type: ScalarTypeEnum.String_unsecure(),
+				isOptional: true,
+				isArray: true,
+			},
+		},
+	}),
 });
 ```

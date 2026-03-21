@@ -17,29 +17,29 @@ Test for getting tool
 
 ```typescript
 export const toolGetTest = defineTestSpec({
-  meta: {
-    key: 'test.agent.tool.get',
-    version: '1.0.0',
-    owners: ['@agent-console-team'],
-    description: 'Test for getting tool',
-    stability: 'stable',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'agent.tool.get', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'agent.tool.get' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'agent.tool.get' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'test.agent.tool.get',
+		version: '1.0.0',
+		owners: ['@agent-console-team'],
+		description: 'Test for getting tool',
+		stability: 'stable',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'agent.tool.get', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'agent.tool.get' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'agent.tool.get' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

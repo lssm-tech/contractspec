@@ -29,59 +29,59 @@ Deal creation UI, quick add.
 
 ```typescript
 export const CreateDealContract = defineCommand({
-  meta: {
-    key: 'crm.deal.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.crm-pipeline'],
-    tags: ['crm', 'deal', 'create'],
-    description: 'Create a new deal in the pipeline.',
-    goal: 'Allow sales reps to create new opportunities.',
-    context: 'Deal creation UI, quick add.',
-  },
-  io: {
-    input: CreateDealInputModel,
-    output: DealModel,
-  },
-  policy: {
-    auth: 'user',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'deal.created',
-        version: '1.0.0',
-        when: 'Deal is created',
-        payload: DealModel,
-      },
-    ],
-    audit: ['deal.created'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'create-deal-happy-path',
-        given: ['User is authenticated'],
-        when: ['User creates a deal with valid data'],
-        then: ['Deal is created', 'DealCreated event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'create-basic-deal',
-        input: {
-          title: 'Big Corp Q3 License',
-          stageId: 'stage-lead',
-          value: 50000,
-          companyId: 'comp-123',
-        },
-        output: {
-          id: 'deal-789',
-          title: 'Big Corp Q3 License',
-          status: 'open',
-        },
-      },
-    ],
-  },
+	meta: {
+		key: 'crm.deal.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.crm-pipeline'],
+		tags: ['crm', 'deal', 'create'],
+		description: 'Create a new deal in the pipeline.',
+		goal: 'Allow sales reps to create new opportunities.',
+		context: 'Deal creation UI, quick add.',
+	},
+	io: {
+		input: CreateDealInputModel,
+		output: DealModel,
+	},
+	policy: {
+		auth: 'user',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'deal.created',
+				version: '1.0.0',
+				when: 'Deal is created',
+				payload: DealModel,
+			},
+		],
+		audit: ['deal.created'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'create-deal-happy-path',
+				given: ['User is authenticated'],
+				when: ['User creates a deal with valid data'],
+				then: ['Deal is created', 'DealCreated event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'create-basic-deal',
+				input: {
+					title: 'Big Corp Q3 License',
+					stageId: 'stage-lead',
+					value: 50000,
+					companyId: 'comp-123',
+				},
+				output: {
+					id: 'deal-789',
+					title: 'Big Corp Q3 License',
+					status: 'open',
+				},
+			},
+		],
+	},
 });
 ```

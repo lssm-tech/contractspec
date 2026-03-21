@@ -25,22 +25,22 @@ Notification center UI.
 
 ```typescript
 export const ListNotificationsContract = defineQuery({
-  meta: {
-    key: 'notifications.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.notifications'],
-    tags: ['notifications', 'list'],
-    description: 'List notifications for the current user.',
-    goal: 'Show user their notifications.',
-    context: 'Notification center UI.',
-  },
-  io: {
-    input: ListNotificationsInputModel,
-    output: ListNotificationsOutputModel,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'notifications.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.notifications'],
+		tags: ['notifications', 'list'],
+		description: 'List notifications for the current user.',
+		goal: 'Show user their notifications.',
+		context: 'Notification center UI.',
+	},
+	io: {
+		input: ListNotificationsInputModel,
+		output: ListNotificationsOutputModel,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

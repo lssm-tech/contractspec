@@ -25,22 +25,22 @@ Called to poll job status or retrieve results.
 
 ```typescript
 export const GetJobContract = defineQuery({
-  meta: {
-    key: 'jobs.get',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.jobs'],
-    tags: ['jobs', 'get'],
-    description: 'Get a job by ID.',
-    goal: 'Check job status and result.',
-    context: 'Called to poll job status or retrieve results.',
-  },
-  io: {
-    input: GetJobInput,
-    output: JobModel,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'jobs.get',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.jobs'],
+		tags: ['jobs', 'get'],
+		description: 'Get a job by ID.',
+		goal: 'Check job status and result.',
+		context: 'Called to poll job status or retrieve results.',
+	},
+	io: {
+		input: GetJobInput,
+		output: JobModel,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

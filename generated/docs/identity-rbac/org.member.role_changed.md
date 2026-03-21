@@ -17,14 +17,14 @@ A member
 
 ```typescript
 export const OrgMemberRoleChangedEvent = defineEvent({
-  meta: {
-    key: 'org.member.role_changed',
-    version: '1.0.0',
-    description: "A member's role in an organization has changed.",
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['org', 'member', 'role', 'changed', 'identity'],
-  },
-  payload: OrgMemberRoleChangedPayload,
+	meta: {
+		key: 'org.member.role_changed',
+		version: '1.0.0',
+		description: "A member's role in an organization has changed.",
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['org', 'member', 'role', 'changed', 'identity'],
+	},
+	payload: OrgMemberRoleChangedPayload,
 });
 ```

@@ -24,26 +24,26 @@ Approval decision dialog
 
 ```typescript
 export const ApprovalFormPresentation = definePresentation({
-  meta: {
-    key: 'workflow.approval.form',
-    version: '1.0.0',
-    title: 'Approval Form',
-    description: 'Form for submitting approval decisions',
-    domain: 'workflow-system',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'approval', 'form'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Submitting a decision on an approval request',
-    context: 'Approval decision dialog',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'ApprovalDecisionForm',
-  },
-  targets: ['react'],
-  policy: {
-    flags: ['workflow.approvals.enabled'],
-  },
+	meta: {
+		key: 'workflow.approval.form',
+		version: '1.0.0',
+		title: 'Approval Form',
+		description: 'Form for submitting approval decisions',
+		domain: 'workflow-system',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'approval', 'form'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Submitting a decision on an approval request',
+		context: 'Approval decision dialog',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'ApprovalDecisionForm',
+	},
+	targets: ['react'],
+	policy: {
+		flags: ['workflow.approvals.enabled'],
+	},
 });
 ```

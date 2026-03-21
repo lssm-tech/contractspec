@@ -24,27 +24,27 @@ The primary shopping interface.
 
 ```typescript
 export const ProductCatalogPresentation = definePresentation({
-  meta: {
-    key: 'marketplace.product.catalog',
-    version: '1.0.0',
-    title: 'Product Catalog',
-    description: 'Product catalog with search and filters',
-    domain: 'marketplace',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'product', 'catalog'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Enable users to browse and search for products.',
-    context: 'The primary shopping interface.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'ProductCatalog',
-    props: ProductModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['marketplace.products.enabled'],
-  },
+	meta: {
+		key: 'marketplace.product.catalog',
+		version: '1.0.0',
+		title: 'Product Catalog',
+		description: 'Product catalog with search and filters',
+		domain: 'marketplace',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'product', 'catalog'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Enable users to browse and search for products.',
+		context: 'The primary shopping interface.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'ProductCatalog',
+		props: ProductModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['marketplace.products.enabled'],
+	},
 });
 ```

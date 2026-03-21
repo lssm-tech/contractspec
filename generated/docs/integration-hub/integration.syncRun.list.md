@@ -25,34 +25,34 @@ Sync monitoring.
 
 ```typescript
 export const ListSyncRunsContract = defineQuery({
-  meta: {
-    key: 'integration.syncRun.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.integration-hub'],
-    tags: ['integration', 'sync', 'run', 'list'],
-    description: 'List sync run history.',
-    goal: 'View sync history and status.',
-    context: 'Sync monitoring.',
-  },
-  io: { input: ListSyncRunsInputModel, output: ListSyncRunsOutputModel },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'list-runs-happy-path',
-        given: ['User has access to syncs'],
-        when: ['User lists sync runs'],
-        then: ['List of runs is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'list-recent',
-        input: { limit: 10 },
-        output: { items: [], total: 50 },
-      },
-    ],
-  },
+	meta: {
+		key: 'integration.syncRun.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.integration-hub'],
+		tags: ['integration', 'sync', 'run', 'list'],
+		description: 'List sync run history.',
+		goal: 'View sync history and status.',
+		context: 'Sync monitoring.',
+	},
+	io: { input: ListSyncRunsInputModel, output: ListSyncRunsOutputModel },
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'list-runs-happy-path',
+				given: ['User has access to syncs'],
+				when: ['User lists sync runs'],
+				then: ['List of runs is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'list-recent',
+				input: { limit: 10 },
+				output: { items: [], total: 50 },
+			},
+		],
+	},
 });
 ```

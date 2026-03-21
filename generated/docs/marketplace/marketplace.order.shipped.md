@@ -17,14 +17,14 @@ An order has been shipped.
 
 ```typescript
 export const OrderShippedEvent = defineEvent({
-  meta: {
-    key: 'marketplace.order.shipped',
-    version: '1.0.0',
-    description: 'An order has been shipped.',
-    stability: 'experimental',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'order'],
-  },
-  payload: OrderShippedPayload,
+	meta: {
+		key: 'marketplace.order.shipped',
+		version: '1.0.0',
+		description: 'An order has been shipped.',
+		stability: 'experimental',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'order'],
+	},
+	payload: OrderShippedPayload,
 });
 ```

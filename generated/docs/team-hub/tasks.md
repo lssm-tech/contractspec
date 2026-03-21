@@ -16,14 +16,14 @@ Task management for teams
 
 ```typescript
 export const TasksCapability = defineCapability({
-  meta: {
-    key: 'tasks',
-    version: '1.0.0',
-    kind: 'ui',
-    stability: StabilityEnum.Experimental,
-    description: 'Task management for teams',
-    owners: ['platform.core'],
-    tags: ['tasks', 'collaboration'],
-  },
+	meta: {
+		key: 'tasks',
+		version: '1.0.0',
+		kind: 'ui',
+		stability: StabilityEnum.Experimental,
+		description: 'Task management for teams',
+		owners: ['platform.core'],
+		tags: ['tasks', 'collaboration'],
+	},
 });
 ```

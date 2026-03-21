@@ -29,49 +29,49 @@ Order management.
 
 ```typescript
 export const UpdateOrderStatusContract = defineCommand({
-  meta: {
-    key: 'marketplace.order.updateStatus',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.marketplace'],
-    tags: ['marketplace', 'order', 'status'],
-    description: 'Update order status.',
-    goal: 'Track order fulfillment.',
-    context: 'Order management.',
-  },
-  io: { input: UpdateOrderStatusInputModel, output: OrderModel },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'marketplace.order.statusUpdated',
-        version: '1.0.0',
-        when: 'Status changes',
-        payload: OrderModel,
-      },
-    ],
-    audit: ['marketplace.order.statusUpdated'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'update-status-happy-path',
-        given: ['Order exists'],
-        when: ['Seller updates order status'],
-        then: ['Status is updated', 'OrderStatusUpdated event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'mark-shipped',
-        input: {
-          orderId: 'order-789',
-          status: 'shipped',
-          trackingNumber: 'TRACK123',
-        },
-        output: { id: 'order-789', status: 'shipped' },
-      },
-    ],
-  },
+	meta: {
+		key: 'marketplace.order.updateStatus',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.marketplace'],
+		tags: ['marketplace', 'order', 'status'],
+		description: 'Update order status.',
+		goal: 'Track order fulfillment.',
+		context: 'Order management.',
+	},
+	io: { input: UpdateOrderStatusInputModel, output: OrderModel },
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'marketplace.order.statusUpdated',
+				version: '1.0.0',
+				when: 'Status changes',
+				payload: OrderModel,
+			},
+		],
+		audit: ['marketplace.order.statusUpdated'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'update-status-happy-path',
+				given: ['Order exists'],
+				when: ['Seller updates order status'],
+				then: ['Status is updated', 'OrderStatusUpdated event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'mark-shipped',
+				input: {
+					orderId: 'order-789',
+					status: 'shipped',
+					trackingNumber: 'TRACK123',
+				},
+				output: { id: 'order-789', status: 'shipped' },
+			},
+		],
+	},
 });
 ```

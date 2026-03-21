@@ -24,27 +24,27 @@ Embedded progress indicator in entity views
 
 ```typescript
 export const ProgressTrackerPresentation = definePresentation({
-  meta: {
-    key: 'workflow.instance.progress',
-    version: '1.0.0',
-    title: 'Progress Tracker',
-    description: 'Visual progress tracker showing current step in workflow',
-    domain: 'workflow-system',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'progress', 'widget'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Quick view of current progress for a workflow',
-    context: 'Embedded progress indicator in entity views',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'WorkflowProgressTracker',
-    props: WorkflowInstanceModel,
-  },
-  targets: ['react'],
-  policy: {
-    flags: ['workflow.enabled'],
-  },
+	meta: {
+		key: 'workflow.instance.progress',
+		version: '1.0.0',
+		title: 'Progress Tracker',
+		description: 'Visual progress tracker showing current step in workflow',
+		domain: 'workflow-system',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'progress', 'widget'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Quick view of current progress for a workflow',
+		context: 'Embedded progress indicator in entity views',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'WorkflowProgressTracker',
+		props: WorkflowInstanceModel,
+	},
+	targets: ['react'],
+	policy: {
+		flags: ['workflow.enabled'],
+	},
 });
 ```

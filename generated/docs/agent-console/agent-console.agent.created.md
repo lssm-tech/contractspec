@@ -17,14 +17,14 @@ A new AI agent was configured.
 
 ```typescript
 export const AgentCreatedEvent = defineEvent({
-  meta: {
-    key: 'agent-console.agent.created',
-    version: '1.0.0',
-    description: 'A new AI agent was configured.',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['agent', 'created'],
-  },
-  payload: AgentCreatedPayload,
+	meta: {
+		key: 'agent-console.agent.created',
+		version: '1.0.0',
+		description: 'A new AI agent was configured.',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['agent', 'created'],
+	},
+	payload: AgentCreatedPayload,
 });
 ```

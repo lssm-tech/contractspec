@@ -22,19 +22,19 @@ Displayed in the Studio sidebar or header.
 
 ```typescript
 export const StudioOnboardingWidgetPresentation = definePresentation({
-  meta: {
-    key: 'learning.journey.studio.widget',
-    version: '1.0.0',
-    description: 'Compact widget for Studio onboarding progress',
-    goal: 'Show quick progress summary.',
-    context: 'Displayed in the Studio sidebar or header.',
-    ...baseMeta,
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'LearningTrackProgressWidget',
-  },
-  targets: ['react'],
+	meta: {
+		key: 'learning.journey.studio.widget',
+		version: '1.0.0',
+		description: 'Compact widget for Studio onboarding progress',
+		goal: 'Show quick progress summary.',
+		context: 'Displayed in the Studio sidebar or header.',
+		...baseMeta,
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'LearningTrackProgressWidget',
+	},
+	targets: ['react'],
 });
 ```

@@ -24,27 +24,27 @@ The primary management view for integration hubs.
 
 ```typescript
 export const ConnectionListPresentation = definePresentation({
-  meta: {
-    key: 'integration.connection.list',
-    version: '1.0.0',
-    title: 'Connection List',
-    description: 'List of integration connections',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['integration', 'connection', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Provide an overview of all established integration connections.',
-    context: 'The primary management view for integration hubs.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'ConnectionList',
-    props: ConnectionModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['integration.enabled'],
-  },
+	meta: {
+		key: 'integration.connection.list',
+		version: '1.0.0',
+		title: 'Connection List',
+		description: 'List of integration connections',
+		domain: 'integration',
+		owners: ['@integration-team'],
+		tags: ['integration', 'connection', 'list'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Provide an overview of all established integration connections.',
+		context: 'The primary management view for integration hubs.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'ConnectionList',
+		props: ConnectionModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['integration.enabled'],
+	},
 });
 ```

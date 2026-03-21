@@ -23,24 +23,24 @@ Uses RAG over ingested knowledge. Summaries can be dispatched or viewed in app.
 
 ```typescript
 export const generateFinancialSummaryContract = defineQuery({
-  meta: {
-    key: 'pfo.summary.generate',
-    version: '1.0.0',
-    description:
-      'Runs RAG over financial documents and email threads to provide a natural-language summary with key metrics.',
-    goal: 'Provide a quick overview of financial status and recent activity.',
-    context:
-      'Uses RAG over ingested knowledge. Summaries can be dispatched or viewed in app.',
-    owners: [OwnersEnum.PlatformFinance],
-    tags: ['summary', 'ai', TagsEnum.Automation],
-    stability: StabilityEnum.Beta,
-  },
-  io: {
-    input: FinancialSummaryInputModel,
-    output: FinancialSummaryOutputModel,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'pfo.summary.generate',
+		version: '1.0.0',
+		description:
+			'Runs RAG over financial documents and email threads to provide a natural-language summary with key metrics.',
+		goal: 'Provide a quick overview of financial status and recent activity.',
+		context:
+			'Uses RAG over ingested knowledge. Summaries can be dispatched or viewed in app.',
+		owners: [OwnersEnum.PlatformFinance],
+		tags: ['summary', 'ai', TagsEnum.Automation],
+		stability: StabilityEnum.Beta,
+	},
+	io: {
+		input: FinancialSummaryInputModel,
+		output: FinancialSummaryOutputModel,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

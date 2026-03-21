@@ -17,14 +17,14 @@ An agent run was cancelled by the user.
 
 ```typescript
 export const RunCancelledEvent = defineEvent({
-  meta: {
-    key: 'agent.run.cancelled',
-    version: '1.0.0',
-    description: 'An agent run was cancelled by the user.',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['run', 'cancelled'],
-  },
-  payload: RunCancelledPayload,
+	meta: {
+		key: 'agent.run.cancelled',
+		version: '1.0.0',
+		description: 'An agent run was cancelled by the user.',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['run', 'cancelled'],
+	},
+	payload: RunCancelledPayload,
 });
 ```

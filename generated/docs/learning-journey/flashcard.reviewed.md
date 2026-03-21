@@ -16,14 +16,14 @@ A flashcard has been reviewed.
 
 ```typescript
 export const CardReviewedEvent = defineEvent({
-  meta: {
-    key: 'flashcard.reviewed',
-    version: '1.0.0',
-    description: 'A flashcard has been reviewed.',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'flashcards'],
-  },
-  payload: CardReviewedPayload,
+	meta: {
+		key: 'flashcard.reviewed',
+		version: '1.0.0',
+		description: 'A flashcard has been reviewed.',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'flashcards'],
+	},
+	payload: CardReviewedPayload,
 });
 ```

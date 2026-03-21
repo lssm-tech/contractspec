@@ -29,41 +29,41 @@ Team management.
 
 ```typescript
 export const RemoveMemberContract = defineCommand({
-  meta: {
-    key: 'identity.org.member.remove',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.identity-rbac'],
-    tags: ['identity', 'org', 'member', 'remove'],
-    description: 'Remove a member from the organization.',
-    goal: 'Allow org admins to remove members.',
-    context: 'Team management.',
-  },
-  io: {
-    input: RemoveMemberInputModel,
-    output: SuccessResultModel,
-    errors: {
-      CANNOT_REMOVE_OWNER: {
-        description: 'Cannot remove the organization owner',
-        http: 403,
-        gqlCode: 'CANNOT_REMOVE_OWNER',
-        when: 'Target is the org owner',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'org.member.removed',
-        version: '1.0.0',
-        when: 'Member is removed',
-        payload: MemberRemovedPayloadModel,
-      },
-    ],
-    audit: ['org.member.removed'],
-  },
+	meta: {
+		key: 'identity.org.member.remove',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.identity-rbac'],
+		tags: ['identity', 'org', 'member', 'remove'],
+		description: 'Remove a member from the organization.',
+		goal: 'Allow org admins to remove members.',
+		context: 'Team management.',
+	},
+	io: {
+		input: RemoveMemberInputModel,
+		output: SuccessResultModel,
+		errors: {
+			CANNOT_REMOVE_OWNER: {
+				description: 'Cannot remove the organization owner',
+				http: 403,
+				gqlCode: 'CANNOT_REMOVE_OWNER',
+				when: 'Target is the org owner',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'org.member.removed',
+				version: '1.0.0',
+				when: 'Member is removed',
+				payload: MemberRemovedPayloadModel,
+			},
+		],
+		audit: ['org.member.removed'],
+	},
 });
 ```

@@ -23,31 +23,31 @@ Aggregates data from open banking integration into a document.
 
 ```typescript
 export const generateOpenBankingOverviewContract = defineCommand({
-  meta: {
-    key: 'pfo.openbanking.generate-overview',
-    version: '1.0.0',
-    description:
-      'Aggregates balances and transactions into a derived financial overview stored in the knowledge layer.',
-    goal: 'Create a periodic financial snapshot.',
-    context: 'Aggregates data from open banking integration into a document.',
-    owners: [OwnersEnum.PlatformFinance],
-    tags: ['open-banking', 'summary', TagsEnum.Automation],
-    stability: StabilityEnum.Experimental,
-  },
-  io: {
-    input: OpenBankingOverviewInputModel,
-    output: OpenBankingOverviewOutputModel,
-  },
-  policy: {
-    auth: 'user',
-  },
-  telemetry: {
-    success: {
-      event: {
-        key: OPENBANKING_TELEMETRY_EVENTS.overviewGenerated,
-        version: '1.0.0',
-      },
-    },
-  },
+	meta: {
+		key: 'pfo.openbanking.generate-overview',
+		version: '1.0.0',
+		description:
+			'Aggregates balances and transactions into a derived financial overview stored in the knowledge layer.',
+		goal: 'Create a periodic financial snapshot.',
+		context: 'Aggregates data from open banking integration into a document.',
+		owners: [OwnersEnum.PlatformFinance],
+		tags: ['open-banking', 'summary', TagsEnum.Automation],
+		stability: StabilityEnum.Experimental,
+	},
+	io: {
+		input: OpenBankingOverviewInputModel,
+		output: OpenBankingOverviewOutputModel,
+	},
+	policy: {
+		auth: 'user',
+	},
+	telemetry: {
+		success: {
+			event: {
+				key: OPENBANKING_TELEMETRY_EVENTS.overviewGenerated,
+				version: '1.0.0',
+			},
+		},
+	},
 });
 ```

@@ -24,27 +24,27 @@ Personal task management
 
 ```typescript
 export const ApprovalInboxPresentation = definePresentation({
-  meta: {
-    key: 'workflow.approval.inbox',
-    version: '1.0.0',
-    title: 'Approval Inbox',
-    description: 'Inbox showing pending approval requests for current user',
-    domain: 'workflow-system',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'approval', 'inbox'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Managing personal workload of approval requests',
-    context: 'Personal task management',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'ApprovalInbox',
-    props: ApprovalRequestModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['workflow.approvals.enabled'],
-  },
+	meta: {
+		key: 'workflow.approval.inbox',
+		version: '1.0.0',
+		title: 'Approval Inbox',
+		description: 'Inbox showing pending approval requests for current user',
+		domain: 'workflow-system',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'approval', 'inbox'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Managing personal workload of approval requests',
+		context: 'Personal task management',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'ApprovalInbox',
+		props: ApprovalRequestModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['workflow.approvals.enabled'],
+	},
 });
 ```

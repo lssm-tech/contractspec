@@ -24,27 +24,27 @@ The onboarding flow for new integrations.
 
 ```typescript
 export const ConnectionSetupPresentation = definePresentation({
-  meta: {
-    key: 'integration.connection.setup',
-    version: '1.0.0',
-    title: 'Connection Setup',
-    description: 'Setup wizard for creating integration connections',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['integration', 'connection', 'setup'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Guide users through the multi-step process of connecting to a new integration.',
-    context: 'The onboarding flow for new integrations.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'ConnectionSetup',
-    props: ConnectionModel,
-  },
-  targets: ['react'],
-  policy: {
-    flags: ['integration.enabled'],
-  },
+	meta: {
+		key: 'integration.connection.setup',
+		version: '1.0.0',
+		title: 'Connection Setup',
+		description: 'Setup wizard for creating integration connections',
+		domain: 'integration',
+		owners: ['@integration-team'],
+		tags: ['integration', 'connection', 'setup'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Guide users through the multi-step process of connecting to a new integration.',
+		context: 'The onboarding flow for new integrations.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'ConnectionSetup',
+		props: ConnectionModel,
+	},
+	targets: ['react'],
+	policy: {
+		flags: ['integration.enabled'],
+	},
 });
 ```

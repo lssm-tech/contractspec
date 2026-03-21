@@ -15,21 +15,21 @@ Emitted when composite rankings are recomputed.
 
 ```typescript
 export const RankingUpdatedEvent = defineEvent({
-  meta: {
-    key: 'provider-ranking.ranking.updated',
-    version: '1.0.0',
-    description: 'Emitted when composite rankings are recomputed.',
-    domain: PROVIDER_RANKING_DOMAIN,
-    owners: PROVIDER_RANKING_OWNERS,
-    tags: [...PROVIDER_RANKING_TAGS, 'refresh'],
-    stability: PROVIDER_RANKING_STABILITY,
-    docId: [docId('docs.tech.provider-ranking.ranking.updated')],
-  },
-  capability: {
-    key: 'provider-ranking.system',
-    version: '1.0.0',
-  },
-  pii: [],
-  payload: RankingUpdatedPayload,
+	meta: {
+		key: 'provider-ranking.ranking.updated',
+		version: '1.0.0',
+		description: 'Emitted when composite rankings are recomputed.',
+		domain: PROVIDER_RANKING_DOMAIN,
+		owners: PROVIDER_RANKING_OWNERS,
+		tags: [...PROVIDER_RANKING_TAGS, 'refresh'],
+		stability: PROVIDER_RANKING_STABILITY,
+		docId: [docId('docs.tech.provider-ranking.ranking.updated')],
+	},
+	capability: {
+		key: 'provider-ranking.system',
+		version: '1.0.0',
+	},
+	pii: [],
+	payload: RankingUpdatedPayload,
 });
 ```

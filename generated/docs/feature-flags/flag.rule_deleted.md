@@ -17,14 +17,14 @@ A targeting rule has been deleted.
 
 ```typescript
 export const RuleDeletedEvent = defineEvent({
-  meta: {
-    key: 'flag.rule_deleted',
-    version: '1.0.0',
-    description: 'A targeting rule has been deleted.',
-    stability: 'stable',
-    owners: ['@platform.feature-flags'],
-    tags: ['feature-flags', 'rule', 'delete'],
-  },
-  payload: RuleDeletedPayload,
+	meta: {
+		key: 'flag.rule_deleted',
+		version: '1.0.0',
+		description: 'A targeting rule has been deleted.',
+		stability: 'stable',
+		owners: ['@platform.feature-flags'],
+		tags: ['feature-flags', 'rule', 'delete'],
+	},
+	payload: RuleDeletedPayload,
 });
 ```

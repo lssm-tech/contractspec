@@ -14,14 +14,14 @@ A goal was updated.
 
 ```typescript
 export const GoalUpdatedEvent = defineEvent({
-  meta: {
-    key: 'wealth.goal.updated',
-    version: '1.0.0',
-    description: 'A goal was updated.',
-    stability: StabilityEnum.Experimental,
-    owners: [],
-    tags: [],
-  },
-  payload: GoalEventPayload,
+	meta: {
+		key: 'wealth.goal.updated',
+		version: '1.0.0',
+		description: 'A goal was updated.',
+		stability: StabilityEnum.Experimental,
+		owners: [],
+		tags: [],
+	},
+	payload: GoalEventPayload,
 });
 ```

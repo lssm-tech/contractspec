@@ -17,29 +17,29 @@ Test for listing sync runs
 
 ```typescript
 export const SyncRunListTest = defineTestSpec({
-  meta: {
-    key: 'integration.syncRun.list.test',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@example.integration-hub'],
-    description: 'Test for listing sync runs',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'integration.syncRun.list', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'integration.syncRun.list' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'integration.syncRun.list' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'integration.syncRun.list.test',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@example.integration-hub'],
+		description: 'Test for listing sync runs',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'integration.syncRun.list', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'integration.syncRun.list' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'integration.syncRun.list' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

@@ -15,21 +15,21 @@ Emitted after external benchmark data is ingested.
 
 ```typescript
 export const BenchmarkIngestedEvent = defineEvent({
-  meta: {
-    key: 'provider-ranking.benchmark.ingested',
-    version: '1.0.0',
-    description: 'Emitted after external benchmark data is ingested.',
-    domain: PROVIDER_RANKING_DOMAIN,
-    owners: PROVIDER_RANKING_OWNERS,
-    tags: [...PROVIDER_RANKING_TAGS, 'ingest'],
-    stability: PROVIDER_RANKING_STABILITY,
-    docId: [docId('docs.tech.provider-ranking.benchmark.ingested')],
-  },
-  capability: {
-    key: 'provider-ranking.system',
-    version: '1.0.0',
-  },
-  pii: [],
-  payload: BenchmarkIngestedPayload,
+	meta: {
+		key: 'provider-ranking.benchmark.ingested',
+		version: '1.0.0',
+		description: 'Emitted after external benchmark data is ingested.',
+		domain: PROVIDER_RANKING_DOMAIN,
+		owners: PROVIDER_RANKING_OWNERS,
+		tags: [...PROVIDER_RANKING_TAGS, 'ingest'],
+		stability: PROVIDER_RANKING_STABILITY,
+		docId: [docId('docs.tech.provider-ranking.benchmark.ingested')],
+	},
+	capability: {
+		key: 'provider-ranking.system',
+		version: '1.0.0',
+	},
+	pii: [],
+	payload: BenchmarkIngestedPayload,
 });
 ```

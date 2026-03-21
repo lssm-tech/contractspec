@@ -25,65 +25,65 @@ Tool list/dashboard view.
 
 ```typescript
 export const ListToolsQuery = defineQuery({
-  meta: {
-    key: 'agent.tool.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['tool', 'list'],
-    description: 'Lists tools for an organization with optional filtering.',
-    goal: 'Browse and search available tools.',
-    context: 'Tool list/dashboard view.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'ListToolsInput',
-      fields: {
-        organizationId: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: false,
-        },
-        category: { type: ToolCategoryEnum, isOptional: true },
-        status: { type: ToolStatusEnum, isOptional: true },
-        search: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-        limit: {
-          type: ScalarTypeEnum.Int_unsecure(),
-          isOptional: true,
-          defaultValue: 20,
-        },
-        offset: {
-          type: ScalarTypeEnum.Int_unsecure(),
-          isOptional: true,
-          defaultValue: 0,
-        },
-      },
-    }),
-    output: defineSchemaModel({
-      name: 'ListToolsOutput',
-      fields: {
-        items: { type: ToolSummaryModel, isArray: true, isOptional: false },
-        total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-        hasMore: { type: ScalarTypeEnum.Boolean(), isOptional: false },
-      },
-    }),
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'list-tools-happy-path',
-        given: ['Organization has tools'],
-        when: ['User lists tools'],
-        then: ['Paginated list of tools is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'list-by-category',
-        input: { organizationId: 'org-123', category: 'api', limit: 10 },
-        output: { items: [], total: 0, hasMore: false },
-      },
-    ],
-  },
+	meta: {
+		key: 'agent.tool.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['tool', 'list'],
+		description: 'Lists tools for an organization with optional filtering.',
+		goal: 'Browse and search available tools.',
+		context: 'Tool list/dashboard view.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'ListToolsInput',
+			fields: {
+				organizationId: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: false,
+				},
+				category: { type: ToolCategoryEnum, isOptional: true },
+				status: { type: ToolStatusEnum, isOptional: true },
+				search: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+				limit: {
+					type: ScalarTypeEnum.Int_unsecure(),
+					isOptional: true,
+					defaultValue: 20,
+				},
+				offset: {
+					type: ScalarTypeEnum.Int_unsecure(),
+					isOptional: true,
+					defaultValue: 0,
+				},
+			},
+		}),
+		output: defineSchemaModel({
+			name: 'ListToolsOutput',
+			fields: {
+				items: { type: ToolSummaryModel, isArray: true, isOptional: false },
+				total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+				hasMore: { type: ScalarTypeEnum.Boolean(), isOptional: false },
+			},
+		}),
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'list-tools-happy-path',
+				given: ['Organization has tools'],
+				when: ['User lists tools'],
+				then: ['Paginated list of tools is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'list-by-category',
+				input: { organizationId: 'org-123', category: 'api', limit: 10 },
+				output: { items: [], total: 0, hasMore: false },
+			},
+		],
+	},
 });
 ```

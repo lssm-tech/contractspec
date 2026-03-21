@@ -24,26 +24,26 @@ Real-time operations monitor.
 
 ```typescript
 export const SyncActivityPresentation = definePresentation({
-  meta: {
-    key: 'integration.sync.activity',
-    version: '1.0.0',
-    title: 'Sync Activity Monitor',
-    description: 'Real-time sync activity monitor',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['integration', 'sync', 'activity', 'realtime'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Monitor live data flow and sync performance.',
-    context: 'Real-time operations monitor.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'SyncActivity',
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['integration.sync.enabled'],
-  },
+	meta: {
+		key: 'integration.sync.activity',
+		version: '1.0.0',
+		title: 'Sync Activity Monitor',
+		description: 'Real-time sync activity monitor',
+		domain: 'integration',
+		owners: ['@integration-team'],
+		tags: ['integration', 'sync', 'activity', 'realtime'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Monitor live data flow and sync performance.',
+		context: 'Real-time operations monitor.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'SyncActivity',
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['integration.sync.enabled'],
+	},
 });
 ```

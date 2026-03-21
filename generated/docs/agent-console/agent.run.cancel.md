@@ -25,83 +25,83 @@ Called when user wants to abort a long-running task.
 
 ```typescript
 export const CancelRunCommand = defineCommand({
-  meta: {
-    key: 'agent.run.cancel',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['run', 'cancel'],
-    description: 'Cancels an in-progress agent run.',
-    goal: 'Stop a running agent execution.',
-    context: 'Called when user wants to abort a long-running task.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'CancelRunInput',
-      fields: {
-        runId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-        reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-      },
-    }),
-    output: defineSchemaModel({
-      name: 'CancelRunOutput',
-      fields: {
-        success: { type: ScalarTypeEnum.Boolean(), isOptional: false },
-        status: { type: RunStatusEnum, isOptional: false },
-      },
-    }),
-    errors: {
-      RUN_NOT_FOUND: {
-        description: 'The specified run does not exist',
-        http: 404,
-        gqlCode: 'RUN_NOT_FOUND',
-        when: 'Run ID is invalid',
-      },
-      RUN_NOT_CANCELLABLE: {
-        description: 'The run cannot be cancelled',
-        http: 400,
-        gqlCode: 'RUN_NOT_CANCELLABLE',
-        when: 'Run is already completed/failed/cancelled',
-      },
-    },
-  },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'run.cancelled',
-        version: '1.0.0',
-        stability: 'stable',
-        owners: ['@agent-console-team'],
-        tags: ['run', 'cancelled'],
-        when: 'Run is cancelled',
-        payload: RunSummaryModel,
-      },
-    ],
-    audit: ['run.cancelled'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'cancel-run-happy-path',
-        given: ['Run exists', 'Run is in progress'],
-        when: ['User cancels run'],
-        then: ['Run is cancelled', 'RunCancelled event is emitted'],
-      },
-      {
-        key: 'cancel-run-already-completed',
-        given: ['Run exists but is already completed'],
-        when: ['User attempts to cancel'],
-        then: ['RUN_NOT_CANCELLABLE error is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'cancel-basic',
-        input: { runId: 'run-456', reason: 'User requested' },
-        output: { success: true, status: 'cancelled' },
-      },
-    ],
-  },
+	meta: {
+		key: 'agent.run.cancel',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['run', 'cancel'],
+		description: 'Cancels an in-progress agent run.',
+		goal: 'Stop a running agent execution.',
+		context: 'Called when user wants to abort a long-running task.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'CancelRunInput',
+			fields: {
+				runId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+				reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+			},
+		}),
+		output: defineSchemaModel({
+			name: 'CancelRunOutput',
+			fields: {
+				success: { type: ScalarTypeEnum.Boolean(), isOptional: false },
+				status: { type: RunStatusEnum, isOptional: false },
+			},
+		}),
+		errors: {
+			RUN_NOT_FOUND: {
+				description: 'The specified run does not exist',
+				http: 404,
+				gqlCode: 'RUN_NOT_FOUND',
+				when: 'Run ID is invalid',
+			},
+			RUN_NOT_CANCELLABLE: {
+				description: 'The run cannot be cancelled',
+				http: 400,
+				gqlCode: 'RUN_NOT_CANCELLABLE',
+				when: 'Run is already completed/failed/cancelled',
+			},
+		},
+	},
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'run.cancelled',
+				version: '1.0.0',
+				stability: 'stable',
+				owners: ['@agent-console-team'],
+				tags: ['run', 'cancelled'],
+				when: 'Run is cancelled',
+				payload: RunSummaryModel,
+			},
+		],
+		audit: ['run.cancelled'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'cancel-run-happy-path',
+				given: ['Run exists', 'Run is in progress'],
+				when: ['User cancels run'],
+				then: ['Run is cancelled', 'RunCancelled event is emitted'],
+			},
+			{
+				key: 'cancel-run-already-completed',
+				given: ['Run exists but is already completed'],
+				when: ['User attempts to cancel'],
+				then: ['RUN_NOT_CANCELLABLE error is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'cancel-basic',
+				input: { runId: 'run-456', reason: 'User requested' },
+				output: { success: true, status: 'cancelled' },
+			},
+		],
+	},
 });
 ```

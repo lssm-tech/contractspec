@@ -25,23 +25,23 @@ Used when drilling into a specific meeting from a transcript or integration dash
 
 ```typescript
 export const MeetingRecorderGetMeeting = defineQuery({
-  meta: {
-    key: 'meeting-recorder.meetings.get',
-    version: '1.0.0',
-    description: 'Retrieve metadata for a single meeting recording.',
-    goal: 'Allow downstream experiences to display detailed meeting metadata.',
-    context:
-      'Used when drilling into a specific meeting from a transcript or integration dashboard.',
-    owners: ['@platform.integrations'],
-    tags: ['meeting-recorder', 'meetings'],
-    stability: 'experimental',
-  },
-  io: {
-    input: MeetingRecorderGetMeetingInput,
-    output: MeetingRecord,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'meeting-recorder.meetings.get',
+		version: '1.0.0',
+		description: 'Retrieve metadata for a single meeting recording.',
+		goal: 'Allow downstream experiences to display detailed meeting metadata.',
+		context:
+			'Used when drilling into a specific meeting from a transcript or integration dashboard.',
+		owners: ['@platform.integrations'],
+		tags: ['meeting-recorder', 'meetings'],
+		stability: 'experimental',
+	},
+	io: {
+		input: MeetingRecorderGetMeetingInput,
+		output: MeetingRecord,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

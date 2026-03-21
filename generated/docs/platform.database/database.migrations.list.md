@@ -23,30 +23,30 @@ Used by Studio, ops, and agents before data migrations.
 
 ```typescript
 export const DatabaseMigrationsListQuery = defineQuery({
-  meta: {
-    key: 'database.migrations.list',
-    title: 'List Database Migrations',
-    version: '1.0.0',
-    description: 'List registered database migrations and statuses.',
-    goal: 'Provide migration context and auditability for schema changes.',
-    context: 'Used by Studio, ops, and agents before data migrations.',
-    domain: DATABASE_DOMAIN,
-    owners: DATABASE_OWNERS,
-    tags: [...DATABASE_TAGS, 'migrations'],
-    stability: DATABASE_STABILITY,
-    docId: [docId('docs.tech.database.migrations.list')],
-  },
-  capability: {
-    key: 'database.context',
-    version: '1.0.0',
-  },
-  io: {
-    input: DatabaseMigrationsListInput,
-    output: DatabaseMigrationsListOutput,
-  },
-  policy: {
-    auth: 'admin',
-    pii: [],
-  },
+	meta: {
+		key: 'database.migrations.list',
+		title: 'List Database Migrations',
+		version: '1.0.0',
+		description: 'List registered database migrations and statuses.',
+		goal: 'Provide migration context and auditability for schema changes.',
+		context: 'Used by Studio, ops, and agents before data migrations.',
+		domain: DATABASE_DOMAIN,
+		owners: DATABASE_OWNERS,
+		tags: [...DATABASE_TAGS, 'migrations'],
+		stability: DATABASE_STABILITY,
+		docId: [docId('docs.tech.database.migrations.list')],
+	},
+	capability: {
+		key: 'database.context',
+		version: '1.0.0',
+	},
+	io: {
+		input: DatabaseMigrationsListInput,
+		output: DatabaseMigrationsListOutput,
+	},
+	policy: {
+		auth: 'admin',
+		pii: [],
+	},
 });
 ```

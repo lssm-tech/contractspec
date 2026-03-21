@@ -25,41 +25,41 @@ Ritual management.
 
 ```typescript
 export const LogRitualOccurrenceContract = defineCommand({
-  meta: {
-    key: 'team.ritual.logOccurrence',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@examples.team-hub'],
-    tags: ['team-hub', 'ritual', 'log'],
-    description: 'Log a ritual occurrence.',
-    goal: 'Record ritual history.',
-    context: 'Ritual management.',
-  },
-  io: {
-    input: LogRitualOccurrenceInputModel,
-    output: RitualModel,
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'log-occurrence-happy-path',
-        given: ['Ritual is scheduled'],
-        when: ['User logs occurrence'],
-        then: ['Occurrence is recorded'],
-      },
-    ],
-    examples: [
-      {
-        key: 'log-standup',
-        input: {
-          ritualId: 'rit-123',
-          date: '2025-01-20',
-          attendees: ['user-1', 'user-2'],
-        },
-        output: { id: 'rit-123', lastOccurrence: '2025-01-20' },
-      },
-    ],
-  },
+	meta: {
+		key: 'team.ritual.logOccurrence',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@examples.team-hub'],
+		tags: ['team-hub', 'ritual', 'log'],
+		description: 'Log a ritual occurrence.',
+		goal: 'Record ritual history.',
+		context: 'Ritual management.',
+	},
+	io: {
+		input: LogRitualOccurrenceInputModel,
+		output: RitualModel,
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'log-occurrence-happy-path',
+				given: ['Ritual is scheduled'],
+				when: ['User logs occurrence'],
+				then: ['Occurrence is recorded'],
+			},
+		],
+		examples: [
+			{
+				key: 'log-standup',
+				input: {
+					ritualId: 'rit-123',
+					date: '2025-01-20',
+					attendees: ['user-1', 'user-2'],
+				},
+				output: { id: 'rit-123', lastOccurrence: '2025-01-20' },
+			},
+		],
+	},
 });
 ```

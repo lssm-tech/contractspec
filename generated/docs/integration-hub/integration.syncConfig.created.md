@@ -17,14 +17,14 @@ Fired when a sync configuration is created
 
 ```typescript
 export const SyncConfigCreatedEvent = defineEvent({
-  meta: {
-    key: 'integration.syncConfig.created',
-    version: '1.0.0',
-    description: 'Fired when a sync configuration is created',
-    stability: 'experimental',
-    owners: ['@integration-team'],
-    tags: ['integration', 'sync'],
-  },
-  payload: SyncConfigCreatedPayload,
+	meta: {
+		key: 'integration.syncConfig.created',
+		version: '1.0.0',
+		description: 'Fired when a sync configuration is created',
+		stability: 'experimental',
+		owners: ['@integration-team'],
+		tags: ['integration', 'sync'],
+	},
+	payload: SyncConfigCreatedPayload,
 });
 ```

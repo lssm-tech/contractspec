@@ -24,26 +24,26 @@ System performance dashboard
 
 ```typescript
 export const WorkflowMetricsPresentation = definePresentation({
-  meta: {
-    key: 'workflow.metrics',
-    version: '1.0.0',
-    title: 'Workflow Metrics',
-    description: 'Dashboard widget showing workflow metrics and statistics',
-    domain: 'workflow-system',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'metrics', 'dashboard'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Monitoring throughput and bottlenecks',
-    context: 'System performance dashboard',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'WorkflowMetricsDashboard',
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['workflow.metrics.enabled'],
-  },
+	meta: {
+		key: 'workflow.metrics',
+		version: '1.0.0',
+		title: 'Workflow Metrics',
+		description: 'Dashboard widget showing workflow metrics and statistics',
+		domain: 'workflow-system',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'metrics', 'dashboard'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Monitoring throughput and bottlenecks',
+		context: 'System performance dashboard',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'WorkflowMetricsDashboard',
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['workflow.metrics.enabled'],
+	},
 });
 ```

@@ -25,24 +25,24 @@ Called by Studio/Playground to render journey steps.
 
 ```typescript
 export const GetPlatformTourTrack = defineQuery({
-  meta: {
-    key: 'learningJourney.platformTour.getTrack',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['examples.learning-journey.platform-tour'],
-    tags: ['learning', 'platform', 'tour'],
-    description: 'Fetch platform primitives tour track definition.',
-    goal: 'Expose track metadata to UIs and templates.',
-    context: 'Called by Studio/Playground to render journey steps.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'PlatformTourTrackInput',
-      description: 'Track input',
-      fields: {},
-    }),
-    output: TrackResponseModel,
-  },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'learningJourney.platformTour.getTrack',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['examples.learning-journey.platform-tour'],
+		tags: ['learning', 'platform', 'tour'],
+		description: 'Fetch platform primitives tour track definition.',
+		goal: 'Expose track metadata to UIs and templates.',
+		context: 'Called by Studio/Playground to render journey steps.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'PlatformTourTrackInput',
+			description: 'Track input',
+			fields: {},
+		}),
+		output: TrackResponseModel,
+	},
+	policy: { auth: 'user' },
 });
 ```

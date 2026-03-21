@@ -25,25 +25,25 @@ Ensures connections are de-provisioned when no longer needed or breached.
 
 ```typescript
 export const DeleteIntegrationConnection = defineCommand({
-  meta: {
-    key: 'integrations.connection.delete',
-    title: 'Delete Integration Connection',
-    version: '1.0.0',
-    description: 'Delete an integration connection for a tenant.',
-    goal: 'Safely remove credentials and disable connector usage.',
-    context:
-      'Ensures connections are de-provisioned when no longer needed or breached.',
-    owners: ['@platform.integrations'],
-    tags: ['integration', 'connections'],
-    stability: 'experimental',
-  },
-  io: {
-    input: DeleteIntegrationConnectionInput,
-    output: DeleteIntegrationConnectionOutput,
-  },
-  policy: {
-    auth: 'admin',
-    policies: [{ key: 'platform.integration.manage', version: '1.0.0' }],
-  },
+	meta: {
+		key: 'integrations.connection.delete',
+		title: 'Delete Integration Connection',
+		version: '1.0.0',
+		description: 'Delete an integration connection for a tenant.',
+		goal: 'Safely remove credentials and disable connector usage.',
+		context:
+			'Ensures connections are de-provisioned when no longer needed or breached.',
+		owners: ['@platform.integrations'],
+		tags: ['integration', 'connections'],
+		stability: 'experimental',
+	},
+	io: {
+		input: DeleteIntegrationConnectionInput,
+		output: DeleteIntegrationConnectionOutput,
+	},
+	policy: {
+		auth: 'admin',
+		policies: [{ key: 'platform.integration.manage', version: '1.0.0' }],
+	},
 });
 ```

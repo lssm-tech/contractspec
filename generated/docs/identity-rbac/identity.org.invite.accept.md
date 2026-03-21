@@ -29,47 +29,47 @@ Called from invitation email link.
 
 ```typescript
 export const AcceptInviteContract = defineCommand({
-  meta: {
-    key: 'identity.org.invite.accept',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.identity-rbac'],
-    tags: ['identity', 'org', 'invite', 'accept'],
-    description: 'Accept an organization invitation.',
-    goal: 'Allow users to join organizations via invitation.',
-    context: 'Called from invitation email link.',
-  },
-  io: {
-    input: AcceptInviteInputModel,
-    output: MemberModel,
-    errors: {
-      INVITE_EXPIRED: {
-        description: 'The invitation has expired',
-        http: 410,
-        gqlCode: 'INVITE_EXPIRED',
-        when: 'Invitation is past expiry date',
-      },
-      INVITE_USED: {
-        description: 'The invitation has already been used',
-        http: 409,
-        gqlCode: 'INVITE_USED',
-        when: 'Invitation was already accepted',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'org.member.added',
-        version: '1.0.0',
-        when: 'Member joins org',
-        payload: MemberModel,
-      },
-    ],
-    audit: ['org.member.added'],
-  },
+	meta: {
+		key: 'identity.org.invite.accept',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.identity-rbac'],
+		tags: ['identity', 'org', 'invite', 'accept'],
+		description: 'Accept an organization invitation.',
+		goal: 'Allow users to join organizations via invitation.',
+		context: 'Called from invitation email link.',
+	},
+	io: {
+		input: AcceptInviteInputModel,
+		output: MemberModel,
+		errors: {
+			INVITE_EXPIRED: {
+				description: 'The invitation has expired',
+				http: 410,
+				gqlCode: 'INVITE_EXPIRED',
+				when: 'Invitation is past expiry date',
+			},
+			INVITE_USED: {
+				description: 'The invitation has already been used',
+				http: 409,
+				gqlCode: 'INVITE_USED',
+				when: 'Invitation was already accepted',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'org.member.added',
+				version: '1.0.0',
+				when: 'Member joins org',
+				payload: MemberModel,
+			},
+		],
+		audit: ['org.member.added'],
+	},
 });
 ```

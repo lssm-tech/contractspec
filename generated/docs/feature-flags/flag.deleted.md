@@ -17,14 +17,14 @@ A feature flag has been deleted.
 
 ```typescript
 export const FlagDeletedEvent = defineEvent({
-  meta: {
-    key: 'flag.deleted',
-    version: '1.0.0',
-    description: 'A feature flag has been deleted.',
-    stability: 'stable',
-    owners: ['@platform.feature-flags'],
-    tags: ['feature-flags', 'delete'],
-  },
-  payload: FlagDeletedPayload,
+	meta: {
+		key: 'flag.deleted',
+		version: '1.0.0',
+		description: 'A feature flag has been deleted.',
+		stability: 'stable',
+		owners: ['@platform.feature-flags'],
+		tags: ['feature-flags', 'delete'],
+	},
+	payload: FlagDeletedPayload,
 });
 ```

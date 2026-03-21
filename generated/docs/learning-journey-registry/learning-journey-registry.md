@@ -34,59 +34,59 @@ import { defineFeature } from '@contractspec/lib.contracts-spec';
  * the shared presentations for learning journey tracks.
  */
 export const LearningJourneyRegistryFeature = defineFeature({
-  meta: {
-    key: 'learning-journey-registry',
-    version: '1.0.0',
-    title: 'Learning Journey Registry',
-    description:
-      'Shared registry and presentations for learning journey tracks',
-    domain: 'learning-journey',
-    owners: ['@learning-team'],
-    tags: ['learning', 'journey', 'onboarding', 'registry'],
-    stability: 'experimental',
-  },
+	meta: {
+		key: 'learning-journey-registry',
+		version: '1.0.0',
+		title: 'Learning Journey Registry',
+		description:
+			'Shared registry and presentations for learning journey tracks',
+		domain: 'learning-journey',
+		owners: ['@learning-team'],
+		tags: ['learning', 'journey', 'onboarding', 'registry'],
+		stability: 'experimental',
+	},
 
-  // No operations in the registry - it's presentation-only
-  operations: [],
+	// No operations in the registry - it's presentation-only
+	operations: [],
 
-  // Events emitted by this feature
-  events: [],
+	// Events emitted by this feature
+	events: [],
 
-  // Presentations associated with this feature
-  presentations: [
-    { key: 'learning.journey.track_list', version: '1.0.0' },
-    { key: 'learning.journey.track_detail', version: '1.0.0' },
-    { key: 'learning.journey.progress_widget', version: '1.0.0' },
-  ],
+	// Presentations associated with this feature
+	presentations: [
+		{ key: 'learning.journey.track_list', version: '1.0.0' },
+		{ key: 'learning.journey.track_detail', version: '1.0.0' },
+		{ key: 'learning.journey.progress_widget', version: '1.0.0' },
+	],
 
-  // No op to presentation links for registry
-  opToPresentation: [],
+	// No op to presentation links for registry
+	opToPresentation: [],
 
-  // Target requirements for multi-surface rendering
-  presentationsTargets: [
-    {
-      key: 'learning.journey.track_list',
-      version: '1.0.0',
-      targets: ['react', 'markdown'],
-    },
-    {
-      key: 'learning.journey.track_detail',
-      version: '1.0.0',
-      targets: ['react', 'markdown', 'application/json'],
-    },
-    {
-      key: 'learning.journey.progress_widget',
-      version: '1.0.0',
-      targets: ['react'],
-    },
-  ],
+	// Target requirements for multi-surface rendering
+	presentationsTargets: [
+		{
+			key: 'learning.journey.track_list',
+			version: '1.0.0',
+			targets: ['react', 'markdown'],
+		},
+		{
+			key: 'learning.journey.track_detail',
+			version: '1.0.0',
+			targets: ['react', 'markdown', 'application/json'],
+		},
+		{
+			key: 'learning.journey.progress_widget',
+			version: '1.0.0',
+			targets: ['react'],
+		},
+	],
 
-  // Capability requirements
-  capabilities: {
-    requires: [{ key: 'identity', version: '1.0.0' }],
-  },
+	// Capability requirements
+	capabilities: {
+		requires: [{ key: 'identity', version: '1.0.0' }],
+	},
 
-  docs: ['docs.learning-journey.registry'],
+	docs: ['docs.learning-journey.registry'],
 });
 
 ```

@@ -25,22 +25,22 @@ Admin dashboard, compliance reporting, debugging.
 
 ```typescript
 export const QueryAuditLogsContract = defineQuery({
-  meta: {
-    key: 'audit.logs.query',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.audit-trail'],
-    tags: ['audit', 'logs', 'query'],
-    description: 'Query audit logs with filters.',
-    goal: 'Enable searching and filtering of audit history.',
-    context: 'Admin dashboard, compliance reporting, debugging.',
-  },
-  io: {
-    input: AuditQueryInputModel,
-    output: AuditQueryOutputModel,
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'audit.logs.query',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.audit-trail'],
+		tags: ['audit', 'logs', 'query'],
+		description: 'Query audit logs with filters.',
+		goal: 'Enable searching and filtering of audit history.',
+		context: 'Admin dashboard, compliance reporting, debugging.',
+	},
+	io: {
+		input: AuditQueryInputModel,
+		output: AuditQueryOutputModel,
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

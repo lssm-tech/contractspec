@@ -25,22 +25,22 @@ Called to browse thresholds.
 
 ```typescript
 export const ListThresholdsContract = defineQuery({
-  meta: {
-    key: 'threshold.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.metering'],
-    tags: ['metering', 'threshold', 'list'],
-    description: 'List usage thresholds.',
-    goal: 'View configured limits.',
-    context: 'Called to browse thresholds.',
-  },
-  io: {
-    input: ListThresholdsInput,
-    output: ListThresholdsOutput,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'threshold.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.metering'],
+		tags: ['metering', 'threshold', 'list'],
+		description: 'List usage thresholds.',
+		goal: 'View configured limits.',
+		context: 'Called to browse thresholds.',
+	},
+	io: {
+		input: ListThresholdsInput,
+		output: ListThresholdsOutput,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

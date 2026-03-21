@@ -29,64 +29,64 @@ Called from project creation UI or API.
 
 ```typescript
 export const CreateProjectContract = defineCommand({
-  meta: {
-    key: 'saas.project.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['example.saas-boilerplate'],
-    tags: ['saas', 'project', 'create'],
-    description: 'Create a new project in the organization.',
-    goal: 'Allow users to create projects for organizing work.',
-    context: 'Called from project creation UI or API.',
-  },
-  io: {
-    input: CreateProjectInputModel,
-    output: ProjectModel,
-    errors: {
-      SLUG_EXISTS: {
-        description: 'A project with this slug already exists',
-        http: 409,
-        gqlCode: 'SLUG_EXISTS',
-        when: 'Slug is already taken in the organization',
-      },
-      LIMIT_REACHED: {
-        description: 'Project limit reached for this plan',
-        http: 403,
-        gqlCode: 'LIMIT_REACHED',
-        when: 'Organization has reached project limit',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'project.created',
-        version: '1.0.0',
-        when: 'Project is created',
-        payload: ProjectModel,
-      },
-    ],
-    audit: ['project.created'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'create-project-happy-path',
-        given: ['User is authenticated'],
-        when: ['User creates project'],
-        then: ['Project is created', 'ProjectCreated event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'create-basic',
-        input: { name: 'Website Redesign', slug: 'website-redesign' },
-        output: { id: 'proj-123', name: 'Website Redesign', isArchived: false },
-      },
-    ],
-  },
+	meta: {
+		key: 'saas.project.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['example.saas-boilerplate'],
+		tags: ['saas', 'project', 'create'],
+		description: 'Create a new project in the organization.',
+		goal: 'Allow users to create projects for organizing work.',
+		context: 'Called from project creation UI or API.',
+	},
+	io: {
+		input: CreateProjectInputModel,
+		output: ProjectModel,
+		errors: {
+			SLUG_EXISTS: {
+				description: 'A project with this slug already exists',
+				http: 409,
+				gqlCode: 'SLUG_EXISTS',
+				when: 'Slug is already taken in the organization',
+			},
+			LIMIT_REACHED: {
+				description: 'Project limit reached for this plan',
+				http: 403,
+				gqlCode: 'LIMIT_REACHED',
+				when: 'Organization has reached project limit',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'project.created',
+				version: '1.0.0',
+				when: 'Project is created',
+				payload: ProjectModel,
+			},
+		],
+		audit: ['project.created'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'create-project-happy-path',
+				given: ['User is authenticated'],
+				when: ['User creates project'],
+				then: ['Project is created', 'ProjectCreated event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'create-basic',
+				input: { name: 'Website Redesign', slug: 'website-redesign' },
+				output: { id: 'proj-123', name: 'Website Redesign', isArchived: false },
+			},
+		],
+	},
 });
 ```

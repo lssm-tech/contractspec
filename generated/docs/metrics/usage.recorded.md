@@ -17,14 +17,14 @@ Usage has been recorded.
 
 ```typescript
 export const UsageRecordedEvent = defineEvent({
-  meta: {
-    key: 'usage.recorded',
-    version: '1.0.0',
-    description: 'Usage has been recorded.',
-    stability: 'stable',
-    owners: ['@platform.metering'],
-    tags: ['metering', 'usage'],
-  },
-  payload: UsageRecordedPayload,
+	meta: {
+		key: 'usage.recorded',
+		version: '1.0.0',
+		description: 'Usage has been recorded.',
+		stability: 'stable',
+		owners: ['@platform.metering'],
+		tags: ['metering', 'usage'],
+	},
+	payload: UsageRecordedPayload,
 });
 ```

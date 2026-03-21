@@ -17,14 +17,14 @@ A new workflow definition has been created.
 
 ```typescript
 export const WorkflowCreatedEvent = defineEvent({
-  meta: {
-    key: 'workflow.definition.created',
-    version: '1.0.0',
-    description: 'A new workflow definition has been created.',
-    stability: 'stable',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'definition', 'created'],
-  },
-  payload: WorkflowDefinitionPayload,
+	meta: {
+		key: 'workflow.definition.created',
+		version: '1.0.0',
+		description: 'A new workflow definition has been created.',
+		stability: 'stable',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'definition', 'created'],
+	},
+	payload: WorkflowDefinitionPayload,
 });
 ```

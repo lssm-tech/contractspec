@@ -25,30 +25,30 @@ Called when updating a document.
 
 ```typescript
 export const CreateVersionContract = defineCommand({
-  meta: {
-    key: 'file.version.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.files'],
-    tags: ['files', 'version', 'create'],
-    description: 'Create a new version of a file.',
-    goal: 'Upload a new version while preserving history.',
-    context: 'Called when updating a document.',
-  },
-  io: {
-    input: CreateVersionInput,
-    output: FileVersionModel,
-    errors: {
-      FILE_NOT_FOUND: {
-        description: 'File does not exist',
-        http: 404,
-        gqlCode: 'FILE_NOT_FOUND',
-        when: 'File ID is invalid',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'file.version.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.files'],
+		tags: ['files', 'version', 'create'],
+		description: 'Create a new version of a file.',
+		goal: 'Upload a new version while preserving history.',
+		context: 'Called when updating a document.',
+	},
+	io: {
+		input: CreateVersionInput,
+		output: FileVersionModel,
+		errors: {
+			FILE_NOT_FOUND: {
+				description: 'File does not exist',
+				http: 404,
+				gqlCode: 'FILE_NOT_FOUND',
+				when: 'File ID is invalid',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

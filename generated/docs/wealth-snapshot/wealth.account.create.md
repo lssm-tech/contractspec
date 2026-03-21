@@ -25,17 +25,17 @@ Onboarding/import.
 
 ```typescript
 export const CreateAccountContract = defineCommand({
-  meta: {
-    key: 'wealth.account.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['examples.wealth-snapshot'],
-    tags: ['wealth', 'account', 'create'],
-    description: 'Create a financial account.',
-    goal: 'Track account balances.',
-    context: 'Onboarding/import.',
-  },
-  io: { input: CreateAccountInput, output: AccountModel },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'wealth.account.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['examples.wealth-snapshot'],
+		tags: ['wealth', 'account', 'create'],
+		description: 'Create a financial account.',
+		goal: 'Track account balances.',
+		context: 'Onboarding/import.',
+	},
+	io: { input: CreateAccountInput, output: AccountModel },
+	policy: { auth: 'user' },
 });
 ```

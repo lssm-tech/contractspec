@@ -16,14 +16,14 @@ Feature flag management and evaluation
 
 ```typescript
 export const FeatureFlagsCapability = defineCapability({
-  meta: {
-    key: 'feature-flag',
-    version: '1.0.0',
-    kind: 'api',
-    stability: StabilityEnum.Experimental,
-    description: 'Feature flag management and evaluation',
-    owners: ['@platform.featureflags'],
-    tags: ['feature-flags', 'configuration'],
-  },
+	meta: {
+		key: 'feature-flag',
+		version: '1.0.0',
+		kind: 'api',
+		stability: StabilityEnum.Experimental,
+		description: 'Feature flag management and evaluation',
+		owners: ['@platform.featureflags'],
+		tags: ['feature-flags', 'configuration'],
+	},
 });
 ```

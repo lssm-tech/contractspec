@@ -23,31 +23,31 @@ Used before live data access to ensure schema awareness and policy checks.
 
 ```typescript
 export const DatabaseSchemaDescribeQuery = defineQuery({
-  meta: {
-    key: 'database.schema.describe',
-    title: 'Describe Database Schema',
-    version: '1.0.0',
-    description: 'Describe database schemas and models with PII indicators.',
-    goal: 'Provide deterministic schema context for agents and operators.',
-    context:
-      'Used before live data access to ensure schema awareness and policy checks.',
-    domain: DATABASE_DOMAIN,
-    owners: DATABASE_OWNERS,
-    tags: [...DATABASE_TAGS, 'describe'],
-    stability: DATABASE_STABILITY,
-    docId: [docId('docs.tech.database.schema.describe')],
-  },
-  capability: {
-    key: 'database.context',
-    version: '1.0.0',
-  },
-  io: {
-    input: DatabaseSchemaDescribeInput,
-    output: DatabaseSchemaDescribeOutput,
-  },
-  policy: {
-    auth: 'admin',
-    pii: [],
-  },
+	meta: {
+		key: 'database.schema.describe',
+		title: 'Describe Database Schema',
+		version: '1.0.0',
+		description: 'Describe database schemas and models with PII indicators.',
+		goal: 'Provide deterministic schema context for agents and operators.',
+		context:
+			'Used before live data access to ensure schema awareness and policy checks.',
+		domain: DATABASE_DOMAIN,
+		owners: DATABASE_OWNERS,
+		tags: [...DATABASE_TAGS, 'describe'],
+		stability: DATABASE_STABILITY,
+		docId: [docId('docs.tech.database.schema.describe')],
+	},
+	capability: {
+		key: 'database.context',
+		version: '1.0.0',
+	},
+	io: {
+		input: DatabaseSchemaDescribeInput,
+		output: DatabaseSchemaDescribeOutput,
+	},
+	policy: {
+		auth: 'admin',
+		pii: [],
+	},
 });
 ```

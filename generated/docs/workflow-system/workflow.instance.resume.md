@@ -29,57 +29,57 @@ Administrative action.
 
 ```typescript
 export const ResumeWorkflowContract = defineCommand({
-  meta: {
-    key: 'workflow.instance.resume',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.workflow-system'],
-    tags: ['workflow', 'instance', 'resume'],
-    description: 'Resume a paused workflow instance.',
-    goal: 'Continue workflow execution.',
-    context: 'Administrative action.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'PauseResumeInput',
-      fields: {
-        instanceId: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: false,
-        },
-        reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-      },
-    }),
-    output: WorkflowInstanceModel,
-  },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'workflow.instance.resumed',
-        version: '1.0.0',
-        when: 'Workflow is resumed',
-        payload: WorkflowInstanceModel,
-      },
-    ],
-    audit: ['workflow.instance.resumed'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'resume-workflow-happy-path',
-        given: ['Workflow is paused'],
-        when: ['Admin resumes workflow'],
-        then: ['Instance status becomes RUNNING'],
-      },
-    ],
-    examples: [
-      {
-        key: 'resume-normal',
-        input: { instanceId: 'inst-456', reason: 'Issue resolved' },
-        output: { id: 'inst-456', status: 'running' },
-      },
-    ],
-  },
+	meta: {
+		key: 'workflow.instance.resume',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.workflow-system'],
+		tags: ['workflow', 'instance', 'resume'],
+		description: 'Resume a paused workflow instance.',
+		goal: 'Continue workflow execution.',
+		context: 'Administrative action.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'PauseResumeInput',
+			fields: {
+				instanceId: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: false,
+				},
+				reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+			},
+		}),
+		output: WorkflowInstanceModel,
+	},
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'workflow.instance.resumed',
+				version: '1.0.0',
+				when: 'Workflow is resumed',
+				payload: WorkflowInstanceModel,
+			},
+		],
+		audit: ['workflow.instance.resumed'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'resume-workflow-happy-path',
+				given: ['Workflow is paused'],
+				when: ['Admin resumes workflow'],
+				then: ['Instance status becomes RUNNING'],
+			},
+		],
+		examples: [
+			{
+				key: 'resume-normal',
+				input: { instanceId: 'inst-456', reason: 'Issue resolved' },
+				output: { id: 'inst-456', status: 'running' },
+			},
+		],
+	},
 });
 ```

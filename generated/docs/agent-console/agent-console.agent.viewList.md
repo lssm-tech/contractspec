@@ -24,26 +24,26 @@ Main landing page for agent management.
 
 ```typescript
 export const AgentListPresentation = definePresentation({
-  meta: {
-    key: 'agent-console.agent.viewList',
-    version: '1.0.0',
-    title: 'Agent List',
-    description:
-      'List view of AI agents with status, model provider, and version info',
-    goal: 'Provide an overview of all agents in an organization.',
-    context: 'Main landing page for agent management.',
-    domain: 'agent-console',
-    owners: ['@agent-console-team'],
-    tags: ['agent', 'list', 'dashboard'],
-    stability: StabilityEnum.Experimental,
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'AgentListView',
-    props: AgentSummaryModel,
-  },
-  targets: ['react', 'markdown', 'application/json'],
-  policy: { flags: ['agent-console.enabled'] },
+	meta: {
+		key: 'agent-console.agent.viewList',
+		version: '1.0.0',
+		title: 'Agent List',
+		description:
+			'List view of AI agents with status, model provider, and version info',
+		goal: 'Provide an overview of all agents in an organization.',
+		context: 'Main landing page for agent management.',
+		domain: 'agent-console',
+		owners: ['@agent-console-team'],
+		tags: ['agent', 'list', 'dashboard'],
+		stability: StabilityEnum.Experimental,
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'AgentListView',
+		props: AgentSummaryModel,
+	},
+	targets: ['react', 'markdown', 'application/json'],
+	policy: { flags: ['agent-console.enabled'] },
 });
 ```

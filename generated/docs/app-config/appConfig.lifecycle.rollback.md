@@ -23,29 +23,29 @@ Called manually or automatically when monitoring detects regression and a rollba
 
 ```typescript
 export const RollbackTenantConfigCommand = defineCommand({
-  meta: {
-    key: 'appConfig.lifecycle.rollback',
-    version: '1.0.0',
-    description: 'Rolls back to a previously published tenant config version.',
-    owners: [OwnersEnum.PlatformSigil],
-    tags: [TagsEnum.Hygiene, 'app-config'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Provide rapid recovery when new configs regress production.',
-    context:
-      'Called manually or automatically when monitoring detects regression and a rollback is required.',
-  },
-  io: {
-    input: RollbackConfigInput,
-    output: RollbackConfigOutput,
-  },
-  policy: LifecyclePolicy,
-  sideEffects: {
-    emits: [
-      {
-        ref: ConfigRolledBackEvent.meta,
-        when: 'after rollback completes',
-      },
-    ],
-  },
+	meta: {
+		key: 'appConfig.lifecycle.rollback',
+		version: '1.0.0',
+		description: 'Rolls back to a previously published tenant config version.',
+		owners: [OwnersEnum.PlatformSigil],
+		tags: [TagsEnum.Hygiene, 'app-config'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Provide rapid recovery when new configs regress production.',
+		context:
+			'Called manually or automatically when monitoring detects regression and a rollback is required.',
+	},
+	io: {
+		input: RollbackConfigInput,
+		output: RollbackConfigOutput,
+	},
+	policy: LifecyclePolicy,
+	sideEffects: {
+		emits: [
+			{
+				ref: ConfigRolledBackEvent.meta,
+				when: 'after rollback completes',
+			},
+		],
+	},
 });
 ```

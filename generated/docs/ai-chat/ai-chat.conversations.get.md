@@ -25,25 +25,25 @@ Chat UI
 
 ```typescript
 export const GetConversationContract = defineQuery({
-  meta: {
-    key: 'ai-chat.conversations.get',
-    version: '1.0.0',
-    owners: ['@ai-team'],
-    stability: 'experimental',
-    description: 'Get a specific conversation.',
-    tags: ['chat', 'get'],
-    goal: 'Get conversation',
-    context: 'Chat UI',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'GetConversationInput',
-      fields: {
-        id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      },
-    }),
-    output: ChatConversationModel,
-  },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'ai-chat.conversations.get',
+		version: '1.0.0',
+		owners: ['@ai-team'],
+		stability: 'experimental',
+		description: 'Get a specific conversation.',
+		tags: ['chat', 'get'],
+		goal: 'Get conversation',
+		context: 'Chat UI',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'GetConversationInput',
+			fields: {
+				id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+			},
+		}),
+		output: ChatConversationModel,
+	},
+	policy: { auth: 'user' },
 });
 ```

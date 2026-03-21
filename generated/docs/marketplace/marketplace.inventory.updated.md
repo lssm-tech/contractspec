@@ -17,14 +17,14 @@ Product inventory has been updated.
 
 ```typescript
 export const InventoryUpdatedEvent = defineEvent({
-  meta: {
-    key: 'marketplace.inventory.updated',
-    version: '1.0.0',
-    description: 'Product inventory has been updated.',
-    stability: 'experimental',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'product', 'inventory'],
-  },
-  payload: InventoryUpdatedPayload,
+	meta: {
+		key: 'marketplace.inventory.updated',
+		version: '1.0.0',
+		description: 'Product inventory has been updated.',
+		stability: 'experimental',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'product', 'inventory'],
+	},
+	payload: InventoryUpdatedPayload,
 });
 ```

@@ -14,14 +14,14 @@ A liability was added or updated.
 
 ```typescript
 export const LiabilityAddedEvent = defineEvent({
-  meta: {
-    key: 'wealth.liability.added',
-    version: '1.0.0',
-    description: 'A liability was added or updated.',
-    stability: StabilityEnum.Experimental,
-    owners: [],
-    tags: [],
-  },
-  payload: LiabilityEventPayload,
+	meta: {
+		key: 'wealth.liability.added',
+		version: '1.0.0',
+		description: 'A liability was added or updated.',
+		stability: StabilityEnum.Experimental,
+		owners: [],
+		tags: [],
+	},
+	payload: LiabilityEventPayload,
 });
 ```

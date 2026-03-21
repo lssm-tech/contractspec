@@ -17,14 +17,14 @@ An approval has been delegated.
 
 ```typescript
 export const ApprovalDelegatedEvent = defineEvent({
-  meta: {
-    key: 'workflow.approval.delegated',
-    version: '1.0.0',
-    description: 'An approval has been delegated.',
-    stability: 'stable',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'approval', 'delegated'],
-  },
-  payload: ApprovalDelegatedPayload,
+	meta: {
+		key: 'workflow.approval.delegated',
+		version: '1.0.0',
+		description: 'An approval has been delegated.',
+		stability: 'stable',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'approval', 'delegated'],
+	},
+	payload: ApprovalDelegatedPayload,
 });
 ```

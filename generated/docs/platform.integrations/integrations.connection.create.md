@@ -25,25 +25,25 @@ Used by Ops or the App Studio to configure external integrations such as Stripe 
 
 ```typescript
 export const CreateIntegrationConnection = defineCommand({
-  meta: {
-    key: 'integrations.connection.create',
-    title: 'Create Integration Connection',
-    version: '1.0.0',
-    description: 'Create a new integration connection for a tenant.',
-    goal: 'Provision a tenant-scoped connection to an external provider.',
-    context:
-      'Used by Ops or the App Studio to configure external integrations such as Stripe or Qdrant.',
-    owners: ['@platform.integrations'],
-    tags: ['integration', 'connections'],
-    stability: 'experimental',
-  },
-  io: {
-    input: CreateIntegrationConnectionInput,
-    output: IntegrationConnectionRecord,
-  },
-  policy: {
-    auth: 'admin',
-    policies: [{ key: 'platform.integration.manage', version: '1.0.0' }],
-  },
+	meta: {
+		key: 'integrations.connection.create',
+		title: 'Create Integration Connection',
+		version: '1.0.0',
+		description: 'Create a new integration connection for a tenant.',
+		goal: 'Provision a tenant-scoped connection to an external provider.',
+		context:
+			'Used by Ops or the App Studio to configure external integrations such as Stripe or Qdrant.',
+		owners: ['@platform.integrations'],
+		tags: ['integration', 'connections'],
+		stability: 'experimental',
+	},
+	io: {
+		input: CreateIntegrationConnectionInput,
+		output: IntegrationConnectionRecord,
+	},
+	policy: {
+		auth: 'admin',
+		policies: [{ key: 'platform.integration.manage', version: '1.0.0' }],
+	},
 });
 ```

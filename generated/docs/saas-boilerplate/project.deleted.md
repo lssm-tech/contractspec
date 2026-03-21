@@ -17,14 +17,14 @@ A project has been deleted.
 
 ```typescript
 export const ProjectDeletedEvent = defineEvent({
-  meta: {
-    key: 'project.deleted',
-    version: '1.0.0',
-    description: 'A project has been deleted.',
-    stability: 'stable',
-    owners: ['@saas-team'],
-    tags: ['project', 'deleted'],
-  },
-  payload: ProjectDeletedPayload,
+	meta: {
+		key: 'project.deleted',
+		version: '1.0.0',
+		description: 'A project has been deleted.',
+		stability: 'stable',
+		owners: ['@saas-team'],
+		tags: ['project', 'deleted'],
+	},
+	payload: ProjectDeletedPayload,
 });
 ```

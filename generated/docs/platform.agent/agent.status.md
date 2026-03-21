@@ -23,30 +23,30 @@ Used by Studio and operators to monitor agent execution.
 
 ```typescript
 export const AgentStatusQuery = defineQuery({
-  meta: {
-    key: 'agent.status',
-    title: 'Agent Run Status',
-    version: '1.0.0',
-    description: 'Get status for agent runs.',
-    goal: 'Provide status and progress visibility for background agents.',
-    context: 'Used by Studio and operators to monitor agent execution.',
-    domain: AGENT_DOMAIN,
-    owners: AGENT_OWNERS,
-    tags: [...AGENT_TAGS, 'status'],
-    stability: AGENT_STABILITY,
-    docId: [docId('docs.tech.agent.status')],
-  },
-  capability: {
-    key: 'agent.execution',
-    version: '1.0.0',
-  },
-  io: {
-    input: AgentStatusInput,
-    output: AgentStatusOutput,
-  },
-  policy: {
-    auth: 'user',
-    pii: [],
-  },
+	meta: {
+		key: 'agent.status',
+		title: 'Agent Run Status',
+		version: '1.0.0',
+		description: 'Get status for agent runs.',
+		goal: 'Provide status and progress visibility for background agents.',
+		context: 'Used by Studio and operators to monitor agent execution.',
+		domain: AGENT_DOMAIN,
+		owners: AGENT_OWNERS,
+		tags: [...AGENT_TAGS, 'status'],
+		stability: AGENT_STABILITY,
+		docId: [docId('docs.tech.agent.status')],
+	},
+	capability: {
+		key: 'agent.execution',
+		version: '1.0.0',
+	},
+	io: {
+		input: AgentStatusInput,
+		output: AgentStatusOutput,
+	},
+	policy: {
+		auth: 'user',
+		pii: [],
+	},
 });
 ```

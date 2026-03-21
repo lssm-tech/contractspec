@@ -17,29 +17,29 @@ Test for adding field mapping
 
 ```typescript
 export const FieldMappingAddTest = defineTestSpec({
-  meta: {
-    key: 'integration.fieldMapping.add.test',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@example.integration-hub'],
-    description: 'Test for adding field mapping',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'integration.fieldMapping.add', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'integration.fieldMapping.add' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'integration.fieldMapping.add' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'integration.fieldMapping.add.test',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@example.integration-hub'],
+		description: 'Test for adding field mapping',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'integration.fieldMapping.add', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'integration.fieldMapping.add' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'integration.fieldMapping.add' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

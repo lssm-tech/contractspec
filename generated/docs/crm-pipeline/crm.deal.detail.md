@@ -24,27 +24,27 @@ The main workspace for managing a single deal execution.
 
 ```typescript
 export const DealDetailPresentation = definePresentation({
-  meta: {
-    key: 'crm.deal.detail',
-    version: '1.0.0',
-    title: 'Deal Details',
-    description:
-      'Detailed view of a deal with activities, contacts, and history',
-    domain: 'crm-pipeline',
-    owners: ['@crm-team'],
-    tags: ['deal', 'detail'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Deep dive into deal details and historical activities.',
-    context: 'The main workspace for managing a single deal execution.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'DealDetailView',
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['crm.deals.enabled'],
-  },
+	meta: {
+		key: 'crm.deal.detail',
+		version: '1.0.0',
+		title: 'Deal Details',
+		description:
+			'Detailed view of a deal with activities, contacts, and history',
+		domain: 'crm-pipeline',
+		owners: ['@crm-team'],
+		tags: ['deal', 'detail'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Deep dive into deal details and historical activities.',
+		context: 'The main workspace for managing a single deal execution.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'DealDetailView',
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['crm.deals.enabled'],
+	},
 });
 ```

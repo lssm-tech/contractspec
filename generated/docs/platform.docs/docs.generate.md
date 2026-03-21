@@ -23,46 +23,46 @@ Used by CLI and CI to keep docs in sync with contract definitions.
 
 ```typescript
 export const DocsGenerateCommand = defineCommand({
-  meta: {
-    key: 'docs.generate',
-    title: 'Generate Documentation',
-    version: '1.0.0',
-    description: 'Generate documentation artifacts from ContractSpecs.',
-    goal: 'Produce up-to-date reference docs and guides from specs and DocBlocks.',
-    context:
-      'Used by CLI and CI to keep docs in sync with contract definitions.',
-    domain: DOCS_DOMAIN,
-    owners: DOCS_OWNERS,
-    tags: [...DOCS_TAGS, 'generation'],
-    stability: DOCS_STABILITY,
-    docId: [docId('docs.tech.docs-generator')],
-  },
-  capability: {
-    key: 'docs.system',
-    version: '1.0.0',
-  },
-  io: {
-    input: DocsGenerateInput,
-    output: DocsGenerateOutput,
-    errors: {
-      OUTPUT_WRITE_FAILED: {
-        description: 'Failed to write generated docs output.',
-        http: 500,
-        when: 'The generator cannot persist artifacts to the output path.',
-      },
-    },
-  },
-  policy: {
-    auth: 'admin',
-    pii: [],
-  },
-  sideEffects: {
-    emits: [
-      {
-        ref: DocsGeneratedEvent.meta,
-        when: 'Docs generation completes successfully.',
-      },
-    ],
-  },
+	meta: {
+		key: 'docs.generate',
+		title: 'Generate Documentation',
+		version: '1.0.0',
+		description: 'Generate documentation artifacts from ContractSpecs.',
+		goal: 'Produce up-to-date reference docs and guides from specs and DocBlocks.',
+		context:
+			'Used by CLI and CI to keep docs in sync with contract definitions.',
+		domain: DOCS_DOMAIN,
+		owners: DOCS_OWNERS,
+		tags: [...DOCS_TAGS, 'generation'],
+		stability: DOCS_STABILITY,
+		docId: [docId('docs.tech.docs-generator')],
+	},
+	capability: {
+		key: 'docs.system',
+		version: '1.0.0',
+	},
+	io: {
+		input: DocsGenerateInput,
+		output: DocsGenerateOutput,
+		errors: {
+			OUTPUT_WRITE_FAILED: {
+				description: 'Failed to write generated docs output.',
+				http: 500,
+				when: 'The generator cannot persist artifacts to the output path.',
+			},
+		},
+	},
+	policy: {
+		auth: 'admin',
+		pii: [],
+	},
+	sideEffects: {
+		emits: [
+			{
+				ref: DocsGeneratedEvent.meta,
+				when: 'Docs generation completes successfully.',
+			},
+		],
+	},
 });
 ```

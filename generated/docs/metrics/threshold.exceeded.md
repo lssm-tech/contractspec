@@ -17,14 +17,14 @@ Usage has exceeded a threshold.
 
 ```typescript
 export const ThresholdExceededEvent = defineEvent({
-  meta: {
-    key: 'threshold.exceeded',
-    version: '1.0.0',
-    description: 'Usage has exceeded a threshold.',
-    stability: 'stable',
-    owners: ['@platform.metering'],
-    tags: ['metering', 'threshold'],
-  },
-  payload: ThresholdExceededPayload,
+	meta: {
+		key: 'threshold.exceeded',
+		version: '1.0.0',
+		description: 'Usage has exceeded a threshold.',
+		stability: 'stable',
+		owners: ['@platform.metering'],
+		tags: ['metering', 'threshold'],
+	},
+	payload: ThresholdExceededPayload,
 });
 ```

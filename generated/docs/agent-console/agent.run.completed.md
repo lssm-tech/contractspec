@@ -17,14 +17,14 @@ An agent run completed successfully.
 
 ```typescript
 export const RunCompletedEvent = defineEvent({
-  meta: {
-    key: 'agent.run.completed',
-    version: '1.0.0',
-    description: 'An agent run completed successfully.',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['run', 'completed'],
-  },
-  payload: RunCompletedPayload,
+	meta: {
+		key: 'agent.run.completed',
+		version: '1.0.0',
+		description: 'An agent run completed successfully.',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['run', 'completed'],
+	},
+	payload: RunCompletedPayload,
 });
 ```

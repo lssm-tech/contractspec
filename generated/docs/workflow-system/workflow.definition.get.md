@@ -25,45 +25,45 @@ Workflow designer, detail view.
 
 ```typescript
 export const GetWorkflowContract = defineQuery({
-  meta: {
-    key: 'workflow.definition.get',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.workflow-system'],
-    tags: ['workflow', 'definition', 'get'],
-    description: 'Get a workflow definition with all steps.',
-    goal: 'View workflow details.',
-    context: 'Workflow designer, detail view.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'GetWorkflowInput',
-      fields: {
-        workflowId: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: false,
-        },
-      },
-    }),
-    output: WorkflowDefinitionModel,
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'get-workflow-happy-path',
-        given: ['Workflow definition exists'],
-        when: ['User requests workflow details'],
-        then: ['Workflow details are returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'get-details',
-        input: { workflowId: 'def-123' },
-        output: { id: 'def-123', name: 'Employee Onboarding' },
-      },
-    ],
-  },
+	meta: {
+		key: 'workflow.definition.get',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.workflow-system'],
+		tags: ['workflow', 'definition', 'get'],
+		description: 'Get a workflow definition with all steps.',
+		goal: 'View workflow details.',
+		context: 'Workflow designer, detail view.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'GetWorkflowInput',
+			fields: {
+				workflowId: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: false,
+				},
+			},
+		}),
+		output: WorkflowDefinitionModel,
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'get-workflow-happy-path',
+				given: ['Workflow definition exists'],
+				when: ['User requests workflow details'],
+				then: ['Workflow details are returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'get-details',
+				input: { workflowId: 'def-123' },
+				output: { id: 'def-123', name: 'Employee Onboarding' },
+			},
+		],
+	},
 });
 ```

@@ -17,14 +17,14 @@ A new AI tool was created.
 
 ```typescript
 export const ToolCreatedEvent = defineEvent({
-  meta: {
-    key: 'agent.tool.created',
-    version: '1.0.0',
-    description: 'A new AI tool was created.',
-    stability: 'stable',
-    owners: ['@agent-console-team'],
-    tags: ['tool', 'created'],
-  },
-  payload: ToolCreatedPayload,
+	meta: {
+		key: 'agent.tool.created',
+		version: '1.0.0',
+		description: 'A new AI tool was created.',
+		stability: 'stable',
+		owners: ['@agent-console-team'],
+		tags: ['tool', 'created'],
+	},
+	payload: ToolCreatedPayload,
 });
 ```

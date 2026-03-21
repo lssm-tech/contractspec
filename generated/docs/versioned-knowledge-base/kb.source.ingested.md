@@ -17,14 +17,14 @@ Source document ingested (immutable).
 
 ```typescript
 export const KbSourceIngestedEvent = defineEvent({
-  meta: {
-    key: 'kb.source.ingested',
-    version: '1.0.0',
-    description: 'Source document ingested (immutable).',
-    stability: 'experimental',
-    owners: ['@examples'],
-    tags: ['knowledge'],
-  },
-  payload: KbSourceIngestedPayload,
+	meta: {
+		key: 'kb.source.ingested',
+		version: '1.0.0',
+		description: 'Source document ingested (immutable).',
+		stability: 'experimental',
+		owners: ['@examples'],
+		tags: ['knowledge'],
+	},
+	payload: KbSourceIngestedPayload,
 });
 ```

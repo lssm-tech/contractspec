@@ -17,14 +17,14 @@ A feature flag has been created.
 
 ```typescript
 export const FlagCreatedEvent = defineEvent({
-  meta: {
-    key: 'flag.created',
-    version: '1.0.0',
-    description: 'A feature flag has been created.',
-    stability: 'stable',
-    owners: ['@platform.feature-flags'],
-    tags: ['feature-flags', 'create'],
-  },
-  payload: FlagCreatedPayload,
+	meta: {
+		key: 'flag.created',
+		version: '1.0.0',
+		description: 'A feature flag has been created.',
+		stability: 'stable',
+		owners: ['@platform.feature-flags'],
+		tags: ['feature-flags', 'create'],
+	},
+	payload: FlagCreatedPayload,
 });
 ```

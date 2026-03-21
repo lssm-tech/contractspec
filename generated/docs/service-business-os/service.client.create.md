@@ -25,41 +25,41 @@ CRM.
 
 ```typescript
 export const CreateClientContract = defineCommand({
-  meta: {
-    key: 'service.client.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@examples.service-business-os'],
-    tags: ['service-business-os', 'client', 'create'],
-    description: 'Create a new client.',
-    goal: 'Onboard clients.',
-    context: 'CRM.',
-  },
-  io: {
-    input: CreateClientInputModel,
-    output: ClientModel,
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'create-client-happy-path',
-        given: ['User is authenticated'],
-        when: ['User creates a new client'],
-        then: ['Client is created'],
-      },
-    ],
-    examples: [
-      {
-        key: 'create-basic',
-        input: {
-          name: 'Acme Corp',
-          email: 'contact@acme.com',
-          phone: '555-0123',
-        },
-        output: { id: 'client-123', name: 'Acme Corp' },
-      },
-    ],
-  },
+	meta: {
+		key: 'service.client.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@examples.service-business-os'],
+		tags: ['service-business-os', 'client', 'create'],
+		description: 'Create a new client.',
+		goal: 'Onboard clients.',
+		context: 'CRM.',
+	},
+	io: {
+		input: CreateClientInputModel,
+		output: ClientModel,
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'create-client-happy-path',
+				given: ['User is authenticated'],
+				when: ['User creates a new client'],
+				then: ['Client is created'],
+			},
+		],
+		examples: [
+			{
+				key: 'create-basic',
+				input: {
+					name: 'Acme Corp',
+					email: 'contact@acme.com',
+					phone: '555-0123',
+				},
+				output: { id: 'client-123', name: 'Acme Corp' },
+			},
+		],
+	},
 });
 ```

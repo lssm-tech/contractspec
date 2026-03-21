@@ -25,37 +25,37 @@ Quote acceptance.
 
 ```typescript
 export const AcceptQuoteContract = defineCommand({
-  meta: {
-    key: 'service.quote.accept',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@examples.service-business-os'],
-    tags: ['service-business-os', 'quote', 'accept'],
-    description: 'Accept a quote.',
-    goal: 'Confirm quote.',
-    context: 'Quote acceptance.',
-  },
-  io: {
-    input: AcceptQuoteInputModel,
-    output: QuoteModel,
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'accept-quote-happy-path',
-        given: ['Quote is open'],
-        when: ['Client accepts quote'],
-        then: ['Quote status becomes ACCEPTED'],
-      },
-    ],
-    examples: [
-      {
-        key: 'client-accepts',
-        input: { quoteId: 'quote-123', signature: 'John Doe' },
-        output: { id: 'quote-123', status: 'accepted' },
-      },
-    ],
-  },
+	meta: {
+		key: 'service.quote.accept',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@examples.service-business-os'],
+		tags: ['service-business-os', 'quote', 'accept'],
+		description: 'Accept a quote.',
+		goal: 'Confirm quote.',
+		context: 'Quote acceptance.',
+	},
+	io: {
+		input: AcceptQuoteInputModel,
+		output: QuoteModel,
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'accept-quote-happy-path',
+				given: ['Quote is open'],
+				when: ['Client accepts quote'],
+				then: ['Quote status becomes ACCEPTED'],
+			},
+		],
+		examples: [
+			{
+				key: 'client-accepts',
+				input: { quoteId: 'quote-123', signature: 'John Doe' },
+				output: { id: 'quote-123', status: 'accepted' },
+			},
+		],
+	},
 });
 ```

@@ -23,31 +23,31 @@ Used by Studio to drill into specific benchmark results.
 
 ```typescript
 export const BenchmarkResultsListQuery = defineQuery({
-  meta: {
-    key: 'provider-ranking.benchmark.results.list',
-    title: 'List Benchmark Results',
-    version: '1.0.0',
-    description:
-      'List raw benchmark results with pagination, filterable by source, model, and dimension.',
-    goal: 'Provide granular access to individual benchmark data points.',
-    context: 'Used by Studio to drill into specific benchmark results.',
-    domain: PROVIDER_RANKING_DOMAIN,
-    owners: PROVIDER_RANKING_OWNERS,
-    tags: [...PROVIDER_RANKING_TAGS, 'results'],
-    stability: PROVIDER_RANKING_STABILITY,
-    docId: [docId('docs.tech.provider-ranking.benchmark.results.list')],
-  },
-  capability: {
-    key: 'provider-ranking.system',
-    version: '1.0.0',
-  },
-  io: {
-    input: BenchmarkResultsListInput,
-    output: BenchmarkResultsListOutput,
-  },
-  policy: {
-    auth: 'user',
-    pii: [],
-  },
+	meta: {
+		key: 'provider-ranking.benchmark.results.list',
+		title: 'List Benchmark Results',
+		version: '1.0.0',
+		description:
+			'List raw benchmark results with pagination, filterable by source, model, and dimension.',
+		goal: 'Provide granular access to individual benchmark data points.',
+		context: 'Used by Studio to drill into specific benchmark results.',
+		domain: PROVIDER_RANKING_DOMAIN,
+		owners: PROVIDER_RANKING_OWNERS,
+		tags: [...PROVIDER_RANKING_TAGS, 'results'],
+		stability: PROVIDER_RANKING_STABILITY,
+		docId: [docId('docs.tech.provider-ranking.benchmark.results.list')],
+	},
+	capability: {
+		key: 'provider-ranking.system',
+		version: '1.0.0',
+	},
+	io: {
+		input: BenchmarkResultsListInput,
+		output: BenchmarkResultsListOutput,
+	},
+	policy: {
+		auth: 'user',
+		pii: [],
+	},
 });
 ```

@@ -16,14 +16,14 @@ Scheduled job execution
 
 ```typescript
 export const SchedulerCapability = defineCapability({
-  meta: {
-    key: 'scheduler',
-    version: '1.0.0',
-    kind: 'api',
-    stability: StabilityEnum.Experimental,
-    description: 'Scheduled job execution',
-    owners: ['@platform.core'],
-    tags: ['scheduler', 'cron', 'jobs'],
-  },
+	meta: {
+		key: 'scheduler',
+		version: '1.0.0',
+		kind: 'api',
+		stability: StabilityEnum.Experimental,
+		description: 'Scheduled job execution',
+		owners: ['@platform.core'],
+		tags: ['scheduler', 'cron', 'jobs'],
+	},
 });
 ```

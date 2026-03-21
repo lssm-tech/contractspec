@@ -23,24 +23,24 @@ Finance automation. Reminders are sent via configured channels (email, SMS).
 
 ```typescript
 export const schedulePaymentReminderContract = defineCommand({
-  meta: {
-    key: 'pfo.reminders.schedule-payment',
-    version: '1.0.0',
-    description:
-      'Queues outbound email/SMS reminders for upcoming bills and adds an optional calendar hold.',
-    goal: 'Ensure bills are paid on time by notifying users.',
-    context:
-      'Finance automation. Reminders are sent via configured channels (email, SMS).',
-    owners: [OwnersEnum.PlatformFinance],
-    tags: ['payments', 'reminders', TagsEnum.Automation],
-    stability: StabilityEnum.Beta,
-  },
-  io: {
-    input: PaymentReminderInputModel,
-    output: PaymentReminderOutputModel,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'pfo.reminders.schedule-payment',
+		version: '1.0.0',
+		description:
+			'Queues outbound email/SMS reminders for upcoming bills and adds an optional calendar hold.',
+		goal: 'Ensure bills are paid on time by notifying users.',
+		context:
+			'Finance automation. Reminders are sent via configured channels (email, SMS).',
+		owners: [OwnersEnum.PlatformFinance],
+		tags: ['payments', 'reminders', TagsEnum.Automation],
+		stability: StabilityEnum.Beta,
+	},
+	io: {
+		input: PaymentReminderInputModel,
+		output: PaymentReminderOutputModel,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

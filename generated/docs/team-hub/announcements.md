@@ -16,14 +16,14 @@ Team announcements and communications
 
 ```typescript
 export const AnnouncementsCapability = defineCapability({
-  meta: {
-    key: 'announcements',
-    version: '1.0.0',
-    kind: 'ui',
-    stability: StabilityEnum.Experimental,
-    description: 'Team announcements and communications',
-    owners: ['platform.messaging'],
-    tags: ['announcements', 'messaging'],
-  },
+	meta: {
+		key: 'announcements',
+		version: '1.0.0',
+		kind: 'ui',
+		stability: StabilityEnum.Experimental,
+		description: 'Team announcements and communications',
+		owners: ['platform.messaging'],
+		tags: ['announcements', 'messaging'],
+	},
 });
 ```

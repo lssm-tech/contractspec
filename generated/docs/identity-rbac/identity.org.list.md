@@ -25,22 +25,22 @@ Workspace switcher, org selection.
 
 ```typescript
 export const ListUserOrgsContract = defineQuery({
-  meta: {
-    key: 'identity.org.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.identity-rbac'],
-    tags: ['identity', 'org', 'list'],
-    description: 'List organizations the current user belongs to.',
-    goal: 'Show user their organizations for workspace switching.',
-    context: 'Workspace switcher, org selection.',
-  },
-  io: {
-    input: null,
-    output: ListUserOrgsOutputModel,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'identity.org.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.identity-rbac'],
+		tags: ['identity', 'org', 'list'],
+		description: 'List organizations the current user belongs to.',
+		goal: 'Show user their organizations for workspace switching.',
+		context: 'Workspace switcher, org selection.',
+	},
+	io: {
+		input: null,
+		output: ListUserOrgsOutputModel,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

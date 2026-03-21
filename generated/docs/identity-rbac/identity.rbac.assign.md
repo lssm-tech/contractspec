@@ -29,47 +29,47 @@ User/org permission management.
 
 ```typescript
 export const AssignRoleContract = defineCommand({
-  meta: {
-    key: 'identity.rbac.assign',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['identity', 'rbac', 'assign'],
-    description: 'Assign a role to a user or organization.',
-    goal: 'Grant permissions via role assignment.',
-    context: 'User/org permission management.',
-  },
-  io: {
-    input: AssignRoleInputModel,
-    output: PolicyBindingModel,
-    errors: {
-      ROLE_NOT_FOUND: {
-        description: 'The specified role does not exist',
-        http: 404,
-        gqlCode: 'ROLE_NOT_FOUND',
-        when: 'Role ID is invalid',
-      },
-      ALREADY_ASSIGNED: {
-        description: 'This role is already assigned to the target',
-        http: 409,
-        gqlCode: 'ALREADY_ASSIGNED',
-        when: 'Binding already exists',
-      },
-    },
-  },
-  policy: {
-    auth: 'admin',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'role.assigned',
-        version: '1.0.0',
-        when: 'Role is assigned',
-        payload: PolicyBindingModel,
-      },
-    ],
-    audit: ['role.assigned'],
-  },
+	meta: {
+		key: 'identity.rbac.assign',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['identity', 'rbac', 'assign'],
+		description: 'Assign a role to a user or organization.',
+		goal: 'Grant permissions via role assignment.',
+		context: 'User/org permission management.',
+	},
+	io: {
+		input: AssignRoleInputModel,
+		output: PolicyBindingModel,
+		errors: {
+			ROLE_NOT_FOUND: {
+				description: 'The specified role does not exist',
+				http: 404,
+				gqlCode: 'ROLE_NOT_FOUND',
+				when: 'Role ID is invalid',
+			},
+			ALREADY_ASSIGNED: {
+				description: 'This role is already assigned to the target',
+				http: 409,
+				gqlCode: 'ALREADY_ASSIGNED',
+				when: 'Binding already exists',
+			},
+		},
+	},
+	policy: {
+		auth: 'admin',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'role.assigned',
+				version: '1.0.0',
+				when: 'Role is assigned',
+				payload: PolicyBindingModel,
+			},
+		],
+		audit: ['role.assigned'],
+	},
 });
 ```

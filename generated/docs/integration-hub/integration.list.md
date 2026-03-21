@@ -24,27 +24,27 @@ The marketplace of integrations within the hub.
 
 ```typescript
 export const IntegrationListPresentation = definePresentation({
-  meta: {
-    key: 'integration.list',
-    version: '1.0.0',
-    title: 'Integration List',
-    description: 'List of available integrations',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['integration', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Show users available integrations they can connect to.',
-    context: 'The marketplace of integrations within the hub.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'IntegrationList',
-    props: IntegrationModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['integration.enabled'],
-  },
+	meta: {
+		key: 'integration.list',
+		version: '1.0.0',
+		title: 'Integration List',
+		description: 'List of available integrations',
+		domain: 'integration',
+		owners: ['@integration-team'],
+		tags: ['integration', 'list'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Show users available integrations they can connect to.',
+		context: 'The marketplace of integrations within the hub.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'IntegrationList',
+		props: IntegrationModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['integration.enabled'],
+	},
 });
 ```

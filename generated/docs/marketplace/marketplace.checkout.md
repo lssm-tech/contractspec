@@ -24,27 +24,27 @@ The final stage of the purchasing journey.
 
 ```typescript
 export const CheckoutPresentation = definePresentation({
-  meta: {
-    key: 'marketplace.checkout',
-    version: '1.0.0',
-    title: 'Checkout',
-    description: 'Checkout flow with cart and payment',
-    domain: 'marketplace',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'checkout', 'cart'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Guide the user through the payment and order confirmation process.',
-    context: 'The final stage of the purchasing journey.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'Checkout',
-    props: OrderModel,
-  },
-  targets: ['react'],
-  policy: {
-    flags: ['marketplace.checkout.enabled'],
-  },
+	meta: {
+		key: 'marketplace.checkout',
+		version: '1.0.0',
+		title: 'Checkout',
+		description: 'Checkout flow with cart and payment',
+		domain: 'marketplace',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'checkout', 'cart'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Guide the user through the payment and order confirmation process.',
+		context: 'The final stage of the purchasing journey.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'Checkout',
+		props: OrderModel,
+	},
+	targets: ['react'],
+	policy: {
+		flags: ['marketplace.checkout.enabled'],
+	},
 });
 ```

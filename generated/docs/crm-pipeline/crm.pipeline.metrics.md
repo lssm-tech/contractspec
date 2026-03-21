@@ -24,26 +24,26 @@ Data-intensive widget for sales managers.
 
 ```typescript
 export const PipelineMetricsPresentation = definePresentation({
-  meta: {
-    key: 'crm.pipeline.metrics',
-    version: '1.0.0',
-    title: 'Pipeline Metrics',
-    description: 'Pipeline metrics and forecasting view',
-    domain: 'crm-pipeline',
-    owners: ['@crm-team'],
-    tags: ['pipeline', 'metrics', 'forecast'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Track pipeline health and sales forecasts.',
-    context: 'Data-intensive widget for sales managers.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'PipelineMetricsView',
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['crm.metrics.enabled'],
-  },
+	meta: {
+		key: 'crm.pipeline.metrics',
+		version: '1.0.0',
+		title: 'Pipeline Metrics',
+		description: 'Pipeline metrics and forecasting view',
+		domain: 'crm-pipeline',
+		owners: ['@crm-team'],
+		tags: ['pipeline', 'metrics', 'forecast'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Track pipeline health and sales forecasts.',
+		context: 'Data-intensive widget for sales managers.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'PipelineMetricsView',
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['crm.metrics.enabled'],
+	},
 });
 ```

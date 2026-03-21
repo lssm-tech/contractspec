@@ -17,14 +17,14 @@ An order has been paid.
 
 ```typescript
 export const OrderPaidEvent = defineEvent({
-  meta: {
-    key: 'marketplace.order.paid',
-    version: '1.0.0',
-    description: 'An order has been paid.',
-    stability: 'experimental',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'order'],
-  },
-  payload: OrderPaidPayload,
+	meta: {
+		key: 'marketplace.order.paid',
+		version: '1.0.0',
+		description: 'An order has been paid.',
+		stability: 'experimental',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'order'],
+	},
+	payload: OrderPaidPayload,
 });
 ```

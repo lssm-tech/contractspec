@@ -22,24 +22,24 @@ Executed by platform automation or CI when committing updated translation catalo
 
 ```typescript
 export const UpdateBlueprintTranslationCatalogCommand = defineCommand({
-  meta: {
-    key: 'appConfig.updateBlueprintTranslationCatalog',
-    version: '1.0.0',
-    description: 'Registers or updates translation entries for a blueprint.',
-    owners: [OwnersEnum.PlatformSigil],
-    tags: [TagsEnum.I18n],
-    stability: StabilityEnum.Beta,
-    goal: 'Keep blueprint translation catalogs in sync with shipped copy.',
-    context:
-      'Executed by platform automation or CI when committing updated translation catalogs.',
-  },
-  io: {
-    input: UpdateBlueprintTranslationInput,
-    output: UpdateTenantBrandingOutput,
-  },
-  policy: {
-    auth: 'admin',
-    policies: [{ key: 'platform.app-config.manage', version: '1.0.0' }],
-  },
+	meta: {
+		key: 'appConfig.updateBlueprintTranslationCatalog',
+		version: '1.0.0',
+		description: 'Registers or updates translation entries for a blueprint.',
+		owners: [OwnersEnum.PlatformSigil],
+		tags: [TagsEnum.I18n],
+		stability: StabilityEnum.Beta,
+		goal: 'Keep blueprint translation catalogs in sync with shipped copy.',
+		context:
+			'Executed by platform automation or CI when committing updated translation catalogs.',
+	},
+	io: {
+		input: UpdateBlueprintTranslationInput,
+		output: UpdateTenantBrandingOutput,
+	},
+	policy: {
+		auth: 'admin',
+		policies: [{ key: 'platform.app-config.manage', version: '1.0.0' }],
+	},
 });
 ```

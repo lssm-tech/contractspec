@@ -29,61 +29,61 @@ Approval detail view.
 
 ```typescript
 export const AddApprovalCommentContract = defineCommand({
-  meta: {
-    key: 'workflow.approval.comment.add',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.workflow-system'],
-    tags: ['workflow', 'approval', 'comment'],
-    description: 'Add a comment to an approval request.',
-    goal: 'Allow discussion on approval requests.',
-    context: 'Approval detail view.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'AddCommentInput',
-      fields: {
-        requestId: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: false,
-        },
-        content: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-        isInternal: { type: ScalarTypeEnum.Boolean(), isOptional: true },
-      },
-    }),
-    output: ApprovalCommentModel,
-  },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'workflow.approval.comment.added',
-        version: '1.0.0',
-        when: 'Comment is added',
-        payload: ApprovalCommentModel,
-      },
-    ],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'add-comment-happy-path',
-        given: ['Approval request exists'],
-        when: ['User adds a comment'],
-        then: ['Comment is added', 'CommentAdded event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'add-question',
-        input: {
-          requestId: 'req-123',
-          content: 'Can you clarify budget?',
-          isInternal: false,
-        },
-        output: { id: 'com-789', content: 'Can you clarify budget?' },
-      },
-    ],
-  },
+	meta: {
+		key: 'workflow.approval.comment.add',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.workflow-system'],
+		tags: ['workflow', 'approval', 'comment'],
+		description: 'Add a comment to an approval request.',
+		goal: 'Allow discussion on approval requests.',
+		context: 'Approval detail view.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'AddCommentInput',
+			fields: {
+				requestId: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: false,
+				},
+				content: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
+				isInternal: { type: ScalarTypeEnum.Boolean(), isOptional: true },
+			},
+		}),
+		output: ApprovalCommentModel,
+	},
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'workflow.approval.comment.added',
+				version: '1.0.0',
+				when: 'Comment is added',
+				payload: ApprovalCommentModel,
+			},
+		],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'add-comment-happy-path',
+				given: ['Approval request exists'],
+				when: ['User adds a comment'],
+				then: ['Comment is added', 'CommentAdded event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'add-question',
+				input: {
+					requestId: 'req-123',
+					content: 'Can you clarify budget?',
+					isInternal: false,
+				},
+				output: { id: 'com-789', content: 'Can you clarify budget?' },
+			},
+		],
+	},
 });
 ```

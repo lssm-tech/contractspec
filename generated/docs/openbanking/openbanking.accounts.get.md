@@ -25,24 +25,24 @@ Invoked by UI surfaces and workflow automation steps that require detailed metad
 
 ```typescript
 export const OpenBankingGetAccount = defineQuery({
-  meta: {
-    key: 'openbanking.accounts.get',
-    version: '1.0.0',
-    description:
-      'Retrieve the canonical bank account record for the given account identifier.',
-    goal: 'Allow user-facing experiences and automations to display up-to-date account metadata.',
-    context:
-      'Invoked by UI surfaces and workflow automation steps that require detailed metadata for a specific bank account.',
-    owners: ['@platform.finance'],
-    tags: ['open-banking', 'powens', 'accounts'],
-    stability: 'experimental',
-  },
-  io: {
-    input: OpenBankingGetAccountInput,
-    output: BankAccountRecord,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'openbanking.accounts.get',
+		version: '1.0.0',
+		description:
+			'Retrieve the canonical bank account record for the given account identifier.',
+		goal: 'Allow user-facing experiences and automations to display up-to-date account metadata.',
+		context:
+			'Invoked by UI surfaces and workflow automation steps that require detailed metadata for a specific bank account.',
+		owners: ['@platform.finance'],
+		tags: ['open-banking', 'powens', 'accounts'],
+		stability: 'experimental',
+	},
+	io: {
+		input: OpenBankingGetAccountInput,
+		output: BankAccountRecord,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

@@ -16,14 +16,14 @@ Usage threshold alerts and limits
 
 ```typescript
 export const ThresholdsCapability = defineCapability({
-  meta: {
-    key: 'thresholds',
-    version: '1.0.0',
-    kind: 'api',
-    stability: StabilityEnum.Experimental,
-    description: 'Usage threshold alerts and limits',
-    owners: ['@platform.finance'],
-    tags: ['thresholds', 'limits', 'metering'],
-  },
+	meta: {
+		key: 'thresholds',
+		version: '1.0.0',
+		kind: 'api',
+		stability: StabilityEnum.Experimental,
+		description: 'Usage threshold alerts and limits',
+		owners: ['@platform.finance'],
+		tags: ['thresholds', 'limits', 'metering'],
+	},
 });
 ```

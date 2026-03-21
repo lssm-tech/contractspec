@@ -17,29 +17,29 @@ Test for run watch operation
 
 ```typescript
 export const RunWatchTest = defineTestSpec({
-  meta: {
-    key: 'kbPipeline.runWatch.test',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@example.kb-update-pipeline'],
-    description: 'Test for run watch operation',
-    tags: ['test'],
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'kbPipeline.runWatch', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      when: { operation: { key: 'kbPipeline.runWatch' } },
-      then: [{ type: 'expectOutput', match: {} }],
-    },
-    {
-      key: 'error',
-      when: { operation: { key: 'kbPipeline.runWatch' } },
-      then: [{ type: 'expectError' }],
-    },
-  ],
+	meta: {
+		key: 'kbPipeline.runWatch.test',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@example.kb-update-pipeline'],
+		description: 'Test for run watch operation',
+		tags: ['test'],
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'kbPipeline.runWatch', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			when: { operation: { key: 'kbPipeline.runWatch' } },
+			then: [{ type: 'expectOutput', match: {} }],
+		},
+		{
+			key: 'error',
+			when: { operation: { key: 'kbPipeline.runWatch' } },
+			then: [{ type: 'expectError' }],
+		},
+	],
 });
 ```

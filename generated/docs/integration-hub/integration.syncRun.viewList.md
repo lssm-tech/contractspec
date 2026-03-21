@@ -24,27 +24,27 @@ Audit and troubleshooting view for sync jobs.
 
 ```typescript
 export const SyncRunListPresentation = definePresentation({
-  meta: {
-    key: 'integration.syncRun.viewList',
-    version: '1.0.0',
-    title: 'Sync Run History',
-    description: 'History of sync runs',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['integration', 'sync', 'runs', 'history'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Provide a historical log of all sync attempts and their results.',
-    context: 'Audit and troubleshooting view for sync jobs.',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'SyncRunList',
-    props: SyncRunModel,
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['integration.sync.enabled'],
-  },
+	meta: {
+		key: 'integration.syncRun.viewList',
+		version: '1.0.0',
+		title: 'Sync Run History',
+		description: 'History of sync runs',
+		domain: 'integration',
+		owners: ['@integration-team'],
+		tags: ['integration', 'sync', 'runs', 'history'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Provide a historical log of all sync attempts and their results.',
+		context: 'Audit and troubleshooting view for sync jobs.',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'SyncRunList',
+		props: SyncRunModel,
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['integration.sync.enabled'],
+	},
 });
 ```

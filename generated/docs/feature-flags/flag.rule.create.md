@@ -25,36 +25,36 @@ Called when setting up targeting.
 
 ```typescript
 export const CreateRuleContract = defineCommand({
-  meta: {
-    key: 'flag.rule.create',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.feature-flags'],
-    tags: ['feature-flags', 'rule', 'create'],
-    description: 'Create a targeting rule for a flag.',
-    goal: 'Add conditional targeting to a flag.',
-    context: 'Called when setting up targeting.',
-  },
-  io: {
-    input: CreateRuleInput,
-    output: TargetingRuleModel,
-    errors: {
-      FLAG_NOT_FOUND: {
-        description: 'Flag does not exist',
-        http: 404,
-        gqlCode: 'FLAG_NOT_FOUND',
-        when: 'Flag ID is invalid',
-      },
-      INVALID_OPERATOR: {
-        description: 'Invalid operator',
-        http: 400,
-        gqlCode: 'INVALID_OPERATOR',
-        when: 'Operator is not supported',
-      },
-    },
-  },
-  policy: {
-    auth: 'admin',
-  },
+	meta: {
+		key: 'flag.rule.create',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.feature-flags'],
+		tags: ['feature-flags', 'rule', 'create'],
+		description: 'Create a targeting rule for a flag.',
+		goal: 'Add conditional targeting to a flag.',
+		context: 'Called when setting up targeting.',
+	},
+	io: {
+		input: CreateRuleInput,
+		output: TargetingRuleModel,
+		errors: {
+			FLAG_NOT_FOUND: {
+				description: 'Flag does not exist',
+				http: 404,
+				gqlCode: 'FLAG_NOT_FOUND',
+				when: 'Flag ID is invalid',
+			},
+			INVALID_OPERATOR: {
+				description: 'Invalid operator',
+				http: 400,
+				gqlCode: 'INVALID_OPERATOR',
+				when: 'Operator is not supported',
+			},
+		},
+	},
+	policy: {
+		auth: 'admin',
+	},
 });
 ```

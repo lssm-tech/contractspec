@@ -17,14 +17,14 @@ A metric has been updated.
 
 ```typescript
 export const MetricUpdatedEvent = defineEvent({
-  meta: {
-    key: 'metric.updated',
-    version: '1.0.0',
-    description: 'A metric has been updated.',
-    stability: 'stable',
-    owners: ['@platform.metering'],
-    tags: ['metering', 'metric'],
-  },
-  payload: MetricUpdatedPayload,
+	meta: {
+		key: 'metric.updated',
+		version: '1.0.0',
+		description: 'A metric has been updated.',
+		stability: 'stable',
+		owners: ['@platform.metering'],
+		tags: ['metering', 'metric'],
+	},
+	payload: MetricUpdatedPayload,
 });
 ```

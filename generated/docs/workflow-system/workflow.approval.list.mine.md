@@ -25,66 +25,66 @@ Approval inbox, dashboard widget.
 
 ```typescript
 export const ListMyApprovalsContract = defineQuery({
-  meta: {
-    key: 'workflow.approval.list.mine',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.workflow-system'],
-    tags: ['workflow', 'approval', 'list', 'inbox'],
-    description: 'List approval requests assigned to current user.',
-    goal: 'Show pending approvals in user inbox.',
-    context: 'Approval inbox, dashboard widget.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'ListMyApprovalsInput',
-      fields: {
-        status: { type: ApprovalStatusEnum, isOptional: true },
-        limit: {
-          type: ScalarTypeEnum.Int_unsecure(),
-          isOptional: true,
-          defaultValue: 20,
-        },
-        offset: {
-          type: ScalarTypeEnum.Int_unsecure(),
-          isOptional: true,
-          defaultValue: 0,
-        },
-      },
-    }),
-    output: defineSchemaModel({
-      name: 'ListMyApprovalsOutput',
-      fields: {
-        requests: {
-          type: ApprovalRequestModel,
-          isArray: true,
-          isOptional: false,
-        },
-        total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-        pendingCount: {
-          type: ScalarTypeEnum.Int_unsecure(),
-          isOptional: false,
-        },
-      },
-    }),
-  },
-  policy: { auth: 'user' },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'list-approvals-happy-path',
-        given: ['User has assigned approvals'],
-        when: ['User lists approvals'],
-        then: ['List of requests is returned'],
-      },
-    ],
-    examples: [
-      {
-        key: 'list-pending',
-        input: { status: 'pending', limit: 10 },
-        output: { requests: [], total: 2, pendingCount: 2 },
-      },
-    ],
-  },
+	meta: {
+		key: 'workflow.approval.list.mine',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.workflow-system'],
+		tags: ['workflow', 'approval', 'list', 'inbox'],
+		description: 'List approval requests assigned to current user.',
+		goal: 'Show pending approvals in user inbox.',
+		context: 'Approval inbox, dashboard widget.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'ListMyApprovalsInput',
+			fields: {
+				status: { type: ApprovalStatusEnum, isOptional: true },
+				limit: {
+					type: ScalarTypeEnum.Int_unsecure(),
+					isOptional: true,
+					defaultValue: 20,
+				},
+				offset: {
+					type: ScalarTypeEnum.Int_unsecure(),
+					isOptional: true,
+					defaultValue: 0,
+				},
+			},
+		}),
+		output: defineSchemaModel({
+			name: 'ListMyApprovalsOutput',
+			fields: {
+				requests: {
+					type: ApprovalRequestModel,
+					isArray: true,
+					isOptional: false,
+				},
+				total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+				pendingCount: {
+					type: ScalarTypeEnum.Int_unsecure(),
+					isOptional: false,
+				},
+			},
+		}),
+	},
+	policy: { auth: 'user' },
+	acceptance: {
+		scenarios: [
+			{
+				key: 'list-approvals-happy-path',
+				given: ['User has assigned approvals'],
+				when: ['User lists approvals'],
+				then: ['List of requests is returned'],
+			},
+		],
+		examples: [
+			{
+				key: 'list-pending',
+				input: { status: 'pending', limit: 10 },
+				output: { requests: [], total: 2, pendingCount: 2 },
+			},
+		],
+	},
 });
 ```

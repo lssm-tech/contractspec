@@ -16,14 +16,14 @@ A learner has started onboarding.
 
 ```typescript
 export const OnboardingStartedEvent = defineEvent({
-  meta: {
-    key: 'onboarding.started',
-    version: '1.0.0',
-    description: 'A learner has started onboarding.',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'onboarding'],
-  },
-  payload: OnboardingStartedPayload,
+	meta: {
+		key: 'onboarding.started',
+		version: '1.0.0',
+		description: 'A learner has started onboarding.',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'onboarding'],
+	},
+	payload: OnboardingStartedPayload,
 });
 ```

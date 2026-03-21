@@ -23,24 +23,24 @@ Invoked by the Studio or automation when a tenant updates branding settings.
 
 ```typescript
 export const UpdateTenantBrandingCommand = defineCommand({
-  meta: {
-    key: 'appConfig.updateTenantBranding',
-    version: '1.0.0',
-    description: 'Applies tenant branding overrides (names, assets, domains).',
-    owners: [OwnersEnum.PlatformSigil],
-    tags: ['branding'],
-    stability: StabilityEnum.Beta,
-    goal: 'Maintain tenant-specific branding assets and domains.',
-    context:
-      'Invoked by the Studio or automation when a tenant updates branding settings.',
-  },
-  io: {
-    input: UpdateTenantBrandingInput,
-    output: UpdateTenantBrandingOutput,
-  },
-  policy: {
-    auth: 'admin',
-    policies: [{ key: 'platform.app-config.manage', version: '1.0.0' }],
-  },
+	meta: {
+		key: 'appConfig.updateTenantBranding',
+		version: '1.0.0',
+		description: 'Applies tenant branding overrides (names, assets, domains).',
+		owners: [OwnersEnum.PlatformSigil],
+		tags: ['branding'],
+		stability: StabilityEnum.Beta,
+		goal: 'Maintain tenant-specific branding assets and domains.',
+		context:
+			'Invoked by the Studio or automation when a tenant updates branding settings.',
+	},
+	io: {
+		input: UpdateTenantBrandingInput,
+		output: UpdateTenantBrandingOutput,
+	},
+	policy: {
+		auth: 'admin',
+		policies: [{ key: 'platform.app-config.manage', version: '1.0.0' }],
+	},
 });
 ```

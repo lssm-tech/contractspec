@@ -17,14 +17,14 @@ New conversation created
 
 ```typescript
 export const ConversationCreatedEvent = defineEvent({
-  meta: {
-    key: 'ai-chat.conversation.created',
-    version: '1.0.0',
-    description: 'New conversation created',
-    stability: 'stable',
-    owners: ['@ai-chat'],
-    tags: ['ai-chat', 'conversation', 'created'],
-  },
-  payload: ChatConversationModel,
+	meta: {
+		key: 'ai-chat.conversation.created',
+		version: '1.0.0',
+		description: 'New conversation created',
+		stability: 'stable',
+		owners: ['@ai-chat'],
+		tags: ['ai-chat', 'conversation', 'created'],
+	},
+	payload: ChatConversationModel,
 });
 ```

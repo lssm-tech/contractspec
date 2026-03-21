@@ -14,17 +14,17 @@ List of learning journeys available to the learner.
 
 ```typescript
 export const LearningTrackListPresentation = definePresentation({
-  meta: {
-    key: 'learning.journey.track_list',
-    version: '1.0.0',
-    description: 'List of learning journeys available to the learner.',
-    ...baseMeta,
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'LearningTrackList',
-  },
-  targets: ['react', 'markdown'],
+	meta: {
+		key: 'learning.journey.track_list',
+		version: '1.0.0',
+		description: 'List of learning journeys available to the learner.',
+		...baseMeta,
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'LearningTrackList',
+	},
+	targets: ['react', 'markdown'],
 });
 ```

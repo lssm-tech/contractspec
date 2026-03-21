@@ -17,61 +17,61 @@ Verifies adding widget to dashboard
 
 ```typescript
 export const AddWidgetTest = defineTestSpec({
-  meta: {
-    key: 'analytics.widget.add.test',
-    version: '1.0.0',
-    title: 'Add Widget Test',
-    description: 'Verifies adding widget to dashboard',
-    owners: ['@example.analytics-dashboard'],
-    tags: ['analytics', 'widget', 'test'],
-    stability: 'stable',
-  },
-  target: {
-    type: 'operation',
-    operation: { key: 'analytics.widget.add', version: '1.0.0' },
-  },
-  scenarios: [
-    {
-      key: 'success',
-      description: 'Successfully add widget',
-      when: {
-        operation: { key: 'analytics.widget.add', version: '1.0.0' },
-        input: {
-          dashboardId: 'dash-123',
-          type: 'chart',
-          queryId: 'q-1',
-          config: {},
-        },
-      },
-      then: [
-        {
-          type: 'expectOutput',
-          match: {
-            type: 'chart',
-            dashboardId: 'dash-123',
-          },
-        },
-      ],
-    },
-    {
-      key: 'error-dashboard-not-found',
-      description: 'Fail when dashboard does not exist',
-      when: {
-        operation: { key: 'analytics.widget.add', version: '1.0.0' },
-        input: {
-          dashboardId: 'dash-999',
-          type: 'chart',
-          queryId: 'q-1',
-          config: {},
-        },
-      },
-      then: [
-        {
-          type: 'expectError',
-          messageIncludes: 'NOT_FOUND',
-        },
-      ],
-    },
-  ],
+	meta: {
+		key: 'analytics.widget.add.test',
+		version: '1.0.0',
+		title: 'Add Widget Test',
+		description: 'Verifies adding widget to dashboard',
+		owners: ['@example.analytics-dashboard'],
+		tags: ['analytics', 'widget', 'test'],
+		stability: 'stable',
+	},
+	target: {
+		type: 'operation',
+		operation: { key: 'analytics.widget.add', version: '1.0.0' },
+	},
+	scenarios: [
+		{
+			key: 'success',
+			description: 'Successfully add widget',
+			when: {
+				operation: { key: 'analytics.widget.add', version: '1.0.0' },
+				input: {
+					dashboardId: 'dash-123',
+					type: 'chart',
+					queryId: 'q-1',
+					config: {},
+				},
+			},
+			then: [
+				{
+					type: 'expectOutput',
+					match: {
+						type: 'chart',
+						dashboardId: 'dash-123',
+					},
+				},
+			],
+		},
+		{
+			key: 'error-dashboard-not-found',
+			description: 'Fail when dashboard does not exist',
+			when: {
+				operation: { key: 'analytics.widget.add', version: '1.0.0' },
+				input: {
+					dashboardId: 'dash-999',
+					type: 'chart',
+					queryId: 'q-1',
+					config: {},
+				},
+			},
+			then: [
+				{
+					type: 'expectError',
+					messageIncludes: 'NOT_FOUND',
+				},
+			],
+		},
+	],
 });
 ```

@@ -17,14 +17,14 @@ A feature flag status has been toggled.
 
 ```typescript
 export const FlagToggledEvent = defineEvent({
-  meta: {
-    key: 'flag.toggled',
-    version: '1.0.0',
-    description: 'A feature flag status has been toggled.',
-    stability: 'stable',
-    owners: ['@platform.feature-flags'],
-    tags: ['feature-flags', 'toggle'],
-  },
-  payload: FlagToggledPayload,
+	meta: {
+		key: 'flag.toggled',
+		version: '1.0.0',
+		description: 'A feature flag status has been toggled.',
+		stability: 'stable',
+		owners: ['@platform.feature-flags'],
+		tags: ['feature-flags', 'toggle'],
+	},
+	payload: FlagToggledPayload,
 });
 ```

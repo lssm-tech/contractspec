@@ -25,30 +25,30 @@ Triggered by incremental sync jobs and manual refresh actions.
 
 ```typescript
 export const HealthSyncBiometrics = defineCommand({
-  meta: {
-    key: 'health.biometrics.sync',
-    version: '1.0.0',
-    description: 'Synchronize biometric datapoints from provider sources.',
-    goal: 'Keep canonical biometrics synchronized for downstream analytics.',
-    context: 'Triggered by incremental sync jobs and manual refresh actions.',
-    owners: ['@platform.integrations'],
-    tags: ['health', 'biometrics', 'wearables'],
-    stability: 'experimental',
-  },
-  io: {
-    input: HealthSyncBiometricsInput,
-    output: HealthSyncBiometricsOutput,
-  },
-  policy: {
-    auth: 'admin',
-  },
-  telemetry: {
-    success: {
-      event: { key: HEALTH_TELEMETRY_EVENTS.biometricsSynced },
-    },
-    failure: {
-      event: { key: HEALTH_TELEMETRY_EVENTS.biometricsSyncFailed },
-    },
-  },
+	meta: {
+		key: 'health.biometrics.sync',
+		version: '1.0.0',
+		description: 'Synchronize biometric datapoints from provider sources.',
+		goal: 'Keep canonical biometrics synchronized for downstream analytics.',
+		context: 'Triggered by incremental sync jobs and manual refresh actions.',
+		owners: ['@platform.integrations'],
+		tags: ['health', 'biometrics', 'wearables'],
+		stability: 'experimental',
+	},
+	io: {
+		input: HealthSyncBiometricsInput,
+		output: HealthSyncBiometricsOutput,
+	},
+	policy: {
+		auth: 'admin',
+	},
+	telemetry: {
+		success: {
+			event: { key: HEALTH_TELEMETRY_EVENTS.biometricsSynced },
+		},
+		failure: {
+			event: { key: HEALTH_TELEMETRY_EVENTS.biometricsSyncFailed },
+		},
+	},
 });
 ```

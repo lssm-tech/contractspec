@@ -24,26 +24,26 @@ Payment reconciliation
 
 ```typescript
 export const PaymentListPresentation = definePresentation({
-  meta: {
-    key: 'service-business-os.payment.list',
-    version: '1.0.0',
-    title: 'Payment List',
-    description: 'List of payments received',
-    domain: 'services',
-    owners: ['@service-os'],
-    tags: ['services', 'payments', 'list'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Track received payments',
-    context: 'Payment reconciliation',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'PaymentList',
-  },
-  targets: ['react', 'markdown'],
-  policy: {
-    flags: ['service.payments.enabled'],
-  },
+	meta: {
+		key: 'service-business-os.payment.list',
+		version: '1.0.0',
+		title: 'Payment List',
+		description: 'List of payments received',
+		domain: 'services',
+		owners: ['@service-os'],
+		tags: ['services', 'payments', 'list'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Track received payments',
+		context: 'Payment reconciliation',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'PaymentList',
+	},
+	targets: ['react', 'markdown'],
+	policy: {
+		flags: ['service.payments.enabled'],
+	},
 });
 ```

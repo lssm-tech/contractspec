@@ -14,14 +14,14 @@ KB review decided.
 
 ```typescript
 export const KbReviewDecidedEvent = defineEvent({
-  meta: {
-    key: 'kb.review.decided',
-    version: '1.0.0',
-    description: 'KB review decided.',
-    stability: StabilityEnum.Experimental,
-    owners: [],
-    tags: [],
-  },
-  payload: KbReviewDecidedPayload,
+	meta: {
+		key: 'kb.review.decided',
+		version: '1.0.0',
+		description: 'KB review decided.',
+		stability: StabilityEnum.Experimental,
+		owners: [],
+		tags: [],
+	},
+	payload: KbReviewDecidedPayload,
 });
 ```

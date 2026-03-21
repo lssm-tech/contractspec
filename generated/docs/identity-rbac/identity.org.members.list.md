@@ -25,22 +25,22 @@ Team management page.
 
 ```typescript
 export const ListMembersContract = defineQuery({
-  meta: {
-    key: 'identity.org.members.list',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['platform.identity-rbac'],
-    tags: ['identity', 'org', 'member', 'list'],
-    description: 'List organization members.',
-    goal: 'View all members of an organization.',
-    context: 'Team management page.',
-  },
-  io: {
-    input: ListMembersInputModel,
-    output: ListMembersOutputModel,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'identity.org.members.list',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['platform.identity-rbac'],
+		tags: ['identity', 'org', 'member', 'list'],
+		description: 'List organization members.',
+		goal: 'View all members of an organization.',
+		context: 'Team management page.',
+	},
+	io: {
+		input: ListMembersInputModel,
+		output: ListMembersOutputModel,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

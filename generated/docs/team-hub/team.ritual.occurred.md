@@ -17,14 +17,14 @@ A ritual occurrence was logged.
 
 ```typescript
 export const RitualOccurredEvent = defineEvent({
-  meta: {
-    key: 'team.ritual.occurred',
-    version: '1.0.0',
-    description: 'A ritual occurrence was logged.',
-    stability: 'stable',
-    owners: ['@team-hub'],
-    tags: ['team', 'ritual', 'occurred'],
-  },
-  payload: RitualEventPayload,
+	meta: {
+		key: 'team.ritual.occurred',
+		version: '1.0.0',
+		description: 'A ritual occurrence was logged.',
+		stability: 'stable',
+		owners: ['@team-hub'],
+		tags: ['team', 'ritual', 'occurred'],
+	},
+	payload: RitualEventPayload,
 });
 ```

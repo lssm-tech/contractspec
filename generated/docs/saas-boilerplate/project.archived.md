@@ -17,14 +17,14 @@ A project has been archived.
 
 ```typescript
 export const ProjectArchivedEvent = defineEvent({
-  meta: {
-    key: 'project.archived',
-    version: '1.0.0',
-    description: 'A project has been archived.',
-    stability: 'stable',
-    owners: ['@saas-team'],
-    tags: ['project', 'archived'],
-  },
-  payload: ProjectArchivedPayload,
+	meta: {
+		key: 'project.archived',
+		version: '1.0.0',
+		description: 'A project has been archived.',
+		stability: 'stable',
+		owners: ['@saas-team'],
+		tags: ['project', 'archived'],
+	},
+	payload: ProjectArchivedPayload,
 });
 ```

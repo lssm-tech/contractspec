@@ -29,65 +29,65 @@ Approval inbox.
 
 ```typescript
 export const DelegateApprovalContract = defineCommand({
-  meta: {
-    key: 'workflow.approval.delegate',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.workflow-system'],
-    tags: ['workflow', 'approval', 'delegate'],
-    description: 'Delegate an approval request to another user.',
-    goal: 'Allow approvers to pass approval to others.',
-    context: 'Approval inbox.',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'DelegateInput',
-      fields: {
-        requestId: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: false,
-        },
-        delegateTo: {
-          type: ScalarTypeEnum.String_unsecure(),
-          isOptional: false,
-        },
-        reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-      },
-    }),
-    output: ApprovalRequestModel,
-  },
-  policy: { auth: 'user' },
-  sideEffects: {
-    emits: [
-      {
-        key: 'workflow.approval.delegated',
-        version: '1.0.0',
-        when: 'Approval is delegated',
-        payload: ApprovalRequestModel,
-      },
-    ],
-    audit: ['workflow.approval.delegated'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'delegate-approval-happy-path',
-        given: ['Approval request is pending', 'User is assignee'],
-        when: ['User delegates to another user'],
-        then: ['Assignee is updated', 'ApprovalDelegated event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'delegate-to-manager',
-        input: {
-          requestId: 'req-123',
-          delegateTo: 'user-456',
-          reason: 'Out of office',
-        },
-        output: { id: 'req-123', assigneeId: 'user-456' },
-      },
-    ],
-  },
+	meta: {
+		key: 'workflow.approval.delegate',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.workflow-system'],
+		tags: ['workflow', 'approval', 'delegate'],
+		description: 'Delegate an approval request to another user.',
+		goal: 'Allow approvers to pass approval to others.',
+		context: 'Approval inbox.',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'DelegateInput',
+			fields: {
+				requestId: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: false,
+				},
+				delegateTo: {
+					type: ScalarTypeEnum.String_unsecure(),
+					isOptional: false,
+				},
+				reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+			},
+		}),
+		output: ApprovalRequestModel,
+	},
+	policy: { auth: 'user' },
+	sideEffects: {
+		emits: [
+			{
+				key: 'workflow.approval.delegated',
+				version: '1.0.0',
+				when: 'Approval is delegated',
+				payload: ApprovalRequestModel,
+			},
+		],
+		audit: ['workflow.approval.delegated'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'delegate-approval-happy-path',
+				given: ['Approval request is pending', 'User is assignee'],
+				when: ['User delegates to another user'],
+				then: ['Assignee is updated', 'ApprovalDelegated event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'delegate-to-manager',
+				input: {
+					requestId: 'req-123',
+					delegateTo: 'user-456',
+					reason: 'Out of office',
+				},
+				output: { id: 'req-123', assigneeId: 'user-456' },
+			},
+		],
+	},
 });
 ```

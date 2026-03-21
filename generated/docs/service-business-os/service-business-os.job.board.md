@@ -24,26 +24,26 @@ Field service scheduling
 
 ```typescript
 export const JobBoardPresentation = definePresentation({
-  meta: {
-    key: 'service-business-os.job.board',
-    version: '1.0.0',
-    title: 'Job Board',
-    description: 'Job board with kanban view',
-    domain: 'services',
-    owners: ['@service-os'],
-    tags: ['services', 'jobs', 'board', 'kanban'],
-    stability: StabilityEnum.Experimental,
-    goal: 'Visual job management',
-    context: 'Field service scheduling',
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'JobBoard',
-  },
-  targets: ['react'],
-  policy: {
-    flags: ['service.jobs.enabled'],
-  },
+	meta: {
+		key: 'service-business-os.job.board',
+		version: '1.0.0',
+		title: 'Job Board',
+		description: 'Job board with kanban view',
+		domain: 'services',
+		owners: ['@service-os'],
+		tags: ['services', 'jobs', 'board', 'kanban'],
+		stability: StabilityEnum.Experimental,
+		goal: 'Visual job management',
+		context: 'Field service scheduling',
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'JobBoard',
+	},
+	targets: ['react'],
+	policy: {
+		flags: ['service.jobs.enabled'],
+	},
 });
 ```

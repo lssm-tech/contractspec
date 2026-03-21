@@ -17,14 +17,14 @@ A new order has been created.
 
 ```typescript
 export const OrderCreatedEvent = defineEvent({
-  meta: {
-    key: 'marketplace.order.created',
-    version: '1.0.0',
-    description: 'A new order has been created.',
-    stability: 'experimental',
-    owners: ['@marketplace-team'],
-    tags: ['marketplace', 'order'],
-  },
-  payload: OrderCreatedPayload,
+	meta: {
+		key: 'marketplace.order.created',
+		version: '1.0.0',
+		description: 'A new order has been created.',
+		stability: 'experimental',
+		owners: ['@marketplace-team'],
+		tags: ['marketplace', 'order'],
+	},
+	payload: OrderCreatedPayload,
 });
 ```

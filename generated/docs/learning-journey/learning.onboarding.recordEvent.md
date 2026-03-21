@@ -24,38 +24,38 @@ Called by event bus handlers when relevant product events fire (e.g., deal.creat
 
 ```typescript
 export const RecordOnboardingEventContract = defineCommand({
-  meta: {
-    key: 'learning.onboarding.recordEvent',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'onboarding', 'events'],
-    description:
-      'Record a domain event to evaluate onboarding step completion conditions.',
-    goal: 'Advance onboarding automatically from product events.',
-    context:
-      'Called by event bus handlers when relevant product events fire (e.g., deal.created).',
-  },
-  io: {
-    input: RecordOnboardingEventInput,
-    output: SuccessOutput,
-    errors: {
-      TRACK_NOT_FOUND: {
-        description: 'Track not found for event routing',
-        http: 404,
-        gqlCode: 'TRACK_NOT_FOUND',
-        when: 'Track ID or routing context is invalid',
-      },
-      STEP_NOT_FOUND: {
-        description: 'Step not found for completion condition',
-        http: 404,
-        gqlCode: 'STEP_NOT_FOUND',
-        when: 'No step matches the incoming event',
-      },
-    },
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'learning.onboarding.recordEvent',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'onboarding', 'events'],
+		description:
+			'Record a domain event to evaluate onboarding step completion conditions.',
+		goal: 'Advance onboarding automatically from product events.',
+		context:
+			'Called by event bus handlers when relevant product events fire (e.g., deal.created).',
+	},
+	io: {
+		input: RecordOnboardingEventInput,
+		output: SuccessOutput,
+		errors: {
+			TRACK_NOT_FOUND: {
+				description: 'Track not found for event routing',
+				http: 404,
+				gqlCode: 'TRACK_NOT_FOUND',
+				when: 'Track ID or routing context is invalid',
+			},
+			STEP_NOT_FOUND: {
+				description: 'Step not found for completion condition',
+				http: 404,
+				gqlCode: 'STEP_NOT_FOUND',
+				when: 'No step matches the incoming event',
+			},
+		},
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

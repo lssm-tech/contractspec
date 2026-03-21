@@ -25,60 +25,60 @@ Invoked by scheduled jobs or webhooks when new transcripts are ready.
 
 ```typescript
 export const MeetingRecorderSyncTranscript = defineCommand({
-  meta: {
-    key: 'meeting-recorder.transcripts.sync',
-    version: '1.0.0',
-    description:
-      'Trigger a transcript sync from the meeting recorder provider.',
-    goal: 'Keep canonical transcripts aligned with external meeting providers.',
-    context:
-      'Invoked by scheduled jobs or webhooks when new transcripts are ready.',
-    owners: ['@platform.integrations'],
-    tags: ['meeting-recorder', 'transcripts', 'sync'],
-    stability: 'experimental',
-  },
-  io: {
-    input: MeetingRecorderSyncTranscriptInput,
-    output: MeetingRecorderSyncTranscriptOutput,
-  },
-  policy: {
-    auth: 'admin',
-  },
-  telemetry: {
-    success: {
-      event: { key: MEETING_RECORDER_TELEMETRY_EVENTS.transcriptsSynced },
-      properties: ({ input, output }) => {
-        const payload = input as {
-          tenantId?: string;
-          meetingId?: string;
-        };
-        const result = output as {
-          synced?: number;
-          failed?: number;
-        } | null;
-        return {
-          tenantId: payload?.tenantId,
-          meetingId: payload?.meetingId,
-          synced: result?.synced,
-          failed: result?.failed,
-        };
-      },
-    },
-    failure: {
-      event: { key: MEETING_RECORDER_TELEMETRY_EVENTS.transcriptsSyncFailed },
-      properties: ({ input, error }) => {
-        const payload = input as {
-          tenantId?: string;
-          meetingId?: string;
-        };
-        return {
-          tenantId: payload?.tenantId,
-          meetingId: payload?.meetingId,
-          error:
-            error instanceof Error ? error.message : String(error ?? 'unknown'),
-        };
-      },
-    },
-  },
+	meta: {
+		key: 'meeting-recorder.transcripts.sync',
+		version: '1.0.0',
+		description:
+			'Trigger a transcript sync from the meeting recorder provider.',
+		goal: 'Keep canonical transcripts aligned with external meeting providers.',
+		context:
+			'Invoked by scheduled jobs or webhooks when new transcripts are ready.',
+		owners: ['@platform.integrations'],
+		tags: ['meeting-recorder', 'transcripts', 'sync'],
+		stability: 'experimental',
+	},
+	io: {
+		input: MeetingRecorderSyncTranscriptInput,
+		output: MeetingRecorderSyncTranscriptOutput,
+	},
+	policy: {
+		auth: 'admin',
+	},
+	telemetry: {
+		success: {
+			event: { key: MEETING_RECORDER_TELEMETRY_EVENTS.transcriptsSynced },
+			properties: ({ input, output }) => {
+				const payload = input as {
+					tenantId?: string;
+					meetingId?: string;
+				};
+				const result = output as {
+					synced?: number;
+					failed?: number;
+				} | null;
+				return {
+					tenantId: payload?.tenantId,
+					meetingId: payload?.meetingId,
+					synced: result?.synced,
+					failed: result?.failed,
+				};
+			},
+		},
+		failure: {
+			event: { key: MEETING_RECORDER_TELEMETRY_EVENTS.transcriptsSyncFailed },
+			properties: ({ input, error }) => {
+				const payload = input as {
+					tenantId?: string;
+					meetingId?: string;
+				};
+				return {
+					tenantId: payload?.tenantId,
+					meetingId: payload?.meetingId,
+					error:
+						error instanceof Error ? error.message : String(error ?? 'unknown'),
+				};
+			},
+		},
+	},
 });
 ```

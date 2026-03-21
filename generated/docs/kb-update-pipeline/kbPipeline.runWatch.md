@@ -25,17 +25,17 @@ Scheduled job or manual trigger in demos.
 
 ```typescript
 export const KbPipelineRunWatchContract = defineCommand({
-  meta: {
-    key: 'kbPipeline.runWatch',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@examples'],
-    tags: ['knowledge', 'pipeline', 'jobs'],
-    description: 'Detect source changes and create change candidates.',
-    goal: 'Automate discovery of updates needing review.',
-    context: 'Scheduled job or manual trigger in demos.',
-  },
-  io: { input: RunWatchInput, output: RunWatchOutput },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'kbPipeline.runWatch',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@examples'],
+		tags: ['knowledge', 'pipeline', 'jobs'],
+		description: 'Detect source changes and create change candidates.',
+		goal: 'Automate discovery of updates needing review.',
+		context: 'Scheduled job or manual trigger in demos.',
+	},
+	io: { input: RunWatchInput, output: RunWatchOutput },
+	policy: { auth: 'user' },
 });
 ```

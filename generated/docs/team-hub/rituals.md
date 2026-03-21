@@ -16,14 +16,14 @@ Team rituals like standups and retrospectives
 
 ```typescript
 export const RitualsCapability = defineCapability({
-  meta: {
-    key: 'rituals',
-    version: '1.0.0',
-    kind: 'ui',
-    stability: StabilityEnum.Experimental,
-    description: 'Team rituals like standups and retrospectives',
-    owners: ['platform.core'],
-    tags: ['rituals', 'team', 'meetings'],
-  },
+	meta: {
+		key: 'rituals',
+		version: '1.0.0',
+		kind: 'ui',
+		stability: StabilityEnum.Experimental,
+		description: 'Team rituals like standups and retrospectives',
+		owners: ['platform.core'],
+		tags: ['rituals', 'team', 'meetings'],
+	},
 });
 ```

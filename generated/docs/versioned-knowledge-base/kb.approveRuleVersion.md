@@ -25,21 +25,21 @@ Curators/experts approve proposed KB changes.
 
 ```typescript
 export const KbApproveRuleVersionContract = defineCommand({
-  meta: {
-    key: 'kb.approveRuleVersion',
-    title: 'Approve Rule Version',
-    version: '1.0.0',
-    stability: 'experimental',
-    owners: ['@examples'],
-    tags: ['knowledge', 'rules', 'approval'],
-    description: 'Approve a draft rule version.',
-    goal: 'Human verification step before publishing snapshots.',
-    context: 'Curators/experts approve proposed KB changes.',
-  },
-  io: {
-    input: ApproveRuleVersionInput,
-    output: RuleVersionModel,
-  },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'kb.approveRuleVersion',
+		title: 'Approve Rule Version',
+		version: '1.0.0',
+		stability: 'experimental',
+		owners: ['@examples'],
+		tags: ['knowledge', 'rules', 'approval'],
+		description: 'Approve a draft rule version.',
+		goal: 'Human verification step before publishing snapshots.',
+		context: 'Curators/experts approve proposed KB changes.',
+	},
+	io: {
+		input: ApproveRuleVersionInput,
+		output: RuleVersionModel,
+	},
+	policy: { auth: 'user' },
 });
 ```

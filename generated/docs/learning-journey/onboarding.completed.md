@@ -16,14 +16,14 @@ A learner has completed onboarding.
 
 ```typescript
 export const OnboardingCompletedEvent = defineEvent({
-  meta: {
-    key: 'onboarding.completed',
-    version: '1.0.0',
-    description: 'A learner has completed onboarding.',
-    stability: 'stable',
-    owners: [...LEARNING_JOURNEY_OWNERS],
-    tags: ['learning', 'onboarding'],
-  },
-  payload: OnboardingCompletedPayload,
+	meta: {
+		key: 'onboarding.completed',
+		version: '1.0.0',
+		description: 'A learner has completed onboarding.',
+		stability: 'stable',
+		owners: [...LEARNING_JOURNEY_OWNERS],
+		tags: ['learning', 'onboarding'],
+	},
+	payload: OnboardingCompletedPayload,
 });
 ```

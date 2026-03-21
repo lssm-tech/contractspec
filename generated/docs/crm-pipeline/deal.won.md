@@ -17,14 +17,14 @@ A deal has been won.
 
 ```typescript
 export const DealWonEvent = defineEvent({
-  meta: {
-    key: 'deal.won',
-    version: '1.0.0',
-    description: 'A deal has been won.',
-    stability: 'stable',
-    owners: ['@crm-team'],
-    tags: ['deal', 'won'],
-  },
-  payload: DealWonPayload,
+	meta: {
+		key: 'deal.won',
+		version: '1.0.0',
+		description: 'A deal has been won.',
+		stability: 'stable',
+		owners: ['@crm-team'],
+		tags: ['deal', 'won'],
+	},
+	payload: DealWonPayload,
 });
 ```

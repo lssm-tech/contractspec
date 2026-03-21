@@ -23,31 +23,31 @@ Used by Studio and API clients to compare model rankings.
 
 ```typescript
 export const ProviderRankingGetQuery = defineQuery({
-  meta: {
-    key: 'provider-ranking.ranking.get',
-    title: 'Get Provider Rankings',
-    version: '1.0.0',
-    description:
-      'Get ranked list of providers/models with composite scores, filterable by dimension.',
-    goal: 'Provide a leaderboard view of AI model performance.',
-    context: 'Used by Studio and API clients to compare model rankings.',
-    domain: PROVIDER_RANKING_DOMAIN,
-    owners: PROVIDER_RANKING_OWNERS,
-    tags: [...PROVIDER_RANKING_TAGS, 'leaderboard'],
-    stability: PROVIDER_RANKING_STABILITY,
-    docId: [docId('docs.tech.provider-ranking.ranking.get')],
-  },
-  capability: {
-    key: 'provider-ranking.system',
-    version: '1.0.0',
-  },
-  io: {
-    input: ProviderRankingGetInput,
-    output: ProviderRankingGetOutput,
-  },
-  policy: {
-    auth: 'user',
-    pii: [],
-  },
+	meta: {
+		key: 'provider-ranking.ranking.get',
+		title: 'Get Provider Rankings',
+		version: '1.0.0',
+		description:
+			'Get ranked list of providers/models with composite scores, filterable by dimension.',
+		goal: 'Provide a leaderboard view of AI model performance.',
+		context: 'Used by Studio and API clients to compare model rankings.',
+		domain: PROVIDER_RANKING_DOMAIN,
+		owners: PROVIDER_RANKING_OWNERS,
+		tags: [...PROVIDER_RANKING_TAGS, 'leaderboard'],
+		stability: PROVIDER_RANKING_STABILITY,
+		docId: [docId('docs.tech.provider-ranking.ranking.get')],
+	},
+	capability: {
+		key: 'provider-ranking.system',
+		version: '1.0.0',
+	},
+	io: {
+		input: ProviderRankingGetInput,
+		output: ProviderRankingGetOutput,
+	},
+	policy: {
+		auth: 'user',
+		pii: [],
+	},
 });
 ```

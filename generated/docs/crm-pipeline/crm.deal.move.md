@@ -29,54 +29,54 @@ Pipeline Kanban view.
 
 ```typescript
 export const MoveDealContract = defineCommand({
-  meta: {
-    key: 'crm.deal.move',
-    version: '1.0.0',
-    stability: 'stable',
-    owners: ['@example.crm-pipeline'],
-    tags: ['crm', 'deal', 'move', 'kanban'],
-    description: 'Move a deal to a different stage.',
-    goal: 'Allow drag-and-drop stage movement in Kanban.',
-    context: 'Pipeline Kanban view.',
-  },
-  io: {
-    input: MoveDealInputModel,
-    output: DealModel,
-  },
-  policy: {
-    auth: 'user',
-  },
-  sideEffects: {
-    emits: [
-      {
-        key: 'deal.moved',
-        version: '1.0.0',
-        when: 'Deal stage changed',
-        payload: DealMovedPayloadModel,
-      },
-    ],
-    audit: ['deal.moved'],
-  },
-  acceptance: {
-    scenarios: [
-      {
-        key: 'move-deal-happy-path',
-        given: ['Deal exists in stage A'],
-        when: ['User moves deal to stage B'],
-        then: ['Deal stage is updated', 'DealMoved event is emitted'],
-      },
-    ],
-    examples: [
-      {
-        key: 'move-to-negotiation',
-        input: { dealId: 'deal-789', targetStageId: 'stage-negotiation' },
-        output: {
-          id: 'deal-789',
-          stageId: 'stage-negotiation',
-          movedAt: '2025-01-15T10:00:00Z',
-        },
-      },
-    ],
-  },
+	meta: {
+		key: 'crm.deal.move',
+		version: '1.0.0',
+		stability: 'stable',
+		owners: ['@example.crm-pipeline'],
+		tags: ['crm', 'deal', 'move', 'kanban'],
+		description: 'Move a deal to a different stage.',
+		goal: 'Allow drag-and-drop stage movement in Kanban.',
+		context: 'Pipeline Kanban view.',
+	},
+	io: {
+		input: MoveDealInputModel,
+		output: DealModel,
+	},
+	policy: {
+		auth: 'user',
+	},
+	sideEffects: {
+		emits: [
+			{
+				key: 'deal.moved',
+				version: '1.0.0',
+				when: 'Deal stage changed',
+				payload: DealMovedPayloadModel,
+			},
+		],
+		audit: ['deal.moved'],
+	},
+	acceptance: {
+		scenarios: [
+			{
+				key: 'move-deal-happy-path',
+				given: ['Deal exists in stage A'],
+				when: ['User moves deal to stage B'],
+				then: ['Deal stage is updated', 'DealMoved event is emitted'],
+			},
+		],
+		examples: [
+			{
+				key: 'move-to-negotiation',
+				input: { dealId: 'deal-789', targetStageId: 'stage-negotiation' },
+				output: {
+					id: 'deal-789',
+					stageId: 'stage-negotiation',
+					movedAt: '2025-01-15T10:00:00Z',
+				},
+			},
+		],
+	},
 });
 ```

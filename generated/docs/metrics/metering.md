@@ -16,14 +16,14 @@ Usage metering and tracking
 
 ```typescript
 export const MeteringCapability = defineCapability({
-  meta: {
-    key: 'metering',
-    version: '1.0.0',
-    kind: 'api',
-    stability: StabilityEnum.Experimental,
-    description: 'Usage metering and tracking',
-    owners: ['@platform.finance'],
-    tags: ['metering', 'usage', 'billing'],
-  },
+	meta: {
+		key: 'metering',
+		version: '1.0.0',
+		kind: 'api',
+		stability: StabilityEnum.Experimental,
+		description: 'Usage metering and tracking',
+		owners: ['@platform.finance'],
+		tags: ['metering', 'usage', 'billing'],
+	},
 });
 ```

@@ -17,14 +17,14 @@ An approval has been escalated.
 
 ```typescript
 export const ApprovalEscalatedEvent = defineEvent({
-  meta: {
-    key: 'workflow.approval.escalated',
-    version: '1.0.0',
-    description: 'An approval has been escalated.',
-    stability: 'stable',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'approval', 'escalated'],
-  },
-  payload: ApprovalEscalatedPayload,
+	meta: {
+		key: 'workflow.approval.escalated',
+		version: '1.0.0',
+		description: 'An approval has been escalated.',
+		stability: 'stable',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'approval', 'escalated'],
+	},
+	payload: ApprovalEscalatedPayload,
 });
 ```

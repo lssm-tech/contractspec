@@ -24,24 +24,24 @@ Root dashboard of the Agent Console.
 
 ```typescript
 export const AgentConsoleDashboardPresentation = definePresentation({
-  meta: {
-    key: 'agent-console.dashboard',
-    version: '1.0.0',
-    title: 'Agent Console Dashboard',
-    description: 'Dashboard overview of AI agents, runs, and tools',
-    goal: 'Provide a high-level overview of the AI platform health and usage.',
-    context: 'Root dashboard of the Agent Console.',
-    domain: 'agent-console',
-    owners: ['@agent-console-team'],
-    tags: ['dashboard', 'overview'],
-    stability: StabilityEnum.Experimental,
-  },
-  source: {
-    type: 'component',
-    framework: 'react',
-    componentKey: 'AgentConsoleDashboard',
-  },
-  targets: ['react', 'markdown'],
-  policy: { flags: ['agent-console.enabled'] },
+	meta: {
+		key: 'agent-console.dashboard',
+		version: '1.0.0',
+		title: 'Agent Console Dashboard',
+		description: 'Dashboard overview of AI agents, runs, and tools',
+		goal: 'Provide a high-level overview of the AI platform health and usage.',
+		context: 'Root dashboard of the Agent Console.',
+		domain: 'agent-console',
+		owners: ['@agent-console-team'],
+		tags: ['dashboard', 'overview'],
+		stability: StabilityEnum.Experimental,
+	},
+	source: {
+		type: 'component',
+		framework: 'react',
+		componentKey: 'AgentConsoleDashboard',
+	},
+	targets: ['react', 'markdown'],
+	policy: { flags: ['agent-console.enabled'] },
 });
 ```

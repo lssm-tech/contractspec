@@ -17,14 +17,14 @@ A role has been revoked.
 
 ```typescript
 export const RoleRevokedEvent = defineEvent({
-  meta: {
-    key: 'role.revoked',
-    version: '1.0.0',
-    description: 'A role has been revoked.',
-    stability: 'stable',
-    owners: ['@platform.identity-rbac'],
-    tags: ['role', 'revoked', 'identity'],
-  },
-  payload: RoleRevokedPayload,
+	meta: {
+		key: 'role.revoked',
+		version: '1.0.0',
+		description: 'A role has been revoked.',
+		stability: 'stable',
+		owners: ['@platform.identity-rbac'],
+		tags: ['role', 'revoked', 'identity'],
+	},
+	payload: RoleRevokedPayload,
 });
 ```

@@ -16,14 +16,14 @@ Payment processing and payouts
 
 ```typescript
 export const PaymentsCapability = defineCapability({
-  meta: {
-    key: 'payments',
-    version: '1.0.0',
-    kind: 'integration',
-    stability: StabilityEnum.Experimental,
-    description: 'Payment processing and payouts',
-    owners: ['platform.finance'],
-    tags: ['payments', 'finance'],
-  },
+	meta: {
+		key: 'payments',
+		version: '1.0.0',
+		kind: 'integration',
+		stability: StabilityEnum.Experimental,
+		description: 'Payment processing and payouts',
+		owners: ['platform.finance'],
+		tags: ['payments', 'finance'],
+	},
 });
 ```

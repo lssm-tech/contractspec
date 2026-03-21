@@ -25,25 +25,25 @@ Background
 
 ```typescript
 export const ScanContextContract = defineCommand({
-  meta: {
-    key: 'ai-chat.context.scan',
-    version: '1.0.0',
-    owners: ['@ai-team'],
-    stability: 'experimental',
-    description: 'Scan workspace context.',
-    tags: ['chat', 'context'],
-    goal: 'Scan context',
-    context: 'Background',
-  },
-  io: {
-    input: defineSchemaModel({
-      name: 'ScanContextInput',
-      fields: {
-        path: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      },
-    }),
-    output: defineSchemaModel({ name: 'VoidOutput2', fields: {} }),
-  },
-  policy: { auth: 'user' },
+	meta: {
+		key: 'ai-chat.context.scan',
+		version: '1.0.0',
+		owners: ['@ai-team'],
+		stability: 'experimental',
+		description: 'Scan workspace context.',
+		tags: ['chat', 'context'],
+		goal: 'Scan context',
+		context: 'Background',
+	},
+	io: {
+		input: defineSchemaModel({
+			name: 'ScanContextInput',
+			fields: {
+				path: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+			},
+		}),
+		output: defineSchemaModel({ name: 'VoidOutput2', fields: {} }),
+	},
+	policy: { auth: 'user' },
 });
 ```

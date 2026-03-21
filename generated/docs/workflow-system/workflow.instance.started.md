@@ -17,14 +17,14 @@ A new workflow instance has been started.
 
 ```typescript
 export const InstanceStartedEvent = defineEvent({
-  meta: {
-    key: 'workflow.instance.started',
-    version: '1.0.0',
-    description: 'A new workflow instance has been started.',
-    stability: 'stable',
-    owners: ['@workflow-team'],
-    tags: ['workflow', 'instance', 'started'],
-  },
-  payload: InstanceEventPayload,
+	meta: {
+		key: 'workflow.instance.started',
+		version: '1.0.0',
+		description: 'A new workflow instance has been started.',
+		stability: 'stable',
+		owners: ['@workflow-team'],
+		tags: ['workflow', 'instance', 'started'],
+	},
+	payload: InstanceEventPayload,
 });
 ```

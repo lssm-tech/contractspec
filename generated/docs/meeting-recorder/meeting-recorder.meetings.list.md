@@ -25,23 +25,23 @@ Used by integration hubs and sync workflows to enumerate meetings before pulling
 
 ```typescript
 export const MeetingRecorderListMeetings = defineQuery({
-  meta: {
-    key: 'meeting-recorder.meetings.list',
-    version: '1.0.0',
-    description: 'List meetings recorded by the configured meeting provider.',
-    goal: 'Provide downstream workflows with recent meetings and metadata.',
-    context:
-      'Used by integration hubs and sync workflows to enumerate meetings before pulling transcripts.',
-    owners: ['@platform.integrations'],
-    tags: ['meeting-recorder', 'meetings', 'transcripts'],
-    stability: 'experimental',
-  },
-  io: {
-    input: MeetingRecorderListMeetingsInput,
-    output: MeetingRecorderListMeetingsOutput,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'meeting-recorder.meetings.list',
+		version: '1.0.0',
+		description: 'List meetings recorded by the configured meeting provider.',
+		goal: 'Provide downstream workflows with recent meetings and metadata.',
+		context:
+			'Used by integration hubs and sync workflows to enumerate meetings before pulling transcripts.',
+		owners: ['@platform.integrations'],
+		tags: ['meeting-recorder', 'meetings', 'transcripts'],
+		stability: 'experimental',
+	},
+	io: {
+		input: MeetingRecorderListMeetingsInput,
+		output: MeetingRecorderListMeetingsOutput,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

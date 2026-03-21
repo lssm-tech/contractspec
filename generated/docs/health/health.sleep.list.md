@@ -25,23 +25,23 @@ Used by sleep insights, readiness scoring, and trend reporting.
 
 ```typescript
 export const HealthListSleep = defineQuery({
-  meta: {
-    key: 'health.sleep.list',
-    version: '1.0.0',
-    description:
-      'List normalized sleep intervals synced from health providers.',
-    goal: 'Provide canonical sleep data for recovery and coaching workflows.',
-    context: 'Used by sleep insights, readiness scoring, and trend reporting.',
-    owners: ['@platform.integrations'],
-    tags: ['health', 'sleep', 'wearables'],
-    stability: 'experimental',
-  },
-  io: {
-    input: HealthListSleepInput,
-    output: HealthListSleepOutput,
-  },
-  policy: {
-    auth: 'user',
-  },
+	meta: {
+		key: 'health.sleep.list',
+		version: '1.0.0',
+		description:
+			'List normalized sleep intervals synced from health providers.',
+		goal: 'Provide canonical sleep data for recovery and coaching workflows.',
+		context: 'Used by sleep insights, readiness scoring, and trend reporting.',
+		owners: ['@platform.integrations'],
+		tags: ['health', 'sleep', 'wearables'],
+		stability: 'experimental',
+	},
+	io: {
+		input: HealthListSleepInput,
+		output: HealthListSleepOutput,
+	},
+	policy: {
+		auth: 'user',
+	},
 });
 ```

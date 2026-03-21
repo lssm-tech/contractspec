@@ -16,14 +16,14 @@ Gamification elements like badges, points, and achievements
 
 ```typescript
 export const GamificationCapability = defineCapability({
-  meta: {
-    key: 'gamification',
-    version: '1.0.0',
-    kind: 'ui',
-    stability: StabilityEnum.Experimental,
-    description: 'Gamification elements like badges, points, and achievements',
-    owners: ['platform.core'],
-    tags: ['gamification', 'engagement', 'ui'],
-  },
+	meta: {
+		key: 'gamification',
+		version: '1.0.0',
+		kind: 'ui',
+		stability: StabilityEnum.Experimental,
+		description: 'Gamification elements like badges, points, and achievements',
+		owners: ['platform.core'],
+		tags: ['gamification', 'engagement', 'ui'],
+	},
 });
 ```
