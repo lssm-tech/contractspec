@@ -5,9 +5,10 @@
  * operationRef, this module provides the handler that delegates to
  * OperationSpecRegistry.execute.
  */
+
+import type { OperationRef } from '@contractspec/lib.contracts-spec/agent';
 import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
 import type { HandlerCtx } from '@contractspec/lib.contracts-spec/types';
-import type { OperationRef } from '@contractspec/lib.contracts-spec/agent';
 import type { ToolExecutionContext, ToolHandler } from '../types';
 
 /**

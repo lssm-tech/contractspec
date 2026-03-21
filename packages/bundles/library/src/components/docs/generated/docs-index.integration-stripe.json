@@ -1,10 +1,10 @@
 [
-  {
-    "id": "integration-stripe/integration-stripe",
-    "title": "integration-stripe",
-    "summary": "Stripe payments integration with blueprint, workflow, and tenant configuration\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @integration-team\n- **Tags**: integration, stripe, payments",
-    "route": "/docs/reference/integration-stripe/integration-stripe",
-    "source": "generated",
-    "contentPath": "integration-stripe/integration-stripe.md"
-  }
+	{
+		"id": "integration-stripe/integration-stripe",
+		"title": "integration-stripe",
+		"summary": "Stripe payments integration with blueprint, workflow, and tenant configuration\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @integration-team\n- **Tags**: integration, stripe, payments",
+		"route": "/docs/reference/integration-stripe/integration-stripe",
+		"source": "generated",
+		"contentPath": "integration-stripe/integration-stripe.md"
+	}
 ]

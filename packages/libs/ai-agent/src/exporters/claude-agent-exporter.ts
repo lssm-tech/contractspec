@@ -5,7 +5,10 @@
  * @anthropic-ai/claude-agent-sdk and Claude Code CLI.
  */
 
-import { agentKey, type AgentSpec } from '@contractspec/lib.contracts-spec/agent';
+import {
+	type AgentSpec,
+	agentKey,
+} from '@contractspec/lib.contracts-spec/agent';
 import { createAgentI18n } from '../i18n';
 import type {
 	ClaudeAgentConfig,

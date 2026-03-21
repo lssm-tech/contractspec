@@ -82,8 +82,8 @@ export class ResourceRegistry {
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				tmpl: ResourceTemplateSpec<any>;
 				params: Record<string, string>;
-			  }
-			| undefined {
+		  }
+		| undefined {
 		for (const tmpl of this.templates) {
 			const { regex, names } = compileUriTemplate(tmpl.meta.uriTemplate);
 			const m = uri.match(regex);

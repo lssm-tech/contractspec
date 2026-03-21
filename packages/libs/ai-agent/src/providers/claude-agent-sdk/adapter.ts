@@ -12,7 +12,10 @@
  */
 
 import { randomUUID } from 'node:crypto';
-import { agentKey, type AgentSpec } from '@contractspec/lib.contracts-spec/agent';
+import {
+	type AgentSpec,
+	agentKey,
+} from '@contractspec/lib.contracts-spec/agent';
 import type { Tool } from 'ai';
 import { createAgentI18n } from '../../i18n';
 import { injectStaticKnowledge } from '../../knowledge/injector';

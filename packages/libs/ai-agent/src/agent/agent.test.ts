@@ -1,5 +1,8 @@
 import { describe, expect, it, mock } from 'bun:test';
-import { agentKey, type AgentSpec } from '@contractspec/lib.contracts-spec/agent';
+import {
+	type AgentSpec,
+	agentKey,
+} from '@contractspec/lib.contracts-spec/agent';
 import { MockLanguageModelV3 } from 'ai/test';
 import { createInMemorySessionStore } from '../session/store';
 import { ContractSpecAgent } from './contract-spec-agent';

@@ -1,6 +1,9 @@
 import { randomUUID } from 'node:crypto';
 import type { ModelSelector } from '@contractspec/lib.ai-providers/selector-types';
-import { agentKey, type AgentSpec } from '@contractspec/lib.contracts-spec/agent';
+import {
+	type AgentSpec,
+	agentKey,
+} from '@contractspec/lib.contracts-spec/agent';
 import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
 import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
 import {

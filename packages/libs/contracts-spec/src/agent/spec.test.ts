@@ -1,28 +1,28 @@
-import { describe, expect, it } from "bun:test";
-import { type AgentSpec, defineAgent } from "./spec";
+import { describe, expect, it } from 'bun:test';
+import { type AgentSpec, defineAgent } from './spec';
 
 function makeSpec(overrides: Partial<AgentSpec> = {}): AgentSpec {
 	return {
 		meta: {
-			key: "agent.spec.test",
-			version: "1.0.0",
-			description: "Spec test description",
-			owners: ["platform"],
+			key: 'agent.spec.test',
+			version: '1.0.0',
+			description: 'Spec test description',
+			owners: ['platform'],
 			tags: [],
-			stability: "experimental",
+			stability: 'experimental',
 		},
-		instructions: "Execute test operations.",
+		instructions: 'Execute test operations.',
 		tools: [
 			{
-				name: "ping",
+				name: 'ping',
 			},
 		],
 		...overrides,
 	};
 }
 
-describe("defineAgent", () => {
-	it("accepts runtime adapter configuration", () => {
+describe('defineAgent', () => {
+	it('accepts runtime adapter configuration', () => {
 		const spec = defineAgent(
 			makeSpec({
 				runtime: {
@@ -33,26 +33,26 @@ describe("defineAgent", () => {
 						checkpointing: true,
 					},
 					ports: {
-						checkpointStore: "memory.checkpoint",
+						checkpointStore: 'memory.checkpoint',
 					},
 				},
-			}),
+			})
 		);
 
 		expect(spec.runtime?.capabilities?.adapters?.langgraph).toBe(true);
 	});
 
-	it("rejects empty runtime ports", () => {
+	it('rejects empty runtime ports', () => {
 		expect(() =>
 			defineAgent(
 				makeSpec({
 					runtime: {
 						ports: {
-							checkpointStore: " ",
+							checkpointStore: ' ',
 						},
 					},
-				}),
-			),
+				})
+			)
 		).toThrow(/invalid runtime config/i);
 	});
 });

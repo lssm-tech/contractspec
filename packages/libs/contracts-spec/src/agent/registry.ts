@@ -1,15 +1,15 @@
-import { compareVersions } from "compare-versions";
-import { SpecContractRegistry } from "../registry";
-import type { AgentSpec } from "./spec";
+import { compareVersions } from 'compare-versions';
+import { SpecContractRegistry } from '../registry';
+import type { AgentSpec } from './spec';
 
 /**
  * Registry for managing agent specifications.
  *
  * Provides registration, lookup, and version management for agent specs.
  */
-export class AgentRegistry extends SpecContractRegistry<"agent", AgentSpec> {
+export class AgentRegistry extends SpecContractRegistry<'agent', AgentSpec> {
 	public constructor(items?: AgentSpec[]) {
-		super("agent", items);
+		super('agent', items);
 	}
 
 	/**
@@ -35,7 +35,7 @@ export class AgentRegistry extends SpecContractRegistry<"agent", AgentSpec> {
 		const spec = this.get(name, version);
 		if (!spec) {
 			throw new Error(
-				`Agent spec not found for ${name}${version != null ? `.v${version}` : ""}`,
+				`Agent spec not found for ${name}${version != null ? `.v${version}` : ''}`
 			);
 		}
 		return spec;
@@ -65,7 +65,7 @@ export class AgentRegistry extends SpecContractRegistry<"agent", AgentSpec> {
 			}
 		}
 		return versions.sort((a, b) =>
-			compareVersions(a.meta.version, b.meta.version),
+			compareVersions(a.meta.version, b.meta.version)
 		);
 	}
 }

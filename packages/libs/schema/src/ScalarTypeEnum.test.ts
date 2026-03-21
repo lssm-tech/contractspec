@@ -120,7 +120,9 @@ describe('ScalarTypeEnum', () => {
 			it('should parse and serialize datetime', () => {
 				const field = ScalarTypeEnum.DateTime();
 				const date = new Date('2024-01-15T10:30:00.000Z');
-				expect(field.parseValue('2024-01-15T10:30:00.000Z')).toBeInstanceOf(Date);
+				expect(field.parseValue('2024-01-15T10:30:00.000Z')).toBeInstanceOf(
+					Date
+				);
 				expect(field.serialize(date)).toBe('2024-01-15T10:30:00.000Z');
 			});
 

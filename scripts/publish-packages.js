@@ -379,8 +379,7 @@ function ensureDistTag(name, version, tag, npmEnv) {
 
 			lastErrorMessage = `[publish] Dist-tag ${tag} for ${name} is ${updatedDistTags[tag] ?? 'unset'} after publish; expected ${version}.`;
 		} catch (error) {
-			lastErrorMessage =
-				error instanceof Error ? error.message : String(error);
+			lastErrorMessage = error instanceof Error ? error.message : String(error);
 			if (
 				attempt === DIST_TAG_RETRY_COUNT - 1 ||
 				!isRetryableNpmError(lastErrorMessage)

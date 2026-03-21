@@ -41,7 +41,6 @@ import {
 	createWorkflowHandlers,
 	type WorkflowHandlers,
 } from '@contractspec/example.workflow-system';
-import type { TransformEngine } from '@contractspec/lib.presentation-runtime-core/transform-engine';
 import {
 	TemplateRuntimeContext,
 	type TemplateRuntimeContextValue,
@@ -49,6 +48,7 @@ import {
 	useTemplateComponents,
 	useTemplateRuntime,
 } from '@contractspec/lib.example-shared-ui';
+import type { TransformEngine } from '@contractspec/lib.presentation-runtime-core/transform-engine';
 import { getTemplateEngine } from './engine';
 import { TemplateInstaller } from './installer';
 import { resolveTemplatePresentation } from './presentations';

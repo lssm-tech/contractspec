@@ -1,7 +1,7 @@
-import type { DataViewRef, FormRef, PresentationRef } from "../features";
-import type { KnowledgeCategory } from "../knowledge/spec";
-import type { OwnerShipMeta } from "../ownership";
-import type { PolicyRef } from "../policy/spec";
+import type { DataViewRef, FormRef, PresentationRef } from '../features';
+import type { KnowledgeCategory } from '../knowledge/spec';
+import type { OwnerShipMeta } from '../ownership';
+import type { PolicyRef } from '../policy/spec';
 
 /**
  * Metadata for an agent specification.
@@ -9,9 +9,9 @@ import type { PolicyRef } from "../policy/spec";
 export type AgentMeta = OwnerShipMeta;
 
 export type AgentRuntimeAdapterKey =
-	| "langgraph"
-	| "langchain"
-	| "workflow-devkit";
+	| 'langgraph'
+	| 'langchain'
+	| 'workflow-devkit';
 
 export interface AgentRuntimeCapabilities {
 	/** Optional external adapter availability map for runtime interoperability. */
@@ -153,7 +153,7 @@ export interface AgentMemoryConfig {
  */
 export interface AgentMemoryToolsConfig {
 	/** Provider: anthropic uses memory_20250818; custom uses operationRef. */
-	provider: "anthropic" | "custom";
+	provider: 'anthropic' | 'custom';
 	/** Storage adapter key when using knowledge-backed storage (e.g. ephemeral space) */
 	storageAdapter?: string;
 	/** Ephemeral KnowledgeSpaceSpec key when using knowledge-backed storage */
@@ -232,9 +232,9 @@ export interface AgentSpec {
  */
 export function defineAgent(spec: AgentSpec): AgentSpec {
 	if (!spec.meta?.key) {
-		throw new Error("Agent key is required");
+		throw new Error('Agent key is required');
 	}
-	if (typeof spec.meta.version !== "string") {
+	if (typeof spec.meta.version !== 'string') {
 		throw new Error(`Agent ${spec.meta.key} is missing a string version`);
 	}
 	if (!spec.instructions?.trim()) {
@@ -247,7 +247,7 @@ export function defineAgent(spec: AgentSpec): AgentSpec {
 	for (const [portName, portRef] of Object.entries(spec.runtime?.ports ?? {})) {
 		if (portRef !== undefined && portRef.trim().length === 0) {
 			throw new Error(
-				`Agent ${spec.meta.key} has invalid runtime config: port "${portName}" must not be empty`,
+				`Agent ${spec.meta.key} has invalid runtime config: port "${portName}" must not be empty`
 			);
 		}
 	}
@@ -256,14 +256,14 @@ export function defineAgent(spec: AgentSpec): AgentSpec {
 	for (const tool of spec.tools) {
 		if (toolNames.has(tool.name)) {
 			throw new Error(
-				`Agent ${spec.meta.key} has duplicate tool name: ${tool.name}`,
+				`Agent ${spec.meta.key} has duplicate tool name: ${tool.name}`
 			);
 		}
 		toolNames.add(tool.name);
 
 		if (tool.subagentRef && tool.operationRef) {
 			throw new Error(
-				`Agent ${spec.meta.key} tool "${tool.name}" cannot have both subagentRef and operationRef. Use one.`,
+				`Agent ${spec.meta.key} tool "${tool.name}" cannot have both subagentRef and operationRef. Use one.`
 			);
 		}
 
@@ -274,7 +274,7 @@ export function defineAgent(spec: AgentSpec): AgentSpec {
 		].filter(Boolean).length;
 		if (outputRefCount > 1) {
 			throw new Error(
-				`Agent ${spec.meta.key} tool "${tool.name}" has multiple output refs (outputPresentation, outputForm, outputDataView). Use at most one.`,
+				`Agent ${spec.meta.key} tool "${tool.name}" has multiple output refs (outputPresentation, outputForm, outputDataView). Use at most one.`
 			);
 		}
 	}

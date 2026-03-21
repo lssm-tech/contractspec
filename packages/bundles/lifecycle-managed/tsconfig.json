@@ -5,7 +5,9 @@
 	"compilerOptions": {
 		"outDir": "dist",
 		"paths": {
-			"@contractspec/lib.contracts-spec": ["../../libs/contracts-spec/src/index.ts"],
+			"@contractspec/lib.contracts-spec": [
+				"../../libs/contracts-spec/src/index.ts"
+			],
 			"@contractspec/lib.contracts-spec/*": ["../../libs/contracts-spec/src/*"],
 			"@contractspec/lib.schema": ["../../libs/schema/src/index.ts"],
 			"@contractspec/lib.schema/*": ["../../libs/schema/src/*"]

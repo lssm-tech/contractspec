@@ -10,13 +10,13 @@
  * which handles the build order correctly.
  */
 
-import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
 import {
 	createDefaultTransformEngine,
 	registerBasicValidation,
 	registerDefaultReactRenderer,
 	TransformEngine,
 } from '@contractspec/lib.contracts-runtime-client-react/transform-engine';
+import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
 
 /**
  * Create a configured TransformEngine for template rendering

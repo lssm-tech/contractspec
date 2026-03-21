@@ -367,6 +367,7 @@
 		"./presentations/docs/presentations-conventions.docblock": "./src/presentations/docs/presentations-conventions.docblock.ts",
 		"./presentations/presentations": "./src/presentations/presentations.ts",
 		"./presentations/registry": "./src/presentations/registry.ts",
+		"./presentations/shim-blocknotejs": "./src/presentations/shim-blocknotejs.ts",
 		"./product-intent": "./src/product-intent/index.ts",
 		"./product-intent/contract-patch-intent": "./src/product-intent/contract-patch-intent.ts",
 		"./product-intent/contract-spec-patch": "./src/product-intent/contract-spec-patch.ts",
@@ -2382,6 +2383,12 @@
 				"bun": "./dist/presentations/registry.js",
 				"node": "./dist/node/presentations/registry.js",
 				"default": "./dist/presentations/registry.js"
+			},
+			"./presentations/shim-blocknotejs": {
+				"types": "./dist/presentations/shim-blocknotejs.d.ts",
+				"bun": "./dist/presentations/shim-blocknotejs.js",
+				"node": "./dist/node/presentations/shim-blocknotejs.js",
+				"default": "./dist/presentations/shim-blocknotejs.js"
 			},
 			"./product-intent": {
 				"types": "./dist/product-intent/index.d.ts",

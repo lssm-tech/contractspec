@@ -48,14 +48,15 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./table": "./src/table.ts",
+		"./transform-engine": "./src/transform-engine.ts",
+		"./transform-engine.markdown": "./src/transform-engine.markdown.ts",
 		"./visualization": "./src/visualization.ts",
 		"./visualization.echarts": "./src/visualization.echarts.ts",
 		"./visualization.model": "./src/visualization.model.ts",
 		"./visualization.model.builders": "./src/visualization.model.builders.ts",
 		"./visualization.model.helpers": "./src/visualization.model.helpers.ts",
 		"./visualization.types": "./src/visualization.types.ts",
-		"./visualization.utils": "./src/visualization.utils.ts",
-		"./transform-engine": "./src/transform-engine.ts"
+		"./visualization.utils": "./src/visualization.utils.ts"
 	},
 	"publishConfig": {
 		"access": "public",
@@ -73,6 +74,20 @@
 				"bun": "./dist/table.js",
 				"node": "./dist/node/table.js",
 				"default": "./dist/table.js"
+			},
+			"./transform-engine": {
+				"types": "./dist/transform-engine.d.ts",
+				"browser": "./dist/browser/transform-engine.js",
+				"bun": "./dist/transform-engine.js",
+				"node": "./dist/node/transform-engine.js",
+				"default": "./dist/transform-engine.js"
+			},
+			"./transform-engine.markdown": {
+				"types": "./dist/transform-engine.markdown.d.ts",
+				"browser": "./dist/browser/transform-engine.markdown.js",
+				"bun": "./dist/transform-engine.markdown.js",
+				"node": "./dist/node/transform-engine.markdown.js",
+				"default": "./dist/transform-engine.markdown.js"
 			},
 			"./visualization": {
 				"types": "./dist/visualization.d.ts",
@@ -122,13 +137,6 @@
 				"bun": "./dist/visualization.utils.js",
 				"node": "./dist/node/visualization.utils.js",
 				"default": "./dist/visualization.utils.js"
-			},
-			"./transform-engine": {
-				"types": "./dist/transform-engine.d.ts",
-				"browser": "./dist/browser/transform-engine.js",
-				"bun": "./dist/transform-engine.js",
-				"node": "./dist/node/transform-engine.js",
-				"default": "./dist/transform-engine.js"
 			}
 		},
 		"registry": "https://registry.npmjs.org/"

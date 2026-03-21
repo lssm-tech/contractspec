@@ -71,9 +71,7 @@ const result = await agent.run(ticket.body);
 						<code>createUnifiedAgent</code>, <code>ContractSpecAgent</code>,{' '}
 						<code>UnifiedAgent</code>
 					</li>
-					<li>
-						MCP, operation-backed, memory, and subagent tool adapters
-					</li>
+					<li>MCP, operation-backed, memory, and subagent tool adapters</li>
 					<li>
 						<code>InMemoryAgentMemory</code> plus interfaces for custom stores
 					</li>

@@ -13,11 +13,16 @@ describe('ResourceRegistry.match', () => {
 					mimeType: 'text/plain',
 				},
 				input: z.object({ id: z.string() }),
-				resolve: async ({ id }) => ({ uri: `content://doc.v1/${id}`, data: '' }),
+				resolve: async ({ id }) => ({
+					uri: `content://doc.v1/${id}`,
+					data: '',
+				}),
 			})
 		);
 
-		expect(registry.match('content://doc.v1/123')?.params).toEqual({ id: '123' });
+		expect(registry.match('content://doc.v1/123')?.params).toEqual({
+			id: '123',
+		});
 	});
 
 	it('does not match near-miss URIs when the template contains metacharacters', () => {
@@ -30,7 +35,10 @@ describe('ResourceRegistry.match', () => {
 					mimeType: 'text/plain',
 				},
 				input: z.object({ id: z.string() }),
-				resolve: async ({ id }) => ({ uri: `content://doc.v1/${id}`, data: '' }),
+				resolve: async ({ id }) => ({
+					uri: `content://doc.v1/${id}`,
+					data: '',
+				}),
 			})
 		);
 
@@ -54,11 +62,11 @@ describe('ResourceRegistry.match', () => {
 			})
 		);
 
-		expect(registry.match('marketplace://offers/paris/summer%20sale')?.params).toEqual(
-			{
-				city: 'paris',
-				tag: 'summer sale',
-			}
-		);
+		expect(
+			registry.match('marketplace://offers/paris/summer%20sale')?.params
+		).toEqual({
+			city: 'paris',
+			tag: 'summer sale',
+		});
 	});
 });

@@ -1,5 +1,5 @@
-import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
 import type { AgentKnowledgeRef } from '@contractspec/lib.contracts-spec/agent';
+import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
 import { createAgentI18n } from '../i18n';
 
 /**

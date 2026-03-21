@@ -1,4 +1,7 @@
-import { agentKey, type AgentSpec } from '@contractspec/lib.contracts-spec/agent';
+import {
+	type AgentSpec,
+	agentKey,
+} from '@contractspec/lib.contracts-spec/agent';
 /**
  * OpenCode SDK Provider
  *

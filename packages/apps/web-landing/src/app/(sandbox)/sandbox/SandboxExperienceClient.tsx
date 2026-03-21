@@ -2,7 +2,11 @@
 
 import { WorkspaceProjectShellLayout } from '@contractspec/bundle.library/components/shell';
 import { TemplateId } from '@contractspec/lib.example-shared-ui';
-import { listExamples, listTemplates } from '@contractspec/module.examples';
+import {
+	listExamples,
+	listTemplates,
+	TemplateRuntimeProvider,
+} from '@contractspec/module.examples';
 import {
 	FileText,
 	GraduationCap,
@@ -30,6 +34,8 @@ export type ExampleSandboxMode =
 	| 'builder'
 	| 'markdown'
 	| 'evolution';
+
+const SANDBOX_PROJECT_ID = 'sandbox';
 
 const TemplateShell = dynamic(
 	() =>
@@ -370,8 +376,8 @@ export default function SandboxExperienceClient() {
 			subtitle="Unlogged local preview (no auth, no analytics)"
 			workspaceSelect={{
 				label: 'Workspace',
-				value: 'sandbox',
-				options: [{ value: 'sandbox', label: 'Sandbox' }],
+				value: SANDBOX_PROJECT_ID,
+				options: [{ value: SANDBOX_PROJECT_ID, label: 'Sandbox' }],
 				onChange: () => void 0,
 			}}
 			projectSelect={{
@@ -405,7 +411,12 @@ export default function SandboxExperienceClient() {
 			}}
 			// assistant removed
 		>
-			{main}
+			<TemplateRuntimeProvider
+				templateId={templateId}
+				projectId={SANDBOX_PROJECT_ID}
+			>
+				{main}
+			</TemplateRuntimeProvider>
 		</WorkspaceProjectShellLayout>
 	);
 }

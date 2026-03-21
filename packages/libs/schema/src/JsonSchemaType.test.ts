@@ -54,18 +54,18 @@ describe('JsonSchemaType', () => {
 				expect(zodSchema.parse({})).toEqual({});
 			});
 
-				it('should handle typed additionalProperties', () => {
-					const jsonSchema = new JsonSchemaType({
-						type: 'object',
-						additionalProperties: { type: 'string' },
-					});
+			it('should handle typed additionalProperties', () => {
+				const jsonSchema = new JsonSchemaType({
+					type: 'object',
+					additionalProperties: { type: 'string' },
+				});
 
 				const zodSchema = jsonSchema.getZod();
-					expect(
-						zodSchema.parse({ key1: 'value1', key2: 'value2' })
-					).toBeDefined();
-					expect(() => zodSchema.parse({ key1: 123 })).toThrow();
-				});
+				expect(
+					zodSchema.parse({ key1: 'value1', key2: 'value2' })
+				).toBeDefined();
+				expect(() => zodSchema.parse({ key1: 123 })).toThrow();
+			});
 		});
 
 		describe('explicit properties handling', () => {
@@ -119,19 +119,19 @@ describe('JsonSchemaType', () => {
 				expect(zodSchema.parse({ value: 42 })).toEqual({ value: 42 });
 			});
 
-				it('should convert integer type', () => {
-					const jsonSchema = new JsonSchemaType({
-						type: 'object',
+			it('should convert integer type', () => {
+				const jsonSchema = new JsonSchemaType({
+					type: 'object',
 					properties: {
 						count: { type: 'integer' },
 					},
 					required: ['count'],
 				});
 
-					const zodSchema = jsonSchema.getZod();
-					expect(zodSchema.parse({ count: 5 })).toEqual({ count: 5 });
-					expect(() => zodSchema.parse({ count: 3.14 })).toThrow();
-				});
+				const zodSchema = jsonSchema.getZod();
+				expect(zodSchema.parse({ count: 5 })).toEqual({ count: 5 });
+				expect(() => zodSchema.parse({ count: 3.14 })).toThrow();
+			});
 
 			it('should convert boolean type', () => {
 				const jsonSchema = new JsonSchemaType({

@@ -1,34 +1,34 @@
 [
-  {
-    "id": "artisan.payments.stripe/artisan.payments.stripe",
-    "title": "artisan.payments.stripe",
-    "summary": "Blueprint enabling card payments for ArtisanOS merchants via the Stripe integration.\n- **Type**: app-config (app-config)\n- **Version**: 1.0.0\n- **Tags**: stripe, payments\n- **File**: `packages/examples/integration-stripe/src/blueprint.ts`",
-    "route": "/docs/reference/artisan.payments.stripe/artisan.payments.stripe",
-    "source": "generated",
-    "contentPath": "artisan.payments.stripe/artisan.payments.stripe.md"
-  },
-  {
-    "id": "artisan.payments.stripe/integration-stripe",
-    "title": "integration-stripe",
-    "summary": "Stripe payments integration with blueprint, workflow, and tenant configuration\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @integration-team\n- **Tags**: integration, stripe, payments",
-    "route": "/docs/reference/artisan.payments.stripe/integration-stripe",
-    "source": "generated",
-    "contentPath": "artisan.payments.stripe/integration-stripe.md"
-  },
-  {
-    "id": "artisan.payments.stripe/integration-stripe.integration.psp",
-    "title": "integration-stripe.integration.psp",
-    "summary": "Integration contract for managed or BYOK Stripe card processing.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Tags**: stripe, payments\n- **File**: `packages/examples/integration-stripe/src/integration.ts`",
-    "route": "/docs/reference/artisan.payments.stripe/integration-stripe.integration.psp",
-    "source": "generated",
-    "contentPath": "artisan.payments.stripe/integration-stripe.integration.psp.md"
-  },
-  {
-    "id": "artisan.payments.stripe/integration-stripe.workflow.payment",
-    "title": "integration-stripe.workflow.payment",
-    "summary": "Charge a customer using the tenant Stripe connection and record settlement details.\n- **Type**: workflow (workflow)\n- **Version**: 1.0.0\n- **Tags**: stripe\n- **File**: `packages/examples/integration-stripe/src/workflow.ts`",
-    "route": "/docs/reference/artisan.payments.stripe/integration-stripe.workflow.payment",
-    "source": "generated",
-    "contentPath": "artisan.payments.stripe/integration-stripe.workflow.payment.md"
-  }
+	{
+		"id": "artisan.payments.stripe/artisan.payments.stripe",
+		"title": "artisan.payments.stripe",
+		"summary": "Blueprint enabling card payments for ArtisanOS merchants via the Stripe integration.\n- **Type**: app-config (app-config)\n- **Version**: 1.0.0\n- **Tags**: stripe, payments\n- **File**: `packages/examples/integration-stripe/src/blueprint.ts`",
+		"route": "/docs/reference/artisan.payments.stripe/artisan.payments.stripe",
+		"source": "generated",
+		"contentPath": "artisan.payments.stripe/artisan.payments.stripe.md"
+	},
+	{
+		"id": "artisan.payments.stripe/integration-stripe",
+		"title": "integration-stripe",
+		"summary": "Stripe payments integration with blueprint, workflow, and tenant configuration\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @integration-team\n- **Tags**: integration, stripe, payments",
+		"route": "/docs/reference/artisan.payments.stripe/integration-stripe",
+		"source": "generated",
+		"contentPath": "artisan.payments.stripe/integration-stripe.md"
+	},
+	{
+		"id": "artisan.payments.stripe/integration-stripe.integration.psp",
+		"title": "integration-stripe.integration.psp",
+		"summary": "Integration contract for managed or BYOK Stripe card processing.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Tags**: stripe, payments\n- **File**: `packages/examples/integration-stripe/src/integration.ts`",
+		"route": "/docs/reference/artisan.payments.stripe/integration-stripe.integration.psp",
+		"source": "generated",
+		"contentPath": "artisan.payments.stripe/integration-stripe.integration.psp.md"
+	},
+	{
+		"id": "artisan.payments.stripe/integration-stripe.workflow.payment",
+		"title": "integration-stripe.workflow.payment",
+		"summary": "Charge a customer using the tenant Stripe connection and record settlement details.\n- **Type**: workflow (workflow)\n- **Version**: 1.0.0\n- **Tags**: stripe\n- **File**: `packages/examples/integration-stripe/src/workflow.ts`",
+		"route": "/docs/reference/artisan.payments.stripe/integration-stripe.workflow.payment",
+		"source": "generated",
+		"contentPath": "artisan.payments.stripe/integration-stripe.workflow.payment.md"
+	}
 ]

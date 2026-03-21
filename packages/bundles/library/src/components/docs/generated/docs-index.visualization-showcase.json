@@ -1,10 +1,10 @@
 [
-  {
-    "id": "visualization-showcase/visualization-showcase",
-    "title": "visualization-showcase",
-    "summary": "ContractSpec visualization primitives rendered through shared design-system wrappers.\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: visualization, charts, showcase",
-    "route": "/docs/reference/visualization-showcase/visualization-showcase",
-    "source": "generated",
-    "contentPath": "visualization-showcase/visualization-showcase.md"
-  }
+	{
+		"id": "visualization-showcase/visualization-showcase",
+		"title": "visualization-showcase",
+		"summary": "ContractSpec visualization primitives rendered through shared design-system wrappers.\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: visualization, charts, showcase",
+		"route": "/docs/reference/visualization-showcase/visualization-showcase",
+		"source": "generated",
+		"contentPath": "visualization-showcase/visualization-showcase.md"
+	}
 ]

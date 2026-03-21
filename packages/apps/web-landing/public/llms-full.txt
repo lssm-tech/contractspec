@@ -2,7 +2,7 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-03-21T09:27:19.545Z
+Generated: 2026-03-21T22:18:10.541Z
 Packages: 164
 
 ---
@@ -739,7 +739,7 @@ Website: https://contractspec.io
 
 - **Layer**: lib.
 - **Consumers**: bundles.
-- Related ContractSpec packages include `@contractspec/lib.ai-agent`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.knowledge`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, ...
+- Related ContractSpec packages include `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.knowledge`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, ...
 
 ## Installation
 
@@ -1931,6 +1931,7 @@ This spec-first flow improves determinism, regeneration safety, and multi-surfac
 Use this package for:
 
 - Contract declarations (`defineCommand`, `defineQuery`, `defineEvent`, `defineResourceTemplate`, etc.).
+- Agent definition contracts (`defineAgent`, `AgentRegistry`, `AgentSpec`, `AgentToolConfig`).
 - Core registries (`OperationSpecRegistry`, `EventRegistry`, `FormRegistry`, `ResourceRegistry`).
 - Shared execution/runtime-neutral types (`HandlerCtx`, policy decision types, telemetry trigger types).
 - Contract installation helpers (`installOp`, `op`, `makeEmit`).
@@ -1954,6 +1955,7 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 ## Core concepts
 
 - `defineCommand` / `defineQuery`: typed operation specs with metadata, I/O schema, policy, transport hints, and side effects.
+- `defineAgent` + `AgentRegistry`: typed agent-definition contracts that runtime packages execute, export, or adapt.
 - `OperationSpecRegistry`: registers specs, binds handlers, and executes with validation/policy/event guards.
 - `defineEvent` + `EventRegistry`: typed event contracts and lookup.
 - `defineResourceTemplate` + `ResourceRegistry`: URI-template-based resource contracts.
@@ -1961,13 +1963,48 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 - `installOp`: one-call helper to register + bind operation handlers.
 - `makeEmit`: typed helper for declared event emission in handlers.
 
+## Agent Definitions
+
+Agent declarations now live in `@contractspec/lib.contracts-spec/agent`.
+
+```ts
+import { AgentRegistry, defineAgent } from "@contractspec/lib.contracts-spec/agent";
+
+const SupportBot = defineAgent({
+  meta: {
+    key: "support.bot",
+    version: "1.0.0",
+    description: "Customer support assistant",
+    owners: ["support"],
+    tags: ["support"],
+    stability: "experimental",
+  },
+  instructions: "Resolve tickets and escalate low-confidence cases.",
+  tools: [{ name: "support.resolve" }],
+});
+
+const registry = new AgentRegistry().register(SupportBot);
+```
+
+Runtime execution, exporters, MCP bridges, and provider adapters stay in
+`@contractspec/lib.ai-agent`.
+
+## Migration Note
+
+If you previously imported agent-definition contracts from
+`@contractspec/lib.ai-agent/spec`, migrate to:
+
+- `@contractspec/lib.contracts-spec/agent`
+- `@contractspec/lib.contracts-spec/agent/spec`
+- `@contractspec/lib.contracts-spec/agent/registry`
+
 ## Bundle requires alignment
 
 When using `@contractspec/lib.surface-runtime`, bundle specs declare required features via `ModuleBundleSpec.requires` (e.g. `{ key: 'ai-chat', version: '1.0.0' }`). These entries should match `FeatureModuleSpec.meta` from `defineFeature`. Register features (e.g. `AiChatFeature` from `@contractspec/module.ai-chat`) in a `FeatureRegistry` when validating bundle requirements. The bundle runtime can call `registry.get(key)` to verify each required feature exists before resolution.
 
 ## Canonical self-contained examples by contract type
 
-Use these example packages when you want one focused, importable reference per contract layer. `agent`, `knowledge`, and `type` are covered through the exported agent surfaces, knowledge bindings/source configs, and schema models because this package does not expose a standalone `define*` helper for those three categories.
+Use these example packages when you want one focused, importable reference per contract layer. `knowledge` and `type` are covered through the exported knowledge bindings/source configs and schema models. `agent` definitions now live directly in this package via `@contractspec/lib.contracts-spec/agent`.
 
 - `operation`, `feature`, `example`, `type`: [`@contractspec/example.minimal`](../../examples/minimal/README.md)
 - `event`, `presentation`, `capability`, `test-spec`: [`@contractspec/example.workflow-system`](../../examples/workflow-system/README.md)
@@ -1988,7 +2025,7 @@ Use these example packages when you want one focused, importable reference per c
 
 <!-- CONTRACT_INVENTORY:START -->
 
-The package currently exposes **549 subpath exports**. This map is auto-generated for high-context navigation and AI grounding.
+The package currently exposes **435 subpath exports**. This map is auto-generated for high-context navigation and AI grounding.
 
 > Auto-generated by `bun run readme:inventory` (`scripts/update-readme-contract-inventory.ts`). Do not edit this section manually.
 
@@ -2028,8 +2065,8 @@ From `src/types.ts`, `ContractSpecType` currently includes:
 
 These are the concrete contract artifact kinds visible in package exports:
 
-- `.capability` (21)
-- `.feature` (14)
+- `.capability` (17)
+- `.feature` (10)
 - `.command` (28)
 - `.event` (28)
 - `.query` (24)
@@ -2038,12 +2075,12 @@ These are the concrete contract artifact kinds visible in package exports:
 - `.dataView` (11)
 - `.docs` (2)
 - `.contracts` (1)
-- `.docblock` (49)
+- `.docblock` (48)
 
 ### 3) Category -> kinds matrix
 
 - `acp`: `capability(1)`, `feature(1)`, `command(7)`, `plain(6)`
-- `agent`: `capability(1)`, `feature(1)`, `command(3)`, `event(4)`, `query(2)`, `form(1)`, `presentation(1)`, `dataView(1)`, `plain(11)`
+- `agent`: `capability(1)`, `feature(1)`, `command(3)`, `event(4)`, `query(2)`, `form(1)`, `presentation(1)`, `dataView(1)`, `plain(13)`
 - `app-config`: `capability(1)`, `feature(1)`, `contracts(1)`, `docblock(1)`, `plain(8)`
 - `capabilities`: `docblock(1)`, `plain(7)`
 - `context`: `capability(1)`, `feature(1)`, `command(1)`, `event(1)`, `query(2)`, `form(1)`, `presentation(1)`, `dataView(1)`, `plain(11)`
@@ -2059,8 +2096,7 @@ These are the concrete contract artifact kinds visible in package exports:
 - `forms`: `docblock(1)`, `plain(2)`
 - `harness`: `capability(4)`, `feature(1)`, `command(3)`, `event(8)`, `query(5)`, `presentation(1)`, `dataView(3)`, `plain(11)`
 - `install`: `plain(1)`
-- `integrations`: `capability(4)`, `feature(4)`, `docblock(1)`, `plain(105)`
-- `jobs`: `plain(12)`
+- `jobs`: `plain(11)`
 - `jsonschema`: `plain(1)`
 - `knowledge`: `capability(1)`, `feature(1)`, `docblock(1)`, `plain(21)`
 - `llm`: `plain(4)`
@@ -2072,7 +2108,7 @@ These are the concrete contract artifact kinds visible in package exports:
 - `operations`: `plain(5)`
 - `ownership`: `plain(1)`
 - `policy`: `docblock(1)`, `plain(8)`
-- `presentations`: `docblock(1)`, `plain(4)`
+- `presentations`: `docblock(1)`, `plain(3)`
 - `product-intent`: `plain(16)`
 - `prompt`: `plain(1)`
 - `promptRegistry`: `plain(1)`
@@ -2136,7 +2172,7 @@ These are the concrete contract artifact kinds visible in package exports:
   - `agent/presentations/agentRunAudit.presentation`
 - Data views (1):
   - `agent/views/agentRuns.dataView`
-- Plain exports (non-suffix artifacts): `11`
+- Plain exports (non-suffix artifacts): `13`
 
 #### app-config
 
@@ -2373,25 +2409,9 @@ These are the concrete contract artifact kinds visible in package exports:
 
 - Plain exports (non-suffix artifacts): `1`
 
-#### integrations
-
-- Capabilities (4):
-  - `integrations/health/health.capability`
-  - `integrations/integrations.capability`
-  - `integrations/meeting-recorder/meeting-recorder.capability`
-  - `integrations/openbanking/openbanking.capability`
-- Features (4):
-  - `integrations/health/health.feature`
-  - `integrations/integrations.feature`
-  - `integrations/meeting-recorder/meeting-recorder.feature`
-  - `integrations/openbanking/openbanking.feature`
-- DocBlocks (1):
-  - `integrations/docs/integrations.docblock`
-- Plain exports (non-suffix artifacts): `105`
-
 #### jobs
 
-- Plain exports (non-suffix artifacts): `12`
+- Plain exports (non-suffix artifacts): `11`
 
 #### jsonschema
 
@@ -2449,7 +2469,7 @@ These are the concrete contract artifact kinds visible in package exports:
 
 - DocBlocks (1):
   - `presentations/docs/presentations-conventions.docblock`
-- Plain exports (non-suffix artifacts): `4`
+- Plain exports (non-suffix artifacts): `3`
 
 #### product-intent
 
@@ -2574,7 +2594,6 @@ These are the concrete contract artifact kinds visible in package exports:
 - `examples`: 1
 - `experiments`: 1
 - `forms`: 1
-- `integrations`: 1
 - `knowledge`: 1
 - `policy`: 1
 - `presentations`: 1
@@ -5355,6 +5374,7 @@ Website: https://contractspec.io
 - Provides the central agent runtime used by chat, automation, and higher-level orchestration packages.
 - Supports tools, sessions, memory, approvals, providers, telemetry, and MCP-aware workflows.
 - Acts as the stable public API for agent execution across multiple runtimes and delivery surfaces.
+- Consumes agent definitions from `@contractspec/lib.contracts-spec/agent`.
 - `src/providers/` contains provider integrations and provider-facing adapters.
 
 ## Installation
@@ -5367,13 +5387,35 @@ or
 
 ## Usage
 
-Import the root entrypoint from `@contractspec/lib.ai-agent`, or choose a documented subpath when you only need one part of the package surface.
+Define agents in `@contractspec/lib.contracts-spec/agent`, then run or export them with `@contractspec/lib.ai-agent`.
+
+```ts
+import { defineAgent } from "@contractspec/lib.contracts-spec/agent";
+import { createUnifiedAgent } from "@contractspec/lib.ai-agent/agent/unified-agent";
+
+const SupportBot = defineAgent({
+  meta: {
+    key: "support.bot",
+    version: "1.0.0",
+    description: "Customer support assistant",
+    owners: ["support"],
+    tags: ["support"],
+    stability: "experimental",
+  },
+  instructions: "Resolve tickets and escalate low-confidence cases.",
+  tools: [{ name: "support.resolve" }],
+});
+
+const agent = createUnifiedAgent(SupportBot, {
+  backend: "ai-sdk",
+});
+```
 
 ## Architecture
 
 - `src/agent/`, `src/session/`, and `src/memory/` contain the runtime core for execution state and persistence hooks.
 - `src/tools/`, `src.providers/`, and `src.interop/` connect providers, tools, and MCP-aware runtime surfaces.
-- `src.telemetry/`, `src.approval/`, `src.knowledge/`, `src.schema/`, and `src.spec/` round out agent policy and observability surfaces.
+- `src.telemetry/`, `src.approval/`, `src.knowledge/`, and `src.schema/` round out runtime policy and observability surfaces.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/types.ts` is shared public type definitions.
 
@@ -5390,7 +5432,17 @@ Import the root entrypoint from `@contractspec/lib.ai-agent`, or choose a docume
 - Export `./approval/workflow` resolves through `./src/approval/workflow.ts`.
 - Export `./exporters` resolves through `./src/exporters/index.ts`.
 - Export `./exporters/claude-agent-exporter` resolves through `./src/exporters/claude-agent-exporter.ts`.
-- The package publishes 66 total export subpaths; keep docs aligned with `package.json`.
+- Additional runtime subpaths are published through `package.json`; keep docs aligned with the manifest.
+
+## Migration Note
+
+`@contractspec/lib.ai-agent` no longer owns the agent-definition contract layer.
+
+- Removed: `@contractspec/lib.ai-agent/spec`
+- Removed: `@contractspec/lib.ai-agent/spec/spec`
+- Removed: `@contractspec/lib.ai-agent/spec/registry`
+- Use `@contractspec/lib.contracts-spec/agent` for `AgentSpec`, `AgentToolConfig`,
+  `AgentRegistry`, `createAgentRegistry`, and `defineAgent`
 
 ## Local Commands
 
@@ -5420,7 +5472,8 @@ Import the root entrypoint from `@contractspec/lib.ai-agent`, or choose a docume
 ## Notes
 
 - High blast radius — used by multiple bundles and libs.
-- `AgentSpec` interface is a public contract; do not change its shape without a migration plan.
+- Agent definitions are owned by `@contractspec/lib.contracts-spec/agent`.
+- This package is runtime-focused: execution, exporters, MCP/tool bridges, sessions, memory, approvals, providers, and telemetry.
 - MCP transport adapters must stay runtime-agnostic (no Node/browser-specific globals).
 
 
@@ -6749,7 +6802,7 @@ Website: https://contractspec.io
 - **Layer**: bundle.
 - **Consumers**: `examples/lifecycle-cli`.
 - `src/services/` contains business logic services and workflows.
-- Related ContractSpec packages include `@contractspec/lib.ai-agent`, `@contractspec/lib.analytics`, `@contractspec/lib.lifecycle`, `@contractspec/lib.observability`, `@contractspec/module.lifecycle-advisor`, `@contractspec/module.lifecycle-core`, ...
+- Related ContractSpec packages include `@contractspec/lib.analytics`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.lifecycle`, `@contractspec/lib.observability`, `@contractspec/module.lifecycle-advisor`, `@contractspec/module.lifecycle-core`, ...
 - `src/services/` contains business logic services and workflows.
 
 ## Installation
@@ -6801,7 +6854,7 @@ Import the root entrypoint from `@contractspec/bundle.lifecycle-managed`, or cho
 
 ## Notes
 
-- Depends on six workspace packages (`lib.ai-agent`, `lib.analytics`, `lib.lifecycle`, `lib.observability`, `module.lifecycle-advisor`, `module.lifecycle-core`); changes to those APIs propagate here.
+- Depends on six workspace packages (`lib.analytics`, `lib.contracts-spec`, `lib.lifecycle`, `lib.observability`, `module.lifecycle-advisor`, `module.lifecycle-core`); changes to those APIs propagate here.
 - Events must remain serializable for cross-service consumption.
 - Keep REST handlers thin; domain logic belongs in services.
 

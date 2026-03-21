@@ -7,15 +7,15 @@ import type {
 	PresentationSpec,
 	PresentationTarget,
 } from '@contractspec/lib.contracts-spec/presentations';
+import React from 'react';
 import {
+	type ComponentMap,
 	createDefaultTransformEngine,
+	type ReactRenderDescriptor,
 	registerBasicValidation,
 	registerDefaultReactRenderer,
-	type ComponentMap,
-	type ReactRenderDescriptor,
 	TransformEngine,
 } from './transform-engine';
-import React from 'react';
 
 export function createEngineWithDefaults(): TransformEngine {
 	return registerBasicValidation(

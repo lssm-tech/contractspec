@@ -1,10 +1,10 @@
 [
-  {
-    "id": "learning-journey-ui-shared/learning-journey-ui-shared",
-    "title": "learning-journey-ui-shared",
-    "summary": "Shared learning-journey UI components including XpBar, StreakCounter, and BadgeDisplay\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: learning, ui, shared, components",
-    "route": "/docs/reference/learning-journey-ui-shared/learning-journey-ui-shared",
-    "source": "generated",
-    "contentPath": "learning-journey-ui-shared/learning-journey-ui-shared.md"
-  }
+	{
+		"id": "learning-journey-ui-shared/learning-journey-ui-shared",
+		"title": "learning-journey-ui-shared",
+		"summary": "Shared learning-journey UI components including XpBar, StreakCounter, and BadgeDisplay\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: learning, ui, shared, components",
+		"route": "/docs/reference/learning-journey-ui-shared/learning-journey-ui-shared",
+		"source": "generated",
+		"contentPath": "learning-journey-ui-shared/learning-journey-ui-shared.md"
+	}
 ]

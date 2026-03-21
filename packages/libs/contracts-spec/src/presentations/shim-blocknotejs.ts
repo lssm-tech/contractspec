@@ -13,10 +13,7 @@ export type PropSpec<PType extends boolean | number | string> =
 			values?: readonly PType[];
 	  };
 
-export type PropSchema = Record<
-	string,
-	PropSpec<boolean | number | string>
->;
+export type PropSchema = Record<string, PropSpec<boolean | number | string>>;
 
 /**
  * BlockConfig contains the "schema" info about a Block type

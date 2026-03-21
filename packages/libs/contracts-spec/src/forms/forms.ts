@@ -291,7 +291,10 @@ function getAtPath(values: unknown, path: string): unknown {
 	return cur;
 }
 
-function resolveIndexedPath(path: string, indices: readonly number[] = []): string {
+function resolveIndexedPath(
+	path: string,
+	indices: readonly number[] = []
+): string {
 	let indexCursor = 0;
 	return path.replace(/\$index/g, () => {
 		const nextIndex = indices[indexCursor];
@@ -399,7 +402,7 @@ export function buildZodWithRelations(
 					? parentPath
 						? `${parentPath}.${field.name}`
 						: field.name
-						: (parentPath ?? '');
+					: (parentPath ?? '');
 				const path = resolveIndexedPath(rawPath, indices);
 
 				// requiredWhen enforcement (UI also shows required)
@@ -411,49 +414,49 @@ export function buildZodWithRelations(
 							v == null ||
 							(typeof v === 'string' && v.trim().length === 0) ||
 							(Array.isArray(v) && v.length === 0);
-							if (empty)
-								ctx.addIssue({
-									code: 'custom',
-									path: toIssuePath(path),
-									message: 'required',
-								});
-						}
+						if (empty)
+							ctx.addIssue({
+								code: 'custom',
+								path: toIssuePath(path),
+								message: 'required',
+							});
 					}
+				}
 
-					// arrays min/max
-					if (field.kind === 'array') {
-						const arr = getAtPath(values, path) as unknown[] | undefined;
+				// arrays min/max
+				if (field.kind === 'array') {
+					const arr = getAtPath(values, path) as unknown[] | undefined;
 					if (
 						field.min != null &&
 						Array.isArray(arr) &&
 						arr.length < field.min
-						) {
-							ctx.addIssue({
-								code: 'custom',
-								path: toIssuePath(path),
-								message: `min:${field.min}`,
-							});
-						}
+					) {
+						ctx.addIssue({
+							code: 'custom',
+							path: toIssuePath(path),
+							message: `min:${field.min}`,
+						});
+					}
 					if (
 						field.max != null &&
 						Array.isArray(arr) &&
 						arr.length > field.max
-						) {
-							ctx.addIssue({
-								code: 'custom',
-								path: toIssuePath(path),
-								message: `max:${field.max}`,
-							});
-						}
-						if (Array.isArray(arr)) {
-							arr.forEach((_item, index) => {
-								visit(field.of, `${path}.${index}`, [...indices, index]);
-							});
-						}
-					} else if (field.kind === 'group') {
-						for (const child of field.fields) visit(child, path, indices);
+					) {
+						ctx.addIssue({
+							code: 'custom',
+							path: toIssuePath(path),
+							message: `max:${field.max}`,
+						});
 					}
-				};
+					if (Array.isArray(arr)) {
+						arr.forEach((_item, index) => {
+							visit(field.of, `${path}.${index}`, [...indices, index]);
+						});
+					}
+				} else if (field.kind === 'group') {
+					for (const child of field.fields) visit(child, path, indices);
+				}
+			};
 
 			for (const f of spec.fields) visit(f);
 
@@ -463,13 +466,13 @@ export function buildZodWithRelations(
 					const fn = handlers[c.key];
 					if (!fn) continue;
 					const res = fn(values, c.paths, c.args);
-						if (!res.ok) {
-							ctx.addIssue({
-								code: 'custom',
-								path: toIssuePath(res.path ?? c.paths[0] ?? ''),
-								message: res.message ?? c.messageI18n,
-							});
-						}
+					if (!res.ok) {
+						ctx.addIssue({
+							code: 'custom',
+							path: toIssuePath(res.path ?? c.paths[0] ?? ''),
+							message: res.message ?? c.messageI18n,
+						});
+					}
 				}
 			}
 		}

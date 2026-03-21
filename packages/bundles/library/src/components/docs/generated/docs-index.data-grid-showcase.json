@@ -1,10 +1,10 @@
 [
-  {
-    "id": "data-grid-showcase/examples.data-grid-showcase.rows.list",
-    "title": "examples.data-grid-showcase.rows.list",
-    "summary": "Lists the demo rows used by the data-grid showcase.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: examples, table, data-grid\n- **File**: `packages/examples/data-grid-showcase/src/contracts/data-grid-showcase.operation.ts`",
-    "route": "/docs/reference/data-grid-showcase/examples.data-grid-showcase.rows.list",
-    "source": "generated",
-    "contentPath": "data-grid-showcase/examples.data-grid-showcase.rows.list.md"
-  }
+	{
+		"id": "data-grid-showcase/examples.data-grid-showcase.rows.list",
+		"title": "examples.data-grid-showcase.rows.list",
+		"summary": "Lists the demo rows used by the data-grid showcase.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: examples, table, data-grid\n- **File**: `packages/examples/data-grid-showcase/src/contracts/data-grid-showcase.operation.ts`",
+		"route": "/docs/reference/data-grid-showcase/examples.data-grid-showcase.rows.list",
+		"source": "generated",
+		"contentPath": "data-grid-showcase/examples.data-grid-showcase.rows.list.md"
+	}
 ]
