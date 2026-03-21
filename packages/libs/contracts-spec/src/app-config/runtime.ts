@@ -14,12 +14,6 @@ import type {
 	FeatureRef,
 	FeatureRegistry,
 } from '../features';
-import type {
-	AppIntegrationBinding,
-	IntegrationConnection,
-	IntegrationSpec,
-	IntegrationSpecRegistry,
-} from '@contractspec/lib.contracts-integrations';
 import type { AppKnowledgeBinding } from '../knowledge/binding';
 import type { KnowledgeSourceConfig } from '../knowledge/source';
 import type {
@@ -40,6 +34,12 @@ import type {
 	// TenantBrandingConfig,
 } from './branding';
 import type {
+	AppConfigIntegrationConnection,
+	AppConfigIntegrationRegistry,
+	AppConfigIntegrationSpec,
+	AppIntegrationBinding,
+} from './integrations';
+import type {
 	AppBlueprintSpec,
 	AppIntegrationSlot,
 	AppRouteConfig,
@@ -56,8 +56,8 @@ import type {
 export interface ResolvedIntegration {
 	slot: AppIntegrationSlot;
 	binding: AppIntegrationBinding;
-	connection: IntegrationConnection;
-	spec: IntegrationSpec;
+	connection: AppConfigIntegrationConnection;
+	spec: AppConfigIntegrationSpec;
 }
 
 export interface ResolvedKnowledge {
@@ -148,8 +148,8 @@ export interface MissingReference {
 }
 
 export interface ResolveAppConfigDeps {
-	integrationSpecs?: IntegrationSpecRegistry;
-	integrationConnections?: IntegrationConnection[];
+	integrationSpecs?: AppConfigIntegrationRegistry;
+	integrationConnections?: AppConfigIntegrationConnection[];
 	knowledgeSpaces?: KnowledgeSpaceRegistry;
 	knowledgeSources?: KnowledgeSourceConfig[];
 }
@@ -651,8 +651,8 @@ function mergeRoutes(
 function evaluateIntegrationSlots(
 	slots: AppIntegrationSlot[] | undefined,
 	bindings: AppIntegrationBinding[] | undefined,
-	connections: IntegrationConnection[] | undefined,
-	specs: IntegrationSpecRegistry | undefined
+	connections: AppConfigIntegrationConnection[] | undefined,
+	specs: AppConfigIntegrationRegistry | undefined
 ): { resolved: ResolvedIntegration[]; missing: MissingReference[] } {
 	const resolved: ResolvedIntegration[] = [];
 	const missing: MissingReference[] = [];
@@ -700,7 +700,7 @@ function evaluateIntegrationSlots(
 		return { resolved, missing };
 	}
 
-	const connectionById = new Map<string, IntegrationConnection>();
+	const connectionById = new Map<string, AppConfigIntegrationConnection>();
 	for (const connection of connections) {
 		connectionById.set(connection.meta.id, connection);
 	}
@@ -802,7 +802,7 @@ function evaluateIntegrationSlots(
 }
 
 function integrationProvidesCapability(
-	spec: IntegrationSpec,
+	spec: AppConfigIntegrationSpec,
 	required: CapabilityRef
 ): boolean {
 	return spec.capabilities.provides.some((capability) => {

@@ -1,11 +1,6 @@
 import type { CapabilityRef } from '../capabilities';
 import type { ExperimentRef } from '../experiments/spec';
 import type { FeatureRef } from '../features';
-import type {
-	AppIntegrationBinding,
-	IntegrationCategory,
-	IntegrationOwnershipMode,
-} from '@contractspec/lib.contracts-integrations';
 import type { AppKnowledgeBinding } from '../knowledge/binding';
 import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';
@@ -13,6 +8,11 @@ import { SpecContractRegistry } from '../registry';
 import type { ThemeRef } from '../themes';
 import type { Locale, TranslationEntry } from '../translations/catalog';
 import type { BrandingDefaults, TenantBrandingConfig } from './branding';
+import type {
+	AppIntegrationBinding,
+	IntegrationCategory,
+	IntegrationOwnershipMode,
+} from './integrations';
 import type { ConfigStatus } from './lifecycle';
 
 export interface SpecPointer {

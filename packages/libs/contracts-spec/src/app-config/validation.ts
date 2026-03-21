@@ -1,10 +1,5 @@
 import type { CapabilityRef, CapabilityRegistry } from '../capabilities';
 import type { DataViewRegistry } from '../data-views';
-import type {
-	IntegrationConnection,
-	IntegrationSpec,
-	IntegrationSpecRegistry,
-} from '@contractspec/lib.contracts-integrations';
 import type { KnowledgeSourceConfig } from '../knowledge/source';
 import type { KnowledgeSpaceRegistry } from '../knowledge/spec';
 import type {
@@ -13,6 +8,11 @@ import type {
 	TranslationEntry,
 } from '../translations/catalog';
 import type { WorkflowRegistry } from '../workflow/spec';
+import type {
+	AppConfigIntegrationConnection,
+	AppConfigIntegrationRegistry,
+	AppConfigIntegrationSpec,
+} from './integrations';
 import type { ResolvedAppConfig } from './runtime';
 import type { AppBlueprintSpec, TenantAppConfig } from './spec';
 
@@ -35,13 +35,13 @@ export interface ValidationResult {
 }
 
 export interface ValidationContext {
-	integrationSpecs?: IntegrationSpecRegistry;
+	integrationSpecs?: AppConfigIntegrationRegistry;
 	knowledgeSpaces?: KnowledgeSpaceRegistry;
 	knowledgeSources?: KnowledgeSourceConfig[];
 	capabilities?: CapabilityRegistry;
 	dataViews?: DataViewRegistry;
 	workflows?: WorkflowRegistry;
-	tenantConnections?: IntegrationConnection[];
+	tenantConnections?: AppConfigIntegrationConnection[];
 	existingConfigs?: TenantAppConfig[];
 	translationCatalogs?: {
 		platform?:
@@ -389,7 +389,9 @@ const tenantIntegrationBindingRule: TenantRule = {
 		);
 		const bindings = tenant.integrations ?? [];
 		const connections =
-			context.tenantConnections?.reduce<Map<string, IntegrationConnection>>(
+			context.tenantConnections?.reduce<
+				Map<string, AppConfigIntegrationConnection>
+			>(
 				(map, connection) => map.set(connection.meta.id, connection),
 				new Map()
 			) ?? new Map();
@@ -904,7 +906,7 @@ function capabilityRefKey(ref: CapabilityRef): string {
 }
 
 function integrationProvidesCapability(
-	spec: IntegrationSpec,
+	spec: AppConfigIntegrationSpec,
 	required: CapabilityRef
 ): boolean {
 	return spec.capabilities.provides.some(
@@ -914,9 +916,9 @@ function integrationProvidesCapability(
 }
 
 function lookupIntegrationSpec(
-	registry: IntegrationSpecRegistry | undefined,
-	connection: IntegrationConnection
-): IntegrationSpec | undefined {
+	registry: AppConfigIntegrationRegistry | undefined,
+	connection: AppConfigIntegrationConnection
+): AppConfigIntegrationSpec | undefined {
 	if (!registry) return undefined;
 	return registry.get(
 		connection.meta.integrationKey,

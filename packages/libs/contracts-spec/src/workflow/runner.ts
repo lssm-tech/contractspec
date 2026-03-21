@@ -8,8 +8,7 @@ import type {
 } from '../app-config/runtime';
 import type { CapabilityRef } from '../capabilities';
 import type { OpRef } from '../features';
-import type { SecretProvider } from '@contractspec/lib.contracts-integrations/integrations/secrets/provider';
-import type { TranslationResolver } from '../types';
+import type { SecretProviderPort, TranslationResolver } from '../types';
 import { evaluateExpression } from './expression';
 import type {
 	GuardCondition,
@@ -29,7 +28,7 @@ export interface OperationExecutorContext {
 	branding?: ResolvedBranding;
 	translation?: ResolvedTranslation;
 	translationResolver?: TranslationResolver;
-	secretProvider?: SecretProvider;
+	secretProvider?: SecretProviderPort;
 }
 
 export type OperationExecutor = (
@@ -79,7 +78,7 @@ export interface WorkflowRunnerConfig {
 		operation: OpRef,
 		context: OperationExecutorContext
 	) => void | Promise<void>;
-	secretProvider?: SecretProvider;
+	secretProvider?: SecretProviderPort;
 	translationResolver?: TranslationResolver;
 }
 

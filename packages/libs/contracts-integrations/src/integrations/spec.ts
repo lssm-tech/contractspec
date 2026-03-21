@@ -1,4 +1,8 @@
 import type {
+	IntegrationCategory,
+	IntegrationOwnershipMode,
+} from '@contractspec/lib.contracts-spec/app-config';
+import type {
 	CapabilityRef,
 	CapabilityRequirement,
 } from '@contractspec/lib.contracts-spec/capabilities';
@@ -11,31 +15,7 @@ import type {
 } from './transport';
 import type { IntegrationVersionPolicy } from './versioning';
 
-export type IntegrationCategory =
-	| 'payments'
-	| 'email'
-	| 'calendar'
-	| 'sms'
-	| 'messaging'
-	| 'health'
-	| 'ai-llm'
-	| 'ai-voice-tts'
-	| 'ai-voice-stt'
-	| 'ai-voice-conversational'
-	| 'ai-image'
-	| 'analytics'
-	| 'vector-db'
-	| 'storage'
-	| 'accounting'
-	| 'crm'
-	| 'helpdesk'
-	| 'project-management'
-	| 'open-banking'
-	| 'meeting-recorder'
-	| 'database'
-	| 'custom';
-
-export type IntegrationOwnershipMode = 'managed' | 'byok';
+export type { IntegrationCategory, IntegrationOwnershipMode };
 
 export interface IntegrationMeta extends OwnerShipMeta {
 	category: IntegrationCategory;

@@ -1,5 +1,4 @@
 import { describe, expect, it, vi } from 'bun:test';
-import type { ConnectionStatus } from '@contractspec/lib.contracts-integrations';
 import type {
 	ResolvedAppConfig,
 	ResolvedIntegration,
@@ -13,6 +12,8 @@ import {
 } from './runner';
 import { type Step, WorkflowRegistry, type WorkflowSpec } from './spec';
 import type { WorkflowState } from './state';
+
+type ConnectionStatus = 'connected' | 'disconnected' | 'error' | 'unknown';
 
 function workflowSpec(overrides?: {
 	steps?: Step[];

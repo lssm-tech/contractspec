@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'bun:test';
-import {
-	type IntegrationConnection,
-	IntegrationSpecRegistry,
-} from '@contractspec/lib.contracts-integrations';
 import { KnowledgeSpaceRegistry } from '../knowledge/spec';
+import {
+	type AppConfigIntegrationConnection,
+	type AppConfigIntegrationRegistry,
+	type AppConfigIntegrationSpec,
+} from './integrations';
 import type { ResolvedAppConfig } from './runtime';
 import type {
 	AppBlueprintSpec,
@@ -16,6 +17,23 @@ import {
 	validateResolvedConfig,
 	validateTenantConfig,
 } from './validation';
+
+class TestIntegrationRegistry implements AppConfigIntegrationRegistry {
+	private readonly items = new Map<string, AppConfigIntegrationSpec>();
+
+	register(spec: AppConfigIntegrationSpec): this {
+		this.items.set(`${spec.meta.key}.v${spec.meta.version}`, spec);
+		return this;
+	}
+
+	get(key: string, version?: string): AppConfigIntegrationSpec | undefined {
+		if (version) return this.items.get(`${key}.v${version}`);
+		for (const spec of this.items.values()) {
+			if (spec.meta.key === key) return spec;
+		}
+		return undefined;
+	}
+}
 
 const baseBlueprint: AppBlueprintSpec = {
 	meta: {
@@ -118,7 +136,7 @@ describe('validateTenantConfig', () => {
 			],
 		};
 
-		const integrationRegistry = new IntegrationSpecRegistry();
+		const integrationRegistry = new TestIntegrationRegistry();
 
 		const knowledgeRegistry = new KnowledgeSpaceRegistry().register({
 			meta: {
@@ -142,7 +160,7 @@ describe('validateTenantConfig', () => {
 
 		const context = {
 			integrationSpecs: integrationRegistry,
-			tenantConnections: [] as IntegrationConnection[],
+			tenantConnections: [] as AppConfigIntegrationConnection[],
 			existingConfigs: [tenant],
 			translationCatalogs: {
 				blueprint: {

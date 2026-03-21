@@ -37,8 +37,7 @@
 	"dependencies": {
 		"@contractspec/lib.schema": "workspace:*",
 		"compare-versions": "^6.1.1",
-		"zod": "catalog:",
-		"@contractspec/lib.contracts-integrations": "workspace:*"
+		"zod": "catalog:"
 	},
 	"devDependencies": {
 		"@contractspec/tool.bun": "workspace:*",
@@ -100,6 +99,7 @@
 		"./app-config/branding": "./src/app-config/branding.ts",
 		"./app-config/docs/app-config.docblock": "./src/app-config/docs/app-config.docblock.ts",
 		"./app-config/events": "./src/app-config/events.ts",
+		"./app-config/integrations": "./src/app-config/integrations.ts",
 		"./app-config/lifecycle": "./src/app-config/lifecycle.ts",
 		"./app-config/lifecycle-contracts": "./src/app-config/lifecycle-contracts.ts",
 		"./app-config/runtime": "./src/app-config/runtime.ts",
@@ -321,31 +321,15 @@
 		"./install": "./src/install.ts",
 		"./jobs": "./src/jobs/index.ts",
 		"./jobs/define-job": "./src/jobs/define-job.ts",
-		"./jobs/gcp-cloud-tasks": "./src/jobs/gcp-cloud-tasks.ts",
-		"./jobs/gcp-pubsub": "./src/jobs/gcp-pubsub.ts",
-		"./jobs/handlers": "./src/jobs/handlers/index.ts",
-		"./jobs/handlers/gmail-sync-handler": "./src/jobs/handlers/gmail-sync-handler.ts",
-		"./jobs/handlers/ping-handler": "./src/jobs/handlers/ping-handler.ts",
-		"./jobs/handlers/storage-document-handler": "./src/jobs/handlers/storage-document-handler.ts",
-		"./jobs/memory-queue": "./src/jobs/memory-queue.ts",
 		"./jobs/queue": "./src/jobs/queue.ts",
 		"./jobs/spec": "./src/jobs/spec.ts",
 		"./jsonschema": "./src/jsonschema.ts",
 		"./knowledge": "./src/knowledge/index.ts",
 		"./knowledge/binding": "./src/knowledge/binding.ts",
 		"./knowledge/docs/knowledge.docblock": "./src/knowledge/docs/knowledge.docblock.ts",
-		"./knowledge/ingestion": "./src/knowledge/ingestion/index.ts",
-		"./knowledge/ingestion/document-processor": "./src/knowledge/ingestion/document-processor.ts",
-		"./knowledge/ingestion/embedding-service": "./src/knowledge/ingestion/embedding-service.ts",
-		"./knowledge/ingestion/gmail-adapter": "./src/knowledge/ingestion/gmail-adapter.ts",
-		"./knowledge/ingestion/storage-adapter": "./src/knowledge/ingestion/storage-adapter.ts",
-		"./knowledge/ingestion/vector-indexer": "./src/knowledge/ingestion/vector-indexer.ts",
 		"./knowledge/knowledge.capability": "./src/knowledge/knowledge.capability.ts",
 		"./knowledge/knowledge.feature": "./src/knowledge/knowledge.feature.ts",
 		"./knowledge/operations": "./src/knowledge/operations.ts",
-		"./knowledge/query": "./src/knowledge/query/index.ts",
-		"./knowledge/query/service": "./src/knowledge/query/service.ts",
-		"./knowledge/runtime": "./src/knowledge/runtime.ts",
 		"./knowledge/source": "./src/knowledge/source.ts",
 		"./knowledge/spaces": "./src/knowledge/spaces/index.ts",
 		"./knowledge/spaces/email-threads": "./src/knowledge/spaces/email-threads.ts",
@@ -790,6 +774,12 @@
 				"bun": "./dist/app-config/events.js",
 				"node": "./dist/node/app-config/events.js",
 				"default": "./dist/app-config/events.js"
+			},
+			"./app-config/integrations": {
+				"types": "./dist/app-config/integrations.d.ts",
+				"bun": "./dist/app-config/integrations.js",
+				"node": "./dist/node/app-config/integrations.js",
+				"default": "./dist/app-config/integrations.js"
 			},
 			"./app-config/lifecycle": {
 				"types": "./dist/app-config/lifecycle.d.ts",
@@ -2117,48 +2107,6 @@
 				"node": "./dist/node/jobs/define-job.js",
 				"default": "./dist/jobs/define-job.js"
 			},
-			"./jobs/gcp-cloud-tasks": {
-				"types": "./dist/jobs/gcp-cloud-tasks.d.ts",
-				"bun": "./dist/jobs/gcp-cloud-tasks.js",
-				"node": "./dist/node/jobs/gcp-cloud-tasks.js",
-				"default": "./dist/jobs/gcp-cloud-tasks.js"
-			},
-			"./jobs/gcp-pubsub": {
-				"types": "./dist/jobs/gcp-pubsub.d.ts",
-				"bun": "./dist/jobs/gcp-pubsub.js",
-				"node": "./dist/node/jobs/gcp-pubsub.js",
-				"default": "./dist/jobs/gcp-pubsub.js"
-			},
-			"./jobs/handlers": {
-				"types": "./dist/jobs/handlers/index.d.ts",
-				"bun": "./dist/jobs/handlers/index.js",
-				"node": "./dist/node/jobs/handlers/index.js",
-				"default": "./dist/jobs/handlers/index.js"
-			},
-			"./jobs/handlers/gmail-sync-handler": {
-				"types": "./dist/jobs/handlers/gmail-sync-handler.d.ts",
-				"bun": "./dist/jobs/handlers/gmail-sync-handler.js",
-				"node": "./dist/node/jobs/handlers/gmail-sync-handler.js",
-				"default": "./dist/jobs/handlers/gmail-sync-handler.js"
-			},
-			"./jobs/handlers/ping-handler": {
-				"types": "./dist/jobs/handlers/ping-handler.d.ts",
-				"bun": "./dist/jobs/handlers/ping-handler.js",
-				"node": "./dist/node/jobs/handlers/ping-handler.js",
-				"default": "./dist/jobs/handlers/ping-handler.js"
-			},
-			"./jobs/handlers/storage-document-handler": {
-				"types": "./dist/jobs/handlers/storage-document-handler.d.ts",
-				"bun": "./dist/jobs/handlers/storage-document-handler.js",
-				"node": "./dist/node/jobs/handlers/storage-document-handler.js",
-				"default": "./dist/jobs/handlers/storage-document-handler.js"
-			},
-			"./jobs/memory-queue": {
-				"types": "./dist/jobs/memory-queue.d.ts",
-				"bun": "./dist/jobs/memory-queue.js",
-				"node": "./dist/node/jobs/memory-queue.js",
-				"default": "./dist/jobs/memory-queue.js"
-			},
 			"./jobs/queue": {
 				"types": "./dist/jobs/queue.d.ts",
 				"bun": "./dist/jobs/queue.js",
@@ -2195,42 +2143,6 @@
 				"node": "./dist/node/knowledge/docs/knowledge.docblock.js",
 				"default": "./dist/knowledge/docs/knowledge.docblock.js"
 			},
-			"./knowledge/ingestion": {
-				"types": "./dist/knowledge/ingestion/index.d.ts",
-				"bun": "./dist/knowledge/ingestion/index.js",
-				"node": "./dist/node/knowledge/ingestion/index.js",
-				"default": "./dist/knowledge/ingestion/index.js"
-			},
-			"./knowledge/ingestion/document-processor": {
-				"types": "./dist/knowledge/ingestion/document-processor.d.ts",
-				"bun": "./dist/knowledge/ingestion/document-processor.js",
-				"node": "./dist/node/knowledge/ingestion/document-processor.js",
-				"default": "./dist/knowledge/ingestion/document-processor.js"
-			},
-			"./knowledge/ingestion/embedding-service": {
-				"types": "./dist/knowledge/ingestion/embedding-service.d.ts",
-				"bun": "./dist/knowledge/ingestion/embedding-service.js",
-				"node": "./dist/node/knowledge/ingestion/embedding-service.js",
-				"default": "./dist/knowledge/ingestion/embedding-service.js"
-			},
-			"./knowledge/ingestion/gmail-adapter": {
-				"types": "./dist/knowledge/ingestion/gmail-adapter.d.ts",
-				"bun": "./dist/knowledge/ingestion/gmail-adapter.js",
-				"node": "./dist/node/knowledge/ingestion/gmail-adapter.js",
-				"default": "./dist/knowledge/ingestion/gmail-adapter.js"
-			},
-			"./knowledge/ingestion/storage-adapter": {
-				"types": "./dist/knowledge/ingestion/storage-adapter.d.ts",
-				"bun": "./dist/knowledge/ingestion/storage-adapter.js",
-				"node": "./dist/node/knowledge/ingestion/storage-adapter.js",
-				"default": "./dist/knowledge/ingestion/storage-adapter.js"
-			},
-			"./knowledge/ingestion/vector-indexer": {
-				"types": "./dist/knowledge/ingestion/vector-indexer.d.ts",
-				"bun": "./dist/knowledge/ingestion/vector-indexer.js",
-				"node": "./dist/node/knowledge/ingestion/vector-indexer.js",
-				"default": "./dist/knowledge/ingestion/vector-indexer.js"
-			},
 			"./knowledge/knowledge.capability": {
 				"types": "./dist/knowledge/knowledge.capability.d.ts",
 				"bun": "./dist/knowledge/knowledge.capability.js",
@@ -2248,24 +2160,6 @@
 				"bun": "./dist/knowledge/operations.js",
 				"node": "./dist/node/knowledge/operations.js",
 				"default": "./dist/knowledge/operations.js"
-			},
-			"./knowledge/query": {
-				"types": "./dist/knowledge/query/index.d.ts",
-				"bun": "./dist/knowledge/query/index.js",
-				"node": "./dist/node/knowledge/query/index.js",
-				"default": "./dist/knowledge/query/index.js"
-			},
-			"./knowledge/query/service": {
-				"types": "./dist/knowledge/query/service.d.ts",
-				"bun": "./dist/knowledge/query/service.js",
-				"node": "./dist/node/knowledge/query/service.js",
-				"default": "./dist/knowledge/query/service.js"
-			},
-			"./knowledge/runtime": {
-				"types": "./dist/knowledge/runtime.d.ts",
-				"bun": "./dist/knowledge/runtime.js",
-				"node": "./dist/node/knowledge/runtime.js",
-				"default": "./dist/knowledge/runtime.js"
 			},
 			"./knowledge/source": {
 				"types": "./dist/knowledge/source.d.ts",

@@ -2,6 +2,7 @@ export * from './app-config.capability';
 export * from './app-config.feature';
 export * from './branding';
 export * from './events';
+export * from './integrations';
 export * from './lifecycle';
 export * from './lifecycle-contracts';
 export * from './runtime';

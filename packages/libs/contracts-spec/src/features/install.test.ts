@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'bun:test';
-import { IntegrationSpecRegistry } from '@contractspec/lib.contracts-integrations';
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import { CapabilityRegistry, type CapabilitySpec } from '../capabilities';
 import { DataViewRegistry } from '../data-views/registry';
@@ -15,6 +14,12 @@ import { WorkflowRegistry } from '../workflow/spec';
 import { installFeature } from './install';
 import { FeatureRegistry } from './registry';
 import type { FeatureModuleSpec } from './types';
+
+const emptyIntegrationLookup = {
+	get() {
+		return undefined;
+	},
+};
 
 describe('installFeature', () => {
 	const createFeature = (
@@ -378,14 +383,16 @@ describe('installFeature', () => {
 	describe('integration validation', () => {
 		it('should throw when referenced integration is not registered', () => {
 			const features = new FeatureRegistry();
-			const integrations = new IntegrationSpecRegistry();
 			const feature = createFeature({
 				integrations: [{ key: 'missing.integration', version: '1.0.0' }],
 			});
 
-			expect(() => installFeature(feature, { features, integrations })).toThrow(
-				/integration not found/
-			);
+			expect(() =>
+				installFeature(feature, {
+					features,
+					integrations: emptyIntegrationLookup,
+				})
+			).toThrow(/integration not found/);
 		});
 	});
 
