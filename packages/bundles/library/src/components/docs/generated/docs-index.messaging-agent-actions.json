@@ -1,18 +1,18 @@
 [
-	{
-		"id": "messaging-agent-actions/messaging-agent-actions",
-		"title": "messaging-agent-actions",
-		"summary": "Safe messaging automation with fixed intents, allowlisted actions, and workflow dispatch.\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: beta\n- **Owners**: @platform.messaging\n- **Tags**: messaging, agents, actions, workflow",
-		"route": "/docs/reference/messaging-agent-actions/messaging-agent-actions",
-		"source": "generated",
-		"contentPath": "messaging-agent-actions/messaging-agent-actions.md"
-	},
-	{
-		"id": "messaging-agent-actions/messaging.agentActions.process",
-		"title": "messaging.agentActions.process",
-		"summary": "Classify an inbound message into a fixed allowlisted action or workflow path and return a safe confirmation reply.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: beta\n- **Owners**: @platform.messaging",
-		"route": "/docs/reference/messaging-agent-actions/messaging.agentActions.process",
-		"source": "generated",
-		"contentPath": "messaging-agent-actions/messaging.agentActions.process.md"
-	}
+  {
+    "id": "messaging-agent-actions/messaging-agent-actions",
+    "title": "messaging-agent-actions",
+    "summary": "Safe messaging automation with fixed intents, allowlisted actions, and workflow dispatch.\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: beta\n- **Owners**: @platform.messaging\n- **Tags**: messaging, agents, actions, workflow",
+    "route": "/docs/reference/messaging-agent-actions/messaging-agent-actions",
+    "source": "generated",
+    "contentPath": "messaging-agent-actions/messaging-agent-actions.md"
+  },
+  {
+    "id": "messaging-agent-actions/messaging.agentActions.process",
+    "title": "messaging.agentActions.process",
+    "summary": "Classify an inbound message into a fixed allowlisted action or workflow path and return a safe confirmation reply.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: beta\n- **Owners**: @platform.messaging",
+    "route": "/docs/reference/messaging-agent-actions/messaging.agentActions.process",
+    "source": "generated",
+    "contentPath": "messaging-agent-actions/messaging.agentActions.process.md"
+  }
 ]

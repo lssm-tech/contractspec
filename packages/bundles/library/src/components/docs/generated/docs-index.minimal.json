@@ -1,18 +1,18 @@
 [
-	{
-		"id": "minimal/minimal",
-		"title": "minimal",
-		"summary": "Bare-minimum contract definition showing the simplest possible setup\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @team\n- **Tags**: minimal, example\n- **File**: `packages/examples/minimal/src/minimal.feature.ts`",
-		"route": "/docs/reference/minimal/minimal",
-		"source": "generated",
-		"contentPath": "minimal/minimal.md"
-	},
-	{
-		"id": "minimal/user.create",
-		"title": "user.create",
-		"summary": "Create a new user account with the provided email\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @team\n- **Tags**: user\n- **File**: `packages/examples/minimal/src/contracts/user.ts`",
-		"route": "/docs/reference/minimal/user.create",
-		"source": "generated",
-		"contentPath": "minimal/user.create.md"
-	}
+  {
+    "id": "minimal/minimal",
+    "title": "minimal",
+    "summary": "Bare-minimum contract definition showing the simplest possible setup\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @team\n- **Tags**: minimal, example\n- **File**: `packages/examples/minimal/src/minimal.feature.ts`",
+    "route": "/docs/reference/minimal/minimal",
+    "source": "generated",
+    "contentPath": "minimal/minimal.md"
+  },
+  {
+    "id": "minimal/user.create",
+    "title": "user.create",
+    "summary": "Create a new user account with the provided email\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @team\n- **Tags**: user\n- **File**: `packages/examples/minimal/src/contracts/user.ts`",
+    "route": "/docs/reference/minimal/user.create",
+    "source": "generated",
+    "contentPath": "minimal/user.create.md"
+  }
 ]

@@ -1,10 +1,10 @@
 [
-	{
-		"id": "knowledge-canon/knowledge-canon",
-		"title": "knowledge-canon",
-		"summary": "Curated product knowledge space with blueprint, tenant config, and FAQ workflow\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: knowledge, canon, faq",
-		"route": "/docs/reference/knowledge-canon/knowledge-canon",
-		"source": "generated",
-		"contentPath": "knowledge-canon/knowledge-canon.md"
-	}
+  {
+    "id": "knowledge-canon/knowledge-canon",
+    "title": "knowledge-canon",
+    "summary": "Curated product knowledge space with blueprint, tenant config, and FAQ workflow\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: knowledge, canon, faq",
+    "route": "/docs/reference/knowledge-canon/knowledge-canon",
+    "source": "generated",
+    "contentPath": "knowledge-canon/knowledge-canon.md"
+  }
 ]

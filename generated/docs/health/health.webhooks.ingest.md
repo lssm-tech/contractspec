@@ -11,7 +11,7 @@ Ingest and normalize health provider webhook payloads.
 - **Stability**: experimental
 - **Owners**: @platform.integrations
 - **Tags**: health, webhooks, integrations
-- **File**: `packages/libs/contracts-spec/src/integrations/health/contracts/webhooks.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/health/contracts/webhooks.ts`
 
 ## Goal
 

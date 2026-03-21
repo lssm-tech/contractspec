@@ -10,7 +10,7 @@ tl;dv Public API for meeting recordings, transcripts, and webhook events.
 - **Version**: 1.0.0
 - **Owners**: platform.integrations
 - **Tags**: meeting-recorder, tldv, transcripts
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/tldv.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/tldv.ts`
 
 ## Source Definition
 
@@ -29,6 +29,25 @@ export const tldvIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Experimental,
 	},
 	supportedModes: ['byok'],
+	transports: [
+		{ type: 'rest' },
+		{
+			type: 'webhook',
+			inbound: {
+				signatureHeader: 'x-tldv-signature',
+				signingAlgorithm: 'hmac-sha256',
+			},
+		},
+	],
+	preferredTransport: 'rest',
+	supportedAuthMethods: [
+		{ type: 'api-key' },
+		{
+			type: 'webhook-signing',
+			algorithm: 'hmac-sha256',
+			signatureHeader: 'x-tldv-signature',
+		},
+	],
 	capabilities: {
 		provides: [
 			{ key: 'meeting-recorder.meetings.read', version: '1.0.0' },
@@ -100,6 +119,8 @@ export const tldvIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Generate a tl;dv API key and optionally configure MeetingReady/TranscriptReady webhooks.',
+		keyRotationSupported: false,
+		quotaTrackingSupported: false,
 	},
 });
 ```

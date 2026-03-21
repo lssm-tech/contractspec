@@ -10,7 +10,7 @@ Google Cloud Storage integration for object storage and retrieval.
 - **Version**: 1.0.0
 - **Owners**: platform.infrastructure
 - **Tags**: storage, gcs, google-cloud
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/gcs-storage.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/gcs-storage.ts`
 
 ## Source Definition
 
@@ -29,6 +29,15 @@ export const gcsStorageIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Beta,
 	},
 	supportedModes: ['managed', 'byok'],
+	transports: [
+		{ type: 'rest', baseUrl: 'https://storage.googleapis.com' },
+		{ type: 'sdk', packageName: '@google-cloud/storage', minVersion: '7.0.0' },
+	],
+	preferredTransport: 'sdk',
+	supportedAuthMethods: [
+		{ type: 'service-account', credentialFormat: 'json-key' },
+		{ type: 'api-key' },
+	],
 	capabilities: {
 		provides: [{ key: 'storage.objects', version: '1.0.0' }],
 	},
@@ -86,6 +95,8 @@ export const gcsStorageIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Create a Google Cloud service account with Storage Object Admin role and upload the JSON credentials to the secret store.',
+		keyRotationSupported: false,
+		quotaTrackingSupported: true,
 	},
 });
 ```

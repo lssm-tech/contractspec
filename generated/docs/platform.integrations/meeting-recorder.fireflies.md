@@ -10,7 +10,7 @@ Fireflies GraphQL API for meeting transcripts, metadata, and webhook events.
 - **Version**: 1.0.0
 - **Owners**: platform.integrations
 - **Tags**: meeting-recorder, fireflies, transcripts
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/fireflies.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/fireflies.ts`
 
 ## Source Definition
 
@@ -29,6 +29,25 @@ export const firefliesIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Experimental,
 	},
 	supportedModes: ['byok'],
+	transports: [
+		{ type: 'rest', baseUrl: 'https://api.fireflies.ai/graphql' },
+		{
+			type: 'webhook',
+			inbound: {
+				signatureHeader: 'x-fireflies-signature',
+				signingAlgorithm: 'hmac-sha256',
+			},
+		},
+	],
+	preferredTransport: 'rest',
+	supportedAuthMethods: [
+		{ type: 'api-key' },
+		{
+			type: 'webhook-signing',
+			algorithm: 'hmac-sha256',
+			signatureHeader: 'x-fireflies-signature',
+		},
+	],
 	capabilities: {
 		provides: [
 			{ key: 'meeting-recorder.meetings.read', version: '1.0.0' },
@@ -98,6 +117,8 @@ export const firefliesIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Create a Fireflies API key and optionally configure webhook settings in Developer Settings.',
+		keyRotationSupported: false,
+		quotaTrackingSupported: false,
 	},
 });
 ```

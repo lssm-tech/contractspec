@@ -1,58 +1,58 @@
 [
-	{
-		"id": "platform.context/context.pack.describe",
-		"title": "context.pack.describe",
-		"summary": "Describe a context pack and its sources.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: pack, describe\n- **File**: `packages/libs/contracts-spec/src/context/queries/contextPackDescribe.query.ts`",
-		"route": "/docs/reference/platform.context/context.pack.describe",
-		"source": "generated",
-		"contentPath": "platform.context/context.pack.describe.md"
-	},
-	{
-		"id": "platform.context/context.pack.search",
-		"title": "context.pack.search",
-		"summary": "Search and filter context packs and snapshots.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: pack, search\n- **File**: `packages/libs/contracts-spec/src/context/queries/contextPackSearch.query.ts`",
-		"route": "/docs/reference/platform.context/context.pack.search",
-		"source": "generated",
-		"contentPath": "platform.context/context.pack.search.md"
-	},
-	{
-		"id": "platform.context/context.pack.snapshot",
-		"title": "context.pack.snapshot",
-		"summary": "Create an immutable snapshot from a context pack.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: snapshot, create\n- **File**: `packages/libs/contracts-spec/src/context/commands/contextPackSnapshot.command.ts`",
-		"route": "/docs/reference/platform.context/context.pack.snapshot",
-		"source": "generated",
-		"contentPath": "platform.context/context.pack.snapshot.md"
-	},
-	{
-		"id": "platform.context/context.snapshot.created",
-		"title": "context.snapshot.created",
-		"summary": "Emitted when a context snapshot is created.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: snapshot\n- **File**: `packages/libs/contracts-spec/src/context/events/contextSnapshotCreated.event.ts`",
-		"route": "/docs/reference/platform.context/context.snapshot.created",
-		"source": "generated",
-		"contentPath": "platform.context/context.snapshot.created.md"
-	},
-	{
-		"id": "platform.context/context.snapshot.summary",
-		"title": "context.snapshot.summary",
-		"summary": "Summary layout for context snapshots.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: snapshot, summary\n- **File**: `packages/libs/contracts-spec/src/context/presentations/contextSnapshot.presentation.ts`",
-		"route": "/docs/reference/platform.context/context.snapshot.summary",
-		"source": "generated",
-		"contentPath": "platform.context/context.snapshot.summary.md"
-	},
-	{
-		"id": "platform.context/context.system",
-		"title": "context.system",
-		"summary": "Context packs, snapshots, and discovery surfaces.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: system\n- **File**: `packages/libs/contracts-spec/src/context/capabilities/contextSystem.capability.ts`",
-		"route": "/docs/reference/platform.context/context.system",
-		"source": "generated",
-		"contentPath": "platform.context/context.system.md"
-	},
-	{
-		"id": "platform.context/platform.context",
-		"title": "platform.context",
-		"summary": "Snapshot, search, and describe context packs for AI-driven workflows\n- **Type**: feature\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/context/context.feature.ts`\n- `context.pack.snapshot` (v1.0.0)",
-		"route": "/docs/reference/platform.context/platform.context",
-		"source": "generated",
-		"contentPath": "platform.context/platform.context.md"
-	}
+  {
+    "id": "platform.context/context.pack.describe",
+    "title": "context.pack.describe",
+    "summary": "Describe a context pack and its sources.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: pack, describe\n- **File**: `packages/libs/contracts-spec/src/context/queries/contextPackDescribe.query.ts`",
+    "route": "/docs/reference/platform.context/context.pack.describe",
+    "source": "generated",
+    "contentPath": "platform.context/context.pack.describe.md"
+  },
+  {
+    "id": "platform.context/context.pack.search",
+    "title": "context.pack.search",
+    "summary": "Search and filter context packs and snapshots.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: pack, search\n- **File**: `packages/libs/contracts-spec/src/context/queries/contextPackSearch.query.ts`",
+    "route": "/docs/reference/platform.context/context.pack.search",
+    "source": "generated",
+    "contentPath": "platform.context/context.pack.search.md"
+  },
+  {
+    "id": "platform.context/context.pack.snapshot",
+    "title": "context.pack.snapshot",
+    "summary": "Create an immutable snapshot from a context pack.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: snapshot, create\n- **File**: `packages/libs/contracts-spec/src/context/commands/contextPackSnapshot.command.ts`",
+    "route": "/docs/reference/platform.context/context.pack.snapshot",
+    "source": "generated",
+    "contentPath": "platform.context/context.pack.snapshot.md"
+  },
+  {
+    "id": "platform.context/context.snapshot.created",
+    "title": "context.snapshot.created",
+    "summary": "Emitted when a context snapshot is created.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: snapshot\n- **File**: `packages/libs/contracts-spec/src/context/events/contextSnapshotCreated.event.ts`",
+    "route": "/docs/reference/platform.context/context.snapshot.created",
+    "source": "generated",
+    "contentPath": "platform.context/context.snapshot.created.md"
+  },
+  {
+    "id": "platform.context/context.snapshot.summary",
+    "title": "context.snapshot.summary",
+    "summary": "Summary layout for context snapshots.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: snapshot, summary\n- **File**: `packages/libs/contracts-spec/src/context/presentations/contextSnapshot.presentation.ts`",
+    "route": "/docs/reference/platform.context/context.snapshot.summary",
+    "source": "generated",
+    "contentPath": "platform.context/context.snapshot.summary.md"
+  },
+  {
+    "id": "platform.context/context.system",
+    "title": "context.system",
+    "summary": "Context packs, snapshots, and discovery surfaces.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: system\n- **File**: `packages/libs/contracts-spec/src/context/capabilities/contextSystem.capability.ts`",
+    "route": "/docs/reference/platform.context/context.system",
+    "source": "generated",
+    "contentPath": "platform.context/context.system.md"
+  },
+  {
+    "id": "platform.context/platform.context",
+    "title": "platform.context",
+    "summary": "Snapshot, search, and describe context packs for AI-driven workflows\n- **Type**: feature\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/context/context.feature.ts`\n- `context.pack.snapshot` (v1.0.0)",
+    "route": "/docs/reference/platform.context/platform.context",
+    "source": "generated",
+    "contentPath": "platform.context/platform.context.md"
+  }
 ]

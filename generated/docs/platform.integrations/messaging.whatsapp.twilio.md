@@ -10,7 +10,7 @@ Twilio-powered WhatsApp integration for inbound webhooks and outbound conversati
 - **Version**: 1.0.0
 - **Owners**: platform.messaging
 - **Tags**: messaging, whatsapp, twilio
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/messaging-whatsapp-twilio.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/messaging-whatsapp-twilio.ts`
 
 ## Source Definition
 
@@ -29,6 +29,18 @@ export const messagingWhatsappTwilioIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Beta,
 	},
 	supportedModes: ['managed', 'byok'],
+	transports: [
+		{ type: 'rest', baseUrl: 'https://api.twilio.com' },
+		{
+			type: 'webhook',
+			inbound: {
+				signatureHeader: 'x-twilio-signature',
+				signingAlgorithm: 'hmac-sha1',
+			},
+		},
+	],
+	preferredTransport: 'rest',
+	supportedAuthMethods: [{ type: 'basic' }],
 	capabilities: {
 		provides: [
 			{ key: 'messaging.inbound', version: '1.0.0' },
@@ -83,6 +95,8 @@ export const messagingWhatsappTwilioIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Create a Twilio project with WhatsApp sender provisioning, then provide account SID/auth token and sender number.',
+		keyRotationSupported: true,
+		quotaTrackingSupported: false,
 	},
 });
 ```

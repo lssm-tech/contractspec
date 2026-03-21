@@ -1,10 +1,10 @@
 [
-	{
-		"id": "learning-journey-duo-drills/learning-journey-duo-drills",
-		"title": "learning-journey-duo-drills",
-		"summary": "Drill-based learning with spaced repetition, XP, and streaks\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: learning, drills, srs, gamification\n- **File**: `packages/examples/learning-journey-duo-drills/src/learning-journey-duo-drills.feature.ts`",
-		"route": "/docs/reference/learning-journey-duo-drills/learning-journey-duo-drills",
-		"source": "generated",
-		"contentPath": "learning-journey-duo-drills/learning-journey-duo-drills.md"
-	}
+  {
+    "id": "learning-journey-duo-drills/learning-journey-duo-drills",
+    "title": "learning-journey-duo-drills",
+    "summary": "Drill-based learning with spaced repetition, XP, and streaks\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: learning, drills, srs, gamification\n- **File**: `packages/examples/learning-journey-duo-drills/src/learning-journey-duo-drills.feature.ts`",
+    "route": "/docs/reference/learning-journey-duo-drills/learning-journey-duo-drills",
+    "source": "generated",
+    "contentPath": "learning-journey-duo-drills/learning-journey-duo-drills.md"
+  }
 ]

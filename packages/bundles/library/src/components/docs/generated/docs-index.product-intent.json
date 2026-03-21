@@ -1,10 +1,10 @@
 [
-	{
-		"id": "product-intent/product-intent",
-		"title": "product-intent",
-		"summary": "Evidence ingestion, PostHog signals, and transcript-to-tickets discovery workflow\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: product, intent, evidence, posthog",
-		"route": "/docs/reference/product-intent/product-intent",
-		"source": "generated",
-		"contentPath": "product-intent/product-intent.md"
-	}
+  {
+    "id": "product-intent/product-intent",
+    "title": "product-intent",
+    "summary": "Evidence ingestion, PostHog signals, and transcript-to-tickets discovery workflow\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: product, intent, evidence, posthog",
+    "route": "/docs/reference/product-intent/product-intent",
+    "source": "generated",
+    "contentPath": "product-intent/product-intent.md"
+  }
 ]

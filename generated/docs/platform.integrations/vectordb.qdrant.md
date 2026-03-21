@@ -10,7 +10,7 @@ Qdrant integration for vector search and embeddings storage.
 - **Version**: 1.0.0
 - **Owners**: platform.ai
 - **Tags**: vector-db, search
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/qdrant.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/qdrant.ts`
 
 ## Source Definition
 
@@ -28,6 +28,12 @@ export const qdrantIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Experimental,
 	},
 	supportedModes: ['managed', 'byok'],
+	transports: [
+		{ type: 'rest' },
+		{ type: 'sdk', packageName: '@qdrant/js-client-rest' },
+	],
+	preferredTransport: 'rest',
+	supportedAuthMethods: [{ type: 'api-key' }, { type: 'bearer' }],
 	capabilities: {
 		provides: [
 			{ key: 'vector-db.search', version: '1.0.0' },
@@ -91,6 +97,8 @@ export const qdrantIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Provide the HTTPS endpoint of your Qdrant cluster and generate an API key with read/write access to the collections that will be managed.',
+		keyRotationSupported: true,
+		quotaTrackingSupported: true,
 	},
 });
 ```

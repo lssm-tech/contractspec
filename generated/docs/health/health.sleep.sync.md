@@ -11,7 +11,7 @@ Synchronize sleep intervals from connected providers.
 - **Stability**: experimental
 - **Owners**: @platform.integrations
 - **Tags**: health, sleep, wearables
-- **File**: `packages/libs/contracts-spec/src/integrations/health/contracts/sleep.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/health/contracts/sleep.ts`
 
 ## Goal
 

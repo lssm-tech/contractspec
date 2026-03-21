@@ -11,7 +11,7 @@ List normalized activity entries synced from health integrations.
 - **Stability**: experimental
 - **Owners**: @platform.integrations
 - **Tags**: health, activities, wearables
-- **File**: `packages/libs/contracts-spec/src/integrations/health/contracts/activities.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/health/contracts/activities.ts`
 
 ## Goal
 

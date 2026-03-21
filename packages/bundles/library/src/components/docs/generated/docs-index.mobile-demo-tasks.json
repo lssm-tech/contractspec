@@ -1,34 +1,34 @@
 [
-	{
-		"id": "mobile-demo.tasks/mobile-demo.tasks",
-		"title": "mobile-demo.tasks",
-		"summary": "Task-list demo feature for the Expo app, covering list, create, and status updates.\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: mobile, tasks, expo, example",
-		"route": "/docs/reference/mobile-demo.tasks/mobile-demo.tasks",
-		"source": "generated",
-		"contentPath": "mobile-demo.tasks/mobile-demo.tasks.md"
-	},
-	{
-		"id": "mobile-demo.tasks/task.create",
-		"title": "task.create",
-		"summary": "Create a new task.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: task, mobile\n- **File**: `packages/apps/mobile-demo/src/contracts/task.contract.ts`",
-		"route": "/docs/reference/mobile-demo.tasks/task.create",
-		"source": "generated",
-		"contentPath": "mobile-demo.tasks/task.create.md"
-	},
-	{
-		"id": "mobile-demo.tasks/task.list",
-		"title": "task.list",
-		"summary": "List all tasks.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: task, mobile\n- **File**: `packages/apps/mobile-demo/src/contracts/task.contract.ts`",
-		"route": "/docs/reference/mobile-demo.tasks/task.list",
-		"source": "generated",
-		"contentPath": "mobile-demo.tasks/task.list.md"
-	},
-	{
-		"id": "mobile-demo.tasks/task.updateStatus",
-		"title": "task.updateStatus",
-		"summary": "Toggle task done status.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: task, mobile\n- **File**: `packages/apps/mobile-demo/src/contracts/task.contract.ts`",
-		"route": "/docs/reference/mobile-demo.tasks/task.updateStatus",
-		"source": "generated",
-		"contentPath": "mobile-demo.tasks/task.updateStatus.md"
-	}
+  {
+    "id": "mobile-demo.tasks/mobile-demo.tasks",
+    "title": "mobile-demo.tasks",
+    "summary": "Task-list demo feature for the Expo app, covering list, create, and status updates.\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: mobile, tasks, expo, example",
+    "route": "/docs/reference/mobile-demo.tasks/mobile-demo.tasks",
+    "source": "generated",
+    "contentPath": "mobile-demo.tasks/mobile-demo.tasks.md"
+  },
+  {
+    "id": "mobile-demo.tasks/task.create",
+    "title": "task.create",
+    "summary": "Create a new task.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: task, mobile\n- **File**: `packages/apps/mobile-demo/src/contracts/task.contract.ts`",
+    "route": "/docs/reference/mobile-demo.tasks/task.create",
+    "source": "generated",
+    "contentPath": "mobile-demo.tasks/task.create.md"
+  },
+  {
+    "id": "mobile-demo.tasks/task.list",
+    "title": "task.list",
+    "summary": "List all tasks.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: task, mobile\n- **File**: `packages/apps/mobile-demo/src/contracts/task.contract.ts`",
+    "route": "/docs/reference/mobile-demo.tasks/task.list",
+    "source": "generated",
+    "contentPath": "mobile-demo.tasks/task.list.md"
+  },
+  {
+    "id": "mobile-demo.tasks/task.updateStatus",
+    "title": "task.updateStatus",
+    "summary": "Toggle task done status.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: task, mobile\n- **File**: `packages/apps/mobile-demo/src/contracts/task.contract.ts`",
+    "route": "/docs/reference/mobile-demo.tasks/task.updateStatus",
+    "source": "generated",
+    "contentPath": "mobile-demo.tasks/task.updateStatus.md"
+  }
 ]

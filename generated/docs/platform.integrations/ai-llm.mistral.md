@@ -10,7 +10,7 @@ Mistral integration providing chat completions and embedding generation.
 - **Version**: 1.0.0
 - **Owners**: platform.ai
 - **Tags**: ai, llm, embeddings
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/mistral.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/mistral.ts`
 
 ## Source Definition
 
@@ -29,6 +29,14 @@ export const mistralIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Experimental,
 	},
 	supportedModes: ['managed', 'byok'],
+	transports: [
+		{ type: 'rest', baseUrl: 'https://api.mistral.ai' },
+		{ type: 'sdk', packageName: '@mistralai/mistralai' },
+	] satisfies IntegrationTransportConfig[],
+	preferredTransport: 'rest',
+	supportedAuthMethods: [
+		{ type: 'api-key', headerName: 'Authorization', prefix: 'Bearer ' },
+	] satisfies IntegrationAuthConfig[],
 	capabilities: {
 		provides: [
 			{ key: 'ai.chat', version: '1.0.0' },
@@ -84,6 +92,8 @@ export const mistralIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Generate an API key within the Mistral console and ensure the selected models are enabled for the account.',
+		keyRotationSupported: true,
+		quotaTrackingSupported: true,
 	},
 });
 ```

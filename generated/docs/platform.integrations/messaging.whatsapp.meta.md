@@ -10,7 +10,7 @@ Meta WhatsApp Cloud API integration for inbound message processing and outbound 
 - **Version**: 1.0.0
 - **Owners**: platform.messaging
 - **Tags**: messaging, whatsapp, meta
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/messaging-whatsapp-meta.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/messaging-whatsapp-meta.ts`
 
 ## Source Definition
 
@@ -29,6 +29,25 @@ export const messagingWhatsappMetaIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Beta,
 	},
 	supportedModes: ['managed', 'byok'],
+	transports: [
+		{ type: 'rest', baseUrl: 'https://graph.facebook.com' },
+		{
+			type: 'webhook',
+			inbound: {
+				signatureHeader: 'x-hub-signature-256',
+				signingAlgorithm: 'hmac-sha256',
+			},
+		},
+	],
+	preferredTransport: 'rest',
+	supportedAuthMethods: [
+		{ type: 'bearer' },
+		{
+			type: 'webhook-signing',
+			algorithm: 'hmac-sha256',
+			signatureHeader: 'x-hub-signature-256',
+		},
+	],
 	capabilities: {
 		provides: [
 			{ key: 'messaging.inbound', version: '1.0.0' },
@@ -93,6 +112,8 @@ export const messagingWhatsappMetaIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Create a Meta app with WhatsApp product enabled, add a business phone number, and provide API and webhook credentials.',
+		keyRotationSupported: false,
+		quotaTrackingSupported: false,
 	},
 });
 ```

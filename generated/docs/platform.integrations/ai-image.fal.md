@@ -10,7 +10,7 @@ Fal integration for AI image generation using Flux and Stable Diffusion models.
 - **Version**: 1.0.0
 - **Owners**: platform.ai
 - **Tags**: image, generation, flux, stable-diffusion
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/fal-image.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/fal-image.ts`
 
 ## Source Definition
 
@@ -29,6 +29,14 @@ export const falImageIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Experimental,
 	},
 	supportedModes: ['byok'],
+	transports: [
+		{ type: 'rest', baseUrl: 'https://fal.run' },
+		{ type: 'sdk', packageName: '@fal-ai/client' },
+	] satisfies IntegrationTransportConfig[],
+	preferredTransport: 'rest',
+	supportedAuthMethods: [
+		{ type: 'header', headerName: 'Authorization', valuePrefix: 'Key ' },
+	] satisfies IntegrationAuthConfig[],
 	capabilities: {
 		provides: [{ key: 'ai.image.generation', version: '1.0.0' }],
 	},
@@ -80,6 +88,8 @@ export const falImageIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Create a Fal API key and ensure image generation model access is enabled.',
+		keyRotationSupported: false,
+		quotaTrackingSupported: true,
 	},
 });
 ```

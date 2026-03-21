@@ -11,7 +11,7 @@ Unified health and wearable data sync for activities, workouts, sleep, biometric
 - **Stability**: experimental
 - **Owners**: @platform.integrations
 - **Tags**: health, wearables, integrations
-- **File**: `packages/libs/contracts-spec/src/integrations/health/health.feature.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/health/health.feature.ts`
 
 ## Operations (11)
 
