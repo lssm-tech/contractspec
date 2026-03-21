@@ -291,15 +291,36 @@ function getAtPath(values: unknown, path: string): unknown {
 	return cur;
 }
 
-export function evalPredicate(values: unknown, pred?: Predicate): boolean {
+function resolveIndexedPath(path: string, indices: readonly number[] = []): string {
+	let indexCursor = 0;
+	return path.replace(/\$index/g, () => {
+		const nextIndex = indices[indexCursor];
+		indexCursor += 1;
+		return nextIndex == null ? '$index' : String(nextIndex);
+	});
+}
+
+function toIssuePath(path: string): Array<string | number> {
+	return path
+		.split('.')
+		.filter(Boolean)
+		.map((segment) => (/^\d+$/.test(segment) ? Number(segment) : segment));
+}
+
+export function evalPredicate(
+	values: unknown,
+	pred?: Predicate,
+	indices: readonly number[] = []
+): boolean {
 	if (!pred) return true;
-	if (pred.not) return !evalPredicate(values, pred.not);
+	if (pred.not) return !evalPredicate(values, pred.not, indices);
 	if (pred.all && pred.all.length)
-		return pred.all.every((p) => evalPredicate(values, p));
+		return pred.all.every((p) => evalPredicate(values, p, indices));
 	if (pred.anyOf && pred.anyOf.length)
-		return pred.anyOf.some((p) => evalPredicate(values, p));
+		return pred.anyOf.some((p) => evalPredicate(values, p, indices));
 	if (pred.when) {
-		const { path, op = 'truthy', value } = pred.when;
+		const { op = 'truthy', value } = pred.when;
+		const path = resolveIndexedPath(pred.when.path, indices);
 		const v = getAtPath(values, path);
 		switch (op) {
 			case 'equals':
@@ -369,62 +390,70 @@ export function buildZodWithRelations(
 
 	return (base as any).superRefine(
 		(values: Record<string, unknown>, ctx: any) => {
-			const visit = (field: FieldSpec, parentPath?: string) => {
-				const path = field.name
+			const visit = (
+				field: FieldSpec,
+				parentPath?: string,
+				indices: readonly number[] = []
+			) => {
+				const rawPath = field.name
 					? parentPath
 						? `${parentPath}.${field.name}`
 						: field.name
-					: (parentPath ?? '');
+						: (parentPath ?? '');
+				const path = resolveIndexedPath(rawPath, indices);
 
 				// requiredWhen enforcement (UI also shows required)
 				if (field.requiredWhen) {
-					const should = evalPredicate(values, field.requiredWhen);
+					const should = evalPredicate(values, field.requiredWhen, indices);
 					if (should) {
 						const v = getAtPath(values, path);
 						const empty =
 							v == null ||
 							(typeof v === 'string' && v.trim().length === 0) ||
 							(Array.isArray(v) && v.length === 0);
-						if (empty)
-							ctx.addIssue({
-								code: 'custom',
-								path: path.split('.'),
-								message: 'required',
-							});
+							if (empty)
+								ctx.addIssue({
+									code: 'custom',
+									path: toIssuePath(path),
+									message: 'required',
+								});
+						}
 					}
-				}
 
-				// arrays min/max
-				if (field.kind === 'array') {
-					const arr = getAtPath(values, path) as unknown[] | undefined;
+					// arrays min/max
+					if (field.kind === 'array') {
+						const arr = getAtPath(values, path) as unknown[] | undefined;
 					if (
 						field.min != null &&
 						Array.isArray(arr) &&
 						arr.length < field.min
-					) {
-						ctx.addIssue({
-							code: 'custom',
-							path: path.split('.'),
-							message: `min:${field.min}`,
-						});
-					}
+						) {
+							ctx.addIssue({
+								code: 'custom',
+								path: toIssuePath(path),
+								message: `min:${field.min}`,
+							});
+						}
 					if (
 						field.max != null &&
 						Array.isArray(arr) &&
 						arr.length > field.max
-					) {
-						ctx.addIssue({
-							code: 'custom',
-							path: path.split('.'),
-							message: `max:${field.max}`,
-						});
+						) {
+							ctx.addIssue({
+								code: 'custom',
+								path: toIssuePath(path),
+								message: `max:${field.max}`,
+							});
+						}
+						if (Array.isArray(arr)) {
+							arr.forEach((_item, index) => {
+								visit(field.of, `${path}.${index}`, [...indices, index]);
+							});
+						}
+					} else if (field.kind === 'group') {
+						for (const child of field.fields) visit(child, path, indices);
 					}
-					// child
-					visit(field.of, path);
-				} else if (field.kind === 'group') {
-					for (const child of field.fields) visit(child, path);
-				}
-			};
+				};
 
 			for (const f of spec.fields) visit(f);
 
@@ -434,13 +463,13 @@ export function buildZodWithRelations(
 					const fn = handlers[c.key];
 					if (!fn) continue;
 					const res = fn(values, c.paths, c.args);
-					if (!res.ok) {
-						ctx.addIssue({
-							code: 'custom',
-							path: (res.path ?? c.paths[0] ?? '').split('.').filter(Boolean),
-							message: res.message ?? c.messageI18n,
-						});
-					}
+						if (!res.ok) {
+							ctx.addIssue({
+								code: 'custom',
+								path: toIssuePath(res.path ?? c.paths[0] ?? ''),
+								message: res.message ?? c.messageI18n,
+							});
+						}
 				}
 			}
 		}

@@ -24,6 +24,28 @@ or
 
 Define agents in `@contractspec/lib.contracts-spec/agent`, then run or export them with `@contractspec/lib.ai-agent`.
 
+```ts
+import { defineAgent } from "@contractspec/lib.contracts-spec/agent";
+import { createUnifiedAgent } from "@contractspec/lib.ai-agent/agent/unified-agent";
+
+const SupportBot = defineAgent({
+  meta: {
+    key: "support.bot",
+    version: "1.0.0",
+    description: "Customer support assistant",
+    owners: ["support"],
+    tags: ["support"],
+    stability: "experimental",
+  },
+  instructions: "Resolve tickets and escalate low-confidence cases.",
+  tools: [{ name: "support.resolve" }],
+});
+
+const agent = createUnifiedAgent(SupportBot, {
+  backend: "ai-sdk",
+});
+```
+
 ## Architecture
 
 - `src/agent/`, `src/session/`, and `src/memory/` contain the runtime core for execution state and persistence hooks.
@@ -46,6 +68,16 @@ Define agents in `@contractspec/lib.contracts-spec/agent`, then run or export th
 - Export `./exporters` resolves through `./src/exporters/index.ts`.
 - Export `./exporters/claude-agent-exporter` resolves through `./src/exporters/claude-agent-exporter.ts`.
 - Additional runtime subpaths are published through `package.json`; keep docs aligned with the manifest.
+
+## Migration Note
+
+`@contractspec/lib.ai-agent` no longer owns the agent-definition contract layer.
+
+- Removed: `@contractspec/lib.ai-agent/spec`
+- Removed: `@contractspec/lib.ai-agent/spec/spec`
+- Removed: `@contractspec/lib.ai-agent/spec/registry`
+- Use `@contractspec/lib.contracts-spec/agent` for `AgentSpec`, `AgentToolConfig`,
+  `AgentRegistry`, `createAgentRegistry`, and `defineAgent`
 
 ## Local Commands
 
@@ -76,4 +108,5 @@ Define agents in `@contractspec/lib.contracts-spec/agent`, then run or export th
 
 - High blast radius — used by multiple bundles and libs.
 - Agent definitions are owned by `@contractspec/lib.contracts-spec/agent`.
+- This package is runtime-focused: execution, exporters, MCP/tool bridges, sessions, memory, approvals, providers, and telemetry.
 - MCP transport adapters must stay runtime-agnostic (no Node/browser-specific globals).

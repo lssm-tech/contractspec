@@ -97,8 +97,10 @@ export class JsonSchemaType
 				return this.cachedZod;
 			}
 			if (typeof this.jsonSchema.additionalProperties === 'object') {
-				// For typed additionalProperties, use union or unknown
-				this.cachedZod = z.record(z.string(), z.unknown());
+				this.cachedZod = z.record(
+					z.string(),
+					this.convertPropertyToZod(this.jsonSchema.additionalProperties)
+				);
 				return this.cachedZod;
 			}
 			if (this.jsonSchema.additionalProperties === false) {
@@ -160,8 +162,9 @@ export class JsonSchemaType
 			case 'string':
 				return z.string();
 			case 'number':
-			case 'integer':
 				return z.number();
+			case 'integer':
+				return z.number().int();
 			case 'boolean':
 				return z.boolean();
 			case 'array':

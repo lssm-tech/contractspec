@@ -361,7 +361,12 @@ function generateRelationFieldLine(
  * Generate index line.
  */
 function generateIndexLine(idx: EntityIndex): string {
-	const fieldList = idx.fields.join(', ');
+	const fieldList = idx.fields
+		.map((field) => {
+			const sort = idx.sort?.[field];
+			return sort ? `${field}(sort: ${sort})` : field;
+		})
+		.join(', ');
 	const parts: string[] = [];
 
 	if (idx.unique) {
